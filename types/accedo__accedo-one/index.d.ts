@@ -282,19 +282,19 @@ declare namespace AccedoLog {
         message: string;
 
         /** The error code (max 5 digits) */
-        errorCode?: number;
+        errorCode?: number | undefined;
 
         /** The dimension 1 information */
-        dim1?: string;
+        dim1?: string | undefined;
 
         /** The dimension 2 information */
-        dim2?: string;
+        dim2?: string | undefined;
 
         /** The dimension 3 information */
-        dim3?: string;
+        dim3?: string | undefined;
 
         /** The dimension 4 information */
-        dim4?: string;
+        dim4?: string | undefined;
     }
 
     interface Logobject extends Details {
@@ -319,38 +319,38 @@ declare namespace AccedoLog {
 
 interface AccedoEntryParams {
     /** when true, get the preview version */
-    preview?: boolean;
+    preview?: boolean | undefined;
 
     /** when given, get the version at the given time */
-    at?: string | Date;
+    at?: string | Date | undefined;
 
     /** an array of entry ids (strings) */
-    id?: string[];
+    id?: string[] | undefined;
 
     /** an array of entry aliases (strings) */
-    alias?: string[];
+    alias?: string[] | undefined;
 
     /** only return entries of the given type ids (strings) */
-    typeId?: string[];
+    typeId?: string[] | undefined;
 
     /** only return entries whose entry type has this alias */
-    typeAlias?: string;
+    typeAlias?: string | undefined;
 
     /**
      * Limit to that many results per page (limits as per Accedo
      * One API, currently 1 to 50, default 20)
      */
-    size?: number | string;
+    size?: number | string | undefined;
 
     /** Offset the result by that many pages */
-    offset?: number | string;
+    offset?: number | string | undefined;
 
     /**
      * if available, get the version for the given locale
      * (defaults to the default locale)
      */
 
-    locale?: string;
+    locale?: string | undefined;
 }
 
 interface AccedoProfile {
@@ -367,34 +367,34 @@ interface AccedoConfig {
      * onDeviceIdGenerated, onSessionKeyChanged)
      */
 
-    browserInfoProvider?: () => {
+    browserInfoProvider?: (() => {
         deviceId: string;
         sessionKey: string;
-    };
+    }) | undefined;
 
     /** The application Key */
     appKey: string;
 
     /** The device identifier (if not provided, a uuid will be generated instead) */
-    deviceId?: string;
+    deviceId?: string | undefined;
 
     /** The sessionKey (note a new one may be created when not given or expired) */
-    sessionKey?: string;
+    sessionKey?: string | undefined;
 
     /** the user's IP, given to Accedo One for every request this client will trigger (for geolocation). */
-    ip?: string;
+    ip?: string | undefined;
 
     /** A function to use to see this SDK's logs */
-    log?: (...args: any[]) => void;
+    log?: ((...args: any[]) => void) | undefined;
 
     /** Callback to obtain the new deviceId, if one gets generated */
-    onDeviceIdGenerated?: (deviceId: string) => void;
+    onDeviceIdGenerated?: ((deviceId: string) => void) | undefined;
 
     /** Callback to obtain the sessionKey, anytime a new one gets generated */
-    onSessionKeyChanged?: (sessionKey: string) => void;
+    onSessionKeyChanged?: ((sessionKey: string) => void) | undefined;
 
     /** All APIs calls will use this as the base API URL (defaults to the Accedo One API URL) */
-    target?: string;
+    target?: string | undefined;
 }
 
 interface AccedoLocale {

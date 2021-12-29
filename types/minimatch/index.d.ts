@@ -35,21 +35,21 @@ declare namespace M {
          *
          * @default false
          */
-        debug?: boolean;
+        debug?: boolean | undefined;
 
         /**
          * Do not expand {a,b} and {1..3} brace sets.
          *
          * @default false
          */
-        nobrace?: boolean;
+        nobrace?: boolean | undefined;
 
         /**
          * Disable ** matching against multiple folder names.
          *
          * @default false
          */
-        noglobstar?: boolean;
+        noglobstar?: boolean | undefined;
 
         /**
          * Allow patterns to match filenames starting with a period,
@@ -57,21 +57,21 @@ declare namespace M {
          *
          * @default false
          */
-        dot?: boolean;
+        dot?: boolean | undefined;
 
         /**
          * Disable "extglob" style patterns like +(a|b).
          *
          * @default false
          */
-        noext?: boolean;
+        noext?: boolean | undefined;
 
         /**
          * Perform a case-insensitive match.
          *
          * @default false
          */
-        nocase?: boolean;
+        nocase?: boolean | undefined;
 
         /**
          * When a match is not found by minimatch.match,
@@ -80,7 +80,7 @@ declare namespace M {
          *
          * @default false
          */
-        nonull?: boolean;
+        nonull?: boolean | undefined;
 
         /**
          * If set, then patterns without slashes will be matched against
@@ -88,7 +88,7 @@ declare namespace M {
          *
          * @default false
          */
-        matchBase?: boolean;
+        matchBase?: boolean | undefined;
 
         /**
          * Suppress the behavior of treating #
@@ -96,14 +96,14 @@ declare namespace M {
          *
          * @default false
          */
-        nocomment?: boolean;
+        nocomment?: boolean | undefined;
 
         /**
          * Suppress the behavior of treating a leading ! character as negation.
          *
          * @default false
          */
-        nonegate?: boolean;
+        nonegate?: boolean | undefined;
 
         /**
          * Returns from negate expressions the same as if they were not negated.
@@ -111,7 +111,7 @@ declare namespace M {
          *
          * @default false
          */
-        flipNegate?: boolean;
+        flipNegate?: boolean | undefined;
     }
 
     interface IMinimatchStatic {

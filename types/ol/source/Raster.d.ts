@@ -31,17 +31,17 @@ export interface FauxMessageEvent {
 export type Operation = (p0: number[][] | ImageData[], p1: object) => number[] | ImageData;
 export interface Options {
     sources: (Source | Layer<Source>)[];
-    operation?: Operation;
+    operation?: Operation | undefined;
     lib?: any;
-    threads?: number;
-    operationType?: RasterOperationType;
+    threads?: number | undefined;
+    operationType?: RasterOperationType | undefined;
 }
 export interface ProcessorOptions {
     threads: number;
     operation: (p0: any[], p1: object) => any;
     lib?: any;
     queue: number;
-    imageOps?: boolean;
+    imageOps?: boolean | undefined;
 }
 /**
  * Raster operation type. Supported values are 'pixel' and 'image'.

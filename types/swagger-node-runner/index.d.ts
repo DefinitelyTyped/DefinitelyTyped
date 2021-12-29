@@ -51,42 +51,42 @@ export interface Config {
      *
      * default is `false`
      */
-    mockMode?: boolean;
+    mockMode?: boolean | undefined;
     /**
      * If `true` resonse is validated
      *
      * default is `true`
      */
-    validateResponse?: boolean;
+    validateResponse?: boolean | undefined;
     /**
      *  Sets `NODE_CONFIG_DIR` env if not set yet
      */
-    configDir?: string;
+    configDir?: string | undefined;
     /**
      * Swagger controller directories
      *
      * default is array with `/api/controllers` relative to `appRoot`
      */
-    controllersDirs?: string[];
+    controllersDirs?: string[] | undefined;
     /**
      * Swagger mock controller directories
      *
      * default is array with `/api/mocks` relative to `appRoot`
      */
-    mockControllersDirs?: string[];
+    mockControllersDirs?: string[] | undefined;
     /**
      * Used for Bagpipes library
      *
      * default is `[api/fittings]`
      */
-    fittingsDirs?: string[];
+    fittingsDirs?: string[] | undefined;
     /**
      * Define Middleware for using Swagger security information to authenticate requests. Part of _swagger-tools_
      *
      * default is `undefined`
      * @see {@link https://github.com/apigee-127/swagger-tools/blob/master/middleware/swagger-security.js|Github Source}
      */
-    swaggerSecurityHandlers?: SwaggerSecurityHandlers;
+    swaggerSecurityHandlers?: SwaggerSecurityHandlers | undefined;
     /**
      * Used for Bagpipes library
      *
@@ -96,21 +96,21 @@ export interface Config {
     /**
      *  default is `null`
      */
-    defaultPipe?: string;
+    defaultPipe?: string | undefined;
     /**
      * default is `swagger_controllers`
      */
-    swaggerControllerPipe?: string;
+    swaggerControllerPipe?: string | undefined;
     /**
      * Absolute path to swagger.yml file, if not set default value is used.
      */
-    swaggerFile?: string;
+    swaggerFile?: string | undefined;
 }
 
 /** Internally stored version of config */
 export interface ConfigInternal {
     /** Config of SwaggerNodeRunner  */
-    swagger?: Config;
+    swagger?: Config | undefined;
 }
 
 /** Middleware used by `swagger-tools` */
@@ -124,10 +124,10 @@ export type SwaggerToolsMiddleware = (req: any, res: any, next: any) => any;
  * otherwise, the statusCode will be set to 403.
  */
 export interface SwaggerToolsSecurityHandlerCallbackError {
-    code?: string;
-    headers?: OutgoingHttpHeaders;
-    message?: string;
-    statusCode?: number;
+    code?: string | undefined;
+    headers?: OutgoingHttpHeaders | undefined;
+    message?: string | undefined;
+    statusCode?: number | undefined;
 }
 export type SwaggerToolsSecurityHandler = (request: any, securityDefinition: any, scopes: any, callback: (err?: Error | SwaggerToolsSecurityHandlerCallbackError, result?: any) => void) => void;
 

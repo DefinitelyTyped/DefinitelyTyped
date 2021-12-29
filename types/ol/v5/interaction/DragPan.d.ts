@@ -6,8 +6,8 @@ import { ObjectEvent } from '../Object';
 import PointerInteraction from './Pointer';
 
 export interface Options {
-    condition?: Condition;
-    kinetic?: Kinetic;
+    condition?: Condition | undefined;
+    kinetic?: Kinetic | undefined;
 }
 export default class DragPan extends PointerInteraction {
     constructor(opt_options?: Options);

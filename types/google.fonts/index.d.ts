@@ -10,7 +10,7 @@ declare namespace google.fonts {
     }
 
     interface WebfontFamily {
-        category?: string;
+        category?: string | undefined;
         kind: string;
         family: string;
         subsets: string[];

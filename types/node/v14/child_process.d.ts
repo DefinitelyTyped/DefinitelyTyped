@@ -11,7 +11,7 @@ declare module 'child_process' {
         stdin: Writable | null;
         stdout: Readable | null;
         stderr: Readable | null;
-        readonly channel?: Pipe | null;
+        readonly channel?: Pipe | null | undefined;
         readonly stdio: [
             Writable | null, // stdin
             Readable | null, // stdout
@@ -119,7 +119,7 @@ declare module 'child_process' {
     }
 
     interface MessageOptions {
-        keepOpen?: boolean;
+        keepOpen?: boolean | undefined;
     }
 
     type StdioOptions = "pipe" | "ignore" | "inherit" | Array<("pipe" | "ipc" | "ignore" | "inherit" | Stream | number | null | undefined)>;
@@ -131,40 +131,40 @@ declare module 'child_process' {
          * Specify the kind of serialization used for sending messages between processes.
          * @default 'json'
          */
-        serialization?: SerializationType;
+        serialization?: SerializationType | undefined;
     }
 
     interface ProcessEnvOptions {
-        uid?: number;
-        gid?: number;
-        cwd?: string;
-        env?: NodeJS.ProcessEnv;
+        uid?: number | undefined;
+        gid?: number | undefined;
+        cwd?: string | undefined;
+        env?: NodeJS.ProcessEnv | undefined;
     }
 
     interface CommonOptions extends ProcessEnvOptions {
         /**
          * @default true
          */
-        windowsHide?: boolean;
+        windowsHide?: boolean | undefined;
         /**
          * @default 0
          */
-        timeout?: number;
+        timeout?: number | undefined;
     }
 
     interface CommonSpawnOptions extends CommonOptions, MessagingOptions {
-        argv0?: string;
-        stdio?: StdioOptions;
-        shell?: boolean | string;
-        windowsVerbatimArguments?: boolean;
+        argv0?: string | undefined;
+        stdio?: StdioOptions | undefined;
+        shell?: boolean | string | undefined;
+        windowsVerbatimArguments?: boolean | undefined;
     }
 
     interface SpawnOptions extends CommonSpawnOptions {
-        detached?: boolean;
+        detached?: boolean | undefined;
     }
 
     interface SpawnOptionsWithoutStdio extends SpawnOptions {
-        stdio?: 'pipe' | Array<null | undefined | 'pipe'>;
+        stdio?: 'pipe' | Array<null | undefined | 'pipe'> | undefined;
     }
 
     type StdioNull = 'inherit' | 'ignore' | Stream;
@@ -263,9 +263,9 @@ declare module 'child_process' {
     function spawn(command: string, args: ReadonlyArray<string>, options: SpawnOptions): ChildProcess;
 
     interface ExecOptions extends CommonOptions {
-        shell?: string;
-        maxBuffer?: number;
-        killSignal?: NodeJS.Signals | number;
+        shell?: string | undefined;
+        maxBuffer?: number | undefined;
+        killSignal?: NodeJS.Signals | number | undefined;
     }
 
     interface ExecOptionsWithStringEncoding extends ExecOptions {
@@ -277,10 +277,10 @@ declare module 'child_process' {
     }
 
     interface ExecException extends Error {
-        cmd?: string;
-        killed?: boolean;
-        code?: number;
-        signal?: NodeJS.Signals;
+        cmd?: string | undefined;
+        killed?: boolean | undefined;
+        code?: number | undefined;
+        signal?: NodeJS.Signals | undefined;
     }
 
     // no `options` definitely means stdout/stderr are `string`.
@@ -324,10 +324,10 @@ declare module 'child_process' {
     }
 
     interface ExecFileOptions extends CommonOptions {
-        maxBuffer?: number;
-        killSignal?: NodeJS.Signals | number;
-        windowsVerbatimArguments?: boolean;
-        shell?: boolean | string;
+        maxBuffer?: number | undefined;
+        killSignal?: NodeJS.Signals | number | undefined;
+        windowsVerbatimArguments?: boolean | undefined;
+        shell?: boolean | string | undefined;
     }
     interface ExecFileOptionsWithStringEncoding extends ExecFileOptions {
         encoding: BufferEncoding;
@@ -428,71 +428,71 @@ declare module 'child_process' {
     }
 
     interface ForkOptions extends ProcessEnvOptions, MessagingOptions {
-        execPath?: string;
-        execArgv?: string[];
-        silent?: boolean;
-        stdio?: StdioOptions;
-        detached?: boolean;
-        windowsVerbatimArguments?: boolean;
+        execPath?: string | undefined;
+        execArgv?: string[] | undefined;
+        silent?: boolean | undefined;
+        stdio?: StdioOptions | undefined;
+        detached?: boolean | undefined;
+        windowsVerbatimArguments?: boolean | undefined;
     }
     function fork(modulePath: string, options?: ForkOptions): ChildProcess;
     function fork(modulePath: string, args?: ReadonlyArray<string>, options?: ForkOptions): ChildProcess;
 
     interface SpawnSyncOptions extends CommonSpawnOptions {
-        input?: string | NodeJS.ArrayBufferView;
-        killSignal?: NodeJS.Signals | number;
-        maxBuffer?: number;
-        encoding?: BufferEncoding | 'buffer' | null;
+        input?: string | NodeJS.ArrayBufferView | undefined;
+        killSignal?: NodeJS.Signals | number | undefined;
+        maxBuffer?: number | undefined;
+        encoding?: BufferEncoding | 'buffer' | null | undefined;
     }
     interface SpawnSyncOptionsWithStringEncoding extends SpawnSyncOptions {
         encoding: BufferEncoding;
     }
     interface SpawnSyncOptionsWithBufferEncoding extends SpawnSyncOptions {
-        encoding?: 'buffer' | null;
+        encoding?: 'buffer' | null | undefined;
     }
     interface SpawnSyncReturns<T> {
         pid: number;
-        output: string[];
+        output: Array<T | null>;
         stdout: T;
         stderr: T;
         status: number | null;
         signal: NodeJS.Signals | null;
-        error?: Error;
+        error?: Error | undefined;
     }
     function spawnSync(command: string): SpawnSyncReturns<Buffer>;
     function spawnSync(command: string, options?: SpawnSyncOptionsWithStringEncoding): SpawnSyncReturns<string>;
     function spawnSync(command: string, options?: SpawnSyncOptionsWithBufferEncoding): SpawnSyncReturns<Buffer>;
-    function spawnSync(command: string, options?: SpawnSyncOptions): SpawnSyncReturns<Buffer>;
+    function spawnSync(command: string, options?: SpawnSyncOptions): SpawnSyncReturns<string | Buffer>;
     function spawnSync(command: string, args?: ReadonlyArray<string>, options?: SpawnSyncOptionsWithStringEncoding): SpawnSyncReturns<string>;
     function spawnSync(command: string, args?: ReadonlyArray<string>, options?: SpawnSyncOptionsWithBufferEncoding): SpawnSyncReturns<Buffer>;
-    function spawnSync(command: string, args?: ReadonlyArray<string>, options?: SpawnSyncOptions): SpawnSyncReturns<Buffer>;
+    function spawnSync(command: string, args?: ReadonlyArray<string>, options?: SpawnSyncOptions): SpawnSyncReturns<string | Buffer>;
 
     interface ExecSyncOptions extends CommonOptions {
-        input?: string | Uint8Array;
-        stdio?: StdioOptions;
-        shell?: string;
-        killSignal?: NodeJS.Signals | number;
-        maxBuffer?: number;
-        encoding?: BufferEncoding | 'buffer' | null;
+        input?: string | Uint8Array | undefined;
+        stdio?: StdioOptions | undefined;
+        shell?: string | undefined;
+        killSignal?: NodeJS.Signals | number | undefined;
+        maxBuffer?: number | undefined;
+        encoding?: BufferEncoding | 'buffer' | null | undefined;
     }
     interface ExecSyncOptionsWithStringEncoding extends ExecSyncOptions {
         encoding: BufferEncoding;
     }
     interface ExecSyncOptionsWithBufferEncoding extends ExecSyncOptions {
-        encoding?: 'buffer' | null;
+        encoding?: 'buffer' | null | undefined;
     }
     function execSync(command: string): Buffer;
-    function execSync(command: string, options?: ExecSyncOptionsWithStringEncoding): string;
-    function execSync(command: string, options?: ExecSyncOptionsWithBufferEncoding): Buffer;
-    function execSync(command: string, options?: ExecSyncOptions): Buffer;
+    function execSync(command: string, options: ExecSyncOptionsWithStringEncoding): string;
+    function execSync(command: string, options: ExecSyncOptionsWithBufferEncoding): Buffer;
+    function execSync(command: string, options?: ExecSyncOptions): string | Buffer;
 
     interface ExecFileSyncOptions extends CommonOptions {
-        input?: string | NodeJS.ArrayBufferView;
-        stdio?: StdioOptions;
-        killSignal?: NodeJS.Signals | number;
-        maxBuffer?: number;
-        encoding?: BufferEncoding;
-        shell?: boolean | string;
+        input?: string | NodeJS.ArrayBufferView | undefined;
+        stdio?: StdioOptions | undefined;
+        killSignal?: NodeJS.Signals | number | undefined;
+        maxBuffer?: number | undefined;
+        encoding?: BufferEncoding | undefined;
+        shell?: boolean | string | undefined;
     }
     interface ExecFileSyncOptionsWithStringEncoding extends ExecFileSyncOptions {
         encoding: BufferEncoding;
@@ -501,10 +501,14 @@ declare module 'child_process' {
         encoding: BufferEncoding; // specify `null`.
     }
     function execFileSync(command: string): Buffer;
-    function execFileSync(command: string, options?: ExecFileSyncOptionsWithStringEncoding): string;
-    function execFileSync(command: string, options?: ExecFileSyncOptionsWithBufferEncoding): Buffer;
-    function execFileSync(command: string, options?: ExecFileSyncOptions): Buffer;
-    function execFileSync(command: string, args?: ReadonlyArray<string>, options?: ExecFileSyncOptionsWithStringEncoding): string;
-    function execFileSync(command: string, args?: ReadonlyArray<string>, options?: ExecFileSyncOptionsWithBufferEncoding): Buffer;
-    function execFileSync(command: string, args?: ReadonlyArray<string>, options?: ExecFileSyncOptions): Buffer;
+    function execFileSync(command: string, options: ExecFileSyncOptionsWithStringEncoding): string;
+    function execFileSync(command: string, options: ExecFileSyncOptionsWithBufferEncoding): Buffer;
+    function execFileSync(command: string, options?: ExecFileSyncOptions): string | Buffer;
+    function execFileSync(command: string, args: ReadonlyArray<string>): Buffer;
+    function execFileSync(command: string, args: ReadonlyArray<string>, options: ExecFileSyncOptionsWithStringEncoding): string;
+    function execFileSync(command: string, args: ReadonlyArray<string>, options: ExecFileSyncOptionsWithBufferEncoding): Buffer;
+    function execFileSync(command: string, args?: ReadonlyArray<string>, options?: ExecFileSyncOptions): string | Buffer;
+}
+declare module 'node:child_process' {
+    export * from 'child_process';
 }

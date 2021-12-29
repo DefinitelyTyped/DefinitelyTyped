@@ -10,12 +10,12 @@ declare namespace Icon {
          * strings), functions, WPComponent instances and `null`.
          * @defaultValue null
          */
-        icon?: IconType<P>;
+        icon?: IconType<P> | undefined;
         /**
          * The size (width and height) of the icon.
          * @defaultValue `20` (when using Dashicon), `24` otherwise
          */
-        size?: number;
+        size?: number | undefined;
     }
     // prettier-ignore
     type AdditionalProps<T> =

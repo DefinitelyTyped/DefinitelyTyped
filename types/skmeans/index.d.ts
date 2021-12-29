@@ -1,9 +1,9 @@
 // Type definitions for skmeans 0.11
 // Project: https://github.com/solzimer/skmeans
-// Definitions by:  Adam Zerella <https://github.com/adamzerella>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-type CentroidValues = 'kmrand' | 'kmpp' | null;
+type CentroidValues = number[] | number[][] | 'kmrand' | 'kmpp' | null;
 
 interface Data {
     it: number;

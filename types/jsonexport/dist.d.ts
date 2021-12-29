@@ -1,40 +1,40 @@
 declare namespace jsonexport {
     interface UserOptions {
         /** Used to set a custom header order, defaults to [] */
-        headers?: string[];
+        headers?: string[] | undefined;
         /** Used to set a custom header text, defaults to [] */
-        rename?: string[];
+        rename?: string[] | undefined;
         /** Used to create the propriety path, defaults to `.` */
-        headerPathString?: string;
+        headerPathString?: string | undefined;
         /**
          * Change the file row delimiter
          * - Defaults to `,` (cvs format).
          * - Use `\t` for xls format.
          * - Use `;` for (windows excel .csv format)
          */
-        rowDelimiter?: string;
+        rowDelimiter?: string | undefined;
         /** The character used to escape the text content if needed, defaults to `"` */
-        textDelimiter?: string;
+        textDelimiter?: string | undefined;
         /** This is used to output primitive arrays in a single column, defaults to `;` */
-        arrayPathString?: string;
+        arrayPathString?: string | undefined;
         /** If you want to display a custom value for undefined strings, use this option, defaults to ` ` */
-        undefinedString?: string;
+        undefinedString?: string | undefined;
         /** Replace the OS default EOL */
-        endOfLine?: string;
+        endOfLine?: string | undefined;
         /** Every header will have the `mainPathItem` as the base */
-        mainPathItem?: string;
+        mainPathItem?: string | undefined;
         /** Will be used instead of `true` */
-        booleanTrueString?: string;
+        booleanTrueString?: string | undefined;
         /** Will be used instead of `false` */
-        booleanFalseString?: string;
+        booleanFalseString?: string | undefined;
         /** Set this option to `false` to hide the CSV headers */
-        includeHeaders?: boolean;
+        includeHeaders?: boolean | undefined;
         /** Set this option if don’t want to have empty cells in case of an object with multiple nested items (array prop), defaults to false */
-        fillGaps?: boolean;
+        fillGaps?: boolean | undefined;
         /** Set this option to false to create a horizontal output for JSON Objects, headers in the first row, values in the second */
-        verticalOutput?: boolean;
+        verticalOutput?: boolean | undefined;
         /** Set this option to true to wrap every data item and header in the textDelimiter, defaults to `false` */
-        forceTextDelimiter?: boolean;
+        forceTextDelimiter?: boolean | undefined;
     }
 
     /**
@@ -69,10 +69,10 @@ declare namespace jsonexport {
          * @deprecated Use typeHandlers
          * @note Others specific handlers have been remove in 3.0.0 but this one remained by mistake (https://github.com/kaue/jsonexport/pull/74)
          */
-        handleDate?: (value: Date, item: string) => any;
+        handleDate?: ((value: Date, item: string) => any) | undefined;
 
         /** A key map of constructors used to match by instance to create a value using the defined function */
-        typeHandlers?: TypeHandlers;
+        typeHandlers?: TypeHandlers | undefined;
 
         /**
          * Post-process headers after they are calculated with delimiters
@@ -81,9 +81,9 @@ declare namespace jsonexport {
          * mapHeaders: (header) => header.replace(/foo\./, '')
          * ```
          */
-        mapHeaders?: (header: string) => string;
+        mapHeaders?: ((header: string) => string) | undefined;
         /** Try filling top rows first for unpopular columns, defaults to `false` */
-        fillTopRow?: boolean;
+        fillTopRow?: boolean | undefined;
     }
 
     type UserOptionsWithHandlers = UserHandlers & UserOptions;

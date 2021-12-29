@@ -9,12 +9,12 @@ import {
 } from "preact";
 
 interface Props {
-    className?: string;
+    className?: string | undefined;
     data: any[];
-    overscanCount?: number;
+    overscanCount?: number | undefined;
     renderRow: (row: any) => any;
     rowHeight: number;
-    sync?: boolean;
+    sync?: boolean | undefined;
     [otherProps: string]: any;
 }
 

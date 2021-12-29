@@ -1,6 +1,6 @@
 // Type definitions for object.fromentries 2.0
 // Project: https://github.com/es-shims/Object.fromEntries#readme
-// Definitions by: Andres Riofrio <https://github.com/DefinitelyTyped>
+// Definitions by: Andres Riofrio <https://github.com/ariofrio>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.4
 

@@ -53,13 +53,13 @@ export interface CloudFormationCustomResourceResponseCommon {
     LogicalResourceId: string;
     Data?: {
         [Key: string]: any;
-    };
-    NoEcho?: boolean;
+    } | undefined;
+    NoEcho?: boolean | undefined;
 }
 
 export interface CloudFormationCustomResourceSuccessResponse extends CloudFormationCustomResourceResponseCommon {
     Status: 'SUCCESS';
-    Reason?: string;
+    Reason?: string | undefined;
 }
 
 export interface CloudFormationCustomResourceFailedResponse extends CloudFormationCustomResourceResponseCommon {

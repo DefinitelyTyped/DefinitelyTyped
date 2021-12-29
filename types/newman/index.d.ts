@@ -17,23 +17,23 @@ export interface NewmanRunOptions {
     /** A JSON / Collection / String representing the collection. */
     collection: Collection | CollectionDefinition | string;
     /** An environment JSON / file path for the current collection run. */
-    environment?: VariableScope | VariableScopeDefinition | string;
+    environment?: VariableScope | VariableScopeDefinition | string | undefined;
     /** An override to environment variables.  See: https://github.com/postmanlabs/newman/blob/develop/lib/run/options.js */
-    envVar?: Collection | CollectionDefinition | string;
+    envVar?: Collection | CollectionDefinition | string | undefined;
     /** A globals JSON / file path for the current collection run. */
-    globals?: VariableScope | VariableScopeDefinition | string;
+    globals?: VariableScope | VariableScopeDefinition | string | undefined;
     /** The relative path to export the globals file from the current run to  */
-    exportGlobals?: string;
+    exportGlobals?: string | undefined;
     /** The relative path to export the environment file from the current run to */
-    exportEnvironment?: string;
+    exportEnvironment?: string | undefined;
     /** The relative path to export the collection from the current run to */
-    exportCollection?: string;
+    exportCollection?: string | undefined;
     /**
      * Specify the number of iterations to run on the collection. This is
      * usually accompanied by providing a data file reference as
      * iterationData
      */
-    iterationCount?: number;
+    iterationCount?: number | undefined;
     /**
      * Path to the JSON or CSV file or URL to be used as data source when
      * running multiple iterations on a collection.
@@ -43,56 +43,56 @@ export interface NewmanRunOptions {
      * The name or ID of the folder (ItemGroup) in the collection which would
      * be run instead of the entire collection.
      */
-    folder?: string | string[];
+    folder?: string | string[] | undefined;
     /**
      * The path of the directory to be used as working directory.
      */
-    workingDir?: string;
+    workingDir?: string | undefined;
     /**
      * Allow reading files outside of working directory.
      */
-    insecureFileRead?: boolean;
+    insecureFileRead?: boolean | undefined;
     /**
      * Specify the time (in milliseconds) to wait for the entire collection run
      * to complete execution.
      *
      * Default value: Infinity
      */
-    timeout?: number;
+    timeout?: number | undefined;
     /**
      * Specify the time (in milliseconds) to wait for requests to return a
      * response.
      *
      * Default value: Infinity
      */
-    timeoutRequest?: number;
+    timeoutRequest?: number | undefined;
     /**
      * Specify the time (in milliseconds) to wait for scripts to return a
      * response.
      *
      * Default value: Infinity
      */
-    timeoutScript?: number;
+    timeoutScript?: number | undefined;
     /**
      * Specify the time (in milliseconds) to wait for between subsequent
      * requests.
      *
      * Default value: 0
      */
-    delayRequest?: number;
+    delayRequest?: number | undefined;
     /**
      * This specifies whether newman would automatically follow 3xx responses
      * from servers.
      *
      * Default value: false
      */
-    ignoreRedirects?: boolean;
+    ignoreRedirects?: boolean | undefined;
     /**
      * Disables SSL verification checks and allows self-signed SSL certificates.
      *
      * Default value: false
      */
-    insecure?: boolean;
+    insecure?: boolean | undefined;
     /**
      * Specify whether or not to stop a collection run on encountering the
      * first test script error.
@@ -106,16 +106,16 @@ export interface NewmanRunOptions {
      *
      * Default value: false
      */
-    bail?: boolean | ["folder"] | ["failure"];
+    bail?: boolean | ["folder"] | ["failure"] | undefined;
     /**
      * If present, allows overriding the default exit code from the current
      * collection run, useful for bypassing collection result failures.
      *
      * Default value: false
      */
-    suppressExitCode?: boolean;
+    suppressExitCode?: boolean | undefined;
     /** Available reporters: cli, json, html and junit. */
-    reporters?: string | string[];
+    reporters?: string | string[] | undefined;
     /**
      * Specify options for the reporter(s) declared in options.reporters.
      */
@@ -125,26 +125,26 @@ export interface NewmanRunOptions {
      *
      * Default value: auto
      */
-    color?: "on" | "off" | "auto";
+    color?: "on" | "off" | "auto" | undefined;
     /**
      * The path to the public client certificate file.
      */
-    sslClientCert?: string;
+    sslClientCert?: string | undefined;
     /**
      * The path to the private client key file.
      */
-    sslClientKey?: string;
+    sslClientKey?: string | undefined;
     /**
      * The secret client key passphrase.
      */
-    sslClientPassphrase?: string;
+    sslClientPassphrase?: string | undefined;
     /**
      * Custom HTTP(S) agents which will be used for making the requests. This allows for use of various proxies (e.g. socks)
      */
     requestAgents?: {
-        http?: http.Agent;
-        https?: http.Agent;
-    };
+        http?: http.Agent | undefined;
+        https?: http.Agent | undefined;
+    } | undefined;
 }
 
 export interface NewmanRunSummary {
@@ -170,9 +170,9 @@ export interface NewmanRun {
     executions: NewmanRunExecution[];
 }
 export interface NewmanRunStat {
-    total?: number;
-    failed?: number;
-    pending?: number;
+    total?: number | undefined;
+    failed?: number | undefined;
+    pending?: number | undefined;
 }
 export interface NewmanRunExecution {
     item: NewmanRunExecutionItem;

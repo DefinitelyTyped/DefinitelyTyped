@@ -1,9 +1,20 @@
 import isEmail = require('sane-email-validation');
+import { isAsciiEmail, isNotAsciiEmail, isNotEmail } from 'sane-email-validation';
 
-const is: boolean = isEmail('foo@bar.com');
-const isNot: boolean = isEmail.isNotEmail('foo@bar.com');
+// $ExpectType boolean
+isEmail('foo@bar.com');
+// $ExpectType boolean
+isNotEmail('foo@bar.com');
+// $ExpectType boolean
+isAsciiEmail('foo@bar.com');
+// $ExpectType boolean
+isNotAsciiEmail('foo@bar.com');
 
-// $ExpectError
-isEmail(10);
-// $ExpectError
-isEmail.isNotEmail(10);
+// $ExpectType boolean
+isEmail('foo@bar.com');
+// $ExpectType boolean
+isEmail.isNotEmail('foo@bar.com');
+// $ExpectType boolean
+isEmail.isAsciiEmail('foo@bar.com');
+// $ExpectType boolean
+isEmail.isNotAsciiEmail('foo@bar.com');

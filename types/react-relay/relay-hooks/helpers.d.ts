@@ -5,10 +5,15 @@ A TS file to help with the construction of the official Relay (flow) types.
 import { FragmentReference } from 'relay-runtime';
 import { EntryPoint } from './EntryPointTypes';
 
-export type KeyType<TData = unknown> = Readonly<{
-    ' $data'?: TData;
-    ' $fragmentRefs': FragmentReference;
-}>;
+export type KeyType<TData = unknown> = Readonly<
+    | {
+        ' $data'?: TData | undefined;
+        ' $fragmentRefs': FragmentReference;
+    }
+    | {
+        ' $data'?: TData | undefined;
+        ' $fragmentSpreads': FragmentReference;
+    }>;
 
 export type KeyTypeData<TKey extends KeyType<TData>, TData = unknown> = Required<TKey>[' $data'];
 

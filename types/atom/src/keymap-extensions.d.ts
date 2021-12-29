@@ -43,14 +43,14 @@ export interface KeymapManager {
 
     /** Get the key bindings for a given command and optional target. */
     findKeyBindings(params?: {
-        keystrokes?: string; // e.g. 'ctrl-x ctrl-s'
-        command?: string; // e.g. 'editor:backspace'
-        target?: Element;
+        keystrokes?: string | undefined; // e.g. 'ctrl-x ctrl-s'
+        command?: string | undefined; // e.g. 'editor:backspace'
+        target?: Element | undefined;
     }): KeyBinding[];
 
     // Managing Keymap Files
     /** Load the key bindings from the given path. */
-    loadKeymap(bindingsPath: string, options?: { watch?: boolean; priority?: number }): void;
+    loadKeymap(bindingsPath: string, options?: { watch?: boolean | undefined; priority?: number | undefined }): void;
 
     /**
      *  Cause the keymap to reload the key bindings file at the given path whenever

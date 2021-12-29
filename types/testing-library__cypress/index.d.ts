@@ -19,8 +19,8 @@ import {
 } from '@testing-library/dom';
 
 export interface CTLMatcherOptions {
-    timeout?: number;
-    container?: HTMLElement | JQuery;
+    timeout?: number | undefined;
+    container?: HTMLElement | JQuery | undefined;
 }
 
 export type MatcherOptions = DTLMatcherOptions | CTLMatcherOptions;

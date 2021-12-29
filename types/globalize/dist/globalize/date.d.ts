@@ -7,30 +7,30 @@ declare module "../globalize" {
          * Skeleton provides a more flexible formatting mechanism than the predefined list full, long, medium, or short represented by date, time, or datetime.
          * Instead, they are an open-ended list of patterns containing only date field information, and in a canonical order.
          */
-        skeleton?: string;
+        skeleton?: string | undefined;
         /**
          * One of the following String values: full, long, medium, or short, eg. { date: "full" }.
          */
-        date?: "full" | "long" | "medium" | "short";
+        date?: "full" | "long" | "medium" | "short" | undefined;
         /**
          * One of the following String values: full, long, medium, or short, eg. { time: "full" }.
          */
-        time?: "full" | "long" | "medium" | "short";
+        time?: "full" | "long" | "medium" | "short" | undefined;
         /**
          * One of the following String values: full, long, medium, or short, eg. { datetime: "full" }
          */
-        datetime?: "full" | "long" | "medium" | "short";
+        datetime?: "full" | "long" | "medium" | "short" | undefined;
         /**
          * String value indicating a machine raw pattern (anything in the "Sym." column) eg. { raw: "dd/mm" }.
          * Note this is NOT recommended for i18n in general. Use skeleton instead.
          */
-        raw?: string;
+        raw?: string | undefined;
 
         /**
          * String based on the time zone names of the IANA time zone database,
          * such as "Asia/Shanghai", "Asia/Kolkata", "America/New_York".
          */
-        timeZone?: string;
+        timeZone?: string | undefined;
     }
     type DateFormatPartTypes = "day" | "dayperiod" | "era" | "hour" | "literal" | "minute" | "month" | "second" | "zone" | "weekday" | "year";
     interface DateFormatPart {

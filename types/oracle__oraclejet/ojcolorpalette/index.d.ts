@@ -7,12 +7,12 @@ export interface ojColorPalette extends editableValue<Color, ojColorPaletteSetta
     layout: 'grid' | 'list';
     palette: Array<{
         color: Color;
-        label?: string;
+        label?: string | undefined;
     }>;
     swatchSize: 'xs' | 'sm' | 'lg';
     value: Color;
     translations: {
-        labelNone?: string;
+        labelNone?: string | undefined;
     };
     onLabelDisplayChanged: ((event: JetElementCustomEvent<ojColorPalette["labelDisplay"]>) => any) | null;
     onLabelledByChanged: ((event: JetElementCustomEvent<ojColorPalette["labelledBy"]>) => any) | null;
@@ -61,12 +61,12 @@ export interface ojColorPaletteSettableProperties extends editableValueSettableP
     layout: 'grid' | 'list';
     palette: Array<{
         color: Color;
-        label?: string;
+        label?: string | undefined;
     }>;
     swatchSize: 'xs' | 'sm' | 'lg';
     value: Color;
     translations: {
-        labelNone?: string;
+        labelNone?: string | undefined;
     };
 }
 export interface ojColorPaletteSettablePropertiesLenient extends Partial<ojColorPaletteSettableProperties> {

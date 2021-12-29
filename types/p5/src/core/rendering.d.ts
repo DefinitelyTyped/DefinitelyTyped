@@ -105,5 +105,17 @@ declare module '../../index' {
          *   SOFT_LIGHT, DODGE, BURN, ADD, or SUBTRACT
          */
         blendMode(mode: BLEND_MODE): void;
+
+        /**
+         * The p5.js API provides a lot of functionality for creating graphics, but there is
+         * some native HTML5 Canvas functionality that is not exposed by p5. You can still call
+         * it directly using the variable `drawingContext`, as in the example shown. This is
+         * the equivalent of calling `canvas.getContext('2d');` or `canvas.getContext('webgl');`.
+         * See this
+         * <a href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D">
+         * reference for the native canvas API</a> for possible drawing functions you can call.
+         *
+         */
+        drawingContext: CanvasRenderingContext2D|WebGLRenderingContext;
     }
 }

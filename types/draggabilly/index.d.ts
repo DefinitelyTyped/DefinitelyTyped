@@ -10,10 +10,10 @@ export interface Position {
 }
 
 export interface DraggabillyOptions {
-    axis?: 'x' | 'y';
-    containment?: Element | string | boolean;
-    grid?: [number, number];
-    handle?: string;
+    axis?: 'x' | 'y' | undefined;
+    containment?: Element | string | boolean | undefined;
+    grid?: [number, number] | undefined;
+    handle?: string | undefined;
 }
 
 export type DraggabillyClickEventName = 'dragStart' | 'dragEnd' | 'pointerDown' | 'pointerUp' | 'staticClick';

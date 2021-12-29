@@ -5,11 +5,11 @@ import FeatureFormat, { ReadOptions, WriteOptions } from './Feature';
 import FormatType from './FormatType';
 
 export interface Options {
-    featureClass?: FeatureClass;
-    geometryName?: string;
-    layerName?: string;
-    layers?: string[];
-    idProperty?: string;
+    featureClass?: FeatureClass | undefined;
+    geometryName?: string | undefined;
+    layerName?: string | undefined;
+    layers?: string[] | undefined;
+    idProperty?: string | undefined;
 }
 export default class MVT extends FeatureFormat {
     constructor(opt_options?: Options);

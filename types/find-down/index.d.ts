@@ -6,7 +6,7 @@
 declare namespace findDown {
     interface Options {
         /** Directory to end with. Default: `process.cwd()` */
-        cwd?: string;
+        cwd?: string | undefined;
     }
 }
 

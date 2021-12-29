@@ -43,16 +43,16 @@ export namespace Rivets {
 
         configure(options?: {
             // Attribute prefix in templates
-            prefix?: string;
+            prefix?: string | undefined;
 
             // Preload templates with initial data on bind
-            preloadData?: boolean;
+            preloadData?: boolean | undefined;
 
             // Root sightglass interface for keypaths
-            rootInterface?: string;
+            rootInterface?: string | undefined;
 
             // Template delimiters for text bindings
-            templateDelimiters?: string[]
+            templateDelimiters?: string[] | undefined
 
             // Augment the event handler of the on-* binder
             handler?(context: any, ev: Event, biding: any): void;

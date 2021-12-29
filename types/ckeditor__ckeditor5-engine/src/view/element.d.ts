@@ -1,20 +1,30 @@
-import Node from "./node";
-import StylesMap from "./stylesmap";
+import Document from './document';
+import Node from './node';
+import StylesMap from './stylesmap';
 
-export default abstract class Element extends Node {
+export default class Element extends Node {
     readonly childCount: number;
     readonly isAllowedInsideAttributeElement: boolean;
     readonly isEmpty: boolean;
     readonly name: string;
+
+    constructor(
+        document: Document,
+        name: string,
+        attrs?: Record<string, string> | [string, string],
+        children?: Iterable<Node> | Node,
+    );
+
     findAncestor(
         patterns:
+            | ((element: Element) => boolean)
             | string
             | RegExp
             | {
-                  attributes?: Record<string, string | RegExp | boolean>;
-                  classes?: string | RegExp | Array<string | RegExp>;
-                  name?: string | RegExp;
-                  styles: Record<string, string>;
+                  attributes?: Record<string, string | RegExp | boolean> | undefined;
+                  classes?: string | RegExp | Array<string | RegExp> | undefined;
+                  name?: string | RegExp | undefined;
+                  styles?: Record<string, string>;
               },
     ): Element | null;
     getAttribute(key: string): string | undefined;
@@ -30,10 +40,9 @@ export default abstract class Element extends Node {
     getIdentity(): string;
     getNormalizedStyle(property: string): Record<string, string> | string | undefined;
     getStyle(property: string): string | undefined;
-    getStyleNames(): ReturnType<StylesMap["getStyleNames"]>;
+    getStyleNames(expand?: boolean): ReturnType<StylesMap['getStyleNames']>;
     hasAttribute(key: string): boolean;
     hasClass(className: string): boolean;
     hasStyle(property: string): boolean;
-    is(type: string, name?: string): boolean;
     isSimilar(otherElement: Element): boolean;
 }

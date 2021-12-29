@@ -1,6 +1,6 @@
 // Type definitions for express-wechat-access 1.1
 // Project: https://github.com/simmons8616/express-wechat-access
-// Definitions by: Simmons Zhang <https://github.com/simmons8616>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -14,22 +14,22 @@ type WeMiddleware = (req: any, res: Response | http.ServerResponse, next: NextFu
 
 declare function weAccessMiddleware(
     options: {
-        accessTokenUrl?: string;
-        ticketUrl?: string;
+        accessTokenUrl?: string | undefined;
+        ticketUrl?: string | undefined;
         appId: string;
         appSecret: string;
-        https?: boolean;
+        https?: boolean | undefined;
     },
     errorHandler?: (e: any) => any
 ): WeMiddleware;
 
 declare namespace weAccessMiddleware {
     interface WeAccessMidOption {
-        accessTokenUrl?: string;
-        ticketUrl?: string;
+        accessTokenUrl?: string | undefined;
+        ticketUrl?: string | undefined;
         appId: string;
         appSecret: string;
-        https?: boolean;
+        https?: boolean | undefined;
     }
 
     interface WeAccessMiddleware extends WeMiddleware, EventEmitter, Function {}

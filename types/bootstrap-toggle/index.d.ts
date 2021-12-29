@@ -7,14 +7,14 @@
 /// <reference types="jquery"/>
 
 interface BootstrapToggleOptions {
-    on?: string;
-    off?: string;
-    size?: string;
-    onstyle?: string;
-    offstyle?: string;
-    style?: string;
-    width?: number | string | null;
-    height?: number | string | null;
+    on?: string | undefined;
+    off?: string | undefined;
+    size?: string | undefined;
+    onstyle?: string | undefined;
+    offstyle?: string | undefined;
+    style?: string | undefined;
+    width?: number | string | null | undefined;
+    height?: number | string | null | undefined;
 }
 
 interface JQuery {

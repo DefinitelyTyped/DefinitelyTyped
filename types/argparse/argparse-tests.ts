@@ -179,6 +179,7 @@ const subparserExample = new ArgumentParser({
 const subparsers = subparserExample.add_subparsers({
     title: "subcommands",
     dest: "subcommand_name",
+    required: true,
 });
 
 let bar = subparsers.add_parser("c1", { add_help: true, help: "c1 help" });

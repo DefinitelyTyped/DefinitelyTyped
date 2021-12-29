@@ -26,26 +26,26 @@ export interface IConfig {
      * Single frame messages will also be limited to this maximum.
      * @default 1MiB
      */
-    maxReceivedFrameSize?: number;
+    maxReceivedFrameSize?: number | undefined;
 
     /**
      * The maximum allowed aggregate message size (for fragmented messages) in bytes
      * @default 8MiB
      */
-    maxReceivedMessageSize?: number;
+    maxReceivedMessageSize?: number | undefined;
 
     /**
      * Whether or not to fragment outgoing messages. If true, messages will be
      * automatically fragmented into chunks of up to `fragmentationThreshold` bytes.
      * @default true
      */
-    fragmentOutgoingMessages?: boolean;
+    fragmentOutgoingMessages?: boolean | undefined;
 
     /**
      * The maximum size of a frame in bytes before it is automatically fragmented.
      * @default 16KiB
      */
-    fragmentationThreshold?: number;
+    fragmentationThreshold?: number | undefined;
 
     /**
      * If true, fragmented messages will be automatically assembled and the full
@@ -55,14 +55,14 @@ export interface IConfig {
      * messages will emit a `message` event in addition to the `frame` event.
      * @default true
      */
-    assembleFragments?: boolean;
+    assembleFragments?: boolean | undefined;
 
     /**
      * The number of milliseconds to wait after sending a close frame for an
      * `acknowledgement` to come back before giving up and just closing the socket.
      * @default 5000
      */
-    closeTimeout?: number;
+    closeTimeout?: number | undefined;
 
     /**
      * The Nagle Algorithm makes more efficient use of network resources by introducing a
@@ -70,7 +70,7 @@ export interface IConfig {
      * together before going onto the wire. This however comes at the cost of latency.
      * @default true
      */
-    disableNagleAlgorithm?: boolean;
+    disableNagleAlgorithm?: boolean | undefined;
 }
 
 export interface IServerConfig extends IConfig {
@@ -82,13 +82,13 @@ export interface IServerConfig extends IConfig {
      * Single frame messages will also be limited to this maximum.
      * @default 64KiB
      */
-    maxReceivedFrameSize?: number;
+    maxReceivedFrameSize?: number | undefined;
 
     /**
      * The maximum allowed aggregate message size (for fragmented messages) in bytes.
      * @default 1MiB
      */
-    maxReceivedMessageSize?: number;
+    maxReceivedMessageSize?: number | undefined;
 
     /**
      * If true, the server will automatically send a ping to all clients every
@@ -96,13 +96,13 @@ export interface IServerConfig extends IConfig {
      * timer, which is reset when any data is received from that client.
      * @default true
      */
-    keepalive?: boolean;
+    keepalive?: boolean | undefined;
 
     /**
      * The interval in milliseconds to send `keepalive` pings to connected clients.
      * @default 20000
      */
-    keepaliveInterval?: number;
+    keepaliveInterval?: number | undefined;
 
     /**
      * If true, the server will consider any connection that has not received any
@@ -110,7 +110,7 @@ export interface IServerConfig extends IConfig {
      * `keepalive` ping has been sent. Ignored if `keepalive` is false.
      * @default true
      */
-    dropConnectionOnKeepaliveTimeout?: boolean;
+    dropConnectionOnKeepaliveTimeout?: boolean | undefined;
 
     /**
      * The amount of time to wait after sending a `keepalive` ping before closing
@@ -119,7 +119,7 @@ export interface IServerConfig extends IConfig {
      * reset when any data is received from the client.
      * @default 10000
      */
-    keepaliveGracePeriod?: number;
+    keepaliveGracePeriod?: number | undefined;
 
     /**
      * Whether to use native TCP keep-alive instead of WebSockets ping
@@ -131,7 +131,7 @@ export interface IServerConfig extends IConfig {
      *   dropConnectionOnKeepaliveTimeout
      * @default false
      */
-    useNativeKeepalive?: boolean;
+    useNativeKeepalive?: boolean | undefined;
 
     /**
      * If this is true, websocket connections will be accepted regardless of the path
@@ -139,7 +139,7 @@ export interface IServerConfig extends IConfig {
      * that was requested by the client.
      * @default false
      */
-    autoAcceptConnections?: boolean;
+    autoAcceptConnections?: boolean | undefined;
 
     /**
      * Whether or not the X-Forwarded-For header should be respected.
@@ -151,11 +151,11 @@ export interface IServerConfig extends IConfig {
      * See:  http://en.wikipedia.org/wiki/X-Forwarded-For
      * @default false
      */
-    ignoreXForwardedFor?: boolean;
+    ignoreXForwardedFor?: boolean | undefined;
 }
 
 export class server extends events.EventEmitter {
-    config?: IServerConfig;
+    config?: IServerConfig | undefined;
     connections: connection[];
     pendingRequests: request[];
 
@@ -199,12 +199,12 @@ export class server extends events.EventEmitter {
 export interface ICookie {
     name: string;
     value: string;
-    path?: string;
-    domain?: string;
-    expires?: Date;
-    maxage?: number;
-    secure?: boolean;
-    httponly?: boolean;
+    path?: string | undefined;
+    domain?: string | undefined;
+    expires?: Date | undefined;
+    maxage?: number | undefined;
+    secure?: boolean | undefined;
+    httponly?: boolean | undefined;
 }
 
 export interface IExtension {
@@ -298,11 +298,17 @@ export class request extends events.EventEmitter {
     _verifyResolution(): void;
 }
 
-export interface IMessage {
-    type: string;
-    utf8Data?: string;
-    binaryData?: Buffer;
+export interface IUtf8Message {
+    type: 'utf8';
+    utf8Data: string;
 }
+
+export interface IBinaryMessage {
+    type: 'binary';
+    binaryData: Buffer;
+}
+
+export type Message = IUtf8Message | IBinaryMessage;
 
 export interface IBufferList extends events.EventEmitter {
     encoding: string;
@@ -500,14 +506,14 @@ export class connection extends events.EventEmitter {
     _addSocketEventListeners(): void;
 
     // Events
-    on(event: 'message', cb: (data: IMessage) => void): this;
+    on(event: 'message', cb: (data: Message) => void): this;
     on(event: 'frame', cb: (frame: frame) => void): this;
     on(event: 'close', cb: (code: number, desc: string) => void): this;
     on(event: 'error', cb: (err: Error) => void): this;
     on(event: 'drain' | 'pause' | 'resume', cb: () => void): this;
     on(event: 'ping', cb: (cancel: () => void, binaryPayload: Buffer) => void): this;
     on(event: 'pong', cb: (binaryPayload: Buffer) => void): this;
-    addListener(event: 'message', cb: (data: IMessage) => void): this;
+    addListener(event: 'message', cb: (data: Message) => void): this;
     addListener(event: 'frame', cb: (frame: frame) => void): this;
     addListener(event: 'close', cb: (code: number, desc: string) => void): this;
     addListener(event: 'error', cb: (err: Error) => void): this;
@@ -596,13 +602,13 @@ export interface IClientConfig extends IConfig {
      * the name of the Origin header.
      * @default 13
      */
-    webSocketVersion?: number;
+    webSocketVersion?: number | undefined;
 
     /**
      * Options to pass to `https.request` if connecting via TLS.
      * @see https://nodejs.org/api/https.html#https_https_request_options_callback
      */
-    tlsOptions?: https.RequestOptions;
+    tlsOptions?: https.RequestOptions | undefined;
 }
 
 export class client extends events.EventEmitter {
@@ -753,16 +759,16 @@ export class w3cwebsocket {
 
     _url: string;
     _readyState: number;
-    _protocol?: string;
+    _protocol?: string | undefined;
     _extensions: IExtension[];
     _bufferedAmount: number;
     _binaryType: 'arraybuffer';
-    _connection?: connection;
+    _connection?: connection | undefined;
     _client: client;
 
     url: string;
     readyState: number;
-    protocol?: string;
+    protocol?: string | undefined;
     extensions: IExtension[];
     bufferedAmount: number;
 

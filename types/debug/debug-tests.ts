@@ -33,3 +33,23 @@ extendedWithCustomDelimiter("Testing this is an IDebugger, too.");
 debug2.log = console.log.bind(console);
 const anotherLogger = debug2("DefinitelyTyped:error");
 anotherLogger("This should be printed to stdout");
+
+// $ExpectType string | number
+debug1.selectColor("DefinitelyTyped:log");
+// $ExpectType string | number
+debug2.selectColor("DefinitelyTyped:log");
+
+debug2.formatArgs = function(args) {
+    // $ExpectType string
+    const diff = debug2.humanize(this.diff);
+    args[0] = `[${this.namespace}] ${args[0]}`;
+    args.push(`+${diff}`);
+};
+debug2.log = function(this: debug1.Debugger, ...args) {
+    const diff = debug2.humanize(this.diff);
+    console.log({
+        namespace: this.namespace,
+        args,
+        diff,
+    });
+};

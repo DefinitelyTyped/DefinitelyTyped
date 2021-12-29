@@ -1,6 +1,6 @@
 // Type definitions for axon 2.0
 // Project: https://github.com/visionmedia/axon#readme
-// Definitions by: Vilim Stubičan <https://github.com/jewbre>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -125,7 +125,7 @@ export class PullSocket extends Socket {
 export type ConnectionPort =
     number
     | string
-    | { protocol?: string, hostname?: string, pathname: string, port: string | number };
+    | { protocol?: string | undefined, hostname?: string | undefined, pathname: string, port: string | number };
 
 export function socket(type: string, options?: any): Socket;
 

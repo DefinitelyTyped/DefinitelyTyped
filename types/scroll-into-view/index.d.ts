@@ -1,32 +1,37 @@
-// Type definitions for scroll-into-view 1.13.1
+// Type definitions for scroll-into-view 1.16.0
 // Project: https://github.com/KoryNunn/scroll-into-view
 // Definitions by: zivni <https://github.com/zivni>
 //                 Thibaut <https://github.com/Thibaut-Fatus>
+//                 goodCycle <https://github.com/goodCycle>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module __ScrollIntoView {
 
     interface Settings {
-        time?: number
-        ease?: (value: number) => number
-        validTarget?: (target: HTMLElement, parentsScrolled: number) => boolean
-        align?: Alignment,
-        isScrollable?: (target: HTMLElement, defaultIsScrollable: (target: HTMLElement) => boolean) => boolean,
-        isWindow?: (target: HTMLElement) => boolean,
-        cancellable?: boolean,
-        maxSynchronousAlignments?: number,
-        debug?: boolean
+        time?: number | undefined
+        ease?: ((value: number) => number) | undefined
+        validTarget?: ((target: HTMLElement, parentsScrolled: number) => boolean) | undefined
+        align?: Alignment | undefined,
+        isScrollable?: ((target: HTMLElement, defaultIsScrollable: (target: HTMLElement) => boolean) => boolean) | undefined,
+        isWindow?: ((target: HTMLElement) => boolean) | undefined,
+        cancellable?: boolean | undefined,
+        maxSynchronousAlignments?: number | undefined,
+        debug?: boolean | undefined
     }
 
     interface Alignment {
         /** 0 to 1, default 0.5 (center) */
-        top?: number
+        top?: number | undefined
         /** 0 to 1, default 0.5 (center) */
-        left?: number
+        left?: number | undefined
         /** pixels to offset top alignment */
-        topOffset?: number
+        topOffset?: number | undefined
         /** pixels to offset left alignment */
-        leftOffset?: number
+        leftOffset?: number | undefined
+        /** boolean to prevent X scrolling */
+        lockX?: boolean | undefined
+        /** boolean to prevent Y scrolling */
+        lockY?: boolean | undefined
     }
 
     /** type will be 'complete' if the scroll completed or 'canceled' if the current scroll was canceled by a new scroll */
@@ -34,8 +39,8 @@ declare module __ScrollIntoView {
     type Callback = (type: callbackParameterType) => void
 
     interface ScrollIntoView {
-        (target: HTMLElement, callback?: __ScrollIntoView.Callback) : void
-        (target: HTMLElement, settings: __ScrollIntoView.Settings, callback?: __ScrollIntoView.Callback) :  void
+        (target: HTMLElement, callback?: __ScrollIntoView.Callback): void
+        (target: HTMLElement, settings: __ScrollIntoView.Settings, callback?: __ScrollIntoView.Callback): void
     }
 
 }

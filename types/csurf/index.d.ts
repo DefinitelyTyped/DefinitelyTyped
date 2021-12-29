@@ -14,13 +14,13 @@ declare global {
 }
 
 declare function csurf(options?: {
-    value?: (req: express.Request) => string;
+    value?: ((req: express.Request) => string) | undefined;
     /**
      * @default false
      */
-    cookie?: csurf.CookieOptions | boolean;
-    ignoreMethods?: string[];
-    sessionKey?: string;
+    cookie?: csurf.CookieOptions | boolean | undefined;
+    ignoreMethods?: string[] | undefined;
+    sessionKey?: string | undefined;
 }): express.RequestHandler;
 
 declare namespace csurf {
@@ -28,7 +28,7 @@ declare namespace csurf {
         /**
          * @default '_csrf'
          */
-        key?: string;
+        key?: string | undefined;
     }
 }
 

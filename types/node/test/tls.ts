@@ -14,8 +14,9 @@ import {
     rootCertificates,
     Server,
     TlsOptions,
-} from 'tls';
-import * as fs from 'fs';
+} from 'node:tls';
+import * as fs from 'node:fs';
+import * as stream from 'node:stream';
 
 {
     const ctx: SecureContext = createSecureContext({
@@ -292,10 +293,33 @@ import * as fs from 'fs';
 }
 
 {
+    const duplex = new stream.PassThrough();
+    const connOpts: ConnectionOptions = {
+        socket: duplex,
+    };
+    const tlsSocket = connect(connOpts);
+}
+
+{
     const r00ts: ReadonlyArray<string> = rootCertificates;
 }
 
 {
     const _options: TlsOptions = {};
     const _server = new Server(_options, (socket) => {});
+}
+
+{
+    const ctx: SecureContext = createSecureContext({
+        key: 'NOT REALLY A KEY',
+        cert: 'SOME CERTIFICATE',
+    });
+    const _options: TlsOptions = {
+        SNICallback: (servername: string, cb: (err: Error | null, ctx?: SecureContext) => void): void => {
+            cb(new Error('Not found'));
+            cb(new Error('Not found'), undefined);
+            cb(null, undefined);
+            cb(null, ctx);
+        },
+    };
 }

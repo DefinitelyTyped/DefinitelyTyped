@@ -21,7 +21,7 @@ export interface ConcreteRequest {
  * for local caching.
  */
 export interface RequestParameters {
-    readonly cacheID?: string | null;
+    readonly cacheID?: string | null | undefined;
     readonly name: string;
     readonly operationKind: string; // 'mutation' | 'query' | 'subscription';
     readonly id: string | null | undefined;

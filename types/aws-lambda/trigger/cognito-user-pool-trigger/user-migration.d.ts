@@ -13,15 +13,15 @@ export type UserStatus =
 export interface BaseUserMigrationTriggerEvent<T extends string> extends BaseTriggerEvent<T> {
   request: {
       password: string;
-      validationData?: StringMap;
-      clientMetadata?: StringMap;
+      validationData?: StringMap | undefined;
+      clientMetadata?: StringMap | undefined;
   };
   response: {
       userAttributes: StringMap;
-      finalUserStatus?: UserStatus;
-      messageAction?: 'RESEND' | 'SUPPRESS';
+      finalUserStatus?: UserStatus | undefined;
+      messageAction?: 'RESEND' | 'SUPPRESS' | undefined;
       desiredDeliveryMediums: Array<'SMS' | 'EMAIL'>;
-      forceAliasCreation?: boolean;
+      forceAliasCreation?: boolean | undefined;
   };
 }
 

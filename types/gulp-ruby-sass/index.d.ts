@@ -12,36 +12,36 @@
  * @interface SassOptions
  */
 interface SassOptions {
-    loadPath?: string | string[];
-    require?: string;
-    compass?: boolean;
-    style?: string;
-    force?: boolean;
-    stopOnError?: boolean;
-    scss?: boolean;
-    defaultEncoding?: string;
-    unixNewlines?: boolean;
-    debugInfo?: boolean;
-    lineNumbers?: boolean;
-    lineComments?: boolean;
-    check?: boolean;
-    precision?: number;
-    cacheLocation?: string;
-    noCache?: boolean;
-    trace?: boolean;
-    quiet?: boolean;
+    loadPath?: string | string[] | undefined;
+    require?: string | undefined;
+    compass?: boolean | undefined;
+    style?: string | undefined;
+    force?: boolean | undefined;
+    stopOnError?: boolean | undefined;
+    scss?: boolean | undefined;
+    defaultEncoding?: string | undefined;
+    unixNewlines?: boolean | undefined;
+    debugInfo?: boolean | undefined;
+    lineNumbers?: boolean | undefined;
+    lineComments?: boolean | undefined;
+    check?: boolean | undefined;
+    precision?: number | undefined;
+    cacheLocation?: string | undefined;
+    noCache?: boolean | undefined;
+    trace?: boolean | undefined;
+    quiet?: boolean | undefined;
 
     // Actually, there should be a string. However due to ts spec, overriding member should be the same type or a subtype.
-    // http://stackoverflow.com/questions/19605557/incompatible-static-properties-in-three-d-ts-with-latest-typescript
+    // https://stackoverflow.com/questions/19605557/incompatible-static-properties-in-three-d-ts-with-latest-typescript
     // We need Options.soucemap to be boolean, so here 'any' is used instead of string.
     sourcemap?: any;
 
     // All listed below options are acceptable by the sass executable and potentially may be used from js.
     // However I doubt are there cases when it's meaningful
-    watch?: string;
-    update?: string;
-    stdin?: boolean;
-    interactive?: boolean;
+    watch?: string | undefined;
+    update?: string | undefined;
+    stdin?: boolean | undefined;
+    interactive?: boolean | undefined;
 }
 
 /**
@@ -51,10 +51,10 @@ interface SassOptions {
  * @extends SassOptions
  */
 interface Options extends SassOptions {
-    verbose?: boolean;
-    bundleExec?: boolean;
-    sourcemap?: boolean;
-    container?: string;
+    verbose?: boolean | undefined;
+    bundleExec?: boolean | undefined;
+    sourcemap?: boolean | undefined;
+    container?: string | undefined;
 }
 
 /**

@@ -1,17 +1,18 @@
-import DomEventData from "./domeventdata";
-import DomEventObserver from "./domeventobserver";
-import { KeystrokeInfo } from "@ckeditor/ckeditor5-utils/src/keyboard";
+import DomEventData from './domeventdata';
+import DomEventObserver from './domeventobserver';
+import { KeystrokeInfo } from '@ckeditor/ckeditor5-utils/src/keyboard';
 
 export default class KeyObserver extends DomEventObserver {
-    domEventType: ["keydown", "keyup"];
+    observe(domElement: HTMLElement, name?: string): void;
+    domEventType: ['keydown', 'keyup'];
     onDomEvent(domEvt: KeyboardEvent): void;
 }
 
 export class KeyEventData extends DomEventData implements KeystrokeInfo {
-    altKey?: boolean;
-    ctrlKey?: boolean;
-    keyCode: number;
-    shiftKey?: boolean;
-    metaKey?: boolean;
+    readonly keyCode: number;
+    readonly altKey: boolean;
+    readonly ctrlKey: boolean;
+    readonly shiftKey: boolean;
+    readonly metaKey: boolean;
     readonly keystroke: number;
 }

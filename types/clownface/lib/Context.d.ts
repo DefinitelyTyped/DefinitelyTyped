@@ -3,7 +3,7 @@ import { DatasetCore, Quad_Graph, Term } from 'rdf-js';
 declare namespace Context {
     interface Context<D extends DatasetCore, T extends Term> {
         dataset: D;
-        graph?: Quad_Graph;
+        graph?: Quad_Graph | undefined;
         term: T;
     }
 }

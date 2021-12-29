@@ -7,11 +7,11 @@ declare class ListDataProviderView<K, D, Kin, Din> implements DataProvider<K, D>
     offset: number;
     sortCriteria: Array<SortCriterion<D>>;
     constructor(dataProvider: DataProvider<K, D>, options?: {
-        from?: Kin;
-        offset?: number;
-        sortCriteria?: Array<SortCriterion<D>>;
-        dataMapping?: DataMapping<K, D, Kin, Din>;
-        attributes?: Array<string | FetchAttribute>;
+        from?: Kin | undefined;
+        offset?: number | undefined;
+        sortCriteria?: Array<SortCriterion<D>> | undefined;
+        dataMapping?: DataMapping<K, D, Kin, Din> | undefined;
+        attributes?: Array<string | FetchAttribute> | undefined;
     });
     addEventListener(eventType: string, listener: EventListener): void;
     containsKeys(params: FetchByKeysParameters<K>): Promise<ContainsKeysResults<K>>;

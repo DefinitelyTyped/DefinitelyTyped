@@ -326,11 +326,11 @@ export class Redirect {
     loginWithCredentials(
         options: {
             /** url that the Auth0 will redirect after Auth with the Authorization Response */
-            redirectUri?: string;
+            redirectUri?: string | undefined;
             /** type of the response used. It can be any of the values `code` and `token` */
-            responseType?: string;
+            responseType?: string | undefined;
             /** how the AuthN response is encoded and redirected back to the client. */
-            responseMode?: "query" | "fragment";
+            responseMode?: "query" | "fragment" | undefined;
             /** scopes to be requested during AuthN. e.g. `openid email` */
             scope: string;
         },
@@ -349,7 +349,7 @@ export class Redirect {
             /** name of the connection where the user will be created */
             connection: string;
             /** allow userMetadata to be passed to signUp */
-            userMetadata?: unknown;
+            userMetadata?: unknown | undefined;
         },
         callback: Auth0Callback<any>,
     ): void;
@@ -381,14 +381,14 @@ export class Popup {
          */
         hash: string;
         /** value originally sent in `state` parameter to {@link authorize} to mitigate XSRF */
-        state?: string;
+        state?: string | undefined;
         /** value originally sent in `nonce` parameter to {@link authorize} to prevent replay attacks */
-        nonce?: string;
+        nonce?: string | undefined;
         /**
          * makes parseHash perform or skip `id_token` verification.
          * We **strongly** recommend validating the `id_token` yourself if you disable the verification.
          */
-        _idTokenVerification?: string;
+        _idTokenVerification?: string | undefined;
     }): void;
 
     /**
@@ -400,13 +400,13 @@ export class Popup {
             /** your Auth0 domain */
             domain: string;
             /** your Auth0 client identifier obtained when creating the client in the Auth0 Dashboard */
-            clientId?: string;
+            clientId?: string | undefined;
             /**
              * identity provider whose login page will be displayed in the popup.
              * If omitted the hosted login page is used.
              * {@link https://auth0.com/docs/identityproviders}
              */
-            connection?: string;
+            connection?: string | undefined;
             /** url that the Auth0 will redirect after Auth with the Authorization Response */
             redirectUri: string;
             /**
@@ -419,23 +419,23 @@ export class Popup {
              * how the Auth response is encoded and redirected back to the client.
              * {@link https://openid.net/specs/oauth-v2-multiple-response-types-1_0.html#ResponseModes}
              */
-            responseMode?: "query" | "fragment" | "form_post";
+            responseMode?: "query" | "fragment" | "form_post" | undefined;
             /**
              * value used to mitigate XSRF attacks.
              * {@link https://auth0.com/docs/protocols/oauth2/oauth-state}
              */
-            state?: string;
+            state?: string | undefined;
             /**
              * value used to mitigate replay attacks when using Implicit Grant.
              * {@link https://auth0.com/docs/api-auth/tutorials/nonce}
              */
-            nonce?: string;
+            nonce?: string | undefined;
             /** scopes to be requested during Auth. e.g. `openid email` */
-            scope?: string;
+            scope?: string | undefined;
             /** identifier of the resource server who will consume the access token issued after Auth */
-            audience?: string;
+            audience?: string | undefined;
             /** determines if Auth0 should render the relay page or not and the caller is responsible of handling the response. */
-            owp?: boolean;
+            owp?: boolean | undefined;
         },
         callback: Auth0Callback<Auth0Result>,
     ): void;
@@ -449,13 +449,13 @@ export class Popup {
     loginWithCredentials(
         options: {
             /** url that the Auth0 will redirect after Auth with the Authorization Response */
-            redirectUri?: string;
+            redirectUri?: string | undefined;
             /** type of the response used. */
-            responseType?: "code" | "token";
+            responseType?: "code" | "token" | undefined;
             /** how the AuthN response is encoded and redirected back to the client. */
-            responseMode?: "query" | "fragment";
+            responseMode?: "query" | "fragment" | undefined;
             /** scopes to be requested during AuthN. e.g. `openid email` */
-            scope?: string;
+            scope?: string | undefined;
         },
         callback: Auth0Callback<any>,
     ): void;
@@ -467,9 +467,9 @@ export class Popup {
         options: {
             type: "sms" | "email";
             /**  only if type = sms */
-            phoneNumber?: string;
+            phoneNumber?: string | undefined;
             /** only if type = email */
-            email?: string;
+            email?: string | undefined;
             /** the connection name */
             connection: string;
             /** the TOTP code */
@@ -493,7 +493,7 @@ export class Popup {
             /** name of the connection where the user will be created */
             connection: string;
             /** allow userMetadata to be passed to signUp */
-            userMetadata?: unknown;
+            userMetadata?: unknown | undefined;
         },
         callback: Auth0Callback<any>,
     ): void;
@@ -524,55 +524,55 @@ export class CrossOriginAuthentication {
 export type Auth0Callback<T, E = Auth0Error> = (error: null | E, result: T) => void;
 
 export interface TokenProvider {
-    enableCache?: boolean;
-    cacheTTLInSeconds?: number;
+    enableCache?: boolean | undefined;
+    cacheTTLInSeconds?: number | undefined;
 }
 
 export interface ManagementOptions {
     domain: string;
-    token?: string;
-    clientId?: string;
-    clientSecret?: string;
-    audience?: string;
-    scope?: string;
-    tokenProvider?: TokenProvider;
-    telemetry?: boolean;
+    token?: string | undefined;
+    clientId?: string | undefined;
+    clientSecret?: string | undefined;
+    audience?: string | undefined;
+    scope?: string | undefined;
+    tokenProvider?: TokenProvider | undefined;
+    telemetry?: boolean | undefined;
 }
 
 export interface AuthOptions {
     domain: string;
     clientID: string;
-    responseType?: string;
-    responseMode?: string;
-    redirectUri?: string;
-    scope?: string;
-    audience?: string;
+    responseType?: string | undefined;
+    responseMode?: string | undefined;
+    redirectUri?: string | undefined;
+    scope?: string | undefined;
+    audience?: string | undefined;
     /**
      * maximum elapsed time in seconds since the last time the user
      * was actively authenticated by the authorization server.
      */
-    maxAge?: number;
-    leeway?: number;
-    jwksURI?: string;
+    maxAge?: number | undefined;
+    leeway?: number | undefined;
+    jwksURI?: string | undefined;
     overrides?: {
-        __tenant?: string;
-        __token_issuer?: string;
-        __jwks_uri?: string;
-    };
+        __tenant?: string | undefined;
+        __token_issuer?: string | undefined;
+        __jwks_uri?: string | undefined;
+    } | undefined;
     plugins?: any;
-    popupOrigin?: string;
-    protocol?: string;
-    response_type?: string;
-    state?: string;
-    tenant?: string;
-    universalLoginPage?: boolean;
-    _csrf?: string;
-    _intstate?: string;
-    _timesToRetryFailedRequests?: number;
-    _disableDeprecationWarnings?: boolean;
-    _sendTelemetry?: boolean;
+    popupOrigin?: string | undefined;
+    protocol?: string | undefined;
+    response_type?: string | undefined;
+    state?: string | undefined;
+    tenant?: string | undefined;
+    universalLoginPage?: boolean | undefined;
+    _csrf?: string | undefined;
+    _intstate?: string | undefined;
+    _timesToRetryFailedRequests?: number | undefined;
+    _disableDeprecationWarnings?: boolean | undefined;
+    _sendTelemetry?: boolean | undefined;
     _telemetryInfo?: any;
-    __tryLocalStorageFirst?: boolean;
+    __tryLocalStorageFirst?: boolean | undefined;
 }
 
 export type DoneCallback = (err?: Auth0Error) => void;
@@ -586,13 +586,13 @@ export interface CatpchaConfiguration {
     /**
      *  An object containaing templates for each captcha provider
      */
-    templates?: CaptchaTemplates;
+    templates?: CaptchaTemplates | undefined;
 
     /**
      * The ISO code of the language for recaptcha
      * @default 'en'
      */
-    lang?: string;
+    lang?: string | undefined;
 }
 
 /**
@@ -602,12 +602,12 @@ export interface CaptchaTemplates {
     /**
      * Template function receiving the challenge and returning an string
      */
-    auth0?: (challenge: Auth0Challenge) => string;
+    auth0?: ((challenge: Auth0Challenge) => string) | undefined;
 
     /**
      * Template function receiving the challenge and returning an string
      */
-    recaptcha_v2?: (challenge: Auth0Challenge) => string;
+    recaptcha_v2?: ((challenge: Auth0Challenge) => string) | undefined;
 
     error: (error: Error) => string;
 }
@@ -665,17 +665,17 @@ export type SpecErrorCodes =
 
 export interface Auth0Error {
     error: LibErrorCodes | SpecErrorCodes | string;
-    errorDescription?: string;
+    errorDescription?: string | undefined;
     // Auth0 is not consistent in the naming of the error description field
-    error_description?: string;
+    error_description?: string | undefined;
     // Need to include non-intuitive error fields that Auth0 uses
-    code?: string;
-    description?: string;
-    name?: string;
-    policy?: string;
+    code?: string | undefined;
+    description?: string | undefined;
+    name?: string | undefined;
+    policy?: string | undefined;
     original?: any;
-    statusCode?: number;
-    statusText?: string;
+    statusCode?: number | undefined;
+    statusText?: string | undefined;
 }
 
 /**
@@ -687,38 +687,38 @@ export interface Auth0Result {
      * token that allows access to the specified resource server (identified by the audience parameter
      * or by default Auth0's /userinfo endpoint)
      */
-    accessToken?: string;
+    accessToken?: string | undefined;
     /** number of seconds until the access token expires */
-    expiresIn?: number;
+    expiresIn?: number | undefined;
     /** token that identifies the user */
-    idToken?: string;
+    idToken?: string | undefined;
     /**
      * token that can be used to get new access tokens from Auth0.
      * Note that not all Auth0 Applications can request them
      * or the resource server might not allow them.
      */
-    refreshToken?: string;
+    refreshToken?: string | undefined;
     /** values that you receive back on the authentication response */
     appState?: any;
 }
 
 export type Auth0ParseHashError = Auth0Error & {
-    state?: string;
+    state?: string | undefined;
 };
 
 /**
  * The contents of the authResult object returned by {@link WebAuth#parseHash }
  */
 export interface Auth0DecodedHash {
-    accessToken?: string;
-    idToken?: string;
+    accessToken?: string | undefined;
+    idToken?: string | undefined;
     idTokenPayload?: any;
     appState?: any;
-    refreshToken?: string;
-    state?: string;
-    expiresIn?: number;
-    tokenType?: string;
-    scope?: string;
+    refreshToken?: string | undefined;
+    state?: string | undefined;
+    expiresIn?: number | undefined;
+    tokenType?: string | undefined;
+    scope?: string | undefined;
 }
 
 /** Represents the response from an API Token Delegation request. */
@@ -737,43 +737,43 @@ export interface ChangePasswordOptions {
 }
 
 export interface BaseAuthOptions {
-    clientID?: string;
-    responseType?: string;
-    redirectUri?: string;
-    scope?: string;
-    audience?: string;
-    state?: string;
-    nonce?: string;
-    _csrf?: string;
-    __instate?: string;
+    clientID?: string | undefined;
+    responseType?: string | undefined;
+    redirectUri?: string | undefined;
+    scope?: string | undefined;
+    audience?: string | undefined;
+    state?: string | undefined;
+    nonce?: string | undefined;
+    _csrf?: string | undefined;
+    __instate?: string | undefined;
 }
 
 export interface PasswordlessStartAuthParams extends BaseAuthOptions {
-    responseMode?: string;
+    responseMode?: string | undefined;
 }
 
 export interface PasswordlessStartOptions {
     connection: string;
     send: string;
-    phoneNumber?: string;
-    email?: string;
-    authParams?: PasswordlessStartAuthParams;
+    phoneNumber?: string | undefined;
+    email?: string | undefined;
+    authParams?: PasswordlessStartAuthParams | undefined;
 }
 
 export interface PasswordlessVerifyOptions extends BaseAuthOptions {
     connection: string;
     verificationCode: string;
-    phoneNumber?: string;
-    email?: string;
-    send?: string;
-    responseMode?: string;
+    phoneNumber?: string | undefined;
+    email?: string | undefined;
+    send?: string | undefined;
+    responseMode?: string | undefined;
 }
 
 export interface PasswordlessLoginOptions extends BaseAuthOptions {
     connection: string;
     verificationCode: string;
-    phoneNumber?: string;
-    email?: string;
+    phoneNumber?: string | undefined;
+    email?: string | undefined;
 }
 
 export interface Auth0UserProfile {
@@ -781,14 +781,14 @@ export interface Auth0UserProfile {
     nickname: string;
     picture: string;
     user_id: string;
-    username?: string;
-    given_name?: string;
-    family_name?: string;
-    email?: string;
-    email_verified?: boolean;
+    username?: string | undefined;
+    given_name?: string | undefined;
+    family_name?: string | undefined;
+    email?: string | undefined;
+    email_verified?: boolean | undefined;
     clientID: string;
-    gender?: string;
-    locale?: string;
+    gender?: string | undefined;
+    locale?: string | undefined;
     identities: Auth0Identity[];
     created_at: string;
     updated_at: string;
@@ -798,7 +798,7 @@ export interface Auth0UserProfile {
 }
 
 export interface MicrosoftUserProfile extends Auth0UserProfile {
-    emails?: string[]; // optional depending on whether email addresses permission is granted
+    emails?: string[] | undefined; // optional depending on whether email addresses permission is granted
 }
 
 export interface Office365UserProfile extends Auth0UserProfile {
@@ -807,14 +807,14 @@ export interface Office365UserProfile extends Auth0UserProfile {
 }
 
 export interface AdfsUserProfile extends Auth0UserProfile {
-    issuer?: string;
+    issuer?: string | undefined;
 }
 
 export interface AuthorizeUrlOptions {
     /**
      * your Auth0 client identifier obtained when creating the client in the Auth0 Dashboard
      */
-    clientID?: string;
+    clientID?: string | undefined;
     /**
      * url that the Auth0 will redirect after Auth with the Authorization Response
      */
@@ -830,25 +830,25 @@ export interface AuthorizeUrlOptions {
      * Supported values are `query`, `fragment` and `form_post`
      * {@link https://openid.net/specs/oauth-v2-multiple-response-types-1_0.html#ResponseModes}
      */
-    responseMode?: "query" | "fragment" | "form_post";
+    responseMode?: "query" | "fragment" | "form_post" | undefined;
     /**
      * value used to mitigate XSRF attacks.
      * {@link https://auth0.com/docs/protocols/oauth2/oauth-state}
      */
-    state?: string;
+    state?: string | undefined;
     /**
      * value used to mitigate replay attacks when using Implicit Grant.
      * {@link https://auth0.com/docs/api-auth/tutorials/nonce}
      */
-    nonce?: string;
+    nonce?: string | undefined;
     /**
      * scopes to be requested during Auth. e.g. `openid email`
      */
-    scope?: string;
+    scope?: string | undefined;
     /**
      * identifier of the resource server who will consume the access token issued after Auth
      */
-    audience?: string;
+    audience?: string | undefined;
 }
 
 export interface Auth0Identity {
@@ -861,53 +861,53 @@ export interface Auth0Identity {
 export interface LoginOptions {
     username: string;
     password: string;
-    scope?: string;
+    scope?: string | undefined;
 }
 
 export interface DefaultLoginOptions extends LoginOptions {
-    audience?: string;
+    audience?: string | undefined;
     realm: string;
 }
 
 export interface DefaultDirectoryLoginOptions extends LoginOptions {
-    audience?: string;
+    audience?: string | undefined;
 }
 
 export interface ResourceOwnerLoginOptions extends LoginOptions {
     connection: string;
-    device?: string;
+    device?: string | undefined;
 }
 
 export interface CrossOriginLoginOptions {
-    username?: string;
-    email?: string;
+    username?: string | undefined;
+    email?: string | undefined;
     password: string;
-    realm?: string;
-    domain?: string;
-    clientID?: string;
-    redirectUri?: string;
-    responseType?: string;
-    responseMode?: string;
-    state?: string;
-    nonce?: string;
-    scope?: string;
-    audience?: string;
+    realm?: string | undefined;
+    domain?: string | undefined;
+    clientID?: string | undefined;
+    redirectUri?: string | undefined;
+    responseType?: string | undefined;
+    responseMode?: string | undefined;
+    state?: string | undefined;
+    nonce?: string | undefined;
+    scope?: string | undefined;
+    audience?: string | undefined;
 }
 
 export interface LogoutOptions {
-    clientID?: string;
-    returnTo?: string;
-    federated?: boolean;
+    clientID?: string | undefined;
+    returnTo?: string | undefined;
+    federated?: boolean | undefined;
 }
 
 export interface DelegationOptions {
-    client_id?: string;
+    client_id?: string | undefined;
     grant_type: string;
-    id_token?: string;
-    refresh_token?: string;
-    target?: string;
-    scope?: string;
-    api_type?: string;
+    id_token?: string | undefined;
+    refresh_token?: string | undefined;
+    target?: string | undefined;
+    scope?: string | undefined;
+    api_type?: string | undefined;
 }
 
 export interface DbSignUpOptions {
@@ -918,10 +918,10 @@ export interface DbSignUpOptions {
     /** name of the connection where the user will be created */
     connection: string;
     /** User desired username. Required if you use a database connection and you have enabled `Requires Username` */
-    username?: string;
-    scope?: string;
+    username?: string | undefined;
+    scope?: string | undefined;
     /** additional signup attributes used for creating the user. Will be stored in `user_metadata` */
-    userMetadata?: unknown;
+    userMetadata?: unknown | undefined;
 }
 
 /** result of the signup request */
@@ -933,103 +933,103 @@ export interface DbSignUpResults {
 }
 
 export interface ParseHashOptions {
-    hash?: string;
-    state?: string;
-    nonce?: string;
-    _idTokenVerification?: boolean;
+    hash?: string | undefined;
+    state?: string | undefined;
+    nonce?: string | undefined;
+    _idTokenVerification?: boolean | undefined;
     /** indicates that you want to allow IdP-Initiated flows. See {@link https://auth0.com/docs/protocols/saml/idp-initiated-sso#lock-auth0-js} */
-    __enableIdPInitiatedLogin?: boolean;
+    __enableIdPInitiatedLogin?: boolean | undefined;
 }
 
 export interface RenewAuthOptions {
     /**
      * your Auth0 domain
      */
-    domain?: string;
+    domain?: string | undefined;
     /**
      * your Auth0 client identifier obtained when creating the client in the Auth0 Dashboard
      */
-    clientID?: string;
+    clientID?: string | undefined;
     /**
      * url that the Auth0 will redirect after Auth with the Authorization Response
      */
-    redirectUri?: string;
+    redirectUri?: string | undefined;
     /**
      * type of the response used by OAuth 2.0 flow. It can be any space separated
      * list of the values `code`, `token`, `id_token`.
      * {@link https://openid.net/specs/oauth-v2-multiple-response-types-1_0.html}
      */
-    responseType?: string;
+    responseType?: string | undefined;
     /**
      * how the Auth response is encoded and redirected back to the client.
      * Supported values are `query`, `fragment` and `form_post`.
      * The `query` value is only supported when `responseType` is `code`.
      * {@link https://openid.net/specs/oauth-v2-multiple-response-types-1_0.html#ResponseModes}
      */
-    responseMode?: string;
+    responseMode?: string | undefined;
     /**
      * value used to mitigate XSRF attacks.
      * {@link https://auth0.com/docs/protocols/oauth2/oauth-state}
      */
-    state?: string;
+    state?: string | undefined;
     /**
      * value used to mitigate replay attacks when using Implicit Grant.
      * {@link https://auth0.com/docs/api-auth/tutorials/nonce}
      */
-    nonce?: string;
+    nonce?: string | undefined;
     /**
      * scopes to be requested during Auth. e.g. `openid email`
      */
-    scope?: string;
+    scope?: string | undefined;
     /**
      * identifier of the resource server who will consume the access token issued after Auth
      */
-    audience?: string;
+    audience?: string | undefined;
     /**
      * identifier data type to look for in postMessage event data, where events are initiated
      * from silent callback urls, before accepting a message event is the event expected.
      * A value of false means any postMessage event will trigger a callback.
      */
-    postMessageDataType?: string;
+    postMessageDataType?: string | undefined;
     /**
      * origin of redirectUri to expect postMessage response from.
      * Defaults to the origin of the receiving window. Only used if usePostMessage is truthy.
      */
-    postMessageOrigin?: string;
+    postMessageOrigin?: string | undefined;
     /**
      * value in milliseconds used to timeout when the `/authorize` call is failing
      * as part of the silent authentication with postmessage enabled due to a configuration.
      */
-    timeout?: number;
+    timeout?: number | undefined;
     /**
      * use postMessage to communicate between the silent callback and the SPA.
      * When false the SDK will attempt to parse the url hash should ignore the url hash
      * and no extra behaviour is needed
      * @default false
      */
-    usePostMessage?: boolean;
+    usePostMessage?: boolean | undefined;
 }
 
 export interface AuthorizeOptions {
-    domain?: string;
-    clientID?: string;
-    connection?: string;
-    redirectUri?: string;
-    responseType?: string;
-    responseMode?: string;
-    state?: string;
-    nonce?: string;
-    scope?: string;
-    audience?: string;
-    language?: string;
-    login_hint?: string;
-    prompt?: string;
-    mode?: "login" | "signUp";
-    screen_hint?: "signup";
-    accessType?: string;
-    approvalPrompt?: string;
+    domain?: string | undefined;
+    clientID?: string | undefined;
+    connection?: string | undefined;
+    redirectUri?: string | undefined;
+    responseType?: string | undefined;
+    responseMode?: string | undefined;
+    state?: string | undefined;
+    nonce?: string | undefined;
+    scope?: string | undefined;
+    audience?: string | undefined;
+    language?: string | undefined;
+    login_hint?: string | undefined;
+    prompt?: string | undefined;
+    mode?: "login" | "signUp" | undefined;
+    screen_hint?: "signup" | undefined;
+    accessType?: string | undefined;
+    approvalPrompt?: string | undefined;
     appState?: any;
-    connection_scope?: string | string[];
+    connection_scope?: string | string[] | undefined;
 }
 
 export type SsoDataResult = SsoSessionFoundResult | SsoSessionNotFoundResult;
@@ -1038,7 +1038,7 @@ export interface SsoSessionFoundResult {
     lastUsedClientID: string;
     lastUsedConnection: {
         name: string;
-        strategy?: string;
+        strategy?: string | undefined;
     };
     lastUsedUserID: string;
     lastUsedUsername: string;
@@ -1054,7 +1054,7 @@ export interface CheckSessionOptions extends AuthorizeOptions {
     /**
      * optional parameter for auth0 to use postMessage to communicate between the silent callback and the SPA.
      */
-    usePostMessage?: boolean;
+    usePostMessage?: boolean | undefined;
 }
 
 export const version: {

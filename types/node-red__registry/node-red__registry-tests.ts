@@ -85,6 +85,11 @@ function registryTests() {
                     topic: "topic"
                 });
 
+                this.send({
+                    payload: "payload",
+                    topic: "topic"
+                });
+
                 // send messages to a subset of the outputs
 
                 send (
@@ -107,6 +112,40 @@ function registryTests() {
                     ]
                 );
 
+                // send multiple messages to a particular output
+
+                send (
+                    [
+                        null,
+                        [
+                            {
+                                payload: "payload",
+                                topic: "topic"
+                            },
+                            {
+                                payload: "payload",
+                                topic: "topic"
+                            }
+                        ]
+                    ]
+                );
+
+                this.send (
+                    [
+                        null,
+                        [
+                            {
+                                payload: "payload",
+                                topic: "topic"
+                            },
+                            {
+                                payload: "payload",
+                                topic: "topic"
+                            }
+                        ]
+                    ]
+                );
+
                 done();
 
                 done(new Error('error'));
@@ -123,6 +162,8 @@ function registryTests() {
             // just check the link
             // $ExpectType Util
             RED.util;
+            // $ExpectType Hooks
+            RED.hooks;
 
             // $ExpectType Express
             RED.httpNode;

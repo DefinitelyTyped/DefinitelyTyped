@@ -7,14 +7,14 @@ export type TableBatchActionsTranslationKey =
     | 'carbon.table.batch.item.selected';
 
 export interface TableBatchActionsTranslationArgs {
-    totalSelected?: number;
+    totalSelected?: number | undefined;
 }
 
 export interface TableBatchActionsProps
     extends ReactDivAttr,
         InternationalProps<TableBatchActionsTranslationKey, TableBatchActionsTranslationArgs> {
     onCancel(event: React.MouseEvent<HTMLButtonElement>): void;
-    shouldShowBatchActions?: boolean;
+    shouldShowBatchActions?: boolean | undefined;
     totalSelected: number;
 }
 

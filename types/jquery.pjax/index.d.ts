@@ -22,43 +22,43 @@ interface PjaxSettings extends JQuery.AjaxSettings {
      * If it is not defined, the `data-pjax` attribute of the link will be treated as container.
      * If such an attribute is not defined too, the context will be treated as container.
      */
-    container?: string;
+    container?: string | undefined;
 
     /**
      * Whether to pushState the URL. Defaults to true.
      */
-    push?: boolean;
+    push?: boolean | undefined;
 
     /**
      * Whether to replaceState the URL. Defaults to false.
      */
-    replace?: boolean;
+    replace?: boolean | undefined;
 
     /**
      * How many requests to cache. Defaults to 20.
      */
-    maxCacheLength?: number;
+    maxCacheLength?: number | undefined;
 
     /**
      * A string or function returning the current pjax version
      */
-    version?: string | (() => string);
+    version?: string | (() => string) | undefined;
 
     /**
      * Vertical position to scroll to after navigation.
      * To avoid changing scroll position, pass false.
      */
-    scrollTo?: number | boolean;
+    scrollTo?: number | boolean | undefined;
 
     /**
      * Eventually the relatedTarget value for pjax events.
      */
-    target?: EventTarget;
+    target?: EventTarget | undefined;
 
     /**
      * CSS selector for the fragment to extract from ajax response.
      */
-    fragment?: string;
+    fragment?: string | undefined;
 }
 
 interface JQuery {

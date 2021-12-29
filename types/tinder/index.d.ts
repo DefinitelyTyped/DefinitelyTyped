@@ -293,7 +293,7 @@ declare module 'tinder' {
      * otherwise does not seem to be used
      */
     interface TinderRecommendationsResult {
-        message?: string;
+        message?: string | undefined;
         status: Number;
         results: TinderRecommendation[];
     }

@@ -70,7 +70,7 @@ export interface Schema<T, C = object> {
     strict(isStrict: boolean): this;
     strip(strip: boolean): this;
     withMutation(fn: (current: this) => void): void;
-    default(value: any): this;
+    default(value: T | (() => T)): Schema<T, C>;
     default(): T;
     typeError(message?: TestOptionsMessage): this;
     notOneOf(arrayOfValues: any[], message?: MixedLocale['notOneOf']): this;
@@ -86,7 +86,7 @@ export interface MixedSchemaConstructor {
     // tslint:disable-next-line:no-unnecessary-generics
     <T = {} | null | undefined, C = object>(): MixedSchema<T, C>;
     // tslint:disable-next-line:no-unnecessary-generics
-    new <T = {} | null | undefined, C = object>(options?: { type?: string; [key: string]: any }): MixedSchema<T, C>;
+    new <T = {} | null | undefined, C = object>(options?: { type?: string | undefined; [key: string]: any }): MixedSchema<T, C>;
 }
 
 export interface MixedSchema<T extends any = {} | null | undefined, C = object> extends Schema<T, C> {
@@ -115,6 +115,8 @@ export interface MixedSchema<T extends any = {} | null | undefined, C = object> 
     test(name: string, message: TestOptionsMessage, test: TestFunction<unknown, C>): this;
     test<U extends T = T>(options: AssertingTestOptions<U, Record<string, any>, C>): MixedSchema<U, C>;
     test(options: TestOptions<Record<string, any>, C>): this;
+    default<U extends T>(value: U | (() => U)): U extends undefined ? MixedSchema<T, C> : MixedSchema<Exclude<T, undefined>, C>;
+    default(): T;
 }
 
 export interface StringSchemaConstructor {
@@ -133,7 +135,7 @@ export interface StringSchema<T extends string | null | undefined = string | und
         regex: RegExp,
         messageOrOptions?:
             | StringLocale['matches']
-            | { message?: StringLocale['matches']; excludeEmptyString?: boolean },
+            | { message?: StringLocale['matches'] | undefined; excludeEmptyString?: boolean | undefined },
     ): StringSchema<T, C>;
     email(message?: StringLocale['email']): StringSchema<T, C>;
     url(message?: StringLocale['url']): StringSchema<T, C>;
@@ -169,6 +171,8 @@ export interface StringSchema<T extends string | null | undefined = string | und
     test<U extends T = T>(options: AssertingTestOptions<U, Record<string, any>, C>): StringSchema<U, C>;
     test(options: TestOptions<Record<string, any>, C>): this;
     optional(): StringSchema<T | undefined, C>;
+    default<U extends T>(value: U | (() => U)): U extends undefined ? StringSchema<T, C> : StringSchema<Exclude<T, undefined>, C>;
+    default(): T;
 }
 
 export interface NumberSchemaConstructor {
@@ -212,6 +216,8 @@ export interface NumberSchema<T extends number | null | undefined = number | und
     test<U extends T = T>(options: AssertingTestOptions<U, Record<string, any>, C>): NumberSchema<U, C>;
     test(options: TestOptions<Record<string, any>, C>): this;
     optional(): NumberSchema<T | undefined, C>;
+    default<U extends T>(value: U | (() => U)): U extends undefined ? NumberSchema<T, C> : NumberSchema<Exclude<T, undefined>, C>;
+    default(): T;
 }
 
 export interface BooleanSchemaConstructor {
@@ -246,6 +252,8 @@ export interface BooleanSchema<T extends boolean | null | undefined = boolean | 
     test<U extends T = T>(options: AssertingTestOptions<U, Record<string, any>, C>): BooleanSchema<U, C>;
     test(options: TestOptions<Record<string, any>, C>): this;
     optional(): BooleanSchema<T | undefined, C>;
+    default<U extends T>(value: U | (() => U)): U extends undefined ? BooleanSchema<T, C> : BooleanSchema<Exclude<T, undefined>, C>;
+    default(): T;
 }
 
 export interface DateSchemaConstructor {
@@ -281,6 +289,8 @@ export interface DateSchema<T extends Date | string | null | undefined = Date | 
     test<U extends T = T>(options: AssertingTestOptions<U, Record<string, any>, C>): DateSchema<U, C>;
     test(options: TestOptions<Record<string, any>, C>): this;
     optional(): DateSchema<T | undefined, C>;
+    default<U extends T>(value: U | (() => U)): U extends undefined ? DateSchema<T, C> : DateSchema<Exclude<T, undefined>, C>;
+    default(): T;
 }
 
 export interface ArraySchemaConstructor {
@@ -409,6 +419,8 @@ export interface ObjectSchema<T extends object | null | undefined = object | und
     ): ObjectSchema<U, C>;
     test<U extends T = T>(options: AssertingTestOptions<U, Record<string, any>, C>): ObjectSchema<U, C>;
     test(options: TestOptions<Record<string, any>, C>): this;
+    default<U extends T>(value: U | (() => U)): U extends undefined ? ObjectSchema<T, C> : ObjectSchema<Exclude<T, undefined>, C>;
+    default(): T;
 }
 
 export type TestFunction<T = unknown, C = object> = (
@@ -446,30 +458,30 @@ export interface TestContext<C = object> {
     schema: Schema<any, C>;
     originalValue: any;
     resolve: (value: any) => any;
-    createError: (params?: { path?: string; message?: string; params?: object }) => ValidationError;
+    createError: (params?: { path?: string | undefined; message?: string | undefined; params?: object | undefined }) => ValidationError;
 }
 
 export interface ValidateOptions<C = object> {
     /**
      * Only validate the input, and skip and coercion or transformation. Default - false
      */
-    strict?: boolean;
+    strict?: boolean | undefined;
     /**
      * Return from validation methods on the first error rather than after all validations run. Default - true
      */
-    abortEarly?: boolean;
+    abortEarly?: boolean | undefined;
     /**
      * Remove unspecified keys from objects. Default - false
      */
-    stripUnknown?: boolean;
+    stripUnknown?: boolean | undefined;
     /**
      * When false validations will not descend into nested schema (relevant for objects or arrays). Default - true
      */
-    recursive?: boolean;
+    recursive?: boolean | undefined;
     /**
      * Any context needed for validating schema conditions (see: when())
      */
-    context?: C;
+    context?: C | undefined;
 }
 
 export interface TestMessageParams {
@@ -483,7 +495,7 @@ interface BaseTestOptions<P extends Record<string, any>, C = object> {
     /**
      * Unique name identifying the test. Required for exclusive tests.
      */
-    name?: string;
+    name?: string | undefined;
 
     /**
      * Test function, determines schema validity
@@ -493,21 +505,21 @@ interface BaseTestOptions<P extends Record<string, any>, C = object> {
     /**
      * The validation error message
      */
-    message?: TestOptionsMessage<P>;
+    message?: TestOptionsMessage<P> | undefined;
 
     /**
      * Values passed to message for interpolation
      */
-    params?: P;
+    params?: P | undefined;
 
     /**
      * Mark the test as exclusive, meaning only one of the same can be active at once
      */
-    exclusive?: boolean;
+    exclusive?: boolean | undefined;
 }
 
 interface NonExclusiveTestOptions<P extends Record<string, any>, C> extends BaseTestOptions<P, C> {
-    exclusive?: false;
+    exclusive?: false | undefined;
 }
 
 interface ExclusiveTestOptions<P extends Record<string, any>, C> extends BaseTestOptions<P, C> {
@@ -538,7 +550,7 @@ export interface SchemaFieldRefDescription {
 
 export interface SchemaFieldInnerTypeDescription
     extends Pick<SchemaDescription, Exclude<keyof SchemaDescription, 'fields'>> {
-    innerType?: SchemaFieldDescription;
+    innerType?: SchemaFieldDescription | undefined;
 }
 
 export type SchemaFieldDescription = SchemaDescription | SchemaFieldRefDescription | SchemaFieldInnerTypeDescription;
@@ -574,7 +586,7 @@ export class ValidationError extends Error {
      * In the case of aggregate errors, inner is an array of ValidationErrors throw earlier in the validation chain.
      */
     inner: ValidationError[];
-    params?: object;
+    params?: object | undefined;
 
     static isError(err: any): err is ValidationError;
     static formatError(message: string | ((params?: any) => string), params?: any): string | ((params?: any) => string);
@@ -621,60 +633,60 @@ export interface FormatErrorParams {
 export type LocaleValue = string | ((params: FormatErrorParams) => string);
 
 export interface MixedLocale {
-    default?: TestOptionsMessage;
-    required?: TestOptionsMessage;
-    oneOf?: TestOptionsMessage<{ values: any }>;
-    notOneOf?: TestOptionsMessage<{ values: any }>;
-    notType?: LocaleValue;
-    defined?: TestOptionsMessage;
+    default?: TestOptionsMessage | undefined;
+    required?: TestOptionsMessage | undefined;
+    oneOf?: TestOptionsMessage<{ values: any }> | undefined;
+    notOneOf?: TestOptionsMessage<{ values: any }> | undefined;
+    notType?: LocaleValue | undefined;
+    defined?: TestOptionsMessage | undefined;
 }
 
 export interface StringLocale {
-    length?: TestOptionsMessage<{ length: number }>;
-    min?: TestOptionsMessage<{ min: number }>;
-    max?: TestOptionsMessage<{ max: number }>;
-    matches?: TestOptionsMessage<{ regex: RegExp }>;
-    email?: TestOptionsMessage<{ regex: RegExp }>;
-    url?: TestOptionsMessage<{ regex: RegExp }>;
-    uuid?: TestOptionsMessage<{ regex: RegExp }>;
-    trim?: TestOptionsMessage;
-    lowercase?: TestOptionsMessage;
-    uppercase?: TestOptionsMessage;
+    length?: TestOptionsMessage<{ length: number }> | undefined;
+    min?: TestOptionsMessage<{ min: number }> | undefined;
+    max?: TestOptionsMessage<{ max: number }> | undefined;
+    matches?: TestOptionsMessage<{ regex: RegExp }> | undefined;
+    email?: TestOptionsMessage<{ regex: RegExp }> | undefined;
+    url?: TestOptionsMessage<{ regex: RegExp }> | undefined;
+    uuid?: TestOptionsMessage<{ regex: RegExp }> | undefined;
+    trim?: TestOptionsMessage | undefined;
+    lowercase?: TestOptionsMessage | undefined;
+    uppercase?: TestOptionsMessage | undefined;
 }
 
 export interface NumberLocale {
-    min?: TestOptionsMessage<{ min: number }>;
-    max?: TestOptionsMessage<{ max: number }>;
-    lessThan?: TestOptionsMessage<{ less: number }>;
-    moreThan?: TestOptionsMessage<{ more: number }>;
-    notEqual?: TestOptionsMessage<{ notEqual: number }>;
-    positive?: TestOptionsMessage<{ more: number }>;
-    negative?: TestOptionsMessage<{ less: number }>;
-    integer?: TestOptionsMessage;
+    min?: TestOptionsMessage<{ min: number }> | undefined;
+    max?: TestOptionsMessage<{ max: number }> | undefined;
+    lessThan?: TestOptionsMessage<{ less: number }> | undefined;
+    moreThan?: TestOptionsMessage<{ more: number }> | undefined;
+    notEqual?: TestOptionsMessage<{ notEqual: number }> | undefined;
+    positive?: TestOptionsMessage<{ more: number }> | undefined;
+    negative?: TestOptionsMessage<{ less: number }> | undefined;
+    integer?: TestOptionsMessage | undefined;
 }
 
 export interface DateLocale {
-    min?: TestOptionsMessage<{ min: Date | string }>;
-    max?: TestOptionsMessage<{ max: Date | string }>;
+    min?: TestOptionsMessage<{ min: Date | string }> | undefined;
+    max?: TestOptionsMessage<{ max: Date | string }> | undefined;
 }
 
 export interface ObjectLocale {
-    noUnknown?: TestOptionsMessage<{ unknown: string }>;
+    noUnknown?: TestOptionsMessage<{ unknown: string }> | undefined;
 }
 
 export interface ArrayLocale {
-    min?: TestOptionsMessage<{ min: number }>;
-    max?: TestOptionsMessage<{ max: number }>;
+    min?: TestOptionsMessage<{ min: number }> | undefined;
+    max?: TestOptionsMessage<{ max: number }> | undefined;
 }
 
 export interface LocaleObject {
-    mixed?: MixedLocale;
-    string?: StringLocale;
-    number?: NumberLocale;
-    date?: DateLocale;
-    boolean?: {};
-    object?: ObjectLocale;
-    array?: ArrayLocale;
+    mixed?: MixedLocale | undefined;
+    string?: StringLocale | undefined;
+    number?: NumberLocale | undefined;
+    date?: DateLocale | undefined;
+    boolean?: {} | undefined;
+    object?: ObjectLocale | undefined;
+    array?: ArrayLocale | undefined;
 }
 
 export type InferType<T> = T extends Schema<infer P> ? InnerInferType<P> : never;

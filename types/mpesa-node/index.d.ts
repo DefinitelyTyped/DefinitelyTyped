@@ -37,13 +37,13 @@ declare class Mpesa {
 interface ConfigOptions {
     consumerKey: string;
     consumerSecret: string;
-    enviroment?: string;
-    shortCode?: string;
-    initiatorName?: string;
-    lipaNaMpesaShortCode?: string;
-    lipaNaMpesaShortPass?: string;
-    securityCredential?: string;
-    certPath?: string;
+    enviroment?: string | undefined;
+    shortCode?: string | undefined;
+    initiatorName?: string | undefined;
+    lipaNaMpesaShortCode?: string | undefined;
+    lipaNaMpesaShortPass?: string | undefined;
+    securityCredential?: string | undefined;
+    certPath?: string | undefined;
 }
 
 export = Mpesa;

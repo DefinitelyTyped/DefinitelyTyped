@@ -9,16 +9,16 @@ import { Size } from '../size';
 import ImageSource, { ImageSourceEvent } from './Image';
 
 export interface Options {
-    url?: string;
-    crossOrigin?: string;
-    displayDpi?: number;
-    metersPerUnit?: number;
-    hidpi?: boolean;
-    useOverlay?: boolean;
-    projection?: ProjectionLike;
-    ratio?: number;
-    resolutions?: number[];
-    imageLoadFunction?: LoadFunction;
+    url?: string | undefined;
+    crossOrigin?: string | undefined;
+    displayDpi?: number | undefined;
+    metersPerUnit?: number | undefined;
+    hidpi?: boolean | undefined;
+    useOverlay?: boolean | undefined;
+    projection?: ProjectionLike | undefined;
+    ratio?: number | undefined;
+    resolutions?: number[] | undefined;
+    imageLoadFunction?: LoadFunction | undefined;
     params?: any;
 }
 export default class ImageMapGuide extends ImageSource {

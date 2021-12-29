@@ -41,13 +41,13 @@ commerce.customer.logout();
 
 // From https://api.chec.io/v1/customer/<customer>
 const customer: Customer.Customer = {
-    id: "cstmr_cO3J2apam2oDdz",
+    id: 'cstmr_cO3J2apam2oDdz',
     external_id: null,
-    firstname: "John",
-    lastname: "Doe",
-    email: "john.doe@example.com",
+    firstname: 'John',
+    lastname: 'Doe',
+    email: 'john.doe@example.com',
     phone: null,
     meta: [],
     created: 1621784891,
-    updated: 1621784891
+    updated: 1621784891,
 };

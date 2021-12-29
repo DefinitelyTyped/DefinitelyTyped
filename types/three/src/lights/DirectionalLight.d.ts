@@ -1,8 +1,8 @@
-import { Color } from './../math/Color';
 import { Object3D } from './../core/Object3D';
 import { DirectionalLightShadow } from './DirectionalLightShadow';
 import { Light } from './Light';
 import { Vector3 } from '../math/Vector3';
+import { ColorRepresentation } from '../utils';
 
 /**
  * see {@link https://github.com/mrdoob/three.js/blob/master/src/lights/DirectionalLight.js|src/lights/DirectionalLight.js}
@@ -14,7 +14,7 @@ import { Vector3 } from '../math/Vector3';
  * scene.add( directionalLight );
  */
 export class DirectionalLight extends Light {
-    constructor(color?: Color | string | number, intensity?: number);
+    constructor(color?: ColorRepresentation, intensity?: number);
 
     /**
      * @default 'DirectionalLight'
@@ -24,7 +24,7 @@ export class DirectionalLight extends Light {
     /**
      * @default THREE.Object3D.DefaultUp
      */
-    position: Vector3;
+    readonly position: Vector3;
 
     /**
      * Target used for shadow camera orientation.

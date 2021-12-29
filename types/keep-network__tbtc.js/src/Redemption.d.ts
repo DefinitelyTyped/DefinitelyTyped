@@ -21,7 +21,7 @@ export default class Redemption {
     withdrawnEmitter: EventEmitter;
     receivedConfirmationEmitter: EventEmitter;
     constructor(deposit: DepositBaseClass, redemptionDetails?: RedemptionDetails);
-    autoSubmittingState?: AutoSubmitState;
+    autoSubmittingState?: AutoSubmitState | undefined;
     autoSubmit(): AutoSubmitState;
     proveWithdrawal(transactionID: string, confirmations: number): Promise<void>;
     onBitcoinTransactionSigned(transactionHandler: (transaction: string) => void): void;

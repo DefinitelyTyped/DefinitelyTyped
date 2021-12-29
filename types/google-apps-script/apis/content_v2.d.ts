@@ -334,1737 +334,1737 @@ declare namespace GoogleAppsScript {
     }
     namespace Schema {
       interface Account {
-        adultContent?: boolean;
-        adwordsLinks?: Content.Schema.AccountAdwordsLink[];
-        businessInformation?: Content.Schema.AccountBusinessInformation;
-        googleMyBusinessLink?: Content.Schema.AccountGoogleMyBusinessLink;
-        id?: string;
-        kind?: string;
-        name?: string;
-        reviewsUrl?: string;
-        sellerId?: string;
-        users?: Content.Schema.AccountUser[];
-        websiteUrl?: string;
-        youtubeChannelLinks?: Content.Schema.AccountYouTubeChannelLink[];
+        adultContent?: boolean | undefined;
+        adwordsLinks?: Content.Schema.AccountAdwordsLink[] | undefined;
+        businessInformation?: Content.Schema.AccountBusinessInformation | undefined;
+        googleMyBusinessLink?: Content.Schema.AccountGoogleMyBusinessLink | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        name?: string | undefined;
+        reviewsUrl?: string | undefined;
+        sellerId?: string | undefined;
+        users?: Content.Schema.AccountUser[] | undefined;
+        websiteUrl?: string | undefined;
+        youtubeChannelLinks?: Content.Schema.AccountYouTubeChannelLink[] | undefined;
       }
       interface AccountAddress {
-        country?: string;
-        locality?: string;
-        postalCode?: string;
-        region?: string;
-        streetAddress?: string;
+        country?: string | undefined;
+        locality?: string | undefined;
+        postalCode?: string | undefined;
+        region?: string | undefined;
+        streetAddress?: string | undefined;
       }
       interface AccountAdwordsLink {
-        adwordsId?: string;
-        status?: string;
+        adwordsId?: string | undefined;
+        status?: string | undefined;
       }
       interface AccountBusinessInformation {
-        address?: Content.Schema.AccountAddress;
-        customerService?: Content.Schema.AccountCustomerService;
-        phoneNumber?: string;
+        address?: Content.Schema.AccountAddress | undefined;
+        customerService?: Content.Schema.AccountCustomerService | undefined;
+        phoneNumber?: string | undefined;
       }
       interface AccountCustomerService {
-        email?: string;
-        phoneNumber?: string;
-        url?: string;
+        email?: string | undefined;
+        phoneNumber?: string | undefined;
+        url?: string | undefined;
       }
       interface AccountGoogleMyBusinessLink {
-        gmbEmail?: string;
-        status?: string;
+        gmbEmail?: string | undefined;
+        status?: string | undefined;
       }
       interface AccountIdentifier {
-        aggregatorId?: string;
-        merchantId?: string;
+        aggregatorId?: string | undefined;
+        merchantId?: string | undefined;
       }
       interface AccountStatus {
-        accountId?: string;
-        accountLevelIssues?: Content.Schema.AccountStatusAccountLevelIssue[];
-        dataQualityIssues?: Content.Schema.AccountStatusDataQualityIssue[];
-        kind?: string;
-        products?: Content.Schema.AccountStatusProducts[];
-        websiteClaimed?: boolean;
+        accountId?: string | undefined;
+        accountLevelIssues?: Content.Schema.AccountStatusAccountLevelIssue[] | undefined;
+        dataQualityIssues?: Content.Schema.AccountStatusDataQualityIssue[] | undefined;
+        kind?: string | undefined;
+        products?: Content.Schema.AccountStatusProducts[] | undefined;
+        websiteClaimed?: boolean | undefined;
       }
       interface AccountStatusAccountLevelIssue {
-        country?: string;
-        destination?: string;
-        detail?: string;
-        documentation?: string;
-        id?: string;
-        severity?: string;
-        title?: string;
+        country?: string | undefined;
+        destination?: string | undefined;
+        detail?: string | undefined;
+        documentation?: string | undefined;
+        id?: string | undefined;
+        severity?: string | undefined;
+        title?: string | undefined;
       }
       interface AccountStatusDataQualityIssue {
-        country?: string;
-        destination?: string;
-        detail?: string;
-        displayedValue?: string;
-        exampleItems?: Content.Schema.AccountStatusExampleItem[];
-        id?: string;
-        lastChecked?: string;
-        location?: string;
-        numItems?: number;
-        severity?: string;
-        submittedValue?: string;
+        country?: string | undefined;
+        destination?: string | undefined;
+        detail?: string | undefined;
+        displayedValue?: string | undefined;
+        exampleItems?: Content.Schema.AccountStatusExampleItem[] | undefined;
+        id?: string | undefined;
+        lastChecked?: string | undefined;
+        location?: string | undefined;
+        numItems?: number | undefined;
+        severity?: string | undefined;
+        submittedValue?: string | undefined;
       }
       interface AccountStatusExampleItem {
-        itemId?: string;
-        link?: string;
-        submittedValue?: string;
-        title?: string;
-        valueOnLandingPage?: string;
+        itemId?: string | undefined;
+        link?: string | undefined;
+        submittedValue?: string | undefined;
+        title?: string | undefined;
+        valueOnLandingPage?: string | undefined;
       }
       interface AccountStatusItemLevelIssue {
-        attributeName?: string;
-        code?: string;
-        description?: string;
-        detail?: string;
-        documentation?: string;
-        numItems?: string;
-        resolution?: string;
-        servability?: string;
+        attributeName?: string | undefined;
+        code?: string | undefined;
+        description?: string | undefined;
+        detail?: string | undefined;
+        documentation?: string | undefined;
+        numItems?: string | undefined;
+        resolution?: string | undefined;
+        servability?: string | undefined;
       }
       interface AccountStatusProducts {
-        channel?: string;
-        country?: string;
-        destination?: string;
-        itemLevelIssues?: Content.Schema.AccountStatusItemLevelIssue[];
-        statistics?: Content.Schema.AccountStatusStatistics;
+        channel?: string | undefined;
+        country?: string | undefined;
+        destination?: string | undefined;
+        itemLevelIssues?: Content.Schema.AccountStatusItemLevelIssue[] | undefined;
+        statistics?: Content.Schema.AccountStatusStatistics | undefined;
       }
       interface AccountStatusStatistics {
-        active?: string;
-        disapproved?: string;
-        expiring?: string;
-        pending?: string;
+        active?: string | undefined;
+        disapproved?: string | undefined;
+        expiring?: string | undefined;
+        pending?: string | undefined;
       }
       interface AccountTax {
-        accountId?: string;
-        kind?: string;
-        rules?: Content.Schema.AccountTaxTaxRule[];
+        accountId?: string | undefined;
+        kind?: string | undefined;
+        rules?: Content.Schema.AccountTaxTaxRule[] | undefined;
       }
       interface AccountTaxTaxRule {
-        country?: string;
-        locationId?: string;
-        ratePercent?: string;
-        shippingTaxed?: boolean;
-        useGlobalRate?: boolean;
+        country?: string | undefined;
+        locationId?: string | undefined;
+        ratePercent?: string | undefined;
+        shippingTaxed?: boolean | undefined;
+        useGlobalRate?: boolean | undefined;
       }
       interface AccountUser {
-        admin?: boolean;
-        emailAddress?: string;
-        orderManager?: boolean;
-        paymentsAnalyst?: boolean;
-        paymentsManager?: boolean;
+        admin?: boolean | undefined;
+        emailAddress?: string | undefined;
+        orderManager?: boolean | undefined;
+        paymentsAnalyst?: boolean | undefined;
+        paymentsManager?: boolean | undefined;
       }
       interface AccountYouTubeChannelLink {
-        channelId?: string;
-        status?: string;
+        channelId?: string | undefined;
+        status?: string | undefined;
       }
       interface AccountsAuthInfoResponse {
-        accountIdentifiers?: Content.Schema.AccountIdentifier[];
-        kind?: string;
+        accountIdentifiers?: Content.Schema.AccountIdentifier[] | undefined;
+        kind?: string | undefined;
       }
       interface AccountsClaimWebsiteResponse {
-        kind?: string;
+        kind?: string | undefined;
       }
       interface AccountsCustomBatchRequest {
-        entries?: Content.Schema.AccountsCustomBatchRequestEntry[];
+        entries?: Content.Schema.AccountsCustomBatchRequestEntry[] | undefined;
       }
       interface AccountsCustomBatchRequestEntry {
-        account?: Content.Schema.Account;
-        accountId?: string;
-        batchId?: number;
-        force?: boolean;
-        linkRequest?: Content.Schema.AccountsCustomBatchRequestEntryLinkRequest;
-        merchantId?: string;
-        method?: string;
-        overwrite?: boolean;
+        account?: Content.Schema.Account | undefined;
+        accountId?: string | undefined;
+        batchId?: number | undefined;
+        force?: boolean | undefined;
+        linkRequest?: Content.Schema.AccountsCustomBatchRequestEntryLinkRequest | undefined;
+        merchantId?: string | undefined;
+        method?: string | undefined;
+        overwrite?: boolean | undefined;
       }
       interface AccountsCustomBatchRequestEntryLinkRequest {
-        action?: string;
-        linkType?: string;
-        linkedAccountId?: string;
+        action?: string | undefined;
+        linkType?: string | undefined;
+        linkedAccountId?: string | undefined;
       }
       interface AccountsCustomBatchResponse {
-        entries?: Content.Schema.AccountsCustomBatchResponseEntry[];
-        kind?: string;
+        entries?: Content.Schema.AccountsCustomBatchResponseEntry[] | undefined;
+        kind?: string | undefined;
       }
       interface AccountsCustomBatchResponseEntry {
-        account?: Content.Schema.Account;
-        batchId?: number;
-        errors?: Content.Schema.Errors;
-        kind?: string;
-        linkStatus?: string;
+        account?: Content.Schema.Account | undefined;
+        batchId?: number | undefined;
+        errors?: Content.Schema.Errors | undefined;
+        kind?: string | undefined;
+        linkStatus?: string | undefined;
       }
       interface AccountsLinkRequest {
-        action?: string;
-        linkType?: string;
-        linkedAccountId?: string;
+        action?: string | undefined;
+        linkType?: string | undefined;
+        linkedAccountId?: string | undefined;
       }
       interface AccountsLinkResponse {
-        kind?: string;
+        kind?: string | undefined;
       }
       interface AccountsListResponse {
-        kind?: string;
-        nextPageToken?: string;
-        resources?: Content.Schema.Account[];
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
+        resources?: Content.Schema.Account[] | undefined;
       }
       interface AccountstatusesCustomBatchRequest {
-        entries?: Content.Schema.AccountstatusesCustomBatchRequestEntry[];
+        entries?: Content.Schema.AccountstatusesCustomBatchRequestEntry[] | undefined;
       }
       interface AccountstatusesCustomBatchRequestEntry {
-        accountId?: string;
-        batchId?: number;
-        destinations?: string[];
-        merchantId?: string;
-        method?: string;
+        accountId?: string | undefined;
+        batchId?: number | undefined;
+        destinations?: string[] | undefined;
+        merchantId?: string | undefined;
+        method?: string | undefined;
       }
       interface AccountstatusesCustomBatchResponse {
-        entries?: Content.Schema.AccountstatusesCustomBatchResponseEntry[];
-        kind?: string;
+        entries?: Content.Schema.AccountstatusesCustomBatchResponseEntry[] | undefined;
+        kind?: string | undefined;
       }
       interface AccountstatusesCustomBatchResponseEntry {
-        accountStatus?: Content.Schema.AccountStatus;
-        batchId?: number;
-        errors?: Content.Schema.Errors;
+        accountStatus?: Content.Schema.AccountStatus | undefined;
+        batchId?: number | undefined;
+        errors?: Content.Schema.Errors | undefined;
       }
       interface AccountstatusesListResponse {
-        kind?: string;
-        nextPageToken?: string;
-        resources?: Content.Schema.AccountStatus[];
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
+        resources?: Content.Schema.AccountStatus[] | undefined;
       }
       interface AccounttaxCustomBatchRequest {
-        entries?: Content.Schema.AccounttaxCustomBatchRequestEntry[];
+        entries?: Content.Schema.AccounttaxCustomBatchRequestEntry[] | undefined;
       }
       interface AccounttaxCustomBatchRequestEntry {
-        accountId?: string;
-        accountTax?: Content.Schema.AccountTax;
-        batchId?: number;
-        merchantId?: string;
-        method?: string;
+        accountId?: string | undefined;
+        accountTax?: Content.Schema.AccountTax | undefined;
+        batchId?: number | undefined;
+        merchantId?: string | undefined;
+        method?: string | undefined;
       }
       interface AccounttaxCustomBatchResponse {
-        entries?: Content.Schema.AccounttaxCustomBatchResponseEntry[];
-        kind?: string;
+        entries?: Content.Schema.AccounttaxCustomBatchResponseEntry[] | undefined;
+        kind?: string | undefined;
       }
       interface AccounttaxCustomBatchResponseEntry {
-        accountTax?: Content.Schema.AccountTax;
-        batchId?: number;
-        errors?: Content.Schema.Errors;
-        kind?: string;
+        accountTax?: Content.Schema.AccountTax | undefined;
+        batchId?: number | undefined;
+        errors?: Content.Schema.Errors | undefined;
+        kind?: string | undefined;
       }
       interface AccounttaxListResponse {
-        kind?: string;
-        nextPageToken?: string;
-        resources?: Content.Schema.AccountTax[];
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
+        resources?: Content.Schema.AccountTax[] | undefined;
       }
       interface Amount {
-        pretax?: Content.Schema.Price;
-        tax?: Content.Schema.Price;
+        pretax?: Content.Schema.Price | undefined;
+        tax?: Content.Schema.Price | undefined;
       }
       interface CarrierRate {
-        carrierName?: string;
-        carrierService?: string;
-        flatAdjustment?: Content.Schema.Price;
-        name?: string;
-        originPostalCode?: string;
-        percentageAdjustment?: string;
+        carrierName?: string | undefined;
+        carrierService?: string | undefined;
+        flatAdjustment?: Content.Schema.Price | undefined;
+        name?: string | undefined;
+        originPostalCode?: string | undefined;
+        percentageAdjustment?: string | undefined;
       }
       interface CarriersCarrier {
-        country?: string;
-        name?: string;
-        services?: string[];
+        country?: string | undefined;
+        name?: string | undefined;
+        services?: string[] | undefined;
       }
       interface CustomAttribute {
-        name?: string;
-        type?: string;
-        unit?: string;
-        value?: string;
+        name?: string | undefined;
+        type?: string | undefined;
+        unit?: string | undefined;
+        value?: string | undefined;
       }
       interface CustomGroup {
-        attributes?: Content.Schema.CustomAttribute[];
-        name?: string;
+        attributes?: Content.Schema.CustomAttribute[] | undefined;
+        name?: string | undefined;
       }
       interface CustomerReturnReason {
-        description?: string;
-        reasonCode?: string;
+        description?: string | undefined;
+        reasonCode?: string | undefined;
       }
       interface CutoffTime {
-        hour?: number;
-        minute?: number;
-        timezone?: string;
+        hour?: number | undefined;
+        minute?: number | undefined;
+        timezone?: string | undefined;
       }
       interface Datafeed {
-        attributeLanguage?: string;
-        contentLanguage?: string;
-        contentType?: string;
-        fetchSchedule?: Content.Schema.DatafeedFetchSchedule;
-        fileName?: string;
-        format?: Content.Schema.DatafeedFormat;
-        id?: string;
-        intendedDestinations?: string[];
-        kind?: string;
-        name?: string;
-        targetCountry?: string;
-        targets?: Content.Schema.DatafeedTarget[];
+        attributeLanguage?: string | undefined;
+        contentLanguage?: string | undefined;
+        contentType?: string | undefined;
+        fetchSchedule?: Content.Schema.DatafeedFetchSchedule | undefined;
+        fileName?: string | undefined;
+        format?: Content.Schema.DatafeedFormat | undefined;
+        id?: string | undefined;
+        intendedDestinations?: string[] | undefined;
+        kind?: string | undefined;
+        name?: string | undefined;
+        targetCountry?: string | undefined;
+        targets?: Content.Schema.DatafeedTarget[] | undefined;
       }
       interface DatafeedFetchSchedule {
-        dayOfMonth?: number;
-        fetchUrl?: string;
-        hour?: number;
-        minuteOfHour?: number;
-        password?: string;
-        paused?: boolean;
-        timeZone?: string;
-        username?: string;
-        weekday?: string;
+        dayOfMonth?: number | undefined;
+        fetchUrl?: string | undefined;
+        hour?: number | undefined;
+        minuteOfHour?: number | undefined;
+        password?: string | undefined;
+        paused?: boolean | undefined;
+        timeZone?: string | undefined;
+        username?: string | undefined;
+        weekday?: string | undefined;
       }
       interface DatafeedFormat {
-        columnDelimiter?: string;
-        fileEncoding?: string;
-        quotingMode?: string;
+        columnDelimiter?: string | undefined;
+        fileEncoding?: string | undefined;
+        quotingMode?: string | undefined;
       }
       interface DatafeedStatus {
-        country?: string;
-        datafeedId?: string;
-        errors?: Content.Schema.DatafeedStatusError[];
-        itemsTotal?: string;
-        itemsValid?: string;
-        kind?: string;
-        language?: string;
-        lastUploadDate?: string;
-        processingStatus?: string;
-        warnings?: Content.Schema.DatafeedStatusError[];
+        country?: string | undefined;
+        datafeedId?: string | undefined;
+        errors?: Content.Schema.DatafeedStatusError[] | undefined;
+        itemsTotal?: string | undefined;
+        itemsValid?: string | undefined;
+        kind?: string | undefined;
+        language?: string | undefined;
+        lastUploadDate?: string | undefined;
+        processingStatus?: string | undefined;
+        warnings?: Content.Schema.DatafeedStatusError[] | undefined;
       }
       interface DatafeedStatusError {
-        code?: string;
-        count?: string;
-        examples?: Content.Schema.DatafeedStatusExample[];
-        message?: string;
+        code?: string | undefined;
+        count?: string | undefined;
+        examples?: Content.Schema.DatafeedStatusExample[] | undefined;
+        message?: string | undefined;
       }
       interface DatafeedStatusExample {
-        itemId?: string;
-        lineNumber?: string;
-        value?: string;
+        itemId?: string | undefined;
+        lineNumber?: string | undefined;
+        value?: string | undefined;
       }
       interface DatafeedTarget {
-        country?: string;
-        excludedDestinations?: string[];
-        includedDestinations?: string[];
-        language?: string;
+        country?: string | undefined;
+        excludedDestinations?: string[] | undefined;
+        includedDestinations?: string[] | undefined;
+        language?: string | undefined;
       }
       interface DatafeedsCustomBatchRequest {
-        entries?: Content.Schema.DatafeedsCustomBatchRequestEntry[];
+        entries?: Content.Schema.DatafeedsCustomBatchRequestEntry[] | undefined;
       }
       interface DatafeedsCustomBatchRequestEntry {
-        batchId?: number;
-        datafeed?: Content.Schema.Datafeed;
-        datafeedId?: string;
-        merchantId?: string;
-        method?: string;
+        batchId?: number | undefined;
+        datafeed?: Content.Schema.Datafeed | undefined;
+        datafeedId?: string | undefined;
+        merchantId?: string | undefined;
+        method?: string | undefined;
       }
       interface DatafeedsCustomBatchResponse {
-        entries?: Content.Schema.DatafeedsCustomBatchResponseEntry[];
-        kind?: string;
+        entries?: Content.Schema.DatafeedsCustomBatchResponseEntry[] | undefined;
+        kind?: string | undefined;
       }
       interface DatafeedsCustomBatchResponseEntry {
-        batchId?: number;
-        datafeed?: Content.Schema.Datafeed;
-        errors?: Content.Schema.Errors;
+        batchId?: number | undefined;
+        datafeed?: Content.Schema.Datafeed | undefined;
+        errors?: Content.Schema.Errors | undefined;
       }
       interface DatafeedsFetchNowResponse {
-        kind?: string;
+        kind?: string | undefined;
       }
       interface DatafeedsListResponse {
-        kind?: string;
-        nextPageToken?: string;
-        resources?: Content.Schema.Datafeed[];
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
+        resources?: Content.Schema.Datafeed[] | undefined;
       }
       interface DatafeedstatusesCustomBatchRequest {
-        entries?: Content.Schema.DatafeedstatusesCustomBatchRequestEntry[];
+        entries?: Content.Schema.DatafeedstatusesCustomBatchRequestEntry[] | undefined;
       }
       interface DatafeedstatusesCustomBatchRequestEntry {
-        batchId?: number;
-        country?: string;
-        datafeedId?: string;
-        language?: string;
-        merchantId?: string;
-        method?: string;
+        batchId?: number | undefined;
+        country?: string | undefined;
+        datafeedId?: string | undefined;
+        language?: string | undefined;
+        merchantId?: string | undefined;
+        method?: string | undefined;
       }
       interface DatafeedstatusesCustomBatchResponse {
-        entries?: Content.Schema.DatafeedstatusesCustomBatchResponseEntry[];
-        kind?: string;
+        entries?: Content.Schema.DatafeedstatusesCustomBatchResponseEntry[] | undefined;
+        kind?: string | undefined;
       }
       interface DatafeedstatusesCustomBatchResponseEntry {
-        batchId?: number;
-        datafeedStatus?: Content.Schema.DatafeedStatus;
-        errors?: Content.Schema.Errors;
+        batchId?: number | undefined;
+        datafeedStatus?: Content.Schema.DatafeedStatus | undefined;
+        errors?: Content.Schema.Errors | undefined;
       }
       interface DatafeedstatusesListResponse {
-        kind?: string;
-        nextPageToken?: string;
-        resources?: Content.Schema.DatafeedStatus[];
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
+        resources?: Content.Schema.DatafeedStatus[] | undefined;
       }
       interface DeliveryTime {
-        cutoffTime?: Content.Schema.CutoffTime;
-        holidayCutoffs?: Content.Schema.HolidayCutoff[];
-        maxHandlingTimeInDays?: number;
-        maxTransitTimeInDays?: number;
-        minHandlingTimeInDays?: number;
-        minTransitTimeInDays?: number;
-        transitTimeTable?: Content.Schema.TransitTable;
+        cutoffTime?: Content.Schema.CutoffTime | undefined;
+        holidayCutoffs?: Content.Schema.HolidayCutoff[] | undefined;
+        maxHandlingTimeInDays?: number | undefined;
+        maxTransitTimeInDays?: number | undefined;
+        minHandlingTimeInDays?: number | undefined;
+        minTransitTimeInDays?: number | undefined;
+        transitTimeTable?: Content.Schema.TransitTable | undefined;
       }
       interface Error {
-        domain?: string;
-        message?: string;
-        reason?: string;
+        domain?: string | undefined;
+        message?: string | undefined;
+        reason?: string | undefined;
       }
       interface Errors {
-        code?: number;
-        errors?: Content.Schema.Error[];
-        message?: string;
+        code?: number | undefined;
+        errors?: Content.Schema.Error[] | undefined;
+        message?: string | undefined;
       }
       interface GmbAccounts {
-        accountId?: string;
-        gmbAccounts?: Content.Schema.GmbAccountsGmbAccount[];
+        accountId?: string | undefined;
+        gmbAccounts?: Content.Schema.GmbAccountsGmbAccount[] | undefined;
       }
       interface GmbAccountsGmbAccount {
-        email?: string;
-        listingCount?: string;
-        name?: string;
-        type?: string;
+        email?: string | undefined;
+        listingCount?: string | undefined;
+        name?: string | undefined;
+        type?: string | undefined;
       }
       interface Headers {
-        locations?: Content.Schema.LocationIdSet[];
-        numberOfItems?: string[];
-        postalCodeGroupNames?: string[];
-        prices?: Content.Schema.Price[];
-        weights?: Content.Schema.Weight[];
+        locations?: Content.Schema.LocationIdSet[] | undefined;
+        numberOfItems?: string[] | undefined;
+        postalCodeGroupNames?: string[] | undefined;
+        prices?: Content.Schema.Price[] | undefined;
+        weights?: Content.Schema.Weight[] | undefined;
       }
       interface HolidayCutoff {
-        deadlineDate?: string;
-        deadlineHour?: number;
-        deadlineTimezone?: string;
-        holidayId?: string;
-        visibleFromDate?: string;
+        deadlineDate?: string | undefined;
+        deadlineHour?: number | undefined;
+        deadlineTimezone?: string | undefined;
+        holidayId?: string | undefined;
+        visibleFromDate?: string | undefined;
       }
       interface HolidaysHoliday {
-        countryCode?: string;
-        date?: string;
-        deliveryGuaranteeDate?: string;
-        deliveryGuaranteeHour?: string;
-        id?: string;
-        type?: string;
+        countryCode?: string | undefined;
+        date?: string | undefined;
+        deliveryGuaranteeDate?: string | undefined;
+        deliveryGuaranteeHour?: string | undefined;
+        id?: string | undefined;
+        type?: string | undefined;
       }
       interface Installment {
-        amount?: Content.Schema.Price;
-        months?: string;
+        amount?: Content.Schema.Price | undefined;
+        months?: string | undefined;
       }
       interface Inventory {
-        availability?: string;
-        customLabel0?: string;
-        customLabel1?: string;
-        customLabel2?: string;
-        customLabel3?: string;
-        customLabel4?: string;
-        installment?: Content.Schema.Installment;
-        instoreProductLocation?: string;
-        kind?: string;
-        loyaltyPoints?: Content.Schema.LoyaltyPoints;
-        pickup?: Content.Schema.InventoryPickup;
-        price?: Content.Schema.Price;
-        quantity?: number;
-        salePrice?: Content.Schema.Price;
-        salePriceEffectiveDate?: string;
-        sellOnGoogleQuantity?: number;
+        availability?: string | undefined;
+        customLabel0?: string | undefined;
+        customLabel1?: string | undefined;
+        customLabel2?: string | undefined;
+        customLabel3?: string | undefined;
+        customLabel4?: string | undefined;
+        installment?: Content.Schema.Installment | undefined;
+        instoreProductLocation?: string | undefined;
+        kind?: string | undefined;
+        loyaltyPoints?: Content.Schema.LoyaltyPoints | undefined;
+        pickup?: Content.Schema.InventoryPickup | undefined;
+        price?: Content.Schema.Price | undefined;
+        quantity?: number | undefined;
+        salePrice?: Content.Schema.Price | undefined;
+        salePriceEffectiveDate?: string | undefined;
+        sellOnGoogleQuantity?: number | undefined;
       }
       interface InventoryCustomBatchRequest {
-        entries?: Content.Schema.InventoryCustomBatchRequestEntry[];
+        entries?: Content.Schema.InventoryCustomBatchRequestEntry[] | undefined;
       }
       interface InventoryCustomBatchRequestEntry {
-        batchId?: number;
-        inventory?: Content.Schema.Inventory;
-        merchantId?: string;
-        productId?: string;
-        storeCode?: string;
+        batchId?: number | undefined;
+        inventory?: Content.Schema.Inventory | undefined;
+        merchantId?: string | undefined;
+        productId?: string | undefined;
+        storeCode?: string | undefined;
       }
       interface InventoryCustomBatchResponse {
-        entries?: Content.Schema.InventoryCustomBatchResponseEntry[];
-        kind?: string;
+        entries?: Content.Schema.InventoryCustomBatchResponseEntry[] | undefined;
+        kind?: string | undefined;
       }
       interface InventoryCustomBatchResponseEntry {
-        batchId?: number;
-        errors?: Content.Schema.Errors;
-        kind?: string;
+        batchId?: number | undefined;
+        errors?: Content.Schema.Errors | undefined;
+        kind?: string | undefined;
       }
       interface InventoryPickup {
-        pickupMethod?: string;
-        pickupSla?: string;
+        pickupMethod?: string | undefined;
+        pickupSla?: string | undefined;
       }
       interface InventorySetRequest {
-        availability?: string;
-        customLabel0?: string;
-        customLabel1?: string;
-        customLabel2?: string;
-        customLabel3?: string;
-        customLabel4?: string;
-        installment?: Content.Schema.Installment;
-        instoreProductLocation?: string;
-        loyaltyPoints?: Content.Schema.LoyaltyPoints;
-        pickup?: Content.Schema.InventoryPickup;
-        price?: Content.Schema.Price;
-        quantity?: number;
-        salePrice?: Content.Schema.Price;
-        salePriceEffectiveDate?: string;
-        sellOnGoogleQuantity?: number;
+        availability?: string | undefined;
+        customLabel0?: string | undefined;
+        customLabel1?: string | undefined;
+        customLabel2?: string | undefined;
+        customLabel3?: string | undefined;
+        customLabel4?: string | undefined;
+        installment?: Content.Schema.Installment | undefined;
+        instoreProductLocation?: string | undefined;
+        loyaltyPoints?: Content.Schema.LoyaltyPoints | undefined;
+        pickup?: Content.Schema.InventoryPickup | undefined;
+        price?: Content.Schema.Price | undefined;
+        quantity?: number | undefined;
+        salePrice?: Content.Schema.Price | undefined;
+        salePriceEffectiveDate?: string | undefined;
+        sellOnGoogleQuantity?: number | undefined;
       }
       interface InventorySetResponse {
-        kind?: string;
+        kind?: string | undefined;
       }
       interface InvoiceSummary {
-        additionalChargeSummaries?: Content.Schema.InvoiceSummaryAdditionalChargeSummary[];
-        customerBalance?: Content.Schema.Amount;
-        googleBalance?: Content.Schema.Amount;
-        merchantBalance?: Content.Schema.Amount;
-        productTotal?: Content.Schema.Amount;
-        promotionSummaries?: Content.Schema.Promotion[];
+        additionalChargeSummaries?: Content.Schema.InvoiceSummaryAdditionalChargeSummary[] | undefined;
+        customerBalance?: Content.Schema.Amount | undefined;
+        googleBalance?: Content.Schema.Amount | undefined;
+        merchantBalance?: Content.Schema.Amount | undefined;
+        productTotal?: Content.Schema.Amount | undefined;
+        promotionSummaries?: Content.Schema.Promotion[] | undefined;
       }
       interface InvoiceSummaryAdditionalChargeSummary {
-        totalAmount?: Content.Schema.Amount;
-        type?: string;
+        totalAmount?: Content.Schema.Amount | undefined;
+        type?: string | undefined;
       }
       interface LiaAboutPageSettings {
-        status?: string;
-        url?: string;
+        status?: string | undefined;
+        url?: string | undefined;
       }
       interface LiaCountrySettings {
-        about?: Content.Schema.LiaAboutPageSettings;
-        country?: string;
-        hostedLocalStorefrontActive?: boolean;
-        inventory?: Content.Schema.LiaInventorySettings;
-        onDisplayToOrder?: Content.Schema.LiaOnDisplayToOrderSettings;
-        posDataProvider?: Content.Schema.LiaPosDataProvider;
-        storePickupActive?: boolean;
+        about?: Content.Schema.LiaAboutPageSettings | undefined;
+        country?: string | undefined;
+        hostedLocalStorefrontActive?: boolean | undefined;
+        inventory?: Content.Schema.LiaInventorySettings | undefined;
+        onDisplayToOrder?: Content.Schema.LiaOnDisplayToOrderSettings | undefined;
+        posDataProvider?: Content.Schema.LiaPosDataProvider | undefined;
+        storePickupActive?: boolean | undefined;
       }
       interface LiaInventorySettings {
-        inventoryVerificationContactEmail?: string;
-        inventoryVerificationContactName?: string;
-        inventoryVerificationContactStatus?: string;
-        status?: string;
+        inventoryVerificationContactEmail?: string | undefined;
+        inventoryVerificationContactName?: string | undefined;
+        inventoryVerificationContactStatus?: string | undefined;
+        status?: string | undefined;
       }
       interface LiaOnDisplayToOrderSettings {
-        shippingCostPolicyUrl?: string;
-        status?: string;
+        shippingCostPolicyUrl?: string | undefined;
+        status?: string | undefined;
       }
       interface LiaPosDataProvider {
-        posDataProviderId?: string;
-        posExternalAccountId?: string;
+        posDataProviderId?: string | undefined;
+        posExternalAccountId?: string | undefined;
       }
       interface LiaSettings {
-        accountId?: string;
-        countrySettings?: Content.Schema.LiaCountrySettings[];
-        kind?: string;
+        accountId?: string | undefined;
+        countrySettings?: Content.Schema.LiaCountrySettings[] | undefined;
+        kind?: string | undefined;
       }
       interface LiasettingsCustomBatchRequest {
-        entries?: Content.Schema.LiasettingsCustomBatchRequestEntry[];
+        entries?: Content.Schema.LiasettingsCustomBatchRequestEntry[] | undefined;
       }
       interface LiasettingsCustomBatchRequestEntry {
-        accountId?: string;
-        batchId?: number;
-        contactEmail?: string;
-        contactName?: string;
-        country?: string;
-        gmbEmail?: string;
-        liaSettings?: Content.Schema.LiaSettings;
-        merchantId?: string;
-        method?: string;
-        posDataProviderId?: string;
-        posExternalAccountId?: string;
+        accountId?: string | undefined;
+        batchId?: number | undefined;
+        contactEmail?: string | undefined;
+        contactName?: string | undefined;
+        country?: string | undefined;
+        gmbEmail?: string | undefined;
+        liaSettings?: Content.Schema.LiaSettings | undefined;
+        merchantId?: string | undefined;
+        method?: string | undefined;
+        posDataProviderId?: string | undefined;
+        posExternalAccountId?: string | undefined;
       }
       interface LiasettingsCustomBatchResponse {
-        entries?: Content.Schema.LiasettingsCustomBatchResponseEntry[];
-        kind?: string;
+        entries?: Content.Schema.LiasettingsCustomBatchResponseEntry[] | undefined;
+        kind?: string | undefined;
       }
       interface LiasettingsCustomBatchResponseEntry {
-        batchId?: number;
-        errors?: Content.Schema.Errors;
-        gmbAccounts?: Content.Schema.GmbAccounts;
-        kind?: string;
-        liaSettings?: Content.Schema.LiaSettings;
-        posDataProviders?: Content.Schema.PosDataProviders[];
+        batchId?: number | undefined;
+        errors?: Content.Schema.Errors | undefined;
+        gmbAccounts?: Content.Schema.GmbAccounts | undefined;
+        kind?: string | undefined;
+        liaSettings?: Content.Schema.LiaSettings | undefined;
+        posDataProviders?: Content.Schema.PosDataProviders[] | undefined;
       }
       interface LiasettingsGetAccessibleGmbAccountsResponse {
-        accountId?: string;
-        gmbAccounts?: Content.Schema.GmbAccountsGmbAccount[];
-        kind?: string;
+        accountId?: string | undefined;
+        gmbAccounts?: Content.Schema.GmbAccountsGmbAccount[] | undefined;
+        kind?: string | undefined;
       }
       interface LiasettingsListPosDataProvidersResponse {
-        kind?: string;
-        posDataProviders?: Content.Schema.PosDataProviders[];
+        kind?: string | undefined;
+        posDataProviders?: Content.Schema.PosDataProviders[] | undefined;
       }
       interface LiasettingsListResponse {
-        kind?: string;
-        nextPageToken?: string;
-        resources?: Content.Schema.LiaSettings[];
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
+        resources?: Content.Schema.LiaSettings[] | undefined;
       }
       interface LiasettingsRequestGmbAccessResponse {
-        kind?: string;
+        kind?: string | undefined;
       }
       interface LiasettingsRequestInventoryVerificationResponse {
-        kind?: string;
+        kind?: string | undefined;
       }
       interface LiasettingsSetInventoryVerificationContactResponse {
-        kind?: string;
+        kind?: string | undefined;
       }
       interface LiasettingsSetPosDataProviderResponse {
-        kind?: string;
+        kind?: string | undefined;
       }
       interface LocationIdSet {
-        locationIds?: string[];
+        locationIds?: string[] | undefined;
       }
       interface LoyaltyPoints {
-        name?: string;
-        pointsValue?: string;
-        ratio?: number;
+        name?: string | undefined;
+        pointsValue?: string | undefined;
+        ratio?: number | undefined;
       }
       interface MerchantOrderReturn {
-        creationDate?: string;
-        merchantOrderId?: string;
-        orderId?: string;
-        orderReturnId?: string;
-        returnItems?: Content.Schema.MerchantOrderReturnItem[];
-        returnShipments?: Content.Schema.ReturnShipment[];
+        creationDate?: string | undefined;
+        merchantOrderId?: string | undefined;
+        orderId?: string | undefined;
+        orderReturnId?: string | undefined;
+        returnItems?: Content.Schema.MerchantOrderReturnItem[] | undefined;
+        returnShipments?: Content.Schema.ReturnShipment[] | undefined;
       }
       interface MerchantOrderReturnItem {
-        customerReturnReason?: Content.Schema.CustomerReturnReason;
-        itemId?: string;
-        merchantReturnReason?: Content.Schema.RefundReason;
-        product?: Content.Schema.OrderLineItemProduct;
-        returnShipmentIds?: string[];
-        state?: string;
+        customerReturnReason?: Content.Schema.CustomerReturnReason | undefined;
+        itemId?: string | undefined;
+        merchantReturnReason?: Content.Schema.RefundReason | undefined;
+        product?: Content.Schema.OrderLineItemProduct | undefined;
+        returnShipmentIds?: string[] | undefined;
+        state?: string | undefined;
       }
       interface Order {
-        acknowledged?: boolean;
-        channelType?: string;
-        customer?: Content.Schema.OrderCustomer;
-        deliveryDetails?: Content.Schema.OrderDeliveryDetails;
-        id?: string;
-        kind?: string;
-        lineItems?: Content.Schema.OrderLineItem[];
-        merchantId?: string;
-        merchantOrderId?: string;
-        netAmount?: Content.Schema.Price;
-        paymentMethod?: Content.Schema.OrderPaymentMethod;
-        paymentStatus?: string;
-        placedDate?: string;
-        promotions?: Content.Schema.OrderLegacyPromotion[];
-        refunds?: Content.Schema.OrderRefund[];
-        shipments?: Content.Schema.OrderShipment[];
-        shippingCost?: Content.Schema.Price;
-        shippingCostTax?: Content.Schema.Price;
-        shippingOption?: string;
-        status?: string;
-        taxCollector?: string;
+        acknowledged?: boolean | undefined;
+        channelType?: string | undefined;
+        customer?: Content.Schema.OrderCustomer | undefined;
+        deliveryDetails?: Content.Schema.OrderDeliveryDetails | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        lineItems?: Content.Schema.OrderLineItem[] | undefined;
+        merchantId?: string | undefined;
+        merchantOrderId?: string | undefined;
+        netAmount?: Content.Schema.Price | undefined;
+        paymentMethod?: Content.Schema.OrderPaymentMethod | undefined;
+        paymentStatus?: string | undefined;
+        placedDate?: string | undefined;
+        promotions?: Content.Schema.OrderLegacyPromotion[] | undefined;
+        refunds?: Content.Schema.OrderRefund[] | undefined;
+        shipments?: Content.Schema.OrderShipment[] | undefined;
+        shippingCost?: Content.Schema.Price | undefined;
+        shippingCostTax?: Content.Schema.Price | undefined;
+        shippingOption?: string | undefined;
+        status?: string | undefined;
+        taxCollector?: string | undefined;
       }
       interface OrderAddress {
-        country?: string;
-        fullAddress?: string[];
-        isPostOfficeBox?: boolean;
-        locality?: string;
-        postalCode?: string;
-        recipientName?: string;
-        region?: string;
-        streetAddress?: string[];
+        country?: string | undefined;
+        fullAddress?: string[] | undefined;
+        isPostOfficeBox?: boolean | undefined;
+        locality?: string | undefined;
+        postalCode?: string | undefined;
+        recipientName?: string | undefined;
+        region?: string | undefined;
+        streetAddress?: string[] | undefined;
       }
       interface OrderCancellation {
-        actor?: string;
-        creationDate?: string;
-        quantity?: number;
-        reason?: string;
-        reasonText?: string;
+        actor?: string | undefined;
+        creationDate?: string | undefined;
+        quantity?: number | undefined;
+        reason?: string | undefined;
+        reasonText?: string | undefined;
       }
       interface OrderCustomer {
-        email?: string;
-        explicitMarketingPreference?: boolean;
-        fullName?: string;
-        marketingRightsInfo?: Content.Schema.OrderCustomerMarketingRightsInfo;
+        email?: string | undefined;
+        explicitMarketingPreference?: boolean | undefined;
+        fullName?: string | undefined;
+        marketingRightsInfo?: Content.Schema.OrderCustomerMarketingRightsInfo | undefined;
       }
       interface OrderCustomerMarketingRightsInfo {
-        explicitMarketingPreference?: string;
-        lastUpdatedTimestamp?: string;
-        marketingEmailAddress?: string;
+        explicitMarketingPreference?: string | undefined;
+        lastUpdatedTimestamp?: string | undefined;
+        marketingEmailAddress?: string | undefined;
       }
       interface OrderDeliveryDetails {
-        address?: Content.Schema.OrderAddress;
-        phoneNumber?: string;
+        address?: Content.Schema.OrderAddress | undefined;
+        phoneNumber?: string | undefined;
       }
       interface OrderLegacyPromotion {
-        benefits?: Content.Schema.OrderLegacyPromotionBenefit[];
-        effectiveDates?: string;
-        genericRedemptionCode?: string;
-        id?: string;
-        longTitle?: string;
-        productApplicability?: string;
-        redemptionChannel?: string;
+        benefits?: Content.Schema.OrderLegacyPromotionBenefit[] | undefined;
+        effectiveDates?: string | undefined;
+        genericRedemptionCode?: string | undefined;
+        id?: string | undefined;
+        longTitle?: string | undefined;
+        productApplicability?: string | undefined;
+        redemptionChannel?: string | undefined;
       }
       interface OrderLegacyPromotionBenefit {
-        discount?: Content.Schema.Price;
-        offerIds?: string[];
-        subType?: string;
-        taxImpact?: Content.Schema.Price;
-        type?: string;
+        discount?: Content.Schema.Price | undefined;
+        offerIds?: string[] | undefined;
+        subType?: string | undefined;
+        taxImpact?: Content.Schema.Price | undefined;
+        type?: string | undefined;
       }
       interface OrderLineItem {
-        annotations?: Content.Schema.OrderMerchantProvidedAnnotation[];
-        cancellations?: Content.Schema.OrderCancellation[];
-        id?: string;
-        price?: Content.Schema.Price;
-        product?: Content.Schema.OrderLineItemProduct;
-        quantityCanceled?: number;
-        quantityDelivered?: number;
-        quantityOrdered?: number;
-        quantityPending?: number;
-        quantityReturned?: number;
-        quantityShipped?: number;
-        returnInfo?: Content.Schema.OrderLineItemReturnInfo;
-        returns?: Content.Schema.OrderReturn[];
-        shippingDetails?: Content.Schema.OrderLineItemShippingDetails;
-        tax?: Content.Schema.Price;
+        annotations?: Content.Schema.OrderMerchantProvidedAnnotation[] | undefined;
+        cancellations?: Content.Schema.OrderCancellation[] | undefined;
+        id?: string | undefined;
+        price?: Content.Schema.Price | undefined;
+        product?: Content.Schema.OrderLineItemProduct | undefined;
+        quantityCanceled?: number | undefined;
+        quantityDelivered?: number | undefined;
+        quantityOrdered?: number | undefined;
+        quantityPending?: number | undefined;
+        quantityReturned?: number | undefined;
+        quantityShipped?: number | undefined;
+        returnInfo?: Content.Schema.OrderLineItemReturnInfo | undefined;
+        returns?: Content.Schema.OrderReturn[] | undefined;
+        shippingDetails?: Content.Schema.OrderLineItemShippingDetails | undefined;
+        tax?: Content.Schema.Price | undefined;
       }
       interface OrderLineItemProduct {
-        brand?: string;
-        channel?: string;
-        condition?: string;
-        contentLanguage?: string;
-        fees?: Content.Schema.OrderLineItemProductFee[];
-        gtin?: string;
-        id?: string;
-        imageLink?: string;
-        itemGroupId?: string;
-        mpn?: string;
-        offerId?: string;
-        price?: Content.Schema.Price;
-        shownImage?: string;
-        targetCountry?: string;
-        title?: string;
-        variantAttributes?: Content.Schema.OrderLineItemProductVariantAttribute[];
+        brand?: string | undefined;
+        channel?: string | undefined;
+        condition?: string | undefined;
+        contentLanguage?: string | undefined;
+        fees?: Content.Schema.OrderLineItemProductFee[] | undefined;
+        gtin?: string | undefined;
+        id?: string | undefined;
+        imageLink?: string | undefined;
+        itemGroupId?: string | undefined;
+        mpn?: string | undefined;
+        offerId?: string | undefined;
+        price?: Content.Schema.Price | undefined;
+        shownImage?: string | undefined;
+        targetCountry?: string | undefined;
+        title?: string | undefined;
+        variantAttributes?: Content.Schema.OrderLineItemProductVariantAttribute[] | undefined;
       }
       interface OrderLineItemProductFee {
-        amount?: Content.Schema.Price;
-        name?: string;
+        amount?: Content.Schema.Price | undefined;
+        name?: string | undefined;
       }
       interface OrderLineItemProductVariantAttribute {
-        dimension?: string;
-        value?: string;
+        dimension?: string | undefined;
+        value?: string | undefined;
       }
       interface OrderLineItemReturnInfo {
-        daysToReturn?: number;
-        isReturnable?: boolean;
-        policyUrl?: string;
+        daysToReturn?: number | undefined;
+        isReturnable?: boolean | undefined;
+        policyUrl?: string | undefined;
       }
       interface OrderLineItemShippingDetails {
-        deliverByDate?: string;
-        method?: Content.Schema.OrderLineItemShippingDetailsMethod;
-        shipByDate?: string;
+        deliverByDate?: string | undefined;
+        method?: Content.Schema.OrderLineItemShippingDetailsMethod | undefined;
+        shipByDate?: string | undefined;
       }
       interface OrderLineItemShippingDetailsMethod {
-        carrier?: string;
-        maxDaysInTransit?: number;
-        methodName?: string;
-        minDaysInTransit?: number;
+        carrier?: string | undefined;
+        maxDaysInTransit?: number | undefined;
+        methodName?: string | undefined;
+        minDaysInTransit?: number | undefined;
       }
       interface OrderMerchantProvidedAnnotation {
-        key?: string;
-        value?: string;
+        key?: string | undefined;
+        value?: string | undefined;
       }
       interface OrderPaymentMethod {
-        billingAddress?: Content.Schema.OrderAddress;
-        expirationMonth?: number;
-        expirationYear?: number;
-        lastFourDigits?: string;
-        phoneNumber?: string;
-        type?: string;
+        billingAddress?: Content.Schema.OrderAddress | undefined;
+        expirationMonth?: number | undefined;
+        expirationYear?: number | undefined;
+        lastFourDigits?: string | undefined;
+        phoneNumber?: string | undefined;
+        type?: string | undefined;
       }
       interface OrderRefund {
-        actor?: string;
-        amount?: Content.Schema.Price;
-        creationDate?: string;
-        reason?: string;
-        reasonText?: string;
+        actor?: string | undefined;
+        amount?: Content.Schema.Price | undefined;
+        creationDate?: string | undefined;
+        reason?: string | undefined;
+        reasonText?: string | undefined;
       }
       interface OrderReportDisbursement {
-        disbursementAmount?: Content.Schema.Price;
-        disbursementCreationDate?: string;
-        disbursementDate?: string;
-        disbursementId?: string;
-        merchantId?: string;
+        disbursementAmount?: Content.Schema.Price | undefined;
+        disbursementCreationDate?: string | undefined;
+        disbursementDate?: string | undefined;
+        disbursementId?: string | undefined;
+        merchantId?: string | undefined;
       }
       interface OrderReportTransaction {
-        disbursementAmount?: Content.Schema.Price;
-        disbursementCreationDate?: string;
-        disbursementDate?: string;
-        disbursementId?: string;
-        merchantId?: string;
-        merchantOrderId?: string;
-        orderId?: string;
-        productAmount?: Content.Schema.Amount;
-        productAmountWithRemittedTax?: Content.Schema.ProductAmount;
-        transactionDate?: string;
+        disbursementAmount?: Content.Schema.Price | undefined;
+        disbursementCreationDate?: string | undefined;
+        disbursementDate?: string | undefined;
+        disbursementId?: string | undefined;
+        merchantId?: string | undefined;
+        merchantOrderId?: string | undefined;
+        orderId?: string | undefined;
+        productAmount?: Content.Schema.Amount | undefined;
+        productAmountWithRemittedTax?: Content.Schema.ProductAmount | undefined;
+        transactionDate?: string | undefined;
       }
       interface OrderReturn {
-        actor?: string;
-        creationDate?: string;
-        quantity?: number;
-        reason?: string;
-        reasonText?: string;
+        actor?: string | undefined;
+        creationDate?: string | undefined;
+        quantity?: number | undefined;
+        reason?: string | undefined;
+        reasonText?: string | undefined;
       }
       interface OrderShipment {
-        carrier?: string;
-        creationDate?: string;
-        deliveryDate?: string;
-        id?: string;
-        lineItems?: Content.Schema.OrderShipmentLineItemShipment[];
-        status?: string;
-        trackingId?: string;
+        carrier?: string | undefined;
+        creationDate?: string | undefined;
+        deliveryDate?: string | undefined;
+        id?: string | undefined;
+        lineItems?: Content.Schema.OrderShipmentLineItemShipment[] | undefined;
+        status?: string | undefined;
+        trackingId?: string | undefined;
       }
       interface OrderShipmentLineItemShipment {
-        lineItemId?: string;
-        productId?: string;
-        quantity?: number;
+        lineItemId?: string | undefined;
+        productId?: string | undefined;
+        quantity?: number | undefined;
       }
       interface OrderinvoicesCreateChargeInvoiceRequest {
-        invoiceId?: string;
-        invoiceSummary?: Content.Schema.InvoiceSummary;
-        lineItemInvoices?: Content.Schema.ShipmentInvoiceLineItemInvoice[];
-        operationId?: string;
-        shipmentGroupId?: string;
+        invoiceId?: string | undefined;
+        invoiceSummary?: Content.Schema.InvoiceSummary | undefined;
+        lineItemInvoices?: Content.Schema.ShipmentInvoiceLineItemInvoice[] | undefined;
+        operationId?: string | undefined;
+        shipmentGroupId?: string | undefined;
       }
       interface OrderinvoicesCreateChargeInvoiceResponse {
-        executionStatus?: string;
-        kind?: string;
+        executionStatus?: string | undefined;
+        kind?: string | undefined;
       }
       interface OrderinvoicesCreateRefundInvoiceRequest {
-        invoiceId?: string;
-        operationId?: string;
-        refundOnlyOption?: Content.Schema.OrderinvoicesCustomBatchRequestEntryCreateRefundInvoiceRefundOption;
-        returnOption?: Content.Schema.OrderinvoicesCustomBatchRequestEntryCreateRefundInvoiceReturnOption;
-        shipmentInvoices?: Content.Schema.ShipmentInvoice[];
+        invoiceId?: string | undefined;
+        operationId?: string | undefined;
+        refundOnlyOption?: Content.Schema.OrderinvoicesCustomBatchRequestEntryCreateRefundInvoiceRefundOption | undefined;
+        returnOption?: Content.Schema.OrderinvoicesCustomBatchRequestEntryCreateRefundInvoiceReturnOption | undefined;
+        shipmentInvoices?: Content.Schema.ShipmentInvoice[] | undefined;
       }
       interface OrderinvoicesCreateRefundInvoiceResponse {
-        executionStatus?: string;
-        kind?: string;
+        executionStatus?: string | undefined;
+        kind?: string | undefined;
       }
       interface OrderinvoicesCustomBatchRequestEntryCreateRefundInvoiceRefundOption {
-        description?: string;
-        reason?: string;
+        description?: string | undefined;
+        reason?: string | undefined;
       }
       interface OrderinvoicesCustomBatchRequestEntryCreateRefundInvoiceReturnOption {
-        description?: string;
-        reason?: string;
+        description?: string | undefined;
+        reason?: string | undefined;
       }
       interface OrderpaymentsNotifyAuthApprovedRequest {
-        authAmountPretax?: Content.Schema.Price;
-        authAmountTax?: Content.Schema.Price;
+        authAmountPretax?: Content.Schema.Price | undefined;
+        authAmountTax?: Content.Schema.Price | undefined;
       }
       interface OrderpaymentsNotifyAuthApprovedResponse {
-        executionStatus?: string;
-        kind?: string;
+        executionStatus?: string | undefined;
+        kind?: string | undefined;
       }
       interface OrderpaymentsNotifyAuthDeclinedRequest {
-        declineReason?: string;
+        declineReason?: string | undefined;
       }
       interface OrderpaymentsNotifyAuthDeclinedResponse {
-        executionStatus?: string;
-        kind?: string;
+        executionStatus?: string | undefined;
+        kind?: string | undefined;
       }
       interface OrderpaymentsNotifyChargeRequest {
-        chargeState?: string;
-        invoiceId?: string;
-        invoiceIds?: string[];
+        chargeState?: string | undefined;
+        invoiceId?: string | undefined;
+        invoiceIds?: string[] | undefined;
       }
       interface OrderpaymentsNotifyChargeResponse {
-        executionStatus?: string;
-        kind?: string;
+        executionStatus?: string | undefined;
+        kind?: string | undefined;
       }
       interface OrderpaymentsNotifyRefundRequest {
-        invoiceId?: string;
-        invoiceIds?: string[];
-        refundState?: string;
+        invoiceId?: string | undefined;
+        invoiceIds?: string[] | undefined;
+        refundState?: string | undefined;
       }
       interface OrderpaymentsNotifyRefundResponse {
-        executionStatus?: string;
-        kind?: string;
+        executionStatus?: string | undefined;
+        kind?: string | undefined;
       }
       interface OrderreportsListDisbursementsResponse {
-        disbursements?: Content.Schema.OrderReportDisbursement[];
-        kind?: string;
-        nextPageToken?: string;
+        disbursements?: Content.Schema.OrderReportDisbursement[] | undefined;
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
       }
       interface OrderreportsListTransactionsResponse {
-        kind?: string;
-        nextPageToken?: string;
-        transactions?: Content.Schema.OrderReportTransaction[];
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
+        transactions?: Content.Schema.OrderReportTransaction[] | undefined;
       }
       interface OrderreturnsListResponse {
-        kind?: string;
-        nextPageToken?: string;
-        resources?: Content.Schema.MerchantOrderReturn[];
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
+        resources?: Content.Schema.MerchantOrderReturn[] | undefined;
       }
       interface OrdersAcknowledgeRequest {
-        operationId?: string;
+        operationId?: string | undefined;
       }
       interface OrdersAcknowledgeResponse {
-        executionStatus?: string;
-        kind?: string;
+        executionStatus?: string | undefined;
+        kind?: string | undefined;
       }
       interface OrdersAdvanceTestOrderResponse {
-        kind?: string;
+        kind?: string | undefined;
       }
       interface OrdersCancelLineItemRequest {
-        amount?: Content.Schema.Price;
-        amountPretax?: Content.Schema.Price;
-        amountTax?: Content.Schema.Price;
-        lineItemId?: string;
-        operationId?: string;
-        productId?: string;
-        quantity?: number;
-        reason?: string;
-        reasonText?: string;
+        amount?: Content.Schema.Price | undefined;
+        amountPretax?: Content.Schema.Price | undefined;
+        amountTax?: Content.Schema.Price | undefined;
+        lineItemId?: string | undefined;
+        operationId?: string | undefined;
+        productId?: string | undefined;
+        quantity?: number | undefined;
+        reason?: string | undefined;
+        reasonText?: string | undefined;
       }
       interface OrdersCancelLineItemResponse {
-        executionStatus?: string;
-        kind?: string;
+        executionStatus?: string | undefined;
+        kind?: string | undefined;
       }
       interface OrdersCancelRequest {
-        operationId?: string;
-        reason?: string;
-        reasonText?: string;
+        operationId?: string | undefined;
+        reason?: string | undefined;
+        reasonText?: string | undefined;
       }
       interface OrdersCancelResponse {
-        executionStatus?: string;
-        kind?: string;
+        executionStatus?: string | undefined;
+        kind?: string | undefined;
       }
       interface OrdersCancelTestOrderByCustomerRequest {
-        reason?: string;
+        reason?: string | undefined;
       }
       interface OrdersCancelTestOrderByCustomerResponse {
-        kind?: string;
+        kind?: string | undefined;
       }
       interface OrdersCreateTestOrderRequest {
-        country?: string;
-        templateName?: string;
-        testOrder?: Content.Schema.TestOrder;
+        country?: string | undefined;
+        templateName?: string | undefined;
+        testOrder?: Content.Schema.TestOrder | undefined;
       }
       interface OrdersCreateTestOrderResponse {
-        kind?: string;
-        orderId?: string;
+        kind?: string | undefined;
+        orderId?: string | undefined;
       }
       interface OrdersCreateTestReturnRequest {
-        items?: Content.Schema.OrdersCustomBatchRequestEntryCreateTestReturnReturnItem[];
+        items?: Content.Schema.OrdersCustomBatchRequestEntryCreateTestReturnReturnItem[] | undefined;
       }
       interface OrdersCreateTestReturnResponse {
-        kind?: string;
-        returnId?: string;
+        kind?: string | undefined;
+        returnId?: string | undefined;
       }
       interface OrdersCustomBatchRequest {
-        entries?: Content.Schema.OrdersCustomBatchRequestEntry[];
+        entries?: Content.Schema.OrdersCustomBatchRequestEntry[] | undefined;
       }
       interface OrdersCustomBatchRequestEntry {
-        batchId?: number;
-        cancel?: Content.Schema.OrdersCustomBatchRequestEntryCancel;
-        cancelLineItem?: Content.Schema.OrdersCustomBatchRequestEntryCancelLineItem;
-        inStoreRefundLineItem?: Content.Schema.OrdersCustomBatchRequestEntryInStoreRefundLineItem;
-        merchantId?: string;
-        merchantOrderId?: string;
-        method?: string;
-        operationId?: string;
-        orderId?: string;
-        refund?: Content.Schema.OrdersCustomBatchRequestEntryRefund;
-        rejectReturnLineItem?: Content.Schema.OrdersCustomBatchRequestEntryRejectReturnLineItem;
-        returnLineItem?: Content.Schema.OrdersCustomBatchRequestEntryReturnLineItem;
-        returnRefundLineItem?: Content.Schema.OrdersCustomBatchRequestEntryReturnRefundLineItem;
-        setLineItemMetadata?: Content.Schema.OrdersCustomBatchRequestEntrySetLineItemMetadata;
-        shipLineItems?: Content.Schema.OrdersCustomBatchRequestEntryShipLineItems;
-        updateLineItemShippingDetails?: Content.Schema.OrdersCustomBatchRequestEntryUpdateLineItemShippingDetails;
-        updateShipment?: Content.Schema.OrdersCustomBatchRequestEntryUpdateShipment;
+        batchId?: number | undefined;
+        cancel?: Content.Schema.OrdersCustomBatchRequestEntryCancel | undefined;
+        cancelLineItem?: Content.Schema.OrdersCustomBatchRequestEntryCancelLineItem | undefined;
+        inStoreRefundLineItem?: Content.Schema.OrdersCustomBatchRequestEntryInStoreRefundLineItem | undefined;
+        merchantId?: string | undefined;
+        merchantOrderId?: string | undefined;
+        method?: string | undefined;
+        operationId?: string | undefined;
+        orderId?: string | undefined;
+        refund?: Content.Schema.OrdersCustomBatchRequestEntryRefund | undefined;
+        rejectReturnLineItem?: Content.Schema.OrdersCustomBatchRequestEntryRejectReturnLineItem | undefined;
+        returnLineItem?: Content.Schema.OrdersCustomBatchRequestEntryReturnLineItem | undefined;
+        returnRefundLineItem?: Content.Schema.OrdersCustomBatchRequestEntryReturnRefundLineItem | undefined;
+        setLineItemMetadata?: Content.Schema.OrdersCustomBatchRequestEntrySetLineItemMetadata | undefined;
+        shipLineItems?: Content.Schema.OrdersCustomBatchRequestEntryShipLineItems | undefined;
+        updateLineItemShippingDetails?: Content.Schema.OrdersCustomBatchRequestEntryUpdateLineItemShippingDetails | undefined;
+        updateShipment?: Content.Schema.OrdersCustomBatchRequestEntryUpdateShipment | undefined;
       }
       interface OrdersCustomBatchRequestEntryCancel {
-        reason?: string;
-        reasonText?: string;
+        reason?: string | undefined;
+        reasonText?: string | undefined;
       }
       interface OrdersCustomBatchRequestEntryCancelLineItem {
-        amount?: Content.Schema.Price;
-        amountPretax?: Content.Schema.Price;
-        amountTax?: Content.Schema.Price;
-        lineItemId?: string;
-        productId?: string;
-        quantity?: number;
-        reason?: string;
-        reasonText?: string;
+        amount?: Content.Schema.Price | undefined;
+        amountPretax?: Content.Schema.Price | undefined;
+        amountTax?: Content.Schema.Price | undefined;
+        lineItemId?: string | undefined;
+        productId?: string | undefined;
+        quantity?: number | undefined;
+        reason?: string | undefined;
+        reasonText?: string | undefined;
       }
       interface OrdersCustomBatchRequestEntryCreateTestReturnReturnItem {
-        lineItemId?: string;
-        quantity?: number;
+        lineItemId?: string | undefined;
+        quantity?: number | undefined;
       }
       interface OrdersCustomBatchRequestEntryInStoreRefundLineItem {
-        amountPretax?: Content.Schema.Price;
-        amountTax?: Content.Schema.Price;
-        lineItemId?: string;
-        productId?: string;
-        quantity?: number;
-        reason?: string;
-        reasonText?: string;
+        amountPretax?: Content.Schema.Price | undefined;
+        amountTax?: Content.Schema.Price | undefined;
+        lineItemId?: string | undefined;
+        productId?: string | undefined;
+        quantity?: number | undefined;
+        reason?: string | undefined;
+        reasonText?: string | undefined;
       }
       interface OrdersCustomBatchRequestEntryRefund {
-        amount?: Content.Schema.Price;
-        amountPretax?: Content.Schema.Price;
-        amountTax?: Content.Schema.Price;
-        reason?: string;
-        reasonText?: string;
+        amount?: Content.Schema.Price | undefined;
+        amountPretax?: Content.Schema.Price | undefined;
+        amountTax?: Content.Schema.Price | undefined;
+        reason?: string | undefined;
+        reasonText?: string | undefined;
       }
       interface OrdersCustomBatchRequestEntryRejectReturnLineItem {
-        lineItemId?: string;
-        productId?: string;
-        quantity?: number;
-        reason?: string;
-        reasonText?: string;
+        lineItemId?: string | undefined;
+        productId?: string | undefined;
+        quantity?: number | undefined;
+        reason?: string | undefined;
+        reasonText?: string | undefined;
       }
       interface OrdersCustomBatchRequestEntryReturnLineItem {
-        lineItemId?: string;
-        productId?: string;
-        quantity?: number;
-        reason?: string;
-        reasonText?: string;
+        lineItemId?: string | undefined;
+        productId?: string | undefined;
+        quantity?: number | undefined;
+        reason?: string | undefined;
+        reasonText?: string | undefined;
       }
       interface OrdersCustomBatchRequestEntryReturnRefundLineItem {
-        amountPretax?: Content.Schema.Price;
-        amountTax?: Content.Schema.Price;
-        lineItemId?: string;
-        productId?: string;
-        quantity?: number;
-        reason?: string;
-        reasonText?: string;
+        amountPretax?: Content.Schema.Price | undefined;
+        amountTax?: Content.Schema.Price | undefined;
+        lineItemId?: string | undefined;
+        productId?: string | undefined;
+        quantity?: number | undefined;
+        reason?: string | undefined;
+        reasonText?: string | undefined;
       }
       interface OrdersCustomBatchRequestEntrySetLineItemMetadata {
-        annotations?: Content.Schema.OrderMerchantProvidedAnnotation[];
-        lineItemId?: string;
-        productId?: string;
+        annotations?: Content.Schema.OrderMerchantProvidedAnnotation[] | undefined;
+        lineItemId?: string | undefined;
+        productId?: string | undefined;
       }
       interface OrdersCustomBatchRequestEntryShipLineItems {
-        carrier?: string;
-        lineItems?: Content.Schema.OrderShipmentLineItemShipment[];
-        shipmentGroupId?: string;
-        shipmentId?: string;
-        shipmentInfos?: Content.Schema.OrdersCustomBatchRequestEntryShipLineItemsShipmentInfo[];
-        trackingId?: string;
+        carrier?: string | undefined;
+        lineItems?: Content.Schema.OrderShipmentLineItemShipment[] | undefined;
+        shipmentGroupId?: string | undefined;
+        shipmentId?: string | undefined;
+        shipmentInfos?: Content.Schema.OrdersCustomBatchRequestEntryShipLineItemsShipmentInfo[] | undefined;
+        trackingId?: string | undefined;
       }
       interface OrdersCustomBatchRequestEntryShipLineItemsShipmentInfo {
-        carrier?: string;
-        shipmentId?: string;
-        trackingId?: string;
+        carrier?: string | undefined;
+        shipmentId?: string | undefined;
+        trackingId?: string | undefined;
       }
       interface OrdersCustomBatchRequestEntryUpdateLineItemShippingDetails {
-        deliverByDate?: string;
-        lineItemId?: string;
-        productId?: string;
-        shipByDate?: string;
+        deliverByDate?: string | undefined;
+        lineItemId?: string | undefined;
+        productId?: string | undefined;
+        shipByDate?: string | undefined;
       }
       interface OrdersCustomBatchRequestEntryUpdateShipment {
-        carrier?: string;
-        deliveryDate?: string;
-        shipmentId?: string;
-        status?: string;
-        trackingId?: string;
+        carrier?: string | undefined;
+        deliveryDate?: string | undefined;
+        shipmentId?: string | undefined;
+        status?: string | undefined;
+        trackingId?: string | undefined;
       }
       interface OrdersCustomBatchResponse {
-        entries?: Content.Schema.OrdersCustomBatchResponseEntry[];
-        kind?: string;
+        entries?: Content.Schema.OrdersCustomBatchResponseEntry[] | undefined;
+        kind?: string | undefined;
       }
       interface OrdersCustomBatchResponseEntry {
-        batchId?: number;
-        errors?: Content.Schema.Errors;
-        executionStatus?: string;
-        kind?: string;
-        order?: Content.Schema.Order;
+        batchId?: number | undefined;
+        errors?: Content.Schema.Errors | undefined;
+        executionStatus?: string | undefined;
+        kind?: string | undefined;
+        order?: Content.Schema.Order | undefined;
       }
       interface OrdersGetByMerchantOrderIdResponse {
-        kind?: string;
-        order?: Content.Schema.Order;
+        kind?: string | undefined;
+        order?: Content.Schema.Order | undefined;
       }
       interface OrdersGetTestOrderTemplateResponse {
-        kind?: string;
-        template?: Content.Schema.TestOrder;
+        kind?: string | undefined;
+        template?: Content.Schema.TestOrder | undefined;
       }
       interface OrdersInStoreRefundLineItemRequest {
-        amountPretax?: Content.Schema.Price;
-        amountTax?: Content.Schema.Price;
-        lineItemId?: string;
-        operationId?: string;
-        productId?: string;
-        quantity?: number;
-        reason?: string;
-        reasonText?: string;
+        amountPretax?: Content.Schema.Price | undefined;
+        amountTax?: Content.Schema.Price | undefined;
+        lineItemId?: string | undefined;
+        operationId?: string | undefined;
+        productId?: string | undefined;
+        quantity?: number | undefined;
+        reason?: string | undefined;
+        reasonText?: string | undefined;
       }
       interface OrdersInStoreRefundLineItemResponse {
-        executionStatus?: string;
-        kind?: string;
+        executionStatus?: string | undefined;
+        kind?: string | undefined;
       }
       interface OrdersListResponse {
-        kind?: string;
-        nextPageToken?: string;
-        resources?: Content.Schema.Order[];
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
+        resources?: Content.Schema.Order[] | undefined;
       }
       interface OrdersRefundRequest {
-        amount?: Content.Schema.Price;
-        amountPretax?: Content.Schema.Price;
-        amountTax?: Content.Schema.Price;
-        operationId?: string;
-        reason?: string;
-        reasonText?: string;
+        amount?: Content.Schema.Price | undefined;
+        amountPretax?: Content.Schema.Price | undefined;
+        amountTax?: Content.Schema.Price | undefined;
+        operationId?: string | undefined;
+        reason?: string | undefined;
+        reasonText?: string | undefined;
       }
       interface OrdersRefundResponse {
-        executionStatus?: string;
-        kind?: string;
+        executionStatus?: string | undefined;
+        kind?: string | undefined;
       }
       interface OrdersRejectReturnLineItemRequest {
-        lineItemId?: string;
-        operationId?: string;
-        productId?: string;
-        quantity?: number;
-        reason?: string;
-        reasonText?: string;
+        lineItemId?: string | undefined;
+        operationId?: string | undefined;
+        productId?: string | undefined;
+        quantity?: number | undefined;
+        reason?: string | undefined;
+        reasonText?: string | undefined;
       }
       interface OrdersRejectReturnLineItemResponse {
-        executionStatus?: string;
-        kind?: string;
+        executionStatus?: string | undefined;
+        kind?: string | undefined;
       }
       interface OrdersReturnLineItemRequest {
-        lineItemId?: string;
-        operationId?: string;
-        productId?: string;
-        quantity?: number;
-        reason?: string;
-        reasonText?: string;
+        lineItemId?: string | undefined;
+        operationId?: string | undefined;
+        productId?: string | undefined;
+        quantity?: number | undefined;
+        reason?: string | undefined;
+        reasonText?: string | undefined;
       }
       interface OrdersReturnLineItemResponse {
-        executionStatus?: string;
-        kind?: string;
+        executionStatus?: string | undefined;
+        kind?: string | undefined;
       }
       interface OrdersReturnRefundLineItemRequest {
-        amountPretax?: Content.Schema.Price;
-        amountTax?: Content.Schema.Price;
-        lineItemId?: string;
-        operationId?: string;
-        productId?: string;
-        quantity?: number;
-        reason?: string;
-        reasonText?: string;
+        amountPretax?: Content.Schema.Price | undefined;
+        amountTax?: Content.Schema.Price | undefined;
+        lineItemId?: string | undefined;
+        operationId?: string | undefined;
+        productId?: string | undefined;
+        quantity?: number | undefined;
+        reason?: string | undefined;
+        reasonText?: string | undefined;
       }
       interface OrdersReturnRefundLineItemResponse {
-        executionStatus?: string;
-        kind?: string;
+        executionStatus?: string | undefined;
+        kind?: string | undefined;
       }
       interface OrdersSetLineItemMetadataRequest {
-        annotations?: Content.Schema.OrderMerchantProvidedAnnotation[];
-        lineItemId?: string;
-        operationId?: string;
-        productId?: string;
+        annotations?: Content.Schema.OrderMerchantProvidedAnnotation[] | undefined;
+        lineItemId?: string | undefined;
+        operationId?: string | undefined;
+        productId?: string | undefined;
       }
       interface OrdersSetLineItemMetadataResponse {
-        executionStatus?: string;
-        kind?: string;
+        executionStatus?: string | undefined;
+        kind?: string | undefined;
       }
       interface OrdersShipLineItemsRequest {
-        carrier?: string;
-        lineItems?: Content.Schema.OrderShipmentLineItemShipment[];
-        operationId?: string;
-        shipmentGroupId?: string;
-        shipmentId?: string;
-        shipmentInfos?: Content.Schema.OrdersCustomBatchRequestEntryShipLineItemsShipmentInfo[];
-        trackingId?: string;
+        carrier?: string | undefined;
+        lineItems?: Content.Schema.OrderShipmentLineItemShipment[] | undefined;
+        operationId?: string | undefined;
+        shipmentGroupId?: string | undefined;
+        shipmentId?: string | undefined;
+        shipmentInfos?: Content.Schema.OrdersCustomBatchRequestEntryShipLineItemsShipmentInfo[] | undefined;
+        trackingId?: string | undefined;
       }
       interface OrdersShipLineItemsResponse {
-        executionStatus?: string;
-        kind?: string;
+        executionStatus?: string | undefined;
+        kind?: string | undefined;
       }
       interface OrdersUpdateLineItemShippingDetailsRequest {
-        deliverByDate?: string;
-        lineItemId?: string;
-        operationId?: string;
-        productId?: string;
-        shipByDate?: string;
+        deliverByDate?: string | undefined;
+        lineItemId?: string | undefined;
+        operationId?: string | undefined;
+        productId?: string | undefined;
+        shipByDate?: string | undefined;
       }
       interface OrdersUpdateLineItemShippingDetailsResponse {
-        executionStatus?: string;
-        kind?: string;
+        executionStatus?: string | undefined;
+        kind?: string | undefined;
       }
       interface OrdersUpdateMerchantOrderIdRequest {
-        merchantOrderId?: string;
-        operationId?: string;
+        merchantOrderId?: string | undefined;
+        operationId?: string | undefined;
       }
       interface OrdersUpdateMerchantOrderIdResponse {
-        executionStatus?: string;
-        kind?: string;
+        executionStatus?: string | undefined;
+        kind?: string | undefined;
       }
       interface OrdersUpdateShipmentRequest {
-        carrier?: string;
-        deliveryDate?: string;
-        operationId?: string;
-        shipmentId?: string;
-        status?: string;
-        trackingId?: string;
+        carrier?: string | undefined;
+        deliveryDate?: string | undefined;
+        operationId?: string | undefined;
+        shipmentId?: string | undefined;
+        status?: string | undefined;
+        trackingId?: string | undefined;
       }
       interface OrdersUpdateShipmentResponse {
-        executionStatus?: string;
-        kind?: string;
+        executionStatus?: string | undefined;
+        kind?: string | undefined;
       }
       interface PosCustomBatchRequest {
-        entries?: Content.Schema.PosCustomBatchRequestEntry[];
+        entries?: Content.Schema.PosCustomBatchRequestEntry[] | undefined;
       }
       interface PosCustomBatchRequestEntry {
-        batchId?: number;
-        inventory?: Content.Schema.PosInventory;
-        merchantId?: string;
-        method?: string;
-        sale?: Content.Schema.PosSale;
-        store?: Content.Schema.PosStore;
-        storeCode?: string;
-        targetMerchantId?: string;
+        batchId?: number | undefined;
+        inventory?: Content.Schema.PosInventory | undefined;
+        merchantId?: string | undefined;
+        method?: string | undefined;
+        sale?: Content.Schema.PosSale | undefined;
+        store?: Content.Schema.PosStore | undefined;
+        storeCode?: string | undefined;
+        targetMerchantId?: string | undefined;
       }
       interface PosCustomBatchResponse {
-        entries?: Content.Schema.PosCustomBatchResponseEntry[];
-        kind?: string;
+        entries?: Content.Schema.PosCustomBatchResponseEntry[] | undefined;
+        kind?: string | undefined;
       }
       interface PosCustomBatchResponseEntry {
-        batchId?: number;
-        errors?: Content.Schema.Errors;
-        inventory?: Content.Schema.PosInventory;
-        kind?: string;
-        sale?: Content.Schema.PosSale;
-        store?: Content.Schema.PosStore;
+        batchId?: number | undefined;
+        errors?: Content.Schema.Errors | undefined;
+        inventory?: Content.Schema.PosInventory | undefined;
+        kind?: string | undefined;
+        sale?: Content.Schema.PosSale | undefined;
+        store?: Content.Schema.PosStore | undefined;
       }
       interface PosDataProviders {
-        country?: string;
-        posDataProviders?: Content.Schema.PosDataProvidersPosDataProvider[];
+        country?: string | undefined;
+        posDataProviders?: Content.Schema.PosDataProvidersPosDataProvider[] | undefined;
       }
       interface PosDataProvidersPosDataProvider {
-        displayName?: string;
-        fullName?: string;
-        providerId?: string;
+        displayName?: string | undefined;
+        fullName?: string | undefined;
+        providerId?: string | undefined;
       }
       interface PosInventory {
-        contentLanguage?: string;
-        gtin?: string;
-        itemId?: string;
-        kind?: string;
-        price?: Content.Schema.Price;
-        quantity?: string;
-        storeCode?: string;
-        targetCountry?: string;
-        timestamp?: string;
+        contentLanguage?: string | undefined;
+        gtin?: string | undefined;
+        itemId?: string | undefined;
+        kind?: string | undefined;
+        price?: Content.Schema.Price | undefined;
+        quantity?: string | undefined;
+        storeCode?: string | undefined;
+        targetCountry?: string | undefined;
+        timestamp?: string | undefined;
       }
       interface PosInventoryRequest {
-        contentLanguage?: string;
-        gtin?: string;
-        itemId?: string;
-        price?: Content.Schema.Price;
-        quantity?: string;
-        storeCode?: string;
-        targetCountry?: string;
-        timestamp?: string;
+        contentLanguage?: string | undefined;
+        gtin?: string | undefined;
+        itemId?: string | undefined;
+        price?: Content.Schema.Price | undefined;
+        quantity?: string | undefined;
+        storeCode?: string | undefined;
+        targetCountry?: string | undefined;
+        timestamp?: string | undefined;
       }
       interface PosInventoryResponse {
-        contentLanguage?: string;
-        gtin?: string;
-        itemId?: string;
-        kind?: string;
-        price?: Content.Schema.Price;
-        quantity?: string;
-        storeCode?: string;
-        targetCountry?: string;
-        timestamp?: string;
+        contentLanguage?: string | undefined;
+        gtin?: string | undefined;
+        itemId?: string | undefined;
+        kind?: string | undefined;
+        price?: Content.Schema.Price | undefined;
+        quantity?: string | undefined;
+        storeCode?: string | undefined;
+        targetCountry?: string | undefined;
+        timestamp?: string | undefined;
       }
       interface PosListResponse {
-        kind?: string;
-        resources?: Content.Schema.PosStore[];
+        kind?: string | undefined;
+        resources?: Content.Schema.PosStore[] | undefined;
       }
       interface PosSale {
-        contentLanguage?: string;
-        gtin?: string;
-        itemId?: string;
-        kind?: string;
-        price?: Content.Schema.Price;
-        quantity?: string;
-        saleId?: string;
-        storeCode?: string;
-        targetCountry?: string;
-        timestamp?: string;
+        contentLanguage?: string | undefined;
+        gtin?: string | undefined;
+        itemId?: string | undefined;
+        kind?: string | undefined;
+        price?: Content.Schema.Price | undefined;
+        quantity?: string | undefined;
+        saleId?: string | undefined;
+        storeCode?: string | undefined;
+        targetCountry?: string | undefined;
+        timestamp?: string | undefined;
       }
       interface PosSaleRequest {
-        contentLanguage?: string;
-        gtin?: string;
-        itemId?: string;
-        price?: Content.Schema.Price;
-        quantity?: string;
-        saleId?: string;
-        storeCode?: string;
-        targetCountry?: string;
-        timestamp?: string;
+        contentLanguage?: string | undefined;
+        gtin?: string | undefined;
+        itemId?: string | undefined;
+        price?: Content.Schema.Price | undefined;
+        quantity?: string | undefined;
+        saleId?: string | undefined;
+        storeCode?: string | undefined;
+        targetCountry?: string | undefined;
+        timestamp?: string | undefined;
       }
       interface PosSaleResponse {
-        contentLanguage?: string;
-        gtin?: string;
-        itemId?: string;
-        kind?: string;
-        price?: Content.Schema.Price;
-        quantity?: string;
-        saleId?: string;
-        storeCode?: string;
-        targetCountry?: string;
-        timestamp?: string;
+        contentLanguage?: string | undefined;
+        gtin?: string | undefined;
+        itemId?: string | undefined;
+        kind?: string | undefined;
+        price?: Content.Schema.Price | undefined;
+        quantity?: string | undefined;
+        saleId?: string | undefined;
+        storeCode?: string | undefined;
+        targetCountry?: string | undefined;
+        timestamp?: string | undefined;
       }
       interface PosStore {
-        kind?: string;
-        storeAddress?: string;
-        storeCode?: string;
+        kind?: string | undefined;
+        storeAddress?: string | undefined;
+        storeCode?: string | undefined;
       }
       interface PostalCodeGroup {
-        country?: string;
-        name?: string;
-        postalCodeRanges?: Content.Schema.PostalCodeRange[];
+        country?: string | undefined;
+        name?: string | undefined;
+        postalCodeRanges?: Content.Schema.PostalCodeRange[] | undefined;
       }
       interface PostalCodeRange {
-        postalCodeRangeBegin?: string;
-        postalCodeRangeEnd?: string;
+        postalCodeRangeBegin?: string | undefined;
+        postalCodeRangeEnd?: string | undefined;
       }
       interface Price {
-        currency?: string;
-        value?: string;
+        currency?: string | undefined;
+        value?: string | undefined;
       }
       interface Product {
-        additionalImageLinks?: string[];
-        additionalProductTypes?: string[];
-        adult?: boolean;
-        adwordsGrouping?: string;
-        adwordsLabels?: string[];
-        adwordsRedirect?: string;
-        ageGroup?: string;
-        aspects?: Content.Schema.ProductAspect[];
-        availability?: string;
-        availabilityDate?: string;
-        brand?: string;
-        channel?: string;
-        color?: string;
-        condition?: string;
-        contentLanguage?: string;
-        costOfGoodsSold?: Content.Schema.Price;
-        customAttributes?: Content.Schema.CustomAttribute[];
-        customGroups?: Content.Schema.CustomGroup[];
-        customLabel0?: string;
-        customLabel1?: string;
-        customLabel2?: string;
-        customLabel3?: string;
-        customLabel4?: string;
-        description?: string;
-        destinations?: Content.Schema.ProductDestination[];
-        displayAdsId?: string;
-        displayAdsLink?: string;
-        displayAdsSimilarIds?: string[];
-        displayAdsTitle?: string;
-        displayAdsValue?: number;
-        energyEfficiencyClass?: string;
-        expirationDate?: string;
-        gender?: string;
-        googleProductCategory?: string;
-        gtin?: string;
-        id?: string;
-        identifierExists?: boolean;
-        imageLink?: string;
-        installment?: Content.Schema.Installment;
-        isBundle?: boolean;
-        itemGroupId?: string;
-        kind?: string;
-        link?: string;
-        loyaltyPoints?: Content.Schema.LoyaltyPoints;
-        material?: string;
-        maxEnergyEfficiencyClass?: string;
-        maxHandlingTime?: string;
-        minEnergyEfficiencyClass?: string;
-        minHandlingTime?: string;
-        mobileLink?: string;
-        mpn?: string;
-        multipack?: string;
-        offerId?: string;
-        onlineOnly?: boolean;
-        pattern?: string;
-        price?: Content.Schema.Price;
-        productType?: string;
-        promotionIds?: string[];
-        salePrice?: Content.Schema.Price;
-        salePriceEffectiveDate?: string;
-        sellOnGoogleQuantity?: string;
-        shipping?: Content.Schema.ProductShipping[];
-        shippingHeight?: Content.Schema.ProductShippingDimension;
-        shippingLabel?: string;
-        shippingLength?: Content.Schema.ProductShippingDimension;
-        shippingWeight?: Content.Schema.ProductShippingWeight;
-        shippingWidth?: Content.Schema.ProductShippingDimension;
-        sizeSystem?: string;
-        sizeType?: string;
-        sizes?: string[];
-        source?: string;
-        targetCountry?: string;
-        taxes?: Content.Schema.ProductTax[];
-        title?: string;
-        unitPricingBaseMeasure?: Content.Schema.ProductUnitPricingBaseMeasure;
-        unitPricingMeasure?: Content.Schema.ProductUnitPricingMeasure;
-        validatedDestinations?: string[];
-        warnings?: Content.Schema.Error[];
+        additionalImageLinks?: string[] | undefined;
+        additionalProductTypes?: string[] | undefined;
+        adult?: boolean | undefined;
+        adwordsGrouping?: string | undefined;
+        adwordsLabels?: string[] | undefined;
+        adwordsRedirect?: string | undefined;
+        ageGroup?: string | undefined;
+        aspects?: Content.Schema.ProductAspect[] | undefined;
+        availability?: string | undefined;
+        availabilityDate?: string | undefined;
+        brand?: string | undefined;
+        channel?: string | undefined;
+        color?: string | undefined;
+        condition?: string | undefined;
+        contentLanguage?: string | undefined;
+        costOfGoodsSold?: Content.Schema.Price | undefined;
+        customAttributes?: Content.Schema.CustomAttribute[] | undefined;
+        customGroups?: Content.Schema.CustomGroup[] | undefined;
+        customLabel0?: string | undefined;
+        customLabel1?: string | undefined;
+        customLabel2?: string | undefined;
+        customLabel3?: string | undefined;
+        customLabel4?: string | undefined;
+        description?: string | undefined;
+        destinations?: Content.Schema.ProductDestination[] | undefined;
+        displayAdsId?: string | undefined;
+        displayAdsLink?: string | undefined;
+        displayAdsSimilarIds?: string[] | undefined;
+        displayAdsTitle?: string | undefined;
+        displayAdsValue?: number | undefined;
+        energyEfficiencyClass?: string | undefined;
+        expirationDate?: string | undefined;
+        gender?: string | undefined;
+        googleProductCategory?: string | undefined;
+        gtin?: string | undefined;
+        id?: string | undefined;
+        identifierExists?: boolean | undefined;
+        imageLink?: string | undefined;
+        installment?: Content.Schema.Installment | undefined;
+        isBundle?: boolean | undefined;
+        itemGroupId?: string | undefined;
+        kind?: string | undefined;
+        link?: string | undefined;
+        loyaltyPoints?: Content.Schema.LoyaltyPoints | undefined;
+        material?: string | undefined;
+        maxEnergyEfficiencyClass?: string | undefined;
+        maxHandlingTime?: string | undefined;
+        minEnergyEfficiencyClass?: string | undefined;
+        minHandlingTime?: string | undefined;
+        mobileLink?: string | undefined;
+        mpn?: string | undefined;
+        multipack?: string | undefined;
+        offerId?: string | undefined;
+        onlineOnly?: boolean | undefined;
+        pattern?: string | undefined;
+        price?: Content.Schema.Price | undefined;
+        productType?: string | undefined;
+        promotionIds?: string[] | undefined;
+        salePrice?: Content.Schema.Price | undefined;
+        salePriceEffectiveDate?: string | undefined;
+        sellOnGoogleQuantity?: string | undefined;
+        shipping?: Content.Schema.ProductShipping[] | undefined;
+        shippingHeight?: Content.Schema.ProductShippingDimension | undefined;
+        shippingLabel?: string | undefined;
+        shippingLength?: Content.Schema.ProductShippingDimension | undefined;
+        shippingWeight?: Content.Schema.ProductShippingWeight | undefined;
+        shippingWidth?: Content.Schema.ProductShippingDimension | undefined;
+        sizeSystem?: string | undefined;
+        sizeType?: string | undefined;
+        sizes?: string[] | undefined;
+        source?: string | undefined;
+        targetCountry?: string | undefined;
+        taxes?: Content.Schema.ProductTax[] | undefined;
+        title?: string | undefined;
+        unitPricingBaseMeasure?: Content.Schema.ProductUnitPricingBaseMeasure | undefined;
+        unitPricingMeasure?: Content.Schema.ProductUnitPricingMeasure | undefined;
+        validatedDestinations?: string[] | undefined;
+        warnings?: Content.Schema.Error[] | undefined;
       }
       interface ProductAmount {
-        priceAmount?: Content.Schema.Price;
-        remittedTaxAmount?: Content.Schema.Price;
-        taxAmount?: Content.Schema.Price;
+        priceAmount?: Content.Schema.Price | undefined;
+        remittedTaxAmount?: Content.Schema.Price | undefined;
+        taxAmount?: Content.Schema.Price | undefined;
       }
       interface ProductAspect {
-        aspectName?: string;
-        destinationName?: string;
-        intention?: string;
+        aspectName?: string | undefined;
+        destinationName?: string | undefined;
+        intention?: string | undefined;
       }
       interface ProductDestination {
-        destinationName?: string;
-        intention?: string;
+        destinationName?: string | undefined;
+        intention?: string | undefined;
       }
       interface ProductShipping {
-        country?: string;
-        locationGroupName?: string;
-        locationId?: string;
-        postalCode?: string;
-        price?: Content.Schema.Price;
-        region?: string;
-        service?: string;
+        country?: string | undefined;
+        locationGroupName?: string | undefined;
+        locationId?: string | undefined;
+        postalCode?: string | undefined;
+        price?: Content.Schema.Price | undefined;
+        region?: string | undefined;
+        service?: string | undefined;
       }
       interface ProductShippingDimension {
-        unit?: string;
-        value?: number;
+        unit?: string | undefined;
+        value?: number | undefined;
       }
       interface ProductShippingWeight {
-        unit?: string;
-        value?: number;
+        unit?: string | undefined;
+        value?: number | undefined;
       }
       interface ProductStatus {
-        creationDate?: string;
-        dataQualityIssues?: Content.Schema.ProductStatusDataQualityIssue[];
-        destinationStatuses?: Content.Schema.ProductStatusDestinationStatus[];
-        googleExpirationDate?: string;
-        itemLevelIssues?: Content.Schema.ProductStatusItemLevelIssue[];
-        kind?: string;
-        lastUpdateDate?: string;
-        link?: string;
-        product?: Content.Schema.Product;
-        productId?: string;
-        title?: string;
+        creationDate?: string | undefined;
+        dataQualityIssues?: Content.Schema.ProductStatusDataQualityIssue[] | undefined;
+        destinationStatuses?: Content.Schema.ProductStatusDestinationStatus[] | undefined;
+        googleExpirationDate?: string | undefined;
+        itemLevelIssues?: Content.Schema.ProductStatusItemLevelIssue[] | undefined;
+        kind?: string | undefined;
+        lastUpdateDate?: string | undefined;
+        link?: string | undefined;
+        product?: Content.Schema.Product | undefined;
+        productId?: string | undefined;
+        title?: string | undefined;
       }
       interface ProductStatusDataQualityIssue {
-        destination?: string;
-        detail?: string;
-        fetchStatus?: string;
-        id?: string;
-        location?: string;
-        severity?: string;
-        timestamp?: string;
-        valueOnLandingPage?: string;
-        valueProvided?: string;
+        destination?: string | undefined;
+        detail?: string | undefined;
+        fetchStatus?: string | undefined;
+        id?: string | undefined;
+        location?: string | undefined;
+        severity?: string | undefined;
+        timestamp?: string | undefined;
+        valueOnLandingPage?: string | undefined;
+        valueProvided?: string | undefined;
       }
       interface ProductStatusDestinationStatus {
-        approvalPending?: boolean;
-        approvalStatus?: string;
-        destination?: string;
-        intention?: string;
+        approvalPending?: boolean | undefined;
+        approvalStatus?: string | undefined;
+        destination?: string | undefined;
+        intention?: string | undefined;
       }
       interface ProductStatusItemLevelIssue {
-        attributeName?: string;
-        code?: string;
-        description?: string;
-        destination?: string;
-        detail?: string;
-        documentation?: string;
-        resolution?: string;
-        servability?: string;
+        attributeName?: string | undefined;
+        code?: string | undefined;
+        description?: string | undefined;
+        destination?: string | undefined;
+        detail?: string | undefined;
+        documentation?: string | undefined;
+        resolution?: string | undefined;
+        servability?: string | undefined;
       }
       interface ProductTax {
-        country?: string;
-        locationId?: string;
-        postalCode?: string;
-        rate?: number;
-        region?: string;
-        taxShip?: boolean;
+        country?: string | undefined;
+        locationId?: string | undefined;
+        postalCode?: string | undefined;
+        rate?: number | undefined;
+        region?: string | undefined;
+        taxShip?: boolean | undefined;
       }
       interface ProductUnitPricingBaseMeasure {
-        unit?: string;
-        value?: string;
+        unit?: string | undefined;
+        value?: string | undefined;
       }
       interface ProductUnitPricingMeasure {
-        unit?: string;
-        value?: number;
+        unit?: string | undefined;
+        value?: number | undefined;
       }
       interface ProductsCustomBatchRequest {
-        entries?: Content.Schema.ProductsCustomBatchRequestEntry[];
+        entries?: Content.Schema.ProductsCustomBatchRequestEntry[] | undefined;
       }
       interface ProductsCustomBatchRequestEntry {
-        batchId?: number;
-        merchantId?: string;
-        method?: string;
-        product?: Content.Schema.Product;
-        productId?: string;
+        batchId?: number | undefined;
+        merchantId?: string | undefined;
+        method?: string | undefined;
+        product?: Content.Schema.Product | undefined;
+        productId?: string | undefined;
       }
       interface ProductsCustomBatchResponse {
-        entries?: Content.Schema.ProductsCustomBatchResponseEntry[];
-        kind?: string;
+        entries?: Content.Schema.ProductsCustomBatchResponseEntry[] | undefined;
+        kind?: string | undefined;
       }
       interface ProductsCustomBatchResponseEntry {
-        batchId?: number;
-        errors?: Content.Schema.Errors;
-        kind?: string;
-        product?: Content.Schema.Product;
+        batchId?: number | undefined;
+        errors?: Content.Schema.Errors | undefined;
+        kind?: string | undefined;
+        product?: Content.Schema.Product | undefined;
       }
       interface ProductsListResponse {
-        kind?: string;
-        nextPageToken?: string;
-        resources?: Content.Schema.Product[];
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
+        resources?: Content.Schema.Product[] | undefined;
       }
       interface ProductstatusesCustomBatchRequest {
-        entries?: Content.Schema.ProductstatusesCustomBatchRequestEntry[];
+        entries?: Content.Schema.ProductstatusesCustomBatchRequestEntry[] | undefined;
       }
       interface ProductstatusesCustomBatchRequestEntry {
-        batchId?: number;
-        destinations?: string[];
-        includeAttributes?: boolean;
-        merchantId?: string;
-        method?: string;
-        productId?: string;
+        batchId?: number | undefined;
+        destinations?: string[] | undefined;
+        includeAttributes?: boolean | undefined;
+        merchantId?: string | undefined;
+        method?: string | undefined;
+        productId?: string | undefined;
       }
       interface ProductstatusesCustomBatchResponse {
-        entries?: Content.Schema.ProductstatusesCustomBatchResponseEntry[];
-        kind?: string;
+        entries?: Content.Schema.ProductstatusesCustomBatchResponseEntry[] | undefined;
+        kind?: string | undefined;
       }
       interface ProductstatusesCustomBatchResponseEntry {
-        batchId?: number;
-        errors?: Content.Schema.Errors;
-        kind?: string;
-        productStatus?: Content.Schema.ProductStatus;
+        batchId?: number | undefined;
+        errors?: Content.Schema.Errors | undefined;
+        kind?: string | undefined;
+        productStatus?: Content.Schema.ProductStatus | undefined;
       }
       interface ProductstatusesListResponse {
-        kind?: string;
-        nextPageToken?: string;
-        resources?: Content.Schema.ProductStatus[];
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
+        resources?: Content.Schema.ProductStatus[] | undefined;
       }
       interface Promotion {
-        promotionAmount?: Content.Schema.Amount;
-        promotionId?: string;
+        promotionAmount?: Content.Schema.Amount | undefined;
+        promotionId?: string | undefined;
       }
       interface RateGroup {
-        applicableShippingLabels?: string[];
-        carrierRates?: Content.Schema.CarrierRate[];
-        mainTable?: Content.Schema.Table;
-        name?: string;
-        singleValue?: Content.Schema.Value;
-        subtables?: Content.Schema.Table[];
+        applicableShippingLabels?: string[] | undefined;
+        carrierRates?: Content.Schema.CarrierRate[] | undefined;
+        mainTable?: Content.Schema.Table | undefined;
+        name?: string | undefined;
+        singleValue?: Content.Schema.Value | undefined;
+        subtables?: Content.Schema.Table[] | undefined;
       }
       interface RefundReason {
-        description?: string;
-        reasonCode?: string;
+        description?: string | undefined;
+        reasonCode?: string | undefined;
       }
       interface ReturnShipment {
-        creationDate?: string;
-        deliveryDate?: string;
-        returnMethodType?: string;
-        shipmentId?: string;
-        shipmentTrackingInfos?: Content.Schema.ShipmentTrackingInfo[];
-        shippingDate?: string;
-        state?: string;
+        creationDate?: string | undefined;
+        deliveryDate?: string | undefined;
+        returnMethodType?: string | undefined;
+        shipmentId?: string | undefined;
+        shipmentTrackingInfos?: Content.Schema.ShipmentTrackingInfo[] | undefined;
+        shippingDate?: string | undefined;
+        state?: string | undefined;
       }
       interface Row {
-        cells?: Content.Schema.Value[];
+        cells?: Content.Schema.Value[] | undefined;
       }
       interface Service {
-        active?: boolean;
-        currency?: string;
-        deliveryCountry?: string;
-        deliveryTime?: Content.Schema.DeliveryTime;
-        eligibility?: string;
-        minimumOrderValue?: Content.Schema.Price;
-        name?: string;
-        rateGroups?: Content.Schema.RateGroup[];
+        active?: boolean | undefined;
+        currency?: string | undefined;
+        deliveryCountry?: string | undefined;
+        deliveryTime?: Content.Schema.DeliveryTime | undefined;
+        eligibility?: string | undefined;
+        minimumOrderValue?: Content.Schema.Price | undefined;
+        name?: string | undefined;
+        rateGroups?: Content.Schema.RateGroup[] | undefined;
       }
       interface ShipmentInvoice {
-        invoiceSummary?: Content.Schema.InvoiceSummary;
-        lineItemInvoices?: Content.Schema.ShipmentInvoiceLineItemInvoice[];
-        shipmentGroupId?: string;
+        invoiceSummary?: Content.Schema.InvoiceSummary | undefined;
+        lineItemInvoices?: Content.Schema.ShipmentInvoiceLineItemInvoice[] | undefined;
+        shipmentGroupId?: string | undefined;
       }
       interface ShipmentInvoiceLineItemInvoice {
-        lineItemId?: string;
-        productId?: string;
-        shipmentUnitIds?: string[];
-        unitInvoice?: Content.Schema.UnitInvoice;
+        lineItemId?: string | undefined;
+        productId?: string | undefined;
+        shipmentUnitIds?: string[] | undefined;
+        unitInvoice?: Content.Schema.UnitInvoice | undefined;
       }
       interface ShipmentTrackingInfo {
-        carrier?: string;
-        trackingNumber?: string;
+        carrier?: string | undefined;
+        trackingNumber?: string | undefined;
       }
       interface ShippingSettings {
-        accountId?: string;
-        postalCodeGroups?: Content.Schema.PostalCodeGroup[];
-        services?: Content.Schema.Service[];
+        accountId?: string | undefined;
+        postalCodeGroups?: Content.Schema.PostalCodeGroup[] | undefined;
+        services?: Content.Schema.Service[] | undefined;
       }
       interface ShippingsettingsCustomBatchRequest {
-        entries?: Content.Schema.ShippingsettingsCustomBatchRequestEntry[];
+        entries?: Content.Schema.ShippingsettingsCustomBatchRequestEntry[] | undefined;
       }
       interface ShippingsettingsCustomBatchRequestEntry {
-        accountId?: string;
-        batchId?: number;
-        merchantId?: string;
-        method?: string;
-        shippingSettings?: Content.Schema.ShippingSettings;
+        accountId?: string | undefined;
+        batchId?: number | undefined;
+        merchantId?: string | undefined;
+        method?: string | undefined;
+        shippingSettings?: Content.Schema.ShippingSettings | undefined;
       }
       interface ShippingsettingsCustomBatchResponse {
-        entries?: Content.Schema.ShippingsettingsCustomBatchResponseEntry[];
-        kind?: string;
+        entries?: Content.Schema.ShippingsettingsCustomBatchResponseEntry[] | undefined;
+        kind?: string | undefined;
       }
       interface ShippingsettingsCustomBatchResponseEntry {
-        batchId?: number;
-        errors?: Content.Schema.Errors;
-        kind?: string;
-        shippingSettings?: Content.Schema.ShippingSettings;
+        batchId?: number | undefined;
+        errors?: Content.Schema.Errors | undefined;
+        kind?: string | undefined;
+        shippingSettings?: Content.Schema.ShippingSettings | undefined;
       }
       interface ShippingsettingsGetSupportedCarriersResponse {
-        carriers?: Content.Schema.CarriersCarrier[];
-        kind?: string;
+        carriers?: Content.Schema.CarriersCarrier[] | undefined;
+        kind?: string | undefined;
       }
       interface ShippingsettingsGetSupportedHolidaysResponse {
-        holidays?: Content.Schema.HolidaysHoliday[];
-        kind?: string;
+        holidays?: Content.Schema.HolidaysHoliday[] | undefined;
+        kind?: string | undefined;
       }
       interface ShippingsettingsListResponse {
-        kind?: string;
-        nextPageToken?: string;
-        resources?: Content.Schema.ShippingSettings[];
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
+        resources?: Content.Schema.ShippingSettings[] | undefined;
       }
       interface Table {
-        columnHeaders?: Content.Schema.Headers;
-        name?: string;
-        rowHeaders?: Content.Schema.Headers;
-        rows?: Content.Schema.Row[];
+        columnHeaders?: Content.Schema.Headers | undefined;
+        name?: string | undefined;
+        rowHeaders?: Content.Schema.Headers | undefined;
+        rows?: Content.Schema.Row[] | undefined;
       }
       interface TestOrder {
-        customer?: Content.Schema.TestOrderCustomer;
-        enableOrderinvoices?: boolean;
-        kind?: string;
-        lineItems?: Content.Schema.TestOrderLineItem[];
-        notificationMode?: string;
-        paymentMethod?: Content.Schema.TestOrderPaymentMethod;
-        predefinedDeliveryAddress?: string;
-        promotions?: Content.Schema.OrderLegacyPromotion[];
-        shippingCost?: Content.Schema.Price;
-        shippingCostTax?: Content.Schema.Price;
-        shippingOption?: string;
+        customer?: Content.Schema.TestOrderCustomer | undefined;
+        enableOrderinvoices?: boolean | undefined;
+        kind?: string | undefined;
+        lineItems?: Content.Schema.TestOrderLineItem[] | undefined;
+        notificationMode?: string | undefined;
+        paymentMethod?: Content.Schema.TestOrderPaymentMethod | undefined;
+        predefinedDeliveryAddress?: string | undefined;
+        promotions?: Content.Schema.OrderLegacyPromotion[] | undefined;
+        shippingCost?: Content.Schema.Price | undefined;
+        shippingCostTax?: Content.Schema.Price | undefined;
+        shippingOption?: string | undefined;
       }
       interface TestOrderCustomer {
-        email?: string;
-        explicitMarketingPreference?: boolean;
-        fullName?: string;
-        marketingRightsInfo?: Content.Schema.TestOrderCustomerMarketingRightsInfo;
+        email?: string | undefined;
+        explicitMarketingPreference?: boolean | undefined;
+        fullName?: string | undefined;
+        marketingRightsInfo?: Content.Schema.TestOrderCustomerMarketingRightsInfo | undefined;
       }
       interface TestOrderCustomerMarketingRightsInfo {
-        explicitMarketingPreference?: string;
-        lastUpdatedTimestamp?: string;
+        explicitMarketingPreference?: string | undefined;
+        lastUpdatedTimestamp?: string | undefined;
       }
       interface TestOrderLineItem {
-        product?: Content.Schema.TestOrderLineItemProduct;
-        quantityOrdered?: number;
-        returnInfo?: Content.Schema.OrderLineItemReturnInfo;
-        shippingDetails?: Content.Schema.OrderLineItemShippingDetails;
-        unitTax?: Content.Schema.Price;
+        product?: Content.Schema.TestOrderLineItemProduct | undefined;
+        quantityOrdered?: number | undefined;
+        returnInfo?: Content.Schema.OrderLineItemReturnInfo | undefined;
+        shippingDetails?: Content.Schema.OrderLineItemShippingDetails | undefined;
+        unitTax?: Content.Schema.Price | undefined;
       }
       interface TestOrderLineItemProduct {
-        brand?: string;
-        channel?: string;
-        condition?: string;
-        contentLanguage?: string;
-        gtin?: string;
-        imageLink?: string;
-        itemGroupId?: string;
-        mpn?: string;
-        offerId?: string;
-        price?: Content.Schema.Price;
-        targetCountry?: string;
-        title?: string;
-        variantAttributes?: Content.Schema.OrderLineItemProductVariantAttribute[];
+        brand?: string | undefined;
+        channel?: string | undefined;
+        condition?: string | undefined;
+        contentLanguage?: string | undefined;
+        gtin?: string | undefined;
+        imageLink?: string | undefined;
+        itemGroupId?: string | undefined;
+        mpn?: string | undefined;
+        offerId?: string | undefined;
+        price?: Content.Schema.Price | undefined;
+        targetCountry?: string | undefined;
+        title?: string | undefined;
+        variantAttributes?: Content.Schema.OrderLineItemProductVariantAttribute[] | undefined;
       }
       interface TestOrderPaymentMethod {
-        expirationMonth?: number;
-        expirationYear?: number;
-        lastFourDigits?: string;
-        predefinedBillingAddress?: string;
-        type?: string;
+        expirationMonth?: number | undefined;
+        expirationYear?: number | undefined;
+        lastFourDigits?: string | undefined;
+        predefinedBillingAddress?: string | undefined;
+        type?: string | undefined;
       }
       interface TransitTable {
-        postalCodeGroupNames?: string[];
-        rows?: Content.Schema.TransitTableTransitTimeRow[];
-        transitTimeLabels?: string[];
+        postalCodeGroupNames?: string[] | undefined;
+        rows?: Content.Schema.TransitTableTransitTimeRow[] | undefined;
+        transitTimeLabels?: string[] | undefined;
       }
       interface TransitTableTransitTimeRow {
-        values?: Content.Schema.TransitTableTransitTimeRowTransitTimeValue[];
+        values?: Content.Schema.TransitTableTransitTimeRowTransitTimeValue[] | undefined;
       }
       interface TransitTableTransitTimeRowTransitTimeValue {
-        maxTransitTimeInDays?: number;
-        minTransitTimeInDays?: number;
+        maxTransitTimeInDays?: number | undefined;
+        minTransitTimeInDays?: number | undefined;
       }
       interface UnitInvoice {
-        additionalCharges?: Content.Schema.UnitInvoiceAdditionalCharge[];
-        promotions?: Content.Schema.Promotion[];
-        unitPricePretax?: Content.Schema.Price;
-        unitPriceTaxes?: Content.Schema.UnitInvoiceTaxLine[];
+        additionalCharges?: Content.Schema.UnitInvoiceAdditionalCharge[] | undefined;
+        promotions?: Content.Schema.Promotion[] | undefined;
+        unitPricePretax?: Content.Schema.Price | undefined;
+        unitPriceTaxes?: Content.Schema.UnitInvoiceTaxLine[] | undefined;
       }
       interface UnitInvoiceAdditionalCharge {
-        additionalChargeAmount?: Content.Schema.Amount;
-        additionalChargePromotions?: Content.Schema.Promotion[];
-        type?: string;
+        additionalChargeAmount?: Content.Schema.Amount | undefined;
+        additionalChargePromotions?: Content.Schema.Promotion[] | undefined;
+        type?: string | undefined;
       }
       interface UnitInvoiceTaxLine {
-        taxAmount?: Content.Schema.Price;
-        taxName?: string;
-        taxType?: string;
+        taxAmount?: Content.Schema.Price | undefined;
+        taxName?: string | undefined;
+        taxType?: string | undefined;
       }
       interface Value {
-        carrierRateName?: string;
-        flatRate?: Content.Schema.Price;
-        noShipping?: boolean;
-        pricePercentage?: string;
-        subtableName?: string;
+        carrierRateName?: string | undefined;
+        flatRate?: Content.Schema.Price | undefined;
+        noShipping?: boolean | undefined;
+        pricePercentage?: string | undefined;
+        subtableName?: string | undefined;
       }
       interface Weight {
-        unit?: string;
-        value?: string;
+        unit?: string | undefined;
+        value?: string | undefined;
       }
     }
   }
   interface Content {
-    Accounts?: Content.Collection.AccountsCollection;
-    Accountstatuses?: Content.Collection.AccountstatusesCollection;
-    Accounttax?: Content.Collection.AccounttaxCollection;
-    Datafeeds?: Content.Collection.DatafeedsCollection;
-    Datafeedstatuses?: Content.Collection.DatafeedstatusesCollection;
-    Inventory?: Content.Collection.InventoryCollection;
-    Liasettings?: Content.Collection.LiasettingsCollection;
-    Orderinvoices?: Content.Collection.OrderinvoicesCollection;
-    Orderpayments?: Content.Collection.OrderpaymentsCollection;
-    Orderreports?: Content.Collection.OrderreportsCollection;
-    Orderreturns?: Content.Collection.OrderreturnsCollection;
-    Orders?: Content.Collection.OrdersCollection;
-    Pos?: Content.Collection.PosCollection;
-    Products?: Content.Collection.ProductsCollection;
-    Productstatuses?: Content.Collection.ProductstatusesCollection;
-    Shippingsettings?: Content.Collection.ShippingsettingsCollection;
+    Accounts?: Content.Collection.AccountsCollection | undefined;
+    Accountstatuses?: Content.Collection.AccountstatusesCollection | undefined;
+    Accounttax?: Content.Collection.AccounttaxCollection | undefined;
+    Datafeeds?: Content.Collection.DatafeedsCollection | undefined;
+    Datafeedstatuses?: Content.Collection.DatafeedstatusesCollection | undefined;
+    Inventory?: Content.Collection.InventoryCollection | undefined;
+    Liasettings?: Content.Collection.LiasettingsCollection | undefined;
+    Orderinvoices?: Content.Collection.OrderinvoicesCollection | undefined;
+    Orderpayments?: Content.Collection.OrderpaymentsCollection | undefined;
+    Orderreports?: Content.Collection.OrderreportsCollection | undefined;
+    Orderreturns?: Content.Collection.OrderreturnsCollection | undefined;
+    Orders?: Content.Collection.OrdersCollection | undefined;
+    Pos?: Content.Collection.PosCollection | undefined;
+    Products?: Content.Collection.ProductsCollection | undefined;
+    Productstatuses?: Content.Collection.ProductstatusesCollection | undefined;
+    Shippingsettings?: Content.Collection.ShippingsettingsCollection | undefined;
     // Create a new instance of Account
     newAccount(): Content.Schema.Account;
     // Create a new instance of AccountAddress

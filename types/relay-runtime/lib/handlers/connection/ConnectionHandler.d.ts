@@ -11,7 +11,7 @@ export interface ConnectionMetadata {
     direction: string | null | undefined; // 'forward' | 'backward' | 'bidirectional' | null | undefined;
     cursor: string | null | undefined;
     count: string | null | undefined;
-    stream?: boolean;
+    stream?: boolean | undefined;
 }
 
 export function buildConnectionEdge(

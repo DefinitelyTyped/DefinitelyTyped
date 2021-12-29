@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ReactAttr, ReactDivAttr, JSXIntrinsicElementProps, FCReturn } from "../../../typings/shared";
+import { ReactAttr, ReactDivAttr, JSXIntrinsicElementProps, FCReturn, ReactComponentConstructor } from "../../../typings/shared";
 
 type SafeProps<P> = Omit<P, "as">;
 
@@ -12,8 +12,8 @@ export type SectionIntrinsicProps<K extends keyof JSX.IntrinsicElements> = SafeP
 };
 
 export type SectionCustomComponentProps<
-    C extends React.JSXElementConstructor<any>
-> = C extends React.JSXElementConstructor<infer P>
+    C extends ReactComponentConstructor<never>
+> = C extends ReactComponentConstructor<infer P>
     ? SafeProps<P> & {
           as: C;
       }
@@ -21,7 +21,7 @@ export type SectionCustomComponentProps<
 
 declare function Section(props: SectionDefaultProps): FCReturn;
 declare function Section<T extends keyof JSX.IntrinsicElements>(props: SectionIntrinsicProps<T>): FCReturn;
-declare function Section<T extends React.JSXElementConstructor<any>>(props: SectionCustomComponentProps<T>): FCReturn;
+declare function Section<T extends ReactComponentConstructor<never>>(props: SectionCustomComponentProps<T>): FCReturn;
 
 export interface HeadingProps extends ReactAttr { }
 

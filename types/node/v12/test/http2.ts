@@ -272,6 +272,7 @@ import { URL } from 'url';
         let socket: Socket | TLSSocket = request.socket;
         let stream: ServerHttp2Stream = request.stream;
         const url: string = request.url;
+        request.url = "new url";
 
         request.setTimeout(0, () => {});
         request.on('aborted', (hadError: boolean, code: number) => {});

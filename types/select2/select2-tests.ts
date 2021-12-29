@@ -175,7 +175,7 @@ interface GithubRepositories {
         avatar_url: string
         gravatar_id: string
     };
-    description?: string;
+    description?: string | undefined;
     stargazers_count: number;
     watchers_count: number;
     forks_count: number;
@@ -778,8 +778,8 @@ const selectedData: Select2.OptionData[] = $("#mySelect2").select2("data");
 declare let select: HTMLSelectElement;
 const $select: JQuery<HTMLSelectElement> = $(select);
 
-select = $select.select2().get(0);
-select = $select.select2({tags: true}).get(0);
-select = $select.select2("open").get(0);
-select = $select.select2("close").get(0);
-select = $select.select2("destroy").get(0);
+select = $select.select2().get(0)!;
+select = $select.select2({tags: true}).get(0)!;
+select = $select.select2("open").get(0)!;
+select = $select.select2("close").get(0)!;
+select = $select.select2("destroy").get(0)!;

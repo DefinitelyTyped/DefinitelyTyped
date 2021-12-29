@@ -1,5 +1,5 @@
 export interface PreloadScript {
-    mandatory?: boolean;
-    state?: 'load-started' | 'load-failed' | 'load-succeeded' | 'failed' | 'succeeded';
+    mandatory?: boolean | undefined;
+    state?: 'load-started' | 'load-failed' | 'load-succeeded' | 'failed' | 'succeeded' | undefined;
     url: string;
 }

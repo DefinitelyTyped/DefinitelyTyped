@@ -110,21 +110,21 @@ export interface ServerTimestampResult {
 export interface LeadConvert {
     convertedStatus: string;
     leadId: string;
-    accountId?: string;
-    contactId?: string;
-    doNotCreateOpportunity?: boolean;
-    opportunityName?: string;
-    overwriteLeadSource?: boolean;
-    ownerId?: string;
-    sendNotificationEmail?: boolean;
+    accountId?: string | undefined;
+    contactId?: string | undefined;
+    doNotCreateOpportunity?: boolean | undefined;
+    opportunityName?: string | undefined;
+    overwriteLeadSource?: boolean | undefined;
+    ownerId?: string | undefined;
+    sendNotificationEmail?: boolean | undefined;
 }
 
 export interface LeadConvertResult {
     leadId: string;
-    accountId?: string;
+    accountId?: string | undefined;
 
-    contactId?: string;
-    opportunityId?: string;
+    contactId?: string | undefined;
+    opportunityId?: string | undefined;
     success: boolean;
     errors: Object[];
 }
@@ -136,10 +136,10 @@ export interface MergeRequest {
 
 export interface MergeResult {
     success: boolean;
-    errors?: Object[];
+    errors?: Object[] | undefined;
     id: string;
-    mergedRecordIds?: string[];
-    updatedRelatedIds?: string[];
+    mergedRecordIds?: string[] | undefined;
+    updatedRelatedIds?: string[] | undefined;
 }
 
 export interface EmptyRecycleBinResult {

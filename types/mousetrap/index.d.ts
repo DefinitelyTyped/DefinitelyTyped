@@ -3,7 +3,6 @@
 // Definitions by: Dániel Tar <https://github.com/qcz>
 //                 Alan Choi <https://github.com/alanhchoi>
 //                 Nic Barker <https://github.com/nicbarker>
-//                 Mitsuka Hanakura a.k.a ragg <https://github.com/ra-gg>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 

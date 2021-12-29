@@ -25,14 +25,14 @@ import { Treebuilder } from './tree-builder';
 import { Error } from './error';
 
 export interface RepositoryInitOptions {
-    description: string;
-    flags: number;
-    initialHead: string;
-    mode: number;
-    originUrl: string;
-    templatePath: string;
-    version: number;
-    workdirPath: string;
+    description?: string;
+    flags?: number;
+    initialHead?: string;
+    mode?: number;
+    originUrl?: string;
+    templatePath?: string;
+    version?: number;
+    workdirPath?: string;
 }
 
 export class Repository {
@@ -155,7 +155,7 @@ export class Repository {
         message: string,
         Tree: Tree | Oid | string,
         parents: Array<string | Commit | Oid>,
-        onSignature: (data: string) => Promise<{code: Error.CODE, field?: string, signedData: string}> | {code: Error.CODE, field?: string, signedData: string}
+        onSignature: (data: string) => Promise<{code: Error.CODE, field?: string | undefined, signedData: string}> | {code: Error.CODE, field?: string | undefined, signedData: string}
     ): Promise<Oid>;
     /**
      * Creates a new commit on HEAD from the list of passed in files
@@ -170,6 +170,10 @@ export class Repository {
      * Gets the default signature for the default user and now timestamp
      */
     defaultSignature(): Signature;
+    /**
+     * Lists out the names of remotes in the given repository.
+     */
+     getRemoteNames(): Promise<string[]>;
     /**
      * Lists out the remotes in the given repository.
      */

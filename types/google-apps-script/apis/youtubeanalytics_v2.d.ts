@@ -51,80 +51,80 @@ declare namespace GoogleAppsScript {
     }
     namespace Schema {
       interface EmptyResponse {
-        errors?: YouTubeAnalytics.Schema.Errors;
+        errors?: YouTubeAnalytics.Schema.Errors | undefined;
       }
       interface ErrorProto {
-        argument?: string[];
-        code?: string;
-        debugInfo?: string;
-        domain?: string;
-        externalErrorMessage?: string;
-        location?: string;
-        locationType?: string;
+        argument?: string[] | undefined;
+        code?: string | undefined;
+        debugInfo?: string | undefined;
+        domain?: string | undefined;
+        externalErrorMessage?: string | undefined;
+        location?: string | undefined;
+        locationType?: string | undefined;
       }
       interface Errors {
-        code?: string;
-        error?: YouTubeAnalytics.Schema.ErrorProto[];
-        requestId?: string;
+        code?: string | undefined;
+        error?: YouTubeAnalytics.Schema.ErrorProto[] | undefined;
+        requestId?: string | undefined;
       }
       interface Group {
-        contentDetails?: YouTubeAnalytics.Schema.GroupContentDetails;
-        errors?: YouTubeAnalytics.Schema.Errors;
-        etag?: string;
-        id?: string;
-        kind?: string;
-        snippet?: YouTubeAnalytics.Schema.GroupSnippet;
+        contentDetails?: YouTubeAnalytics.Schema.GroupContentDetails | undefined;
+        errors?: YouTubeAnalytics.Schema.Errors | undefined;
+        etag?: string | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        snippet?: YouTubeAnalytics.Schema.GroupSnippet | undefined;
       }
       interface GroupContentDetails {
-        itemCount?: string;
-        itemType?: string;
+        itemCount?: string | undefined;
+        itemType?: string | undefined;
       }
       interface GroupItem {
-        errors?: YouTubeAnalytics.Schema.Errors;
-        etag?: string;
-        groupId?: string;
-        id?: string;
-        kind?: string;
-        resource?: YouTubeAnalytics.Schema.GroupItemResource;
+        errors?: YouTubeAnalytics.Schema.Errors | undefined;
+        etag?: string | undefined;
+        groupId?: string | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        resource?: YouTubeAnalytics.Schema.GroupItemResource | undefined;
       }
       interface GroupItemResource {
-        id?: string;
-        kind?: string;
+        id?: string | undefined;
+        kind?: string | undefined;
       }
       interface GroupSnippet {
-        publishedAt?: string;
-        title?: string;
+        publishedAt?: string | undefined;
+        title?: string | undefined;
       }
       interface ListGroupItemsResponse {
-        errors?: YouTubeAnalytics.Schema.Errors;
-        etag?: string;
-        items?: YouTubeAnalytics.Schema.GroupItem[];
-        kind?: string;
+        errors?: YouTubeAnalytics.Schema.Errors | undefined;
+        etag?: string | undefined;
+        items?: YouTubeAnalytics.Schema.GroupItem[] | undefined;
+        kind?: string | undefined;
       }
       interface ListGroupsResponse {
-        errors?: YouTubeAnalytics.Schema.Errors;
-        etag?: string;
-        items?: YouTubeAnalytics.Schema.Group[];
-        kind?: string;
-        nextPageToken?: string;
+        errors?: YouTubeAnalytics.Schema.Errors | undefined;
+        etag?: string | undefined;
+        items?: YouTubeAnalytics.Schema.Group[] | undefined;
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
       }
       interface QueryResponse {
-        columnHeaders?: YouTubeAnalytics.Schema.ResultTableColumnHeader[];
-        errors?: YouTubeAnalytics.Schema.Errors;
-        kind?: string;
-        rows?: any[][];
+        columnHeaders?: YouTubeAnalytics.Schema.ResultTableColumnHeader[] | undefined;
+        errors?: YouTubeAnalytics.Schema.Errors | undefined;
+        kind?: string | undefined;
+        rows?: any[][] | undefined;
       }
       interface ResultTableColumnHeader {
-        columnType?: string;
-        dataType?: string;
-        name?: string;
+        columnType?: string | undefined;
+        dataType?: string | undefined;
+        name?: string | undefined;
       }
     }
   }
   interface YouTubeAnalytics {
-    GroupItems?: YouTubeAnalytics.Collection.GroupItemsCollection;
-    Groups?: YouTubeAnalytics.Collection.GroupsCollection;
-    Reports?: YouTubeAnalytics.Collection.ReportsCollection;
+    GroupItems?: YouTubeAnalytics.Collection.GroupItemsCollection | undefined;
+    Groups?: YouTubeAnalytics.Collection.GroupsCollection | undefined;
+    Reports?: YouTubeAnalytics.Collection.ReportsCollection | undefined;
     // Create a new instance of ErrorProto
     newErrorProto(): YouTubeAnalytics.Schema.ErrorProto;
     // Create a new instance of Errors

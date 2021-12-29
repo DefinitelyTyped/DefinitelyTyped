@@ -20,26 +20,26 @@ declare namespace ClusterizePaging {
     interface Options {
         scrollId: string;
         contentId: string;
-        dummyRow?: string;
-        preload?: number;
-        pageSize?: number;
-        rows?: string[];
-        tag?: string;
-        rows_in_block?: number;
-        blocks_in_cluster?: number;
-        show_no_data_row?: boolean;
-        no_data_text?: string;
-        no_data_class?: string;
-        keep_parity?: boolean;
-        callbacks?: Callbacks;
+        dummyRow?: string | undefined;
+        preload?: number | undefined;
+        pageSize?: number | undefined;
+        rows?: string[] | undefined;
+        tag?: string | undefined;
+        rows_in_block?: number | undefined;
+        blocks_in_cluster?: number | undefined;
+        show_no_data_row?: boolean | undefined;
+        no_data_text?: string | undefined;
+        no_data_class?: string | undefined;
+        keep_parity?: boolean | undefined;
+        callbacks?: Callbacks | undefined;
     }
 
     interface Callbacks {
-        clusterWillChange?: () => void;
-        clusterChanged?: () => void;
-        scrollingProgress?: (progress: number) => void;
-        rowsLoaded?: () => void;
-        loadRows?: (offset: number) => void;
+        clusterWillChange?: (() => void) | undefined;
+        clusterChanged?: (() => void) | undefined;
+        scrollingProgress?: ((progress: number) => void) | undefined;
+        rowsLoaded?: (() => void) | undefined;
+        loadRows?: ((offset: number) => void) | undefined;
     }
 }
 

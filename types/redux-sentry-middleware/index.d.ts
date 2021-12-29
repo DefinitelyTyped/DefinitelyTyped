@@ -9,14 +9,14 @@ import * as Sentry from "@sentry/browser";
 
 declare namespace createSentryMiddleware {
     interface Options<T> {
-        breadcrumbDataFromAction?: (action: Action) => any;
-        breadcrumbMessageFromAction?: (action: Action) => any;
-        actionTransformer?: (action: Action) => any;
-        stateTransformer?: (state: T) => any;
-        breadcrumbCategory?: string;
-        filterBreadcrumbActions?: (action: Action) => boolean;
-        getUserContext?: (state: T) => Sentry.User;
-        getTags?: (state: T) => Sentry.Event['tags'];
+        breadcrumbDataFromAction?: ((action: Action) => any) | undefined;
+        breadcrumbMessageFromAction?: ((action: Action) => any) | undefined;
+        actionTransformer?: ((action: Action) => any) | undefined;
+        stateTransformer?: ((state: T) => any) | undefined;
+        breadcrumbCategory?: string | undefined;
+        filterBreadcrumbActions?: ((action: Action) => boolean) | undefined;
+        getUserContext?: ((state: T) => Sentry.User) | undefined;
+        getTags?: ((state: T) => Sentry.Event['tags']) | undefined;
     }
 }
 

@@ -1,9 +1,9 @@
-import { Readable, Writable, Transform, finished, pipeline, Duplex } from 'stream';
-import { promisify } from 'util';
-import { createReadStream, createWriteStream } from 'fs';
-import { createGzip, constants } from 'zlib';
-import assert = require('assert');
-import { Http2ServerResponse } from 'http2';
+import { Readable, Writable, Transform, finished, pipeline, Duplex } from 'node:stream';
+import { promisify } from 'node:util';
+import { createReadStream, createWriteStream } from 'node:fs';
+import { createGzip, constants } from 'node:zlib';
+import assert = require('node:assert');
+import { Http2ServerResponse } from 'node:http2';
 
 // Simplified constructors
 function simplified_stream_ctor_test() {
@@ -186,7 +186,7 @@ async function asyncStreamPipelineFinished() {
     await pipe(process.stdin, process.stdout);
 }
 
-// http://nodejs.org/api/stream.html#stream_readable_pipe_destination_options
+// https://nodejs.org/api/stream.html#stream_readable_pipe_destination_options
 function stream_readable_pipe_test() {
     const rs = createReadStream(Buffer.from('file.txt'));
     const r = createReadStream('file.txt');

@@ -55,10 +55,10 @@ export interface Options {
     /** Path to the .pbf file */
     file: string;
     /** To control which tags are output */
-    tags?: string[];
+    tags?: string[] | undefined;
     /** Path to store temp files */
-    leveldb?: string;
-    waynodes?: string;
+    leveldb?: string | undefined;
+    waynodes?: string | undefined;
 }
 
 export interface Decoder extends stream.Transform {

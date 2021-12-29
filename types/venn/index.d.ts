@@ -23,7 +23,7 @@ export interface Circle {
 export interface Overlap {
   sets: string[];
   size: number;
-  weight?: number;
+  weight?: number | undefined;
 }
 
 /** Typing for Area object. */
@@ -34,8 +34,8 @@ export interface Area {
 
 /** Typing for layout function parameter. */
 export interface LayoutParameter {
-  lossFunction?: (sets: {[key: string]: Circle}, overlaps: Overlap[]) => number;
-  restarts?: number;
+  lossFunction?: ((sets: {[key: string]: Circle}, overlaps: Overlap[]) => number) | undefined;
+  restarts?: number | undefined;
 }
 
 /** Typing for the VennDiagram instance. */

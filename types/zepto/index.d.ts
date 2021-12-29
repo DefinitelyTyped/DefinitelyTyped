@@ -1575,29 +1575,29 @@ interface ZeptoCollection {
 }
 
 interface ZeptoAjaxSettings {
-    type?: string;
-    url?: string;
+    type?: string | undefined;
+    url?: string | undefined;
     data?: any;
-    processData?: boolean;
-    contentType?: string;
-    mimeType?: string;
-    dataType?: string;
-    jsonp?: string;
+    processData?: boolean | undefined;
+    contentType?: string | undefined;
+    mimeType?: string | undefined;
+    dataType?: string | undefined;
+    jsonp?: string | undefined;
     jsonpCallback?: any; // string or Function
-    timeout?: number;
-    headers?: { [key: string]: string };
-    async?: boolean;
-    global?: boolean;
+    timeout?: number | undefined;
+    headers?: { [key: string]: string } | undefined;
+    async?: boolean | undefined;
+    global?: boolean | undefined;
     context?: any;
-    traditional?: boolean;
-    cache?: boolean;
-    xhrFields?: { [key: string]: any };
-    username?: string;
-    password?: string;
-    beforeSend?: (xhr: XMLHttpRequest, settings: ZeptoAjaxSettings) => boolean;
-    success?: (data: any, status: string, xhr: XMLHttpRequest) => void;
-    error?: (xhr: XMLHttpRequest, errorType: string, error: Error) => void;
-    complete?: (xhr: XMLHttpRequest, status: string) => void;
+    traditional?: boolean | undefined;
+    cache?: boolean | undefined;
+    xhrFields?: { [key: string]: any } | undefined;
+    username?: string | undefined;
+    password?: string | undefined;
+    beforeSend?: ((xhr: XMLHttpRequest, settings: ZeptoAjaxSettings) => boolean) | undefined;
+    success?: ((data: any, status: string, xhr: XMLHttpRequest) => void) | undefined;
+    error?: ((xhr: XMLHttpRequest, errorType: string, error: Error) => void) | undefined;
+    complete?: ((xhr: XMLHttpRequest, status: string) => void) | undefined;
 }
 
 // Fired if no other ajax requests are currently active
@@ -1643,9 +1643,9 @@ interface ZeptoAjaxStopEvent {
 }
 
 interface ZeptoAnimateSettings {
-    duration?: number;
-    easing?: string;
-    complete?: () => void;
+    duration?: number | undefined;
+    easing?: string | undefined;
+    complete?: (() => void) | undefined;
 }
 
 interface ZeptoPosition {

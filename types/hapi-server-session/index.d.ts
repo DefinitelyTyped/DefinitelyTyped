@@ -13,14 +13,14 @@ declare module '@hapi/hapi' {
 }
 
 export interface Options {
-    algorithm?: string;
-    cache?: CachePolicyOptions<any>;
-    cookie?: ServerStateCookieOptions;
-    expiresIn?: number;
-    key?: BinaryLike;
-    name?: string;
-    size?: number;
-    vhost?: string | string[];
+    algorithm?: string | undefined;
+    cache?: CachePolicyOptions<any> | undefined;
+    cookie?: ServerStateCookieOptions | undefined;
+    expiresIn?: number | undefined;
+    key?: BinaryLike | undefined;
+    name?: string | undefined;
+    size?: number | undefined;
+    vhost?: string | string[] | undefined;
 }
 
 export const plugin: Plugin<Options>;

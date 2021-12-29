@@ -41,7 +41,7 @@ declare namespace wampy {
 
     interface RPCOptions
     {
-        process?: boolean;
+        process?: boolean | undefined;
     }
 
     interface RPCResult extends Args
@@ -51,9 +51,9 @@ declare namespace wampy {
 
     interface SubscribeCallbacksHash
     {
-        onSuccess?: Callback;
-        onError?: ErrorCallback;
-        onEvent?: EventCallback;
+        onSuccess?: Callback | undefined;
+        onError?: ErrorCallback | undefined;
+        onEvent?: EventCallback | undefined;
     }
 
     interface UnsubscibeCallbacksHash extends SubscribeCallbacksHash
@@ -63,99 +63,99 @@ declare namespace wampy {
 
     interface PublishCallbacksHash
     {
-        onSuccess?: Callback;
-        onError?: ErrorCallback;
+        onSuccess?: Callback | undefined;
+        onError?: ErrorCallback | undefined;
     }
 
     interface CallCallbacksHash
     {
-        onSuccess?: SuccessCallback;
-        onError?: ErrorCallback;
+        onSuccess?: SuccessCallback | undefined;
+        onError?: ErrorCallback | undefined;
     }
 
     interface CancelCallbacksHash
     {
-        onSuccess?: Callback;
-        onError?: Callback;
+        onSuccess?: Callback | undefined;
+        onError?: Callback | undefined;
     }
 
     interface RegisterCallbacksHash
     {
         rpc: RPCCallback;
-        onSuccess?: Callback;
-        onError?: ErrorCallback;
+        onSuccess?: Callback | undefined;
+        onError?: ErrorCallback | undefined;
     }
 
     interface UnregisterCallbacksHash
     {
-        onSuccess?: Callback;
-        onError?: ErrorCallback;
+        onSuccess?: Callback | undefined;
+        onError?: ErrorCallback | undefined;
     }
 
     interface SubscribeAdvancedOptions
     {
-        match?: "prefix" | "wildcard"
+        match?: "prefix" | "wildcard" | undefined
     }
 
     interface AdvancedOptions
     {
-        exclude?: number | number[];
-        eligible?: number | number[];
-        exclude_me?: boolean;
-        disclose_me?: boolean;
+        exclude?: number | number[] | undefined;
+        eligible?: number | number[] | undefined;
+        exclude_me?: boolean | undefined;
+        disclose_me?: boolean | undefined;
     }
 
     interface PublishAdvancedOptions extends AdvancedOptions
     {
-        exclude_authid?: string | string[];
-        exclude_authrole?: string | string[];
-        eligible_authid?: string | string[];
-        eligible_authrole?: string | string[];
+        exclude_authid?: string | string[] | undefined;
+        exclude_authrole?: string | string[] | undefined;
+        eligible_authid?: string | string[] | undefined;
+        eligible_authrole?: string | string[] | undefined;
     }
 
     interface CallAdvancedOptions
     {
-        disclose_me?: boolean;
-        receive_progress?: boolean;
-        timeout?: number;
+        disclose_me?: boolean | undefined;
+        receive_progress?: boolean | undefined;
+        timeout?: number | undefined;
     }
 
     interface CancelAdvancedOptions
     {
-        mode?: "skip" | "kill" | "killnowait";
+        mode?: "skip" | "kill" | "killnowait" | undefined;
     }
 
     interface RegisterAdvancedOptions
     {
-        match?: "prefix" | "wildcard"
-        invoke?: "single" | "roundrobin" | "random" | "first" | "last"
+        match?: "prefix" | "wildcard" | undefined
+        invoke?: "single" | "roundrobin" | "random" | "first" | "last" | undefined
     }
 
     interface WampyOptions
     {
-        autoReconnect?: boolean;
-        reconnectInterval?: number;
-        maxRetries?: number;
-        realm?: string;
+        autoReconnect?: boolean | undefined;
+        reconnectInterval?: number | undefined;
+        maxRetries?: number | undefined;
+        realm?: string | undefined;
         helloCustomDetails?: any;
-        authid?: string;
-        authmethods?: string[];
-        onChallenge?: ChallengeCallback;
-        onConnect?: Callback;
-        onClose?: Callback;
-        onError?: Callback;
-        onReconnect?: Callback;
-        onReconnectSuccess?: Callback;
+        authid?: string | undefined;
+        authmethods?: string[] | undefined;
+        onChallenge?: ChallengeCallback | undefined;
+        onConnect?: Callback | undefined;
+        onClose?: Callback | undefined;
+        onError?: Callback | undefined;
+        onReconnect?: Callback | undefined;
+        onReconnectSuccess?: Callback | undefined;
         ws?: any;
         serializer?: any;
-        uriValidation?: "strict" | "loose";
+        uriValidation?: "strict" | "loose" | undefined;
     }
 
     interface WampyOpStatus
     {
         code: number;
         description: string;
-        reqId?: number;
+        reqId?: number | undefined;
     }
 
     interface WampyStatic

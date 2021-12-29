@@ -23,16 +23,16 @@ declare namespace Popover {
 
     interface PopoverProps {
         body: React.ReactNode;
-        isOpen?: boolean;
-        preferPlace?: PopoverPlace;
-        place?: PopoverPlace;
-        onOuterAction?: (event: Event) => void;
-        refreshIntervalMs?: number;
-        enterExitTransitionDurationMs?: number;
-        tipSize?: number;
-        className?: string;
-        style?: React.CSSProperties;
-        target?: React.ReactElement;
-        appendTarget?: Element;
+        isOpen?: boolean | undefined;
+        preferPlace?: PopoverPlace | undefined;
+        place?: PopoverPlace | undefined;
+        onOuterAction?: ((event: Event) => void) | undefined;
+        refreshIntervalMs?: number | undefined;
+        enterExitTransitionDurationMs?: number | undefined;
+        tipSize?: number | undefined;
+        className?: string | undefined;
+        style?: React.CSSProperties | undefined;
+        target?: React.ReactElement | undefined;
+        appendTarget?: Element | undefined;
     }
 }

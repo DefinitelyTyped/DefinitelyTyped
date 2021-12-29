@@ -12,59 +12,59 @@ declare namespace SegmentAnalytics {
   // Generic options object with integrations
   interface SegmentOpts {
     integrations?: any;
-    anonymousId?: string;
-    context?: object;
+    anonymousId?: string | undefined;
+    context?: object | undefined;
   }
 
   interface CookieOptions {
-    maxage?: number;
-    domain?: string;
-    path?: string;
-    secure?: boolean;
+    maxage?: number | undefined;
+    domain?: string | undefined;
+    path?: string | undefined;
+    secure?: boolean | undefined;
   }
 
   interface MetricsOptions {
-    host?: string;
-    sampleRate?: number;
-    flushTimer?: number;
-    maxQueueSize?: number;
+    host?: string | undefined;
+    sampleRate?: number | undefined;
+    flushTimer?: number | undefined;
+    maxQueueSize?: number | undefined;
   }
 
   interface StoreOptions {
-    enabled?: boolean;
+    enabled?: boolean | undefined;
   }
 
   interface UserOptions {
     cookie?: {
       key: string;
       oldKey: string;
-    };
+    } | undefined;
     localStorage?: {
       key: string;
-    };
-    persist?: boolean;
+    } | undefined;
+    persist?: boolean | undefined;
   }
 
   interface GroupOptions {
     cookie?: {
       key: string;
-    };
+    } | undefined;
     localStorage?: {
       key: string;
-    };
-    persist?: boolean;
+    } | undefined;
+    persist?: boolean | undefined;
   }
 
   interface InitOptions {
-    cookie?: CookieOptions;
-    metrics?: MetricsOptions;
-    localStorage?: StoreOptions;
-    user?: UserOptions;
-    group?: GroupOptions;
+    cookie?: CookieOptions | undefined;
+    metrics?: MetricsOptions | undefined;
+    localStorage?: StoreOptions | undefined;
+    user?: UserOptions | undefined;
+    group?: GroupOptions | undefined;
     integrations?: {
-      All?: boolean;
+      All?: boolean | undefined;
       [integration: string]: boolean | undefined;
-    };
+    } | undefined;
   }
 
   interface IntegrationsSettings {

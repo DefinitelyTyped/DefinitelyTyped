@@ -1373,6 +1373,14 @@ function oneOf() {
     expect('Today is sunny').to.contain.oneOf(['sunny', 'cloudy']);
 }
 
+function deepOneOf() {
+    expect({z: 3}).to.be.deep.oneOf([{z: 3}]);
+    expect({z: 3}).to.deep.be.oneOf([{z: 3}]);
+
+    expect({z: 3}).to.not.be.deep.oneOf([{x: 1}, {y: 2}]);
+    expect({z: 3}).to.not.deep.be.oneOf([{x: 1}, {y: 2}]);
+}
+
 function testInspectType() {
     const x: string = util.inspect([1, 2, 3], false, 4, false);
     expect(x).to.be.equal('[ 1, 2, 3 ]');
@@ -1880,6 +1888,8 @@ suite('assert', () => {
         assert.includeMembers([1, 2, 3], [3]);
         assert.includeMembers([5, 6], [7, 8]);
         assert.includeMembers([5, 6], [5, 6, 0]);
+
+        assert.notIncludeMembers([ 1, 2, 3 ], [ 5, 1 ], 'not include members');
     });
 
     test('memberEquals', () => {

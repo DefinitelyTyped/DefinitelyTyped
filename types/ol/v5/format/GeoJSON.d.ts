@@ -23,10 +23,10 @@ export type GeoJSONObject = GeoJSON_1;
 export type GeoJSONPoint = Point;
 export type GeoJSONPolygon = Polygon;
 export interface Options {
-    dataProjection?: ProjectionLike;
-    featureProjection?: ProjectionLike;
-    geometryName?: string;
-    extractGeometryName?: boolean;
+    dataProjection?: ProjectionLike | undefined;
+    featureProjection?: ProjectionLike | undefined;
+    geometryName?: string | undefined;
+    extractGeometryName?: boolean | undefined;
 }
 export default class GeoJSON extends JSONFeature {
     constructor(opt_options?: Options);

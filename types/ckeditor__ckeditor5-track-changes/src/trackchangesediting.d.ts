@@ -36,3 +36,9 @@ export default class TrackChangesEditing extends Plugin {
     markMultiRangeDeletion(ranges: Range[], subType?: string, attributes?: Record<string, unknown>): Suggestion;
     markMultiRangeInsertion(ranges: Range[], subType?: string, attributes?: Record<string, unknown>): Suggestion;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        TrackChangesEditing: TrackChangesEditing;
+    }
+}

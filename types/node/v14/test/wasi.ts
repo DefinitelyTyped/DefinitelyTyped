@@ -1,5 +1,5 @@
-import { WASI } from 'wasi';
-import * as fs from 'fs';
+import { WASI } from 'node:wasi';
+import * as fs from 'node:fs';
 
 {
     const wasi = new WASI({

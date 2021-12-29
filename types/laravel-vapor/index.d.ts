@@ -6,11 +6,11 @@
 //
 
 interface VaporStoreOptions {
-    bucket?: string;
-    contentType?: string;
-    expires?: string;
-    visibility?: string;
-    baseURL?: string;
+    bucket?: string | undefined;
+    contentType?: string | undefined;
+    expires?: string | undefined;
+    visibility?: string | undefined;
+    baseURL?: string | undefined;
     headers?: any;
     options?: any;
 }

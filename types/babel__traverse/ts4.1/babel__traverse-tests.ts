@@ -20,7 +20,11 @@ const MyVisitor: Visitor = {
 const MyVisitor2: Visitor = {
     Identifier(path) {
         path.type; // $ExpectType "Identifier"
+        path.parentPath; // $ExpectType NodePath<Node>
         console.log('Visiting: ' + path.node.name);
+    },
+    Program(path) {
+        path.parentPath; // $ExpectType null
     },
 };
 

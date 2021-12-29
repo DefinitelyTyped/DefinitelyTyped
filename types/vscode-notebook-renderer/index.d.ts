@@ -1,4 +1,4 @@
-// Type definitions for non-npm package vscode-notebook-renderer 1.57
+// Type definitions for non-npm package vscode-notebook-renderer 1.60
 // Project: https://github.com/microsoft/vscode-docs/blob/notebook/api/extension-guides/notebook.md
 // Definitions by: Connor Peet <https://github.com/connor4312>, Matt Bierner <https://github.com/mjbvz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -95,7 +95,17 @@ export interface RendererContext<TState> {
      * Fires when a message is sent via the `vscode.notebook.createRendererMessaging`
      * object in the extension host.
      */
-    onDidReceiveMessage?: VSCodeEvent<any>;
+    onDidReceiveMessage?: VSCodeEvent<any> | undefined;
+
+    /**
+     * Information about the current workspace.
+     */
+    readonly workspace: {
+        /**
+         * When true, the user has explicitly trusted the contents of the workspace.
+         */
+        readonly isTrusted: boolean;
+    };
 }
 
 /**
@@ -139,4 +149,11 @@ export interface RendererApi {
  *
  * @template TState Type of the renderer specific state persisted in the webview.
  */
-export type ActivationFunction<TState = any> = (context: RendererContext<TState>) => RendererApi;
+export interface ActivationFunction<TState = any> {
+    /**
+     * @param context Collection of APIs provided to your renderer.
+     *
+     * @return The renderer for your API or undefined if your renderer extends another and will not be called directly.
+     */
+    (context: RendererContext<TState>): Promise<RendererApi | undefined> | RendererApi | undefined;
+}

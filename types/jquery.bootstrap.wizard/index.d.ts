@@ -1,26 +1,25 @@
 // Type definitions for twitter-bootstrap-wizard
 // Project: https://github.com/VinceG/twitter-bootstrap-wizard
 // Definitions by: Blake Niemyjski <https://github.com/niemyjski>
-//                 Dennis Åhlin <https://github.com/dennisahlin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 /// <reference types="jquery"/>
 
 interface WizardOptions {
-    tabClass?: string;
-    nextSelector?: string;
-    previousSelector?: string;
-    firstSelector?: string;
-    lastSelector?: string;
-    onShow?: (activeTab: any, navigation: any, nextIndex: number) => void;
-    onInit?: (activeTab: any, navigation: any, currentIndex: number) => void;
-    onNext?: (activeTab: any, navigation: any, nextIndex: number) => boolean;
-    onPrevious?: (activeTab: any, navigation: any, previousIndex: number) => boolean;
-    onLast?: (activeTab: any, navigation: any, lastIndex: number) => boolean;
-    onFirst?: (activeTab: any, navigation: any, firstIndex: number) => boolean;
-    onTabClick?: (activeTab: any, navigation: any, currentIndex: number) => boolean;
-    onTabShow?: (activeTab: any, navigation: any, currentIndex: number) => boolean;
+    tabClass?: string | undefined;
+    nextSelector?: string | undefined;
+    previousSelector?: string | undefined;
+    firstSelector?: string | undefined;
+    lastSelector?: string | undefined;
+    onShow?: ((activeTab: any, navigation: any, nextIndex: number) => void) | undefined;
+    onInit?: ((activeTab: any, navigation: any, currentIndex: number) => void) | undefined;
+    onNext?: ((activeTab: any, navigation: any, nextIndex: number) => boolean) | undefined;
+    onPrevious?: ((activeTab: any, navigation: any, previousIndex: number) => boolean) | undefined;
+    onLast?: ((activeTab: any, navigation: any, lastIndex: number) => boolean) | undefined;
+    onFirst?: ((activeTab: any, navigation: any, firstIndex: number) => boolean) | undefined;
+    onTabClick?: ((activeTab: any, navigation: any, currentIndex: number) => boolean) | undefined;
+    onTabShow?: ((activeTab: any, navigation: any, currentIndex: number) => boolean) | undefined;
 }
 
 interface Wizard {

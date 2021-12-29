@@ -1,4 +1,4 @@
-// Type definitions for @vimeo/player 2.10
+// Type definitions for @vimeo/player 2.16
 // Project: https://github.com/vimeo/player.js
 // Definitions by: Denis Yılmaz <https://github.com/denisyilmaz>
 //                 Felix Albert <f.albert.work@icloud.com>
@@ -34,7 +34,7 @@ export class Player {
 
     on(event: EventName, callback: EventCallback): void;
     off(event: EventName, callback?: EventCallback): void;
-    loadVideo(id: number): VimeoPromise<number, TypeError | PasswordError | PrivacyError | Error>;
+    loadVideo(id: number | string): VimeoPromise<number, TypeError | PasswordError | PrivacyError | Error>;
     ready(): VimeoPromise<void, Error>;
     enableTextTrack(language: string, kind?: string): VimeoPromise<VimeoTextTrack, InvalidTrackLanguageError | InvalidTrackError | Error>;
     disableTextTrack(): VimeoPromise<void, Error>;
@@ -89,33 +89,33 @@ export interface VimeoTextTrack {
     language: string;
     kind: string;
     label: string;
-    mode?: string;
+    mode?: string | undefined;
 }
 
 export interface Options {
-    id?: number;
-    url?: string;
-    autopause?: boolean;
-    autoplay?: boolean;
-    background?: boolean;
-    byline?: boolean;
-    color?: string;
-    controls?: boolean;
-    dnt?: boolean;
-    height?: number;
-    loop?: boolean;
-    maxheight?: number;
-    maxwidth?: number;
-    muted?: boolean;
-    playsinline?: boolean;
-    portrait?: boolean;
-    responsive?: boolean;
-    speed?: boolean;
-    quality?: VimeoVideoQuality;
-    texttrack?: string;
-    title?: boolean;
-    transparent?: boolean;
-    width?: number;
+    id?: number | undefined;
+    url?: string | undefined;
+    autopause?: boolean | undefined;
+    autoplay?: boolean | undefined;
+    background?: boolean | undefined;
+    byline?: boolean | undefined;
+    color?: string | undefined;
+    controls?: boolean | undefined;
+    dnt?: boolean | undefined;
+    height?: number | undefined;
+    loop?: boolean | undefined;
+    maxheight?: number | undefined;
+    maxwidth?: number | undefined;
+    muted?: boolean | undefined;
+    playsinline?: boolean | undefined;
+    portrait?: boolean | undefined;
+    responsive?: boolean | undefined;
+    speed?: boolean | undefined;
+    quality?: VimeoVideoQuality | undefined;
+    texttrack?: string | undefined;
+    title?: boolean | undefined;
+    transparent?: boolean | undefined;
+    width?: number | undefined;
 }
 
 export interface VimeoPromise<Result, Reason> extends Promise<Result> {

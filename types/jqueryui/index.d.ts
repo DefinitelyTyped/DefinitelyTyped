@@ -12,11 +12,11 @@ declare namespace JQueryUI {
     interface AccordionOptions extends AccordionEvents {
         active?: any; // boolean or number
         animate?: any; // boolean, number, string or object
-        collapsible?: boolean;
-        disabled?: boolean;
-        event?: string;
-        header?: string;
-        heightStyle?: string;
+        collapsible?: boolean | undefined;
+        disabled?: boolean | undefined;
+        event?: string | undefined;
+        header?: string | undefined;
+        heightStyle?: string | undefined;
         icons?: any;
     }
 
@@ -32,9 +32,9 @@ declare namespace JQueryUI {
     }
 
     interface AccordionEvents {
-        activate?: AccordionEvent;
-        beforeActivate?: AccordionEvent;
-        create?: AccordionEvent;
+        activate?: AccordionEvent | undefined;
+        beforeActivate?: AccordionEvent | undefined;
+        create?: AccordionEvent | undefined;
     }
 
     interface Accordion extends Widget, AccordionOptions {
@@ -45,18 +45,18 @@ declare namespace JQueryUI {
 
     interface AutocompleteOptions extends AutocompleteEvents {
         appendTo?: any; //Selector;
-        autoFocus?: boolean;
-        delay?: number;
-        disabled?: boolean;
-        minLength?: number;
+        autoFocus?: boolean | undefined;
+        delay?: number | undefined;
+        disabled?: boolean | undefined;
+        minLength?: number | undefined;
         position?: any; // object
         source?: any; // [], string or ()
-        classes?: AutocompleteClasses;
+        classes?: AutocompleteClasses | undefined;
     }
 
     interface AutocompleteClasses {
-        "ui-autocomplete"?: string;
-        "ui-autocomplete-input"?: string;
+        "ui-autocomplete"?: string | undefined;
+        "ui-autocomplete-input"?: string | undefined;
     }
 
     interface AutocompleteUIParams {
@@ -72,14 +72,14 @@ declare namespace JQueryUI {
     }
 
     interface AutocompleteEvents {
-        change?: AutocompleteEvent;
-        close?: AutocompleteEvent;
-        create?: AutocompleteEvent;
-        focus?: AutocompleteEvent;
-        open?: AutocompleteEvent;
-        response?: AutocompleteEvent;
-        search?: AutocompleteEvent;
-        select?: AutocompleteEvent;
+        change?: AutocompleteEvent | undefined;
+        close?: AutocompleteEvent | undefined;
+        create?: AutocompleteEvent | undefined;
+        focus?: AutocompleteEvent | undefined;
+        open?: AutocompleteEvent | undefined;
+        response?: AutocompleteEvent | undefined;
+        search?: AutocompleteEvent | undefined;
+        select?: AutocompleteEvent | undefined;
     }
 
     interface Autocomplete extends Widget, AutocompleteOptions {
@@ -91,11 +91,11 @@ declare namespace JQueryUI {
     // Button //////////////////////////////////////////////////
 
     interface ButtonOptions {
-        disabled?: boolean;
+        disabled?: boolean | undefined;
         icons?: any;
-        label?: string;
-        text?: string|boolean;
-        click?: (event?: Event) => void;
+        label?: string | undefined;
+        text?: string|boolean | undefined;
+        click?: ((event?: Event) => void) | undefined;
     }
 
     interface Button extends Widget, ButtonOptions {
@@ -112,19 +112,19 @@ declare namespace JQueryUI {
         /**
          * The dateFormat to be used for the altField option. This allows one date format to be shown to the user for selection purposes, while a different format is actually sent behind the scenes. For a full list of the possible formats see the formatDate function
          */
-        altFormat?: string;
+        altFormat?: string | undefined;
         /**
          * The text to display after each date field, e.g., to show the required format.
          */
-        appendText?: string;
+        appendText?: string | undefined;
         /**
          * Set to true to automatically resize the input field to accommodate dates in the current dateFormat.
          */
-        autoSize?: boolean;
+        autoSize?: boolean | undefined;
         /**
          * A function that takes an input field and current datepicker instance and returns an options object to update the datepicker with. It is called just before the datepicker is displayed.
          */
-        beforeShow?: (input: Element, inst: any) => JQueryUI.DatepickerOptions;
+        beforeShow?: ((input: Element, inst: any) => JQueryUI.DatepickerOptions) | undefined;
         /**
          * A function that takes a date as a parameter and must return an array with:
          * [0]: true/false indicating whether or not this date is selectable
@@ -132,59 +132,59 @@ declare namespace JQueryUI {
          * [2]: an optional popup tooltip for this date
          * The function is called for each day in the datepicker before it is displayed.
          */
-        beforeShowDay?: (date: Date) => any[];
+        beforeShowDay?: ((date: Date) => any[]) | undefined;
         /**
          * A URL of an image to use to display the datepicker when the showOn option is set to "button" or "both". If set, the buttonText option becomes the alt value and is not directly displayed.
          */
-        buttonImage?: string;
+        buttonImage?: string | undefined;
         /**
          * Whether the button image should be rendered by itself instead of inside a button element. This option is only relevant if the buttonImage option has also been set.
          */
-        buttonImageOnly?: boolean;
+        buttonImageOnly?: boolean | undefined;
         /**
          * The text to display on the trigger button. Use in conjunction with the showOn option set to "button" or "both".
          */
-        buttonText?: string;
+        buttonText?: string | undefined;
         /**
          * A function to calculate the week of the year for a given date. The default implementation uses the ISO 8601 definition: weeks start on a Monday; the first week of the year contains the first Thursday of the year.
          */
-        calculateWeek?: (date: Date) => string;
+        calculateWeek?: ((date: Date) => string) | undefined;
         /**
          * Whether the month should be rendered as a dropdown instead of text.
          */
-        changeMonth?: boolean;
+        changeMonth?: boolean | undefined;
         /**
          * Whether the year should be rendered as a dropdown instead of text. Use the yearRange option to control which years are made available for selection.
          */
-        changeYear?: boolean;
+        changeYear?: boolean | undefined;
         /**
          * The text to display for the close link. Use the showButtonPanel option to display this button.
          */
-        closeText?: string;
+        closeText?: string | undefined;
         /**
          * When true, entry in the input field is constrained to those characters allowed by the current dateFormat option.
          */
-        constrainInput?: boolean;
+        constrainInput?: boolean | undefined;
         /**
          * The text to display for the current day link. Use the showButtonPanel option to display this button.
          */
-        currentText?: string;
+        currentText?: string | undefined;
         /**
          * The format for parsed and displayed dates. For a full list of the possible formats see the formatDate function.
          */
-        dateFormat?: string;
+        dateFormat?: string | undefined;
         /**
          * The list of long day names, starting from Sunday, for use as requested via the dateFormat option.
          */
-        dayNames?: string[];
+        dayNames?: string[] | undefined;
         /**
          * The list of minimised day names, starting from Sunday, for use as column headers within the datepicker.
          */
-        dayNamesMin?: string[];
+        dayNamesMin?: string[] | undefined;
         /**
          * The list of abbreviated day names, starting from Sunday, for use as requested via the dateFormat option.
          */
-        dayNamesShort?: string[];
+        dayNamesShort?: string[] | undefined;
         /**
          * Set the date to highlight on first opening if the field is blank. Specify either an actual date via a Date object or as a string in the current dateFormat, or a number of days from today (e.g. +7) or a string of values and periods ('y' for years, 'm' for months, 'w' for weeks, 'd' for days, e.g. '+1m +7d'), or null for today.
          * Multiple types supported:
@@ -196,23 +196,23 @@ declare namespace JQueryUI {
         /**
          * Control the speed at which the datepicker appears, it may be a time in milliseconds or a string representing one of the three predefined speeds ("slow", "normal", "fast").
          */
-        duration?: string;
+        duration?: string | undefined;
         /**
          * Set the first day of the week: Sunday is 0, Monday is 1, etc.
          */
-        firstDay?: number;
+        firstDay?: number | undefined;
         /**
          * When true, the current day link moves to the currently selected date instead of today.
          */
-        gotoCurrent?: boolean;
+        gotoCurrent?: boolean | undefined;
         /**
          * Normally the previous and next links are disabled when not applicable (see the minDate and maxDate options). You can hide them altogether by setting this attribute to true.
          */
-        hideIfNoPrevNext?: boolean;
+        hideIfNoPrevNext?: boolean | undefined;
         /**
          * Whether the current language is drawn from right to left.
          */
-        isRTL?: boolean;
+        isRTL?: boolean | undefined;
         /**
          * The maximum selectable date. When set to null, there is no maximum.
          * Multiple types supported:
@@ -232,19 +232,19 @@ declare namespace JQueryUI {
         /**
          * The list of full month names, for use as requested via the dateFormat option.
          */
-        monthNames?: string[];
+        monthNames?: string[] | undefined;
         /**
          * The list of abbreviated month names, as used in the month header on each datepicker and as requested via the dateFormat option.
          */
-        monthNamesShort?: string[];
+        monthNamesShort?: string[] | undefined;
         /**
          * Whether the prevText and nextText options should be parsed as dates by the formatDate function, allowing them to display the target month names for example.
          */
-        navigationAsDateFormat?: boolean;
+        navigationAsDateFormat?: boolean | undefined;
         /**
          * The text to display for the next month link. With the standard ThemeRoller styling, this value is replaced by an icon.
          */
-        nextText?: string;
+        nextText?: string | undefined;
         /**
          * The number of months to show at once.
          * Multiple types supported:
@@ -255,23 +255,23 @@ declare namespace JQueryUI {
         /**
          * Called when the datepicker moves to a new month and/or year. The function receives the selected year, month (1-12), and the datepicker instance as parameters. this refers to the associated input field.
          */
-        onChangeMonthYear?: (year: number, month: number, inst: any) => void;
+        onChangeMonthYear?: ((year: number, month: number, inst: any) => void) | undefined;
         /**
          * Called when the datepicker is closed, whether or not a date is selected. The function receives the selected date as text ("" if none) and the datepicker instance as parameters. this refers to the associated input field.
          */
-        onClose?: (dateText: string, inst: any) => void;
+        onClose?: ((dateText: string, inst: any) => void) | undefined;
         /**
          * Called when the datepicker is selected. The function receives the selected date as text and the datepicker instance as parameters. this refers to the associated input field.
          */
-        onSelect?: (dateText: string, inst: any) => void;
+        onSelect?: ((dateText: string, inst: any) => void) | undefined;
         /**
          * The text to display for the previous month link. With the standard ThemeRoller styling, this value is replaced by an icon.
          */
-        prevText?: string;
+        prevText?: string | undefined;
         /**
          * Whether days in other months shown before or after the current month are selectable. This only applies if the showOtherMonths option is set to true.
          */
-        selectOtherMonths?: boolean;
+        selectOtherMonths?: boolean | undefined;
         /**
          * The cutoff year for determining the century for a date (used in conjunction with dateFormat 'y'). Any dates entered with a year value less than or equal to the cutoff year are considered to be in the current century, while those greater than it are deemed to be in the previous century.
          * Multiple types supported:
@@ -282,23 +282,23 @@ declare namespace JQueryUI {
         /**
          * The name of the animation used to show and hide the datepicker. Use "show" (the default), "slideDown", "fadeIn", any of the jQuery UI effects. Set to an empty string to disable animation.
          */
-        showAnim?: string;
+        showAnim?: string | undefined;
         /**
          * Whether to display a button pane underneath the calendar. The button pane contains two buttons, a Today button that links to the current day, and a Done button that closes the datepicker. The buttons' text can be customized using the currentText and closeText options respectively.
          */
-        showButtonPanel?: boolean;
+        showButtonPanel?: boolean | undefined;
         /**
          * When displaying multiple months via the numberOfMonths option, the showCurrentAtPos option defines which position to display the current month in.
          */
-        showCurrentAtPos?: number;
+        showCurrentAtPos?: number | undefined;
         /**
          * Whether to show the month after the year in the header.
          */
-        showMonthAfterYear?: boolean;
+        showMonthAfterYear?: boolean | undefined;
         /**
          * When the datepicker should appear. The datepicker can appear when the field receives focus ("focus"), when a button is clicked ("button"), or when either event occurs ("both").
          */
-        showOn?: string;
+        showOn?: string | undefined;
         /**
          * If using one of the jQuery UI effects for the showAnim option, you can provide additional settings for that animation via this option.
          */
@@ -306,42 +306,42 @@ declare namespace JQueryUI {
         /**
          * Whether to display dates in other months (non-selectable) at the start or end of the current month. To make these days selectable use the selectOtherMonths option.
          */
-        showOtherMonths?: boolean;
+        showOtherMonths?: boolean | undefined;
         /**
          * When true, a column is added to show the week of the year. The calculateWeek option determines how the week of the year is calculated. You may also want to change the firstDay option.
          */
-        showWeek?: boolean;
+        showWeek?: boolean | undefined;
         /**
          * Set how many months to move when clicking the previous/next links.
          */
-        stepMonths?: number;
+        stepMonths?: number | undefined;
         /**
          * The text to display for the week of the year column heading. Use the showWeek option to display this column.
          */
-        weekHeader?: string;
+        weekHeader?: string | undefined;
         /**
          * The range of years displayed in the year drop-down: either relative to today's year ("-nn:+nn"), relative to the currently selected year ("c-nn:c+nn"), absolute ("nnnn:nnnn"), or combinations of these formats ("nnnn:-nn"). Note that this option only affects what appears in the drop-down, to restrict which dates may be selected use the minDate and/or maxDate options.
          */
-        yearRange?: string;
+        yearRange?: string | undefined;
         /**
          * Additional text to display after the year in the month headers.
          */
-        yearSuffix?: string;
+        yearSuffix?: string | undefined;
      /**
          * Set to true to automatically hide the datepicker.
          */
-          autohide?: boolean;
+          autohide?: boolean | undefined;
         /**
           * Set to date to automatically enddate the datepicker.
           */
-         endDate?: Date;
+         endDate?: Date | undefined;
     }
 
     interface DatepickerFormatDateOptions {
-        dayNamesShort?: string[];
-        dayNames?: string[];
-        monthNamesShort?: string[];
-        monthNames?: string[];
+        dayNamesShort?: string[] | undefined;
+        dayNames?: string[] | undefined;
+        monthNamesShort?: string[] | undefined;
+        monthNames?: string[] | undefined;
     }
 
     interface Datepicker extends Widget, DatepickerOptions {
@@ -357,61 +357,61 @@ declare namespace JQueryUI {
     // Dialog //////////////////////////////////////////////////
 
     interface DialogOptions extends DialogEvents {
-        autoOpen?: boolean;
-        buttons?: { [buttonText: string]: (event?: Event) => void } | DialogButtonOptions[];
-        closeOnEscape?: boolean;
-        classes?: DialogClasses;
-        closeText?: string;
-        appendTo?: string;
-        dialogClass?: string;
-        disabled?: boolean;
-        draggable?: boolean;
-        height?: number | string;
-        hide?: boolean | number | string | DialogShowHideOptions;
-        maxHeight?: number;
-        maxWidth?: number;
-        minHeight?: number;
-        minWidth?: number;
-        modal?: boolean;
+        autoOpen?: boolean | undefined;
+        buttons?: { [buttonText: string]: (event?: Event) => void } | DialogButtonOptions[] | undefined;
+        closeOnEscape?: boolean | undefined;
+        classes?: DialogClasses | undefined;
+        closeText?: string | undefined;
+        appendTo?: string | undefined;
+        dialogClass?: string | undefined;
+        disabled?: boolean | undefined;
+        draggable?: boolean | undefined;
+        height?: number | string | undefined;
+        hide?: boolean | number | string | DialogShowHideOptions | undefined;
+        maxHeight?: number | undefined;
+        maxWidth?: number | undefined;
+        minHeight?: number | undefined;
+        minWidth?: number | undefined;
+        modal?: boolean | undefined;
         position?: any; // object, string or []
-        resizable?: boolean;
-        show?: boolean | number | string | DialogShowHideOptions;
-        stack?: boolean;
-        title?: string;
+        resizable?: boolean | undefined;
+        show?: boolean | number | string | DialogShowHideOptions | undefined;
+        stack?: boolean | undefined;
+        title?: string | undefined;
         width?: any; // number or string
-        zIndex?: number;
+        zIndex?: number | undefined;
 
-        open?: DialogEvent;
-        close?: DialogEvent;
+        open?: DialogEvent | undefined;
+        close?: DialogEvent | undefined;
     }
 
     interface DialogClasses {
-        "ui-dialog"?: string;
-        "ui-dialog-content"?: string;
-        "ui-dialog-dragging"?: string;
-        "ui-dialog-resizing"?: string;
-        "ui-dialog-buttons"?: string;
-        "ui-dialog-titlebar"?: string;
-        "ui-dialog-title"?: string;
-        "ui-dialog-titlebar-close"?: string;
-        "ui-dialog-buttonpane"?: string;
-        "ui-dialog-buttonset"?: string;
-        "ui-widget-overlay"?: string;
+        "ui-dialog"?: string | undefined;
+        "ui-dialog-content"?: string | undefined;
+        "ui-dialog-dragging"?: string | undefined;
+        "ui-dialog-resizing"?: string | undefined;
+        "ui-dialog-buttons"?: string | undefined;
+        "ui-dialog-titlebar"?: string | undefined;
+        "ui-dialog-title"?: string | undefined;
+        "ui-dialog-titlebar-close"?: string | undefined;
+        "ui-dialog-buttonpane"?: string | undefined;
+        "ui-dialog-buttonset"?: string | undefined;
+        "ui-widget-overlay"?: string | undefined;
     }
 
     interface DialogButtonOptions {
         icons?: any;
-        showText?: string | boolean;
-        text?: string;
-        click?: (eventObject: JQueryEventObject) => any;
+        showText?: string | boolean | undefined;
+        text?: string | undefined;
+        click?: ((eventObject: JQueryEventObject) => any) | undefined;
         [attr: string]: any; // attributes for the <button> element
     }
 
     interface DialogShowHideOptions {
         effect: string;
-        delay?: number;
-        duration?: number;
-        easing?: string;
+        delay?: number | undefined;
+        duration?: number | undefined;
+        easing?: string | undefined;
     }
 
     interface DialogUIParams {
@@ -422,17 +422,17 @@ declare namespace JQueryUI {
     }
 
     interface DialogEvents {
-        beforeClose?: DialogEvent;
-        close?: DialogEvent;
-        create?: DialogEvent;
-        drag?: DialogEvent;
-        dragStart?: DialogEvent;
-        dragStop?: DialogEvent;
-        focus?: DialogEvent;
-        open?: DialogEvent;
-        resize?: DialogEvent;
-        resizeStart?: DialogEvent;
-        resizeStop?: DialogEvent;
+        beforeClose?: DialogEvent | undefined;
+        close?: DialogEvent | undefined;
+        create?: DialogEvent | undefined;
+        drag?: DialogEvent | undefined;
+        dragStart?: DialogEvent | undefined;
+        dragStop?: DialogEvent | undefined;
+        focus?: DialogEvent | undefined;
+        open?: DialogEvent | undefined;
+        resize?: DialogEvent | undefined;
+        resizeStart?: DialogEvent | undefined;
+        resizeStop?: DialogEvent | undefined;
     }
 
     interface Dialog extends Widget, DialogOptions {
@@ -453,49 +453,49 @@ declare namespace JQueryUI {
     }
 
     interface DraggableOptions extends DraggableEvents {
-        disabled?: boolean;
-        addClasses?: boolean;
+        disabled?: boolean | undefined;
+        addClasses?: boolean | undefined;
         appendTo?: any;
-        axis?: string;
-        cancel?: string;
-        classes?: DraggableClasses;
-        connectToSortable?: Element | Element[] | JQuery | string;
+        axis?: string | undefined;
+        cancel?: string | undefined;
+        classes?: DraggableClasses | undefined;
+        connectToSortable?: Element | Element[] | JQuery | string | undefined;
         containment?: any;
-        cursor?: string;
+        cursor?: string | undefined;
         cursorAt?: any;
-        delay?: number;
-        distance?: number;
-        grid?: number[];
+        delay?: number | undefined;
+        distance?: number | undefined;
+        grid?: number[] | undefined;
         handle?: any;
         helper?: any;
         iframeFix?: any;
-        opacity?: number;
-        refreshPositions?: boolean;
+        opacity?: number | undefined;
+        refreshPositions?: boolean | undefined;
         revert?: any;
-        revertDuration?: number;
-        scope?: string;
-        scroll?: boolean;
-        scrollSensitivity?: number;
-        scrollSpeed?: number;
+        revertDuration?: number | undefined;
+        scope?: string | undefined;
+        scroll?: boolean | undefined;
+        scrollSensitivity?: number | undefined;
+        scrollSpeed?: number | undefined;
         snap?: any;
-        snapMode?: string;
-        snapTolerance?: number;
-        stack?: string;
-        zIndex?: number;
+        snapMode?: string | undefined;
+        snapTolerance?: number | undefined;
+        stack?: string | undefined;
+        zIndex?: number | undefined;
     }
 
     interface DraggableClasses {
-        "ui-draggable"?: string;
-        "ui-draggable-disabled"?: string;
-        "ui-draggable-dragging"?: string;
-        "ui-draggable-handle"?: string;
+        "ui-draggable"?: string | undefined;
+        "ui-draggable-disabled"?: string | undefined;
+        "ui-draggable-dragging"?: string | undefined;
+        "ui-draggable-handle"?: string | undefined;
     }
 
     interface DraggableEvents {
-        create?: DraggableEvent;
-        start?: DraggableEvent;
-        drag?: DraggableEvent;
-        stop?: DraggableEvent;
+        create?: DraggableEvent | undefined;
+        start?: DraggableEvent | undefined;
+        drag?: DraggableEvent | undefined;
+        stop?: DraggableEvent | undefined;
     }
 
     interface Draggable extends Widget, DraggableOptions, DraggableEvent {
@@ -517,22 +517,22 @@ declare namespace JQueryUI {
 
     interface DroppableOptions extends DroppableEvents {
         accept?: any;
-        activeClass?: string;
-        addClasses?: boolean;
-        disabled?: boolean;
-        greedy?: boolean;
-        hoverClass?: string;
-        scope?: string;
-        tolerance?: string;
+        activeClass?: string | undefined;
+        addClasses?: boolean | undefined;
+        disabled?: boolean | undefined;
+        greedy?: boolean | undefined;
+        hoverClass?: string | undefined;
+        scope?: string | undefined;
+        tolerance?: string | undefined;
     }
 
     interface DroppableEvents {
-        create?: DroppableEvent;
-        activate?: DroppableEvent;
-        deactivate?: DroppableEvent;
-        over?: DroppableEvent;
-        out?: DroppableEvent;
-        drop?: DroppableEvent;
+        create?: DroppableEvent | undefined;
+        activate?: DroppableEvent | undefined;
+        deactivate?: DroppableEvent | undefined;
+        over?: DroppableEvent | undefined;
+        out?: DroppableEvent | undefined;
+        drop?: DroppableEvent | undefined;
     }
 
     interface Droppable extends Widget, DroppableOptions {
@@ -541,15 +541,15 @@ declare namespace JQueryUI {
     // Menu //////////////////////////////////////////////////
 
     interface MenuOptions extends MenuEvents {
-        disabled?: boolean;
+        disabled?: boolean | undefined;
         icons?: any;
-        menus?: string;
+        menus?: string | undefined;
         position?: any; // TODO
-        role?: string;
+        role?: string | undefined;
     }
 
     interface MenuUIParams {
-        item?: JQuery;
+        item?: JQuery | undefined;
     }
 
     interface MenuEvent {
@@ -557,10 +557,10 @@ declare namespace JQueryUI {
     }
 
     interface MenuEvents {
-        blur?: MenuEvent;
-        create?: MenuEvent;
-        focus?: MenuEvent;
-        select?: MenuEvent;
+        blur?: MenuEvent | undefined;
+        create?: MenuEvent | undefined;
+        focus?: MenuEvent | undefined;
+        select?: MenuEvent | undefined;
     }
 
     interface Menu extends Widget, MenuOptions {
@@ -570,9 +570,9 @@ declare namespace JQueryUI {
     // Progressbar //////////////////////////////////////////////////
 
     interface ProgressbarOptions extends ProgressbarEvents {
-        disabled?: boolean;
-        value?: number | boolean;
-        max?: number;
+        disabled?: boolean | undefined;
+        value?: number | boolean | undefined;
+        max?: number | undefined;
     }
 
     interface ProgressbarUIParams {
@@ -583,9 +583,9 @@ declare namespace JQueryUI {
     }
 
     interface ProgressbarEvents {
-        change?: ProgressbarEvent;
-        complete?: ProgressbarEvent;
-        create?: ProgressbarEvent;
+        change?: ProgressbarEvent | undefined;
+        complete?: ProgressbarEvent | undefined;
+        create?: ProgressbarEvent | undefined;
     }
 
     interface Progressbar extends Widget, ProgressbarOptions {
@@ -596,24 +596,24 @@ declare namespace JQueryUI {
 
     interface ResizableOptions extends ResizableEvents {
         alsoResize?: any; // Selector, JQuery or Element
-        animate?: boolean;
+        animate?: boolean | undefined;
         animateDuration?: any; // number or string
-        animateEasing?: string;
+        animateEasing?: string | undefined;
         aspectRatio?: any; // boolean or number
-        autoHide?: boolean;
-        cancel?: string;
+        autoHide?: boolean | undefined;
+        cancel?: string | undefined;
         containment?: any; // Selector, Element or string
-        delay?: number;
-        disabled?: boolean;
-        distance?: number;
-        ghost?: boolean;
+        delay?: number | undefined;
+        disabled?: boolean | undefined;
+        distance?: number | undefined;
+        ghost?: boolean | undefined;
         grid?: any;
         handles?: any; // string or object
-        helper?: string;
-        maxHeight?: number;
-        maxWidth?: number;
-        minHeight?: number;
-        minWidth?: number;
+        helper?: string | undefined;
+        maxHeight?: number | undefined;
+        maxWidth?: number | undefined;
+        minHeight?: number | undefined;
+        minWidth?: number | undefined;
     }
 
     interface ResizableUIParams {
@@ -631,10 +631,10 @@ declare namespace JQueryUI {
     }
 
     interface ResizableEvents {
-        resize?: ResizableEvent;
-        start?: ResizableEvent;
-        stop?: ResizableEvent;
-        create?: ResizableEvent;
+        resize?: ResizableEvent | undefined;
+        start?: ResizableEvent | undefined;
+        stop?: ResizableEvent | undefined;
+        create?: ResizableEvent | undefined;
     }
 
     interface Resizable extends Widget, ResizableOptions {
@@ -644,18 +644,18 @@ declare namespace JQueryUI {
     // Selectable //////////////////////////////////////////////////
 
     interface SelectableOptions extends SelectableEvents {
-        autoRefresh?: boolean;
-        cancel?: string;
-        delay?: number;
-        disabled?: boolean;
-        distance?: number;
-        filter?: string;
-        tolerance?: string;
+        autoRefresh?: boolean | undefined;
+        cancel?: string | undefined;
+        delay?: number | undefined;
+        disabled?: boolean | undefined;
+        distance?: number | undefined;
+        filter?: string | undefined;
+        tolerance?: string | undefined;
     }
 
     interface SelectableEvents {
-        selected? (event: JQueryEventObject, ui: { selected?: Element; }): void;
-        selecting? (event: JQueryEventObject, ui: { selecting?: Element; }): void;
+        selected? (event: JQueryEventObject, ui: { selected?: Element | undefined; }): void;
+        selecting? (event: JQueryEventObject, ui: { selecting?: Element | undefined; }): void;
         start? (event: JQueryEventObject, ui: any): void;
         stop? (event: JQueryEventObject, ui: any): void;
         unselected? (event: JQueryEventObject, ui: { unselected: Element; }): void;
@@ -668,27 +668,27 @@ declare namespace JQueryUI {
     // SelectMenu //////////////////////////////////////////////////
 
     interface SelectMenuOptions extends SelectMenuEvents {
-        appendTo?: string;
-        classes?: SelectMenuClasses;
-        disabled?: boolean;
+        appendTo?: string | undefined;
+        classes?: SelectMenuClasses | undefined;
+        disabled?: boolean | undefined;
         icons?: any;
-        position?: JQueryPositionOptions;
-        width?: number;
+        position?: JQueryPositionOptions | undefined;
+        width?: number | undefined;
     }
 
     interface SelectMenuClasses {
-        "ui-selectmenu-button"?: string;
-        "ui-selectmenu-button-closed"?: string;
-        "ui-selectmenu-button-open"?: string;
-        "ui-selectmenu-text"?: string;
-        "ui-selectmenu-icon"?: string;
-        "ui-selectmenu-menu"?: string;
-        "ui-selectmenu-open"?: string;
-        "ui-selectmenu-optgroup"?: string;
+        "ui-selectmenu-button"?: string | undefined;
+        "ui-selectmenu-button-closed"?: string | undefined;
+        "ui-selectmenu-button-open"?: string | undefined;
+        "ui-selectmenu-text"?: string | undefined;
+        "ui-selectmenu-icon"?: string | undefined;
+        "ui-selectmenu-menu"?: string | undefined;
+        "ui-selectmenu-open"?: string | undefined;
+        "ui-selectmenu-optgroup"?: string | undefined;
     }
 
     interface SelectMenuUIParams {
-        item?: JQuery;
+        item?: JQuery | undefined;
     }
 
     interface SelectMenuEvent {
@@ -696,12 +696,12 @@ declare namespace JQueryUI {
     }
 
     interface SelectMenuEvents {
-        change?: SelectMenuEvent;
-        close?: SelectMenuEvent;
-        create?: SelectMenuEvent;
-        focus?: SelectMenuEvent;
-        open?: SelectMenuEvent;
-        select?: SelectMenuEvent;
+        change?: SelectMenuEvent | undefined;
+        close?: SelectMenuEvent | undefined;
+        create?: SelectMenuEvent | undefined;
+        focus?: SelectMenuEvent | undefined;
+        open?: SelectMenuEvent | undefined;
+        select?: SelectMenuEvent | undefined;
     }
 
     interface SelectMenu extends Widget, SelectMenuOptions {
@@ -711,32 +711,32 @@ declare namespace JQueryUI {
 
     interface SliderOptions extends SliderEvents {
         animate?: any; // boolean, string or number
-        disabled?: boolean;
-        max?: number;
-        min?: number;
-        orientation?: string;
+        disabled?: boolean | undefined;
+        max?: number | undefined;
+        min?: number | undefined;
+        orientation?: string | undefined;
         range?: any; // boolean or string
-        step?: number;
-        value?: number;
-        values?: number[];
-        highlight?: boolean;
-        classes? : SliderClasses;
+        step?: number | undefined;
+        value?: number | undefined;
+        values?: number[] | undefined;
+        highlight?: boolean | undefined;
+        classes? : SliderClasses | undefined;
     }
 
     interface SliderClasses {
-        "ui-slider"?: string;
-        "ui-slider-horizontal"?: string;
-        "ui-slider-vertical"?: string;
-        "ui-slider-handle"?: string;
-        "ui-slider-range"?: string;
-        "ui-slider-range-min"?: string;
-        "ui-slider-range-max"?: string;
+        "ui-slider"?: string | undefined;
+        "ui-slider-horizontal"?: string | undefined;
+        "ui-slider-vertical"?: string | undefined;
+        "ui-slider-handle"?: string | undefined;
+        "ui-slider-range"?: string | undefined;
+        "ui-slider-range-min"?: string | undefined;
+        "ui-slider-range-max"?: string | undefined;
     }
 
     interface SliderUIParams {
-        handle?: JQuery;
-        value?: number;
-        values?: number[];
+        handle?: JQuery | undefined;
+        value?: number | undefined;
+        values?: number[] | undefined;
     }
 
     interface SliderEvent {
@@ -744,11 +744,11 @@ declare namespace JQueryUI {
     }
 
     interface SliderEvents {
-        change?: SliderEvent;
-        create?: SliderEvent;
-        slide?: SliderEvent;
-        start?: SliderEvent;
-        stop?: SliderEvent;
+        change?: SliderEvent | undefined;
+        create?: SliderEvent | undefined;
+        slide?: SliderEvent | undefined;
+        start?: SliderEvent | undefined;
+        stop?: SliderEvent | undefined;
     }
 
     interface Slider extends Widget, SliderOptions {
@@ -759,31 +759,31 @@ declare namespace JQueryUI {
 
     interface SortableOptions extends SortableEvents {
         appendTo?: any; // jQuery, Element, Selector or string
-        attribute?: string;
-        axis?: string;
+        attribute?: string | undefined;
+        axis?: string | undefined;
         cancel?: any; // Selector
         connectWith?: any; // Selector
         containment?: any; // Element, Selector or string
-        cursor?: string;
+        cursor?: string | undefined;
         cursorAt?: any;
-        delay?: number;
-        disabled?: boolean;
-        distance?: number;
-        dropOnEmpty?: boolean;
-        forceHelperSize?: boolean;
-        forcePlaceholderSize?: boolean;
-        grid?: number[];
-        helper?: string | ((event: JQueryEventObject, element: Sortable) => Element);
+        delay?: number | undefined;
+        disabled?: boolean | undefined;
+        distance?: number | undefined;
+        dropOnEmpty?: boolean | undefined;
+        forceHelperSize?: boolean | undefined;
+        forcePlaceholderSize?: boolean | undefined;
+        grid?: number[] | undefined;
+        helper?: string | ((event: JQueryEventObject, element: Sortable) => Element) | undefined;
         handle?: any; // Selector or Element
         items?: any; // Selector
-        opacity?: number;
-        placeholder?: string;
+        opacity?: number | undefined;
+        placeholder?: string | undefined;
         revert?: any; // boolean or number
-        scroll?: boolean;
-        scrollSensitivity?: number;
-        scrollSpeed?: number;
-        tolerance?: string;
-        zIndex?: number;
+        scroll?: boolean | undefined;
+        scrollSensitivity?: number | undefined;
+        scrollSpeed?: number | undefined;
+        tolerance?: string | undefined;
+        zIndex?: number | undefined;
     }
 
     interface SortableUIParams {
@@ -801,18 +801,18 @@ declare namespace JQueryUI {
     }
 
     interface SortableEvents {
-        activate?: SortableEvent;
-        beforeStop?: SortableEvent;
-        change?: SortableEvent;
-        deactivate?: SortableEvent;
-        out?: SortableEvent;
-        over?: SortableEvent;
-        receive?: SortableEvent;
-        remove?: SortableEvent;
-        sort?: SortableEvent;
-        start?: SortableEvent;
-        stop?: SortableEvent;
-        update?: SortableEvent;
+        activate?: SortableEvent | undefined;
+        beforeStop?: SortableEvent | undefined;
+        change?: SortableEvent | undefined;
+        deactivate?: SortableEvent | undefined;
+        out?: SortableEvent | undefined;
+        over?: SortableEvent | undefined;
+        receive?: SortableEvent | undefined;
+        remove?: SortableEvent | undefined;
+        sort?: SortableEvent | undefined;
+        start?: SortableEvent | undefined;
+        stop?: SortableEvent | undefined;
+        update?: SortableEvent | undefined;
     }
 
     interface Sortable extends Widget, SortableOptions, SortableEvents {
@@ -822,14 +822,14 @@ declare namespace JQueryUI {
     // Spinner //////////////////////////////////////////////////
 
     interface SpinnerOptions extends SpinnerEvents {
-        culture?: string;
-        disabled?: boolean;
+        culture?: string | undefined;
+        disabled?: boolean | undefined;
         icons?: any;
         incremental?: any; // boolean or ()
         max?: any; // number or string
         min?: any; // number or string
-        numberFormat?: string;
-        page?: number;
+        numberFormat?: string | undefined;
+        page?: number | undefined;
         step?: any; // number or string
     }
 
@@ -842,11 +842,11 @@ declare namespace JQueryUI {
     }
 
     interface SpinnerEvents {
-        change?: SpinnerEvent<{}>;
-        create?: SpinnerEvent<{}>;
-        spin?: SpinnerEvent<SpinnerUIParam>;
-        start?: SpinnerEvent<{}>;
-        stop?: SpinnerEvent<{}>;
+        change?: SpinnerEvent<{}> | undefined;
+        create?: SpinnerEvent<{}> | undefined;
+        spin?: SpinnerEvent<SpinnerUIParam> | undefined;
+        start?: SpinnerEvent<{}> | undefined;
+        stop?: SpinnerEvent<{}> | undefined;
     }
 
     interface Spinner extends Widget, SpinnerOptions {
@@ -857,24 +857,24 @@ declare namespace JQueryUI {
 
     interface TabsOptions extends TabsEvents {
         active?: any; // boolean or number
-        classes?: TabClasses;
-        collapsible?: boolean;
+        classes?: TabClasses | undefined;
+        collapsible?: boolean | undefined;
         disabled?: any; // boolean or []
-        event?: string;
-        heightStyle?: string;
+        event?: string | undefined;
+        heightStyle?: string | undefined;
         hide?: any; // boolean, number, string or object
         show?: any; // boolean, number, string or object
     }
 
     interface TabClasses {
-        "ui-tabs"?: string;
-        "ui-tabs-collapsible"?: string;
-        "ui-tabs-nav"?: string;
-        "ui-tabs-tab"?: string;
-        "ui-tabs-active"?: string;
-        "ui-tabs-loading"?: string;
-        "ui-tabs-anchor"?: string;
-        "ui-tabs-panel"?: string;
+        "ui-tabs"?: string | undefined;
+        "ui-tabs-collapsible"?: string | undefined;
+        "ui-tabs-nav"?: string | undefined;
+        "ui-tabs-tab"?: string | undefined;
+        "ui-tabs-active"?: string | undefined;
+        "ui-tabs-loading"?: string | undefined;
+        "ui-tabs-anchor"?: string | undefined;
+        "ui-tabs-panel"?: string | undefined;
     }
 
     interface TabsActivationUIParams {
@@ -901,11 +901,11 @@ declare namespace JQueryUI {
     }
 
     interface TabsEvents {
-        activate?: TabsEvent<TabsActivationUIParams>;
-        beforeActivate?: TabsEvent<TabsActivationUIParams>;
-        beforeLoad?: TabsEvent<TabsBeforeLoadUIParams>;
-        load?: TabsEvent<TabsCreateOrLoadUIParams>;
-        create?: TabsEvent<TabsCreateOrLoadUIParams>;
+        activate?: TabsEvent<TabsActivationUIParams> | undefined;
+        beforeActivate?: TabsEvent<TabsActivationUIParams> | undefined;
+        beforeLoad?: TabsEvent<TabsBeforeLoadUIParams> | undefined;
+        load?: TabsEvent<TabsCreateOrLoadUIParams> | undefined;
+        create?: TabsEvent<TabsCreateOrLoadUIParams> | undefined;
     }
 
     interface Tabs extends Widget, TabsOptions {
@@ -916,14 +916,14 @@ declare namespace JQueryUI {
 
     interface TooltipOptions extends TooltipEvents {
         content?: any; // () or string
-        disabled?: boolean;
+        disabled?: boolean | undefined;
         hide?: any; // boolean, number, string or object
-        items?: string|JQuery;
+        items?: string|JQuery | undefined;
         position?: any; // TODO
         show?: any; // boolean, number, string or object
-        tooltipClass?: string; // deprecated in jQuery UI 1.12
-        track?: boolean;
-        classes?: {[key: string]: string};
+        tooltipClass?: string | undefined; // deprecated in jQuery UI 1.12
+        track?: boolean | undefined;
+        classes?: {[key: string]: string} | undefined;
     }
 
     interface TooltipUIParams {
@@ -934,8 +934,8 @@ declare namespace JQueryUI {
     }
 
     interface TooltipEvents {
-        close?: TooltipEvent;
-        open?: TooltipEvent;
+        close?: TooltipEvent | undefined;
+        open?: TooltipEvent | undefined;
     }
 
     interface Tooltip extends Widget, TooltipOptions {
@@ -946,86 +946,86 @@ declare namespace JQueryUI {
 
     interface EffectOptions {
         effect: string;
-        easing?: string;
-        duration?: number;
+        easing?: string | undefined;
+        duration?: number | undefined;
         complete: Function;
     }
 
     interface BlindEffect {
-        direction?: string;
+        direction?: string | undefined;
     }
 
     interface BounceEffect {
-        distance?: number;
-        times?: number;
+        distance?: number | undefined;
+        times?: number | undefined;
     }
 
     interface ClipEffect {
-        direction?: number;
+        direction?: number | undefined;
     }
 
     interface DropEffect {
-        direction?: number;
+        direction?: number | undefined;
     }
 
     interface ExplodeEffect {
-        pieces?: number;
+        pieces?: number | undefined;
     }
 
     interface FadeEffect { }
 
     interface FoldEffect {
         size?: any;
-        horizFirst?: boolean;
+        horizFirst?: boolean | undefined;
     }
 
     interface HighlightEffect {
-        color?: string;
+        color?: string | undefined;
     }
 
     interface PuffEffect {
-        percent?: number;
+        percent?: number | undefined;
     }
 
     interface PulsateEffect {
-        times?: number;
+        times?: number | undefined;
     }
 
     interface ScaleEffect {
-        direction?: string;
-        origin?: string[];
-        percent?: number;
-        scale?: string;
+        direction?: string | undefined;
+        origin?: string[] | undefined;
+        percent?: number | undefined;
+        scale?: string | undefined;
     }
 
     interface ShakeEffect {
-        direction?: string;
-        distance?: number;
-        times?: number;
+        direction?: string | undefined;
+        distance?: number | undefined;
+        times?: number | undefined;
     }
 
     interface SizeEffect {
         to?: any;
-        origin?: string[];
-        scale?: string;
+        origin?: string[] | undefined;
+        scale?: string | undefined;
     }
 
     interface SlideEffect {
-        direction?: string;
-        distance?: number;
+        direction?: string | undefined;
+        distance?: number | undefined;
     }
 
     interface TransferEffect {
-        className?: string;
-        to?: string;
+        className?: string | undefined;
+        to?: string | undefined;
     }
 
     interface JQueryPositionOptions {
-        my?: string;
-        at?: string;
+        my?: string | undefined;
+        at?: string | undefined;
         of?: any;
-        collision?: string;
-        using?: Function;
+        collision?: string | undefined;
+        using?: Function | undefined;
         within?: any;
     }
 
@@ -1033,9 +1033,9 @@ declare namespace JQueryUI {
     // UI //////////////////////////////////////////////////
 
     interface MouseOptions {
-        cancel?: string;
-        delay?: number;
-        distance?: number;
+        cancel?: string | undefined;
+        delay?: number | undefined;
+        distance?: number | undefined;
     }
 
     interface KeyCode {
@@ -1090,7 +1090,7 @@ declare namespace JQueryUI {
     // Widget //////////////////////////////////////////////////
 
     interface WidgetOptions {
-        disabled?: boolean;
+        disabled?: boolean | undefined;
         hide?: any;
         show?: any;
     }
@@ -1852,11 +1852,11 @@ interface JQuery {
     sortable(methodName: 'disable'): void;
     sortable(methodName: 'enable'): void;
     sortable(methodName: 'widget'): JQuery;
-    sortable(methodName: 'toArray', options?: { attribute?: string; }): string[];
+    sortable(methodName: 'toArray', options?: { attribute?: string | undefined; }): string[];
     sortable(methodName: string): JQuery;
     sortable(options: JQueryUI.SortableOptions): JQuery;
     sortable(optionLiteral: string, optionName: string): any;
-    sortable(methodName: 'serialize', options?: { key?: string; attribute?: string; expression?: RegExp }): string;
+    sortable(methodName: 'serialize', options?: { key?: string | undefined; attribute?: string | undefined; expression?: RegExp | undefined }): string;
     sortable(optionLiteral: string, options: JQueryUI.SortableOptions): any;
     sortable(optionLiteral: string, optionName: string, optionValue: any): JQuery;
 

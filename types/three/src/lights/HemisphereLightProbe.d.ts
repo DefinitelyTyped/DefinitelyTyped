@@ -1,8 +1,8 @@
-import { Color } from './../math/Color';
+import { ColorRepresentation } from '../utils';
 import { LightProbe } from './LightProbe';
 
 export class HemisphereLightProbe extends LightProbe {
-    constructor(skyColor?: Color | string | number, groundColor?: Color | string | number, intensity?: number);
+    constructor(skyColor?: ColorRepresentation, groundColor?: ColorRepresentation, intensity?: number);
 
     readonly isHemisphereLightProbe: true;
 }

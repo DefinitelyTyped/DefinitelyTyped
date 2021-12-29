@@ -3,6 +3,6 @@
 // Definitions by: Guille <https://github.com/guillenotfound>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function isValidDomain(text: string, opts?: { subdomain?: boolean; wildcard?: boolean }): boolean;
+declare function isValidDomain(text: string, opts?: { subdomain?: boolean | undefined; wildcard?: boolean | undefined }): boolean;
 
 export = isValidDomain;

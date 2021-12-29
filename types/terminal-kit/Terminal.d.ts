@@ -166,8 +166,8 @@ declare namespace Terminal {
       options:
         | boolean
         | {
-            mouse?: "button" | "drag" | "motion";
-            safe?: boolean;
+            mouse?: "button" | "drag" | "motion" | undefined;
+            safe?: boolean | undefined;
           },
       safeCallback?: boolean
     ): void;
@@ -197,8 +197,8 @@ declare namespace Terminal {
     wrapColumn(options?: {
       width: null | number;
       x: number;
-      continue?: boolean;
-      offset?: number;
+      continue?: boolean | undefined;
+      offset?: number | undefined;
     }): void;
     wrapColumn(x: undefined | number, width: number): void;
 
@@ -208,10 +208,10 @@ declare namespace Terminal {
       options?: YesOrNoOptions
     ): {
       abort: () => void;
-      promise?: Promise<boolean>;
+      promise?: Promise<boolean> | undefined;
     };
 
-    inputField(options: InputFieldOptions, callback?: Callback<string | undefined>): {
+    inputField(options?: InputFieldOptions, callback?: Callback<string | undefined>): {
       abort: () => void;
       promise: Promise<string | undefined>;
     };
@@ -299,16 +299,16 @@ declare namespace Terminal {
 
     bar(
       value: number,
-      options?: { innerSize?: number; barStyle?: CTerminal }
+      options?: { innerSize?: number | undefined; barStyle?: CTerminal | undefined }
     ): void;
 
     slowTyping(
       str: string,
       options: {
-        style?: CTerminal;
-        flashStyle?: CTerminal;
-        delay?: number;
-        flashDelay?: number;
+        style?: CTerminal | undefined;
+        flashStyle?: CTerminal | undefined;
+        delay?: number | undefined;
+        flashDelay?: number | undefined;
       },
       callback: Callback<void>
     ): void;
@@ -317,10 +317,10 @@ declare namespace Terminal {
     slowTyping(
       str: string,
       options?: {
-        style?: CTerminal;
-        flashStyle?: CTerminal;
-        delay?: number;
-        flashDelay?: number;
+        style?: CTerminal | undefined;
+        flashStyle?: CTerminal | undefined;
+        delay?: number | undefined;
+        flashDelay?: number | undefined;
       }
     ): Promise<void>;
 
@@ -330,7 +330,7 @@ declare namespace Terminal {
         shrink?: {
           width: number;
           height: number;
-        };
+        } | undefined;
       },
       callback: Callback<void>
     ): void;
@@ -343,7 +343,7 @@ declare namespace Terminal {
         shrink?: {
           width: number;
           height: number;
-        };
+        } | undefined;
       }
     ): Promise<void>;
   }
@@ -367,8 +367,8 @@ declare namespace Terminal {
   interface YesOrNoOptions {
     yes: string | ReadonlyArray<string>;
     no: string | ReadonlyArray<string>;
-    echoYes?: string;
-    echoNo?: string;
+    echoYes?: string | undefined;
+    echoNo?: string | undefined;
   }
 
   type Autocompletion =
@@ -379,60 +379,60 @@ declare namespace Terminal {
     | ((inputString: string) => Promise<string | AutocompletionArray<string>>);
 
   interface CreateOptions {
-    stdin?: NodeJS.Process;
-    stdout?: NodeJS.Process;
-    stderr?: NodeJS.Process;
-    generic?: string;
+    stdin?: NodeJS.Process | undefined;
+    stdout?: NodeJS.Process | undefined;
+    stderr?: NodeJS.Process | undefined;
+    generic?: string | undefined;
     appId: string;
     appName: string;
-    isTTY?: boolean;
-    isSSH?: boolean;
+    isTTY?: boolean | undefined;
+    isSSH?: boolean | undefined;
     pid?: any;
-    preferProcessSigwinch?: boolean;
-    processSigwinch?: boolean;
+    preferProcessSigwinch?: boolean | undefined;
+    processSigwinch?: boolean | undefined;
   }
 
   class AutocompletionArray<T> extends Array<T> {
-    prefix?: string;
-    postfix?: string;
+    prefix?: string | undefined;
+    postfix?: string | undefined;
   }
 
   interface HookConfig {
-    style?: CTerminal;
-    hintStyle?: CTerminal;
-    tokenRegExp?: RegExp;
-    autoComplete?: string[] | Autocompletion;
-    autoCompleteMenu?: boolean | Autocompletion;
-    autoCompleteHint?: boolean;
+    style?: CTerminal | undefined;
+    hintStyle?: CTerminal | undefined;
+    tokenRegExp?: RegExp | undefined;
+    autoComplete?: string[] | Autocompletion | undefined;
+    autoCompleteMenu?: boolean | Autocompletion | undefined;
+    autoCompleteHint?: boolean | undefined;
   }
 
   interface InputFieldOptions {
-    echo?: boolean;
-    echoChar?: string | true;
-    default?: string;
-    cursorPosition?: number;
-    cancelable?: boolean;
-    style?: CTerminal;
-    hintStyle?: CTerminal;
-    maxLength?: number;
-    minLength?: number;
-    history?: string[];
-    autoComplete?: string[] | Autocompletion;
-    autoCompleteMenu?: boolean | Autocompletion;
-    autoCompleteHint?: boolean;
-    keyBindings?: { [key: string]: string };
-    tokenHook?: (
+    echo?: boolean | undefined;
+    echoChar?: string | true | undefined;
+    default?: string | undefined;
+    cursorPosition?: number | undefined;
+    cancelable?: boolean | undefined;
+    style?: CTerminal | undefined;
+    hintStyle?: CTerminal | undefined;
+    maxLength?: number | undefined;
+    minLength?: number | undefined;
+    history?: string[] | undefined;
+    autoComplete?: string[] | Autocompletion | undefined;
+    autoCompleteMenu?: boolean | Autocompletion | undefined;
+    autoCompleteHint?: boolean | undefined;
+    keyBindings?: { [key: string]: string } | undefined;
+    tokenHook?: ((
       token: string,
       isEndOfInput: boolean,
       previousTokens: ReadonlyArray<string>,
       term: Terminal,
       config: HookConfig
-    ) => string | CTerminal | null | void;
-    tokenResetHook?: (
+    ) => string | CTerminal | null | void) | undefined;
+    tokenResetHook?: ((
       term: Terminal,
       config?: HookConfig
-    ) => string | CTerminal;
-    tokenRegExp?: RegExp;
+    ) => string | CTerminal) | undefined;
+    tokenRegExp?: RegExp | undefined;
   }
 
   type IFileInputOptions = InputFieldOptions & { baseDir: string };
@@ -447,33 +447,33 @@ declare namespace Terminal {
   }
 
   interface SingleLineMenuOptions {
-    y?: number;
-    separator?: string;
-    nextPageHint?: string;
-    previousPageHint?: string;
-    style?: CTerminal;
-    selectedStyle?: CTerminal;
-    keyBindings?: { [key: string]: string };
-    cancelable?: boolean;
-    exitOnUnexpectedKey?: boolean;
+    y?: number | undefined;
+    separator?: string | undefined;
+    nextPageHint?: string | undefined;
+    previousPageHint?: string | undefined;
+    style?: CTerminal | undefined;
+    selectedStyle?: CTerminal | undefined;
+    keyBindings?: { [key: string]: string } | undefined;
+    cancelable?: boolean | undefined;
+    exitOnUnexpectedKey?: boolean | undefined;
   }
 
   interface SingleColumnMenuOptions {
-    y?: number;
-    style?: CTerminal;
-    selectedStyle?: CTerminal;
-    submittedStyle?: CTerminal;
-    leftPadding?: string;
-    selectedLeftPadding?: string;
-    submittedLeftPadding?: string;
-    extraLines?: number;
-    oneLineItem?: boolean;
-    itemMaxWidth?: number;
-    continueOnSubmit?: boolean;
-    selectedIndex?: number;
-    keyBindings?: { [key: string]: string };
-    cancelable?: boolean;
-    exitOnUnexpectedKey?: boolean;
+    y?: number | undefined;
+    style?: CTerminal | undefined;
+    selectedStyle?: CTerminal | undefined;
+    submittedStyle?: CTerminal | undefined;
+    leftPadding?: string | undefined;
+    selectedLeftPadding?: string | undefined;
+    submittedLeftPadding?: string | undefined;
+    extraLines?: number | undefined;
+    oneLineItem?: boolean | undefined;
+    itemMaxWidth?: number | undefined;
+    continueOnSubmit?: boolean | undefined;
+    selectedIndex?: number | undefined;
+    keyBindings?: { [key: string]: string } | undefined;
+    cancelable?: boolean | undefined;
+    exitOnUnexpectedKey?: boolean | undefined;
   }
 
   interface SingleColumnMenuResponse {
@@ -487,18 +487,18 @@ declare namespace Terminal {
   }
 
   interface GridMenuOptions {
-    y?: number;
-    x?: number;
-    width?: number;
-    style?: CTerminal;
-    selectedStyle?: CTerminal;
-    leftPadding?: string;
-    selectedLeftPadding?: string;
-    rightPadding?: string;
-    selectedRightPadding?: string;
-    itemMaxWidth?: number;
-    keyBindings?: { [key: string]: string };
-    exitOnUnexpectedKey?: boolean;
+    y?: number | undefined;
+    x?: number | undefined;
+    width?: number | undefined;
+    style?: CTerminal | undefined;
+    selectedStyle?: CTerminal | undefined;
+    leftPadding?: string | undefined;
+    selectedLeftPadding?: string | undefined;
+    rightPadding?: string | undefined;
+    selectedRightPadding?: string | undefined;
+    itemMaxWidth?: number | undefined;
+    keyBindings?: { [key: string]: string } | undefined;
+    exitOnUnexpectedKey?: boolean | undefined;
   }
 
   interface GridMenuResponse {
@@ -510,32 +510,32 @@ declare namespace Terminal {
   }
 
   interface ProgressBarOptions {
-    width?: number;
-    percent?: boolean;
-    eta?: boolean;
-    items?: number;
-    title?: string;
-    barStyle?: CTerminal;
-    barBracketStyle?: CTerminal;
-    percentStyle?: CTerminal;
-    etaStyle?: CTerminal;
-    itemStyle?: CTerminal;
-    titleStyle?: CTerminal;
-    itemSize?: number;
-    titleSize?: number;
-    barChar?: string;
-    barHeadChar?: string;
-    maxRefreshTime?: number;
-    minRefreshTime?: number;
-    inline?: boolean;
-    syncMode?: boolean;
+    width?: number | undefined;
+    percent?: boolean | undefined;
+    eta?: boolean | undefined;
+    items?: number | undefined;
+    title?: string | undefined;
+    barStyle?: CTerminal | undefined;
+    barBracketStyle?: CTerminal | undefined;
+    percentStyle?: CTerminal | undefined;
+    etaStyle?: CTerminal | undefined;
+    itemStyle?: CTerminal | undefined;
+    titleStyle?: CTerminal | undefined;
+    itemSize?: number | undefined;
+    titleSize?: number | undefined;
+    barChar?: string | undefined;
+    barHeadChar?: string | undefined;
+    maxRefreshTime?: number | undefined;
+    minRefreshTime?: number | undefined;
+    inline?: boolean | undefined;
+    syncMode?: boolean | undefined;
   }
 
   interface ProgressBarController {
     update: (
       updateObject:
         | number
-        | { progress: number | null; items?: number; title?: string }
+        | { progress: number | null; items?: number | undefined; title?: string | undefined }
     ) => void;
     startItem: (name: string) => void;
     itemDone: (name: string) => void;

@@ -1,11 +1,10 @@
-import EventInfo from "./eventinfo";
-import { PriorityString } from "./priorities";
-import { Emitter, EmitterMixinDelegateChain } from "./emittermixin";
-import DomEventData from "@ckeditor/ckeditor5-engine/src/view/observer/domeventdata";
+import EventInfo from './eventinfo';
+import { PriorityString } from './priorities';
+import { Emitter, EmitterMixinDelegateChain } from './emittermixin';
 
-export interface CollectionBindTo<T, K> {
-    as: (Class: { new (item: T): K }) => void;
-    using: (callbackOrProperty: keyof T | ((item: T) => K)) => void;
+export interface CollectionBindTo<T> {
+    as: (Class: { new (item: T): any }) => void;
+    using: (callbackOrProperty: keyof T | ((item: T) => any)) => void;
 }
 
 /**
@@ -19,41 +18,40 @@ export interface CollectionBindTo<T, K> {
  * configured through the constructor of the collection.
  *
  */
-export default class Collection<T> implements Iterable<T>, Emitter {
+export default class Collection<T extends Record<string, any> = Record<string, any>, I extends string = 'id'>
+    implements Iterable<T>, Emitter {
     /**
      * Creates a new Collection instance.
      *
      * You can provide an iterable of initial items the collection will be created with:
      *
-     *  const collection = new Collection( [ { id: 'John' }, { id: 'Mike' } ] );
+     *    const collection = new Collection( [ { id: 'John' }, { id: 'Mike' } ] );
      *
-     *  console.log( collection.get( 0 ) ); // -> { id: 'John' }
-     *  console.log( collection.get( 1 ) ); // -> { id: 'Mike' }
-     *  console.log( collection.get( 'Mike' ) ); // -> { id: 'Mike' }
+     *    console.log( collection.get( 0 ) ); // -> { id: 'John' }
+     *    console.log( collection.get( 1 ) ); // -> { id: 'Mike' }
+     *    console.log( collection.get( 'Mike' ) ); // -> { id: 'Mike' }
      *
      * Or you can first create a collection and then add new items using the {@link #add} method:
      *
-     *  const collection = new Collection();
+     *    const collection = new Collection();
      *
-     *  collection.add( { id: 'John' } );
-     *  console.log( collection.get( 0 ) ); // -> { id: 'John' }
+     *    collection.add( { id: 'John' } );
+     *    console.log( collection.get( 0 ) ); // -> { id: 'John' }
      *
      * Whatever option you choose, you can always pass a configuration object as the last argument
      * of the constructor:
      *
-     *  const emptyCollection = new Collection( { idProperty: 'name' } );
-     *  emptyCollection.add( { name: 'John' } );
-     *  console.log( collection.get( 'John' ) ); // -> { name: 'John' }
+     *    const emptyCollection = new Collection( { idProperty: 'name' } );
+     *    emptyCollection.add( { name: 'John' } );
+     *    console.log( collection.get( 'John' ) ); // -> { name: 'John' }
      *
-     *  const nonEmptyCollection = new Collection( [ { name: 'John' } ], { idProperty: 'name' } );
-     *  nonEmptyCollection.add( { name: 'George' } );
-     *  console.log( collection.get( 'George' ) ); // -> { name: 'George' }
-     *  console.log( collection.get( 'John' ) ); // -> { name: 'John' }
-     *
-     * the options object.
-     * Items that do not have such a property will be assigned one when added to the collection.
+     *    const nonEmptyCollection = new Collection( [ { name: 'John' } ], { idProperty: 'name' } );
+     *    nonEmptyCollection.add( { name: 'George' } );
+     *    console.log( collection.get( 'George' ) ); // -> { name: 'George' }
+     *    console.log( collection.get( 'John' ) ); // -> { name: 'John' }
      */
-    constructor(options?: { idProperty?: keyof T });
+    constructor(options?: { idProperty: I });
+    constructor(initialItems?: T[], options?: { idProperty: I });
     /**
      * The number of items available in the collection.
      *
@@ -63,12 +61,12 @@ export default class Collection<T> implements Iterable<T>, Emitter {
      * Returns the first item from the collection or null when collection is empty.
      *
      */
-    readonly first: T | null;
+    readonly first: (T & { [x in I]: string }) | null;
     /**
      * Returns the last item from the collection or null when collection is empty.
      *
      */
-    readonly last: T | null;
+    readonly last: (T & { [x in I]: string }) | null;
     /**
      * Adds an item into the collection.
      *
@@ -83,12 +81,12 @@ export default class Collection<T> implements Iterable<T>, Emitter {
      * Any item not containing an id will get an automatically generated one.
      *
      */
-    addMany(items: Iterable<T>, index?: number): this;
+    addMany(items: T[], index?: number): this;
     /**
      * Gets an item by its ID or index.
      *
      */
-    get(idOrIndex: string | number): T | null;
+    get(idOrIndex: string | number): (T & { [x in I]: string }) | null;
     /**
      * Returns a Boolean indicating whether the collection contains an item.
      *
@@ -104,22 +102,40 @@ export default class Collection<T> implements Iterable<T>, Emitter {
      * Removes an item from the collection.
      *
      */
-    remove(subject: T | number | string): T;
+    remove(subject: T | number | string): T & { [x in I]: string };
     /**
      * Executes the callback for each item in the collection and composes an array or values returned by this callback.
      *
      */
-    map<U>(callbackfn: (item: T, index: number) => U, thisArg?: any): U[];
+    map<U>(
+        callbackfn: (value: T & { [x in I]: string }, index: number, array: Array<T & { [x in I]: string }>) => U,
+        thisArg?: any,
+    ): U[];
     /**
      * Finds the first item in the collection for which the `callback` returns a true value.
      *
      */
-    find(predicate: (item: T, index: number) => boolean, thisArg?: any): T | undefined;
+    find<S extends T & { [x in I]: string }>(
+        predicate: (
+            this: undefined,
+            value: S,
+            index: number,
+            obj: S[]
+        ) => boolean,
+        thisArg?: any,
+    ): S | undefined;
     /**
      * Returns an array with items for which the `callback` returned a true value.
      *
      */
-    filter(callbackfn: (item: T, index: number) => boolean, thisArg?: any): T[];
+    filter<S extends T & { [x in I]: string }>(
+        predicate: (
+            value: S,
+            index: number,
+            array: S[]
+        ) => boolean,
+        thisArg?: any,
+    ): S[];
     /**
      * Removes all items from the collection and destroys the binding created using
      * {@link #bindTo}.
@@ -190,6 +206,7 @@ export default class Collection<T> implements Iterable<T>, Emitter {
      *  const target = new Collection();
      *
      *  target.bindTo( source ).using( 'label' );
+     *  console.log(options);
      *
      *  source.add( { label: { value: 'foo' } } );
      *  source.add( { label: { value: 'bar' } } );
@@ -220,32 +237,36 @@ export default class Collection<T> implements Iterable<T>, Emitter {
      * **Note**: {@link #clear} can be used to break the binding.
      *
      */
-    bindTo<S>(externalCollection: Collection<S>): CollectionBindTo<S, T>;
+    bindTo<T, I extends string>(externalCollection: Collection<T, I>): CollectionBindTo<T & {[x in I]: string}>;
     /**
      * Iterable interface.
      *
      */
-    [Symbol.iterator](): Iterator<T>;
+    [Symbol.iterator](): Iterator<T & { [x in I]: string }>;
 
+    on<K extends string>(
+        event: K,
+        callback: (this: this, info: EventInfo<this, K>, ...args: any[]) => void,
+        options?: { priority?: number | PriorityString | undefined },
+    ): void;
+    once<K extends string>(
+        event: K,
+        callback: (this: this, info: EventInfo<this, K>, ...args: any[]) => void,
+        options?: { priority?: number | PriorityString | undefined },
+    ): void;
+    off<K extends string>(event: K, callback?: (this: this, info: EventInfo<this, K>, ...args: any[]) => void): void;
+    listenTo<P extends string, E extends Emitter>(
+        emitter: E,
+        event: P,
+        callback: (this: this, info: EventInfo<E, P>, ...args: any[]) => void,
+        options?: { priority?: number | PriorityString | undefined },
+    ): void;
+    stopListening<E extends Emitter, P extends string>(
+        emitter?: E,
+        event?: P,
+        callback?: (this: this, info: EventInfo<E, P>, ...args: any[]) => void,
+    ): void;
+    fire(eventOrInfo: string | EventInfo, ...args: any[]): unknown;
     delegate(...events: string[]): EmitterMixinDelegateChain;
-    fire(eventOrInfo: string | EventInfo, ...args: any[]): any;
-    listenTo(
-        emitter: Emitter,
-        event: string,
-        callback: (info: EventInfo, data: DomEventData) => void,
-        options?: { priority?: PriorityString | number },
-    ): void;
-    off(event: string, callback?: (info: EventInfo, data: DomEventData) => void): void;
-    on: (
-        event: string,
-        callback: (info: EventInfo, data: DomEventData) => void,
-        options?: { priority: PriorityString | number },
-    ) => void;
-    once(
-        event: string,
-        callback: (info: EventInfo, data: DomEventData) => void,
-        options?: { priority: PriorityString | number },
-    ): void;
     stopDelegating(event?: string, emitter?: Emitter): void;
-    stopListening(emitter?: Emitter, event?: string, callback?: (info: EventInfo, data: DomEventData) => void): void;
 }

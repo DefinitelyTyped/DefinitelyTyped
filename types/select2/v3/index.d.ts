@@ -7,11 +7,11 @@
 /// <reference types="jquery"/>
 
 interface Select2QueryOptions {
-    term?: string;
-    page?: number;
+    term?: string | undefined;
+    page?: number | undefined;
     context?: any;
-    callback?: (result: { results: any; more?: boolean; context?: any; }) => void;
-    element?: JQuery;
+    callback?: ((result: { results: any; more?: boolean | undefined; context?: any; }) => void) | undefined;
+    element?: JQuery | undefined;
 }
 
 interface AjaxFunction {
@@ -20,17 +20,17 @@ interface AjaxFunction {
 }
 
 interface Select2AjaxOptions extends JQueryAjaxSettings {
-    transport?: AjaxFunction;
+    transport?: AjaxFunction | undefined;
     /**
      * Url to make request to, Can be string or a function returning a string.
      */
     url?: any;
-    dataType?: string;
-    quietMillis?: number;
-    cache?: boolean;
+    dataType?: string | undefined;
+    quietMillis?: number | undefined;
+    cache?: boolean | undefined;
     jsonpCallback?: any;
-    data?: (term: string, page: number, context: any) => any;
-    results?: (term: any, page: number, context: any) => any;
+    data?: ((term: string, page: number, context: any) => any) | undefined;
+    results?: ((term: any, page: number, context: any) => any) | undefined;
     params?: any;
 }
 
@@ -40,42 +40,42 @@ interface IdTextPair {
 }
 
 interface Select2Options {
-    width?: string;
-    dropdownAutoWidth?: boolean;
-    minimumInputLength?: number;
-    maximumInputLength?: number;
-    minimumResultsForSearch?: number;
-    maximumSelectionSize?: number;
-    placeholder?: string;
-    separator?: string;
-    allowClear?: boolean;
-    multiple?: boolean;
-    closeOnSelect?: boolean;
-    openOnEnter?: boolean;
-    id?: (object: any) => string;
-    matcher?: (term: string, text: string, option: any) => boolean;
-    formatSelection?: (object: any, container: JQuery, escapeMarkup: (markup: string) => string) => string;
-    formatResult?: (object: any, container: JQuery, query: any, escapeMarkup: (markup: string) => string) => string;
-    formatResultCssClass?: (object: any) => string;
-    formatNoMatches?: (term: string) => string;
-    formatSearching?: () => string;
-    formatInputTooShort?: (term: string, minLength: number) => string;
-    formatSelectionTooBig?: (maxSize: number) => string;
-    formatLoadMore?: (pageNumber: number) => string;
-    createSearchChoice?: (term: string, data: any) => any;
-    initSelection?: (element: JQuery, callback: (data: any) => void) => void;
-    tokenizer?: (input: string, selection: any[], selectCallback: (token?: any) => void, options: Select2Options) => string | undefined | null;
-    tokenSeparators?: string[];
-    query?: (options: Select2QueryOptions) => void;
-    ajax?: Select2AjaxOptions;
+    width?: string | undefined;
+    dropdownAutoWidth?: boolean | undefined;
+    minimumInputLength?: number | undefined;
+    maximumInputLength?: number | undefined;
+    minimumResultsForSearch?: number | undefined;
+    maximumSelectionSize?: number | undefined;
+    placeholder?: string | undefined;
+    separator?: string | undefined;
+    allowClear?: boolean | undefined;
+    multiple?: boolean | undefined;
+    closeOnSelect?: boolean | undefined;
+    openOnEnter?: boolean | undefined;
+    id?: ((object: any) => string) | undefined;
+    matcher?: ((term: string, text: string, option: any) => boolean) | undefined;
+    formatSelection?: ((object: any, container: JQuery, escapeMarkup: (markup: string) => string) => string) | undefined;
+    formatResult?: ((object: any, container: JQuery, query: any, escapeMarkup: (markup: string) => string) => string) | undefined;
+    formatResultCssClass?: ((object: any) => string) | undefined;
+    formatNoMatches?: ((term: string) => string) | undefined;
+    formatSearching?: (() => string) | undefined;
+    formatInputTooShort?: ((term: string, minLength: number) => string) | undefined;
+    formatSelectionTooBig?: ((maxSize: number) => string) | undefined;
+    formatLoadMore?: ((pageNumber: number) => string) | undefined;
+    createSearchChoice?: ((term: string, data: any) => any) | undefined;
+    initSelection?: ((element: JQuery, callback: (data: any) => void) => void) | undefined;
+    tokenizer?: ((input: string, selection: any[], selectCallback: (token?: any) => void, options: Select2Options) => string | undefined | null) | undefined;
+    tokenSeparators?: string[] | undefined;
+    query?: ((options: Select2QueryOptions) => void) | undefined;
+    ajax?: Select2AjaxOptions | undefined;
     data?: any;
     tags?: any;
     containerCss?: any;
     containerCssClass?: any;
     dropdownCss?: any;
     dropdownCssClass?: any;
-    escapeMarkup?: (markup: string) => string;
-    nextSearchTerm?: (selectedObject: object, currentSearchTerm: string) => string;
+    escapeMarkup?: ((markup: string) => string) | undefined;
+    nextSearchTerm?: ((selectedObject: object, currentSearchTerm: string) => string) | undefined;
 }
 
 interface Select2JQueryEventObject extends JQueryEventObject {

@@ -10189,7 +10189,7 @@ interface ICustomLoadingPanel {
     /**
      * Specifies whether the panel is visible.
      */
-    visible?: boolean;
+    visible?: boolean | undefined;
     /**
      * Shows the loading panel.
      */
@@ -10450,16 +10450,16 @@ declare class ASPxClientRichEdit extends ASPxClientControl {
      * @param options A function that allows you to modify the PDF document before it is downloaded; or an object that contains modifyPdfDocument and modifyPdfPage functions.
      */
     DownloadPdf(fileName?: string, options?: ((pdfDocument: any) => void) | {
-        modifyPdfDocument?: (pdfDocument: any) => void;
-        modifyPdfPage?: (pdfDocument: any) => void;
+        modifyPdfDocument?: ((pdfDocument: any) => void) | undefined;
+        modifyPdfPage?: ((pdfDocument: any) => void) | undefined;
     }): void;
     /**
      * Exports the current document to PDF and invokes the PdfExported event.
      * @param options A function that allows you to modify the PDF document before it is downloaded; or an object that contains modifyPdfDocument and modifyPdfPage functions.
      */
     ExportToPdf(options?: ((pdfDocument: any) => void) | {
-        modifyPdfDocument?: (pdfDocument: any) => void;
-        modifyPdfPage?: (pdfDocument: any) => void;
+        modifyPdfDocument?: ((pdfDocument: any) => void) | undefined;
+        modifyPdfPage?: ((pdfDocument: any) => void) | undefined;
     }): void;
     /**
      * Enables you to switch the full-screen mode of the Rich Text Editor.

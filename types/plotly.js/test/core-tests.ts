@@ -23,18 +23,23 @@ const graphDiv = '#test';
         type: 'scatter',
     } as ScatterData;
     const data = [trace1, trace2];
+    const tickangle: "auto" = "auto";
     const layout = {
         title: 'Sales Growth',
         xaxis: {
             title: 'Year',
             showgrid: false,
             zeroline: false,
+            tickangle
         },
         yaxis: {
             title: 'Percent',
             showline: false,
         },
         uirevision: 'true',
+        datarevision: 0,
+        editrevision: 0,
+        selectionrevision: 0
     };
     Plotly.newPlot(graphDiv, data, layout);
 

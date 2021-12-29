@@ -4,7 +4,6 @@
 //                 Anton Vasin <https://github.com/antonvasin>
 //                 Victor Orlov <https://github.com/vittorio>
 //                 Louis Hache <https://github.com/lhache>
-//                 Adam Lavin <https://github.com/lavoaster>
 //                 Erin Noe-Payne <https://github.com/autoric>
 //                 akameco <https://github.com/akameco>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -20,7 +19,7 @@ export interface BoxProps
         StyledSystem.TypographyProps,
         StyledSystem.ColorProps,
         StyledSystem.FlexboxProps {
-    as?: React.ElementType;
+    as?: React.ElementType | undefined;
 }
 
 export type BoxType = StyledComponent<

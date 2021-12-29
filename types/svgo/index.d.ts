@@ -1,4 +1,4 @@
-// Type definitions for svgo 2.3
+// Type definitions for svgo 2.6
 // Project: https://github.com/svg/svgo
 // Definitions by: Bradley Ayers <https://github.com/bradleyayers>
 //                 Gilad Gray <https://github.com/giladgray>
@@ -7,12 +7,15 @@
 //                 Gavin Gregory <https://github.com/gavingregory>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 //                 Remco Haszing <https://github.com/remcohaszing>
+//                 Petr Zahradník <https://github.com/petrzjunior>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="node"/>
+
 export interface DefaultPlugin<N extends string, P = never> {
-    active?: boolean;
+    active?: boolean | undefined;
     name: N;
-    params?: P;
+    params?: P | undefined;
 }
 
 /**
@@ -32,11 +35,11 @@ export type CleanupAttrsPlugin = DefaultPlugin<
     'cleanupAttrs',
     {
         /** @default true */
-        newlines?: boolean;
+        newlines?: boolean | undefined;
         /** @default true */
-        trim?: boolean;
+        trim?: boolean | undefined;
         /** @default true */
-        spaces?: boolean;
+        spaces?: boolean | undefined;
     }
 >;
 
@@ -52,17 +55,17 @@ export type CleanupIDsPlugin = DefaultPlugin<
     'cleanupIDs',
     {
         /** @default true */
-        remove?: boolean;
+        remove?: boolean | undefined;
         /** @default true */
-        minify?: boolean;
+        minify?: boolean | undefined;
         /** @default '' */
-        prefix?: string;
+        prefix?: string | undefined;
         /** @default [] */
-        preserve?: any[];
+        preserve?: any[] | undefined;
         /** @default [] */
-        preservePrefixes?: any[];
+        preservePrefixes?: any[] | undefined;
         /** @default false */
-        force?: boolean;
+        force?: boolean | undefined;
     }
 >;
 
@@ -73,13 +76,13 @@ export type CleanupListOfValuesPlugin = DefaultPlugin<
     'cleanupListOfValues',
     {
         /** @default 3 */
-        floatPrecision?: number;
+        floatPrecision?: number | undefined;
         /** @default true */
-        leadingZero?: boolean;
+        leadingZero?: boolean | undefined;
         /** @default true */
-        defaultPx?: boolean;
+        defaultPx?: boolean | undefined;
         /** @default true */
-        convertToPx?: boolean;
+        convertToPx?: boolean | undefined;
     }
 >;
 
@@ -90,13 +93,13 @@ export type CleanupNumericValuesPlugin = DefaultPlugin<
     'cleanupNumericValues',
     {
         /** @default 3 */
-        floatPrecision?: number;
+        floatPrecision?: number | undefined;
         /** @default true */
-        leadingZero?: boolean;
+        leadingZero?: boolean | undefined;
         /** @default true */
-        defaultPx?: boolean;
+        defaultPx?: boolean | undefined;
         /** @default true */
-        convertToPx?: boolean;
+        convertToPx?: boolean | undefined;
     }
 >;
 
@@ -112,15 +115,15 @@ export type ConvertColorsPlugin = DefaultPlugin<
     'convertColors',
     {
         /** @default false */
-        currentColor?: boolean;
+        currentColor?: boolean | undefined;
         /** @default true */
-        names2hex?: boolean;
+        names2hex?: boolean | undefined;
         /** @default true */
-        rgb2hex?: boolean;
+        rgb2hex?: boolean | undefined;
         /** @default true */
-        shorthex?: boolean;
+        shorthex?: boolean | undefined;
         /** @default true */
-        shortname?: boolean;
+        shortname?: boolean | undefined;
     }
 >;
 
@@ -136,39 +139,39 @@ export type ConvertPathDataPlugin = DefaultPlugin<
     'convertPathData',
     {
         /** @default true */
-        applyTransforms?: boolean;
+        applyTransforms?: boolean | undefined;
         /** @default true */
-        applyTransformsStroked?: boolean;
+        applyTransformsStroked?: boolean | undefined;
         makeArcs?: {
             /** @default 2.5 */
-            threshold?: number;
+            threshold?: number | undefined;
             /** @default 0.5 */
-            tolerance?: number;
-        };
+            tolerance?: number | undefined;
+        } | undefined;
         /** @default true */
-        straightCurves?: boolean;
+        straightCurves?: boolean | undefined;
         /** @default true */
-        lineShorthands?: boolean;
+        lineShorthands?: boolean | undefined;
         /** @default true */
-        curveSmoothShorthands?: boolean;
+        curveSmoothShorthands?: boolean | undefined;
         /** @default 3 */
-        floatPrecision?: number;
+        floatPrecision?: number | undefined;
         /** @default 5 */
-        transformPrecision?: number;
+        transformPrecision?: number | undefined;
         /** @default true */
-        removeUseless?: boolean;
+        removeUseless?: boolean | undefined;
         /** @default true */
-        collapseRepeated?: boolean;
+        collapseRepeated?: boolean | undefined;
         /** @default true */
-        utilizeAbsolute?: boolean;
+        utilizeAbsolute?: boolean | undefined;
         /** @default true */
-        leadingZero?: boolean;
+        leadingZero?: boolean | undefined;
         /** @default true */
-        negativeExtraSpace?: boolean;
+        negativeExtraSpace?: boolean | undefined;
         /** @default false */
-        noSpaceAfterFlags?: boolean;
+        noSpaceAfterFlags?: boolean | undefined;
         /** @default false */
-        forceAbsolutePath?: boolean;
+        forceAbsolutePath?: boolean | undefined;
     }
 >;
 
@@ -179,7 +182,7 @@ export type ConvertShapeToPathPlugin = DefaultPlugin<
     'convertShapeToPath',
     {
         /** @default false */
-        convertArcs?: boolean;
+        convertArcs?: boolean | undefined;
     }
 >;
 
@@ -190,7 +193,7 @@ export type ConvertStyleToAttrsPlugin = DefaultPlugin<
     'convertStyleToAttrs',
     {
         /** @default false */
-        keepImportant?: boolean;
+        keepImportant?: boolean | undefined;
     }
 >;
 
@@ -201,27 +204,27 @@ export type ConvertTransformPlugin = DefaultPlugin<
     'convertTransform',
     {
         /** @default true */
-        convertToShorts?: boolean;
+        convertToShorts?: boolean | undefined;
         /** @default 3 */
-        floatPrecision?: number;
+        floatPrecision?: number | undefined;
         /** @default 5 */
-        transformPrecision?: number;
+        transformPrecision?: number | undefined;
         /** @default true */
-        matrixToTransform?: boolean;
+        matrixToTransform?: boolean | undefined;
         /** @default true */
-        shortTranslate?: boolean;
+        shortTranslate?: boolean | undefined;
         /** @default true */
-        shortScale?: boolean;
+        shortScale?: boolean | undefined;
         /** @default true */
-        shortRotate?: boolean;
+        shortRotate?: boolean | undefined;
         /** @default true */
-        removeUseless?: boolean;
+        removeUseless?: boolean | undefined;
         /** @default true */
-        collapseIntoOne?: boolean;
+        collapseIntoOne?: boolean | undefined;
         /** @default true */
-        leadingZero?: boolean;
+        leadingZero?: boolean | undefined;
         /** @default false */
-        negativeExtraSpace?: boolean;
+        negativeExtraSpace?: boolean | undefined;
     }
 >;
 
@@ -232,13 +235,13 @@ export type InlineStylesPlugin = DefaultPlugin<
     'inlineStyles',
     {
         /** @default true */
-        onlyMatchedOnce?: boolean;
+        onlyMatchedOnce?: boolean | undefined;
         /** @default true */
-        removeMatchedSelectors?: boolean;
+        removeMatchedSelectors?: boolean | undefined;
         /** @default ['', 'screen'] */
-        useMqs?: string[];
+        useMqs?: string[] | undefined;
         /** @default [''] */
-        usePseudos?: string[];
+        usePseudos?: string[] | undefined;
     }
 >;
 
@@ -249,15 +252,15 @@ export type MergePathsPlugin = DefaultPlugin<
     'mergePaths',
     {
         /** @default true */
-        collapseRepeated?: boolean;
+        collapseRepeated?: boolean | undefined;
         /** @default false */
-        force?: boolean;
+        force?: boolean | undefined;
         /** @default true */
-        leadingZero?: boolean;
+        leadingZero?: boolean | undefined;
         /** @default true */
-        negativeExtraSpace?: boolean;
+        negativeExtraSpace?: boolean | undefined;
         /** @default false */
-        noSpaceAfterFlags?: boolean;
+        noSpaceAfterFlags?: boolean | undefined;
     }
 >;
 
@@ -274,13 +277,13 @@ export type MinifyStylesPlugin = DefaultPlugin<
     {
         usage: {
             /** @default false */
-            force?: boolean;
+            force?: boolean | undefined;
             /** @default true */
-            ids?: boolean;
+            ids?: boolean | undefined;
             /** @default true */
-            classes?: boolean;
+            classes?: boolean | undefined;
             /** @default true */
-            tags?: boolean;
+            tags?: boolean | undefined;
         };
     }
 >;
@@ -307,11 +310,11 @@ export type PrefixIdsPlugin = DefaultPlugin<
     'prefixIds',
     {
         /** @default '__' */
-        delim?: string;
+        delim?: string | undefined;
         /** @default true */
-        prefixIds?: boolean;
+        prefixIds?: boolean | undefined;
         /** @default true */
-        prefixClassNames?: boolean;
+        prefixClassNames?: boolean | undefined;
     }
 >;
 
@@ -327,11 +330,11 @@ export type RemoveAttrsPlugin = DefaultPlugin<
     'removeAttrs',
     {
         /** @default ':' */
-        elemSeparator?: string;
+        elemSeparator?: string | undefined;
         /** @default false */
-        preserveCurrentColor?: boolean;
+        preserveCurrentColor?: boolean | undefined;
         /** @default [] */
-        attrs?: any[];
+        attrs: string | string[];
     }
 >;
 
@@ -347,7 +350,7 @@ export type RemoveDescPlugin = DefaultPlugin<
     'removeDesc',
     {
         /** @default true */
-        removeAny?: boolean;
+        removeAny?: boolean | undefined;
     }
 >;
 
@@ -368,7 +371,7 @@ export type RemoveEditorsNSDataPlugin = DefaultPlugin<
     'removeEditorsNSData',
     {
         /** @default [] */
-        additionalNamespaces?: any[];
+        additionalNamespaces?: any[] | undefined;
     }
 >;
 
@@ -379,9 +382,9 @@ export type RemoveElementsByAttrPlugin = DefaultPlugin<
     'removeElementsByAttr',
     {
         /** @default [] */
-        id?: any[];
+        id?: any[] | undefined;
         /** @default [] */
-        class?: any[];
+        class?: any[] | undefined;
     }
 >;
 
@@ -402,11 +405,11 @@ export type RemoveEmptyTextPlugin = DefaultPlugin<
     'removeEmptyText',
     {
         /** @default true */
-        text?: boolean;
+        text?: boolean | undefined;
         /** @default true */
-        tspan?: boolean;
+        tspan?: boolean | undefined;
         /** @default true */
-        tref?: boolean;
+        tref?: boolean | undefined;
     }
 >;
 
@@ -417,35 +420,35 @@ export type RemoveHiddenElemsPlugin = DefaultPlugin<
     'removeHiddenElems',
     {
         /** @default true */
-        isHidden?: boolean;
+        isHidden?: boolean | undefined;
         /** @default true */
-        displayNone?: boolean;
+        displayNone?: boolean | undefined;
         /** @default true */
-        opacity0?: boolean;
+        opacity0?: boolean | undefined;
         /** @default true */
-        circleR0?: boolean;
+        circleR0?: boolean | undefined;
         /** @default true */
-        ellipseRX0?: boolean;
+        ellipseRX0?: boolean | undefined;
         /** @default true */
-        ellipseRY0?: boolean;
+        ellipseRY0?: boolean | undefined;
         /** @default true */
-        rectWidth0?: boolean;
+        rectWidth0?: boolean | undefined;
         /** @default true */
-        rectHeight0?: boolean;
+        rectHeight0?: boolean | undefined;
         /** @default true */
-        patternWidth0?: boolean;
+        patternWidth0?: boolean | undefined;
         /** @default true */
-        patternHeight0?: boolean;
+        patternHeight0?: boolean | undefined;
         /** @default true */
-        imageWidth0?: boolean;
+        imageWidth0?: boolean | undefined;
         /** @default true */
-        imageHeight0?: boolean;
+        imageHeight0?: boolean | undefined;
         /** @default true */
-        pathEmptyD?: boolean;
+        pathEmptyD?: boolean | undefined;
         /** @default true */
-        polylineEmptyPoints?: boolean;
+        polylineEmptyPoints?: boolean | undefined;
         /** @default true */
-        polygonEmptyPoints?: boolean;
+        polygonEmptyPoints?: boolean | undefined;
     }
 >;
 
@@ -491,19 +494,19 @@ export type RemoveUnknownsAndDefaultsPlugin = DefaultPlugin<
     'removeUnknownsAndDefaults',
     {
         /** @default true */
-        unknownContent?: boolean;
+        unknownContent?: boolean | undefined;
         /** @default true */
-        unknownAttrs?: boolean;
+        unknownAttrs?: boolean | undefined;
         /** @default true */
-        defaultAttrs?: boolean;
+        defaultAttrs?: boolean | undefined;
         /** @default true */
-        uselessOverrides?: boolean;
+        uselessOverrides?: boolean | undefined;
         /** @default true */
-        keepDataAttrs?: boolean;
+        keepDataAttrs?: boolean | undefined;
         /** @default true */
-        keepAriaAttrs?: boolean;
+        keepAriaAttrs?: boolean | undefined;
         /** @default false */
-        keepRoleAttr?: boolean;
+        keepRoleAttr?: boolean | undefined;
     }
 >;
 
@@ -524,13 +527,13 @@ export type RemoveUselessStrokeAndFillPlugin = DefaultPlugin<
     'removeUselessStrokeAndFill',
     {
         /** @default true */
-        stroke?: boolean;
+        stroke?: boolean | undefined;
         /** @default true */
-        fill?: boolean;
+        fill?: boolean | undefined;
         /** @default false */
-        removeNone?: boolean;
+        removeNone?: boolean | undefined;
         /** @default false */
-        hasStyleOrScript?: boolean;
+        hasStyleOrScript?: boolean | undefined;
     }
 >;
 
@@ -550,7 +553,7 @@ export type RemoveXMLNSPlugin = DefaultPlugin<'removeXMLNS'>;
 export type RemoveXMLProcInstPlugin = DefaultPlugin<'removeXMLProcInst'>;
 
 /**
- * Finds <path> elements with the same d, fill, and stroke, and converts them to <use> elements referencing a single <path> def.
+ * finds <path> elements with the same d, fill, and stroke, and converts them to <use> elements referencing a single <path> def.
  */
 export type ReusePathsPlugin = DefaultPlugin<'reusePaths'>;
 
@@ -563,29 +566,33 @@ export type SortAttrsPlugin = DefaultPlugin<
         /**
          * @default ['id', 'width', 'height', 'x', 'x1', 'x2', 'y', 'y1', 'y2', 'cx', 'cy', 'r', 'fill', 'stroke', 'marker', 'd', 'points']
          */
-        order?: string[];
+        order?: string[] | undefined;
     }
 >;
 
 /**
- * Sorts children of <defs> to improve compression
+ * sorts children of <defs> to improve compression
  */
 export type SortDefsChildrenPlugin = DefaultPlugin<'sortDefsChildren'>;
 
-export type DefaultPlugins =
-    | AddAttributesToSVGElementPlugin
-    | AddClassesToSVGElementPlugin
+export interface Preset<N extends string, P = never> {
+    name: N;
+    params?: P | undefined;
+}
+
+/**
+ * plugins which are enabled in default preset
+ */
+export type DefaultPresetPlugins =
     | CleanupAttrsPlugin
     | CleanupEnableBackgroundPlugin
     | CleanupIDsPlugin
-    | CleanupListOfValuesPlugin
     | CleanupNumericValuesPlugin
     | CollapseGroupsPlugin
     | ConvertColorsPlugin
     | ConvertEllipseToCirclePlugin
     | ConvertPathDataPlugin
     | ConvertShapeToPathPlugin
-    | ConvertStyleToAttrsPlugin
     | ConvertTransformPlugin
     | InlineStylesPlugin
     | MergePathsPlugin
@@ -593,42 +600,57 @@ export type DefaultPlugins =
     | MinifyStylesPlugin
     | MoveElemsAttrsToGroupPlugin
     | MoveGroupAttrsToElemsPlugin
-    | PrefixIdsPlugin
-    | RemoveAttributesBySelectorPlugin
-    | RemoveAttrsPlugin
-    | RemoveAttrsPlugin
     | RemoveCommentsPlugin
     | RemoveDescPlugin
-    | RemoveDimensionsPlugin
     | RemoveDoctypePlugin
     | RemoveEditorsNSDataPlugin
-    | RemoveElementsByAttrPlugin
     | RemoveEmptyAttrsPlugin
     | RemoveEmptyContainersPlugin
     | RemoveEmptyTextPlugin
     | RemoveHiddenElemsPlugin
     | RemoveMetadataPlugin
     | RemoveNonInheritableGroupAttrsPlugin
-    | RemoveOffCanvasPathsPlugin
-    | RemoveRasterImagesPlugin
-    | RemoveScriptElementPlugin
-    | RemoveStyleElementPlugin
     | RemoveTitlePlugin
     | RemoveUnknownsAndDefaultsPlugin
     | RemoveUnusedNSPlugin
     | RemoveUselessDefsPlugin
     | RemoveUselessStrokeAndFillPlugin
     | RemoveViewBoxPlugin
-    | RemoveXMLNSPlugin
     | RemoveXMLProcInstPlugin
-    | ReusePathsPlugin
-    | SortAttrsPlugin
     | SortDefsChildrenPlugin;
+
+/**
+ * default plugin preset, customize plugin options by overriding them
+ */
+export type PresetDefault = Preset<'preset-default', {
+    floatPrecision?: number | undefined;
+    overrides?: { [P in DefaultPresetPlugins['name']]?: false | DefaultPresetPlugins['params']};
+}>;
+
+export type DefaultPlugins =
+    DefaultPresetPlugins
+    | PresetDefault
+    | AddAttributesToSVGElementPlugin
+    | AddClassesToSVGElementPlugin
+    | CleanupListOfValuesPlugin
+    | ConvertStyleToAttrsPlugin
+    | PrefixIdsPlugin
+    | RemoveAttributesBySelectorPlugin
+    | RemoveAttrsPlugin
+    | RemoveDimensionsPlugin
+    | RemoveElementsByAttrPlugin
+    | RemoveOffCanvasPathsPlugin
+    | RemoveRasterImagesPlugin
+    | RemoveScriptElementPlugin
+    | RemoveStyleElementPlugin
+    | RemoveXMLNSPlugin
+    | ReusePathsPlugin
+    | SortAttrsPlugin;
 
 export interface CustomPlugin<P extends object = never> {
     name: string;
     type: 'perItem' | 'perItemReverse' | 'full';
-    params?: P;
+    params?: P | undefined;
     fn: (ast: any, params: P, info: any) => any;
 }
 
@@ -638,75 +660,83 @@ export interface OptimizedSvg {
         width: string;
         height: string;
     };
-    path?: string;
+    path?: string | undefined;
 }
 
 export type Plugin = DefaultPlugins | DefaultPlugins['name'] | CustomPlugin;
 
 export interface Js2SvgOptions {
     /** @default '<!DOCTYPE' */
-    doctypeStart?: string;
+    doctypeStart?: string | undefined;
     /** @default '>' */
-    doctypeEnd?: string;
+    doctypeEnd?: string | undefined;
+    /**
+     * Allows to customize end of line characters which is usually resolved by os.EOL in node.
+     */
+    eol?: 'lf' | 'crlf' | undefined;
+    /**
+     * Ensures SVG output has a final newline which is required for some tools like git.
+     */
+    finalNewline?: boolean | undefined;
     /** @default '<?' */
-    procInstStart?: string;
+    procInstStart?: string | undefined;
     /** @default '?>' */
-    procInstEnd?: string;
+    procInstEnd?: string | undefined;
     /** @default '<' */
-    tagOpenStart?: string;
+    tagOpenStart?: string | undefined;
     /** @default '>' */
-    tagOpenEnd?: string;
+    tagOpenEnd?: string | undefined;
     /** @default '</' */
-    tagCloseStart?: string;
+    tagCloseStart?: string | undefined;
     /** @default '>' */
-    tagCloseEnd?: string;
+    tagCloseEnd?: string | undefined;
     /** @default '<' */
-    tagShortStart?: string;
+    tagShortStart?: string | undefined;
     /** @default '/>' */
-    tagShortEnd?: string;
+    tagShortEnd?: string | undefined;
     /** @default '="' */
-    attrStart?: string;
+    attrStart?: string | undefined;
     /** @default '"' */
-    attrEnd?: string;
+    attrEnd?: string | undefined;
     /** @default '<!--' */
-    commentStart?: string;
+    commentStart?: string | undefined;
     /** @default '-->' */
-    commentEnd?: string;
+    commentEnd?: string | undefined;
     /** @default '<![CDATA[' */
-    cdataStart?: string;
+    cdataStart?: string | undefined;
     /** @default ']]>' */
-    cdataEnd?: string;
+    cdataEnd?: string | undefined;
     /** @default '' */
-    textStart?: string;
+    textStart?: string | undefined;
     /** @default '' */
-    textEnd?: string;
+    textEnd?: string | undefined;
     /** @default 4 */
-    indent?: number;
+    indent?: number | undefined;
     /** @default /[&'"<>]/g */
-    regEntities?: RegExp;
+    regEntities?: RegExp | undefined;
     /** @default /[&"<>]/g */
-    regValEntities?: RegExp;
+    regValEntities?: RegExp | undefined;
     /** @default encodeEntity */
-    encodeEntity?: (char?: string) => string;
+    encodeEntity?: ((char?: string) => string) | undefined;
     /** @default false */
-    pretty?: boolean;
+    pretty?: boolean | undefined;
     /** @default true */
-    useShortTags?: boolean;
+    useShortTags?: boolean | undefined;
 }
 
 export interface Svg2JsOptions {
     /** @default true */
-    strict?: boolean;
+    strict?: boolean | undefined;
     /** @default false */
-    trim?: boolean;
+    trim?: boolean | undefined;
     /** @default true */
-    normalize?: boolean;
+    normalize?: boolean | undefined;
     /** @default true */
-    lowercase?: boolean;
+    lowercase?: boolean | undefined;
     /** @default true */
-    xmlns?: boolean;
+    xmlns?: boolean | undefined;
     /** @default true */
-    position?: boolean;
+    position?: boolean | undefined;
 }
 
 /**
@@ -714,39 +744,41 @@ export interface Svg2JsOptions {
  * utility.
  *
  * To disable one of default plugins use active field.
+ *
+ * @deprecated Use `preset-default` plugin instead
  */
 export function extendDefaultPlugins(plugins: Plugin[]): Plugin[];
 
 export interface OptimizeOptions {
     /** Output as Data URI string. */
-    datauri?: 'base64' | 'enc' | 'unenc';
+    datauri?: 'base64' | 'enc' | 'unenc' | undefined;
 
     /** Precision of floating point numbers. Will be passed to each plugin that suppors this param. */
-    floatPrecision?: number;
+    floatPrecision?: number | undefined;
 
     /** Use full set of plugins. */
-    full?: boolean;
+    full?: boolean | undefined;
 
-    path?: string;
+    path?: string | undefined;
 
     /** Pass over SVGs multiple times to ensure all optimizations are applied */
-    multipass?: boolean;
+    multipass?: boolean | undefined;
 
     /** Options for rendering optimized SVG from AST. */
-    js2svg?: Js2SvgOptions;
+    js2svg?: Js2SvgOptions | undefined;
 
     /**
      * Individual plugin configurations.
      * For specific options, see plugin source in https://github.com/svg/svgo/tree/master/plugins.
      */
-    plugins?: Plugin[];
+    plugins?: Plugin[] | undefined;
 
     /** Options for parsing original SVG into AST. */
-    svg2js?: Svg2JsOptions;
+    svg2js?: Svg2JsOptions | undefined;
 }
 
 /* The core of SVGO is optimize function. */
-export function optimize(svgString: string, options?: OptimizeOptions): OptimizedSvg;
+export function optimize(svgString: string | Buffer, options?: OptimizeOptions): OptimizedSvg;
 
 /**
  * If you write a tool on top of svgo you might need a way to load svgo config.
@@ -754,3 +786,4 @@ export function optimize(svgString: string, options?: OptimizeOptions): Optimize
  * You can also specify relative or absolute path and customize current working directory.
  */
 export function loadConfig(configFile: string, cwd?: string): Promise<OptimizeOptions>;
+export function loadConfig(): Promise<OptimizeOptions | null>;

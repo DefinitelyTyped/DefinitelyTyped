@@ -13,13 +13,13 @@ export type RequestCallback = (err: any, request: ClientRequest) => void;
 export type ResponseCallback = (cb?: (err: any, response: IncomingMessage, body: string) => void) => ScopedClient;
 
 export interface Options extends RequestOptions {
-    encoding?: string;
-    httpAgent?: Agent|boolean;
-    httpsAgent?: Agent|boolean;
+    encoding?: string | undefined;
+    httpAgent?: Agent|boolean | undefined;
+    httpsAgent?: Agent|boolean | undefined;
     query?: any;
-    pathname?: string;
+    pathname?: string | undefined;
     slashes?: any;
-    hash?: string;
+    hash?: string | undefined;
 }
 
 export class ScopedClient {

@@ -16,6 +16,7 @@
 //                 Radosław Miernik <https://github.com/radekmie>
 //                 Wojciech Adamek <https://github.com/wadamek65>
 //                 Maciej Stasieluk <https://github.com/MacRusher>
+//                 Markus Peloso <https://github.com/ToastHawaii>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.7
 
@@ -41,17 +42,21 @@
 /// <reference path="./meteor.d.ts" />
 /// <reference path="./globals/meteor.d.ts" />
 /// <reference path="./modern-browsers.d.ts" />
+/// <reference path="./globals/modern-browsers.d.ts" />
 /// <reference path="./mongo.d.ts" />
 /// <reference path="./globals/mongo.d.ts" />
 /// <reference path="./promise.d.ts" />
 /// <reference path="./random.d.ts" />
 /// <reference path="./globals/random.d.ts" />
+/// <reference path="./react-meteor-data.d.ts" />
 /// <reference path="./reactive-dict.d.ts" />
 /// <reference path="./globals/reactive-dict.d.ts" />
 /// <reference path="./reactive-var.d.ts" />
 /// <reference path="./globals/reactive-var.d.ts" />
 /// <reference path="./server-render.d.ts" />
+/// <reference path="./globals/server-render.d.ts" />
 /// <reference path="./service-configuration.d.ts" />
+/// <reference path="./globals/service-configuration.d.ts" />
 /// <reference path="./session.d.ts" />
 /// <reference path="./globals/session.d.ts" />
 /// <reference path="./templating.d.ts" />
@@ -63,4 +68,6 @@
 /// <reference path="./tracker.d.ts" />
 /// <reference path="./globals/tracker.d.ts" />
 /// <reference path="./underscore.d.ts" />
+/// <reference path="./globals/underscore.d.ts" />
 /// <reference path="./webapp.d.ts" />
+/// <reference path="./globals/webapp.d.ts" />

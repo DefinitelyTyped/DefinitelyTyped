@@ -4,19 +4,19 @@ declare namespace AMap {
             /**
              * 图标尺寸
              */
-            size?: SizeValue;
+            size?: SizeValue | undefined;
             /**
              * 图标取图偏移量
              */
-            imageOffset?: Pixel;
+            imageOffset?: Pixel | undefined;
             /**
              * 图标的取图地址
              */
-            image?: string;
+            image?: string | undefined;
             /**
              * 图标所用图片大小
              */
-            imageSize?: SizeValue;
+            imageSize?: SizeValue | undefined;
         }
     }
 

@@ -20,11 +20,11 @@ declare namespace AMap {
                 /**
                  * 内存中缓存的切片的数量上限
                  */
-                cacheSize?: number;
+                cacheSize?: number | undefined;
                 /**
                  * 是否显示
                  */
-                visible?: boolean;
+                visible?: boolean | undefined;
             }
         }
         class Flexible extends TileLayer {

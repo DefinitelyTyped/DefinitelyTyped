@@ -3,19 +3,19 @@ import { GridProps } from './Grid';
 import { CellPosition } from './CellMeasurer';
 
 export type MultiGridProps = {
-    classNameBottomLeftGrid?: string;
-    classNameBottomRightGrid?: string;
-    classNameTopLeftGrid?: string;
-    classNameTopRightGrid?: string;
-    enableFixedColumnScroll?: boolean;
-    enableFixedRowScroll?: boolean;
-    fixedColumnCount?: number;
-    fixedRowCount?: number;
-    style?: React.CSSProperties;
-    styleBottomLeftGrid?: React.CSSProperties;
-    styleBottomRightGrid?: React.CSSProperties;
-    styleTopLeftGrid?: React.CSSProperties;
-    styleTopRightGrid?: React.CSSProperties;
+    classNameBottomLeftGrid?: string | undefined;
+    classNameBottomRightGrid?: string | undefined;
+    classNameTopLeftGrid?: string | undefined;
+    classNameTopRightGrid?: string | undefined;
+    enableFixedColumnScroll?: boolean | undefined;
+    enableFixedRowScroll?: boolean | undefined;
+    fixedColumnCount?: number | undefined;
+    fixedRowCount?: number | undefined;
+    style?: React.CSSProperties | undefined;
+    styleBottomLeftGrid?: React.CSSProperties | undefined;
+    styleBottomRightGrid?: React.CSSProperties | undefined;
+    styleTopLeftGrid?: React.CSSProperties | undefined;
+    styleTopRightGrid?: React.CSSProperties | undefined;
 } & GridProps;
 
 export type MultiGridState = {
@@ -74,7 +74,7 @@ export class MultiGrid extends PureComponent<MultiGridProps, MultiGridState> {
     measureAllCells(): void;
 
     /** See Grid#recomputeGridSize */
-    recomputeGridSize(params?: { columnIndex?: number; rowIndex?: number }): void;
+    recomputeGridSize(params?: { columnIndex?: number | undefined; rowIndex?: number | undefined }): void;
     static getDerivedStateFromProps(nextProps: MultiGridProps, prevState: MultiGridState): MultiGridState | null;
 }
 

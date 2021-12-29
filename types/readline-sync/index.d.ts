@@ -7,31 +7,31 @@ export type OptionType = string | number | RegExp | ((input: string) => boolean)
 
 export interface BasicOptions {
     prompt?: any;
-    hideEchoBack?: boolean;
-    mask?: string;
-    limit?: OptionType | OptionType[];
-    limitMessage?: string;
-    defaultInput?: string;
-    trueValue?: OptionType | OptionType[];
-    falseValue?: OptionType | OptionType[];
-    caseSensitive?: boolean;
-    keepWhitespace?: boolean;
-    encoding?: string;
-    bufferSize?: number;
+    hideEchoBack?: boolean | undefined;
+    mask?: string | undefined;
+    limit?: OptionType | OptionType[] | undefined;
+    limitMessage?: string | undefined;
+    defaultInput?: string | undefined;
+    trueValue?: OptionType | OptionType[] | undefined;
+    falseValue?: OptionType | OptionType[] | undefined;
+    caseSensitive?: boolean | undefined;
+    keepWhitespace?: boolean | undefined;
+    encoding?: string | undefined;
+    bufferSize?: number | undefined;
     print?(display: string, encoding: string): void;
-    history?: boolean;
-    cd?: boolean;
-    charlist?: string;
+    history?: boolean | undefined;
+    cd?: boolean | undefined;
+    charlist?: string | undefined;
     min?: any;
     max?: any;
     confirmMessage?: any;
     unmatchMessage?: any;
     exists?: any;
-    isFile?: boolean;
-    isDirectory?: boolean;
+    isFile?: boolean | undefined;
+    isDirectory?: boolean | undefined;
     validate?(path: string): boolean | string;
-    create?: boolean;
-    guide?: boolean;
+    create?: boolean | undefined;
+    guide?: boolean | undefined;
     cancel?: any;
 }
 

@@ -5,19 +5,19 @@ import ImageStyle from './Image';
 import Stroke from './Stroke';
 
 export interface Options {
-    fill?: Fill;
+    fill?: Fill | undefined;
     points: number;
-    radius?: number;
-    radius1?: number;
-    radius2?: number;
-    angle?: number;
-    stroke?: Stroke;
-    rotation?: number;
-    rotateWithView?: boolean;
-    atlasManager?: AtlasManager;
+    radius?: number | undefined;
+    radius1?: number | undefined;
+    radius2?: number | undefined;
+    angle?: number | undefined;
+    stroke?: Stroke | undefined;
+    rotation?: number | undefined;
+    rotateWithView?: boolean | undefined;
+    atlasManager?: AtlasManager | undefined;
 }
 export interface RenderOptions {
-    strokeStyle?: ColorLike;
+    strokeStyle?: ColorLike | undefined;
     strokeWidth: number;
     size: number;
     lineCap: string;

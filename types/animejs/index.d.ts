@@ -48,33 +48,33 @@ declare namespace anime {
     type DirectionOptions = "reverse" | "alternate" | "normal";
 
     interface AnimeCallBack {
-        begin?: AnimeCallbackFunction;
-        change?: AnimeCallbackFunction;
-        update?: AnimeCallbackFunction;
-        complete?: AnimeCallbackFunction;
-        loopBegin?: AnimeCallbackFunction;
-        loopComplete?: AnimeCallbackFunction;
-        changeBegin?: AnimeCallbackFunction;
-        changeComplete?: AnimeCallbackFunction;
+        begin?: AnimeCallbackFunction | undefined;
+        change?: AnimeCallbackFunction | undefined;
+        update?: AnimeCallbackFunction | undefined;
+        complete?: AnimeCallbackFunction | undefined;
+        loopBegin?: AnimeCallbackFunction | undefined;
+        loopComplete?: AnimeCallbackFunction | undefined;
+        changeBegin?: AnimeCallbackFunction | undefined;
+        changeComplete?: AnimeCallbackFunction | undefined;
     }
 
     interface AnimeInstanceParams extends AnimeCallBack {
-        loop?: number | boolean;
-        autoplay?: boolean;
-        direction?: DirectionOptions | string;
+        loop?: number | boolean | undefined;
+        autoplay?: boolean | undefined;
+        direction?: DirectionOptions | string | undefined;
     }
 
     interface AnimeAnimParams extends AnimeCallBack {
-        targets?: AnimeTarget | ReadonlyArray<AnimeTarget>;
+        targets?: AnimeTarget | ReadonlyArray<AnimeTarget> | undefined;
 
-        duration?: number | FunctionBasedParameter;
-        delay?: number | FunctionBasedParameter;
-        endDelay?: number | FunctionBasedParameter;
-        elasticity?: number | FunctionBasedParameter;
-        round?: number | boolean | FunctionBasedParameter;
-        keyframes?: ReadonlyArray<AnimeAnimParams>;
+        duration?: number | FunctionBasedParameter | undefined;
+        delay?: number | FunctionBasedParameter | undefined;
+        endDelay?: number | FunctionBasedParameter | undefined;
+        elasticity?: number | FunctionBasedParameter | undefined;
+        round?: number | boolean | FunctionBasedParameter | undefined;
+        keyframes?: ReadonlyArray<AnimeAnimParams> | undefined;
 
-        easing?: EasingOptions | string | CustomEasingFunction | ((el: HTMLElement) => string);
+        easing?: EasingOptions | string | CustomEasingFunction | ((el: HTMLElement) => string) | undefined;
 
         [AnyAnimatedProperty: string]: any;
     }
@@ -138,12 +138,12 @@ declare namespace anime {
     }
 
     interface StaggerOptions {
-        start?: number | string;
-        direction?: 'normal' | 'reverse';
-        easing?: CustomEasingFunction | string | EasingOptions;
-        grid?: ReadonlyArray<number>;
-        axis?: 'x' | 'y';
-        from?: 'first' | 'last' | 'center' | number;
+        start?: number | string | undefined;
+        direction?: 'normal' | 'reverse' | undefined;
+        easing?: CustomEasingFunction | string | EasingOptions | undefined;
+        grid?: ReadonlyArray<number> | undefined;
+        axis?: 'x' | 'y' | undefined;
+        from?: 'first' | 'last' | 'center' | number | undefined;
     }
 
     // Helpers

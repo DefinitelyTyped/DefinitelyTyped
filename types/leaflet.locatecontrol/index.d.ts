@@ -1,4 +1,4 @@
-// Type definitions for leaflet.locatecontrol 0.60
+// Type definitions for leaflet.locatecontrol 0.74
 // Project: https://github.com/domoritz/leaflet-locatecontrol
 // Definitions by: Denis Carriere <https://github.com/DenisCarriere>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -9,36 +9,44 @@ import * as L from 'leaflet';
 declare module 'leaflet' {
     namespace Control {
         class Locate extends Control {
+          constructor(locateOptions?: LocateOptions);
           onAdd(map: Map): HTMLElement;
           start(): void;
           stop(): void;
           setView(): void;
         }
         interface LocateOptions {
-            position?: string;
-            layer?: Layer;
-            setView?: boolean | string;
-            flyTo?: boolean;
-            keepCurrentZoomLevel?: boolean;
+            position?: string | undefined;
+            layer?: Layer | undefined;
+            setView?: boolean | string | undefined;
+            keepCurrentZoomLevel?: boolean | undefined;
+            initialZoomLevel?: number | boolean | undefined;
+            flyTo?: boolean | undefined;
             clickBehavior?: any;
-            returnToPrevBounds?: boolean;
-            cacheLocation?: boolean;
-            drawCircle?: boolean;
-            drawMarker?: boolean;
+            returnToPrevBounds?: boolean | undefined;
+            cacheLocation?: boolean | undefined;
+            drawCircle?: boolean | undefined;
+            drawMarker?: boolean | undefined;
+            showCompass?: boolean | undefined;
             markerClass?: any;
-            circleStyle?: PathOptions;
-            markerStyle?: PathOptions | MarkerOptions;
-            followCircleStyle?: PathOptions;
-            followMarkerStyle?: PathOptions;
-            icon?: string;
-            iconLoading?: string;
-            iconElementTag?: string;
-            circlePadding?: number[];
+            compassClass?: any;
+            circleStyle?: PathOptions | undefined;
+            markerStyle?: PathOptions | MarkerOptions | undefined;
+            compassStyle?: PathOptions | undefined;
+            followCircleStyle?: PathOptions | undefined;
+            followMarkerStyle?: PathOptions | undefined;
+            icon?: string | undefined;
+            iconLoading?: string | undefined;
+            iconElementTag?: string | undefined;
+            textElementTag?: string | undefined;
+            circlePadding?: number[] | undefined;
+            metric?: boolean | undefined;
+            createButtonCallback?: any;
             onLocationError?: any;
             onLocationOutsideMapBounds?: any;
-            showPopup?: boolean;
+            showPopup?: boolean | undefined;
             strings?: any;
-            locateOptions?: L.LocateOptions;
+            locateOptions?: L.LocateOptions | undefined;
         }
     }
 

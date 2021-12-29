@@ -24,23 +24,23 @@ declare namespace JQueryGlide {
         /**
          * Default: true {Bool} Pause autoplay on mouseover slider
          */
-        hoverpause?: boolean;
+        hoverpause?: boolean | undefined;
         /**
          * Default: true {Bool} Circular play (Animation continues without starting over once it reaches the last slide)
          */
-        circular?: boolean;
+        circular?: boolean | undefined;
 
         /**
          * Default: 500
          * Animation time in ms
          * @type {number}
          */
-        animationDuration?: number;
+        animationDuration?: number | undefined;
         /**
          * Default: cubic-bezier(0.165, 0.840, 0.440, 1.000)
          * cubic-bezier(0.165, 0.840, 0.440, 1.000)
          */
-        animationTimingFunc?: string;
+        animationTimingFunc?: string | undefined;
 
         /**
          * Default: true
@@ -54,32 +54,32 @@ declare namespace JQueryGlide {
          * Default: 'slider-arrows'
          * {String} Arrows wrapper class
          */
-        arrowsWrapperClass?: string;
+        arrowsWrapperClass?: string | undefined;
         /**
          * Default: 'slider-arrow'
          * {String} Main class for both arrows
          */
-        arrowMainClass?: string;
+        arrowMainClass?: string | undefined;
         /**
          * Default: 'slider-arrow--right'
          * {String} Right arrow
          */
-        arrowRightClass?: string;
+        arrowRightClass?: string | undefined;
         /**
          * Default: 'next'
          * {String} Right arrow text
          */
-        arrowRightText?: string;
+        arrowRightText?: string | undefined;
         /**
          * Default: 'slider-arrow--left'
          * {String} Left arrow
          */
-        arrowLeftClass?: string;
+        arrowLeftClass?: string | undefined;
         /**
          * Default: 'prev'
          * {String} Left arrow text
          */
-        arrowLeftText?: string;
+        arrowLeftText?: string | undefined;
 
         /**
          * Default: true
@@ -93,28 +93,28 @@ declare namespace JQueryGlide {
          * Default: true
          * {Bool} Center bullet navigation
          */
-        navigationCenter?: boolean;
+        navigationCenter?: boolean | undefined;
         /**
          * Default: 'slider-nav'
          * {String} Navigation class
          */
-        navigationClass?: string;
+        navigationClass?: string | undefined;
         /**
          * Default: 'slider-nav__item'
          * {String} Navigation item class
          */
-        navigationItemClass?: string;
+        navigationItemClass?: string | undefined;
         /**
          * Default: 'slider-nav__item--current'
          * {String} Current navigation item class
          */
-        navigationCurrentItemClass?: string;
+        navigationCurrentItemClass?: string | undefined;
 
         /**
          * Default: true
          * {Bool} Slide on left / right keyboard arrows press
          */
-        keyboard?: boolean;
+        keyboard?: boolean | undefined;
 
         /**
          * Default: 60
@@ -126,23 +126,23 @@ declare namespace JQueryGlide {
          * Default: function () {}
          * {Function} Callback before plugin init
          */
-        beforeInit?: Function;
+        beforeInit?: Function | undefined;
         /**
          * Default: function () {}
          * {Function} Callback after plugin init
          */
-        afterInit?: Function;
+        afterInit?: Function | undefined;
 
         /**
          * Default: function () {}
          * {Function} Callback before slide change
          */
-        beforeTransition?: Function;
+        beforeTransition?: Function | undefined;
         /**
          * Default: function() {}
          * {Function} Callback after slide change
          */
-        afterTransition?: Function;
+        afterTransition?: Function | undefined;
     }
 
     interface IGlideApi {

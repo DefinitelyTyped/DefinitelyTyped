@@ -255,6 +255,7 @@ export { default as take } from "./take";
 export { default as takeRight } from "./takeRight";
 export { default as takeRightWhile } from "./takeRightWhile";
 export { default as takeWhile } from "./takeWhile";
+export { default as tap } from "./tap";
 export { default as template } from "./template";
 export { default as templateSettings } from "./templateSettings";
 export { default as throttle, ThrottleSettings } from "./throttle";

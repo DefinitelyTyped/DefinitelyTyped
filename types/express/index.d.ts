@@ -74,7 +74,7 @@ declare namespace e {
         /**
          * Enable case sensitivity.
          */
-        caseSensitive?: boolean;
+        caseSensitive?: boolean | undefined;
 
         /**
          * Preserve the req.params values from the parent router.
@@ -83,12 +83,12 @@ declare namespace e {
          * @default false
          * @since 4.5.0
          */
-        mergeParams?: boolean;
+        mergeParams?: boolean | undefined;
 
         /**
          * Enable strict routing.
          */
-        strict?: boolean;
+        strict?: boolean | undefined;
     }
 
     interface Application extends core.Application {}

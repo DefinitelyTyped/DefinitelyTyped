@@ -1,23 +1,22 @@
-import { Emitter, EmitterMixinDelegateChain } from "@ckeditor/ckeditor5-utils/src/emittermixin";
-import { BindChain, Observable } from "@ckeditor/ckeditor5-utils/src/observablemixin";
-import EventInfo from "@ckeditor/ckeditor5-utils/src/eventinfo";
-import { PriorityString } from "@ckeditor/ckeditor5-utils/src/priorities";
-import DomEventData from "../view/observer/domeventdata";
-import DocumentSelection from "./documentselection";
-import Element from "./element";
-import { Item } from "./item";
-import Node from "./node";
-import Position from "./position";
-import Range from "./range";
-import Selection from "./selection";
-import Writer from "./writer";
+import { Emitter, EmitterMixinDelegateChain } from '@ckeditor/ckeditor5-utils/src/emittermixin';
+import { BindChain, Observable } from '@ckeditor/ckeditor5-utils/src/observablemixin';
+import EventInfo from '@ckeditor/ckeditor5-utils/src/eventinfo';
+import { PriorityString } from '@ckeditor/ckeditor5-utils/src/priorities';
+import DocumentSelection from './documentselection';
+import Element from './element';
+import { Item } from './item';
+import Node from './node';
+import Position from './position';
+import Range from './range';
+import Selection from './selection';
+import Writer from './writer';
 
-export default class Schema implements Emitter, Observable {
-    addAttributeCheck(callback: (context: SchemaContext, name: string) => boolean): void;
+export default class Schema implements Observable {
+    addAttributeCheck(callback: (context: SchemaContext, name: string) => any): void;
     addChildCheck(callback: (context: SchemaContext, item: SchemaCompiledItemDefinition) => boolean): void;
     checkAttribute(context: SchemaContextDefinition, attributeName: string): boolean;
     checkAttributeInSelection(selection: Selection | DocumentSelection, attribute: string): boolean;
-    checkChild(context: SchemaContextDefinition, def: Node | string): void;
+    checkChild(context: SchemaContextDefinition, def: Node | string): boolean;
     checkMerge(positionOrBaseElement: Position | Element, elementToMerge: Element): boolean;
     createContext(context: SchemaContextDefinition): SchemaContext;
     extend(itemName: string, definition: SchemaItemDefinition): void;
@@ -26,7 +25,7 @@ export default class Schema implements Emitter, Observable {
     getDefinition(item: Item | SchemaContextItem | string): SchemaCompiledItemDefinition;
     getDefinitions(): Record<string, SchemaCompiledItemDefinition>;
     getLimitElement(selectionOrRangeOrPosition: Selection | DocumentSelection | Range | Position): Element;
-    getNearestSelectionRange(position: Position, direction?: "both" | "forward" | "backward"): Range | null;
+    getNearestSelectionRange(position: Position, direction?: 'both' | 'forward' | 'backward'): Range | null;
     getValidRanges(ranges: Range[], attribute: string): Generator<Range>;
     isBlock(item: Item | SchemaContextItem | string): boolean;
     isContent(item: Item | SchemaContextItem | string): boolean;
@@ -44,44 +43,48 @@ export default class Schema implements Emitter, Observable {
     bind(...bindProperties: string[]): BindChain;
     unbind(...unbindProperties: string[]): void;
     decorate(methodName: string): void;
-
-    on: (
-        event: string,
-        callback: (info: EventInfo, data: DomEventData) => void,
-        options?: { priority: PriorityString | number },
-    ) => void;
-    once(
-        event: string,
-        callback: (info: EventInfo, data: DomEventData) => void,
-        options?: { priority: PriorityString | number },
+    on<K extends string>(
+        event: K,
+        callback: (this: this, info: EventInfo<this, K>, ...args: any[]) => void,
+        options?: { priority?: number | PriorityString | undefined },
     ): void;
-    off(event: string, callback?: (info: EventInfo, data: DomEventData) => void): void;
-    listenTo(
-        emitter: Emitter,
-        event: string,
-        callback: (info: EventInfo, data: DomEventData) => void,
-        options?: { priority?: PriorityString | number },
+    once<K extends string>(
+        event: K,
+        callback: (this: this, info: EventInfo<this, K>, ...args: any[]) => void,
+        options?: { priority?: number | PriorityString | undefined },
     ): void;
-    stopListening(emitter?: Emitter, event?: string, callback?: (info: EventInfo, data: DomEventData) => void): void;
-    fire(eventOrInfo: string | EventInfo, ...args: any[]): any;
+    off<K extends string>(event: K, callback?: (this: this, info: EventInfo<this, K>, ...args: any[]) => void): void;
+    listenTo<P extends string, E extends Emitter>(
+        emitter: E,
+        event: P,
+        callback: (this: this, info: EventInfo<E, P>, ...args: any[]) => void,
+        options?: { priority?: number | PriorityString | undefined },
+    ): void;
+    stopListening<E extends Emitter, P extends string>(
+        emitter?: E,
+        event?: P,
+        callback?: (this: this, info: EventInfo<E, P>, ...args: any[]) => void,
+    ): void;
+    fire(eventOrInfo: string | EventInfo, ...args: any[]): unknown;
     delegate(...events: string[]): EmitterMixinDelegateChain;
     stopDelegating(event?: string, emitter?: Emitter): void;
 }
 
 export interface SchemaItemDefinition {
-    allowAttributes?: string | string[];
-    allowAttributesOf?: string | string[];
-    allowContentOf?: string | string[];
-    allowIn?: string | string[];
-    allowWhere?: string | string[];
-    inheritAllFrom?: string;
-    inheritTypesFrom?: string | string[];
-    isblock?: boolean;
-    isContent?: boolean;
-    isInline?: boolean;
-    isLimit?: boolean;
-    isObject?: boolean;
-    isSelectable?: boolean;
+    allowAttributes?: string | string[] | undefined;
+    allowAttributesOf?: string | string[] | undefined;
+    allowChildren?: string | string[] | undefined;
+    allowContentOf?: string | string[] | undefined;
+    allowIn?: string | string[] | undefined;
+    allowWhere?: string | string[] | undefined;
+    inheritAllFrom?: string | undefined;
+    inheritTypesFrom?: string | string[] | undefined;
+    isBlock?: boolean | undefined;
+    isContent?: boolean | undefined;
+    isInline?: boolean | undefined;
+    isLimit?: boolean | undefined;
+    isObject?: boolean | undefined;
+    isSelectable?: boolean | undefined;
 }
 
 export interface SchemaContextItem {
@@ -90,11 +93,11 @@ export interface SchemaContextItem {
     getAttribute(keyName: string): boolean | string | number;
 }
 
-export type SchemaContextDefinition = Node | Position | SchemaContext | string | Array<string | Node>;
+export type SchemaContextDefinition = Item | Position | SchemaContext | string | Array<string | Item>;
 
 export interface SchemaCompiledItemDefinition {
     name: string;
-    isblock: boolean;
+    isBlock: boolean;
     isContent: boolean;
     isInline: boolean;
     isLimit: boolean;
@@ -105,8 +108,8 @@ export interface SchemaCompiledItemDefinition {
 }
 
 export interface AttributeProperties {
-    copyOnEnter?: boolean;
-    isFormatting?: boolean;
+    copyOnEnter?: boolean | undefined;
+    isFormatting?: boolean | undefined;
 }
 
 export class SchemaContext implements Iterable<SchemaContextItem> {

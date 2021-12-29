@@ -6,10 +6,10 @@
 declare namespace MockRaf {
   interface Options {
     /** The time that should pass during each requestAnimationFrame step in milliseconds. Default is roughly equivalent to default browser behavior. */
-    time?: number;
+    time?: number | undefined;
 
     /** The number of steps to take. */
-    count?: number;
+    count?: number | undefined;
   }
 
   /** Creates a mockRaf instance, exposing the functions you'll use to interact with the mock. */

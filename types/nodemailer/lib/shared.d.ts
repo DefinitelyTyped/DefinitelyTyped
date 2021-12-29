@@ -17,14 +17,14 @@ export interface Logger {
 }
 
 export interface ResolveHostnameOptions {
-  host?: string;
-  servername?: string | false;
+  host?: string | undefined;
+  servername?: string | false | undefined;
 }
 
 export interface ResolveHostnameValue {
   host: string;
   servername: string | false;
-  _cached?: true;
+  _cached?: true | undefined;
 }
 
 export function resolveHostname(options: ResolveHostnameOptions | null | undefined, callback: (err: Error | null, value: ResolveHostnameValue) => void): void;

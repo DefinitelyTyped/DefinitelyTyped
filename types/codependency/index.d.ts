@@ -16,8 +16,8 @@ export interface DependencyInfo {
 }
 
 export interface RequirePeerFunctionOptions {
-    optional?: boolean;
-    dontThrow?: boolean;
+    optional?: boolean | undefined;
+    dontThrow?: boolean | undefined;
 }
 
 export interface RequirePeerFunction {

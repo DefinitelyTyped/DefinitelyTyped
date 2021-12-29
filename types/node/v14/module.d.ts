@@ -50,3 +50,7 @@ declare module 'module' {
     }
     export = Module;
 }
+declare module 'node:module' {
+    import module = require('module');
+    export = module;
+}

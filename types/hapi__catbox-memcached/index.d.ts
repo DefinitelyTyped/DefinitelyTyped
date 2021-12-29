@@ -7,11 +7,11 @@ import { CacheKey, ClientApi, ClientOptions } from '@hapi/catbox';
 
 declare namespace CatboxMemcached {
     interface Options extends ClientOptions {
-        host?: string;
-        port?: number;
-        location?: string;
-        timeout?: number;
-        idle?: number;
+        host?: string | undefined;
+        port?: number | undefined;
+        location?: string | undefined;
+        timeout?: number | undefined;
+        idle?: number | undefined;
     }
 }
 

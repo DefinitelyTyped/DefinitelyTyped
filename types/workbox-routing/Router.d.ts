@@ -28,7 +28,7 @@ export namespace Router {
 
     interface HandleRequestOptions {
         request: Request;
-        event?: FetchEvent;
+        event?: FetchEvent | undefined;
     }
 }
 

@@ -7,10 +7,10 @@
 /// <reference types="jquery"/>
 
 interface ValidatorOptions {
-    delay?: number;
-    html?: boolean;
-    disable?: boolean;
-    focus?: boolean;
+    delay?: number | undefined;
+    html?: boolean | undefined;
+    disable?: boolean | undefined;
+    focus?: boolean | undefined;
     feedback?: any;
     custom?: any;
 }

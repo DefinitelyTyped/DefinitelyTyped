@@ -2,6 +2,7 @@
 // Project: https://www.npmjs.com/package/inquirer-autocomplete-prompt
 // Definitions by: Jason Catel <https://github.com/jayeeson/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 4.2
 
 import { Answers, KeyUnion, Question, QuestionCollection } from "inquirer";
 import Choices = require("inquirer/lib/objects/choices");
@@ -18,7 +19,7 @@ declare class AutocompletePrompt<T> extends Base {
     /**
      * The choices currently available on the prompt
      */
-    currentChoices: Choices<Answers>;
+    currentChoices: Choices;
 
     /**
      * Flag that is true on first render
@@ -130,21 +131,21 @@ declare namespace AutocompletePrompt {
         /**
          * The number of elements to show on each page.
          */
-        pageSize?: number;
+        pageSize?: number | undefined;
 
         /**
          * default false. Setting it to true turns the input into a normal text input.
          */
-        suggestOnly?: boolean;
+        suggestOnly?: boolean | undefined;
 
         /**
          * Is the text shown when searching. Defaults: Searching...
          */
-        searchText?: boolean;
+        searchText?: boolean | undefined;
 
         /**
          *  Is the text shown if the search returns no results. Defaults: No results...
          */
-        emptyText?: boolean;
+        emptyText?: boolean | undefined;
     }
 }

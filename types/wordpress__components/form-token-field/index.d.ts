@@ -7,7 +7,7 @@ declare namespace FormTokenField {
          * objects are present in the array, they **must** have a property of
          * `value`. Here is an example object that could be passed in as a value:
          */
-        value?: readonly Value[];
+        value?: readonly Value[] | undefined;
         /**
          * Function to call to transform tokens for display.  (In the editor, this
          * is needed to decode HTML entities embedded in tags - otherwise entities
@@ -38,33 +38,33 @@ declare namespace FormTokenField {
          * Function to call when the TokenField has been focused on. The event is
          * passed to the callback. Useful for analytics.
          */
-        onFocus?: FocusEventHandler;
+        onFocus?: FocusEventHandler | undefined;
         /**
          * An array of strings to present to the user as suggested tokens.
          */
-        suggestions?: readonly string[];
+        suggestions?: readonly string[] | undefined;
         /**
          * The maximum number of suggestions to display at a time.
          */
-        maxSuggestions?: number;
+        maxSuggestions?: number | undefined;
         /**
          * If true, will add a token when `TokenField` is focused and `space` is
          * pressed.
          */
-        tokenizeOnSpace?: boolean;
+        tokenizeOnSpace?: boolean | undefined;
         /**
          * When true, renders tokens as without a background.
          */
-        isBorderless?: boolean;
+        isBorderless?: boolean | undefined;
         /**
          * If passed, `TokenField` will disable ability to add new tokens once
          * number of tokens is greater than or equal to `maxLength`.
          */
-        maxLength?: number;
+        maxLength?: number | undefined;
         /**
          * When true, tokens are not able to be added or removed.
          */
-        disabled?: boolean;
+        disabled?: boolean | undefined;
     }
 
     type Value =
@@ -77,19 +77,19 @@ declare namespace FormTokenField {
               /**
                * Applies styles to token.
                */
-              status?: 'error' | 'validating' | 'success';
+              status?: 'error' | 'validating' | 'success' | undefined;
               /**
                * Adds a title to the token.
                */
-              title?: string;
+              title?: string | undefined;
               /**
                * Function to call when onMouseEnter event triggered on token.
                */
-              onMouseEnter?: MouseEventHandler<HTMLSpanElement>;
+              onMouseEnter?: MouseEventHandler<HTMLSpanElement> | undefined;
               /**
                * Function to call when onMouseLeave is triggered on token.
                */
-              onMouseLeave?: MouseEventHandler<HTMLSpanElement>;
+              onMouseLeave?: MouseEventHandler<HTMLSpanElement> | undefined;
           };
 }
 declare const FormTokenField: ComponentType<FormTokenField.Props>;

@@ -28,13 +28,13 @@ export type FunctionType = (
     p4: Projection,
 ) => HTMLCanvasElement | null | undefined;
 export interface Options {
-    attributions?: AttributionLike;
-    canvasFunction?: FunctionType;
-    imageSmoothing?: boolean;
-    projection?: ProjectionLike;
-    ratio?: number;
-    resolutions?: number[];
-    state?: State;
+    attributions?: AttributionLike | undefined;
+    canvasFunction?: FunctionType | undefined;
+    imageSmoothing?: boolean | undefined;
+    projection?: ProjectionLike | undefined;
+    ratio?: number | undefined;
+    resolutions?: number[] | undefined;
+    state?: State | undefined;
 }
 export default class ImageCanvasSource extends ImageSource {
     constructor(opt_options?: Options);

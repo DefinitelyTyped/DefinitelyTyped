@@ -66,7 +66,7 @@ export interface RequesterAdvertisement extends Advertisement {
     /**
      * Request types that a Requester can send.
      */
-    requests?: string[];
+    requests?: string[] | undefined;
 }
 
 export class Responder extends Component {
@@ -114,12 +114,12 @@ export interface ResponderAdvertisement extends Advertisement {
     /**
      * Request types that a Responder can listen to.
      */
-    respondsTo?: string[];
+    respondsTo?: string[] | undefined;
 
     /**
      * Advertisement attribute that lets you target a subgroup of responders using the __subset property of a request.
      */
-    subset?: string;
+    subset?: string | undefined;
 }
 
 export class Publisher extends Component {
@@ -155,7 +155,7 @@ export interface PublisherAdvertisement extends Advertisement {
     /**
      * Event types that a Publisher can publish.
      */
-    broadcasts?: string[];
+    broadcasts?: string[] | undefined;
 }
 
 export class Subscriber extends Component {
@@ -190,7 +190,7 @@ export interface SubscriberAdvertisement extends Advertisement {
     /**
      * Event types that a Subscriber can listen to.
      */
-    subscribesTo?: string[];
+    subscribesTo?: string[] | undefined;
 }
 
 export class Sockend extends Component {
@@ -240,7 +240,7 @@ export interface MonitorAdvertisement extends Advertisement {
     /**
      * Port for Monitor to listen on. By default will start searching from 8000.
      */
-    port?: number | string;
+    port?: number | string | undefined;
 }
 
 /**
@@ -317,14 +317,14 @@ export interface Advertisement {
      * system. Components with different namespaces won't recognize each other
      * and try to communicate.
      */
-    namespace?: string;
+    namespace?: string | undefined;
 
     /**
      * Tunes the performance by grouping certain components. Two components
      * with exact same `environment`s with different `key`s wouldn't be able
      * to communicate. Think of it as `${environment}_${key}`.
      */
-    key?: string;
+    key?: string | undefined;
 }
 
 /**
@@ -334,72 +334,72 @@ export interface DiscoveryOptions {
     /**
      * Multicast address if using multicast.
      */
-    multicast?: string;
+    multicast?: string | undefined;
 
     /**
      * Broadcast address if using broadcast.
      */
-    broadcast?: string;
+    broadcast?: string | undefined;
 
     /**
      * Address to bind to.
      */
-    address?: string;
+    address?: string | undefined;
 
     /**
      * How often to broadcast a hello packet in milliseconds.
      */
-    helloInterval?: number;
+    helloInterval?: number | undefined;
 
     /**
      * How often to to check for missing nodes in milliseconds.
      */
-    checkInterval?: number;
+    checkInterval?: number | undefined;
 
     /**
      * Consider a node dead if not seen in this many milliseconds.
      */
-    nodeTimeout?: number;
+    nodeTimeout?: number | undefined;
 
     /**
      * Consider a master node dead if not seen in this many milliseconds.
      */
-    masterTimeout?: number;
+    masterTimeout?: number | undefined;
 
     /**
      * Skips key equality checks when logging.
      */
-    monitor?: boolean;
+    monitor?: boolean | undefined;
 
     /**
      * If false, disables `helloLogsEnabled` and `statusLogsEnabled` no matter
      * what value they have, and also own hello log.
      */
-    log?: boolean;
+    log?: boolean | undefined;
 
     /**
      * Notifies when another service goes online.
      */
-    helloLogsEnabled?: boolean;
+    helloLogsEnabled?: boolean | undefined;
 
     /**
      * Notifies when another service goes online or offline. If false, disables
      * `helloLogsEnabled` as well.
      */
-    statusLogsEnabled?: boolean;
+    statusLogsEnabled?: boolean | undefined;
 
     /**
      * Ignores messages from other services within the same process.
      */
-    ignoreProcess?: boolean;
+    ignoreProcess?: boolean | undefined;
 
     /**
      * Prevents Monitor from drawing.
      */
-    disableScreen?: boolean;
+    disableScreen?: boolean | undefined;
 
     /**
      * Milliseconds between emissions of own status for monitoring.
      */
-    statusInterval?: number;
+    statusInterval?: number | undefined;
 }

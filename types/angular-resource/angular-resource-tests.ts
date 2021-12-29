@@ -12,7 +12,7 @@ interface IArticleResource extends ng.resource.IResource<IArticleResource> {
     date: Date;
     author: number;
 
-    // Although all actions defined on IArticleResourceClass are avaiable with
+    // Although all actions defined on IArticleResourceClass are available with
     // the '$' prefix, we have the choice to expose only what we will use
     $publish(): IArticleResource;
     $unpublish(): IArticleResource;

@@ -21,14 +21,14 @@ declare namespace apostrophe {
     // Pass in custom modules as first argument
     // second argument is additional custom options e.g. restApi exposed by apostrophe-headless
     interface AposConstructor<M = {}, O = {}> {
-        afterInit?: () => void;
-        afterListen?: () => void;
-        initFailed?: (error: any) => void;
-        baseUrl?: string;
+        afterInit?: (() => void) | undefined;
+        afterListen?: (() => void) | undefined;
+        initFailed?: ((error: any) => void) | undefined;
+        baseUrl?: string | undefined;
         modules: { [K in AposCoreModules & M]?: AposModuleOptions | O };
-        prefix?: string;
-        root?: string;
-        rootDir?: string;
+        prefix?: string | undefined;
+        root?: string | undefined;
+        rootDir?: string | undefined;
         shortName: string;
     }
 
@@ -43,7 +43,7 @@ declare namespace apostrophe {
     };
 
     const pages: {
-        page: { _id: string; type: string; _url?: string };
+        page: { _id: string; type: string; _url?: string | undefined };
     };
 
     const adminBar: {
@@ -141,13 +141,13 @@ declare namespace apostrophe {
         name: string;
         type: string;
         label: string;
-        help?: string;
-        required?: boolean;
-        options?: AposObject;
-        choices?: SelectChoice[];
-        widgetType?: string;
-        titleField?: string;
-        schema?: Field[];
+        help?: string | undefined;
+        required?: boolean | undefined;
+        options?: AposObject | undefined;
+        choices?: SelectChoice[] | undefined;
+        widgetType?: string | undefined;
+        titleField?: string | undefined;
+        schema?: Field[] | undefined;
     }
 
     interface SelectChoice {
@@ -305,24 +305,24 @@ declare namespace apostrophe {
     // Pass in custom modules to AposModuleOptions to allow them in extend
     interface AposModuleOptions<C = {}> {
         extend: AposCoreModules | C;
-        name?: string;
+        name?: string | undefined;
         label: string;
-        pluralLabel?: string;
-        playerData?: false | string[];
-        scene?: "user";
-        addFields?: Field[];
-        removeFields?: Field[];
+        pluralLabel?: string | undefined;
+        playerData?: false | string[] | undefined;
+        scene?: "user" | undefined;
+        addFields?: Field[] | undefined;
+        removeFields?: Field[] | undefined;
         arrangeFields?: {
             name: string;
             label: string;
             fields: string[];
-        }[];
-        beforeConstruct?: (self: any, options: any) => any;
-        defer?: boolean;
+        }[] | undefined;
+        beforeConstruct?: ((self: any, options: any) => any) | undefined;
+        defer?: boolean | undefined;
         filters?: {
             projection?: {
                 [key: string]: number;
-            };
-        };
+            } | undefined;
+        } | undefined;
     }
 }

@@ -7,10 +7,10 @@ export interface HueColorResult extends HSLColor {
 }
 
 export interface HueProps extends CustomPickerInjectedProps<HueColorResult> {
-    direction?: "horizontal" | "vertical";
-    pointer?: ComponentType;
-    radius?: string;
-    shadow?: string;
+    direction?: "horizontal" | "vertical" | undefined;
+    pointer?: ComponentType | undefined;
+    radius?: string | undefined;
+    shadow?: string | undefined;
 }
 
 export default class Hue extends Component<HueProps> {}

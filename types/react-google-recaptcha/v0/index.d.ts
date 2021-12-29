@@ -46,39 +46,39 @@ export interface ReCAPTCHAProps {
      *     It will also be called with null, when captcha expires
      *  @param token string or null
      */
-    onChange?: (token: string|null) => void;
+    onChange?: ((token: string|null) => void) | undefined;
     /**
      *  Optional light or dark theme of the widget
      *  @default "light"
      */
-    theme?: Theme;
+    theme?: Theme | undefined;
     /**
      * Optional image or audio The type of initial captcha
      * @default "image"
      */
-    type?: Type;
+    type?: Type | undefined;
     /**
      *  Optional the tabindex of the element
      *  @default 0
      */
-    tabindex?: number;
+    tabindex?: number | undefined;
     /**
      *  Optional callback, called when a challenge expires and has to be redone by the user.
      */
-    onExpired?: () => void;
+    onExpired?: (() => void) | undefined;
     /**
      *  Optional set the stoken parameter, which allows the captcha to be used from different domains,
      *  @see reCAPTCHA secure-token
      */
-    stoken?: string;
+    stoken?: string | undefined;
     /**
      *  Optional compact, normal or invisible. This allows you to change the size or do an invisible captcha
      */
-    size?: Size;
+    size?: Size | undefined;
     /**
      * Optional. The badge location for g-recaptcha with size of "invisible".
      *
      * @default "bottomright"
      */
-    badge?: Badge;
+    badge?: Badge | undefined;
 }

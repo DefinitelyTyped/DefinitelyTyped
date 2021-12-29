@@ -1,6 +1,6 @@
 // Type definitions for BaiduMap JsAPI GL v1.0
 // Project: http://lbsyun.baidu.com/index.php?title=jspopularGL
-// Definitions by: Junior2ran <http://github.com/Junior2ran>
+// Definitions by: Junior2ran <https://github.com/Junior2ran>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /* *****************************************************************************
@@ -42,11 +42,11 @@ declare namespace BMapGL {
         getTips(): string;
     }
     interface MapTypeOptions {
-        minZoom?: number;
-        maxZoom?: number;
-        errorImageUrl?: string;
-        textColor?: number;
-        tips?: string;
+        minZoom?: number | undefined;
+        maxZoom?: number | undefined;
+        errorImageUrl?: string | undefined;
+        textColor?: number | undefined;
+        tips?: string | undefined;
     }
     interface Projection {
         lngLatToPoint(lngLat: Point): Pixel;

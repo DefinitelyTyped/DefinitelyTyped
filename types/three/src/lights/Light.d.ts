@@ -64,4 +64,6 @@ export class Light extends Object3D {
      * @deprecated Use shadow.mapSize.height instead.
      */
     shadowMapHeight: any;
+
+    dispose(): void;
 }

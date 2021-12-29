@@ -70,43 +70,43 @@ declare namespace ReCaptchaV2 {
     /**
      * Your sitekey.
      */
-    sitekey?: string;
+    sitekey?: string | undefined;
     /**
      * Optional. The color theme of the widget.
      * Accepted values: "light", "dark"
      * @default "light"
      */
-    theme?: Theme;
+    theme?: Theme | undefined;
     /**
      * Optional. The type of CAPTCHA to serve.
      * Accepted values: "audio", "image"
      * @default "image"
      */
-    type?: Type;
+    type?: Type | undefined;
     /**
      * Optional. The size of the widget.
      * Accepted values: "compact", "normal", "invisible".
      * @default "compact"
      */
-    size?: Size;
+    size?: Size | undefined;
     /**
      * Optional. The tabindex of the widget and challenge.
      * If other elements in your page use tabindex, it should be set to make user navigation easier.
      */
-    tabindex?: number;
+    tabindex?: number | undefined;
     /**
      * Optional. The badge location for g-recaptcha with size of "invisible".
      *
      * @default "bottomright"
      */
-    badge?: Badge;
+    badge?: Badge | undefined;
     /**
      * Optional. Invisible reCAPTCHA only. For plugin owners to not interfere with existing reCAPTCHA installations on a page.
      * If true, this reCAPTCHA instance will be part of a separate ID space.
      *
      * @default false
      */
-    isolated?: boolean;
+    isolated?: boolean | undefined;
     /**
      * Optional. Your callback function that's executed when the user submits a successful CAPTCHA response.
      * The user's response, g-recaptcha-response, will be the input for your callback function.

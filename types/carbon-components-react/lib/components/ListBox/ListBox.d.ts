@@ -10,15 +10,15 @@ import { ListBoxSelectionComponent } from "./ListBoxSelection";
 type ExcludedAttributes = "onKeyDown" | "onKeyPress" | "ref";
 
 export interface ListBoxProps extends Omit<ReactDivAttr, ExcludedAttributes> {
-    disabled?: boolean, // required but has default value
-    invalid?: boolean,
-    invalidText?: React.ReactNode,
-    isOpen?: boolean,
-    light?: boolean,
-    size?: ListBoxSize,
-    type?: ListBoxType, // required but has default value
-    warn?: boolean,
-    warnText?: React.ReactNode,
+    disabled?: boolean | undefined, // required but has default value
+    invalid?: boolean | undefined,
+    invalidText?: React.ReactNode | undefined,
+    isOpen?: boolean | undefined,
+    light?: boolean | undefined,
+    size?: ListBoxSize | undefined,
+    type?: ListBoxType | undefined, // required but has default value
+    warn?: boolean | undefined,
+    warnText?: React.ReactNode | undefined,
 }
 
 export interface ListBoxComponent extends ForwardRefReturn<HTMLDivElement, ListBoxProps> {

@@ -114,7 +114,7 @@ export interface ClientOptions {
     /**
      * this will store items under keys that start with this value.
      */
-    partition?: string;
+    partition?: string | undefined;
 }
 
 export type PolicyOptionVariants<T> = PolicyOptions<T> | DecoratedPolicyOptions<T>;
@@ -195,37 +195,37 @@ export interface PolicyGetCachedOptions<T> {
  */
 export interface PolicyOptions<T> {
     /** expiresIn - relative expiration expressed in the number of milliseconds since the item was saved in the cache. Cannot be used together with expiresAt. */
-    expiresIn?: number;
+    expiresIn?: number | undefined;
     /** expiresAt - time of day expressed in 24h notation using the 'HH:MM' format, at which point all cache records for the route expire. Uses local time. Cannot be used together with expiresIn. */
-    expiresAt?: string;
+    expiresAt?: string | undefined;
     /** generateFunc - a function used to generate a new cache item if one is not found in the cache when calling get(). The method's signature is function(id, next) where: */
-    generateFunc?: GenerateFunc<T>;
+    generateFunc?: GenerateFunc<T> | undefined;
     /**
      * staleIn - number of milliseconds to mark an item stored in cache as stale and attempt to regenerate it when generateFunc is provided.
      * Must be less than expiresIn. Alternatively function that returns staleIn value in milliseconds. The function signature is function(stored, ttl) where:
      *  * stored - the timestamp when the item was stored in the cache (in milliseconds).
      *  * ttl - the remaining time-to-live (not the original value used when storing the object).
      */
-    staleIn?: number | ((stored: number, ttl: number) => number);
+    staleIn?: number | ((stored: number, ttl: number) => number) | undefined;
     /** staleTimeout - number of milliseconds to wait before returning a stale value while generateFunc is generating a fresh value. */
-    staleTimeout?: number;
+    staleTimeout?: number | undefined;
     /**
      * generateTimeout - number of milliseconds to wait before returning a timeout error when the generateFunc function takes too long to return a value.
      * When the value is eventually returned, it is stored in the cache for future requests. Required if generateFunc is present.
      * Set to false to disable timeouts which may cause all get() requests to get stuck forever.
      */
-    generateTimeout?: number | false;
+    generateTimeout?: number | false | undefined;
     /** dropOnError - if true, an error or timeout in the generateFunc causes the stale value to be evicted from the cache. Defaults to true. */
-    dropOnError?: boolean;
+    dropOnError?: boolean | undefined;
     /** generateOnReadError - if false, an upstream cache read error will stop the get() method from calling the generate function and will instead pass back the cache error. Defaults to true. */
-    generateOnReadError?: boolean;
+    generateOnReadError?: boolean | undefined;
     /** generateIgnoreWriteError - if false, an upstream cache write error will be passed back with the generated value when calling the get() method. Defaults to true. */
-    generateIgnoreWriteError?: boolean;
+    generateIgnoreWriteError?: boolean | undefined;
     /**
      * pendingGenerateTimeout - number of milliseconds while generateFunc call is in progress for a given id, before a subsequent generateFunc call is allowed.
      * @default 0, no blocking of concurrent generateFunc calls beyond staleTimeout.
      */
-    pendingGenerateTimeout?: number;
+    pendingGenerateTimeout?: number | undefined;
 }
 
 export interface DecoratedPolicyOptions<T> extends PolicyOptions<T> {
@@ -265,7 +265,7 @@ export interface PolicyGetReportLog {
     /** ttl - the cache ttl value for the record. */
     ttl: number;
     /** error - lookup error. */
-    error?: Error;
+    error?: Error | undefined;
 }
 
 /**

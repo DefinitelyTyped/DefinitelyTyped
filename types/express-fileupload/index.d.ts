@@ -1,22 +1,24 @@
-// Type definitions for express-fileupload 1.1
+// Type definitions for express-fileupload 1.2
 // Project: https://github.com/richardgirges/express-fileupload#readme
 // Definitions by: Gintautas Miselis <https://github.com/Naktibalda>
 //                 Sefa Ilkimen <https://github.com/silkimen>
 //                 Tomas Vosicky <https://github.com/vosatom>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
+//                 Mark Oude Elberink <https://github.com/markxoe>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import express = require('express');
+import type { RequestHandler } from 'express';
+import type { BusboyConfig } from 'busboy';
 
 declare global {
     namespace Express {
         interface Request {
-            files?: fileUpload.FileArray;
+            files?: fileUpload.FileArray | undefined;
         }
     }
 }
 
-declare function fileUpload(options?: fileUpload.Options): express.RequestHandler;
+declare function fileUpload(options?: fileUpload.Options): RequestHandler;
 
 declare namespace fileUpload {
     class FileArray {
@@ -48,17 +50,17 @@ declare namespace fileUpload {
     /**
      * @see {@link https://github.com/richardgirges/express-fileupload#available-options}
      */
-    interface Options {
+    interface Options extends Partial<BusboyConfig> {
         /**
          * Automatically creates the directory path specified in `.mv(filePathName)`
          * @default false
          */
-        createParentPath?: boolean;
+        createParentPath?: boolean | undefined;
         /**
          * Applies uri decoding to file names if set true.
          * @default false
          */
-        uriDecodeFileNames?: boolean;
+        uriDecodeFileNames?: boolean | undefined;
         /**
          * Strips characters from the upload's filename.
          * You can use custom regex to determine what to strip.
@@ -66,7 +68,7 @@ declare namespace fileUpload {
          * This option is off by default.
          * @default false
          */
-        safeFileNames?: boolean | RegExp;
+        safeFileNames?: boolean | RegExp | undefined;
         /**
          * Preserves filename extension when using safeFileNames option.
          * If set to `true`, will default to an extension length of 3.
@@ -74,30 +76,30 @@ declare namespace fileUpload {
          * If an extension is smaller than the extension length, it remains untouched. If the extension is longer, it is shifted.
          * @default false
          */
-        preserveExtension?: boolean | number;
+        preserveExtension?: boolean | number | undefined;
         /**
          * Returns a HTTP 413 when the file is bigger than the size limit if `true`.
          * Otherwise, it will add a `truncated = true` to the resulting file structure.
          * @default false
          */
-        abortOnLimit?: boolean;
+        abortOnLimit?: boolean | undefined;
         /**
          * Response which will be send to client if file size limit exceeded when `abortOnLimit` set to `true`.
          * @default 'File size limit has been reached'
          */
-        responseOnLimit?: string;
+        responseOnLimit?: string | undefined;
         /**
          * User defined limit handler which will be invoked if the file is bigger than configured limits.
          * @default false
          */
-        limitHandler?: boolean | express.RequestHandler;
+        limitHandler?: boolean | RequestHandler | undefined;
         /**
          * By default this module uploads files into RAM.
          * Setting this option to True turns on using temporary files instead of utilising RAM. This avoids memory overflow issues when uploading large files
          * or in case of uploading lots of files at same time.
          * @default false
          */
-        useTempFiles?: boolean;
+        useTempFiles?: boolean | undefined;
         /**
          * Path to store temporary files.
          * Used along with the `useTempFiles` option.
@@ -105,7 +107,7 @@ declare namespace fileUpload {
          * You can use trailing slash, but it is not necessary.
          * @default '/tmp'
          */
-        tempFileDir?: string;
+        tempFileDir?: string | undefined;
         /**
          * By default, `req.body` and `req.files`
          * are flattened like this: `{'name': 'John', 'hobbies[0]': 'Cinema', 'hobbies[1]': 'Bike'}`
@@ -114,18 +116,18 @@ declare namespace fileUpload {
          * `{'name': 'John', 'hobbies': ['Cinema', 'Bike']}`
          * @default false
          */
-        parseNested?: boolean;
+        parseNested?: boolean | undefined;
         /**
          * Turn on/off upload process logging.
          * Can be useful for troubleshooting.
          * @default false
          */
-        debug?: boolean;
+        debug?: boolean | undefined;
 
         /**
          * @default 60000
          */
-        uploadTimeout?: number;
+        uploadTimeout?: number | undefined;
         [property: string]: any;
     }
 }

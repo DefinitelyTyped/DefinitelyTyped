@@ -13,11 +13,11 @@ interface NodeDimensions {
 }
 
 interface NodeDimensionsOptions {
-  margin?: boolean;
-  clone?: boolean;
-  display?: string;
-  width?: string;
-  height?: string;
+  margin?: boolean | undefined;
+  clone?: boolean | undefined;
+  display?: string | undefined;
+  width?: string | undefined;
+  height?: string | undefined;
 }
 
 declare function getNodeDimensions(element: HTMLElement, options?: NodeDimensionsOptions): NodeDimensions;

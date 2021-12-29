@@ -107,35 +107,35 @@ export interface StripeError {
     /**
      * For card errors, the ID of the failed charge
      */
-    charge?: string;
+    charge?: string | undefined;
 
     /**
      * For some errors that could be handled programmatically,
      * a short string indicating the error code reported
      */
-    code?: string;
+    code?: string | undefined;
 
     /**
      * For card errors resulting from a card issuer decline,
      * a short string indicating the card issuer’s reason for the decline if they provide one
      */
-    decline_code?: string;
+    decline_code?: string | undefined;
 
     /**
      * A URL to more information about the error code reported
      */
-    doc_url?: string;
+    doc_url?: string | undefined;
 
     /**
      * A human-readable message providing more details about the error.
      * NOTE: For card errors, these messages can be shown to your users
      */
-    message?: string;
+    message?: string | undefined;
 
     /**
      * If the error is parameter-specific, the parameter related to the error
      */
-    param?: string;
+    param?: string | undefined;
 }
 
 export type errorType =

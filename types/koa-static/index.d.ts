@@ -24,7 +24,7 @@ declare function serve(root: string, opts?: serve.Options): Middleware<{}>;
 declare namespace serve {
     interface Options extends SendOptions {
         /** If true, serves after return next(), allowing any downstream middleware to respond first. */
-        defer?: boolean;
+        defer?: boolean | undefined;
     }
 }
 

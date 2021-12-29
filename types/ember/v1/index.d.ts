@@ -308,21 +308,21 @@ interface Array<T> {
 }
 
 interface ApplicationCreateArguments {
-    customEvents?: {};
-    rootElement?: string;
+    customEvents?: {} | undefined;
+    rootElement?: string | undefined;
     /**
     Basic logging of successful transitions.
     **/
-    LOG_TRANSITIONS?: boolean;
+    LOG_TRANSITIONS?: boolean | undefined;
     /**
     Detailed logging of all routing steps.
     **/
-    LOG_TRANSITIONS_INTERNAL?: boolean;
+    LOG_TRANSITIONS_INTERNAL?: boolean | undefined;
 }
 
 interface ApplicationInitializerArguments {
-    name?: string;
-    initialize?: ApplicationInitializerFunction;
+    name?: string | undefined;
+    initialize?: ApplicationInitializerFunction | undefined;
 }
 
 interface ApplicationInitializerFunction {
@@ -336,18 +336,18 @@ interface CoreObjectArguments {
     or Ember.ArrayController, be sure to call this._super() in your init declaration! If you don't, Ember
     may not have an opportunity to do important setup work, and you'll see strange behavior in your application.
     **/
-    init?: Function;
+    init?: Function | undefined;
     /**
     Override to implement teardown.
     **/
-    willDestroy?: Function;
+    willDestroy?: Function | undefined;
 
     [propName: string]: any;
 }
 
 interface EnumerableConfigurationOptions {
-    willChange?: boolean;
-    didChange?: boolean;
+    willChange?: boolean | undefined;
+    didChange?: boolean | undefined;
 }
 
 interface ItemIndexEnumerableCallbackTarget {
@@ -370,21 +370,21 @@ interface TransitionsHash {
 }
 
 interface ActionsHash {
-    willTransition?: Function;
-    error?: Function;
+    willTransition?: Function | undefined;
+    error?: Function | undefined;
 }
 
 interface DisconnectOutletOptions {
-    outlet?: string;
-    parentView?: string;
+    outlet?: string | undefined;
+    parentView?: string | undefined;
 }
 
 interface RenderOptions {
-    into?: string;
-    controller?: string;
+    into?: string | undefined;
+    controller?: string | undefined;
     model?: any;
-    outlet?: string;
-    view?: string;
+    outlet?: string | undefined;
+    view?: string | undefined;
 }
 
 interface ModifyObserver {

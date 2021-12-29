@@ -22,7 +22,7 @@ export function asBlob(
         /**
          * Page orientation. Must be `landscape` or `portrait` (default).
          */
-        orientation?: 'landscape' | 'portrait';
+        orientation?: 'landscape' | 'portrait' | undefined;
         /**
          * A map of margin sizes (expressed in twentieths of point, see
          * [WordprocessingML documentation](http://officeopenxml.com/WPsectionPgMar.php)
@@ -30,19 +30,19 @@ export function asBlob(
          */
         margins?: {
             /** The top page margin (default: 1440, i.e. 2.54 cm). */
-            top?: number;
+            top?: number | undefined;
             /** The right page margin (default: 1440). */
-            right?: number;
+            right?: number | undefined;
             /** The bottom page margin (default: 1440). */
-            bottom?: number;
+            bottom?: number | undefined;
             /** The left page margin (default: 1440). */
-            left?: number;
+            left?: number | undefined;
             /** The margin for the header (default: 720). */
-            header?: number;
+            header?: number | undefined;
             /** The margin for the footer (default: 720). */
-            footer?: number;
+            footer?: number | undefined;
             /** The margin for the gutter (default: 0). */
-            gutter?: number;
-        };
+            gutter?: number | undefined;
+        } | undefined;
     },
 ): Blob | Buffer;

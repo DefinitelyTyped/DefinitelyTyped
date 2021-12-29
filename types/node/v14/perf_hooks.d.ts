@@ -31,14 +31,14 @@ declare module 'perf_hooks' {
          * the type of garbage collection operation that occurred.
          * See perf_hooks.constants for valid values.
          */
-        readonly kind?: number;
+        readonly kind?: number | undefined;
 
         /**
          * When `performanceEntry.entryType` is equal to 'gc', the `performance.flags`
          * property contains additional information about garbage collection operation.
          * See perf_hooks.constants for valid values.
          */
-        readonly flags?: number;
+        readonly flags?: number | undefined;
     }
 
     interface PerformanceNodeTiming extends PerformanceEntry {
@@ -186,7 +186,7 @@ declare module 'perf_hooks' {
          * Property buffered defaults to false.
          * @param options
          */
-        observe(options: { entryTypes: ReadonlyArray<EntryType>; buffered?: boolean }): void;
+        observe(options: { entryTypes: ReadonlyArray<EntryType>; buffered?: boolean | undefined }): void;
     }
 
     namespace constants {
@@ -212,7 +212,7 @@ declare module 'perf_hooks' {
          * Must be greater than zero.
          * @default 10
          */
-        resolution?: number;
+        resolution?: number | undefined;
     }
 
     interface EventLoopDelayMonitor {
@@ -268,4 +268,7 @@ declare module 'perf_hooks' {
     }
 
     function monitorEventLoopDelay(options?: EventLoopMonitorOptions): EventLoopDelayMonitor;
+}
+declare module 'node:perf_hooks' {
+    export * from 'perf_hooks';
 }

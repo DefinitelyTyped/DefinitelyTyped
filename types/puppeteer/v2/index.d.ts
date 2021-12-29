@@ -258,10 +258,10 @@ export interface Keyboard {
    * @param key Name of key to press, such as ArrowLeft.
    * @param options Specifies a input text event.
    */
-  down(key: string, options?: { text?: string }): Promise<void>;
+  down(key: string, options?: { text?: string | undefined }): Promise<void>;
 
   /** Shortcut for `keyboard.down` and `keyboard.up`. */
-  press(key: string, options?: { text?: string, delay?: number }): Promise<void>;
+  press(key: string, options?: { text?: string | undefined, delay?: number | undefined }): Promise<void>;
 
   /** Dispatches a `keypress` and `input` event. This does not send a `keydown` or keyup `event`. */
   sendCharacter(char: string): Promise<void>;
@@ -271,7 +271,7 @@ export interface Keyboard {
    * @param text A text to type into a focused element.
    * @param options Specifies the typing options.
    */
-  type(text: string, options?: { delay?: number }): Promise<void>;
+  type(text: string, options?: { delay?: number | undefined }): Promise<void>;
 
   /**
    * Dispatches a keyup event.
@@ -285,12 +285,12 @@ export interface MousePressOptions {
    * left, right, or middle.
    * @default left
    */
-  button?: MouseButtons;
+  button?: MouseButtons | undefined;
   /**
    * The number of clicks.
    * @default 1
    */
-  clickCount?: number;
+  clickCount?: number | undefined;
 }
 
 export interface MouseWheelOptions {
@@ -298,12 +298,12 @@ export interface MouseWheelOptions {
      * X delta in CSS pixels for mouse wheel event (default: 0). Positive values emulate a scroll up and negative values a scroll down event.
      * @default 0
      */
-    deltaX?: number;
+    deltaX?: number | undefined;
     /**
      *  Y delta in CSS pixels for mouse wheel event (default: 0). Positive values emulate a scroll right and negative values a scroll left event.
      * @default 0
      */
-    deltaY?: number;
+    deltaY?: number | undefined;
 }
 
 export interface Mouse {
@@ -356,9 +356,9 @@ export interface Tracing {
 }
 
 export interface TracingStartOptions {
-  path?: string;
-  screenshots?: boolean;
-  categories?: string[];
+  path?: string | undefined;
+  screenshots?: boolean | undefined;
+  categories?: string[] | undefined;
 }
 
 export type DialogType = "alert" | "beforeunload" | "confirm" | "prompt";
@@ -407,15 +407,15 @@ export interface ConsoleMessageLocation {
   /**
    * URL of the resource if known.
    */
-  url?: string;
+  url?: string | undefined;
   /**
    * Line number in the resource if known
    */
-  lineNumber?: number;
+  lineNumber?: number | undefined;
   /**
    * Column number in the resource if known.
    */
-  columnNumber?: number;
+  columnNumber?: number | undefined;
 }
 
 /** ConsoleMessage objects are dispatched by page via the 'console' event. */
@@ -438,14 +438,14 @@ export type MouseButtons = "left" | "right" | "middle";
 
 export interface ClickOptions {
   /** @default MouseButtons.Left */
-  button?: MouseButtons;
+  button?: MouseButtons | undefined;
   /** @default 1 */
-  clickCount?: number;
+  clickCount?: number | undefined;
   /**
    * Time to wait between mousedown and mouseup in milliseconds.
    * @default 0
    */
-  delay?: number;
+  delay?: number | undefined;
 }
 
 export type SameSiteSetting = "Strict" | "Lax";
@@ -477,9 +477,9 @@ export interface Cookie {
 export interface DeleteCookie {
   /** The cookie name. */
   name: string;
-  url?: string;
-  domain?: string;
-  path?: string;
+  url?: string | undefined;
+  domain?: string | undefined;
+  path?: string | undefined;
 }
 
 export interface SetCookie {
@@ -488,21 +488,21 @@ export interface SetCookie {
   /** The cookie value. */
   value: string;
   /** The request-URI to associate with the setting of the cookie. This value can affect the default domain and path values of the created cookie. */
-  url?: string;
+  url?: string | undefined;
   /** The cookie domain. */
-  domain?: string;
+  domain?: string | undefined;
   /** The cookie path. */
-  path?: string;
+  path?: string | undefined;
   /** The cookie Unix expiration time in seconds. */
-  expires?: number;
+  expires?: number | undefined;
   /** The cookie http only flag. */
-  httpOnly?: boolean;
+  httpOnly?: boolean | undefined;
   /** The session cookie flag. */
-  session?: boolean;
+  session?: boolean | undefined;
   /** The cookie secure flag. */
-  secure?: boolean;
+  secure?: boolean | undefined;
   /** The cookie same site definition. */
-  sameSite?: SameSiteSetting;
+  sameSite?: SameSiteSetting | undefined;
 }
 
 export interface Viewport {
@@ -514,22 +514,22 @@ export interface Viewport {
    * Specify device scale factor (can be thought of as dpr).
    * @default 1
    */
-  deviceScaleFactor?: number;
+  deviceScaleFactor?: number | undefined;
   /**
    * Whether the `meta viewport` tag is taken into account.
    * @default false
    */
-  isMobile?: boolean;
+  isMobile?: boolean | undefined;
   /**
    * Specifies if viewport supports touch events.
    * @default false
    */
-  hasTouch?: boolean;
+  hasTouch?: boolean | undefined;
   /**
    * Specifies if viewport is in landscape mode.
    * @default false
    */
-  isLandscape?: boolean;
+  isLandscape?: boolean | undefined;
 }
 
 /** Page emulation options. */
@@ -554,7 +554,7 @@ export interface Timeoutable {
      * Maximum navigation time in milliseconds, pass 0 to disable timeout.
      * @default 30000
      */
-    timeout?: number;
+    timeout?: number | undefined;
 }
 
 /** The navigation options. */
@@ -563,7 +563,7 @@ export interface NavigationOptions extends Timeoutable {
    * When to consider navigation succeeded.
    * @default load Navigation is consider when the `load` event is fired.
    */
-  waitUntil?: LoadEvent | LoadEvent[];
+  waitUntil?: LoadEvent | LoadEvent[] | undefined;
 }
 
 /**
@@ -575,7 +575,7 @@ export interface DirectNavigationOptions extends NavigationOptions {
    * If provided it will take preference over the referer header value set by
    * [page.setExtraHTTPHeaders()](#pagesetextrahttpheadersheaders).
    */
-  referer?: string;
+  referer?: string | undefined;
 }
 
 /** Accepts values labeled with units. If number, treat as pixels. */
@@ -600,17 +600,17 @@ export interface PDFOptions {
    * If `path` is a relative path, then it is resolved relative to current working directory.
    * If no path is provided, the PDF won't be saved to the disk.
    */
-  path?: string;
+  path?: string | undefined;
   /**
    * Scale of the webpage rendering.
    * @default 1
    */
-  scale?: number;
+  scale?: number | undefined;
   /**
    * Display header and footer.
    * @default false
    */
-  displayHeaderFooter?: boolean;
+  displayHeaderFooter?: boolean | undefined;
   /**
    * HTML template for the print header. Should be valid HTML markup with following classes used to inject printing values into them:
    * - `date` formatted print date
@@ -619,7 +619,7 @@ export interface PDFOptions {
    * - `pageNumber` current page number
    * - `totalPages` total pages in the document
    */
-  headerTemplate?: string;
+  headerTemplate?: string | undefined;
   /**
    * HTML template for the print footer. Should be valid HTML markup with following classes used to inject printing values into them:
    * - `date` formatted print date
@@ -628,48 +628,48 @@ export interface PDFOptions {
    * - `pageNumber` current page number
    * - `totalPages` total pages in the document
    */
-  footerTemplate?: string;
+  footerTemplate?: string | undefined;
   /**
    * Print background graphics.
    * @default false
    */
-  printBackground?: boolean;
+  printBackground?: boolean | undefined;
   /**
    * Paper orientation.
    * @default false
    */
-  landscape?: boolean;
+  landscape?: boolean | undefined;
   /**
    * Paper ranges to print, e.g., '1-5, 8, 11-13'.
    * @default '' which means print all pages.
    */
-  pageRanges?: string;
+  pageRanges?: string | undefined;
   /**
    * Paper format. If set, takes priority over width or height options.
    * @default 'Letter'
    */
-  format?: PDFFormat;
+  format?: PDFFormat | undefined;
   /** Paper width. */
-  width?: LayoutDimension;
+  width?: LayoutDimension | undefined;
   /** Paper height. */
-  height?: LayoutDimension;
+  height?: LayoutDimension | undefined;
   /** Paper margins, defaults to none. */
   margin?: {
     /** Top margin. */
-    top?: LayoutDimension;
+    top?: LayoutDimension | undefined;
     /** Right margin. */
-    right?: LayoutDimension;
+    right?: LayoutDimension | undefined;
     /** Bottom margin. */
-    bottom?: LayoutDimension;
+    bottom?: LayoutDimension | undefined;
     /** Left margin. */
-    left?: LayoutDimension;
-  };
+    left?: LayoutDimension | undefined;
+  } | undefined;
   /**
    * Give any CSS @page size declared in the page priority over what is declared in width and
    * height or format options.
    * @default false which will scale the content to fit the paper size.
    */
-  preferCSSPageSize?: boolean;
+  preferCSSPageSize?: boolean | undefined;
 }
 
 /** Defines the screenshot options. */
@@ -679,37 +679,37 @@ export interface ScreenshotOptions {
    * If `path` is a relative path, then it is resolved relative to current working directory.
    * If no path is provided, the image won't be saved to the disk.
    */
-  path?: string;
+  path?: string | undefined;
   /**
    * The screenshot type.
    * @default png
    */
-  type?: "jpeg" | "png";
+  type?: "jpeg" | "png" | undefined;
   /** The quality of the image, between 0-100. Not applicable to png images. */
-  quality?: number;
+  quality?: number | undefined;
   /**
    * When true, takes a screenshot of the full scrollable page.
    * @default false
    */
-  fullPage?: boolean;
+  fullPage?: boolean | undefined;
   /**
    * An object which specifies clipping region of the page.
    */
-  clip?: BoundingBox;
+  clip?: BoundingBox | undefined;
   /**
    * Hides default white background and allows capturing screenshots with transparency.
    * @default false
    */
-  omitBackground?: boolean;
+  omitBackground?: boolean | undefined;
   /**
    * The encoding of the image, can be either base64 or binary.
    * @default binary
    */
-  encoding?: "base64" | "binary";
+  encoding?: "base64" | "binary" | undefined;
 }
 
 export interface BinaryScreenShotOptions extends ScreenshotOptions {
-    encoding?: "binary";
+    encoding?: "binary" | undefined;
 }
 
 export interface Base64ScreenShotOptions extends ScreenshotOptions {
@@ -719,26 +719,26 @@ export interface Base64ScreenShotOptions extends ScreenshotOptions {
 /** Options for `addStyleTag` */
 export interface StyleTagOptions {
   /** Url of the <link> tag. */
-  url?: string;
+  url?: string | undefined;
   /** Path to the CSS file to be injected into frame. If `path` is a relative path, then it is resolved relative to current working directory. */
-  path?: string;
+  path?: string | undefined;
   /** Raw CSS content to be injected into frame. */
-  content?: string;
+  content?: string | undefined;
 }
 /** Options for `addScriptTag` */
 export interface ScriptTagOptions {
   /** Url of a script to be added. */
-  url?: string;
+  url?: string | undefined;
   /** Path to the JavaScript file to be injected into frame. If `path` is a relative path, then it is resolved relative to current working directory. */
-  path?: string;
+  path?: string | undefined;
   /** Raw JavaScript content to be injected into frame. */
-  content?: string;
+  content?: string | undefined;
   /** Script type. Use 'module' in order to load a Javascript ES6 module. */
-  type?: string;
+  type?: string | undefined;
 }
 
 export interface PageFnOptions extends Timeoutable {
-  polling?: "raf" | "mutation" | number;
+  polling?: "raf" | "mutation" | number | undefined;
 }
 
 export interface BoundingBox {
@@ -843,7 +843,7 @@ export interface ElementHandle<E extends Element = Element> extends JSHandle<E>,
    * @param key Name of key to press, such as ArrowLeft. See USKeyboardLayout for a list of all key names.
    * @param options The text and delay options.
    */
-  press(key: string, options?: { text?: string, delay?: number }): Promise<void>;
+  press(key: string, options?: { text?: string | undefined, delay?: number | undefined }): Promise<void>;
   /**
    * This method scrolls element into view if needed, and then uses page.screenshot to take a screenshot of the element.
    * If the element is detached from DOM, the method throws an error.
@@ -986,10 +986,10 @@ export type ErrorCode =
   | "failed";
 
 export interface Overrides {
-  url?: string;
-  method?: HttpMethod;
-  postData?: string;
-  headers?: Headers;
+  url?: string | undefined;
+  method?: HttpMethod | undefined;
+  postData?: string | undefined;
+  headers?: Headers | undefined;
 }
 
 /** Represents a page request. */
@@ -1069,13 +1069,13 @@ export interface RespondOptions {
    * Specifies the response status code.
    * @default 200
    */
-  status?: number;
+  status?: number | undefined;
   /** Specifies the response headers. */
-  headers?: Headers;
+  headers?: Headers | undefined;
   /** Specifies the Content-Type response header. */
-  contentType?: string;
+  contentType?: string | undefined;
   /** Specifies the response body. */
-  body?: Buffer | string;
+  body?: Buffer | string | undefined;
 }
 
 export interface RemoteInfo {
@@ -1139,13 +1139,13 @@ export interface WaitForSelectorOptions extends Timeoutable {
    * i.e. to not have display: none or visibility: hidden CSS properties.
    * @default false
    */
-  visible?: boolean;
+  visible?: boolean | undefined;
   /**
    * Wait for element to not be found in the DOM or to be hidden,
    * i.e. have display: none or visibility: hidden CSS properties.
    * @default false
    */
-  hidden?: boolean;
+  hidden?: boolean | undefined;
 }
 
 export interface WaitForSelectorOptionsHidden extends WaitForSelectorOptions {
@@ -1372,7 +1372,7 @@ export interface PageCloseOptions {
    * Whether to run the before unload page handlers.
    * @default false
    */
-  runBeforeUnload?: boolean;
+  runBeforeUnload?: boolean | undefined;
 }
 
 export interface GeoOptions {
@@ -1387,7 +1387,7 @@ export interface GeoOptions {
   /**
    * Non-negative accuracy value.
    */
-  accuracy?: number;
+  accuracy?: number | undefined;
 }
 
 export type MediaType = "screen" | "print";
@@ -1504,12 +1504,12 @@ export interface SnapshopOptions {
    * Prune uninteresting nodes from the tree.
    * @default true
    */
-  interestingOnly?: boolean;
+  interestingOnly?: boolean | undefined;
   /**
    * The root DOM element for the snapshot.
    * @default document.body
    */
-  root?: ElementHandle;
+  root?: ElementHandle | undefined;
 }
 
 /**
@@ -2061,51 +2061,51 @@ export interface LaunchOptions extends ChromeArgOptions, BrowserOptions, Timeout
    * At this time, this is either `chrome` or `firefox`. See also `PUPPETEER_PRODUCT`.
    * @default 'chrome'
    */
-  product?: Product;
+  product?: Product | undefined;
   /**
    * Path to a Chromium executable to run instead of bundled Chromium. If
    * executablePath is a relative path, then it is resolved relative to current
    * working directory.
    */
-  executablePath?: string;
+  executablePath?: string | undefined;
   /**
    * Do not use `puppeteer.defaultArgs()` for launching Chromium.
    * @default false
    */
-  ignoreDefaultArgs?: boolean | string[];
+  ignoreDefaultArgs?: boolean | string[] | undefined;
   /**
    * Close chrome process on Ctrl-C.
    * @default true
    */
-  handleSIGINT?: boolean;
+  handleSIGINT?: boolean | undefined;
   /**
    * Close chrome process on SIGTERM.
    * @default true
    */
-  handleSIGTERM?: boolean;
+  handleSIGTERM?: boolean | undefined;
   /**
    * Close chrome process on SIGHUP.
    * @default true
    */
-  handleSIGHUP?: boolean;
+  handleSIGHUP?: boolean | undefined;
   /**
    * Whether to pipe browser process stdout and stderr into process.stdout and
    * process.stderr.
    * @default false
    */
-  dumpio?: boolean;
+  dumpio?: boolean | undefined;
   /**
    * Specify environment variables that will be visible to Chromium.
    * @default `process.env`.
    */
   env?: {
     [key: string]: string | boolean | number;
-  };
+  } | undefined;
   /**
    * Connects to the browser over a pipe instead of a WebSocket.
    * @default false
    */
-  pipe?: boolean;
+  pipe?: boolean | undefined;
 }
 
 export interface ChromeArgOptions {
@@ -2113,21 +2113,21 @@ export interface ChromeArgOptions {
      * Whether to run browser in headless mode.
      * @default true unless the devtools option is true.
      */
-    headless?: boolean;
+    headless?: boolean | undefined;
     /**
      * Additional arguments to pass to the browser instance.
      * The list of Chromium flags can be found here.
      */
-    args?: string[];
+    args?: string[] | undefined;
     /**
      * Path to a User Data Directory.
      */
-    userDataDir?: string;
+    userDataDir?: string | undefined;
     /**
      * Whether to auto-open a DevTools panel for each tab.
      * If this option is true, the headless option will be set false.
      */
-    devtools?: boolean;
+    devtools?: boolean | undefined;
 }
 
 export interface BrowserOptions {
@@ -2135,7 +2135,7 @@ export interface BrowserOptions {
    * Whether to ignore HTTPS errors during navigation.
    * @default false
    */
-  ignoreHTTPSErrors?: boolean;
+  ignoreHTTPSErrors?: boolean | undefined;
   /**
    * Sets a consistent viewport for each page. Defaults to an 800x600 viewport. null disables the default viewport.
    */
@@ -2143,37 +2143,37 @@ export interface BrowserOptions {
     /**
      * page width in pixels.
      */
-    width?: number;
+    width?: number | undefined;
     /**
      * page height in pixels.
      */
-    height?: number;
+    height?: number | undefined;
     /**
      * Specify device scale factor (can be thought of as dpr).
      * @default 1
      */
-    deviceScaleFactor?: number;
+    deviceScaleFactor?: number | undefined;
     /**
      * Whether the meta viewport tag is taken into account.
      * @default false
      */
-    isMobile?: boolean;
+    isMobile?: boolean | undefined;
     /**
      * Specifies if viewport supports touch events.
      * @default false
      */
-    hasTouch?: boolean;
+    hasTouch?: boolean | undefined;
     /**
      * Specifies if viewport is in landscape mode.
      * @default false
      */
-    isLandscape?: boolean;
-  } | null;
+    isLandscape?: boolean | undefined;
+  } | null | undefined;
   /**
    * Slows down Puppeteer operations by the specified amount of milliseconds.
    * Useful so that you can see what is going on.
    */
-  slowMo?: number;
+  slowMo?: number | undefined;
 }
 
 export interface ConnectOptions extends BrowserOptions {
@@ -2181,15 +2181,15 @@ export interface ConnectOptions extends BrowserOptions {
    * A browser url to connect to, in format `http://${host}:${port}`.
    * Use interchangeably with browserWSEndpoint to let Puppeteer fetch it from metadata endpoint.
    */
-  browserURL?: string;
+  browserURL?: string | undefined;
 
   /** A browser websocket endpoint to connect to. */
-  browserWSEndpoint?: string;
+  browserWSEndpoint?: string | undefined;
 
   /**
    * **Experimental** Specify a custom transport object for Puppeteer to use.
    */
-  transport?: ConnectionTransport;
+  transport?: ConnectionTransport | undefined;
 }
 
 export interface ConnectionTransport {
@@ -2224,12 +2224,12 @@ export interface StartCoverageOptions {
    * Whether to reset coverage on every navigation.
    * @default true
    */
-  resetOnNavigation?: boolean;
+  resetOnNavigation?: boolean | undefined;
   /**
    * Whether anonymous scripts generated by the page should be reported.
    * @default false
    */
-  reportAnonymousScripts?: boolean;
+  reportAnonymousScripts?: boolean | undefined;
 }
 
 export interface CoverageEntry {
@@ -2267,15 +2267,15 @@ export interface RevisionInfo {
 
 export interface FetcherOptions {
   /** A download host to be used. Defaults to `https://storage.googleapis.com`. */
-  host?: string;
+  host?: string | undefined;
   /** A path for the downloads folder. Defaults to `<root>/.local-chromium`, where `<root>` is puppeteer's package root. */
-  path?: string;
+  path?: string | undefined;
   /** Possible values are: `mac`, `win32`, `win64`, `linux`. Defaults to the current platform. */
-  platform?: Platform;
+  platform?: Platform | undefined;
   /**
    * @default 'chrome'
    */
-  product?: Product;
+  product?: Product | undefined;
 }
 
 /** Attaches Puppeteer to an existing Chromium instance */

@@ -6,12 +6,12 @@ export interface SimpleAddress {
 
 export interface SimpleAddressId extends SimpleAddress {
   /** Identificador do endereço do cliente. */
-  id?: string;
+  id?: string | undefined;
 }
 
 export interface Address extends SimpleAddress {
-  floor?: string;
-  apartment?: string;
+  floor?: string | undefined;
+  apartment?: string | undefined;
 }
 
 export interface CompleteAddress extends Address {

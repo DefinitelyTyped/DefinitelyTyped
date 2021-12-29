@@ -9,5 +9,5 @@ export interface SvgCumulativeIconSetOptions extends IconSetOptions {
     /**
      * The amount of miliseconds to wait before downloading the icons.
      */
-    waitDuration?: number;
+    waitDuration?: number | undefined;
 }

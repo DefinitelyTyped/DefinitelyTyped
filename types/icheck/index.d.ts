@@ -16,162 +16,162 @@ declare namespace ICheck {
          * 'checkbox' or 'radio' to style only checkboxes or radio buttons, both by default
          * @default ""
          */
-        handle?: "" | "checkbox" | "radio";
+        handle?: "" | "checkbox" | "radio" | undefined;
         /**
          * Base class added to customized checkboxes
          * @default "icheckbox"
          */
-        checkboxClass?: string;
+        checkboxClass?: string | undefined;
         /**
          * Base class added to customized radio buttons
          * @default "iradio"
          */
-        radioClass?: string;
+        radioClass?: string | undefined;
         /**
          * Class added on checked state (input.checked = true)
          * @default "checked"
          */
-        checkedClass?: string;
+        checkedClass?: string | undefined;
         /**
          * If not empty, used instead of 'checkedClass' option (checkbox input specific)
          * @default ""
          */
-        checkedCheckboxClass?: string;
+        checkedCheckboxClass?: string | undefined;
         /**
          * If not empty, used instead of 'checkedClass' option (radio button input specific)
          * @default ""
          */
-        checkedRadioClass?: string;
+        checkedRadioClass?: string | undefined;
         /**
          * If not empty, added as class name on unchecked state (input.checked = false)
          * @default ""
          */
-        uncheckedClass?: string;
+        uncheckedClass?: string | undefined;
         /**
          * If not empty, used instead of 'uncheckedClass' option (checkbox input specific)
          * @default ""
          */
-        uncheckedCheckboxClass?: string;
+        uncheckedCheckboxClass?: string | undefined;
         /**
          * If not empty, used instead of 'uncheckedClass' option (radio button input specific)
          * @default ""
          */
-        uncheckedRadioClass?: string;
+        uncheckedRadioClass?: string | undefined;
         /**
          * Class added on disabled state (input.disabled = true)
          * @default "disabled"
          */
-        disabledClass?: string;
+        disabledClass?: string | undefined;
         /**
          * If not empty, used instead of 'disabledClass' option (checkbox input specific)
          * @default ""
          */
-        disabledCheckboxClass?: string;
+        disabledCheckboxClass?: string | undefined;
         /**
          * If not empty, used instead of 'disabledClass' option (radio button input specific)
          * @default ""
          */
-        disabledRadioClass?: string;
+        disabledRadioClass?: string | undefined;
         /**
          * If not empty, added as class name on enabled state (input.disabled = false)
          * @default ""
          */
-        enabledClass?: string;
+        enabledClass?: string | undefined;
         /**
          * If not empty, used instead of 'enabledClass' option (checkbox input specific)
          * @default ""
          */
-        enabledCheckboxClass?: string;
+        enabledCheckboxClass?: string | undefined;
         /**
          * If not empty, used instead of 'enabledClass' option (radio button input specific)
          * @default ""
          */
-        enabledRadioClass?: string;
+        enabledRadioClass?: string | undefined;
         /**
          * Class added on indeterminate state (input.indeterminate = true)
          * @default "indeterminate"
          */
-        indeterminateClass?: string;
+        indeterminateClass?: string | undefined;
         /**
          * If not empty, used instead of 'indeterminateClass' option (checkbox input specific)
          * @default ""
          */
-        indeterminateCheckboxClass?: string;
+        indeterminateCheckboxClass?: string | undefined;
         /**
          * If not empty, used instead of 'indeterminateClass' option (radio button input specific)
          * @default ""
          */
-        indeterminateRadioClass?: string;
+        indeterminateRadioClass?: string | undefined;
         /**
          * If not empty, added as class name on determinate state (input.indeterminate = false)
          * @default ""
          */
-        determinateClass?: string;
+        determinateClass?: string | undefined;
         /**
          * If not empty, used instead of 'determinateClass' option (checkbox input specific)
          * @default ""
          */
-        determinateCheckboxClass?: string;
+        determinateCheckboxClass?: string | undefined;
         /**
          * If not empty, used instead of 'determinateClass' option (radio button input specific)
          * @default ""
          */
-        determinateRadioClass?: string;
+        determinateRadioClass?: string | undefined;
         /**
          * Class added on hover state (pointer is moved onto an input)
          * @default "hover"
          */
-        hoverClass?: string;
+        hoverClass?: string | undefined;
         /**
          * Class added on focus state (input has gained focus)
          * @default "focus"
          */
-        focusClass?: string;
+        focusClass?: string | undefined;
         /**
          * Class added on active state (mouse button is pressed on an input)
          * @default "active"
          */
-        activeClass?: string;
+        activeClass?: string | undefined;
         /**
          * Adds hoverClass to customized input on label hover and labelHoverClass to label on input hover
          * @default true
          */
-        labelHover?: boolean;
+        labelHover?: boolean | undefined;
         /**
          * Class added to label if labelHover set to true
          * @default "hover"
          */
-        labelHoverClass?: string;
+        labelHoverClass?: string | undefined;
         /**
          * Increase clickable area by given % (negative number to decrease)
          * @default ""
          */
-        increaseArea?: string;
+        increaseArea?: string | undefined;
         /**
          * True to set 'pointer' CSS cursor over enabled inputs and 'default' over disabled
          * @default false
          */
-        cursor?: boolean;
+        cursor?: boolean | undefined;
         /**
          * Set true to inherit original input's class name
          * @default false
          */
-        inheritClass?: boolean;
+        inheritClass?: boolean | undefined;
         /**
          * If set to true, input's id is prefixed with 'iCheck-' and attached
          * @default false
          */
-        inheritID?: boolean;
+        inheritID?: boolean | undefined;
         /**
          * Set true to activate ARIA support
          * @default false
          */
-        aria?: boolean;
+        aria?: boolean | undefined;
         /**
          * Add HTML code or text inside customized input
          * @default ""
          */
-        insert?: string;
+        insert?: string | undefined;
     }
 
     interface Methods {

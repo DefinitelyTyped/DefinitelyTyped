@@ -6,7 +6,7 @@ import { Intersection } from '../core/Raycaster';
 
 export class Line<
     TGeometry extends BufferGeometry = BufferGeometry,
-    TMaterial extends Material | Material[] = Material | Material[]
+    TMaterial extends Material | Material[] = Material | Material[],
 > extends Object3D {
     constructor(geometry?: TGeometry, material?: TMaterial);
 
@@ -16,8 +16,8 @@ export class Line<
     type: 'Line' | 'LineLoop' | 'LineSegments' | string;
     readonly isLine: true;
 
-    morphTargetInfluences?: number[];
-    morphTargetDictionary?: { [key: string]: number };
+    morphTargetInfluences?: number[] | undefined;
+    morphTargetDictionary?: { [key: string]: number } | undefined;
 
     computeLineDistances(): this;
     raycast(raycaster: Raycaster, intersects: Intersection[]): void;

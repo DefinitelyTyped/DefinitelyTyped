@@ -27,31 +27,31 @@ declare namespace SmoothScroll {
 
     interface Options {
         // Selectors
-        ignore?: string;
-        header?: string;
-        topOnEmptyHash?: boolean;
+        ignore?: string | undefined;
+        header?: string | undefined;
+        topOnEmptyHash?: boolean | undefined;
 
         // Speed & Easing
-        speed?: number;
-        speedAsDuration?: boolean;
-        durationMax?: number | null;
-        durationMin?: number | null;
-        clip?: boolean;
+        speed?: number | undefined;
+        speedAsDuration?: boolean | undefined;
+        durationMax?: number | null | undefined;
+        durationMin?: number | null | undefined;
+        clip?: boolean | undefined;
         offset?:
             | number
             | ((
                   anchor?: Element | number | null,
                   toggle?: Element | null
-              ) => number);
-        easing?: Easing;
-        customEasing?: (time: number) => number;
+              ) => number) | undefined;
+        easing?: Easing | undefined;
+        customEasing?: ((time: number) => number) | undefined;
 
         // History
-        updateURL?: boolean;
-        popstate?: boolean;
+        updateURL?: boolean | undefined;
+        popstate?: boolean | undefined;
 
         // Custom Events
-        emitEvents?: boolean;
+        emitEvents?: boolean | undefined;
     }
 }
 

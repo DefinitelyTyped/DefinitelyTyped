@@ -4,7 +4,6 @@
 //                 Jan Dolezel <https://github.com/dolezel>
 //                 John Reilly <https://github.com/johnnyreilly>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
 
 import helmet = require('helmet');
 import { Middleware, Context } from 'koa';
@@ -17,28 +16,28 @@ declare namespace koaHelmet {
     type KoaHelmetCspDirectiveValue = string | KoaHelmetContentSecurityPolicyDirectiveFunction;
 
     interface KoaHelmetContentSecurityPolicyDirectives {
-        baseUri?: KoaHelmetCspDirectiveValue[];
-        childSrc?: KoaHelmetCspDirectiveValue[];
-        connectSrc?: KoaHelmetCspDirectiveValue[];
-        defaultSrc?: KoaHelmetCspDirectiveValue[];
-        fontSrc?: KoaHelmetCspDirectiveValue[];
-        formAction?: KoaHelmetCspDirectiveValue[];
-        frameAncestors?: KoaHelmetCspDirectiveValue[];
-        frameSrc?: KoaHelmetCspDirectiveValue[];
-        imgSrc?: KoaHelmetCspDirectiveValue[];
-        mediaSrc?: KoaHelmetCspDirectiveValue[];
-        objectSrc?: KoaHelmetCspDirectiveValue[];
-        pluginTypes?: KoaHelmetCspDirectiveValue[];
-        reportUri?: string;
-        sandbox?: KoaHelmetCspDirectiveValue[];
-        scriptSrc?: KoaHelmetCspDirectiveValue[];
-        styleSrc?: KoaHelmetCspDirectiveValue[];
+        baseUri?: KoaHelmetCspDirectiveValue[] | undefined;
+        childSrc?: KoaHelmetCspDirectiveValue[] | undefined;
+        connectSrc?: KoaHelmetCspDirectiveValue[] | undefined;
+        defaultSrc?: KoaHelmetCspDirectiveValue[] | undefined;
+        fontSrc?: KoaHelmetCspDirectiveValue[] | undefined;
+        formAction?: KoaHelmetCspDirectiveValue[] | undefined;
+        frameAncestors?: KoaHelmetCspDirectiveValue[] | undefined;
+        frameSrc?: KoaHelmetCspDirectiveValue[] | undefined;
+        imgSrc?: KoaHelmetCspDirectiveValue[] | undefined;
+        mediaSrc?: KoaHelmetCspDirectiveValue[] | undefined;
+        objectSrc?: KoaHelmetCspDirectiveValue[] | undefined;
+        pluginTypes?: KoaHelmetCspDirectiveValue[] | undefined;
+        reportUri?: string | undefined;
+        sandbox?: KoaHelmetCspDirectiveValue[] | undefined;
+        scriptSrc?: KoaHelmetCspDirectiveValue[] | undefined;
+        styleSrc?: KoaHelmetCspDirectiveValue[] | undefined;
     }
 
     interface KoaHelmetContentSecurityPolicyConfiguration {
-        reportOnly?: boolean;
-        useDefaults?: boolean;
-        directives?: KoaHelmetContentSecurityPolicyDirectives;
+        reportOnly?: boolean | undefined;
+        useDefaults?: boolean | undefined;
+        directives?: KoaHelmetContentSecurityPolicyDirectives | undefined;
     }
 
     interface KoaHelmet {

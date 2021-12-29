@@ -29,30 +29,30 @@ export default class CursorPlugin extends Observer implements WaveSurferPlugin {
 
 export interface CursorPluginParams extends PluginParams {
     /** Hide the cursor when the mouse leaves the waveform (default: true). */
-    hideOnBlur?: boolean;
+    hideOnBlur?: boolean | undefined;
     /** The width of the cursor (default: '1px'). */
-    width?: string;
+    width?: string | undefined;
     /** The color of the cursor (default: 'black'). */
-    color?: string;
+    color?: string | undefined;
     /** The opacity of the cursor (default 0.25). */
-    opacity?: string;
+    opacity?: string | undefined;
     /** The border style of the cursor (default: 'solid'). */
-    style?: string;
+    style?: string | undefined;
     /** The z-index of the cursor element (default: 3). */
-    zIndex?: number;
+    zIndex?: number | undefined;
     /** An object with custom styles which are applied to the cursor element. */
-    customStyle?: Styles;
+    customStyle?: Styles | undefined;
     /** Show the time on the cursor (default: false). */
-    showTime?: boolean;
+    showTime?: boolean | undefined;
     /** An object with custom styles which are applied to the cursor time element. */
-    customShowTimeStyle?: Styles;
+    customShowTimeStyle?: Styles | undefined;
     /**
      * Whether to follow both the x- and the y-position of the mouse (default: false).
      *
      * Use `true` to make the time on the cursor follow the x and the y-position of the mouse.
      * Use `false` to make the it only follow the x-position of the mouse.
      */
-    followCursorY?: string | false;
+    followCursorY?: string | false | undefined;
     /** Formats the timestamp on the cursor. */
-    formatTimeCallback?: ((cursorTime: number) => string) | null;
+    formatTimeCallback?: ((cursorTime: number) => string) | null | undefined;
 }

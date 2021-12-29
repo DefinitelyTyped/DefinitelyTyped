@@ -8,7 +8,7 @@ export type PolyfillFlag = 'gated' | 'always';
 export type Unknown = 'polyfill' | 'ignore';
 
 export interface Feature {
-    flags?: PolyfillFlag[];
+    flags?: PolyfillFlag[] | undefined;
 }
 
 export interface Features {
@@ -17,17 +17,17 @@ export interface Features {
 
 export interface GetPolyfillsOptions {
     uaString: string;
-    features?: Features;
-    excludes?: string[];
+    features?: Features | undefined;
+    excludes?: string[] | undefined;
 }
 
 export interface GetPolyfillStringOptions extends GetPolyfillsOptions {
-    minify?: boolean;
-    unknown?: Unknown;
+    minify?: boolean | undefined;
+    unknown?: Unknown | undefined;
 }
 
 export interface PolyfillSpec {
-    aliasOf?: Set<string>;
+    aliasOf?: Set<string> | undefined;
     flags: Set<PolyfillFlag>;
 }
 

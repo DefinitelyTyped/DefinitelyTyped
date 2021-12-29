@@ -45,10 +45,10 @@ export interface Value {
     viewerHeight: number;
     SVGWidth: number;
     SVGHeight: number;
-    startX?: number | null;
-    startY?: number | null;
-    endX?: number | null;
-    endY?: number | null;
+    startX?: number | null | undefined;
+    startY?: number | null | undefined;
+    endX?: number | null | undefined;
+    endY?: number | null | undefined;
     miniatureOpen: boolean;
 }
 
@@ -79,9 +79,9 @@ export interface OptionalProps {
     detectPinchGesture: boolean;
 
     toolbarProps: {
-        position?: ToolbarPosition;
-        SVGAlignX?: typeof ALIGN_CENTER | typeof ALIGN_LEFT | typeof ALIGN_RIGHT;
-        SVGAlignY?: typeof ALIGN_CENTER | typeof ALIGN_TOP | typeof ALIGN_BOTTOM;
+        position?: ToolbarPosition | undefined;
+        SVGAlignX?: typeof ALIGN_CENTER | typeof ALIGN_LEFT | typeof ALIGN_RIGHT | undefined;
+        SVGAlignY?: typeof ALIGN_CENTER | typeof ALIGN_TOP | typeof ALIGN_BOTTOM | undefined;
     };
 
     customMiniature: React.ReactElement | React.ComponentType;
@@ -137,12 +137,13 @@ export interface OptionalProps {
 
     // override default toolbar component
     // TODO: specify function type more clearly
-    customToolbar: React.Component<any> | React.StatelessComponent<any>;
+    customToolbar: React.Component<any> | React.FunctionComponent<any>;
 
     // How about touch events? They are in README but not in `propTypes`.
 }
 
 export interface RequiredProps {
+    children: React.ReactElement;
     // width of the viewer displayed on screen
     width: number;
     // height of the viewer displayed on screen
@@ -174,6 +175,7 @@ export interface UncontrolledExtraOptionalProps {
 }
 
 export interface UncontrolledRequiredProps {
+    children: React.ReactElement;
     // width of the viewer displayed on screen
     width: number;
     // height of the viewer displayed on screen

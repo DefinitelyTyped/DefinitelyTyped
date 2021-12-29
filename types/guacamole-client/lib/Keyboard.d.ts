@@ -52,7 +52,7 @@ export class Keyboard {
      * Element must be manually provided through the listenTo() function for
      * the Guacamole.Keyboard instance to have any effect.
      */
-    constructor(element: HTMLDocument | HTMLElement);
+    constructor(element?: HTMLDocument | HTMLElement);
 
     /**
      * Fired whenever the user presses a key with the element associated

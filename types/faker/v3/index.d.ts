@@ -57,8 +57,8 @@ declare namespace Faker {
             future(years?: number, refDate?: string | Date): Date;
             between(from: string | number | Date, to: string | Date): Date;
             recent(days?: number): Date;
-            month(options?: { abbr?: boolean; context?: boolean }): string;
-            weekday(options?: { abbr?: boolean; context?: boolean }): string;
+            month(options?: { abbr?: boolean | undefined; context?: boolean | undefined }): string;
+            weekday(options?: { abbr?: boolean | undefined; context?: boolean | undefined }): string;
         };
 
         fake(str: string): string;
@@ -166,7 +166,7 @@ declare namespace Faker {
 
         random: {
             number(max: number): number;
-            number(options?: { min?: number; max?: number; precision?: number }): number;
+            number(options?: { min?: number | undefined; max?: number | undefined; precision?: number | undefined }): number;
             arrayElement(): string;
             arrayElement<T>(array: T[]): T;
             arrayElement<T>(array: ReadonlyArray<T>): T;

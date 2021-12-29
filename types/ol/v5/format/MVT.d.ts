@@ -3,10 +3,10 @@ import GeometryType from '../geom/GeometryType';
 import FeatureFormat from './Feature';
 
 export interface Options {
-    featureClass?: FeatureClass;
-    geometryName?: string;
-    layerName?: string;
-    layers?: string[];
+    featureClass?: FeatureClass | undefined;
+    geometryName?: string | undefined;
+    layerName?: string | undefined;
+    layers?: string[] | undefined;
 }
 export default class MVT extends FeatureFormat {
     constructor(opt_options?: Options);

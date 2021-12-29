@@ -7,6 +7,10 @@ function sample1() {
 
   canvas.on('object:moving', (e: fabric.IEvent) => {
     e.target.opacity = 0.5;
+    e.currentTarget.sendBackwards();
+    e.currentSubTargets.forEach((subTarget) => {
+      subTarget.bringToFront();
+    });
   });
   canvas.on('object:modified', (e: fabric.IEvent) => {
     e.target.opacity = 1;
@@ -262,10 +266,10 @@ function sample4() {
 }
 
 interface CircleWithLineInfos extends fabric.Circle {
-  line1?: fabric.Line;
-  line2?: fabric.Line;
-  line3?: fabric.Line;
-  line4?: fabric.Line;
+  line1?: fabric.Line | undefined;
+  line2?: fabric.Line | undefined;
+  line3?: fabric.Line | undefined;
+  line4?: fabric.Line | undefined;
 }
 
 function sample5() {
@@ -340,6 +344,7 @@ function sample6() {
 
     canvas.on('mouse:move', options => {
       const p = canvas.getPointer(options.e);
+      const mouseX = options.e.clientX;
 
       canvas.forEachObject(obj => {
         const distX = Math.abs(p.x - obj.left);
@@ -347,6 +352,10 @@ function sample6() {
         const dist = Math.round(Math.sqrt(Math.pow(distX, 2) + Math.pow(distY, 2)));
         obj.set('opacity', (1 / (dist / 20)));
       });
+    });
+
+    canvas.on('mouse:wheel', (options) => {
+        const deltaY = options.e.deltaY;
     });
   }, null, {
     crossOrigin:'anonymous'
@@ -1031,6 +1040,8 @@ function sample12() {
   const position = fabric.util.getScrollLeftTop(canvas.getElement());
   const x = position.left;
   const y = position.top;
+  canvas.absolutePan({ x, y });
+  canvas.absolutePan(new fabric.Point(x, y));
 }
 
 function sample13() {
@@ -1043,5 +1054,31 @@ function sample14() {
     mouseUpHandler(eventData: MouseEvent, transformData: fabric.Transform, x: number, y: number): boolean {
       return false;
     }
+  });
+}
+
+function sample15() {
+  const canvas = new fabric.Canvas('c');
+  const textRTL = new fabric.Text('שלום עולם', { left: 100, top: 100, direction: 'rtl', originX: 'right', textAlign: 'right' });
+  canvas.add(textRTL);
+}
+
+function sample16() {
+  const canvas = new fabric.Canvas('c');
+  canvas.freeDrawingBrush = new fabric.PencilBrush(canvas);
+  canvas.freeDrawingBrush.width = 2;
+  canvas.isDrawingMode = true;
+}
+
+function sample17() {
+  const canvas = new fabric.Canvas('c');
+  canvas.toCanvasElement();
+  canvas.toCanvasElement(2);
+  canvas.toCanvasElement(2, { left: 10 });
+  canvas.toCanvasElement(2, {
+    left: 1,
+    top: 2,
+    width: 3,
+    height: 4,
   });
 }

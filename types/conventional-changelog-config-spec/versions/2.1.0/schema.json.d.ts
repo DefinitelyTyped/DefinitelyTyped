@@ -14,7 +14,7 @@ declare namespace ConventionalChangelogConfigSpec {
          * @default
          * "# Changelog\n\n"
          */
-        header?: string;
+        header?: string | undefined;
 
         /**
          * An array of `type` objects representing the explicitly supported commit
@@ -32,7 +32,7 @@ declare namespace ConventionalChangelogConfigSpec {
          *     { "type": "test", "hidden": true }
          * ]
          */
-        types?: Config.Type[];
+        types?: Config.Type[] | undefined;
 
         /**
          * Boolean indicating whether or not the action being run (generating CHANGELOG,
@@ -43,7 +43,7 @@ declare namespace ConventionalChangelogConfigSpec {
          * @default
          * false
          */
-        preMajor?: boolean;
+        preMajor?: boolean | undefined;
 
         /**
          * A URL representing a specific commit at a hash.
@@ -51,7 +51,7 @@ declare namespace ConventionalChangelogConfigSpec {
          * @default
          * "{{host}}/{{owner}}/{{repository}}/commit/{{hash}}"
          */
-        commitUrlFormat?: string;
+        commitUrlFormat?: string | undefined;
 
         /**
          * A URL representing the comparison between two git SHAs.
@@ -59,7 +59,7 @@ declare namespace ConventionalChangelogConfigSpec {
          * @default
          * "{{host}}/{{owner}}/{{repository}}/compare/{{previousTag}}...{{currentTag}}"
          */
-        compareUrlFormat?: string;
+        compareUrlFormat?: string | undefined;
 
         /**
          * A URL representing the issue format (allowing a different URL format to be
@@ -68,7 +68,7 @@ declare namespace ConventionalChangelogConfigSpec {
          * @default
          * "{{host}}/{{owner}}/{{repository}}/issues/{{id}}"
          */
-        issueUrlFormat?: string;
+        issueUrlFormat?: string | undefined;
 
         /**
          * A URL representing the a user's profile URL on GitHub, Gitlab, etc. This URL
@@ -78,7 +78,7 @@ declare namespace ConventionalChangelogConfigSpec {
          * @default
          * "{{host}}/{{user}}"
          */
-        userUrlFormat?: string;
+        userUrlFormat?: string | undefined;
 
         /**
          * A string to be used to format the auto-generated release commit message.
@@ -86,7 +86,7 @@ declare namespace ConventionalChangelogConfigSpec {
          * @default
          * "chore(release): {{currentTag}}"
          */
-        releaseCommitMessageFormat?: string;
+        releaseCommitMessageFormat?: string | undefined;
 
         /**
          * An array of prefixes used to detect references to issues.
@@ -94,7 +94,7 @@ declare namespace ConventionalChangelogConfigSpec {
          * @default
          * ["#"]
          */
-        issuePrefixes?: string[];
+        issuePrefixes?: string[] | undefined;
     }
 
     namespace Config {
@@ -116,12 +116,12 @@ declare namespace ConventionalChangelogConfigSpec {
                 /**
                  * The section where the matched commit type will display in the CHANGELOG.
                  */
-                section?: string;
+                section?: string | undefined;
 
                 /**
                  * Set to `true` to hide matched commit types in the CHANGELOG.
                  */
-                hidden?: boolean;
+                hidden?: boolean | undefined;
             }
 
             /**

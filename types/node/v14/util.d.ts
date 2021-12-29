@@ -7,6 +7,7 @@ declare module 'util' {
     }
     function format(format?: any, ...param: any[]): string;
     function formatWithOptions(inspectOptions: InspectOptions, format?: any, ...param: any[]): string;
+    function getSystemErrorName(err: number): string;
     /** @deprecated since v0.11.3 - use a third party module instead. */
     function log(string: string): void;
     function inspect(object: any, showHidden?: boolean, depth?: number | null, color?: boolean): string;
@@ -32,7 +33,12 @@ declare module 'util' {
     /** @deprecated since v4.0.0 - use `util.types.isNativeError()` instead. */
     function isError(object: any): object is Error;
     function inherits(constructor: any, superConstructor: any): void;
-    function debuglog(key: string): (msg: string, ...param: any[]) => void;
+    type DebugLoggerFunction = (msg: string, ...param: any[]) => void;
+    interface DebugLogger extends DebugLoggerFunction {
+        enabled: boolean;
+    }
+    function debuglog(key: string, callback?: (fn: DebugLoggerFunction) => void): DebugLogger;
+    const debug: typeof debuglog;
     /** @deprecated since v4.0.0 - use `typeof value === 'boolean'` instead. */
     function isBoolean(object: any): object is boolean;
     /** @deprecated since v4.0.0 - use `Buffer.isBuffer()` instead. */
@@ -179,11 +185,11 @@ declare module 'util' {
         readonly ignoreBOM: boolean;
         constructor(
           encoding?: string,
-          options?: { fatal?: boolean; ignoreBOM?: boolean }
+          options?: { fatal?: boolean | undefined; ignoreBOM?: boolean | undefined }
         );
         decode(
           input?: NodeJS.ArrayBufferView | ArrayBuffer | null,
-          options?: { stream?: boolean }
+          options?: { stream?: boolean | undefined }
         ): string;
     }
 
@@ -204,4 +210,7 @@ declare module 'util' {
         encode(input?: string): Uint8Array;
         encodeInto(input: string, output: Uint8Array): EncodeIntoResult;
     }
+}
+declare module 'node:util' {
+    export * from 'util';
 }

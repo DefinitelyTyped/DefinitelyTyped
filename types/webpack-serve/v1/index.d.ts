@@ -1,7 +1,6 @@
 // Type definitions for webpack-serve 1.0
 // Project: https://github.com/webpack-contrib/webpack-serve
-// Definitions by: Ryan Clark <https://github.com/rynclark>
-//                 Jokcy <https://github.com/Jokcy>
+// Definitions by: Jokcy <https://github.com/Jokcy>
 //                 ZSkycat <https://github.com/ZSkycat>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
@@ -18,7 +17,7 @@ export = WebpackServe;
 
 declare module 'webpack' {
   interface Configuration {
-    serve?: WebpackServe.Options;
+    serve?: WebpackServe.Options | undefined;
   }
 }
 
@@ -27,9 +26,9 @@ declare function WebpackServe(options: WebpackServe.Options): Promise<WebpackSer
 declare namespace WebpackServe {
   interface WebpackServeOpen {
     /** Name of the browser to open */
-    app?: string;
+    app?: string | undefined;
     /** Path on the server to open */
-    path?: string;
+    path?: string | undefined;
   }
 
   interface WebpackServeMiddleware {
@@ -60,35 +59,35 @@ declare namespace WebpackServe {
 
   interface Options {
     /** Addon to webpack-serve that allows access to the Koa server instance */
-    add?: (app: koa, middleware: WebpackServeMiddleware, options: Options) => void;
+    add?: ((app: koa, middleware: WebpackServeMiddleware, options: Options) => void) | undefined;
     /** Copy the server URL to the clipboard when the server is started */
-    clipboard?: boolean;
+    clipboard?: boolean | undefined;
     /** Custom instance of a webpack compiler */
-    compiler?: webpack.Compiler;
+    compiler?: webpack.Compiler | undefined;
     /** Webpack configuration for creating a new webpack compiler instance */
-    config?: webpack.Configuration;
+    config?: webpack.Configuration | undefined;
     /** A path or array of paths where content will be served from */
-    content?: string | string[];
+    content?: string | string[] | undefined;
     /** Options for webpack-dev-middleware */
-    dev?: webpackDevMiddleware.Options;
+    dev?: webpackDevMiddleware.Options | undefined;
     /** The host the server will listen on */
-    host?: string;
+    host?: string | undefined;
     /** Options for webpack-hot-client */
-    hot?: webpackHotClient.Options | boolean;
+    hot?: webpackHotClient.Options | boolean | undefined;
     /** Enable HTTP2 support */
-    http2?: boolean;
+    http2?: boolean | undefined;
     /** Configuration object for the server to use HTTPS */
-    https?: https.ServerOptions;
+    https?: https.ServerOptions | undefined;
     /** Level of information for webpack-serve to output */
-    logLevel?: 'trace' | 'debug' | 'info' | 'warn' | 'error' | 'silent';
+    logLevel?: 'trace' | 'debug' | 'info' | 'warn' | 'error' | 'silent' | undefined;
     /** Prepend timestamp to each log line */
-    logTime?: boolean;
+    logTime?: boolean | undefined;
     /** Object of subscribers to webpack-serve bus events */
-    on?: ListenersObject;
+    on?: ListenersObject | undefined;
     /** Open the browser when started */
-    open?: WebpackServeOpen | boolean;
+    open?: WebpackServeOpen | boolean | undefined;
     /** Port that the server listens on */
-    port?: number;
+    port?: number | undefined;
   }
 
   interface NormalisedOptions extends Options {

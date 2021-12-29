@@ -7,7 +7,9 @@ export class ShapeGeometry extends BufferGeometry {
      */
     type: string;
 
-    constructor(shapes: Shape | Shape[], curveSegments?: number);
+    constructor(shapes?: Shape | Shape[], curveSegments?: number);
+
+    static fromJSON(data: any): ShapeGeometry;
 }
 
 export { ShapeGeometry as ShapeBufferGeometry };

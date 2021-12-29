@@ -21,11 +21,11 @@ declare namespace colorPalette {
         /**
          * @default undefined
          */
-        type?: string;
+        type?: string | undefined;
         /**
          * @default 5
          */
-        count?: number;
+        count?: number | undefined;
     }
 
     /**

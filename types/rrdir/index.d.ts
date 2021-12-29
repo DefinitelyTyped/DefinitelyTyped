@@ -23,18 +23,18 @@ declare const c: rrdir;
 export = c;
 
 interface Options {
-    stats?: boolean;
-    followSymlinks?: boolean;
-    exclude?: string[];
-    include?: string[];
-    strict?: boolean;
-    match?: PicomatchOptions;
+    stats?: boolean | undefined;
+    followSymlinks?: boolean | undefined;
+    exclude?: string[] | undefined;
+    include?: string[] | undefined;
+    strict?: boolean | undefined;
+    match?: PicomatchOptions | undefined;
 }
 
 interface Entry<T extends string | Buffer> {
     path: T;
-    directory?: boolean;
-    symlink?: boolean;
-    stats?: fs.Stats;
-    err?: Error;
+    directory?: boolean | undefined;
+    symlink?: boolean | undefined;
+    stats?: fs.Stats | undefined;
+    err?: Error | undefined;
 }

@@ -537,5 +537,31 @@ declare module '../../index' {
          *   @chainable
          */
         stroke(color: Color): p5;
+
+        /**
+         * All drawing that follows <a href="#/p5/erase">erase()</a> will subtract from
+         * the canvas.Erased areas will reveal the web page underneath the canvas.Erasing
+         * can be canceled with <a href="#/p5/noErase">noErase()</a>.
+         *
+         * Drawing done with <a href="#/p5/image">image()</a> and <a href="#/p5/background">
+         * background()</a> in between <a href="#/p5/erase">erase()</a> and
+         * <a href="#/p5/noErase">noErase()</a> will not erase the canvas but works as usual.
+         *
+         * @param [strengthFill] A number (0-255) for the strength of erasing for a shape's fill.
+         *                                 This will default to 255 when no argument is given, which
+         *                                 is full strength.
+         * @param [strengthStroke] A number (0-255) for the strength of erasing for a shape's stroke.
+         *                                  This will default to 255 when no argument is given, which
+         *                                  is full strength.
+         */
+        erase(strengthFill?: number, strengthStroke?: number): void;
+
+        /**
+         * Ends erasing that was started with <a href="#/p5/erase">erase()</a>.
+         * The <a href="#/p5/fill">fill()</a>, <a href="#/p5/stroke">stroke()</a>, and
+         * <a href="#/p5/blendMode">blendMode()</a> settings will return to what they were
+         * prior to calling <a href="#/p5/erase">erase()</a>.
+         */
+        noErase(): void;
     }
 }

@@ -15,6 +15,6 @@ export default class Dog extends Schwifty.Model {
         name: Joi.string()
     });
 
-    id?: number;
-    name?: string;
+    id?: number | undefined;
+    name?: string | undefined;
 }

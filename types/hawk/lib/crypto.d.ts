@@ -2,10 +2,10 @@ import * as Crypto from 'crypto';
 import * as Client from './client';
 
 export interface Artifacts {
-    app?: string;
-    dlg?: string;
-    ext?: string;
-    hash?: string;
+    app?: string | undefined;
+    dlg?: string | undefined;
+    ext?: string | undefined;
+    hash?: string | undefined;
     host: string;
     method: string;
     nonce: string;

@@ -9,8 +9,8 @@ import formats = require('@rdfjs/formats-common');
 
 declare module 'express-serve-static-core' {
     interface Request {
-        dataset(parserOptions?: any): Promise<DatasetCore>;
-        quadStream(parserOptions?: any): Stream;
+        dataset?(parserOptions?: any): Promise<DatasetCore>;
+        quadStream?(parserOptions?: any): Stream;
     }
 
     interface Response {
@@ -24,10 +24,10 @@ interface BaseIriFromRequest {
 }
 
 interface RdfHandlerOptions {
-    factory?: DatasetCoreFactory;
-    formats?: typeof formats;
-    defaultMediaType?: string;
-    baseIriFromRequest?: boolean | BaseIriFromRequest;
+    factory?: DatasetCoreFactory | undefined;
+    formats?: typeof formats | undefined;
+    defaultMediaType?: string | undefined;
+    baseIriFromRequest?: boolean | BaseIriFromRequest | undefined;
 }
 
 interface RdfHandler {

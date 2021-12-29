@@ -8,10 +8,10 @@ import { Block } from 'webpack-blocks';
 
 declare namespace sass {
     interface Options {
-        includePaths?: string[];
-        indentedSyntax?: boolean;
-        outputStyle?: string;
-        sourceMap?: boolean;
+        includePaths?: string[] | undefined;
+        indentedSyntax?: boolean | undefined;
+        outputStyle?: string | undefined;
+        sourceMap?: boolean | undefined;
     }
 }
 

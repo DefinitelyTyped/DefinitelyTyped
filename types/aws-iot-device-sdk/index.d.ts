@@ -12,81 +12,81 @@ import { EventEmitter } from 'events';
 
 export interface DeviceOptions extends mqtt.IClientOptions {
   /** the AWS IoT region you will operate in (default "us-east-1") */
-  region?: string;
+  region?: string | undefined;
 
   /** the client ID you will use to connect to AWS IoT */
-  clientId?: string;
+  clientId?: string | undefined;
 
   /**
    * path of the client certificate file path of the private key file
    * associated with the client certificate
    */
-  certPath?: string;
+  certPath?: string | undefined;
 
   /** path of the private key file associated with the client certificate */
-  keyPath?: string;
+  keyPath?: string | undefined;
 
   /** path of your CA certificate file */
-  caPath?: string;
+  caPath?: string | undefined;
 
   /**
    * same as certPath, but can also accept a buffer containing client
    * certificate data
    */
-  clientCert?: string | Buffer;
+  clientCert?: string | Buffer | undefined;
 
   /**
    * same as keyPath, but can also accept a buffer containing private key
    * data
    */
-  privateKey?: string | Buffer;
+  privateKey?: string | Buffer | undefined;
 
   /**
    * same as caPath, but can also accept a buffer containing CA certificate
    * data
    */
-  caCert?: string | Buffer;
+  caCert?: string | Buffer | undefined;
 
   /**
    * set to "true" to automatically re-subscribe to topics after
    * reconnection (default "true")
    */
-  autoResubscribe?: boolean;
+  autoResubscribe?: boolean | undefined;
 
   /** set to "true" to automatically queue published messages while
    * offline (default "true")
    */
-  offlineQueueing?: boolean;
+  offlineQueueing?: boolean | undefined;
 
   /**
    * enforce a maximum size for the offline message queue
    * (default 0, e.g. no maximum)
    */
-  offlineQueueMaxSize?: number;
+  offlineQueueMaxSize?: number | undefined;
 
   /**
    * set to "oldest" or "newest" to define drop behavior on a full
    * queue when offlineQueueMaxSize > 0
    */
-  offlineQueueDropBehavior?: "oldest" | "newest";
+  offlineQueueDropBehavior?: "oldest" | "newest" | undefined;
 
   /**
    * the minimum time in milliseconds between publishes when draining
    * after reconnection (default 250)
    */
-  drainTimeMs?: number;
+  drainTimeMs?: number | undefined;
 
   /** the base reconnection time in milliseconds (default 1000) */
-  baseReconnectTimeMs?: number;
+  baseReconnectTimeMs?: number | undefined;
 
   /** the maximum reconnection time in milliseconds (default 128000) */
-  maximumReconnectTimeMs?: number;
+  maximumReconnectTimeMs?: number | undefined;
 
   /**
    * the minimum time in milliseconds that a connection must be maintained
    * in order to be considered stable (default 20000)
    */
-  minimumConnectionTimeMs?: number;
+  minimumConnectionTimeMs?: number | undefined;
 
   /**
    * the connection type, either "mqtts" (default) or "wss" (WebSocket/TLS).
@@ -96,30 +96,30 @@ export interface DeviceOptions extends mqtt.IClientOptions {
    *
    * 1. https://github.com/aws/aws-iot-device-sdk-js#websockets
    */
-  protocol?: "mqtts" | "wss";
+  protocol?: "mqtts" | "wss" | undefined;
   /**
    * if protocol is set to "wss", you can use this parameter to pass
    * additional options to the underlying WebSocket object;
    * these options are documented here.
    */
-  websocketOptions?: WebSocket.ClientOptions;
+  websocketOptions?: WebSocket.ClientOptions | undefined;
 
   /**
    * used to specify the Access Key ID when protocol is set to "wss".
    * Overrides the environment variable AWS_ACCESS_KEY_ID if set.
    */
-  accessKeyId?: string;
+  accessKeyId?: string | undefined;
   /**
    * used to specify the Secret Key when protocol is set to "wss".
    * Overrides the environment variable AWS_SECRET_ACCESS_KEY if set.
    */
-  secretKey?: string;
+  secretKey?: string | undefined;
   /**
    * (required when authenticating via Cognito, optional otherwise) used
    * to specify the Session Token when protocol is set to "wss". Overrides
    * the environment variable AWS_SESSION_TOKEN if set.
    */
-  sessionToken?: string;
+  sessionToken?: string | undefined;
 
   /**
    * optional hostname, if not specified a hostname will be constructed
@@ -128,17 +128,17 @@ export interface DeviceOptions extends mqtt.IClientOptions {
   // NB Not documented but present in examples, see
   // https://github.com/aws/aws-iot-device-sdk-js/blob/97b0b468d/device/index.js#L376
   // https://github.com/aws/aws-iot-device-sdk-js/blob/97b0b468d/device/index.js#L149
-  host?: string;
+  host?: string | undefined;
 
   /** optional port, will be appended to hostname if present and not 443 */
   // NB Not documented but present in examples, see
   // https://github.com/aws/aws-iot-device-sdk-js/blob/97b0b468d/device/index.js#L154
-  port?: number;
+  port?: number | undefined;
 
   /** enable console logging, default false */
   // NB Not documented but present in examples, see
   // https://github.com/aws/aws-iot-device-sdk-js/blob/97b0b468d/device/index.js#L436
-  debug?: boolean;
+  debug?: boolean | undefined;
 }
 
 export class device extends EventEmitter {
@@ -210,7 +210,7 @@ export class device extends EventEmitter {
 
 export interface ThingShadowOptions extends DeviceOptions {
   /** the timeout for thing operations (default 10 seconds) */
-  operationTimeout?: number;
+  operationTimeout?: number | undefined;
 }
 
 export interface RegisterOptions {
@@ -219,22 +219,22 @@ export interface RegisterOptions {
    * Thing Shadow; used in cases where the application is not interested in
    * changes (e.g. update only.) (default false)
    */
-  ignoreDeltas?: boolean;
+  ignoreDeltas?: boolean | undefined;
 
   /**
    * set to false to unsubscribe from all operation sub-topics while not
    * performing an operation (default true)
    */
-  persistentSubscribe?: boolean;
+  persistentSubscribe?: boolean | undefined;
 
   /**
    * set to false to allow receiving messages with old version
    * numbers (default true)
    */
-  discardStale?: boolean;
+  discardStale?: boolean | undefined;
 
   /** set to true to send version numbers with shadow updates (default true) */
-  enableVersioning?: boolean;
+  enableVersioning?: boolean | undefined;
 }
 
 /**

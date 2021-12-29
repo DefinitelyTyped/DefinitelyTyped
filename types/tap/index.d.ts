@@ -22,6 +22,11 @@ declare class DeprecatedAssertionSynonyms {
     assert: Assertions.Basic;
 
     /**
+     * @deprecated use teardown() instead.
+     */
+    tearDown(fn: () => void | Promise<void>): void;
+
+    /**
      * @deprecated use notOk() instead.
      */
     false: Assertions.Basic;
@@ -323,8 +328,8 @@ declare class DeprecatedAssertionSynonyms {
 declare namespace Assertions {
     type Basic = (obj: any, message?: string, extra?: Options.Assert) => boolean;
     interface Throws {
-        (fn?: (...args: any[]) => any, expectedError?: Error, message?: string, extra?: Options.Assert): boolean;
-        (fn?: (...args: any[]) => any, messageOrExpectedError?: string | Error, extra?: Options.Assert): boolean;
+        (fn?: (...args: any[]) => any, expectedError?: any, message?: string, extra?: Options.Assert): boolean;
+        (fn?: (...args: any[]) => any, expectedError?: any, extra?: Options.Assert): boolean;
     }
     type DoesNotThrow = (fn?: (...args: any[]) => any, message?: string, extra?: Options.Assert) => boolean;
     type Equal = (found: any, wanted: any, message?: string, extra?: Options.Assert) => boolean;
@@ -353,25 +358,25 @@ declare namespace Options {
     }
 
     interface Assert extends Bag {
-        todo?: boolean | string;
-        skip?: boolean | string;
-        diagnostic?: boolean;
+        todo?: boolean | string | undefined;
+        skip?: boolean | string | undefined;
+        diagnostic?: boolean | undefined;
     }
 
     interface Spawn extends Assert {
-        bail?: boolean;
-        timeout?: number;
+        bail?: boolean | undefined;
+        timeout?: number | undefined;
     }
 
     interface Test extends Assert {
-        timeout?: number;
-        bail?: boolean;
-        autoend?: boolean;
-        buffered?: boolean;
-        jobs?: number;
-        grep?: RegExp[];
-        only?: boolean;
-        runOnly?: boolean;
+        timeout?: number | undefined;
+        bail?: boolean | undefined;
+        autoend?: boolean | undefined;
+        buffered?: boolean | undefined;
+        jobs?: number | undefined;
+        grep?: RegExp[] | undefined;
+        only?: boolean | undefined;
+        runOnly?: boolean | undefined;
     }
 }
 
@@ -387,7 +392,6 @@ declare global {
              * @see {@link https://node-tap.org/docs/api/test-lifecycle-events}
              * @param fn
              */
-            tearDown(fn: () => void | Promise<void>): void;
             teardown(fn: () => void | Promise<void>): void;
 
             /**
@@ -404,6 +408,11 @@ declare global {
              * Call the end() method on all child tests, and then on this one.
              */
             endAll(): void;
+
+            /**
+             * Automatically end() the test on the next turn of the event loop after its internal queue is drained.
+             */
+            autoend(value: boolean): void;
 
             /**
              * When an uncaught exception is raised in the context of a test,
@@ -688,7 +697,7 @@ declare global {
              */
             rejects(
                 promiseOrFn: Promise<any> | ((...args: any[]) => Promise<any>),
-                expectedError: Error,
+                expectedError: any,
                 message?: string,
                 extra?: Options.Assert,
             ): Promise<void>;

@@ -11,7 +11,7 @@ interface ClearOptions {
      *
      * @default true
      */
-    fullClear?: boolean;
+    fullClear?: boolean | undefined;
 }
 
 /**

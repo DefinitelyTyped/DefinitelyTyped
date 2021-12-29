@@ -195,9 +195,9 @@ export interface Type<T = any> {
     /** To invoke when `ref.set` is invoked on a buffer of this type. */
     set(buffer: Buffer, offset: number, value: T): void;
     /** The name to use during debugging for this datatype. */
-    name?: string;
+    name?: string | undefined;
     /** The alignment of this datatype when placed inside a struct. */
-    alignment?: number;
+    alignment?: number | undefined;
 }
 
 /** A Buffer that references the C NULL pointer. */
@@ -541,21 +541,21 @@ declare global {
     ref(): Buffer;
     deref(): any;
     readObject(offset?: number): Object;
-    writeObject(offset: number, object: Object): void;
+    writeObject(object: Object, offset?: number): void;
     readPointer(offset?: number, length?: number): Buffer;
-    writePointer(offset: number, pointer: Buffer): void;
+    writePointer(pointer: Buffer, offset?: number): void;
     readCString(offset?: number): string;
-    writeCString(offset: number, string: string, encoding?: string): void;
+    writeCString(string: string, offset?: number, encoding?: string): void;
     readInt64BE(offset?: number): string | number;
-    writeInt64BE(offset: number, input: string | number): void;
+    writeInt64BE(input: string | number, offset?: number): void;
     readUInt64BE(offset?: number): string | number;
-    writeUInt64BE(offset: number, input: string | number): void;
+    writeUInt64BE(input: string | number, offset?: number): void;
     readInt64LE(offset?: number): string | number;
-    writeInt64LE(offset: number, input: string | number): void;
+    writeInt64LE(input: string | number, offset?: number): void;
     readUInt64LE(offset?: number): string | number;
-    writeUInt64LE(offset: number, input: string | number): void;
+    writeUInt64LE(input: string | number, offset?: number): void;
     reinterpret(size: number, offset?: number): Buffer;
     reinterpretUntilZeros(size: number, offset?: number): Buffer;
-    type?: Type;
+    type?: Type | undefined;
   }
 }

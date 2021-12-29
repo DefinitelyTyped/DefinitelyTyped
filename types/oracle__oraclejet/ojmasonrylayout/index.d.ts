@@ -2,9 +2,9 @@ import { baseComponent, baseComponentEventMap, baseComponentSettableProperties, 
 export interface ojMasonryLayout extends baseComponent<ojMasonryLayoutSettableProperties> {
     reorderHandle: string | null;
     translations: {
-        labelCut?: string;
-        labelPasteAfter?: string;
-        labelPasteBefore?: string;
+        labelCut?: string | undefined;
+        labelPasteAfter?: string | undefined;
+        labelPasteBefore?: string | undefined;
     };
     onReorderHandleChanged: ((event: JetElementCustomEvent<ojMasonryLayout["reorderHandle"]>) => any) | null;
     onOjAnimateEnd: ((event: ojMasonryLayout.ojAnimateEnd) => any) | null;
@@ -109,9 +109,9 @@ export interface ojMasonryLayoutEventMap extends baseComponentEventMap<ojMasonry
 export interface ojMasonryLayoutSettableProperties extends baseComponentSettableProperties {
     reorderHandle: string | null;
     translations: {
-        labelCut?: string;
-        labelPasteAfter?: string;
-        labelPasteBefore?: string;
+        labelCut?: string | undefined;
+        labelPasteAfter?: string | undefined;
+        labelPasteBefore?: string | undefined;
     };
 }
 export interface ojMasonryLayoutSettablePropertiesLenient extends Partial<ojMasonryLayoutSettableProperties> {

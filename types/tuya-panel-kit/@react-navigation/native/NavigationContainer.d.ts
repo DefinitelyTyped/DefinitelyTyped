@@ -22,7 +22,7 @@ declare const NavigationContainer: React.ForwardRefExoticComponent<NavigationCon
     theme?: Theme | undefined;
     // tslint:disable-next-line no-redundant-undefined
     linking?: LinkingOptions | undefined;
-    fallback?: React.ReactNode;
+    fallback?: React.ReactNode | undefined;
     // tslint:disable-next-line no-redundant-undefined
     documentTitle?: DocumentTitleOptions | undefined;
     // tslint:disable-next-line no-redundant-undefined

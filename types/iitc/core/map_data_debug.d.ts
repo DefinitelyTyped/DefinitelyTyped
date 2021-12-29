@@ -9,7 +9,7 @@ export class RenderDebugTiles {
     private debugTileLayer: L.LayerGroup;
     private debugTileToRectangle: {};
     private debugTileClearTimes: {};
-    private timer?: number;
+    private timer?: number | undefined;
 
     reset(): void;
     create(id: string, bounds: L.LatLngBounds): void;

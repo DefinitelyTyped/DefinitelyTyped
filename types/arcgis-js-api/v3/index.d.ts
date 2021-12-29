@@ -1,4 +1,4 @@
-// Type definitions for ArcGIS API for JavaScript 3.36
+// Type definitions for ArcGIS API for JavaScript 3.39
 // Project: https://developers.arcgis.com/javascript/3/
 // Definitions by: Esri <https://github.com/Esri>
 //                 Bjorn Svensson <https://github.com/bsvensson>
@@ -1423,7 +1423,7 @@ declare module "esri" {
     attributionWidth?: number;
     /** When true the map will automatically resize when the browser window is resized or when the ContentPane widget enclosing the map is resized. */
     autoResize?: boolean;
-    /** Specify a basemap for the map. */
+    /** Specify a basemap for the map, for example "topo-vector" or "satellite". */
     basemap?: string;
     /** The location where the map should be centered. */
     center?: number[] | Point;
@@ -2532,7 +2532,7 @@ declare module "esri/Credential" {
   class Credential {
     /** Token expiration time specified as number of milliseconds since 1 January 1970 00:00:00 UTC. */
     expires: number;
-    /** Indicates that this credential was created to access the ArcGIS REST Admin service */
+    /** Indicates that this credential was created to access the ArcGIS REST Admin service. */
     isAdmin: boolean;
     /** The Identity Manager's  setOAuthRedirectionHandler returns an object that contains a "state" parameter. */
     oAuthState: any;
@@ -3479,9 +3479,12 @@ declare module "esri/arcgis/utils" {
 declare module "esri/basemaps" {
   /** This class contains properties referencing default basemaps used in the JS API that allow you to add map services as default basemaps in web applications. */
   var basemaps: {
-    /** The Light Gray Canvas basemap is designed to be used as a neutral background map for overlaying and emphasizing other map layers. */
+    /**
+     * [deprecated]  The services used in this basemap are now in Mature Support and are no longer updated - please use gray-vector instead.
+     * @deprecated
+     */
     gray: any;
-    /** The World Imagery with Labels map is a detailed imagery map layer and labels that is designed to be used as a basemap for various maps and applications: https://services.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer   https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer */
+    /** The World Imagery with Labels map is a detailed  imagery map layer and labels that is designed to be used as a basemap for various maps and applications. */
     hybrid: any;
     /** The Ocean Basemap is designed to be used as a basemap by marine GIS professionals and as a reference map by anyone interested in ocean data. */
     oceans: any;
@@ -3489,11 +3492,17 @@ declare module "esri/basemaps" {
     osm: any;
     /** The World Imagery map is a detailed imagery map layer that is designed to be used as a basemap for various maps and applications:  https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer. */
     satellite: any;
-    /** The Streets basemap presents a multiscale street map for the world: https://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer. */
+    /**
+     * [deprecated]  The service used in this basemap is now in Mature Support and is no longer updated - please use streets-vector instead.
+     * @deprecated
+     */
     streets: any;
     /** The Terrain with Labels basemap is designed to be used to overlay and emphasize other thematic map layers. */
     terrain: any;
-    /** The Topographic map includes boundaries, cities, water features, physiographic features, parks, landmarks, transportation, and buildings: https://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer. */
+    /**
+     * [deprecated]  The World_Topo_Map service used in this basemap is now in Mature Support and is no longer updated - please use topo-vector instead.
+     * @deprecated
+     */
     topo: any;
   };
   export = basemaps;
@@ -11900,7 +11909,7 @@ declare module "esri/layers/WFSLayer" {
      */
     constructor(options: esri.WFSLayerOptions);
     /**
-     * Creates a WFSLayer using the provided JSON object.
+     * Initializes a WFSLayer using the provided JSON object.
      * @param json The input JSON.
      * @param callback The function to call when the method has completed.
      */
@@ -12560,7 +12569,7 @@ declare module "esri/map" {
     setBackgroundColor(color: Color | string): void;
     /**
      * Change the map's current basemap.
-     * @param basemap A valid basemap name.
+     * @param basemap Specify a basemap for the map, for example "topo-vector" or "satellite".
      */
     setBasemap(basemap: string): void;
     /**

@@ -365,7 +365,7 @@ declare module "durandal/plugins/router" {
         settings: Object;
         hash: string;
         /** only present on visible routes to track if they are active in the nav */
-        isActive?: KnockoutComputed<boolean>;
+        isActive?: KnockoutComputed<boolean> | undefined;
     }
     /**
       * Parameters to the map function. e only required parameter is url the rest can be derived. The derivation 
@@ -378,14 +378,14 @@ declare module "durandal/plugins/router" {
         /** your url pattern. The only required parameter */
         url: any;
         /** if not supplied, router.convertRouteToName derives it */
-        moduleId?: string;
+        moduleId?: string | undefined;
         /** if not supplied, router.convertRouteToModuleId derives it */
-        name?: string;
+        name?: string | undefined;
         /** used to set the document title */
-        caption?: string;
+        caption?: string | undefined;
         /** determines whether or not to include it in the router's visibleRoutes array for easy navigation UI binding */
-        visible?: boolean;
-        settings?: Object;
+        visible?: boolean | undefined;
+        settings?: Object | undefined;
     }
     /**
       * observable that is called when the router is ready

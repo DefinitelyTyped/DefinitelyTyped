@@ -9,12 +9,12 @@ export as namespace markdownitEmoji;
 
 declare namespace markdownitEmoji {
     interface Options {
-        defs?: Record<string, string>;
-        enabled?: string[];
-        shortcuts?: Shortcuts;
+        defs?: Record<string, string> | undefined;
+        enabled?: string[] | undefined;
+        shortcuts?: Shortcuts | undefined;
     }
 
-    type LiteralUnion<T extends U, U = string> = T | (U & { _?: never });
+    type LiteralUnion<T extends U, U = string> = T | (U & { _?: never | undefined });
 
     type PartialRecord<K extends keyof any, T> = {
         [P in K]?: T | T[];

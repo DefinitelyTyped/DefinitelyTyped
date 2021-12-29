@@ -4,8 +4,8 @@ import { Render } from "./map_data_render";
 
 export interface MapDataRequestStatus {
     short: string;
-    long?: string;
-    progress?: number;
+    long?: string | undefined;
+    progress?: number | undefined;
 }
 
 /**
@@ -21,7 +21,7 @@ export class MapDataRequest {
     activeRequestCount: number;
     requestedTiles: {};
     renderQueue: [];
-    renderQueueTimer?: number;
+    renderQueueTimer?: number | undefined;
     renderQueuePaused: boolean;
     idle: boolean;
 

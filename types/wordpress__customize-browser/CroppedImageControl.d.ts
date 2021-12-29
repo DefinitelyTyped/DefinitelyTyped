@@ -8,15 +8,15 @@ export interface ImageSelectOptions {
     persistent: boolean;
     imageWidth: number;
     imageHeight: number;
-    minWidth?: number;
-    minHeight?: number;
+    minWidth?: number | undefined;
+    minHeight?: number | undefined;
     x1: number;
     y1: number;
     x2: number;
     y2: number;
-    aspectRatio?: string;
-    maxWidth?: number;
-    maxHeight?: number;
+    aspectRatio?: string | undefined;
+    maxWidth?: number | undefined;
+    maxHeight?: number | undefined;
 }
 
 export class CroppedImageControl extends MediaControl {

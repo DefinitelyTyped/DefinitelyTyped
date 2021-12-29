@@ -8,7 +8,7 @@ import { NextHandleFunction } from 'connect';
 import { FormOptions } from 'multiparty';
 
 export interface FormDataOptions extends FormOptions {
-    autoClean?: boolean;
+    autoClean?: boolean | undefined;
 }
 
 export function parse(options?: FormDataOptions): NextHandleFunction;

@@ -10,11 +10,11 @@ import {
     useTracking,
 } from "react-tracking";
 
-function customEventReporter(data: { page?: string }) {}
+function customEventReporter(data: { page?: string | undefined }) {}
 
 interface Props {
     someProp: string;
-    tracking?: TrackingProp;
+    tracking?: TrackingProp | undefined;
 }
 
 interface State {

@@ -10,11 +10,11 @@ declare namespace header {
          * The string which will be put at the beginning of the css file.
          * @default ''
          */
-        header?: string;
+        header?: string | undefined;
         /**
          * The string which will be put at the beginning of the css file.
          */
-        banner?: string;
+        banner?: string | undefined;
     }
     type Header = Plugin<Options>;
 }

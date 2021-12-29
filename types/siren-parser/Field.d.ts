@@ -2,12 +2,12 @@ export default function(field: object): Field;
 
 export interface Field {
     name: string;
-    class?: string[];
-    type?: FieldType;
-    title?: string;
+    class?: string[] | undefined;
+    type?: FieldType | undefined;
+    title?: string | undefined;
     value?: any;
-    min?: number;
-    max?: number;
+    min?: number | undefined;
+    max?: number | undefined;
 
     hasClass(cls: string | RegExp): boolean;
 }

@@ -16,25 +16,25 @@ export interface WalkStats extends Stats {
         | "characterDevice"
         | "FIFO"
         | "socket";
-    error?: NodeJS.ErrnoException;
+    error?: NodeJS.ErrnoException | undefined;
 }
 
 export interface WalkOptionsListeners {
-    names?: WalkNamesEventCallback;
-    files?: WalkStatArrayEventCallback;
-    file?: WalkStatEventCallback;
-    directories?: WalkStatArrayEventCallback;
-    directory?: WalkStatEventCallback;
-    end?: WalkStatArrayEventCallback;
-    errors?: WalkStatArrayEventCallback;
-    nodeError?: WalkStatArrayEventCallback;
-    directoryError?: WalkStatArrayEventCallback;
+    names?: WalkNamesEventCallback | undefined;
+    files?: WalkStatArrayEventCallback | undefined;
+    file?: WalkStatEventCallback | undefined;
+    directories?: WalkStatArrayEventCallback | undefined;
+    directory?: WalkStatEventCallback | undefined;
+    end?: WalkStatArrayEventCallback | undefined;
+    errors?: WalkStatArrayEventCallback | undefined;
+    nodeError?: WalkStatArrayEventCallback | undefined;
+    directoryError?: WalkStatArrayEventCallback | undefined;
 }
 
 export interface WalkOptions {
-    followLinks?: boolean;
-    filters?: string[];
-    listeners?: WalkOptionsListeners;
+    followLinks?: boolean | undefined;
+    filters?: string[] | undefined;
+    listeners?: WalkOptionsListeners | undefined;
 }
 
 export type WalkNext = () => void;

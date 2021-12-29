@@ -12,31 +12,31 @@ interface ITimeEntryRegionalOptions {
      *
      * default: False
      */
-    show24Hours?: boolean;
+    show24Hours?: boolean | undefined;
     /**
      * The separator between time portions. This is one of the regional settings fields.
      *
      * default: ':'
      */
-    separator?: string;
+    separator?: string | undefined;
     /**
      * The text that separates the time from the AM and PM indicators. This is one of the regional settings fields.
      *
      * default: ''
      */
-    ampmPrefix?: string;
+    ampmPrefix?: string | undefined;
     /**
      * The AM and PM display text. This is one of the regional settings fields.
      *
      * default: ['AM','PM']
      */
-    ampmNames?: string[];
+    ampmNames?: string[] | undefined;
     /**
      * The tooltip text for the spinner buttons. This is one of the regional settings fields.
      *
      * default: ['Now', 'Previous field', 'Next field', 'Increment', 'Decrement']
      */
-    spinnerTexts?: string[];
+    spinnerTexts?: string[] | undefined;
 }
 
 interface ITimeEntryOptions extends ITimeEntryRegionalOptions {
@@ -45,53 +45,53 @@ interface ITimeEntryOptions extends ITimeEntryRegionalOptions {
      *
      * default: False
      */
-    showSeconds?: boolean;
+    showSeconds?: boolean | undefined;
     /**
      * Indicate whether to restrict hours to just those in one day (false) or to allow for any value for hours (true).
      *
      * default: false
      */
-    unlimitedHours?: boolean;
+    unlimitedHours?: boolean | undefined;
     /**
      * Add content to display after each time field. This may contain HTML markup.
      *
      * default: ''
      */
-    appendText?: string;
+    appendText?: string | undefined;
     /**
      * The increment/decrement values for each of the time portions - hours, minutes, and seconds.
      * Use this to constrain the portions, e.g. [1, 15, 0] restricts the times to quarter hours.
      *
      * default: [1,1,1]
      */
-    timeSteps?: number[];
+    timeSteps?: number[] | undefined;
     /**
      * The number of the portion of the time field to highlight initially.
      * Use 0 for hours, 1 for minutes, etc., or null for the user selection.
      *
      * default: null
      */
-    initialField?: number;
+    initialField?: number | undefined;
     /**
      * Set to true to allow direct entry of a time from the keyboard without needing to type separators,
      * i.e. the field moves on after two digits.
      *
      * default: false
      */
-    noSeparatorEntry?: boolean;
+    noSeparatorEntry?: boolean | undefined;
     /**
      * true to have the tab key exit this field and move to the next one, or false to have the tab key step
      * through the date subfields.
      *
      * default: false
      */
-    tabToExit?: boolean;
+    tabToExit?: boolean | undefined;
     /**
      * Set to true to use the mouse wheel for increment/decrement if possible, or false to never use it.
      *
      * default: true
      */
-    useMouseWheel?: boolean;
+    useMouseWheel?: boolean | undefined;
     /**
      * The default time to show when no other value has been entered. This may be a Date object
      * (but the year/month/day values are ignored), a string in the current time format, a numeric
@@ -102,14 +102,14 @@ interface ITimeEntryOptions extends ITimeEntryRegionalOptions {
      *
      * default: null
      */
-    defaultTime?: Date | number | string;
+    defaultTime?: Date | number | string | undefined;
     /**
      * The minimum time that may be selected, or null for no limit. See defaultTime for a description
      * of the possible formats. Use an array of number for hours, minutes, seconds in conjunction with unlimitedHours.
      *
      * default: null
      */
-    minTime?: Date | number | number[] | string;
+    minTime?: Date | number | number[] | string | undefined;
     /**
      * The maximum time that may be selected, or null for no limit. See defaultTime for a description of the possible
      * formats. Use an array of number for hours, minutes, seconds in conjunction with unlimitedHours.
@@ -119,7 +119,7 @@ interface ITimeEntryOptions extends ITimeEntryRegionalOptions {
      *
      * default: null
      */
-    maxTime?: Date | number | number[] | string;
+    maxTime?: Date | number | number[] | string | undefined;
     /**
      * The URL for the spinner images to use, or '' for no spinner. The file must contain seven images horizontally
      * for the normal view, then for each "button" pressed (now, previous, next, increment, and decrement), and,
@@ -127,7 +127,7 @@ interface ITimeEntryOptions extends ITimeEntryRegionalOptions {
      *
      * default: 'spinnerDefault.png'
      */
-    spinnerImage?: string;
+    spinnerImage?: string | undefined;
     /**
      * The dimensions of the spinner image for determining which "button" was clicked. The first two values are the
      * width and height of the individual images, the third is the size of the central button for setting the current
@@ -135,7 +135,7 @@ interface ITimeEntryOptions extends ITimeEntryRegionalOptions {
      *
      * default: [20, 20, 8]
      */
-    spinnerSize?: number[];
+    spinnerSize?: number[] | undefined;
     /**
      * The URL for an expanded spinner image to use, or '' for no expansion. The layout is the same as for
      * spinnerImage but should be a larger size. The expanded spinner appears when the user hovers over the
@@ -143,7 +143,7 @@ interface ITimeEntryOptions extends ITimeEntryRegionalOptions {
      *
      * default: ''
      */
-    spinnerBigImage?: string;
+    spinnerBigImage?: string | undefined;
     /**
      * The dimensions of the expanded spinner image for determining which "button" was clicked. The first two values
      * are the width and height of the individual images, the third is the size of the central button for setting the
@@ -151,13 +151,13 @@ interface ITimeEntryOptions extends ITimeEntryRegionalOptions {
      *
      * default: [40, 40, 16]
      */
-    spinnerBigSize?: number[];
+    spinnerBigSize?: number[] | undefined;
     /**
      * Set to true to have only the increment and decrement buttons on the spinner, or false for all the buttons.
      *
      * default: false
      */
-    spinnerIncDecOnly?: boolean;
+    spinnerIncDecOnly?: boolean | undefined;
     /**
      * The times in milliseconds for the auto-repeat feature on the increment and decrement spinner buttons.
      * The first value is the initial delay and the second one is the subsequent delay. Hold the mouse button down
@@ -165,7 +165,7 @@ interface ITimeEntryOptions extends ITimeEntryRegionalOptions {
      *
      * default: [500, 250]
      */
-    spinnerRepeat?: number[];
+    spinnerRepeat?: number[] | undefined;
     /**
      * A function that accepts an input field and returns a settings object containing new settings for the time
      * entry for this field. For example, you can use it to set up a time range wherein both fields restrict the
@@ -174,7 +174,7 @@ interface ITimeEntryOptions extends ITimeEntryRegionalOptions {
      *
      * default: null
      */
-    beforeShow?: Function;
+    beforeShow?: Function | undefined;
     /**
      * A function that accepts the old and new times, and minimum and maximum times, and returns an updated time.
      * This refers to the associated input field. This call is made just before the time is updated into the field
@@ -182,7 +182,7 @@ interface ITimeEntryOptions extends ITimeEntryRegionalOptions {
      *
      * default: null
      */
-    beforeSetTime?: Function;
+    beforeSetTime?: Function | undefined;
 }
 
 interface ITimeEntry {

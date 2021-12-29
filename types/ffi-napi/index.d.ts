@@ -1,5 +1,5 @@
 // Type definitions for ffi-napi 4.0
-// Project: http://github.com/node-ffi-napi/node-ffi-napi
+// Project: https://github.com/node-ffi-napi/node-ffi-napi
 // Definitions by: Keerthi Niranjan <https://github.com/keerthi16>, Kiran Niranjan <https://github.com/KiranNiranjan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -15,9 +15,9 @@ import StructType = ref_struct.StructType;
 export type ArgTypesInferenceMarker = ["void"];
 
 export interface LibraryFunctionOptions {
-    abi?: number;
-    async?: boolean;
-    varargs?: boolean;
+    abi?: number | undefined;
+    async?: boolean | undefined;
+    varargs?: boolean | undefined;
 }
 
 /**
@@ -445,7 +445,7 @@ declare module "ref-napi" {
         /**
          * Determines the FFI_TYPE set for a type.
          */
-        ffi_type?: PFFI_TYPE;
+        ffi_type?: PFFI_TYPE | undefined;
     }
 }
 

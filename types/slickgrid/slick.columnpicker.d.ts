@@ -6,7 +6,7 @@
 declare namespace Slick {
     export namespace Controls {
         export interface SlickColumnPickerOptions {
-            fadeSpeed?: number;
+            fadeSpeed?: number | undefined;
         }
 
         export class ColumnPicker<T extends Slick.SlickData> {

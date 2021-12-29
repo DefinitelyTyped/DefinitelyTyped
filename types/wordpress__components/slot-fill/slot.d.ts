@@ -7,7 +7,7 @@ declare namespace Slot {
          * with a given `name` will render the `children` of any associated
          * `Fill`s.
          */
-        name?: string;
+        name?: string | undefined;
         /**
          * Optional render function which takes a reference to the slot's
          * `Fill`s as a param. It allows to perform additional processing and
@@ -25,13 +25,13 @@ declare namespace Slot {
          *
          * @defaultValue false
          */
-        bubblesVirtually?: boolean;
+        bubblesVirtually?: boolean | undefined;
         /**
          * Props to pass into the first child of the <Fill /> component.
          */
         fillProps?: {
             [k: string]: any;
-        };
+        } | undefined;
     }
 }
 declare const Slot: ComponentType<Slot.Props>;

@@ -1,7 +1,6 @@
 // Type definitions for passport-unique-token 1.0
 // Project: https://github.com/Lughino/passport-unique-token
-// Definitions by: briman0094 <https://github.com/briman0094>
-//                 Maxime LUCE <https://github.com/SomaticIT>
+// Definitions by: Maxime LUCE <https://github.com/SomaticIT>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -9,20 +8,20 @@ import passport = require('passport');
 import express = require('express');
 
 export interface StrategyOptions {
-    tokenField?: string;
-    tokenQuery?: string;
-    tokenParams?: string;
-    tokenHeader?: string;
-    failedOnMissing?: boolean;
-    passReqToCallback?: false;
+    tokenField?: string | undefined;
+    tokenQuery?: string | undefined;
+    tokenParams?: string | undefined;
+    tokenHeader?: string | undefined;
+    failedOnMissing?: boolean | undefined;
+    passReqToCallback?: false | undefined;
 }
 
 export interface StrategyOptionsWithRequest {
-    tokenField?: string;
-    tokenQuery?: string;
-    tokenParams?: string;
-    tokenHeader?: string;
-    failedOnMissing?: boolean;
+    tokenField?: string | undefined;
+    tokenQuery?: string | undefined;
+    tokenParams?: string | undefined;
+    tokenHeader?: string | undefined;
+    failedOnMissing?: boolean | undefined;
     passReqToCallback: true;
 }
 

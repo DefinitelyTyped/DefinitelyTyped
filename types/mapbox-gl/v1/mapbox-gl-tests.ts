@@ -37,7 +37,7 @@ expectType<mapboxgl.PluginStatus>(mapboxgl.getRTLTextPluginStatus());
  * Set RTL Text Plugin
  */
 // $ExpectType void
-mapboxgl.setRTLTextPlugin('http://github.com', e => {}, false);
+mapboxgl.setRTLTextPlugin('https://github.com', e => {}, false);
 
 // $ExpectType void
 mapboxgl.prewarm();
@@ -694,7 +694,7 @@ new mapboxgl.FullscreenControl(null);
 new mapboxgl.FullscreenControl({});
 new mapboxgl.FullscreenControl({ container: document.querySelector('body') });
 
-// $expectType boolean
+// $ExpectType boolean
 map.hasControl(attributionControl);
 
 declare var lnglat: mapboxgl.LngLat;

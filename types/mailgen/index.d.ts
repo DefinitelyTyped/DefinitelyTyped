@@ -27,15 +27,15 @@ declare namespace Mailgen {
 
     interface CustomTheme {
         path: string;
-        plaintextPath?: string;
+        plaintextPath?: string | undefined;
     }
 
     interface Product {
         name: string;
         link: string;
-        logo?: string;
-        logoHeight?: string;
-        copyright?: string;
+        logo?: string | undefined;
+        logoHeight?: string | undefined;
+        copyright?: string | undefined;
     }
 
     interface Content {
@@ -43,21 +43,21 @@ declare namespace Mailgen {
     }
 
     interface ContentBody {
-        name?: string;
-        greeting?: string;
-        signature?: string;
-        title?: string;
-        intro?: string | string[];
-        action?: Action | Action[];
-        table?: Table | Table[];
+        name?: string | undefined;
+        greeting?: string | undefined;
+        signature?: string | undefined;
+        title?: string | undefined;
+        intro?: string | string[] | undefined;
+        action?: Action | Action[] | undefined;
+        table?: Table | Table[] | undefined;
         dictionary?: any;
-        goToAction?: GoToAction;
-        outro?: string | string[];
+        goToAction?: GoToAction | undefined;
+        outro?: string | string[] | undefined;
     }
 
     interface Table {
         data: any[];
-        columns?: ColumnOptions[];
+        columns?: ColumnOptions[] | undefined;
     }
 
     interface ColumnOptions {

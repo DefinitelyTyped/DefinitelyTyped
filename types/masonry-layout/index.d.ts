@@ -1,7 +1,7 @@
 // Type definitions for Masonry 4.2
 // Project: https://github.com/desandro/masonry, https://masonry.desandro.com
 // Definitions by: Mark Wilson <https://github.com/m-a-wilson>, Travis Brown <https://github.com/warriorrocker>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 /// <reference types="jquery" />
@@ -41,30 +41,30 @@ declare class Masonry {
 
 declare namespace Masonry {
     interface HiddenOrVisibleStyleOption {
-        transform?: string;
-        opacity?: number;
+        transform?: string | undefined;
+        opacity?: number | undefined;
     }
 
     interface Options {
         // layout
-        itemSelector?: string;
+        itemSelector?: string | undefined;
         columnWidth?: any;
-        percentPosition?: boolean;
+        percentPosition?: boolean | undefined;
         gutter?: any;
-        stamp?: string;
-        fitWidth?: boolean;
-        originLeft?: boolean;
-        originTop?: boolean;
-        horizontalOrder?: boolean;
-        hiddenStyle?: HiddenOrVisibleStyleOption;
-        visibleStyle?: HiddenOrVisibleStyleOption;
+        stamp?: string | undefined;
+        fitWidth?: boolean | undefined;
+        originLeft?: boolean | undefined;
+        originTop?: boolean | undefined;
+        horizontalOrder?: boolean | undefined;
+        hiddenStyle?: HiddenOrVisibleStyleOption | undefined;
+        visibleStyle?: HiddenOrVisibleStyleOption | undefined;
 
         // setup
-        containerStyle?: {};
+        containerStyle?: {} | undefined;
         transitionDuration?: any;
-        stagger?: string | number;
-        resize?: boolean;
-        initLayout?: boolean;
+        stagger?: string | number | undefined;
+        resize?: boolean | undefined;
+        initLayout?: boolean | undefined;
     }
 }
 

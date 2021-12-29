@@ -10,8 +10,8 @@ declare function envCi(options?: envCi.Options): envCi.CiEnv;
 
 declare namespace envCi {
     interface Options {
-        env?: { [envVar: string]: any };
-        cwd?: string;
+        env?: { [envVar: string]: any } | undefined;
+        cwd?: string | undefined;
     }
 
     type CiEnv = NonCiEnv | KnownCiEnv;
@@ -40,8 +40,8 @@ declare namespace envCi {
 
     interface NonCiEnv {
         isCi: false;
-        branch?: string;
-        commit?: string;
+        branch?: string | undefined;
+        commit?: string | undefined;
     }
 
     interface CiEnvBase {
@@ -52,15 +52,15 @@ declare namespace envCi {
         name: 'Appveyor';
         service: 'appveyor';
         commit: string;
-        tag?: string;
+        tag?: string | undefined;
         build: string;
         buildUrl: string;
         branch: string;
         job: string;
         jobUrl: string;
-        pr?: string;
+        pr?: string | undefined;
         isPr: boolean;
-        prBranch?: string;
+        prBranch?: string | undefined;
         slug: string;
         root: string;
     }
@@ -80,7 +80,7 @@ declare namespace envCi {
         name: 'Bitbucket Pipelines';
         service: 'bitbucket';
         commit: string;
-        tag?: string;
+        tag?: string | undefined;
         build: string;
         buildUrl: string;
         branch: string;
@@ -92,13 +92,13 @@ declare namespace envCi {
         name: 'Bitrise';
         service: 'bitrise';
         commit: string;
-        tag?: string;
+        tag?: string | undefined;
         build: string;
         buildUrl: string;
         branch: string;
-        pr?: string;
+        pr?: string | undefined;
         isPr: boolean;
-        prBranch?: string;
+        prBranch?: string | undefined;
         slug: string;
     }
 
@@ -106,11 +106,11 @@ declare namespace envCi {
         name: 'Buddy';
         service: 'buddy';
         commit: string;
-        tag?: string;
+        tag?: string | undefined;
         build: string;
         buildUrl: string;
-        branch?: string;
-        pr?: string;
+        branch?: string | undefined;
+        pr?: string | undefined;
         isPr: boolean;
         slug: string;
     }
@@ -121,11 +121,11 @@ declare namespace envCi {
         build: string;
         buildUrl: string;
         commit: string;
-        tag?: string;
+        tag?: string | undefined;
         branch: string;
-        pr?: string;
+        pr?: string | undefined;
         isPr: boolean;
-        prBranch?: string;
+        prBranch?: string | undefined;
         slug: string;
         root: string;
     }
@@ -137,11 +137,11 @@ declare namespace envCi {
         buildUrl: string;
         job: string;
         commit: string;
-        tag?: string;
-        branch?: string;
-        pr?: string;
+        tag?: string | undefined;
+        branch?: string | undefined;
+        pr?: string | undefined;
         isPr: boolean;
-        prBranch?: string;
+        prBranch?: string | undefined;
         slug: string;
     }
 
@@ -149,13 +149,13 @@ declare namespace envCi {
         name: 'Cirrus CI';
         service: 'cirrus';
         commit: string;
-        tag?: string;
+        tag?: string | undefined;
         build: string;
         buildUrl: string;
         job: string;
         jobUrl: string;
         branch: string;
-        pr?: string;
+        pr?: string | undefined;
         isPr: boolean;
         slug: string;
         root: string;
@@ -178,9 +178,9 @@ declare namespace envCi {
         build: string;
         buildUrl: string;
         branch: string;
-        pr?: string;
+        pr?: string | undefined;
         isPr: boolean;
-        prBranch?: string;
+        prBranch?: string | undefined;
         slug: string;
         root: string;
     }
@@ -199,13 +199,13 @@ declare namespace envCi {
         name: 'Drone';
         service: 'drone';
         commit: string;
-        tag?: string;
+        tag?: string | undefined;
         build: string;
         branch: string;
         job: string;
-        pr?: string;
+        pr?: string | undefined;
         isPr: boolean;
-        prBranch?: string;
+        prBranch?: string | undefined;
         slug: string;
     }
 
@@ -213,7 +213,7 @@ declare namespace envCi {
         name: 'GitLab CI/CD';
         service: 'gitlab';
         commit: string;
-        tag?: string;
+        tag?: string | undefined;
         build: string;
         buildUrl: string;
         job: string;
@@ -230,9 +230,9 @@ declare namespace envCi {
         branch: string;
         build: string;
         buildUrl: string;
-        pr?: string;
+        pr?: string | undefined;
         isPr: boolean;
-        prBranch?: string;
+        prBranch?: string | undefined;
         root: string;
     }
 
@@ -240,8 +240,8 @@ declare namespace envCi {
         name: 'Sail CI';
         service: 'sail';
         commit: string;
-        branch?: string;
-        pr?: string;
+        branch?: string | undefined;
+        pr?: string | undefined;
         isPr: boolean;
         slug: string;
         root: string;
@@ -252,10 +252,10 @@ declare namespace envCi {
         service: 'semaphore';
         commit: string;
         build: string;
-        branch?: string;
-        pr?: string;
+        branch?: string | undefined;
+        pr?: string | undefined;
         isPr: boolean;
-        prBranch?: string;
+        prBranch?: string | undefined;
         slug: string;
         root: string;
     }
@@ -264,14 +264,14 @@ declare namespace envCi {
         name: 'Shippable';
         service: 'shippable';
         commit: string;
-        tag?: string;
+        tag?: string | undefined;
         build: string;
         buildUrl: string;
         branch: string;
         job: string;
-        pr?: string;
+        pr?: string | undefined;
         isPr: boolean;
-        prBranch?: string;
+        prBranch?: string | undefined;
         slug: string;
         root: string;
     }
@@ -279,24 +279,24 @@ declare namespace envCi {
     interface TeamCityEnv extends CiEnvBase {
         name: 'TeamCity';
         service: 'teamcity';
-        branch?: string;
+        branch?: string | undefined;
         commit: string;
         build: string;
         slug: string;
-        root?: string;
+        root?: string | undefined;
     }
 
     interface TravisEnv extends CiEnvBase {
         name: 'Travis CI';
         service: 'travis';
         commit: string;
-        tag?: string;
+        tag?: string | undefined;
         build: string;
         buildUrl: string;
-        branch?: string;
+        branch?: string | undefined;
         job: string;
         jobUrl: string;
-        pr?: string;
+        pr?: string | undefined;
         isPr: boolean;
         prBranch: string;
         slug: string;
@@ -309,9 +309,9 @@ declare namespace envCi {
         commit: string;
         build: string;
         branch: string;
-        pr?: string;
+        pr?: string | undefined;
         isPr: boolean;
-        prBranch?: string;
+        prBranch?: string | undefined;
         root: string;
     }
 

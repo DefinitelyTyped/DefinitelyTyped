@@ -6,7 +6,7 @@ declare module '../../' {
     }
 
     interface ShowHintOptions {
-        word?: RegExp;
-        range?: number;
+        word?: RegExp | undefined;
+        range?: number | undefined;
     }
 }

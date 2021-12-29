@@ -38,6 +38,9 @@
 //                 Zach Anthony <https://github.com/zach-anthony>
 //                 Peter Savnik <https://github.com/savnik>
 //                 Sven Milewski <https://github.com/svenmilewski>
+//                 Benoit Boure <https://github.com/bboure>
+//                 James Lakin <https://github.com/jamesorlakin>
+//                 Ross Gerbasi <https://github.com/aphex>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -50,6 +53,7 @@ export * from "./trigger/api-gateway-authorizer";
 export * from "./trigger/api-gateway-proxy";
 export * from "./trigger/appsync-resolver";
 // CloudTrail section just describes using S3 to trigger on cloudtrail changes.
+export * from "./trigger/cdk-custom-resource";
 export * from "./trigger/cloudformation-custom-resource";
 export * from "./trigger/cloudfront-request";
 export * from "./trigger/cloudfront-response";
@@ -74,6 +78,7 @@ export * from "./trigger/iot";
 export * from "./trigger/kinesis-firehose-transformation";
 export * from "./trigger/kinesis-stream";
 export * from "./trigger/lex";
+export * from "./trigger/lex-v2";
 // RDS events are delivered using SNS events...
 export * from "./trigger/s3";
 export * from "./trigger/s3-batch";
@@ -81,5 +86,6 @@ export * from "./trigger/ses";
 export * from "./trigger/sns";
 export * from "./trigger/sqs";
 export * from './trigger/msk';
+export * from "./trigger/secretsmanager";
 
 export as namespace AWSLambda;

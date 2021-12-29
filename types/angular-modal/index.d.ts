@@ -13,9 +13,9 @@ declare namespace angularModal {
     type AngularModalJQuerySelector = string | Element | Element[] | JQuery | Function | any[] | {}; // Possible arguments to IAugmentedJQueryStatic
 
     interface AngularModalSettings {
-        controller?: AngularModalControllerDefinition;
-        controllerAs?: string;
-        container?: AngularModalJQuerySelector;
+        controller?: AngularModalControllerDefinition | undefined;
+        controllerAs?: string | undefined;
+        container?: AngularModalJQuerySelector | undefined;
     }
 
     export interface AngularModalSettingsWithTemplate extends AngularModalSettings {

@@ -1,6 +1,6 @@
 // Type definitions for socket.io-file 2.0
 // Project: https://github.com/rico345100/socket.io-file
-// Definitions by: Dief Bell <https://github.com/merrickking>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -15,13 +15,13 @@ declare class SocketIOFile {
 
 interface Options {
     uploadDir: string | { [dirId: string]: string };
-    maxFileSize?: number;
-    accepts?: string[];
-    chunkSize?: number;
-    transmissionDelay?: number;
-    overwrite?: boolean;
-    rename?: (fileName: string, fileInfo: FileInfo) => string | string;
-    resume?: boolean;
+    maxFileSize?: number | undefined;
+    accepts?: string[] | undefined;
+    chunkSize?: number | undefined;
+    transmissionDelay?: number | undefined;
+    overwrite?: boolean | undefined;
+    rename?: ((fileName: string, fileInfo: FileInfo) => string | string) | undefined;
+    resume?: boolean | undefined;
 }
 
 interface FileInfo {

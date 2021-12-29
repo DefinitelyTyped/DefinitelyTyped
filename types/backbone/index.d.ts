@@ -25,27 +25,28 @@ declare namespace Backbone {
     type _StringKey<T> = keyof T & string;
 
     interface AddOptions extends Silenceable {
-        at?: number;
-        merge?: boolean;
-        sort?: boolean;
+        at?: number | undefined;
+        merge?: boolean | undefined;
+        sort?: boolean | undefined;
     }
 
     interface CollectionSetOptions extends Parseable, Silenceable {
-        add?: boolean;
-        remove?: boolean;
-        merge?: boolean;
-        at?: number;
-        sort?: boolean;
+        add?: boolean | undefined;
+        remove?: boolean | undefined;
+        merge?: boolean | undefined;
+        at?: number | undefined;
+        sort?: boolean | undefined;
     }
 
     interface HistoryOptions extends Silenceable {
-        pushState?: boolean;
-        root?: string;
+        pushState?: boolean | undefined;
+        root?: string | undefined;
+        hashChange?: boolean | undefined;
     }
 
     interface NavigateOptions {
-        trigger?: boolean;
-        replace?: boolean;
+        trigger?: boolean | undefined;
+        replace?: boolean | undefined;
     }
 
     interface RouterOptions {
@@ -53,31 +54,31 @@ declare namespace Backbone {
     }
 
     interface Silenceable {
-        silent?: boolean;
+        silent?: boolean | undefined;
     }
 
     interface Validable {
-        validate?: boolean;
+        validate?: boolean | undefined;
     }
 
     interface Waitable {
-        wait?: boolean;
+        wait?: boolean | undefined;
     }
 
     interface Parseable {
-        parse?: boolean;
+        parse?: boolean | undefined;
     }
 
     interface PersistenceOptions extends Partial<_Omit<JQueryAjaxSettings, 'success' | 'error'>> {
         // TODO: Generalize modelOrCollection
-        success?: (modelOrCollection: any, response: any, options: any) => void;
-        error?: (modelOrCollection: any, response: any, options: any) => void;
-        emulateJSON?: boolean;
-        emulateHTTP?: boolean;
+        success?: ((modelOrCollection: any, response: any, options: any) => void) | undefined;
+        error?: ((modelOrCollection: any, response: any, options: any) => void) | undefined;
+        emulateJSON?: boolean | undefined;
+        emulateHTTP?: boolean | undefined;
     }
 
     interface ModelConstructorOptions<TModel extends Model = Model> extends ModelSetOptions, Parseable {
-        collection?: Collection<TModel>;
+        collection?: Collection<TModel> | undefined;
     }
 
     type CombinedModelConstructorOptions<E, M extends Model<any, any, E> = Model> = ModelConstructorOptions<M> & E;
@@ -87,13 +88,13 @@ declare namespace Backbone {
     interface ModelFetchOptions extends PersistenceOptions, ModelSetOptions, Parseable {}
 
     interface ModelSaveOptions extends Silenceable, Waitable, Validable, Parseable, PersistenceOptions {
-        patch?: boolean;
+        patch?: boolean | undefined;
     }
 
     interface ModelDestroyOptions extends Waitable, PersistenceOptions {}
 
     interface CollectionFetchOptions extends PersistenceOptions, Parseable, CollectionSetOptions {
-        reset?: boolean;
+        reset?: boolean | undefined;
     }
 
     type ObjectHash = Record<string, any>;
@@ -212,7 +213,7 @@ declare namespace Backbone {
      * E - Extensions to the model constructor options. You can accept additional constructor options
      * by listing them in the E parameter.
      */
-    class Model<T extends ObjectHash = any, S = ModelSetOptions, E = {}> extends ModelBase implements Events {
+    class Model<T extends ObjectHash = any, S = ModelSetOptions, E = any> extends ModelBase implements Events {
         /**
          * Do not use, prefer TypeScript's extend functionality.
          */
@@ -531,21 +532,21 @@ declare namespace Backbone {
         private _updateHash(location: Location, fragment: string, replace: boolean): void;
     }
 
-    interface ViewOptions<TModel extends Model = Model> {
-        model?: TModel;
+    interface ViewOptions<TModel extends (Model | undefined) = Model, TElement extends Element = HTMLElement> {
+        model?: TModel | undefined;
         // TODO: quickfix, this can't be fixed easy. The collection does not need to have the same model as the parent view.
-        collection?: Collection<any>; // was: Collection<TModel>;
-        el?: HTMLElement | JQuery | string;
-        id?: string;
-        attributes?: Record<string, any>;
-        className?: string;
-        tagName?: string;
-        events?: _Result<EventsHash>;
+        collection?: Collection<any> | undefined; // was: Collection<TModel>;
+        el?: TElement | JQuery | string | undefined;
+        id?: string | undefined;
+        attributes?: Record<string, any> | undefined;
+        className?: string | undefined;
+        tagName?: string | undefined;
+        events?: _Result<EventsHash> | undefined;
     }
 
     type ViewEventListener = (event: JQuery.Event) => void;
 
-    class View<TModel extends Model = Model> extends EventsMixin implements Events {
+    class View<TModel extends (Model | undefined) = Model, TElement extends Element = HTMLElement> extends EventsMixin implements Events {
         /**
          * Do not use, prefer TypeScript's extend functionality.
          */
@@ -557,10 +558,10 @@ declare namespace Backbone {
          * instantiation logic is run.
          * @see https://backbonejs.org/#View-preinitialize
          */
-        preinitialize(options?: ViewOptions<TModel>): void;
+        preinitialize(options?: ViewOptions<TModel, TElement>): void;
 
-        constructor(options?: ViewOptions<TModel>);
-        initialize(options?: ViewOptions<TModel>): void;
+        constructor(options?: ViewOptions<TModel, TElement>);
+        initialize(options?: ViewOptions<TModel, TElement>): void;
 
         /**
          * Events hash or a method returning the events hash that maps events/selectors to methods on your View.
@@ -569,15 +570,16 @@ declare namespace Backbone {
          */
         events(): EventsHash;
 
-        model: TModel;
-        collection: Collection<TModel>;
-        setElement(element: HTMLElement | JQuery): this;
-        id?: string;
+        // A conditional type used here to prevent `TS2532: Object is possibly 'undefined'`
+        model: TModel extends Model ? TModel : undefined;
+        collection: Collection<any>;
+        setElement(element: TElement | JQuery): this;
+        id?: string | undefined;
         cid: string;
-        className?: string;
+        className?: string | undefined;
         tagName: string;
 
-        el: HTMLElement;
+        el: TElement;
         $el: JQuery;
         attributes: Record<string, any>;
         $(selector: string): JQuery;
@@ -589,7 +591,7 @@ declare namespace Backbone {
         undelegate(eventName: string, selector?: string, listener?: ViewEventListener): this;
 
         protected _removeElement(): void;
-        protected _setElement(el: HTMLElement | JQuery): void;
+        protected _setElement(el: TElement | JQuery): void;
         protected _createElement(tagName: string): void;
         protected _ensureElement(): void;
         protected _setAttributes(attributes: Record<string, any>): void;

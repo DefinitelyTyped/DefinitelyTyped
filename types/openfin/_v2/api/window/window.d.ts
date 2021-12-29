@@ -69,7 +69,7 @@ export interface FrameInfo {
     name: string;
     uuid: string;
     entityType: EntityType;
-    parent?: Identity;
+    parent?: Identity | undefined;
 }
 export interface Area {
     height: number;
@@ -84,40 +84,40 @@ export interface PrinterInfo {
     isDefault: boolean;
 }
 interface Margins {
-    marginType?: 'default' | 'none' | 'printableArea' | 'custom';
-    top?: number;
-    bottom?: number;
-    left?: number;
-    right?: number;
+    marginType?: 'default' | 'none' | 'printableArea' | 'custom' | undefined;
+    top?: number | undefined;
+    bottom?: number | undefined;
+    left?: number | undefined;
+    right?: number | undefined;
 }
 interface Dpi {
-    horizontal?: number;
-    vertical?: number;
+    horizontal?: number | undefined;
+    vertical?: number | undefined;
 }
 export interface PrintOptions {
-    silent?: boolean;
-    printBackground?: boolean;
-    deviceName?: string;
-    color?: boolean;
-    margins?: Margins;
-    landscape?: boolean;
-    scaleFactor?: number;
-    pagesPerSheet?: number;
-    collate?: boolean;
-    copies?: number;
-    pageRanges?: Record<string, number>;
-    duplexMode?: 'simplex' | 'shortEdge' | 'longEdge';
-    dpi?: Dpi;
+    silent?: boolean | undefined;
+    printBackground?: boolean | undefined;
+    deviceName?: string | undefined;
+    color?: boolean | undefined;
+    margins?: Margins | undefined;
+    landscape?: boolean | undefined;
+    scaleFactor?: number | undefined;
+    pagesPerSheet?: number | undefined;
+    collate?: boolean | undefined;
+    copies?: number | undefined;
+    pageRanges?: Record<string, number> | undefined;
+    duplexMode?: 'simplex' | 'shortEdge' | 'longEdge' | undefined;
+    dpi?: Dpi | undefined;
 }
 interface WindowMovementOptions {
     moveIndependently: boolean;
 }
 export interface FindInPageOptions {
-    forward?: boolean;
-    findNext?: boolean;
-    matchCase?: boolean;
-    wordStart?: boolean;
-    medialCapitalAsWordStart?: boolean;
+    forward?: boolean | undefined;
+    findNext?: boolean | undefined;
+    matchCase?: boolean | undefined;
+    wordStart?: boolean | undefined;
+    medialCapitalAsWordStart?: boolean | undefined;
 }
 /**
  * @typedef { object } Margins

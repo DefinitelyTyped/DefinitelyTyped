@@ -1,7 +1,6 @@
 // Type definitions for @storefront-ui 0.7
 // Project: https://github.com/vuestorefront/storefront-ui
 // Definitions by:  Luïs De Zutter <https://github.com/ImLuze>
-//                  Wojciech Sikora <https://github.com/SikoraWojciech>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 
@@ -72,10 +71,10 @@ export interface Breadcrumb {
 }
 
 export interface Source {
-    mobile?: { url: string };
-    desktop?: { url: string };
-    big?: { url: string };
-    zoom?: { url: string };
+    mobile?: { url: string } | undefined;
+    desktop?: { url: string } | undefined;
+    big?: { url: string } | undefined;
+    zoom?: { url: string } | undefined;
 }
 
 export interface Image extends Source {

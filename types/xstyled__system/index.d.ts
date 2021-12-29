@@ -12,7 +12,7 @@ export interface StyleFunc {
     meta: {
         props: ReadonlyArray<string>;
         getStyle: Readonly<any>;
-        generators?: ReadonlyArray<any>;
+        generators?: ReadonlyArray<any> | undefined;
     };
 }
 
@@ -67,15 +67,15 @@ export const transition: StyleFunc;
 export const basics: StyleFunc;
 
 export interface OpacityProps {
-    readonly opacity?: ResponsiveValue<CSS.Property.Opacity>;
+    readonly opacity?: ResponsiveValue<CSS.Property.Opacity> | undefined;
 }
 
 export interface OverflowProps {
-    readonly overflow?: ResponsiveValue<CSS.Property.Overflow>;
+    readonly overflow?: ResponsiveValue<CSS.Property.Overflow> | undefined;
 }
 
 export interface TransitionProps<TLength = StyledSystemLength> {
-    readonly transition?: ResponsiveValue<CSS.Property.Transition<TLength>>;
+    readonly transition?: ResponsiveValue<CSS.Property.Transition<TLength>> | undefined;
 }
 
 export interface BasicsProps extends OpacityProps, OverflowProps, TransitionProps {}
@@ -99,69 +99,69 @@ export const py: StyleFunc;
 export const space: StyleFunc;
 
 export interface MarginProps<TLength = StyledSystemLength> {
-    readonly m?: ResponsiveValue<CSS.Property.MarginTop<TLength>>;
-    readonly margin?: ResponsiveValue<CSS.Property.MarginTop<TLength>>;
+    readonly m?: ResponsiveValue<CSS.Property.MarginTop<TLength>> | undefined;
+    readonly margin?: ResponsiveValue<CSS.Property.MarginTop<TLength>> | undefined;
 }
 
 export interface MarginTopProps<TLength = StyledSystemLength> {
-    readonly mt?: ResponsiveValue<CSS.Property.MarginTop<TLength>>;
-    readonly marginTop?: ResponsiveValue<CSS.Property.MarginTop<TLength>>;
+    readonly mt?: ResponsiveValue<CSS.Property.MarginTop<TLength>> | undefined;
+    readonly marginTop?: ResponsiveValue<CSS.Property.MarginTop<TLength>> | undefined;
 }
 
 export interface MarginRightProps<TLength = StyledSystemLength> {
-    readonly mr?: ResponsiveValue<CSS.Property.MarginRight<TLength>>;
-    readonly marginRight?: ResponsiveValue<CSS.Property.MarginRight<TLength>>;
+    readonly mr?: ResponsiveValue<CSS.Property.MarginRight<TLength>> | undefined;
+    readonly marginRight?: ResponsiveValue<CSS.Property.MarginRight<TLength>> | undefined;
 }
 
 export interface MarginBottomProps<TLength = StyledSystemLength> {
-    readonly mb?: ResponsiveValue<CSS.Property.MarginBottom<TLength>>;
-    readonly marginBottom?: ResponsiveValue<CSS.Property.MarginBottom<TLength>>;
+    readonly mb?: ResponsiveValue<CSS.Property.MarginBottom<TLength>> | undefined;
+    readonly marginBottom?: ResponsiveValue<CSS.Property.MarginBottom<TLength>> | undefined;
 }
 
 export interface MarginLeftProps<TLength = StyledSystemLength> {
-    readonly ml?: ResponsiveValue<CSS.Property.MarginLeft<TLength>>;
-    readonly marginLeft?: ResponsiveValue<CSS.Property.MarginLeft<TLength>>;
+    readonly ml?: ResponsiveValue<CSS.Property.MarginLeft<TLength>> | undefined;
+    readonly marginLeft?: ResponsiveValue<CSS.Property.MarginLeft<TLength>> | undefined;
 }
 
 export interface MarginXProps<TLength = StyledSystemLength> {
-    readonly mx?: ResponsiveValue<CSS.Property.MarginLeft<TLength>>;
+    readonly mx?: ResponsiveValue<CSS.Property.MarginLeft<TLength>> | undefined;
 }
 
 export interface MarginYProps<TLength = StyledSystemLength> {
-    readonly my?: ResponsiveValue<CSS.Property.MarginTop<TLength>>;
+    readonly my?: ResponsiveValue<CSS.Property.MarginTop<TLength>> | undefined;
 }
 
 export interface PaddingProps<TLength = StyledSystemLength> {
-    readonly p?: ResponsiveValue<CSS.Property.Padding<TLength>>;
-    readonly padding?: ResponsiveValue<CSS.Property.Padding<TLength>>;
+    readonly p?: ResponsiveValue<CSS.Property.Padding<TLength>> | undefined;
+    readonly padding?: ResponsiveValue<CSS.Property.Padding<TLength>> | undefined;
 }
 
 export interface PaddingTopProps<TLength = StyledSystemLength> {
-    readonly pt?: ResponsiveValue<CSS.Property.PaddingTop<TLength>>;
-    readonly paddingTop?: ResponsiveValue<CSS.Property.PaddingTop<TLength>>;
+    readonly pt?: ResponsiveValue<CSS.Property.PaddingTop<TLength>> | undefined;
+    readonly paddingTop?: ResponsiveValue<CSS.Property.PaddingTop<TLength>> | undefined;
 }
 
 export interface PaddingRightProps<TLength = StyledSystemLength> {
-    readonly pr?: ResponsiveValue<CSS.Property.PaddingRight<TLength>>;
-    readonly paddingRight?: ResponsiveValue<CSS.Property.PaddingRight<TLength>>;
+    readonly pr?: ResponsiveValue<CSS.Property.PaddingRight<TLength>> | undefined;
+    readonly paddingRight?: ResponsiveValue<CSS.Property.PaddingRight<TLength>> | undefined;
 }
 
 export interface PaddingBottomProps<TLength = StyledSystemLength> {
-    readonly pb?: ResponsiveValue<CSS.Property.PaddingBottom<TLength>>;
-    readonly paddingBottom?: ResponsiveValue<CSS.Property.PaddingBottom<TLength>>;
+    readonly pb?: ResponsiveValue<CSS.Property.PaddingBottom<TLength>> | undefined;
+    readonly paddingBottom?: ResponsiveValue<CSS.Property.PaddingBottom<TLength>> | undefined;
 }
 
 export interface PaddingLeftProps<TLength = StyledSystemLength> {
-    readonly pl?: ResponsiveValue<CSS.Property.PaddingLeft<TLength>>;
-    readonly paddingLeft?: ResponsiveValue<CSS.Property.PaddingLeft<TLength>>;
+    readonly pl?: ResponsiveValue<CSS.Property.PaddingLeft<TLength>> | undefined;
+    readonly paddingLeft?: ResponsiveValue<CSS.Property.PaddingLeft<TLength>> | undefined;
 }
 
 export interface PaddingXProps<TLength = StyledSystemLength> {
-    readonly px?: ResponsiveValue<CSS.Property.PaddingLeft<TLength>>;
+    readonly px?: ResponsiveValue<CSS.Property.PaddingLeft<TLength>> | undefined;
 }
 
 export interface PaddingYProps<TLength = StyledSystemLength> {
-    readonly py?: ResponsiveValue<CSS.Property.PaddingTop<TLength>>;
+    readonly py?: ResponsiveValue<CSS.Property.PaddingTop<TLength>> | undefined;
 }
 
 export interface SpaceProps
@@ -194,39 +194,39 @@ export const verticalAlign: StyleFunc;
 export const layout: StyleFunc;
 
 export interface DisplayProps {
-    readonly display?: ResponsiveValue<CSS.Property.Display>;
+    readonly display?: ResponsiveValue<CSS.Property.Display> | undefined;
 }
 
 export interface WidthProps<TLength = StyledSystemLength> {
-    readonly width?: ResponsiveValue<CSS.Property.Width<TLength>>;
+    readonly width?: ResponsiveValue<CSS.Property.Width<TLength>> | undefined;
 }
 
 export interface HeightProps<TLength = StyledSystemLength> {
-    readonly height?: ResponsiveValue<CSS.Property.Height<TLength>>;
+    readonly height?: ResponsiveValue<CSS.Property.Height<TLength>> | undefined;
 }
 
 export interface MaxWidthProps<TLength = StyledSystemLength> {
-    readonly maxWidth?: ResponsiveValue<CSS.Property.MaxWidth<TLength>>;
+    readonly maxWidth?: ResponsiveValue<CSS.Property.MaxWidth<TLength>> | undefined;
 }
 
 export interface MaxHeightProps<TLength = StyledSystemLength> {
-    readonly maxHeight?: ResponsiveValue<CSS.Property.MaxHeight<TLength>>;
+    readonly maxHeight?: ResponsiveValue<CSS.Property.MaxHeight<TLength>> | undefined;
 }
 
 export interface MinWidthProps<TLength = StyledSystemLength> {
-    readonly minWidth?: ResponsiveValue<CSS.Property.MinWidth<TLength>>;
+    readonly minWidth?: ResponsiveValue<CSS.Property.MinWidth<TLength>> | undefined;
 }
 
 export interface MinHeightProps<TLength = StyledSystemLength> {
-    readonly minHeight?: ResponsiveValue<CSS.Property.MinHeight<TLength>>;
+    readonly minHeight?: ResponsiveValue<CSS.Property.MinHeight<TLength>> | undefined;
 }
 
 export interface SizeProps<TLength = StyledSystemLength> {
-    readonly size?: ResponsiveValue<CSS.Property.Height<TLength>>;
+    readonly size?: ResponsiveValue<CSS.Property.Height<TLength>> | undefined;
 }
 
 export interface VerticalAlignProps<TLength = StyledSystemLength> {
-    readonly verticalAlign?: ResponsiveValue<CSS.Property.VerticalAlign<TLength>>;
+    readonly verticalAlign?: ResponsiveValue<CSS.Property.VerticalAlign<TLength>> | undefined;
 }
 
 export interface LayoutProps
@@ -247,11 +247,11 @@ export const row: StyleFunc;
 export const xgrids: StyleFunc;
 
 export interface ColProps {
-    readonly col?: ResponsiveValue<string | number | boolean>;
+    readonly col?: ResponsiveValue<string | number | boolean> | undefined;
 }
 
 export interface RowProps {
-    readonly row?: ResponsiveValue<string | number | boolean>;
+    readonly row?: ResponsiveValue<string | number | boolean> | undefined;
 }
 
 export interface XGridProps extends ColProps, RowProps {}
@@ -269,35 +269,35 @@ export const textTransform: StyleFunc;
 export const typography: StyleFunc;
 
 export interface FontFamilyProps {
-    readonly fontFamily?: ResponsiveValue<CSS.Property.FontFamily | number>;
+    readonly fontFamily?: ResponsiveValue<CSS.Property.FontFamily | number> | undefined;
 }
 
 export interface FontSizeProps<TLength = StyledSystemLength> {
-    readonly fontSize?: ResponsiveValue<CSS.Property.FontSize<TLength>>;
+    readonly fontSize?: ResponsiveValue<CSS.Property.FontSize<TLength>> | undefined;
 }
 
 export interface LineHeightProps<TLength = StyledSystemLength> {
-    readonly lineHeight?: ResponsiveValue<CSS.Property.LineHeight<TLength>>;
+    readonly lineHeight?: ResponsiveValue<CSS.Property.LineHeight<TLength>> | undefined;
 }
 
 export interface FontWeightProps {
-    readonly fontWeight?: ResponsiveValue<CSS.Property.FontWeight | AliasKey>;
+    readonly fontWeight?: ResponsiveValue<CSS.Property.FontWeight | AliasKey> | undefined;
 }
 
 export interface FontStyleProps {
-    readonly fontStyle?: ResponsiveValue<CSS.Property.FontStyle>;
+    readonly fontStyle?: ResponsiveValue<CSS.Property.FontStyle> | undefined;
 }
 
 export interface TextAlignProps {
-    readonly textAlign?: ResponsiveValue<CSS.Property.TextAlign>;
+    readonly textAlign?: ResponsiveValue<CSS.Property.TextAlign> | undefined;
 }
 
 export interface LetterSpacingProps<TLength = StyledSystemLength> {
-    readonly letterSpacing?: ResponsiveValue<CSS.Property.LetterSpacing<TLength>>;
+    readonly letterSpacing?: ResponsiveValue<CSS.Property.LetterSpacing<TLength>> | undefined;
 }
 
 export interface TextTransformProps {
-    readonly textTransform?: ResponsiveValue<CSS.Property.TextTransform>;
+    readonly textTransform?: ResponsiveValue<CSS.Property.TextTransform> | undefined;
 }
 
 export interface TypographyProps
@@ -329,55 +329,55 @@ export const order: StyleFunc;
 export const flexboxes: StyleFunc;
 
 export interface AlignItemsProps {
-    readonly alignItems?: ResponsiveValue<CSS.Property.AlignItems>;
+    readonly alignItems?: ResponsiveValue<CSS.Property.AlignItems> | undefined;
 }
 
 export interface AlignContentProps {
-    readonly alignContent?: ResponsiveValue<CSS.Property.AlignContent>;
+    readonly alignContent?: ResponsiveValue<CSS.Property.AlignContent> | undefined;
 }
 
 export interface JustifyContentProps {
-    readonly justifyContent?: ResponsiveValue<CSS.Property.JustifyContent>;
+    readonly justifyContent?: ResponsiveValue<CSS.Property.JustifyContent> | undefined;
 }
 
 export interface JustifyItemsProps {
-    readonly justifyItems?: ResponsiveValue<CSS.Property.JustifyItems>;
+    readonly justifyItems?: ResponsiveValue<CSS.Property.JustifyItems> | undefined;
 }
 
 export interface FlexWrapProps {
-    readonly flexWrap?: ResponsiveValue<CSS.Property.FlexWrap>;
+    readonly flexWrap?: ResponsiveValue<CSS.Property.FlexWrap> | undefined;
 }
 
 export interface FlexGrowProps {
-    readonly flexGrow?: ResponsiveValue<CSS.Property.FlexGrow>;
+    readonly flexGrow?: ResponsiveValue<CSS.Property.FlexGrow> | undefined;
 }
 
 export interface FlexShrinkProps {
-    readonly flexShrink?: ResponsiveValue<CSS.Property.FlexShrink>;
+    readonly flexShrink?: ResponsiveValue<CSS.Property.FlexShrink> | undefined;
 }
 
 export interface FlexBasisProps<TLength = StyledSystemLength> {
-    readonly flexBasis?: ResponsiveValue<CSS.Property.FlexBasis<TLength>>;
+    readonly flexBasis?: ResponsiveValue<CSS.Property.FlexBasis<TLength>> | undefined;
 }
 
 export interface FlexDirectionProps {
-    readonly flexDirection?: ResponsiveValue<CSS.Property.FlexDirection>;
+    readonly flexDirection?: ResponsiveValue<CSS.Property.FlexDirection> | undefined;
 }
 
 export interface FlexProps<TLength = StyledSystemLength> {
-    readonly flex?: ResponsiveValue<CSS.Property.Flex<TLength>>;
+    readonly flex?: ResponsiveValue<CSS.Property.Flex<TLength>> | undefined;
 }
 
 export interface JustifySelfProps {
-    readonly justifySelf?: ResponsiveValue<CSS.Property.JustifySelf>;
+    readonly justifySelf?: ResponsiveValue<CSS.Property.JustifySelf> | undefined;
 }
 
 export interface AlignSelfProps {
-    readonly alignSelf?: ResponsiveValue<CSS.Property.AlignSelf>;
+    readonly alignSelf?: ResponsiveValue<CSS.Property.AlignSelf> | undefined;
 }
 
 export interface OrderProps {
-    readonly order?: ResponsiveValue<CSS.Property.Order>;
+    readonly order?: ResponsiveValue<CSS.Property.Order> | undefined;
 }
 
 export interface FlexboxesProps
@@ -413,53 +413,53 @@ export const gridArea: StyleFunc;
 export const grids: StyleFunc;
 
 export interface GridGapProps<TLength = StyledSystemLength> {
-    readonly gridGap?: ResponsiveValue<CSS.Property.GridGap<TLength>>;
+    readonly gridGap?: ResponsiveValue<CSS.Property.GridGap<TLength>> | undefined;
 }
 
 export interface GridColumnGapProps<TLength = StyledSystemLength> {
-    readonly gridColumnGap?: ResponsiveValue<CSS.Property.GridColumnGap<TLength>>;
+    readonly gridColumnGap?: ResponsiveValue<CSS.Property.GridColumnGap<TLength>> | undefined;
 }
 
 export interface GridRowGapProps<TLength = StyledSystemLength> {
-    readonly gridRowGap?: ResponsiveValue<CSS.Property.GridRowGap<TLength>>;
+    readonly gridRowGap?: ResponsiveValue<CSS.Property.GridRowGap<TLength>> | undefined;
 }
 
 export interface GridColumnProps {
-    readonly gridColumn?: ResponsiveValue<CSS.Property.GridColumn>;
+    readonly gridColumn?: ResponsiveValue<CSS.Property.GridColumn> | undefined;
 }
 
 export interface GridRowProps {
-    readonly gridRow?: ResponsiveValue<CSS.Property.GridRow>;
+    readonly gridRow?: ResponsiveValue<CSS.Property.GridRow> | undefined;
 }
 
 export interface GridAutoFlowProps {
-    readonly gridAutoFlow?: ResponsiveValue<CSS.Property.GridAutoFlow>;
+    readonly gridAutoFlow?: ResponsiveValue<CSS.Property.GridAutoFlow> | undefined;
 }
 
 export interface GridAutoColumnsProps<TLength = StyledSystemLength> {
-    readonly gridAutoColumns?: ResponsiveValue<CSS.Property.GridAutoColumns<TLength>>;
+    readonly gridAutoColumns?: ResponsiveValue<CSS.Property.GridAutoColumns<TLength>> | undefined;
 }
 
 export interface GridAutoRowsProps<TLength = StyledSystemLength> {
-    readonly gridAutoRows?: ResponsiveValue<CSS.Property.GridAutoRows<TLength>>;
+    readonly gridAutoRows?: ResponsiveValue<CSS.Property.GridAutoRows<TLength>> | undefined;
 }
 
 export interface GridTemplateColumnsProps<TLength = StyledSystemLength> {
-    readonly gridTemplateColumns?: ResponsiveValue<CSS.Property.GridTemplateColumns<TLength>>;
+    readonly gridTemplateColumns?: ResponsiveValue<CSS.Property.GridTemplateColumns<TLength>> | undefined;
 }
 
 export interface GridTemplateRowsProps<TLength = StyledSystemLength> {
-    readonly gridTemplateRows?: ResponsiveValue<CSS.Property.GridTemplateRows<TLength>>;
+    readonly gridTemplateRows?: ResponsiveValue<CSS.Property.GridTemplateRows<TLength>> | undefined;
 }
 
 export interface GridTemplateAreasProps {
-    readonly gridTemplateAreas?: ResponsiveValue<CSS.Property.GridTemplateAreas>;
+    readonly gridTemplateAreas?: ResponsiveValue<CSS.Property.GridTemplateAreas> | undefined;
 }
 
 export interface GridAreaProps {
     // Number allowed here but is converted into px value, which is invalid.
     // readonly gridArea?: ResponsiveValue<CSS.Property.GridArea>;
-    readonly gridArea?: ResponsiveValue<string>;
+    readonly gridArea?: ResponsiveValue<string> | undefined;
 }
 
 export interface GridsProps
@@ -487,28 +487,28 @@ export const backgroundRepeat: StyleFunc;
 export const backgrounds: StyleFunc;
 
 export interface BackgroundProps {
-    readonly background?: ResponsiveValue<CSS.Property.Background<string>>;
+    readonly background?: ResponsiveValue<CSS.Property.Background<string>> | undefined;
 }
 
 export interface BackgroundColorProps<TLength = StyledSystemLength> {
-    readonly bg?: ResponsiveValue<CSS.Property.Background<TLength>>;
-    readonly backgroundColor?: ResponsiveValue<CSS.Property.Background<TLength>>;
+    readonly bg?: ResponsiveValue<CSS.Property.Background<TLength>> | undefined;
+    readonly backgroundColor?: ResponsiveValue<CSS.Property.Background<TLength>> | undefined;
 }
 
 export interface BackgroundImageProps {
-    readonly backgroundImage?: ResponsiveValue<CSS.Property.BackgroundImage>;
+    readonly backgroundImage?: ResponsiveValue<CSS.Property.BackgroundImage> | undefined;
 }
 
 export interface BackgroundSizeProps<TLength = StyledSystemLength> {
-    readonly backgroundSize?: ResponsiveValue<CSS.Property.BackgroundSize<TLength>>;
+    readonly backgroundSize?: ResponsiveValue<CSS.Property.BackgroundSize<TLength>> | undefined;
 }
 
 export interface BackgroundPositionProps<TLength = StyledSystemLength> {
-    readonly backgroundPosition?: ResponsiveValue<CSS.Property.BackgroundPosition<TLength>>;
+    readonly backgroundPosition?: ResponsiveValue<CSS.Property.BackgroundPosition<TLength>> | undefined;
 }
 
 export interface BackgroundRepeatProps {
-    readonly backgroundRepeat?: ResponsiveValue<CSS.Property.BackgroundRepeat>;
+    readonly backgroundRepeat?: ResponsiveValue<CSS.Property.BackgroundRepeat> | undefined;
 }
 
 export interface BackgroundsProps
@@ -530,27 +530,27 @@ export const left: StyleFunc;
 export const positioning: StyleFunc;
 
 export interface PositionProps {
-    readonly position?: ResponsiveValue<CSS.Property.Position>;
+    readonly position?: ResponsiveValue<CSS.Property.Position> | undefined;
 }
 
 export interface ZIndexProps {
-    readonly zIndex?: ResponsiveValue<CSS.Property.ZIndex | AliasKey>;
+    readonly zIndex?: ResponsiveValue<CSS.Property.ZIndex | AliasKey> | undefined;
 }
 
 export interface TopProps<TLength = StyledSystemLength> {
-    readonly top?: ResponsiveValue<CSS.Property.Top<TLength>>;
+    readonly top?: ResponsiveValue<CSS.Property.Top<TLength>> | undefined;
 }
 
 export interface RightProps<TLength = StyledSystemLength> {
-    readonly right?: ResponsiveValue<CSS.Property.Right<TLength>>;
+    readonly right?: ResponsiveValue<CSS.Property.Right<TLength>> | undefined;
 }
 
 export interface BottomProps<TLength = StyledSystemLength> {
-    readonly bottom?: ResponsiveValue<CSS.Property.Bottom<TLength>>;
+    readonly bottom?: ResponsiveValue<CSS.Property.Bottom<TLength>> | undefined;
 }
 
 export interface LeftProps<TLength = StyledSystemLength> {
-    readonly left?: ResponsiveValue<CSS.Property.Left<TLength>>;
+    readonly left?: ResponsiveValue<CSS.Property.Left<TLength>> | undefined;
 }
 
 export interface PositioningProps extends PositionProps, ZIndexProps, TopProps, RightProps, BottomProps, LeftProps {}
@@ -573,55 +573,55 @@ export const borderRadius: StyleFunc;
 export const borders: StyleFunc;
 
 export interface BorderProps<TLength = StyledSystemLength> {
-    readonly border?: ResponsiveValue<CSS.Property.Border<TLength>>;
+    readonly border?: ResponsiveValue<CSS.Property.Border<TLength>> | undefined;
 }
 
 export interface BorderColorProps {
-    readonly borderColor?: ResponsiveValue<CSS.Property.BorderColor>;
+    readonly borderColor?: ResponsiveValue<CSS.Property.BorderColor> | undefined;
 }
 
 export interface BorderTopProps<TLength = StyledSystemLength> {
-    readonly borderTop?: ResponsiveValue<CSS.Property.BorderTop<TLength>>;
+    readonly borderTop?: ResponsiveValue<CSS.Property.BorderTop<TLength>> | undefined;
 }
 
 export interface BorderTopColorProps {
-    readonly borderTopColor?: ResponsiveValue<CSS.Property.BorderColor>;
+    readonly borderTopColor?: ResponsiveValue<CSS.Property.BorderColor> | undefined;
 }
 
 export interface BorderRightProps<TLength = StyledSystemLength> {
-    readonly borderRight?: ResponsiveValue<CSS.Property.BorderRight<TLength>>;
+    readonly borderRight?: ResponsiveValue<CSS.Property.BorderRight<TLength>> | undefined;
 }
 
 export interface BorderRightColorProps {
-    readonly borderRightColor?: ResponsiveValue<CSS.Property.BorderColor>;
+    readonly borderRightColor?: ResponsiveValue<CSS.Property.BorderColor> | undefined;
 }
 
 export interface BorderBottomProps<TLength = StyledSystemLength> {
-    readonly borderBottom?: ResponsiveValue<CSS.Property.BorderBottom<TLength>>;
+    readonly borderBottom?: ResponsiveValue<CSS.Property.BorderBottom<TLength>> | undefined;
 }
 
 export interface BorderBottomColorProps {
-    readonly borderBottomColor?: ResponsiveValue<CSS.Property.BorderColor>;
+    readonly borderBottomColor?: ResponsiveValue<CSS.Property.BorderColor> | undefined;
 }
 
 export interface BorderLeftProps<TLength = StyledSystemLength> {
-    readonly borderLeft?: ResponsiveValue<CSS.Property.BorderLeft<TLength>>;
+    readonly borderLeft?: ResponsiveValue<CSS.Property.BorderLeft<TLength>> | undefined;
 }
 
 export interface BorderLeftColorProps {
-    readonly borderLeftColor?: ResponsiveValue<CSS.Property.BorderColor>;
+    readonly borderLeftColor?: ResponsiveValue<CSS.Property.BorderColor> | undefined;
 }
 
 export interface BorderWidthProps<TLength = StyledSystemLength> {
-    readonly borderWidth?: ResponsiveValue<CSS.Property.BorderWidth<TLength>>;
+    readonly borderWidth?: ResponsiveValue<CSS.Property.BorderWidth<TLength>> | undefined;
 }
 
 export interface BorderStyleProps {
-    readonly borderStyle?: ResponsiveValue<CSS.Property.BorderStyle | number>;
+    readonly borderStyle?: ResponsiveValue<CSS.Property.BorderStyle | number> | undefined;
 }
 
 export interface BorderRadiusProps<TLength = StyledSystemLength> {
-    readonly borderRadius?: ResponsiveValue<CSS.Property.BorderRadius<TLength>>;
+    readonly borderRadius?: ResponsiveValue<CSS.Property.BorderRadius<TLength>> | undefined;
 }
 
 export interface BordersProps
@@ -646,11 +646,11 @@ export const textShadow: StyleFunc;
 export const shadows: StyleFunc;
 
 export interface BoxShadowProps {
-    readonly boxShadow?: ResponsiveValue<CSS.Property.BoxShadow | number>;
+    readonly boxShadow?: ResponsiveValue<CSS.Property.BoxShadow | number> | undefined;
 }
 
 export interface TextShadowProps {
-    readonly textShadow?: ResponsiveValue<CSS.Property.TextShadow | number>;
+    readonly textShadow?: ResponsiveValue<CSS.Property.TextShadow | number> | undefined;
 }
 
 export interface ShadowsProps extends BoxShadowProps, TextShadowProps {}
@@ -722,10 +722,10 @@ export function style(config: {
 // ----- VARIANT -----
 
 export interface VariantArgs {
-    key?: string;
-    default?: string | number;
-    prop?: string;
-    variants?: object;
+    key?: string | undefined;
+    default?: string | number | undefined;
+    prop?: string | undefined;
+    variants?: object | undefined;
 }
 
 export function variant({ key, default: defaultValue, prop, variants }: VariantArgs): (props: any) => any;

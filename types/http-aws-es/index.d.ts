@@ -11,7 +11,7 @@ import * as AWS from "aws-sdk";
 
 declare module "elasticsearch" {
     interface ConfigOptions {
-        awsConfig?: AWS.Config;
+        awsConfig?: AWS.Config | undefined;
     }
 }
 

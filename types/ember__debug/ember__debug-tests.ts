@@ -80,6 +80,84 @@ deprecate('missing options', false); // $ExpectError
 deprecate('missing options body', true, {}); // $ExpectError
 deprecate('missing options id', true, { until: 'v4.0.0' }); // $ExpectError
 deprecate('missing options until', true, { id: 'some.deprecation' }); // $ExpectError
-deprecate('a valid deprecation without url', true, { id: 'some.deprecation', until: 'v4.0.0' }); // $ExpectType void
-deprecate('incorrect options url', true, { id: 'some.deprecation', until: 'v4.0.0', url: 123 }); // $ExpectError
-deprecate('a valid deprecation with url', true, { id: 'some.deprecation', until: 'v4.0.0', url: 'https://example.com/ember-deprecations-yo' }); // $ExpectType void
+deprecate('a valid deprecation without `url`', true, { // $ExpectType void
+  id: 'some.deprecation',
+  until: 'v4.0.0',
+  for: 'some.namespace',
+  since: {
+    enabled: 'some.version',
+  },
+});
+deprecate('incorrect options `url`', true, {
+  id: 'some.deprecation',
+  until: 'v4.0.0',
+  url: 123, // $ExpectError
+  for: 'some.namespace',
+  since: {
+    enabled: 'some.version',
+  },
+});
+deprecate('a valid deprecation with `url`', true, { // $ExpectType void
+  id: 'some.deprecation',
+  until: 'v4.0.0',
+  url: 'https://example.com/ember-deprecations-yo',
+  for: 'some.namespace',
+  since: {
+    enabled: 'some.version',
+  },
+});
+deprecate('a valid deprecation with `for`', true, { // $ExpectType void
+  id: 'some.deprecation',
+  until: 'v4.0.0',
+  for: 'some.namespace',
+  since: {
+    enabled: 'some.version',
+  },
+});
+deprecate('incorrect options `for`', true, {
+  id: 'some.deprecation',
+  until: 'v4.0.0',
+  for: 123, // $ExpectError
+  since: {
+    enabled: 'some.version',
+  },
+});
+deprecate('a valid deprecation with `since`', true, { // $ExpectType void
+  id: 'some.deprecation',
+  until: 'v4.0.0',
+  for: 'some.namespace',
+  since: {
+    available: 'some.version',
+  },
+});
+deprecate('a valid deprecation with `since`', true, { // $ExpectType void
+  id: 'some.deprecation',
+  until: 'v4.0.0',
+  for: 'some.namespace',
+  since: {
+    available: 'some.version',
+    enabled: 'some.version',
+  },
+});
+deprecate('incorrect options `since`', true, {
+  id: 'some.deprecation',
+  until: 'v4.0.0',
+  for: 'some.namespace',
+  since: 123, // $ExpectError
+});
+deprecate('incorrect options `since`', true, {
+  id: 'some.deprecation',
+  until: 'v4.0.0',
+  for: 'some.namespace',
+  since: {
+    wrongKey: 'some.version', // $ExpectError
+  },
+});
+deprecate('incorrect options `since`', true, {
+  id: 'some.deprecation',
+  until: 'v4.0.0',
+  for: 'some.namespace',
+  since: {
+    available: 123, // $ExpectError
+  },
+});

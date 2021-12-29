@@ -415,7 +415,7 @@ ReactDOM.render(
 
 // Inject just dispatch and don't listen to store
 
-const AppWrap = (props: DispatchProp<any> & { children?: React.ReactNode }) => <div />
+const AppWrap = (props: DispatchProp<any> & { children?: React.ReactNode | undefined }) => <div />
 const WrappedApp = connect()(AppWrap);
 
 <WrappedApp />
@@ -535,7 +535,7 @@ connect(undefined, mapDispatchToProps6)(TodoApp);
 
 interface TestProp {
     property1: number;
-    someOtherProperty?: string;
+    someOtherProperty?: string | undefined;
 }
 interface TestState {
     isLoaded: boolean;
@@ -562,7 +562,7 @@ interface HelloMessageProps {
     dispatch: Dispatch<any>
     name: string;
  }
-const HelloMessage: React.StatelessComponent<HelloMessageProps> = (props) => {
+const HelloMessage: React.FunctionComponent<HelloMessageProps> = (props) => {
     return <div>Hello {props.name}</div>;
 }
 let ConnectedHelloMessage = connect()(HelloMessage);
@@ -826,7 +826,7 @@ namespace TestDispatchToPropsAsObject {
     };
 
     type Props = { title: string; } & typeof dispatchToProps;
-    const HeaderComponent: React.StatelessComponent<Props> = (props) => {
+    const HeaderComponent: React.FunctionComponent<Props> = (props) => {
         return <h1>{props.title}</h1>;
     }
 
@@ -838,7 +838,7 @@ namespace TestWrappedComponent {
     type InnerProps = {
         name: string,
     };
-    const Inner: React.StatelessComponent<InnerProps> = (props) => {
+    const Inner: React.FunctionComponent<InnerProps> = (props) => {
         return <h1>{props.name}</h1>;
     }
 

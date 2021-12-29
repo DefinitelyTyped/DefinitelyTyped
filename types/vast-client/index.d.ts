@@ -183,7 +183,7 @@ export class VASTClient {
 }
 
 export class VASTParser extends EventEmitter {
-    rootURL?: string;
+    rootURL?: string | undefined;
 
     /**
      * util method for handling urls, it is used to make the requests.
@@ -295,23 +295,23 @@ export interface VastRequestOptions {
     /**
      * A custom timeout for the requests (default 0)
      */
-    timeout?: number;
+    timeout?: number | undefined;
     /**
      * A boolean to enable the withCredentials options for the XHR and FLASH URLHandlers (default false)
      */
-    withCredentials?: boolean;
+    withCredentials?: boolean | undefined;
     /**
      * A number of Wrapper responses that can be received with no InLine response (default 0)
      */
-    wrapperLimit?: number;
+    wrapperLimit?: number | undefined;
     /**
      * Custom urlhandler to be used instead of the default ones urlhandlers
      */
-    urlHandler?: VASTClientUrlHandler;
+    urlHandler?: VASTClientUrlHandler | undefined;
     /**
      * Allows you to parse all the ads contained in the VAST or to parse them ad by ad or adPod by adPod (default true)
      */
-    resolveAll?: boolean;
+    resolveAll?: boolean | undefined;
 }
 
 export interface VastResponse {
@@ -329,9 +329,9 @@ export interface VastError {
      *      VAST error 303: No VAST response after one or more Wrappers.
      */
     ERRORCODE: string | number;
-    ERRORMESSAGE?: string;
-    extensions?: VastAdExtension[];
-    system?: VastSystem | string | null;
+    ERRORMESSAGE?: string | undefined;
+    extensions?: VastAdExtension[] | undefined;
+    system?: VastSystem | string | null | undefined;
 }
 
 export interface VastCreative {
@@ -503,18 +503,18 @@ export interface TrackOptions {
     /**
      * An optional Object of parameters(vast macros) to be used in the tracking calls.
      */
-    macros?: Record<string, any>;
+    macros?: Record<string, any> | undefined;
     /**
      * Indicate if the event has to be tracked only once.
      * Default: false
      */
-    once?: boolean;
+    once?: boolean | undefined;
 }
 
 export interface ParseVastXmlOptions {
-    isRootVAST?: boolean;
-    url?: string | null;
-    wrapperDepth?: number;
-    allowMultipleAds?: boolean;
-    followAdditionalWrappers?: boolean;
+    isRootVAST?: boolean | undefined;
+    url?: string | null | undefined;
+    wrapperDepth?: number | undefined;
+    allowMultipleAds?: boolean | undefined;
+    followAdditionalWrappers?: boolean | undefined;
 }

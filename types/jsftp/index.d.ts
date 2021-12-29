@@ -9,12 +9,12 @@ import { Socket } from 'net';
 import { EventEmitter } from 'events';
 
 export interface JsftpOpts {
-    host?: string;
-    port?: number;
-    user?: string;
-    pass?: string;
-    createSocket?: ({ port, host }: { port: number, host: string }, firstAction: () => {}) => Socket;
-    useList?: boolean;
+    host?: string | undefined;
+    port?: number | undefined;
+    user?: string | undefined;
+    pass?: string | undefined;
+    createSocket?: (({ port, host }: { port: number, host: string }, firstAction: () => {}) => Socket) | undefined;
+    useList?: boolean | undefined;
 }
 
 export type ErrorCallback = (err: Error) => void;
@@ -43,7 +43,7 @@ export default class Ftp extends EventEmitter {
     raw(command: string, arg1: any, arg2: any, callback: RawCallback): void;
     raw(command: string, arg1: any, arg2: any, arg3: any, callback: RawCallback): void;
     raw(command: string, arg1: any, arg2: any, arg3: any, arg4: any, callback: RawCallback): void;
-
+    auth(user: string, pass: string, callback: RawCallback): void;
     keepAlive(timeInMs?: number): void;
 
     destroy(): void;

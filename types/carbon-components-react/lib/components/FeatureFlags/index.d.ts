@@ -16,8 +16,8 @@ export declare class FeatureFlagScope {
 }
 
 export interface FeatureFlagsProps {
-    children?: React.ReactNode;
-    flags?: FeatureFlagRecord;
+    children?: React.ReactNode | undefined;
+    flags?: FeatureFlagRecord | undefined;
 }
 
 declare const FeatureFlagContext: React.Context<FeatureFlagScope>;

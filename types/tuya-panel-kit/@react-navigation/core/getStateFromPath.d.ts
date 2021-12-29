@@ -2,12 +2,12 @@ import type { NavigationState, PartialState } from '../routers';
 import type { PathConfigMap } from './types';
 // tslint:disable-next-line strict-export-declare-modifiers interface-over-type-literal
 declare type Options = {
-    initialRouteName?: string;
+    initialRouteName?: string | undefined;
     screens: PathConfigMap;
 };
 // tslint:disable-next-line strict-export-declare-modifiers
 declare type ResultState = PartialState<NavigationState> & {
-    state?: ResultState;
+    state?: ResultState | undefined;
 };
 /**
  * Utility to parse a path string to initial state object accepted by the container.

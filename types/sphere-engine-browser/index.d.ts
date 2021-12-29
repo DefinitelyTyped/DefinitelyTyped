@@ -143,7 +143,7 @@ interface DirectoryStreamOptions {
      * from all subdirectories, at any depth. Only file entries will be yielded in this case.
      * @default false
      */
-    recursive?: boolean;
+    recursive?: boolean | undefined;
 }
 
 /**
@@ -156,14 +156,14 @@ interface FontOptions {
      * recommended that this option only be used in high-resolution games.
      * @default false
      */
-    antialias?: boolean;
+    antialias?: boolean | undefined;
 
     /**
      * `true` to enable automatic kerning. Kerning adjusts the spacing between each character so the
      * distance between adjacent characters appears uniform.
      * @default true
      */
-    kern?: boolean;
+    kern?: boolean | undefined;
 }
 
 /**
@@ -176,7 +176,7 @@ interface JobOptions {
      * empty.
      * @default false
      */
-    inBackground?: boolean;
+    inBackground?: boolean | undefined;
 
     /**
      * Job priority. Priority can be positive, negative, or even fractional. Higher priority jobs
@@ -184,14 +184,14 @@ interface JobOptions {
      * things are scheduled within a frame.
      * @default 0.0
      */
-    priority?: number;
+    priority?: number | undefined;
 }
 
 interface MouseEvent {
     key: MouseKey | null;
-    x?: number;
-    y?: number;
-    delta?: number;
+    x?: number | undefined;
+    y?: number | undefined;
+    delta?: number | undefined;
 }
 
 /**
@@ -220,19 +220,19 @@ interface SoundOptions {
      * L/R stereo balance. 0.0 is centered, +/- 1.0 is full right/left respectively.
      * @default 0.0
      */
-    pan?: number;
+    pan?: number | undefined;
 
     /**
      * Playback speed. 1.0 is normal speed.
      * @default 1.0
      */
-    speed?: number;
+    speed?: number | undefined;
 
     /**
      * Volume, as a percentage of the mixer's master volume. Sometimes called "gain".
      * @default 1.0
      */
-    volume?: number;
+    volume?: number | undefined;
 }
 
 /**
@@ -241,10 +241,10 @@ interface SoundOptions {
 interface Vertex {
     x: number;
     y: number;
-    z?: number;
-    u?: number;
-    v?: number;
-    color?: Color;
+    z?: number | undefined;
+    u?: number | undefined;
+    v?: number | undefined;
+    color?: Color | undefined;
 }
 
 /** Specifies the mode to use when opening a file. */
@@ -1887,27 +1887,27 @@ declare module 'console' {
          * activation.
          * @default null
          */
-        hotKey?: Key | null;
+        hotKey?: Key | null | undefined;
 
         /**
          * SphereFS path of a file to which all console output will be written, or `null` to disable
          * logging.
          * @default null
          */
-        logFileName?: string | null;
+        logFileName?: string | null | undefined;
 
         /**
          * The mouse button the player can use to display the console, or `null` to disable mouse
          * activation.
          * @default null
          */
-        mouseKey?: MouseKey | null;
+        mouseKey?: MouseKey | null | undefined;
 
         /**
          * Text to show next to the command prompt at the top of the console.
          * @default "$"
          */
-        prompt?: string;
+        prompt?: string | undefined;
     }
 
     /**
@@ -1983,8 +1983,8 @@ interface FieldDescriptor {
         | 'lstr32be'
         | 'lstr32le'
         | 'raw';
-    length?: number;
-    size?: number;
+    length?: number | undefined;
+    size?: number | undefined;
 }
 
 interface FileDescriptor {
@@ -2191,7 +2191,7 @@ declare module 'focus-target' {
          * Priority of the focus target. Higher-priority targets can take focus away from
          * lower-priority ones, but not vice versa.
          */
-        priority?: number;
+        priority?: number | undefined;
     }
 
     /**

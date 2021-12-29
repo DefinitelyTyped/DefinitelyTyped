@@ -25,9 +25,9 @@ export function query(queryType: string, tableName: string, fields?: any, data?:
 
 export interface IterableOptions {
     tableName: string;
-    fields?: string[];
-    params?: Array<Array<string | number>>;
-    data?: object;
+    fields?: string[] | undefined;
+    params?: Array<Array<string | number>> | undefined;
+    data?: object | undefined;
 }
 
 export interface connectionString {
@@ -50,5 +50,5 @@ export interface connectionString {
     /**
      * The maximum number of connections to create at once. (Default: 10)
      */
-    connectionLimit?: number;
+    connectionLimit?: number | undefined;
 }

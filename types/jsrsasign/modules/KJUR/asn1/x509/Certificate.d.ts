@@ -23,7 +23,7 @@ declare namespace jsrsasign.KJUR.asn1.x509 {
      * //     signature            BIT STRING  }
      */
     class Certificate extends ASN1Object {
-        constructor(params?: { prvkeyobj?: RSAKey | crypto.ECDSA | crypto.DSA; tbscertobj?: TBSCertificate });
+        constructor(params?: { prvkeyobj?: RSAKey | crypto.ECDSA | crypto.DSA | undefined; tbscertobj?: TBSCertificate | undefined });
 
         /**
          * sign TBSCertificate and set signature value internally
@@ -46,11 +46,15 @@ declare namespace jsrsasign.KJUR.asn1.x509 {
         /**
          * get PEM formatted certificate string after signed
          * @return PEM formatted string of certificate
+         * @since jsrsasign 9.0.0 asn1hex 2.0.0
+         * @description
+         * This method returns a string of PEM formatted
+         * certificate.
          * @example
-         * var cert = new KJUR.asn1.x509.Certificate({'tbscertobj': tbs, 'prvkeyobj': prvKey});
-         * cert.sign();
-         * var sPEM = cert.getPEMString();
+         * cert = new KJUR.asn1.x509.Certificate({...});
+         * cert.getPEM() &rarr;
+         * "-----BEGIN CERTIFICATE-----\r\n..."
          */
-        getPEMString(): string;
+        getPEM(): string;
     }
 }

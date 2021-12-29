@@ -5,40 +5,40 @@
 // TypeScript Version: 4.0
 
 export interface Address {
-  city?: string;
-  country?: string;
-  postalCode?: string;
-  state?: string;
-  street?: string;
+  city?: string | undefined;
+  country?: string | undefined;
+  postalCode?: string | undefined;
+  state?: string | undefined;
+  street?: string | undefined;
 }
 
 export type ISO8601Date = string;
 
 export interface Company {
-  name?: string;
-  id?: string|number;
-  industry?: string;
-  employee_count?: number;
-  plan?: string;
+  name?: string | undefined;
+  id?: string|number | undefined;
+  industry?: string | undefined;
+  employee_count?: number | undefined;
+  plan?: string | undefined;
 }
 
 export interface Traits {
-  address?: Address;
-  age?: number;
-  avatar?: string;
-  birthday?: ISO8601Date;
-  company?: Company;
-  createdAt?: ISO8601Date;
-  description?: string;
-  email?: string;
-  firstName?: string;
-  gender?: string;
-  id?: string;
-  lastName?: string;
-  name?: string;
-  title?: string;
-  username?: string;
-  website?: string;
+  address?: Address | undefined;
+  age?: number | undefined;
+  avatar?: string | undefined;
+  birthday?: ISO8601Date | undefined;
+  company?: Company | undefined;
+  createdAt?: ISO8601Date | undefined;
+  description?: string | undefined;
+  email?: string | undefined;
+  firstName?: string | undefined;
+  gender?: string | undefined;
+  id?: string | undefined;
+  lastName?: string | undefined;
+  name?: string | undefined;
+  title?: string | undefined;
+  username?: string | undefined;
+  website?: string | undefined;
 }
 
 export interface Options {

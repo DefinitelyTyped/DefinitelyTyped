@@ -22,13 +22,13 @@ declare namespace mri {
 
     interface Options {
         /** Additional aliases for specific flags */
-        alias?: DictionaryObject<ArrayOrString>;
+        alias?: DictionaryObject<ArrayOrString> | undefined;
         /** A flag or array of flags whose values are boolean */
-        boolean?: ArrayOrString;
+        boolean?: ArrayOrString | undefined;
         /** Default values for flags */
-        default?: DictionaryObject;
-        string?: ArrayOrString;
-        unknown?: (flag: string) => void;
+        default?: DictionaryObject | undefined;
+        string?: ArrayOrString | undefined;
+        unknown?: ((flag: string) => void) | undefined;
     }
 
     interface Argv extends DictionaryObject {

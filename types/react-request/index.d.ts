@@ -27,21 +27,21 @@ export interface RenderProps<T> extends FetchResponse<T> {
 }
 
 export interface FetchRequestProps extends RequestInit {
-    lazy?: boolean;
+    lazy?: boolean | undefined;
     url: string;
 }
 
 export type ResponseType = 'arrayBuffer' |  'blob' | 'formData' | 'json' | 'text';
 
 export interface FetchProps<T = any> extends FetchRequestProps {
-    afterFetch?: (args: FetchResponse<T>) => void;
-    transformData?: (data: any) => T;
-    responseType?: ResponseType;
-    children?: (renderProps: RenderProps<T>) => React.ReactNode;
+    afterFetch?: ((args: FetchResponse<T>) => void) | undefined;
+    transformData?: ((data: any) => T) | undefined;
+    responseType?: ResponseType | undefined;
+    children?: ((renderProps: RenderProps<T>) => React.ReactNode) | undefined;
 }
 
 export interface DoFetchOptions extends RequestInit {
-    url?: string;
+    url?: string | undefined;
 }
 
 export type DoFetch<T = any> = (
@@ -51,10 +51,10 @@ export type DoFetch<T = any> = (
 // TODO(dannycochran) RequestKeyOptions, ProxyRequest, fetchDedupe, getRequestKey, isRequestInFlight, clearRequestCache
 // should all be defined in an adjacent typings directory for fetch-dedupe.
 export interface RequestKeyOptions {
-    url?: string;
-    method?: string;
-    responseType?: string;
-    body?: string;
+    url?: string | undefined;
+    method?: string | undefined;
+    responseType?: string | undefined;
+    body?: string | undefined;
 }
 
 export interface ProxyRequest {

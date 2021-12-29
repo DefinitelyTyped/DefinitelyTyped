@@ -6,15 +6,15 @@
 import * as React from 'react';
 
 interface MathJaxContextValue {
-    MathJax?: object;
+    MathJax?: object | undefined;
     registerNode: () => void;
 }
 
 declare namespace MathJax {
     class Provider extends React.Component<
         {
-            script?: string | boolean;
-            options?: object;
+            script?: string | boolean | undefined;
+            options?: object | undefined;
             children: React.ReactNode;
         },
         MathJaxContextValue
@@ -22,8 +22,8 @@ declare namespace MathJax {
 
     class Node extends React.PureComponent<{
         formula: string;
-        inline?: boolean;
-        onRender?: () => void;
+        inline?: boolean | undefined;
+        onRender?: (() => void) | undefined;
     }> {}
 }
 

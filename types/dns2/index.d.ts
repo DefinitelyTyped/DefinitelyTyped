@@ -1,4 +1,4 @@
-// Type definitions for dns2 1.4
+// Type definitions for dns2 2.0
 // Project: https://github.com/song940/node-dns#readme
 // Definitions by: Tim Perry <https://github.com/pimterry>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -7,6 +7,7 @@
 
 import * as net from 'net';
 import * as udp from 'dgram';
+import { EventEmitter } from 'events';
 
 declare class Packet {
     static TYPE: {
@@ -69,20 +70,48 @@ declare namespace DNS {
         type: number;
         class: number;
         ttl: number;
-        address: string;
+        address?: string;
+        domain?: string;
     }
+
+    type DnsHandler = (
+        request: DnsRequest,
+        sendResponse: (response: DnsResponse) => void,
+        remoteInfo: udp.RemoteInfo,
+    ) => void;
+}
+
+declare class DnsServer extends EventEmitter {
+    addresses(): {
+        udp?: net.AddressInfo;
+        tcp?: net.AddressInfo;
+        doh?: net.AddressInfo;
+    };
+
+    listen(ports: { udp?: number; tcp?: number; doh?: number }): Promise<void>;
+
+    close(): Promise<void>;
+}
+
+declare class UdpDnsServer extends udp.Socket {
+    constructor(callback?: DNS.DnsHandler);
+    listen(port: number, address: string): Promise<void>;
+}
+
+declare class TcpDnsServer extends net.Server {
+    constructor(callback?: DNS.DnsHandler);
 }
 
 declare class DNS {
-    static createServer(
-        callback: (
-            request: DNS.DnsRequest,
-            sendResponse: (response: DNS.DnsResponse) => void,
-            remoteInfo: udp.RemoteInfo,
-        ) => void,
-    ): net.Server;
+    static createServer(options: { udp?: boolean; tcp?: boolean; doh?: boolean; handle: DNS.DnsHandler }): DnsServer;
 
     static Packet: typeof Packet;
+
+    static createUDPServer: (...options: ConstructorParameters<typeof UdpDnsServer>) => UdpDnsServer;
+    static UDPServer: typeof UdpDnsServer;
+
+    static createTCPServer: (...options: ConstructorParameters<typeof TcpDnsServer>) => TcpDnsServer;
+    static TCPServer: typeof TcpDnsServer;
 
     resolveA(domain: string, clientIp?: string): Promise<DNS.DnsResponse>;
     resolveAAAA(domain: string): Promise<DNS.DnsResponse>;

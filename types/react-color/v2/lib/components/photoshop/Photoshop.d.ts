@@ -15,11 +15,11 @@ export interface PhotoshopPickerStylesProps {
 }
 
 export interface PhotoshopPickerProps extends CustomPickerProps {
-    header?: string;
-    onAccept?: (event: MouseEvent<HTMLDivElement, MouseEvent>) => void;
-    onCancel?: (event: MouseEvent<HTMLDivElement, MouseEvent>) => void;
-    styles?: Partial<Classes<PhotoshopPickerStylesProps>>;
-    className?: string;
+    header?: string | undefined;
+    onAccept?: ((event: MouseEvent<HTMLDivElement, MouseEvent>) => void) | undefined;
+    onCancel?: ((event: MouseEvent<HTMLDivElement, MouseEvent>) => void) | undefined;
+    styles?: Partial<Classes<PhotoshopPickerStylesProps>> | undefined;
+    className?: string | undefined;
 }
 
 export default class PhotoshopPicker extends Component<PhotoshopPickerProps> { }

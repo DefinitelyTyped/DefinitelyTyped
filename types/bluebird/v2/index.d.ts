@@ -39,10 +39,10 @@ interface PromiseConstructor {
     Promise: typeof Promise
 
     config(options: {
-        warnings?: boolean | {wForgottenReturn?: boolean};
-        longStackTraces?: boolean;
-        cancellation?: boolean;
-        monitoring?: boolean;
+        warnings?: boolean | {wForgottenReturn?: boolean | undefined} | undefined;
+        longStackTraces?: boolean | undefined;
+        cancellation?: boolean | undefined;
+        monitoring?: boolean | undefined;
     }): void;
 
     // Ideally, we'd define e.g. "export class RangeError extends Error {}",
@@ -153,8 +153,8 @@ interface PromiseConstructor {
     /**
      * Returns a promise that is resolved by a node style callback function.
      */
-    fromNode(resolver: (callback: (err: any, result?: any) => void) => void, options? : {multiArgs? : boolean}): Promise<any>;
-    fromCallback(resolver: (callback: (err: any, result?: any) => void) => void, options? : {multiArgs? : boolean}): Promise<any>;
+    fromNode(resolver: (callback: (err: any, result?: any) => void) => void, options? : {multiArgs? : boolean | undefined}): Promise<any>;
+    fromCallback(resolver: (callback: (err: any, result?: any) => void) => void, options? : {multiArgs? : boolean | undefined}): Promise<any>;
 
     /**
      * Returns a function that can use `yield` to run asynchronous code synchronously. This feature requires the support of generators which are drafted in the next version of the language. Node version greater than `0.11.2` is required and needs to be executed with the `--harmony-generators` (or `--harmony`) command-line switch.
@@ -700,10 +700,10 @@ declare namespace Promise {
         spread: boolean;
     }
     export interface PromisifyAllOptions {
-        suffix?: string;
-        filter?: (name: string, func: Function, target?: any, passesDefaultFilter?: boolean) => boolean;
+        suffix?: string | undefined;
+        filter?: ((name: string, func: Function, target?: any, passesDefaultFilter?: boolean) => boolean) | undefined;
         // The promisifier gets a reference to the original method and should return a function which returns a promise
-        promisifier?: (originalMethod: Function) => () => PromiseLike<any>;
+        promisifier?: ((originalMethod: Function) => () => PromiseLike<any>) | undefined;
     }
 
     export interface Resolver<T> {

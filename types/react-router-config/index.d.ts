@@ -1,7 +1,6 @@
 // Type definitions for react-router-config 5.0
 // Project: https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config, https://github.com/reacttraining/react-router
-// Definitions by: François Nguyen <https://github.com/lith-light-g>
-//                 John Reilly <https://github.com/johnnyreilly>
+// Definitions by: John Reilly <https://github.com/johnnyreilly>
 //                 Phoenix He <https://github.com/NullMDR>
 //                 Mathieu TUDISCO <https://github.com/mathieutu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -13,18 +12,18 @@ import { Location } from 'history';
 
 export interface RouteConfigComponentProps<Params extends { [K in keyof Params]?: string } = {}>
     extends RouteComponentProps<Params> {
-    route?: RouteConfig;
+    route?: RouteConfig | undefined;
 }
 
 export interface RouteConfig {
-    key?: React.Key;
-    location?: Location;
-    component?: React.ComponentType<RouteConfigComponentProps<any>> | React.ComponentType;
-    path?: string | string[];
-    exact?: boolean;
-    strict?: boolean;
-    routes?: RouteConfig[];
-    render?: (props: RouteConfigComponentProps<any>) => React.ReactNode;
+    key?: React.Key | undefined;
+    location?: Location | undefined;
+    component?: React.ComponentType<RouteConfigComponentProps<any>> | React.ComponentType | undefined;
+    path?: string | string[] | undefined;
+    exact?: boolean | undefined;
+    strict?: boolean | undefined;
+    routes?: RouteConfig[] | undefined;
+    render?: ((props: RouteConfigComponentProps<any>) => React.ReactNode) | undefined;
     [propName: string]: any;
 }
 

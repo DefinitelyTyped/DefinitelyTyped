@@ -12,9 +12,9 @@ import fs = require("fs");
 
 declare namespace FS {
     export interface Opts {
-        windows?: boolean;
-        drives?: string[];
-        root?: string;
+        windows?: boolean | undefined;
+        drives?: string[] | undefined;
+        root?: string | undefined;
     }
 }
 
@@ -95,47 +95,47 @@ declare class FS {
     read(fd: number, buffer: Buffer, offset: number, length: number, position: number, callback?: (err: NodeJS.ErrnoException, bytesRead: number, buffer: Buffer) => void): void;
     readSync(fd: number, buffer: Buffer, offset: number, length: number, position: number): number;
     readFile(filename: string, encoding: string, callback: (err: NodeJS.ErrnoException, data: string) => void): void;
-    readFile(filename: string, options: { encoding: string; flag?: string; }, callback: (err: NodeJS.ErrnoException, data: string) => void): void;
-    readFile(filename: string, options: { flag?: string; }, callback: (err: NodeJS.ErrnoException, data: Buffer) => void): void;
+    readFile(filename: string, options: { encoding: string; flag?: string | undefined; }, callback: (err: NodeJS.ErrnoException, data: string) => void): void;
+    readFile(filename: string, options: { flag?: string | undefined; }, callback: (err: NodeJS.ErrnoException, data: Buffer) => void): void;
     readFile(filename: string, callback: (err: NodeJS.ErrnoException, data: Buffer) => void): void;
     readFileSync(filename: string, encoding: string): string;
-    readFileSync(filename: string, options: { encoding: string; flag?: string; }): string;
-    readFileSync(filename: string, options?: { flag?: string; }): Buffer;
+    readFileSync(filename: string, options: { encoding: string; flag?: string | undefined; }): string;
+    readFileSync(filename: string, options?: { flag?: string | undefined; }): Buffer;
     writeFile(filename: string, data: any, callback?: (err: NodeJS.ErrnoException) => void): void;
-    writeFile(filename: string, data: any, options: { encoding?: string; mode?: number; flag?: string; }, callback?: (err: NodeJS.ErrnoException) => void): void;
-    writeFile(filename: string, data: any, options: { encoding?: string; mode?: string; flag?: string; }, callback?: (err: NodeJS.ErrnoException) => void): void;
-    writeFileSync(filename: string, data: any, options?: { encoding?: string; mode?: number; flag?: string; }): void;
-    writeFileSync(filename: string, data: any, options?: { encoding?: string; mode?: string; flag?: string; }): void;
-    appendFile(filename: string, data: any, options: { encoding?: string; mode?: number; flag?: string; }, callback?: (err: NodeJS.ErrnoException) => void): void;
-    appendFile(filename: string, data: any, options: { encoding?: string; mode?: string; flag?: string; }, callback?: (err: NodeJS.ErrnoException) => void): void;
+    writeFile(filename: string, data: any, options: { encoding?: string | undefined; mode?: number | undefined; flag?: string | undefined; }, callback?: (err: NodeJS.ErrnoException) => void): void;
+    writeFile(filename: string, data: any, options: { encoding?: string | undefined; mode?: string | undefined; flag?: string | undefined; }, callback?: (err: NodeJS.ErrnoException) => void): void;
+    writeFileSync(filename: string, data: any, options?: { encoding?: string | undefined; mode?: number | undefined; flag?: string | undefined; }): void;
+    writeFileSync(filename: string, data: any, options?: { encoding?: string | undefined; mode?: string | undefined; flag?: string | undefined; }): void;
+    appendFile(filename: string, data: any, options: { encoding?: string | undefined; mode?: number | undefined; flag?: string | undefined; }, callback?: (err: NodeJS.ErrnoException) => void): void;
+    appendFile(filename: string, data: any, options: { encoding?: string | undefined; mode?: string | undefined; flag?: string | undefined; }, callback?: (err: NodeJS.ErrnoException) => void): void;
     appendFile(filename: string, data: any, callback?: (err: NodeJS.ErrnoException) => void): void;
-    appendFileSync(filename: string, data: any, options?: { encoding?: string; mode?: number; flag?: string; }): void;
-    appendFileSync(filename: string, data: any, options?: { encoding?: string; mode?: string; flag?: string; }): void;
+    appendFileSync(filename: string, data: any, options?: { encoding?: string | undefined; mode?: number | undefined; flag?: string | undefined; }): void;
+    appendFileSync(filename: string, data: any, options?: { encoding?: string | undefined; mode?: string | undefined; flag?: string | undefined; }): void;
     watchFile(filename: string, listener: (curr: fs.Stats, prev: fs.Stats) => void): void;
-    watchFile(filename: string, options: { persistent?: boolean; interval?: number; }, listener: (curr: fs.Stats, prev: fs.Stats) => void): void;
+    watchFile(filename: string, options: { persistent?: boolean | undefined; interval?: number | undefined; }, listener: (curr: fs.Stats, prev: fs.Stats) => void): void;
     unwatchFile(filename: string, listener?: (curr: fs.Stats, prev: fs.Stats) => void): void;
     watch(filename: string, listener?: (event: string, filename: string) => any): fs.FSWatcher;
-    watch(filename: string, options: { persistent?: boolean; }, listener?: (event: string, filename: string) => any): fs.FSWatcher;
+    watch(filename: string, options: { persistent?: boolean | undefined; }, listener?: (event: string, filename: string) => any): fs.FSWatcher;
     exists(path: string, callback?: (exists: boolean) => void): void;
     existsSync(path: string): boolean;
     createReadStream(path: string, options?: {
-        flags?: string;
-        encoding?: string;
-        fd?: string;
-        mode?: number;
-        bufferSize?: number;
+        flags?: string | undefined;
+        encoding?: string | undefined;
+        fd?: string | undefined;
+        mode?: number | undefined;
+        bufferSize?: number | undefined;
     }): fs.ReadStream;
     createReadStream(path: string, options?: {
-        flags?: string;
-        encoding?: string;
-        fd?: string;
-        mode?: string;
-        bufferSize?: number;
+        flags?: string | undefined;
+        encoding?: string | undefined;
+        fd?: string | undefined;
+        mode?: string | undefined;
+        bufferSize?: number | undefined;
     }): fs.ReadStream;
     createWriteStream(path: string, options?: {
-        flags?: string;
-        encoding?: string;
-        string?: string;
+        flags?: string | undefined;
+        encoding?: string | undefined;
+        string?: string | undefined;
     }): fs.WriteStream;
 }
 

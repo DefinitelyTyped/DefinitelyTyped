@@ -8,13 +8,15 @@ import * as React from 'react';
 import { StyleProp, ViewStyle } from 'react-native';
 
 export interface ModalProps {
+    children?: React.ReactNode;
+
     /**
      * Checks if the modal is open
      *
      * Default is false
      *
      */
-    isOpen?: boolean;
+    isOpen?: boolean | undefined;
 
     /**
      * Checks if the modal is disabled
@@ -22,7 +24,7 @@ export interface ModalProps {
      * Default is false
      *
      */
-    isDisabled?: boolean;
+    isDisabled?: boolean | undefined;
 
     /**
      * If the modal can be closed by pressing on the backdrop
@@ -30,7 +32,7 @@ export interface ModalProps {
      * Default is true
      *
      */
-    backdropPressToClose?: boolean;
+    backdropPressToClose?: boolean | undefined;
 
     /**
      * If the modal can be closed by swiping
@@ -38,7 +40,7 @@ export interface ModalProps {
      * Default is true
      *
      */
-    swipeToClose?: boolean;
+    swipeToClose?: boolean | undefined;
 
     /**
      * The threshold to reach in pixels to close the modal
@@ -46,7 +48,7 @@ export interface ModalProps {
      * Default is 50
      *
      */
-    swipeThreshold?: number;
+    swipeThreshold?: number | undefined;
 
     /**
      * The height in pixels of the swipeable area
@@ -54,7 +56,7 @@ export interface ModalProps {
      * Default is the Window Height
      *
      */
-    swipeArea?: number;
+    swipeArea?: number | undefined;
 
     /**
      * The final position of the modal.
@@ -63,7 +65,7 @@ export interface ModalProps {
      * Default is center
      *
      */
-    position?: 'top' | 'center' | 'bottom' | string;
+    position?: 'top' | 'center' | 'bottom' | string | undefined;
 
     /**
      * The direction modal enters from
@@ -71,7 +73,7 @@ export interface ModalProps {
      * Default is bottom
      *
      */
-    entry?: 'top' | 'bottom' | string;
+    entry?: 'top' | 'bottom' | string | undefined;
 
     /**
      * If a backdrop is displayed behind the modal
@@ -79,7 +81,7 @@ export interface ModalProps {
      * Default is true
      *
      */
-    backdrop?: boolean;
+    backdrop?: boolean | undefined;
 
     /**
      * Opacity of the backdrop
@@ -87,7 +89,7 @@ export interface ModalProps {
      * Default is 0.5
      *
      */
-    backdropOpacity?: number;
+    backdropOpacity?: number | undefined;
 
     /**
      * Background color of the backdrop
@@ -95,7 +97,7 @@ export interface ModalProps {
      * Default is black
      *
      */
-    backdropColor?: string;
+    backdropColor?: string | undefined;
 
     /**
      * Add an element in the backdrop (a close button for example)
@@ -103,7 +105,7 @@ export interface ModalProps {
      * Default is null
      *
      */
-    backdropContent?: React.ReactNode;
+    backdropContent?: React.ReactNode | undefined;
 
     /**
      * Duration of the animation
@@ -111,7 +113,7 @@ export interface ModalProps {
      * Default is 400ms
      *
      */
-    animationDuration?: number;
+    animationDuration?: number | undefined;
 
     /**
      * (Android only) Close modal when receiving back button event
@@ -119,13 +121,13 @@ export interface ModalProps {
      * Default is false
      *
      */
-    backButtonClose?: boolean;
+    backButtonClose?: boolean | undefined;
 
     /**
      *
      * Default is false
      */
-    coverScreen?: boolean;
+    coverScreen?: boolean | undefined;
 
     /**
      * If the modal should appear open without animation upon first mount
@@ -133,19 +135,19 @@ export interface ModalProps {
      * Default is false
      *
      */
-    startOpen?: boolean;
+    startOpen?: boolean | undefined;
 
     /**
      * This property prevent the modal to cover the ios status bar when the modal is scrolling up because the keyboard is opening
      *
      * Default is ios:22, android:0
      */
-    keyboardTopOffset?: number;
+    keyboardTopOffset?: number | undefined;
 
     /**
      * Custom styling for the content area
      */
-    style?: StyleProp<ViewStyle>;
+    style?: StyleProp<ViewStyle> | undefined;
 
     /**
      * Enables the hardware acceleration to animate the modal. Please note that enabling this can cause some flashes in a weird way when animating
@@ -153,7 +155,7 @@ export interface ModalProps {
      * Default is true
      *
      */
-    useNativeDriver?: boolean;
+    useNativeDriver?: boolean | undefined;
 
     /**
      * Event fired when the modal is closed and the animation is complete

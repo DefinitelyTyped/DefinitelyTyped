@@ -25,34 +25,34 @@ export function getBlockAttributes(
 export namespace Schema {
     interface Attribute {
         source: 'attribute';
-        selector?: string;
+        selector?: string | undefined;
         attribute: string;
-        type?: 'string' | 'boolean';
+        type?: 'string' | 'boolean' | undefined;
     }
     interface Children {
         source: 'children';
-        selector?: string;
+        selector?: string | undefined;
     }
     interface HTML {
         source: 'html';
-        selector?: string;
-        multiline?: keyof HTMLElementTagNameMap;
+        selector?: string | undefined;
+        multiline?: keyof HTMLElementTagNameMap | undefined;
     }
     interface Node {
         source: 'node';
-        selector?: string;
+        selector?: string | undefined;
     }
     interface Tag {
         source: 'tag';
-        selector?: string;
+        selector?: string | undefined;
     }
     interface Text {
         source: 'text';
-        selector?: string;
+        selector?: string | undefined;
     }
     interface Query<T> {
         source: 'query';
-        selector?: string;
+        selector?: string | undefined;
         query: T;
     }
 }

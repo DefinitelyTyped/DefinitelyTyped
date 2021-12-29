@@ -8,8 +8,8 @@ import { EventEmitter } from 'events';
 declare class FormData {
     nodeChunkedEncoding: boolean;
 
-    boundary?: string;
-    type?: string;
+    boundary?: string | undefined;
+    type?: string | undefined;
 
     append(key: keyof any, value: unknown): Error | undefined;
     getContentType(): string;

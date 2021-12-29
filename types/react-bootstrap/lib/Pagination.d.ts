@@ -9,7 +9,7 @@ import PaginationItem = require('./PaginationItem');
 
 declare namespace Pagination {
     export interface PaginationProps extends React.HTMLProps<Pagination> {
-        bsSize?: Sizes;
+        bsSize?: Sizes | undefined;
     }
 }
 declare class Pagination extends React.Component<Pagination.PaginationProps> {

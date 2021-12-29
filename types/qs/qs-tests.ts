@@ -342,10 +342,10 @@ qs.parse('a=b&c=d', { delimiter: '&' });
     });
 }
 
-declare const myQuery: { a: string; b?: string }
+declare const myQuery: { a: string; b?: string | undefined }
 const myQueryCopy: qs.ParsedQs = myQuery;
 
 interface MyQuery extends qs.ParsedQs {
     a: string;
-    b?: string;
+    b?: string | undefined;
 }

@@ -8,9 +8,9 @@
 
 declare namespace JQuerySuccinct {
     interface Options {
-        size?: number;
-        omission?: string;
-        ignore?: boolean;
+        size?: number | undefined;
+        omission?: string | undefined;
+        ignore?: boolean | undefined;
     }
 }
 

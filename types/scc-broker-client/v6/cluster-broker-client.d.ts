@@ -8,7 +8,7 @@ declare class ClusterBrokerClient extends EventEmitter {
     broker: SCBroker;
     sccBrokerClientPools: ClientPool[];
     sccBrokerURIList: string[];
-    authKey?: Secret;
+    authKey?: Secret | undefined;
     mappingEngine: 'skeletonRendezvous' | 'simple' | MappingEngine;
     clientPoolSize: number;
     mapper: MappingEngine;

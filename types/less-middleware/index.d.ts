@@ -24,29 +24,29 @@ declare function lessMiddleware(source: string, options?: {
     /**
     * Show more verbose logging?
     */
-    debug?: boolean;
+    debug?: boolean | undefined;
 
     /**
     * Destination directory to output the compiled .css files.
     */
-    dest?: string;
+    dest?: string | undefined;
 
     /**
      * Always re-compile less files on each request.
      */
-    force?: boolean;
+    force?: boolean | undefined;
 
     /**
      * Only recompile once after each server restart.
      * Useful for reducing disk i/o on production.
      */
-    once?: boolean;
+    once?: boolean | undefined;
 
     /**
      * Common root of the source and destination.
      * It is prepended to both the source and destination before being used.
      */
-    pathRoot?: string;
+    pathRoot?: string | undefined;
 
     /**
      * Object containing functions relevant to preprocessing data.
@@ -57,7 +57,7 @@ declare function lessMiddleware(source: string, options?: {
          * Function that modifies the compiled css output before being stored.
          */
         css?(css: string, req: express.Request): string;
-    };
+    } | undefined;
 
     /**
      * Object containing functions relevant to preprocessing data.
@@ -78,17 +78,17 @@ declare function lessMiddleware(source: string, options?: {
          * Function that modifies the import paths used by the less parser per request.
          */
         importPaths?(paths: string[], req: express.Request): string[];
-    };
+    } | undefined;
 
     /**
      * Options for the less render.
      */
     render?: {
 
-        compress?: string;
-        yuicompress?: boolean;
-        paths?: string[];
-    };
+        compress?: string | undefined;
+        yuicompress?: boolean | undefined;
+        paths?: string[] | undefined;
+    } | undefined;
 
     /**
      * Function that is in charge of storing the css in the filesystem.
@@ -101,7 +101,7 @@ declare function lessMiddleware(source: string, options?: {
      * files haven't changed and the css files still exist, specifying this option will
      * mean that the less files don't need to be recompiled after a server restart.
      */
-    cacheFile?: string;
+    cacheFile?: string | undefined;
 
 }): express.RequestHandler;
 

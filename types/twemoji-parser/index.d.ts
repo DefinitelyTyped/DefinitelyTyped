@@ -1,4 +1,4 @@
-// Type definitions for twemoji-parser 12.1
+// Type definitions for twemoji-parser 13.1
 // Project: https://github.com/twitter/twemoji-parser
 // Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -27,13 +27,14 @@ export interface EmojiEntity {
 }
 
 export interface ParsingOptions {
-    buildUrl?: (codepoints: string, assetType: string) => string;
+    buildUrl?: ((codepoints: string, assetType: AssetType) => string) | undefined;
     /**
      * @default 'svg'
      */
-    assetType?: 'png' | 'svg';
+    assetType?: AssetType | undefined;
 }
 
+export type AssetType = 'png' | 'svg';
 /**
  * Parser takes a string and returns an array of the emoji entities it finds.
  */

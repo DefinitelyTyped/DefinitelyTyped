@@ -319,6 +319,11 @@ adapter.getObjectListAsync({ startkey: 'foo', endkey: 'bar' }).then(result => {
     result && result.rows[0] && result.rows[0].id.toLowerCase();
 });
 
+adapter.delObject('foo');
+adapter.delObject('foo', {recursive: true});
+// $ExpectError
+adapter.delObject('foo', {someWeirdOption: 1});
+
 adapter.subscribeObjects('*');
 adapter.subscribeStates('*');
 adapter.subscribeForeignObjects('*');
@@ -794,4 +799,37 @@ const userObject: ioBroker.UserObject = {
     });
 
     adapter.setForeignObject(null! as string, null! as ioBroker.Object);
+});
+
+// Test convenience types for subsets of SettableObject
+{
+    // Should be OK
+    const stateObj: ioBroker.SettableStateObject = {
+        type: 'state',
+        common: {
+            name: "Dummy name",
+            role: "value",
+            read: true,
+            write: false,
+            unit: "%"
+        },
+        native: {},
+    };
+}
+{
+    const stateObj: ioBroker.SettableDeviceObject = {
+        // $ExpectError
+        type: 'state',
+        common: {
+            name: "Dummy name",
+        },
+        native: {},
+    };
+}
+
+// Repro for https://github.com/ioBroker/adapter-core/issues/334
+(async () => {
+    const states = await adapter.getStatesAsync("foo");
+    // This should not error
+    states["foo"];
 });

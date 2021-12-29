@@ -24,14 +24,14 @@ class someStrategy extends Strategy {
  */
 
 interface User {
-    name?: string;
-    email?: string;
-    facebookId?: string;
-    orSomeOtherProviderId?: string;
+    name?: string | undefined;
+    email?: string | undefined;
+    facebookId?: string | undefined;
+    orSomeOtherProviderId?: string | undefined;
 }
 
 interface VerifierOptions extends FeathersAuthenticationOAuth2Options {
-    foo?: boolean;
+    foo?: boolean | undefined;
 }
 
 type IProfileType = GithubProfile | FacebookProfile;

@@ -11,13 +11,24 @@ new AggregateError([]); // $ExpectType AggregateError
 new AggregateError([oneError, otherError]); // $ExpectType AggregateError
 
 // $ExpectType AggregateError
-const error = new AggregateError([oneError, otherError], 'this is two kinds of errors');
+const implicitError = new AggregateError([oneError, otherError], 'this is two kinds of errors');
 
-AggregateError.shim; // $ExpectType (() => void) & (() => typeof AggregateError)
-AggregateError.shim(); // $ExpectType: void
+// $ExpectType AggregateError
+const explicitError: AggregateError = new AggregateError([oneError, otherError], 'this is two kinds of errors');
 
-error.errors; // $ExpectType: Array<unknown>
-error.name; // $ExpectType: "AggregateError"
-error.message; // $ExpectType: string
+AggregateError.prototype; // $ExpectType AggregateError
+AggregateError.shim; // $ExpectType () => typeof AggregateError
+AggregateError.shim(); // $ExpectType: AggregateError
 
-error.name = 'something else'; // $ExpectError
+implicitError.errors; // $ExpectType: Array<unknown>
+implicitError.message; // $ExpectType: string
+implicitError.name; // $ExpectType: "AggregateError"
+
+implicitError.name = 'something else'; // $ExpectError
+
+const err = new Error('test');
+if (err instanceof AggregateError) {
+    const aggregateErr: AggregateError = err; // $ExpectType: AggregateError
+    const notAggregateErr: typeof AggregateError = err; // $ExpectError
+    aggregateErr.name; // $ExpectType: "AggregateError"
+}

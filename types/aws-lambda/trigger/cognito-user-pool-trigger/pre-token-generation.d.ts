@@ -2,22 +2,22 @@ import { Handler } from '../../handler';
 import { BaseTriggerEvent, StringMap } from './_common';
 
 export interface GroupOverrideDetails {
-  groupsToOverride?: string[];
-  iamRolesToOverride?: string[];
-  preferredRole?: string;
+  groupsToOverride?: string[] | undefined;
+  iamRolesToOverride?: string[] | undefined;
+  preferredRole?: string | undefined;
 }
 
 export interface BasePreTokenGenerationTriggerEvent<T extends string> extends BaseTriggerEvent<T> {
   request: {
       userAttributes: StringMap;
       groupConfiguration: GroupOverrideDetails;
-      clientMetadata?: StringMap;
+      clientMetadata?: StringMap | undefined;
   };
   response: {
       claimsOverrideDetails: {
-          claimsToAddOrOverride?: StringMap;
-          claimsToSuppress?: string[];
-          groupOverrideDetails?: GroupOverrideDetails;
+          claimsToAddOrOverride?: StringMap | undefined;
+          claimsToSuppress?: string[] | undefined;
+          groupOverrideDetails?: GroupOverrideDetails | undefined;
       };
   };
 }

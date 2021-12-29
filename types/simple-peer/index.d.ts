@@ -14,33 +14,37 @@ declare const SimplePeer: SimplePeer.SimplePeer;
 declare namespace SimplePeer {
     interface Options {
         /** set to `true` if this is the initiating peer */
-        initiator?: boolean;
+        initiator?: boolean | undefined;
         /** custom webrtc data channel configuration (used by [`createDataChannel`](https://developer.mozilla.org/en-US/docs/Web/API/RTCPeerConnection/createDataChannel)) */
-        channelConfig?: RTCDataChannelInit;
+        channelConfig?: RTCDataChannelInit | undefined;
         /** custom webrtc data channel name */
-        channelName?: string;
+        channelName?: string | undefined;
         /** custom webrtc configuration (used by [`RTCPeerConnection`](https://developer.mozilla.org/en-US/docs/Web/API/RTCPeerConnection) constructor) */
-        config?: RTCConfiguration;
+        config?: RTCConfiguration | undefined;
         /** custom offer options (used by [`createOffer`](https://developer.mozilla.org/en-US/docs/Web/API/RTCPeerConnection/createOffer) method) */
-        offerOptions?: RTCOfferOptions;
+        offerOptions?: RTCOfferOptions | undefined;
         /** custom answer options (used by [`createAnswer`](https://developer.mozilla.org/en-US/docs/Web/API/RTCPeerConnection/createAnswer) method) */
-        answerOptions?: RTCAnswerOptions;
+        answerOptions?: RTCAnswerOptions | undefined;
         /** function to transform the generated SDP signaling data (for advanced users) */
-        sdpTransform?: (this: Instance, sdp: string) => string;
+        sdpTransform?: ((this: Instance, sdp: string) => string) | undefined;
         /** if video/voice is desired, pass stream returned from [`getUserMedia`](https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia) */
-        stream?: MediaStream;
+        stream?: MediaStream | undefined;
         /** an array of MediaStreams returned from [`getUserMedia`](https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia) */
-        streams?: MediaStream[];
-        /**  set to `false` to disable [trickle ICE](http://webrtchacks.com/trickle-ice/) and get a single 'signal' event (slower) */
-        trickle?: boolean;
+        streams?: MediaStream[] | undefined;
+        /** set to `false` to disable [trickle ICE](http://webrtchacks.com/trickle-ice/) and get a single 'signal' event (slower) */
+        trickle?: boolean | undefined;
+        /** similar to `trickle`, needs to be set to `false` to disable trickling, defaults to `false` */
+        allowHalfTrickle?: boolean | undefined;
+        /** if `trickle` is set to `false`, determines how long to wait before providing an offer or answer; default value is 5000 milliseconds  */
+        iceCompleteTimeout?: number | undefined;
         /** custom webrtc implementation, mainly useful in node to specify in the [wrtc](https://npmjs.com/package/wrtc) package. */
         wrtc?: {
             RTCPeerConnection: typeof RTCPeerConnection;
             RTCSessionDescription: typeof RTCSessionDescription;
             RTCIceCandidate: typeof RTCIceCandidate;
-        };
+        } | undefined;
         /** set to true to create the stream in Object Mode. In this mode, incoming string data is not automatically converted to Buffer objects. */
-        objectMode?: boolean;
+        objectMode?: boolean | undefined;
     }
     interface SimplePeer {
         prototype: Instance;
@@ -92,7 +96,7 @@ declare namespace SimplePeer {
               type: "transceiverRequest";
               transceiverRequest: {
                   kind: string;
-                  init?: RTCRtpTransceiverInit;
+                  init?: RTCRtpTransceiverInit | undefined;
               };
           }
         | {
@@ -124,7 +128,7 @@ declare namespace SimplePeer {
          *
          * Note: If this method is called before the `peer.on('connect')` event has fired,
          * then an exception will be thrown. Use `peer.write(data)`
-         * (which is inherited from the node.js [duplex stream](http://nodejs.org/api/stream.html) interface)
+         * (which is inherited from the node.js [duplex stream](https://nodejs.org/api/stream.html) interface)
          * if you want this data to be buffered instead.
          */
         send(data: SimplePeerData): void;

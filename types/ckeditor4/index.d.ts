@@ -9,7 +9,7 @@
 // See https://github.com/DefinitelyTyped/DefinitelyTyped/issues/1827 for more informations.
 
 interface Window {
-    CKEDITOR_BASEPATH?: string;
+    CKEDITOR_BASEPATH?: string | undefined;
 }
 
 declare namespace CKEDITOR {
@@ -168,7 +168,7 @@ declare namespace CKEDITOR {
             constructor(domDocument: { [key: string]: any });
             appendStyleSheet(cssFileUrl: string): void;
             appendStyleText(cssStyleText: string): CSSStyleSheet;
-            createElement(name: string, attribsAndStyles?: { attributes?: { [key: string]: string }; styles?: { [key: string]: string }; }): element;
+            createElement(name: string, attribsAndStyles?: { attributes?: { [key: string]: string } | undefined; styles?: { [key: string]: string } | undefined; }): element;
             createText(text: string): element;
             find(selector: string): nodeList;
             findOne(selector: string): element;
@@ -436,8 +436,8 @@ declare namespace CKEDITOR {
         }
 
         interface shrinkOptions {
-            shrinkOnBlockBoundary?: boolean;
-            skipBogus?: boolean;
+            shrinkOnBlockBoundary?: boolean | undefined;
+            skipBogus?: boolean | undefined;
         }
 
         class rangeList {
@@ -569,295 +569,295 @@ declare namespace CKEDITOR {
     }
 
     interface commandDefinition {
-        async?: boolean;
-        canUndo?: boolean;
-        context?: boolean;
-        contextSensitive?: boolean;
-        editorFocus?: boolean;
-        fakeKeystroke?: number;
-        modes?: { [key: string]: any };
-        startDisabled?: boolean;
-        readOnly?: boolean;
+        async?: boolean | undefined;
+        canUndo?: boolean | undefined;
+        context?: boolean | undefined;
+        contextSensitive?: boolean | undefined;
+        editorFocus?: boolean | undefined;
+        fakeKeystroke?: number | undefined;
+        modes?: { [key: string]: any } | undefined;
+        startDisabled?: boolean | undefined;
+        readOnly?: boolean | undefined;
         exec(editor: editor, data?: any): boolean;
         refresh?(editor: editor, path: dom.elementPath): void;
     }
 
     // https://docs.com/ckeditor4/latest/api/CKEDITOR_config.html
     interface config {
-        allowedContent?: boolean | filter.allowedContentRules;
-        autoEmbed_widget?: string | ((url: string) => string);
-        autoGrow_bottomSpace?: number;
-        autoGrow_maxHeight?: number;
-        autoGrow_minHeight?: number;
-        autoGrow_onStartup?: boolean;
-        autoUpdateElement?: boolean;
+        allowedContent?: boolean | filter.allowedContentRules | undefined;
+        autoEmbed_widget?: string | ((url: string) => string) | undefined;
+        autoGrow_bottomSpace?: number | undefined;
+        autoGrow_maxHeight?: number | undefined;
+        autoGrow_minHeight?: number | undefined;
+        autoGrow_onStartup?: boolean | undefined;
+        autoUpdateElement?: boolean | undefined;
 
-        baseFloatZIndex?: number;
-        baseHref?: string;
-        basicEntities?: boolean;
-        blockedKeystrokes?: number[];
-        bodyClass?: string;
-        bodyId?: string;
-        browserContextMenuOnCtrl?: boolean;
+        baseFloatZIndex?: number | undefined;
+        baseHref?: string | undefined;
+        basicEntities?: boolean | undefined;
+        blockedKeystrokes?: number[] | undefined;
+        bodyClass?: string | undefined;
+        bodyId?: string | undefined;
+        browserContextMenuOnCtrl?: boolean | undefined;
 
-        clipboard_defaultContentType?: 'html' | 'text';
-        clipboard_notificationDuration?: number;
-        cloudServices_tokenUrl?: string;
-        cloudServices_uploadUrl?: string;
-        codeSnippetGeshi_url?: string;
-        codeSnippet_codeClass?: string;
-        codeSnippet_languages?: { [key: string]: any };
-        coceSnippet_theme?: string;
-        colorButton_backStyle?: config.styleObject;
-        colorButton_colors?: string;
-        colorButton_colorsPerRow?: number;
-        colorButton_enableAutomatic?: boolean;
-        colorButton_enableMore?: boolean;
-        colorButton_foreStyle?: config.styleObject;
-        colorButton_normalizeBackground?: boolean;
-        contentsCss?: string | string[];
-        contentsLangDirection?: string;
-        contentsLanguage?: string;
-        copyFormatting_allowRules?: string;
-        copyFormatting_allowedContexts?: boolean | string[];
-        copyFormatting_keystrokeCopy?: number;
-        copyFormatting_keystrokePaste?: number;
-        copyFormatting_outerCursor?: boolean;
-        coreStyles_bold?: config.styleObject;
-        coreStyles_italic?: config.styleObject;
-        coreStyles_strike?: config.styleObject;
-        coreStyles_subscript?: config.styleObject;
-        coreStyles_superscript?: config.styleObject;
-        coreStyles_underline?: config.styleObject;
-        customConfig?: string;
+        clipboard_defaultContentType?: 'html' | 'text' | undefined;
+        clipboard_notificationDuration?: number | undefined;
+        cloudServices_tokenUrl?: string | undefined;
+        cloudServices_uploadUrl?: string | undefined;
+        codeSnippetGeshi_url?: string | undefined;
+        codeSnippet_codeClass?: string | undefined;
+        codeSnippet_languages?: { [key: string]: any } | undefined;
+        coceSnippet_theme?: string | undefined;
+        colorButton_backStyle?: config.styleObject | undefined;
+        colorButton_colors?: string | undefined;
+        colorButton_colorsPerRow?: number | undefined;
+        colorButton_enableAutomatic?: boolean | undefined;
+        colorButton_enableMore?: boolean | undefined;
+        colorButton_foreStyle?: config.styleObject | undefined;
+        colorButton_normalizeBackground?: boolean | undefined;
+        contentsCss?: string | string[] | undefined;
+        contentsLangDirection?: string | undefined;
+        contentsLanguage?: string | undefined;
+        copyFormatting_allowRules?: string | undefined;
+        copyFormatting_allowedContexts?: boolean | string[] | undefined;
+        copyFormatting_keystrokeCopy?: number | undefined;
+        copyFormatting_keystrokePaste?: number | undefined;
+        copyFormatting_outerCursor?: boolean | undefined;
+        coreStyles_bold?: config.styleObject | undefined;
+        coreStyles_italic?: config.styleObject | undefined;
+        coreStyles_strike?: config.styleObject | undefined;
+        coreStyles_subscript?: config.styleObject | undefined;
+        coreStyles_superscript?: config.styleObject | undefined;
+        coreStyles_underline?: config.styleObject | undefined;
+        customConfig?: string | undefined;
 
-        dataIndentationChars?: string;
-        defaultLanguage?: string;
-        devtools_styles?: string;
-        devtools_textCallback?: (editor: editor, dialog: dialog, element: dom.element, tabName: string) => string;
-        dialog_backgroundCoverColor?: string;
-        dialog_backgroundCoverOpacity?: number;
-        dialog_buttonsOrder?: string;
-        dialog_magnetDistance?: number;
-        dialog_noConfirmCancel?: boolean;
-        dialog_startupFocusTab?: boolean;
-        disableNativeSpellChecker?: boolean;
-        disableNativeTableHandles?: boolean;
-        disableNativeObjectResizing?: boolean;
-        disableNativeReadonlyStyling?: boolean;
-        disallowedContent?: filter.disallowedContentRules;
-        div_wrapTable?: boolean;
-        docType?: string;
+        dataIndentationChars?: string | undefined;
+        defaultLanguage?: string | undefined;
+        devtools_styles?: string | undefined;
+        devtools_textCallback?: ((editor: editor, dialog: dialog, element: dom.element, tabName: string) => string) | undefined;
+        dialog_backgroundCoverColor?: string | undefined;
+        dialog_backgroundCoverOpacity?: number | undefined;
+        dialog_buttonsOrder?: string | undefined;
+        dialog_magnetDistance?: number | undefined;
+        dialog_noConfirmCancel?: boolean | undefined;
+        dialog_startupFocusTab?: boolean | undefined;
+        disableNativeSpellChecker?: boolean | undefined;
+        disableNativeTableHandles?: boolean | undefined;
+        disableNativeObjectResizing?: boolean | undefined;
+        disableNativeReadonlyStyling?: boolean | undefined;
+        disallowedContent?: filter.disallowedContentRules | undefined;
+        div_wrapTable?: boolean | undefined;
+        docType?: string | undefined;
 
-        easyimage_class?: string;
-        easyimage_defaultStyle?: string;
-        easyimage_styles?: { [key: string]: any };
-        easyimage_toolbar?: string[] | string;
-        emailProtection?: string;
-        embed_provider?: string;
-        emoji_emojiListUrl?: string;
-        emoji_minChars?: number;
-        enableContextMenu?: boolean;
-        enableTabKeyTools?: boolean;
-        enterMode?: number;
-        entities?: boolean;
-        entities_additional?: string;
-        entities_greek?: boolean;
-        entities_latin?: boolean;
-        entities_processNumerical?: boolean | string;
-        extraAllowedContent?: filter.allowedContentRules;
-        extraPlugins?: string;
+        easyimage_class?: string | undefined;
+        easyimage_defaultStyle?: string | undefined;
+        easyimage_styles?: { [key: string]: any } | undefined;
+        easyimage_toolbar?: string[] | string | undefined;
+        emailProtection?: string | undefined;
+        embed_provider?: string | undefined;
+        emoji_emojiListUrl?: string | undefined;
+        emoji_minChars?: number | undefined;
+        enableContextMenu?: boolean | undefined;
+        enableTabKeyTools?: boolean | undefined;
+        enterMode?: number | undefined;
+        entities?: boolean | undefined;
+        entities_additional?: string | undefined;
+        entities_greek?: boolean | undefined;
+        entities_latin?: boolean | undefined;
+        entities_processNumerical?: boolean | string | undefined;
+        extraAllowedContent?: filter.allowedContentRules | undefined;
+        extraPlugins?: string | undefined;
 
-        fileTools_defaultFileName?: string;
-        fileTools_requestHeaders?: { [key: string]: any };
-        filebrowserBrowseUrl?: string;
-        filebrowserFlashBrowseUrl?: string;
-        filebrowserFlashUploadUrl?: string;
-        filebrowserImageBrowseLinkUrl?: string;
-        filebrowserImageBrowseUrl?: string;
-        filebrowserImageUploadUrl?: string;
-        filebrowserUploadMethod?: string;
-        filebrowserUploadUrl?: string;
-        filebrowserWindowFeatures?: string;
-        filebrowserWindowHeight?: number | string;
-        filebrowserWindowWidth?: number | string;
-        fillEmptyBlocks?: boolean | ((element: htmlParser.element) => boolean);
-        find_highlight?: config.styleObject;
-        flashAddEmbedTag?: boolean;
-        flashConvertOnEdit?: boolean;
-        flashEmbedTagOnly?: boolean;
-        floatSpaceDockedOffsetX?: number;
-        floatSpaceDockedOffsetY?: number;
-        floatSpacePinnedOffsetX?: number;
-        floatSpacePinnedOffsetY?: number;
-        floatSpacePreferRight?: boolean;
-        fontSize_defaultLabel?: string;
-        fontSize_sizes?: string;
-        fontSize_style?: config.styleObject;
-        font_defaultLabel?: string;
-        font_names?: string;
-        font_style?: config.styleObject;
-        forceEnterMode?: boolean;
-        forcePasteAsPlainText?: boolean;
-        forceSimpleAmpersand?: boolean;
-        format_address?: config.styleObject;
-        format_div?: config.styleObject;
-        format_h1?: config.styleObject;
-        format_h2?: config.styleObject;
-        format_h3?: config.styleObject;
-        format_h4?: config.styleObject;
-        format_h5?: config.styleObject;
-        format_h6?: config.styleObject;
-        format_p?: config.styleObject;
-        format_pre?: config.styleObject;
-        format_tags?: string;
-        fullPage?: boolean;
+        fileTools_defaultFileName?: string | undefined;
+        fileTools_requestHeaders?: { [key: string]: any } | undefined;
+        filebrowserBrowseUrl?: string | undefined;
+        filebrowserFlashBrowseUrl?: string | undefined;
+        filebrowserFlashUploadUrl?: string | undefined;
+        filebrowserImageBrowseLinkUrl?: string | undefined;
+        filebrowserImageBrowseUrl?: string | undefined;
+        filebrowserImageUploadUrl?: string | undefined;
+        filebrowserUploadMethod?: string | undefined;
+        filebrowserUploadUrl?: string | undefined;
+        filebrowserWindowFeatures?: string | undefined;
+        filebrowserWindowHeight?: number | string | undefined;
+        filebrowserWindowWidth?: number | string | undefined;
+        fillEmptyBlocks?: boolean | ((element: htmlParser.element) => boolean) | undefined;
+        find_highlight?: config.styleObject | undefined;
+        flashAddEmbedTag?: boolean | undefined;
+        flashConvertOnEdit?: boolean | undefined;
+        flashEmbedTagOnly?: boolean | undefined;
+        floatSpaceDockedOffsetX?: number | undefined;
+        floatSpaceDockedOffsetY?: number | undefined;
+        floatSpacePinnedOffsetX?: number | undefined;
+        floatSpacePinnedOffsetY?: number | undefined;
+        floatSpacePreferRight?: boolean | undefined;
+        fontSize_defaultLabel?: string | undefined;
+        fontSize_sizes?: string | undefined;
+        fontSize_style?: config.styleObject | undefined;
+        font_defaultLabel?: string | undefined;
+        font_names?: string | undefined;
+        font_style?: config.styleObject | undefined;
+        forceEnterMode?: boolean | undefined;
+        forcePasteAsPlainText?: boolean | undefined;
+        forceSimpleAmpersand?: boolean | undefined;
+        format_address?: config.styleObject | undefined;
+        format_div?: config.styleObject | undefined;
+        format_h1?: config.styleObject | undefined;
+        format_h2?: config.styleObject | undefined;
+        format_h3?: config.styleObject | undefined;
+        format_h4?: config.styleObject | undefined;
+        format_h5?: config.styleObject | undefined;
+        format_h6?: config.styleObject | undefined;
+        format_p?: config.styleObject | undefined;
+        format_pre?: config.styleObject | undefined;
+        format_tags?: string | undefined;
+        fullPage?: boolean | undefined;
 
-        grayt_autoStartup?: boolean;
+        grayt_autoStartup?: boolean | undefined;
 
-        height?: string | number;
-        htmlEncodeOutput?: boolean;
+        height?: string | number | undefined;
+        htmlEncodeOutput?: boolean | undefined;
 
-        ignoreEmptyParagraph?: boolean;
-        image2_alignClasses?: string[];
-        image2_altRequired?: boolean;
-        image2_captionedClass?: string;
-        image2_disableResizer?: boolean;
-        image2_prefillDimensions?: boolean;
-        imageUploadUrl?: string;
-        image_prefillDimensions?: boolean;
-        image_previewText?: string;
-        image_removeLinkByEmptyUrl?: boolean;
-        indentClasses?: string[];
-        indentOffset?: number;
-        indentUnit?: string;
+        ignoreEmptyParagraph?: boolean | undefined;
+        image2_alignClasses?: string[] | undefined;
+        image2_altRequired?: boolean | undefined;
+        image2_captionedClass?: string | undefined;
+        image2_disableResizer?: boolean | undefined;
+        image2_prefillDimensions?: boolean | undefined;
+        imageUploadUrl?: string | undefined;
+        image_prefillDimensions?: boolean | undefined;
+        image_previewText?: string | undefined;
+        image_removeLinkByEmptyUrl?: boolean | undefined;
+        indentClasses?: string[] | undefined;
+        indentOffset?: number | undefined;
+        indentUnit?: string | undefined;
 
-        jqueryOverrideVal?: boolean;
-        justifyClasses?: string[];
+        jqueryOverrideVal?: boolean | undefined;
+        justifyClasses?: string[] | undefined;
 
-        keystrokes?: Array<[number, string]>;
+        keystrokes?: Array<[number, string]> | undefined;
 
-        language?: string;
-        language_list?: string[];
-        linkJavaScriptLinksAllowed?: boolean;
-        linkShowAdvancedTab?: boolean;
-        linkShowTargetTab?: boolean;
+        language?: string | undefined;
+        language_list?: string[] | undefined;
+        linkJavaScriptLinksAllowed?: boolean | undefined;
+        linkShowAdvancedTab?: boolean | undefined;
+        linkShowTargetTab?: boolean | undefined;
 
-        magicline_color?: string;
-        magicline_everywhere?: boolean;
-        magicline_holdDistance?: number;
-        magicline_keystrokeNext?: number;
-        magicline_keystrokePrevious?: number;
-        magicline_tabuList?: string[];
-        magicline_triggerOffset?: number;
-        mathJaxClass?: string;
-        mathJaxLib?: string;
-        menu_groups?: string;
-        menu_subMenuDelay?: number;
+        magicline_color?: string | undefined;
+        magicline_everywhere?: boolean | undefined;
+        magicline_holdDistance?: number | undefined;
+        magicline_keystrokeNext?: number | undefined;
+        magicline_keystrokePrevious?: number | undefined;
+        magicline_tabuList?: string[] | undefined;
+        magicline_triggerOffset?: number | undefined;
+        mathJaxClass?: string | undefined;
+        mathJaxLib?: string | undefined;
+        menu_groups?: string | undefined;
+        menu_subMenuDelay?: number | undefined;
 
-        newpage_html?: string;
-        notification_duration?: number;
+        newpage_html?: string | undefined;
+        notification_duration?: number | undefined;
 
-        on?: editor.eventObject;
+        on?: editor.eventObject | undefined;
 
-        pasteFilter?: string;
-        pasteFromWordCleanupFile?: string;
-        pasteFromWordNumberedHeadingToList?: boolean;
-        pasteFromWordPromptCleanup?: boolean;
-        pasteFromWordRemoveFontStyles?: boolean;
-        pasteFromWordRemoveStyles?: boolean;
-        pasteFromWord_heuristicsEdgeList?: boolean;
-        pasteFromWord_inlineImages?: boolean;
-        plugins?: string;
-        protectedSource?: RegExp[];
+        pasteFilter?: string | undefined;
+        pasteFromWordCleanupFile?: string | undefined;
+        pasteFromWordNumberedHeadingToList?: boolean | undefined;
+        pasteFromWordPromptCleanup?: boolean | undefined;
+        pasteFromWordRemoveFontStyles?: boolean | undefined;
+        pasteFromWordRemoveStyles?: boolean | undefined;
+        pasteFromWord_heuristicsEdgeList?: boolean | undefined;
+        pasteFromWord_inlineImages?: boolean | undefined;
+        plugins?: string | undefined;
+        protectedSource?: RegExp[] | undefined;
 
-        readOnly?: boolean;
-        removeButtons?: string;
-        removeDialogTabs?: string;
-        removeFormatAttributes?: string;
-        removeFormatTags?: string;
-        removePlugins?: string;
-        resize_dir?: string;
-        resize_enabled?: boolean;
-        resize_maxHeight?: number;
-        resize_maxWidth?: number;
-        resize_minHeight?: number;
-        resize_minWidth?: number;
+        readOnly?: boolean | undefined;
+        removeButtons?: string | undefined;
+        removeDialogTabs?: string | undefined;
+        removeFormatAttributes?: string | undefined;
+        removeFormatTags?: string | undefined;
+        removePlugins?: string | undefined;
+        resize_dir?: string | undefined;
+        resize_enabled?: boolean | undefined;
+        resize_maxHeight?: number | undefined;
+        resize_maxWidth?: number | undefined;
+        resize_minHeight?: number | undefined;
+        resize_minWidth?: number | undefined;
 
-        scayt_autoStartup?: boolean;
-        scayt_contextCommands?: string;
-        scayt_contextMenuItemsOrder?: string;
-        scayt_customDictionaryIds?: string;
-        scayt_customerId?: string;
-        scayt_disableOptionsStorage?: string | string[];
-        scayt_elementsToIgnore?: string;
-        scayt_handleCheckDirty?: string;
-        scayt_handleUndoRedo?: string;
-        scayt_ignoreAllCapsWords?: boolean;
-        scayt_ignoreDomainNames?: boolean;
-        scayt_ignoreWordsWithMixedCases?: boolean;
-        scayt_ignoreWordsWithNumbers?: boolean;
-        scayt_inlineModeImmediateMarkup?: boolean;
-        scayt_maxSuggestions?: number;
-        scayt_minWordLength?: number;
-        scayt_moreSuggestions?: string;
-        scayt_multiLanguageMode?: boolean;
-        scayt_multiLanguageStyles?: { [key: string]: any };
-        scayt_sLang?: string;
-        scayt_serviceHost?: string;
-        scayt_servicePath?: string;
-        scayt_servicePort?: string;
-        scayt_serviceProtocol?: string;
-        scayt_srcUrl?: string;
-        scayt_uiTabs?: string;
-        scayt_userDictionaryName?: string;
+        scayt_autoStartup?: boolean | undefined;
+        scayt_contextCommands?: string | undefined;
+        scayt_contextMenuItemsOrder?: string | undefined;
+        scayt_customDictionaryIds?: string | undefined;
+        scayt_customerId?: string | undefined;
+        scayt_disableOptionsStorage?: string | string[] | undefined;
+        scayt_elementsToIgnore?: string | undefined;
+        scayt_handleCheckDirty?: string | undefined;
+        scayt_handleUndoRedo?: string | undefined;
+        scayt_ignoreAllCapsWords?: boolean | undefined;
+        scayt_ignoreDomainNames?: boolean | undefined;
+        scayt_ignoreWordsWithMixedCases?: boolean | undefined;
+        scayt_ignoreWordsWithNumbers?: boolean | undefined;
+        scayt_inlineModeImmediateMarkup?: boolean | undefined;
+        scayt_maxSuggestions?: number | undefined;
+        scayt_minWordLength?: number | undefined;
+        scayt_moreSuggestions?: string | undefined;
+        scayt_multiLanguageMode?: boolean | undefined;
+        scayt_multiLanguageStyles?: { [key: string]: any } | undefined;
+        scayt_sLang?: string | undefined;
+        scayt_serviceHost?: string | undefined;
+        scayt_servicePath?: string | undefined;
+        scayt_servicePort?: string | undefined;
+        scayt_serviceProtocol?: string | undefined;
+        scayt_srcUrl?: string | undefined;
+        scayt_uiTabs?: string | undefined;
+        scayt_userDictionaryName?: string | undefined;
 
-        sharedSpaces?: sharedSpace;
-        shiftEnterMode?: number;
-        skin?: string;
-        smiley_columns?: number;
-        smiley_descriptions?: string[];
-        smiley_images?: string[];
-        smiley_path?: string;
-        sourceAreaTabSize?: number;
-        specialChars?: Array<string | [string, string]>;
-        startupFocus?: string | boolean;
-        startupMode?: string;
-        startupOutlineBlocks?: boolean;
-        startupShowBorders?: boolean;
-        stylesSet?: string | boolean | config.styleObject[];
-        stylesheetParser_skipSelectors?: RegExp;
-        stylesheetParser_validSelectors?: RegExp;
+        sharedSpaces?: sharedSpace | undefined;
+        shiftEnterMode?: number | undefined;
+        skin?: string | undefined;
+        smiley_columns?: number | undefined;
+        smiley_descriptions?: string[] | undefined;
+        smiley_images?: string[] | undefined;
+        smiley_path?: string | undefined;
+        sourceAreaTabSize?: number | undefined;
+        specialChars?: Array<string | [string, string]> | undefined;
+        startupFocus?: string | boolean | undefined;
+        startupMode?: string | undefined;
+        startupOutlineBlocks?: boolean | undefined;
+        startupShowBorders?: boolean | undefined;
+        stylesSet?: string | boolean | config.styleObject[] | undefined;
+        stylesheetParser_skipSelectors?: RegExp | undefined;
+        stylesheetParser_validSelectors?: RegExp | undefined;
 
-        tabIndex?: number;
-        tabSpaces?: number;
-        templates?: string;
-        templates_files?: { [key: string]: any };
-        templates_replaceContent?: boolean;
-        title?: string | boolean;
-        toolbar?: string | Array<string | string[] | { name: string, items?: string[], groups?: string[] }> | null;
-        toolbarCanCollapse?: boolean;
-        toolbarGroupCycling?: boolean;
-        toolbarGroups?: Array<toolbarGroups | string>;
-        toolbarLocation?: string;
-        toolbarStartupExpanded?: boolean;
+        tabIndex?: number | undefined;
+        tabSpaces?: number | undefined;
+        templates?: string | undefined;
+        templates_files?: { [key: string]: any } | undefined;
+        templates_replaceContent?: boolean | undefined;
+        title?: string | boolean | undefined;
+        toolbar?: string | Array<string | string[] | { name: string, items?: string[] | undefined, groups?: string[] | undefined }> | null | undefined;
+        toolbarCanCollapse?: boolean | undefined;
+        toolbarGroupCycling?: boolean | undefined;
+        toolbarGroups?: Array<toolbarGroups | string> | undefined;
+        toolbarLocation?: string | undefined;
+        toolbarStartupExpanded?: boolean | undefined;
 
-        uiColor?: string;
-        undoStackSize?: number;
-        uploadUrl?: string;
-        useComputedState?: boolean;
+        uiColor?: string | undefined;
+        undoStackSize?: number | undefined;
+        uploadUrl?: string | undefined;
+        useComputedState?: boolean | undefined;
 
-        width?: string | number;
-        wsc_cmd?: string;
-        wsc_customDictionaryIds?: string;
-        wsc_customLoaderScript?: string;
-        wsc_customerId?: string;
-        wsc_height?: string;
-        wsc_lang?: string;
-        wsc_left?: string;
-        wsc_top?: string;
-        wsc_userDictionaryName?: string;
-        wsc_width?: string;
+        width?: string | number | undefined;
+        wsc_cmd?: string | undefined;
+        wsc_customDictionaryIds?: string | undefined;
+        wsc_customLoaderScript?: string | undefined;
+        wsc_customerId?: string | undefined;
+        wsc_height?: string | undefined;
+        wsc_lang?: string | undefined;
+        wsc_left?: string | undefined;
+        wsc_top?: string | undefined;
+        wsc_userDictionaryName?: string | undefined;
+        wsc_width?: string | undefined;
     }
 
     interface dataProcessor {
@@ -914,131 +914,131 @@ declare namespace CKEDITOR {
     namespace dialog {
         namespace definition {
             interface button extends uiElement {
-                disabled?: boolean;
+                disabled?: boolean | undefined;
             }
 
             interface checkbox extends uiElement {
-                default?: string;
-                validate?: () => boolean;
+                default?: string | undefined;
+                validate?: (() => boolean) | undefined;
             }
 
             interface content {
-                accessKey?: string;
-                elements?: uiElement[];
-                id?: string;
-                label?: string;
-                title?: string;
+                accessKey?: string | undefined;
+                elements?: uiElement[] | undefined;
+                id?: string | undefined;
+                label?: string | undefined;
+                title?: string | undefined;
             }
 
             interface file extends labeledElement {
-                action?: string;
-                size?: string;
-                validate?: () => boolean;
+                action?: string | undefined;
+                size?: string | undefined;
+                validate?: (() => boolean) | undefined;
             }
 
             interface fileButton extends uiElement {
-                filebrowser?: string;
-                for?: string;
-                validate?: () => boolean;
+                filebrowser?: string | undefined;
+                for?: string | undefined;
+                validate?: (() => boolean) | undefined;
             }
 
             interface hbox extends uiElement {
-                children?: ui.dialog.uiElement[];
-                height?: number;
-                padding?: number;
-                validate?: () => boolean;
-                widths?: number[];
+                children?: ui.dialog.uiElement[] | undefined;
+                height?: number | undefined;
+                padding?: number | undefined;
+                validate?: (() => boolean) | undefined;
+                widths?: number[] | undefined;
             }
 
             interface html extends uiElement {
-                html?: string;
+                html?: string | undefined;
             }
 
             interface labeledElement extends uiElement {
-                controlStyle?: string;
-                inputStyle?: string;
-                labelLayout?: string;
-                labelStyle?: string;
-                widths?: number[];
+                controlStyle?: string | undefined;
+                inputStyle?: string | undefined;
+                labelLayout?: string | undefined;
+                labelStyle?: string | undefined;
+                widths?: number[] | undefined;
             }
 
             interface radio extends labeledElement {
-                default?: string;
-                items?: string[] | string[][];
-                validate?: () => boolean;
+                default?: string | undefined;
+                items?: string[] | string[][] | undefined;
+                validate?: (() => boolean) | undefined;
             }
 
             interface select extends labeledElement {
-                default?: string;
-                items?: string[] | string[][];
-                multiple?: boolean;
-                size?: number;
-                validate?: () => boolean;
+                default?: string | undefined;
+                items?: string[] | string[][] | undefined;
+                multiple?: boolean | undefined;
+                size?: number | undefined;
+                validate?: (() => boolean) | undefined;
             }
 
             interface textarea extends labeledElement {
-                bidi?: boolean;
-                cols?: number;
-                default?: string;
-                rows?: number;
-                validate?: () => boolean;
+                bidi?: boolean | undefined;
+                cols?: number | undefined;
+                default?: string | undefined;
+                rows?: number | undefined;
+                validate?: (() => boolean) | undefined;
             }
 
             interface textInput extends labeledElement {
-                bidi?: boolean;
-                default?: string;
-                maxLength?: number;
-                size?: number;
-                validate?: () => boolean;
+                bidi?: boolean | undefined;
+                default?: string | undefined;
+                maxLength?: number | undefined;
+                size?: number | undefined;
+                validate?: (() => boolean) | undefined;
             }
 
             interface uiElement {
-                align?: string;
-                className?: string;
-                commit?: (widget: plugins.widget) => void;
-                id?: string;
-                label?: string;
-                onHide?: (elem: ui.dialog.uiElement) => void;
-                onLoad?: (elem: ui.dialog.uiElement) => void;
-                onShow?: (elem: ui.dialog.uiElement) => void;
-                requiredContent?: string | { [key: string]: any } | style;
-                setup?: (widget: plugins.widget) => void;
-                style?: string;
-                title?: string;
-                type?: string;
+                align?: string | undefined;
+                className?: string | undefined;
+                commit?: ((widget: plugins.widget) => void) | undefined;
+                id?: string | undefined;
+                label?: string | undefined;
+                onHide?: ((elem: ui.dialog.uiElement) => void) | undefined;
+                onLoad?: ((elem: ui.dialog.uiElement) => void) | undefined;
+                onShow?: ((elem: ui.dialog.uiElement) => void) | undefined;
+                requiredContent?: string | { [key: string]: any } | style | undefined;
+                setup?: ((widget: plugins.widget) => void) | undefined;
+                style?: string | undefined;
+                title?: string | undefined;
+                type?: string | undefined;
             }
 
             interface vbox extends uiElement {
-                children?: ui.dialog.uiElement[];
-                expand?: boolean;
-                heights?: number[];
-                padding?: number;
-                styles?: string;
-                width?: number[];
+                children?: ui.dialog.uiElement[] | undefined;
+                expand?: boolean | undefined;
+                heights?: number[] | undefined;
+                padding?: number | undefined;
+                styles?: string | undefined;
+                width?: number[] | undefined;
             }
         }
 
         interface DialogDefinition {
-            buttons?: definition.button[];
-            contents?: definition.content[];
-            height?: number;
-            minHeight?: number;
-            minWidth?: number;
-            onCancel?: () => void;
-            onLoad?: () => void;
-            onOk?: () => void;
-            onShow?: () => void;
-            onHide?: () => void;
-            resizable?: number;
-            title?: string;
-            width?: number;
+            buttons?: definition.button[] | undefined;
+            contents?: definition.content[] | undefined;
+            height?: number | undefined;
+            minHeight?: number | undefined;
+            minWidth?: number | undefined;
+            onCancel?: (() => void) | undefined;
+            onLoad?: (() => void) | undefined;
+            onOk?: (() => void) | undefined;
+            onShow?: (() => void) | undefined;
+            onHide?: (() => void) | undefined;
+            resizable?: number | undefined;
+            title?: string | undefined;
+            width?: number | undefined;
         }
     }
 
     class dialogCommand {
         value: any;
 
-        constructor(dialogName: string, ext?: { tabId?: string });
+        constructor(dialogName: string, ext?: { tabId?: string | undefined });
     }
 
     interface dtdDefinition {
@@ -1166,7 +1166,7 @@ declare namespace CKEDITOR {
         selectionChange(checkNow?: boolean): void;
         setActiveEnterMode(enterMode: number, shiftEnterMode: number): void;
         setActiveFilter(filter: filter): void;
-        setData(data: string, options?: { internal?: boolean; callback?: () => void; noSnapshot?: boolean; }): void;
+        setData(data: string, options?: { internal?: boolean | undefined; callback?: (() => void) | undefined; noSnapshot?: boolean | undefined; }): void;
         setKeystroke(keystroke: number, behavior: string | boolean): void;
         setKeystroke(keystroke: Array<[number, string | boolean]>): void;
         setMode(newMode: string, callback: () => void): void;
@@ -1179,97 +1179,97 @@ declare namespace CKEDITOR {
 
     namespace editor {
         interface eventObject {
-            activeEnterModeChange?: (evt: eventInfo) => void;
-            activeFilterChange?: (evt: eventInfo) => void;
-            afterCommandExec?: (evt: eventInfo) => void;
-            afterInsertHtml?: (evt: eventInfo) => void;
-            afterPaste?: (evt: eventInfo) => void;
-            afterPasteFromWord?: (evt: eventInfo) => void;
-            afterSetData?: (evt: eventInfo) => void;
-            afterUndoImage?: (evt: eventInfo) => void;
-            ariaEditorHelpLabel?: (evt: eventInfo) => void;
-            ariaWidget?: (evt: eventInfo) => void;
-            autogrow?: (evt: eventInfo) => void;
+            activeEnterModeChange?: ((evt: eventInfo) => void) | undefined;
+            activeFilterChange?: ((evt: eventInfo) => void) | undefined;
+            afterCommandExec?: ((evt: eventInfo) => void) | undefined;
+            afterInsertHtml?: ((evt: eventInfo) => void) | undefined;
+            afterPaste?: ((evt: eventInfo) => void) | undefined;
+            afterPasteFromWord?: ((evt: eventInfo) => void) | undefined;
+            afterSetData?: ((evt: eventInfo) => void) | undefined;
+            afterUndoImage?: ((evt: eventInfo) => void) | undefined;
+            ariaEditorHelpLabel?: ((evt: eventInfo) => void) | undefined;
+            ariaWidget?: ((evt: eventInfo) => void) | undefined;
+            autogrow?: ((evt: eventInfo) => void) | undefined;
 
-            beforeCommandExec?: (evt: eventInfo) => void;
-            beforeDestroy?: (evt: eventInfo) => void;
-            beforeGetData?: (evt: eventInfo) => void;
-            beforeModeUnload?: (evt: eventInfo) => void;
-            beforeSetMode?: (evt: eventInfo) => void;
-            beforeUndoImage?: (evt: eventInfo) => void;
-            blur?: (evt: eventInfo) => void;
+            beforeCommandExec?: ((evt: eventInfo) => void) | undefined;
+            beforeDestroy?: ((evt: eventInfo) => void) | undefined;
+            beforeGetData?: ((evt: eventInfo) => void) | undefined;
+            beforeModeUnload?: ((evt: eventInfo) => void) | undefined;
+            beforeSetMode?: ((evt: eventInfo) => void) | undefined;
+            beforeUndoImage?: ((evt: eventInfo) => void) | undefined;
+            blur?: ((evt: eventInfo) => void) | undefined;
 
-            change?: (evt: eventInfo) => void;
-            configLoaded?: (evt: eventInfo) => void;
-            contentDirChanged?: (evt: eventInfo) => void;
-            contentDom?: (evt: eventInfo) => void;
-            contentDomInvalidated?: (evt: eventInfo) => void;
-            contentDomUnload?: (evt: eventInfo) => void;
-            customConfigLoaded?: (evt: eventInfo) => void;
+            change?: ((evt: eventInfo) => void) | undefined;
+            configLoaded?: ((evt: eventInfo) => void) | undefined;
+            contentDirChanged?: ((evt: eventInfo) => void) | undefined;
+            contentDom?: ((evt: eventInfo) => void) | undefined;
+            contentDomInvalidated?: ((evt: eventInfo) => void) | undefined;
+            contentDomUnload?: ((evt: eventInfo) => void) | undefined;
+            customConfigLoaded?: ((evt: eventInfo) => void) | undefined;
 
-            dataFiltered?: (evt: eventInfo) => void;
-            dataReady?: (evt: eventInfo) => void;
-            destroy?: (evt: eventInfo) => void;
-            dialogHide?: (evt: eventInfo) => void;
-            dialogShow?: (evt: eventInfo) => void;
-            dirChanged?: (evt: eventInfo) => void;
-            doubleclick?: (evt: eventInfo) => void;
-            dragend?: (evt: eventInfo) => void;
-            dragstart?: (evt: eventInfo) => void;
-            drop?: (evt: eventInfo) => void;
+            dataFiltered?: ((evt: eventInfo) => void) | undefined;
+            dataReady?: ((evt: eventInfo) => void) | undefined;
+            destroy?: ((evt: eventInfo) => void) | undefined;
+            dialogHide?: ((evt: eventInfo) => void) | undefined;
+            dialogShow?: ((evt: eventInfo) => void) | undefined;
+            dirChanged?: ((evt: eventInfo) => void) | undefined;
+            doubleclick?: ((evt: eventInfo) => void) | undefined;
+            dragend?: ((evt: eventInfo) => void) | undefined;
+            dragstart?: ((evt: eventInfo) => void) | undefined;
+            drop?: ((evt: eventInfo) => void) | undefined;
 
-            elementsPathUpdate?: (evt: eventInfo) => void;
+            elementsPathUpdate?: ((evt: eventInfo) => void) | undefined;
 
-            fileUploadRequest?: (evt: eventInfo) => void;
-            fileUploadResponse?: (evt: eventInfo) => void;
-            floatingSpaceLayout?: (evt: eventInfo) => void;
-            focus?: (evt: eventInfo) => void;
+            fileUploadRequest?: ((evt: eventInfo) => void) | undefined;
+            fileUploadResponse?: ((evt: eventInfo) => void) | undefined;
+            floatingSpaceLayout?: ((evt: eventInfo) => void) | undefined;
+            focus?: ((evt: eventInfo) => void) | undefined;
 
-            getData?: (evt: eventInfo) => void;
-            getSnapshot?: (evt: eventInfo) => void;
+            getData?: ((evt: eventInfo) => void) | undefined;
+            getSnapshot?: ((evt: eventInfo) => void) | undefined;
 
-            insertElement?: (evt: eventInfo) => void;
-            insertHtml?: (evt: eventInfo) => void;
-            insertText?: (evt: eventInfo) => void;
-            instanceReady?: (evt: eventInfo) => void;
+            insertElement?: ((evt: eventInfo) => void) | undefined;
+            insertHtml?: ((evt: eventInfo) => void) | undefined;
+            insertText?: ((evt: eventInfo) => void) | undefined;
+            instanceReady?: ((evt: eventInfo) => void) | undefined;
 
-            key?: (evt: eventInfo) => void;
+            key?: ((evt: eventInfo) => void) | undefined;
 
-            langLoaded?: (evt: eventInfo) => void;
-            loadSnapshot?: (evt: eventInfo) => void;
-            loaded?: (evt: eventInfo) => void;
-            lockSnapshot?: (evt: eventInfo) => void;
-            maximize?: (evt: eventInfo) => void;
-            menuShow?: (evt: eventInfo) => void;
-            mode?: (evt: eventInfo) => void;
+            langLoaded?: ((evt: eventInfo) => void) | undefined;
+            loadSnapshot?: ((evt: eventInfo) => void) | undefined;
+            loaded?: ((evt: eventInfo) => void) | undefined;
+            lockSnapshot?: ((evt: eventInfo) => void) | undefined;
+            maximize?: ((evt: eventInfo) => void) | undefined;
+            menuShow?: ((evt: eventInfo) => void) | undefined;
+            mode?: ((evt: eventInfo) => void) | undefined;
 
-            notificationHide?: (evt: eventInfo) => void;
-            notificationShow?: (evt: eventInfo) => void;
-            notificationUpdate?: (evt: eventInfo) => void;
+            notificationHide?: ((evt: eventInfo) => void) | undefined;
+            notificationShow?: ((evt: eventInfo) => void) | undefined;
+            notificationUpdate?: ((evt: eventInfo) => void) | undefined;
 
-            paste?: (evt: eventInfo) => void;
-            pasteFromWord?: (evt: eventInfo) => void;
-            pluginsLoaded?: (evt: eventInfo) => void;
+            paste?: ((evt: eventInfo) => void) | undefined;
+            pasteFromWord?: ((evt: eventInfo) => void) | undefined;
+            pluginsLoaded?: ((evt: eventInfo) => void) | undefined;
 
-            readOnly?: (evt: eventInfo) => void;
-            removeFormatCleanup?: (evt: eventInfo) => void;
-            required?: (evt: eventInfo) => void;
-            resize?: (evt: eventInfo) => void;
+            readOnly?: ((evt: eventInfo) => void) | undefined;
+            removeFormatCleanup?: ((evt: eventInfo) => void) | undefined;
+            required?: ((evt: eventInfo) => void) | undefined;
+            resize?: ((evt: eventInfo) => void) | undefined;
 
-            save?: (evt: eventInfo) => void;
-            saveSnapshot?: (evt: eventInfo) => void;
-            selectionChange?: (evt: eventInfo) => void;
-            setData?: (evt: eventInfo) => void;
-            stylesSet?: (evt: eventInfo) => void;
+            save?: ((evt: eventInfo) => void) | undefined;
+            saveSnapshot?: ((evt: eventInfo) => void) | undefined;
+            selectionChange?: ((evt: eventInfo) => void) | undefined;
+            setData?: ((evt: eventInfo) => void) | undefined;
+            stylesSet?: ((evt: eventInfo) => void) | undefined;
 
-            template?: (evt: eventInfo) => void;
-            toDataFormat?: (evt: eventInfo) => void;
-            toHtml?: (evt: eventInfo) => void;
+            template?: ((evt: eventInfo) => void) | undefined;
+            toDataFormat?: ((evt: eventInfo) => void) | undefined;
+            toHtml?: ((evt: eventInfo) => void) | undefined;
 
-            unlockSnapshot?: (evt: eventInfo) => void;
-            updateSnapshot?: (evt: eventInfo) => void;
+            unlockSnapshot?: ((evt: eventInfo) => void) | undefined;
+            updateSnapshot?: ((evt: eventInfo) => void) | undefined;
 
-            widgetDefinition?: (evt: eventInfo) => void;
+            widgetDefinition?: ((evt: eventInfo) => void) | undefined;
         }
     }
 
@@ -1325,12 +1325,12 @@ declare namespace CKEDITOR {
     }
 
     interface feature {
-        allowedContent?: filter.allowedContentRules;
+        allowedContent?: filter.allowedContentRules | undefined;
         contentForms?: any;
         contentTransformations?: any;
-        name?: string;
-        requiredContent?: string | style;
-        toFeature?: () => feature;
+        name?: string | undefined;
+        requiredContent?: string | style | undefined;
+        toFeature?: (() => feature) | undefined;
     }
 
     namespace fileTools {
@@ -1378,18 +1378,18 @@ declare namespace CKEDITOR {
 
         interface uploadWidgetDefinition extends plugins.widget.definition {
             additionalRequestParameters?: any;
-            fileToElement?: (pastedFile: any) => HTMLElement;
-            loadMethod?: 'load' | 'loadAndUpload' | 'upload';
+            fileToElement?: ((pastedFile: any) => HTMLElement) | undefined;
+            loadMethod?: 'load' | 'loadAndUpload' | 'upload' | undefined;
             loaderType?: any;
-            onAbort?: () => boolean;
-            onError?: () => boolean;
-            onLoaded?: () => boolean;
-            onUploaded?: () => boolean;
-            onUploading?: () => boolean;
-            replaceWith?: () => any;
-            skipNotifications?: boolean;
-            supportedTypes?: RegExp;
-            uploadUrl?: string;
+            onAbort?: (() => boolean) | undefined;
+            onError?: (() => boolean) | undefined;
+            onLoaded?: (() => boolean) | undefined;
+            onUploaded?: (() => boolean) | undefined;
+            onUploading?: (() => boolean) | undefined;
+            replaceWith?: (() => any) | undefined;
+            skipNotifications?: boolean | undefined;
+            supportedTypes?: RegExp | undefined;
+            uploadUrl?: string | undefined;
         }
     }
 
@@ -1400,9 +1400,9 @@ declare namespace CKEDITOR {
         type disallowedContentRules = string | { [key: string]: any };
 
         interface transformation {
-            check?: string;
-            element?: string | style;
-            left?: (element: htmlParser.element | style) => boolean;
+            check?: string | undefined;
+            element?: string | style | undefined;
+            left?: ((element: htmlParser.element | style) => boolean) | undefined;
             right: (element: htmlParser.element, tools: string | transformationTools) => boolean;
         }
 
@@ -1468,17 +1468,17 @@ declare namespace CKEDITOR {
         writer: htmlParser.basicWriter;
 
         constructor(editor: editor);
-        toDataFormat(html: string, options?: string | { context?: string, filter?: filter, enterMode?: number }): string;
+        toDataFormat(html: string, options?: string | { context?: string | undefined, filter?: filter | undefined, enterMode?: number | undefined }): string;
         toHtml(data: string, options?: string | htmlDataProcessorOptions): string;
     }
 
     interface htmlDataProcessorOptions {
-        context?: string;
-        fixForBody?: boolean;
-        filter?: filter;
-        dontFilter?: boolean;
-        enterMode?: number;
-        protectedWhitespaces?: boolean;
+        context?: string | undefined;
+        fixForBody?: boolean | undefined;
+        filter?: filter | undefined;
+        dontFilter?: boolean | undefined;
+        enterMode?: number | undefined;
+        protectedWhitespaces?: boolean | undefined;
     }
 
     namespace htmlParser {
@@ -1552,7 +1552,7 @@ declare namespace CKEDITOR {
             textRules: filterRulesGroup;
 
             constructor(rules?: filterRulesDefinition);
-            addRules(rules: filterRulesDefinition, options?: number | { priority?: number; applyToAll?: boolean; }): void;
+            addRules(rules: filterRulesDefinition, options?: number | { priority?: number | undefined; applyToAll?: boolean | undefined; }): void;
             applyTo(node: node): void;
         }
 
@@ -1608,8 +1608,8 @@ declare namespace CKEDITOR {
         type rule = ((value: node | fragment | string) => boolean) | [string, string];
 
         interface ruleOptions {
-            applyToAll?: boolean;
-            excludeNestedEditable?: boolean;
+            applyToAll?: boolean | undefined;
+            excludeNestedEditable?: boolean | undefined;
         }
 
         class text extends node {
@@ -1667,9 +1667,9 @@ declare namespace CKEDITOR {
     }
 
     interface pluginDefinition {
-        hidpi?: boolean;
-        lang?: string | string[];
-        requires?: string | string[];
+        hidpi?: boolean | undefined;
+        lang?: string | string[] | undefined;
+        requires?: string | string[] | undefined;
 
         afterInit?(editor: editor): any;
         beforeInit?(editor: editor): any;
@@ -1708,11 +1708,11 @@ declare namespace CKEDITOR {
             }
 
             interface contextDefinition {
-                cssSelector?: string;
-                priority?: number;
-                widgets?: string[] | string;
+                cssSelector?: string | undefined;
+                priority?: number | undefined;
+                widgets?: string[] | string | undefined;
 
-                refresh?: (editor: editor, path: dom.elementPath, selection: dom.selection) => dom.element;
+                refresh?: ((editor: editor, path: dom.elementPath, selection: dom.selection) => dom.element) | undefined;
             }
 
             class contextManager {
@@ -1953,9 +1953,9 @@ declare namespace CKEDITOR {
             }
 
             interface optionsBase {
-                duration?: number;
-                progress?: number;
-                type?: type;
+                duration?: number | undefined;
+                progress?: number | undefined;
+                type?: type | undefined;
             }
 
             interface options extends optionsBase {
@@ -1963,8 +1963,8 @@ declare namespace CKEDITOR {
             }
 
             interface updateOptions extends optionsBase {
-                message?: string;
-                important?: boolean;
+                message?: string | undefined;
+                important?: boolean | undefined;
             }
 
             type type = 'info' | 'warning' | 'success' | 'progress';
@@ -1975,7 +1975,7 @@ declare namespace CKEDITOR {
             readonly notification: notification;
 
             constructor(editor: editor, message: string, singularMessage?: string);
-            createTask(options?: { weight?: number }): notificationAggregator.task;
+            createTask(options?: { weight?: number | undefined }): notificationAggregator.task;
             getDoneTaskCount(): number;
             getPercentage(): number;
             getTaskCount(): number;
@@ -2030,10 +2030,10 @@ declare namespace CKEDITOR {
 
             namespace nestedEditable {
                 interface definition {
-                    allowedContent?: filter.allowedContentRules;
-                    disallowedContent?: filter.disallowedContentRules;
-                    pathName?: string;
-                    selector?: string;
+                    allowedContent?: filter.allowedContentRules | undefined;
+                    disallowedContent?: filter.disallowedContentRules | undefined;
+                    pathName?: string | undefined;
+                    selector?: string | undefined;
                 }
             }
 
@@ -2043,34 +2043,34 @@ declare namespace CKEDITOR {
                 readonly filter: filter;
                 readonly shiftEnterMode: number;
 
-                constructor(editor: editor, element: dom.element, config: { filter?: filter });
+                constructor(editor: editor, element: dom.element, config: { filter?: filter | undefined });
                 getData(): string;
                 setData(data: string): void;
             }
 
             interface definition extends feature {
-                button?: string;
-                data?: (evt: eventInfo) => void;
-                defaults?: { [key: string]: any };
-                dialog?: string;
-                downcast?: string | ((element: htmlParser.element) => void);
-                downcasts?: { [key: string]: any };
-                draggable?: boolean;
-                edit?: () => void;
-                editables?: { [key: string]: any };
-                getLabel?: () => any;
-                init?: () => void;
-                inline?: boolean;
-                insert?: () => void;
-                mask?: boolean;
-                parts?: { [key: string]: any };
-                pathName?: string;
-                styleToAllowedContentRules?: (style: style) => filter.allowedContentRules;
-                styleableElements?: string;
-                template?: string | template;
-                upcast?: string | ((element: htmlParser.element, data: any) => boolean);
-                upcastPriority?: number;
-                upcasts?: { [key: string]: any };
+                button?: string | undefined;
+                data?: ((evt: eventInfo) => void) | undefined;
+                defaults?: { [key: string]: any } | undefined;
+                dialog?: string | undefined;
+                downcast?: string | ((element: htmlParser.element) => void) | undefined;
+                downcasts?: { [key: string]: any } | undefined;
+                draggable?: boolean | undefined;
+                edit?: (() => void) | undefined;
+                editables?: { [key: string]: any } | undefined;
+                getLabel?: (() => any) | undefined;
+                init?: (() => void) | undefined;
+                inline?: boolean | undefined;
+                insert?: (() => void) | undefined;
+                mask?: boolean | undefined;
+                parts?: { [key: string]: any } | undefined;
+                pathName?: string | undefined;
+                styleToAllowedContentRules?: ((style: style) => filter.allowedContentRules) | undefined;
+                styleableElements?: string | undefined;
+                template?: string | template | undefined;
+                upcast?: string | ((element: htmlParser.element, data: any) => boolean) | undefined;
+                upcastPriority?: number | undefined;
+                upcasts?: { [key: string]: any } | undefined;
             }
 
             class repository extends event {
@@ -2084,7 +2084,7 @@ declare namespace CKEDITOR {
                 add(name: string, widgetDef: definition): void;
                 addUpcastCallback(callback: (element: htmlParser.element, data: any) => boolean): void;
                 checkSelection(): void;
-                checkWidgets(options?: { initOnlyNew?: boolean; focusInited?: boolean }): void;
+                checkWidgets(options?: { initOnlyNew?: boolean | undefined; focusInited?: boolean | undefined }): void;
                 del(widget: widget): void;
                 destroy(widget: widget, offline?: boolean): void;
                 destroyAll(offline?: boolean): void;
@@ -2200,17 +2200,17 @@ declare namespace CKEDITOR {
         }
 
         interface definition {
-            attributes?: { [att: string]: string };
-            element?: string;
-            name?: string;
-            styles?: { [att: string]: string };
-            type?: string | number;
+            attributes?: { [att: string]: string } | undefined;
+            element?: string | undefined;
+            name?: string | undefined;
+            styles?: { [att: string]: string } | undefined;
+            type?: string | number | undefined;
         }
 
         interface customHandler {
             type: string | number;
-            setup?: (style: definition) => void;
-            assignedTo?: number;
+            setup?: ((style: definition) => void) | undefined;
+            assignedTo?: number | undefined;
         }
     }
 
@@ -2353,34 +2353,34 @@ declare namespace CKEDITOR {
             namespace definitions {
                 interface button {
                     label: string;
-                    disabled?: boolean;
+                    disabled?: boolean | undefined;
                 }
 
                 interface checkbox {
-                    checked?: boolean;
-                    validate?: () => boolean;
-                    label?: string;
+                    checked?: boolean | undefined;
+                    validate?: (() => boolean) | undefined;
+                    label?: string | undefined;
                 }
 
                 interface fieldSet {
-                    label?: string;
+                    label?: string | undefined;
                     children: any[];
                 }
 
                 interface file {
-                    validate?: () => boolean;
+                    validate?: (() => boolean) | undefined;
                 }
 
                 interface fileButton {
                     for: string;
-                    validate?: () => boolean;
+                    validate?: (() => boolean) | undefined;
                 }
 
                 interface hbox {
-                    widths?: string[];
-                    height?: string;
-                    padding?: string;
-                    align?: string;
+                    widths?: string[] | undefined;
+                    height?: string | undefined;
+                    padding?: string | undefined;
+                    align?: string | undefined;
                 }
 
                 interface html {
@@ -2391,61 +2391,61 @@ declare namespace CKEDITOR {
                     src: string;
                     width: string;
                     height: string;
-                    onContentLoad?: () => void;
+                    onContentLoad?: (() => void) | undefined;
                 }
 
                 interface labeledElement {
                     label: string;
-                    labelLayout?: 'horizontal' | 'vertical';
-                    widths?: [string, string];
-                    role?: string;
-                    includeLabel?: boolean;
+                    labelLayout?: 'horizontal' | 'vertical' | undefined;
+                    widths?: [string, string] | undefined;
+                    role?: string | undefined;
+                    includeLabel?: boolean | undefined;
                 }
 
                 interface radio {
                     default: any;
-                    validate?: () => boolean;
+                    validate?: (() => boolean) | undefined;
                     items: Array<[string, string] | [string]>;
                 }
 
                 interface select {
                     default: any;
-                    validate?: () => boolean;
+                    validate?: (() => boolean) | undefined;
                     items: Array<[string, string] | [string]>;
-                    multiple?: boolean;
-                    size?: number;
+                    multiple?: boolean | undefined;
+                    size?: number | undefined;
                 }
 
                 interface textarea {
-                    rows?: number;
-                    cols?: number;
-                    default?: string;
-                    validate?: () => boolean;
+                    rows?: number | undefined;
+                    cols?: number | undefined;
+                    default?: string | undefined;
+                    validate?: (() => boolean) | undefined;
                 }
 
                 interface textInput {
-                    default?: string;
-                    validate?: () => boolean;
-                    maxLength?: number;
-                    size?: string;
+                    default?: string | undefined;
+                    validate?: (() => boolean) | undefined;
+                    maxLength?: number | undefined;
+                    size?: string | undefined;
                 }
 
                 interface uiElement {
                     id: string;
                     type: number;
-                    title?: string;
-                    hidden?: boolean;
-                    className?: string;
-                    style?: string;
-                    accessKey?: string;
+                    title?: string | undefined;
+                    hidden?: boolean | undefined;
+                    className?: string | undefined;
+                    style?: string | undefined;
+                    accessKey?: string | undefined;
                 }
 
                 interface vbox {
-                    width?: string;
-                    heights?: string[];
-                    align?: string;
-                    padding?: string;
-                    expand?: boolean;
+                    width?: string | undefined;
+                    heights?: string[] | undefined;
+                    align?: string | undefined;
+                    padding?: string | undefined;
+                    expand?: boolean | undefined;
                 }
             }
 
@@ -2575,7 +2575,7 @@ declare namespace CKEDITOR {
             activeShowListener(id: number): void;
             activateShowListeners(): void;
             addShowListener(listener: () => listenerRegistration): listenerRegistration;
-            attach(element: dom.element, options?: dom.element | boolean | { focusElement?: dom.element | boolean, show?: boolean }): void;
+            attach(element: dom.element, options?: dom.element | boolean | { focusElement?: dom.element | boolean | undefined, show?: boolean | undefined }): void;
             blur(): void;
             build(): void;
             deactivateShowListener(id: number): void;
@@ -2595,46 +2595,46 @@ declare namespace CKEDITOR {
 
         namespace balloonPanel {
             interface definition {
-                content?: string;
-                title?: string;
+                content?: string | undefined;
+                title?: string | undefined;
             }
 
             interface templates {
-                close?: template;
-                content?: template;
-                panel?: template;
-                title?: template;
-                triangle?: template;
-                triangleInner?: template;
-                triangleOuter?: template;
+                close?: template | undefined;
+                content?: template | undefined;
+                panel?: template | undefined;
+                title?: template | undefined;
+                triangle?: template | undefined;
+                triangleInner?: template | undefined;
+                triangleOuter?: template | undefined;
             }
 
             interface templateDefinitions {
-                close?: string;
-                content?: string;
-                panel?: string;
-                title?: string;
-                triangle?: string;
-                triangleInner?: string;
-                triangleOuter?: string;
+                close?: string | undefined;
+                content?: string | undefined;
+                panel?: string | undefined;
+                title?: string | undefined;
+                triangle?: string | undefined;
+                triangleInner?: string | undefined;
+                triangleOuter?: string | undefined;
             }
 
             interface rect {
-                height?: number;
-                left?: number;
-                top?: number;
-                visible?: boolean;
-                width?: number;
+                height?: number | undefined;
+                left?: number | undefined;
+                top?: number | undefined;
+                visible?: boolean | undefined;
+                width?: number | undefined;
             }
 
             interface parts {
-                close?: dom.element;
-                content?: dom.element;
-                panel?: dom.element;
-                title?: dom.element;
-                triangle?: dom.element;
-                triangleInner?: dom.element;
-                triangleOuter?: dom.element;
+                close?: dom.element | undefined;
+                content?: dom.element | undefined;
+                panel?: dom.element | undefined;
+                title?: dom.element | undefined;
+                triangle?: dom.element | undefined;
+                triangleInner?: dom.element | undefined;
+                triangleOuter?: dom.element | undefined;
             }
         }
 
@@ -2717,23 +2717,23 @@ declare namespace CKEDITOR {
     }
 
     interface toolbarGroups {
-        name?: string;
-        groups?: string[];
+        name?: string | undefined;
+        groups?: string[] | undefined;
     }
 
     namespace config {
         interface styleObject {
-            name?: string;
+            name?: string | undefined;
             element: string;
-            attributes?: { [key: string]: any };
-            styles?: { [key: string]: any };
-            overrides?: { [key: string]: any };
+            attributes?: { [key: string]: any } | undefined;
+            styles?: { [key: string]: any } | undefined;
+            overrides?: { [key: string]: any } | undefined;
         }
     }
 
     interface sharedSpace {
-        top?: string | HTMLElement | null;
-        bottom?: string | HTMLElement | null;
+        top?: string | HTMLElement | null | undefined;
+        bottom?: string | HTMLElement | null | undefined;
     }
 
     interface MenuItemDefinition {
@@ -2745,8 +2745,8 @@ declare namespace CKEDITOR {
     }
 
     interface buttonDefinition {
-        icon?: string;
-        iconOffset?: number;
+        icon?: string | undefined;
+        iconOffset?: number | undefined;
         label: string;
         command: string;
         toolbar: string;

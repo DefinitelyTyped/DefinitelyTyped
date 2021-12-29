@@ -47,9 +47,9 @@ declare namespace SockJS {
     type SessionGenerator = () => string;
 
     interface Options {
-        server?: string;
-        sessionId?: number | SessionGenerator;
-        transports?: string | string[];
-        timeout?: number;
+        server?: string | undefined;
+        sessionId?: number | SessionGenerator | undefined;
+        transports?: string | string[] | undefined;
+        timeout?: number | undefined;
     }
 }

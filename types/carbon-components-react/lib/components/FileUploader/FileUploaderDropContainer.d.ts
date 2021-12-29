@@ -5,55 +5,55 @@ export interface FileUploaderDropContainerProps extends ReactAttr<HTMLLabelEleme
     /**
      * Provide a custom className to be applied to the container node
      */
-    className?: string;
+    className?: string | undefined;
 
     /**
      * Provide a unique id for the underlying <input> node
      */
-    id?: string;
+    id?: string | undefined;
 
     /**
      * Provide the label text to be read by screen readers when interacting with
      * this control
      */
     // Required but has a default value
-    labelText?: string;
+    labelText?: string | undefined;
 
     /**
      * Specify if the component should accept multiple files to upload
      */
-    multiple?: boolean;
+    multiple?: boolean | undefined;
 
     /**
      * Provide a name for the underlying <input> node
      */
-    name?: string;
+    name?: string | undefined;
 
     /**
      * Provide an accessibility role for the <FileUploaderButton>
      */
-    role?: string;
+    role?: string | undefined;
 
     /**
      * Provide a custom tabIndex value for the <FileUploaderButton>
      */
-    tabIndex?: number;
+    tabIndex?: number | undefined;
 
     /**
      * Specify whether file input is disabled
      */
-    disabled?: boolean;
+    disabled?: boolean | undefined;
 
     /**
      * Specify the types of files that this input should be able to receive
      */
-    accept?: readonly string[];
+    accept?: readonly string[] | undefined;
 
     /**
      * Event handler that is called after files are added to the uploader
      * The event handler signature looks like `onAddFiles(evt, { addedFiles })`
      */
-    onAddFiles?: (event: React.DragEvent<HTMLElement>, content: { addedFiles: File[] }) => void;
+    onAddFiles?: ((event: React.DragEvent<HTMLElement>, content: { addedFiles: File[] }) => void) | undefined;
 }
 
 declare const FileUploaderDropContainer: React.FC<FileUploaderDropContainerProps>;

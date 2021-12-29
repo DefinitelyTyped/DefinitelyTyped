@@ -11,13 +11,13 @@ type EventTypes = 'add' | 'done' | 'error' | 'ignore';
 type ExcludeFunctionProps<T> = Pick<T, { [K in keyof T]: T[K] extends (...args: any[]) => void ? never : K }[keyof T]>;
 
 type Options = Partial<ExcludeFunctionProps<Crawler>> & {
-    changeFreq?: FreqValues;
-    filepath?: string | null;
-    ignore?: (url: string) => boolean;
-    ignoreAMP?: boolean;
-    lastMod?: boolean;
-    maxEntriesPerFile?: number;
-    priorityMap?: PriorityValues[];
+    changeFreq?: FreqValues | undefined;
+    filepath?: string | null | undefined;
+    ignore?: ((url: string) => boolean) | undefined;
+    ignoreAMP?: boolean | undefined;
+    lastMod?: boolean | undefined;
+    maxEntriesPerFile?: number | undefined;
+    priorityMap?: PriorityValues[] | undefined;
 };
 
 interface ErrorMessage {

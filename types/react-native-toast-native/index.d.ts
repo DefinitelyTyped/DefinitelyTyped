@@ -7,28 +7,28 @@
 import { Platform } from 'react-native';
 
 export interface Style {
-    width?: number;
-    height?: number;
-    backgroundColor?: string;
-    color?: string;
-    borderWidth?: number;
-    borderRadius?: number;
+    width?: number | undefined;
+    height?: number | undefined;
+    backgroundColor?: string | undefined;
+    color?: string | undefined;
+    borderWidth?: number | undefined;
+    borderRadius?: number | undefined;
 
     // iOS-only
-    borderColor?: string;
+    borderColor?: string | undefined;
 
     // Android-only
-    paddingLeft?: number;
-    paddingRight?: number;
-    paddingBottom?: number;
-    paddingTop?: number;
-    fontSize?: number;
-    lines?: number;
-    lineHeight?: number;
-    xOffset?: number;
-    yOffset?: number;
-    letterSpacing?: number;
-    fontWeight?: string;
+    paddingLeft?: number | undefined;
+    paddingRight?: number | undefined;
+    paddingBottom?: number | undefined;
+    paddingTop?: number | undefined;
+    fontSize?: number | undefined;
+    lines?: number | undefined;
+    lineHeight?: number | undefined;
+    xOffset?: number | undefined;
+    yOffset?: number | undefined;
+    letterSpacing?: number | undefined;
+    fontWeight?: string | undefined;
 }
 
 interface ToastNative {

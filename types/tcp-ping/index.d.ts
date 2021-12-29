@@ -5,16 +5,16 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface Options {
-    address?: string;
-    port?: number;
-    attempts?: number;
-    timeout?: number;
+    address?: string | undefined;
+    port?: number | undefined;
+    attempts?: number | undefined;
+    timeout?: number | undefined;
 }
 
 export interface Results {
     seq: number;
     time: number | undefined;
-    err?: Error;
+    err?: Error | undefined;
 }
 
 export interface Result {

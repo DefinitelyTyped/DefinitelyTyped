@@ -5,9 +5,9 @@ import { Subscription } from "./subscription";
 
 export interface ServiceOptions {
     // Idle time in seconds before exiting.
-    readonly idleTimer?: number;
+    readonly idleTimer?: number | undefined;
     // Prevents registering 'info' & 'quit' methods.
-    readonly noBuiltinMethods?: boolean;
+    readonly noBuiltinMethods?: boolean | undefined;
 }
 
 export class Service {

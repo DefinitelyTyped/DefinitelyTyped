@@ -2,20 +2,27 @@
 // Project: https://github.com/tj/co#readme
 // Definitions by: Doniyor Aliyev <https://github.com/doniyor2109>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1
+// Minimum TypeScript Version: 3.6
 
-type ExtractType<T> =
-    T extends { [Symbol.iterator](): { next(): { done: true, value: infer U } } } ? U :
-    T extends { [Symbol.iterator](): { next(): { done: false } } } ? never :
-    T extends { [Symbol.iterator](): { next(): { value: infer U } } } ? U :
-    T extends { [Symbol.iterator](): any } ? unknown :
-    never;
+// Since TS 3.6 the checker knows that the correct type of returned values and yielded values https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-6.html
+// Generator<T, TReturn, TNext> => TReturn
+// Function => ReturnType<Function>
+// others => others
+type ExtractType<I> = I extends { [Symbol.iterator]: () => Iterator<any, infer TReturn, any> }
+    ? TReturn
+    : I extends (...args: any[]) => any
+    ? ReturnType<I>
+    : I;
 
 interface Co {
-    <F extends (...args: any[]) => Iterator<any>>(fn: F, ...args: Parameters<F>): Promise<ExtractType<ReturnType<F>>>;
+    <F extends (...args: any[]) => Iterator<any, any, any>>(fn: F, ...args: Parameters<F>): Promise<
+        ExtractType<ReturnType<F>>
+    >;
     default: Co;
     co: Co;
-    wrap: <F extends (...args: any[]) => Iterator<any>>(fn: F) => (...args: Parameters<F>) => Promise<ExtractType<ReturnType<F>>>;
+    wrap: <F extends (...args: any[]) => Iterator<any, any, any>>(
+        fn: F,
+    ) => (...args: Parameters<F>) => Promise<ExtractType<ReturnType<F>>>;
 }
 
 declare const co: Co;

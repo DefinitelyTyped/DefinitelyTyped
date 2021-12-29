@@ -524,6 +524,10 @@ BlogPost.query('werner@example.com')
     .projectionExpression('#title, tag')
     .exec(callback);
 
+BlogPost.query('werner@example.com')
+    .filter('title')
+    .exists(true);
+
 let GameScore = dynamo.define('GameScore', {
     hashKey: 'userId',
     rangeKey: 'gameTitle',

@@ -20,7 +20,7 @@ declare namespace jsrsasign.KJUR.asn1.x509 {
      * });
      */
     class AuthorityKeyIdentifier extends Extension {
-        constructor(params?: { critical?: boolean; kid: HexParam; issuer: StringParam; sn: HexParam });
+        constructor(params?: { critical?: boolean | undefined; kid: HexParam; issuer: StringParam; sn: HexParam });
 
         getExtnValueHex(): string;
 

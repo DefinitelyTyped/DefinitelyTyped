@@ -6,6 +6,6 @@ declare module "vue/types/options" {
         /**
          * 组件类型
          */
-        mpType?: string;
+        mpType?: string | undefined;
     }
 }

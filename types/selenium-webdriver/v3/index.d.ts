@@ -855,8 +855,8 @@ export namespace promise {
      * @template R
      */
     then<TResult1 = T, TResult2 = never>(
-      onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null,
-      onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): PromiseLike<TResult1 | TResult2>;
+      onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | null,
+      onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null): PromiseLike<TResult1 | TResult2>;
 
     /**
      * Registers a listener for when this promise is rejected. This is synonymous
@@ -881,7 +881,7 @@ export namespace promise {
      *     resolved with the result of the invoked callback.
      * @template R
      */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): Promise<T | TResult>;
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | null): Promise<T | TResult>;
   }
 
   /**
@@ -1013,8 +1013,8 @@ export namespace promise {
      *     of the invoked callback.
      */
     then<TResult1 = T, TResult2 = never>(
-      onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null,
-      onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): Promise<TResult1 | TResult2>;
+      onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | null,
+      onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null): Promise<TResult1 | TResult2>;
 
     /**
      * Registers a listener for when this promise is rejected. This is synonymous
@@ -1037,7 +1037,7 @@ export namespace promise {
      *     expect a single argument: the rejection reason.
      * @return A new promise which will be resolved with the result of the invoked callback.
      */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): Promise<T | TResult>;
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | null): Promise<T | TResult>;
   }
 
   /**
@@ -2047,14 +2047,14 @@ export const Browser: IBrowser;
 
 export interface ProxyConfig {
   proxyType: string;
-  proxyAutoconfigUrl?: string;
-  ftpProxy?: string;
-  httpProxy?: string;
-  sslProxy?: string;
-  noProxy?: string;
-  socksProxy?: string;
-  socksUsername?: string;
-  socksPassword?: string;
+  proxyAutoconfigUrl?: string | undefined;
+  ftpProxy?: string | undefined;
+  httpProxy?: string | undefined;
+  sslProxy?: string | undefined;
+  noProxy?: string | undefined;
+  socksProxy?: string | undefined;
+  socksUsername?: string | undefined;
+  socksPassword?: string | undefined;
 }
 
 /**
@@ -3127,25 +3127,25 @@ export interface IWebDriverOptionsCookie {
   /**
    * The cookie path. Defaults to "/" when adding a cookie.
    */
-  path?: string;
+  path?: string | undefined;
 
   /**
    * The domain the cookie is visible to. Defaults to the current browsing
    * context's document's URL when adding a cookie.
    */
-  domain?: string;
+  domain?: string | undefined;
 
   /**
    * Whether the cookie is a secure cookie. Defaults to false when adding a new
    * cookie.
    */
-  secure?: boolean;
+  secure?: boolean | undefined;
 
   /**
    * Whether the cookie is an HTTP only cookie. Defaults to false when adding a
    * new cookie.
    */
-  httpOnly?: boolean;
+  httpOnly?: boolean | undefined;
 
   /**
    * When the cookie expires.
@@ -3159,7 +3159,7 @@ export interface IWebDriverOptionsCookie {
    *
    * @type {(!Date|number|undefined)}
    */
-  expiry?: number | Date;
+  expiry?: number | Date | undefined;
 }
 
 export interface IWebDriverCookie extends IWebDriverOptionsCookie {
@@ -3171,7 +3171,7 @@ export interface IWebDriverCookie extends IWebDriverOptionsCookie {
      *
      * @type {(!number|undefined)}
      */
-    expiry?: number;
+    expiry?: number | undefined;
 }
 
 /**
@@ -3543,8 +3543,8 @@ export class FileDetector {
 }
 
 export type CreateSessionCapabilities = Capabilities | {
-  desired?: Capabilities,
-  required?: Capabilities
+  desired?: Capabilities | undefined,
+  required?: Capabilities | undefined
 };
 
 /**

@@ -12,15 +12,15 @@ declare module '@keystonejs/list-plugins' {
     import { BaseKeystoneAdapter, Plugin } from '@keystonejs/keystone';
 
     interface TrackingOptions {
-        createdAtField?: string; // TODO: insert fields here
-        updatedAtField?: string;
+        createdAtField?: string | undefined; // TODO: insert fields here
+        updatedAtField?: string | undefined;
         access: any; // TODO: reuse the access controls type
     }
     interface AtTrackingOptions extends TrackingOptions {
-        format?: string;
+        format?: string | undefined;
     }
     interface ByTrackingOptions extends TrackingOptions {
-        ref?: string; // TODO: investigate list names
+        ref?: string | undefined; // TODO: investigate list names
     }
 
     type AtTrackingPluginProvider = (options?: AtTrackingOptions) => Plugin;

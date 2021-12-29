@@ -9,14 +9,14 @@ declare module 'dns' {
     const ALL: number;
 
     interface LookupOptions {
-        family?: number;
-        hints?: number;
-        all?: boolean;
-        verbatim?: boolean;
+        family?: number | undefined;
+        hints?: number | undefined;
+        all?: boolean | undefined;
+        verbatim?: boolean | undefined;
     }
 
     interface LookupOneOptions extends LookupOptions {
-        all?: false;
+        all?: false | undefined;
     }
 
     interface LookupAllOptions extends LookupOptions {
@@ -250,6 +250,8 @@ declare module 'dns' {
     function setServers(servers: ReadonlyArray<string>): void;
     function getServers(): string[];
 
+    function setDefaultResultOrder(order: 'ipv4first' | 'verbatim'): void;
+
     // Error codes
     const NODATA: string;
     const FORMERR: string;
@@ -277,7 +279,7 @@ declare module 'dns' {
     const CANCELLED: string;
 
     interface ResolverOptions {
-        timeout?: number;
+        timeout?: number | undefined;
     }
 
     class Resolver {
@@ -356,6 +358,8 @@ declare module 'dns' {
 
         function setServers(servers: ReadonlyArray<string>): void;
 
+        function setDefaultResultOrder(order: 'ipv4first' | 'verbatim'): void;
+
         class Resolver {
             constructor(options?: ResolverOptions);
             cancel(): void;
@@ -377,4 +381,7 @@ declare module 'dns' {
             setServers: typeof setServers;
         }
     }
+}
+declare module 'node:dns' {
+    export * from 'dns';
 }

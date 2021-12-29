@@ -7,8 +7,8 @@ import { Sink, Stream, DataFactory, BaseQuad, Quad } from 'rdf-js';
 import { EventEmitter } from 'events';
 
 interface ParserOptions {
-    baseIRI?: string;
-    factory?: DataFactory;
+    baseIRI?: string | undefined;
+    factory?: DataFactory | undefined;
 }
 
 declare class Parser<Q extends BaseQuad = Quad> implements Sink<EventEmitter, Stream<Q>> {

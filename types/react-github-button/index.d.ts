@@ -14,7 +14,7 @@ export interface ReactGitHubButtonProps {
     /**
      * The size of the button. Leave undefined for default.
      */
-    size?: 'large';
+    size?: 'large' | undefined;
     /**
      * Your GitHub id or organization name.
      */

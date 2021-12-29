@@ -41,7 +41,7 @@ interface MediaStream {
  * A track sink that is capable of exposing the unencoded frames from the track to a
  * ReadableStream, and exposes a control channel for signals going in the oppposite direction.
  */
-interface MediaStreamTrackProcessor<T extends AudioFrame | VideoFrame> {
+interface MediaStreamTrackProcessor<T extends AudioData | VideoFrame> {
     /**
      * Allows reading the frames flowing through the MediaStreamTrack provided to the constructor.
      */
@@ -54,7 +54,7 @@ declare var MediaStreamTrackProcessor: {
     prototype: MediaStreamTrackProcessor<any>;
 
     /** Constructor overrides based on the type of track. */
-    new (init: MediaStreamTrackProcessorInit & { track: MediaStreamAudioTrack }): MediaStreamTrackProcessor<AudioFrame>;
+    new(init: MediaStreamTrackProcessorInit & { track: MediaStreamAudioTrack; }): MediaStreamTrackProcessor<AudioData>;
     new (init: MediaStreamTrackProcessorInit & { track: MediaStreamVideoTrack }): MediaStreamTrackProcessor<VideoFrame>;
 };
 
@@ -66,13 +66,13 @@ interface MediaStreamTrackProcessorInit {
      * by the track. If the internal buffer is full, each time the track produces a new frame, the
      * oldest frame in the buffer will be dropped and the new frame will be added to the buffer.
      */
-    maxBufferSize?: number;
+    maxBufferSize?: number | undefined;
 }
 
 /**
  * Takes video frames as input, and emits control signals that result from subsequent processing.
  */
-interface MediaStreamTrackGenerator<T extends AudioFrame | VideoFrame> extends MediaStreamTrack {
+interface MediaStreamTrackGenerator<T extends AudioData | VideoFrame> extends MediaStreamTrack {
     /**
      * Allows writing media frames to the MediaStreamTrackGenerator, which is itself a
      * MediaStreamTrack. When a frame is written to writable, the frame’s close() method is
@@ -87,15 +87,15 @@ interface MediaStreamTrackGenerator<T extends AudioFrame | VideoFrame> extends M
     readonly readableControl: ReadableStream<MediaStreamTrackSignal>;
 }
 
-type MediaStreamAudioTrackGenerator = MediaStreamTrackGenerator<AudioFrame> & MediaStreamAudioTrack;
+type MediaStreamAudioTrackGenerator = MediaStreamTrackGenerator<AudioData> & MediaStreamAudioTrack;
 type MediaStreamVideoTrackGenerator = MediaStreamTrackGenerator<VideoFrame> & MediaStreamVideoTrack;
 
 declare var MediaStreamTrackGenerator: {
     prototype: MediaStreamTrackGenerator<any>;
 
     /** Constructor overrides based on the type of track. */
-    new (init: MediaStreamTrackGeneratorInit & { kind: "audio", signalTarget?: MediaStreamAudioTrack }): MediaStreamAudioTrackGenerator;
-    new (init: MediaStreamTrackGeneratorInit & { kind: "video", signalTarget?: MediaStreamVideoTrack }): MediaStreamVideoTrackGenerator;
+    new (init: MediaStreamTrackGeneratorInit & { kind: "audio", signalTarget?: MediaStreamAudioTrack | undefined }): MediaStreamAudioTrackGenerator;
+    new (init: MediaStreamTrackGeneratorInit & { kind: "video", signalTarget?: MediaStreamVideoTrack | undefined }): MediaStreamVideoTrackGenerator;
 };
 
 interface MediaStreamTrackGeneratorInit {
@@ -105,7 +105,7 @@ interface MediaStreamTrackGeneratorInit {
      * signals. If signalTarget is provided and signalTarget.kind and kind do not match, the
      * MediaStreamTrackGenerator’s constructor will raise an exception.
      */
-    signalTarget?: MediaStreamTrack;
+    signalTarget?: MediaStreamTrack | undefined;
 }
 
 type MediaStreamTrackGeneratorKind = "audio" | "video";

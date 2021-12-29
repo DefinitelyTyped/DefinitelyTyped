@@ -9,25 +9,25 @@ import * as React from 'react';
 import { StyleProp, ViewStyle } from 'react-native';
 
 export interface CanvasProps {
-    baseUrl?: string;
-    originWhitelist?: string[];
+    baseUrl?: string | undefined;
+    originWhitelist?: string[] | undefined;
     ref: ((canvas: Canvas) => any) | React.RefObject<Canvas>;
-    style?: StyleProp<ViewStyle>;
+    style?: StyleProp<ViewStyle> | undefined;
 }
 
 export interface DOMMatrix2DInit {
-    a?: number;
-    b?: number;
-    c?: number;
-    d?: number;
-    e?: number;
-    f?: number;
-    m11?: number;
-    m12?: number;
-    m21?: number;
-    m22?: number;
-    m41?: number;
-    m42?: number;
+    a?: number | undefined;
+    b?: number | undefined;
+    c?: number | undefined;
+    d?: number | undefined;
+    e?: number | undefined;
+    f?: number | undefined;
+    m11?: number | undefined;
+    m12?: number | undefined;
+    m21?: number | undefined;
+    m22?: number | undefined;
+    m41?: number | undefined;
+    m42?: number | undefined;
 }
 
 export interface CanvasGradient {

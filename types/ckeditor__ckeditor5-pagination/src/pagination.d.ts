@@ -7,7 +7,7 @@ export default class Pagination extends Plugin {
 }
 
 export interface PaginationConfig {
-    enableOnUnsupportedBrowsers?: boolean;
+    enableOnUnsupportedBrowsers?: boolean | undefined;
     pageHeight: string;
     pageMargins: PaginationMarginsConfig;
     pageWidth: string;
@@ -18,4 +18,10 @@ export interface PaginationMarginsConfig {
     left: string;
     right: string;
     top: string;
+}
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        Pagination: Pagination;
+    }
 }

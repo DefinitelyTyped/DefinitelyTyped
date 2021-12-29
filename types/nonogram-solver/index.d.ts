@@ -28,7 +28,7 @@ declare namespace solve {
 
     interface Input {
         columns: number[][];
-        content?: State[];
+        content?: State[] | undefined;
         rows: number[][];
     }
 

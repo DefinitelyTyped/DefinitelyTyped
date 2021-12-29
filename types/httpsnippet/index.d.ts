@@ -35,8 +35,8 @@ declare namespace HTTPSnippet {
     interface TargetClientInfo {
         key: string;
         title: string;
-        link?: string;
-        description?: string;
+        link?: string | undefined;
+        description?: string | undefined;
     }
 
     interface TargetClient {

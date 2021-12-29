@@ -7,7 +7,7 @@ declare module '../../' {
 
     interface ShowHintOptions {
         schemaInfo?: any;
-        quoteChar?: string;
-        matchInMiddle?: boolean;
+        quoteChar?: string | undefined;
+        matchInMiddle?: boolean | undefined;
     }
 }

@@ -5,8 +5,8 @@
 
 declare namespace debounce {
     interface DebounceOptions {
-        leading?: boolean;
-        accumulate?: boolean;
+        leading?: boolean | undefined;
+        accumulate?: boolean | undefined;
     }
 }
 

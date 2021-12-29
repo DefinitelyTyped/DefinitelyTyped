@@ -14,16 +14,16 @@ export interface ImapSimpleOptions {
     imap: Imap.Config;
 
     /** Time in milliseconds to wait before giving up on a connection attempt. (Deprecated: please use options.imap.authTimeout instead) */
-    connectTimeout?: number;
+    connectTimeout?: number | undefined;
 
     /** Server event emitted when new mail arrives in the currently open mailbox. */
-    onmail?: (numNewMail: number) => void;
+    onmail?: ((numNewMail: number) => void) | undefined;
 
     /** Server event emitted when a message was expunged externally. seqno is the sequence number (instead of the unique UID) of the message that was expunged. If you are caching sequence numbers, all sequence numbers higher than this value MUST be decremented by 1 in order to stay synchronized with the server and to keep correct continuity. */
-    onexpunge?: (seqno: number) => void;
+    onexpunge?: ((seqno: number) => void) | undefined;
 
     /** Server event emitted when message metadata (e.g. flags) changes externally. */
-    onupdate?: (seqno: number, info: any) => void;
+    onupdate?: ((seqno: number, info: any) => void) | undefined;
 }
 
 export interface MessageBodyPart extends Imap.ImapMessageBodyInfo {

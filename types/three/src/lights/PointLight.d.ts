@@ -1,4 +1,4 @@
-import { Color } from './../math/Color';
+import { ColorRepresentation } from '../utils';
 import { Light } from './Light';
 import { PointLightShadow } from './PointLightShadow';
 
@@ -9,7 +9,7 @@ import { PointLightShadow } from './PointLightShadow';
  * scene.add( light );
  */
 export class PointLight extends Light {
-    constructor(color?: Color | string | number, intensity?: number, distance?: number, decay?: number);
+    constructor(color?: ColorRepresentation, intensity?: number, distance?: number, decay?: number);
 
     /**
      * @default 'PointLight'

@@ -10,7 +10,7 @@ declare namespace GapProperties {
         /**
          * @default true
          */
-        preserve?: boolean;
+        preserve?: boolean | undefined;
     }
 
     type GapPropertiesPlugin = Plugin<Options>;

@@ -13,10 +13,10 @@ declare namespace GCStats {
         heapSizeLimit: number;
         totalPhysicalSize: number;
         totalAvailableSize: number;
-        mallocedMemory?: number; // became available with node 7+
-        peakMallocedMemory?: number; // became available with node 7+
-        numberOfNativeContexts?: number; // became available with node 10+
-        numberOfDetachedContexts?: number; // became available with node 10+
+        mallocedMemory?: number | undefined; // became available with node 7+
+        peakMallocedMemory?: number | undefined; // became available with node 7+
+        numberOfNativeContexts?: number | undefined; // became available with node 10+
+        numberOfDetachedContexts?: number | undefined; // became available with node 10+
     }
 
     interface GCStatistics {

@@ -138,9 +138,9 @@ export interface AtomEnvironment {
     /** Open a new Atom window using the given options. */
     open(params?: {
         pathsToOpen: ReadonlyArray<string>;
-        newWindow?: boolean;
-        devMode?: boolean;
-        safeMode?: boolean;
+        newWindow?: boolean | undefined;
+        devMode?: boolean | undefined;
+        safeMode?: boolean | undefined;
     }): void;
 
     /** Close the current window. */
@@ -204,7 +204,7 @@ export interface AtomEnvironment {
     getWindowDimensions(): { x: number; y: number; width: number; height: number };
 
     /** Set the dimensions of the window. */
-    setWindowDimensions(dimensions: { x?: number; y?: number; width?: number; height?: number }): Promise<object>;
+    setWindowDimensions(dimensions: { x?: number | undefined; y?: number | undefined; width?: number | undefined; height?: number | undefined }): Promise<object>;
 
     // Messaging the User
     /** Visually and audibly trigger a beep. */
@@ -237,7 +237,7 @@ export interface AtomEnvironment {
      *
      *  Returns the chosen button index number if the buttons option was an array.
      */
-    confirm(options: { message: string; detailedMessage?: string; buttons?: ReadonlyArray<string> }): void;
+    confirm(options: { message: string; detailedMessage?: string | undefined; buttons?: ReadonlyArray<string> | undefined }): void;
 
     /**
      *  A flexible way to open a dialog akin to an alert dialog. If a callback
@@ -252,10 +252,10 @@ export interface AtomEnvironment {
      */
     confirm(options: {
         message: string;
-        detailedMessage?: string;
+        detailedMessage?: string | undefined;
         buttons?: {
             [key: string]: () => void;
-        };
+        } | undefined;
     }): number;
 
     // Managing the Dev Tools
@@ -286,31 +286,31 @@ export interface PreventableExceptionThrownEvent extends ExceptionThrownEvent {
 
 export interface ConfirmationOptions {
     /** The type of the confirmation prompt. */
-    type?: 'none' | 'info' | 'error' | 'question' | 'warning';
+    type?: 'none' | 'info' | 'error' | 'question' | 'warning' | undefined;
 
     /** The text for the buttons. */
-    buttons?: ReadonlyArray<string>;
+    buttons?: ReadonlyArray<string> | undefined;
 
     /** The index for the button to be selected by default in the prompt. */
-    defaultId?: number;
+    defaultId?: number | undefined;
 
     /** The title for the prompt. */
-    title?: string;
+    title?: string | undefined;
 
     /** The content of the message box. */
-    message?: string;
+    message?: string | undefined;
 
     /** Additional information regarding the message. */
-    detail?: string;
+    detail?: string | undefined;
 
     /** If provided, the message box will include a checkbox with the given label. */
-    checkboxLabel?: string;
+    checkboxLabel?: string | undefined;
 
     /** Initial checked state of the checkbox. false by default. */
-    checkboxChecked?: boolean;
+    checkboxChecked?: boolean | undefined;
 
     /** An Electron NativeImage to use as the prompt's icon. */
-    icon?: object;
+    icon?: object | undefined;
 
     /**
      *  The index of the button to be used to cancel the dialog, via the `Esc` key.
@@ -320,7 +320,7 @@ export interface ConfirmationOptions {
      *
      *  This option is ignored on Windows.
      */
-    cancelId?: number;
+    cancelId?: number | undefined;
 
     /**
      *  On Windows, Electron will try to figure out which one of the buttons are
@@ -328,13 +328,13 @@ export interface ConfirmationOptions {
      *  in the dialog. This can make the dialog appear in the style of modern Windows
      *  apps. If you don't like this behavior, you can set noLink to true.
      */
-    noLink?: boolean;
+    noLink?: boolean | undefined;
 
     /**
      * Normalize the keyboard access keys across platforms.
      * Atom defaults this to true.
      */
-    normalizeAccessKeys?: boolean;
+    normalizeAccessKeys?: boolean | undefined;
 }
 
 export interface TimingMarker {

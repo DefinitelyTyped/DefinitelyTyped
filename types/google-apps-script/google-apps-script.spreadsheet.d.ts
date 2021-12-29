@@ -1345,7 +1345,7 @@ declare namespace GoogleAppsScript {
       canEdit(): boolean;
       check(): Range;
       clear(): Range;
-      clear(options: { commentsOnly?: boolean; contentsOnly?: boolean; formatOnly?: boolean; validationsOnly?: boolean; skipFilteredRows?: boolean }): Range;
+      clear(options: { commentsOnly?: boolean | undefined; contentsOnly?: boolean | undefined; formatOnly?: boolean | undefined; validationsOnly?: boolean | undefined; skipFilteredRows?: boolean | undefined }): Range;
       clearContent(): Range;
       clearDataValidations(): Range;
       clearFormat(): Range;
@@ -1355,7 +1355,7 @@ declare namespace GoogleAppsScript {
       copyFormatToRange(sheet: Sheet, column: Integer, columnEnd: Integer, row: Integer, rowEnd: Integer): void;
       copyTo(destination: Range): void;
       copyTo(destination: Range, copyPasteType: CopyPasteType, transposed: boolean): void;
-      copyTo(destination: Range, options: { formatOnly?: boolean; contentsOnly?: boolean }): void;
+      copyTo(destination: Range, options: { formatOnly?: boolean | undefined; contentsOnly?: boolean | undefined }): void;
       copyValuesToRange(gridId: Integer, column: Integer, columnEnd: Integer, row: Integer, rowEnd: Integer): void;
       copyValuesToRange(sheet: Sheet, column: Integer, columnEnd: Integer, row: Integer, rowEnd: Integer): void;
       createDeveloperMetadataFinder(): DeveloperMetadataFinder;
@@ -1521,7 +1521,7 @@ declare namespace GoogleAppsScript {
       breakApart(): RangeList;
       check(): RangeList;
       clear(): RangeList;
-      clear(options: { commentsOnly?: boolean; contentsOnly?: boolean; formatOnly?: boolean; validationsOnly?: boolean; skipFilteredRows?: boolean }): RangeList;
+      clear(options: { commentsOnly?: boolean | undefined; contentsOnly?: boolean | undefined; formatOnly?: boolean | undefined; validationsOnly?: boolean | undefined; skipFilteredRows?: boolean | undefined }): RangeList;
       clearContent(): RangeList;
       clearDataValidations(): RangeList;
       clearFormat(): RangeList;
@@ -1577,6 +1577,8 @@ declare namespace GoogleAppsScript {
     interface RichTextValue {
       copy(): RichTextValueBuilder;
       getEndIndex(): Integer;
+      getLinkUrl(): string | null;
+      getLinkUrl(startOffset: Integer, endOffset: Integer): string | null;
       getRuns(): RichTextValue[];
       getStartIndex(): Integer;
       getText(): string;
@@ -1588,6 +1590,8 @@ declare namespace GoogleAppsScript {
      */
     interface RichTextValueBuilder {
       build(): RichTextValue;
+      setLinkUrl(startOffset: Integer, endOffset: Integer, linkUrl: string | null): RichTextValueBuilder;
+      setLinkUrl(linkUrl: string | null): RichTextValueBuilder;
       setText(text: string): RichTextValueBuilder;
       setTextStyle(startOffset: Integer, endOffset: Integer, textStyle: TextStyle | null): RichTextValueBuilder;
       setTextStyle(textStyle: TextStyle | null): RichTextValueBuilder;
@@ -1636,7 +1640,7 @@ declare namespace GoogleAppsScript {
       autoResizeColumns(startColumn: Integer, numColumns: Integer): Sheet;
       autoResizeRows(startRow: Integer, numRows: Integer): Sheet;
       clear(): Sheet;
-      clear(options: { formatOnly?: boolean; contentsOnly?: boolean }): Sheet;
+      clear(options: { formatOnly?: boolean | undefined; contentsOnly?: boolean | undefined }): Sheet;
       clearConditionalFormatRules(): void;
       clearContents(): Sheet;
       clearFormats(): Sheet;
@@ -1884,12 +1888,12 @@ declare namespace GoogleAppsScript {
       insertRowsBefore(beforePosition: Integer, howMany: Integer): Sheet;
       insertSheet(): Sheet;
       insertSheet(sheetIndex: Integer): Sheet;
-      insertSheet(sheetIndex: Integer, options: { template?: Sheet }): Sheet;
-      insertSheet(options: { template?: Sheet }): Sheet;
+      insertSheet(sheetIndex: Integer, options: { template?: Sheet | undefined }): Sheet;
+      insertSheet(options: { template?: Sheet | undefined }): Sheet;
       insertSheet(sheetName: string): Sheet;
       insertSheet(sheetName: string, sheetIndex: Integer): Sheet;
-      insertSheet(sheetName: string, sheetIndex: Integer, options: { template?: Sheet }): Sheet;
-      insertSheet(sheetName: string, options: { template?: Sheet }): Sheet;
+      insertSheet(sheetName: string, sheetIndex: Integer, options: { template?: Sheet | undefined }): Sheet;
+      insertSheet(sheetName: string, options: { template?: Sheet | undefined }): Sheet;
       insertSheetWithDataSourceTable(spec: DataSourceSpec): Sheet;
       isColumnHiddenByUser(columnPosition: Integer): boolean;
       isIterativeCalculationEnabled(): boolean;

@@ -18,15 +18,15 @@ declare const Toolbar: React.FC<ToolbarProps>;
 // ToolbarItem
 
 interface ToolbarItemInheritedProps {
-    children?: ReactAttr["children"],
+    children?: ReactAttr["children"] | undefined,
 }
 
 /**
  * @deprecated
  */
 export interface ToolbarItemProps extends ToolbarItemInheritedProps {
-    placeholderText?: string,
-    type?: string,
+    placeholderText?: string | undefined,
+    type?: string | undefined,
 }
 
 /**
@@ -40,7 +40,7 @@ export declare const ToolbarItem: React.FC<ToolbarItemProps>;
  * @deprecated
  */
 export interface ToolbarTitleProps {
-    title?: string,
+    title?: string | undefined,
 }
 
 /**
@@ -51,7 +51,7 @@ export declare const ToolbarTitle: ForwardRefReturn<HTMLLIElement, ToolbarTitleP
 // ToolbarOption
 
 interface ToolbarOptionInheritedProps {
-    children?: ReactAttr["children"],
+    children?: ReactAttr["children"] | undefined,
 }
 
 /**

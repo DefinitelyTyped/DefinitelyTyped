@@ -1,41 +1,26 @@
 import {
-    AddEquation,
     Color,
-    NormalBlending,
-    DepthTexture,
-    SrcAlphaFactor,
-    OneMinusSrcAlphaFactor,
     MeshNormalMaterial,
     MeshBasicMaterial,
-    NearestFilter,
-    NoBlending,
-    RGBAFormat,
     ShaderMaterial,
-    UniformsUtils,
-    UnsignedShortType,
     WebGLRenderTarget,
-    HalfFloatType,
     MeshStandardMaterial,
     WebGLRenderer,
     Scene,
     Camera,
     Mesh,
-    TextureEncoding,
     Material,
+    ColorRepresentation,
 } from '../../../src/Three';
 import { Pass, FullScreenQuad } from './Pass';
-import { SSRrShader, SSRrDepthShader } from '../shaders/SSRrShader';
-import { CopyShader } from '../shaders/CopyShader';
 
 export interface SSRrPassParams {
     renderer: WebGLRenderer;
     scene: Scene;
     camera: Camera;
-    width?: number;
-    height?: number;
+    width?: number | undefined;
+    height?: number | undefined;
     selects: Mesh[] | null;
-    encoding: TextureEncoding;
-    morphTargets?: boolean;
 }
 
 export class SSRrPass extends Pass {
@@ -52,8 +37,6 @@ export class SSRrPass extends Pass {
     ior: number;
     maxDistance: number;
     surfDist: number;
-
-    encoding: TextureEncoding;
 
     color: Color;
 
@@ -101,24 +84,24 @@ export class SSRrPass extends Pass {
         renderer: WebGLRenderer,
         passMaterial: Material,
         renderTarget: WebGLRenderTarget,
-        clearColor: Color | string | number,
-        clearAlpha: Color | string | number,
+        clearColor: ColorRepresentation,
+        clearAlpha: ColorRepresentation,
     ) => void;
 
     renderOverride: (
         renderer: WebGLRenderer,
         passMaterial: Material,
         renderTarget: WebGLRenderTarget,
-        clearColor: Color | string | number,
-        clearAlpha: Color | string | number,
+        clearColor: ColorRepresentation,
+        clearAlpha: ColorRepresentation,
     ) => void;
 
     renderRefractive: (
         renderer: WebGLRenderer,
         passMaterial: Material,
         renderTarget: WebGLRenderTarget,
-        clearColor: Color | string | number,
-        clearAlpha: Color | string | number,
+        clearColor: ColorRepresentation,
+        clearAlpha: ColorRepresentation,
     ) => void;
 
     setSize: (width: number, height: number) => void;

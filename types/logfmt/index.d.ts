@@ -16,8 +16,8 @@ interface WritableStream {
 }
 
 interface RequestLoggerOptions {
-    immediate?: boolean;
-    elapsed?: string;
+    immediate?: boolean | undefined;
+    elapsed?: string | undefined;
 }
 type RequestLoggerFormatter =
   (req: IncomingMessage, res: ServerResponse) => object;
@@ -31,9 +31,9 @@ interface RequestLogger {
         method: string;
         path: string;
         "status": number;
-        request_id?: string;
-        content_length?: string;
-        content_type?: string;
+        request_id?: string | undefined;
+        content_length?: string | undefined;
+        content_type?: string | undefined;
     };
 }
 
@@ -46,11 +46,11 @@ interface Logfmt {
     namespace(data: object): Logfmt;
     error(err: Error, id?: string): void;
 
-    streamParser(options?: { end?: boolean; }): NodeJS.ReadWriteStream;
-    streamStringify(options?: { delimiter?: string }): NodeJS.ReadWriteStream;
+    streamParser(options?: { end?: boolean | undefined; }): NodeJS.ReadWriteStream;
+    streamStringify(options?: { delimiter?: string | undefined }): NodeJS.ReadWriteStream;
 
-    bodyParser(options?: { contentType?: string }): HTTPHandler;
-    bodyParserStream(options?: { contentType?: string }): HTTPHandler;
+    bodyParser(options?: { contentType?: string | undefined }): HTTPHandler;
+    bodyParserStream(options?: { contentType?: string | undefined }): HTTPHandler;
 
     requestLogger: RequestLogger;
 

@@ -1,7 +1,7 @@
 import {
     AbstractView, Component, ComponentClass,
     ReactElement, ReactInstance, ClassType,
-    DOMElement, SFCElement, CElement,
+    DOMElement, FunctionComponentElement, CElement,
     ReactHTMLElement, DOMAttributes, SFC
 } from 'react';
 
@@ -10,52 +10,52 @@ import * as ReactTestUtils from ".";
 export {};
 
 export interface OptionalEventProperties {
-    bubbles?: boolean;
-    cancelable?: boolean;
-    currentTarget?: EventTarget;
-    defaultPrevented?: boolean;
-    eventPhase?: number;
-    isTrusted?: boolean;
-    nativeEvent?: Event;
+    bubbles?: boolean | undefined;
+    cancelable?: boolean | undefined;
+    currentTarget?: EventTarget | undefined;
+    defaultPrevented?: boolean | undefined;
+    eventPhase?: number | undefined;
+    isTrusted?: boolean | undefined;
+    nativeEvent?: Event | undefined;
     preventDefault?(): void;
     stopPropagation?(): void;
-    target?: EventTarget;
-    timeStamp?: Date;
-    type?: string;
+    target?: EventTarget | undefined;
+    timeStamp?: Date | undefined;
+    type?: string | undefined;
 }
 
 export interface SyntheticEventData extends OptionalEventProperties {
-    altKey?: boolean;
-    button?: number;
-    buttons?: number;
-    clientX?: number;
-    clientY?: number;
-    changedTouches?: TouchList;
-    charCode?: number;
-    clipboardData?: DataTransfer;
-    ctrlKey?: boolean;
-    deltaMode?: number;
-    deltaX?: number;
-    deltaY?: number;
-    deltaZ?: number;
-    detail?: number;
+    altKey?: boolean | undefined;
+    button?: number | undefined;
+    buttons?: number | undefined;
+    clientX?: number | undefined;
+    clientY?: number | undefined;
+    changedTouches?: TouchList | undefined;
+    charCode?: number | undefined;
+    clipboardData?: DataTransfer | undefined;
+    ctrlKey?: boolean | undefined;
+    deltaMode?: number | undefined;
+    deltaX?: number | undefined;
+    deltaY?: number | undefined;
+    deltaZ?: number | undefined;
+    detail?: number | undefined;
     getModifierState?(key: string): boolean;
-    key?: string;
-    keyCode?: number;
-    locale?: string;
-    location?: number;
-    metaKey?: boolean;
-    pageX?: number;
-    pageY?: number;
-    relatedTarget?: EventTarget;
-    repeat?: boolean;
-    screenX?: number;
-    screenY?: number;
-    shiftKey?: boolean;
-    targetTouches?: TouchList;
-    touches?: TouchList;
-    view?: AbstractView;
-    which?: number;
+    key?: string | undefined;
+    keyCode?: number | undefined;
+    locale?: string | undefined;
+    location?: number | undefined;
+    metaKey?: boolean | undefined;
+    pageX?: number | undefined;
+    pageY?: number | undefined;
+    relatedTarget?: EventTarget | undefined;
+    repeat?: boolean | undefined;
+    screenX?: number | undefined;
+    screenY?: number | undefined;
+    shiftKey?: boolean | undefined;
+    targetTouches?: TouchList | undefined;
+    touches?: TouchList | undefined;
+    view?: AbstractView | undefined;
+    which?: number | undefined;
 }
 
 export type EventSimulator = (element: Element | Component<any>, eventData?: SyntheticEventData) => void;
@@ -157,7 +157,7 @@ export namespace Simulate {
 export function renderIntoDocument<T extends Element>(
     element: DOMElement<any, T>): T;
 export function renderIntoDocument(
-    element: SFCElement<any>): void;
+    element: FunctionComponentElement<any>): void;
 // If we replace `P` with `any` in this overload, then some tests fail because
 // calls to `renderIntoDocument` choose the last overload on the
 // subtype-relation pass and get an undesirably broad return type.  Using `P`
@@ -194,7 +194,7 @@ export function isElementOfType<P extends DOMAttributes<{}>, T extends Element>(
  * Returns `true` if `element` is a React element whose type is of a React `componentClass`.
  */
 export function isElementOfType<P>(
-    element: ReactElement, type: SFC<P>): element is SFCElement<P>;
+    element: ReactElement, type: SFC<P>): element is FunctionComponentElement<P>;
 /**
  * Returns `true` if `element` is a React element whose type is of a React `componentClass`.
  */

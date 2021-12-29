@@ -30,22 +30,22 @@ export type GeometryFunction = (p0: SketchCoordType, p1: SimpleGeometry, p2: Pro
 export type LineCoordType = Coordinate[];
 export interface Options {
     type: GeometryType;
-    clickTolerance?: number;
-    features?: Collection<Feature<Geometry>>;
-    source?: VectorSource<Geometry>;
-    dragVertexDelay?: number;
-    snapTolerance?: number;
-    stopClick?: boolean;
-    maxPoints?: number;
-    minPoints?: number;
-    finishCondition?: Condition;
-    style?: StyleLike;
-    geometryFunction?: GeometryFunction;
-    geometryName?: string;
-    condition?: Condition;
-    freehand?: boolean;
-    freehandCondition?: Condition;
-    wrapX?: boolean;
+    clickTolerance?: number | undefined;
+    features?: Collection<Feature<Geometry>> | undefined;
+    source?: VectorSource<Geometry> | undefined;
+    dragVertexDelay?: number | undefined;
+    snapTolerance?: number | undefined;
+    stopClick?: boolean | undefined;
+    maxPoints?: number | undefined;
+    minPoints?: number | undefined;
+    finishCondition?: Condition | undefined;
+    style?: StyleLike | undefined;
+    geometryFunction?: GeometryFunction | undefined;
+    geometryName?: string | undefined;
+    condition?: Condition | undefined;
+    freehand?: boolean | undefined;
+    freehandCondition?: Condition | undefined;
+    wrapX?: boolean | undefined;
 }
 /**
  * Coordinate type when drawing points.

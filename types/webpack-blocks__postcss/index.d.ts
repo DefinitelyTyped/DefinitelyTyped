@@ -10,16 +10,16 @@ declare namespace postCss {
     type FunctionType = () => string;
 
     interface Plugin {
-        parser?: string | FunctionType;
-        syntax?: string | FunctionType;
-        stringifier?: string | FunctionType;
+        parser?: string | FunctionType | undefined;
+        syntax?: string | FunctionType | undefined;
+        stringifier?: string | FunctionType | undefined;
     }
 
     interface Options {
-        parser?: string;
-        stringifier?: string;
-        syntax?: string;
-        plugins?: any[];
+        parser?: string | undefined;
+        stringifier?: string | undefined;
+        syntax?: string | undefined;
+        plugins?: any[] | undefined;
     }
 }
 

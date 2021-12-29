@@ -21,9 +21,9 @@ declare namespace NodeJavaCore {
 
   interface AsyncOptions {
     syncSuffix: string;
-    asyncSuffix?: string;
-    promiseSuffix?: string;
-    promisify?: Promisify;
+    asyncSuffix?: string | undefined;
+    promiseSuffix?: string | undefined;
+    promisify?: Promisify | undefined;
   }
 
   interface ProxyFunctions {

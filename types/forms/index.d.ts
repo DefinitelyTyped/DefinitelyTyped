@@ -18,43 +18,43 @@ export interface FieldArrayChoice extends Array<[string, string | FieldArrayChoi
 
 export interface FieldParameters {
     /** Optional label text which overrides the default. */
-    label?: string;
+    label?: string | undefined;
 
     /** Boolean describing whether the field is mandatory. */
-    required?: boolean | ValidatorFunction;
+    required?: boolean | ValidatorFunction | undefined;
 
     /** An array of functions which validate the field data. */
-    validators?: ValidatorFunction[];
+    validators?: ValidatorFunction[] | undefined;
 
     /** A widget object to use when rendering the field. */
-    widget?: Widget;
+    widget?: Widget | undefined;
 
     /** An optional id to override the default. */
-    id?: string;
+    id?: string | undefined;
 
     /** A list of options, used for multiple choice fields. */
-    choices?: FieldObjectChoice | FieldArrayChoice;
+    choices?: FieldObjectChoice | FieldArrayChoice | undefined;
 
     /** A list of CSS classes for label and field wrapper. */
     cssClasses?: {
-        field?: string[]
-        label?: string[]
-    };
+        field?: string[] | undefined
+        label?: string[] | undefined
+    } | undefined;
 
     /** If true, errors won't be rendered automatically. */
-    hideError?: boolean;
+    hideError?: boolean | undefined;
 
     /** If true, the label text will be displayed after the field, rather than before. */
-    labelAfterField?: boolean;
+    labelAfterField?: boolean | undefined;
 
     /** If true, the error message will be displayed after the field, rather than before. */
-    errorAfterField?: boolean;
+    errorAfterField?: boolean | undefined;
 
     /** For widgets with a fieldset (multipleRadio and multipleCheckbox), set classes for the fieldset. */
-    fieldsetClasses?: string[];
+    fieldsetClasses?: string[] | undefined;
 
     /** For widgets with a fieldset (multipleRadio and multipleCheckbox), set classes for the fieldset's legend. */
-    legendClasses?: string[];
+    legendClasses?: string[] | undefined;
 }
 
 export type FieldIterator = (name: string, field: FieldBound) => string;
@@ -114,13 +114,13 @@ export interface Widget extends WidgetParameters {
 
 export interface WidgetParameters {
     /** Custom classes to add to the rendered widget. */
-    classes?: string[];
+    classes?: string[] | undefined;
 
     /** Custom classes to add to the choices label when applicable (multipleRadio and multipleCheckbox) */
-    labelClasses?: string[];
+    labelClasses?: string[] | undefined;
 
     /** A string representing the widget type, e.g. 'text' or 'checkbox' */
-    type?: string;
+    type?: string | undefined;
 }
 
 /**
@@ -153,9 +153,9 @@ export interface Form<Fields extends FormFields = FormFields> {
     handle: <Data extends IncomingMessage | (Partial<FormData<Fields>> & { [key: string]: unknown })>(
         req: Data|undefined,
         callbacks: {
-            success?: FormHandleCallback<Fields, Data>
-            error?: FormHandleCallback<Fields, Data>
-            empty?: FormHandleCallback<Fields, Data>
+            success?: FormHandleCallback<Fields, Data> | undefined
+            error?: FormHandleCallback<Fields, Data> | undefined
+            empty?: FormHandleCallback<Fields, Data> | undefined
         }
     ) => void;
 
@@ -184,7 +184,7 @@ export interface FormBound<Fields extends FormFields = any, Data extends Partial
 /** Converts a form definition (an object literal containing field objects) into a form object. */
 export function create<Fields extends FormFields = FormFields>(fields: Fields, options?: {
     /** If false, the first validation error will halt form validation, otherwise all fields will be validated. */
-    validatePastFirstError?: boolean
+    validatePastFirstError?: boolean | undefined
 }): Form<Fields>;
 
 export namespace fields {
@@ -235,7 +235,7 @@ export namespace widgets {
     function select(params?: WidgetParameters): Widget;
     function tel(params?: WidgetParameters): Widget;
     function text(params?: WidgetParameters): Widget;
-    function textarea(params?: WidgetParameters & { rows?: number, cols?: number }): Widget;
+    function textarea(params?: WidgetParameters & { rows?: number | undefined, cols?: number | undefined }): Widget;
 }
 
 /** A function which accepts a name and field as arguments and returns a string containing a HTML representation of the field. */

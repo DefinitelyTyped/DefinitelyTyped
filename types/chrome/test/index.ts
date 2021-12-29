@@ -208,6 +208,45 @@ function beforeRedditNavigation() {
     );
 }
 
+// https://developer.chrome.com/docs/extensions/reference/webNavigation/#method-getFrame
+async function getFrame() {
+    const testTabId = 0;
+    const testFrameId = 0;
+
+    chrome.webNavigation.getFrame({
+        tabId: testTabId,
+        frameId: testFrameId,
+    }, (frame: chrome.webNavigation.GetFrameResultDetails | null) => {
+        console.log('Frame (in-callback): ', frame);
+    });
+
+
+    const frame: chrome.webNavigation.GetFrameResultDetails | null = await chrome.webNavigation.getFrame({
+        tabId: testTabId,
+        frameId: testFrameId,
+    });
+
+    console.log('Frame (promise resolved):', frame);
+}
+
+// https://developer.chrome.com/docs/extensions/reference/webNavigation/#method-getAllFrames
+async function getAllFrames() {
+    const testTabId = 0;
+
+    chrome.webNavigation.getAllFrames({
+        tabId: testTabId,
+    }, (frames: chrome.webNavigation.GetAllFrameResultDetails[] | null) => {
+        console.log('All frames (in-callback): ', frames);
+    });
+
+
+    const frames: chrome.webNavigation.GetAllFrameResultDetails[] = await chrome.webNavigation.getAllFrames({
+        tabId: testTabId,
+    }) || [];
+
+    console.log('All frames (promise resolved):', frames);
+}
+
 // for chrome.tabs.InjectDetails.frameId
 function executeScriptFramed() {
     const tabId = 123;
@@ -262,6 +301,16 @@ function proxySettings() {
 
     // clear with a scope set
     chrome.proxy.settings.clear({ scope: 'regular' });
+}
+
+function testNotificationCreation() {
+    chrome.notifications.create("id", {}); // $ExpectError
+    chrome.notifications.create("id", { message: "", type: "", title: "", }); // $ExpectError
+    chrome.notifications.create("id", { iconUrl: "", type: "", title: "", }); // $ExpectError
+    chrome.notifications.create("id", { iconUrl: "", message: "", title: "", }); // $ExpectError
+    chrome.notifications.create("id", { iconUrl: "", message: "", type: "", }); // $ExpectError
+    chrome.notifications.create("id", { iconUrl: "", message: "", type: "", title: "", }); // $ExpectError
+    chrome.notifications.create("id", { iconUrl: "", message: "", type: "basic", title: "", });
 }
 
 // https://developer.chrome.com/extensions/examples/api/contentSettings/popup.js
@@ -416,6 +465,91 @@ function testOptionsPage() {
     });
 }
 
+function testGetManifest() {
+    const manifest = chrome.runtime.getManifest();
+
+    manifest.name; // $ExpectType string
+    manifest.version; // $ExpectType string
+
+    if (manifest.manifest_version === 2) {
+        manifest.browser_action; // $ExpectType ManifestAction | undefined
+        manifest.page_action; // $ExpectType ManifestAction | undefined
+
+        manifest.content_security_policy; // $ExpectType string | undefined
+
+        manifest.host_permissions; // $ExpectType any
+        manifest.optional_permissions; // $ExpectType string[] | undefined
+        manifest.permissions; // $ExpectType string[] | undefined
+
+        manifest.web_accessible_resources; // $ExpectType string[] | undefined
+    } else if (manifest.manifest_version === 3) {
+        manifest.action; // $ExpectType ManifestAction | undefined
+
+        manifest.content_security_policy = "default-src 'self'"; // $ExpectError
+        manifest.content_security_policy = {
+            extension_pages: "default-src 'self'",
+            sandbox: "default-src 'self'",
+        };
+
+        manifest.host_permissions; // $ExpectType string[] | undefined
+        manifest.optional_permissions; // $ExpectType ManifestPermissions[] | undefined
+        manifest.permissions; // $ExpectType ManifestPermissions[] | undefined
+
+        manifest.web_accessible_resources = [{ matches: ['https://*/*'], resources: ['resource.js'] }];
+        manifest.web_accessible_resources = ['script.js']; // $ExpectError
+    }
+
+    const mv2: chrome.runtime.Manifest = {
+        manifest_version: 2,
+        name: 'manifest version 2',
+        version: '2.0.0',
+        background: { persistent: true, scripts: ['background.js'] },
+        browser_action: {
+            default_icon: {
+                16: 'icon-16.png',
+            },
+        },
+        content_security_policy: "default-src 'self'",
+        optional_permissions: ['https://*/*'],
+        permissions: ['https://*/*'],
+        web_accessible_resources: ['some-page.html'],
+    };
+
+    const mv3: chrome.runtime.Manifest = {
+        manifest_version: 3,
+        name: 'manifest version 3',
+        version: '3.0.0',
+        background: { service_worker: 'bg-sw.js', type: 'module' },
+        content_security_policy: {
+            extension_pages: "default-src 'self'",
+            sandbox: "default-src 'self'",
+        },
+        host_permissions: ['http://*/*'],
+        optional_permissions: ['cookies'],
+        permissions: ['activeTab'],
+        web_accessible_resources: [
+            {
+                matches: ['https://*/*'],
+                resources: ['some-script.js'],
+            },
+        ],
+    };
+}
+
+async function testGetPlatformInfo() {
+    chrome.runtime.getPlatformInfo(platformInfo => {
+        platformInfo; // $ExpectType PlatformInfo
+
+        platformInfo.arch; // $ExpectType PlatformArch
+        platformInfo.nacl_arch; // $ExpectType PlatformNaclArch
+        platformInfo.os; // $ExpectType PlatformOs
+
+        platformInfo.arch = 'invalid-arch'; // $ExpectError
+        platformInfo.nacl_arch = 'invalid-nacl_arch'; // $ExpectError
+        platformInfo.os = 'invalid-os'; // $ExpectError
+    });
+}
+
 // https://developer.chrome.com/extensions/tabCapture#type-CaptureOptions
 function testTabCaptureOptions() {
     // Constraints based on:
@@ -505,6 +639,22 @@ function testDeclarativeContent() {
     };
 }
 
+// https://developer.chrome.com/docs/extensions/reference/windows
+function testWindows() {
+    chrome.windows.onCreated.addListener(function (window) {
+        var windowResult: chrome.windows.Window = window;
+    }, { windowTypes: ['normal'] });
+    chrome.windows.onRemoved.addListener(function (windowId) {
+        var windowIdResult: number = windowId;
+    }, { windowTypes: ['normal'] });
+    chrome.windows.onBoundsChanged.addListener(function (window) {
+        var windowResult: chrome.windows.Window = window;
+    }, { windowTypes: ['normal'] });
+    chrome.windows.onFocusChanged.addListener(function (windowId) {
+        var windowIdResult: number = windowId;
+    }, { windowTypes: ['normal'] });
+}
+
 // https://developer.chrome.com/extensions/storage#type-StorageArea
 function testStorage() {
     function getCallback(loadedData: { [key: string]: any }) {
@@ -559,6 +709,15 @@ function testTtsVoice() {
         }),
     );
 }
+
+chrome.runtime.onInstalled.addListener((details) => {
+    details; // $ExpectType InstalledDetails
+    details.reason; // $ExpectType OnInstalledReason
+    details.previousVersion; // $ExpectType string | undefined
+    details.id; // $ExpectType string | undefined
+
+    details.reason = 'not-real-reason'; // $ExpectError
+})
 
 chrome.devtools.network.onRequestFinished.addListener((request: chrome.devtools.network.Request) => {
     request; // $ExpectType Request
@@ -689,6 +848,8 @@ async function testDeclarativeNetRequest() {
 function testSetBrowserBadgeText() {
     chrome.browserAction.setBadgeText({});
     chrome.browserAction.setBadgeText({text: "test"});
+    chrome.browserAction.setBadgeText({text: null});
+    chrome.browserAction.setBadgeText({text: undefined});
     chrome.browserAction.setBadgeText({tabId: 123});
     chrome.browserAction.setBadgeText({text: "test", tabId: 123});
     chrome.browserAction.setBadgeText({}, () => {});
@@ -699,6 +860,8 @@ function testSetBrowserBadgeText() {
 
 // https://developer.chrome.com/docs/extensions/reference/action/
 async function testActionForPromise() {
+    await chrome.action.disable();
+    await chrome.action.enable();
     await chrome.action.disable(0);
     await chrome.action.enable(0);
     await chrome.action.getBadgeBackgroundColor({});
@@ -781,8 +944,21 @@ async function testManagementForPromise() {
 
 // https://developer.chrome.com/docs/extensions/reference/scripting
 async function testScriptingForPromise() {
-    await chrome.scripting.executeScript({target: {tabId: 0}});
-    await chrome.scripting.insertCSS({target: {tabId: 0}});
+    await chrome.scripting.executeScript({ target: { tabId: 0 } }); // $ExpectError
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: () => {} });
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: () => {}, args: [] });
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: (str: string) => {}, args: [''] });
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: (str: string, n: number) => {}, args: ['', 0] });
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, world: 'ISOLATED', func: () => {} });
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, world: 'not-real-world', func: () => {} }); // $ExpectError
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: (str: string, n: number) => {}, args: [0, ''] }); // $ExpectError
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: (str: string) => {}, args: [0] }); // $ExpectError
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: () => {}, args: [''] }); // $ExpectError
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: (name: string) => {}, args: [] }); // $ExpectError
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: () => {}, args: {} }); // $ExpectError
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, files: ['script.js'] });
+
+    await chrome.scripting.insertCSS({ target: { tabId: 0 } });
 }
 
 // https://developer.chrome.com/docs/extensions/reference/system_cpu
@@ -892,4 +1068,176 @@ async function testDeclarativeNetRequestForPromise() {
     await chrome.declarativeNetRequest.updateDynamicRules({});
     await chrome.declarativeNetRequest.updateEnabledRulesets({});
     await chrome.declarativeNetRequest.updateSessionRules({});
+}
+
+async function testDynamicRules() {
+    await chrome.declarativeNetRequest.updateDynamicRules({});
+    await chrome.declarativeNetRequest.updateDynamicRules({
+      addRules: [{
+        action: {
+          type: chrome.declarativeNetRequest.RuleActionType.ALLOW,
+        },
+        condition: {},
+        id: 2,
+        priority: 3,
+      }],
+    });
+}
+
+// https://developer.chrome.com/docs/extensions/reference/storage
+function testStorageForPromise() {
+    chrome.storage.sync.getBytesInUse().then(() => {});
+    chrome.storage.sync.getBytesInUse(null).then(() => {});
+    chrome.storage.sync.getBytesInUse('testKey').then(() => {});
+    chrome.storage.sync.getBytesInUse(['testKey']).then(() => {});
+
+    chrome.storage.sync.clear().then(() => {});
+
+    chrome.storage.sync.set({ testKey: 'testValue' }).then(() => {});
+
+    chrome.storage.sync.remove('testKey').then(() => {});
+    chrome.storage.sync.remove(['testKey']).then(() => {});
+
+    chrome.storage.sync.get().then(() => {});
+    chrome.storage.sync.get(null).then(() => {});
+    chrome.storage.sync.get('testKey').then(() => {});
+    chrome.storage.sync.get(['testKey']).then(() => {});
+    chrome.storage.sync.get({ testKey: 'testDefaultValue' }).then(() => {});
+}
+
+function testRuntimeSendMessage() {
+    chrome.runtime.sendMessage("Hello World!");
+    chrome.runtime.sendMessage("Hello World!", console.log);
+    chrome.runtime.sendMessage<string>("Hello World!", console.log);
+    chrome.runtime.sendMessage<string, number>("Hello World!", console.log);
+    chrome.runtime.sendMessage<number>("Hello World!", console.log); // $ExpectError
+    chrome.runtime.sendMessage<string, boolean>("Hello World!", (num: number) => alert(num+1)); // $ExpectError
+
+    chrome.runtime.sendMessage('extension-id', 'Hello World!');
+    chrome.runtime.sendMessage('extension-id', 'Hello World!', console.log);
+    chrome.runtime.sendMessage<string>('extension-id', 'Hello World!', console.log);
+    chrome.runtime.sendMessage<string, number>('extension-id', 'Hello World!', console.log);
+    chrome.runtime.sendMessage<number>('extension-id', 'Hello World!', console.log); // $ExpectError
+    chrome.runtime.sendMessage<string, boolean>('extension-id', 'Hello World!', (num: number) => alert(num+1)); // $ExpectError
+}
+
+function testTabsSendMessage() {
+    chrome.tabs.sendMessage(1, "Hello World!");
+    chrome.tabs.sendMessage(2, "Hello World!", console.log);
+    chrome.tabs.sendMessage(3, "Hello World!", { }, console.log);
+    chrome.tabs.sendMessage<string>(4, "Hello World!", console.log);
+    chrome.tabs.sendMessage<string, number>(5, "Hello World!", console.log);
+    chrome.tabs.sendMessage<number>(6, "Hello World!", console.log); // $ExpectError
+    chrome.tabs.sendMessage<string, string>(7, "Hello World!", (num: number) => alert(num+1)); // $ExpectError
+}
+
+function testTabsSendRequest() {
+    chrome.tabs.sendRequest(1, "Hello World!");
+    chrome.tabs.sendRequest(2, "Hello World!", console.log);
+    chrome.tabs.sendRequest(3, "Hello World!", console.log);
+    chrome.tabs.sendRequest<string>(4, "Hello World!", console.log);
+    chrome.tabs.sendRequest<string, number>(5, "Hello World!", console.log);
+    chrome.tabs.sendRequest<number>(6, "Hello World!", console.log); // $ExpectError
+    chrome.tabs.sendRequest<string, string>(7, "Hello World!", (num: number) => alert(num+1)); // $ExpectError
+}
+
+function testExtensionSendRequest() {
+    chrome.extension.sendRequest("dummy-id", "Hello World!");
+    chrome.extension.sendRequest("dummy-id", "Hello World!", console.log);
+    chrome.extension.sendRequest("dummy-id", "Hello World!", console.log);
+    chrome.extension.sendRequest<string>("dummy-id", "Hello World!", console.log);
+    chrome.extension.sendRequest<string, number>("dummy-id", "Hello World!", console.log);
+    chrome.extension.sendRequest<number>("dummy-id", "Hello World!", console.log); // $ExpectError
+    chrome.extension.sendRequest<string, string>("dummy-id", "Hello World!", (num: number) => alert(num+1)); // $ExpectError
+}
+
+function testContextMenusCreate() {
+    const creationOptions: chrome.contextMenus.CreateProperties = {
+        id: 'dummy-id',
+        documentUrlPatterns: ['https://*/*'],
+        checked: false,
+        title: 'Hello World!',
+        contexts: ['all'],
+        enabled: true,
+        targetUrlPatterns: ['https://example.com/*'],
+        onclick: (info, tab: chrome.tabs.Tab) => console.log(tab),
+        parentId: 1,
+        type: 'normal',
+        visible: true
+    };
+    chrome.contextMenus.create(creationOptions, () => console.log('created')); // $ExpectType string | number
+    chrome.contextMenus.create({ ...creationOptions, contexts: ['action', 'page_action'] }); // $ExpectType string | number
+    chrome.contextMenus.create({ ...creationOptions, contexts: 'page_action' }); // $ExpectType string | number
+    chrome.contextMenus.create({ ...creationOptions, contexts: ['wrong'] }); // $ExpectError
+}
+
+function testContextMenusRemove() {
+    chrome.contextMenus.remove(1);
+    chrome.contextMenus.remove(1, () => console.log('removed'));
+    chrome.contextMenus.remove(1, (invalid: any) => console.log('removed')); // $ExpectError
+    chrome.contextMenus.remove('dummy-id');
+    chrome.contextMenus.remove('dummy-id', () => console.log('removed'));
+    chrome.contextMenus.remove('dummy-id', (invalid: any) => console.log('removed')); // $ExpectError
+}
+
+function testContextMenusRemoveAll() {
+    chrome.contextMenus.removeAll();
+    chrome.contextMenus.removeAll(() => console.log('removed all'));
+    chrome.contextMenus.removeAll((invalid: any) => console.log('removed')); // $ExpectError
+}
+
+function testContextMenusUpdate() {
+    chrome.contextMenus.update(1, {title: 'Hello World!'});
+    chrome.contextMenus.update(1, {title: 'Hello World!'}, () => console.log('updated'));
+    chrome.contextMenus.update(1, {title: 'Hello World!'}, (invalid: any) => console.log('updated')); // $ExpectError
+    chrome.contextMenus.update('dummy-id', {title: 'Hello World!'});
+    chrome.contextMenus.update('dummy-id', {title: 'Hello World!'}, () => console.log('updated'));
+    chrome.contextMenus.update('dummy-id', {title: 'Hello World!'}, (invalid: any) => console.log('updated')); // $ExpectError
+
+    chrome.contextMenus.update(2, {
+        documentUrlPatterns: ['https://*/*'],
+        checked: false,
+        title: 'Hello World!',
+        contexts: ['all'],
+        enabled: true,
+        targetUrlPatterns: ['https://example.com/*'],
+        onclick: ({
+            checked,
+            editable,
+            frameId,
+            frameUrl,
+            linkUrl,
+            mediaType,
+            menuItemId,
+            pageUrl,
+            parentMenuItemId,
+            selectionText,
+            srcUrl,
+            wasChecked,
+        }, tab: chrome.tabs.Tab) =>
+            console.log(tab, checked, editable, frameId, frameUrl, linkUrl, mediaType, menuItemId, pageUrl, parentMenuItemId, selectionText, srcUrl, wasChecked),
+        parentId: 1,
+        type: 'normal',
+        visible: true
+    });
+
+    chrome.contextMenus.update(1, {documentUrlPatterns: false}); // $ExpectError
+    chrome.contextMenus.update(1, {checked: 'invalid'}); // $ExpectError
+    chrome.contextMenus.update(1, {title: 1}); // $ExpectError
+    chrome.contextMenus.update(1, {contexts: true}); // $ExpectError
+    chrome.contextMenus.update(1, {enabled: 'invalid'}); // $ExpectError
+    chrome.contextMenus.update(1, {targetUrlPatterns: false}); // $ExpectError
+    chrome.contextMenus.update(1, {onclick: false}); // $ExpectError
+    chrome.contextMenus.update(1, {parentId: false}); // $ExpectError
+    chrome.contextMenus.update(1, {type: false}); // $ExpectError
+    chrome.contextMenus.update(1, {visible: 1}); // $ExpectError
+}
+
+// https://developer.chrome.com/docs/extensions/reference/enterprise_deviceAttributes
+function testEnterpriseDeviceAttributes() {
+  chrome.enterprise.deviceAttributes.getDirectoryDeviceId((deviceId) => {});
+  chrome.enterprise.deviceAttributes.getDeviceSerialNumber((serialNumber) => {});
+  chrome.enterprise.deviceAttributes.getDeviceAssetId((assetId) => {});
+  chrome.enterprise.deviceAttributes.getDeviceAnnotatedLocation((annotatedLocation) => {});
+  chrome.enterprise.deviceAttributes.getDeviceHostname((hostName) => {});
 }

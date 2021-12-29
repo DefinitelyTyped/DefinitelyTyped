@@ -1,5 +1,11 @@
 /// <reference types="jquery" />
 declare global {
+    /**
+     * @param value The member being processed.
+     * @param index The index of member being processed.
+     * @param array The array being processed.
+     */
+    type ArrayPredicate<T, ThisType> = (this: ThisType, value: T, index: number, array: T[]) => boolean;
     interface Array<T> {
         /**
          * Concatenates one or more unique members to the end of the base array and returns the result as a new array. Does not modify the original.
@@ -26,6 +32,21 @@ declare global {
          * $fruits.count("Oranges", 2)  → Returns 1
          */
         count(needle: T, position?: number): number;
+
+        /**
+         * Returns the number of times that members within the array pass the test implemented by the given predicate function.
+         * @param predicate The function used to test each member. It is called with three arguments:
+         * value: The member being processed.
+         * index: (optional, integer) The index of member being processed.
+         * array: (optional, array) The array being processed.
+         * @param thisArg The value to use as this when executing predicate.
+         * @since SugarCube 2.36.0
+         * @example
+         * // Given: $fruits = ["Apples", "Oranges", "Plums", "Oranges"]
+         * $fruits.countWith(function (fruit) { return fruit === "Oranges"; })  → Returns 2
+         */
+        countWith<PredicateThisArg>(predicate: ArrayPredicate<T, PredicateThisArg>, thisArg: PredicateThisArg): number;
+        countWith(predicate: ArrayPredicate<T, undefined>): number;
 
         /**
          * Removes all instances of the given members from the array and returns a new array containing the removed members.
@@ -82,7 +103,8 @@ declare global {
          * }) // Returns [{ name : "Apples" }, { name : "Apricots" }];
          * // and now $fruits is [{ name : "Oranges" }]
          */
-        deleteWith(predicate: (value: T, index: number, array: T[]) => boolean, thisArg?: T[]): T[];
+        deleteWith<PredicateThisArg>(predicate: ArrayPredicate<T, PredicateThisArg>, thisArg: PredicateThisArg): T[];
+        deleteWith(predicate: ArrayPredicate<T, undefined>): T[];
 
         /**
          * Returns the first member from the array. Does not modify the original.
@@ -294,17 +316,17 @@ declare global {
         /**
          * A period-separated list of event namespaces.
          */
-        namespace?: string;
+        namespace?: string | undefined;
         /**
          * Whether the clickables are single-use—i.e., the handler callback runs only once and then removes itself.
          * If omitted, defaults to false.
          */
-        one?: boolean;
+        one?: boolean | undefined;
         /**
          * A selector applied to the target element(s) to filter the descendants that triggered the event. If omitted or
          * null, the event is always handled when it reaches the target element(s)
          */
-        selector?: string;
+        selector?: string | undefined;
         /**
          * Data to be passed to the handler in event.data when an event is triggered.
          */
@@ -312,15 +334,15 @@ declare global {
         /**
          * Value for the aria-controls attribute.
          */
-        controls?: string;
+        controls?: string | undefined;
         /**
          * Value for the aria-pressed attribute (valid values: "true", "false").
          */
-        pressed?: "true" | "false";
+        pressed?: "true" | "false" | undefined;
         /**
          * Value for the aria-label and title attributes.
          */
-        label?: string;
+        label?: string | undefined;
     }
 
     interface RegExpConstructor {

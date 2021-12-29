@@ -48,7 +48,7 @@ import {
 } from 'mjml-react/utils';
 
 function renderOutTestEmail() {
-    // $ExpectType { html: string; errors: Error[]; }
+    // $ExpectType { html: string; errors: MjmlError[]; }
     const result = render(
         <Mjml>
             <MjmlHead>
@@ -115,7 +115,7 @@ function renderOutTestEmail() {
 // TestMjmlBreakpointTag
 {
     const minProps: React.ReactNode = <MjmlBreakpoint />;
-    const maxProps: React.ReactNode = <MjmlBreakpoint width="">child</MjmlBreakpoint>;
+    const maxProps: React.ReactNode = <MjmlBreakpoint width="" />;
 }
 // TestMjmlBodyTag
 {
@@ -137,7 +137,8 @@ function renderOutTestEmail() {
 }
 // TestMjmlPreviewTag
 {
-    const minMaxProps: React.ReactNode = <MjmlPreview>""</MjmlPreview>;
+    const minProps: React.ReactNode = <MjmlPreview />;
+    const maxProps: React.ReactNode = <MjmlPreview>""</MjmlPreview>;
 
     // children cannot be anything other than string
     // prettier-ignore
@@ -145,7 +146,7 @@ function renderOutTestEmail() {
 }
 // TestMjmlStyleTag
 {
-    const minProps: React.ReactNode = <MjmlStyle>""</MjmlStyle>;
+    const minProps: React.ReactNode = <MjmlStyle />;
     const maxProps: React.ReactNode = <MjmlStyle inline>child</MjmlStyle>;
 
     // children cannot be anything other than string
@@ -154,7 +155,8 @@ function renderOutTestEmail() {
 }
 // TestMjmlTitleTag
 {
-    const minMaxProps: React.ReactNode = <MjmlTitle>""</MjmlTitle>;
+    const minProps: React.ReactNode = <MjmlTitle />;
+    const maxProps: React.ReactNode = <MjmlTitle>""</MjmlTitle>;
 
     // children cannot be anything other than string
     // prettier-ignore
@@ -169,6 +171,8 @@ function renderOutTestEmail() {
 {
     const minProps: React.ReactNode = <MjmlColumn />;
     const maxProps: React.ReactNode = <MjmlColumn>child</MjmlColumn>;
+    const innerBackgroundColor: React.ReactNode = <MjmlColumn innerBackgroundColor="#BADA55">child</MjmlColumn>;
+    const innerBackgroundColorError: React.ReactNode = <MjmlColumn innerBackgroundColor={1}>child</MjmlColumn>; // $ExpectError
 }
 // TestMjmlDividerTag
 {
@@ -219,6 +223,7 @@ function renderOutTestEmail() {
 {
     const minProps: React.ReactNode = <MjmlTable />;
     const maxProps: React.ReactNode = <MjmlTable>child</MjmlTable>;
+    const roleProps: React.ReactNode = <MjmlTable role="presentation">child</MjmlTable>;
 }
 // TestMjmlTextTag
 {
@@ -235,18 +240,22 @@ function renderOutTestEmail() {
 {
     {
         const minProps: React.ReactNode = <MjmlAccordion />;
+        const maxProps: React.ReactNode = <MjmlAccordion>child</MjmlAccordion>;
     }
     // MjmlAccordionElement
     {
         const minProps: React.ReactNode = <MjmlAccordionElement />;
+        const maxProps: React.ReactNode = <MjmlAccordionElement>child</MjmlAccordionElement>;
     }
     // MjmlAccordionText
     {
         const minProps: React.ReactNode = <MjmlAccordionText />;
+        const maxProps: React.ReactNode = <MjmlAccordionText>child</MjmlAccordionText>;
     }
     // TestMjmlAccordionTitleTag
     {
         const minProps: React.ReactNode = <MjmlAccordionTitle />;
+        const maxProps: React.ReactNode = <MjmlAccordionTitle>child</MjmlAccordionTitle>;
     }
 }
 // TestMjmlCarouselTag

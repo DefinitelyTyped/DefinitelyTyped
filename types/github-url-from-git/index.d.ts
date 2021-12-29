@@ -9,7 +9,7 @@ declare namespace githubUrlFromGit {
         /**
          * additional URLs that should be treated as GitHub repos
          */
-        extraBaseUrls?: string[];
+        extraBaseUrls?: string[] | undefined;
     }
 
     /**

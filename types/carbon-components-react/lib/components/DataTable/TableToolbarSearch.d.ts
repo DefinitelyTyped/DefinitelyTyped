@@ -5,16 +5,16 @@ import { SearchProps } from "../Search";
 export type TableToolbarTranslationKey = "carbon.table.toolbar.search.label" | "carbon.table.toolbar.search.placeholder";
 
 export interface TableToolbarSearchProps extends Omit<SearchProps, "labelText">, InternationalProps<TableToolbarTranslationKey> {
-    defaultExpanded?: boolean,
-    expanded?: boolean,
-    labelText?: React.ReactNode,
+    defaultExpanded?: boolean | undefined,
+    expanded?: boolean | undefined,
+    labelText?: React.ReactNode | undefined,
     onExpand?(event: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement> | React.FocusEvent<HTMLDivElement>, newExpand: boolean): void;
     /**
      * @deprecated
      */
-    persistant?: boolean,
-    persistent?: boolean,
-    searchContainerClass?: string,
+    persistant?: boolean | undefined,
+    persistent?: boolean | undefined,
+    searchContainerClass?: string | undefined,
 }
 
 declare const TableToolbarSearch: React.FC<TableToolbarSearchProps>;

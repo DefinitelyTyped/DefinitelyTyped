@@ -11,46 +11,46 @@ declare namespace ReconnectingWebSocket {
          * The socket can be manually opened or closed at any time using `open()` and `close()`.
          * @default `true`
          */
-        automaticOpen?: boolean;
+        automaticOpen?: boolean | undefined;
         /**
          * The binary type, possible values `'blob'` or `'arraybuffer'`.
          * @default `'blob'`
          */
-        binaryType?: globalThis.WebSocket['binaryType'];
+        binaryType?: globalThis.WebSocket['binaryType'] | undefined;
         /**
          * Whether this instance should log debug messages.
          * @default `false`
          */
-        debug?: boolean;
+        debug?: boolean | undefined;
         /**
          * The maximum number of reconnection attempts to make. Unlimited if `null`.
          * @default `null`
          */
-        maxReconnectAttempts?: number | null;
+        maxReconnectAttempts?: number | null | undefined;
         /**
          * The maximum number of milliseconds to delay a reconnection attempt.
          * Accepts integer.
          * @default `30000`
          */
-        maxReconnectInterval?: number;
+        maxReconnectInterval?: number | undefined;
         /**
          * The rate of increase of the reconnect delay. Allows reconnect attempts to back off when problems persist.
          * Accepts integer or float.
          * @default `1.5`
          */
-        reconnectDecay?: number;
+        reconnectDecay?: number | undefined;
         /**
          * The number of milliseconds to delay before attempting to reconnect.
          * Accepts integer.
          * @default `1000`
          */
-        reconnectInterval?: number;
+        reconnectInterval?: number | undefined;
         /**
          * The maximum time in milliseconds to wait for a connection to succeed before closing and retrying.
          * Accepts integer.
          * @default `2000`
          */
-        timeoutInterval?: number;
+        timeoutInterval?: number | undefined;
     }
 
     interface OpenEvent extends CustomEvent<undefined> {

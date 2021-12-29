@@ -33,9 +33,9 @@ interface Options {
      * If false passed, error handler will not be attached
      * If undefined passed, default error handler will be attached
      */
-    errorHandler?: ErrorHandlerFunction | boolean;
+    errorHandler?: ErrorHandlerFunction | boolean | undefined;
     /** Monkeypatch pipe functions in underlying streams in pipeline. Default true. */
-    inherit?: boolean;
+    inherit?: boolean | undefined;
 }
 
 /** an error handler function to be attached to the stream on('error') */

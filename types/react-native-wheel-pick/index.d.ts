@@ -7,49 +7,49 @@ import * as React from 'react';
 import { StyleProp, ViewStyle, ViewProps } from 'react-native';
 
 export interface DatePickerIOSProps extends ViewProps {
-    date?: Date;
-    maximumDate?: Date;
-    minimumDate?: Date;
-    mode?: 'date' | 'time' | 'datetime';
+    date?: Date | undefined;
+    maximumDate?: Date | undefined;
+    minimumDate?: Date | undefined;
+    mode?: 'date' | 'time' | 'datetime' | undefined;
     onDateChange: (newDate: Date) => void;
 }
 
 export interface DatePickerAndroidProps extends ViewProps {
     labelUnit?: {
-        year?: string;
-        month?: string[];
-        date?: string;
-    };
-    order?: string;
-    date?: Date;
-    maximumDate?: Date;
-    minimumDate?: Date;
-    mode?: 'date' | 'time' | 'datetime';
+        year?: string | undefined;
+        month?: string[] | undefined;
+        date?: string | undefined;
+    } | undefined;
+    order?: string | undefined;
+    date?: Date | undefined;
+    maximumDate?: Date | undefined;
+    minimumDate?: Date | undefined;
+    mode?: 'date' | 'time' | 'datetime' | undefined;
     onDateChange: (newDate: Date) => void;
-    style?: StyleProp<ViewStyle>;
-    textColor?: string;
-    textSize?: number;
-    itemSpace?: number;
+    style?: StyleProp<ViewStyle> | undefined;
+    textColor?: string | undefined;
+    textSize?: number | undefined;
+    itemSpace?: number | undefined;
 }
 
 export interface DatePickerProps extends DatePickerAndroidProps, DatePickerIOSProps {
-    date?: Date;
-    maximumDate?: Date;
-    minimumDate?: Date;
-    mode?: 'date' | 'time' | 'datetime';
+    date?: Date | undefined;
+    maximumDate?: Date | undefined;
+    minimumDate?: Date | undefined;
+    mode?: 'date' | 'time' | 'datetime' | undefined;
     onDateChange: (newDate: Date) => void;
-    style?: StyleProp<ViewStyle>;
+    style?: StyleProp<ViewStyle> | undefined;
 }
 
 export interface PickerProps<T> extends ViewProps {
-    textColor?: string;
-    textSize?: number;
-    itemSpace?: number;
-    itemStyle?: StyleProp<ViewStyle>;
+    textColor?: string | undefined;
+    textSize?: number | undefined;
+    itemSpace?: number | undefined;
+    itemStyle?: StyleProp<ViewStyle> | undefined;
     onValueChange: (value: T) => void;
     pickerData: T[];
-    style?: StyleProp<ViewStyle>;
-    selectedValue?: T;
+    style?: StyleProp<ViewStyle> | undefined;
+    selectedValue?: T | undefined;
 }
 
 export class Picker<T> extends React.Component<PickerProps<T>> {}

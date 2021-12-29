@@ -11,7 +11,7 @@ export interface Settings {
     /**
      * The MySQL port to connect to.
      */
-    port?: number;
+    port?: number | undefined;
     /**
      * The MySQL user to connect with.
      */

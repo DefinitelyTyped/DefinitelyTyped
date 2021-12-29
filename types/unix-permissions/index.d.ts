@@ -356,20 +356,20 @@ export type PermissionTransformResult<T extends Permission> = T extends string
 export type PermissionType = "octal" | "number" | "stat" | "symbolic" | "object";
 
 export interface ObjectPermission {
-    user?: PermissionTriple;
-    group?: PermissionTriple;
-    others?: PermissionTriple;
-    special?: SpecialPermissionTriple;
+    user?: PermissionTriple | undefined;
+    group?: PermissionTriple | undefined;
+    others?: PermissionTriple | undefined;
+    special?: SpecialPermissionTriple | undefined;
 }
 
 export interface PermissionTriple {
-    read?: boolean;
-    write?: boolean;
-    execute?: boolean;
+    read?: boolean | undefined;
+    write?: boolean | undefined;
+    execute?: boolean | undefined;
 }
 
 export interface SpecialPermissionTriple {
-    setuid?: boolean;
-    setgid?: boolean;
-    sticky?: boolean;
+    setuid?: boolean | undefined;
+    setgid?: boolean | undefined;
+    sticky?: boolean | undefined;
 }

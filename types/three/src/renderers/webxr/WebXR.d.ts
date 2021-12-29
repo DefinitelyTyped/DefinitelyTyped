@@ -32,12 +32,12 @@ export interface XR extends EventTarget {
 }
 
 export interface Window {
-    XRSession?: Constructor<XRSession>;
-    XR?: Constructor<XR>;
+    XRSession?: Constructor<XRSession> | undefined;
+    XR?: Constructor<XR> | undefined;
 }
 
 export interface Navigator {
-    xr?: XR;
+    xr?: XR | undefined;
 }
 
 export interface XRReferenceSpace extends EventTarget {
@@ -45,12 +45,12 @@ export interface XRReferenceSpace extends EventTarget {
 }
 export interface XRHitTestOptionsInit {
     space: EventTarget;
-    offsetRay?: XRRay;
+    offsetRay?: XRRay | undefined;
 }
 
 export interface XRTransientInputHitTestOptionsInit {
     profile: string;
-    offsetRay?: XRRay;
+    offsetRay?: XRRay | undefined;
 }
 
 export interface XRViewport {
@@ -67,15 +67,15 @@ export interface WebGLRenderingContext {
 export interface XRRenderState {
     readonly depthNear: number;
     readonly depthFar: number;
-    readonly inlineVerticalFieldOfView?: number;
-    readonly baseLayer?: XRWebGLLayer;
+    readonly inlineVerticalFieldOfView?: number | undefined;
+    readonly baseLayer?: XRWebGLLayer | undefined;
 }
 
 export interface XRRenderStateInit {
-    depthNear?: number;
-    depthFar?: number;
-    inlineVerticalFieldOfView?: number;
-    baseLayer?: XRWebGLLayer;
+    depthNear?: number | undefined;
+    depthFar?: number | undefined;
+    inlineVerticalFieldOfView?: number | undefined;
+    baseLayer?: XRWebGLLayer | undefined;
 }
 
 export interface XRGamepad {
@@ -92,15 +92,15 @@ export interface XRInputSource {
     readonly handedness: XRHandedness;
     readonly targetRayMode: XRTargetRayMode;
     readonly targetRaySpace: EventTarget;
-    readonly gripSpace?: EventTarget;
+    readonly gripSpace?: EventTarget | undefined;
     readonly profiles: string[];
     readonly gamepad: XRGamepad;
-    readonly hand?: XRHand;
+    readonly hand?: XRHand | undefined;
 }
 
 export interface XRSessionInit {
-    optionalFeatures?: string[];
-    requiredFeatures?: string[];
+    optionalFeatures?: string[] | undefined;
+    requiredFeatures?: string[] | undefined;
 }
 
 export interface XRSession extends EventTarget {
@@ -124,7 +124,7 @@ export interface XRSession extends EventTarget {
     requestHitTest(ray: XRRay, referenceSpace: XRReferenceSpace): Promise<XRHitResult[]>;
 
     // legacy plane detection
-    updateWorldTrackingState(options: { planeDetectionState?: { enabled: boolean } }): void;
+    updateWorldTrackingState(options: { planeDetectionState?: { enabled: boolean } | undefined }): void;
 }
 
 export interface XRReferenceSpace extends EventTarget {
@@ -144,11 +144,11 @@ export interface XRFrame {
     getHitTestResults(hitTestSource: XRHitTestSource): XRHitTestResult[];
     getHitTestResultsForTransientInput(hitTestSource: XRTransientInputHitTestSource): XRTransientInputHitTestResult[];
     // Anchors
-    trackedAnchors?: XRAnchorSet;
+    trackedAnchors?: XRAnchorSet | undefined;
     createAnchor(pose: XRRigidTransform, space: EventTarget): Promise<XRAnchor>;
     // Planes
     worldInformation: {
-        detectedPlanes?: XRPlaneSet;
+        detectedPlanes?: XRPlaneSet | undefined;
     };
     // Hand tracking
     getJointPose(joint: XRJointSpace, baseSpace: EventTarget): XRJointPose;
@@ -165,12 +165,12 @@ export interface XRPose {
 }
 
 export interface XRWebGLLayerInit {
-    antialias?: boolean;
-    depth?: boolean;
-    stencil?: boolean;
-    alpha?: boolean;
-    ignoreDepthValues?: boolean;
-    framebufferScaleFactor?: number;
+    antialias?: boolean | undefined;
+    depth?: boolean | undefined;
+    stencil?: boolean | undefined;
+    alpha?: boolean | undefined;
+    ignoreDepthValues?: boolean | undefined;
+    framebufferScaleFactor?: number | undefined;
 }
 
 export class XRWebGLLayer {
@@ -182,10 +182,10 @@ export class XRWebGLLayer {
 }
 
 export interface DOMPointInit {
-    w?: number;
-    x?: number;
-    y?: number;
-    z?: number;
+    w?: number | undefined;
+    x?: number | undefined;
+    y?: number | undefined;
+    z?: number | undefined;
 }
 
 export class XRRigidTransform {
@@ -204,10 +204,10 @@ export interface XRView {
 }
 
 export interface XRRayDirectionInit {
-    x?: number;
-    y?: number;
-    z?: number;
-    w?: number;
+    x?: number | undefined;
+    y?: number | undefined;
+    z?: number | undefined;
+    w?: number | undefined;
 }
 
 export class XRRay {
@@ -249,14 +249,14 @@ export interface XRTransientInputHitTestSource {
 
 export interface XRHitTestOptionsInit {
     space: EventTarget;
-    entityTypes?: XRHitTestTrackableType[];
-    offsetRay?: XRRay;
+    entityTypes?: XRHitTestTrackableType[] | undefined;
+    offsetRay?: XRRay | undefined;
 }
 
 export interface XRTransientInputHitTestOptionsInit {
     profile: string;
-    entityTypes?: XRHitTestTrackableType[];
-    offsetRay?: XRRay;
+    entityTypes?: XRHitTestTrackableType[] | undefined;
+    offsetRay?: XRRay | undefined;
 }
 
 export interface XRAnchor {

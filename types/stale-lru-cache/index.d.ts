@@ -26,17 +26,17 @@ declare namespace Cache {
     type RevalidationCallback<K, V> = (key: K, callback: OptionsCallback<K, V>) => void;
 
     interface CacheOptions<K, V> {
-        maxAge?: number;
-        staleWhileRevalidate?: number;
-        revalidate?: RevalidationCallback<K, V>;
-        maxSize?: number;
+        maxAge?: number | undefined;
+        staleWhileRevalidate?: number | undefined;
+        revalidate?: RevalidationCallback<K, V> | undefined;
+        maxSize?: number | undefined;
         getSize?(value: V, key: K): number;
     }
 
     interface SetOptions<K, V> {
-        maxAge?: number;
-        staleWhileRevalidate?: number;
-        revalidate?: RevalidationCallback<K, V>;
+        maxAge?: number | undefined;
+        staleWhileRevalidate?: number | undefined;
+        revalidate?: RevalidationCallback<K, V> | undefined;
     }
 }
 

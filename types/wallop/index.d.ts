@@ -14,63 +14,63 @@ declare namespace Wallop {
          *
          * @default 'Wallop-buttonNext'
          */
-        buttonNextClass?: string;
+        buttonNextClass?: string | undefined;
 
         /**
          * Override class for "previous" button.
          *
          * @default 'Wallop-buttonPrevious'
          */
-        buttonPreviousClass?: string;
+        buttonPreviousClass?: string | undefined;
 
         /**
          * Enable/disable carousel mode.
          *
          * @default true
          */
-        carousel?: boolean;
+        carousel?: boolean | undefined;
 
         /**
          * Override class for current item.
          *
          * @default 'Wallop-item--current'
          */
-        currentItemClass?: string;
+        currentItemClass?: string | undefined;
 
         /**
          * Override class that hides next item.
          *
          * @default 'Wallop-item--hideNext'
          */
-        hideNextClass?: string;
+        hideNextClass?: string | undefined;
 
         /**
          * Override class that hides previous item.
          *
          * @default 'Wallop-item--hidePrevious'
          */
-        hidePreviousClass?: string;
+        hidePreviousClass?: string | undefined;
 
         /**
          * Override class for item.
          *
          * @default 'Wallop-item'
          */
-        itemClass?: string;
+        itemClass?: string | undefined;
 
         /**
          * Override class for item that will show next.
          *
          * @default 'Wallop-item--showNext'
          */
-        showNextClass?: string;
+        showNextClass?: string | undefined;
 
         /**
          * Override class for item that will showed previously.
          *
          * @default 'Wallop-item--showPrevious'
          */
-        showPreviousClass?: string;
+        showPreviousClass?: string | undefined;
     }
 }
 

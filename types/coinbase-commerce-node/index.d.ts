@@ -108,7 +108,7 @@ interface PaginationRequest {
      *
      * default: desc
      */
-    order?: 'asc' | 'desc';
+    order?: 'asc' | 'desc' | undefined;
 
     /**
      * Number of results per call.
@@ -116,19 +116,19 @@ interface PaginationRequest {
      * Accepted values: 0 - 100
      * Default: 25
      */
-    limit?: number;
+    limit?: number | undefined;
 
     /**
      * A cursor for use in pagination.
      * This is a resource ID that defines your place in the list.
      */
-    starting_after?: string | null;
+    starting_after?: string | null | undefined;
 
     /**
      * A cursor for use in pagination.
      * This is a resource ID that defines your place in the list.
      */
-    ending_before?: string | null;
+    ending_before?: string | null | undefined;
 }
 
 /**
@@ -193,17 +193,17 @@ interface BaseCharge {
     /**
      * Optional key value pairs for your own use.
      */
-    metadata?: KeyVal;
+    metadata?: KeyVal | undefined;
 
     /**
      * Redirect the user to this URL on completion.
      */
-    redirect_url?: string;
+    redirect_url?: string | undefined;
 
     /**
      * Redirect the user to this URL on cancel.
      */
-    cancel_url?: string;
+    cancel_url?: string | undefined;
 }
 
 /**
@@ -237,7 +237,7 @@ interface ChargeResource extends BaseCharge {
     /**
      * Charge image URL.
      */
-    logo_url?: string;
+    logo_url?: string | undefined;
 
     /**
      * Hosted charge URL.
@@ -257,14 +257,14 @@ interface ChargeResource extends BaseCharge {
     /**
      * Charge confirmation time.
      */
-    confirmed_at?: Timestamp;
+    confirmed_at?: Timestamp | undefined;
 
     /**
      * Associated checkout resource.
      */
     checkout?: {
         id: string;
-    };
+    } | undefined;
 
     /**
      * Array of status update objects.
@@ -283,7 +283,7 @@ interface ChargeResource extends BaseCharge {
         /**
          * Timeline entry context.
          */
-        context?: 'UNDERPAID' | 'OVERPAID' | 'DELAYED' | 'MULTIPLE' | 'MANUAL' | 'OTHER';
+        context?: 'UNDERPAID' | 'OVERPAID' | 'DELAYED' | 'MULTIPLE' | 'MANUAL' | 'OTHER' | undefined;
     }>;
 
     /**
@@ -345,7 +345,7 @@ interface BaseCheckout {
     /**
      * Information to collect from the customer.
      */
-    requested_info?: Array<'email' | 'name'>;
+    requested_info?: Array<'email' | 'name'> | undefined;
 }
 
 /**
@@ -381,12 +381,12 @@ interface CheckoutResource extends BaseCheckout {
     /**
      * Checkout image URL.
      */
-    logo_url?: string;
+    logo_url?: string | undefined;
 
     /**
      * Price in local fiat currency.
      */
-    local_price?: Price<FiatCurrency>;
+    local_price?: Price<FiatCurrency> | undefined;
 }
 
 /**

@@ -14,7 +14,7 @@ declare namespace echarts {
              * of the grid, and the second y axis is on the other side
              * against the first y axis.
              */
-            position?: 'left' | 'right';
+            position?: 'left' | 'right' | undefined;
 
             /**
              * Options:
@@ -31,7 +31,7 @@ declare namespace echarts {
              * @default 'value'
              * @see https://echarts.apache.org/en/option.html#yAxis.type
              */
-            type?: BasicComponents.CartesianAxis.Type;
+            type?: BasicComponents.CartesianAxis.Type | undefined;
 
             /**
              * Offset of this axis relative to default position.
@@ -40,7 +40,7 @@ declare namespace echarts {
              * @default 0
              * @see https://echarts.apache.org/en/option.html#yAxis.offset
              */
-            offset?: number;
+            offset?: number | undefined;
         }
     }
 }

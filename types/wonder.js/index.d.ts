@@ -350,7 +350,7 @@ declare module 'wonder.js/dist/es2015/component/geometry/Geometry' {
     }
     export type GeometryDataType = {
         vertices: Array<number>;
-        faces?: Array<Face3>;
+        faces?: Array<Face3> | undefined;
     };
 }
 
@@ -587,9 +587,9 @@ declare module 'wonder.js/dist/es2015/core/entityObject/EntityObject' {
         protected getRenderList(): Collection<any>;
     }
     export type CloneEntityObjectConfigData = {
-        cloneChildren?: boolean;
-        shareGeometry?: boolean;
-        cloneGeometry?: boolean;
+        cloneChildren?: boolean | undefined;
+        shareGeometry?: boolean | undefined;
+        cloneGeometry?: boolean | undefined;
     };
 }
 
@@ -748,10 +748,10 @@ declare module 'wonder.js/dist/es2015/core/Main' {
     import { EScreenSize } from "wonder.js/dist/es2015/device/EScreenSize";
     export class Main {
         static setConfig({canvasId, isTest, screenSize, useDevicePixelRatio, contextConfig}: {
-            canvasId?: null;
-            isTest?: boolean;
-            screenSize?: EScreenSize;
-            useDevicePixelRatio?: boolean;
+            canvasId?: null | undefined;
+            isTest?: boolean | undefined;
+            screenSize?: EScreenSize | undefined;
+            useDevicePixelRatio?: boolean | undefined;
             contextConfig?: {
                 options: {
                     alpha: boolean;
@@ -761,7 +761,7 @@ declare module 'wonder.js/dist/es2015/core/Main' {
                     premultipliedAlpha: boolean;
                     preserveDrawingBuffer: boolean;
                 };
-            };
+            } | undefined;
         }): typeof Main;
         static init(): typeof Main;
     }
@@ -805,13 +805,13 @@ declare module 'wonder.js/dist/es2015/definition/typescript/decorator/clone' {
         static isNotClone(entityObject: EntityObject): boolean;
     }
     export type CloneAttributeAsBasicTypeConfigData = {
-        order?: number;
+        order?: number | undefined;
     };
     export type CloneAttributeAsCloneableConfigData = {
-        order?: number;
+        order?: number | undefined;
     };
     export type CloneAttributeAsCustomTypeConfigData = {
-        order?: number;
+        order?: number | undefined;
     };
     export enum CloneType {
         CLONEABLE = 0,
@@ -1060,8 +1060,8 @@ declare module 'wonder.js/dist/es2015/event/binder/DomEventRegister' {
         getDomHandler(dom: HTMLElement, eventName: EEventName): Function;
     }
     export type DomEventRegisterData = {
-        dom?: HTMLElement;
-        target?: EntityObject;
+        dom?: HTMLElement | undefined;
+        target?: EntityObject | undefined;
         eventData: Hash<any>;
         originHandler: Function;
         handler: Function;
@@ -2380,7 +2380,7 @@ declare module 'wonder.js/dist/es2015/renderer/shader/shader/Shader' {
     export type ShaderData = {
         type: EVariableType;
         value?: any;
-        textureId?: string;
+        textureId?: string | undefined;
     };
 }
 
@@ -2880,14 +2880,14 @@ declare module 'wonder.js/dist/es2015/event/interface/IEventData' {
         pageX: number;
         pageY: number;
         button: number;
-        detail?: number;
-        wheelDelta?: number;
-        movementX?: number;
-        webkitMovementX?: number;
-        mozMovementX?: number;
-        movementY?: number;
-        webkitMovementY?: number;
-        mozMovementY?: number;
+        detail?: number | undefined;
+        wheelDelta?: number | undefined;
+        movementX?: number | undefined;
+        webkitMovementX?: number | undefined;
+        mozMovementX?: number | undefined;
+        movementY?: number | undefined;
+        webkitMovementY?: number | undefined;
+        mozMovementY?: number | undefined;
         target: HTMLElement;
         currentTarget: HTMLElement;
     }
@@ -2917,15 +2917,15 @@ declare module 'wonder.js/dist/es2015/event/interface/IEventData' {
         clientY: number;
         pageX: number;
         pageY: number;
-        button?: number;
-        detail?: number;
-        wheelDelta?: number;
-        movementX?: number;
-        webkitMovementX?: number;
-        mozMovementX?: number;
-        movementY?: number;
-        webkitMovementY?: number;
-        mozMovementY?: number;
+        button?: number | undefined;
+        detail?: number | undefined;
+        wheelDelta?: number | undefined;
+        movementX?: number | undefined;
+        webkitMovementX?: number | undefined;
+        mozMovementX?: number | undefined;
+        movementY?: number | undefined;
+        webkitMovementY?: number | undefined;
+        mozMovementY?: number | undefined;
         target: HTMLElement;
         currentTarget: HTMLElement | null;
     }
@@ -2944,12 +2944,12 @@ declare module 'wonder.js/dist/es2015/renderer/shader/chunk/ShaderChunk' {
     export const lowp_fragment: GLSLChunk;
     export const mediump_fragment: GLSLChunk;
     export type GLSLChunk = {
-        top?: string;
-        define?: string;
-        varDeclare?: string;
-        funcDeclare?: string;
-        funcDefine?: string;
-        body?: string;
+        top?: string | undefined;
+        define?: string | undefined;
+        varDeclare?: string | undefined;
+        funcDeclare?: string | undefined;
+        funcDefine?: string | undefined;
+        body?: string | undefined;
     };
 }
 

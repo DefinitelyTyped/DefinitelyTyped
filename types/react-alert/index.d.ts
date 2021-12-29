@@ -56,37 +56,37 @@ export interface AlertProviderProps extends React.HTMLAttributes<HTMLDivElement>
      *
      * Default value: '10px'
      */
-    offset?: string;
+    offset?: string | undefined;
     /**
      * The position of the alerts in the page
      *
      * Default value: 'top center'
      */
-    position?: AlertPosition;
+    position?: AlertPosition | undefined;
     /**
      * Timeout to alert remove itself, if  set to 0 it never removes itself
      *
      * Default value: 0
      */
-    timeout?: number;
+    timeout?: number | undefined;
     /**
      * The default alert type used when calling this.props.alert.show
      *
      * Default value: 'info'
      */
-    type?: AlertType;
+    type?: AlertType | undefined;
     /**
      * The transition animation
      *
      * Default value: 'fade'
      */
-    transition?: AlertTransition;
+    transition?: AlertTransition | undefined;
     /**
      * The style of the alert container
      *
      * Default z-index value: 100
      */
-    containerStyle?: React.CSSProperties;
+    containerStyle?: React.CSSProperties | undefined;
     /**
      * The alert component for each message
      */
@@ -94,7 +94,7 @@ export interface AlertProviderProps extends React.HTMLAttributes<HTMLDivElement>
     /**
      * Custom context to separate alerts.
      */
-    context?: React.Context<AlertManager | undefined>;
+    context?: React.Context<AlertManager | undefined> | undefined;
 }
 
 export interface AlertComponentProps {
@@ -114,7 +114,7 @@ export interface AlertCustomOptions {
     /**
      * Custom timeout just for this one alert
      */
-    timeout?: number;
+    timeout?: number | undefined;
     /**
      * Callback that will be executed after this alert open
      */
@@ -126,11 +126,11 @@ export interface AlertCustomOptions {
 }
 
 export interface AlertCustomOptionsWithType extends AlertCustomOptions {
-    type?: AlertType;
+    type?: AlertType | undefined;
 }
 
 export interface AlertManager {
-    root?: HTMLElement;
+    root?: HTMLElement | undefined;
     alerts: AlertComponentProps[];
     show(
         message?: React.ReactNode,

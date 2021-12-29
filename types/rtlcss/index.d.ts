@@ -1,7 +1,6 @@
 // Type definitions for rtlcss 3.1
 // Project: https://github.com/MohammadYounes/rtlcss
-// Definitions by: Adam Zerella <https://github.com/adamzerella>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
+// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.6
 
@@ -12,13 +11,13 @@ declare namespace rtlcss {
     interface MapOptions {
         scope: string;
         ignoreCase: boolean;
-        greedy?: boolean;
+        greedy?: boolean | undefined;
     }
 
     interface StringMap {
         name: string;
         priority: number;
-        exclusive?: boolean;
+        exclusive?: boolean | undefined;
         search: string | string[];
         replace: string | string[];
         options: MapOptions;
