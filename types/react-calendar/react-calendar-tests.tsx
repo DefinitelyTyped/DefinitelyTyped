@@ -25,7 +25,7 @@ export default class Sample extends React.Component<{}, State> {
     onViewChange = (action: string) => {
         console.log(`action changed by ${action}`);
     }
-    
+
     render() {
         const { value } = this.state;
 
