@@ -1,4 +1,3 @@
-import { JFWriteOptions } from '../';
 
 export function stringify(
     obj: any,
