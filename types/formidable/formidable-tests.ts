@@ -171,7 +171,7 @@ form.onPart = part => {
         buffer;
     });
 
-    form.handlePart(part);
+    form._handlePart(part);
 };
 
 http.createServer(req => {
