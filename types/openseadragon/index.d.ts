@@ -1295,6 +1295,7 @@ declare namespace OpenSeadragon {
         | 'animation-finish'
         | 'animation-start'
         | 'canvas-click'
+        | 'canvas-contextmenu'
         | 'canvas-double-click'
         | 'canvas-drag'
         | 'canvas-drag-end'
