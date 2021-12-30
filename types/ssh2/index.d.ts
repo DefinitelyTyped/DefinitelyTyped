@@ -71,7 +71,7 @@ export interface Channel extends stream.Duplex {
     /**
      * Shuts down the channel on this side.
      */
-    destroy(): any;
+    destroy(): this;
 }
 
 export interface ClientChannel extends Channel {
