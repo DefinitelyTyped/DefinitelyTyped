@@ -81,7 +81,7 @@ declare namespace Offcanvas {
         hidden = 'hidden.bs.offcanvas',
     }
 
-    type jQueryInterface = (config?: 'toggle' | 'show' | 'hide' | 'dispose') => void;
+    type jQueryInterface = (config?: 'toggle' | 'show' | 'hide') => void;
 }
 
 export default Offcanvas;

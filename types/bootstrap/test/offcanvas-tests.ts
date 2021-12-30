@@ -49,4 +49,3 @@ $('.alert').offcanvas();
 $('.alert').offcanvas('toggle'); // $ExpectType void
 $('.alert').offcanvas('show'); // $ExpectType void
 $('.alert').offcanvas('hide'); // $ExpectType void
-$('.alert').offcanvas('dispose'); // $ExpectType void
