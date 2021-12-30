@@ -263,13 +263,45 @@ export function removePlugins(
     removedCount: number;
 };
 
+/**
+ * @see https://github.com/gsoft-inc/craco/blob/master/packages/craco/README.md#configuration-helper
+ */
 export function when<T>(condition: boolean, fct: () => T, unmetValue: T): T;
 
+/**
+ * @see https://github.com/gsoft-inc/craco/blob/master/packages/craco/README.md#configuration-helper
+ */
+export function when<T>(condition: boolean, fct: () => T): T | undefined;
+
+/**
+ * @see https://github.com/gsoft-inc/craco/blob/master/packages/craco/README.md#configuration-helper
+ */
 export function whenDev<T>(fct: () => T, unmetValue: T): T;
 
+/**
+ * @see https://github.com/gsoft-inc/craco/blob/master/packages/craco/README.md#configuration-helper
+ */
+export function whenDev<T>(fct: () => T): T | undefined;
+
+/**
+ * @see https://github.com/gsoft-inc/craco/blob/master/packages/craco/README.md#configuration-helper
+ */
 export function whenProd<T>(fct: () => T, unmetValue: T): T;
 
+/**
+ * @see https://github.com/gsoft-inc/craco/blob/master/packages/craco/README.md#configuration-helper
+ */
+export function whenProd<T>(fct: () => T): T | undefined;
+
+/**
+ * @see https://github.com/gsoft-inc/craco/blob/master/packages/craco/README.md#configuration-helper
+ */
 export function whenTest<T>(fct: () => T, unmetValue: T): T;
+
+/**
+ * @see https://github.com/gsoft-inc/craco/blob/master/packages/craco/README.md#configuration-helper
+ */
+export function whenTest<T>(fct: () => T): T | undefined;
 
 export function throwUnexpectedConfigError(props: {
     message: string;

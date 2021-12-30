@@ -162,16 +162,28 @@ addPlugins({}, [new DemoPlugin()]);
 const isRemovePlugins = removePlugins({}, matchesDemoPlugin);
 
 // $ExpectType string
-const whenValue = when(true, () => 'hello', 'unmet');
+const valueWhenTrue = when(true, () => 'hello', 'unmet');
+
+// $ExpectType string | undefined
+const noUnmetValueWhenTrue = when(true, () => 'hello');
 
 // $ExpectType string
-const whenDevValue = whenDev(() => 'hello', 'unmet');
+const valueWhenDev = whenDev(() => 'hello', 'unmet');
+
+// $ExpectType string | undefined
+const noUnmetValueWhenDev = whenDev(() => 'hello');
 
 // $ExpectType string
-const whenProdValue = whenProd(() => 'hello', 'unmet');
+const valueWhenProd = whenProd(() => 'hello', 'unmet');
+
+// $ExpectType string | undefined
+const noUnmetValueWhenProd = whenProd(() => 'hello');
 
 // $ExpectType string
-const whenTestValue = whenTest(() => 'hello', 'unmet');
+const valueWhenTest = whenTest(() => 'hello', 'unmet');
+
+// $ExpectType string | undefined
+const noUnmetValueWhenTest = whenTest(() => 'hello');
 
 // $ExpectType never
 throwUnexpectedConfigError({
