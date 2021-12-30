@@ -26,5 +26,3 @@ export default class FormulaC {
     getExpressionString(): string;
     static calc(formula: string, valueObj: object | object[], options?: { memoization?: boolean; }): any;
 }
-
-declare const Formula: FormulaC;
