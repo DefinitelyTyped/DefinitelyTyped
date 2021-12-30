@@ -69,7 +69,8 @@ export = cytoscape;
 export as namespace cytoscape;
 
 declare function cytoscape(options?: cytoscape.CytoscapeOptions): cytoscape.Core;
-declare function cytoscape(extensionName: string, foo: string, bar: any): cytoscape.Core;
+declare function cytoscape(type: string, name: string): unknown;
+declare function cytoscape(type: string, name: string, registrant: any): void;
 
 declare namespace cytoscape {
     interface Position {
@@ -5487,7 +5488,7 @@ declare namespace cytoscape {
      *  export = ext;
      * }
      */
-    type Ext = (cytoscape: (options?: CytoscapeOptions) => Core) => void;
+    type Ext = (cy: typeof cytoscape) => void;
     /**
      * Register imported extension into cytoscape
      * @param module Entry point for the extension, got by module = require('cy-ext')
