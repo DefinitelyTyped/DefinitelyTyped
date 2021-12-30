@@ -32,7 +32,7 @@ const myBaseQuad: RDF.BaseQuad = factory.quad<RDF.BaseQuad>(
   factory.namedNode('http://example.org/object'),
 );
 
-const myBaseQuadBad: RDF.Quad = factory.quad<RDF.Quad>(
+const myBaseQuadBad = factory.quad(
   factory.namedNode('http://example.org/subject'),
   // @ts-expect-error
   factory.blankNode('34'),
