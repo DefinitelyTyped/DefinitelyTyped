@@ -91,7 +91,7 @@ declare namespace Carousel {
          *
          * @default false
          */
-        ride: 'carousel' | false;
+        ride: 'carousel' | boolean;
 
         /**
          * Whether the carousel should cycle continuously or have hard stops.
