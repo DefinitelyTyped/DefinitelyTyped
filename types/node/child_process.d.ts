@@ -60,7 +60,7 @@
  * For certain use cases, such as automating shell scripts, the `synchronous counterparts` may be more convenient. In many cases, however,
  * the synchronous methods can have significant impact on performance due to
  * stalling the event loop while spawned processes complete.
- * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/child_process.js)
+ * @see [source](https://github.com/nodejs/node/blob/v17.0.0/lib/child_process.js)
  */
 declare module 'child_process' {
     import { ObjectEncodingOptions } from 'node:fs';

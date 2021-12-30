@@ -365,6 +365,20 @@ rule = {
     },
     meta: { type: "layout" },
 };
+rule = {
+    create(context) {
+        return {};
+    },
+    meta: {
+        docs: {
+            description: "disallow the use of `console`",
+            category: "Possible Errors",
+            recommended: true,
+            url: "https://eslint.org/docs/rules/no-console",
+        },
+        hasSuggestions: true,
+    },
+};
 
 rule = {
     create(context) {

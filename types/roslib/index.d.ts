@@ -2,7 +2,6 @@
 // Project: http://wiki.ros.org/roslibjs
 // Definitions by: Stefan Profanter <https://github.com/Pro>
 //                 David Gonzalez <https://github.com/dgorobopec>
-//                 Arvid Norlander <https://github.com/VorpalBlade>
 //                 Aluma Gelbard <https://github.com/alumag>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
@@ -13,7 +12,7 @@
 
  ---------------------------------- */
 
-import { EventEmitter2 } from "eventemitter2";
+import { EventEmitter2 } from 'eventemitter2';
 
 export = ROSLIB;
 export as namespace ROSLIB;
@@ -292,10 +291,7 @@ declare namespace ROSLIB {
         delete(callback: (response: any) => void): void;
     }
 
-    export class Service <
-        TServiceRequest = any,
-        TServiceResponse = any
-    > {
+    export class Service<TServiceRequest = any, TServiceResponse = any> {
         /**
          * A ROS service client.
          *
@@ -362,7 +358,7 @@ declare namespace ROSLIB {
         constructor(values?: any);
     }
 
-    export class Topic <TMessage = Message> {
+    export class Topic<TMessage = Message> extends EventEmitter2 {
         /**
          * Publish and/or subscribe to a topic in ROS.
          *
@@ -415,7 +411,7 @@ declare namespace ROSLIB {
          *     * provided and other listeners are registered the topic won't
          *     * unsubscribe, just stop emitting to the passed listener
          */
-        unsubscribe(callback?: (callback: (message: TMessage) => void) => void): void;
+        unsubscribe(callback?: (message: TMessage) => void): void;
 
         /**
          * Registers as a publisher for the topic.
@@ -512,7 +508,10 @@ declare namespace ROSLIB {
          *   * translation - the Vector3 describing the translation
          *   * rotation - the ROSLIB.Quaternion describing the rotation
          */
-        constructor(options?: { translation?: Vector3Like | null | undefined; rotation?: QuaternionLike | null | undefined });
+        constructor(options?: {
+            translation?: Vector3Like | null | undefined;
+            rotation?: QuaternionLike | null | undefined;
+        });
 
         // getters
         public translation: Vector3;
@@ -534,7 +533,13 @@ declare namespace ROSLIB {
          *   * y - the y value
          *   * z - the z value
          */
-        constructor(options?: { x?: number | null | undefined; y?: number | null | undefined; z?: number | null | undefined } | null);
+        constructor(
+            options?: {
+                x?: number | null | undefined;
+                y?: number | null | undefined;
+                z?: number | null | undefined;
+            } | null,
+        );
 
         // getters
         public x: number;
@@ -578,7 +583,14 @@ declare namespace ROSLIB {
          *   * z - the z value
          *   * w - the w value
          */
-        constructor(options?: { x?: number | null | undefined; y?: number | null | undefined; z?: number | null | undefined; w?: number | null | undefined } | null);
+        constructor(
+            options?: {
+                x?: number | null | undefined;
+                y?: number | null | undefined;
+                z?: number | null | undefined;
+                w?: number | null | undefined;
+            } | null,
+        );
 
         // getters
         public x: number;

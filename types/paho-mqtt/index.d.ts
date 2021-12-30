@@ -65,8 +65,7 @@ declare global {
              */
             invocationContext: any;
         }
-        interface ErrorWithInvocationContext extends MQTTError, WithInvocationContext {
-        }
+        interface ErrorWithInvocationContext extends MQTTError, WithInvocationContext {}
         interface OnSubscribeSuccessParams extends WithInvocationContext {
             grantedQos: Qos;
         }
@@ -155,6 +154,10 @@ declare global {
              */
             mqttVersion?: 3 | 4 | undefined;
             /**
+             * If set to true, will force the connection to use the selected MQTT Version or will fail to connect.
+             */
+            mqttVersionExplicit?: boolean | undefined;
+            /**
              * Called when the connect request has failed or timed out.
              */
             onFailure?: OnFailureCallback | undefined;
@@ -168,6 +171,21 @@ declare global {
              * If present the set of ports matching the hosts. If hosts contains URIs, this property is not used.
              */
             ports?: number[] | undefined;
+            /**
+             * Sets whether the client will automatically attempt to reconnect
+             * to the server if the connection is lost.
+             */
+            reconnect?: boolean | undefined;
+            /**
+             * If present, should contain a list of fully qualified WebSocket
+             * uris (e.g. ws://mqtt.eclipseprojects.io:80/mqtt), that are tried
+             * in order in place of the host and port parameter of the
+             * construtor. The uris are tried one at a time in order until one
+             * of them succeeds. Do not use this in conjunction with hosts as
+             * the hosts array will be converted to uris and will overwrite this
+             * property.
+             */
+            uris?: string[] | undefined;
         }
 
         /**
@@ -206,7 +224,7 @@ declare global {
         }
 
         interface TraceElement {
-            severity: "Debug";
+            severity: 'Debug';
             message: string;
         }
 

@@ -153,6 +153,14 @@ interface OBSSceneInfo {
     height: number;
 }
 
+interface VisibleInfo {
+    visible: boolean;
+}
+
+interface ActiveInfo {
+    active: boolean;
+}
+
 interface OBSStudioEventMap {
     obsStreamingStarting: CustomEvent<null>;
     obsStreamingStarted: CustomEvent<null>;
@@ -176,6 +184,9 @@ interface OBSStudioEventMap {
 
     obsSceneChanged: CustomEvent<OBSSceneInfo>;
 
+    obsSourceVisibleChanged: CustomEvent<VisibleInfo>;
+    obsSourceActiveChanged: CustomEvent<ActiveInfo>;
+
     obsExit: CustomEvent<null>;
 }
 
@@ -190,5 +201,17 @@ interface Window {
         type: string,
         listener: EventListenerOrEventListenerObject,
         options?: boolean | AddEventListenerOptions,
+    ): void;
+
+    removeEventListener<K extends keyof OBSStudioEventMap>(
+        type: K,
+        // tslint:disable-next-line:no-any
+        listener: (event: Event & OBSStudioEventMap[K]) => any,
+        options?: boolean | EventListenerOptions,
+    ): void;
+    removeEventListener(
+        type: string,
+        listener: EventListenerOrEventListenerObject,
+        options?: boolean | EventListenerOptions,
     ): void;
 }

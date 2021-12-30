@@ -218,7 +218,7 @@ declare namespace Server {
     type ErrorCallback = (
         err: Error,
         req: http.IncomingMessage,
-        res: http.ServerResponse,
+        res: http.ServerResponse | net.Socket,
         target?: ProxyTargetUrl,
     ) => void;
 }

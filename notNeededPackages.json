@@ -600,6 +600,10 @@
             "libraryName": "composer-concerto",
             "asOfVersion": "0.71.1"
         },
+        "compression-webpack-plugin": {
+            "libraryName": "compression-webpack-plugin",
+            "asOfVersion": "9.1.1"
+        },
         "condense-whitespace": {
             "libraryName": "condense-whitespace",
             "asOfVersion": "2.0.0"
@@ -643,6 +647,10 @@
         "copy-text-to-clipboard": {
             "libraryName": "copy-text-to-clipboard",
             "asOfVersion": "2.0.1"
+        },
+        "copy-webpack-plugin": {
+            "libraryName": "copy-webpack-plugin",
+            "asOfVersion": "10.1.0"
         },
         "cordova-plugin-battery-status": {
             "libraryName": "cordova-plugin-battery-status",
@@ -4263,6 +4271,10 @@
             "libraryName": "redent",
             "asOfVersion": "3.0.0"
         },
+        "redis": {
+            "libraryName": "redis",
+            "asOfVersion": "4.0.0"
+        },
         "redom": {
             "libraryName": "redom",
             "asOfVersion": "3.23.0"
@@ -4902,6 +4914,10 @@
         "styled-jsx": {
             "libraryName": "styled-jsx",
             "asOfVersion": "3.4.4"
+        },
+        "stylelint": {
+            "libraryName": "stylelint",
+            "asOfVersion": "14.0.0"
         },
         "stylelint-webpack-plugin": {
             "libraryName": "stylelint-webpack-plugin",

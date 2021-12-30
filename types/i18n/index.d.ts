@@ -1,5 +1,5 @@
 // Type definitions for i18n-node 0.13
-// Project: http://github.com/mashpie/i18n-node
+// Project: https://github.com/mashpie/i18n-node
 // Definitions by: Maxime LUCE <https://github.com/SomaticIT>
 //                 FindQ <https://github.com/FindQ>
 //                 Martin Badin <https://github.com/martin-badin>

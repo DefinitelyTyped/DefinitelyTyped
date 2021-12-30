@@ -67,6 +67,8 @@ Formidable.DEFAULT_OPTIONS;
 defaultOptions;
 defaultOptions.enabledPlugins; // $ExpectType EnabledPlugins
 
+options.fileWriteStreamHandler; // $ExpectType (() => Writable) | undefined
+
 // $ExpectType EnabledPlugins
 enabledPlugins;
 
@@ -169,7 +171,7 @@ form.onPart = part => {
         buffer;
     });
 
-    form.handlePart(part);
+    form._handlePart(part);
 };
 
 http.createServer(req => {

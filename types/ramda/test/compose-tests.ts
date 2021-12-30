@@ -24,18 +24,21 @@ import * as R from 'ramda';
     double,
   )(10);
 
-  const f0 = (s: string) => +s; // string -> number
-  const f1 = (n: number) => n === 1; // number -> boolean
-  const f2: (s: string) => boolean = R.compose(
+  const f0 = (s: string) => +s;
+  const f1 = (n: number) => n === 1;
+
+  // $ExpectType (s: string) => boolean
+  const f2 = R.compose(
     f1,
     f0,
-  ); // string -> boolean
+  );
 
   // akward example that bounces types between number and string
   const g0 = (list: number[]) => R.map(R.inc, list);
   const g1 = R.dropWhile(R.gt(10));
   const g2 = R.map((i: number) => (i > 5 ? 'bigger' : 'smaller'));
   const g3 = R.all((i: string) => i === 'smaller');
+  // $ExpectType (list: number[]) => boolean
   const g = R.compose(
     g3,
     g2,
@@ -47,7 +50,8 @@ import * as R from 'ramda';
   // compose with last function taking no params
   const f10 = () => 'str';
   const f11 = (str: string) => str;
-  const f12: () => string = R.compose(
+  // $ExpectType () => string
+  const f12 = R.compose(
     f11,
     f10,
   );
@@ -69,43 +73,102 @@ import * as R from 'ramda';
 };
 
 () => {
-  const f0 = R.compose(Math.pow);
-  const f1 = R.compose(
-    R.negate,
-    Math.pow,
-  );
+  // Expected at least 1 arguments, but got 0
+  // $ExpectError
+  const f0 = R.compose();
+  // $ExpectType (x: number, y: number) => number
+  const f1 = R.compose(Math.pow);
+  // $ExpectType (x: number, y: number) => number
   const f2 = R.compose(
-    R.inc,
     R.negate,
     Math.pow,
   );
+  // $ExpectType (x: number, y: number) => number
   const f3 = R.compose(
     R.inc,
-    R.inc,
     R.negate,
     Math.pow,
   );
+  // $ExpectType (x: number, y: number) => number
   const f4 = R.compose(
     R.inc,
     R.inc,
-    R.inc,
     R.negate,
     Math.pow,
   );
+  // $ExpectType (x: number, y: number) => number
   const f5 = R.compose(
     R.inc,
     R.inc,
     R.inc,
+    R.negate,
+    Math.pow,
+  );
+  // $ExpectType (x: number, y: number) => number
+  const f6 = R.compose(
+    R.inc,
+    R.inc,
+    R.inc,
     R.inc,
     R.negate,
     Math.pow,
   );
-  const x0: number = f0(3, 4); // -(3^4) + 1
-  const x1: number = f1(3, 4); // -(3^4) + 1
-  const x2: number = f2(3, 4); // -(3^4) + 1
-  const x3: number = f3(3, 4); // -(3^4) + 1
-  const x4: number = f4(3, 4); // -(3^4) + 1
-  const x5: number = f5(3, 4); // -(3^4) + 1
+  // $ExpectType (x: number, y: number) => number
+  const f7 = R.compose(
+    R.inc,
+    R.inc,
+    R.inc,
+    R.inc,
+    R.inc,
+    R.negate,
+    Math.pow,
+  );
+  // $ExpectType (x: number, y: number) => number
+  const f8 = R.compose(
+    R.inc,
+    R.inc,
+    R.inc,
+    R.inc,
+    R.inc,
+    R.inc,
+    R.negate,
+    Math.pow,
+  );
+  // $ExpectType (x: number, y: number) => number
+  const f9 = R.compose(
+    R.inc,
+    R.inc,
+    R.inc,
+    R.inc,
+    R.inc,
+    R.inc,
+    R.inc,
+    R.negate,
+    Math.pow,
+  );
+  // $ExpectType (x: number, y: number) => number
+  const f10 = R.compose(
+    R.inc,
+    R.inc,
+    R.inc,
+    R.inc,
+    R.inc,
+    R.inc,
+    R.inc,
+    R.inc,
+    R.negate,
+    Math.pow,
+  );
+  const x1: number = f1(3, 4);
+  const x2: number = f2(3, 4);
+  const x3: number = f3(3, 4);
+  const x4: number = f4(3, 4);
+  const x5: number = f5(3, 4);
+  const x6: number = f1(3, 4);
+  const x7: number = f2(3, 4);
+  const x8: number = f3(3, 4);
+  const x9: number = f4(3, 4);
+  const x10: number = f5(3, 4);
 };
 
 () => {
@@ -113,32 +176,10 @@ import * as R from 'ramda';
     return [a, b, c];
   }
 
+  // $ExpectType (a: string, b: number, c: string) => number
   const gn = R.compose(
     R.length,
     fn,
   );
   const x: number = gn('Hello', 4, 'world');
-};
-
-() => {
-  // Expected at least 1 arguments, but got 0
-  // $ExpectError
-  R.compose();
-
-  // $ExpectType (x: number, y: number) => number
-  const f13 = R.compose(
-    R.inc,
-    R.inc,
-    R.inc,
-    R.inc,
-    R.inc,
-    R.inc,
-    R.inc,
-    R.inc,
-    R.inc,
-    R.inc,
-    R.inc,
-    R.negate,
-    Math.pow,
-  );
 };

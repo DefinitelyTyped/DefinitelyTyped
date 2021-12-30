@@ -281,3 +281,16 @@ n = dop.distance();
 n = jsts.operation.distance.DistanceOp.distance(g, g);
 bool = jsts.operation.distance.DistanceOp.isWithinDistance(g, g, n);
 [c, c] = jsts.operation.distance.DistanceOp.nearestPoints(g, g);
+
+var ch: jsts.algorithm.ConvexHull = new jsts.algorithm.ConvexHull(g);
+ch = new jsts.algorithm.ConvexHull([c], factory);
+g = ch.getConvexHull();
+
+var ipa: jsts.algorithm.InteriorPointArea = new jsts.algorithm.InteriorPointArea(g);
+c = ipa.getInteriorPoint();
+c = jsts.algorithm.InteriorPointArea.getInteriorPoint(g);
+
+var densifier: jsts.densify.Densifier = new jsts.densify.Densifier(g);
+densifier.setDistanceTolerance(n);
+g = densifier.getResultGeometry();
+g = jsts.densify.Densifier.densify(g, n);

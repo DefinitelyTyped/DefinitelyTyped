@@ -7,6 +7,17 @@ typeof parser1 === 'function';
 const testOptions: body.Options = {
   jsonLimit: '100mb',
   delimiter: '&',
+  extendTypes: {
+    custom: ['application/json']
+  }
+};
+
+const otherOptions: body.Options = {
+  jsonLimit: '100mb',
+  delimiter: '&',
+  extendTypes: {
+    custom: 'application/graphql'
+  }
 };
 
 // $ExpectType Body

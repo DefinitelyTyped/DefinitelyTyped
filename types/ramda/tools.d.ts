@@ -297,7 +297,7 @@ export interface Reduced<A> {
 
 type Fn = (...args: any) => any;
 export type ReturnTypesOfFns<A extends ReadonlyArray<Fn>> = A extends [infer H, ...infer R] ? H extends Fn ? R extends Fn[] ? [ReturnType<H>, ...ReturnTypesOfFns<R>] : [] : [] : [];
-
+export type InputTypesOfFns<A extends ReadonlyArray<Fn>> = A extends [infer H, ...infer R] ? H extends Fn ? R extends Fn[] ? [Parameters<H>[0], ...InputTypesOfFns<R>] : [] : [] : [];
 // ---------------------------------------------------------------------------------------
 // S
 

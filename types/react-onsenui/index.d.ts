@@ -52,6 +52,7 @@ export interface SwitchChangeEvent extends Event {
 
 /*** splitter ***/
 export class SplitterSide extends Component<{
+    children?: React.ReactNode;
     side?: "left" | "right" | undefined,
     collapse?: "portrait" | "landscape" | boolean | undefined,
     isOpen?: boolean | undefined,
@@ -69,9 +70,9 @@ export class SplitterSide extends Component<{
     mode?: "collapse" | "split" | undefined,
 }, any> { }
 
-export class SplitterContent extends Component { }
+export class SplitterContent extends Component<{ children?: React.ReactNode }> { }
 
-export class Splitter extends Component { }
+export class Splitter extends Component<{ children?: React.ReactNode }> { }
 
 /*** toolbar ***/
 
@@ -102,6 +103,7 @@ export class Icon extends Component<{
 
 /*** page ***/
 export class Page extends Component<{
+    children?: React.ReactNode;
     contentStyle?: any,
     modifier?: string | undefined,
     renderModal?(): void,
@@ -399,6 +401,7 @@ export class SearchInput extends Component<{
 }, any> {}
 
 export class Select extends Component<{
+    children?: React.ReactNode;
     modifier?: string | undefined,
     disabled?: boolean | undefined,
     onChange?: ((e: React.ChangeEvent<any>) => void) | undefined,

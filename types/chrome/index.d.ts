@@ -2,7 +2,6 @@
 // Project: http://developer.chrome.com/extensions/
 // Definitions by: Matthew Kimber <https://github.com/matthewkimber>
 //                 otiai10 <https://github.com/otiai10>
-//                 couven92 <https://github.com/couven92>
 //                 RReverser <https://github.com/rreverser>
 //                 sreimer15 <https://github.com/sreimer15>
 //                 MatCarlson <https://github.com/MatCarlson>
@@ -22,6 +21,7 @@
 
 /// <reference types="filesystem" />
 /// <reference path="./har-format/index.d.ts" />
+/// <reference path="./chrome-cast/index.d.ts" />
 
 ////////////////////
 // Global object
@@ -775,7 +775,7 @@ declare namespace chrome.browserAction {
 
     export interface BadgeTextDetails {
         /** Any number of characters can be passed, but only about four can fit in the space. */
-        text?: string | null;
+        text?: string | null | undefined;
         /** Optional. Limits the change to when a particular tab is selected. Automatically resets when the tab is closed.  */
         tabId?: number | undefined;
     }
@@ -1516,7 +1516,7 @@ declare namespace chrome.contextMenus {
          * Since Chrome 35.
          * One of 'image', 'video', or 'audio' if the context menu was activated on one of these types of elements.
          */
-        mediaType?: string | undefined;
+        mediaType?: 'image' | 'video' | 'audio' | undefined;
         /**
          * Optional.
          * Since Chrome 35.
@@ -1548,6 +1548,10 @@ declare namespace chrome.contextMenus {
         srcUrl?: string | undefined;
     }
 
+    type ContextType = "all" | "page" | "frame" | "selection" | "link" | "editable" | "image" | "video" | "audio" | "launcher" | "browser_action" | "page_action" | "action";
+
+    type ContextItemType = "normal" | "checkbox" | "radio" | "separator";
+
     export interface CreateProperties {
         /** Optional. Lets you restrict the item to apply only to documents whose URL matches one of the given patterns. (This applies to frames as well.) For details on the format of a pattern, see Match Patterns.  */
         documentUrlPatterns?: string[] | undefined;
@@ -1556,7 +1560,7 @@ declare namespace chrome.contextMenus {
         /** Optional. The text to be displayed in the item; this is required unless type is 'separator'. When the context is 'selection', you can use %s within the string to show the selected text. For example, if this parameter's value is "Translate '%s' to Pig Latin" and the user selects the word "cool", the context menu item for the selection is "Translate 'cool' to Pig Latin".  */
         title?: string | undefined;
         /** Optional. List of contexts this menu item will appear in. Defaults to ['page'] if not specified.  */
-        contexts?: string[] | undefined;
+        contexts?: ContextType | ContextType[] | undefined;
         /**
          * Optional.
          * Since Chrome 20.
@@ -1575,7 +1579,7 @@ declare namespace chrome.contextMenus {
         /** Optional. The ID of a parent menu item; this makes the item a child of a previously added item.  */
         parentId?: any;
         /** Optional. The type of menu item. Defaults to 'normal' if not specified.  */
-        type?: string | undefined;
+        type?: ContextItemType | undefined;
         /**
          * Optional.
          * Since Chrome 21.
@@ -1594,14 +1598,14 @@ declare namespace chrome.contextMenus {
         documentUrlPatterns?: string[] | undefined;
         checked?: boolean | undefined;
         title?: string | undefined;
-        contexts?: string[] | undefined;
+        contexts?: ContextType[] | undefined;
         /** Optional. Since Chrome 20.  */
         enabled?: boolean | undefined;
         targetUrlPatterns?: string[] | undefined;
         onclick?: Function | undefined;
         /** Optional. Note: You cannot change an item to be a child of one of its own descendants.  */
         parentId?: number | string;
-        type?: string | undefined;
+        type?: ContextItemType | undefined;
         /**
          * Optional.
          * @since Chrome 62.
@@ -1628,10 +1632,9 @@ declare namespace chrome.contextMenus {
     /**
      * Creates a new context menu item. Note that if an error occurs during creation, you may not find out until the creation callback fires (the details will be in chrome.runtime.lastError).
      * @param callback Called when the item has been created in the browser. If there were any problems creating the item, details will be available in chrome.runtime.lastError.
-     * If you specify the callback parameter, it should be a function that looks like this:
-     * function() {...};
+     * @returns The ID of the newly created item.
      */
-    export function create(createProperties: CreateProperties, callback?: () => void): void;
+    export function create(createProperties: CreateProperties, callback?: () => void): number | string;
     /**
      * Updates a previously created context menu item.
      * @param id The ID of the item to update.
@@ -5402,6 +5405,8 @@ declare namespace chrome.networking.config {
  * @since Chrome 28.
  */
 declare namespace chrome.notifications {
+    export type TemplateType = "basic" | "image" | "list" | "progress";
+
     export interface ButtonOptions {
         title: string;
         iconUrl?: string | undefined;
@@ -5414,19 +5419,7 @@ declare namespace chrome.notifications {
         message: string;
     }
 
-    export interface NotificationOptions {
-        /** Optional. Which type of notification to display. Required for notifications.create method. */
-        type?: string | undefined;
-        /**
-         * Optional.
-         * A URL to the sender's avatar, app icon, or a thumbnail for image notifications.
-         * URLs can be a data URL, a blob URL, or a URL relative to a resource within this extension's .crx file Required for notifications.create method.
-         */
-        iconUrl?: string | undefined;
-        /** Optional. Title of the notification (e.g. sender name for email). Required for notifications.create method. */
-        title?: string | undefined;
-        /** Optional. Main notification content. Required for notifications.create method. */
-        message?: string | undefined;
+    export type NotificationOptions<T extends boolean = false> = {
         /**
          * Optional.
          * Alternate notification content with a lower-weight font.
@@ -5473,7 +5466,32 @@ declare namespace chrome.notifications {
          * @since Chrome 70
          */
         silent?: boolean | undefined;
-    }
+    } & (T extends true ? {
+        /**
+         * A URL to the sender's avatar, app icon, or a thumbnail for image notifications.
+         * URLs can be a data URL, a blob URL, or a URL relative to a resource within this extension's .crx file. Required for notifications.create method.
+         */
+        iconUrl: string;
+        /** Main notification content. Required for notifications.create method. */
+        message: string;
+        /** Which type of notification to display. Required for notifications.create method. */
+        type: TemplateType;
+        /** Title of the notification (e.g. sender name for email). Required for notifications.create method. */
+        title: string;
+    } : {
+        /**
+         * Optional.
+         * A URL to the sender's avatar, app icon, or a thumbnail for image notifications.
+         * URLs can be a data URL, a blob URL, or a URL relative to a resource within this extension's .crx file. Required for notifications.create method.
+         */
+        iconUrl?: string | undefined;
+        /** Optional. Main notification content. Required for notifications.create method. */
+        message?: string | undefined;
+        /** Optional. Which type of notification to display. Required for notifications.create method. */
+        type?: TemplateType | undefined;
+        /** Optional. Title of the notification (e.g. sender name for email). Required for notifications.create method. */
+        title?: string | undefined;
+    })
 
     export interface NotificationClosedEvent
         extends chrome.events.Event<(notificationId: string, byUser: boolean) => void> { }
@@ -5516,7 +5534,7 @@ declare namespace chrome.notifications {
      */
     export function create(
         notificationId: string,
-        options: NotificationOptions,
+        options: NotificationOptions<true>,
         callback?: (notificationId: string) => void,
     ): void;
     /**
@@ -5529,7 +5547,7 @@ declare namespace chrome.notifications {
      * If you specify the callback parameter, it should be a function that looks like this:
      * function(string notificationId) {...};
      */
-    export function create(options: NotificationOptions, callback?: (notificationId: string) => void): void;
+    export function create(options: NotificationOptions<true>, callback?: (notificationId: string) => void): void;
     /**
      * Updates an existing notification.
      * @param notificationId The id of the notification to be updated. This is returned by notifications.create method.
@@ -6488,6 +6506,13 @@ declare namespace chrome.runtime {
     export type PlatformArch = 'arm' | 'arm64' | 'x86-32' | 'x86-64' | 'mips' | 'mips64';
     /** https://developer.chrome.com/docs/extensions/reference/runtime/#type-PlatformNaclArch */
     export type PlatformNaclArch = 'arm' | 'x86-32' | 'x86-64' | 'mips' | 'mips64';
+    /** https://developer.chrome.com/docs/extensions/reference/runtime/#type-OnInstalledReason */
+    export enum OnInstalledReason {
+        INSTALL = 'install',
+        UPDATE = 'update',
+        CHROME_UPDATE = 'chrome_update',
+        SHARED_MODULE_UPDATE = 'shared_module_update'
+    }
 
     export interface LastError {
         /** Optional. Details about the error which occurred.  */
@@ -6502,9 +6527,8 @@ declare namespace chrome.runtime {
     export interface InstalledDetails {
         /**
          * The reason that this event is being dispatched.
-         * One of: "install", "update", "chrome_update", or "shared_module_update"
          */
-        reason: string;
+        reason: OnInstalledReason;
         /**
          * Optional.
          * Indicates the previous version of the extension, which has just been updated. This is present only if 'reason' is 'update'.
@@ -7127,7 +7151,10 @@ declare namespace chrome.runtime {
 declare namespace chrome.scripting {
 
     /* The CSS style origin for a style change. */
-    export type StyleOrigin = "AUTHOR" | "USER";
+    export type StyleOrigin = 'AUTHOR' | 'USER';
+
+    /* The JavaScript world for a script to execute within. */
+    export type ExecutionWorld = 'ISOLATED' | 'MAIN';
 
     export interface InjectionResult {
         /* The frame associated with the injection. */
@@ -7159,6 +7186,8 @@ declare namespace chrome.scripting {
     export type ScriptInjection<Args extends any[] = []> = {
         /* Details specifying the target into which to inject the script. */
         target: InjectionTarget;
+        /* The JavaScript world for a script to execute within. */
+        world?: ExecutionWorld;
     } & ({
         /* The path of the JS files to inject, relative to the extension's root directory. NOTE: Currently a maximum of one file is supported. Exactly one of files and function must be specified. */
         files: string[];
@@ -10960,6 +10989,18 @@ declare namespace chrome.declarativeNetRequest {
     /** Ruleset ID for the session-scoped rules added by the extension. */
     export const SESSION_RULESET_ID: string;
 
+    /** This describes the HTTP request method of a network request.  */
+    export enum RequestMethod {
+        CONNECT = "connect",
+        DELETE = "delete",
+        GET = "get",
+        HEAD = "head",
+        OPTIONS = "options",
+        PATCH = "patch",
+        POST = "post",
+        PUT = "put"
+    }
+
     /** This describes the resource type of the network request. */
     export enum ResourceType {
         MAIN_FRAME = "main_frame",
@@ -11085,13 +11126,15 @@ declare namespace chrome.declarativeNetRequest {
         type: RuleActionType;
     }
 
-    export interface RuleCondition {
-        /** Specifies whether the network request is first-party or third-party to the domain from which it originated.
+    export type RuleCondition = {
+        /**
+         * Specifies whether the network request is first-party or third-party to the domain from which it originated.
          * If omitted, all requests are accepted.
          */
         domainType?: DomainType | undefined;
 
-        /** The rule will only match network requests originating from the list of domains.
+        /**
+         * The rule will only match network requests originating from the list of domains.
          * If the list is omitted, the rule is applied to requests from all domains.
          * An empty list is not allowed.
          *
@@ -11103,7 +11146,8 @@ declare namespace chrome.declarativeNetRequest {
          */
         domains?: string[] | undefined;
 
-        /** The rule will not match network requests originating from the list of excludedDomains.
+        /**
+         * The rule will not match network requests originating from the list of excludedDomains.
          * If the list is empty or omitted, no domains are excluded.
          * This takes precedence over domains.
          *
@@ -11115,11 +11159,27 @@ declare namespace chrome.declarativeNetRequest {
          */
         excludedDomains?: string[] | undefined;
 
-        /** List of resource types which the rule won't match.
-         * Only one of resourceTypes and excludedResourceTypes should be specified.
+        /**
+         * List of request methods which the rule won't match.
+         * Only one of requestMethods and excludedRequestMethods should be specified.
+         * If neither of them is specified, all request methods are matched.
+         */
+        excludedRequestMethods?: RequestMethod[] | undefined;
+
+        /**
+         * List of resource types which the rule won't match.
+         * Only one of {@link chrome.declarativeNetRequest.RuleCondition.resourceTypes}
+         * and {@link chrome.declarativeNetRequest.RuleCondition.excludedResourceTypes} should be specified.
          * If neither of them is specified, all resource types except "main_frame" are blocked.
          */
         excludedResourceTypes?: ResourceType[] | undefined;
+
+        /**
+         * List of {@link chrome.tabs.Tab.id} which the rule should not match.
+         * An ID of {@link chrome.tabs.TAB_ID_NONE} excludes requests which don't originate from a tab.
+         * Only supported for session-scoped rules.
+         */
+        excludedTabIds?: number[] | undefined;
 
         /**
          * Whether the urlFilter or regexFilter (whichever is specified) is case sensitive.
@@ -11127,7 +11187,8 @@ declare namespace chrome.declarativeNetRequest {
          */
         isUrlFilterCaseSensitive?: boolean | undefined;
 
-        /** Regular expression to match against the network request url.
+        /**
+         * Regular expression to match against the network request url.
          * This follows the RE2 syntax.
          *
          * Note: Only one of urlFilter or regexFilter can be specified.
@@ -11137,14 +11198,22 @@ declare namespace chrome.declarativeNetRequest {
          */
         regexFilter?: string | undefined;
 
-        /** List of resource types which the rule can match.
-         * An empty list is not allowed.
-         *
-         * Note: this must be specified for allowAllRequests rules and may only include the sub_frame and main_frame resource types.
+        /**
+         * List of HTTP request methods which the rule can match. An empty list is not allowed.
+         * Note: Specifying a {@link chrome.declarativeNetRequest.RuleCondition.requestMethods} rule condition will also exclude non-HTTP(s) requests,
+         * whereas specifying {@link chrome.declarativeNetRequest.RuleCondition.excludedRequestMethods} will not.
          */
-        resourceTypes?: ResourceType[] | undefined;
+        requestMethods?: RequestMethod[];
 
-        /** The pattern which is matched against the network request url.
+        /**
+         * List of {@link chrome.tabs.Tab.id} which the rule should not match.
+         * An ID of {@link chrome.tabs.TAB_ID_NONE} excludes requests which don't originate from a tab.
+         * An empty list is not allowed. Only supported for session-scoped rules.
+         */
+        tabIds?: number | undefined;
+
+        /**
+         * The pattern which is matched against the network request url.
          * Supported constructs:
          *
          * '*' : Wildcard: Matches any number of characters.
@@ -11169,7 +11238,26 @@ declare namespace chrome.declarativeNetRequest {
          * For example, when the request url is http://abc.рф?q=ф, the urlFilter will be matched against the url http://abc.xn--p1ai/?q=%D1%84.
          */
         urlFilter?: string | undefined;
-    }
+    } & (
+        | {
+              /**
+               * List of resource types which the rule won't match.
+               * Only one of {@link chrome.declarativeNetRequest.RuleCondition.resourceTypes}
+               * and {@link chrome.declarativeNetRequest.RuleCondition.excludedResourceTypes} should be specified.
+               * If neither of them is specified, all resource types except "main_frame" are blocked.
+               */
+              excludedResourceTypes?: ResourceType[] | undefined;
+          }
+        | {
+              /**
+               * List of resource types which the rule can match.
+               * An empty list is not allowed.
+               *
+               * Note: this must be specified for allowAllRequests rules and may only include the sub_frame and main_frame resource types.
+               */
+              resourceTypes?: ResourceType[] | undefined;
+          }
+    );
 
     export interface MatchedRule {
         /** A matching rule's ID. */
@@ -11339,7 +11427,8 @@ declare namespace chrome.declarativeNetRequest {
         /** Rules to add. */
         addRules?: Rule[] | undefined;
 
-        /** IDs of the rules to remove.
+        /**
+         * IDs of the rules to remove.
          * Any invalid IDs will be ignored.
          */
         removeRuleIds?: number[] | undefined;

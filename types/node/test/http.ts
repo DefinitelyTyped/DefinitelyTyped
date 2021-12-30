@@ -210,12 +210,12 @@ import * as dns from 'node:dns';
 // http request options
 {
     const requestOpts: http.RequestOptions = {
-        abort: new AbortSignal(),
+        signal: new AbortSignal(),
         timeout: 30000
     };
 
     const clientArgs: http.ClientRequestArgs = {
-        abort: new AbortSignal(),
+        signal: new AbortSignal(),
         timeout: 30000
     };
 }

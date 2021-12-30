@@ -31,7 +31,6 @@
 //                 Abe Dolinger <https://github.com/256hz>
 //                 Dominique Richard <https://github.com/doumart>
 //                 Mohamed Shaban <https://github.com/drmas>
-//                 André Krüger <https://github.com/akrger>
 //                 Jérémy Barbet <https://github.com/jeremybarbet>
 //                 Christian Ost <https://github.com/ca057>
 //                 David Sheldrick <https://github.com/ds300>
@@ -42,7 +41,6 @@
 //                 Alex Brazier <https://github.com/alexbrazier>
 //                 Arafat Zahan <https://github.com/kuasha420>
 //                 Pedro Hernández <https://github.com/phvillegas>
-//                 Brett Lindsay <https://github.com/bdlindsay>
 //                 Sebastian Silbermann <https://github.com/eps1lon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
@@ -4211,9 +4209,19 @@ export interface SectionListProps<ItemT, SectionT = DefaultSectionT>
     ListFooterComponent?: React.ComponentType<any> | React.ReactElement | null | undefined;
 
     /**
+     * Styling for internal View for ListFooterComponent
+     */
+    ListFooterComponentStyle?: StyleProp<ViewStyle> | undefined | null;
+
+    /**
      * Rendered at the very beginning of the list.
      */
     ListHeaderComponent?: React.ComponentType<any> | React.ReactElement | null | undefined;
+
+    /**
+     * Styling for internal View for ListHeaderComponent
+     */
+    ListHeaderComponentStyle?: StyleProp<ViewStyle> | undefined | null;
 
     /**
      * Rendered in between each section.
@@ -9581,8 +9589,8 @@ interface NativeModulesStatic {
  * Native Modules written in ObjectiveC/Swift/Java exposed via the RCTBridge
  * Define lazy getters for each module. These will return the module if already loaded, or load it if not.
  * See https://reactnative.dev/docs/native-modules-ios
- * Use:
- * <code>const MyModule = NativeModules.ModuleName</code>
+ * @example
+ * const MyModule = NativeModules.ModuleName
  */
 export const NativeModules: NativeModulesStatic;
 export const Platform:
@@ -9721,8 +9729,8 @@ declare global {
 
     /**
      * This variable is set to true when react-native is running in Dev mode
-     * Typical usage:
-     * <code> if (__DEV__) console.log('Running in dev mode')</code>
+     * @example
+     * if (__DEV__) console.log('Running in dev mode')
      */
     const __DEV__: boolean;
 

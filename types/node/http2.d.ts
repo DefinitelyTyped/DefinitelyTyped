@@ -6,7 +6,7 @@
  * const http2 = require('http2');
  * ```
  * @since v8.4.0
- * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/http2.js)
+ * @see [source](https://github.com/nodejs/node/blob/v17.0.0/lib/http2.js)
  */
 declare module 'http2' {
     import EventEmitter = require('node:events');
@@ -757,7 +757,7 @@ declare module 'http2' {
          *   session.setLocalWindowSize(expectedWindowSize);
          * });
          * ```
-         * @since v15.3.0
+         * @since v15.3.0, v14.18.0
          */
         setLocalWindowSize(windowSize: number): void;
         /**
@@ -1349,7 +1349,7 @@ declare module 'http2' {
          * ```
          * @since v8.4.0
          */
-        readonly url: string;
+        url: string;
         /**
          * Sets the `Http2Stream`'s timeout value to `msecs`. If a callback is
          * provided, then it is added as a listener on the `'timeout'` event on

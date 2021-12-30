@@ -12,7 +12,6 @@
 //                 Benjamin Evenson <https://github.com/benjiro>
 //                 Han Jeon <https://github.com/hanstar17>
 //                 Kay Delaney <https://github.com/kaydelaney>
-//                 Yuichiro Tsuchiya <https://github.com/tuttieee>
 //                 Kamil Kamiński <https://github.com/0ctothorp>
 //                 Jay Chen <https://github.com/Jay0328>
 //                 Brian Ingles <https://github.com/bmingles>

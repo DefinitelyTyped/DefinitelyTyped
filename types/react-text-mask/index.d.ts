@@ -3,7 +3,6 @@
 // Definitions by: Guilherme Hübner <https://github.com/guilhermehubner>
 //                 Deividi Cavarzan <https://github.com/cavarzan>
 //                 Artem Lyubchuk <https://github.com/needpower>
-//                 Pavel <https://github.com/p-piseckiy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.9
 

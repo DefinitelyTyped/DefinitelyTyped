@@ -14,7 +14,7 @@
  *
  * The `stream` module is useful for creating new types of stream instances. It is
  * usually not necessary to use the `stream` module to consume streams.
- * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/stream.js)
+ * @see [source](https://github.com/nodejs/node/blob/v17.0.0/lib/stream.js)
  */
 declare module 'stream' {
     import { EventEmitter, Abortable } from 'node:events';
@@ -71,7 +71,7 @@ declare module 'stream' {
             readable: boolean;
             /**
              * Returns whether `'data'` has been emitted.
-             * @since v16.7.0
+             * @since v16.7.0, v14.18.0
              * @experimental
              */
             readonly readableDidRead: boolean;

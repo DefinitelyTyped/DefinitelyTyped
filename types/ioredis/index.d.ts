@@ -18,6 +18,7 @@
 //                 Michael Salaverry <https://github.com/barakplasma>
 //                 Hannes Van De Vreken <https://github.com/hannesvdvreken>
 //                 T.J. Tarazevits <https://github.com/venku122>
+//                 Michiel De Mey <https://github.com/michieldemey>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -108,7 +109,7 @@ declare namespace IORedis {
         (arg1: T, arg2: T, cb: Callback<U>): void;
         (arg1: T | T[], cb: Callback<U>): void;
         (...args: T[]): Promise<U>;
-        (arg1: T[]): Promise<U>;
+        (arg1: T | T[]): Promise<U>;
     }
 
     interface OverloadedBlockingListCommand<T, U> {
@@ -347,11 +348,20 @@ declare namespace IORedis {
         brpoplpush(source: string, destination: string, timeout: number, callback: Callback<string>): void;
         brpoplpush(source: string, destination: string, timeout: number): Promise<string>;
 
+        blmove(source: KeyType, destination: KeyType, whereFrom: 'LEFT' | 'RIGHT', whereTo: 'LEFT' | 'RIGHT', timeout: number, callback: Callback<string | null>): void;
+        blmove(source: KeyType, destination: KeyType, whereFrom: 'LEFT' | 'RIGHT', whereTo: 'LEFT' | 'RIGHT', timeout: number): Promise<string | null>;
+
+        lmove(source: KeyType, destination: KeyType, whereFrom: 'LEFT' | 'RIGHT', whereTo: 'LEFT' | 'RIGHT', callback: Callback<string | null>): void;
+        lmove(source: KeyType, destination: KeyType, whereFrom: 'LEFT' | 'RIGHT', whereTo: 'LEFT' | 'RIGHT'): Promise<string | null>;
+
         llen(key: KeyType, callback: Callback<number>): void;
         llen(key: KeyType): Promise<number>;
 
         lindex(key: KeyType, index: number, callback: Callback<string>): void;
         lindex(key: KeyType, index: number): Promise<string>;
+
+        lindexBuffer(key: KeyType, index: number, callback: Callback<Buffer>): void;
+        lindexBuffer(key: KeyType, index: number): Promise<Buffer>;
 
         lset(key: KeyType, index: number, value: ValueType, callback: Callback<Ok>): void;
         lset(key: KeyType, index: number, value: ValueType): Promise<Ok>;
@@ -737,20 +747,20 @@ declare namespace IORedis {
             callback: Callback<Buffer[]>,
         ): void;
 
-        zrevrangebylex(key: KeyType, min: string, max: string): Promise<string[]>;
+        zrevrangebylex(key: KeyType, max: string, min: string): Promise<string[]>;
         zrevrangebylex(
             key: KeyType,
-            min: string,
             max: string,
+            min: string,
             limit: 'LIMIT',
             offset: number,
             count: number,
         ): Promise<string[]>;
-        zrevrangebylex(key: KeyType, min: string, max: string, callback: Callback<string[]>): void;
+        zrevrangebylex(key: KeyType, max: string, min: string, callback: Callback<string[]>): void;
         zrevrangebylex(
             key: KeyType,
-            min: string,
             max: string,
+            min: string,
             limit: 'LIMIT',
             offset: number,
             count: number,

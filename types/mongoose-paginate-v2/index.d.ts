@@ -1,7 +1,6 @@
 // Type definitions for mongoose-paginate-v2 1.4
 // Project: https://github.com/webgangster/mongoose-paginate-v2
 // Definitions by: Linus Brolin <https://github.com/linusbrolin>
-//                 simonxca <https://github.com/simonxca>
 //                 woutgg <https://github.com/woutgg>
 //                 oktapodia <https://github.com/oktapodia>
 //                 Dongjun Lee <https://github.com/ChazEpps>
@@ -67,16 +66,20 @@ declare module 'mongoose' {
         [customLabel: string]: T[] | number | boolean | null | undefined;
     }
 
-    interface PaginateModel<T> extends Model<T> {
-        paginate(
-            query?: FilterQuery<T>,
-            options?: PaginateOptions,
-            callback?: (err: any, result: PaginateResult<T>) => void,
-        ): Promise<PaginateResult<T>>;
-    }
+    type PaginateDocument<T, TMethods, TVirtuals, O extends PaginateOptions = {}> = O['lean'] extends true
+        ? O['leanWithId'] extends true
+            ? LeanDocument<T & { id: string }>
+            : LeanDocument<T>
+        : HydratedDocument<T, TMethods, TVirtuals>;
 
-    // tslint:disable-next-line no-unnecessary-generics
-    function model<T>(name: string, schema?: Schema, collection?: string, skipInit?: boolean): PaginateModel<T>;
+    interface PaginateModel<T, TQueryHelpers = {}, TMethods = {}, TVirtuals = {}>
+        extends Model<T, TQueryHelpers, TMethods, TVirtuals> {
+        paginate<O extends PaginateOptions>(
+            query?: FilterQuery<T>,
+            options?: O,
+            callback?: (err: any, result: PaginateResult<PaginateDocument<T, TMethods, TVirtuals, O>>) => void,
+        ): Promise<PaginateResult<PaginateDocument<T, TMethods, TVirtuals, O>>>;
+    }
 }
 
 import mongoose = require('mongoose');

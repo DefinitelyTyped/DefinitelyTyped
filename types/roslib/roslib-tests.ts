@@ -57,6 +57,14 @@ let subscription_callback = function (message: ROSLIB.Message) {
 listener.subscribe(subscription_callback);
 listener.unsubscribe(subscription_callback);
 
+// Listening for topic event
+// -------------------------
+
+function eventEmitterCallback() {}
+
+listener.on("message", eventEmitterCallback);
+listener.off("message", eventEmitterCallback);
+
 // Calling a service
 // -----------------
 

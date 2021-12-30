@@ -1,7 +1,6 @@
 // Type definitions for lscache 1.3
 // Project: https://github.com/pamelafox/lscache
-// Definitions by: Chris Martinez <https://github.com/Chris-Martinezz>
-//                 c-py <https://github.com/c-py>
+// Definitions by: c-py <https://github.com/c-py>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface LSCache {

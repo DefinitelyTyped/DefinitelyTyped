@@ -531,6 +531,11 @@ class SpyableClass {
 // $ExpectType SpyInstance<SpyableClass, [number, string]> || SpyInstance<SpyableClass, [a: number, b: string]>
 jest.spyOn({ SpyableClass }, "SpyableClass");
 
+// $ExpectType MockedObject<{}>
+jest.mocked({});
+// $ExpectError
+jest.mocked();
+
 interface Type1 {
     a: number;
 }

@@ -16,7 +16,6 @@
 //                 Andrew Gaspar <https://github.com/AndrewGaspar>
 //                 Seikichi Kondo <https://github.com/seikichi>
 //                 Benjamin Jackman <https://github.com/benjaminjackman>
-//                 Poul Sorensen <https://github.com/s093294>
 //                 Josh Strobl <https://github.com/JoshStrobl>
 //                 John Reilly <https://github.com/johnnyreilly>
 //                 Dick van den Brink <https://github.com/DickvdBrink>
