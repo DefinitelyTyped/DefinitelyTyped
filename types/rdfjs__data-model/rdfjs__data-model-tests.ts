@@ -1,4 +1,4 @@
-import factory from "rdfjs__data-model";
+import factory from "@rdfjs/data-model";
 import * as RDF from "@rdfjs/types";
 
 const myQuad = factory.quad<RDF.Quad>(
