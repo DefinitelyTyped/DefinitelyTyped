@@ -322,14 +322,14 @@ import { URL } from 'node:url';
         response.write(Buffer.from([]), (err: Error) => {});
         response.write(Buffer.from([]), 'utf8');
         response.write(Buffer.from([]), 'utf8', (err: Error) => {});
-        response.end().end();
-        response.end(() => {}).end();
-        response.end('').end();
-        response.end('', () => {}).end();
-        response.end('', 'utf8').end();
-        response.end('', 'utf8', () => {}).end();
-        response.end(Buffer.from([])).end();
-        response.end(Buffer.from([]), () => {}).end();
+        response.end()
+            .end(() => {})
+            .end('')
+            .end('', () => {})
+            .end('', 'utf8')
+            .end('', 'utf8', () => {})
+            .end(Buffer.from([]))
+            .end(Buffer.from([]), () => {});
         const writable: boolean = response.writable;
 
         request.on('aborted', (hadError: boolean, code: number) => {});
