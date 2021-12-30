@@ -16,11 +16,6 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
-    "paths": {
-        "@rdfjs/types": [
-            "@rdfjs/types"
-        ]
-    },
     "files": [
         "index.d.ts",
         "rdfjs__data-model-tests.ts"
