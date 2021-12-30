@@ -6,9 +6,9 @@
 export = Gradient;
 
 declare class Gradient {
-    constructor(gradients?: string, maxNum?: number, color?: string[], intervals?: any[]);
+    constructor(gradients?: string, maxNum?: number, colors?: string[], intervals?: any[]);
     setGradient(...args: string[]): Gradient;
     getArray(): string[];
     getColor(index: number): string;
-    setMidpoint(maxNumber: number): Gradient;
+    setMidpoint(maxNumber: number): this;
 }
