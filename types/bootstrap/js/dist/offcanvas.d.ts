@@ -52,7 +52,7 @@ declare namespace Offcanvas {
         keyboard: boolean;
 
         /**
-         * 	Allow body scrolling while offcanvas is open
+         * Allow body scrolling while offcanvas is open
          *
          * @default false
          */
