@@ -2,32 +2,35 @@ import { Carousel } from 'bootstrap';
 import * as $ from 'jquery';
 
 const element = new Element();
-const options = {
-    interval: 5000,
-    keyboard: true,
-    pause: 'hover',
-    ride: false,
-    wrap: true,
-    touch: true,
-};
 
 // $ExpectType Carousel
 new Carousel(element);
 // $ExpectType Carousel
-new Carousel(element, options);
+new Carousel(element, {
+    interval: 5000,
+    keyboard: true,
+    pause: 'hover',
+    ride: 'carousel',
+    wrap: true,
+    touch: true,
+});
 
 // $ExpectType Carousel | null
 Carousel.getInstance(element);
 // $ExpectType Carousel
 Carousel.getOrCreateInstance(element);
 // $ExpectType Carousel
-Carousel.getOrCreateInstance(element, options);
+Carousel.getOrCreateInstance(element, {
+    interval: 5000,
+    keyboard: true,
+    pause: 'hover',
+    ride: 'carousel',
+    wrap: true,
+    touch: true,
+});
 
 // $ExpectType string
 Carousel.VERSION;
-
-// $ExpectType Options
-Carousel.Default;
 
 element.addEventListener(Carousel.Events.slid, event => {
     event.direction; // $ExpectType Direction
