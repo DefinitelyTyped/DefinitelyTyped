@@ -1434,8 +1434,8 @@ export interface TextInputSelectionChangeEventData extends TargetedEvent {
  */
 export interface TextInputKeyPressEventData {
     key: string,
-    target?: ?number,
-    eventCount?: ?number,
+    eventCount?: number | null | undefined;
+    target?: number | null | undefined;
 }
 
 /**
