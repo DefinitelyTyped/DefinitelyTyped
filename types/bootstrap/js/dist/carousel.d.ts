@@ -2,13 +2,6 @@ import BaseComponent, { GetInstanceFactory, GetOrCreateInstanceFactory } from '.
 
 declare class Carousel extends BaseComponent {
     /**
-     * Default settings of this plugin
-     *
-     * @link https://getbootstrap.com/docs/5.0/getting-started/javascript/#default-settings
-     */
-    static Default: Carousel.Options;
-
-    /**
      * Static method which allows you to get the carousel instance associated
      * with a DOM element.
      */
