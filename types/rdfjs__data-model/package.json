@@ -1,6 +1,6 @@
 {
   "private": true,
   "dependencies": {
-      "@rdfjs/types": "^1.2.3"
+      "@rdfjs/types": "^1.0.1"
   }
 }
