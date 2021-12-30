@@ -26,10 +26,11 @@
     },
     "devDependencies": {
         "@definitelytyped/definitions-parser": "latest",
-        "@definitelytyped/dtslint-runner": "latest",
         "@definitelytyped/dtslint": "latest",
+        "@definitelytyped/dtslint-runner": "latest",
         "@definitelytyped/utils": "latest",
         "@octokit/rest": "^16.0.0",
+        "@rdfjs/data-model": "^2.0.0",
         "d3-array": "^3.0.2",
         "d3-axis": "^3.0.0",
         "d3-scale": "^4.0.0",
@@ -51,5 +52,9 @@
             "_comment": "This will remove husky from when we started migrating to use prettier",
             "pre-commit": "npm uninstall husky"
         }
+    },
+    "dependencies": {
+        "@rdfjs/types": "^1.0.1",
+        "remove": "^0.1.5"
     }
 }
