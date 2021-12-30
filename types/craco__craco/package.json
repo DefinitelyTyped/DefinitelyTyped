@@ -1,0 +1,7 @@
+{
+    "private": true,
+    "dependencies": {
+        "@jest/types": "^27.4.2",
+        "@types/autoprefixer": "^9.7.2"
+    }
+}
