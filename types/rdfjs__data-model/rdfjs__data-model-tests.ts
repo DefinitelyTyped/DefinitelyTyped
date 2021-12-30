@@ -1,25 +1,25 @@
 import factory from "@rdfjs/data-model";
 import * as RDF from "@rdfjs/types";
 
-const myQuad = factory.quad<RDF.Quad>(
+const myQuad = factory.quad(
   factory.namedNode('http://example.org/subject'),
   factory.namedNode('http://example.org/predicate'),
   factory.namedNode('http://example.org/object'),
 );
 
-const myQuadWithLiteral: RDF.Quad = factory.quad<RDF.Quad>(
+const myQuadWithLiteral = factory.quad(
   factory.namedNode('http://example.org/subject'),
   factory.namedNode('http://example.org/predicate'),
   factory.literal('34'),
 );
 
-const myQuadWithVariable: RDF.Quad = factory.quad<RDF.Quad>(
+const myQuadWithVariable = factory.quad(
   factory.namedNode('http://example.org/subject'),
   factory.namedNode('http://example.org/predicate'),
   factory.variable('?o'),
 );
 
-const myQuadWithGraph: RDF.Quad = factory.quad<RDF.Quad>(
+const myQuadWithGraph = factory.quad(
   factory.namedNode('http://example.org/subject'),
   factory.namedNode('http://example.org/predicate'),
   factory.namedNode('http://example.org/object'),
