@@ -26,7 +26,7 @@ const myQuadWithGraph = factory.quad(
   factory.defaultGraph()
 );
 
-const myBaseQuad: RDF.BaseQuad = factory.quad<RDF.BaseQuad>(
+const myBaseQuad = factory.quad<RDF.BaseQuad>(
   factory.namedNode('http://example.org/subject'),
   factory.blankNode('34'),
   factory.namedNode('http://example.org/object'),
@@ -39,10 +39,10 @@ const myBaseQuadBad = factory.quad(
   factory.namedNode('http://example.org/object'),
 );
 
-const fromQuadValue: RDF.Quad = factory.fromQuad(myQuad);
-const fromBaseQuadValue: RDF.BaseQuad = factory.fromQuad(myBaseQuad);
+const fromQuadValue = factory.fromQuad(myQuad);
+const fromBaseQuadValue = factory.fromQuad(myBaseQuad);
 
 // @ts-expect-error
 factory.fromQuad(factory.variable('?o'));
 
-const fromTermValue: RDF.Variable = factory.fromTerm(factory.variable('?o'));
+const fromTermValue = factory.fromTerm(factory.variable('?o'));
