@@ -42,7 +42,7 @@ const myBaseQuadBad = factory.quad(
 const fromQuadValue = factory.fromQuad(myQuad);
 const fromBaseQuadValue = factory.fromQuad(myBaseQuad);
 
-// @ts-expect-error
+// $ExpectError
 factory.fromQuad(factory.variable('?o'));
 
 const fromTermValue = factory.fromTerm(factory.variable('?o'));
