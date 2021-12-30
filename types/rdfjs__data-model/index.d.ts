@@ -1,5 +1,5 @@
 // Type definitions for @rdfjs/data-model 2.0
-// Project: https://github.com/rdfjs-base/data-model (Does not have to be to GitHub, but prefer linking to a source code repository rather than to a project website.)
+// Project: https://github.com/rdfjs-base/data-model
 // Definitions by: Jesse Wright <https://github.com/jeswr>
 //                 Ruben Taelman <https://github.com/rubensworks>
 //                 Andy Davison  <https://github.com/andydavison>
