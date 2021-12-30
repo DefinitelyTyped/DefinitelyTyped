@@ -34,7 +34,7 @@ const myBaseQuad = factory.quad<RDF.BaseQuad>(
 
 const myBaseQuadBad = factory.quad(
   factory.namedNode('http://example.org/subject'),
-  // @ts-expect-error
+  // $ExpectError
   factory.blankNode('34'),
   factory.namedNode('http://example.org/object'),
 );
