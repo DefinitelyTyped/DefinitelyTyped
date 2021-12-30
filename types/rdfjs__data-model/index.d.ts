@@ -2,7 +2,6 @@
 // Project: https://github.com/rdfjs-base/data-model
 // Definitions by: Jesse Wright <https://github.com/jeswr>
 //                 Ruben Taelman <https://github.com/rubensworks>
-//                 Andy Davison  <https://github.com/andydavison>
 //                 tpluscode <https://github.com/tpluscode>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.9
