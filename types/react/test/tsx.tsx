@@ -332,6 +332,7 @@ class NewContext extends React.Component {
 
 const ForwardRef = React.forwardRef((props: JSX.IntrinsicElements['div'], ref?: React.Ref<HTMLDivElement>) => <div {...props} ref={ref}/>);
 const ForwardRef2 = React.forwardRef((props: React.ComponentProps<typeof ForwardRef>, ref?: React.Ref<HTMLDivElement>) => <ForwardRef {...props} ref={ref}/>);
+const ForwardRefChildren = React.forwardRef((props: React.ComponentProps<typeof ForwardRef>, ref?: React.Ref<HTMLDivElement>) => <div {...props} ref={ref}>{props.children}</div>);
 const divFnRef = (ref: HTMLDivElement|null) => { /* empty */ };
 const divRef = React.createRef<HTMLDivElement>();
 
@@ -341,6 +342,8 @@ const divRef = React.createRef<HTMLDivElement>();
 <ForwardRef2 ref={divFnRef}/>;
 <ForwardRef2 ref={divRef}/>;
 <ForwardRef2 ref='string'/>; // $ExpectError
+<ForwardRefChildren ref={divFnRef}>Child</ForwardRefChildren>;
+<ForwardRefChildren ref={divRef}>Child</ForwardRefChildren>;
 
 const newContextRef = React.createRef<NewContext>();
 <NewContext ref={newContextRef}/>;
