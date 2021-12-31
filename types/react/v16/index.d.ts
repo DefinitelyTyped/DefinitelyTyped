@@ -26,7 +26,6 @@
 //                 Victor Magalhães <https://github.com/vhfmag>
 //                 Dale Tan <https://github.com/hellatan>
 //                 Priyanshu Rav <https://github.com/priyanshurav>
-//                 Romain Francez <https://github.com/thefrenchjosh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -559,7 +558,7 @@ declare namespace React {
     }
 
     interface ForwardRefRenderFunction<T, P = {}> {
-        (props: PropsWithChildren<P>, ref: ((instance: T | null) => void) | MutableRefObject<T | null> | null): ReactElement | null;
+        (props: P, ref: ((instance: T | null) => void) | MutableRefObject<T | null> | null): ReactElement | null;
         displayName?: string | undefined;
         // explicit rejected with `never` required due to
         // https://github.com/microsoft/TypeScript/issues/36826
@@ -799,7 +798,7 @@ declare namespace React {
         propTypes?: WeakValidationMap<P> | undefined;
     }
 
-    function forwardRef<T, P = {}>(render: ForwardRefRenderFunction<T, P>): ForwardRefExoticComponent<PropsWithChildren<PropsWithoutRef<P>> & RefAttributes<T>>;
+    function forwardRef<T, P = {}>(render: ForwardRefRenderFunction<T, P>): ForwardRefExoticComponent<PropsWithoutRef<P> & RefAttributes<T>>;
 
     /** Ensures that the props do not include ref at all */
     type PropsWithoutRef<P> =

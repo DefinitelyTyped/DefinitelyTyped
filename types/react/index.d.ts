@@ -568,7 +568,7 @@ declare namespace React {
     type ForwardedRef<T> = ((instance: T | null) => void) | MutableRefObject<T | null> | null;
 
     interface ForwardRefRenderFunction<T, P = {}> {
-        (props: PropsWithChildren<P>, ref: ForwardedRef<T>): ReactElement | null;
+        (props: P, ref: ForwardedRef<T>): ReactElement | null;
         displayName?: string | undefined;
         // explicit rejected with `never` required due to
         // https://github.com/microsoft/TypeScript/issues/36826
@@ -808,7 +808,7 @@ declare namespace React {
         propTypes?: WeakValidationMap<P> | undefined;
     }
 
-    function forwardRef<T, P = {}>(render: ForwardRefRenderFunction<T, P>): ForwardRefExoticComponent<PropsWithChildren<PropsWithoutRef<P>> & RefAttributes<T>>;
+    function forwardRef<T, P = {}>(render: ForwardRefRenderFunction<T, P>): ForwardRefExoticComponent<PropsWithoutRef<P> & RefAttributes<T>>;
 
     /** Ensures that the props do not include ref at all */
     type PropsWithoutRef<P> =
