@@ -797,6 +797,8 @@ declare namespace IORedis {
         zscore(key: KeyType, member: string, callback: Callback<string | null>): void;
         zscore(key: KeyType, member: string): Promise<string | null>;
 
+        zmscore: OverloadedKeyCommand<KeyType, Array<string | null>>;
+
         zrank(key: KeyType, member: string, callback: Callback<number | null>): void;
         zrank(key: KeyType, member: string): Promise<number | null>;
 
@@ -1551,6 +1553,8 @@ declare namespace IORedis {
         zcard(key: KeyType, callback?: Callback<number>): Pipeline;
 
         zscore(key: KeyType, member: string, callback?: Callback<number>): Pipeline;
+
+        zmscore(key: KeyType, ...members: string[]): Pipeline;
 
         zrank(key: KeyType, member: string, callback?: Callback<number>): Pipeline;
 
