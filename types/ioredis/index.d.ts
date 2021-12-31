@@ -19,6 +19,7 @@
 //                 Hannes Van De Vreken <https://github.com/hannesvdvreken>
 //                 T.J. Tarazevits <https://github.com/venku122>
 //                 Michiel De Mey <https://github.com/michieldemey>
+//                 Dae Heon Han <https://github.com/honeyirene>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
