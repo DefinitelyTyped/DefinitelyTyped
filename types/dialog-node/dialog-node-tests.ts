@@ -41,3 +41,5 @@ dialog.fileselect('Hello', 'Greetings', 0, (
     retVal, // $ExpectType string
     stderr, // $ExpectType string
 ) => {});
+
+dialog.setCwd('/some/path');

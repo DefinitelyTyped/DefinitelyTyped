@@ -127,3 +127,13 @@ export function fileselect(
 export interface DialogCallback<TRetVal> {
 	(code: number, retVal: TRetVal, stderr: string): void;
 }
+
+/**
+ * Initialize the package with the directory that contains its native scripts.
+ *
+ * Some packaging tools don't set __dirname properly (webpack or jxcore) setCwd
+ * allows the calling module to set dialog-node's working directory properly in
+ * order to find its assets Needs to be called before any other function You can
+ * safely ignore this function if using no packaging tool(npm is fine)
+ */
+export function setCwd(directory: string): void;
