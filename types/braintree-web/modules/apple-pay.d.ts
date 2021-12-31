@@ -45,6 +45,9 @@ export interface ApplePayPaymentRequest {
     requiredShippingContactFields?: any;
 }
 
+/**
+ * @deprecated - use ApplePaySession.STATUS_SUCCESS and similar instead
+ */
 export enum ApplePayStatusCodes {
     // The requested action succeeded.
     STATUS_SUCCESS = 0,
@@ -72,9 +75,6 @@ export interface ApplePayDetails {
     dpanLastTwo: string;
 }
 
-/**
- * @deprecated - use ApplePaySession.STATUS_SUCCESS and similar instead
- */
 export interface ApplePayPayload {
     nonce: string;
     description: string;
