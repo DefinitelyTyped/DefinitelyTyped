@@ -76,7 +76,7 @@ declare namespace TelegramBot {
         'chat_member_updated';
 
     type MessageEntityType = 'mention' | 'hashtag' | 'cashtag' | 'bot_command' | 'url' | 'email' | 'phone_number' |
-        'bold' | 'italic' | 'underline' | 'strikethrough' | 'code' | 'pre' | 'text_link' | 'text_mention';
+        'bold' | 'italic' | 'underline' | 'strikethrough' | 'code' | 'pre' | 'text_link' | 'text_mention' | 'spoiler';
 
     type ParseMode = 'Markdown' | 'MarkdownV2' | 'HTML';
 
@@ -134,6 +134,7 @@ declare namespace TelegramBot {
         disable_notification?: boolean | undefined;
         reply_to_message_id?: number | undefined;
         reply_markup?: InlineKeyboardMarkup | ReplyKeyboardMarkup | ReplyKeyboardRemove | ForceReply | undefined;
+        protect_content?: boolean | undefined;
     }
 
     interface SendMessageOptions extends SendBasicOptions {
@@ -151,6 +152,7 @@ declare namespace TelegramBot {
 
     interface ForwardMessageOptions {
         disable_notification?: boolean | undefined;
+        protect_content?: boolean | undefined;
     }
 
     interface SendPhotoOptions extends SendBasicOptions {
@@ -496,6 +498,7 @@ declare namespace TelegramBot {
         length: number;
         url?: string | undefined;
         user?: User | undefined;
+        language?: string | undefined;
     }
 
     interface FileBase {
