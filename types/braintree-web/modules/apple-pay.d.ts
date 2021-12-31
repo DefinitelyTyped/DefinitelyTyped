@@ -72,6 +72,9 @@ export interface ApplePayDetails {
     dpanLastTwo: string;
 }
 
+/**
+ * @deprecated - use ApplePaySession.STATUS_SUCCESS and similar instead
+ */
 export interface ApplePayPayload {
     nonce: string;
     description: string;
