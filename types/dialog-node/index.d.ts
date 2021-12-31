@@ -12,10 +12,10 @@
  * @param callback called when the dialog closes.
  */
 export function info(
-	msg: string,
-	title: string,
-	timeout: number,
-	callback: DialogCallback<'OK' | 'CANCEL'>
+    msg: string,
+    title: string,
+    timeout: number,
+    callback: DialogCallback<'OK' | 'CANCEL'>
 ): void;
 
 /**
@@ -27,10 +27,10 @@ export function info(
  * @param callback called when the dialog closes.
  */
 export function warn(
-	msg: string,
-	title: string,
-	timeout: number,
-	callback: DialogCallback<'OK' | 'CANCEL'>
+    msg: string,
+    title: string,
+    timeout: number,
+    callback: DialogCallback<'OK' | 'CANCEL'>
 ): void;
 
 /**
@@ -42,10 +42,10 @@ export function warn(
  * @param callback called when the dialog closes.
  */
 export function error(
-	msg: string,
-	title: string,
-	timeout: number,
-	callback: DialogCallback<'OK' | 'CANCEL'>
+    msg: string,
+    title: string,
+    timeout: number,
+    callback: DialogCallback<'OK' | 'CANCEL'>
 ): void;
 
 /**
@@ -63,10 +63,10 @@ export function error(
  * @param callback called when the dialog closes.
  */
 export function question(
-	msg: string,
-	title: string,
-	timeout: number,
-	callback: DialogCallback<'OK' | 'CANCEL' | ''>
+    msg: string,
+    title: string,
+    timeout: number,
+    callback: DialogCallback<'OK' | 'CANCEL' | ''>
 ): void;
 
 /**
@@ -83,10 +83,10 @@ export function question(
  * @param callback called when the dialog closes.
  */
 export function entry(
-	msg: string,
-	title: string,
-	timeout: number,
-	callback: DialogCallback<string>
+    msg: string,
+    title: string,
+    timeout: number,
+    callback: DialogCallback<string>
 ): void;
 
 /**
@@ -103,10 +103,10 @@ export function entry(
  * @param callback called when the dialog closes.
  */
 export function calendar(
-	msg: string,
-	title: string,
-	timeout: number,
-	callback: DialogCallback<string>
+    msg: string,
+    title: string,
+    timeout: number,
+    callback: DialogCallback<string>
 ): void;
 
 /**
@@ -118,14 +118,14 @@ export function calendar(
  * @param callback called when the dialog closes.
  */
 export function fileselect(
-	msg: string,
-	title: string,
-	timeout: number,
-	callback: DialogCallback<string>
+    msg: string,
+    title: string,
+    timeout: number,
+    callback: DialogCallback<string>
 ): void;
 
 export interface DialogCallback<TRetVal> {
-	(code: number, retVal: TRetVal, stderr: string): void;
+    (code: number, retVal: TRetVal, stderr: string): void;
 }
 
 /**
