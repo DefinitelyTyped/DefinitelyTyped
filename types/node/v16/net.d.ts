@@ -620,7 +620,6 @@ declare module 'net' {
     interface IpcNetConnectOpts extends IpcSocketConnectOpts, SocketConstructorOpts {
         timeout?: number | undefined;
     }
-
     type NetConnectOpts = TcpNetConnectOpts | IpcNetConnectOpts;
     /**
      * Creates a new TCP or `IPC` server.
