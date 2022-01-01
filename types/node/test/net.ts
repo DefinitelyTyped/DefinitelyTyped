@@ -9,7 +9,8 @@ import { Socket } from 'node:dgram';
         family: 4,
         host: "localhost",
         port: 443,
-        signal: abort.signal
+        signal: abort.signal,
+        timeout: 10E3
     };
     const socket: net.Socket = net.createConnection(connectOpts, (): void => {
         // nothing

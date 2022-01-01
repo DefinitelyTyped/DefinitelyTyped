@@ -614,8 +614,12 @@ declare module 'net' {
         check(address: SocketAddress): boolean;
         check(address: string, type?: IPVersion): boolean;
     }
-    interface TcpNetConnectOpts extends TcpSocketConnectOpts, SocketConstructorOpts {}
-    interface IpcNetConnectOpts extends IpcSocketConnectOpts, SocketConstructorOpts {}
+    interface TcpNetConnectOpts extends TcpSocketConnectOpts, SocketConstructorOpts {
+        timeout?: number | undefined;
+    }
+    interface IpcNetConnectOpts extends IpcSocketConnectOpts, SocketConstructorOpts {
+        timeout?: number | undefined;
+    }
 
     type NetConnectOpts = TcpNetConnectOpts | IpcNetConnectOpts;
     /**
