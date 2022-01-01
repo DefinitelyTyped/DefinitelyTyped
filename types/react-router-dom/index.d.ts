@@ -1,4 +1,4 @@
-// Type definitions for react-router-dom 5.3
+// Type definitions for react-router-dom 6.2
 // Project: https://github.com/ReactTraining/react-router
 // Definitions by: Huy Nguyen <https://github.com/huy-nguyen>
 //                 Philip Jackson <https://github.com/p-jackson>
@@ -7,6 +7,7 @@
 //                 Daniel Nixon <https://github.com/danielnixon>
 //                 Tony Ward <https://github.com/ynotdraw>
 //                 Pirasis Leelatanon <https://github.com/1pete>
+//                 Takuya Noguchi <https://github.com/tnir>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
@@ -15,31 +16,64 @@ import * as React from 'react';
 import * as H from 'history';
 
 export {
-    generatePath,
-    PromptProps,
-    Prompt,
-    MemoryRouterProps,
+    IndexRouteProps,
+    LayoutRouteProps,
+    Location,
     MemoryRouter,
-    RedirectProps,
+    MemoryRouterProps,
+    Navigate,
+    NavigateFunction,
+    NavigateOptions,
+    NavigateProps,
+    NavigationType,
+    Navigator,
+    Outlet,
+    OutletProps,
+    Params,
+    Path,
+    PathMatch,
+    PathRouteProps,
+    Prompt,
+    PromptProps,
     Redirect,
+    RedirectProps,
+    Route,
     RouteChildrenProps,
     RouteComponentProps,
+    RouteMatch,
+    RouteObject,
     RouteProps,
-    Route,
-    RouterProps,
     Router,
-    StaticRouterProps,
+    RouterChildContext,
+    RouterProps,
+    Routes,
+    RoutesProps,
     StaticRouter,
-    SwitchProps,
+    StaticRouterProps,
     Switch,
+    SwitchProps,
+    To,
+    createRoutesFromChildren,
+    generatePath,
     match,
     matchPath,
-    withRouter,
-    RouterChildContext,
+    matchRoutes,
+    renderMatches,
+    resolvePath,
     useHistory,
+    useHref,
+    useInRouterContext,
     useLocation,
+    useMatch,
+    useNavigate,
+    useNavigationType,
+    useOutlet,
+    useOutletContext,
     useParams,
+    useResolvedPath,
     useRouteMatch,
+    useRoutes,
+    withRouter
 } from 'react-router';
 
 export interface BrowserRouterProps {
