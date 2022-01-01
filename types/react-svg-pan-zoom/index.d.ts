@@ -60,7 +60,7 @@ export type ToolbarPosition = typeof POSITION_NONE | typeof POSITION_TOP | typeo
 
 export interface OptionalProps {
     // default tool
-    defaultTool: 'none' | 'auto' | 'pan' | 'zoom-in' | 'zoom-out';
+    defaultTool: Tool;
 
     // background of the viewer
     background: string;
