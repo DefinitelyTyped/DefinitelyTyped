@@ -27,6 +27,7 @@ declare module 'net' {
         allowHalfOpen?: boolean | undefined;
         readable?: boolean | undefined;
         writable?: boolean | undefined;
+        signal?: AbortSignal;
     }
     interface OnReadOpts {
         buffer: Uint8Array | (() => Uint8Array);
@@ -613,12 +614,9 @@ declare module 'net' {
         check(address: SocketAddress): boolean;
         check(address: string, type?: IPVersion): boolean;
     }
-    interface TcpNetConnectOpts extends TcpSocketConnectOpts, SocketConstructorOpts {
-        timeout?: number | undefined;
-    }
-    interface IpcNetConnectOpts extends IpcSocketConnectOpts, SocketConstructorOpts {
-        timeout?: number | undefined;
-    }
+    interface TcpNetConnectOpts extends TcpSocketConnectOpts, SocketConstructorOpts {}
+    interface IpcNetConnectOpts extends IpcSocketConnectOpts, SocketConstructorOpts {}
+
     type NetConnectOpts = TcpNetConnectOpts | IpcNetConnectOpts;
     /**
      * Creates a new TCP or `IPC` server.
