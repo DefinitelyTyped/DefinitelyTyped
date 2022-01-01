@@ -113,7 +113,7 @@ class MyViewer extends React.Component {
   render() {
     return (
       <UncontrolledReactSVGPanZoom
-        width={200} height={400} defaultTool=TOOL_PAN
+        width={200} height={400} defaultTool={TOOL_PAN}
       >
         <svg />
       </UncontrolledReactSVGPanZoom>
