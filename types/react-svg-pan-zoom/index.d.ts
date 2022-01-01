@@ -60,7 +60,7 @@ export type ToolbarPosition = typeof POSITION_NONE | typeof POSITION_TOP | typeo
 
 export interface OptionalProps {
     // default tool
-    defaultTool: Tool;
+   defaultTool: Exclude<Tool, typeof TOOL_AUTO>;
 
     // background of the viewer
     background: string;
