@@ -966,7 +966,7 @@ declare module 'http' {
          * as an argument to any listeners on the event.
          * @since v0.3.0
          */
-        destroy(error?: Error): void;
+        destroy(error?: Error): this;
     }
     interface AgentOptions extends Partial<TcpSocketConnectOpts> {
         /**

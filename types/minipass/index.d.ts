@@ -27,9 +27,9 @@ declare class MiniPass extends EventEmitter implements NodeJS.WritableStream {
     read(size?: number): any;
     write(chunk: any, cb?: () => void): boolean;
     write(chunk: any, encoding?: string | null, cb?: () => void): boolean;
-    end(cb?: () => void): void;
-    end(chunk: any, cb?: () => void): void;
-    end(chunk: any, encoding?: string | null, cb?: () => void): void;
+    end(cb?: () => void): this;
+    end(chunk: any, cb?: () => void): this;
+    end(chunk: any, encoding?: string | null, cb?: () => void): this;
     resume(): void;
     pause(): void;
     promise(): Promise<void>;
