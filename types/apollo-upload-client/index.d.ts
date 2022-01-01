@@ -3,6 +3,7 @@
 // Definitions by: Edward Sammut Alessi <https://github.com/Slessi>,
 //                 tyankatsu <https://github.com/tyankatsu0105>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 4.1
 
 // ==============================================================================
 // exports

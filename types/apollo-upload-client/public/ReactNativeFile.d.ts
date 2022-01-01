@@ -1,1 +1,3 @@
-export { ReactNativeFile as default } from 'extract-files';
+import ExtractFiles = require('extract-files');
+
+export = ExtractFiles.ReactNativeFile;
