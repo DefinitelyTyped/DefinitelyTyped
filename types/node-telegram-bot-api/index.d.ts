@@ -640,7 +640,7 @@ declare namespace TelegramBot {
         url: string;
         forward_text?: string | undefined;
         bot_username?: string | undefined;
-        request_write_acces?: boolean | undefined;
+        request_write_access?: boolean | undefined;
     }
 
     interface CallbackQuery {
