@@ -18,7 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "test/charcodes-tests.cjs.ts",
-        "test/charcodes-tests.global.ts"
+        "charcodes-tests.ts"
     ]
 }

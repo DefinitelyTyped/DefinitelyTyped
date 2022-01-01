@@ -6,7 +6,6 @@
 /**
  * Char codes constants
  */
-
 export const backSpace: 8;
 export const tab: 9; //  '\t'
 export const lineFeed: 10; //  '\n'
@@ -113,5 +112,3 @@ export const lineSeparator: 8232;
 export const paragraphSeparator: 8233;
 
 export function isDigit(code: number): boolean;
-
-export as namespace charcodes;
