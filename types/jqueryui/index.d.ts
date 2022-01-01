@@ -1,4 +1,4 @@
-// Type definitions for jQueryUI 1.12
+// Type definitions for jQueryUI 1.13
 // Project: http://jqueryui.com/
 // Definitions by: Boris Yankov <https://github.com/borisyankov>, John Reilly <https://github.com/johnnyreilly>, Dieter Oberkofler <https://github.com/doberkofler>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -264,6 +264,10 @@ declare namespace JQueryUI {
          * Called when the datepicker is selected. The function receives the selected date as text and the datepicker instance as parameters. this refers to the associated input field.
          */
         onSelect?: ((dateText: string, inst: any) => void) | undefined;
+        /**
+		 * Called when the datepicker widget's DOM is updated. The function receives the datepicker instance as the only parameter. this refers to the associated input field.
+		 */
+		onUpdateDatepicker?: ((inst: any) => void) | undefined;
         /**
          * The text to display for the previous month link. With the standard ThemeRoller styling, this value is replaced by an icon.
          */
