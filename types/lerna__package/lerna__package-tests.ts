@@ -13,3 +13,5 @@ Package.lazy(testRawManifest, './location');
 Package.lazy(testPackage, './location');
 
 testPackage.updateLocalDependency(testPackage.resolved, '1.2.4', 'v');
+
+const packageVersion = testPackage.get('version');

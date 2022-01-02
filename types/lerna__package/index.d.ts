@@ -8,7 +8,7 @@ export type ResolveResult = ReturnType<typeof resolve>;
 /**
  * Partial package.json representation
  */
-export interface RawManifest {
+export type RawManifest = {
     name: string;
     version: string;
     private?: boolean;
@@ -20,7 +20,7 @@ export interface RawManifest {
     peerDependencies?: Record<string, string>;
     publishConfig?: Record<string, string>;
     workspaces?: string[] | { packages: string[] };
-}
+} & { [key: string]: any; };
 /**
  * Lerna's internal representation of a local package, with
  * many values resolved directly from the original JSON.
@@ -51,8 +51,8 @@ export class Package {
     get devDependencies(): RawManifest['devDependencies'];
     get optionalDependencies(): RawManifest['optionalDependencies'];
     get peerDependencies(): RawManifest['peerDependencies'];
-    get(key: string): string | string[];
-    set(key: string, val: any): void;
+    get<K extends (keyof RawManifest) | string>(key: K): RawManifest[K];
+    set<K extends (keyof RawManifest) | string>(key: K, val: RawManifest[K]): void;
     /**
      * Provide shallow copy for munging elsewhere
      */
