@@ -22,6 +22,7 @@ export interface LazyLoadProps {
     unmountIfInvisible?: boolean | undefined;
     preventLoading?: boolean | undefined;
     classNamePrefix?: string | undefined;
+    className?: string | undefined;
     style?: CSSProperties | undefined;
 }
 
