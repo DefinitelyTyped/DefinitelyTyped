@@ -31,3 +31,5 @@ export class Thing {
 
     extendWith<T>(...mixins: T[]): T & Thing;
 }
+
+export = Thing;
