@@ -1,10 +1,12 @@
 import EventEmitter from './events';
 
-export interface EmitEventOptions {
-    multiple: boolean;
+declare namespace Thing {
+    interface EmitEventOptions {
+        multiple: boolean;
+    }
 }
 
-export class Thing {
+declare class Thing {
     constructor(...args: any);
 
     get id(): string | null;
