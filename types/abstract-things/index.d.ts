@@ -5,6 +5,6 @@
 
 /// <reference types="node" />
 
-import { Thing } from './thing';
+import Thing = require('./thing');
 
 export { Thing };
