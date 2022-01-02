@@ -1,0 +1,37 @@
+// Type definitions for @lerna/project 4.0
+// Project: https://github.com/lerna/lerna/tree/main/core/project (Does not have to be to GitHub, but prefer linking to a source code repository rather than to a project website.)
+// Definitions by: DonMahallem <https://github.com/donmahallem>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+import { Package } from "@lerna/package";
+
+/**
+ * A representation of the entire project managed by Lerna.
+ *
+ * Wherever the lerna.json file is located, that is the project root.
+ * All package globs are rooted from this location.
+ */
+export class Project {
+    /**
+     * @param cwd defaults to process.cwd()
+     */
+    static getPackges(cwd?: string): Promise<Package[]>;
+    /**
+     * @param cwd defaults to process.cwd()
+     */
+    static getPackgesSync(cwd?: string): Package[];
+
+    constructor(cwd?: string);
+    get version(): string;
+    set version(val: string);
+    get packageConfigs(): string[];
+    get packageParentDirs(): string[];
+    get manifest(): Package;
+    get licensePath(): string;
+    getPackages(): Promise<Package[]>;
+    getPackagesSync(): Package[];
+    getPackageLicensePaths(): string[];
+    isIndependent(): boolean;
+}
+export function getPackages(cwd?: string): Promise<Package[]>;
+export function getPackagesSync(cwd?: string): Package[];
