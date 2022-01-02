@@ -32,6 +32,9 @@ Carousel.getOrCreateInstance(element, {
 // $ExpectType string
 Carousel.VERSION;
 
+// $ExpectType Options
+Carousel.Default;
+
 element.addEventListener(Carousel.Events.slid, event => {
     event.direction; // $ExpectType Direction
     event.relatedTarget; // $ExpectType Element
