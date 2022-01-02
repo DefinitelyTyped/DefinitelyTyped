@@ -1612,6 +1612,21 @@ $.get( "test.php" );
      */
     get(url_settings?: string | JQuery.UrlAjaxSettings): JQuery.jqXHR;
     /**
+     * Load data from the server using a HTTP GET request.
+     * @param url A string containing the URL to which the request is sent.
+     * @param data A plain object or string that is sent to the server with the request.
+     * @param dataType The type of data expected from the server. Default: Intelligent Guess (xml, json, script, text, html).
+     * @see \`{@link https://api.jquery.com/jQuery.get/ }\`
+     * @since 1.0
+     * @example ​ ````Request the test.php page, send an object with data, receive a json response.
+```javascript
+$.get( "test.php", { name: 'John' }, 'json' );
+```
+     */
+    get(url: string,
+         data: JQuery.PlainObject | string,
+         dataType: string): JQuery.jqXHR;
+    /**
      * Load JSON-encoded data from the server using a GET HTTP request.
      * @param url A string containing the URL to which the request is sent.
      * @param data A plain object or string that is sent to the server with the request.
@@ -2761,6 +2776,21 @@ $.post( "test.php" );
 ```
      */
     post(url_settings?: string | JQuery.UrlAjaxSettings): JQuery.jqXHR;
+    /**
+     * Load data from the server using a HTTP POST request.
+     * @param url A string containing the URL to which the request is sent.
+     * @param data A plain object or string that is sent to the server with the request.
+     * @param dataType The type of data expected from the server. Default: Intelligent Guess (xml, json, script, text, html).
+     * @see \`{@link https://api.jquery.com/jQuery.post/ }\`
+     * @since 1.0
+     * @example ​ ````Request the test.php page, send an object with data, receive a json response.
+```javascript
+$.post( "test.php", { name: 'John' }, 'json' );
+```
+     */
+    post(url: string,
+         data: JQuery.PlainObject | string,
+         dataType: string): JQuery.jqXHR;
 
     // region proxy
     // #region proxy
