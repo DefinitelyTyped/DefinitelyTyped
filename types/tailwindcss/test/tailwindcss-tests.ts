@@ -2614,8 +2614,10 @@ tailwindConfig.important;
 
 tailwindConfig.important = false;
 
-// @ts-expect-error should be boolean
-tailwindConfig.important = 'false';
+tailwindConfig.important = 'selector';
+
+// @ts-expect-error should be boolean or string
+tailwindConfig.important = 0;
 
 // $ExpectType string | undefined
 tailwindConfig.separator;
