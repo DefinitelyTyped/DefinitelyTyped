@@ -29,7 +29,7 @@ export class Package {
     /**
      * Create a Package instance from parameters, possibly reusing existing instance.
      * @param ref A path to a package.json file, Package instance, or JSON object
-     * @param If `ref` is a JSON object, this is the location of the manifest
+     * @param [dir] If `ref` is a JSON object, this is the location of the manifest
      */
     static lazy(ref: string | Package | RawManifest, dir?: string): Package;
     constructor(pkg: RawManifest, location: string, rootPath?: string);
