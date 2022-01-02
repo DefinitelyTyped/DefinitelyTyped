@@ -5,6 +5,15 @@
 
 import { Package } from "@lerna/package";
 
+export interface ProjectConfig {
+    packages: string[];
+    /** if Yarn workspaces are being used */
+    useWorkspaces: boolean;
+    /**
+     * Root Version
+     */
+    version: string;
+}
 /**
  * A representation of the entire project managed by Lerna.
  *
@@ -32,6 +41,9 @@ export class Project {
     getPackagesSync(): Package[];
     getPackageLicensePaths(): string[];
     isIndependent(): boolean;
+    rootPath: string;
+    rootConfigLocation: string;
+    config: ProjectConfig;
 }
 export function getPackages(cwd?: string): Promise<Package[]>;
 export function getPackagesSync(cwd?: string): Package[];
