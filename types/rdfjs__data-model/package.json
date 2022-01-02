@@ -1,6 +1,6 @@
 {
   "private": true,
   "dependencies": {
-    "loglevel": "^1.6.2"
+      "@rdfjs/types": "^1.0.1"
   }
 }

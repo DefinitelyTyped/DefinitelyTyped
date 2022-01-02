@@ -2,23 +2,27 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6",
-            "dom"
+            "es6"
         ],
         "noImplicitAny": true,
-        "noImplicitThis": false,
-        "strictNullChecks": false,
+        "noImplicitThis": true,
         "strictFunctionTypes": true,
+        "strictNullChecks": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@rdfjs/*": [
+                "rdfjs__*"
+            ]
+        }
     },
     "files": [
         "index.d.ts",
-        "swiper-tests.ts"
+        "rdfjs__data-model-tests.ts"
     ]
 }

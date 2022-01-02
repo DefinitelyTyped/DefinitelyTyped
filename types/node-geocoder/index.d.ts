@@ -25,7 +25,7 @@ declare namespace node_geocoder {
         provider: 'here';
         appId: string;
         apiKey: string;
-        appCode: string;
+        appCode?: string;
         language?: string | undefined;
         politicalView?: string | undefined;
         country?: string | undefined;

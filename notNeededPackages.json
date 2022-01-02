@@ -4967,6 +4967,10 @@
             "libraryName": "sweetalert",
             "asOfVersion": "2.0.4"
         },
+        "swiper": {
+            "libraryName": "swiper",
+            "asOfVersion": "6.0.0"
+        },
         "syllable": {
             "libraryName": "syllable",
             "asOfVersion": "5.0.0"
@@ -5398,6 +5402,10 @@
         "webpack-chunk-hash": {
             "libraryName": "webpack-chunk-hash",
             "asOfVersion": "0.6.0"
+        },
+        "webpack-dev-middleware": {
+            "libraryName": "webpack-dev-middleware",
+            "asOfVersion": "5.3.0"
         },
         "webpack-merge": {
             "libraryName": "webpack-merge",

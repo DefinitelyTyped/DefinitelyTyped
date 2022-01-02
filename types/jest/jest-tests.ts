@@ -556,6 +556,9 @@ class TestMocked {
     test4(x: Type1): Type1 {
         return x;
     }
+    test5(x: Type1): Promise<void> {
+        return Promise.resolve();
+    }
 }
 
 const mocked: jest.Mocked<TestMocked> = new TestMocked() as any;
@@ -569,12 +572,14 @@ mocked.test1.mockResolvedValueOnce({ a: 1 });
 // $ExpectType MockInstance<Promise<Type1>, [Type1]> & ((x: Type1) => Promise<Type1>) || MockInstance<Promise<Type1>, [x: Type1]> & ((x: Type1) => Promise<Type1>)
 mocked.test1.mockResolvedValue(Promise.resolve({ a: 1 }));
 mocked.test1.mockResolvedValueOnce(Promise.resolve({ a: 1 }));
+
 // $ExpectType MockInstance<Promise<Type1>, [Promise<Type1>]> & ((x: Promise<Type1>) => Promise<Type1>) || MockInstance<Promise<Type1>, [x: Promise<Type1>]> & ((x: Promise<Type1>) => Promise<Type1>)
 mocked.test2.mockResolvedValue({ a: 1 });
 mocked.test2.mockResolvedValueOnce({ a: 1 });
 // $ExpectType MockInstance<Promise<Type1>, [Promise<Type1>]> & ((x: Promise<Type1>) => Promise<Type1>) || MockInstance<Promise<Type1>, [x: Promise<Type1>]> & ((x: Promise<Type1>) => Promise<Type1>)
 mocked.test2.mockResolvedValue(Promise.resolve({ a: 1 }));
 mocked.test2.mockResolvedValueOnce(Promise.resolve({ a: 1 }));
+
 // $ExpectType MockInstance<Promise<Type2>, [Promise<Type1>]> & ((x: Promise<Type1>) => Promise<Type2>) || MockInstance<Promise<Type2>, [x: Promise<Type1>]> & ((x: Promise<Type1>) => Promise<Type2>)
 mocked.test3.mockResolvedValue({ b: 1 });
 mocked.test3.mockResolvedValueOnce({ b: 1 });
@@ -583,6 +588,7 @@ mocked.test3.mockResolvedValue(Promise.resolve({ b: 1 }));
 mocked.test3.mockResolvedValueOnce(Promise.resolve({ b: 1 }));
 mocked.test3.mockRejectedValue(new Error());
 mocked.test3.mockRejectedValueOnce(new Error());
+
 // $ExpectError
 mocked.test4.mockResolvedValue({ a: 1 });
 // $ExpectError
@@ -595,6 +601,19 @@ mocked.test4.mockResolvedValueOnce(Promise.resolve({ a: 1 }));
 mocked.test4.mockRejectedValue(new Error());
 // $ExpectError
 mocked.test4.mockRejectedValueOnce(new Error());
+
+// $ExpectType MockInstance<Promise<void>, [Type1]> & ((x: Type1) => Promise<void>) || MockInstance<Promise<void>, [x: Type1]> & ((x: Type1) => Promise<void>)
+mocked.test5.mockResolvedValue(undefined);
+mocked.test5.mockResolvedValueOnce(undefined);
+// $ExpectType MockInstance<Promise<void>, [Type1]> & ((x: Type1) => Promise<void>) || MockInstance<Promise<void>, [x: Type1]> & ((x: Type1) => Promise<void>)
+mocked.test5.mockResolvedValue(Promise.resolve(undefined));
+mocked.test5.mockResolvedValueOnce(Promise.resolve(undefined));
+// $ExpectType MockInstance<Promise<void>, [Type1]> & ((x: Type1) => Promise<void>) || MockInstance<Promise<void>, [x: Type1]> & ((x: Type1) => Promise<void>)
+mocked.test5.mockResolvedValue();
+mocked.test5.mockResolvedValueOnce();
+// $ExpectType MockInstance<Promise<void>, [Type1]> & ((x: Type1) => Promise<void>) || MockInstance<Promise<void>, [x: Type1]> & ((x: Type1) => Promise<void>)
+mocked.test5.mockResolvedValue(Promise.resolve());
+mocked.test5.mockResolvedValueOnce(Promise.resolve());
 
 class TestClass {
     testClassMethod(str: string, num: number): boolean {
