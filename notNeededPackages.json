@@ -380,6 +380,10 @@
             "libraryName": "@braintree/sanitize-url",
             "asOfVersion": "4.1.0"
         },
+        "bree": {
+            "libraryName": "bree",
+            "asOfVersion": "7.1.0"
+        },
         "broccoli-plugin": {
             "libraryName": "broccoli-plugin",
             "asOfVersion": "3.0.0"
@@ -596,6 +600,10 @@
             "libraryName": "composer-concerto",
             "asOfVersion": "0.71.1"
         },
+        "compression-webpack-plugin": {
+            "libraryName": "compression-webpack-plugin",
+            "asOfVersion": "9.1.1"
+        },
         "condense-whitespace": {
             "libraryName": "condense-whitespace",
             "asOfVersion": "2.0.0"
@@ -639,6 +647,10 @@
         "copy-text-to-clipboard": {
             "libraryName": "copy-text-to-clipboard",
             "asOfVersion": "2.0.1"
+        },
+        "copy-webpack-plugin": {
+            "libraryName": "copy-webpack-plugin",
+            "asOfVersion": "10.1.0"
         },
         "cordova-plugin-battery-status": {
             "libraryName": "cordova-plugin-battery-status",
@@ -780,6 +792,10 @@
             "libraryName": "csrf",
             "asOfVersion": "3.1.0"
         },
+        "css-minimizer-webpack-plugin": {
+            "libraryName": "css-minimizer-webpack-plugin",
+            "asOfVersion": "3.2.0"
+        },
         "csv-parse": {
             "libraryName": "csv-parse",
             "asOfVersion": "1.2.2"
@@ -920,6 +936,10 @@
         "detect-passive-events": {
             "libraryName": "detect-passive-events",
             "asOfVersion": "2.0.0"
+        },
+        "detox": {
+            "libraryName": "detox",
+            "asOfVersion": "18.1.0"
         },
         "devextreme": {
             "libraryName": "devextreme",
@@ -1232,6 +1252,10 @@
         "express-graphql": {
             "libraryName": "express-graphql",
             "asOfVersion": "0.9.0"
+        },
+        "express-handlebars": {
+            "libraryName": "express-handlebars",
+            "asOfVersion": "6.0.0"
         },
         "express-mongo-sanitize": {
             "libraryName": "express-mongo-sanitize",
@@ -2757,6 +2781,10 @@
             "libraryName": "matrix-appservice-bridge",
             "asOfVersion": "2.0.0"
         },
+        "matteodisabatino__gc_info": {
+            "libraryName": "@matteodisabatino/gc_info",
+            "asOfVersion": "1.1.0"
+        },
         "maxmind": {
             "libraryName": "maxmind",
             "asOfVersion": "2.0.5"
@@ -4243,6 +4271,10 @@
             "libraryName": "redent",
             "asOfVersion": "3.0.0"
         },
+        "redis": {
+            "libraryName": "redis",
+            "asOfVersion": "4.0.0"
+        },
         "redom": {
             "libraryName": "redom",
             "asOfVersion": "3.23.0"
@@ -4883,6 +4915,10 @@
             "libraryName": "styled-jsx",
             "asOfVersion": "3.4.4"
         },
+        "stylelint": {
+            "libraryName": "stylelint",
+            "asOfVersion": "14.0.0"
+        },
         "stylelint-webpack-plugin": {
             "libraryName": "stylelint-webpack-plugin",
             "asOfVersion": "2.1.0"
@@ -4930,6 +4966,10 @@
         "sweetalert": {
             "libraryName": "sweetalert",
             "asOfVersion": "2.0.4"
+        },
+        "swiper": {
+            "libraryName": "swiper",
+            "asOfVersion": "6.0.0"
         },
         "syllable": {
             "libraryName": "syllable",
@@ -5362,6 +5402,10 @@
         "webpack-chunk-hash": {
             "libraryName": "webpack-chunk-hash",
             "asOfVersion": "0.6.0"
+        },
+        "webpack-dev-middleware": {
+            "libraryName": "webpack-dev-middleware",
+            "asOfVersion": "5.3.0"
         },
         "webpack-merge": {
             "libraryName": "webpack-merge",

@@ -6,6 +6,8 @@ const {
     listening, // $ExpectType boolean
     resetTranscript, // $ExpectType () => void
     transcript, // $ExpectType string
+    browserSupportsSpeechRecognition, // $ExpectType boolean
+    isMicrophoneAvailable, // $ExpectType boolean
 } = useSpeechRecognition();
 
 useSpeechRecognition({
@@ -29,3 +31,4 @@ SpeechRecognition.startListening({ continuous: true, language: 'en' }); // $Expe
 SpeechRecognition.stopListening(); // $ExpectType void
 SpeechRecognition.abortListening(); // $ExpectType void
 SpeechRecognition.browserSupportsSpeechRecognition(); // $ExpectType boolean
+SpeechRecognition.applyPolyfill(null); // $ExpectType void

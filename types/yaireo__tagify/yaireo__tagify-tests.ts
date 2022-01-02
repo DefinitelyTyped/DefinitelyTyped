@@ -19,6 +19,7 @@ const settings: TagifyConstructorSettings = {
     mixTagsAllowedAfter: /,|\.|\:|\s/,
     duplicates: false,
     trim: false,
+    id: 'uniqueId',
     enforceWhitelist: true,
     userInput: true,
     autoComplete: {
@@ -925,4 +926,10 @@ tagify.getCleanValue();
 tagify.update();
 tagify.update({});
 tagify.update({ withoutChangeEvent: true });
+
+tagify.setPersistedData(['good', 'tags'], 'whitelist');
+tagify.getPersistedData('whitelist');
+tagify.clearPersistedData('whitelist');
+tagify.clearPersistedData();
+
 tagify.destroy();

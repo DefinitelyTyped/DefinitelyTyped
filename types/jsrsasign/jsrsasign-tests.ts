@@ -44,3 +44,9 @@ const x509 = new X509();
 x509.readCertPEM(pemCert);
 x509.verifySignature(pubKey); // $ExpectType boolean
 x509.verifySignature(pemCert); // $ExpectType boolean
+x509.getExtSubjectKeyIdentifier("sampleExt", true); // $ExpectType { extname: string; kid: Hex; critical?: boolean | undefined; }
+x509.getSubject(); // $ExpectType IdentityResponse
+x509.getIssuer(); // $ExpectType IdentityResponse
+x509.getExtAuthorityKeyIdentifier("sampleExt", true); // $ExpectType AuthorityKeyIdentifierResult
+
+KJUR.asn1.csr.CSRUtil.getParam(pemCert); // $ExpectType ParamResponse

@@ -5,6 +5,22 @@ declare namespace jsrsasign {
         vidx: number;
     }
 
+    interface IdentityResponse {
+        array: Array<[{ type: string; value: string; ds: string }]>;
+        str: string;
+    }
+
+    interface Hex {
+        hex: string;
+    }
+
+    interface AuthorityKeyIdentifierResult {
+        kid: Hex;
+        issuer?: Hex;
+        sn?: Hex;
+        critical?: boolean;
+    }
+
     interface PublicKeyInfoPropOfCertPEMResult {
         /** hexadecimal string of OID of asymmetric key algorithm */
         algoid: string;
@@ -61,6 +77,17 @@ declare namespace jsrsasign {
         getSignatureAlgorithmField(): string;
 
         /**
+         * get JSON object of issuer field
+         * @return IdentityResponse JSON object of issuer field
+         * @example
+         * var x = new X509(sCertPEM);
+         * x.getIssuer() &rarr;
+         * { array: [[{type:'C',value:'JP',ds:'prn'}],...],
+         *   str: "/C=JP/..." }
+         */
+        getIssuer(): IdentityResponse;
+
+        /**
          * get hexadecimal string of issuer field TLV of certificate.
          * @return hexadecial string of issuer DN ASN.1
          * @example
@@ -79,6 +106,17 @@ declare namespace jsrsasign {
          * var issuer = x.getIssuerString(); // return string like "/C=US/O=TEST"
          */
         getIssuerString(): string;
+
+        /**
+         * get JSON object of subject field
+         * @return IdentityResponse JSON object of subject field
+         * @example
+         * var x = new X509(sCertPEM);
+         * x.getSubject() &rarr;
+         * { array: [[{type:'C',value:'JP',ds:'prn'}],...],
+         *   str: "/C=JP/..." }
+         */
+        getSubject(): IdentityResponse;
 
         /**
          * get hexadecimal string of subject field of certificate.
@@ -240,26 +278,29 @@ declare namespace jsrsasign {
 
         /**
          * get BasicConstraints extension value as object in the certificate
-         * @return associative array which may have "cA" and "pathLen" parameters
+         * @param hExtV hexadecimal string of extension value (OPTIONAL)
+         * @param critical flag (OPTIONAL)
+         * @return JSON object of BasicConstraints parameter or undefined
          * @description
          * This method will get basic constraints extension value as object with following paramters.
          *
-         * - cA - CA flag whether CA or not
-         * - pathLen - maximum intermediate certificate length
+         * - {Boolean}cA - CA flag whether CA or not
+         * - {Integer}pathLen - maximum intermediate certificate length
+         * - {Boolean}critical - critical flag
          *
          * There are use cases for return values:
          *
-         * - {cA:true, pathLen:3} - cA flag is true and pathLen is 3
-         * - {cA:true} - cA flag is true and no pathLen
+         * - {cA:true,pathLen:3,critical:true} - cA flag is true and pathLen is 3
+         * - {cA:true,critical:true} - cA flag is true and no pathLen
          * - {} - basic constraints has no value in case of end entity certificate
-         * - undefined - there is no basic constraints extension
+         * undefined - there is no basic constraints extension
          *
          * @example
          * x = new X509();
          * x.readCertPEM(sCertPEM); // parseExt() will also be called internally.
-         * x.getExtBasicConstraints() → { cA: true, pathLen: 3 };
+         * x.getExtBasicConstraints() &rarr; {cA:true,pathLen:3,critical:true}
          */
-        getExtBasicConstraints(): { cA: boolean; pathLen: number };
+        getExtBasicConstraints(hExtV?: string, critical?: boolean): { cA: boolean; pathLen: number; critical?: boolean; extname?: string };
 
         /**
          * get KeyUsage extension value as binary string in the certificate
@@ -297,35 +338,78 @@ declare namespace jsrsasign {
 
         /**
          * get subjectKeyIdentifier value as hexadecimal string in the certificate
-         * @return hexadecimal string of subject key identifier or null
+         * @return JSON object of SubjectKeyIdentifier parameter or undefined
          * @description
-         * This method will get subject key identifier extension value
-         * as hexadecimal string.
-         * If there is this in the certificate, it returns undefined;
+         * This method will get
+         * {@link https://tools.ietf.org/html/rfc5280#section-4.2.1.2 SubjectKeyIdentifier extension} value as JSON object.
+         *
+         * When hExtV and critical specified as arguments, return value
+         * will be generated from them.
+         * If there is no such extension in the certificate, it returns undefined.
+         *
+         * Result of this method can be passed to
+         * {@link https://kjur.github.io/jsrsasign/api/symbols/KJUR.asn1.x509.SubjectKeyIdentifier.html KJUR.asn1.x509.SubjectKeyIdentifier} constructor.
+         * <pre>
+         * id-ce-subjectKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 14 }
+         * SubjectKeyIdentifier ::= KeyIdentifier
+         * </pre>
+         *
+         * CAUTION:
+         * Returned JSON value format has been changed without
+         * backward compatibility since jsrsasign 9.0.0 x509 2.0.0.
+         *
          * @example
          * x = new X509();
          * x.readCertPEM(sCertPEM); // parseExt() will also be called internally.
-         * x.getExtSubjectKeyIdentifier() → "1b3347ab...";
+         * x.getExtSubjectKeyIdentifier() &rarr;
+         * { kid: {hex: "1b3347ab..."}, critical: true };
          */
-        getExtSubjectKeyIdentifier(): string;
+        getExtSubjectKeyIdentifier(hExtV?: string, critical?: boolean): { extname: string; kid: Hex ; critical?: boolean };
 
         /**
          * get authorityKeyIdentifier value as JSON object in the certificate
-         * @return JSON object of authority key identifier or null
+         * @param hExtV hexadecimal string of extension value (OPTIONAL)
+         * @param critical flag (OPTIONAL)
+         * @return JSON object of AuthorityKeyIdentifier parameter or undefined
          * @description
-         * This method will get authority key identifier extension value
-         * as JSON object.
-         * If there is this in the certificate, it returns undefined;
+         * This method will get
+         * {@link getExtAuthorityKeyIdentifier https://tools.ietf.org/html/rfc5280#section-4.2.1.1}
+         * value as JSON object.
          *
-         * NOTE: Currently this method only supports keyIdentifier so that
-         * authorityCertIssuer and authorityCertSerialNumber will not
-         * be return in the JSON object.
+         * When hExtV and critical specified as arguments, return value
+         * will be generated from them.
+         * If there is no such extension in the certificate, it returns undefined.
+         *
+         * Result of this method can be passed to
+         * {@link KJUR.asn1.x509.AuthorityKeyIdentifier} constructor.
+         *
+         *    id-ce-authorityKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 35 }
+         *    AuthorityKeyIdentifier ::= SEQUENCE {
+         *       keyIdentifier             [0] KeyIdentifier           OPTIONAL,
+         *       authorityCertIssuer       [1] GeneralNames            OPTIONAL,
+         *       authorityCertSerialNumber [2] CertificateSerialNumber OPTIONAL  }
+         *    KeyIdentifier ::= OCTET STRING
+         *
+         * Constructor may have following parameters:
+         *
+         * - {Array}kid - JSON object of {@link KJUR.asn1.DEROctetString} parameters
+         * - {Array}issuer - JSON object of {@link KJUR.asn1.x509.X500Name} parameters
+         * - {Array}sn - JSON object of {@link KJUR.asn1.DERInteger} parameters
+         * - {Boolean}critical - critical flag
+         *
+         *
+         * NOTE: The 'authorityCertIssuer' and 'authorityCertSerialNumber'
+         * supported since jsrsasign 9.0.0 x509 2.0.0.
          * @example
          * x = new X509();
-         * x.readCertPEM(sCertPEM); // parseExt() will also be called internally.
-         * x.getExtAuthorityKeyIdentifier() → { kid: "1234abcd..." }
+         * x.readCertPEM(sCertPEM);
+         * x.getExtAuthorityKeyIdentifier() &rarr;
+         * { kid: {hex: "1234abcd..."},
+         *   issuer: {hex: "30..."},
+         *   sn: {hex: "1234..."},
+         *   critical: true}
          */
-        getExtAuthorityKeyIdentifier(): { kid: string } | null;
+        getExtAuthorityKeyIdentifier(hExtV?: string, critical?: boolean): AuthorityKeyIdentifierResult;
 
         /**
          * get extKeyUsage value as array of name string in the certificate

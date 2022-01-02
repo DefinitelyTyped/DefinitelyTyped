@@ -92,9 +92,9 @@ declare module 'net' {
         readonly remotePort?: number | undefined;
 
         // Extended base methods
-        end(cb?: () => void): void;
-        end(buffer: Uint8Array | string, cb?: () => void): void;
-        end(str: Uint8Array | string, encoding?: BufferEncoding, cb?: () => void): void;
+        end(cb?: () => void): this;
+        end(buffer: Uint8Array | string, cb?: () => void): this;
+        end(str: Uint8Array | string, encoding?: BufferEncoding, cb?: () => void): this;
 
         /**
          * events.EventEmitter
@@ -290,4 +290,7 @@ declare module 'net' {
     function isIP(input: string): number;
     function isIPv4(input: string): boolean;
     function isIPv6(input: string): boolean;
+}
+declare module 'node:net' {
+    export * from 'net';
 }

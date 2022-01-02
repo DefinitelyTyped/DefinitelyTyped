@@ -277,6 +277,7 @@ import { URL } from 'node:url';
         let socket: Socket | TLSSocket = request.socket;
         let stream: ServerHttp2Stream = request.stream;
         const url: string = request.url;
+        request.url = "new url";
 
         request.setTimeout(0, () => {});
         request.on('aborted', (hadError: boolean, code: number) => {});
@@ -309,7 +310,7 @@ import { URL } from 'node:url';
         response.createPushResponse(outgoingHeaders, (err: Error | null, res: Http2ServerResponse) => {});
 
         response.writeContinue();
-        response.writeHead(200).end();
+        response.writeHead(200).end().end();
         response.writeHead(200, outgoingHeaders);
         response.writeHead(200, 'OK', outgoingHeaders);
         response.writeHead(200, 'OK');
@@ -321,14 +322,14 @@ import { URL } from 'node:url';
         response.write(Buffer.from([]), (err: Error) => {});
         response.write(Buffer.from([]), 'utf8');
         response.write(Buffer.from([]), 'utf8', (err: Error) => {});
-        response.end();
-        response.end(() => {});
-        response.end('');
-        response.end('', () => {});
-        response.end('', 'utf8');
-        response.end('', 'utf8', () => {});
-        response.end(Buffer.from([]));
-        response.end(Buffer.from([]), () => {});
+        response.end()
+            .end(() => {})
+            .end('')
+            .end('', () => {})
+            .end('', 'utf8')
+            .end('', 'utf8', () => {})
+            .end(Buffer.from([]))
+            .end(Buffer.from([]), () => {});
         const writable: boolean = response.writable;
 
         request.on('aborted', (hadError: boolean, code: number) => {});

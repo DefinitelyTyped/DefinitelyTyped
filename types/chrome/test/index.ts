@@ -303,6 +303,16 @@ function proxySettings() {
     chrome.proxy.settings.clear({ scope: 'regular' });
 }
 
+function testNotificationCreation() {
+    chrome.notifications.create("id", {}); // $ExpectError
+    chrome.notifications.create("id", { message: "", type: "", title: "", }); // $ExpectError
+    chrome.notifications.create("id", { iconUrl: "", type: "", title: "", }); // $ExpectError
+    chrome.notifications.create("id", { iconUrl: "", message: "", title: "", }); // $ExpectError
+    chrome.notifications.create("id", { iconUrl: "", message: "", type: "", }); // $ExpectError
+    chrome.notifications.create("id", { iconUrl: "", message: "", type: "", title: "", }); // $ExpectError
+    chrome.notifications.create("id", { iconUrl: "", message: "", type: "basic", title: "", });
+}
+
 // https://developer.chrome.com/extensions/examples/api/contentSettings/popup.js
 function contentSettings() {
     var incognito;
@@ -629,6 +639,22 @@ function testDeclarativeContent() {
     };
 }
 
+// https://developer.chrome.com/docs/extensions/reference/windows
+function testWindows() {
+    chrome.windows.onCreated.addListener(function (window) {
+        var windowResult: chrome.windows.Window = window;
+    }, { windowTypes: ['normal'] });
+    chrome.windows.onRemoved.addListener(function (windowId) {
+        var windowIdResult: number = windowId;
+    }, { windowTypes: ['normal'] });
+    chrome.windows.onBoundsChanged.addListener(function (window) {
+        var windowResult: chrome.windows.Window = window;
+    }, { windowTypes: ['normal'] });
+    chrome.windows.onFocusChanged.addListener(function (windowId) {
+        var windowIdResult: number = windowId;
+    }, { windowTypes: ['normal'] });
+}
+
 // https://developer.chrome.com/extensions/storage#type-StorageArea
 function testStorage() {
     function getCallback(loadedData: { [key: string]: any }) {
@@ -683,6 +709,15 @@ function testTtsVoice() {
         }),
     );
 }
+
+chrome.runtime.onInstalled.addListener((details) => {
+    details; // $ExpectType InstalledDetails
+    details.reason; // $ExpectType OnInstalledReason
+    details.previousVersion; // $ExpectType string | undefined
+    details.id; // $ExpectType string | undefined
+
+    details.reason = 'not-real-reason'; // $ExpectError
+})
 
 chrome.devtools.network.onRequestFinished.addListener((request: chrome.devtools.network.Request) => {
     request; // $ExpectType Request
@@ -814,6 +849,7 @@ function testSetBrowserBadgeText() {
     chrome.browserAction.setBadgeText({});
     chrome.browserAction.setBadgeText({text: "test"});
     chrome.browserAction.setBadgeText({text: null});
+    chrome.browserAction.setBadgeText({text: undefined});
     chrome.browserAction.setBadgeText({tabId: 123});
     chrome.browserAction.setBadgeText({text: "test", tabId: 123});
     chrome.browserAction.setBadgeText({}, () => {});
@@ -913,6 +949,8 @@ async function testScriptingForPromise() {
     await chrome.scripting.executeScript({ target: { tabId: 0 }, func: () => {}, args: [] });
     await chrome.scripting.executeScript({ target: { tabId: 0 }, func: (str: string) => {}, args: [''] });
     await chrome.scripting.executeScript({ target: { tabId: 0 }, func: (str: string, n: number) => {}, args: ['', 0] });
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, world: 'ISOLATED', func: () => {} });
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, world: 'not-real-world', func: () => {} }); // $ExpectError
     await chrome.scripting.executeScript({ target: { tabId: 0 }, func: (str: string, n: number) => {}, args: [0, ''] }); // $ExpectError
     await chrome.scripting.executeScript({ target: { tabId: 0 }, func: (str: string) => {}, args: [0] }); // $ExpectError
     await chrome.scripting.executeScript({ target: { tabId: 0 }, func: () => {}, args: [''] }); // $ExpectError
@@ -1032,6 +1070,20 @@ async function testDeclarativeNetRequestForPromise() {
     await chrome.declarativeNetRequest.updateSessionRules({});
 }
 
+async function testDynamicRules() {
+    await chrome.declarativeNetRequest.updateDynamicRules({});
+    await chrome.declarativeNetRequest.updateDynamicRules({
+      addRules: [{
+        action: {
+          type: chrome.declarativeNetRequest.RuleActionType.ALLOW,
+        },
+        condition: {},
+        id: 2,
+        priority: 3,
+      }],
+    });
+}
+
 // https://developer.chrome.com/docs/extensions/reference/storage
 function testStorageForPromise() {
     chrome.storage.sync.getBytesInUse().then(() => {});
@@ -1100,7 +1152,7 @@ function testExtensionSendRequest() {
 }
 
 function testContextMenusCreate() {
-    chrome.contextMenus.create({
+    const creationOptions: chrome.contextMenus.CreateProperties = {
         id: 'dummy-id',
         documentUrlPatterns: ['https://*/*'],
         checked: false,
@@ -1112,7 +1164,11 @@ function testContextMenusCreate() {
         parentId: 1,
         type: 'normal',
         visible: true
-    }, () => console.log('created'));
+    };
+    chrome.contextMenus.create(creationOptions, () => console.log('created')); // $ExpectType string | number
+    chrome.contextMenus.create({ ...creationOptions, contexts: ['action', 'page_action'] }); // $ExpectType string | number
+    chrome.contextMenus.create({ ...creationOptions, contexts: 'page_action' }); // $ExpectType string | number
+    chrome.contextMenus.create({ ...creationOptions, contexts: ['wrong'] }); // $ExpectError
 }
 
 function testContextMenusRemove() {

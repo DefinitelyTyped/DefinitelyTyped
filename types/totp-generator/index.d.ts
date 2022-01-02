@@ -11,6 +11,7 @@ interface TotpOptions {
      */
     algorithm?: string | undefined;
     digits?: number | undefined;
+    timestamp?: number | undefined;
 }
 
 declare function getToken(key: string, options?: TotpOptions): number;

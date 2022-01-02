@@ -407,3 +407,7 @@ declare module 'process' {
 
     export = process;
 }
+declare module 'node:process' {
+    import process = require('process');
+    export = process;
+}

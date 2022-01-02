@@ -2268,3 +2268,6 @@ declare module 'fs' {
         bigint?: boolean | undefined;
     }
 }
+declare module 'node:fs' {
+    export * from 'fs';
+}

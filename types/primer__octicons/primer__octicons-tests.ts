@@ -6,3 +6,6 @@ octicons.alert.toSVG();
 
 // $ExpectError
 const name: IconName = 'foo';
+
+// $ExpectError
+octicons.alert.heights[48];

@@ -1,7 +1,6 @@
 // Type definitions for @adobe/node-fetch-retry 1.0
 // Project: https://github.com/adobe/node-fetch-retry#readme
 // Definitions by: Ricardo Souza <https://github.com/ricardoatsouza>
-//                 Joachim Roeleveld <https://github.com/joachimroeleveld>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { Request, RequestInit, Response } from 'node-fetch';

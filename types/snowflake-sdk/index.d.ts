@@ -440,8 +440,21 @@ export type Connection = NodeJS.EventEmitter & {
 
     /**
      * Establishes a connection if not in a fatal state.
+     *
+     * If you set the authenticator option to `EXTERNALBROWSER` (in order to use browser-based SSO) or
+     * `https://<okta_account_name>.okta.com` (in order to use native SSO through Okta), call the {@link connectAsync}
+     * method.
      */
     connect(fn: (err: SnowflakeError | undefined, conn: Connection) => void): void;
+
+    /**
+     * Establishes a connection if not in a fatal state.
+     *
+     * If you do not set the authenticator option to `EXTERNALBROWSER` (in order to use browser-based SSO) or
+     * `https://<okta_account_name>.okta.com` (in order to use native SSO through Okta), call the {@link connect}
+     * method.
+     */
+    connectAsync(fn: (err: SnowflakeError | undefined, conn: Connection) => void): void;
 
     /**
      * ### Related Docs

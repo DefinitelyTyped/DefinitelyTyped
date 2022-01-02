@@ -84,6 +84,12 @@ signature.name();
 signature.email();
 signature.when();
 
+Git.Signature.default(repo).then(defaultSigniture => {
+    defaultSigniture.name();
+    defaultSigniture.email();
+    defaultSigniture.when();
+});
+
 repo.createBlobFromBuffer(Buffer.from('test')).then((oid: Git.Oid) => oid.cpy());
 repo.commondir();
 
@@ -147,4 +153,14 @@ revwalk.fastWalk(100).then(oids => {
 Git.Remote.create(repo, 'test-repository', 'https://github.com/test-repository/test-repository').then((remote) => {
     remote.connect(Git.Enums.DIRECTION.FETCH, {});
     remote.defaultBranch(); // $ExpectType Promise<string>
+});
+
+Git.Worktree.list(repo).then(list => {
+    const mainWorkTreeName = list[0];
+    mainWorkTreeName; // $ExpectType string
+});
+
+Git.Worktree.openFromRepository(repo).then(worktree => {
+    worktree.name(); // $ExpectType string
+    worktree.path(); // $ExpectType string
 });

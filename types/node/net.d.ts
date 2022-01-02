@@ -10,7 +10,7 @@
  * ```js
  * const net = require('net');
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/net.js)
+ * @see [source](https://github.com/nodejs/node/blob/v17.0.0/lib/net.js)
  */
 declare module 'net' {
     import * as stream from 'node:stream';
@@ -287,9 +287,9 @@ declare module 'net' {
          * @param callback Optional callback for when the socket is finished.
          * @return The socket itself.
          */
-        end(callback?: () => void): void;
-        end(buffer: Uint8Array | string, callback?: () => void): void;
-        end(str: Uint8Array | string, encoding?: BufferEncoding, callback?: () => void): void;
+        end(callback?: () => void): this;
+        end(buffer: Uint8Array | string, callback?: () => void): this;
+        end(str: Uint8Array | string, encoding?: BufferEncoding, callback?: () => void): this;
         /**
          * events.EventEmitter
          *   1. close
@@ -560,12 +560,12 @@ declare module 'net' {
      * The `BlockList` object can be used with some network APIs to specify rules for
      * disabling inbound or outbound access to specific IP addresses, IP ranges, or
      * IP subnets.
-     * @since v15.0.0
+     * @since v15.0.0, v14.18.0
      */
     class BlockList {
         /**
          * Adds a rule to block the given IP address.
-         * @since v15.0.0
+         * @since v15.0.0, v14.18.0
          * @param address An IPv4 or IPv6 address.
          * @param [type='ipv4'] Either `'ipv4'` or `'ipv6'`.
          */
@@ -573,7 +573,7 @@ declare module 'net' {
         addAddress(address: SocketAddress): void;
         /**
          * Adds a rule to block a range of IP addresses from `start` (inclusive) to`end` (inclusive).
-         * @since v15.0.0
+         * @since v15.0.0, v14.18.0
          * @param start The starting IPv4 or IPv6 address in the range.
          * @param end The ending IPv4 or IPv6 address in the range.
          * @param [type='ipv4'] Either `'ipv4'` or `'ipv6'`.
@@ -582,7 +582,7 @@ declare module 'net' {
         addRange(start: SocketAddress, end: SocketAddress): void;
         /**
          * Adds a rule to block a range of IP addresses specified as a subnet mask.
-         * @since v15.0.0
+         * @since v15.0.0, v14.18.0
          * @param net The network IPv4 or IPv6 address.
          * @param prefix The number of CIDR prefix bits. For IPv4, this must be a value between `0` and `32`. For IPv6, this must be between `0` and `128`.
          * @param [type='ipv4'] Either `'ipv4'` or `'ipv6'`.
@@ -606,7 +606,7 @@ declare module 'net' {
          * console.log(blockList.check('::ffff:7b7b:7b7b', 'ipv6')); // Prints: true
          * console.log(blockList.check('::ffff:123.123.123.123', 'ipv6')); // Prints: true
          * ```
-         * @since v15.0.0
+         * @since v15.0.0, v14.18.0
          * @param address The IP address to check
          * @param [type='ipv4'] Either `'ipv4'` or `'ipv6'`.
          */
@@ -754,26 +754,26 @@ declare module 'net' {
         port?: number | undefined;
     }
     /**
-     * @since v15.14.0
+     * @since v15.14.0, v14.18.0
      */
     class SocketAddress {
         constructor(options: SocketAddressInitOptions);
         /**
          * Either \`'ipv4'\` or \`'ipv6'\`.
-         * @since v15.14.0
+         * @since v15.14.0, v14.18.0
          */
         readonly address: string;
         /**
          * Either \`'ipv4'\` or \`'ipv6'\`.
-         * @since v15.14.0
+         * @since v15.14.0, v14.18.0
          */
         readonly family: IPVersion;
         /**
-         * @since v15.14.0
+         * @since v15.14.0, v14.18.0
          */
         readonly port: number;
         /**
-         * @since v15.14.0
+         * @since v15.14.0, v14.18.0
          */
         readonly flowlabel: number;
     }

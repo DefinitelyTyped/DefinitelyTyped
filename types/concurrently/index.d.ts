@@ -1,4 +1,4 @@
-// Type definitions for concurrently 6.3
+// Type definitions for concurrently 6.4
 // Project: https://github.com/open-cli-tools/concurrently#readme
 // Definitions by: Michael B. <https://github.com/Blasz>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
@@ -39,6 +39,8 @@ declare namespace concurrently {
         cwd?: string | undefined;
         /** the default input target when reading from `inputStream`. Default: `0`. */
         defaultInputTarget?: number | undefined;
+        /** Indices or names of commands whose output should not be logged */
+        hide?: Array<string | number> | undefined;
         /** a Readable stream to read the input from, eg `process.stdin` */
         inputStream?: NodeJS.ReadableStream | undefined;
         /** an array of exiting conditions that will cause a process to kill others. Can contain any of success or failure. */

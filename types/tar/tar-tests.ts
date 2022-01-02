@@ -73,3 +73,7 @@ tar.t({
 fs.createReadStream('my-tarball.tgz')
     .pipe(tar.t())
     .on('entry', entry => console.log(entry.size));
+
+fs.createReadStream('my-tarball.tgz')
+    .pipe(new tar.Parse())
+    .on('entry', entry => entry.on('data', data => console.log(data)));

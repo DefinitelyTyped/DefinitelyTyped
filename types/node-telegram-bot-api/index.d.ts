@@ -7,7 +7,6 @@
 //                 XC-Zhang <https://github.com/XC-Zhang>
 //                 AdityaThebe <https://github.com/adityathebe>
 //                 Michael Orlov <https://github.com/MiklerGM>
-//                 Alexander Ariutin <https://github.com/ariutin>
 //                 XieJiSS <https://github.com/XieJiSS>
 //                 Toniop <https://github.com/toniop99>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

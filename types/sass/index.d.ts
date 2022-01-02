@@ -155,10 +155,10 @@ export interface Options {
 
 export interface Logger {
     /** This method is called when Sass emits a debug message due to a @debug rule. */
-    debug?(message: string, options: { deprecation: boolean; span?: SourceSpan; stack?: string }): void;
+    debug?(message: string, options: { span?: SourceSpan }): void;
 
     /** This method is called when Sass emits a debug message due to a @warn rule. */
-    warn?(message: string, options: { span: SourceSpan }): void;
+    warn?(message: string, options: { deprecation: boolean; span?: SourceSpan; stack?: string }): void;
 }
 
 /**

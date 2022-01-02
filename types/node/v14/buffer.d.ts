@@ -20,3 +20,6 @@ declare module 'buffer' {
 
     export { BuffType as Buffer };
 }
+declare module 'node:buffer' {
+    export * from 'buffer';
+}
