@@ -3,8 +3,6 @@
 // Definitions by: Tadeusz Wyrzykowski <https://github.com/Shaquu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="node" />
-
 import Thing = require('./thing');
 
 export { Thing };
