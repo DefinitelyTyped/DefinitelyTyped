@@ -1,5 +1,5 @@
 // Type definitions for @lerna/package 4.0
-// Project: https://github.com/lerna/lerna/tree/main/core/package (Does not have to be to GitHub, but prefer linking to a source code repository rather than to a project website.)
+// Project: https://github.com/lerna/lerna/tree/main/core/package
 // Definitions by: DonMahallem <https://github.com/donmahallem>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
