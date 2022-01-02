@@ -24,7 +24,7 @@ export class Project {
     /**
      * @param cwd defaults to process.cwd()
      */
-    static getPackges(cwd?: string): Promise<Package[]>;
+    static getPackages(cwd?: string): Promise<Package[]>;
     /**
      * @param cwd defaults to process.cwd()
      */
