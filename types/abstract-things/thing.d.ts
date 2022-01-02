@@ -6,7 +6,6 @@ export interface EmitEventOptions {
 
 export class Thing {
     constructor(...args: any);
-    new(...input: any[]): any;
 
     get id(): string | null;
     set id(identifier: string | null);
