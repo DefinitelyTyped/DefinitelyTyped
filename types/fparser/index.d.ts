@@ -4,6 +4,8 @@
 //                 andrew0687 <https://github.com/andrew0687>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference path="./fparser.d.ts"/>
+import Formula from './src/fparser';
 
-export default FormulaC;
+export = Formula;
+
+export as namespace Formula;

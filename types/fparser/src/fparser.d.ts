@@ -1,4 +1,4 @@
-declare class FormulaC {
+export default class Formula {
     constructor(fStr: string, options?: { memoization?: boolean; });
 
     setFormula(formulaString: string): this;
@@ -39,5 +39,3 @@ declare class FormulaC {
 
     static calc(formula: string, valueObj: object | object[], options?: { memoization?: boolean; }): any;
 }
-
-declare const Formula: typeof FormulaC;
