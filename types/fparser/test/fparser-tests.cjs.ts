@@ -1,5 +1,4 @@
-// @ts-ignore
-const Formula = require('fparser');
+import Formula = require('fparser');
 
 const fObj = new Formula('x*2');
 fObj.getVariables();
