@@ -1,5 +1,5 @@
 // Type definitions for @lerna/project 4.0
-// Project: https://github.com/lerna/lerna/tree/main/core/project (Does not have to be to GitHub, but prefer linking to a source code repository rather than to a project website.)
+// Project: https://github.com/lerna/lerna/tree/main/core/project
 // Definitions by: DonMahallem <https://github.com/donmahallem>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
