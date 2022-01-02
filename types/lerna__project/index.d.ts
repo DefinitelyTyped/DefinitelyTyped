@@ -28,7 +28,7 @@ export class Project {
     /**
      * @param cwd defaults to process.cwd()
      */
-    static getPackgesSync(cwd?: string): Package[];
+    static getPackagesSync(cwd?: string): Package[];
 
     constructor(cwd?: string);
     get version(): string;
