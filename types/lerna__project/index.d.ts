@@ -45,5 +45,5 @@ export class Project {
     rootConfigLocation: string;
     config: ProjectConfig;
 }
-export function getPackages(cwd?: string): Promise<Package[]>;
-export function getPackagesSync(cwd?: string): Package[];
+export const getPackages: typeof Project.getPackages;
+export const getPackagesSync: typeof Project.getPackagesSync;
