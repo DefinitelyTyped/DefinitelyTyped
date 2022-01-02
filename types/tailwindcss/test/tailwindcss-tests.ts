@@ -2609,7 +2609,7 @@ tailwindConfig.prefix = 'tw-';
 // @ts-expect-error value should be string
 tailwindConfig.prefix = 1000;
 
-// $ExpectType boolean | undefined
+// $ExpectType string | boolean | undefined
 tailwindConfig.important;
 
 tailwindConfig.important = false;
