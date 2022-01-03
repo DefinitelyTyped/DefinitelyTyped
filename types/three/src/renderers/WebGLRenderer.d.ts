@@ -454,11 +454,6 @@ export class WebGLRenderer implements Renderer {
     resetState(): void;
 
     /**
-     * @deprecated
-     */
-    gammaFactor: number;
-
-    /**
      * @deprecated Use {@link WebGLRenderer#xr .xr} instead.
      */
     vr: boolean;

@@ -13,4 +13,6 @@ export class Reflector extends Mesh {
     constructor(geometry?: BufferGeometry, options?: ReflectorOptions);
 
     getRenderTarget(): WebGLRenderTarget;
+
+    dispose(): void;
 }

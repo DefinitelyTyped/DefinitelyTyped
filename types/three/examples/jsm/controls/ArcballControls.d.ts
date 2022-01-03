@@ -152,8 +152,6 @@ export class ArcballControls extends EventDispatcher {
 
     unsetMouseAction(mouse: ArcballControlsMouseActionMouse, key?: ArcballControlsMouseActionKeys): boolean;
 
-    setTarget(x: number, y: number, z: number): void;
-
     update(): void;
 
     dispose(): void;
