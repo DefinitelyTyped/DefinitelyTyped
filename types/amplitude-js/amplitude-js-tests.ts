@@ -232,4 +232,3 @@ amplitude.getInstance().init('API_KEY', 'USER_ID', {transport: 'beacon'});
 
 // set transport to 'beacon' after initialization
 amplitude.getInstance().setTransport('beacon');
-
