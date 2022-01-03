@@ -45,8 +45,9 @@ export interface File {
 export interface Document {
   CSS: string;
   coverImage: string;
+  document: this;
   filesForTOC: string[];
-  generateContentsCallback: GenerateContentsCallback;
+  generateContentsCallback?: GenerateContentsCallback;
   images: string[];
   metadata: Metadata;
   sections: string[];
