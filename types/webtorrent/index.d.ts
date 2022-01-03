@@ -91,6 +91,8 @@ declare namespace WebTorrent {
 
         readonly announce: string[];
 
+        readonly ['announce-list']: string[][];
+
         readonly pieces: Array<TorrentPiece | null>;
 
         readonly timeRemaining: number;
