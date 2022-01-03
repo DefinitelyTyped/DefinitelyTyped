@@ -33,6 +33,7 @@ export class Package {
      */
     static lazy(ref: string | Package | RawManifest, dir?: string): Package;
     constructor(pkg: RawManifest, location: string, rootPath?: string);
+    name: string;
     get location(): string;
     get private(): boolean;
     get resolved(): ResolveResult;
@@ -56,7 +57,7 @@ export class Package {
     /**
      * Provide shallow copy for munging elsewhere
      */
-    toJson(): object;
+    toJson(): RawManifest;
 
     /**
      * Refresh internal state from disk (e.g., changed by external lifecycles)
