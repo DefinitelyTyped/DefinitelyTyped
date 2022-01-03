@@ -292,14 +292,6 @@ declare class SteamCommunity {
     on(event: 'chatLogOnFailed', listener: SteamCommunity.Events.chatLogOnFailed): this;
 
     /**
-     * Emitted in response to a call to {@link SteamCommunity.chatLogon|chatLogon()} when we successfully logged on.
-     *
-     * @param event "chatLoggedOn"
-     * @param listener Emitted in response to a call to {@link SteamCommunity.chatLogon|chatLogon()} when we successfully logged on.
-     */
-    on(event: 'chatLoggedOn', listener: () => void): this;
-
-    /**
      * Emitted when we receive new persona state data for a friend.
      *
      * @param event "chatPersonaState"
@@ -324,12 +316,12 @@ declare class SteamCommunity {
     on(event: 'chatTyping', listener: SteamCommunity.Events.chatTyping): this;
 
     /**
-     * Emitted in response to a {@link SteamCommunity.chatLogoff|chatLogoff()} call when we successfully logged off.
+     * Emitted in response to a {@link SteamCommunity.chatLogoff|chatLogoff()} or {@link SteamCommunity.chatLogon|chatLogon()} call respectively when we successfully logged off/on.
      *
-     * @param event "chatLoggedOff"
-     * @param listener Emitted in response to a {@link SteamCommunity.chatLogoff|chatLogoff()} call when we successfully logged off.
+     * @param event "chatLoggedOff" | "chatLoggenOn"
+     * @param listener Emitted in response to a {@link SteamCommunity.chatLogoff|chatLogoff()} or {@link SteamCommunity.chatLogon|chatLogon()} call respectively when we successfully logged off/on.
      */
-    on(event: 'chatLoggedOff', listener: () => void): this;
+    on(event: 'chatLoggedOff' | 'chatLoggedOn', listener: () => void): this;
 
     on(type: 'debug' | string | number, listener: (...args: any[]) => void): this;
 
