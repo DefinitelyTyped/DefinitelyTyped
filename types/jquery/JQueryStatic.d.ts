@@ -1542,8 +1542,11 @@ $( "#log" ).append( "<div><b>settings -- </b>" + JSON.stringify( settings ) + "<
     /**
      * Load data from the server using a HTTP GET request.
      * @param url A string containing the URL to which the request is sent.
-     * @param success A callback function that is executed if the request succeeds. Required if `dataType` is provided,
-     *                but you can use `null` or \`{@link noop jQuery.noop}\` as a placeholder.
+     * @param success_data _&#x40;param_ `success_data`
+     * <br>
+     * * `success` — A callback function that is executed if the request succeeds. Required if `dataType` is provided,
+     *               but you can use `null` or \`{@link noop jQuery.noop}\` as a placeholder. <br>
+     * * `data` — A plain object or string that is sent to the server with the request.
      * @param dataType The type of data expected from the server. Default: Intelligent Guess (xml, json, script, text, html).
      * @see \`{@link https://api.jquery.com/jQuery.get/ }\`
      * @since 1.0
@@ -1557,7 +1560,7 @@ $.get( "test.php", function( data ) {
 ```
      */
     get(url: string,
-        success: JQuery.jqXHR.DoneCallback | null,
+        data_success: JQuery.PlainObject | string | JQuery.jqXHR.DoneCallback | null,
         dataType: string): JQuery.jqXHR;
     /**
      * Load data from the server using a HTTP GET request.
@@ -1611,21 +1614,6 @@ $.get( "test.php" );
 ```
      */
     get(url_settings?: string | JQuery.UrlAjaxSettings): JQuery.jqXHR;
-    /**
-     * Load data from the server using a HTTP GET request.
-     * @param url A string containing the URL to which the request is sent.
-     * @param data A plain object or string that is sent to the server with the request.
-     * @param dataType The type of data expected from the server. Default: Intelligent Guess (xml, json, script, text, html).
-     * @see \`{@link https://api.jquery.com/jQuery.get/ }\`
-     * @since 1.0
-     * @example ​ ````Request the test.php page, send an object with data, receive a json response.
-```javascript
-$.get( "test.php", { name: 'John' }, 'json' );
-```
-     */
-    get(url: string,
-         data: JQuery.PlainObject | string,
-         dataType: string): JQuery.jqXHR;
     /**
      * Load JSON-encoded data from the server using a GET HTTP request.
      * @param url A string containing the URL to which the request is sent.
@@ -2667,14 +2655,17 @@ $.post( "test.php", { func: "getNameAndTime" }, function( data ) {
     /**
      * Load data from the server using a HTTP POST request.
      * @param url A string containing the URL to which the request is sent.
-     * @param success A callback function that is executed if the request succeeds. Required if dataType is provided, but
-     *                can be null in that case.
+     * @param success_data _&#x40;param_ `success_data`
+     * <br>
+     * * `success` — A callback function that is executed if the request succeeds. Required if `dataType` is provided,
+     *               but can be `null` in that case. <br>
+     * * `data` — A plain object or string that is sent to the server with the request.
      * @param dataType The type of data expected from the server. Default: Intelligent Guess (xml, json, script, text, html).
      * @see \`{@link https://api.jquery.com/jQuery.post/ }\`
      * @since 1.0
      */
     post(url: string,
-         success: JQuery.jqXHR.DoneCallback | null,
+         data_success: JQuery.PlainObject | string | JQuery.jqXHR.DoneCallback | null,
          dataType: string): JQuery.jqXHR;
     /**
      * Load data from the server using a HTTP POST request.
@@ -2776,21 +2767,6 @@ $.post( "test.php" );
 ```
      */
     post(url_settings?: string | JQuery.UrlAjaxSettings): JQuery.jqXHR;
-    /**
-     * Load data from the server using a HTTP POST request.
-     * @param url A string containing the URL to which the request is sent.
-     * @param data A plain object or string that is sent to the server with the request.
-     * @param dataType The type of data expected from the server. Default: Intelligent Guess (xml, json, script, text, html).
-     * @see \`{@link https://api.jquery.com/jQuery.post/ }\`
-     * @since 1.0
-     * @example ​ ````Request the test.php page, send an object with data, receive a json response.
-```javascript
-$.post( "test.php", { name: 'John' }, 'json' );
-```
-     */
-    post(url: string,
-         data: JQuery.PlainObject | string,
-         dataType: string): JQuery.jqXHR;
 
     // region proxy
     // #region proxy
