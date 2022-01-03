@@ -12,3 +12,13 @@ declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
         TableProperties: TableProperties;
     }
 }
+
+export interface TablePropertiesOptions {
+    width: string;
+    height: string;
+    backgroundColor: string;
+    borderColor: string;
+    borderWidth: string;
+    borderStyle?: string;
+    alignment?: string;
+}
