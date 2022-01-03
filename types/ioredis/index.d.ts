@@ -1135,6 +1135,7 @@ declare namespace IORedis {
 
         flushdb(callback: Callback<Ok>): void;
         flushdb(): Promise<Ok>;
+        flushdb(option: 'async' | 'sync'): Promise<Ok>;
 
         flushall(callback: Callback<Ok>): void;
         flushall(): Promise<Ok>;
