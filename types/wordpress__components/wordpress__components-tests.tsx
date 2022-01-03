@@ -887,6 +887,8 @@ const kbshortcuts = {
     title="Toolbar Button"
     onClick={() => console.log('clicked')}
 />;
+<C.ToolbarButton icon={ <span>click</span> } label="Paragraph" />;
+<C.ToolbarButton>Text</C.ToolbarButton>;
 
 //
 // tooltip
