@@ -7,12 +7,12 @@ declare namespace jsrsasign.KJUR.asn1.x509 {
         sighex: string;
     }
     interface X509CertificateTBSParamsUnsigned {
-        tbsobj: CertificateTBSParams;
+        tbsobj: TBSCertificate;
         sigalg: string;
         cakey: string | RSAKey | crypto.DSA | crypto.ECDSA;
     }
     interface X509CertificateTBSParamsSigned {
-        tbsobj: CertificateTBSParams;
+        tbsobj: TBSCertificate;
         sighex: string;
     }
     type X509CertificateParams = X509CertificateParamsSigned | X509CertificateParamsUnsigned | X509CertificateTBSParamsSigned | X509CertificateTBSParamsUnsigned;

@@ -58,7 +58,7 @@ const crqi2 = new KJUR.asn1.csr.CertificationRequestInfo();
 crqi2.setByParam(params);
 crqi2.getEncodedHex(); // $ExpectType string
 
-new KJUR.asn1.x509.TBSCertificate({
+const tbscert = new KJUR.asn1.x509.TBSCertificate({
     version: 3, // this can be omitted, the default is 3.
     serial: { hex: "1234..." }, // DERInteger parameter
     sigalg: "SHA256withRSA",
@@ -77,3 +77,4 @@ new KJUR.asn1.x509.TBSCertificate({
         array: [{dpname: {full: [{uri: "http://example.com/a1.crl"}]}}]
     }]
 });
+new KJUR.asn1.x509.Certificate({tbsobj: tbscert, sigalg: "SHA256withRSA", cakey: "------BEGIN..."});
