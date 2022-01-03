@@ -44,7 +44,7 @@ declare namespace MusicKit {
 
     interface AuthStatus {
         NOT_DETERMINED: 0;
-        DENIED : 1;
+        DENIED: 1;
         RESTRICTED: 2;
         AUTHORIZED: 3;
     }
