@@ -1,6 +1,7 @@
-import { Handler } from "../handler";
+import { Handler } from '../handler';
 
-export type SQSHandler = Handler<SQSEvent, void>;
+// tslint:disable-next-line:void-return
+export type SQSHandler = Handler<SQSEvent, SQSBatchResponse | void>;
 
 // SQS
 // https://docs.aws.amazon.com/lambda/latest/dg/invoking-lambda-function.html#supported-event-source-sqs
@@ -43,4 +44,13 @@ export interface SQSMessageAttribute {
 
 export interface SQSMessageAttributes {
     [name: string]: SQSMessageAttribute;
+}
+
+// https://docs.aws.amazon.com/lambda/latest/dg/with-sqs.html#services-sqs-batchfailurereporting
+export interface SQSBatchResponse {
+    batchItemFailures: SQSBatchItemFailure[];
+}
+
+export interface SQSBatchItemFailure {
+    itemIdentifier: string;
 }

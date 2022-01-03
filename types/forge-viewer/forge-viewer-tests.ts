@@ -30,6 +30,7 @@ Autodesk.Viewing.Initializer(options, async () => {
     bufferReaderTest(model);
     callbackTests(viewer);
     cameraTests(viewer);
+    extensionTests(viewer);
     formattingTests();
     fragListTests(model);
     instanceTreeTests(model);
@@ -413,19 +414,6 @@ async function edit2DTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void> 
     const resXor = Autodesk.Edit2D.BooleanOps.apply(rectOne, rectTwo, Autodesk.Edit2D.BooleanOps.Operator.Xor);
 }
 
-async function extensionTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void> {
-    const ext = await viewer.loadExtension('Autodesk.Measure');
-
-    // $ExpectType string
-    ext.getName();
-    const modes = ext.getModes();
-
-    modes.forEach((m) => {
-        // $ExpectType boolean
-        ext.isActive(m);
-    });
-}
-
 function fragListTests(model: Autodesk.Viewing.Model): void {
     const fragId = 1; // hard coded value for testing
     const fragList = model.getFragmentList();
@@ -439,6 +427,14 @@ function fragListTests(model: Autodesk.Viewing.Model): void {
     fragList.getAnimTransform(fragId, s, r, t);
 }
 
+function extensionTests(viewer: Autodesk.Viewing.GuiViewer3D): void {
+    const extensions = viewer.getLoadedExtensions();
+
+    for (const ext in extensions) {
+        console.debug(ext);
+    }
+}
+
 function formattingTests(): void {
     // $ExpectType string
     Autodesk.Viewing.Private.formatValueWithUnits(10, Autodesk.Viewing.Private.ModelUnits.CENTIMETER, 3, 2);
@@ -447,6 +443,14 @@ function formattingTests(): void {
 async function measureTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void> {
     const ext = await viewer.loadExtension('Autodesk.Measure') as Autodesk.Extensions.Measure.MeasureExtension;
 
+    // $ExpectType string
+    ext.getName();
+    const modes = ext.getModes();
+
+    modes.forEach((m) => {
+        // $ExpectType boolean
+        ext.isActive(m);
+    });
     ext.sharedMeasureConfig.units = 'in';
     ext.calibrateByScale('in', 0.0254);
     const m = ext.getMeasurementList();

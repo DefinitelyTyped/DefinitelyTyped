@@ -53,6 +53,12 @@ function useExperimentalHooks() {
     // $ExpectType string
     const pathName = React.unstable_useMutableSource(locationSource, getSnapshot, subscribe);
 
+    React.useInsertionEffect(() => {});
+    React.useInsertionEffect(() => {}, []);
+    React.useInsertionEffect(() => {
+        return () => {};
+    }, [toggle]);
+
     return () => {
         startTransition(() => {
             setToggle(toggle => !toggle);

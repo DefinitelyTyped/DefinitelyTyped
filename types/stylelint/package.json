@@ -1,7 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "globby": "11.x.x",
-        "postcss": "7.x.x"
-    }
-}

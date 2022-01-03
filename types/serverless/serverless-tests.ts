@@ -689,9 +689,15 @@ const awsServerless: Aws.Serverless = {
     },
     resources: {
         Description: 'testStackDescription',
+        Conditions: {
+            TestCondition: {
+                'Fn::Equals': ['testcond', 'testcond']
+            }
+        },
         Resources: {
             testcloudformationresource: {
                 Type: 'testType',
+                Condition: 'TestCondition',
                 Properties: {
                     testpropertykey: 'testpropertyvalue'
                 },

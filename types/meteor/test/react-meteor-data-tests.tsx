@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { withTracker, useTracker } from 'meteor/react-meteor-data';
+import { withTracker, useTracker, useSubscribe, useFind } from 'meteor/react-meteor-data';
 
 interface DemoComponentContainerProps {
     status: string;
@@ -34,3 +34,37 @@ const RootComponent = () => (
         <HooksDemoComponentContainer status="ok" />
     </>
 );
+
+interface Post {
+    _id: string;
+    title: string;
+    groupId: string;
+};
+const Posts = new Mongo.Collection<Post>('posts');
+
+const UseSubscribeComponent = ({ groupId, skip }: { groupId: string, skip: boolean }) => {
+    // Note: isLoading is a function!
+    const isLoading = useSubscribe('posts', groupId);
+    const posts = useFind(() => Posts.find({ groupId }), [groupId]);
+
+    // $ExpectType Post[]
+    posts;
+
+    const optionalPosts = useFind(() => {
+        if (skip) {
+            return null;
+        }
+        return Posts.find({ groupId });
+    }, [skip]);
+
+    // $ExpectType Post[] | null
+    optionalPosts;
+
+    if (isLoading()) {
+        return <div>Loading...</div>
+    } else {
+        return <ul>
+            {posts.map(post => <li key={post._id}>{post.title}</li>)}
+        </ul>
+    }
+}

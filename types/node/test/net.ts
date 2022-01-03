@@ -3,11 +3,13 @@ import { LookupOneOptions } from 'node:dns';
 import { Socket } from 'node:dgram';
 
 {
+    const abort = new AbortController();
     const connectOpts: net.NetConnectOpts = {
         allowHalfOpen: true,
         family: 4,
         host: "localhost",
         port: 443,
+        signal: abort.signal,
         timeout: 10E3
     };
     const socket: net.Socket = net.createConnection(connectOpts, (): void => {
@@ -241,7 +243,7 @@ import { Socket } from 'node:dgram';
 
     bool = _socket.connecting;
     bool = _socket.destroyed;
-    _socket.destroy();
+    _socket.destroy().destroy();
 }
 
 {

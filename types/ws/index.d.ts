@@ -21,7 +21,6 @@ import {
     Server as HTTPServer,
 } from "http";
 import { Server as HTTPSServer } from "https";
-import { Socket } from "net";
 import { Duplex, DuplexOptions } from "stream";
 import { SecureContextOptions } from "tls";
 import { URL } from "url";
@@ -309,7 +308,7 @@ declare namespace WebSocket {
         close(cb?: (err?: Error) => void): void;
         handleUpgrade(
             request: IncomingMessage,
-            socket: Socket,
+            socket: Duplex,
             upgradeHead: Buffer,
             callback: (client: WebSocket, request: IncomingMessage) => void,
         ): void;
