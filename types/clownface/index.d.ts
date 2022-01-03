@@ -57,6 +57,7 @@ declare namespace clownface {
     readonly _context: Array<Context<D, Term>>;
     any(): AnyPointer<AnyContext, D>;
     list(): Iterable<Iteratee<T, D>> | null;
+    isList(): boolean;
     toArray(): Array<AnyPointer<T extends undefined ? never : T extends any[] ? T[0] : T, D>>;
     filter<S extends T>(cb: (ptr: Iteratee<T, D>) => ptr is Predicate<S, any>): AnyPointer<S, D>;
     filter(cb: (ptr: Iteratee<T, D>) => boolean): AnyPointer<T, D>;
