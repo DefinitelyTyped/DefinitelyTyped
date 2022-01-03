@@ -662,6 +662,26 @@ const kbshortcuts = {
         topLeft: false,
     }}
 />;
+<C.ResizableBox
+    showHandle
+    className="testing"
+    size={{
+        height: 100,
+        width: 100,
+    }}
+    minHeight="50"
+    minWidth={50}
+    enable={{
+        top: false,
+        right: true,
+        bottom: true,
+        left: false,
+        topRight: false,
+        bottomRight: true,
+        bottomLeft: false,
+        topLeft: false,
+    }}
+><div>hello</div></C.ResizableBox>;
 
 //
 // responsive-wrapper
