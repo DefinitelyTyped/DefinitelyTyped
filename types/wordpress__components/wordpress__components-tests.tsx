@@ -24,6 +24,9 @@ import { createRef, MouseEvent as ReactMouseEvent } from 'react';
 <C.Animate type="appear" options={{ origin: 'top left' }}>
     {({ className }) => <h1 className={className}>Hello World</h1>}
 </C.Animate>;
+<C.Animate type="loading">
+    {({ className }) => <h1 className={className}>Hello World</h1>}
+</C.Animate>;
 
 //
 // autocomplete
