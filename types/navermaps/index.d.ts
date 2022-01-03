@@ -1,7 +1,8 @@
 // Type definitions for non-npm package Naver Maps JavaScript API 3.0
-// Project: https://navermaps.github.io/maps.js
+// Project: https://navermaps.github.io/maps.js.ncp/
 // Definitions by: Ckboyjiy <https://github.com/ckboyjiy>
 //                 DongKyuuuu <https://github.com/DongKyuuuu>
+//                 Minchul Joh <https://github.com/fclemonschool>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 declare namespace naver.maps {
     /**
@@ -1277,11 +1278,44 @@ declare namespace naver.maps {
                 y: string;
             };
         }
+        interface AddressItemV2 {
+            roadAddress: string;
+            jibunAddress: string;
+            englishAddress: string;
+            addressElements: Array<{
+                code: string;
+                longName: string;
+                shortName: string;
+                types:
+                    | 'SIDO'
+                    | 'SIGUGUN'
+                    | 'RI'
+                    | 'ROAD_NAME'
+                    | 'BUILDING_NUMBER'
+                    | 'BUILDING_NAME'
+                    | 'LAND_NUMBER'
+                    | 'POSTAL_CODE';
+            }>;
+            x: string;
+            y: string;
+            distance: string;
+        }
+        interface Meta {
+            totalCount: number;
+            page: number;
+            count: number;
+        }
         interface GeocodeResponse {
             result: {
                 userquery: any;
                 total: number;
                 items: AddressItem[];
+            };
+            v2: {
+                status: GeocodeStatus;
+                meta: Meta;
+                addresses: AddressItemV2[];
+                errorMessage: string;
             };
         }
         interface ReverseGeocodeResponse {
@@ -1290,6 +1324,11 @@ declare namespace naver.maps {
                 total: number;
                 items: AddressItem[];
             };
+        }
+        enum GeocodeStatus {
+            OK,
+            INVALID_REQUEST,
+            SYSTEM_ERROR,
         }
         enum CoordType {
             LATLNG,
