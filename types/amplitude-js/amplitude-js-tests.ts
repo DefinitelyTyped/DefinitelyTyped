@@ -238,4 +238,3 @@ if (deviceId) {
 
 const domain = amplitude.getInstance().cookieStorage.options().domain;
 amplitude.getInstance().cookieStorage.options({ domain });
-
