@@ -338,7 +338,7 @@ declare namespace SpotifyApi {
      * GET /v1/browse/categories/{id}/playlists
      * https://developer.spotify.com/web-api/get-categorys-playlists/
      */
-    interface CategoryPlaylistsReponse {
+    interface CategoryPlaylistsResponse {
         playlists: PagingObject<PlaylistObjectSimplified>;
     }
 
@@ -390,7 +390,7 @@ declare namespace SpotifyApi {
      * PUT /v1/users/{owner_id}/playlists/{playlist_id}/followers
      * https://developer.spotify.com/web-api/follow-playlist/
      */
-    interface FollowPlaylistReponse extends VoidResponse {}
+    interface FollowPlaylistResponse extends VoidResponse {}
 
     /**
      * Unfollow a Playlist
@@ -398,7 +398,7 @@ declare namespace SpotifyApi {
      * DELETE /v1/users/{owner_id}/playlists/{playlist_id}/followers
      * https://developer.spotify.com/web-api/unfollow-playlist/
      */
-    interface UnfollowPlaylistReponse extends VoidResponse {}
+    interface UnfollowPlaylistResponse extends VoidResponse {}
 
     /**
      * Save tracks for user
@@ -714,7 +714,7 @@ declare namespace SpotifyApi {
      * PUT /v1/users/{user_id}/playlists/{playlist_id}
      * https://developer.spotify.com/web-api/change-playlist-details/
      */
-    interface ChangePlaylistDetailsReponse extends VoidResponse {}
+    interface ChangePlaylistDetailsResponse extends VoidResponse {}
 
     /**
      * Add Tracks to a Playlist
@@ -754,7 +754,7 @@ declare namespace SpotifyApi {
      * PUT /v1/users/{user_id}/playlists/{playlist_id}/images
      * https://developer.spotify.com/web-api/upload-a-custom-playlist-cover-image/
      */
-    interface UploadCustomPlaylistCoverImageReponse extends VoidResponse {}
+    interface UploadCustomPlaylistCoverImageResponse extends VoidResponse {}
 
     /**
      * Check if Users Follow a Playlist
@@ -762,7 +762,7 @@ declare namespace SpotifyApi {
      * GET /v1/users/{user_id}/playlists/{playlist_id}/followers/contains
      * https://developer.spotify.com/web-api/check-user-following-playlist/
      */
-    interface UsersFollowPlaylistReponse extends Array<boolean> {}
+    interface UsersFollowPlaylistResponse extends Array<boolean> {}
 
     interface UserDevicesResponse {
         devices: UserDevice[];
