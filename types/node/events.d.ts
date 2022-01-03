@@ -32,7 +32,7 @@
  * });
  * myEmitter.emit('event');
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/events.js)
+ * @see [source](https://github.com/nodejs/node/blob/v17.0.0/lib/events.js)
  */
 declare module 'events' {
     interface EventEmitterOptions {
@@ -257,7 +257,7 @@ declare module 'events' {
          *   getEventListeners(et, 'foo'); // [listener]
          * }
          * ```
-         * @since v15.2.0
+         * @since v15.2.0, v14.17.0
          */
         static getEventListeners(emitter: DOMEventTarget | NodeJS.EventEmitter, name: string | symbol): Function[];
         /**

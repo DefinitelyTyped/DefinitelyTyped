@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "dependencies": {
+        "@types/webpack-dev-middleware": "3"
+    }
+}

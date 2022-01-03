@@ -7,7 +7,6 @@
 //                 Johan Davidsson <https://github.com/johandavidson>
 //                 Jianrong Yu <https://github.com/YuJianrong>
 //                 GP <https://github.com/paambaati>
-//                 tomotetra <https://github.com/tomotetra>
 //                 Dariusz Syncerek <https://github.com/dsyncerek>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 //                 Pirasis Leelatanon <https://github.com/1pete>

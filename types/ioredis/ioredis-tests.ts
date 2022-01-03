@@ -26,6 +26,7 @@ redis.getrangeBuffer("foo", 0, 1).then(b => cb(null, b));
 redis.del('foo', 'bar').then(result => result * 1);
 
 // Test OverloadedListCommand
+redis.del('foo').then(result => result * 1);
 redis.del(['foo', 'bar']).then(result => result * 1);
 redis.del('foo', 'bar', cbNumber);
 redis.del(['foo', 'bar'], cbNumber);
@@ -87,6 +88,11 @@ redis.rpush('lposlist', 'foo', 'bar', 'baz');
 redis.lpos('lposlist', 'foo').then(console.log);
 redis.lpos('lposlist', 'baz', 0, 1, 3).then(console.log);
 
+redis.lmove('source', 'destination', 'LEFT', 'RIGHT').then(console.log);
+redis.lmove('source', 'destination', 'RIGHT', 'LEFT', cb);
+redis.blmove('source', 'destination', 'LEFT', 'RIGHT', 0).then(console.log);
+redis.blmove('source', 'destination', 'RIGHT', 'LEFT', 0, cb);
+
 // Test OverloadedKeyCommand
 redis.hdel('foo', 'bar').then(console.log);
 redis.hdel('foo', 'bar', cbNumber);
@@ -136,6 +142,10 @@ redis.zadd('myset', 'NX', 'CH', 'INCR', 1, 'member').then(console.log);
 redis.zadd('myset', 'NX', 'CH', 'INCR', 1, 'member', cb);
 redis.zscore('myset', 'member').then(console.log);
 redis.zscore('myset', 'member', cb);
+redis.zmscore('myset', 'member').then(console.log);
+redis.zmscore('myset', 'member', cb);
+redis.zmscore('myset', 'member', 'member2').then(console.log);
+redis.zmscore('myset', 'member', 'member2', cb);
 redis.zrem('myset', 'member').then(console.log);
 redis.zrem('myset', 'member', cbNumber);
 redis.zrem('myset', 'member', 'member2').then(console.log);

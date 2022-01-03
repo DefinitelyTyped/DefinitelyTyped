@@ -90,7 +90,7 @@ declare namespace Carousel {
          *
          * @default "hover"
          */
-        pause: string | boolean;
+        pause: 'hover' | false;
 
         /**
          * Autoplays the carousel after the user manually cycles the first item. If
@@ -98,7 +98,7 @@ declare namespace Carousel {
          *
          * @default false
          */
-        slide: string | boolean;
+        ride: 'carousel' | boolean;
 
         /**
          * Whether the carousel should cycle continuously or have hard stops.
@@ -154,7 +154,7 @@ declare namespace Carousel {
     }
 
     type jQueryInterface = (
-        config?: Partial<Options> | number | 'cycle' | 'pause' | 'prev' | 'next' | 'nextWhenVisible' | 'dispose',
+        config?: Partial<Options> | number | 'cycle' | 'pause' | 'prev' | 'next' | 'nextWhenVisible' | 'to' | 'dispose',
     ) => void;
 }
 

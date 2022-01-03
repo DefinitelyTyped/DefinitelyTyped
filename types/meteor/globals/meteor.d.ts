@@ -298,8 +298,6 @@ declare module Meteor {
         callback?: (error?: global_Error | Meteor.Error | Meteor.TypedError) => void,
     ): void;
 
-    function loggingIn(): boolean;
-
     function loginWith<ExternalService>(
         options?: {
             requestPermissions?: ReadonlyArray<string> | undefined;
@@ -322,6 +320,8 @@ declare module Meteor {
         token: string,
         callback?: (error?: global_Error | Meteor.Error | Meteor.TypedError) => void,
     ): void;
+
+    function loggingIn(): boolean;
 
     function loggingOut(): boolean;
 

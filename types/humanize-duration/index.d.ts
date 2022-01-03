@@ -1,7 +1,6 @@
 // Type definitions for humanize-duration 3.27
 // Project: https://github.com/EvanHahn/HumanizeDuration.js
-// Definitions by: Rigoberto Molina <https://github.com/RigoTheDev>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
+// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 //                 Evan Hahn <https://github.com/EvanHahn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 

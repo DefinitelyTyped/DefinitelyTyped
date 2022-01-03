@@ -216,13 +216,21 @@ export const __internal: Internal;
  * relay-compiler-language-typescript support for fragment references
  */
 
-export interface _RefType<Ref extends string> {
-    ' $refType': Ref;
-}
+export type _RefType<Ref extends string> =
+    | {
+        ' $refType': Ref;
+    }
+    | {
+        ' $fragmentType': Ref
+    };
 
-export interface _FragmentRefs<Refs extends string> {
-    ' $fragmentRefs': FragmentRefs<Refs>;
-}
+export type _FragmentRefs<Refs extends string> =
+    | {
+        ' $fragmentRefs': FragmentRefs<Refs>;
+    }
+    | {
+        ' $fragmentSpreads': FragmentRefs<Refs>;
+    };
 
 // This is used in the actual artifacts to define the various fragment references a container holds.
 export type FragmentRefs<Refs extends string> = {

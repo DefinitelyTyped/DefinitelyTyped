@@ -159,7 +159,7 @@ declare namespace SimplePeer {
          * If the optional `err` parameter is passed, then it will be emitted as an `'error'`
          * event on the stream.
          */
-        destroy(error?: Error): void;
+        destroy(error?: Error): any;
 
         // ********************************
         // methods which are not documented

@@ -44,12 +44,21 @@ export type Node =
 
 export type Operator = '<implicit>' | 'NOT' | 'OR' | 'AND' | 'AND NOT' | 'OR NOT';
 
-export interface LeftOnlyAST {
-    left: Node;
+export interface ASTField {
+    field?: string;
+    fieldLocation?: null | {
+        end: TermLocation;
+        start: TermLocation;
+    };
+    parenthesized?: boolean;
+}
+
+export interface LeftOnlyAST extends ASTField {
+    left: AST | Node;
     start?: Operator | undefined;
 }
 
-export interface BinaryAST {
+export interface BinaryAST extends ASTField {
     left: AST | Node;
     operator: Operator;
     right: AST | Node;

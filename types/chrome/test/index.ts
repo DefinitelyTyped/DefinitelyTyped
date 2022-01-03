@@ -303,6 +303,16 @@ function proxySettings() {
     chrome.proxy.settings.clear({ scope: 'regular' });
 }
 
+function testNotificationCreation() {
+    chrome.notifications.create("id", {}); // $ExpectError
+    chrome.notifications.create("id", { message: "", type: "", title: "", }); // $ExpectError
+    chrome.notifications.create("id", { iconUrl: "", type: "", title: "", }); // $ExpectError
+    chrome.notifications.create("id", { iconUrl: "", message: "", title: "", }); // $ExpectError
+    chrome.notifications.create("id", { iconUrl: "", message: "", type: "", }); // $ExpectError
+    chrome.notifications.create("id", { iconUrl: "", message: "", type: "", title: "", }); // $ExpectError
+    chrome.notifications.create("id", { iconUrl: "", message: "", type: "basic", title: "", });
+}
+
 // https://developer.chrome.com/extensions/examples/api/contentSettings/popup.js
 function contentSettings() {
     var incognito;
@@ -1060,6 +1070,20 @@ async function testDeclarativeNetRequestForPromise() {
     await chrome.declarativeNetRequest.updateSessionRules({});
 }
 
+async function testDynamicRules() {
+    await chrome.declarativeNetRequest.updateDynamicRules({});
+    await chrome.declarativeNetRequest.updateDynamicRules({
+      addRules: [{
+        action: {
+          type: chrome.declarativeNetRequest.RuleActionType.ALLOW,
+        },
+        condition: {},
+        id: 2,
+        priority: 3,
+      }],
+    });
+}
+
 // https://developer.chrome.com/docs/extensions/reference/storage
 function testStorageForPromise() {
     chrome.storage.sync.getBytesInUse().then(() => {});
@@ -1128,7 +1152,7 @@ function testExtensionSendRequest() {
 }
 
 function testContextMenusCreate() {
-    chrome.contextMenus.create({
+    const creationOptions: chrome.contextMenus.CreateProperties = {
         id: 'dummy-id',
         documentUrlPatterns: ['https://*/*'],
         checked: false,
@@ -1140,7 +1164,11 @@ function testContextMenusCreate() {
         parentId: 1,
         type: 'normal',
         visible: true
-    }, () => console.log('created'));
+    };
+    chrome.contextMenus.create(creationOptions, () => console.log('created')); // $ExpectType string | number
+    chrome.contextMenus.create({ ...creationOptions, contexts: ['action', 'page_action'] }); // $ExpectType string | number
+    chrome.contextMenus.create({ ...creationOptions, contexts: 'page_action' }); // $ExpectType string | number
+    chrome.contextMenus.create({ ...creationOptions, contexts: ['wrong'] }); // $ExpectError
 }
 
 function testContextMenusRemove() {

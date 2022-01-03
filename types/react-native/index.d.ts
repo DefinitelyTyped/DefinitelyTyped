@@ -31,7 +31,6 @@
 //                 Abe Dolinger <https://github.com/256hz>
 //                 Dominique Richard <https://github.com/doumart>
 //                 Mohamed Shaban <https://github.com/drmas>
-//                 André Krüger <https://github.com/akrger>
 //                 Jérémy Barbet <https://github.com/jeremybarbet>
 //                 Christian Ost <https://github.com/ca057>
 //                 David Sheldrick <https://github.com/ds300>
@@ -4150,7 +4149,7 @@ export class FlatList<ItemT = any> extends React.Component<FlatListProps<ItemT>>
     /**
      * Provides a reference to the underlying host component
      */
-    getNativeScrollRef: () => React.RefObject<View> | React.RefObject<ScrollViewComponent> | null | undefined;
+    getNativeScrollRef: () => React.ElementRef<typeof View> | React.ElementRef<typeof ScrollViewComponent> | null | undefined;
 
     getScrollableNode: () => any;
 
@@ -9590,8 +9589,8 @@ interface NativeModulesStatic {
  * Native Modules written in ObjectiveC/Swift/Java exposed via the RCTBridge
  * Define lazy getters for each module. These will return the module if already loaded, or load it if not.
  * See https://reactnative.dev/docs/native-modules-ios
- * Use:
- * <code>const MyModule = NativeModules.ModuleName</code>
+ * @example
+ * const MyModule = NativeModules.ModuleName
  */
 export const NativeModules: NativeModulesStatic;
 export const Platform:
@@ -9730,8 +9729,8 @@ declare global {
 
     /**
      * This variable is set to true when react-native is running in Dev mode
-     * Typical usage:
-     * <code> if (__DEV__) console.log('Running in dev mode')</code>
+     * @example
+     * if (__DEV__) console.log('Running in dev mode')
      */
     const __DEV__: boolean;
 

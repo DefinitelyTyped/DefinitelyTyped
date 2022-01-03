@@ -290,6 +290,9 @@ pool.end().then(() => console.log('pool has ended'));
     client.release();
 })();
 
+// Set allowExitOnIdle on pool constructor
+const poolExitOnIdle = new Pool({ allowExitOnIdle: true });
+
 // client constructor tests
 // client config object tested above
 let c = new Client(); // empty constructor allowed

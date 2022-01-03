@@ -93,12 +93,4 @@ declare module '.' {
      * @see https://reactjs.org/docs/concurrent-mode-patterns.html#suspenselist
      */
     export const SuspenseList: ExoticComponent<SuspenseListProps>;
-
-    /**
-     * @param effect Imperative function that can return a cleanup function
-     * @param deps If present, effect will only activate if the values in the list change.
-     *
-     * @see https://github.com/facebook/react/pull/21913
-     */
-     export function unstable_useInsertionEffect(effect: EffectCallback, deps?: DependencyList): void;
 }

@@ -5,3 +5,8 @@ const map = L.map('map', {
     zoom: 13,
     fullscreenControl: true,
 });
+
+// $ExpectType boolean
+map.isFullscreen();
+map.toggleFullscreen();
+map.toggleFullscreen({ pseudoFullscreen: true });

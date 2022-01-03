@@ -84,6 +84,12 @@ signature.name();
 signature.email();
 signature.when();
 
+Git.Signature.default(repo).then(defaultSigniture => {
+    defaultSigniture.name();
+    defaultSigniture.email();
+    defaultSigniture.when();
+});
+
 repo.createBlobFromBuffer(Buffer.from('test')).then((oid: Git.Oid) => oid.cpy());
 repo.commondir();
 

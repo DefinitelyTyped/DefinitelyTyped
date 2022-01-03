@@ -1,4 +1,4 @@
-// Type definitions for gestalt 40.0
+// Type definitions for gestalt 41.0
 // Project: https://github.com/pinterest/gestalt, https://pinterest.github.io/gestalt
 // Definitions by: Nicolás Serrano Arévalo <https://github.com/serranoarevalo>
 //                 Josh Gachnang <https://github.com/joshgachnang>
@@ -380,7 +380,7 @@ export interface CheckboxProps {
  * https://gestalt.netlify.app/ComboBox
  */
 
-export interface OptionItemType {
+export interface ComboBoxItemType {
     label: string;
     subtext?: string;
     value: string;
@@ -390,26 +390,24 @@ export interface ComboBoxProps {
     accessibilityClearButtonLabel: string;
     id: string;
     label: string;
-    options: OptionItemType[];
+    options: ComboBoxItemType[];
     noResultText: string;
     disabled?: boolean;
-    errorMessage?: Node;
+    errorMessage?: string;
     helperText?: string;
     inputValue?: string;
     labelDisplay?: 'visible' | 'hidden';
-    onChange?: (args: { value: string; syntheticEvent: React.SyntheticEvent<HTMLInputElement> }) => void;
-    onBlur?: (args: { event: React.SyntheticEvent<HTMLInputElement> }) => void;
-    onFocus?: (args: { value: string; syntheticEvent: React.SyntheticEvent<HTMLInputElement> }) => void;
+    onChange?: (args: { value: string; event: React.SyntheticEvent<HTMLInputElement> }) => void;
+    onBlur?: (args: { event: React.SyntheticEvent<HTMLInputElement>; value: string }) => void;
+    onFocus?: (args: { event: React.SyntheticEvent<HTMLInputElement>; value: string }) => void;
     onKeyDown?: (args: { event: React.SyntheticEvent<HTMLInputElement>; value: string }) => void;
     onClear?: () => void;
-    onSelect?: AbstractEventHandler<
-        React.KeyboardEvent<HTMLElement> | React.MouseEvent<HTMLElement>,
-        {
-            item: OptionItemType | undefined | null;
-        }
-    >;
+    onSelect?: (args: {
+        event: React.SyntheticEvent<HTMLInputElement> | React.KeyboardEvent<HTMLInputElement>;
+        item: ComboBoxItemType;
+    }) => void;
     placeholder?: string;
-    selectedOption?: OptionItemType;
+    selectedOption?: ComboBoxItemType;
     size?: 'md' | 'lg';
     tags?: ReadonlyArray<React.ReactElement<TagProps, typeof Tag>>;
 }
@@ -560,7 +558,7 @@ export interface DropdownLinkProps {
     /**
      * When supplied, will add a data-test-id prop to the dom element.
      */
-     dataTestId?: string | undefined;
+    dataTestId?: string | undefined;
     /**
      * When true, adds an arrow icon to the end of the item to signal this item takes users to an external source
      * and opens the link in a new tab.
@@ -1131,19 +1129,28 @@ export interface NumberFieldProps {
      * Callback triggered when the user blurs the input.
      */
     onBlur?:
-        | ((args: { event: React.SyntheticEvent<React.FocusEvent<HTMLInputElement>>; value: number | undefined }) => void)
+        | ((args: {
+              event: React.SyntheticEvent<React.FocusEvent<HTMLInputElement>>;
+              value: number | undefined;
+          }) => void)
         | undefined;
     /**
      * Callback triggered when the user focuses the input.
      */
     onFocus?:
-        | ((args: { event: React.SyntheticEvent<React.FocusEvent<HTMLInputElement>>; value: number | undefined }) => void)
+        | ((args: {
+              event: React.SyntheticEvent<React.FocusEvent<HTMLInputElement>>;
+              value: number | undefined;
+          }) => void)
         | undefined;
     /**
      * Callback triggered when the user presses any key while the input is focused.
      */
     onKeyDown?:
-        | ((args: { event: React.SyntheticEvent<React.KeyboardEvent<HTMLInputElement>>; value: number | undefined }) => void)
+        | ((args: {
+              event: React.SyntheticEvent<React.KeyboardEvent<HTMLInputElement>>;
+              value: number | undefined;
+          }) => void)
         | undefined;
     /**
      * Placeholder text shown when the user has not yes input a value.
@@ -1374,8 +1381,8 @@ export interface StackProps {
  * Status Props Interface
  * https://gestalt.netlify.app/status
  */
- export interface StatusProps {
-    type: "unstarted" | "inProgress" | "halted" | "ok" | "problem" | "canceled" | "warning";
+export interface StatusProps {
+    type: 'unstarted' | 'inProgress' | 'halted' | 'ok' | 'problem' | 'canceled' | 'warning';
     accessibilityLabel?: string | undefined;
     subtext?: string | undefined;
     title?: string | undefined;
@@ -1669,7 +1676,7 @@ export interface TextFieldProps {
     /**
      * @default "text"
      */
-    type?: 'date' | 'email' | 'number' | 'password' | 'text' | 'url' | undefined;
+    type?: 'date' | 'email' | 'number' | 'password' | 'text' | 'url' | 'tel' | undefined;
     value?: string | undefined;
 }
 

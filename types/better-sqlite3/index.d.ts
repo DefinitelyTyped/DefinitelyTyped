@@ -1,5 +1,5 @@
 // Type definitions for better-sqlite3 7.4
-// Project: http://github.com/JoshuaWise/better-sqlite3
+// Project: https://github.com/JoshuaWise/better-sqlite3
 // Definitions by: Ben Davies <https://github.com/Morfent>
 //                 Mathew Rumsey <https://github.com/matrumz>
 //                 Santiago Aguilar <https://github.com/sant123>
