@@ -280,7 +280,7 @@ const buttonGroupRef = createRef<HTMLDivElement>();
     )}
 </C.DropdownMenu>;
 <C.DropdownMenu
-    icon="move"
+    icon={<span>icon</span>}
     label="Select a direction"
     controls={[
         {
