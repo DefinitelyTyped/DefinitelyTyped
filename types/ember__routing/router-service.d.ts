@@ -319,4 +319,14 @@ export default class RouterService extends Service {
      * the browser including the app's `rootURL`.
      */
     recognizeAndLoad(url: string): RouteInfoWithAttributes;
+
+    /**
+     * Refreshes all currently active routes, doing a full transition.
+     * If a route name is provided and refers to a currently active route,
+     * it will refresh only that route and its descendents.
+     * Returns a promise that will be resolved once the refresh is complete.
+     * All resetController, beforeModel, model, afterModel, redirect, and setupController
+     * hooks will be called again. You will get new data from the model hook.
+     */
+    refresh(pivotRouteName?: string): Transition;
 }

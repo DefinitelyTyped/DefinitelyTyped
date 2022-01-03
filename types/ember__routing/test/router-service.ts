@@ -90,3 +90,6 @@ router.recognizeAndLoad('foo/bar'); // $ExpectType RouteInfoWithAttributes
 
 router.rootURL; // $ExpectType string
 router.rootURL = 'foo'; // $ExpectError
+
+router.refresh(); // $ExpectType Transition<unknown>
+router.refresh('my-route'); // $ExpectType Transition<unknown>
