@@ -30,6 +30,8 @@ export const ALIGN_RIGHT = 'right';
 export const ALIGN_TOP = 'top';
 export const ALIGN_BOTTOM = 'bottom';
 
+export const INITIAL_VALUE = {};
+
 export type Mode = typeof MODE_IDLE | typeof MODE_PANNING | typeof MODE_ZOOMING;
 
 export interface Value {
