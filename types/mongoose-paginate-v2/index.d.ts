@@ -4,7 +4,6 @@
 //                 woutgg <https://github.com/woutgg>
 //                 oktapodia <https://github.com/oktapodia>
 //                 Dongjun Lee <https://github.com/ChazEpps>
-//                 gamsterX <https://github.com/gamsterx>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.1
 
