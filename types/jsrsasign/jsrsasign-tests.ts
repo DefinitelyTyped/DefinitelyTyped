@@ -49,4 +49,11 @@ x509.getSubject(); // $ExpectType IdentityResponse
 x509.getIssuer(); // $ExpectType IdentityResponse
 x509.getExtAuthorityKeyIdentifier("sampleExt", true); // $ExpectType AuthorityKeyIdentifierResult
 
-KJUR.asn1.csr.CSRUtil.getParam(pemCert); // $ExpectType ParamResponse
+const params = KJUR.asn1.csr.CSRUtil.getParam(pemCert); // $ExpectType ParamResponse
+const crq = new KJUR.asn1.csr.CertificationRequest(params);
+crq.getPEM(); // $ExpectType string
+const crqi = new KJUR.asn1.csr.CertificationRequestInfo(params);
+crqi.getEncodedHex(); // $ExpectType string
+const crqi2 = new KJUR.asn1.csr.CertificationRequestInfo();
+crqi2.setByParam(params);
+crqi2.getEncodedHex(); // $ExpectType string

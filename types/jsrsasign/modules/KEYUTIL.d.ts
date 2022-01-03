@@ -426,7 +426,7 @@ declare namespace jsrsasign {
         static generateKeypair(
             alg: 'RSA' | 'EC',
             keylenOrCurve: number | string,
-        ): { prvKeyObj: RSAKey; pubKeyObj: RSAKey };
+        ): { prvKeyObj: RSAKey | KJUR.crypto.ECDSA; pubKeyObj: RSAKey | KJUR.crypto.ECDSA };
 
         /**
          * get PEM formatted private or public key file from a RSA/ECDSA/DSA key object
