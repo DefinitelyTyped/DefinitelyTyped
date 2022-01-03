@@ -604,6 +604,10 @@
             "libraryName": "compression-webpack-plugin",
             "asOfVersion": "9.1.1"
         },
+        "concurrently": {
+            "libraryName": "concurrently",
+            "asOfVersion": "7.0.0"
+        },
         "condense-whitespace": {
             "libraryName": "condense-whitespace",
             "asOfVersion": "2.0.0"
