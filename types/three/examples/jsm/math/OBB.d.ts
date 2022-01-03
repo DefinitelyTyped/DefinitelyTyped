@@ -14,7 +14,7 @@ export class OBB {
     containsPoint(point: Vector3): boolean;
     intersectsBox3(box3: Box3): boolean;
     intersectsSphere(sphere: Sphere): boolean;
-    intersectsOBB(obb: OBB, epsilon: number): boolean;
+    intersectsOBB(obb: OBB, epsilon?: number): boolean;
     intersectsPlane(plane: Plane): boolean;
     intersectRay(ray: Ray, result: Vector3): Vector3 | null;
     intersectsRay(ray: Ray): boolean;
