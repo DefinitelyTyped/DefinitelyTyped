@@ -42,10 +42,15 @@ export interface File {
   name: string;
 }
 
+export type DocumentFunction = (
+  metadata: Metadata,
+  generateContentsCallback?: GenerateContentsCallback,
+) => Document;
+
 export interface Document {
   CSS: string;
   coverImage: string;
-  document: this;
+  document: DocumentFunction;
   filesForTOC: string[];
   generateContentsCallback?: GenerateContentsCallback;
   images: string[];
@@ -67,7 +72,4 @@ export interface Document {
   writeFilesForEPUB(folder: string): Promise<void>;
 }
 
-export function document(
-  metadata: Metadata,
-  generateContentsCallback?: GenerateContentsCallback,
-): Document;
+export const document: DocumentFunction;
