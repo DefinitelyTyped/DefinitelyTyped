@@ -519,7 +519,7 @@ declare namespace SteamCommunity {
 
         /**
          * @param tag If an error occurred when you were getting the key, pass an `Error` object here and no further arguments. If successful, pass `null` here.
-         * @param {SteamCommunity.Events.confKeyNeededCallback} callback The Unix timestamp that you used to generate this key.
+         * @param callback The Unix timestamp that you used to generate this key.
          */
         type confKeyNeeded = (tag: string, callback: confKeyNeededCallback) => void;
 
