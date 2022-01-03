@@ -4,6 +4,16 @@ const EResult = SteamCommunity.EResult;
 
 const community = new SteamCommunity();
 
+/* register events */
+community.on("confKeyNeeded", (tag, callback) => {
+    const time = Math.floor(Date.now() / 1000);
+    callback(null, time, "conf_key_value");
+});
+
+community.on("error", (err) => {
+    console.error("SteamCommunity error occured", err);
+});
+
 /* login */
 community.login({
     accountName: 'anything',
