@@ -1,7 +1,6 @@
-// Type definitions for Amplitude SDK 8.5
+// Type definitions for Amplitude SDK 8.9
 // Project: https://github.com/amplitude/Amplitude-Javascript
-// Definitions by: Arvydas Sidorenko <https://github.com/Asido>
-//                 Dan Manastireanu <https://github.com/danmana>
+// Definitions by: Dan Manastireanu <https://github.com/danmana>
 //                 Kimmo Hintikka <https://github.com/HintikkaKimmo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -10,6 +9,8 @@ export as namespace amplitude;
 export type Callback = (responseCode: number, responseBody: string, details?: { reason: string }) => void;
 export type LogReturn = number | undefined;
 export type Transport = 'http' | 'beacon';
+// https://github.com/amplitude/Amplitude-JavaScript/blob/v8.9.0/src/server-zone.js#L9
+export type ServerZone = 'EU' | 'US';
 
 export interface Config {
     apiEndpoint?: string | undefined;
@@ -62,6 +63,8 @@ export interface Config {
     uploadBatchSize?: number | undefined;
     useNativeDeviceInfo?: boolean | undefined;
     transport?: Transport | undefined;
+    serverZone?: ServerZone | undefined;
+    serverZoneBasedApi?: boolean | undefined;
 }
 
 export class Identify {
@@ -101,6 +104,7 @@ export class AmplitudeClient {
     isNewSession(): boolean;
     setSessionId(sessionId: number): void;
     getSessionId(): number;
+    resetSessionId(): void;
 
     setDomain(domain: string): void;
     setUserId(userId: string | null): void;

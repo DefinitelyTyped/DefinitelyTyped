@@ -20,14 +20,14 @@
 import {
     ChangeEvent,
     ComponentType,
+    CSSProperties,
     DependencyList,
     EffectCallback,
     MouseEvent,
     ReactElement,
+    ReactFragment,
     ReactNode,
     ReactText,
-    ReactFragment,
-    CSSProperties,
 } from 'react';
 
 export {};
@@ -554,7 +554,11 @@ export namespace useGroupBy {
     const pluginName = 'useGroupBy';
 }
 
-export interface TableGroupByToggleProps {}
+export interface TableGroupByToggleProps {
+    title?: string | undefined;
+    style?: CSSProperties | undefined;
+    onClick?: ((e: MouseEvent) => void) | undefined;
+}
 
 export type UseGroupByOptions<D extends object> = Partial<{
     manualGroupBy: boolean;
@@ -795,7 +799,11 @@ export namespace useSortBy {
     const pluginName = 'useSortBy';
 }
 
-export interface TableSortByToggleProps {}
+export interface TableSortByToggleProps {
+    title?: string | undefined;
+    style?: CSSProperties | undefined;
+    onClick?: ((e: MouseEvent) => void)| undefined;
+}
 
 export type UseSortByOptions<D extends object> = Partial<{
     manualSortBy: boolean;

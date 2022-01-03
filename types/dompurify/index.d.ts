@@ -86,6 +86,11 @@ declare namespace DOMPurify {
               }
             | undefined;
         WHOLE_DOCUMENT?: boolean | undefined;
+        CUSTOM_ELEMENT_HANDLING?: {
+            tagNameCheck?: RegExp | ((tagName: string) => boolean) | null | undefined;
+            attributeNameCheck?: RegExp | ((lcName: string) => boolean) | null | undefined;
+            allowCustomizedBuiltInElements?: boolean | undefined;
+        };
     }
 
     type HookName =

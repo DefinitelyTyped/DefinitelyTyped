@@ -237,7 +237,7 @@ declare module 'http' {
         constructor();
 
         setTimeout(msecs: number, callback?: () => void): this;
-        setHeader(name: string, value: number | string | ReadonlyArray<string>): void;
+        setHeader(name: string, value: number | string | ReadonlyArray<string>): this;
         getHeader(name: string): number | string | string[] | undefined;
         getHeaders(): OutgoingHttpHeaders;
         getHeaderNames(): string[];
@@ -406,7 +406,7 @@ declare module 'http' {
          * Only valid for response obtained from http.ClientRequest.
          */
         statusMessage?: string | undefined;
-        destroy(error?: Error): void;
+        destroy(error?: Error): this;
     }
 
     interface AgentOptions {

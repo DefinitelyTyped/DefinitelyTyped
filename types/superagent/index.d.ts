@@ -15,7 +15,6 @@
 // TypeScript Version: 3.0
 
 /// <reference types="node" />
-/// <reference lib="dom" />
 
 import * as fs from "fs";
 import * as http from "http";
@@ -127,7 +126,7 @@ declare namespace request {
         text: string;
         type: string;
         unauthorized: boolean;
-        xhr: XMLHttpRequest;
+        xhr: any;
         redirects: string[];
     }
 

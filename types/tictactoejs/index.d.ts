@@ -1,6 +1,6 @@
 // Type definitions for tictactoejs 1.0
 // Project: https://www.npmjs.com/package/tictactoejs
-// Definitions by: VenNeptury <https://github.com/Mattis6666>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export class TicTacToe {

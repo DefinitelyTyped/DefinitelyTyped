@@ -1,6 +1,6 @@
 // Type definitions for pa11y 5.3
 // Project: https://github.com/pa11y/pa11y
-// Definitions by:  Adam Zerella <https://github.com/adamzerella>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 

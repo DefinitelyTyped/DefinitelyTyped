@@ -1,6 +1,7 @@
 // Type definitions for coingecko-api 1.0
 // Project: https://github.com/miscavage/CoinGecko-API#readme
-// Definitions by: Jan Klimo <https://github.com/janklimo>, Artem Ilinykh <https://github.com/singlesly>
+// Definitions by: Jan Klimo <https://github.com/janklimo>
+//                 Artem Ilinykh <https://github.com/singlesly>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 type Locale =
@@ -160,6 +161,21 @@ interface CoinsAllParams {
     sparkline?: boolean | undefined;
 }
 
+interface CoinsFetchMarketChartParams {
+    /**
+     * The target currency of market data (usd, eur, jpy, etc.)
+     */
+    vs_currency: string;
+    /**
+     * Data up to number of days ago (eg. 1, 14, 30, max)
+     */
+    days: string;
+    /**
+     * Data interval. Possible value: daily
+     */
+    interval?: string;
+}
+
 interface CoinsFetchMarketChartRangeParams {
     /**
      * The target currency of market data (usd, eur, jpy, etc.)
@@ -222,6 +238,12 @@ interface CoinsFetchHistoryData {
         commit_count_4_weeks: number;
     };
     public_interest_stats: { alexa_rank: number; bing_matches: null };
+}
+
+interface CoinsFetchMarketChart {
+    market_caps: number[][];
+    prices: number[][];
+    total_volumes: number[][];
 }
 
 interface CoinsFetchParams {
@@ -291,6 +313,16 @@ interface CoinsFetchData {
         current_price: Record<Currency & string, number>;
         market_cap: Record<Currency & string, number>;
         total_volume: Record<Currency & string, number>;
+        fully_diluted_valuation: Record<Currency & string, number>;
+        total_value_locked: {
+            btc: number
+            usd: number
+        }
+        fdv_to_tvl_ratio: number
+        mcap_to_tvl_ratio: number
+        circulating_supply: number
+        total_supply: number
+        max_supply: number
     };
     community_data: {
         facebook_likes: null | number;
@@ -313,7 +345,42 @@ interface CoinsFetchData {
     };
     public_interest_stats: { alexa_rank: number; bing_matches: null };
     last_updated: string;
-    tickers: [];
+    tickers: CoinsFetchDataTicker[];
+}
+
+type TrustScore = 'green' | 'yellow' | 'red';
+
+interface CoinsFetchDataTicker {
+    base: string;
+    target: string;
+    market: {
+        name: string;
+        identifier: string;
+        has_trading_incentive: boolean
+    };
+    last: number;
+    volume: number;
+    converted_last: {
+        btc: number;
+        eth: number;
+        usd: number;
+    };
+    converted_volume: {
+        btc: number;
+        eth: number;
+        usd: number;
+    };
+    trust_score: TrustScore;
+    bid_ask_spread_percentage: number;
+    timestamp: Date;
+    last_traded_at: Date;
+    last_fetch_at: Date;
+    is_anomaly: boolean;
+    is_stale: boolean;
+    trade_url: string | null;
+    token_info_url: string | null;
+    coin_id: string;
+    target_coin_id: string;
 }
 
 /**
@@ -413,6 +480,13 @@ declare class CoinGecko {
          * @param params - Parameters to pass through to the request.
          */
         fetchMarketChartRange(coinId: string, params: CoinsFetchMarketChartRangeParams): Promise<Response>;
+
+        /**
+         * Get historical market data include price, market cap, and 24h volume (granularity auto).
+         * @param coinId - The coin id (can be obtained from coins.list()) eg. bitcoin.
+         * @param params - Parameters to pass through to the request.
+         */
+        fetchMarketChart(coinId: string, params: CoinsFetchMarketChartParams): Promise<Response<CoinsFetchMarketChart>>;
 
         /**
          * List all coins with data (name, price, market, developer, community, etc) - paginated by 50

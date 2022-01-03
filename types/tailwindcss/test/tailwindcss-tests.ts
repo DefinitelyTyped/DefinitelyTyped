@@ -2535,18 +2535,36 @@ tailwindConfig.theme.screens.md;
 // @ts-expect-error `boxShadow` is possibly undefined
 tailwindConfig.theme.boxShadow['2xl'];
 
+colors.inherit;
+colors.current;
+colors.transparent;
+colors.black;
+colors.white;
+colors.slate[500];
+colors.gray[500];
+colors.zinc[500];
+colors.neutral[500];
+colors.stone[500];
 colors.red[500];
-colors.rose[500];
-colors.fuchsia[500];
-colors.violet[500];
-colors.lightBlue[500];
-colors.sky[500];
-colors.cyan[500];
-colors.teal[500];
-colors.emerald[500];
-colors.lime[500];
-colors.amber[500];
 colors.orange[500];
+colors.amber[500];
+colors.yellow[500];
+colors.lime[500];
+colors.green[500];
+colors.emerald[500];
+colors.teal[500];
+colors.cyan[500];
+colors.sky[500];
+colors.blue[500];
+colors.indigo[500];
+colors.violet[500];
+colors.purple[500];
+colors.fuchsia[500];
+colors.pink[500];
+colors.rose[500];
+
+// Deprecated color names
+colors.lightBlue[500];
 colors.warmGray[500];
 colors.trueGray[500];
 colors.coolGray[500];

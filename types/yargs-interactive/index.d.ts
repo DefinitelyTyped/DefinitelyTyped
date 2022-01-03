@@ -1,7 +1,6 @@
 // Type definitions for yargs-interactive 2.1
 // Project: https://github.com/nanovazquez/yargs-interactive#readme
-// Definitions by: Steven Zeck <https://github.com/szeck87>
-//                 Nano Vazquez <https://github.com/nanovazquez>
+// Definitions by: Nano Vazquez <https://github.com/nanovazquez>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { Argv } from 'yargs';

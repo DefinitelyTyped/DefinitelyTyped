@@ -50,8 +50,8 @@ declare class ZipStream extends StreamNS.Stream implements NodeJS.ReadableStream
     unshift(chunk: any, encoding?: BufferEncoding): void;
     wrap(oldStream: NodeJS.ReadableStream): this;
     push(chunk: any, encoding?: BufferEncoding): boolean;
-    _destroy(error: Error | null, callback: (error?: Error | null) => void): void;
-    destroy(error?: Error): void;
+    _destroy(error: Error | null, callback: (error?: Error | null) => void): this;
+    destroy(error?: Error): this;
 
     // tslint:disable:unified-signatures
     addListener(event: 'end', listener: () => void): this;

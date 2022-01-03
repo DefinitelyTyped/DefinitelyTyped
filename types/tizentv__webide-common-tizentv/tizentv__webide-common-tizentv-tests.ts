@@ -1,22 +1,70 @@
 import {
-  TVWebApp,
-  TizenCertManager,
-  SamsungCertManager,
-  ProfileManager,
+  AccessInfo,
+  AuthorInfo,
   AuthorProfile,
-  DistributorProfile
+  DistributorInfo,
+  DistributorProfile,
+  ProfileManager,
+  SamsungAuthorInfo,
+  SamsungCertManager,
+  TVWebApp,
+  TizenCertManager
 } from "@tizentv/webide-common-tizentv";
 
 const tvWebApp = new TVWebApp("test", "./", "test.test");
 tvWebApp.init();
 
-const tizenCertManager: TizenCertManager = new TizenCertManager("./");
-tizenCertManager.init();
+/**
+ * Samsung Cert Manager
+ */
+const samsungAuthorInfo: SamsungAuthorInfo = {
+  name: '',
+  password: '',
+  country: '',
+  state: '',
+  city: '',
+  organization: '',
+  department: ''
+};
+const samsungDistributorInfo: DistributorInfo = {
+  distributorPassword: '',
+  privilegeLevel: 'Public',
+  duidList: []
+};
+const accessInfo: AccessInfo = {
+  accessToken: '',
+  userId: '',
+  userEmail: ''
+};
 
 const samsungCertManager: SamsungCertManager = new SamsungCertManager("./");
 samsungCertManager.init();
+samsungCertManager.createAuthorCert('test', samsungAuthorInfo, accessInfo);
+samsungCertManager.createDistributorCert('test', samsungDistributorInfo, accessInfo);
 
-const authorProfile: AuthorProfile = {
+/**
+ * Tizen Cert Manager
+ */
+ const authorInfo: AuthorInfo = {
+  keyFileName: '',
+  authorName: '',
+  authorPassword: '',
+  countryInfo: '',
+  stateInfo: '',
+  cityInfo: '',
+  organizationInfo: '',
+  departmentInfo: '',
+  emailInfo: ''
+};
+const tizenCertManager: TizenCertManager = new TizenCertManager("./");
+tizenCertManager.init();
+tizenCertManager.createCert(authorInfo);
+tizenCertManager.getTizenDistributorProfile('public');
+
+/**
+ * Tizen Profile Manager
+ */
+ const authorProfile: AuthorProfile = {
   authorCA: '',
   authorCertPath: '',
   authorPassword: ''

@@ -91,9 +91,9 @@ declare module 'net' {
         readonly remotePort?: number | undefined;
 
         // Extended base methods
-        end(cb?: () => void): void;
-        end(buffer: Uint8Array | string, cb?: () => void): void;
-        end(str: Uint8Array | string, encoding?: string, cb?: () => void): void;
+        end(cb?: () => void): this;
+        end(buffer: Uint8Array | string, cb?: () => void): this;
+        end(str: Uint8Array | string, encoding?: string, cb?: () => void): this;
 
         /**
          * events.EventEmitter

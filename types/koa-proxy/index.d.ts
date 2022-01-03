@@ -1,6 +1,6 @@
 // Type definitions for koa-proxy 1.0
 // Project: https://github.com/edorivai/koa-proxy#readme
-// Definitions by: ishen7 <https://github.com/ishen7>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 

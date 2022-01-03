@@ -36,7 +36,7 @@
  * decoder.write(Buffer.from([0x82]));
  * console.log(decoder.end(Buffer.from([0xAC])));
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/string_decoder.js)
+ * @see [source](https://github.com/nodejs/node/blob/v17.0.0/lib/string_decoder.js)
  */
 declare module 'string_decoder' {
     class StringDecoder {
