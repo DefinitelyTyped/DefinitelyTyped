@@ -431,7 +431,9 @@ declare namespace TelegramBot {
         sticker_set_name?: string | undefined;
         has_private_forwards?: boolean | undefined;
         has_protected_content?: boolean | undefined;
-        is_automatic_forward?: boolean | undefined;
+        slow_mode_delay?: number | undefined;
+        message_auto_delete_time?: number | undefined;
+        linked_chat_id?: number | undefined;
         /**
          * @deprecated since version Telegram Bot API 4.4 - July 29, 2019
          */
