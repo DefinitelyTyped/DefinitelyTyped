@@ -62,11 +62,11 @@ export class Package {
     /**
      * Refresh internal state from disk (e.g., changed by external lifecycles)
      */
-    refresh(): Promise<Package>;
+    refresh(): Promise<this>;
     /**
      * Write manifest changes to disk
      */
-    serialize(): Promise<void>;
+    serialize(): Promise<this>;
     /**
      * Mutate local dependency spec according to type
      */

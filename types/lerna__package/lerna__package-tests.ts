@@ -25,3 +25,5 @@ testPackage.set('version', '1.5.2')
     // test if set command is chainable
     .set('name', 'new name');
 testPackage.set('unknown', 1245);
+const package2: Promise<Package> = testPackage.serialize();
+const package3: Promise<Package> = testPackage.refresh();
