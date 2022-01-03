@@ -16,7 +16,14 @@ const test = async () => {
 
 player.addEventListener("playbackStateDidChange", ({ oldState, state }) => ({ oldState, state }));
 player.addEventListener("playbackProgressDidChange", ({ progress }) => ({ progress }));
-player.addEventListener("authorizationStatusDidChange", ({ authorizationStatus }) => (authorizationStatus === 3));
+player.addEventListener("authorizationStatusDidChange", ({ authorizationStatus }) => {
+    switch (authorizationStatus) {
+        case 0:
+        case 1:
+        case 2:
+        case 3:
+    }
+});
 
 player.removeEventListener("playbackStateDidChange");
 

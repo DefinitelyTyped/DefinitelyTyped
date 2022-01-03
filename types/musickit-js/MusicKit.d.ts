@@ -43,6 +43,9 @@ declare namespace MusicKit {
     const version: string;
 
     interface AuthStatus {
+        NOT_DETERMINED: 0;
+        DENIED : 1;
+        RESTRICTED: 2;
         AUTHORIZED: 3;
     }
 
