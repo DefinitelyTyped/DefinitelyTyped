@@ -21,5 +21,7 @@ const packageVersion: string = testPackage.get('version');
 const unknownItem: number = testPackage.get('unknown');
 const deps: Record<string, string> | undefined = testPackage.get('dependencies');
 
-testPackage.set('version', '1.5.2');
+testPackage.set('version', '1.5.2')
+    // test if set command is chainable
+    .set('name', 'new name');
 testPackage.set('unknown', 1245);

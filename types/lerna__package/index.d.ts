@@ -53,7 +53,7 @@ export class Package {
     get optionalDependencies(): RawManifest['optionalDependencies'];
     get peerDependencies(): RawManifest['peerDependencies'];
     get<K extends (keyof RawManifest) | string>(key: K): RawManifest[K];
-    set<K extends (keyof RawManifest) | string>(key: K, val: RawManifest[K]): void;
+    set<K extends (keyof RawManifest) | string>(key: K, val: RawManifest[K]): this;
     /**
      * Provide shallow copy for munging elsewhere
      */
