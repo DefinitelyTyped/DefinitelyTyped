@@ -27,12 +27,16 @@ declare namespace struct {
      */
     interface StructType extends ref.Type {
         /** Pass it an existing Buffer instance to use that as the backing buffer. */
-        new (arg: Buffer, data?: Record<string, any>): Record<string, any>;
-        new (data?: Record<string, any>): Record<string, any>;
+        new (
+            arg?: Buffer | Record<string, any>,
+            data?: Record<string, any>
+        ): Record<string, any>;
 
         /** Pass it an existing Buffer instance to use that as the backing buffer. */
-        (arg: Buffer, data?: Record<string, any>): Record<string, any>;
-        (data?: Record<string, any>): Record<string, any>;
+        (
+            arg?: Buffer | Record<string, any>,
+            data?: Record<string, any>
+        ): Record<string, any>;
 
         fields: Record<string, Field>;
 
