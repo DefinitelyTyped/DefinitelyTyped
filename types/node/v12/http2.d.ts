@@ -654,9 +654,9 @@ declare module 'http2' {
         statusCode: number;
         statusMessage: '';
         addTrailers(trailers: OutgoingHttpHeaders): void;
-        end(callback?: () => void): void;
-        end(data: string | Uint8Array, callback?: () => void): void;
-        end(data: string | Uint8Array, encoding: string, callback?: () => void): void;
+        end(callback?: () => void): this;
+        end(data: string | Uint8Array, callback?: () => void): this;
+        end(data: string | Uint8Array, encoding: string, callback?: () => void): this;
         getHeader(name: string): string;
         getHeaderNames(): string[];
         getHeaders(): OutgoingHttpHeaders;

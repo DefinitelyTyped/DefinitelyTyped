@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Mongo } from 'meteor/mongo';
 
 export function withTracker<TDataProps, TOwnProps>(
     options: (
