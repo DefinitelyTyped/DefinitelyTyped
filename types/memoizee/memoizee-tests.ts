@@ -47,6 +47,19 @@ memoized(String({ toString() { return "12"; } }), Number({}));
     memoized(3, 7);
 }
 
+{
+    const afn = (a: number) => {
+        return new Promise(res => { 
+            if (a != 1) {
+                throw new Error('A is not 1!')
+            }
+        });
+    };
+    const memoized = memoize(afn, { promise: 'done:finally' });
+    memoized(2);
+    memoized(2);
+}
+
 memoized = memoize(fn, { maxAge: 1000, preFetch: 0.6 });
 
 memoized('foo', 3);
