@@ -18,7 +18,7 @@
         "forceConsistentCasingInFileNames": true,
         "paths": {
             "backbone": [
-                "backbone/index"
+                "backbone"
             ],
             "jquery": [
                 "jquery/v3"
