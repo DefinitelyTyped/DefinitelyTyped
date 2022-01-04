@@ -670,7 +670,7 @@ declare namespace TelegramBot {
         url: string;
         forward_text?: string | undefined;
         bot_username?: string | undefined;
-        request_write_acces?: boolean | undefined;
+        request_write_access?: boolean | undefined;
     }
 
     interface CallbackQuery {
@@ -1278,9 +1278,9 @@ declare class TelegramBot extends EventEmitter {
 
     setChatDescription(chatId: TelegramBot.ChatId, description: string): Promise<boolean>;
 
-    pinChatMessage(chatId: TelegramBot.ChatId, messageId: string): Promise<boolean>;
+    pinChatMessage(chatId: TelegramBot.ChatId, messageId: number): Promise<boolean>;
 
-    unpinChatMessage(chatId: TelegramBot.ChatId): Promise<boolean>;
+    unpinChatMessage(chatId: TelegramBot.ChatId, messageId?: number): Promise<boolean>;
 
     unpinAllChatMessages(chatId: TelegramBot.ChatId): Promise<boolean>;
 
