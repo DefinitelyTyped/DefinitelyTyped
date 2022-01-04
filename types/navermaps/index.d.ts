@@ -1255,14 +1255,19 @@ declare namespace naver.maps {
     function Service(): void;
     namespace Service {
         interface ServiceOptions {
-            encoding?: any;
-            coordType?: any;
+            sourcecrs?: CoordinatesType;
+            targetcrs?: CoordinatesType;
+            orders?: OrderType | string;
         }
         interface GeocodeServiceOptions extends ServiceOptions {
-            address?: string | undefined;
+            query: string;
+            coordinate?: string;
+            filter?: string;
+            page?: number;
+            count?: number;
         }
         interface ReverseServiceOptions extends ServiceOptions {
-            location?: Coord | CoordLiteral | undefined;
+            coords: string | Coord | CoordLiteral;
         }
         interface AddressItem {
             address: string;
@@ -1318,25 +1323,99 @@ declare namespace naver.maps {
                 errorMessage: string;
             };
         }
+        interface ReverseGeocodeStatus {
+            code: ReverseGeocodeStatusCode;
+            name: ReverseGeocodeStatusName;
+            message: string;
+        }
+        interface ReverseGeocodeAddress {
+            roadAddress: string;
+            jibunAddress: string;
+        }
+        interface Coords {
+            center: {
+                crs: string;
+                x: string;
+                y: string;
+            };
+        }
+        interface Land {
+            type: string;
+            name: string;
+            number1: string;
+            number2: string;
+            coords: Coords;
+        }
+        interface Area {
+            name: string;
+            coords: Coords;
+        }
+        interface Addition {
+            type: string;
+            value: string;
+        }
+        interface Region {
+            area0: Area;
+            area1: Area;
+            area2: Area;
+            area3: Area;
+            area4: Area;
+            land: Land;
+            addition0: Addition;
+            addition1: Addition;
+            addition2: Addition;
+            addition3: Addition;
+            addition4: Addition;
+        }
+        interface ResultItem {
+            name: string;
+            code: {
+                id: string;
+                type: 'L' | 'A' | 'S' | string;
+                mappingId: string;
+            };
+            region: Region;
+        }
         interface ReverseGeocodeResponse {
             result: {
                 userquery: string;
                 total: number;
                 items: AddressItem[];
             };
+            v2: {
+                status: ReverseGeocodeStatus;
+                results: ResultItem[];
+                address: ReverseGeocodeAddress;
+            };
+        }
+        enum CoordinatesType {
+            LATLNG,
+            UTMK,
+            TM128,
+            EPSG3857,
+        }
+        enum OrderType {
+            LEGAL_CODE,
+            ADDR,
+            ROAD_ADDR,
+            ADM_CODE,
+        }
+        enum ReverseGeocodeStatusName {
+            OK,
+            NO_RESULTS,
+            INVALID_REQUEST,
+            UNKNOWN_ERROR_IO_ERROR,
+        }
+        enum ReverseGeocodeStatusCode {
+            CODE_0,
+            CODE_3,
+            CODE_100,
+            CODE_900,
         }
         enum GeocodeStatus {
             OK,
             INVALID_REQUEST,
             SYSTEM_ERROR,
-        }
-        enum CoordType {
-            LATLNG,
-            TM128,
-        }
-        enum Encoding {
-            UTF_8,
-            EUC_KR,
         }
         enum Status {
             OK,
