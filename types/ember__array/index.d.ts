@@ -1,11 +1,11 @@
-// Type definitions for non-npm package @ember/array 3.16
-// Project: https://emberjs.com/api/ember/3.16/modules/@ember%2Farray
+// Type definitions for non-npm package @ember/array 4.0
+// Project: https://emberjs.com/api/ember/4.0/modules/@ember%2Farray
 // Definitions by: Mike North <https://github.com/mike-north>
 //                 Chris Krycho <https://github.com/chriskrycho>
 //                 Dan Freeman <https://github.com/dfreeman>
 //                 James C. Davis <https://github.com/jamescdavis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
+// Minimum TypeScript Version: 4.4
 
 import ComputedProperty from "@ember/object/computed";
 import Mixin from "@ember/object/mixin";

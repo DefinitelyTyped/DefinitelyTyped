@@ -1,4 +1,4 @@
-// Type definitions for Ember.js 3.16
+// Type definitions for Ember.js 4.0
 // Project: https://emberjs.com/, https://github.com/emberjs/ember
 // Definitions by: Jed Mao <https://github.com/jedmao>
 //                 bttf <https://github.com/bttf>
@@ -12,7 +12,7 @@
 //                 James C. Davis <https://github.com/jamescdavis>
 //                 Dan Freeman <https://github.com/dfreeman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
+// Minimum TypeScript Version: 4.4
 
 /// <reference types="jquery" />
 /// <reference types="ember__string" />
