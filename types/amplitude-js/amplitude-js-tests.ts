@@ -226,3 +226,15 @@ amplitude.getInstance().init('API_KEY', 'USER_ID', {
     serverZone: 'EU',
     serverZoneBasedApi: true,
 });
+
+// cookieStorage use example
+// https://github.com/DefinitelyTyped/DefinitelyTyped/discussions/57387
+const deviceId = amplitude.getInstance().cookieStorage.get('deviceId');
+if (deviceId) {
+    amplitude.getInstance().setDeviceId(deviceId);
+} else {
+    amplitude.getInstance().cookieStorage.set('deviceId', amplitude.getInstance().options.deviceId);
+}
+
+const domain = amplitude.getInstance().cookieStorage.options().domain;
+amplitude.getInstance().cookieStorage.options({ domain });
