@@ -442,7 +442,6 @@ export namespace Ember {
     const isNone: typeof EmberUtilsNs.isNone;
     const isPresent: typeof EmberUtilsNs.isPresent;
 
-    const aliasMethod: typeof EmberObjectNs.aliasMethod;
     const observer: typeof EmberObjectNs.observer;
     const addObserver: typeof EmberObjectObserversNs.addObserver;
     const removeObserver: typeof EmberObjectObserversNs.removeObserver;

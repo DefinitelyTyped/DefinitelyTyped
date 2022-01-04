@@ -149,11 +149,6 @@ export function observer<Fn extends (target: any, key: string) => void>(
 ): Fn;
 
 /**
- * Makes a method available via an additional name.
- */
-export function aliasMethod(methodName: string): ComputedProperty<any>;
-
-/**
  * Gets the value of a property on an object. If the property is computed,
  * the function will be invoked. If the property is not defined but the
  * object implements the `unknownProperty` method then that will be invoked.

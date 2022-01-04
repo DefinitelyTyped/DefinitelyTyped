@@ -15,8 +15,6 @@ Ember.addListener({ a: 'foo' }, 'a', null, () => {});
 // addObserver
 Ember.addObserver({ a: 'foo' }, 'a', null, () => {});
 Ember.addObserver({ a: 'foo' }, 'a', {}, () => {});
-// aliasMethod
-Ember.aliasMethod('init');
 // assert
 Ember.assert('2+2 should always be 4', 2 + 2 === 4);
 // assign
