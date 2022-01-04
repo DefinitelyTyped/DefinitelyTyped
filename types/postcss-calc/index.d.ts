@@ -1,22 +1,18 @@
-// Type definitions for postcss-calc 7.0
+// Type definitions for postcss-calc 8.1
 // Project: https://github.com/postcss/postcss-calc
 // Definitions by: Jeow Li Huan <https://github.com/huan086>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
 
-import { Plugin } from "postcss";
+import type { PluginCreator } from 'postcss';
 
-declare namespace calc {
-    interface Options {
-        precision?: number | undefined;
-        preserve?: boolean | undefined;
-        warnWhenCannotResolve?: boolean | undefined;
-        mediaQueries?: boolean | undefined;
-        selectors?: boolean | undefined;
-    }
-
-    type Calc = Plugin<Options>;
+export interface Options {
+    precision?: number | undefined;
+    preserve?: boolean | undefined;
+    warnWhenCannotResolve?: boolean | undefined;
+    mediaQueries?: boolean | undefined;
+    selectors?: boolean | undefined;
 }
 
-declare const calc: calc.Calc;
-export = calc;
+declare const Calc: PluginCreator<Options>;
+
+export default Calc;
