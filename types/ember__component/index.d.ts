@@ -11,7 +11,6 @@
 import CoreView from "@ember/component/-private/core-view";
 import ClassNamesSupport from "@ember/component/-private/class-names-support";
 import ViewMixin from "@ember/component/-private/view-mixin";
-import ActionSupport from "@ember/component/-private/action-support";
 
 // tslint:disable-next-line:strict-export-declare-modifiers
 interface TemplateFactory {
@@ -25,7 +24,6 @@ interface TemplateFactory {
  */
 export default class Component extends CoreView.extend(
     ViewMixin,
-    ActionSupport,
     ClassNamesSupport
 ) {
     // methods
