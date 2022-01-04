@@ -42,19 +42,19 @@ memoized(String({ toString() { return "12"; } }), Number({}));
     const afn = (a: number, b: number) => {
         return new Promise(res => { res(a + b); });
     };
-    const memoized = memoize(afn, { promise: true });
+    let memoized = memoize(afn, { promise: true });
     memoized(3, 7);
     memoized(3, 7);
 
-    const memoized = memoize(afn, { promise: 'then' });
+    memoized = memoize(afn, { promise: 'then' });
     memoized(2, 7);
     memoized(2, 7);
     
-    const memoized = memoize(afn, { promise: 'done' });
+    memoized = memoize(afn, { promise: 'done' });
     memoized(5, 7);
     memoized(5, 7);
     
-    const memoized = memoize(afn, { promise: 'done:finally' });
+    memoized = memoize(afn, { promise: 'done:finally' });
     memoized(8, 7);
     memoized(8, 7);
 }
