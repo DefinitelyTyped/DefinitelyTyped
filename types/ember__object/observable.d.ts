@@ -38,8 +38,12 @@ interface Observable {
         hash: { [KK in K]: any }
     ): Pick<UnwrapComputedPropertySetters<this>, K>;
     /**
-     * Convenience method to call `propertyWillChange` and `propertyDidChange` in
-     * succession.
+     * Notify the observer system that a property has just changed.
+     *
+     * Sometimes you need to change a value directly or indirectly without
+     * actually calling `get()` or `set()` on it. In this case, you can use this
+     * method instead. Calling this method will notify all observers that the
+     * property has potentially changed value.
      */
     notifyPropertyChange(keyName: string): this;
     /**
