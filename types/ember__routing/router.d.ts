@@ -26,16 +26,6 @@ export default class Router extends EmberObject.extend(Evented) {
      */
     rootURL: string;
     /**
-     * Handles updating the paths and notifying any listeners of the URL
-     * change.
-     */
-    didTransition(): any;
-    /**
-     * Handles notifying any listeners of an impending URL
-     * change.
-     */
-    willTransition(): any;
-    /**
      * Transition the application into another route. The route may
      * be either a single route or route path:
      */
