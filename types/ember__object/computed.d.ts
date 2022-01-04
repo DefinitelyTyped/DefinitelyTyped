@@ -9,11 +9,6 @@ import { ComputedPropertyMarker } from "./-private/types";
  */
 export default class ComputedProperty<Get, Set = Get> {
     /**
-     * Call on a computed property to set it into non-cached mode. When in this
-     * mode the computed property will not automatically cache the return value.
-     */
-    volatile(): this;
-    /**
      * Call on a computed property to set it into read-only mode. When in this
      * mode the computed property will throw an error when set.
      */

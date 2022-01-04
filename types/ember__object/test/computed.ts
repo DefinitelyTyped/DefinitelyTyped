@@ -81,7 +81,6 @@ const Person = EmberObject.extend({
         return this.get('firstName');
     })
         .meta({ foo: 'bar' })
-        .volatile()
         .readOnly(),
 
     explicitlyDeclared: alias('fullName') as ComputedProperty<string>,
