@@ -504,7 +504,6 @@ export namespace Ember {
      * Creates a shallow copy of the passed object. A deep copy of the object is
      * returned if the optional `deep` argument is `true`.
      */
-    const copy: typeof EmberObjectInternalsNs.copy;
     const isEqual: typeof EmberUtilsNs.isEqual;
     const typeOf: typeof EmberUtilsNs.typeOf;
     // TODO: replace with an es6 reexport when declare module 'ember' is removed

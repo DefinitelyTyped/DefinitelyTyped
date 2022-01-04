@@ -30,11 +30,6 @@ Ember.cacheFor({ a: 123 }, 'a'); // $ExpectType number | undefined
 Ember.cacheFor({ a: 123 }, 'x'); // $ExpectError
 // compare
 Ember.compare('31', '114'); // $ExpectType number
-// copy
-Ember.copy({ a: 12 }, true).a; // $ExpectType number
-Ember.copy({ a: 12 }); // $ExpectType any
-Ember.copy({ a: 12 }).a; // $ExpectType any
-Ember.copy({ a: 12 }).b; // $ExpectType any
 // debug
 Ember.debug('some info for developers');
 // deprecate
