@@ -257,10 +257,11 @@ async function test_visio() {
         const session = new OfficeExtension.EmbeddedSession(url, { id: "embed-iframe", container: document.getElementById("iframeHost") });
         await session.init();
         await Visio.run(session, async context => {
-            context.document.load("fullName")
+            const eventResult = context.document.onPageLoadComplete.add(async args => {
+                console.log(Date.now() + ": Page Load Complete Event: " + JSON.stringify(args));
+            });
             await context.sync();
-            const fullName = context.document.fullName;
-            console.log("fullName");
+            console.log("Success");
         });
     } catch (error) {
         if (error instanceof OfficeExtension.Error) {
