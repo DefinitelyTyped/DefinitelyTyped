@@ -39,3 +39,6 @@ editor.plugins.get('IndentEditing');
 
 // $ExpectType IndentUI
 editor.plugins.get('IndentUI');
+
+// $ExpectType IndentBlockCommand | undefined
+editor.commands.get("IndentBlockCommand");

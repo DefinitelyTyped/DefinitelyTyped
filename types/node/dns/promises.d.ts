@@ -119,7 +119,7 @@ declare module 'dns/promises' {
      *
      * <omitted>
      *
-     * On error, the `Promise` is rejected with an `Error` object, where `err.code`is one of the `DNS error codes`.
+     * On error, the `Promise` is rejected with an `Error` object, where `err.code`is one of the DNS error codes.
      * @since v10.6.0
      * @param hostname Host name to resolve.
      * @param [rrtype='A'] Resource record type.
@@ -189,7 +189,7 @@ declare module 'dns/promises' {
      * Uses the DNS protocol to resolve `CAA` records for the `hostname`. On success,
      * the `Promise` is resolved with an array of objects containing available
      * certification authority authorization records available for the `hostname`(e.g. `[{critical: 0, iodef: 'mailto:pki@example.com'},{critical: 128, issue: 'pki.example.com'}]`).
-     * @since v15.0.0
+     * @since v15.0.0, v14.17.0
      */
     function resolveCaa(hostname: string): Promise<CaaRecord[]>;
     /**
@@ -300,7 +300,7 @@ declare module 'dns/promises' {
      * Performs a reverse DNS query that resolves an IPv4 or IPv6 address to an
      * array of host names.
      *
-     * On error, the `Promise` is rejected with an `Error` object, where `err.code`is one of the `DNS error codes`.
+     * On error, the `Promise` is rejected with an `Error` object, where `err.code`is one of the DNS error codes.
      * @since v10.6.0
      */
     function reverse(ip: string): Promise<string[]>;
@@ -323,7 +323,7 @@ declare module 'dns/promises' {
      * The `dnsPromises.setServers()` method must not be called while a DNS query is in
      * progress.
      *
-     * This method works much like[resolve.conf](https://man7.org/linux/man-pages/man5/resolv.conf.5.html).
+     * This method works much like [resolve.conf](https://man7.org/linux/man-pages/man5/resolv.conf.5.html).
      * That is, if attempting to resolve with the first server provided results in a`NOTFOUND` error, the `resolve()` method will _not_ attempt to resolve with
      * subsequent servers provided. Fallback DNS servers will only be used if the
      * earlier ones time out or result in some other error.
@@ -331,6 +331,19 @@ declare module 'dns/promises' {
      * @param servers array of `RFC 5952` formatted addresses
      */
     function setServers(servers: ReadonlyArray<string>): void;
+    /**
+     * Set the default value of `verbatim` in `dns.lookup()` and `dnsPromises.lookup()`. The value could be:
+     *
+     * * `ipv4first`: sets default `verbatim` `false`.
+     * * `verbatim`: sets default `verbatim` `true`.
+     *
+     * The default is `ipv4first` and `dnsPromises.setDefaultResultOrder()` have
+     * higher priority than `--dns-result-order`. When using `worker threads`,`dnsPromises.setDefaultResultOrder()` from the main thread won't affect the
+     * default dns orders in workers.
+     * @since v16.4.0, v14.18.0
+     * @param order must be `'ipv4first'` or `'verbatim'`.
+     */
+    function setDefaultResultOrder(order: 'ipv4first' | 'verbatim'): void;
     class Resolver {
         constructor(options?: ResolverOptions);
         cancel(): void;

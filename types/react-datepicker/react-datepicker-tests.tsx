@@ -1,5 +1,12 @@
 import * as React from 'react';
-import DatePicker, { CalendarContainer, registerLocale, setDefaultLocale, getDefaultLocale } from 'react-datepicker';
+import DatePicker, {
+    CalendarContainer,
+    registerLocale,
+    setDefaultLocale,
+    getDefaultLocale,
+    ReactDatePickerProps,
+    ReactDatePickerCustomHeaderProps,
+} from 'react-datepicker';
 import enUS from 'date-fns/locale/en-US';
 import { Modifier } from 'react-popper';
 
@@ -74,7 +81,9 @@ const topLogger: Modifier<'topLogger'> = {
     minTime={new Date()}
     monthsShown={1}
     name=""
+    nextMonthAriaLabel=""
     nextMonthButtonLabel=""
+    nextYearAriaLabel=""
     nextYearButtonLabel=""
     onBlur={event => null}
     onCalendarClose={() => null}
@@ -113,12 +122,13 @@ const topLogger: Modifier<'topLogger'> = {
                 altAxis: true,
             },
         },
-        topLogger,
     ]}
     popperPlacement="bottom-start"
     popperProps={{}}
     preventOpenOnFocus
+    previousMonthAriaLabel=""
     previousMonthButtonLabel=""
+    previousYearAriaLabel=""
     previousYearButtonLabel=""
     readOnly
     ref={handleRef}
@@ -190,7 +200,7 @@ const topLogger: Modifier<'topLogger'> = {
 
 <DatePicker formatWeekDay={() => <div />} onChange={() => null} />;
 
-function handleRef(ref: DatePicker<'offset' | 'preventOverflow' | 'topLogger'>) {
+function handleRef(ref: DatePicker) {
     if (ref) {
         ref.setBlur();
         ref.setFocus();
@@ -206,3 +216,35 @@ function handleRef(ref: DatePicker<'offset' | 'preventOverflow' | 'topLogger'>) 
 </CalendarContainer>;
 
 <CalendarContainer />;
+
+const props: ReactDatePickerProps = {
+    onChange: () => {},
+};
+
+<DatePicker<'topLogger'>
+    onChange={() => {}}
+    popperModifiers={[{ name: 'arrow', options: { padding: 5 } }, topLogger]}
+    ref={handleRef}
+/>;
+
+const DatePickerCustomHeader = ({
+    monthDate,
+    date,
+    changeYear,
+    changeMonth,
+    customHeaderCount,
+    decreaseMonth,
+    increaseMonth,
+    decreaseYear,
+    increaseYear,
+    prevMonthButtonDisabled,
+    nextMonthButtonDisabled,
+    prevYearButtonDisabled,
+    nextYearButtonDisabled,
+}: ReactDatePickerCustomHeaderProps) => <div></div>;
+
+<DatePicker onChange={() => {}} renderCustomHeader={props => <DatePickerCustomHeader {...props} />} />;
+
+<DatePicker selectsRange onChange={([start]) => start?.getHours()} />;
+
+<DatePicker onChange={date => date?.toISOString()} />;

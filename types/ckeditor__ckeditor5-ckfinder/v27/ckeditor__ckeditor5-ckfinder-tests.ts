@@ -33,3 +33,6 @@ editor.plugins.get('CKFinderEditing');
 editor.plugins.get('CKFinderUI');
 
 new CKFinderCommand(new BaseEditor()).execute();
+
+// $ExpectType CKFinderCommand | undefined
+editor.commands.get('CKFinderCommand');

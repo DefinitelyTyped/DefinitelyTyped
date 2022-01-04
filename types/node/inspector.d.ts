@@ -15,7 +15,7 @@
  * ```js
  * const inspector = require('inspector');
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v16.7.0/lib/inspector.js)
+ * @see [source](https://github.com/nodejs/node/blob/v17.0.0/lib/inspector.js)
  */
 declare module 'inspector' {
     import EventEmitter = require('node:events');
@@ -1779,6 +1779,12 @@ declare module 'inspector' {
          */
         connect(): void;
         /**
+         * Connects a session to the main thread inspector back-end. An exception will
+         * be thrown if this API was not called on a Worker thread.
+         * @since v12.11.0
+         */
+        connectToMainThread(): void;
+        /**
          * Immediately close the session. All pending message callbacks will be called
          * with an error. `session.connect()` will need to be called to be able to send
          * messages again. Reconnected session will lose all inspector state, such as
@@ -1797,7 +1803,7 @@ declare module 'inspector' {
          * // Output: { type: 'number', value: 4, description: '4' }
          * ```
          *
-         * The latest version of the V8 inspector protocol is published on the[Chrome DevTools Protocol Viewer](https://chromedevtools.github.io/devtools-protocol/v8/).
+         * The latest version of the V8 inspector protocol is published on the [Chrome DevTools Protocol Viewer](https://chromedevtools.github.io/devtools-protocol/v8/).
          *
          * Node.js inspector supports all the Chrome DevTools Protocol domains declared
          * by V8\. Chrome DevTools Protocol domain provides an interface for interacting

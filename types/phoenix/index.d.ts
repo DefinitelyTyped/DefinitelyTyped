@@ -17,8 +17,12 @@ export class Push {
   receive(status: PushStatus, callback: (response?: any) => any): this;
 }
 
+export type ChannelState = 'closed' | 'errored' | 'joined' | 'joining' | 'leaving';
+
 export class Channel {
   constructor(topic: string, params?: object | (() => object), socket?: Socket);
+
+  state: ChannelState;
 
   join(timeout?: number): Push;
   leave(timeout?: number): Push;
@@ -39,7 +43,7 @@ export type ConnectionState = 'connecting' | 'open' | 'closing' | 'closed';
 export interface SocketConnectOption {
   binaryType: BinaryType;
   params: object | (() => object);
-  transport: string;
+  transport: new (endpoint: string) => object;
   timeout: number;
   heartbeatIntervalMs: number;
   longpollerTimeout: number;

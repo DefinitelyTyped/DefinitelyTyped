@@ -23,7 +23,7 @@
  * server.bind(41234);
  * // Prints: server listening 0.0.0.0:41234
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v16.7.0/lib/dgram.js)
+ * @see [source](https://github.com/nodejs/node/blob/v17.0.0/lib/dgram.js)
  */
 declare module 'dgram' {
     import { AddressInfo } from 'node:net';
@@ -166,17 +166,17 @@ declare module 'dgram' {
          * @since v0.1.99
          * @param callback with no parameters. Called when binding is complete.
          */
-        bind(port?: number, address?: string, callback?: () => void): void;
-        bind(port?: number, callback?: () => void): void;
-        bind(callback?: () => void): void;
-        bind(options: BindOptions, callback?: () => void): void;
+        bind(port?: number, address?: string, callback?: () => void): this;
+        bind(port?: number, callback?: () => void): this;
+        bind(callback?: () => void): this;
+        bind(options: BindOptions, callback?: () => void): this;
         /**
          * Close the underlying socket and stop listening for data on it. If a callback is
          * provided, it is added as a listener for the `'close'` event.
          * @since v0.1.99
          * @param callback Called when the socket has been closed.
          */
-        close(callback?: () => void): void;
+        close(callback?: () => void): this;
         /**
          * Associates the `dgram.Socket` to a remote address and port. Every
          * message sent by this handle is automatically sent to that destination. Also,
@@ -260,7 +260,7 @@ declare module 'dgram' {
          *
          * The `address` argument is a string. If the value of `address` is a host name,
          * DNS will be used to resolve the address of the host. If `address` is not
-         * provided or otherwise falsy, `'127.0.0.1'` (for `udp4` sockets) or `'::1'`(for `udp6` sockets) will be used by default.
+         * provided or otherwise nullish, `'127.0.0.1'` (for `udp4` sockets) or `'::1'`(for `udp6` sockets) will be used by default.
          *
          * If the socket has not been previously bound with a call to `bind`, the socket
          * is assigned a random port number and is bound to the "all interfaces" address
@@ -350,7 +350,7 @@ declare module 'dgram' {
          */
         setBroadcast(flag: boolean): void;
         /**
-         * _All references to scope in this section are referring to[IPv6 Zone Indices](https://en.wikipedia.org/wiki/IPv6_address#Scoped_literal_IPv6_addresses), which are defined by [RFC
+         * _All references to scope in this section are referring to [IPv6 Zone Indices](https://en.wikipedia.org/wiki/IPv6_address#Scoped_literal_IPv6_addresses), which are defined by [RFC
          * 4007](https://tools.ietf.org/html/rfc4007). In string form, an IP_
          * _with a scope index is written as `'IP%scope'` where scope is an interface name_
          * _or interface number._
@@ -414,7 +414,7 @@ declare module 'dgram' {
          * This method throws `EBADF` if called on an unbound socket.
          * @since v0.3.8
          */
-        setMulticastLoopback(flag: boolean): void;
+        setMulticastLoopback(flag: boolean): boolean;
         /**
          * Sets the `IP_MULTICAST_TTL` socket option. While TTL generally stands for
          * "Time to Live", in this context it specifies the number of IP hops that a
@@ -427,7 +427,7 @@ declare module 'dgram' {
          * This method throws `EBADF` if called on an unbound socket.
          * @since v0.3.8
          */
-        setMulticastTTL(ttl: number): void;
+        setMulticastTTL(ttl: number): number;
         /**
          * Sets the `SO_RCVBUF` socket option. Sets the maximum socket receive buffer
          * in bytes.
@@ -457,7 +457,7 @@ declare module 'dgram' {
          * This method throws `EBADF` if called on an unbound socket.
          * @since v0.1.101
          */
-        setTTL(ttl: number): void;
+        setTTL(ttl: number): number;
         /**
          * By default, binding a socket will cause it to block the Node.js process from
          * exiting as long as the socket is open. The `socket.unref()` method can be used

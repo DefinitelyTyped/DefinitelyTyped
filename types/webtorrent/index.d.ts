@@ -32,12 +32,19 @@ declare namespace WebTorrent {
     }
 
     interface TorrentOptions {
-        announce?: any[] | undefined;
+        announce?: string[] | undefined;
+        announceList?: string[][] | undefined;
         getAnnounceOpts?(): void;
+        urlList?: string[] | undefined;
         maxWebConns?: number | undefined;
         path?: string | undefined;
         store?(chunkLength: number, storeOpts: { length: number, files: File[], torrent: Torrent, }): any;
         private?: boolean | undefined;
+        destroyStoreOnDestroy?: boolean | undefined;
+        storeCacheSlots?: number | undefined;
+        skipVerify?: boolean | undefined;
+        preloadedStore?(): void;
+        strategy?: string | undefined;
     }
 
     interface TorrentDestroyOptions {
@@ -83,6 +90,8 @@ declare namespace WebTorrent {
         readonly files: TorrentFile[];
 
         readonly announce: string[];
+
+        readonly ['announce-list']: string[][];
 
         readonly pieces: Array<TorrentPiece | null>;
 

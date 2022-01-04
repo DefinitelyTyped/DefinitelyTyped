@@ -1,12 +1,12 @@
-// Type definitions for svg-spritemap-webpack-plugin 4.2
+// Type definitions for svg-spritemap-webpack-plugin 4.4
 // Project: https://github.com/cascornelissen/svg-spritemap-webpack-plugin
 // Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
 
 /// <reference types="node" />
 
 import { Compiler, WebpackPluginInstance } from 'webpack';
+import { IOptions as GlobOptions } from 'glob';
 
 declare namespace SVGSpritemapPlugin {
     /**
@@ -16,7 +16,7 @@ declare namespace SVGSpritemapPlugin {
         /**
          * The input object contains the configuration for the input of the plugin.
          */
-        input?: Input | undefined;
+        input?: InputOptions | undefined;
         /**
          * The output object contains the configuration for the main output (SVG) of the plugin.
          */
@@ -28,6 +28,7 @@ declare namespace SVGSpritemapPlugin {
                   filename?: string | undefined;
                   svg?:
                       | {
+                            attributes?: Record<string, string | number | boolean> | undefined;
                             /**
                              * Whether to include the width and height attributes on the root SVG element.
                              * The default value for this option is based on the value of the sprite.generate.use option but when specified will always overwrite it.
@@ -117,11 +118,11 @@ declare namespace SVGSpritemapPlugin {
             | undefined;
     }
 
-    interface Input {
+    interface InputOptions {
         /**
          * Options object to pass to [`glob`](http://npmjs.com/package/glob) to find the sprites.
          */
-        options?: object | undefined;
+        options?: GlobOptions | undefined;
         /**
          * Allow the usage of the same input SVG multiple times.
          * This option work well together with the `sprite.idify` option to set a different name in the output file.

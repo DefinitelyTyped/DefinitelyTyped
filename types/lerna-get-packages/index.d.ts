@@ -9,6 +9,7 @@ interface LernaPackage {
         private?: boolean | undefined;
         version: string;
         name: string;
+        dependencies: Record<string, string>;
         main?: string | undefined;
         config?: {
             additionalTsTypings?: string[] | undefined;

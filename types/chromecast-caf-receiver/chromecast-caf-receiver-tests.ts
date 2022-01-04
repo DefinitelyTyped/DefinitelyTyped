@@ -14,6 +14,12 @@ import { BreakManager } from 'chromecast-caf-receiver/cast.framework.breaks';
 
 const mediaMetadata = new MediaMetadata(cast.framework.messages.MetadataType.GENERIC);
 mediaMetadata.metadataType = cast.framework.messages.MetadataType.TV_SHOW;
+mediaMetadata.posterUrl = 'https://www.foo.bar';
+mediaMetadata.queueItemId = 1;
+mediaMetadata.sectionDuration = 10;
+mediaMetadata.sectionStartAbsoluteTime = 0;
+mediaMetadata.sectionStartTimeInContainer = 0;
+mediaMetadata.sectionStartTimeInMedia = 0;
 
 // The following tests showcase how you can globally access 'cast' types using
 // the nested namespace style. This is the preferred method as it
@@ -229,3 +235,23 @@ playerManager.setMessageInterceptor(
         return messageData;
     },
 );
+
+const queueItem = new cast.framework.messages.QueueItem();
+queueItem.activeTrackIds = [1, 2];
+queueItem.autoplay = false;
+queueItem.customData = {};
+queueItem.itemId = 1;
+queueItem.media = new cast.framework.messages.MediaInformation();
+queueItem.playbackDuration = 300;
+queueItem.orderId = 1;
+queueItem.preloadTime = 4;
+queueItem.startTime = 0;
+
+const userActionState = new cast.framework.messages.UserActionState(cast.framework.messages.UserAction.LIKE);
+userActionState.customData = {};
+
+const tracksInfo = new cast.framework.messages.TracksInfo();
+tracksInfo.activeTrackIds = [1, 2];
+tracksInfo.language = 'en';
+tracksInfo.textTrackStyle = new cast.framework.messages.TextTrackStyle();
+tracksInfo.tracks = [new cast.framework.messages.Track(1, cast.framework.messages.TrackType.AUDIO)];

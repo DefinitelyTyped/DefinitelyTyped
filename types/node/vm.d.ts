@@ -32,7 +32,7 @@
  *
  * console.log(x); // 1; y is not defined.
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v16.7.0/lib/vm.js)
+ * @see [source](https://github.com/nodejs/node/blob/v17.0.0/lib/vm.js)
  */
 declare module 'vm' {
     interface Context extends NodeJS.Dict<any> {}
@@ -267,13 +267,16 @@ declare module 'vm' {
          * @since v10.6.0
          */
         createCachedData(): Buffer;
+        /** @deprecated in favor of `script.createCachedData()` */
+        cachedDataProduced?: boolean | undefined;
         cachedDataRejected?: boolean | undefined;
+        cachedData?: Buffer | undefined;
     }
     /**
      * If given a `contextObject`, the `vm.createContext()` method will `prepare
      * that object` so that it can be used in calls to {@link runInContext} or `script.runInContext()`. Inside such scripts,
      * the `contextObject` will be the global object, retaining all of its existing
-     * properties but also having the built-in objects and functions any standard[global object](https://es5.github.io/#x15.1) has. Outside of scripts run by the vm module, global variables
+     * properties but also having the built-in objects and functions any standard [global object](https://es5.github.io/#x15.1) has. Outside of scripts run by the vm module, global variables
      * will remain unchanged.
      *
      * ```js
@@ -394,7 +397,7 @@ declare module 'vm' {
      * ```
      *
      * Because `vm.runInThisContext()` does not have access to the local scope,`localVar` is unchanged. In contrast,
-     * [`eval()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/eval)_does_ have access to the
+     * [`eval()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/eval) _does_ have access to the
      * local scope, so the value `localVar` is changed. In this way`vm.runInThisContext()` is much like an [indirect `eval()` call](https://es5.github.io/#x10.4.2), e.g.`(0,eval)('code')`.
      *
      * ## Example: Running an HTTP server within a VM

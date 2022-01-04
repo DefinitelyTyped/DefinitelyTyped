@@ -8,9 +8,10 @@
 export = AnalyticsNode.Analytics;
 
 declare namespace AnalyticsNode {
-  type Identity =
-    | { userId: string | number }
-    | { userId?: string | number | undefined; anonymousId: string | number };
+  interface Identity {
+    userId?: string | number;
+    anonymousId?: string | number;
+  }
 
   type Message = Identity & {
     type: string;
@@ -72,6 +73,17 @@ declare namespace AnalyticsNode {
        optional extra information about the page being viewed. */
     page(message: Identity & {
       category?: string | undefined;
+      name?: string | undefined;
+      properties?: any;
+      timestamp?: Date | undefined;
+      context?: any;
+      integrations?: Integrations | undefined;
+    }, callback?: (err: Error) => void): Analytics;
+
+    /* The screen method lets you record whenever a user sees a screen,
+       the mobile equivalent of page, in your mobile app, along with
+       any properties about the screen. */
+    screen(message: Identity & {
       name?: string | undefined;
       properties?: any;
       timestamp?: Date | undefined;

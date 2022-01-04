@@ -41,6 +41,7 @@ declare namespace Backbone {
     interface HistoryOptions extends Silenceable {
         pushState?: boolean | undefined;
         root?: string | undefined;
+        hashChange?: boolean | undefined;
     }
 
     interface NavigateOptions {
@@ -212,7 +213,7 @@ declare namespace Backbone {
      * E - Extensions to the model constructor options. You can accept additional constructor options
      * by listing them in the E parameter.
      */
-    class Model<T extends ObjectHash = any, S = ModelSetOptions, E = {}> extends ModelBase implements Events {
+    class Model<T extends ObjectHash = any, S = ModelSetOptions, E = any> extends ModelBase implements Events {
         /**
          * Do not use, prefer TypeScript's extend functionality.
          */
@@ -531,11 +532,11 @@ declare namespace Backbone {
         private _updateHash(location: Location, fragment: string, replace: boolean): void;
     }
 
-    interface ViewOptions<TModel extends Model = Model> {
+    interface ViewOptions<TModel extends (Model | undefined) = Model, TElement extends Element = HTMLElement> {
         model?: TModel | undefined;
         // TODO: quickfix, this can't be fixed easy. The collection does not need to have the same model as the parent view.
         collection?: Collection<any> | undefined; // was: Collection<TModel>;
-        el?: HTMLElement | JQuery | string | undefined;
+        el?: TElement | JQuery | string | undefined;
         id?: string | undefined;
         attributes?: Record<string, any> | undefined;
         className?: string | undefined;
@@ -545,7 +546,7 @@ declare namespace Backbone {
 
     type ViewEventListener = (event: JQuery.Event) => void;
 
-    class View<TModel extends Model = Model> extends EventsMixin implements Events {
+    class View<TModel extends (Model | undefined) = Model, TElement extends Element = HTMLElement> extends EventsMixin implements Events {
         /**
          * Do not use, prefer TypeScript's extend functionality.
          */
@@ -557,10 +558,10 @@ declare namespace Backbone {
          * instantiation logic is run.
          * @see https://backbonejs.org/#View-preinitialize
          */
-        preinitialize(options?: ViewOptions<TModel>): void;
+        preinitialize(options?: ViewOptions<TModel, TElement>): void;
 
-        constructor(options?: ViewOptions<TModel>);
-        initialize(options?: ViewOptions<TModel>): void;
+        constructor(options?: ViewOptions<TModel, TElement>);
+        initialize(options?: ViewOptions<TModel, TElement>): void;
 
         /**
          * Events hash or a method returning the events hash that maps events/selectors to methods on your View.
@@ -569,15 +570,16 @@ declare namespace Backbone {
          */
         events(): EventsHash;
 
-        model: TModel;
-        collection: Collection<TModel>;
-        setElement(element: HTMLElement | JQuery): this;
+        // A conditional type used here to prevent `TS2532: Object is possibly 'undefined'`
+        model: TModel extends Model ? TModel : undefined;
+        collection: Collection<any>;
+        setElement(element: TElement | JQuery): this;
         id?: string | undefined;
         cid: string;
         className?: string | undefined;
         tagName: string;
 
-        el: HTMLElement;
+        el: TElement;
         $el: JQuery;
         attributes: Record<string, any>;
         $(selector: string): JQuery;
@@ -589,7 +591,7 @@ declare namespace Backbone {
         undelegate(eventName: string, selector?: string, listener?: ViewEventListener): this;
 
         protected _removeElement(): void;
-        protected _setElement(el: HTMLElement | JQuery): void;
+        protected _setElement(el: TElement | JQuery): void;
         protected _createElement(tagName: string): void;
         protected _ensureElement(): void;
         protected _setAttributes(attributes: Record<string, any>): void;

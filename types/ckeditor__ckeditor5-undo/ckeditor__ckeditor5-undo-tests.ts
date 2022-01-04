@@ -31,3 +31,9 @@ editor.plugins.get('UndoEditing');
 
 // $ExpectType UndoUI
 editor.plugins.get('UndoUI');
+
+// $ExpectType RedoCommand | undefined
+editor.commands.get('RedoCommand');
+
+// $ExpectType UndoCommand | undefined
+editor.commands.get('UndoCommand');

@@ -1,4 +1,4 @@
-// Type definitions for non-npm package frida-gum 17.1
+// Type definitions for non-npm package frida-gum 17.3
 // Project: https://github.com/frida/frida
 // Definitions by: Ole André Vadla Ravnås <https://github.com/oleavr>
 //                 Francesco Tamagni <https://github.com/mrmacete>
@@ -168,11 +168,6 @@ declare namespace Frida {
      * the hosting process.
      */
     const heapSize: number;
-
-    /**
-     * Source map for the GumJS runtime.
-     */
-    const sourceMap: SourceMap;
 }
 
 declare namespace Script {
@@ -180,16 +175,6 @@ declare namespace Script {
      * Runtime being used.
      */
     const runtime: ScriptRuntime;
-
-    /**
-     * File name of the current script.
-     */
-    const fileName: string;
-
-    /**
-     * Source map of the current script.
-     */
-    const sourceMap: SourceMap;
 
     /**
      * Runs `func` on the next tick, i.e. when the current native thread exits
@@ -202,7 +187,7 @@ declare namespace Script {
      * This is reference-counted, so there must be one matching `unpin()`
      * happening at a later point.
      *
-     * Typically used in the callback of `WeakRef.bind()` when you need to
+     * Typically used in the callback of `Script.bindWeak()` when you need to
      * schedule cleanup on another thread.
      */
     function pin(): void;
@@ -229,10 +214,10 @@ declare namespace Script {
     function bindWeak(target: any, callback: WeakRefCallback): WeakRefId;
 
     /**
-     * Stops monitoring the value passed to `WeakRef.bind()` and calls the
+     * Stops monitoring the value passed to `Script.bindWeak()` and calls the
      * callback immediately.
      *
-     * @param id ID returned by a previous call to `WeakRef.bind()`.
+     * @param id ID returned by a previous call to `Script.bindWeak()`.
      */
     function unbindWeak(id: WeakRefId): void;
 
@@ -590,25 +575,20 @@ declare namespace Memory {
      *
      * @param address Starting address to scan from.
      * @param size Number of bytes to scan.
-     * @param pattern Match pattern of the form “13 37 ?? ff” to match 0x13 followed by 0x37 followed by any byte
-     *                followed by 0xff. For more advanced matching it is also possible to specify an r2-style mask.
-     *                The mask is bitwise AND-ed against both the needle and the haystack. To specify the mask append
-     *                a `:` character after the needle, followed by the mask using the same syntax.
-     *                For example: “13 37 13 37 : 1f ff ff f1”.
-     *                For convenience it is also possible to specify nibble-level wildcards, like “?3 37 13 ?7”,
-     *                which gets translated into masks behind the scenes.
+     * @param pattern Match pattern, see `MatchPattern` for details.
      * @param callbacks Object with callbacks.
      */
-    function scan(address: NativePointerValue, size: number | UInt64, pattern: string, callbacks: MemoryScanCallbacks): void;
+    function scan(address: NativePointerValue, size: number | UInt64, pattern: string | MatchPattern,
+        callbacks: MemoryScanCallbacks): Promise<void>;
 
     /**
      * Synchronous version of `scan()`.
      *
      * @param address Starting address to scan from.
      * @param size Number of bytes to scan.
-     * @param pattern Match pattern, see `Memory.scan()` for details.
+     * @param pattern Match pattern, see `MatchPattern` for details.
      */
-    function scanSync(address: NativePointerValue, size: number | UInt64, pattern: string): MemoryScanMatch[];
+    function scanSync(address: NativePointerValue, size: number | UInt64, pattern: string | MatchPattern): MemoryScanMatch[];
 
     /**
      * Allocates `size` bytes of memory on Frida's private heap, or, if `size` is a multiple of Process#pageSize,
@@ -1177,7 +1157,7 @@ interface MemoryScanCallbacks {
     /**
      * Called when the memory range has been fully scanned.
      */
-    onComplete: () => void;
+    onComplete?: () => void;
 }
 
 interface MemoryScanMatch {
@@ -1211,7 +1191,7 @@ interface KernelMemoryScanCallbacks {
     /**
      * Called when the memory range has been fully scanned.
      */
-    onComplete: () => void;
+    onComplete?: () => void;
 }
 
 interface KernelMemoryScanMatch {
@@ -1977,58 +1957,22 @@ interface MipsCpuContext extends PortableCpuContext {
     k1: NativePointer;
 }
 
-/**
- * Helper used internally for source map parsing in order to provide helpful
- * JavaScript stack-traces.
- */
-declare class SourceMap {
+// tslint:disable:no-unnecessary-class
+declare class MatchPattern {
     /**
-     * Constructs a source map from JSON.
+     * Compiles a match pattern for use with e.g. `Memory.scan()`.
      *
-     * @param json String containing the source map encoded as JSON.
-     */
-    constructor(json: string);
-
-    /**
-     * Attempts to map a generated source position back to the original.
+     * @param pattern Match pattern of the form “13 37 ?? ff” to match 0x13 followed by 0x37 followed by any byte
+     *                followed by 0xff, or “/Some\s*Pattern/” for matching a regular expression.
      *
-     * @param generatedPosition Position in generated code.
+     *                For more advanced matching it is also possible to specify an r2-style mask.
+     *                The mask is bitwise AND-ed against both the needle and the haystack. To specify the mask append
+     *                a `:` character after the needle, followed by the mask using the same syntax.
+     *                For example: “13 37 13 37 : 1f ff ff f1”.
+     *                For convenience it is also possible to specify nibble-level wildcards, like “?3 37 13 ?7”,
+     *                which gets translated into masks behind the scenes.
      */
-    resolve(generatedPosition: GeneratedSourcePosition): OriginalSourcePosition | null;
-}
-
-interface GeneratedSourcePosition {
-    /**
-     * Line number.
-     */
-    line: number;
-
-    /**
-     * Column number, if available.
-     */
-    column?: number | undefined;
-}
-
-interface OriginalSourcePosition {
-    /**
-     * Source file name.
-     */
-    source: string;
-
-    /**
-     * Line number.
-     */
-    line: number;
-
-    /**
-     * Column number.
-     */
-    column: number;
-
-    /**
-     * Identifier, if available.
-     */
-    name: string | null;
+    constructor(pattern: string);
 }
 
 /**
@@ -3347,6 +3291,11 @@ declare class X86Instruction extends Instruction {
     operands: X86Operand[];
 
     /**
+     * Registers accessed by this instruction, either implicitly or explicitly.
+     */
+    regsAccessed: RegsAccessed<X86Register>;
+
+    /**
      * Registers implicitly read by this instruction.
      */
     regsRead: X86Register[];
@@ -3362,6 +3311,11 @@ declare class ArmInstruction extends Instruction {
      * Array of objects describing each operand.
      */
     operands: ArmOperand[];
+
+    /**
+     * Registers accessed by this instruction, either implicitly or explicitly.
+     */
+    regsAccessed: RegsAccessed<ArmRegister>;
 
     /**
      * Registers implicitly read by this instruction.
@@ -3381,6 +3335,11 @@ declare class Arm64Instruction extends Instruction {
     operands: Arm64Operand[];
 
     /**
+     * Registers accessed by this instruction, either implicitly or explicitly.
+     */
+    regsAccessed: RegsAccessed<Arm64Register>;
+
+    /**
      * Registers implicitly read by this instruction.
      */
     regsRead: Arm64Register[];
@@ -3398,6 +3357,11 @@ declare class MipsInstruction extends Instruction {
     operands: MipsOperand[];
 
     /**
+     * Registers accessed by this instruction, either implicitly or explicitly.
+     */
+    regsAccessed: RegsAccessed<MipsRegister>;
+
+    /**
      * Registers implicitly read by this instruction.
      */
     regsRead: MipsRegister[];
@@ -3408,12 +3372,20 @@ declare class MipsInstruction extends Instruction {
     regsWritten: MipsRegister[];
 }
 
+interface RegsAccessed<T> {
+    read: T[];
+    written: T[];
+}
+
+type OperandAccess = "" | "r" | "w" | "rw";
+
 type X86Operand = X86RegOperand | X86ImmOperand | X86MemOperand;
 
 type X86OperandType = "reg" | "imm" | "mem";
 
 interface X86BaseOperand {
     size: number;
+    access: OperandAccess;
 }
 
 interface X86RegOperand extends X86BaseOperand {
@@ -3459,6 +3431,7 @@ interface ArmBaseOperand {
     } | undefined;
     vectorIndex?: number | undefined;
     subtracted: boolean;
+    access: OperandAccess;
 }
 
 interface ArmRegOperand extends ArmBaseOperand {
@@ -3532,6 +3505,7 @@ interface Arm64BaseOperand {
     ext?: Arm64Extender | undefined;
     vas?: Arm64Vas | undefined;
     vectorIndex?: number | undefined;
+    access: OperandAccess;
 }
 
 interface Arm64RegOperand extends Arm64BaseOperand {
@@ -3705,16 +3679,11 @@ declare namespace Kernel {
      *
      * @param address Starting address to scan from.
      * @param size Number of bytes to scan.
-     * @param pattern Match pattern of the form “13 37 ?? ff” to match 0x13 followed by 0x37 followed by any byte
-     *                followed by 0xff. For more advanced matching it is also possible to specify an r2-style mask.
-     *                The mask is bitwise AND-ed against both the needle and the haystack. To specify the mask append
-     *                a `:` character after the needle, followed by the mask using the same syntax.
-     *                For example: “13 37 13 37 : 1f ff ff f1”.
-     *                For convenience it is also possible to specify nibble-level wildcards, like “?3 37 13 ?7”,
-     *                which gets translated into masks behind the scenes.
+     * @param pattern Match pattern, see `MatchPattern` for details.
      * @param callbacks Object with callbacks.
      */
-    function scan(address: UInt64, size: number | UInt64, pattern: string, callbacks: KernelMemoryScanCallbacks): void;
+    function scan(address: UInt64, size: number | UInt64, pattern: string | MatchPattern,
+        callbacks: KernelMemoryScanCallbacks): Promise<void>;
 
     /**
      * Synchronous version of `scan()`.
@@ -3723,7 +3692,7 @@ declare namespace Kernel {
      * @param size Number of bytes to scan.
      * @param pattern Match pattern, see `Memory.scan()` for details.
      */
-    function scanSync(address: UInt64, size: number | UInt64, pattern: string): KernelMemoryScanMatch[];
+    function scanSync(address: UInt64, size: number | UInt64, pattern: string | MatchPattern): KernelMemoryScanMatch[];
 
     function readS8(address: UInt64): number;
     function readU8(address: UInt64): number;
@@ -4542,6 +4511,15 @@ declare namespace Java {
     function array(type: string, elements: any[]): any[];
 
     /**
+     * Generates a backtrace for the current thread.
+     *
+     * Note that this API is unstable and subject to change.
+     *
+     * @param options Options to customize the stack-walking.
+     */
+    function backtrace(options?: BacktraceOptions): Frame[];
+
+    /**
      * Determines whether the caller is running on the main thread.
      */
     function isMainThread(): boolean;
@@ -4653,6 +4631,61 @@ declare namespace Java {
          * Called when all instances have been enumerated.
          */
         onComplete: () => void;
+    }
+
+    /**
+     * Options that may be passed to `Java.backtrace()`.
+     */
+    interface BacktraceOptions {
+        /**
+         * Limit how many frames up the stack to walk. Defaults to 16.
+         */
+        limit?: number;
+    }
+
+    /**
+     * Stack frame returned by `Java.backtrace()`.
+     */
+    interface Frame {
+        /**
+         * Method being called.
+         */
+        method: {
+            /**
+             * The jmethodID of the method. On ART, this is an `ArtMethod *`.
+             */
+            handle: NativePointer;
+
+            /**
+             * Method name, e.g. `"loopOnce"`.
+             */
+            name: string;
+
+            /**
+             * Return type, e.g. `"boolean"`.
+             */
+            returnType: string;
+
+            /**
+             * Argument types, e.g. `["android.os.Looper", "long", "int"]`.
+             */
+            argumentTypes: string[];
+        };
+
+        /**
+         * Class name that method belongs to, e.g. `"android.os.Looper"`.
+         */
+        className: string;
+
+        /**
+         * Source file name, e.g. `"Looper.java"`.
+         */
+        fileName: string;
+
+        /**
+         * Source line number, e.g. `201`.
+         */
+        lineNumber: number;
     }
 
     type Members<T> = Record<keyof T, MethodDispatcher | Field>;

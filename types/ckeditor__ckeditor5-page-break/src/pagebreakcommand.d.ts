@@ -15,3 +15,9 @@ export default class PageBreakCommand extends Command {
      */
     execute(): void;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/commandcollection' {
+    interface Commands {
+        PageBreakCommand: PageBreakCommand;
+    }
+}

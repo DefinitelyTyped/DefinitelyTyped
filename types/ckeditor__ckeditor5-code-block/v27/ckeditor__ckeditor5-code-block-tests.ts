@@ -51,3 +51,12 @@ editor.plugins.get('CodeBlockEditing');
 
 // $ExpectType CodeBlockUI
 editor.plugins.get('CodeBlockUI');
+
+// $ExpectType CodeBlockCommand | undefined
+editor.commands.get('CodeBlockCommand');
+
+// $ExpectType OutdentCodeBlockCommand | undefined
+editor.commands.get('OutdentCodeBlockCommand');
+
+// $ExpectType IndentCodeBlockCommand | undefined
+editor.commands.get('IndentCodeBlockCommand');

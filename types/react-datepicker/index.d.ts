@@ -1,8 +1,7 @@
-// Type definitions for react-datepicker 4.1
+// Type definitions for react-datepicker 4.3
 // Project: https://github.com/Hacker0x01/react-datepicker
-// Definitions by: Rajab Shakirov <https://github.com/radziksh>,
-//                 Andrey Balokha <https://github.com/andrewBalekha>,
-//                 Greg Smith <https://github.com/smrq>,
+// Definitions by: Rajab Shakirov <https://github.com/radziksh>
+//                 Greg Smith <https://github.com/smrq>
 //                 Roy Xue <https://github.com/royxue>
 //                 Koala Human <https://github.com/KoalaHuman>
 //                 Justin Grant <https://github.com/justingrant>
@@ -10,18 +9,18 @@
 //                 Roman Nuritdinov <https://github.com/Ky6uk>
 //                 Avi Klaiman <https://github.com/aviklai>
 //                 Naoki Sekiguchi <https://github.com/seckie>
-//                 tu4mo <https://github.com/tu4mo>
 //                 Kerry Gougeon <https://github.com/kerry-g>
 //                 Shiftr Tech SAS <https://github.com/ShiftrTechSAS>
+//                 Pirasis Leelatanon <https://github.com/1pete>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.8
 
 import * as React from 'react';
 import * as Popper from '@popperjs/core';
 import { Locale } from 'date-fns';
-import { Modifier } from 'react-popper';
+import { Modifier, StrictModifierNames } from 'react-popper';
 
-export function registerLocale(localeName: string, localeData: {}): void;
+export function registerLocale(localeName: string, localeData: Locale): void;
 export function setDefaultLocale(localeName: string): void;
 export function getDefaultLocale(): string;
 export function CalendarContainer(props: {
@@ -35,7 +34,23 @@ interface HighlightDates {
     [className: string]: Date[];
 }
 
-export interface ReactDatePickerProps<Modifiers> {
+export interface ReactDatePickerCustomHeaderProps {
+    monthDate: Date;
+    date: Date;
+    changeYear(year: number): void;
+    changeMonth(month: number): void;
+    customHeaderCount: number;
+    decreaseMonth(): void;
+    increaseMonth(): void;
+    prevMonthButtonDisabled: boolean;
+    nextMonthButtonDisabled: boolean;
+    decreaseYear(): void;
+    increaseYear(): void;
+    prevYearButtonDisabled: boolean;
+    nextYearButtonDisabled: boolean;
+}
+
+export interface ReactDatePickerProps<CustomModifierNames extends string = never, WithRange extends boolean | undefined = undefined> {
     adjustDateOnChange?: boolean | undefined;
     allowSameDay?: boolean | undefined;
     ariaDescribedBy?: string | undefined;
@@ -91,13 +106,15 @@ export interface ReactDatePickerProps<Modifiers> {
     minTime?: Date | undefined;
     monthsShown?: number | undefined;
     name?: string | undefined;
+    nextMonthAriaLabel?: string | undefined;
     nextMonthButtonLabel?: string | React.ReactNode | undefined;
+    nextYearAriaLabel?: string | undefined;
     nextYearButtonLabel?: string | undefined;
     onBlur?(event: React.FocusEvent<HTMLInputElement>): void;
     onCalendarClose?(): void;
     onCalendarOpen?(): void;
     onChange(
-        date: Date | [Date | null, Date | null] | /* for selectsRange */ null,
+        date: (WithRange extends false | undefined ? Date | null : [Date | null, Date | null]),
         event: React.SyntheticEvent<any> | undefined,
     ): void;
     onChangeRaw?(event: React.FocusEvent<HTMLInputElement>): void;
@@ -122,28 +139,16 @@ export interface ReactDatePickerProps<Modifiers> {
     placeholderText?: string | undefined;
     popperClassName?: string | undefined;
     popperContainer?(props: { children: React.ReactNode[] }): React.ReactNode;
-    popperModifiers?: ReadonlyArray<Modifier<Modifiers>> | undefined;
+    popperModifiers?: ReadonlyArray<Modifier<StrictModifierNames | CustomModifierNames>> | undefined;
     popperPlacement?: Popper.Placement | undefined;
     popperProps?: {} | undefined;
     preventOpenOnFocus?: boolean | undefined;
+    previousMonthAriaLabel?: string | undefined;
     previousMonthButtonLabel?: string | React.ReactNode | undefined;
+    previousYearAriaLabel?: string | undefined;
     previousYearButtonLabel?: string | undefined;
     readOnly?: boolean | undefined;
-    renderCustomHeader?(params: {
-        monthDate: Date;
-        date: Date;
-        changeYear(year: number): void;
-        changeMonth(month: number): void;
-        customHeaderCount: number;
-        decreaseMonth(): void;
-        increaseMonth(): void;
-        prevMonthButtonDisabled: boolean;
-        nextMonthButtonDisabled: boolean;
-        decreaseYear(): void;
-        increaseYear(): void;
-        prevYearButtonDisabled: boolean;
-        nextYearButtonDisabled: boolean;
-    }): React.ReactNode;
+    renderCustomHeader?(params: ReactDatePickerCustomHeaderProps): React.ReactNode;
     renderDayContents?(dayOfMonth: number, date?: Date): React.ReactNode;
     required?: boolean | undefined;
     scrollableMonthYearDropdown?: boolean | undefined;
@@ -151,7 +156,7 @@ export interface ReactDatePickerProps<Modifiers> {
     selected?: Date | null | undefined;
     selectsEnd?: boolean | undefined;
     selectsStart?: boolean | undefined;
-    selectsRange?: boolean | undefined;
+    selectsRange?: WithRange;
     shouldCloseOnSelect?: boolean | undefined;
     showDisabledMonthNavigation?: boolean | undefined;
     showFullMonthYearPicker?: boolean | undefined;
@@ -193,7 +198,9 @@ export interface ReactDatePickerProps<Modifiers> {
     yearItemNumber?: number | undefined;
 }
 
-declare class ReactDatePicker<Modifiers> extends React.Component<ReactDatePickerProps<Modifiers>> {
+export class ReactDatePicker<CustomModifierNames extends string = never, WithRange extends boolean | undefined = undefined> extends React.Component<
+    ReactDatePickerProps<CustomModifierNames, WithRange>
+> {
     readonly setBlur: () => void;
     readonly setFocus: () => void;
     readonly setOpen: (open: boolean, skipSetBlur?: boolean) => void;

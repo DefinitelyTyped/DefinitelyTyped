@@ -1,28 +1,27 @@
-// Type definitions for koa-generic-session 1.x
+// Type definitions for koa-generic-session 2.2
 // Project: https://github.com/koajs/generic-session
-// Definitions by: Nick Simmons <https://github.com/nsimmons>, Ragg <https://github.com/Ragg->
+// Definitions by: Nick Simmons <https://github.com/nsimmons>
+//                 Javier Garcia <https://github.com/javiertury>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
 
 import * as Koa from 'koa';
+import * as Cookies from 'cookies';
 
 declare namespace koaSession {
     interface Session {
-        cookie: any;
-        [key: string]: any;
+        cookie: Cookies.SetOption;
     }
 
-    interface SessionIdStore {
-        get(): any;
-        set(sid: string, session: Session): void;
-        reset(): void;
+    interface SessionIdStore <Ctx = Koa.Context> {
+        get(this: Ctx): string | undefined;
+        set(this: Ctx, sid: string, session: Session): void;
+        reset(this: Ctx): void;
     }
 
     interface SessionStore {
-        (): SessionStore;
-        get(sid: string): any;
-        set(sid: string, session: Session, ttl: number): void;
-        destroy(sid: string): void;
+        get(sid: string): Session | undefined | Promise<Session | undefined>;
+        set(sid: string, session: Session, ttl?: number): void | Promise<void>;
+        destroy(sid: string): void | Promise<void>;
     }
 
     interface SessionOptions {
@@ -30,35 +29,31 @@ declare namespace koaSession {
         store?: SessionStore | undefined;
         ttl?: number | undefined;
         prefix?: string | undefined;
-        cookie?: {
-            path?: string | undefined;
-            rewrite?: boolean | undefined;
-            signed?: boolean | undefined;
-            maxAge?: number | null | undefined;
-            secure?: boolean | undefined;
-            httpOnly?: boolean | undefined;
-            sameSite?: boolean | 'lax' | 'none' | 'strict' | undefined;
-            overwrite?: boolean | undefined;
-        } | undefined;
+        cookie?: Cookies.SetOption | undefined;
         allowEmpty?: boolean | undefined;
         defer?: boolean | undefined;
         reconnectTimeout?: number | undefined;
         rolling?: boolean | undefined;
         sessionIdStore?: SessionIdStore | undefined;
-        genSid?(length: number): string;
+        genSid?(this: Koa.Context, length: number): string | Promise<string>;
         errorHandler?(error: Error, type: string, ctx: Koa.Context): void;
         valid?(ctx: Koa.Context, session: Session): boolean;
         beforeSave?(ctx: Koa.Context, session: Session): void;
     }
 
-    const MemoryStore: SessionStore;
+    class MemoryStore implements SessionStore {
+        get(sid: string): Session | undefined;
+        set(sid: string, session: Session): void;
+        destroy(sid: string): void;
+    }
 }
 
 declare module 'koa' {
     interface Context {
+        sessionId: string;
         session: koaSession.Session | null;
         sessionSave: boolean | null;
-        regenerateSession(): Generator;
+        regenerateSession(): Promise<void>;
     }
 }
 

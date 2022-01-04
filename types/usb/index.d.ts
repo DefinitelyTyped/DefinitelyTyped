@@ -549,6 +549,12 @@ export function on(event: string, callback: (device: Device) => void): void;
 export function removeListener(event: string, callback: (device: Device) => void): void;
 
 /**
+ * Removes a callback from all event handlers or those specified by the event param
+ * @param event The event to remove from
+ */
+export function removeAllListeners(event?: string): void;
+
+/**
  * Return a list of `Device` objects for the USB devices attached to the system.
  */
 export function getDeviceList(): Device[];

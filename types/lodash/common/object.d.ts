@@ -2079,7 +2079,7 @@ declare module "../index" {
         /**
          * @see _.pickBy
          */
-        pickBy(predicate?: ValueKeyIteratee<T[keyof T]>): Object<PartialObject<T>>;
+        pickBy(predicate?: ValueKeyIteratee<T[keyof T]>): Object<T extends Dictionary<unknown> ? Dictionary<T[keyof T]> : T extends NumericDictionary<unknown> ? NumericDictionary<T[keyof T]> : PartialObject<T>>;
     }
     interface CollectionChain<T> {
         /**
@@ -2099,7 +2099,7 @@ declare module "../index" {
         /**
          * @see _.pickBy
          */
-        pickBy(predicate?: ValueKeyIteratee<T[keyof T]>): ObjectChain<PartialObject<T>>;
+        pickBy(predicate?: ValueKeyIteratee<T[keyof T]>): ObjectChain<T extends Dictionary<unknown> ? Dictionary<T[keyof T]> : T extends NumericDictionary<unknown> ? NumericDictionary<T[keyof T]> : PartialObject<T>>;
     }
     interface LoDashStatic {
         /**

@@ -1,10 +1,9 @@
-// Type definitions for validator.js 13.6
+// Type definitions for validator.js 13.7
 // Project: https://github.com/validatorjs/validator.js
 // Definitions by: tgfjt <https://github.com/tgfjt>
 //                 Ilya Mochalov <https://github.com/chrootsu>
 //                 Ayman Nedjmeddine <https://github.com/IOAyman>
 //                 Louay Alakkad <https://github.com/louy>
-//                 Kacper Polak <https://github.com/kacepe>
 //                 Bonggyun Lee <https://github.com/deptno>
 //                 Naoto Yokoyama <https://github.com/builtinnya>
 //                 Philipp Katz <https://github.com/qqilihq>
@@ -13,6 +12,13 @@
 //                 Vlad Poluch <https://github.com/vlapo>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+import * as _isBoolean from './lib/isBoolean';
+import * as _isEmail from './lib/isEmail';
+import * as _isFQDN from './lib/isFQDN';
+import * as _isIBAN from './lib/isIBAN';
+import * as _isISO4217 from './lib/isISO4217';
+import * as _isURL from './lib/isURL';
 
 declare namespace validator {
     const version: string;
@@ -100,12 +106,20 @@ declare namespace validator {
 
     const isAlphaLocales: AlphaLocale[];
 
+    interface IsAlphaOptions {
+        /**
+         * @default undefined
+         */
+        ignore?: string | RegExp | undefined;
+    }
+
     /**
      * Check if the string contains only letters (a-zA-Z).
      *
      * @param [locale] - AlphaLocale
+     * @param [options] - IsAlphaOptions
      */
-    function isAlpha(str: string, locale?: AlphaLocale): boolean;
+    function isAlpha(str: string, locale?: AlphaLocale, options?: IsAlphaOptions): boolean;
 
     type AlphanumericLocale =
         | 'en-US'
@@ -215,20 +229,15 @@ declare namespace validator {
      */
     function isBefore(str: string, date?: string): boolean;
 
-    /**
-     * Check if a string is a IBAN (International Bank Account Number).
-     */
-    function isIBAN(str: string): boolean;
+    const isIBAN: typeof _isIBAN.default;
+    const ibanLocales: typeof _isIBAN.locales;
 
     /**
      * Check if a string is a BIC (Bank Identification Code) or SWIFT code.
      */
     function isBIC(str: string): boolean;
 
-    /**
-     * check if a string is a boolean.
-     */
-    function isBoolean(str: string): boolean;
+    const isBoolean: typeof _isBoolean.default;
 
     interface IsByteLengthOptions {
         /**
@@ -402,58 +411,8 @@ declare namespace validator {
      */
     function isDivisibleBy(str: string, number: number): boolean;
 
-    interface IsEmailOptions {
-        /**
-         * If `allow_display_name` is set to `true`, the validator will also match `Display Name <email-address>`.
-         *
-         * @default false
-         */
-        allow_display_name?: boolean | undefined;
-        /**
-         * If `require_display_name` is set to `true`, the validator will reject strings without the format `Display Name <email-address>`.
-         *
-         * @default false
-         */
-        require_display_name?: boolean | undefined;
-        /**
-         * If `allow_utf8_local_part` is set to `false`, the validator will not allow any non-English UTF8 character in email address' local part.
-         *
-         * @default true
-         */
-        allow_utf8_local_part?: boolean | undefined;
-        /**
-         * If `require_tld` is set to `false`, e-mail addresses without having TLD in their domain will also be matched.
-         *
-         * @default true
-         */
-        require_tld?: boolean | undefined;
-        /**
-         * If `ignore_max_length` is set to `true`, the validator will not check for the standard max length of an email.
-         *
-         * @default false
-         */
-        ignore_max_length?: boolean | undefined;
-        /**
-         * If `allow_ip_domain` is set to `true`, the validator will allow IP addresses in the host part.
-         *
-         * @default false
-         */
-        allow_ip_domain?: boolean | undefined;
-        /**
-         * If `domain_specific_validation` is `true`, some additional validation will be enabled,
-         * e.g. disallowing certain syntactically valid email addresses that are rejected by GMail.
-         *
-         * @default false
-         */
-        domain_specific_validation?: boolean | undefined;
-    }
-
-    /**
-     * Check if the string is an email.
-     *
-     * @param [options] - Options
-     */
-    function isEmail(str: string, options?: IsEmailOptions): boolean;
+    type IsEmailOptions = _isEmail.IsEmailOptions;
+    const isEmail: typeof _isEmail.default;
 
     interface IsEmptyOptions {
         /**
@@ -553,27 +512,8 @@ declare namespace validator {
      */
     function isFloat(str: string, options?: IsFloatOptions): boolean;
 
-    interface IsFQDNOptions {
-        /**
-         * @default true
-         */
-        require_tld?: boolean | undefined;
-        /**
-         * @default false
-         */
-        allow_underscores?: boolean | undefined;
-        /**
-         * @default false
-         */
-        allow_trailing_dot?: boolean | undefined;
-    }
-
-    /**
-     * Check if the string is a fully qualified domain name (e.g. `domain.com`).
-     *
-     * @param [options] - Options
-     */
-    function isFQDN(str: string, options?: IsFQDNOptions): boolean;
+    type IsFQDNOptions = _isFQDN.IsFQDNOptions;
+    const isFQDN: typeof _isFQDN.default;
 
     /**
      * Check if the string contains any full-width chars.
@@ -757,6 +697,8 @@ declare namespace validator {
      */
     function isISSN(str: string, options?: IsISSNOptions): boolean;
 
+    const isISO4217: typeof _isISO4217.default;
+
     /**
      * Check if the string is a [ISRC](https://en.wikipedia.org/wiki/International_Standard_Recording_Code).
      */
@@ -848,30 +790,42 @@ declare namespace validator {
      */
     function isMimeType(str: string): boolean;
 
-    type MobilePhoneLocale =
+    type MobilePhoneLocale = PhoneLocale | PhoneLocaleAlias;
+    type PhoneLocale =
+        | 'am-AM'
         | 'ar-AE'
         | 'ar-BH'
         | 'ar-DZ'
+        | 'ar-LB'
         | 'ar-EG'
         | 'ar-IQ'
         | 'ar-JO'
         | 'ar-KW'
+        | 'ar-LY'
+        | 'ar-MA'
+        | 'ar-OM'
         | 'ar-SA'
         | 'ar-SY'
         | 'ar-TN'
+        | 'az-AZ'
+        | 'bs-BA'
         | 'be-BY'
         | 'bg-BG'
         | 'bn-BD'
+        | 'ca-AD'
         | 'cs-CZ'
         | 'da-DK'
         | 'de-DE'
         | 'de-AT'
+        | 'de-CH'
+        | 'de-LU'
         | 'el-GR'
         | 'en-AU'
         | 'en-GB'
         | 'en-GG'
         | 'en-GH'
         | 'en-HK'
+        | 'en-MO'
         | 'en-IE'
         | 'en-IN'
         | 'en-KE'
@@ -880,19 +834,31 @@ declare namespace validator {
         | 'en-NG'
         | 'en-NZ'
         | 'en-PK'
+        | 'en-PH'
         | 'en-RW'
         | 'en-SG'
+        | 'en-SL'
         | 'en-TZ'
         | 'en-UG'
         | 'en-US'
         | 'en-ZA'
         | 'en-ZM'
+        | 'en-ZW'
+        | 'es-AR'
+        | 'es-BO'
+        | 'es-CO'
         | 'es-CL'
+        | 'es-CR'
+        | 'es-DO'
+        | 'es-HN'
+        | 'es-EC'
         | 'es-ES'
+        | 'es-PE'
         | 'es-MX'
         | 'es-PA'
         | 'es-PY'
         | 'es-UY'
+        | 'es-VE'
         | 'et-EE'
         | 'fa-IR'
         | 'fi-FI'
@@ -907,34 +873,41 @@ declare namespace validator {
         | 'hu-HU'
         | 'id-ID'
         | 'it-IT'
+        | 'it-SM'
         | 'ja-JP'
+        | 'ka-GE'
         | 'kk-KZ'
         | 'kl-GL'
         | 'ko-KR'
         | 'lt-LT'
+        | 'lv-LV'
         | 'ms-MY'
+        | 'mz-MZ'
         | 'nb-NO'
+        | 'ne-NP'
         | 'nl-BE'
         | 'nl-NL'
         | 'nn-NO'
         | 'pl-PL'
         | 'pt-BR'
         | 'pt-PT'
+        | 'pt-AO'
         | 'ro-RO'
         | 'ru-RU'
+        | 'si-LK'
         | 'sl-SI'
         | 'sk-SK'
+        | 'sq-AL'
         | 'sr-RS'
         | 'sv-SE'
         | 'th-TH'
         | 'tr-TR'
         | 'uk-UA'
+        | 'uz-UZ'
         | 'vi-VN'
         | 'zh-CN'
-        | 'zh-TW'
-        | 'en-CA'
-        | 'fr-BE'
-        | 'zh-HK';
+        | 'zh-TW';
+    type PhoneLocaleAlias = 'en-CA' | 'fr-CA' | 'fr-BE' | 'zh-HK' | 'zh-MO' | 'ga-IE' | 'fr-CH' | 'it-CH';
 
     const isMobilePhoneLocales: MobilePhoneLocale[];
 
@@ -1094,64 +1067,8 @@ declare namespace validator {
      */
     function isSurrogatePair(str: string): boolean;
 
-    interface IsURLOptions {
-        /**
-         * @default ['http','https','ftp']
-         */
-        protocols?: string[] | undefined;
-        /**
-         * @default true
-         */
-        require_tld?: boolean | undefined;
-        /**
-         * @default false
-         */
-        require_protocol?: boolean | undefined;
-        /**
-         * @default true
-         */
-        require_host?: boolean | undefined;
-        /**
-         * if set as true isURL will check if port is present in the URL
-         * @default false
-         */
-        require_port?: boolean | undefined;
-        /**
-         * @default true
-         */
-        require_valid_protocol?: boolean | undefined;
-        /**
-         * @default false
-         */
-        allow_underscores?: boolean | undefined;
-        /**
-         * @default false
-         */
-        host_whitelist?: Array<string | RegExp> | undefined;
-        /**
-         * @default false
-         */
-        host_blacklist?: Array<string | RegExp> | undefined;
-        /**
-         * @default false
-         */
-        allow_trailing_dot?: boolean | undefined;
-        /**
-         * @default false
-         */
-        allow_protocol_relative_urls?: boolean | undefined;
-        /**
-         * @default false
-         */
-        disallow_auth?: boolean | undefined;
-    }
-
-    /**
-     * Check if the string is an URL.
-     *
-     * @param [options] - Options
-     */
-    function isURL(str: string, options?: IsURLOptions): boolean;
+    const isURL: typeof _isURL.default;
+    type IsURLOptions = _isURL.IsURLOptions;
 
     /**
      * Check if the string is uppercase.

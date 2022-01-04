@@ -5,7 +5,7 @@
  * ```js
  * const os = require('os');
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v16.7.0/lib/os.js)
+ * @see [source](https://github.com/nodejs/node/blob/v17.0.0/lib/os.js)
  */
 declare module 'os' {
     interface CpuInfo {
@@ -143,8 +143,8 @@ declare module 'os' {
     /**
      * Returns the operating system as a string.
      *
-     * On POSIX systems, the operating system release is determined by calling[`uname(3)`](https://linux.die.net/man/3/uname). On Windows, `GetVersionExW()` is used.
-     * See[https://en.wikipedia.org/wiki/Uname#Examples](https://en.wikipedia.org/wiki/Uname#Examples) for more information.
+     * On POSIX systems, the operating system release is determined by calling [`uname(3)`](https://linux.die.net/man/3/uname). On Windows, `GetVersionExW()` is used. See
+     * [https://en.wikipedia.org/wiki/Uname#Examples](https://en.wikipedia.org/wiki/Uname#Examples) for more information.
      * @since v0.3.3
      */
     function release(): string;
@@ -396,8 +396,8 @@ declare module 'os' {
     /**
      * Returns a string identifying the kernel version.
      *
-     * On POSIX systems, the operating system release is determined by calling[`uname(3)`](https://linux.die.net/man/3/uname). On Windows, `RtlGetVersion()` is used, and if it is not
-     * available, `GetVersionExW()` will be used. See[https://en.wikipedia.org/wiki/Uname#Examples](https://en.wikipedia.org/wiki/Uname#Examples) for more information.
+     * On POSIX systems, the operating system release is determined by calling [`uname(3)`](https://linux.die.net/man/3/uname). On Windows, `RtlGetVersion()` is used, and if it is not
+     * available, `GetVersionExW()` will be used. See [https://en.wikipedia.org/wiki/Uname#Examples](https://en.wikipedia.org/wiki/Uname#Examples) for more information.
      * @since v13.11.0, v12.17.0
      */
     function version(): string;

@@ -446,6 +446,8 @@ const options: OptimizeOptions = {
     js2svg: {
         indent: 2,
         pretty: true,
+        eol: 'crlf',
+        finalNewline: true,
     },
     svg2js: {
         trim: true,
@@ -461,3 +463,12 @@ optimize('', { plugins: extendDefaultPlugins(plugins) });
 loadConfig('foo.js');
 // $ExpectType Promise<OptimizeOptions>
 loadConfig('foo.js', '/home/user');
+
+(async () => {
+    const config = await loadConfig();
+    if (!config) {
+        config; // $ExpectType null
+        return;
+    }
+    config; // $ExpectType OptimizeOptions
+})();

@@ -8,3 +8,4 @@ isEmpty(new Object());
 isEmpty(Array);
 isEmpty('');
 isEmpty(() => {});
+isEmpty();

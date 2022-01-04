@@ -48,3 +48,8 @@ suite.assertUndefined(arrAny); // $ExpectType void
 suite.assertNotUndefined(arrAny); // $ExpectType void
 suite.assertNan(arrAny); // $ExpectType void
 suite.assertNotNan(arrAny); // $ExpectType void
+
+function testMajorVersions(prior: number, current: number): boolean {
+    return current > prior;
+}
+testMajorVersions(53, 54); // $ExpectType boolean

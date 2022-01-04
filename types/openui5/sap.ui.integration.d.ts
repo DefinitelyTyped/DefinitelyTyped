@@ -1,10 +1,25 @@
-// For Library Version: 1.93.0
+// For Library Version: 1.97.0
 
 declare module "sap/ui/integration/library" {
   import { URI } from "sap/ui/core/library";
 
   import { ButtonType } from "sap/m/library";
 
+  /**
+   * @SINCE 1.96
+   *
+   * Defines the layout type of the List card attributes.
+   */
+  export enum AttributesLayoutType {
+    /**
+     * One column.
+     */
+    OneColumn = "OneColumn",
+    /**
+     * Two columns.
+     */
+    TwoColumns = "TwoColumns",
+  }
   /**
    * @EXPERIMENTAL (since 1.64)
    *
@@ -815,6 +830,163 @@ declare module "sap/ui/integration/designtime/baseEditor/validator/NotABinding" 
   export default NotABinding;
 }
 
+declare module "sap/ui/integration/editor/Editor" {
+  /**
+   * @EXPERIMENTAL (since 1.94)
+   *
+   * Facade of the {@link sap.ui.integration.editor.Editor} control.
+   */
+  export interface EditorFacade {
+    __implements__sap_ui_integration_editor_EditorFacade: boolean;
+
+    /**
+     * @EXPERIMENTAL (since 1.94)
+     *
+     * Performs an HTTP request using the given configuration.
+     */
+    request(
+      /**
+       * The configuration of the request.
+       */
+      oConfiguration: {
+        /**
+         * The URL of the resource.
+         */
+        URL: string;
+        /**
+         * The mode of the request. Possible values are "cors", "no-cors", "same-origin".
+         */
+        mode?: string;
+        /**
+         * The HTTP method. Possible values are "GET", "POST".
+         */
+        method?: string;
+        /**
+         * The request parameters. If the method is "POST" the parameters will be put as key/value pairs into the
+         * body of the request.
+         */
+        parameters?: Object;
+        /**
+         * The expected Content-Type of the response. Possible values are "xml", "json", "text", "script", "html",
+         * "jsonp". Note: Complex Binding is not supported when a dataType is provided. Serialization of the response
+         * to an object is up to the developer.
+         */
+        dataType?: Object;
+        /**
+         * The HTTP headers of the request.
+         */
+        headers?: Object;
+        /**
+         * Indicates whether cross-site requests should be made using credentials.
+         */
+        withCredentials?: boolean;
+      }
+    ): Promise<any>;
+  }
+}
+
+declare module "sap/ui/integration/editor/Extension" {
+  import {
+    default as ManagedObject,
+    $ManagedObjectSettings,
+    PropertyBindingInfo,
+  } from "sap/ui/base/ManagedObject";
+
+  import { CardFacade } from "sap/ui/integration/widgets/Card";
+
+  import ManagedObjectMetadata from "sap/ui/base/ManagedObjectMetadata";
+
+  /**
+   * @SINCE 1.94
+   *
+   * Brings JavaScript capabilities for an {@link sap.ui.integration.editor.Editor} where custom logic can
+   * be implemented.
+   */
+  export default class Extension extends ManagedObject {
+    /**
+     * Constructor for a new `Extension`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * Initial settings for the new extension.
+       */
+      mSettings?: $ExtensionSettings
+    );
+    /**
+     * Constructor for a new `Extension`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * ID for the new extension, generated automatically if no ID is given.
+       */
+      sId?: string,
+      /**
+       * Initial settings for the new extension.
+       */
+      mSettings?: $ExtensionSettings
+    );
+
+    /**
+     * Creates a new subclass of class sap.ui.integration.editor.Extension with name `sClassName` and enriches
+     * it with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.base.ManagedObject.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, Extension>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.integration.editor.Extension.
+     */
+    static getMetadata(): ManagedObjectMetadata;
+    /**
+     * Returns an interface to the editor, which uses this extension.
+     */
+    getEditor(): CardFacade;
+    /**
+     * @EXPERIMENTAL (since 1.94)
+     *
+     * Gets current value of property {@link #getFormatters formatters}.
+     *
+     * The formatters, which can be used in the manifest.
+     */
+    getFormatters(): object;
+    /**
+     * Called when the editor is ready.
+     */
+    onEditorReady(): void;
+  }
+
+  export interface $ExtensionSettings extends $ManagedObjectSettings {
+    /**
+     * @EXPERIMENTAL (since 1.94)
+     *
+     * The formatters, which can be used in the manifest.
+     */
+    formatters?: object | PropertyBindingInfo;
+  }
+}
+
 declare module "sap/ui/integration/Extension" {
   import {
     default as ManagedObject,
@@ -1168,6 +1340,55 @@ declare module "sap/ui/integration/Host" {
       oListener?: object
     ): this;
     /**
+     * @EXPERIMENTAL (since 1.96)
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:cardConfigurationChange cardConfigurationChange}
+     * event of this `sap.ui.integration.Host`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.integration.Host` itself.
+     *
+     * Fired when some card configuration settings are changed as a result of user interaction. For example
+     * - filter value is changed.
+     */
+    attachCardConfigurationChange(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.integration.Host` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @EXPERIMENTAL (since 1.96)
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:cardConfigurationChange cardConfigurationChange}
+     * event of this `sap.ui.integration.Host`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.integration.Host` itself.
+     *
+     * Fired when some card configuration settings are changed as a result of user interaction. For example
+     * - filter value is changed.
+     */
+    attachCardConfigurationChange(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.integration.Host` itself
+       */
+      oListener?: object
+    ): this;
+    /**
      * @EXPERIMENTAL (since 1.91)
      *
      * Attaches event handler `fnFunction` to the {@link #event:message message} event of this `sap.ui.integration.Host`.
@@ -1213,6 +1434,32 @@ declare module "sap/ui/integration/Host" {
       oListener?: object
     ): this;
     /**
+     * @EXPERIMENTAL (since 1.97)
+     *
+     * This functions is called when a CSRF token has expired.
+     */
+    csrfTokenExpired(
+      /**
+       * The CSRF token configuration.
+       */
+      mCSRFTokenConfig: object
+    ): void;
+    /**
+     * @EXPERIMENTAL (since 1.97)
+     *
+     * This functions is called when a CSRF token is fetched.
+     */
+    csrfTokenFetched(
+      /**
+       * The CSRF token configuration.
+       */
+      mCSRFTokenConfig: object,
+      /**
+       * A promise which resolves the CSRF token to its value.
+       */
+      pCSRFTokenValuePromise: Promise<any>
+    ): void;
+    /**
      * @EXPERIMENTAL (since 1.75)
      *
      * Detaches event handler `fnFunction` from the {@link #event:action action} event of this `sap.ui.integration.Host`.
@@ -1220,6 +1467,24 @@ declare module "sap/ui/integration/Host" {
      * The passed function and listener object must match the ones used for event registration.
      */
     detachAction(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @EXPERIMENTAL (since 1.96)
+     *
+     * Detaches event handler `fnFunction` from the {@link #event:cardConfigurationChange cardConfigurationChange}
+     * event of this `sap.ui.integration.Host`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     */
+    detachCardConfigurationChange(
       /**
        * The function to be called, when the event occurs
        */
@@ -1282,6 +1547,35 @@ declare module "sap/ui/integration/Host" {
       }
     ): boolean;
     /**
+     * @EXPERIMENTAL (since 1.96)
+     *
+     * Fires event {@link #event:cardConfigurationChange cardConfigurationChange} to attached listeners.
+     */
+    fireCardConfigurationChange(
+      /**
+       * Parameters to pass along with the event
+       */
+      mParameters?: {
+        /**
+         * The card the changes are fired from.
+         */
+        card?: Control;
+        /**
+         * Changed configuration settings.
+         *
+         * Example:
+         * ```javascript
+         *
+         *  {
+         *  	"/sap.card/configuration/filters/shipper/value": "key3",
+         *  	"/sap.card/configuration/filters/item/value": "key2"
+         *  }
+         * ```
+         */
+        changes?: object;
+      }
+    ): this;
+    /**
      * @EXPERIMENTAL (since 1.91)
      *
      * Fires event {@link #event:message message} to attached listeners.
@@ -1335,6 +1629,17 @@ declare module "sap/ui/integration/Host" {
        * The path to a context
        */
       sPath: string
+    ): Promise<any>;
+    /**
+     * @EXPERIMENTAL (since 1.97)
+     *
+     * Resolves the CSRF token and returns a Promise with its value.
+     */
+    getCsrfToken(
+      /**
+       * The CSRF token configuration.
+       */
+      mCSRFTokenConfig: object
     ): Promise<any>;
     /**
      * Resolves the destination and returns its URL.
@@ -1431,6 +1736,14 @@ declare module "sap/ui/integration/Host" {
      * Fired when an action is triggered.
      */
     action?: (oEvent: Event) => void;
+
+    /**
+     * @EXPERIMENTAL (since 1.96)
+     *
+     * Fired when some card configuration settings are changed as a result of user interaction. For example
+     * - filter value is changed.
+     */
+    cardConfigurationChange?: (oEvent: Event) => void;
 
     /**
      * @EXPERIMENTAL (since 1.91)
@@ -1630,6 +1943,55 @@ declare module "sap/ui/integration/widgets/Card" {
       oListener?: object
     ): this;
     /**
+     * @EXPERIMENTAL (since 1.96)
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:configurationChange configurationChange} event
+     * of this `sap.ui.integration.widgets.Card`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.integration.widgets.Card` itself.
+     *
+     * Fired when some configuration settings are changed as a result of user interaction. For example - filter
+     * value is changed.
+     */
+    attachConfigurationChange(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.integration.widgets.Card` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @EXPERIMENTAL (since 1.96)
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:configurationChange configurationChange} event
+     * of this `sap.ui.integration.widgets.Card`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.integration.widgets.Card` itself.
+     *
+     * Fired when some configuration settings are changed as a result of user interaction. For example - filter
+     * value is changed.
+     */
+    attachConfigurationChange(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.integration.widgets.Card` itself
+       */
+      oListener?: object
+    ): this;
+    /**
      * Attaches event handler `fnFunction` to the {@link #event:manifestApplied manifestApplied} event of this
      * `sap.ui.integration.widgets.Card`.
      *
@@ -1748,6 +2110,24 @@ declare module "sap/ui/integration/widgets/Card" {
       oListener?: object
     ): this;
     /**
+     * @EXPERIMENTAL (since 1.96)
+     *
+     * Detaches event handler `fnFunction` from the {@link #event:configurationChange configurationChange} event
+     * of this `sap.ui.integration.widgets.Card`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     */
+    detachConfigurationChange(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
+    /**
      * Detaches event handler `fnFunction` from the {@link #event:manifestApplied manifestApplied} event of
      * this `sap.ui.integration.widgets.Card`.
      *
@@ -1812,6 +2192,31 @@ declare module "sap/ui/integration/widgets/Card" {
         type?: CardActionType | keyof typeof CardActionType;
       }
     ): boolean;
+    /**
+     * @EXPERIMENTAL (since 1.96)
+     *
+     * Fires event {@link #event:configurationChange configurationChange} to attached listeners.
+     */
+    fireConfigurationChange(
+      /**
+       * Parameters to pass along with the event
+       */
+      mParameters?: {
+        /**
+         * Changed configuration settings.
+         *
+         * Example:
+         * ```javascript
+         *
+         *  {
+         *  	"/sap.card/configuration/filters/shipper/value": "key3",
+         *  	"/sap.card/configuration/filters/item/value": "key2",
+         *  }
+         * ```
+         */
+        changes?: object;
+      }
+    ): this;
     /**
      * Fires event {@link #event:manifestApplied manifestApplied} to attached listeners.
      */
@@ -2031,6 +2436,12 @@ declare module "sap/ui/integration/widgets/Card" {
      */
     refresh(): void;
     /**
+     * @SINCE 1.95
+     *
+     * Refreshes the card data by triggering all data requests.
+     */
+    refreshData(): void;
+    /**
      * @SINCE 1.85
      * @EXPERIMENTAL (since 1.85)
      *
@@ -2093,6 +2504,15 @@ declare module "sap/ui/integration/widgets/Card" {
          */
         withCredentials?: boolean;
       }
+    ): Promise<any>;
+    /**
+     * Resolves the destination and returns its URL.
+     */
+    resolveDestination(
+      /**
+       * The destination's key used in the configuration.
+       */
+      sKey: string
     ): Promise<any>;
     /**
      * @SINCE 1.70
@@ -2382,6 +2802,12 @@ declare module "sap/ui/integration/widgets/Card" {
      */
     refresh(): void;
     /**
+     * @SINCE 1.95
+     *
+     * Refreshes the card data by triggering all data requests.
+     */
+    refreshData(): void;
+    /**
      * @SINCE 1.85
      * @EXPERIMENTAL (since 1.85)
      *
@@ -2435,6 +2861,15 @@ declare module "sap/ui/integration/widgets/Card" {
          */
         withCredentials?: boolean;
       }
+    ): Promise<any>;
+    /**
+     * Resolves the destination and returns its URL.
+     */
+    resolveDestination(
+      /**
+       * The destination's key used in the configuration.
+       */
+      sKey: string
     ): Promise<any>;
     /**
      * Displays the loading placeholders on the whole card, or a particular area of the card. **Note:** Only
@@ -2581,6 +3016,14 @@ declare module "sap/ui/integration/widgets/Card" {
     action?: (oEvent: Event) => void;
 
     /**
+     * @EXPERIMENTAL (since 1.96)
+     *
+     * Fired when some configuration settings are changed as a result of user interaction. For example - filter
+     * value is changed.
+     */
+    configurationChange?: (oEvent: Event) => void;
+
+    /**
      * @EXPERIMENTAL (since 1.72)
      *
      * Fired when the manifest is loaded.
@@ -2720,33 +3163,37 @@ declare namespace sap {
 
     "sap/ui/integration/designtime/editor/CardPreview": undefined;
 
-    "sap/ui/integration/designtime/editor/CardResourceBundles": undefined;
+    "sap/ui/integration/editor/Editor": undefined;
 
-    "sap/ui/integration/designtime/editor/fields/BaseField": undefined;
+    "sap/ui/integration/editor/EditorResourceBundles": undefined;
 
-    "sap/ui/integration/designtime/editor/fields/BooleanField": undefined;
+    "sap/ui/integration/editor/Extension": undefined;
 
-    "sap/ui/integration/designtime/editor/fields/DateField": undefined;
+    "sap/ui/integration/editor/fields/BaseField": undefined;
 
-    "sap/ui/integration/designtime/editor/fields/DateTimeField": undefined;
+    "sap/ui/integration/editor/fields/BooleanField": undefined;
 
-    "sap/ui/integration/designtime/editor/fields/DestinationField": undefined;
+    "sap/ui/integration/editor/fields/DateField": undefined;
 
-    "sap/ui/integration/designtime/editor/fields/IntegerField": undefined;
+    "sap/ui/integration/editor/fields/DateTimeField": undefined;
 
-    "sap/ui/integration/designtime/editor/fields/ListField": undefined;
+    "sap/ui/integration/editor/fields/DestinationField": undefined;
 
-    "sap/ui/integration/designtime/editor/fields/NumberField": undefined;
+    "sap/ui/integration/editor/fields/IntegerField": undefined;
 
-    "sap/ui/integration/designtime/editor/fields/Settings": undefined;
+    "sap/ui/integration/editor/fields/ListField": undefined;
 
-    "sap/ui/integration/designtime/editor/fields/StringField": undefined;
+    "sap/ui/integration/editor/fields/NumberField": undefined;
 
-    "sap/ui/integration/designtime/editor/fields/viz/ColorSelect": undefined;
+    "sap/ui/integration/editor/fields/StringField": undefined;
 
-    "sap/ui/integration/designtime/editor/fields/viz/IconSelect": undefined;
+    "sap/ui/integration/editor/fields/viz/ColorSelect": undefined;
 
-    "sap/ui/integration/designtime/editor/fields/viz/ShapeSelect": undefined;
+    "sap/ui/integration/editor/fields/viz/IconSelect": undefined;
+
+    "sap/ui/integration/editor/fields/viz/ShapeSelect": undefined;
+
+    "sap/ui/integration/editor/Settings": undefined;
 
     "sap/ui/integration/Extension": undefined;
 
@@ -2754,7 +3201,17 @@ declare namespace sap {
 
     "sap/ui/integration/library": undefined;
 
+    "sap/ui/integration/ManifestResolver": undefined;
+
     "sap/ui/integration/services/Service": undefined;
+
+    "sap/ui/integration/util/CsrfTokenHandler": undefined;
+
+    "sap/ui/integration/util/DataProvider": undefined;
+
+    "sap/ui/integration/util/DataProviderFactory": undefined;
+
+    "sap/ui/integration/util/RequestDataProvider": undefined;
 
     "sap/ui/integration/widgets/Card": undefined;
   }

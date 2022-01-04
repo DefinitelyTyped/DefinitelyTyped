@@ -1,6 +1,6 @@
 import { Editor } from '@ckeditor/ckeditor5-core';
 import { Indent, IndentBlock, IndentEditing, IndentUI } from '@ckeditor/ckeditor5-indent';
-import Command from '@ckeditor/ckeditor5-indent/src/indentblockcommand';
+import IndentBlockCommand from '@ckeditor/ckeditor5-indent/src/indentblockcommand';
 import IndentUsingClasses from '@ckeditor/ckeditor5-indent/src/indentcommandbehavior/indentusingclasses';
 import IndentUsingOffset from '@ckeditor/ckeditor5-indent/src/indentcommandbehavior/indentusingoffset';
 
@@ -17,8 +17,8 @@ new IndentBlock(editor).afterInit();
 
 new IndentEditing(editor).init();
 
-new Command(editor, { getNextIndent: foo => '' + foo, checkEnabled: foo => foo.startsWith('') }).execute();
-new Command(editor, { getNextIndent: foo => foo + '', checkEnabled: foo => foo.startsWith('') }).refresh();
+new IndentBlockCommand(editor, { getNextIndent: foo => '' + foo, checkEnabled: foo => foo.startsWith('') }).execute();
+new IndentBlockCommand(editor, { getNextIndent: foo => foo + '', checkEnabled: foo => foo.startsWith('') }).refresh();
 
 new IndentUsingOffset({ direction: 'forward', offset: 1, unit: '' }).unit.startsWith('');
 new IndentUsingOffset({ direction: 'backward', offset: 1, unit: '' }).offset.toFixed();
@@ -39,3 +39,6 @@ editor.plugins.get('IndentEditing');
 
 // $ExpectType IndentUI
 editor.plugins.get('IndentUI');
+
+// $ExpectType IndentBlockCommand | undefined
+editor.commands.get("IndentBlockCommand");

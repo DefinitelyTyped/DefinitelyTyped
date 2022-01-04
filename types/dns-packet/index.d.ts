@@ -97,11 +97,15 @@ export interface MxData {
     exchange: string;
 }
 
-export interface BaseAnswer<T, D> {
+export interface GenericAnswer<T> {
     type: T;
     name: string;
+}
+
+export interface BaseAnswer<T, D> extends GenericAnswer<T> {
     ttl?: number | undefined;
     class?: RecordClass | undefined;
+    flush?: boolean | undefined;
     data: D;
 }
 
@@ -136,7 +140,6 @@ export type OtherRecordType =
     | "NSEC3"
     | "NSEC3PARAM"
     | "NULL"
-    | "OPT"
     | "RRSIG"
     | "RP"
     | "SIG"
@@ -156,6 +159,70 @@ export type CaaAnswer = BaseAnswer<"CAA", CaaData>;
 export type MxAnswer = BaseAnswer<"MX", MxData>;
 export type BufferAnswer = BaseAnswer<OtherRecordType, Buffer>;
 
+interface OptCodes {
+    "OPTION_0": 0;
+    "LLQ": 1;
+    "UL": 2;
+    "NSID": 3;
+    "OPTION_4": 4;
+    "DAU": 5;
+    "DHU": 6;
+    "N3U": 7;
+    "CLIENT_SUBNET": 8;
+    "EXPIRE": 9;
+    "COOKIE": 10;
+    "TCP_KEEPALIVE": 11;
+    "PADDING": 12;
+    "CHAIN": 13;
+    "KEY_TAG": 14;
+    "DEVICEID": 26946;
+    "OPTION_65535": 65535;
+}
+
+type OptCodeType = keyof OptCodes;
+type OptCode<K extends OptCodeType> = OptCodes[K];
+
+interface GenericOpt<T extends OptCodeType> {
+    code: OptCode<T>;
+    type?: T | undefined;
+    data?: Buffer | undefined;
+}
+
+interface ClientSubnetOpt extends GenericOpt<"CLIENT_SUBNET"> {
+    family?: number | undefined;
+    sourcePrefixLength?: number | undefined;
+    scopePrefixLength?: number | undefined;
+    ip: string | undefined;
+}
+
+interface KeepAliveOpt extends GenericOpt<"TCP_KEEPALIVE"> {
+    timeout?: number | undefined;
+}
+
+interface PaddingOpt extends GenericOpt<"PADDING"> {
+    length?: number | undefined;
+}
+
+interface TagOpt extends GenericOpt<"KEY_TAG"> {
+    tags: number[];
+}
+
+export type PacketOpt = ClientSubnetOpt | KeepAliveOpt | PaddingOpt | TagOpt;
+
+export interface OptAnswer extends GenericAnswer<"OPT"> {
+    udpPayloadSize: number;
+    extendedRcode: number;
+    ednsVersion: number;
+    flags: number;
+
+    /**
+     * Whether or not the DNS DO bit is set
+     */
+    flag_do: boolean;
+
+    options: PacketOpt[];
+}
+
 export type Answer =
     | StringAnswer
     | SrvAnswer
@@ -164,7 +231,8 @@ export type Answer =
     | TxtAnswer
     | CaaAnswer
     | MxAnswer
-    | BufferAnswer;
+    | BufferAnswer
+    | OptAnswer;
 
 export interface Packet {
     /**
@@ -200,5 +268,21 @@ export const AUTHENTIC_DATA: number;
 export const CHECKING_DISABLED: number;
 
 export function encode(package: Packet, buf?: Buffer, offset?: number): Buffer;
+export namespace encode {
+    let bytes: number;
+}
 export function decode(buf: Buffer, offset?: number): Packet;
+export namespace decode {
+    let bytes: number;
+}
 export function encodingLength(packet: Packet): number;
+export function streamEncode(package: Packet): Buffer;
+export namespace streamEncode {
+    let bytes: number;
+}
+export function streamDecode(package: Buffer): Packet;
+export namespace streamDecode {
+    let bytes: number;
+}
+
+export {};

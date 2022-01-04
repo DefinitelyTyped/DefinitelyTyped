@@ -72,11 +72,11 @@ declare namespace AdazzleReactDataGrid {
          * A react component to customize how rows are rendered.
          * If you want to define your own, consider extending ReactDataGrid.Row.
          */
-        rowRenderer?: React.ReactElement | React.ComponentClass<any> | React.StatelessComponent<any> | undefined
+        rowRenderer?: React.ReactElement | React.ComponentClass<any> | React.FunctionComponent<any> | undefined
         /**
          * A component to display when there are no rows to render.
          */
-        emptyRowsView?: React.ComponentClass<any> | React.StatelessComponent<any> | undefined
+        emptyRowsView?: React.ComponentClass<any> | React.FunctionComponent<any> | undefined
 
         /**
          * The minimum width of the entire grid in pixels.
@@ -244,11 +244,11 @@ declare namespace AdazzleReactDataGrid {
         /**
          * A custom read-only formatter for this column. An image formatter is available in "react-data-grid/addons".
          */
-        formatter?: React.ReactElement | React.ComponentClass<any> | React.StatelessComponent<any> | undefined
+        formatter?: React.ReactElement | React.ComponentClass<any> | React.FunctionComponent<any> | undefined
         /**
          * A custom formatter for this column's header.
          */
-        headerRenderer?: React.ReactElement | React.ComponentClass<any> | React.StatelessComponent<any> | undefined
+        headerRenderer?: React.ReactElement | React.ComponentClass<any> | React.FunctionComponent<any> | undefined
         /**
          * Events to be bound to the cells in this specific column.
          * Each event must respect this standard in order to work correctly:

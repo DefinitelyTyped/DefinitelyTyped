@@ -9,7 +9,7 @@
  * The `querystring` API is considered Legacy. While it is still maintained,
  * new code should use the `URLSearchParams` API instead.
  * @deprecated Legacy
- * @see [source](https://github.com/nodejs/node/blob/v16.7.0/lib/querystring.js)
+ * @see [source](https://github.com/nodejs/node/blob/v17.0.0/lib/querystring.js)
  */
 declare module 'querystring' {
     interface StringifyOptions {
@@ -25,14 +25,14 @@ declare module 'querystring' {
      * The `querystring.stringify()` method produces a URL query string from a
      * given `obj` by iterating through the object's "own properties".
      *
-     * It serializes the following types of values passed in `obj`:[&lt;string&gt;](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#String_type) |
-     * [&lt;number&gt;](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#Number_type) |
-     * [&lt;bigint&gt;](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt) |
-     * [&lt;boolean&gt;](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#Boolean_type) |
-     * [&lt;string\[\]&gt;](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#String_type) |
-     * [&lt;number\[\]&gt;](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#Number_type) |
-     * [&lt;bigint\[\]&gt;](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt) |
-     * [&lt;boolean\[\]&gt;](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#Boolean_type)The numeric values must be finite. Any other input values will be coerced to
+     * It serializes the following types of values passed in `obj`:[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#String_type) |
+     * [number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#Number_type) |
+     * [bigint](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt) |
+     * [boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#Boolean_type) |
+     * [string\[\]](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#String_type) |
+     * [number\[\]](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#Number_type) |
+     * [bigint\[\]](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt) |
+     * [boolean\[\]](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#Boolean_type) The numeric values must be finite. Any other input values will be coerced to
      * empty strings.
      *
      * ```js

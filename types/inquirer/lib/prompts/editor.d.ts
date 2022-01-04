@@ -1,7 +1,7 @@
-import Prompt = require("./base");
-import { Subject, Subscription } from "rxjs";
-import inquirer = require("../..");
-import { Interface as ReadlineInterface } from "readline";
+import Prompt = require('./base');
+import { Subject, Subscription } from 'rxjs';
+import inquirer = require('../..');
+import { Interface as ReadlineInterface } from 'readline';
 
 /**
  * The question-options for the `EditorPrompt<T>`.

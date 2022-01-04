@@ -57,7 +57,7 @@ import * as dgram from 'dgram';
 import Module = require('module');
 
 ////////////////////////////////////////////////////
-/// Url tests : http://nodejs.org/api/url.html
+/// Url tests : https://nodejs.org/api/url.html
 ////////////////////////////////////////////////////
 
 {
@@ -208,7 +208,7 @@ import Module = require('module');
 }
 
 //////////////////////////////////////////////////////
-/// Https tests : http://nodejs.org/api/https.html ///
+/// Https tests : https://nodejs.org/api/https.html ///
 //////////////////////////////////////////////////////
 
 {
@@ -679,7 +679,7 @@ import * as constants from 'constants';
 }
 
 ////////////////////////////////////////////////////
-/// module tests : http://nodejs.org/api/modules.html
+/// module tests : https://nodejs.org/api/modules.html
 ////////////////////////////////////////////////////
 import moduleModule = require('module');
 

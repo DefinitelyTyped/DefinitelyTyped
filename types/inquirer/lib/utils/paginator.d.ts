@@ -1,4 +1,11 @@
-import ScreenManager = require("./screen-manager");
+import ScreenManager = require('./screen-manager');
+
+interface PaginatorOptions {
+    /**
+     * Whether or not to loop the content.
+     */
+    isInfinite: boolean;
+}
 
 /**
  * Provides the functionality to draw paginated content using a `ScreenManager`.
@@ -25,7 +32,7 @@ declare class Paginator {
      * @param screenManager
      * A screen-manager for drawing the paginated content.
      */
-    constructor(screenManager: ScreenManager);
+    constructor(screenManager: ScreenManager, options?: PaginatorOptions);
 
     /**
      * Paginates the specified `content`.
@@ -36,10 +43,13 @@ declare class Paginator {
      * @param selectedIndex
      * The number of the selected line.
      *
+     * @param pageSize
+     * The number of lines to display at a time.
+     *
      * @returns
      * The paginated content.
      */
-    paginate(content: string, selectedIndex: number): string;
+    paginate(content: string, selectedIndex: number, pageSize?: number): string;
 }
 
 export = Paginator;

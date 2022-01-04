@@ -20,3 +20,6 @@ editor.plugins.get('HighlightEditing');
 
 // $ExpectType HighlightUI
 editor.plugins.get('HighlightUI');
+
+// $ExpectType HighlightCommand | undefined
+editor.commands.get('HighlightCommand');

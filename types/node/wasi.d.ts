@@ -1,9 +1,9 @@
 /**
- * The WASI API provides an implementation of the [WebAssembly System Interface](https://wasi.dev/)specification. WASI gives sandboxed WebAssembly applications access to the
+ * The WASI API provides an implementation of the [WebAssembly System Interface](https://wasi.dev/) specification. WASI gives sandboxed WebAssembly applications access to the
  * underlying operating system via a collection of POSIX-like functions.
  *
  * ```js
- * import fs from 'fs';
+ * import { readFile } from 'fs/promises';
  * import { WASI } from 'wasi';
  * import { argv, env } from 'process';
  *
@@ -14,9 +14,14 @@
  *     '/sandbox': '/some/real/path/that/wasm/can/access'
  *   }
  * });
+ *
+ * // Some WASI binaries require:
+ * //   const importObject = { wasi_unstable: wasi.wasiImport };
  * const importObject = { wasi_snapshot_preview1: wasi.wasiImport };
  *
- * const wasm = await WebAssembly.compile(fs.readFileSync('./demo.wasm'));
+ * const wasm = await WebAssembly.compile(
+ *   await readFile(new URL('./demo.wasm', import.meta.url))
+ * );
  * const instance = await WebAssembly.instantiate(wasm, importObject);
  *
  * wasi.start(instance);
@@ -63,7 +68,7 @@
  * The `--experimental-wasi-unstable-preview1` CLI argument is needed for this
  * example to run.
  * @experimental
- * @see [source](https://github.com/nodejs/node/blob/v16.7.0/lib/wasi.js)
+ * @see [source](https://github.com/nodejs/node/blob/v17.0.0/lib/wasi.js)
  */
 declare module 'wasi' {
     interface WASIOptions {

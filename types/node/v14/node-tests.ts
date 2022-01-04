@@ -54,7 +54,7 @@ import * as inspector from 'inspector';
 import * as trace_events from 'trace_events';
 
 //////////////////////////////////////////////////////
-/// Https tests : http://nodejs.org/api/https.html ///
+/// Https tests : https://nodejs.org/api/https.html ///
 //////////////////////////////////////////////////////
 
 {

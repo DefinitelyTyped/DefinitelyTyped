@@ -37,7 +37,9 @@ class App extends React.Component {
                 onDisconnect={this.disconnectHandler}
                 onButtonChange={this.buttonChangeHandler}
                 onAxisChange={this.axisChangeHandler}
-            />
+            >
+                <React.Fragment />
+            </Gamepad>
         );
     }
 }
@@ -74,4 +76,6 @@ console.log(<App />);
     onDown={() => {}}
     onLeft={() => {}}
     onRight={() => {}}
-/>;
+>
+    <React.Fragment />
+</Gamepad>;

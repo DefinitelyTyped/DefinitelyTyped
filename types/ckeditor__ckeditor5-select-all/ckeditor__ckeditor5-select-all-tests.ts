@@ -16,6 +16,9 @@ new SelectAllCommand(editor).execute();
 // $ExpectError
 new SelectAllCommand(editor).execute(true);
 
+// $ExpectType false
+new SelectAllCommand(editor).affectsData;
+
 // $ExpectType SelectAll
 editor.plugins.get('SelectAll');
 
@@ -24,3 +27,6 @@ editor.plugins.get('SelectAllEditing');
 
 // $ExpectType SelectAllUI
 editor.plugins.get('SelectAllUI');
+
+// $ExpectType SelectAllCommand | undefined
+editor.commands.get('SelectAllCommand');

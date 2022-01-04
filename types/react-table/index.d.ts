@@ -20,14 +20,14 @@
 import {
     ChangeEvent,
     ComponentType,
+    CSSProperties,
     DependencyList,
     EffectCallback,
     MouseEvent,
     ReactElement,
+    ReactFragment,
     ReactNode,
     ReactText,
-    ReactFragment,
-    CSSProperties,
 } from 'react';
 
 export {};
@@ -166,8 +166,8 @@ export function useTable<D extends object = {}>(
  * NOTE: To use custom options, use "Interface Merging" to add the custom options
  */
 export type UseTableOptions<D extends object> = {
-    columns: Array<Column<D>>;
-    data: D[];
+    columns: ReadonlyArray<Column<D>>;
+    data: readonly D[];
 } & Partial<{
     initialState: Partial<TableState<D>>;
     stateReducer: (newState: TableState<D>, action: ActionType, previousState: TableState<D>, instance?: TableInstance<D>) => TableState<D>;
@@ -473,7 +473,7 @@ export interface UseFiltersColumnProps<D extends object> {
 export type FilterProps<D extends object> = HeaderProps<D>;
 export type FilterValue = any;
 export type Filters<D extends object> = Array<{ id: IdType<D>; value: FilterValue }>;
-export type FilterTypes<D extends object> = Record<string, FilterValue>;
+export type FilterTypes<D extends object> = Record<string, FilterType<D>>;
 
 export type DefaultFilterTypes =
     | 'text'
@@ -498,6 +498,14 @@ export function useFlexLayout<D extends object = {}>(hooks: Hooks<D>): void;
 
 export namespace useFlexLayout {
     const pluginName = 'useFlexLayout';
+}
+//#endregion
+
+//#region useGridLayout
+export function useGridLayout<D extends object = {}>(hooks: Hooks<D>): void;
+
+export namespace useGridLayout {
+    const pluginName = 'useGridLayout';
 }
 //#endregion
 
@@ -546,7 +554,11 @@ export namespace useGroupBy {
     const pluginName = 'useGroupBy';
 }
 
-export interface TableGroupByToggleProps {}
+export interface TableGroupByToggleProps {
+    title?: string | undefined;
+    style?: CSSProperties | undefined;
+    onClick?: ((e: MouseEvent) => void) | undefined;
+}
 
 export type UseGroupByOptions<D extends object> = Partial<{
     manualGroupBy: boolean;
@@ -668,6 +680,7 @@ export namespace useResizeColumns {
 
 export interface UseResizeColumnsOptions<D extends object> {
     disableResizing?: boolean | undefined;
+    autoResetResize?: boolean | undefined;
 }
 
 export interface UseResizeColumnsState<D extends object> {
@@ -786,7 +799,11 @@ export namespace useSortBy {
     const pluginName = 'useSortBy';
 }
 
-export interface TableSortByToggleProps {}
+export interface TableSortByToggleProps {
+    title?: string | undefined;
+    style?: CSSProperties | undefined;
+    onClick?: ((e: MouseEvent) => void)| undefined;
+}
 
 export type UseSortByOptions<D extends object> = Partial<{
     manualSortBy: boolean;

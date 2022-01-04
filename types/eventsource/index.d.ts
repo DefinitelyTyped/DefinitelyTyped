@@ -1,5 +1,5 @@
 // Type definitions for eventsource 1.1
-// Project: http://github.com/EventSource/eventsource
+// Project: https://github.com/EventSource/eventsource
 // Definitions by: Scott Lee Davis <https://github.com/scottleedavis>
 //                 Ali Afroozeh <https://github.com/afroozeh>
 //                 Pedro Gámez <https://github.com/snakedrak>
@@ -28,9 +28,9 @@ declare class EventSource {
   onopen: (evt: MessageEvent) => any;
   onmessage: (evt: MessageEvent) => any;
   onerror: (evt: MessageEvent) => any;
-  addEventListener(type: string, listener: EventListener): void;
+  addEventListener(type: string, listener: (evt: MessageEvent) => void): void;
   dispatchEvent(evt: Event): boolean;
-  removeEventListener(type: string, listener?: EventListener): void;
+  removeEventListener(type: string, listener: (evt: MessageEvent) => void): void;
   close(): void;
 }
 

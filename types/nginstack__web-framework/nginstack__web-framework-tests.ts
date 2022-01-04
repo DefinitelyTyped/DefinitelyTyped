@@ -116,3 +116,8 @@ grid.expand('nodeValue'); // $ExpectType void
 grid.colapse('nodeValue'); // $ExpectType void
 grid.toggleKeyVisibility(); // $ExpectType void
 grid.toggleFieldVisibility('field'); // $ExpectType void
+
+function testMajorVersions(prior: number, current: number): boolean {
+    return current > prior;
+}
+testMajorVersions(53, 54); // $ExpectType boolean

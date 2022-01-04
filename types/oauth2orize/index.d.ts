@@ -46,7 +46,6 @@ export interface MiddlewareRequest extends IncomingMessage {
 
 export interface ServerOptions {
   store: any;
-  loadTransaction: boolean;
 }
 
 export function createServer(options?: ServerOptions): OAuth2Server;
@@ -60,6 +59,7 @@ export interface DecisionOptions {
   cancelField: string;
   userProperty: string;
   sessionKey: string;
+  loadTransaction: boolean;
 }
 
 export interface ErrorHandlerOptions {

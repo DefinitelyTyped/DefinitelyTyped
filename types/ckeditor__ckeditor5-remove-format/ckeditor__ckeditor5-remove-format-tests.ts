@@ -19,3 +19,6 @@ editor.plugins.get('RemoveFormatEditing');
 
 // $ExpectType RemoveFormatUI
 editor.plugins.get('RemoveFormatUI');
+
+// $ExpectType RemoveFormatCommand | undefined
+editor.commands.get('RemoveFormatCommand');

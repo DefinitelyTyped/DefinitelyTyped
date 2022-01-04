@@ -1,9 +1,8 @@
 // Type definitions for jest-when 2.7
 // Project: https://github.com/timkindberg/jest-when#readme
-// Definitions by: Alden Taylor <https://github.com/aldentaylor>,
-//                 Trung Dang <https://github.com/immanuel192>,
-//                 Gregor Stamać <https://github.com/gstamac>,
-//                 Valentin Stern <https://github.com/sehsyha>,
+// Definitions by: Alden Taylor <https://github.com/aldentaylor>
+//                 Trung Dang <https://github.com/immanuel192>
+//                 Gregor Stamać <https://github.com/gstamac>
 //                 Nicholas Hehr <https://github.com/hipsterbrown>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.8

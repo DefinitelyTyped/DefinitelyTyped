@@ -53,7 +53,7 @@
  * myConsole.warn(`Danger ${name}! Danger!`);
  * // Prints: Danger Will Robinson! Danger!, to err
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v16.7.0/lib/console.js)
+ * @see [source](https://github.com/nodejs/node/blob/v17.0.0/lib/console.js)
  */
 declare module 'console' {
     import console = require('node:console');
@@ -394,6 +394,11 @@ declare module 'node:console' {
                 ignoreErrors?: boolean | undefined;
                 colorMode?: boolean | 'auto' | undefined;
                 inspectOptions?: InspectOptions | undefined;
+                /**
+                 * Set group indentation
+                 * @default 2
+                 */
+                groupIndentation?: number | undefined;
             }
             interface ConsoleConstructor {
                 prototype: Console;

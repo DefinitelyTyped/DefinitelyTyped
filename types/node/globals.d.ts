@@ -185,7 +185,6 @@ declare namespace NodeJS {
         code?: string | undefined;
         path?: string | undefined;
         syscall?: string | undefined;
-        stack?: string | undefined;
     }
 
     interface ReadableStream extends EventEmitter {
@@ -206,9 +205,9 @@ declare namespace NodeJS {
         writable: boolean;
         write(buffer: Uint8Array | string, cb?: (err?: Error | null) => void): boolean;
         write(str: string, encoding?: BufferEncoding, cb?: (err?: Error | null) => void): boolean;
-        end(cb?: () => void): void;
-        end(data: string | Uint8Array, cb?: () => void): void;
-        end(str: string, encoding?: BufferEncoding, cb?: () => void): void;
+        end(cb?: () => void): this;
+        end(data: string | Uint8Array, cb?: () => void): this;
+        end(str: string, encoding?: BufferEncoding, cb?: () => void): this;
     }
 
     interface ReadWriteStream extends ReadableStream, WritableStream { }

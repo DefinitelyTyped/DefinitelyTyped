@@ -1,4 +1,6 @@
-import { ImapFlow } from 'imapflow';
+import { ImapFlow, Logger } from 'imapflow';
+
+const logger: Logger | false = {} as any;
 
 // $ExpectType ImapFlow
 const client = new ImapFlow({
@@ -8,6 +10,7 @@ const client = new ImapFlow({
         pass: 'test',
     },
     port: 993,
+    logger,
 });
 
 // $ExpectType Promise<MailboxLockObject>
@@ -18,3 +21,6 @@ client.fetchOne('*', { uid: true });
 
 // $Expect void
 client.logout();
+
+// $Expect Promise<ListResponse[]>
+client.list();

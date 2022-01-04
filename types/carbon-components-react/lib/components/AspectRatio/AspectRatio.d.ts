@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ReactDivAttr, JSXIntrinsicElementProps, FCReturn } from '../../../typings/shared';
+import { ReactDivAttr, JSXIntrinsicElementProps, FCReturn, ReactComponentConstructor } from '../../../typings/shared';
 
 export type AspectRatioValue = '16x9' | '9x16' | '2x1' | '1x2' | '4x3' | '3x4' | '1x1';
 
@@ -25,8 +25,8 @@ export type AspectRatioIntrinsicProps<K extends keyof JSX.IntrinsicElements> = A
     };
 
 export type AspectRatioCustomComponentProps<
-    C extends React.JSXElementConstructor<any>
-> = C extends React.JSXElementConstructor<infer P>
+    C extends ReactComponentConstructor<never>
+> = C extends ReactComponentConstructor<infer P>
     ? AspectRatioBaseProps &
           SafeProps<P> & {
               as: C;
@@ -35,7 +35,7 @@ export type AspectRatioCustomComponentProps<
 
 declare function AspectRatio(props: AspectRatioDefaultProps): FCReturn;
 declare function AspectRatio<T extends keyof JSX.IntrinsicElements>(props: AspectRatioIntrinsicProps<T>): FCReturn;
-declare function AspectRatio<T extends React.JSXElementConstructor<any>>(
+declare function AspectRatio<T extends ReactComponentConstructor<never>>(
     props: AspectRatioCustomComponentProps<T>,
 ): FCReturn;
 

@@ -6,12 +6,11 @@
 
 /// <reference types="node" />
 
-import bodyParser = require('body-parser');
+// import bodyParser = require('body-parser');
+import { BodyParser } from 'body-parser';
 import { NextHandleFunction } from 'connect';
 import { Request, Response } from 'express-serve-static-core';
 import { ParserOptions } from 'xml2js';
-
-type BodyParser = typeof bodyParser;
 
 /**
  * This library adds an xml method to the body-parser object.
@@ -56,5 +55,7 @@ declare namespace bodyParserXml {
 export = bodyParserXml;
 
 declare module 'body-parser' {
-    function xml(options?: bodyParserXml.Options): NextHandleFunction;
+    interface BodyParser {
+        xml(options?: bodyParserXml.Options): NextHandleFunction;
+    }
 }

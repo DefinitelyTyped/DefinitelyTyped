@@ -1,10 +1,9 @@
 // Type definitions for is-hotkey 0.1
 // Project: https://github.com/ianstormtaylor/is-hotkey#readme
-// Definitions by: Pierre-Marc Airoldi <https://github.com/petester42>
-//                 Alex Kondratyuk <https://github.com/lynxtaa>
+// Definitions by: Alex Kondratyuk <https://github.com/lynxtaa>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-interface KeyboardEventLike {
+export interface KeyboardEventLike {
     key: string;
     which: number;
     altKey: boolean;

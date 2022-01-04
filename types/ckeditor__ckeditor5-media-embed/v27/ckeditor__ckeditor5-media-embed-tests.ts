@@ -78,3 +78,6 @@ editor.plugins.get('MediaEmbedToolbar');
 
 // $ExpectType MediaEmbedUI
 editor.plugins.get('MediaEmbedUI');
+
+// $ExpectType MediaEmbedCommand | undefined
+editor.commands.get('MediaEmbedCommand');

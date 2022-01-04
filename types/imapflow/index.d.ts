@@ -1,6 +1,7 @@
 // Type definitions for imapflow 1.0
 // Project: https://imapflow.com/
 // Definitions by: Jeffrey Ratton <https://github.com/jeffreyratton98>
+//                 Martin Badin <https://github.com/martin-badin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -31,6 +32,7 @@ export class ImapFlow extends EventEmitter {
 
     connect(): Promise<void>;
     logout(): Promise<void>;
+    close(): void;
     download(
         range: SequenceString,
         part?: string,
@@ -43,7 +45,10 @@ export class ImapFlow extends EventEmitter {
 
     idle(): Promise<boolean>;
 
-    list(): Promise<ListResponse>;
+    /**
+     * @see {@link https://imapflow.com/module-imapflow-ImapFlow.html#list}
+     */
+    list(): Promise<ListResponse[]>;
 
     listTree(): Promise<ListTreeResponse>;
 
@@ -91,7 +96,7 @@ export class ImapFlow extends EventEmitter {
         range: SequenceString | number[] | SearchObject,
         destination: string,
         options?: { uid?: boolean },
-    ): Promise<boolean>;
+    ): Promise<CopyResponseObject>;
 
     fetchOne(
         seq: SequenceString,
@@ -137,7 +142,7 @@ export interface ImapFlowOptions {
     clientInfo?: IdInfoObject;
     disableAutoIdle?: boolean;
     tls?: object;
-    logger?: object;
+    logger?: Logger | false;
     emitLogs?: boolean;
     verifyOnly?: boolean;
 }
@@ -346,4 +351,11 @@ export interface MessageStructureObject {
     disposition: string;
     dispositionParameters: string;
     childNodes: MessageStructureObject[];
+}
+
+export interface Logger {
+    debug: (obj: object) => void;
+    info: (obj: object) => void;
+    warn: (obj: object) => void;
+    error: (obj: object) => void;
 }

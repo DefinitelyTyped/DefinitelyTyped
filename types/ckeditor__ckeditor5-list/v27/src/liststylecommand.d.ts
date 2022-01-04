@@ -5,3 +5,9 @@ export default class ListStyleCommand extends Command {
     refresh(): void;
     execute(options?: { type: string | null }): void;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/commandcollection' {
+    interface Commands {
+        ListStyleCommand: ListStyleCommand;
+    }
+}

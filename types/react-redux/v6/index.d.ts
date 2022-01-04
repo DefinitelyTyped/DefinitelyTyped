@@ -1,7 +1,6 @@
 // Type definitions for react-redux 6.0
 // Project: https://github.com/reduxjs/react-redux
-// Definitions by: Qubo <https://github.com/tkqubo>,
-//                 Kenzie Togami <https://github.com/kenzierocks>,
+// Definitions by: Qubo <https://github.com/tkqubo>
 //                 Curits Layne <https://github.com/clayne11>
 //                 Frank Tan <https://github.com/tansongyang>
 //                 Nicholas Boll <https://github.com/nicholasboll>
@@ -31,7 +30,8 @@ import {
     Component,
     ComponentClass,
     ComponentType,
-    StatelessComponent
+    FunctionComponent,
+    ReactNode
 } from 'react';
 
 import {
@@ -398,6 +398,7 @@ export interface ProviderProps<A extends Action = AnyAction> {
      * The single Redux store in your application.
      */
     store: Store<any, A>;
+    children?: ReactNode;
 }
 
 /**

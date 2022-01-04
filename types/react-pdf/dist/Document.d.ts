@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { PDFDocumentProxy } from 'pdfjs-dist';
+import { PDFDocumentProxy } from 'pdfjs-dist/types/src/display/api';
 
 export type RenderFunction = () => JSX.Element;
 
@@ -90,7 +90,7 @@ export interface Props {
      * Function called when a password-protected PDF is loaded.
      * Defaults to a function that prompts the user for password.
      */
-    onPassword?: ((callback: (...args: any[]) => any) => void) | undefined;
+    onPassword?: ((callback: (password: string) => void, reason: string) => void) | undefined;
 
     /**
      * Function called in case of an error while retrieving document source from `file` prop.

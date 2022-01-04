@@ -83,7 +83,7 @@ declare namespace moduleDeps {
         /**
          * A complex cache handler that allows async and persistent caching of data.
          */
-        persistentCache?: ((file: string, id: string, pkg: PackageObject, fallback: (dataAsString: string, cb: CacheCallback) => void, cb: CacheCallback) => void) | undefined;
+        persistentCache?: ((file: string, id: string, pkg: PackageObject, fallback: (dataAsString: string | null | undefined, cb: CacheCallback) => void, cb: CacheCallback) => void) | undefined;
 
         /**
          * Array of global paths to search. Defaults to splitting on ':' in process.env.NODE_PATH
@@ -147,7 +147,7 @@ declare namespace moduleDeps {
         on(event: string | symbol, listener: (...args: any[]) => void): this;
     }
 
-    type CacheCallback = (err: Error | null, res?: { source: string; package: any; deps: { [dep: string]: boolean } }) => void;
+    type CacheCallback = (err: Error | null, res?: PersistentCacheItem) => void;
 
     type Transform = string | ((file: string, opts: { basedir?: string | undefined }) => NodeJS.ReadWriteStream);
 
@@ -187,7 +187,15 @@ declare namespace moduleDeps {
         deps: { [requireName: string]: any };
     }
 
+    interface PersistentCacheItem {
+        source: string;
+        package: PackageObject;
+        deps: { [dep: string]: boolean };
+    }
+
     /**
+     * Parsed package.json file data, as obtained from running JSON.parse on the file.
+     *
      * Placeholder, feel free to redefine or put in a pull request to improve
      */
     interface PackageObject {

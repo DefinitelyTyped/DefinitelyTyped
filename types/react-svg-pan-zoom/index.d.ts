@@ -1,6 +1,7 @@
 // Type definitions for react-svg-pan-zoom 3.3
 // Project: https://github.com/chrvadala/react-svg-pan-zoom#readme, https://chrvadala.github.io/react-svg-pan-zoom
 // Definitions by: Huy Nguyen <https://github.com/huy-nguyen>
+//                 Trey Wenger <https://github.com/tvwenger>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -58,6 +59,9 @@ export type ToolbarPosition = typeof POSITION_NONE | typeof POSITION_TOP | typeo
                                         typeof POSITION_BOTTOM | typeof POSITION_LEFT;
 
 export interface OptionalProps {
+    // default tool
+   defaultTool: Exclude<Tool, typeof TOOL_AUTO>;
+
     // background of the viewer
     background: string;
 
@@ -124,9 +128,9 @@ export interface OptionalProps {
     scaleFactorOnWheel: number;
 
     // maximum amount of scale a user can zoom in to
-  scaleFactorMax: number;
+    scaleFactorMax: number;
 
-  // minimum amount of a scale a user can zoom out of
+    // minimum amount of a scale a user can zoom out of
     scaleFactorMin: number;
 
     // modifier keys //https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/getModifierState
@@ -137,12 +141,13 @@ export interface OptionalProps {
 
     // override default toolbar component
     // TODO: specify function type more clearly
-    customToolbar: React.Component<any> | React.StatelessComponent<any>;
+    customToolbar: React.Component<any> | React.FunctionComponent<any>;
 
     // How about touch events? They are in README but not in `propTypes`.
 }
 
 export interface RequiredProps {
+    children: React.ReactElement;
     // width of the viewer displayed on screen
     width: number;
     // height of the viewer displayed on screen
@@ -174,6 +179,7 @@ export interface UncontrolledExtraOptionalProps {
 }
 
 export interface UncontrolledRequiredProps {
+    children: React.ReactElement;
     // width of the viewer displayed on screen
     width: number;
     // height of the viewer displayed on screen

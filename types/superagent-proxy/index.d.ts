@@ -1,6 +1,7 @@
-// Type definitions for superagent-proxy 2.0
+// Type definitions for superagent-proxy 3.0
 // Project: https://github.com/TooTallNate/superagent-proxy#readme
 // Definitions by: Daniel Imhoff <https://github.com/dwieeb>
+//                 Roh Rajendra <https://github.com/neurally>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -12,6 +13,6 @@ declare module 'superagent' {
     }
 }
 
-declare function superagentProxy(s: typeof superagent): void;
+declare function superagentProxy(s: superagent.SuperAgentStatic): void;
 
 export = superagentProxy;

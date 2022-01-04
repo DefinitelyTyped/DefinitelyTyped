@@ -65,13 +65,19 @@ import { promisify } from 'node:util';
     let hmac: crypto.Hmac;
     (hmac = crypto.createHmac('md5', 'hello')).end('world', 'utf8', () => {
         const hash: Buffer | string = hmac.read();
-    });
+    }).end();
 }
 
 {
     // update Hmac with base64 encoded string
     const message = Buffer.from('message').toString('base64');
     crypto.createHmac('sha256', 'key').update(message, 'base64').digest();
+}
+
+{
+    // update Hmac with base64url encoded string
+    const message = Buffer.from('message').toString('base64url');
+    crypto.createHmac('sha256', 'key').update(message, 'base64url').digest();
 }
 
 {
@@ -828,13 +834,12 @@ import { promisify } from 'node:util';
 
     const sign: crypto.Sign = crypto.createSign('SHA256');
     sign.write('some data to sign');
-    sign.end();
+    sign.end().end();
     const signature: string = sign.sign(privateKey, 'hex');
 
     const verify: crypto.Verify = crypto.createVerify('SHA256');
     verify.write('some data to sign');
-    verify.end();
-    verify.verify(publicKey, signature); // $ExpectType boolean
+    verify.end().verify(publicKey, signature); // $ExpectType boolean
 
     // ensure that instanceof works
     verify instanceof crypto.Verify;
@@ -848,13 +853,12 @@ import { promisify } from 'node:util';
 
     const sign: crypto.Sign = crypto.createSign('SHA256');
     sign.update('some data to sign');
-    sign.end();
+    sign.end().end();
     const signature: Buffer = sign.sign(privateKey);
 
     const verify: crypto.Verify = crypto.createVerify('SHA256');
     verify.update('some data to sign');
-    verify.end();
-    verify.verify(publicKey, signature); // $ExpectType boolean
+    verify.end().verify(publicKey, signature); // $ExpectType boolean
 }
 
 {
@@ -1221,6 +1225,15 @@ import { promisify } from 'node:util';
                 if (keyObject.asymmetricKeyDetails.namedCurve) {
                     const namedCurve: string = keyObject.asymmetricKeyDetails.namedCurve;
                 }
+                if (keyObject.asymmetricKeyDetails.mgf1HashAlgorithm) {
+                    const mgf1HashAlgorithm: string = keyObject.asymmetricKeyDetails.mgf1HashAlgorithm;
+                }
+                if (keyObject.asymmetricKeyDetails.hashAlgorithm) {
+                    const hashAlgorithm: string = keyObject.asymmetricKeyDetails.hashAlgorithm;
+                }
+                if (keyObject.asymmetricKeyDetails.saltLength) {
+                    const saltLength: number = keyObject.asymmetricKeyDetails.saltLength;
+                }
             }
         }
     });
@@ -1261,22 +1274,10 @@ import { promisify } from 'node:util';
 }
 
 {
-    crypto.generateKeyPair('ec', { namedCurve: 'P-256' }, (err, publicKey, privateKey) => {
-        for (const keyObject of [publicKey, privateKey]) {
-            if (keyObject.asymmetricKeyDetails) {
-                if (keyObject.asymmetricKeyDetails.modulusLength) {
-                    const modulusLength: number = keyObject.asymmetricKeyDetails.modulusLength;
-                }
-                if (keyObject.asymmetricKeyDetails.publicExponent) {
-                    const publicExponent: bigint = keyObject.asymmetricKeyDetails.publicExponent;
-                }
-                if (keyObject.asymmetricKeyDetails.divisorLength) {
-                    const divisorLength: number = keyObject.asymmetricKeyDetails.divisorLength;
-                }
-                if (keyObject.asymmetricKeyDetails.namedCurve) {
-                    const namedCurve: string = keyObject.asymmetricKeyDetails.namedCurve;
-                }
-            }
-        }
-    });
+    // tslint:disable-next-line no-object-literal-type-assertion (webcrypto.CryptoKey is a placeholder)
+    crypto.KeyObject.from({} as crypto.webcrypto.CryptoKey); // $ExpectType KeyObject
+}
+
+{
+    crypto.generateKeySync('aes', { length: 128 }); // $ExpectType KeyObject
 }

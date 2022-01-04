@@ -7,6 +7,7 @@ import {
 type ExcludedAttributes = "className" | "id" | "size";
 export interface DatePickerInputProps extends Omit<ReactInputAttr, ExcludedAttributes> {
     datePickerType?: "range" | "simple" | "single" | undefined;
+    helperText?: React.ReactNode | undefined,
     hideLabel?: boolean | undefined,
     id: string,
     iconDescription?: string | undefined,

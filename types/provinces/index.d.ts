@@ -1,6 +1,6 @@
 // Type definitions for provinces 1.11
 // Project: https://github.com/substack/provinces
-// Definitions by: William Lohan <https://github.com/gatimus>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare global {
@@ -28,6 +28,10 @@ declare global {
          * optional region of a country (for example: "Wales")
          */
         region?: string | undefined;
+        /**
+         * optional English name of a country (for example: "Beijing")
+         */
+        english?: string | undefined;
     }
 }
 

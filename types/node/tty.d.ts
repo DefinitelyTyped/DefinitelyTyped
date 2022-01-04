@@ -22,7 +22,7 @@
  *
  * In most cases, there should be little to no reason for an application to
  * manually create instances of the `tty.ReadStream` and `tty.WriteStream`classes.
- * @see [source](https://github.com/nodejs/node/blob/v16.7.0/lib/tty.js)
+ * @see [source](https://github.com/nodejs/node/blob/v17.0.0/lib/tty.js)
  */
 declare module 'tty' {
     import * as net from 'node:net';
@@ -129,9 +129,7 @@ declare module 'tty' {
          * * `1` for 2,
          * * `4` for 16,
          * * `8` for 256,
-         * * `24` for 16,777,216
-         *
-         * colors supported.
+         * * `24` for 16,777,216 colors supported.
          *
          * Use this to determine what colors the terminal supports. Due to the nature of
          * colors in terminals it is possible to either have false positives or false

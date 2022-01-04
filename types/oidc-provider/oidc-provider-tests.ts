@@ -1,4 +1,4 @@
-import { Provider, interactionPolicy, errors } from 'oidc-provider';
+import { Provider, interactionPolicy, errors, JWKS } from 'oidc-provider';
 
 errors.AccessDenied.name;
 
@@ -67,6 +67,25 @@ new Provider('https://op.example.com', {
         async findByUid(uid: string) {},
     }),
 });
+
+const jwks: JWKS = {
+    keys: [
+        {
+            kty: 'RSA',
+            d: 'foo',
+            n: 'foo',
+            e: 'AQAB',
+        },
+        {
+            kty: 'OKP',
+            x: 'foo',
+            d: 'foo',
+            crv: 'Ed25519',
+        },
+    ],
+};
+
+new Provider('https://op.example.com', { jwks });
 
 const provider = new Provider('https://op.example.com', {
     acrValues: ['urn:example:bronze'],
@@ -356,7 +375,7 @@ const provider = new Provider('https://op.example.com', {
         revocation: { enabled: false },
         jwtIntrospection: { enabled: false, ack: 'draft' },
         jwtResponseModes: { enabled: false, ack: 'draft' },
-        pushedAuthorizationRequests: { enabled: false, ack: 'draft' },
+        pushedAuthorizationRequests: { enabled: false },
         registration: {
             enabled: true,
             initialAccessToken: true,
@@ -401,7 +420,6 @@ const provider = new Provider('https://op.example.com', {
         fapi: { enabled: false, profile: '1.0 Final' },
         ciba: {
             enabled: false,
-            ack: 'foo',
             deliveryModes: ['ping'],
             async triggerAuthenticationDevice(ctx, request, account, client) {
                 ctx.oidc.issuer.substring(0);

@@ -3,6 +3,7 @@
 // Load the GPT library by adding the following to the <head> of the HTML document.
 // <script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
 // <script>window.googletag = window.googletag || {cmd: []};</script>
+window.googletag = window.googletag || { cmd: [] };
 
 // DEMO 1
 // <script>
@@ -655,3 +656,11 @@ googletag
             slot.getTargetingMap(),
         );
     });
+
+// DEMO 62
+// Ensure you can push several arguments to `cmd`
+googletag.cmd.push(
+    ...[1, 2, 3, 4, 5].map(n => () => {
+        console.log(`successfully pushed ${n > 1 ? n + ' arguments' : 'one argument'}`);
+    }),
+);

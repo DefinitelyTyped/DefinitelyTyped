@@ -195,6 +195,22 @@ namespace MeteorTests {
     var result = Meteor.call('foo', 1, 2);
 
     /**
+     * From Methods, Meteor.apply section
+     */
+    Meteor.apply('foo', []);
+    Meteor.apply('foo', [1, 2]);
+    Meteor.apply('foo', [1, 2], {});
+    Meteor.apply('foo', [1, 2], {
+        wait: true,
+        onResultReceived(error: any, result: any) {},
+        noRetry: true, // #56828
+        throwStubExceptions: false,
+        returnStubValue: true,
+    });
+    Meteor.apply('foo', [1, 2], {}, function (error: any, result: any) {});
+    var result = Meteor.apply('foo', [1, 2], {});
+
+    /**
      * From Collections, Mongo.Collection section
      */
     // DA: I added the "var" keyword in there
@@ -388,6 +404,12 @@ namespace MeteorTests {
     });
 
     /**
+     * From Collections, createIndex section
+     */
+
+    Posts.createIndex({ title: 1 });
+
+    /**
      * From Collections, cursor.forEach section
      */
     var topPosts = Posts.find({}, { sort: { score: -1 }, limit: 5 }) as Mongo.Cursor<PostDAO | iPost>;
@@ -557,6 +579,10 @@ namespace MeteorTests {
         },
     );
 
+    Accounts.loggingIn(); // $ExpectType boolean
+    Accounts.loggingOut(); // $ExpectType boolean
+
+    Meteor.loggingIn(); // $ExpectType boolean
     Meteor.loggingOut(); // $ExpectType boolean
 
     Meteor.user();
@@ -570,6 +596,42 @@ namespace MeteorTests {
     Accounts.user({ fields: {} });
     Accounts.user({ fields: { _id: 1 } });
     Accounts.user({ fields: { profile: 0 } });
+
+    /**
+     * Fixes this discussion https://github.com/DefinitelyTyped/DefinitelyTyped/discussions/55173
+     */
+    Accounts.sendEnrollmentEmail(); // $ExpectError
+    Accounts.sendEnrollmentEmail('userId');
+    Accounts.sendEnrollmentEmail('userId', 'email');
+    Accounts.sendEnrollmentEmail('userId', undefined, {});
+    Accounts.sendEnrollmentEmail('userId', undefined, undefined, {});
+    Accounts.sendEnrollmentEmail('userId', 'email', {}, {});
+
+    Accounts.sendResetPasswordEmail(); // $ExpectError
+    Accounts.sendResetPasswordEmail('userId');
+    Accounts.sendResetPasswordEmail('userId', 'email');
+    Accounts.sendResetPasswordEmail('userId', undefined, {});
+    Accounts.sendResetPasswordEmail('userId', undefined, undefined, {});
+    Accounts.sendResetPasswordEmail('userId', 'email', {}, {});
+
+    Accounts.sendVerificationEmail(); // $ExpectError
+    Accounts.sendVerificationEmail('userId');
+    Accounts.sendVerificationEmail('userId', 'email');
+    Accounts.sendVerificationEmail('userId', undefined, {});
+    Accounts.sendVerificationEmail('userId', undefined, undefined, {});
+    Accounts.sendVerificationEmail('userId', 'email', {}, {});
+
+    Accounts.findUserByEmail(); // $ExpectError
+    Accounts.findUserByEmail('email'); // $ExpectType User | null | undefined
+    Accounts.findUserByEmail('email', {}); // $ExpectType User | null | undefined
+    Accounts.findUserByEmail('email', { fields: undefined }); // $ExpectType User | null | undefined
+    Accounts.findUserByEmail('email', { fields: {} }); // $ExpectType User | null | undefined
+
+    Accounts.findUserByUsername(); // $ExpectError
+    Accounts.findUserByUsername('email'); // $ExpectType User | null | undefined
+    Accounts.findUserByUsername('email', {}); // $ExpectType User | null | undefined
+    Accounts.findUserByUsername('email', { fields: undefined }); // $ExpectType User | null | undefined
+    Accounts.findUserByUsername('email', { fields: {} }); // $ExpectType User | null | undefined
 
     /**
      * From Accounts, Accounts.ui.config section
@@ -658,8 +720,8 @@ namespace MeteorTests {
     var body = Template.body;
 
     const Template2 = Template as TemplateStaticTyped<
-        { foo: string },
         'newTemplate2',
+        { foo: string },
         {
             state: ReactiveDict<{ bar: number }>;
             getFooBar(): string;
@@ -713,6 +775,18 @@ namespace MeteorTests {
             template.getFooBar();
         },
     });
+
+    const Template3 = Template as TemplateStaticTyped<'newTemplate3', string>;
+
+    const Template4 = Template as TemplateStaticTyped<'newTemplate4', () => number>;
+
+    Template4.newTemplate4.events({
+        test: (_event, instance) => {
+            instance.data(); // $ExpectType number
+        },
+    });
+
+    const Template5 = Template as TemplateStaticTyped<'newTemplate5'>;
 
     /**
      * From Match section
@@ -902,19 +976,20 @@ namespace MeteorTests {
 
     var reactiveDict2 = new ReactiveDict<{ foo: string }>();
     reactiveDict2.set({ foo: 'bar' });
-    reactiveDict2.set('foo2', 'bar'); // $ExpectError
+    reactiveDict2.set('foo1', 'bar'); // $ExpectError
 
     var reactiveDict3 = new ReactiveDict('reactive-dict-3');
     var reactiveDict4 = new ReactiveDict('reactive-dict-4', { foo: 'bar' });
-    var reactiveDict5 = new ReactiveDict(undefined, { foo: 'bar' });
+    var reactiveDict5 = new ReactiveDict(undefined, { foo: 'bar', foo2: 'bar' });
 
     reactiveDict5.setDefault('foo', 'bar');
     reactiveDict5.setDefault({ foo: 'bar' });
 
     reactiveDict5.set('foo', 'bar');
     reactiveDict5.set({ foo: 'bar' });
+    reactiveDict5.set({ foo: 'bar', foo2: 'bar' });
 
-    reactiveDict5.set('foo2', 'bar'); // $ExpectError
+    reactiveDict5.set('foo1', 'bar'); // $ExpectError
     reactiveDict5.set('foo', 2); // $ExpectError
 
     reactiveDict5.get('foo') === 'bar';
@@ -1056,6 +1131,10 @@ namespace MeteorTests {
 
     // Covers https://github.com/meteor-typings/meteor/issues/21
     if (Meteor.isTest) {
+        // do something
+    }
+
+    if (Meteor.isAppTest) {
         // do something
     }
 

@@ -1,26 +1,41 @@
 import S3rver = require('s3rver');
+import { IncomingMessage, ServerResponse } from 'http';
+import { Http2ServerRequest, Http2ServerResponse } from 'http2';
+import { AddressInfo } from 'net';
 
-var s3rver = new S3rver({
+const s3rver = new S3rver({
+    address: 'localhost',
     port: 5694,
-    hostname: 'localhost',
+    key: '',
+    cert: '',
     silent: true,
-    indexDocument: 'index.html',
-    errorDocument: '',
-    directory: '/tmp/s3rver_test_directory'
-}).run((err, hostname, port, directory) => {});
+    serviceEndpoint: '',
+    directory: '/tmp/s3rver_test_directory',
+    resetOnClose: false,
+    allowMismatchedSignatures: false,
+    vhostBuckets: true,
+    configureBuckets: [
+        { name: 'bucket1', configs: [''] },
+        { name: 'bucket1', configs: [Buffer.alloc(1)] },
+    ],
+});
 
-s3rver.close();
-s3rver.close(e => console.log(e));
+s3rver.run().then((address: AddressInfo) => {});
+s3rver.run((err: Error | null, address: AddressInfo) => {});
 
-// using new options
-import fs = require('fs');
-(async () => {
-    await new S3rver({
-        port:5694,
-        address: 'localhost',
-        configureBuckets: [
-            { name: 'my-bucket', configs: [fs.readFileSync(require.resolve('s3rver/example/cors.xml'))] },
-        ],
-        directory: '/tmp/s3rver_test_directory'
-    }).run();
-})();
+s3rver.close().then(() => {});
+s3rver.close((err?: Error) => {});
+
+function testMiddleware1(req: IncomingMessage, res: ServerResponse) {
+    s3rver.callback()(req, res);
+    s3rver.getMiddleware()(req, res);
+}
+
+function testMiddleware2(req: Http2ServerRequest, res: Http2ServerResponse) {
+    s3rver.callback()(req, res);
+    s3rver.getMiddleware()(req, res);
+}
+
+s3rver.configureBuckets().then(() => {});
+
+s3rver.reset();

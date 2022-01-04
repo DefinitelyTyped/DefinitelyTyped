@@ -5,3 +5,9 @@ export default class IndentCommand extends Command {
     refresh(): void;
     execute(): void;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/commandcollection' {
+    interface Commands {
+        IndentCommand: IndentCommand;
+    }
+}

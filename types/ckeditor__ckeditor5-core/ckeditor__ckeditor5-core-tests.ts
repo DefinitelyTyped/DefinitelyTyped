@@ -1,14 +1,15 @@
 import {
-    Plugin,
-    Editor,
+    attachToForm,
     Command,
     Context,
     ContextPlugin,
     DataApiMixin,
-    attachToForm,
-    MultiCommand,
+    Editor,
     EditorUI,
+    MultiCommand,
+    Plugin,
 } from '@ckeditor/ckeditor5-core';
+import { EditorWithUI } from '@ckeditor/ckeditor5-core/src/editor/editorwithui';
 import View from '@ckeditor/ckeditor5-ui/src/view';
 
 let comm: Command;
@@ -22,6 +23,21 @@ class MyEditor extends Editor {
         super();
         this.source = source;
     }
+    static create(source: string | HTMLElement): Promise<MyEditor> {
+        return new Promise(resolve => {
+            const editor = new MyEditor(source);
+            resolve(editor);
+        });
+    }
+}
+
+class MyUIEditor extends Editor implements EditorWithUI {
+    source: string | HTMLElement;
+    constructor(source: string | HTMLElement) {
+        super();
+        this.source = source;
+    }
+    ui: EditorUI;
     static create(source: string | HTMLElement): Promise<MyEditor> {
         return new Promise(resolve => {
             const editor = new MyEditor(source);
@@ -68,6 +84,13 @@ const promise = myPlugin.init?.();
 promise != null && promise.then(() => {});
 myPlugin.myMethod();
 myPlugin.isEnabled = true;
+myPlugin.destroy?.();
+// $ExpectType Editor | EditorWithUI
+myPlugin.editor;
+const myUIEditor = new MyPlugin(new MyUIEditor('')).editor;
+if ('ui' in myUIEditor) {
+    myUIEditor.ui; // $ExpectType EditorUI
+}
 
 /**
  * PluginCollection
@@ -92,18 +115,15 @@ class MyEmptyEditor extends Editor {
 /**
  * Command
  */
-class SomeCommand extends Command {
-    execute() {}
-}
 const command = new Command(new MyEmptyEditor());
 command.execute();
 command.execute('foo', 'bar', true, false, 50033);
 command.execute(4545454, 'refresh', [], []);
 command.execute({}, { foo: 5 });
-
-const ed: Editor = command.editor;
-
-const bool: boolean = command.isEnabled;
+// $ExpectType Editor
+command.editor;
+// $ExpectType boolean
+command.isEnabled;
 
 comm = new Command(editor);
 

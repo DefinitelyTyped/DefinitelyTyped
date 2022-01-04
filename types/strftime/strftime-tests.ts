@@ -33,3 +33,6 @@ var strftimePDT = strftime.timezone(-420);
 var strftimeCEST = strftime.timezone(120);
 strftimePDT('%B %d, %y %H:%M:%S', new Date(1307472705067));
 strftimeCEST('%F %T', new Date(1307472705067));
+
+var strftimeUTC = strftime.utc();
+strftimeUTC('%B %d, %y %H:%M:%S', new Date(1307472705067));

@@ -8,7 +8,7 @@ interface RouteStatusProps {
     statusCode: number;
 }
 
-const RouteStatus: React.SFC<RouteStatusProps> = (props) => (
+const RouteStatus: React.FC<RouteStatusProps> = (props) => (
     <Route
         render={({ staticContext }: {staticContext?: StaticContext}) => {
             if (staticContext) {
@@ -28,7 +28,7 @@ interface PrintContextProps {
     staticContext: StaticContext;
 }
 
-const PrintContext: React.SFC<PrintContextProps> = (props) => (
+const PrintContext: React.FC<PrintContextProps> = (props) => (
     <p>
         Static context: {JSON.stringify(props.staticContext)}
     </p>

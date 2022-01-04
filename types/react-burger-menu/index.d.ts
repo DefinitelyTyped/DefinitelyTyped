@@ -2,7 +2,6 @@
 // Project: https://github.com/negomi/react-burger-menu
 // Definitions by: Rajab Shakirov <https://github.com/radziksh>
 //                 David Acevedo <https://github.com/dacevedo12>
-//                 German Pineda <https://github.com/germanp173>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -32,6 +31,7 @@ export interface Props {
     bodyClassName?: string | undefined;
     burgerBarClassName?: string | undefined;
     burgerButtonClassName?: string | undefined;
+    children?: React.ReactNode;
     className?: string | undefined;
     crossButtonClassName?: string | undefined;
     crossClassName?: string | undefined;
