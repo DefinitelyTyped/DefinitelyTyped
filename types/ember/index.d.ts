@@ -240,36 +240,6 @@ export namespace Ember {
     const Evented: typeof EmberObjectEventedNs.default;
 
     /**
-     * Inside Ember-Metal, simply uses the methods from `imports.console`.
-     * Override this to provide more robust logging functionality.
-     */
-    const Logger: {
-        /**
-         * If the value passed into `Ember.Logger.assert` is not truthy it will throw an error with a stack trace.
-         */
-        assert(test: boolean, message?: string): void;
-        /**
-         * Logs the arguments to the console in blue text.
-         */
-        debug(...args: any[]): void;
-        /**
-         * Prints the arguments to the console with an error icon, red text and a stack trace.
-         */
-        error(...args: any[]): void;
-        /**
-         * Logs the arguments to the console.
-         */
-        info(...args: any[]): void;
-        /**
-         * Logs the arguments to the console.
-         */
-        log(...args: any[]): void;
-        /**
-         * Prints the arguments to the console with a warning icon.
-         */
-        warn(...args: any[]): void;
-    };
-    /**
      * A Map stores values indexed by keys. Unlike JavaScript's
      * default Objects, the keys of a Map can be any JavaScript
      * object.
@@ -434,7 +404,6 @@ export namespace Ember {
         class SafeString extends EmberTemplateHandlebarsNs.SafeString {}
         function parse(string: string): any;
         function print(ast: any): void;
-        const logger: typeof Logger;
         function log(level: string, str: string): void;
         function registerHelper(name: string, helper: any): void;
     }
