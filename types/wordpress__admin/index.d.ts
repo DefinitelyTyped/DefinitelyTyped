@@ -3,6 +3,9 @@
 // Definitions by: Sibin Grasic <https://github.com/oblakstudio>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="backbone" />
+/// <reference types="lodash" />
+
 import { Attachment, Attachments, PostImage, Query } from './components/media-models';
 import { Frame, FrameOptions, MediaFrame, MediaFrameSelect, Region, State, StateMachine, View } from './components/media-views';
 import { WpBackbone } from './components/wp-backbone';
