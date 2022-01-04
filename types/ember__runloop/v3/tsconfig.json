@@ -10,13 +10,15 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
         "paths": {
+            "@ember/object/*": ["ember__object/v3/*"],
+            "@ember/runloop/*": ["ember__runloop/v3/*"],
             "@ember/*": [
-                "ember__*"
+                "ember__*/v3"
             ]
         },
         "types": [],
@@ -25,7 +27,6 @@
     },
     "files": [
         "index.d.ts",
-        "adapter.d.ts",
-        "ember__test-tests.ts"
+        "ember__runloop-tests.ts"
     ]
 }

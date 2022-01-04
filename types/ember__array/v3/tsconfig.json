@@ -10,13 +10,15 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
         "paths": {
+            "@ember/array/*": ["ember__array/v3/*"],
+            "@ember/object/*": ["ember__object/v3/*"],
             "@ember/*": [
-                "ember__*"
+                "ember__*/v3"
             ]
         },
         "types": [],
@@ -25,7 +27,9 @@
     },
     "files": [
         "index.d.ts",
-        "adapter.d.ts",
-        "ember__test-tests.ts"
+        "test/lib/assert.ts",
+        "test/array.ts",
+        "test/array-ext.ts",
+        "test/array-proxy.ts"
     ]
 }

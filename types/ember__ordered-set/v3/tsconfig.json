@@ -1,23 +1,19 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "target": "es5",
         "lib": [
-            "es6",
-            "dom"
+            "es6"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
+        "strictNullChecks": true,
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
         "paths": {
-            "@ember/*": [
-                "ember__*"
-            ]
+            "@ember/*": ["ember__*/v3"]
         },
         "types": [],
         "noEmit": true,
@@ -25,7 +21,7 @@
     },
     "files": [
         "index.d.ts",
-        "adapter.d.ts",
-        "ember__test-tests.ts"
+        "test/ember__ordered-set-tests.ts",
+        "test/lib/assert.ts"
     ]
 }

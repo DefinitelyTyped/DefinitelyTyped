@@ -10,9 +10,9 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
         "paths": {
             "@ember/*": [
@@ -25,7 +25,6 @@
     },
     "files": [
         "index.d.ts",
-        "adapter.d.ts",
-        "ember__test-tests.ts"
+        "ember__utils-tests.ts"
     ]
 }

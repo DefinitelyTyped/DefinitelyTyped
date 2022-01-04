@@ -16,22 +16,22 @@
 
 /// <reference types="jquery" />
 /// <reference types="ember__string" />
-/// <reference types="ember__polyfills" />
-/// <reference types="ember__object" />
-/// <reference types="ember__utils" />
-/// <reference types="ember__array" />
-/// <reference types="ember__engine" />
-/// <reference types="ember__debug" />
-/// <reference types="ember__runloop" />
-/// <reference types="ember__error" />
-/// <reference types="ember__controller" />
-/// <reference types="ember__component" />
-/// <reference types="ember__routing" />
-/// <reference types="ember__application" />
-/// <reference types="ember__test" />
-/// <reference types="ember__service" />
-/// <reference types="ember__template" />
-/// <reference types="ember__destroyable" />
+/// <reference types="ember__polyfills/v3" />
+/// <reference types="ember__object/v3" />
+/// <reference types="ember__utils/v3" />
+/// <reference types="ember__array/v3" />
+/// <reference types="ember__engine/v3" />
+/// <reference types="ember__debug/v3" />
+/// <reference types="ember__runloop/v3" />
+/// <reference types="ember__error/v3" />
+/// <reference types="ember__controller/v3" />
+/// <reference types="ember__component/v3" />
+/// <reference types="ember__routing/v3" />
+/// <reference types="ember__application/v3" />
+/// <reference types="ember__test/v3" />
+/// <reference types="ember__service/v3" />
+/// <reference types="ember__template/v3" />
+/// <reference types="ember__destroyable/v3" />
 
 import {
     Objectify, Fix, UnwrapComputedPropertySetters,

@@ -15,9 +15,7 @@
             "../"
         ],
         "paths": {
-            "@ember/*": [
-                "ember__*"
-            ]
+            "@ember/*": ["ember__*"]
         },
         "types": [],
         "noEmit": true,
@@ -25,7 +23,7 @@
     },
     "files": [
         "index.d.ts",
-        "adapter.d.ts",
-        "ember__test-tests.ts"
+        "test/lib/assert.ts",
+        "test/main.ts"
     ]
 }

@@ -10,13 +10,13 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
         "paths": {
             "@ember/*": [
-                "ember__*"
+                "ember__*/v3"
             ]
         },
         "types": [],
@@ -25,7 +25,6 @@
     },
     "files": [
         "index.d.ts",
-        "adapter.d.ts",
-        "ember__test-tests.ts"
+        "ember__polyfills-tests.ts"
     ]
 }
