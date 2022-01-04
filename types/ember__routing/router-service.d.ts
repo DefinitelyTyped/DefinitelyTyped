@@ -6,7 +6,7 @@ import Service from '@ember/service';
 // tslint:disable-next-line:strict-export-declare-modifiers
 type RouteModel = object | string | number;
 
-// https://emberjs.com/api/ember/2.18/classes/RouterService
+// https://emberjs.com/api/ember/release/classes/RouterService
 /**
  * The Router service is the public API that provides component/view layer access to the router.
  */
@@ -117,7 +117,7 @@ export default class RouterService extends Service {
         options?: { queryParams: object }
     ): boolean;
 
-    // https://emberjs.com/api/ember/2.18/classes/RouterService/methods/isActive?anchor=replaceWith
+    // https://emberjs.com/api/ember/4.0/classes/RouterService/methods/isActive?anchor=replaceWith
     /**
      * Transition into another route while replacing the current URL, if
      * possible. The route may be either a single route or route path.
@@ -230,7 +230,7 @@ export default class RouterService extends Service {
     ): Transition;
     transitionTo(options: { queryParams: object }): Transition;
 
-    // https://emberjs.com/api/ember/2.18/classes/RouterService/methods/isActive?anchor=urlFor
+    // https://emberjs.com/api/ember/4.0/classes/RouterService/methods/isActive?anchor=urlFor
     /**
      * Generate a URL based on the supplied route name.
      *

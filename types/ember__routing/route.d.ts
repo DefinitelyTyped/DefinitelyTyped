@@ -400,7 +400,7 @@ export default class Route<Model = unknown> extends EmberObject.extend(ActionHan
     ): Transition;
     transitionTo(options: { queryParams: object }): Transition;
 
-    // https://emberjs.com/api/ember/3.2/classes/Route/methods/intermediateTransitionTo?anchor=intermediateTransitionTo
+    // https://emberjs.com/api/ember/release/classes/Route/methods/intermediateTransitionTo?anchor=intermediateTransitionTo
     /**
      * Perform a synchronous transition into another route without attempting to resolve promises,
      * update the URL, or abort any currently active asynchronous transitions

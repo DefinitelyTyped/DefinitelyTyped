@@ -2,7 +2,6 @@
 // Project: https://github.com/emberjs/ember-test-helpers
 // Definitions by: Dan Freeman <https://github.com/dfreeman>
 //                 James C. Davis <https://github.com/jamescdavis>
-//                 Mike North <https://github.com/mike-north>
 //                 Chris Krycho <https://github.com/chriskrycho>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.4

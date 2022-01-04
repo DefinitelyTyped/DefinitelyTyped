@@ -1,14 +1,6 @@
 // Type definitions for Ember.js 4.0
 // Project: https://emberjs.com/, https://github.com/emberjs/ember
-// Definitions by: Jed Mao <https://github.com/jedmao>
-//                 bttf <https://github.com/bttf>
-//                 Derek Wickern <https://github.com/dwickern>
-//                 Chris Krycho <https://github.com/chriskrycho>
-//                 Theron Cross <https://github.com/theroncross>
-//                 Martin Feckie <https://github.com/mfeckie>
-//                 Alex LaFroscia <https://github.com/alexlafroscia>
-//                 Mike North <https://github.com/mike-north>
-//                 Bryan Crotaz <https://github.com/BryanCrotaz>
+// Definitions by: Chris Krycho <https://github.com/chriskrycho>
 //                 James C. Davis <https://github.com/jamescdavis>
 //                 Dan Freeman <https://github.com/dfreeman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
