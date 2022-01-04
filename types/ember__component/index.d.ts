@@ -11,6 +11,7 @@
 import CoreView from "@ember/component/-private/core-view";
 import ClassNamesSupport from "@ember/component/-private/class-names-support";
 import ViewMixin from "@ember/component/-private/view-mixin";
+import { ComponentManager } from './-private/glimmer-interfaces';
 
 // tslint:disable-next-line:strict-export-declare-modifiers
 interface TemplateFactory {
@@ -93,3 +94,17 @@ export default class Component extends CoreView.extend(
      */
     willUpdate(): void;
 }
+
+/**
+ * Associate a class with a component manager (an object that is responsible for
+ * coordinating the lifecycle events that occurs when invoking, rendering and
+ * re-rendering a component).
+ *
+ * @param managerFactory a function to create the owner for an object
+ * @param object the object to associate with the componetn manager
+ * @return the same object passed in, now associated with the manager
+ */
+export function setComponentManager<T>(
+    managerFactory: (owner: unknown) => ComponentManager<unknown>,
+    object: T
+): T;
