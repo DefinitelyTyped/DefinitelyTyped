@@ -469,6 +469,8 @@ export namespace Ember {
     // TODO: replace with an es6 reexport when declare module 'ember' is removed
     /**
      * Copy properties from a source object to a target object.
+     * @deprecated until v5.0. You should replace any calls to `Ember.assign`
+     *   with `Object.assign` or use the object spread operator.
      */
     const assign: typeof EmberPolyfillsNs.assign;
     /**
