@@ -18,7 +18,7 @@ declare class Thing {
     destroy(): Promise<void>;
     destroyCallback(): Promise<void>;
 
-    emitEvent(event: string, data?: unknown, options?: EmitEventOptions): void;
+    emitEvent(event: string, data?: unknown, options?: Thing.EmitEventOptions): void;
     on: InstanceType<typeof EventEmitter>['on'];
     off: InstanceType<typeof EventEmitter>['off'];
     onAny: InstanceType<typeof EventEmitter>['onAny'];
