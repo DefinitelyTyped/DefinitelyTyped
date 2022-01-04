@@ -85,7 +85,7 @@ export class RequestSigner {
     /**
      * Extract the service code and region code from a Host name.
      */
-    matchHost(host: string): string[];
+    matchHost(host: string): [string, string];
 
     /**
      * https://docs.aws.amazon.com/general/latest/gr/rande.html
