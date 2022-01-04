@@ -40,10 +40,6 @@ function testIsNone() {
     Ember.isNone('', ''); // $ExpectError
 }
 
-function testMerge() {
-    assertType<{ first: string; last: string }>(Ember.merge({ first: 'Tom' }, { last: 'Dale' }));
-}
-
 function testAssign() {
     assertType<{ first: string; middle: string; last: string }>(
         Ember.assign({ first: 'Tom' }, { middle: 'M' }, { last: 'Dale' }),
@@ -169,13 +165,4 @@ function testTryInvoke() {
     Ember.assign({ a: 'hello' }, { b: 6 }, { a: true }).a; // $ExpectType boolean
     Ember.assign({ a: 'hello' }, '', { a: true }).a; // $ExpectError
     Ember.assign({ d: ['gobias industries'] }, { a: 'hello' }, { b: 6 }, { a: true }).d; // $ExpectType string[]
-})();
-
-(() => {
-    /* merge */
-    Ember.merge({}, { a: 'b' });
-    Ember.merge({}, { a: 'b' }).a; // $ExpectType string
-    Ember.merge({ a: 6 }, { a: 'b' }).a; // $ExpectType string
-    Ember.merge({ a: 6 }, {}).a; // $ExpectType number
-    Ember.merge({ b: 6 }, {}).a; // $ExpectError
 })();

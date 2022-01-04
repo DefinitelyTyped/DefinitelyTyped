@@ -447,7 +447,6 @@ export namespace Ember {
     const isEmpty: typeof EmberUtilsNs.isEmpty;
     const isNone: typeof EmberUtilsNs.isNone;
     const isPresent: typeof EmberUtilsNs.isPresent;
-    const merge: typeof EmberPolyfillsNs.merge;
 
     const aliasMethod: typeof EmberObjectNs.aliasMethod;
     const observer: typeof EmberObjectNs.observer;

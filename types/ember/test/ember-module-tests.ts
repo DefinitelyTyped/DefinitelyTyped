@@ -75,8 +75,6 @@ Ember.isNone([]); // $ExpectType boolean
 // isPresent
 Ember.isPresent(''); // $ExpectType boolean
 Ember.isPresent([]); // $ExpectType boolean
-// merge
-Ember.merge({ a: 12 }, { b: 34 }).a; // $ExpectType number
 // observer
 const o2 = Ember.Object.extend({
     name: 'foo',

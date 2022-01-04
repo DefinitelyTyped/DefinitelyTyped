@@ -1,4 +1,4 @@
-import { assign, merge } from '@ember/polyfills';
+import { assign } from '@ember/polyfills';
 
 (() => {
     /* assign */
@@ -17,13 +17,4 @@ import { assign, merge } from '@ember/polyfills';
     // matches Object.assign
     assign({}, null); // $ExpectType never
     assign({}, undefined); // $ExpectType never
-})();
-
-(() => {
-    /* merge */
-    merge({}, { a: 'b' });
-    merge({}, { a: 'b' }).a; // $ExpectType string
-    merge({ a: 6 }, { a: 'b' }).a; // $ExpectType string
-    merge({ a: 6 }, {}).a; // $ExpectType number
-    merge({ b: 6 }, {}).a; // $ExpectError
 })();

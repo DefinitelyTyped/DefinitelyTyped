@@ -16,9 +16,3 @@ export function assign<T extends object, U extends object, V extends object>(tar
 export function assign<T extends object, U extends object, V extends object, W extends object>(target: T, source1: U, source2: V, source3: W): Mix4<T, U, V, W>;
 export function assign(target: object, ...sources: object[]): any;
 export function assign(target: object, final: undefined | null): never;
-
-/**
- * Merge the contents of two objects together into the first object.
- * @deprecated Use Ember.assign
- */
-export function merge<T extends object, U extends object>(original: T, updates: U): Mix<T, U>;
