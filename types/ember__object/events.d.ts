@@ -23,12 +23,12 @@ export function removeListener<Context, Target>(
     key: keyof Context,
     target: Target,
     method: ObserverMethod<Target, Context>
-): any;
+): void;
 export function removeListener<Context>(
     obj: Context,
     key: keyof Context,
     method: ObserverMethod<Context, Context>
-): any;
+): void;
 /**
  * Send an event. The execution of suspended listeners
  * is skipped, and once listeners are removed. A listener without
