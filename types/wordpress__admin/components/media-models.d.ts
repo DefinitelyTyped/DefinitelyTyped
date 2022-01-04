@@ -1,20 +1,20 @@
 import * as Backbone from 'backbone';
 import { MemoizedFunction } from 'lodash';
 
-export type AttachmentOptions = {
+export interface AttachmentOptions {
     context: Record<string, unknown>;
     data: AttachmentOptionsData;
-};
+}
 
-export type AttachmentOptionsData = {
+export interface AttachmentOptionsData {
     action?: string;
     id?: number;
     nonce?: string;
     post_id?: number;
     changes?: { [key: string]: string };
-};
+}
 
-export type AttachmentsOptions = {
+export interface AttachmentsOptions {
     props: {
         order: string;
         orderby: string;
@@ -22,7 +22,7 @@ export type AttachmentsOptions = {
         observe: string;
         filters: string;
     };
-};
+}
 
 /**
  * Media Model Attachment
@@ -52,7 +52,7 @@ export type Attachment = Backbone.Model & {
      */
     create: (attrs: Record<string, unknown>) => Attachment;
 
-    get: <T extends Backbone.Model>(id: string, attachment: Backbone.Model | undefined) => T & MemoizedFunction;
+    get: (id: string, attachment: Backbone.Model | undefined) => any & MemoizedFunction;
 };
 
 /**
@@ -178,12 +178,12 @@ export type Selection = Attachments & {
     single: (model: Attachment | boolean | undefined) => Attachment[];
 };
 
-export type AttachmentFilters = {
+export interface AttachmentFilters {
     search: (attachment: Attachment) => boolean;
     type: (attachment: Attachment) => boolean;
     uploadedTo: (attachment: Attachment) => boolean;
     status: (attachment: Attachment) => boolean;
-};
+}
 
 export type Query = Attachments & {
     initialize: (models: Attachment[], options: any) => void;
@@ -193,10 +193,10 @@ export type Query = Attachments & {
     get: (props: any, options: any) => Query;
 };
 
-export type PostImageAttributes = {
+export interface PostImageAttributes {
     attachment_id: number;
     [key: string]: any;
-};
+}
 
 export type PostImage = Backbone.Model & {
     initialize: (attributes: PostImageAttributes) => void;

@@ -7,7 +7,7 @@ import { Attachment, Attachments, PostImage, Query } from './components/media-mo
 import { Frame, FrameOptions, MediaFrame, MediaFrameSelect, Region, State, StateMachine, View } from './components/media-views';
 import { WpBackbone } from './components/wp-backbone';
 
-export type Media = {
+export interface Media {
   (attributes: FrameOptions): MediaFrameSelect;
   (attributes: FrameOptions & { frame: 'post' }): any;
   controller: {
@@ -28,12 +28,12 @@ export type Media = {
   };
   View: View;
   frames: Record<string, unknown>;
-};
+}
 
-export type WpAdmin = {
+export interface WpAdmin {
   Backbone: WpBackbone;
   media: Media;
-};
+}
 
 declare global {
   interface Window {

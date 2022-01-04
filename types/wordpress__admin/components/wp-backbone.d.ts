@@ -1,26 +1,26 @@
 import * as Backbone from 'backbone';
 import * as _ from 'lodash';
 
-export type WpBackboneViewList = Array<WpBackBoneView> | { [key: string]: WpBackBoneView[] };
+export type WpBackboneViewList = WpBackBoneView[] | { [key: string]: WpBackBoneView[] };
 
-export type WpBackBoneViewOptions = {
+export interface WpBackBoneViewOptions {
     template?: _.TemplateExecutor;
     [key: string]: any;
-};
+}
 
-export type WpSubViewSetOptions = {
+export interface WpSubViewSetOptions {
     silent?: boolean;
     add?: boolean;
     at?: number;
-};
+}
 
 /**
  * WordPress Backbone instance
  */
-export type WpBackbone = {
+export interface WpBackbone {
     View: WpBackBoneView;
     Subviews: WpBackboneSubviews;
-};
+}
 
 /**
  * A backbone subview manager.
@@ -125,7 +125,7 @@ export type WpBackboneSubviews = Backbone.Model & {
      *
      * Can be overridden in subclasses.
      */
-    replace: ($target: JQuery<HTMLElement>, els: string | HTMLElement | HTMLElement[]) => WpBackboneSubviews;
+    replace: ($target: JQuery, els: string | HTMLElement | HTMLElement[]) => WpBackboneSubviews;
 
     /**
      * Insert subviews into a selector.
@@ -135,7 +135,7 @@ export type WpBackboneSubviews = Backbone.Model & {
      * provided index.
      */
     insert: (
-        $target: JQuery<HTMLElement>,
+        $target: JQuery,
         els: string | HTMLElement | HTMLElement[],
         options: WpSubViewSetOptions,
     ) => WpBackboneSubviews;

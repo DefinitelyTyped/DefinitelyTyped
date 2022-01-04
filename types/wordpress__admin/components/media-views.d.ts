@@ -4,18 +4,18 @@ import { WpBackboneSubviews, WpBackBoneView, WpBackboneViewList } from './wp-bac
 
 export type FrameType = 'select' | 'post' | 'manage' | 'image' | 'audio' | 'video' | 'edit-attachments';
 
-export type FrameClasses = {
+export interface FrameClasses {
     select: MediaFrameSelect;
-};
+}
 
-export type FrameOptions = {
+export interface FrameOptions {
     title?: string;
     button?: {
         text?: string;
     };
     // frame?: FrameType;
     multiple?: boolean;
-};
+}
 
 export type View = WpBackBoneView & {
     constructor: (options?: { [key: string]: any }) => void;
@@ -64,7 +64,7 @@ export type Region = Backbone.Model & {
     /**
      * Trigger regional view events on the frame.
      */
-    trigger: (event: any | Event) => Region;
+    trigger: (event: any) => Region;
 };
 
 /**
@@ -97,7 +97,7 @@ export type State = Backbone.Model & {
  *
  * States are stored as models in a Backbone collection.
  */
-export type StateMachine = {
+export interface StateMachine {
     (): { extend: typeof Backbone.Model.extend };
 
     /**
@@ -132,7 +132,7 @@ export type StateMachine = {
     on: (event: string, callback: (...args: any[]) => void) => StateMachine;
     off: (event: string, callback: (...args: any[]) => void) => StateMachine;
     trigger: (event: string, ...args: any[]) => StateMachine;
-};
+}
 
 // eslint-disable-next-line prettier/prettier
 export type Frame = StateMachine &
@@ -197,7 +197,7 @@ export type MediaFrame = Frame & {
 
     createMenu: (menu: any) => void;
 
-    toggleMenu: (event: any | Event) => void;
+    toggleMenu: (event: any) => void;
 
     createToolbar: (toolbar: any) => void;
 
@@ -263,12 +263,12 @@ export type MediaFrameSelect = MediaFrame & {
     createStates: () => void;
 
     /**
-     *Bind region mode event callbacks.
+     * Bind region mode event callbacks.
      */
     bindHandlers: () => void;
 
     /**
-     *Render callback for the router region in the `browse` mode.
+     * Render callback for the router region in the `browse` mode.
      */
     browseRouter: (routerView: any) => void; // RouterView => media.view.Router
 
