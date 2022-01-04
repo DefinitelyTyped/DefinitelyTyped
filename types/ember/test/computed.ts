@@ -48,7 +48,6 @@ const Person = Ember.Object.extend({
     combinators: Ember.computed<string>(function () {
         return this.get('firstName');
     })
-        .property('firstName')
         .meta({ foo: 'bar' })
         .volatile()
         .readOnly(),

@@ -19,11 +19,6 @@ export default class ComputedProperty<Get, Set = Get> {
      */
     readOnly(): this;
     /**
-     * Sets the dependent keys on this computed property. Pass any number of
-     * arguments containing key paths that this computed property depends on.
-     */
-    property(...path: string[]): this;
-    /**
      * In some cases, you may want to annotate computed properties with additional
      * metadata about how they function or what values they operate on. For example,
      * computed property functions may close over variables that are then no longer

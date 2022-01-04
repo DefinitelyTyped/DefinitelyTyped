@@ -80,7 +80,6 @@ const Person = EmberObject.extend({
     combinators: computed<string>(function () {
         return this.get('firstName');
     })
-        .property('firstName')
         .meta({ foo: 'bar' })
         .volatile()
         .readOnly(),

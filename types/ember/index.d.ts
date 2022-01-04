@@ -155,12 +155,6 @@ export namespace Ember {
     class Registry extends EmberRegistry {}
     interface FunctionPrototypeExtensions {
         /**
-         * The `property` extension of Javascript's Function prototype is available
-         * when `EmberENV.EXTEND_PROTOTYPES` or `EmberENV.EXTEND_PROTOTYPES.Function` is
-         * `true`, which is the default.
-         */
-        property(...args: string[]): ComputedProperty<any>;
-        /**
          * The `observes` extension of Javascript's Function prototype is available
          * when `EmberENV.EXTEND_PROTOTYPES` or `EmberENV.EXTEND_PROTOTYPES.Function` is
          * true, which is the default.
