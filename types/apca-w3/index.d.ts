@@ -1,6 +1,7 @@
 // Type definitions for apca-w3 0.0.98-g-4g.4b
 // Project: https://github.com/Myndex/apca-w3
 // Definitions by: Daniel Eden <https://github.com/daneden>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module 'apca-w3' {
     interface RGBAComponents {
