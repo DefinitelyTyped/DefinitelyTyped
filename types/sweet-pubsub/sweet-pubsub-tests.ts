@@ -1,4 +1,4 @@
-import * as pubsub from 'sweet-pubsub';
+import pubsub = require('sweet-pubsub');
 
 pubsub.on('userCreated', (age, email) => {
     return { age, email };
