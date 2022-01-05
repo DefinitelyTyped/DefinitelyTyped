@@ -50,7 +50,6 @@
         "test/error.ts",
         "test/event.ts",
         "test/extend.ts",
-        "test/function-ext.ts",
         "test/helper.ts",
         "test/inject.ts",
         "test/mixin.ts",

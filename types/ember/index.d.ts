@@ -153,15 +153,6 @@ export namespace Ember {
     class Resolver extends EmberResolver {}
     class EventDispatcher extends EmberEventDispatcher {}
     class Registry extends EmberRegistry {}
-    interface FunctionPrototypeExtensions {
-        /**
-         * The `on` extension of Javascript's Function prototype is available
-         * when `EmberENV.EXTEND_PROTOTYPES` or `EmberENV.EXTEND_PROTOTYPES.Function` is
-         * true, which is the default.
-         */
-        on(...args: string[]): this;
-    }
-
     interface ArrayPrototypeExtensions<T> extends EmberArrayProtoExtensions<T> {}
 
     interface StringPrototypeExtensions {
