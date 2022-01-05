@@ -37,4 +37,5 @@ url2.set('query', {queryParameterName: 'queryParameterValue'});
 
 URL.extractProtocol('https://github.com/foo/bar');
 URL.location('https://github.com/foo/bar');
+URL.trimLeft('   https://github.com/foo/bar');
 URL.qs.parse('a=b');
