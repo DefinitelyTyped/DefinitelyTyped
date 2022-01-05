@@ -1,4 +1,4 @@
-// Type definitions for prosemirror-model 1.13
+// Type definitions for prosemirror-model 1.16
 // Project: https://github.com/ProseMirror/prosemirror-model
 // Definitions by: Bradley Ayers <https://github.com/bradleyayers>
 //                 David Hahn <https://github.com/davidka>
