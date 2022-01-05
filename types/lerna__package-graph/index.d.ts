@@ -4,63 +4,12 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { Package } from '@lerna/package';
-import npa = require('npm-package-arg');
+import { CyclicPackageGraphNode } from './lib/cyclic-package-graph-node';
+import { PackageGraphNode } from './lib/package-graph-node';
 
-export class CyclicPackageGraphNode extends Map {
-    constructor();
-    name: string;
-    localDependencies: Map<string, PackageGraphNode | CyclicPackageGraphNode>;
-    localDependents: Map<string, PackageGraphNode | CyclicPackageGraphNode>;
-    get isCycle(): boolean;
-    toString(): string;
-    /**
-     * Flattens a CyclicPackageGraphNode (which can have multiple level of cycles).
-     */
-    flatten(): PackageGraphNode[];
-    /**
-     * Checks if a given node is contained in this cycle (or in a nested one)
-     *
-     * @param name The name of the package to search in this cycle
-     */
-    contains(name: string): boolean;
-    /**
-     * Adds a graph node, or a nested cycle, to this group.
-     *
-     * @param node node to insert
-     */
-    insert(node: PackageGraphNode | CyclicPackageGraphNode): void;
-    /**
-     * Remove pointers to candidate node from internal collections.
-     * @param candidateNode instance to unlink
-     */
-    unlink(candidateNode: PackageGraphNode | CyclicPackageGraphNode): void;
-}
-export class PackageGraphNode {
-    constructor(pkg: Package);
-    name: string;
-    get location(): string;
-    get pkg(): Package;
-    get prereleaseId(): string;
-    get version(): string;
-    localDependencies: Map<string, npa.Result>;
-    localDependents: Map<string, PackageGraphNode>;
-    externalDependencies: Map<string, npa.Result>;
-    /**
-     * Determine if the Node satisfies a resolved semver range.
-     * @see https://github.com/npm/npm-package-arg#result-object
-     *
-     * @param resolved npm-package-arg Result object
-     */
-    satisfies(result: Pick<npa.Result, 'gitCommittish' | 'gitRange' | 'fetchSpec'>): boolean;
-
-    /**
-     * Returns a string representation of this node (its name)
-     */
-    toString(): string;
-}
 export type GraphType = 'allDependencies' | 'dependencies';
 export type NodeProperties = 'localDependencies' | 'localDependents';
-export class PackageGraph extends Map {
+declare class PackageGraph extends Map {
     constructor(packages: Package[], graphType?: GraphType, forceLocal?: boolean);
     get rawPackageList(): Package[];
     get(name: string): PackageGraphNode;
@@ -104,3 +53,4 @@ export class PackageGraph extends Map {
      */
     remove(candidateNode: PackageGraphNode): void;
 }
+export { PackageGraph };
