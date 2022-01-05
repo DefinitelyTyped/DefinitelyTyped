@@ -338,9 +338,17 @@ declare namespace SpotifyApi {
      * GET /v1/browse/categories/{id}/playlists
      * https://developer.spotify.com/web-api/get-categorys-playlists/
      */
-    interface CategoryPlaylistsReponse {
+    interface CategoryPlaylistsResponse {
         playlists: PagingObject<PlaylistObjectSimplified>;
     }
+    /**
+     * Get a categorys playlists
+     * 
+     * GET /v1/browse/categories/{id}/playlists
+     * https://developer.spotify.com/web-api/get-categorys-playlists/
+     * @deprecated Use `CategoryPlaylistsResponse` instead
+     */
+    interface CategoryPlaylistsReponse extends CategoryPlaylistsResponse {}
 
     /**
      * Get Current User’s Profile
@@ -390,7 +398,15 @@ declare namespace SpotifyApi {
      * PUT /v1/users/{owner_id}/playlists/{playlist_id}/followers
      * https://developer.spotify.com/web-api/follow-playlist/
      */
-    interface FollowPlaylistReponse extends VoidResponse {}
+    interface FollowPlaylistResponse extends VoidResponse {}
+    /**
+     * Follow a Playlist
+     * 
+     * PUT /v1/users/{owner_id}/playlists/{playlist_id}/followers
+     * https://developer.spotify.com/web-api/follow-playlist/
+     * @deprecated Use `FollowPlaylistResponse` instead
+     */
+    interface FollowPlaylistReponse extends FollowPlaylistResponse {}
 
     /**
      * Unfollow a Playlist
@@ -398,7 +414,15 @@ declare namespace SpotifyApi {
      * DELETE /v1/users/{owner_id}/playlists/{playlist_id}/followers
      * https://developer.spotify.com/web-api/unfollow-playlist/
      */
-    interface UnfollowPlaylistReponse extends VoidResponse {}
+    interface UnfollowPlaylistResponse extends VoidResponse {}
+    /**
+     * Unfollow a Playlist
+     * 
+     * DELETE /v1/users/{owner_id}/playlists/{playlist_id}/followers
+     * https://developer.spotify.com/web-api/unfollow-playlist/
+     * @deprecated Use `UnfollowPlaylistResponse` instead
+     */
+    interface UnfollowPlaylistReponse extends UnfollowPlaylistResponse {}
 
     /**
      * Save tracks for user
@@ -714,7 +738,15 @@ declare namespace SpotifyApi {
      * PUT /v1/users/{user_id}/playlists/{playlist_id}
      * https://developer.spotify.com/web-api/change-playlist-details/
      */
-    interface ChangePlaylistDetailsReponse extends VoidResponse {}
+    interface ChangePlaylistDetailsResponse extends VoidResponse {}
+    /**
+     * Change a Playlist’s Details
+     * 
+     * PUT /v1/users/{user_id}/playlists/{playlist_id}
+     * https://developer.spotify.com/web-api/change-playlist-details/
+     * @deprecated Use `ChangePlaylistDetailsResponse` instead
+     */
+    interface ChangePlaylistDetailsReponse extends ChangePlaylistDetailsResponse {}
 
     /**
      * Add Tracks to a Playlist
@@ -754,7 +786,15 @@ declare namespace SpotifyApi {
      * PUT /v1/users/{user_id}/playlists/{playlist_id}/images
      * https://developer.spotify.com/web-api/upload-a-custom-playlist-cover-image/
      */
-    interface UploadCustomPlaylistCoverImageReponse extends VoidResponse {}
+    interface UploadCustomPlaylistCoverImageResponse extends VoidResponse {}
+    /**
+     * Upload a Custom Playlist Cover Image
+     * 
+     * PUT /v1/users/{user_id}/playlists/{playlist_id}/images
+     * https://developer.spotify.com/web-api/upload-a-custom-playlist-cover-image/
+     * @deprecated Use `UploadCustomPlaylistCoverImageResponse` instead
+     */
+    interface UploadCustomPlaylistCoverImageReponse extends UploadCustomPlaylistCoverImageResponse {}
 
     /**
      * Check if Users Follow a Playlist
@@ -762,7 +802,15 @@ declare namespace SpotifyApi {
      * GET /v1/users/{user_id}/playlists/{playlist_id}/followers/contains
      * https://developer.spotify.com/web-api/check-user-following-playlist/
      */
-    interface UsersFollowPlaylistReponse extends Array<boolean> {}
+    interface UsersFollowPlaylistResponse extends Array<boolean> {}
+    /**
+     * Check if Users Follow a Playlist
+     * 
+     * GET /v1/users/{user_id}/playlists/{playlist_id}/followers/contains
+     * https://developer.spotify.com/web-api/check-user-following-playlist/
+     * @deprecated Use `UsersFollowPlaylistResponse` instead
+     */
+    interface UsersFollowPlaylistReponse extends UsersFollowPlaylistResponse {}
 
     interface UserDevicesResponse {
         devices: UserDevice[];

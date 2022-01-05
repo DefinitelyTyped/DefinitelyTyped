@@ -936,7 +936,7 @@ async function test_schema(
     schema.addArray("arrayField", { defaultValue: notArray });
 
     /**
-     * @todo Enable type check for defaul value
+     * @todo Enable type check for default value
      */
     schema.addField("defaultFieldString");
     schema.addField("defaultFieldString", "String", { defaultValue: anyField });
