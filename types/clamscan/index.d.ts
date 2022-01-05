@@ -1,97 +1,68 @@
-// Type definitions for clamscan 2.0
+// Type definitions for clamscan 2.0.1
 // Project: https://github.com/kylefarris/clamscan
 // Definitions by: Viktoria Grechukha <https://github.com/crzdvl>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare class NodeClam {
+
+export interface Options {
+    /** If true, removes infected files */
+    removeInfected?: boolean;
+    /** False: Don't quarantine, Path: Moves files to this place. */
+    quarantineInfected?: boolean | string;
+    /** Path to a writeable log file to write scan results into */
+    scanLog?: string;
+    /** Whether to log info/debug/error msg to the console */
+    debugMode?: boolean;
+    /** path to file containing list of files to scan (for scanFiles method) */
+    fileList?: string;
+    /** If true, deep scan folders recursively */
+    scanRecursively?: boolean;
+    clamscan?: {
+        /** Path to clamscan binary on your server */
+        path?: string,
+        /** Path to a custom virus definition database */
+        db?: string,
+        /** If true, scan archives (ex. zip, rar, tar, dmg, iso, etc...) */
+        scanArchives?: boolean,
+        /** If true, this module will consider using the clamscan binary */
+        active?: boolean
+    };
+    clamdscan?: {
+        /** Socket file for connecting via TCP */
+        socket?: string | boolean,
+        /** IP of host to connect to TCP interface */
+        host?: string | boolean,
+        /** Port of host to use when connecting via TCP interface */
+        port?: number | boolean,
+        /** Timeout for scanning files */
+        timeout?: number,
+        /** Do not fail over to binary-method of scanning */
+        localFallback?: boolean,
+        /** Path to the clamdscan binary on your server */
+        path?: string,
+        /** Specify config file if it's in an unusual place */
+        configFile?: string,
+        /** Scan using all available cores! Yay! */
+        multiscan?: boolean,
+        /** If true, will re-load the DB on every call (slow) */
+        reloadDb?: boolean,
+        /** If true, this module will consider using the clamdscan binary */
+        active?: boolean,
+        /** Check to see if socket is available when applicable */
+        bypassTest?: boolean,
+    };
+    /** If clamdscan is found and active, it will be used by default */
+    preference?: any;
+}
+
+export declare class NodeClam {
     initialized: boolean;
     debugLabel: string;
     defaultScanner: string;
-    defaults: Readonly<{
-        removeInfected: boolean;
-        quarantineInfected: boolean;
-        scanLog: any;
-        debugMode: boolean;
-        fileList: any;
-        scanRecursively: boolean;
-        clamscan: {
-            path: string;
-            scanArchives: boolean;
-            db: any;
-            active: boolean;
-        };
-        clamdscan: {
-            socket: boolean;
-            host: boolean;
-            port: boolean;
-            timeout: number;
-            localFallback: boolean;
-            path: string;
-            configFile: any;
-            multiscan: boolean;
-            reloadDb: boolean;
-            active: boolean;
-            bypassRest: boolean;
-        };
-        preference: string;
-    }>;
-    settings: {
-        removeInfected: boolean;
-        quarantineInfected: boolean;
-        scanLog: any;
-        debugMode: boolean;
-        fileList: any;
-        scanRecursively: boolean;
-        clamscan: {
-            path: string;
-            scanArchives: boolean;
-            db: any;
-            active: boolean;
-        };
-        clamdscan: {
-            socket: boolean;
-            host: boolean;
-            port: boolean;
-            timeout: number;
-            localFallback: boolean;
-            path: string;
-            configFile: any;
-            multiscan: boolean;
-            reloadDb: boolean;
-            active: boolean;
-            bypassRest: boolean;
-        };
-        preference: string;
-    };
+    defaults: Readonly<Options>;
+    settings: Options;
 
-    init(options?: {
-        removeInfected?: boolean;
-        quarantineInfected?: boolean | string;
-        scanLog?: string;
-        debugMode?: boolean;
-        fileList?: string;
-        scanRecursively?: boolean;
-        clamscan?: {
-            path?: string;
-            db?: string;
-            scanArchives?: boolean;
-            active?: boolean;
-        };
-        clamdscan?: {
-            socket?: string;
-            host?: string;
-            port?: string | number;
-            timeout?: number;
-            localFallback?: boolean;
-            path?: string;
-            configFile?: string;
-            multiscan?: boolean;
-            reloadDb?: boolean;
-            active?: boolean;
-            bypassRest?: boolean;
-        };
-        preference?: string | object;
-    }, cb?: () => void): Promise<NodeClamFunctions>;
+    init(options?: Options, cb?: () => void): Promise<NodeClamFunctions>;
 
     private _buildClamArgs;
 
@@ -110,7 +81,7 @@ declare class NodeClam {
     private _processResult;
 }
 
-interface NodeClamFunctions {
+export interface NodeClamFunctions {
     reset(options?: Options, cb?: () => void): Promise<object> | NodeClamScanError | NodeClamFileError;
 
     getVersion(cb?: () => void): Promise<string> | NodeClamScanError | NodeClamFileError;
@@ -126,7 +97,7 @@ interface NodeClamFunctions {
         viruses: any[]
     } | NodeClamScanError | NodeClamFileError;
 
-    scanFile(file: string,  cb?: () => void): Promise<{
+    scanFile(file: string, cb?: () => void): Promise<{
         file: string;
         isInfected: boolean;
         viruses: any[];
@@ -154,45 +125,17 @@ interface NodeClamFunctions {
     }>;
 }
 
-interface NodeClamScanError {
+export interface NodeClamScanError {
     data: {
-        is_infected: string;
+        isInfected: string;
         viruses: any[];
     };
 }
 
-interface NodeClamFileError {
-    is_infected: string;
+export interface NodeClamFileError {
+    isInfected: string;
     viruses: any[];
 }
 
-interface Options {
-    removeInfected?: boolean; // If true, removes infected files
-    quarantineInfected?: boolean | string; // False: Don't quarantine, Path: Moves files to this place.
-    scanLog?: string; // Path to a writeable log file to write scan results into
-    debug_mode?: boolean; // Whether to log info/debug/error msg to the console
-    fileList?: string; // path to file containing list of files to scan (for scanFiles method)
-    scanRecursively?: boolean; // If true, deep scan folders recursively
-    clamscan?: {
-        path?: string, // Path to clamscan binary on your server
-        db?: string, // Path to a custom virus definition database
-        scanArchives?: boolean, // If true, scan archives (ex. zip, rar, tar, dmg, iso, etc...)
-        active?: boolean // If true, this module will consider using the clamscan binary
-    };
-    clamdscan?: {
-        socket?: string | boolean, // Socket file for connecting via TCP
-        host?: string | boolean, // IP of host to connect to TCP interface
-        port?: number | boolean, // Port of host to use when connecting via TCP interface
-        timeout?: number, // Timeout for scanning files
-        localFallback?: boolean, // Do not fail over to binary-method of scanning
-        path?: string, // Path to the clamdscan binary on your server
-        config_file?: string, // Specify config file if it's in an unusual place
-        multiscan?: boolean, // Scan using all available cores! Yay!
-        reloadDb?: boolean, // If true, will re-load the DB on every call (slow)
-        active?: boolean, // If true, this module will consider using the clamdscan binary
-        bypass_test?: boolean, // Check to see if socket is available when applicable
-    };
-    preference?: any; // If clamdscan is found and active, it will be used by default
-}
 
 export = NodeClam;
