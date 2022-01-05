@@ -11,7 +11,7 @@ thing.emitEvent('', ''); // $ExpectType void
 thing.emitEvent('', '', { multiple: true }); // $ExpectType void
 thing.emitEvent('', '', {}); // $ExpectError
 thing.emitEvent('', '', { multiple: '' }); // $ExpectError
-thing.emitEvent(''); // $ExpectError
+thing.emitEvent(''); // $ExpectType void
 thing.emitEvent(); // $ExpectError
 
 thing.on(''); // $ExpectError
