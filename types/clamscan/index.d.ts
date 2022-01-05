@@ -141,18 +141,6 @@ interface NodeClamFunctions {
     scanStream(stream: ReadableStream, cb?: (err: Error | null, isInfected: boolean) => void): void;
 }
 
-interface NodeClamScanError extends Error {
-    data: {
-        is_infected: string;
-        viruses: string[];
-    };
-}
-
-interface NodeClamFileError extends Error {
-    is_infected: string;
-    viruses: string[];
-}
-
 interface Options {
     removeInfected?: boolean; // If true, removes infected files
     quarantineInfected?: boolean | string; // False: Don't quarantine, Path: Moves files to this place.
