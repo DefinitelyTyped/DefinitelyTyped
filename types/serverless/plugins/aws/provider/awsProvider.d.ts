@@ -79,6 +79,11 @@ declare namespace Aws {
         tracing?: Tracing | undefined;
         logs?: Logs | undefined;
         kmsKeyArn?: string | undefined;
+        eventBridge?: EventBridge | undefined;
+    }
+
+    interface EventBridge {
+        useCloudFormation?: boolean;
     }
 
     interface IamSettings {

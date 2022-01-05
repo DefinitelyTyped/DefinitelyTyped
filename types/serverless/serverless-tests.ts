@@ -363,6 +363,9 @@ const awsServerless: Aws.Serverless = {
                 format: 'testformat'
             },
             frameworkLambda: false
+        },
+        eventBridge: {
+            useCloudFormation: true
         }
     },
     package: {
