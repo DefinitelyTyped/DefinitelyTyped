@@ -10,7 +10,7 @@ declare namespace DropdownMenu {
          * The Dashicon icon slug to be shown in the collapsed menu button.
          * @defaultValue "menu"
          */
-        icon?: Dashicon.Icon | undefined;
+        icon?: Dashicon.Icon | JSX.Element | undefined;
         /**
          * A human-readable label to present as accessibility text on the
          * focused collapsed menu button.
