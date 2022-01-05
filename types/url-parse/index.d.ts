@@ -70,6 +70,7 @@ declare const URLParse: {
         parse: URLParse.QueryParser;
         stringify: URLParse.StringifyQuery;
     };
+    trimLeft(url: string): string;
 };
 
 export = URLParse;
