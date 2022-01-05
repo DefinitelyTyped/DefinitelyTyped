@@ -1,10 +1,11 @@
-// Type definitions for levelup 4.3
+// Type definitions for levelup 5.1
 // Project: https://github.com/Level/levelup
 // Definitions by: Meirion Hughes <https://github.com/MeirionHughes>
 //                 Daniel Byrne <https://github.com/danwbyrne>
 //                 Carson Farmer <https://github.com/carsonfarmer>
+//                 Steffen Park <https://github.com/istherepie>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 2.3
 
 /// <reference types="node" />
 
@@ -21,6 +22,11 @@ type LevelUpGet<K, V, O> =
     ((key: K, callback: ErrorValueCallback<V>) => void) &
     ((key: K, options: O, callback: ErrorValueCallback<V>) => void) &
     ((key: K, options?: O) => Promise<V>);
+
+type LevelUpGetMany<K, V, O> =
+    ((keys: K[], callback: ErrorValueCallback<V[]>) => void) &
+    ((keys: K[], options: O, callback: ErrorValueCallback<V[]>) => void) &
+    ((keys: K[], options?: O) => Promise<V[]>);
 
 type LevelUpDel<K, O> =
     ((key: K, callback: ErrorCallback) => void) &
@@ -46,6 +52,11 @@ type InferDBGet<DB> =
     DB extends { get: (key: infer K, options: infer O, callback: ErrorValueCallback<infer V>) => void } ?
     LevelUpGet<K, V, O> :
     LevelUpGet<any, any, AbstractGetOptions>;
+
+type InferDBGetMany<DB> =
+    DB extends { getMany: (keys: Array<infer K>, options: infer O, callback: ErrorValueCallback<Array<infer V>>) => void } ?
+    LevelUpGetMany<K, V, O> :
+    LevelUpGetMany<any, any, AbstractGetOptions>;
 
 type InferDBDel<DB> =
     DB extends { del: (key: infer K, options: infer O, callback: ErrorCallback) => void } ?
@@ -76,6 +87,7 @@ export interface LevelUp<DB = AbstractLevelDOWN, Iterator = AbstractIterator<any
     get: InferDBGet<DB>;
     del: InferDBDel<DB>;
     clear: InferDBClear<DB>;
+    getMany: InferDBGetMany<DB>;
 
     batch(array: AbstractBatch[], options?: any): Promise<void>;
     batch(array: AbstractBatch[], options: any, callback: (err?: any) => any): void;
@@ -86,6 +98,9 @@ export interface LevelUp<DB = AbstractLevelDOWN, Iterator = AbstractIterator<any
 
     isOpen(): boolean;
     isClosed(): boolean;
+
+    readonly status: "new" | "opening" | "open" | "closing" | "closed";
+    isOperational(): boolean;
 
     createReadStream(options?: AbstractIteratorOptions): NodeJS.ReadableStream;
     createKeyStream(options?: AbstractIteratorOptions): NodeJS.ReadableStream;
@@ -154,5 +169,6 @@ export interface LevelUpChain<K = any, V = any> {
 
 export const errors: LevelUpConstructor["errors"];
 
-declare const LevelUp: LevelUpConstructor;
-export default LevelUp;
+export const LevelUp: LevelUpConstructor;
+
+export {};
