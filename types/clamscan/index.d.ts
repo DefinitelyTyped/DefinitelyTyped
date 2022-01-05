@@ -10,14 +10,14 @@ declare class NodeClam {
     defaults: Readonly<{
         removeInfected: boolean;
         quarantineInfected: boolean;
-        scanLog: any;
+        scanLog: string | null;
         debugMode: boolean;
-        fileList: any;
+        fileList: string | null;
         scanRecursively: boolean;
         clamscan: {
             path: string;
             scanArchives: boolean;
-            db: any;
+            db: string;
             active: boolean;
         };
         clamdscan: {
@@ -27,7 +27,7 @@ declare class NodeClam {
             timeout: number;
             localFallback: boolean;
             path: string;
-            configFile: any;
+            configFile: string | null;
             multiscan: boolean;
             reloadDb: boolean;
             active: boolean;
@@ -38,14 +38,14 @@ declare class NodeClam {
     settings: {
         removeInfected: boolean;
         quarantineInfected: boolean;
-        scanLog: any;
+        scanLog: string | null;
         debugMode: boolean;
-        fileList: any;
+        fileList: string | null;
         scanRecursively: boolean;
         clamscan: {
             path: string;
             scanArchives: boolean;
-            db: any;
+            db: string;
             active: boolean;
         };
         clamdscan: {
@@ -55,7 +55,7 @@ declare class NodeClam {
             timeout: number;
             localFallback: boolean;
             path: string;
-            configFile: any;
+            configFile: string | null;
             multiscan: boolean;
             reloadDb: boolean;
             active: boolean;
@@ -67,9 +67,9 @@ declare class NodeClam {
     init(options?: {
         removeInfected?: boolean;
         quarantineInfected?: boolean | string;
-        scanLog?: string;
+        scanLog?: string | null;
         debugMode?: boolean;
-        fileList?: string;
+        fileList?: string | null;
         scanRecursively?: boolean;
         clamscan?: {
             path?: string;
@@ -84,13 +84,13 @@ declare class NodeClam {
             timeout?: number;
             localFallback?: boolean;
             path?: string;
-            configFile?: string;
+            configFile?: string | null;
             multiscan?: boolean;
             reloadDb?: boolean;
             active?: boolean;
             bypassRest?: boolean;
         };
-        preference?: string | object;
+        preference?: string;
     }, cb?: () => void): Promise<NodeClamFunctions>;
 
     private _buildClamArgs;
@@ -111,67 +111,83 @@ declare class NodeClam {
 }
 
 interface NodeClamFunctions {
-    reset(options?: Options, cb?: () => void): Promise<object> | NodeClamScanError | NodeClamFileError;
+    reset(options?: Options, cb?: () => void): Promise<NodeClam>;
 
-    getVersion(cb?: () => void): Promise<string> | NodeClamScanError | NodeClamFileError;
+    getVersion(cb?: (err: Error | null, version: string) => void): Promise<string>;
 
-    isInfected(file: string, cb?: () => void): Promise<{
+    isInfected(
+      file: string,
+      cb?: (err: Error | null, file: string, isInfected: boolean, viruses: string[]) => void
+    ): Promise<{
         file: string;
         isInfected: boolean;
-        viruses: any[];
+        viruses: string[];
     }>;
 
     passthrough(): {
         isInfected: boolean,
-        viruses: any[]
-    } | NodeClamScanError | NodeClamFileError;
+        viruses: string[]
+    };
 
-    scanFile(file: string,  cb?: () => void): Promise<{
+    scanFile(
+      file: string,
+      cb?: (err: Error | null, file: string, isInfected: boolean, viruses: string[]) => void
+    ): Promise<{
         file: string;
         isInfected: boolean;
-        viruses: any[];
-    }> | NodeClamScanError | NodeClamFileError;
+        viruses: string[];
+    }> ;
 
-    scanFiles(files: any[], endCb?: () => void, fileCb?: () => void): Promise<{
-        goodFiles: any[];
-        badFiles: any[];
-        errors: object;
-        viruses: any[]
-    }> | NodeClamScanError | NodeClamFileError;
+    scanFiles(
+      files: string[],
+      endCb?: (err: Error | null, goodFiles: string[], badFiles: string[], viruses: string[]) => void,
+      fileCb?: (err: Error | null, file: string, isInfected: boolean, viruses: string[]) => void
+    ): Promise<{
+        goodFiles: string[];
+        badFiles: string[];
+        errors: {
+            [filename: string]: Error
+        };
+        viruses: string[]
+    }>;
 
-    scanDir(path: string, endCb?: () => void, fileCb?: () => void): Promise<{
+    scanDir(
+      path: string,
+      endCb?: (err: Error | null, goodFiles: string[], badFiles: string[], viruses: string[]) => void,
+      fileCb?: (err: Error | null, file: string, isInfected: boolean, viruses: string[]) => void
+    ): Promise<{
         path: string;
         isInfected: boolean;
-        goodFiles: any[];
-        badFiles: any[];
-        viruses: any[];
-    }> | NodeClamScanError | NodeClamFileError;
+        goodFiles: string[];
+        badFiles: string[];
+        viruses: string[];
+    }>;
 
-    scanStream(stream: ReadableStream, cb?: () => void): Promise<{
+    scanStream(stream: ReadableStream, cb?: (err: Error | null, isInfected: boolean) => void): Promise<{
         file: string;
         isInfected: boolean;
-        viruses: any[];
+        viruses: string[];
     }>;
 }
 
-interface NodeClamScanError {
+interface NodeClamScanError extends Error {
     data: {
         is_infected: string;
-        viruses: any[];
+        viruses: string[];
     };
 }
 
-interface NodeClamFileError {
+interface NodeClamFileError extends Error {
     is_infected: string;
-    viruses: any[];
+    viruses: string[];
 }
 
 interface Options {
     removeInfected?: boolean; // If true, removes infected files
     quarantineInfected?: boolean | string; // False: Don't quarantine, Path: Moves files to this place.
-    scanLog?: string; // Path to a writeable log file to write scan results into
+    scanLog?: string | null; // Path to a writeable log file to write scan results into
     debug_mode?: boolean; // Whether to log info/debug/error msg to the console
-    fileList?: string; // path to file containing list of files to scan (for scanFiles method)
+    fileList?: string | null; // path to file containing list of files to scan (for scanFiles method)
     scanRecursively?: boolean; // If true, deep scan folders recursively
     clamscan?: {
         path?: string, // Path to clamscan binary on your server
@@ -192,7 +208,7 @@ interface Options {
         active?: boolean, // If true, this module will consider using the clamdscan binary
         bypass_test?: boolean, // Check to see if socket is available when applicable
     };
-    preference?: any; // If clamdscan is found and active, it will be used by default
+    preference?: string; // If clamdscan is found and active, it will be used by default
 }
 
 export = NodeClam;
