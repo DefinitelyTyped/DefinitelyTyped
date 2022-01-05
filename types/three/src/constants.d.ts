@@ -157,7 +157,6 @@ export const RGBFormat: PixelFormat;
 export const RGBAFormat: PixelFormat;
 export const LuminanceFormat: PixelFormat;
 export const LuminanceAlphaFormat: PixelFormat;
-export const RGBEFormat: PixelFormat;
 export const DepthFormat: PixelFormat;
 export const DepthStencilFormat: PixelFormat;
 export const RedFormat: PixelFormat;
@@ -315,12 +314,9 @@ export const TriangleFanDrawMode: TrianglesDrawModes;
 export enum TextureEncoding {}
 export const LinearEncoding: TextureEncoding;
 export const sRGBEncoding: TextureEncoding;
-export const GammaEncoding: TextureEncoding;
-export const RGBEEncoding: TextureEncoding;
 export const LogLuvEncoding: TextureEncoding;
 export const RGBM7Encoding: TextureEncoding;
 export const RGBM16Encoding: TextureEncoding;
-export const RGBDEncoding: TextureEncoding;
 
 // Depth packing strategies
 export enum DepthPackingStrategies {}

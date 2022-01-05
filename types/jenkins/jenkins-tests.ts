@@ -221,3 +221,5 @@ jenkins.view.remove('example', 'jobExample', (err) => {
 const jenkins2 = J({ baseUrl: 'http://user:pass@localhost:8080', crumbIssuer: true, promisify: true });
 jenkins2.info().then(info => console.log(info));
 jenkins2.job.exists('example').then(exists => { const b: boolean = exists; });
+jenkins2.job.list().then(jobs => console.log(jobs));
+jenkins2.job.list('parent').then(jobs => console.log(jobs));

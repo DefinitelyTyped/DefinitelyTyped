@@ -37,5 +37,6 @@ export class TransformControls extends Object3D {
     setScaleSnap(scaleSnap: number | null): void;
     setSize(size: number): void;
     setSpace(space: 'world' | 'local'): void;
+    reset(): void;
     dispose(): void;
 }

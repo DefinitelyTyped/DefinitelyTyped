@@ -142,6 +142,10 @@ redis.zadd('myset', 'NX', 'CH', 'INCR', 1, 'member').then(console.log);
 redis.zadd('myset', 'NX', 'CH', 'INCR', 1, 'member', cb);
 redis.zscore('myset', 'member').then(console.log);
 redis.zscore('myset', 'member', cb);
+redis.zmscore('myset', 'member').then(console.log);
+redis.zmscore('myset', 'member', cb);
+redis.zmscore('myset', 'member', 'member2').then(console.log);
+redis.zmscore('myset', 'member', 'member2', cb);
 redis.zrem('myset', 'member').then(console.log);
 redis.zrem('myset', 'member', cbNumber);
 redis.zrem('myset', 'member', 'member2').then(console.log);
@@ -280,6 +284,13 @@ redis.sadd('set', [1, 3, 5, 7]);
 redis.sadd('set', 'val1', 'val2');
 redis.sismember('set', 'val1').then(console.log);
 redis.smismember('set', ...['val1', 'val2', 'val3']).then(console.log);
+
+// Test for flushdb
+redis.set('test', 'random');
+redis.flushdb('async');
+redis.get('test').then(result => {
+    console.log('result should be null', result);
+});
 
 // All arguments are passed directly to the redis server:
 redis.set('key', '100');

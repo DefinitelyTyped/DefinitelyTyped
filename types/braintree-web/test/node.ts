@@ -351,10 +351,10 @@ braintree.client.create(
                     },
                     (err, tokenizedPayload) => {
                         if (err) {
-                            session.completePayment(braintree.ApplePayStatusCodes.STATUS_FAILURE);
+                            session.completePayment(braintree.ApplePaySession.STATUS_FAILURE);
                             return;
                         }
-                        session.completePayment(braintree.ApplePayStatusCodes.STATUS_SUCCESS);
+                        session.completePayment(braintree.ApplePaySession.STATUS_SUCCESS);
 
                         // Send the tokenizedPayload to your server.
                     },
