@@ -57,7 +57,7 @@ export class Package {
     /**
      * Provide shallow copy for munging elsewhere
      */
-    toJson(): RawManifest;
+    toJSON(): RawManifest;
 
     /**
      * Refresh internal state from disk (e.g., changed by external lifecycles)
