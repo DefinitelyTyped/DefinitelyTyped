@@ -1,4 +1,4 @@
-// Type definitions for jest-environment-puppeteer 5.0.4
+// Type definitions for jest-environment-puppeteer 5.0
 // Project: https://github.com/smooth-code/jest-puppeteer/tree/master/packages/jest-environment-puppeteer
 // Definitions by: Josh Goldberg <https://github.com/joshuakgoldberg>
 //                 Ifiok Jr. <https://github.com/ifiokjr>
