@@ -303,6 +303,10 @@ declare namespace googletag {
          */
         limitedAds?: boolean | undefined;
         /**
+         * Enables serving to run in [non-personalized ads](https://support.google.com/admanager/answer/9005435) mode to aid in publisher regulatory compliance needs.
+         */
+        nonPersonalizedAds?: boolean | undefined;
+        /**
          * restrictDataProcessing configuration enables serving to run in restricted processing mode to aid in publisher regulatory compliance needs.
          */
         restrictDataProcessing?: boolean | undefined;
