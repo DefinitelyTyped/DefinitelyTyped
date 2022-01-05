@@ -1,4 +1,4 @@
-// Type definitions for sweet-pubsub 1.2
+// Type definitions for sweet-pubsub 1.1.2
 // Project: https://github.com/oldboyxx/sweet-pubsub
 // Definitions by: Emilio Escobar <https://github.com/emilioivan12>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
