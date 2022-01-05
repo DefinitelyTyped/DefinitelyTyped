@@ -1,12 +1,13 @@
 import * as React from 'react';
 import * as Bananas from 'django-bananas';
+// tslint:disable-next-line
 import { Content, AdminContext, PageData, TitleBar, Link, ToolBar } from 'django-bananas';
 import { createColor } from 'django-bananas/colors';
 import themes, { createBananasTheme } from 'django-bananas/themes';
 
 const Logo = () => {
-  return <svg></svg>
-}
+  return <svg></svg>;
+};
 
 const colors = {
   primary: createColor('#fff'),
@@ -40,13 +41,13 @@ const theme = createBananasTheme({
 
 const Context = React.createContext({});
 
-const CustomGlobalContext = ({ children }) => {
+const CustomGlobalContext: React.FC = ({ children }) => {
   const ctx = {
     foo: "bar"
-  }
+  };
 
-  return <Context.Provider value={ctx}>{children}</Context.Provider>
-}
+  return <Context.Provider value={ctx}>{children}</Context.Provider>;
+};
 
 const App = () => {
   return (

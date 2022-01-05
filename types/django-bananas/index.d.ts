@@ -1,8 +1,10 @@
+// Type definitions for django-bananas 3.6
 // Project: https://github.com/5monkeys/django-bananas.js
 // Definitions by: 5Monkeys Agency <https://github.com/5monkeys>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="react" />
 
+// tslint:disable-next-line
 declare module 'django-bananas' {
   type ErrorResponse<T> = Partial<Record<keyof T, string>>;
   interface PageData<T> {
@@ -151,7 +153,7 @@ declare module 'django-bananas' {
   }
   const Tools: React.FC;
 }
-
+// tslint:disable-next-line
 declare module 'django-bananas/auth/PermissionRequired' {
   export interface PermissionRequiredProps {
     permission: string | string[];
@@ -160,7 +162,7 @@ declare module 'django-bananas/auth/PermissionRequired' {
   const PermissionRequired: React.FC<PermissionRequiredProps>;
   export default PermissionRequired;
 }
-
+// tslint:disable-next-line
 declare module 'django-bananas/themes' {
   export function createBananasTheme(theme: any): any;
   interface themes {
@@ -174,7 +176,7 @@ declare module 'django-bananas/themes' {
 
   export default themes;
 }
-
+// tslint:disable-next-line
 declare module 'django-bananas/colors' {
   interface ColorPalette {
     100: string;
