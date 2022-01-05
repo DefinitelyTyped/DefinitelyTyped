@@ -34,7 +34,6 @@ url2.set('protocol', 'http://');
 url2.set('slashes', true);
 url2.set('query', 'bar=foo')
 url2.set('query', {queryParameterName: 'queryParameterValue'});
-url2.set('query', {queryParameterName: 'queryParameterValue'}, () => '');
 
 URL.extractProtocol('https://github.com/foo/bar');
 URL.location('https://github.com/foo/bar');
