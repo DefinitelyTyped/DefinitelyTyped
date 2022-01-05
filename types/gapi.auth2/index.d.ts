@@ -12,16 +12,18 @@ declare namespace gapi.auth2 {
    * get the user's current sign-in status, get specific data from the user's Google profile,
    * request additional scopes, and sign out from the current account.
    */
-  class GoogleAuth {
-    isSignedIn: IsSignedIn;
-
-    currentUser: CurrentUser;
-
+  class GoogleAuth extends GoogleAuthBase {
     /**
      * Calls the onInit function when the GoogleAuth object is fully initialized, or calls the onFailure function if
      * initialization fails.
      */
-    then(onInit: (googleAuth: GoogleAuth) => any, onFailure?: (reason: {error: string, details: string}) => any): any;
+    then(onInit: (googleAuth: GoogleAuthBase) => any, onFailure?: (reason: {error: string, details: string}) => any): any;
+  }
+
+  class GoogleAuthBase {
+    isSignedIn: IsSignedIn;
+
+    currentUser: CurrentUser;
 
     /**
      * Signs in the user using the specified options.
