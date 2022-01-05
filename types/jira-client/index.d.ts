@@ -853,6 +853,7 @@ declare class JiraApi {
      * @param [validateQuery] - Specifies whether to validate the JQL query or not.
      * Default: true.
      * @param [fields] - The list of fields to return for each issue.
+     * @param [expand] - A comma-separated list of the parameters to expand.
      */
     getBoardIssuesForSprint(
         boardId: string,
@@ -861,7 +862,8 @@ declare class JiraApi {
         maxResults?: number,
         jql?: string,
         validateQuery?: boolean,
-        fields?: string
+        fields?: string,
+        expand?: string
     ): Promise<JiraApi.JsonResponse>;
 
     /**

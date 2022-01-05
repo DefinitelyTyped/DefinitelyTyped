@@ -27,3 +27,14 @@ async function logIssueName() {
     console.error(err);
   }
 }
+
+jira.getBoardIssuesForSprint(
+  '123',
+  '456',
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  'changelog'
+);
