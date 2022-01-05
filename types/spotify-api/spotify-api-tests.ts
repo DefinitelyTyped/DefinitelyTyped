@@ -4396,7 +4396,7 @@ const category : SpotifyApi.SingleCategoryResponse = {
  * GET /v1/browse/categories/{id}/playlists
  * https://developer.spotify.com/web-api/get-categorys-playlists/
  */
-const categoryPlaylists : SpotifyApi.CategoryPlaylistsReponse = {
+const categoryPlaylists : SpotifyApi.CategoryPlaylistsResponse = {
   "playlists" : {
     "href" : "https://api.spotify.com/v1/browse/categories/party/playlists?country=BR&offset=0&limit=2",
     "items" : [ {
@@ -4624,7 +4624,7 @@ const checkCurrentUserFollows : SpotifyApi.UserFollowsUsersOrArtistsResponse = [
  * PUT /v1/users/{owner_id}/playlists/{playlist_id}/followers
  * https://developer.spotify.com/web-api/follow-playlist/
  */
-const followPlaylist : SpotifyApi.FollowPlaylistReponse = {};
+const followPlaylist : SpotifyApi.FollowPlaylistResponse = {};
 
 
 
@@ -4635,7 +4635,7 @@ const followPlaylist : SpotifyApi.FollowPlaylistReponse = {};
  * DELETE /v1/users/{owner_id}/playlists/{playlist_id}/followers
  * https://developer.spotify.com/web-api/unfollow-playlist/
  */
-const unfollowPlaylist : SpotifyApi.UnfollowPlaylistReponse = {};
+const unfollowPlaylist : SpotifyApi.UnfollowPlaylistResponse = {};
 
 
 
@@ -9942,7 +9942,7 @@ const newPlaylist : SpotifyApi.CreatePlaylistResponse = {
  * PUT /v1/users/{user_id}/playlists/{playlist_id}
  * https://developer.spotify.com/web-api/change-playlist-details/
  */
-const changePlaylistDetails : SpotifyApi.ChangePlaylistDetailsReponse = {};
+const changePlaylistDetails : SpotifyApi.ChangePlaylistDetailsResponse = {};
 
 
 
@@ -10003,7 +10003,7 @@ const replacePlaylistTracks : SpotifyApi.ReplacePlaylistTracksResponse = {};
  * GET /v1/users/{user_id}/playlists/{playlist_id}/followers/contains
  * https://developer.spotify.com/web-api/check-user-following-playlist/
  */
-const checkUserFollowsPlaylist : SpotifyApi.UsersFollowPlaylistReponse = [true, false, true];
+const checkUserFollowsPlaylist : SpotifyApi.UsersFollowPlaylistResponse = [true, false, true];
 
 
 

@@ -771,5 +771,13 @@ export function connectHitInsights(
 ) => React.ComponentType<Omit<ConnectHitInsightsProvided, { insights: WrappedInsightsClient }>>;
 export function connectVoiceSearch(Composed: React.ComponentType<any>): React.ComponentClass<any>;
 
+export interface DynamicWidgetsProps  {
+    children: React.ReactNode;
+    attributesToRender: string[];
+    fallbackComponent?: React.ComponentType<{ attribute: string }>;
+}
+
+export class DynamicWidgets extends React.Component<DynamicWidgetsProps> {}
+
 // Turn off automatic exports - so we don't export internal types like Omit<>
 export {};
