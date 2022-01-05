@@ -48,9 +48,12 @@ function testAssign() {
 
 function testOnError() {
     Ember.onerror = error => {
-        Ember.$.post('/report-error', {
-            stack: error.stack,
-            otherInformation: 'whatever app state you want to provide',
+        fetch('/report-error', {
+            method: 'POST',
+            body: JSON.stringify({
+                stack: error.stack,
+                otherInformation: 'whatever app state you want to provide',
+            })
         });
     };
 }

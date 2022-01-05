@@ -487,10 +487,6 @@ export namespace Ember {
      */
     const VERSION: string;
     /**
-     * Alias for jQuery
-     */
-    const $: JQueryStatic;
-    /**
      * This property indicates whether or not this application is currently in
      * testing mode. This is set when `setupForTesting` is called on the current
      * application.
