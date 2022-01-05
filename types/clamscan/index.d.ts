@@ -30,63 +30,115 @@ declare class NodeClam {
 }
 
 interface NodeClamFunctions {
-    reset(options?: Options, cb?: () => void): Promise<NodeClam>;
+    /**
+     * Allows one to create a new instances of clamscan with new options.
+     */
+    reset(options?: Options): Promise<NodeClam>;
+    reset(options?: Options, cb?: (clam: NodeClam) => void): void;
 
-    getVersion(cb?: (err: Error | null, version: string) => void): Promise<string>;
+    /**
+     * This method allows you to determine the version of ClamAV you are
+     * interfacing with. It supports a callback and Promise API. If no callback
+     * is supplied, a Promise will be returned.
+     *
+     * @see {@link https://github.com/kylefarris/clamscan#getversioncallback}
+     */
+    getVersion(): Promise<string>;
+    getVersion(cb: (err: Error | null, version: string) => void): void;
 
-    isInfected(
-      file: string,
-      cb?: (err: Error | null, file: string, isInfected: boolean, viruses: string[]) => void
-    ): Promise<{
+    /**
+     * This method allows you to scan a single file. It supports a callback and
+     * Promise API. If no callback is supplied, a Promise will be returned. This
+     * method will likely be the most common use-case for this module.
+     *
+     * @see {@link https://github.com/kylefarris/clamscan#isinfectedfile_pathcallback}
+     */
+    isInfected(file: string): Promise<{
         file: string;
         isInfected: boolean;
         viruses: string[];
     }>;
+    isInfected(
+      file: string,
+      cb?: (err: Error | null, file: string, isInfected: boolean, viruses: string[]) => void,
+    ): void;
 
     passthrough(): {
         isInfected: boolean,
         viruses: string[]
     };
 
-    scanFile(
-      file: string,
-      cb?: (err: Error | null, file: string, isInfected: boolean, viruses: string[]) => void
-    ): Promise<{
+    /**
+     * Just an alias to `isInfected`.
+     */
+    scanFile(file: string): Promise<{
         file: string;
         isInfected: boolean;
         viruses: string[];
-    }> ;
+    }>;
+    scanFile(
+      file: string,
+      cb?: (err: Error | null, file: string, isInfected: boolean, viruses: string[]) => void,
+    ): void;
 
-    scanFiles(
-      files: string[],
-      endCb?: (err: Error | null, goodFiles: string[], badFiles: string[], viruses: string[]) => void,
-      fileCb?: (err: Error | null, file: string, isInfected: boolean, viruses: string[]) => void
-    ): Promise<{
+    /**
+     * This allows you to scan many files that might be in different
+     * directories or maybe only certain files of a single directory. This
+     * is essentially a wrapper for isInfected that simplifies the process
+     * of scanning many files or directories.
+     *
+     * @see {@link https://github.com/kylefarris/clamscan#scanfilesfilesend_callbackfile_callback}
+     */
+    scanFiles(files?: string[]): Promise<{
         goodFiles: string[];
         badFiles: string[];
         errors: {
-            [filename: string]: Error
+            [filename: string]: Error;
         };
-        viruses: string[]
+        viruses: string[];
     }>;
-
-    scanDir(
-      path: string,
+    scanFiles(
+      files?: string[],
       endCb?: (err: Error | null, goodFiles: string[], badFiles: string[], viruses: string[]) => void,
-      fileCb?: (err: Error | null, file: string, isInfected: boolean, viruses: string[]) => void
-    ): Promise<{
+      fileCb?: (err: Error | null, file: string, isInfected: boolean, viruses: string[]) => void,
+    ): void;
+
+    /**
+     * Allows you to scan an entire directory for infected files. This
+     * obeys your recursive option even for clamdscan which does not
+     * have a native way to turn this feature off. If you have multiple
+     * paths, send them in an array to scanFiles.
+     *
+     * @see {@link https://github.com/kylefarris/clamscan#scanDir}
+     */
+    scanDir(path: string): Promise<{
         path: string;
         isInfected: boolean;
         goodFiles: string[];
         badFiles: string[];
         viruses: string[];
     }>;
+    scanDir(
+      path: string,
+      endCb?: (err: Error | null, goodFiles: string[], badFiles: string[], viruses: string[]) => void,
+      fileCb?: (err: Error | null, file: string, isInfected: boolean, viruses: string[]) => void
+    ): void;
 
-    scanStream(stream: ReadableStream, cb?: (err: Error | null, isInfected: boolean) => void): Promise<{
+    /**
+     * This method allows you to scan a binary stream. NOTE:
+     * This method will only work if you've configured the
+     * module to allow the use of a TCP or UNIX Domain socket.
+     * In other words, this will not work if you only have
+     * access to a local ClamAV binary.
+     *
+     * @see {@link https://github.com/kylefarris/clamscan#scanStream}
+     */
+    scanStream(stream: ReadableStream): Promise<{
         file: string;
         isInfected: boolean;
         viruses: string[];
     }>;
+    scanStream(stream: ReadableStream, cb?: (err: Error | null, isInfected: boolean) => void): void;
 }
 
 interface NodeClamScanError extends Error {
