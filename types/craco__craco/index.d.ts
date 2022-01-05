@@ -2,7 +2,6 @@
 // Project: https://github.com/gsoft-inc/craco
 // Definitions by: Chuck Fan <https://github.com/fanck0605>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.6
 
 import type { Config as JestConfig } from '@jest/types';
 import type { Options as AutoprefixerOptions } from 'autoprefixer';
