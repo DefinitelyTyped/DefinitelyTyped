@@ -34,7 +34,7 @@ declare namespace BwipJs {
         paddingheight?: number | undefined;
 
         monochrome?: boolean | undefined;
-        alttext?: boolean | undefined;
+        alttext?: string | undefined;
 
         includetext?: boolean | undefined;
         textfont?: string | undefined;
