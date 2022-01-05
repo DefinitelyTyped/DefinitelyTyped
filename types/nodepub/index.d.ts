@@ -3,13 +3,13 @@
 // Definitions by: Dylan Armstrong <https://github.com/dylanarmstrong>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export interface Links {
+export interface Link {
   itemType: 'front' | 'contents' | 'main';
   link: string;
   title: string;
 }
 
-export type GenerateContentsCallback = (links?: Links) => string | void;
+export type GenerateContentsCallback = (links: Link[]) => string;
 
 export interface Metadata {
   author: string;
@@ -31,8 +31,6 @@ export interface Metadata {
   showContents?: boolean;
   source?: string;
   tags?: string;
-
-  [key: string]: any;
 }
 
 export interface File {
@@ -42,22 +40,15 @@ export interface File {
   name: string;
 }
 
-export type DocumentFunction = (
-  metadata: Metadata,
-  generateContentsCallback?: GenerateContentsCallback,
-) => Document;
-
 export interface Document {
   CSS: string;
   coverImage: string;
-  document: DocumentFunction;
   filesForTOC: string[];
   generateContentsCallback?: GenerateContentsCallback;
   images: string[];
   metadata: Metadata;
   sections: string[];
   showContents: boolean;
-
   addCSS(content: string): void;
   addSection(
     title: string,
@@ -72,4 +63,4 @@ export interface Document {
   writeFilesForEPUB(folder: string): Promise<void>;
 }
 
-export const document: DocumentFunction;
+export function document(metadata: Metadata, generateContentsCallback?: GenerateContentsCallback): Document;

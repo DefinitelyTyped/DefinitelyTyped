@@ -1,4 +1,4 @@
-import * as nodepub from 'nodepub';
+import nodepub = require('nodepub');
 
 const metadata = {
   author: 'Author',
