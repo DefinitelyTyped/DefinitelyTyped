@@ -218,6 +218,9 @@ googletag.pubads().setPrivacySettings({
 // Set multiple privacy settings at the same time.
 googletag.pubads().setPrivacySettings({
     childDirectedTreatment: true,
+    limitedAds: true,
+    nonPersonalizedAds: true,
+    restrictDataProcessing: true,
     underAgeOfConsent: true,
 });
 
