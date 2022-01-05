@@ -25,7 +25,7 @@ import {
     whenProd,
     whenTest,
 } from '@craco/craco';
-import * as webpack from 'webpack';
+import { Plugin as WebpackPlugin } from 'webpack';
 
 const config: CracoConfig = {
     reactScriptsVersion: 'react-scripts',
@@ -140,7 +140,7 @@ const isAddAfterLoader = addAfterLoader({}, matchesLessLoader, { loader: 'postcs
 // $ExpectType { isAdded: boolean; addedCount: number; }
 const isAddAfterLoaders = addAfterLoaders({}, matchesLessLoader, { loader: 'postcss-loader' });
 
-class DemoPlugin extends webpack.Plugin {
+class DemoPlugin extends WebpackPlugin {
     constructor() {
         super();
     }

@@ -4,12 +4,12 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.6
 
-import type * as jest from '@jest/types';
-import type * as autoprefixer from 'autoprefixer';
-import type * as babel from 'babel-core';
-import type * as eslint from 'eslint';
-import type * as webpack from 'webpack';
-import type * as devServer from 'webpack-dev-server';
+import type { Config as JestConfig } from '@jest/types';
+import type { Options as AutoprefixerOptions } from 'autoprefixer';
+import type { TransformOptions } from 'babel-core';
+import type { Linter } from 'eslint';
+import type { Configuration as WebpackConfig, Plugin as WebpackPlugin, RuleSetRule, RuleSetUseItem } from 'webpack';
+import type { Configuration as DevServerConfig, ProxyConfigArray } from 'webpack-dev-server';
 
 export type Configure<Config, Context> = Config | ((config: Config, context: Context) => Config);
 
@@ -31,7 +31,7 @@ export interface StyleOptions {
         plugins?: any[] | ((plugins: any[]) => any[]);
         env?: {
             // Any autoprefixer options: https://github.com/postcss/autoprefixer#options
-            autoprefixer?: autoprefixer.Options;
+            autoprefixer?: AutoprefixerOptions;
             // Any valid stages: https://github.com/csstools/postcss-preset-env#stage.
             stage?: 0 | 1 | 2 | 3 | 4 | false;
             // Any CSS features: https://github.com/csstools/postcss-preset-env#features.
@@ -46,7 +46,7 @@ export interface EsLintOptions {
     enable?: boolean;
     mode?: typeof ESLINT_MODES[keyof typeof ESLINT_MODES];
     // Any eslint configuration options: https://eslint.org/docs/user-guide/configuring.
-    configure?: Configure<eslint.Linter.Config, CracoContext>;
+    configure?: Configure<Linter.Config, CracoContext>;
     // Any eslint plugin configuration options: https://github.com/webpack-contrib/eslint-webpack-plugin#options.
     pluginOptions?: Configure<any, CracoContext>;
 }
@@ -55,7 +55,7 @@ export interface BabelOptions {
     presets?: any[];
     plugins?: any[];
     // Any babel-loader configuration options: https://babeljs.io/docs/en/options.
-    loaderOptions?: Configure<babel.TransformOptions, CracoContext>;
+    loaderOptions?: Configure<TransformOptions, CracoContext>;
 }
 
 export interface TypeScriptOptions {
@@ -66,12 +66,12 @@ export interface WebpackOptions {
     alias?: { [alias: string]: string };
     plugins?: {
         // Specify if plugin should be appended or prepended.
-        add?: Array<webpack.Plugin | [webpack.Plugin, 'append' | 'prepend']>;
+        add?: Array<WebpackPlugin | [WebpackPlugin, 'append' | 'prepend']>;
         // An array of plugin constructor's names (i.e. "StyleLintPlugin", "ESLintWebpackPlugin")
         remove?: string[];
     };
     // Any webpack configuration options: https://webpack.js.org/configuration.
-    configure?: Configure<webpack.Configuration, WebpackContext>;
+    configure?: Configure<WebpackConfig, WebpackContext>;
 }
 
 export interface JestOptions {
@@ -80,11 +80,11 @@ export interface JestOptions {
         addPlugins?: boolean;
     };
     // Any Jest configuration options: https://jestjs.io/docs/en/configuration.
-    configure?: Configure<jest.Config.InitialOptions, JestContext>;
+    configure?: Configure<JestConfig.InitialOptions, JestContext>;
 }
 
 // Any devServer configuration options: https://webpack.js.org/configuration/dev-server/#devserver.
-export type DevServerOptions = Configure<devServer.Configuration, CracoContext>;
+export type DevServerOptions = Configure<DevServerConfig, CracoContext>;
 
 export interface PluginItem<Options> {
     plugin: Plugin<Options>;
@@ -140,7 +140,7 @@ export interface CracoContext {
 export type WebpackContext = CracoContext;
 
 export interface DevServerContext extends CracoContext {
-    proxy: devServer.ProxyConfigArray | undefined;
+    proxy: ProxyConfigArray | undefined;
     allowedHost: string;
 }
 
@@ -156,25 +156,25 @@ export type OverrideCracoConfig<PluginOptions> = (props: {
 }) => CracoConfig;
 
 export type OverrideWebpackConfig<PluginOptions> = (props: {
-    webpackConfig: webpack.Configuration;
+    webpackConfig: WebpackConfig;
     cracoConfig: CracoConfig;
     pluginOptions: PluginOptions | undefined;
     context: WebpackContext;
-}) => webpack.Configuration;
+}) => WebpackConfig;
 
 export type OverrideDevServerConfig<PluginOptions> = (props: {
-    devServerConfig: devServer.Configuration;
+    devServerConfig: DevServerConfig;
     cracoConfig: CracoConfig;
     pluginOptions: PluginOptions | undefined;
     context: DevServerContext;
-}) => devServer.Configuration;
+}) => DevServerConfig;
 
 export type OverrideJestConfig<PluginOptions> = (props: {
-    jestConfig: jest.Config.InitialOptions;
+    jestConfig: JestConfig.InitialOptions;
     cracoConfig: CracoConfig;
     pluginOptions: PluginOptions | undefined;
     context: JestContext;
-}) => jest.Config.InitialOptions;
+}) => JestConfig.InitialOptions;
 
 export interface Plugin<Options> {
     readonly overrideCracoConfig?: OverrideCracoConfig<Options>;
@@ -183,28 +183,28 @@ export interface Plugin<Options> {
     readonly overrideJestConfig?: OverrideJestConfig<Options>;
 }
 
-export type LoaderMatcher = (rule: webpack.RuleSetRule | webpack.RuleSetUseItem) => boolean;
+export type LoaderMatcher = (rule: RuleSetRule | RuleSetUseItem) => boolean;
 
 export function loaderByName(loaderName: string): LoaderMatcher;
 
 export function getLoader(
-    webpackConfig: webpack.Configuration,
+    webpackConfig: WebpackConfig,
     matcher: LoaderMatcher,
 ): {
     isFound: boolean;
-    match: webpack.RuleSetRule | webpack.RuleSetUseItem;
+    match: RuleSetRule | RuleSetUseItem;
 };
 
 export function getLoaders(
-    webpackConfig: webpack.Configuration,
+    webpackConfig: WebpackConfig,
     matcher: LoaderMatcher,
 ): {
     hasFoundAny: boolean;
-    matches: Array<webpack.RuleSetRule | webpack.RuleSetUseItem>;
+    matches: Array<RuleSetRule | RuleSetUseItem>;
 };
 
 export function removeLoaders(
-    webpackConfig: webpack.Configuration,
+    webpackConfig: WebpackConfig,
     matcher: LoaderMatcher,
 ): {
     hasRemovedAny: boolean;
@@ -212,51 +212,51 @@ export function removeLoaders(
 };
 
 export function addBeforeLoader(
-    webpackConfig: webpack.Configuration,
+    webpackConfig: WebpackConfig,
     matcher: LoaderMatcher,
-    newLoader: webpack.RuleSetRule | webpack.RuleSetUseItem,
+    newLoader: RuleSetRule | RuleSetUseItem,
 ): { isAdded: boolean };
 
 export function addAfterLoader(
-    webpackConfig: webpack.Configuration,
+    webpackConfig: WebpackConfig,
     matcher: LoaderMatcher,
-    newLoader: webpack.RuleSetRule | webpack.RuleSetUseItem,
+    newLoader: RuleSetRule | RuleSetUseItem,
 ): { isAdded: boolean };
 
 export function addBeforeLoaders(
-    webpackConfig: webpack.Configuration,
+    webpackConfig: WebpackConfig,
     matcher: LoaderMatcher,
-    newLoader: webpack.RuleSetRule | webpack.RuleSetUseItem,
+    newLoader: RuleSetRule | RuleSetUseItem,
 ): {
     isAdded: boolean;
     addedCount: number;
 };
 
 export function addAfterLoaders(
-    webpackConfig: webpack.Configuration,
+    webpackConfig: WebpackConfig,
     matcher: LoaderMatcher,
-    newLoader: webpack.RuleSetRule | webpack.RuleSetUseItem,
+    newLoader: RuleSetRule | RuleSetUseItem,
 ): {
     isAdded: boolean;
     addedCount: number;
 };
 
-export type PluginMatcher = (plugin: webpack.Plugin) => boolean;
+export type PluginMatcher = (plugin: WebpackPlugin) => boolean;
 
 export function pluginByName(pluginName: string): PluginMatcher;
 
 export function getPlugin(
-    webpackConfig: webpack.Configuration,
+    webpackConfig: WebpackConfig,
     matcher: PluginMatcher,
 ): {
     isFound: boolean;
-    match: webpack.Plugin;
+    match: WebpackPlugin;
 };
 
-export function addPlugins(webpackConfig: webpack.Configuration, webpackPlugins: webpack.Plugin[]): void;
+export function addPlugins(webpackConfig: WebpackConfig, webpackPlugins: WebpackPlugin[]): void;
 
 export function removePlugins(
-    webpackConfig: webpack.Configuration,
+    webpackConfig: WebpackConfig,
     matcher: PluginMatcher,
 ): {
     hasRemovedAny: boolean;
@@ -320,22 +320,22 @@ export function createJestConfig(
     cracoConfig: CracoConfig,
     context?: Partial<CracoContext>,
     options?: CracoOptions,
-): jest.Config.InitialOptions;
+): JestConfig.InitialOptions;
 
 export function createWebpackDevConfig(
     cracoConfig: CracoConfig,
     context?: Partial<CracoContext>,
     options?: CracoOptions,
-): webpack.Configuration;
+): WebpackConfig;
 
 export function createWebpackProdConfig(
     cracoConfig: CracoConfig,
     context?: Partial<CracoContext>,
     options?: CracoOptions,
-): webpack.Configuration;
+): WebpackConfig;
 
 export function createDevServerConfigProviderProxy(
     cracoConfig: CracoConfig,
     context?: Partial<CracoContext>,
     options?: CracoOptions,
-): (proxy: devServer.ProxyConfigArray | undefined, allowedHost: string) => devServer.Configuration;
+): (proxy: ProxyConfigArray | undefined, allowedHost: string) => DevServerConfig;
