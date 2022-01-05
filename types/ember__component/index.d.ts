@@ -47,10 +47,6 @@ export default class Component extends CoreView.extend(
      */
     elementId: string;
     /**
-     * If false, the view will appear hidden in DOM.
-     */
-    isVisible: boolean;
-    /**
      * A component may contain a layout. A layout is a regular template but supersedes the template
      * property during rendering. It is the responsibility of the layout template to retrieve the
      * template property from the component (or alternatively, call Handlebars.helpers.yield,
