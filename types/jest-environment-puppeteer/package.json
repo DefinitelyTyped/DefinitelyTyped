@@ -1,7 +1,7 @@
 {
     "private": true,
     "dependencies": {
-        "@jest/types": ">=24 <=26",
-        "jest-environment-node": ">=24 <=26"
+        "@jest/types": ">=24 <=27",
+        "jest-environment-node": ">=24 <=27"
     }
 }
