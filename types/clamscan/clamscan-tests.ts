@@ -1,26 +1,44 @@
 import NodeClam = require('clamscan');
+import { PassThrough } from 'stream';
 
-const ClamScan = new NodeClam().init({
-    debugMode: false,
-    // prettier-ignore
-    clamdscan: {
-        // Run scan using command line
-        path: '/usr/bin/clamdscan',                // <-- Secondary fallback to command line -|
-        configFile: '/etc/clamd.d/daemon.conf',   // <---------------------------------------|
-        // Connect via Host/Port
-        host: 'localhost',                         // <-- Primary fallback - |
-        port: 3310,                                // <----------------------|
-        // Connect via socket (preferred)
-        active: true,                              // Set to 'false' to test getting version info from `clamscan`
-    },
-    // prettier-ignore
-    clamscan: {
-        path: '/usr/bin/clamscan',                 // <-- Worst-case scenario fallback
-    },
-    preference: 'clamdscan', // Set to 'clamscan' to test getting version info from `clamav`
-});
+import axios from 'axios';
 
-ClamScan.then(async (av) => {
-    const result = await av.getVersion();
-    console.log('Version: ', result);
-});
+const fakeVirusUrl = 'https://secure.eicar.org/eicar.com.txt';
+
+(async () => {
+    try {
+      const clamscan = await new NodeClam().init({
+      debugMode: false,
+      clamdscan: {
+        bypassTest: true,
+        host: 'localhost',
+        port: 3310,
+      },
+    });
+
+    const version = await clamscan.getVersion();
+    console.log('Version: ', version);
+
+    const { data } = await axios.get(fakeVirusUrl, {
+      responseType: 'stream',
+    });
+
+    const { isInfected, viruses } = await clamscan.scanStream(new PassThrough().pipe(data));
+
+    if (isInfected) {
+      console.log(
+        `You've downloaded a virus (${viruses.join(
+          ''
+        )})! Don't worry, it's only a test one and is not malicious...`
+      );
+    } else if (isInfected === null) {
+      console.log("Something didn't work right...");
+    } else if (!isInfected) {
+      console.log(`The file (${fakeVirusUrl}) you downloaded was just fine... Carry on...`);
+    }
+    process.exit(0);
+  } catch (err) {
+    console.error(err);
+    process.exit(1);
+  }
+})();
