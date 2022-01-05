@@ -7,7 +7,7 @@
 // this file must be defined in the include in tsconfig.json
 
 export default class Drawflow {
-  constructor(element: HTMLElement);
+  constructor(element: HTMLElement, render?: object, parent?: object);
   /**
    * Active reroute
    * @default false
