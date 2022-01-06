@@ -1,5 +1,5 @@
 declare type global_Error = Error;
-declare module Meteor {
+declare namespace Meteor {
     /** Global props **/
     /** True if running in client environment. */
     var isClient: boolean;
@@ -251,7 +251,7 @@ declare module Meteor {
     /** Pub/Sub **/
 }
 
-declare module Meteor {
+declare namespace Meteor {
     /** Login **/
     interface LoginWithExternalServiceOptions {
         requestPermissions?: ReadonlyArray<string> | undefined;
@@ -378,7 +378,7 @@ declare module Meteor {
     /** Pub/Sub **/
 }
 
-declare module Meteor {
+declare namespace Meteor {
     /** Connection **/
     interface Connection {
         id: string;
@@ -454,7 +454,7 @@ declare interface Subscription {
     userId: string | null;
 }
 
-declare module Meteor {
+declare namespace Meteor {
     /** Global props **/
     /** True if running in development environment. */
     var isDevelopment: boolean;

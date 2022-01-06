@@ -11,7 +11,7 @@ declare interface EmailFields {
     html?: ((user: Meteor.User, url: string) => string) | undefined;
 }
 
-declare module Accounts {
+declare namespace Accounts {
     var urls: URLS;
 
     function user(options?: { fields?: Mongo.FieldSpecifier | undefined }): Meteor.User | null;
@@ -53,7 +53,7 @@ declare module Accounts {
     function onPageLoadLogin(func: Function): void;
 }
 
-declare module Accounts {
+declare namespace Accounts {
     function changePassword(
         oldPassword: string,
         newPassword: string,
@@ -110,7 +110,7 @@ declare interface EmailTemplates {
     verifyEmail: EmailFields;
 }
 
-declare module Accounts {
+declare namespace Accounts {
     var emailTemplates: EmailTemplates;
 
     function addEmail(userId: string, newEmail: string, verified?: boolean): void;
@@ -173,15 +173,15 @@ declare module Accounts {
     }
 }
 
-declare module Accounts {
+declare namespace Accounts {
     function onLogout(func: Function): void;
 }
 
-declare module Accounts {
+declare namespace Accounts {
     function onLogout(func: (options: { user: Meteor.User; connection: Meteor.Connection }) => void): void;
 }
 
-declare module Accounts {
+declare namespace Accounts {
     interface LoginMethodOptions {
         /**
          * The method to call (default 'login')
@@ -268,7 +268,7 @@ declare module Accounts {
     function _checkPassword(user: Meteor.User, password: Password): { userId: string; error?: any };
 }
 
-declare module Accounts {
+declare namespace Accounts {
     type StampedLoginToken = {
         token: string;
         when: Date;
