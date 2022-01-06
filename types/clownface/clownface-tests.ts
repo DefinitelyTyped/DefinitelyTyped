@@ -284,6 +284,11 @@ function testList() {
     const listNodes: Iterable<clownface.AnyPointer<NamedNode, Dataset>> | null = cf.list();
 }
 
+function testIsList() {
+    const cf: clownface.AnyPointer<NamedNode, Dataset> = <any> {};
+    const listNodes: boolean = cf.isList();
+}
+
 function testLiteral() {
     const cf: clownface.AnyPointer<undefined, Dataset> = <any> {};
     let cfOneLit: clownface.AnyPointer<Literal, Dataset> = cf.literal('foo');
