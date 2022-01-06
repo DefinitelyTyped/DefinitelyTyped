@@ -95,9 +95,6 @@ import EmberError from '@ember/error';
 type EmberArray<T> = EmberArrayNs.default<T>;
 import EmberActionHandler from '@ember/object/-private/action-handler';
 import EmberComponent from '@ember/component';
-import EmberTextArea from '@ember/component/text-area';
-import EmberTextField from '@ember/component/text-field';
-import EmberCheckbox from '@ember/component/checkbox';
 import EmberHelper from '@ember/component/helper';
 // @ember/routing
 import EmberRoutingRouter from '@ember/routing/router';
@@ -108,7 +105,6 @@ import EmberRoutingHashLocation from '@ember/routing/hash-location';
 import EmberRoutingAutoLocation from '@ember/routing/auto-location';
 import EmberRoutingHistoryLocation from '@ember/routing/history-location';
 import EmberRoutingNoneLocation from '@ember/routing/none-location';
-import EmberRoutingLinkComponent from '@ember/routing/link-component';
 // @ember/application
 import EmberEventDispatcher from '@ember/application/-private/event-dispatcher';
 import EmberRegistry from '@ember/application/-private/registry';
@@ -134,15 +130,11 @@ export namespace Ember {
     const ActionHandler: typeof EmberActionHandler;
     class Controller extends EmberControllerNs.default {}
     class Component extends EmberComponent {}
-    class TextArea extends EmberTextArea {}
-    class TextField extends EmberTextField {}
-    class Checkbox extends EmberCheckbox {}
     class Helper extends EmberHelper {}
 
     class HashLocation extends EmberRoutingHashLocation {}
     class NoneLocation extends EmberRoutingNoneLocation {}
     class HistoryLocation extends EmberRoutingHistoryLocation {}
-    class LinkComponent extends EmberRoutingLinkComponent {}
     const deprecateFunc: typeof EmberApplicationDeprecateNs.deprecateFunc;
     const deprecate: typeof EmberApplicationDeprecateNs.deprecate;
     const getOwner: typeof EmberApplicationNs.getOwner;

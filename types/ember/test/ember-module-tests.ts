@@ -129,9 +129,6 @@ const a1: Ember.Array<string> = [];
 const a2: Ember.Array<string> = {}; // $ExpectError
 // Ember.ArrayProxy
 new Ember.ArrayProxy<number>([3, 3, 2]); // $ExpectType ArrayProxy<number>
-// Ember.Checkbox
-const cb = new Ember.Checkbox(); // $ExpectType Checkbox
-cb.tagName; // $ExpectType string
 // Ember.Component
 const C1 = Ember.Component.extend({ classNames: ['foo'] });
 class C2 extends Ember.Component {
@@ -187,8 +184,6 @@ const h1 = Ember.Helper.extend({
 });
 // Ember.HistoryLocation
 const hil = new Ember.HistoryLocation(); // $ExpectType HistoryLocation
-// Ember.LinkComponent
-Ember.LinkComponent.create(); // $ExpectType LinkComponent
 // Ember.Mixin
 Ember.Object.extend(Ember.Mixin.create({ foo: 'bar' }), {
     baz() {
@@ -237,10 +232,6 @@ Ember.Test;
 new Ember.Test.Adapter();
 // Ember.Test.QUnitAdapter
 new Ember.Test.QUnitAdapter();
-// Ember.TextArea
-new Ember.TextArea();
-// Ember.TextField
-new Ember.TextField();
 // Ember.Helper
 // helper
 Ember.Helper.helper(([a, b]: [number, number]) => a + b);
