@@ -33,7 +33,7 @@ export interface Pack extends stream.Readable {
 }
 
 export interface Extract extends stream.Writable {
-    destroy(error?: Error): void;
+    destroy(error?: Error): any;
     on(event: string, listener: (...args: any[]) => void): this;
     on(event: "entry", listener: (headers: Headers, stream: stream.PassThrough, next: () => void) => void): this;
 }

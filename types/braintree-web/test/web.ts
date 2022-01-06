@@ -399,14 +399,14 @@ braintree.client.create(
                     },
                     (err: braintree.BraintreeError, tokenizedPayload: braintree.ApplePayPayload) => {
                         if (err) {
-                            session.completePayment(braintree.ApplePayStatusCodes.STATUS_FAILURE);
+                            session.completePayment(braintree.ApplePaySession.STATUS_FAILURE);
                             return;
                         }
 
                         // Send the tokenizedPayload to your server.
                         console.log(tokenizedPayload.nonce);
 
-                        session.completePayment(braintree.ApplePayStatusCodes.STATUS_SUCCESS);
+                        session.completePayment(braintree.ApplePaySession.STATUS_SUCCESS);
                     },
                 );
             };

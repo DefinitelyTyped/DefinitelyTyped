@@ -86,28 +86,6 @@ export class Color {
     copy(color: Color): this;
 
     /**
-     * Copies given color making conversion from gamma to linear space.
-     * @param color Color to copy.
-     */
-    copyGammaToLinear(color: Color, gammaFactor?: number): Color;
-
-    /**
-     * Copies given color making conversion from linear to gamma space.
-     * @param color Color to copy.
-     */
-    copyLinearToGamma(color: Color, gammaFactor?: number): Color;
-
-    /**
-     * Converts this color from gamma to linear space.
-     */
-    convertGammaToLinear(gammaFactor?: number): Color;
-
-    /**
-     * Converts this color from linear to gamma space.
-     */
-    convertLinearToGamma(gammaFactor?: number): Color;
-
-    /**
      * Copies given color making conversion from sRGB to linear space.
      * @param color Color to copy.
      */

@@ -1,7 +1,6 @@
 // Type definitions for Amplitude SDK 8.9
 // Project: https://github.com/amplitude/Amplitude-Javascript
-// Definitions by: Arvydas Sidorenko <https://github.com/Asido>
-//                 Dan Manastireanu <https://github.com/danmana>
+// Definitions by: Dan Manastireanu <https://github.com/danmana>
 //                 Kimmo Hintikka <https://github.com/HintikkaKimmo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -96,6 +95,8 @@ export class AmplitudeClient {
 
     options: Config;
 
+    cookieStorage: CookieStorage;
+
     init(apiKey: string, userId?: string, config?: Config, callback?: (client: AmplitudeClient) => void): void;
 
     setVersionName(versionName: string): void;
@@ -103,6 +104,7 @@ export class AmplitudeClient {
     isNewSession(): boolean;
     setSessionId(sessionId: number): void;
     getSessionId(): number;
+    resetSessionId(): void;
 
     setDomain(domain: string): void;
     setUserId(userId: string | null): void;
@@ -129,6 +131,21 @@ export class AmplitudeClient {
 
     Identify: typeof Identify;
     Revenue: typeof Revenue;
+}
+
+export interface CookieStorageOptions {
+    expirationDays?: number | undefined;
+    domain?: string | undefined;
+    secure?: boolean | undefined;
+    sameSite?: 'Lax' | 'Strict' | 'None' | undefined;
+}
+export interface CookieStorage {
+    reset(): void;
+    options(): CookieStorageOptions;
+    options(opts: CookieStorageOptions): void;
+    get(name: string): any;
+    set(name: string, value: any): boolean;
+    remove(name: string): boolean;
 }
 
 // Proxy methods that get executed on the default AmplitudeClient instance (not all client methods are proxied)

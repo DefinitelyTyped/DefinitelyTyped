@@ -24,6 +24,9 @@ import { createRef, MouseEvent as ReactMouseEvent } from 'react';
 <C.Animate type="appear" options={{ origin: 'top left' }}>
     {({ className }) => <h1 className={className}>Hello World</h1>}
 </C.Animate>;
+<C.Animate type="loading">
+    {({ className }) => <h1 className={className}>Hello World</h1>}
+</C.Animate>;
 
 //
 // autocomplete
@@ -277,7 +280,7 @@ const buttonGroupRef = createRef<HTMLDivElement>();
     )}
 </C.DropdownMenu>;
 <C.DropdownMenu
-    icon="move"
+    icon={<span>icon</span>}
     label="Select a direction"
     controls={[
         {
@@ -659,6 +662,26 @@ const kbshortcuts = {
         topLeft: false,
     }}
 />;
+<C.ResizableBox
+    showHandle
+    className="testing"
+    size={{
+        height: 100,
+        width: 100,
+    }}
+    minHeight="50"
+    minWidth={50}
+    enable={{
+        top: false,
+        right: true,
+        bottom: true,
+        left: false,
+        topRight: false,
+        bottomRight: true,
+        bottomLeft: false,
+        topLeft: false,
+    }}
+><div>hello</div></C.ResizableBox>;
 
 //
 // responsive-wrapper
@@ -864,6 +887,8 @@ const kbshortcuts = {
     title="Toolbar Button"
     onClick={() => console.log('clicked')}
 />;
+<C.ToolbarButton icon={ <span>click</span> } label="Paragraph" />;
+<C.ToolbarButton>Text</C.ToolbarButton>;
 
 //
 // tooltip

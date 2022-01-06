@@ -5037,13 +5037,13 @@ declare namespace zingchart {
         /**
          * Sets an ending offset for the scale marker. 0.1 | ...
          */
-        'offset-end'?: number;
-        offsetEnd?: number;
+        'offset-end'?: number | string;
+        offsetEnd?: number | string;
         /**
          * Sets a starting offset for the scale marker. 0.5 | ...
          */
-        'offset-start'?: number;
-        offsetStart?: number;
+        'offset-start'?: number | string;
+        offsetStart?: number | string;
         /**
          * Sets the range of the scale marker. Provide one value for line scale markers and two values (starting and ending) for area scale m
          * arkers. [60] | [20,40] | ...
@@ -5641,14 +5641,14 @@ declare namespace zingchart {
      * Sets an offset from the end of the plotted data. This will cause the data to appear as if it were 'squeezed' from the right side.
      * 4 | '6px' | '5%' | 35%' | ...
      */
-    'offset-end'?: number;
-    offsetEnd?: number;
+    'offset-end'?: number | string;
+    offsetEnd?: number | string;
     /**
      * Sets an offset at the start of the plotted data. This will cause the data to appear as if it were 'squeezed' from the left side. 4
      *  | '6px' | '5%' | '35%' | ...
      */
-    'offset-start'?: number;
-    offsetStart?: number;
+    'offset-start'?: number | string;
+    offsetStart?: number | string;
     /**
      * Sets an x offset that will be applied to the scale-x object. 4 | '6px' | ...
      */
@@ -7574,14 +7574,14 @@ declare namespace zingchart {
      * Sets an offset from the end of the plotted data. This will cause the data to appear as if it were 'squeezed' from the top side. 4
      * | '6px' | '5%' | 35%' | ...
      */
-    'offset-end'?: number;
-    offsetEnd?: number;
+    'offset-end'?: number | string;
+    offsetEnd?: number | string;
     /**
      * Sets an offset at the start of the plotted data. This will cause the data to appear as if it were 'squeezed' from the bottom side.
      *  4 | '6px' | '5%' | 35%' | ...
      */
-    'offset-start'?: number;
-    offsetStart?: number;
+    'offset-start'?: number | string;
+    offsetStart?: number | string;
     /**
      * Sets an x offset that will be applied to the scale-y object. 4 | '6px' | ...
      */

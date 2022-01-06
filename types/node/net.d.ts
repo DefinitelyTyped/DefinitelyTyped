@@ -27,6 +27,7 @@ declare module 'net' {
         allowHalfOpen?: boolean | undefined;
         readable?: boolean | undefined;
         writable?: boolean | undefined;
+        signal?: AbortSignal;
     }
     interface OnReadOpts {
         buffer: Uint8Array | (() => Uint8Array);
@@ -287,9 +288,9 @@ declare module 'net' {
          * @param callback Optional callback for when the socket is finished.
          * @return The socket itself.
          */
-        end(callback?: () => void): void;
-        end(buffer: Uint8Array | string, callback?: () => void): void;
-        end(str: Uint8Array | string, encoding?: BufferEncoding, callback?: () => void): void;
+        end(callback?: () => void): this;
+        end(buffer: Uint8Array | string, callback?: () => void): this;
+        end(str: Uint8Array | string, encoding?: BufferEncoding, callback?: () => void): this;
         /**
          * events.EventEmitter
          *   1. close
