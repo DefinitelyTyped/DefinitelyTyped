@@ -356,7 +356,7 @@ export function prependTraces(
     update: Data | Data[],
     indices: number | number[],
 ): Promise<PlotlyHTMLElement>;
-export function toImage(root: RootOrData, opts: ToImgopts): Promise<string>;
+export function toImage(root: RootOrData, opts?: ToImgopts): Promise<string>;
 export function downloadImage(root: RootOrData, opts: DownloadImgopts): Promise<string>;
 export function react(
     root: Root,
