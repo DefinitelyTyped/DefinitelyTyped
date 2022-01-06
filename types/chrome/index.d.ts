@@ -11210,7 +11210,7 @@ declare namespace chrome.declarativeNetRequest {
          * An ID of {@link chrome.tabs.TAB_ID_NONE} excludes requests which don't originate from a tab.
          * An empty list is not allowed. Only supported for session-scoped rules.
          */
-        tabIds?: number | undefined;
+        tabIds?: number[] | undefined;
 
         /**
          * The pattern which is matched against the network request url.
