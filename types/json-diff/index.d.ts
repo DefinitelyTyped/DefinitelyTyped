@@ -5,15 +5,15 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface DiffOptions {
-    verbose?: boolean,
-    raw?: boolean,
-    keysOnly?: boolean,
-    full?: boolean,
-    sort?: boolean,
-    outputKeys?: string[]
+    verbose?: boolean;
+    raw?: boolean;
+    keysOnly?: boolean;
+    full?: boolean;
+    sort?: boolean;
+    outputKeys?: string[];
 }
 export interface DiffStringOptions extends DiffOptions {
-    color?: boolean
+    color?: boolean;
 }
 
 export function diff(obj1: unknown, obj2: unknown, options?: DiffOptions): any;
