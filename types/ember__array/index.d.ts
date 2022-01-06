@@ -51,36 +51,6 @@ interface Array<T> extends Enumerable<T> {
      */
     lastIndexOf(searchElement: T, fromIndex?: number): number;
     /**
-     * Adds an array observer to the receiving array. The array observer object
-     * normally must implement two methods:
-     */
-    addArrayObserver(target: {}, opts: {}): this;
-    /**
-     * Removes an array observer from the object if the observer is current
-     * registered. Calling this method multiple times with the same object will
-     * have no effect.
-     */
-    removeArrayObserver(target: {}, opts: {}): this;
-    /**
-     * Becomes true whenever the array currently has observers watching changes
-     * on the array.
-     */
-    hasArrayObservers: ComputedProperty<boolean>;
-    /**
-     * If you are implementing an object that supports `Ember.Array`, call this
-     * method just before the array content changes to notify any observers and
-     * invalidate any related properties. Pass the starting index of the change
-     * as well as a delta of the amounts to change.
-     */
-    arrayContentWillChange(startIdx: number, removeAmt: number, addAmt: number): this;
-    /**
-     * If you are implementing an object that supports `Ember.Array`, call this
-     * method just after the array content changes to notify any observers and
-     * invalidate any related properties. Pass the starting index of the change
-     * as well as a delta of the amounts to change.
-     */
-    arrayContentDidChange(startIdx: number, removeAmt: number, addAmt: number): this;
-    /**
      * Returns a special object that can be used to observe individual properties
      * on the array. Just get an equivalent property on this object and it will
      * return an enumerable that maps automatically to the named key on the
