@@ -2,6 +2,7 @@
 // Project: https://miniprogram.alipay.com/docs/miniprogram/mpdev/quick-start_overview
 // Definitions by: RockSandy <https://github.com/rockSandy>
 //                 LynneXu <https://github.com/LynneXu>
+//                 xdoer <https://github.com/xdoer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 type Common = Record<string, string | number | boolean>;
