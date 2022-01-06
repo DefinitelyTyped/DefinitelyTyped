@@ -1269,6 +1269,10 @@
             "libraryName": "express-promise-router",
             "asOfVersion": "3.0.0"
         },
+        "express-rate-limit": {
+            "libraryName": "express-rate-limit",
+            "asOfVersion": "6.0.0"
+        },
         "express-urlrewrite": {
             "libraryName": "express-urlrewrite",
             "asOfVersion": "1.3.0"
