@@ -1,0 +1,37 @@
+name: Remove contributors with deleted accounts
+
+on:
+  schedule:
+    # https://crontab.guru/#0_0_1_*_*
+    - cron: "0 0 1 * *"
+  workflow_dispatch:
+
+jobs:
+  ghostbust:
+    runs-on: ubuntu-latest
+    if: github.repository == 'DefinitelyTyped/DefinitelyTyped'
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v2
+
+      - run: |
+          git config --global user.email "bot@typescriptlang.org"
+          git config --global user.name "TypeScript Bot"
+
+      - run: npm ci
+      - run: node ./scripts/ghostbuster.cjs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+
+      - run: |
+          if [ -n "`git status -s`" ]; then
+            git commit -am "Remove contributors with deleted accounts #no-publishing-comment"
+            # Script can take a bit to run; with such an active repo there's a good chance
+            # someone has merged a PR in that time.
+            git pull --rebase
+            git push
+          fi
