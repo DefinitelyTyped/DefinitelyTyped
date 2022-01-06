@@ -190,4 +190,4 @@ declare namespace LRUCache {
     }
 }
 
-export = LRUCache;
+export default LRUCache;
