@@ -7,5 +7,5 @@
 
 /// <reference path="./angular-scroll.d.ts" />
 
-declare const _: string;
+declare const _: 'duScroll';
 export = _;
