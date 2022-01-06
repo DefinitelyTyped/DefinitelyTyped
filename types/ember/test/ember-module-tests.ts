@@ -98,9 +98,6 @@ Ember.set(o2.create(), 'nam', 'bar'); // $ExpectError
 Ember.setOwner(o2.create(), {});
 // setProperties
 Ember.setProperties(o2.create(), { name: 'bar' }).name; // $ExpectType string
-// tryInvoke
-Ember.tryInvoke(o2, 'init');
-Ember.tryInvoke(o2, 'init', [441]);
 // trySet
 Ember.trySet(o2, 'nam', ''); // $ExpectType any
 // typeOf

@@ -42,19 +42,6 @@ export function isNone(obj?: any): obj is null | undefined;
 export function isPresent(obj?: any): boolean;
 
 /**
- * Checks to see if the `methodName` exists on the `obj`,
- * and if it does, invokes it with the arguments passed.
- */
-export function tryInvoke<FNAME extends keyof T, T extends object>(
-    obj: T,
-    methodName: FNAME,
-    args: FunctionArgs<T[FNAME]>): T[FNAME] extends ((...args: any[]) => any)
-        ? ReturnType<T[FNAME]>
-        : undefined;
-export function tryInvoke<FNAME extends keyof T, T extends object>(obj: T, methodName: FNAME): T[FNAME] extends (() => any) ? ReturnType<T[FNAME]> : undefined;
-export function tryInvoke(obj: object, methodName: string, args?: any[]): undefined;
-
-/**
  * Returns a consistent type for the passed object.
  */
 export function typeOf<T>(value: T): TypeOf<TypeLookup, T>;

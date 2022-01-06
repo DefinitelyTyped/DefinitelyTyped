@@ -441,7 +441,6 @@ export namespace Ember {
     function keys(o: any): string[];
     const guidFor: typeof EmberObjectInternalsNs.guidFor;
     const inspect: typeof EmberDebugNs.inspect;
-    const tryInvoke: typeof EmberUtilsNs.tryInvoke;
 
     /**
      * A function may be assigned to `Ember.onerror` to be called when Ember
