@@ -6,8 +6,6 @@ import {
   decamelize,
   underscore,
   w,
-  htmlSafe,
-  isHTMLSafe,
 } from '@ember/string';
 
 dasherize(); // $ExpectError
@@ -37,10 +35,3 @@ classify('', ''); // $ExpectError
 capitalize(); // $ExpectError
 capitalize('blue man group'); // $ExpectType string
 capitalize('', ''); // $ExpectError
-
-htmlSafe(); // $ExpectError
-htmlSafe('foo'); // $ExpectType SafeString
-
-isHTMLSafe(); // $ExpectError
-isHTMLSafe('foo'); // $ExpectType boolean
-isHTMLSafe(htmlSafe('foo')); // $ExpectType boolean
