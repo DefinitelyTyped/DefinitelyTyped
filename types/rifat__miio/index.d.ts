@@ -5,11 +5,11 @@
 
 /// <reference types="node" />
 
-export interface Device {
-    on(eventName: string | symbol, listener: (...args: any[]) => void): this;
-}
+import { Thing } from "abstract-things";
 
-export interface AirPurifier3 extends Device {
+export interface AirPurifier3 extends Thing {
+    matches(type: "type:air-purifier"): true;
+
     childLock(): Promise<string>;
 
     updateChildLock(value: string): void;
@@ -37,17 +37,16 @@ export interface AirPurifier3 extends Device {
     changeFanSpeed(value: string): Promise<string>;
 }
 
-export type MiioDevice = Device | AirPurifier3;
+export type MiioDevice = Thing | AirPurifier3;
 
 export interface MiioDeviceOptions {
     address: string;
-    token: string | Buffer;
+    token?: string | Buffer;
     port?: string;
     model?: string;
     withPlaceholder?: boolean;
 }
 
-// tslint:disable-next-line:no-single-declare-module
 declare module '@rifat/miio' {
-    function device(options: MiioDeviceOptions): Promise<MiioDevice>;
+    function device<T extends MiioDevice>(options: MiioDeviceOptions): Promise<T>;
 }
