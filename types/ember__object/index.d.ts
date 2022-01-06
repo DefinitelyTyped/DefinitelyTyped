@@ -24,33 +24,33 @@ import ComputedProperty, * as ComputedNamespace from "@ember/object/computed";
  * see the documentation for each of these.
  */
 export default class EmberObject extends CoreObject.extend(Observable) {}
-declare function computed(...deps: string[]): MethodDecorator;
-declare function computed<Get, Set = Get>(
+export function computed(...deps: string[]): MethodDecorator;
+export function computed<Get, Set = Get>(
     cb: ComputedPropertyCallback<Get, Set>
 ): ComputedProperty<Get, Set>;
-declare function computed<Get, Set = Get>(
+export function computed<Get, Set = Get>(
     k1: string,
     cb: ComputedPropertyCallback<Get, Set>
 ): ComputedProperty<Get, Set>;
-declare function computed<Get, Set = Get>(
+export function computed<Get, Set = Get>(
     k1: string,
     k2: string,
     cb: ComputedPropertyCallback<Get, Set>
 ): ComputedProperty<Get, Set>;
-declare function computed<Get, Set = Get>(
+export function computed<Get, Set = Get>(
     k1: string,
     k2: string,
     k3: string,
     cb: ComputedPropertyCallback<Get, Set>
 ): ComputedProperty<Get, Set>;
-declare function computed<Get, Set = Get>(
+export function computed<Get, Set = Get>(
     k1: string,
     k2: string,
     k3: string,
     k4: string,
     cb: ComputedPropertyCallback<Get, Set>
 ): ComputedProperty<Get, Set>;
-declare function computed<Get, Set = Get>(
+export function computed<Get, Set = Get>(
     k1: string,
     k2: string,
     k3: string,
@@ -58,7 +58,7 @@ declare function computed<Get, Set = Get>(
     k5: string,
     cb: ComputedPropertyCallback<Get, Set>
 ): ComputedProperty<Get, Set>;
-declare function computed<Get, Set = Get>(
+export function computed<Get, Set = Get>(
     k1: string,
     k2: string,
     k3: string,
@@ -67,7 +67,7 @@ declare function computed<Get, Set = Get>(
     k6: string,
     cb: ComputedPropertyCallback<Get, Set>
 ): ComputedProperty<Get, Set>;
-declare function computed(
+export function computed(
     k1: string,
     k2: string,
     k3: string,
@@ -78,42 +78,6 @@ declare function computed(
     ...rest: any[]
 ): ComputedProperty<any>;
 
-declare namespace computed {
-    const empty: typeof ComputedNamespace.empty;
-    const notEmpty: typeof ComputedNamespace.notEmpty;
-    const none: typeof ComputedNamespace.none;
-    const not: typeof ComputedNamespace.not;
-    const bool: typeof ComputedNamespace.bool;
-    const match: typeof ComputedNamespace.match;
-    const equal: typeof ComputedNamespace.equal;
-    const gt: typeof ComputedNamespace.gt;
-    const gte: typeof ComputedNamespace.gte;
-    const lt: typeof ComputedNamespace.lt;
-    const lte: typeof ComputedNamespace.lte;
-    const and: typeof ComputedNamespace.and;
-    const or: typeof ComputedNamespace.or;
-    const alias: typeof ComputedNamespace.alias;
-    const oneWay: typeof ComputedNamespace.oneWay;
-    const reads: typeof ComputedNamespace.reads;
-    const readOnly: typeof ComputedNamespace.readOnly;
-    const deprecatingAlias: typeof ComputedNamespace.deprecatingAlias;
-    const sum: typeof ComputedNamespace.sum;
-    const max: typeof ComputedNamespace.max;
-    const min: typeof ComputedNamespace.min;
-    const map: typeof ComputedNamespace.map;
-    const mapBy: typeof ComputedNamespace.mapBy;
-    const filter: typeof ComputedNamespace.filter;
-    const filterBy: typeof ComputedNamespace.filterBy;
-    const uniq: typeof ComputedNamespace.uniq;
-    const uniqBy: typeof ComputedNamespace.uniqBy;
-    const union: typeof ComputedNamespace.union;
-    const intersect: typeof ComputedNamespace.intersect;
-    const setDiff: typeof ComputedNamespace.setDiff;
-    const collect: typeof ComputedNamespace.collect;
-    const sort: typeof ComputedNamespace.sort;
-}
-
-export { computed };
 /**
  * Specify a method that observes property changes.
  */

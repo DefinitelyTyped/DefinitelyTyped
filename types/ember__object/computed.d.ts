@@ -1,4 +1,3 @@
-import { computed } from "@ember/object";
 import { ComputedPropertyMarker } from "./-private/types";
 
 /**

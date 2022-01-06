@@ -379,8 +379,20 @@ export namespace Ember {
         const htmlSafe: typeof EmberTemplateNs.htmlSafe;
         const isHTMLSafe: typeof EmberTemplateNs.isHTMLSafe;
     }
-    const computed: typeof EmberObjectNs.computed;
-    const run: typeof EmberRunloopNs.run;
+    const computed: typeof EmberObjectNs.computed & typeof EmberObjectComputedNs;
+
+    // Shenanigans to make `run` both callable and a namespace safely, while not
+    // making the `run.bind` call resolve to `Function.prototype.bind`. (Yes,
+    // insert :upside-down-smiley: here.)
+    // 1. Get the type side of the namespace.
+    type EmberRunloop = typeof EmberRunloopNs;
+    // 2. Use it to get an interface representing the callable side of `run`.
+    type RunFn = Pick<EmberRunloop, 'run'>['run'];
+    // 3. Merge the two together so that the public-facing type of `run` is both
+    //    the plucked-off run type *and* the namespace.
+    interface Run extends RunFn, EmberRunloop {}
+    const run: Run;
+
     const platform: {
         defineProperty: boolean;
         hasPropertyAccessors: boolean;
