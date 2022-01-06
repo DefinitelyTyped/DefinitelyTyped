@@ -110,10 +110,8 @@ import EmberRoutingHistoryLocation from '@ember/routing/history-location';
 import EmberRoutingNoneLocation from '@ember/routing/none-location';
 import EmberRoutingLinkComponent from '@ember/routing/link-component';
 // @ember/application
-import EmberDefaultResolver from '@ember/application/-private/default-resolver';
 import EmberEventDispatcher from '@ember/application/-private/event-dispatcher';
 import EmberRegistry from '@ember/application/-private/registry';
-import EmberResolver from '@ember/application/resolver';
 // @ember/test
 import EmberTestAdapter from '@ember/test/adapter';
 
@@ -149,8 +147,6 @@ export namespace Ember {
     const deprecate: typeof EmberApplicationDeprecateNs.deprecate;
     const getOwner: typeof EmberApplicationNs.getOwner;
     const setOwner: typeof EmberApplicationNs.setOwner;
-    class DefaultResolver extends EmberDefaultResolver {}
-    class Resolver extends EmberResolver {}
     class EventDispatcher extends EmberEventDispatcher {}
     class Registry extends EmberRegistry {}
     interface ArrayPrototypeExtensions<T> extends EmberArrayProtoExtensions<T> {}

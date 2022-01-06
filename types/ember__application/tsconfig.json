@@ -27,8 +27,6 @@
         "index.d.ts",
         "test/application.ts",
         "test/deprecations.ts",
-        "test/resolver.ts",
-        "test/globals-resolver.ts",
         "test/application-instance.ts"
     ]
 }

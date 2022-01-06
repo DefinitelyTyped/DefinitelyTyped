@@ -10,9 +10,9 @@ import Engine from '@ember/engine';
 import ApplicationInstance from '@ember/application/instance';
 import EventDispatcher from '@ember/application/-private/event-dispatcher';
 import { EventDispatcherEvents } from '@ember/application/types';
-import DefaultResolver from '@ember/application/-private/default-resolver';
 import { Router } from '@ember/routing';
 import Registry from '@ember/application/-private/registry';
+import Resolver from 'ember-resolver';
 
 /**
  * An instance of Ember.Application is the starting point for every Ember application. It helps to
@@ -79,9 +79,9 @@ export default class Application extends Engine {
      */
     eventDispatcher: EventDispatcher;
     /**
-     * Set this to provide an alternate class to Ember.DefaultResolver
+     * Set this to provide an alternate class to `DefaultResolver`
      */
-    resolver: DefaultResolver;
+    resolver: Resolver | null;
     /**
      * The root DOM element of the Application. This can be specified as an
      * element or a jQuery-compatible selector string.

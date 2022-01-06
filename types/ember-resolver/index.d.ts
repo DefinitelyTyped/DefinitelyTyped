@@ -6,9 +6,14 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 
-import Ember from 'ember';
+import EmberObject from '@ember/object';
 
 /**
  * An Ember `Resolver` implementation used by ember-cli.
  */
-export default class EmberResolver extends Ember.Resolver {}
+export default class EmberResolver extends EmberObject {
+    // TODO: add some types for this!
+    // NOTE: not doing this as part of the Ember v4 release, since it was an
+    // empty stub before. Will backfill it going forward (and/or just do it in)
+    // the repo proper if possible!
+}
