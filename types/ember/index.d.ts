@@ -151,17 +151,6 @@ export namespace Ember {
     class Registry extends EmberRegistry {}
     interface ArrayPrototypeExtensions<T> extends EmberArrayProtoExtensions<T> {}
 
-    interface StringPrototypeExtensions {
-        camelize(): string;
-        decamelize(): string;
-        classify(): string;
-        capitalize(): string;
-        loc(values?: string[]): string;
-        dasherize(): string;
-        underscore(): string;
-        w(): string[];
-    }
-
     /**
      * Implements some standard methods for comparing objects. Add this mixin to
      * any class you create that can compare its instances.

@@ -59,7 +59,6 @@
         "test/route.ts",
         "test/router.ts",
         "test/run.ts",
-        "test/string-ext.ts",
         "test/string.ts",
         "test/test.ts",
         "test/transition.ts",
