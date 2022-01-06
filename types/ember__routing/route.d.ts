@@ -149,6 +149,17 @@ export default class Route<Model = unknown> extends EmberObject.extend(ActionHan
      * This will replace the current history entry instead of adding a new one.
      * Beside that, it is identical to `transitionTo` in all other respects. See
      * 'transitionTo' for additional information regarding multiple models.
+     *
+     * @param name    the name of the route or a URL
+     * @param models  the model(s) or identifier(s) to be used while
+     *                transitioning to the route.
+     * @param options optional hash with a queryParams property
+     *                containing a mapping of query parameters. May be supplied
+     *                as the only parameter to trigger a query-parameter-only
+     *                transition.
+     * @returns       the Transition object associated with this attempted
+     *                transition
+     * @deprecated    until 5.0. Inject the router service and use its methods.
      */
     replaceWith(name: string, ...args: any[]): Transition;
 
@@ -379,6 +390,7 @@ export default class Route<Model = unknown> extends EmberObject.extend(ActionHan
      *                transition.
      * @returns       the Transition object associated with this attempted
      *                transition
+     * @deprecated    until 5.0. Inject the router service and use its methods.
      */
     transitionTo(name: string, options?: { queryParams: object }): Transition;
     transitionTo(name: string, modelsA: RouteModel, options?: { queryParams: object }): Transition;
