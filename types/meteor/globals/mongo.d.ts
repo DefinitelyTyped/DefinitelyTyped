@@ -197,7 +197,12 @@ declare module Mongo {
         allow<Fn extends Transform<T> = undefined>(options: {
             insert?: ((userId: string, doc: DispatchTransform<Fn, T, U>) => boolean) | undefined;
             update?:
-                | ((userId: string, doc: DispatchTransform<Fn, T, U>, fieldNames: string[], modifier: any) => boolean)
+                | ((
+                      userId: string,
+                      doc: DispatchTransform<Fn, T, U>,
+                      fieldNames: string[],
+                      modifier: any,
+                  ) => boolean)
                 | undefined;
             remove?: ((userId: string, doc: DispatchTransform<Fn, T, U>) => boolean) | undefined;
             fetch?: string[] | undefined;
@@ -207,7 +212,12 @@ declare module Mongo {
         deny<Fn extends Transform<T> = undefined>(options: {
             insert?: ((userId: string, doc: DispatchTransform<Fn, T, U>) => boolean) | undefined;
             update?:
-                | ((userId: string, doc: DispatchTransform<Fn, T, U>, fieldNames: string[], modifier: any) => boolean)
+                | ((
+                      userId: string,
+                      doc: DispatchTransform<Fn, T, U>,
+                      fieldNames: string[],
+                      modifier: any,
+                  ) => boolean)
                 | undefined;
             remove?: ((userId: string, doc: DispatchTransform<Fn, T, U>) => boolean) | undefined;
             fetch?: string[] | undefined;
@@ -404,4 +414,9 @@ declare function defaultRemoteCollectionDriver(): {
     mongo: MongoConnection;
 };
 
-declare var NpmModules: any;
+declare var NpmModules: {
+    mongodb: {
+        version: string,
+        module: any
+    }
+};

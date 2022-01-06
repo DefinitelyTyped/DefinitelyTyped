@@ -141,7 +141,9 @@ declare module Meteor {
         args: ReadonlyArray<EJSONable | EJSONableProperty>,
         options?: {
             wait?: boolean | undefined;
-            onResultReceived?: ((error: global_Error | Meteor.Error | undefined, result?: Result) => void) | undefined;
+            onResultReceived?:
+                | ((error: global_Error | Meteor.Error | undefined, result?: Result) => void)
+                | undefined;
             /**
              * (Client only) if true, don't send this method again on reload, simply call the callback an error with the error code 'invocation-failed'.
              */
