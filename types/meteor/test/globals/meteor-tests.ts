@@ -1166,11 +1166,11 @@ namespace MeteorTests {
     let color = 'blue';
     if (module.hot) {
         if (module.hot.data) {
-            color = module.hot.data.color;
+            color = (module.hot.data as any).color;
         }
 
         module.hot.dispose(data => {
-            data.color = color;
+            (data as any).color = color;
         });
     }
 

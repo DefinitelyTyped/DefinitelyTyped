@@ -35,13 +35,6 @@ declare module 'meteor/meteor' {
     }
 }
 
-declare global {
-    interface HotModuleReplacementData {
-        // One of the tests assigns this property to HMR data object
-        color: string;
-    }
-}
-
 // Avoid conflicts between `meteor-tests.ts` and `globals/meteor-tests.ts`.
 namespace MeteorTests {
     interface RoomDAO {
@@ -1192,11 +1185,11 @@ namespace MeteorTests {
     let color = 'blue';
     if (module.hot) {
         if (module.hot.data) {
-            color = module.hot.data.color;
+            color = (module.hot.data as any).color;
         }
 
         module.hot.dispose(data => {
-            data.color = color;
+            (data as any).color = color;
         });
     }
 
