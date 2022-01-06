@@ -8,9 +8,9 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
         "paths": {
             "busboy": [
@@ -23,6 +23,6 @@
     },
     "files": [
         "index.d.ts",
-        "express-fileupload-tests.ts"
+        "busboy-tests.ts"
     ]
 }
