@@ -157,15 +157,6 @@ export function get<T, K extends keyof T>(
     obj: T,
     key: K
 ): UnwrapComputedPropertyGetter<T[K]>;
-/**
- * Retrieves the value of a property from an Object, or a default value in the
- * case that the property returns `undefined`.
- */
-export function getWithDefault<T, K extends keyof T>(
-    obj: T,
-    key: K,
-    defaultValue: UnwrapComputedPropertyGetter<T[K]>
-): UnwrapComputedPropertyGetter<T[K]>;
 
 /**
  * Sets the value of a property on an object, respecting computed properties

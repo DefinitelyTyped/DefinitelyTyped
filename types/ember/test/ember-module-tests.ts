@@ -45,9 +45,6 @@ Ember.getProperties({ z: 23 }, 'z', 'z').z; // $ExpectType number
 Ember.getProperties({ z: 23 }, 'z', 'a').z; // $ExpectError
 Ember.getProperties({ z: 23 }, ['z', 'z']).z; // $ExpectType number
 Ember.getProperties({ z: 23 }, ['z', 'a']).z; // $ExpectError
-// getWithDefault
-Ember.getWithDefault({ z: 23 }, 'z', 43); // $ExpectType number
-Ember.getWithDefault({ a: undefined as number | undefined, z: 23 }, 'a', 99); // $ExpectType number | undefined
 
 // guidFor
 Ember.guidFor({}); // $ExpectType string

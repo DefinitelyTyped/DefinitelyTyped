@@ -66,16 +66,6 @@ function testGetProperties() {
     assertType<{ name: string; age: number }>(Ember.getProperties(pojo, 'name', 'age'));
 }
 
-function testGetWithDefault() {
-    assertType<string>(Ember.getWithDefault(person, 'name', 'Joe'));
-    assertType<number>(Ember.getWithDefault(person, 'age', 20));
-    assertType<string>(Ember.getWithDefault(person, 'capitalized', 'JOE'));
-    assertType<string>(person.getWithDefault('name', 'Joe'));
-    assertType<number>(person.getWithDefault('age', 20));
-    assertType<string>(person.getWithDefault('capitalized', 'JOE'));
-    assertType<string>(Ember.getWithDefault(pojo, 'name', 'JOE'));
-}
-
 function testSet() {
     assertType<string>(Ember.set(person, 'name', 'Joe'));
     assertType<number>(Ember.set(person, 'age', 35));
@@ -102,8 +92,6 @@ function testDynamic() {
 
     assertType<any>(Ember.get(obj, 'dummy'));
     assertType<any>(Ember.get(obj, dynamicKey));
-    assertType<string>(Ember.getWithDefault(obj, 'dummy', 'default'));
-    assertType<string>(Ember.getWithDefault(obj, dynamicKey, 'default'));
     assertType<{ dummy: any }>(Ember.getProperties(obj, 'dummy'));
     assertType<{ dummy: any }>(Ember.getProperties(obj, ['dummy']));
     assertType<object>(Ember.getProperties(obj, dynamicKey));

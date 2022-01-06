@@ -97,12 +97,6 @@ class DemoObservable implements Observable {
     removeObserver(key: any, target: any, method?: any): void {
         throw new Error('Method not implemented.');
     }
-    getWithDefault<K extends keyof this>(
-        key: K,
-        defaultValue: UnwrapComputedPropertyGetter<this[K]>,
-    ): UnwrapComputedPropertyGetter<this[K]> {
-        throw new Error('Method not implemented.');
-    }
     incrementProperty(keyName: ExtractPropertyNamesOfType<this, number | undefined>, increment?: number): number {
         throw new Error('Method not implemented.');
     }
@@ -144,17 +138,6 @@ assertType<number>(o.decrementProperty()); // $ExpectError
  */
 o.toggleProperty('isFoo'); // $ExpectType boolean
 o.toggleProperty(); // $ExpectError
-
-/**
- * getWithDefault
- */
-assertType<string>(o.getWithDefault('foo', 'zzz')); // $ExpectType string
-assertType<[boolean, boolean]>(o.getWithDefault('bar', [false, false])); // $ExpectType [boolean, boolean]
-assertType<number | undefined>(o.getWithDefault('baz', 10)); // $ExpectType number | undefined
-// improper arguments cases
-assertType<number | undefined>(o.getWithDefault('baz', '10')); // $ExpectError
-assertType<number | undefined>(o.getWithDefault('baz')); // $ExpectError
-assertType<number | undefined>(o.getWithDefault()); // $ExpectError
 
 /**
  * getProperties
