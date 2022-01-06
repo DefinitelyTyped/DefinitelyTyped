@@ -515,4 +515,5 @@ export interface TailwindConfig {
     prefix?: string;
     important?: boolean | string;
     separator?: string;
+    safelist?: any[];
 }
