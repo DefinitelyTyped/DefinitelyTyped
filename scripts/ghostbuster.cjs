@@ -15,6 +15,7 @@ function bust(indexPath, header, ghosts) {
     /** @param {hp.Author} c */
     const isGhost = c => c.githubUsername && ghosts.has(c.githubUsername.toLowerCase());
     if (header.contributors.some(isGhost)) {
+        console.log(`Found one or more deleted accounts in ${indexPath}. Patching...`);
         const indexContent = header.raw;
         let newContent = indexContent;
         if (header.contributors.length === 1) {
@@ -60,6 +61,7 @@ function recurse(dir, fn) {
 function getAllHeaders() {
     /** @type {Record<string, hp.Header & { raw: string }>} */
     const headers = {};
+    console.log("Reading headers...");
     recurse(path.join(__dirname, "../types"), subpath => {
         const index = path.join(subpath, "index.d.ts");
         if (existsSync(index)) {
@@ -67,11 +69,8 @@ function getAllHeaders() {
             let parsed;
             try {
                 parsed = hp.parseHeaderOrFail(indexContent);
-            } catch (e) {
-                console.error(`Error parsing ${index}: ${e.message}`);
-            }
+            } catch (e) {}
             if (parsed) {
-                console.log(`Parsed header for ${subpath}`);
                 headers[index] = { ...parsed, raw: indexContent };
             }
         }
@@ -83,6 +82,7 @@ function getAllHeaders() {
  * @param {Set<string>} users
  */
 async function fetchGhosts(users) {
+    console.log("Checking for deleted accounts...");
     const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
     const maxPageSize = 2000;
     const pages = Math.ceil(users.size / maxPageSize);
