@@ -309,7 +309,7 @@ export interface PlotlyDataLayoutConfig {
 
 export type Root = string | HTMLElement;
 
-export type RootOrData = string | HTMLElement | PlotlyDataLayoutConfig;
+export type RootOrData = Root | PlotlyDataLayoutConfig;
 
 export function newPlot(
     root: Root,
