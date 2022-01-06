@@ -383,7 +383,6 @@ export namespace Ember {
         function fmt(...args: string[]): string;
         const htmlSafe: typeof EmberTemplateNs.htmlSafe;
         const isHTMLSafe: typeof EmberTemplateNs.isHTMLSafe;
-        const loc: typeof EmberStringNs.loc;
         const underscore: typeof EmberStringNs.underscore;
         const w: typeof EmberStringNs.w;
     }

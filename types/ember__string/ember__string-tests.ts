@@ -4,7 +4,6 @@ import {
   capitalize,
   classify,
   decamelize,
-  loc,
   underscore,
   w,
   htmlSafe,
@@ -38,10 +37,6 @@ classify('', ''); // $ExpectError
 capitalize(); // $ExpectError
 capitalize('blue man group'); // $ExpectType string
 capitalize('', ''); // $ExpectError
-
-loc(); // $ExpectError
-loc("_Hello World");  // $ExpectType string
-loc("_Hello %@ %@", ["John", "Smith"]);  // $ExpectType string
 
 htmlSafe(); // $ExpectError
 htmlSafe('foo'); // $ExpectType SafeString
