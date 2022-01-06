@@ -913,6 +913,7 @@ export class RuleTester {
 
 export namespace RuleTester {
     interface ValidTestCase {
+        name?: string;
         code: string;
         options?: any;
         filename?: string | undefined;
