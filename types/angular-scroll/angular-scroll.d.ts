@@ -3,7 +3,7 @@
 declare namespace duScroll {
 
     /**
-     * Extends the angular.element object returned by the $document sercive with a few jQuery like functions.
+     * Extends the angular.element object returned by the $document service with a few jQuery like functions.
      * see https://github.com/oblador/angular-scroll#angularelement-scroll-api
      */
     interface IDocumentService extends ng.IDocumentService {
