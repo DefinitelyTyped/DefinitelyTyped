@@ -4,7 +4,7 @@
 //                 Trevor Scheer <https://github.com/trevor-scheer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
-/// <reference lib="dom" />
+
 import { ClientRequestArgs, AgentOptions } from 'http';
 import { CommonConnectionOptions, SecureContextOptions } from 'tls';
 import { URL as NodeURL } from 'url';
