@@ -2,14 +2,12 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6",
-            "dom",
-            "esnext"
+            "es6"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": true,
         "strictFunctionTypes": true,
+        "strictNullChecks": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -17,10 +15,14 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
-        "esModuleInterop": true
+        "paths": {
+            "@lerna/*": [
+                "lerna__*"
+            ]
+        }
     },
     "files": [
         "index.d.ts",
-        "apollo-upload-client-tests.ts"
+        "lerna__package-graph-tests.ts"
     ]
 }
