@@ -372,7 +372,9 @@ type TaskProvider = () => Task;
 type NodeHandle = number;
 
 // Similar to React.SyntheticEvent except for nativeEvent
-export interface NativeSyntheticEvent<T> extends React.BaseSyntheticEvent<T, NodeHandle, NodeHandle> {}
+export interface NativeSyntheticEvent<T> extends React.BaseSyntheticEvent<T, NodeHandle, NodeHandle> {
+    nativeEvent: T
+}
 
 export interface NativeTouchEvent {
     /**
@@ -9037,7 +9039,7 @@ export namespace Animated {
     };
 
     export interface AnimatedComponent<T extends React.ComponentType<any>>
-        extends React.FC<AnimatedProps<React.ComponentPropsWithRef<T>>> {}
+        extends React.SFC<AnimatedProps<React.ComponentPropsWithRef<T>>> {}
 
     export type AnimatedComponentOptions = {
         collapsable?: boolean;
