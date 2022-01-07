@@ -91,8 +91,9 @@ export class RequestSigner {
 
     /**
      * Extract the service code and region code from a Host name.
+     * @returns two element string tuple with values [service, region].
      */
-    matchHost(host: string): [service: string, region: string];
+    matchHost(host: string): [string, string];
 
     /**
      * https://docs.aws.amazon.com/general/latest/gr/rande.html
