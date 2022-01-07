@@ -810,6 +810,11 @@ const kbshortcuts = {
 />;
 
 //
+// tip
+//
+<C.Tip>Hello</C.Tip>;
+
+//
 // toggle-control
 //
 <C.ToggleControl label="Controlled" checked={true} onChange={isChecked => console.log(isChecked)} />;
