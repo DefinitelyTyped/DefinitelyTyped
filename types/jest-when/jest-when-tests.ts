@@ -146,6 +146,58 @@ describe('mock-when test', () => {
       expect(result2).toEqual(undefined);
     });
 
+    it('should support defaultImplementation', () => {
+      const fn = jest.fn();
+      when(fn)
+        .calledWith(1)
+        .mockReturnValue('one')
+        .defaultImplementation(() => 'default');
+
+      const result = fn(1);
+      const result2 = fn(2);
+      expect(result).toEqual('one');
+      expect(result2).toEqual('default');
+    });
+
+    it('should support defaultReturnValue', () => {
+      const fn = jest.fn();
+      when(fn)
+        .calledWith(1)
+        .mockReturnValue('one')
+        .defaultReturnValue('default');
+
+      const result = fn(1);
+      const result2 = fn(2);
+      expect(result).toEqual('one');
+      expect(result2).toEqual('default');
+    });
+
+    it('should support defaultResolvedValue', () => {
+      const fn = jest.fn();
+      when(fn)
+        .calledWith(1)
+        .mockResolvedValue('one')
+        .defaultResolvedValue('default');
+
+      const result = fn(1);
+      const result2 = fn(2);
+      expect(result).resolves.toEqual('one');
+      expect(result2).resolves.toEqual('default');
+    });
+
+    it('should support defaultRejectedValue', () => {
+      const fn = jest.fn();
+      when(fn)
+        .calledWith(1)
+        .mockRejectedValue('one')
+        .defaultRejectedValue('default');
+
+      const result = fn(1);
+      const result2 = fn(2);
+      expect(result).rejects.toEqual('one');
+      expect(result2).rejects.toEqual('default');
+    });
+
     it('should support resetAllWhenMocks', () => {
       const fn = jest.fn(_ => 'initial');
 

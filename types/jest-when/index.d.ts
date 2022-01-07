@@ -4,6 +4,7 @@
 //                 Trung Dang <https://github.com/immanuel192>
 //                 Gregor Stamać <https://github.com/gstamac>
 //                 Nicholas Hehr <https://github.com/hipsterbrown>
+//                 Shahmir Noorani <https://github.com/shahmirn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.8
 
