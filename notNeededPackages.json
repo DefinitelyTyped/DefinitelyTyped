@@ -3539,6 +3539,10 @@
             "libraryName": "positive-zero",
             "asOfVersion": "3.0.0"
         },
+        "postcss-calc": {
+            "libraryName": "postcss-calc",
+            "asOfVersion": "8.2.0"
+        },
         "postcss-custom-properties": {
             "libraryName": "postcss-custom-properties",
             "asOfVersion": "12.0.0"
