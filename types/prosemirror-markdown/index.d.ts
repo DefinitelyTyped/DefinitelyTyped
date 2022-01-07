@@ -115,7 +115,7 @@ export class MarkdownParser<S extends Schema = any> {
      * this parser. Can be useful to copy and modify to base other
      * parsers on.
      */
-    tokens: { [key: string]: Token };
+    tokens: { [key: string]: TokenConfig };
     /**
      * Parse a string as [CommonMark](http://commonmark.org/) markup,
      * and create a ProseMirror document as prescribed by this parser's

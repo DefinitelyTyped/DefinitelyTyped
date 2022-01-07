@@ -2,45 +2,45 @@ import * as Plotly from 'plotly.js/lib/core';
 import { Datum, ScatterData, Layout, newPlot, PlotData, ViolinData, CandlestickData, PieData } from 'plotly.js/lib/core';
 
 const graphDiv = '#test';
+const trace1 = {
+    x: [1999, 2000, 2001, 2002],
+    y: [10, 15, 13, 17],
+    customdata: [1, 2, 3],
+    type: 'scatter',
+} as ScatterData;
+const trace2 = {
+    x: [1999, 2000, 2001, 2002],
+    y: [16, 5, 11, 9],
+    customdata: [
+        [1, 'a'],
+        [2, 'b'],
+        [3, 'c'],
+    ],
+    type: 'scatter',
+} as ScatterData;
+const data = [trace1, trace2];
+const tickangle: "auto" = "auto";
+const layout = {
+    title: 'Sales Growth',
+    xaxis: {
+        title: 'Year',
+        showgrid: false,
+        zeroline: false,
+        tickangle
+    },
+    yaxis: {
+        title: 'Percent',
+        showline: false,
+    },
+    uirevision: 'true',
+    datarevision: 0,
+    editrevision: 0,
+    selectionrevision: 0
+};
 
 //////////////////////////////////////////////////////////////////////
 // Plotly.newPlot
 (() => {
-    const trace1 = {
-        x: [1999, 2000, 2001, 2002],
-        y: [10, 15, 13, 17],
-        customdata: [1, 2, 3],
-        type: 'scatter',
-    } as ScatterData;
-    const trace2 = {
-        x: [1999, 2000, 2001, 2002],
-        y: [16, 5, 11, 9],
-        customdata: [
-            [1, 'a'],
-            [2, 'b'],
-            [3, 'c'],
-        ],
-        type: 'scatter',
-    } as ScatterData;
-    const data = [trace1, trace2];
-    const tickangle: "auto" = "auto";
-    const layout = {
-        title: 'Sales Growth',
-        xaxis: {
-            title: 'Year',
-            showgrid: false,
-            zeroline: false,
-            tickangle
-        },
-        yaxis: {
-            title: 'Percent',
-            showline: false,
-        },
-        uirevision: 'true',
-        datarevision: 0,
-        editrevision: 0,
-        selectionrevision: 0
-    };
     Plotly.newPlot(graphDiv, data, layout);
 
     const violinTrace = {
@@ -675,6 +675,17 @@ function rand() {
     // Plotly.toImage will turn the plot in the given div into a data URL string
     // toImage takes the div as the first argument and an object specifying image properties as the other
     Plotly.toImage(graphDiv, { format: 'png', width: 800, height: 600, scale: 2 }).then(dataUrl => {
+        // use the dataUrl
+    });
+})();
+//////////////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////////////
+// Plotly.toImage raw data input
+(() => {
+    // Plotly.toImage will turn the plot data into a data URL string
+    // toImage takes the data as the first argument and an object specifying image properties as the other
+    Plotly.toImage({data, layout}, { format: 'png', width: 800, height: 600, scale: 2 }).then(dataUrl => {
         // use the dataUrl
     });
 })();

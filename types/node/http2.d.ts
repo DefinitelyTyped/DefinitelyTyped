@@ -1516,9 +1516,9 @@ declare module 'http2' {
          * is finished.
          * @since v8.4.0
          */
-        end(callback?: () => void): void;
-        end(data: string | Uint8Array, callback?: () => void): void;
-        end(data: string | Uint8Array, encoding: BufferEncoding, callback?: () => void): void;
+        end(callback?: () => void): this;
+        end(data: string | Uint8Array, callback?: () => void): this;
+        end(data: string | Uint8Array, encoding: BufferEncoding, callback?: () => void): this;
         /**
          * Reads out a header that has already been queued but not sent to the client.
          * The name is case-insensitive.
