@@ -1,5 +1,5 @@
 import { assertType } from './assert';
-import { FastBoot as FastBootService, FastbootRequest, Shoebox } from 'ember-cli-fastboot/services/fastboot';
+import FastBootService, { FastbootRequest, Shoebox } from 'ember-cli-fastboot/services/fastboot';
 import { FastBoot as _FastBoot } from 'ember-cli-fastboot/-private';
 
 /** type assertions for global FastBoot object */
@@ -13,7 +13,7 @@ assertType<Shoebox>(instance.shoebox);
 instance.deferRendering(new Promise<'foo'>(() => 'foo')); // $ExpectType void
 
 instance.shoebox.put('foo', 'bar'); // $ExpectType void
-assertType<unknown>(instance.shoebox.retrieve('foo'));
+instance.shoebox.retrieve('foo'); // $ExpectType unknown
 
 assertType<Record<string, unknown>>(instance.request.cookies);
 assertType<Pick<Headers, 'has' | 'get'>>(instance.request.headers);

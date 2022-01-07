@@ -37,7 +37,7 @@ export interface Shoebox {
   retrieve(key: string): unknown;
 }
 
-export class FastBoot extends Service {
+export default class FastBoot extends Service {
   /** Allows you to check if you are running within FastBoot. */
   isFastboot: boolean;
 
