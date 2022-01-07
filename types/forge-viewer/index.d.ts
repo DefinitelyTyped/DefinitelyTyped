@@ -1262,12 +1262,12 @@ declare namespace Autodesk {
         }
 
         class GuiViewer3D extends Viewer3D {
-            toolController: ToolController;
             autocam: any;
-            progressbar: any;
-            utilities: ViewingUtilities;
             dockingPanels: any;
             overlays: OverlayManager;
+            progressbar: Private.ProgressBar;
+            toolController: ToolController;
+            utilities: ViewingUtilities;
 
             addPanel(panel: UI.DockingPanel): boolean;
             createDebugSubmenu(button: UI.Button): void;
@@ -1691,6 +1691,12 @@ declare namespace Autodesk {
               tag(tag: string, names?: string[]|string): void;
               untag(tag: string, names?: string[]|string): void;
               webStorage(name: string, value: any): any;
+            }
+
+            class ProgressBar {
+                lastValue: number;
+
+                setPercent(pct: number): void;
             }
 
             class BoundsCallback implements GeometryCallback {
