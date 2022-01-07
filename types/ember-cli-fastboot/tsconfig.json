@@ -22,7 +22,6 @@
     },
     "files": [
         "index.d.ts",
-        "services/fastboot.d.ts",
         "test/ember-cli-fastboot-tests.ts"
     ]
 }
