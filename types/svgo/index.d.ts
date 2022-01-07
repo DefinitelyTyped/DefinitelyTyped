@@ -142,12 +142,14 @@ export type ConvertPathDataPlugin = DefaultPlugin<
         applyTransforms?: boolean | undefined;
         /** @default true */
         applyTransformsStroked?: boolean | undefined;
-        makeArcs?: {
-            /** @default 2.5 */
-            threshold?: number | undefined;
-            /** @default 0.5 */
-            tolerance?: number | undefined;
-        } | undefined;
+        makeArcs?:
+            | {
+                  /** @default 2.5 */
+                  threshold?: number | undefined;
+                  /** @default 0.5 */
+                  tolerance?: number | undefined;
+              }
+            | undefined;
         /** @default true */
         straightCurves?: boolean | undefined;
         /** @default true */
@@ -622,13 +624,16 @@ export type DefaultPresetPlugins =
 /**
  * default plugin preset, customize plugin options by overriding them
  */
-export type PresetDefault = Preset<'preset-default', {
-    floatPrecision?: number | undefined;
-    overrides?: { [P in DefaultPresetPlugins['name']]?: false | DefaultPresetPlugins['params']};
-}>;
+export type PresetDefault = Preset<
+    'preset-default',
+    {
+        floatPrecision?: number | undefined;
+        overrides?: { [P in DefaultPresetPlugins['name']]?: false | DefaultPresetPlugins['params'] };
+    }
+>;
 
 export type DefaultPlugins =
-    DefaultPresetPlugins
+    | DefaultPresetPlugins
     | PresetDefault
     | AddAttributesToSVGElementPlugin
     | AddClassesToSVGElementPlugin

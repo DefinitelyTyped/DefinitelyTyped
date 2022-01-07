@@ -359,7 +359,7 @@ optimized = optimize('', {
                         prefix: '',
                         preserve: [],
                         preservePrefixes: [],
-                        force: false
+                        force: false,
                     },
                     cleanupNumericValues: { floatPrecision: 3, leadingZero: true, defaultPx: true, convertToPx: true },
                     convertColors: {
@@ -367,7 +367,7 @@ optimized = optimize('', {
                         names2hex: true,
                         rgb2hex: true,
                         shorthex: true,
-                        shortname: true
+                        shortname: true,
                     },
                     convertPathData: {
                         applyTransforms: true,
@@ -404,7 +404,7 @@ optimized = optimize('', {
                         onlyMatchedOnce: true,
                         removeMatchedSelectors: true,
                         useMqs: ['', 'screen'],
-                        usePseudos: ['']
+                        usePseudos: [''],
                     },
                     mergePaths: {
                         collapseRepeated: true,
