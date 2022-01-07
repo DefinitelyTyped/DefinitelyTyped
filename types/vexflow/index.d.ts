@@ -32,6 +32,10 @@ declare namespace Vex {
         constructor(code: string, message: string);
     }
 
+    interface GroupAttributes {
+        pointerBBox: boolean;
+    }
+
     /**
      * Helper interface for handling the different rendering contexts (i.e. CanvasContext, RaphaelContext, SVGContext). Not part of VexFlow!
      */
@@ -71,7 +75,7 @@ declare namespace Vex {
         fillText(text: string, x: number, y: number): IRenderContext;
         save(): IRenderContext;
         restore(): IRenderContext;
-        openGroup(): Node | undefined;
+        openGroup(cls?: string, id?: string, attrs?: GroupAttributes): Node | undefined;
         closeGroup(): void;
 
         /**
@@ -479,7 +483,7 @@ declare namespace Vex {
             fillText(text: string, x: number, y: number): void;
             save(): void;
             restore(): void;
-            openGroup(): undefined;
+            openGroup(cls?: string, id?: string, attrs?: GroupAttributes): undefined;
             closeGroup(): void;
         }
 
@@ -1069,7 +1073,7 @@ declare namespace Vex {
             fillText(text: string, x: number, y: number): RaphaelContext;
             save(): RaphaelContext;
             restore(): RaphaelContext;
-            openGroup(): undefined;
+            openGroup(cls?: string, id?: string, attrs?: GroupAttributes): undefined;
             closeGroup(): void;
         }
 
@@ -1765,7 +1769,7 @@ declare namespace Vex {
             fillText(text: string, x: number, y: number): SVGContext;
             save(): SVGContext;
             restore(): SVGContext;
-            openGroup(): Node;
+            openGroup(cls?: string, id?: string, attrs?: GroupAttributes): Node;
             closeGroup(): void;
         }
 
