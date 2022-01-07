@@ -1062,14 +1062,19 @@ declare namespace Autodesk {
             constructor(container: HTMLElement, config?: Viewer3DConfig);
 
             canvas: HTMLCanvasElement;
+            canvasWrap: HTMLElement;
+            clientContainer: HTMLElement;
             config: Viewer3DConfig;
             container: HTMLElement;
             navigation: Navigation;
             id: number;
             impl: Private.Viewer3DImpl;
+            loadedExtensions: { [key: string]: Extension };
             model: Model;
             prefs: Private.ViewerPreferences;
+            running: boolean;
             started: boolean;
+            theme: string;
             toolbar: UI.ToolBar;
 
             start(urn?: string, onSuccesfullCallback?: () => void, onErrorCallback?: (errorCode: number, errorMessage: string, statusCode: number, statusText: string) => void): any;
