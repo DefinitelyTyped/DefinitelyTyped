@@ -1380,6 +1380,30 @@ declare namespace Autodesk {
             currentNodeIds: object[];
           }
 
+          namespace Multipage {
+            namespace Events {
+              const FocusedPageChanged = 'focusedPageChanged';
+              const PageLoaded = 'pageLoaded';
+            }
+
+            class MultipageExtension extends Extension {
+              constructor(viewer: Viewer3D, options?: any);
+
+              focusFirstPage(): string;
+              focusLastPage(): string;
+              focusNextPage(): string;
+              focusOnPage(pageToFocus: any, immediate?: boolean): string;
+              focusPrevPage(): string;
+              getAllPages(): any[];
+              getCurrentPageIndex(): number;
+              getFocusedPage(): any;
+              getNearestPages(): any[];
+              isPageLoaded(page: any): boolean;
+              isPageInView(page: any): boolean;
+              loadFocusedPage(): Promise<void>;
+            }
+          }
+
           namespace PDF {
             class PDFExtension extends Extension {
               constructor(viewer: Viewer3D, options?: {
