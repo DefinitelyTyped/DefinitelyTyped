@@ -1,15 +1,6 @@
-// Type definitions for ember-cli-fastboot 2.2.3
-// Project: https://github.com/ember-fastboot/ember-cli-fastboot
-// Definitions by: Henry Majoros <https://github.com/hmajoros>
-//                 Dan Freeman <https://github.com/dfreeman>
-//                 Chris Krycho <https://github.com/chriskrycho>
-//                 James C. Davis <https://github.com/jamescdavis>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.4
-
 import Service from "@ember/service";
 
-interface FastbootRequest {
+export interface FastbootRequest {
   /** The cookies for the current request. */
   cookies: Record<string, unknown>;
 
@@ -22,7 +13,7 @@ interface FastbootRequest {
     Retrieving host will error on 2 conditions:
     1. you do not have a hostWhitelist defined
     2. the Host header does not match an entry in your hostWhitelist
-    */
+   */
   host: string;
 
   /** The query parameters for the current request, as a key-value pair. */
@@ -31,7 +22,7 @@ interface FastbootRequest {
   /**
     The path (`/` or `/some-path`) of the request that the current FastBoot
     server is responding to.
-    */
+   */
   path: string;
 
   /**
@@ -41,12 +32,12 @@ interface FastbootRequest {
   protocol: string;
 }
 
-interface Shoebox {
+export interface Shoebox {
   put(key: string, value: unknown): void;
   retrieve(key: string): unknown;
 }
 
-export default class FastBoot extends Service {
+export class FastBoot extends Service {
   /** Allows you to check if you are running within FastBoot. */
   isFastboot: boolean;
 
@@ -86,7 +77,7 @@ export default class FastBoot extends Service {
 }
 
 declare module "@ember/service" {
-  export interface ServiceRegistry {
+  interface ServiceRegistry {
     fastboot: FastBoot;
   }
 }
