@@ -283,6 +283,10 @@ declare namespace GoogleAppsScript {
       newDecoratedText(): DecoratedText;
       newDivider(): Divider;
       newDriveItemsSelectedActionResponseBuilder(): DriveItemsSelectedActionResponseBuilder;
+      /**
+       * Creates a new EditorFileScopeActionResponseBuilder.
+       */
+      newEditorFileScopeActionResponseBuilder(): EditorFileScopeActionResponseBuilder;
       newFixedFooter(): FixedFooter;
       newIconImage(): IconImage;
       /**
@@ -1068,6 +1072,29 @@ declare namespace GoogleAppsScript {
      */
     interface DriveItemsSelectedActionResponse {
       printJson(): string;
+    }
+
+    /**
+     * Makes changes to an Editor, such as Google Docs, Sheets, or Slides in reaction to an action taken in the UI.
+     */
+    interface EditorFileScopeActionResponse {
+        /**
+         * Prints the JSON representation of this object.
+         */
+        printJson(): string;
+    }
+    /**
+     * A builder for EditorFileScopeActionResponse objects.
+     */
+    interface EditorFileScopeActionResponseBuilder {
+        /**
+         * Builds the current Editor action response.
+         */
+        build(): EditorFileScopeActionResponse;
+        /**
+         * Requests the drive.file scope for the current active Editor document.
+         */
+        requestFileScopeForActiveDocument(): EditorFileScopeActionResponseBuilder;
     }
 
     /**
