@@ -5,7 +5,7 @@ import { FastBoot as FastBootService, FastbootRequest, Shoebox } from 'ember-cli
 assertType<FastBootService | undefined>(FastBoot);
 
 /** type assertions for fastboot service & other classes */
-const instance = new FastBootService();
+const instance = FastBootService.create();
 assertType<FastbootRequest>(instance.request);
 assertType<boolean>(instance.isFastboot);
 assertType<Shoebox>(instance.shoebox);
