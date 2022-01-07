@@ -534,3 +534,15 @@ select('core/block-editor').getAdjacentBlockClientId();
 select('core/block-editor').getAdjacentBlockClientId('foo');
 select('core/block-editor').getAdjacentBlockClientId('foo', -1);
 select('core/block-editor').getAdjacentBlockClientId('foo', 1);
+
+// $ExpectType UseBlockPropsOut<Record<PropertyKey, unknown>>
+be.useBlockProps();
+
+// $ExpectType UseBlockPropsOut<{ foo: string; }>
+be.useBlockProps({ foo: "bar" });
+
+// $ExpectType unknown
+be.useBlockProps.save();
+
+// $ExpectType unknown
+be.useBlockProps.save({ foo: "bar" });
