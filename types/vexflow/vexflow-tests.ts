@@ -1,5 +1,5 @@
 var canvas = document.getElementById('canvas');
-var renderer = new Vex.Flow.Renderer(canvas, Vex.Flow.Renderer.Backends.CANVAS);
+var renderer = new Vex.Flow.Renderer(canvas, Vex.Flow.Renderer.Backends.SVG);
 var ctx = renderer.getContext();
 
 // Add a treble clef and time signature
