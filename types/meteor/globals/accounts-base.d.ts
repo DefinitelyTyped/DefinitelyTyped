@@ -71,7 +71,10 @@ declare module Accounts {
         callback?: (error?: Error | Meteor.Error | Meteor.TypedError) => void,
     ): void;
 
-    function verifyEmail(token: string, callback?: (error?: Error | Meteor.Error | Meteor.TypedError) => void): void;
+    function verifyEmail(
+        token: string,
+        callback?: (error?: Error | Meteor.Error | Meteor.TypedError) => void,
+    ): void;
 
     function onEmailVerificationLink(callback: Function): void;
 

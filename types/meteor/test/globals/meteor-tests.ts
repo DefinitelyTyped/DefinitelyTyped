@@ -11,15 +11,6 @@
 
 /*********************************** Begin setup for tests ******************************/
 
-declare module 'meteor/meteor' {
-    namespace Meteor {
-        interface User {
-            // One of the tests assigns a new property to the user so it has to be typed
-            dexterity?: number | undefined;
-        }
-    }
-}
-
 // Avoid conflicts between `meteor-tests.ts` and `globals/meteor-tests.ts`.
 namespace MeteorTests {
     interface RoomDAO {
@@ -663,6 +654,10 @@ namespace MeteorTests {
      * From Accounts, Accounts.onCreateUser section
      */
     Accounts.onCreateUser(function (options: { profile: any }, user) {
+        var d6 = function () {
+            return Math.floor(Math.random() * 6) + 1;
+        };
+        (user as any).dexterity = d6() + d6() + d6();
         // We still want the default hook's 'profile' behavior.
         if (options.profile) user.profile = options.profile;
         return user;
