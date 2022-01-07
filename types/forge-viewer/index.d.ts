@@ -427,7 +427,7 @@ declare namespace Autodesk {
           fetchAlignmentsForNodes(nodes: BubbleNode[]): any;
           getFloorSelector(): any;
           getModel(node: BubbleNode): Model;
-          getModelAndWait(node: BubbleNode): Promise<Model>;
+          getModelAndWait(node: BubbleNode, checkIfVisible?: boolean): Promise<Model>;
           getVisibleNodes(): BubbleNode[];
           hide(node: BubbleNode): void;
           hideAll(): void;
