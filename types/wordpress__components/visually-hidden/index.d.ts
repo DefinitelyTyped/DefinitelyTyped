@@ -7,4 +7,3 @@ declare namespace VisuallyHidden {
 declare const VisuallyHidden: ComponentType<VisuallyHidden.Props>;
 
 export default VisuallyHidden;
-
