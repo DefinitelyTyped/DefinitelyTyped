@@ -174,7 +174,7 @@ describe('mock-when test', () => {
         .calledWith(1)
         .mockResolvedValue('one')
         .defaultResolvedValue('default');
-        
+
       const result = await fn(1);
       const result2 = await fn(2);
 
