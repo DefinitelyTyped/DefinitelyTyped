@@ -48,7 +48,7 @@ class SampleComponent extends React.Component<Props> {
           text='text'
         />
 
-        <WrappedText ref={generateTestHook('WrappedText')}>
+        <WrappedText accessibilityRole='button' ref={generateTestHook('WrappedText')}>
           Wrapped text
         </WrappedText>
 
