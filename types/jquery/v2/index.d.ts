@@ -3628,6 +3628,7 @@ interface JQuery {
      * @see {@link https://api.jquery.com/nextUntil/#nextUntil-element-filter}
      */
     nextUntil(obj?: JQuery, filter?: string): JQuery;
+
     /**
      * Remove elements from the set of matched elements.
      *
@@ -3635,7 +3636,7 @@ interface JQuery {
      * @see {@link https://api.jquery.com/not/#not-selector}
      */
     not(selector: string|any[]): JQuery;
-     /**
+    /**
      * Remove elements from the set of matched elements.
      *
      * @param func A function used as a test for each element in the set. this is the current DOM element.
