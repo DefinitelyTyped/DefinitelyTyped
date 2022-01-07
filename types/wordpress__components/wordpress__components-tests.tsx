@@ -1008,6 +1008,12 @@ const MySlotFillProvider = () => {
 </C.Slot>;
 
 //
+// visually-hidden
+//
+<C.VisuallyHidden>Hello</C.VisuallyHidden>;
+<C.VisuallyHidden as="span" className="test-class">Hello</C.VisuallyHidden>;
+
+//
 // higher-order/navigate-regions
 //
 (() => {
