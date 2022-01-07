@@ -6,7 +6,7 @@ export interface SQSEventWithCollection extends SQSEvent {
 }
 
 export interface NormalizeSQSMiddleware {
-    before: MiddlewareFunction<SQSEventWithCollection, {}>;
+    before: MiddlewareFunction<SQSEventWithCollection, any>;
 }
 
 export default function normalizeSQSMessageMiddleware(): NormalizeSQSMiddleware;
