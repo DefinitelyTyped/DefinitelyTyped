@@ -53,7 +53,9 @@ var formatter = new Vex.Flow.Formatter({softmaxFactor: null, maxIterations: 2})
 stave.draw();
 
 // Render voices
+ctx.openGroup("voice", "voice1");
 voice1.draw(ctx, stave);
+ctx.closeGroup();
 voice2.draw(ctx, stave);
 
 // Render beam
