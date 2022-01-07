@@ -231,41 +231,41 @@ declare namespace sharedb {
             submit: SubmitContext;
         }
 
-        interface BaseContext {
+        interface BaseContext<TAgentCustom = any> {
             action: keyof ActionContextMap;
-            agent: Agent;
+            agent: Agent<TAgentCustom>;
             backend: sharedb;
         }
 
-        interface ApplyContext extends BaseContext, SubmitRequest {
+        interface ApplyContext<TAgentCustom = any> extends BaseContext<TAgentCustom>, SubmitRequest {
         }
 
-        interface CommitContext extends BaseContext, SubmitRequest {
+        interface CommitContext<TAgentCustom = any> extends BaseContext<TAgentCustom>, SubmitRequest {
         }
 
-        interface ConnectContext extends BaseContext {
+        interface ConnectContext<TAgentCustom = any> extends BaseContext<TAgentCustom>{
             stream: any;
             req: any;  // Property always exists, value may be undefined
         }
 
-        interface DocContext extends BaseContext {
+        interface DocContext<TAgentCustom = any> extends BaseContext<TAgentCustom>{
             collection: string;
             id: string;
             snapshot: Snapshot;
         }
 
-        interface OpContext extends BaseContext {
+        interface OpContext<TAgentCustom = any> extends BaseContext<TAgentCustom>{
             collection: string;
             id: string;
             op: any;
         }
 
-        interface PresenceContext extends BaseContext {
+        interface PresenceContext<TAgentCustom = any> extends BaseContext<TAgentCustom>{
             presence: PresenceMessage;
             collection?: string;
         }
 
-        interface QueryContext extends BaseContext {
+        interface QueryContext<TAgentCustom = any> extends BaseContext<TAgentCustom>{
             index: string;
             collection: string;
             projection: ReadonlyProjection;
@@ -277,24 +277,24 @@ declare namespace sharedb {
             snapshotProjection: ReadonlyProjection | null;
         }
 
-        interface ReadSnapshotsContext extends BaseContext {
+        interface ReadSnapshotsContext<TAgentCustom = any> extends BaseContext<TAgentCustom>{
             collection: string;
             snapshots: Snapshot[];
             snapshotType: SnapshotType;
         }
 
-        interface ReceiveContext extends BaseContext {
+        interface ReceiveContext<TAgentCustom = any> extends BaseContext<TAgentCustom>{
             data: {[key: string]: any};  // ClientRequest, but before any validation
         }
 
-        interface ReplyContext extends BaseContext {
+        interface ReplyContext<TAgentCustom = any> extends BaseContext<TAgentCustom>{
             request: ShareDB.ClientRequest;
             reply: {[key: string]: any};
         }
 
         type SnapshotType = 'current' | 'byVersion' | 'byTimestamp';
 
-        interface SubmitContext extends BaseContext, SubmitRequest {
+        interface SubmitContext<TAgentCustom = any> extends BaseContext<TAgentCustom>, SubmitRequest {
         }
     }
 }
@@ -351,7 +351,7 @@ interface PresenceMessage {
 
 type BasicCallback = (err?: Error) => void;
 
-type ErrorHandler = (error: Error, context: ErrorHandlerContext) => void;
-interface ErrorHandlerContext {
-    agent?: Agent;
+type ErrorHandler<TAgentCustom = any> = (error: Error, context: ErrorHandlerContext<TAgentCustom>) => void;
+interface ErrorHandlerContext<TAgentCustom = any> {
+    agent?: Agent<TAgentCustom>;
 }
