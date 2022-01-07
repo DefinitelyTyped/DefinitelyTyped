@@ -654,6 +654,18 @@ export interface CustomPlugin<P extends object = never> {
     fn: (ast: any, params: P, info: any) => any;
 }
 
+export interface SvgoParserError extends Error {
+    reason: string;
+    line: number;
+    column: number;
+    source: string;
+}
+
+export interface OptimizedError {
+    error: string;
+    modernError: SvgoParserError;
+}
+
 export interface OptimizedSvg {
     data: string;
     info: {
@@ -661,6 +673,8 @@ export interface OptimizedSvg {
         height: string;
     };
     path?: string | undefined;
+    modernError: undefined;
+    error: undefined;
 }
 
 export type Plugin = DefaultPlugins | DefaultPlugins['name'] | CustomPlugin;
@@ -778,7 +792,7 @@ export interface OptimizeOptions {
 }
 
 /* The core of SVGO is optimize function. */
-export function optimize(svgString: string | Buffer, options?: OptimizeOptions): OptimizedSvg;
+export function optimize(svgString: string | Buffer, options?: OptimizeOptions): OptimizedSvg | OptimizedError;
 
 /**
  * If you write a tool on top of svgo you might need a way to load svgo config.

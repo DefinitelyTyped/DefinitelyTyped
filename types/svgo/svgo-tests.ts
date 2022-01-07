@@ -1,9 +1,27 @@
-import { extendDefaultPlugins, loadConfig, optimize, OptimizedSvg, OptimizeOptions, Plugin } from 'svgo';
+import {
+    extendDefaultPlugins,
+    loadConfig,
+    optimize,
+    OptimizedError,
+    OptimizedSvg,
+    OptimizeOptions,
+    SvgoParserError,
+    Plugin,
+} from 'svgo';
 
 // Various optimize options
 const rawInput = Buffer.from('test');
-let optimized: OptimizedSvg;
+let optimized: OptimizedSvg | OptimizedError;
 optimized = optimize('');
+
+if (optimized.modernError) {
+    optimized; // $ExpectType OptimizedError
+    optimized.modernError; // $ExpectType SvgoParserError
+} else {
+    optimized; // $ExpectType OptimizedSvg
+    optimized.data; // $ExpectType string
+}
+
 optimized = optimize(rawInput);
 optimized = optimize('', {});
 optimized = optimize('', { plugins: [] });
