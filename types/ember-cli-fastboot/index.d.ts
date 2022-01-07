@@ -7,10 +7,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.4
 
-import { FastBoot as FastBootService } from './services/fastboot';
+import './services/fastboot';
+import { FastBoot } from './-private';
 
 declare global {
-  const FastBoot: FastBootService | undefined;
+  const FastBoot: FastBoot | undefined;
 }
 
 export {};
