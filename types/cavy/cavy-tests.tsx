@@ -107,5 +107,13 @@ const testHookStore = new TestHookStore();
   reporter={sampleReporter}
 >
   <HookedSampleComponent foo="test" />
-  <SampleFunctionComponent/>
+</Tester>;
+// React.Children.only would throw
+// $ExpectError
+<Tester specs={[sampleSpec]} store={testHookStore} />;
+// React.Children.only would throw
+// $ExpectError
+<Tester specs={[sampleSpec]} store={testHookStore}>
+  <HookedSampleComponent foo="test" />
+  <SampleFunctionComponent />
 </Tester>;
