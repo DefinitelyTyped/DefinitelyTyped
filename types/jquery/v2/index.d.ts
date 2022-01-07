@@ -3628,21 +3628,13 @@ interface JQuery {
      * @see {@link https://api.jquery.com/nextUntil/#nextUntil-element-filter}
      */
     nextUntil(obj?: JQuery, filter?: string): JQuery;
-
     /**
      * Remove elements from the set of matched elements.
      *
-     * @param selector A string containing a selector expression to match elements against.
+     * @param selector A string containing a selector expression, or an array of elements to match against the set.
      * @see {@link https://api.jquery.com/not/#not-selector}
      */
-    not(selector: string): JQuery;
-    /**
-     * Remove elements from the set of matched elements.
-     *
-     * @param selector An array of elements to match against the set.
-     * @see {@link https://api.jquery.com/not/#not-selector}
-     */
-     not(selector: any[]): JQuery;
+    not(selector: string|any[]): JQuery;
      /**
      * Remove elements from the set of matched elements.
      *
