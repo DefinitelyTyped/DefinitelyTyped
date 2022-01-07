@@ -1,8 +1,8 @@
 import { Ref } from 'react';
 
-export type UseBlockPropsProps<Props extends Record<PropertyKey, unknown>, R = unknown> = { ref?: Ref<R> } & Props;
+export type UseBlockPropsProps<Props extends Record<string, unknown>, R = unknown> = { ref?: Ref<R> } & Props;
 
-export type UseBlockPropsOut<Props extends Record<PropertyKey, unknown>> = Props &
+export type UseBlockPropsOut<Props extends Record<string, unknown>> = Props &
     Ref<unknown> & {
         id: string;
         tabIndex: 0;
@@ -15,10 +15,10 @@ export type UseBlockPropsOut<Props extends Record<PropertyKey, unknown>> = Props
         style: Record<string, unknown>;
     };
 
-export function useBlockProps<Props extends Record<PropertyKey, unknown>>(
+export function useBlockProps<Props extends Record<string, unknown>>(
     props?: UseBlockPropsProps<Props>,
 ): UseBlockPropsOut<Props>;
 
 export namespace useBlockProps {
-    function save(props?: Record<PropertyKey, unknown>): unknown;
+    function save(props?: Record<string, unknown>): unknown;
 }
