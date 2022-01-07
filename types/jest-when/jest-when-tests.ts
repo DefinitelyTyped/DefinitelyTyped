@@ -153,10 +153,8 @@ describe('mock-when test', () => {
         .mockReturnValue('one')
         .defaultImplementation(() => 'default');
 
-      const result = fn(1);
-      const result2 = fn(2);
-      expect(result).toEqual('one');
-      expect(result2).toEqual('default');
+      expect(fn(1)).toEqual('one');
+      expect(fn(2)).toEqual('default');
     });
 
     it('should support defaultReturnValue', () => {
@@ -166,36 +164,36 @@ describe('mock-when test', () => {
         .mockReturnValue('one')
         .defaultReturnValue('default');
 
-      const result = fn(1);
-      const result2 = fn(2);
-      expect(result).toEqual('one');
-      expect(result2).toEqual('default');
+      expect(fn(1)).toEqual('one');
+      expect(fn(2)).toEqual('default');
     });
 
-    it('should support defaultResolvedValue', () => {
+    it('should support defaultResolvedValue', async () => {
       const fn = jest.fn();
       when(fn)
         .calledWith(1)
         .mockResolvedValue('one')
         .defaultResolvedValue('default');
+        
+      const result = await fn(1);
+      const result2 = await fn(2);
 
-      const result = fn(1);
-      const result2 = fn(2);
-      expect(result).resolves.toEqual('one');
-      expect(result2).resolves.toEqual('default');
+      expect(result).toEqual('one');
+      expect(result2).toEqual('default');
     });
 
-    it('should support defaultRejectedValue', () => {
+    it('should support defaultRejectedValue', async () => {
       const fn = jest.fn();
       when(fn)
         .calledWith(1)
         .mockRejectedValue('one')
         .defaultRejectedValue('default');
 
-      const result = fn(1);
-      const result2 = fn(2);
-      expect(result).rejects.toEqual('one');
-      expect(result2).rejects.toEqual('default');
+      const result = await fn(1).catch((err: any) => err);
+      const result2 = await fn(2).catch((err: any) => err);
+
+      expect(result).toEqual('one');
+      expect(result2).toEqual('default');
     });
 
     it('should support resetAllWhenMocks', () => {
