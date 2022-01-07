@@ -1389,6 +1389,12 @@ declare namespace Autodesk {
             class MultipageExtension extends Extension {
               constructor(viewer: Viewer3D, options?: any);
 
+              focusedPage: any;
+              mode: string;
+              modes: string[];
+              multipageTool: ToolInterface;
+              name: string;
+
               focusFirstPage(): string;
               focusLastPage(): string;
               focusNextPage(): string;
