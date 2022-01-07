@@ -13,16 +13,10 @@ import ClassNamesSupport from "@ember/component/-private/class-names-support";
 import ViewMixin from "@ember/component/-private/view-mixin";
 import { ComponentManager } from './-private/glimmer-interfaces';
 
-// tslint:disable-next-line:strict-export-declare-modifiers
 interface TemplateFactory {
     __htmlbars_inline_precompile_template_factory: any;
 }
 
-/**
- * A component is an isolated piece of UI, represented by a template and an
- * optional class. When a component has a class, its template's `this` value
- * is an instance of the component class.
- */
 export default class Component extends CoreView.extend(
     ViewMixin,
     ClassNamesSupport
@@ -89,6 +83,15 @@ export default class Component extends CoreView.extend(
      * not during an initial render.
      */
     willUpdate(): void;
+
+    /**
+     * `reopen()` was deprecated and removed from `Component`. It is given an
+     * illegitimate type in these types so that you cannot call it or use it!
+     * Unfortunately, it cannot actually be *removed* from this type, because TS
+     * rightly complains that `Component` is no longer a valid subtype of the
+     * `EmberObject` base class, and will not let you use it.
+     */
+    static reopen(): never;
 }
 
 /**
@@ -104,3 +107,6 @@ export function setComponentManager<T>(
     managerFactory: (owner: unknown) => ComponentManager<unknown>,
     object: T
 ): T;
+
+// Do not export anything but what we *explicitly* say to export.
+export {};
