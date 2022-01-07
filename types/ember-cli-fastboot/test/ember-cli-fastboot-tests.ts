@@ -9,9 +9,9 @@ const instance = new FastBootService();
 assertType<FastbootRequest>(instance.request);
 assertType<boolean>(instance.isFastboot);
 assertType<Shoebox>(instance.shoebox);
-assertType<void>(instance.deferRendering(new Promise<'foo'>(() => 'foo')));
+instance.deferRendering(new Promise<'foo'>(() => 'foo')); // $ExpectType void
 
-assertType<void>(instance.shoebox.put('foo', 'bar'));
+instance.shoebox.put('foo', 'bar'); // $ExpectType void
 assertType<unknown>(instance.shoebox.retrieve('foo'));
 
 assertType<Record<string, unknown>>(instance.request.cookies);
