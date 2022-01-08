@@ -249,6 +249,16 @@ export interface PacoteOptions {
      * time is part of the extended packument metadata.
      */
     fullMetadata?: boolean | undefined;
+
+    /**
+     * you usually don't want to fetch the same packument multiple times in
+     * the span of a given script or command, no matter how many pacote calls
+     * are made, so this lets us avoid doing that.  It's only relevant for
+     * registry fetchers, because other types simulate their packument from
+     * the manifest, which they memoize on this.package, so it's very cheap
+     * already.
+     */
+    packumentCache?: Map<string, Packument> | undefined;
 }
 
 export type Options = PacoteOptions & npmFetch.Options;
