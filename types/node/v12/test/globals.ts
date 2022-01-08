@@ -9,4 +9,6 @@
     const accessibleToGlobalThisMembers: true = global.RANDOM_GLOBAL_VARIABLE;
 }
 
+JSON.parse(Buffer.from('{}'));
+
 declare var RANDOM_GLOBAL_VARIABLE: true;

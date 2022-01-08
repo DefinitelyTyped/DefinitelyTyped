@@ -142,6 +142,17 @@ interface ErrorConstructor {
     stackTraceLimit: number;
 }
 
+// Declare JSON.parse accepts a buffer
+interface JSON {
+    /**
+     * Converts a JavaScript Object Notation (JSON) string into an object.
+     * @param buffer A buffer containing a valid JSON string.
+     * @param reviver A function that transforms the results. This function is called for each member of the object.
+     * If a member contains nested objects, the nested objects are transformed before the parent object is.
+     */
+    parse(buffer: Buffer, reviver?: (this: any, key: string, value: any) => any): any;
+}
+
 interface SymbolConstructor {
     readonly observable: symbol;
 }
