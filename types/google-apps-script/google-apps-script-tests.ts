@@ -571,3 +571,17 @@ const makeGrid = ({ items, ...options}: GridOptions) => {
 
     return grid;
 };
+
+const handleScopeAction = () => {
+    // $ExpectType EditorFileScopeActionResponseBuilder
+    const builder = CardService.newEditorFileScopeActionResponseBuilder();
+    builder.requestFileScopeForActiveDocument();
+
+    // $ExpectType EditorFileScopeActionResponse
+    const response = builder.build();
+
+    // $ExpectType string
+    const serialized = response.printJson();
+
+    return serialized;
+};
