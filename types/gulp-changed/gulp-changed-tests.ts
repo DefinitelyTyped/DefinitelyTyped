@@ -1,15 +1,10 @@
-import * as gulp from "gulp";
-import changed = require("gulp-changed");
-import minifyHtml = require("gulp-minify-html");
+import * as gulp from 'gulp';
+import changed = require('gulp-changed');
 
 // Without options
-gulp.src("*.html")
-    .pipe(changed("build"))
-    .pipe(minifyHtml())
-    .pipe(gulp.dest("build"));
+gulp.src('*.html').pipe(changed('build')).pipe(gulp.dest('build'));
 
 // With some options
-gulp.src("*.html")
-    .pipe(changed("build", { hasChanged: changed.compareContents }))
-    .pipe(minifyHtml())
-    .pipe(gulp.dest("build"));
+gulp.src('*.html')
+    .pipe(changed('build', { hasChanged: changed.compareContents }))
+    .pipe(gulp.dest('build'));
