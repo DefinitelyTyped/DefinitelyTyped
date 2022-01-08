@@ -5,7 +5,7 @@
 //                 Philip Jackson <https://github.com/p-jackson>
 //                 Sara Marcondes <https://github.com/sarayourfriend>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.6
+// Minimum TypeScript Version: 4.2
 
 export * from './primitives';
 

@@ -1,8 +1,8 @@
+import type * as React from 'react';
+
 /**
  * This file copied from https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/ui/context/wordpress-component.ts
  */
-// Minimum TypeScript Version: 4.1
-import type * as React from 'react';
 
 /**
  * Based on https://github.com/reakit/reakit/blob/master/packages/reakit-utils/src/types.ts
