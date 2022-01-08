@@ -1,9 +1,27 @@
-import { extendDefaultPlugins, loadConfig, optimize, OptimizedSvg, OptimizeOptions, Plugin } from 'svgo';
+import {
+    extendDefaultPlugins,
+    loadConfig,
+    optimize,
+    OptimizedError,
+    OptimizedSvg,
+    OptimizeOptions,
+    SvgoParserError,
+    Plugin,
+} from 'svgo';
 
 // Various optimize options
 const rawInput = Buffer.from('test');
-let optimized: OptimizedSvg;
+let optimized: OptimizedSvg | OptimizedError;
 optimized = optimize('');
+
+if (optimized.modernError) {
+    optimized; // $ExpectType OptimizedError
+    optimized.modernError; // $ExpectType SvgoParserError
+} else {
+    optimized; // $ExpectType OptimizedSvg
+    optimized.data; // $ExpectType string
+}
+
 optimized = optimize(rawInput);
 optimized = optimize('', {});
 optimized = optimize('', { plugins: [] });
@@ -341,7 +359,7 @@ optimized = optimize('', {
                         prefix: '',
                         preserve: [],
                         preservePrefixes: [],
-                        force: false
+                        force: false,
                     },
                     cleanupNumericValues: { floatPrecision: 3, leadingZero: true, defaultPx: true, convertToPx: true },
                     convertColors: {
@@ -349,7 +367,7 @@ optimized = optimize('', {
                         names2hex: true,
                         rgb2hex: true,
                         shorthex: true,
-                        shortname: true
+                        shortname: true,
                     },
                     convertPathData: {
                         applyTransforms: true,
@@ -386,7 +404,7 @@ optimized = optimize('', {
                         onlyMatchedOnce: true,
                         removeMatchedSelectors: true,
                         useMqs: ['', 'screen'],
-                        usePseudos: ['']
+                        usePseudos: [''],
                     },
                     mergePaths: {
                         collapseRepeated: true,
