@@ -342,6 +342,39 @@ const divRef = React.createRef<HTMLDivElement>();
 <ForwardRef2 ref={divRef}/>;
 <ForwardRef2 ref='string'/>; // $ExpectError
 
+const ForwardRefTyping = React.forwardRef<HTMLDivElement>((props, ref) => (
+    <div {...props} ref={ref}>{
+        props.children // $ExpectError
+    }</div>
+));
+<ForwardRefTyping>Children</ForwardRefTyping>; // $ExpectError
+
+interface ForwardRefTypingProps {
+    foo: string;
+}
+const ForwardRefTypingWithProps = React.forwardRef<HTMLDivElement, ForwardRefTypingProps>((props, ref) => (
+    <div {...props} ref={ref}>{
+        // $ExpectType ForwardRefTypingProps
+        props
+    }</div>
+));
+<ForwardRefTypingWithProps foo='string'/>;
+<ForwardRefTypingWithProps foo='string'>Children</ForwardRefTypingWithProps>; // $ExpectError
+
+interface ForwardRefTypingPropsWithRef {
+    foo: string;
+    ref: string;
+}
+const ForwardRefTypingWithPropsWithRef = React.forwardRef<HTMLDivElement, ForwardRefTypingPropsWithRef>((props, ref) => (
+    <div {...props} ref={ref}>{
+        // $ExpectType ForwardRefTypingPropsWithRef
+        props
+    }</div>
+));
+<ForwardRefTypingWithPropsWithRef foo='string'/>;
+<ForwardRefTypingWithPropsWithRef foo='string' ref='string'/>; // $ExpectError
+<ForwardRefTypingWithPropsWithRef foo='string'>Children</ForwardRefTypingWithPropsWithRef>; // $ExpectError
+
 const newContextRef = React.createRef<NewContext>();
 <NewContext ref={newContextRef}/>;
 <NewContext ref='string'/>;
