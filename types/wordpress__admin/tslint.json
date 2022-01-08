@@ -2,9 +2,6 @@
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "npm-naming": false,
-        "export-just-namespace": false,
-        "no-empty-interface": false,
         "no-namespace": false,
-        "unified-signatures": false
     }
 }
