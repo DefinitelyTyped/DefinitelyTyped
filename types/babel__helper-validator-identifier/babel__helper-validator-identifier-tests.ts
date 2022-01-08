@@ -7,7 +7,7 @@ import {
     isIdentifierStart,
     isIdentifierChar,
     isIdentifierName,
-} from 'babel__helper-validator-identifier';
+} from '@babel/helper-validator-identifier';
 
 isReservedWord('', false); // $ExpectType boolean
 isStrictReservedWord('', false); // $ExpectType boolean
