@@ -102,9 +102,8 @@ function useEveryHook(ref: React.Ref<{ id: number }>|undefined): () => boolean {
     // inline object, to (manually) check if autocomplete works
     React.useReducer(reducer, { age: 42, name: 'The Answer' });
 
-    // TODO (TypeScript 3.0): Decide whether implicit `any` should trigger `noImplicitAny` or if it should default to `unknown` or `never`
-    // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/52873
-    // $ExpectType (value: any) => any
+    // Implicit any
+    // $ExpectError
     const anyCallback = React.useCallback(value => {
         // $ExpectType any
         return value;
