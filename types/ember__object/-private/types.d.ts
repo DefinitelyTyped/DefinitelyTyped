@@ -105,3 +105,7 @@ export type ComputedPropertyCallback<Get, Set = Get> = ComputedPropertyGetterFun
 export type ObserverMethod<Target, Sender> =
     | keyof Target
     | ((this: Target, sender: Sender, key: string, value: any, rev: number) => void);
+
+// This type looks weird, but is correct: from a list of "bottom" to "top", in
+// type theory terms.
+export type AnyFunction = (...args: never[]) => unknown;

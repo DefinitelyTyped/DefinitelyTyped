@@ -7,8 +7,10 @@ declare function expectTypeNativeArrayTop(x: Ember.NativeArray<Top>): void;
 expectTypeNativeArrayTop(Ember.A());
 Ember.A([1, 2]); // $ExpectType NativeArray<number>
 // addListener
-Ember.addListener({ a: 'foo' }, 'a', {}, () => {});
-Ember.addListener({ a: 'foo' }, 'a', null, () => {});
+Ember.addListener({ a: 'foo' }, 'event', {}, () => {});
+Ember.addListener({ a: 'foo' }, 'event', {}, 'a');
+Ember.addListener({ a: 'foo' }, 'event', {}, 'b'); // $ExpectError
+Ember.addListener({ a: 'foo' }, 'event', null, () => {});
 // addObserver
 Ember.addObserver({ a: 'foo' }, 'a', null, () => {});
 Ember.addObserver({ a: 'foo' }, 'a', {}, () => {});
@@ -81,8 +83,9 @@ const o3 = Ember.Object.extend({
     nameWatcher2: Ember.on('destroy', () => {}),
 });
 // removeListener
-Ember.addListener(o2, 'create', () => {});
-Ember.addListener({}, 'create', () => {}); // $ExpectError
+Ember.removeListener(o2, 'create', null, () => {});
+Ember.removeListener(o2, 'create', null, 'create');
+Ember.removeListener({}, 'create', null, 'blah'); // $ExpectError
 // removeObserver
 Ember.removeObserver(o2, 'create', () => {});
 Ember.removeObserver({}, 'create', () => {}); // $ExpectError
