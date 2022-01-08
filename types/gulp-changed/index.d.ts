@@ -1,16 +1,15 @@
-// Type definitions for gulp-changed
+// Type definitions for gulp-changed 4.0
 // Project: https://github.com/sindresorhus/gulp-changed
 // Definitions by: Thomas Corbière <https://github.com/tomc974>
 //                 Jordy van Dortmont <https://github.com/jordyvandortmont>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node"/>
-/// <reference types="vinyl" />
 
 import { Transform } from 'stream';
 import File = require('vinyl');
 
-interface IComparator {
+interface Comparator {
     /**
      * @param stream Should be used to queue sourceFile if it passes some comparison
      * @param sourceFile File to operate on
@@ -19,11 +18,11 @@ interface IComparator {
     (stream: Transform, sourceFile: File, destPath: string): void;
 }
 
-interface IDestination {
+interface Destination {
     (file: string | Buffer): string;
 }
 
-interface IOptions {
+interface Options {
     /**
      * The working directory the folder is relative to.
      * @default process.cwd()
@@ -39,7 +38,7 @@ interface IOptions {
      * Function that determines whether the source file is different from the destination file.
      * @default changed.compareLastModifiedTime
      */
-    hasChanged?: IComparator | undefined;
+    hasChanged?: Comparator | undefined;
 
     /**
      * Function to transform the path to the destination file. Should return the absolute path to the (renamed) destination file.
@@ -47,12 +46,12 @@ interface IOptions {
     transformPath?: ((destPath: string) => string) | undefined;
 }
 
-interface IGulpChanged {
-    (destination: string | IDestination, options?: IOptions): NodeJS.ReadWriteStream;
+interface GulpChanged {
+    (destination: string | Destination, options?: Options): NodeJS.ReadWriteStream;
 
-    compareLastModifiedTime: IComparator;
-    compareContents: IComparator;
+    compareLastModifiedTime: Comparator;
+    compareContents: Comparator;
 }
 
-declare const changed: IGulpChanged;
+declare const changed: GulpChanged;
 export = changed;
