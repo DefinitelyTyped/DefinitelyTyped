@@ -58,11 +58,6 @@ export default class Route<Model = unknown> extends EmberObject.extend(ActionHan
     controllerFor(name: string): Controller;
 
     /**
-     * Disconnects a view that has been rendered into an outlet.
-     */
-    disconnectOutlet(options: string | { outlet?: string | undefined; parentView?: string | undefined }): void;
-
-    /**
      * A hook you can implement to convert the URL into the model for
      * this route.
      */
@@ -122,27 +117,6 @@ export default class Route<Model = unknown> extends EmberObject.extend(ActionHan
      * entered.
      */
     refresh(): Transition;
-
-    /**
-     * `render` is used to render a template into a region of another template
-     * (indicated by an `{{outlet}}`). `render` is used both during the entry
-     * phase of routing (via the `renderTemplate` hook) and later in response to
-     * user interaction.
-     * Not all options need to be passed to render. Default values will be used
-     * based on the name of the route specified in the router or the Route's
-     * controllerName and templateName properties.
-     */
-    render(name?: string, options?: RenderOptions): void;
-
-    /**
-     * A hook you can use to render the template for the current route.
-     * This method is called with the controller for the current route and the
-     * model supplied by the `model` hook. By default, it renders the route's
-     * template, configured with the controller for the route.
-     * This method can be overridden to set up and render additional or
-     * alternative templates.
-     */
-    renderTemplate(controller: Controller, model: Model): void;
 
     /**
      * Transition into another route while replacing the current URL, if possible.

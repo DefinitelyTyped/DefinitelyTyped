@@ -23,23 +23,6 @@ Route.extend({
 });
 
 Route.extend({
-    actions: {
-        showModal(evt: { modalName: string }) {
-            this.render(evt.modalName, {
-                outlet: 'modal',
-                into: 'application',
-            });
-        },
-        hideModal(evt: { modalName: string }) {
-            this.disconnectOutlet({
-                outlet: 'modal',
-                parentView: 'application',
-            });
-        },
-    },
-});
-
-Route.extend({
     model() {
         return this.modelFor('post');
     },
@@ -48,35 +31,6 @@ Route.extend({
 Route.extend({
     queryParams: {
         memberQp: { refreshModel: true },
-    },
-});
-
-Route.extend({
-    renderTemplate() {
-        this.render('photos', {
-            into: 'application',
-            outlet: 'anOutletName',
-        });
-    },
-});
-
-Route.extend({
-    controllerName: 'photos',
-    templateName: 'anOutletName',
-    renderTemplate() {
-        this.render(); // Render using defaults
-    },
-});
-
-Route.extend({
-    renderTemplate(controller: Controller, model: {}) {
-        this.render('posts', {
-            view: 'someView', // the template to render, referenced by name
-            into: 'application', // the template to render into, referenced by name
-            outlet: 'anOutletName', // the outlet inside `options.into` to render into.
-            controller: 'someControllerName', // the controller to use for this template, referenced by name
-            model, // the model to set on `options.controller`.
-        });
     },
 });
 
@@ -219,10 +173,6 @@ class TypedRoute extends Route<ExampleModel> {
     setupController(controller: Controller, model: ExampleModel, transition: Transition) {
         controller.set('model', model);
     }
-
-    renderTemplate(controller: Controller, model: ExampleModel) {
-        this.render('template', { model });
-    }
 }
 
 interface InvalidModel { id: number; }
@@ -255,10 +205,5 @@ class InvalidTypedRoute extends Route<ExampleModel> {
     // $ExpectError
     setupController(controller: Controller, model: InvalidModel, transition: Transition) {
         controller.set('model', model);
-    }
-
-    // $ExpectError
-    renderTemplate(controller: Controller, model: InvalidModel) {
-        this.render('template', { model });
     }
 }
