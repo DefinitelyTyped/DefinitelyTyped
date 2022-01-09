@@ -497,7 +497,7 @@ declare namespace chrome.bookmarks {
          * Since Chrome 37.
          * Indicates the reason why this node is unmodifiable. The managed value indicates that this node was configured by the system administrator or by the custodian of a supervised user. Omitted if the node can be modified by the user and the extension (default).
          */
-        unmodifiable?: 'managed';
+        unmodifiable?: 'managed' | undefined;
     }
 
     export interface BookmarkRemoveInfo {
@@ -796,7 +796,7 @@ declare namespace chrome.browserAction {
 
     export interface TabIconDetails {
         /** Optional. Either a relative image path or a dictionary {size -> relative image path} pointing to icon to be set. If the icon is specified as a dictionary, the actual image to be used is chosen depending on screen's pixel density. If the number of image pixels that fit into one screen space unit equals scale, then image with size scale * 19 will be selected. Initially only scales 1 and 2 will be supported. At least one image must be specified. Note that 'details.path = foo' is equivalent to 'details.imageData = {'19': foo}'  */
-        path?: string | { [index: number]: string };
+        path?: string | { [index: string]: string } | undefined;
         /** Optional. Limits the change to when a particular tab is selected. Automatically resets when the tab is closed.  */
         tabId?: number | undefined;
         /** Optional. Either an ImageData object or a dictionary {size -> ImageData} representing icon to be set. If the icon is specified as a dictionary, the actual image to be used is chosen depending on screen's pixel density. If the number of image pixels that fit into one screen space unit equals scale, then image with size scale * 19 will be selected. Initially only scales 1 and 2 will be supported. At least one image must be specified. Note that 'details.imageData = foo' is equivalent to 'details.imageData = {'19': foo}'  */
@@ -1174,11 +1174,13 @@ declare namespace chrome.contentSettings {
         scope?: ScopeEnum | undefined;
     }
 
+    type DefaultContentSettingDetails = 'allow' | 'ask' | 'block' | 'detect_important_content' | 'session_only';
+
     export interface SetDetails {
         /** Optional. The resource identifier for the content type.  */
         resourceIdentifier?: ResourceIdentifier | undefined;
         /** The setting applied by this rule. See the description of the individual ContentSetting objects for the possible values. */
-        setting: 'allow' | 'ask' | 'block' | 'detect_important_content' | 'session_only';
+        setting: DefaultContentSettingDetails;
         /** Optional. The pattern for the secondary URL. Defaults to matching all URLs. For details on the format of a pattern, see Content Setting Patterns.  */
         secondaryPattern?: string | undefined;
         /** Optional. Where to set the setting (default: regular).  */
@@ -1252,7 +1254,7 @@ declare namespace chrome.contentSettings {
 
     export interface ReturnedDetails {
         /** The content setting. See the description of the individual ContentSetting objects for the possible values. */
-        setting: 'allow' | 'ask' | 'block' | 'detect_important_content' | 'session_only';
+        setting: DefaultContentSettingDetails;
     }
 
     export interface ContentSetting {
@@ -1590,7 +1592,7 @@ declare namespace chrome.contextMenus {
          */
         onclick?: ((info: OnClickData, tab: chrome.tabs.Tab) => void) | undefined;
         /** Optional. The ID of a parent menu item; this makes the item a child of a previously added item.  */
-        parentId?: number | string;
+        parentId?: number | string | undefined;
         /** Optional. The type of menu item. Defaults to 'normal' if not specified.  */
         type?: ContextItemType | undefined;
         /**
@@ -2088,11 +2090,11 @@ declare namespace chrome.declarativeContent {
 declare namespace chrome.declarativeWebRequest {
     export interface HeaderFilter {
         nameEquals?: string | undefined;
-        valueContains?: string | string[];
+        valueContains?: string | string[] | undefined;
         nameSuffix?: string | undefined;
         valueSuffix?: string | undefined;
         valuePrefix?: string | undefined;
-        nameContains?: string | string[];
+        nameContains?: string | string[] | undefined;
         valueEquals?: string | undefined;
         namePrefix?: string | undefined;
     }
@@ -3196,7 +3198,7 @@ declare namespace chrome.events {
         /** Optional. Matches if the URL (without fragment identifier) ends with a specified string. Port numbers are stripped from the URL if they match the default port number.  */
         urlSuffix?: string | undefined;
         /** Optional. Matches if the port of the URL is contained in any of the specified port lists. For example [80, 443, [1000, 1200]] matches all requests on port 80, 443 and in the range 1000-1200.  */
-        ports?: (number | number[])[];
+        ports?: (number | number[])[] | undefined;
         /**
          * Optional.
          * Since Chrome 28.
@@ -5712,7 +5714,7 @@ declare namespace chrome.pageAction {
          * Optional.
          * Either a relative image path or a dictionary {size -> relative image path} pointing to icon to be set. If the icon is specified as a dictionary, the actual image to be used is chosen depending on screen's pixel density. If the number of image pixels that fit into one screen space unit equals scale, then image with size scale * 19 will be selected. Initially only scales 1 and 2 will be supported. At least one image must be specified. Note that 'details.path = foo' is equivalent to 'details.imageData = {'19': foo}'
          */
-        path?: string | { [index: number]: string };
+        path?: string | { [index: string]: string } | undefined;
     }
 
     /**
@@ -6001,7 +6003,7 @@ declare namespace chrome.printerProvider {
 
     export interface PrinterCapabilities {
         /** Device capabilities in CDD format. */
-        capabilities: object;
+        capabilities: any;
     }
 
     export interface PrintJob {
@@ -6862,7 +6864,7 @@ declare namespace chrome.runtime {
             id?: string | undefined;
             description?: string | undefined;
             language?: string | undefined;
-            layouts?: string[];
+            layouts?: string[] | undefined;
         }[] | undefined;
         key?: string | undefined;
         minimum_chrome_version?: string | undefined;
@@ -9844,6 +9846,8 @@ declare namespace chrome.ttsEngine {
  * @since Chrome 13.
  */
 declare namespace chrome.types {
+    type settingsScope = 'regular' | 'regular_only' | 'incognito_persistent' | 'incognito_session_only' | undefined;
+
     export interface ChromeSettingClearDetails {
         /**
          * Optional.
@@ -9853,7 +9857,7 @@ declare namespace chrome.types {
          * • incognito_persistent: setting for the incognito profile that survives browser restarts (overrides regular preferences),
          * • incognito_session_only: setting for the incognito profile that can only be set during an incognito session and is deleted when the incognito session ends (overrides regular and incognito_persistent preferences).
          */
-        scope?: 'regular' | 'regular_only' | 'incognito_persistent' | 'incognito_session_only';
+        scope?: settingsScope;
     }
 
     export interface ChromeSettingSetDetails extends ChromeSettingClearDetails {
@@ -9870,7 +9874,7 @@ declare namespace chrome.types {
          * • incognito_persistent: setting for the incognito profile that survives browser restarts (overrides regular preferences),
          * • incognito_session_only: setting for the incognito profile that can only be set during an incognito session and is deleted when the incognito session ends (overrides regular and incognito_persistent preferences).
          */
-        scope?: 'regular' | 'regular_only' | 'incognito_persistent' | 'incognito_session_only';
+        scope?: settingsScope;
     }
 
     export interface ChromeSettingGetDetails {
@@ -10029,7 +10033,7 @@ declare namespace chrome.vpnProvider {
 declare namespace chrome.wallpaper {
     export interface WallpaperDetails {
         /** Optional. The jpeg or png encoded wallpaper image. */
-        data?: ArrayBuffer;
+        data?: ArrayBuffer | undefined;
         /** Optional. The URL of the wallpaper to be set. */
         url?: string | undefined;
         /**
