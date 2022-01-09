@@ -60,7 +60,7 @@ export interface ToISOTimeDurationOptions {
 }
 
 export interface ToHumanDurationOptions extends Intl.NumberFormatOptions {
-    listStyle?: string | undefined;
+    listStyle?: 'long' | 'short' | 'narrow' | undefined;
 }
 
 /**
