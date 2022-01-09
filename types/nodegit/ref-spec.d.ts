@@ -1,5 +1,5 @@
 export class Refspec {
-    static parse(input: string, is_fetch: number): Promise<nodeGit.Refspec>;
+    static parse(input: string, is_fetch: number): Promise<Refspec>;
     direction(): number;
     dst(): string;
     dstMatches(refname: string): number;

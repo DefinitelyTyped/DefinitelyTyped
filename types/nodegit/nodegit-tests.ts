@@ -171,6 +171,6 @@ Git.Refspec.parse('+refs/heads/*:refs/remotes/origin/*', 0).then(refspec => {
     refspec.dstMatches('+refs/heads/*'); // $ExpectType number
     refspec.force(); // $ExpectType number
     refspec.src(); // $ExpectType string
-    refspec.srcMatches(); // $ExpectType number
+    refspec.srcMatches('refs/remotes/origin/*'); // $ExpectType number
     refspec.string(); // $ExpectType string
 });
