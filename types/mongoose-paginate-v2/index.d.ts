@@ -87,4 +87,9 @@ declare function _(schema: mongoose.Schema): void;
 export = _;
 declare namespace _ {
     const paginate: { options: mongoose.PaginateOptions };
+    class PaginationParameters<TRequest> {
+        constructor(request: TRequest);
+
+        get: () => [object, mongoose.PaginateOptions];
+    }
 }
