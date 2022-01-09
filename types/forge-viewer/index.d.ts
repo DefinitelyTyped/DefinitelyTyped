@@ -1,5 +1,5 @@
-// Type definitions for non-npm package Forge Viewer 7.55
-// Project: https://forge.autodesk.com/en/docs/viewer/v7/reference/javascript/viewer3d/
+// Type definitions for non-npm package Forge Viewer 7.59
+// Project: https://forge.autodesk.com/en/docs/viewer/v7/developers_guide/overview/
 // Definitions by: Autodesk Forge Partner Development <https://github.com/Autodesk-Forge>
 //                 Alan Smith <https://github.com/alansmithnbs>
 //                 Jan Liska <https://github.com/liskaj>
@@ -409,6 +409,7 @@ declare namespace Autodesk {
           multiViewerFactory?: any;
           propagateInputEventTypes?: string[] | undefined;
           unloadUnfinishedModels?: boolean | undefined;
+          useConsolidation?: boolean;
           useDynamicGlobalOffset?: boolean | undefined;
           viewerConfig?: any;
           viewerStartOptions?: any;
@@ -426,7 +427,7 @@ declare namespace Autodesk {
           fetchAlignmentsForNodes(nodes: BubbleNode[]): any;
           getFloorSelector(): any;
           getModel(node: BubbleNode): Model;
-          getModelAndWait(node: BubbleNode): Promise<Model>;
+          getModelAndWait(node: BubbleNode, checkIfVisible?: boolean): Promise<Model>;
           getVisibleNodes(): BubbleNode[];
           hide(node: BubbleNode): void;
           hideAll(): void;
@@ -725,7 +726,7 @@ declare namespace Autodesk {
             geomPolyCount(): number;
             getDefaultCamera(): THREE.Camera;
             getDisplayUnit(): string;
-            getDocumentNode(): any;
+            getDocumentNode(): BubbleNode;
             getDoNotCut(): boolean;
             getExternalIdMapping(onSuccessCallback: (idMapping: { [key: string]: number; }) => void, onErrorCallback: () => void): any;
             getFastLoadList(): any;
@@ -939,7 +940,7 @@ declare namespace Autodesk {
         }
 
         class ToolInterface {
-            getCursor(): string;
+            getCursor?(): string;
             getName(): string;
             getNames(): string[];
             register(): void;
@@ -947,19 +948,19 @@ declare namespace Autodesk {
             activate(name: string, viewerApi?: GuiViewer3D): void;
             deactivate(name: string): void;
             update(highResTimestamp?: number): boolean;
-            handleSingleClick(event: MouseEvent, button: number): boolean;
-            handleDoubleClick(event: MouseEvent, button: number): boolean;
-            handleSingleTap(event: Event): boolean;
-            handleDoubleTap(event: Event): boolean;
-            handleKeyDown(event: KeyboardEvent, keyCode: number): boolean;
-            handleKeyUp(event: KeyboardEvent, keyCode: number): boolean;
-            handleWheelInput(delta: number): boolean;
-            handleButtonDown(event: MouseEvent, button: number): boolean;
-            handleButtonUp(event: MouseEvent, button: number): boolean;
-            handleMouseMove(event: MouseEvent): boolean;
-            handleGesture(event: Event): boolean;
-            handleBlur(event: Event): boolean;
-            handleResize(): void;
+            handleSingleClick?(event: MouseEvent, button: number): boolean;
+            handleDoubleClick?(event: MouseEvent, button: number): boolean;
+            handleSingleTap?(event: Event): boolean;
+            handleDoubleTap?(event: Event): boolean;
+            handleKeyDown?(event: KeyboardEvent, keyCode: number): boolean;
+            handleKeyUp?(event: KeyboardEvent, keyCode: number): boolean;
+            handleWheelInput?(delta: number): boolean;
+            handleButtonDown?(event: MouseEvent, button: number): boolean;
+            handleButtonUp?(event: MouseEvent, button: number): boolean;
+            handleMouseMove?(event: MouseEvent): boolean;
+            handleGesture?(event: Event): boolean;
+            handleBlur?(event: Event): boolean;
+            handleResize?(): void;
         }
 
         class UnifiedCamera extends THREE.Camera {
@@ -1061,14 +1062,19 @@ declare namespace Autodesk {
             constructor(container: HTMLElement, config?: Viewer3DConfig);
 
             canvas: HTMLCanvasElement;
+            canvasWrap: HTMLElement;
+            clientContainer: HTMLElement;
             config: Viewer3DConfig;
             container: HTMLElement;
             navigation: Navigation;
             id: number;
             impl: Private.Viewer3DImpl;
+            loadedExtensions: { [key: string]: Extension };
             model: Model;
             prefs: Private.ViewerPreferences;
+            running: boolean;
             started: boolean;
+            theme: string;
             toolbar: UI.ToolBar;
 
             start(urn?: string, onSuccesfullCallback?: () => void, onErrorCallback?: (errorCode: number, errorMessage: string, statusCode: number, statusText: string) => void): any;
@@ -1114,6 +1120,7 @@ declare namespace Autodesk {
             getIsolatedNodes(): number[];
             isolate(node?: number[]|number, model?: Model): void;
             setBackgroundColor(red: number, green: number, blue: number, red2: number, green2: number, blue2: number): void;
+            setBackgroundOpacity(opacity: number): void;
             toggleSelect(dbId: number, model: Model, selectionType: number): void;
             select(dbIds?: number[]|number, model?: Model, selectionType?: number): void;
             clearSelection(): void;
@@ -1228,6 +1235,7 @@ declare namespace Autodesk {
             isSelectionDisabled(): boolean;
             loadExtension(extensionId: string, options?: object): Promise<Extension>;
             getExtension(extensionId: string, callback?: (ext: Extension) => void): Extension;
+            getExtensionAsync(extensionId: string): Promise<Extension>;
             unloadExtension(extensionId: string): boolean;
             loadExtensionAsync(extensionId: string, url: string, options?: object): Promise<Extension>;
             forEachExtension(callback: (ext: Extension) => void): void;
@@ -1235,7 +1243,7 @@ declare namespace Autodesk {
             deactivateExtension(extensionId: string): boolean;
             isExtensionActive(extensionId: string, mode: string): boolean;
             isExtensionLoaded(extensionId: string): boolean;
-            getLoadedExtensions(): string[];
+            getLoadedExtensions(): { [key: string]: Extension };
             getExtensionModes(extensionId: string): string[];
             reorderElements(element: object): void;
             appendOrderedElementToViewer(layerOrderId: string): void;
@@ -1254,12 +1262,12 @@ declare namespace Autodesk {
         }
 
         class GuiViewer3D extends Viewer3D {
-            toolController: ToolController;
             autocam: any;
-            progressbar: any;
-            utilities: ViewingUtilities;
             dockingPanels: any;
             overlays: OverlayManager;
+            progressbar: Private.ProgressBar;
+            toolController: ToolController;
+            utilities: ViewingUtilities;
 
             addPanel(panel: UI.DockingPanel): boolean;
             createDebugSubmenu(button: UI.Button): void;
@@ -1370,6 +1378,36 @@ declare namespace Autodesk {
           class ViewerPropertyPanel extends UI.PropertyPanel {
             constructor(viewer: GuiViewer3D);
             currentNodeIds: object[];
+          }
+
+          namespace Multipage {
+            namespace Events {
+              const FocusedPageChanged = 'focusedPageChanged';
+              const PageLoaded = 'pageLoaded';
+            }
+
+            class MultipageExtension extends Extension {
+              constructor(viewer: Viewer3D, options?: any);
+
+              focusedPage: any;
+              mode: string;
+              modes: string[];
+              multipageTool: ToolInterface;
+              name: string;
+
+              focusFirstPage(): string;
+              focusLastPage(): string;
+              focusNextPage(): string;
+              focusOnPage(pageToFocus: any, immediate?: boolean): string;
+              focusPrevPage(): string;
+              getAllPages(): any[];
+              getCurrentPageIndex(): number;
+              getFocusedPage(): any;
+              getNearestPages(): any[];
+              isPageLoaded(page: any): boolean;
+              isPageInView(page: any): boolean;
+              loadFocusedPage(): Promise<void>;
+            }
           }
 
           namespace PDF {
@@ -1685,6 +1723,12 @@ declare namespace Autodesk {
               webStorage(name: string, value: any): any;
             }
 
+            class ProgressBar {
+                lastValue: number;
+
+                setPercent(pct: number): void;
+            }
+
             class BoundsCallback implements GeometryCallback {
               constructor(bounds: THREE.Box3);
 
@@ -1876,6 +1920,7 @@ declare namespace Autodesk {
                 setViewFromCamera(camera: THREE.Camera, skipTransition?: boolean, useExactCamera?: boolean): void;
                 setViewportBounds(model: Model, bounds?: THREE.Box3|THREE.Box2): void;
                 syncCamera(syncWorldUp?: boolean): void;
+                tick(highResTimeStamp: number): void;
                 viewportToRay(vpVec: THREE.Vector3, ray?: THREE.Ray, camera?: any): THREE.Ray;
                 worldToClient(pos: THREE.Vector3): THREE.Vector3;
                 worldUp(): THREE.Vector3;
@@ -2841,6 +2886,7 @@ declare namespace Autodesk {
         datavizDotOverlay: any;
         deviceDepthOcclusion: boolean;
         hasViewables: boolean;
+        surfaceShading: DataVisualization.Core.SurfaceShading;
         streamLineBuilder: DataVisualization.Core.StreamLineBuilder;
 
         constructor(viewer: Viewing.Viewer3D, options?: {

@@ -13,6 +13,9 @@ const options: babel.TransformOptions = {
         sourceRoot: '',
         sourcesContent: ['foo'],
     },
+    browserslistEnv: 'last 1 chrome version',
+    browserslistConfigFile: false,
+    cloneInputAst: false,
 };
 
 babel.transform('code();', options, (err, result) => {

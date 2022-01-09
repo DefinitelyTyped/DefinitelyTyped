@@ -176,9 +176,11 @@ declare namespace formidable {
          *
          * @default undefined
          */
-        filename?: (name: string, ext: string, part: string, form: string) => string | undefined;
+        filename?: (name: string, ext: string, part: Part, form: Formidable) => string;
 
         enabledPlugins?: string[] | undefined;
+
+        filter?: (part: Part) => boolean;
     }
 
     interface Fields {
@@ -189,10 +191,9 @@ declare namespace formidable {
     }
 
     interface Part extends Stream {
-        filename?: string | undefined;
-        headers: Record<string, string>;
-        mime?: string | undefined;
-        name: string;
+        name: string | null;
+        originalFilename: string | null;
+        mimetype: string | null;
     }
 
     /**
@@ -225,7 +226,7 @@ declare namespace formidable {
         /**
          * Calculated based on options provided
          */
-        newFilename: string | null;
+        newFilename: string;
 
         /**
          * The mime type of this file, according to the uploading client.

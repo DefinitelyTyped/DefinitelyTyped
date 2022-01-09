@@ -2,7 +2,7 @@ declare module 'meteor/check' {
     /**
      * The namespace for all Match types and methods.
      */
-    module Match {
+    namespace Match {
         interface Matcher<T> {
             _meteorCheckMatcherBrand: void;
         }

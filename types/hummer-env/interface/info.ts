@@ -1,32 +1,101 @@
 export type fingerEvent = 'touch' | 'tab' | 'longPress' | 'pan' | 'swiper' | 'pinch' | 'input' | 'scroll' | 'switch';
 
 export interface viewRect {
+    /**
+     * @summary 控件宽度
+     */
     width: number; // 控件宽度
+    /**
+     * @summary 控件高度
+     */
     height: number; // 控件高度
+    /**
+     * @summary 控件左边框相对于父容器左边框的坐标
+     */
     left: number; // 控件左边框相对于父容器左边框的坐标
+    /**
+     * @summary 控件右边框相对于父容器左边框的坐标
+     */
     right: number; // 控件右边框相对于父容器左边框的坐标
+    /**
+     * @summary 控件上边框相对于父容器上边框的坐标
+     */
     top: number; // 控件上边框相对于父容器上边框的坐标
-    bottom: number; // 控件下边框相对于父容器上边框的坐标
-    windowLeft: number; // 控件左边框相对于屏幕左边缘的坐标
-    windowRight: number; // 控件右边框相对于屏幕左边缘的坐标
-    windowTop: number; // 控件上边框相对于屏幕上边缘的坐标
-    windowBottom: number; // 控件下边框相对于屏幕上边缘的坐标
+    /**
+     * @summary 控件下边框相对于父容器上边框的坐标
+     */
+    bottom: number;
+    /**
+     * @summary 控件左边框相对于屏幕左边缘的坐标
+     */
+    windowLeft: number;
+    /**
+     * @summary 控件右边框相对于屏幕左边缘的坐标
+     */
+    windowRight: number;
+    /**
+     * @summary 控件上边框相对于屏幕上边缘的坐标
+     */
+    windowTop: number;
+    /**
+     * @summary 控件下边框相对于屏幕上边缘的坐标
+     */
+    windowBottom: number;
 }
 
 interface rickTextProps {
+    /**
+     * @summary color: '#FF0000'
+     */
     color?: string; // color: '#000000'
-    backgroundColor?: string; // color: '#FF0000'
-    fontFamily?: string; // fontFamily: 'Times New Roman'
-    fontSize?: number | string; // fontSize: 16 | '48px'
-    fontWeight?: string; // fontWeight: 'normal' | 'bold'
-    fontStyle?: string; // fontWeight: 'normal' | 'italic'
-    textDecoration?: string; // textDecoration: 'none' | 'underline' | 'line-through'
-    image?: string; // image: 'http://xxx/test.jpg'
-    imageWidth?: number | string; // imageWidth: 100 | '100px'
-    imageHeight?: number | string; // imageHeight: 100 | '100px'
-    imageAlign?: string; // imageAlign: 'baseline' | 'top' | 'center' | 'bottom'
-    href?: string; // href: 'http://hummer.didi.cn'
-    hrefColor?: string; // hrefColor: '#0000FF'
+    /**
+     * @summary backgroundColor: "#ff0000"
+     */
+    backgroundColor?: string;
+    /**
+     * @summary fontFamily: 'Times New Roman'
+     */
+    fontFamily?: string;
+    /**
+     * @summary fontSize: 16 | '48px'
+     */
+    fontSize?: number | string;
+    /**
+     * @summary fontWeight: 'normal' | 'bold'
+     */
+    fontWeight?: string;
+    /**
+     * @summary fontWeight: 'normal' | 'italic'
+     */
+    fontStyle?: string;
+    /**
+     * @summary textDecoration: 'none' | 'underline' | 'line-through'
+     */
+    textDecoration?: string;
+    /**
+     * @summary image: 'http://xxx/test.jpg'
+     */
+    image?: string;
+    /**
+     * @summary imageWidth: 100 | '100px'
+     */
+    imageWidth?: number | string;
+    /**
+     * @summary imageHeight: 100 | '100px'
+     */
+    imageHeight?: number | string;
+    /**
+     * @summary imageAlign: 'baseline' | 'top' | 'center' | 'bottom'
+     */
+    imageAlign?: string;
+    /**
+     * @summary href: 'http://hummer.didi.cn'
+     */
+    href?: string;
+    /**
+     * @summary hrefColor: '#0000FF'
+     */
+    hrefColor?: string;
 }
 
 export type rickTextType = string | rickTextProps | Array<string | rickTextProps>;
@@ -37,27 +106,71 @@ export interface buttonStatusProps {
 }
 
 export interface imageStyle {
-    src?: string; // 图片路径
-    placeholder?: string; // 占位图片
-    failedImage?: string; // 失败图片
-    gifSrc?: string; // Gif图路径
-    gifRepeatCount?: number; // Gif图重复次数
+    /**
+     * @summary 图片路径
+     */
+    src?: string;
+    /**
+     * @summary 占位图片
+     */
+    placeholder?: string;
+    /**
+     * @summary 失败图片
+     */
+    failedImage?: string;
+    /**
+     * @summary Gif图路径
+     */
+    gifSrc?: string;
+    /**
+     * @summary Gif图重复次数
+     */
+    gifRepeatCount?: number;
 }
 
 export interface JumpPageInfo {
+    /**
+     * @summary 页面Url，以 scheme://xxx/yyy 的形式传入
+     */
     url: string;
-    param?: unknown;
+    /**
+     * 页面间传递的参数
+     */
+    params?: {
+        [key: string]: string | number;
+    };
+    /**
+     * 是否需要转场动画（默认是true）
+     */
     animated?: boolean;
+    /**
+     * 页面唯一标示，可以不传，当需要pop到该页面时，需要指定page的id
+     */
     id?: string;
+    /**
+     * 打开页面时是否关闭自身
+     */
     closeSelf?: boolean;
 }
 
 export interface RequestResponse {
+    /**
+     * @summary 状态码
+     */
     status: number;
+    /**
+     * @summary 请求头
+     */
     header: {
         [key: string]: string | number;
     };
+    /**
+     * @summary 响应数据
+     */
     data: any;
+    /**
+     * @summary 请求错误信息
+     */
     error: {
         code: number;
         msg: string;
@@ -109,11 +222,32 @@ export interface WebSocketCloseEvent {
 }
 
 export interface LocationInfo {
-    latitude: number; // 纬度
-    longitude: number; // 经度
-    altitude: number; // 海拔（单位：米）
-    accuracy: number; // 精确度（单位：米）
-    speed: number; // 速度（单位：米/秒）
-    bearing: number; // 方向角（单位：度，范围是0~360度）
-    timestamp: number; // 时间戳
+    /**
+     * @summary 纬度
+     */
+    latitude: number;
+    /**
+     * @summary 经度
+     */
+    longitude: number;
+    /**
+     * @summary 海拔（单位：米）
+     */
+    altitude: number;
+    /**
+     * @summary 精确度（单位：米）
+     */
+    accuracy: number;
+    /**
+     * @summary 速度（单位：米/秒）
+     */
+    speed: number;
+    /**
+     * @summary 方向角（单位：度，范围是0~360度）
+     */
+    bearing: number;
+    /**
+     * @summary 时间戳
+     */
+    timestamp: number;
 }

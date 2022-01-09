@@ -1103,7 +1103,7 @@ export namespace SVG {
     function create<K extends keyof SVGElementTagNameMap>(name: K): SVGElementTagNameMap[K];
     function create(name: string): SVGElement;
 
-    function pointsToPath(rings: PointExpression[], close: boolean): string;
+    function pointsToPath(rings: PointExpression[], closed: boolean): string;
 }
 
 export function svg(options?: RendererOptions): SVG;

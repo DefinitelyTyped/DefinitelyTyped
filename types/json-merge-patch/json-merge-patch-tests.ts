@@ -8,61 +8,61 @@ var assert = {deepEqual: function (a: Object, b: Object) {
 }};
 
 assert.deepEqual(
-    // $ExpectType ValidJson
+    // $ExpectType { a: string; b?: undefined; } | { b: string; a?: undefined; }
     merge({a: 'b'}, {b: 'c'}),
     {a: 'b', b: 'c'}
 );
 
 assert.deepEqual(
-    // $ExpectType ValidJson
+    // $ExpectType { a: string; }
     merge({a: 'b'}, {a: 'c'}),
     {a: 'c'}
 );
 
 assert.deepEqual(
-    // $ExpectType ValidJson
+    // $ExpectType { a: string; b: string; } | { a: string; b?: undefined; }
     merge({a: 'b', b: 'd'}, {a: 'c'}),
     {a: 'c', b: 'd'}
 );
 
 assert.deepEqual(
-    // $ExpectType ValidJson
+    // $ExpectType { a: any; b?: undefined; } | { b: string; a?: undefined; }
     merge({a: null}, {b: 'c'}),
     {a: null, b: 'c'}
 );
 
 assert.deepEqual(
-    // $ExpectType ValidJson
+    // $ExpectType { a: string; }
     merge({a: null}, {a: 'b'}),
     {a: 'b'}
 );
 
 assert.deepEqual(
-    // $ExpectType ValidJson
+    // $ExpectType { a: string; }
     merge({a: 'b'}, {a: null}),
     {a: null}
 );
 
 assert.deepEqual(
-    // $ExpectType ValidJson
+    // $ExpectType any[] | { a: string; }
     merge([], {a: 'b'}),
     {a: 'b'}
 );
 
 assert.deepEqual(
-    // $ExpectType ValidJson
+    // $ExpectType any[] | { a: string; }
     merge({a: 'b'}, []),
     []
 );
 
 assert.deepEqual(
-    // $ExpectType ValidJson
+    // $ExpectType { a: { b: { c: string; }; }; d: string; } | { a: { b: string; }; d?: undefined; }
     merge({a: {b: {c: 'd'}}, d: 'e'}, {a: {b: 'a'}}),
     {a: {b: 'a'}, d: 'e'}
 );
 
 assert.deepEqual(
-    // $ExpectType ValidJson
+    // $ExpectType { a: { b: { c: string; }; d: string; }; } | { a: { b: { c: string; }; d?: undefined; }; }
     merge({a: {b: {c: 'd'}, d: 'e'}}, {a: {b: {c: 'e'}}}),
     {a: {b: {c: 'e'}, d: 'e'}}
 );
@@ -74,61 +74,61 @@ assert.deepEqual(
 );
 
 assert.deepEqual(
-    // $ExpectType ValidJson
+    // $ExpectType { a: string; }
     generate({a: 'b'}, {a: 'c'}),
     {a: 'c'}
 );
 
 assert.deepEqual(
-    // $ExpectType ValidJson
+    // $ExpectType { a: string; b: string; }
     generate({a: 'b'}, { a: 'b', b: 'c'}),
     {b: 'c'}
 );
 
 assert.deepEqual(
-    // $ExpectType ValidJson
+    // $ExpectType {}
     generate({a: 'b'}, {}),
     {a: null}
 );
 
 assert.deepEqual(
-    // $ExpectType ValidJson
+    // $ExpectType { b: string; }
     generate({a: 'b', b: 'c'}, {b: 'c'}),
     {a: null}
 );
 
 assert.deepEqual(
-    // $ExpectType ValidJson
+    // $ExpectType { a: string; }
     generate({a: ['b']}, {a: 'c'}),
     {a: 'c'}
 );
 
 assert.deepEqual(
-    // $ExpectType ValidJson
+    // $ExpectType { a: string[]; }
     generate({a: 'c'}, {a: ['b']}),
     {a: ['b']}
 );
 
 assert.deepEqual(
-    // $ExpectType ValidJson
+    // $ExpectType { a: number[]; }
     generate({a: [{b: 'c'}]}, {a: [1]}),
     {a: [1]}
 );
 
 assert.deepEqual(
-    // $ExpectType ValidJson
+    // $ExpectType string[]
     generate(['a', 'b'], ['c', 'd']),
     ['c', 'd']
 );
 
 assert.deepEqual(
-    // $ExpectType ValidJson
+    // $ExpectType string[]
     generate(['a', 'b'], ['a']),
     ['a']
 );
 
 assert.deepEqual(
-    // $ExpectType ValidJson
+    // $ExpectType string[]
     generate({a: 'b'}, ['c']),
     ['c']
 );
@@ -140,91 +140,85 @@ assert.deepEqual(
 );
 
 assert.deepEqual(
-    // $ExpectType JsonValue
-    generate({a: 'foo'}, 'bar'),
+    // $ExpectType string
+    generate({a: 'foo'}, 'bar' as string),
     'bar'
 );
 
 assert.deepEqual(
-    // $ExpectType ValidJson
+    // $ExpectType { e: any; a: number; }
     generate({e: null}, {e: null, a: 1}),
     {a: 1}
 );
 
 assert.deepEqual(
-    // $ExpectType ValidJson
+    // $ExpectType { a: { bb: {}; }; }
     generate({}, {a: {bb: {}}}),
     {a: {bb: {}}}
 );
 
 assert.deepEqual(
-    // $ExpectType ValidJson
+    // $ExpectType { a: string; }
     generate({a: 'a'}, {a: 'a'}),
     undefined
 );
 
 assert.deepEqual(
-    // $ExpectType ValidJson
+    // $ExpectType { a: { b: string; }; }
     generate({a: {b: 'c'}}, {a: {b: 'c'}}),
     undefined
 );
 
 assert.deepEqual(
-    // $ExpectType ValidJson
+    // $ExpectType { a: string; }
     apply({a: 'b'}, {a: 'c'}),
     {a: 'c'}
 );
 
 assert.deepEqual(
-    // $ExpectType ValidJson
+    // $ExpectType { b: string; }
     apply({a: 'b'}, {b: 'c'}),
     {a: 'b', b: 'c'}
 );
 
 assert.deepEqual(
-    // $ExpectType ValidJson
+    // $ExpectType { a: any; }
     apply({a: 'b'}, {a: null}),
     {}
 );
 
 assert.deepEqual(
-    // $ExpectType ValidJson
-    apply({a: 'b', b: 'c'}, {a: null}),
-    {b: 'c'}
-);
-
-assert.deepEqual(
-    // $ExpectType ValidJson
+    // $ExpectType { a: string; }
     apply({a: ['b']}, {a: 'c'}),
     {a: 'c'}
 );
 
 assert.deepEqual(
-    // $ExpectType ValidJson
+    // $ExpectType { a: string[]; }
     apply({a: 'c'}, {a: ['b']}),
     {a: ['b']}
 );
 
 assert.deepEqual(
-    // $ExpectType ValidJson
+    // $ExpectType { a: { b: string; c: any; }; }
     apply({a: {b: 'c'}}, {a: {b: 'd', c: null}}),
     {a: {b: 'd'}}
 );
 
 assert.deepEqual(
-    // $ExpectType ValidJson
+    // $ExpectType { a: number[]; }
     apply({a: [{b: 'c'}]}, {a: [1]}),
     {a: [1]}
 );
 
 assert.deepEqual(
-    // $ExpectType ValidJson
+    // $ExpectType string[]
     apply(['a', 'b'], ['c', 'd']),
     ['c', 'd']
 );
 
 assert.deepEqual(
-    // $ExpectType ValidJson
+    // $ExpectType string[]
     apply({a: 'b'}, ['c']),
     ['c']
 );
@@ -236,25 +230,25 @@ assert.deepEqual(
 );
 
 assert.deepEqual(
-    // $ExpectType JsonValue
-    apply({a: 'foo'}, 'bar'),
+    // $ExpectType string
+    apply({a: 'foo'}, 'bar' as string),
     'bar'
 );
 
 assert.deepEqual(
-    // $ExpectType ValidJson
+    // $ExpectType { a: number; }
     apply({e: null}, {a: 1}),
     {e: null, a: 1}
 );
 
 assert.deepEqual(
-    // $ExpectType ValidJson
+    // $ExpectType { a: string; c: any; }
     apply([1, 2], {a: 'b', c: null}),
     {a: 'b'}
 );
 
 assert.deepEqual(
-    // $ExpectType ValidJson
+    // $ExpectType { a: { bb: { ccc: any; }; }; }
     apply({}, {a: {bb: {ccc: null}}}),
     {a: {bb: {}}}
 );

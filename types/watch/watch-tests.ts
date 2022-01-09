@@ -20,12 +20,18 @@ watch.unwatchTree('/some_path');
 watch.createMonitor('/home/mikeal', (monitor) => {
     monitor.files['/home/mikeal/.zshrc']; // Stat object for my zshrc.
     monitor.on("created", (f, stat) => {
+        // $ExpectType string
+        f;
         // Handle new files
     });
     monitor.on("changed", (f, curr, prev) => {
+        // $ExpectType string
+        f;
         // Handle file changes
     });
     monitor.on("removed", (f, stat) => {
+        // $ExpectType string
+        f;
         // Handle removed files
     });
     monitor.stop(); // Stop watching
@@ -34,4 +40,14 @@ watch.createMonitor('/home/mikeal', (monitor) => {
 watch.createMonitor('/some/path', {
     ignoreDotFiles: true
 }, (monitor: watch.Monitor) => {
+});
+
+watch.walk('/some/path', (err, files) => {});
+watch.walk('/some/path', {
+    ignoreDirectoryPattern: /ignore/
+}, (err, files) => {
+    // $ExpectType Error | null
+    err;
+    // $ExpectType Files | undefined
+    files;
 });

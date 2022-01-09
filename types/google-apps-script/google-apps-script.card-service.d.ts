@@ -281,7 +281,12 @@ declare namespace GoogleAppsScript {
       newDatePicker(): DatePicker;
       newDateTimePicker(): DateTimePicker;
       newDecoratedText(): DecoratedText;
+      newDivider(): Divider;
       newDriveItemsSelectedActionResponseBuilder(): DriveItemsSelectedActionResponseBuilder;
+      /**
+       * Creates a new EditorFileScopeActionResponseBuilder.
+       */
+      newEditorFileScopeActionResponseBuilder(): EditorFileScopeActionResponseBuilder;
       newFixedFooter(): FixedFooter;
       newIconImage(): IconImage;
       /**
@@ -313,6 +318,7 @@ declare namespace GoogleAppsScript {
       newTextButton(): TextButton;
       newTextInput(): TextInput;
       newTextParagraph(): TextParagraph;
+      newTimePicker(): TimePicker;
       newUniversalActionResponseBuilder(): UniversalActionResponseBuilder;
       newUpdateDraftActionResponseBuilder(): UpdateDraftActionResponseBuilder;
       newUpdateDraftBccRecipientsAction(): UpdateDraftBccRecipientsAction;
@@ -689,6 +695,25 @@ declare namespace GoogleAppsScript {
       printJson(): string;
     }
     /**
+     * An input field that allows users to input a time.
+     *
+     *     // A time picker with default value of 3:30 PM.
+     *     var dateTimePicker = CardService.newTimePicker()
+     *         .setTitle("Enter the time.")
+     *         .setFieldName("time_field")
+     *         .setHours(15)
+     *         .setMinutes(30)
+     *         .setOnChangeAction(CardService.newAction()
+     *             .setFunctionName("handleTimeChange"));
+     */
+    interface TimePicker {
+      setFieldName(fieldName: string): TimePicker;
+      setHours(hours: number): TimePicker;
+      setMinutes(hours: number): TimePicker;
+      setOnChangeAction(action: Action): TimePicker;
+      setTitle(title: string): TimePicker;
+    }
+    /**
      * A builder for the UniversalActionResponse objects.
      */
     interface UniversalActionResponseBuilder {
@@ -851,6 +876,13 @@ declare namespace GoogleAppsScript {
       setText(text: string): DecoratedText;
       setTopLabel(text: string): DecoratedText;
       setWrapText(wrapText: boolean): DecoratedText;
+    }
+
+    /**
+     * A horizontal divider.
+     */
+    // tslint:disable-next-line:no-empty-interface
+    interface Divider {
     }
 
     /**
@@ -1040,6 +1072,29 @@ declare namespace GoogleAppsScript {
      */
     interface DriveItemsSelectedActionResponse {
       printJson(): string;
+    }
+
+    /**
+     * Makes changes to an Editor, such as Google Docs, Sheets, or Slides in reaction to an action taken in the UI.
+     */
+    interface EditorFileScopeActionResponse {
+        /**
+         * Prints the JSON representation of this object.
+         */
+        printJson(): string;
+    }
+    /**
+     * A builder for EditorFileScopeActionResponse objects.
+     */
+    interface EditorFileScopeActionResponseBuilder {
+        /**
+         * Builds the current Editor action response.
+         */
+        build(): EditorFileScopeActionResponse;
+        /**
+         * Requests the drive.file scope for the current active Editor document.
+         */
+        requestFileScopeForActiveDocument(): EditorFileScopeActionResponseBuilder;
     }
 
     /**

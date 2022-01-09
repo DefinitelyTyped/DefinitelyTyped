@@ -164,6 +164,9 @@ n = poly.getNumInteriorRing();
 var gjw: jsts.io.GeoJSONWriter = new jsts.io.GeoJSONWriter();
 obj = gjw.write(g);
 
+var gjr: jsts.io.GeoJSONReader = new jsts.io.GeoJSONReader(factory);
+g = gjr.read(obj);
+
 var wr: jsts.io.WKTReader = new jsts.io.WKTReader();
 g = wr.read(str);
 wr.reducePrecision(g);
@@ -294,3 +297,24 @@ var densifier: jsts.densify.Densifier = new jsts.densify.Densifier(g);
 densifier.setDistanceTolerance(n);
 g = densifier.getResultGeometry();
 g = jsts.densify.Densifier.densify(g, n);
+
+var li = new jsts.algorithm.LineIntersector();
+n = jsts.algorithm.LineIntersector.computeEdgeDistance(c, c, c);
+n = jsts.algorithm.LineIntersector.nonRobustComputeEdgeDistance(c, c, c);
+li.setPrecisionModel(precisionModel);
+c = li.getEndpoint(n, n);
+li.computeIntersection(c, c, c, c);
+str = li.toString();
+bool = li.hasIntersection();
+n = li.getIntersectionNum();
+c = li.getIntersection(n);
+bool = li.isIntersection(c);
+bool = li.isInteriorIntersection(n);
+bool = li.isProper();
+c = li.getIntersectionAlongSegment(n, n);
+n = li.getIndexAlongSegment(n, n);
+n = li.getEdgeDistance(n, n);
+
+var rli = new jsts.algorithm.RobustLineIntersector();
+rli.computeIntersection(c, c, c);
+rli.computeIntersection(c, c, c, c);

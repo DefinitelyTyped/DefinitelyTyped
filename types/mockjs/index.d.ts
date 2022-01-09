@@ -80,7 +80,7 @@ declare namespace mockjs {
 
         // Random.now
         now(util: RandomDateUtilString, format?: S): S;
-        mow(format?: S): S;
+        now(format?: S): S;
     }
 
     // Mockjs.Random - Image

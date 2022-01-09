@@ -237,6 +237,15 @@ CardService.newDecoratedText().setText(""); // $ExpectType DecoratedText
 CardService.newDecoratedText().setTopLabel(""); // $ExpectType DecoratedText
 CardService.newDecoratedText().setWrapText(true); // $ExpectType DecoratedText
 
+CardService.newDivider(); // $ExpectType Divider
+
+CardService.newTimePicker(); // $ExpectType TimePicker
+CardService.newTimePicker().setFieldName(""); // $ExpectType TimePicker
+CardService.newTimePicker().setHours(0); // $ExpectType TimePicker
+CardService.newTimePicker().setMinutes(0); // $ExpectType TimePicker
+CardService.newTimePicker().setOnChangeAction(CardService.newAction()); // $ExpectType TimePicker
+CardService.newTimePicker().setTitle(""); // $ExpectType TimePicker
+
 DriveApp.createShortcut("").getTargetId();
 DriveApp.createFile("", "").moveTo(DriveApp.getFolderById(""));
 
@@ -561,4 +570,18 @@ const makeGrid = ({ items, ...options}: GridOptions) => {
         .setTitle('My Grid');
 
     return grid;
+};
+
+const handleScopeAction = () => {
+    // $ExpectType EditorFileScopeActionResponseBuilder
+    const builder = CardService.newEditorFileScopeActionResponseBuilder();
+    builder.requestFileScopeForActiveDocument();
+
+    // $ExpectType EditorFileScopeActionResponse
+    const response = builder.build();
+
+    // $ExpectType string
+    const serialized = response.printJson();
+
+    return serialized;
 };
