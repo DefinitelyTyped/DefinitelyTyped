@@ -1,7 +1,6 @@
 // Type definitions for relay-runtime 12.0
 // Project: https://github.com/facebook/relay, https://facebook.github.io/relay
 // Definitions by: Eloy Durán <https://github.com/alloy>
-//                 Stephen Pittman <https://github.com/Stephen2>
 //                 Marais Rossouw <https://github.com/maraisr>
 //                 Lorenzo Di Giacomo <https://github.com/morrys>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
