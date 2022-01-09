@@ -59,25 +59,8 @@ export interface ToISOTimeDurationOptions {
     format?: ToISOFormat | undefined;
 }
 
-export interface ToHumanDurationOptions {
+export interface ToHumanDurationOptions extends Intl.NumberFormatOptions {
     listStyle?: string | undefined;
-    compactDisplay?: string | undefined;
-    currency?: string | undefined;
-    currencyDisplay?: string | undefined;
-    currencySign?: string | undefined;
-    localeMatcher?: string | undefined;
-    notation?: string | undefined;
-    numberingSystem?: string | undefined;
-    signDisplay?: string | undefined;
-    style?: string | undefined;
-    unit?: string | undefined;
-    unitDisplay?: string | undefined;
-    useGrouping?: boolean | undefined;
-    minimumIntegerDigits?: number | undefined;
-    minimumFractionDigits?: number | undefined;
-    maximumFractionDigits?: number | undefined;
-    minimumSignificantDigits?: number | undefined;
-    maximumSignificantDigits?: number | undefined;
 }
 
 /**
