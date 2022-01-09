@@ -55,7 +55,7 @@ declare namespace DropdownMenu {
         /**
          * Dashicon icon slug.
          */
-        icon: Dashicon.Icon;
+        icon: Dashicon.Icon | JSX.Element;
         /**
          * Human-readable title for the control.
          */
@@ -67,7 +67,7 @@ declare namespace DropdownMenu {
         /**
          * Function to invoke when the option is selected.
          */
-        onClick(): void;
+        onClick?: () => void;
     }
     type Props = PropsWithChildren | PropsWithControls;
 }
