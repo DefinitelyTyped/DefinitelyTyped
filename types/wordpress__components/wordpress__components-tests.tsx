@@ -405,6 +405,23 @@ const buttonGroupRef = createRef<HTMLDivElement>();
 />;
 
 //
+// guide
+//
+<C.Guide
+    finishButtonText="Finish"
+    contentLabel="Guide title"
+    onFinish={ () => {
+        console.log('finished');
+    } }
+    pages={ [
+        {
+            content: <h1>My Page</h1>,
+            image: <h1>My Page Image</h1>,
+        }
+    ] }
+/>;
+
+//
 // icon
 //
 <C.Icon />;
