@@ -32,6 +32,8 @@ export namespace Email {
         put(action: string, options?: ConfigOptions): PutResource;
 
         post(action: string, options?: ConfigOptions): PostResource;
+
+        delete(action: string, option?: ConfigOptions): DeleteResource;
     }
 
     // resources
@@ -59,6 +61,12 @@ export namespace Email {
         request(params: object, callback?: (error: Error, res: PutResponse) => void): Promise<PutResponse>;
     }
 
+    interface DeleteResource {
+        id(value: string): DeleteResource;
+
+        request(params?: object, callback?: (error: Error, res: DeleteResponse) => void): Promise<DeleteResponse>;
+    }
+
     // responses
     interface Response {
         readonly body: object;
@@ -74,6 +82,10 @@ export namespace Email {
 
     interface PutResponse {
         readonly body: PutResponseData;
+    }
+
+    interface DeleteResponse {
+        readonly body: {};
     }
 
     // request params
