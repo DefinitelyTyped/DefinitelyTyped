@@ -6,7 +6,7 @@ const ExtendClass = Ember.Object.extend({
 });
 
 class ES6Class extends Ember.Object {
-    bar: string;
+    declare bar: string;
 }
 
 const testObject: any = null;

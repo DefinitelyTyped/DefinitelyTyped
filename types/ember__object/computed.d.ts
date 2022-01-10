@@ -69,13 +69,6 @@ export function deprecatingAlias(
     dependentKey: string,
     options: { id: string; until: string }
 ): ComputedProperty<any>;
-/**
- * @deprecated Missing deprecation options: https://emberjs.com/deprecations/v2.x/#toc_ember-debug-function-options
- */
-export function deprecatingAlias(
-    dependentKey: string,
-    options?: { id?: string | undefined; until?: string | undefined }
-): ComputedProperty<any>;
 
 /**
  * A computed property that returns true if the value of the dependent

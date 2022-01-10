@@ -6,10 +6,7 @@
             "es6",
             "dom"
         ],
-        "noImplicitAny": true,
-        "noImplicitThis": true,
-        "strictNullChecks": true,
-        "strictFunctionTypes": true,
+        "strict": true,
         "experimentalDecorators": true,
         "baseUrl": "../",
         "typeRoots": [

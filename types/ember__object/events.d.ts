@@ -3,10 +3,10 @@ import { AnyFunction } from '@ember/object/-private/types';
 /**
  * Add an event listener
  */
-export function addListener<Context, Target>(
+export function addListener<Context>(
     obj: Context,
     eventName: string,
-    target: Target | AnyFunction,
+    target: unknown,
     method: keyof Context | AnyFunction,
     once?: boolean
 ): void;
@@ -14,10 +14,10 @@ export function addListener<Context, Target>(
 /**
  * Remove an event listener
  */
-export function removeListener<Context, Target>(
+export function removeListener<Context>(
     obj: Context,
     eventName: string,
-    target: Target | AnyFunction,
+    target: unknown,
     method: keyof Context | AnyFunction
 ): void;
 
