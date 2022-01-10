@@ -15,6 +15,9 @@
         "paths": {
             "lesgo": [
                 "lesgo/v6"
+            ],
+            "lesgo/*": [
+                "lesgo/v6/*"
             ]
         },
         "types": [],
