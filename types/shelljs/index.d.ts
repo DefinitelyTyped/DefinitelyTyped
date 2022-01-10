@@ -398,7 +398,6 @@ export const grep: GrepFunction;
  */
 export function which(command: string): ShellString | null;
 
-
 export interface EchoFunction {
     /**
      * Prints string to stdout, and returns string with additional utility methods like .to().
