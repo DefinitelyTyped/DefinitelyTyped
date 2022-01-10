@@ -10,7 +10,7 @@ import {
     RegionName,
     UpdateExpression,
     Key,
-} from "aws-sdk/clients/dynamodb";
+} from 'aws-sdk/clients/dynamodb';
 
 export interface DynamoDbParams {
     region: RegionName;
@@ -65,7 +65,7 @@ export default class DynamoDb {
         TableName: TableName;
         KeyConditionExpression: KeyExpression;
         ExpressionAttributeValues: ExpressionAttributeValueMap;
-        Select: "COUNT";
+        Select: 'COUNT';
     };
 
     protected preparePutPayload(

@@ -1,4 +1,4 @@
-import { SQLValue } from "./prepSQLParams";
+import { SQLValue } from './prepSQLParams';
 
 export interface SQLUpdateParams {
     updateColumnValues: string;
@@ -8,7 +8,7 @@ export interface SQLUpdateParams {
 
 declare function prepSQLUpdateParams<T extends Record<string, SQLValue>>(
     params: T,
-    columns: Array<{ key: keyof T }>,
+    columns: Array<{ key: keyof T | string }>,
 ): SQLUpdateParams;
 
 export default prepSQLUpdateParams;
