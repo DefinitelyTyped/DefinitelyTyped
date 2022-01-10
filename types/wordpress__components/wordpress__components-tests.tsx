@@ -12,11 +12,7 @@ import { createRef, MouseEvent as ReactMouseEvent } from 'react';
 //
 // angle-picker-control
 //
-<C.AnglePickerControl
-    value={350}
-    label="Test label"
-    onChange={value => console.log(value)}
-/>;
+<C.AnglePickerControl value={350} label="Test label" onChange={value => console.log(value)} />;
 
 //
 // animate
@@ -24,9 +20,7 @@ import { createRef, MouseEvent as ReactMouseEvent } from 'react';
 <C.Animate type="appear" options={{ origin: 'top left' }}>
     {({ className }) => <h1 className={className}>Hello World</h1>}
 </C.Animate>;
-<C.Animate type="loading">
-    {({ className }) => <h1 className={className}>Hello World</h1>}
-</C.Animate>;
+<C.Animate type="loading">{({ className }) => <h1 className={className}>Hello World</h1>}</C.Animate>;
 
 //
 // autocomplete
@@ -42,8 +36,8 @@ let record: Value = {
     text: '',
 };
 <C.Autocomplete<MyCompleteOption>
-    onReplace={(value) => (record = value)}
-    onChange={(value) => (record = value)}
+    onReplace={value => (record = value)}
+    onChange={value => (record = value)}
     record={record}
     isSelected={false}
     completers={[
@@ -331,23 +325,15 @@ const buttonGroupRef = createRef<HTMLDivElement>();
 //
 // flex
 //
-<C.Flex
-    isReversed
-    gap={3}
-    align='bottom'
-    justify='left'
-    className="test-classname"
->
+<C.Flex isReversed gap={3} align="bottom" justify="left" className="test-classname">
     <C.FlexBlock className="test-classname">Test Flex Block</C.FlexBlock>
-    <C.FlexItem className="test-classname">
-        Flex Item 1
-    </C.FlexItem>
-    <C.FlexItem>
-        Flex Item 2
-    </C.FlexItem>
+    <C.FlexItem className="test-classname">Flex Item 1</C.FlexItem>
+    <C.FlexItem>Flex Item 2</C.FlexItem>
 </C.Flex>;
 
-<C.Flex><div /></C.Flex>;
+<C.Flex>
+    <div />
+</C.Flex>;
 
 //
 // focal-point-picker
@@ -427,15 +413,15 @@ const buttonGroupRef = createRef<HTMLDivElement>();
 <C.Guide
     finishButtonText="Finish"
     contentLabel="Guide title"
-    onFinish={ () => {
+    onFinish={() => {
         console.log('finished');
-    } }
-    pages={ [
+    }}
+    pages={[
         {
             content: <h1>My Page</h1>,
             image: <h1>My Page Image</h1>,
-        }
-    ] }
+        },
+    ]}
 />;
 
 //
@@ -715,7 +701,9 @@ const kbshortcuts = {
         bottomLeft: false,
         topLeft: false,
     }}
-><div>hello</div></C.ResizableBox>;
+>
+    <div>hello</div>
+</C.ResizableBox>;
 
 //
 // responsive-wrapper
@@ -921,7 +909,7 @@ const kbshortcuts = {
     title="Toolbar Button"
     onClick={() => console.log('clicked')}
 />;
-<C.ToolbarButton icon={ <span>click</span> } label="Paragraph" />;
+<C.ToolbarButton icon={<span>click</span>} label="Paragraph" />;
 <C.ToolbarButton>Text</C.ToolbarButton>;
 
 //
@@ -929,16 +917,16 @@ const kbshortcuts = {
 //
 <C.ToolbarGroup
     isCollapsed
-    icon={ undefined }
+    icon={undefined}
     label="More rich text controls"
-    controls={ [
+    controls={[
         { icon: <div>icon</div>, title: 'Inline code' },
         { icon: <div>icon</div>, title: 'Inline image' },
         {
             icon: <div>icon</div>,
             title: 'Strikethrough',
         },
-    ] }
+    ]}
 />;
 
 //
