@@ -12,7 +12,10 @@ interface GuideProps {
     onFinish?: () => void;
     pages?: GuidePage[];
 
-    /* @deprecated */
+    /**
+     * @deprecated use the `pages` prop instead
+     * @since 5.5
+     */
     children?: ReactNode;
 }
 
