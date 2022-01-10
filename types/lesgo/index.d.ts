@@ -1,4 +1,4 @@
-// Type definitions for lesgo 0.6
+// Type definitions for lesgo 0.7.2
 // Project: https://github.com/reflex-media/lesgo-framework#readme
 // Definitions by: xXLXx <https://github.com/xxlxx>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
