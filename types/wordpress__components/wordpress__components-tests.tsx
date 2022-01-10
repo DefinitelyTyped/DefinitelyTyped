@@ -891,6 +891,23 @@ const kbshortcuts = {
 <C.ToolbarButton>Text</C.ToolbarButton>;
 
 //
+// toolbar-group
+//
+<C.ToolbarGroup
+    isCollapsed
+    icon={ undefined }
+    label="More rich text controls"
+    controls={ [
+        { icon: <div>icon</div>, title: 'Inline code' },
+        { icon: <div>icon</div>, title: 'Inline image' },
+        {
+            icon: <div>icon</div>,
+            title: 'Strikethrough',
+        },
+    ] }
+/>;
+
+//
 // tooltip
 //
 <C.Tooltip>

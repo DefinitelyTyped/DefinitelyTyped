@@ -1,4 +1,4 @@
-declare module BrowserPolicy {
+declare namespace BrowserPolicy {
     var framing: {
         disallow(): void;
         restrictToOrigin(origin: string): void;

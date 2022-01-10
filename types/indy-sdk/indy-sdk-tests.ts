@@ -287,7 +287,20 @@ indy.proverCreateProof(
 
 indy.createRevocationState(
     10,
-    {},
+    {
+    id: '',
+    revocDefType: 'CL_ACCUM',
+    tag: '',
+    credDefId: '',
+    value: {
+        issuanceType: 'ISSUANCE_BY_DEFAULT',
+        maxCredNum: 0,
+        tailsHash: '',
+        tailsLocation: '',
+        publicKeys: []
+    },
+    ver: ''
+},
     {
         value: {
             prevAccum: 'prevAccum',

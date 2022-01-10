@@ -22,9 +22,10 @@ export function hook<P extends {}>(WrappedComponent: React.ComponentClass<WithTe
 
 export function useCavy(): TestHookGenerator;
 
-export function wrap<P extends {}>(WrappedComponent: {} | React.FunctionComponent<P>): React.ComponentClass<P>;
+export function wrap<P extends {}>(WrappedComponent: React.ComponentClass<P> | React.FunctionComponent<P>): React.ComponentClass<P>;
 
 export interface TesterProps {
+    children: React.ReactElement;
     store: TestHookStore;
     specs: Array<(spec: TestScope) => void>;
     waitTime?: number | undefined;

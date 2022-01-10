@@ -7,7 +7,7 @@ declare module 'meteor/mongo' {
     // Based on https://github.com/microsoft/TypeScript/issues/28791#issuecomment-443520161
     type UnionOmit<T, K extends keyof any> = T extends T ? Pick<T, Exclude<keyof T, K>> : never;
 
-    module Mongo {
+    namespace Mongo {
         // prettier-ignore
         type BsonType = 1 | "double" |
             2 | "string" |
@@ -401,7 +401,7 @@ declare module 'meteor/mongo' {
         function setConnectionOptions(options: any): void;
     }
 
-    module Mongo {
+    namespace Mongo {
         interface AllowDenyOptions {
             insert?: ((userId: string, doc: any) => boolean) | undefined;
             update?: ((userId: string, doc: any, fieldNames: string[], modifier: any) => boolean) | undefined;

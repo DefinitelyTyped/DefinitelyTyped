@@ -1077,7 +1077,10 @@ async function testDynamicRules() {
         action: {
           type: chrome.declarativeNetRequest.RuleActionType.ALLOW,
         },
-        condition: {},
+        condition: {
+            domains: ["www.example.com"],
+            tabIds: [2, 3, 76],
+        },
         id: 2,
         priority: 3,
       }],
