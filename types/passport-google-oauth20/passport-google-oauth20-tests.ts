@@ -121,6 +121,9 @@ passport.use(
             profile: google.Profile,
             done: (error: any, user?: any) => void,
         ) => {
+            params.accessToken; // $ExpectType string
+            params.refreshToken; // $ExpectType string | undefined
+
             User.findOrCreate(profile.id, profile.provider, (err, user) => {
                 if (err) {
                     done(err);
@@ -146,6 +149,9 @@ passport.use(
             profile: google.Profile,
             done: (error: any, user?: any) => void,
         ) => {
+            params.accessToken; // $ExpectType string
+            params.refreshToken; // $ExpectType string | undefined
+
             User.findOrCreate(profile.id, profile.provider, (err, user) => {
                 if (err) {
                     done(err);

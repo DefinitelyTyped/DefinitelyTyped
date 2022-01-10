@@ -278,12 +278,13 @@ export interface AuthenticateOptionsGoogle extends passport.AuthenticateOptions 
 }
 
 export interface GoogleCallbackParameters {
-    access_token: string;
-    refresh_token?: string | undefined;
+    accessToken: string;
+    refreshToken?: string | undefined;
     id_token?: string | undefined;
     expires_in: number;
     scope: string;
     token_type: string;
+    [key: string]: any;
 }
 
 // allow Google-specific options when using "google" strategy
