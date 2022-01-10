@@ -162,7 +162,7 @@ const mailJetDeleteResponse: Promise<void> = mailJetRequestDelete
         const responseBody: Email.DeleteResponse['body'] = res;
     })
     .catch((err: Error) => {
-        //ignore
+        // ignore
     });
 
 // *** SMS API *** //
