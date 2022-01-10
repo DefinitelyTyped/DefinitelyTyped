@@ -393,9 +393,11 @@ export const grep: GrepFunction;
  * Searches for command in the system's PATH. On Windows looks for .exe, .cmd, and .bat extensions.
  *
  * @param command The command to search for.
- * @return        Returns string containing the absolute path to the command.
+ * @return        Returns string containing the absolute path to the command or
+ *                `null` if it couldn't be found.
  */
-export function which(command: string): ShellString;
+export function which(command: string): ShellString | null;
+
 
 export interface EchoFunction {
     /**
