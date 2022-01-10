@@ -932,7 +932,7 @@ declare class SpotifyWebApi {
      *          playlist show objects. Not returned if a callback is given.
      */
     getMySavedShows(options: PaginationMarketOptions, callback: Callback<SpotifyApi.UsersSavedShowsResponse>): void;
-    getMySavedShows(options?: PaginationMarketOptions): Promise<Response<SpotifyApi.SavedShowObject>>;
+    getMySavedShows(options?: PaginationMarketOptions): Promise<Response<SpotifyApi.UsersSavedShowsResponse>>;
 
     /**
      * Get the episodes of an show.
