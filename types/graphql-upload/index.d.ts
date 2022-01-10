@@ -2,7 +2,7 @@
 // Project: https://github.com/jaydenseric/graphql-upload#readme
 // Definitions by: Mike Marcacci <https://github.com/mike-marcacci>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.3
+// TypeScript Version: 4.1
 
 /* tslint:disable:no-unnecessary-generics */
 
