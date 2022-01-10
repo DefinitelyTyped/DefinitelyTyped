@@ -1,4 +1,5 @@
 // Type definitions for django-bananas 3.6
+// Type definitions for django-bananas 3.6
 // Project: https://github.com/5monkeys/django-bananas.js
 // Definitions by: 5Monkeys Agency <https://github.com/5monkeys>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
