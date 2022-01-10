@@ -1,17 +1,10 @@
 import { FragmentReference } from './RelayStoreTypes';
 import { GraphQLTaggedNode } from '../query/RelayModernGraphQLTag';
 
-export type KeyTypeRef<TData = unknown> = Readonly<{
-    ' $data'?: TData | undefined;
-    ' $fragmentRefs': FragmentReference;
-}>;
-
-export type KeyTypeSpread<TData = unknown> = Readonly<{
+export type KeyType<TData = unknown> = Readonly<{
     ' $data'?: TData | undefined;
     ' $fragmentSpreads': FragmentReference;
 }>;
-
-export type KeyType<TData = unknown> = KeyTypeRef<TData> | KeyTypeSpread<TData>;
 
 export type KeyTypeData<TKey extends KeyType<TData>, TData = unknown> = Required<TKey>[' $data'];
 
