@@ -4,6 +4,7 @@
 //                 Jon Surrell <https://github.com/sirreal>
 //                 Philip Jackson <https://github.com/p-jackson>
 //                 Sara Marcondes <https://github.com/sarayourfriend>
+//                 Martin Badin <https://github.com/martin-badin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.6
 

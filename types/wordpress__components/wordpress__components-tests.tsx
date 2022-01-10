@@ -1,5 +1,5 @@
 import * as C from '@wordpress/components';
-import { Component } from '@wordpress/element';
+import { Component, useState } from '@wordpress/element';
 import { Value } from '@wordpress/rich-text';
 import { createRef, MouseEvent as ReactMouseEvent } from 'react';
 
@@ -198,19 +198,44 @@ const buttonGroupRef = createRef<HTMLDivElement>();
 //
 // combobox-control
 //
-<C.ComboboxControl
-    label={'Region'}
-    value={'UK'}
-    onChange={value => {
-        console.log(value);
-    }}
-    options={[
+{
+    const options = [
         {
-            label: 'test',
-            value: 'test',
+            value: 'small',
+            label: 'Small',
         },
-    ]}
-/>;
+        {
+            value: 'normal',
+            label: 'Normal',
+        },
+        {
+            value: 'large',
+            label: 'Large',
+        },
+        {
+            value: 'huge',
+            label: 'Huge',
+        },
+    ];
+
+    () => {
+        const [fontSize, setFontSize] = useState<string | null>();
+        const [filteredOptions, setFilteredOptions] = useState(options);
+        return (
+            <C.ComboboxControl
+                label="Font Size"
+                value={fontSize}
+                onChange={setFontSize}
+                options={filteredOptions}
+                onFilterValueChange={inputValue =>
+                    setFilteredOptions(
+                        options.filter(option => option.label.toLowerCase().startsWith(inputValue.toLowerCase())),
+                    )
+                }
+            />
+        );
+    };
+}
 
 //
 // custom-select-control
