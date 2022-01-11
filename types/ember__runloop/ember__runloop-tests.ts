@@ -39,8 +39,11 @@ function testRun() {
     // run(target, method, ...args)
     run(
         {},
-        () => {
+        (beforeExecute: () => void, extraLog: string, misc: unknown) => {
             // code to be executed within a RunLoop
+            beforeExecute();
+            console.log(extraLog);
+            console.info(misc);
             return 123;
         },
         () => {
@@ -74,13 +77,22 @@ function testBind() {
 }
 
 function testCancel() {
-    const myContext = {};
+    const myContext = {
+        method(arg: string, another: number): number {
+            return arg.length + another;
+        }
+    };
 
     const runNext = next(myContext, () => {
         // will not be executed
     });
 
     cancel(runNext);
+
+    const anotherRunNext = next(myContext, 'method', "hello", 123);
+    const aBadRunNext = next(myContext, 'method', false, "goodbye"); // $ExpectError
+
+    const aSimpleNext = next((name: string) => name.length, "hello");
 
     const runLater = later(myContext, () => {
         // will not be executed
@@ -94,6 +106,12 @@ function testCancel() {
 
     cancel(runScheduleOnce);
 
+    const anotherScheduleOnce =
+        scheduleOnce('render', myContext, 'method', "hello", 123);
+
+    const aBadScheduleOnce =
+        scheduleOnce('render', myContext, 'method', true, "boo"); // $ExpectError
+
     const runOnce = once(myContext, () => {
         // will not be executed
     });
@@ -105,6 +123,11 @@ function testCancel() {
     }, 1, false);
 
     cancel(throttled);
+
+    const aGoodThrottled = throttle(myContext, 'method', "hello", 123, 1_000);
+    const anotherGoodThrottled = throttle(myContext, 'method', "hello", 123, 1_000, true);
+    const aBadThrottled = throttle(myContext, 'method', 1_000); // $ExpectError
+    const anotherBadThrottled = throttle(myContext, 'method', false, {}, 1_000); // $ExpectError
 
     const debounced = debounce(myContext, () => {
         // will not be executed

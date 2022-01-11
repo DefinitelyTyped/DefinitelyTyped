@@ -6,7 +6,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.4
 
-import { RunMethod, EmberRunQueues } from "@ember/runloop/-private/types";
+import { RunMethod, EmberRunQueues, RunMethodArgs, AnyFn, RunMethodReturn } from "./-private/types";
 import { EmberRunTimer } from "@ember/runloop/types";
 import '@ember/runloop/-private/backburner';
 
@@ -15,20 +15,20 @@ import '@ember/runloop/-private/backburner';
  * deferred actions including bindings and views updates are flushed at the
  * end.
  */
-export function run<Ret>(method: (...args: any[]) => Ret): Ret;
-export function run<Target, Ret>(target: Target, method: RunMethod<Target, Ret>, ...args: any[]): Ret;
+export function run<M extends AnyFn>(method: M): ReturnType<M>;
+export function run<T, M extends RunMethod<T>>(target: T, method: M, ...args: RunMethodArgs<T, M>): RunMethodReturn<T, M>;
 
 /**
  * If no run-loop is present, it creates a new one. If a run loop is
  * present it will queue itself to run on the existing run-loops action
  * queue.
  */
-export function join<Ret>(method: (...args: any[]) => Ret, ...args: any[]): Ret | undefined;
-export function join<Target, Ret>(
-   target: Target,
-   method: RunMethod<Target, Ret>,
-   ...args: any[]
-): Ret | undefined;
+export function join<M extends AnyFn>(method: M, ...args: Parameters<M>): ReturnType<M> | undefined;
+export function join<T, M extends RunMethod<T>>(
+   target: T,
+   method: M,
+   ...args: RunMethodArgs<T, M>
+): RunMethodReturn<T, M> | undefined;
 
 /**
  * Allows you to specify which context to call the specified function in while
@@ -36,11 +36,15 @@ export function join<Target, Ret>(
  * makes this method a great way to asynchronously integrate third-party libraries
  * into your Ember application.
  */
-export function bind<Target, Ret>(
-   target: Target,
-   method: RunMethod<Target, Ret>,
+// NOTE: it would be nice to make this curry arguments, which is how it actually
+// works, but that is a *lot* of type shenanigans, and also diverges from the
+// `Function.prototype.bind` implementation. We should track the latter, despite
+// the loss of safety, because it makes interop cleaner.
+export function bind<T, M extends RunMethod<T>>(
+   target: T,
+   method: M,
    ...args: any[]
-): (...args: any[]) => Ret;
+): (...args: any[]) => RunMethodReturn<T, M>;
 
 /**
  * Begins a new RunLoop. Any deferred actions invoked after the begin will
@@ -62,16 +66,16 @@ export function end(): void;
  * started a RunLoop when calling this method one will be started for you
  * automatically.
  */
-export function schedule<Target>(
+export function schedule<T, M extends RunMethod<T>>(
    queue: EmberRunQueues,
-   target: Target,
-   method: RunMethod<Target>,
-   ...args: any[]
+   target: T,
+   method: M,
+   ...args: RunMethodArgs<T, M>
 ): EmberRunTimer;
-export function schedule(
+export function schedule<M extends AnyFn>(
    queue: EmberRunQueues,
-   method: (args: any[]) => any,
-   ...args: any[]
+   method: M,
+   ...args: Parameters<M>
 ): EmberRunTimer;
 
 /**
@@ -79,72 +83,24 @@ export function schedule(
  * period of time. The last parameter of this method must always be a number
  * of milliseconds.
  */
-export function later(method: (...args: any[]) => any, wait: number): EmberRunTimer;
-export function later<Target>(
-   target: Target,
-   method: RunMethod<Target>,
-   wait: number
-): EmberRunTimer;
-export function later<Target>(
-   target: Target,
-   method: RunMethod<Target>,
-   arg0: any,
-   wait: number
-): EmberRunTimer;
-export function later<Target>(
-   target: Target,
-   method: RunMethod<Target>,
-   arg0: any,
-   arg1: any,
-   wait: number
-): EmberRunTimer;
-export function later<Target>(
-   target: Target,
-   method: RunMethod<Target>,
-   arg0: any,
-   arg1: any,
-   arg2: any,
-   wait: number
-): EmberRunTimer;
-export function later<Target>(
-   target: Target,
-   method: RunMethod<Target>,
-   arg0: any,
-   arg1: any,
-   arg2: any,
-   arg3: any,
-   wait: number
-): EmberRunTimer;
-export function later<Target>(
-   target: Target,
-   method: RunMethod<Target>,
-   arg0: any,
-   arg1: any,
-   arg2: any,
-   arg3: any,
-   arg4: any,
-   wait: number
-): EmberRunTimer;
-export function later<Target>(
-   target: Target,
-   method: RunMethod<Target>,
-   arg0: any,
-   arg1: any,
-   arg2: any,
-   arg3: any,
-   arg4: any,
-   arg5: any,
-   wait: number
+export function later(method: AnyFn, wait: number): EmberRunTimer;
+export function later<T, M extends RunMethod<T>>(
+    ...args: [
+        target: T,
+        method: M,
+        ...args: RunMethodArgs<T, M>,
+        wait: number,
+    ]
 ): EmberRunTimer;
 
 /**
  * Schedule a function to run one time during the current RunLoop. This is equivalent
  * to calling `scheduleOnce` with the "actions" queue.
  */
-export function once<Target>(
-   target: Target,
-   method: RunMethod<Target>,
-   ...args: any[]
+export function once<T, M extends RunMethod<T>>(
+   target: T,
+   method: M,
+   ...args: RunMethodArgs<T, M>
 ): EmberRunTimer;
 
 /**
@@ -152,11 +108,11 @@ export function once<Target>(
  * Calling this method with the same queue/target/method combination will have
  * no effect (past the initial call).
  */
-export function scheduleOnce<Target>(
+export function scheduleOnce<T, M extends RunMethod<T>>(
    queue: EmberRunQueues,
-   target: Target,
-   method: RunMethod<Target>,
-   ...args: any[]
+   target: T,
+   method: M,
+   ...args: RunMethodArgs<T, M>
 ): EmberRunTimer;
 
 /**
@@ -164,14 +120,14 @@ export function scheduleOnce<Target>(
  * control has been returned to the system. This is equivalent to calling
  * `run.later` with a wait time of 1ms.
  */
-export function next<Target>(
-   target: Target,
-   method: RunMethod<Target>,
-   ...args: any[]
+export function next<T, M extends RunMethod<T>>(
+   target: T,
+   method: M,
+   ...args: RunMethodArgs<T, M>
 ): EmberRunTimer;
-export function next(
- method: () => void,
- ...args: any[]
+export function next<M extends AnyFn>(
+ method: M,
+ ...args: Parameters<M>
 ): EmberRunTimer;
 
 /**
@@ -188,72 +144,18 @@ export function cancel(timer: EmberRunTimer): boolean;
  * must pass again before the target method is called.
  */
 export function debounce(
-   method: (...args: any[]) => any,
+   method: AnyFn,
    wait: number,
    immediate?: boolean
 ): EmberRunTimer;
-export function debounce<Target>(
-   target: Target,
-   method: RunMethod<Target>,
-   wait: number,
-   immediate?: boolean
-): EmberRunTimer;
-export function debounce<Target>(
-   target: Target,
-   method: RunMethod<Target>,
-   arg0: any,
-   wait: number,
-   immediate?: boolean
-): EmberRunTimer;
-export function debounce<Target>(
-   target: Target,
-   method: RunMethod<Target>,
-   arg0: any,
-   arg1: any,
-   wait: number,
-   immediate?: boolean
-): EmberRunTimer;
-export function debounce<Target>(
-   target: Target,
-   method: RunMethod<Target>,
-   arg0: any,
-   arg1: any,
-   arg2: any,
-   wait: number,
-   immediate?: boolean
-): EmberRunTimer;
-export function debounce<Target>(
-   target: Target,
-   method: RunMethod<Target>,
-   arg0: any,
-   arg1: any,
-   arg2: any,
-   arg3: any,
-   wait: number,
-   immediate?: boolean
-): EmberRunTimer;
-export function debounce<Target>(
-   target: Target,
-   method: RunMethod<Target>,
-   arg0: any,
-   arg1: any,
-   arg2: any,
-   arg3: any,
-   arg4: any,
-   wait: number,
-   immediate?: boolean
-): EmberRunTimer;
-export function debounce<Target>(
-   target: Target,
-   method: RunMethod<Target>,
-   arg0: any,
-   arg1: any,
-   arg2: any,
-   arg3: any,
-   arg4: any,
-   arg5: any,
-   wait: number,
-   immediate?: boolean
+export function debounce<Target, M extends RunMethod<Target>>(
+    ...args: [
+        target: Target,
+        method: M,
+        ...args: RunMethodArgs<Target, M>,
+        wait: number,
+        immediate?: boolean
+    ]
 ): EmberRunTimer;
 
 /**
@@ -261,70 +163,16 @@ export function debounce<Target>(
  * the specified spacing period. The target method is called immediately.
  */
 export function throttle(
-   method: (...args: any[]) => any,
+   method: AnyFn,
    spacing: number,
    immediate?: boolean
 ): EmberRunTimer;
-export function throttle<Target>(
-   target: Target,
-   method: RunMethod<Target>,
-   spacing: number,
-   immediate?: boolean
-): EmberRunTimer;
-export function throttle<Target>(
-   target: Target,
-   method: RunMethod<Target>,
-   arg0: any,
-   spacing: number,
-   immediate?: boolean
-): EmberRunTimer;
-export function throttle<Target>(
-   target: Target,
-   method: RunMethod<Target>,
-   arg0: any,
-   arg1: any,
-   spacing: number,
-   immediate?: boolean
-): EmberRunTimer;
-export function throttle<Target>(
-   target: Target,
-   method: RunMethod<Target>,
-   arg0: any,
-   arg1: any,
-   arg2: any,
-   spacing: number,
-   immediate?: boolean
-): EmberRunTimer;
-export function throttle<Target>(
-   target: Target,
-   method: RunMethod<Target>,
-   arg0: any,
-   arg1: any,
-   arg2: any,
-   arg3: any,
-   spacing: number,
-   immediate?: boolean
-): EmberRunTimer;
-export function throttle<Target>(
-   target: Target,
-   method: RunMethod<Target>,
-   arg0: any,
-   arg1: any,
-   arg2: any,
-   arg3: any,
-   arg4: any,
-   spacing: number,
-   immediate?: boolean
-): EmberRunTimer;
-export function throttle<Target>(
-   target: Target,
-   method: RunMethod<Target>,
-   arg0: any,
-   arg1: any,
-   arg2: any,
-   arg3: any,
-   arg4: any,
-   arg5: any,
-   spacing: number,
-   immediate?: boolean
+export function throttle<T, M extends RunMethod<T>>(
+    ...args: [
+        target: T,
+        method: M,
+        ...methodArgs: RunMethodArgs<T, M>,
+        spacing: number,
+        immediate?: boolean
+    ]
 ): EmberRunTimer;
