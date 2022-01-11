@@ -1,13 +1,13 @@
-import httpMiddleware from 'lesgo/middlewares/httpMiddleware';
-import normalizeHttpRequestMiddleware from 'lesgo/middlewares/normalizeHttpRequestMiddleware';
-import successHttpResponseMiddleware from 'lesgo/middlewares/successHttpResponseMiddleware';
-import errorHttpResponseMiddleware from 'lesgo/middlewares/errorHttpResponseMiddleware';
-import verifyJwtMiddleware from 'lesgo/middlewares/verifyJwtMiddleware';
-import normalizeSQSMessageMiddleware from 'lesgo/middlewares/normalizeSQSMessageMiddleware';
+import httpMiddleware from 'lesgo/lib/middlewares/httpMiddleware';
+import normalizeHttpRequestMiddleware from 'lesgo/lib/middlewares/normalizeHttpRequestMiddleware';
+import successHttpResponseMiddleware from 'lesgo/lib/middlewares/successHttpResponseMiddleware';
+import errorHttpResponseMiddleware from 'lesgo/lib/middlewares/errorHttpResponseMiddleware';
+import verifyJwtMiddleware from 'lesgo/lib/middlewares/verifyJwtMiddleware';
+import normalizeSQSMessageMiddleware from 'lesgo/lib/middlewares/normalizeSQSMessageMiddleware';
 
-import LesgoException from 'lesgo/exceptions/LesgoException';
+import LesgoException from 'lesgo/lib/exceptions/LesgoException';
 
-import ElasticCacheService from 'lesgo/services/ElasticCacheService';
+import ElasticCacheService from 'lesgo/lib/services/ElasticCacheService';
 import './tests/services/ElasticsearchService';
 import './tests/services/AuroraDbService';
 import './tests/services/DynamoDbService';
@@ -17,22 +17,22 @@ import './tests/services/SQSService';
 import './tests/services/FirebaseAdminService';
 import './tests/services/JWTService';
 
-import { ec, get, set, del } from 'lesgo/utils/cache';
-import { encrypt, decrypt, hash, hashMD5 } from 'lesgo/utils/crypto';
-import db from 'lesgo/utils/db';
-import dynamodb from 'lesgo/utils/dynamodb';
-import elasticsearch from 'lesgo/utils/elasticsearch';
-import generateUid from 'lesgo/utils/generateUid';
-import getJwtSubFromAuthHeader, { getTokenData } from 'lesgo/utils/getJwtSubFromAuthHeader';
-import isDecimal from 'lesgo/utils/isDecimal';
-import isEmail from 'lesgo/utils/isEmail';
-import isEmpty from 'lesgo/utils/isEmpty';
-import logger from 'lesgo/utils/logger';
-import objectStore, { getObject } from 'lesgo/utils/objectStore';
-import prepSQLInsertParams from 'lesgo/utils/prepSQLInsertParams';
-import prepSQLUpdateParams from 'lesgo/utils/prepSQLUpdateParams';
-import queue, { dispatch } from 'lesgo/utils/queue';
-import validateFields from 'lesgo/utils/validateFields';
+import { ec, get, set, del } from 'lesgo/lib/utils/cache';
+import { encrypt, decrypt, hash, hashMD5 } from 'lesgo/lib/utils/crypto';
+import db from 'lesgo/lib/utils/db';
+import dynamodb from 'lesgo/lib/utils/dynamodb';
+import elasticsearch from 'lesgo/lib/utils/elasticsearch';
+import generateUid from 'lesgo/lib/utils/generateUid';
+import getJwtSubFromAuthHeader, { getTokenData } from 'lesgo/lib/utils/getJwtSubFromAuthHeader';
+import isDecimal from 'lesgo/lib/utils/isDecimal';
+import isEmail from 'lesgo/lib/utils/isEmail';
+import isEmpty from 'lesgo/lib/utils/isEmpty';
+import logger from 'lesgo/lib/utils/logger';
+import objectStore, { getObject } from 'lesgo/lib/utils/objectStore';
+import prepSQLInsertParams from 'lesgo/lib/utils/prepSQLInsertParams';
+import prepSQLUpdateParams from 'lesgo/lib/utils/prepSQLUpdateParams';
+import queue, { dispatch } from 'lesgo/lib/utils/queue';
+import validateFields from 'lesgo/lib/utils/validateFields';
 
 /* Middlewares */
 httpMiddleware({ debugMode: true }); // $ExpectType HttpMiddleware

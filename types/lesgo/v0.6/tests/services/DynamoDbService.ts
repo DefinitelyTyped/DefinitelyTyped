@@ -1,4 +1,4 @@
-import DynamoDbService from 'lesgo/services/DynamoDbService';
+import DynamoDbService from 'lesgo/lib/services/DynamoDbService';
 
 const dynamodb = new DynamoDbService(); // $ExpectType DynamoDb
 

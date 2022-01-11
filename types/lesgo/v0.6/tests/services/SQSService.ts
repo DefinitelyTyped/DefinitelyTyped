@@ -1,4 +1,4 @@
-import SQSService from 'lesgo/services/SQSService';
+import SQSService from 'lesgo/lib/services/SQSService';
 
 // $ExpectType SQSService<{ myqueue: { url: string; }; }>
 const queue = new SQSService(

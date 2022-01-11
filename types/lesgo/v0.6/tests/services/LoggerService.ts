@@ -1,4 +1,4 @@
-import LoggerService from 'lesgo/services/LoggerService';
+import LoggerService from 'lesgo/lib/services/LoggerService';
 
 // $ExpectType LoggerService
 const logger = new LoggerService({
