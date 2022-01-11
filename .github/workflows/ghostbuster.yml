@@ -28,7 +28,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
 
-      - if: ${{ inputs.skipPR == "true" }}
+      - if: ${{ inputs.skipPR == 'true' }}
         run: |
           if [ -n "`git status -s`" ]; then
             git config --global user.email "typescriptbot@microsoft.com"
@@ -40,7 +40,7 @@ jobs:
             git push
           fi
 
-      - if: ${{ inputs.skipPR != "true" }}
+      - if: ${{ inputs.skipPR != 'true' }}
         uses: peter-evans/create-pull-request@v3.12.0
         with:
           token: ${{ secrets.GH_TOKEN }}
