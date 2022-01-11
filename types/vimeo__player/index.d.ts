@@ -89,35 +89,35 @@ export interface VimeoTextTrack {
     language: string;
     kind: string;
     label: string;
-    mode?: string | undefined;
+    mode?: string;
 }
 
 export interface Options {
-    id?: number | undefined;
-    url?: string | undefined;
-    autopause?: boolean | undefined;
-    autoplay?: boolean | undefined;
-    background?: boolean | undefined;
-    byline?: boolean | undefined;
-    color?: string | undefined;
-    controls?: boolean | undefined;
-    dnt?: boolean | undefined;
-    height?: number | undefined;
-    keyboard?: boolean | undefined;
-    loop?: boolean | undefined;
-    maxheight?: number | undefined;
-    maxwidth?: number | undefined;
-    muted?: boolean | undefined;
-    pip?: boolean | undefined;
-    playsinline?: boolean | undefined;
-    portrait?: boolean | undefined;
-    responsive?: boolean | undefined;
-    speed?: boolean | undefined;
-    quality?: VimeoVideoQuality | undefined;
-    texttrack?: string | undefined;
-    title?: boolean | undefined;
-    transparent?: boolean | undefined;
-    width?: number | undefined;
+    id?: number;
+    url?: string;
+    autopause?: boolean;
+    autoplay?: boolean;
+    background?: boolean;
+    byline?: boolean;
+    color?: string;
+    controls?: boolean;
+    dnt?: boolean;
+    height?: number;
+    keyboard?: boolean;
+    loop?: boolean;
+    maxheight?: number;
+    maxwidth?: number;
+    muted?: boolean;
+    pip?: boolean;
+    playsinline?: boolean;
+    portrait?: boolean;
+    responsive?: boolean;
+    speed?: boolean;
+    quality?: VimeoVideoQuality;
+    texttrack?: string;
+    title?: boolean;
+    transparent?: boolean;
+    width?: number;
 }
 
 export interface VimeoPromise<Result, Reason> extends Promise<Result> {
