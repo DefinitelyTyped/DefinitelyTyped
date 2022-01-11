@@ -107,7 +107,8 @@ Ember.trySet(o2, 'nam', ''); // $ExpectType any
 Ember.typeOf(''); // $ExpectType "string"
 Ember.typeOf(Ember.A()); // $ExpectType "array"
 // warn
-Ember.warn('be caseful!');
+Ember.warn('be caseful!'); // $ExpectError
+Ember.warn('be caseful!', { id: 'some-warning' });
 // VERSION
 Ember.VERSION; // $ExpectType string
 

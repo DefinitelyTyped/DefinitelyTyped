@@ -47,14 +47,6 @@ export function runInDebug(func: () => any): void;
  */
 export function warn(message: string, test: boolean, options: { id: string }): void;
 export function warn(message: string, options: { id: string }): void;
-/**
- * @deprecated Missing deprecation options: https://emberjs.com/deprecations/v2.x/#toc_ember-debug-function-options
- */
-export function warn(message: string, test: boolean, options?: { id?: string | undefined }): void;
-/**
- * @deprecated Missing deprecation options: https://emberjs.com/deprecations/v2.x/#toc_ember-debug-function-options
- */
-export function warn(message: string, options?: { id?: string | undefined }): void;
 
 /**
  * Display a deprecation warning with the provided message and a stack trace

@@ -16,8 +16,10 @@ runInDebug(() => console.log('Should not show up in prod')); // $ExpectType void
 
 // Log a warning if we have more than 3 tomsters
 const tomsterCount = 2;
-warn('Too many tomsters!'); // $ExpectType void
-warn('Too many tomsters!', tomsterCount <= 3); // $ExpectType void
+warn('Too many tomsters!'); // $ExpectError
+warn('Too many tomsters!', { id: 'some-warning' }); // $ExpectType void
+warn('Too many tomsters!', tomsterCount <= 3); // $ExpectError
+warn('Too many tomsters!', tomsterCount <= 3, { id: 'some-warning' }); // $ExpectType void
 warn('Too many tomsters!', tomsterCount <= 3, { // $ExpectType void
     id: 'ember-debug.too-many-tomsters'
 });
