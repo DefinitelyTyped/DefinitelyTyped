@@ -23,10 +23,6 @@ jobs:
 
       - uses: actions/setup-node@v2
 
-      - run: |
-          git config --global user.email "typescriptbot@microsoft.com"
-          git config --global user.name "TypeScript Bot"
-
       - run: npm ci
       - run: node ./scripts/ghostbuster.cjs
         env:
@@ -35,6 +31,8 @@ jobs:
       - if: ${{ inputs.skipPR == "true" }}
         run: |
           if [ -n "`git status -s`" ]; then
+            git config --global user.email "typescriptbot@microsoft.com"
+            git config --global user.name "TypeScript Bot"
             git commit -am "Remove contributors with deleted accounts #no-publishing-comment"
             # Script can take a bit to run; with such an active repo there's a good chance
             # someone has merged a PR in that time.
