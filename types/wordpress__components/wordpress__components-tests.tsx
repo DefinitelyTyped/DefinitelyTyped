@@ -844,6 +844,11 @@ const kbshortcuts = {
 />;
 
 //
+// tip
+//
+<C.Tip>Hello</C.Tip>;
+
+//
 // toggle-control
 //
 <C.ToggleControl label="Controlled" checked={true} onChange={isChecked => console.log(isChecked)} />;
@@ -1052,6 +1057,12 @@ const MySlotFillProvider = () => {
         ) : null
     }
 </C.Slot>;
+
+//
+// visually-hidden
+//
+<C.VisuallyHidden>Hello</C.VisuallyHidden>;
+<C.VisuallyHidden as="span" className="test-class">Hello</C.VisuallyHidden>;
 
 //
 // higher-order/navigate-regions
