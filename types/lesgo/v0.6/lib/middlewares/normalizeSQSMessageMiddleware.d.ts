@@ -1,4 +1,4 @@
-import middy from '@middy/core';
+import { MiddlewareFunction } from 'middy';
 import { SQSEvent, SQSRecord } from 'aws-lambda';
 
 export interface SQSEventWithCollection extends SQSEvent {
@@ -6,7 +6,7 @@ export interface SQSEventWithCollection extends SQSEvent {
 }
 
 export interface NormalizeSQSMiddleware {
-    before: middy.MiddlewareFunction<SQSEventWithCollection, any>;
+    before: MiddlewareFunction<SQSEventWithCollection, any>;
 }
 
 export default function normalizeSQSMessageMiddleware(): NormalizeSQSMiddleware;

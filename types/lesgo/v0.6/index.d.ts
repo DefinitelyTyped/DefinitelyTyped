@@ -1,4 +1,4 @@
-// Type definitions for lesgo 0.7
+// Type definitions for lesgo 0.6
 // Project: https://github.com/reflex-media/lesgo-framework#readme
 // Definitions by: xXLXx <https://github.com/xxlxx>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -6,10 +6,10 @@
 
 // We did this to adjust to data-api-client
 
-export * from './middlewares';
+export * from './lib/middlewares';
 
-export * from './exceptions';
+export * from './lib/exceptions';
 
-export * from './services';
+export * from './lib/services';
 
-export * from './utils';
+export * from './lib/utils';

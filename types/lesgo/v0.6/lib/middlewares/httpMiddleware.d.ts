@@ -1,4 +1,5 @@
-import { APIGatewayEvent } from 'aws-lambda';
+import { MiddlewareObject } from 'middy';
+import { APIGatewayEvent, Context } from 'aws-lambda';
 import { NormalizeHttpMiddleware } from './normalizeHttpRequestMiddleware';
 import { MiddlewareOptions, SuccessHttpMiddleware } from './successHttpResponseMiddleware';
 import { ErrorHttpMiddleware } from './errorHttpResponseMiddleware';

@@ -1,5 +1,4 @@
 import AuroraDbService from '../../services/AuroraDbService';
-import AuroraDbRDSProxyService from '../../services/AuroraDbRDSProxyService';
 
 export interface PaginatorOptions {
     total: number;
@@ -17,12 +16,7 @@ export interface PaginatorObject<DataT> {
 }
 
 export default class Paginator {
-    constructor(
-        db: AuroraDbService | AuroraDbRDSProxyService,
-        sql: string,
-        sqlParams: [] | unknown,
-        options?: PaginatorOptions,
-    );
+    constructor(db: AuroraDbService, sql: string, sqlParams: [] | unknown, options?: PaginatorOptions);
 
     count(): Promise<number>;
 

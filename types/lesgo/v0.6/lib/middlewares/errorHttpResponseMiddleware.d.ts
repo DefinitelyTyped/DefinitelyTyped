@@ -1,9 +1,9 @@
-import middy from '@middy/core';
+import { MiddlewareFunction } from 'middy';
 import { HttpGatewayEvent } from './normalizeHttpRequestMiddleware';
 import { MiddlewareOptions } from './successHttpResponseMiddleware';
 
 export interface ErrorHttpMiddleware {
-    onError: middy.MiddlewareFunction<HttpGatewayEvent, any>;
+    onError: MiddlewareFunction<HttpGatewayEvent, any>;
 }
 
 export default function errorHttpResponseMiddleware(opts?: MiddlewareOptions): ErrorHttpMiddleware;

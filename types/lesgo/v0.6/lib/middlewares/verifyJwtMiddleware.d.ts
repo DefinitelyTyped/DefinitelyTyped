@@ -1,4 +1,4 @@
-import middy from '@middy/core';
+import { MiddlewareFunction } from 'middy';
 import { APIGatewayEvent } from 'aws-lambda';
 
 export interface JwtGatewayEvent extends APIGatewayEvent {
@@ -8,7 +8,7 @@ export interface JwtGatewayEvent extends APIGatewayEvent {
 }
 
 export interface VerifyJwtMiddleware {
-    before: middy.MiddlewareFunction<JwtGatewayEvent, any>;
+    before: MiddlewareFunction<JwtGatewayEvent, any>;
 }
 
 export default function verifyJwtMiddleware(): VerifyJwtMiddleware;
