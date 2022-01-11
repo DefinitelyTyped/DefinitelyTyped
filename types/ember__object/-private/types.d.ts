@@ -28,12 +28,17 @@ export type Fix<T> = { [K in keyof T]: T[K] };
  * type info for the computed property without impacting the
  * user-visible type.
  */
-export class ComputedPropertyMarker<Get, Set = Get> {
+declare class ComputedPropertyMarker<Get, Set = Get> {
     // Necessary in order to avoid losing type information
     //    see: https://github.com/typed-ember/ember-cli-typescript/issues/246#issuecomment-414812013
-    private ______getType: Get;
-    private ______setType: Set;
+    private [GetType]: Get;
+    private [SetType]: Set;
 }
+
+export type { ComputedPropertyMarker };
+
+declare const GetType: unique symbol;
+declare const SetType: unique symbol;
 
 /**
  * Used to infer the type of ember classes of type `T`.
