@@ -237,16 +237,6 @@ export default class CoreObject {
         T3 extends EmberClassArguments
     >(this: Statics, arg1: T1, arg2: T2, arg3: T3): Statics & T1 & T2 & T3;
 
-    static detect<Statics, Instance>(
-        this: Statics & EmberClassConstructor<Instance>,
-        obj: any
-    ): obj is Objectify<Statics> & EmberClassConstructor<Instance>;
-
-    static detectInstance<Instance>(
-        this: EmberClassConstructor<Instance>,
-        obj: any
-    ): obj is Instance;
-
     /**
      * Iterate over each computed property for the class, passing its name and any
      * associated metadata (see metaForProperty) to the callback.

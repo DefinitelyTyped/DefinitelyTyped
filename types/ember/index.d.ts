@@ -187,28 +187,6 @@ export namespace Ember {
 
     const Evented: typeof EmberObjectEventedNs.default;
 
-    /**
-     * A Map stores values indexed by keys. Unlike JavaScript's
-     * default Objects, the keys of a Map can be any JavaScript
-     * object.
-     * @deprecated
-     */
-    class Map {
-        copy(): Map;
-        static create(): Map;
-        forEach(callback: (...args: any[]) => any, self: any): void;
-        get(key: any): any;
-        has(key: any): boolean;
-        set(key: any, value: any): void;
-        length: number;
-    }
-    /**
-     * @deprecated
-     */
-    class MapWithDefault extends Map {
-        copy(): MapWithDefault;
-        static create(): MapWithDefault;
-    }
     class Mixin<T, Base = EmberObjectNs.default> extends EmberMixin<T, Base> {}
 
     /**
@@ -217,23 +195,6 @@ export namespace Ember {
      * to define one of these new containers.
      */
     class Namespace extends Object {}
-
-    /**
-     * This class is used internally by Ember and Ember Data.
-     * Please do not use it at this time. We plan to clean it up
-     * and add many tests soon.
-     * @deprecated
-     */
-    class OrderedSet {
-        add(obj: any): void;
-        clear(): void;
-        copy(): OrderedSet;
-        static create(): OrderedSet;
-        forEach(fn: (...args: any[]) => any, self: any): void;
-        has(obj: any): boolean;
-        isEmpty(): boolean;
-        toArray(): any[];
-    }
 
     class Service extends Object {}
 
@@ -346,7 +307,6 @@ export namespace Ember {
         class Compiler {}
         class JavaScriptCompiler {}
         function registerPartial(name: string, str: any): void;
-        function K(): any;
         function createFrame(objec: any): any;
         function Exception(message: string): void;
         class SafeString extends EmberTemplateHandlebarsNs.SafeString {}
@@ -438,11 +398,6 @@ export namespace Ember {
      *   with `Object.assign` or use the object spread operator.
      */
     const assign: typeof EmberPolyfillsNs.assign;
-    /**
-     * Polyfill for Object.keys
-     * @deprecated Use Object.keys
-     */
-    function keys(o: any): string[];
     const guidFor: typeof EmberObjectInternalsNs.guidFor;
     const inspect: typeof EmberDebugNs.inspect;
 

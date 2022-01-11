@@ -38,8 +38,6 @@
         "test/create.ts",
         "test/data-adapter.ts",
         "test/debug.ts",
-        "test/detect-instance.ts",
-        "test/detect.ts",
         "test/ember-module-tests.ts",
         "test/ember-tests.ts",
         "test/engine-instance.ts",

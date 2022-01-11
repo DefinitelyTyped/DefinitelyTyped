@@ -30,8 +30,6 @@
         "test/computed.ts",
         "test/create.ts",
         "test/create-negative.ts",
-        "test/detect.ts",
-        "test/detect-instance.ts",
         "test/event.ts",
         "test/extend.ts",
         "test/object.ts",
