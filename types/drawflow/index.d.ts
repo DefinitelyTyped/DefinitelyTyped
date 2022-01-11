@@ -98,13 +98,30 @@ export default class Drawflow {
    */
   draggable_inputs: boolean;
 
-  drawflow: any;
+  /**
+   * Canvas origin x coordinate
+   */
+  canvas_x: number;
+
+  /**
+   * Canvas origin x coordinate
+   */
+  canvas_y: number;
+
+  /**
+   * Graph data object
+   */
+  drawflow: DrawflowExport;
 
   start(): void;
 
+  load(): any;
+
   import(data: any): void;
 
-  export(): any;
+  export(): DrawflowExport;
+
+  getUuid(): string;
 
   /**
    *
@@ -130,6 +147,16 @@ export default class Drawflow {
    *  Decrement zoom -0.1
    */
   zoom_out(): void;
+
+  /**
+   *  Restores zoom to 1
+   */
+  zoom_reset(): void;
+
+  /**
+   * Redraws according to new zoom
+   */
+  zoom_refresh(): void;
 
   /**
    * Get Info of node. Ex: id: 5
@@ -437,6 +464,19 @@ export interface MousePositionEvent {
   y: number;
 }
 
+export interface DrawflowExport {
+  drawflow: {
+    Home: DrawflowModuleData; // always present
+    [customModuleName: string]: DrawflowModuleData;
+  };
+}
+
+export interface DrawflowModuleData {
+  data: {
+    [nodeKey: string]: DrawflowNode;
+  };
+}
+
 export interface DrawflowNode {
   class: string;
   data: any;
@@ -459,4 +499,4 @@ export interface DrawflowConnectionDetail {
   node: string;
 }
 
-export type DrawFlowEditorMode = 'edit' | 'fixed';
+export type DrawFlowEditorMode = 'edit' | 'fixed' | 'view';
