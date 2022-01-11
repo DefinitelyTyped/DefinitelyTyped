@@ -2,7 +2,7 @@
 // Project: https://developers.google.com/publisher-tag
 // Definitions by: Wei Wang <https://github.com/atwwei>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// TypeScript Version: 3.8
 
 /**
  * The [Google Publisher Tag (GPT)](https://developers.google.cn/publisher-tag) is an ad tagging library for Google Ad Manager which is used to dynamically build ad requests.
