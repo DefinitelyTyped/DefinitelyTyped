@@ -28,6 +28,9 @@ shell.cd("..");
 
 shell.config.execPath = shell.which("node");
 
+// $ExpectType ShellString | null
+shell.which("node");
+
 // Run external tool synchronously
 if (shell.exec('git commit -am "Auto-commit"').code !== 0) {
     shell.echo("Error: Git commit failed");
