@@ -1,6 +1,6 @@
-import { APCAcontrast, colorParsley, sRGBtoY } from 'apca-w3';
+import { APCAcontrast, sRGBtoY } from 'apca-w3';
 
-const foreground = colorParsley('aliceblue'); // $ExpectType [number]
-const background = colorParsley(0xff0000); // $ExpectType [number]
+const foreground = [240, 248, 255]; // $ExpectType [number]
+const background = [255, 0, 0]; // $ExpectType [number]
 
 APCAcontrast(sRGBtoY(foreground), sRGBtoY(background)); // $ExpectType number

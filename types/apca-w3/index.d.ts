@@ -1,31 +1,23 @@
-// Type definitions for apca-w3 0.0.98-g-4g.4b
+// Type definitions for apca-w3 0.1.0
 // Project: https://github.com/Myndex/apca-w3
 // Definitions by: Daniel Eden <https://github.com/daneden>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-interface RGBAComponents {
-    r: number;
-    g: number;
-    b: number;
-    a: number;
-}
-
 /**
  *
  * @param txtY
- * The linear Y (luminance) of the text color. Must be between 0.0-1.0.
+ * The linear Y (luminance) of the text color. Must be between 0.0-1.1.
  *
  * @param bgY
- * The linear Y (luminance) of the background color. Must be between 0.0-1.0.
+ * The linear Y (luminance) of the background color. Must be between 0.0-1.1.
  *
  * @param places
  * Number of places to round the value to. Defaults to -1, returning a signed
- * float. When set to 0, returns a rounded string. When set to a positive
- * integer, rounds to that many places.
+ * float. When set to 0 or more, rounds the result to that many decimal places.
  *
  * @returns Lc (lightness contrast) as a numeric value within ± 127
  */
-export function APCAcontrast(txtY: number, bgY: number, places?: number): number;
+export function APCAcontrast(txtY: number, bgY: number, places?: number): number | string;
 
 /**
  *
@@ -34,9 +26,9 @@ export function APCAcontrast(txtY: number, bgY: number, places?: number): number
  * of a color
  *
  * @returns
- * The linear Y (luminance) of the given rgba color
+ * The linear Y (luminance) of the given rgba color (+0.0-1.1)
  */
-export function sRGBtoY(rgba: [number]): number;
+export function sRGBtoY(rgba: number[]): number;
 
 /**
  *
@@ -45,9 +37,9 @@ export function sRGBtoY(rgba: [number]): number;
  * of a color in the p3 display color space
  *
  * @returns
- * The linear Y (luminance) of the given rgba color
+ * The linear Y (luminance) of the given rgba color (+0.0-1.1)
  */
-export function displayP3toY(rgba: [number]): number;
+export function displayP3toY(rgba: number[]): number;
 
 /**
  * Convert a color to its rgba components
@@ -60,4 +52,3 @@ export function displayP3toY(rgba: [number]): number;
  * @returns
  * rgba components in a float array (`[r: number, g: number, b: number, a: number])
  */
-export function colorParsley(colorIn: number | string | [number] | RGBAComponents): [number];
