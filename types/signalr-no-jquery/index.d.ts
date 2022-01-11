@@ -26,11 +26,19 @@ export interface Connection {
 
   start(options?: any, callback?: () => void): any;
 
-  stop(async?: boolean, notifyServer?: boolean): void;
+  starting(callback: () => void): void;
+
+  received(callback: () => void): void;
+
+  stateChanged(callback: (change: SignalRState) => void): void;
+
+  disconnected(callback: () => void): void;
 
   reconnecting(callback: () => void): void;
 
-  disconnected(callback: () => void): void;
+  reconnected(callback: () => void): void;
+
+  stop(async?: boolean, notifyServer?: boolean): void;
 }
 
 export interface Proxy {
@@ -68,3 +76,8 @@ export interface Options {
 }
 
 export type SupportsKeepAliveHandler = () => boolean;
+
+export type SignalRState = {
+  oldState: number;
+  newState: number;
+};
