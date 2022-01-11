@@ -103,7 +103,7 @@ declare namespace googletag {
      * For custom out-of-page ads, `div` is the ID of the div element that will contain the ad.
      * See the article on [out-of-page creatives](https://support.google.com/admanager/answer/6088046) for more details.
      *
-     * For GPT managed out-of-page ads, `div` is a supported `enums.OutOfPageFormat`.
+     * For GPT managed out-of-page ads, `div` is a supported `googletag.enums.OutOfPageFormat`.
      * See the article on [web interstitials](https://support.google.com/admanager/answer/9840201) for more details.
      *
      * **Example**
@@ -117,9 +117,9 @@ declare namespace googletag {
      *
      * @param adUnitPath Full [ad unit path](https://developers.google.com/publisher-tag/guides/get-started#ad-unit-path) with the network code and ad unit code.
      * @param div ID of the div that will contain this ad unit or OutOfPageFormat.
-     * @returns The newly created slot.
+     * @returns The newly created slot, or `null` if the `div` has been used in a previous `defineSlot` or `defineOutOfPageSlot` call.
      */
-    function defineOutOfPageSlot(adUnitPath: string, div: string | enums.OutOfPageFormat): Slot | null;
+    function defineOutOfPageSlot(adUnitPath: string, div: string | googletag.enums.OutOfPageFormat): Slot | null;
     function defineOutOfPageSlot(adUnitPath: string): Slot;
     /**
      * Constructs an ad slot with a given ad unit path and size and associates it with the ID of a div element on the page that will contain the ad.
@@ -133,7 +133,7 @@ declare namespace googletag {
      * @param size Width and height of the added slot.
      * This is the size that is used in the ad request if no responsive size mapping is provided or the size of the viewport is smaller than the smallest size provided in the mapping.
      * @param div ID of the div that will contain this ad unit.
-     * @returns The newly created slot.
+     * @returns The newly created slot, or `null` if the `div` has been used in a previous `defineSlot` or `defineOutOfPageSlot` call.
      */
     function defineSlot(adUnitPath: string, size: GeneralSize, div: string): Slot | null;
     function defineSlot(adUnitPath: string, size: GeneralSize): Slot;
@@ -413,12 +413,12 @@ declare namespace googletag {
          */
         collapseEmptyDivs(collapseBeforeAdFetch?: boolean): boolean;
         /**
-         * @deprecated Deprecated definePassback() and defineOutOfPagePassback().
+         * @deprecated The legacy `definePassback()` and `defineOutOfPagePassback()` GPT library methods are deprecated and will be removed in a future update.
          * See [passback docs](https://developers.google.com/publisher-tag/guides/passback-tags#construct_passback_tags) for how to correctly create a passback.
          */
         defineOutOfPagePassback(adUnitPath: string): PassbackSlot;
         /**
-         * @deprecated Deprecated definePassback() and defineOutOfPagePassback().
+         * @deprecated The legacy `definePassback()` and `defineOutOfPagePassback()` GPT library methods are deprecated and will be removed in a future update.
          * See [passback docs](https://developers.google.com/publisher-tag/guides/passback-tags#construct_passback_tags) for how to correctly create a passback.
          */
         definePassback(adUnitPath: string, size: GeneralSize): PassbackSlot;
@@ -1222,16 +1222,16 @@ declare namespace googletag {
         getDivStartsCollapsed(): boolean | null;
         getEscapedQemQueryId(): string;
         /**
-         * @deprecated The getFirstLook method of googletag.Slot is deprecated. Please update your code to no longer call this method.
+         * @deprecated The getFirstLook method of `googletag.Slot` is deprecated. Please update your code to no longer call this method.
          */
         getFirstLook(): number;
         getHtml(): string;
         /**
-         * @deprecated getName on googletag.Slot is deprecated and will be removed. Use getAdUnitPath instead.
+         * @deprecated getName on `googletag.Slot` is deprecated and will be removed. Use `getAdUnitPath` instead.
          */
         getName(): string;
         /**
-         * Whether or not constructs an out-of-page ad slot with defineOutOfPageSlot.
+         * Whether or not constructs an out-of-page ad slot with `defineOutOfPageSlot`.
          */
         getOutOfPage(): boolean;
         /**
