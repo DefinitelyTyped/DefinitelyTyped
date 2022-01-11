@@ -67,7 +67,7 @@ declare global {
         interface User {}
 
         interface Request {
-            user?: User | undefined;
+            user?: any | undefined;
         }
     }
 }
