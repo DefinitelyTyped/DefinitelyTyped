@@ -1,4 +1,4 @@
-// Type definitions for apca-w3 0.1.0
+// Type definitions for apca-w3 0.1.0-b
 // Project: https://github.com/Myndex/apca-w3
 // Definitions by: Daniel Eden <https://github.com/daneden>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
