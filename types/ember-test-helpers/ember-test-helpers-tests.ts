@@ -1,53 +1,47 @@
-/// <reference types="qunit" />
-import { ModuleCallbacks, TestContext, TestModule } from "ember-test-helpers";
-import wait from 'ember-test-helpers/wait';
-import hasEmberVersion from 'ember-test-helpers/has-ember-version';
+// QUnit expects `function` instead of `() => {}` because it does its "magic"
+// via setting things up on `this`. An antipattern, perhaps, but a long-standing
+// and deeply-entrenched one.
+/* tslint:disable:only-arrow-functions */
 
+import { setupTest, setupRenderingTest } from 'ember-qunit';
+import { module, test } from 'qunit';
 import hbs from 'htmlbars-inline-precompile';
 
-function moduleFor(name: string, description: string, callbacks: ModuleCallbacks) {
-    const module = new TestModule(name, description, callbacks);
+module('proper module', function (hooks) {
+    setupTest(hooks);
+    setupRenderingTest(hooks);
 
-    QUnit.module(module.name, {
-        beforeEach() {
-            module.setup();
-        },
-        afterEach() {
-            module.teardown();
-        }
+    hooks.beforeEach(function (assert) {
+        assert.ok(true);
     });
-}
 
-async function testWait() {
-    await wait();
-}
+    // https://github.com/emberjs/ember-test-helpers/blob/f07e86914f2a3823c4cb6787307f9ba2bf447e68/tests/unit/setup-context-test.js
+    test('it sets up this.owner', function (assert) {
+        const { owner } = this;
+        assert.ok(owner, 'owner was setup');
+        assert.equal(typeof owner.lookup, 'function', 'has expected lookup interface');
+    });
 
-if (hasEmberVersion(2, 10)) {
-    // ...
-}
+    test('can pauseTest to be resumed "later"', async function(assert) {
+        const promise = this.pauseTest();
 
-// https://github.com/emberjs/ember-test-helpers/blob/f07e86914f2a3823c4cb6787307f9ba2bf447e68/tests/unit/setup-context-test.js
-QUnit.test('it sets up this.owner', function(this: TestContext, assert: Assert) {
-    const { owner } = this;
-    assert.ok(owner, 'owner was setup');
-    assert.equal(typeof owner.lookup, 'function', 'has expected lookup interface');
+        this.resumeTest();
 
-    if (hasEmberVersion(2, 12)) {
-      assert.equal(typeof owner.factoryFor, 'function', 'has expected factory interface');
-    }
+        await promise;
+        assert.ok(true);
+    });
+
+    // https://github.com/emberjs/ember-test-helpers/blob/fb4c8d4cd36b54728ce180227f865b1fa0162632/tests/unit/setup-rendering-context-test.js
+    test('render exposes an `.element` property', async function(assert) {
+        await this.render(hbs`<p>Hello!</p>`);
+
+        assert.equal(this.element.textContent, 'Hello!');
+    });
+
+    // Make sure the use of the mixin is wired up correctly.
+    test('container fun', function (assert) {
+        const neato = this.owner.factoryFor('neato');
+        assert.ok(neato);
+    });
 });
-
-QUnit.test('can pauseTest to be resumed "later"', async function(this: TestContext, assert: Assert) {
-    const promise = this.pauseTest();
-
-    this.resumeTest();
-
-    await promise;
-});
-
-// https://github.com/emberjs/ember-test-helpers/blob/fb4c8d4cd36b54728ce180227f865b1fa0162632/tests/unit/setup-rendering-context-test.js
-QUnit.test('render exposes an `.element` property', async function(this: TestContext, assert: Assert) {
-    await this.render(hbs`<p>Hello!</p>`);
-
-    assert.equal(this.element.textContent, 'Hello!');
-});
+/* tslint:enable:only-arrow-functions */

@@ -5,10 +5,7 @@
             "es6",
             "dom"
         ],
-        "noImplicitAny": true,
-        "noImplicitThis": true,
-        "strictNullChecks": true,
-        "strictFunctionTypes": true,
+        "strict": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -22,6 +19,34 @@
     },
     "files": [
         "index.d.ts",
+        "application.d.ts",
+        "dom/blur.d.ts",
+        "dom/find.d.ts",
+        "dom/triggerTab.d.ts",
+        "dom/click.d.ts",
+        "dom/focus.d.ts",
+        "dom/type-in.d.ts",
+        "dom/double-click.d.ts",
+        "dom/get-root-element.d.ts",
+        "dom/tap.d.ts",
+        "dom/fill-in.d.ts",
+        "dom/scroll-to.d.ts",
+        "dom/trigger-event.d.ts",
+        "dom/find-all.d.ts",
+        "dom/select.d.ts",
+        "dom/trigger-key-event.d.ts",
+        "dom/wait-for.d.ts",
+        "resolver.d.ts",
+        "settled.d.ts",
+        "setup-application-context.d.ts",
+        "setup-context.d.ts",
+        "setup-onerror.d.ts",
+        "setup-rendering-context.d.ts",
+        "teardown-application-context.d.ts",
+        "teardown-context.d.ts",
+        "teardown-rendering-context.d.ts",
+        "validate-error-handler.d.ts",
+        "wait-until.d.ts",
         "ember__test-helpers-tests.ts"
     ]
 }

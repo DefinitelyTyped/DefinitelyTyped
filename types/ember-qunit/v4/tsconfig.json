@@ -5,13 +5,10 @@
             "es6",
             "dom"
         ],
-        "noImplicitAny": true,
-        "noImplicitThis": true,
-        "strictNullChecks": true,
-        "strictFunctionTypes": true,
-        "baseUrl": "../",
+        "strict": true,
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
         "paths": {
             "@ember/*": ["ember__*"]
@@ -22,7 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "wait.d.ts",
-        "ember-test-helpers-tests.ts"
+        "ember-qunit-tests.ts"
     ]
 }
