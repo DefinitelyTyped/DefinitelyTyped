@@ -103,10 +103,12 @@ export interface Options {
     controls?: boolean | undefined;
     dnt?: boolean | undefined;
     height?: number | undefined;
+    keyboard?: boolean | undefined;
     loop?: boolean | undefined;
     maxheight?: number | undefined;
     maxwidth?: number | undefined;
     muted?: boolean | undefined;
+    pip?: boolean | undefined;
     playsinline?: boolean | undefined;
     portrait?: boolean | undefined;
     responsive?: boolean | undefined;
