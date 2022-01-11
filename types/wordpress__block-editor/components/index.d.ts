@@ -60,4 +60,4 @@ export { default as BlockEditorProvider } from './provider';
 /*
  * Hooks
  */
-export * from './use-block-props';
+export { useBlockProps } from './use-block-props';

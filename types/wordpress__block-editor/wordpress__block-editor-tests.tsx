@@ -535,10 +535,10 @@ select('core/block-editor').getAdjacentBlockClientId('foo');
 select('core/block-editor').getAdjacentBlockClientId('foo', -1);
 select('core/block-editor').getAdjacentBlockClientId('foo', 1);
 
-// $ExpectType UseBlockPropsOut<Record<string, unknown>>
+// $ExpectType Record<string, unknown> & Merged & Reserved
 be.useBlockProps();
 
-// $ExpectType UseBlockPropsOut<{ foo: string; }>
+// $ExpectType { foo: string; } & Merged & Reserved
 be.useBlockProps({ foo: "bar" });
 
 // $ExpectType unknown
