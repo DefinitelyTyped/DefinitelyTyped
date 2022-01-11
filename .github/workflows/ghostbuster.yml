@@ -5,6 +5,11 @@ on:
     # https://crontab.guru/#0_0_1_*_*
     - cron: "0 0 1 * *"
   workflow_dispatch:
+    inputs:
+      skipPR:
+        description: Push results straight to master instead of opening a PR
+        required: false
+        default: "false"
 
 jobs:
   ghostbust:
@@ -19,7 +24,7 @@ jobs:
       - uses: actions/setup-node@v2
 
       - run: |
-          git config --global user.email "bot@typescriptlang.org"
+          git config --global user.email "typescriptbot@microsoft.com"
           git config --global user.name "TypeScript Bot"
 
       - run: npm ci
@@ -27,7 +32,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
 
-      - run: |
+      - if: ${{ inputs.skipPR == "true" }}
+        run: |
           if [ -n "`git status -s`" ]; then
             git commit -am "Remove contributors with deleted accounts #no-publishing-comment"
             # Script can take a bit to run; with such an active repo there's a good chance
@@ -35,3 +41,17 @@ jobs:
             git pull --rebase
             git push
           fi
+
+      - if: ${{ inputs.skipPR != "true" }}
+        uses: peter-evans/create-pull-request@v3.12.0
+        with:
+          token: ${{ secrets.GH_TOKEN }}
+          commit-message: "Remove contributors with deleted accounts #no-publishing-comment"
+          committer: "TypeScript Bot <typescriptbot@microsoft.com>"
+          author: "TypeScript Bot <typescriptbot@microsoft.com>"
+          branch: "bust-ghosts"
+          branch-suffix: short-commit-hash
+          delete-branch: true
+          title: Remove contributors with deleted accounts
+          body: "Generated from [.github/workflows/ghostbuster.yml](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/.github/workflows/ghostbuster.yml)"
+
