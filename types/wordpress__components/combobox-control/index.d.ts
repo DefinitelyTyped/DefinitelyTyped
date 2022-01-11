@@ -2,9 +2,9 @@ import { ComponentType, ReactNode } from 'react';
 
 declare namespace ComboboxControl {
     interface Props {
-        value: string | number;
-        label?: ReactNode | undefined;
-        options: Array<{ label: string | number; value: string }>;
+        value: string;
+        label?: string;
+        options: Array<{ label: string; value: string }>;
         onChange: (value: string | null) => void;
         onFilterValueChange?: (value: string) => void;
         hideLabelFromVision?: boolean | undefined;
