@@ -202,6 +202,23 @@ const buttonGroupRef = createRef<HTMLDivElement>();
 <C.ColorPicker onChangeComplete={color => console.log(color.hex)} disableAlpha />;
 
 //
+// combobox-control
+//
+<C.ComboboxControl
+    label={'Region'}
+    value={'UK'}
+    onChange={value => {
+        console.log(value);
+    }}
+    options={[
+        {
+            label: 'test',
+            value: 'test',
+        },
+    ]}
+/>;
+
+//
 // custom-select-control
 //
 <C.CustomSelectControl
