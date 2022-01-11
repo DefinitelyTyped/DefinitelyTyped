@@ -4,6 +4,7 @@
 //                 Sl1MBoy <https://github.com/Sl1MBoy>
 //                 Milan Mimra <https://github.com/milan-mimra>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
+//                 Karl Beecken <https://github.com/karlbeecken>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import express = require('express');
@@ -64,10 +65,12 @@ declare namespace jwt {
 declare global {
     namespace Express {
         // tslint:disable-next-line:no-empty-interface
-        interface User {}
+        interface User {
+            [key: string]: any;
+        }
 
         interface Request {
-            user?: any | undefined;
+            user?: User | undefined;
         }
     }
 }

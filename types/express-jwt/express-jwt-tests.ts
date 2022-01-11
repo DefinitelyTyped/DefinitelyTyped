@@ -80,4 +80,5 @@ app.use((err: any, req: express.Request, res: express.Response, next: express.Ne
 
 app.use((req, res) => {
     const user = req.user;
+    const username = req.user?.username;
 });
