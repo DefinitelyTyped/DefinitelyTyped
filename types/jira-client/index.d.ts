@@ -1,7 +1,6 @@
 // Type definitions for jira-client 7.1
 // Project: https://github.com/jira-node/node-jira-client
-// Definitions by: Anatoliy Ostapenko <https://github.com/KOPTE3>
-//                 Orta Therox <https://github.com/orta>
+// Definitions by: Orta Therox <https://github.com/orta>
 //                 Robert Kesterson <https://github.com/rkesters>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3

@@ -6,7 +6,6 @@
 //                 taoqf <https://github.com/taoqf>
 //                 Dadstart <https://github.com/Dadstart>
 //                 Jared Szechy <https://github.com/szechyjs>
-//                 Drew Diamantoukos <https://github.com/MercifulCode>
 //                 Sooraj Pudiyadath <https://github.com/soorajpudiyadath>
 //                 Jon Freedman <https://github.com/jonfreedman>
 //                 Megan Riel-Mehan <https://github.com/meganrm>
