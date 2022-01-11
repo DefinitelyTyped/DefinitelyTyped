@@ -26,7 +26,7 @@ jobs:
       - run: npm install --no-package-lock
       - run: node ./scripts/ghostbuster.cjs
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN_API_READ }}
 
       - if: ${{ inputs.skipPR == 'true' }}
         run: |
