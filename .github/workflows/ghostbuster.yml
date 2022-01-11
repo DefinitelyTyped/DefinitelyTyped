@@ -43,7 +43,7 @@ jobs:
       - if: ${{ inputs.skipPR != 'true' }}
         uses: peter-evans/create-pull-request@v3.12.0
         with:
-          token: ${{ secrets.GH_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: "Remove contributors with deleted accounts #no-publishing-comment"
           committer: "TypeScript Bot <typescriptbot@microsoft.com>"
           author: "TypeScript Bot <typescriptbot@microsoft.com>"
