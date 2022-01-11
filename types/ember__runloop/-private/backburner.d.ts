@@ -1,3 +1,5 @@
+import { RunMethod, RunMethodArgs } from "./types";
+
 export interface QueueItem {
     method: string;
     target: object;
@@ -6,9 +8,18 @@ export interface QueueItem {
 }
 
 export interface DeferredActionQueues {
-    [index: string]: any;
+    [index: string]: unknown;
     queues: object;
-    schedule(queueName: string, target: any, method: any, args: any, onceFlag: boolean, stack: any): any;
+    schedule<T, M extends RunMethod<T>>(
+        ...args: [
+            queueName: string,
+            target: T,
+            method: M,
+            ...methodArgs: RunMethodArgs<T, M>,
+            onceFlag: boolean,
+            stack: unknown
+        ]
+    ): any;
     flush(fromAutorun: boolean): any;
 }
 
