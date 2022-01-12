@@ -263,7 +263,7 @@ export class Duration {
      * @example
      * Duration.fromObject({ milliseconds: 6 }).toISO() //=> 'PT0.006S'
      */
-    toISO(): string;
+    toISO(): string | null;
 
     /**
      * Returns an ISO 8601-compliant string representation of this Duration, formatted as a time of day.
@@ -286,7 +286,7 @@ export class Duration {
      * @example
      * Duration.fromObject({ hours: 11 }).toISOTime({ format: 'basic' }) //=> '110000.000'
      */
-    toISOTime(opts?: ToISOTimeDurationOptions): string;
+    toISOTime(opts?: ToISOTimeDurationOptions): string | null;
 
     /**
      * Returns an ISO 8601 representation of this Duration appropriate for use in JSON.
