@@ -97,16 +97,16 @@ getters.ordinal; // $ExpectType number
 getters.isInLeapYear; // $ExpectType boolean
 
 dt.toBSON(); // $ExpectType Date
-dt.toHTTP(); // $ExpectType string
-dt.toISO(); // $ExpectType string
-dt.toISO({ includeOffset: true, format: 'extended' }); // $ExpectType string
-dt.toISODate(); // $ExpectType string
-dt.toISODate({ format: 'basic' }); // $ExpectType string
-dt.toISOTime(); // $ExpectType string
-dt.toISOTime({ format: 'basic' }); // $ExpectType string
-dt.toISOWeekDate(); // $ExpectType string
+dt.toHTTP(); // $ExpectType string | null
+dt.toISO(); // $ExpectType string | null
+dt.toISO({ includeOffset: true, format: 'extended' }); // $ExpectType string | null
+dt.toISODate(); // $ExpectType string | null
+dt.toISODate({ format: 'basic' }); // $ExpectType string | null
+dt.toISOTime(); // $ExpectType string | null
+dt.toISOTime({ format: 'basic' }); // $ExpectType string | null
+dt.toISOWeekDate(); // $ExpectType string | null
 dt.toJSDate(); // $ExpectType Date
-dt.toJSON(); // $ExpectType string
+dt.toJSON(); // $ExpectType string | null
 dt.toLocaleParts(); // $ExpectType DateTimeFormatPart[]
 dt.toLocaleParts()[0].type; // $ExpectType DateTimeFormatPartTypes
 dt.toLocaleParts()[0].value; // $ExpectType string
@@ -118,13 +118,13 @@ dt.toMillis(); // $ExpectType number
 dt.toMillis(); // $ExpectType number
 dt.toRelative(); // $ExpectType string | null
 dt.toRelativeCalendar(); // $ExpectType string | null
-dt.toRFC2822(); // $ExpectType string
+dt.toRFC2822(); // $ExpectType string | null
 dt.toSeconds(); // $ExpectType number
-dt.toSQL(); // $ExpectType string
-dt.toSQL({ includeOffset: false, includeZone: true }); // $ExpectType string
-dt.toSQLDate(); // $ExpectType string
-dt.toSQLTime(); // $ExpectType string
-dt.toSQLTime({ includeOffset: false, includeZone: true }); // $ExpectType string
+dt.toSQL(); // $ExpectType string | null
+dt.toSQL({ includeOffset: false, includeZone: true }); // $ExpectType string | null
+dt.toSQLDate(); // $ExpectType string | null
+dt.toSQLTime(); // $ExpectType string | null
+dt.toSQLTime({ includeOffset: false, includeZone: true }); // $ExpectType string | null
 dt.valueOf(); // $ExpectType number
 dt.toObject(); // $ExpectType ToObjectOutput
 dt.toObject({ includeConfig: true }); // $ExpectType ToObjectOutput
@@ -214,8 +214,8 @@ dur.set({ hour: 2, minutes: 15 }); // $ExpectType Duration
 
 dur.as('seconds'); // $ExpectType number
 dur.toObject();
-dur.toISO(); // $ExpectType string
-dur.toISOTime(); // $ExpectType string
+dur.toISO(); // $ExpectType string | null
+dur.toISOTime(); // $ExpectType string | null
 dur.normalize(); // $ExpectType Duration
 dur.toMillis(); // $ExpectType number
 dur.mapUnits((x, u) => (u === 'hours' ? x * 2 : x)); // $ExpectType Duration
@@ -328,7 +328,7 @@ DateTime.fromFormat('2017-05-15T09:10:23 Europe/Paris', "yyyy-MM-dd'T'HH:mm:ss z
 
 /* Calendars */
 // prettier-ignore
-DateTime.fromISO('2017-W23-3').plus({ weeks: 1, days: 2 }).toISOWeekDate(); // $ExpectType string
+DateTime.fromISO('2017-W23-3').plus({ weeks: 1, days: 2 }).toISOWeekDate(); // $ExpectType string | null
 
 const dtHebrew = DateTime.local().reconfigure({ outputCalendar: 'hebrew' });
 dtHebrew.outputCalendar; // $ExpectType string
@@ -383,7 +383,7 @@ dur.toObject().day; // $ExpectError
 dur.as('minutes'); // $ExpectType number
 dur.shiftTo('minutes').toObject().minutes; // $ExpectType number | undefined
 // prettier-ignore
-DateTime.fromISO('2017-05-15').plus(dur).toISO(); // $ExpectType string
+DateTime.fromISO('2017-05-15').plus(dur).toISO(); // $ExpectType string | null
 
 const end = DateTime.fromISO('2017-03-13');
 const start = DateTime.fromISO('2017-02-13');
