@@ -8,8 +8,6 @@
 import { NoParamCallback } from 'fs';
 import * as set from 'set-value';
 
-type SetValueOptions = Parameters<typeof set>[3]; // Type of the 3rd parameter of `set()` which is the options hash.
-
 declare namespace editJsonFile {
     /** JSON file editor options. */
     interface Options {
@@ -25,7 +23,7 @@ declare namespace editJsonFile {
         /** Get value at path. */
         get(path?: string): any;
         /** Set value at path. */
-        set(path: string, value: any, options?: SetValueOptions): JsonEditor;
+        set(path: string, value: any, options?: set.Options): JsonEditor;
         /** Appends a value/object to a specific path. */
         append(path: string, value: any): JsonEditor;
         /** Pop an array from a specific path. */
