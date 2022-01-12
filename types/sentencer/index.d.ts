@@ -14,6 +14,7 @@ interface Sentencer {
     actions: actions;
     make: (template: string) => string;
     configure: (options: options) => void;
+    use: (options: options) => Sentencer;
 }
 
 export = sentencer;
