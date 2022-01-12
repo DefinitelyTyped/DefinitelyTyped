@@ -169,27 +169,12 @@ jwt.verify(token, cert, { complete: true }, (_err, payload) => {
 cert = fs.readFileSync("public.pem"); // get public key
 const verified = jwt.verify(token, cert);
 
-if (typeof verified !== 'string') {
-    // $ExpectType JwtPayload
-    verified;
-}
-
 cert = fs.readFileSync("public.pem"); // get public key
 const verified2 = jwt.verify(token, cert, { complete: true });
-
-if (typeof verified2 !== 'string') {
-    // $ExpectType Jwt
-    verified2;
-}
 
 // This tests creates a token with iat as now, verifies with maxAge=now()+3600sec
 cert = fs.readFileSync("public.pem"); // get public key
 const verified3 = jwt.verify(token, cert, {maxAge: 3600});
-
-if (typeof verified3 !== 'string') {
-    // $ExpectType JwtPayload
-    verified3;
-}
 
 /**
  * jwt.decode
