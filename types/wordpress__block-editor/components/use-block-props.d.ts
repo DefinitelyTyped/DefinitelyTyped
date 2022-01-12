@@ -1,3 +1,5 @@
+import { Ref } from 'react';
+
 export interface Reserved {
     id: string;
     role: 'document';
@@ -16,10 +18,12 @@ export interface Merged {
 
 export interface UseBlockProps {
     <Props extends Record<string, unknown>>(
-        props?: Props & { [K in keyof Props]: K extends keyof Reserved ? never : Props[K] },
-    ): Props & Merged & Reserved;
+        props?: Props & {
+            [K in keyof Props]: K extends keyof Reserved ? never : Props[K];
+        } & { ref?: Ref<unknown> },
+    ): Omit<Props, 'ref'> & Merged & Reserved;
 
-    save: (props?: Record<string, unknown>) => unknown;
+    save: (props?: Record<string, unknown>) => Record<string, unknown>;
 }
 
 export const useBlockProps: UseBlockProps;

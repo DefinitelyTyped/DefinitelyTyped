@@ -1,6 +1,7 @@
 import { BlockInstance } from '@wordpress/blocks';
 import * as be from '@wordpress/block-editor';
 import { dispatch, select } from '@wordpress/data';
+import { useRef } from 'react';
 
 declare const BLOCK_INSTANCE: BlockInstance;
 
@@ -535,14 +536,17 @@ select('core/block-editor').getAdjacentBlockClientId('foo');
 select('core/block-editor').getAdjacentBlockClientId('foo', -1);
 select('core/block-editor').getAdjacentBlockClientId('foo', 1);
 
-// $ExpectType Record<string, unknown> & Merged & Reserved
+// $ExpectType Omit<Record<string, unknown>, "ref"> & Merged & Reserved
 be.useBlockProps();
 
-// $ExpectType { foo: string; } & Merged & Reserved
+// $ExpectType Omit<{ foo: string; }, "ref"> & Merged & Reserved
 be.useBlockProps({ foo: "bar" });
 
-// $ExpectType unknown
+// $ExpectType Omit<{ ref: MutableRefObject<string>; }, "ref"> & Merged & Reserved
+be.useBlockProps({ ref: useRef("test") });
+
+// $ExpectType Record<string, unknown>
 be.useBlockProps.save();
 
-// $ExpectType unknown
+// $ExpectType Record<string, unknown>
 be.useBlockProps.save({ foo: "bar" });
