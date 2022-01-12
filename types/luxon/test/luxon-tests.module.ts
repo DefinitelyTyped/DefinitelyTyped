@@ -166,8 +166,8 @@ dt.endOf('hour');
 dt.zone;
 dt.zoneName; // $ExpectType string
 dt.offset; // $ExpectType number
-dt.offsetNameShort; // $ExpectType string
-dt.offsetNameLong; // $ExpectType string
+dt.offsetNameShort; // $ExpectType string | null
+dt.offsetNameLong; // $ExpectType string | null
 dt.isOffsetFixed; // $ExpectType boolean
 dt.isInDST; // $ExpectType boolean
 
