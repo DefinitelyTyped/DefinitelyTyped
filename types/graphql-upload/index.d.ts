@@ -47,4 +47,6 @@ export interface FileUpload {
   createReadStream(): ReadStream;
 }
 
-export type Upload = Promise<FileUpload>;
+export abstract class Upload {
+  promise: Promise<FileUpload>;
+}
