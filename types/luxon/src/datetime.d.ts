@@ -936,13 +936,13 @@ export class DateTime {
      * Get the short human name for the zone's current offset, for example "EST" or "EDT".
      * Defaults to the system's locale if no locale has been specified
      */
-    get offsetNameShort(): string;
+    get offsetNameShort(): string | null;
 
     /**
      * Get the long human name for the zone's current offset, for example "Eastern Standard Time" or "Eastern Daylight Time".
      * Defaults to the system's locale if no locale has been specified
      */
-    get offsetNameLong(): string;
+    get offsetNameLong(): string | null;
 
     /**
      * Get whether this zone's offset ever changes, as in a DST.
@@ -1223,7 +1223,7 @@ export class DateTime {
      * @example
      * DateTime.now().toISO({ format: 'basic' }) //=> '20170422T204705.335-0400'
      */
-    toISO(opts?: ToISOTimeOptions): string;
+    toISO(opts?: ToISOTimeOptions): string | null;
 
     /**
      * Returns an ISO 8601-compliant string representation of this DateTime's date component
@@ -1236,7 +1236,7 @@ export class DateTime {
      * @example
      * DateTime.utc(1982, 5, 25).toISODate({ format: 'basic' }) //=> '19820525'
      */
-    toISODate(opts?: ToISODateOptions): string;
+    toISODate(opts?: ToISODateOptions): string | null;
 
     /**
      * Returns an ISO 8601-compliant string representation of this DateTime's week date
@@ -1244,7 +1244,7 @@ export class DateTime {
      * @example
      * DateTime.utc(1982, 5, 25).toISOWeekDate() //=> '1982-W21-2'
      */
-    toISOWeekDate(): string;
+    toISOWeekDate(): string | null;
 
     /**
      * Returns an ISO 8601-compliant string representation of this DateTime's time component
@@ -1265,7 +1265,7 @@ export class DateTime {
      * @example
      * DateTime.utc().set({ hour: 7, minute: 34 }).toISOTime({ includePrefix: true }) //=> 'T07:34:19.361Z'
      */
-    toISOTime(ops?: ToISOTimeOptions): string;
+    toISOTime(ops?: ToISOTimeOptions): string | null;
 
     /**
      * Returns an RFC 2822-compatible string representation of this DateTime, always in UTC
@@ -1275,7 +1275,7 @@ export class DateTime {
      * @example
      * DateTime.local(2014, 7, 13).toRFC2822() //=> 'Sun, 13 Jul 2014 00:00:00 -0400'
      */
-    toRFC2822(): string;
+    toRFC2822(): string | null;
 
     /**
      * Returns a string representation of this DateTime appropriate for use in HTTP headers.
@@ -1287,7 +1287,7 @@ export class DateTime {
      * @example
      * DateTime.utc(2014, 7, 13, 19).toHTTP() //=> 'Sun, 13 Jul 2014 19:00:00 GMT'
      */
-    toHTTP(): string;
+    toHTTP(): string | null;
 
     /**
      * Returns a string representation of this DateTime appropriate for use in SQL Date
@@ -1295,7 +1295,7 @@ export class DateTime {
      * @example
      * DateTime.utc(2014, 7, 13).toSQLDate() //=> '2014-07-13'
      */
-    toSQLDate(): string;
+    toSQLDate(): string | null;
 
     /**
      * Returns a string representation of this DateTime appropriate for use in SQL Time
@@ -1313,7 +1313,7 @@ export class DateTime {
      * @example
      * DateTime.now().toSQL({ includeZone: false }) //=> '05:15:16.345 America/New_York'
      */
-    toSQLTime(opts?: ToSQLOptions): string;
+    toSQLTime(opts?: ToSQLOptions): string | null;
 
     /**
      * Returns a string representation of this DateTime appropriate for use in SQL DateTime
@@ -1331,7 +1331,7 @@ export class DateTime {
      * @example
      * DateTime.local(2014, 7, 13).toSQL({ includeZone: true }) //=> '2014-07-13 00:00:00.000 America/New_York'
      */
-    toSQL(opts?: ToSQLOptions): string;
+    toSQL(opts?: ToSQLOptions): string | null;
 
     /**
      * Returns a string representation of this DateTime appropriate for debugging
@@ -1356,7 +1356,7 @@ export class DateTime {
     /**
      * Returns an ISO 8601 representation of this DateTime appropriate for use in JSON.
      */
-    toJSON(): string;
+    toJSON(): string | null;
 
     /**
      * Returns a BSON serializable equivalent to this DateTime.
