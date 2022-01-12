@@ -4,15 +4,19 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 type action = () => string;
+interface actions { [key: string]: action; }
 interface options {
     nounList?: string[];
     adjectiveList?: string[];
-    actions?: {[key: string]: action};
+    actions?: actions;
+}
+interface Sentencer {
+    actions: actions;
+    make: (template: string) => string;
+    configure: (options: options) => void;
 }
 
-declare namespace instance { // the Sentencer instance exported by the library
-    function make(template: string): string;
-    function configure(options: options): void;
-}
+export = sentencer;
+export as namespace sentencer;
 
-export = instance;
+declare const sentencer: Sentencer;

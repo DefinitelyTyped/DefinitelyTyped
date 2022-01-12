@@ -1,4 +1,4 @@
-import Sentencer, { configure } from 'sentencer';
+import Sentencer = require('sentencer');
 
 // $ExpectError
 Sentencer.make();
@@ -14,12 +14,6 @@ Sentencer.make("123--{{ a_noun }}--123");
 // $ExpectError
 Sentencer.configure(123);
 // $ExpectError
-configure(123);
-// $ExpectError
-configure();
-// $ExpectError
 Sentencer.configure();
-// $ExpectType void
-configure({ actions: { test: () => "123" }});
 // $ExpectType void
 Sentencer.configure({ actions: { test: () => "123" }});
