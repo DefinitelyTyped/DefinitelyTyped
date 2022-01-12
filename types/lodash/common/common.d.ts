@@ -250,6 +250,7 @@ declare module "../index" {
     interface NumericDictionary<T> {
         [index: number]: T;
     }
+    type LiteralDictionary<K extends number | string, T> = Record<K, T>
     // Crazy typedef needed get _.omit to work properly with Dictionary and NumericDictionary
     type AnyKindOfDictionary =
         | Dictionary<unknown>
