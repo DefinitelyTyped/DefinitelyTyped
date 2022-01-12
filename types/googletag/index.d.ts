@@ -125,7 +125,7 @@ declare namespace googletag {
      * @param div ID of the div that will contain this ad unit or OutOfPageFormat.
      * @returns The newly created slot, or `null` if the `div` has been used in a previous {@link defineSlot} or {@link defineOutOfPageSlot} call.
      */
-    function defineOutOfPageSlot(adUnitPath: string, div: string | googletag.enums.OutOfPageFormat): Slot | null;
+    function defineOutOfPageSlot(adUnitPath: string, div: string | enums.OutOfPageFormat): Slot | null;
     function defineOutOfPageSlot(adUnitPath: string): Slot;
     /**
      * Constructs an ad slot with a given ad unit path and size and associates it with the ID of a div element on the page that will contain the ad.
