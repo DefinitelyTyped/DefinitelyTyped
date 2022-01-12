@@ -105,7 +105,7 @@ export interface Alpine {
      */
     version: string;
     flushAndStopDeferringMutations(): void;
-    disableEffectScheduling(callback: () => unknown): void;
+    disableEffectScheduling(callback: () => void): void;
     setReactivityEngine(engine: ReactivityEngine): void;
     closestDataStack(node: Node): object[];
     skipDuringClone<R = unknown>(
