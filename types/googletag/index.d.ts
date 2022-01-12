@@ -2,7 +2,7 @@
 // Project: https://developers.google.com/publisher-tag
 // Definitions by: Wei Wang <https://github.com/atwwei>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// TypeScript Version: 3.8
 
 /**
  * The [Google Publisher Tag (GPT)](https://developers.google.cn/publisher-tag) is an ad tagging library for Google Ad Manager which is used to dynamically build ad requests.
@@ -74,9 +74,9 @@ declare namespace googletag {
      * Reference to the global command queue for asynchronous execution of GPT-related calls.
      *
      * The {@link googletag.cmd} variable is initialized to an empty JavaScript array by the GPT tag syntax on the page,
-     * and `cmd.push` is the standard `Array.push` method that adds an element to the end of the array.
+     * and {@link cmd.push} is the standard {@link Array.push} method that adds an element to the end of the array.
      * When the GPT JavaScript is loaded, it looks through the array and executes all the functions in order.
-     * The script then replaces `cmd` with a {@link CommandArray} object whose push method is defined to execute the function argument passed to it.
+     * The script then replaces {@link cmd} with a {@link CommandArray} object whose push method is defined to execute the function argument passed to it.
      * This mechanism allows GPT to reduce perceived latency by fetching the JavaScript asynchronously while allowing the browser to continue rendering the page.
      *
      * **Example**
@@ -109,7 +109,7 @@ declare namespace googletag {
      * For custom out-of-page ads, `div` is the ID of the div element that will contain the ad.
      * See the article on [out-of-page creatives](https://support.google.com/admanager/answer/6088046) for more details.
      *
-     * For GPT managed out-of-page ads, `div` is a supported {@link enums.OutOfPageFormat}.
+     * For GPT managed out-of-page ads, `div` is a supported {@link googletag.enums.OutOfPageFormat}.
      * See the article on [web interstitials](https://support.google.com/admanager/answer/9840201) for more details.
      *
      * **Example**
@@ -123,7 +123,7 @@ declare namespace googletag {
      *
      * @param adUnitPath Full [ad unit path](https://developers.google.com/publisher-tag/guides/get-started#ad-unit-path) with the network code and ad unit code.
      * @param div ID of the div that will contain this ad unit or OutOfPageFormat.
-     * @returns The newly created slot.
+     * @returns The newly created slot, or `null` if the `div` has been used in a previous {@link defineSlot} or {@link defineOutOfPageSlot} call.
      */
     function defineOutOfPageSlot(adUnitPath: string, div: string | enums.OutOfPageFormat): Slot | null;
     function defineOutOfPageSlot(adUnitPath: string): Slot;
@@ -139,7 +139,7 @@ declare namespace googletag {
      * @param size Width and height of the added slot.
      * This is the size that is used in the ad request if no responsive size mapping is provided or the size of the viewport is smaller than the smallest size provided in the mapping.
      * @param div ID of the div that will contain this ad unit.
-     * @returns The newly created slot.
+     * @returns The newly created slot, or `null` if the `div` has been used in a previous {@link defineSlot} or {@link defineOutOfPageSlot} call.
      */
     function defineSlot(adUnitPath: string, size: GeneralSize, div: string): Slot | null;
     function defineSlot(adUnitPath: string, size: GeneralSize): Slot;
@@ -271,7 +271,7 @@ declare namespace googletag {
          * ```
          *
          * @param ...f A JavaScript function to be executed..
-         * @returns The number of commands processed so far. This is compatible with `Array.push`'s return value (the current length of the array).
+         * @returns The number of commands processed so far. This is compatible with {@link Array.push}'s return value (the current length of the array).
          */
         push(...f: Array<() => void>): number;
     }
@@ -419,17 +419,17 @@ declare namespace googletag {
          */
         collapseEmptyDivs(collapseBeforeAdFetch?: boolean): boolean;
         /**
-         * @deprecated Deprecated definePassback() and defineOutOfPagePassback().
+         * @deprecated The legacy {@link definePassback()} and {@link defineOutOfPagePassback()} GPT library methods are deprecated and will be removed in a future update.
          * See [passback docs](https://developers.google.com/publisher-tag/guides/passback-tags#construct_passback_tags) for how to correctly create a passback.
          */
         defineOutOfPagePassback(adUnitPath: string): PassbackSlot;
         /**
-         * @deprecated Deprecated definePassback() and defineOutOfPagePassback().
+         * @deprecated The legacy {@link definePassback()} and {@link defineOutOfPagePassback()} GPT library methods are deprecated and will be removed in a future update.
          * See [passback docs](https://developers.google.com/publisher-tag/guides/passback-tags#construct_passback_tags) for how to correctly create a passback.
          */
         definePassback(adUnitPath: string, size: GeneralSize): PassbackSlot;
         /**
-         * Disables requests for ads on page load, but allows ads to be requested with a `googletag.pubads().refresh()` call.
+         * Disables requests for ads on page load, but allows ads to be requested with a {@link googletag.pubads()}.{@link refresh()} call.
          * This should be set prior to enabling the service.
          * Async mode must be used; otherwise it will be impossible to request ads using `refresh`.
          */
@@ -1228,16 +1228,16 @@ declare namespace googletag {
         getDivStartsCollapsed(): boolean | null;
         getEscapedQemQueryId(): string;
         /**
-         * @deprecated The getFirstLook method of googletag.Slot is deprecated. Please update your code to no longer call this method.
+         * @deprecated The getFirstLook method of {@link googletag.Slot} is deprecated. Please update your code to no longer call this method.
          */
         getFirstLook(): number;
         getHtml(): string;
         /**
-         * @deprecated getName on googletag.Slot is deprecated and will be removed. Use getAdUnitPath instead.
+         * @deprecated getName on {@link googletag.Slot} is deprecated and will be removed. Use {@link getAdUnitPath} instead.
          */
         getName(): string;
         /**
-         * Whether or not constructs an out-of-page ad slot with defineOutOfPageSlot.
+         * Whether or not constructs an out-of-page ad slot with {@link defineOutOfPageSlot}.
          */
         getOutOfPage(): boolean;
         /**
@@ -1479,7 +1479,7 @@ declare namespace googletag {
         getName(): string;
     }
     /**
-     * This is the namespace that GPT uses for `Events`. Your code can react to these events using `Service.addEventListener`.
+     * This is the namespace that GPT uses for `Events`. Your code can react to these events using {@link Service.addEventListener}.
      */
     namespace events {
         /**

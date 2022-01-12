@@ -39,19 +39,19 @@ declare namespace googletag {
      * Used for native ads (see [related article](https://support.google.com/admanager/answer/6366845)).
      * Note that both 'fluid' and ['fluid'] are acceptable forms to declare a slot size as fluid.
      */
-    type NamedSize = string | string[];
+    type NamedSize = 'fluid' | ['fluid'];
     type SingleSize = SingleSizeArray | NamedSize;
     /**
      * Array of two numbers representing [width, height].
      */
-    type SingleSizeArray = number[];
-    type SizeMapping = GeneralSize[];
+    type SingleSizeArray = [number, number];
+    type SizeMapping = [SingleSizeArray, GeneralSize];
     type SizeMappingArray = SizeMapping[];
     /**
      * Flag indicating that GPT API is loaded and ready to be called.
      * This property will be simply `undefined` until the API is ready.
      *
-     * Note that the recommended way of handling async is to use {@link googletag.cmd} to queue callbacks for when GPT is ready.
+     * Note that the recommended way of handling async is to use `googletag.cmd` to queue callbacks for when GPT is ready.
      * These callbacks do not have to check googletag.apiReady as they are guaranteed to execute once the API is set up.
      *
      * **Example**
@@ -67,10 +67,10 @@ declare namespace googletag {
     /**
      * Reference to the global command queue for asynchronous execution of GPT-related calls.
      *
-     * The {@link googletag.cmd} variable is initialized to an empty JavaScript array by the GPT tag syntax on the page,
+     * The `googletag.cmd` variable is initialized to an empty JavaScript array by the GPT tag syntax on the page,
      * and `cmd.push` is the standard `Array.push` method that adds an element to the end of the array.
      * When the GPT JavaScript is loaded, it looks through the array and executes all the functions in order.
-     * The script then replaces `cmd` with a {@link CommandArray} object whose push method is defined to execute the function argument passed to it.
+     * The script then replaces `cmd` with a `CommandArray` object whose push method is defined to execute the function argument passed to it.
      * This mechanism allows GPT to reduce perceived latency by fetching the JavaScript asynchronously while allowing the browser to continue rendering the page.
      *
      * **Example**
@@ -83,17 +83,17 @@ declare namespace googletag {
      */
     let cmd: CommandArray | Array<() => void>;
     /**
-     * Flag indicating that {@link PubAdsService} is enabled, loaded and fully operational.
-     * This property will be simply `undefined` until {@link googletag.enableServices()} is called and {@link PubAdsService} is loaded and initialized.
+     * Flag indicating that `PubAdsService` is enabled, loaded and fully operational.
+     * This property will be simply `undefined` until `googletag.enableServices()` is called and `PubAdsService` is loaded and initialized.
      */
     let pubadsReady: boolean | undefined;
     /**
-     * Returns a reference to the {@link CompanionAdsService}.
+     * Returns a reference to the `CompanionAdsService`.
      * @returns The Companion Ads service.
      */
     function companionAds(): CompanionAdsService;
     /**
-     * Returns a reference to the {@link ContentService}.
+     * Returns a reference to the `ContentService`.
      * @returns The content service.
      */
     function content(): ContentService;
@@ -103,7 +103,7 @@ declare namespace googletag {
      * For custom out-of-page ads, `div` is the ID of the div element that will contain the ad.
      * See the article on [out-of-page creatives](https://support.google.com/admanager/answer/6088046) for more details.
      *
-     * For GPT managed out-of-page ads, `div` is a supported {@link enums.OutOfPageFormat}.
+     * For GPT managed out-of-page ads, `div` is a supported `googletag.enums.OutOfPageFormat`.
      * See the article on [web interstitials](https://support.google.com/admanager/answer/9840201) for more details.
      *
      * **Example**
@@ -117,7 +117,7 @@ declare namespace googletag {
      *
      * @param adUnitPath Full [ad unit path](https://developers.google.com/publisher-tag/guides/get-started#ad-unit-path) with the network code and ad unit code.
      * @param div ID of the div that will contain this ad unit or OutOfPageFormat.
-     * @returns The newly created slot.
+     * @returns The newly created slot, or `null` if the `div` has been used in a previous `defineSlot` or `defineOutOfPageSlot` call.
      */
     function defineOutOfPageSlot(adUnitPath: string, div: string | enums.OutOfPageFormat): Slot | null;
     function defineOutOfPageSlot(adUnitPath: string): Slot;
@@ -133,13 +133,15 @@ declare namespace googletag {
      * @param size Width and height of the added slot.
      * This is the size that is used in the ad request if no responsive size mapping is provided or the size of the viewport is smaller than the smallest size provided in the mapping.
      * @param div ID of the div that will contain this ad unit.
-     * @returns The newly created slot.
+     * @returns The newly created slot, or `null` if the `div` has been used in a previous `defineSlot` or `defineOutOfPageSlot` call.
      */
-    function defineSlot(adUnitPath: string, size: GeneralSize, div?: string): Slot;
+    function defineSlot(adUnitPath: string, size: GeneralSize, div: string): Slot | null;
+    function defineSlot(adUnitPath: string, size: GeneralSize): Slot;
     /**
-     * Same as {@link googletag.defineSlot}
+     * Same as `googletag.defineSlot`
      */
-    function defineUnit(adUnitPath: string, size: GeneralSize, div?: string): Slot;
+    function defineUnit(adUnitPath: string, size: GeneralSize, div: string): Slot | null;
+    function defineUnit(adUnitPath: string, size: GeneralSize): Slot;
     /**
      * Destroys the given slots, removing all related objects and references of those slots from GPT.
      * This API does not support passback slots and companion slots.
@@ -197,7 +199,7 @@ declare namespace googletag {
      * ```
      *
      * @param divOrSlot Either the ID of the div element containing the ad slot or the div element, or the slot object.
-     * If a div element is provided, it must have an 'id' attribute which matches the ID passed into {@link googletag.defineSlot()}.
+     * If a div element is provided, it must have an 'id' attribute which matches the ID passed into `googletag.defineSlot()`.
      */
     function display(divOrSlot: string | Element | Slot): void;
     /**
@@ -227,12 +229,12 @@ declare namespace googletag {
      */
     function openConsole(div?: string): void;
     /**
-     * Returns a reference to the {@link PubAdsService}.
+     * Returns a reference to the `PubAdsService`.
      * @returns The Publisher Ads service..
      */
     function pubads(): PubAdsService;
     /**
-     * Sets the title for all ad container iframes created by {@link PubAdsService}, from this point onwards.
+     * Sets the title for all ad container iframes created by `PubAdsService`, from this point onwards.
      *
      * **Example**
      * ```
@@ -243,7 +245,7 @@ declare namespace googletag {
      */
     function setAdIframeTitle(title: string): void;
     /**
-     * Creates a new {@link SizeMappingBuilder}. See the [Ad Sizes](https://developers.google.com/publisher-tag/guides/ad-sizes#responsive_ads) guide for more details.
+     * Creates a new `SizeMappingBuilder`. See the [Ad Sizes](https://developers.google.com/publisher-tag/guides/ad-sizes#responsive_ads) guide for more details.
      * @returns A new builder.
      */
     function sizeMapping(): SizeMappingBuilder;
@@ -276,7 +278,7 @@ declare namespace googletag {
         /**
          * Sets whether companion slots that have not been filled will be automatically backfilled.
          * This method can be called multiple times during the page's lifetime to turn backfill on and off.
-         * Only slots that are also registered with the {@link PubAdsService} will be backfilled.
+         * Only slots that are also registered with the `PubAdsService` will be backfilled.
          * Due to policy restrictions, this method is not designed to fill empty companion slots when an Ad Exchange video is served.
          * @param value `true` to automatically backfill unfilled slots, `false` to leave them unchanged.
          */
@@ -411,12 +413,12 @@ declare namespace googletag {
          */
         collapseEmptyDivs(collapseBeforeAdFetch?: boolean): boolean;
         /**
-         * @deprecated Deprecated definePassback() and defineOutOfPagePassback().
+         * @deprecated The legacy `definePassback()` and `defineOutOfPagePassback()` GPT library methods are deprecated and will be removed in a future update.
          * See [passback docs](https://developers.google.com/publisher-tag/guides/passback-tags#construct_passback_tags) for how to correctly create a passback.
          */
         defineOutOfPagePassback(adUnitPath: string): PassbackSlot;
         /**
-         * @deprecated Deprecated definePassback() and defineOutOfPagePassback().
+         * @deprecated The legacy `definePassback()` and `defineOutOfPagePassback()` GPT library methods are deprecated and will be removed in a future update.
          * See [passback docs](https://developers.google.com/publisher-tag/guides/passback-tags#construct_passback_tags) for how to correctly create a passback.
          */
         definePassback(adUnitPath: string, size: GeneralSize): PassbackSlot;
@@ -501,7 +503,7 @@ declare namespace googletag {
         /**
          * Signals to GPT that video ads will be present on the page.
          * This enables competitive exclusion constraints on display and video ads.
-         * If the video content is known, call {@link setVideoContent} in order to be able to use content exclusion for display ads.
+         * If the video content is known, call `setVideoContent` in order to be able to use content exclusion for display ads.
          */
         enableVideoAds(): void;
         /**
@@ -571,8 +573,8 @@ declare namespace googletag {
          */
         getTargetingKeys(): string[];
         /**
-         * Returns whether or not initial requests for ads was successfully disabled by a previous {@link disableInitialLoad} call.
-         * @returns Returns `true` if a previous call to {@link disableInitialLoad} was successful, `false` otherwise.
+         * Returns whether or not initial requests for ads was successfully disabled by a previous `disableInitialLoad` call.
+         * @returns Returns `true` if a previous call to `disableInitialLoad` was successful, `false` otherwise.
          */
         isInitialLoadDisabled(): boolean;
         /**
@@ -589,7 +591,7 @@ declare namespace googletag {
          *
          * For proper behavior across all browsers, calling `refresh` must be preceded by a call to `display` the ad slot.
          * If the call to `display` is omitted, refresh may behave unexpectedly.
-         * If desired, the {@link disableInitialLoad} method can be used to stop `display` from fetching an ad.
+         * If desired, the `disableInitialLoad` method can be used to stop `display` from fetching an ad.
          *
          * Refreshing a slot removes the old ad from GPT's [long-lived pageview](https://support.google.com/admanager/answer/183281),
          * so future requests will not be influenced by roadblocks or competitive exclusions involving that ad.
@@ -623,7 +625,7 @@ declare namespace googletag {
          */
         refresh(slots?: Slot[], options?: { changeCorrelator: boolean }): void;
         /**
-         * Sets values for AdSense attributes that apply to all ad slots under the publisher ads service.
+         * Sets values for AdSense attributes that apply to all ad slots under the Publisher Ads service.
          *
          * See AdSense Attributes for a list of available keys and values.
          * Calling this more than once for the same key will override previously set values for that key.
@@ -686,7 +688,7 @@ declare namespace googletag {
         setCookieOptions(options: number): PubAdsService;
         /**
          * Configures whether all ads on the page should be forced to be rendered using a SafeFrame container.
-         * For more details, please see the article on [rendering creatives using safeframe](https://support.google.com/admanager/answer/6023110).
+         * For more details, please see the article on [rendering creatives using SafeFrame](https://support.google.com/admanager/answer/6023110).
          *
          * Please keep the following things in mind while using this API:
          * - This setting will only take effect for **subsequent** ad requests made for the respective slots.
@@ -921,12 +923,12 @@ declare namespace googletag {
     interface Service {
         /**
          * Registers a listener that allows you to set up and call a JavaScript function when a specific GPT event happens on the page. The following events are supported:
-         * - {@link googletag.events.ImpressionViewableEvent}
-         * - {@link googletag.events.SlotOnloadEvent}
-         * - {@link googletag.events.SlotRenderEndedEvent}
-         * - {@link googletag.events.SlotRequestedEvent}
-         * - {@link googletag.events.SlotResponseReceived}
-         * - {@link googletag.events.SlotVisibilityChangedEvent}
+         * - `googletag.events.ImpressionViewableEvent`
+         * - `googletag.events.SlotOnloadEvent`
+         * - `googletag.events.SlotRenderEndedEvent`
+         * - `googletag.events.SlotRequestedEvent`
+         * - `googletag.events.SlotResponseReceived`
+         * - `googletag.events.SlotVisibilityChangedEvent`
          *
          * An object of the appropriate event type is passed to the listener when it is called.
          *
@@ -1063,7 +1065,7 @@ declare namespace googletag {
          * Builds a size map specification from the mappings added to this builder.
          *
          * If any invalid mappings have been supplied, this method will return null.
-         * Otherwise it returns a specification in the correct format to pass to {@link googletag.Slot.defineSizeMapping()}.
+         * Otherwise it returns a specification in the correct format to pass to `googletag.Slot.defineSizeMapping()`.
          *
          * Note: the behavior of the builder after calling this method is undefined.
          *
@@ -1076,7 +1078,7 @@ declare namespace googletag {
      */
     interface Slot {
         /**
-         * Adds a {@link Service} to this slot.
+         * Adds a `Service` to this slot.
          *
          * **Example**
          * ```
@@ -1145,14 +1147,14 @@ declare namespace googletag {
          * ```
          *
          * @param sizeMapping Array of size mappings.
-         * You can use {@link googletag.SizeMappingBuilder} to create it.
-         * Each size mapping is an array of two elements: {@link googletag.SingleSizeArray} and {@link googletag.GeneralSize}.
+         * You can use `googletag.SizeMappingBuilder` to create it.
+         * Each size mapping is an array of two elements: `googletag.SingleSizeArray` and `googletag.GeneralSize`.
          * @returns The slot object on which the method was called.
          */
         defineSizeMapping(sizeMapping: SizeMappingArray): Slot;
         /**
          * Returns the value for the AdSense attribute associated with the given key for this slot.
-         * To see service-level attributes inherited by this slot, use {@link PubAdsService.get()}.
+         * To see service-level attributes inherited by this slot, use `PubAdsService.get()`.
          *
          * **Example**
          * ```
@@ -1183,7 +1185,7 @@ declare namespace googletag {
         getAdUnitPath(): string;
         /**
          * Returns the list of attribute keys set on this slot.
-         * To see the keys of service-level attributes inherited by this slot, use {@link PubAdsService.getAttributeKeys()}.
+         * To see the keys of service-level attributes inherited by this slot, use `PubAdsService.getAttributeKeys()`.
          *
          * **Example**
          * ```
@@ -1220,16 +1222,16 @@ declare namespace googletag {
         getDivStartsCollapsed(): boolean | null;
         getEscapedQemQueryId(): string;
         /**
-         * @deprecated The getFirstLook method of googletag.Slot is deprecated. Please update your code to no longer call this method.
+         * @deprecated The getFirstLook method of `googletag.Slot` is deprecated. Please update your code to no longer call this method.
          */
         getFirstLook(): number;
         getHtml(): string;
         /**
-         * @deprecated getName on googletag.Slot is deprecated and will be removed. Use getAdUnitPath instead.
+         * @deprecated getName on `googletag.Slot` is deprecated and will be removed. Use `getAdUnitPath` instead.
          */
         getName(): string;
         /**
-         * Whether or not constructs an out-of-page ad slot with defineOutOfPageSlot.
+         * Whether or not constructs an out-of-page ad slot with `defineOutOfPageSlot`.
          */
         getOutOfPage(): boolean;
         /**
@@ -1369,7 +1371,7 @@ declare namespace googletag {
         setCollapseEmptyDiv(collapse: boolean, collapseBeforeAdFetch?: boolean): Slot;
         /**
          * Configures whether ads in this slot should be forced to be rendered using a SafeFrame container.
-         * For more details, please see the article on [rendering creatives using safeframe](https://support.google.com/admanager/answer/6023110).
+         * For more details, please see the article on [rendering creatives using SafeFrame](https://support.google.com/admanager/answer/6023110).
          *
          * Please keep the following things in mind while using this API:
          * - This setting will only take effect for **subsequent** ad requests made for the respective slots.
@@ -1439,7 +1441,7 @@ declare namespace googletag {
         setTargeting(key: string, value: string | string[]): Slot;
         /**
          * Sets custom targeting parameters for this slot, from a key:value map in a JSON object.
-         * This is the same as calling {@link setTargeting()} for all the key values of the object.
+         * This is the same as calling `setTargeting()` for all the key values of the object.
          * These keys are defined in your Google Ad Manager account.
          *
          * **Notes:**
@@ -1530,7 +1532,7 @@ declare namespace googletag {
         /**
          * This event is fired when the creative code is injected into a slot.
          * This event will occur before the creative's resources are fetched, so the creative may not be visible yet.
-         * If you need to know when all creative resources for a slot have finished loading, consider the {@link SlotOnloadEvent} instead.
+         * If you need to know when all creative resources for a slot have finished loading, consider the `SlotOnloadEvent` instead.
          *
          * **Example**
          * ```
@@ -1562,15 +1564,15 @@ declare namespace googletag {
          */
         interface SlotRenderEndedEvent extends Event {
             /**
-             * Advertiser ID of the rendered ad. Value is `null` for empty slots, backfill ads, and creatives rendered by services other than {@link PubAdsService}.
+             * Advertiser ID of the rendered ad. Value is `null` for empty slots, backfill ads, and creatives rendered by services other than `PubAdsService`.
              */
             advertiserId: number | null;
             /**
-             * Campaign ID of the rendered ad. Value is `null` for empty slots, backfill ads, and creatives rendered by services other than {@link PubAdsService}.
+             * Campaign ID of the rendered ad. Value is `null` for empty slots, backfill ads, and creatives rendered by services other than `PubAdsService`.
              */
             campaignId: number | null;
             /**
-             * Creative ID of the rendered reservation ad. Value is `null` for empty slots, backfill ads, and creatives rendered by services other than {@link PubAdsService}.
+             * Creative ID of the rendered reservation ad. Value is `null` for empty slots, backfill ads, and creatives rendered by services other than `PubAdsService`.
              */
             creativeId: number | null;
             /**
@@ -1578,7 +1580,7 @@ declare namespace googletag {
              */
             isEmpty: boolean;
             /**
-             * Line item ID of the rendered reservation ad. Value is `null` for empty slots, backfill ads, and creatives rendered by services other than {@link PubAdsService}.
+             * Line item ID of the rendered reservation ad. Value is `null` for empty slots, backfill ads, and creatives rendered by services other than `PubAdsService`.
              */
             lineItemId: number | null;
             /**
@@ -1587,12 +1589,12 @@ declare namespace googletag {
             size: number[] | string | null;
             /**
              * Creative ID of the rendered reservation or backfill ad.
-             * Value is `null` if the ad is not a reservation or line item backfill, or the creative is rendered by services other than {@link PubAdsService}.
+             * Value is `null` if the ad is not a reservation or line item backfill, or the creative is rendered by services other than `PubAdsService`.
              */
             sourceAgnosticCreativeId: number | null;
             /**
              * Line item ID of the rendered reservation or backfill ad.
-             * Value is `null` if the ad is not a reservation or line item backfill, or the creative is rendered by services other than {@link PubAdsService}.
+             * Value is `null` if the ad is not a reservation or line item backfill, or the creative is rendered by services other than `PubAdsService`.
              */
             sourceAgnosticLineItemId: number | null;
         }
