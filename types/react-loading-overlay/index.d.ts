@@ -1,6 +1,6 @@
 // Type definitions for React-Loading-Overlay 1.0
 // Project: https://github.com/derrickpelletier/react-loading-overlay
-// Definitions by: Tommy Josépovic <https://github.com/tommy-josepovic>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as React from 'react';

@@ -11,6 +11,7 @@ import {
     Options,
     PersistentFile,
     VolatileFile,
+    Part
 } from "formidable";
 import * as http from "http";
 
@@ -28,6 +29,11 @@ const options: Options = {
     minFileSize: 1,
     multiples: false,
     uploadDir: "/dir",
+    filter: (part) => {
+        // $ExpectType Part
+        part;
+        return true;
+    }
 };
 
 const file: File = {
@@ -40,7 +46,7 @@ const file: File = {
     size: 20,
     mimetype: "json",
     toJSON: () => ({
-        newFilename: file.newFilename!,
+        newFilename: file.newFilename,
         length: 10,
         mimetype: file.mimetype,
         mtime: file.mtime!,
@@ -66,6 +72,8 @@ Formidable.DEFAULT_OPTIONS;
 // $ExpectType DefaultOptions
 defaultOptions;
 defaultOptions.enabledPlugins; // $ExpectType EnabledPlugins
+
+options.fileWriteStreamHandler; // $ExpectType (() => Writable) | undefined
 
 // $ExpectType EnabledPlugins
 enabledPlugins;
@@ -169,7 +177,7 @@ form.onPart = part => {
         buffer;
     });
 
-    form.handlePart(part);
+    form._handlePart(part);
 };
 
 http.createServer(req => {

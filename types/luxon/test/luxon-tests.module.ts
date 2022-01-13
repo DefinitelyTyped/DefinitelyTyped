@@ -83,13 +83,16 @@ DateTime.local().toString(); // => '2017-09-14T03:20:34.091-04:00'
 
 const getters = DateTime.local();
 getters.year; // $ExpectType number
-getters.month; // $ExpectType number
-getters.day; // $ExpectType number
-getters.second; // $ExpectType number
-getters.weekday; // $ExpectType number
+getters.month; // $ExpectType MonthNumbers
+getters.day; // $ExpectType DayNumbers
+getters.minute; // $ExpectType SecondNumbers
+getters.second; // $ExpectType SecondNumbers
+getters.weekday; // $ExpectType WeekdayNumbers
 getters.zoneName; // $ExpectType string
 getters.offset; // $ExpectType number
-getters.daysInMonth; // $ExpectType number
+getters.daysInMonth; // $ExpectType PossibleDaysInMonth
+getters.daysInYear; // $ExpectType PossibleDaysInYear
+getters.weeksInWeekYear; // $ExpectType PossibleWeeksInYear
 getters.ordinal; // $ExpectType number
 getters.isInLeapYear; // $ExpectType boolean
 
@@ -168,7 +171,7 @@ dt.offsetNameLong; // $ExpectType string
 dt.isOffsetFixed; // $ExpectType boolean
 dt.isInDST; // $ExpectType boolean
 
-dt.set({ hour: 3 }).hour; // $ExpectType number
+dt.set({ hour: 3 }).hour; // $ExpectType HourNumbers
 
 const f: { month: 'long'; day: 'numeric' } = { month: 'long', day: 'numeric' };
 dt.setLocale('fr').toLocaleString(f);

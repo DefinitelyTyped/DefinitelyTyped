@@ -648,6 +648,10 @@
             "libraryName": "copy-text-to-clipboard",
             "asOfVersion": "2.0.1"
         },
+        "copy-webpack-plugin": {
+            "libraryName": "copy-webpack-plugin",
+            "asOfVersion": "10.1.0"
+        },
         "cordova-plugin-battery-status": {
             "libraryName": "cordova-plugin-battery-status",
             "asOfVersion": "1.2.3"
@@ -1265,6 +1269,10 @@
             "libraryName": "express-promise-router",
             "asOfVersion": "3.0.0"
         },
+        "express-rate-limit": {
+            "libraryName": "express-rate-limit",
+            "asOfVersion": "6.0.0"
+        },
         "express-urlrewrite": {
             "libraryName": "express-urlrewrite",
             "asOfVersion": "1.3.0"
@@ -1807,6 +1815,10 @@
         },
         "html2canvas": {
             "libraryName": "html2canvas",
+            "asOfVersion": "1.0.0"
+        },
+        "htmlhint": {
+            "libraryName": "htmlhint",
             "asOfVersion": "1.0.0"
         },
         "http-graceful-shutdown": {
@@ -3531,6 +3543,10 @@
             "libraryName": "positive-zero",
             "asOfVersion": "3.0.0"
         },
+        "postcss-calc": {
+            "libraryName": "postcss-calc",
+            "asOfVersion": "8.2.0"
+        },
         "postcss-custom-properties": {
             "libraryName": "postcss-custom-properties",
             "asOfVersion": "12.0.0"
@@ -4623,6 +4639,10 @@
             "libraryName": "sip.js",
             "asOfVersion": "0.12.0"
         },
+        "skia-canvas": {
+            "libraryName": "skia-canvas",
+            "asOfVersion": "0.9.28"
+        },
         "skin-tone": {
             "libraryName": "skin-tone",
             "asOfVersion": "2.0.0"
@@ -4911,6 +4931,10 @@
             "libraryName": "styled-jsx",
             "asOfVersion": "3.4.4"
         },
+        "stylelint": {
+            "libraryName": "stylelint",
+            "asOfVersion": "14.0.0"
+        },
         "stylelint-webpack-plugin": {
             "libraryName": "stylelint-webpack-plugin",
             "asOfVersion": "2.1.0"
@@ -4958,6 +4982,10 @@
         "sweetalert": {
             "libraryName": "sweetalert",
             "asOfVersion": "2.0.4"
+        },
+        "swiper": {
+            "libraryName": "swiper",
+            "asOfVersion": "6.0.0"
         },
         "syllable": {
             "libraryName": "syllable",
@@ -5390,6 +5418,14 @@
         "webpack-chunk-hash": {
             "libraryName": "webpack-chunk-hash",
             "asOfVersion": "0.6.0"
+        },
+        "webpack-dev-middleware": {
+            "libraryName": "webpack-dev-middleware",
+            "asOfVersion": "5.3.0"
+        },
+        "webpack-dev-server": {
+            "libraryName": "webpack-dev-server",
+            "asOfVersion": "4.7.0"
         },
         "webpack-merge": {
             "libraryName": "webpack-merge",

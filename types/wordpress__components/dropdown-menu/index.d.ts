@@ -10,7 +10,7 @@ declare namespace DropdownMenu {
          * The Dashicon icon slug to be shown in the collapsed menu button.
          * @defaultValue "menu"
          */
-        icon?: Dashicon.Icon | undefined;
+        icon?: Dashicon.Icon | JSX.Element | undefined;
         /**
          * A human-readable label to present as accessibility text on the
          * focused collapsed menu button.
@@ -55,7 +55,7 @@ declare namespace DropdownMenu {
         /**
          * Dashicon icon slug.
          */
-        icon: Dashicon.Icon;
+        icon: Dashicon.Icon | JSX.Element;
         /**
          * Human-readable title for the control.
          */
@@ -67,7 +67,7 @@ declare namespace DropdownMenu {
         /**
          * Function to invoke when the option is selected.
          */
-        onClick(): void;
+        onClick?: () => void;
     }
     type Props = PropsWithChildren | PropsWithControls;
 }

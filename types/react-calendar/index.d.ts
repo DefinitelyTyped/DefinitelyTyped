@@ -1,6 +1,7 @@
 // Type definitions for react-calendar 3.4
 // Project: https://github.com/wojtekmaj/react-calendar
-// Definitions by: Stéphane Saquet <https://github.com/Guymestef>, Katie Soldau <https://github.com/ksoldau>, Danah <https://github.com/sweetmilkys>
+// Definitions by: Stéphane Saquet <https://github.com/Guymestef>
+//                 Katie Soldau <https://github.com/ksoldau>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
 

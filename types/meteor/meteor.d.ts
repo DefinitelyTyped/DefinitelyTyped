@@ -4,7 +4,7 @@ import { Blaze } from 'meteor/blaze';
 import { DDP } from 'meteor/ddp';
 declare module 'meteor/meteor' {
     type global_Error = Error;
-    module Meteor {
+    namespace Meteor {
         /** Global props **/
         /** True if running in client environment. */
         var isClient: boolean;
@@ -258,7 +258,7 @@ declare module 'meteor/meteor' {
         /** Pub/Sub **/
     }
 
-    module Meteor {
+    namespace Meteor {
         /** Login **/
         interface LoginWithExternalServiceOptions {
             requestPermissions?: ReadonlyArray<string> | undefined;
@@ -305,8 +305,6 @@ declare module 'meteor/meteor' {
             callback?: (error?: global_Error | Meteor.Error | Meteor.TypedError) => void,
         ): void;
 
-        function loggingIn(): boolean;
-
         function loginWith<ExternalService>(
             options?: {
                 requestPermissions?: ReadonlyArray<string> | undefined;
@@ -329,6 +327,8 @@ declare module 'meteor/meteor' {
             token: string,
             callback?: (error?: global_Error | Meteor.Error | Meteor.TypedError) => void,
         ): void;
+
+        function loggingIn(): boolean;
 
         function loggingOut(): boolean;
 
@@ -385,7 +385,7 @@ declare module 'meteor/meteor' {
         /** Pub/Sub **/
     }
 
-    module Meteor {
+    namespace Meteor {
         /** Connection **/
         interface Connection {
             id: string;
@@ -461,7 +461,7 @@ declare module 'meteor/meteor' {
         userId: string | null;
     }
 
-    module Meteor {
+    namespace Meteor {
         /** Global props **/
         /** True if running in development environment. */
         var isDevelopment: boolean;

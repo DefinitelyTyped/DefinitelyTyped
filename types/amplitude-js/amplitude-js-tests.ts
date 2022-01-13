@@ -78,6 +78,7 @@ import amplitude = require('amplitude-js');
     client.setGlobalUserProperties({ gender: 'female', sign_up_complete: true });
     client.setVersionName('1.12.3');
     client.setSessionId(1505430378000);
+    client.resetSessionId();
     client.options.logLevel = 'WARN';
     client.getSessionId() === 123;
     client.isNewSession();
@@ -218,3 +219,22 @@ const defaults: amplitude.Config = {
     unsentIdentifyKey: 'amplitude_unsent_identify',
     uploadBatchSize: 100,
 };
+
+// For versions starting from 8.9.0
+// No need to call setServerUrl for sending data to Amplitude's EU servers
+amplitude.getInstance().init('API_KEY', 'USER_ID', {
+    serverZone: 'EU',
+    serverZoneBasedApi: true,
+});
+
+// cookieStorage use example
+// https://github.com/DefinitelyTyped/DefinitelyTyped/discussions/57387
+const deviceId = amplitude.getInstance().cookieStorage.get('deviceId');
+if (deviceId) {
+    amplitude.getInstance().setDeviceId(deviceId);
+} else {
+    amplitude.getInstance().cookieStorage.set('deviceId', amplitude.getInstance().options.deviceId);
+}
+
+const domain = amplitude.getInstance().cookieStorage.options().domain;
+amplitude.getInstance().cookieStorage.options({ domain });

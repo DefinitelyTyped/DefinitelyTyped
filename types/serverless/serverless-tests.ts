@@ -363,6 +363,9 @@ const awsServerless: Aws.Serverless = {
                 format: 'testformat'
             },
             frameworkLambda: false
+        },
+        eventBridge: {
+            useCloudFormation: true
         }
     },
     package: {
@@ -689,9 +692,15 @@ const awsServerless: Aws.Serverless = {
     },
     resources: {
         Description: 'testStackDescription',
+        Conditions: {
+            TestCondition: {
+                'Fn::Equals': ['testcond', 'testcond']
+            }
+        },
         Resources: {
             testcloudformationresource: {
                 Type: 'testType',
+                Condition: 'TestCondition',
                 Properties: {
                     testpropertykey: 'testpropertyvalue'
                 },

@@ -6,7 +6,6 @@
 //                 Stephen King <https://github.com/sbking>
 //                 Alejandro Fernandez Haro <https://github.com/afharo>
 //                 Vítor Castro <https://github.com/teves-castro>
-//                 Jordan Quagliatini <https://github.com/1M0reBug>
 //                 Simon Højberg <https://github.com/hojberg>
 //                 Samson Keung <https://github.com/samsonkeung>
 //                 Angelo Ocana <https://github.com/angeloocana>
@@ -22,7 +21,6 @@
 //                 John Ottenlips <https://github.com/jottenlips>
 //                 Nitesh Phadatare <https://github.com/minitesh>
 //                 Krantisinh Deshmukh <https://github.com/krantisinh>
-//                 Pierre-Antoine Mills <https://github.com/pirix-gh>
 //                 Aram Kharazyan <https://github.com/nemo108>
 //                 Jituan Lin <https://github.com/jituanlin>
 //                 Philippe Mills <https://github.com/Philippe-mills>
@@ -1883,7 +1881,10 @@ export function reject<T, C extends (readonly T[] | Dictionary<T>)>(pred: (value
  * Removes the sub-list of `list` starting at index `start` and containing `count` elements.
  */
 export function remove<T>(start: number, count: number, list: readonly T[]): T[];
-export function remove<T>(start: number): (count: number, list: readonly T[]) => T[];
+export function remove<T>(start: number): {
+    (count: number, list: readonly T[]): T[];
+    (count: number): (list: readonly T[]) => T[];
+};
 export function remove<T>(start: number, count: number): (list: readonly T[]) => T[];
 
 /**

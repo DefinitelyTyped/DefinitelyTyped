@@ -6,11 +6,12 @@
  * ```js
  * const tls = require('tls');
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/tls.js)
+ * @see [source](https://github.com/nodejs/node/blob/v17.0.0/lib/tls.js)
  */
 declare module 'tls' {
     import { X509Certificate } from 'node:crypto';
     import * as net from 'node:net';
+    import * as stream from 'stream';
     const CLIENT_RENEG_LIMIT: number;
     const CLIENT_RENEG_WINDOW: number;
     interface Certificate {
@@ -516,7 +517,7 @@ declare module 'tls' {
         host?: string | undefined;
         port?: number | undefined;
         path?: string | undefined; // Creates unix socket connection to path. If this option is specified, `host` and `port` are ignored.
-        socket?: net.Socket | undefined; // Establish secure connection on a given socket rather than creating a new socket
+        socket?: stream.Duplex | undefined; // Establish secure connection on a given socket rather than creating a new socket
         checkServerIdentity?: typeof checkServerIdentity | undefined;
         servername?: string | undefined; // SNI TLS Extension
         session?: Buffer | undefined;

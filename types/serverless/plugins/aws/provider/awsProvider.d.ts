@@ -79,6 +79,11 @@ declare namespace Aws {
         tracing?: Tracing | undefined;
         logs?: Logs | undefined;
         kmsKeyArn?: string | undefined;
+        eventBridge?: EventBridge | undefined;
+    }
+
+    interface EventBridge {
+        useCloudFormation?: boolean;
     }
 
     interface IamSettings {
@@ -635,6 +640,7 @@ declare namespace Aws {
     interface CloudFormationResource {
         Type: string;
         Properties: { [key: string]: any };
+        Condition?: string | undefined;
         DependsOn?: string | { [key: string]: any } | undefined;
         DeletionPolicy?: string | undefined;
     }
@@ -656,8 +662,13 @@ declare namespace Aws {
         [key: string]: Output;
     }
 
+    interface ResourcesConditions {
+        [key: string]: any;
+    }
+
     interface Resources {
         Description?: string | undefined;
+        Conditions?: ResourcesConditions;
         Resources: CloudFormationResources;
         extensions?: CloudFormationResources | undefined;
         Outputs?: Outputs | undefined;

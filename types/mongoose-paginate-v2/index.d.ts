@@ -1,7 +1,6 @@
 // Type definitions for mongoose-paginate-v2 1.4
 // Project: https://github.com/webgangster/mongoose-paginate-v2
 // Definitions by: Linus Brolin <https://github.com/linusbrolin>
-//                 simonxca <https://github.com/simonxca>
 //                 woutgg <https://github.com/woutgg>
 //                 oktapodia <https://github.com/oktapodia>
 //                 Dongjun Lee <https://github.com/ChazEpps>
@@ -10,18 +9,18 @@
 // Minimum TypeScript Version: 4.1
 
 declare module 'mongoose' {
-    interface CustomLabels {
-        totalDocs?: string | undefined;
-        docs?: string | undefined;
-        limit?: string | undefined;
-        page?: string | undefined;
-        nextPage?: string | undefined;
-        prevPage?: string | undefined;
-        hasNextPage?: string | undefined;
-        hasPrevPage?: string | undefined;
-        totalPages?: string | undefined;
-        pagingCounter?: string | undefined;
-        meta?: string | undefined;
+    interface CustomLabels<T = string | undefined | boolean> {
+        totalDocs?: T;
+        docs?: T;
+        limit?: T;
+        page?: T;
+        nextPage?: T;
+        prevPage?: T;
+        hasNextPage?: T;
+        hasPrevPage?: T;
+        totalPages?: T;
+        pagingCounter?: T;
+        meta?: T;
     }
 
     interface ReadOptions {

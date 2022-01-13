@@ -73,7 +73,7 @@ import * as dns from 'node:dns';
     res.addTrailers({ 'x-foo': 'bar' });
 
     // writeHead
-    res.writeHead(200, 'OK\r\nContent-Type: text/html\r\n').end();
+    res.writeHead(200, 'OK\r\nContent-Type: text/html\r\n').end().end();
     res.writeHead(200, { 'Transfer-Encoding': 'chunked' });
     res.writeHead(200, ['Transfer-Encoding', 'chunked']);
     res.writeHead(200);
@@ -91,7 +91,7 @@ import * as dns from 'node:dns';
     // end
     res.end("end msg");
     // without msg
-    res.end();
+    res.end().end();
 
     // flush
     res.flushHeaders();
@@ -116,7 +116,7 @@ import * as dns from 'node:dns';
     const chunk = Buffer.alloc(16390, 'Й');
     req.write(chunk);
     req.write('a');
-    req.end();
+    req.end().end();
 
     // abort
     req.abort();

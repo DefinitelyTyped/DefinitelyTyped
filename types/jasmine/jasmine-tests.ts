@@ -1939,19 +1939,21 @@ describe("Custom async matcher: 'toBeEight'", () => {
 
 describe("better typed spys", () => {
     describe("a typed spy", () => {
-        const spy = jasmine.createSpy("spy", (num: number, str: string): string => {
+        const spy = jasmine.createSpy("spy", function(this: Date, num: number, str: string): string {
             return `${num} and ${str}`;
         });
         it("has a typed returnValue", () => {
-            // $ExpectType (val: string) => Spy<(num: number, str: string) => string>
+            // $ExpectType (val: string) => Spy<(this: Date, num: number, str: string) => string>
             spy.and.returnValue;
         });
         it("has a typed calls property", () => {
             spy.calls.first().args; // $ExpectType [number, string] || [num: number, str: string]
             spy.calls.first().returnValue; // $ExpectType string
+            spy.calls.first().object; // $ExpectType ThisType<(this: Date, num: number, str: string) => string>
+            spy.calls.thisFor(0); // $ExpectType ThisType<(this: Date, num: number, str: string) => string>
         });
         it("has a typed callFake", () => {
-            // $ExpectType (fn: (num: number, str: string) => string) => Spy<(num: number, str: string) => string>
+            // $ExpectType (fn: (this: Date, num: number, str: string) => string) => Spy<(this: Date, num: number, str: string) => string>
             spy.and.callFake;
         });
     });

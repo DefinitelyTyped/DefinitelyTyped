@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "dependencies": {
+        "axios": "^0.24.0"
+    }
+}

@@ -102,21 +102,21 @@ const productColumns: Array<ColumnDescription<Product>> = [
                 if (isNaN(newValue)) {
                     return done({
                         valid: false,
-                        message: 'Price should be numeric'
+                        message: 'Price should be numeric',
                     });
                 }
                 if (newValue < 2000) {
                     return done({
                         valid: false,
-                        message: 'Price should bigger than 2000'
+                        message: 'Price should bigger than 2000',
                     });
                 }
                 return done();
             }, 2000);
             return {
-                async: true
+                async: true,
             };
-        }
+        },
     },
     {
         dataField: 'price2',
@@ -125,17 +125,17 @@ const productColumns: Array<ColumnDescription<Product>> = [
             if (isNaN(newValue)) {
                 return {
                     valid: false,
-                    message: 'Price should be numeric'
+                    message: 'Price should be numeric',
                 };
             }
             if (newValue < 2000) {
                 return {
                     valid: false,
-                    message: 'Price should bigger than 2000'
+                    message: 'Price should bigger than 2000',
                 };
             }
             return true;
-        }
+        },
     },
     {
         dataField: 'category',
@@ -294,8 +294,8 @@ render(
         selectRow={{
             mode: ROW_SELECT_MULTIPLE,
             selectionRenderer({ rowKey, checked, disabled }) {
-                return <input key={rowKey} type="checkbox" checked={checked}  disabled={disabled} />;
-            }
+                return <input key={rowKey} type="checkbox" checked={checked} disabled={disabled} />;
+            },
         }}
     />,
     document.getElementById('app'),

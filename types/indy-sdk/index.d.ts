@@ -239,7 +239,7 @@ export function verifierVerifyProof(
 
 export function createRevocationState(
     blobStorageReaderHandle: BlobReaderHandle,
-    revRegDef: RevRegDef,
+    revRegDef: RevocRegDef,
     revRegDelta: RevocRegDelta,
     timestamp: number,
     credRevId: CredRevocId,

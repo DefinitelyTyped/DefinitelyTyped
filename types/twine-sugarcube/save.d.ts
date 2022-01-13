@@ -33,6 +33,45 @@ export interface SaveObject {
     version?: any;
 }
 
+export interface SaveDetails {
+    /**
+     * A string representing how the save operation came about — i.e., what caused it.
+     */
+    type: 'autosave' | 'disk' | 'serialize' | 'slot';
+}
+
+type SaveHandler = (save: SaveObject, details: SaveDetails) => void;
+type LoadHandler = (save: SaveObject) => void;
+
+interface SaveEventAPI<HandlerType> {
+    /**
+     * Add new handler
+     * @param handler
+     */
+    add(handler: HandlerType): void;
+    /**
+     * Deletes all currently registered handlers.
+     */
+    clear(): void;
+    /**
+     * Deletes the specified handler.
+     * @param handler The handler function to be deleted.
+     * @returns `true` if the handler existed or `false` if not.
+     * @example
+     * // Given:
+     * // let myOnLoadHandler = function (save) {
+     * //    // code to process the save object before it's loaded
+     * // };
+     * // Save.onLoad.add(myOnLoadHandler);
+     *
+     * Save.onLoad.delete(myOnLoadHandler);
+     */
+    delete(handler: HandlerType): boolean;
+    /**
+     * Returns the number of currently registered handlers.
+     */
+    size: number;
+}
 export interface SaveAPI {
     /**
      * Deletes all slot saves and the autosave, if it's enabled.
@@ -51,6 +90,22 @@ export interface SaveAPI {
      * @since 2.0.0
      */
     ok(): boolean;
+
+    /**
+     * Performs any required processing before the save data is loaded — e.g., upgrading
+     * out-of-date save data. The handler is passed one parameter, the save object to be
+     * processed. If it encounters an unrecoverable problem during its processing, it may
+     * throw an exception containing an error message; the message will be displayed to
+     * the player and loading of the save will be terminated.
+     * @since 2.36.0
+     */
+    onLoad: SaveEventAPI<LoadHandler>;
+    /**
+     * Performs any required processing before the save data is saved. The handlers is passed
+     * two parameters, the save object to be processed and save operation details object.
+     * @since 2.36.0
+     */
+    onSave: SaveEventAPI<SaveHandler>;
 
     slots: {
         /**

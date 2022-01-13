@@ -8,7 +8,7 @@ type Result = asyncBusboy.Result;
 type OnFileResult = asyncBusboy.OnFileResult;
 type FileReadStream = asyncBusboy.FileReadStream;
 
-const req = null as any as IncomingMessage;
+declare const req: IncomingMessage;
 
 const resultPromise = asyncBusboy(req); // $ExpectType Promise<Result>
 asyncBusboy(req, {}); // $ExpectType Promise<Result>
