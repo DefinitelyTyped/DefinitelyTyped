@@ -1,4 +1,4 @@
-// Type definitions for p5 1.4.0
+// Type definitions for p5 1.4
 // Project: https://github.com/processing/p5.js
 // Definitions by: p5-types <https://github.com/p5-types>
 //                 Pierre Krafft <https://github.com/Zalastax>
