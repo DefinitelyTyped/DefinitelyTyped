@@ -50,4 +50,4 @@ export interface TableViewerProps {
     errorColor?: string;
 }
 
-export default class TableViewer extends React.Component<TableViewerProps> {}
+export default class TableViewer extends React.Component<TableViewerProps> { }
