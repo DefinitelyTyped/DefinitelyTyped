@@ -4,15 +4,7 @@ declare module 'meteor/server-render' {
     // HTMLElement only works on client.
     type Content = string | Content[] | NodeJS.ReadableStream | HTMLElement;
 
-    interface Sink {
-        // Server-only:
-        request?: http.IncomingMessage;
-        arch?: string;
-        head?: string;
-        body?: string;
-        htmlById?: { [key: string]: string };
-        maybeMadeChanges?: boolean;
-
+    interface ClientSink {
         // Client and server. Only client
         appendToHead(html: Content): void;
         appendToBody(html: Content): void;
@@ -27,6 +19,17 @@ declare module 'meteor/server-render' {
         getCookies(): { [key: string]: string };
     }
 
+    interface ServerSink extends ClientSink {
+        // Server-only:
+        request: http.IncomingMessage;
+        arch: string;
+        head: string;
+        body: string;
+        htmlById: { [key: string]: string };
+        maybeMadeChanges: boolean;
+    }
+
+    type Sink = ClientSink | ServerSink;
     type Callback = (sink: Sink) => Promise<any> | any;
     export function onPageLoad<T extends Callback>(callback: T): T;
 }

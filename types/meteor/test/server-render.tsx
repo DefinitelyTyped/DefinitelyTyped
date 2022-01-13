@@ -1,4 +1,4 @@
-import { onPageLoad } from "meteor/server-render";
+import { onPageLoad, ServerSink } from "meteor/server-render";
 import * as React from 'react';
 import { renderToString, renderToNodeStream } from 'react-dom/server';
 import { hydrate } from 'react-dom';
@@ -21,7 +21,7 @@ onPageLoad(async () => {
 onPageLoad(sink => {
   const sheet = new ServerStyleSheet();
   const html = renderToString(sheet.collectStyles(
-    <div data-location={sink.request!.url} />
+    <div data-location={(sink as ServerSink).request.url} />
   ));
 
   sink.renderIntoElementById("app", html);
@@ -35,4 +35,8 @@ onPageLoad(sink => {
   sink.setStatusCode(200);
   sink.redirect('/');
   sink.redirect('/', 301);
+
+  if ('request' in sink) { // ServerSink
+    console.log(sink.arch + sink.head + sink.body);
+  }
 });
