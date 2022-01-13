@@ -4639,6 +4639,10 @@
             "libraryName": "sip.js",
             "asOfVersion": "0.12.0"
         },
+        "skia-canvas": {
+            "libraryName": "skia-canvas",
+            "asOfVersion": "0.9.28"
+        },
         "skin-tone": {
             "libraryName": "skin-tone",
             "asOfVersion": "2.0.0"
