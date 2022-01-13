@@ -18,11 +18,6 @@ export function assert(desc: string, test: unknown): asserts test;
 export function debug(message: string): void;
 
 /**
- * Convenience method to inspect an object. This method will attempt to
- * convert the object into a useful string description.
- */
-export function inspect(obj: any): string;
-/**
  * Allows for runtime registration of handler functions that override the default deprecation behavior.
  * Deprecations are invoked by calls to [Ember.deprecate](http://emberjs.com/api/classes/Ember.html#method_deprecate).
  * The following example demonstrates its usage by registering a handler that throws an error if the
@@ -40,7 +35,7 @@ export function registerWarnHandler(handler: (message: string, options: { id: st
 /**
  * Run a function meant for debugging.
  */
-export function runInDebug(func: () => any): void;
+export function runInDebug(func: () => unknown): void;
 
 /**
  * Display a warning with the provided message.
@@ -85,6 +80,9 @@ export function deprecate(
         /**
          * Describes when the deprecation became available and enabled.
          */
-        since: Partial<Record<'available' | 'enabled', string>>;
+        since: Available | Enabled;
     },
 ): void;
+
+export interface Available { available: string; }
+export interface Enabled extends Available { enabled: string; }

@@ -1,4 +1,4 @@
-import { RunMethod, RunMethodArgs } from "./types";
+import { EmberMethod, EmberMethodParams } from "ember/-private/type-utils";
 
 export interface QueueItem {
     method: string;
@@ -10,12 +10,12 @@ export interface QueueItem {
 export interface DeferredActionQueues {
     [index: string]: unknown;
     queues: object;
-    schedule<T, M extends RunMethod<T>>(
+    schedule<T, M extends EmberMethod<T>>(
         ...args: [
             queueName: string,
             target: T,
             method: M,
-            ...methodArgs: RunMethodArgs<T, M>,
+            ...methodArgs: EmberMethodParams<T, M>,
             onceFlag: boolean,
             stack: unknown
         ]

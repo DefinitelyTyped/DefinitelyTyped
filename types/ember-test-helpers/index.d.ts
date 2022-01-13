@@ -4,7 +4,7 @@
 //                 James C. Davis <https://github.com/jamescdavis>
 //                 Dan Freeman <https://github.com/dfreeman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
+// Minimum TypeScript Version: 4.4
 
 import EmberResolver from 'ember-resolver';
 
@@ -52,8 +52,6 @@ export interface ModuleCallbacks {
 
     [key: string]: any;
 }
-
-export {} from '@ember/test-helpers';
 
 export class TestModule {
     constructor(name: string, callbacks?: ModuleCallbacks);

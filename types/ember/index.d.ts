@@ -6,35 +6,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.4
 
-/// <reference types="jquery" />
-/// <reference types="ember__string" />
-/// <reference types="ember__polyfills" />
-/// <reference types="ember__object" />
-/// <reference types="ember__utils" />
-/// <reference types="ember__array" />
-/// <reference types="ember__engine" />
-/// <reference types="ember__debug" />
-/// <reference types="ember__runloop" />
-/// <reference types="ember__error" />
-/// <reference types="ember__controller" />
-/// <reference types="ember__component" />
-/// <reference types="ember__routing" />
-/// <reference types="ember__application" />
-/// <reference types="ember__test" />
-/// <reference types="ember__service" />
-/// <reference types="ember__template" />
-/// <reference types="ember__destroyable" />
-
-import {
-    Objectify, Fix, UnwrapComputedPropertySetters,
-    UnwrapComputedPropertySetter,
-    UnwrapComputedPropertyGetters,
-    UnwrapComputedPropertyGetter,
-    EmberClassArguments, EmberClassConstructor, EmberInstanceArguments,
-    ComputedPropertyCallback,
-    ObserverMethod
-} from '@ember/object/-private/types';
-
 // Capitalization is intentional: this makes it much easier to re-export RSVP on
 // the Ember namespace.
 import Rsvp from 'rsvp';
@@ -87,8 +58,6 @@ import EmberArrayProxy from '@ember/array/proxy';
 import EmberEnumerable from '@ember/array/-private/enumerable';
 import EmberMutableEnumerable from '@ember/array/-private/mutable-enumerable';
 import EmberArrayProtoExtensions from '@ember/array/types/prototype-extensions';
-// @ember/run
-import { RunMethod } from '@ember/runloop/-private/types';
 // @ember/error
 import EmberError from '@ember/error';
 
@@ -148,7 +117,7 @@ export namespace Ember {
      * any class you create that can compare its instances.
      */
     interface Comparable {
-        compare(a: any, b: any): number;
+        compare(a: unknown, b: unknown): number;
     }
     const Comparable: EmberMixin<Comparable>;
     class ComputedProperty<Get, Set = Get> extends EmberObjectComputedNs.default<Get, Set> {}
@@ -162,7 +131,7 @@ export namespace Ember {
          * way for the container to ensure instances are destroyed when it itself is
          * destroyed.
          */
-        factoryFor(fullName: string, options?: {}): any;
+        factoryFor(fullName: string, options?: {}): unknown;
     }
     class ContainerDebugAdapter extends _ContainerDebugAdapter {}
 
@@ -199,8 +168,8 @@ export namespace Ember {
     class Service extends Object {}
 
     interface ViewTargetActionSupport {
-        target: any;
-        actionContext: any;
+        target: unknown;
+        actionContext: unknown;
     }
     const ViewTargetActionSupport: Mixin<ViewTargetActionSupport>;
     const ViewUtils: {
@@ -237,7 +206,7 @@ export namespace Ember {
         function promise<T>(
             resolver: (
                 resolve: (value?: T | PromiseLike<T>) => void,
-                reject: (reason?: any) => void
+                reject: (reason?: unknown) => void
             ) => void,
             label?: string
         ): Promise<T>;
@@ -269,7 +238,7 @@ export namespace Ember {
             constructor(
                 executor: (
                     resolve: (value?: T | PromiseLike<T>) => void,
-                    reject: (reason?: any) => void
+                    reject: (reason?: unknown) => void
                 ) => void
             );
         }
@@ -399,7 +368,6 @@ export namespace Ember {
      */
     const assign: typeof EmberPolyfillsNs.assign;
     const guidFor: typeof EmberObjectInternalsNs.guidFor;
-    const inspect: typeof EmberDebugNs.inspect;
 
     /**
      * A function may be assigned to `Ember.onerror` to be called when Ember

@@ -15,36 +15,43 @@ type RouteModel = object | string | number;
 export default class Route<Model = unknown> extends EmberObject.extend(ActionHandler, Evented) {
     // methods
     /**
-     * This hook is called after this route's model has resolved.
-     * It follows identical async/promise semantics to `beforeModel`
-     * but is provided the route's resolved model in addition to
-     * the `transition`, and is therefore suited to performing
-     * logic that can only take place after the model has already
-     * resolved.
+     * This hook is called after this route's model has resolved. It follows
+     * identical async/promise semantics to `beforeModel` but is provided the
+     * route's resolved model in addition to the `transition`, and is therefore
+     * suited to performing logic that can only take place after the model has
+     * already resolved.
+     *
+     * @returns if the value returned from this hook is a promise, the
+     *   transition will pause until the transition resolves. Otherwise,
+     *   non-promise return values are not utilized in any way.
      */
-    afterModel(resolvedModel: Model, transition: Transition): any;
+    afterModel(resolvedModel: Model, transition: Transition): Promise<unknown> | void;
 
     /**
-     * This hook is the first of the route entry validation hooks
-     * called when an attempt is made to transition into a route
-     * or one of its children. It is called before `model` and
-     * `afterModel`, and is appropriate for cases when:
-     * 1) A decision can be made to redirect elsewhere without
-     *     needing to resolve the model first.
-     * 2) Any async operations need to occur first before the
-     *     model is attempted to be resolved.
-     * This hook is provided the current `transition` attempt
-     * as a parameter, which can be used to `.abort()` the transition,
-     * save it for a later `.retry()`, or retrieve values set
-     * on it from a previous hook. You can also just call
-     * `this.transitionTo` to another route to implicitly
-     * abort the `transition`.
-     * You can return a promise from this hook to pause the
-     * transition until the promise resolves (or rejects). This could
-     * be useful, for instance, for retrieving async code from
-     * the server that is required to enter a route.
+     * This hook is the first of the route entry validation hooks called when an
+     * attempt is made to transition into a route or one of its children. It is
+     * called before `model` and `afterModel`, and is appropriate for cases
+     * when:
+     *
+     * 1. A decision can be made to redirect elsewhere without needing to
+     *     resolve the model first.
+     * 2. Any async operations need to occur first before the model is attempted
+     *     to be resolved.
+     *
+     * This hook is provided the current `transition` attempt as a parameter,
+     * which can be used to `.abort()` the transition, save it for a later
+     * `.retry()`, or retrieve values set on it from a previous hook. You can
+     * also just call `this.transitionTo` to another route to implicitly abort
+     * the `transition`. You can return a promise from this hook to pause the
+     * transition until the promise resolves (or rejects). This could be useful,
+     * for instance, for retrieving async code from the server that is required
+     * to enter a route.
+     *
+     * @returns if the value returned from this hook is a promise, the
+     *   transition will pause until the transition resolves. Otherwise,
+     *   non-promise return values are not utilized in any way.
      */
-    beforeModel(transition: Transition): any;
+    beforeModel(transition: Transition): Promise<unknown> | void;
 
     /**
      * Returns the controller of the current route, or a parent (or any
@@ -61,7 +68,7 @@ export default class Route<Model = unknown> extends EmberObject.extend(ActionHan
      * A hook you can implement to convert the URL into the model for
      * this route.
      */
-    model(params: {}, transition: Transition): Model | PromiseLike<Model>;
+    model(params: Record<string, unknown>, transition: Transition): Model | PromiseLike<Model>;
 
     /**
      * Returns the model of a parent (or any ancestor) route
@@ -72,13 +79,13 @@ export default class Route<Model = unknown> extends EmberObject.extend(ActionHan
      * it can call `this.modelFor(theNameOfParentRoute)` to
      * retrieve it.
      */
-    modelFor(name: string): any;
+    modelFor(name: string): unknown;
 
     /**
      * Retrieves parameters, for current route using the state.params
      * variable and getQueryParamsFor, using the supplied routeName.
      */
-    paramsFor(name: string): {};
+    paramsFor(name: string): Record<string, unknown>;
 
     /**
      * A hook you can implement to optionally redirect to another route.
@@ -135,7 +142,7 @@ export default class Route<Model = unknown> extends EmberObject.extend(ActionHan
      *                transition
      * @deprecated    until 5.0. Inject the router service and use its methods.
      */
-    replaceWith(name: string, ...args: any[]): Transition;
+    replaceWith(name: string, ...args: unknown[]): Transition;
 
     /**
      * A hook you can use to reset controller values either when the model
@@ -147,7 +154,7 @@ export default class Route<Model = unknown> extends EmberObject.extend(ActionHan
      * Sends an action to the router, which will delegate it to the currently active
      * route hierarchy per the bubbling rules explained under actions.
      */
-    send(name: string, ...args: any[]): void;
+    send(name: string, ...args: unknown[]): void;
 
     /**
      * A hook you can implement to convert the route's model into parameters
@@ -393,11 +400,11 @@ export default class Route<Model = unknown> extends EmberObject.extend(ActionHan
      * (i.e. regular transitions caused by transitionTo or URL changes).
      *
      * @param name           the name of the route or a URL
-     * @param object         the model(s) or identifier(s) to be used while
+     * @param models         the model(s) or identifier(s) to be used while
      *                       transitioning to the route.
      * @returns              the Transition object associated with this attempted transition
      */
-    intermediateTransitionTo(name: string, ...object: any[]): Transition;
+    intermediateTransitionTo(name: string, ...models: unknown[]): Transition;
 
     // properties
     /**
@@ -469,7 +476,7 @@ export default class Route<Model = unknown> extends EmberObject.extend(ActionHan
      * routes, allowing for per-route error handling logic, or shared error handling logic
      * defined on a parent route.
      */
-    error(error: any, transition: Transition): void;
+    error(error: unknown, transition: Transition): void;
 
     /**
      * The loading action is fired on the route when a route's model hook returns a

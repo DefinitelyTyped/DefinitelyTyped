@@ -28,6 +28,8 @@ function testEvented() {
 
     const person = Person.create();
 
+    person.on('potato', 'greet');
+
     const target = {
         hi() {
             console.log('Hello!');

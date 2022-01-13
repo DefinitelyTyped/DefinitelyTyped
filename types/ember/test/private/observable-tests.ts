@@ -150,8 +150,8 @@ assertType<{ foo: string; bar: [boolean, boolean] }>(o.getProperties(['foo', 'ba
 assertType<{}>(o.getProperties()); // $ExpectType {}
 assertType<{}>(o.getProperties([])); // $ExpectType {}
 // property that doesn't exist
-assertType<any>(o.getProperties('jeanShorts', 'foo')); // $ExpectError
-assertType<any>(o.getProperties(['foo', 'jeanShorts'])); // $ExpectError
+o.getProperties('jeanShorts', 'foo'); // $ExpectError
+o.getProperties(['foo', 'jeanShorts']); // $ExpectError
 
 /**
  * set
@@ -161,7 +161,7 @@ assertType<[boolean, boolean]>(o.set('bar', [false, false])); // $ExpectType [bo
 assertType<number | undefined>(o.set('baz', undefined)); // $ExpectType number | undefined
 assertType<number | undefined>(o.set('baz', 10)); // $ExpectType number | undefined
 // property that doesn't exist
-assertType<any>(o.set('jeanShorts', 10)); // $ExpectError
+o.set('jeanShorts', 10); // $ExpectError
 
 /**
  * setProperties
@@ -170,7 +170,7 @@ assertType<{ foo: string; bar: [boolean, boolean] }>(o.setProperties({ foo: 'abc
 // empty case
 assertType<{}>(o.setProperties({})); // $ExpectType {}
 // property that doesn't exist
-assertType<any>(o.setProperties({ jeanShorts: 'under the pants' })); // $ExpectError
+o.setProperties({ jeanShorts: 'under the pants' }); // $ExpectError
 
 /**
  * notifyPropertyChange

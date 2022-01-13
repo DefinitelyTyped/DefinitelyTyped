@@ -22,6 +22,9 @@
     },
     "files": [
         "index.d.ts",
+        "deprecations.d.ts",
+        "-private/event-dispatcher.d.ts",
+        "-private/registry.d.ts",
         "test/application.ts",
         "test/deprecations.ts",
         "test/application-instance.ts"

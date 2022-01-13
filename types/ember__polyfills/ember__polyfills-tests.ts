@@ -12,7 +12,7 @@ import { assign } from '@ember/polyfills';
     assign({ a: 'hello' }, { b: 6 }, { a: true }).a; // $ExpectType boolean
     assign({ a: 'hello' }, '', { a: true }).a; // $ExpectError
     assign({ d: ['gobias industries'] }, { a: 'hello' }, { b: 6 }, { a: true }).d; // $ExpectType string[]
-    assign({}, { a: 0 }, { b: 1 }, { c: 2 }, { d: 3 }).a; // $ExpectType any
+    assign({}, { a: 0 }, { b: 1 }, { c: 2 }, { d: 3 }).a; // $ExpectError
 
     // matches Object.assign
     assign({}, null); // $ExpectType never

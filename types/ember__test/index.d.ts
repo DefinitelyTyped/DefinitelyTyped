@@ -14,16 +14,16 @@ import Application from '@ember/application';
  */
 export function registerHelper(
     name: string,
-    helperMethod: (app: Application, ...args: any[]) => any,
+    helperMethod: (app: Application, ...args: any[]) => unknown,
     options?: object
-): any;
+): unknown;
 /**
  * `registerAsyncHelper` is used to register an async test helper that will be injected
  * when `App.injectTestHelpers` is called.
  */
 export function registerAsyncHelper(
     name: string,
-    helperMethod: (app: Application, ...args: any[]) => any
+    helperMethod: (app: Application, ...args: any[]) => unknown
 ): void;
 
 /**
@@ -39,17 +39,17 @@ export function unregisterHelper(name: string): void;
  * until the returning result is truthy. After the waiters finish, the next async helper
  * is executed and the process repeats.
  */
-export function registerWaiter(callback: () => boolean): any;
+export function registerWaiter(callback: () => boolean): unknown;
 export function registerWaiter<Context>(
     context: Context,
     callback: (this: Context) => boolean
-): any;
+): unknown;
 /**
  * `unregisterWaiter` is used to unregister a callback that was
  * registered with `registerWaiter`.
  */
-export function unregisterWaiter(callback: () => boolean): any;
+export function unregisterWaiter(callback: () => boolean): unknown;
 export function unregisterWaiter<Context>(
     context: Context,
     callback: (this: Context) => boolean
-): any;
+): unknown;

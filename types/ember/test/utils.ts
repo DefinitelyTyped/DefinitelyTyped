@@ -96,6 +96,9 @@ function testDefineProperty() {
     );
 }
 
+// For use in IIFE below.
+declare const fileList: FileList;
+
 (() => {
     /** typeOf */
     Ember.typeOf(); // $ExpectType "undefined"
@@ -114,11 +117,12 @@ function testDefineProperty() {
     Ember.typeOf([1, 2, 90]); // $ExpectType "array"
     Ember.typeOf(/abc/); // $ExpectType "regexp"
     Ember.typeOf(new Date()); // $ExpectType "date"
-    Ember.typeOf(({} as any) as FileList); // $ExpectType "filelist"
+    Ember.typeOf(fileList); // $ExpectType "filelist"
     Ember.typeOf(Ember.Object.extend()); // $ExpectType "class"
     Ember.typeOf(Ember.Object.create()); // $ExpectType "instance"
     Ember.typeOf(new Error('teamocil')); // $ExpectType "error"
     Ember.typeOf(new Date() as RegExp | Date); // "regexp" | "date"
+    Ember.typeOf({ randomObject: true }); // $ExpectType "object"
 })();
 
 (() => {

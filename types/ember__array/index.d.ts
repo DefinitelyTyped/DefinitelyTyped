@@ -60,7 +60,7 @@ interface Array<T> extends Enumerable<T> {
 }
 // Ember.Array rather than Array because the `array-type` lint rule doesn't realize the global is shadowed
 // tslint:disable-next-line:array-type
-declare const Array: Mixin<Array<any>>;
+declare const Array: Mixin<Array<unknown>>;
 export default Array;
 
 /**
@@ -76,4 +76,4 @@ export function A<T>(arr?: T[]): NativeArray<T>;
 /**
  * Returns true if the passed object is an array or Array-like.
  */
-export function isArray(obj: any): obj is ArrayLike<any>;
+export function isArray(obj: unknown): obj is ArrayLike<unknown>;

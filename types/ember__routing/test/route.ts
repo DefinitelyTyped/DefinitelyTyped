@@ -53,7 +53,7 @@ class RedirectRoute extends Route {
 
 class InvalidRedirect extends Route {
     // $ExpectError
-    redirect(model: {}, a: Transition, anOddArg: any) {
+    redirect(model: {}, a: Transition, anOddArg: unknown) {
         if (!model) {
             this.transitionTo('there');
         }
@@ -128,8 +128,11 @@ route.controllerFor('whatever'); // $ExpectType Controller
 class RouteUsingClass extends Route.extend({
     randomProperty: 'the .extend + extends bit type-checks properly',
 }) {
-    beforeModel(this: RouteUsingClass) {
-        return 'beforeModel can return anything, not just promises';
+    beforeModel() {
+        return Promise.resolve('beforeModel can return promises');
+    }
+    afterModel(resolvedModel: unknown, transition: Transition) {
+        return Promise.resolve('afterModel can also return promises');
     }
     intermediateTransitionWithoutModel() {
         this.intermediateTransitionTo('some-route');
@@ -142,68 +145,22 @@ class RouteUsingClass extends Route.extend({
     }
 }
 
-interface ExampleModel { id: string; }
-
-class TypedRoute extends Route<ExampleModel> {
-    model(params: any): ExampleModel | PromiseLike<ExampleModel> {
-        if (params.usePromise) {
-          return { id: '123' };
-        } else {
-          const promise: PromiseLike<ExampleModel> = new Promise((resolve) => resolve({ id: '123'}));
-          return promise;
-        }
+class WithNonReturningBeforeAndModelHooks extends Route {
+    beforeModel(transition: Transition): void | Promise<unknown> {
+        return;
     }
 
-    serialize(model: ExampleModel): string {
-        return model.id;
-    }
-
-    afterModel(model: ExampleModel): void {
-        if (model.id === 'new') {
-            this.transitionTo('some.other.route');
-        }
-    }
-
-    redirect(model: ExampleModel): void {
-        if (model.id === 'new') {
-            this.transitionTo('some.other.route');
-        }
-    }
-
-    setupController(controller: Controller, model: ExampleModel, transition: Transition) {
-        controller.set('model', model);
+    afterModel(resolvedModel: unknown, transition: Transition): void {
+        return;
     }
 }
 
-interface InvalidModel { id: number; }
-
-class InvalidTypedRoute extends Route<ExampleModel> {
-    // $ExpectError
-    model(params: any): InvalidModel {
-      return { id: 123 };
+class WithBadReturningBeforeAndModelHooks extends Route {
+    beforeModel(transition: Transition): void | Promise<unknown> {
+        return "returning anything else is nonsensical (if 'legal')"; // $ExpectError
     }
 
-    // $ExpectError
-    serialize(model: InvalidModel): number {
-        return model.id;
-    }
-
-    // $ExpectError
-    afterModel(model: InvalidModel): void {
-        if (model.id === 0) {
-            this.transitionTo('some.other.route');
-        }
-    }
-
-    // $ExpectError
-    redirect(model: InvalidModel): void {
-        if (model.id === 0) {
-            this.transitionTo('some.other.route');
-        }
-    }
-
-    // $ExpectError
-    setupController(controller: Controller, model: InvalidModel, transition: Transition) {
-        controller.set('model', model);
+    afterModel(resolvedModel: unknown, transition: Transition): void {
+        return "returning anything else is nonsensical (if 'legal')"; // $ExpectError
     }
 }

@@ -1,5 +1,4 @@
 import Route from '@ember/routing/route';
-import Object from '@ember/object';
 import Array from '@ember/array';
 import Ember from 'ember'; // currently needed for Transition
 import Transition from '@ember/routing/-private/transition';
@@ -57,8 +56,11 @@ Route.extend({
 class RouteUsingClass extends Route.extend({
     randomProperty: 'the .extend + extends bit type-checks properly',
 }) {
-    beforeModel(this: RouteUsingClass) {
-        return 'beforeModel can return anything, not just promises';
+    beforeModel() {
+        return Promise.resolve('beforeModel can return promises');
+    }
+    afterModel(resolvedModel: unknown, transition: Transition) {
+        return Promise.resolve('afterModel can also return promises');
     }
     intermediateTransitionWithoutModel() {
         this.intermediateTransitionTo('some-route');
@@ -68,5 +70,25 @@ class RouteUsingClass extends Route.extend({
     }
     intermediateTransitionWithMultiModel() {
         this.intermediateTransitionTo('some.other.route', 1, 2, {});
+    }
+}
+
+class WithNonReturningBeforeAndModelHooks extends Route {
+    beforeModel(transition: Transition): void | Promise<unknown> {
+        return;
+    }
+
+    afterModel(resolvedModel: unknown, transition: Transition): void {
+        return;
+    }
+}
+
+class WithBadReturningBeforeAndModelHooks extends Route {
+    beforeModel(transition: Transition): void | Promise<unknown> {
+        return "returning anything else is nonsensical (if 'legal')"; // $ExpectError
+    }
+
+    afterModel(resolvedModel: unknown, transition: Transition): void {
+        return "returning anything else is nonsensical (if 'legal')"; // $ExpectError
     }
 }

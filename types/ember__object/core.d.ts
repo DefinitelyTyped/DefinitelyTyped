@@ -27,7 +27,7 @@ export default class CoreObject {
      * Defines the properties that will be concatenated from the superclass (instead of overridden).
      * @default null
      */
-    concatenatedProperties: any[];
+    concatenatedProperties: string[] | null;
 
     /**
      * Destroyed object property flag. If this property is true the observers and bindings were
@@ -242,7 +242,7 @@ export default class CoreObject {
      * associated metadata (see metaForProperty) to the callback.
      */
     static eachComputedProperty(
-        callback: (...args: any[]) => any,
+        callback: (...args: any[]) => unknown,
         binding: {}
     ): void;
     /**

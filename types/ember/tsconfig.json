@@ -20,6 +20,7 @@
     },
     "files": [
         "index.d.ts",
+        "-private/type-utils.d.ts",
         "test/lib/assert.ts",
         "test/private/computed-tests.ts",
         "test/private/observable-tests.ts",

@@ -6,7 +6,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.4
 
-import { RunMethod, EmberRunQueues, RunMethodArgs, AnyFn, RunMethodReturn } from "./-private/types";
+import { EmberMethod, EmberMethodParams, AnyFn, EmberMethodReturn } from "ember/-private/type-utils";
+import { EmberRunQueues } from './-private/types';
 import { EmberRunTimer } from "@ember/runloop/types";
 import '@ember/runloop/-private/backburner';
 
@@ -16,7 +17,7 @@ import '@ember/runloop/-private/backburner';
  * end.
  */
 export function run<M extends AnyFn>(method: M): ReturnType<M>;
-export function run<T, M extends RunMethod<T>>(target: T, method: M, ...args: RunMethodArgs<T, M>): RunMethodReturn<T, M>;
+export function run<T, M extends EmberMethod<T>>(target: T, method: M, ...args: EmberMethodParams<T, M>): EmberMethodReturn<T, M>;
 
 /**
  * If no run-loop is present, it creates a new one. If a run loop is
@@ -24,11 +25,11 @@ export function run<T, M extends RunMethod<T>>(target: T, method: M, ...args: Ru
  * queue.
  */
 export function join<M extends AnyFn>(method: M, ...args: Parameters<M>): ReturnType<M> | undefined;
-export function join<T, M extends RunMethod<T>>(
+export function join<T, M extends EmberMethod<T>>(
    target: T,
    method: M,
-   ...args: RunMethodArgs<T, M>
-): RunMethodReturn<T, M> | undefined;
+   ...args: EmberMethodParams<T, M>
+): EmberMethodReturn<T, M> | undefined;
 
 /**
  * Allows you to specify which context to call the specified function in while
@@ -40,11 +41,11 @@ export function join<T, M extends RunMethod<T>>(
 // works, but that is a *lot* of type shenanigans, and also diverges from the
 // `Function.prototype.bind` implementation. We should track the latter, despite
 // the loss of safety, because it makes interop cleaner.
-export function bind<T, M extends RunMethod<T>>(
+export function bind<T, M extends EmberMethod<T>>(
    target: T,
    method: M,
    ...args: any[]
-): (...args: any[]) => RunMethodReturn<T, M>;
+): (...args: any[]) => EmberMethodReturn<T, M>;
 
 /**
  * Begins a new RunLoop. Any deferred actions invoked after the begin will
@@ -66,11 +67,11 @@ export function end(): void;
  * started a RunLoop when calling this method one will be started for you
  * automatically.
  */
-export function schedule<T, M extends RunMethod<T>>(
+export function schedule<T, M extends EmberMethod<T>>(
    queue: EmberRunQueues,
    target: T,
    method: M,
-   ...args: RunMethodArgs<T, M>
+   ...args: EmberMethodParams<T, M>
 ): EmberRunTimer;
 export function schedule<M extends AnyFn>(
    queue: EmberRunQueues,
@@ -84,11 +85,11 @@ export function schedule<M extends AnyFn>(
  * of milliseconds.
  */
 export function later(method: AnyFn, wait: number): EmberRunTimer;
-export function later<T, M extends RunMethod<T>>(
+export function later<T, M extends EmberMethod<T>>(
     ...args: [
         target: T,
         method: M,
-        ...args: RunMethodArgs<T, M>,
+        ...args: EmberMethodParams<T, M>,
         wait: number,
     ]
 ): EmberRunTimer;
@@ -97,10 +98,10 @@ export function later<T, M extends RunMethod<T>>(
  * Schedule a function to run one time during the current RunLoop. This is equivalent
  * to calling `scheduleOnce` with the "actions" queue.
  */
-export function once<T, M extends RunMethod<T>>(
+export function once<T, M extends EmberMethod<T>>(
    target: T,
    method: M,
-   ...args: RunMethodArgs<T, M>
+   ...args: EmberMethodParams<T, M>
 ): EmberRunTimer;
 
 /**
@@ -108,11 +109,11 @@ export function once<T, M extends RunMethod<T>>(
  * Calling this method with the same queue/target/method combination will have
  * no effect (past the initial call).
  */
-export function scheduleOnce<T, M extends RunMethod<T>>(
+export function scheduleOnce<T, M extends EmberMethod<T>>(
    queue: EmberRunQueues,
    target: T,
    method: M,
-   ...args: RunMethodArgs<T, M>
+   ...args: EmberMethodParams<T, M>
 ): EmberRunTimer;
 
 /**
@@ -120,10 +121,10 @@ export function scheduleOnce<T, M extends RunMethod<T>>(
  * control has been returned to the system. This is equivalent to calling
  * `run.later` with a wait time of 1ms.
  */
-export function next<T, M extends RunMethod<T>>(
+export function next<T, M extends EmberMethod<T>>(
    target: T,
    method: M,
-   ...args: RunMethodArgs<T, M>
+   ...args: EmberMethodParams<T, M>
 ): EmberRunTimer;
 export function next<M extends AnyFn>(
  method: M,
@@ -148,11 +149,11 @@ export function debounce(
    wait: number,
    immediate?: boolean
 ): EmberRunTimer;
-export function debounce<Target, M extends RunMethod<Target>>(
+export function debounce<Target, M extends EmberMethod<Target>>(
     ...args: [
         target: Target,
         method: M,
-        ...args: RunMethodArgs<Target, M>,
+        ...args: EmberMethodParams<Target, M>,
         wait: number,
         immediate?: boolean
     ]
@@ -167,11 +168,11 @@ export function throttle(
    spacing: number,
    immediate?: boolean
 ): EmberRunTimer;
-export function throttle<T, M extends RunMethod<T>>(
+export function throttle<T, M extends EmberMethod<T>>(
     ...args: [
         target: T,
         method: M,
-        ...methodArgs: RunMethodArgs<T, M>,
+        ...methodArgs: EmberMethodParams<T, M>,
         spacing: number,
         immediate?: boolean
     ]

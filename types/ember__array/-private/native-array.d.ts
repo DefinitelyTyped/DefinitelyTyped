@@ -18,6 +18,6 @@ interface NativeArray<T> extends GlobalArray<T>, MutableArray<T>, Observable {
      */
     length: number;
 }
-declare const NativeArray: Mixin<NativeArray<any>>;
 
+declare const NativeArray: Mixin<NativeArray<unknown>>;
 export default NativeArray;

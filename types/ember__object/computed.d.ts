@@ -35,7 +35,7 @@ export default interface ComputedProperty<Get, Set = Get>
  */
 export function alias(
     dependentKey: string
-): ComputedProperty<any>;
+): ComputedProperty<unknown>;
 /**
  * A computed property that performs a logical `and` on the
  * original values for the provided dependent properties.
@@ -57,7 +57,7 @@ export function bool(
  */
 export function collect(
     ...dependentKeys: string[]
-): ComputedProperty<any[]>;
+): ComputedProperty<unknown[]>;
 
 /**
  * Creates a new property that is an alias for another property
@@ -68,7 +68,7 @@ export function collect(
 export function deprecatingAlias(
     dependentKey: string,
     options: { id: string; until: string }
-): ComputedProperty<any>;
+): ComputedProperty<unknown>;
 
 /**
  * A computed property that returns true if the value of the dependent
@@ -83,7 +83,7 @@ export function empty(
  */
 export function equal(
     dependentKey: string,
-    value: any
+    value: unknown
 ): ComputedProperty<boolean>;
 /**
  * Expands `pattern`, invoking `callback` for each expansion.
@@ -99,7 +99,7 @@ export function expandProperties(
 export function filter(
     dependentKey: string,
     callback: (value: any, index: number, array: any[]) => boolean
-): ComputedProperty<any[]>;
+): ComputedProperty<unknown[]>;
 
 /**
  * Filters the array by the callback and an array of additional dependent keys.
@@ -108,7 +108,7 @@ export function filter(
     dependentKey: string,
     additionalDependentKeys: string[],
     callback: (value: any, index: number, array: any[]) => boolean
-): ComputedProperty<any[]>;
+): ComputedProperty<unknown[]>;
 
 /**
  * Filters the array by the property and value
@@ -117,7 +117,7 @@ export function filterBy(
     dependentKey: string,
     propertyKey: string,
     value?: any
-): ComputedProperty<any[]>;
+): ComputedProperty<unknown[]>;
 
 /**
  * A computed property that returns true if the provided dependent property
@@ -142,7 +142,7 @@ export function gte(
  */
 export function intersect(
     ...propertyKeys: string[]
-): ComputedProperty<any[]>;
+): ComputedProperty<unknown[]>;
 
 /**
  * A computed property that returns true if the provided dependent property
@@ -175,7 +175,7 @@ export function map<U>(
 export function mapBy(
     dependentKey: string,
     propertyKey: string
-): ComputedProperty<any[]>;
+): ComputedProperty<unknown[]>;
 
 /**
  * A computed property which matches the original value for the
@@ -236,7 +236,7 @@ export function notEmpty(
  */
 export function oneWay(
     dependentKey: string
-): ComputedProperty<any>;
+): ComputedProperty<unknown>;
 /**
  * A computed property which performs a logical `or` on the
  * original values for the provided dependent properties.
@@ -251,14 +251,14 @@ export function or(
  */
 export function readOnly(
     dependentKey: string
-): ComputedProperty<any>;
+): ComputedProperty<unknown>;
 /**
  * This is a more semantically meaningful alias of `computed.oneWay`,
  * whose name is somewhat ambiguous as to which direction the data flows.
  */
 export function reads(
     dependentKey: string
-): ComputedProperty<any>;
+): ComputedProperty<unknown>;
 
 /**
  * A computed property which returns a new array with all the
@@ -268,33 +268,34 @@ export function reads(
 export function setDiff(
     setAProperty: string,
     setBProperty: string
-): ComputedProperty<any[]>;
+): ComputedProperty<unknown[]>;
 
 /**
- * A computed property which returns a new array with all the
- * properties from the first dependent array sorted based on a property
- * or sort function.
- * If used with an array of sort properties, it must receive exactly two arguments:
- * the key of the array to sort, and the key of the array of sort properties.
- * Alternatively the key of the array to sort, and a the sort function may be used.
+ * A computed property which returns a new array with all the properties from
+ * the first dependent array sorted based on a property or sort function.
+ *
+ * If used with an array of sort properties, it must receive exactly two
+ * arguments: the key of the array to sort, and the key of the array of sort
+ * properties. Alternatively the key of the array to sort, and a the sort
+ * function may be used.
  */
 export function sort(
     itemsKey: string,
     sortDefinition: string | ((itemA: any, itemB: any) => number)
-): ComputedProperty<any[]>;
+): ComputedProperty<unknown[]>;
 
 /**
- * A computed property which returns a new array with all the
- * properties from the first dependent array sorted based on a property
- * or sort function.
- * It may recieve three arguments: the key of the array to sort, an array of dependent keys
- * for the computed property, and the sort function.
+ * A computed property which returns a new array with all the properties from
+ * the first dependent array sorted based on a property or sort function.
+ *
+ * It may receive three arguments: the key of the array to sort, an array of
+ * dependent keys for the computed property, and the sort function.
  */
 export function sort(
     itemsKey: string,
     dependentKeys: string[],
     sortDefinition: string | ((itemA: any, itemB: any) => number)
-): ComputedProperty<any[]>;
+): ComputedProperty<unknown[]>;
 
 /**
  * A computed property that returns the sum of the values
@@ -310,7 +311,7 @@ export function sum(
  */
 export function uniq(
     propertyKey: string
-): ComputedProperty<any[]>;
+): ComputedProperty<unknown[]>;
 
 /**
  * A computed property which returns a new array with all the unique
@@ -318,7 +319,7 @@ export function uniq(
  */
 export function union(
     ...propertyKeys: string[]
-): ComputedProperty<any[]>;
+): ComputedProperty<unknown[]>;
 
 /**
  * A computed property which returns a new array with all the unique
@@ -327,4 +328,4 @@ export function union(
 export function uniqBy(
     dependentKey: string,
     propertyKey: string
-): ComputedProperty<any[]>;
+): ComputedProperty<unknown[]>;

@@ -13,6 +13,7 @@ import { EventDispatcherEvents } from '@ember/application/types';
 import { Router } from '@ember/routing';
 import Registry from '@ember/application/-private/registry';
 import Resolver from 'ember-resolver';
+import { AnyFn } from 'ember/-private/type-utils';
 
 /**
  * An instance of Ember.Application is the starting point for every Ember application. It helps to
@@ -52,7 +53,7 @@ export default class Application extends Engine {
      * @param fullName type:name (e.g., 'model:user')
      * @param factory (e.g., App.Person)
      */
-    register(fullName: string, factory: any, options?: { singleton?: boolean | undefined; instantiate?: boolean | undefined }): void;
+    register(fullName: string, factory: unknown, options?: { singleton?: boolean | undefined; instantiate?: boolean | undefined }): void;
     /**
      * This removes all helpers that have been registered, and resets and functions
      * that were overridden by the helpers.
@@ -95,7 +96,7 @@ export default class Application extends Engine {
      * Called when the Application has become ready.
      * The call will be delayed until the DOM has become ready.
      */
-    ready: (...args: any[]) => any;
+    ready: AnyFn;
     /**
      * Application's router.
      */
@@ -118,21 +119,21 @@ export default class Application extends Engine {
  * objects is the responsibility of an "owner", which handled its
  * instantiation and manages its lifetime.
  */
-export function getOwner(object: any): any;
+export function getOwner(object: unknown): unknown;
 /**
  * `setOwner` forces a new owner on a given object instance. This is primarily
  * useful in some testing cases.
  */
-export function setOwner(object: any, owner: any): void;
+export function setOwner(object: unknown, owner: unknown): void;
 
 /**
  * Detects when a specific package of Ember (e.g. 'Ember.Application')
  * has fully loaded and is available for extension.
  */
-export function onLoad(name: string, callback: (...args: any[]) => any): any;
+export function onLoad(name: string, callback: AnyFn): unknown;
 
 /**
  * Called when an Ember.js package (e.g Ember.Application) has finished
  * loading. Triggers any callbacks registered for this event.
  */
-export function runLoadHooks(name: string, object?: {}): any;
+export function runLoadHooks(name: string, object?: {}): unknown;

@@ -14,9 +14,8 @@ import {
     UnwrapComputedPropertySetter,
     UnwrapComputedPropertyGetters,
     UnwrapComputedPropertySetters,
-    ExtractPropertyNamesOfType
 } from "@ember/object/-private/types";
-import ComputedProperty, * as ComputedNamespace from "@ember/object/computed";
+import ComputedProperty from "@ember/object/computed";
 
 /**
  * `Ember.Object` is the main base class for all Ember objects. It is a subclass
@@ -24,92 +23,40 @@ import ComputedProperty, * as ComputedNamespace from "@ember/object/computed";
  * see the documentation for each of these.
  */
 export default class EmberObject extends CoreObject.extend(Observable) {}
-export function computed(...deps: string[]): MethodDecorator;
+
+/**
+ * This helper returns a new property descriptor that wraps the passed computed
+ * property function. You can use this helper to define properties with native
+ * decorator syntax, mixins, or via `defineProperty()`.
+ *
+ * @param dependentKeys Optional dependent keys that trigger this computed
+ *   property.
+ */
+export function computed(...dependentKeys: string[]): MethodDecorator;
+/**
+ * This helper returns a new property descriptor that wraps the passed computed
+ * property function. You can use this helper to define properties with native
+ * decorator syntax, mixins, or via `defineProperty()`.
+ *
+ * @param dependentKeys Optional dependent keys that trigger this computed
+ *   property.
+ * @param callback The computed property function.
+ */
 export function computed<Get, Set = Get>(
-    cb: ComputedPropertyCallback<Get, Set>
+    ...args: [
+        ...dependentKeys: string[],
+        callback: ComputedPropertyCallback<Get, Set>
+    ]
 ): ComputedProperty<Get, Set>;
-export function computed<Get, Set = Get>(
-    k1: string,
-    cb: ComputedPropertyCallback<Get, Set>
-): ComputedProperty<Get, Set>;
-export function computed<Get, Set = Get>(
-    k1: string,
-    k2: string,
-    cb: ComputedPropertyCallback<Get, Set>
-): ComputedProperty<Get, Set>;
-export function computed<Get, Set = Get>(
-    k1: string,
-    k2: string,
-    k3: string,
-    cb: ComputedPropertyCallback<Get, Set>
-): ComputedProperty<Get, Set>;
-export function computed<Get, Set = Get>(
-    k1: string,
-    k2: string,
-    k3: string,
-    k4: string,
-    cb: ComputedPropertyCallback<Get, Set>
-): ComputedProperty<Get, Set>;
-export function computed<Get, Set = Get>(
-    k1: string,
-    k2: string,
-    k3: string,
-    k4: string,
-    k5: string,
-    cb: ComputedPropertyCallback<Get, Set>
-): ComputedProperty<Get, Set>;
-export function computed<Get, Set = Get>(
-    k1: string,
-    k2: string,
-    k3: string,
-    k4: string,
-    k5: string,
-    k6: string,
-    cb: ComputedPropertyCallback<Get, Set>
-): ComputedProperty<Get, Set>;
-export function computed(
-    k1: string,
-    k2: string,
-    k3: string,
-    k4: string,
-    k5: string,
-    k6: string,
-    k7: string,
-    ...rest: any[]
-): ComputedProperty<any>;
 
 /**
  * Specify a method that observes property changes.
  */
 export function observer<Fn extends (target: any, key: string) => void>(
-    key1: string,
-    func: Fn
-): Fn;
-export function observer<Fn extends (target: any, key: string) => void>(
-    key1: string,
-    key2: string,
-    func: Fn
-): Fn;
-export function observer<Fn extends (target: any, key: string) => void>(
-    key1: string,
-    key2: string,
-    key3: string,
-    func: Fn
-): Fn;
-export function observer<Fn extends (target: any, key: string) => void>(
-    key1: string,
-    key2: string,
-    key3: string,
-    key4: string,
-    func: Fn
-): Fn;
-export function observer<Fn extends (target: any, key: string) => void>(
-    key1: string,
-    key2: string,
-    key3: string,
-    key4: string,
-    key5: string,
-    func: Fn
+    ...args: [
+        ...propertyNames: string[],
+        func: Fn,
+    ]
 ): Fn;
 
 /**
@@ -157,7 +104,6 @@ export function setProperties<T, K extends keyof T>(
     obj: T,
     hash: Pick<UnwrapComputedPropertySetters<T>, K>
 ): Pick<UnwrapComputedPropertyGetters<T>, K>;
-// TODO: in TS2.9 - Pick<UnwrapComputedPropertySetters<T> | T, K>
 export function setProperties<T, K extends keyof T>(
     obj: T,
     hash: Pick<T, K>
@@ -170,16 +116,43 @@ export function setProperties<T, K extends keyof T>(
 export function trySet(root: object, path: string, value: any): any;
 
 /**
- * NOTE: This is a low-level method used by other parts of the API.
- * You almost never want to call this method directly. Instead you
- * should use mixin() to define new properties.
+ * NOTE: This is a low-level method used by other parts of the API. You almost
+ * never want to call this method directly. Instead you should use mixin() to
+ * define new properties.
+ *
+ * @param obj the object to define this property on. This may be a prototype.
+ * @param keyName the name of the property
+ * @param desc an instance of `Descriptor` (typically a computed property) or an
+ *   ES5 descriptor. You must provide this or `data` but not both.
+ * @param meta Normally this method takes only three parameters. However if you
+ *   pass an instance of Descriptor as the third param then you can pass an
+ *   optional value as the fourth parameter. This is often more efficient than
+ *   creating new descriptor hashes for each property.
  */
 export function defineProperty(
     obj: object,
     keyName: string,
-    desc?: PropertyDescriptor | ComputedProperty<any>,
-    data?: any,
-    meta?: any
+    desc: PropertyDescriptor | ComputedProperty<unknown>,
+    meta?: unknown
+): void;
+
+/**
+ * NOTE: This is a low-level method used by other parts of the API. You almost
+ * never want to call this method directly. Instead you should use mixin() to
+ * define new properties.
+ *
+ * @param obj the object to define this property on. This may be a prototype.
+ * @param keyName the name of the property
+ * @param desc an instance of `Descriptor` (typically a computed property) or an
+ *   ES5 descriptor. You must provide this or `data` but not both.
+ * @param data something other than a descriptor, that will become the explicit
+ *   value of this property.
+ */
+export function defineProperty(
+    obj: object,
+    keyName: string,
+    desc: undefined,
+    data: unknown,
 ): void;
 
 export function notifyPropertyChange(obj: object, keyName: string): void;
