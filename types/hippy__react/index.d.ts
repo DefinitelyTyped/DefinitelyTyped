@@ -1756,7 +1756,7 @@ declare class Hippy {
     config: HippyReactConfig;
     rootContainer: any;
     // Keep forward comaptatble.
-    regist: () => void;
+    regist(): void;
     start(): void;
 }
 
