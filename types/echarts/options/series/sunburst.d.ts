@@ -8099,7 +8099,7 @@ declare namespace echarts {
                         opacity?: number | undefined;
                     } | undefined;
                 } | undefined;
-            } | undefined;
+            }[] | undefined;
 
             /**
              * Whether to enable animation.
