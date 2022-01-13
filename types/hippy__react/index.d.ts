@@ -940,7 +940,7 @@ interface TextProps extends LayoutableProps, ClickableProps, TouchableProps {
      * The default is `tail`.
      */
     ellipsizeMode?: 'head' | 'middle' | 'tail' | 'clip';
-    children?: number | string | string[] | React.ReactNode;
+    children?: string[] | React.ReactNode;
     text?: string;
     style?: TextStyleProp;
 }
