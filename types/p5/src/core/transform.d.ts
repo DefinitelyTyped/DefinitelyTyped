@@ -31,6 +31,52 @@ declare module '../../index' {
         applyMatrix(a: number, b: number, c: number, d: number, e: number, f: number): p5;
 
         /**
+         *   Multiplies the current matrix by the one specified
+         *   through the parameters. This is a powerful
+         *   operation that can perform the equivalent of
+         *   translate, scale, shear and rotate all at once.
+         *   You can learn more about transformation matrices
+         *   on  Wikipedia. The naming of the arguments here
+         *   follows the naming of the  WHATWG specification
+         *   and corresponds to a transformation matrix of the
+         *   form:
+         *   @param a numbers which define the 4x4 matrix to be
+         *   multiplied
+         *   @param b numbers which define the 4x4 matrix to be
+         *   multiplied
+         *   @param c numbers which define the 4x4 matrix to be
+         *   multiplied
+         *   @param d numbers which define the 4x4 matrix to be
+         *   multiplied
+         *   @param e numbers which define the 4x4 matrix to be
+         *   multiplied
+         *   @param f numbers which define the 4x4 matrix to be
+         *   multiplied
+         *   @param g numbers which define the 4x4 matrix to be
+         *   multiplied
+         *   @param h numbers which define the 4x4 matrix to be
+         *   multiplied
+         *   @param i numbers which define the 4x4 matrix to be
+         *   multiplied
+         *   @param j numbers which define the 4x4 matrix to be
+         *   multiplied
+         *   @param k numbers which define the 4x4 matrix to be
+         *   multiplied
+         *   @param l numbers which define the 4x4 matrix to be
+         *   multiplied
+         *   @param m numbers which define the 4x4 matrix to be
+         *   multiplied
+         *   @param n numbers which define the 4x4 matrix to be
+         *   multiplied
+         *   @param o numbers which define the 4x4 matrix to be
+         *   multiplied
+         *   @param p numbers which define the 4x4 matrix to be
+         *   multiplied
+         *   @chainable
+         */
+        applyMatrix(a: number, b: number, c: number, d: number, e: number, f: number, g: number, h: number, i: number, j: number, k: number, l: number, m: number, n: number, o: number, p: number): p5;
+
+        /**
          *   Replaces the current matrix with the identity
          *   matrix.
          *   @chainable
