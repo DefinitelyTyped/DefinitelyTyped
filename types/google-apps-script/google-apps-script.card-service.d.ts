@@ -251,8 +251,8 @@ declare namespace GoogleAppsScript {
       BorderType: typeof BorderType;
       ComposedEmailType: typeof ComposedEmailType;
       ContentType: typeof ContentType;
-      GridItemLayout: typeof GridItemLayout;
       DisplayStyle: typeof DisplayStyle;
+      GridItemLayout: typeof GridItemLayout;
       HorizontalAlignment: typeof HorizontalAlignment;
       Icon: typeof Icon;
       ImageCropType: typeof ImageCropType;
