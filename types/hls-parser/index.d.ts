@@ -47,6 +47,8 @@ export namespace types {
     }
 
     class MasterPlaylist extends Playlist {
+        isMasterPlaylist: true;
+
         variants: readonly Variant[];
 
         currentVariant?: number | undefined;
@@ -74,6 +76,8 @@ export namespace types {
     }
 
     class MediaPlaylist extends Playlist {
+        isMasterPlaylist: false;
+
         targetDuration: number;
 
         mediaSequenceBase?: number | undefined;
