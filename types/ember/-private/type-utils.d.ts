@@ -1,3 +1,7 @@
+// These are utility types used throughout the Ember type definitions. They
+// should *never* be used in end user code.
+
+/** A safe-ish type representing any function. */
 export type AnyFn = (...args: any[]) => unknown;
 
 export type AnyMethod<Target> = (this: Target, ...args: any[]) => unknown;
