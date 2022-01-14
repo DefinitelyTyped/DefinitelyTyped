@@ -25,4 +25,17 @@ import * as R from 'ramda';
     addWhenEquals(1, 2); // => ''
     addWhenEquals(1, 1); // => 2
 
+    type stringOrObject = string | { [key: string]: any };
+    const isString = (o: stringOrObject): o is string => typeof o === 'string';
+    function takeObject(o: { [key: string]: any }) {
+        return Object.keys(o);
+    }
+    function takeString(s: string) {
+        return s + 'bar';
+    }
+
+    // $ExpectType (args: stringOrObject) => string | string[]
+    const barWhenStringKeysWhenObject = R.ifElse(isString, takeString, takeObject);
+    barWhenStringKeysWhenObject('foo'); // => 'foobar'
+    barWhenStringKeysWhenObject({ a: 1, b: 2, c: 3 }); // => ['a', 'b', 'c']
 };
