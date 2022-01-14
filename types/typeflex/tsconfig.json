@@ -2,7 +2,14 @@
   "compilerOptions": {
     "module": "commonjs",
     "noEmit": true,
-    "strict": true,       
-    "strictNullChecks": false,
+    "strict": true,
+    "strictNullChecks": true,
+    "noImplicitAny": true,
+    "strictFunctionTypes": true,
+    "baseUrl": "../",
+    "typeRoots": [
+        "../"
+    ],
+    "types": [],
   }
 }
