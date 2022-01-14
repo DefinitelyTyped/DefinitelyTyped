@@ -2,8 +2,7 @@
 // Project: https://github.com/hakimel/reveal.js/
 // Definitions by: robertop87 <https://github.com/robertop87>,
 //                 Nava2 <https://github.com/Nava2>,
-//                 JPtenBerge <https://github.com/JPtenBerge>,
-//                 farbodsz <https://github.com/farbodsz>
+//                 JPtenBerge <https://github.com/JPtenBerge>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare const Reveal: RevealStatic;
