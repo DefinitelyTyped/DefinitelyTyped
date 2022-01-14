@@ -161,6 +161,18 @@ const ellipse = new naver.maps.Ellipse({
     fillOpacity: 0.3,
 });
 
+// Polyline options
+const coords = [
+    [37.1793196, 125.8795594],
+    [37.5398662, 126.3312422],
+];
+const polyline = new naver.maps.Polyline({
+    map: map4,
+    path: coords.map(coord => new naver.maps.LatLng(coord[0], coord[1])),
+    strokeLineCap: 'round',
+    strokeLineJoin: 'round',
+});
+
 const getBicycleLayer = naver.maps.NaverStyleMapTypeOptions.getBicycleLayer();
 const getBlankMap = naver.maps.NaverStyleMapTypeOptions.getBlankMap();
 const getCadastralLayer = naver.maps.NaverStyleMapTypeOptions.getCadastralLayer();
@@ -175,3 +187,44 @@ const getTerrainMap = naver.maps.NaverStyleMapTypeOptions.getTerrainMap();
 const getTrafficLayer = naver.maps.NaverStyleMapTypeOptions.getTrafficLayer();
 const getVectorMap = naver.maps.NaverStyleMapTypeOptions.getVectorMap();
 const getWorldMap = naver.maps.NaverStyleMapTypeOptions.getWorldMap();
+
+// Point x,y
+const point = new naver.maps.Point(37.1793196, 125.8795594);
+point.x;
+point.y;
+
+const geoAddress = '경기도 성남시 분당구 불정로 6';
+naver.maps.Service.geocode(
+    {
+        query: geoAddress,
+    },
+    (status, response) => {
+        const point = response.result.items[0].point;
+        point.x;
+        point.y;
+        const addresses = response.v2.addresses;
+        addresses[0].roadAddress;
+    },
+);
+
+naver.maps.Service.reverseGeocode(
+    {
+        coords: jeju,
+        orders: [naver.maps.Service.OrderType.ADDR, naver.maps.Service.OrderType.ROAD_ADDR].join(','),
+    },
+    (status, response) => {
+        const address = response.v2.address;
+        address.roadAddress;
+        address.jibunAddress;
+
+        const results = response.v2.results;
+        results[0].name;
+        results[0].code;
+        results[0].region;
+
+        const v2Status = response.v2.status;
+        v2Status.code;
+        v2Status.name;
+        v2Status.message;
+    },
+);

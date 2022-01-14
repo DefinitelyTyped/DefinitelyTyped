@@ -1,6 +1,6 @@
 // Type definitions for dav 1.7
 // Project: https://github.com/lambdabaa/dav/, https://github.com/gaye/dav
-// Definitions by: ToastHawaii <https://github.com/ToastHawaii>
+// Definitions by: ToastHawaii <https://github.com/ToastHawaii>, chaptergy <https://github.com/chaptergy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -481,6 +481,14 @@ export namespace request {
 
     /**
      *
+     * @param requestData
+     * @param options
+     * @returns
+     */
+    function collectionQuery(requestData: string, options: SetRequestHeadersOptions): Request;
+
+    /**
+     *
      * @param options
      * @returns
      */
@@ -525,6 +533,28 @@ export namespace request {
          * synchronization token provided by the server.
          */
         syncToken: string;
+    }
+
+    /**
+     *
+     * @param options
+     * @returns
+     */
+    function setRequestHeaders(request: XMLHttpRequest, options: SetRequestHeadersOptions): void;
+
+    interface SetRequestHeadersOptions {
+        /**
+         * value for Content-Type header.
+         */
+        contentType?: string;
+        /**
+         * value for Depth header.
+         */
+        depth?: string;
+        /**
+         * value for If-Match header.
+         */
+        etag?: string;
     }
 }
 

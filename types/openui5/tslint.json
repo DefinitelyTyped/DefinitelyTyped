@@ -1,5 +1,5 @@
 {
-	"extends": "dtslint/dt.json",
+	"extends": "@definitelytyped/dtslint/dt.json",
 	"rules": {
 		"npm-naming": false,
 
@@ -10,17 +10,10 @@
 		"no-empty-interface": false,
 		"unified-signatures": false,
 
-		// the following rules are intentionally disabled and will remain so, for the described reasons
-		"interface-name": false,              // for compatibility reasons, interface names with "I" prefix cannot be changed
-		"max-line-length": false,             // we do not want to enforce a specific max line length - it also breaks e.g. long links
-		"no-any-union": false,                // for documentation purposes, it is useful to also see the alternatives which are more specific than "any"
-		"no-single-declare-module": false,    // these modules do exist and we want TypeScript to know about them
-		"interface-over-type-literal": false, // this rule is considered debatable (see https://github.com/palantir/tslint/issues/3248)
-
-		// the following rules have already been fixed in the "main" branch of OpenUI5, but the fixes did not make the 1.92 release
-		"redundant-undefined": false,
-		"no-mergeable-namespace": false,
-		"no-unnecessary-qualifier": false,
-		"no-redundant-jsdoc-2": false
+		"interface-name": false,
+		"max-line-length": false,
+		"no-any-union": false,
+		"no-single-declare-module": false,
+		"interface-over-type-literal": false
 	}
 }

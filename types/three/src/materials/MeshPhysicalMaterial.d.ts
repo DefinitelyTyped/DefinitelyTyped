@@ -14,17 +14,19 @@ export interface MeshPhysicalMaterialParameters extends MeshStandardMaterialPara
     reflectivity?: number | undefined;
     ior?: number | undefined;
 
-    sheen?: Color | undefined;
+    sheen?: number | undefined;
+    sheenColor?: Color | undefined;
+    sheenRoughness?: number | undefined;
 
     transmission?: number | undefined;
     transmissionMap?: Texture | null | undefined;
     attenuationDistance?: number | undefined;
-    attenuationTint?: Color | undefined;
+    attenuationColor?: Color | undefined;
 
     specularIntensity?: number | undefined;
-    specularTint?: Color | undefined;
+    specularColor?: Color | undefined;
     specularIntensityMap?: Texture | null | undefined;
-    specularTintMap?: Texture | null | undefined;
+    specularColorMap?: Texture | null | undefined;
 }
 
 export class MeshPhysicalMaterial extends MeshStandardMaterial {
@@ -81,9 +83,29 @@ export class MeshPhysicalMaterial extends MeshStandardMaterial {
     ior: number;
 
     /**
+     * @default 0.0
+     */
+    sheen: number;
+
+    /**
+     * @default Color( 0x000000 )
+     */
+    sheenColor: Color;
+
+    /**
      * @default null
      */
-    sheen: Color | null;
+    sheenColorMap: Texture | null;
+
+    /**
+     * @default 1.0
+     */
+    sheenRoughness: number;
+
+    /**
+     * @default null
+     */
+    sheenRoughnessMap: Texture | null;
 
     /**
      * @default 0
@@ -123,7 +145,7 @@ export class MeshPhysicalMaterial extends MeshStandardMaterial {
     /**
      * @default Color(1, 1, 1)
      */
-    specularTint: Color;
+    specularColor: Color;
 
     /**
      * @default null
@@ -133,5 +155,5 @@ export class MeshPhysicalMaterial extends MeshStandardMaterial {
     /**
      * @default null
      */
-    specularTintMap: Texture | null;
+    specularColorMap: Texture | null;
 }

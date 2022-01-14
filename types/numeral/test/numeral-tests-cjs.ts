@@ -110,3 +110,12 @@ numeral.isNumeral(1000);
 
 numeral(null).value(); // $ExpectType number | null
 numeral(null).value() || 0; // $ExpectType number
+
+// dict of configurations
+numeral.formats.currency;
+numeral.locales.fr;
+
+// Numeral utilities
+numeral._.numberToFormat(1000, '0,0');
+numeral._.numberToFormat(1000, '0,0', (value: number) => value / 3);
+numeral._.stringToNumber('1.32k');

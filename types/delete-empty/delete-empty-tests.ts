@@ -20,4 +20,5 @@ deleteEmpty.sync('foo')[0].toLowerCase();
 
 (async () => {
     const deleted = await deleteEmpty('foo');
+    const moreDeleted = await deleteEmpty('bar', { dryRun: true });
 })();

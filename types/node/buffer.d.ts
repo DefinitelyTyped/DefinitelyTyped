@@ -4,7 +4,7 @@
  *
  * The `Buffer` class is a subclass of JavaScript's [`Uint8Array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array) class and
  * extends it with methods that cover additional use cases. Node.js APIs accept
- * plain [`Uint8Array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array)s wherever `Buffer`s are supported as well.
+ * plain [`Uint8Array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array) s wherever `Buffer`s are supported as well.
  *
  * While the `Buffer` class is available within the global scope, it is still
  * recommended to explicitly reference it via an import or require statement.
@@ -41,7 +41,7 @@
  * // Creates a Buffer containing the Latin-1 bytes [0x74, 0xe9, 0x73, 0x74].
  * const buf7 = Buffer.from('tést', 'latin1');
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v16.7.0/lib/buffer.js)
+ * @see [source](https://github.com/nodejs/node/blob/v17.0.0/lib/buffer.js)
  */
 declare module 'buffer' {
     import { BinaryLike } from 'node:crypto';
@@ -113,18 +113,18 @@ declare module 'buffer' {
     /**
      * A [`Blob`](https://developer.mozilla.org/en-US/docs/Web/API/Blob) encapsulates immutable, raw data that can be safely shared across
      * multiple worker threads.
-     * @since v15.7.0
+     * @since v15.7.0, v14.18.0
      * @experimental
      */
     export class Blob {
         /**
          * The total size of the `Blob` in bytes.
-         * @since v15.7.0
+         * @since v15.7.0, v14.18.0
          */
         readonly size: number;
         /**
          * The content-type of the `Blob`.
-         * @since v15.7.0
+         * @since v15.7.0, v14.18.0
          */
         readonly type: string;
         /**
@@ -137,15 +137,15 @@ declare module 'buffer' {
          */
         constructor(sources: Array<BinaryLike | Blob>, options?: BlobOptions);
         /**
-         * Returns a promise that fulfills with an [&lt;ArrayBuffer&gt;](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer) containing a copy of
+         * Returns a promise that fulfills with an [ArrayBuffer](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer) containing a copy of
          * the `Blob` data.
-         * @since v15.7.0
+         * @since v15.7.0, v14.18.0
          */
         arrayBuffer(): Promise<ArrayBuffer>;
         /**
          * Creates and returns a new `Blob` containing a subset of this `Blob` objects
          * data. The original `Blob` is not altered.
-         * @since v15.7.0
+         * @since v15.7.0, v14.18.0
          * @param start The starting index.
          * @param end The ending index.
          * @param type The content-type for the new `Blob`
@@ -154,7 +154,7 @@ declare module 'buffer' {
         /**
          * Returns a promise that fulfills with the contents of the `Blob` decoded as a
          * UTF-8 string.
-         * @since v15.7.0
+         * @since v15.7.0, v14.18.0
          */
         text(): Promise<string>;
         /**
@@ -176,7 +176,7 @@ declare module 'buffer' {
         /**
          * Raw data is stored in instances of the Buffer class.
          * A Buffer is similar to an array of integers but corresponds to a raw memory allocation outside the V8 heap.  A Buffer cannot be resized.
-         * Valid string encodings: 'ascii'|'utf8'|'utf16le'|'ucs2'(alias of 'utf16le')|'base64'|'binary'(deprecated)|'hex'
+         * Valid string encodings: 'ascii'|'utf8'|'utf16le'|'ucs2'(alias of 'utf16le')|'base64'|'base64url'|'binary'(deprecated)|'hex'
          */
         interface BufferConstructor {
             /**
@@ -2114,7 +2114,7 @@ declare module 'buffer' {
          * **binary data and predate the introduction of typed arrays in JavaScript.**
          * **For code running using Node.js APIs, converting between base64-encoded strings**
          * **and binary data should be performed using `Buffer.from(str, 'base64')` and`buf.toString('base64')`.**
-         * @since v15.13.0
+         * @since v15.13.0, v14.17.0
          * @deprecated Use `Buffer.from(data, 'base64')` instead.
          * @param data The Base64-encoded input string.
          */
@@ -2130,7 +2130,7 @@ declare module 'buffer' {
          * **binary data and predate the introduction of typed arrays in JavaScript.**
          * **For code running using Node.js APIs, converting between base64-encoded strings**
          * **and binary data should be performed using `Buffer.from(str, 'base64')` and`buf.toString('base64')`.**
-         * @since v15.13.0
+         * @since v15.13.0, v14.17.0
          * @deprecated Use `buf.toString('base64')` instead.
          * @param data An ASCII (Latin1) string.
          */

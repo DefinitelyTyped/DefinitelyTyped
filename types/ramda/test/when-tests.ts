@@ -1,22 +1,25 @@
 import * as R from 'ramda';
 
 () => {
+  // $ExpectType (a: string) => string
   const truncate = R.when(
-    R.propSatisfies(R.flip(R.gt)(10), 'length'),
-    R.pipe<string, string, string[], string>(
-      R.take(10),
-      R.append('…') as (wrong: any) => string[],
-      R.join(''),
-    ),
+    (str: string) => str.length > 10,
+    (str: string) => str.slice(0, 10) + '…',
   );
-  const a: string = truncate('12345'); // => '12345'
-  const b: string = truncate('0123456789ABC'); // => '0123456789…'
 
-  const addOneIfNotNil = R.when(
-      R.complement(R.isNil),
+  // $ExpectType string
+  truncate('12345'); // => '12345'
+  // $ExpectType string
+  truncate('0123456789ABC'); // => '0123456789…'
+
+  // $ExpectType (a: number | undefined) => number | undefined
+  const addOneIfNotNil = R.when<undefined | number, number>(
+      x => x != null,
       R.add(1)
   );
 
-  const nil: undefined = addOneIfNotNil(undefined);
-  const two: number = addOneIfNotNil(1);
+  // $ExpectType number | undefined
+  const nil = addOneIfNotNil(undefined);
+  // $ExpectType number | undefined
+  const two = addOneIfNotNil(1);
 };

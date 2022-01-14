@@ -1,5 +1,8 @@
 Frida.version; // $ExpectType string
 
+// $ExpectError
+SourceMap;
+
 // $ExpectType (target: any, callback: WeakRefCallback) => number
 Script.bindWeak;
 
@@ -118,6 +121,21 @@ result.value;
 
 // $ExpectType number
 (result as UnixSystemFunctionResult<number>).errno;
+
+// $ExpectType Promise<void>
+Memory.scan(ptr("0x1234"), Process.pageSize, new MatchPattern("13 37"), {
+    onMatch(address, size) {
+    }
+});
+
+const insn: X86Instruction = null as unknown as X86Instruction;
+// $ExpectType X86Register[]
+insn.regsAccessed.read;
+// $ExpectType X86Register[]
+insn.regsAccessed.written;
+const op = insn.operands[0];
+// $ExpectType boolean
+op.access.includes("r");
 
 Interceptor.attach(puts, {
     onEnter(args) {
@@ -246,4 +264,9 @@ Java.perform(() => {
             });
         });
     });
+
+    // $ExpectType Frame[]
+    Java.backtrace();
+    // $ExpectType Frame[]
+    Java.backtrace({ limit: 42 });
 });

@@ -7,6 +7,7 @@ declare class Footer {
     private cssExtractor_;
     mustIncludeCssFiles: boolean;
     visible: boolean;
+    autoSanitize: boolean;
     writePlain(
         outputObj: {
             write: (arg0: string, arg1: boolean) => any;

@@ -43,3 +43,4 @@ pinoHttp({ customLogLevel: (req, res) => 'info' });
 pinoHttp({ reqCustomProps: (req, res) => ({ key1: 'value1', 'x-key-2': 'value2' }) });
 pinoHttp({ wrapSerializers: false });
 pinoHttp(new Writable());
+pinoHttp({ quietReqLogger: true, customAttributeKeys: { reqId: 'reqId' }});

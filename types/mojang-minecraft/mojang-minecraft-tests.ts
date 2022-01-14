@@ -5,9 +5,7 @@
 import * as mc from "mojang-minecraft";
 
 function quickFoxLazyDog() {
-    const world = mc.World;
-
-    const overworld = world.getDimension("overworld");
+    const overworld = mc.world.getDimension("overworld");
 
     const fox = overworld.spawnEntity("minecraft:fox", new mc.BlockLocation(1, 2, 3));
     fox.addEffect(mc.MinecraftEffectTypes.speed, 10, 20);
@@ -19,13 +17,13 @@ function quickFoxLazyDog() {
 
 function trapTick() {
     let ticks = 0;
-    const overworld = mc.World.getDimension("overworld");
+    const overworld = mc.world.getDimension("overworld");
 
-    mc.World.events.tick.subscribe((event: mc.TickEvent) => {
+    mc.world.events.tick.subscribe((event: mc.TickEvent) => {
         ticks++;
 
         if (ticks % 1800 === 0) {
-            mc.Commands.run("say Another minute passes...", overworld);
+            overworld.runCommand("say Another minute passes...");
         }
     });
 }
@@ -36,7 +34,7 @@ function itemStacks() {
     const noItemsLoc = new mc.BlockLocation(2, 2, 1);
     const diamondPickaxeLoc = new mc.BlockLocation(2, 2, 4);
 
-    const overworld = mc.World.getDimension("overworld");
+    const overworld = mc.world.getDimension("overworld");
 
     const oneEmerald = new mc.ItemStack(mc.MinecraftItemTypes.emerald, 1, 0);
     const onePickaxe = new mc.ItemStack(mc.MinecraftItemTypes.diamondPickaxe, 1, 0);
@@ -44,7 +42,7 @@ function itemStacks() {
 }
 
 function explosionTesting() {
-    const overworld = mc.World.getDimension("overworld");
+    const overworld = mc.world.getDimension("overworld");
     const center = new mc.BlockLocation(3, 3, 3);
 
     const pigId = "minecraft:pig<minecraft:ageable_grow_up>";
@@ -76,16 +74,16 @@ function explosionTesting() {
 }
 
 function chatEvent() {
-    const chatCallback = mc.World.events.beforeChat.subscribe((eventData: mc.BeforeChatEvent) => {
-        const overworld = mc.World.getDimension("overworld");
+    const chatCallback = mc.world.events.beforeChat.subscribe((eventData: mc.BeforeChatEvent) => {
+        const overworld = mc.world.getDimension("overworld");
 
         if (eventData.message === "!stopme") {
             eventData.sender.kill();
             eventData.cancel = true;
         } else if (eventData.message === "!players") {
-            mc.Commands.run(`say There are " + ${eventData.targets.length} players in the server.`, overworld);
+            overworld.runCommand(`say There are " + ${eventData.targets.length} players in the server.`);
             for (const target of eventData.targets) {
-                mc.Commands.run("say Player: " + target.name, overworld);
+                overworld.runCommand("say Player: " + target.name);
             }
         } else {
             eventData.message = `Modified '${eventData.message}'`;
@@ -99,7 +97,7 @@ function pistonEvent() {
     const pistonLoc = new mc.BlockLocation(1, 2, 1);
     const planksLoc = new mc.BlockLocation(2, 2, 1);
 
-    const pistonCallback = mc.World.events.beforePistonActivate.subscribe((pistonEvent: mc.BeforePistonActivateEvent) => {
+    const pistonCallback = mc.world.events.beforePistonActivate.subscribe((pistonEvent: mc.BeforePistonActivateEvent) => {
         if (pistonEvent.piston.location.equals(pistonLoc)) {
             pistonEvent.cancel = true;
             canceled = true;

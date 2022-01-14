@@ -6,6 +6,7 @@
 //                 Lucas Motta <https://github.com/lucasmotta>
 //                 Tom Xu <https://github.com/hengkx>
 //                 Leo Toneff <https://github.com/bragle>
+//                 Lucian Buzzo <https://github.com/LucianBuzzo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -70,7 +71,7 @@ export interface Channel extends stream.Duplex {
     /**
      * Shuts down the channel on this side.
      */
-    destroy(): void;
+    destroy(): this;
 }
 
 export interface ClientChannel extends Channel {
@@ -242,7 +243,7 @@ export class Client extends events.EventEmitter {
     /**
      * Attempts a connection to a server.
      */
-    connect(config: ConnectConfig): void;
+    connect(config: ConnectConfig): this;
 
     /**
      * Executes a command on the server.

@@ -1,11 +1,11 @@
 // Type definitions for flowjs 2.13
 // Project: https://github.com/flowjs/flow.js
-// Definitions by: Ryan McNamara <https://github.com/ryan10132>
-//                 Martin Nuc <https://github.com/martinnuc>
+// Definitions by: Martin Nuc <https://github.com/martinnuc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace flowjs {
-    interface Flow {
+    class Flow {
+        constructor(options?: FlowOptions);
         support: boolean;
         supportDirectory: boolean;
         opts: FlowOptions;
@@ -15,7 +15,7 @@ declare namespace flowjs {
             domNodes: ReadonlyArray<HTMLElement>,
             isDirectory?: boolean,
             singleFile?: boolean,
-            attributes?: object
+            attributes?: object,
         ): void;
         assignDrop(node: HTMLElement | ReadonlyArray<HTMLElement>): void;
         unAssignDrop(node: HTMLElement | ReadonlyArray<HTMLElement>): void;
@@ -36,31 +36,31 @@ declare namespace flowjs {
     }
 
     interface FlowOptions {
-        target?: string | undefined;
-        singleFile?: boolean | undefined;
-        chunkSize?: number | undefined;
-        forceChunkSize?: boolean | undefined;
-        simultaneousUploads?: number | undefined;
-        fileParameterName?: string | undefined;
-        query?: object | undefined;
-        headers?: object | undefined;
-        withCredentials?: boolean | undefined;
-        method?: string | undefined;
-        testMethod?: string | undefined;
-        uploadMethod?: string | undefined;
-        allowDuplicateUploads?: boolean | undefined;
-        prioritizeFirstAndLastChunk?: boolean | undefined;
-        testChunks?: boolean | undefined;
-        preprocess?: ((chunk: FlowChunk) => void) | undefined;
-        initFileFn?: ((file: FlowFile, chunk: FlowChunk) => void) | undefined;
-        readFileFn?: ((file: FlowFile, startByte: number, endByte: number, fileType: string, chunk: FlowChunk) => void) | undefined;
-        generateUniqueIdentifier?: ((file: FlowFile) => any) | undefined;
-        maxChunkRetries?: number | undefined;
-        chunkRetryInterval?: number | undefined;
-        progressCallbacksInterval?: number | undefined;
-        speedSmoothingFactor?: number | undefined;
-        successStatuses?: number[] | undefined;
-        permanentErrors?: number[] | undefined;
+        target?: string;
+        singleFile?: boolean;
+        chunkSize?: number;
+        forceChunkSize?: boolean;
+        simultaneousUploads?: number;
+        fileParameterName?: string;
+        query?: object;
+        headers?: object;
+        withCredentials?: boolean;
+        method?: string;
+        testMethod?: string;
+        uploadMethod?: string;
+        allowDuplicateUploads?: boolean;
+        prioritizeFirstAndLastChunk?: boolean;
+        testChunks?: boolean;
+        preprocess?: (chunk: FlowChunk) => void;
+        initFileFn?: (file: FlowFile, chunk: FlowChunk) => void;
+        readFileFn?: (file: FlowFile, startByte: number, endByte: number, fileType: string, chunk: FlowChunk) => void;
+        generateUniqueIdentifier?: (file: FlowFile) => any;
+        maxChunkRetries?: number;
+        chunkRetryInterval?: number;
+        progressCallbacksInterval?: number;
+        speedSmoothingFactor?: number;
+        successStatuses?: number[];
+        permanentErrors?: number[];
     }
 
     interface FlowFile {
@@ -146,8 +146,7 @@ declare namespace flowjs {
     type FlowEvent = FlowEventMap[keyof FlowEventMap];
 
     type FlowEventFromEventName<T extends EventName> = FlowEventMap[T];
-    type FlowEventTypeFromFlowEvent<T extends FlowEvent> =
-        T extends FlowEventFromEventName<infer U> ? U : never;
+    type FlowEventTypeFromFlowEvent<T extends FlowEvent> = T extends FlowEventFromEventName<infer U> ? U : never;
 
     type FileSuccessCallbackArguments = [FlowFile, string, FlowChunk];
     type FileProgressCallbackArguments = [FlowFile, FlowChunk];

@@ -2,7 +2,6 @@
 // Project: https://github.com/Shopify/js-buy-sdk#readme
 // Definitions by: Martin Köhn <https://github.com/openminder>
 //                 Stephen Traiforos <https://github.com/straiforos>
-//                 Rosana Ruiz <https://github.com/totemika>
 //                 Juan Manuel Incaurgarat <https://github.com/kilinkis>
 //                 Chris Worman <https://github.com/chrisworman-pela>
 //                 Maciej Baron <https://github.com/MaciekBaron>
@@ -115,7 +114,7 @@ declare namespace ShopifyBuy {
          * as their  community guidelines
          */
         query: string;
-        sortBy: string;
+        sortKey: string;
         after?: string | undefined;
         before?: string | undefined;
         first?: number | undefined;

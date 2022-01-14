@@ -1,4 +1,4 @@
-// For Library Version: 1.93.0
+// For Library Version: 1.95.0
 
 declare module "sap/tnt/library" {
   /**
@@ -1509,17 +1509,16 @@ declare module "sap/tnt/ToolHeader" {
    *  The ToolHeader stylizes the contained controls with the Shell color parameters, to match the dark design
    * requirement. However, that's not a dark theme.
    *
-   *  Only the following controls are supported:
-   *
-   *  Control name Supported Not supported   sap.m.Text Single line text, text
-   * truncation Wrapping   sap.m.Title Single line text, text truncation.
-   * Consider using title headings of H4, H5, H6. Wrapping   sap.m.Label Single
-   * line text, text truncation Wrapping   sap.m.ObjectStatus Labels,
-   * semantic colors Indication colors   sap.ui.core.Icon sap.ui.core.IconColor
-   * enumeration for both icons and backgrounds. Interaction state colors   sap.m.Button
-   * Buttons in their Back, Default, Transparent and Up types. All four types are over-styled to look
-   * as transparent buttons. -   sap.m.MenuButton Emphasized button type.
-   * Should be used for triggering Mega menu. If there is no Mega menu, use Title (H6) instead.
+   *  Only the following controls are supported:    Control name Supported
+   * Not supported   sap.m.Text Single line text, text truncation Wrapping
+   *   sap.m.Title Single line text, text truncation. Consider using title headings
+   * of H4, H5, H6. Wrapping   sap.m.Label Single line text, text truncation
+   * Wrapping   sap.m.ObjectStatus Labels, semantic colors Indication
+   * colors   sap.ui.core.Icon sap.ui.core.IconColor enumeration for both icons
+   * and backgrounds. Interaction state colors   sap.m.Button Buttons
+   * in their Back, Default, Transparent and Up types. All four types are over-styled to look as transparent
+   * buttons. -   sap.m.MenuButton Emphasized button type. Should be used
+   * for triggering Mega menu. If there is no Mega menu, use Title (H6) instead.
    *  Default (over-styled as Transparent) and Transparent types are used for standard menu representation.
    * -   sap.m.Select Default and IconOnly types. IconOnly looks like a button
    * while Default looks is like an input. Semantic states   sap.m.SearchField

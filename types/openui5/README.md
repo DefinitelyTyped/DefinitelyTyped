@@ -1,5 +1,8 @@
 # OpenUI5 Definitions - Important Usage Notes
 
+The type definitions for OpenUI5 - please make sure to read the important notes below!<br>
+The central entry point for everything about using TypeScript with UI5 is at [https://sap.github.io/ui5-typescript/](https://sap.github.io/ui5-typescript/).
+
 ## Work in Progress
 
 These definition files are <b>work in progress</b> and will be improved further.<br>
@@ -41,6 +44,18 @@ The only exception when we might still create new patch releases at DefinitelyTy
 Long story short:
 * For ease of consumption and most probably matching definitions, use the latest major/minor-matching version of `@types/openui5`.
 * For perfectly matching definitions, use the version of [`@openui5/ts-types-esm`](https://www.npmjs.com/package/@openui5/ts-types-esm) which is identical to the used OpenUI5 version.
+
+
+## TSLint Ruleset Remarks
+
+Our goal is to reduce the number of disabled tslint rules, but due to years of UI5 development before trying to conform to TypeScript rules, this is not possible for all of them. For the rules which are not aimed to be re-enabled, the reasoning is explained here:
+
+ * `"interface-name": false` - for compatibility reasons, the existing interface names with "I" prefix cannot be changed
+ * `"max-line-length": false` - we do not want to enforce a specific max line length - it also breaks e.g. long links
+ * `"no-any-union": false` - for documentation purposes, it is useful to also see the alternatives which are more specific than "any"
+ * `"no-single-declare-module": false` - these modules do exist and we want TypeScript to know about them
+ * `"interface-over-type-literal": false` - this rule is considered debatable (see e.g. https://github.com/palantir/tslint/issues/3248)
+
 
 
 ## Copyright

@@ -142,6 +142,13 @@ declare namespace Dropdown {
          * @default null
          */
         popperConfig: Partial<Popper.Options> | PopperConfigFunction | null;
+
+        /**
+         * Configure the auto close behavior of the dropdown
+         *
+         * @default true
+         */
+        autoClose: boolean | 'inside' | 'outside';
     }
 
     type jQueryInterface = (config?: Partial<Options> | 'toggle' | 'show' | 'hide' | 'update' | 'dispose') => void;

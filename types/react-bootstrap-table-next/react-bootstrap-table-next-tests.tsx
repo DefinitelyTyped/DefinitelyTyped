@@ -7,6 +7,7 @@ import BootstrapTable, {
     ColumnDescription,
     RowSelectionType,
     ROW_SELECT_SINGLE,
+    ROW_SELECT_MULTIPLE,
     ExpandRowProps,
     ColumnSortValue,
     ColumnSortCaret,
@@ -101,21 +102,21 @@ const productColumns: Array<ColumnDescription<Product>> = [
                 if (isNaN(newValue)) {
                     return done({
                         valid: false,
-                        message: 'Price should be numeric'
+                        message: 'Price should be numeric',
                     });
                 }
                 if (newValue < 2000) {
                     return done({
                         valid: false,
-                        message: 'Price should bigger than 2000'
+                        message: 'Price should bigger than 2000',
                     });
                 }
                 return done();
             }, 2000);
             return {
-                async: true
+                async: true,
             };
-        }
+        },
     },
     {
         dataField: 'price2',
@@ -124,17 +125,17 @@ const productColumns: Array<ColumnDescription<Product>> = [
             if (isNaN(newValue)) {
                 return {
                     valid: false,
-                    message: 'Price should be numeric'
+                    message: 'Price should be numeric',
                 };
             }
             if (newValue < 2000) {
                 return {
                     valid: false,
-                    message: 'Price should bigger than 2000'
+                    message: 'Price should bigger than 2000',
                 };
             }
             return true;
-        }
+        },
     },
     {
         dataField: 'category',
@@ -276,6 +277,25 @@ render(
         columns={productColumns}
         selectRow={{
             mode: ROW_SELECT_SINGLE,
+        }}
+    />,
+    document.getElementById('app'),
+);
+
+/**
+ * Basic table with custom checkbox in row selection column
+ */
+render(
+    <BootstrapTable
+        data={products}
+        bootstrap4
+        keyField="id"
+        columns={productColumns}
+        selectRow={{
+            mode: ROW_SELECT_MULTIPLE,
+            selectionRenderer({ rowKey, checked, disabled }) {
+                return <input key={rowKey} type="checkbox" checked={checked} disabled={disabled} />;
+            },
         }}
     />,
     document.getElementById('app'),

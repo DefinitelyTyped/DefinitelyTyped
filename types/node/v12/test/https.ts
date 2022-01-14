@@ -4,6 +4,7 @@ import * as net from 'net';
 import * as stream from 'stream';
 import * as tls from 'tls';
 import * as url from 'url';
+import * as dns from 'dns';
 
 // https tests
 {
@@ -445,4 +446,10 @@ import * as url from 'url';
       _socket = socket;
       _head = head;
     });
+}
+
+{
+  https.request({ lookup: undefined });
+  https.request({ lookup: dns.lookup });
+  https.request({ lookup: (hostname, options, cb) => { cb(null, '', 1); } });
 }

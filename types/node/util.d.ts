@@ -6,7 +6,7 @@
  * ```js
  * const util = require('util');
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v16.7.0/lib/util.js)
+ * @see [source](https://github.com/nodejs/node/blob/v17.0.0/lib/util.js)
  */
 declare module 'util' {
     import * as types from 'node:util/types';
@@ -114,6 +114,20 @@ declare module 'util' {
      */
     export function formatWithOptions(inspectOptions: InspectOptions, format?: any, ...param: any[]): string;
     /**
+     * Returns the string name for a numeric error code that comes from a Node.js API.
+     * The mapping between error codes and error names is platform-dependent.
+     * See `Common System Errors` for the names of common errors.
+     *
+     * ```js
+     * fs.access('file/that/does/not/exist', (err) => {
+     *   const name = util.getSystemErrorName(err.errno);
+     *   console.error(name);  // ENOENT
+     * });
+     * ```
+     * @since v9.7.0
+     */
+    export function getSystemErrorName(err: number): string;
+    /**
      * Returns a Map of all system error codes available from the Node.js API.
      * The mapping between error codes and error names is platform-dependent.
      * See `Common System Errors` for the names of common errors.
@@ -125,7 +139,7 @@ declare module 'util' {
      *   console.error(name);  // ENOENT
      * });
      * ```
-     * @since v16.0.0
+     * @since v16.0.0, v14.17.0
      */
     export function getSystemErrorMap(): Map<number, [string, string]>;
     /**
@@ -141,6 +155,13 @@ declare module 'util' {
      * @deprecated Since v6.0.0 - Use a third party module instead.
      */
     export function log(string: string): void;
+    /**
+     * Returns the `string` after replacing any surrogate code points
+     * (or equivalently, any unpaired surrogate code units) with the
+     * Unicode "replacement character" U+FFFD.
+     * @since v16.8.0, v14.18.0
+     */
+    export function toUSVString(string: string): string;
     /**
      * The `util.inspect()` method returns a string representation of `object` that is
      * intended for debugging. The output of `util.inspect` may change at any time
@@ -245,7 +266,7 @@ declare module 'util' {
      * The `showHidden` option allows [`WeakMap`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakMap) and
      * [`WeakSet`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakSet) entries to be
      * inspected. If there are more entries than `maxArrayLength`, there is no
-     * guarantee which entries are displayed. That means retrieving the same[`WeakSet`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakSet) entries twice may
+     * guarantee which entries are displayed. That means retrieving the same [`WeakSet`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakSet) entries twice may
      * result in different output. Furthermore, entries
      * with no remaining strong references may be garbage collected at any time.
      *
@@ -307,6 +328,9 @@ declare module 'util' {
          * Allows changing inspect settings from the repl.
          */
         let replDefaults: InspectOptions;
+        /**
+         * That can be used to declare custom inspect functions.
+         */
         const custom: unique symbol;
     }
     /**
@@ -513,6 +537,7 @@ declare module 'util' {
      * @return The logging function
      */
     export function debuglog(section: string, callback?: (fn: DebugLoggerFunction) => void): DebugLogger;
+    export const debug: typeof debuglog;
     /**
      * Returns `true` if the given `object` is a `Boolean`. Otherwise, returns `false`.
      *
@@ -783,6 +808,16 @@ declare module 'util' {
      */
     export function isDeepStrictEqual(val1: unknown, val2: unknown): boolean;
     /**
+     * Returns `str` with any ANSI escape codes removed.
+     *
+     * ```js
+     * console.log(util.stripVTControlCharacters('\u001B[4mvalue\u001B[0m'));
+     * // Prints "value"
+     * ```
+     * @since v16.11.0
+     */
+    export function stripVTControlCharacters(str: string): string;
+    /**
      * Takes an `async` function (or a function that returns a `Promise`) and returns a
      * function following the error-first callback style, i.e. taking
      * an `(err, value) => ...` callback as the last argument. In the callback, the
@@ -954,10 +989,13 @@ declare module 'util' {
     ): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5) => Promise<void>;
     export function promisify(fn: Function): Function;
     export namespace promisify {
+        /**
+         * That can be used to declare custom promisified variants of functions.
+         */
         const custom: unique symbol;
     }
     /**
-     * An implementation of the [WHATWG Encoding Standard](https://encoding.spec.whatwg.org/)`TextDecoder` API.
+     * An implementation of the [WHATWG Encoding Standard](https://encoding.spec.whatwg.org/) `TextDecoder` API.
      *
      * ```js
      * const decoder = new TextDecoder('shift_jis');
@@ -1019,7 +1057,7 @@ declare module 'util' {
     }
     export { types };
     /**
-     * An implementation of the [WHATWG Encoding Standard](https://encoding.spec.whatwg.org/)`TextEncoder` API. All
+     * An implementation of the [WHATWG Encoding Standard](https://encoding.spec.whatwg.org/) `TextEncoder` API. All
      * instances of `TextEncoder` only support UTF-8 encoding.
      *
      * ```js
@@ -1063,8 +1101,8 @@ declare module 'util/types' {
 declare module 'util/types' {
     import { KeyObject, webcrypto } from 'node:crypto';
     /**
-     * Returns `true` if the value is a built-in [`ArrayBuffer`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer)
-     * or[`SharedArrayBuffer`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SharedArrayBuffer) instance.
+     * Returns `true` if the value is a built-in [`ArrayBuffer`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer) or
+     * [`SharedArrayBuffer`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SharedArrayBuffer) instance.
      *
      * See also `util.types.isArrayBuffer()` and `util.types.isSharedArrayBuffer()`.
      *
@@ -1099,9 +1137,9 @@ declare module 'util/types' {
      */
     function isArrayBuffer(object: unknown): object is ArrayBuffer;
     /**
-     * Returns `true` if the value is an instance of one of the [`ArrayBuffer`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer)views, such as typed array
-     * objects or [`DataView`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DataView). Equivalent
-     * to[`ArrayBuffer.isView()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer/isView).
+     * Returns `true` if the value is an instance of one of the [`ArrayBuffer`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer) views, such as typed
+     * array objects or [`DataView`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DataView). Equivalent to
+     * [`ArrayBuffer.isView()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer/isView).
      *
      * ```js
      * util.types.isArrayBufferView(new Int8Array());  // true
@@ -1329,7 +1367,7 @@ declare module 'util/types' {
      */
     function isMap<T>(object: T | {}): object is T extends ReadonlyMap<any, any> ? (unknown extends T ? never : ReadonlyMap<any, any>) : Map<unknown, unknown>;
     /**
-     * Returns `true` if the value is an iterator returned for a built-in[`Map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) instance.
+     * Returns `true` if the value is an iterator returned for a built-in [`Map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) instance.
      *
      * ```js
      * const map = new Map();
@@ -1415,7 +1453,7 @@ declare module 'util/types' {
      */
     function isSet<T>(object: T | {}): object is T extends ReadonlySet<any> ? (unknown extends T ? never : ReadonlySet<any>) : Set<unknown>;
     /**
-     * Returns `true` if the value is an iterator returned for a built-in[`Set`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set) instance.
+     * Returns `true` if the value is an iterator returned for a built-in [`Set`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set) instance.
      *
      * ```js
      * const set = new Set();

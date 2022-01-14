@@ -16,7 +16,7 @@ export = Agent;
  *
  * @see https://github.com/share/sharedb#class-sharedbagent
  */
-declare class Agent {
+declare class Agent<TCustom = any> {
     backend: ShareDbBackend;
     stream: Duplex & {
         /**
@@ -30,7 +30,7 @@ declare class Agent {
      * given client session. It is in memory only as long as the session is
      * active, and it is passed to each middleware call.
      */
-    custom: any;
+    custom: TCustom;
 
     /**
      * Sends a JSON-compatible message to the client for this agent.

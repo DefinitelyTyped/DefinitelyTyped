@@ -1890,9 +1890,24 @@ declare namespace ComponentFramework {
              */
             interface Paging {
                 /**
-                 * Total number of results on the server for the current query.
+                 * Total number of results on the server for the currently applied query.
                  */
                 totalResultCount: number;
+
+                /**
+                 * The number of the first page to retrieve
+                 */
+                firstPageNumber: number;
+
+                /**
+                 * The number of the last page to retrieve
+                 */
+                lastPageNumber: number;
+
+                /**
+                 * The pagesize for each page retrieved
+                 */
+                pageSize: number;
 
                 /**
                  * Whether the result set can be paged forwards.
@@ -1905,20 +1920,18 @@ declare namespace ComponentFramework {
                 hasPreviousPage: boolean;
 
                 /**
-                 * Request the next page of results to be loaded. New data will be pushed to control in another 'updateView' cycle.
+                 * Request the next page of results to be loaded. Returns results for the whole page range.
+                 * New data will be pushed to control in another 'updateView' cycle.
+                 * @param loadOnlyNewPage Limits return value to only newly loaded page.
                  */
-                loadNextPage(): void;
+                loadNextPage(loadOnlyNewPage?: boolean): void;
 
                 /**
-                 * Request the previous page of results to be loaded. New data will be pushed to control in another 'updateView' cycle.
+                 * Request the previous page of results to be loaded. Returns results for the whole page range.
+                 * New data will be pushed to control in another 'updateView' cycle.
+                 * @param loadOnlyNewPage Limits return value to only newly loaded page.
                  */
-                loadPreviousPage(): void;
-
-                /**
-                 * Request the exact page
-                 * @param pageNumber The page number to go to in the dat.
-                 */
-                loadExactPage(pageNumber?: number): void;
+                loadPreviousPage(loadOnlyNewPage?: boolean): void;
 
                 /**
                  * Reload the results from the server, and reset to page 1.
@@ -1927,9 +1940,15 @@ declare namespace ComponentFramework {
 
                 /**
                  * Sets the number of results to return per page on the next data refresh.
-                 * @param pageSize pageSize to be set
+                 * @param pageSize pageSize to be set.
                  */
                 setPageSize(pageSize: number): void;
+
+                /**
+                 * Request the exact page of results to be loaded.
+                 * @param pageNumber exact page to be loaded.
+                 */
+                loadExactPage(pageNumber: number): void;
             }
 
             /**

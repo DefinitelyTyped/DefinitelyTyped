@@ -6,7 +6,7 @@ interface MyTextProps {
     style?: TextStyle | undefined;
 }
 
-const MyText: React.SFC<TabProps<MyTextProps>> = (props) => (
+const MyText: React.FC<TabProps<MyTextProps>> = (props) => (
     <Text style={props.style}>{props.children}</Text>
 );
 

@@ -146,6 +146,8 @@ export interface TypeaheadProps<T extends TypeaheadModel> {
     /* Whether or not filtering should be case-sensitive. */
     caseSensitive?: boolean | undefined;
 
+    children?: React.ReactNode | ((props: any) => React.ReactNode);
+
     /* Displays a button to clear the input when there are selections. */
     clearButton?: boolean | undefined;
 

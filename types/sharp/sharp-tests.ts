@@ -220,6 +220,15 @@ sharp(input)
         // when resolveWithObject is true
     });
 
+// Output to tif
+sharp(input)
+    .resize(100, 100)
+    .toFormat('tif')
+    .toFormat('tiff')
+    .toFormat(sharp.format.tif)
+    .toFormat(sharp.format.tiff)
+    .toBuffer();
+
 const stats = sharp.cache();
 
 sharp.cache({ items: 200 });
@@ -257,6 +266,7 @@ sharp('input.gif')
 
     .modulate({ brightness: 2 })
     .modulate({ hue: 180 })
+    .modulate({ lightness: 10 })
     .modulate({ brightness: 0.5, saturation: 0.5, hue: 90 });
 
 // From https://sharp.pixelplumbing.com/api-output#examples-9
@@ -362,3 +372,42 @@ sharp('input.jpg').clahe({ width: 10, height: 10 }).toFile('output.jpg');
 sharp('input.jpg').clahe({ width: 10, height: 10, maxSlope: 5 }).toFile('outfile.jpg');
 
 sharp(new Uint8Array(input.buffer)).toFile('output.jpg');
+
+// Support for negate options
+sharp('input.png').negate({ alpha: false }).toFile('output.png');
+
+// From https://github.com/lovell/sharp/pull/2704
+// Type support for pipelineColourspace
+sharp(input)
+    .pipelineColourspace('rgb16')
+    .resize(320, 240)
+    .gamma()
+    .toColourspace('srgb') // this is the default, but included here for clarity
+    .toBuffer();
+
+// Support for raw depth specification
+sharp('16bpc.png')
+    .toColourspace('rgb16')
+    .raw({ depth: 'ushort' })
+    .toBuffer((error, data, { width, height, channels, size }) => {
+        console.log((size / width / height / channels) * 8);
+        console.log(new Uint16Array(data.buffer));
+    });
+
+// Output channels are constrained from 1-4, can be used as raw input
+sharp(input)
+    .toBuffer({ resolveWithObject: true })
+    .then(result => {
+        const newImg = sharp(result.data, {
+            raw: {
+                channels: result.info.channels,
+                width: result.info.width,
+                height: result.info.height,
+            },
+        });
+
+        return newImg.toBuffer();
+    });
+
+// Support for specifying a timeout
+sharp('someImage.png').timeout({ seconds: 30 }).resize(300, 300).toBuffer();

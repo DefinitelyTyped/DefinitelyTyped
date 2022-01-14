@@ -354,6 +354,21 @@ numOrUndefined = d3Array.deviation(mixedObjectArray, accessorMixedObjectToNum);
 numOrUndefined = d3Array.deviation(mixedObjectOrUndefinedArray, accessorMixedObjectToNumOrUndefined);
 numOrUndefined = d3Array.deviation(readonlyMixedObjectOrUndefinedArray, accessorReadOnlyMixedObjectToNumOrUndefined);
 
+// rank() ------------------------------------------------------------------
+
+float64Array = d3Array.rank(numbersArray);
+float64Array = d3Array.rank(numericArray);
+float64Array = d3Array.rank(numbersOrUndefinedArray);
+
+float64Array = d3Array.rank(typedArray);
+float64Array = d3Array.rank(readonlyNumbersArray);
+float64Array = d3Array.rank(readonlyNumericArray);
+float64Array = d3Array.rank(readonlyNumbersOrUndefinedArray);
+
+float64Array = d3Array.rank(mixedObjectArray, accessorMixedObjectToNum);
+float64Array = d3Array.rank(mixedObjectOrUndefinedArray, accessorMixedObjectToNumOrUndefined);
+float64Array = d3Array.rank(readonlyMixedObjectOrUndefinedArray, accessorReadOnlyMixedObjectToNumOrUndefined);
+
 // variance() ------------------------------------------------------------------
 
 numOrUndefined = d3Array.variance(numbersArray);

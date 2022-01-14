@@ -1,4 +1,4 @@
-// Type definitions for ignore-walk 3.0
+// Type definitions for ignore-walk 4.0
 // Project: https://github.com/isaacs/ignore-walk#readme
 // Definitions by: Matthew Peveler <https://github.com/MasterOdin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -13,11 +13,20 @@ declare namespace walk {
     function sync(options?: WalkerOptions): string[];
 
     interface WalkerOptions {
+        isSymbolicLink?: boolean | undefined;
         path?: string | undefined;
         ignoreFiles?: string[] | undefined;
         parent?: Walker | WalkerSync | null | undefined;
         includeEmpty?: boolean | undefined;
         follow?: boolean | undefined;
+    }
+
+    interface ConcreteWalkerOptions extends WalkerOptions {
+        path: string;
+        parent: Walker | WalkerSync;
+        ignoreFiles: string[];
+        follow: boolean;
+        includeEmpty: boolean;
     }
 
     class Walker extends EventEmitter {
@@ -43,16 +52,10 @@ declare namespace walk {
         addIgnoreFile(file: string, then: () => void): void;
         onReadIgnoreFile(file: string, data: string, then: () => void): void;
         filterEntries(): void;
-        onstat(st: Stats, entry: string, file: boolean, dir: boolean, then: () => void): void;
-        stat(entry: string, file: boolean, dir: boolean, the: () => void): void;
-        walkerOpt(entry: string): {
-            path: string;
-            ignoreFiles: string[];
-            parent: Walker | WalkerSync;
-            includeEmpty: boolean;
-            follow: boolean;
-        };
-        walker(entry: string, then: () => void): void;
+        onstat(opts: { st: Stats; entry: string; file: boolean; dir: boolean; isSymbolicLink: boolean; }, then: () => void): void;
+        stat(opts: { entry: string, file: boolean, dir: boolean }, then: () => void): void;
+        walkerOpt(entry: string, opts?: WalkerOptions): ConcreteWalkerOptions;
+        walker(entry: string, opts: WalkerOptions | undefined, then: () => void): void;
         filterEntry(entry: string, partial: boolean): boolean;
 
         addListener(event: 'error', listener: (err: Error) => void): this;
@@ -71,8 +74,8 @@ declare namespace walk {
         constructor(opts?: WalkerOptions);
         start(): this;
         addIgnoreFile(file: string, then: () => void): void;
-        stat(entry: string, file: boolean, dir: boolean, then: () => void): void;
-        walker(entry: string, then: () => void): void;
+        stat(options: { entry: string, file: boolean, dir: boolean }, then: () => void): void;
+        walker(entry: string, opts: WalkerOptions | undefined, then: () => void): void;
     }
 }
 

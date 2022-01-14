@@ -11,6 +11,7 @@ export interface ShaderMaterialParameters extends MaterialParameters {
     wireframeLinewidth?: number | undefined;
     lights?: boolean | undefined;
     clipping?: boolean | undefined;
+
     extensions?:
         | {
               derivatives?: boolean | undefined;

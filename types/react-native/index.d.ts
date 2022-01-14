@@ -1,4 +1,4 @@
-// Type definitions for react-native 0.64
+// Type definitions for react-native 0.66
 // Project: https://github.com/facebook/react-native
 // Definitions by: Eloy Durán <https://github.com/alloy>
 //                 HuHuanming <https://github.com/huhuanming>
@@ -31,7 +31,6 @@
 //                 Abe Dolinger <https://github.com/256hz>
 //                 Dominique Richard <https://github.com/doumart>
 //                 Mohamed Shaban <https://github.com/drmas>
-//                 André Krüger <https://github.com/akrger>
 //                 Jérémy Barbet <https://github.com/jeremybarbet>
 //                 Christian Ost <https://github.com/ca057>
 //                 David Sheldrick <https://github.com/ds300>
@@ -41,6 +40,8 @@
 //                 Alexey Molchan <https://github.com/alexeymolchan>
 //                 Alex Brazier <https://github.com/alexbrazier>
 //                 Arafat Zahan <https://github.com/kuasha420>
+//                 Pedro Hernández <https://github.com/phvillegas>
+//                 Sebastian Silbermann <https://github.com/eps1lon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -358,7 +359,7 @@ export interface HostComponent<P> extends Pick<React.ComponentClass<P>, Exclude<
 
 // see react-jsx.d.ts
 export function createElement<P>(
-    type: React.ReactType,
+    type: React.ElementType,
     props?: P,
     ...children: React.ReactNode[]
 ): React.ReactElement<P>;
@@ -449,6 +450,7 @@ export interface PressableAndroidRippleConfig {
     color?: null | ColorValue | undefined;
     borderless?: null | boolean | undefined;
     radius?: null | number | undefined;
+    foreground?: null | boolean | undefined;
 }
 
 export interface PressableProps extends AccessibilityProps, Omit<ViewProps, 'style' | 'hitSlop'> {
@@ -489,6 +491,12 @@ export interface PressableProps extends AccessibilityProps, Omit<ViewProps, 'sty
      * the component is currently pressed.
      */
     children?: React.ReactNode | ((state: PressableStateCallbackType) => React.ReactNode) | undefined;
+
+    /**
+     * Whether a press gesture can be interrupted by a parent gesture such as a
+     * scroll event. Defaults to true.
+     */
+    cancelable?: null | boolean | undefined;
 
     /**
      * Duration (in milliseconds) from `onPressIn` before `onLongPress` is called.
@@ -589,6 +597,8 @@ export namespace AppRegistry {
 
     function runApplication(appKey: string, appParameters: any): void;
 
+    function setSurfaceProps(appKey: string, appParameters: any, displayMode?: number): void;
+
     function registerHeadlessTask(appKey: string, task: TaskProvider): void;
 
     function getRunnable(appKey: string): Runnable | undefined;
@@ -604,7 +614,7 @@ export type LayoutAnimationType =
 
 export type LayoutAnimationTypes = {
     [type in LayoutAnimationType]: type;
-}
+};
 
 export type LayoutAnimationProperty =
     | 'opacity'
@@ -614,7 +624,7 @@ export type LayoutAnimationProperty =
 
 export type LayoutAnimationProperties = {
     [prop in LayoutAnimationProperty]: prop;
-}
+};
 
 export interface LayoutAnimationAnim {
     duration?: number | undefined;
@@ -991,6 +1001,8 @@ export interface TextProps extends TextPropsIOS, TextPropsAndroid, Accessibility
      */
     allowFontScaling?: boolean | undefined;
 
+    children?: React.ReactNode;
+
     /**
      * This can be one of the following values:
      *
@@ -1042,6 +1054,9 @@ export interface TextProps extends TextPropsIOS, TextPropsAndroid, Accessibility
      * Text intrinsically supports press handling with a default highlight state (which can be disabled with suppressHighlighting).
      */
     onPress?: ((event: GestureResponderEvent) => void) | undefined;
+
+    onPressIn?: ((event: GestureResponderEvent) => void) | undefined;
+    onPressOut?: ((event: GestureResponderEvent) => void) | undefined;
 
     /**
      * This function is called on long press.
@@ -1264,7 +1279,8 @@ export interface TextInputIOSProps {
         | 'username'
         | 'password'
         | 'newPassword'
-        | 'oneTimeCode' | undefined;
+        | 'oneTimeCode'
+        | undefined;
 
     /**
      * If false, scrolling of the text view will be disabled. The default value is true. Only works with multiline={true}
@@ -1278,41 +1294,90 @@ export interface TextInputIOSProps {
  */
 export interface TextInputAndroidProps {
     /**
-     * Determines which content to suggest on auto complete, e.g.`username`.
-     * To disable auto complete, use `off`.
+     * Specifies autocomplete hints for the system, so it can provide autofill. On Android, the system will always attempt to offer autofill by using heuristics to identify the type of content.
+     * To disable autocomplete, set `autoComplete` to `off`.
      *
      * *Android Only*
      *
-     * The following values work on Android only:
+     * Possible values for `autoComplete` are:
      *
-     * - `username`
-     * - `password`
-     * - `email`
-     * - `name`
-     * - `tel`
-     * - `street-address`
-     * - `postal-code`
-     * - `cc-number`
+     * - `birthdate-day`
+     * - `birthdate-full`
+     * - `birthdate-month`
+     * - `birthdate-year`
      * - `cc-csc`
      * - `cc-exp`
+     * - `cc-exp-day`
      * - `cc-exp-month`
      * - `cc-exp-year`
+     * - `cc-number`
+     * - `email`
+     * - `gender`
+     * - `name`
+     * - `name-family`
+     * - `name-given`
+     * - `name-middle`
+     * - `name-middle-initial`
+     * - `name-prefix`
+     * - `name-suffix`
+     * - `password`
+     * - `password-new`
+     * - `postal-address`
+     * - `postal-address-country`
+     * - `postal-address-extended`
+     * - `postal-address-extended-postal-code`
+     * - `postal-address-locality`
+     * - `postal-address-region`
+     * - `postal-code`
+     * - `street-address`
+     * - `sms-otp`
+     * - `tel`
+     * - `tel-country-code`
+     * - `tel-national`
+     * - `tel-device`
+     * - `username`
+     * - `username-new`
      * - `off`
      */
-    autoCompleteType?:
+    autoComplete?:
+        | 'birthdate-day'
+        | 'birthdate-full'
+        | 'birthdate-month'
+        | 'birthdate-year'
         | 'cc-csc'
         | 'cc-exp'
+        | 'cc-exp-day'
         | 'cc-exp-month'
         | 'cc-exp-year'
         | 'cc-number'
         | 'email'
+        | 'gender'
         | 'name'
+        | 'name-family'
+        | 'name-given'
+        | 'name-middle'
+        | 'name-middle-initial'
+        | 'name-prefix'
+        | 'name-suffix'
         | 'password'
+        | 'password-new'
+        | 'postal-address'
+        | 'postal-address-country'
+        | 'postal-address-extended'
+        | 'postal-address-extended-postal-code'
+        | 'postal-address-locality'
+        | 'postal-address-region'
         | 'postal-code'
         | 'street-address'
+        | 'sms-otp'
         | 'tel'
+        | 'tel-country-code'
+        | 'tel-national'
+        | 'tel-device'
         | 'username'
-        | 'off' | undefined;
+        | 'username-new'
+        | 'off'
+        | undefined;
 
     /**
      * Determines whether the individual fields in your app should be included in a
@@ -1771,152 +1836,6 @@ export class TextInput extends TextInputBase {
     clear: () => void;
 }
 
-export type ToolbarAndroidAction = {
-    /**
-     *  title: required, the title of this action
-     */
-    title: string;
-
-    /**
-     * icon: the icon for this action, e.g. require('./some_icon.png')
-     */
-    icon?: ImageURISource | undefined;
-
-    /**
-     * show: when to show this action as an icon or hide it in the overflow menu: always, ifRoom or never
-     */
-    show?: 'always' | 'ifRoom' | 'never' | undefined;
-
-    /**
-     * showWithText: boolean, whether to show text alongside the icon or not
-     */
-    showWithText?: boolean | undefined;
-};
-
-export interface ToolbarAndroidProps extends ViewProps {
-    /**
-     * Sets possible actions on the toolbar as part of the action menu. These are displayed as icons
-     * or text on the right side of the widget. If they don't fit they are placed in an 'overflow'
-     * menu.
-     *
-     * This property takes an array of objects, where each object has the following keys:
-     *
-     * * `title`: **required**, the title of this action
-     * * `icon`: the icon for this action, e.g. `require('./some_icon.png')`
-     * * `show`: when to show this action as an icon or hide it in the overflow menu: `always`,
-     * `ifRoom` or `never`
-     * * `showWithText`: boolean, whether to show text alongside the icon or not
-     */
-    actions?: ToolbarAndroidAction[] | undefined;
-
-    /**
-     * Sets the content inset for the toolbar ending edge.
-     * The content inset affects the valid area for Toolbar content other
-     * than the navigation button and menu. Insets define the minimum
-     * margin for these components and can be used to effectively align
-     * Toolbar content along well-known gridlines.
-     */
-    contentInsetEnd?: number | undefined;
-
-    /**
-     * Sets the content inset for the toolbar starting edge.
-     * The content inset affects the valid area for Toolbar content
-     * other than the navigation button and menu. Insets define the
-     * minimum margin for these components and can be used to effectively
-     * align Toolbar content along well-known gridlines.
-     */
-    contentInsetStart?: number | undefined;
-
-    /**
-     * Sets the toolbar logo.
-     */
-    logo?: ImageURISource | undefined;
-
-    /**
-     * Sets the navigation icon.
-     */
-    navIcon?: ImageURISource | undefined;
-
-    /**
-     * Callback that is called when an action is selected. The only
-     * argument that is passed to the callback is the position of the
-     * action in the actions array.
-     */
-    onActionSelected?: ((position: number) => void) | undefined;
-
-    /**
-     * Callback called when the icon is selected.
-     */
-    onIconClicked?: (() => void) | undefined;
-
-    /**
-     * Sets the overflow icon.
-     */
-    overflowIcon?: ImageURISource | undefined;
-
-    /**
-     * Used to set the toolbar direction to RTL.
-     * In addition to this property you need to add
-     * android:supportsRtl="true"
-     * to your application AndroidManifest.xml and then call
-     * setLayoutDirection(LayoutDirection.RTL) in your MainActivity
-     * onCreate method.
-     */
-    rtl?: boolean | undefined;
-
-    /**
-     * Sets the toolbar subtitle.
-     */
-    subtitle?: string | undefined;
-
-    /**
-     * Sets the toolbar subtitle color.
-     */
-    subtitleColor?: ColorValue | undefined;
-
-    /**
-     * Used to locate this view in end-to-end tests.
-     */
-    testID?: string | undefined;
-
-    /**
-     * Sets the toolbar title.
-     */
-    title?: string | undefined;
-
-    /**
-     * Sets the toolbar title color.
-     */
-    titleColor?: ColorValue | undefined;
-}
-
-/**
- * React component that wraps the Android-only [`Toolbar` widget][0]. A Toolbar can display a logo,
- * navigation icon (e.g. hamburger menu), a title & subtitle and a list of actions. The title and
- * subtitle are expanded so the logo and navigation icons are displayed on the left, title and
- * subtitle in the middle and the actions on the right.
- *
- * If the toolbar has an only child, it will be displayed between the title and actions.
- *
- * Although the Toolbar supports remote images for the logo, navigation and action icons, this
- * should only be used in DEV mode where `require('./some_icon.png')` translates into a packager
- * URL. In release mode you should always use a drawable resource for these icons. Using
- * `require('./some_icon.png')` will do this automatically for you, so as long as you don't
- * explicitly use e.g. `{uri: 'http://...'}`, you will be good.
- *
- * [0]: https://developer.android.com/reference/android/support/v7/widget/Toolbar.html
- */
-declare class ToolbarAndroidComponent extends React.Component<ToolbarAndroidProps> {}
-declare const ToolbarAndroidBase: Constructor<NativeMethods> & typeof ToolbarAndroidComponent;
-
-/**
- * ToolbarAndroid has been deprecated and removed from the package since React Native v0.61.0.
- * It can now be installed and imported from `@react-native-community/datetimepicker` instead of 'react-native'.
- * @see https://github.com/react-native-community/toolbar-android
- * @deprecated
- */
-export class ToolbarAndroid extends ToolbarAndroidBase {}
-
 /**
  * Gesture recognition on mobile devices is much more complicated than web.
  * A touch can go through several phases as the app determines what the user's intention is.
@@ -2363,6 +2282,7 @@ export interface AccessibilityValue {
 export type AccessibilityRole =
     | 'none'
     | 'button'
+    | 'togglebutton'
     | 'link'
     | 'search'
     | 'image'
@@ -2385,8 +2305,10 @@ export type AccessibilityRole =
     | 'spinbutton'
     | 'switch'
     | 'tab'
+    | 'tabbar'
     | 'tablist'
     | 'timer'
+    | 'list'
     | 'toolbar';
 
 export interface AccessibilityPropsAndroid {
@@ -2460,6 +2382,7 @@ export interface ViewProps
         GestureResponderHandlers,
         Touchable,
         AccessibilityProps {
+    children?: React.ReactNode;
     /**
      * This defines how far a touch event can start away from the view.
      * Typical interface guidelines recommend touch targets that are at least
@@ -2732,6 +2655,8 @@ export class InputAccessoryView extends React.Component<InputAccessoryViewProps>
 
 export interface InputAccessoryViewProps {
     backgroundColor?: ColorValue | undefined;
+
+    children?: React.ReactNode;
 
     /**
      * An ID which is used to associate this InputAccessoryView to specified TextInput(s).
@@ -3016,6 +2941,13 @@ export interface DatePickerIOSProps extends ViewProps {
      * For instance, to show times in Pacific Standard Time, pass -7 * 60.
      */
     timeZoneOffsetInMinutes?: number | undefined;
+
+    /**
+     * The date picker style
+     * This is only available on devices with iOS 14.0 and later.
+     * 'spinner' is the default style if this prop isn't set.
+     */
+    pickerStyle?: 'compact' | 'spinner' | 'inline' | undefined;
 }
 
 declare class DatePickerIOSComponent extends React.Component<DatePickerIOSProps> {}
@@ -3146,136 +3078,6 @@ export class DrawerLayoutAndroid extends DrawerLayoutAndroidBase {
      * Closes the drawer.
      */
     closeDrawer(): void;
-}
-
-/**
- * @see PickerIOS.ios.js
- */
-export interface PickerIOSItemProps {
-    value?: string | undefined;
-    label?: string | undefined;
-    textColor?: ProcessedColorValue | undefined;
-}
-
-/**
- * @see PickerIOS.ios.js
- */
-export class PickerIOSItem extends React.Component<PickerIOSItemProps> {}
-
-/**
- * @see Picker.js
- */
-export interface PickerItemProps {
-    testID?: string | undefined;
-    color?: ColorValue | undefined;
-    label: string;
-    value?: string | undefined;
-}
-
-export interface PickerPropsIOS extends ViewProps {
-    /**
-     * Style to apply to each of the item labels.
-     * @platform ios
-     */
-    itemStyle?: StyleProp<TextStyle> | undefined;
-}
-
-export interface PickerPropsAndroid extends ViewProps {
-    /**
-     * If set to false, the picker will be disabled, i.e. the user will not be able to make a
-     * selection.
-     * @platform android
-     */
-    enabled?: boolean | undefined;
-
-    /**
-     * On Android, specifies how to display the selection items when the user taps on the picker:
-     *
-     *   - 'dialog': Show a modal dialog. This is the default.
-     *   - 'dropdown': Shows a dropdown anchored to the picker view
-     *
-     * @platform android
-     */
-    mode?: 'dialog' | 'dropdown' | undefined;
-
-    /**
-     * Prompt string for this picker, used on Android in dialog mode as the title of the dialog.
-     * @platform android
-     */
-    prompt?: string | undefined;
-}
-
-/**
- * @see https://reactnative.dev/docs/picker
- * @see Picker.js
- */
-export interface PickerProps extends PickerPropsIOS, PickerPropsAndroid {
-    /**
-     * Callback for when an item is selected. This is called with the
-     * following parameters:
-     * - itemValue: the value prop of the item that was selected
-     * - itemPosition: the index of the selected item in this picker
-     */
-    onValueChange?: ((itemValue: any, itemPosition: number) => void) | undefined;
-
-    /**
-     * Value matching value of one of the items.
-     * Can be a string or an integer.
-     */
-    selectedValue?: string | undefined;
-
-    style?: StyleProp<TextStyle> | undefined;
-
-    /**
-     * Used to locate this view in end-to-end tests.
-     */
-    testId?: string | undefined;
-}
-
-/**
- * Picker has been extracted from react-native core and will be removed in a future release.
- * It can now be installed and imported from `@react-native-community/picker` instead of 'react-native'.
- * @see https://github.com/react-native-community/react-native-picker
- * @deprecated
- */
-export class Picker extends React.Component<PickerProps> {
-    /**
-     * On Android, display the options in a dialog.
-     */
-    static MODE_DIALOG: string;
-
-    /**
-     * On Android, display the options in a dropdown (this is the default).
-     */
-    static MODE_DROPDOWN: string;
-
-    static Item: React.ComponentType<PickerItemProps>;
-}
-
-/**
- * @see https://reactnative.dev/docs/pickerios
- * @see PickerIOS.ios.js
- */
-export interface PickerIOSProps extends ViewProps {
-    itemStyle?: StyleProp<TextStyle> | undefined;
-    onValueChange?: ((value: string) => void) | undefined;
-    selectedValue?: string | undefined;
-}
-
-/**
- * @see https://reactnative.dev/docs/pickerios
- * @see PickerIOS.ios.js
- */
-declare class PickerIOSComponent extends React.Component<PickerIOSProps> {}
-declare const PickerIOSBase: Constructor<NativeMethods> & typeof PickerIOSComponent;
-/**
- * PickerIOS has been extracted from react-native core and will be removed in a future release.
- * It can now be installed and imported from `@react-native-community/picker` instead of 'react-native'.
- * @see https://github.com/react-native-community/react-native-picker
- * @deprecated
- */
-export class PickerIOS extends PickerIOSBase {
-    static Item: typeof PickerIOSItem;
 }
 
 /**
@@ -4032,6 +3834,7 @@ export class Image extends ImageBase {
         failure?: (error: any) => void,
     ): any;
     static prefetch(url: string): Promise<boolean>;
+    static prefetchWithMetadata(url: string, queryRootName: string, rootTag?: number): Promise<boolean>;
     static abortPrefetch?(requestId: number): void;
     static queryCache?(urls: string[]): Promise<{ [url: string]: 'memory' | 'disk' | 'disk/memory' }>;
 
@@ -4346,7 +4149,7 @@ export class FlatList<ItemT = any> extends React.Component<FlatListProps<ItemT>>
     /**
      * Provides a reference to the underlying host component
      */
-    getNativeScrollRef: () => React.RefObject<View> | React.RefObject<ScrollViewComponent> | null | undefined;
+    getNativeScrollRef: () => React.ElementRef<typeof View> | React.ElementRef<typeof ScrollViewComponent> | null | undefined;
 
     getScrollableNode: () => any;
 
@@ -4406,9 +4209,19 @@ export interface SectionListProps<ItemT, SectionT = DefaultSectionT>
     ListFooterComponent?: React.ComponentType<any> | React.ReactElement | null | undefined;
 
     /**
+     * Styling for internal View for ListFooterComponent
+     */
+    ListFooterComponentStyle?: StyleProp<ViewStyle> | undefined | null;
+
+    /**
      * Rendered at the very beginning of the list.
      */
     ListHeaderComponent?: React.ComponentType<any> | React.ReactElement | null | undefined;
+
+    /**
+     * Styling for internal View for ListHeaderComponent
+     */
+    ListHeaderComponentStyle?: StyleProp<ViewStyle> | undefined | null;
 
     /**
      * Rendered in between each section.
@@ -5132,30 +4945,7 @@ interface TouchableMixin {
     touchableGetHitSlop(): Insets;
 }
 
-export interface TouchableWithoutFeedbackPropsIOS {
-    /**
-     * *(Apple TV only)* TV preferred focus (see documentation for the View component).
-     *
-     * @platform ios
-     */
-    hasTVPreferredFocus?: boolean | undefined;
-
-    /**
-     * *(Apple TV only)* Object with properties to control Apple TV parallax effects.
-     *
-     * enabled: If true, parallax effects are enabled.  Defaults to true.
-     * shiftDistanceX: Defaults to 2.0.
-     * shiftDistanceY: Defaults to 2.0.
-     * tiltAngle: Defaults to 0.05.
-     * magnification: Defaults to 1.0.
-     * pressMagnification: Defaults to 1.0.
-     * pressDuration: Defaults to 0.3.
-     * pressDelay: Defaults to 0.0.
-     *
-     * @platform ios
-     */
-    tvParallaxProperties?: TVParallaxProperties | undefined;
-}
+export interface TouchableWithoutFeedbackPropsIOS {}
 
 export interface TouchableWithoutFeedbackPropsAndroid {
     /**
@@ -5173,6 +4963,8 @@ export interface TouchableWithoutFeedbackProps
     extends TouchableWithoutFeedbackPropsIOS,
         TouchableWithoutFeedbackPropsAndroid,
         AccessibilityProps {
+    children?: React.ReactNode;
+
     /**
      * Delay in ms, from onPressIn, before onLongPress is called.
      */
@@ -5322,12 +5114,28 @@ export class TouchableHighlight extends TouchableHighlightBase {}
 /**
  * @see https://reactnative.dev/docs/touchableopacity#props
  */
-export interface TouchableOpacityProps extends TouchableWithoutFeedbackProps {
+export interface TouchableOpacityProps extends TouchableWithoutFeedbackProps, TVProps {
     /**
      * Determines what the opacity of the wrapped view should be when touch is active.
      * Defaults to 0.2
      */
     activeOpacity?: number | undefined;
+
+    /**
+     * *(Apple TV only)* Object with properties to control Apple TV parallax effects.
+     *
+     * enabled: If true, parallax effects are enabled.  Defaults to true.
+     * shiftDistanceX: Defaults to 2.0.
+     * shiftDistanceY: Defaults to 2.0.
+     * tiltAngle: Defaults to 0.05.
+     * magnification: Defaults to 1.0.
+     * pressMagnification: Defaults to 1.0.
+     * pressDuration: Defaults to 0.3.
+     * pressDelay: Defaults to 0.0.
+     *
+     * @platform android
+     */
+    tvParallaxProperties?: TVParallaxProperties | undefined;
 }
 
 /**
@@ -5368,10 +5176,54 @@ interface ThemeAttributeBackgroundPropType extends BaseBackgroundPropType {
 
 type BackgroundPropType = RippleBackgroundPropType | ThemeAttributeBackgroundPropType;
 
+interface TVProps {
+    /**
+     * *(Apple TV only)* TV preferred focus (see documentation for the View component).
+     *
+     * @platform ios
+     */
+    hasTVPreferredFocus?: boolean | undefined;
+
+    /**
+     * Designates the next view to receive focus when the user navigates down. See the Android documentation.
+     *
+     * @platform android
+     */
+    nextFocusDown?: number | undefined;
+
+    /**
+     * Designates the next view to receive focus when the user navigates forward. See the Android documentation.
+     *
+     * @platform android
+     */
+    nextFocusForward?: number | undefined;
+
+    /**
+     * Designates the next view to receive focus when the user navigates left. See the Android documentation.
+     *
+     * @platform android
+     */
+    nextFocusLeft?: number | undefined;
+
+    /**
+     * Designates the next view to receive focus when the user navigates right. See the Android documentation.
+     *
+     * @platform android
+     */
+    nextFocusRight?: number | undefined;
+
+    /**
+     * Designates the next view to receive focus when the user navigates up. See the Android documentation.
+     *
+     * @platform android
+     */
+    nextFocusUp?: number | undefined;
+}
+
 /**
- * @see https://reactnative.dev/docs/touchableopacity#props
+ * @see https://reactnative.dev/docs/touchablenativefeedback#props
  */
-export interface TouchableNativeFeedbackProps extends TouchableWithoutFeedbackProps {
+export interface TouchableNativeFeedbackProps extends TouchableWithoutFeedbackProps, TVProps {
     /**
      * Determines the type of background drawable that's going to be used to display feedback.
      * It takes an object with type property and extra data depending on the type.
@@ -5852,7 +5704,8 @@ export interface TabBarIOSItemProps extends ViewProps {
         | 'most-viewed'
         | 'recents'
         | 'search'
-        | 'top-rated' | undefined;
+        | 'top-rated'
+        | undefined;
 
     /**
      * Text that appears under the icon. It is ignored when a system icon is defined.
@@ -6022,7 +5875,7 @@ interface PlatformMacOSStatic extends PlatformStatic {
     Version: string;
     constants: PlatformConstants & {
         osVersion: string;
-    }
+    };
 }
 
 interface PlatformWindowsOSStatic extends PlatformStatic {
@@ -6030,7 +5883,7 @@ interface PlatformWindowsOSStatic extends PlatformStatic {
     Version: number;
     constants: PlatformConstants & {
         osVersion: number;
-    }
+    };
 }
 
 interface PlatformWebStatic extends PlatformStatic {
@@ -6045,6 +5898,8 @@ export type ProcessedColorValue = number | OpaqueColorValue;
 type DynamicColorIOSTuple = {
     light: ColorValue;
     dark: ColorValue;
+    highContrastLight?: ColorValue | undefined;
+    highContrastDark?: ColorValue | undefined;
 };
 
 /**
@@ -6129,10 +5984,11 @@ export interface Dimensions {
     addEventListener(
         type: 'change',
         handler: ({ window, screen }: { window: ScaledSize; screen: ScaledSize }) => void,
-    ): void;
+    ): EmitterSubscription;
 
     /**
      * Remove an event listener
+     * @deprecated Use `remove` on the EventSubscription from `addEventListener`.
      *
      * @param type the type of event
      * @param handler the event handler
@@ -6489,6 +6345,12 @@ export interface ScrollViewPropsIOS {
     automaticallyAdjustContentInsets?: boolean | undefined; // true
 
     /**
+     * Controls whether iOS should automatically adjust the scroll indicator
+     * insets. The default value is true. Available on iOS 13 and later.
+     */
+    automaticallyAdjustsScrollIndicatorInsets?: boolean | undefined;
+
+    /**
      * When true the scroll view bounces when it reaches the end of the
      * content if the content is larger then the scroll view along the axis of
      * the scroll direction. When false it disables all bouncing even if
@@ -6808,7 +6670,7 @@ export interface ScrollViewProps extends ViewProps, ScrollViewPropsIOS, ScrollVi
     /**
      * Experimental: When true offscreen child views (whose `overflow` value is
      * `hidden`) are removed from their native backing superview when offscreen.
-     * This canimprove scrolling performance on long lists. The default value is
+     * This can improve scrolling performance on long lists. The default value is
      * false.
      */
     removeClippedSubviews?: boolean | undefined;
@@ -6822,6 +6684,11 @@ export interface ScrollViewProps extends ViewProps, ScrollViewPropsIOS, ScrollVi
      * When true, shows a vertical scroll indicator.
      */
     showsVerticalScrollIndicator?: boolean | undefined;
+
+    /**
+     * When true, Sticky header is hidden when scrolling down, and dock at the top when scrolling up.
+    */
+    stickyHeaderHiddenOnScroll?: boolean;
 
     /**
      * Style
@@ -6888,6 +6755,14 @@ export interface ScrollViewProps extends ViewProps, ScrollViewPropsIOS, ScrollVi
      * touches to occur while scrolling. The default value is false.
      */
     disableScrollViewPanResponder?: boolean | undefined;
+
+    /**
+     * A React Component that will be used to render sticky headers, should be used together with
+     * stickyHeaderIndices. You may need to set this component if your sticky header uses custom
+     * transforms, for example, when you want your list to have an animated and hidable header.
+     * If component have not been provided, the default ScrollViewStickyHeader component will be used.
+     */
+    StickyHeaderComponent?: React.ComponentType<any> | undefined;
 }
 
 declare class ScrollViewComponent extends React.Component<ScrollViewProps> {}
@@ -7252,13 +7127,6 @@ export interface AccessibilityInfoStatic {
     isScreenReaderEnabled: () => Promise<boolean>;
 
     /**
-     * Query whether a screen reader is currently enabled.
-     *
-     * @deprecated use isScreenReaderChanged instead
-     */
-    fetch: () => Promise<boolean>;
-
-    /**
      * Add an event handler. Supported events:
      * - announcementFinished: iOS-only event. Fires when the screen reader has finished making an announcement.
      *                         The argument to the event handler is a dictionary with these keys:
@@ -7269,14 +7137,16 @@ export interface AccessibilityInfoStatic {
      *            The boolean is true when the related event's feature is enabled and false otherwise.
      *
      */
-    addEventListener(eventName: AccessibilityChangeEventName, handler: AccessibilityChangeEventHandler): void;
+    addEventListener(eventName: AccessibilityChangeEventName, handler: AccessibilityChangeEventHandler): EmitterSubscription;
     addEventListener(
         eventName: AccessibilityAnnouncementEventName,
         handler: AccessibilityAnnouncementFinishedEventHandler,
-    ): void;
+    ): EmitterSubscription;
 
     /**
-     * Remove an event handler.
+     * @deprecated Use the `remove()` method on the event subscription returned by `addEventListener()`.
+     *
+     * Remove an event handler
      */
     removeEventListener(eventName: AccessibilityChangeEventName, handler: AccessibilityChangeEventHandler): void;
     removeEventListener(
@@ -7293,6 +7163,14 @@ export interface AccessibilityInfoStatic {
      * Post a string to be announced by the screen reader.
      */
     announceForAccessibility: (announcement: string) => void;
+
+    /**
+     * Gets the timeout in millisecond that the user needs.
+     * This value is set in "Time to take action (Accessibility timeout)" of "Accessibility" settings.
+     *
+     * @platform android
+     */
+    getRecommendedTimeoutMillis: (originalTimeout: number) => Promise<number>;
 }
 
 /**
@@ -7391,14 +7269,17 @@ export type AppStateStatus = 'active' | 'background' | 'inactive' | 'unknown' | 
 
 export interface AppStateStatic {
     currentState: AppStateStatus;
+    isAvailable: boolean;
 
     /**
      * Add a handler to AppState changes by listening to the change event
      * type and providing the handler
      */
-    addEventListener(type: AppStateEvent, listener: (state: AppStateStatus) => void): void;
+    addEventListener(type: AppStateEvent, listener: (state: AppStateStatus) => void): NativeEventSubscription;
 
     /**
+     * @deprecated Use the `remove()` method on the event subscription returned by `addEventListener()`.
+     *
      * Remove a handler by passing the change event type and the handler
      */
     removeEventListener(type: AppStateEvent, listener: (state: AppStateStatus) => void): void;
@@ -7489,7 +7370,7 @@ export type BackPressEventName = 'hardwareBackPress';
  * returns true then subscriptions registered earlier
  * will not be called.
  *
- * @see https://reactnative.dev/docs/backhandler.html
+ * @see https://reactnative.dev/docs/backhandler
  */
 export interface BackHandlerStatic {
     exitApp(): void;
@@ -7497,17 +7378,31 @@ export interface BackHandlerStatic {
     removeEventListener(eventName: BackPressEventName, handler: () => boolean | null | undefined): void;
 }
 
-export interface ButtonProps {
+export interface ButtonProps
+    extends Pick<
+        TouchableNativeFeedbackProps & TouchableOpacityProps,
+        | "accessibilityLabel"
+        | "accessibilityState"
+        | "hasTVPreferredFocus"
+        | "nextFocusDown"
+        | "nextFocusForward"
+        | "nextFocusLeft"
+        | "nextFocusRight"
+        | "nextFocusUp"
+        | "testID"
+        | "disabled"
+        | "onPress"
+        | "touchSoundDisabled"
+    > {
+    /**
+     * Text to display inside the button. On Android the given title will be converted to the uppercased form.
+     */
     title: string;
-    onPress: (ev: NativeSyntheticEvent<NativeTouchEvent>) => void;
-    color?: ColorValue | undefined;
-    accessibilityLabel?: string | undefined;
-    disabled?: boolean | undefined;
 
     /**
-     * Used to locate this button in end-to-end tests.
+     * Color of the text (iOS), or background color of the button (Android).
      */
-    testID?: string | undefined;
+    color?: ColorValue | undefined;
 }
 
 export class Button extends React.Component<ButtonProps> {}
@@ -7691,12 +7586,13 @@ export interface LinkingStatic extends NativeEventEmitter {
      * Add a handler to Linking changes by listening to the `url` event type
      * and providing the handler
      */
-    addEventListener(type: string, handler: (event: { url: string }) => void): void;
+    addEventListener(type: 'url', handler: (event: { url: string }) => void): EmitterSubscription;
 
     /**
      * Remove a handler by passing the `url` event type and the handler
+     * @deprecated Call remove() on the return value of addEventListener() instead.
      */
-    removeEventListener(type: string, handler: (event: { url: string }) => void): void;
+    removeEventListener(type: 'url', handler: (event: { url: string }) => void): void;
 
     /**
      * Try to open the given url with any of the installed apps.
@@ -7889,6 +7785,7 @@ export type Permission =
     | 'android.permission.GET_ACCOUNTS'
     | 'android.permission.ACCESS_FINE_LOCATION'
     | 'android.permission.ACCESS_COARSE_LOCATION'
+    | 'android.permission.ACCESS_BACKGROUND_LOCATION'
     | 'android.permission.RECORD_AUDIO'
     | 'android.permission.READ_PHONE_STATE'
     | 'android.permission.CALL_PHONE'
@@ -8311,11 +8208,6 @@ export class StatusBar extends React.Component<StatusBarProps> {
     static replaceStackEntry: (entry: StatusBarProps, props: StatusBarProps) => StatusBarProps;
 }
 
-/**
- * @deprecated Use StatusBar instead
- */
-export interface StatusBarIOSStatic extends NativeEventEmitter {}
-
 export interface TimePickerAndroidOpenOptions {
     hour?: number | undefined;
     minute?: number | undefined;
@@ -8546,6 +8438,8 @@ export interface UIManagerStatic {
         Commands: { [key: string]: number };
     };
 
+    hasViewManagerConfig: (name: string) => boolean;
+
     /**
      * Used to call a native view method from JavaScript
      *
@@ -8580,7 +8474,7 @@ export interface SwitchPropsIOS extends ViewProps {
 }
 
 export interface SwitchChangeEvent extends React.SyntheticEvent {
-    value: boolean
+    value: boolean;
 }
 
 export interface SwitchProps extends SwitchPropsIOS {
@@ -8698,10 +8592,12 @@ export namespace Appearance {
     /**
      * Add an event handler that is fired when appearance preferences change.
      */
-    export function addChangeListener(listener: AppearanceListener): void;
+    export function addChangeListener(listener: AppearanceListener): NativeEventSubscription;
 
     /**
-     * Remove an event handler.
+     * @deprecated Use the `remove()` method on the event subscription returned by `addEventListener()`.
+     *
+     * Remove a handler by passing the change event type and the handler.
      */
     export function removeChangeListener(listener: AppearanceListener): void;
 }
@@ -9149,10 +9045,14 @@ export namespace Animated {
     export interface AnimatedComponent<T extends React.ComponentType<any>>
         extends React.FC<AnimatedProps<React.ComponentPropsWithRef<T>>> {}
 
+    export type AnimatedComponentOptions = {
+        collapsable?: boolean;
+    };
+
     /**
      * Make any React component Animatable.  Used to create `Animated.View`, etc.
      */
-    export function createAnimatedComponent<T extends React.ComponentType<any>>(component: T): AnimatedComponent<T>;
+    export function createAnimatedComponent<T extends React.ComponentType<any>>(component: T, options?: AnimatedComponentOptions): AnimatedComponent<T>;
 
     /**
      * Animated variants of the basic native views. Accepts Animated.Value for
@@ -9591,12 +9491,6 @@ export type Settings = SettingsStatic;
 export const Share: ShareStatic;
 export type Share = ShareStatic;
 
-/**
- * @deprecated Use StatusBar instead
- */
-export const StatusBarIOS: StatusBarIOSStatic;
-export type StatusBarIOS = StatusBarIOSStatic;
-
 export const Systrace: SystraceStatic;
 export type Systrace = SystraceStatic;
 
@@ -9701,8 +9595,8 @@ interface NativeModulesStatic {
  * Native Modules written in ObjectiveC/Swift/Java exposed via the RCTBridge
  * Define lazy getters for each module. These will return the module if already loaded, or load it if not.
  * See https://reactnative.dev/docs/native-modules-ios
- * Use:
- * <code>const MyModule = NativeModules.ModuleName</code>
+ * @example
+ * const MyModule = NativeModules.ModuleName
  */
 export const NativeModules: NativeModulesStatic;
 export const Platform:
@@ -9841,8 +9735,8 @@ declare global {
 
     /**
      * This variable is set to true when react-native is running in Dev mode
-     * Typical usage:
-     * <code> if (__DEV__) console.log('Running in dev mode')</code>
+     * @example
+     * if (__DEV__) console.log('Running in dev mode')
      */
     const __DEV__: boolean;
 

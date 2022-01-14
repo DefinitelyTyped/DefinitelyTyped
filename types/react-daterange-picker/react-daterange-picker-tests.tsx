@@ -11,7 +11,7 @@ const moment = MomentRange.extendMoment(Moment);
 
 type AppProps = ReactDateRangePicker.Props;
 
-const CustomSFCPaginationArrow: React.SFC<ReactDateRangePicker.PaginationArrowProps> = (props) => {
+const CustomSFCPaginationArrow: React.FC<ReactDateRangePicker.PaginationArrowProps> = (props) => {
     return (
         <div onClick={ props.onTrigger }>
         { (props.direction === 'next') ? '<' : '>' }
@@ -172,7 +172,7 @@ export class Main extends React.Component {
                         />
                     </div>
                     <div className="example">
-                        <h4>With custom SFC paginationArrowComponent</h4>
+                        <h4>With custom FC paginationArrowComponent</h4>
                         <DateSinglePicker
                             paginationArrowComponent={ CustomSFCPaginationArrow }
                         />

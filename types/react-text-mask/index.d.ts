@@ -6,46 +6,61 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.9
 
-import * as React from "react";
+import * as React from 'react';
 
-export type maskArray = Array<string | RegExp> | false;
+export type Mask = Array<string | RegExp> | false;
 
-export interface MaskedInputProps
-    extends React.InputHTMLAttributes<HTMLInputElement> {
-    mask: maskArray | ((value: string) => maskArray);
-
-    guide?: boolean | undefined;
-
-    placeholderChar?: string | undefined;
-
-    keepCharPositions?: boolean | undefined;
-
-    pipe?: ((
-        conformedValue: string,
-        config: any
-    ) => false | string | { value: string; indexesOfPipedChars: number[] }) | undefined;
-
-    showMask?: boolean | undefined;
-
-    render?: ((ref: (inputElement: HTMLElement) => void, props: any) => any) | undefined;
+export interface PipeConfig {
+    placeholder: string;
+    placeholderChar: string;
+    currentCaretPosition: number;
+    keepCharPositions: boolean;
+    rawValue: string;
+    guide: boolean | undefined;
+    previousConformedValue: string | undefined;
 }
 
-export interface conformToMaskResult {
+export type ConformToMaskConfig = Partial<Omit<PipeConfig, 'rawValue'>>;
+
+export interface MaskedInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+    mask: Mask | ((value: string) => Mask);
+
+    guide?: boolean;
+
+    placeholderChar?: string;
+
+    keepCharPositions?: boolean;
+
+    pipe?: (
+        conformedValue: string,
+        config: PipeConfig,
+    ) => false | string | { value: string; indexesOfPipedChars: number[] };
+
+    showMask?: boolean;
+
+    render?: (
+        ref: (inputElement: HTMLElement) => void,
+        props: {
+            onChange: (event: React.ChangeEvent<HTMLElement>) => void;
+            onBlur: (event: React.FocusEvent<HTMLElement>) => void;
+            defaultValue: string | undefined;
+        },
+    ) => React.ReactNode;
+}
+
+export interface ConformToMaskResult {
     conformedValue: string;
     meta: {
         someCharsRejected: boolean;
     };
 }
 
-export default class MaskedInput extends React.Component<
-    MaskedInputProps,
-    any
-> {
-  inputElement: HTMLElement;
+export default class MaskedInput extends React.Component<MaskedInputProps, any> {
+    inputElement: HTMLElement;
 }
 
 export function conformToMask(
     text: string,
-    mask: maskArray | ((value: string) => maskArray),
-    config?: any
-): conformToMaskResult;
+    mask: Mask | ((value: string) => Mask),
+    config?: ConformToMaskConfig,
+): ConformToMaskResult;

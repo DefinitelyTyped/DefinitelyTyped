@@ -16,7 +16,7 @@
 // TypeScript Version: 3.0
 import {
   ComponentClass,
-  StatelessComponent,
+  FunctionComponent,
   ReactElement
 } from "react";
 

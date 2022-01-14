@@ -16,10 +16,12 @@ export type ListProps = {
 } & React.HTMLAttributes<HTMLAnchorElement>;
 
 export interface ListFooterProps {
+    children?: React.ReactNode;
     className?: string | undefined;
 }
 
 export interface ListHeaderProps {
+    children?: React.ReactNode;
     className?: string | undefined;
 }
 
@@ -29,12 +31,14 @@ export interface ListIconProps {
 }
 
 export interface ListItemProps {
+    children?: React.ReactNode;
     className?: string | undefined;
     selected?: boolean | undefined;
     onClick?: ((...args: any[]) => any) | undefined;
 }
 
 export interface ListTextProps {
+    children?: React.ReactNode;
     className?: string | undefined;
     noWrap?: boolean | undefined;
     secondary?: boolean | undefined;

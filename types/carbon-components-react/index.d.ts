@@ -1,4 +1,4 @@
-// Type definitions for carbon-components-react 7.36
+// Type definitions for carbon-components-react 7.49
 // Project: https://github.com/carbon-design-system/carbon/tree/master/packages/react
 // Definitions by: Kyle Albert <https://github.com/kalbert312>
 //                 Sebastien Gregoire <https://github.com/sgregoire>
@@ -7,6 +7,15 @@
 // TypeScript Version: 3.5
 
 export as namespace CarbonReact;
+
+//
+// A note about 'next' components: This types package does not guarantee coverage of next components for
+// carbon v11 mainly due to the complexity of carbon determining which component to use based on React context
+// at runtime. Sometimes next props interfaces will conflict with the 'classic' variant. Additionally, next
+// components may have dependencies on other next components. Because the component variant is determined
+// at runtime, the components would need to be casted to the 'next' variant but for certain components
+// like Button that have multiple overloads this becomes tricky.
+//
 
 // This group is primarily for type exports but will cover non-default exports as well.
 export * from "./lib/components/Accordion";
@@ -33,6 +42,7 @@ export * from "./lib/components/Dropdown";
 export * from "./lib/components/ErrorBoundary";
 export * from "./lib/components/ExpandableSearch";
 export * from "./lib/components/FileUploader";
+export * from "./lib/components/FilterableMultiSelect";
 export * from "./lib/components/FluidForm/FluidForm"; // context is not exported from index
 export * from "./lib/components/Form";
 export * from "./lib/components/FormGroup";
@@ -64,7 +74,9 @@ export * from "./lib/components/Pagination";
 export * from "./lib/components/PaginationNav";
 export * from "./lib/components/Pagination/experimental/Pagination";
 export * from "./lib/components/Pagination/experimental/PageSelector";
+export * from "./lib/components/PasswordInput";
 export * from "./lib/components/PrimaryButton";
+export * from "./lib/components/ProgressBar";
 export * from "./lib/components/ProgressIndicator";
 export * from "./lib/components/RadioButton";
 export * from "./lib/components/RadioButtonGroup";
@@ -161,6 +173,7 @@ export {
     FileUploaderDropContainer,
     FileUploaderItem,
 } from "./lib/components/FileUploader";
+export { default as FilterableMultiSelect } from "./lib/components/FilterableMultiSelect";
 export { default as FluidForm } from "./lib/components/FluidForm";
 export { default as Form } from "./lib/components/Form";
 export { default as FormGroup } from "./lib/components/FormGroup";
@@ -208,6 +221,7 @@ export { default as PaginationNav } from "./lib/components/PaginationNav";
 export { PageSelector as unstable_PageSelector } from "./lib/components/Pagination/experimental";
 export { Pagination as unstable_Pagination } from "./lib/components/Pagination/experimental";
 export { default as PrimaryButton } from "./lib/components/PrimaryButton";
+export { default as unstable_ProgressBar } from "./lib/components/ProgressBar";
 export { ProgressIndicator, ProgressStep } from "./lib/components/ProgressIndicator";
 export { default as RadioButton } from "./lib/components/RadioButton";
 export { default as RadioButtonGroup } from "./lib/components/RadioButtonGroup";

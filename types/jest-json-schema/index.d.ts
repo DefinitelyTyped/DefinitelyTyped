@@ -1,7 +1,6 @@
 // Type definitions for jest-json-schema 2.1
 // Project: https://github.com/americanexpress/jest-json-schema#readme
-// Definitions by: Igor Korolev <https://github.com/deadNightTiger>
-//                 Matt Scheurich <https://github.com/lvl99>
+// Definitions by: Matt Scheurich <https://github.com/lvl99>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.8
 

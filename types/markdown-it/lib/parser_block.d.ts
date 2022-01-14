@@ -1,7 +1,7 @@
 import MarkdownIt = require('.');
 import Ruler = require('./ruler');
-import Token = require('./token');
 import StateBlock = require('./rules_block/state_block');
+import Token = require('./token');
 
 declare namespace ParserBlock {
     type RuleBlock = (state: StateBlock, startLine: number, endLine: number, silent: boolean) => boolean;

@@ -49,7 +49,7 @@
  *
  * Worker threads inherit non-process-specific options by default. Refer to `Worker constructor options` to know how to customize worker thread options,
  * specifically `argv` and `execArgv` options.
- * @see [source](https://github.com/nodejs/node/blob/v16.7.0/lib/worker_threads.js)
+ * @see [source](https://github.com/nodejs/node/blob/v17.0.0/lib/worker_threads.js)
  */
 declare module 'worker_threads' {
     import { Blob } from 'node:buffer';
@@ -94,7 +94,7 @@ declare module 'worker_threads' {
      * asynchronous, two-way communications channel. It can be used to transfer
      * structured data, memory regions and other `MessagePort`s between different `Worker` s.
      *
-     * This implementation matches [browser `MessagePort`](https://developer.mozilla.org/en-US/docs/Web/API/MessagePort)s.
+     * This implementation matches [browser `MessagePort`](https://developer.mozilla.org/en-US/docs/Web/API/MessagePort) s.
      * @since v10.5.0
      */
     class MessagePort extends EventEmitter {
@@ -384,7 +384,7 @@ declare module 'worker_threads' {
         /**
          * An object that can be used to query performance information from a worker
          * instance. Similar to `perf_hooks.performance`.
-         * @since v15.1.0, v12.22.0
+         * @since v15.1.0, v14.17.0, v12.22.0
          */
         readonly performance: WorkerPerformance;
         /**
@@ -572,11 +572,11 @@ declare module 'worker_threads' {
      * takes its place.
      *
      * The returned `MessagePort` is an object in the target context and
-     * inherits from its global `Object` class. Objects passed to the[`port.onmessage()`](https://developer.mozilla.org/en-US/docs/Web/API/MessagePort/onmessage) listener are also created in the
+     * inherits from its global `Object` class. Objects passed to the [`port.onmessage()`](https://developer.mozilla.org/en-US/docs/Web/API/MessagePort/onmessage) listener are also created in the
      * target context
      * and inherit from its global `Object` class.
      *
-     * However, the created `MessagePort` no longer inherits from[`EventTarget`](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget), and only
+     * However, the created `MessagePort` no longer inherits from [`EventTarget`](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget), and only
      * [`port.onmessage()`](https://developer.mozilla.org/en-US/docs/Web/API/MessagePort/onmessage) can be used to receive
      * events using it.
      * @since v11.13.0
@@ -629,14 +629,14 @@ declare module 'worker_threads' {
      *   console.log(getEnvironmentData('Hello'));  // Prints 'World!'.
      * }
      * ```
-     * @since v15.12.0
+     * @since v15.12.0, v14.18.0
      * @experimental
      * @param key Any arbitrary, cloneable JavaScript value that can be used as a {Map} key.
      */
     function getEnvironmentData(key: Serializable): Serializable;
     /**
      * The `worker.setEnvironmentData()` API sets the content of`worker.getEnvironmentData()` in the current thread and all new `Worker`instances spawned from the current context.
-     * @since v15.12.0
+     * @since v15.12.0, v14.18.0
      * @experimental
      * @param key Any arbitrary, cloneable JavaScript value that can be used as a {Map} key.
      * @param value Any arbitrary, cloneable JavaScript value that will be cloned and passed automatically to all new `Worker` instances. If `value` is passed as `undefined`, any previously set value

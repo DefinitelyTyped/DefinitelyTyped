@@ -7,7 +7,6 @@ import {
     Scene,
     WebGLRenderer,
     Camera,
-    TextureEncoding,
     Mesh,
     Material,
     ColorRepresentation,
@@ -22,7 +21,6 @@ export interface SSRPassParams {
     width?: number | undefined;
     height?: number | undefined;
     selects: Mesh[] | null;
-    encoding: TextureEncoding;
     isPerspectiveCamera?: boolean | undefined;
     isBouncing?: boolean | undefined;
     groundReflector: Reflector | null;
@@ -40,7 +38,6 @@ export class SSRPass extends Pass {
     output: number;
     maxDistance: number;
     thickness: number;
-    encoding: TextureEncoding;
     tempColor: Color;
 
     get selects(): Mesh[] | null;

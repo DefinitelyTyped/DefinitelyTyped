@@ -269,3 +269,6 @@ declare module 'perf_hooks' {
 
     function monitorEventLoopDelay(options?: EventLoopMonitorOptions): EventLoopDelayMonitor;
 }
+declare module 'node:perf_hooks' {
+    export * from 'perf_hooks';
+}

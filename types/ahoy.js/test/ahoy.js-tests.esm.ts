@@ -14,4 +14,10 @@ ahoy.configure({
 });
 
 // $ExpectType void
-ahoy.trackAll();
+ahoy.trackSubmits('#selector');
+
+// $ExpectType void
+ahoy.trackClicks('#selector');
+
+// $ExpectType void
+ahoy.trackChanges('#selector');

@@ -1,5 +1,8 @@
+import { Tabulator, Renderer, Module, DataTreeModule } from 'tabulator-tables';
+
 // tslint:disable:no-object-literal-type-assertion
 // tslint:disable:whitespace
+// tslint:disable:prefer-const
 
 // constructor
 let table = new Tabulator('#test');
@@ -182,7 +185,7 @@ colDef.cellClick = (_e: UIEvent, cell) => {
 
 colDef.formatterParams = { stars: 3 };
 
-colDef.formatterParams = { url: (cell) => `${cell.getValue()}` };
+colDef.formatterParams = { url: cell => `${cell.getValue()}` };
 
 colDef.editorParams = {};
 colDef.editorParams = {
@@ -320,7 +323,6 @@ let validators: Tabulator.Validator[] = [
     },
 ];
 
-colDef.headerFilterFunc = '!=';
 colDef.headerFilterFunc = (headerValue, rowValue, rowData, filterParams) => {
     return rowData.name === filterParams.name && rowValue < headerValue; // must return a boolean, true if it passes the filter.
 };
@@ -337,7 +339,6 @@ colDef.bottomCalcFormatter = (cell, formatterParams, onRendered) => {
 // Cell Component
 
 let cell = <Tabulator.CellComponent>{};
-cell.nav().down();
 
 let data = cell.getData();
 table = cell.getTable();
@@ -437,11 +438,6 @@ options.groupHeader = [
     },
 ];
 
-options.paginationDataReceived = {
-    last_page: 'max_pages',
-    a: 'b',
-};
-
 options.clipboardPasteParser = clipboard => {
     return []; // return array
 };
@@ -470,7 +466,7 @@ table.download('pdf', 'data.pdf', {
         doc.text('SOME TEXT', 1, 1);
         return {
             styles: {
-                fillColor: [200, 00, 00],
+                fillColor: [200, 40, 40],
             },
         };
     },
@@ -532,7 +528,6 @@ options.tabEndNewRow = row => {
 };
 
 options.headerSort = false;
-options.headerSortTristate = true;
 
 colDef.formatter = 'rowSelection';
 
@@ -596,8 +591,6 @@ table = new Tabulator('#example-table', {
 table = new Tabulator('#test', {});
 table.blockRedraw();
 table.restoreRedraw();
-
-table = Tabulator.prototype.findTable('#example-table')[0];
 
 table.getRows('visible');
 table.deleteRow([15, 7, 9]);
@@ -692,8 +685,6 @@ table = new Tabulator('#example-table', {
     maxHeight: '100%',
     minHeight: 300,
     rowContextMenu,
-    cellVertAlign: 'middle',
-    cellHozAlign: 'center',
     clipboardCopyConfig: {
         columnHeaders: false,
         columnGroups: false,
@@ -861,7 +852,6 @@ let select: Tabulator.SelectParams = {
 
 table = new Tabulator('#example-table', {
     textDirection: 'rtl',
-    virtualDomHoz: true,
     autoColumnsDefinitions: () => {
         const columnDefinitions: Tabulator.ColumnDefinition[] = [];
         return columnDefinitions;
@@ -903,7 +893,6 @@ table = new Tabulator('#example-table', {
     },
     rowClickMenu: rowContextMenu,
     groupClickMenu: groupContextMenu,
-    headerHozAlign: 'right',
     headerSortElement: "<i class='fas fa-arrow-up'></i>",
     dataTreeFilter: false,
     dataTreeSort: false,
@@ -973,12 +962,70 @@ colDef.formatterParams = {
     urlSuffix: '.png',
 };
 
-table = new Tabulator('#example-table', {
-    columnMaxWidth: 300,
-});
-
 table.refreshFilters();
 table.clearHistory();
 
 colDef.maxWidth = 300;
 colDef.maxWidth = false;
+
+// 5.0
+Tabulator.defaultOptions.movableRows = true;
+Tabulator.extendModule('format', 'formatters', {});
+
+class CustomRenderer extends Renderer {}
+
+table = new Tabulator('#test', {
+    renderVertical: 'virtual',
+    renderHorizontal: CustomRenderer,
+    renderVerticalBuffer: 300,
+    dataLoaderError: 'Error Loading Data',
+    dataLoaderLoading: 'Data Loading',
+    dataLoader: false,
+    sortMode: 'remote',
+    pagination: true,
+    paginationMode: 'remote',
+    filterMode: 'remote',
+    dataSendParams: {
+        page: 'current_page',
+        size: 'page_size',
+    },
+    dataReceiveParams: {
+        last_page: 'last',
+        size: 'page_data',
+    },
+    progressiveLoad: 'scroll',
+    progressiveLoadDelay: 400,
+    progressiveLoadScrollMargin: 300,
+    columnDefaults: {
+        width: 200,
+        title: 'test',
+    },
+    invalidOptionWarning: false,
+    debugInvalidOptions: false,
+});
+
+const dataProcessedEvent = () => {};
+
+table.on('dataLoading', dataProcessedEvent);
+table.on('dataLoaded', () => {});
+table.on('dataLoadError', () => {});
+table.on('dataProcessing', () => {});
+table.on('dataProcessed', () => {});
+table.off('dataProcessed');
+table.off('dataProcessed', dataProcessedEvent);
+table.on('cellClick', () => {});
+table = Tabulator.findTable('#example-table')[0];
+
+Tabulator.bindModules([Renderer]);
+cell.navigateDown();
+
+class CustomModule extends Module {
+    constructor(table: Tabulator) {
+        super(table);
+    }
+
+    initialize() {}
+}
+
+CustomModule.moduleName = 'custom';
+Tabulator.registerModule([CustomModule, DataTreeModule]);

@@ -1,6 +1,6 @@
-// Type definitions for osrm 5.22
+// Type definitions for osrm 5.25
 // Project: https://github.com/Project-OSRM/osrm-backend
-// Definitions by: Denis Carriere <https://github.com/DenisCarriere>
+// Definitions by: Denis Carriere <https://github.com/DenisCarriere>, Ringo Leese <https://github.com/ringostarr80>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -11,39 +11,60 @@
  *
  * https://github.com/Project-OSRM/node-osrm/blob/master/docs/api.md
  */
-declare class OSRM {
-    constructor(name: string);
+ declare class OSRM {
+    constructor(options: string);
+    // tslint:disable-next-line:unified-signatures
+    constructor(options: OSRM.PathConstructorOptions);
+    // tslint:disable-next-line:unified-signatures
+    constructor(options: OSRM.SharedMemoryConstructorOptions);
     /**
-     * shortest path between given coordinates
+     * Returns the fastest route between two or more coordinates while visiting the waypoints in order.
      */
     route(options: OSRM.RouteOptions, callback: (err: Error, results: OSRM.RouteResults) => void): void;
     /**
-     * returns the nearest street segment for a given coordinate
+     * Returns Object containing waypoints. waypoints: array of Ẁaypoint objects sorted by distance to the input coordinate.
+     * Each object has an additional distance property, which is the distance in meters to the supplied input coordinate.
      */
     nearest(options: OSRM.NearestOptions, callback: (err: Error, results: OSRM.NearestResults) => void): void;
-
     /**
-     * computes distance tables for given coordinates
+     * Returns Object containing durations, sources, and destinations. durations: array of arrays that stores the matrix in
+     * row-major order. durations[i][j] gives the travel time from the i-th waypoint to the j-th waypoint. Values are given
+     * in seconds. sources: array of Ẁaypoint objects describing all sources in order. destinations: array of Ẁaypoint
+     * objects describing all destinations in order. fallback_speed_cells: (optional) if fallback_speed is used, will be an
+     * array of arrays of row,column values, indicating which cells contain estimated values.
      */
     table(options: OSRM.TableOptions, callback: (err: Error, results: OSRM.TableResults) => void): void;
     /**
-     * matches given coordinates to the road network
+     * Returns Buffer contains a Protocol Buffer encoded vector tile.
+     */
+    tile(XYZ: OSRM.Tile, callback: (err: Error, results: Buffer) => void): void;
+    /**
+     * Returns Object containing tracepoints and matchings. tracepoints Array of Ẁaypoint objects representing all points
+     * of the trace in order. If the trace point was ommited by map matching because it is an outlier, the entry will be
+     * null. Each Waypoint object includes two additional properties, 1) matchings_index: Index to the Route object in
+     * matchings the sub-trace was matched to, 2) waypoint_index: Index of the waypoint inside the matched route. matchings
+     * is an array of Route objects that assemble the trace. Each Route object has an additional confidence property, which
+     * is the confidence of the matching. float value between 0 and 1. 1 is very confident that the matching is correct.
      */
     match(options: OSRM.MatchOptions, callback: (err: Error, results: OSRM.MatchResults) => void): void;
     /**
-     * Compute the shortest trip between given coordinates
+     * Returns Object containing waypoints and trips. waypoints: an array of Waypoint objects representing all waypoints
+     * in input order. Each Waypoint object has the following additional properties, 1) trips_index: index to trips of the
+     * sub-trip the point was matched to, and 2) waypoint_index: index of the point in the trip. trips: an array of Route
+     * objects that assemble the trace.
      */
     trip(options: OSRM.TripOptions, callback: (err: Error, results: OSRM.TripResults) => void): void;
-    /**
-     * Return vector tiles containing debugging info
-     */
-    tile(options: OSRM.TileOptions | OSRM.Tile, callback: (err: Error, results: Buffer) => void): void;
 }
 
 declare namespace OSRM {
     const version: number;
+    type AlgorithmTypes = 'CH' | 'CoreCH' | 'MLD';
     type GeometriesTypes = 'polyline' | 'geojson' | 'polyline6';
     type OverviewTypes = 'full' | 'simplified' | 'false';
+    type SnappingTypes = 'default' | 'any';
+    type ApproachTypes = 'unrestricted' | 'curb';
+    type FallbackCoordinateTypes = 'input' | 'snapped';
+    type GapTypes = 'split' | 'ignore';
     type Coordinate = number[];
     type Polyline = string;
     type Bearing = number[];
@@ -385,58 +406,132 @@ declare namespace OSRM {
 
     interface Options {
         /**
-         * The coordinates this request will use. Array with [{lon},{lat}] values, in decimal degrees.
+         * The coordinates this request will use, coordinates as [{lon},{lat}] values, in decimal degrees.
          */
-        coordinates?: Coordinate[] | undefined;
+        coordinates?: Coordinate[];
         /**
-         * Limits the search to segments with given bearing in degrees towards true north in clockwise direction. Null or array with [{value},{range}]
+         * Limits the search to segments with given bearing in degrees towards true north in clockwise direction. Can be null or an array of [{value},{range}] with integer 0 .. 360,integer 0 .. 180.
          */
-        bearings?: Bearing[] | null | undefined;
+        bearings?: Bearing[] | null;
         /**
-         * Limits the search to given radius in meters. null or double >= 0 or unlimited (default)
+         * Limits the coordinate snapping to streets in the given radius in meters. Can be null (unlimited, default) or double >= 0.
          */
-        radiuses?: Radius[] | null | undefined;
+        radiuses?: Radius[] | null;
         /**
-         * Hint to derive position in street network. Base64 string
+         * Hints for the coordinate snapping. Array of base64 encoded strings.
          */
-        hints?: Hint[] | undefined;
+        hints?: Hint[];
         /**
-         * Adds a Hint to the response which can be used in subsequent requests, see hints parameter.
+         * Whether or not adds a Hint to the response which can be used in subsequent requests. (optional, default true)
          */
-        generate_hints?: boolean | undefined;
+        generate_hints?: boolean;
+    }
+
+    /**
+     * https://github.com/Project-OSRM/osrm-backend/blob/master/docs/nodejs/api.md
+     */
+    interface ConstructorOptions {
+        /**
+         * The algorithm to use for routing. Can be 'CH', 'CoreCH' or 'MLD'. Default is 'CH'. Make sure you prepared the dataset with the correct toolchain.
+         */
+        algorithm?: AlgorithmTypes;
+
+        /**
+         * DEPRECATED Old behaviour: Path to a file on disk to store the memory using mmap. Current behaviour: setting this
+         * value is the same as setting mmap_memory: true.
+         */
+        memory_file?: string;
+        /**
+         * Map on-disk files to virtual memory addresses (mmap), rather than loading into RAM.
+         */
+        mmap_memory?: boolean;
+        /**
+         * Max. locations supported in trip query (default: unlimited).
+         */
+        max_locations_trip?: number;
+        /**
+         * Max. locations supported in viaroute query (default: unlimited).
+         */
+        max_locations_viaroute?: number;
+        /**
+         * Max. locations supported in distance table query (default: unlimited).
+         */
+        max_locations_distance_table?: number;
+        /**
+         * Max. locations supported in map-matching query (default: unlimited).
+         */
+        max_locations_map_matching?: number;
+        /**
+         * Max. results supported in nearest query (default: unlimited).
+         */
+        max_results_nearest?: number;
+        /**
+         * Max.number of alternatives supported in alternative routes query (default: 3).
+         */
+        max_alternatives?: number;
+    }
+
+    interface PathConstructorOptions extends ConstructorOptions {
+        /**
+         * The path to the .osrm files. This is mutually exclusive with setting {options.shared_memory} to true.
+         */
+        path?: string;
+    }
+    interface SharedMemoryConstructorOptions extends ConstructorOptions {
+        /**
+         * Connects to the persistent shared memory datastore. This requires you to run osrm-datastore prior to creating an OSRM object.
+         */
+        shared_memory?: boolean;
+        /**
+         * Connects to the persistent shared memory datastore defined by --dataset_name option when running osrm-datastore.
+         * This requires you to run osrm-datastore --dataset_name prior to creating an OSRM object.
+         */
+        dataset_name?: string;
     }
 
     /**
      * Returns the fastest route between two or more coordinates while visiting the waypoints in order.
      *
-     * https://github.com/Project-OSRM/node-osrm/blob/master/docs/api.md#route
+     * https://github.com/Project-OSRM/osrm-backend/blob/master/docs/nodejs/api.md#route
      */
     interface RouteOptions extends Options {
         /**
-         * Search for alternative routes and return as well. Please note that even if an alternative route is requested, a result cannot be guaranteed. (optional, default false)
+         * Boolean: Search for alternative routes. (optional, default false)
+         * Number: Search for up to this many alternative routes. Please note that even if alternative routes are requested, a result cannot be guaranteed. (optional, default 0)
          */
-        alternatives?: boolean | undefined;
+        alternatives?: boolean | number;
         /**
          * Return route steps for each route leg. (optional, default false)
          */
-        steps?: boolean | undefined;
+        steps?: boolean;
         /**
-         * Return annotations for each route leg for duration, nodes, distance, weight, datasources and/or speed.
-         * Annotations can be false or true (no/full annotations) or an array of strings with duration, nodes, distance, weight, datasources, speed. (optional, default false)
+         * An array with strings of duration, nodes, distance, weight, datasources, speed or boolean for enabling/disabling all. (optional, default false)
          */
-        annotations?: boolean | string[] | undefined;
+        annotations?: boolean | Array<('duration' | 'nodes' | 'distance' | 'weight' | 'datasources' | 'speed')> | boolean;
         /**
          * Returned route geometry format (influences overview and per step). Can also be geojson. (optional, default polyline)
          */
-        geometries?: GeometriesTypes | undefined;
+        geometries?: GeometriesTypes;
         /**
          * Add overview geometry either full, simplified according to highest zoom level it could be display on, or not at all (false). (optional, default simplified)
          */
-        overview?: OverviewTypes | undefined;
+        overview?: OverviewTypes;
         /**
-         * Forces the route to keep going straight at waypoints and don't do a uturn even if it would be faster. Default value depends on the profile. null/true/false
+         * Forces the route to keep going straight at waypoints and don't do a uturn even if it would be faster. Default value depends on the profile.
          */
-        continue_straight?: boolean | undefined;
+        continue_straight?: boolean;
+        /**
+         * Keep waypoints on curb side. Can be null (unrestricted, default) or curb.
+         */
+        approaches?: ApproachTypes[] | null;
+        /**
+         * Indices to coordinates to treat as waypoints. If not supplied, all coordinates are waypoints. Must include first and last coordinate index. null/true/false
+         */
+        waypoints?: number[];
+        /**
+         * Which edges can be snapped to, either default, or any. default only snaps to edges marked by the profile as is_startpoint, any will allow snapping to any edge in the routing graph.
+         */
+        snapping?: SnappingTypes;
     }
 
     /**
@@ -444,129 +539,161 @@ declare namespace OSRM {
      *
      * Note: coordinates in the general options only supports a single {longitude},{latitude} entry.
      *
-     * https://github.com/Project-OSRM/node-osrm/blob/master/docs/api.md#nearest
+     * https://github.com/Project-OSRM/osrm-backend/blob/master/docs/nodejs/api.md#nearest
      */
     interface NearestOptions extends Options {
         /**
          * Number of nearest segments that should be returned. Must be an integer greater than or equal to 1. (optional, default 1)
          */
-        number?: number | undefined;
+        number?: number;
+        /**
+         * Keep waypoints on curb side. Can be null (unrestricted, default) or curb.
+         */
+        approaches?: ApproachTypes[] | null;
+        /**
+         * Which edges can be snapped to, either default, or any. default only snaps to edges marked by the profile as is_startpoint, any will allow snapping to any edge in the routing graph.
+         */
+        snapping?: SnappingTypes;
     }
 
     /**
-     * Computes duration tables for the given locations. Allows for both symmetric and asymmetric tables.
+     * Computes duration table for the given locations. Allows for both symmetric and asymmetric tables. Optionally returns distance table.
      *
-     * https://github.com/Project-OSRM/node-osrm/blob/master/docs/api.md#table
+     * https://github.com/Project-OSRM/osrm-backend/blob/master/docs/nodejs/api.md#table
      */
     interface TableOptions extends Options {
         /**
-         * to use location with given index as source. Default is to use all.
+         * An array of index elements (0 <= integer < #coordinates) to use location with given index as source. Default is to use all.
          */
-        sources?: number[] | undefined;
+        sources?: number[];
         /**
-         * to use location with given index as destination. Default is to use all.
+         * An array of index elements (0 <= integer < #coordinates) to use location with given index as destination. Default is to use all.
          */
-        destinations?: number[] | undefined;
+        destinations?: number[];
         /**
-         * specify which table results to return.
+         * Keep waypoints on curb side. Can be null (unrestricted, default) or curb.
          */
-        annotations?: Array<('duration' | 'distance')> | undefined;
+        approaches?: ApproachTypes | null;
         /**
-         * Multiply the table duration values in the table by this number for more controlled input into a
-         * route optimization solver.
+         * Replace null responses in result with as-the-crow-flies estimates based on fallback_speed. Value is in metres/second.
          */
-        scale_factor?: number | undefined;
+        fallback_speed?: number;
+        /**
+         * Either input (default) or snapped. If using a fallback_speed, use either the user-supplied coordinate (input),
+         * or the snapped coordinate (snapped) for calculating the as-the-crow-flies distance between two points.
+         */
+        fallback_coordinate?: FallbackCoordinateTypes;
+        /**
+         * Multiply the table duration values in the table by this number for more controlled input into a route optimization solver.
+         */
+        scale_factor?: number;
+        /**
+         * Which edges can be snapped to, either default, or any. default only snaps to edges marked by the profile as is_startpoint,
+         * any will allow snapping to any edge in the routing graph.
+         */
+        snapping?: SnappingTypes;
+        /**
+         * Return the requested table or tables in response. Can be ['duration'] (return the duration matrix, default) or
+         * ['duration', distance'] (return both the duration matrix and the distance matrix).
+         */
+        annotations?: Array<('duration' | 'distance')>;
     }
 
     /**
-     * This generates Mapbox Vector Tiles that can be viewed with a vector-tile capable slippy-map viewer.
-     * The tiles contain road geometries and metadata that can be used to examine the routing graph.
-     * The tiles are generated directly from the data in-memory, so are in sync with actual routing results,
-     * and let you examine which roads are actually routable, and what weights they have applied.
+     * Map matching matches given GPS points to the road network in the most plausible way. Please note the request might
+     * result multiple sub-traces. Large jumps in the timestamps (>60s) or improbable transitions lead to trace splits if
+     * a complete matching could not be found. The algorithm might not be able to match all points. Outliers are removed
+     * if they can not be matched successfully.
      *
-     * https://github.com/Project-OSRM/node-osrm/blob/master/docs/api.md#tile
-     */
-    interface TileOptions extends Options {
-        /**
-         * Array an array consisting of x, y, and z values representing tile coordinates like wiki.openstreetmap.org/wiki/Slippy_map_tilenames
-         * and are supported by vector tile viewers like Mapbox GL JS.
-         */
-        ZXY?: Tile | undefined;
-    }
-
-    /**
-     * Map matching matches given GPS points to the road network in the most plausible way.
-     * Please note the request might result multiple sub-traces.
-     * Large jumps in the timestamps (>60s) or improbable transitions lead to trace splits if a complete matching could not be found.
-     * The algorithm might not be able to match all points. Outliers are removed if they can not be matched successfully.
-     *
-     * https://github.com/Project-OSRM/node-osrm/blob/master/docs/api.md#tile
+     * https://github.com/Project-OSRM/osrm-backend/blob/master/docs/nodejs/api.md#match
      */
     interface MatchOptions extends Options {
         /**
          * Return route steps for each route. (optional, default false)
          */
-        steps?: boolean | undefined;
+        steps?: boolean;
         /**
-         * Return annotations for each route leg for duration, nodes, distance, weight, datasources and/or speed.
-         * Annotations can be false or true (no/full annotations) or an array of strings with duration, nodes, distance, weight, datasources, speed. (optional, default false)
+         * An array with strings of duration, nodes, distance, weight, datasources, speed or boolean for enabling/disabling all. (optional, default false)
          */
-        annotations?: boolean | string[] | undefined;
+        annotations?: Array<('duration' | 'nodes' | 'distance' | 'weight' | 'datasources' | 'speed')> | boolean;
         /**
          * Returned route geometry format (influences overview and per step). Can also be geojson. (optional, default polyline)
          */
-        geometries?: string | undefined;
+        geometries?: GeometriesTypes;
         /**
          * Add overview geometry either full, simplified according to highest zoom level it could be display on, or not at all (false). (optional, default simplified)
          */
-        overview?: string | undefined;
+        overview?: OverviewTypes;
         /**
          * Timestamp of the input location (integers, UNIX-like timestamp).
          */
-        timestamps?: number[] | undefined;
+        timestamps?: number[];
         /**
-         * Standard deviation of GPS precision used for map matching. If applicable use GPS accuracy (double >= 0, default 5m).
+         * Standard deviation of GPS precision used for map matching. If applicable use GPS accuracy. Can be null for default value 5 meters or double >= 0.
          */
-        radiuses?: number[] | undefined;
+        radiuses?: number[];
+        /**
+         * Allows the input track splitting based on huge timestamp gaps between points. Either split or ignore (optional, default split).
+         */
+        gaps?: GapTypes;
+        /**
+         * Allows the input track modification to obtain better matching quality for noisy tracks (optional, default false).
+         */
+        tidy?: boolean;
+        /**
+         * Indices to coordinates to treat as waypoints. If not supplied, all coordinates are waypoints. Must include first and last coordinate index.
+         */
+        waypoints?: number[];
+        /**
+         * Which edges can be snapped to, either default, or any. default only snaps to edges marked by the profile as is_startpoint, any will allow snapping to any edge in the routing graph.
+         */
+        snapping?: SnappingTypes;
     }
 
     /**
-     * The trip plugin solves the Traveling Salesman Problem using a greedy heuristic (farthest-insertion algorithm).
-     * The returned path does not have to be the fastest path, as TSP is NP-hard it is only an approximation.
-     * Note that all input coordinates have to be connected for the trip service to work.
+     * The trip plugin solves the Traveling Salesman Problem using a greedy heuristic (farthest-insertion algorithm) for
+     * 10 or _ more waypoints and uses brute force for less than 10 waypoints. The returned path does not have to be the
+     * shortest path, _ as TSP is NP-hard it is only an approximation.
      *
-     * https://github.com/Project-OSRM/node-osrm/blob/master/docs/api.md#trip
+     * https://github.com/Project-OSRM/osrm-backend/blob/master/docs/nodejs/api.md#trip
      */
     interface TripOptions extends Options {
         /**
-         * Return route is a roundtrip. (optional, default true)
-         */
-        roundtrip?: boolean | undefined;
-        /**
-         * Return route starts at any coordinate. Can also be first. (optional, default any)
-         */
-        source?: string | undefined;
-        /**
-         * Return route ends at any coordinate. Can also be last. (optional, default any)
-         */
-        destination?: string | undefined;
-        /**
          * Return route steps for each route. (optional, default false)
          */
-        steps?: boolean | undefined;
+        steps?: boolean;
         /**
-         * Return annotations for each route leg for duration, nodes, distance, weight, datasources and/or speed.
-         * Annotations can be false or true (no/full annotations) or an array of strings with duration, nodes, distance, weight, datasources, speed. (optional, default false)
+         * An array with strings of duration, nodes, distance, weight, datasources, speed or boolean for enabling/disabling all. (optional, default false)
          */
-        annotations?: boolean | string[] | undefined;
+        annotations?: Array<('duration' | 'nodes' | 'distance' | 'weight' | 'datasources' | 'speed')> | boolean;
         /**
          * Returned route geometry format (influences overview and per step). Can also be geojson. (optional, default polyline)
          */
-        geometries?: string | undefined;
+        geometries?: GeometriesTypes;
         /**
          * Add overview geometry either full, simplified (optional, default simplified)
          */
-        overview?: string | undefined;
+        overview?: OverviewTypes;
+        /**
+         * Return route is a roundtrip. (optional, default true)
+         */
+        roundtrip?: boolean;
+        /**
+         * Return route starts at any or first coordinate. (optional, default any)
+         */
+        source?: 'any' | 'first';
+        /**
+         * Return route ends at any or last coordinate. (optional, default any)
+         */
+        destination?: 'any' | 'last';
+        /**
+         * Keep waypoints on curb side. Can be null (unrestricted, default) or curb.
+         */
+        approaches?: ApproachTypes | null;
+        /**
+         * Which edges can be snapped to, either default, or any. default only snaps to edges marked by the profile as is_startpoint, any will allow snapping to any edge in the routing graph.
+         */
+        snapping?: SnappingTypes;
     }
 
     interface RouteResults {
@@ -580,9 +707,10 @@ declare namespace OSRM {
 
     interface TableResults {
         durations: Duration[][];
-        distances?: Distance[][] | undefined;
+        distances?: Distance[][];
         sources: Waypoint[];
         destinations: Waypoint[];
+        fallback_speed_cells?: number[];
     }
 
     interface MatchResults {

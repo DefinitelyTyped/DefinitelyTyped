@@ -1,4 +1,4 @@
-// For Library Version: 1.93.0
+// For Library Version: 1.97.0
 
 declare module "sap/ui/fl/library" {}
 
@@ -1168,28 +1168,6 @@ declare module "sap/ui/fl/variants/VariantManagement" {
      */
     getVariants(): any[];
     /**
-     * Opens the Manage Views dialog.
-     */
-    openManagementDialog(
-      /**
-       * Indicates that if this is set to `true`, the former dialog will be destroyed before a new one is created
-       */
-      bCreateAlways: boolean,
-      /**
-       * style-class to be used
-       */
-      sClass: string
-    ): void;
-    /**
-     * Opens the Save as dialog.
-     */
-    openSaveAsDialogForKeyUser(
-      /**
-       * style-class to be used
-       */
-      sRtaStyleClassName: string
-    ): void;
-    /**
      * Removes all the controls in the association named {@link #getFor for}.
      */
     removeAllFor(): ID[];
@@ -1611,7 +1589,12 @@ declare module "sap/ui/fl/write/api/FeaturesAPI" {
     /**
      * Checks if key user has also the admin role to enable the translation button
      */
-    isKeyUserTranslationEnabled(): Promise<boolean>;
+    isKeyUserTranslationEnabled(
+      /**
+       * Current layer
+       */
+      sLayer: /* was: sap.ui.fl.Layer */ any
+    ): Promise<boolean>;
     /**
      * Checks if the data storing implementation for a given layer is capable of handling versioning.
      */
@@ -1647,6 +1630,8 @@ declare namespace sap {
     "sap/ui/fl/apply/_internal/changes/descriptor/app/ChangeInbound": undefined;
 
     "sap/ui/fl/apply/_internal/changes/descriptor/app/SetTitle": undefined;
+
+    "sap/ui/fl/apply/_internal/changes/descriptor/fiori/SetAbstract": undefined;
 
     "sap/ui/fl/apply/_internal/changes/descriptor/fiori/SetRegistrationIds": undefined;
 
@@ -1723,8 +1708,6 @@ declare namespace sap {
     "sap/ui/fl/changeHandler/BaseAddViaDelegate": undefined;
 
     "sap/ui/fl/ChangePersistenceFactory": undefined;
-
-    "sap/ui/fl/ControlPersonalizationAPI": undefined;
 
     "sap/ui/fl/descriptorRelated/api/DescriptorChangeFactory": undefined;
 

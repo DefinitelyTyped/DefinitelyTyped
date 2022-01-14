@@ -87,5 +87,11 @@ export namespace PrivacyNetwork {
          * defaulting to <code>never</code>.
          */
         httpsOnlyMode: Types.Setting;
+
+        /**
+         * Allow users to query the status of 'Global Privacy Control'. This setting's value is of type boolean,
+         * defaulting to <code>false</code>.
+         */
+        globalPrivacyControl: Types.Setting;
     }
 }

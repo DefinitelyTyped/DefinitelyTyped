@@ -1,4 +1,4 @@
-import * as marked from 'marked';
+import { marked } from 'marked';
 
 const tokenizer = new marked.Tokenizer();
 
@@ -37,7 +37,7 @@ let options: marked.MarkedOptions = {
     },
 };
 
-options.highlight = (code: string, lang: string, callback: (error: any | undefined, code?: string) => void) => {
+options.highlight = (code: string, lang: string, callback: (error: any, code?: string) => void) => {
     callback(new Error());
     callback(null, '');
 };
@@ -123,6 +123,12 @@ marked.use({
 
             return false;
         },
+        listitem(text, task, checked) {
+            if (task)
+                return `<li class="task-list-item ${checked ? "checked" : ""}">${text}</li>\n`;
+            else
+                return `<li>${text}</li>\n`;
+        }
     },
     tokenizer: {
         codespan(src) {
@@ -205,3 +211,62 @@ const tokenizerAndRendererExtension = {
 marked.use({
     extensions: [tokenizerExtension, rendererExtension, tokenizerAndRendererExtension],
 });
+
+// Tests for List and ListItem
+// Dumped from markdown list parsed data
+
+const listAndListItemText: marked.Tokens.List = {
+    type: 'list',
+    raw: '1. Text ...',
+    ordered: true,
+    start: 1,
+    loose: false,
+    items: [
+        {
+            type: 'list_item',
+            raw: '1. Text ...',
+            task: false,
+            loose: false,
+            text: 'Text',
+            tokens: [
+                {
+                    type: 'text',
+                    raw: 'Point one',
+                    text: 'Point one',
+                    tokens: [
+                        {
+                            type: 'text',
+                            raw: 'Point one',
+                            text: 'Point one',
+                        },
+                    ],
+                },
+                {
+                    type: 'list',
+                    raw: '',
+                    ordered: false,
+                    start: '',
+                    loose: false,
+                    items: [],
+                },
+            ],
+        },
+    ],
+};
+
+// other exports
+
+// tslint:disable-next-line:no-duplicate-imports
+import { Lexer, Parser, Tokenizer, Renderer, TextRenderer, Slugger } from 'marked';
+
+const lexer2 = new Lexer();
+const tokens4 = lexer2.lex("# test");
+const parser2 = new Parser();
+console.log(parser2.parse(tokens4));
+
+const slugger2 = new Slugger();
+console.log(slugger2.slug('Test Slug'));
+
+marked.use({renderer: new Renderer()});
+marked.use({renderer: new TextRenderer()});
+marked.use({tokenizer: new Tokenizer()});

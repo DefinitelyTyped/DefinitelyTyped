@@ -80,7 +80,7 @@ let data2 = [
     { value: { name: "twitter", link: "http://twitter.com" }, count: 30 },
     { value: { name: "github", link: "https://github.com" }, count: 28 },
     { value: { name: "npmjs", link: "http://npmjs.com" }, count: 25 },
-    { value: { name: "stackoverflow", link: "http://stackoverflow.com" }, count: 33 }
+    { value: { name: "stackoverflow", link: "https://stackoverflow.com" }, count: 33 }
 ];
 
 // with tagRenderer option it is possible to customize rendering of each tag

@@ -390,7 +390,7 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
      * The function’s return value is then used to set each element’s attribute.
      * A null value will remove the specified attribute.
      */
-    attr(name: string, value: null | string | number | boolean | ValueFn<GElement, Datum, string | number | boolean | null>): this;
+    attr(name: string, value: null | string | number | boolean | ReadonlyArray<string | number> | ValueFn<GElement, Datum, null | string | number | boolean | ReadonlyArray<string | number>>): this;
 
     /**
      * Returns true if and only if the first (non-null) selected element has the specified classes.

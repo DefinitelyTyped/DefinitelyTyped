@@ -1,11 +1,14 @@
 import fusv = require('find-unused-sass-variables');
 
-// 'scss' is a folder
-let unused = fusv.find('scss'); // $ExpectType Results
-// Array of unused variables
-// ['$foo', '$bar', '$imunused']
-unused.unused; // $ExpectType string[]
-unused.total; // $ExpectType number
+(async () => {
+    // 'scss' is a folder
+    let unused = fusv.find('scss'); // $ExpectType Results
+    unused = await fusv.findAsync('scss'); // $ExpectType Results
+    // Array of unused variables
+    // ['$foo', '$bar', '$unused']
+    unused.unused; // $ExpectType string[]
+    unused.total; // $ExpectType number
 
-const ignoredVars = ['$my-var', '$my-second-var'];
-unused = fusv.find('scss', { ignore: ignoredVars }); // $ExpectType Results
+    const ignoredVars = ['$my-var', '$my-second-var'];
+    unused = fusv.find('scss', { ignore: ignoredVars, fileExtensions: ['css', 'scss'] }); // $ExpectType Results
+})();

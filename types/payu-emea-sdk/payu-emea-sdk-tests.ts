@@ -38,11 +38,33 @@ const optionsWithError = {
     lang: 'xx'
 };
 
+const secureFormsOptions = {
+    fonts: [
+        {
+            family: 'Family 1',
+            src: 'url(http://family1) type("woff2")'
+        },
+        {
+            family: 'Family 2',
+            src: 'url(http://family2) type("woff2")'
+        }
+    ]
+};
+
+const secureFormsOptionsError = {
+    fonts: [
+        {
+            family: 'Family 1'
+        }
+    ]
+};
+
 // Init SDK
 const payu = PayU('POS_ID');
 PayU('POS_ID', {dev: true});
 PayU(); // $ExpectError
 PayU(123); // $ExpectError
+PayU('POS_ID', {dev: 'on'}); // $ExpectError
 
 // SDK functions
 payu.extractRefReqId('URL_WITH_REF_REQ_ID');
@@ -53,10 +75,13 @@ payu.sendCvv(); // $ExpectError
 
 payu.tokenize();
 payu.tokenize('SINGLE');
-payu.tokenize('UNKNOWN');  // $ExpectError
+payu.tokenize('UNKNOWN'); // $ExpectError
 
 // Init Secure Forms
 const secureForms = payu.secureForms();
+payu.secureForms(secureFormsOptions);
+payu.secureForms('options'); // $ExpectError
+payu.secureForms(secureFormsOptionsError); // $ExpectError
 
 // Add Secure Forms
 const secureForm = secureForms.add();

@@ -925,7 +925,8 @@ async function test_schema(
     notPointer: Exclude<FieldType, Parse.Pointer>,
     notPolygon: Exclude<FieldType, Parse.Polygon>,
 ) {
-    Parse.Schema.all();
+    // $ExpectType RestSchema[]
+    await Parse.Schema.all();
 
     const schema = new Parse.Schema("TestSchema");
 
@@ -935,7 +936,7 @@ async function test_schema(
     schema.addArray("arrayField", { defaultValue: notArray });
 
     /**
-     * @todo Enable type check for defaul value
+     * @todo Enable type check for default value
      */
     schema.addField("defaultFieldString");
     schema.addField("defaultFieldString", "String", { defaultValue: anyField });
@@ -1008,7 +1009,8 @@ async function test_schema(
     schema.deleteField("defaultFieldString");
     schema.deleteIndex("testIndex");
     schema.delete().then(results => {});
-    schema.get().then(results => {});
+    // $ExpectType RestSchema
+    await schema.get();
     schema.purge().then(results => {});
     schema.save().then(results => {});
     schema.update().then(results => {});

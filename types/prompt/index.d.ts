@@ -1,6 +1,6 @@
 // Type definitions for prompt 1.1
 // Project: https://github.com/flatiron/prompt#readme
-// Definitions by: Florian Imdahl <https://github.com/ffflorian>
+// Definitions by: Florian Imdahl <https://github.com/ffflorian>, Matthew Berryman <https://github.com/matthewberryman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -63,10 +63,10 @@ declare class prompt extends EventEmitter {
         callback: prompt.GetCallback<prompt.Properties>,
     ): void;
     static get<T extends prompt.Properties>(
-        values: Array<keyof T | prompt.Schema | prompt.RevalidatorSchema>,
+        values: Array<keyof T | prompt.Schema | prompt.RevalidatorSchema> | prompt.Schema | prompt.RevalidatorSchema,
     ): Promise<T>;
     static get<T extends prompt.Properties>(
-        values: Array<keyof T | prompt.Schema | prompt.RevalidatorSchema>,
+        values: Array<keyof T | prompt.Schema | prompt.RevalidatorSchema> | prompt.Schema | prompt.RevalidatorSchema,
         callback: prompt.GetCallback<T>,
     ): void;
     static history(name?: string | number): prompt.History | null;

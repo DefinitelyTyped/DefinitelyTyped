@@ -16,7 +16,7 @@ export const MentionsInput: MentionsInputClass;
 /**
  * Each Mention component represents a data source for a specific class of mentionable objects, such as users, template variables, issues, etc.
  */
-export const Mention: React.SFC<MentionProps>;
+export const Mention: React.FC<MentionProps>;
 
 /**
  * The properties for the @see MentionsInput component.
@@ -124,4 +124,4 @@ export type OnChangeHandlerFunc = (event: { target: { value: string } }, newValu
 /**
  * The function to implement asynchronous loading of suggestions in @see MentionProps.data .
  */
-export type DataFunc = (query: string, callback: (data: SuggestionDataItem[]) => void) => void | SuggestionDataItem[];
+export type DataFunc = (query: string, callback: (data: SuggestionDataItem[]) => void) => Promise<void> | void | Promise<SuggestionDataItem[]> | SuggestionDataItem[];

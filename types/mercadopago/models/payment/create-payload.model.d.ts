@@ -30,9 +30,11 @@ export interface PaymentItem extends Item {
   id?: string | undefined;
 }
 
-export interface PayerAdditionalInfo extends Pick<PaymentPayer, 'first_name' | 'last_name'>, SimpleAddress {
+export interface PayerAdditionalInfo extends Pick<PaymentPayer, 'first_name' | 'last_name'> {
   /** Telefone do pagador associado. */
   phone?: Omit<Phone, 'extension'> | undefined;
+  /** Endereço do pagador. */
+  address?: SimpleAddress | undefined;
 }
 
 export interface Shipments extends Address {

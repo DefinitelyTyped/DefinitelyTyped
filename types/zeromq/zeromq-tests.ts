@@ -204,3 +204,19 @@ function test8() {
     // Socket.closed getter
     sock.closed;
 }
+
+function test9() {
+  new zeromq.Socket('xpub');
+  new zeromq.Socket('sub');
+  new zeromq.Socket('xsub');
+  new zeromq.Socket('req');
+  new zeromq.Socket('xreq');
+  new zeromq.Socket('rep');
+  new zeromq.Socket('xrep');
+  new zeromq.Socket('push');
+  new zeromq.Socket('pull');
+  new zeromq.Socket('dealer');
+  new zeromq.Socket('router');
+  new zeromq.Socket('pair');
+  new zeromq.Socket('stream');
+}

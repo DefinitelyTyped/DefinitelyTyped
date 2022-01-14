@@ -1,4 +1,4 @@
-// Type definitions for Azure Data Studio 1.32
+// Type definitions for Azure Data Studio 1.34
 // Project: https://github.com/microsoft/azuredatastudio
 // Definitions by: Charles Gagnon <https://github.com/Charles-Gagnon>
 //                 Alan Ren: <https://github.com/alanrenmsft>
@@ -8,12 +8,12 @@
 
 /*---------------------------------------------------------------------------------------------
  *  Copyright (c) Microsoft Corporation. All rights reserved.
- *  Licensed under the MIT License.
- *  See https://github.com/Microsoft/azuredatastudio/blob/main/LICENSE.txt for license information.
+ *  Licensed under the Source EULA.
+ *  See https://github.com/microsoft/azuredatastudio/blob/main/LICENSE.txt for license information.
  *--------------------------------------------------------------------------------------------*/
 
 /**
- * Type Definition for Azure Data Studio 1.32 Extension API
+ * Type Definition for Azure Data Studio 1.34 Extension API
  * See https://docs.microsoft.com/sql/azure-data-studio/extensibility-apis for more information
  */
 
@@ -2190,13 +2190,27 @@ declare module 'azdata' {
         export function getSecurityToken(account: Account, resource?: AzureResource): Thenable<{ [key: string]: any }>;
 
         /**
+         * The token used to authenticate an account.
+         */
+        export interface AccountSecurityToken {
+            /**
+             * The token to use
+             */
+            token: string;
+            /**
+             * What type of token this is (such as Bearer)
+             */
+            tokenType?: string | undefined;
+        }
+
+        /**
          * Generates a security token by asking the account's provider
          * @param account The account to retrieve the security token for
          * @param tenantId The ID of the tenant associated with this account
          * @param resource Type of resource to get the security token for (defaults to
          * AzureResource.ResourceManagement if not given)
          */
-        export function getAccountSecurityToken(account: Account, tenantId: string, resource: AzureResource): Thenable<{ token: string, tokenType?: string | undefined } | undefined>;
+        export function getAccountSecurityToken(account: Account, tenantId: string, resource: AzureResource): Thenable<AccountSecurityToken | undefined>;
 
         /**
          * An [event](#Event) which fires when the accounts have changed.
@@ -2306,7 +2320,19 @@ declare module 'azdata' {
         /**
          * Microsoft Graph
          */
-        MsGraph = 7
+        MsGraph = 7,
+        /**
+         * Azure Log Analytics
+         */
+        AzureLogAnalytics = 8,
+        /**
+         * Azure Storage
+         */
+        AzureStorage = 9,
+        /**
+         * Kusto
+         */
+        AzureKusto = 10
     }
 
     export interface DidChangeAccountsParams {
@@ -2568,8 +2594,9 @@ declare module 'azdata' {
          * Create a new ModelView editor
          * @param title The title shown in the editor tab
          * @param options Options to configure the editor
+         * @param name The name used to identify the editor in telemetry
          */
-        export function createModelViewEditor(title: string, options?: ModelViewEditorOptions): ModelViewEditor;
+        export function createModelViewEditor(title: string, options?: ModelViewEditorOptions, name?: string): ModelViewEditor;
 
         export interface ModelViewEditor extends window.ModelViewPanel {
             /**
@@ -2693,7 +2720,15 @@ declare module 'azdata' {
 
     export interface ComponentBuilder<TComponent extends Component, TPropertyBag extends ComponentProperties> {
         component(): TComponent;
+        /**
+         * @deprecated Use withProps instead
+         */
         withProperties<U>(properties: U): ComponentBuilder<TComponent, TPropertyBag>;
+        /**
+         * Sets the initial set of properties for the component being created
+         * @param properties The properties to apply to the component
+         */
+        withProps(properties: TPropertyBag): ComponentBuilder<TComponent, TPropertyBag>;
         withValidation(validation: (component: TComponent) => boolean | Thenable<boolean>): ComponentBuilder<TComponent, TPropertyBag>;
     }
     export interface ContainerBuilder<TComponent extends Component, TLayout, TItemLayout, TPropertyBag extends ComponentProperties> extends ComponentBuilder<TComponent, TPropertyBag> {
@@ -2900,6 +2935,13 @@ declare module 'azdata' {
          * @param layout object
          */
         setLayout(layout: TLayout): void;
+
+        /**
+         * Sets the layout for the specified child component
+         * @param component The component to set the layout for
+         * @param layout The layout to apply
+         */
+        setItemLayout(component: Component, layout: TItemLayout): void;
     }
 
     export interface NavContainer extends Container<any, any> {
@@ -3306,6 +3348,10 @@ declare module 'azdata' {
          * This title will show when hovered over
          */
         title?: string | undefined;
+        /**
+         * The maximum number of characters allowed in the input box.
+         */
+        maxLength?: number;
     }
 
     export interface TableColumn {
@@ -3402,7 +3448,10 @@ declare module 'azdata' {
     }
 
     export interface TextComponentProperties extends ComponentProperties, TitledComponentProperties {
-        value?: string | undefined;
+        /**
+         * Provide value to be displayed in the text component. An array of value will be displayed as an unordered list.
+         */
+        value?: string | string[] | undefined;
         links?: LinkArea[] | undefined;
         description?: string | undefined;
         requiredIndicator?: boolean | undefined;
@@ -3499,12 +3548,27 @@ declare module 'azdata' {
          * Currently this is auto-generated by the framework but can be queried after
          * view initialization is completed
          */
-        readonly editorUri: string;
+        readonly editorUri?: string;
 
         /**
-         * Toggle for whether the editor should be automatically resized or not
+         * Toggle for whether the editor should be automatically resized or not. Default value is false.
          */
-        isAutoResizable: boolean;
+        isAutoResizable?: boolean;
+    }
+
+    export enum ButtonType {
+        /**
+         * Opens up the File Picker dialog when clicked
+         */
+        File = 'File',
+        /**
+         * Normal button with no special behavior
+         */
+        Normal = 'Normal',
+        /**
+         * Button that displays additional information when hovered over
+         */
+        Informational = 'Informational'
     }
 
     export interface ButtonProperties extends ComponentWithIconProperties {
@@ -3512,14 +3576,37 @@ declare module 'azdata' {
          * The label for the button
          */
         label?: string | undefined;
+
         /**
          * Whether the button opens the file browser dialog
+         * @deprecated Use fileType instead
          */
         isFile?: boolean | undefined;
+
         /**
          * The content of the currently selected file
          */
         fileContent?: string | undefined;
+
+        /**
+         * Specifies the type of button this is. Default is Normal.
+         */
+        buttonType?: ButtonType;
+
+        /**
+         * Description text to display inside button element.
+         */
+        description?: string;
+
+        /**
+         * Specifies whether this is a secondary button. Default value is false.
+         */
+        secondary?: boolean;
+
+        /**
+         * The file type filter used for the file input dialog box - only used when the button type is File
+         */
+        fileType?: string;
     }
 
     export interface LoadingComponentProperties extends ComponentProperties {
@@ -3599,6 +3686,10 @@ declare module 'azdata' {
          * An event called when the radio button is clicked
          */
         onDidClick: vscode.Event<any>;
+        /**
+         * An event called when the value of radio button changes
+         */
+        onDidChangeCheckedState: vscode.Event<boolean>;
     }
 
     export interface CheckBoxComponent extends Component, CheckBoxProperties {
@@ -3890,6 +3981,40 @@ declare module 'azdata' {
          */
         export function createModelViewDialog(title: string, dialogName?: string, width?: DialogWidth): Dialog;
 
+        export interface ModelViewDashboard {
+            /**
+             * Registers the initial set of tabs for this dashboard
+             * @param handler Callback for creating the initial set of tabs to display
+             */
+            registerTabs(handler: (view: ModelView) => Thenable<(DashboardTab | DashboardTabGroup)[]>): void;
+            /**
+             * Open the dashboard
+             */
+            open(): Thenable<void>;
+            /**
+             * Close the dashboard
+             */
+            close(): Thenable<void>;
+            /**
+             * Updates the tabs that are currently displayed
+             * @param tabs The new set of tabs to display
+             */
+            updateTabs(tabs: (DashboardTab | DashboardTabGroup)[]): void;
+            /**
+             * Selects the tab with the given ID
+             * @param id The ID of the tab to select
+             */
+            selectTab(id: string): void;
+        }
+
+        /**
+         * Creates a ModelView Dashboard that when opened will be displayed in an editor pane.
+         * @param title The title displayed in the editor tab for the dashboard
+         * @param name The name used to identify this dashboard in telemetry
+         * @param options Options to configure the dashboard
+         */
+        export function createModelViewDashboard(title: string, name?: string, options?: ModelViewDashboardOptions): ModelViewDashboard;
+
         /**
          * Create a dialog tab which can be included as part of the content of a dialog
          * @param title The title of the page, displayed on the tab to select the page
@@ -4077,6 +4202,11 @@ declare module 'azdata' {
              * Position of the button on the dialog footer
              */
             position?: DialogButtonPosition | undefined;
+
+            /**
+             * Specifies whether this is a secondary button. Default is false.
+             */
+            secondary?: boolean;
         }
 
         export type DialogButtonPosition = 'left' | 'right';
@@ -4119,6 +4249,11 @@ declare module 'azdata' {
              * An optional description for the page. If provided it will be displayed underneath the page title.
              */
             description: string;
+
+            /**
+             * An optional name for the page. If provided it will be used for telemetry
+             */
+            pageName?: string;
         }
 
         export interface Wizard {
@@ -4210,8 +4345,9 @@ declare module 'azdata' {
 
             /**
              * Open the wizard. Does nothing if the wizard is already open.
+             * @param source Where the wizard was opened from for telemetry (ex: command palette, context menu)
              */
-            open(): Thenable<void>;
+            open(source?: string): Thenable<void>;
 
             /**
              * Close the wizard. Does nothing if the wizard is not open.
@@ -4305,6 +4441,62 @@ declare module 'azdata' {
          * Get a QueryDocument object for a file URI
          */
         export function getQueryDocument(fileUri: string): Thenable<QueryDocument>;
+    }
+
+    /**
+     * Represents the tab of TabbedPanelComponent
+     */
+    export interface Tab {
+        /**
+         * Title of the tab
+         */
+        title: string;
+
+        /**
+         * Content component of the tab
+         */
+        content: Component;
+
+        /**
+         * Id of the tab
+         */
+        id: string;
+
+        /**
+         * Icon of the tab
+         */
+        icon?: IconPath;
+    }
+
+    export interface DashboardTab extends Tab {
+        /**
+         * Toolbar of the tab, optional.
+         */
+        toolbar?: ToolbarContainer;
+    }
+
+    export interface DashboardTabGroup {
+        /**
+         * Title of the tab group
+         */
+        title: string;
+
+        /**
+         * Child tabs of the tab group
+         */
+        tabs: DashboardTab[];
+    }
+
+    export interface ModelViewDashboardOptions {
+        /**
+         * Whether to show the tab icon, default is true
+         */
+        showIcon?: boolean;
+
+        /**
+         * Whether to show the tab navigation pane even when there is only one tab, default is false
+         */
+        alwaysShowTabs?: boolean;
     }
 
     export interface ModelViewEditorOptions {
@@ -4479,6 +4671,11 @@ declare module 'azdata' {
          * An event that is emitted when a [notebook's](#NotebookDocument) cell contents are changed.
          */
         export const onDidChangeNotebookCell: vscode.Event<NotebookCellChangeEvent>;
+
+        /**
+         * An event that is emitted when the active Notebook editor is changed.
+         */
+        export const onDidChangeActiveNotebookEditor: vscode.Event<NotebookEditor>;
 
         /**
          * Show the given document in a notebook editor. A [column](#ViewColumn) can be provided
@@ -4761,23 +4958,8 @@ declare module 'azdata' {
             deleteCell(index: number): void;
         }
 
-        /**
-         * Register a notebook provider. The supported file types handled by this
-         * provider are defined in the `package.json:
-         * ```json
-         * {
-         *    "contributes": {
-         *       "notebook.providers": [{
-         *          "provider": "providername",
-         *          "fileExtensions": ["FILEEXT"]
-         *        }]
-         *    }
-         * }
-         * ```
-         * @param notebook provider
-         * @returns disposable
-         */
-        export function registerNotebookProvider(provider: NotebookProvider): vscode.Disposable;
+        export function registerSerializationProvider(provider: NotebookSerializationProvider): vscode.Disposable;
+        export function registerExecuteProvider(provider: NotebookExecuteProvider): vscode.Disposable;
 
         export interface IStandardKernel {
             readonly name: string;
@@ -4785,24 +4967,27 @@ declare module 'azdata' {
             readonly connectionProviderIds: string[];
         }
 
-        export interface NotebookProvider {
+        export interface NotebookSerializationProvider {
             readonly providerId: string;
-            /**
-             * @deprecated standardKernels will be removed in an upcoming release. Standard kernel contribution
-             * should happen via JSON for extensions. Until this is removed, notebook providers can safely return an empty array.
-             */
-            readonly standardKernels: IStandardKernel[];
-            getNotebookManager(notebookUri: vscode.Uri): Thenable<NotebookManager>;
+            getSerializationManager(notebookUri: vscode.Uri): Thenable<SerializationManager>;
+        }
+
+        export interface NotebookExecuteProvider {
+            readonly providerId: string;
+            getExecuteManager(notebookUri: vscode.Uri): Thenable<ExecuteManager>;
             handleNotebookClosed(notebookUri: vscode.Uri): void;
         }
 
-        export interface NotebookManager {
+        export interface SerializationManager {
             /**
              * Manages reading and writing contents to/from files.
              * Files may be local or remote, with this manager giving them a chance to convert and migrate
              * from specific notebook file types to and from a standard type for this UI
              */
             readonly contentManager: ContentManager;
+        }
+
+        export interface ExecuteManager {
             /**
              * A SessionManager that handles starting, stopping and handling notifications around sessions.
              * Each notebook has 1 session associated with it, and the session is responsible
@@ -4851,7 +5036,7 @@ declare module 'azdata' {
             /* Reads contents from a Uri representing a local or remote notebook and returns a
              * JSON object containing the cells and metadata about the notebook
              */
-            getNotebookContents(notebookUri: vscode.Uri): Thenable<INotebookContents>;
+            deserializeNotebook(contents: string): Thenable<INotebookContents>;
 
             /**
              * Save a file.
@@ -4863,7 +5048,7 @@ declare module 'azdata' {
              * @returns A thenable which resolves with the file content model when the
              *   file is saved.
              */
-            save(notebookUri: vscode.Uri, notebook: INotebookContents): Thenable<INotebookContents>;
+            serializeNotebook(notebook: INotebookContents): Thenable<string>;
         }
 
         /**

@@ -1,12 +1,12 @@
-// Type definitions for steam-user 4.19
+// Type definitions for steam-user 4.20
 // Project: https://github.com/DoctorMcKay/node-steam-user
-// Definitions by: vanitasboi <https://github.com/vanitasboi>
+// Definitions by: Joshua Jeschek <https://github.com/joshuajeschek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.2
-// Enums generated from JS by: https://github.com/vanitasboi/JStoTSenum
+// Enums generated from JS by: https://github.com/joshuajeschek/JStoTSenum
 
 // check out PR#54998 for the possibility of a rewrite (https://github.com/DefinitelyTyped/DefinitelyTyped/pull/54998)
-// as well as this branch: https://github.com/vanitasboi/DefinitelyTyped/tree/steam-user-rewrite
+// as well as this branch: https://github.com/joshuajeschek/DefinitelyTyped/tree/steam-user-rewrite
 
 /// <reference types="node" />
 
@@ -303,8 +303,8 @@ declare class SteamUser extends EventEmitter {
      */
     getProductInfo(apps: Array<number | App>, packages: Array<number | Package>, inclTokens?: boolean, callback?: (
         err: Error | null,
-        apps: AppInfo,
-        packages: PackageInfo,
+        apps: Record<number, AppInfo>,
+        packages: Record<number, PackageInfo>,
         unknownApps: number[],
         unknownPackages: number[],
         ) => void,
@@ -646,6 +646,14 @@ declare class SteamUser extends EventEmitter {
      */
     removeFriendFromGroup(groupID: any, usersteamID: SteamID | string, callback?: (err: Error | null) => void): Promise<void>;
 
+    /**
+     * Retrieves a list of friends that have played or used an app.
+     * @param appID - The ID of the app you want to check
+     * @param [callback]
+     * @since 4.20.0
+     */
+    getFriendsThatPlay(appID: number, callback?: (err: Error | null, response: { friends: SteamID[] }) => void): Promise<{ friends: SteamID[] }>;
+
     trade(steamID: SteamID | string): void;
 
     cancelTradeRequest(steamID: SteamID | string): void;
@@ -838,8 +846,8 @@ interface Events {
     group: [sid: SteamID, group: Record<string, any>];
     groupEvent: [sid: SteamID, headline: string, date: Date, gid: number | string, gameID: number]; // not sure
     groupAnnouncement: [sid: SteamID, headline: string, gid: number | string]; // not sure
-    friendRelationShip: [sid: SteamID, relationship: SteamUser.EFriendRelationship];
-    groupRelationShip: [sid: SteamID, relationship: SteamUser.EClanRelationship];
+    friendRelationship: [sid: SteamID, relationship: SteamUser.EFriendRelationship];
+    groupRelationship: [sid: SteamID, relationship: SteamUser.EClanRelationship];
     friendsList: [];
     friendPersonasLoad: [];
     groupList: [];
@@ -921,13 +929,13 @@ interface Package {
 interface AppInfo {
     changenumber: number;
     missingToken: boolean;
-    appinfo: Record<string, any>; // too complex to describe
+    appinfo: any; // too complex to describe
 }
 
 interface PackageInfo {
     changenumber: number;
     missingToken: boolean;
-    packageinfo: Record<string, any>; // too complex to describe
+    packageinfo: any; // too complex to describe
 }
 
 interface RichPresence {
@@ -1083,6 +1091,7 @@ interface LogOnDetailsAnon {
     machineName?: string;
     clientOS?: SteamUser.EOSType;
     dontRememberMachine?: boolean;
+    autoRelogin?: boolean;
 }
 
 interface LogOnDetailsNamePass {
@@ -1095,6 +1104,7 @@ interface LogOnDetailsNamePass {
     machineName?: string;
     clientOS?: SteamUser.EOSType;
     dontRememberMachine?: boolean;
+    autoRelogin?: boolean;
 }
 interface LogOnDetailsNameKey {
     accountName: string;
@@ -1103,12 +1113,14 @@ interface LogOnDetailsNameKey {
     logonID?: number | string;
     machineName?: string;
     clientOS?: SteamUser.EOSType;
+    autoRelogin?: boolean;
 }
 
 interface LogOnDetailsNameToken {
     accountName: string;
     webLogonToken: string;
     steamID: SteamID | string;
+    autoRelogin?: boolean;
 }
 
 interface SteamGuardDetails {
@@ -1175,8 +1187,8 @@ interface ProductChanges {
 }
 
 interface ProductInfo {
-    apps: AppInfo;
-    packages: PackageInfo;
+    apps: Record<number, AppInfo>;
+    packages: Record<number, PackageInfo>;
     unknownApps: number[];
     unknownPackages: number[];
 }

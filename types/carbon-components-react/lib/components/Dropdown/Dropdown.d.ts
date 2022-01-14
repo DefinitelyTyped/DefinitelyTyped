@@ -26,14 +26,14 @@ export interface DropdownProps<ItemType = string> extends
     hideLabel?: boolean | undefined;
     helperText?: React.ReactNode | undefined,
     items: readonly ItemType[],
-    itemToElement?: ItemType extends object ? React.ComponentType<ItemType> : never | undefined,
+    itemToElement?: ItemType extends object ? React.JSXElementConstructor<ItemType> : never | undefined,
     itemToString?(item: ItemType): string
     label: NonNullable<React.ReactNode>,
     light?: boolean | undefined,
     onChange?(data: OnChangeData<ItemType>): void,
     selectedItem?: ItemType | null | undefined,
     size?: ListBoxProps["size"] | undefined,
-    titleText: NonNullable<React.ReactNode>,
+    titleText?: React.ReactNode | undefined,
     type?: ListBoxProps["type"] | undefined,
     warn?: boolean | undefined,
     warnText?: React.ReactNode | undefined,

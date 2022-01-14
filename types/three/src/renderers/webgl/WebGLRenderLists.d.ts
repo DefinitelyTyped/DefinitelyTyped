@@ -7,9 +7,6 @@ import { Camera } from './../../cameras/Camera';
 import { BufferGeometry } from '../../core/BufferGeometry';
 import { WebGLProperties } from './WebGLProperties';
 
-// tslint:disable-next-line:no-empty-interface
-export interface RenderTarget {} // not defined in the code, used in LightShadow and WebGRenderer classes
-
 export interface RenderItem {
     id: number;
     object: Object3D;
@@ -34,6 +31,11 @@ export class WebGLRenderList {
      * @default []
      */
     transparent: RenderItem[];
+
+    /**
+     * @default []
+     */
+    transmissive: RenderItem[];
 
     init(): void;
     push(
@@ -60,5 +62,5 @@ export class WebGLRenderLists {
     constructor(properties: WebGLProperties);
 
     dispose(): void;
-    get(scene: Scene, camera: Camera): WebGLRenderList;
+    get(scene: Scene, renderCallDepth: number): WebGLRenderList;
 }

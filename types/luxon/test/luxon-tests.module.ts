@@ -17,10 +17,10 @@ import {
 VERSION; // $ExpectType string
 
 /* DateTime */
-DateTime.DATETIME_MED; // $ExpectType DateTimeFormatPreset
-DateTime.DATETIME_MED_WITH_WEEKDAY; // $ExpectType DateTimeFormatPreset
-DateTime.DATE_MED; // $ExpectType DateTimeFormatPreset
-DateTime.DATE_MED_WITH_WEEKDAY; // $ExpectType DateTimeFormatPreset
+DateTime.DATETIME_MED; // $ExpectType DateTimeFormatOptions
+DateTime.DATETIME_MED_WITH_WEEKDAY; // $ExpectType DateTimeFormatOptions
+DateTime.DATE_MED; // $ExpectType DateTimeFormatOptions
+DateTime.DATE_MED_WITH_WEEKDAY; // $ExpectType DateTimeFormatOptions
 
 DateTime.local({ zone: 'Atlantic/Azores' }); // $ExpectType DateTime
 DateTime.local(2021, 8, 28, { zone: 'Atlantic/Azores' }); // $ExpectType DateTime
@@ -83,13 +83,16 @@ DateTime.local().toString(); // => '2017-09-14T03:20:34.091-04:00'
 
 const getters = DateTime.local();
 getters.year; // $ExpectType number
-getters.month; // $ExpectType number
-getters.day; // $ExpectType number
-getters.second; // $ExpectType number
-getters.weekday; // $ExpectType number
+getters.month; // $ExpectType MonthNumbers
+getters.day; // $ExpectType DayNumbers
+getters.minute; // $ExpectType SecondNumbers
+getters.second; // $ExpectType SecondNumbers
+getters.weekday; // $ExpectType WeekdayNumbers
 getters.zoneName; // $ExpectType string
 getters.offset; // $ExpectType number
-getters.daysInMonth; // $ExpectType number
+getters.daysInMonth; // $ExpectType PossibleDaysInMonth
+getters.daysInYear; // $ExpectType PossibleDaysInYear
+getters.weeksInWeekYear; // $ExpectType PossibleWeeksInYear
 getters.ordinal; // $ExpectType number
 getters.isInLeapYear; // $ExpectType boolean
 
@@ -168,7 +171,7 @@ dt.offsetNameLong; // $ExpectType string
 dt.isOffsetFixed; // $ExpectType boolean
 dt.isInDST; // $ExpectType boolean
 
-dt.set({ hour: 3 }).hour; // $ExpectType number
+dt.set({ hour: 3 }).hour; // $ExpectType HourNumbers
 
 const f: { month: 'long'; day: 'numeric' } = { month: 'long', day: 'numeric' };
 dt.setLocale('fr').toLocaleString(f);
@@ -194,14 +197,20 @@ const { input, result, zone } = DateTime.fromFormatExplain('Aug 6 1982', 'MMMM d
 
 /* Duration */
 const dur = Duration.fromObject({ hours: 2, minutes: 7 }); // $ExpectType Duration
+Duration.fromObject({ hour: 2, minute: 7 }); // $ExpectType Duration
 Duration.fromObject({ locale: 'ru' }); // $ExpectError
 Duration.fromObject({ conversionAccuracy: 'casual' }); // $ExpectError
 Duration.fromObject({}, { conversionAccuracy: 'casual' }); // $ExpectType Duration
+Duration.fromDurationLike({ hours: 1 }); // $ExpectType Duration
+Duration.fromDurationLike(1000); // $ExpectType Duration
+Duration.fromDurationLike(dur); // $ExpectType Duration
+Duration.fromDurationLike(''); // $ExpectError
 dt.plus(dur); // $ExpectType DateTime
 dt.plus({ quarters: 2, months: 1 }); // $ExpectType DateTime
 dur.hours; // $ExpectType number
 dur.minutes; // $ExpectType number
 dur.seconds; // $ExpectType number
+dur.set({ hour: 2, minutes: 15 }); // $ExpectType Duration
 
 dur.as('seconds'); // $ExpectType number
 dur.toObject();
@@ -370,6 +379,7 @@ d1.hasSame(d2, 'minute'); // $ExpectType boolean
 d1.hasSame(d2, 'year'); // $ExpectType boolean
 
 dur.toObject().days; // $ExpectType number | undefined
+dur.toObject().day; // $ExpectError
 dur.as('minutes'); // $ExpectType number
 dur.shiftTo('minutes').toObject().minutes; // $ExpectType number | undefined
 // prettier-ignore
@@ -392,6 +402,7 @@ dur.shiftTo('weeks', 'hours').toObject().weeks; // $ExpectType number | undefine
 DateTime.local().plus(dur.shiftTo('milliseconds')).year; // $ExpectType number
 
 Duration.fromISO('PY23', { conversionAccuracy: 'longterm' }); // $ExpectType Duration
+Duration.fromISOTime('21:37.000'); // $ExpectType Duration
 Duration.fromISOTime('21:37.000', { conversionAccuracy: 'longterm' }); // $ExpectType Duration
 
 end.diff(start, 'hours', { conversionAccuracy: 'longterm' }); // $ExpectType Duration
@@ -416,3 +427,15 @@ class SampleZone extends Zone {
         return 0;
     }
 }
+
+DateTime.fromISO('2021-09-13T07:52:27.697Z').toLocaleString({
+    ...DateTime.DATETIME_FULL_WITH_SECONDS,
+    hour: '2-digit',
+    second: '2-digit',
+});
+
+DateTime.fromISO('2021-09-13T07:52:27.697Z').toLocaleString({
+    ...DateTime.DATETIME_MED,
+    hour: '2-digit',
+    day: '2-digit',
+});

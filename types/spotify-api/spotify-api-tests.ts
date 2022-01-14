@@ -43,6 +43,7 @@ const playingNowTrack : SpotifyApi.CurrentlyPlayingResponse = {
   "item": {
     "album": {
       "album_type": "album",
+      "total_tracks": 10,
       "artists": [
         {
           "external_urls": {
@@ -340,6 +341,7 @@ const playingNowTrack : SpotifyApi.CurrentlyPlayingResponse = {
  */
 const getSingleAlbum : SpotifyApi.SingleAlbumResponse = {
   "album_type" : "album",
+  "total_tracks": 10,
   "artists" : [ {
     "external_urls" : {
       "spotify" : "https://open.spotify.com/artist/2BTZIqw0ntH9MvilQ3ewNY"
@@ -731,6 +733,7 @@ const getSingleAlbum : SpotifyApi.SingleAlbumResponse = {
 const getMultipleAlbumsResponse : SpotifyApi.MultipleAlbumsResponse = {
   "albums" : [ {
     "album_type" : "album",
+    "total_tracks": 10,
     "artists" : [ {
       "external_urls" : {
         "spotify" : "https://open.spotify.com/artist/53A0W3U0s8diEn9RhXQhVz"
@@ -1739,6 +1742,7 @@ const getMultipleAlbumsResponse : SpotifyApi.MultipleAlbumsResponse = {
     "uri" : "spotify:album:41MnTivkwTO3UUJ8DrqEJJ"
   }, {
     "album_type" : "album",
+    "total_tracks": 10,
     "artists" : [ {
       "external_urls" : {
         "spotify" : "https://open.spotify.com/artist/53A0W3U0s8diEn9RhXQhVz"
@@ -2247,6 +2251,7 @@ const getMultipleAlbumsResponse : SpotifyApi.MultipleAlbumsResponse = {
     "uri" : "spotify:album:6JWc4iAiJ9FjyK0B59ABb4"
   }, {
     "album_type" : "album",
+    "total_tracks": 10,
     "artists" : [ {
       "external_urls" : {
         "spotify" : "https://open.spotify.com/artist/53A0W3U0s8diEn9RhXQhVz"
@@ -2761,6 +2766,7 @@ const getArtistsAlbums : SpotifyApi.ArtistsAlbumsResponse = {
     {
       "album_group": "appears_on",
       "album_type": "album",
+      "total_tracks": 10,
       "artists": [
         {
           "external_urls": {
@@ -2805,6 +2811,7 @@ const getArtistsAlbums : SpotifyApi.ArtistsAlbumsResponse = {
     {
       "album_group": "appears_on",
       "album_type": "compilation",
+      "total_tracks": 10,
       "artists": [
         {
           "external_urls": {
@@ -2866,6 +2873,7 @@ const getArtistsTopTracks : SpotifyApi.ArtistsTopTracksResponse = {
   "tracks": [ {
     "album" : {
       "album_type" : "album",
+      "total_tracks": 10,
       "artists" : [ {
         "external_urls" : {
           "spotify" : "https://open.spotify.com/artist/43ZHCT0cAZBISjO8DG9PnE"
@@ -3779,6 +3787,7 @@ const newReleases : SpotifyApi.ListOfNewReleasesResponse = {
     "items": [
       {
         "album_type": "single",
+        "total_tracks": 1,
         "artists": [
           {
             "external_urls": {
@@ -3902,6 +3911,7 @@ const newReleases : SpotifyApi.ListOfNewReleasesResponse = {
       },
       {
         "album_type": "single",
+        "total_tracks": 10,
         "artists": [
           {
             "external_urls": {
@@ -4025,6 +4035,7 @@ const newReleases : SpotifyApi.ListOfNewReleasesResponse = {
       },
       {
         "album_type": "single",
+        "total_tracks": 1,
         "artists": [
           {
             "external_urls": {
@@ -4385,7 +4396,7 @@ const category : SpotifyApi.SingleCategoryResponse = {
  * GET /v1/browse/categories/{id}/playlists
  * https://developer.spotify.com/web-api/get-categorys-playlists/
  */
-const categoryPlaylists : SpotifyApi.CategoryPlaylistsReponse = {
+const categoryPlaylists : SpotifyApi.CategoryPlaylistsResponse = {
   "playlists" : {
     "href" : "https://api.spotify.com/v1/browse/categories/party/playlists?country=BR&offset=0&limit=2",
     "items" : [ {
@@ -4613,7 +4624,7 @@ const checkCurrentUserFollows : SpotifyApi.UserFollowsUsersOrArtistsResponse = [
  * PUT /v1/users/{owner_id}/playlists/{playlist_id}/followers
  * https://developer.spotify.com/web-api/follow-playlist/
  */
-const followPlaylist : SpotifyApi.FollowPlaylistReponse = {};
+const followPlaylist : SpotifyApi.FollowPlaylistResponse = {};
 
 
 
@@ -4624,7 +4635,7 @@ const followPlaylist : SpotifyApi.FollowPlaylistReponse = {};
  * DELETE /v1/users/{owner_id}/playlists/{playlist_id}/followers
  * https://developer.spotify.com/web-api/unfollow-playlist/
  */
-const unfollowPlaylist : SpotifyApi.UnfollowPlaylistReponse = {};
+const unfollowPlaylist : SpotifyApi.UnfollowPlaylistResponse = {};
 
 
 
@@ -4654,6 +4665,7 @@ const getSavedTracks : SpotifyApi.UsersSavedTracksResponse = {
       "track": {
         "album": {
           "album_type": "single",
+          "total_tracks": 10,
           "artists": [
             {
               "external_urls": {
@@ -4922,6 +4934,7 @@ const getSavedTracks : SpotifyApi.UsersSavedTracksResponse = {
       "track": {
         "album": {
           "album_type": "single",
+          "total_tracks": 1,
           "artists": [
             {
               "external_urls": {
@@ -5158,6 +5171,7 @@ const getSavedTracks : SpotifyApi.UsersSavedTracksResponse = {
       "track": {
         "album": {
           "album_type": "album",
+          "total_tracks": 10,
           "artists": [
             {
               "external_urls": {
@@ -5236,6 +5250,7 @@ const getSavedTracks : SpotifyApi.UsersSavedTracksResponse = {
       "track": {
         "album": {
           "album_type": "compilation",
+          "total_tracks": 10,
           "artists": [
             {
               "external_urls": {
@@ -5314,6 +5329,7 @@ const getSavedTracks : SpotifyApi.UsersSavedTracksResponse = {
       "track": {
         "album": {
           "album_type": "album",
+          "total_tracks": 10,
           "artists": [
             {
               "external_urls": {
@@ -5602,6 +5618,7 @@ const usersSavedAlbums : SpotifyApi.UsersSavedAlbumsResponse = {
     "added_at" : "2015-11-26T19:13:31Z",
     "album" : {
       "album_type" : "album",
+      "total_tracks": 10,
       "artists" : [ {
         "external_urls" : {
           "spotify" : "https://open.spotify.com/artist/58RMTlPJKbmpmVk1AmRK3h"
@@ -6151,6 +6168,7 @@ const usersTopTracks : SpotifyApi.UsersTopTracksResponse = {
     {
       "album": {
         "album_type": "album",
+        "total_tracks": 10,
         "artists": [
           {
             "external_urls": {
@@ -6402,6 +6420,7 @@ const usersTopTracks : SpotifyApi.UsersTopTracksResponse = {
     {
       "album": {
         "album_type": "album",
+        "total_tracks": 10,
         "artists": [
           {
             "external_urls": {
@@ -6635,6 +6654,7 @@ const usersTopTracks : SpotifyApi.UsersTopTracksResponse = {
     {
       "album": {
         "album_type": "album",
+        "total_tracks": 10,
         "artists": [
           {
             "external_urls": {
@@ -6870,6 +6890,7 @@ const usersTopTracks : SpotifyApi.UsersTopTracksResponse = {
     {
       "album": {
         "album_type": "album",
+        "total_tracks": 10,
         "artists": [
           {
             "external_urls": {
@@ -6959,6 +6980,7 @@ const usersTopTracks : SpotifyApi.UsersTopTracksResponse = {
     {
       "album": {
         "album_type": "album",
+        "total_tracks": 10,
         "artists": [
           {
             "external_urls": {
@@ -7312,6 +7334,7 @@ const searchAlbums : SpotifyApi.AlbumSearchResponse = {
     "items": [
       {
         "album_type": "album",
+        "total_tracks": 10,
         "artists": [
           {
             "external_urls": {
@@ -7603,6 +7626,7 @@ const searchTracks : SpotifyApi.TrackSearchResponse = {
       {
         "album": {
           "album_type": "album",
+          "total_tracks": 10,
           "artists": [
             {
               "external_urls": {
@@ -7677,6 +7701,7 @@ const searchTracks : SpotifyApi.TrackSearchResponse = {
       {
         "album": {
           "album_type": "album",
+          "total_tracks": 10,
           "artists": [
             {
               "external_urls": {
@@ -8138,6 +8163,7 @@ const searchEpisode: SpotifyApi.EpisodeSearchResponse = {
 const track : SpotifyApi.SingleTrackResponse = {
   "album": {
     "album_type": "album",
+    "total_tracks": 10,
     "artists": [
       {
         "external_urls": {
@@ -8381,6 +8407,7 @@ const tracks : SpotifyApi.MultipleTracksResponse = {
     {
       "album": {
         "album_type": "album",
+        "total_tracks": 10,
         "artists": [
           {
             "external_urls": {
@@ -9317,6 +9344,7 @@ const playlist : SpotifyApi.SinglePlaylistResponse = {
         "track": {
           "album": {
             "album_type": "album",
+            "total_tracks": 10,
             "artists": [
               {
                 "external_urls": {
@@ -9565,6 +9593,7 @@ const playlist : SpotifyApi.SinglePlaylistResponse = {
         "track": {
           "album": {
             "album_type": "compilation",
+            "total_tracks": 10,
             "artists": [
               {
                 "external_urls": {
@@ -9653,6 +9682,7 @@ const playlist : SpotifyApi.SinglePlaylistResponse = {
         "track": {
           "album": {
             "album_type": "album",
+            "total_tracks": 10,
             "artists": [
               {
                 "external_urls": {
@@ -9774,6 +9804,7 @@ const playlistTracks : SpotifyApi.PlaylistTrackResponse = {
       "track": {
         "album": {
           "album_type": "single",
+          "total_tracks": 10,
           "artists": [
             {
               "external_urls": {
@@ -9911,7 +9942,7 @@ const newPlaylist : SpotifyApi.CreatePlaylistResponse = {
  * PUT /v1/users/{user_id}/playlists/{playlist_id}
  * https://developer.spotify.com/web-api/change-playlist-details/
  */
-const changePlaylistDetails : SpotifyApi.ChangePlaylistDetailsReponse = {};
+const changePlaylistDetails : SpotifyApi.ChangePlaylistDetailsResponse = {};
 
 
 
@@ -9972,7 +10003,7 @@ const replacePlaylistTracks : SpotifyApi.ReplacePlaylistTracksResponse = {};
  * GET /v1/users/{user_id}/playlists/{playlist_id}/followers/contains
  * https://developer.spotify.com/web-api/check-user-following-playlist/
  */
-const checkUserFollowsPlaylist : SpotifyApi.UsersFollowPlaylistReponse = [true, false, true];
+const checkUserFollowsPlaylist : SpotifyApi.UsersFollowPlaylistResponse = [true, false, true];
 
 
 

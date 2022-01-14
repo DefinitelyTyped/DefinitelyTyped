@@ -9,6 +9,7 @@ export interface DatePickerProps extends Omit<ReactDivAttr, "onChange"> {
     datePickerType?: "range" | "single" | "simple" | undefined,
     disable?: BaseOptions["disable"] | undefined;
     enable?: BaseOptions["enable"] | undefined;
+    inline?: BaseOptions["inline"] | undefined;
     light?: boolean | undefined,
     locale?: BaseOptions["locale"] | undefined,
     maxDate?: BaseOptions["maxDate"] | undefined,

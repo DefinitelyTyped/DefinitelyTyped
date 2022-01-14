@@ -104,6 +104,33 @@ function testSandbox() {
     sb.createStubInstance(cls, {
         foo: 1, // used as return value
     });
+
+    class ClassWithPrivateMembers {
+        private readonly priVar: number;
+        readonly pubVar: number;
+        constructor() {
+            this.priVar = 42;
+            this.pubVar = 21;
+        }
+
+        getPriVar() {
+            return this.priVar;
+        }
+    }
+
+    function callGetPriVar(instance: ClassWithPrivateMembers) {
+        return instance.getPriVar();
+    }
+
+    const objWithPrivateMembers = sinon.createStubInstance(ClassWithPrivateMembers);
+    objWithPrivateMembers.getPriVar.returns(84);
+    callGetPriVar(objWithPrivateMembers);
+
+    // $ExpectError
+    objWithPrivateMembers.priVar;
+
+    // $ExpectType number
+    objWithPrivateMembers.pubVar;
 }
 
 function testFakeServer() {
@@ -535,15 +562,15 @@ function testSpy() {
     spy.threw();
     spy.threw("foo");
     spy.threw(new Error("foo"));
-    spy.callArg(1);
-    spy.callArgOn(1, instance);
-    spy.callArgOn(1, instance, "a", 2);
-    spy.callArgWith(1, "a", 2);
-    spy.callArgOnWith(1, instance, "a", 2);
-    spy.yield("a", 2);
-    spy.yieldOn(instance, "a", 2);
-    spy.yieldTo("prop", "a", 2);
-    spy.yieldToOn("prop", instance, "a", 2);
+    spy.callArg(1); // $ExpectType unknown[]
+    spy.callArgOn(1, instance); // $ExpectType unknown[]
+    spy.callArgOn(1, instance, "a", 2); // $ExpectType unknown[]
+    spy.callArgWith(1, "a", 2); // $ExpectType unknown[]
+    spy.callArgOnWith(1, instance, "a", 2); // $ExpectType unknown[]
+    spy.yield("a", 2); // $ExpectType unknown[]
+    spy.yieldOn(instance, "a", 2); // $ExpectType unknown[]
+    spy.yieldTo("prop", "a", 2); // $ExpectType unknown[]
+    spy.yieldToOn("prop", instance, "a", 2); // $ExpectType unknown[]
 
     let call = spy.firstCall;
     call = spy.secondCall;
@@ -707,4 +734,23 @@ function testAddBehavior() {
 
 function testSetFormatter() {
     sinon.setFormatter((...args) => JSON.stringify(args));
+}
+
+async function testPromises() {
+    const promise = sinon.promise();
+    await promise.resolve(123);
+    await promise.reject('foo');
+    promise.status; // $ExpectType "pending" | "resolved" | "rejected"
+
+    const typedPromise = sinon.promise<number>();
+    await typedPromise.resolve(111); // $ExpectType number
+    typedPromise.resolvedValue; // $ExpectType number | undefined
+    typedPromise.rejectedValue; // $ExpectType unknown
+
+    const executor = sinon.promise<string>((resolve) => {
+        resolve('abc');
+    });
+    const executor2 = sinon.promise<string>((resolve, reject) => {
+        reject('some error');
+    });
 }

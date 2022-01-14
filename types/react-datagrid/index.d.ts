@@ -11,7 +11,10 @@ import DataGrid = ReactDataGrid.DataGrid;
 export = DataGrid;
 
 declare namespace ReactDataGrid {
-    interface DataGridProps extends React.Props<DataGrid> {
+    interface DataGridProps {
+        children?: React.ReactNode;
+        ref?: React.LegacyRef<DataGrid> | undefined;
+
         /**
           * Array/String/Function/Promise - for local data, an array of object
           * to render in the grid. For remote data, a string url, or a function

@@ -1,7 +1,6 @@
 // Type definitions for passport.socketio 3.7
 // Project: https://github.com/jfromaniello/passport.socketio#readme
-// Definitions by: AhmedMKamal <https://github.com/AhmedMKamal>
-//                 Jack Scotson <https://github.com/Scotsoo>
+// Definitions by: Jack Scotson <https://github.com/Scotsoo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 

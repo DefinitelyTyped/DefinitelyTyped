@@ -8,12 +8,10 @@ import {
     Points,
 } from '../../../src/Three';
 
-export namespace BufferGeometryUtils {
-    function mergeBufferGeometries(geometries: BufferGeometry[], useGroups?: boolean): BufferGeometry;
-    function mergeBufferAttributes(attributes: BufferAttribute[]): BufferAttribute;
-    function interleaveAttributes(attributes: BufferAttribute[]): InterleavedBufferAttribute;
-    function estimateBytesUsed(geometry: BufferGeometry): number;
-    function mergeVertices(geometry: BufferGeometry, tolerance?: number): BufferGeometry;
-    function toTrianglesDrawMode(geometry: BufferGeometry, drawMode: TrianglesDrawModes): BufferGeometry;
-    function computeMorphedAttributes(object: Mesh | Line | Points): object;
-}
+export function mergeBufferGeometries(geometries: BufferGeometry[], useGroups?: boolean): BufferGeometry;
+export function mergeBufferAttributes(attributes: BufferAttribute[]): BufferAttribute;
+export function interleaveAttributes(attributes: BufferAttribute[]): InterleavedBufferAttribute;
+export function estimateBytesUsed(geometry: BufferGeometry): number;
+export function mergeVertices(geometry: BufferGeometry, tolerance?: number): BufferGeometry;
+export function toTrianglesDrawMode(geometry: BufferGeometry, drawMode: TrianglesDrawModes): BufferGeometry;
+export function computeMorphedAttributes(object: Mesh | Line | Points): object;

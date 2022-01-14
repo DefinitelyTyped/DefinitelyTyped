@@ -29,6 +29,8 @@ declare namespace HapiPino {
     }
 
     interface Options {
+        timestamp?: boolean | (() => string) | undefined;
+        logQueryParams?: boolean | undefined;
         logPayload?: boolean | undefined;
         logRouteTags?: boolean | undefined;
         logRequestStart?: boolean | ((req: Request) => boolean) | undefined;

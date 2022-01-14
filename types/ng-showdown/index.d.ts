@@ -40,7 +40,7 @@ export interface SDObject {
      */
     makeHtml: Converter['makeHtml'];
     /**
-     * Strips a text of it's HTML tags. See http://stackoverflow.com/questions/17289448/angularjs-to-output-plain-text-instead-of-html
+     * Strips a text of it's HTML tags. See https://stackoverflow.com/questions/17289448/angularjs-to-output-plain-text-instead-of-html
      *
      * @param text
      */

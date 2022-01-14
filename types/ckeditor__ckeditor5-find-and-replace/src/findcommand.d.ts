@@ -1,15 +1,18 @@
 import { Command, Editor } from '@ckeditor/ckeditor5-core';
-import FindAndReplaceEditing, { FindAndReplaceState } from './findandreplaceediting';
+import FindAndReplaceEditing from './findandreplaceediting';
+import FindAndReplaceState from './findandreplacestate';
 /**
  * The find command. It is used by the {@link module:find-and-replace/findandreplace~FindAndReplace find and replace feature}.
  */
 export default class FindCommand extends Command {
-    isEnabled: true;
-    state: FindAndReplaceState;
     /**
      * Creates a new `FindCommand` instance.
      */
     constructor(editor: Editor, state: FindAndReplaceState);
+    // The find command is always enabled.
+    readonly isEnabled: true;
+    // It does not affect data so should be enabled in read-only mode.
+    readonly affectsData: false;
     /**
      * Executes the command.
      */

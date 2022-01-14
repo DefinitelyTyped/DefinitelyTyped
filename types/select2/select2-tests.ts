@@ -778,8 +778,8 @@ const selectedData: Select2.OptionData[] = $("#mySelect2").select2("data");
 declare let select: HTMLSelectElement;
 const $select: JQuery<HTMLSelectElement> = $(select);
 
-select = $select.select2().get(0);
-select = $select.select2({tags: true}).get(0);
-select = $select.select2("open").get(0);
-select = $select.select2("close").get(0);
-select = $select.select2("destroy").get(0);
+select = $select.select2().get(0)!;
+select = $select.select2({tags: true}).get(0)!;
+select = $select.select2("open").get(0)!;
+select = $select.select2("close").get(0)!;
+select = $select.select2("destroy").get(0)!;

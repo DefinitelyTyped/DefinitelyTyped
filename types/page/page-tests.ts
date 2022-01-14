@@ -1,18 +1,24 @@
-import page from 'page';
+import page, { Callback, Context } from 'page';
 
-const index: PageJS.Callback = () => {
+const index: Callback = () => {
     document.querySelector('p')!
         .textContent = 'viewing index';
 };
-const about: PageJS.Callback = () => {
+const about: Callback = () => {
     document.querySelector('p')!
         .textContent = 'viewing about';
 };
-const contact: PageJS.Callback = (ctx) => {
+
+function callback(ctx: Context, next: () => void) {
+}
+
+const customCallback: Callback = callback;
+
+const contact: Callback = (ctx) => {
     document.querySelector('p')!
         .textContent = 'viewing contact ' + (ctx.params.contactName || '');
 };
-const load: PageJS.Callback = (ctx, next) => {
+const load: Callback = (ctx, next) => {
     // check if we have .state.avatar already available
     // this could for example be a cached html fragment.
     if (ctx.state.avatar) {
@@ -30,7 +36,8 @@ const load: PageJS.Callback = (ctx, next) => {
             next();
         }, 600);
 };
-const show: PageJS.Callback = (ctx) => {
+
+const show: Callback = (ctx) => {
     const img: any = document.querySelector('img');
     img.src = ctx['avatar'];
     img.style.display = 'block';
@@ -40,11 +47,13 @@ const show: PageJS.Callback = (ctx) => {
 function text(str: string) {
     document.querySelector('p')!.textContent = str;
 }
+
 function index2() {
     text('Click a user below to load their avatar');
     (<HTMLElement> document.querySelector('img'))
     .style.display = 'none';
 }
+
 function notfound() {
     document.querySelector('p')!
     .textContent = 'not found';

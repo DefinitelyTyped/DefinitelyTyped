@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as Halogenium from "halogenium";
 
-class HalogenTests_FadeLoader_withNoProps extends React.Component<React.Props<{}>> {
+class HalogenTests_FadeLoader_withNoProps extends React.Component {
   render() {
     return (
       <Halogenium.FadeLoader />
@@ -9,7 +9,7 @@ class HalogenTests_FadeLoader_withNoProps extends React.Component<React.Props<{}
   }
 }
 
-class HalogenTests_FadeLoader_withAllProps extends React.Component<React.Props<{}>> {
+class HalogenTests_FadeLoader_withAllProps extends React.Component {
   render() {
     return (
       <Halogenium.FadeLoader loading={false} color="black" id="MyLoader" className="loader" verticalAlign="middle"

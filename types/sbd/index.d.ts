@@ -1,5 +1,5 @@
 // Type definitions for sbd 1.0
-// Project: http://github.com/tessmore/sbd
+// Project: https://github.com/tessmore/sbd
 // Definitions by: Brian Cort <https://github.com/thatcort>, Caroline Artz <https://github.com/carolineartz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 

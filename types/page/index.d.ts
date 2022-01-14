@@ -315,8 +315,18 @@ declare namespace PageJS {
     }
 }
 
-declare module "page" {
+declare module 'page' {
     const page: PageJS.Static;
+
+    type Callback = PageJS.Callback;
+    type Context = PageJS.Context;
+    type Options = PageJS.Options;
+    type Route = PageJS.Route;
+    type RouteOptions = PageJS.RouteOptions;
+    type Static = PageJS.Static;
+
+    export { Callback, Context, Options, Route, RouteOptions, Static };
+
     export default page;
 }
 

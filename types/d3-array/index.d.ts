@@ -8,7 +8,7 @@
 //                 Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// Last module patch version validated against: 3.0.1
+// Last module patch version validated against: 3.1.0
 
 // --------------------------------------------------------------------------
 // Shared Types and Interfaces
@@ -233,6 +233,24 @@ export function quantileSorted<T>(
     p: number,
     accessor: (element: T, i: number, array: T[]) => number | undefined | null
 ): number | undefined;
+
+/**
+ * Returns an array with the rank of each value in the iterable, i.e. the index of the value when the iterable is sorted.
+ * Nullish values are sorted to the end and ranked NaN.
+ * An optional accessor function may be specified, which is equivalent to calling array.map(accessor) before computing the ranks.
+ * Ties (equivalent values) all get the same rank, defined as the first time the value is found.
+ */
+export function rank(iterable: Iterable<Numeric | undefined | null>): Float64Array;
+/**
+ * Returns an array with the rank of each value in the iterable, i.e. the index of the value when the iterable is sorted.
+ * Nullish values are sorted to the end and ranked NaN.
+ * An optional accessor function may be specified, which is equivalent to calling array.map(accessor) before computing the ranks.
+ * Ties (equivalent values) all get the same rank, defined as the first time the value is found.
+ */
+export function rank<T>(
+    iterable: Iterable<T>,
+    accessor: (datum: T, index: number, array: Iterable<T>) => number | undefined | null
+): Float64Array;
 
 /**
  * Returns an unbiased estimator of the population variance of the given iterable of numbers using Welford’s algorithm.
@@ -1001,21 +1019,21 @@ export function sort<T>(iterable: Iterable<T>, ...accessors: Array<(a: T) => unk
 // --------------------------------------------------------------------------------------
 
 /**
- * Returns a new Set containing every value in iterable that is not in any of the others iterables.
+ * Returns a new InternSet containing every value in iterable that is not in any of the others iterables.
  */
-export function difference<T>(iterable: Iterable<T>, ...others: Array<Iterable<T>>): Set<T>;
+export function difference<T>(iterable: Iterable<T>, ...others: Array<Iterable<T>>): InternSet<T>;
 
 /**
- * Returns a new Set containing every (distinct) value that appears in any of the given iterables.
- * The order of values in the returned Set is based on their first occurrence in the given iterables.
+ * Returns a new InternSet containing every (distinct) value that appears in any of the given iterables.
+ * The order of values in the returned set is based on their first occurrence in the given iterables.
  */
-export function union<T>(...iterables: Array<Iterable<T>>): Set<T>;
+export function union<T>(...iterables: Array<Iterable<T>>): InternSet<T>;
 
 /**
- * Returns a new Set containing every (distinct) value that appears in all of the given iterables.
- * The order of values in the returned Set is based on their first occurrence in the given iterables.
+ * Returns a new InternSet containing every (distinct) value that appears in all of the given iterables.
+ * The order of values in the returned set is based on their first occurrence in the given iterables.
  */
-export function intersection<T>(...iterables: Array<Iterable<T>>): Set<T>;
+export function intersection<T>(...iterables: Array<Iterable<T>>): InternSet<T>;
 
 /**
  * Returns true if a is a superset of b: if every value in the given iterable b is also in the given iterable a.

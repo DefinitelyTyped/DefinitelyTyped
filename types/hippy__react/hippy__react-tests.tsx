@@ -23,3 +23,7 @@ import {
 <View>
     <Text>'test'</Text>
 </View>;
+
+<ListView numberOfRows={1} bounces={false} />;
+<ViewPager initialPage={0} keyboardDismissMode="none" />;
+<ScrollView keyboardDismissMode="none" />;

@@ -81,14 +81,14 @@ filter = mapkit.PointOfInterestFilter.filterExcludingAllCategories;
 const filterIncludes: boolean = filter.includesCategory(mapkit.PointOfInterestCategory.Airport);
 const filterExcludes: boolean = filter.excludesCategory(mapkit.PointOfInterestCategory.Airport);
 
-const search = new mapkit.PointsOfInterestSearch();
-const searchRegion: mapkit.CoordinateRegion = search.region;
-const searchCenter: mapkit.Coordinate = search.center;
-const searchPointOfInterestFilter: mapkit.PointOfInterestFilter = search.pointOfInterestFilter;
-const searchLanguage: string = search.language;
-const searchMaxRadius: number = search.MaxRadius;
-const searchResult: number = search.search({});
-const searchCancel: boolean = search.cancel(0);
+const poiSearch = new mapkit.PointsOfInterestSearch();
+const searchRegion: mapkit.CoordinateRegion = poiSearch.region;
+const searchCenter: mapkit.Coordinate = poiSearch.center;
+const searchPointOfInterestFilter: mapkit.PointOfInterestFilter = poiSearch.pointOfInterestFilter;
+const searchLanguage: string = poiSearch.language;
+const searchMaxRadius: number = poiSearch.MaxRadius;
+const searchResult: number = poiSearch.search({});
+const searchCancel: boolean = poiSearch.cancel(0);
 
 const pointOfInterestSearchOptions: mapkit.PointsOfInterestSearchOptions = {
     language: '',
@@ -132,3 +132,9 @@ let newCameraZoomRange = new mapkit.CameraZoomRange(0, 0);
 newCameraZoomRange = new mapkit.CameraZoomRange({ minCameraDistance: 0, maxCameraDistance: 0 });
 const minCameraDistance: number = newCameraZoomRange.minCameraDistance;
 const maxCameraDistance: number = newCameraZoomRange.maxCameraDistance;
+
+// Check that limitToCountries accepts a string
+const search = new mapkit.Search({ limitToCountries: 'us,mx' });
+
+// Check that all StyleConstructorOptions are optional
+const style = new mapkit.Style({});

@@ -36,3 +36,34 @@ render(
       </AriaModal>,
       appContainer
 );
+
+const AriaModalOnExitBasic = (
+    <AriaModal
+        titleText="test"
+        onExit={e => {
+            e.stopPropagation();
+        }}
+    />
+);
+
+const AriaModalOnExitWithMouse = (
+    <AriaModal
+        titleText="test"
+        onExit={(e: React.MouseEvent) => {
+            e.stopPropagation();
+            e.preventDefault();
+            const clientX = e.clientX;
+        }}
+    />
+);
+
+const AriaModalOnExitWithKeyboard = (
+    <AriaModal
+        titleText="test"
+        onExit={(e: React.KeyboardEvent) => {
+            e.stopPropagation();
+            e.preventDefault();
+            const keyCode = e.code;
+        }}
+    />
+);

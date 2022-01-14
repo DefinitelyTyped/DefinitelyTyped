@@ -1,4 +1,4 @@
-// Type definitions for mParticle/web-sdk SDK 2.12
+// Type definitions for mParticle/web-sdk SDK 2.14
 // Project: https://github.com/mParticle/mparticle-web-sdk
 // Definitions by: Alex Sapountzis <https://github.com/asap>
 //                 Robert Ing <https://github.com/rmi22186>
@@ -274,7 +274,7 @@ interface LogProductAction {
 interface LogPromotion {
     (
         type: number,
-        promotion: Promotion,
+        promotion: Promotion[] | Promotion,
         attrs?: SDKEventAttrs,
         customFlags?: SDKEventCustomFlags,
         eventOptions?: SDKEventOptions,

@@ -12,12 +12,22 @@ const connection = snowflake.createConnection({
     username: '',
 });
 
-connection.connect((err, conn) => {
+const connectCallback = (err: snowflake.SnowflakeError | undefined, conn: snowflake.Connection) => {
+    if (err) {
+        err.code; // $ExpectType ErrorCode | undefined
+        err.sqlState; // $ExpectType string | undefined
+        err.data; // $ExpectType object | undefined
+        err.response; // $ExpectType object | undefined
+        err.responseBody; // $ExpectType string | undefined
+        err.cause; // $ExpectType Error | undefined
+        err.isFatal; // $ExpectType boolean | undefined
+    }
     conn.execute({
         sqlText: '',
         fetchAsString: ['Boolean', 'JSON'],
         binds: [1, ''],
         complete(err, stmt, rows) {
+            err; // $ExpectType SnowflakeError | undefined
             stmt.cancel((err, stmt) => {
                 //
             });
@@ -47,7 +57,9 @@ connection.connect((err, conn) => {
             //
         },
     });
-});
+};
+connection.connect(connectCallback);
+connection.connectAsync(connectCallback);
 
 //  Key pair connections
 

@@ -41,7 +41,7 @@ function minibiomes(test: gt.Test) {
 
   test.setBlockType(mc.MinecraftBlockTypes.cobblestone, new mc.BlockLocation(10, 7, 7));
 
-  const minecartRideableComp = minecart.getComponent("minecraft:rideable");
+  const minecartRideableComp = minecart.getComponent("minecraft:rideable") as mc.EntityRideableComponent;
 
   minecartRideableComp.addRider(pig);
 

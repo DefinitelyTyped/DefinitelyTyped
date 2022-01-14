@@ -1,4 +1,4 @@
-import imagemin = require('imagemin');
+import imagemin from 'imagemin';
 import upng from 'imagemin-upng';
 import fs = require('fs');
 

@@ -3,7 +3,7 @@ declare function DataExporter(): void;
 declare class DataExporter {
     fields: any[];
     private fieldIndexesByName_;
-    private _logger;
+    private logger_;
     title: string;
     dataSet: any;
     addField(field: any): void;

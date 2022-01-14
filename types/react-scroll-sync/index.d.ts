@@ -6,6 +6,7 @@
 import * as React from 'react';
 
 export interface ScrollSyncProps {
+    children?: React.ReactNode;
     onSync?(el: Element): void;
     proportional?: boolean | undefined;
     vertical?: boolean | undefined;
@@ -15,6 +16,7 @@ export interface ScrollSyncProps {
 
 export interface ScrollSyncPaneProps {
     attachTo?: HTMLElement | undefined;
+    children?: React.ReactNode;
     group?: string | undefined;
     enabled?: boolean | undefined;
 }

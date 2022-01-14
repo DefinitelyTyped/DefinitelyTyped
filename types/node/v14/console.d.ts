@@ -1,4 +1,8 @@
 declare module 'console' {
+    import console = require('node:console');
+    export = console;
+}
+declare module 'node:console' {
     import { InspectOptions } from 'util';
 
     global {
@@ -115,6 +119,11 @@ declare module 'console' {
                 ignoreErrors?: boolean | undefined;
                 colorMode?: boolean | 'auto' | undefined;
                 inspectOptions?: InspectOptions | undefined;
+                /**
+                 * Set group indentation
+                 * @default 2
+                 */
+                 groupIndentation?: number | undefined;
             }
 
             interface ConsoleConstructor {

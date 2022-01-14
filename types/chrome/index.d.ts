@@ -2,7 +2,6 @@
 // Project: http://developer.chrome.com/extensions/
 // Definitions by: Matthew Kimber <https://github.com/matthewkimber>
 //                 otiai10 <https://github.com/otiai10>
-//                 couven92 <https://github.com/couven92>
 //                 RReverser <https://github.com/rreverser>
 //                 sreimer15 <https://github.com/sreimer15>
 //                 MatCarlson <https://github.com/MatCarlson>
@@ -16,11 +15,13 @@
 //                 userTim <https://github.com/usertim>
 //                 Idan Zeierman <https://github.com/idan315>
 //                 Nicolas Rodriguez <https://github.com/nicolas377>
+//                 Ido Salomon <https://github.com/idosal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
 /// <reference types="filesystem" />
 /// <reference path="./har-format/index.d.ts" />
+/// <reference path="./chrome-cast/index.d.ts" />
 
 ////////////////////
 // Global object
@@ -128,7 +129,7 @@ declare namespace chrome.action {
         popup: string;
     }
 
-    export interface BrowserClickedEvent extends chrome.events.Event<(tab: chrome.tabs.Tab) => void> {}
+    export interface BrowserClickedEvent extends chrome.events.Event<(tab: chrome.tabs.Tab) => void> { }
 
     export interface TabIconDetails {
         /** Optional. Either a relative image path or a dictionary {size -> relative image path} pointing to icon to be set. If the icon is specified as a dictionary, the actual image to be used is chosen depending on screen's pixel density. If the number of image pixels that fit into one screen space unit equals scale, then image with size scale * 19 will be selected. Initially only scales 1 and 2 will be supported. At least one image must be specified. Note that 'details.path = foo' is equivalent to 'details.imageData = {'19': foo}'  */
@@ -496,7 +497,7 @@ declare namespace chrome.bookmarks {
          * Since Chrome 37.
          * Indicates the reason why this node is unmodifiable. The managed value indicates that this node was configured by the system administrator or by the custodian of a supervised user. Omitted if the node can be modified by the user and the extension (default).
          */
-        unmodifiable?: any;
+        unmodifiable?: 'managed' | undefined;
     }
 
     export interface BookmarkRemoveInfo {
@@ -774,7 +775,7 @@ declare namespace chrome.browserAction {
 
     export interface BadgeTextDetails {
         /** Any number of characters can be passed, but only about four can fit in the space. */
-        text?: string | undefined;
+        text?: string | null | undefined;
         /** Optional. Limits the change to when a particular tab is selected. Automatically resets when the tab is closed.  */
         tabId?: number | undefined;
     }
@@ -795,7 +796,7 @@ declare namespace chrome.browserAction {
 
     export interface TabIconDetails {
         /** Optional. Either a relative image path or a dictionary {size -> relative image path} pointing to icon to be set. If the icon is specified as a dictionary, the actual image to be used is chosen depending on screen's pixel density. If the number of image pixels that fit into one screen space unit equals scale, then image with size scale * 19 will be selected. Initially only scales 1 and 2 will be supported. At least one image must be specified. Note that 'details.path = foo' is equivalent to 'details.imageData = {'19': foo}'  */
-        path?: any;
+        path?: string | { [index: string]: string } | undefined;
         /** Optional. Limits the change to when a particular tab is selected. Automatically resets when the tab is closed.  */
         tabId?: number | undefined;
         /** Optional. Either an ImageData object or a dictionary {size -> ImageData} representing icon to be set. If the icon is specified as a dictionary, the actual image to be used is chosen depending on screen's pixel density. If the number of image pixels that fit into one screen space unit equals scale, then image with size scale * 19 will be selected. Initially only scales 1 and 2 will be supported. At least one image must be specified. Note that 'details.imageData = foo' is equivalent to 'details.imageData = {'19': foo}'  */
@@ -1173,11 +1174,13 @@ declare namespace chrome.contentSettings {
         scope?: ScopeEnum | undefined;
     }
 
+    type DefaultContentSettingDetails = 'allow' | 'ask' | 'block' | 'detect_important_content' | 'session_only';
+
     export interface SetDetails {
         /** Optional. The resource identifier for the content type.  */
         resourceIdentifier?: ResourceIdentifier | undefined;
         /** The setting applied by this rule. See the description of the individual ContentSetting objects for the possible values. */
-        setting: any;
+        setting: DefaultContentSettingDetails;
         /** Optional. The pattern for the secondary URL. Defaults to matching all URLs. For details on the format of a pattern, see Content Setting Patterns.  */
         secondaryPattern?: string | undefined;
         /** Optional. Where to set the setting (default: regular).  */
@@ -1251,7 +1254,7 @@ declare namespace chrome.contentSettings {
 
     export interface ReturnedDetails {
         /** The content setting. See the description of the individual ContentSetting objects for the possible values. */
-        setting: any;
+        setting: DefaultContentSettingDetails;
     }
 
     export interface ContentSetting {
@@ -1283,54 +1286,67 @@ declare namespace chrome.contentSettings {
 
     export interface CookieContentSetting extends ContentSetting {
         set(details: CookieSetDetails, callback?: () => void): void;
+        get(details: GetDetails, callback: (details: CookieSetDetails) => void): void;
     }
 
     export interface PopupsContentSetting extends ContentSetting {
         set(details: PopupsSetDetails, callback?: () => void): void;
+        get(details: GetDetails, callback: (details: PopupsSetDetails) => void): void;
     }
 
     export interface JavascriptContentSetting extends ContentSetting {
         set(details: JavascriptSetDetails, callback?: () => void): void;
+        get(details: GetDetails, callback: (details: JavascriptSetDetails) => void): void;
     }
 
     export interface NotificationsContentSetting extends ContentSetting {
         set(details: NotificationsSetDetails, callback?: () => void): void;
+        get(details: GetDetails, callback: (details: NotificationsSetDetails) => void): void;
     }
 
     export interface PluginsContentSetting extends ContentSetting {
         set(details: PluginsSetDetails, callback?: () => void): void;
+        get(details: GetDetails, callback: (details: PluginsSetDetails) => void): void;
     }
 
     export interface ImagesContentSetting extends ContentSetting {
         set(details: ImagesSetDetails, callback?: () => void): void;
+        get(details: GetDetails, callback: (details: ImagesSetDetails) => void): void;
     }
 
     export interface LocationContentSetting extends ContentSetting {
         set(details: LocationSetDetails, callback?: () => void): void;
+        get(details: GetDetails, callback: (details: LocationSetDetails) => void): void;
     }
 
     export interface FullscreenContentSetting extends ContentSetting {
         set(details: FullscreenSetDetails, callback?: () => void): void;
+        get(details: GetDetails, callback: (details: FullscreenSetDetails) => void): void;
     }
 
     export interface MouselockContentSetting extends ContentSetting {
         set(details: MouselockSetDetails, callback?: () => void): void;
+        get(details: GetDetails, callback: (details: MouselockSetDetails) => void): void;
     }
 
     export interface MicrophoneContentSetting extends ContentSetting {
         set(details: MicrophoneSetDetails, callback?: () => void): void;
+        get(details: GetDetails, callback: (details: MicrophoneSetDetails) => void): void;
     }
 
     export interface CameraContentSetting extends ContentSetting {
         set(details: CameraSetDetails, callback?: () => void): void;
+        get(details: GetDetails, callback: (details: CameraSetDetails) => void): void;
     }
 
     export interface PpapiBrokerContentSetting extends ContentSetting {
         set(details: PpapiBrokerSetDetails, callback?: () => void): void;
+        get(details: GetDetails, callback: (details: PpapiBrokerSetDetails) => void): void;
     }
 
     export interface MultipleAutomaticDownloadsContentSetting extends ContentSetting {
         set(details: MultipleAutomaticDownloadsSetDetails, callback?: () => void): void;
+        get(details: GetDetails, callback: (details: MultipleAutomaticDownloadsSetDetails) => void): void;
     }
 
     /** The only content type using resource identifiers is contentSettings.plugins. For more information, see Resource Identifiers. */
@@ -1515,7 +1531,7 @@ declare namespace chrome.contextMenus {
          * Since Chrome 35.
          * One of 'image', 'video', or 'audio' if the context menu was activated on one of these types of elements.
          */
-        mediaType?: string | undefined;
+        mediaType?: 'image' | 'video' | 'audio' | undefined;
         /**
          * Optional.
          * Since Chrome 35.
@@ -1547,6 +1563,10 @@ declare namespace chrome.contextMenus {
         srcUrl?: string | undefined;
     }
 
+    type ContextType = "all" | "page" | "frame" | "selection" | "link" | "editable" | "image" | "video" | "audio" | "launcher" | "browser_action" | "page_action" | "action";
+
+    type ContextItemType = "normal" | "checkbox" | "radio" | "separator";
+
     export interface CreateProperties {
         /** Optional. Lets you restrict the item to apply only to documents whose URL matches one of the given patterns. (This applies to frames as well.) For details on the format of a pattern, see Match Patterns.  */
         documentUrlPatterns?: string[] | undefined;
@@ -1555,7 +1575,7 @@ declare namespace chrome.contextMenus {
         /** Optional. The text to be displayed in the item; this is required unless type is 'separator'. When the context is 'selection', you can use %s within the string to show the selected text. For example, if this parameter's value is "Translate '%s' to Pig Latin" and the user selects the word "cool", the context menu item for the selection is "Translate 'cool' to Pig Latin".  */
         title?: string | undefined;
         /** Optional. List of contexts this menu item will appear in. Defaults to ['page'] if not specified.  */
-        contexts?: string[] | undefined;
+        contexts?: ContextType | ContextType[] | undefined;
         /**
          * Optional.
          * Since Chrome 20.
@@ -1572,9 +1592,9 @@ declare namespace chrome.contextMenus {
          */
         onclick?: ((info: OnClickData, tab: chrome.tabs.Tab) => void) | undefined;
         /** Optional. The ID of a parent menu item; this makes the item a child of a previously added item.  */
-        parentId?: any;
+        parentId?: number | string | undefined;
         /** Optional. The type of menu item. Defaults to 'normal' if not specified.  */
-        type?: string | undefined;
+        type?: ContextItemType | undefined;
         /**
          * Optional.
          * Since Chrome 21.
@@ -1593,14 +1613,14 @@ declare namespace chrome.contextMenus {
         documentUrlPatterns?: string[] | undefined;
         checked?: boolean | undefined;
         title?: string | undefined;
-        contexts?: string[] | undefined;
+        contexts?: ContextType[] | undefined;
         /** Optional. Since Chrome 20.  */
         enabled?: boolean | undefined;
         targetUrlPatterns?: string[] | undefined;
         onclick?: Function | undefined;
         /** Optional. Note: You cannot change an item to be a child of one of its own descendants.  */
         parentId?: number | string;
-        type?: string | undefined;
+        type?: ContextItemType | undefined;
         /**
          * Optional.
          * @since Chrome 62.
@@ -1627,10 +1647,9 @@ declare namespace chrome.contextMenus {
     /**
      * Creates a new context menu item. Note that if an error occurs during creation, you may not find out until the creation callback fires (the details will be in chrome.runtime.lastError).
      * @param callback Called when the item has been created in the browser. If there were any problems creating the item, details will be available in chrome.runtime.lastError.
-     * If you specify the callback parameter, it should be a function that looks like this:
-     * function() {...};
+     * @returns The ID of the newly created item.
      */
-    export function create(createProperties: CreateProperties, callback?: () => void): void;
+    export function create(createProperties: CreateProperties, callback?: () => void): number | string;
     /**
      * Updates a previously created context menu item.
      * @param id The ID of the item to update.
@@ -2042,7 +2061,16 @@ declare namespace chrome.declarativeContent {
         constructor(options: PageStateMatcherProperties);
     }
 
-    /** Declarative event action that shows the extension's page action while the corresponding conditions are met. */
+    /**
+     * Declarative event action that enables the extension's action while the corresponding conditions are met.
+     * Manifest v3.
+     */
+    export class ShowAction { }
+
+    /**
+     * Declarative event action that shows the extension's page action while the corresponding conditions are met.
+     * Manifest v2.
+     */
     export class ShowPageAction { }
 
     /** Declarative event action that changes the icon of the page action while the corresponding conditions are met. */
@@ -2062,11 +2090,11 @@ declare namespace chrome.declarativeContent {
 declare namespace chrome.declarativeWebRequest {
     export interface HeaderFilter {
         nameEquals?: string | undefined;
-        valueContains?: any;
+        valueContains?: string | string[] | undefined;
         nameSuffix?: string | undefined;
         valueSuffix?: string | undefined;
         valuePrefix?: string | undefined;
-        nameContains?: any;
+        nameContains?: string | string[] | undefined;
         valueEquals?: string | undefined;
         namePrefix?: string | undefined;
     }
@@ -2615,6 +2643,8 @@ declare namespace chrome.downloads {
         value: string;
     }
 
+    export type FilenameConflictAction = "uniquify" | "overwrite" | "prompt";
+
     export interface DownloadOptions {
         /** Optional. Post body.  */
         body?: string | undefined;
@@ -2627,9 +2657,9 @@ declare namespace chrome.downloads {
         /** Optional. Extra HTTP headers to send with the request if the URL uses the HTTP[s] protocol. Each header is represented as a dictionary containing the keys name and either value or binaryValue, restricted to those allowed by XMLHttpRequest.  */
         headers?: HeaderNameValuePair[] | undefined;
         /** Optional. The HTTP method to use if the URL uses the HTTP[S] protocol.  */
-        method?: string | undefined;
+        method?: "GET" | "POST" | undefined;
         /** Optional. The action to take if filename already exists.  */
-        conflictAction?: string | undefined;
+        conflictAction?: FilenameConflictAction | undefined;
     }
 
     export interface DownloadDelta {
@@ -2643,7 +2673,7 @@ declare namespace chrome.downloads {
          * Optional. The change in finalUrl, if any.
          * @since Since Chrome 54.
          */
-        finalUrl: StringDelta;
+        finalUrl?: StringDelta | undefined;
         /** Optional. The change in totalBytes, if any.  */
         totalBytes?: DoubleDelta | undefined;
         /** Optional. The change in filename, if any.  */
@@ -2684,11 +2714,17 @@ declare namespace chrome.downloads {
         previous?: string | undefined;
     }
 
+    export type DownloadInterruptReason = "FILE_FAILED" | "FILE_ACCESS_DENIED" | "FILE_NO_SPACE" | "FILE_NAME_TOO_LONG" | "FILE_TOO_LARGE" | "FILE_VIRUS_INFECTED" | "FILE_TRANSIENT_ERROR" | "FILE_BLOCKED" | "FILE_SECURITY_CHECK_FAILED" | "FILE_TOO_SHORT" | "FILE_HASH_MISMATCH" | "FILE_SAME_AS_SOURCE" | "NETWORK_FAILED" | "NETWORK_TIMEOUT" | "NETWORK_DISCONNECTED" | "NETWORK_SERVER_DOWN" | "NETWORK_INVALID_REQUEST" | "SERVER_FAILED" | "SERVER_NO_RANGE" | "SERVER_BAD_CONTENT" | "SERVER_UNAUTHORIZED" | "SERVER_CERT_PROBLEM" | "SERVER_FORBIDDEN" | "SERVER_UNREACHABLE" | "SERVER_CONTENT_LENGTH_MISMATCH" | "SERVER_CROSS_ORIGIN_REDIRECT" | "USER_CANCELED" | "USER_SHUTDOWN" | "CRASH";
+
+    export type DownloadState = "in_progress" | "interrupted" | "complete";
+
+    export type DangerType = "file" | "url" | "content" | "uncommon" | "host" | "unwanted" | "safe" | "accepted";
+
     export interface DownloadItem {
         /** Number of bytes received so far from the host, without considering file compression. */
         bytesReceived: number;
         /** Indication of whether this download is thought to be safe or known to be suspicious. */
-        danger: string;
+        danger: DangerType;
         /** The absolute URL that this download initiated from, before any redirects. */
         url: string;
         /**
@@ -2703,7 +2739,7 @@ declare namespace chrome.downloads {
         /** True if the download has stopped reading data from the host, but kept the connection open. */
         paused: boolean;
         /** Indicates whether the download is progressing, interrupted, or complete. */
-        state: string;
+        state: DownloadState;
         /** The file's MIME type. */
         mime: string;
         /** Number of bytes in the whole file post-decompression, or -1 if unknown. */
@@ -2711,7 +2747,7 @@ declare namespace chrome.downloads {
         /** The time when the download began in ISO 8601 format. May be passed directly to the Date constructor: chrome.downloads.search({}, function(items){items.forEach(function(item){console.log(new Date(item.startTime))})}) */
         startTime: string;
         /** Optional. Why the download was interrupted. Several kinds of HTTP errors may be grouped under one of the errors beginning with SERVER_. Errors relating to the network begin with NETWORK_, errors relating to the process of writing the file to the file system begin with FILE_, and interruptions initiated by the user begin with USER_.  */
-        error?: string | undefined;
+        error?: DownloadInterruptReason | undefined;
         /** Optional. The time when the download ended in ISO 8601 format. May be passed directly to the Date constructor: chrome.downloads.search({}, function(items){items.forEach(function(item){if (item.endTime) console.log(new Date(item.endTime))})})  */
         endTime?: string | undefined;
         /** An identifier that is persistent across browser sessions. */
@@ -2735,7 +2771,7 @@ declare namespace chrome.downloads {
     export interface GetFileIconOptions {
         /** Optional. * The size of the returned icon. The icon will be square with dimensions size * size pixels. The default and largest size for the icon is 32x32 pixels. The only supported sizes are 16 and 32. It is an error to specify any other size.
          */
-        size?: number | undefined;
+        size?: 16 | 32 | undefined;
     }
 
     export interface DownloadQuery {
@@ -2933,10 +2969,18 @@ declare namespace chrome.enterprise.platformKeys {
         id: string;
         /**
          * Implements the WebCrypto's SubtleCrypto interface. The cryptographic operations, including key generation, are hardware-backed.
-         * Only non-extractable RSASSA-PKCS1-V1_5 keys with modulusLength up to 2048 can be generated. Each key can be used for signing data at most once.
+         * Only non-extractable RSASSA-PKCS1-V1_5 keys with modulusLength up to 2048 and ECDSA with namedCurve P-256 can be generated. Each key can be used for signing data at most once.
          * Keys generated on a specific Token cannot be used with any other Tokens, nor can they be used with window.crypto.subtle. Equally, Key objects created with window.crypto.subtle cannot be used with this interface.
          */
         subtleCrypto: SubtleCrypto;
+        /**
+         * Implements the WebCrypto's SubtleCrypto interface. The cryptographic operations, including key generation, are software-backed.
+         * Protection of the keys, and thus implementation of the non-extractable property, is done in software, so the keys are less protected than hardware-backed keys.
+         * Only non-extractable RSASSA-PKCS1-V1_5 keys with modulusLength up to 2048 can be generated. Each key can be used for signing data at most once.
+         * Keys generated on a specific Token cannot be used with any other Tokens, nor can they be used with window.crypto.subtle. Equally, Key objects created with window.crypto.subtle cannot be used with this interface.
+         * @since Chrome 97.
+         */
+        softwareBackedSubtleCrypto: SubtleCrypto;
     }
 
     /**
@@ -3066,6 +3110,14 @@ declare namespace chrome.enterprise.deviceAttributes {
      * @param callback Called with the Annotated Location of the device.
      */
     export function getDeviceAnnotatedLocation(callback: (annotatedLocation: string) => void): void;
+    /**
+     * @since Chrome 82.
+     * @description
+     * Fetches the device's hostname as set by DeviceHostnameTemplate policy.
+     * If the current user is not affiliated or no hostname has been set by the the enterprise policy, returns an empty string.
+     * @param callback Called with the hostname of the device.
+     */
+    export function getDeviceHostname(callback: (hostname: string) => void): void;
 }
 
 ////////////////////
@@ -3146,7 +3198,7 @@ declare namespace chrome.events {
         /** Optional. Matches if the URL (without fragment identifier) ends with a specified string. Port numbers are stripped from the URL if they match the default port number.  */
         urlSuffix?: string | undefined;
         /** Optional. Matches if the port of the URL is contained in any of the specified port lists. For example [80, 443, [1000, 1200]] matches all requests on port 80, 443 and in the range 1000-1200.  */
-        ports?: any[] | undefined;
+        ports?: (number | number[])[] | undefined;
         /**
          * Optional.
          * Since Chrome 28.
@@ -4248,7 +4300,7 @@ declare namespace chrome.i18n {
      * @param messageName The name of the message, as specified in the messages.json file.
      * @param substitutions Optional. Up to 9 substitution strings, if the message requires any.
      */
-    export function getMessage(messageName: string, substitutions?: any): string;
+    export function getMessage(messageName: string, substitutions?: string | string[]): string;
     /**
      * Gets the browser UI language of the browser. This is different from i18n.getAcceptLanguages which returns the preferred user languages.
      * @since Chrome 35.
@@ -5368,6 +5420,8 @@ declare namespace chrome.networking.config {
  * @since Chrome 28.
  */
 declare namespace chrome.notifications {
+    export type TemplateType = "basic" | "image" | "list" | "progress";
+
     export interface ButtonOptions {
         title: string;
         iconUrl?: string | undefined;
@@ -5380,19 +5434,7 @@ declare namespace chrome.notifications {
         message: string;
     }
 
-    export interface NotificationOptions {
-        /** Optional. Which type of notification to display. Required for notifications.create method. */
-        type?: string | undefined;
-        /**
-         * Optional.
-         * A URL to the sender's avatar, app icon, or a thumbnail for image notifications.
-         * URLs can be a data URL, a blob URL, or a URL relative to a resource within this extension's .crx file Required for notifications.create method.
-         */
-        iconUrl?: string | undefined;
-        /** Optional. Title of the notification (e.g. sender name for email). Required for notifications.create method. */
-        title?: string | undefined;
-        /** Optional. Main notification content. Required for notifications.create method. */
-        message?: string | undefined;
+    export type NotificationOptions<T extends boolean = false> = {
         /**
          * Optional.
          * Alternate notification content with a lower-weight font.
@@ -5439,7 +5481,32 @@ declare namespace chrome.notifications {
          * @since Chrome 70
          */
         silent?: boolean | undefined;
-    }
+    } & (T extends true ? {
+        /**
+         * A URL to the sender's avatar, app icon, or a thumbnail for image notifications.
+         * URLs can be a data URL, a blob URL, or a URL relative to a resource within this extension's .crx file. Required for notifications.create method.
+         */
+        iconUrl: string;
+        /** Main notification content. Required for notifications.create method. */
+        message: string;
+        /** Which type of notification to display. Required for notifications.create method. */
+        type: TemplateType;
+        /** Title of the notification (e.g. sender name for email). Required for notifications.create method. */
+        title: string;
+    } : {
+        /**
+         * Optional.
+         * A URL to the sender's avatar, app icon, or a thumbnail for image notifications.
+         * URLs can be a data URL, a blob URL, or a URL relative to a resource within this extension's .crx file. Required for notifications.create method.
+         */
+        iconUrl?: string | undefined;
+        /** Optional. Main notification content. Required for notifications.create method. */
+        message?: string | undefined;
+        /** Optional. Which type of notification to display. Required for notifications.create method. */
+        type?: TemplateType | undefined;
+        /** Optional. Title of the notification (e.g. sender name for email). Required for notifications.create method. */
+        title?: string | undefined;
+    })
 
     export interface NotificationClosedEvent
         extends chrome.events.Event<(notificationId: string, byUser: boolean) => void> { }
@@ -5482,7 +5549,7 @@ declare namespace chrome.notifications {
      */
     export function create(
         notificationId: string,
-        options: NotificationOptions,
+        options: NotificationOptions<true>,
         callback?: (notificationId: string) => void,
     ): void;
     /**
@@ -5495,7 +5562,7 @@ declare namespace chrome.notifications {
      * If you specify the callback parameter, it should be a function that looks like this:
      * function(string notificationId) {...};
      */
-    export function create(options: NotificationOptions, callback?: (notificationId: string) => void): void;
+    export function create(options: NotificationOptions<true>, callback?: (notificationId: string) => void): void;
     /**
      * Updates an existing notification.
      * @param notificationId The id of the notification to be updated. This is returned by notifications.create method.
@@ -5647,7 +5714,7 @@ declare namespace chrome.pageAction {
          * Optional.
          * Either a relative image path or a dictionary {size -> relative image path} pointing to icon to be set. If the icon is specified as a dictionary, the actual image to be used is chosen depending on screen's pixel density. If the number of image pixels that fit into one screen space unit equals scale, then image with size scale * 19 will be selected. Initially only scales 1 and 2 will be supported. At least one image must be specified. Note that 'details.path = foo' is equivalent to 'details.imageData = {'19': foo}'
          */
-        path?: any;
+        path?: string | { [index: string]: string } | undefined;
     }
 
     /**
@@ -5718,7 +5785,7 @@ declare namespace chrome.pageCapture {
      * function(binary mhtmlData) {...};
      * Parameter mhtmlData: The MHTML data as a Blob.
      */
-    export function saveAsMHTML(details: SaveDetails, callback: (mhtmlData: any) => void): void;
+    export function saveAsMHTML(details: SaveDetails, callback: (mhtmlData?: ArrayBuffer) => void): void;
 }
 
 ////////////////////
@@ -6187,7 +6254,7 @@ declare namespace chrome.serial {
         /** Flag indicating whether the connection is blocked from firing onReceive events. */
         paused: boolean;
         /** See ConnectionOptions.persistent */
-        peristent: boolean;
+        persistent: boolean;
         /** See ConnectionOptions.name */
         name: string;
         /** See ConnectionOptions.bufferSize */
@@ -6212,7 +6279,7 @@ declare namespace chrome.serial {
     export interface ConnectionOptions {
         /** Optional. Flag indicating whether or not the connection should be left open when the application is suspended (see Manage App Lifecycle: https://developer.chrome.com/apps/app_lifecycle).
          *  The default value is "false." When the application is loaded, any serial connections previously opened with persistent=true can be fetched with getConnections. */
-        peristent?: boolean | undefined;
+        persistent?: boolean | undefined;
         /** Optional. An application-defined string to associate with the connection. */
         name?: string | undefined;
         /** Optional. The size of the buffer used to receive data. The default value is 4096. */
@@ -6448,6 +6515,20 @@ declare namespace chrome.runtime {
     /** The ID of the extension/app. */
     export var id: string;
 
+    /** https://developer.chrome.com/docs/extensions/reference/runtime/#type-PlatformOs */
+    export type PlatformOs = 'mac' | 'win' | 'android' | 'cros' | 'linux' | 'openbsd';
+    /** https://developer.chrome.com/docs/extensions/reference/runtime/#type-PlatformArch */
+    export type PlatformArch = 'arm' | 'arm64' | 'x86-32' | 'x86-64' | 'mips' | 'mips64';
+    /** https://developer.chrome.com/docs/extensions/reference/runtime/#type-PlatformNaclArch */
+    export type PlatformNaclArch = 'arm' | 'x86-32' | 'x86-64' | 'mips' | 'mips64';
+    /** https://developer.chrome.com/docs/extensions/reference/runtime/#type-OnInstalledReason */
+    export enum OnInstalledReason {
+        INSTALL = 'install',
+        UPDATE = 'update',
+        CHROME_UPDATE = 'chrome_update',
+        SHARED_MODULE_UPDATE = 'shared_module_update'
+    }
+
     export interface LastError {
         /** Optional. Details about the error which occurred.  */
         message?: string | undefined;
@@ -6461,9 +6542,8 @@ declare namespace chrome.runtime {
     export interface InstalledDetails {
         /**
          * The reason that this event is being dispatched.
-         * One of: "install", "update", "chrome_update", or "shared_module_update"
          */
-        reason: string;
+        reason: OnInstalledReason;
         /**
          * Optional.
          * Indicates the previous version of the extension, which has just been updated. This is present only if 'reason' is 'update'.
@@ -6524,19 +6604,16 @@ declare namespace chrome.runtime {
     export interface PlatformInfo {
         /**
          * The operating system chrome is running on.
-         * One of: "mac", "win", "android", "cros", "linux", or "openbsd"
          */
-        os: string;
+        os: PlatformOs;
         /**
          * The machine's processor architecture.
-         * One of: "arm", "x86-32", or "x86-64"
          */
-        arch: string;
+        arch: PlatformArch;
         /**
          * The native client architecture. This may be different from arch on some platforms.
-         * One of: "arm", "x86-32", or "x86-64"
          */
-        nacl_arch: string;
+        nacl_arch: PlatformNaclArch;
     }
 
     /**
@@ -6700,8 +6777,7 @@ declare namespace chrome.runtime {
         icons?: ManifestIcons | undefined;
 
         // Optional
-        author?: any;
-        automation?: any;
+        author?: string | undefined;
         background_page?: string | undefined;
         chrome_settings_overrides?: {
             homepage?: string | undefined;
@@ -6748,7 +6824,6 @@ declare namespace chrome.runtime {
             exclude_globs?: string[] | undefined;
         }[] | undefined;
         converted_from_user_script?: boolean | undefined;
-        copresence?: any;
         current_locale?: string | undefined;
         devtools_page?: string | undefined;
         event_rules?: {
@@ -6789,7 +6864,7 @@ declare namespace chrome.runtime {
             id?: string | undefined;
             description?: string | undefined;
             language?: string | undefined;
-            layouts?: any[] | undefined;
+            layouts?: string[] | undefined;
         }[] | undefined;
         key?: string | undefined;
         minimum_chrome_version?: string | undefined;
@@ -6831,7 +6906,6 @@ declare namespace chrome.runtime {
             content_security_policy?: string | undefined;
         } | undefined;
         short_name?: string | undefined;
-        signature?: any;
         spellcheck?: {
             dictionary_language?: string | undefined;
             dictionary_locale?: string | undefined;
@@ -6841,7 +6915,6 @@ declare namespace chrome.runtime {
         storage?: {
             managed_schema: string;
         } | undefined;
-        system_indicator?: any;
         tts_engine?: {
             voices: {
                 voice_name: string;
@@ -7089,7 +7162,10 @@ declare namespace chrome.runtime {
 declare namespace chrome.scripting {
 
     /* The CSS style origin for a style change. */
-    export type StyleOrigin = "AUTHOR" | "USER";
+    export type StyleOrigin = 'AUTHOR' | 'USER';
+
+    /* The JavaScript world for a script to execute within. */
+    export type ExecutionWorld = 'ISOLATED' | 'MAIN';
 
     export interface InjectionResult {
         /* The frame associated with the injection. */
@@ -7121,6 +7197,8 @@ declare namespace chrome.scripting {
     export type ScriptInjection<Args extends any[] = []> = {
         /* Details specifying the target into which to inject the script. */
         target: InjectionTarget;
+        /* The JavaScript world for a script to execute within. */
+        world?: ExecutionWorld;
     } & ({
         /* The path of the JS files to inject, relative to the extension's root directory. NOTE: Currently a maximum of one file is supported. Exactly one of files and function must be specified. */
         files: string[];
@@ -9768,6 +9846,8 @@ declare namespace chrome.ttsEngine {
  * @since Chrome 13.
  */
 declare namespace chrome.types {
+    type settingsScope = 'regular' | 'regular_only' | 'incognito_persistent' | 'incognito_session_only' | undefined;
+
     export interface ChromeSettingClearDetails {
         /**
          * Optional.
@@ -9777,7 +9857,7 @@ declare namespace chrome.types {
          * • incognito_persistent: setting for the incognito profile that survives browser restarts (overrides regular preferences),
          * • incognito_session_only: setting for the incognito profile that can only be set during an incognito session and is deleted when the incognito session ends (overrides regular and incognito_persistent preferences).
          */
-        scope?: string | undefined;
+        scope?: settingsScope;
     }
 
     export interface ChromeSettingSetDetails extends ChromeSettingClearDetails {
@@ -9794,7 +9874,7 @@ declare namespace chrome.types {
          * • incognito_persistent: setting for the incognito profile that survives browser restarts (overrides regular preferences),
          * • incognito_session_only: setting for the incognito profile that can only be set during an incognito session and is deleted when the incognito session ends (overrides regular and incognito_persistent preferences).
          */
-        scope?: string | undefined;
+        scope?: settingsScope;
     }
 
     export interface ChromeSettingGetDetails {
@@ -9815,7 +9895,7 @@ declare namespace chrome.types {
          * • controllable_by_this_extension: can be controlled by this extension
          * • controlled_by_this_extension: controlled by this extension
          */
-        levelOfControl: string;
+        levelOfControl: 'not_controllable' | 'controlled_by_other_extensions' | 'controllable_by_this_extension' | 'controlled_by_this_extension';
         /** The value of the setting. */
         value: any;
         /**
@@ -9953,14 +10033,14 @@ declare namespace chrome.vpnProvider {
 declare namespace chrome.wallpaper {
     export interface WallpaperDetails {
         /** Optional. The jpeg or png encoded wallpaper image. */
-        data?: any;
+        data?: ArrayBuffer | undefined;
         /** Optional. The URL of the wallpaper to be set. */
         url?: string | undefined;
         /**
          * The supported wallpaper layouts.
          * One of: "STRETCH", "CENTER", or "CENTER_CROPPED"
          */
-        layout: string;
+        layout: 'STRETCH' | 'CENTER' | 'CENTER_CROPPED';
         /** The file name of the saved wallpaper. */
         filename: string;
         /** Optional. True if a 128x60 thumbnail should be generated. */
@@ -9972,7 +10052,7 @@ declare namespace chrome.wallpaper {
      * @param callback
      * Optional parameter thumbnail: The jpeg encoded wallpaper thumbnail. It is generated by resizing the wallpaper to 128x60.
      */
-    export function setWallpaper(details: WallpaperDetails, callback: (thumbnail: any) => void): void;
+    export function setWallpaper(details: WallpaperDetails, callback: (thumbnail?: ArrayBuffer) => void): void;
 }
 
 ////////////////////
@@ -10115,6 +10195,13 @@ declare namespace chrome.webNavigation {
      */
     export function getFrame(details: GetFrameDetails, callback: (details: GetFrameResultDetails | null) => void): void;
     /**
+     * Retrieves information about the given frame. A frame refers to an <iframe> or a <frame> of a web page and is identified by a tab ID and a frame ID.
+     * @param details Information about the frame to retrieve information about.
+     * @return The getFrame method provides its result via callback or returned as a Promise (MV3 only).
+     */
+    export function getFrame(details: GetFrameDetails): Promise<GetFrameResultDetails | null>;
+
+    /**
      * Retrieves information about all frames of a given tab.
      * @param details Information about the tab to retrieve all frames from.
      * @param callback
@@ -10124,7 +10211,14 @@ declare namespace chrome.webNavigation {
         details: GetAllFrameDetails,
         callback: (details: GetAllFrameResultDetails[] | null) => void,
     ): void;
-
+    /**
+     * Retrieves information about all frames of a given tab.
+     * @param details Information about the tab to retrieve all frames from.
+     * @return The getAllFrames method provides its result via callback or returned as a Promise (MV3 only).
+     */
+    export function getAllFrames(
+        details: GetAllFrameDetails,
+    ): Promise<GetAllFrameResultDetails[] | null>;
     /** Fired when the reference fragment of a frame was updated. All future events for that frame will use the updated URL. */
     export var onReferenceFragmentUpdated: WebNavigationTransitionalEvent;
     /** Fired when a document, including the resources it refers to, is completely loaded and initialized. */
@@ -10688,10 +10782,20 @@ declare namespace chrome.windows {
     }
 
     export interface WindowIdEvent
-        extends chrome.events.Event<(windowId: number, filters?: WindowEventFilter) => void> { }
+        extends chrome.events.Event<(windowId: number) => void> {
+            addListener(
+                callback: (windowId: number) => void,
+                filters?: WindowEventFilter,
+            ): void;
+    }
 
     export interface WindowReferenceEvent
-        extends chrome.events.Event<(window: Window, filters?: WindowEventFilter) => void> { }
+        extends chrome.events.Event<(window: Window) => void> {
+            addListener(
+                callback: (window: Window) => void,
+                filters?: WindowEventFilter,
+            ): void;
+    }
 
     /**
      * Specifies what type of browser window to create.
@@ -10898,6 +11002,18 @@ declare namespace chrome.declarativeNetRequest {
     /** Ruleset ID for the session-scoped rules added by the extension. */
     export const SESSION_RULESET_ID: string;
 
+    /** This describes the HTTP request method of a network request.  */
+    export enum RequestMethod {
+        CONNECT = "connect",
+        DELETE = "delete",
+        GET = "get",
+        HEAD = "head",
+        OPTIONS = "options",
+        PATCH = "patch",
+        POST = "post",
+        PUT = "put"
+    }
+
     /** This describes the resource type of the network request. */
     export enum ResourceType {
         MAIN_FRAME = "main_frame",
@@ -10907,11 +11023,11 @@ declare namespace chrome.declarativeNetRequest {
         IMAGE = "image",
         FONT = "font",
         OBJECT = "object",
-        XML_HTTP_REQUEST = "xmlhttprequest",
+        XMLHTTPREQUEST = "xmlhttprequest",
         PING = "ping",
         CSP_REPORT = "csp_report",
         MEDIA = "media",
-        WEB_SOCKET = "websocket",
+        WEBSOCKET = "websocket",
         OTHER = "other"
     }
 
@@ -11023,13 +11139,15 @@ declare namespace chrome.declarativeNetRequest {
         type: RuleActionType;
     }
 
-    export interface RuleCondition {
-        /** Specifies whether the network request is first-party or third-party to the domain from which it originated.
+    export type RuleCondition = {
+        /**
+         * Specifies whether the network request is first-party or third-party to the domain from which it originated.
          * If omitted, all requests are accepted.
          */
         domainType?: DomainType | undefined;
 
-        /** The rule will only match network requests originating from the list of domains.
+        /**
+         * The rule will only match network requests originating from the list of domains.
          * If the list is omitted, the rule is applied to requests from all domains.
          * An empty list is not allowed.
          *
@@ -11041,7 +11159,8 @@ declare namespace chrome.declarativeNetRequest {
          */
         domains?: string[] | undefined;
 
-        /** The rule will not match network requests originating from the list of excludedDomains.
+        /**
+         * The rule will not match network requests originating from the list of excludedDomains.
          * If the list is empty or omitted, no domains are excluded.
          * This takes precedence over domains.
          *
@@ -11053,11 +11172,27 @@ declare namespace chrome.declarativeNetRequest {
          */
         excludedDomains?: string[] | undefined;
 
-        /** List of resource types which the rule won't match.
-         * Only one of resourceTypes and excludedResourceTypes should be specified.
+        /**
+         * List of request methods which the rule won't match.
+         * Only one of requestMethods and excludedRequestMethods should be specified.
+         * If neither of them is specified, all request methods are matched.
+         */
+        excludedRequestMethods?: RequestMethod[] | undefined;
+
+        /**
+         * List of resource types which the rule won't match.
+         * Only one of {@link chrome.declarativeNetRequest.RuleCondition.resourceTypes}
+         * and {@link chrome.declarativeNetRequest.RuleCondition.excludedResourceTypes} should be specified.
          * If neither of them is specified, all resource types except "main_frame" are blocked.
          */
         excludedResourceTypes?: ResourceType[] | undefined;
+
+        /**
+         * List of {@link chrome.tabs.Tab.id} which the rule should not match.
+         * An ID of {@link chrome.tabs.TAB_ID_NONE} excludes requests which don't originate from a tab.
+         * Only supported for session-scoped rules.
+         */
+        excludedTabIds?: number[] | undefined;
 
         /**
          * Whether the urlFilter or regexFilter (whichever is specified) is case sensitive.
@@ -11065,7 +11200,8 @@ declare namespace chrome.declarativeNetRequest {
          */
         isUrlFilterCaseSensitive?: boolean | undefined;
 
-        /** Regular expression to match against the network request url.
+        /**
+         * Regular expression to match against the network request url.
          * This follows the RE2 syntax.
          *
          * Note: Only one of urlFilter or regexFilter can be specified.
@@ -11075,14 +11211,22 @@ declare namespace chrome.declarativeNetRequest {
          */
         regexFilter?: string | undefined;
 
-        /** List of resource types which the rule can match.
-         * An empty list is not allowed.
-         *
-         * Note: this must be specified for allowAllRequests rules and may only include the sub_frame and main_frame resource types.
+        /**
+         * List of HTTP request methods which the rule can match. An empty list is not allowed.
+         * Note: Specifying a {@link chrome.declarativeNetRequest.RuleCondition.requestMethods} rule condition will also exclude non-HTTP(s) requests,
+         * whereas specifying {@link chrome.declarativeNetRequest.RuleCondition.excludedRequestMethods} will not.
          */
-        resourceTypes?: ResourceType[] | undefined;
+        requestMethods?: RequestMethod[];
 
-        /** The pattern which is matched against the network request url.
+        /**
+         * List of {@link chrome.tabs.Tab.id} which the rule should not match.
+         * An ID of {@link chrome.tabs.TAB_ID_NONE} excludes requests which don't originate from a tab.
+         * An empty list is not allowed. Only supported for session-scoped rules.
+         */
+        tabIds?: number[] | undefined;
+
+        /**
+         * The pattern which is matched against the network request url.
          * Supported constructs:
          *
          * '*' : Wildcard: Matches any number of characters.
@@ -11107,7 +11251,26 @@ declare namespace chrome.declarativeNetRequest {
          * For example, when the request url is http://abc.рф?q=ф, the urlFilter will be matched against the url http://abc.xn--p1ai/?q=%D1%84.
          */
         urlFilter?: string | undefined;
-    }
+    } & (
+        | {
+              /**
+               * List of resource types which the rule won't match.
+               * Only one of {@link chrome.declarativeNetRequest.RuleCondition.resourceTypes}
+               * and {@link chrome.declarativeNetRequest.RuleCondition.excludedResourceTypes} should be specified.
+               * If neither of them is specified, all resource types except "main_frame" are blocked.
+               */
+              excludedResourceTypes?: ResourceType[] | undefined;
+          }
+        | {
+              /**
+               * List of resource types which the rule can match.
+               * An empty list is not allowed.
+               *
+               * Note: this must be specified for allowAllRequests rules and may only include the sub_frame and main_frame resource types.
+               */
+              resourceTypes?: ResourceType[] | undefined;
+          }
+    );
 
     export interface MatchedRule {
         /** A matching rule's ID. */
@@ -11277,7 +11440,8 @@ declare namespace chrome.declarativeNetRequest {
         /** Rules to add. */
         addRules?: Rule[] | undefined;
 
-        /** IDs of the rules to remove.
+        /**
+         * IDs of the rules to remove.
          * Any invalid IDs will be ignored.
          */
         removeRuleIds?: number[] | undefined;

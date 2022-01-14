@@ -35,10 +35,13 @@ interface SerialOptions {
     flowControl?: FlowControlType | undefined;
 }
 
-interface SerialPort {
-    open(options: SerialOptions): Promise<void>;
+interface SerialPort extends EventTarget {
+    onconnect: EventHandler;
+    ondisconnect: EventHandler;
     readonly readable: ReadableStream; // Chromium implementation (spec: in)
     readonly writable: WritableStream; // Chromium implementation (spec: out)
+    open(options: SerialOptions): Promise<void>;
+    close(): Promise<void>;
     getInfo(): Partial<SerialPortInfo>;
 }
 

@@ -49,6 +49,23 @@ declare namespace Faker {
             timeZone(): string;
         };
 
+        animal: {
+            dog(): string;
+            cat(): string;
+            snake(): string;
+            bear(): string;
+            lion(): string;
+            cetacean(): string;
+            horse(): string;
+            bird(): string;
+            cow(): string;
+            fish(): string;
+            crocodilia(): string;
+            insect(): string;
+            rabbit(): string;
+            type(): string;
+        };
+
         commerce: {
             color(): string;
             department(): string;
@@ -99,7 +116,8 @@ declare namespace Faker {
         date: {
             past(years?: number, refDate?: string | Date): Date;
             future(years?: number, refDate?: string | Date): Date;
-            between(from: string | number | Date, to: string | Date): Date;
+            between(from: string | number | Date, to: string | number | Date): Date;
+            betweens(from: string | number | Date, to: string | number | Date, num?: number): Date[];
             recent(days?: number, refDate?: string | Date): Date;
             soon(days?: number, refDate?: string | Date): Date;
             month(options?: { abbr?: boolean | undefined; context?: boolean | undefined }): string;
@@ -192,6 +210,7 @@ declare namespace Faker {
             exampleEmail(firstName?: string, lastName?: string): string;
             userName(firstName?: string, lastName?: string): string;
             protocol(): string;
+            httpMethod(): 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
             url(): string;
             domainName(): string;
             domainSuffix(): string;

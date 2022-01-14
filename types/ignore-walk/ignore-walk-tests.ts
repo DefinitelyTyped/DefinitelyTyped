@@ -17,3 +17,9 @@ console.log(results[0]);
 
 const walker = new walk.WalkerSync();
 console.log((walker.start().result as string[]).filter(entry => entry.substring(0, 5) !== '.git/'));
+
+walk({
+  path: process.cwd(),
+  isSymbolicLink: true,
+  ignoreFiles: ['.gitignore']
+});

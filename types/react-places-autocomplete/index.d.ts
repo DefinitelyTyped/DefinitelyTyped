@@ -35,7 +35,7 @@ export interface PropTypes {
     onSelect?: ((address: string, placeID: string) => void) | undefined;
     searchOptions?: {
         bounds?: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral | undefined;
-        componentRestrictions?: google.maps.GeocoderComponentRestrictions | undefined;
+        componentRestrictions?: google.maps.places.ComponentRestrictions | undefined;
         location?: google.maps.LatLng | google.maps.LatLngLiteral | undefined;
         offset?: number | string | undefined;
         radius?: number | string | undefined;

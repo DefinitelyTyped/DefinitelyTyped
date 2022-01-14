@@ -4,6 +4,7 @@
 //                 Tom Sawkins <https://github.com/tomSawkins>
 //                 Andrew Li <https://github.com/Li357>
 //                 Clément Rucheton <https://github.com/rucheton>
+//                 alternacrow <https://github.com/alternacrow>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
 
@@ -23,7 +24,7 @@ export interface ReceivedNotification {
     badge: number;
     alert: object;
     sound: string;
-    id: number;
+    id: string;
     action?: string | undefined;
     finish: (fetchResult: string) => void;
 }
@@ -80,7 +81,7 @@ export class PushNotificationObject {
     category?: any;
 
     /* iOS and Android properties */
-    id?: number | undefined;
+    id?: string | number | undefined;
     title?: string | undefined;
     message: string;
     userInfo?: any;
@@ -107,7 +108,7 @@ export class PushNotificationDeliveredObject {
 }
 
 export class PushNotificationScheduledLocalObject {
-    id: number;
+    id: string;
     date: Date;
     title: string;
     body: string;

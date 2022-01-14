@@ -1,9 +1,7 @@
-// Type definitions for jira-client 6.21
-// Project: http://github.com/jira-node/node-jira-client
-// Definitions by: Anatoliy Ostapenko <https://github.com/KOPTE3>
-//                 Orta Therox <https://github.com/orta>
+// Type definitions for jira-client 7.1
+// Project: https://github.com/jira-node/node-jira-client
+// Definitions by: Orta Therox <https://github.com/orta>
 //                 Robert Kesterson <https://github.com/rkesters>
-//                 Lemeasle Quentin <https://github.com/Worlor>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -95,6 +93,12 @@ declare class JiraApi {
      * @param rapidViewId - the id for the rapid view
      */
     listSprints(rapidViewId: string): Promise<JiraApi.JsonResponse>;
+
+    /**
+     * Get details about a Sprint
+     * @param sprintId - the id for the sprint view
+     */
+     getSprint(sprintId: string): Promise<JiraApi.JsonResponse>;
 
     /**
      * Add an issue to the project's current sprint
@@ -948,6 +952,13 @@ declare class JiraApi {
      * @param endpoint - Rest API endpoint
      */
     genericGet(endpoint: string): Promise<JiraApi.JsonResponse>;
+
+    /**
+     * Generic Get Request to the Agile API
+     * [Jira Doc](https://docs.atlassian.com/jira-software/REST/cloud/2/)
+     * @param endpoint - Rest API endpoint
+     */
+     genericAgileGet(endpoint: string): Promise<JiraApi.JsonResponse>;
 
     private makeRequestHeader(uri: string, options?: JiraApi.UriOptions);
 

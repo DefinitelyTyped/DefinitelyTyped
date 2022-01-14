@@ -1,10 +1,12 @@
 import * as R from 'ramda';
 
 () => {
-  // $ExpectType { a: number; b: number; c: number; }
+  // Order of string keys matters. c, a, b ¯\_(ツ)_/¯
+  // $ExpectType { c: number; a: number; b: number; }
   R.zipObj(['a', 'b', 'c'], [1, 2, 3]); // => {a: 1, b: 2, c: 3}
 
-  // $ExpectType { a: number; b: number; c: number; }
+  // Order of string keys matters. c, a, b ¯\_(ツ)_/¯
+  // $ExpectType { c: number; a: number; b: number; }
   R.zipObj(['a', 'b', 'c'])([1, 2, 3]); // => {a: 1, b: 2, c: 3}
 
   // Order of numeric keys matters. 2, 3, 1 ¯\_(ツ)_/¯

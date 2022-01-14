@@ -16,7 +16,7 @@ declare module "react-breadcrumbs" {
         hidden?: boolean | undefined;
         separator?: React.ReactNode | undefined;
         setCrumbs?: ((crumbs: Crumbs) => React.ReactNode) | undefined;
-        wrapper?: React.StatelessComponent | React.ComponentClass | undefined;
+        wrapper?: React.FunctionComponent | React.ComponentClass | undefined;
     }
 
     class Breadcrumbs extends React.Component<BreadcrumbsProps> {}

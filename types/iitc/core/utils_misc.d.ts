@@ -20,7 +20,7 @@ declare global {
 
     /**
      * read cookie by name.
-     * http://stackoverflow.com/a/5639455/1684530 by cwolves
+     * https://stackoverflow.com/a/5639455/1684530 by cwolves
      */
     function readCookie(name: string): string;
 
@@ -35,7 +35,7 @@ declare global {
 
     /**
      * add thousand separators to given number.
-     * http://stackoverflow.com/a/1990590/1684530 by Doug Neiner.
+     * https://stackoverflow.com/a/1990590/1684530 by Doug Neiner.
      */
     function digits(d: number | string): string;
 

@@ -1,5 +1,5 @@
 /**
- * This module provides an implementation of a subset of the W3C[Web Performance APIs](https://w3c.github.io/perf-timing-primer/) as well as additional APIs for
+ * This module provides an implementation of a subset of the W3C [Web Performance APIs](https://w3c.github.io/perf-timing-primer/) as well as additional APIs for
  * Node.js-specific performance measurements.
  *
  * Node.js supports the following [Web Performance APIs](https://w3c.github.io/perf-timing-primer/):
@@ -26,7 +26,7 @@
  *   performance.measure('A to B', 'A', 'B');
  * });
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v16.7.0/lib/perf_hooks.js)
+ * @see [source](https://github.com/nodejs/node/blob/v17.0.0/lib/perf_hooks.js)
  */
 declare module 'perf_hooks' {
     import { AsyncResource } from 'node:async_hooks';
@@ -84,7 +84,7 @@ declare module 'perf_hooks' {
          * Additional detail specific to the `entryType`.
          * @since v16.0.0
          */
-        readonly details?: NodeGCPerformanceDetail | unknown | undefined; // TODO: Narrow this based on entry type.
+        readonly detail?: NodeGCPerformanceDetail | unknown | undefined; // TODO: Narrow this based on entry type.
     }
     /**
      * _This property is an extension by Node.js. It is not available in Web browsers._
@@ -397,9 +397,11 @@ declare module 'perf_hooks' {
             options:
                 | {
                       entryTypes: ReadonlyArray<EntryType>;
+                      buffered?: boolean | undefined;
                   }
                 | {
                       type: EntryType;
+                      buffered?: boolean | undefined;
                   }
         ): void;
     }
@@ -485,7 +487,7 @@ declare module 'perf_hooks' {
     }
     interface RecordableHistogram extends Histogram {
         /**
-         * @since v15.9.0
+         * @since v15.9.0, v14.18.0
          * @param val The amount to record in the histogram.
          */
         record(val: number | bigint): void;
@@ -494,7 +496,7 @@ declare module 'perf_hooks' {
          * previous call to `recordDelta()` and records that amount in the histogram.
          *
          * ## Examples
-         * @since v15.9.0
+         * @since v15.9.0, v14.18.0
          */
         recordDelta(): void;
     }
@@ -546,7 +548,7 @@ declare module 'perf_hooks' {
     }
     /**
      * Returns a `RecordableHistogram`.
-     * @since v15.9.0
+     * @since v15.9.0, v14.18.0
      */
     function createHistogram(options?: CreateHistogramOptions): RecordableHistogram;
 }

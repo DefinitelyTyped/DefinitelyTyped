@@ -6,13 +6,11 @@
 //                 taoqf <https://github.com/taoqf>
 //                 Dadstart <https://github.com/Dadstart>
 //                 Jared Szechy <https://github.com/szechyjs>
-//                 Drew Diamantoukos <https://github.com/MercifulCode>
 //                 Sooraj Pudiyadath <https://github.com/soorajpudiyadath>
 //                 Jon Freedman <https://github.com/jonfreedman>
 //                 Megan Riel-Mehan <https://github.com/meganrm>
 //                 Josh Miles <https://github.com/milesjos>
 //                 Pramod Mathai  <https://github.com/skippercool>
-//                 Takafumi Yamaguchi <https://github.com/zeroyoichihachi>
 //                 Michael Adams <https://github.com/mtadams007>
 //                 Michael Arnett <https://github.com/marnett-git>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
@@ -301,7 +299,15 @@ export interface PolarLayout {
     uirevision: string | number;
 }
 
+export interface PlotlyDataLayoutConfig {
+    data: Data[];
+    layout?: Partial<Layout>;
+    config?: Partial<Config>;
+}
+
 export type Root = string | HTMLElement;
+
+export type RootOrData = Root | PlotlyDataLayoutConfig;
 
 export function newPlot(
     root: Root,
@@ -348,8 +354,8 @@ export function prependTraces(
     update: Data | Data[],
     indices: number | number[],
 ): Promise<PlotlyHTMLElement>;
-export function toImage(root: Root, opts: ToImgopts): Promise<string>;
-export function downloadImage(root: Root, opts: DownloadImgopts): Promise<string>;
+export function toImage(root: RootOrData, opts?: ToImgopts): Promise<string>;
+export function downloadImage(root: RootOrData, opts: DownloadImgopts): Promise<string>;
 export function react(
     root: Root,
     data: Data[],
@@ -1260,6 +1266,8 @@ export interface PlotData {
     showscale: boolean;
     colorscale: ColorScale;
     zsmooth: 'fast' | 'best' | false;
+    zmin: number;
+    zmax: number;
     ygap: number;
     xgap: number;
     transpose: boolean;
@@ -1280,8 +1288,8 @@ export interface PlotData {
     customdata: Datum[] | Datum[][];
     selectedpoints: Datum[];
     domain: Partial<{
-        rows: number;
-        columns: number;
+        row: number;
+        column: number;
         x: number[];
         y: number[];
     }>;

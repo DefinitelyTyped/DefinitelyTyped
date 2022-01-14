@@ -13,6 +13,7 @@ export class Breadcrumbs extends React.Component<BreadcrumbsProps> {}
 export class BreadcrumbsItem extends React.Component<BreadcrumbsItemProps> {}
 
 export interface BreadcrumbsProviderProps {
+  children?: React.ReactNode;
   shouldBreadcrumbsUpdate?: ((...args: any[]) => any) | undefined;
 }
 
@@ -28,5 +29,6 @@ export interface BreadcrumbsProps {
 }
 
 export interface BreadcrumbsItemProps {
+  children?: React.ReactNode;
   to: string;
 }

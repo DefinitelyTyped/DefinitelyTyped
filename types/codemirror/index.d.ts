@@ -528,6 +528,11 @@ declare namespace CodeMirror {
         /** Give the editor focus. */
         focus(): void;
 
+        /**
+         * Allow the given string to be translated with the phrases option.
+         */
+        phrase(text: string): unknown;
+
         /** Returns the hidden textarea used to read input. */
         getInputField(): HTMLTextAreaElement;
 
@@ -718,6 +723,30 @@ declare namespace CodeMirror {
         [P in keyof T]: T[P];
     } & { name: string };
 
+    interface SelectionOptions {
+        /**
+         * Determines whether the selection head should be scrolled into view. Defaults to true.
+         */
+        scroll?: boolean | undefined;
+
+        /**
+         * Determines whether the selection history event may be merged with the previous one.
+         * When an origin starts with the character +, and the last recorded selection had the same origin
+         * and was similar (close in time, both collapsed or both non-collapsed), the new one will replace
+         * the old one. When it starts with *, it will always replace the previous event (if that had the same
+         * origin). Built-in motion uses the "+move" origin. User input uses the "+input" origin.
+         */
+        origin?: string | undefined;
+
+        /**
+         * Determine the direction into which the selection endpoints should be adjusted when they fall inside
+         * an atomic range. Can be either -1 (backward) or 1 (forward). When not given, the bias will be based
+         * on the relative position of the old selection—the editor will try to move further away from that,
+         * to prevent getting stuck.
+         */
+        bias?: number | undefined;
+    }
+
     interface DocConstructor {
         new (text: string, mode?: string | ModeSpec<ModeSpecOptions>, firstLineNumber?: number, lineSep?: string): Doc;
         (text: string, mode?: string | ModeSpec<ModeSpecOptions>, firstLineNumber?: number, lineSep?: string): Doc;
@@ -873,22 +902,44 @@ declare namespace CodeMirror {
         setSelections(
             ranges: Array<{ anchor: Position; head: Position }>,
             primary?: number,
-            options?: { bias?: number | undefined; origin?: string | undefined; scroll?: boolean | undefined },
+            options?: SelectionOptions,
         ): void;
 
         /**
-         * Similar to setSelection , but will, if shift is held or the extending flag is set,
-         * move the head of the selection while leaving the anchor at its current place.
-         * pos2 is optional , and can be passed to ensure a region (for example a word or paragraph) will end up selected
-         * (in addition to whatever lies between that region and the current anchor).
+         * Adds a new selection to the existing set of selections, and makes it the primary selection.
          */
-        extendSelection(from: Position, to?: Position): void;
+        addSelection(anchor: Position, head?: Position): void;
+
+        /**
+         * Similar to setSelection, but will, if shift is held or the extending flag is set,
+         * move the head of the selection while leaving the anchor at its current place.
+         * to is optional, and can be passed to ensure a region (for example a word or paragraph) will end up selected
+         * (in addition to whatever lies between that region and the current anchor). When multiple selections
+         * are present, all but the primary selection will be dropped by this method. Supports the same options
+         * as setSelection.
+         */
+        extendSelection(from: Position, to?: Position, options?: SelectionOptions): void;
+
+        /**
+         * An equivalent of extendSelection that acts on all selections at once.
+         */
+        extendSelections(heads: Position[], options?: SelectionOptions): void;
+
+        /**
+         * Applies the given function to all existing selections, and calls extendSelections on the result.
+         */
+        extendSelectionsBy(f: (range: Range) => Position): void;
 
         /**
          * Sets or clears the 'extending' flag , which acts similar to the shift key,
          * in that it will cause cursor movement and calls to extendSelection to leave the selection anchor in place.
          */
         setExtending(value: boolean): void;
+
+        /**
+         * Get the value of the 'extending' flag.
+         */
+        getExtending(): boolean;
 
         /** Create a new document that's linked to the target document. Linked documents will stay in sync (changes to one are also applied to the other) until unlinked. */
         linkedDoc(options: {
@@ -925,6 +976,16 @@ declare namespace CodeMirror {
 
         /** Redo one undone edit. */
         redo(): void;
+
+        /**
+         * Undo one edit or selection change.
+         */
+        undoSelection(): void;
+
+        /**
+         * Redo one undone edit or selection change.
+         */
+        redoSelection(): void;
 
         /** Returns an object with {undo, redo } properties , both of which hold integers , indicating the amount of stored undo and redo operations. */
         historySize(): { undo: number; redo: number };
@@ -1356,6 +1417,13 @@ declare namespace CodeMirror {
          */
         autofocus?: boolean | undefined;
 
+        /**
+         * Some addons run user-visible strings (such as labels in the interface) through the phrase method to allow for translation.
+         * This option determines the return value of that method. When it is null or an object that doesn't have a property named by
+         * the input string, that string is returned. Otherwise, the value of the property corresponding to that string is returned.
+         */
+        phrases?: {[s: string]: unknown} | undefined;
+
         /** Controls whether drag-and - drop is enabled. On by default. */
         dragDrop?: boolean | undefined;
 
@@ -1650,6 +1718,12 @@ declare namespace CodeMirror {
          * Get the string between the start of the current token and the current stream position.
          */
         current(): string;
+
+        /**
+         * Returns the content of the line n lines ahead in the stream without
+         * advancing it. Will return undefined if not found.
+         */
+        lookAhead(n: number): string | undefined;
     }
 
     /**

@@ -1,5 +1,5 @@
 declare type global_Error = Error;
-declare module Meteor {
+declare namespace Meteor {
     /** Global props **/
     /** True if running in client environment. */
     var isClient: boolean;
@@ -141,7 +141,13 @@ declare module Meteor {
         args: ReadonlyArray<EJSONable | EJSONableProperty>,
         options?: {
             wait?: boolean | undefined;
-            onResultReceived?: ((error: global_Error | Meteor.Error | undefined, result?: Result) => void) | undefined;
+            onResultReceived?:
+                | ((error: global_Error | Meteor.Error | undefined, result?: Result) => void)
+                | undefined;
+            /**
+             * (Client only) if true, don't send this method again on reload, simply call the callback an error with the error code 'invocation-failed'.
+             */
+            noRetry?: boolean | undefined;
             returnStubValue?: boolean | undefined;
             throwStubExceptions?: boolean | undefined;
         },
@@ -247,7 +253,7 @@ declare module Meteor {
     /** Pub/Sub **/
 }
 
-declare module Meteor {
+declare namespace Meteor {
     /** Login **/
     interface LoginWithExternalServiceOptions {
         requestPermissions?: ReadonlyArray<string> | undefined;
@@ -294,8 +300,6 @@ declare module Meteor {
         callback?: (error?: global_Error | Meteor.Error | Meteor.TypedError) => void,
     ): void;
 
-    function loggingIn(): boolean;
-
     function loginWith<ExternalService>(
         options?: {
             requestPermissions?: ReadonlyArray<string> | undefined;
@@ -318,6 +322,8 @@ declare module Meteor {
         token: string,
         callback?: (error?: global_Error | Meteor.Error | Meteor.TypedError) => void,
     ): void;
+
+    function loggingIn(): boolean;
 
     function loggingOut(): boolean;
 
@@ -374,7 +380,7 @@ declare module Meteor {
     /** Pub/Sub **/
 }
 
-declare module Meteor {
+declare namespace Meteor {
     /** Connection **/
     interface Connection {
         id: string;
@@ -450,7 +456,7 @@ declare interface Subscription {
     userId: string | null;
 }
 
-declare module Meteor {
+declare namespace Meteor {
     /** Global props **/
     /** True if running in development environment. */
     var isDevelopment: boolean;

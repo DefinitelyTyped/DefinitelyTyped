@@ -22,10 +22,13 @@ export interface MultiSelectProps<T extends ListBoxBaseItemType = string> extend
     direction?: VerticalDirection | undefined,
     disabled?: ListBoxProps["disabled"] | undefined,
     downshiftProps?: any, // TODO
+    helperText?: React.ReactNode | undefined,
+    hideLabel?: boolean | undefined;
     id: string,
     initialSelectedItems?: readonly T[] | undefined,
     items: readonly T[],
-    itemToString?(item: T | null | undefined): string;
+    itemToElement?: React.JSXElementConstructor<T>;
+    itemToString?(item: T): string;
     inline?: boolean | undefined,
     invalid?: boolean | undefined,
     invalidText?: React.ReactNode | undefined,

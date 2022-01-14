@@ -1,4 +1,4 @@
-// Type definitions for react-big-calendar 0.33
+// Type definitions for react-big-calendar 0.36
 // Project: https://github.com/jquense/react-big-calendar
 // Definitions by: Piotr Witek <https://github.com/piotrwitek>
 //                 Austin Turner <https://github.com/paustint>
@@ -73,7 +73,7 @@ export type DayLayoutAlgorithm = 'overlap' | 'no-overlap';
 export type NavigateAction = 'PREV' | 'NEXT' | 'TODAY' | 'DATE';
 export interface Event {
     allDay?: boolean | undefined;
-    title?: string | undefined;
+    title?: React.ReactNode | undefined;
     start?: Date | undefined;
     end?: Date | undefined;
     resource?: any;
@@ -165,6 +165,14 @@ export interface HeaderProps {
     localizer: DateLocalizer;
 }
 
+export interface DateHeaderProps {
+    date: Date;
+    drilldownView: string;
+    isOffRange: boolean;
+    label: string;
+    onDrillDown: () => void;
+}
+
 export interface ResourceHeaderProps {
     label: React.ReactNode;
     index: number;
@@ -199,8 +207,8 @@ export interface Components<TEvent extends object = Event, TResource extends obj
       event?: React.ComponentType<EventProps<TEvent>> | undefined;
     } | undefined;
     month?: {
-        header?: React.ComponentType | undefined;
-        dateHeader?: React.ComponentType | undefined;
+        header?: React.ComponentType<HeaderProps> | undefined;
+        dateHeader?: React.ComponentType<DateHeaderProps> | undefined;
         event?: React.ComponentType<EventProps<TEvent>> | undefined;
     } | undefined;
     /**
@@ -224,6 +232,12 @@ export interface ToolbarProps<TEvent extends object = Event, TResource extends o
 export interface EventProps<TEvent extends object = Event> {
     event: TEvent;
     title: string;
+    continuesPrior: boolean;
+    continuesAfter: boolean;
+    isAllDay: boolean;
+    localizer: DateLocalizer;
+    slotStart: Date;
+    slotEnd: Date;
 }
 
 export interface EventWrapperProps<TEvent extends object = Event> {
@@ -295,10 +309,12 @@ export class DateLocalizer {
     constructor(spec: DateLocalizerSpec);
 
     format(value: FormatInput, format: string, culture: Culture): string;
+    messages: Messages;
 }
 
-export interface CalendarProps<TEvent extends object = Event, TResource extends object = object>
-    extends React.Props<Calendar<TEvent, TResource>> {
+export interface CalendarProps<TEvent extends object = Event, TResource extends object = object> {
+    children?: React.ReactNode;
+    ref?: React.LegacyRef<Calendar<TEvent, TResource>> | undefined;
     localizer: DateLocalizer;
 
     date?: stringOrDate | undefined;
@@ -390,6 +406,8 @@ export interface components {
 export function globalizeLocalizer(globalizeInstance: object): DateLocalizer;
 export function momentLocalizer(momentInstance: object): DateLocalizer;
 export function dateFnsLocalizer(config: object): DateLocalizer;
+export function luxonLocalizer(config: object): DateLocalizer;
+
 export const Navigate: {
     PREVIOUS: 'PREV';
     NEXT: 'NEXT';

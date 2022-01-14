@@ -30,6 +30,6 @@ export function verifySignature(
 export function validateSin(sin: string, callback?: callback): boolean | void;
 export function encrypt(password: BinaryLike, str: string): string;
 export function decrypt(password: BinaryLike, str: string): string;
-export function middleware(): RequestHandler;
+export const middleware: RequestHandler;
 
 export {};

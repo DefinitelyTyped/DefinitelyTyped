@@ -3,7 +3,6 @@
 // Definitions by: Anton Vasin <https://github.com/antonvasin>
 //                 Victor Orlov <https://github.com/vittorio>
 //                 Louis Hache <https://github.com/lhache>
-//                 Adam Lavin <https://github.com/lavoaster>
 //                 Erin Noe-Payne <https://github.com/autoric>
 //                 akameco <https://github.com/akameco>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -16,7 +15,9 @@ export {};
 
 type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
 
-export interface BaseProps extends React.Props<any> {
+export interface BaseProps {
+    children?: React.ReactNode;
+    ref?: React.LegacyRef<any> | undefined;
     as?: React.ElementType | undefined;
 }
 

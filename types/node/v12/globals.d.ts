@@ -542,6 +542,11 @@ declare namespace NodeJS {
         ignoreErrors?: boolean | undefined;
         colorMode?: boolean | 'auto' | undefined;
         inspectOptions?: InspectOptions | undefined;
+        /**
+         * Set group indentation
+         * @default 2
+         */
+        groupIndentation?: number | undefined;
     }
 
     interface ConsoleConstructor {
@@ -629,7 +634,6 @@ declare namespace NodeJS {
         code?: string | undefined;
         path?: string | undefined;
         syscall?: string | undefined;
-        stack?: string | undefined;
     }
 
     class EventEmitter {
@@ -669,9 +673,9 @@ declare namespace NodeJS {
         writable: boolean;
         write(buffer: Uint8Array | string, cb?: (err?: Error | null) => void): boolean;
         write(str: string, encoding?: string, cb?: (err?: Error | null) => void): boolean;
-        end(cb?: () => void): void;
-        end(data: string | Uint8Array, cb?: () => void): void;
-        end(str: string, encoding?: string, cb?: () => void): void;
+        end(cb?: () => void): this;
+        end(data: string | Uint8Array, cb?: () => void): this;
+        end(str: string, encoding?: string, cb?: () => void): this;
     }
 
     interface ReadWriteStream extends ReadableStream, WritableStream { }
@@ -798,7 +802,7 @@ declare namespace NodeJS {
         /**
          * If true, a diagnostic report is generated when the process
          * receives the signal specified by process.report.signal.
-         * @defaul false
+         * @default false
          */
         reportOnSignal: boolean;
 

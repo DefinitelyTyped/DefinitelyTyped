@@ -1,6 +1,7 @@
 // Type definitions for non-npm package kakaomaps-browser 1.1
 // Project: https://apis.map.kakao.com/web/documentation/
 // Definitions by: MinByeongDon <https://github.com/MinByeongDon>
+//                 PositiveKo <https://github.com/positiveko>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 declare namespace kakao.maps {
   // # Core
@@ -422,7 +423,7 @@ declare namespace kakao.maps {
     zoom: number;
   }
   class Roadview {
-    constructor(container: HTMLElement, options: RoadviewOptions)
+    constructor(container: HTMLElement, options?: RoadviewOptions)
     setPanoId(panoId: number, position: LatLng): void;
     getPanoId(): number;
     setViewpoint(viewpoint: Viewpoint): void;
@@ -434,7 +435,7 @@ declare namespace kakao.maps {
   }
   class RoadviewClient {
     constructor()
-    getNearestPanoId(position: LatLng, radius: number, callback: () => void): void;
+    getNearestPanoId(position: LatLng, radius: number, callback: (panoId: number) => void): void;
   }
   class RoadviewOverlay {
     constructor()

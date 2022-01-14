@@ -37,6 +37,18 @@
 }
 
 {
+    const cb = new CallbackURL("my-app://");
+    cb.addParameter("foo", "bar");
+    // $ExpectType Promise<Record<string, string | number | boolean | null>>
+    cb.open();
+
+    const cb2 = new CallbackURL("shortcuts://x-callback-url/");
+    cb2.addParameter("foo", "bar");
+    // $ExpectType Promise<{ result: string | number | boolean | null; }>
+    cb2.open();
+}
+
+{
     const c = new Color('ffffff', 1);
     c.red = 42;
     c.green = 42;
@@ -45,6 +57,23 @@
 
     // $ExpectType Color
     Color.dynamic(c, Color.black());
+}
+
+{
+    // $ExpectType boolean
+    config.runsFromHomeScreen;
+    // $ExpectType boolean
+    config.runsInActionExtension;
+    // $ExpectType boolean
+    config.runsInApp;
+    // $ExpectType boolean
+    config.runsInNotification;
+    // $ExpectType boolean
+    config.runsInWidget;
+    // $ExpectType boolean
+    config.runsWithSiri;
+    // $ExpectType "small" | "medium" | "large" | "extraLarge" | null
+    config.widgetFamily;
 }
 
 {
@@ -184,6 +213,8 @@
     listWidget.presentMedium();
     // $ExpectType Promise<void>
     listWidget.presentLarge();
+    // $ExpectType Promise<void>
+    listWidget.presentExtraLarge();
 
     Script.setWidget(listWidget);
 
@@ -487,6 +518,15 @@
 }
 
 {
+    // $ExpectType Promise<CurrentLocation>
+    Location.current();
+    // $ExpectType Promise<GeocodeSummary[]>
+    Location.reverseGeocode(0, 0);
+    // $ExpectType Promise<GeocodeSummary[]>
+    Location.reverseGeocode(0, 0, "en");
+}
+
+{
     const url = 'http://httpbin.org/POST';
     const req = new Request(url);
     req.url === url;
@@ -527,4 +567,17 @@
     sf.applyHeavyWeight();
     // $ExpectType void
     sf.applyBlackWeight();
+}
+
+{
+    // $ExpectError
+    ShareSheet.present("foobar");
+    // $ExpectError
+    ShareSheet.present(42);
+    // $ExpectType Promise<ShareSheetResult>
+    ShareSheet.present([]);
+    // $ExpectType Promise<ShareSheetResult>
+    ShareSheet.present(["test"]);
+    // $ExpectType Promise<ShareSheetResult>
+    ShareSheet.present([42]);
 }

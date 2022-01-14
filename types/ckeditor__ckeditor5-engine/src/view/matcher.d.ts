@@ -26,7 +26,7 @@ export default class Matcher {
 }
 
 export type MatcherPattern =
-    | ((element: Element) => void | {
+    | ((element: Element) => void | null | {
           name?: boolean | undefined;
           attribute?: string[] | undefined;
           classes?: string[] | undefined;
@@ -49,7 +49,7 @@ export type MatcherPattern =
           classes?:
               | Array<{
                     key: string | RegExp;
-                    value: boolean | string | RegExp;
+                    value: boolean;
                 }>
               | boolean
               | string

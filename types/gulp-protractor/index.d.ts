@@ -1,4 +1,4 @@
-// Type definitions for gulp-protractor v1.0.0
+// Type definitions for gulp-protractor v4.1.1
 // Project: https://github.com/mllrsohn/gulp-protractor
 // Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -15,7 +15,9 @@ interface IOptions {
 
 interface IGulpProtractor {
     getProtractorDir(): string;
+    getProtractorCli(): string;
     protractor(options?: IOptions): NodeJS.ReadWriteStream;
+    webdriver_update_specific: gulp.TaskCallback;
     webdriver_standalone: gulp.TaskCallback;
     webdriver_update: gulp.TaskCallback;
 }

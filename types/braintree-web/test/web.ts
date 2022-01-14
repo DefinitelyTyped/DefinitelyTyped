@@ -1,4 +1,5 @@
 import * as braintree from 'braintree-web';
+import { HostedFieldsBinPayload } from 'braintree-web/modules/hosted-fields';
 
 const version: string = braintree.VERSION;
 
@@ -216,7 +217,7 @@ braintree.client.create(
                     false,
                 );
 
-                hostedFieldsInstance.on('focus', (event: braintree.HostedFieldsStateObject) => {
+                hostedFieldsInstance.on('focus', (event: braintree.HostedFieldsEvent) => {
                     console.log(event.emittedBy, 'has been focused');
                 });
 
@@ -267,7 +268,7 @@ braintree.client.create(
                     },
                 );
 
-                hostedFieldsInstance.on('cardTypeChange', (event: braintree.HostedFieldsStateObject) => {
+                hostedFieldsInstance.on('cardTypeChange', (event: braintree.HostedFieldsEvent) => {
                     // Update the placeholder value if there is only one possible card type
                     if (event.cards.length === 1) {
                         braintree.hostedFields.setPlaceholder(
@@ -294,7 +295,9 @@ braintree.client.create(
                 hostedFieldsInstance.clear('expirationDate');
 
                 const state = braintree.hostedFields.getState();
-                Object.keys(state.fields).map(k => k as keyof typeof state.fields).every(k => state.fields[k].isValid);
+                Object.keys(state.fields)
+                    .map(k => k as keyof typeof state.fields)
+                    .every(k => state.fields[k].isValid);
 
                 hostedFieldsInstance.focus('cardholderName');
                 hostedFieldsInstance.focus('number', (focusErr: braintree.BraintreeError) => {
@@ -303,12 +306,19 @@ braintree.client.create(
                     }
                 });
 
-                function onValidityChange(fieldState: braintree.HostedFieldsStateObject): void {
+                function onValidityChange(fieldState: braintree.HostedFieldsEvent): void {
                     console.log(fieldState);
                 }
 
                 hostedFieldsInstance.on('validityChange', onValidityChange);
                 hostedFieldsInstance.off('validityChange', onValidityChange);
+
+                function onBinAvailable(event: HostedFieldsBinPayload) {
+                    console.log(event.bin);
+                }
+
+                hostedFieldsInstance.on('binAvailable', onBinAvailable);
+                hostedFieldsInstance.off('binAvailable', onBinAvailable);
             },
         );
 
@@ -389,14 +399,14 @@ braintree.client.create(
                     },
                     (err: braintree.BraintreeError, tokenizedPayload: braintree.ApplePayPayload) => {
                         if (err) {
-                            session.completePayment(braintree.ApplePayStatusCodes.STATUS_FAILURE);
+                            session.completePayment(braintree.ApplePaySession.STATUS_FAILURE);
                             return;
                         }
 
                         // Send the tokenizedPayload to your server.
                         console.log(tokenizedPayload.nonce);
 
-                        session.completePayment(braintree.ApplePayStatusCodes.STATUS_SUCCESS);
+                        session.completePayment(braintree.ApplePaySession.STATUS_SUCCESS);
                     },
                 );
             };
@@ -576,7 +586,7 @@ braintree.client.create(
                 intent: 'capture',
                 vault: true,
             })
-            .then(() => {
+            .then((paypalCheckout: braintree.PayPalCheckout) => {
                 // window.paypal.Buttons is now available to use
             });
 
@@ -715,7 +725,8 @@ braintree.client.create(
 
         // Vault Manager
         braintree.vaultManager.create({ client: clientInstance }, (createErr, vaultManagerInstance) => {
-            vaultManagerInstance.fetchPaymentMethods()
+            vaultManagerInstance
+                .fetchPaymentMethods()
                 .then((payload: braintree.FetchPaymentMethodsPayload[]) => {
                     payload.forEach(paymentMethod => console.log(paymentMethod.nonce));
                 })
@@ -726,6 +737,48 @@ braintree.client.create(
 
         clientInstance.teardown(err => {
             // implementation
+        });
+
+        // Local Payment
+        braintree.localPayment.create({
+            client: clientInstance
+        }, (err, localPaymentInstance) => {
+            localPaymentInstance
+                .startPayment({
+                    amount: 11.00,
+                    currencyCode: 'EUR',
+                    paymentType: 'sofort',
+                    onPaymentStart: (data, next) => {
+                        if (data.paymentId) {
+                            // Implementation
+                        }
+                        next();
+                    }
+                })
+                .then((payload: braintree.LocalPaymentTokenizePayload) => {
+                    console.log(payload.nonce);
+                })
+                .catch((error: braintree.BraintreeError) => {
+                    console.error('Error!', error);
+                });
+
+            localPaymentInstance.tokenize({
+                btLpPayerId: '1234',
+                btLpPaymentId: '1234',
+                btLpToken: '1234'
+            }, (error, data) => {
+                if (error) {
+                    console.error('Tokenize Error!', error);
+                    return;
+                }
+
+                // Implementation
+                console.log(data.nonce);
+            });
+
+            localPaymentInstance.teardown(err => {
+                // Implementation
+            });
         });
     },
 );
@@ -810,7 +863,7 @@ braintree.threeDSecure.verifyCard(
     {
         nonce: existingNonce,
         amount: 123.45, // $ExpectType number
-        bin: '1234'
+        bin: '1234',
     },
     (err: braintree.BraintreeError) => {
         if (err) {
@@ -829,7 +882,45 @@ braintree.threeDSecure.cancelVerifyCard(
         }
 
         verifyPayload.nonce; // The nonce returned from the 3ds lookup call
-        verifyPayload.liabilityShifted; // boolean
-        verifyPayload.liabilityShiftPossible; // boolean
+        verifyPayload.type; // The payment method type.
+        verifyPayload.liabilityShifted || verifyPayload.threeDSecureInfo.liabilityShifted; // boolean
+        verifyPayload.liabilityShiftPossible || verifyPayload.threeDSecureInfo.liabilityShiftPossible; // boolean
+        verifyPayload.binData.issuingBank; // The issuing bank.
     },
 );
+
+// Check if 'number' field is optional (#56167)
+braintree.hostedFields.create({
+    fields: {
+        cvv: {
+            container: '#cvv',
+            type: 'password',
+        },
+        cardholderName: {
+            container: '#cardholder-name',
+        },
+        expirationMonth: {
+            container: '#expiration-month',
+            select: {
+                options: [
+                    '01 - Jan',
+                    '02 - Feb',
+                    '03 - Mar',
+                    '04 - Apr',
+                    '05 - May',
+                    '06 - Jun',
+                    '07 - Jul',
+                    '08 - Aug',
+                    '09 - Sep',
+                    '10 - Oct',
+                    '11 - Nov',
+                    '12 - Dec',
+                ],
+            },
+        },
+        expirationYear: {
+            container: '#expiration-year',
+            select: true,
+        },
+    },
+});

@@ -35,7 +35,6 @@ declare class Process {
     response: any;
     private pairName_;
     private componentFactoryResolver_;
-    private memoryProfiler_;
     private scrollX_;
     private scrollY_;
     bodyClassName: string;
@@ -221,7 +220,7 @@ declare class Process {
     private getChildrenJustToGroup;
     immediateRedirectEnabled: boolean;
     private redirectIfInteractionWasChanged;
-    private _logger;
+    private logger_;
     beep(): void;
     private actions;
     private act_preserveScrollPosition_;

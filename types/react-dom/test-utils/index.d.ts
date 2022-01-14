@@ -1,7 +1,7 @@
 import {
     AbstractView, Component, ComponentClass,
     ReactElement, ReactInstance, ClassType,
-    DOMElement, SFCElement, CElement,
+    DOMElement, FunctionComponentElement, CElement,
     ReactHTMLElement, DOMAttributes, SFC
 } from 'react';
 
@@ -157,7 +157,7 @@ export namespace Simulate {
 export function renderIntoDocument<T extends Element>(
     element: DOMElement<any, T>): T;
 export function renderIntoDocument(
-    element: SFCElement<any>): void;
+    element: FunctionComponentElement<any>): void;
 // If we replace `P` with `any` in this overload, then some tests fail because
 // calls to `renderIntoDocument` choose the last overload on the
 // subtype-relation pass and get an undesirably broad return type.  Using `P`
@@ -194,7 +194,7 @@ export function isElementOfType<P extends DOMAttributes<{}>, T extends Element>(
  * Returns `true` if `element` is a React element whose type is of a React `componentClass`.
  */
 export function isElementOfType<P>(
-    element: ReactElement, type: SFC<P>): element is SFCElement<P>;
+    element: ReactElement, type: SFC<P>): element is FunctionComponentElement<P>;
 /**
  * Returns `true` if `element` is a React element whose type is of a React `componentClass`.
  */

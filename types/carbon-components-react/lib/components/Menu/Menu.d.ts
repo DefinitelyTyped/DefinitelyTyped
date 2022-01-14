@@ -6,12 +6,15 @@ import MenuRadioGroup from "./MenuRadioGroup";
 import MenuSelectableItem from "./MenuSelectableItem";
 
 export interface MenuProps {
-    autoclose?: boolean | undefined;
     children?: React.ReactNode | undefined;
+    className?: string | undefined;
+    id?: string | undefined;
     level?: number | undefined;
     onClose?(): void;
     onKeyDown?(evt: React.KeyboardEvent<HTMLUListElement>): void;
     open?: boolean | undefined;
+    size?: "sm" | "md" | "lg" | undefined;
+    target?: Element | undefined;
     x?: number | readonly number[] | undefined;
     y?: number | readonly number[] | undefined;
 }

@@ -37,12 +37,12 @@
  *   'Host', 'mysite.com',
  *   'accepT', '*' ]
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v16.7.0/lib/http.js)
+ * @see [source](https://github.com/nodejs/node/blob/v17.0.0/lib/http.js)
  */
 declare module 'http' {
     import * as stream from 'node:stream';
     import { URL } from 'node:url';
-    import { Socket, Server as NetServer } from 'node:net';
+    import { TcpSocketConnectOpts, Socket, Server as NetServer, LookupFunction } from 'node:net';
     // incoming headers will never contain number
     interface IncomingHttpHeaders extends NodeJS.Dict<string | string[]> {
         accept?: string | undefined;
@@ -113,7 +113,7 @@ declare module 'http' {
     type OutgoingHttpHeader = number | string | string[];
     interface OutgoingHttpHeaders extends NodeJS.Dict<OutgoingHttpHeader> {}
     interface ClientRequestArgs {
-        abort?: AbortSignal | undefined;
+        signal?: AbortSignal | undefined;
         protocol?: string | null | undefined;
         host?: string | null | undefined;
         hostname?: string | null | undefined;
@@ -136,6 +136,7 @@ declare module 'http' {
         setHost?: boolean | undefined;
         // https://github.com/nodejs/node/blob/master/lib/_http_client.js#L278
         createConnection?: ((options: ClientRequestArgs, oncreate: (err: Error, socket: Socket) => void) => Socket) | undefined;
+        lookup?: LookupFunction | undefined;
     }
     interface ServerOptions {
         IncomingMessage?: typeof IncomingMessage | undefined;
@@ -183,6 +184,18 @@ declare module 'http' {
          * @since v0.7.0
          */
         maxHeadersCount: number | null;
+        /**
+         * The maximum number of requests socket can handle
+         * before closing keep alive connection.
+         *
+         * A value of `0` will disable the limit.
+         *
+         * When the limit is reached it will set the `Connection` header value to `close`,
+         * but will not actually close the connection, subsequent requests sent
+         * after the limit is reached will get `503 Service Unavailable` as a response.
+         * @since v16.10.0
+         */
+        maxRequestsPerSocket: number | null;
         /**
          * The number of milliseconds of inactivity before a socket is presumed
          * to have timed out.
@@ -328,7 +341,7 @@ declare module 'http' {
         /**
          * Aliases of `outgoingMessage.socket`
          * @since v0.3.0
-         * @deprecated Since v15.12.0 - Use `socket` instead.
+         * @deprecated Since v15.12.0,v14.17.1 - Use `socket` instead.
          */
         readonly connection: Socket | null;
         /**
@@ -341,11 +354,9 @@ declare module 'http' {
         readonly socket: Socket | null;
         constructor();
         /**
-         * occurs, Same as binding to the `timeout` event.
-         *
          * Once a socket is associated with the message and is connected,`socket.setTimeout()` will be called with `msecs` as the first parameter.
          * @since v0.9.12
-         * @param callback Optional function to be called when a timeout
+         * @param callback Optional function to be called when a timeout occurs. Same as binding to the `timeout` event.
          */
         setTimeout(msecs: number, callback?: () => void): this;
         /**
@@ -597,6 +608,7 @@ declare module 'http' {
          * The `request.aborted` property will be `true` if the request has
          * been aborted.
          * @since v0.11.14
+         * @deprecated Since v17.0.0 - Check `destroyed` instead.
          */
         aborted: boolean;
         /**
@@ -656,9 +668,12 @@ declare module 'http' {
          * const headerNames = request.getRawHeaderNames();
          * // headerNames === ['Foo', 'Set-Cookie']
          * ```
-         * @since v15.13.0
+         * @since v15.13.0, v14.17.0
          */
         getRawHeaderNames(): string[];
+        /**
+         * @deprecated
+         */
         addListener(event: 'abort', listener: () => void): this;
         addListener(event: 'connect', listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void): this;
         addListener(event: 'continue', listener: () => void): this;
@@ -674,6 +689,9 @@ declare module 'http' {
         addListener(event: 'pipe', listener: (src: stream.Readable) => void): this;
         addListener(event: 'unpipe', listener: (src: stream.Readable) => void): this;
         addListener(event: string | symbol, listener: (...args: any[]) => void): this;
+        /**
+         * @deprecated
+         */
         on(event: 'abort', listener: () => void): this;
         on(event: 'connect', listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void): this;
         on(event: 'continue', listener: () => void): this;
@@ -689,6 +707,9 @@ declare module 'http' {
         on(event: 'pipe', listener: (src: stream.Readable) => void): this;
         on(event: 'unpipe', listener: (src: stream.Readable) => void): this;
         on(event: string | symbol, listener: (...args: any[]) => void): this;
+        /**
+         * @deprecated
+         */
         once(event: 'abort', listener: () => void): this;
         once(event: 'connect', listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void): this;
         once(event: 'continue', listener: () => void): this;
@@ -704,6 +725,9 @@ declare module 'http' {
         once(event: 'pipe', listener: (src: stream.Readable) => void): this;
         once(event: 'unpipe', listener: (src: stream.Readable) => void): this;
         once(event: string | symbol, listener: (...args: any[]) => void): this;
+        /**
+         * @deprecated
+         */
         prependListener(event: 'abort', listener: () => void): this;
         prependListener(event: 'connect', listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void): this;
         prependListener(event: 'continue', listener: () => void): this;
@@ -719,6 +743,9 @@ declare module 'http' {
         prependListener(event: 'pipe', listener: (src: stream.Readable) => void): this;
         prependListener(event: 'unpipe', listener: (src: stream.Readable) => void): this;
         prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
+        /**
+         * @deprecated
+         */
         prependOnceListener(event: 'abort', listener: () => void): this;
         prependOnceListener(event: 'connect', listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void): this;
         prependOnceListener(event: 'continue', listener: () => void): this;
@@ -751,6 +778,7 @@ declare module 'http' {
          * The `message.aborted` property will be `true` if the request has
          * been aborted.
          * @since v10.1.0
+         * @deprecated Since v17.0.0 - Check `message.destroyed` from [stream.Readable](https://nodejs.org/dist/latest-v17.x/docs/api/stream.html#class-streamreadable).
          */
         aborted: boolean;
         /**
@@ -938,9 +966,9 @@ declare module 'http' {
          * as an argument to any listeners on the event.
          * @since v0.3.0
          */
-        destroy(error?: Error): void;
+        destroy(error?: Error): this;
     }
-    interface AgentOptions {
+    interface AgentOptions extends Partial<TcpSocketConnectOpts> {
         /**
          * Keep sockets around in a pool to be used by other requests in the future. Default = false
          */

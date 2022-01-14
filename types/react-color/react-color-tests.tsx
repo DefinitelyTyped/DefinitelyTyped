@@ -1,5 +1,5 @@
 import * as React from "react";
-import { StatelessComponent } from "react";
+import { FunctionComponent } from "react";
 import { render } from "react-dom";
 import {
     AlphaPicker, BlockPicker, ChromePicker, CirclePicker,
@@ -14,7 +14,7 @@ interface CustomProps extends InjectedColorProps {
     color?: Color | undefined;
 }
 
-const CustomComponent: StatelessComponent<CustomProps> = (props: CustomProps) => {
+const CustomComponent: FunctionComponent<CustomProps> = (props: CustomProps) => {
     function onChange(color: ColorResult, event: React.ChangeEvent<HTMLInputElement>) {
         console.log(color, event);
     }

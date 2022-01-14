@@ -102,6 +102,25 @@ function useEveryHook(ref: React.Ref<{ id: number }>|undefined): () => boolean {
     // inline object, to (manually) check if autocomplete works
     React.useReducer(reducer, { age: 42, name: 'The Answer' });
 
+    // TODO (TypeScript 3.0): Decide whether implicit `any` should trigger `noImplicitAny` or if it should default to `unknown` or `never`
+    // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/52873
+    // $ExpectType (value: any) => any
+    const anyCallback = React.useCallback(value => {
+        // $ExpectType any
+        return value;
+    }, []);
+    // $ExpectType any
+    anyCallback({});
+    // $ExpectType (value: string) => number
+    const typedCallback = React.useCallback((value: string) => {
+        return Number(value);
+    }, []);
+    // $ExpectType number
+    typedCallback("1");
+    // Argument of type '{}' is not assignable to parameter of type 'string'.
+    // $ExpectError
+    typedCallback({});
+
     // test useRef and its convenience overloads
     // $ExpectType MutableRefObject<number>
     React.useRef(0);

@@ -21,6 +21,8 @@ class DefaultGridTest extends React.Component {
                 autoSize={true}
                 verticalCompact={true}
                 isBounded={true}
+                allowOverlap={true}
+                onDropDragOver={e => false}
                 resizeHandles={['e']}
                 resizeHandle={<div />}
             >

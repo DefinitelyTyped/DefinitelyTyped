@@ -97,6 +97,7 @@ declare namespace elasticlunr {
     interface SearchConfig<T> {
         fields?: FieldSearchConfig<T> | undefined;
         expand?: boolean | undefined;
+        bool?: Bool;
     }
 
     interface SerialisedInvertedIndex {

@@ -1,5 +1,7 @@
 export = URLSearchParams;
-declare function URLSearchParams(query?: string | string[][] | Record<string, string>): void;
+declare function URLSearchParams(
+    query?: string | string[][] | Record<string, string>
+): void;
 declare class URLSearchParams {
     constructor(query?: string | string[][] | Record<string, string>);
     private paramsMap_;

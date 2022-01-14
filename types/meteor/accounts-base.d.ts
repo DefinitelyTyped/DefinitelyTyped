@@ -14,7 +14,7 @@ declare module 'meteor/accounts-base' {
         html?: ((user: Meteor.User, url: string) => string) | undefined;
     }
 
-    module Accounts {
+    namespace Accounts {
         var urls: URLS;
 
         function user(options?: { fields?: Mongo.FieldSpecifier | undefined }): Meteor.User | null;
@@ -56,7 +56,7 @@ declare module 'meteor/accounts-base' {
         function onPageLoadLogin(func: Function): void;
     }
 
-    module Accounts {
+    namespace Accounts {
         function changePassword(
             oldPassword: string,
             newPassword: string,
@@ -87,6 +87,8 @@ declare module 'meteor/accounts-base' {
 
         function loggingIn(): boolean;
 
+        function loggingOut(): boolean;
+
         function logout(callback?: (error?: Error | Meteor.Error | Meteor.TypedError) => void): void;
 
         function logoutOtherClients(callback?: (error?: Error | Meteor.Error | Meteor.TypedError) => void): void;
@@ -114,7 +116,7 @@ declare module 'meteor/accounts-base' {
         verifyEmail: EmailFields;
     }
 
-    module Accounts {
+    namespace Accounts {
         var emailTemplates: EmailTemplates;
 
         function addEmail(userId: string, newEmail: string, verified?: boolean): void;
@@ -123,15 +125,36 @@ declare module 'meteor/accounts-base' {
 
         function onCreateUser(func: (options: { profile?: {} | undefined }, user: Meteor.User) => void): void;
 
-        function findUserByEmail(email: string): Meteor.User | null | undefined;
+        function findUserByEmail(
+            email: string,
+            options?: { fields?: Mongo.FieldSpecifier | undefined },
+        ): Meteor.User | null | undefined;
 
-        function findUserByUsername(username: string): Meteor.User | null | undefined;
+        function findUserByUsername(
+            username: string,
+            options?: { fields?: Mongo.FieldSpecifier | undefined },
+        ): Meteor.User | null | undefined;
 
-        function sendEnrollmentEmail(userId: string, email?: string): void;
+        function sendEnrollmentEmail(
+            userId: string,
+            email?: string,
+            extraTokenData?: Record<string, unknown>,
+            extraParams?: Record<string, unknown>,
+        ): void;
 
-        function sendResetPasswordEmail(userId: string, email?: string): void;
+        function sendResetPasswordEmail(
+            userId: string,
+            email?: string,
+            extraTokenData?: Record<string, unknown>,
+            extraParams?: Record<string, unknown>,
+        ): void;
 
-        function sendVerificationEmail(userId: string, email?: string): void;
+        function sendVerificationEmail(
+            userId: string,
+            email?: string,
+            extraTokenData?: Record<string, unknown>,
+            extraParams?: Record<string, unknown>,
+        ): void;
 
         function setUsername(userId: string, newUsername: string): void;
 
@@ -156,15 +179,15 @@ declare module 'meteor/accounts-base' {
         }
     }
 
-    module Accounts {
+    namespace Accounts {
         function onLogout(func: Function): void;
     }
 
-    module Accounts {
+    namespace Accounts {
         function onLogout(func: (options: { user: Meteor.User; connection: Meteor.Connection }) => void): void;
     }
 
-    module Accounts {
+    namespace Accounts {
         interface LoginMethodOptions {
             /**
              * The method to call (default 'login')
@@ -251,7 +274,7 @@ declare module 'meteor/accounts-base' {
         function _checkPassword(user: Meteor.User, password: Password): { userId: string; error?: any };
     }
 
-    module Accounts {
+    namespace Accounts {
         type StampedLoginToken = {
             token: string;
             when: Date;

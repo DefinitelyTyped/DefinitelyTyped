@@ -38,7 +38,12 @@ const map = new ymaps.Map(
 
 map.behaviors.disable(defaultBehavior);
 
-map.events.add('click', () => {});
+map.events.add('click', (event) => { console.log(event.originalEvent); });
+map.events.add('dblclick', (event) => { console.log(event.originalEvent); });
+map.events.add('mousemove', (event) => { console.log(event.originalEvent); });
+map.events.add('touchstart', (event) => { console.log(event.originalEvent); });
+map.events.add('wheel', (event) => { console.log(event.originalEvent); });
+map.events.add('keypress', (event) => { console.log(event.originalEvent); });
 
 const balloonLayout = ymaps.templateLayoutFactory.createClass(
     '<div class="map-marker-balloon"></div>',
@@ -68,7 +73,10 @@ const mapMarker = new ymaps.Placemark([55.76, 37.64], {}, {
     zIndex:                 1
 });
 
-mapMarker.events.add('click', (event: ymaps.Event) => {});
+mapMarker.events.add('click', (event) => { console.log(event); });
+mapMarker.events.add('dblclick', (event) => { console.log(event); });
+mapMarker.events.add('mousemove', (event) => { console.log(event); });
+mapMarker.events.add('wheel', (event) => { console.log(event); });
 
 map.geoObjects.add(mapMarker);
 

@@ -46,6 +46,12 @@ export namespace ExtensionTypes {
          * Optional.
          */
         scale?: number;
+
+        /**
+         * If true, temporarily resets the scroll position of the document to 0. Only takes effect if rect is also specified.
+         * Optional.
+         */
+        resetScrollPosition?: boolean;
     }
 
     /**

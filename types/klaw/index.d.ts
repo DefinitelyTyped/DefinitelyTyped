@@ -32,7 +32,7 @@ declare module "klaw" {
 
         type Event = "close" | "data" | "end" | "error" | "pause" | "readable" | "resume"
 
-        interface Walker extends Readable {
+        interface Walker extends Readable, AsyncIterable<Item> {
             on(event: Event, listener: Function): this
             on(event: "close", listener: () => void): this
             on(event: "data", listener: (item: Item) => void): this
@@ -40,6 +40,7 @@ declare module "klaw" {
             on(event: "readable", listener: () => void): this
             on(event: "error", listener: (err: Error) => void): this
             read(): Item
+            [Symbol.asyncIterator](): AsyncIterableIterator<Item>
         }
     }
 

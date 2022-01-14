@@ -29,13 +29,13 @@ declare class Modal extends BaseComponent {
      * actually been shown or hidden (i.e. before the shown.bs.modal or
      * hidden.bs.modal event occurs).
      */
-    toggle(): void;
+    toggle(relatedTarget?: HTMLElement): void;
 
     /**
      * Manually opens a modal. Returns to the caller before the modal has
      * actually been shown (i.e. before the shown.bs.modal event occurs).
      */
-    show(): void;
+    show(relatedTarget?: HTMLElement): void;
 
     /**
      * Manually hides a modal. Returns to the caller before the modal has

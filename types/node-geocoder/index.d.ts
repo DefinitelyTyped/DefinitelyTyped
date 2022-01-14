@@ -24,7 +24,8 @@ declare namespace node_geocoder {
     interface HereOptions {
         provider: 'here';
         appId: string;
-        appCode: string;
+        apiKey: string;
+        appCode?: string;
         language?: string | undefined;
         politicalView?: string | undefined;
         country?: string | undefined;

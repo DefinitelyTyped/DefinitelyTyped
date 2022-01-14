@@ -1,5 +1,5 @@
 // Type definitions for rc-switch 1.9
-// Project: http://github.com/react-component/switch
+// Project: https://github.com/react-component/switch
 // Definitions by: Karol Majewski <https://github.com/karol-majewski>
 //                 Matteo Frana <https://github.com/matteofrana>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

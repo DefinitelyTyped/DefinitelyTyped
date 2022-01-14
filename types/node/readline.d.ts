@@ -1,32 +1,36 @@
 /**
- * The `readline` module provides an interface for reading data from a `Readable` stream (such as `process.stdin`) one line at a time. It can be accessed
- * using:
+ * The `readline` module provides an interface for reading data from a `Readable` stream (such as `process.stdin`) one line at a time.
+ *
+ * To use the promise-based APIs:
  *
  * ```js
- * const readline = require('readline');
+ * import * as readline from 'node:readline/promises';
+ * ```
+ *
+ * To use the callback and sync APIs:
+ *
+ * ```js
+ * import * as readline from 'node:readline';
  * ```
  *
  * The following simple example illustrates the basic use of the `readline` module.
  *
  * ```js
- * const readline = require('readline');
+ * import * as readline from 'node:readline/promises';
+ * import { stdin as input, stdout as output } from 'process';
  *
- * const rl = readline.createInterface({
- *   input: process.stdin,
- *   output: process.stdout
- * });
+ * const rl = readline.createInterface({ input, output });
  *
- * rl.question('What do you think of Node.js? ', (answer) => {
- *   // TODO: Log the answer in a database
- *   console.log(`Thank you for your valuable feedback: ${answer}`);
+ * const answer = await rl.question('What do you think of Node.js? ');
  *
- *   rl.close();
- * });
+ * console.log(`Thank you for your valuable feedback: ${answer}`);
+ *
+ * rl.close();
  * ```
  *
  * Once this code is invoked, the Node.js application will not terminate until the`readline.Interface` is closed because the interface waits for data to be
  * received on the `input` stream.
- * @see [source](https://github.com/nodejs/node/blob/v16.7.0/lib/readline.js)
+ * @see [source](https://github.com/nodejs/node/blob/v17.0.0/lib/readline.js)
  */
 declare module 'readline' {
     import { Abortable, EventEmitter } from 'node:events';
@@ -236,6 +240,7 @@ declare module 'readline' {
          * @since v0.1.98
          */
         write(data: string | Buffer, key?: Key): void;
+        write(data: undefined | null | string | Buffer, key: Key): void;
         /**
          * Returns the real position of the cursor in relation to the input
          * prompt + string. Long input (wrapping) strings, as well as multiple
@@ -392,6 +397,109 @@ declare module 'readline' {
      * readline.emitKeypressEvents(process.stdin);
      * if (process.stdin.isTTY)
      *   process.stdin.setRawMode(true);
+     * ```
+     *
+     * ## Example: Tiny CLI
+     *
+     * The following example illustrates the use of `readline.Interface` class to
+     * implement a small command-line interface:
+     *
+     * ```js
+     * const readline = require('readline');
+     * const rl = readline.createInterface({
+     *   input: process.stdin,
+     *   output: process.stdout,
+     *   prompt: 'OHAI> '
+     * });
+     *
+     * rl.prompt();
+     *
+     * rl.on('line', (line) => {
+     *   switch (line.trim()) {
+     *     case 'hello':
+     *       console.log('world!');
+     *       break;
+     *     default:
+     *       console.log(`Say what? I might have heard '${line.trim()}'`);
+     *       break;
+     *   }
+     *   rl.prompt();
+     * }).on('close', () => {
+     *   console.log('Have a great day!');
+     *   process.exit(0);
+     * });
+     * ```
+     *
+     * ## Example: Read file stream line-by-Line
+     *
+     * A common use case for `readline` is to consume an input file one line at a
+     * time. The easiest way to do so is leveraging the `fs.ReadStream` API as
+     * well as a `for await...of` loop:
+     *
+     * ```js
+     * const fs = require('fs');
+     * const readline = require('readline');
+     *
+     * async function processLineByLine() {
+     *   const fileStream = fs.createReadStream('input.txt');
+     *
+     *   const rl = readline.createInterface({
+     *     input: fileStream,
+     *     crlfDelay: Infinity
+     *   });
+     *   // Note: we use the crlfDelay option to recognize all instances of CR LF
+     *   // ('\r\n') in input.txt as a single line break.
+     *
+     *   for await (const line of rl) {
+     *     // Each line in input.txt will be successively available here as `line`.
+     *     console.log(`Line from file: ${line}`);
+     *   }
+     * }
+     *
+     * processLineByLine();
+     * ```
+     *
+     * Alternatively, one could use the `'line'` event:
+     *
+     * ```js
+     * const fs = require('fs');
+     * const readline = require('readline');
+     *
+     * const rl = readline.createInterface({
+     *   input: fs.createReadStream('sample.txt'),
+     *   crlfDelay: Infinity
+     * });
+     *
+     * rl.on('line', (line) => {
+     *   console.log(`Line from file: ${line}`);
+     * });
+     * ```
+     *
+     * Currently, `for await...of` loop can be a bit slower. If `async` / `await`flow and speed are both essential, a mixed approach can be applied:
+     *
+     * ```js
+     * const { once } = require('events');
+     * const { createReadStream } = require('fs');
+     * const { createInterface } = require('readline');
+     *
+     * (async function processLineByLine() {
+     *   try {
+     *     const rl = createInterface({
+     *       input: createReadStream('big-file.txt'),
+     *       crlfDelay: Infinity
+     *     });
+     *
+     *     rl.on('line', (line) => {
+     *       // Process the line.
+     *     });
+     *
+     *     await once(rl, 'close');
+     *
+     *     console.log('File processed.');
+     *   } catch (err) {
+     *     console.error(err);
+     *   }
+     * })();
      * ```
      * @since v0.7.7
      */

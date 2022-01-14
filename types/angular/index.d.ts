@@ -2,7 +2,6 @@
 // Project: http://angularjs.org
 // Definitions by: Diego Vilar <https://github.com/diegovilar>
 //                 Georgii Dolzhykov <https://github.com/thorn0>
-//                 Caleb St-Denis <https://github.com/calebstdenis>
 //                 Leonard Thieu <https://github.com/leonard-thieu>
 //                 Steffen Kowalski <https://github.com/scipper>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
@@ -1427,16 +1426,6 @@ declare namespace angular {
 
         debugInfoEnabled(): boolean;
         debugInfoEnabled(enabled: boolean): ICompileProvider;
-
-        /**
-         * Call this method to enable/disable whether directive controllers are assigned bindings before calling the controller's constructor.
-         * If enabled (true), the compiler assigns the value of each of the bindings to the properties of the controller object before the constructor of this object is called.
-         * If disabled (false), the compiler calls the constructor first before assigning bindings.
-         * Defaults to false.
-         * See: https://docs.angularjs.org/api/ng/provider/$compileProvider#preAssignBindingsEnabled
-         */
-        preAssignBindingsEnabled(): boolean;
-        preAssignBindingsEnabled(enabled: boolean): ICompileProvider;
 
         /**
          * Sets the number of times $onChanges hooks can trigger new changes before giving up and assuming that the model is unstable.

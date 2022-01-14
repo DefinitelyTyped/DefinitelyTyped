@@ -118,7 +118,21 @@ configuration = {
         new MiniCssExtractPlugin({
             experimentalUseImportModule: false,
         }),
+        new MiniCssExtractPlugin({
+            experimentalUseImportModule: undefined,
+        }),
     ],
 };
+
+{
+    // runtime
+    new MiniCssExtractPlugin({});
+    new MiniCssExtractPlugin({
+        runtime: false,
+    });
+    new MiniCssExtractPlugin({
+        runtime: true,
+    });
+}
 
 new MiniCssExtractPlugin().apply(new webpack.Compiler('context'));

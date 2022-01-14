@@ -4,7 +4,7 @@ import {
     ComponentType,
     ReactElement,
     SyntheticEvent,
-    StatelessComponent,
+    FunctionComponent,
     FormEventHandler
 } from "react";
 import { Dispatch } from "redux";
