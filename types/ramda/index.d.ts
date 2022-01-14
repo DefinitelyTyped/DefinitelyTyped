@@ -888,6 +888,7 @@ export function identity<T>(a: T): T;
  */
 // tslint:disable:max-line-length
 export function ifElse<TArgs extends any[], TOnTrueResult, TOnFalseResult>(fn: (...args: TArgs) => boolean, onTrue: (...args: TArgs) => TOnTrueResult, onFalse: (...args: TArgs) => TOnFalseResult): (...args: TArgs) => TOnTrueResult | TOnFalseResult;
+export function ifElse<TArgs extends any, N extends TArgs, TOnTrueResult, TOnFalseResult>(fn: (args: TArgs) => args is N, onTrue: (args: N) => TOnTrueResult, onFalse: (args: Exclude<TArgs, N>) => TOnFalseResult): (args: TArgs) => TOnTrueResult | TOnFalseResult;
 // tslint:enable:max-line-length
 
 /**
