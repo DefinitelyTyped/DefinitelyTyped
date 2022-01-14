@@ -1,12 +1,4 @@
 {
-    "files": [
-        "index.d.ts",
-        "test/index.ts",
-        "test/constructor.ts",
-        "test/default.ts",
-        "test/settings.ts",
-        "test/typed-response-body.ts"
-    ],
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
@@ -16,18 +8,24 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
         "types": [],
         "paths": {
             "http-errors": [
                 "http-errors/v1"
+            ],
+            "http-errors/*": [
+                "http-errors/v1/*"
             ]
         },
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "esModuleInterop": true
-    }
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "http-errors-tests.ts"
+    ]
 }

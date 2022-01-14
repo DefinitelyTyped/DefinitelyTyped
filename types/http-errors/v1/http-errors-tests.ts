@@ -6,7 +6,7 @@ const app = express();
 
 app.use((req, res, next) => {
     if (!req) {
-        next(create(401, 'Please login to view this page.'));
+        next(create('Please login to view this page.', 401));
         return;
     }
     next();
@@ -53,7 +53,8 @@ create({id: 1});
 err.id;
 
 // create(msg, status)
-create('LOL', 404); // $ExpectError
+// $ExpectType HttpError<number>
+create('LOL', 404);
 
 // create(msg)
 // $ExpectType HttpError<number>

@@ -1,4 +1,4 @@
-// Type definitions for http-errors 2.0
+// Type definitions for http-errors 1.8
 // Project: https://github.com/jshttp/http-errors
 // Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
 //                 BendingBender <https://github.com/BendingBender>
@@ -22,11 +22,11 @@ declare namespace createHttpError {
         [key: string]: any;
     }
 
-    type UnknownError = Error | string | { [key: string]: any };
+    type UnknownError = Error | string | number | { [key: string]: any };
 
     type HttpErrorConstructor<N extends number = number> = new (msg?: string) => HttpError<N>;
 
-    type CreateHttpError = <N extends UnknownError | number>(arg: N, ...rest: UnknownError[]) => HttpError<N extends number ? N : number>;
+    type CreateHttpError = <N extends UnknownError>(arg: N, ...rest: UnknownError[]) => HttpError<N extends number ? N : number>;
 
     type IsHttpError = (error: unknown) => error is HttpError;
 
@@ -57,7 +57,7 @@ declare namespace createHttpError {
     & Record<'UnprocessableEntity' | '422', HttpErrorConstructor<422>>
     & Record<'Locked' | '423', HttpErrorConstructor<423>>
     & Record<'FailedDependency' | '424', HttpErrorConstructor<424>>
-    & Record<'TooEarly' | '425', HttpErrorConstructor<425>>
+    & Record<'UnorderedCollection' | '425', HttpErrorConstructor<425>>
     & Record<'UpgradeRequired' | '426', HttpErrorConstructor<426>>
     & Record<'PreconditionRequired' | '428', HttpErrorConstructor<428>>
     & Record<'TooManyRequests' | '429', HttpErrorConstructor<429>>
