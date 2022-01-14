@@ -1,6 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "vanillajs-datepicker": "^1.1.2"
-    }
-}
