@@ -6,23 +6,17 @@
             "es6",
             "dom"
         ],
-        "noImplicitAny": true,
-        "noImplicitThis": true,
-        "strictNullChecks": true,
-        "strictFunctionTypes": true,
+        "strict": true,
         "baseUrl": "../../",
         "typeRoots": [
             "../../"
         ],
-        "paths": {
-            "@ember/utils": ["ember__utils/v3"]
-        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "ember__utils-tests.ts"
+        "ember__string-tests.ts"
     ]
 }

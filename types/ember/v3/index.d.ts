@@ -15,7 +15,7 @@
 // TypeScript Version: 3.7
 
 /// <reference types="jquery" />
-/// <reference types="ember__string" />
+/// <reference types="ember__string/v2" />
 /// <reference types="ember__polyfills/v3" />
 /// <reference types="ember__object/v3" />
 /// <reference types="ember__utils/v3" />

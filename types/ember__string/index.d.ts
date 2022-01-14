@@ -1,4 +1,4 @@
-// Type definitions for non-npm package @ember/string 4.0
+// Type definitions for non-npm package @ember/string 3.0
 // Project: https://emberjs.com/api/ember/4.0/modules/@ember%2Fstring
 // Definitions by: Chris Krycho <https://github.com/chriskrycho>
 //                 Dan Freeman <https://github.com/dfreeman>
