@@ -1,0 +1,29 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": ["es6", "dom"],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../../",
+        "typeRoots": [
+            "../../"
+        ],
+        "paths": {
+            "ember-data/*": ["ember-data/v3/*"],
+            "@ember-data/store": ["ember-data__store/v3"],
+            "@ember-data/model": ["ember-data__model/v3"],
+            "@ember/array": ["ember__array/v3"]
+        },
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true,
+        "experimentalDecorators": true
+    },
+    "files": [
+        "index.d.ts",
+        "ember-data__store-tests.ts"
+    ]
+}

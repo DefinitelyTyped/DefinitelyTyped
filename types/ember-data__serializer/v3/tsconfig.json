@@ -1,0 +1,33 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": ["es6", "dom"],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "baseUrl": "../../",
+        "typeRoots": [
+            "../../"
+        ],
+        "paths": {
+            "ember-data": ["ember-data/v3"],
+            "ember-data/*": ["ember-data/v3/*"],
+            "@ember-data/serializer": ["ember-data__serializer/v3"],
+            "@ember-data/serializer/*": ["ember-data__serializer/v3/*"],
+            "@ember-data/model": ["ember-data__model/v3"],
+            "@ember/object": ["ember__object/v3"]
+        },
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "test/index.ts",
+        "test/json-api.ts",
+        "test/json.ts",
+        "test/rest.ts",
+        "test/transform.ts"
+    ]
+}
