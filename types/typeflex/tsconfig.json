@@ -1,15 +1,30 @@
 {
   "compilerOptions": {
     "module": "commonjs",
-    "noEmit": true,
-    "strict": true,
-    "strictNullChecks": true,
+    "lib": ["es6"],
     "noImplicitAny": true,
+    "noImplicitThis": true,
     "strictFunctionTypes": true,
+    "strictNullChecks": true,
     "baseUrl": "../",
-    "typeRoots": [
-        "../"
-    ],
+    "typeRoots": ["../"],
     "types": [],
-  }
+    "noEmit": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "files": [
+    "index.d.ts",
+    "enums.d.ts",
+    "event.d.ts",
+    "internal.d.ts",
+    "log.d.ts",
+    "utils.d.ts",
+    "ygconfig.d.ts",
+    "ygfloatoptional.d.ts",
+    "yglayout.d.ts",
+    "ygnode.d.ts",
+    "ygstyle.d.ts",
+    "ygvalue.d.ts",
+    "yoga.d.ts",
+  ]
 }
