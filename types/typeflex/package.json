@@ -1,0 +1,16 @@
+{
+    "name": "@types/typeflex",
+    "version": "0.1.0",
+    "description": "Typescript implementation of CSS flexbox layout algorithm, a pure typescript port of Facebook's Yoga",
+    "license": "MIT",
+    "main": "",
+    "types": "index.d.ts",
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/DefinitelyTyped/DefinitelyTyped.git",
+      "directory": "types/typeflex"
+    },
+    "homepage": "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/typeflex",
+    "scripts": {},
+    "dependencies": {}
+}

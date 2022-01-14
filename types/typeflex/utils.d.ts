@@ -1,0 +1,31 @@
+import { YGFlexDirection, YGDirection } from './enums';
+import { YGFloatOptional } from './ygfloatoptional';
+import { YGNode } from './ygnode';
+import { YGValue } from './ygvalue';
+export declare class YGCollectFlexItemsRowValues {
+    itemsOnLine: number;
+    sizeConsumedOnCurrentLine: number;
+    totalFlexGrowFactors: number;
+    totalFlexShrinkScaledFactors: number;
+    endOfLineIndex: number;
+    relativeChildren: Array<YGNode>;
+    remainingFreeSpace: number;
+    mainDim: number;
+    crossDim: number;
+}
+export declare function YGValueEqual(a: YGValue, b: YGValue): boolean;
+export declare function YGFloatsEqual(a: number, b: number): boolean;
+export declare function YGFloatMax(a: number, b: number): number;
+export declare function YGFloatOptionalMax(op1: YGFloatOptional, op2: YGFloatOptional): YGFloatOptional;
+export declare function YGFloatMin(a: number, b: number): number;
+export declare function YGFloatArrayEqual(val1: Array<number>, val2: Array<number>): boolean;
+export declare function YGValueArrayEqual(val1: Array<YGValue>, val2: Array<YGValue>): boolean;
+export declare function YGFloatSanitize(val: number): number;
+export declare function YGFlexDirectionCross(flexDirection: YGFlexDirection, direction: YGDirection): YGFlexDirection;
+export declare function YGFlexDirectionIsRow(flexDirection: YGFlexDirection): boolean;
+export declare function YGResolveValue(value: YGValue, ownerSize: number): YGFloatOptional;
+export declare function YGFlexDirectionIsColumn(flexDirection: YGFlexDirection): boolean;
+export declare function YGResolveFlexDirection(flexDirection: YGFlexDirection, direction: YGDirection): YGFlexDirection;
+export declare function YGResolveValueMargin(value: YGValue, ownerSize: number): YGFloatOptional;
+export declare function throwLogicalErrorWithMessage(message: string): void;
+export declare function cloneYGValueArray(array: Array<YGValue>): Array<YGValue>;
