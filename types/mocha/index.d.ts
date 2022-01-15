@@ -1,4 +1,4 @@
-// Type definitions for mocha 9.0
+// Type definitions for mocha 9.1
 // Project: https://mochajs.org
 // Definitions by: Kazi Manzur Rashid <https://github.com/kazimanzurrashid>
 //                 otiai10 <https://github.com/otiai10>
@@ -6,6 +6,7 @@
 //                 Andrew Bradley <https://github.com/cspotcode>
 //                 Dmitrii Sorin <https://github.com/1999>
 //                 Noah Hummel <https://github.com/strangedev>
+//                 nicojs <https://github.com/nicojs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
