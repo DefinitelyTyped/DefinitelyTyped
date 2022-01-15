@@ -331,3 +331,21 @@ function heterogeneousGenericsDatabase(db: PouchDB.Database) {
             }
         });
 }
+
+async function testAttachmentDataWithBlob(db: PouchDB.Database) {
+    const myBlob = new Blob(['I am plain text!'], {type: 'text/plain'});
+
+    await db.putAttachment('mydoc', 'myattachment.png', myBlob, 'text/plain');
+
+    // Return Blob|Buffer
+    const attachment = await db.getAttachment('mydoc', 'myattachment.txt');
+}
+
+async function testAttachmentDataWithBuffer(db: PouchDB.Database) {
+    const myBuffer = Buffer.from([0x62, 0x75, 0x66, 0x66, 0x65, 0x72]);
+
+    await db.putAttachment('mydoc', 'myattachment.png', myBuffer, 'text/plain');
+
+    // Return Blob|Buffer
+    const attachment = await db.getAttachment('mydoc', 'myattachment.txt');
+}
