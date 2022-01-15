@@ -194,4 +194,4 @@ const dataSubjectType: MicrosoftGraph.DataSubjectType = "teacher";
 
 const advancedConfigState: MicrosoftGraph.AdvancedConfigState = "disabled";
 
-const contactRelationship: MicrosoftGraph.ContactRelationship = "unknownFutureValue";
+const messageActionFlag: MicrosoftGraph.MessageActionFlag = "read";
