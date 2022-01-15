@@ -1251,7 +1251,7 @@ function unionPerformanceTest() {
         ({ signal4?: 'green'; greenTime4?: number } | { signal4: 'red'; redTime4: number }) &
         ({ signal5?: 'green'; greenTime5?: number } | { signal5: 'red'; redTime5: number });
 
-    const C: React.FunctionComponent<ManyUnion> = props => null;
+    const C = (props: ManyUnion) => null;
 
     const Styled = styled(C)<{ defaultColor?: string }>`
         .signal1 {
