@@ -272,7 +272,7 @@ declare module 'events' {
          * By default `EventEmitter`s will print a warning if more than `10` listeners are
          * added for a particular event. This is a useful default that helps finding
          * memory leaks. The `EventEmitter.setMaxListeners()` method allows the default limit to be
-         * modified or modify the limit specified in every `EventTarget` passed as arguments.
+         * modified (if eventTargets is empty) or modify the limit specified in every `EventTarget` | `EventEmitter` passed as arguments.
          * The value can be set to`Infinity` (or `0`) to indicate an unlimited number of listeners.
          *
          * ```js
@@ -287,7 +287,7 @@ declare module 'events' {
          * ```
          * @since v15.3.0, v14.17.0
          */
-        static setMaxListeners(n?: number, ...eventTargets: DOMEventTarget[]): void;
+        static setMaxListeners(n?: number, ...eventTargets: Array<DOMEventTarget | NodeJS.EventEmitter>): void;
         /**
          * This symbol shall be used to install a listener for only monitoring `'error'`
          * events. Listeners installed using this symbol are called before the regular

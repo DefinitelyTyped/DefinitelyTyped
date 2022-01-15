@@ -119,9 +119,9 @@ async function test() {
     events.EventEmitter.setMaxListeners();
     events.EventEmitter.setMaxListeners(42);
 
-    const eventTarget1 = new EventTarget();
-    events.EventEmitter.setMaxListeners(42, eventTarget1);
+    const eventTarget = new EventTarget();
+    events.EventEmitter.setMaxListeners(42, eventTarget);
 
-    const eventTarget2 = new EventTarget();
-    events.EventEmitter.setMaxListeners(42, eventTarget1, eventTarget2);
+    const eventEmitter = new events.EventEmitter();
+    events.EventEmitter.setMaxListeners(42, eventTarget, eventEmitter);
 }
