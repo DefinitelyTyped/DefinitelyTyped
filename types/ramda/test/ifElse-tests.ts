@@ -34,7 +34,7 @@ import * as R from 'ramda';
         return s + 'bar';
     }
 
-    // $ExpectType (args: stringOrObject) => string | string[]
+    // $ExpectType (o: stringOrObject) => string | string[]
     const barWhenStringKeysWhenObject = R.ifElse(isString, takeString, takeObject);
     barWhenStringKeysWhenObject('foo'); // => 'foobar'
     barWhenStringKeysWhenObject({ a: 1, b: 2, c: 3 }); // => ['a', 'b', 'c']
