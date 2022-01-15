@@ -1,6 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "dataframe-js": "^1.4.4"
-    }
-}
