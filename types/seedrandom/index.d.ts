@@ -20,7 +20,7 @@ declare namespace seedrandom {
     }
 }
 
-interface prng {
+export interface prng {
     (): number;
     double(): number;
     int32(): number;
