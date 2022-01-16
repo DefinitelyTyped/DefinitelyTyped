@@ -1301,6 +1301,10 @@
             "libraryName": "extract-zip",
             "asOfVersion": "2.0.0"
         },
+        "faker": {
+            "libraryName": "faker",
+            "asOfVersion": "6.6.6"
+        },
         "fast-diff": {
             "libraryName": "fast-diff",
             "asOfVersion": "1.2.0"
