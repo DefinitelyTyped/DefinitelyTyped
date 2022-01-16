@@ -19,6 +19,13 @@ declare namespace Mail {
 
     type ListHeader = string | { url: string, comment: string };
 
+    interface Auth {
+      user: string;
+      refreshToken: string;
+      accessToken: string;
+      expires: number;
+    }
+    
     interface ListHeaders {
         [key: string]: ListHeader | ListHeader[] | ListHeader[][];
     }
@@ -116,6 +123,8 @@ declare namespace Mail {
         text?: string | Buffer | Readable | AttachmentLike | undefined;
         /** The HTML version of the message */
         html?: string | Buffer | Readable | AttachmentLike | undefined;
+        /** Authorization options for when using OAuth 2 */
+        auth?: Auth | undefined;
         /** Apple Watch specific HTML version of the message, same usage as with text and html */
         watchHtml?: string | Buffer | Readable | AttachmentLike | undefined;
         /** AMP4EMAIL specific HTML version of the message, same usage as with text and html. Make sure it is a full and valid AMP4EMAIL document, otherwise the displaying email client falls back to html and ignores the amp part */
