@@ -18,30 +18,30 @@ declare namespace seedrandom {
         pass?: Callback | undefined;
         state?: boolean | State | undefined;
     }
-}
 
-export interface prng {
-    (): number;
-    double(): number;
-    int32(): number;
-    quick(): number;
-    state(): seedrandom.State;
+    interface prng {
+        (): number;
+        double(): number;
+        int32(): number;
+        quick(): number;
+        state(): State;
+    }
 }
 
 interface seedrandom {
-    (seed?: string, options?: seedrandom.Options, callback?: seedrandom.Callback): prng;
-    alea(seed?: string, options?: seedrandom.Options): prng;
-    Alea: new (seed?: string) => prng;
-    tychei(seed?: string, options?: seedrandom.Options): prng;
-    Tychei: new (seed?: string) => prng;
-    xor128(seed?: string, options?: seedrandom.Options): prng;
-    Xor128: new (seed?: string) => prng;
-    xor4096(seed?: string, options?: seedrandom.Options): prng;
-    Xor4096: new (seed?: string) => prng;
-    xorshift7(seed?: string, options?: seedrandom.Options): prng;
-    XorShift7: new (seed?: string) => prng;
-    xorwow(seed?: string, options?: seedrandom.Options): prng;
-    XorWow: new (seed?: string) => prng;
+    (seed?: string, options?: seedrandom.Options, callback?: seedrandom.Callback): seedrandom.prng;
+    alea(seed?: string, options?: seedrandom.Options): seedrandom.prng;
+    Alea: new (seed?: string) => seedrandom.prng;
+    tychei(seed?: string, options?: seedrandom.Options): seedrandom.prng;
+    Tychei: new (seed?: string) => seedrandom.prng;
+    xor128(seed?: string, options?: seedrandom.Options): seedrandom.prng;
+    Xor128: new (seed?: string) => seedrandom.prng;
+    xor4096(seed?: string, options?: seedrandom.Options): seedrandom.prng;
+    Xor4096: new (seed?: string) => seedrandom.prng;
+    xorshift7(seed?: string, options?: seedrandom.Options): seedrandom.prng;
+    XorShift7: new (seed?: string) => seedrandom.prng;
+    xorwow(seed?: string, options?: seedrandom.Options): seedrandom.prng;
+    XorWow: new (seed?: string) => seedrandom.prng;
 }
 
 declare const seedrandom: seedrandom;
