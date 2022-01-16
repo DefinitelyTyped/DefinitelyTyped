@@ -397,7 +397,5 @@ buff.writeDoubleBE(123.123);
 buff.writeDoubleBE(123.123, 0);
 
 {
-    // The 'as any' is to make sure the Global DOM Blob does not clash with the
-    //  local "Blob" which comes with node.
-    resolveObjectURL(URL.createObjectURL(new Blob(['']) as any)); // $ExpectType Blob | undefined
+    resolveObjectURL("hello"); // $ExpectType Blob | undefined
 }

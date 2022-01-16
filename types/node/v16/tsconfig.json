@@ -7,7 +7,7 @@
     "module": "commonjs",
     "target": "esnext",
     "lib": [
-      "dom"
+      "es2021"
     ],
     "noImplicitAny": true,
     "noImplicitThis": true,

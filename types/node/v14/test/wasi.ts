@@ -12,8 +12,10 @@ import * as fs from 'node:fs';
     const importObject = { wasi_snapshot_preview1: wasi.wasiImport };
 
     (async () => {
-        const wasm = await WebAssembly.compile(fs.readFileSync('./demo.wasm'));
-        const instance = await WebAssembly.instantiate(wasm, importObject);
+        // TODO: WebAssembly types don't exist in @types/node
+        // const wasm = await WebAssembly.compile(fs.readFileSync('./demo.wasm'));
+        // const instance = await WebAssembly.instantiate(wasm, importObject);
+        const instance = {};
 
         wasi.start(instance);
     })();

@@ -530,7 +530,7 @@ async function testReadableStream() {
 
     const stream = new ReadableStream<number>({
         async start(controller) {
-            for await (const _ of every(SECOND)) controller.enqueue(performance.now());
+            for await (const _ of every(SECOND)) controller.enqueue(1.1);
         },
     });
 
