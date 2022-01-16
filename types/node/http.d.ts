@@ -627,7 +627,8 @@ declare module 'http' {
          */
         reusedSocket: boolean;
         /**
-         * Limits maximum response headers count. If set to 0, no limit will be applied. Default = 2000.
+         * Limits maximum response headers count. If set to 0, no limit will be applied.
+         * @default 2000
          */
         maxHeadersCount: number;
         constructor(url: string | URL | ClientRequestArgs, cb?: (res: IncomingMessage) => void);
