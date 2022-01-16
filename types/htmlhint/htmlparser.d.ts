@@ -25,6 +25,10 @@ export type Listener = (event: Block) => void;
 export default class HTMLParser {
     lastEvent: Partial<Block> | null;
 
+    private _listeners: { [type: string]: Listener[] };
+    private _mapCdataTags: { [tagName: string]: boolean };
+    private _arrBlocks: Array<Partial<Block>>;
+
     constructor();
 
     makeMap(
