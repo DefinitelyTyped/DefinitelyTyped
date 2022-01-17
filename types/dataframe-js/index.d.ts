@@ -1,4 +1,4 @@
-// Type definitions for dataframe-js 1.0
+// Type definitions for dataframe-js 1.4
 // Project: https://github.com/Gmousse/dataframe-js#readme
 // Definitions by: Alzemiro Iago de Moraes Thomaz <https://github.com/alzemiro-iago>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
