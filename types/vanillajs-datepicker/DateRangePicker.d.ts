@@ -21,7 +21,7 @@ get dates(): Date[] | undefined;
      * be returned.)
      *
      */
-    getDates(format?: string): any[];
+    getDates(format?: string): [Date | undefined, Date | undefined];
     /**
      * Set the start and end dates of the date range
      *
