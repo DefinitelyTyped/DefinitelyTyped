@@ -44,6 +44,6 @@ get dates(): Date[] | undefined;
      * process.
      *
      */
-    setDates(rangeStart: Date | number | string, rangeEnd: Date | number | string): void;
+    setDates(rangeStart: Date | number | string | object, rangeEnd: Date | number | string | object): void;
     _updating: boolean;
 }
