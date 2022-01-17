@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "google-profanity-words-tests.ts"
+        "sentencer-tests.ts"
     ]
 }

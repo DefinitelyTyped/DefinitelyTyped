@@ -6345,6 +6345,12 @@ export interface ScrollViewPropsIOS {
     automaticallyAdjustContentInsets?: boolean | undefined; // true
 
     /**
+     * Controls whether iOS should automatically adjust the scroll indicator
+     * insets. The default value is true. Available on iOS 13 and later.
+     */
+    automaticallyAdjustsScrollIndicatorInsets?: boolean | undefined;
+
+    /**
      * When true the scroll view bounces when it reaches the end of the
      * content if the content is larger then the scroll view along the axis of
      * the scroll direction. When false it disables all bouncing even if

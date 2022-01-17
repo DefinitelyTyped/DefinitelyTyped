@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "concurrently-tests.ts"
+        "atna-audit-tests.ts"
     ]
 }

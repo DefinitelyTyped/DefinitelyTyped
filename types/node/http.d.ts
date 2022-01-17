@@ -621,6 +621,16 @@ declare module 'http' {
          * @since v14.5.0, v12.19.0
          */
         protocol: string;
+        /**
+         * Whether the request is send through a reused socket.
+         * @since v13.0.0, v12.16.0
+         */
+        reusedSocket: boolean;
+        /**
+         * Limits maximum response headers count. If set to 0, no limit will be applied.
+         * @default 2000
+         */
+        maxHeadersCount: number;
         constructor(url: string | URL | ClientRequestArgs, cb?: (res: IncomingMessage) => void);
         /**
          * The request method.

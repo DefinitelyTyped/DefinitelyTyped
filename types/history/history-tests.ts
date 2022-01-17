@@ -62,7 +62,9 @@ let input = { value: '' };
 }
 
 {
-    let history: MemoryHistory<{ the: 'state' }> = createMemoryHistory();
+    let history: MemoryHistory<{ the: 'state' }> = createMemoryHistory({
+        initialEntries: ['/', { pathname: 'pathname' }],
+    });
 
     // Pushing a path string.
     history.push('/the/path');

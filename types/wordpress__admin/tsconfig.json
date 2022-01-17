@@ -7,18 +7,23 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": true,
         "strictFunctionTypes": true,
+        "strictNullChecks": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "lodash": [
+                "lodash/v3"
+            ]
+        }
     },
     "files": [
         "index.d.ts",
-        "htmlhint-tests.ts"
+        "wordpress__admin-tests.ts"
     ]
 }
