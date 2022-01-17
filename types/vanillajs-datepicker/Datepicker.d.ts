@@ -7,7 +7,7 @@ export default class Datepicker {
 
     static get locales(): any;
 
-    constructor(element: any, options?: any, rangepicker?: DateRangePicker);
+    constructor(element: Element, options?: DatepickerOptions, rangepicker?: DateRangePicker);
     config: any;
     dates: any;
     editMode: boolean;
