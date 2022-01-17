@@ -20,8 +20,7 @@ export default class Datepicker {
     _showing: boolean;
 
     get active(): boolean;
-
-    get pickerElement(): any;
+    get pickerElement(): Element | undefined;
 
     setOptions(options: object): void;
     /**
