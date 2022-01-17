@@ -4,7 +4,7 @@ export default class DateRangePicker {
     inputs: any;
     allowOneSidedRange: boolean;
 
-    get dates(): any[];
+get dates(): Date[] | undefined;
 
     setOptions(options: object): void;
 
