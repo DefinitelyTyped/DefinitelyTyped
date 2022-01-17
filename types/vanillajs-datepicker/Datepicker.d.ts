@@ -86,7 +86,8 @@ export default class Datepicker {
     /**
      * Refresh the picker element and the associated input field
      */
-    refresh(target?: string, forceRender?: boolean): void;
+    refresh(forceRender?: boolean): void;
+    refresh(target?: 'picker' | 'input', forceRender?: boolean): void;
     /**
      * Enter edit mode
      * Not available on inline picker or when the picker element is hidden
