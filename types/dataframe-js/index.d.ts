@@ -16,3 +16,4 @@ import Matrix from './modules/matrix';
 import Stat from './modules/stat';
 import sqlParser from './modules/sql/sqlEngine';
 export { Row, Errors, SQL, DataFrame, GroupedDataFrame, Io, Reusables, Symbol, sqlParser, Matrix, Stat };
+export default DataFrame;
