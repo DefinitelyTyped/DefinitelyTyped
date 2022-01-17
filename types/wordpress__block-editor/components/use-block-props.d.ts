@@ -1,4 +1,4 @@
-import { Ref } from 'react';
+import { Ref, RefCallback } from 'react';
 
 export interface Reserved {
     id: string;
@@ -13,7 +13,7 @@ export interface Reserved {
 export interface Merged {
     className: string;
     style: Record<string, unknown>;
-    ref: (value: unknown) => void;
+    ref: RefCallback<unknown>;
 }
 
 export interface UseBlockProps {
