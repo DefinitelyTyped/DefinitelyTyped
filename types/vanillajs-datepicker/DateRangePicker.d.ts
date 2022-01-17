@@ -6,7 +6,7 @@ export default class DateRangePicker {
 
     get dates(): any[];
 
-    setOptions(options: any): void;
+    setOptions(options: object): void;
 
     destroy(): DateRangePicker;
     /**
