@@ -93,7 +93,6 @@ export default class Datepicker {
      * Not available on inline picker or when the picker element is hidden
      */
     enterEditMode(): void;
-    editMode: boolean;
     /**
      * Exit from edit mode
      * Not available on inline picker
