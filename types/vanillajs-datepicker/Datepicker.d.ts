@@ -5,7 +5,7 @@ export default class Datepicker {
 
     static parseDate(dateStr: string | Date | number, format: string, lang?: string): number;
 
-    static get locales(): any;
+    static get locales(): Record<string: Local>;
 
     constructor(element: Element, options?: DatepickerOptions, rangepicker?: DateRangePicker);
     config: any;
