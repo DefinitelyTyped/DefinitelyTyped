@@ -1,12 +1,18 @@
 import { Datepicker, DateRangePicker } from 'vanillajs-datepicker';
 
-const HTMLDATERANGEELEMENT = `
-<div>
-    <input type="text" name="start">
-    <input type="text" name="end">
-</div>`;
+const container = document.createElement('div');
+const datePicker = new Datepicker(container);
 
-const HTMLDATEELEMENT = '<div></div>';
+// test dateRangePicker
+const start = document.createElement('input');
+start.setAttribute('name', 'start');
+start.setAttribute('type', 'text');
 
-const datePicker = new Datepicker(HTMLDATEELEMENT);
-const dateRangePicker = new DateRangePicker(HTMLDATERANGEELEMENT);
+const end = document.createElement('input');
+end.setAttribute('name', 'end');
+end.setAttribute('type', 'text');
+
+container.appendChild(start);
+container.appendChild(end);
+
+const dateRangePicker = new DateRangePicker(container);
