@@ -1,7 +1,9 @@
 export default class DateRangePicker {
     constructor(element: any, options?: any);
-    element: any;
-    inputs: any;
+    element: Element;
+    inputs: Element[];
+    allowOneSidedRange: boolean;
+    datepickers: Datepicker[];
     allowOneSidedRange: boolean;
 
 get dates(): Date[] | undefined;
