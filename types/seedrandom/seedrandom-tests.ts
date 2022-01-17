@@ -14,24 +14,24 @@ import {
     XorWow,
 } from 'seedrandom';
 
-let prng = seedrandom('added entropy.', { entropy: true }); // $ExpectType PseudorandomNumberGenerator
-prng = seedrandom('hello.', { global: true }); // $ExpectType PseudorandomNumberGenerator
-prng = seedrandom('hello.'); // $ExpectType PseudorandomNumberGenerator
-prng = seedrandom(); // $ExpectType PseudorandomNumberGenerator
+let prng = seedrandom('added entropy.', { entropy: true }); // $ExpectType PRNG
+prng = seedrandom('hello.', { global: true }); // $ExpectType PRNG
+prng = seedrandom('hello.'); // $ExpectType PRNG
+prng = seedrandom(); // $ExpectType PRNG
 
-prng = seedrandom.alea('hello.'); // $ExpectType PseudorandomNumberGenerator
-prng = seedrandom.tychei('hello.'); // $ExpectType PseudorandomNumberGenerator
-prng = seedrandom.xor128('hello.'); // $ExpectType PseudorandomNumberGenerator
-prng = seedrandom.xor4096('hello.'); // $ExpectType PseudorandomNumberGenerator
-prng = seedrandom.xorshift7('hello.'); // $ExpectType PseudorandomNumberGenerator
-prng = seedrandom.xorwow('hello.'); // $ExpectType PseudorandomNumberGenerator
+prng = seedrandom.alea('hello.'); // $ExpectType PRNG
+prng = seedrandom.tychei('hello.'); // $ExpectType PRNG
+prng = seedrandom.xor128('hello.'); // $ExpectType PRNG
+prng = seedrandom.xor4096('hello.'); // $ExpectType PRNG
+prng = seedrandom.xorshift7('hello.'); // $ExpectType PRNG
+prng = seedrandom.xorwow('hello.'); // $ExpectType PRNG
 
-prng = alea('hello.'); // $ExpectType PseudorandomNumberGenerator
-prng = tychei('hello.'); // $ExpectType PseudorandomNumberGenerator
-prng = xor128('hello.'); // $ExpectType PseudorandomNumberGenerator
-prng = xor4096('hello.'); // $ExpectType PseudorandomNumberGenerator
-prng = xorshift7('hello.'); // $ExpectType PseudorandomNumberGenerator
-prng = xorwow('hello.'); // $ExpectType PseudorandomNumberGenerator
+prng = alea('hello.'); // $ExpectType PRNG
+prng = tychei('hello.'); // $ExpectType PRNG
+prng = xor128('hello.'); // $ExpectType PRNG
+prng = xor4096('hello.'); // $ExpectType PRNG
+prng = xorshift7('hello.'); // $ExpectType PRNG
+prng = xorwow('hello.'); // $ExpectType PRNG
 
 prng.double(); // $ExpectType number
 prng.int32(); // $ExpectType number
@@ -39,9 +39,9 @@ prng.quick(); // $ExpectType number
 prng.state(); // $ExpectType object
 prng(); // $ExpectType number
 
-new Alea('hello.'); // $ExpectType PseudorandomNumberGenerator
-new Tychei('hello.'); // $ExpectType PseudorandomNumberGenerator
-new Xor128('hello.'); // $ExpectType PseudorandomNumberGenerator
-new Xor4096('hello.'); // $ExpectType PseudorandomNumberGenerator
-new XorShift7('hello.'); // $ExpectType PseudorandomNumberGenerator
-new XorWow('hello.'); // $ExpectType PseudorandomNumberGenerator
+new Alea('hello.'); // $ExpectType PRNG
+new Tychei('hello.'); // $ExpectType PRNG
+new Xor128('hello.'); // $ExpectType PRNG
+new Xor4096('hello.'); // $ExpectType PRNG
+new XorShift7('hello.'); // $ExpectType PRNG
+new XorWow('hello.'); // $ExpectType PRNG

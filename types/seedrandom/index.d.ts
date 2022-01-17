@@ -9,7 +9,7 @@ declare namespace seedrandom {
     type State = object;
 
     interface Callback {
-        (prng?: PseudorandomNumberGenerator, shortseed?: string, global?: boolean, state?: State): PseudorandomNumberGenerator;
+        (prng?: PRNG, shortseed?: string, global?: boolean, state?: State): PRNG;
     }
 
     interface Options {
@@ -19,7 +19,7 @@ declare namespace seedrandom {
         state?: boolean | State | undefined;
     }
 
-    interface PseudorandomNumberGenerator {
+    interface PRNG {
         (): number;
         double(): number;
         int32(): number;
@@ -29,19 +29,19 @@ declare namespace seedrandom {
 }
 
 interface seedrandom {
-    (seed?: string, options?: seedrandom.Options, callback?: seedrandom.Callback): seedrandom.PseudorandomNumberGenerator;
-    alea(seed?: string, options?: seedrandom.Options): seedrandom.PseudorandomNumberGenerator;
-    Alea: new (seed?: string) => seedrandom.PseudorandomNumberGenerator;
-    tychei(seed?: string, options?: seedrandom.Options): seedrandom.PseudorandomNumberGenerator;
-    Tychei: new (seed?: string) => seedrandom.PseudorandomNumberGenerator;
-    xor128(seed?: string, options?: seedrandom.Options): seedrandom.PseudorandomNumberGenerator;
-    Xor128: new (seed?: string) => seedrandom.PseudorandomNumberGenerator;
-    xor4096(seed?: string, options?: seedrandom.Options): seedrandom.PseudorandomNumberGenerator;
-    Xor4096: new (seed?: string) => seedrandom.PseudorandomNumberGenerator;
-    xorshift7(seed?: string, options?: seedrandom.Options): seedrandom.PseudorandomNumberGenerator;
-    XorShift7: new (seed?: string) => seedrandom.PseudorandomNumberGenerator;
-    xorwow(seed?: string, options?: seedrandom.Options): seedrandom.PseudorandomNumberGenerator;
-    XorWow: new (seed?: string) => seedrandom.PseudorandomNumberGenerator;
+    (seed?: string, options?: seedrandom.Options, callback?: seedrandom.Callback): seedrandom.PRNG;
+    alea(seed?: string, options?: seedrandom.Options): seedrandom.PRNG;
+    Alea: new (seed?: string) => seedrandom.PRNG;
+    tychei(seed?: string, options?: seedrandom.Options): seedrandom.PRNG;
+    Tychei: new (seed?: string) => seedrandom.PRNG;
+    xor128(seed?: string, options?: seedrandom.Options): seedrandom.PRNG;
+    Xor128: new (seed?: string) => seedrandom.PRNG;
+    xor4096(seed?: string, options?: seedrandom.Options): seedrandom.PRNG;
+    Xor4096: new (seed?: string) => seedrandom.PRNG;
+    xorshift7(seed?: string, options?: seedrandom.Options): seedrandom.PRNG;
+    XorShift7: new (seed?: string) => seedrandom.PRNG;
+    xorwow(seed?: string, options?: seedrandom.Options): seedrandom.PRNG;
+    XorWow: new (seed?: string) => seedrandom.PRNG;
 }
 
 declare const seedrandom: seedrandom;
