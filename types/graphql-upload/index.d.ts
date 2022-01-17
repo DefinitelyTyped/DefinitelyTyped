@@ -49,4 +49,5 @@ export interface FileUpload {
 
 export abstract class Upload {
   promise: Promise<FileUpload>;
+  file?: FileUpload;
 }
