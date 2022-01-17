@@ -9,7 +9,7 @@ declare namespace seedrandom {
     type State = object;
 
     interface Callback {
-        (prng?: prng, shortseed?: string, global?: boolean, state?: State): prng;
+        (prng?: PseudorandomNumberGenerator, shortseed?: string, global?: boolean, state?: State): PseudorandomNumberGenerator;
     }
 
     interface Options {
@@ -19,7 +19,7 @@ declare namespace seedrandom {
         state?: boolean | State | undefined;
     }
 
-    interface prng {
+    interface PseudorandomNumberGenerator {
         (): number;
         double(): number;
         int32(): number;
@@ -29,19 +29,19 @@ declare namespace seedrandom {
 }
 
 interface seedrandom {
-    (seed?: string, options?: seedrandom.Options, callback?: seedrandom.Callback): seedrandom.prng;
-    alea(seed?: string, options?: seedrandom.Options): seedrandom.prng;
-    Alea: new (seed?: string) => seedrandom.prng;
-    tychei(seed?: string, options?: seedrandom.Options): seedrandom.prng;
-    Tychei: new (seed?: string) => seedrandom.prng;
-    xor128(seed?: string, options?: seedrandom.Options): seedrandom.prng;
-    Xor128: new (seed?: string) => seedrandom.prng;
-    xor4096(seed?: string, options?: seedrandom.Options): seedrandom.prng;
-    Xor4096: new (seed?: string) => seedrandom.prng;
-    xorshift7(seed?: string, options?: seedrandom.Options): seedrandom.prng;
-    XorShift7: new (seed?: string) => seedrandom.prng;
-    xorwow(seed?: string, options?: seedrandom.Options): seedrandom.prng;
-    XorWow: new (seed?: string) => seedrandom.prng;
+    (seed?: string, options?: seedrandom.Options, callback?: seedrandom.Callback): seedrandom.PseudorandomNumberGenerator;
+    alea(seed?: string, options?: seedrandom.Options): seedrandom.PseudorandomNumberGenerator;
+    Alea: new (seed?: string) => seedrandom.PseudorandomNumberGenerator;
+    tychei(seed?: string, options?: seedrandom.Options): seedrandom.PseudorandomNumberGenerator;
+    Tychei: new (seed?: string) => seedrandom.PseudorandomNumberGenerator;
+    xor128(seed?: string, options?: seedrandom.Options): seedrandom.PseudorandomNumberGenerator;
+    Xor128: new (seed?: string) => seedrandom.PseudorandomNumberGenerator;
+    xor4096(seed?: string, options?: seedrandom.Options): seedrandom.PseudorandomNumberGenerator;
+    Xor4096: new (seed?: string) => seedrandom.PseudorandomNumberGenerator;
+    xorshift7(seed?: string, options?: seedrandom.Options): seedrandom.PseudorandomNumberGenerator;
+    XorShift7: new (seed?: string) => seedrandom.PseudorandomNumberGenerator;
+    xorwow(seed?: string, options?: seedrandom.Options): seedrandom.PseudorandomNumberGenerator;
+    XorWow: new (seed?: string) => seedrandom.PseudorandomNumberGenerator;
 }
 
 declare const seedrandom: seedrandom;
