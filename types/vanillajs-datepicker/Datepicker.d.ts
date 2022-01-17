@@ -23,7 +23,7 @@ export default class Datepicker {
 
     get pickerElement(): any;
 
-    setOptions(options: any): void;
+    setOptions(options: object): void;
     /**
      * Show the picker element
      */
