@@ -86,3 +86,9 @@ if (client.serverInfo) {
         .then(serverInfo => { /* ... */ })
         .catch(() => { /* ... */ });
 }
+
+if (client.journeysFromTrip) {
+    client.journeysFromTrip('x', { stop: { type: 'stop' } }, 'y', {})
+        .then(journeys => { /* ... */ })
+        .catch(() => { /* ... */ });
+}
