@@ -466,8 +466,7 @@ declare namespace React {
          *
          * @see https://reactjs.org/docs/context.html
          */
-        // TODO (TypeScript 3.0): unknown
-        context: any;
+        context: unknown;
 
         constructor(props: Readonly<P> | P);
         /**
@@ -864,8 +863,7 @@ declare namespace React {
     // The identity check is done with the SameValue algorithm (Object.is), which is stricter than ===
     type ReducerStateWithoutAction<R extends ReducerWithoutAction<any>> =
         R extends ReducerWithoutAction<infer S> ? S : never;
-    // TODO (TypeScript 3.0): ReadonlyArray<unknown>
-    type DependencyList = ReadonlyArray<any>;
+    type DependencyList = ReadonlyArray<unknown>;
 
     // NOTE: callbacks are _only_ allowed to return either void, or a destructor.
     type EffectCallback = () => (void | Destructor);

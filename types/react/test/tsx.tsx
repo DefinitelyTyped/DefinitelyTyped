@@ -296,9 +296,9 @@ class LegacyContext extends React.Component {
     static contextTypes = { foo: PropTypes.node.isRequired };
 
     render() {
-        // $ExpectType any
-        this.context.foo;
-        return this.context.foo;
+        // $ExpectType unknown
+        this.context;
+        return (this.context as any).foo;
     }
 }
 
