@@ -27,7 +27,6 @@ export default class Datepicker {
      * Show the picker element
      */
     show(): void;
-    _showing: boolean;
     /**
      * Hide the picker element
      * Not available on inline picker
