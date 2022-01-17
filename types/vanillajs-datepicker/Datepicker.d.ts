@@ -82,7 +82,7 @@ export default class Datepicker {
      * The input field will be refreshed with properly formatted date string.
      *
      */
-    update(options?: any): void;
+    update(options?: {clear: boolean, render: boolean}): void;
     /**
      * Refresh the picker element and the associated input field
      */
