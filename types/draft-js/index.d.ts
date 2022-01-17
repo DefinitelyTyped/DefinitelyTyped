@@ -55,7 +55,7 @@ declare namespace Draft {
             class DraftEditor extends React.Component<DraftEditorProps, {}> {
                 editor: HTMLElement | null | undefined;
                 editorContainer: HTMLElement | null | undefined;
-                getEditorKey: () => string;
+                getEditorKey(): string;
 
                 /** Force focus back onto the editor node. */
                 focus(): void;
