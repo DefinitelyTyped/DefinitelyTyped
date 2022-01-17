@@ -174,10 +174,11 @@ interface OBSStudioEventMap {
     obsRecordingStopping: CustomEvent<null>;
     obsRecordingStopped: CustomEvent<null>;
 
-    obsReplayBufferStarting: CustomEvent<null>;
-    obsReplayBufferStarted: CustomEvent<null>;
-    obsReplayBufferStopping: CustomEvent<null>;
-    obsReplayBufferStopped: CustomEvent<null>;
+    obsReplaybufferStarting: CustomEvent<null>;
+    obsReplaybufferStarted: CustomEvent<null>;
+    obsReplaybufferStopping: CustomEvent<null>;
+    obsReplaybufferStopped: CustomEvent<null>;
+    obsReplaybufferSaved: CustomEvent<null>;
 
     obsVirtualcamStarted: CustomEvent<null>;
     obsVirtualcamStopped: CustomEvent<null>;
