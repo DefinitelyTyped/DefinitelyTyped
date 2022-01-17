@@ -1,9 +1,11 @@
 import { History, Location, LocationState } from './index';
 import { getConfirmation } from './DOMUtils';
 
+export type InitialEntry = string | Partial<Location>;
+
 export interface MemoryHistoryBuildOptions {
     getUserConfirmation?: typeof getConfirmation | undefined;
-    initialEntries?: string[] | undefined;
+    initialEntries?: InitialEntry[] | undefined;
     initialIndex?: number | undefined;
     keyLength?: number | undefined;
 }

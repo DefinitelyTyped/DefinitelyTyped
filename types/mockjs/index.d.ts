@@ -62,7 +62,7 @@ declare namespace mockjs {
         string(pool?: S | N, min?: N, max?: N): S;
 
         // Random.range
-        range(start?: N, stop?: N, step?: N): N;
+        range(start?: N, stop?: N, step?: N): N[];
     }
 
     // Mockjs.Random - Date
