@@ -140,6 +140,12 @@ import * as dns from 'node:dns';
     // method
     const method: string = req.method;
 
+    // maxHeadersCount
+    const maxHeadersCount: number = req.maxHeadersCount;
+
+    // reusedSocket
+    const reusedSocket: boolean = req.reusedSocket;
+
     const rawHeaderNames: string[] = req.getRawHeaderNames();
 }
 
