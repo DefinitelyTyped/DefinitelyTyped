@@ -228,7 +228,7 @@ declare namespace React {
      * @deprecated Use either `ReactNode[]` if you need an array or `Iterable<ReactNode>` if its passed to a host component.
      */
     interface ReactNodeArray extends ReadonlyArray<ReactNode> {}
-    type ReactFragment = {} | Iterable<ReactNode>;
+    type ReactFragment = Iterable<ReactNode>;
     type ReactNode = ReactChild | ReactFragment | ReactPortal | boolean | null | undefined;
 
     //
