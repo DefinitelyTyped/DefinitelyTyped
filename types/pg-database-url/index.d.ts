@@ -3,14 +3,16 @@
 // Definitions by: Todd Dukart <https://github.com/tdukart>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-interface PgDatabaseUrlConfig {
-    database: string;
-    host?: string;
-    password?: string;
-    port?: number;
-    username: string;
+declare namespace pgDatabaseUrl {
+    interface Config {
+        database: string;
+        host?: string;
+        password?: string;
+        port?: number;
+        username: string;
+    }
 }
 
-declare function pg_database_url(config: PgDatabaseUrlConfig): string;
+declare function pgDatabaseUrl(config: pgDatabaseUrl.Config): string;
 
-export = pg_database_url;
+export = pgDatabaseUrl;
