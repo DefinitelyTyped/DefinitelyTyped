@@ -97,5 +97,5 @@ export default class Datepicker {
      * Exit from edit mode
      * Not available on inline picker
      */
-    exitEditMode(options?: any): void;
+    exitEditMode(options?: object): void;
 }
