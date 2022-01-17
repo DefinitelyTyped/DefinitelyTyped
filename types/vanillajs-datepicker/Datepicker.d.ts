@@ -8,13 +8,16 @@ export default class Datepicker {
     static get locales(): any;
 
     constructor(element: any, options?: any, rangepicker?: DateRangePicker);
-    element: any;
     config: any;
-    _options: any;
+    dates: any;
+    editMode: boolean;
+    element: Element;
     inline: boolean;
     inputField: any;
-    dates: any;
     picker: any;
+    
+    _options: object;
+    _showing: boolean;
 
     get active(): boolean;
 
