@@ -1434,10 +1434,14 @@ export function none<T>(fn: (a: T) => boolean): (list: readonly T[]) => boolean;
 export function not(value: any): boolean;
 
 /**
- * Returns the nth element in a list.
+ * Returns the nth element of the given list or string
  */
-export function nth<T>(n: number, list: readonly T[]): T | undefined;
-export function nth(n: number): <T>(list: readonly T[]) => T | undefined;
+ export function nth<T>(n: number, list: readonly T[]): T | undefined;
+ export function nth(n: number, list: string): string;
+ export function nth(n: number): {
+     <T>(list: readonly T[]): T | undefined;
+     (list: string): string;
+ };
 
 /**
  * Returns a function which returns its nth argument.
