@@ -82,6 +82,7 @@
 /// <reference path="trace_events.d.ts" />
 /// <reference path="tty.d.ts" />
 /// <reference path="url.d.ts" />
+/// <reference path="url.globals.d.ts" />
 /// <reference path="util.d.ts" />
 /// <reference path="v8.d.ts" />
 /// <reference path="vm.d.ts" />

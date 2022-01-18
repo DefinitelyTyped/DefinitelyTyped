@@ -778,7 +778,7 @@ declare module 'url' {
          * @param fn Invoked for each name-value pair in the query
          * @param thisArg To be used as `this` value for when `fn` is called
          */
-        forEach<TThis = this>(callback: (this: TThis, value: string, name: string, searchParams: this) => void, thisArg?: TThis): void;
+        forEach<TThis = this>(callback: (this: TThis, value: string, name: string, searchParams: URLSearchParams) => void, thisArg?: TThis): void;
         /**
          * Returns the value of the first name-value pair whose name is `name`. If there
          * are no such pairs, `null` is returned.
