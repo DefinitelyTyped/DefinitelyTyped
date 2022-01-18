@@ -710,7 +710,7 @@ declare namespace GoogleAppsScript {
         sampleSpace?: string | undefined;
         selfLink?: string | undefined;
         totalResults?: number | undefined;
-        totalsForAllResults?: any | undefined;
+        totalsForAllResults?: Record<string, string> | undefined;
       }
       interface GaDataColumnHeaders {
         columnType?: string | undefined;
@@ -863,7 +863,7 @@ declare namespace GoogleAppsScript {
         sampleSpace?: string | undefined;
         selfLink?: string | undefined;
         totalResults?: number | undefined;
-        totalsForAllResults?: any | undefined;
+        totalsForAllResults?: Record<string, string> | undefined;
       }
       interface McfDataColumnHeaders {
         columnType?: string | undefined;
@@ -991,7 +991,7 @@ declare namespace GoogleAppsScript {
         rows?: string[][] | undefined;
         selfLink?: string | undefined;
         totalResults?: number | undefined;
-        totalsForAllResults?: any | undefined;
+        totalsForAllResults?: Record<string, string> | undefined;
       }
       interface RealtimeDataColumnHeaders {
         columnType?: string | undefined;
