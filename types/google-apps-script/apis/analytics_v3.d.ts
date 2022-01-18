@@ -9,21 +9,15 @@ declare namespace GoogleAppsScript {
       namespace Data {
         interface GaCollection {
           // Returns Analytics data for a view (profile).
-          get(ids: string, start_date: string, end_date: string, metrics: string): Analytics.Schema.GaData;
-          // Returns Analytics data for a view (profile).
-          get(ids: string, start_date: string, end_date: string, metrics: string, optionalArgs: any): Analytics.Schema.GaData;
+          get(ids: string, start_date: string, end_date: string, metrics: string, optionalArgs?: Analytics.Schema.GaDataQuery): Analytics.Schema.GaData;
         }
         interface McfCollection {
           // Returns Analytics Multi-Channel Funnels data for a view (profile).
-          get(ids: string, start_date: string, end_date: string, metrics: string): Analytics.Schema.McfData;
-          // Returns Analytics Multi-Channel Funnels data for a view (profile).
-          get(ids: string, start_date: string, end_date: string, metrics: string, optionalArgs: any): Analytics.Schema.McfData;
+          get(ids: string, start_date: string, end_date: string, metrics: string, optionalArgs?: Analytics.Schema.GaDataQuery): Analytics.Schema.McfData;
         }
         interface RealtimeCollection {
           // Returns real time data for a view (profile).
-          get(ids: string, metrics: string): Analytics.Schema.RealtimeData;
-          // Returns real time data for a view (profile).
-          get(ids: string, metrics: string, optionalArgs: any): Analytics.Schema.RealtimeData;
+          get(ids: string, metrics: string, optionalArgs?: any): Analytics.Schema.RealtimeData;
         }
       }
       namespace Management {
