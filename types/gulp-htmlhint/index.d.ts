@@ -28,10 +28,10 @@ declare namespace gulpHtmlhint {
         (options?: Options | string, customRules?: Rule[]): Transform;
         (customRules: Rule[]): Transform;
         addRule(rule: Rule): void;
-        failAfterError(options?: unknown): Transform;
+        failAfterError(options?: Record<string, unknown>): Transform;
         failOnError(options?: FailOnErrorOptions): Transform;
-        failReporter(options?: unknown): Transform; // Backward compatibility
-        reporter(customReporter?: Reported | ReporterFunction | string, options?: unknown): Transform;
+        failReporter(options?: Record<string, unknown>): Transform; // Backward compatibility
+        reporter(customReporter?: Reported | ReporterFunction | string, options?: Record<string, unknown>): Transform;
     }
 }
 
