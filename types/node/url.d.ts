@@ -855,6 +855,16 @@ declare module 'url' {
         values(): IterableIterator<string>;
         [Symbol.iterator](): IterableIterator<[string, string]>;
     }
+
+    import { URL as _URL, URLSearchParams as _URLSearchParams } from 'url';
+    global {
+        interface Global {
+            URL: typeof _URL;
+            URLSearchParams: typeof _URLSearchParams;
+        }
+        interface URLSearchParams extends _URLSearchParams {}
+        interface URL extends _URL {}
+    }
 }
 declare module 'node:url' {
     export * from 'url';
