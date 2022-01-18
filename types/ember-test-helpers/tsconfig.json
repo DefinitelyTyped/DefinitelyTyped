@@ -22,7 +22,6 @@
     },
     "files": [
         "index.d.ts",
-        "wait.d.ts",
         "ember-test-helpers-tests.ts"
     ]
 }
