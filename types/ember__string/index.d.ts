@@ -1,5 +1,5 @@
 // Type definitions for non-npm package @ember/string 3.0
-// Project: https://emberjs.com/api/ember/4.0/modules/@ember%2Fstring
+// Project: https://www.npmjs.com/package/@ember/string
 // Definitions by: Chris Krycho <https://github.com/chriskrycho>
 //                 Dan Freeman <https://github.com/dfreeman>
 //                 James C. Davis <https://github.com/jamescdavis>
