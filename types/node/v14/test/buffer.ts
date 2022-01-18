@@ -7,6 +7,7 @@ import {
     constants,
     kMaxLength,
     kStringMaxLength,
+    Blob,
 } from 'node:buffer';
 
 const utf8Buffer = new Buffer('test');
@@ -262,3 +263,21 @@ b.fill('a').fill('b');
     const target: TranscodeEncoding = 'ascii';
     transcode(Buffer.from('€'), source, target); // $ExpectType Buffer
 }
+
+// Blob
+async () => {
+    const blob = new Blob(['asd', Buffer.from('test'), new Blob(['dummy'])], {
+        type: 'application/javascript',
+        encoding: 'base64',
+    });
+
+    blob.size; // $ExpectType number
+    blob.type; // $ExpectType string
+
+    blob.arrayBuffer(); // $ExpectType Promise<ArrayBuffer>
+    blob.text(); // $ExpectType Promise<string>
+    blob.slice(); // $ExpectType Blob
+    blob.slice(1); // $ExpectType Blob
+    blob.slice(1, 2); // $ExpectType Blob
+    blob.slice(1, 2, 'other'); // $ExpectType Blob
+};

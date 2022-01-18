@@ -604,6 +604,10 @@
             "libraryName": "compression-webpack-plugin",
             "asOfVersion": "9.1.1"
         },
+        "concurrently": {
+            "libraryName": "concurrently",
+            "asOfVersion": "7.0.0"
+        },
         "condense-whitespace": {
             "libraryName": "condense-whitespace",
             "asOfVersion": "2.0.0"
@@ -1297,6 +1301,10 @@
             "libraryName": "extract-zip",
             "asOfVersion": "2.0.0"
         },
+        "faker": {
+            "libraryName": "faker",
+            "asOfVersion": "6.6.6"
+        },
         "fast-diff": {
             "libraryName": "fast-diff",
             "asOfVersion": "1.2.0"
@@ -1784,6 +1792,10 @@
         "hirestime": {
             "libraryName": "hirestime",
             "asOfVersion": "6.0.0"
+        },
+        "history": {
+            "libraryName": "history",
+            "asOfVersion": "5.0.0"
         },
         "hls.js": {
             "libraryName": "hls.js",
@@ -4634,6 +4646,10 @@
         "sip.js": {
             "libraryName": "sip.js",
             "asOfVersion": "0.12.0"
+        },
+        "skia-canvas": {
+            "libraryName": "skia-canvas",
+            "asOfVersion": "0.9.28"
         },
         "skin-tone": {
             "libraryName": "skin-tone",
