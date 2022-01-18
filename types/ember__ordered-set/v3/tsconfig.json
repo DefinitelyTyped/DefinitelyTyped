@@ -13,7 +13,7 @@
             "../../"
         ],
         "paths": {
-            "@ember/*": ["ember__*/v3"]
+            "@ember/ordered-set": ["ember__ordered-set/v3"]
         },
         "types": [],
         "noEmit": true,
