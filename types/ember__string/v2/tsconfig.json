@@ -11,6 +11,9 @@
         "typeRoots": [
             "../../"
         ],
+        "paths": {
+            "@ember/string": ["ember__string/v2"]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
