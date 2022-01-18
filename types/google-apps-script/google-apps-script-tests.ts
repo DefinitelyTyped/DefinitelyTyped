@@ -589,3 +589,21 @@ const handleScopeAction = () => {
 
     return serialized;
 };
+
+// Analytics Test
+const requestAnalyticsData = (): string => {
+    const gaData = Analytics.Data.Ga.get(
+        'An Id',
+        '2022-01-18',
+        '2022-01-18',
+        'Some metrics',
+        {
+            dimensions: 'Some dimensions',
+        },
+    );
+
+    const totalsForAllResults = gaData.totalsForAllResults;
+    const totalSessions = totalsForAllResults['ga:sessions'];
+
+    return totalSessions;
+};
