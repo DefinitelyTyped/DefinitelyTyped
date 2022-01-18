@@ -2730,7 +2730,8 @@ export class EntityInventoryComponent extends IEntityComponent {
      */
     readonly "restrictToOwner": boolean;
 }
-export class EntityIterator {
+export class EntityIterator implements Iterable<Entity> {
+    [Symbol.iterator](): Iterator<Entity>;
 }
 /**
  * Defines the base movement speed in lava of this entity.
