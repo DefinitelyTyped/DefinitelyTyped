@@ -1,7 +1,6 @@
 // Type definitions for non-npm package nova-editor-node 4.1
 // Project: https://docs.nova.app/api-reference/
 // Definitions by: Cameron Little <https://github.com/apexskier>
-//                 Matt Cook <https://github.com/sciencefidelity>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.3
 
@@ -66,19 +65,18 @@ interface TaskAssistant {
 declare class Charset {
     constructor(characters?: string);
 
-    static alphanumeric: string;
-    static digits: string;
-    static letters: string;
-    static lower: string;
-    static newlines: string;
-    static symbols: string;
-    static upper: string;
-    static whitespace: string;
-    static whitespaceAndNewlines: string;
+    static alphanumeric: Charset;
+    static digits: Charset;
+    static letters: Charset;
+    static lower: Charset;
+    static newlines: Charset;
+    static symbols: Charset;
+    static upper: Charset;
+    static whitespace: Charset;
+    static whitespaceAndNewlines: Charset;
 
     concat(...charsets: Array<Charset>): Charset;
     intersect(...charsets: Array<Charset>): Charset;
-    invert(...charsets: Array<Charset>): Charset;
 }
 
 /// https://docs.nova.app/api-reference/clipboard/
@@ -555,7 +553,12 @@ declare class LanguageClient {
     constructor(
         identifier: string,
         name: string,
-        serverOptions: ServerOptions,
+        serverOptions: {
+            type?: 'stdio' | 'socket' | 'pipe';
+            path: string;
+            args?: string[];
+            env?: { [key: string]: string };
+        },
         clientOptions: { initializationOptions?: any; syntaxes: string[] },
     );
 
