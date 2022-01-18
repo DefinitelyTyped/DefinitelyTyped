@@ -1793,6 +1793,10 @@
             "libraryName": "hirestime",
             "asOfVersion": "6.0.0"
         },
+        "history": {
+            "libraryName": "history",
+            "asOfVersion": "5.0.0"
+        },
         "hls.js": {
             "libraryName": "hls.js",
             "asOfVersion": "1.0.0"
