@@ -10,7 +10,7 @@ import { Rule } from 'htmlhint/types';
 
 declare namespace gulpHtmlhint {
     interface Options {
-        htmlhintrc: string;
+        htmlhintrc?: string | undefined;
     }
 
     interface FailOnErrorOptions {
@@ -26,6 +26,7 @@ declare namespace gulpHtmlhint {
 
     interface Plugin {
         (options?: Options | string, customRules?: Rule[]): Transform;
+        (customRules: Rule[]): Transform;
         addRule(rule: Rule): void;
         failAfterError(options?: unknown): Transform;
         failOnError(options?: FailOnErrorOptions): Transform;
