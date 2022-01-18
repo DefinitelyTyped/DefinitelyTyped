@@ -15,13 +15,14 @@
             "../../"
         ],
         "paths": {
+            "@ember/application": ["ember__application/v3"],
             "@ember/application/*": ["ember__application/v3/*"],
+            "@ember/engine": ["ember__engine/v3"],
             "@ember/engine/*": ["ember__engine/v3/*"],
+            "@ember/object": ["ember__object/v3"],
             "@ember/object/*": ["ember__object/v3/*"],
-            "@ember/routing/*": ["ember__routing/v3/*"],
-            "@ember/*": [
-                "ember__*/v3"
-            ]
+            "@ember/routing": ["ember__routing/v3"],
+            "@ember/routing/*": ["ember__routing/v3/*"]
         },
         "types": [],
         "noEmit": true,
