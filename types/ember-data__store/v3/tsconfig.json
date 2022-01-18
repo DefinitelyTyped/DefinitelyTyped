@@ -11,6 +11,7 @@
             "../../"
         ],
         "paths": {
+            "ember-data": ["ember-data/v3"],
             "ember-data/*": ["ember-data/v3/*"],
             "@ember-data/store": ["ember-data__store/v3"],
             "@ember-data/model": ["ember-data__model/v3"],
