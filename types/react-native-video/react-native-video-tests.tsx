@@ -29,7 +29,7 @@ import Video, { FilterType } from 'react-native-video';
     onPictureInPictureStatusChanged={data => {
         console.log(data.isActive);
     }}
-    filterEnable={true}
+    filterEnabled={true}
     filter={FilterType.MONO}
     selectedAudioTrack={{ type: 'index', value: 6 }}
     selectedVideoTrack={{ type: 'auto' }}

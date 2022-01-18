@@ -279,6 +279,8 @@ declare module 'http' {
         aborted: boolean;
         host: string;
         protocol: string;
+        reusedSocket: boolean;
+        maxHeadersCount: number;
 
         constructor(url: string | URL | ClientRequestArgs, cb?: (res: IncomingMessage) => void);
 
