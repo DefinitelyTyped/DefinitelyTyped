@@ -111,9 +111,9 @@ class Bar extends EmberObject {
     @filter declare filterTest1: string[]; // $ExpectError
     @filter() declare filterTest2: string[]; // $ExpectError
     @filter('firstName') declare filterTest3: string[]; // $ExpectError
-    @filter('firstName', x => x) declare filterTest4: string[];
+    @filter('firstName', Boolean) declare filterTest4: string[];
     @filter('firstName', 'secondName', x => x) declare filterTest5: string[]; // $ExpectError
-    @filter('firstName', ['secondName'], x => x) declare filterTest6: string[];
+    @filter('firstName', ['secondName'], Boolean) declare filterTest6: string[];
 
     @filterBy declare filterByTest1: any[]; // $ExpectError
     @filterBy() declare filterByTest2: any[]; // $ExpectError
@@ -216,8 +216,8 @@ class Bar extends EmberObject {
     @sort('values') declare sortTest3: number; // $ExpectError
     @sort('values', 'id') declare sortTest4: number;
     @sort('values', 'id', 'a') declare sortTest5: number; // $ExpectError
-    @sort('values', (a, b) => a - b) declare sortTest6: number;
-    @sort('values', ['id'], (a, b) => a - b) declare sortTest7: number;
+    @sort('values', (a: number, b: number) => a - b) declare sortTest6: number;
+    @sort('values', ['id'], (a: number, b: number) => a - b) declare sortTest7: number;
     @sort('values', 'id', (a, b) => a - b) declare sortTest8: number; // $ExpectError
     @sort(['id'], (a, b) => a - b) declare sortTest9: number; // $ExpectError
 

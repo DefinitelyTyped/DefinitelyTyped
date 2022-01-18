@@ -1,3 +1,4 @@
+import { computed } from "@ember/object";
 import { ComputedPropertyMarker } from "./-private/types";
 
 /**
@@ -8,10 +9,20 @@ import { ComputedPropertyMarker } from "./-private/types";
  */
 export default class ComputedProperty<Get, Set = Get> {
     /**
+     * Call on a computed property to set it into non-cached mode. When in this
+     * mode the computed property will not automatically cache the return value.
+     */
+    volatile(): this;
+    /**
      * Call on a computed property to set it into read-only mode. When in this
      * mode the computed property will throw an error when set.
      */
     readOnly(): this;
+    /**
+     * Sets the dependent keys on this computed property. Pass any number of
+     * arguments containing key paths that this computed property depends on.
+     */
+    property(...path: string[]): this;
     /**
      * In some cases, you may want to annotate computed properties with additional
      * metadata about how they function or what values they operate on. For example,
@@ -42,7 +53,7 @@ export function alias(
  */
 export function and(
     ...dependentKeys: string[]
-): ComputedProperty<boolean>;
+): ComputedProperty<unknown>;
 /**
  * A computed property that converts the provided dependent property
  * into a boolean value.
@@ -98,7 +109,7 @@ export function expandProperties(
  */
 export function filter(
     dependentKey: string,
-    callback: (value: any, index: number, array: any[]) => boolean
+    callback: (value: unknown, index: number, array: unknown[]) => boolean
 ): ComputedProperty<unknown[]>;
 
 /**
@@ -107,7 +118,7 @@ export function filter(
 export function filter(
     dependentKey: string,
     additionalDependentKeys: string[],
-    callback: (value: any, index: number, array: any[]) => boolean
+    callback: (value: unknown, index: number, array: unknown[]) => boolean
 ): ComputedProperty<unknown[]>;
 
 /**
@@ -116,7 +127,7 @@ export function filter(
 export function filterBy(
     dependentKey: string,
     propertyKey: string,
-    value?: any
+    value?: unknown
 ): ComputedProperty<unknown[]>;
 
 /**
@@ -166,7 +177,7 @@ export function lte(
  */
 export function map<U>(
     dependentKey: string,
-    callback: (value: any, index: number, array: any[]) => U
+    callback: (value: unknown, index: number, array: unknown[]) => U
 ): ComputedProperty<U[]>;
 
 /**
@@ -243,7 +254,7 @@ export function oneWay(
  */
 export function or(
     ...dependentKeys: string[]
-): ComputedProperty<boolean>;
+): ComputedProperty<unknown>;
 /**
  * Where `computed.oneWay` provides oneWay bindings, `computed.readOnly` provides
  * a readOnly one way binding. Very often when using `computed.oneWay` one does
@@ -279,10 +290,10 @@ export function setDiff(
  * properties. Alternatively the key of the array to sort, and a the sort
  * function may be used.
  */
-export function sort(
+export function sort<T>(
     itemsKey: string,
-    sortDefinition: string | ((itemA: any, itemB: any) => number)
-): ComputedProperty<unknown[]>;
+    sortDefinition: string | ((itemA: T, itemB: T) => number)
+): ComputedProperty<T[]>;
 
 /**
  * A computed property which returns a new array with all the properties from
@@ -291,11 +302,11 @@ export function sort(
  * It may receive three arguments: the key of the array to sort, an array of
  * dependent keys for the computed property, and the sort function.
  */
-export function sort(
+export function sort<T>(
     itemsKey: string,
     dependentKeys: string[],
-    sortDefinition: string | ((itemA: any, itemB: any) => number)
-): ComputedProperty<unknown[]>;
+    sortDefinition: string | ((itemA: T, itemB: T) => number)
+): ComputedProperty<T[]>;
 
 /**
  * A computed property that returns the sum of the values
@@ -328,4 +339,4 @@ export function union(
 export function uniqBy(
     dependentKey: string,
     propertyKey: string
-): ComputedProperty<unknown[]>;
+): ComputedProperty<any[]>;
