@@ -6940,7 +6940,7 @@ export interface ActionSheetIOSOptions {
     title?: string | undefined;
     options: string[];
     cancelButtonIndex?: number | undefined;
-    destructiveButtonIndex?: number | undefined;
+    destructiveButtonIndex?: number | number[] | undefined;
     message?: string | undefined;
     anchor?: number | undefined;
     tintColor?: ColorValue | ProcessedColorValue | undefined;
