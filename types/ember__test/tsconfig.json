@@ -22,7 +22,6 @@
     },
     "files": [
         "index.d.ts",
-        "adapter.d.ts",
         "ember__test-tests.ts"
     ]
 }
