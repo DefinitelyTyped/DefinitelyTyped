@@ -166,7 +166,7 @@ interface ColorPresentationContext {
 /// https://docs.nova.app/api-reference/color-presentation/
 
 declare class ColorPresentation {
-  constructor(label: string, kind?: any)
+  constructor(label: string, kind?: string)
 
   additionalTextEdits: TextEdit[];
   format?: ColorFormat;
