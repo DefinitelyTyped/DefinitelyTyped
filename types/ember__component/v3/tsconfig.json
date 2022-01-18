@@ -15,11 +15,10 @@
             "../../"
         ],
         "paths": {
-            "@ember/object/*": ["ember__object/v3/*"],
+            "@ember/component": ["ember__component/v3"],
             "@ember/component/*": ["ember__component/v3/*"],
-            "@ember/*": [
-                "ember__*/v3"
-            ]
+            "@ember/object": ["ember__object/v3"],
+            "@ember/object/*": ["ember__object/v3/*"]
         },
         "types": [],
         "noEmit": true,
