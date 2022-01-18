@@ -15,7 +15,7 @@
             "../../"
         ],
         "paths": {
-            "@ember/*": ["ember__*/v3"]
+            "@ember/destroyable": ["ember__destroyable/v3"]
         },
         "types": [],
         "noEmit": true,
