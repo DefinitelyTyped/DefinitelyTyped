@@ -11,19 +11,19 @@ declare namespace GoogleAppsScript {
           // Returns Analytics data for a view (profile).
           get(ids: string, start_date: string, end_date: string, metrics: string): Analytics.Schema.GaData;
           // Returns Analytics data for a view (profile).
-          get(ids: string, start_date: string, end_date: string, metrics: string, optionalArgs: object): Analytics.Schema.GaData;
+          get(ids: string, start_date: string, end_date: string, metrics: string, optionalArgs: any): Analytics.Schema.GaData;
         }
         interface McfCollection {
           // Returns Analytics Multi-Channel Funnels data for a view (profile).
           get(ids: string, start_date: string, end_date: string, metrics: string): Analytics.Schema.McfData;
           // Returns Analytics Multi-Channel Funnels data for a view (profile).
-          get(ids: string, start_date: string, end_date: string, metrics: string, optionalArgs: object): Analytics.Schema.McfData;
+          get(ids: string, start_date: string, end_date: string, metrics: string, optionalArgs: any): Analytics.Schema.McfData;
         }
         interface RealtimeCollection {
           // Returns real time data for a view (profile).
           get(ids: string, metrics: string): Analytics.Schema.RealtimeData;
           // Returns real time data for a view (profile).
-          get(ids: string, metrics: string, optionalArgs: object): Analytics.Schema.RealtimeData;
+          get(ids: string, metrics: string, optionalArgs: any): Analytics.Schema.RealtimeData;
         }
       }
       namespace Management {
@@ -31,7 +31,7 @@ declare namespace GoogleAppsScript {
           // Lists account summaries (lightweight tree comprised of accounts/properties/profiles) to which the user has access.
           list(): Analytics.Schema.AccountSummaries;
           // Lists account summaries (lightweight tree comprised of accounts/properties/profiles) to which the user has access.
-          list(optionalArgs: object): Analytics.Schema.AccountSummaries;
+          list(optionalArgs: any): Analytics.Schema.AccountSummaries;
         }
         interface AccountUserLinksCollection {
           // Adds a new user to the given account.
@@ -39,7 +39,7 @@ declare namespace GoogleAppsScript {
           // Lists account-user links for a given account.
           list(accountId: string): Analytics.Schema.EntityUserLinks;
           // Lists account-user links for a given account.
-          list(accountId: string, optionalArgs: object): Analytics.Schema.EntityUserLinks;
+          list(accountId: string, optionalArgs: any): Analytics.Schema.EntityUserLinks;
           // Removes a user from the given account.
           remove(accountId: string, linkId: string): void;
           // Updates permissions for an existing user on the given account.
@@ -49,7 +49,7 @@ declare namespace GoogleAppsScript {
           // Lists all accounts to which the user has access.
           list(): Analytics.Schema.Accounts;
           // Lists all accounts to which the user has access.
-          list(optionalArgs: object): Analytics.Schema.Accounts;
+          list(optionalArgs: any): Analytics.Schema.Accounts;
         }
         interface ClientIdCollection {
           // Hashes the given Client ID.
@@ -59,7 +59,7 @@ declare namespace GoogleAppsScript {
           // List custom data sources to which the user has access.
           list(accountId: string, webPropertyId: string): Analytics.Schema.CustomDataSources;
           // List custom data sources to which the user has access.
-          list(accountId: string, webPropertyId: string, optionalArgs: object): Analytics.Schema.CustomDataSources;
+          list(accountId: string, webPropertyId: string, optionalArgs: any): Analytics.Schema.CustomDataSources;
         }
         interface CustomDimensionsCollection {
           // Get a custom dimension to which the user has access.
@@ -69,15 +69,15 @@ declare namespace GoogleAppsScript {
           // Lists custom dimensions to which the user has access.
           list(accountId: string, webPropertyId: string): Analytics.Schema.CustomDimensions;
           // Lists custom dimensions to which the user has access.
-          list(accountId: string, webPropertyId: string, optionalArgs: object): Analytics.Schema.CustomDimensions;
+          list(accountId: string, webPropertyId: string, optionalArgs: any): Analytics.Schema.CustomDimensions;
           // Updates an existing custom dimension. This method supports patch semantics.
           patch(resource: Schema.CustomDimension, accountId: string, webPropertyId: string, customDimensionId: string): Analytics.Schema.CustomDimension;
           // Updates an existing custom dimension. This method supports patch semantics.
-          patch(resource: Schema.CustomDimension, accountId: string, webPropertyId: string, customDimensionId: string, optionalArgs: object): Analytics.Schema.CustomDimension;
+          patch(resource: Schema.CustomDimension, accountId: string, webPropertyId: string, customDimensionId: string, optionalArgs: any): Analytics.Schema.CustomDimension;
           // Updates an existing custom dimension.
           update(resource: Schema.CustomDimension, accountId: string, webPropertyId: string, customDimensionId: string): Analytics.Schema.CustomDimension;
           // Updates an existing custom dimension.
-          update(resource: Schema.CustomDimension, accountId: string, webPropertyId: string, customDimensionId: string, optionalArgs: object): Analytics.Schema.CustomDimension;
+          update(resource: Schema.CustomDimension, accountId: string, webPropertyId: string, customDimensionId: string, optionalArgs: any): Analytics.Schema.CustomDimension;
         }
         interface CustomMetricsCollection {
           // Get a custom metric to which the user has access.
@@ -87,15 +87,15 @@ declare namespace GoogleAppsScript {
           // Lists custom metrics to which the user has access.
           list(accountId: string, webPropertyId: string): Analytics.Schema.CustomMetrics;
           // Lists custom metrics to which the user has access.
-          list(accountId: string, webPropertyId: string, optionalArgs: object): Analytics.Schema.CustomMetrics;
+          list(accountId: string, webPropertyId: string, optionalArgs: any): Analytics.Schema.CustomMetrics;
           // Updates an existing custom metric. This method supports patch semantics.
           patch(resource: Schema.CustomMetric, accountId: string, webPropertyId: string, customMetricId: string): Analytics.Schema.CustomMetric;
           // Updates an existing custom metric. This method supports patch semantics.
-          patch(resource: Schema.CustomMetric, accountId: string, webPropertyId: string, customMetricId: string, optionalArgs: object): Analytics.Schema.CustomMetric;
+          patch(resource: Schema.CustomMetric, accountId: string, webPropertyId: string, customMetricId: string, optionalArgs: any): Analytics.Schema.CustomMetric;
           // Updates an existing custom metric.
           update(resource: Schema.CustomMetric, accountId: string, webPropertyId: string, customMetricId: string): Analytics.Schema.CustomMetric;
           // Updates an existing custom metric.
-          update(resource: Schema.CustomMetric, accountId: string, webPropertyId: string, customMetricId: string, optionalArgs: object): Analytics.Schema.CustomMetric;
+          update(resource: Schema.CustomMetric, accountId: string, webPropertyId: string, customMetricId: string, optionalArgs: any): Analytics.Schema.CustomMetric;
         }
         interface ExperimentsCollection {
           // Returns an experiment to which the user has access.
@@ -105,7 +105,7 @@ declare namespace GoogleAppsScript {
           // Lists experiments to which the user has access.
           list(accountId: string, webPropertyId: string, profileId: string): Analytics.Schema.Experiments;
           // Lists experiments to which the user has access.
-          list(accountId: string, webPropertyId: string, profileId: string, optionalArgs: object): Analytics.Schema.Experiments;
+          list(accountId: string, webPropertyId: string, profileId: string, optionalArgs: any): Analytics.Schema.Experiments;
           // Update an existing experiment. This method supports patch semantics.
           patch(resource: Schema.Experiment, accountId: string, webPropertyId: string, profileId: string, experimentId: string): Analytics.Schema.Experiment;
           // Delete an experiment.
@@ -121,7 +121,7 @@ declare namespace GoogleAppsScript {
           // Lists all filters for an account
           list(accountId: string): Analytics.Schema.Filters;
           // Lists all filters for an account
-          list(accountId: string, optionalArgs: object): Analytics.Schema.Filters;
+          list(accountId: string, optionalArgs: any): Analytics.Schema.Filters;
           // Updates an existing filter. This method supports patch semantics.
           patch(resource: Schema.Filter, accountId: string, filterId: string): Analytics.Schema.Filter;
           // Delete a filter.
@@ -137,7 +137,7 @@ declare namespace GoogleAppsScript {
           // Lists goals to which the user has access.
           list(accountId: string, webPropertyId: string, profileId: string): Analytics.Schema.Goals;
           // Lists goals to which the user has access.
-          list(accountId: string, webPropertyId: string, profileId: string, optionalArgs: object): Analytics.Schema.Goals;
+          list(accountId: string, webPropertyId: string, profileId: string, optionalArgs: any): Analytics.Schema.Goals;
           // Updates an existing goal. This method supports patch semantics.
           patch(resource: Schema.Goal, accountId: string, webPropertyId: string, profileId: string, goalId: string): Analytics.Schema.Goal;
           // Updates an existing goal.
@@ -151,7 +151,7 @@ declare namespace GoogleAppsScript {
           // Lists all profile filter links for a profile.
           list(accountId: string, webPropertyId: string, profileId: string): Analytics.Schema.ProfileFilterLinks;
           // Lists all profile filter links for a profile.
-          list(accountId: string, webPropertyId: string, profileId: string, optionalArgs: object): Analytics.Schema.ProfileFilterLinks;
+          list(accountId: string, webPropertyId: string, profileId: string, optionalArgs: any): Analytics.Schema.ProfileFilterLinks;
           // Update an existing profile filter link. This method supports patch semantics.
           patch(resource: Schema.ProfileFilterLink, accountId: string, webPropertyId: string, profileId: string, linkId: string): Analytics.Schema.ProfileFilterLink;
           // Delete a profile filter link.
@@ -165,7 +165,7 @@ declare namespace GoogleAppsScript {
           // Lists profile-user links for a given view (profile).
           list(accountId: string, webPropertyId: string, profileId: string): Analytics.Schema.EntityUserLinks;
           // Lists profile-user links for a given view (profile).
-          list(accountId: string, webPropertyId: string, profileId: string, optionalArgs: object): Analytics.Schema.EntityUserLinks;
+          list(accountId: string, webPropertyId: string, profileId: string, optionalArgs: any): Analytics.Schema.EntityUserLinks;
           // Removes a user from the given view (profile).
           remove(accountId: string, webPropertyId: string, profileId: string, linkId: string): void;
           // Updates permissions for an existing user on the given view (profile).
@@ -179,7 +179,7 @@ declare namespace GoogleAppsScript {
           // Lists views (profiles) to which the user has access.
           list(accountId: string, webPropertyId: string): Analytics.Schema.Profiles;
           // Lists views (profiles) to which the user has access.
-          list(accountId: string, webPropertyId: string, optionalArgs: object): Analytics.Schema.Profiles;
+          list(accountId: string, webPropertyId: string, optionalArgs: any): Analytics.Schema.Profiles;
           // Updates an existing view (profile). This method supports patch semantics.
           patch(resource: Schema.Profile, accountId: string, webPropertyId: string, profileId: string): Analytics.Schema.Profile;
           // Deletes a view (profile).
@@ -195,7 +195,7 @@ declare namespace GoogleAppsScript {
           // Lists remarketing audiences to which the user has access.
           list(accountId: string, webPropertyId: string): Analytics.Schema.RemarketingAudiences;
           // Lists remarketing audiences to which the user has access.
-          list(accountId: string, webPropertyId: string, optionalArgs: object): Analytics.Schema.RemarketingAudiences;
+          list(accountId: string, webPropertyId: string, optionalArgs: any): Analytics.Schema.RemarketingAudiences;
           // Updates an existing remarketing audience. This method supports patch semantics.
           patch(resource: Schema.RemarketingAudience, accountId: string, webPropertyId: string, remarketingAudienceId: string): Analytics.Schema.RemarketingAudience;
           // Delete a remarketing audience.
@@ -207,7 +207,7 @@ declare namespace GoogleAppsScript {
           // Lists segments to which the user has access.
           list(): Analytics.Schema.Segments;
           // Lists segments to which the user has access.
-          list(optionalArgs: object): Analytics.Schema.Segments;
+          list(optionalArgs: any): Analytics.Schema.Segments;
         }
         interface UnsampledReportsCollection {
           // Returns a single unsampled report.
@@ -217,7 +217,7 @@ declare namespace GoogleAppsScript {
           // Lists unsampled reports to which the user has access.
           list(accountId: string, webPropertyId: string, profileId: string): Analytics.Schema.UnsampledReports;
           // Lists unsampled reports to which the user has access.
-          list(accountId: string, webPropertyId: string, profileId: string, optionalArgs: object): Analytics.Schema.UnsampledReports;
+          list(accountId: string, webPropertyId: string, profileId: string, optionalArgs: any): Analytics.Schema.UnsampledReports;
           // Deletes an unsampled report.
           remove(accountId: string, webPropertyId: string, profileId: string, unsampledReportId: string): void;
         }
@@ -229,7 +229,7 @@ declare namespace GoogleAppsScript {
           // List uploads to which the user has access.
           list(accountId: string, webPropertyId: string, customDataSourceId: string): Analytics.Schema.Uploads;
           // List uploads to which the user has access.
-          list(accountId: string, webPropertyId: string, customDataSourceId: string, optionalArgs: object): Analytics.Schema.Uploads;
+          list(accountId: string, webPropertyId: string, customDataSourceId: string, optionalArgs: any): Analytics.Schema.Uploads;
           // Upload data for a custom data source.
           uploadData(accountId: string, webPropertyId: string, customDataSourceId: string): Analytics.Schema.Upload;
           // Upload data for a custom data source.
@@ -243,7 +243,7 @@ declare namespace GoogleAppsScript {
           // Lists webProperty-Google Ads links for a given web property.
           list(accountId: string, webPropertyId: string): Analytics.Schema.EntityAdWordsLinks;
           // Lists webProperty-Google Ads links for a given web property.
-          list(accountId: string, webPropertyId: string, optionalArgs: object): Analytics.Schema.EntityAdWordsLinks;
+          list(accountId: string, webPropertyId: string, optionalArgs: any): Analytics.Schema.EntityAdWordsLinks;
           // Updates an existing webProperty-Google Ads link. This method supports patch semantics.
           patch(resource: Schema.EntityAdWordsLink, accountId: string, webPropertyId: string, webPropertyAdWordsLinkId: string): Analytics.Schema.EntityAdWordsLink;
           // Deletes a web property-Google Ads link.
@@ -259,7 +259,7 @@ declare namespace GoogleAppsScript {
           // Lists web properties to which the user has access.
           list(accountId: string): Analytics.Schema.Webproperties;
           // Lists web properties to which the user has access.
-          list(accountId: string, optionalArgs: object): Analytics.Schema.Webproperties;
+          list(accountId: string, optionalArgs: any): Analytics.Schema.Webproperties;
           // Updates an existing web property. This method supports patch semantics.
           patch(resource: Schema.Webproperty, accountId: string, webPropertyId: string): Analytics.Schema.Webproperty;
           // Updates an existing web property.
@@ -271,7 +271,7 @@ declare namespace GoogleAppsScript {
           // Lists webProperty-user links for a given web property.
           list(accountId: string, webPropertyId: string): Analytics.Schema.EntityUserLinks;
           // Lists webProperty-user links for a given web property.
-          list(accountId: string, webPropertyId: string, optionalArgs: object): Analytics.Schema.EntityUserLinks;
+          list(accountId: string, webPropertyId: string, optionalArgs: any): Analytics.Schema.EntityUserLinks;
           // Removes a user from the given web property.
           remove(accountId: string, webPropertyId: string, linkId: string): void;
           // Updates permissions for an existing user on the given web property.
@@ -413,7 +413,7 @@ declare namespace GoogleAppsScript {
         customDataImportUids?: string[] | undefined;
       }
       interface Column {
-        attributes?: object | undefined;
+        attributes?: any | undefined;
         id?: string | undefined;
         kind?: string | undefined;
       }
@@ -578,7 +578,7 @@ declare namespace GoogleAppsScript {
         kind?: string | undefined;
         minimumExperimentLengthInDays?: number | undefined;
         name?: string | undefined;
-        objectiveMetric?: string | undefined;
+        anyiveMetric?: string | undefined;
         optimizationType?: string | undefined;
         parentLink?: Analytics.Schema.ExperimentParentLink | undefined;
         profileId?: string | undefined;
@@ -710,7 +710,7 @@ declare namespace GoogleAppsScript {
         sampleSpace?: string | undefined;
         selfLink?: string | undefined;
         totalResults?: number | undefined;
-        totalsForAllResults?: object | undefined;
+        totalsForAllResults?: any | undefined;
       }
       interface GaDataColumnHeaders {
         columnType?: string | undefined;
@@ -863,7 +863,7 @@ declare namespace GoogleAppsScript {
         sampleSpace?: string | undefined;
         selfLink?: string | undefined;
         totalResults?: number | undefined;
-        totalsForAllResults?: object | undefined;
+        totalsForAllResults?: any | undefined;
       }
       interface McfDataColumnHeaders {
         columnType?: string | undefined;
@@ -991,7 +991,7 @@ declare namespace GoogleAppsScript {
         rows?: string[][] | undefined;
         selfLink?: string | undefined;
         totalResults?: number | undefined;
-        totalsForAllResults?: object | undefined;
+        totalsForAllResults?: any | undefined;
       }
       interface RealtimeDataColumnHeaders {
         columnType?: string | undefined;
@@ -1095,7 +1095,7 @@ declare namespace GoogleAppsScript {
       }
       interface UnsampledReportCloudStorageDownloadDetails {
         bucketId?: string | undefined;
-        objectId?: string | undefined;
+        anyId?: string | undefined;
       }
       interface UnsampledReportDriveDownloadDetails {
         documentId?: string | undefined;
