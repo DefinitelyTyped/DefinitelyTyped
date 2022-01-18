@@ -15,9 +15,7 @@
             "../../"
         ],
         "paths": {
-            "@ember/*": [
-                "ember__*/v3"
-            ]
+            "@ember/debug": ["ember__debug/v3"]
         },
         "types": [],
         "noEmit": true,
