@@ -1,4 +1,4 @@
-// Type definitions for ember-qunit 4
+// Type definitions for ember-qunit 4.0
 // Project: https://github.com/emberjs/ember-qunit#readme
 // Definitions by: Derek Wickern <https://github.com/dwickern>
 //                 Mike North <https://github.com/mike-north>
