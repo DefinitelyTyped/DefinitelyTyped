@@ -407,7 +407,7 @@ declare namespace GoogleAppsScript {
         customDataImportUids?: string[] | undefined;
       }
       interface Column {
-        attributes?: any | undefined;
+        attributes?: any;
         id?: string | undefined;
         kind?: string | undefined;
       }
@@ -765,7 +765,7 @@ declare namespace GoogleAppsScript {
         /** The maximum number of rows to include in the response. */
         'max-results'?: number;
         /** The desired output type for the Analytics data returned in the response. Acceptable values are json and dataTable. Default: json. */
-        output?: 'json' | 'dataTable'
+        output?: 'json' | 'dataTable';
         /** Selector specifying a subset of fields to include in the response. */
         fields?: string;
         /** Returns response with indentations and line breaks. Default false. */
