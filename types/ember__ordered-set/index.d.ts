@@ -1,4 +1,4 @@
-// Type definitions for @ember/ordered-set 2.0
+// Type definitions for @ember/ordered-set 4.0
 // Project: https://github.com/emberjs/ember-ordered-set
 // Definitions by: Chris Krycho <https://github.com/chriskrycho>
 //                 Dan Freeman <https://github.com/dfreeman>
