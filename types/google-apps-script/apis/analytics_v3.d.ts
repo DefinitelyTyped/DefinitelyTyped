@@ -741,17 +741,51 @@ declare namespace GoogleAppsScript {
         webPropertyId?: string | undefined;
       }
       interface GaDataQuery {
-        dimensions?: string | undefined;
-        end_date?: string | undefined;
-        filters?: string | undefined;
-        ids?: string | undefined;
-        max_results?: number | undefined;
-        metrics?: string[] | undefined;
-        samplingLevel?: string | undefined;
-        segment?: string | undefined;
-        sort?: string[] | undefined;
-        start_date?: string | undefined;
-        start_index?: number | undefined;
+        /** The unique table ID of the form ga:XXXX, where XXXX is the Analytics view (profile) ID for which the query will retrieve the data. */
+        ids?: string;
+        /** Start date for fetching Analytics data. Requests can specify a start date formatted as YYYY-MM-DD, or as a relative date (e.g., today, yesterday, or NdaysAgo where N is a positive integer). */
+        'start-date'?: string;
+        /** End date for fetching Analytics data. Request can specify an end date formatted as YYYY-MM-DD, or as a relative date (e.g., today, yesterday, or NdaysAgo where N is a positive integer). */
+        'end-date'?: string;
+        /** A list of comma-separated metrics, such as ga:sessions,ga:bounces. */
+        metrics?: string;
+        /** A list of comma-separated dimensions for your Analytics data, such as ga:browser,ga:city. */
+        dimensions?: string;
+        /** A list of comma-separated dimensions and metrics indicating the sorting order and sorting direction for the returned data. */
+        sort?: string;
+        /** Dimension or metric filters that restrict the data returned for your request. */
+        filters?: string;
+        /** Segments the data returned for your request. */
+        segment?: string;
+        /**
+         * The desired sampling level. Allowed Values:
+         * DEFAULT — Returns response with a sample size that balances speed and accuracy.
+         * FASTER — Returns a fast response with a smaller sample size.
+         * HIGHER_PRECISION — Returns a more accurate response using a large sample size, but this may result in the response being slower.
+         */
+        samplingLevel?: 'DEFAULT' | 'FASTER' | 'HIGHER_PRECISION';
+        /** Defaults to true; if set to false, rows where all metric values are zero will be omitted from the response. */
+        'include-empty-rows'?: boolean;
+        /** The first row of data to retrieve, starting at 1. Use this parameter as a pagination mechanism along with the max-results parameter. */
+        'start-index'?: number;
+        /** The maximum number of rows to include in the response. */
+        'max-results'?: number;
+        /** The desired output type for the Analytics data returned in the response. Acceptable values are json and dataTable. Default: json. */
+        output?: 'json' | 'dataTable'
+        /** Selector specifying a subset of fields to include in the response. */
+        fields?: string;
+        /** Returns response with indentations and line breaks. Default false. */
+        prettyPrint?: string;
+        /** Specifies IP address of the end user for whom the API call is being made. Used to cap usage per IP. */
+        userIp?: string;
+        /** Alternative to userIp in cases when the user's IP address is unknown. */
+        quotaUser?: string;
+        /** One possible way to provide an OAuth 2.0 token. */
+        access_token?: string;
+        /** Name of the JavaScript callback function that handles the response. Used in JavaScript JSON-P requests. */
+        callback?: string;
+        /** Used for OAuth 1.0a authorization to specify your application to get quota. For example: key=AldefliuhSFADSfasdfasdfASdf. */
+        key?: string;
       }
       interface Goal {
         accountId?: string | undefined;
