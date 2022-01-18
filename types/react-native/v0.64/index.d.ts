@@ -6934,7 +6934,7 @@ export interface ActionSheetIOSOptions {
     message?: string | undefined;
     anchor?: number | undefined;
     tintColor?: ColorValue | ProcessedColorValue | undefined;
-    userInterfaceStyle?: string | undefined;
+    userInterfaceStyle?: 'light' | 'dark' | undefined;
     disabledButtonIndices?: number[] | undefined;
 }
 
