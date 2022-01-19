@@ -4,7 +4,7 @@
 //                 Chris Krycho <https://github.com/chriskrycho>
 //                 James C. Davis <https://github.com/jamescdavis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
+// Minimum TypeScript Version: 4.4
 
 import EmberTestAdapter from '@ember/test/adapter';
 import EmberResolver from 'ember-resolver';
