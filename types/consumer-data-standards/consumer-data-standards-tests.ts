@@ -1,2 +1,2 @@
-import dsb = require('consumer-data-standards');
-const type = dsb.BankingProductCategory.BUSINESS_LOANS; // $ExpectType BankingProductCategory.BUSINESS_LOANS
+import dsb = require('consumer-data-standards/banking');
+//const type = dsb. // $ExpectType BankingProductCategory.BUSINESS_LOANS
