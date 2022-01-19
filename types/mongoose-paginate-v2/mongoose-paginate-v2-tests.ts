@@ -2,31 +2,33 @@
  * Created by Linus Brolin <https://github.com/linusbrolin/>.
  */
 
-import { Schema, model, PaginateModel, PaginateOptions, Types } from 'mongoose';
+import { Schema, model, PaginateModel, PaginateOptions, Types, Document } from 'mongoose';
 import mongoosePaginate = require('mongoose-paginate-v2');
+import { PaginationParameters } from 'mongoose-paginate-v2';
 import { Router, Request, Response } from 'express';
 
 //#region Test Models
-interface Book {
+interface Book extends Document {
     author: string;
     title: string;
+    getTitle: () => string;
 }
 
 interface BookMethods {
     getTitle: () => string;
 }
 
-const BookSchema = new Schema<Book, PaginateModel<Book, {}, BookMethods>, BookMethods>({
+const BookSchema = new Schema<Book, PaginateModel<Book, {}, BookMethods>, undefined, BookMethods>({
     author: String,
     title: String,
 });
 
-const BookModel = model<Book, PaginateModel<Book, {}, BookMethods>, BookMethods>('Book', BookSchema);
+const BookModel = model<Book, PaginateModel<Book, {}, BookMethods>>('Book', BookSchema);
 
 const book = new BookModel();
 console.log(book.getTitle() === 'Oliver Twist');
 
-interface User {
+interface User extends Document {
     email: string;
     username: string;
     password: string;
@@ -102,5 +104,11 @@ router.get('/users.json', async (req: Request, res: Response) => {
 
     const users = await UserModel.paginate({}, { lean: true, leanWithId: true });
     console.log(users.docs[0].id === new Types.ObjectId().toString());
+
+    await UserModel.paginate(...new PaginationParameters<User>(req).get());
+    await UserModel.paginate(
+        new PaginationParameters<User>(req).getQuery(),
+        new PaginationParameters(req).getOptions(),
+    );
 });
 //#endregion

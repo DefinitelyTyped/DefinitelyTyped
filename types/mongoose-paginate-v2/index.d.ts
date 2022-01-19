@@ -1,10 +1,11 @@
-// Type definitions for mongoose-paginate-v2 1.4
-// Project: https://github.com/webgangster/mongoose-paginate-v2
+// Type definitions for mongoose-paginate-v2 1.5
+// Project: https://github.com/aravindnc/mongoose-paginate-v2
 // Definitions by: Linus Brolin <https://github.com/linusbrolin>
 //                 woutgg <https://github.com/woutgg>
 //                 oktapodia <https://github.com/oktapodia>
 //                 Dongjun Lee <https://github.com/ChazEpps>
 //                 gamsterX <https://github.com/gamsterx>
+//                 ypicard <https://github.com/ypicard>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.1
 
@@ -30,7 +31,7 @@ declare module 'mongoose' {
 
     interface PaginateOptions {
         select?: object | string | undefined;
-        collation?: import('mongodb').CollationOptions | undefined;
+        collation?: import('mongodb').CollationDocument | undefined;
         sort?: object | string | undefined;
         populate?: PopulateOptions[] | string[] | PopulateOptions | string | PopulateOptions | undefined;
         projection?: any;
@@ -66,19 +67,18 @@ declare module 'mongoose' {
         [customLabel: string]: T[] | number | boolean | null | undefined;
     }
 
-    type PaginateDocument<T, TMethods, TVirtuals, O extends PaginateOptions = {}> = O['lean'] extends true
+    type PaginateDocument<T, TMethods, O extends PaginateOptions = {}> = O['lean'] extends true
         ? O['leanWithId'] extends true
             ? LeanDocument<T & { id: string }>
             : LeanDocument<T>
-        : HydratedDocument<T, TMethods, TVirtuals>;
+        : EnforceDocument<T, TMethods>;
 
-    interface PaginateModel<T, TQueryHelpers = {}, TMethods = {}, TVirtuals = {}>
-        extends Model<T, TQueryHelpers, TMethods, TVirtuals> {
+    interface PaginateModel<T, TQueryHelpers = {}, TMethods = {}> extends Model<T, TQueryHelpers, TMethods> {
         paginate<O extends PaginateOptions>(
             query?: FilterQuery<T>,
             options?: O,
-            callback?: (err: any, result: PaginateResult<PaginateDocument<T, TMethods, TVirtuals, O>>) => void,
-        ): Promise<PaginateResult<PaginateDocument<T, TMethods, TVirtuals, O>>>;
+            callback?: (err: any, result: PaginateResult<PaginateDocument<T, TMethods, O>>) => void,
+        ): Promise<PaginateResult<PaginateDocument<T, TMethods, O>>>;
     }
 }
 
@@ -86,5 +86,11 @@ import mongoose = require('mongoose');
 declare function _(schema: mongoose.Schema): void;
 export = _;
 declare namespace _ {
-    const paginate: { options: mongoose.PaginateOptions };
+    function paginate(schema: mongoose.Schema): void;
+    class PaginationParameters<T, O extends mongoose.PaginateOptions = {}> {
+        constructor(request: { query?: Record<string, any> });
+        getOptions: () => O;
+        getQuery: () => mongoose.FilterQuery<T>;
+        get: () => [mongoose.FilterQuery<T>, O];
+    }
 }
