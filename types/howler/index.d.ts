@@ -1,4 +1,4 @@
-// Type definitions for howler.js 2.2.3
+// Type definitions for howler.js 2.2
 // Project: https://github.com/goldfire/howler.js
 // Definitions by: Pedro Casaubon <https://github.com/xperiments>
 //                 Alexander Leon <https://github.com/alien35>
