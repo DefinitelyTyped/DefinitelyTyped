@@ -17,9 +17,12 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
+            "ember": ["ember/v3"],
+            "@ember/application": ["ember__application/v3"],
+            "@ember/application/*": ["ember__application/v3/*"],
+            "@ember/error": ["ember__error/v3"],
             "@ember/test-helpers": ["ember__test-helpers/v1"],
-            "@ember/test-helpers/*": ["ember__test-helpers/v1/*"],
-            "@ember/*": ["ember__*"]
+            "@ember/test-helpers/*": ["ember__test-helpers/v1/*"]
         }
     },
     "files": [
