@@ -93,6 +93,8 @@ export class Environment {
 }
 
 export interface Extension {
+    /** Sets to instance via `env.addExtension()` */
+    __name?: string;
     tags: string[];
     // Parser API is undocumented it is suggested to check the source: https://github.com/mozilla/nunjucks/blob/master/src/parser.js
     parse(parser: any, nodes: any, lexer: any): any;
@@ -195,4 +197,232 @@ export namespace lib {
         lineno: number;
         colno: number;
     }
+}
+
+export type InternalExtendClass<ClassType extends new (...args: any[]) => any, AdditionalProps extends object> = new (
+    ...args: ConstructorParameters<ClassType>
+) => InstanceType<ClassType> & AdditionalProps;
+
+/** Internal base class for some public classes */
+export class Obj {
+    constructor(...args: Partial<any[]>);
+    readonly typename: string;
+    /** Temporary property to emulate `super.<property>` invocation */
+    parent: any;
+    static extend<ObjClass extends typeof Obj, Props extends object>(
+        this: ObjClass,
+        props: Props,
+    ): InternalExtendClass<ObjClass, Props>;
+    static extend<ObjClass extends typeof Obj, Props extends object>(
+        this: ObjClass,
+        name: string,
+        props?: Props,
+    ): InternalExtendClass<ObjClass, Props>;
+}
+
+export namespace nodes {
+    type NodeIterFieldsCallback<Fields extends string[], FieldValue extends any[]> = (
+        fieldValue: FieldValue[number],
+        fieldName: Fields[number],
+    ) => void;
+
+    class Node<FieldValue extends any[] = any[], Fields extends string[] = string[]> extends Obj {
+        constructor(lineno: number, colno: number, ...args: Partial<FieldValue>);
+        lineno: number;
+        colno: number;
+        fields: Fields;
+        findAll<NodeType extends typeof Node>(type: NodeType, results?: Array<any>): NodeType[];
+        iterFields(func: NodeIterFieldsCallback<Fields, FieldValue>): void;
+    }
+
+    class Value extends Node<string[]> {
+        value: string;
+    }
+
+    class NodeList extends Node<Node[]> {
+        children: Node[];
+        addChild(node: Node): void;
+    }
+
+    class Root extends NodeList {}
+
+    class Literal extends Value {}
+
+    class Symbol extends Value {}
+
+    class Group extends NodeList {}
+
+    class ArrayNode extends NodeList {}
+
+    class Pair extends Node<[string, string]> {
+        key: string;
+        value: string;
+    }
+
+    class Dict extends NodeList {}
+
+    class LookupVal extends Node<[InstanceType<typeof Node>, InstanceType<typeof Node>]> {
+        target: InstanceType<typeof Node>;
+        val: InstanceType<typeof Node>;
+    }
+
+    class If extends Node<[InstanceType<typeof Node>, InstanceType<typeof Node>, InstanceType<typeof Node>]> {
+        cond: InstanceType<typeof nodes.Node>;
+        body: InstanceType<typeof Node>;
+        else_: InstanceType<typeof Node>;
+    }
+
+    class IfAsync extends If {}
+
+    // Inherited from `Node` in nunjucks, NOT `If`
+    class InlineIf extends Node<[InstanceType<typeof Node>, InstanceType<typeof Node>, InstanceType<typeof Node>]> {
+        cond: InstanceType<typeof Node>;
+        body: InstanceType<typeof Node>;
+        else_: InstanceType<typeof Node>;
+    }
+
+    class For extends Node<
+        [InstanceType<typeof Node>, InstanceType<typeof Node>, InstanceType<typeof Node>, InstanceType<typeof Node>]
+    > {
+        arr: InstanceType<typeof Node>;
+        name: InstanceType<typeof Node>;
+        body: InstanceType<typeof Node>;
+        else_: InstanceType<typeof Node>;
+    }
+    class AsyncEach extends For {}
+    class AsyncAll extends For {}
+
+    class Macro extends Node<[InstanceType<typeof Node>, InstanceType<typeof Node>, InstanceType<typeof Node>]> {
+        name: InstanceType<typeof Node>;
+        args: InstanceType<typeof Node>;
+        body: InstanceType<typeof Node>;
+    }
+    class Caller extends Macro {}
+
+    class Import extends Node<[InstanceType<typeof Node>, InstanceType<typeof Node>, InstanceType<typeof Node>]> {
+        template: InstanceType<typeof Node>;
+        target: InstanceType<typeof Node>;
+        withContext: InstanceType<typeof Node>;
+    }
+
+    class FromImport extends Node<[InstanceType<typeof Node>, InstanceType<typeof Node>, InstanceType<typeof Node>]> {
+        template: InstanceType<typeof Node>;
+        names: InstanceType<typeof Node>;
+        withContext: InstanceType<typeof Node>;
+    }
+
+    class FunCall<Values extends any[] = [InstanceType<typeof Node>, InstanceType<typeof Node>]> extends Node<Values> {
+        name: InstanceType<typeof Node>;
+        args: InstanceType<typeof Node>;
+    }
+    class Filter<Values extends any[]> extends FunCall<Values> {}
+    class FilterAsync extends Filter<
+        [InstanceType<typeof Node>, InstanceType<typeof Node>, InstanceType<typeof Node>]
+    > {
+        name: InstanceType<typeof Node>;
+        args: InstanceType<typeof Node>;
+        symbol: InstanceType<typeof Node>;
+    }
+
+    class KeywordArgs extends Dict {}
+
+    class Block extends Node<[InstanceType<typeof Node>, InstanceType<typeof Node>]> {
+        name: InstanceType<typeof Node>;
+        body: InstanceType<typeof Node>;
+    }
+
+    class Super extends Node<[InstanceType<typeof Node>, InstanceType<typeof Node>]> {
+        blockName: InstanceType<typeof Node>;
+        symbol: InstanceType<typeof Node>;
+    }
+
+    class TemplateRef extends Node<[InstanceType<typeof Node>]> {
+        template: InstanceType<typeof Node>;
+    }
+    class Extends extends TemplateRef {}
+
+    class Include extends Node<[InstanceType<typeof Node>, InstanceType<typeof Node>]> {
+        template: InstanceType<typeof Node>;
+        ignoreMissing: InstanceType<typeof Node>;
+    }
+
+    class Set extends Node<[InstanceType<typeof Node>, InstanceType<typeof Node>]> {
+        targets: InstanceType<typeof Node>;
+        value: InstanceType<typeof Node>;
+    }
+
+    class Switch extends Node<[InstanceType<typeof Node>, InstanceType<typeof Node>, InstanceType<typeof Node>]> {
+        expr: InstanceType<typeof Node>;
+        cases: InstanceType<typeof Node>;
+        default: InstanceType<typeof Node>;
+    }
+
+    class Case extends Node<[InstanceType<typeof Node>, InstanceType<typeof Node>]> {
+        cond: InstanceType<typeof Node>;
+        body: InstanceType<typeof Node>;
+    }
+
+    class Output extends NodeList {}
+
+    class Capture extends Node<[InstanceType<typeof Node>]> {
+        body: InstanceType<typeof Node>;
+    }
+
+    class TemplateData extends Literal {}
+
+    class UnaryOp extends Node<[InstanceType<typeof Node>]> {
+        target: InstanceType<typeof Node>;
+    }
+
+    class BinOp extends Node<[InstanceType<typeof Node>, InstanceType<typeof Node>]> {
+        left: InstanceType<typeof Node>;
+        right: InstanceType<typeof Node>;
+    }
+    class In extends BinOp {}
+    class Is extends BinOp {}
+    class Or extends BinOp {}
+    class And extends BinOp {}
+
+    class Not extends UnaryOp {}
+
+    class Add extends BinOp {}
+    class Concat extends BinOp {}
+    class Sub extends BinOp {}
+    class Mul extends BinOp {}
+    class Div extends BinOp {}
+    class FloorDiv extends BinOp {}
+    class Mod extends BinOp {}
+    class Pow extends BinOp {}
+    class Neg extends UnaryOp {}
+    class Pos extends UnaryOp {}
+
+    class Compare extends Node<[InstanceType<typeof Node>, InstanceType<typeof Node>]> {
+        expr: InstanceType<typeof Node>;
+        ops: InstanceType<typeof Node>;
+    }
+
+    class CompareOperand extends Node<[InstanceType<typeof Node>, InstanceType<typeof Node>]> {
+        expr: InstanceType<typeof Node>;
+        type: InstanceType<typeof Node>;
+    }
+
+    type CallExtensionName = Extension['__name'] | Extension;
+
+    class CallExtension extends Node {
+        constructor(
+            ext: CallExtensionName,
+            prop: string,
+            args: InstanceType<typeof NodeList>,
+            contentArgs: Array<InstanceType<typeof Node>>,
+        );
+
+        extName: CallExtensionName;
+        prop: string;
+        args: InstanceType<typeof NodeList>;
+        contentArgs: Array<InstanceType<typeof Node>>;
+        autoescape: boolean;
+    }
+    class CallExtensionAsync extends CallExtension {}
+
+    function printNodes(node: Node, indent?: number): void;
 }
