@@ -1,4 +1,4 @@
-// Type definitions for sfcookies 1.0.2
+// Type definitions for sfcookies 1.0
 // Project: https://github.com/15Dkatz/sfcookies
 // Definitions by: Gabriel Arriagada <https://github.com/GNosii>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
