@@ -426,3 +426,9 @@ export namespace nodes {
 
     function printNodes(node: Node, indent?: number): void;
 }
+
+export namespace parser {
+    type ITokenizerOptions = Pick<ConfigureOptions, 'tags' | 'trimBlocks' | 'lstripBlocks'>;
+
+    function parse(src: string, extensions: Extension[], opts: ITokenizerOptions): nodes.Root;
+}
