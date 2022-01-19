@@ -12,7 +12,8 @@
         ],
         "paths": {
             "ember": ["ember/v3"],
-            "ember-qunit": ["ember-qunit/v4"]
+            "ember-qunit": ["ember-qunit/v4"],
+            "ember-test-helpers": ["ember-test-helpers/v0"]
         },
         "types": [],
         "noEmit": true,
