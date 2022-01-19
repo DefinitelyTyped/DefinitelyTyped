@@ -23,7 +23,7 @@ const tailwindConfig: TailwindConfig = {
         plugin(({ matchUtilities, theme }) => {
             matchUtilities(
                 {
-                    ['.new-flex-gap']: (value: any) => ({
+                    ['.new-flex-ganpp']: (value: any) => ({
                         gap: value,
                     }),
                 },
