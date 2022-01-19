@@ -95,8 +95,6 @@ declare enum ColorFormat {
     displayP3 = 'p3',
 }
 
-// type ColorComponents = [number, number, number, number];
-
 declare class Color {
     constructor(format: ColorFormat, components: number[]);
 
@@ -160,7 +158,7 @@ declare class ColorInformation {
 /// https://docs.nova.app/api-reference/color-presentation-context/
 
 interface ColorPresentationContext {
-  range: Range;
+  readonly range: Range;
 }
 
 /// https://docs.nova.app/api-reference/color-presentation/
@@ -553,12 +551,7 @@ declare class LanguageClient {
     constructor(
         identifier: string,
         name: string,
-        serverOptions: {
-            type?: 'stdio' | 'socket' | 'pipe';
-            path: string;
-            args?: string[];
-            env?: { [key: string]: string };
-        },
+        serverOptions: ServerOptions,
         clientOptions: { initializationOptions?: any; syntaxes: string[] },
     );
 
@@ -575,7 +568,7 @@ declare class LanguageClient {
     stop(): void;
 }
 
-type ServerOptions = {
+interface ServerOptions {
   type?: 'stdio' | 'socket' | 'pipe';
   path: string;
   args?: string[];
