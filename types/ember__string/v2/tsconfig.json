@@ -12,7 +12,8 @@
             "../../"
         ],
         "paths": {
-            "@ember/string": ["ember__string/v2"]
+            "@ember/string": ["ember__string/v2"],
+            "@ember/template": ["ember__template/v3"]
         },
         "types": [],
         "noEmit": true,
