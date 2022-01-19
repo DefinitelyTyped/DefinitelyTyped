@@ -858,22 +858,28 @@ declare module 'url' {
 
     import { URL as _URL, URLSearchParams as _URLSearchParams } from 'url';
     global {
-        interface Global {
-            /**
-             * `URL` class is global.
-             * https://nodejs.org/api/url.html#the-whatwg-url-api
-             * @since v10.0.0
-             */
-            URL: typeof _URL;
-            /**
-             * `URLSearchParams` class is global.
-             * https://nodejs.org/api/url.html#class-urlsearchparams
-             * @since v10.0.0
-             */
-            URLSearchParams: typeof _URLSearchParams;
-        }
         interface URLSearchParams extends _URLSearchParams {}
         interface URL extends _URL {}
+        interface Global {
+            URL: typeof _URL;
+            URLSearchParams: typeof _URLSearchParams;
+        }
+        /**
+         * `URL` class is global.
+         * https://nodejs.org/api/url.html#the-whatwg-url-api
+         * @since v10.0.0
+         */
+        var URL: typeof globalThis extends { webkitURL: infer URL } ? URL : typeof _URL;
+        /**
+         * `URLSearchParams` class is global.
+         * https://nodejs.org/api/url.html#class-urlsearchparams
+         * @since v10.0.0
+         */
+        var URLSearchParams: {
+            prototype: URLSearchParams;
+            new(init?: string[][] | Record<string, string> | string | URLSearchParams): URLSearchParams;
+            toString(): string;
+        };
     }
 }
 declare module 'node:url' {
