@@ -428,7 +428,55 @@ export namespace nodes {
 }
 
 export namespace parser {
+    function parse(src: string, extensions: Extension[], opts: lexer.ITokenizerOptions): nodes.Root;
+}
+
+export namespace lexer {
     type ITokenizerOptions = Pick<ConfigureOptions, 'tags' | 'trimBlocks' | 'lstripBlocks'>;
 
-    function parse(src: string, extensions: Extension[], opts: ITokenizerOptions): nodes.Root;
+    interface ITokenRegexValue {
+        body: string;
+        flags: string;
+    }
+
+    interface IToken {
+        type: string;
+        value: string | null | ITokenRegexValue;
+        lineno: number | undefined;
+        colno: number | undefined;
+    }
+
+    function lex(src: string, opts: ITokenizerOptions): InstanceType<typeof Tokenizer>;
+
+    class Tokenizer {
+        constructor(str: string, opts: ITokenizerOptions);
+        str: string;
+        index: number;
+        len: number;
+        lineno: number;
+        colno: number;
+        in_code: boolean;
+        tags: {
+            [key: string]: string;
+        };
+        trimBlocks: boolean;
+        lstripBlocks: boolean;
+
+        nextToken(): null | IToken;
+        _parseString(delimiter: string): string;
+        _matches(str: string): boolean | null;
+        _extractString<S extends string>(str: S): S | null;
+        _extractUntil(charString: string): string | null;
+        _extract(charString: string): string | null;
+        _extractMatching(breakOnMatch: boolean, charString: string): string | null;
+        _extractRegex(regex: RegExp): null;
+        isFinished(): boolean;
+        forwardN(n: number): void;
+        forward(): void;
+        backN(n: number): void;
+        back(): void;
+        current(): string;
+        currentStr(): string;
+        previous(): string;
+    }
 }
