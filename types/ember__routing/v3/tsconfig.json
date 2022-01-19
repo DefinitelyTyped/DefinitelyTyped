@@ -17,6 +17,8 @@
         "paths": {
             "@ember/array": ["ember__array/v3"],
             "@ember/array/*": ["ember__array/v3/*"],
+            "@ember/controller": ["ember__controller/v3"],
+            "@ember/component": ["ember__component/v3"],
             "@ember/object": ["ember__object/v3"],
             "@ember/object/*": ["ember__object/v3/*"],
             "@ember/routing": ["ember__routing/v3"],
