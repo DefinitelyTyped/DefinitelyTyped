@@ -1894,6 +1894,18 @@ LayoutAnimation.configureNext(LayoutAnimation.create(123, 'easeIn', 'opacity'));
 
 // ActionSheetIOS
 const ActionSheetIOSTest = () => {
+    // test destructiveButtonIndex undefined
+    ActionSheetIOS.showActionSheetWithOptions({
+        options: ['foo'],
+        destructiveButtonIndex: undefined,
+    }, () => undefined);
+
+    // test destructiveButtonIndex null
+    ActionSheetIOS.showActionSheetWithOptions({
+        options: ['foo'],
+        destructiveButtonIndex: null,
+    }, () => undefined);
+
     // test destructiveButtonIndex single number
     ActionSheetIOS.showActionSheetWithOptions({
         options: ['foo'],
