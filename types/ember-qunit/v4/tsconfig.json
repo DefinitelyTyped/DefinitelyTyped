@@ -11,7 +11,7 @@
             "../../"
         ],
         "paths": {
-            "@ember/*": ["ember__*"],
+            "ember": ["ember/v3"],
             "ember-qunit": ["ember-qunit/v4"]
         },
         "types": [],
