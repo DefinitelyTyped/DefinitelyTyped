@@ -171,11 +171,13 @@ export interface HowlOptions extends HowlListeners {
      * this parameter. Each is optional (method defaults to GET, headers default to null and
      * withCredentials defaults to false).
      */
-    xhr?: {
-        method?: string | undefined;
-        headers?: Record<string, string> | undefined;
-        withCredentials?: boolean | undefined;
-    } | undefined;
+    xhr?:
+        | {
+              method?: string | undefined;
+              headers?: Record<string, string> | undefined;
+              withCredentials?: boolean | undefined;
+          }
+        | undefined;
 }
 
 export class Howl {
