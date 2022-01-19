@@ -308,7 +308,8 @@ export namespace Ember {
     // 1. Get the type side of the namespace.
     type EmberRunloop = typeof EmberRunloopNs;
     // 2. Use it to get an interface representing the callable side of `run`.
-    type RunFn = Pick<EmberRunloop, 'run'>['run'];
+    type RunFn = EmberRunloop['run'];
+    // type RunFn = Pick<EmberRunloop, 'run'>['run'];
     // 3. Merge the two together so that the public-facing type of `run` is both
     //    the plucked-off run type *and* the namespace.
     interface Run extends RunFn, EmberRunloop {}
