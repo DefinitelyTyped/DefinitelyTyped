@@ -1105,7 +1105,7 @@ declare namespace GoogleAppsScript {
       }
       interface UnsampledReportCloudStorageDownloadDetails {
         bucketId?: string | undefined;
-        anyId?: string | undefined;
+        objectId?: string | undefined;
       }
       interface UnsampledReportDriveDownloadDetails {
         documentId?: string | undefined;
