@@ -4,7 +4,14 @@ import plugin from 'tailwindcss/plugin';
 const tailwindConfig: TailwindConfig = {
     content: ['testing'],
     darkMode: 'class',
-    theme: {},
+    theme: {
+        gap: {
+            1: '1px',
+            2: '2px',
+            4: '4px',
+            8: '8px'
+        }
+    },
     plugins: [
         plugin(({ addUtilities }) => {
             addUtilities({
@@ -13,5 +20,14 @@ const tailwindConfig: TailwindConfig = {
                 },
             });
         }),
+        plugin(({ matchUtilities, theme }) => {
+            matchUtilities({
+                ['.new-flex-gap']: (value: any) => ({
+                    'gap': value
+                }),
+            },
+            {values: theme('gap')}
+            )
+        })
     ],
 };
