@@ -30,13 +30,13 @@ clearInterval(timer2); // $ExpectType void
 const positionAnimation = new BasicAnimation('position');
 positionAnimation.value = {
     x: 100,
-    y: 100,
+    y: '100hm',
 };
 positionAnimation.duration = 1000;
-positionAnimation.on('on', () => {
+positionAnimation.on('start', () => {
     console.log('the animation is on');
 });
-positionAnimation.on('off', () => {
+positionAnimation.on('end', () => {
     console.log('the animation is off');
 });
 

@@ -159,7 +159,7 @@ interface BasicAnimation<V = unknown> {
      * @param event 事件类型（'start' 或 'end'）
      * @param callback 事件回调
      */
-    on(event: 'on' | 'off', cb: () => void): void;
+    on(event: 'start' | 'end', cb: () => void): void;
 }
 
 declare const BasicAnimation: {
@@ -214,7 +214,7 @@ interface KeyframeAnimation<V = unknown> {
      * @param event 事件类型（'start' 或 'end'）
      * @param callback 事件回调
      */
-    on(event: 'on' | 'off', cb: () => void): void;
+    on(event: 'start' | 'end', cb: () => void): void;
 }
 
 declare const KeyframeAnimation: {
