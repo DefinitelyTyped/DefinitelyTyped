@@ -572,7 +572,7 @@ declare namespace GoogleAppsScript {
         kind?: string | undefined;
         minimumExperimentLengthInDays?: number | undefined;
         name?: string | undefined;
-        anyiveMetric?: string | undefined;
+        objectiveMetric?: string | undefined;
         optimizationType?: string | undefined;
         parentLink?: Analytics.Schema.ExperimentParentLink | undefined;
         profileId?: string | undefined;
