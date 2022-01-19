@@ -6901,8 +6901,8 @@ export class SwipeableListView extends React.Component<SwipeableListViewProps> {
 export interface ActionSheetIOSOptions {
     title?: string;
     options: string[];
-    cancelButtonIndex?: number | number[];
-    destructiveButtonIndex?: number;
+    cancelButtonIndex?: number;
+    destructiveButtonIndex?: number | number[] | undefined | null;
     message?: string;
     anchor?: number;
     tintColor?: ColorValue | ProcessedColorValue;
