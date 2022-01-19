@@ -7,10 +7,16 @@
 /// <reference types="node" />
 
 import { Readable } from 'stream';
-import { Logger } from 'winston';
+
+export interface ILogger {
+    verbose: (message: string) => void;
+    info: (message: string) => void;
+    warn: (message: string) => void;
+    error: (message: string) => void;
+  }
 
 export interface IafUploadModule {
-    logger: Logger;
+    logger: ILogger;
     playlistName: string;
     onFileAdd(filePath: string, readStream: Readable, contentType?: string): any;
     progressDelegate: (result: any) => any;
@@ -18,6 +24,6 @@ export interface IafUploadModule {
 }
 export interface IafFileWatchModule {
     fileInput: string;
-    logger: Logger;
+    logger: ILogger;
     onAdd(callback: (filePath: string, readStream: Readable, contentType?: string) => any): any;
 }

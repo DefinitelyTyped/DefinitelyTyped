@@ -1,9 +1,8 @@
-import { IafUploadModule, IafFileWatchModule } from 'eyevinn-iaf';
+import { IafUploadModule, IafFileWatchModule, ILogger } from 'eyevinn-iaf';
 import { Readable } from 'stream';
-import { Logger } from 'winston';
 
 class FileUploader implements IafUploadModule {
-    logger: Logger;
+    logger: ILogger;
     playlistName: string;
     progressDelegate: (result: any) => any;
     fileUploadedDelegate: (result: any) => any;
@@ -13,7 +12,7 @@ class FileUploader implements IafUploadModule {
 
 class FileWatcher implements IafFileWatchModule {
     fileInput: string;
-    logger: Logger;
+    logger: ILogger;
 
     onAdd(callback: (filePath: string, readStream: Readable, contentType?: string) => any): void {}
 }
