@@ -1,5 +1,7 @@
-import Element from "./element";
+import DomConverter from './domconverter';
+import Element from './element';
 
 export default class RawElement extends Element {
-    render(domElement: HTMLElement): void;
+    getFillerOffset(): null;
+    render: undefined | ((domElement: HTMLElement, domConverter: DomConverter) => void);
 }

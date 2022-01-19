@@ -9,6 +9,7 @@ import {
     tap,
     focus,
     blur,
+    tab,
     triggerEvent,
     triggerKeyEvent,
     typeIn,
@@ -58,6 +59,7 @@ test('DOM interactions', async () => {
     await blur(messageElement);
     await triggerEvent(messageElement, 'custom-event');
     await triggerKeyEvent(messageElement, 'keydown', 'Enter', { ctrlKey: true });
+    await tab();
     await fillIn(messageElement, 'content');
     await typeIn(messageElement, 'content');
     await select(messageElement, 'content');

@@ -1,6 +1,7 @@
 {
     "private": true,
     "dependencies": {
-        "@types/mongoose": "5.10.5"
+        "@types/mongoose": "5.10.5",
+        "@types/redis": "^2.8.0"
     }
 }

@@ -1,6 +1,6 @@
 // Type definitions for Leaflet.markercluster 1.4
 // Project: https://github.com/Leaflet/Leaflet.markercluster
-// Definitions by: Robert Imig <https://github.com/rimig>
+// Definitions by: Robert Imig <https://github.com/rimig>, Nenad Filipovic <https://github.com/nenadfilipovic>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -27,6 +27,16 @@ declare module 'leaflet' {
         * Returns the cluster bounds.
         */
         getBounds(): LatLngBounds;
+
+        /*
+        * Spiderfies the child markers of this cluster.
+        */
+        spiderfy(): void;
+
+        /*
+        * Unspiderfies a cluster (opposite of spiderfy).
+        */
+        unspiderfy(): void;
     }
 
     interface MarkerClusterGroupOptions extends LayerOptions {

@@ -49,6 +49,10 @@ declare namespace ReactHammer {
         onRotateMove?: HammerListener | undefined;
         onRotateStart?: HammerListener | undefined;
         onSwipe?: HammerListener | undefined;
+        onSwipeRight?: HammerListener | undefined;
+        onSwipeLeft?: HammerListener | undefined;
+        onSwipeUp?: HammerListener | undefined;
+        onSwipeDown?: HammerListener | undefined;
         onTap?: HammerListener | undefined;
     }
 }

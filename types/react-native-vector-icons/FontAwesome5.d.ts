@@ -36,7 +36,6 @@ export default class FontAwesome5Icon extends Component<
     ): ImageSource;
     static loadFont(file?: string): Promise<void>;
     static hasIcon(name: string): boolean;
-    static ToolbarAndroid: typeof Icon.ToolbarAndroid;
     static TabBarItem: typeof Icon.TabBarItem;
     static TabBarItemIOS: typeof Icon.TabBarItemIOS;
     static Button: typeof Icon.Button;

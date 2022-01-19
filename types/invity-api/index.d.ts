@@ -157,6 +157,8 @@ export type ExchangeTradeStatus =
     | 'SENDING' // send tx was created, waiting for send tx to be sent
     | 'CONFIRMING' // send tx was sent, waiting for tx to be mined (not used for Trezor Wallet)
     | 'CONVERTING' // send tx was mined, money is on exchange, receive tx not yet created
+    | 'APPROVAL_REQ' // it is necessary to perform APPROVAL transaction for DEX
+    | 'APPROVAL_PENDING' // waiting for DEX approval tx to be confirmed
     | ExchangeTradeFinalStatus;
 
 export type ExchangeFee =
@@ -176,6 +178,7 @@ export interface ExchangeProviderInfo {
     logo: string; // changenow-icon.jpg
     isActive: boolean;
     isFixedRate: boolean;
+    isDex: boolean;
     buyTickers: string[];
     sellTickers: string[];
     addressFormats: StringMap; // specification of formats required by selected exchange
@@ -198,12 +201,21 @@ export interface ExchangeCoinInfo {
 
 export type ExchangeCoinListResponse = ExchangeCoinInfo[];
 
+export type DexApprovalType =
+    | 'MINIMAL' // MINIMAL (default) is the lowest necessary to swap sendStringAmount
+    | 'INFINITE' // approves infinite amount
+    | 'ZERO' // resets approval
+    | 'PRESET'; // PRESET takes value from approvalStringAmount
+
 export interface ExchangeTrade {
     send?: string | undefined; // BTC
+
     sendStringAmount?: string | undefined; // "0.01"
     sendAddress?: string | undefined; // exchange address for send tx
     receive?: string | undefined; // LTC
+
     receiveStringAmount?: string | undefined; // "0.01"
+    fromAddress?: string | undefined; // user's address from which the tx is sent - used in DEX
     receiveAddress?: string | undefined; // users address for receive tx
     rate?: number | undefined; // 100
     min?: number | undefined; // 0.001
@@ -215,7 +227,7 @@ export interface ExchangeTrade {
     statusUrl?: string | undefined; // internal URL + ID assigned to the trade by the exchange to check status
     status?: ExchangeTradeStatus | undefined; // state of trade after confirmTrade
     error?: string | undefined; // something went wrong after confirmTrade
-    receiveTxHash?: string | undefined; // hash of tx from exchange to user
+    receiveTxHash?: string | undefined; // hash of tx from exchange to user or DEX swap
     cid?: string | undefined; // google clientID
     offerReferenceId?: string | undefined; // coinswitch only
     rateIdentificator?: string | undefined; // rate identificator for fixed rate exchanges
@@ -225,6 +237,23 @@ export interface ExchangeTrade {
     extraFieldDescription?: CoinExtraField | undefined;
     tags?: ExchangeTradeTag[] | undefined;
     id?: string | undefined; // internal DB id
+
+    // DEX extra fields
+    isDex?: boolean | undefined;
+    approvalGasEstimate?: number | undefined; // gas estimate of the approval transaction
+    approvalType?: DexApprovalType | undefined;
+    preapprovedStringAmount?: string | undefined; //  amount that was already approved
+    approvalStringAmount?: string | undefined; //  amount to approve
+    approvalSendTxHash?: string | undefined; // txid of approval transaction
+    swapGasEstimate?: number | undefined; // gas estimate of the swap transaction
+    swapSlippage?: string | undefined; // swap slippage in percent, for example "1.5"
+    dexTx?: {
+        // tx data for approval or swap transaction
+        from: string;
+        to: string;
+        data: string;
+        value: string;
+    } | undefined;
     // locally used fields
     offerType?: 'bestRate' | 'favorite' | undefined;
 }
@@ -245,6 +274,7 @@ export interface ExchangeTradeQuoteRequest {
     send: string; // BTC
     receive: string; // LTC
     sendStringAmount?: string | undefined; // "0.01"
+    dex?: 'enable' | 'exclusively' | undefined; // 'enable' means add dex offers, 'exclusively' means only dex offers
 }
 
 export type ExchangeTradeQuoteResponse = ExchangeTrade[];

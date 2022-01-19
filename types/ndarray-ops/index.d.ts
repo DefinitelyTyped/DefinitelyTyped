@@ -1,9 +1,9 @@
 // Type definitions for ndarray-ops 1.2
 // Project: https://github.com/mikolalysenko/ndarray-ops
-// Definitions by: Adam Zerella <https://github.com/adamzerella>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { NdArray } from "ndarray";
+import { Data, NdArray } from 'ndarray';
 
 ////////////////
 /// Assignment operations
@@ -212,7 +212,7 @@ export function inf(array: NdArray): boolean;
 export function argmin(index: number, array: NdArray, shape: NdArray): boolean;
 export function argmax(index: number, array: NdArray, shape: NdArray): boolean;
 export function random(array: NdArray): NdArray;
-export function assign(array: NdArray, array2: NdArray): NdArray;
+export function assign<D extends Data = Data<number>>(array: NdArray<D>, array2: NdArray<D>): NdArray<D>;
 export function assigns(array: NdArray, scalar: number): NdArray;
 export function equals(array1: NdArray, array2: NdArray): boolean;
 

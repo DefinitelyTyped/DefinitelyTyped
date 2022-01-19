@@ -11,7 +11,6 @@ import {
     ViewProps,
     ViewPropsIOS,
     ViewPropsAndroid,
-    ToolbarAndroidProps,
     ViewPagerAndroidProps,
     SegmentedControlIOSProps,
     ScrollViewProps,
@@ -101,9 +100,6 @@ declare module 'react-native' {
 
     /** @deprecated Use ViewPropsAndroid */
     export type ViewPropertiesAndroid = ViewPropsAndroid;
-
-    /** @deprecated Use ToolbarAndroidProps */
-    export type ToolbarAndroidProperties = ToolbarAndroidProps;
 
     /** @deprecated Use ViewPagerAndroidProps */
     export type ViewPagerAndroidProperties = ViewPagerAndroidProps;

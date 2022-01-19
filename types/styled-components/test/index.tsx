@@ -1151,8 +1151,7 @@ const wrapperClassNoChildren = <StyledWrapperClassFuncChild>Text</StyledWrapperC
 
 const WrapperFunction: React.FunctionComponent<WrapperProps> = () => <div />;
 const StyledWrapperFunction = styled(WrapperFunction)``;
-// React.FunctionComponent typings always add `children` to props, so this should accept children
-const wrapperFunction = <StyledWrapperFunction>Text</StyledWrapperFunction>;
+const wrapperFunction = <StyledWrapperFunction />;
 
 const WrapperFunc = (props: WrapperProps) => <div />;
 const StyledWrapperFunc = styled(WrapperFunc)``;
@@ -1221,8 +1220,7 @@ function unionTest() {
         font-size: ${props => (props.kind === 'book' ? 16 : 14)};
     `;
 
-    // undesired, fix was reverted because of https://github.com/Microsoft/TypeScript/issues/30663
-    <StyledReadable kind="book" author="Hejlsberg" />; // $ExpectError
+    <StyledReadable kind="book" author="Hejlsberg" />;
     <StyledReadable kind="magazine" author="Hejlsberg" />; // $ExpectError
 }
 

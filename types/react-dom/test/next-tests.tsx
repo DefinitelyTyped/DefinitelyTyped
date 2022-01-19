@@ -21,7 +21,7 @@ function hydrateRoot() {
         },
     });
 
-    const hydrateable = ReactDOM.hydrateRoot(document, {
+    const hydrateable = ReactDOM.hydrateRoot(document, <div>initial render</div>, {
         onHydrated: () => {
             console.log('hydrated');
         },
@@ -29,5 +29,15 @@ function hydrateRoot() {
             console.log('deleted');
         },
     });
-    hydrateable.render(<div>initial render</div>);
+    hydrateable.render(<div>render update</div>);
+    ReactDOM.hydrateRoot(document, {
+        // Forgot `initialChildren`
+        // $ExpectError
+        onHydrated: () => {
+            console.log('hydrated');
+        },
+        onDeleted: () => {
+            console.log('deleted');
+        },
+    });
 }

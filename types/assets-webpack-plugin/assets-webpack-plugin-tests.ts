@@ -1,7 +1,7 @@
-import * as webpack from 'webpack';
+import { Configuration } from 'webpack';
 import AssetsPlugin = require('assets-webpack-plugin');
 
-const config: webpack.Configuration = {
+const config: Configuration = {
     plugins: [
         new AssetsPlugin(),
         new AssetsPlugin({
@@ -34,5 +34,3 @@ const config: webpack.Configuration = {
         })
     ]
 };
-
-new AssetsPlugin().apply(new webpack.Compiler());

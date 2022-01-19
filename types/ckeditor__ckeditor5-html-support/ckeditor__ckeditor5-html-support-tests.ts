@@ -2,11 +2,15 @@ import { Editor } from '@ckeditor/ckeditor5-core';
 import { DowncastWriter, StylesProcessor } from '@ckeditor/ckeditor5-engine';
 import { DowncastConversionApi } from '@ckeditor/ckeditor5-engine/src/conversion/downcastdispatcher';
 import UpcastDispatcher, { UpcastConversionApi } from '@ckeditor/ckeditor5-engine/src/conversion/upcastdispatcher';
+import Element from '@ckeditor/ckeditor5-engine/src/model/element';
+import Position from '@ckeditor/ckeditor5-engine/src/model/position';
+import Range from '@ckeditor/ckeditor5-engine/src/model/range';
 import Writer from '@ckeditor/ckeditor5-engine/src/model/writer';
 import ViewDocument from '@ckeditor/ckeditor5-engine/src/view/document';
 import { DataFilter, DataSchema, GeneralHtmlSupport } from '@ckeditor/ckeditor5-html-support';
 import * as conversionUtils from '@ckeditor/ckeditor5-html-support/src/conversionutils';
 import * as converters from '@ckeditor/ckeditor5-html-support/src/converters';
+import HtmlComment from '@ckeditor/ckeditor5-html-support/src/htmlcomment';
 import CodeBlockHtmlSupport from '@ckeditor/ckeditor5-html-support/src/integrations/codeblock';
 import TableElementSupport from '@ckeditor/ckeditor5-html-support/src/integrations/table';
 import schemas from '@ckeditor/ckeditor5-html-support/src/schemadefinitions';
@@ -51,9 +55,9 @@ dataSchema.registerInlineElement({
 dataSchema.registerBlockElement({
     view: 'def1',
     model: 'htmlDef1',
-    allowChildren: ['htmlDef2', 'htmlDef3'],
     modelSchema: {
         inheritAllFrom: '$block',
+        allowChildren: ['htmlDef2', 'htmlDef3'],
     },
 });
 
@@ -63,10 +67,6 @@ converters.toObjectWidgetConverter(editor, { model: '', isInline: true, attribut
     downcastConversionApi,
 );
 converters.viewToModelObjectConverter({ model: '', isObject: true })(viewElement, upcastConversionApi);
-converters.disallowedAttributesConverter(
-    { model: '', modelSchema: { allowAttributes: '' } },
-    new DataFilter(editor),
-)(new UpcastDispatcher());
 converters.attributeToViewInlineConverter({ model: '', isInline: true })('', downcastConversionApi);
 converters.viewToModelBlockAttributeConverter(
     { model: '', isBlock: true },
@@ -99,3 +99,13 @@ editor.plugins.get('GeneralHtmlSupport');
 
 // $ExpectType TableElementSupport
 editor.plugins.get('TableElementSupport');
+
+const position = new Position(new Element('div'), [4]);
+// $ExpectType boolean
+new HtmlComment(editor).removeHtmlComment('');
+// $ExpectType string[]
+new HtmlComment(editor).getHtmlCommentsInRange(new Range(position));
+// $ExpectType string
+new HtmlComment(editor).createHtmlComment(position, '');
+// $ExpectType HtmlCommentData | null
+new HtmlComment(editor).getHtmlCommentData('');

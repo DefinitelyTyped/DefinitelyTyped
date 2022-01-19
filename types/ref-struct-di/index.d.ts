@@ -27,7 +27,7 @@ declare var StructType: {
     /**
      * Creates a new {@link struct.StructType} for the provided field definitions.
      */
-    new (fields?: Array<[string, ref.TypeLike]>, opt?: { packed?: boolean | undefined }): struct.StructType;
+    new (fields?: Array<[ref.TypeLike, string]>, opt?: { packed?: boolean | undefined }): struct.StructType;
 
     /**
      * Creates a new {@link struct.StructType} for the provided field definitions.
@@ -50,7 +50,7 @@ declare var StructType: {
     /**
      * Creates a new {@link struct.StructType} for the provided field definitions.
      */
-    (fields?: Array<[string, ref.TypeLike]>, opt?: { packed?: boolean | undefined }): struct.StructType;
+    (fields?: Array<[ref.TypeLike, string]>, opt?: { packed?: boolean | undefined }): struct.StructType;
 };
 
 type RefModuleLike = Pick<typeof ref, "coerceType" | "get" | "set" | "alignof" | "sizeof" | "NULL">;
@@ -79,13 +79,13 @@ declare namespace struct {
     /**
      * Base constraint for an array-based struct type definition.
      */
-    type StructTypeTupleDefinitionBase = Array<[string, ref.TypeLike]>;
+    type StructTypeTupleDefinitionBase = Array<[ref.TypeLike, string]>;
 
     /**
      * This is a marker type that causes TypeScript to use tuple-type and string literal inference when inferring a generic from {@link StructTypeTupleDefinitionBase}.
-     * If it is not used, `new StructType([["x", "int"]])` will be inferred as `new StructType<[string, string][]>(...)` instead of `new StructType<[["x", "int"]]>(...)`.
+     * If it is not used, `new StructType([["int", "x"]])` will be inferred as `new StructType<[string, string][]>(...)` instead of `new StructType<[["int", "x"]]>(...)`.
      */
-    type StructTypeTupleDefinitionInferenceMarker = [["", "void"]];
+    type StructTypeTupleDefinitionInferenceMarker = [["void", ""]];
 
     /**
      * Converts a {@link StructTypeTupleDefinitionBase} into a consistent subtype of {@link StructTypeDefinitionBase}. If `any` is used, it is passed along
@@ -93,7 +93,7 @@ declare namespace struct {
      */
     type StructTypeTupleDefinitionToStructTypeDefinition<T extends StructTypeTupleDefinitionBase> =
         [T] extends [never] | [0] ? any : // catches T extends never/any (since `0` doesn't overlap with our constraint)
-        { [P in Extract<keyof T, `${number}`> as Extract<T[P], [string, ref.TypeLike]>[0]]: ref.Type<ref.UnderlyingType<Extract<T[P], [string, ref.TypeLike]>[1]>>; };
+        { [P in Extract<keyof T, `${number}`> as Extract<T[P], [ref.TypeLike, string]>[1]]: ref.Type<ref.UnderlyingType<Extract<T[P], [ref.TypeLike, string]>[0]>>; };
 
     /**
      * Base constraint for a consistent struct type definition.
@@ -162,12 +162,16 @@ declare namespace struct {
      */
     interface StructType<TDefinition extends StructTypeDefinitionBase = any> extends ref.Type<StructObject<StructObjectProperties<TDefinition>>> {
         /** Pass it an existing Buffer instance to use that as the backing buffer. */
-        new (arg: Buffer, data?: Partial<StructObjectProperties<TDefinition>>): StructObject<StructObjectProperties<TDefinition>>;
-        new (data?: Partial<StructObjectProperties<TDefinition>>): StructObject<StructObjectProperties<TDefinition>>;
+        new (
+            arg?: Buffer | Partial<StructObjectProperties<TDefinition>>,
+            data?: Partial<StructObjectProperties<TDefinition>>
+        ): StructObject<StructObjectProperties<TDefinition>>;
 
         /** Pass it an existing Buffer instance to use that as the backing buffer. */
-        (arg: Buffer, data?: Partial<StructObjectProperties<TDefinition>>): StructObject<StructObjectProperties<TDefinition>>;
-        (data?: Partial<StructObjectProperties<TDefinition>>): StructObject<StructObjectProperties<TDefinition>>;
+        (
+            arg?: Buffer | Partial<StructObjectProperties<TDefinition>>,
+            data?: Partial<StructObjectProperties<TDefinition>>
+        ): StructObject<StructObjectProperties<TDefinition>>;
 
         fields: StructFields<TDefinition>;
 

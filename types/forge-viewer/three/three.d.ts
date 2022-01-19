@@ -255,6 +255,7 @@ declare namespace THREE {
         expandByScalar(scalar: number): Box2;
         expandByVector(vector: Vector2): Box2;
         getParameter(point: Vector2): Vector2;
+        getSize(optionalTarget?: Vector2): Vector2;
         intersect(box: Box2): Box2;
         isIntersectionBox(box: Box2): boolean;
         makeEmpty(): Box2;
@@ -288,9 +289,11 @@ declare namespace THREE {
         expandByScalar(scalar: number): Box3;
         expandByVector(vector: Vector3): Box3;
         getBoundingSphere(optionalTarget?: Sphere): Sphere;
-        getCenter(): Vector3;
+        getCenter(optionalTarget?: Vector3): Vector3;
         getParameter(point: Vector3): Vector3;
+        getSize(optionalTarget?: Vector3): Vector3;
         intersect(box: Box3): Box3;
+        intersectsBox(box: Box3): true;
         isEmpty(): boolean;
         isIntersectionBox(box: Box3): boolean;
         makeEmpty(): Box3;
@@ -579,7 +582,7 @@ declare namespace THREE {
         setFromQuaternion(q: Quaternion, order?: string, update?: boolean): Euler;
     }
 
-    class ExtrudeGeometry {
+    class ExtrudeGeometry extends Geometry {
         constructor(shapes?: Shape | Shape[], options?: any);
 
         WorldUVGenerator: {
@@ -1098,6 +1101,7 @@ declare namespace THREE {
         getInverse(m: Matrix4, throwOnInvertible?: boolean): Matrix4;
         getMaxScaleOnAxis(): number;
         identity(): Matrix4;
+        invert(): Matrix4;
         lookAt(eye: Vector3, target: Vector3, up: Vector3): Matrix4;
         makeBasis(xAxis: Vector3, yAxis: Vector3, zAxis: Vector3): Matrix4;
         makeRotationAxis(axis: Vector3, angle: number): Matrix4;

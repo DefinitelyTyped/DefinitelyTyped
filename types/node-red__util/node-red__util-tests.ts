@@ -128,3 +128,114 @@ function utilTests(someNode: Node) {
     // $ExpectType string
     encoded.msg;
 }
+
+function hookTests() {
+    const hooks = utilModule.hooks;
+
+    //#region Hook payload types
+    hooks.add('onSend', payload => {
+        // $ExpectType SendEvent[]
+        payload;
+    });
+
+    hooks.add('preRoute', payload => {
+        // $ExpectType SendEvent
+        payload;
+    });
+
+    hooks.add('preDeliver', payload => {
+        // $ExpectType SendEvent
+        payload;
+    });
+
+    hooks.add('postDeliver', payload => {
+        // $ExpectType SendEvent
+        payload;
+    });
+
+    hooks.add('onReceive', payload => {
+        // $ExpectType ReceiveEvent
+        payload;
+    });
+
+    hooks.add('postReceive', payload => {
+        // $ExpectType ReceiveEvent
+        payload;
+    });
+
+    hooks.add('onComplete', payload => {
+        // $ExpectType CompleteEvent
+        payload;
+    });
+
+    hooks.add('preInstall', payload => {
+        // $ExpectType InstallEvent
+        payload;
+    });
+
+    hooks.add('postInstall', payload => {
+        // $ExpectType InstallEvent
+        payload;
+    });
+
+    hooks.add('preUninstall', payload => {
+        // $ExpectType UninstallEvent
+        payload;
+    });
+
+    hooks.add('postUninstall', payload => {
+        // $ExpectType UninstallEvent
+        payload;
+    });
+
+    hooks.add('customEvent', payload => {
+        // $ExpectType any
+        payload;
+    });
+
+    hooks.add('customEvent', (payload: string) => {
+        // $ExpectType string
+        payload;
+    });
+    //#endregion
+
+    //#region Hook handler finalization
+    hooks.add('onSend', payload => {
+        return;
+    });
+
+    hooks.add('onSend', (payload, done) => {
+        done();
+    });
+
+    hooks.add('onSend', payload => {
+        return new Promise(resolve => {
+            resolve();
+        });
+    });
+
+    hooks.add('onSend', payload => {
+        return false;
+    });
+
+    hooks.add('onSend', (payload, done) => {
+        done(false);
+    });
+
+    hooks.add('onSend', payload => {
+        return new Promise(resolve => {
+            resolve(false);
+        });
+    });
+
+    hooks.add('onSend', async payload => {
+        return false;
+    });
+
+    // any value in callback should be allowed
+    hooks.add('onSend', (payload, done) => {
+        done('Error');
+        done(new Error('Error'));
+    });
+    //#endregion
+}

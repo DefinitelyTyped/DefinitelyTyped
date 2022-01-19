@@ -200,7 +200,7 @@ interface MondayClientSdk {
 interface MondayServerSdk {
     setToken(token: string): void;
 
-    api(query: string, options?: Partial<{ token: string }>): Promise<any>;
+    api(query: string, options?: Partial<{ token: string, variables: object} >): Promise<any>;
 
     oauthToken(code: string, clientId: string, clientSecret: string): Promise<any>;
 }

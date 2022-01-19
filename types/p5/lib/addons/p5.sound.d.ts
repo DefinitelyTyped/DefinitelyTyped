@@ -1551,7 +1551,7 @@ declare module '../../index' {
          *   that sound. The p5.Delay can produce different
          *   effects depending on the delayTime, feedback,
          *   filter, and type. In the example below, a feedback
-         *   of 0.5 (the defaul value) will produce a looping
+         *   of 0.5 (the default value) will produce a looping
          *   delay that decreases in volume by 50% each repeat.
          *   A filter will cut out the high frequencies so that
          *   the delay does not sound as piercing as the

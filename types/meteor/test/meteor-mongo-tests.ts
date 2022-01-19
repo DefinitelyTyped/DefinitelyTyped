@@ -1,4 +1,4 @@
-import { Mongo } from 'meteor/mongo';
+import { Mongo, MongoInternals } from 'meteor/mongo';
 
 // Tests Mongo Collection Types
 
@@ -520,6 +520,10 @@ Attachment.find({}, { transform: null }).observe({
         return false;
     },
 });
+
+// Test MongoInternals
+
+MongoInternals.NpmModules.mongodb.module.connect('...');
 
 // Check Errors
 // $ExpectError

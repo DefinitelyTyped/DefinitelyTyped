@@ -15,7 +15,7 @@ import { Configuration } from 'webpack';
             input: {
                 options: {
                     cwd: process.cwd(),
-                    root: path.resolve(process.cwd(), "/"),
+                    root: path.resolve(process.cwd(), '/'),
                     absolute: true,
                 },
                 allowDuplicates: true,
@@ -45,6 +45,18 @@ import { Configuration } from 'webpack';
                     mixin: 'sprite',
                 },
                 callback: content => `[class*="sprite-"] { background-size: cover; } ${content}`,
+            },
+        }),
+        new SVGSpritemapPlugin('src/**/*.svg', {
+            output: {
+                svg: {
+                    attributes: {
+                        class: 'test-custom-class',
+                        id: 'test-custom-id',
+                        'data-test': 'test-custom-data-attr',
+                        hidden: true,
+                    },
+                },
             },
         }),
     ];

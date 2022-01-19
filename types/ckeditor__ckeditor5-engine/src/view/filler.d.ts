@@ -17,5 +17,3 @@ export function isInlineFiller(domText: Text): boolean;
 export function getDataWithoutFiller(domText: Text): string;
 
 export function injectQuirksHandling(view: View): void;
-
-export type BlockFillerMode = 'br' | 'nbsp';

@@ -6,7 +6,7 @@ class FileUploader implements IafUploadModule {
     playlistName: string;
     progressDelegate: () => any;
     fileUploadedDelegate: () => any;
-
+  
     onFileAdd(filePath: string, readStream: Readable, contentType?: string): void {}
 }
 

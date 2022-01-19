@@ -34,4 +34,14 @@ export interface MercadoPagoPayment {
 
   /** Cancel payment */
   cancel(id: number, configuration?: DefaultConfigurationOmitQs, callback?: CallbackFunction): Promise<PaymentUpdateResponse>;
+
+  // Complete and partial refund
+  refund(id: number): Promise<PaymentUpdateResponse>;
+  refundPartial({
+    payment_id,
+    amount
+  }: {
+      payment_id: number;
+      amount: number;
+  }): Promise<PaymentUpdateResponse>;
 }

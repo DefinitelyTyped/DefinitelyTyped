@@ -13,7 +13,7 @@ declare module 'path/win32' {
  * ```js
  * const path = require('path');
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/path.js)
+ * @see [source](https://github.com/nodejs/node/blob/v17.0.0/lib/path.js)
  */
 declare module 'path' {
     namespace path {
@@ -168,5 +168,13 @@ declare module 'path' {
 }
 declare module 'node:path' {
     import path = require('path');
+    export = path;
+}
+declare module 'node:path/posix' {
+    import path = require('path/posix');
+    export = path;
+}
+declare module 'node:path/win32' {
+    import path = require('path/win32');
     export = path;
 }

@@ -19,6 +19,7 @@
     },
     "files": [
         "index.d.ts",
-        "dom-webcodecs-tests.ts"
+        "test/dom-webcodecs-tests.ts",
+        "test/animated-gif-renderer.ts"
     ]
 }

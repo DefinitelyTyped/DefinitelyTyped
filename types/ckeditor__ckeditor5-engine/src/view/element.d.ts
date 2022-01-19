@@ -1,15 +1,14 @@
-import Document from "./document";
-import Node from "./node";
-import StylesMap from "./stylesmap";
-import { Item } from "./item";
+import Document from './document';
+import Node from './node';
+import StylesMap from './stylesmap';
 
-export default abstract class Element extends Node {
+export default class Element extends Node {
     readonly childCount: number;
     readonly isAllowedInsideAttributeElement: boolean;
     readonly isEmpty: boolean;
     readonly name: string;
 
-    protected constructor(
+    constructor(
         document: Document,
         name: string,
         attrs?: Record<string, string> | [string, string],
@@ -18,9 +17,7 @@ export default abstract class Element extends Node {
 
     findAncestor(
         patterns:
-            | ((
-                  element: Element,
-              ) => boolean)
+            | ((element: Element) => boolean)
             | string
             | RegExp
             | {
@@ -43,7 +40,7 @@ export default abstract class Element extends Node {
     getIdentity(): string;
     getNormalizedStyle(property: string): Record<string, string> | string | undefined;
     getStyle(property: string): string | undefined;
-    getStyleNames(): ReturnType<StylesMap["getStyleNames"]>;
+    getStyleNames(expand?: boolean): ReturnType<StylesMap['getStyleNames']>;
     hasAttribute(key: string): boolean;
     hasClass(className: string): boolean;
     hasStyle(property: string): boolean;

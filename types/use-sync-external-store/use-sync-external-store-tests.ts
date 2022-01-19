@@ -1,5 +1,5 @@
-import { useSyncExternalStore } from 'use-sync-external-store';
-import { useSyncExternalStoreExtra } from 'use-sync-external-store/extra';
+import { useSyncExternalStore } from 'use-sync-external-store/shim';
+import { useSyncExternalStoreWithSelector } from 'use-sync-external-store/shim/with-selector';
 
 interface Store<State> {
     getState(): State;
@@ -38,10 +38,15 @@ function useUsers(): string[] {
 function useReduxSelector<Selection>(
     selector: (state: { version: { major: number; minor: number }; users: string[] }) => Selection,
 ): Selection {
-    return useSyncExternalStoreExtra(objectStore.subscribe, objectStore.getState, objectStore.getServerState, selector);
+    return useSyncExternalStoreWithSelector(
+        objectStore.subscribe,
+        objectStore.getState,
+        objectStore.getServerState,
+        selector,
+    );
 }
 function useReduxUsers(): string[] {
-    return useSyncExternalStoreExtra(
+    return useSyncExternalStoreWithSelector(
         objectStore.subscribe,
         objectStore.getState,
         objectStore.getServerState,
@@ -49,7 +54,7 @@ function useReduxUsers(): string[] {
     );
 }
 function useReduxVersion(): { major: number; minor: number } {
-    useSyncExternalStoreExtra(
+    useSyncExternalStoreWithSelector(
         objectStore.subscribe,
         objectStore.getState,
         objectStore.getServerState,
@@ -58,7 +63,7 @@ function useReduxVersion(): { major: number; minor: number } {
         // $ExpectError
         (a, b) => a.patch === b.patch,
     );
-    return useSyncExternalStoreExtra(
+    return useSyncExternalStoreWithSelector(
         objectStore.subscribe,
         objectStore.getState,
         objectStore.getServerState,

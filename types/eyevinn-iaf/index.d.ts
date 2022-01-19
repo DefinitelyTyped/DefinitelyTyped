@@ -25,5 +25,6 @@ export interface IafUploadModule {
 export interface IafFileWatchModule {
     fileInput: string;
     logger: ILogger;
+
     onAdd(callback: (filePath: string, readStream: Readable, contentType?: string) => any): any;
 }

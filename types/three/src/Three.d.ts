@@ -58,7 +58,6 @@ export * from './core/Clock';
 /**
  * Extras
  */
-export * from './extras/objects/ImmediateRenderObject';
 export * from './extras/curves/Curves';
 export * from './extras/core/Shape';
 export * from './extras/core/Path';
@@ -225,4 +224,5 @@ export * from './textures/CompressedTexture';
 export * from './textures/CubeTexture';
 export * from './textures/CanvasTexture';
 export * from './textures/DepthTexture';
+export * from './textures/FramebufferTexture';
 export * from './textures/Texture';

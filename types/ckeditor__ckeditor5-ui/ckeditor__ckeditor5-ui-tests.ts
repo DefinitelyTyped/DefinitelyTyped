@@ -65,9 +65,6 @@ let bool = true;
 let view = new View();
 view.isRendered === bool;
 let template: Template;
-if (typeof view.template !== 'boolean') {
-    template = view.template;
-}
 template = view.template as Template;
 
 let htmlelement = template.render() as HTMLElement;
@@ -123,8 +120,8 @@ view.element === null;
 let viewCollection: ViewCollection = view.createCollection();
 view = viewCollection.get(0) as View;
 viewCollection.get(0) === null;
-// $ExpectError
-viewCollection.get(0) === bool;
+// $ExpectType (View & { id: string; }) | null
+viewCollection.get(0);
 viewCollection.setParent(htmlelement);
 viewCollection.add(view);
 // $ExpectError

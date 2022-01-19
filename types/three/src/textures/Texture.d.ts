@@ -159,6 +159,12 @@ export class Texture extends EventDispatcher {
     isRenderTargetTexture: boolean;
 
     /**
+     * An object that can be used to store custom data about the Material. It should not hold references to functions as these will not be cloned.
+     * @default {}
+     */
+    userData: any;
+
+    /**
      * @default 0
      */
     version: number;

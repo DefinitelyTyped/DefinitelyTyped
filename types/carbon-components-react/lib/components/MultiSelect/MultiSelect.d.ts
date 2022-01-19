@@ -23,6 +23,7 @@ export interface MultiSelectProps<T extends ListBoxBaseItemType = string> extend
     disabled?: ListBoxProps["disabled"] | undefined,
     downshiftProps?: any, // TODO
     helperText?: React.ReactNode | undefined,
+    hideLabel?: boolean | undefined;
     id: string,
     initialSelectedItems?: readonly T[] | undefined,
     items: readonly T[],

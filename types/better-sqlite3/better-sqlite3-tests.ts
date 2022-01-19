@@ -105,6 +105,8 @@ const transReturn = db.transaction(() => 1);
 // $ExpectType number
 transReturn();
 
+db.serialize();
+
 db.backup('backup-today.db').then(({ totalPages, remainingPages }) => {});
 const paused = false;
 db.backup('backup-today.db', {

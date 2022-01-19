@@ -12,8 +12,12 @@ export class CSS3DSprite extends CSS3DObject {
     constructor(element: HTMLElement);
 }
 
+export type CSS3DParameters = {
+    element?: HTMLElement;
+};
+
 export class CSS3DRenderer {
-    constructor();
+    constructor(parameters?: CSS3DParameters);
     domElement: HTMLElement;
 
     getSize(): { width: number; height: number };

@@ -1,7 +1,6 @@
 // Type definitions for react-d3-graph 2.6
 // Project: https://github.com/danielcaldas/react-d3-graph#readme
-// Definitions by: Harry Goode <https://github.com/hrngoode>
-//                 Adina Todoran <https://github.com/adina-todoran>
+// Definitions by: Adina Todoran <https://github.com/adina-todoran>
 //                 Robin Leclerc <https://github.com/BreadAndRoses95>
 //                 Nate Moore <https://github.com/TranquilMarmot>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -54,6 +53,7 @@ export interface GraphLevelNodeConfiguration<N extends GraphNode> {
     mouseCursor: string;
     viewGenerator: (node: N) => any;
     labelProperty: NodeLabelProperty<N>;
+    labelPosition: 'left' | 'right' | 'top' | 'bottom' | 'center';
 }
 
 export interface GraphNode extends Partial<NodeLevelNodeConfiguration> {

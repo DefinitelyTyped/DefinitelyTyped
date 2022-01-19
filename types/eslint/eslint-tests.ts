@@ -1,7 +1,6 @@
 import { Comment, WhileStatement } from "estree";
-import { AST, SourceCode, Rule, Linter, ESLint, CLIEngine, RuleTester, Scope } from "eslint";
+import { AST, SourceCode, Rule, Linter, ESLint, RuleTester, Scope } from "eslint";
 import { ESLintRules } from "eslint/rules";
-import * as _noUnusedExpressions from "eslint/lib/rules/no-unused-expressions";
 
 const SOURCE = `var foo = bar;`;
 
@@ -366,6 +365,20 @@ rule = {
     },
     meta: { type: "layout" },
 };
+rule = {
+    create(context) {
+        return {};
+    },
+    meta: {
+        docs: {
+            description: "disallow the use of `console`",
+            category: "Possible Errors",
+            recommended: true,
+            url: "https://eslint.org/docs/rules/no-console",
+        },
+        hasSuggestions: true,
+    },
+};
 
 rule = {
     create(context) {
@@ -492,6 +505,7 @@ linter.verify(SOURCE, {}, { preprocess: input => input.split(" ") });
 linter.verify(SOURCE, {}, { postprocess: problemList => problemList[0] });
 
 linter.verify(SOURCE, { parserOptions: { ecmaVersion: 2021 } }, "test.js");
+linter.verify(SOURCE, { parserOptions: { ecmaVersion: "latest" } }, "test.js");
 linter.verify(SOURCE, { parserOptions: { ecmaVersion: 6, ecmaFeatures: { globalReturn: true } } }, "test.js");
 linter.verify(
     SOURCE,
@@ -692,6 +706,8 @@ resultsPromise.then(results => {
     formatterPromise.then(formatter => formatter.format(results));
     formatterPromise.then(formatter => formatter.format(results, data));
 
+    eslint.getRulesMetaForResults(results);
+
     ESLint.getErrorResults(results);
 
     ESLint.outputFixes(results);
@@ -732,106 +748,6 @@ eslintConfig = {
 
 //#endregion
 
-//#region CLIEngine
-
-let cli: CLIEngine;
-
-cli = new CLIEngine({ allowInlineConfig: false });
-cli = new CLIEngine({ baseConfig: false });
-cli = new CLIEngine({ baseConfig: { extends: ["lynt"] } });
-cli = new CLIEngine({ cache: true });
-cli = new CLIEngine({ cacheFile: "foo" });
-cli = new CLIEngine({ cacheStrategy: "content" });
-cli = new CLIEngine({ configFile: "foo" });
-cli = new CLIEngine({ cwd: "foo" });
-cli = new CLIEngine({ envs: ["browser"] });
-cli = new CLIEngine({ extensions: ["js"] });
-cli = new CLIEngine({ fix: true });
-cli = new CLIEngine({ globals: ["foo"] });
-cli = new CLIEngine({ ignore: true });
-cli = new CLIEngine({ ignorePath: "foo" });
-cli = new CLIEngine({ ignorePattern: "foo" });
-cli = new CLIEngine({ ignorePattern: ["foo", "bar"] });
-cli = new CLIEngine({ useEslintrc: false });
-cli = new CLIEngine({ parserOptions: {} });
-cli = new CLIEngine({ resolvePluginsRelativeTo: "test" });
-cli = new CLIEngine({ plugins: ["foo"] });
-cli = new CLIEngine({ rules: { "test/example-rule": 1 } });
-cli = new CLIEngine({ rulePaths: ["foo"] });
-cli = new CLIEngine({ reportUnusedDisableDirectives: true });
-cli = new CLIEngine({ errorOnUnmatchedPattern: false });
-
-let cliReport = cli.executeOnFiles(["myfile.js", "lib/"]);
-
-cliReport = cli.executeOnText(SOURCE, "foo");
-
-cli.resolveFileGlobPatterns(["**/*"]);
-
-cli.getConfigForFile("./config.json");
-
-cli.addPlugin("my-fancy-plugin", {});
-
-cli.isPathIgnored("./dist/index.js");
-
-let cliFormatter: CLIEngine.Formatter;
-
-cliFormatter = cli.getFormatter("codeframe");
-cliFormatter = cli.getFormatter();
-
-let cliData: CLIEngine.LintResultData;
-const cliMeta: Rule.RuleMetaData = {
-    type: "suggestion",
-    docs: {
-        description: "disallow unnecessary semicolons",
-        category: "Possible Errors",
-        recommended: true,
-        url: "https://eslint.org/docs/rules/no-extra-semi",
-    },
-    fixable: "code",
-    schema: [],
-    messages: {
-        unexpected: "Unnecessary semicolon.",
-    },
-};
-
-cliData = { rulesMeta: { "no-extra-semi": cliMeta } };
-
-cliFormatter(cliReport.results);
-cliFormatter(cliReport.results, cliData);
-
-const cliVersion: string = CLIEngine.version;
-
-CLIEngine.getErrorResults(cliReport.results);
-
-cliFormatter = CLIEngine.getFormatter();
-cliFormatter = CLIEngine.getFormatter("codeframe");
-
-CLIEngine.outputFixes(cliReport);
-
-cliReport.errorCount = 0;
-cliReport.warningCount = 0;
-cliReport.fixableErrorCount = 0;
-cliReport.fixableWarningCount = 0;
-
-for (const file of cliReport.results) {
-    file.filePath = "foo.js";
-
-    file.errorCount = 0;
-    file.warningCount = 0;
-    file.fatalErrorCount = 0;
-    file.fixableErrorCount = 0;
-    file.fixableWarningCount = 0;
-
-    file.source = "foo";
-    file.output = "foo";
-
-    for (const message of file.messages) {
-        message.ruleId = "foo";
-    }
-}
-
-//#endregion
-
 //#region RuleTester
 
 const ruleTester = new RuleTester({ parserOptions: { ecmaVersion: 2015 } });
@@ -845,6 +761,7 @@ ruleTester.run("my-rule", rule, {
         { code: "foo", settings: { foo: true } },
         { code: "foo", parser: "foo" },
         { code: "foo", globals: { foo: true } },
+        RuleTester.only("foo"),
     ],
 
     invalid: [
@@ -873,6 +790,7 @@ ruleTester.run("my-rule", rule, {
                 },
             ],
         },
+        { code: "foo", errors: 1, only: true },
     ],
 });
 

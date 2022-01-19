@@ -1,5 +1,5 @@
 // Type definitions for newrelic 7.0
-// Project: http://github.com/newrelic/node-newrelic
+// Project: https://github.com/newrelic/node-newrelic
 // Definitions by: Matt R. Wilson <https://github.com/mastermatt>
 //                 Brooks Patton <https://github.com/brookspatton>
 //                 Michael Bond <https://github.com/MichaelRBond>

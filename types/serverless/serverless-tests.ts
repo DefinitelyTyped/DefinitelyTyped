@@ -174,6 +174,7 @@ const awsServerless: Aws.Serverless = {
         rolePermissionsBoundary: 'testrolePermissionsBoundary',
         cfnRole: 'testcfnRole',
         versionFunctions: true,
+        architecture: 'x86_64',
         environment: {
             testenvironmentkey: 'testenvironmentvalue'
         },
@@ -363,6 +364,9 @@ const awsServerless: Aws.Serverless = {
                 format: 'testformat'
             },
             frameworkLambda: false
+        },
+        eventBridge: {
+            useCloudFormation: true
         }
     },
     package: {
@@ -689,9 +693,15 @@ const awsServerless: Aws.Serverless = {
     },
     resources: {
         Description: 'testStackDescription',
+        Conditions: {
+            TestCondition: {
+                'Fn::Equals': ['testcond', 'testcond']
+            }
+        },
         Resources: {
             testcloudformationresource: {
                 Type: 'testType',
+                Condition: 'TestCondition',
                 Properties: {
                     testpropertykey: 'testpropertyvalue'
                 },

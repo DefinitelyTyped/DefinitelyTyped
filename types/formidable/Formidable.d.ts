@@ -40,7 +40,7 @@ declare class IncomingForm {
      */
     onPart(part: Part): void;
 
-    handlePart(part: Part): void;
+    _handlePart(part: Part): void;
 }
 
 export = IncomingForm;

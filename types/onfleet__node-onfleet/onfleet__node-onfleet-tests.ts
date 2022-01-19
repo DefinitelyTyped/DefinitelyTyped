@@ -17,6 +17,10 @@ new Onfleet('test-api-key', 20000);
 new Onfleet('test-api-key', 20000, bottleneckOptions);
 // with api key, timeout, bottleneck options, base URL
 new Onfleet('test-api-key', 20000, bottleneckOptions, 'http://test.com');
+// with api key, timeout, bottleneck options, base URL, default path
+new Onfleet('test-api-key', 20000, bottleneckOptions, 'http://test.com', '/api');
+// with api key, timeout, bottleneck options, base URL, default path, api version
+new Onfleet('test-api-key', 20000, bottleneckOptions, 'http://test.com', '/api', '/v5');
 
 onfleet.verifyKey().then().catch();
 
@@ -30,7 +34,12 @@ const testAddress = {
 
 async function testTasks(onfleet: Onfleet) {
     // test tasks.get
-    await onfleet.tasks.get('fake_task_id');
+    const task = await onfleet.tasks.get('fake_task_id');
+    // test tasks.get GetTaskResult props
+    task.estimatedCompletionTime;
+    task.eta;
+    task.trackingViewed;
+
     await onfleet.tasks.get({ from: 1455072025000 });
     await onfleet.tasks.get({ from: 145507202500, lastId: 'fake_task_id' });
     await onfleet.tasks.get('fake_task_id', 'shortId');
