@@ -16,6 +16,7 @@
             "../../"
         ],
         "paths": {
+            "ember": ["ember/v3"],
             "@ember/application": ["ember__application/v3"],
             "@ember/application/*": ["ember__application/v3/*"],
             "@ember/array": ["ember__array/v3"],
