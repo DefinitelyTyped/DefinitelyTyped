@@ -9,8 +9,8 @@ const tailwindConfig: TailwindConfig = {
             1: '1px',
             2: '2px',
             4: '4px',
-            8: '8px'
-        }
+            8: '8px',
+        },
     },
     plugins: [
         plugin(({ addUtilities }) => {
@@ -21,13 +21,14 @@ const tailwindConfig: TailwindConfig = {
             });
         }),
         plugin(({ matchUtilities, theme }) => {
-            matchUtilities({
-                ['.new-flex-gap']: (value: any) => ({
-                    'gap': value
-                }),
-            },
-            {values: theme('gap')}
-            )
-        })
+            matchUtilities(
+                {
+                    ['.new-flex-gap']: (value: any) => ({
+                        gap: value,
+                    }),
+                },
+                { values: theme('gap') },
+            );
+        }),
     ],
 };
