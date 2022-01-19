@@ -1,17 +1,16 @@
-// Type definitions for ember-mocha 0.14
+// Type definitions for ember-mocha 0.16.0
 // Project: https://github.com/emberjs/ember-mocha#readme
-// Definitions by: Derek Wickern <https://github.com/dwickern>
-//                 Simon Ihmig <https://github.com/simonihmig>
-//                 Mike North <https://github.com/mike-north>
+// Definitions by: Simon Ihmig <https://github.com/simonihmig>
 //                 Dan Freeman <https://github.com/dfreeman>
 //                 Chris Krycho <https://github.com/chriskrycho>
 //                 James C. Davis <https://github.com/jamescdavis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
+// Minimum TypeScript Version: 4.4
 
-import { TestContext, ModuleCallbacks } from "ember-test-helpers";
-import Ember from 'ember';
+import { TestContext } from "@ember/test-helpers";
+import { ModuleCallbacks } from 'ember-test-helpers';
 import { it as mochaIt, Suite } from 'mocha';
+import Resolver from 'ember-resolver';
 
 // these globals are re-exported as named exports by ember-mocha
 type mochaBefore = typeof before;
@@ -47,7 +46,7 @@ declare module 'ember-mocha' {
     }
 
     interface SetupOptions {
-        resolver: Ember.Resolver;
+        resolver: Resolver;
     }
 
     type NewSetupTest = (options?: SetupOptions) => TestHooks;
@@ -74,7 +73,7 @@ declare module 'ember-mocha' {
     /**
      * Sets a Resolver globally which will be used to look up objects from each test's container.
      */
-    export function setResolver(resolver: Ember.Resolver): void;
+    export function setResolver(resolver: Resolver): void;
 }
 
 declare module 'mocha' {
