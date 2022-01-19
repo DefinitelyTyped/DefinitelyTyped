@@ -268,4 +268,12 @@ declare var $: (arg?: any) => JQuery;
     u.search(() => {
         // Return nothing
     });
+
+    /*
+    Tests for ReadonlyURI
+    */
+    const readonlyUri: URI.ReadonlyURI = uri;
+    let mutableUri: URI = readonlyUri.clone();
+    // $ExpectError
+    mutableUri = readonlyUri;
 }

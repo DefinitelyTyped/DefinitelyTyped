@@ -169,7 +169,7 @@ const CheckUseReducedMotion = () => {
     }}
 />;
 <Checkbox id={'1'} onChange={() => {}} />;
-<Collage columns={1} height={1} renderImage={({ height, index, width }) => () => {}} width={1} />;
+<Collage columns={1} height={1} renderImage={({ height, index, width }) => null} width={1} />;
 <ColorSchemeProvider colorScheme="dark" id="docsExample" />;
 <Column span={1} />;
 <Container />;
@@ -250,7 +250,11 @@ const CheckUseReducedMotion = () => {
     onDismiss={() => {}}
     footer={<Heading>Footer</Heading>}
 >
-    {({ onDismissStart }) => <Heading>Content {onDismissStart}</Heading>}
+    {({ onDismissStart }) => (
+        <Heading>
+            Content <button onClick={onDismissStart} />
+        </Heading>
+    )}
 </Sheet>;
 <Spinner show={true} accessibilityLabel="Example spinner" />;
 <Stack alignItems="center" gap={2}>

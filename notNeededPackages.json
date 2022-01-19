@@ -1301,6 +1301,10 @@
             "libraryName": "extract-zip",
             "asOfVersion": "2.0.0"
         },
+        "faker": {
+            "libraryName": "faker",
+            "asOfVersion": "6.6.6"
+        },
         "fast-diff": {
             "libraryName": "fast-diff",
             "asOfVersion": "1.2.0"
@@ -1789,6 +1793,10 @@
             "libraryName": "hirestime",
             "asOfVersion": "6.0.0"
         },
+        "history": {
+            "libraryName": "history",
+            "asOfVersion": "5.0.0"
+        },
         "hls.js": {
             "libraryName": "hls.js",
             "asOfVersion": "1.0.0"
@@ -1819,10 +1827,6 @@
         },
         "html2canvas": {
             "libraryName": "html2canvas",
-            "asOfVersion": "1.0.0"
-        },
-        "htmlhint": {
-            "libraryName": "htmlhint",
             "asOfVersion": "1.0.0"
         },
         "http-graceful-shutdown": {
@@ -5262,6 +5266,10 @@
         "urllib": {
             "libraryName": "urllib",
             "asOfVersion": "2.33.0"
+        },
+        "usb": {
+            "libraryName": "usb",
+            "asOfVersion": "2.0.1"
         },
         "use-dark-mode": {
             "libraryName": "use-dark-mode",
