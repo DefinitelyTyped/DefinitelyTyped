@@ -41,6 +41,7 @@ export interface Config {
     saveParamsReferrerOncePerSession?: boolean | undefined;
     secureCookie?: boolean | undefined;
     sessionTimeout?: number | undefined;
+    storage?: '' | 'cookies' | 'localStorage' | 'sessionStorage' | 'none';
     trackingOptions?: {
         city?: boolean | undefined;
         country?: boolean | undefined;
