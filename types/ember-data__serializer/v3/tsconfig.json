@@ -16,7 +16,8 @@
             "@ember-data/serializer": ["ember-data__serializer/v3"],
             "@ember-data/serializer/*": ["ember-data__serializer/v3/*"],
             "@ember-data/model": ["ember-data__model/v3"],
-            "@ember/object": ["ember__object/v3"]
+            "@ember/object": ["ember__object/v3"],
+            "@ember-data/store": ["ember-data__store/v3"]
         },
         "types": [],
         "noEmit": true,
