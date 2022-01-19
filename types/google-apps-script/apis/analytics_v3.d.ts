@@ -758,28 +758,10 @@ declare namespace GoogleAppsScript {
          * HIGHER_PRECISION — Returns a more accurate response using a large sample size, but this may result in the response being slower.
          */
         samplingLevel?: 'DEFAULT' | 'FASTER' | 'HIGHER_PRECISION';
-        /** Defaults to true; if set to false, rows where all metric values are zero will be omitted from the response. */
-        'include-empty-rows'?: boolean;
         /** The first row of data to retrieve, starting at 1. Use this parameter as a pagination mechanism along with the max-results parameter. */
         'start-index'?: number;
         /** The maximum number of rows to include in the response. */
         'max-results'?: number;
-        /** The desired output type for the Analytics data returned in the response. Acceptable values are json and dataTable. Default: json. */
-        output?: 'json' | 'dataTable';
-        /** Selector specifying a subset of fields to include in the response. */
-        fields?: string;
-        /** Returns response with indentations and line breaks. Default false. */
-        prettyPrint?: string;
-        /** Specifies IP address of the end user for whom the API call is being made. Used to cap usage per IP. */
-        userIp?: string;
-        /** Alternative to userIp in cases when the user's IP address is unknown. */
-        quotaUser?: string;
-        /** One possible way to provide an OAuth 2.0 token. */
-        access_token?: string;
-        /** Name of the JavaScript callback function that handles the response. Used in JavaScript JSON-P requests. */
-        callback?: string;
-        /** Used for OAuth 1.0a authorization to specify your application to get quota. For example: key=AldefliuhSFADSfasdfasdfASdf. */
-        key?: string;
       }
       interface Goal {
         accountId?: string | undefined;
