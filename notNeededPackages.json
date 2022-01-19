@@ -5267,6 +5267,10 @@
             "libraryName": "urllib",
             "asOfVersion": "2.33.0"
         },
+        "usb": {
+            "libraryName": "usb",
+            "asOfVersion": "2.0.1"
+        },
         "use-dark-mode": {
             "libraryName": "use-dark-mode",
             "asOfVersion": "2.3.1"
