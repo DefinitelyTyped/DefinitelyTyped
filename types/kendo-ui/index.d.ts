@@ -3027,9 +3027,9 @@ declare namespace kendo.ui {
 
         focus(): void;
         value(): string;
-        value(color?: string | undefined): void;
+        value(color?: string): void;
         color(): kendo.Color;
-        color(color?: kendo.Color | undefined): void;
+        color(color?: kendo.Color): void;
         enable(enable?: boolean): void;
 
     }
