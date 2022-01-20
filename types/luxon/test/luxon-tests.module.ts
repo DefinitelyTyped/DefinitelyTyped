@@ -252,6 +252,8 @@ if (Interval.isInterval(anything)) {
 Interval.invalid(); // $ExpectError
 Interval.invalid('code', 'because I said so'); // $ExpectType Interval
 Interval.isInterval(0 as unknown); // $ExpectType boolean
+new Interval(); // $ExpectError
+new Interval({}); // $ExpectType Interval
 
 /* Info */
 Info.months();

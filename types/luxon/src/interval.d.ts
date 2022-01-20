@@ -6,6 +6,10 @@ export interface IntervalObject {
     end?: DateTime | undefined;
 }
 
+export interface IntervalConfig extends IntervalObject {
+    invalid?: boolean;
+}
+
 export type DateInput = DateTime | DateObjectUnits | Date;
 
 /**
@@ -25,6 +29,8 @@ export type DateInput = DateTime | DateObjectUnits | Date;
  * * {@link Interval#toFormat}, and {@link Interval#toDuration}.
  */
 export class Interval {
+    constructor(config: IntervalConfig);
+
     /**
      * Create an invalid Interval.
      *
