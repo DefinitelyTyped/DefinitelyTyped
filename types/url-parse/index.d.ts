@@ -41,7 +41,7 @@ interface URLParse<Query> {
     readonly query: Query;
     readonly slashes: boolean;
     readonly username: string;
-    set<Part extends URLParse.URLPart>(part: Part, value: URLParse<string>[Part] | undefined, fn?: false): URLParse<string>;
+    set<Part extends URLParse.URLPart>(part: Part, value: URLParse<Query>[Part] | undefined, fn?: false): URLParse<Query>;
     set<Part extends URLParse.URLPart, T>(part: Part, value: URLParse<T>[Part] | undefined, fn?: URLParse.QueryParser<T>): URLParse<T>;
     toString(stringify?: URLParse.StringifyQuery): string;
 }
