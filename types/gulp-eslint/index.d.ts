@@ -9,14 +9,7 @@ import { Transform, Writable } from 'stream';
 import { CLIEngine } from 'eslint';
 
 declare namespace gulpEslint {
-    interface Result {
-        errorCount: number;
-        filePath: string;
-        messages: string[];
-        warningCount: number;
-    }
-
-    interface Results extends Array<Result> {
+    interface Results extends Array<CLIEngine.LintResult> {
         errorCount: number;
         warningCount: number;
     }
@@ -28,7 +21,7 @@ declare namespace gulpEslint {
     interface Plugin {
         (options?: CLIEngine.Options | string): Transform;
 
-        result(action: (result: Result, callback: () => void) => void): Transform;
+        result(action: (result: CLIEngine.LintResult, callback: () => void) => void): Transform;
         results(action: (results: Results, callback: () => void) => void): Transform;
 
         failAfterError(): Transform;

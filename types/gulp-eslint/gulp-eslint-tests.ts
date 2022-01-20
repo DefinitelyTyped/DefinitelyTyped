@@ -34,9 +34,9 @@ gulp.src(['scripts/*.js'])
     )
     .pipe(
         eslint.result(result => {
-            result; // $ExpectType Result
+            result; // $ExpectType LintResult
             result.filePath; // $ExpectType string
-            result.messages; // $ExpectType string[]
+            result.messages; // $ExpectType LintMessage[]
             result.messages.length; // $ExpectType number
             result.warningCount; // $ExpectType number
             result.errorCount; // $ExpectType number
