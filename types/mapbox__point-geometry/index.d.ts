@@ -28,7 +28,7 @@ declare class Point {
     angleWith: (b: Point) => number;
     angleWithSep: (x: number, y: number) => number;
 
-    static convert: (a: number[] | Point) => Point;
+    static convert<T extends unknown>(a: T): T extends number[] ? Point : T extends Point ? Point : T;
 }
 
 export = Point;
