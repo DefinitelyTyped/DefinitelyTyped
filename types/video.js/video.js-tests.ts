@@ -182,6 +182,8 @@ videojs('example_video_1', playerOptions).ready(function playerReady() {
 
     // $ExpectType CanPlayTypeResult
     this.canPlayType('video/mp4');
+
+    testTracks(this);
 });
 
 function testEvents(player: videojs.Player) {
@@ -320,4 +322,12 @@ function testTech() {
     );
     // $ExpectType CanPlayTypeResult
     videojs.Tech.canPlayType('video/mp4');
+}
+
+function testTracks(player: VideoJsPlayer) {
+    // $ExpectType AudioTrackList
+    player.audioTracks();
+
+    // $ExpectType TextTrackList
+    player.textTracks();
 }
