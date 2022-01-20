@@ -3,6 +3,7 @@
 // Definitions by: Hari Sivaramakrishnan <https://github.com/harisiva>
 //                 Dmitry Dushkin <https://github.com/DimitryDushkin>
 //                 David Golightly <https://github.com/davidgoli>
+//                 Kit Song <https://github.com/kitsong>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
