@@ -536,13 +536,13 @@ select('core/block-editor').getAdjacentBlockClientId('foo');
 select('core/block-editor').getAdjacentBlockClientId('foo', -1);
 select('core/block-editor').getAdjacentBlockClientId('foo', 1);
 
-// $ExpectType Pick<Record<string, unknown>, string> & Merged & Reserved
+// $ExpectType Omit<Record<string, unknown>, "ref"> & Merged & Reserved
 be.useBlockProps();
 
-// $ExpectType Pick<{ foo: string; }, "foo"> & Merged & Reserved
+// $ExpectType Omit<{ foo: string; }, "ref"> & Merged & Reserved
 be.useBlockProps({ foo: "bar" });
 
-// $ExpectType Pick<{ ref: MutableRefObject<string>; }, never> & Merged & Reserved
+// $ExpectType Omit<{ ref: MutableRefObject<string>; }, "ref"> & Merged & Reserved
 be.useBlockProps({ ref: useRef("test") });
 
 // $ExpectType Record<string, unknown>
