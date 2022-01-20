@@ -654,7 +654,7 @@ declare namespace videojs {
          * Add a {@link VideojsAudioTrack} to the `AudioTrackList`
          *
          * @param track
-         *        The text track to add to the list.
+         *        The audio track to add to the list.
          *
          * @fires TrackList#addtrack
          */
