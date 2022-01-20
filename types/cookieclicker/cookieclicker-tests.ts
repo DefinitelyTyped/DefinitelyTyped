@@ -110,6 +110,7 @@ No clicking achievements may be obtained in this mode.
 <div class="line"></div>
 Reaching 1 quadrillion cookies in this mode unlocks a special heavenly upgrade.`,
     icon: [12, 0],
+    dname: loc('Trigger finger'),
 };
 
 const selector: Game.SelectorSwitchChoice = { name: 'Example choice', icon: [10, 0] };
@@ -198,7 +199,7 @@ Game.ToggleFullscreen();
 Game.RuinTheFun();
 
 Game.registerMod('typemod', {
-    init: function () {
+    init() {
         console.log(this.dir);
     },
 });

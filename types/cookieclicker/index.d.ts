@@ -87,7 +87,7 @@ interface Language {
  */
 declare let EN: boolean;
 
-type LanguageOptions = {
+interface LanguageOptions {
     /**
      * A string to evaluate when figuring out what form of plurality to use
      */
@@ -96,7 +96,7 @@ type LanguageOptions = {
      * Unused
      */
     language: string;
-};
+}
 
 type LanguageData = {
     'REPLACE ALL'?: Record<string, string>;
@@ -266,33 +266,33 @@ interface CanvasRenderingContext2D {
 
 // You have to do this to have an optional namespace, ugh
 declare namespace ________COOKIECLICKER_TYPES_HACK_DOESNT_EXIST {
-    export namespace Steam {
-        export type SendCallback = (data: unknown) => void;
-        export function reload(): void;
-        export function quit(): void;
-        export function save(str: string): void;
-        export function load(callback: SendCallback): void;
-        export function purgeCloud(): void;
-        export function writeCloudUI(): string;
-        export function getMostRecentSave(callback: (data: string) => void): void;
-        export function justLoadedSave(): void;
-        export function restoreBackup(): Promise<void>;
-        export function hardSave(save: string): void;
-        export function onImportSave(out: boolean, save: string): void;
-        export function grabData(cb: (data: { playersN: number }) => void): void;
-        export function gotAchiev(id: number): void;
-        export function resetAchievs(): void;
-        export function hardReset(): void;
-        export function ping(mes: string): void;
-        export function openLink(url: string): void;
-        export function setFullscreen(val: boolean): void;
-        export let cloud: boolean;
-        export let cloudQuota: string;
-        export function writeModUI(): string;
-        export function modsPopup(): void;
-        export function workshopPopup(): void;
-        export let allowSteamAchievs: boolean;
-        export interface ModInfo {
+    namespace Steam {
+        type SendCallback = (data: unknown) => void;
+        function reload(): void;
+        function quit(): void;
+        function save(str: string): void;
+        function load(callback: SendCallback): void;
+        function purgeCloud(): void;
+        function writeCloudUI(): string;
+        function getMostRecentSave(callback: (data: string) => void): void;
+        function justLoadedSave(): void;
+        function restoreBackup(): Promise<void>;
+        function hardSave(save: string): void;
+        function onImportSave(out: boolean, save: string): void;
+        function grabData(cb: (data: { playersN: number }) => void): void;
+        function gotAchiev(id: number): void;
+        function resetAchievs(): void;
+        function hardReset(): void;
+        function ping(mes: string): void;
+        function openLink(url: string): void;
+        function setFullscreen(val: boolean): void;
+        let cloud: boolean;
+        let cloudQuota: string;
+        function writeModUI(): string;
+        function modsPopup(): void;
+        function workshopPopup(): void;
+        let allowSteamAchievs: boolean;
+        interface ModInfo {
             Name: string;
             ID: string;
             Author: string;
@@ -305,7 +305,7 @@ declare namespace ________COOKIECLICKER_TYPES_HACK_DOESNT_EXIST {
             Disabled?: Game.PseudoBoolean;
             AllowSteamAchievs?: Game.PseudoBoolean;
         }
-        export interface Mod {
+        interface Mod {
             dependencies: string[];
             dir: string;
             disabled: boolean;
@@ -316,16 +316,16 @@ declare namespace ________COOKIECLICKER_TYPES_HACK_DOESNT_EXIST {
             local: boolean;
             workshop: boolean;
         }
-        export let mods: Record<string, Mod>;
-        export let modList: Mod[];
-        export function loadMods(callback: () => void): Promise<void>;
-        export function saveMods(): void;
-        export function registerMod(mod: Game.Mod): void;
-        export function logic(T: number): void;
-        export function onResize(): void;
+        let mods: Record<string, Mod>;
+        let modList: Mod[];
+        function loadMods(callback: () => void): Promise<void>;
+        function saveMods(): void;
+        function registerMod(mod: Game.Mod): void;
+        function logic(T: number): void;
+        function onResize(): void;
     }
-    export namespace Music {
-        export interface Track {
+    namespace Music {
+        interface Track {
             audio: HTMLAudioElement;
             canPlay: boolean;
             name: string;
@@ -334,16 +334,16 @@ declare namespace ________COOKIECLICKER_TYPES_HACK_DOESNT_EXIST {
             stop: (this: Track) => void;
         }
 
-        export let context: AudioContext;
-        export let gain: GainNode;
-        export let filter: BiquadFilterNode;
-        export let out: BiquadFilterNode;
-        export function addTrack(name: string, url: string): void;
-        export let cues: Record<string, (arg: any) => void>;
-        export function cue(cue: string, arg?: any): void;
-        export let playing: boolean;
-        export function playTrack(name: string, callback: (track: Track) => void): void;
-        export function loopTrack(name: string): void;
+        let context: AudioContext;
+        let gain: GainNode;
+        let filter: BiquadFilterNode;
+        let out: BiquadFilterNode;
+        function addTrack(name: string, url: string): void;
+        let cues: Record<string, (arg: any) => void>;
+        function cue(cue: string, arg?: any): void;
+        let playing: boolean;
+        function playTrack(name: string, callback: (track: Track) => void): void;
+        function loopTrack(name: string): void;
     }
 }
 
@@ -3505,4 +3505,5 @@ declare namespace Game {
      * The treshold when the game considers itself to be too narrow
      */
     export let tickerTooNarrow: number;
+    export {};
 }
