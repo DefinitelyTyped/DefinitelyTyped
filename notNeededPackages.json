@@ -2841,6 +2841,10 @@
             "libraryName": "microgears",
             "asOfVersion": "4.0.5"
         },
+        "mini-css-extract-plugin": {
+            "libraryName": "mini-css-extract-plugin",
+            "asOfVersion": "2.5.0"
+        },
         "minimist-options": {
             "libraryName": "minimist-options",
             "asOfVersion": "4.0.1"

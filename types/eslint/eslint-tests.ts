@@ -698,7 +698,7 @@ const meta: Rule.RuleMetaData = {
     },
 };
 
-data = { rulesMeta: { "no-extra-semi": meta } };
+data = { cwd: "/foo/bar", rulesMeta: { "no-extra-semi": meta } };
 
 const version: string = ESLint.version;
 

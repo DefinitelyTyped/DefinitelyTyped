@@ -1,13 +1,13 @@
 // Type definitions for Sinon 10.0
 // Project: https://sinonjs.org
 // Definitions by: William Sears <https://github.com/mrbigdog2u>
-//                 Lukas Spieß <https://github.com/lumaxis>
 //                 Nico Jansen <https://github.com/nicojs>
 //                 James Garbutt <https://github.com/43081j>
 //                 Greg Jednaszewski <https://github.com/gjednaszewski>
 //                 John Wood <https://github.com/johnjesse>
 //                 Alec Flett <https://github.com/alecf>
 //                 Simon Schick <https://github.com/SimonSchick>
+//                 Mathias Schreck <https://github.com/lo1tuma>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as FakeTimers from "@sinonjs/fake-timers";
@@ -1479,43 +1479,48 @@ declare namespace Sinon {
         /**
          * Creates a basic fake, with no behavior
          */
-        (): SinonSpy;
+        <TArgs extends any[] = any[], TReturnValue = any>(): SinonSpy<TArgs, TReturnValue>;
         /**
          * Wraps an existing Function to record all interactions, while leaving it up to the func to provide the behavior.
          * This is useful when complex behavior not covered by the sinon.fake.* methods is required or when wrapping an existing function or method.
          */
-        (fn: Function): SinonSpy;
+        <TArgs extends any[] = any[], TReturnValue = any>(fn: (...args: TArgs) => TReturnValue): SinonSpy<
+            TArgs,
+            TReturnValue
+        >;
         /**
          * Creates a fake that returns the val argument
          * @param val Returned value
          */
-        returns(val: any): SinonSpy;
+        returns<TArgs extends any[] = any[], TReturnValue = any>(val: TReturnValue): SinonSpy<TArgs, TReturnValue>;
         /**
          * Creates a fake that throws an Error with the provided value as the message property.
          * If an Error is passed as the val argument, then that will be the thrown value. If any other value is passed, then that will be used for the message property of the thrown Error.
          * @param val Returned value or throw value if an Error
          */
-        throws(val: Error | string): SinonSpy;
+        throws<TArgs extends any[] = any[], TReturnValue = any>(val: Error | string): SinonSpy<TArgs, TReturnValue>;
         /**
          * Creates a fake that returns a resolved Promise for the passed value.
          * @param val Resolved promise
          */
-        resolves(val: any): SinonSpy;
+        resolves<TArgs extends any[] = any[], TReturnValue = any>(
+            val: TReturnValue extends PromiseLike<infer TResolveValue> ? TResolveValue : any,
+        ): SinonSpy<TArgs, TReturnValue>;
         /**
          * Creates a fake that returns a rejected Promise for the passed value.
          * If an Error is passed as the value argument, then that will be the value of the promise.
          * If any other value is passed, then that will be used for the message property of the Error returned by the promise.
          * @param val Rejected promise
          */
-        rejects(val: any): SinonSpy;
+        rejects<TArgs extends any[] = any[], TReturnValue = any>(val: any): SinonSpy<TArgs, TReturnValue>;
         /**
          * fake expects the last argument to be a callback and will invoke it with the given arguments.
          */
-        yields(...args: any[]): SinonSpy;
+        yields<TArgs extends any[] = any[], TReturnValue = any>(...args: any[]): SinonSpy<TArgs, TReturnValue>;
         /**
          * fake expects the last argument to be a callback and will invoke it asynchronously with the given arguments.
          */
-        yieldsAsync(...args: any[]): SinonSpy;
+        yieldsAsync<TArgs extends any[] = any[], TReturnValue = any>(...args: any[]): SinonSpy<TArgs, TReturnValue>;
     }
 
     interface SinonSandbox {

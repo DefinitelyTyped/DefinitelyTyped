@@ -6,26 +6,18 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": true,
         "strictFunctionTypes": true,
+        "strictNullChecks": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
         ],
-        "paths": {
-            "webpack": [
-                "./node_modules/webpack"
-            ],
-            "tapable": [
-                "./node_modules/tapable"
-            ]
-        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "mini-css-extract-plugin-tests.ts"
+        "sfcookies-tests.ts"
     ]
 }

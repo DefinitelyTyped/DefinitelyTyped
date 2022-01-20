@@ -1,7 +1,6 @@
 {
     "private": true,
     "dependencies": {
-        "tapable": "^2.2.0",
-        "webpack": "^5"
+        "ssim.js": "^3.1.1"
     }
 }
