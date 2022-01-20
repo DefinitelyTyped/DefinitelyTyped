@@ -16,6 +16,7 @@ declare module './index' {
     type BOTTOM = 'bottom';
     type BURN = 'color-burn';
     type CENTER = 'center';
+    type CHAR = 'char';
     type CHORD = 'chord';
     type CLAMP = 'clamp';
     type CLOSE = 'close';
@@ -30,6 +31,7 @@ declare module './index' {
     type DODGE = 'color-dodge';
     type ERODE = 'erode';
     type EXCLUSION = 'exclusion';
+    type FALLBACK = 'fallback';
     type FILL = 'fill';
     type GRAY = 'gray';
     type GRID = 'grid';
@@ -41,6 +43,7 @@ declare module './index' {
     type IMMEDIATE = 'immediate';
     type INVERT = 'invert';
     type ITALIC = 'italic';
+    type LABEL = 'label';
     type LANDSCAPE = 'landscape';
     type LEFT = 'left';
     type LIGHTEST = 'lighten';
@@ -68,6 +71,7 @@ declare module './index' {
     type QUADS = 'quads';
     type RADIANS = 'radians';
     type RADIUS = 'radius';
+    type REMOVE = 'destination-out';
     type REPEAT = 'repeat';
     type REPLACE = 'copy';
     type RGB = 'rgb';
@@ -78,6 +82,7 @@ declare module './index' {
     type SQUARE = 'butt';
     type STROKE = 'stroke';
     type SUBTRACT = 'subtract';
+    type TESS = 'tess';
     type TEXT = 'text';
     type TEXTURE = 'texture';
     type THRESHOLD = 'threshold';
@@ -85,9 +90,9 @@ declare module './index' {
     type TRIANGLE_FAN = 0x0006;
     type TRIANGLE_STRIP = 0x0005;
     type TRIANGLES = 0x0004;
+    type VERSION = 'version';
     type VIDEO = 'video';
     type WAIT = 'wait';
     type WEBGL = 'webgl';
-    type LABEL = 'label';
-    type FALLBACK = 'fallback';
+    type WORD = 'word';
 }
