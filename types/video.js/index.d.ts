@@ -6118,7 +6118,7 @@ export interface VideoJsPlayer extends videojs.Component {
 
     /**
      * Get the remote {@link videojs.AudioTrackList}
-     * @return The current remote text track list
+     * @return The current remote audio track list
      */
     audioTracks(): videojs.AudioTrackList;
 
