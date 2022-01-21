@@ -1,4 +1,4 @@
-// Type definitions for non-npm package htmlbars-inline-precompile 1.0
+// Type definitions for non-npm package htmlbars-inline-precompile 3.0
 // Project: https://github.com/ember-cli/ember-cli-htmlbars-inline-precompile
 // Definitions by: Dan Freeman <https://github.com/dfreeman>
 //                 James C. Davis <https://github.com/jamescdavis>
