@@ -4,32 +4,31 @@
 //                 Harel Mazor <https://github.com/HarelM>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/**
- * A {@link Point} or an array of two numbers representing `x` and `y` screen coordinates in pixels.
- *
- * @typedef {(Point | [number, number])} PointLike
- * @example
- * var p1 = new maplibregl.Point(-77, 38); // a PointLike which is a Point
- * var p2 = [-77, 38]; // a PointLike which is an array of two numbers
- */
-type PointLike = Point | [number, number];
-
 declare class Point {
     x: number;
     y: number;
     constructor(x: number, y: number);
     clone: () => Point;
     add: (p: Point) => Point;
+    _add: (p: Point) => Point;
     sub: (p: Point) => Point;
+    _sub: (p: Point) => Point;
     multiByPoint: (p: Point) => Point;
     divByPoint: (p: Point) => Point;
     mult: (k: number) => Point;
+    _mult: (k: number) => Point;
     div: (k: number) => Point;
+    _div: (k: number) => Point;
     rotate: (k: number) => Point;
+    _rotate: (k: number) => Point;
     rotateAround: (k: number, p: Point) => Point;
+    _rotateAround: (k: number, p: Point) => Point;
     matMult: (m: number[]) => Point;
+    _matMult: (m: number[]) => Point;
     unit: () => Point;
+    _unit: () => Point;
     perp: () => Point;
+    _perp: () => Point;
     round: () => Point;
     mag: () => number;
     equals: (other: Point) => boolean;
