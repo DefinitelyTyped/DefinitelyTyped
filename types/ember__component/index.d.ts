@@ -1,32 +1,27 @@
-// Type definitions for non-npm package @ember/component 3.16
-// Project: https://emberjs.com/api/ember/3.16/modules/@ember%2Fcomponent
-// Definitions by: Mike North <https://github.com/mike-north>
-//                 Chris Krycho <https://github.com/chriskrycho>
+// Type definitions for non-npm package @ember/component 4.0
+// Project: https://emberjs.com/api/ember/4.0/modules/@ember%2Fcomponent
+// Definitions by: Chris Krycho <https://github.com/chriskrycho>
 //                 Dan Freeman <https://github.com/dfreeman>
 //                 James C. Davis <https://github.com/jamescdavis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
+// Minimum TypeScript Version: 4.4
 
 /// <reference types="jquery" />
 
 import CoreView from "@ember/component/-private/core-view";
 import ClassNamesSupport from "@ember/component/-private/class-names-support";
 import ViewMixin from "@ember/component/-private/view-mixin";
-import ActionSupport from "@ember/component/-private/action-support";
+import { ComponentManager, Capabilities } from './-private/glimmer-interfaces';
 
-// tslint:disable-next-line:strict-export-declare-modifiers
+// Re-export these types so people can use them!
+export { ComponentManager, Capabilities };
+
 interface TemplateFactory {
     __htmlbars_inline_precompile_template_factory: any;
 }
 
-/**
- * A component is an isolated piece of UI, represented by a template and an
- * optional class. When a component has a class, its template's `this` value
- * is an instance of the component class.
- */
 export default class Component extends CoreView.extend(
     ViewMixin,
-    ActionSupport,
     ClassNamesSupport
 ) {
     // methods
@@ -48,10 +43,6 @@ export default class Component extends CoreView.extend(
      * element is being instantiated:
      */
     elementId: string;
-    /**
-     * If false, the view will appear hidden in DOM.
-     */
-    isVisible: boolean;
     /**
      * A component may contain a layout. A layout is a regular template but supersedes the template
      * property during rendering. It is the responsibility of the layout template to retrieve the
@@ -95,4 +86,30 @@ export default class Component extends CoreView.extend(
      * not during an initial render.
      */
     willUpdate(): void;
+
+    /**
+     * `reopen()` was deprecated and removed from `Component`. It is given an
+     * illegitimate type in these types so that you cannot call it or use it!
+     * Unfortunately, it cannot actually be *removed* from this type, because TS
+     * rightly complains that `Component` is no longer a valid subtype of the
+     * `EmberObject` base class, and will not let you use it.
+     */
+    static reopen(): never;
 }
+
+/**
+ * Associate a class with a component manager (an object that is responsible for
+ * coordinating the lifecycle events that occurs when invoking, rendering and
+ * re-rendering a component).
+ *
+ * @param managerFactory a function to create the owner for an object
+ * @param object the object to associate with the componetn manager
+ * @return the same object passed in, now associated with the manager
+ */
+export function setComponentManager<T>(
+    managerFactory: (owner: unknown) => ComponentManager<unknown>,
+    object: T
+): T;
+
+// Do not export anything but what we *explicitly* say to export.
+export {};

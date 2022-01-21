@@ -7,9 +7,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 
-/// <reference types="ember" />
-/// <reference types="ember__error" />
-
 declare module '@ember/test-helpers' {
     // DOM Interaction Helpers
 

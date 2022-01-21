@@ -1,4 +1,4 @@
-import { compare, isBlank, isEmpty, isEqual, isNone, isPresent, tryInvoke, typeOf } from '@ember/utils';
+import { compare, isBlank, isEmpty, isEqual, isNone, isPresent, typeOf } from '@ember/utils';
 
 (function() {
     /** isNone */
@@ -13,18 +13,6 @@ import { compare, isBlank, isEmpty, isEqual, isNone, isPresent, tryInvoke, typeO
     isNone(''); // $ExpectType boolean
     isNone([]); // $ExpectType boolean
     isNone(function() {}); // $ExpectType boolean
-})();
-
-(function() {
-    /** tryInvoke */
-    let d = new Date('03/15/2013');
-
-    tryInvoke(d, 'getTime'); // $ExpectType number
-    tryInvoke(d, 'setFullYear', [2014]); // $ExpectType number
-    tryInvoke(d, 'noSuchMethod', [2014]); // $ExpectType undefined
-    tryInvoke(d, 'getTime');
-    tryInvoke(d, 'setFullYear', [2014]);
-    tryInvoke(d, 'noSuchMethod', [2014]);
 })();
 
 (function() {
