@@ -2,6 +2,12 @@ import Point = require('@mapbox/point-geometry');
 
 const point = new Point(9, 25);
 
+// $ExpectType number
+point.x;
+
+// $ExpectType number
+point.y;
+
 // $ExpectType Point
 point.clone();
 
