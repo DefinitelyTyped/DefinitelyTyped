@@ -337,7 +337,7 @@ export interface CalendarProps<TEvent extends object = Event, TResource extends 
     ref?: React.LegacyRef<Calendar<TEvent, TResource>> | undefined;
     localizer: DateLocalizer;
 
-    date?: stringOrDate | undefined;
+    date?: Date;
     getNow?: (() => Date) | undefined;
     view?: View | undefined;
     events?: TEvent[] | undefined;
@@ -372,9 +372,9 @@ export interface CalendarProps<TEvent extends object = Event, TResource extends 
     slotGroupPropGetter?: SlotGroupPropGetter | undefined;
     dayPropGetter?: DayPropGetter | undefined;
     showMultiDayTimes?: boolean | undefined;
-    min?: stringOrDate | undefined;
-    max?: stringOrDate | undefined;
-    scrollToTime?: Date | undefined;
+    min?: Date;
+    max?: Date;
+    scrollToTime?: Date;
     culture?: string | undefined;
     formats?: Formats | undefined;
     components?: Components<TEvent, TResource> | undefined;
