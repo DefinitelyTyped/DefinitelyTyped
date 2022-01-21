@@ -1,4 +1,4 @@
-// Type definitions for ember-feature-flags 6.1
+// Type definitions for ember-feature-flags 6.0
 // Project: https://github.com/kategengler/ember-feature-flags#readme
 // Definitions by: Dan Freeman <https://github.com/dfreeman>
 //                 Chris Krycho <https://github.com/chriskrycho>
