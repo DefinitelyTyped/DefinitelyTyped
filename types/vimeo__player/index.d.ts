@@ -292,7 +292,7 @@ export class Player {
     constructor(element: HTMLIFrameElement | HTMLElement | string, options?: Options);
 
     on<EventName extends keyof EventMap>(event: EventName, callback: EventCallback<EventMap[EventName]>): void;
-    on(event: string, callback?: EventCallback): void;
+    on(event: string, callback: EventCallback): void;
     off<EventName extends keyof EventMap>(event: EventName, callback: EventCallback<EventMap[EventName]>): void;
     off(event: string, callback?: EventCallback): void;
     loadVideo(id: number | string): VimeoPromise<number, TypeError | PasswordError | PrivacyError | Error>;
