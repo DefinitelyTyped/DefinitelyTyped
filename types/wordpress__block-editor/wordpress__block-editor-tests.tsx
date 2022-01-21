@@ -536,6 +536,25 @@ select('core/block-editor').getAdjacentBlockClientId('foo');
 select('core/block-editor').getAdjacentBlockClientId('foo', -1);
 select('core/block-editor').getAdjacentBlockClientId('foo', 1);
 
+const _reserved: be.UseBlockProps.Reserved = {
+    id: 'test',
+    role: 'document',
+    tabIndex: 0,
+    'aria-label': 'aria-label',
+    'data-block': 'data-block',
+    'data-type': 'data-type',
+    'data-title': 'data-title',
+};
+
+const _merged: be.UseBlockProps.Merged = {
+    className: 'test',
+    style: {
+        hello: 'world',
+        other: { whatherver: true },
+    },
+    ref: () => useRef({ hello: { world: true } }),
+};
+
 // $ExpectType Omit<Record<string, unknown>, "ref"> & Merged & Reserved
 be.useBlockProps();
 
