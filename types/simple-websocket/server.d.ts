@@ -16,7 +16,7 @@ declare class SocketServer extends EventEmitter {
   path: string;
   clients: Set<WebSocket>;
 
-  constructor(options?: SocketServer.Options, callback?: () => void);
+  constructor(options?: Partial<SocketServer.Options>, callback?: () => void);
 
   close(cb?: (err?: Error) => void): void;
   handleUpgrade(request: http.IncomingMessage, socket: net.Socket,
