@@ -63,11 +63,11 @@ declare class WebSocket extends EventEmitter {
     onclose: (event: WebSocket.CloseEvent) => void;
     onmessage: (event: WebSocket.MessageEvent) => void;
 
-    constructor(address: string | URL, options?: WebSocket.ClientOptions | ClientRequestArgs);
+    constructor(address: string | URL, options?: Partial<WebSocket.ClientOptions> | ClientRequestArgs);
     constructor(
         address: string | URL,
         protocols?: string | string[],
-        options?: WebSocket.ClientOptions | ClientRequestArgs,
+        options?: Partial<WebSocket.ClientOptions> | ClientRequestArgs,
     );
 
     close(code?: number, data?: string | Buffer): void;
@@ -182,7 +182,7 @@ declare namespace WebSocket {
     /**
      * Data represents the message payload received over the WebSocket.
      */
-    type Data = string | Buffer | ArrayBuffer | Buffer[];
+    type Data = string | RawData;
 
     /**
      * CertMeta represents the accepted types for certificate & key data.
@@ -207,42 +207,42 @@ declare namespace WebSocket {
     ) => void;
 
     interface ClientOptions extends SecureContextOptions {
-        protocol?: string | undefined;
-        followRedirects?: boolean | undefined;
-        handshakeTimeout?: number | undefined;
-        maxRedirects?: number | undefined;
-        perMessageDeflate?: boolean | PerMessageDeflateOptions | undefined;
-        localAddress?: string | undefined;
-        protocolVersion?: number | undefined;
-        headers?: { [key: string]: string } | undefined;
-        origin?: string | undefined;
-        agent?: Agent | undefined;
-        host?: string | undefined;
-        family?: number | undefined;
-        checkServerIdentity?(servername: string, cert: CertMeta): boolean;
-        rejectUnauthorized?: boolean | undefined;
-        maxPayload?: number | undefined;
+        protocol: string;
+        followRedirects: boolean;
+        handshakeTimeout: number;
+        maxRedirects: number;
+        perMessageDeflate: boolean | Partial<PerMessageDeflateOptions>;
+        localAddress: string;
+        protocolVersion: number;
+        headers: { [key: string]: string };
+        origin: string;
+        agent: Agent;
+        host: string;
+        family: number;
+        checkServerIdentity(servername: string, cert: CertMeta): boolean;
+        rejectUnauthorized: boolean;
+        maxPayload: number;
     }
 
     interface PerMessageDeflateOptions {
-        serverNoContextTakeover?: boolean | undefined;
-        clientNoContextTakeover?: boolean | undefined;
-        serverMaxWindowBits?: number | undefined;
-        clientMaxWindowBits?: number | undefined;
-        zlibDeflateOptions?: {
-            flush?: number | undefined;
-            finishFlush?: number | undefined;
-            chunkSize?: number | undefined;
-            windowBits?: number | undefined;
-            level?: number | undefined;
-            memLevel?: number | undefined;
-            strategy?: number | undefined;
-            dictionary?: Buffer | Buffer[] | DataView | undefined;
-            info?: boolean | undefined;
-        } | undefined;
-        zlibInflateOptions?: ZlibOptions | undefined;
-        threshold?: number | undefined;
-        concurrencyLimit?: number | undefined;
+        serverNoContextTakeover: boolean;
+        clientNoContextTakeover: boolean;
+        serverMaxWindowBits: number;
+        clientMaxWindowBits: number;
+        zlibDeflateOptions: Partial<{
+            flush: number;
+            finishFlush: number;
+            chunkSize: number;
+            windowBits: number;
+            level: number;
+            memLevel: number;
+            strategy: number;
+            dictionary: Buffer | Buffer[] | DataView;
+            info: boolean;
+        }>;
+        zlibInflateOptions: ZlibOptions;
+        threshold: number;
+        concurrencyLimit: number;
     }
 
     interface Event {
@@ -276,18 +276,18 @@ declare namespace WebSocket {
     }
 
     interface ServerOptions {
-        host?: string | undefined;
-        port?: number | undefined;
-        backlog?: number | undefined;
-        server?: HTTPServer | HTTPSServer | undefined;
-        verifyClient?: VerifyClientCallbackAsync | VerifyClientCallbackSync | undefined;
-        handleProtocols?: (protocols: Set<string>, request: IncomingMessage) => string | false;
-        path?: string | undefined;
-        noServer?: boolean | undefined;
-        clientTracking?: boolean | undefined;
-        perMessageDeflate?: boolean | PerMessageDeflateOptions | undefined;
-        maxPayload?: number | undefined;
-        skipUTF8Validation?: boolean | undefined;
+        host: string;
+        port: number;
+        backlog: number;
+        server: HTTPServer | HTTPSServer;
+        verifyClient: VerifyClientCallbackAsync | VerifyClientCallbackSync;
+        handleProtocols: (protocols: Set<string>, request: IncomingMessage) => string | false;
+        path: string;
+        noServer: boolean;
+        clientTracking: boolean;
+        perMessageDeflate: boolean | Partial<PerMessageDeflateOptions>;
+        maxPayload: number;
+        skipUTF8Validation: boolean;
     }
 
     interface AddressInfo {
@@ -298,11 +298,11 @@ declare namespace WebSocket {
 
     // WebSocket Server
     class Server extends EventEmitter {
-        options: ServerOptions;
+        options: Partial<ServerOptions>;
         path: string;
         clients: Set<WebSocket>;
 
-        constructor(options?: ServerOptions, callback?: () => void);
+        constructor(options?: Partial<ServerOptions>, callback?: () => void);
 
         address(): AddressInfo | string;
         close(cb?: (err?: Error) => void): void;
