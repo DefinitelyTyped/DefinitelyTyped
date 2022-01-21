@@ -21,7 +21,7 @@ declare namespace expressWs {
 
     interface Options {
         leaveRouterUntouched?: boolean | undefined;
-        wsOptions?: ws.ServerOptions | undefined;
+        wsOptions?: Partial<ws.ServerOptions>;
     }
 
     interface RouterLike {
