@@ -17,12 +17,14 @@
         "paths": {
             "@ember/application": ["ember__application/v3"],
             "@ember/application/*": ["ember__application/v3/*"],
+            "@ember/controller": ["ember__controller/v3"],
             "@ember/engine": ["ember__engine/v3"],
             "@ember/engine/*": ["ember__engine/v3/*"],
             "@ember/object": ["ember__object/v3"],
             "@ember/object/*": ["ember__object/v3/*"],
             "@ember/routing": ["ember__routing/v3"],
             "@ember/routing/*": ["ember__routing/v3/*"],
+            "@ember/service": ["ember__service/v3"],
             "@ember/test": ["ember__test/v3"],
             "@ember/test/*": ["ember__test/v3/*"]
         },
