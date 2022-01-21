@@ -17,6 +17,7 @@ export function getTasks(): ScheduledTask[];
 export interface ScheduledTask extends EventEmitter {
     start: () => this;
     stop: () => this;
+    destroy: () => void;
 }
 
 export interface ScheduleOptions {
