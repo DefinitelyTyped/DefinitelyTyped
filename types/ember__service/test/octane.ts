@@ -28,7 +28,7 @@ class Foo extends EmberObject {
 }
 
 class FooService extends EmberObject {
-    @service foo: FirstSvc;
-    @service('first') baz: FirstSvc;
-    @service() bar: FirstSvc;
+    @service declare foo: FirstSvc;
+    @service('first') declare baz: FirstSvc;
+    @service() declare bar: FirstSvc;
 }
