@@ -12,7 +12,7 @@
  * var p1 = new maplibregl.Point(-77, 38); // a PointLike which is a Point
  * var p2 = [-77, 38]; // a PointLike which is an array of two numbers
  */
-export type PointLike = Point | [number, number];
+type PointLike = Point | [number, number];
 
 declare class Point {
     x: number;
