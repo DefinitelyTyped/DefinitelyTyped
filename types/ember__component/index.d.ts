@@ -11,7 +11,10 @@
 import CoreView from "@ember/component/-private/core-view";
 import ClassNamesSupport from "@ember/component/-private/class-names-support";
 import ViewMixin from "@ember/component/-private/view-mixin";
-import { ComponentManager } from './-private/glimmer-interfaces';
+import { ComponentManager, Capabilities } from './-private/glimmer-interfaces';
+
+// Re-export these types so people can use them!
+export { ComponentManager, Capabilities };
 
 interface TemplateFactory {
     __htmlbars_inline_precompile_template_factory: any;
