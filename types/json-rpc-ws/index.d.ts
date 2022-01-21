@@ -16,7 +16,7 @@ export class Server<TConnection extends Connection> extends Base<TConnection> {
     /**
      * Start the server
      */
-    start(options?: ws.ServerOptions, callback?: () => void): void;
+    start(options?: Partial<ws.ServerOptions>, callback?: () => void): void;
     server: ws.Server;
     /**
      * Stop the server
