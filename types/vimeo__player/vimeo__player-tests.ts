@@ -574,74 +574,103 @@ player
 
 player.on('play', data => {
     // data is an object containing properties specific to that event
-    console.log(data.duration); // 61.857
-    console.log(data.percent); // 0
-    console.log(data.seconds); // 0
+    // $ExpectType number
+    data.duration;
+    // $ExpectType number
+    data.percent;
+    // $ExpectType number
+    data.seconds;
 });
 
 player.on('pause', data => {
     // data is an object containing properties specific to that event
-    console.log(data.duration); // 61.857
-    console.log(data.percent); // 0
-    console.log(data.seconds); // 0
+    // $ExpectType number
+    data.duration;
+    // $ExpectType number
+    data.percent;
+    // $ExpectType number
+    data.seconds;
 });
 
 player.on('ended', data => {
     // data is an object containing properties specific to that event
-    console.log(data.duration); // 61.857
-    console.log(data.percent); // 1
-    console.log(data.seconds); // 61.857
+    // $ExpectType number
+    data.duration;
+    // $ExpectType number
+    data.percent;
+    // $ExpectType number
+    data.seconds;
 });
 
 player.on('timeupdate', data => {
     // data is an object containing properties specific to that event
-    console.log(data.duration); // 61.857
-    console.log(data.percent); // 0.049
-    console.log(data.seconds); // 3.034
+    // $ExpectType number
+    data.duration;
+    // $ExpectType number
+    data.percent;
+    // $ExpectType number
+    data.seconds;
 });
 
 player.on('progress', data => {
     // data is an object containing properties specific to that event
-    console.log(data.duration); // 61.857
-    console.log(data.percent); // 0.502
-    console.log(data.seconds); // 31.052
+    // $ExpectType number
+    data.duration;
+    // $ExpectType number
+    data.percent;
+    // $ExpectType number
+    data.seconds;
 });
 
 player.on('seeked', data => {
     // data is an object containing properties specific to that event
-    console.log(data.duration); // 61.857
-    console.log(data.percent); // 0.485
-    console.log(data.seconds); // 30
+    // $ExpectType number
+    data.duration;
+    // $ExpectType number
+    data.percent;
+    // $ExpectType number
+    data.seconds;
 });
 
 player.on('texttrackchange', data => {
     // data is an object containing properties specific to that event
-    console.log(data.kind);
-    console.log(data.label);
-    console.log(data.language);
+    // This can’t be asserted consistently between TypeScript versions.
+    data.kind;
+    // $ExpectType string | null
+    data.label;
+    // $ExpectType string | null
+    data.language;
 });
 
 player.on('cuechange', data => {
     // data is an object containing properties specific to that event
     console.log(data.cues); // Array of Cues
-    console.log(data.cues[0].html);
-    console.log(data.cues[0].text);
-    console.log(data.label);
+    // $ExpectType string
+    data.cues[0].html;
+    // $ExpectType string
+    data.cues[0].text;
+    // $ExpectType string
+    data.label;
     console.log(data.kind);
-    console.log(data.language);
+    // $ExpectType string
+    data.language;
 });
 
 player.on('cuepoint', data => {
     // data is an object containing properties specific to that event
-    console.log(data.time);
+    // $ExpectType number
+    data.time;
     console.log(data.data);
-    console.log(data.data.customKey);
-    console.log(data.id);
+    // $ExpectType any
+    data.data.customKey;
+    // $ExpectType string
+    data.id;
 });
 
 player.on('volumechange', data => {
     // data is an object containing properties specific to that event
-    console.log(data.volume);
+    // $ExpectType number
+    data.volume;
 });
 
 player.on('playbackratechange', data => {
@@ -649,29 +678,32 @@ player.on('playbackratechange', data => {
     console.log(data.playbackRate);
 });
 
-player.on('bufferstart', data => {
+player.on('bufferstart', () => {
     // no associated data with this event
 });
 
-player.on('bufferend', data => {
+player.on('bufferend', () => {
     // no associated data with this event
 });
 
 player.on('seeking', data => {
     // data is an object containing properties specific to that event
-    console.log(data.duration); // 61.857
-    console.log(data.percent); // 0.485
-    console.log(data.seconds); // 30
+    // $ExpectType number
+    data.duration;
+    // $ExpectType number
+    data.percent;
+    // $ExpectType number
+    data.seconds;
 });
 
 player.on('error', data => {
     // data is an object containing properties specific to that event
-    console.log(data.message);
-    console.log(data.method);
-    console.log(data.name);
+    // $ExpectType Error
+    data;
 });
 
 player.on('loaded', data => {
     // data is an object containing properties specific to that event
-    console.log(data.id);
+    // $ExpectType number
+    data.id;
 });
