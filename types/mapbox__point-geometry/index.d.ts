@@ -30,6 +30,7 @@ declare class Point {
     perp(): Point;
     _perp(): Point;
     round(): Point;
+    _round(): Point;
     mag(): number;
     equals(other: Point): boolean;
     dist(p: Point): number;
