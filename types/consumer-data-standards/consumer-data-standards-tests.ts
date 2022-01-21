@@ -1,2 +1,9 @@
-import dsb = require('consumer-data-standards/banking');
-//const type = dsb. // $ExpectType BankingProductCategory.BUSINESS_LOANS
+// Interface definitions ONLY in this repo
+import { BankingPayeeDetailV2 } from "banking";
+
+const payeeDetails: BankingPayeeDetailV2 = {
+   payeeId: "12345",
+   nickname: "DSB",
+   type: "BILLER",
+   payeeUType: "biller"
+};

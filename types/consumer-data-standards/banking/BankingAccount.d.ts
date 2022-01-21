@@ -10,9 +10,7 @@ export interface BankingAccount {
    */
   creationDate?: string | null;
   /**
-   * The display name of the account as defined by the bank. This should not incorporate account numbers
-   * or PANs. If it does the values should be masked according to the rules of the MaskedAccountString 
-   * common type.
+   * The display name of the account as defined by the bank. This should not incorporate account numbers or PANs. If it does the values should be masked according to the rules of the MaskedAccountString common type.
    */
   displayName: string;
   /**

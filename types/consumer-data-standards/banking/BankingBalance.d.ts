@@ -14,13 +14,11 @@ export interface BankingBalance {
    */
   availableBalance: string;
   /**
-   * Object representing the maximum amount of credit that is available for this account.
-   * Assumed to be zero if absent
+   * Object representing the maximum amount of credit that is available for this account. Assumed to be zero if absent
    */
   creditLimit?: string | null;
   /**
-   * Object representing the available limit amortised according to payment schedule.
-   * Assumed to be zero if absent
+   * Object representing the available limit amortised according to payment schedule. Assumed to be zero if absent
    */
   amortisedLimit?: string | null;
   /**
@@ -28,8 +26,7 @@ export interface BankingBalance {
    */
   currency?: string | null;
   /**
-   * Optional array of balances for the account in other currencies.
-   * Included to support accounts that support multi-currency purses such as Travel Cards
+   * Optional array of balances for the account in other currencies. Included to support accounts that support multi-currency purses such as Travel Cards
    */
   purses?:
     | {
