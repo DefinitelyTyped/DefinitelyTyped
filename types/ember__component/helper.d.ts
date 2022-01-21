@@ -3,7 +3,7 @@ import { Opaque } from 'ember/-private/type-utils';
 
 export interface HelperSignature {
     NamedArgs?: Record<string, unknown>;
-    PositionalArgs?: Array<unknown>;
+    PositionalArgs?: unknown[];
     Return?: unknown;
 }
 
