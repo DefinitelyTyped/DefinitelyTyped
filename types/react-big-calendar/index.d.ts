@@ -284,12 +284,32 @@ export interface Messages {
     noEventsInRange?: string | undefined;
 }
 
-export interface SlotInfo {
-  start: stringOrDate;
-  end: stringOrDate;
-  slots: Date[] | string[];
-  action: 'select' | 'click' | 'doubleClick';
-}
+/**
+ * @resourceId For "TimeGrid" views
+ * @bounds For "select" action
+ * @box For "click" or "doubleClick" actions
+ */
+ export interface SlotInfo {
+    start: Date;
+    end: Date;
+    slots: Date[];
+    action: 'select' | 'click' | 'doubleClick';
+    resourceId?: number | string;
+    bounds?: {
+      x: number;
+      y: number;
+      top: number;
+      bottom: number;
+      left: number;
+      right: number;
+    };
+    box?: {
+      x: number;
+      y: number;
+      clientX: number;
+      clientY: number;
+    };
+  }
 
 export type Culture = string;
 export type FormatInput = number | string | Date;
@@ -446,12 +466,7 @@ export interface TimeGridProps<TEvent extends object = Event, TResource extends 
     selectable?: boolean | 'ignoreEvents' | undefined;
     longPressThreshold?: number | undefined;
     onNavigate?: ((action: NavigateAction) => void) | undefined;
-    onSelectSlot?: ((slotInfo: {
-        start: stringOrDate;
-        end: stringOrDate;
-        slots: Date[] | string[];
-        action: 'select' | 'click' | 'doubleClick';
-    }) => void) | undefined;
+    onSelectSlot?: ((slotInfo: SlotInfo) => void) | undefined;
     onSelectEnd?: ((...args: any[]) => any) | undefined;
     onSelectStart?: ((...args: any[]) => any) | undefined;
     onSelectEvent?: ((event: TEvent, e: React.SyntheticEvent<HTMLElement>) => void) | undefined;
