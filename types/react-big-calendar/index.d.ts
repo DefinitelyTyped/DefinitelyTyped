@@ -350,7 +350,7 @@ export interface CalendarProps<TEvent extends object = Event, TResource extends 
     onDoubleClickEvent?: ((event: TEvent, e: React.SyntheticEvent<HTMLElement>) => void) | undefined;
     onSelectEvent?: ((event: TEvent, e: React.SyntheticEvent<HTMLElement>) => void) | undefined;
     onKeyPressEvent?: ((event: TEvent, e: React.SyntheticEvent<HTMLElement>) => void) | undefined;
-    onSelecting?: ((range: { start: stringOrDate; end: stringOrDate }) => boolean | undefined | null) | undefined;
+    onSelecting?: ((range: { start: Date; end: Date }) => boolean | undefined)
     onRangeChange?: ((range: Date[] | { start: stringOrDate; end: stringOrDate }, view: View | undefined) => void) | undefined;
     showAllEvents?: boolean | undefined;
     selected?: any;
