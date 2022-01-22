@@ -26,7 +26,7 @@ import * as React from 'react';
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
 export type DayPropGetter = (date: Date, resourceId?: number | string) => React.HTMLAttributes<HTMLDivElement>;
-export type EventPropGetter<T> = (event: T, start: stringOrDate, end: stringOrDate, isSelected: boolean) => React.HTMLAttributes<HTMLDivElement>;
+export type EventPropGetter<T> = (event: T, start: Date, end: Date, isSelected: boolean) => {className?: string, style?: React.CSSProperties};
 export type SlotPropGetter = (date: Date, resourceId?: number | string) => React.HTMLAttributes<HTMLDivElement>;
 export type SlotGroupPropGetter = () => React.HTMLAttributes<HTMLDivElement>;
 
@@ -247,7 +247,7 @@ export interface EventWrapperProps<TEvent extends object = Event> {
     event: TEvent;
     isRtl: boolean;
     getters: {
-        eventProp?: EventPropGetter<TEvent> | undefined;
+        eventProp?: EventPropGetter<TEvent>;
         slotProp?: SlotPropGetter | undefined;
         dayProp?: DayPropGetter | undefined;
     };
@@ -367,7 +367,7 @@ export interface CalendarProps<TEvent extends object = Event, TResource extends 
     step?: number | undefined;
     timeslots?: number | undefined;
     rtl?: boolean | undefined;
-    eventPropGetter?: EventPropGetter<TEvent> | undefined;
+    eventPropGetter?: EventPropGetter<TEvent>;
     slotPropGetter?: SlotPropGetter | undefined;
     slotGroupPropGetter?: SlotGroupPropGetter | undefined;
     dayPropGetter?: DayPropGetter | undefined;
