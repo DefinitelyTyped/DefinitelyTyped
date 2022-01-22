@@ -451,8 +451,8 @@ export interface TimeGridProps<TEvent extends object = Event, TResource extends 
     step?: number | undefined;
     timeslots?: number | undefined;
     range?: any[] | undefined;
-    min?: stringOrDate | undefined;
-    max?: stringOrDate | undefined;
+    min: Date;
+    max: Date;
     getNow?: (() => Date) | undefined;
     scrollToTime?: Date | undefined;
     showMultiDayTimes?: boolean | undefined;
