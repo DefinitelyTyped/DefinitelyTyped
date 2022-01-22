@@ -682,6 +682,9 @@ let formatterPromise: Promise<ESLint.Formatter>;
 formatterPromise = eslint.loadFormatter("codeframe");
 formatterPromise = eslint.loadFormatter();
 
+const customFormatter1: ESLint.Formatter = { format: () => "ok" };
+const customFormatter2: ESLint.Formatter = { format: () => Promise.resolve("ok") };
+
 let data: ESLint.LintResultData;
 const meta: Rule.RuleMetaData = {
     type: "suggestion",
@@ -702,9 +705,12 @@ data = { cwd: "/foo/bar", rulesMeta: { "no-extra-semi": meta } };
 
 const version: string = ESLint.version;
 
-resultsPromise.then(results => {
-    formatterPromise.then(formatter => formatter.format(results));
-    formatterPromise.then(formatter => formatter.format(results, data));
+(async () => {
+    const results = await resultsPromise;
+    const formatter = await formatterPromise;
+
+    const output1: string = await formatter.format(results);
+    const output2: string = await formatter.format(results, data);
 
     eslint.getRulesMetaForResults(results);
 
@@ -732,7 +738,7 @@ resultsPromise.then(results => {
             message.ruleId = "foo";
         }
     }
-});
+})();
 
 //#endregion
 
