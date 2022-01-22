@@ -1,73 +1,103 @@
-import * as React from 'react';
-import {
-  BrowserRouter as Router,
-  RouteComponentProps,
-  Route,
-  Link
-} from 'react-router-dom';
+import * as React from "react";
+import { Routes, Route, Outlet, Link } from "react-router-dom";
 
-const BasicExample = () => (
-  <Router>
-    <div>
-      <ul>
-        <li><Link to="/">Home</Link></li>
-        <li><Link to="/about">About</Link></li>
-        <li><Link to="/topics">Topics</Link></li>
-      </ul>
+const BasicExample = () => {
+    return (
+        <div>
+            <h1>Basic Example</h1>
 
-      <hr/>
+            <p>
+                This example demonstrates some of the core features of React Router
+                including nested <code>&lt;Route&gt;</code>s,{" "}
+                <code>&lt;Outlet&gt;</code>s, <code>&lt;Link&gt;</code>s, and using a
+                "*" route (aka "splat route") to render a "not found" page when someone
+                visits an unrecognized URL.
+            </p>
 
-      <Route exact path="/" component={Home}/>
-      <Route path="/about" component={About}/>
-      <Route path="/topics" component={Topics}/>
-    </div>
-  </Router>
-);
+            {/* Routes nest inside one another. Nested route paths build upon
+            parent route paths, and nested route elements render inside
+            parent route elements. See the note about <Outlet> below. */}
+            <Routes>
+                <Route path="/" element={<Layout />}>
+                    <Route index element={<Home />} />
+                    <Route path="about" element={<About />} />
+                    <Route path="dashboard" element={<Dashboard />} />
 
-const Home = () => (
-  <div>
-    <h2>Home</h2>
-  </div>
-);
+                    {/* Using path="*"" means "match anything", so this route
+                acts like a catch-all for URLs that we don't have explicit
+                routes for. */}
+                    <Route path="*" element={<NoMatch />} />
+                </Route>
+            </Routes>
+        </div>
+    );
+}
 
-const About = () => (
-  <div>
-    <h2>About</h2>
-  </div>
-);
+const Layout = () => {
+    return (
+        <div>
+            {/* A "layout route" is a good place to put markup you want to
+          share across all the pages on your site, like navigation. */}
+            <nav>
+                <ul>
+                    <li>
+                        <Link to="/">Home</Link>
+                    </li>
+                    <li>
+                        <Link to="/about">About</Link>
+                    </li>
+                    <li>
+                        <Link to="/dashboard">Dashboard</Link>
+                    </li>
+                    <li>
+                        <Link to="/nothing-here">Nothing Here</Link>
+                    </li>
+                </ul>
+            </nav>
 
-const Topics: React.FC<RouteComponentProps> = ({ match }) => (
-  <div>
-    <h2>Topics</h2>
-    <ul>
-      <li>
-        <Link to={`${match.url}/rendering`}>
-          Rendering with React
-        </Link>
-      </li>
-      <li>
-        <Link to={`${match.url}/components`}>
-          Components
-        </Link>
-      </li>
-      <li>
-        <Link to={`${match.url}/props-v-state`}>
-          Props v. State
-        </Link>
-      </li>
-    </ul>
+            <hr />
 
-    <Route path={`${match.url}/:topicId`} component={Topic}/>
-    <Route exact path={match.url} render={() => (
-      <h3>Please select a topic.</h3>
-    )}/>
-  </div>
-);
+            {/* An <Outlet> renders whatever child route is currently active,
+          so you can think about this <Outlet> as a placeholder for
+          the child routes we defined above. */}
+            <Outlet />
+        </div>
+    );
+}
 
-const Topic: React.FC<RouteComponentProps<{topicId: string}>> = ({ match }) => (
-  <div>
-    <h3>{match.params.topicId}</h3>
-  </div>
-);
+const Home = () => {
+    return (
+        <div>
+            <h2>Home</h2>
+        </div>
+    );
+}
+
+const About = () => {
+    return (
+        <div>
+            <h2>About</h2>
+        </div>
+    );
+}
+
+const Dashboard = () => {
+    return (
+        <div>
+            <h2>Dashboard</h2>
+        </div>
+    );
+}
+
+const NoMatch = () => {
+    return (
+        <div>
+            <h2>Nothing to see here!</h2>
+            <p>
+                <Link to="/">Go to the home page</Link>
+            </p>
+        </div>
+    );
+}
 
 export default BasicExample;

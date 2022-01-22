@@ -1,3 +1,29 @@
+// Type definitions for React Router 6.2
+// Project: https://github.com/ReactTraining/react-router
+// Definitions by: Sergey Buturlakin <https://github.com/sergey-buturlakin>
+//                 Yuichi Murata <https://github.com/mrk21>
+//                 Václav Ostrožlík <https://github.com/vasek17>
+//                 Nathan Brown <https://github.com/ngbrown>
+//                 Alex Wendland <https://github.com/awendland>
+//                 Kostya Esmukov <https://github.com/KostyaEsmukov>
+//                 John Reilly <https://github.com/johnnyreilly>
+//                 Karol Janyst <https://github.com/LKay>
+//                 Dovydas Navickas <https://github.com/DovydasNavickas>
+//                 Huy Nguyen <https://github.com/huy-nguyen>
+//                 Jérémy Fauvel <https://github.com/grmiade>
+//                 Daniel Roth <https://github.com/DaIgeb>
+//                 Egor Shulga <https://github.com/egorshulga>
+//                 Rahul Raina <https://github.com/rraina>
+//                 Duong Tran <https://github.com/t49tran>
+//                 Ben Smith <https://github.com/8enSmith>
+//                 Wesley Tsai <https://github.com/wezleytsai>
+//                 Sebastian Silbermann <https://github.com/eps1lon>
+//                 Nicholas Hehr <https://github.com/HipsterBrown>
+//                 Pawel Fajfer <https://github.com/pawfa>
+//                 Félix Legrelle <https://github.com/felixlgr>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
+
 import * as React from 'react';
 import * as H from 'history';
 
@@ -14,27 +40,27 @@ export interface RouterChildContext<Params extends { [K in keyof Params]?: strin
 }
 export interface MemoryRouterProps {
     children?: React.ReactNode;
-    initialEntries?: H.LocationDescriptor[];
-    initialIndex?: number;
-    getUserConfirmation?: (message: string, callback: (ok: boolean) => void) => void;
-    keyLength?: number;
+    initialEntries?: H.LocationDescriptor[] | undefined;
+    initialIndex?: number | undefined;
+    getUserConfirmation?: ((message: string, callback: (ok: boolean) => void) => void) | undefined;
+    keyLength?: number | undefined;
 }
 
 export class MemoryRouter extends React.Component<MemoryRouterProps, any> {}
 
 export interface PromptProps {
     message: string | ((location: H.Location, action: H.Action) => string | boolean);
-    when?: boolean;
+    when?: boolean | undefined;
 }
 export class Prompt extends React.Component<PromptProps, any> {}
 
 export interface RedirectProps {
     to: H.LocationDescriptor;
-    push?: boolean;
-    from?: string;
-    path?: string;
-    exact?: boolean;
-    strict?: boolean;
+    push?: boolean | undefined;
+    from?: string | undefined;
+    path?: string | undefined;
+    exact?: boolean | undefined;
+    strict?: boolean | undefined;
 }
 export class Redirect extends React.Component<RedirectProps, any> {}
 
@@ -45,15 +71,8 @@ export interface NavigateProps {
 }
 export class Navigate extends React.Component<NavigateProps, any> {}
 
-export interface OutletProps {
-    context?: unknown ;
-}
-export function Outlet(
-    props: OutletProps
-): React.ReactElement | null;
-
 export interface StaticContext {
-    statusCode?: number;
+    statusCode?: number | undefined;
 }
 
 export interface RouteComponentProps<
@@ -64,7 +83,7 @@ export interface RouteComponentProps<
     history: H.History<S>;
     location: H.Location<S>;
     match: match<Params>;
-    staticContext?: C;
+    staticContext?: C | undefined;
 }
 
 export interface RouteChildrenProps<Params extends { [K in keyof Params]?: string } = {}, S = H.LocationState> {
@@ -76,14 +95,17 @@ export interface RouteChildrenProps<Params extends { [K in keyof Params]?: strin
 export interface RouteProps<
     Path extends string = string,
     Params extends { [K: string]: string | undefined } = ExtractRouteParams<Path, string>
-    > {
+> {
     caseSensitive?: boolean | undefined;
     children?: ((props: RouteChildrenProps<Params>) => React.ReactNode) | React.ReactNode | undefined;
     element?: ((props: RouteComponentProps<Params>) => React.ReactNode) | React.ReactElement | null | undefined;
     index?: boolean | undefined;
     path?: Path | readonly Path[] | undefined;
 }
-export class Route<T extends RouteProps = RouteProps> extends React.Component<T, any> {}
+export class Route<T extends {} = {}, Path extends string = string> extends React.Component<
+    RouteProps<Path> & OmitNative<T, keyof RouteProps>,
+    any
+> {}
 
 export interface RouterProps {
     children?: React.ReactNode;
@@ -92,15 +114,15 @@ export interface RouterProps {
 export class Router extends React.Component<RouterProps, any> {}
 
 export interface StaticRouterContext extends StaticContext {
-    url?: string;
-    action?: 'PUSH' | 'REPLACE';
-    location?: object;
+    url?: string | undefined;
+    action?: 'PUSH' | 'REPLACE' | undefined;
+    location?: object | undefined;
 }
 export interface StaticRouterProps {
-    basename?: string;
+    basename?: string | undefined;
     children?: React.ReactNode;
-    location?: string | object;
-    context?: StaticRouterContext;
+    location?: string | object | undefined;
+    context?: StaticRouterContext | undefined;
 }
 
 export class StaticRouter extends React.Component<StaticRouterProps, any> {}
@@ -134,22 +156,22 @@ export function matchPath<Params extends { [K in keyof Params]?: string }>(
 export type ExtractRouteOptionalParam<T extends string, U = string | number | boolean> = T extends `${infer Param}?`
     ? { [k in Param]?: U }
     : T extends `${infer Param}*`
-        ? { [k in Param]?: U }
-        : T extends `${infer Param}+`
-            ? { [k in Param]: U }
-            : { [k in T]: U };
+    ? { [k in Param]?: U }
+    : T extends `${infer Param}+`
+    ? { [k in Param]: U }
+    : { [k in T]: U };
 
 export type ExtractRouteParams<T extends string, U = string | number | boolean> = string extends T
     ? { [k in string]?: U }
     : T extends `${infer _Start}:${infer ParamWithOptionalRegExp}/${infer Rest}`
-        ? ParamWithOptionalRegExp extends `${infer Param}(${infer _RegExp})`
-            ? ExtractRouteOptionalParam<Param, U> & ExtractRouteParams<Rest, U>
-            : ExtractRouteOptionalParam<ParamWithOptionalRegExp, U> & ExtractRouteParams<Rest, U>
-        : T extends `${infer _Start}:${infer ParamWithOptionalRegExp}`
-            ? ParamWithOptionalRegExp extends `${infer Param}(${infer _RegExp})`
-                ? ExtractRouteOptionalParam<Param, U>
-                : ExtractRouteOptionalParam<ParamWithOptionalRegExp, U>
-            : {};
+    ? ParamWithOptionalRegExp extends `${infer Param}(${infer _RegExp})`
+      ? ExtractRouteOptionalParam<Param, U> & ExtractRouteParams<Rest, U>
+      : ExtractRouteOptionalParam<ParamWithOptionalRegExp, U> & ExtractRouteParams<Rest, U>
+    : T extends `${infer _Start}:${infer ParamWithOptionalRegExp}`
+    ? ParamWithOptionalRegExp extends `${infer Param}(${infer _RegExp})`
+      ? ExtractRouteOptionalParam<Param, U>
+      : ExtractRouteOptionalParam<ParamWithOptionalRegExp, U>
+    : {};
 
 export function generatePath<S extends string>(path: S, params?: ExtractRouteParams<S>): string;
 
@@ -203,45 +225,3 @@ export function useRoutes<Params extends { [K in keyof Params]?: string } = {}>(
     routes: RouteObject[],
     location?: Partial<Location> | string,
 ): React.ReactElement | null;
-
-export function useSearchParams(
-    defaultInit?: URLSearchParamsInit
-): [URLSearchParams, SetURLSearchParams];
-
-export type ParamKeyValuePair = [string, string];
-
-export type URLSearchParamsInit =
-    | string
-    | ParamKeyValuePair[]
-    | Record<string, string | string[]>
-    | URLSearchParams;
-
-export type SetURLSearchParams = (
-    nextInit?: URLSearchParamsInit,
-    navigateOpts?: { replace?: boolean; state?: any }
-) => void;
-
-export function useMatch<ParamKey extends string = string>(
-    pattern: PathPattern | string
-): PathMatch<ParamKey> | null;
-
-export function matchPath<
-    ParamKey extends string = string
-    >(
-    pattern: PathPattern | string,
-    pathname: string
-): PathMatch<ParamKey> | null;
-
-export interface PathMatch<ParamKey extends string = string> {
-    params: any;
-    pathname: string;
-    pattern: PathPattern;
-}
-
-export interface PathPattern {
-    path: string;
-    caseSensitive?: boolean;
-    end?: boolean;
-}
-
-export function useResolvedPath(to: H.LocationDescriptor): PathMatch;

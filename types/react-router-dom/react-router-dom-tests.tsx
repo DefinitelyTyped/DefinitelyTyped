@@ -46,7 +46,7 @@ const ref = React.createRef<HTMLAnchorElement>();
 <Link to="/url" replace={true} ref={ref} />;
 <NavLink to="/url" replace={true} innerRef={ref} />;
 <NavLink to="/url" replace={true} ref={ref} />;
-<NavLink to="/url" className="class-name" activeClassName="active" />;
+<NavLink to="/url" className="class-name" />;
 <NavLink to="/url" className={(isActive) => `class-name ${isActive ? 'active' : ''}`} />;
 <NavLink to="/url" className={undefined} />;
 <NavLink to="/url" style={{ color: 'yellow'}} />;

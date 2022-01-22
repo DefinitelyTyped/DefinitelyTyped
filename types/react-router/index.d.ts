@@ -71,6 +71,13 @@ export interface NavigateProps {
 }
 export class Navigate extends React.Component<NavigateProps, any> {}
 
+export interface OutletProps {
+    context?: unknown | undefined;
+}
+export function Outlet(
+    props: OutletProps
+): React.ReactElement | null;
+
 export interface StaticContext {
     statusCode?: number | undefined;
 }
@@ -225,3 +232,45 @@ export function useRoutes<Params extends { [K in keyof Params]?: string } = {}>(
     routes: RouteObject[],
     location?: Partial<Location> | string,
 ): React.ReactElement | null;
+
+export function useSearchParams(
+    defaultInit?: URLSearchParamsInit
+): [URLSearchParams, SetURLSearchParams];
+
+export type ParamKeyValuePair = [string, string];
+
+export type URLSearchParamsInit =
+    | string
+    | ParamKeyValuePair[]
+    | Record<string, string | string[]>
+    | URLSearchParams;
+
+export type SetURLSearchParams = (
+    nextInit?: URLSearchParamsInit,
+    navigateOpts?: { replace?: boolean; state?: any }
+) => void;
+
+export function useMatch<ParamKey extends string = string>(
+    pattern: PathPattern | string
+): PathMatch<ParamKey> | null;
+
+export function matchPath<
+    ParamKey extends string = string
+    >(
+    pattern: PathPattern | string,
+    pathname: string
+): PathMatch<ParamKey> | null;
+
+export interface PathMatch<ParamKey extends string = string> {
+    params: any;
+    pathname: string;
+    pattern: PathPattern;
+}
+
+export interface PathPattern {
+    path: string;
+    caseSensitive?: boolean;
+    end?: boolean;
+}
+
+export function useResolvedPath(to: H.LocationDescriptor): PathMatch;

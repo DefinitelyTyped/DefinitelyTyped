@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useNavigate, useLocation, useParams, useRouteMatch } from 'react-router';
+import { useHistory, useLocation, useParams, useRouteMatch } from 'react-router';
 
 interface Params {
     id: string;
@@ -19,7 +19,7 @@ interface LocationState {
 }
 
 const HooksTest: React.FC = () => {
-    const navigate = useNavigate<LocationState>();
+    const history = useHistory<LocationState>();
     const location = useLocation<LocationState>();
     const { id } = useParams<Params>();
     const params = useParams<Params>();
@@ -36,7 +36,7 @@ const HooksTest: React.FC = () => {
     // $ExpectType match<Params>
     const match4 = useRouteMatch<Params>();
 
-    navigate;
+    history.location.state.s;
     location.state.s;
     id && id.replace;
     params.id.replace;

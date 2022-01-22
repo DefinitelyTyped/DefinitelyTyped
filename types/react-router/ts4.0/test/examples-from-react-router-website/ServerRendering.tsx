@@ -1,17 +1,31 @@
 import * as React from "react";
 import { Routes, Route, Outlet, Link } from "react-router-dom";
 
-const BasicExample = () => {
+const ServerRendering = () => {
     return (
         <div>
-            <h1>Basic Example</h1>
+            <h1>Server Rendering Example</h1>
 
             <p>
-                This example demonstrates some of the core features of React Router
-                including nested <code>&lt;Route&gt;</code>s,{" "}
-                <code>&lt;Outlet&gt;</code>s, <code>&lt;Link&gt;</code>s, and using a
-                "*" route (aka "splat route") to render a "not found" page when someone
-                visits an unrecognized URL.
+                If you check out the HTML source of this page, you'll notice that it
+                already contains the HTML markup of the app that was sent from the
+                server!
+            </p>
+
+            <p>
+                This is great for search engines that need to index this page. It's also
+                great for users because server-rendered pages tend to load more quickly
+                on mobile devices and over slow networks.
+            </p>
+
+            <p>
+                Another thing to notice is that when you click one of the links below
+                and navigate to a different URL, then hit the refresh button on your
+                browser, the server is able to generate the HTML markup for that page as
+                well because you're using React Router on the server. This creates a
+                seamless experience both for your users navigating around your site and
+                for developers on your team who get to use the same routing library in
+                both places.
             </p>
 
             {/* Routes nest inside one another. Nested route paths build upon
@@ -33,7 +47,7 @@ const BasicExample = () => {
     );
 }
 
-const Layout = () => {
+function Layout() {
     return (
         <div>
             {/* A "layout route" is a good place to put markup you want to
@@ -65,7 +79,7 @@ const Layout = () => {
     );
 }
 
-const Home = () => {
+function Home() {
     return (
         <div>
             <h2>Home</h2>
@@ -73,7 +87,7 @@ const Home = () => {
     );
 }
 
-const About = () => {
+function About() {
     return (
         <div>
             <h2>About</h2>
@@ -81,7 +95,7 @@ const About = () => {
     );
 }
 
-const Dashboard = () => {
+function Dashboard() {
     return (
         <div>
             <h2>Dashboard</h2>
@@ -89,7 +103,7 @@ const Dashboard = () => {
     );
 }
 
-const NoMatch = () => {
+function NoMatch() {
     return (
         <div>
             <h2>Nothing to see here!</h2>
@@ -100,4 +114,4 @@ const NoMatch = () => {
     );
 }
 
-export default BasicExample;
+export default ServerRendering

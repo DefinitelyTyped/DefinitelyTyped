@@ -5,7 +5,7 @@
         "module": "es2020",
         "strict": true,
         "baseUrl": "../types",
-        "moduleResolution": "node",
+        "moduleResolution": "Classic",
         "resolveJsonModule": true,
         "typeRoots": [
             "../types"

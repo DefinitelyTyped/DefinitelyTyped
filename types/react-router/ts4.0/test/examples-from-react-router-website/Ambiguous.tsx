@@ -4,7 +4,7 @@ import {
   RouteComponentProps,
   Route,
   Link,
-  Switch
+  Routes
 } from 'react-router-dom';
 
 const AmbiguousExample = () => (
@@ -30,11 +30,11 @@ const AmbiguousExample = () => (
           "/about" to "/:user", just wrap your <Route>s in a
           <Switch>. It will render the first one that matches.
       */}
-      <Switch>
-        <Route path="/about" component={About}/>
-        <Route path="/company" component={Company}/>
-        <Route path="/:user" component={User}/>
-      </Switch>
+      <Routes>
+        <Route path="/about" element={About}/>
+        <Route path="/company" element={Company}/>
+        <Route path="/:user" element={User}/>
+      </Routes>
     </div>
   </Router>
 );

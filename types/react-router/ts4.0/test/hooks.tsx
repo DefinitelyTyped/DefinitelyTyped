@@ -1,12 +1,12 @@
 import * as React from 'react';
-import { useHistory, useLocation, useParams, useRouteMatch } from 'react-router';
+import { useNavigate, useLocation, useParams, useRouteMatch } from 'react-router';
 
 interface Params {
     id: string;
 }
 
 interface OptionalParams {
-    id?: string;
+    id?: string | undefined;
     s: string | undefined;
 }
 
@@ -19,7 +19,7 @@ interface LocationState {
 }
 
 const HooksTest: React.FC = () => {
-    const history = useHistory<LocationState>();
+    const navigate = useNavigate<LocationState>();
     const location = useLocation<LocationState>();
     const { id } = useParams<Params>();
     const params = useParams<Params>();
@@ -36,7 +36,7 @@ const HooksTest: React.FC = () => {
     // $ExpectType match<Params>
     const match4 = useRouteMatch<Params>();
 
-    history.location.state.s;
+    navigate;
     location.state.s;
     id && id.replace;
     params.id.replace;

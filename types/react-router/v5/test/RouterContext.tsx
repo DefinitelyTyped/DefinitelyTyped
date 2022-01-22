@@ -15,8 +15,8 @@ const App = () => (
                     <Link to="/signup">SignUp Page</Link>
                 </li>
             </ul>
-            <Route path="/signup" element={Signup} />
-            <Route path="/welcome" element={Welcome} />
+            <Route path="/signup" component={Signup} />
+            <Route path="/welcome" component={Welcome} />
         </div>
     </Router>
 );
@@ -68,11 +68,11 @@ const MultiStepSignup: React.FC = () => {
 
     return (
         <form onSubmit={handleNextStep}>
-            <Route path={`${match.path}/username`} element={UsernameStep} />
-            <Route path={`${match.path}/password`} element={PasswordStep} />
+            <Route path={`${match.path}/username`} component={UsernameStep} />
+            <Route path={`${match.path}/password`} component={PasswordStep} />
             <Route
                 path={`${match.path}/basic_info`}
-                element={BasicInfoStep}
+                component={BasicInfoStep}
             />
 
             <button type="submit">

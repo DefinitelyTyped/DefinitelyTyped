@@ -27,8 +27,8 @@ const MemoryRouterExample = () => (
 
       <hr/>
 
-      <Route path="/" element={Home}/>
-      <Route path="/about" element={About}/>
+      <Route exact path="/" component={Home}/>
+      <Route path="/about" component={About}/>
     </div>
   </MemoryRouter>
 );

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Route } from 'react-router';
 
 function RouteWithFunctionChildrenAttribute() {
-    return <Route path="/" element={() => <div>Hello!</div>} />;
+    return <Route path="/" children={() => <div>Hello!</div>} />;
 }
 
 function RouteWithFunctionJsxChildren() {
@@ -12,7 +12,7 @@ function RouteWithFunctionJsxChildren() {
 }
 
 function RouteWithElementChildrenAttribute() {
-    return <Route path="/" element={<div>Hello!</div>} />;
+    return <Route path="/" children={<div>Hello!</div>} />;
 }
 
 function RouteWithElementJsxChildren() {

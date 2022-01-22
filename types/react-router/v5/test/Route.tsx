@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 
 const CONST_ROUTE_ARRAY = ['/const-route-1', '/const-route-2'] as const;
 
@@ -8,10 +8,10 @@ const exhausted = (_: never): never => {
 };
 
 const RouteExample = () => (
-    <Routes>
+    <Switch>
         <Route
             path={'test-for-non-static-string' as string}
-            element={route => {
+            render={route => {
                 const { params } = route.match;
                 const __shrug__: string | undefined = params.__shrug__;
                 return <>{__shrug__}</>;
@@ -19,7 +19,7 @@ const RouteExample = () => (
         />
         <Route
             path="/single/:id"
-            element={route => {
+            render={route => {
                 const { params } = route.match;
                 const notDefined = params.notDefined; // $ExpectError
                 const id: string = params.id;
@@ -28,7 +28,7 @@ const RouteExample = () => (
         />
         <Route
             path="/optional/:id?"
-            element={route => {
+            render={route => {
                 const { params } = route.match;
                 const notDefined = params.notDefined; // $ExpectError
                 const id: string | undefined = params.id;
@@ -37,7 +37,7 @@ const RouteExample = () => (
         />
         <Route
             path={['/abc/:id', '/xyz/:name']}
-            element={route => {
+            render={route => {
                 const { params } = route.match;
 
                 const notDefined = params.notDefined; // $ExpectError
@@ -73,7 +73,7 @@ const RouteExample = () => (
         />
         <Route
             path={['/abc/:id', '/xyz/:name']}
-            element={route => {
+            children={route => {
                 if (!route.match) return null;
                 const { params } = route.match;
 
@@ -93,7 +93,7 @@ const RouteExample = () => (
                 return exhausted(params);
             }}
         />
-    </Routes>
+    </Switch>
 );
 
 // $ExpectType { batman: string; }

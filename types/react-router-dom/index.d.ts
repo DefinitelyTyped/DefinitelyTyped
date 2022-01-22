@@ -32,6 +32,8 @@ export {
     StaticRouter,
     match,
     matchPath,
+    Outlet,
+    OutletProps,
     Navigate,
     NavigateProps,
     withRouter,
@@ -42,6 +44,9 @@ export {
     useParams,
     useRouteMatch,
     useRoutes,
+    useSearchParams,
+    useMatch,
+    useResolvedPath,
 } from 'react-router';
 
 export interface BrowserRouterProps {
