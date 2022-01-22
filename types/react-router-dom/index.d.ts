@@ -1,4 +1,4 @@
-// Type definitions for react-router-dom 5.3
+// Type definitions for react-router-dom 6.2
 // Project: https://github.com/ReactTraining/react-router
 // Definitions by: Huy Nguyen <https://github.com/huy-nguyen>
 //                 Philip Jackson <https://github.com/p-jackson>
@@ -7,6 +7,7 @@
 //                 Daniel Nixon <https://github.com/danielnixon>
 //                 Tony Ward <https://github.com/ynotdraw>
 //                 Pirasis Leelatanon <https://github.com/1pete>
+//                 Félix Legrelle <https://github.com/felixlgr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
@@ -20,26 +21,27 @@ export {
     Prompt,
     MemoryRouterProps,
     MemoryRouter,
-    RedirectProps,
-    Redirect,
     RouteChildrenProps,
     RouteComponentProps,
     RouteProps,
     Route,
+    Routes,
     RouterProps,
     Router,
     StaticRouterProps,
     StaticRouter,
-    SwitchProps,
-    Switch,
     match,
     matchPath,
+    Navigate,
+    NavigateProps,
     withRouter,
     RouterChildContext,
-    useHistory,
     useLocation,
+    useNavigate,
+    useOutletContext,
     useParams,
     useRouteMatch,
+    useRoutes,
 } from 'react-router';
 
 export interface BrowserRouterProps {
@@ -75,8 +77,6 @@ export interface Link<S = H.LocationState>
     > {}
 
 export interface NavLinkProps<S = H.LocationState> extends Omit<LinkProps<S>, "className" | "style"> {
-    activeClassName?: string | undefined;
-    activeStyle?: React.CSSProperties | undefined;
     exact?: boolean | undefined;
     strict?: boolean | undefined;
     isActive?<Params extends { [K in keyof Params]?: string }>(match: match<Params> | null, location: H.Location<S>): boolean;
