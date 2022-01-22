@@ -7,14 +7,14 @@ import grunt = require('grunt');
 type IGrunt = typeof grunt;
 
 export interface Options {
-    stdout?: boolean;
-    stderr?: boolean;
-    limit?: number;
-    suppress?: boolean;
-    useCache?: boolean;
-    cacheDirName?: string;
-    tmpDir?: string;
-    phpCmd?: string;
+    stdout?: boolean | undefined;
+    stderr?: boolean | undefined;
+    limit?: number | undefined;
+    suppress?: boolean | undefined;
+    useCache?: boolean | undefined;
+    cacheDirName?: string | undefined;
+    tmpDir?: string | undefined;
+    phpCmd?: string | undefined;
 }
 
 export type Callback = (error: string, stdout?: string, stderr?: string) => void;
