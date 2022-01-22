@@ -78,12 +78,16 @@ declare namespace Tabulator {
          *     false - disable all clipboard functionality (default)
          */
         clipboard?: boolean | 'copy' | 'paste' | undefined;
+
         /** The clipboardCopyRowRange option takes a Row Range Lookup value and allows you to choose which rows are included in the clipboard output: */
         clipboardCopyRowRange?: RowRangeLookup | undefined;
+
         /** You can alter the finished output to the clipboard using the clipboardCopyFormatter callback. The callback function receives two arguments, the first is a string representing the type of content to be formatted (either "plain" or "html" depending on the type of data entering the clipboard). The second argument is the string that is about to be inserted into the clipboard. The function and should return a string that will be inserted into the clipboard */
         clipboardCopyFormatter?: 'table' | ((type: 'plain' | 'html', output: string) => string) | undefined;
+
         /** By default Tabulator will include the column header titles in any clipboard data, this can be turned off by passing a value of false to the clipboardCopyHeader property: */
         clipboardCopyHeader?: boolean | undefined;
+
         /**
          * Tabulator has one built in paste parser, that is designed to take a table formatted text string from the clipboard and turn it into row data. it breaks the data into rows on a newline character \n and breaks the rows down to columns on a tab character \t.
          * It will then attempt to work out which columns in the data correspond to columns in the table. It tries three different ways to achieve this. First it checks the values of all columns in the first row of data to see if they match the titles of columns in the table. If any of the columns don't match it then tries the same approach but with the column fields. If either of those options match, Tabulator will map those columns to the incoming data and import it into rows. If there is no match then Tabulator will assume the columns in the data are in the same order as the visible columns in the table and import them that way.
@@ -93,6 +97,7 @@ declare namespace Tabulator {
          * If you extend the clipboard module to add your own parser, you can set it to be used as default with the clipboardPasteParser property.
          */
         clipboardPasteParser?: string | ((clipboard: any) => any[]) | undefined;
+
         /**
          * Once the data has been parsed into row data, it will be passed to a paste action to be added to the table. There are three inbuilt paste actions:
          *
@@ -101,39 +106,47 @@ declare namespace Tabulator {
          * replace - replaces all data in the table using the setData function
          */
         clipboardPasteAction?: 'insert' | 'update' | 'replace' | undefined;
+
         /**
          * By default Tabulator will copy some of the tables styling along with the data to give a better visual appearance when pasted into other documents.
          *
          * If you want to only copy the un-styled data then you should set the clipboardCopyStyled option to false in the table options object:
          */
         clipboardCopyStyled?: boolean | undefined;
+
         /**
          * By default Tabulator includes column headers, row groups and column calculations in the clipboard output.
          *
          * You can choose to remove column headers groups, row groups or column calculations from the output data by setting the values in the clipboardCopyConfig option in the table definition:
          */
         clipboardCopyConfig?: AdditionalExportOptions | boolean | undefined;
+
         /** The clipboardCopied event is triggered whenever data is copied to the clipboard. */
         clipboardCopied?: (() => void) | undefined;
+
         /** The clipboardPasted event is triggered whenever data is successfully pasted into the table. */
         clipboardPasted?: (() => void) | undefined;
+
         /** The clipboardPasteError event is triggered whenever an attempt to paste data into the table has failed because it was rejected by the paste parser. */
         clipboardPasteError?: (() => void) | undefined;
+
         /** When copying to clipboard you may want to apply a different group header from the one usually used in the table. You can now do this using the groupHeaderClipboard table option, which takes the same inputs as the standard groupHeader property. */
         groupHeaderClipboard?:
-        | ((value: any, count: number, data: any, group: GroupComponent) => string)
-        | Array<(value: any, count: number, data: any) => string>
-        | undefined;
+            | ((value: any, count: number, data: any, group: GroupComponent) => string)
+            | Array<(value: any, count: number, data: any) => string>
+            | undefined;
+
         /** When the getHtml function is called you may want to apply a different group header from the one usually used in the table. You can now do this using the groupHeaderHtmlOutput table option, which takes the same inputs as the standard groupHeader property. */
         groupHeaderHtmlOutput?:
-        | ((value: any, count: number, data: any, group: GroupComponent) => string)
-        | Array<(value: any, count: number, data: any) => string>
-        | undefined;
+            | ((value: any, count: number, data: any, group: GroupComponent) => string)
+            | Array<(value: any, count: number, data: any) => string>
+            | undefined;
     }
 
     interface OptionsPersistentConfiguration {
         /** ID tag used to identify persistent storage information */
         persistenceID?: string | undefined;
+
         /**
          * Persistence information can either be stored in a cookie or in the localStorage object, you can use the persistenceMode to choose which. It can take three possible values:
          *
@@ -142,16 +155,22 @@ declare namespace Tabulator {
          *  true - (boolean) check if localStorage is available and store persistence information, otherwise store in cookie (Default option)
          */
         persistenceMode?: 'local' | 'cookie' | true | undefined;
+
         /** Enable persistent storage of column layout information */
         persistentLayout?: boolean | undefined;
+
         /** You can ensure the data sorting is stored for the next page load by setting the persistentSort option to true */
         persistentSort?: boolean | undefined;
+
         /** You can ensure the data filtering is stored for the next page load by setting the persistentFilter option to true*/
         persistentFilter?: boolean | undefined;
+
         /** By setting the persistence property to true the table will persist the sort, filter, group (groupBy, groupStartOpen, groupHeader), pagination (paginationSize), and column (title, width, visibility, order) configuration of the table */
         persistence?: true | PersistenceOptions | undefined;
+
         /** The persistenceWriterFunc function will receive three arguments, the persistance id of the table, the type of data to be written and an object or array representing the data */
         persistenceWriterFunc?: ((id: string, type: keyof PersistenceOptions, data: any) => any) | undefined;
+
         /** The persistenceReaderFunc function will receive two arguments, the persistance id of the table, and the type of data to be written. This function must synchronously return the data in the format in which it was passed to the persistenceWriterFunc function. It should return a value of false if no data was present */
         persistenceReaderFunc?: ((id: string, type: keyof PersistenceOptions) => any) | undefined;
     }
@@ -178,16 +197,20 @@ declare namespace Tabulator {
     interface OptionsPagination {
         pagination?: boolean;
         paginationMode?: SortMode;
+
         /** Set the number of rows in each page */
         paginationSize?: number | undefined;
+
         /**
          * Setting this option to true will cause Tabulator to create a list of page size options, that are multiples of the current page size. In the example below, the list will have the values of 5, 10, 15 and 20.
          *
          *  When using the page size selector like this, if you use the setPageSize function to set the page size to a value not in the list, the list will be regenerated using the new page size as the starting valuer
          */
         paginationSizeSelector?: true | number[] | any[] | undefined;
+
         /** By default the pagination controls are added to the footer of the table. If you wish the controls to be created in another element pass a DOM node or a CSS selector for that element to the paginationElement option.*/
         paginationElement?: HTMLElement | string | undefined;
+
         /**
          * Lookup list to link expected data fields from the server to their function
          * ```typescript
@@ -199,6 +222,7 @@ declare namespace Tabulator {
          * ```
          */
         dataReceiveParams?: Record<string, string> | undefined;
+
         /**
          * Lookup list to link fields expected by the server to their function
          * ```typescript
@@ -211,6 +235,7 @@ declare namespace Tabulator {
          * ```
          */
         dataSendParams?: Record<string, string> | undefined;
+
         /** When using the addRow function on a paginated table, rows will be added relative to the current page (ie to the top or bottom of the current page), with overflowing rows being shifted onto the next page.
          *
          * If you would prefer rows to be added relative to the table (firs/last page) then you can use the paginationAddRow option. it can take one of two values:
@@ -219,31 +244,39 @@ declare namespace Tabulator {
          * table - add rows relative to the table
          */
         paginationAddRow?: 'table' | 'page' | undefined;
+
         /** The number of pagination page buttons shown in the footer using the paginationButtonCount option. By default this has a value of 5.*/
         paginationButtonCount?: number | undefined;
+
         /** Specify that a specific page should be loaded when the table first load */
         paginationInitialPage?: number | undefined;
     }
+
     type GroupArg = string | string[] | ((data: any) => any);
+
     interface OptionsRowGrouping {
         /** String/function to select field to group rows by */
         groupBy?: GroupArg | undefined;
+
         /**
          * By default Tabulator will create groups for rows based on the values contained in the row data. if you want to explicitly define which field values groups should be created for at each level, you can use the groupValues option.
          *
          * This option takes an array of value arrays, each item in the first array should be a list of acceptable field values for groups at that level
          */
         groupValues?: GroupValuesArg | undefined;
+
         /** You can use the setGroupHeader function to change the header generation function for each group. This function has one argument and takes the same values as passed to the groupHeader setup option. */
         groupHeader?:
-        | ((value: any, count: number, data: any, group: GroupComponent) => string)
-        | Array<(value: any, count: number, data: any) => string>
-        | undefined;
+            | ((value: any, count: number, data: any, group: GroupComponent) => string)
+            | Array<(value: any, count: number, data: any) => string>
+            | undefined;
+
         /** When printing you may want to apply a different group header from the one usually used in the table. You can now do this using the groupHeaderPrint table option, which takes the same inputs as the standard groupHeader property. */
         groupHeaderPrint?:
-        | ((value: any, count: number, data: any, group: GroupComponent) => string)
-        | Array<(value: any, count: number, data: any) => string>
-        | undefined;
+            | ((value: any, count: number, data: any, group: GroupComponent) => string)
+            | Array<(value: any, count: number, data: any) => string>
+            | undefined;
+
         /**
          * You can set the default open state of groups using the groupStartOpen property* * This can take one of three possible values:
          *
@@ -254,9 +287,10 @@ declare namespace Tabulator {
          * If you want to decide on a group by group basis which should start open or closed then you can pass a function to the groupStartOpen property. This should return true if the group should start open or false if the group should start closed.
          */
         groupStartOpen?:
-        | boolean
-        | ((value: any, count: number, data: any, group: GroupComponent) => boolean)
-        | undefined;
+            | boolean
+            | ((value: any, count: number, data: any, group: GroupComponent) => boolean)
+            | undefined;
+
         /**
          * By default Tabulator allows users to toggle a group open or closed by clicking on the arrow icon in the left of the group header. If you would prefer a different behavior you can use the groupToggleElement option to choose a different option:* * The option can take one of three values:
          * arrow - toggle group on arrow element click
@@ -264,28 +298,38 @@ declare namespace Tabulator {
          * false - prevent clicking anywhere in the group toggling the group
          */
         groupToggleElement?: 'arrow' | 'header' | false | undefined;
+
         /** show/hide column calculations when group is closed */
         groupClosedShowCalcs?: boolean | undefined;
+
         /** The dataGrouping callback is triggered whenever a data grouping event occurs, before grouping happens. */
         dataGrouping?: (() => void) | undefined;
+
         /** The dataGrouping callback is triggered whenever a data grouping event occurs, after grouping happens. */
         dataGrouped?: (() => void) | undefined;
+
         /** The groupVisibilityChanged callback is triggered whenever a group changes between hidden and visible states. */
         groupVisibilityChanged?: ((group: GroupComponent, visible: boolean) => void) | undefined;
+
         /** The groupClick callback is triggered when a user clicks on a group header. */
         groupClick?: GroupEventCallback | undefined;
+
         /** The groupDblClick callback is triggered when a user double clicks on a group header. */
         groupDblClick?: GroupEventCallback | undefined;
+
         /**
          * The groupContext callback is triggered when a user right clicks on a group header.
          *
          * If you want to prevent the browsers context menu being triggered in this event you will need to include the preventDefault() function in your callback.
          */
         groupContext?: GroupEventCallback | undefined;
+
         /** The groupTap callback is triggered when a user taps on a group header on a touch display. */
         groupTap?: GroupEventCallback | undefined;
+
         /** The groupDblTap callback is triggered when a user taps on a group header on a touch display twice in under 300ms. */
         groupDblTap?: GroupEventCallback | undefined;
+
         /** The groupTapHold callback is triggered when a user taps on a group header on a touch display and holds their finger down for over 1 second */
         groupTapHold?: GroupEventCallback | undefined;
         groupUpdateOnCellEdit?: boolean | undefined;
@@ -305,10 +349,13 @@ declare namespace Tabulator {
     interface OptionsFiltering {
         /** Array of filters to be applied on load. */
         initialFilter?: Filter[] | undefined;
+
         /** array of initial values for header filters. */
         initialHeaderFilter?: Array<Pick<Filter, 'field' | 'value'>> | undefined;
+
         /** The dataFiltering callback is triggered whenever a filter event occurs, before the filter happens. */
         dataFiltering?: ((filters: Filter[]) => void) | undefined;
+
         /** The dataFiltered callback is triggered after the table dataset is filtered. */
         dataFiltered?: ((filters: Filter[], rows: RowComponent[]) => void) | undefined;
 
@@ -319,6 +366,7 @@ declare namespace Tabulator {
     interface OptionsSorting {
         /** Array of sorters to be applied on load. */
         initialSort?: Sorter[] | undefined;
+
         /** reverse the order that multiple sorters are applied to the table. */
         sortOrderReverse?: boolean | undefined;
     }
@@ -331,8 +379,10 @@ declare namespace Tabulator {
     interface SorterFromTable {
         /** The column component for the sorted column. */
         column: ColumnComponent;
+
         /** A string of the field name for the sorted column. */
         field: string;
+
         /** A string of either `asc` or `desc` indicating the direction of sort. */
         dir: SortDirection;
     }
@@ -340,6 +390,7 @@ declare namespace Tabulator {
     interface OptionsData {
         /** A unique index value should be present for each row of data if you want to be able to programmatically alter that data at a later point, this should be either numeric or a string. By default Tabulator will look for this value in the id field for the data. If you wish to use a different field as the index, set this using the index option parameter. */
         index?: number | string | undefined;
+
         /** Array to hold data that should be loaded on table creation */
         data?: any[] | undefined;
 
@@ -351,6 +402,7 @@ declare namespace Tabulator {
 
         /** The HTTP request type for Ajax requests or config object for the request */
         ajaxConfig?: HttpMethod | AjaxConfig | undefined;
+
         /**
          * When using a request method other than "GET" Tabulator will send any parameters with a content type of form data. You can change the content type with the ajaxContentType option. This will ensure parameters are sent in the format you expect, with the correct headers. * * The ajaxContentType option can take one of two values:
          * "form" - send parameters as form data (default option)
@@ -358,18 +410,23 @@ declare namespace Tabulator {
          * If you want to use a custom content type then you can pass a content type formatter object into the ajaxContentType option. this object must have two properties, the headers property should contain all headers that should be sent with the request and the body property should contain a function that returns the body content of the request
          */
         ajaxContentType?: 'form' | 'json' | AjaxContentType | undefined;
+
         /**
          * If you need more control over the url of the request that you can get from the ajaxURL and ajaxParams properties, the you can use the ajaxURLGenerator property to pass in a callback that will generate the URL for you.
          *
          * The callback should return a string representing the URL to be requested.
          */
         ajaxURLGenerator?: ((url: string, config: any, params: any) => string) | undefined;
+
         /** callback function to replace inbuilt ajax request functionality */
         ajaxRequestFunc?: ((url: string, config: any, params: any) => Promise<any>) | undefined;
+
         /** Send filter config to server instead of processing locally */
         ajaxFiltering?: boolean | undefined;
+
         /** Send sorter config to server instead of processing locally */
         ajaxSorting?: boolean | undefined;
+
         /** If you are loading a lot of data from a remote source into your table in one go, it can sometimes take a long time for the server to return the request, which can slow down the user experience.
          *
          * To speed things up in this situation Tabulator has a progressive load mode, this uses the pagination module to make a series of requests for part of the data set, one at a time, appending it to the table as the data arrives. This mode can be enable using the ajaxProgressiveLoad option. No pagination controls will be visible on screen, it just reuses the functionality of the pagination module to sequentially load the data.
@@ -379,20 +436,28 @@ declare namespace Tabulator {
          * There are two different progressive loading modes, to give you a choice of how data is loaded into the table.
          */
         progressiveLoad?: 'load' | 'scroll' | undefined;
+
         /** By default tabulator will make the requests to fill the table as quickly as possible. On some servers these repeats requests from the same client may trigger rate limiting or security systems. In this case you can use the ajaxProgressiveLoadDelay option to add a delay in milliseconds between each page request. */
         progressiveLoadDelay?: number | undefined;
+
         /** The ajaxProgressiveLoadScrollMargin property determines how close to the bottom of the table in pixels, the scroll bar must be before the next page worth of data is loaded, by default it is set to twice the height of the table. */
         progressiveLoadScrollMargin?: number | undefined;
+
         /** Show loader while data is loading, can also take a function that must return a boolean */
         ajaxLoader?: boolean | (() => boolean) | undefined;
+
         /** html for loader element */
         ajaxLoaderLoading?: string | undefined;
+
         /** html for the loader element in the event of an error */
         ajaxLoaderError?: string | undefined;
+
         /** The ajaxRequesting callback is triggered when ever an ajax request is made. */
         ajaxRequesting?: ((url: string, params: any) => boolean) | undefined;
+
         /** The ajaxResponse callback is triggered when a successful ajax request has been made. This callback can also be used to modify the received data before it is parsed by the table. If you use this callback it must return the data to be parsed by Tabulator, otherwise no data will be rendered */
         ajaxResponse?: ((url: string, params: any, response: any) => any) | undefined;
+
         /** The ajaxError callback is triggered there is an error response to an ajax request. */
         ajaxError?: ((xhr: any, textStatus: any, errorThrown: any) => void) | undefined;
         dataLoader?: boolean;
@@ -401,12 +466,16 @@ declare namespace Tabulator {
         sortMode?: SortMode;
         filterMode?: SortMode;
     }
+
     type SortMode = 'remote' | 'local';
+
     interface AjaxContentType {
         headers: JSONRecord;
         body: (url: string, config: any, params: any) => any;
     }
+
     type HttpMethod = 'GET' | 'POST';
+
     interface AjaxConfig {
         method?: HttpMethod | undefined;
         headers?: JSONRecord | undefined;
@@ -420,14 +489,19 @@ declare namespace Tabulator {
          * The function accepts one argument, the RowComponent for the row being formatted.
          */
         rowFormatter?: ((row: RowComponent) => any) | undefined;
+
         /** When printing you may want to apply a different formatter may want to apply a different formatter from the one usually used to format the row. */
         rowFormatterPrint?: false | ((row: RowComponent) => any) | undefined;
+
         /** When the getHtml function is called you may want to apply a different formatter may want to apply a different formatter from the one usually used to format the row */
         rowFormatterHtmlOutput?: false | ((row: RowComponent) => any) | undefined;
+
         /** When copying to the clipboard you may want to apply a different formatter may want to apply a different formatter from the one usually used to format the row. You can now do this using the rowFormatterClipboard table option, which takes the same inputs as the standard rowFormatter property. Passing a value of false into the formatter prevent the default row formatter from being run when the table is copied to the clipboard*/
         rowFormatterClipboard?: false | ((row: RowComponent) => any) | undefined;
+
         /** The position in the table for new rows to be added, "bottom" or "top" */
         addRowPos?: 'bottom' | 'top' | undefined;
+
         /**
          * The selectable option can take one of a several values:
          * false - selectable rows are disabled
@@ -436,22 +510,29 @@ declare namespace Tabulator {
          * "highlight" (default) - rows have the same hover stylings as selectable rows but do not change state when clicked. This is great for when you want to show that a row is clickable but don't want it to be selectable.
          */
         selectable?: boolean | number | 'highlight' | undefined;
+
         /**
          * By default you can select a range of rows by holding down the shift key and click dragging over a number of rows to toggle the selected state state of all rows the cursor passes over.
          *
          * If you would prefer to select a range of row by clicking on the first row then holding down shift and clicking on the end row then you can achieve this by setting the selectableRangeMode to click
          */
         selectableRangeMode?: 'click' | undefined;
+
         /** By default, row selection works on a rolling basis, if you set the selectable option to a numeric value then when you select past this number of rows, the first row to be selected will be deselected. If you want to disable this behavior and instead prevent selection of new rows once the limit is reached you can set the selectableRollingSelection option to false. */
         selectableRollingSelection?: boolean | undefined;
+
         /** By default Tabulator will maintain selected rows when the table is filtered, sorted or paginated (but NOT when the setData function is used). If you want the selected rows to be cleared whenever the table view is updated then set the selectablePersistence option to false. */
         selectablePersistence?: boolean | undefined;
+
         /** You many want to exclude certain rows from being selected. The selectableCheck options allows you to pass a function to check if the current row should be selectable, returning true will allow row selection, false will result in nothing happening. The function should accept a RowComponent as its first argument. */
         selectableCheck?: ((row: RowComponent) => boolean) | undefined;
+
         /** To allow the user to move rows up and down the table, set the movableRows parameter in the options: */
         movableRows?: boolean | undefined;
+
         /** Tabulator also allows you to move rows between tables. To enable this you should supply either a valid CSS selector string a DOM node for the table or the Tabulator object for the table to the movableRowsConnectedTables option. if you want to connect to multiple tables then you can pass in an array of values to this option. */
         movableRowsConnectedTables?: string | string[] | HTMLElement | HTMLElement[] | undefined;
+
         /**
          * The movableRowsSender option should be set on the sending table, and sets the action that should be taken after the row has been successfully dropped into the receiving table.
          * There are several inbuilt sender functions:
@@ -461,10 +542,11 @@ declare namespace Tabulator {
          * You can also pass a callback to the movableRowsSender option for custom sender functionality
          */
         movableRowsSender?:
-        | false
-        | 'delete'
-        | ((fromRow: RowComponent, toRow: RowComponent, toTable: Tabulator) => any)
-        | undefined;
+            | false
+            | 'delete'
+            | ((fromRow: RowComponent, toRow: RowComponent, toTable: Tabulator) => any)
+            | undefined;
+
         /**
          * The movableRowsReceiver option should be set on the receiving tables, and sets the action that should be taken when the row is dropped into the table.
          * There are several inbuilt receiver functions:
@@ -475,17 +557,20 @@ declare namespace Tabulator {
          * replace - replaces the row it is dropped on with the sent row
          */
         movableRowsReceiver?:
-        | 'insert'
-        | 'add'
-        | 'update'
-        | 'replace'
-        | ((fromRow: RowComponent, toRow: RowComponent, fromTable: Tabulator) => any)
-        | undefined;
+            | 'insert'
+            | 'add'
+            | 'update'
+            | 'replace'
+            | ((fromRow: RowComponent, toRow: RowComponent, fromTable: Tabulator) => any)
+            | undefined;
         movableRowsConnectedElements?: string | HTMLElement | undefined;
+
         /** When a row is dropped on element from from the movableRowsConnectedElements option the movableRowsElementDrop callback will be triggered. You can use this callback to trigger any changes as a result of the drop */
         movableRowsElementDrop?: ((e: MouseEvent, element: HTMLElement, row: RowComponent) => any) | undefined;
+
         /** You can allow the user to manually resize rows by dragging the top or bottom border of a row. To enable this functionality, set the resizableRows property to true */
         resizableRows?: boolean | undefined;
+
         /**
          * The default ScrollTo position can be set using the scrollToRowPosition option. It can take one of four possible values:
          *
@@ -495,6 +580,7 @@ declare namespace Tabulator {
          * nearest - position row on the edge of the table it is closest to
          */
         scrollToRowPosition?: ScrollToRowPosition | undefined;
+
         /**
          * The default option for triggering a ScrollTo on a visible element can be set using the scrollToRowIfVisible option. It can take a boolean value:
          *
@@ -502,6 +588,7 @@ declare namespace Tabulator {
          * false - scroll to row, unless it is currently visible, then don't move
          */
         scrollToRowIfVisible?: boolean | undefined;
+
         /** The dataTreeRowExpanded callback is triggered when a row with child rows is expanded to reveal the children. */
         dataTreeRowExpanded?: ((row: RowComponent, level: number) => void) | undefined;
 
@@ -528,49 +615,69 @@ declare namespace Tabulator {
 
         /** The movableRowsReceivedFailed callback is triggered on a receiving table when a row receiver has returned false.*/
         movableRowsReceivedFailed?:
-        | ((fromRow: RowComponent, toRow: RowComponent, fromTable: Tabulator) => void)
-        | undefined;
+            | ((fromRow: RowComponent, toRow: RowComponent, fromTable: Tabulator) => void)
+            | undefined;
 
         /** The movableRowsReceivingStop callback is triggered on a receiving table after a row has been dropped and any senders and receivers have been handled.*/
         movableRowsReceivingStop?: ((fromTable: Tabulator) => void) | undefined;
 
         /** The rowClick callback is triggered when a user clicks on a row. */
         rowClick?: RowEventCallback | undefined;
+
         /** The rowDblClick callback is triggered when a user double clicks on a row. */
         rowDblClick?: RowEventCallback | undefined;
-        /** The rowContext callback is triggered when a user right clicks on a row.
-        If you want to prevent the browsers context menu being triggered in this event you will need to include the preventDefault() function in your callback. */
+
+        /**
+         * The rowContext callback is triggered when a user right clicks on a row.
+         * If you want to prevent the browsers context menu being triggered in this event you will need to include the preventDefault() function in your callback.
+         */
         rowContext?: RowEventCallback | undefined;
+
         /** The rowTap callback is triggered when a user taps on a row on a touch display. */
         rowTap?: RowEventCallback | undefined;
+
         /** The rowDblTap callback is triggered when a user taps on a row on a touch display twice in under 300ms. */
         rowDblTap?: RowEventCallback | undefined;
+
         /** The rowTapHold callback is triggered when a user taps on a row on a touch display and holds their finger down for over 1 second. */
         rowTapHold?: RowEventCallback | undefined;
+
         /** The rowMouseEnter callback is triggered when the mouse pointer enters a row. */
         rowMouseEnter?: RowEventCallback | undefined;
+
         /** The rowMouseLeave callback is triggered when the mouse pointer leaves a row. */
         rowMouseLeave?: RowEventCallback | undefined;
+
         /** The rowMouseOver callback is triggered when the mouse pointer enters a row or any of its child elements.*/
         rowMouseOver?: RowEventCallback | undefined;
+
         /** The rowMouseOut callback is triggered when the mouse pointer leaves a row or any of its child elements. */
         rowMouseOut?: RowEventCallback | undefined;
+
         /** The rowMouseMove callback is triggered when the mouse pointer moves over a row. */
         rowMouseMove?: RowEventCallback | undefined;
+
         /** The rowAdded callback is triggered when a row is added to the table by the addRow and updateOrAddRow functions. */
         rowAdded?: RowChangedCallback | undefined;
+
         /** The rowUpdated callback is triggered when a row is updated by the updateRow, updateOrAddRow, updateData or updateOrAddData, functions. */
         rowUpdated?: RowChangedCallback | undefined;
+
         /** The rowDeleted callback is triggered when a row is deleted from the table by the deleteRow function. */
         rowDeleted?: RowChangedCallback | undefined;
+
         /** The rowMoved callback will be triggered when a row has been successfully moved. */
         rowMoved?: RowChangedCallback | undefined;
+
         /** The rowResized callback will be triggered when a row has been resized by the user. */
         rowResized?: RowChangedCallback | undefined;
+
         /** Whenever the number of selected rows changes, through selection or deselection, the rowSelectionChanged event is triggered. This passes an array of the data objects for each row in the order they were selected as the first argument, and an array of row components for each of the rows in order of selection as the second argument. */
         rowSelectionChanged?: ((data: any[], rows: RowComponent[]) => void) | undefined;
+
         /** The rowSelected event is triggered when a row is selected, either by the user or programmatically. */
         rowSelected?: RowChangedCallback | undefined;
+
         /** The rowDeselected event is triggered when a row is deselected, either by the user or programmatically. */
         rowDeselected?: RowChangedCallback | undefined;
 
@@ -585,10 +692,10 @@ declare namespace Tabulator {
         /** If you set the autoColumns option to true, every time data is loaded into the table through the data option or through the setData function, Tabulator will examine the first row of the data and build columns to match that data. */
         autoColumns?: boolean | undefined;
         autoColumnsDefinitions?:
-        | ((columnDefinitions?: ColumnDefinition[]) => ColumnDefinition[])
-        | ColumnDefinition[]
-        | Record<string, Partial<ColumnDefinition>>
-        | undefined;
+            | ((columnDefinitions?: ColumnDefinition[]) => ColumnDefinition[])
+            | ColumnDefinition[]
+            | Record<string, Partial<ColumnDefinition>>
+            | undefined;
 
         /** By default Tabulator will use the fitData layout mode, which will resize the tables columns to fit the data held in each column, unless you specify a width or minWidth in the column constructor. If the width of all columns exceeds the width of the containing element, a scroll bar will appear. */
         layout?: 'fitData' | 'fitColumns' | 'fitDataFill' | 'fitDataStretch' | 'fitDataTable' | undefined;
@@ -683,6 +790,7 @@ declare namespace Tabulator {
         /** The columnMoved callback will be triggered when a column has been successfully moved. */
         columnMoved?: ((column: ColumnComponent, columns: any[]) => void) | undefined;
         columnResized?: ((column: ColumnComponent) => void) | undefined;
+
         /** The columnVisibilityChanged callback is triggered whenever a column changes between hidden and visible states. */
         columnVisibilityChanged?: ((column: ColumnComponent, visible: boolean) => void) | undefined;
 
@@ -722,8 +830,10 @@ declare namespace Tabulator {
     interface OptionsGeneral {
         /** Sets the height of the containing element, can be set to any valid height css value. If set to false (the default), the height of the table will resize to fit the table data. */
         height?: string | number | false | undefined;
+
         /** Can be set to any valid CSS value. By setting this you can allow your table to expand to fit the data, but not overflow its parent element. When there are too many rows to fit in the available space, the vertical scroll bar will be shown. This has the added benefit of improving load times on larger tables */
         maxHeight?: string | number | undefined;
+
         /** With a variable table height you can set the minimum height of the table either defined in the min-height CSS property for the element or set it using the minHeight option in the table constructor, this can be set to any valid CSS value*/
         minHeight?: string | number | undefined;
         renderVertical?: RenderMode;
@@ -855,6 +965,7 @@ declare namespace Tabulator {
     interface DownloadCSV {
         /** By default CSV files are created using a comma (,) delimiter. If you need to change this for any reason the you can pass the options object with a delimiter property to the download function which will then use this delimiter instead of the comma. */
         delimiter?: string | undefined;
+
         /** If you need the output CSV to include a byte order mark (BOM) to ensure that output with UTF-8 characters can be correctly interpreted across different applications, you should set the bom option to true */
         bom?: boolean | undefined;
     }
@@ -943,9 +1054,9 @@ declare namespace Tabulator {
         printFormatter?: ((tableHolderElement: any, tableElement: any) => any) | undefined;
 
         groupHeaderDownload?:
-        | ((value: any, count: number, data: any, group: GroupComponent) => string)
-        | Array<(value: any, count: number, data: any) => string>
-        | undefined;
+            | ((value: any, count: number, data: any, group: GroupComponent) => string)
+            | Array<(value: any, count: number, data: any) => string>
+            | undefined;
     }
 
     type StandardStringParam = string | HTMLElement | (() => string | HTMLElement);
@@ -956,6 +1067,7 @@ declare namespace Tabulator {
         rowGroups?: boolean | undefined;
         columnCalcs?: boolean | undefined;
         dataTree?: boolean | undefined;
+
         /**Show only raw unformatted cell values in the clipboard output */
         formatCells?: boolean | undefined;
     }
@@ -985,6 +1097,7 @@ declare namespace Tabulator {
 
         /** The historyUndo event is triggered when the undo action is triggered. */
         historyUndo?: ((action: HistoryAction, component: CellComponent | RowComponent, data: any) => void) | undefined;
+
         /** The historyRedo event is triggered when the redo action is triggered. */
         historyRedo?: ((action: HistoryAction, component: CellComponent | RowComponent, data: any) => void) | undefined;
     }
@@ -992,8 +1105,10 @@ declare namespace Tabulator {
     interface ColumnLayout {
         /** title - Required This is the title that will be displayed in the header for this column */
         title: string;
+
         /** field - Required (not required in icon/button columns) this is the key for this column in the data array*/
         field?: string | undefined;
+
         /** visible - (boolean, default - true) determines if the column is visible. (see Column Visibility for more details */
         visible?: boolean | undefined;
 
