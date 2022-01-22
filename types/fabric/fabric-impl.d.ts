@@ -2530,10 +2530,8 @@ export class Image {
      * Constructor
      * @param element Image element
      * @param [options] Options object
-     * @param [callback] callback function to call after eventual filters applied.
      */
-    constructor(element: string | HTMLImageElement | HTMLCanvasElement | HTMLVideoElement, options?: IImageOptions, callback?: () => void);
-    constructor(element: string | HTMLImageElement | HTMLCanvasElement | HTMLVideoElement, callback?: () => void);
+    constructor(element: string | HTMLImageElement | HTMLCanvasElement | HTMLVideoElement, options?: IImageOptions);
     /**
      * Returns image or video element which this instance is based on
      * @return Image or Video element
