@@ -1151,8 +1151,7 @@ const wrapperClassNoChildren = <StyledWrapperClassFuncChild>Text</StyledWrapperC
 
 const WrapperFunction: React.FunctionComponent<WrapperProps> = () => <div />;
 const StyledWrapperFunction = styled(WrapperFunction)``;
-// React.FunctionComponent typings always add `children` to props, so this should accept children
-const wrapperFunction = <StyledWrapperFunction>Text</StyledWrapperFunction>;
+const wrapperFunction = <StyledWrapperFunction />;
 
 const WrapperFunc = (props: WrapperProps) => <div />;
 const StyledWrapperFunc = styled(WrapperFunc)``;
@@ -1221,8 +1220,7 @@ function unionTest() {
         font-size: ${props => (props.kind === 'book' ? 16 : 14)};
     `;
 
-    // undesired, fix was reverted because of https://github.com/Microsoft/TypeScript/issues/30663
-    <StyledReadable kind="book" author="Hejlsberg" />; // $ExpectError
+    <StyledReadable kind="book" author="Hejlsberg" />;
     <StyledReadable kind="magazine" author="Hejlsberg" />; // $ExpectError
 }
 
@@ -1244,4 +1242,26 @@ function unionTest2() {
     <C bar="foobar" />;
     <C />; // $ExpectError
     <C foo={123} bar="foobar" />; // $ExpectError
+}
+
+function unionPerformanceTest() {
+    type ManyUnion = ({ signal1: 'green'; greenTime1?: number } | { signal1: 'red'; redTime1: number }) &
+        ({ signal2?: 'green'; greenTime2?: number } | { signal2: 'red'; redTime2: number }) &
+        ({ signal3?: 'green'; greenTime3?: number } | { signal3: 'red'; redTime3: number }) &
+        ({ signal4?: 'green'; greenTime4?: number } | { signal4: 'red'; redTime4: number }) &
+        ({ signal5?: 'green'; greenTime5?: number } | { signal5: 'red'; redTime5: number });
+
+    const C = (props: ManyUnion) => null;
+
+    const Styled = styled(C)<{ defaultColor?: string }>`
+        .signal1 {
+            color: ${props => props.signal1 || 'green'};
+        }
+    `;
+
+    <Styled signal1="green" greenTime1={100} />;
+    <Styled signal1="red" redTime1={200} />;
+    <Styled signal1="red" greenTime1={100} />; // $ExpectError
+    <Styled signal1="green" greenTime1={100} signal2="green" greenTime2={100} />;
+    <Styled signal1="green" greenTime1={100} signal2="red" greenTime2={100} />; // $ExpectError
 }

@@ -21,6 +21,11 @@ import SwaggerUI from 'swagger-ui-react';
         supportedSubmitMethods={[]}
         deepLinking
         showMutatedRequest={false}
+        showExtensions={true}
+        presets={[]}
+        filter={true}
+        requestSnippetsEnabled={true}
+        requestSnippets={{}}
         tryItOutEnabled={true}
     />
 </div>;

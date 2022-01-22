@@ -31,7 +31,6 @@
 //                 Abe Dolinger <https://github.com/256hz>
 //                 Dominique Richard <https://github.com/doumart>
 //                 Mohamed Shaban <https://github.com/drmas>
-//                 André Krüger <https://github.com/akrger>
 //                 Jérémy Barbet <https://github.com/jeremybarbet>
 //                 Christian Ost <https://github.com/ca057>
 //                 David Sheldrick <https://github.com/ds300>
@@ -455,7 +454,7 @@ export interface PressableAndroidRippleConfig {
     foreground?: null | boolean | undefined;
 }
 
-export interface PressableProps extends AccessibilityProps, Omit<ViewProps, 'style' | 'hitSlop'> {
+export interface PressableProps extends AccessibilityProps, Omit<ViewProps, 'children' | 'style' | 'hitSlop'> {
     /**
      * Called when a single tap gesture is detected.
      */
@@ -1452,6 +1451,8 @@ export interface TextInputSelectionChangeEventData extends TargetedEvent {
  */
 export interface TextInputKeyPressEventData {
     key: string;
+    eventCount?: number | null | undefined;
+    target?: number | null | undefined;
 }
 
 /**
@@ -3302,12 +3303,6 @@ export interface RefreshControlPropsAndroid extends ViewProps {
      * Size of the refresh indicator, see RefreshControl.SIZE.
      */
     size?: number | undefined;
-
-    /**
-     * Progress view top offset
-     * @platform android
-     */
-    progressViewOffset?: number | undefined;
 }
 
 export interface RefreshControlProps extends RefreshControlPropsIOS, RefreshControlPropsAndroid {
@@ -3320,6 +3315,11 @@ export interface RefreshControlProps extends RefreshControlPropsIOS, RefreshCont
      * Whether the view should be indicating an active refresh.
      */
     refreshing: boolean;
+
+    /**
+     * Progress view top offset
+     */
+    progressViewOffset?: number | undefined;
 }
 
 /**
@@ -7011,7 +7011,7 @@ export interface ActionSheetIOSOptions {
     message?: string | undefined;
     anchor?: number | undefined;
     tintColor?: ColorValue | ProcessedColorValue | undefined;
-    userInterfaceStyle?: string | undefined;
+    userInterfaceStyle?: 'light' | 'dark' | undefined;
     disabledButtonIndices?: number[] | undefined;
 }
 
@@ -9343,7 +9343,7 @@ export interface KeyboardEvent extends Partial<KeyboardEventIOS> {
 
 type KeyboardEventListener = (event: KeyboardEvent) => void;
 
-export interface KeyboardStatic extends NativeEventEmitter {
+export interface KeyboardStatic {
     /**
      * Dismisses the active keyboard and removes focus.
      */

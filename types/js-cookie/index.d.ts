@@ -49,6 +49,7 @@ declare namespace Cookies {
     }
 
     interface CookiesStatic<T extends object = object> {
+        readonly attributes: CookieAttributes;
         readonly converter: Required<Converter<T>>;
         /**
          * Create a cookie

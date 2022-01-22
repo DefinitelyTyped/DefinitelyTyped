@@ -17,6 +17,7 @@ hash = CryptoJS.RIPEMD160('Message');
 
 // Hasing Output
 hash.toString(CryptoJS.enc.Base64);
+hash.toString(CryptoJS.enc.Base64url);
 hash.toString(CryptoJS.enc.Hex);
 
 // Progressive Hashing
@@ -146,6 +147,8 @@ var plaintextPart5 = aesDecryptor.finalize();
 var words;
 words = CryptoJS.enc.Base64.parse('SGVsbG8sIFdvcmxkIQ==');
 var base64 = CryptoJS.enc.Base64.stringify(words);
+words = CryptoJS.enc.Base64url.parse('SGVsbG8sIFdvcmxkIQ');
+var base64url = CryptoJS.enc.Base64url.stringify(words);
 words = CryptoJS.enc.Latin1.parse('Hello, World!');
 var latin1 = CryptoJS.enc.Latin1.stringify(words);
 words = CryptoJS.enc.Hex.parse('48656c6c6f2c20576f726c6421');

@@ -1,4 +1,4 @@
-// For Library Version: 1.96.0
+// For Library Version: 1.97.0
 
 declare module "sap/f/library" {
   export interface IShellBar {
@@ -1643,6 +1643,19 @@ declare module "sap/m/library" {
      * Panel type for sorting.
      */
     sort = "sort",
+  }
+  /**
+   * Type of popup used in the `sap.m.p13n.Popup`.
+   */
+  export enum P13nPopupMode {
+    /**
+     * Dialog type as popup type.
+     */
+    Dialog = "Dialog",
+    /**
+     * ResponsivePopover type as popup type.
+     */
+    ResponsivePopover = "ResponsivePopover",
   }
   /**
    * Available Page Background Design.
@@ -4750,6 +4763,18 @@ declare module "sap/m/Avatar" {
      */
     getCustomFontSize(): CSSSize;
     /**
+     * @SINCE 1.97
+     *
+     * Gets current value of property {@link #getDecorative decorative}.
+     *
+     * Defines whether the `sap.m.Avatar` is used for decorative purposes and is ignored by accessibility tools.
+     *
+     * **Note:** This property doesn't take effect if `sap.m.Avatar` has a `press` handler.
+     *
+     * Default value is `false`.
+     */
+    getDecorative(): boolean;
+    /**
      * Gets content of aggregation {@link #getDetailBox detailBox}.
      *
      * A `sap.m.LightBox` instance, that will be opened automatically when the user interacts with the `Avatar`
@@ -4927,6 +4952,25 @@ declare module "sap/m/Avatar" {
        * New value for property `customFontSize`
        */
       sCustomFontSize?: CSSSize
+    ): this;
+    /**
+     * @SINCE 1.97
+     *
+     * Sets a new value for property {@link #getDecorative decorative}.
+     *
+     * Defines whether the `sap.m.Avatar` is used for decorative purposes and is ignored by accessibility tools.
+     *
+     * **Note:** This property doesn't take effect if `sap.m.Avatar` has a `press` handler.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `false`.
+     */
+    setDecorative(
+      /**
+       * New value for property `decorative`
+       */
+      bDecorative?: boolean
     ): this;
     /**
      * Sets the `detailBox` aggregation.
@@ -5133,6 +5177,15 @@ declare module "sap/m/Avatar" {
      * 	 - For any other icons, the displayed tooltip is the same as the main control tooltip.
      */
     badgeTooltip?: string | PropertyBindingInfo;
+
+    /**
+     * @SINCE 1.97
+     *
+     * Defines whether the `sap.m.Avatar` is used for decorative purposes and is ignored by accessibility tools.
+     *
+     * **Note:** This property doesn't take effect if `sap.m.Avatar` has a `press` handler.
+     */
+    decorative?: boolean | PropertyBindingInfo;
 
     /**
      * A `sap.m.LightBox` instance, that will be opened automatically when the user interacts with the `Avatar`
@@ -12333,7 +12386,18 @@ declare module "sap/m/ComboBoxBase" {
     /**
      * Gets the flag indicating whether the list items should be recreated
      */
-    getRecreateItems(): void;
+    getRecreateItems(): boolean;
+    /**
+     * @SINCE 1.96
+     *
+     * Gets current value of property {@link #getShowClearIcon showClearIcon}.
+     *
+     * Specifies whether clear icon is shown. Pressing the icon will clear input's value and fire the change
+     * and liveChange events.
+     *
+     * Default value is `false`.
+     */
+    getShowClearIcon(): boolean;
     /**
      * @SINCE 1.60
      *
@@ -12346,13 +12410,23 @@ declare module "sap/m/ComboBoxBase" {
      */
     getShowSecondaryValues(): boolean;
     /**
-     * Fires when an object gets inserted in the items aggregation
+     * Fires when an object gets inserted in the items aggregation.
      */
-    handleItemInsertion(): void;
+    handleItemInsertion(
+      /**
+       * The item that should be inserted
+       */
+      oItem: Item
+    ): void;
     /**
-     * Fires when an object gets removed from the items aggregation
+     * Fires when an object gets removed from the items aggregation.
      */
-    handleItemRemoval(): void;
+    handleItemRemoval(
+      /**
+       * The item that should be removed
+       */
+      oItem: Item
+    ): void;
     /**
      * Determines whether the control has content or not.
      */
@@ -12489,9 +12563,14 @@ declare module "sap/m/ComboBoxBase" {
       sPickerType: string
     ): void;
     /**
-     * Sets whether the list items should be recreated
+     * Sets whether the list items should be recreated.
      */
-    setRecreateItems(): void;
+    setRecreateItems(
+      /**
+       * True if the list items should be recreated
+       */
+      bRecreate: boolean
+    ): void;
     /**
      * Sets the selectable property of `sap.ui.core.Item`
      */
@@ -12505,6 +12584,24 @@ declare module "sap/m/ComboBoxBase" {
        */
       bSelectable: boolean
     ): void;
+    /**
+     * @SINCE 1.96
+     *
+     * Sets a new value for property {@link #getShowClearIcon showClearIcon}.
+     *
+     * Specifies whether clear icon is shown. Pressing the icon will clear input's value and fire the change
+     * and liveChange events.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `false`.
+     */
+    setShowClearIcon(
+      /**
+       * New value for property `showClearIcon`
+       */
+      bShowClearIcon?: boolean
+    ): this;
     /**
      * @SINCE 1.60
      *
@@ -12532,6 +12629,15 @@ declare module "sap/m/ComboBoxBase" {
        */
       oTextField: ComboBoxTextField | Input
     ): void;
+    /**
+     * Sets the value property of the control.
+     */
+    setValue(
+      /**
+       * The new value
+       */
+      sValue: string
+    ): this;
     /**
      * @SINCE 1.64
      * @EXPERIMENTAL (since 1.64)
@@ -12569,6 +12675,14 @@ declare module "sap/m/ComboBoxBase" {
     open?: boolean | PropertyBindingInfo;
 
     /**
+     * @SINCE 1.96
+     *
+     * Specifies whether clear icon is shown. Pressing the icon will clear input's value and fire the change
+     * and liveChange events.
+     */
+    showClearIcon?: boolean | PropertyBindingInfo;
+
+    /**
      * Defines the items contained within this control. **Note:** Disabled items are not visualized in the list
      * with the available options, however they can still be accessed through the aggregation.
      */
@@ -12595,8 +12709,6 @@ declare module "sap/m/ComboBoxBase" {
 
 declare module "sap/m/ComboBoxTextField" {
   import { default as InputBase, $InputBaseSettings } from "sap/m/InputBase";
-
-  import Icon from "sap/ui/core/Icon";
 
   import { CSSSize } from "sap/ui/core/library";
 
@@ -12640,6 +12752,12 @@ declare module "sap/m/ComboBoxTextField" {
        */
       mSettings?: $ComboBoxTextFieldSettings
     );
+    /**
+     * Returns the arrow icon
+     *
+     * Left for backward compatibility.
+     */
+    getIcon: undefined;
 
     /**
      * Creates a new subclass of class sap.m.ComboBoxTextField with name `sClassName` and enriches it with the
@@ -12666,10 +12784,6 @@ declare module "sap/m/ComboBoxTextField" {
      * Returns a metadata object for class sap.m.ComboBoxTextField.
      */
     static getMetadata(): ElementMetadata;
-    /**
-     * Returns the arrow icon
-     */
-    getIcon(): Icon;
     /**
      * Gets current value of property {@link #getMaxWidth maxWidth}.
      *
@@ -13869,6 +13983,24 @@ declare module "sap/m/DatePicker" {
      */
     getDisplayFormatType(): string;
     /**
+     * @SINCE 1.97
+     *
+     * Gets current value of property {@link #getHideInput hideInput}.
+     *
+     * Determines whether the input field of the picker is hidden or visible. When set to `true`, the input
+     * field becomes invisible and there is no way to open the picker popover. In that case it can be opened
+     * by another control through calling of picker's `openBy` method, and the opening control's DOM reference
+     * must be provided as parameter.
+     *
+     * Note: Since the picker is not responsible for accessibility attributes of the control which opens its
+     * popover, those attributes should be added by the application developer. The following is recommended
+     * to be added to the opening control: a text or tooltip that describes the action (example: "Open Date
+     * Picker"), and also aria-haspopup attribute with value of `sap.ui.core.aria.HasPopup.Dialog`.
+     *
+     * Default value is `false`.
+     */
+    getHideInput(): boolean;
+    /**
      * @SINCE 1.38.5
      *
      * ID of the element which is the current target of the association {@link #getLegend legend}, or `null`.
@@ -14006,6 +14138,26 @@ declare module "sap/m/DatePicker" {
      */
     isValidValue(): boolean;
     /**
+     * @SINCE 1.97
+     *
+     * Opens the picker popover. The popover is positioned relatively to the control given as `oDomRef` parameter
+     * on tablet or desktop and is full screen on phone. Therefore the control parameter is only used on tablet
+     * or desktop and is ignored on phone.
+     *
+     * Note: use this method to open the picker popover only when the `hideInput` property is set to `true`.
+     * Please consider opening of the picker popover by another control only in scenarios that comply with Fiori
+     * guidelines. For example, opening the picker popover by another popover is not recommended. The application
+     * developer should implement the following accessibility attributes to the opening control: a text or tooltip
+     * that describes the action (example: "Open Date Picker"), and aria-haspopup attribute with value of `sap.ui.core.aria.HasPopup.Dialog`.
+     */
+    openBy(
+      /**
+       * DOM reference of the opening control. On tablet or desktop, the popover is positioned relatively to this
+       * control.
+       */
+      oDomRef: HTMLElement
+    ): void;
+    /**
      * @SINCE 1.38.5
      *
      * Removes all the controls from the aggregation {@link #getSpecialDates specialDates}.
@@ -14052,6 +14204,31 @@ declare module "sap/m/DatePicker" {
        * New value for property `displayFormatType`
        */
       sDisplayFormatType?: string
+    ): this;
+    /**
+     * @SINCE 1.97
+     *
+     * Sets a new value for property {@link #getHideInput hideInput}.
+     *
+     * Determines whether the input field of the picker is hidden or visible. When set to `true`, the input
+     * field becomes invisible and there is no way to open the picker popover. In that case it can be opened
+     * by another control through calling of picker's `openBy` method, and the opening control's DOM reference
+     * must be provided as parameter.
+     *
+     * Note: Since the picker is not responsible for accessibility attributes of the control which opens its
+     * popover, those attributes should be added by the application developer. The following is recommended
+     * to be added to the opening control: a text or tooltip that describes the action (example: "Open Date
+     * Picker"), and also aria-haspopup attribute with value of `sap.ui.core.aria.HasPopup.Dialog`.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `false`.
+     */
+    setHideInput(
+      /**
+       * New value for property `hideInput`
+       */
+      bHideInput?: boolean
     ): this;
     /**
      * @SINCE 1.38.5
@@ -14235,6 +14412,21 @@ declare module "sap/m/DatePicker" {
      * Note: The Current date button appears if the `displayFormat` property allows entering day.
      */
     showCurrentDateButton?: boolean | PropertyBindingInfo;
+
+    /**
+     * @SINCE 1.97
+     *
+     * Determines whether the input field of the picker is hidden or visible. When set to `true`, the input
+     * field becomes invisible and there is no way to open the picker popover. In that case it can be opened
+     * by another control through calling of picker's `openBy` method, and the opening control's DOM reference
+     * must be provided as parameter.
+     *
+     * Note: Since the picker is not responsible for accessibility attributes of the control which opens its
+     * popover, those attributes should be added by the application developer. The following is recommended
+     * to be added to the opening control: a text or tooltip that describes the action (example: "Open Date
+     * Picker"), and also aria-haspopup attribute with value of `sap.ui.core.aria.HasPopup.Dialog`.
+     */
+    hideInput?: boolean | PropertyBindingInfo;
 
     /**
      * @SINCE 1.38.5
@@ -15672,8 +15864,8 @@ declare module "sap/m/DateTimePicker" {
      *
      * Gets current value of property {@link #getMinutesStep minutesStep}.
      *
-     * Sets the minutes slider step. If the step is less than 1, it will be automatically converted back to
-     * 1. The minutes slider is populated only by multiples of the step.
+     * Sets the minutes step. If the step is less than 1, it will be automatically converted back to 1. The
+     * minutes clock is populated only by multiples of the step.
      *
      * Default value is `1`.
      */
@@ -15683,8 +15875,8 @@ declare module "sap/m/DateTimePicker" {
      *
      * Gets current value of property {@link #getSecondsStep secondsStep}.
      *
-     * Sets the seconds slider step. If the step is less than 1, it will be automatically converted back to
-     * 1. The seconds slider is populated only by multiples of the step.
+     * Sets the seconds step. If the step is less than 1, it will be automatically converted back to 1. The
+     * seconds clock is populated only by multiples of the step.
      *
      * Default value is `1`.
      */
@@ -15694,8 +15886,8 @@ declare module "sap/m/DateTimePicker" {
      *
      * Sets a new value for property {@link #getMinutesStep minutesStep}.
      *
-     * Sets the minutes slider step. If the step is less than 1, it will be automatically converted back to
-     * 1. The minutes slider is populated only by multiples of the step.
+     * Sets the minutes step. If the step is less than 1, it will be automatically converted back to 1. The
+     * minutes clock is populated only by multiples of the step.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -15712,8 +15904,8 @@ declare module "sap/m/DateTimePicker" {
      *
      * Sets a new value for property {@link #getSecondsStep secondsStep}.
      *
-     * Sets the seconds slider step. If the step is less than 1, it will be automatically converted back to
-     * 1. The seconds slider is populated only by multiples of the step.
+     * Sets the seconds step. If the step is less than 1, it will be automatically converted back to 1. The
+     * seconds clock is populated only by multiples of the step.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -15731,16 +15923,16 @@ declare module "sap/m/DateTimePicker" {
     /**
      * @SINCE 1.56
      *
-     * Sets the minutes slider step. If the step is less than 1, it will be automatically converted back to
-     * 1. The minutes slider is populated only by multiples of the step.
+     * Sets the minutes step. If the step is less than 1, it will be automatically converted back to 1. The
+     * minutes clock is populated only by multiples of the step.
      */
     minutesStep?: int | PropertyBindingInfo;
 
     /**
      * @SINCE 1.56
      *
-     * Sets the seconds slider step. If the step is less than 1, it will be automatically converted back to
-     * 1. The seconds slider is populated only by multiples of the step.
+     * Sets the seconds step. If the step is less than 1, it will be automatically converted back to 1. The
+     * seconds clock is populated only by multiples of the step.
      */
     secondsStep?: int | PropertyBindingInfo;
   }
@@ -18668,6 +18860,70 @@ declare module "sap/m/DynamicDateRange" {
      */
     change?: (oEvent: Event) => void;
   }
+}
+
+declare module "sap/m/DynamicDateUtil" {
+  import DynamicDateOption from "sap/m/DynamicDateOption";
+
+  import DynamicDateFormat from "sap/m/DynamicDateFormat";
+
+  /**
+   * @EXPERIMENTAL (since 1.92)
+   *
+   * The DynamicDateUtil is a utility class for working with the DynamicDateOption instances.
+   */
+  interface DynamicDateUtil {
+    /**
+     * Adds an option to be reused as a global object.
+     */
+    addOption(
+      /**
+       * The option to be added
+       */
+      option: DynamicDateOption
+    ): void;
+    /**
+     * Gets all available standard and custom dynamic date option keys.
+     */
+    getAllOptionKeys(): string[];
+    /**
+     * Gets an option by its key.
+     */
+    getOption(
+      /**
+       * The option key
+       */
+      sKey: string
+    ): DynamicDateOption;
+    /**
+     * Parses a string to an array of objects in the DynamicDateRange's value format. Uses the provided formatter.
+     */
+    parse(
+      /**
+       * The string to be parsed
+       */
+      sValue: string,
+      /**
+       * A dynamic date formatter
+       */
+      oFormatter: DynamicDateFormat,
+      /**
+       * array of option names
+       */
+      aOptionKeys: any[]
+    ): object[];
+    /**
+     * Calculates a date range from a provided object in the format of the DynamicDateRange's value.
+     */
+    toDates(
+      /**
+       * The provided value
+       */
+      oValue: string
+    ): /* was: sap.ui.core.date.UniversalDate */ any[];
+  }
+  const DynamicDateUtil: DynamicDateUtil;
+  export default DynamicDateUtil;
 }
 
 declare module "sap/m/DynamicDateValueHelpUIType" {
@@ -24255,11 +24511,11 @@ declare module "sap/m/GenericTag" {
     GenericTagValueState,
   } from "sap/m/library";
 
+  import { ID, ValueState } from "sap/ui/core/library";
+
   import Event from "sap/ui/base/Event";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
-
-  import { ValueState } from "sap/ui/core/library";
 
   import ObjectNumber from "sap/m/ObjectNumber";
 
@@ -24337,6 +24593,17 @@ declare module "sap/m/GenericTag" {
      */
     static getMetadata(): ElementMetadata;
     /**
+     * @SINCE 1.97.0
+     *
+     * Adds some ariaLabelledBy into the association {@link #getAriaLabelledBy ariaLabelledBy}.
+     */
+    addAriaLabelledBy(
+      /**
+       * The ariaLabelledBy to add; if empty, nothing is inserted
+       */
+      vAriaLabelledBy: ID | Control
+    ): this;
+    /**
      * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.m.GenericTag`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
@@ -24406,6 +24673,13 @@ declare module "sap/m/GenericTag" {
       mParameters?: object
     ): this;
     /**
+     * @SINCE 1.97.0
+     *
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy
+     * ariaLabelledBy}.
+     */
+    getAriaLabelledBy(): ID[];
+    /**
      * Gets current value of property {@link #getDesign design}.
      *
      * Determines the visual mode of the control.
@@ -24451,6 +24725,23 @@ declare module "sap/m/GenericTag" {
      * Default value is `None`.
      */
     getValueState(): GenericTagValueState | keyof typeof GenericTagValueState;
+    /**
+     * @SINCE 1.97.0
+     *
+     * Removes all the controls in the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     */
+    removeAllAriaLabelledBy(): ID[];
+    /**
+     * @SINCE 1.97.0
+     *
+     * Removes an ariaLabelledBy from the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     */
+    removeAriaLabelledBy(
+      /**
+       * The ariaLabelledBy to be removed or its index or ID
+       */
+      vAriaLabelledBy: int | ID | Control
+    ): ID;
     /**
      * Sets a new value for property {@link #getDesign design}.
      *
@@ -24554,6 +24845,13 @@ declare module "sap/m/GenericTag" {
      * Numeric value rendered by the control.
      */
     value?: ObjectNumber;
+
+    /**
+     * @SINCE 1.97.0
+     *
+     * Association to controls / ids which label this control (see WAI-ARIA attribute aria-labelledBy).
+     */
+    ariaLabelledBy?: Array<Control | string>;
 
     /**
      * Fired when the user clicks/taps on the control.
@@ -24939,6 +25237,16 @@ declare module "sap/m/GenericTile" {
      * Text for navigate action button. Default Value is "Read More". Works only in ArticleMode.
      */
     getNavigationButtonText(): string;
+    /**
+     * @EXPERIMENTAL (since 1.96)
+     *
+     * Gets current value of property {@link #getPressEnabled pressEnabled}.
+     *
+     * Disables press event for the tile control.
+     *
+     * Default value is `true`.
+     */
+    getPressEnabled(): boolean;
     /**
      * @SINCE 1.46.0
      *
@@ -25706,6 +26014,13 @@ declare module "sap/m/GenericTile" {
      * Works only in ArticleMode.
      */
     enableNavigationButton?: boolean | PropertyBindingInfo;
+
+    /**
+     * @EXPERIMENTAL (since 1.96)
+     *
+     * Disables press event for the tile control.
+     */
+    pressEnabled?: boolean | PropertyBindingInfo;
 
     /**
      * @EXPERIMENTAL (since 1.96)
@@ -33094,6 +33409,10 @@ declare module "sap/m/InputBase" {
      * Defines the value of the control.
      */
     getValue(): string;
+    /**
+     * Gets the value of the accessibility description info field.
+     */
+    getValueDescriptionInfo(): string;
     /**
      * Gets current value of property {@link #getValueState valueState}.
      *
@@ -42018,7 +42337,7 @@ declare module "sap/m/MessageItem" {
 declare module "sap/m/MessagePage" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
 
-  import { ID, URI, TextDirection } from "sap/ui/core/library";
+  import { ID, URI, TextDirection, TitleLevel } from "sap/ui/core/library";
 
   import Button from "sap/m/Button";
 
@@ -42340,6 +42659,18 @@ declare module "sap/m/MessagePage" {
      */
     getTitle(): string;
     /**
+     * @SINCE 1.97
+     *
+     * Gets current value of property {@link #getTitleLevel titleLevel}.
+     *
+     * Defines the semantic level of the title. When using `Auto`, no explicit level information is written.
+     *
+     * **Note:** Used for accessibility purposes only.
+     *
+     * Default value is `Auto`.
+     */
+    getTitleLevel(): TitleLevel | keyof typeof TitleLevel;
+    /**
      * @SINCE 1.54
      *
      * Checks for the provided `sap.m.Button` in the aggregation {@link #getButtons buttons}. and returns its
@@ -42570,6 +42901,25 @@ declare module "sap/m/MessagePage" {
        */
       sTitle?: string
     ): this;
+    /**
+     * @SINCE 1.97
+     *
+     * Sets a new value for property {@link #getTitleLevel titleLevel}.
+     *
+     * Defines the semantic level of the title. When using `Auto`, no explicit level information is written.
+     *
+     * **Note:** Used for accessibility purposes only.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `Auto`.
+     */
+    setTitleLevel(
+      /**
+       * New value for property `titleLevel`
+       */
+      sTitleLevel?: TitleLevel | keyof typeof TitleLevel
+    ): this;
   }
 
   export interface $MessagePageSettings extends $ControlSettings {
@@ -42587,6 +42937,15 @@ declare module "sap/m/MessagePage" {
      * Determines the title in the header of MessagePage.
      */
     title?: string | PropertyBindingInfo;
+
+    /**
+     * @SINCE 1.97
+     *
+     * Defines the semantic level of the title. When using `Auto`, no explicit level information is written.
+     *
+     * **Note:** Used for accessibility purposes only.
+     */
+    titleLevel?: (TitleLevel | keyof typeof TitleLevel) | PropertyBindingInfo;
 
     /**
      * Determines the visibility of the MessagePage header. Can be used to hide the header of the MessagePage
@@ -45564,10 +45923,6 @@ declare module "sap/m/MultiComboBox" {
      * This hook method is called before the MultiComboBox is rendered.
      */
     onBeforeRendering(): void;
-    /**
-     * This hook method is called before the MultiComboBox's Pop-up is rendered.
-     */
-    onBeforeRenderingPicker(): void;
     /**
      * Handles control click event.
      */
@@ -64590,6 +64945,18 @@ declare module "sap/m/PlanningCalendar" {
      */
     getMinDate(): object;
     /**
+     * @SINCE 1.97
+     *
+     * Gets current value of property {@link #getMultipleAppointmentsSelection multipleAppointmentsSelection}.
+     *
+     * Determines whether the selection of multiple appointments is enabled.
+     *
+     * Note: selection of multiple appointments is possible using CTRL key regardless of the value of this property.
+     *
+     * Default value is `false`.
+     */
+    getMultipleAppointmentsSelection(): boolean;
+    /**
      * Gets current value of property {@link #getNoDataText noDataText}.
      *
      * Defines the text that is displayed when no {@link sap.m.PlanningCalendarRow PlanningCalendarRows} are
@@ -65162,6 +65529,25 @@ declare module "sap/m/PlanningCalendar" {
       oMinDate?: object
     ): this;
     /**
+     * @SINCE 1.97
+     *
+     * Sets a new value for property {@link #getMultipleAppointmentsSelection multipleAppointmentsSelection}.
+     *
+     * Determines whether the selection of multiple appointments is enabled.
+     *
+     * Note: selection of multiple appointments is possible using CTRL key regardless of the value of this property.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `false`.
+     */
+    setMultipleAppointmentsSelection(
+      /**
+       * New value for property `multipleAppointmentsSelection`
+       */
+      bMultipleAppointmentsSelection?: boolean
+    ): this;
+    /**
      * Sets a new value for property {@link #getNoDataText noDataText}.
      *
      * Defines the text that is displayed when no {@link sap.m.PlanningCalendarRow PlanningCalendarRows} are
@@ -65548,6 +65934,15 @@ declare module "sap/m/PlanningCalendar" {
     firstDayOfWeek?: int | PropertyBindingInfo;
 
     /**
+     * @SINCE 1.97
+     *
+     * Determines whether the selection of multiple appointments is enabled.
+     *
+     * Note: selection of multiple appointments is possible using CTRL key regardless of the value of this property.
+     */
+    multipleAppointmentsSelection?: boolean | PropertyBindingInfo;
+
+    /**
      * Rows of the `PlanningCalendar`.
      */
     rows?: PlanningCalendarRow[] | PlanningCalendarRow | AggregationBindingInfo;
@@ -65730,16 +66125,12 @@ declare module "sap/m/PlanningCalendarLegend" {
      *
      * Defines the text displayed in the header of the appointment items list. It is commonly related to the
      * calendar appointments.
-     *
-     * Default value is `"Appointments"`.
      */
     getAppointmentItemsHeader(): string;
     /**
      * Gets current value of property {@link #getItemsHeader itemsHeader}.
      *
      * Defines the text displayed in the header of the items list. It is commonly related to the calendar days.
-     *
-     * Default value is `"Calendar"`.
      */
     getItemsHeader(): string;
     /**
@@ -65789,14 +66180,12 @@ declare module "sap/m/PlanningCalendarLegend" {
      * calendar appointments.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * Default value is `"Appointments"`.
      */
     setAppointmentItemsHeader(
       /**
        * New value for property `appointmentItemsHeader`
        */
-      sAppointmentItemsHeader?: string
+      sAppointmentItemsHeader: string
     ): this;
     /**
      * Sets a new value for property {@link #getItemsHeader itemsHeader}.
@@ -65804,14 +66193,12 @@ declare module "sap/m/PlanningCalendarLegend" {
      * Defines the text displayed in the header of the items list. It is commonly related to the calendar days.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * Default value is `"Calendar"`.
      */
     setItemsHeader(
       /**
        * New value for property `itemsHeader`
        */
-      sItemsHeader?: string
+      sItemsHeader: string
     ): this;
   }
 
@@ -78511,6 +78898,11 @@ declare module "sap/m/SegmentedButton" {
         item?: SegmentedButtonItem;
       }
     ): this;
+    /**
+     * See:
+     * 	sap.ui.core.Control#getAccessibilityInfo
+     */
+    getAccessibilityInfo(): object;
     /**
      * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaDescribedBy
      * ariaDescribedBy}.
@@ -104661,6 +105053,24 @@ declare module "sap/m/TimePicker" {
      */
     getDisplayFormat(): string;
     /**
+     * @SINCE 1.97
+     *
+     * Gets current value of property {@link #getHideInput hideInput}.
+     *
+     * Determines whether the input field of the picker is hidden or visible. When set to `true`, the input
+     * field becomes invisible and there is no way to open the picker popover. In that case it can be opened
+     * by another control through calling of picker's `openBy` method, and the opening control's DOM reference
+     * must be provided as parameter.
+     *
+     * Note: Since the picker is not responsible for accessibility attributes of the control which opens its
+     * popover, those attributes should be added by the application developer. The following is recommended
+     * to be added to the opening control: a text or tooltip that describes the action (example: "Open Time
+     * Picker"), and also aria-haspopup attribute with value of `sap.ui.core.aria.HasPopup.Dialog`.
+     *
+     * Default value is `false`.
+     */
+    getHideInput(): boolean;
+    /**
      * Gets current value of property {@link #getLocaleId localeId}.
      *
      * Defines the locale used to parse string values representing time.
@@ -104808,6 +105218,26 @@ declare module "sap/m/TimePicker" {
      */
     onBeforeOpen(): void;
     /**
+     * @SINCE 1.97
+     *
+     * Opens the picker popover. The popover is positioned relatively to the control given as `oDomRef` parameter
+     * on tablet or desktop and is full screen on phone. Therefore the control parameter is only used on tablet
+     * or desktop and is ignored on phone.
+     *
+     * Note: use this method to open the picker popover only when the `hideInput` property is set to `true`.
+     * Please consider opening of the picker popover by another control only in scenarios that comply with Fiori
+     * guidelines. For example, opening the picker popover by another popover is not recommended. The application
+     * developer should implement the following accessibility attributes to the opening control: a text or tooltip
+     * that describes the action (example: "Open Time Picker"), and aria-haspopup attribute with value of `sap.ui.core.aria.HasPopup.Dialog`.
+     */
+    openBy(
+      /**
+       * DOM reference of the opening control. On tablet or desktop, the popover is positioned relatively to this
+       * control.
+       */
+      oDomRef: HTMLElement
+    ): void;
+    /**
      * Removes all the controls from the aggregation {@link #getRules rules}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
@@ -104839,6 +105269,31 @@ declare module "sap/m/TimePicker" {
        * display format to set
        */
       sDisplayFormat: string
+    ): this;
+    /**
+     * @SINCE 1.97
+     *
+     * Sets a new value for property {@link #getHideInput hideInput}.
+     *
+     * Determines whether the input field of the picker is hidden or visible. When set to `true`, the input
+     * field becomes invisible and there is no way to open the picker popover. In that case it can be opened
+     * by another control through calling of picker's `openBy` method, and the opening control's DOM reference
+     * must be provided as parameter.
+     *
+     * Note: Since the picker is not responsible for accessibility attributes of the control which opens its
+     * popover, those attributes should be added by the application developer. The following is recommended
+     * to be added to the opening control: a text or tooltip that describes the action (example: "Open Time
+     * Picker"), and also aria-haspopup attribute with value of `sap.ui.core.aria.HasPopup.Dialog`.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `false`.
+     */
+    setHideInput(
+      /**
+       * New value for property `hideInput`
+       */
+      bHideInput?: boolean
     ): this;
     /**
      * Sets the locale of the control.
@@ -105010,6 +105465,21 @@ declare module "sap/m/TimePicker" {
      * Don't use it together with am/pm.
      */
     support2400?: boolean | PropertyBindingInfo;
+
+    /**
+     * @SINCE 1.97
+     *
+     * Determines whether the input field of the picker is hidden or visible. When set to `true`, the input
+     * field becomes invisible and there is no way to open the picker popover. In that case it can be opened
+     * by another control through calling of picker's `openBy` method, and the opening control's DOM reference
+     * must be provided as parameter.
+     *
+     * Note: Since the picker is not responsible for accessibility attributes of the control which opens its
+     * popover, those attributes should be added by the application developer. The following is recommended
+     * to be added to the opening control: a text or tooltip that describes the action (example: "Open Time
+     * Picker"), and also aria-haspopup attribute with value of `sap.ui.core.aria.HasPopup.Dialog`.
+     */
+    hideInput?: boolean | PropertyBindingInfo;
 
     /**
      * A list of validation rules (one rule per mask character).
@@ -119571,13 +120041,6 @@ declare namespace sap {
     /**
      * @EXPERIMENTAL (since 1.92)
      *
-     * A utility class for working with the DynamicDateOption instances.
-     */
-    export const DynamicDateUtil: undefined;
-
-    /**
-     * @EXPERIMENTAL (since 1.92)
-     *
      * The option keys of all the standard options of a DynamicDateRange control.
      */
     export const StandardDynamicDateRangeKeys: undefined;
@@ -120039,6 +120502,8 @@ declare namespace sap {
 
     "sap/m/DynamicDateRange": undefined;
 
+    "sap/m/DynamicDateUtil": undefined;
+
     "sap/m/DynamicDateValueHelpUIType": undefined;
 
     "sap/m/ExpandableText": undefined;
@@ -120186,6 +120651,8 @@ declare namespace sap {
     "sap/m/p13n/Container": undefined;
 
     "sap/m/p13n/GroupPanel": undefined;
+
+    "sap/m/p13n/Popup": undefined;
 
     "sap/m/p13n/QueryPanel": undefined;
 

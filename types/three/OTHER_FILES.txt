@@ -3,10 +3,8 @@ examples/jsm/controls/DragControls.d.ts
 examples/jsm/controls/FirstPersonControls.d.ts
 examples/jsm/controls/FlyControls.d.ts
 examples/jsm/controls/PointerLockControls.d.ts
-examples/jsm/csm/CSM.d.ts
-examples/jsm/csm/CSMHelper.d.ts
-examples/jsm/csm/Frustum.d.ts
-examples/jsm/csm/Shader.d.ts
+examples/jsm/csm/CSMFrustum.d.ts
+examples/jsm/csm/CSMShader.d.ts
 examples/jsm/curves/NURBSCurve.d.ts
 examples/jsm/curves/NURBSSurface.d.ts
 examples/jsm/curves/NURBSUtils.d.ts
@@ -55,6 +53,7 @@ examples/jsm/loaders/GCodeLoader.d.ts
 examples/jsm/loaders/KMZLoader.d.ts
 examples/jsm/loaders/KTXLoader.d.ts
 examples/jsm/loaders/LDrawLoader.d.ts
+examples/jsm/loaders/LogLuvLoader.d.ts
 examples/jsm/loaders/LottieLoader.d.ts
 examples/jsm/loaders/LUT3dlLoader.d.ts
 examples/jsm/loaders/LUTCubeLoader.d.ts

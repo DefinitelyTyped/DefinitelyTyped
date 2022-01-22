@@ -25,6 +25,9 @@ Cookies.remove('name', { path: '' });
 const Cookies2 = Cookies.noConflict!();
 Cookies2; // $ExpectType CookiesStatic<object>
 
+// $ExpectType CookieAttributes
+Cookies.attributes;
+
 Cookies.set('name', { foo: 'bar' });
 
 document.cookie = 'escaped=%u5317';

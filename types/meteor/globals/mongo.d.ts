@@ -1,7 +1,7 @@
 // Based on https://github.com/microsoft/TypeScript/issues/28791#issuecomment-443520161
 declare type UnionOmit<T, K extends keyof any> = T extends T ? Pick<T, Exclude<keyof T, K>> : never;
 
-declare module Mongo {
+declare namespace Mongo {
     // prettier-ignore
     type BsonType = 1 | "double" |
         2 | "string" |
@@ -197,7 +197,12 @@ declare module Mongo {
         allow<Fn extends Transform<T> = undefined>(options: {
             insert?: ((userId: string, doc: DispatchTransform<Fn, T, U>) => boolean) | undefined;
             update?:
-                | ((userId: string, doc: DispatchTransform<Fn, T, U>, fieldNames: string[], modifier: any) => boolean)
+                | ((
+                      userId: string,
+                      doc: DispatchTransform<Fn, T, U>,
+                      fieldNames: string[],
+                      modifier: any,
+                  ) => boolean)
                 | undefined;
             remove?: ((userId: string, doc: DispatchTransform<Fn, T, U>) => boolean) | undefined;
             fetch?: string[] | undefined;
@@ -207,7 +212,12 @@ declare module Mongo {
         deny<Fn extends Transform<T> = undefined>(options: {
             insert?: ((userId: string, doc: DispatchTransform<Fn, T, U>) => boolean) | undefined;
             update?:
-                | ((userId: string, doc: DispatchTransform<Fn, T, U>, fieldNames: string[], modifier: any) => boolean)
+                | ((
+                      userId: string,
+                      doc: DispatchTransform<Fn, T, U>,
+                      fieldNames: string[],
+                      modifier: any,
+                  ) => boolean)
                 | undefined;
             remove?: ((userId: string, doc: DispatchTransform<Fn, T, U>) => boolean) | undefined;
             fetch?: string[] | undefined;
@@ -385,7 +395,7 @@ declare module Mongo {
     function setConnectionOptions(options: any): void;
 }
 
-declare module Mongo {
+declare namespace Mongo {
     interface AllowDenyOptions {
         insert?: ((userId: string, doc: any) => boolean) | undefined;
         update?: ((userId: string, doc: any, fieldNames: string[], modifier: any) => boolean) | undefined;
@@ -404,4 +414,9 @@ declare function defaultRemoteCollectionDriver(): {
     mongo: MongoConnection;
 };
 
-declare var NpmModules: any;
+declare var NpmModules: {
+    mongodb: {
+        version: string,
+        module: any
+    }
+};

@@ -1,4 +1,4 @@
-// Type definitions for k6 0.34
+// Type definitions for k6 0.35
 // Project: https://k6.io/docs/
 // Definitions by: na-- <https://github.com/na-->
 //                 Ivan Mirić <https://github.com/imiric>

@@ -829,7 +829,7 @@ export interface Response<
     get(field: string): string;
 
     /** Clear cookie `name`. */
-    clearCookie(name: string, options?: any): this;
+    clearCookie(name: string, options?: CookieOptions): this;
 
     /**
      * Set cookie `name` to `val`, with the given `options`.

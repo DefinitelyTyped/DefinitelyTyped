@@ -8,6 +8,7 @@ const options: datadog.Options = {
     service: 'service',
     hostname: 'host',
     keepMsg: true,
+    eu: true,
 };
 
 // $ExpectType Promise<WritableStream>

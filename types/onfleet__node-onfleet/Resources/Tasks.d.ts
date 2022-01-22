@@ -9,7 +9,7 @@ declare class Task {
   create(task: Task.CreateTaskProps): Promise<Task.OnfleetTask>;
   deleteOne(id: string): Promise<number>;
   forceComplete(id: string): Promise<void>;
-  get(queryOrId: string, queryKey?: Task.TaskQueryKey): Promise<Task.OnfleetTask>;
+  get(queryOrId: string, queryKey?: Task.TaskQueryKey): Promise<Task.GetTaskResult>;
   get(queryParams?: Task.TaskQueryParam): Promise<Task.OnfleetTask[]>;
   matchMetadata: MatchMetadata<Task.OnfleetTask['metadata']>;
   update(id: string, task: Partial<Task.CreateTaskProps>): Promise<Task.UpdateTaskResult>;
@@ -155,6 +155,12 @@ declare namespace Task {
       recipients?: OnfleetRecipient | OnfleetRecipient[] | undefined;
       serviceTime?: number | undefined;
     } | undefined;
+  }
+
+  interface GetTaskResult extends OnfleetTask {
+    estimatedCompletionTime: number | null;
+    eta: number | null;
+    trackingViewed: boolean;
   }
 
   interface UpdateTaskResult extends OnfleetTask {

@@ -24,6 +24,9 @@ import { createRef, MouseEvent as ReactMouseEvent } from 'react';
 <C.Animate type="appear" options={{ origin: 'top left' }}>
     {({ className }) => <h1 className={className}>Hello World</h1>}
 </C.Animate>;
+<C.Animate type="loading">
+    {({ className }) => <h1 className={className}>Hello World</h1>}
+</C.Animate>;
 
 //
 // autocomplete
@@ -199,6 +202,23 @@ const buttonGroupRef = createRef<HTMLDivElement>();
 <C.ColorPicker onChangeComplete={color => console.log(color.hex)} disableAlpha />;
 
 //
+// combobox-control
+//
+<C.ComboboxControl
+    label={'Region'}
+    value={'UK'}
+    onChange={value => {
+        console.log(value);
+    }}
+    options={[
+        {
+            label: 'test',
+            value: 'test',
+        },
+    ]}
+/>;
+
+//
 // custom-select-control
 //
 <C.CustomSelectControl
@@ -277,7 +297,7 @@ const buttonGroupRef = createRef<HTMLDivElement>();
     )}
 </C.DropdownMenu>;
 <C.DropdownMenu
-    icon="move"
+    icon={<span>icon</span>}
     label="Select a direction"
     controls={[
         {
@@ -399,6 +419,23 @@ const buttonGroupRef = createRef<HTMLDivElement>();
     ]}
     suggestions={['foo', 'bar', 'baz', 'qux']}
     onChange={tokens => console.log(tokens)}
+/>;
+
+//
+// guide
+//
+<C.Guide
+    finishButtonText="Finish"
+    contentLabel="Guide title"
+    onFinish={ () => {
+        console.log('finished');
+    } }
+    pages={ [
+        {
+            content: <h1>My Page</h1>,
+            image: <h1>My Page Image</h1>,
+        }
+    ] }
 />;
 
 //
@@ -659,6 +696,26 @@ const kbshortcuts = {
         topLeft: false,
     }}
 />;
+<C.ResizableBox
+    showHandle
+    className="testing"
+    size={{
+        height: 100,
+        width: 100,
+    }}
+    minHeight="50"
+    minWidth={50}
+    enable={{
+        top: false,
+        right: true,
+        bottom: true,
+        left: false,
+        topRight: false,
+        bottomRight: true,
+        bottomLeft: false,
+        topLeft: false,
+    }}
+><div>hello</div></C.ResizableBox>;
 
 //
 // responsive-wrapper
@@ -787,6 +844,11 @@ const kbshortcuts = {
 />;
 
 //
+// tip
+//
+<C.Tip>Hello</C.Tip>;
+
+//
 // toggle-control
 //
 <C.ToggleControl label="Controlled" checked={true} onChange={isChecked => console.log(isChecked)} />;
@@ -863,6 +925,25 @@ const kbshortcuts = {
     subscript="hi"
     title="Toolbar Button"
     onClick={() => console.log('clicked')}
+/>;
+<C.ToolbarButton icon={ <span>click</span> } label="Paragraph" />;
+<C.ToolbarButton>Text</C.ToolbarButton>;
+
+//
+// toolbar-group
+//
+<C.ToolbarGroup
+    isCollapsed
+    icon={ undefined }
+    label="More rich text controls"
+    controls={ [
+        { icon: <div>icon</div>, title: 'Inline code' },
+        { icon: <div>icon</div>, title: 'Inline image' },
+        {
+            icon: <div>icon</div>,
+            title: 'Strikethrough',
+        },
+    ] }
 />;
 
 //
@@ -976,6 +1057,12 @@ const MySlotFillProvider = () => {
         ) : null
     }
 </C.Slot>;
+
+//
+// visually-hidden
+//
+<C.VisuallyHidden>Hello</C.VisuallyHidden>;
+<C.VisuallyHidden as="span" className="test-class">Hello</C.VisuallyHidden>;
 
 //
 // higher-order/navigate-regions

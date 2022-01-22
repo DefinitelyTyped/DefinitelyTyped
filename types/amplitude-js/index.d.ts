@@ -1,7 +1,6 @@
-// Type definitions for Amplitude SDK 8.0
+// Type definitions for Amplitude SDK 8.9
 // Project: https://github.com/amplitude/Amplitude-Javascript
-// Definitions by: Arvydas Sidorenko <https://github.com/Asido>
-//                 Dan Manastireanu <https://github.com/danmana>
+// Definitions by: Dan Manastireanu <https://github.com/danmana>
 //                 Kimmo Hintikka <https://github.com/HintikkaKimmo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -9,6 +8,8 @@ export as namespace amplitude;
 
 export type Callback = (responseCode: number, responseBody: string, details?: { reason: string }) => void;
 export type LogReturn = number | undefined;
+// https://github.com/amplitude/Amplitude-JavaScript/blob/v8.9.0/src/server-zone.js#L9
+export type ServerZone = 'EU' | 'US';
 
 export interface Config {
     apiEndpoint?: string | undefined;
@@ -40,6 +41,7 @@ export interface Config {
     saveParamsReferrerOncePerSession?: boolean | undefined;
     secureCookie?: boolean | undefined;
     sessionTimeout?: number | undefined;
+    storage?: '' | 'cookies' | 'localStorage' | 'sessionStorage' | 'none';
     trackingOptions?: {
         city?: boolean | undefined;
         country?: boolean | undefined;
@@ -60,6 +62,8 @@ export interface Config {
     unsentIdentifyKey?: string | undefined;
     uploadBatchSize?: number | undefined;
     useNativeDeviceInfo?: boolean | undefined;
+    serverZone?: ServerZone | undefined;
+    serverZoneBasedApi?: boolean | undefined;
 }
 
 export class Identify {
@@ -69,6 +73,8 @@ export class Identify {
     append(key: string, value: number | string | any[] | object): Identify;
     /** Prepend a value or values to a user property */
     prepend(key: string, value: boolean | number | string | any[] | object): Identify;
+    /** Preinsert a value or values to a user property */
+    preInsert(key: string, value: number | string | any[] | object): Identify;
     /** Sets the value of a given user property */
     set(key: string, value: boolean | number | string | any[] | object): Identify;
     /** Sets the value of a given user property only once */
@@ -90,6 +96,8 @@ export class AmplitudeClient {
 
     options: Config;
 
+    cookieStorage: CookieStorage;
+
     init(apiKey: string, userId?: string, config?: Config, callback?: (client: AmplitudeClient) => void): void;
 
     setVersionName(versionName: string): void;
@@ -97,6 +105,7 @@ export class AmplitudeClient {
     isNewSession(): boolean;
     setSessionId(sessionId: number): void;
     getSessionId(): number;
+    resetSessionId(): void;
 
     setDomain(domain: string): void;
     setUserId(userId: string | null): void;
@@ -123,6 +132,21 @@ export class AmplitudeClient {
 
     Identify: typeof Identify;
     Revenue: typeof Revenue;
+}
+
+export interface CookieStorageOptions {
+    expirationDays?: number | undefined;
+    domain?: string | undefined;
+    secure?: boolean | undefined;
+    sameSite?: 'Lax' | 'Strict' | 'None' | undefined;
+}
+export interface CookieStorage {
+    reset(): void;
+    options(): CookieStorageOptions;
+    options(opts: CookieStorageOptions): void;
+    get(name: string): any;
+    set(name: string, value: any): boolean;
+    remove(name: string): boolean;
 }
 
 // Proxy methods that get executed on the default AmplitudeClient instance (not all client methods are proxied)

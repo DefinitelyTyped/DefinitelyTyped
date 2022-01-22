@@ -206,11 +206,13 @@ export interface SubUserstate extends CommonSubUserstate {
 export interface SubMysteryGiftUserstate extends CommonSubUserstate {
     'message-type'?: "submysterygift" | undefined;
     "msg-param-sender-count"?: string | boolean | undefined;
+    'msg-param-origin-id': string;
 }
 
 export interface SubGiftUserstate extends CommonGiftSubUserstate {
     'message-type'?: "subgift" | undefined;
     "msg-param-sender-count"?: string | boolean | undefined;
+    'msg-param-origin-id': string;
 }
 
 export interface AnonSubGiftUserstate extends CommonGiftSubUserstate {

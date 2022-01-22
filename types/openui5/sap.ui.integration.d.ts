@@ -1,4 +1,4 @@
-// For Library Version: 1.96.0
+// For Library Version: 1.97.0
 
 declare module "sap/ui/integration/library" {
   import { URI } from "sap/ui/core/library";
@@ -1434,6 +1434,32 @@ declare module "sap/ui/integration/Host" {
       oListener?: object
     ): this;
     /**
+     * @EXPERIMENTAL (since 1.97)
+     *
+     * This functions is called when a CSRF token has expired.
+     */
+    csrfTokenExpired(
+      /**
+       * The CSRF token configuration.
+       */
+      mCSRFTokenConfig: object
+    ): void;
+    /**
+     * @EXPERIMENTAL (since 1.97)
+     *
+     * This functions is called when a CSRF token is fetched.
+     */
+    csrfTokenFetched(
+      /**
+       * The CSRF token configuration.
+       */
+      mCSRFTokenConfig: object,
+      /**
+       * A promise which resolves the CSRF token to its value.
+       */
+      pCSRFTokenValuePromise: Promise<any>
+    ): void;
+    /**
      * @EXPERIMENTAL (since 1.75)
      *
      * Detaches event handler `fnFunction` from the {@link #event:action action} event of this `sap.ui.integration.Host`.
@@ -1603,6 +1629,17 @@ declare module "sap/ui/integration/Host" {
        * The path to a context
        */
       sPath: string
+    ): Promise<any>;
+    /**
+     * @EXPERIMENTAL (since 1.97)
+     *
+     * Resolves the CSRF token and returns a Promise with its value.
+     */
+    getCsrfToken(
+      /**
+       * The CSRF token configuration.
+       */
+      mCSRFTokenConfig: object
     ): Promise<any>;
     /**
      * Resolves the destination and returns its URL.
@@ -3164,7 +3201,11 @@ declare namespace sap {
 
     "sap/ui/integration/library": undefined;
 
+    "sap/ui/integration/ManifestResolver": undefined;
+
     "sap/ui/integration/services/Service": undefined;
+
+    "sap/ui/integration/util/CsrfTokenHandler": undefined;
 
     "sap/ui/integration/util/DataProvider": undefined;
 

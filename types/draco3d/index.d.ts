@@ -1,6 +1,7 @@
 // Type definitions for draco3d 1.4
 // Project: https://github.com/google/draco#readme
 // Definitions by: Don McCurdy <https://github.com/donmccurdy>
+//                 Horizon0514 <https://github.com/horizon0514>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 type TypedArray = Float32Array | Uint32Array | Uint16Array | Uint8Array | Int16Array | Int8Array;
@@ -19,6 +20,13 @@ export interface BaseModule {
     DracoUInt16Array: new () => DracoUInt16Array;
     DracoUInt32Array: new () => DracoUInt32Array;
 
+    POSITION: number;
+    NORMAL: number;
+    TEX_COORD: number;
+    COLOR: number;
+    GENERIC: number;
+    INVALID: number;
+
     _malloc: (ptr: number) => number;
     _free: (ptr: number) => void;
     destroy: (object: unknown) => void;
@@ -36,12 +44,6 @@ export interface BaseModule {
 export interface EncoderModule extends BaseModule {
     Encoder: new () => Encoder;
     MeshBuilder: new () => MeshBuilder;
-
-    POSITION: number;
-    NORMAL: number;
-    TEX_COORD: number;
-    COLOR: number;
-    GENERIC: number;
 
     MESH_SEQUENTIAL_ENCODING: number;
     MESH_EDGEBREAKER_ENCODING: number;
@@ -103,6 +105,8 @@ export interface Decoder {
     GetAttributeUInt16ForAllPoints: (mesh: Mesh, attribute: Attribute, array: DracoArray) => void;
     GetAttributeUInt32ForAllPoints: (mesh: Mesh, attribute: Attribute, array: DracoArray) => void;
     GetEncodedGeometryType: (buffer: DecoderBuffer) => GeometryType;
+    GetAttributeId: (mesh: Mesh, attributeType: number) => number;
+    GetAttribute: (mesh: Mesh, id: number) => Attribute;
 }
 
 export interface DecoderBuffer {
@@ -130,6 +134,7 @@ export interface DracoUInt32Array extends DracoArray {}
 
 export interface Status {
     ok: () => boolean;
+    error_msg: () => string;
 }
 
 export interface Attribute {

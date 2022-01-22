@@ -1,4 +1,4 @@
-// For Library Version: 1.95.0
+// For Library Version: 1.97.0
 
 declare module "sap/ui/codeeditor/library" {}
 
@@ -275,6 +275,12 @@ declare module "sap/ui/codeeditor/CodeEditor" {
      * Default value is `"100%"`.
      */
     getHeight(): CSSSize;
+    /**
+     * Returns the DOMNode ID to be used for the "labelFor" attribute of the label.
+     *
+     * By default, this is the ID of the control itself.
+     */
+    getIdForLabel(): string;
     /**
      * Gets current value of property {@link #getLineNumbers lineNumbers}.
      *

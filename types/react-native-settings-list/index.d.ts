@@ -16,6 +16,7 @@ interface SettingsListProps {
      * default: black
      */
     borderColor?: string | undefined;
+    children?: React.ReactNode;
     /**
      * default: 50
      */

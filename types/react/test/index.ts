@@ -837,3 +837,21 @@ const propsWithoutRef: React.PropsWithoutRef<UnionProps> = {
     // $ExpectError
     React.createElement(Wrapper, { value: 'C' });
 }
+
+// ComponentPropsWithRef and JSXElementConstructor
+{
+    interface Props {
+        value: string;
+    }
+    type InferredProps = React.ComponentPropsWithRef<React.JSXElementConstructor<Props>>;
+    const props: Props = {
+        value: 'inferred',
+        // $ExpectError
+        notImplemented: 5
+    };
+    const inferredProps: InferredProps = {
+        value: 'inferred',
+        // $ExpectError
+        notImplemented: 5
+    };
+}

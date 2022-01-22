@@ -201,6 +201,15 @@ app.route('/').post<never, { foo: string }, { bar: number }>((req, res) => {
     req.body.baz; // $ExpectError
 });
 
+// Cookies
+app.get('/clearcookie', (req, res) => {
+    res.clearCookie('auth'); // $ExpectType Response<any, Record<string, any>, number>
+    res.clearCookie('auth', {
+        path: '', // $ExpectType string
+        foo: '',  // $ExpectError
+    });
+});
+
 app.engine('ntl', (_filePath, _options, callback) => {
     callback(new Error('not found.'));
 });

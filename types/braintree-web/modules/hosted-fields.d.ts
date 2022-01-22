@@ -48,6 +48,13 @@ export interface HostedFieldFieldOptions {
 }
 
 /**
+ * @description The event payload sent from {@link HostedFields#on|on} when the `binAvailable` event is emitted.
+ */
+export interface HostedFieldsBinPayload {
+    bin: string;
+}
+
+/**
  * @description Information about the card type, sent in {@link HostedFields~stateObject|stateObjects}.
  * - `american-express`
  * - `diners-club`
@@ -138,14 +145,18 @@ export interface HostedFieldsEvent extends HostedFieldsState {
  */
 export type HostedFieldsStateObject = HostedFieldsEvent;
 
-export type HostedFieldEventType =
-    | 'blur'
-    | 'focus'
-    | 'empty'
-    | 'notEmpty'
-    | 'cardTypeChange'
-    | 'validityChange'
-    | 'inputSubmitRequest';
+export interface HostedFieldsEventTypeMap {
+    blur: HostedFieldsEvent;
+    focus: HostedFieldsEvent;
+    empty: HostedFieldsEvent;
+    notEmpty: HostedFieldsEvent;
+    cardTypeChange: HostedFieldsEvent;
+    validityChange: HostedFieldsEvent;
+    inputSubmitRequest: HostedFieldsEvent;
+    binAvailable: HostedFieldsBinPayload;
+}
+
+export type HostedFieldEventType = keyof HostedFieldsEventTypeMap;
 
 export interface HostedFieldsAccountDetails {
     bin: string;
@@ -252,8 +263,8 @@ export interface HostedFields {
      */
     VERSION: string;
 
-    on(event: HostedFieldEventType, handler: (event: HostedFieldsEvent) => void): void;
-    off(event: HostedFieldEventType, handler: (event: HostedFieldsEvent) => void): void;
+    on<EventType extends HostedFieldEventType>(event: EventType, handler: (event: HostedFieldsEventTypeMap[EventType]) => void): void;
+    off<EventType extends HostedFieldEventType>(event: EventType, handler: (event: HostedFieldsEventTypeMap[EventType]) => void): void;
 
     teardown(callback?: callback): void;
     teardown(): Promise<void>;

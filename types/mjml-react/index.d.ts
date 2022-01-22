@@ -206,6 +206,7 @@ export interface MjmlCarouselProps {
 export class MjmlCarousel extends React.Component<MjmlCarouselProps & ClassNameProps> {}
 
 export interface MjmlCarouselImageProps {
+    children?: React.ReactNode;
     src?: string | undefined;
     thumbnailsSrc?: string | undefined;
     alt?: string | undefined;
@@ -229,6 +230,7 @@ export interface MjmlDividerProps {
     borderColor?: React.CSSProperties['borderColor'] | undefined;
     borderStyle?: React.CSSProperties['borderStyle'] | undefined;
     borderWidth?: string | number | undefined;
+    children?: React.ReactNode;
     width?: string | number | undefined;
     containerBackgroundColor?: React.CSSProperties['backgroundColor'] | undefined;
 }
@@ -263,6 +265,7 @@ export class MjmlHero extends React.Component<MjmlHeroProps & ClassNameProps & P
 
 // mj-image
 export interface MjmlImageProps {
+    children?: React.ReactNode;
     containerBackgroundColor?: React.CSSProperties['backgroundColor'] | undefined;
     border?: React.CSSProperties['border'] | undefined;
     borderRadius?: string | number | undefined;
@@ -326,6 +329,9 @@ export interface MjmlSectionProps {
     backgroundUrl?: string | undefined;
     backgroundRepeat?: React.CSSProperties['backgroundRepeat'] | undefined;
     backgroundSize?: React.CSSProperties['backgroundSize'] | undefined;
+    backgroundPosition?: React.CSSProperties['backgroundPosition'] | undefined;
+    backgroundPositionX?: React.CSSProperties['backgroundPositionX'] | undefined;
+    backgroundPositionY?: React.CSSProperties['backgroundPositionY'] | undefined;
     verticalAlign?: React.CSSProperties['verticalAlign'] | undefined;
     textAlign?: React.CSSProperties['textAlign'] | undefined;
     direction?: 'ltr' | 'rtl' | undefined;
@@ -377,6 +383,7 @@ export class MjmlSocialElement extends React.Component<MjmlSocialElementProps & 
 
 // mj-spacer
 export interface MjmlSpacerProps {
+    children?: React.ReactNode;
     height?: string | number | undefined;
     width?: string | number | undefined;
     containerBackgroundColor?: React.CSSProperties['backgroundColor'] | undefined;
@@ -432,6 +439,9 @@ export interface MjmlWrapperProps {
     backgroundUrl?: string | undefined;
     backgroundRepeat?: React.CSSProperties['backgroundRepeat'] | undefined;
     backgroundSize?: React.CSSProperties['backgroundSize'] | undefined;
+    backgroundPosition?: React.CSSProperties['backgroundPosition'] | undefined;
+    backgroundPositionX?: React.CSSProperties['backgroundPositionX'] | undefined;
+    backgroundPositionY?: React.CSSProperties['backgroundPositionY'] | undefined;
     verticalAlign?: React.CSSProperties['verticalAlign'] | undefined;
     textAlign?: React.CSSProperties['textAlign'] | undefined;
 }

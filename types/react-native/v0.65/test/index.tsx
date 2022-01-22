@@ -1423,6 +1423,7 @@ const KeyboardTest = () => {
         startCoordinates: { screenX: 0, screenY: 0, width: 0, height: 0 },
         isEventFromThisApp: true,
     });
+    Keyboard.emit('keyboardDidHide', {}) // $ExpectError
 };
 
 const PermissionsAndroidTest = () => {

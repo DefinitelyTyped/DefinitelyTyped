@@ -563,3 +563,6 @@ declare module 'fs/promises' {
 
     function opendir(path: PathLike, options?: OpenDirOptions): Promise<Dir>;
 }
+declare module 'node:fs/promises' {
+    export * from 'fs/promises';
+}

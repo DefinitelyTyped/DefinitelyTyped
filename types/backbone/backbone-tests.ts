@@ -360,6 +360,7 @@ function test_collection() {
 //////////
 
 Backbone.history.start();
+Backbone.history.start({hashChange: false});
 Backbone.History.started;
 Backbone.history.loadUrl();
 Backbone.history.loadUrl('12345');

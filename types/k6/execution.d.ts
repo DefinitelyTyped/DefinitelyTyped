@@ -79,6 +79,11 @@ declare namespace execution {
          * 	The globally unique (across the whole test run) identifier of the VU.
          */
         idInTest: number;
+
+        /**
+         * 	Hash to set or get VU tags.
+         */
+        tags: Record<string, number | string | boolean>;
     };
 }
 

@@ -1,58 +1,25 @@
-// Type definitions for ember-qunit 3.4
+// Type definitions for ember-qunit 5.0
 // Project: https://github.com/emberjs/ember-qunit#readme
-// Definitions by: Derek Wickern <https://github.com/dwickern>
-//                 Mike North <https://github.com/mike-north>
-//                 Steve Calvert <https://github.com/scalvert>
-//                 Dan Freeman <https://github.com/dfreeman>
+// Definitions by: Dan Freeman <https://github.com/dfreeman>
 //                 Chris Krycho <https://github.com/chriskrycho>
 //                 James C. Davis <https://github.com/jamescdavis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
+// Minimum TypeScript Version: 4.4
 
-/// <reference types="qunit" />
-
-import Ember from 'ember';
-import { ModuleCallbacks, TestContext } from 'ember-test-helpers';
-
-interface QUnitModuleCallbacks extends ModuleCallbacks, Hooks {
-    beforeSetup?(assert: Assert): void;
-    setup?(assert: Assert): void;
-    teardown?(assert: Assert): void;
-    afterTeardown?(assert: Assert): void;
-    needs?: string[] | undefined;
-}
-
-/**
- * @param fullName The full name of the unit, ie controller:application, route:index.
- * @param description The description of the module
- */
-export function moduleFor(fullName: string, description: string, callbacks?: QUnitModuleCallbacks): void;
-export function moduleFor(fullName: string, callbacks?: QUnitModuleCallbacks): void;
-
-/**
- * @param fullName the short name of the component that you'd use in a template, ie x-foo, ic-tabs, etc.
- * @param description The description of the module
- */
-export function moduleForComponent(fullName: string, description: string, callbacks?: QUnitModuleCallbacks): void;
-export function moduleForComponent(fullName: string, callbacks?: QUnitModuleCallbacks): void;
-
-/**
- * @param fullName the short name of the model you'd use in store operations ie user, assignmentGroup, etc.
- * @param description The description of the module
- */
-export function moduleForModel(fullName: string, description: string, callbacks?: QUnitModuleCallbacks): void;
-export function moduleForModel(fullName: string, callbacks?: QUnitModuleCallbacks): void;
+import EmberTestAdapter from '@ember/test/adapter';
+import EmberResolver from 'ember-resolver';
+import { TestContext } from '@ember/test-helpers';
 
 /**
  * Sets a Resolver globally which will be used to look up objects from each test's container.
  */
-export function setResolver(resolver: Ember.Resolver): void;
+export function setResolver(resolver: EmberResolver): void;
 
 interface SetupTestOptions {
     /**
      * The resolver to use when instantiating container-managed entities in the test.
      */
-    resolver?: Ember.Resolver | undefined;
+    resolver?: EmberResolver | undefined;
 }
 
 /**
@@ -105,7 +72,7 @@ export function setupRenderingTest(hooks: NestedHooks, options?: SetupTestOption
  */
 export function setupTest(hooks: NestedHooks, options?: SetupTestOptions): void;
 
-export class QUnitAdapter extends Ember.Test.Adapter {}
+export class QUnitAdapter extends EmberTestAdapter {}
 
 export { module, test, skip, only, todo } from 'qunit';
 
