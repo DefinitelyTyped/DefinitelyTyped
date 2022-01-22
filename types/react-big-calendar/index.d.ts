@@ -30,8 +30,6 @@ export type EventPropGetter<T> = (event: T, start: Date, end: Date, isSelected: 
 export type SlotPropGetter = (date: Date, resourceId?: number | string) => React.HTMLAttributes<HTMLDivElement>;
 export type SlotGroupPropGetter = () => React.HTMLAttributes<HTMLDivElement>;
 
-export type stringOrDate = string | Date;
-
 export type ViewKey = 'MONTH' | 'WEEK' | 'WORK_WEEK' | 'DAY' | 'AGENDA';
 export type View = 'month' | 'week' | 'work_week' | 'day' | 'agenda';
 export type ViewProps<TEvent extends object = Event, TResource extends object = object> =
@@ -40,7 +38,7 @@ export type ViewProps<TEvent extends object = Event, TResource extends object = 
     'elementProps' | 'className' | 'style' | 'view' | 'toolbar' | 'components' |
     'formats' | 'messages' | 'culture'
 > & {
-    date: stringOrDate; // date has always a value, in contrast to optional date in CalendarProps
+    date: Date; // date has always a value, in contrast to optional date in CalendarProps
 
     // props assigned from Calendar's this.state.context, see there if you want to improve the type defs:
     accessors: any;
