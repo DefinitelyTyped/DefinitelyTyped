@@ -505,6 +505,7 @@ linter.verify(SOURCE, {}, { preprocess: input => input.split(" ") });
 linter.verify(SOURCE, {}, { postprocess: problemList => problemList[0] });
 
 linter.verify(SOURCE, { parserOptions: { ecmaVersion: 2021 } }, "test.js");
+linter.verify(SOURCE, { parserOptions: { ecmaVersion: 2022 } }, "test.js");
 linter.verify(SOURCE, { parserOptions: { ecmaVersion: "latest" } }, "test.js");
 linter.verify(SOURCE, { parserOptions: { ecmaVersion: 6, ecmaFeatures: { globalReturn: true } } }, "test.js");
 linter.verify(
