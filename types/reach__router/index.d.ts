@@ -172,7 +172,7 @@ export function redirectTo(uri: string): void;
 
 export const globalHistory: History;
 
-export function useLocation(): WindowLocation;
+export function useLocation<S = unknown>(): WindowLocation<S>;
 
 export function useNavigate(): NavigateFn;
 
