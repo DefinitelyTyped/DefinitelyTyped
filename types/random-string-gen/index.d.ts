@@ -1,4 +1,4 @@
-// Type definitions for random-string-gen 1.1.x
+// Type definitions for random-string-gen 1.1
 // Project: https://github.com/MadeByRaymond/randomStringGenerator
 // Definitions by: Daniel Raymond Obiekwe <https://github.com/MadeByRaymond>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -7,16 +7,16 @@ type Type = "alphanumeric" | "alphabetic" | "numeric" | "hex" | "binary" | "octa
 type Capitalization = "lowercase" | "uppercase";
 interface GenerateOptions {
     /**
-     * This is the length of the returned string. Setting this to `0` or a negative 
+     * This is the length of the returned string. Setting this to `0` or a negative
      * eg: `-1` means an empty string will be returned.
-     * 
-     * 
+     *
+     *
      * [Default : 32]
      */
     length?: number;
     /**
-     * Define the character set for the string. 
-     * 
+     * Define the character set for the string.
+     *
      * @param alphanumeric [0-9 a-z A-Z]
      * @param alphabetic [a-z A-Z]
      * @param numeric [0-9]
@@ -24,39 +24,38 @@ interface GenerateOptions {
      * @param binary [01]
      * @param octal [0-7]
      * @param ascii-printable [0-7 a-z A-Z !"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~ ]
-     * 
-     * 
+     *
+     *
      * [Default : 'alphanumeric']
      */
     type?: Type;
     /**
-     * Define a custom character set to use. 
+     * Define a custom character set to use.
      * This overrides whatever `type` is set.
-     * 
-     * 
+     *
+     *
      * [Default : ' ']
      */
     charset?: string;
     /**
-     * Define whether the output should be `lowercase` or `uppercase` only. 
+     * Define whether the output should be `lowercase` or `uppercase` only.
      * Ignore this option to return both in the string.
-     * 
-     * 
+     *
+     *
      * [Default : null]
      */
     capitalization?: Capitalization;
 }
 
-
 /**
- * A Library to help you create random strings in your code. Can be useful for 
+ * A Library to help you create random strings in your code. Can be useful for
  * creating an identifier (id), slug, salt, PIN code, strong passwords, fixture, etc.
- * 
- * Based on whatever is preferred, this takes any of three parameters (or no parameters 
+ *
+ * Based on whatever is preferred, this takes any of three parameters (or no parameters
  * at all and returns a `32` length `alphanumeric` random string by default).
- * 
- * @param String Sets the character set with the remaining option default values 
- * @param Number Sets the length of the string with the remaining option default values 
+ *
+ * @param String Sets the character set with the remaining option default values
+ * @param Number Sets the length of the string with the remaining option default values
  * @param Options An object with the preferred options for the string
  *
  * @returns a random `string` based on the options set.
