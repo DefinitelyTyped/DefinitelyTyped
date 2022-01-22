@@ -19,7 +19,7 @@ const Dashboard = () => {
             </Route>
         </Routes>
     );
-}
+};
 
 function DashboardLayout() {
     return (
@@ -116,7 +116,7 @@ const LazyLoading = () => {
             </Routes>
         </div>
     );
-}
+};
 
 function Layout() {
     return (

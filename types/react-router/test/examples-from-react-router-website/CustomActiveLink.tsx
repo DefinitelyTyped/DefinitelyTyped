@@ -133,7 +133,6 @@ function SneakerGrid() {
 }
 
 function SneakerView() {
-    // @ts-ignore
     let { id } = useParams<"id">();
 
     if (!id) {
@@ -253,7 +252,6 @@ function getSneakerById(id: string) {
     return SNEAKERS.find(sneaker => sneaker.id === id);
 }
 
-// @ts-ignore
 let brands = [...new Set(SNEAKERS.map(sneaker => sneaker.brand))];
 
 export default CustomActiveLinkExample;

@@ -172,7 +172,6 @@ function Gallery() {
 }
 
 function ImageView() {
-    // @ts-ignore
     let { id } = useParams<"id">();
     let image = getImageById(Number(id));
 
@@ -188,7 +187,6 @@ function ImageView() {
 
 function Modal() {
     let navigate = useNavigate();
-    // @ts-ignore
     let { id } = useParams<"id">();
     let image = getImageById(Number(id));
     let buttonRef = React.useRef<HTMLButtonElement>(null);

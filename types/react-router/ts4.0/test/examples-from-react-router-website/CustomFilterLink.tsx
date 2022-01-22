@@ -30,11 +30,11 @@ const CustomFilterLinkExample = () => {
             </Routes>
         </div>
     );
-}
+};
 
 function CustomLink({ children, to, ...props }: LinkProps) {
-    let resolved = useResolvedPath(to);
-    let match = useMatch({ path: resolved.pathname, end: true });
+    const resolved = useResolvedPath(to);
+    const match = useMatch({ path: resolved.pathname, end: true });
 
     return (
         <div>

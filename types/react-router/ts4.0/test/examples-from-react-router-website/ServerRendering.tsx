@@ -45,7 +45,7 @@ const ServerRendering = () => {
             </Routes>
         </div>
     );
-}
+};
 
 function Layout() {
     return (
@@ -114,4 +114,4 @@ function NoMatch() {
     );
 }
 
-export default ServerRendering
+export default ServerRendering;

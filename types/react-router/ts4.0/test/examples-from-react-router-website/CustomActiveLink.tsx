@@ -31,15 +31,15 @@ const CustomActiveLinkExample = () => {
             </Routes>
         </div>
     );
-}
+};
 
 interface BrandLinkProps extends Omit<LinkProps, "to"> {
     brand: string;
 }
 
 function BrandLink({ brand, children, ...props }: BrandLinkProps) {
-    let [searchParams] = useSearchParams();
-    let isActive = searchParams.get("brand") === brand;
+    const [searchParams] = useSearchParams();
+    const isActive = searchParams.get("brand") === brand;
 
     return (
         <Link
@@ -80,8 +80,8 @@ function Layout() {
 }
 
 function SneakerGrid() {
-    let [searchParams] = useSearchParams();
-    let brand = searchParams.get("brand");
+    const [searchParams] = useSearchParams();
+    const brand = searchParams.get("brand");
 
     const sneakers = React.useMemo(() => {
         if (!brand) return SNEAKERS;
@@ -100,7 +100,7 @@ function SneakerGrid() {
                 }}
             >
                 {sneakers.map(snkr => {
-                    let name = `${snkr.brand} ${snkr.model} ${snkr.colorway}`;
+                    const name = `${snkr.brand} ${snkr.model} ${snkr.colorway}`;
                     return (
                         <div key={snkr.id} style={{ position: "relative" }}>
                             <img
@@ -119,7 +119,7 @@ function SneakerGrid() {
                                 style={{ position: "absolute", inset: 0 }}
                                 to={`/sneakers/${snkr.id}`}
                             >
-                                <p style={{hidden:true}}>{name}</p>
+                                <p>{name}</p>
                             </Link>
                             <div>
                                 <p>{name}</p>
@@ -133,20 +133,19 @@ function SneakerGrid() {
 }
 
 function SneakerView() {
-    // @ts-ignore
-    let { id } = useParams<"id">();
+    const { id } = useParams<"id">();
 
     if (!id) {
         return <NoMatch />;
     }
 
-    let snkr = getSneakerById(id);
+    const snkr = getSneakerById(id);
 
     if (!snkr) {
         return <NoMatch />;
     }
 
-    let name = `${snkr.brand} ${snkr.model} ${snkr.colorway}`;
+    const name = `${snkr.brand} ${snkr.model} ${snkr.colorway}`;
 
     return (
         <div>
@@ -184,7 +183,7 @@ interface Sneaker {
     brand: string;
 }
 
-let SNEAKERS: Sneaker[] = [
+const SNEAKERS: Sneaker[] = [
     {
         id: "1",
         colorway: "Pine Green",
@@ -253,7 +252,6 @@ function getSneakerById(id: string) {
     return SNEAKERS.find(sneaker => sneaker.id === id);
 }
 
-// @ts-ignore
-let brands = [...new Set(SNEAKERS.map(sneaker => sneaker.brand))];
+const brands = [...new Set(SNEAKERS.map(sneaker => sneaker.brand))];
 
 export default CustomActiveLinkExample;

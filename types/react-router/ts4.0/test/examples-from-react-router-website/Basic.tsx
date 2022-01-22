@@ -31,7 +31,7 @@ const BasicExample = () => {
             </Routes>
         </div>
     );
-}
+};
 
 const Layout = () => {
     return (
@@ -63,7 +63,7 @@ const Layout = () => {
             <Outlet />
         </div>
     );
-}
+};
 
 const Home = () => {
     return (
@@ -71,7 +71,7 @@ const Home = () => {
             <h2>Home</h2>
         </div>
     );
-}
+};
 
 const About = () => {
     return (
@@ -79,7 +79,7 @@ const About = () => {
             <h2>About</h2>
         </div>
     );
-}
+};
 
 const Dashboard = () => {
     return (
@@ -87,7 +87,7 @@ const Dashboard = () => {
             <h2>Dashboard</h2>
         </div>
     );
-}
+};
 
 const NoMatch = () => {
     return (
@@ -98,6 +98,6 @@ const NoMatch = () => {
             </p>
         </div>
     );
-}
+};
 
 export default BasicExample;

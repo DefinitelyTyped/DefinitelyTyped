@@ -9,7 +9,7 @@ import {
     useParams
 } from "react-router-dom";
 
-let IMAGES = [
+const IMAGES = [
     {
         id: 0,
         title: "Enjoying a cup of coffee",
@@ -37,12 +37,12 @@ function getImageById(id: number) {
 }
 
 const ModalGallery = () => {
-    let location = useLocation();
+    const location = useLocation();
 
     // The `backgroundLocation` state is the location that we were at when one of
     // the gallery links was clicked. If it's there, use it as the location for
     // the <Routes> so we show the gallery in the background, behind the modal.
-    let state = location.state as { backgroundLocation?: Location };
+    const state = location.state as { backgroundLocation?: Location };
 
     return (
         <div>
@@ -93,7 +93,7 @@ const ModalGallery = () => {
             )}
         </div>
     );
-}
+};
 
 function Layout() {
     return (
@@ -135,7 +135,7 @@ function Home() {
 }
 
 function Gallery() {
-    let location = useLocation();
+    const location = useLocation();
 
     return (
         <div style={{ padding: "0 24px" }}>
@@ -172,9 +172,8 @@ function Gallery() {
 }
 
 function ImageView() {
-    // @ts-ignore
-    let { id } = useParams<"id">();
-    let image = getImageById(Number(id));
+    const { id } = useParams<"id">();
+    const image = getImageById(Number(id));
 
     if (!image) return <div>Image not found</div>;
 
@@ -187,11 +186,10 @@ function ImageView() {
 }
 
 function Modal() {
-    let navigate = useNavigate();
-    // @ts-ignore
-    let { id } = useParams<"id">();
-    let image = getImageById(Number(id));
-    let buttonRef = React.useRef<HTMLButtonElement>(null);
+    const navigate = useNavigate();
+    const { id } = useParams<"id">();
+    const image = getImageById(Number(id));
+    const buttonRef = React.useRef<HTMLButtonElement>(null);
 
     function onDismiss() {
         navigate(-1);
@@ -246,4 +244,4 @@ function NoMatch() {
     );
 }
 
-export default ModalGallery
+export default ModalGallery;

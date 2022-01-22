@@ -19,31 +19,31 @@ const SearchParam = () => {
             </Routes>
         </div>
     );
-}
+};
 
 function randomUser() {
-    let users = ["chaance", "jacob-ebey", "mcansh", "mjackson", "ryanflorence"];
+    const users = ["chaance", "jacob-ebey", "mcansh", "mjackson", "ryanflorence"];
     return users[Math.floor(Math.random() * users.length)];
 }
 
 function Home() {
-    let [searchParams, setSearchParams] = useSearchParams();
+    const [searchParams, setSearchParams] = useSearchParams();
 
     // searchParams is a URLSearchParams object.
     // See https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams
-    let user = searchParams.get("user");
+    const user = searchParams.get("user");
 
-    let [userData, setUserData] = React.useState<any>(null);
+    const [userData, setUserData] = React.useState<any>(null);
 
     React.useEffect(() => {
-        let abortController = new AbortController();
+        const abortController = new AbortController();
 
         async function getGitHubUser() {
-            let response = await fetch(`https://api.github.com/users/${user}`, {
+            const response = await fetch(`https://api.github.com/users/${user}`, {
                 signal: abortController.signal
             });
             if (!abortController.signal.aborted) {
-                let data = await response.json();
+                const data = await response.json();
                 setUserData(data);
             }
         }
@@ -59,15 +59,15 @@ function Home() {
 
     function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
-        let formData = new FormData(event.currentTarget);
-        let newUser = formData.get("user") as string;
+        const formData = new FormData(event.currentTarget);
+        const newUser = formData.get("user") as string;
         if (!newUser) return;
         setSearchParams({ user: newUser });
     }
 
     function handleRandomSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
-        let newUser = randomUser();
+        const newUser = randomUser();
         // our new random user is the same as our current one, let's try again
         if (newUser === user) {
             handleRandomSubmit(event);
@@ -130,4 +130,4 @@ function NoMatch() {
     );
 }
 
-export default SearchParam
+export default SearchParam;

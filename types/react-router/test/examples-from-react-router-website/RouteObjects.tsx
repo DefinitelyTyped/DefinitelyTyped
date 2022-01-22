@@ -116,7 +116,6 @@ function CoursesIndex() {
 }
 
 function Course() {
-    // @ts-ignore
     let { id } = useParams<"id">();
 
     return (

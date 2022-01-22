@@ -2,7 +2,7 @@ import * as React from "react";
 import { Outlet, Link, useRoutes, useParams } from "react-router-dom";
 
 const RouteObject = () => {
-    let routes: {}[] = [
+    const routes: {}[] = [
         {
             path: "/",
             element: <Layout />,
@@ -24,7 +24,7 @@ const RouteObject = () => {
     // The useRoutes() hook allows you to define your routes as JavaScript objects
     // instead of <Routes> and <Route> elements. This is really just a style
     // preference for those who prefer to not use JSX for their routes config.
-    let element = useRoutes(routes);
+    const element = useRoutes(routes);
 
     return (
         <div>
@@ -50,7 +50,7 @@ const RouteObject = () => {
             {element}
         </div>
     );
-}
+};
 
 function Layout() {
     return (
@@ -116,8 +116,7 @@ function CoursesIndex() {
 }
 
 function Course() {
-    // @ts-ignore
-    let { id } = useParams<"id">();
+    const { id } = useParams<"id">();
 
     return (
         <div>
@@ -147,4 +146,4 @@ function NoMatch() {
     );
 }
 
-export default RouteObject
+export default RouteObject;
