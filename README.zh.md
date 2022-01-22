@@ -79,7 +79,7 @@ Definitely Typed 仅在发布时间小于 2 年的 TypeScript 版本上测试软
 
 ## 我该如何贡献？
 
-有赖像你这样的用户不断贡献，Definitely Typed 才能持续运作下去
+有像你这样的用户不断贡献，Definitely Typed 才能持续运作下去
 
 ### 测试
 
@@ -147,7 +147,7 @@ Definitely Typed 仅在发布时间小于 2 年的 TypeScript 版本上测试软
   //                 Steve <https://github.com/steve>
   //                 John <https://github.com/john>
   ```
-* [就运行 `npm test <package to test>`](#验证).
+* [运行 `npm test <package to test>`](#验证).
 
 当你对现有的包发起 PR 的时候，请确保 `dt-bot` 会通知以前的作者。
 如果没有，你可以在与 PR 关联的评论中手动去 @ 他们。
@@ -364,7 +364,7 @@ npm 包应该会在几分钟内更新。如果已经超过了一小时，请在 
 
 #### 有些包没有 `tslint.json` 文件，有些 `tsconfig.json` 文件缺少 `"noImplicitAny": true`, `"noImplicitThis": true`, 或 `"strictNullChecks": true`.
 
-当然它们是错误的，你可以通过发起 PR 来修复它们。
+如果我们还没有注意到它们是错误的，你可以通过发起 PR 来修复它们。
 
 #### 我可以请求类型定义吗？
 
