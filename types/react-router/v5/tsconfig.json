@@ -15,7 +15,14 @@
         "strictFunctionTypes": false,
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "react-router": [
+                "react-router/v5"
+            ],
+            "react-router/*": [
+                "react-router/v5/*"
+            ]
+        },
         "noEmit": true,
         "experimentalDecorators": true
     },
