@@ -1,4 +1,3 @@
-
 export function stringify(
     obj: any,
     options?: {
