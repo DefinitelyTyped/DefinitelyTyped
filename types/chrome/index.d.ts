@@ -952,10 +952,10 @@ declare namespace chrome.browserAction {
  */
 declare namespace chrome.browsingData {
     export interface OriginTypes {
-        /** Optional. Websites that have been installed as hosted applications (be careful!).  */
-        protectedWeb?: boolean | undefined;
         /** Optional. Extensions and packaged applications a user has installed (be _really_ careful!).  */
         extension?: boolean | undefined;
+        /** Optional. Websites that have been installed as hosted applications (be careful!).  */
+        protectedWeb?: boolean | undefined;
         /** Optional. Normal websites.  */
         unprotectedWeb?: boolean | undefined;
     }
@@ -964,11 +964,25 @@ declare namespace chrome.browsingData {
     export interface RemovalOptions {
         /**
          * Optional.
-         * Since Chrome 21.
-         * An object whose properties specify which origin types ought to be cleared. If this object isn't specified, it defaults to clearing only "unprotected" origins. Please ensure that you really want to remove application data before adding 'protectedWeb' or 'extensions'.
+         * Since Chrome 74.
+         * When present, data for origins in this list is excluded from deletion. Can't be used together with origins. Only supported for cookies, storage and cache. Cookies are excluded for the whole registrable domain.
+         */
+        excludeOrigins?: string[] | undefined;
+        /**
+         * Optional.
+         * An object whose properties specify which origin types ought to be cleared. If this object isn't specified, it defaults to clearing only "unprotected" origins. Please ensure that you _really_ want to remove application data before adding 'protectedWeb' or 'extensions'.
          */
         originTypes?: OriginTypes | undefined;
-        /** Optional. Remove data accumulated on or after this date, represented in milliseconds since the epoch (accessible via the getTime method of the JavaScript Date object). If absent, defaults to 0 (which would remove all browsing data).  */
+        /**
+         * Optional.
+         * Since Chrome 74.
+         * When present, only data for origins in this list is deleted. Only supported for cookies, storage and cache. Cookies are cleared for the whole registrable domain.
+         */
+        origins?: string[] | undefined;
+        /**
+         * Optional.
+         * Remove data accumulated on or after this date, represented in milliseconds since the epoch (accessible via the {@link Date.getTime} method). If absent, defaults to 0 (which would remove all browsing data).
+         */
         since?: number | undefined;
     }
 
@@ -985,7 +999,12 @@ declare namespace chrome.browsingData {
         cookies?: boolean | undefined;
         /** Optional. Stored passwords.  */
         passwords?: boolean | undefined;
-        /** Optional. Server-bound certificates.  */
+        /**
+         * @deprecated Deprecated since Chrome 76.
+         * Support for server-bound certificates has been removed. This data type will be ignored.
+         *
+         * Optional. Server-bound certificates.
+         */
         serverBoundCertificates?: boolean | undefined;
         /** Optional. The browser's download list.  */
         downloads?: boolean | undefined;
@@ -995,7 +1014,12 @@ declare namespace chrome.browsingData {
         appcache?: boolean | undefined;
         /** Optional. Websites' file systems.  */
         fileSystems?: boolean | undefined;
-        /** Optional. Plugins' data.  */
+        /**
+         * @deprecated Deprecated since Chrome 88.
+         * Support for Flash has been removed. This data type will be ignored.
+         *
+         * Optional. Plugins' data.
+         */
         pluginData?: boolean | undefined;
         /** Optional. Websites' local storage data.  */
         localStorage?: boolean | undefined;
@@ -1027,12 +1051,23 @@ declare namespace chrome.browsingData {
      */
     export function settings(callback: (result: SettingsCallback) => void): void;
     /**
+     * @deprecated Deprecated since Chrome 88.
+     * Support for Flash has been removed. This function has no effect.
+     *
      * Clears plugins' data.
      * @param callback Called when plugins' data has been cleared.
      * If you specify the callback parameter, it should be a function that looks like this:
      * function() {...};
      */
     export function removePluginData(options: RemovalOptions, callback?: () => void): void;
+    /**
+     * Since Chrome 72.
+     * Clears websites' service workers.
+     * @param callback Called when the browser's service workers have been cleared.
+     * If you specify the callback parameter, it should be a function that looks like this:
+     * function() {...};
+     */
+    export function removeServiceWorkers(options: RemovalOptions, callback?: () => void): void;
     /**
      * Clears the browser's stored form data (autofill).
      * @param callback Called when the browser's form data has been cleared.
