@@ -47,4 +47,8 @@ export interface FileUpload {
   createReadStream(): ReadStream;
 }
 
-export type Upload = Promise<FileUpload>;
+declare class Upload {
+    promise: Promise<FileUpload>;
+    resolve: (file: FileUpload) => FileUpload;
+    reject: (error: Error) => void;
+}
