@@ -91,7 +91,7 @@ interface WritableStream {
     close(): Promise<void>;
 }
 
-class FileSystemWritableFileStream extends WritableStream {
+interface FileSystemWritableFileStream extends WritableStream {
     write(data: FileSystemWriteChunkType): Promise<void>;
     seek(position: number): Promise<void>;
     truncate(size: number): Promise<void>;
@@ -100,14 +100,14 @@ class FileSystemWritableFileStream extends WritableStream {
 const FileSystemHandle: typeof BaseFileSystemHandle;
 type FileSystemHandle = FileSystemFileHandle | FileSystemDirectoryHandle;
 
-class FileSystemFileHandle extends FileSystemHandle {
+interface FileSystemFileHandle extends BaseFileSystemHandle {
     readonly kind: 'file';
 
     getFile(): Promise<File>;
     createWritable(options?: FileSystemCreateWritableOptions): Promise<FileSystemWritableFileStream>;
 }
 
-class FileSystemDirectoryHandle extends BaseFileSystemHandle {
+interface FileSystemDirectoryHandle extends BaseFileSystemHandle {
     readonly kind: 'directory';
 
     getFileHandle(name: string, options?: FileSystemGetFileOptions): Promise<FileSystemFileHandle>;
