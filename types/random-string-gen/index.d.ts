@@ -31,8 +31,7 @@ interface GenerateOptions {
      * Define a custom character set to use.
      * This overrides whatever `type` is set.
      *
-     *
-     * [Default : ' ']
+     * @default ' '
      */
     charset?: string;
     /**
