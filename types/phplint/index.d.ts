@@ -2,9 +2,7 @@
 // Project: https://github.com/wayneashleyberry/phplint
 // Definitions by: Adam Thompson-Sharpe <https://github.com/MysteryBlokHed>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 2.8
-import grunt = require('grunt');
-type IGrunt = typeof grunt;
+/// <reference types="grunt" />
 
 export interface Options {
     stdout?: boolean | undefined;
