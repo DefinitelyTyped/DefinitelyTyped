@@ -81,8 +81,8 @@ export interface DateRange {
     end: Date;
 }
 
-export type DateFormatFunction = (date: Date, culture?: Culture, localizer?: DateLocalizer) => string;
-export type DateRangeFormatFunction = (range: DateRange, culture?: Culture, localizer?: DateLocalizer) => string;
+export type DateFormatFunction = (date: Date, culture?: string, localizer?: DateLocalizer) => string;
+export type DateRangeFormatFunction = (range: DateRange, culture?: string, localizer?: DateLocalizer) => string;
 export type DateFormat = string | DateFormatFunction;
 
 export interface Formats {
@@ -309,12 +309,11 @@ export interface Messages {
     };
   }
 
-export type Culture = string;
 export type FormatInput = number | string | Date;
 
 export interface DateLocalizerSpec {
-    firstOfWeek: (culture: Culture) => number;
-    format: (value: FormatInput, format: string, culture: Culture) => string;
+    firstOfWeek: (culture: string) => number;
+    format: (value: FormatInput, format: string, culture?: string) => string;
     formats: Formats;
     propType?: Validator<any> | undefined;
 }
@@ -322,11 +321,11 @@ export interface DateLocalizerSpec {
 export class DateLocalizer {
     formats: Formats;
     propType: Validator<any>;
-    startOfWeek: (culture: Culture) => number;
+    startOfWeek: (culture: string) => number;
 
     constructor(spec: DateLocalizerSpec);
 
-    format(value: FormatInput, format: string, culture: Culture): string;
+    format(value: FormatInput, format: string, culture?: string): string;
     messages: Messages;
 }
 
@@ -373,7 +372,7 @@ export interface CalendarProps<TEvent extends object = Event, TResource extends 
     min?: Date;
     max?: Date;
     scrollToTime?: Date;
-    culture?: string | undefined;
+    culture?: string;
     formats?: Formats | undefined;
     components?: Components<TEvent, TResource> | undefined;
     messages?: Messages | undefined;
@@ -397,7 +396,7 @@ export interface CalendarProps<TEvent extends object = Event, TResource extends 
 
 export interface TitleOptions {
     formats: DateFormat[];
-    culture?: string | undefined;
+    culture?: string;
     [propName: string]: any;
 }
 
