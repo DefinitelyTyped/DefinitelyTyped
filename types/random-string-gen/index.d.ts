@@ -24,8 +24,7 @@ interface GenerateOptions {
      * @param octal [0-7]
      * @param ascii-printable [0-7 a-z A-Z !"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~ ]
      *
-     *
-     * [Default : 'alphanumeric']
+     * @default 'alphanumeric'
      */
     type?: Type;
     /**
