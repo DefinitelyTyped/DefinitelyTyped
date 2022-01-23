@@ -2582,7 +2582,7 @@ tailwindConfig.plugins;
 // $ExpectType any[] | undefined
 tailwindConfig.presets;
 
-// $ExpectType false | "media" | "class"
+// $ExpectType false | "media" | "class" | undefined
 tailwindConfig.darkMode;
 
 tailwindConfig.darkMode = false;
