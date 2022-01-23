@@ -10,8 +10,7 @@ interface GenerateOptions {
      * This is the length of the returned string. Setting this to `0` or a negative
      * eg: `-1` means an empty string will be returned.
      *
-     *
-     * [Default : 32]
+     * @default 32
      */
     length?: number;
     /**
