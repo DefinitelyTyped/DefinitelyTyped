@@ -38,8 +38,7 @@ interface GenerateOptions {
      * Define whether the output should be `lowercase` or `uppercase` only.
      * Ignore this option to return both in the string.
      *
-     *
-     * [Default : null]
+     * @default null
      */
     capitalization?: Capitalization;
 }
