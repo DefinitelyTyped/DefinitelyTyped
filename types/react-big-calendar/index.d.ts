@@ -35,13 +35,15 @@ export type EventPropGetter<T> = (
 export type SlotPropGetter = (date: Date, resourceId?: number | string) => React.HTMLAttributes<HTMLDivElement>;
 export type SlotGroupPropGetter = () => React.HTMLAttributes<HTMLDivElement>;
 
+export type stringOrDate = string | Date; // this isn't documented in the official repo, a thorough review is needed as to where stringOrDate or Date applies
+
 export type ViewKey = 'MONTH' | 'WEEK' | 'WORK_WEEK' | 'DAY' | 'AGENDA';
 export type View = 'month' | 'week' | 'work_week' | 'day' | 'agenda';
 export type ViewProps<TEvent extends object = Event, TResource extends object = object> = Omit<
     CalendarProps<TEvent, TResource>,
     'elementProps' | 'className' | 'style' | 'view' | 'toolbar' | 'components' | 'formats' | 'messages' | 'culture'
 > & {
-    date: Date; // date has always a value, in contrast to optional date in CalendarProps
+    date: stringOrDate; // date has always a value, in contrast to optional date in CalendarProps
 
     // props assigned from Calendar's this.state.context, see there if you want to improve the type defs:
     accessors: any;
@@ -349,8 +351,8 @@ export interface CalendarProps<TEvent extends object = Event, TResource extends 
     ref?: React.LegacyRef<Calendar<TEvent, TResource>> | undefined;
     localizer: DateLocalizer;
 
-    date?: Date;
-    getNow?: (() => Date) | undefined;
+    date?: stringOrDate;
+    getNow?: () => stringOrDate;
     view?: View | undefined;
     events?: TEvent[] | undefined;
     backgroundEvents?: TEvent[] | undefined;
@@ -405,7 +407,7 @@ export interface CalendarProps<TEvent extends object = Event, TResource extends 
     resourceIdAccessor?: keyof TResource | ((resource: TResource) => any) | undefined;
     resourceTitleAccessor?: keyof TResource | ((resource: TResource) => any) | undefined;
     defaultView?: View | undefined;
-    defaultDate?: Date | undefined;
+    defaultDate?: stringOrDate;
     className?: string | undefined;
     elementProps?: React.HTMLAttributes<HTMLElement> | undefined;
     style?: React.CSSProperties | undefined;
