@@ -91,7 +91,7 @@ interface WritableStream {
     close(): Promise<void>;
 }
 
-interface FileSystemWritableFileStream extends WritableStream {
+class FileSystemWritableFileStream extends WritableStream {
     write(data: FileSystemWriteChunkType): Promise<void>;
     seek(position: number): Promise<void>;
     truncate(size: number): Promise<void>;
@@ -107,6 +107,11 @@ interface FileSystemFileHandle extends BaseFileSystemHandle {
     createWritable(options?: FileSystemCreateWritableOptions): Promise<FileSystemWritableFileStream>;
 }
 
+var FileSystemFileHandle: {
+    prototype: FileSystemFileHandle;
+    new(): FileSystemFileHandle;
+};
+
 interface FileSystemDirectoryHandle extends BaseFileSystemHandle {
     readonly kind: 'directory';
 
@@ -119,12 +124,17 @@ interface FileSystemDirectoryHandle extends BaseFileSystemHandle {
     values(): AsyncIterableIterator<FileSystemHandle>;
     entries(): AsyncIterableIterator<[string, FileSystemHandle]>;
     [Symbol.asyncIterator]: FileSystemDirectoryHandle['entries'];
+}
+
+var FileSystemDirectoryHandle: {
+    prototype: FileSystemDirectoryHandle;
+    new(): FileSystemDirectoryHandle;
 
     /**
      * @deprecated Old method just for Chromium <=85. Use `navigator.storage.getDirectory()` in the new API.
      */
-    static getSystemDirectory(options: GetSystemDirectoryOptions): Promise<FileSystemDirectoryHandle>;
-}
+    getSystemDirectory(options: GetSystemDirectoryOptions): Promise<FileSystemDirectoryHandle>;
+};
 
 interface DataTransferItem {
     getAsFileSystemHandle(): Promise<FileSystemHandle | null>;
