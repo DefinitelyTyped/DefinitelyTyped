@@ -73,6 +73,8 @@ declare module '.' {
     export interface useTransitionConfig {
         /**
          * This timeout (in milliseconds) tells React how long to wait before showing the next state
+         *
+         * @see https://reactjs.org/docs/concurrent-mode-reference.html#usetransition
          */
         timeoutMs?: number | undefined;
     }
