@@ -103,11 +103,17 @@ async function fetchGhosts(users) {
     }
 
     // Filter out organizations
-    const query = `query {
-        ${ghosts.map((user, i) => `o${i}: organization(login: "${user}") { id }`).join("\n")}
-    }`;
-    const result = await tryGQL(() => octokit.graphql(query));
-    return new Set(ghosts.filter(g => result.data[`o${ghosts.indexOf(g)}`] === null));
+    if (ghosts.length) {
+        const query = `query {
+            ${ghosts.map((user, i) => `o${i}: organization(login: "${user}") { id }`).join("\n")}
+        }`;
+        const result = await tryGQL(() => octokit.graphql(query));
+        if (result.data) {
+            return new Set(ghosts.filter(g => result.data[`o${ghosts.indexOf(g)}`] === null));
+        }
+    }
+
+    return new Set(ghosts);
 }
 
 /**

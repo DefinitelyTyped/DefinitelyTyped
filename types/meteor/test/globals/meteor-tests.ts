@@ -3,6 +3,12 @@
 // that don't have corresponding globals belong in
 // `meteor-tests-module-only.ts`.
 
+declare namespace Meteor {
+    interface UserProfile {
+        name?: string | undefined;
+    }
+}
+
 /**
  * All code below was copied from the examples at http://docs.meteor.com/.
  * When necessary, code was added to make the examples work (e.g. declaring a variable
@@ -669,7 +675,7 @@ namespace MeteorTests {
     Accounts.emailTemplates.siteName = 'AwesomeSite';
     Accounts.emailTemplates.from = 'AwesomeSite Admin <accounts@example.com>';
     Accounts.emailTemplates.enrollAccount.subject = function (user) {
-        return 'Welcome to Awesome Town, ' + user.profile.name;
+        return 'Welcome to Awesome Town, ' + user.profile?.name;
     };
     Accounts.emailTemplates.enrollAccount.text = function (user: any, url: string) {
         return (
@@ -1026,7 +1032,7 @@ namespace MeteorTests {
     Accounts.emailTemplates.headers = { asdf: 'asdf', qwer: 'qwer' };
 
     Accounts.emailTemplates.enrollAccount.subject = function (user: Meteor.User) {
-        return 'Welcome to Awesome Town, ' + user.profile.name;
+        return 'Welcome to Awesome Town, ' + user.profile?.name;
     };
     Accounts.emailTemplates.enrollAccount.html = function (user: Meteor.User, url: string) {
         return '<h1>Some html here</h1>';

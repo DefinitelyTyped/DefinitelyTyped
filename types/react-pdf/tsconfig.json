@@ -17,7 +17,8 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
-        "jsx": "react"
+        "jsx": "react",
+        "target": "es6"
     },
     "files": [
         "index.d.ts",

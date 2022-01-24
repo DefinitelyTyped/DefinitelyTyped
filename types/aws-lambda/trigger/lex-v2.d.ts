@@ -105,6 +105,7 @@ export interface LexV2Result {
         intent?: {
             name?: string;
             state: LexV2IntentState;
+            slots?: { [name: string]: LexV2Slot };
         };
     };
     messages?: LexV2Message[];

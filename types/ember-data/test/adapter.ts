@@ -64,7 +64,7 @@ const UseAjaxOptions = DS.JSONAPIAdapter.extend({
         const options = this.ajaxOptions(url, 'DELETE', {
             foo: 'bar',
         });
-        return Ember.$.ajax(url, {
+        return fetch(url, {
             ...options,
         });
     },
@@ -74,7 +74,7 @@ const UseAjaxOptionsWithOptionalThirdParams = DS.JSONAPIAdapter.extend({
     query(store: DS.Store, type: string, query: object) {
         const url = 'https://api.example.com/my-api';
         const options = this.ajaxOptions(url, 'DELETE');
-        return Ember.$.ajax(url, {
+        return fetch(url, {
             ...options,
         });
     },

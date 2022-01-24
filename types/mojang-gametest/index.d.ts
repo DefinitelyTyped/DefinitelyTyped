@@ -284,6 +284,11 @@ export class SimulatedPlayer extends mojangminecraft.Player {
      */
     readonly "dimension": mojangminecraft.Dimension;
     /**
+     * Location of the center of the head component of the player.
+     * @throws This property can throw when used.
+     */
+    readonly "headLocation": mojangminecraft.Location;
+    /**
      * Rotation of the head across pitch and yaw angles.
      * @throws This property can throw when used.
      */
@@ -312,6 +317,10 @@ export class SimulatedPlayer extends mojangminecraft.Player {
      */
     "nameTag": string;
     /**
+     * Manages the selected slot in the player's hotbar.
+     */
+    "selectedSlot": number;
+    /**
      * Retrieves or sets an entity that is used as the target of
      * AI-related behaviors, like attacking.
      */
@@ -320,7 +329,12 @@ export class SimulatedPlayer extends mojangminecraft.Player {
      * Current speed of the player across X, Y, and Z dimensions.
      * @throws This property can throw when used.
      */
-    readonly "velocity": mojangminecraft.Location;
+    readonly "velocity": mojangminecraft.Vector;
+    /**
+     * Vector of the current view of the player.
+     * @throws This property can throw when used.
+     */
+    readonly "viewVector": mojangminecraft.Vector;
     /**
      * @remarks
      * Adds an effect, like poison, to the entity.
@@ -365,7 +379,7 @@ export class SimulatedPlayer extends mojangminecraft.Player {
      * @remarks
      * Destroys the block at blockLocation, respecting the rules of
      * the server player's game mode. The block will be hit until
-     * broken, an item is used or stopDestroyBlock is called.
+     * broken, an item is used or stopBreakingBlock is called.
      * Returns true if the block at blockLocation is solid.
      * @param blockLocation
      * Location of the block to interact with.
@@ -373,7 +387,16 @@ export class SimulatedPlayer extends mojangminecraft.Player {
      * Direction to place the specified item within.
      * @throws This function can throw errors.
      */
-    destroyBlock(blockLocation: mojangminecraft.BlockLocation, direction?: number): boolean;
+    breakBlock(blockLocation: mojangminecraft.BlockLocation, direction?: number): boolean;
+    /**
+     * @remarks
+     * Gets the first block that intersects with the vector of the
+     * view of this entity.
+     * @param options
+     * Additional options for processing this raycast query.
+     * @throws This function can throw errors.
+     */
+    getBlockFromViewVector(options?: mojangminecraft.BlockRaycastOptions): mojangminecraft.Block;
     /**
      * @remarks
      * Gets a component (that represents additional capabilities)
@@ -404,10 +427,39 @@ export class SimulatedPlayer extends mojangminecraft.Player {
     getEffect(effectType: mojangminecraft.EffectType): mojangminecraft.Effect;
     /**
      * @remarks
+     * Gets the first entity that intersects with the vector of the
+     * view of this entity.
+     * @param options
+     * Additional options for processing this raycast query.
+     * @throws This function can throw errors.
+     */
+    getEntitiesFromViewVector(options?: mojangminecraft.EntityRaycastOptions): mojangminecraft.Entity[];
+    /**
+     * @remarks
+     * Gets the current item cooldown time for a particular
+     * cooldown category.
+     * @param itemCategory
+     * Specifies the cooldown category to retrieve the current
+     * cooldown for.
+     * @throws This function can throw errors.
+     */
+    getItemCooldown(itemCategory: string): number;
+    /**
+     * @remarks
      * Returns all tags associated with this simulated player.
      * @throws This function can throw errors.
      */
     getTags(): string[];
+    /**
+     * @remarks
+     * Gives the simulated player a particular item stack.
+     * @param itemStack
+     * Item to give.
+     * @param selectSlot
+     * Whether to set the selected slot once given.
+     * @throws This function can throw errors.
+     */
+    giveItem(itemStack: mojangminecraft.ItemStack, selectSlot?: boolean): boolean;
     /**
      * @remarks
      * Returns true if the specified component is present on this
@@ -619,14 +671,6 @@ export class SimulatedPlayer extends mojangminecraft.Player {
     runCommand(commandString: string): any;
     /**
      * @remarks
-     * Selects the provided slot in the player's hotbar.
-     * @param slot
-     * Index of the hotbar slot, ranging from 0 through 8.
-     * @throws This function can throw errors.
-     */
-    selectSlot(slot: number): void;
-    /**
-     * @remarks
      * Causes the simulated player to turn to face the provided
      * angle, relative to the GameTest.
      * @param angleInDegrees
@@ -635,10 +679,51 @@ export class SimulatedPlayer extends mojangminecraft.Player {
     setBodyRotation(angleInDegrees: number): void;
     /**
      * @remarks
+     * Sets the game mode that the simulated player is operating
+     * under.
+     * @param gameMode
+     * Game mode to set.
+     * @throws This function can throw errors.
+     */
+    setGameMode(gameMode: mojangminecraft.GameMode): void;
+    /**
+     * @remarks
+     * Sets a particular item for the simulated player.
+     * @param itemStack
+     * Item to set.
+     * @param slot
+     * Slot to place the given item in.
+     * @param selectSlot
+     * Whether to set the selected slot once set.
+     * @throws This function can throw errors.
+     */
+    setItem(itemStack: mojangminecraft.ItemStack, slot: number, selectSlot?: boolean): boolean;
+    /**
+     * @remarks
+     * Sets a velocity for the entity to move with.
+     * @param velocity
+     * X/Y/Z components of the velocity.
+     * @throws This function can throw errors.
+     */
+    setVelocity(velocity: mojangminecraft.Vector): void;
+    /**
+     * @remarks
+     * Sets the item cooldown time for a particular cooldown
+     * category.
+     * @param itemCategory
+     * Specifies the cooldown category to retrieve the current
+     * cooldown for.
+     * @param tickDuration
+     * Duration in ticks of the item cooldown.
+     * @throws This function can throw errors.
+     */
+    startItemCooldown(itemCategory: string, tickDuration: number): void;
+    /**
+     * @remarks
      * Stops destroying the block that is currently being hit.
      * @throws This function can throw errors.
      */
-    stopDestroyingBlock(): void;
+    stopBreakingBlock(): void;
     /**
      * @remarks
      * Stops interacting with entities or blocks.
@@ -658,6 +743,33 @@ export class SimulatedPlayer extends mojangminecraft.Player {
      * @throws This function can throw errors.
      */
     stopUsingItem(): void;
+    /**
+     * @remarks
+     * Teleports the selected player to a new location
+     * @param location
+     * New location for the player.
+     * @param dimension
+     * Dimension to move the selected player to.
+     * @param xRotation
+     * X rotation of the player after teleportation.
+     * @param yRotation
+     * Y rotation of the player after teleportation.
+     * @throws This function can throw errors.
+     */
+    teleport(location: mojangminecraft.Location, dimension: mojangminecraft.Dimension, xRotation: number, yRotation: number): void;
+    /**
+     * @remarks
+     * Teleports the selected player to a new location, and will
+     * have the player facing a specified location.
+     * @param location
+     * New location for the player.
+     * @param dimension
+     * Dimension to move the selected player to.
+     * @param facingLocation
+     * Location that this player will be facing.
+     * @throws This function can throw errors.
+     */
+    teleportFacing(location: mojangminecraft.Location, dimension: mojangminecraft.Dimension, facingLocation: mojangminecraft.Location): void;
     /**
      * @remarks
      * Triggers an entity type event. For every entity, a number of
@@ -1346,9 +1458,10 @@ export class Test {
      * Location where to spawn the simulated player.
      * @param name
      * Name to give the new simulated player.
+     * @param gameMode
      * @throws This function can throw errors.
      */
-    spawnSimulatedPlayer(blockLocation: mojangminecraft.BlockLocation, name?: string): SimulatedPlayer;
+    spawnSimulatedPlayer(blockLocation: mojangminecraft.BlockLocation, name?: string, gameMode?: mojangminecraft.GameMode): SimulatedPlayer;
     /**
      * @remarks
      * Spawns an entity at a location without any AI behaviors.
@@ -1544,7 +1657,7 @@ export class Test {
      * Adjustable modifier to the mob's walking speed.
      * @throws This function can throw errors.
      */
-    walkTo(mob: mojangminecraft.Entity, blockLocation: mojangminecraft.BlockLocation, speedModifier: number): void;
+    walkTo(mob: mojangminecraft.Entity, blockLocation: mojangminecraft.BlockLocation, speedModifier?: number): void;
     /**
      * @remarks
      * Forces a mob to walk to a particular location. Usually used
@@ -1559,7 +1672,7 @@ export class Test {
      * Adjustable modifier to the mob's walking speed.
      * @throws This function can throw errors.
      */
-    walkToLocation(mob: mojangminecraft.Entity, location: mojangminecraft.Location, speedModifier: number): void;
+    walkToLocation(mob: mojangminecraft.Entity, location: mojangminecraft.Location, speedModifier?: number): void;
     /**
      * @remarks
      * From a BlockLocation with coordinates relative to the
@@ -1611,3 +1724,27 @@ export class Test {
  * ```
  */
 export function register(testClassName: string, testName: string, testFunction: (arg: Test) => void): RegistrationBuilder;
+/**
+ * @remarks
+ * Registers a new GameTest function that is designed for
+ * asynchronous execution. This GameTest will become available
+ * in Minecraft via /gametest run [testClassName]:[testName].
+ * @param testClassName
+ * Name of the class of tests this test should be a part of.
+ * @param testName
+ * Name of this specific test.
+ * @param testFunction
+ * Implementation of the test function.
+ * @returns
+ * Returns a {@link mojang-gametest.RegistrationBuilder} object where
+ * additional options for this test can be specified via
+ * builder methods.
+ * @example example1.js
+ * ```typescript
+ *        GameTest.register("ExampleTests", "alwaysFail", (test) => {
+ *        test.fail("This test, runnable via '/gametest run ExampleTests:alwaysFail', will always fail");
+ *        });
+ *
+ * ```
+ */
+export function registerAsync(testClassName: string, testName: string, testFunction: (arg: Test) => Promise<void>): RegistrationBuilder;

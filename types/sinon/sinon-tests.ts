@@ -298,18 +298,52 @@ function testMatch() {
 
 function testFake() {
     const fn = () => {};
-    let fake = sinon.fake();
+    const fake1 = sinon.fake();
 
-    fake = sinon.fake(() => true);
-    fake = sinon.fake.returns(5);
-    fake = sinon.fake.throws("foo");
-    fake = sinon.fake.throws(new Error("foo"));
-    fake = sinon.fake.resolves("foo");
-    fake = sinon.fake.rejects("foo");
-    fake = sinon.fake.yields(1, 2, fn);
-    fake = sinon.fake.yieldsAsync(1, 2, fn);
+    fake1.args; // $ExpectType any[][]
+    fake1.firstCall.returnValue; // $ExpectType any
 
-    fake.calledWith("foo");
+    const fake2 = sinon.fake(() => true);
+
+    fake2.args; // $ExpectType [][]
+    fake2.firstCall.returnValue; // $ExpectType boolean
+
+    const fake3 = sinon.fake.returns(5);
+
+    fake3.args; // $ExpectType any[][]
+    fake3.firstCall.returnValue; // $ExpectType number
+
+    const fake4 = sinon.fake.throws('foo');
+
+    fake4.args; // $ExpectType any[][]
+    fake4.firstCall.returnValue; // $ExpectType any
+
+    const fake5 = sinon.fake.throws(new Error('foo'));
+
+    fake5.args; // $ExpectType any[][]
+    fake5.firstCall.returnValue; // $ExpectType any
+
+    const fake6 = sinon.fake.resolves('foo');
+
+    fake6.args; // $ExpectType any[][]
+    fake6.firstCall.returnValue; // $ExpectType any
+
+    const fake7 = sinon.fake.rejects('foo');
+
+    fake7.args; // $ExpectType any[][]
+    fake7.firstCall.returnValue; // $ExpectType any
+
+    const fake8 = sinon.fake.yields(1, 2, fn);
+
+    fake8.args; // $ExpectType any[][]
+    fake8.firstCall.returnValue; // $ExpectType any
+
+    const fake9 = sinon.fake.yieldsAsync(1, 2, fn);
+
+    fake9.args; // $ExpectType any[][]
+    fake9.firstCall.returnValue; // $ExpectType any
+
+    fake9.calledWith('foo');
 }
 
 function testAssert() {
@@ -753,4 +787,75 @@ async function testPromises() {
     const executor2 = sinon.promise<string>((resolve, reject) => {
         reject('some error');
     });
+}
+
+async function testTypedFake() {
+    const fake1: sinon.SinonSpy<[number, string], boolean> = sinon.fake((arg1, arg2) => {
+        arg1; // $ExpectType number
+        arg2; // $ExpectType string
+        return true;
+    });
+    fake1(42, ''); // $ExpectType boolean
+    fake1.firstCall.args; // $ExpectType [number, string]
+    fake1.firstCall.returnValue; // $ExpectType boolean
+    fake1.calledWith(21, 'foo');
+    fake1.calledWith(true, 21); // $ExpectError
+
+    const fake2 = sinon.fake<[boolean, string], number>();
+
+    fake2.args; // $ExpectType [boolean, string][]
+    fake2.firstCall.returnValue; // $ExpectType number
+
+    const fake3 = sinon.fake.returns<[boolean, string], number>(42);
+
+    fake3.args; // $ExpectType [boolean, string][]
+    fake3.firstCall.returnValue; // $ExpectType number
+
+    const fake4 = sinon.fake.throws<[boolean, string], number>('');
+
+    fake4.args; // $ExpectType [boolean, string][]
+    fake4.firstCall.returnValue; // $ExpectType number
+
+    const fake5 = sinon.fake.resolves<[boolean, string], Promise<number>>(42);
+
+    fake5.args; // $ExpectType [boolean, string][]
+    fake5.firstCall.returnValue; // $ExpectType Promise<number>
+    await fake5(true, ''); // $ExpectType number
+
+    const fake6 = sinon.fake.rejects<[boolean, string], Promise<number>>('');
+
+    fake6.args; // $ExpectType [boolean, string][]
+    fake6.firstCall.returnValue; // $ExpectType Promise<number>
+    await fake6(true, ''); // $ExpectType number
+
+    const fake7 = sinon.fake.yields<[boolean, string], number>();
+
+    fake7.args; // $ExpectType [boolean, string][]
+    fake7.firstCall.returnValue; // $ExpectType number
+
+    const fake8 = sinon.fake.yieldsAsync<[boolean, string], number>();
+
+    fake8.args; // $ExpectType [boolean, string][]
+    fake8.firstCall.returnValue; // $ExpectType number
+
+    const fake9 = sinon.fake.returns('foo');
+
+    fake9.args; // $ExpectType any[][]
+    fake9.firstCall.returnValue; // $ExpectType string
+
+    const fake10 = sinon.fake.resolves('foo');
+
+    fake10.args; // $ExpectType any[][]
+    fake10.firstCall.returnValue; // $ExpectType any
+
+    const typedFn = (...args: [number, string]): boolean => {
+        return true;
+    };
+
+    const fake11 = sinon.fake(typedFn);
+
+    fake11.firstCall.args; // $ExpectType [number, string]
+    fake11.firstCall.returnValue; // $ExpectType boolean
+
+    sinon.fake<[boolean, string], number>(typedFn); // $ExpectError
 }

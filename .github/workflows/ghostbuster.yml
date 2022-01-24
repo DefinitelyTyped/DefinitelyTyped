@@ -2,8 +2,8 @@ name: Remove contributors with deleted accounts
 
 on:
   schedule:
-    # https://crontab.guru/#0_0_*_*_*
-    - cron: "0 0 * * *"
+    # https://crontab.guru/#0_0_*_*_1
+    - cron: "0 0 * * 1"
   workflow_dispatch:
     inputs:
       skipPR:
