@@ -124,6 +124,7 @@ Route.extend({
 
 const route = Route.create();
 route.controllerFor('whatever'); // $ExpectType Controller
+route.paramsFor('whatever'); // $ExpectType object
 
 class RouteUsingClass extends Route.extend({
     randomProperty: 'the .extend + extends bit type-checks properly',
