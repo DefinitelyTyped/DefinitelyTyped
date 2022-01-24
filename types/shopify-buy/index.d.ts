@@ -100,6 +100,9 @@ declare namespace ShopifyBuy {
          * Update line item quantities based on an array of line item ids
          */
         updateLineItems(checkoutId: string | number, lineItems: AttributeInput[]): Promise<Cart>;
+
+        // added manually
+        updateAttributes(checkoutId: string | number, input: CustomAttributeV2): Promise<Cart>;
     }
 
     export interface ShopResource {
@@ -281,6 +284,13 @@ declare namespace ShopifyBuy {
         value: string;
     }
 
+    export interface CustomAttributeV2 {
+        customAttributes: {
+            key: string | undefined;
+            value: string;
+        }[];
+    }
+
     export interface Collection {
         handle: string;
         body_html: string;
@@ -328,6 +338,9 @@ declare namespace ShopifyBuy {
          * Get completed at date.
          */
         completedAt: string | null;
+
+        // manually added
+        webUrl: string;
     }
 
     export interface LineItem extends GraphModel {
