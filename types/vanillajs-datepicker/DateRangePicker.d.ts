@@ -11,7 +11,7 @@ export default class DateRangePicker {
     inputs: HTMLElement[];
     datepickers: Datepicker[];
 
-	get dates(): Date[] | undefined;
+    get dates(): Date[] | undefined;
 
     setOptions(options: object): void;
 
