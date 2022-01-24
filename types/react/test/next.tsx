@@ -29,11 +29,11 @@ const subscribe: React.MutableSourceSubscribe<Window> = (window, callback) => {
 function useExperimentalHooks() {
     const [toggle, setToggle] = React.useState(false);
 
-    const [done, startTransition] = React.useTransition();
+    React.useTransition();
+    React.useTransition({});
+    const [done, startTransition] = React.useTransition({ timeoutMs: 1000 });
     // $ExpectType boolean
     done;
-
-    React.useTransition({ timeoutMs: 1000 });
 
     // $ExpectType boolean
     const deferredToggle = React.useDeferredValue(toggle);
