@@ -1244,3 +1244,9 @@ function testEnterpriseDeviceAttributes() {
   chrome.enterprise.deviceAttributes.getDeviceAnnotatedLocation((annotatedLocation) => {});
   chrome.enterprise.deviceAttributes.getDeviceHostname((hostName) => {});
 }
+
+function testBrowsingData() {
+    chrome.browsingData.removeServiceWorkers(); // $ExpectError
+    chrome.browsingData.removeServiceWorkers({});
+    chrome.browsingData.removeServiceWorkers({}, () => {});
+}
