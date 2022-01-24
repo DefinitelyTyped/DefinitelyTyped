@@ -80,7 +80,10 @@ const handler: LexV2Handler = async (event, context, callback) => {
             },
             intent: {
                 state: 'Fulfilled',
-                name: 'MyIntent'
+                name: 'MyIntent',
+                slots: {
+                    str: slot
+                }
             },
         },
         messages: [
