@@ -1,5 +1,6 @@
 import { BlockInstance } from '@wordpress/blocks';
 import * as be from '@wordpress/block-editor';
+import * as UseBlockProps from '@wordpress/block-editor/components/use-block-props';
 import { dispatch, select } from '@wordpress/data';
 import { useRef } from 'react';
 
@@ -536,33 +537,22 @@ select('core/block-editor').getAdjacentBlockClientId('foo');
 select('core/block-editor').getAdjacentBlockClientId('foo', -1);
 select('core/block-editor').getAdjacentBlockClientId('foo', 1);
 
-const _reserved: be.UseBlockProps.Reserved = {
-    id: 'test',
-    role: 'document',
-    tabIndex: 0,
-    'aria-label': 'aria-label',
-    'data-block': 'data-block',
-    'data-type': 'data-type',
-    'data-title': 'data-title',
-};
+{
+  const blockProps: UseBlockProps.Merged & UseBlockProps.Reserved = be.useBlockProps();
+  blockProps;
+}
 
-const _merged: be.UseBlockProps.Merged = {
-    className: 'test',
-    style: {
-        hello: 'world',
-        other: { whatherver: true },
-    },
-    ref: () => useRef({ hello: { world: true } }),
-};
+{
+  const blockProps = be.useBlockProps({ foo: "bar" });
+  // $ExpectType string
+  blockProps.foo;
+}
 
-// $ExpectType Omit<Record<string, unknown>, "ref"> & Merged & Reserved
-be.useBlockProps();
-
-// $ExpectType Omit<{ foo: string; }, "ref"> & Merged & Reserved
-be.useBlockProps({ foo: "bar" });
-
-// $ExpectType Omit<{ ref: MutableRefObject<string>; }, "ref"> & Merged & Reserved
-be.useBlockProps({ ref: useRef("test") });
+{
+  const blockProps = be.useBlockProps({ ref: useRef("test") });
+  // $ExpectType (instance: unknown) => void
+  blockProps.ref;
+}
 
 // $ExpectType Record<string, unknown>
 be.useBlockProps.save();
