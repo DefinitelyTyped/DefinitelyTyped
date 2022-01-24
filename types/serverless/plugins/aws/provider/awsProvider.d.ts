@@ -430,6 +430,7 @@ declare namespace Aws {
         arn: string | { [key: string]: any };
         batchSize?: number | string | undefined;
         maximumRetryAttempts?: number | string | undefined;
+        functionResponseType?: string | undefined;
         enabled?: boolean | undefined;
     }
 
