@@ -33,6 +33,8 @@ function useExperimentalHooks() {
     // $ExpectType boolean
     done;
 
+    React.useTransition({ timeoutMs: 1000 });
+
     // $ExpectType boolean
     const deferredToggle = React.useDeferredValue(toggle);
 
