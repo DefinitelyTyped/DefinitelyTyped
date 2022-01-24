@@ -177,3 +177,12 @@ class WithParamsInModel extends Route<boolean, RouteParams> {
 
 // @ts-expect-error
 class WithNonsenseParams extends Route<boolean, number> {}
+
+class WithImplicitParams extends Route {
+    model(params: RouteParams) {
+        return { whatUp: 'dog' };
+    }
+}
+
+// $ExpectType RouteParams
+type ImplicitParams = WithImplicitParams extends Route<any, infer T> ? T : never;
