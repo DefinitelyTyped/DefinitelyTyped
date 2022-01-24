@@ -75,6 +75,12 @@
 
     dirHandle = await navigator.storage.getDirectory();
 
+    // test if feature detection can be used
+    if (typeof FileSystemHandle !== 'undefined') {}
+    if (typeof FileSystemFileHandle !== 'undefined') {}
+    if (typeof FileSystemDirectoryHandle !== 'undefined') {}
+    if (typeof FileSystemWritableFileStream !== 'undefined') {}
+
     // Testing Chromium <=85 methods, remove when all Chromium-based browsers have upgraded.
 
     fileHandle = await chooseFileSystemEntries();
