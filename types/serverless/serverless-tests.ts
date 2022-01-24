@@ -553,7 +553,8 @@ const awsServerless: Aws.Serverless = {
                         arn: 'testarn',
                         batchSize: 1,
                         maximumRetryAttempts: 1,
-                        enabled: true
+                        enabled: true,
+                        functionResponseType: 'ReportBatchItemFailures'
                     }
                 }, {
                     activemq: {
