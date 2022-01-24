@@ -26,4 +26,3 @@ export function clearCache(cacheDirName: string, tmpDir: string, callback: Callb
 export function clearCache(callback: Callback): void;
 
 export function gruntPlugin(grunt: IGrunt): void;
-
