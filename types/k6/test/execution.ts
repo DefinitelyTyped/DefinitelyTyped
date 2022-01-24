@@ -21,3 +21,7 @@ execution.vu.tags['mytag'] = 'value1';
 execution.vu.tags['mytag2'] = 2;
 execution.vu.tags['mytag3'] = true;
 execution.vu.tags['mytag4'] = [1, 2, 3]; // $ExpectError
+
+execution.test.abort(); // $ExpectType void
+execution.test.abort('this is the reason'); // $ExpectType void
+execution.test.abort(2); // $ExpectError
