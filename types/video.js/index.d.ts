@@ -633,13 +633,32 @@ declare namespace videojs {
         new (player: Player, options?: AudioTrackMenuItemOptions): AudioTrackMenuItem;
     };
 
-    interface VideojsAudioTrack {
+    interface VideojsAudioTrack extends Track {
         enabled: boolean;
         readonly id: string;
         kind: string;
         readonly label: string;
         language: string;
         readonly sourceBuffer: SourceBuffer | null;
+    }
+
+    /**
+     * The current list of {@link VideojsAudioTrack} for a media file.
+     *
+     * @see [Spec]{@link https://html.spec.whatwg.org/multipage/media.html#audiotracklist}
+     */
+     interface AudioTrackList extends TrackList {
+        [index: number]: VideojsAudioTrack;
+
+        /**
+         * Add a {@link VideojsAudioTrack} to the `AudioTrackList`
+         *
+         * @param track
+         *        The audio track to add to the list.
+         *
+         * @fires TrackList#addtrack
+         */
+        addTrack(track: VideojsAudioTrack): void;
     }
 
     interface AudioTrackMenuItemOptions extends MenuItemOptions {
@@ -6096,6 +6115,12 @@ export interface VideoJsPlayer extends videojs.Component {
      * @return The current remote text track list
      */
     textTracks(): TextTrackList;
+
+    /**
+     * Get the remote {@link videojs.AudioTrackList}
+     * @return The current remote audio track list
+     */
+    audioTracks(): videojs.AudioTrackList;
 
     /**
      * Get the remote {@link TextTrackList}
