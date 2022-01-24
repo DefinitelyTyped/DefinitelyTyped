@@ -29,10 +29,7 @@ export type HighlightCallback = (element: Element) => void;
  * @param [async=false] Same as in {@link Prism.highlightAllUnder}.
  * @param [callback] Same as in {@link Prism.highlightAllUnder}.
  */
-export function highlightAll(
-    async?: boolean,
-    callback?: HighlightCallback
-): void;
+export function highlightAll(async?: boolean, callback?: HighlightCallback): void;
 
 /**
  * Fetches all the descendants of `container` that have a `.language-xxxx` class and then calls
@@ -46,11 +43,7 @@ export function highlightAll(
  * @param [async=false] Whether each element is to be highlighted asynchronously using Web Workers.
  * @param [callback] An optional callback to be invoked on each element after its highlighting is done.
  */
-export function highlightAllUnder(
-    container: ParentNode,
-    async?: boolean,
-    callback?: HighlightCallback
-): void;
+export function highlightAllUnder(container: ParentNode, async?: boolean, callback?: HighlightCallback): void;
 
 /**
  * Highlights the code inside a single element.
@@ -75,11 +68,7 @@ export function highlightAllUnder(
  * @param [callback] An optional callback to be invoked after the highlighting is done.
  * Mostly useful when `async` is `true`, since in that case, the highlighting is done asynchronously.
  */
-export function highlightElement(
-    element: Element,
-    async?: boolean,
-    callback?: HighlightCallback
-): void;
+export function highlightElement(element: Element, async?: boolean, callback?: HighlightCallback): void;
 
 /**
  * Low-level function, only use if you know what you’re doing. It accepts a string of text as input
@@ -100,11 +89,7 @@ export function highlightElement(
  * @example
  * Prism.highlight('var foo = true;', Prism.languages.js, 'js');
  */
-export function highlight(
-    text: string,
-    grammar: Grammar,
-    language: string
-): string;
+export function highlight(text: string, grammar: Grammar, language: string): string;
 
 /**
  * This is the heart of Prism, and the most low-level function you can use. It accepts a string of text as input
@@ -120,10 +105,7 @@ export function highlight(
  * Usually a language definition like `Prism.languages.markup`.
  * @returns An array of strings, tokens and other arrays.
  */
-export function tokenize(
-    text: string,
-    grammar: Grammar
-): Array<string | Token>;
+export function tokenize(text: string, grammar: Grammar): Array<string | Token>;
 
 export interface Environment extends Record<string, any> {
     selector?: string | undefined;
@@ -149,16 +131,16 @@ export namespace util {
     function encode(tokens: TokenStream): TokenStream;
 
     /** Determine the type of the object */
-    function type(o: null): "Null";
-    function type(o: undefined): "Undefined";
+    function type(o: null): 'Null';
+    function type(o: undefined): 'Undefined';
     // tslint:disable:ban-types
-    function type(o: boolean | Boolean): "Boolean";
-    function type(o: number | Number): "Number";
-    function type(o: string | String): "String";
-    function type(o: Function): "Function";
+    function type(o: boolean | Boolean): 'Boolean';
+    function type(o: number | Number): 'Number';
+    function type(o: string | String): 'String';
+    function type(o: Function): 'Function';
     // tslint:enable:ban-types
-    function type(o: RegExp): "RegExp";
-    function type(o: any[]): "Array";
+    function type(o: RegExp): 'RegExp';
+    function type(o: any[]): 'Array';
     function type(o: any): string;
 
     /** Get the unique id of this object or give it one if it does not have one */
@@ -185,7 +167,7 @@ export interface GrammarRest {
     important?: GrammarValue | undefined;
     style?: GrammarValue | undefined;
     comment?: GrammarValue | undefined;
-    "class-name"?: GrammarValue | undefined;
+    'class-name'?: GrammarValue | undefined;
 
     /**
      * An optional grammar object that will appended to this grammar.
@@ -277,12 +259,7 @@ export interface LanguageMapProtocol {
      *     'style': { ... }
      * });
      */
-    insertBefore(
-        inside: string,
-        before: string,
-        insert: Grammar,
-        root?: LanguageMap
-    ): Grammar;
+    insertBefore(inside: string, before: string, insert: Grammar, root?: LanguageMap): Grammar;
 }
 
 export namespace hooks {
@@ -293,37 +270,26 @@ export namespace hooks {
     type HookTypes = keyof HookEnvironmentMap;
 
     interface HookEnvironmentMap {
-        "before-highlightall": RequiredEnvironment<"selector">;
+        'before-highlightall': RequiredEnvironment<'selector'>;
 
-        "before-sanity-check": ElementEnvironment;
-        "before-highlight": ElementEnvironment;
+        'before-sanity-check': ElementEnvironment;
+        'before-highlight': ElementEnvironment;
 
-        "before-insert": ElementHighlightedEnvironment;
-        "after-highlight": ElementHighlightedEnvironment;
+        'before-insert': ElementHighlightedEnvironment;
+        'after-highlight': ElementHighlightedEnvironment;
         complete: ElementHighlightedEnvironment;
 
-        "before-tokenize": TokenizeEnvironment;
-        "after-tokenize": TokenizeEnvironment;
+        'before-tokenize': TokenizeEnvironment;
+        'after-tokenize': TokenizeEnvironment;
 
-        wrap: RequiredEnvironment<
-            "type" | "content" | "tag" | "classes" | "attributes" | "language"
-        >;
+        wrap: RequiredEnvironment<'type' | 'content' | 'tag' | 'classes' | 'attributes' | 'language'>;
     }
 
-    type RequiredEnvironment<
-        T extends keyof Environment,
-        U extends Environment = Environment
-    > = U & Required<Pick<U, T>>;
-    type ElementEnvironment = RequiredEnvironment<
-        "element" | "language" | "grammar" | "code"
-    >;
-    type ElementHighlightedEnvironment = RequiredEnvironment<
-        "highlightedCode",
-        ElementEnvironment
-    >;
-    type TokenizeEnvironment = RequiredEnvironment<
-        "code" | "grammar" | "language"
-    >;
+    type RequiredEnvironment<T extends keyof Environment, U extends Environment = Environment> = U &
+        Required<Pick<U, T>>;
+    type ElementEnvironment = RequiredEnvironment<'element' | 'language' | 'grammar' | 'code'>;
+    type ElementHighlightedEnvironment = RequiredEnvironment<'highlightedCode', ElementEnvironment>;
+    type TokenizeEnvironment = RequiredEnvironment<'code' | 'grammar' | 'language'>;
 
     interface RegisteredHooks {
         [hook: string]: HookCallback[];
@@ -342,10 +308,7 @@ export namespace hooks {
      * @param name The name of the hook.
      * @param callback The callback function which is given environment variables.
      */
-    function add<K extends keyof HookEnvironmentMap>(
-        name: K,
-        callback: (env: HookEnvironmentMap[K]) => void
-    ): void;
+    function add<K extends keyof HookEnvironmentMap>(name: K, callback: (env: HookEnvironmentMap[K]) => void): void;
     function add(name: string, callback: HookCallback): void;
 
     /**
@@ -356,10 +319,7 @@ export namespace hooks {
      * @param name The name of the hook.
      * @param env The environment variables of the hook passed to all callbacks registered.
      */
-    function run<K extends keyof HookEnvironmentMap>(
-        name: K,
-        env: HookEnvironmentMap[K]
-    ): void;
+    function run<K extends keyof HookEnvironmentMap>(name: K, env: HookEnvironmentMap[K]): void;
     function run(name: string, env: Environment): void;
 }
 
@@ -375,13 +335,7 @@ export class Token {
      * @param [matchedStr=""] A copy of the full string this token was created from.
      * @param [greedy=false] See {@link Prism.Token#greedy greedy}
      */
-    constructor(
-        type: string,
-        content: TokenStream,
-        alias?: string | string[],
-        matchedStr?: string,
-        greedy?: boolean
-    );
+    constructor(type: string, content: TokenStream, alias?: string | string[], matchedStr?: string, greedy?: boolean);
 
     /**
      * The type of the token.
@@ -427,9 +381,5 @@ export class Token {
      * @param [parent] The parent token stream, if any.
      * @return The HTML representation of the token or token stream.
      */
-    static stringify(
-        token: TokenStream,
-        language: string,
-        parent?: Array<string | Token>
-    ): string;
+    static stringify(token: TokenStream, language: string, parent?: Array<string | Token>): string;
 }
