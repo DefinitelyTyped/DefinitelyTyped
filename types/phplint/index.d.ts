@@ -27,4 +27,3 @@ export function clearCache(callback: Callback): void;
 
 export function gruntPlugin(grunt: IGrunt): void;
 
-export {};
