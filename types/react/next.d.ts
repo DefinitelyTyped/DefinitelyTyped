@@ -70,6 +70,13 @@ declare module '.' {
      */
     export function useDeferredValue<T>(value: T): T;
 
+    export interface useTransitionConfig {
+        /**
+         * This timeout (in milliseconds) tells React how long to wait before showing the next state
+         */
+        timeoutMs?: number | undefined;
+    }
+
     /**
      * Allows components to avoid undesirable loading states by waiting for content to load
      * before transitioning to the next screen. It also allows components to defer slower,
@@ -87,7 +94,7 @@ declare module '.' {
      *
      * @see https://reactjs.org/docs/concurrent-mode-reference.html#usetransition
      */
-    export function useTransition(): [boolean, TransitionStartFunction];
+    export function useTransition(config?: useTransitionConfig): [boolean, TransitionStartFunction];
 
     /**
      * Similar to `useTransition` but allows uses where hooks are not available.
