@@ -2,6 +2,13 @@ import * as Prism from 'prismjs';
 import * as components from 'prismjs/components';
 import loadLanguages = require('prismjs/components/');
 
+const myGrammar: Prism.Grammar = {
+    'my-sub-grammar': {
+        pattern: /arbitraryRegex/,
+    },
+    rest: Prism.languages.js,
+};
+
 const element = document.createElement('code');
 const container = document.querySelector('div');
 const callback = (element: Element) => console.log(element);

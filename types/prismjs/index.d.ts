@@ -151,7 +151,7 @@ export namespace util {
 }
 
 export type GrammarValue = RegExp | TokenObject | Array<RegExp | TokenObject>;
-export type Grammar = GrammarRest & Record<string, GrammarValue>;
+export type Grammar = GrammarRest | Record<string, GrammarValue>;
 export interface GrammarRest {
     keyword?: GrammarValue | undefined;
     number?: GrammarValue | undefined;
