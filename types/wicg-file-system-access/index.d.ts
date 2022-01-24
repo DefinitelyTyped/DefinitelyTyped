@@ -29,6 +29,8 @@ var FileSystemHandle: {
     prototype: FileSystemHandle;
     new(): FileSystemHandle;
 };
+type BaseFileSystemHandle = FileSystemFileHandle | FileSystemDirectoryHandle;
+
 interface FilePickerAcceptType {
     description?: string | undefined;
     accept: Record<string, string | string[]>;
