@@ -127,7 +127,7 @@ function useEveryHook(ref: React.Ref<{ id: number }>|undefined): () => boolean {
 
     // these are not very useful (can't assign anything else to .current)
     // but it's the only safe way to resolve them
-    // $ExpectType MutableRefObject<null>
+    // $ExpectType RefObject<null>
     React.useRef(null);
     // $ExpectType MutableRefObject<undefined>
     React.useRef(undefined);
@@ -136,15 +136,22 @@ function useEveryHook(ref: React.Ref<{ id: number }>|undefined): () => boolean {
     // it should _not_ be mutable if the generic argument doesn't include null
     // $ExpectType RefObject<number>
     React.useRef<number>(null);
+    // should _not_ be mutable if there's no argument
+    // $ExpectType RefObject<number | null>
+    React.useRef<number>();
     // but it should be mutable if it does (i.e. is not the convenience overload)
     // $ExpectType MutableRefObject<number | null>
+    React.useRef<number | null>(0);
+    // but not if the initial value is null
+    // $ExpectType RefObject<number | null>
     React.useRef<number | null>(null);
 
     // |undefined convenience overload
-    // with no contextual type or generic argument it should default to undefined only (not {} or unknown!)
-    // $ExpectType MutableRefObject<undefined>
+    // with no contextual type or generic argument it should default to unmutable null only (not {} or unknown!)
+    // $ExpectType RefObject<null>
     React.useRef();
-    // $ExpectType MutableRefObject<number | undefined>
+    // Should _not_ be mutable if there's no inital argument
+    // $ExpectType RefObject<number | null>
     React.useRef<number>();
     // don't just accept a potential undefined if there is a generic argument
     // $ExpectError
@@ -158,7 +165,7 @@ function useEveryHook(ref: React.Ref<{ id: number }>|undefined): () => boolean {
 
     // should be contextually typed
     const a: React.MutableRefObject<number | undefined> = React.useRef(undefined);
-    const b: React.MutableRefObject<number | undefined> = React.useRef();
+    const b: React.RefObject<number | null | undefined> = React.useRef();
     const c: React.MutableRefObject<number | null> = React.useRef(null);
     const d: React.RefObject<number> = React.useRef(null);
 
