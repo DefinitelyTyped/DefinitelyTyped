@@ -952,7 +952,7 @@ export class EnvelopesApi {
         documentId: string,
         optsOrCallback: DocumentOptions,
         callback?: () => void,
-    ): Promise<object>;
+    ): Promise<string>;
 
     getDocumentPageImage(
         accountId: string,
@@ -961,7 +961,7 @@ export class EnvelopesApi {
         pageNumber: string,
         optsOrCallback?: any,
         callback?: () => void,
-    ): Promise<object>;
+    ): Promise<string>;
 
     getDocumentTabs(
         accountId: string,
@@ -1029,7 +1029,7 @@ export class EnvelopesApi {
         recipientId: string,
         optsOrCallback?: any,
         callback?: () => void,
-    ): Promise<object>;
+    ): Promise<string>;
 
     getRecipientSignature(
         accountId: string,
@@ -1044,7 +1044,7 @@ export class EnvelopesApi {
         recipientId: string,
         optsOrCallback?: any,
         callback?: () => void,
-    ): Promise<object>;
+    ): Promise<string>;
 
     getTabsBlob(accountId: string, envelopeId: string, callback?: () => void): Promise<void>;
 
@@ -1653,7 +1653,7 @@ export class TemplatesApi {
         documentId: string,
         optsOrCallback?: any,
         callback?: () => void,
-    ): Promise<object>;
+    ): Promise<string>;
 
     getDocumentPageImage(
         accountId: string,
@@ -1662,7 +1662,7 @@ export class TemplatesApi {
         pageNumber: string,
         optsOrCallback?: any,
         callback?: () => void,
-    ): Promise<object>;
+    ): Promise<string>;
 
     getDocumentTabs(
         accountId: string,
@@ -1905,7 +1905,7 @@ export class UsersApi {
 
     getProfile(accountId: string, userId: string, callback?: () => void): Promise<UserProfile>;
 
-    getProfileImage(accountId: string, userId: string, optsOrCallback?: any, callback?: () => void): Promise<object>;
+    getProfileImage(accountId: string, userId: string, optsOrCallback?: any, callback?: () => void): Promise<string>;
 
     getSettings(accountId: string, userId: string, callback?: () => void): Promise<UserSettingsInformation>;
 
@@ -1918,7 +1918,7 @@ export class UsersApi {
         imageType: string,
         optsOrCallback?: any,
         callback?: () => void,
-    ): Promise<object>;
+    ): Promise<string>;
 
     list(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<UserInformationList>;
 

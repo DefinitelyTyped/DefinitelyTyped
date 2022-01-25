@@ -35,7 +35,7 @@ export interface Client {
     oauthtokens: unknown;
     organizationfields: unknown;
     organizationmemberships: unknown;
-    organizations: unknown;
+    organizations: Organizations.Methods;
     policies: unknown;
     requests: Requests.Methods;
     satisfactionratings: unknown;
@@ -200,7 +200,39 @@ export namespace Macros {
  * @see {@link https://developer.zendesk.com/rest_api/docs/support/organizations|Zendesk Organizations}
  */
 export namespace Organizations {
-    interface Model extends AuditableModel {
+    interface Methods {
+        /** Listing Organizations */
+        list(cb: ZendeskCallback<unknown, unknown>): ListPayload;
+        list(): Promise<ListPayload>;
+
+        /** Showing Organizations */
+        show(organizationId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): ResponsePayload;
+        show(organizationId: ZendeskID): Promise<ResponsePayload>;
+
+        /** Creating Organizations */
+        create(organization: CreatePayload, cb: ZendeskCallback<unknown, unknown>): ResponsePayload;
+        create(organization: CreatePayload): Promise<ResponsePayload>;
+        createMany(organizations: CreateManyPayload, cb: ZendeskCallback<unknown, unknown>): JobStatuses.ResponsePayload;
+        createMany(organizations: CreateManyPayload): Promise<JobStatuses.ResponsePayload>;
+
+        /** Updating Organizations */
+        update(organizationId: ZendeskID, organization: UpdatePayload, cb: ZendeskCallback<unknown, unknown>): ResponsePayload;
+        update(organizationId: ZendeskID, organization: UpdatePayload): Promise<ResponsePayload>;
+        updateMany(organizations: UpdateManyPayload, cb: ZendeskCallback<unknown, unknown>): JobStatuses.ResponsePayload;
+        updateMany(organizations: UpdateManyPayload): Promise<JobStatuses.ResponsePayload>;
+
+        /** Deleting Organizations */
+        delete(organizationId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): unknown;
+        delete(organizationId: ZendeskID): Promise<unknown>;
+
+        /** Searching Organizations */
+        search(params: unknown, cb: ZendeskCallback<unknown, unknown>): ListPayload;
+        search(params: unknown): Promise<ListPayload>;
+        autocomplete(params: unknown, cb: ZendeskCallback<unknown, unknown>): ListPayload;
+        autocomplete(params: unknown): Promise<ListPayload>;
+    }
+
+    interface ResponseModel extends AuditableModel {
         readonly url?: string | undefined;
         external_id?: string | null | undefined;
         name: string;
@@ -212,6 +244,42 @@ export namespace Organizations {
         shared_comments?: boolean | undefined;
         tags?: ReadonlyArray<string> | undefined;
         organization_fields?: object | null | undefined;
+    }
+
+    interface CreateModel {
+        name: string;
+    }
+
+    interface UpdateModel {
+        notes: string;
+    }
+
+    interface UpdateManyModel extends UpdateModel {
+        id: ZendeskID;
+    }
+
+    interface ResponsePayload {
+        readonly organization: ResponseModel;
+    }
+
+    interface ListPayload extends PaginablePayload {
+        readonly organizations: ReadonlyArray<ResponseModel>;
+    }
+
+    interface CreatePayload {
+        readonly organization: CreateModel;
+    }
+
+    interface CreateManyPayload {
+        readonly organizations: ReadonlyArray<CreateModel>;
+    }
+
+    interface UpdatePayload {
+        readonly organization: UpdateModel;
+    }
+
+    interface UpdateManyPayload {
+        readonly organizations: ReadonlyArray<UpdateManyModel>;
     }
 }
 

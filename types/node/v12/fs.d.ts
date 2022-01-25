@@ -131,7 +131,7 @@ declare module 'fs' {
     }
 
     class ReadStream extends stream.Readable {
-        close(): void;
+        close(callback?: (err?: NodeJS.ErrnoException | null) => void): void;
         bytesRead: number;
         path: string | Buffer;
 
@@ -162,7 +162,7 @@ declare module 'fs' {
     }
 
     class WriteStream extends stream.Writable {
-        close(): void;
+        close(callback?: (err?: NodeJS.ErrnoException | null) => void): void;
         bytesWritten: number;
         path: string | Buffer;
 

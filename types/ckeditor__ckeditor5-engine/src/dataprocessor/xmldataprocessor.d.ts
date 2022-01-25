@@ -1,15 +1,19 @@
-import Document from "../view/document";
-import DocumentFragment from "../view/documentfragment";
-import { MatcherPattern } from "../view/matcher";
-import Node from "../view/node";
-import { DataProcessor } from "./dataprocessor";
+import Document from '../view/document';
+import ViewDocumentFragment from '../view/documentfragment';
+import DomConverter from '../view/domconverter';
+import { MatcherPattern } from '../view/matcher';
+import ViewNode from '../view/node';
+import { DataProcessor } from './dataprocessor';
+import BasicHtmlWriter from './basichtmlwriter';
 
-export default class XmlDataProcessor implements DataProcessor {
-    namespaces: DOMParser;
-
-    constructor(document: Document, options?: { namespaces?: string[] });
+export default class XmlDataProcessor<N extends string[] = []> implements DataProcessor {
+    constructor(document: Document, options?: { namespaces?: N });
+    readonly namespaces: N;
+    readonly domParser: DOMParser;
+    readonly domConverter: DomConverter;
+    readonly htmlWriter: BasicHtmlWriter;
+    toData(viewFragment: ViewDocumentFragment): string;
+    toView(data: string): ViewNode | ViewDocumentFragment | null;
     registerRawContentMatcher(pattern: MatcherPattern): void;
-    toData(viewFragment: DocumentFragment): string;
-    toView(data: string): Node | DocumentFragment | null;
-    useFillerType(type: "default" | "marked");
+    useFillerType(type: 'default' | 'marked'): void;
 }

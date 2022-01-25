@@ -48,11 +48,12 @@ npm install --save-dev @types/node
 这通常会通过 `package.json` 文件中的 `"types"` 或 `"typings"` 字段提供，
 或者将包中包含类型定义的 ".d.ts" 文件手动通过 `/// <reference path="" />` 引入.
 
-#### 旧版本的 TypeScript（3.6 和更早版本）
+#### 旧版本的 TypeScript（3.7 和更早版本）
 
-Definitely Typed 仅在发布时间小于 2 年的 TypeScript 版本上测试软件包。当前已测试 3.7 及更高版本。如果您使用的是 TypeScript 2.0 到 3.6，仍然可以尝试安装 @types 软件包，大多数软件包都不使用 TypeScript 的新特性。但是不能保证它们会起作用，这是支持窗口：
+Definitely Typed 仅在发布时间小于 2 年的 TypeScript 版本上测试软件包。当前已测试 3.8 及更高版本。如果您使用的是 TypeScript 2.0 到 3.7，仍然可以尝试安装 @types 软件包，大多数软件包都不使用 TypeScript 的新特性。但是不能保证它们会起作用，这是支持窗口：
 
-<img src="docs/support-window.svg" style="width:100%">
+<img src="docs/support-window.svg#gh-light-mode-only" style="width:100%">
+<img src="docs/support-window.svg#gh-dark-mode-only" style="width:100%">
 
 `@types` 软件包具有它们明确支持的 TypeScript 版本的标记，因此通常可以获取早于 2 年窗口的较早版本的软件包。例如，如果运行 `npm dist-tags @types/react`，您能看到 TypeScript 2.5 最高支持 react@16.0 的类型定义，而 TypeScript 2.6 和 2.7 则最高支持 react@16.4：
 
@@ -78,7 +79,7 @@ Definitely Typed 仅在发布时间小于 2 年的 TypeScript 版本上测试软
 
 ## 我该如何贡献？
 
-有赖像你这样的用户不断贡献，Definitely Typed 才能持续运作下去
+有像你这样的用户不断贡献，Definitely Typed 才能持续运作下去
 
 ### 测试
 
@@ -146,7 +147,7 @@ Definitely Typed 仅在发布时间小于 2 年的 TypeScript 版本上测试软
   //                 Steve <https://github.com/steve>
   //                 John <https://github.com/john>
   ```
-* [就运行 `npm test <package to test>`](#验证).
+* [运行 `npm test <package to test>`](#验证).
 
 当你对现有的包发起 PR 的时候，请确保 `dt-bot` 会通知以前的作者。
 如果没有，你可以在与 PR 关联的评论中手动去 @ 他们。
@@ -270,7 +271,7 @@ f("one");
 
 #### Linter: `tslint.json`
 
-The linter configuration file, `tslint.json` should contain `{ "extends": "dtslint/dt.json" }`, and no additional rules.
+The linter configuration file, `tslint.json` should contain `{ "extends": "@definitelytyped/dtslint/dt.json" }`, and no additional rules.
 
 If for some reason some rule needs to be disabled, [disable it for that specific line](https://palantir.github.io/tslint/usage/rule-flags/#comment-flags-in-source-code:~:text=%2F%2F%20tslint%3Adisable%2Dnext%2Dline%3Arule1%20rule2%20rule3...%20%2D%20Disables%20the%20listed%20rules%20for%20the%20next%20line) using `// tslint:disable-next-line:[ruleName]` — not for the whole package, so that disabling can be reviewed. (There are some legacy lint configs that have additional contents, but these should not happen in new work.)
 
@@ -363,7 +364,7 @@ npm 包应该会在几分钟内更新。如果已经超过了一小时，请在 
 
 #### 有些包没有 `tslint.json` 文件，有些 `tsconfig.json` 文件缺少 `"noImplicitAny": true`, `"noImplicitThis": true`, 或 `"strictNullChecks": true`.
 
-当然它们是错误的，你可以通过发起 PR 来修复它们。
+如果我们还没有注意到它们是错误的，你可以通过发起 PR 来修复它们。
 
 #### 我可以请求类型定义吗？
 

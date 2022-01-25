@@ -1,7 +1,6 @@
 // Type definitions for html-minifier 4.0
 // Project: https://github.com/kangax/html-minifier, https://kangax.github.io/html-minifier
 // Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
-//                 Riku <https://github.com/rikuayanokozy>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 

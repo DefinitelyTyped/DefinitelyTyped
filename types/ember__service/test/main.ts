@@ -1,4 +1,4 @@
-import Service, { inject } from '@ember/service';
+import Service, { inject, service } from '@ember/service';
 import EmberObject from '@ember/object';
 
 class FirstSvc extends Service {
@@ -42,3 +42,17 @@ obj.get('sFirst'); // $ExpectType FirstSvc
 obj.get('sSecond').second(); // $ExpectType ""
 obj.get('sThird'); // $ExpectType ThirdSvc
 obj.get('unknownService'); // $ExpectType Service
+
+const ServiceTripletService = EmberObject.extend({
+    sFirst: service('first'),
+    sSecond: service('second'),
+    sThird: service('third'),
+    unknownService: service(),
+});
+
+const objService = ServiceTripletService.create();
+
+objService.get('sFirst'); // $ExpectType FirstSvc
+objService.get('sSecond').second(); // $ExpectType ""
+objService.get('sThird'); // $ExpectType ThirdSvc
+objService.get('unknownService'); // $ExpectType Service

@@ -6,7 +6,6 @@
 //                 Christoph Wagner <https://github.com/IgelCampus>
 //                 Gio Freitas <https://github.com/giofreitas>
 //                 Grzegorz Błaszczyk <https://github.com/gjanblaszczyk>
-//                 Adam Eisenreich <https://github.com/AkxeOne>
 //                 Mei Qingguang <https://github.com/meikidd>
 //                 Joe Flateau <https://github.com/joeflateau>
 //                 KuanYu Chu <https://github.com/ckybonist>
@@ -454,6 +453,19 @@ declare namespace videojs {
     function use(type: string, middleware: (player: Player) => Middleware): void;
 
     /**
+     * Used to subclass an existing class by emulating ES subclassing using the extends keyword.
+     * @param superClass super component to extend
+     * @param [subClassMethods] methods sub class will add to super
+     */
+    function extend<
+        TSuper extends new (...args: any[]) => any,
+        TSubClassMethods extends Record<string | symbol, (this: InstanceType<TSuper>, ...args: any[]) => any>,
+    >(
+        superClass: TSuper,
+        subClassMethods?: TSubClassMethods,
+    ): new (...args: ConstructorParameters<TSuper>) => InstanceType<TSuper> & TSubClassMethods;
+
+    /**
      * Current software version. Follows semver.
      *
      */
@@ -621,13 +633,32 @@ declare namespace videojs {
         new (player: Player, options?: AudioTrackMenuItemOptions): AudioTrackMenuItem;
     };
 
-    interface VideojsAudioTrack {
+    interface VideojsAudioTrack extends Track {
         enabled: boolean;
         readonly id: string;
         kind: string;
         readonly label: string;
         language: string;
         readonly sourceBuffer: SourceBuffer | null;
+    }
+
+    /**
+     * The current list of {@link VideojsAudioTrack} for a media file.
+     *
+     * @see [Spec]{@link https://html.spec.whatwg.org/multipage/media.html#audiotracklist}
+     */
+     interface AudioTrackList extends TrackList {
+        [index: number]: VideojsAudioTrack;
+
+        /**
+         * Add a {@link VideojsAudioTrack} to the `AudioTrackList`
+         *
+         * @param track
+         *        The audio track to add to the list.
+         *
+         * @fires TrackList#addtrack
+         */
+        addTrack(track: VideojsAudioTrack): void;
     }
 
     interface AudioTrackMenuItemOptions extends MenuItemOptions {
@@ -6084,6 +6115,12 @@ export interface VideoJsPlayer extends videojs.Component {
      * @return The current remote text track list
      */
     textTracks(): TextTrackList;
+
+    /**
+     * Get the remote {@link videojs.AudioTrackList}
+     * @return The current remote audio track list
+     */
+    audioTracks(): videojs.AudioTrackList;
 
     /**
      * Get the remote {@link TextTrackList}

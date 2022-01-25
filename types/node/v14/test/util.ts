@@ -1,6 +1,6 @@
-import * as util from 'util';
-import assert = require('assert');
-import { access, readFile } from 'fs';
+import * as util from 'node:util';
+import assert = require('node:assert');
+import { access, readFile } from 'node:fs';
 
 {
     // Old and new util.inspect APIs

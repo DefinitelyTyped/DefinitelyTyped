@@ -1,4 +1,4 @@
-// Type definitions for Meteor 1.4
+// Type definitions for Meteor 2.0
 // Project: http://www.meteor.com/
 // Definitions by: Alex Borodach <https://github.com/barbatus>
 //                 Dave Allen <https://github.com/fullflavedave>
@@ -17,6 +17,7 @@
 //                 Wojciech Adamek <https://github.com/wadamek65>
 //                 Maciej Stasieluk <https://github.com/MacRusher>
 //                 Markus Peloso <https://github.com/ToastHawaii>
+//                 Erik Demaine <https://github.com/edemaine>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.7
 
@@ -39,6 +40,7 @@
 /// <reference path="./globals/email.d.ts" />
 /// <reference path="./http.d.ts" />
 /// <reference path="./globals/http.d.ts" />
+/// <reference path="./hot-module-replacement.d.ts" />
 /// <reference path="./meteor.d.ts" />
 /// <reference path="./globals/meteor.d.ts" />
 /// <reference path="./modern-browsers.d.ts" />

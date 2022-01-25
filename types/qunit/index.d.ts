@@ -587,6 +587,14 @@ declare global {
         only(name: string, callback: (assert: Assert) => void | Promise<void>): void;
 
         /**
+         * Handle a global error that should result in a failed test run.
+         *
+         * @since 2.17.0
+         * @param {Error|any} error
+         */
+        onUncaughtException: (error: unknown) => void;
+
+        /**
          * DEPRECATED: Report the result of a custom assertion.
          *
          * This method is deprecated and it's recommended to use pushResult on its

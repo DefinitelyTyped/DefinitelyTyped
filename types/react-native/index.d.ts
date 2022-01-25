@@ -19,7 +19,6 @@
 //                 Ceyhun Ozugur <https://github.com/ceyhun>
 //                 Mike Martin <https://github.com/mcmar>
 //                 Theo Henry de Villeneuve <https://github.com/theohdv>
-//                 Eli White <https://github.com/TheSavior>
 //                 Romain Faust <https://github.com/romain-faust>
 //                 Be Birchall <https://github.com/bebebebebe>
 //                 Jesse Katsumata <https://github.com/Naturalclar>
@@ -31,7 +30,6 @@
 //                 Abe Dolinger <https://github.com/256hz>
 //                 Dominique Richard <https://github.com/doumart>
 //                 Mohamed Shaban <https://github.com/drmas>
-//                 André Krüger <https://github.com/akrger>
 //                 Jérémy Barbet <https://github.com/jeremybarbet>
 //                 Christian Ost <https://github.com/ca057>
 //                 David Sheldrick <https://github.com/ds300>
@@ -42,7 +40,6 @@
 //                 Alex Brazier <https://github.com/alexbrazier>
 //                 Arafat Zahan <https://github.com/kuasha420>
 //                 Pedro Hernández <https://github.com/phvillegas>
-//                 Brett Lindsay <https://github.com/bdlindsay>
 //                 Sebastian Silbermann <https://github.com/eps1lon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
@@ -465,7 +462,7 @@ export interface PressableAndroidRippleConfig {
     foreground?: null | boolean | undefined;
 }
 
-export interface PressableProps extends AccessibilityProps, Omit<ViewProps, 'style' | 'hitSlop'> {
+export interface PressableProps extends AccessibilityProps, Omit<ViewProps, 'children' | 'style' | 'hitSlop'> {
     /**
      * Called when the hover is activated to provide visual feedback.
      */
@@ -1326,40 +1323,88 @@ export interface TextInputIOSProps {
  */
 export interface TextInputAndroidProps {
     /**
-     * Determines which content to suggest on auto complete, e.g.`username`.
-     * To disable auto complete, use `off`.
+     * Specifies autocomplete hints for the system, so it can provide autofill. On Android, the system will always attempt to offer autofill by using heuristics to identify the type of content.
+     * To disable autocomplete, set `autoComplete` to `off`.
      *
      * *Android Only*
      *
-     * The following values work on Android only:
+     * Possible values for `autoComplete` are:
      *
-     * - `username`
-     * - `password`
-     * - `email`
-     * - `name`
-     * - `tel`
-     * - `street-address`
-     * - `postal-code`
-     * - `cc-number`
+     * - `birthdate-day`
+     * - `birthdate-full`
+     * - `birthdate-month`
+     * - `birthdate-year`
      * - `cc-csc`
      * - `cc-exp`
+     * - `cc-exp-day`
      * - `cc-exp-month`
      * - `cc-exp-year`
+     * - `cc-number`
+     * - `email`
+     * - `gender`
+     * - `name`
+     * - `name-family`
+     * - `name-given`
+     * - `name-middle`
+     * - `name-middle-initial`
+     * - `name-prefix`
+     * - `name-suffix`
+     * - `password`
+     * - `password-new`
+     * - `postal-address`
+     * - `postal-address-country`
+     * - `postal-address-extended`
+     * - `postal-address-extended-postal-code`
+     * - `postal-address-locality`
+     * - `postal-address-region`
+     * - `postal-code`
+     * - `street-address`
+     * - `sms-otp`
+     * - `tel`
+     * - `tel-country-code`
+     * - `tel-national`
+     * - `tel-device`
+     * - `username`
+     * - `username-new`
      * - `off`
      */
     autoComplete?:
+        | 'birthdate-day'
+        | 'birthdate-full'
+        | 'birthdate-month'
+        | 'birthdate-year'
         | 'cc-csc'
         | 'cc-exp'
+        | 'cc-exp-day'
         | 'cc-exp-month'
         | 'cc-exp-year'
         | 'cc-number'
         | 'email'
+        | 'gender'
         | 'name'
+        | 'name-family'
+        | 'name-given'
+        | 'name-middle'
+        | 'name-middle-initial'
+        | 'name-prefix'
+        | 'name-suffix'
         | 'password'
+        | 'password-new'
+        | 'postal-address'
+        | 'postal-address-country'
+        | 'postal-address-extended'
+        | 'postal-address-extended-postal-code'
+        | 'postal-address-locality'
+        | 'postal-address-region'
         | 'postal-code'
         | 'street-address'
+        | 'sms-otp'
         | 'tel'
+        | 'tel-country-code'
+        | 'tel-national'
+        | 'tel-device'
         | 'username'
+        | 'username-new'
         | 'off'
         | undefined;
 
@@ -1820,152 +1865,6 @@ export class TextInput extends TextInputBase {
     clear: () => void;
 }
 
-export type ToolbarAndroidAction = {
-    /**
-     *  title: required, the title of this action
-     */
-    title: string;
-
-    /**
-     * icon: the icon for this action, e.g. require('./some_icon.png')
-     */
-    icon?: ImageURISource | undefined;
-
-    /**
-     * show: when to show this action as an icon or hide it in the overflow menu: always, ifRoom or never
-     */
-    show?: 'always' | 'ifRoom' | 'never' | undefined;
-
-    /**
-     * showWithText: boolean, whether to show text alongside the icon or not
-     */
-    showWithText?: boolean | undefined;
-};
-
-export interface ToolbarAndroidProps extends ViewProps {
-    /**
-     * Sets possible actions on the toolbar as part of the action menu. These are displayed as icons
-     * or text on the right side of the widget. If they don't fit they are placed in an 'overflow'
-     * menu.
-     *
-     * This property takes an array of objects, where each object has the following keys:
-     *
-     * * `title`: **required**, the title of this action
-     * * `icon`: the icon for this action, e.g. `require('./some_icon.png')`
-     * * `show`: when to show this action as an icon or hide it in the overflow menu: `always`,
-     * `ifRoom` or `never`
-     * * `showWithText`: boolean, whether to show text alongside the icon or not
-     */
-    actions?: ToolbarAndroidAction[] | undefined;
-
-    /**
-     * Sets the content inset for the toolbar ending edge.
-     * The content inset affects the valid area for Toolbar content other
-     * than the navigation button and menu. Insets define the minimum
-     * margin for these components and can be used to effectively align
-     * Toolbar content along well-known gridlines.
-     */
-    contentInsetEnd?: number | undefined;
-
-    /**
-     * Sets the content inset for the toolbar starting edge.
-     * The content inset affects the valid area for Toolbar content
-     * other than the navigation button and menu. Insets define the
-     * minimum margin for these components and can be used to effectively
-     * align Toolbar content along well-known gridlines.
-     */
-    contentInsetStart?: number | undefined;
-
-    /**
-     * Sets the toolbar logo.
-     */
-    logo?: ImageURISource | undefined;
-
-    /**
-     * Sets the navigation icon.
-     */
-    navIcon?: ImageURISource | undefined;
-
-    /**
-     * Callback that is called when an action is selected. The only
-     * argument that is passed to the callback is the position of the
-     * action in the actions array.
-     */
-    onActionSelected?: ((position: number) => void) | undefined;
-
-    /**
-     * Callback called when the icon is selected.
-     */
-    onIconClicked?: (() => void) | undefined;
-
-    /**
-     * Sets the overflow icon.
-     */
-    overflowIcon?: ImageURISource | undefined;
-
-    /**
-     * Used to set the toolbar direction to RTL.
-     * In addition to this property you need to add
-     * android:supportsRtl="true"
-     * to your application AndroidManifest.xml and then call
-     * setLayoutDirection(LayoutDirection.RTL) in your MainActivity
-     * onCreate method.
-     */
-    rtl?: boolean | undefined;
-
-    /**
-     * Sets the toolbar subtitle.
-     */
-    subtitle?: string | undefined;
-
-    /**
-     * Sets the toolbar subtitle color.
-     */
-    subtitleColor?: ColorValue | undefined;
-
-    /**
-     * Used to locate this view in end-to-end tests.
-     */
-    testID?: string | undefined;
-
-    /**
-     * Sets the toolbar title.
-     */
-    title?: string | undefined;
-
-    /**
-     * Sets the toolbar title color.
-     */
-    titleColor?: ColorValue | undefined;
-}
-
-/**
- * React component that wraps the Android-only [`Toolbar` widget][0]. A Toolbar can display a logo,
- * navigation icon (e.g. hamburger menu), a title & subtitle and a list of actions. The title and
- * subtitle are expanded so the logo and navigation icons are displayed on the left, title and
- * subtitle in the middle and the actions on the right.
- *
- * If the toolbar has an only child, it will be displayed between the title and actions.
- *
- * Although the Toolbar supports remote images for the logo, navigation and action icons, this
- * should only be used in DEV mode where `require('./some_icon.png')` translates into a packager
- * URL. In release mode you should always use a drawable resource for these icons. Using
- * `require('./some_icon.png')` will do this automatically for you, so as long as you don't
- * explicitly use e.g. `{uri: 'http://...'}`, you will be good.
- *
- * [0]: https://developer.android.com/reference/android/support/v7/widget/Toolbar.html
- */
-declare class ToolbarAndroidComponent extends React.Component<ToolbarAndroidProps> {}
-declare const ToolbarAndroidBase: Constructor<NativeMethods> & typeof ToolbarAndroidComponent;
-
-/**
- * ToolbarAndroid has been deprecated and removed from the package since React Native v0.61.0.
- * It can now be installed and imported from `@react-native-community/datetimepicker` instead of 'react-native'.
- * @see https://github.com/react-native-community/toolbar-android
- * @deprecated
- */
-export class ToolbarAndroid extends ToolbarAndroidBase {}
-
 /**
  * Gesture recognition on mobile devices is much more complicated than web.
  * A touch can go through several phases as the app determines what the user's intention is.
@@ -2412,6 +2311,7 @@ export interface AccessibilityValue {
 export type AccessibilityRole =
     | 'none'
     | 'button'
+    | 'togglebutton'
     | 'link'
     | 'search'
     | 'image'
@@ -2434,8 +2334,10 @@ export type AccessibilityRole =
     | 'spinbutton'
     | 'switch'
     | 'tab'
+    | 'tabbar'
     | 'tablist'
     | 'timer'
+    | 'list'
     | 'toolbar';
 
 export interface AccessibilityPropsAndroid {
@@ -4276,7 +4178,7 @@ export class FlatList<ItemT = any> extends React.Component<FlatListProps<ItemT>>
     /**
      * Provides a reference to the underlying host component
      */
-    getNativeScrollRef: () => React.RefObject<View> | React.RefObject<ScrollViewComponent> | null | undefined;
+    getNativeScrollRef: () => React.ElementRef<typeof View> | React.ElementRef<typeof ScrollViewComponent> | null | undefined;
 
     getScrollableNode: () => any;
 
@@ -4336,9 +4238,19 @@ export interface SectionListProps<ItemT, SectionT = DefaultSectionT>
     ListFooterComponent?: React.ComponentType<any> | React.ReactElement | null | undefined;
 
     /**
+     * Styling for internal View for ListFooterComponent
+     */
+    ListFooterComponentStyle?: StyleProp<ViewStyle> | undefined | null;
+
+    /**
      * Rendered at the very beginning of the list.
      */
     ListHeaderComponent?: React.ComponentType<any> | React.ReactElement | null | undefined;
+
+    /**
+     * Styling for internal View for ListHeaderComponent
+     */
+    ListHeaderComponentStyle?: StyleProp<ViewStyle> | undefined | null;
 
     /**
      * Rendered in between each section.
@@ -6462,6 +6374,12 @@ export interface ScrollViewPropsIOS {
     automaticallyAdjustContentInsets?: boolean | undefined; // true
 
     /**
+     * Controls whether iOS should automatically adjust the scroll indicator
+     * insets. The default value is true. Available on iOS 13 and later.
+     */
+    automaticallyAdjustsScrollIndicatorInsets?: boolean | undefined;
+
+    /**
      * When true the scroll view bounces when it reaches the end of the
      * content if the content is larger then the scroll view along the axis of
      * the scroll direction. When false it disables all bouncing even if
@@ -7057,7 +6975,7 @@ export interface ActionSheetIOSOptions {
     message?: string | undefined;
     anchor?: number | undefined;
     tintColor?: ColorValue | ProcessedColorValue | undefined;
-    userInterfaceStyle?: string | undefined;
+    userInterfaceStyle?: 'light' | 'dark' | undefined;
     disabledButtonIndices?: number[] | undefined;
 }
 
@@ -7481,7 +7399,7 @@ export type BackPressEventName = 'hardwareBackPress';
  * returns true then subscriptions registered earlier
  * will not be called.
  *
- * @see https://reactnative.dev/docs/backhandler.html
+ * @see https://reactnative.dev/docs/backhandler
  */
 export interface BackHandlerStatic {
     exitApp(): void;
@@ -9706,8 +9624,8 @@ interface NativeModulesStatic {
  * Native Modules written in ObjectiveC/Swift/Java exposed via the RCTBridge
  * Define lazy getters for each module. These will return the module if already loaded, or load it if not.
  * See https://reactnative.dev/docs/native-modules-ios
- * Use:
- * <code>const MyModule = NativeModules.ModuleName</code>
+ * @example
+ * const MyModule = NativeModules.ModuleName
  */
 export const NativeModules: NativeModulesStatic;
 export const Platform:
@@ -9846,8 +9764,8 @@ declare global {
 
     /**
      * This variable is set to true when react-native is running in Dev mode
-     * Typical usage:
-     * <code> if (__DEV__) console.log('Running in dev mode')</code>
+     * @example
+     * if (__DEV__) console.log('Running in dev mode')
      */
     const __DEV__: boolean;
 

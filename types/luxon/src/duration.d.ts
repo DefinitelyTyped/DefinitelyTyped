@@ -19,7 +19,19 @@ export interface DurationObjectUnits {
     milliseconds?: number | undefined;
 }
 
-export type DurationUnit = keyof DurationObjectUnits;
+export interface DurationLikeObject extends DurationObjectUnits {
+    year?: number | undefined;
+    quarter?: number | undefined;
+    month?: number | undefined;
+    week?: number | undefined;
+    day?: number | undefined;
+    hour?: number | undefined;
+    minute?: number | undefined;
+    second?: number | undefined;
+    millisecond?: number | undefined;
+}
+
+export type DurationUnit = keyof DurationLikeObject;
 export type DurationUnits = DurationUnit | DurationUnit[];
 
 export type ToISOFormat = 'basic' | 'extended';
@@ -47,17 +59,21 @@ export interface ToISOTimeDurationOptions {
     format?: ToISOFormat | undefined;
 }
 
+export interface ToHumanDurationOptions extends Intl.NumberFormatOptions {
+    listStyle?: 'long' | 'short' | 'narrow' | undefined;
+}
+
 /**
  * Either a Luxon Duration, a number of milliseconds, the object argument to Duration.fromObject()
  *
  * @deprecated Use DurationLike instead.
  */
-export type DurationInput = Duration | number | DurationObjectUnits;
+export type DurationInput = Duration | number | DurationLikeObject;
 
 /**
  * Either a Luxon Duration, a number of milliseconds, the object argument to Duration.fromObject()
  */
-export type DurationLike = Duration | DurationObjectUnits | number;
+export type DurationLike = Duration | DurationLikeObject | number;
 
 /**
  * A Duration object represents a period of time, like "2 months" or "1 day, 1 hour".
@@ -107,7 +123,15 @@ export class Duration {
      * @param opts.numberingSystem - the numbering system to use
      * @param opts.conversionAccuracy - the conversion system to use. Defaults to 'casual'.
      */
-    static fromObject(obj: DurationObjectUnits, opts?: DurationOptions): Duration;
+    static fromObject(obj: DurationLikeObject, opts?: DurationOptions): Duration;
+
+    /**
+     * Create a Duration from DurationLike.
+     *
+     * @param durationLike
+     * Either a Luxon Duration, a number of milliseconds, or the object argument to Duration.fromObject()
+     */
+    static fromDurationLike(durationLike: DurationLike): Duration;
 
     /**
      * Create a Duration from an ISO 8601 duration string.
@@ -149,7 +173,7 @@ export class Duration {
      * @example
      * Duration.fromISOTime('T1100').toObject() //=> { hours: 11, minutes: 0, seconds: 0 }
      */
-    static fromISOTime(text: string, opts: DurationOptions): Duration;
+    static fromISOTime(text: string, opts?: DurationOptions): Duration;
 
     /**
      * Create an invalid Duration.
@@ -201,6 +225,20 @@ export class Duration {
      * Duration.fromObject({ years: 1, days: 6, seconds: 2 }).toFormat("M S") //=> "12 518402000"
      */
     toFormat(fmt: string, opts?: { floor?: boolean | undefined }): string;
+
+    /**
+     * Returns a string representation of a Duration with all units included
+     * To modify its behavior use the `listStyle` and any Intl.NumberFormat option, though `unitDisplay` is especially relevant. See {@link Intl.NumberFormat}.
+     * @param opts - On option object to override the formatting. Accepts the same keys as the options parameter of the native `Int.NumberFormat` constructor, as well as `listStyle`.
+     * @example
+     * ```js
+     * var dur = Duration.fromObject({ days: 1, hours: 5, minutes: 6 })
+     * dur.toHuman() //=> '1 day, 5 hours, 6 minutes'
+     * dur.toHuman({ listStyle: "long" }) //=> '1 day, 5 hours, and 6 minutes'
+     * dur.toHuman({ unitDisplay: "short" }) //=> '1 day, 5 hr, 6 min'
+     * ```
+     */
+    toHuman(opts?: ToHumanDurationOptions): string;
 
     /**
      * Returns a JavaScript object with this Duration's values.
@@ -318,7 +356,7 @@ export class Duration {
      * @example
      * dur.set({ hours: 8, minutes: 30 })
      */
-    set(values: DurationObjectUnits): Duration;
+    set(values: DurationLikeObject): Duration;
 
     /**
      * "Set" the locale and/or numberingSystem.  Returns a newly-constructed Duration.

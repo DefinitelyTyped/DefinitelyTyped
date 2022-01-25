@@ -1,7 +1,11 @@
 import * as R from 'ramda';
 
 () => {
-  R.aperture(2, [1, 2, 3, 4, 5]); // => [[1, 2], [2, 3], [3, 4], [4, 5]]
+  // $ExpectType <T>(list: readonly T[]) => [] | [T, T][]
+  const aperture2 = R.aperture(2);
+
+  /// $ExpectType [] | [number, number][]
+  const aperturedValue = R.aperture(2, [1, 2, 3, 4, 5]); // => [[1, 2], [2, 3], [3, 4], [4, 5]]
   R.aperture(3, [1, 2, 3, 4, 5]); // => [[1, 2, 3], [2, 3, 4], [3, 4, 5]]
   R.aperture(7, [1, 2, 3, 4, 5]); // => []
   R.aperture(7)([1, 2, 3, 4, 5]); // => []

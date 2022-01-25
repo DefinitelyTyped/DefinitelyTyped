@@ -302,3 +302,15 @@ function f() {
     // $ExpectError
     ws.protocol = true;
 }
+
+{
+    const webSocketServer = new WebSocket.WebSocketServer();
+    const server = new http.Server();
+    server.on('upgrade', (request, socket, head) => {
+        if (request.url === '/path') {
+            webSocketServer.handleUpgrade(request, socket, head, (ws) => {
+                webSocketServer.emit('connection', ws, request);
+            });
+        }
+    });
+}

@@ -182,6 +182,9 @@ describe("ApplePaySession", () => {
             if (event.paymentMethod) {
                 console.log("Payment method:", JSON.stringify(event.paymentMethod));
             }
+            if (event.paymentMethod.billingContact) {
+                console.log("Billing contact:", JSON.stringify(event.paymentMethod.billingContact));
+            }
         };
 
         session.onshippingcontactselected = (event: ApplePayJS.ApplePayShippingContactSelectedEvent) => {

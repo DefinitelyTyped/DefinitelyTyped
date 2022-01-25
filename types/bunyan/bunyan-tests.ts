@@ -62,7 +62,14 @@ const options: Logger.LoggerOptions = {
         stream: rotatingFileStream,
         level: Logger.ERROR,
         reemitErrorEvents: true
-    }]
+    },
+        {
+        type: 'raw',
+        stream: { write: (obj: Object) => console.log(JSON.stringify(obj)) },
+        level: Logger.ERROR,
+        reemitErrorEvents: true
+    }
+    ]
 };
 
 const log = Logger.createLogger(options);

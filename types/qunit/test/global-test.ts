@@ -770,3 +770,9 @@ QUnit.module( "async nested hooks", function( hooks ) {
     assert.ok( true, "async afterEach called" );
   } );
 });
+
+QUnit.onUncaughtException = (error: unknown) => {
+  if (error instanceof Error) {
+    console.log(error.message);
+  }
+};

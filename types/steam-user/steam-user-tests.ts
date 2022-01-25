@@ -112,3 +112,7 @@ user.getEmoticonList().then(response => {
 user.chat.getFriendMessageHistory('76561197960287930').then(response => {
     // do something with response
 }).catch(err => console.error(err));
+
+user.getFriendsThatPlay(730).then(response => {
+    // do something with response
+});

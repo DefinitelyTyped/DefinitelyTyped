@@ -61,6 +61,7 @@ declare namespace Aws {
         cfnRole?: string | undefined;
         iam?: IamSettings | undefined;
         versionFunctions?: boolean | undefined;
+        architecture?: 'x86_64' | 'arm64' | undefined;
         environment?: Environment | string | undefined;
         endpointType?: 'regional' | 'edge' | 'private' | undefined;
         apiKeys?: string[] | undefined;
@@ -79,6 +80,11 @@ declare namespace Aws {
         tracing?: Tracing | undefined;
         logs?: Logs | undefined;
         kmsKeyArn?: string | undefined;
+        eventBridge?: EventBridge | undefined;
+    }
+
+    interface EventBridge {
+        useCloudFormation?: boolean;
     }
 
     interface IamSettings {
@@ -197,6 +203,7 @@ declare namespace Aws {
         payload?: string | undefined;
         cors?: boolean | HttpApiCors | undefined;
         authorizers?: Authorizers | undefined;
+        useProviderTags?: boolean | undefined;
     }
 
     interface Quota {
@@ -424,6 +431,7 @@ declare namespace Aws {
         arn: string | { [key: string]: any };
         batchSize?: number | string | undefined;
         maximumRetryAttempts?: number | string | undefined;
+        functionResponseType?: string | undefined;
         enabled?: boolean | undefined;
     }
 
@@ -635,6 +643,7 @@ declare namespace Aws {
     interface CloudFormationResource {
         Type: string;
         Properties: { [key: string]: any };
+        Condition?: string | undefined;
         DependsOn?: string | { [key: string]: any } | undefined;
         DeletionPolicy?: string | undefined;
     }
@@ -656,8 +665,13 @@ declare namespace Aws {
         [key: string]: Output;
     }
 
+    interface ResourcesConditions {
+        [key: string]: any;
+    }
+
     interface Resources {
         Description?: string | undefined;
+        Conditions?: ResourcesConditions;
         Resources: CloudFormationResources;
         extensions?: CloudFormationResources | undefined;
         Outputs?: Outputs | undefined;

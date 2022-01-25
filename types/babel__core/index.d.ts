@@ -98,6 +98,32 @@ export interface TransformOptions {
     babelrcRoots?: boolean | MatchPattern | MatchPattern[] | null | undefined;
 
     /**
+     * Toggles whether or not browserslist config sources are used, which includes searching for any browserslist files or referencing the browserslist key inside package.json.
+     * This is useful for projects that use a browserslist config for files that won't be compiled with Babel.
+     *
+     * If a string is specified, it must represent the path of a browserslist configuration file. Relative paths are resolved relative to the configuration file which specifies
+     * this option, or to `cwd` when it's passed as part of the programmatic options.
+     *
+     * Default: `true`
+     */
+    browserslistConfigFile?: boolean | null | undefined;
+
+    /**
+     * The Browserslist environment to use.
+     *
+     * Default: `undefined`
+     */
+    browserslistEnv?: string | null | undefined;
+
+    /**
+     * By default `babel.transformFromAst` will clone the input AST to avoid mutations.
+     * Specifying `cloneInputAst: false` can improve parsing performance if the input AST is not used elsewhere.
+     *
+     * Default: `true`
+     */
+    cloneInputAst?: boolean | null | undefined;
+
+    /**
      * Defaults to environment variable `BABEL_ENV` if set, or else `NODE_ENV` if set, or else it defaults to `"development"`
      *
      * Default: env vars
@@ -460,9 +486,11 @@ export interface BabelFile {
 export interface PluginPass {
     file: BabelFile;
     key: string;
-    opts: PluginOptions;
+    opts: object;
     cwd: string;
     filename: string | undefined;
+    get(key: unknown): any;
+    set(key: unknown, value: unknown): void;
     [key: string]: unknown;
 }
 

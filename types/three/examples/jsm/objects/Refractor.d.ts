@@ -13,4 +13,6 @@ export class Refractor extends Mesh {
     constructor(geometry?: BufferGeometry, options?: RefractorOptions);
 
     getRenderTarget(): WebGLRenderTarget;
+
+    dispose(): void;
 }

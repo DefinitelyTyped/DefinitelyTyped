@@ -119,6 +119,75 @@ declare namespace URI {
     }
 
     type QueryDataMap = Partial<Record<string, any>>;
+
+    interface ReadonlyURI {
+        clone(): URI;
+
+        authority(): string;
+        directory(dir?: boolean): string;
+        domain(domain?: boolean): string;
+        filename(file?: boolean): string;
+        fragment(): string;
+        hash(): string;
+        host(): string;
+        hostname(): string;
+        href(): string;
+        origin(): string;
+        password(): string;
+        path(path?: boolean): string;
+        pathname(path?: boolean): string;
+        port(): string;
+        protocol(): string;
+        query(): string;
+        query(v: boolean): QueryDataMap;
+        readable(): string;
+        resource(): string;
+        scheme(): string;
+        search(): string;
+        search(v: boolean): QueryDataMap;
+        segment(): string[];
+        segment(position: number): string | undefined;
+        segmentCoded(): string[];
+        segmentCoded(position: number): string;
+        subdomain(): string;
+        suffix(suffix?: boolean): string;
+        tld(tld?: boolean): string;
+        userinfo(): string;
+        username(): string;
+        valueOf(): string;
+
+        equals(url?: string | ReadonlyURI | URI): boolean;
+        is(
+            qry:
+                | 'relative'
+                | 'absolute'
+                | 'urn'
+                | 'url'
+                | 'domain'
+                | 'name'
+                | 'sld'
+                | 'idn'
+                | 'punycode'
+                | 'ip'
+                | 'ip4'
+                | 'ipv4'
+                | 'inet4'
+                | 'ip6'
+                | 'ipv6'
+                | 'inet6',
+        ): boolean;
+
+        hasQuery(
+            name: /*string | */ any,
+            value?: string | number | boolean | string[] | number[] | boolean[] | RegExp | ((...args: any[]) => any),
+            withinArray?: boolean,
+        ): boolean;
+        hasSearch(
+            name: /*string | */ any,
+            value?: string | number | boolean | string[] | number[] | boolean[] | RegExp | ((...args: any[]) => any),
+            withinArray?: boolean,
+        ): boolean;
+    }
 }
 
 interface URI {

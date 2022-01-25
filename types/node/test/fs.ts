@@ -195,6 +195,20 @@ async function testPromisify() {
 }
 
 {
+    fs.watchFile('/tmp/foo-', (current, previous) => {
+        console.log(current, previous);
+    });
+
+    fs.watchFile('/tmp/foo-', {
+        persistent: true,
+        bigint: true,
+        interval: 1000,
+    }, (current, previous) => {
+        console.log(current, previous);
+    });
+}
+
+{
     fs.access('/path/to/folder', (err) => { });
 
     fs.access(Buffer.from(''), (err) => { });
@@ -426,6 +440,9 @@ async () => {
         length: 3,
     })).buffer; // $ExpectType Uint32Array
 
+    await handle.read(new Uint32Array(), 1, 2, 3);
+    await handle.read(Buffer.from('hurr'));
+
     await handle.write('hurr', 0, 'utf-8');
     await handle.write(Buffer.from('hurr'), 0, 42, 10);
 };
@@ -455,6 +472,14 @@ async () => {
     await writeFileAsync('test',  async function *() { yield 'yeet'; }());
     await writeFileAsync('test', process.stdin);
 };
+
+{
+    fs.createReadStream('path').close();
+    fs.createReadStream('path').close((err?: NodeJS.ErrnoException | null) => {});
+
+    fs.createWriteStream('path').close();
+    fs.createWriteStream('path').close((err?: NodeJS.ErrnoException | null) => {});
+}
 
 {
     fs.readvSync(123, [Buffer.from('wut')] as ReadonlyArray<NodeJS.ArrayBufferView>);

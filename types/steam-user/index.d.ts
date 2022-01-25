@@ -1,6 +1,6 @@
-// Type definitions for steam-user 4.19
+// Type definitions for steam-user 4.20
 // Project: https://github.com/DoctorMcKay/node-steam-user
-// Definitions by: joshuajeschek <https://github.com/joshuajeschek>
+// Definitions by: Joshua Jeschek <https://github.com/joshuajeschek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.2
 // Enums generated from JS by: https://github.com/joshuajeschek/JStoTSenum
@@ -645,6 +645,14 @@ declare class SteamUser extends EventEmitter {
      * @param [callback]
      */
     removeFriendFromGroup(groupID: any, usersteamID: SteamID | string, callback?: (err: Error | null) => void): Promise<void>;
+
+    /**
+     * Retrieves a list of friends that have played or used an app.
+     * @param appID - The ID of the app you want to check
+     * @param [callback]
+     * @since 4.20.0
+     */
+    getFriendsThatPlay(appID: number, callback?: (err: Error | null, response: { friends: SteamID[] }) => void): Promise<{ friends: SteamID[] }>;
 
     trade(steamID: SteamID | string): void;
 

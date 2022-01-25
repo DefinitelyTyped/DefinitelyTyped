@@ -48,6 +48,12 @@ api.getUserBadges('76561197960287930').then(res => {
 
 api.getUserBans('76561197960287930').then(res => {
     // do something with the result
+    const res2 = res; // $ExpectType PlayerBans
+});
+
+api.getUserBans(['76561197960287930', '76561197960287934']).then(res => {
+    // do something with the result
+    const res2 = res; // $ExpectType PlayerBans[]
 });
 
 api.getUserFriends('76561197960287930').then(res => {
@@ -80,4 +86,23 @@ api.getUserStats('76561197960287930', '730').then(res => {
 
 api.getUserSummary('76561197960287930').then(res => {
     // do something with the result
+    const res2 = res; // $ExpectType PlayerSummary
+
+    // The getters should not be assignable
+    res.createdAt = new Date(); // $ExpectError
 });
+
+api.getUserSummary(['76561197960287930', '76561197960287934']).then(res => {
+    // do something with the result
+    const res2 = res; // $ExpectType PlayerSummary[]
+});
+
+// The imported structure types should not be instantiable as a class as they are not exported by the package
+const a = new SteamAPI.Player({}); // $ExpectError
+
+// The helper types should be importable
+const avatar: SteamAPI.Avatar = {
+    small: '',
+    medium: '',
+    large: '',
+};

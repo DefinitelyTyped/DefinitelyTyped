@@ -21,3 +21,6 @@ client.fetchOne('*', { uid: true });
 
 // $Expect void
 client.logout();
+
+// $Expect Promise<ListResponse[]>
+client.list();

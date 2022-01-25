@@ -2,7 +2,6 @@
 // Project: https://github.com/auth0/node-auth0
 // Definitions by: Seth Westphal <https://github.com/westy92>
 //                 Ian Howe <https://github.com/ianhowe76>
-//                 Alex Bjørlig <https://github.com/dauledk>
 //                 Dan Rumney <https://github.com/dancrumb>
 //                 Peter <https://github.com/pwrnrd>
 //                 Anthony Messerschmidt <https://github.com/CatGuardian>
@@ -634,9 +633,19 @@ export interface RequestSMSOptions {
     phone_number: string;
 }
 
-export interface VerifyOptions {
+export interface VerifySMSOptions {
+    username: string;
+    otp: string;
+}
+
+export interface VerifySMSOptionsDeprecated {
     username: string;
     password: string;
+}
+
+export interface VerifyEmailOptions {
+    email: string;
+    otp: string;
 }
 
 export interface DelegationTokenOptions {
@@ -1121,11 +1130,11 @@ export class AuthenticationClient {
     requestSMSCode(data: RequestSMSOptions): Promise<any>;
     requestSMSCode(data: RequestSMSOptions, cb: (err: Error, message: string) => void): void;
 
-    verifyEmailCode(data: VerifyOptions): Promise<any>;
-    verifyEmailCode(data: VerifyOptions, cb: (err: Error, message: string) => void): void;
+    verifyEmailCode(data: VerifyEmailOptions): Promise<any>;
+    verifyEmailCode(data: VerifyEmailOptions, cb: (err: Error, message: string) => void): void;
 
-    verifySMSCode(data: VerifyOptions): Promise<any>;
-    verifySMSCode(data: VerifyOptions, cb: (err: Error, message: string) => void): void;
+    verifySMSCode(data: VerifySMSOptions | VerifySMSOptionsDeprecated): Promise<any>;
+    verifySMSCode(data: VerifySMSOptions | VerifySMSOptionsDeprecated, cb: (err: Error, message: string) => void): void;
 
     getDelegationToken(data: DelegationTokenOptions): Promise<any>;
     getDelegationToken(data: DelegationTokenOptions, cb: (err: Error, message: string) => void): void;
@@ -1258,6 +1267,10 @@ export interface OrganizationInvitation {
     roles?: string[] | undefined;
 }
 
+export interface OrganizationInvitationsPaged extends Omit<Page, 'length'> {
+    invitations: OrganizationInvitation[];
+}
+
 export interface CreateOrganizationInvitation {
     inviter: {
         name: string;
@@ -1366,11 +1379,22 @@ export class OrganizationsManager {
     removeMembers(params: ObjectWithId, data: RemoveOrganizationMembers, cb: (err: Error) => void): void;
 
     getInvitations(
-        params: ObjectWithId & PagingOptions & { fields?: string; include_fields?: boolean; sort?: string },
+        params: ObjectWithId &
+            PagingOptions & { fields?: string; include_fields?: boolean; sort?: string; include_totals?: false },
     ): Promise<OrganizationInvitation[]>;
     getInvitations(
-        params: ObjectWithId & PagingOptions & { fields?: string; include_fields?: boolean; sort?: string },
+        params: ObjectWithId &
+            PagingOptions & { fields?: string; include_fields?: boolean; sort?: string; include_totals: true },
+    ): Promise<OrganizationInvitationsPaged>;
+    getInvitations(
+        params: ObjectWithId &
+            PagingOptions & { fields?: string; include_fields?: boolean; sort?: string; include_totals?: false },
         cb: (err: Error, invitations: OrganizationInvitation[]) => void,
+    ): void;
+    getInvitations(
+        params: ObjectWithId &
+            PagingOptions & { fields?: string; include_fields?: boolean; sort?: string; include_totals: true },
+        cb: (err: Error, pagedInvitations: OrganizationInvitationsPaged) => void,
     ): void;
 
     getInvitation(

@@ -49,6 +49,7 @@ declare namespace DOMPurify {
         ADD_DATA_URI_TAGS?: string[] | undefined;
         ADD_TAGS?: string[] | undefined;
         ADD_URI_SAFE_ATTR?: string[] | undefined;
+        ALLOW_ARIA_ATTR?: boolean | undefined;
         ALLOW_DATA_ATTR?: boolean | undefined;
         ALLOW_UNKNOWN_PROTOCOLS?: boolean | undefined;
         ALLOWED_ATTR?: string[] | undefined;
@@ -86,6 +87,11 @@ declare namespace DOMPurify {
               }
             | undefined;
         WHOLE_DOCUMENT?: boolean | undefined;
+        CUSTOM_ELEMENT_HANDLING?: {
+            tagNameCheck?: RegExp | ((tagName: string) => boolean) | null | undefined;
+            attributeNameCheck?: RegExp | ((lcName: string) => boolean) | null | undefined;
+            allowCustomizedBuiltInElements?: boolean | undefined;
+        };
     }
 
     type HookName =

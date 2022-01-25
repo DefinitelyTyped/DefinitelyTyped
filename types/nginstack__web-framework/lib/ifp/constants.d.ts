@@ -36,7 +36,6 @@ export const ENV_METHOD_RUN_ACTIVITY_POS_PARAMETERS: number;
 export const ENV_METHOD_RUN_ACTIVITY_POS_VALIDATE_LAST_ACTIVITY: number;
 export const PROCESS_OP_POS_TYPE: number;
 export const PROCESS_OP_POS_ARGS: number;
-export const PROCESS_OP_POS_DISABLE_GRID_SYNC: number;
 export const PROCESS_OP_ID_TYPE_INTERACTION_WAS_WRITTEN: number;
 export const PROCESS_OP_ID_TYPE_GRID_SYNCHRONIZE: number;
 export const PROCESS_OP_ID_TYPE_GRID_ACTION: number;

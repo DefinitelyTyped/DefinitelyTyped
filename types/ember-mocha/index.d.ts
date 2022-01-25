@@ -1,17 +1,15 @@
-// Type definitions for ember-mocha 0.14
+// Type definitions for ember-mocha 0.16
 // Project: https://github.com/emberjs/ember-mocha#readme
-// Definitions by: Derek Wickern <https://github.com/dwickern>
-//                 Simon Ihmig <https://github.com/simonihmig>
-//                 Mike North <https://github.com/mike-north>
+// Definitions by: Simon Ihmig <https://github.com/simonihmig>
 //                 Dan Freeman <https://github.com/dfreeman>
 //                 Chris Krycho <https://github.com/chriskrycho>
 //                 James C. Davis <https://github.com/jamescdavis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
+// Minimum TypeScript Version: 3.7
 
-import { TestContext, ModuleCallbacks } from "ember-test-helpers";
-import Ember from 'ember';
+import { ModuleCallbacks, TestContext } from 'ember-test-helpers';
 import { it as mochaIt, Suite } from 'mocha';
+import Ember from 'ember';
 
 // these globals are re-exported as named exports by ember-mocha
 type mochaBefore = typeof before;

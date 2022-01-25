@@ -1,4 +1,4 @@
-// For Library Version: 1.96.0
+// For Library Version: 1.97.0
 
 declare module "sap/ui/mdc/library" {
   /**
@@ -48,6 +48,8 @@ declare namespace sap {
 
     "sap/ui/mdc/condition/Operator": undefined;
 
+    "sap/ui/mdc/condition/OperatorDynamicDateOption": undefined;
+
     "sap/ui/mdc/condition/RangeOperator": undefined;
 
     "sap/ui/mdc/Control": undefined;
@@ -87,6 +89,8 @@ declare namespace sap {
     "sap/ui/mdc/field/CustomFieldInfo": undefined;
 
     "sap/ui/mdc/field/DefineConditionPanel": undefined;
+
+    "sap/ui/mdc/field/DynamicDateRangeConditionsType": undefined;
 
     "sap/ui/mdc/field/FieldBase": undefined;
 
@@ -160,25 +164,31 @@ declare namespace sap {
 
     "sap/ui/mdc/p13n/AdaptationProvider": undefined;
 
-    "sap/ui/mdc/p13n/DefaultProviderRegistry": undefined;
-
     "sap/ui/mdc/p13n/Engine": undefined;
 
     "sap/ui/mdc/p13n/modification/ModificationHandler": undefined;
 
-    "sap/ui/mdc/p13n/panels/GroupPanel": undefined;
-
-    "sap/ui/mdc/p13n/panels/QueryPanel": undefined;
-
-    "sap/ui/mdc/p13n/panels/SortQueryPanel": undefined;
-
-    "sap/ui/mdc/p13n/panels/Wrapper": undefined;
+    "sap/ui/mdc/p13n/modules/DefaultProviderRegistry": undefined;
 
     "sap/ui/mdc/p13n/StateUtil": undefined;
 
     "sap/ui/mdc/p13n/subcontroller/BaseController": undefined;
 
     "sap/ui/mdc/p13n/UIManager": undefined;
+
+    "sap/ui/mdc/Table": undefined;
+
+    "sap/ui/mdc/table/Column": undefined;
+
+    "sap/ui/mdc/table/CreationRow": undefined;
+
+    "sap/ui/mdc/table/GridTableType": undefined;
+
+    "sap/ui/mdc/table/ResponsiveTableType": undefined;
+
+    "sap/ui/mdc/table/RowSettings": undefined;
+
+    "sap/ui/mdc/table/TableTypeBase": undefined;
 
     "sap/ui/mdc/util/DateUtil": undefined;
 

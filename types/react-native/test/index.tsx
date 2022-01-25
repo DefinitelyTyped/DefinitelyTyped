@@ -680,6 +680,10 @@ export class SectionListTest extends React.Component<SectionListProps<string>, {
                     )}
                     CellRendererComponent={cellRenderer}
                     maxToRenderPerBatch={5}
+                    ListFooterComponent={null}
+                    ListFooterComponentStyle={[{ padding: 8 }, [{ backgroundColor: 'transparent' }]]}
+                    ListHeaderComponent={null}
+                    ListHeaderComponentStyle={[{ padding: 8 }, [{ backgroundColor: 'transparent' }]]}
                 />
             </React.Fragment>
         );
@@ -752,6 +756,70 @@ export class SectionListTypedSectionTest extends React.Component<SectionListProp
                     }}
                     CellRendererComponent={cellRenderer}
                     maxToRenderPerBatch={5}
+                />
+
+                <SectionList
+                    ref={this.myList}
+                    sections={sections}
+                    renderSectionHeader={({ section }) => {
+                        section; // $ExpectType SectionListData<string, SectionT>
+
+                        return section.displayTitle ? (
+                            <View>
+                                <Text>{section.title}</Text>
+                            </View>
+                        ) : null;
+                    }}
+                    renderItem={info => {
+                        info; // $ExpectType SectionListRenderItemInfo<string, SectionT>
+
+                        return (
+                            <View>
+                                <Text>
+                                    {info.section.displayTitle ? <Text>{`${info.section.title} - `}</Text> : null}
+                                    <Text>{info.item}</Text>
+                                </Text>
+                            </View>
+                        );
+                    }}
+                    CellRendererComponent={cellRenderer}
+                    maxToRenderPerBatch={5}
+                    ListFooterComponent={null}
+                    ListFooterComponentStyle={null}
+                    ListHeaderComponent={null}
+                    ListHeaderComponentStyle={null}
+                />
+
+                <SectionList
+                    ref={this.myList}
+                    sections={sections}
+                    renderSectionHeader={({ section }) => {
+                        section; // $ExpectType SectionListData<string, SectionT>
+
+                        return section.displayTitle ? (
+                            <View>
+                                <Text>{section.title}</Text>
+                            </View>
+                        ) : null;
+                    }}
+                    renderItem={info => {
+                        info; // $ExpectType SectionListRenderItemInfo<string, SectionT>
+
+                        return (
+                            <View>
+                                <Text>
+                                    {info.section.displayTitle ? <Text>{`${info.section.title} - `}</Text> : null}
+                                    <Text>{info.item}</Text>
+                                </Text>
+                            </View>
+                        );
+                    }}
+                    CellRendererComponent={cellRenderer}
+                    maxToRenderPerBatch={5}
+                    ListFooterComponent={null}
+                    ListFooterComponentStyle={undefined}
+                    ListHeaderComponent={null}
+                    ListHeaderComponentStyle={undefined}
                 />
             </React.Fragment>
         );

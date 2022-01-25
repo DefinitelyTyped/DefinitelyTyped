@@ -195,6 +195,22 @@ auth.passwordGrant({username: 'username', password: 'password'}, (err, response:
 auth.passwordGrant({username: 'username', password: 'password'}, { forwardedFor: '12.34.56.78' }).then((response: auth0.TokenResponse) => { console.log(response); });
 auth.passwordGrant({username: 'username', password: 'password'}, { forwardedFor: '12.34.56.78' }, (err, response: auth0.TokenResponse) => { console.log(response); });
 
+// SMS/Email OTP Login
+auth.requestEmailCode({email: 'hi@me.co', authParams: {}}).then((response: any) => { console.log(response); });
+auth.requestEmailCode({email: 'hi@me.co', authParams: {}}, (response: any) => { console.log(response); });
+
+auth.requestSMSCode({ phone_number: '+1234567890'}, (response: any) => { console.log(response); });
+auth.requestSMSCode({ phone_number: '+1234567890'}).then((response: any) => { console.log(response); });
+
+auth.verifyEmailCode({email: 'hi@me.co', otp: 'password'}).then((response: any) => { console.log(response); });
+auth.verifyEmailCode({email: 'hi@me.co', otp: 'password'}, (response: any) => { console.log(response); });
+
+auth.verifySMSCode({username: '+1234567890', password: 'password'}).then((response: any) => { console.log(response); });
+auth.verifySMSCode({username: '+1234567890', password: 'password'}, (response: any) => { console.log(response); });
+
+auth.verifySMSCode({username: '+1234567890', otp: 'password'}).then((response: any) => { console.log(response); });
+auth.verifySMSCode({username: '+1234567890', otp: 'password'}, (response: any) => { console.log(response); });
+
 // Get management client access token
 management
     .getAccessToken()
@@ -1398,6 +1414,27 @@ management.organizations
     .getInvitations({ id: 'organization_id', per_page: 2, page: 1 })
     .then((invitations: auth0.OrganizationInvitation[]) => {
         console.log(invitations);
+    });
+
+/**
+ * Get Organization Invitations with pagination and totals using a callback
+ */
+management.organizations.getInvitations(
+    { id: 'organization_id', per_page: 2, page: 1, include_totals: true },
+    (err, pagedInvitations: auth0.OrganizationInvitationsPaged) => {
+        // $ExpectType OrganizationInvitationsPaged
+        pagedInvitations;
+    },
+);
+
+/**
+ * Get Organization Invitations with pagination and totals returning a Promise
+ */
+management.organizations
+    .getInvitations({ id: 'organization_id', per_page: 2, page: 1, include_totals: true })
+    .then((pagedInvitations: auth0.OrganizationInvitationsPaged) => {
+        // $ExpectType OrganizationInvitationsPaged
+        pagedInvitations;
     });
 
 /**
