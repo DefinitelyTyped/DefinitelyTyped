@@ -850,7 +850,8 @@ declare namespace google.payments.api {
         /**
          * If true, indicates that identification and verifications (ID&V) was performed on the returned payment credential.
          *
-         * If false, the same risk-based authentication can be performed as you would for card transactions. This risk-based authentication can include, but not limited to, step-up with 3D Secure protocol if applicable.
+         * If false, the same risk-based authentication can be performed as you would for card transactions.
+         * This risk-based authentication can include, but not limited to, step-up with 3D Secure protocol if applicable.
          */
         cardHolderAuthenticated?: true | false | undefined;
     }
