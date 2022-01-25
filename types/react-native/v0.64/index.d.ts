@@ -425,7 +425,17 @@ export interface NativeTouchEvent {
     force?: number | undefined;
 }
 
+export interface NativeMouseEvent {
+    clientX: number,
+    clientY: number,
+    pageX: number,
+    pageY: number,
+    timestamp: number,
+}
+
 export interface GestureResponderEvent extends NativeSyntheticEvent<NativeTouchEvent> {}
+
+export interface MouseEvent extends NativeSyntheticEvent<NativeMouseEvent> {}
 
 // See https://reactnative.dev/docs/scrollview#contentoffset
 export interface PointPropType {
@@ -452,6 +462,18 @@ export interface PressableAndroidRippleConfig {
 
 export interface PressableProps extends AccessibilityProps, Omit<ViewProps, 'children' | 'style' | 'hitSlop'> {
     /**
+     * Called when the hover is activated to provide visual feedback.
+     * @platform macos windows
+     */
+    onHoverIn?: null | ((event: MouseEvent) => void) | undefined,
+
+    /**
+     * Called when the hover is deactivated to undo visual feedback.
+     * @platform macos windows
+     */
+    onHoverOut?: null | ((event: MouseEvent) => void) | undefined,
+
+    /**
      * Called when a single tap gesture is detected.
      */
     onPress?: null | ((event: GestureResponderEvent) => void) | undefined;
@@ -473,13 +495,13 @@ export interface PressableProps extends AccessibilityProps, Omit<ViewProps, 'chi
 
     /**
      * Called after the element loses focus.
-     * @platform windows
+     * @platform macos windows
      */
     onBlur?: null | ((event: NativeSyntheticEvent<TargetedEvent>) => void) | undefined;
 
     /**
      * Called after the element is focused.
-     * @platform windows
+     * @platform macos windows
      */
     onFocus?: null | ((event: NativeSyntheticEvent<TargetedEvent>) => void) | undefined;
 
@@ -488,6 +510,18 @@ export interface PressableProps extends AccessibilityProps, Omit<ViewProps, 'chi
      * the component is currently pressed.
      */
     children?: React.ReactNode | ((state: PressableStateCallbackType) => React.ReactNode) | undefined;
+
+    /**
+     * Duration to wait after hover in before calling `onHoverIn`.
+     * @platform macos windows
+     */
+    delayHoverIn?: number | null | undefined;
+
+    /**
+     * Duration to wait after hover out before calling `onHoverOut`.
+     * @platform macos windows
+     */
+    delayHoverOut?: number | null | undefined;
 
     /**
      * Duration (in milliseconds) from `onPressIn` before `onLongPress` is called.
