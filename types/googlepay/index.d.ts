@@ -836,6 +836,26 @@ declare namespace google.payments.api {
     }
 
     /**
+     * Assurance details about what validation has been performed on the returned payment credentials so that appropriate instrument risk checks can be applied.
+     *
+     *  Note: If both cardHolderAuthenticated and accountVerified are true, you don’t need to step up the returned credentials.
+     *  If both aren’t, we recommend you to run the same risk checks and , authentication including 3D Secure flow if applicable.
+     */
+    interface AssuranceDetails {
+        /**
+         * If true, indicates that Cardholder possession validation has been performed on returned payment credential.
+         */
+        accountVerified?: true | false | undefined;
+
+        /**
+         * If true, indicates that identification and verifications (ID&V) was performed on the returned payment credential.
+         *
+         * If false, the same risk-based authentication can be performed as you would for card transactions. This risk-based authentication can include, but not limited to, step-up with 3D Secure protocol if applicable.
+         */
+        cardHolderAuthenticated?: true | false | undefined;
+    }
+
+    /**
      * Parameters for card networks that can be used in this request.
      *
      * This should only be set for [[PaymentMethodType|`CARD`]].
@@ -1101,6 +1121,17 @@ declare namespace google.payments.api {
      * method.
      */
     interface CardInfo {
+        /*
+         *  AssuranceDetails
+         *
+         *  This object provides information about what validation
+         *  has been performed on the returned payment credentials
+         *  so that appropriate instrument risk checks can be applied.
+         *
+         *  To receive this object, set assuranceDetailsRequired: true inside CardParameters
+         */
+        assuranceDetails?: AssuranceDetails | undefined;
+
         /**
          * The card network.
          *
