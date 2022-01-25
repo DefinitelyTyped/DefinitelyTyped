@@ -6,7 +6,9 @@
 
 import * as React from 'react';
 
-/** A value-based option. */
+/**
+ * A value-based option.
+ */
 export interface ValueOption<T> {
     /**
      * Whether the option is disabled or not.
@@ -14,15 +16,23 @@ export interface ValueOption<T> {
      * @default false
      */
     disabled?: boolean;
-    /** Adds the HTML `title` attribute to the option. */
+    /**
+     * Adds the HTML `title` attribute to the option.
+     */
     title?: string;
-    /** The option label. */
+    /**
+     * The option label.
+     */
     label: string;
-    /** The option value. */
+    /**
+     * The option value.
+     */
     value: T;
 }
 
-/** A category with other categories and values. */
+/**
+ * A category with other categories and values.
+ */
 export interface CategoryOption<T> {
     /**
      * Whether the category is disabled or not.
@@ -30,43 +40,49 @@ export interface CategoryOption<T> {
      * @default false
      */
     disabled?: boolean;
-    /** Adds the HTML `title` attribute to the option. */
+    /**
+     * Adds the HTML `title` attribute to the option.
+     */
     title?: string;
-    /** The category label. */
+    /**
+     * The category label.
+     */
     label: string;
-    /** The category child options. */
+    /**
+     * The category child options.
+     */
     options: Array<Option<T>>;
 }
 
-/** Valid options include values and categories. */
+/**
+ * Valid options include values and categories.
+ */
 export type Option<T> = ValueOption<T> | CategoryOption<T>;
 
-/** A filter. */
+/**
+ * A filter.
+ */
 export interface Filter<T> {
-    /** Available options. */
+    /**
+     * Available options.
+     */
     available: T[];
-    /** Selected options. */
+    /**
+     * Selected options.
+     */
     selected: T[];
 }
 
-/** Properties common to every `DualListBox`. */
+/**
+ * Properties common to every `DualListBox`.
+ */
 export interface CommonProperties<T> {
     /**
      * Available options.
-     *
-     * @example
-     * const options = [
-     *   { value: 'one', label: 'One'},
-     *   { value: 'two', label: 'Two'},
-     * ];
-     * <DualListBox options={options} />
      */
     options: Array<Option<T>>;
     /**
      * Selected options.
-     *
-     * @example
-     * <DualListBox options={options} selected={['one']} />
      */
     selected?: T[];
     /**
@@ -77,26 +93,17 @@ export interface CommonProperties<T> {
      * Override the default alignment of action buttons.
      *
      * @default "middle"
-     *
-     * @example
-     * <DualListBox options={options} alignActions="top" />
      */
     alignActions?: 'top' | 'middle';
     /**
      * If true, duplicate options will be allowed in the selected list box.
      *
      * @default false
-     *
-     * @example
-     * <DualListBox options={options} allowDuplicates />
      */
     allowDuplicates?: boolean;
     /**
-     * A subset of the `options` array to optionally filter the available list box.
-     *
-     * @example
-     * const available = ['io', 'europa', 'ganymede', 'callisto'];
-     * <DualListBox options={options} available={available} />;
+     * A subset of the `options` array to optionally filter the available list
+     * box.
      */
     available?: T[];
     /**
@@ -161,9 +168,6 @@ export interface CommonProperties<T> {
      * A list of key codes that will trigger a toggle of the selected options.
      *
      * @default [13, 32]
-     *
-     * @example
-     * <DualListBox options={options} moveKeyCodes={[13, 32]} />
      */
     moveKeyCodes?: number[];
     /**
@@ -178,9 +182,6 @@ export interface CommonProperties<T> {
      * selected items according to the order of the `options` property.
      *
      * @default false
-     *
-     * @example
-     * <DualListBox options={options} preserveSelectOrder />
      */
     preserveSelectOrder?: boolean;
     /**
@@ -206,71 +207,40 @@ export interface CommonProperties<T> {
     showOrderButtons?: boolean;
 }
 
-/** Additional `DualListBox` properties with filter. */
+/**
+ * Additional `DualListBox` properties with filter.
+ */
 export interface FilterProperties<T, F extends boolean> {
     /**
      * Flag that determines whether filtering is enabled.
      *
      * @default false
-     *
-     * @example
-     * <DualListBox options={options} canFilter />
      */
     canFilter?: F;
     /**
      * Override the default filtering function.
-     *
-     * @example
-     * <DualListBox
-     *   options={options}
-     *   filterCallback={(option, filterInput) => !!(...)}
-     *   canFilter
-     * />
      */
     filterCallback?: F extends true ? (option: Option<T>, filterInput: string) => boolean : undefined;
     /**
      * Override the default filter placeholder.
-     *
-     * @example
-     * <DualListBox
-     *   options={options}
-     *   filterPlaceholder="..."
-     *   canFilter
-     * />
      */
     filterPlaceholder?: F extends true ? string : undefined;
     /**
      * Control the filter search text.
-     *
-     * @example
-     * const filter = { available: 'europa', selected: '' };
-     * <DualListBox
-     *   options={options}
-     *   filter={filter}
-     *   canFilter
-     * />
      */
     filter?: Filter<T>;
     /**
      * Handle filter change.
-     *
-     * @example
-     * <DualListBox
-     *   options={options}
-     *   onFilterChange={filter => {...}}
-     *   canFilter
-     * />
      */
     onFilterChange?: F extends true ? (filter: string) => void : undefined;
 }
 
-/** Additional `DualListBox` properties with complex selected values. */
+/**
+ * Additional `DualListBox` properties with complex selected values.
+ */
 export interface ValueProperties<T, V extends boolean> {
     /**
      * The handler called when options are moved to either side.
-     *
-     * @example
-     * <DualListBox options={options} onChange={selected => {...}} />
      */
     // onChange?: (selected: (T | Option<T>)[]) => void;
     onChange?: (selected: V extends true ? T[] : Array<Option<T>>) => void;
@@ -279,22 +249,13 @@ export interface ValueProperties<T, V extends boolean> {
      * Otherwise, it is an array of options.
      *
      * @default true
-     *
-     * @example
-     * <DualListBox
-     *   options={options}
-     *   onChange={selectedValues => {...}}
-     * />
-     * <DualListBox
-     *   options={options}
-     *   simpleValue={false}
-     *   onChange={selectedOptions => {...}}
-     * />
      */
     simpleValue?: V;
 }
 
-/** `DualListBox` component properties. */
+/**
+ * `DualListBox` component properties.
+ */
 // export type DualListBoxProperties<P> = CommonProperties<P> & FilterProperties<P> & ValueProperties<P>;
 export interface DualListBoxProperties<P, F extends boolean, V extends boolean>
     extends CommonProperties<P>,
@@ -306,28 +267,6 @@ export interface DualListBoxProperties<P, F extends boolean, V extends boolean>
  *
  * The `DualListBox` is a controlled component, so you have to update the `selected` property in
  * conjunction with the `onChange` handler if you want the selected values to change.
- *
- * @example
- * // Example options (Option<string>[]).
- * const options: Option<string>[] = [
- *   { label: 'One', value: 'one' },
- *   { label: 'Two', value: 'two' },
- * ];
- *
- * const [selectedValues, setSelectedValues] = React.useState<string[]>([]);
- *
- * // Component handler
- * const handleChange = (selectedValues: string[]) => {
- *   setSelectedValues(selectedValues);
- * };
- *
- * // Usage example (`DualListBox` with options of
- * // `Options<string>[]` is a `DualListBox<string>`):
- * <DualListBox
- *   options={options}
- *   selected={selectedValues}
- *   onChange={handleChange}
- * />
  */
 export default class DualListBox<P, F extends boolean = false, V extends boolean = true> extends React.Component<
     DualListBoxProperties<P, F, V>
