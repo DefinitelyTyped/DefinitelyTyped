@@ -14,7 +14,7 @@ import * as webpack from 'webpack';
 export = WebpackHotMiddleware;
 
 declare function WebpackHotMiddleware(
-    compiler: webpack.ICompiler,
+    compiler: webpack.Compiler | webpack.MultiCompiler,
     options?: WebpackHotMiddleware.MiddlewareOptions
 ): NextHandleFunction & WebpackHotMiddleware.EventStream;
 
