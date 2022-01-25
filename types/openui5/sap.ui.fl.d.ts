@@ -1,4 +1,4 @@
-// For Library Version: 1.97.0
+// For Library Version: 1.98.0
 
 declare module "sap/ui/fl/library" {}
 
@@ -1572,7 +1572,7 @@ declare module "sap/ui/fl/write/api/FeaturesAPI" {
    */
   interface FeaturesAPI {
     /**
-     * Checks if context sharing is enbaled.
+     * Checks if context sharing is enabled.
      */
     isContextSharingEnabled(
       /**
@@ -1751,6 +1751,10 @@ declare namespace sap {
 
     "sap/ui/fl/registry/Settings": undefined;
 
+    "sap/ui/fl/support/_internal/getChangeDependencies": undefined;
+
+    "sap/ui/fl/support/api/SupportAPI": undefined;
+
     "sap/ui/fl/transport/TransportDialog": undefined;
 
     "sap/ui/fl/Utils": undefined;
@@ -1834,6 +1838,8 @@ declare namespace sap {
     "sap/ui/fl/write/api/SmartBusinessWriteAPI": undefined;
 
     "sap/ui/fl/write/api/SmartVariantManagementWriteAPI": undefined;
+
+    "sap/ui/fl/write/api/TranslationAPI": undefined;
 
     "sap/ui/fl/write/api/UI2PersonalizationWriteAPI": undefined;
 

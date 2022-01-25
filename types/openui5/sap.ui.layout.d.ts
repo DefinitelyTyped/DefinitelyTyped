@@ -1,4 +1,4 @@
-// For Library Version: 1.96.0
+// For Library Version: 1.98.0
 
 declare module "sap/ui/layout/library" {
   import Control from "sap/ui/core/Control";
@@ -1642,9 +1642,9 @@ declare module "sap/ui/layout/cssgrid/CSSGrid" {
    * 			to the `customLayout` aggregation of the `CSSGrid` and configure how it will look in different breakpoints
    * 			(S, M, L, XL).
    *
-   * Current Limitations:
-   * 	 - No alignment and ordering
-   * 	 - No Named grid areas and lines
+   * Out of current scope::
+   * 	 - Alignment and ordering
+   * 	 - Named grid areas and lines
    */
   export default class CSSGrid
     extends Control
