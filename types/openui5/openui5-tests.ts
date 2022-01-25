@@ -20,6 +20,7 @@ import ODataV4ListBinding from "sap/ui/model/odata/v4/ODataListBinding";
 import Target from "sap/ui/core/routing/Target";
 import MessagePage from "sap/m/MessagePage";
 import { TitleLevel } from "sap/ui/core/library";
+import DateTimePicker from "sap/m/DateTimePicker";
 
 /*
  * REMARK: the type definition files are automatically generated and this generation is tested,
@@ -131,8 +132,12 @@ const oTriggerButton = new Button({
         oFileUploader.upload();
     }
 });
+
+const dateTimePicker = new DateTimePicker({showCurrentTimeButton: true});
+dateTimePicker.setShowCurrentTimeButton(!dateTimePicker.getShowCurrentTimeButton());
 oUploadDialog.addContent(oFileUploader);
 oUploadDialog.addContent(oTriggerButton);
+oUploadDialog.addContent(dateTimePicker);
 oUploadDialog.open();
 
 const messagePage: MessagePage = new MessagePage();
