@@ -268,7 +268,8 @@ const awsServerless: Aws.Serverless = {
                     issuerUrl: 'testissuerUrl',
                     audience: ['testaudience']
                 }
-            }
+            },
+            useProviderTags: true
         },
         usagePlan: {
             quota: {
