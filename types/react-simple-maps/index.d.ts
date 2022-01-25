@@ -90,7 +90,7 @@ interface GeographiesChildrenArgument {
     projection: GeoProjection;
 }
 
-export interface GeographiesProps extends React.SVGAttributes<SVGGElement> {
+export interface GeographiesProps extends Omit<React.SVGAttributes<SVGGElement>, 'children'> {
     parseGeographies?: ((features: Array<Feature<any, any>>) => Array<Feature<any, any>>) | undefined;
     geography?: string | Record<string, any> | string[] | undefined;
     children?: ((data: GeographiesChildrenArgument) => void) | undefined;
