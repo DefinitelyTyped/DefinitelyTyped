@@ -793,6 +793,17 @@ declare namespace google.payments.api {
         allowCreditCards?: false | true | undefined;
 
         /**
+         * Set to `true` to request assuranceDetails.
+         *
+         * If omitted, defaults to `false`.
+         *
+         * You may set if you need object provides information about the validation performed on the returned payment data.
+         *
+         * @default false
+         */
+        assuranceDetailsRequired?: false | true | undefined;
+
+        /**
          * Whether a billing address is required from the buyer.
          *
          * If omitted, defaults to `false`.
