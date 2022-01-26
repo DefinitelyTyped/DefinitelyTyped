@@ -368,7 +368,7 @@ export class Client {
     setBucketPolicy(bucketName: string, bucketPolicy: string, callback: NoResultCallback): void;
     setBucketPolicy(bucketName: string, bucketPolicy: string): Promise<void>;
 
-    listenBucketNotification(bucketName: string, prefix: string, suffix: string, events: NotificationEvent[]): EventEmitter;
+    listenBucketNotification(bucketName: string, prefix: string, suffix: string, events: NotificationEvent[]): NotificationPoller;
 
     // Custom Settings
     setS3TransferAccelerate(endpoint: string): void;
