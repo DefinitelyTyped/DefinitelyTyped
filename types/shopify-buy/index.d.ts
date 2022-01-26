@@ -101,7 +101,9 @@ declare namespace ShopifyBuy {
          */
         updateLineItems(checkoutId: string | number, lineItems: AttributeInput[]): Promise<Cart>;
 
-        // added manually
+        /**
+        * Update line item quantities based on an array of line item ids
+         */
         updateAttributes(checkoutId: string | number, input: CustomAttributeV2): Promise<Cart>;
     }
 
@@ -286,7 +288,7 @@ declare namespace ShopifyBuy {
 
     export interface CustomAttributeV2 {
         customAttributes: {
-            key: string | undefined;
+            key?: string;
             value: string;
         }[];
     }
@@ -339,7 +341,9 @@ declare namespace ShopifyBuy {
          */
         completedAt: string | null;
 
-        // manually added
+        /**
+        * Get checkout url
+        */
         webUrl: string;
     }
 
