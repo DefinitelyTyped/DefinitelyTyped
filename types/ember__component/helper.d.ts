@@ -18,9 +18,9 @@ export default class Helper<S extends HelperSignature = HelperSignature> extends
      * example:
      */
     static helper<
-        P extends HelperSignature['PositionalArgs'],
-        N extends HelperSignature['NamedArgs'],
-        R extends HelperSignature['Return']
+        P extends NonNullable<HelperSignature['PositionalArgs']>,
+        N extends NonNullable<HelperSignature['NamedArgs']>,
+        R extends NonNullable<HelperSignature['Return']>,
     >(
         helper: (positional: P, named: N) => R
     ): Helper<{ PositionalArgs: P, NamedArgs: N, Return: R }>;
@@ -52,9 +52,9 @@ interface FunctionBasedHelper<S extends HelperSignature>
  * ```
  */
 export function helper<
-    P extends HelperSignature['PositionalArgs'],
-    N extends HelperSignature['NamedArgs'],
-    R extends HelperSignature['Return'],
+    P extends NonNullable<HelperSignature['PositionalArgs']>,
+    N extends NonNullable<HelperSignature['NamedArgs']>,
+    R extends NonNullable<HelperSignature['Return']>,
 >(
     helperFn: (positional: P, named: N) => R
 ): FunctionBasedHelper<{
