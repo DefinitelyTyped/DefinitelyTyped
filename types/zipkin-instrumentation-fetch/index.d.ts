@@ -9,6 +9,7 @@ import fetch from 'node-fetch';
 
 interface Options {
     tracer: Tracer;
+    serviceName: string;
     remoteServiceName: string;
 }
 
