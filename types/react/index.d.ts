@@ -89,7 +89,7 @@ declare namespace React {
         readonly current: T | null;
     }
     type RefCallback<T> = { bivarianceHack(instance: T | null): void }["bivarianceHack"];
-    type Ref<T> = RefCallback<T> | MutableRefObject<T> | RefObject<T> | null;
+    type Ref<T> = RefCallback<T> | RefObject<T> | null;
     type LegacyRef<T> = string | Ref<T>;
     /**
      * Gets the instance type for a React element. The instance will be different for various component types:
