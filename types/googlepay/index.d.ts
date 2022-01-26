@@ -801,7 +801,7 @@ declare namespace google.payments.api {
          *
          * @default false
          */
-        assuranceDetailsRequired?: false | true | undefined;
+        assuranceDetailsRequired?: boolean | undefined;
 
         /**
          * Whether a billing address is required from the buyer.
@@ -845,7 +845,7 @@ declare namespace google.payments.api {
         /**
          * If true, indicates that Cardholder possession validation has been performed on returned payment credential.
          */
-        accountVerified?: true | false | undefined;
+        accountVerified?: boolean | undefined;
 
         /**
          * If true, indicates that identification and verifications (ID&V) was performed on the returned payment credential.
@@ -853,7 +853,7 @@ declare namespace google.payments.api {
          * If false, the same risk-based authentication can be performed as you would for card transactions.
          * This risk-based authentication can include, but not limited to, step-up with 3D Secure protocol if applicable.
          */
-        cardHolderAuthenticated?: true | false | undefined;
+        cardHolderAuthenticated?: boolean | undefined;
     }
 
     /**
