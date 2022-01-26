@@ -25,4 +25,4 @@ const tracer = new Tracer({
 const remoteServiceName = 'youtube';
 const servicename = 'my-service';
 const zipkinFetch = wrapFetch(fetch, { tracer, remoteServiceName });
-const zipkinFetch = wrapFetch(fetch, { tracer, serviceName, remoteServiceName });
+const zipkinFetchWithSn = wrapFetch(fetch, { tracer, serviceName, remoteServiceName });
