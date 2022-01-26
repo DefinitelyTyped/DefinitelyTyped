@@ -203,6 +203,17 @@ fetchAsyncQuestionProperty(
             // DO NOTHING
         },
     });
+    promptResult.ui.process.subscribe({
+        next: (value) => {
+            if (value.name === "str") {
+                // $ExpectType string
+                value.answer;
+            } else {
+                // $ExpectType number
+                value.answer;
+            }
+        },
+    });
     // $ExpectError
     promptResult.ui.process.subscribe({
         next: (value: {name: string, answer: number}) => {
