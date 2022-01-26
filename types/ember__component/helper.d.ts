@@ -1,6 +1,9 @@
 import EmberObject from "@ember/object";
 import { Opaque } from 'ember/-private/type-utils';
 
+/**
+ * The public shape of a helper.
+ */
 export interface HelperSignature {
     NamedArgs?: Record<string, unknown>;
     PositionalArgs?: unknown[];
@@ -35,8 +38,14 @@ export default class Helper<S extends HelperSignature = HelperSignature> extends
     recompute(): void;
 }
 
-interface FunctionBasedHelper<S extends HelperSignature>
-    extends Opaque<S> {}
+/**
+ * The type of a function-based helper.
+ *
+ * @note This is *not* user-constructible: it is exported only so that the type
+ *   returned by the `helper` function can be named (and indeed can be exported
+ *   like `export default helper(...)` safely).
+ */
+export interface FunctionBasedHelper<S extends HelperSignature> extends Opaque<S> {}
 
 /**
  * In many cases, the ceremony of a full `Helper` class is not required.
