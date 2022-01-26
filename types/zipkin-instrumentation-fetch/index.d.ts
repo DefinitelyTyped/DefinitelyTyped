@@ -9,8 +9,8 @@ import fetch from 'node-fetch';
 
 interface Options {
     tracer: Tracer;
-    serviceName: string;
     remoteServiceName: string;
+    serviceName?: string;
 }
 
 declare function wrapFetch(rawFetch: typeof fetch, options: Options): typeof fetch;
