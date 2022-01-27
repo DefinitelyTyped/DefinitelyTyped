@@ -1,4 +1,4 @@
-// Type definitions for Amplitude SDK 8.9
+// Type definitions for Amplitude SDK 8.16
 // Project: https://github.com/amplitude/Amplitude-Javascript
 // Definitions by: Dan Manastireanu <https://github.com/danmana>
 //                 Kimmo Hintikka <https://github.com/HintikkaKimmo>
