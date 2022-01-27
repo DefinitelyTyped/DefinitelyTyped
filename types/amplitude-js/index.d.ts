@@ -109,15 +109,18 @@ export class AmplitudeClient {
     setSessionId(sessionId: number): void;
     getSessionId(): number;
     resetSessionId(): void;
+    setMinTimeBetweenSessionsMillis(timeInMillis: number): void;
 
     setDomain(domain: string): void;
     setUserId(userId: string | null, startNewSession?: boolean): void;
+    getUserId(): string;
 
     setDeviceId(id: string): void;
+    getDeviceId(): string;
     regenerateDeviceId(): void;
 
-    identify(identify: Identify, callback?: Callback): void;
-    groupIdentify(groupType: string, groupName: string | string[], identify: Identify, callback?: Callback): void;
+    identify(identify: Identify, callback?: Callback, errorCallback?: Callback, outOfSession?: boolean): void;
+    groupIdentify(groupType: string, groupName: string | string[], identify: Identify, callback?: Callback, errorCallback?: Callback, outOfSession?: boolean): void;
 
     setUserProperties(properties: any): void;
     setGlobalUserProperties(properties: any): void;
@@ -125,17 +128,22 @@ export class AmplitudeClient {
 
     clearStorage(): boolean;
 
+    setUseDynamicConfig(useDynamicConfig: boolean): void;
+
     setOptOut(enable: boolean): void;
 
     setGroup(groupType: string, groupName: string | string[]): void;
 
     setTransport(transport: Transport): void;
+    setServerUrl(serverUrl: string): void;
+    setServerZone(serverZone: ServerZone, serverZoneBasedApi?: boolean): void;
 
-    logEvent(event: string, data?: any, callback?: Callback): LogReturn;
-    logEventWithGroups(event: string, data?: any, groups?: any, callback?: Callback): LogReturn;
+    setEventUploadThreshold(eventUploadThreshold: number): void;
+    logEvent(event: string, data?: any, callback?: Callback, errorCallback?: Callback, outOfSession?: boolean): LogReturn;
+    logEventWithGroups(event: string, data?: any, groups?: any, callback?: Callback, errorCallback?: Callback, outOfSession?: boolean): LogReturn;
     logRevenueV2(revenue_obj: Revenue): LogReturn;
     logRevenue(pric: number, quantity: number, product: string): LogReturn;
-    logEventWithTimestamp(event: string, data?: any, timestamp?: number, callback?: Callback): LogReturn;
+    logEventWithTimestamp(event: string, data?: any, timestamp?: number, callback?: Callback, errorCallback?: Callback, outOfSession?: boolean): LogReturn;
 
     Identify: typeof Identify;
     Revenue: typeof Revenue;
