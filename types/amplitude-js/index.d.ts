@@ -111,7 +111,7 @@ export class AmplitudeClient {
     resetSessionId(): void;
 
     setDomain(domain: string): void;
-    setUserId(userId: string | null): void;
+    setUserId(userId: string | null, startNewSession?: boolean): void;
 
     setDeviceId(id: string): void;
     regenerateDeviceId(): void;
