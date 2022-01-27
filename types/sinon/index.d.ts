@@ -19,6 +19,10 @@ interface Event {} // tslint:disable-line no-empty-interface
 interface Document {} // tslint:disable-line no-empty-interface
 
 declare namespace Sinon {
+    type DeepPartialOrMatcher<T> = {
+        [K in keyof T]?: SinonMatcher | (T[K] extends object ? DeepPartialOrMatcher<T[K]> : T[K]);
+    };
+
     type MatchArguments<T> = {
         [K in keyof T]: SinonMatcher | (T[K] extends object ? MatchArguments<T[K]> : never) | T[K];
     };
@@ -65,7 +69,7 @@ declare namespace Sinon {
          * This behaves the same as spy.calledWith(sinon.match(arg1), sinon.match(arg2), ...).
          * @param args
          */
-        calledWithMatch(...args: TArgs): boolean;
+        calledWithMatch(...args: DeepPartialOrMatcher<TArgs>): boolean;
         /**
          * Returns true if call did not receive provided arguments.
          * @param args
@@ -76,7 +80,7 @@ declare namespace Sinon {
          * This behaves the same as spyCall.notCalledWith(sinon.match(arg1), sinon.match(arg2), ...).
          * @param args
          */
-        notCalledWithMatch(...args: TArgs): boolean;
+        notCalledWithMatch(...args: DeepPartialOrMatcher<TArgs>): boolean;
         /**
          * Returns true if spy returned the provided value at least once.
          * Uses deep comparison for objects and arrays. Use spy.returned(sinon.match.same(obj)) for strict comparison (see matchers).
@@ -1158,7 +1162,10 @@ declare namespace Sinon {
          * This behaves the same way as sinon.assert.calledWith(spy, sinon.match(arg1), sinon.match(arg2), ...).
          * It's possible to assert on a dedicated spy call: sinon.assert.calledWithMatch(spy.secondCall, arg1, arg2, ...);.
          */
-        calledWithMatch<TArgs extends any[]>(spyOrSpyCall: SinonSpy<TArgs> | SinonSpyCall<TArgs>, ...args: TArgs): void;
+        calledWithMatch<TArgs extends any[]>(
+            spyOrSpyCall: SinonSpy<TArgs> | SinonSpyCall<TArgs>,
+            ...args: DeepPartialOrMatcher<TArgs>
+        ): void;
         /**
          * Passes if spy was called once with matching arguments.
          * This behaves the same way as calling both sinon.assert.calledOnce(spy) and
@@ -1172,14 +1179,14 @@ declare namespace Sinon {
          * Passes if spy was always called with matching arguments.
          * This behaves the same way as sinon.assert.alwaysCalledWith(spy, sinon.match(arg1), sinon.match(arg2), ...).
          */
-        alwaysCalledWithMatch<TArgs extends any[]>(spy: SinonSpy<TArgs>, ...args: TArgs): void;
+        alwaysCalledWithMatch<TArgs extends any[]>(spy: SinonSpy<TArgs>, ...args: DeepPartialOrMatcher<TArgs>): void;
         /**
          * Passes if spy was never called with matching arguments.
          * This behaves the same way as sinon.assert.neverCalledWith(spy, sinon.match(arg1), sinon.match(arg2), ...).
          * @param spy
          * @param args
          */
-        neverCalledWithMatch<TArgs extends any[]>(spy: SinonSpy<TArgs>, ...args: TArgs): void;
+        neverCalledWithMatch<TArgs extends any[]>(spy: SinonSpy<TArgs>, ...args: DeepPartialOrMatcher<TArgs>): void;
         /**
          * Passes if spy was called with the new operator.
          * It’s possible to assert on a dedicated spy call: sinon.assert.calledWithNew(spy.secondCall, arg1, arg2, ...);.
