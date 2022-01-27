@@ -142,6 +142,9 @@ export class AmplitudeClient {
     groupIdentify(groupType: string, groupName: string | string[], identify: Identify, callback?: Callback, errorCallback?: Callback, outOfSession?: boolean): void;
 
     setUserProperties(properties: any): void;
+    /**
+     * @deprecated Use `setUserProperties` instead
+     */
     setGlobalUserProperties(properties: any): void;
     clearUserProperties(): void;
 
@@ -161,7 +164,11 @@ export class AmplitudeClient {
     logEvent(event: string, data?: any, callback?: Callback, errorCallback?: Callback, outOfSession?: boolean): LogReturn;
     logEventWithGroups(event: string, data?: any, groups?: any, callback?: Callback, errorCallback?: Callback, outOfSession?: boolean): LogReturn;
     logRevenueV2(revenue_obj: Revenue): LogReturn;
-    logRevenue(pric: number, quantity: number, product: string): LogReturn;
+
+    /**
+     * @deprecated Use `logRevenueV2` instead
+     */
+    logRevenue(price: number, quantity: number, product: string): LogReturn;
     logEventWithTimestamp(event: string, data?: any, timestamp?: number, callback?: Callback, errorCallback?: Callback, outOfSession?: boolean): LogReturn;
 
     Identify: typeof Identify;
