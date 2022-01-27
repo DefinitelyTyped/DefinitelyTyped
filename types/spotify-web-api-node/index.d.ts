@@ -47,12 +47,12 @@ declare class SpotifyWebApi {
 
     /**
      * Look up several tracks.
-     * @param trackIds The IDs of the artists.
+     * @param trackIds The IDs of the tracks.
      * @param options The possible options, currently only market.
      * @param callback Optional callback method to be called instead of the promise.
-     * @example getArtists(['0oSGxfWSnnOXhD2fKuz2Gy', '3dBVyJ7JuOMt4GE9607Qin']).then(...)
+     * @example getTracks(['3AyuigFWbuirWHvidbMz8O', '6bP4GyrKNbcKPMDqWJqpxI']).then(...)
      * @returns A promise that if successful, returns an object containing information
-     *          about the artists. Not returned if a callback is given.
+     *          about the tracks. Not returned if a callback is given.
      */
     getTracks(trackIds: ReadonlyArray<string>, options: MarketOptions, callback: Callback<SpotifyApi.MultipleTracksResponse>): void;
     getTracks(trackIds: ReadonlyArray<string>, options?: MarketOptions): Promise<Response<SpotifyApi.MultipleTracksResponse>>;
@@ -74,7 +74,7 @@ declare class SpotifyWebApi {
      * @param albumIds The IDs of the albums.
      * @param options The possible options, currently only market.
      * @param callback Optional callback method to be called instead of the promise.
-     * @example getAlbums(['0oSGxfWSnnOXhD2fKuz2Gy', '3dBVyJ7JuOMt4GE9607Qin']).then(...)
+     * @example getAlbums(['26TtzBrPdUkHMSTPSbctbl', '5kUSMNOHu33TTDtV8RGHLg']).then(...)
      * @returns A promise that if successful, returns an object containing information
      *          about the albums. Not returned if a callback is given.
      */
@@ -85,7 +85,7 @@ declare class SpotifyWebApi {
      * Look up an artist.
      * @param artistId The artist's ID.
      * @param callback Optional callback method to be called instead of the promise.
-     * @example api.getArtist('1u7kkVrr14iBvrpYnZILJR').then(...)
+     * @example getArtist('1u7kkVrr14iBvrpYnZILJR').then(...)
      * @returns A promise that if successful, returns an object containing information
      *          about the artist. Not returned if a callback is given.
      */
