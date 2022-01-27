@@ -33,6 +33,7 @@ export class Package {
      */
     static lazy(ref: string | Package | RawManifest, dir?: string): Package;
     constructor(pkg: RawManifest, location: string, rootPath?: string);
+    name: string;
     get location(): string;
     get private(): boolean;
     get resolved(): ResolveResult;
@@ -52,20 +53,20 @@ export class Package {
     get optionalDependencies(): RawManifest['optionalDependencies'];
     get peerDependencies(): RawManifest['peerDependencies'];
     get<K extends (keyof RawManifest) | string>(key: K): RawManifest[K];
-    set<K extends (keyof RawManifest) | string>(key: K, val: RawManifest[K]): void;
+    set<K extends (keyof RawManifest) | string>(key: K, val: RawManifest[K]): this;
     /**
      * Provide shallow copy for munging elsewhere
      */
-    toJson(): object;
+    toJSON(): RawManifest;
 
     /**
      * Refresh internal state from disk (e.g., changed by external lifecycles)
      */
-    refresh(): Promise<Package>;
+    refresh(): Promise<this>;
     /**
      * Write manifest changes to disk
      */
-    serialize(): Promise<void>;
+    serialize(): Promise<this>;
     /**
      * Mutate local dependency spec according to type
      */

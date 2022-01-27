@@ -11,7 +11,8 @@ const config: Pubnub.PubnubConfig = {
     secretKey: '',
     ssl: true,
     authKey: '',
-    useRandomIVs: false
+    useRandomIVs: false,
+    uuid: 'myUUID'
 };
 
 const pubnub = new Pubnub(config);

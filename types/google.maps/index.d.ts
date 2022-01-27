@@ -68,6 +68,19 @@ declare namespace google.maps {
 }
 declare namespace google.maps {
   /**
+   * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+   * Used for retrieving camera parameters, such as that of the GL camera used
+   * for the {@link google.maps.WebGLOverlayView}.
+   */
+  interface CameraParams extends google.maps.CameraOptions {
+    center: google.maps.LatLng;
+    heading: number;
+    tilt: number;
+    zoom: number;
+  }
+}
+declare namespace google.maps {
+  /**
    * A circle on the Earth&#39;s surface; also known as a &quot;spherical
    * cap&quot;.
    */
@@ -337,7 +350,7 @@ declare namespace google.maps {
     fromLatLngAltitude(
         latLng: google.maps.LatLng|google.maps.LatLngLiteral, altitude: number,
         rotations?: Float32Array, scale?: Float32Array): Float64Array;
-    getCameraParams(): google.maps.WebglCameraParams;
+    getCameraParams(): google.maps.CameraParams;
   }
 }
 declare namespace google.maps {
@@ -3023,17 +3036,15 @@ declare namespace google.maps {
    * followed by the longitude.<br> Notice that you cannot modify the
    * coordinates of a <code>LatLng</code>. If you want to compute another point,
    * you have to create a new one.<br> <p> Most methods that accept
-   * <code>LatLng</code> objects also accept a <code>{@link
-   * google.maps.LatLngLiteral}</code> object, so that the following are
-   * equivalent: <pre> map.setCenter(new google.maps.LatLng(-34, 151));<br>
-   * map.setCenter({lat: -34, lng: 151});
-   * </pre> <p> The constructor also accepts <code>{@link
-   * google.maps.LatLngLiteral}</code> and <code>LatLng</code> objects. If a
-   * <code>LatLng</code> instance is passed to the constructor, a copy is
-   * created. <p> The possible calls to the constructor are below: <pre> new
-   * google.maps.LatLng(-34, 151);<br> new google.maps.LatLng(-34, 151,
-   * true);<br> new google.maps.LatLng({lat: -34, lng: 151});<br> new
-   * google.maps.LatLng({lat: -34, lng: 151}, true);<br> new
+   * <code>LatLng</code> objects also accept a {@link google.maps.LatLngLiteral}
+   * object, so that the following are equivalent: <pre> map.setCenter(new
+   * google.maps.LatLng(-34, 151));<br> map.setCenter({lat: -34, lng: 151});
+   * </pre> <p> The constructor also accepts {@link google.maps.LatLngLiteral}
+   * and <code>LatLng</code> objects. If a <code>LatLng</code> instance is
+   * passed to the constructor, a copy is created. <p> The possible calls to the
+   * constructor are below: <pre> new google.maps.LatLng(-34, 151);<br> new
+   * google.maps.LatLng(-34, 151, true);<br> new google.maps.LatLng({lat: -34,
+   * lng: 151});<br> new google.maps.LatLng({lat: -34, lng: 151}, true);<br> new
    * google.maps.LatLng({lat: -34, lng: 151}, null, true);<br> new
    * google.maps.LatLng(new google.maps.LatLng(-34, 151));<br> new
    * google.maps.LatLng(new google.maps.LatLng(-34, 151), true);<br> new
@@ -3056,16 +3067,15 @@ declare namespace google.maps {
      * <em>first</em>, followed by the longitude.<br> Notice that you cannot
      * modify the coordinates of a <code>LatLng</code>. If you want to compute
      * another point, you have to create a new one.<br> <p> Most methods that
-     * accept <code>LatLng</code> objects also accept a <code>{@link
-     * google.maps.LatLngLiteral}</code> object, so that the following are
-     * equivalent: <pre> map.setCenter(new google.maps.LatLng(-34, 151));<br>
-     * map.setCenter({lat: -34, lng: 151});
-     * </pre> <p> The constructor also accepts <code>{@link
-     * google.maps.LatLngLiteral}</code> and <code>LatLng</code> objects. If a
-     * <code>LatLng</code> instance is passed to the constructor, a copy is
-     * created. <p> The possible calls to the constructor are below: <pre> new
-     * google.maps.LatLng(-34, 151);<br> new google.maps.LatLng(-34, 151,
-     * true);<br> new google.maps.LatLng({lat: -34, lng: 151});<br> new
+     * accept <code>LatLng</code> objects also accept a {@link
+     * google.maps.LatLngLiteral} object, so that the following are equivalent:
+     * <pre> map.setCenter(new google.maps.LatLng(-34, 151));<br>
+     * map.setCenter({lat: -34, lng: 151}); </pre> <p> The constructor also
+     * accepts {@link google.maps.LatLngLiteral} and <code>LatLng</code>
+     * objects. If a <code>LatLng</code> instance is passed to the constructor,
+     * a copy is created. <p> The possible calls to the constructor are below:
+     * <pre> new google.maps.LatLng(-34, 151);<br> new google.maps.LatLng(-34,
+     * 151, true);<br> new google.maps.LatLng({lat: -34, lng: 151});<br> new
      * google.maps.LatLng({lat: -34, lng: 151}, true);<br> new
      * google.maps.LatLng({lat: -34, lng: 151}, null, true);<br> new
      * google.maps.LatLng(new google.maps.LatLng(-34, 151));<br> new
@@ -3760,12 +3770,10 @@ declare namespace google.maps {
      */
     keyboardShortcuts?: boolean|null;
     /**
-     * The unique identifier that represents a single instance of a Google Map.
-     * You can create Map IDs and update a style associated with a Map ID at any
-     * time in the Google Cloud Console <a
-     * href="https://console.cloud.google.com/google/maps-apis/studio/maps">Maps
-     * Management page</a> without changing embedded JSON styling in your
-     * application code.
+     * The <a
+     * href="https://developers.google.com/maps/documentation/get-map-id">Map
+     * ID</a> of the map. This parameter cannot be set or changed after a map is
+     * instantiated.
      */
     mapId?: string|null;
     /**
@@ -6545,14 +6553,122 @@ declare namespace google.maps {
 declare namespace google.maps {
   /**
    * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+   * Drawing options.
+   */
+  interface WebGLDrawOptions {
+    /**
+     * The WebGLRenderingContext on which to render this WebGLOverlayView.
+     */
+    gl: WebGLRenderingContext;
+    /**
+     * The matrix transformation from camera space to latitude/longitude
+     * coordinates.
+     */
+    transformer: google.maps.CoordinateTransformer;
+  }
+}
+declare namespace google.maps {
+  /**
+   * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+   * The WebGL Overlay View provides direct access to the same WebGL rendering
+   * context Google Maps Platform uses to render the vector basemap. This use of
+   * a shared rendering context provides benefits such as depth occlusion with
+   * 3D building geometry, and the ability to sync 2D/3D content with basemap
+   * rendering. <br><br>With WebGL Overlay View you can add content to your maps
+   * using WebGL directly, or popular Graphics libraries like Three.js or
+   * deck.gl. To use the overlay, you can extend
+   * <code>google.maps.WebGLOverlayView</code> and provide an implementation for
+   * each of the following lifecycle hooks: {@link
+   * google.maps.WebGLOverlayView.onAdd}, {@link
+   * google.maps.WebGLOverlayView.onContextRestored}, {@link
+   * google.maps.WebGLOverlayView.onDraw}, {@link
+   * google.maps.WebGLOverlayView.onContextLost} and {@link
+   * google.maps.WebGLOverlayView.onRemove}. <br><br>You must call {@link
+   * google.maps.WebGLOverlayView.setMap} with a valid {@link google.maps.Map}
+   * object to trigger the call to the <code>onAdd()</code> method and
+   * <code>setMap(null)</code> in order to trigger the <code>onRemove()</code>
+   * method. The <code>setMap()</code> method can be called at the time of
+   * construction or at any point afterward when the overlay should be re-shown
+   * after removing. The <code>onDraw()</code> method will then be called
+   * whenever a map property changes that could change the position of the
+   * element, such as zoom, center, or map type. WebGLOverlayView may only be
+   * added to a vector map having a {@link google.maps.MapOptions.mapId}.
+   */
+  class WebGLOverlayView extends google.maps.MVCObject {
+    getMap(): google.maps.Map|null|undefined;
+    /**
+     * Implement this method to fetch or create intermediate data structures
+     * before the overlay is drawn that don’t require immediate access to the
+     * WebGL rendering context.
+     */
+    onAdd(): void;
+    /**
+     * This method is called when the rendering context is lost for any reason,
+     * and is where you should clean up any pre-existing GL state, since it is
+     * no longer needed.
+     */
+    onContextLost(): void;
+    /**
+     * This method is called once the rendering context is available. Use it to
+     * initialize or bind any WebGL state such as shaders or buffer objects.
+     * @param options that allow developers to restore the GL context.
+     */
+    onContextRestored(options: google.maps.WebGLStateOptions): void;
+    /**
+     * Implement this method to draw WebGL content directly on the map. Note
+     * that if the overlay needs a new frame drawn then call {@link
+     * google.maps.WebGLOverlayView.requestRedraw}.
+     * @param options that allow developers to render content to an associated
+     *     Google basemap.
+     */
+    onDraw(options: google.maps.WebGLDrawOptions): void;
+    /**
+     * This method is called when the overlay is removed from the map with
+     * <code>WebGLOverlayView.setMap(null)</code>, and is where you should
+     * remove all intermediate objects.
+     */
+    onRemove(): void;
+    /**
+     * Implement this method to handle any GL state updates outside of the
+     * render animation frame.
+     * @param options that allow developerse to restore the GL context.
+     */
+    onStateUpdate(options: google.maps.WebGLStateOptions): void;
+    /**
+     * Triggers the map to redraw a frame.
+     */
+    requestRedraw(): void;
+    /**
+     * Triggers the map to update GL state.
+     */
+    requestStateUpdate(): void;
+    /**
+     * Adds the overlay to the map.
+     * @param map The map to access the div, model and view state.
+     */
+    setMap(map?: google.maps.Map|null): void;
+  }
+}
+declare namespace google.maps {
+  /**
+   * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+   * GL state options.
+   */
+  interface WebGLStateOptions {
+    /**
+     * The WebGLRenderingContext on which to render this WebGLOverlayView.
+     */
+    gl: WebGLRenderingContext;
+  }
+}
+declare namespace google.maps {
+  /**
+   * Available only in the v=beta channel: https://goo.gle/3oAthT3.
    * A <code>WebglCameraParams</code> is a snapshot of camera properties used to
    * render the current frame.
+   * @deprecated Please use {@link google.maps.CameraParams} instead.
    */
-  interface WebglCameraParams {
-    /**
-     * Heading of the camera in degrees.
-     */
-    heading: number;
+  interface WebglCameraParams extends google.maps.CameraParams {
     /**
      * Latitude in degrees.
      */
@@ -6561,14 +6677,6 @@ declare namespace google.maps {
      * Longitude in degrees.
      */
     lng: number;
-    /**
-     * Angle of incidence of the camera, in degrees.
-     */
-    tilt: number;
-    /**
-     * Zoom level of the camera.
-     */
-    zoom: number;
   }
 }
 declare namespace google.maps {
@@ -6597,6 +6705,7 @@ declare namespace google.maps {
    * whenever a map property changes that could change the position of the
    * element, such as zoom, center, or map type. WebglOverlayView may only be
    * added to a vector map having a {@link google.maps.MapOptions.mapId}.
+   * @deprecated Please use {@link google.maps.WebGLOverlayView} instead.
    */
   class WebglOverlayView extends google.maps.MVCObject {
     getMap(): google.maps.Map|null|undefined;
@@ -6604,18 +6713,24 @@ declare namespace google.maps {
      * Implement this method to fetch or create intermediate data structures
      * before the overlay is drawn that don’t require immediate access to the
      * WebGL rendering context.
+     * @deprecated Please use {@link google.maps.WebGLOverlayView.onAdd}
+     *     instead.
      */
     onAdd(): void;
     /**
      * This method is called when the rendering context is lost for any reason,
      * and is where you should clean up any pre-existing GL state, since it is
      * no longer needed.
+     * @deprecated Please use {@link google.maps.WebGLOverlayView.onContextLost}
+     *     instead.
      */
     onContextLost(): void;
     /**
      * This method is called once the rendering context is available. Use it to
      * initialize or bind any WebGL state such as shaders or buffer objects.
      * @param gl rendering context for developers to access WebGL.
+     * @deprecated Please use {@link
+     *     google.maps.WebGLOverlayView.onContextRestored} instead.
      */
     onContextRestored(gl: WebGLRenderingContext): void;
     /**
@@ -6625,6 +6740,8 @@ declare namespace google.maps {
      * @param gl rendering context for developers to access WebGL.
      * @param transformer convenience class for providing camera transforms to
      *     center objects at latitude/longitude coordinates.
+     * @deprecated Please use {@link google.maps.WebGLOverlayView.onDraw}
+     *     instead.
      */
     onDraw(
         gl: WebGLRenderingContext,
@@ -6633,25 +6750,35 @@ declare namespace google.maps {
      * Implement this method to handle any GL state updates outside of the
      * render animation frame.
      * @param gl rendering context for developers to access WebGL.
+     * @deprecated Please use {@link google.maps.WebGLOverlayView.onStateUpdate}
+     *     instead.
      */
     onGlStateUpdate(gl: WebGLRenderingContext): void;
     /**
      * This method is called when the overlay is removed from the map with
      * <code>WebglOverlayView.setMap(null)</code>, and is where you should
      * remove all intermediate objects.
+     * @deprecated Please use {@link google.maps.WebGLOverlayView.onRemove}
+     *     instead.
      */
     onRemove(): void;
     /**
      * Triggers the map to update GL state.
+     * @deprecated Please use {@link
+     *     google.maps.WebGLOverlayView.requestStateUpdate} instead.
      */
     requestGlStateUpdate(): void;
     /**
      * Triggers the map to redraw a frame.
+     * @deprecated Please use {@link google.maps.WebGLOverlayView.requestRedraw}
+     *     instead.
      */
     requestRedraw(): void;
     /**
      * Adds the overlay to the map.
      * @param map The map to access the div, model and view state.
+     * @deprecated Please use {@link google.maps.WebGLOverlayView.setMap}
+     *     instead.
      */
     setMap(map?: google.maps.Map|null): void;
   }
@@ -7883,7 +8010,9 @@ declare namespace google.maps.places {
      * google.maps.places.PlaceResult.utc_offset_minutes} or {@link
      * google.maps.places.PlaceOpeningHours.periods} then <code>undefined</code>
      * is returned ({@link google.maps.places.PlaceOpeningHours.periods} is only
-     * available via {@link google.maps.places.PlacesService.getDetails}).
+     * available via {@link google.maps.places.PlacesService.getDetails}). This
+     * method does not take exceptional hours, such as holiday hours, into
+     * consideration.
      */
     isOpen(date?: Date): boolean|undefined;
     /**

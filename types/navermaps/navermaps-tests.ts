@@ -194,10 +194,37 @@ point.x;
 point.y;
 
 const geoAddress = '경기도 성남시 분당구 불정로 6';
-naver.maps.Service.geocode({
-    address: geoAddress,
-}, (status, response) => {
-    const point = response.result.items[0].point;
-    point.x;
-    point.y;
-});
+naver.maps.Service.geocode(
+    {
+        query: geoAddress,
+    },
+    (status, response) => {
+        const point = response.result.items[0].point;
+        point.x;
+        point.y;
+        const addresses = response.v2.addresses;
+        addresses[0].roadAddress;
+    },
+);
+
+naver.maps.Service.reverseGeocode(
+    {
+        coords: jeju,
+        orders: [naver.maps.Service.OrderType.ADDR, naver.maps.Service.OrderType.ROAD_ADDR].join(','),
+    },
+    (status, response) => {
+        const address = response.v2.address;
+        address.roadAddress;
+        address.jibunAddress;
+
+        const results = response.v2.results;
+        results[0].name;
+        results[0].code;
+        results[0].region;
+
+        const v2Status = response.v2.status;
+        v2Status.code;
+        v2Status.name;
+        v2Status.message;
+    },
+);

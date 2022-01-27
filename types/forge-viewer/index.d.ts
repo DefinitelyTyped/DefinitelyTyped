@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Forge Viewer 7.58
+// Type definitions for non-npm package Forge Viewer 7.59
 // Project: https://forge.autodesk.com/en/docs/viewer/v7/developers_guide/overview/
 // Definitions by: Autodesk Forge Partner Development <https://github.com/Autodesk-Forge>
 //                 Alan Smith <https://github.com/alansmithnbs>
@@ -427,7 +427,7 @@ declare namespace Autodesk {
           fetchAlignmentsForNodes(nodes: BubbleNode[]): any;
           getFloorSelector(): any;
           getModel(node: BubbleNode): Model;
-          getModelAndWait(node: BubbleNode): Promise<Model>;
+          getModelAndWait(node: BubbleNode, checkIfVisible?: boolean): Promise<Model>;
           getVisibleNodes(): BubbleNode[];
           hide(node: BubbleNode): void;
           hideAll(): void;
@@ -1062,14 +1062,19 @@ declare namespace Autodesk {
             constructor(container: HTMLElement, config?: Viewer3DConfig);
 
             canvas: HTMLCanvasElement;
+            canvasWrap: HTMLElement;
+            clientContainer: HTMLElement;
             config: Viewer3DConfig;
             container: HTMLElement;
             navigation: Navigation;
             id: number;
             impl: Private.Viewer3DImpl;
+            loadedExtensions: { [key: string]: Extension };
             model: Model;
             prefs: Private.ViewerPreferences;
+            running: boolean;
             started: boolean;
+            theme: string;
             toolbar: UI.ToolBar;
 
             start(urn?: string, onSuccesfullCallback?: () => void, onErrorCallback?: (errorCode: number, errorMessage: string, statusCode: number, statusText: string) => void): any;
@@ -1257,12 +1262,12 @@ declare namespace Autodesk {
         }
 
         class GuiViewer3D extends Viewer3D {
-            toolController: ToolController;
             autocam: any;
-            progressbar: any;
-            utilities: ViewingUtilities;
             dockingPanels: any;
             overlays: OverlayManager;
+            progressbar: Private.ProgressBar;
+            toolController: ToolController;
+            utilities: ViewingUtilities;
 
             addPanel(panel: UI.DockingPanel): boolean;
             createDebugSubmenu(button: UI.Button): void;
@@ -1373,6 +1378,36 @@ declare namespace Autodesk {
           class ViewerPropertyPanel extends UI.PropertyPanel {
             constructor(viewer: GuiViewer3D);
             currentNodeIds: object[];
+          }
+
+          namespace Multipage {
+            namespace Events {
+              const FocusedPageChanged = 'focusedPageChanged';
+              const PageLoaded = 'pageLoaded';
+            }
+
+            class MultipageExtension extends Extension {
+              constructor(viewer: Viewer3D, options?: any);
+
+              focusedPage: any;
+              mode: string;
+              modes: string[];
+              multipageTool: ToolInterface;
+              name: string;
+
+              focusFirstPage(): string;
+              focusLastPage(): string;
+              focusNextPage(): string;
+              focusOnPage(pageToFocus: any, immediate?: boolean): string;
+              focusPrevPage(): string;
+              getAllPages(): any[];
+              getCurrentPageIndex(): number;
+              getFocusedPage(): any;
+              getNearestPages(): any[];
+              isPageLoaded(page: any): boolean;
+              isPageInView(page: any): boolean;
+              loadFocusedPage(): Promise<void>;
+            }
           }
 
           namespace PDF {
@@ -1686,6 +1721,12 @@ declare namespace Autodesk {
               tag(tag: string, names?: string[]|string): void;
               untag(tag: string, names?: string[]|string): void;
               webStorage(name: string, value: any): any;
+            }
+
+            class ProgressBar {
+                lastValue: number;
+
+                setPercent(pct: number): void;
             }
 
             class BoundsCallback implements GeometryCallback {

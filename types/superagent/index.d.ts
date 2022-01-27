@@ -20,6 +20,7 @@ import * as fs from "fs";
 import * as http from "http";
 import * as stream from "stream";
 import * as cookiejar from "cookiejar";
+import { Blob } from "buffer";
 
 type CallbackHandler = (err: any, res: request.Response) => void;
 

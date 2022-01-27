@@ -10,6 +10,11 @@ Hummer.env.availableWidth; // $ExpectType number
 Hummer.env.availableHeight; // $ExpectType number
 Hummer.env.scale; // $ExpectType number
 
+Hummer.pageInfo.animated; // $ExpectType boolean
+Hummer.pageInfo.closeSelf; // $ExpectType boolean
+Hummer.pageInfo.sourcePath; // $ExpectType string
+Hummer.pageInfo.url; // $ExpectType string
+
 const msg = 'message to print';
 console.log(msg); // $ExpectType void
 console.debug(msg); // $ExpectType void
@@ -110,3 +115,29 @@ location.stopLocation();
 location.onError((errCode, errMsg) => {
     console.log(`get location error with code:${errCode},msd: ${errMsg}`);
 });
+
+// conponents
+const button = new Button();
+const canvas = new CanvasView();
+const horizontalScroller = new HorizontalScroller();
+const image = new Image();
+const input = new Input();
+const list = new List();
+const scroller = new Scroller();
+const _switch = new Switch();
+const text = new Text();
+const textArea = new Text();
+const view = new View();
+const viewPager = new ViewPager();
+
+// style
+const commonStyle: HummerCommonStyle = {};
+const viewStyle: ViewStyle = {};
+const textSTyle: TextStyle = {};
+const buttonStyle: ButtonStyle = {};
+const inputStyle: InputStyle = {};
+const imageStyle: ImageStyle = {};
+const textAreaStyle: TextAreaStyle = {};
+const switchStyle: SwitchStyle = {};
+const listStyle: ListStyle = {};
+const viewPagerStyle: ViewPagerStyle = {};

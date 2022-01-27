@@ -285,6 +285,13 @@ redis.sadd('set', 'val1', 'val2');
 redis.sismember('set', 'val1').then(console.log);
 redis.smismember('set', ...['val1', 'val2', 'val3']).then(console.log);
 
+// Test for flushdb
+redis.set('test', 'random');
+redis.flushdb('async');
+redis.get('test').then(result => {
+    console.log('result should be null', result);
+});
+
 // All arguments are passed directly to the redis server:
 redis.set('key', '100');
 redis.set('key', '100', 'XX');

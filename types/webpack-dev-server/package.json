@@ -1,9 +1,0 @@
-{
-  "private": true,
-  "dependencies": {
-    "@types/webpack-dev-middleware": "^5.0.2",
-    "chokidar": "^3.5.1",
-    "http-proxy-middleware": "^2.0.0",
-    "webpack": "*"
-  }
-}

@@ -1,7 +1,7 @@
 /**
  * The namespace for all Match types and methods.
  */
-declare module Match {
+declare namespace Match {
     interface Matcher<T> {
         _meteorCheckMatcherBrand: void;
     }

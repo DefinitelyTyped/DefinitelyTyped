@@ -49,6 +49,7 @@ declare namespace DOMPurify {
         ADD_DATA_URI_TAGS?: string[] | undefined;
         ADD_TAGS?: string[] | undefined;
         ADD_URI_SAFE_ATTR?: string[] | undefined;
+        ALLOW_ARIA_ATTR?: boolean | undefined;
         ALLOW_DATA_ATTR?: boolean | undefined;
         ALLOW_UNKNOWN_PROTOCOLS?: boolean | undefined;
         ALLOWED_ATTR?: string[] | undefined;

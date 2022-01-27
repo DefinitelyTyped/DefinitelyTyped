@@ -6,7 +6,6 @@
 //                 Steve Fenton <https://github.com/Steve-Fenton>
 //                 Diullei Gomes <https://github.com/Diullei>
 //                 Tass Iliopoulos <https://github.com/tasoili>
-//                 Jason Swearingen <https://github.com/jasons-novaleaf>
 //                 Sean Hill <https://github.com/seanski>
 //                 Guus Goossens <https://github.com/Guuz>
 //                 Kelly Summerlin <https://github.com/ksummerlin>

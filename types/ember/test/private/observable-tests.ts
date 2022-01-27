@@ -97,12 +97,6 @@ class DemoObservable implements Observable {
     removeObserver(key: any, target: any, method?: any): void {
         throw new Error('Method not implemented.');
     }
-    getWithDefault<K extends keyof this>(
-        key: K,
-        defaultValue: UnwrapComputedPropertyGetter<this[K]>,
-    ): UnwrapComputedPropertyGetter<this[K]> {
-        throw new Error('Method not implemented.');
-    }
     incrementProperty(keyName: ExtractPropertyNamesOfType<this, number | undefined>, increment?: number): number {
         throw new Error('Method not implemented.');
     }
@@ -146,17 +140,6 @@ o.toggleProperty('isFoo'); // $ExpectType boolean
 o.toggleProperty(); // $ExpectError
 
 /**
- * getWithDefault
- */
-assertType<string>(o.getWithDefault('foo', 'zzz')); // $ExpectType string
-assertType<[boolean, boolean]>(o.getWithDefault('bar', [false, false])); // $ExpectType [boolean, boolean]
-assertType<number | undefined>(o.getWithDefault('baz', 10)); // $ExpectType number | undefined
-// improper arguments cases
-assertType<number | undefined>(o.getWithDefault('baz', '10')); // $ExpectError
-assertType<number | undefined>(o.getWithDefault('baz')); // $ExpectError
-assertType<number | undefined>(o.getWithDefault()); // $ExpectError
-
-/**
  * getProperties
  */
 // ('foo', 'bar')
@@ -167,8 +150,8 @@ assertType<{ foo: string; bar: [boolean, boolean] }>(o.getProperties(['foo', 'ba
 assertType<{}>(o.getProperties()); // $ExpectType {}
 assertType<{}>(o.getProperties([])); // $ExpectType {}
 // property that doesn't exist
-assertType<any>(o.getProperties('jeanShorts', 'foo')); // $ExpectError
-assertType<any>(o.getProperties(['foo', 'jeanShorts'])); // $ExpectError
+o.getProperties('jeanShorts', 'foo'); // $ExpectError
+o.getProperties(['foo', 'jeanShorts']); // $ExpectError
 
 /**
  * set
@@ -178,7 +161,7 @@ assertType<[boolean, boolean]>(o.set('bar', [false, false])); // $ExpectType [bo
 assertType<number | undefined>(o.set('baz', undefined)); // $ExpectType number | undefined
 assertType<number | undefined>(o.set('baz', 10)); // $ExpectType number | undefined
 // property that doesn't exist
-assertType<any>(o.set('jeanShorts', 10)); // $ExpectError
+o.set('jeanShorts', 10); // $ExpectError
 
 /**
  * setProperties
@@ -187,7 +170,7 @@ assertType<{ foo: string; bar: [boolean, boolean] }>(o.setProperties({ foo: 'abc
 // empty case
 assertType<{}>(o.setProperties({})); // $ExpectType {}
 // property that doesn't exist
-assertType<any>(o.setProperties({ jeanShorts: 'under the pants' })); // $ExpectError
+o.setProperties({ jeanShorts: 'under the pants' }); // $ExpectError
 
 /**
  * notifyPropertyChange

@@ -245,4 +245,10 @@ export interface ThreeDSecure {
      * Cleanly tear down anything set up by {@link module:braintree-web/three-d-secure.create|create}
      */
     teardown(callback?: callback): void;
+
+    /**
+     * It adds definition for on(event, handler) method
+     * Documentation link: https://braintree.github.io/braintree-web/current/ThreeDSecure.html#on
+     */
+    on(event: string, handler: (data?: any, next?: () => void) => void): void;
 }

@@ -7,11 +7,13 @@
 /// <reference types="node" />
 
 type SteamID = import('steamid');
+type EventEmitter = import('events');
 import { Request } from 'request';
 
 import CMarketItem = require('./classes/CMarketItem');
 import CSteamGroup = require('./classes/CSteamGroup');
 import CSteamUser = require('./classes/CSteamUser');
+import CConfirmation = require("./classes/CConfirmation");
 import CMarketSearchResult = require('./classes/CMarketSearchResult');
 
 import { Chat } from './components/chat';
@@ -27,7 +29,7 @@ import { TwoFactor } from './components/twofactor';
 import { Users } from './components/users';
 import { WebApi } from './components/webapi';
 
-interface SteamCommunity extends Chat, Confirmations, Groups, Help, Helpers, Http, InventoryHistory, Market, Profile, TwoFactor, Users, WebApi {}
+interface SteamCommunity extends Chat, EventEmitter, Confirmations, Groups, Help, Helpers, Http, InventoryHistory, Market, Profile, TwoFactor, Users, WebApi {}
 
 declare class SteamCommunity {
     constructor(options?: SteamCommunity.Options);
@@ -236,6 +238,93 @@ declare class SteamCommunity {
      */
     setCookies(cookies: string[]): void;
 
+    /**
+     * Emitted when an HTTP request is made which requires a login, and Steam redirects us to the login page (i.e. we aren't logged in). You should re-login when you get this event.
+     * Note that this will be emitted continuously until you log back in. This event being emitted doesn't stop the
+     * module from attempting further requests (as a result of method calls, timers, etc) so you should ensure that you limit your logins.
+     *
+     * @param event "sessionExpired"
+     * @param listener Emitted when an HTTP request is made which requires a login, and Steam redirects us to the login page (i.e. we aren't logged in).
+     */
+    on(event: 'sessionExpired', listener: SteamCommunity.Events.sessionExpired): this;
+
+    /**
+     * This event will be emitted when the confirmation checker needs a new confirmation key to continue. Keys that can be reused will be saved for up to five minutes before they are requested again.
+     *
+     * @param event "confKeyNeeded"
+     * @param listener This event will be emitted when the confirmation checker needs a new confirmation key to continue.
+     * @example
+     * community.on('confKeyNeeded', function(tag, callback) {
+     *     const time = Math.floor(Date.now() / 1000);
+     *     callback(null, time, SteamTotp.getConfirmationKey(identitySecret, time, tag));
+     * });
+     */
+    on(event: 'confKeyNeeded', listener: SteamCommunity.Events.confKeyNeeded): this;
+
+    /**
+     * Emitted when a new confirmation is received. This will be emitted once per confirmation.
+     *
+     * A special property `offerID` will be defined which is the ID of the trade offer that the confirmation is confirming.
+     * If this confirmation isn't for an offer, this will be `undefined`. Adding this property requires one request per confirmation to find the offer ID.
+     * If you don't need these IDs and you want to save requests, always return an error in the `confKeyNeeded` event when the tag is "details".
+     *
+     * This event will be emitted at most once per second. This is to ensure that you don't accidentally generate the same key twice for two confirmations.
+     *
+     * @param event "newConfirmation"
+     * @param listener Emitted when a new confirmation is received. This will be emitted once per confirmation.
+     */
+    on(event: 'newConfirmation', listener: SteamCommunity.Events.newConfirmation): this;
+
+    /**
+     * Emitted when the automatic confirmation checker auto-accepts a confirmation with success.
+     *
+     * @param event "confirmationAccepted"
+     * @param listener Emitted when the automatic confirmation checker auto-accepts a confirmation with success.
+     */
+    on(event: 'confirmationAccepted', listener: SteamCommunity.Events.confirmationAccepted): this;
+
+    /**
+     * Emitted when there's a problem while logging into webchat.
+     *
+     * @param event "chatLogOnFailed"
+     * @param listener Emitted when there's a problem while logging into webchat.
+     */
+    on(event: 'chatLogOnFailed', listener: SteamCommunity.Events.chatLogOnFailed): this;
+
+    /**
+     * Emitted when we receive new persona state data for a friend.
+     *
+     * @param event "chatPersonaState"
+     * @param listener Emitted when we receive new persona state data for a friend.
+     */
+    on(event: 'chatPersonaState', listener: SteamCommunity.Events.chatPersonaState): this;
+
+    /**
+     * Emitted when we receive a new chat message.
+     *
+     * @param event "chatMessage"
+     * @param listener Emitted when we receive a new chat message.
+     */
+    on(event: 'chatMessage', listener: SteamCommunity.Events.chatMessage): this;
+
+    /**
+     * Emitted when we receive a notification that someone is typing a message.
+     *
+     * @param event "chatTyping"
+     * @param listener Emitted when we receive a notification that someone is typing a message.
+     */
+    on(event: 'chatTyping', listener: SteamCommunity.Events.chatTyping): this;
+
+    /**
+     * Emitted in response to a {@link SteamCommunity.chatLogoff|chatLogoff()} or {@link SteamCommunity.chatLogon|chatLogon()} call respectively when we successfully logged off/on.
+     *
+     * @param event "chatLoggedOff" | "chatLoggenOn"
+     * @param listener Emitted in response to a {@link SteamCommunity.chatLogoff|chatLogoff()} or {@link SteamCommunity.chatLogon|chatLogon()} call respectively when we successfully logged off/on.
+     */
+    on(event: 'chatLoggedOff' | 'chatLoggedOn', listener: () => void): this;
+
+    on(type: 'debug' | string | number, listener: (...args: any[]) => void): this;
+
     steamID: SteamID;
 }
 
@@ -412,6 +501,61 @@ declare namespace SteamCommunity {
         author: string;
         /** The ID of the announcement. */
         aid: string;
+    }
+
+    namespace Events {
+        /**
+         * @param err An `Error` object.
+         */
+        type sessionExpired = (err: CallbackError) => void;
+
+        /**
+         * @param tag If an error occurred when you were getting the key, pass an `Error` object here and no further arguments. If successful, pass `null` here.
+         * @param callback The Unix timestamp that you used to generate this key.
+         */
+        type confKeyNeeded = (tag: string, callback: confKeyNeededCallback) => void;
+
+        /**
+         * You should call this function when you have the key ready.
+         *
+         * @param err If an error occurred when you were getting the key, pass an `Error` object here and no further arguments. If successful, pass `null` here.
+         * @param time The Unix timestamp that you used to generate this key.
+         * @param key The base64 string key.
+         */
+        type confKeyNeededCallback = (err: CallbackError, time: number, key: string) => void;
+
+        /**
+         * @param confirmation A `CConfirmation` object.
+         */
+        type newConfirmation = (confirmation: CConfirmation) => void;
+
+        /**
+         * @param confirmation A `CConfirmation` object.
+         */
+        type confirmationAccepted = (confirmation: CConfirmation) => void;
+
+        /**
+         * @param err An `Error` object.
+         * @param fatal `true` if this is a fatal error, `false` if not (will keep trying to connect if not fatal).
+         */
+        type chatLogOnFailed = (err: CallbackError, fatal: boolean) => void;
+
+        /**
+         * @param steamID The SteamID of the user for whom we just got persona data, as a `SteamID` object.
+         * @param persona The user's persona data.
+         */
+        type chatPersonaState = (steamID: SteamID, persona: PersonaState) => void;
+
+        /**
+         * @param steamID The sender's SteamID, as a `SteamID` object.
+         * @param text The message text.
+         */
+        type chatMessage = (sender: SteamID, text: string) => void;
+
+        /**
+         * @param steamID The sender's SteamID, as a `SteamID` object.
+         */
+        type chatTyping = (sender: SteamID) => void;
     }
 
     type GroupEventType =

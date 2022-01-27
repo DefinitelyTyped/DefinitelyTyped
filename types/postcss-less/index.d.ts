@@ -10,7 +10,7 @@ import * as postcss from 'postcss';
 export = postcssLess;
 
 declare const postcssLess: postcss.Syntax & {
-    parse: postcss.Parser;
+    parse: postcss.Parser<postcss.Root>;
     stringify: postcss.Stringifier;
     nodeToString: (node: postcss.Node) => string;
 };

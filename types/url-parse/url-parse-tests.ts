@@ -32,7 +32,10 @@ url4.query.has(3);
 const url2 = new URL('foo/bar', 'https://github.com/');
 url2.set('protocol', 'http://');
 url2.set('slashes', true);
+url2.set('query', 'bar=foo');
+url2.set('query', {queryParameterName: 'queryParameterValue'});
 
 URL.extractProtocol('https://github.com/foo/bar');
 URL.location('https://github.com/foo/bar');
+URL.trimLeft('   https://github.com/foo/bar');
 URL.qs.parse('a=b');

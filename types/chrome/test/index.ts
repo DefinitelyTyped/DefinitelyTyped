@@ -1077,7 +1077,10 @@ async function testDynamicRules() {
         action: {
           type: chrome.declarativeNetRequest.RuleActionType.ALLOW,
         },
-        condition: {},
+        condition: {
+            domains: ["www.example.com"],
+            tabIds: [2, 3, 76],
+        },
         id: 2,
         priority: 3,
       }],
@@ -1240,4 +1243,10 @@ function testEnterpriseDeviceAttributes() {
   chrome.enterprise.deviceAttributes.getDeviceAssetId((assetId) => {});
   chrome.enterprise.deviceAttributes.getDeviceAnnotatedLocation((annotatedLocation) => {});
   chrome.enterprise.deviceAttributes.getDeviceHostname((hostName) => {});
+}
+
+function testBrowsingData() {
+    chrome.browsingData.removeServiceWorkers(); // $ExpectError
+    chrome.browsingData.removeServiceWorkers({});
+    chrome.browsingData.removeServiceWorkers({}, () => {});
 }

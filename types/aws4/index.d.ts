@@ -3,7 +3,7 @@
 // Definitions by: Andrew Crites <https://github.com/ajcrites>
 //                 Alexandre Szymocha <https://github.com/Aksamyt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.0
+// Minimum TypeScript Version: 3.9
 
 /// <reference types="node" />
 
@@ -91,8 +91,9 @@ export class RequestSigner {
 
     /**
      * Extract the service code and region code from a Host name.
+     * @returns two element string tuple with values [service, region].
      */
-    matchHost(host: string): [service: string, region: string];
+    matchHost(host: string): [string, string];
 
     /**
      * https://docs.aws.amazon.com/general/latest/gr/rande.html

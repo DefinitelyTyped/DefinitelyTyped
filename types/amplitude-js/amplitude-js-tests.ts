@@ -199,6 +199,7 @@ const defaults: amplitude.Config = {
     saveParamsReferrerOncePerSession: true,
     secureCookie: false,
     sessionTimeout: 30 * 60 * 1000,
+    storage: 'cookies',
     trackingOptions: {
         city: true,
         country: true,
@@ -226,3 +227,21 @@ amplitude.getInstance().init('API_KEY', 'USER_ID', {
     serverZone: 'EU',
     serverZoneBasedApi: true,
 });
+
+// set transport to 'beacon' when initializing an event
+amplitude.getInstance().init('API_KEY', 'USER_ID', {transport: 'beacon'});
+
+// set transport to 'beacon' after initialization
+amplitude.getInstance().setTransport('beacon');
+
+// cookieStorage use example
+// https://github.com/DefinitelyTyped/DefinitelyTyped/discussions/57387
+const deviceId = amplitude.getInstance().cookieStorage.get('deviceId');
+if (deviceId) {
+    amplitude.getInstance().setDeviceId(deviceId);
+} else {
+    amplitude.getInstance().cookieStorage.set('deviceId', amplitude.getInstance().options.deviceId);
+}
+
+const domain = amplitude.getInstance().cookieStorage.options().domain;
+amplitude.getInstance().cookieStorage.options({ domain });

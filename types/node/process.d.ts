@@ -146,7 +146,7 @@ declare module 'process' {
                 /**
                  * If true, a diagnostic report is generated when the process
                  * receives the signal specified by process.report.signal.
-                 * @defaul false
+                 * @default false
                  */
                 reportOnSignal: boolean;
                 /**

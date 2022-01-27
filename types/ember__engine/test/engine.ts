@@ -5,17 +5,19 @@ const BaseEngine = Engine.extend({
     modulePrefix: 'my-engine',
 });
 
+class Obj extends EmberObject.extend({ foo: 'bar' }) {}
+
 BaseEngine.initializer({
     name: 'my-initializer',
     initialize(engine) {
-        engine.register('foo:bar', EmberObject.extend({ foo: 'bar' }));
+        engine.register('foo:bar', Obj);
     },
 });
 
 BaseEngine.instanceInitializer({
     name: 'my-instance-initializer',
     initialize(engine) {
-        engine.lookup('foo:bar').get('foo');
+        (engine.lookup('foo:bar') as Obj).get('foo');
     },
 });
 
