@@ -102,6 +102,7 @@ export class AmplitudeClient {
 
     init(apiKey: string, userId?: string, config?: Config, callback?: (client: AmplitudeClient) => void): void;
 
+    setLibrary(name?: string, version?: string): void;
     setVersionName(versionName: string): void;
 
     isNewSession(): boolean;

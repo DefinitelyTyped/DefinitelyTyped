@@ -90,6 +90,9 @@ import amplitude = require('amplitude-js');
     client.groupIdentify('type', 'name', identify, (httpCode, response, details) => {});
     client.logRevenue(3.99, 1, 'product_1234');
     client.logRevenueV2(revenue);
+    client.setLibrary();
+    client.setLibrary('library');
+    client.setLibrary('library', '1.12.3');
     identify = new amplitude.Identify()
         .set('colors', ['rose', 'gold'])
         .add('karma', 1)
