@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "dependencies": {
+        "web3": "^1.7.0"
+    }
+}
