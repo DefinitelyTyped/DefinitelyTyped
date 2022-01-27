@@ -7,7 +7,7 @@ import { EventListener } from './lib/core/event-listener';
 import { EthereumEventsConfig } from './config';
 
 declare class EthereumEvents extends EventListener {
-  constructor(web3: any, contracts: any, options?: EthereumEventsConfig);
+    constructor(web3: any, contracts: any, options?: EthereumEventsConfig);
 }
 
 export = EthereumEvents;

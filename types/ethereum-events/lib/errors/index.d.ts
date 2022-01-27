@@ -1,7 +1,7 @@
 export class CustomError extends Error {
-  constructor(message: any);
+    constructor(message: any);
 }
 
 export class BlockNotFoundError extends CustomError {
-  constructor();
+    constructor();
 }
