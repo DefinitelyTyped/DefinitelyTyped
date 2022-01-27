@@ -20,6 +20,7 @@ zingchart.render({
             },
             labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
             lineColor: 'red',
+            offsetStart: '10%',
         },
         scaleY: {
             autoFit: true,

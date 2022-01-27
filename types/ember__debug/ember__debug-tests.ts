@@ -16,8 +16,10 @@ runInDebug(() => console.log('Should not show up in prod')); // $ExpectType void
 
 // Log a warning if we have more than 3 tomsters
 const tomsterCount = 2;
-warn('Too many tomsters!'); // $ExpectType void
-warn('Too many tomsters!', tomsterCount <= 3); // $ExpectType void
+warn('Too many tomsters!'); // $ExpectError
+warn('Too many tomsters!', { id: 'some-warning' }); // $ExpectType void
+warn('Too many tomsters!', tomsterCount <= 3); // $ExpectError
+warn('Too many tomsters!', tomsterCount <= 3, { id: 'some-warning' }); // $ExpectType void
 warn('Too many tomsters!', tomsterCount <= 3, { // $ExpectType void
     id: 'ember-debug.too-many-tomsters'
 });
@@ -85,6 +87,7 @@ deprecate('a valid deprecation without `url`', true, { // $ExpectType void
   until: 'v4.0.0',
   for: 'some.namespace',
   since: {
+    available: 'some.early.version',
     enabled: 'some.version',
   },
 });
@@ -94,6 +97,7 @@ deprecate('incorrect options `url`', true, {
   url: 123, // $ExpectError
   for: 'some.namespace',
   since: {
+    available: 'some.earlier.version',
     enabled: 'some.version',
   },
 });
@@ -103,6 +107,7 @@ deprecate('a valid deprecation with `url`', true, { // $ExpectType void
   url: 'https://example.com/ember-deprecations-yo',
   for: 'some.namespace',
   since: {
+    available: 'some.earlier.version',
     enabled: 'some.version',
   },
 });
@@ -111,6 +116,7 @@ deprecate('a valid deprecation with `for`', true, { // $ExpectType void
   until: 'v4.0.0',
   for: 'some.namespace',
   since: {
+    available: 'some.earlier.version',
     enabled: 'some.version',
   },
 });
@@ -119,6 +125,7 @@ deprecate('incorrect options `for`', true, {
   until: 'v4.0.0',
   for: 123, // $ExpectError
   since: {
+    available: 'some.earlier.version',
     enabled: 'some.version',
   },
 });
@@ -153,11 +160,34 @@ deprecate('incorrect options `since`', true, {
     wrongKey: 'some.version', // $ExpectError
   },
 });
-deprecate('incorrect options `since`', true, {
+deprecate('incorrect options `since` available', true, {
   id: 'some.deprecation',
   until: 'v4.0.0',
   for: 'some.namespace',
   since: {
     available: 123, // $ExpectError
+  },
+});
+deprecate('incorrect options `since` enabled', true, {
+  id: 'some.deprecation',
+  until: 'v4.0.0',
+  for: 'some.namespace',
+  since: {
+      available: 'some.earlier.version',
+      enabled: 123, // $ExpectError
+  },
+});
+deprecate('incorrect options `since` empty', true, {
+  id: 'some.deprecation',
+  until: 'v4.0.0',
+  for: 'some.namespace',
+  since: {}, // $ExpectError
+});
+deprecate('incorrect options `since` enabled w/o available', true, {
+  id: 'some.deprecation',
+  until: 'v4.0.0',
+  for: 'some.namespace',
+  since: { // $ExpectError
+      enabled: 'some.version',
   },
 });

@@ -2609,13 +2609,15 @@ tailwindConfig.prefix = 'tw-';
 // @ts-expect-error value should be string
 tailwindConfig.prefix = 1000;
 
-// $ExpectType boolean | undefined
+// $ExpectType string | boolean | undefined
 tailwindConfig.important;
 
 tailwindConfig.important = false;
 
-// @ts-expect-error should be boolean
-tailwindConfig.important = 'false';
+tailwindConfig.important = 'selector';
+
+// @ts-expect-error should be boolean or string
+tailwindConfig.important = 0;
 
 // $ExpectType string | undefined
 tailwindConfig.separator;

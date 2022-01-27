@@ -318,3 +318,8 @@ n = li.getEdgeDistance(n, n);
 var rli = new jsts.algorithm.RobustLineIntersector();
 rli.computeIntersection(c, c, c);
 rli.computeIntersection(c, c, c, c);
+
+var tps: jsts.simplify.TopologyPreservingSimplifier = new jsts.simplify.TopologyPreservingSimplifier(g);
+tps.setDistanceTolerance(n);
+g = tps.getResultGeometry();
+g = jsts.simplify.TopologyPreservingSimplifier.simplify(g, n);

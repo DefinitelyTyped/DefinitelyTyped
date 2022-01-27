@@ -23,23 +23,6 @@ Route.extend({
 });
 
 Route.extend({
-    actions: {
-        showModal(evt: { modalName: string }) {
-            this.render(evt.modalName, {
-                outlet: 'modal',
-                into: 'application',
-            });
-        },
-        hideModal(evt: { modalName: string }) {
-            this.disconnectOutlet({
-                outlet: 'modal',
-                parentView: 'application',
-            });
-        },
-    },
-});
-
-Route.extend({
     model() {
         return this.modelFor('post');
     },
@@ -48,35 +31,6 @@ Route.extend({
 Route.extend({
     queryParams: {
         memberQp: { refreshModel: true },
-    },
-});
-
-Route.extend({
-    renderTemplate() {
-        this.render('photos', {
-            into: 'application',
-            outlet: 'anOutletName',
-        });
-    },
-});
-
-Route.extend({
-    controllerName: 'photos',
-    templateName: 'anOutletName',
-    renderTemplate() {
-        this.render(); // Render using defaults
-    },
-});
-
-Route.extend({
-    renderTemplate(controller: Controller, model: {}) {
-        this.render('posts', {
-            view: 'someView', // the template to render, referenced by name
-            into: 'application', // the template to render into, referenced by name
-            outlet: 'anOutletName', // the outlet inside `options.into` to render into.
-            controller: 'someControllerName', // the controller to use for this template, referenced by name
-            model, // the model to set on `options.controller`.
-        });
     },
 });
 
@@ -99,7 +53,7 @@ class RedirectRoute extends Route {
 
 class InvalidRedirect extends Route {
     // $ExpectError
-    redirect(model: {}, a: Transition, anOddArg: any) {
+    redirect(model: {}, a: Transition, anOddArg: unknown) {
         if (!model) {
             this.transitionTo('there');
         }
@@ -170,12 +124,16 @@ Route.extend({
 
 const route = Route.create();
 route.controllerFor('whatever'); // $ExpectType Controller
+route.paramsFor('whatever'); // $ExpectType object
 
 class RouteUsingClass extends Route.extend({
     randomProperty: 'the .extend + extends bit type-checks properly',
 }) {
-    beforeModel(this: RouteUsingClass) {
-        return 'beforeModel can return anything, not just promises';
+    beforeModel() {
+        return Promise.resolve('beforeModel can return promises');
+    }
+    afterModel(resolvedModel: unknown, transition: Transition) {
+        return Promise.resolve('afterModel can also return promises');
     }
     intermediateTransitionWithoutModel() {
         this.intermediateTransitionTo('some-route');
@@ -188,77 +146,44 @@ class RouteUsingClass extends Route.extend({
     }
 }
 
-interface ExampleModel { id: string; }
-
-class TypedRoute extends Route<ExampleModel> {
-    model(params: any): ExampleModel | PromiseLike<ExampleModel> {
-        if (params.usePromise) {
-          return { id: '123' };
-        } else {
-          const promise: PromiseLike<ExampleModel> = new Promise((resolve) => resolve({ id: '123'}));
-          return promise;
-        }
+class WithNonReturningBeforeAndModelHooks extends Route {
+    beforeModel(transition: Transition): void | Promise<unknown> {
+        return;
     }
 
-    serialize(model: ExampleModel): string {
-        return model.id;
-    }
-
-    afterModel(model: ExampleModel): void {
-        if (model.id === 'new') {
-            this.transitionTo('some.other.route');
-        }
-    }
-
-    redirect(model: ExampleModel): void {
-        if (model.id === 'new') {
-            this.transitionTo('some.other.route');
-        }
-    }
-
-    setupController(controller: Controller, model: ExampleModel, transition: Transition) {
-        controller.set('model', model);
-    }
-
-    renderTemplate(controller: Controller, model: ExampleModel) {
-        this.render('template', { model });
+    afterModel(resolvedModel: unknown, transition: Transition): void {
+        return;
     }
 }
 
-interface InvalidModel { id: number; }
-
-class InvalidTypedRoute extends Route<ExampleModel> {
-    // $ExpectError
-    model(params: any): InvalidModel {
-      return { id: 123 };
+class WithBadReturningBeforeAndModelHooks extends Route {
+    beforeModel(transition: Transition): void | Promise<unknown> {
+        return "returning anything else is nonsensical (if 'legal')"; // $ExpectError
     }
 
-    // $ExpectError
-    serialize(model: InvalidModel): number {
-        return model.id;
-    }
-
-    // $ExpectError
-    afterModel(model: InvalidModel): void {
-        if (model.id === 0) {
-            this.transitionTo('some.other.route');
-        }
-    }
-
-    // $ExpectError
-    redirect(model: InvalidModel): void {
-        if (model.id === 0) {
-            this.transitionTo('some.other.route');
-        }
-    }
-
-    // $ExpectError
-    setupController(controller: Controller, model: InvalidModel, transition: Transition) {
-        controller.set('model', model);
-    }
-
-    // $ExpectError
-    renderTemplate(controller: Controller, model: InvalidModel) {
-        this.render('template', { model });
+    afterModel(resolvedModel: unknown, transition: Transition): void {
+        return "returning anything else is nonsensical (if 'legal')"; // $ExpectError
     }
 }
+
+interface RouteParams {
+    cool: string;
+}
+
+class WithParamsInModel extends Route<boolean, RouteParams> {
+    model(params: RouteParams, transition: Transition) {
+        return true;
+    }
+}
+
+// @ts-expect-error
+class WithNonsenseParams extends Route<boolean, number> {}
+
+class WithImplicitParams extends Route {
+    model(params: RouteParams) {
+        return { whatUp: 'dog' };
+    }
+}
+
+// $ExpectType RouteParams
+type ImplicitParams = WithImplicitParams extends Route<any, infer T> ? T : never;

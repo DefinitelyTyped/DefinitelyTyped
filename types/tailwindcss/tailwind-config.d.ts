@@ -513,6 +513,7 @@ export interface TailwindConfig {
     darkMode: false | 'media' | 'class';
     variantOrder?: TailwindVariant[];
     prefix?: string;
-    important?: boolean;
+    important?: boolean | string;
     separator?: string;
+    safelist?: any[];
 }

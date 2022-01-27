@@ -2,7 +2,7 @@
 // Project: https://github.com/eslint/eslint-scope
 // Definitions by: Toru Nagashima <https://github.com/mysticatea>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 3.8
 import * as eslint from "eslint";
 import * as estree from "estree";
 
@@ -51,14 +51,14 @@ export class Reference implements eslint.Scope.Reference {
 }
 
 export interface AnalysisOptions {
-    optimistic?: boolean | undefined;
-    directive?: boolean | undefined;
-    ignoreEval?: boolean | undefined;
-    nodejsScope?: boolean | undefined;
-    impliedStrict?: boolean | undefined;
-    fallback?: string | ((node: {}) => string[]) | undefined;
-    sourceType?: "script" | "module" | undefined;
-    ecmaVersion?: number | undefined;
+    optimistic?: boolean;
+    directive?: boolean;
+    ignoreEval?: boolean;
+    nodejsScope?: boolean;
+    impliedStrict?: boolean;
+    fallback?: string | ((node: {}) => string[]);
+    sourceType?: "script" | "module";
+    ecmaVersion?: number;
 }
 
 export function analyze(ast: {}, options?: AnalysisOptions): ScopeManager;

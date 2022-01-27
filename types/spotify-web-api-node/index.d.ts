@@ -581,8 +581,8 @@ declare class SpotifyWebApi {
      *          otherwise an error. Not returned if a callback is given. Note that the response will be empty
      *          in case the user has enabled private session.
      */
-    getMyRecentlyPlayedTracks(options: BeforeOptions | AfterOptions, callback: Callback<SpotifyApi.UsersRecentlyPlayedTracksResponse>): void;
-    getMyRecentlyPlayedTracks(options?: BeforeOptions | AfterOptions): Promise<Response<SpotifyApi.UsersRecentlyPlayedTracksResponse>>;
+    getMyRecentlyPlayedTracks(options: BeforeOptions | AfterOptions<number>, callback: Callback<SpotifyApi.UsersRecentlyPlayedTracksResponse>): void;
+    getMyRecentlyPlayedTracks(options?: BeforeOptions | AfterOptions<number>): Promise<Response<SpotifyApi.UsersRecentlyPlayedTracksResponse>>;
 
     /**
      * Add track or episode to device queue
@@ -789,8 +789,8 @@ declare class SpotifyWebApi {
      * @returns A promise that if successful, resolves to an object containing a paging object which contains
      * album objects. Not returned if a callback is given.
      */
-    getFollowedArtists(options: AfterOptions, callback: Callback<SpotifyApi.UsersFollowedArtistsResponse>): void;
-    getFollowedArtists(options?: AfterOptions): Promise<Response<SpotifyApi.UsersFollowedArtistsResponse>>;
+    getFollowedArtists(options: AfterOptions<string>, callback: Callback<SpotifyApi.UsersFollowedArtistsResponse>): void;
+    getFollowedArtists(options?: AfterOptions<string>): Promise<Response<SpotifyApi.UsersFollowedArtistsResponse>>;
 
     /**
      * Check if users are following a playlist.
@@ -932,7 +932,7 @@ declare class SpotifyWebApi {
      *          playlist show objects. Not returned if a callback is given.
      */
     getMySavedShows(options: PaginationMarketOptions, callback: Callback<SpotifyApi.UsersSavedShowsResponse>): void;
-    getMySavedShows(options?: PaginationMarketOptions): Promise<Response<SpotifyApi.SavedShowObject>>;
+    getMySavedShows(options?: PaginationMarketOptions): Promise<Response<SpotifyApi.UsersSavedShowsResponse>>;
 
     /**
      * Get the episodes of an show.
@@ -1089,8 +1089,8 @@ interface BeforeOptions extends LimitOptions {
     before?: number | undefined;
 }
 
-interface AfterOptions extends LimitOptions {
-    after?: string | undefined;
+interface AfterOptions<T extends number | string> extends LimitOptions {
+    after?: T | undefined;
 }
 
 interface LocaleOptions extends CountryOptions {

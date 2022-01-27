@@ -1,8 +1,8 @@
-import db from "lesgo/utils/db";
-import Paginator, { PaginatorObject } from "lesgo/services/pagination/Paginator";
-import LengthAwarePaginator from "lesgo/services/pagination/LengthAwarePaginator";
+import db from 'lesgo/utils/db';
+import Paginator, { PaginatorObject } from 'lesgo/services/pagination/Paginator';
+import LengthAwarePaginator from 'lesgo/services/pagination/LengthAwarePaginator';
 
-const paginator = new Paginator(db, "SELECT * FROM Users;", []); // $ExpectType Paginator
+const paginator = new Paginator(db, 'SELECT * FROM Users;', []); // $ExpectType Paginator
 paginator.previousPage(); // $ExpectType number | false
 paginator.currentPage(); // $ExpectType number
 paginator.perPage(); // $ExpectType number
@@ -19,7 +19,7 @@ paginator.perPage(); // $ExpectType number
     await paginator.executeQuery(); // $ExpectType any[]
 })();
 
-const lengthAwarePaginator = new LengthAwarePaginator(db, "SELECT * FROM Users;", [], { total: 0 }); // $ExpectType LengthAwarePaginator
+const lengthAwarePaginator = new LengthAwarePaginator(db, 'SELECT * FROM Users;', [], { total: 0 }); // $ExpectType LengthAwarePaginator
 (async () => {
     await lengthAwarePaginator.total(); // $ExpectType number | null
 })();

@@ -1,4 +1,4 @@
-// Type definitions for react-relay 11.0
+// Type definitions for react-relay 13.0
 // Project: https://github.com/facebook/relay, https://relay.dev
 // Definitions by: Eloy Durán <https://github.com/alloy>
 //                 Marais Rossouw <https://github.com/maraisr>

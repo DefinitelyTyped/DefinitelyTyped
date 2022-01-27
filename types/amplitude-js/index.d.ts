@@ -8,6 +8,7 @@ export as namespace amplitude;
 
 export type Callback = (responseCode: number, responseBody: string, details?: { reason: string }) => void;
 export type LogReturn = number | undefined;
+export type Transport = 'http' | 'beacon';
 // https://github.com/amplitude/Amplitude-JavaScript/blob/v8.9.0/src/server-zone.js#L9
 export type ServerZone = 'EU' | 'US';
 
@@ -41,6 +42,7 @@ export interface Config {
     saveParamsReferrerOncePerSession?: boolean | undefined;
     secureCookie?: boolean | undefined;
     sessionTimeout?: number | undefined;
+    storage?: '' | 'cookies' | 'localStorage' | 'sessionStorage' | 'none';
     trackingOptions?: {
         city?: boolean | undefined;
         country?: boolean | undefined;
@@ -61,6 +63,7 @@ export interface Config {
     unsentIdentifyKey?: string | undefined;
     uploadBatchSize?: number | undefined;
     useNativeDeviceInfo?: boolean | undefined;
+    transport?: Transport | undefined;
     serverZone?: ServerZone | undefined;
     serverZoneBasedApi?: boolean | undefined;
 }
@@ -95,6 +98,8 @@ export class AmplitudeClient {
 
     options: Config;
 
+    cookieStorage: CookieStorage;
+
     init(apiKey: string, userId?: string, config?: Config, callback?: (client: AmplitudeClient) => void): void;
 
     setVersionName(versionName: string): void;
@@ -121,6 +126,8 @@ export class AmplitudeClient {
 
     setGroup(groupType: string, groupName: string | string[]): void;
 
+    setTransport(transport: Transport): void;
+
     logEvent(event: string, data?: any, callback?: Callback): LogReturn;
     logEventWithGroups(event: string, data?: any, groups?: any, callback?: Callback): LogReturn;
     logRevenueV2(revenue_obj: Revenue): LogReturn;
@@ -129,6 +136,21 @@ export class AmplitudeClient {
 
     Identify: typeof Identify;
     Revenue: typeof Revenue;
+}
+
+export interface CookieStorageOptions {
+    expirationDays?: number | undefined;
+    domain?: string | undefined;
+    secure?: boolean | undefined;
+    sameSite?: 'Lax' | 'Strict' | 'None' | undefined;
+}
+export interface CookieStorage {
+    reset(): void;
+    options(): CookieStorageOptions;
+    options(opts: CookieStorageOptions): void;
+    get(name: string): any;
+    set(name: string, value: any): boolean;
+    remove(name: string): boolean;
 }
 
 // Proxy methods that get executed on the default AmplitudeClient instance (not all client methods are proxied)

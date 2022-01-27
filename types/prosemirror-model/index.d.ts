@@ -1,4 +1,4 @@
-// Type definitions for prosemirror-model 1.13
+// Type definitions for prosemirror-model 1.16
 // Project: https://github.com/ProseMirror/prosemirror-model
 // Definitions by: Bradley Ayers <https://github.com/bradleyayers>
 //                 David Hahn <https://github.com/davidka>
@@ -672,6 +672,10 @@ declare class ProsemirrorNode<S extends Schema = any> {
      */
     isAtom: boolean;
     /**
+     * The node type's [whitespace](#view.NodeSpec.whitespace) option.
+     */
+    whitespace: 'pre' | 'normal';
+    /**
      * Return a string representation of this node for debugging
      * purposes.
      */
@@ -1194,6 +1198,18 @@ export interface NodeSpec {
      * causes some commands to behave differently.
      */
     code?: boolean | null | undefined;
+    /**
+     * Controls way whitespace in this a node is parsed. The default is
+     * `"normal"`, which causes the [DOM parser](#model.DOMParser) to
+     * collapse whitespace in normal mode, and normalize it (replacing
+     * newlines and such with spaces) otherwise. `"pre"` causes the
+     * parser to preserve spaces inside the node. When this option isn't
+     * given, but [`code`](#model.NodeSpec.code) is true, `whitespace`
+     * will default to `"pre"`. Note that this option doesn't influence
+     * the way the node is rendered—that should be handled by `toDOM`
+     * and/or styling.
+     */
+    whitespace?: 'pre' | 'normal';
     /**
      * Determines whether this node is considered an important parent
      * node during replace operations (such as paste). Non-defining (the
