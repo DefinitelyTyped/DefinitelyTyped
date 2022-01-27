@@ -22,6 +22,7 @@ export interface Intersection<TIntersected extends Object3D = Object3D> {
     faceIndex?: number | undefined;
     object: TIntersected;
     uv?: Vector2 | undefined;
+    uv2?: Vector2 | undefined;
     instanceId?: number | undefined;
 }
 
