@@ -101,10 +101,12 @@ export class AmplitudeClient {
     cookieStorage: CookieStorage;
 
     init(apiKey: string, userId?: string, config?: Config, callback?: (client: AmplitudeClient) => void): void;
+    onInit(callback: (client: AmplitudeClient) => void): void;
 
     setLibrary(name?: string, version?: string): void;
     setVersionName(versionName: string): void;
 
+    onNewSessionStart(callback: (client: AmplitudeClient) => void): void;
     isNewSession(): boolean;
     setSessionId(sessionId: number): void;
     getSessionId(): number;

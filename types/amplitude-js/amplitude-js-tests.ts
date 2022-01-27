@@ -106,6 +106,8 @@ import amplitude = require('amplitude-js');
     client.setServerZone('EU');
     client.setServerZone('US', false);
     client.setEventUploadThreshold(10);
+    client.onNewSessionStart((_: amplitude.AmplitudeClient) => {});
+    client.onInit((_: amplitude.AmplitudeClient) => {});
 
     identify = new amplitude.Identify()
         .set('colors', ['rose', 'gold'])
