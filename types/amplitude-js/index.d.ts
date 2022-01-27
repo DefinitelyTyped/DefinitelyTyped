@@ -12,6 +12,7 @@ export type Transport = 'http' | 'beacon';
 // https://github.com/amplitude/Amplitude-JavaScript/blob/v8.9.0/src/server-zone.js#L9
 export type ServerZone = 'EU' | 'US';
 
+// https://amplitude.github.io/Amplitude-JavaScript/Options
 export interface Config {
     apiEndpoint?: string | undefined;
     batchEvents?: boolean | undefined;
@@ -35,6 +36,7 @@ export interface Config {
     logLevel?: 'DISABLE' | 'ERROR' | 'WARN' | 'INFO' | undefined;
     optOut?: boolean | undefined;
     onError?: (() => void) | undefined;
+    onExit?: (() => void) | undefined;
     platform?: string | undefined;
     sameSiteCookie?: 'Lax' | 'Strict' | 'None' | undefined;
     saveEvents?: boolean | undefined;
@@ -42,6 +44,7 @@ export interface Config {
     saveParamsReferrerOncePerSession?: boolean | undefined;
     secureCookie?: boolean | undefined;
     sessionTimeout?: number | undefined;
+    sessionId?: string | null;
     storage?: '' | 'cookies' | 'localStorage' | 'sessionStorage' | 'none';
     trackingOptions?: {
         city?: boolean | undefined;
@@ -66,6 +69,18 @@ export interface Config {
     transport?: Transport | undefined;
     serverZone?: ServerZone | undefined;
     serverZoneBasedApi?: boolean | undefined;
+    useDynamicConfig?: boolean | undefined;
+    logAttributionCapturedEvent?: boolean | undefined;
+    plan?: {
+        branch?: string;
+        source?: string;
+        version?: string;
+    } | undefined;
+    headers?: Record<string, string>;
+    library?: {
+        name?: string;
+        version?: string;
+    } | undefined;
 }
 
 export class Identify {

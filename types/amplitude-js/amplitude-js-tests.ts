@@ -211,6 +211,7 @@ const defaults: amplitude.Config = {
     language: 'en',
     logLevel: 'WARN',
     onError: () => {},
+    onExit: () => {},
     optOut: false,
     platform: 'iOS',
     sameSiteCookie: 'Lax', // cookie privacy policy
@@ -219,6 +220,7 @@ const defaults: amplitude.Config = {
     saveParamsReferrerOncePerSession: true,
     secureCookie: false,
     sessionTimeout: 30 * 60 * 1000,
+    sessionId: 'sessionid',
     storage: 'cookies',
     trackingOptions: {
         city: true,
@@ -239,6 +241,24 @@ const defaults: amplitude.Config = {
     unsentKey: 'amplitude_unsent',
     unsentIdentifyKey: 'amplitude_unsent_identify',
     uploadBatchSize: 100,
+    useNativeDeviceInfo: true,
+    transport: 'beacon',
+    serverZone: 'US',
+    serverZoneBasedApi: true,
+    useDynamicConfig: true,
+    logAttributionCapturedEvent: true,
+    plan: {
+        branch: 'branch',
+        source: 'source',
+        version: 'version',
+    },
+    headers: {
+        'X-Header': 'value',
+    },
+    library: {
+        name: 'name',
+        version: 'version',
+    },
 };
 
 // For versions starting from 8.9.0
