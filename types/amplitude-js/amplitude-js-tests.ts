@@ -108,6 +108,7 @@ import amplitude = require('amplitude-js');
     client.setEventUploadThreshold(10);
     client.onNewSessionStart((_: amplitude.AmplitudeClient) => {});
     client.onInit((_: amplitude.AmplitudeClient) => {});
+    client.enableTracking();
 
     identify = new amplitude.Identify()
         .set('colors', ['rose', 'gold'])

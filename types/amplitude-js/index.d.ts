@@ -117,6 +117,8 @@ export class AmplitudeClient {
     setUserId(userId: string | null, startNewSession?: boolean): void;
     getUserId(): string;
 
+    enableTracking(): void;
+
     setDeviceId(id: string): void;
     getDeviceId(): string;
     regenerateDeviceId(): void;
