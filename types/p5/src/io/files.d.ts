@@ -128,13 +128,12 @@ declare module '../../index' {
          *   array of its individual lines. If the name of the
          *   file is used as the parameter, as in the above
          *   example, the file must be located in the sketch
-         *   directory/folder.  Alternatively, the file maybe
-         *   be loaded from anywhere on the local computer
-         *   using an absolute path (something that starts with
-         *   / on Unix and Linux, or a drive letter on
-         *   Windows), or the filename parameter can be a URL
-         *   for a file found on a network.
-         *
+         *   directory/folder. Alternatively, the file maybe be
+         *   loaded from anywhere on the local computer using
+         *   an absolute path (something that starts with / on
+         *   Unix and Linux, or a drive letter on Windows), or
+         *   the filename parameter can be a URL for a file
+         *   found on a network.
          *
          *   This method is asynchronous, meaning it may not
          *   finish before the next line in your sketch is
@@ -165,39 +164,23 @@ declare module '../../index' {
          *   a URL to a file found online. By default, the file
          *   is assumed to be comma-separated (in CSV format).
          *   Table only looks for a header row if the 'header'
-         *   option is included. Possible options include:
-         *
-         *   - csv - parse the table as comma-separated values
-         *   - tsv - parse the table as tab-separated values
-         *   - header - this table has a header (title) row
-         *
-         *
-         *
-         *   When passing in multiple options, pass them in as
-         *   separate parameters, seperated by commas. For
-         *   example:
-         *
-         *
-         *   loadTable('my_csv_file.csv', 'csv', 'header');
-         *
-         *
-         *   All files loaded and saved use UTF-8 encoding.
-         *
-         *   This method is asynchronous, meaning it may not
-         *   finish before the next line in your sketch is
-         *   executed. Calling loadTable() inside preload()
-         *   guarantees to complete the operation before
-         *   setup() and draw() are called.
-         *
+         *   option is included. This method is asynchronous,
+         *   meaning it may not finish before the next line in
+         *   your sketch is executed. Calling loadTable()
+         *   inside preload() guarantees to complete the
+         *   operation before setup() and draw() are called.
          *   Outside of preload(), you may supply a callback
          *   function to handle the object:
          *
-         *
-         *
+         *   All files loaded and saved use UTF-8 encoding.
          *   This method is suitable for fetching files up to
          *   size of 64MB.
          *   @param filename name of the file or URL to load
-         *   @param options "header" "csv" "tsv"
+         *   @param [extension] parse the table by
+         *   comma-separated values "csv", semicolon-separated
+         *   values "ssv", or tab-separated values "tsv"
+         *   @param [header] "header" to indicate table has
+         *   header row
          *   @param [callback] function to be executed after
          *   loadTable() completes. On success, the Table
          *   object is passed in as the first argument.
@@ -208,60 +191,8 @@ declare module '../../index' {
          */
         loadTable(
             filename: string,
-            options: string,
-            callback?: (...args: any[]) => any,
-            errorCallback?: (...args: any[]) => any
-        ): object;
-
-        /**
-         *   Reads the contents of a file or URL and creates a
-         *   p5.Table object with its values. If a file is
-         *   specified, it must be located in the sketch's
-         *   "data" folder. The filename parameter can also be
-         *   a URL to a file found online. By default, the file
-         *   is assumed to be comma-separated (in CSV format).
-         *   Table only looks for a header row if the 'header'
-         *   option is included. Possible options include:
-         *
-         *   - csv - parse the table as comma-separated values
-         *   - tsv - parse the table as tab-separated values
-         *   - header - this table has a header (title) row
-         *
-         *
-         *
-         *   When passing in multiple options, pass them in as
-         *   separate parameters, seperated by commas. For
-         *   example:
-         *
-         *
-         *   loadTable('my_csv_file.csv', 'csv', 'header');
-         *
-         *
-         *   All files loaded and saved use UTF-8 encoding.
-         *
-         *   This method is asynchronous, meaning it may not
-         *   finish before the next line in your sketch is
-         *   executed. Calling loadTable() inside preload()
-         *   guarantees to complete the operation before
-         *   setup() and draw() are called.
-         *
-         *   Outside of preload(), you may supply a callback
-         *   function to handle the object:
-         *
-         *
-         *
-         *   This method is suitable for fetching files up to
-         *   size of 64MB.
-         *   @param filename name of the file or URL to load
-         *   @param [callback] function to be executed after
-         *   loadTable() completes. On success, the Table
-         *   object is passed in as the first argument.
-         *   @param [errorCallback] function to be executed if
-         *   there is an error, response is passed in as first
-         *   argument
-         */
-        loadTable(
-            filename: string,
+            extension?: string,
+            header?: string,
             callback?: (...args: any[]) => any,
             errorCallback?: (...args: any[]) => any
         ): object;
@@ -519,47 +450,23 @@ declare module '../../index' {
         createWriter(name: string, extension?: string): PrintWriter;
 
         /**
-         *   Save an image, text, json, csv, wav, or html.
-         *   Prompts download to the client's computer. Note
-         *   that it is not recommended to call save() within
-         *   draw if it's looping, as the save() function will
-         *   open a new save dialog every frame. The default
-         *   behavior is to save the canvas as an image. You
-         *   can optionally specify a filename. For example:
-         *
-         *
-         *   save(); save('myCanvas.jpg'); // save a specific
-         *   canvas with a filename
-         *
-         *   Alternately, the first parameter can be a pointer
-         *   to a canvas p5.Element, an Array of Strings, an
-         *   Array of JSON, a JSON object, a p5.Table, a
-         *   p5.Image, or a p5.SoundFile (requires p5.sound).
-         *   The second parameter is a filename (including
-         *   extension). The third parameter is for options
-         *   specific to this type of object. This method will
-         *   save a file that fits the given parameters. For
-         *   example:
-         *
-         *
-         *   // Saves canvas as an image save('myCanvas.jpg');
-         *   // Saves pImage as a png image let img =
-         *   createImage(10, 10); save(img, 'my.png'); // Saves
-         *   canvas as an image let cnv = createCanvas(100,
-         *   100); save(cnv, 'myCanvas.jpg'); // Saves
-         *   p5.Renderer object as an image let gb =
-         *   createGraphics(100, 100); save(gb,
-         *   'myGraphics.jpg'); let myTable = new p5.Table();
-         *   // Saves table as html file save(myTable,
-         *   'myTable.html'); // Comma Separated Values
-         *   save(myTable, 'myTable.csv'); // Tab Separated
-         *   Values save(myTable, 'myTable.tsv'); let myJSON =
-         *   { a: 1, b: true }; // Saves pretty JSON
-         *   save(myJSON, 'my.json'); // Optimizes JSON
-         *   filesize save(myJSON, 'my.json', true); // Saves
-         *   array of strings to a text file with line breaks
-         *   after each item let arrayOfStrings = ['a', 'b'];
-         *   save(arrayOfStrings, 'my.txt');
+         *   Saves a given element(image, text, json, csv, wav,
+         *   or html) to the client's computer. The first
+         *   parameter can be a pointer to element we want to
+         *   save. The element can be one of p5.Element,an
+         *   Array of Strings, an Array of JSON, a JSON object,
+         *   a p5.Table , a p5.Image, or a p5.SoundFile
+         *   (requires p5.sound). The second parameter is a
+         *   filename (including extension).The third parameter
+         *   is for options specific to this type of object.
+         *   This method will save a file that fits the given
+         *   parameters. If it is called without specifying an
+         *   element, by default it will save the whole canvas
+         *   as an image file. You can optionally specify a
+         *   filename as the first parameter in such a case.
+         *   Note that it is not recommended to call this
+         *   method within draw, as it will open a new save
+         *   dialog on every render.
          *   @param [objectOrFilename] If filename is provided,
          *   will save canvas as an image with either png or
          *   jpg extension depending on the filename. If object
@@ -595,8 +502,9 @@ declare module '../../index' {
          *   @param list string array to be written
          *   @param filename filename for output
          *   @param [extension] the filename's extension
+         *   @param [isCRLF] if true, change line-break to CRLF
          */
-        saveStrings(list: string[], filename: string, extension?: string): void;
+        saveStrings(list: string[], filename: string, extension?: string, isCRLF?: boolean): void;
 
         /**
          *   Writes the contents of a Table object to a file.
