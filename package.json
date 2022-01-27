@@ -32,6 +32,7 @@
         "@definitelytyped/utils": "latest",
         "@octokit/core": "^3.5.1",
         "@octokit/rest": "^16.0.0",
+        "@types/node": "^17.0.12",
         "d3-array": "^3.0.2",
         "d3-axis": "^3.0.0",
         "d3-scale": "^4.0.0",
