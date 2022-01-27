@@ -2,7 +2,8 @@
 // Project: https://github.com/oddbird/true
 // Definitions by: robertmaier <https://github.com/robertmaier>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-import type { Options } from 'sass';
+import type { renderSync } from 'sass';
+export type Options = Parameters<typeof renderSync>[0];
 
 export interface TrueOptions {
     sass?: typeof import('sass');
