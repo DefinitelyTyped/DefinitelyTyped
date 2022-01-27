@@ -557,8 +557,10 @@ declare namespace React {
         displayName?: string | undefined;
     }
 
+    type ForwardedRef<T> = ((instance: T | null) => void) | MutableRefObject<T | null> | null;
+
     interface ForwardRefRenderFunction<T, P = {}> {
-        (props: PropsWithChildren<P>, ref: ((instance: T | null) => void) | MutableRefObject<T | null> | null): ReactElement | null;
+        (props: PropsWithChildren<P>, ref: ForwardedRef<T>): ReactElement | null;
         displayName?: string | undefined;
         // explicit rejected with `never` required due to
         // https://github.com/microsoft/TypeScript/issues/36826
