@@ -9,6 +9,21 @@
  * It takes key details from you (such as ad unit code, ad size, and custom targeting), builds the request, and displays the ad on web pages.
  *
  * For a brief overview of GPT, including it's benefits, basic functionality and features, visit the [Ad Manager help center](https://support.google.com/admanager/answer/181073).
+ *
+ * **Note**: Firstly, [load GPT from an official source](https://developers.google.com/publisher-tag/guides/general-best-practices#load_from_an_official_source) and initialize `googletag`:
+ * - Standard https://securepubads.g.doubleclick.net/tag/js/gpt.js
+ * - Limited ads https://pagead2.googlesyndication.com/tag/js/gpt.js
+ *
+ * **Example**
+ * ```
+ * <script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
+ * <script>window.googletag = window.googletag || { cmd: [] };</script>
+ * <script>
+ *   googletag.cmd.push(function() {
+ *     // GPT API can be called safely.
+ *   });
+ * </script>
+ * ```
  */
 declare namespace googletag {
     /**
