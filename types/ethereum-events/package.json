@@ -1,6 +1,6 @@
 {
     "private": true,
     "dependencies": {
-        "web3-core": "^1.7.0"
+        "bignumber.js": "^7.2.1"
     }
 }
