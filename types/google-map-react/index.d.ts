@@ -38,6 +38,7 @@ declare namespace googleMapReact {
         gestureHandling?: string | undefined;
         heading?: number | undefined;
         keyboardShortcuts?: boolean | undefined;
+        mapId?: string | undefined;
         mapTypeControl?: boolean | undefined;
         mapTypeControlOptions?: any;
         mapTypeId?: string | undefined;
