@@ -23,12 +23,7 @@ declare global {
 
     const using: Using;
 
-    const waitFor: {
-        documentChange: (uri: vscodeTypes.Uri) => Promise<string>;
-        not: {
-            documentChange: (uri: vscodeTypes.Uri) => Promise<string>;
-        };
-    };
+    function waitFor<T>(callback: () => T | Promise<T>): Promise<T>;
 
     const take: {
         codeActions: (
