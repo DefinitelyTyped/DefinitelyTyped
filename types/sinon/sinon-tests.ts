@@ -408,23 +408,25 @@ function testAssert() {
     sinon.assert.calledWith(typedSpy, "a");
     sinon.assert.calledWith(typedSpy, "a", "b"); // $ExpectError
     sinon.assert.alwaysCalledOn(typedSpy, obj);
-    sinon.assert.alwaysCalledWith(typedSpy, "a", "b", "c"); // $ExpectError
-    sinon.assert.alwaysCalledWith(typedSpy, "a", true);
-    sinon.assert.alwaysCalledWith(typedSpy, "a");
-    sinon.assert.neverCalledWith(typedSpy, "a", false);
-    sinon.assert.neverCalledWith(typedSpy, "a", "b"); // $ExpectError
-    sinon.assert.neverCalledWith(typedSpy, "a");
-    sinon.assert.calledWithExactly(typedSpy, "a", true);
-    sinon.assert.calledWithExactly(typedSpy, "a", "b"); // $ExpectError
-    sinon.assert.alwaysCalledWithExactly(typedSpy, "a", true);
-    sinon.assert.alwaysCalledWithExactly(typedSpy, "a", 1); // $ExpectError
-    sinon.assert.calledWithMatch(typedSpy, "a", true);
-    sinon.assert.calledWithMatch(typedSpy.firstCall, "a", true);
-    sinon.assert.calledWithMatch(typedSpy.firstCall, "a", 2); // $ExpectError
-    sinon.assert.alwaysCalledWithMatch(typedSpy, "a", true);
-    sinon.assert.alwaysCalledWithMatch(typedSpy, "a", 2); // $ExpectError
-    sinon.assert.neverCalledWithMatch(typedSpy, "a", true);
-    sinon.assert.neverCalledWithMatch(typedSpy, "a", 2); // $ExpectError
+    sinon.assert.alwaysCalledWith(typedSpy, 'a', 'b', 'c'); // $ExpectError
+    sinon.assert.alwaysCalledWith(typedSpy, 'a', true);
+    sinon.assert.alwaysCalledWith(typedSpy, 'a');
+    sinon.assert.neverCalledWith(typedSpy, 'a', false);
+    sinon.assert.neverCalledWith(typedSpy, 'a', 'b'); // $ExpectError
+    sinon.assert.neverCalledWith(typedSpy, 'a');
+    sinon.assert.calledWithExactly(typedSpy, 'a', true);
+    sinon.assert.calledWithExactly(typedSpy, 'a', 'b'); // $ExpectError
+    sinon.assert.alwaysCalledWithExactly(typedSpy, 'a', true);
+    sinon.assert.alwaysCalledWithExactly(typedSpy, 'a', 1); // $ExpectError
+    sinon.assert.calledWithMatch(typedSpy, 'a');
+    sinon.assert.calledWithMatch(typedSpy, 'a', true);
+    sinon.assert.calledWithMatch(typedSpy, 'a', true, 42); // $ExpectError
+    sinon.assert.calledWithMatch(typedSpy.firstCall, 'a', true);
+    sinon.assert.calledWithMatch(typedSpy.firstCall, 'a', 2); // $ExpectError
+    sinon.assert.alwaysCalledWithMatch(typedSpy, 'a', true);
+    sinon.assert.alwaysCalledWithMatch(typedSpy, 'a', 2); // $ExpectError
+    sinon.assert.neverCalledWithMatch(typedSpy, 'a', true);
+    sinon.assert.neverCalledWithMatch(typedSpy, 'a', 2); // $ExpectError
     sinon.assert.calledWithNew(typedSpy);
     sinon.assert.calledWithNew(typedSpy.firstCall);
     sinon.assert.threw(typedSpy);
@@ -442,6 +444,51 @@ function testAssert() {
     sinon.assert.expose(obj);
     sinon.assert.expose(obj, { prefix: "blah" });
     sinon.assert.expose(obj, { includeFail: true });
+
+    const spyDeepObject = sinon.spy((_arg1: { foo: { first: string; second: number } }, _arg2: string): boolean => {
+        return true;
+    });
+
+    sinon.assert.calledWithMatch(spyDeepObject, {});
+    sinon.assert.calledWithMatch(spyDeepObject, { foo: {} });
+    sinon.assert.calledWithMatch(spyDeepObject, { bar: {} }); // $ExpectError
+    sinon.assert.calledWithMatch(spyDeepObject, { foo: { second: 42 } });
+    sinon.assert.calledWithMatch(spyDeepObject, { foo: { second: sinon.match.string } });
+    sinon.assert.calledWithMatch(spyDeepObject, { foo: sinon.match.object });
+    sinon.assert.calledWithMatch(spyDeepObject, { foo: sinon.match.any });
+    sinon.assert.calledWithMatch(spyDeepObject, {
+        foo: sinon.match.array.startsWith([]).and(sinon.match.has('first')),
+    });
+    sinon.assert.calledWithMatch(spyDeepObject, sinon.match.any, sinon.match.string);
+    sinon.assert.calledWithMatch(spyDeepObject, sinon.match.any, sinon.match.string, sinon.match.number); // $ExpectError
+    sinon.assert.calledWithMatch(spyDeepObject, { foo: { first: 'a', second: 42 } }, 'c');
+
+    sinon.assert.alwaysCalledWithMatch(spyDeepObject, {});
+    sinon.assert.alwaysCalledWithMatch(spyDeepObject, { foo: {} });
+    sinon.assert.alwaysCalledWithMatch(spyDeepObject, { bar: {} }); // $ExpectError
+    sinon.assert.alwaysCalledWithMatch(spyDeepObject, { foo: { second: 42 } });
+    sinon.assert.alwaysCalledWithMatch(spyDeepObject, { foo: { second: sinon.match.string } });
+    sinon.assert.alwaysCalledWithMatch(spyDeepObject, { foo: sinon.match.object });
+    sinon.assert.alwaysCalledWithMatch(spyDeepObject, { foo: sinon.match.any });
+    sinon.assert.alwaysCalledWithMatch(spyDeepObject, {
+        foo: sinon.match.array.startsWith([]).and(sinon.match.has('first')),
+    });
+    sinon.assert.alwaysCalledWithMatch(spyDeepObject, sinon.match.any, sinon.match.string);
+    sinon.assert.alwaysCalledWithMatch(spyDeepObject, sinon.match.any, sinon.match.string, sinon.match.number); // $ExpectError
+    sinon.assert.alwaysCalledWithMatch(spyDeepObject, { foo: { first: 'a', second: 42 } }, 'c');
+    sinon.assert.neverCalledWithMatch(spyDeepObject, {});
+    sinon.assert.neverCalledWithMatch(spyDeepObject, { foo: {} });
+    sinon.assert.neverCalledWithMatch(spyDeepObject, { bar: {} }); // $ExpectError
+    sinon.assert.neverCalledWithMatch(spyDeepObject, { foo: { second: 42 } });
+    sinon.assert.neverCalledWithMatch(spyDeepObject, { foo: { second: sinon.match.string } });
+    sinon.assert.neverCalledWithMatch(spyDeepObject, { foo: sinon.match.object });
+    sinon.assert.neverCalledWithMatch(spyDeepObject, { foo: sinon.match.any });
+    sinon.assert.neverCalledWithMatch(spyDeepObject, {
+        foo: sinon.match.array.startsWith([]).and(sinon.match.has('first')),
+    });
+    sinon.assert.neverCalledWithMatch(spyDeepObject, sinon.match.any, sinon.match.string);
+    sinon.assert.neverCalledWithMatch(spyDeepObject, sinon.match.any, sinon.match.string, sinon.match.number); // $ExpectError
+    sinon.assert.neverCalledWithMatch(spyDeepObject, { foo: { first: 'a', second: 42 } }, 'c');
 }
 
 function testTypedSpy() {
@@ -472,21 +519,55 @@ function testTypedSpy() {
     spy.notCalledWith(sinon.match(5), "x");
     spy.returned(5);
     spy.returned(sinon.match(5));
+    spy.calledWithMatch(5, 'x', true); // $ExpectError
+    spy.calledWithMatch(5, 'x');
+    spy.calledWithMatch(5);
+    spy.notCalledWithMatch(5, 'x', true); // $ExpectError
+    spy.notCalledWithMatch(5, 'x');
+    spy.notCalledWithMatch(5);
 
-    spy.withArgs(sinon.match(5), "x").calledWith(5, "x");
-    spy.alwaysCalledWith(sinon.match(5), "x");
-    spy.alwaysCalledWith(5, "x");
-    spy.alwaysCalledWithExactly(sinon.match(5), "x");
-    spy.alwaysCalledWithExactly(5, "x");
-    spy.neverCalledWith(sinon.match(5), "x");
-    spy.neverCalledWith(5, "x");
+    spy.withArgs(sinon.match(5), 'x').calledWith(5, 'x');
+    spy.alwaysCalledWith(sinon.match(5), 'x');
+    spy.alwaysCalledWith(5, 'x');
+    spy.alwaysCalledWithExactly(sinon.match(5), 'x');
+    spy.alwaysCalledWithExactly(5, 'x');
+    spy.neverCalledWith(sinon.match(5), 'x');
+    spy.neverCalledWith(5, 'x');
 
-    const stub = sinon.stub(instance, "foo");
+    const spyDeepObject = sinon.spy((_arg1: { foo: { first: string; second: number } }, _arg2: string): boolean => {
+        return true;
+    });
 
-    stub.withArgs(5, "x").returns(3);
-    stub.withArgs(sinon.match(5), "x").returns(5);
+    spyDeepObject.calledWithMatch();
+    spyDeepObject.calledWithMatch({});
+    spyDeepObject.calledWithMatch({ foo: {} });
+    spyDeepObject.calledWithMatch({ foo: { second: 42 } });
+    spyDeepObject.calledWithMatch({ foo: { second: sinon.match.string } });
+    spyDeepObject.calledWithMatch({ foo: sinon.match.object });
+    spyDeepObject.calledWithMatch({ foo: sinon.match.any });
+    spyDeepObject.calledWithMatch({ foo: sinon.match.array.startsWith([]).and(sinon.match.has('first')) });
+    spyDeepObject.calledWithMatch(sinon.match.any, sinon.match.string);
+    spyDeepObject.calledWithMatch(sinon.match.any, sinon.match.string, sinon.match.number); // $ExpectError
+    spyDeepObject.calledWithMatch({ foo: { first: 'a', second: 42 } }, 'c');
 
-    const accessorSpy = sinon.spy(instance, "accessorTest", ["get", "set"]);
+    spyDeepObject.notCalledWithMatch();
+    spyDeepObject.notCalledWithMatch({});
+    spyDeepObject.notCalledWithMatch({ foo: {} });
+    spyDeepObject.notCalledWithMatch({ foo: { second: 42 } });
+    spyDeepObject.notCalledWithMatch({ foo: { second: sinon.match.string } });
+    spyDeepObject.notCalledWithMatch({ foo: sinon.match.object });
+    spyDeepObject.notCalledWithMatch({ foo: sinon.match.any });
+    spyDeepObject.notCalledWithMatch({ foo: sinon.match.array.startsWith([]).and(sinon.match.has('first')) });
+    spyDeepObject.notCalledWithMatch(sinon.match.any, sinon.match.string);
+    spyDeepObject.notCalledWithMatch(sinon.match.any, sinon.match.string, sinon.match.number); // $ExpectError
+    spyDeepObject.notCalledWithMatch({ foo: { first: 'a', second: 42 } }, 'c');
+
+    const stub = sinon.stub(instance, 'foo');
+
+    stub.withArgs(5, 'x').returns(3);
+    stub.withArgs(sinon.match(5), 'x').returns(5);
+
+    const accessorSpy = sinon.spy(instance, 'accessorTest', ['get', 'set']);
     accessorSpy.get.returned(5);
     accessorSpy.set.calledWith(55);
 

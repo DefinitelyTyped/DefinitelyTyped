@@ -8,7 +8,7 @@ declare module '../../index' {
          *   Creates a new p5.Image (the datatype for storing
          *   images). This provides a fresh buffer of pixels to
          *   play with. Set the size of the buffer with the
-         *   width and height parameters.  .pixels gives access
+         *   width and height parameters. .pixels gives access
          *   to an array containing the values for all the
          *   pixels in the display window. These values are
          *   numbers. This array is the size (including an
@@ -18,7 +18,6 @@ declare module '../../index' {
          *   to right across each row, then down each column.
          *   See .pixels for more info. It may also be simpler
          *   to use set() or get().
-         *
          *
          *   Before accessing the pixels of an image, the data
          *   must loaded with the loadPixels() function. After

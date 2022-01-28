@@ -1,4 +1,4 @@
-// Type definitions for prismjs 1.16
+// Type definitions for prismjs 1.26
 // Project: http://prismjs.com/, https://github.com/leaverou/prism
 // Definitions by: Michael Schmidt <https://github.com/RunDevelopment>
 //                 ExE Boss <https://github.com/ExE-Boss>
@@ -6,11 +6,38 @@
 //                 Andre Wiggins <https://github.com/andrewiggins>
 //                 Michał Miszczyszyn <https://github.com/mmiszy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
 
 export as namespace Prism;
 export const languages: Languages;
 export const plugins: Record<string, any>;
+
+/**
+ * By default, if Prism is in a web worker, it assumes that it is in a worker it created itself, so it uses
+ * `addEventListener` to communicate with its parent instance. However, if you're using Prism manually in your
+ * own worker, you don't want it to do this.
+ *
+ * By setting this value to `true`, Prism will not add its own listeners to the worker.
+ *
+ * You obviously have to change this value before Prism executes. To do this, you can add an
+ * empty Prism object into the global scope before loading the Prism script like this:
+ *
+ * @default false
+ */
+export let disableWorkerMessageHandler: boolean | undefined;
+
+/**
+ * By default, Prism will attempt to highlight all code elements (by calling {@link Prism.highlightAll}) on the
+ * current page after the page finished loading. This might be a problem if e.g. you wanted to asynchronously load
+ * additional languages or plugins yourself.
+ *
+ * By setting this value to `true`, Prism will not automatically highlight all code elements on the page.
+ *
+ * You obviously have to change this value before the automatic highlighting started. To do this, you can add an
+ * empty Prism object into the global scope before loading the Prism script like this:
+ *
+ * @default false
+ */
+export let manual: boolean | undefined;
 
 /**
  * A function which will be invoked after an element was successfully highlighted.

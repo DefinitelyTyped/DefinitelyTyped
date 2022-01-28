@@ -21,10 +21,12 @@ class Timestamp extends Helper<{
     }
 }
 
+// $ExpectType FunctionBasedHelper<{ PositionalArgs: [number, number]; NamedArgs: Record<string, unknown>; Return: number; }>
 const addHelper = helper(function add([a, b]: [number, number]) {
     return a + b;
 });
 
+// $ExpectType FunctionBasedHelper<{ PositionalArgs: [string]; NamedArgs: { delim?: string; }; Return: string; }>
 const dasherizeHelper = helper(function dasherize([str]: [string], { delim = '-' }: { delim?: string }) {
     return str.split(/[\s\n\_\.]+/g).join(delim);
 });
