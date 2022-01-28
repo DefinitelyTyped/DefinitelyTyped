@@ -46,4 +46,12 @@ brokerEngine.unsubscribeSocket(exchange, 'test');
 
     // $ExpectType any
     errorResult.error;
+
+    const publishResult = await brokerEngine.listener('publish').once();
+
+    // $ExpectType string
+    publishResult.channel;
+
+    // $ExpectType any
+    publishResult.data;
 })();

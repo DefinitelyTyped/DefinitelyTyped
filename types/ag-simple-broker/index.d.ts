@@ -148,6 +148,6 @@ declare namespace AGSimpleBroker {
 
     interface PublishData {
         channel: string;
-        date: any;
+        data: any;
     }
 }
