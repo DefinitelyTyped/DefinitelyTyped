@@ -18,7 +18,7 @@ import { Bulk } from './bulk';
 import { Cache } from './cache';
 import { OAuth2, Streaming } from '.';
 import { HttpApiOptions } from './http-api';
-import { LimitsInfo } from './limits-info';
+import { LimitInfo, LimitsInfo } from './limits-info';
 
 export type Callback<T> = (err: Error | null, result: T) => void;
 // The type for these options was determined by looking at the usage
@@ -311,6 +311,7 @@ export class Connection extends BaseConnection {
     oauth2: OAuth2;
     streaming: Streaming;
     cache: Cache;
+    limitInfo?: LimitInfo;
 
     // Specific to Connection
     instanceUrl: string;
