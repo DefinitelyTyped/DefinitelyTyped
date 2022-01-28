@@ -283,7 +283,7 @@ declare namespace ShopifyBuy {
 
     export interface CustomAttributeV2 {
         customAttributes: {
-            key?: string;
+            key: string;
             value: string;
         }[];
     }
