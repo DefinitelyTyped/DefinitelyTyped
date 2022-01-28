@@ -32,11 +32,10 @@ declare module '../../index' {
          *   with textSize(). Change the color of the text with
          *   the fill() function. Change the outline of the
          *   text with the stroke() and strokeWeight()
-         *   functions.  The text displays in relation to the
+         *   functions. The text displays in relation to the
          *   textAlign() function, which gives the option to
          *   draw to the left, right, and center of the
          *   coordinates.
-         *
          *
          *   The x2 and y2 parameters define a rectangular area
          *   to display within and may only be used with string
@@ -48,11 +47,11 @@ declare module '../../index' {
          *   baseline alignment is the default, which means
          *   that the text will be drawn upwards from x and y.
          *
-         *
          *   WEBGL: Only opentype/truetype fonts are supported.
          *   You must load a font using the loadFont() method
          *   (see the example above). stroke() currently has no
-         *   effect in webgl mode.
+         *   effect in webgl mode. Learn more about working
+         *   with text in webgl mode on the wiki.
          *   @param str the alphanumeric symbols to be
          *   displayed
          *   @param x x-coordinate of text
@@ -67,15 +66,25 @@ declare module '../../index' {
 
         /**
          *   Sets the current font that will be drawn with the
-         *   text() function.  WEBGL: Only fonts loaded via
+         *   text() function. If textFont() is called without
+         *   any argument, it will return the current font if
+         *   one has been set already. If not, it will return
+         *   the name of the default font as a string. If
+         *   textFont() is called with a font to use, it will
+         *   return the p5 object. WEBGL: Only fonts loaded via
          *   loadFont() are supported.
-         *   @return the current font
+         *   @return the current font / p5 Object
          */
         textFont(): object;
 
         /**
          *   Sets the current font that will be drawn with the
-         *   text() function.  WEBGL: Only fonts loaded via
+         *   text() function. If textFont() is called without
+         *   any argument, it will return the current font if
+         *   one has been set already. If not, it will return
+         *   the name of the default font as a string. If
+         *   textFont() is called with a font to use, it will
+         *   return the p5 object. WEBGL: Only fonts loaded via
          *   loadFont() are supported.
          *   @param font a font loaded via loadFont(), or a
          *   String representing a web safe font (a font that

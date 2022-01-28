@@ -1,4 +1,4 @@
-// For Library Version: 1.97.0
+// For Library Version: 1.98.0
 
 declare module "sap/ui/webc/main/library" {
   /**
@@ -14646,7 +14646,7 @@ declare module "sap/ui/webc/main/List" {
    * The `sap.ui.webc.main.List` component allows displaying a list of items, advanced keyboard handling support
    * for navigating between items, and predefined modes to improve the development efficiency.
    *
-   *  The `sap.ui.webc.main.List` is а container for the available list items:
+   *  The `sap.ui.webc.main.List` is a container for the available list items:
    * 	 - `sap.ui.webc.main.StandardListItem`
    * 	 - `sap.ui.webc.main.CustomListItem`
    * 	 - `sap.ui.webc.main.GroupHeaderListItem`
@@ -15265,7 +15265,7 @@ declare module "sap/ui/webc/main/List" {
      *
      *
      *
-     * **Limitations:** `growing="Scroll"` is not supported for Internet Explorer, on IE the component will
+     * **Restrictions:** `growing="Scroll"` is not supported for Internet Explorer, on IE the component will
      * fallback to `growing="Button"`.
      *
      * Default value is `None`.
@@ -15540,7 +15540,7 @@ declare module "sap/ui/webc/main/List" {
      *
      *
      *
-     * **Limitations:** `growing="Scroll"` is not supported for Internet Explorer, on IE the component will
+     * **Restrictions:** `growing="Scroll"` is not supported for Internet Explorer, on IE the component will
      * fallback to `growing="Button"`.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
@@ -15713,7 +15713,7 @@ declare module "sap/ui/webc/main/List" {
      *
      *
      *
-     * **Limitations:** `growing="Scroll"` is not supported for Internet Explorer, on IE the component will
+     * **Restrictions:** `growing="Scroll"` is not supported for Internet Explorer, on IE the component will
      * fallback to `growing="Button"`.
      */
     growing?: ListGrowingMode | PropertyBindingInfo;
@@ -16246,11 +16246,6 @@ declare module "sap/ui/webc/main/MultiComboBox" {
    * 			one (if available).
    * 	 -  Delete - deletes the token and focuses the previous token.
    * 	 -  Backspace - deletes the token and focus the next token.
-   *
-   * In the context of `sap.ui.webc.main.MultiComboBox`, you can provide a custom stable DOM ref for:
-   *
-   * 	 - Every `sap.ui.webc.main.MultiComboBoxItem` that you provide. Example: `<ui5-mcb-item stable-dom-ref="item1"></ui5-mcb-item>`
-   *
    *
    * CSS Shadow Parts:
    *
@@ -23614,13 +23609,6 @@ declare module "sap/ui/webc/main/Select" {
    * 	 - [ESC] - Closes the drop-down without changing the selection.
    * 	 - [HOME] - Navigates to first option
    * 	 - [END] - Navigates to the last option
-   *
-   *
-   * Stable DOM Refs:
-   *
-   * In the context of `sap.ui.webc.main.Select`, you can provide a custom stable DOM ref for:
-   * 	 - Every `sap.ui.webc.main.Option` that you provide. Example: `
-   * 			`
    */
   export default class Select extends WebComponent {
     /**
@@ -26675,6 +26663,11 @@ declare module "sap/ui/webc/main/Tab" {
      */
     getSelected(): boolean;
     /**
+     * Returns the DOM reference of the tab that is placed in the header. **Note:** If you need a DOM ref to
+     * the tab content please use the `getDomRef` method.
+     */
+    getTabInStripDomRef(): void;
+    /**
      * Gets current value of property {@link #getText text}.
      *
      * The text to be displayed for the item.
@@ -26914,12 +26907,6 @@ declare module "sap/ui/webc/main/TabContainer" {
    * The `sap.ui.webc.main.TabContainer` can hold two types of entities:
    * 	 - `sap.ui.webc.main.Tab` - contains all the information on an item (text and icon)
    * 	 - `sap.ui.webc.main.TabSeparator` - used to separate tabs with a vertical line
-   *
-   * Stable DOM Refs:
-   *
-   * In the context of `sap.ui.webc.main.TabContainer`, you can provide a custom stable DOM refs for:
-   *
-   * 	 - Each `sap.ui.webc.main.Tab` Example: `  `
    */
   export default class TabContainer extends WebComponent {
     /**
@@ -27829,7 +27816,7 @@ declare module "sap/ui/webc/main/Table" {
      *
      *
      *
-     * **Limitations:** `growing="Scroll"` is not supported for Internet Explorer, and the component will fallback
+     * **Restrictions:** `growing="Scroll"` is not supported for Internet Explorer, and the component will fallback
      * to `growing="Button"`.
      *
      * Default value is `None`.
@@ -27910,7 +27897,7 @@ declare module "sap/ui/webc/main/Table" {
      * Determines whether the column headers remain fixed at the top of the page during vertical scrolling as
      * long as the Web Component is in the viewport.
      *
-     *  **Limitations:**
+     *  **Restrictions:**
      * 	 - Browsers that do not support this feature:
      * 	Internet Explorer
      * 	 - Microsoft Edge lower than version 41 (EdgeHTML 16)
@@ -28059,7 +28046,7 @@ declare module "sap/ui/webc/main/Table" {
      *
      *
      *
-     * **Limitations:** `growing="Scroll"` is not supported for Internet Explorer, and the component will fallback
+     * **Restrictions:** `growing="Scroll"` is not supported for Internet Explorer, and the component will fallback
      * to `growing="Button"`.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
@@ -28181,7 +28168,7 @@ declare module "sap/ui/webc/main/Table" {
      * Determines whether the column headers remain fixed at the top of the page during vertical scrolling as
      * long as the Web Component is in the viewport.
      *
-     *  **Limitations:**
+     *  **Restrictions:**
      * 	 - Browsers that do not support this feature:
      * 	Internet Explorer
      * 	 - Microsoft Edge lower than version 41 (EdgeHTML 16)
@@ -28245,7 +28232,7 @@ declare module "sap/ui/webc/main/Table" {
      *
      *
      *
-     * **Limitations:** `growing="Scroll"` is not supported for Internet Explorer, and the component will fallback
+     * **Restrictions:** `growing="Scroll"` is not supported for Internet Explorer, and the component will fallback
      * to `growing="Button"`.
      */
     growing?: TableGrowingMode | PropertyBindingInfo;
@@ -28299,7 +28286,7 @@ declare module "sap/ui/webc/main/Table" {
      * Determines whether the column headers remain fixed at the top of the page during vertical scrolling as
      * long as the Web Component is in the viewport.
      *
-     *  **Limitations:**
+     *  **Restrictions:**
      * 	 - Browsers that do not support this feature:
      * 	Internet Explorer
      * 	 - Microsoft Edge lower than version 41 (EdgeHTML 16)

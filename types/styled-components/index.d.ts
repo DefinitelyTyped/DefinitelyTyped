@@ -55,17 +55,14 @@ type Defaultize<P, D> = P extends any
 
 type ReactDefaultizedProps<C, P> = C extends { defaultProps: infer D } ? Defaultize<P, D> : P;
 
-type MakeAttrsOptional<C extends string | React.ComponentType<any>, O extends object, A extends keyof any> = OmitU<
-    ReactDefaultizedProps<
-        C,
-        React.ComponentPropsWithRef<C extends IntrinsicElementsKeys | React.ComponentType<any> ? C : never>
-    > &
-        O,
-    A
-> &
-    Partial<
-        PickU<React.ComponentPropsWithRef<C extends IntrinsicElementsKeys | React.ComponentType<any> ? C : never> & O, A>
-    >;
+type MakeAttrsOptional<
+    C extends string | React.ComponentType<any>,
+    O extends object,
+    A extends keyof P,
+    P = React.ComponentPropsWithRef<C extends IntrinsicElementsKeys | React.ComponentType<any> ? C : never>,
+> =
+    // Distribute unions early to avoid quadratic expansion
+    P extends any ? OmitU<ReactDefaultizedProps<C, P> & O, A> & Partial<PickU<P & O, A>> : never;
 
 export type StyledComponentProps<
     // The Component from whose props are derived

@@ -4,7 +4,7 @@ import EmberObject from "@ember/object";
 
 interface EmberArrayLike<T> {
     length: number | ComputedProperty<number>;
-    objectAt(idx: number): any;
+    objectAt(idx: number): T | undefined;
 }
 
 /**

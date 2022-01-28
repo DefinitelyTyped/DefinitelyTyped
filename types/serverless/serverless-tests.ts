@@ -174,6 +174,7 @@ const awsServerless: Aws.Serverless = {
         rolePermissionsBoundary: 'testrolePermissionsBoundary',
         cfnRole: 'testcfnRole',
         versionFunctions: true,
+        architecture: 'x86_64',
         environment: {
             testenvironmentkey: 'testenvironmentvalue'
         },
@@ -267,7 +268,8 @@ const awsServerless: Aws.Serverless = {
                     issuerUrl: 'testissuerUrl',
                     audience: ['testaudience']
                 }
-            }
+            },
+            useProviderTags: true
         },
         usagePlan: {
             quota: {
@@ -552,7 +554,8 @@ const awsServerless: Aws.Serverless = {
                         arn: 'testarn',
                         batchSize: 1,
                         maximumRetryAttempts: 1,
-                        enabled: true
+                        enabled: true,
+                        functionResponseType: 'ReportBatchItemFailures'
                     }
                 }, {
                     activemq: {
