@@ -1,8 +1,8 @@
 import { EthereumEventsConfig } from '../../config';
-import { EthereumEvent, EventType } from '../models';
+import { EthereumEvent, EventType, Web3Like } from '../models';
 import { BlockNumber } from './block-number';
 export class BlockPolling {
-    constructor(web3: object, eventFetcher: any, options?: EthereumEventsConfig);
+    constructor(web3: Web3Like, eventFetcher: any, options?: EthereumEventsConfig);
 
     start(startBlock: BlockNumber): void;
 

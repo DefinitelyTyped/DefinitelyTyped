@@ -13,3 +13,7 @@ export interface EthereumEvent<T = any> {
     logIndex: number;
     values: T;
 }
+
+export interface Web3Like {
+  eth: any;
+}

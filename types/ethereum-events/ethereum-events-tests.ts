@@ -1,8 +1,8 @@
-import EthereumEvents from 'ethereum-events';
+import EthereumEvents, { EthereumEventsConfig } from 'ethereum-events';
 
-const web3 = {};
-const contract = { name: 'Something', address: '0x0000000000000000000000000000000000000000', abi: {} };
-const pollOptions = {};
+const web3 = { eth: {}};
+const contract = { name: 'Something', address: '0x0000000000000000000000000000000000000000', abi: { } };
+const pollOptions: EthereumEventsConfig = { };
 
 const listener = new EthereumEvents(web3, contract, pollOptions);
 listener.on('block', async (blockNumber, events, done) => {

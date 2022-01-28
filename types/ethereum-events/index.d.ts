@@ -3,11 +3,11 @@
 // Definitions by: Keith Kikta <https://github.com/newbish>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { EventListener } from './lib/core/event-listener';
 import { EthereumEventsConfig } from './config';
+import { EventListener } from './lib/core/event-listener';
+import { Web3Like } from './lib/models';
 
-declare class EthereumEvents extends EventListener {
-    constructor(web3: object, contracts: any, options?: EthereumEventsConfig);
+export default class EthereumEvents extends EventListener {
+    constructor(web3: Web3Like, contracts: any, options?: EthereumEventsConfig);
 }
 
-export = EthereumEvents;
