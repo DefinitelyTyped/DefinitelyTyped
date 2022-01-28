@@ -985,6 +985,7 @@ export interface SignInOptions {
     username: string;
     otp: string;
     realm?: 'email' | 'sms';
+    audience?: string | undefined;
     /**
      * @deprecated
      */

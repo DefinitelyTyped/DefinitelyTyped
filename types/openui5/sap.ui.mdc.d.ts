@@ -1,4 +1,4 @@
-// For Library Version: 1.97.0
+// For Library Version: 1.98.0
 
 declare module "sap/ui/mdc/library" {
   /**
@@ -24,15 +24,11 @@ declare namespace sap {
 
     "sap/ui/mdc/Chart": undefined;
 
-    "sap/ui/mdc/chart/DimensionItem": undefined;
+    "sap/ui/mdc/chart/ChartSelectionDetails": undefined;
 
     "sap/ui/mdc/chart/Item": undefined;
 
-    "sap/ui/mdc/chart/MeasureItem": undefined;
-
     "sap/ui/mdc/chart/SelectionDetailsActions": undefined;
-
-    "sap/ui/mdc/chartNew/ChartSelectionDetailsNew": undefined;
 
     "sap/ui/mdc/condition/Condition": undefined;
 
@@ -162,6 +158,8 @@ declare namespace sap {
 
     "sap/ui/mdc/odata/v4/FieldValueHelpDelegate": undefined;
 
+    "sap/ui/mdc/odata/v4/TableDelegate": undefined;
+
     "sap/ui/mdc/p13n/AdaptationProvider": undefined;
 
     "sap/ui/mdc/p13n/Engine": undefined;
@@ -184,17 +182,23 @@ declare namespace sap {
 
     "sap/ui/mdc/table/GridTableType": undefined;
 
+    "sap/ui/mdc/table/PropertyHelper": undefined;
+
     "sap/ui/mdc/table/ResponsiveTableType": undefined;
 
     "sap/ui/mdc/table/RowSettings": undefined;
 
     "sap/ui/mdc/table/TableTypeBase": undefined;
 
+    "sap/ui/mdc/TableDelegate": undefined;
+
     "sap/ui/mdc/util/DateUtil": undefined;
 
     "sap/ui/mdc/util/FilterUtil": undefined;
 
     "sap/ui/mdc/util/PromiseCache": undefined;
+
+    "sap/ui/mdc/util/PropertyHelper": undefined;
 
     "sap/ui/mdc/util/TypeUtil": undefined;
 
@@ -215,6 +219,8 @@ declare namespace sap {
     "sap/ui/mdc/valuehelp/content/Conditions": undefined;
 
     "sap/ui/mdc/valuehelp/content/FixedList": undefined;
+
+    "sap/ui/mdc/valuehelp/content/MDCTable": undefined;
 
     "sap/ui/mdc/valuehelp/content/MTable": undefined;
 

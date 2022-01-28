@@ -50,12 +50,14 @@ declare module '../../index' {
         noLoop(): MediaElement;
 
         /**
-         *   Set HTML5 media element to autoplay or not.
-         *   @param autoplay whether the element should
+         *   Set HTML5 media element to autoplay or not. If no
+         *   argument is specified, by default it will
+         *   autoplay.
+         *   @param shouldAutoplay whether the element should
          *   autoplay
          *   @chainable
          */
-        autoplay(autoplay: boolean): MediaElement;
+        autoplay(shouldAutoplay: boolean): MediaElement;
 
         /**
          *   Sets volume for this HTML5 media element. If no
@@ -137,12 +139,11 @@ declare module '../../index' {
         /**
          *   Send the audio output of this element to a
          *   specified audioNode or p5.sound object. If no
-         *   element is provided, connects to p5's master
-         *   output. That connection is established when this
-         *   method is first called. All connections are
-         *   removed by the .disconnect() method. This method
-         *   is meant to be used with the p5.sound.js addon
-         *   library.
+         *   element is provided, connects to p5's main output.
+         *   That connection is established when this method is
+         *   first called. All connections are removed by the
+         *   .disconnect() method. This method is meant to be
+         *   used with the p5.sound.js addon library.
          *   @param audioNode AudioNode from the Web Audio API,
          *   or an object from the p5.sound library
          */
@@ -150,7 +151,7 @@ declare module '../../index' {
 
         /**
          *   Disconnect all Web Audio routing, including to
-         *   master output. This is useful if you want to
+         *   main output. This is useful if you want to
          *   re-route the output through audio effects, for
          *   example.
          */
@@ -249,45 +250,44 @@ declare module '../../index' {
         size: any;
 
         /**
-         *   URL string containing image data.
+         *   URL string containing either image data, the text
+         *   contents of the file or a parsed object if file is
+         *   JSON and p5.XML if XML
          */
         data: any;
     }
     interface p5InstanceExtensions {
         /**
-         *   Searches the page for an element with the given
-         *   ID, class, or tag name (using the '#' or '.'
-         *   prefixes to specify an ID or class respectively,
-         *   and none for a tag) and returns it as a
-         *   p5.Element. If a class or tag name is given with
-         *   more than 1 element, only the first element will
-         *   be returned. The DOM node itself can be accessed
-         *   with .elt. Returns null if none found. You can
-         *   also specify a container to search within.
-         *   @param name id, class, or tag name of element to
+         *   Searches the page for the first element that
+         *   matches the given CSS selector string (can be an
+         *   ID, class, tag name or a combination) and returns
+         *   it as a p5.Element. The DOM node itself can be
+         *   accessed with .elt. Returns null if none found.
+         *   You can also specify a container to search within.
+         *   @param selectors CSS selector string of element to
          *   search for
-         *   @param [container] id, p5.Element, or HTML element
-         *   to search within
+         *   @param [container] CSS selector string,
+         *   p5.Element, or HTML element to search within
          *   @return p5.Element containing node found
          */
-        select(name: string, container?: string | Element | HTMLElement): Element | null;
+        select(selectors: string, container?: string | Element | HTMLElement): Element | null;
 
         /**
-         *   Searches the page for elements with the given
-         *   class or tag name (using the '.' prefix to specify
-         *   a class and no prefix for a tag) and returns them
-         *   as p5.Elements in an array. The DOM node itself
-         *   can be accessed with .elt. Returns an empty array
-         *   if none found. You can also specify a container to
+         *   Searches the page for elements that match the
+         *   given CSS selector string (can be an ID a class,
+         *   tag name or a combination) and returns them as
+         *   p5.Elements in an array. The DOM node itself can
+         *   be accessed with .elt. Returns an empty array if
+         *   none found. You can also specify a container to
          *   search within.
-         *   @param name class or tag name of elements to
-         *   search for
-         *   @param [container] id, p5.Element, or HTML element
-         *   to search within
+         *   @param selectors CSS selector string of elements
+         *   to search for
+         *   @param [container] CSS selector string, p5.Element
+         *   , or HTML element to search within
          *   @return Array of p5.Elements containing nodes
          *   found
          */
-        selectAll(name: string, container?: string): Element[];
+        selectAll(selectors: string, container?: string | Element | HTMLElement): Element[];
 
         /**
          *   Removes all elements created by p5, except any
@@ -326,8 +326,7 @@ declare module '../../index' {
 
         /**
          *   Creates a <div></div> element in the DOM with
-         *   given inner HTML. Appends to the container node if
-         *   one is specified, otherwise appends to body.
+         *   given inner HTML.
          *   @param [html] inner HTML for element created
          *   @return pointer to p5.Element holding created node
          */
@@ -336,8 +335,6 @@ declare module '../../index' {
         /**
          *   Creates a <p></p> element in the DOM with given
          *   inner HTML. Used for paragraph length text.
-         *   Appends to the container node if one is specified,
-         *   otherwise appends to body.
          *   @param [html] inner HTML for element created
          *   @return pointer to p5.Element holding created node
          */
@@ -345,8 +342,7 @@ declare module '../../index' {
 
         /**
          *   Creates a <span></span> element in the DOM with
-         *   given inner HTML. Appends to the container node if
-         *   one is specified, otherwise appends to body.
+         *   given inner HTML.
          *   @param [html] inner HTML for element created
          *   @return pointer to p5.Element holding created node
          */
@@ -354,32 +350,37 @@ declare module '../../index' {
 
         /**
          *   Creates an <img> element in the DOM with given src
-         *   and alternate text. Appends to the container node
-         *   if one is specified, otherwise appends to body.
+         *   and alternate text.
          *   @param src src path or url for image
-         *   @param [alt] alternate text to be used if image
-         *   does not load
-         *   @param [successCallback] callback to be called
-         *   once image data is loaded
+         *   @param alt alternate text to be used if image does
+         *   not load. You can use also an empty string ("") if
+         *   that an image is not intended to be viewed.
          *   @return pointer to p5.Element holding created node
          */
-        createImg(src: string, alt?: string, successCallback?: (...args: any[]) => any): Element;
+        createImg(src: string, alt: string): Element;
 
         /**
          *   Creates an <img> element in the DOM with given src
-         *   and alternate text. Appends to the container node
-         *   if one is specified, otherwise appends to body.
+         *   and alternate text.
          *   @param src src path or url for image
-         *   @param successCallback callback to be called once
-         *   image data is loaded
+         *   @param alt alternate text to be used if image does
+         *   not load. You can use also an empty string ("") if
+         *   that an image is not intended to be viewed.
+         *   @param crossOrigin crossOrigin property of the img
+         *   element; use either 'anonymous' or
+         *   'use-credentials' to retrieve the image with
+         *   cross-origin access (for later use with canvas. if
+         *   an empty string("") is passed, CORS is not used
+         *   @param [successCallback] callback to be called
+         *   once image data is loaded with the p5.Element as
+         *   argument
+         *   @return pointer to p5.Element holding created node
          */
-        createImg(src: string, successCallback: (...args: any[]) => any): object | Element;
+        createImg(src: string, alt: string, crossOrigin: string, successCallback?: (...args: any[]) => any): Element;
 
         /**
          *   Creates an <a></a> element in the DOM for
-         *   including a hyperlink. Appends to the container
-         *   node if one is specified, otherwise appends to
-         *   body.
+         *   including a hyperlink.
          *   @param href url of page to link to
          *   @param html inner html of link element to display
          *   @param [target] target where new link should open,
@@ -391,8 +392,7 @@ declare module '../../index' {
         /**
          *   Creates a slider <input></input> element in the
          *   DOM. Use .size() to set the display length of the
-         *   slider. Appends to the container node if one is
-         *   specified, otherwise appends to body.
+         *   slider.
          *   @param min minimum value of the slider
          *   @param max maximum value of the slider
          *   @param [value] default value of the slider
@@ -408,8 +408,6 @@ declare module '../../index' {
          *   Creates a <button></button> element in the DOM.
          *   Use .size() to set the display size of the button.
          *   Use .mousePressed() to specify behavior on press.
-         *   Appends to the container node if one is specified,
-         *   otherwise appends to body.
          *   @param label label displayed on the button
          *   @param [value] value of the button
          *   @return pointer to p5.Element holding created node
@@ -431,7 +429,18 @@ declare module '../../index' {
          *   Creates a dropdown menu <select></select> element
          *   in the DOM. It also helps to assign select-box
          *   methods to p5.Element when selecting existing
-         *   select box
+         *   select box. - .option(name, [value]) can be used
+         *   to set options for the select after it is created.
+         *   - .value() will return the currently selected
+         *   option.
+         *   - .selected() will return current dropdown element
+         *   which is an instance of p5.Element
+         *   - .selected(value) can be used to make given
+         *   option selected by default when the page first
+         *   loads.
+         *   - .disable() marks whole of dropdown element as
+         *   disabled.
+         *   - .disable(value) marks given option as disabled
          *   @param [multiple] true if dropdown should support
          *   multiple selections
          */
@@ -441,22 +450,103 @@ declare module '../../index' {
          *   Creates a dropdown menu <select></select> element
          *   in the DOM. It also helps to assign select-box
          *   methods to p5.Element when selecting existing
-         *   select box
+         *   select box. - .option(name, [value]) can be used
+         *   to set options for the select after it is created.
+         *   - .value() will return the currently selected
+         *   option.
+         *   - .selected() will return current dropdown element
+         *   which is an instance of p5.Element
+         *   - .selected(value) can be used to make given
+         *   option selected by default when the page first
+         *   loads.
+         *   - .disable() marks whole of dropdown element as
+         *   disabled.
+         *   - .disable(value) marks given option as disabled
          *   @param existing DOM select element
          */
         createSelect(existing: object): Element;
 
         /**
-         *   Creates a radio button <input></input> element in
-         *   the DOM. The .option() method can be used to set
-         *   options for the radio after it is created. The
-         *   .value() method will return the currently selected
-         *   option.
-         *   @param [divId] the id and name of the created div
-         *   and input field respectively
+         *   Creates a radio button element in the DOM.It also
+         *   helps existing radio buttons assign methods of
+         *   p5.Element. - .option(value, [label]) can be used
+         *   to create a new option for the element. If an
+         *   option with a value already exists, it will be
+         *   returned. It is recommended to use string values
+         *   as input for value. Optionally, a label can be
+         *   provided as second argument for the option.
+         *   - .remove(value) can be used to remove an option
+         *   for the element. String values recommended as
+         *   input for value.
+         *   - .value() method will return the currently
+         *   selected value.
+         *   - .selected() method will return the currently
+         *   selected input element.
+         *   - .selected(value) method will select the option
+         *   and return it. String values recommended as input
+         *   for value.
+         *   - .disable(Boolean) method will enable/disable the
+         *   whole radio button element.
+         *   @param containerElement An container HTML Element
+         *   either a div or span inside which all existing
+         *   radio inputs will be considered as options.
+         *   @param [name] A name parameter for each Input
+         *   Element.
          *   @return pointer to p5.Element holding created node
          */
-        createRadio(divId?: string): Element;
+        createRadio(containerElement: object, name?: string): Element;
+
+        /**
+         *   Creates a radio button element in the DOM.It also
+         *   helps existing radio buttons assign methods of
+         *   p5.Element. - .option(value, [label]) can be used
+         *   to create a new option for the element. If an
+         *   option with a value already exists, it will be
+         *   returned. It is recommended to use string values
+         *   as input for value. Optionally, a label can be
+         *   provided as second argument for the option.
+         *   - .remove(value) can be used to remove an option
+         *   for the element. String values recommended as
+         *   input for value.
+         *   - .value() method will return the currently
+         *   selected value.
+         *   - .selected() method will return the currently
+         *   selected input element.
+         *   - .selected(value) method will select the option
+         *   and return it. String values recommended as input
+         *   for value.
+         *   - .disable(Boolean) method will enable/disable the
+         *   whole radio button element.
+         *   @param name A name parameter for each Input
+         *   Element.
+         *   @return pointer to p5.Element holding created node
+         */
+        createRadio(name: string): Element;
+
+        /**
+         *   Creates a radio button element in the DOM.It also
+         *   helps existing radio buttons assign methods of
+         *   p5.Element. - .option(value, [label]) can be used
+         *   to create a new option for the element. If an
+         *   option with a value already exists, it will be
+         *   returned. It is recommended to use string values
+         *   as input for value. Optionally, a label can be
+         *   provided as second argument for the option.
+         *   - .remove(value) can be used to remove an option
+         *   for the element. String values recommended as
+         *   input for value.
+         *   - .value() method will return the currently
+         *   selected value.
+         *   - .selected() method will return the currently
+         *   selected input element.
+         *   - .selected(value) method will select the option
+         *   and return it. String values recommended as input
+         *   for value.
+         *   - .disable(Boolean) method will enable/disable the
+         *   whole radio button element.
+         *   @return pointer to p5.Element holding created node
+         */
+        createRadio(): Element;
 
         /**
          *   Creates a colorPicker element in the DOM for color
@@ -472,41 +562,47 @@ declare module '../../index' {
         /**
          *   Creates an <input></input> element in the DOM for
          *   text input. Use .size() to set the display length
-         *   of the box. Appends to the container node if one
-         *   is specified, otherwise appends to body.
-         *   @param [value] default value of the input box
+         *   of the box.
+         *   @param value default value of the input box
          *   @param [type] type of text, ie text, password etc.
-         *   Defaults to text
+         *   Defaults to text. Needs a value to be specified
+         *   first.
          *   @return pointer to p5.Element holding created node
          */
-        createInput(value?: string, type?: string): Element;
+        createInput(value: string, type?: string): Element;
+
+        /**
+         *   Creates an <input></input> element in the DOM for
+         *   text input. Use .size() to set the display length
+         *   of the box.
+         *   @param [value] default value of the input box
+         */
+        createInput(value?: string): Element;
 
         /**
          *   Creates an <input></input> element in the DOM of
          *   type 'file'. This allows users to select local
          *   files for use in a sketch.
-         *   @param [callback] callback function for when a
-         *   file loaded
-         *   @param [multiple] optional to allow multiple files
-         *   selected
+         *   @param callback callback function for when a file
+         *   is loaded
+         *   @param [multiple] optional, to allow multiple
+         *   files to be selected
          *   @return pointer to p5.Element holding created DOM
          *   element
          */
-        createFileInput(callback?: (...args: any[]) => any, multiple?: string): Element;
+        createFileInput(callback: (...args: any[]) => any, multiple?: boolean): Element;
 
         /**
          *   Creates an HTML5 <video> element in the DOM for
          *   simple playback of audio/video. Shown by default,
          *   can be hidden with .hide() and drawn into canvas
-         *   using video(). Appends to the container node if
-         *   one is specified, otherwise appends to body. The
-         *   first parameter can be either a single string path
-         *   to a video file, or an array of string paths to
-         *   different formats of the same video. This is
-         *   useful for ensuring that your video can play
-         *   across different browsers, as each supports
-         *   different formats. See this page for further
-         *   information about supported formats.
+         *   using image(). The first parameter can be either a
+         *   single string path to a video file, or an array of
+         *   string paths to different formats of the same
+         *   video. This is useful for ensuring that your video
+         *   can play across different browsers, as each
+         *   supports different formats. See this page for
+         *   further information about supported formats.
          *   @param src path to a video file, or array of paths
          *   for supporting different browsers
          *   @param [callback] callback function to be called
@@ -515,20 +611,18 @@ declare module '../../index' {
          *   enough data has been loaded to play the media up
          *   to its end without having to stop for further
          *   buffering of content
-         *   @return pointer to video p5.Element
+         *   @return pointer to video p5.MediaElement
          */
         createVideo(src: string | string[], callback?: (...args: any[]) => any): MediaElement;
 
         /**
          *   Creates a hidden HTML5 <audio> element in the DOM
-         *   for simple audio playback. Appends to the
-         *   container node if one is specified, otherwise
-         *   appends to body. The first parameter can be either
-         *   a single string path to a audio file, or an array
-         *   of string paths to different formats of the same
-         *   audio. This is useful for ensuring that your audio
-         *   can play across different browsers, as each
-         *   supports different formats. See this page for
+         *   for simple audio playback. The first parameter can
+         *   be either a single string path to a audio file, or
+         *   an array of string paths to different formats of
+         *   the same audio. This is useful for ensuring that
+         *   your audio can play across different browsers, as
+         *   each supports different formats. See this page for
          *   further information about supported formats.
          *   @param [src] path to an audio file, or array of
          *   paths for supporting different browsers
@@ -538,7 +632,7 @@ declare module '../../index' {
          *   enough data has been loaded to play the media up
          *   to its end without having to stop for further
          *   buffering of content
-         *   @return pointer to audio p5.Element
+         *   @return pointer to audio p5.MediaElement
          */
         createAudio(src?: string | string[], callback?: (...args: any[]) => any): MediaElement;
 
@@ -571,8 +665,7 @@ declare module '../../index' {
 
         /**
          *   Creates element with given tag in the DOM with
-         *   given content. Appends to the container node if
-         *   one is specified, otherwise appends to body.
+         *   given content.
          *   @param tag tag for the new element
          *   @param [content] html content to be inserted into
          *   the element
@@ -670,29 +763,45 @@ declare module '../../index' {
         html(html?: string, append?: boolean): Element;
 
         /**
-         *   Sets the position of the element relative to (0,
-         *   0) of the window. Essentially, sets
-         *   position:absolute and left and top properties of
-         *   style. If no arguments given returns the x and y
-         *   position of the element in an object.
-         *   @return the x and y position of the element in an
-         *   object
+         *   Sets the position of the element. If no position
+         *   type argument is given, the position will be
+         *   relative to (0, 0) of the window. Essentially,
+         *   this sets position:absolute and left and top
+         *   properties of style. If an optional third argument
+         *   specifying position type is given, the x and y
+         *   coordinates will be interpreted based on the
+         *   positioning scheme. If no arguments given, the
+         *   function returns the x and y position of the
+         *   element. found documentation on how to be more
+         *   specific with object type
+         *   https://stackoverflow.com/questions/14714314/how-do-i-comment-object-literals-in-yuidoc
+         *   @return object of form { x: 0, y: 0 } containing
+         *   the position of the element in an object
          */
-        position(): { x: number, y: number };
+        position(): object;
 
         /**
-         *   Sets the position of the element relative to (0,
-         *   0) of the window. Essentially, sets
-         *   position:absolute and left and top properties of
-         *   style. If no arguments given returns the x and y
-         *   position of the element in an object.
+         *   Sets the position of the element. If no position
+         *   type argument is given, the position will be
+         *   relative to (0, 0) of the window. Essentially,
+         *   this sets position:absolute and left and top
+         *   properties of style. If an optional third argument
+         *   specifying position type is given, the x and y
+         *   coordinates will be interpreted based on the
+         *   positioning scheme. If no arguments given, the
+         *   function returns the x and y position of the
+         *   element. found documentation on how to be more
+         *   specific with object type
+         *   https://stackoverflow.com/questions/14714314/how-do-i-comment-object-literals-in-yuidoc
          *   @param [x] x-position relative to upper left of
-         *   window
+         *   window (optional)
          *   @param [y] y-position relative to upper left of
-         *   window
+         *   window (optional)
+         *   @param [positionType] it can be static, fixed,
+         *   relative, sticky, initial or inherit (optional)
          *   @chainable
          */
-        position(x?: number, y?: number): Element;
+        position(x?: number, y?: number, positionType?: string): Element;
 
         /**
          *   Sets the given style (css) property (1st arg) of
@@ -719,7 +828,7 @@ declare module '../../index' {
          *   @param value value to assign to property
          *   @chainable
          */
-        style(property: string, value: string | number | Color): Element;
+        style(property: string, value: string | Color): Element;
 
         /**
          *   Adds a new attribute or changes the value of an
@@ -806,7 +915,8 @@ declare module '../../index' {
         size(w: number | SIZE_W, h?: number | SIZE_H): Element;
 
         /**
-         *   Removes the element and deregisters all listeners.
+         *   Removes the element, stops all media streams, and
+         *   deregisters all listeners.
          */
         remove(): void;
 

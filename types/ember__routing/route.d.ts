@@ -86,7 +86,7 @@ export default class Route<Model = unknown, Params extends object = object>
      * Retrieves parameters, for current route using the state.params
      * variable and getQueryParamsFor, using the supplied routeName.
      */
-    paramsFor(name: string): Record<string, unknown>;
+    paramsFor(name: string): object;
 
     /**
      * A hook you can implement to optionally redirect to another route.

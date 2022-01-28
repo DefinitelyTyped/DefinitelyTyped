@@ -1,4 +1,4 @@
-// For Library Version: 1.97.0
+// For Library Version: 1.98.0
 
 declare module "sap/ui/integration/library" {
   import { URI } from "sap/ui/core/library";
@@ -32,6 +32,18 @@ declare module "sap/ui/integration/library" {
      * Used for custom actions
      */
     Custom = "Custom",
+    /**
+     * @EXPERIMENTAL (since 1.87)
+     *
+     * Date selection. Available only for Calendar cards.
+     */
+    DateChange = "DateChange",
+    /**
+     * @EXPERIMENTAL (since 1.87)
+     *
+     * Month selection. Available only for Calendar cards.
+     */
+    MonthChange = "MonthChange",
     /**
      * Used for navigation actions
      */
@@ -3113,6 +3125,8 @@ declare namespace sap {
 
     "sap/ui/integration/designtime/baseEditor/propertyEditor/mapEditor/MapEditor": undefined;
 
+    "sap/ui/integration/designtime/baseEditor/propertyEditor/multiSelectEditor/MultiSelectEditor": undefined;
+
     "sap/ui/integration/designtime/baseEditor/propertyEditor/numberEditor/NumberEditor": undefined;
 
     "sap/ui/integration/designtime/baseEditor/propertyEditor/PropertyEditorFactory": undefined;
@@ -3156,6 +3170,8 @@ declare namespace sap {
     "sap/ui/integration/designtime/cardEditor/propertyEditor/complexMapEditor/ComplexMapEditor": undefined;
 
     "sap/ui/integration/designtime/cardEditor/propertyEditor/destinationsEditor/DestinationsEditor": undefined;
+
+    "sap/ui/integration/designtime/cardEditor/propertyEditor/filtersEditor/FiltersEditor": undefined;
 
     "sap/ui/integration/designtime/cardEditor/propertyEditor/iconEditor/IconEditor": undefined;
 
@@ -3201,8 +3217,6 @@ declare namespace sap {
 
     "sap/ui/integration/library": undefined;
 
-    "sap/ui/integration/ManifestResolver": undefined;
-
     "sap/ui/integration/services/Service": undefined;
 
     "sap/ui/integration/util/CsrfTokenHandler": undefined;
@@ -3211,7 +3225,11 @@ declare namespace sap {
 
     "sap/ui/integration/util/DataProviderFactory": undefined;
 
+    "sap/ui/integration/util/ManifestResolver": undefined;
+
     "sap/ui/integration/util/RequestDataProvider": undefined;
+
+    "sap/ui/integration/util/SkeletonCard": undefined;
 
     "sap/ui/integration/widgets/Card": undefined;
   }

@@ -228,6 +228,12 @@ amplitude.getInstance().init('API_KEY', 'USER_ID', {
     serverZoneBasedApi: true,
 });
 
+// set transport to 'beacon' when initializing an event
+amplitude.getInstance().init('API_KEY', 'USER_ID', {transport: 'beacon'});
+
+// set transport to 'beacon' after initialization
+amplitude.getInstance().setTransport('beacon');
+
 // cookieStorage use example
 // https://github.com/DefinitelyTyped/DefinitelyTyped/discussions/57387
 const deviceId = amplitude.getInstance().cookieStorage.get('deviceId');
