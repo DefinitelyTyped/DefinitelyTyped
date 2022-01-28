@@ -476,7 +476,7 @@ export interface PressableProps extends AccessibilityProps, Omit<ViewProps, 'chi
       * @platform macos windows
       */
     onHoverOut?: null | ((event: MouseEvent) => void) | undefined,
- 
+
     /**
      * Called when a single tap gesture is detected.
      */
