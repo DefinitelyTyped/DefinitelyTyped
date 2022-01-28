@@ -29,7 +29,7 @@ var FileSystemHandle: {
     prototype: FileSystemHandle;
     new(): FileSystemHandle;
 };
-type BaseFileSystemHandle = FileSystemFileHandle | FileSystemDirectoryHandle;
+type FileSystemHandleUnion = FileSystemFileHandle | FileSystemDirectoryHandle;
 
 interface FilePickerAcceptType {
     description?: string | undefined;
