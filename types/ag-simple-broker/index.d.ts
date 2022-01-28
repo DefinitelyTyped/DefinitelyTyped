@@ -16,13 +16,13 @@ declare class AGSimpleBroker extends AsyncStreamEmitter<any> {
     emit(eventName: 'ready', data: {}): void;
     emit(eventName: 'subscribe', data: AGSimpleBroker.SubscribeData): void;
     emit(eventName: 'unsubscribe', data: AGSimpleBroker.UnsubscribeData): void;
-    emit(eventName: 'error', data: { error: Error }): void;
+    emit(eventName: 'error', data: AGSimpleBroker.ErrorData): void;
     emit(eventName: 'publish', data: AGSimpleBroker.PublishData): void;
 
     listener(eventName: 'ready'): ConsumableStream<{}>;
     listener(eventName: 'subscribe'): ConsumableStream<AGSimpleBroker.SubscribeData>;
     listener(eventName: 'unsubscribe'): ConsumableStream<AGSimpleBroker.UnsubscribeData>;
-    listener(eventName: 'error'): ConsumableStream<{ error: Error }>;
+    listener(eventName: 'error'): ConsumableStream<AGSimpleBroker.ErrorData>;
     listener(eventName: 'publish'): ConsumableStream<AGSimpleBroker.PublishData>;
 
     exchange(): AGSimpleBroker.SimpleExchange;
@@ -142,8 +142,12 @@ declare namespace AGSimpleBroker {
         channel: string;
     }
 
+    interface ErrorData {
+        error: any;
+    }
+
     interface PublishData {
         channel: string;
-        date: any;
+        data: any;
     }
 }
