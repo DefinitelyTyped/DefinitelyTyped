@@ -74,12 +74,6 @@ declare namespace jsqubits {
             controlledSwap(controlBits: undefined | SingleQubitOperatorTargetQubits, targetBit1: number, targetBit2: number): QState;
             swap(targetBit1: number, targetBit2: number): QState;
 
-            /**
-             * toffoli args is
-             * (...controlBit: SingleQubitOperatorTargetQubits[], targetBit: SingleQubitOperatorTargetQubits)
-             * but TypeScript3.4 cannot define this args.
-             * welcome Pull Request.
-             */
             toffoli(...args: ToffoliArgs): QState;
 
             controlledApplicationOfqBitOperator(
