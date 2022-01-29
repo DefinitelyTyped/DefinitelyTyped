@@ -109,41 +109,41 @@ declare class WebSocket extends EventEmitter {
     removeEventListener(method: "open", cb: (event: WebSocket.Event) => void): void;
 
     // Events
-    on(event: "close", listener: (this: WebSocket, code: number, reason: Buffer) => void): this;
-    on(event: "error", listener: (this: WebSocket, err: Error) => void): this;
-    on(event: "upgrade", listener: (this: WebSocket, request: IncomingMessage) => void): this;
-    on(event: "message", listener: (this: WebSocket, data: WebSocket.RawData, isBinary: boolean) => void): this;
-    on(event: "open", listener: (this: WebSocket) => void): this;
-    on(event: "ping" | "pong", listener: (this: WebSocket, data: Buffer) => void): this;
+    on(event: "close", listener: (this: ThisType<this>, code: number, reason: Buffer) => void): this;
+    on(event: "error", listener: (this: ThisType<this>, err: Error) => void): this;
+    on(event: "upgrade", listener: (this: ThisType<this>, request: IncomingMessage) => void): this;
+    on(event: "message", listener: (this: ThisType<this>, data: WebSocket.RawData, isBinary: boolean) => void): this;
+    on(event: "open", listener: (this: ThisType<this>) => void): this;
+    on(event: "ping" | "pong", listener: (this: ThisType<this>, data: Buffer) => void): this;
     on(
         event: "unexpected-response",
-        listener: (this: WebSocket, request: ClientRequest, response: IncomingMessage) => void,
+        listener: (this: ThisType<this>, request: ClientRequest, response: IncomingMessage) => void,
     ): this;
-    on(event: string | symbol, listener: (this: WebSocket, ...args: any[]) => void): this;
+    on(event: string | symbol, listener: (this: ThisType<this>, ...args: any[]) => void): this;
 
-    once(event: "close", listener: (this: WebSocket, code: number, reason: Buffer) => void): this;
-    once(event: "error", listener: (this: WebSocket, err: Error) => void): this;
-    once(event: "upgrade", listener: (this: WebSocket, request: IncomingMessage) => void): this;
-    once(event: "message", listener: (this: WebSocket, data: WebSocket.RawData, isBinary: boolean) => void): this;
-    once(event: "open", listener: (this: WebSocket) => void): this;
-    once(event: "ping" | "pong", listener: (this: WebSocket, data: Buffer) => void): this;
+    once(event: "close", listener: (this: ThisType<this>, code: number, reason: Buffer) => void): this;
+    once(event: "error", listener: (this: ThisType<this>, err: Error) => void): this;
+    once(event: "upgrade", listener: (this: ThisType<this>, request: IncomingMessage) => void): this;
+    once(event: "message", listener: (this: ThisType<this>, data: WebSocket.RawData, isBinary: boolean) => void): this;
+    once(event: "open", listener: (this: ThisType<this>) => void): this;
+    once(event: "ping" | "pong", listener: (this: ThisType<this>, data: Buffer) => void): this;
     once(
         event: "unexpected-response",
-        listener: (this: WebSocket, request: ClientRequest, response: IncomingMessage) => void,
+        listener: (this: ThisType<this>, request: ClientRequest, response: IncomingMessage) => void,
     ): this;
-    once(event: string | symbol, listener: (this: WebSocket, ...args: any[]) => void): this;
+    once(event: string | symbol, listener: (this: ThisType<this>, ...args: any[]) => void): this;
 
-    off(event: "close", listener: (this: WebSocket, code: number, reason: Buffer) => void): this;
-    off(event: "error", listener: (this: WebSocket, err: Error) => void): this;
-    off(event: "upgrade", listener: (this: WebSocket, request: IncomingMessage) => void): this;
-    off(event: "message", listener: (this: WebSocket, data: WebSocket.RawData, isBinary: boolean) => void): this;
-    off(event: "open", listener: (this: WebSocket) => void): this;
-    off(event: "ping" | "pong", listener: (this: WebSocket, data: Buffer) => void): this;
+    off(event: "close", listener: (this: ThisType<this>, code: number, reason: Buffer) => void): this;
+    off(event: "error", listener: (this: ThisType<this>, err: Error) => void): this;
+    off(event: "upgrade", listener: (this: ThisType<this>, request: IncomingMessage) => void): this;
+    off(event: "message", listener: (this: ThisType<this>, data: WebSocket.RawData, isBinary: boolean) => void): this;
+    off(event: "open", listener: (this: ThisType<this>) => void): this;
+    off(event: "ping" | "pong", listener: (this: ThisType<this>, data: Buffer) => void): this;
     off(
         event: "unexpected-response",
-        listener: (this: WebSocket, request: ClientRequest, response: IncomingMessage) => void,
+        listener: (this: ThisType<this>, request: ClientRequest, response: IncomingMessage) => void,
     ): this;
-    off(event: string | symbol, listener: (this: WebSocket, ...args: any[]) => void): this;
+    off(event: string | symbol, listener: (this: ThisType<this>, ...args: any[]) => void): this;
 
     addListener(event: "close", listener: (code: number, reason: Buffer) => void): this;
     addListener(event: "error", listener: (err: Error) => void): this;
@@ -315,23 +315,23 @@ declare namespace WebSocket {
         shouldHandle(request: IncomingMessage): boolean | Promise<boolean>;
 
         // Events
-        on(event: "connection", cb: (this: Server, socket: WebSocket, request: IncomingMessage) => void): this;
-        on(event: "error", cb: (this: Server, error: Error) => void): this;
-        on(event: "headers", cb: (this: Server, headers: string[], request: IncomingMessage) => void): this;
-        on(event: "close" | "listening", cb: (this: Server) => void): this;
-        on(event: string | symbol, listener: (this: Server, ...args: any[]) => void): this;
+        on(event: "connection", cb: (this: ThisType<this>, socket: WebSocket, request: IncomingMessage) => void): this;
+        on(event: "error", cb: (this: ThisType<this>, error: Error) => void): this;
+        on(event: "headers", cb: (this: ThisType<this>, headers: string[], request: IncomingMessage) => void): this;
+        on(event: "close" | "listening", cb: (this: ThisType<this>) => void): this;
+        on(event: string | symbol, listener: (this: ThisType<this>, ...args: any[]) => void): this;
 
-        once(event: "connection", cb: (this: Server, socket: WebSocket, request: IncomingMessage) => void): this;
-        once(event: "error", cb: (this: Server, error: Error) => void): this;
-        once(event: "headers", cb: (this: Server, headers: string[], request: IncomingMessage) => void): this;
-        once(event: "close" | "listening", cb: (this: Server) => void): this;
+        once(event: "connection", cb: (this: ThisType<this>, socket: WebSocket, request: IncomingMessage) => void): this;
+        once(event: "error", cb: (this: ThisType<this>, error: Error) => void): this;
+        once(event: "headers", cb: (this: ThisType<this>, headers: string[], request: IncomingMessage) => void): this;
+        once(event: "close" | "listening", cb: (this: ThisType<this>) => void): this;
         once(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        off(event: "connection", cb: (this: Server, socket: WebSocket, request: IncomingMessage) => void): this;
-        off(event: "error", cb: (this: Server, error: Error) => void): this;
-        off(event: "headers", cb: (this: Server, headers: string[], request: IncomingMessage) => void): this;
-        off(event: "close" | "listening", cb: (this: Server) => void): this;
-        off(event: string | symbol, listener: (this: Server, ...args: any[]) => void): this;
+        off(event: "connection", cb: (this: ThisType<this>, socket: WebSocket, request: IncomingMessage) => void): this;
+        off(event: "error", cb: (this: ThisType<this>, error: Error) => void): this;
+        off(event: "headers", cb: (this: ThisType<this>, headers: string[], request: IncomingMessage) => void): this;
+        off(event: "close" | "listening", cb: (this: ThisType<this>) => void): this;
+        off(event: string | symbol, listener: (this: ThisType<this>, ...args: any[]) => void): this;
 
         addListener(event: "connection", cb: (client: WebSocket, request: IncomingMessage) => void): this;
         addListener(event: "error", cb: (err: Error) => void): this;
