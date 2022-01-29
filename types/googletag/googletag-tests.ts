@@ -245,6 +245,7 @@ let pageConfig: googletag.SafeFrameConfig = {
     sandbox: true,
     useUniqueDomain: true,
 };
+pageConfig.useUniqueDomain = false;
 
 let slotConfig: googletag.SafeFrameConfig = { allowOverlayExpansion: false };
 

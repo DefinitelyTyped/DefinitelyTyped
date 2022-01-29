@@ -98,6 +98,8 @@ declare namespace googletag {
     /**
      * Flag indicating that `PubAdsService` is enabled, loaded and fully operational.
      * This property will be simply `undefined` until `googletag.enableServices()` is called and `PubAdsService` is loaded and initialized.
+     *
+     * **Note**: Checking `googletag.pubadsReady` is discouraged. Please use `googletag.cmd.push` instead.
      */
     let pubadsReady: boolean | undefined;
     /**
@@ -107,6 +109,7 @@ declare namespace googletag {
     function companionAds(): CompanionAdsService;
     /**
      * Returns a reference to the `ContentService`.
+     * @deprecated This method will be removed after March 29, 2022. See also `ContentService`.
      * @returns The content service.
      */
     function content(): ContentService;
@@ -300,6 +303,7 @@ declare namespace googletag {
     }
     /**
      * The content service. This service is used to set the content of a slot manually.
+     * @deprecated This service will be unavailable after March 29, 2022. Use the browser's built-in DOM APIs to directly add content to div elements instead. See also `googletag.content()`.
      */
     interface ContentService extends Service {
         getName(): 'content';
@@ -686,6 +690,8 @@ declare namespace googletag {
         /**
          * Sets options for ignoring Google Ad Manager cookies on the current page.
          *
+         * @deprecated This setting is not recommended. See [Limited ads](https://support.google.com/admanager/answer/9882911) for current best practice.
+         *
          * **Example**
          * ```
          * // Ignores Google Ad Manager cookies.
@@ -862,6 +868,8 @@ declare namespace googletag {
          * The correlator is the same for all the ad requests coming from one page view, and unique across page views.
          * Only applies to async mode.
          *
+         * @deprecated See the Google Ad Manager help page on "Creative selection for multiple ad slots" for more information: https://support.google.com/admanager/answer/183281.
+         *
          * **Note**: this has no effect on GPT's [long-lived pageview](https://support.google.com/admanager/answer/183281),
          * which automatically reflects the ads actually on the page and has no expiration time.
          *
@@ -876,7 +884,6 @@ declare namespace googletag {
          * // the new value.
          * ```
          *
-         * @deprecated See the Google Ad Manager help page on "Creative selection for multiple ad slots" for more information: https://support.google.com/admanager/answer/183281.
          * @returns The service object on which the function was called.
          */
         updateCorrelator(): PubAdsService;
@@ -927,6 +934,8 @@ declare namespace googletag {
          * Whether SafeFrame should use randomized subdomains for Reservation creatives. Pass in null to clear the stored value.
          *
          * Note: this feature is enabled by default. See the [Use unique SafeFrame domains](https://support.google.com/admanager/answer/9999596) article for more information.
+         *
+         * @deprecated It is no longer be possible to disable this feature. Setting `useUniqueDomain` has no effect.
          */
         useUniqueDomain?: boolean | null | undefined;
     }
