@@ -314,3 +314,15 @@ function f() {
         }
     });
 }
+
+{
+    class CustomWebSocket extends WebSocket {
+        example: boolean;
+    }
+    const webSocketServer = new WebSocket.WebSocketServer();
+    webSocketServer.on('connection', (ws: CustomWebSocket) => {
+        ws.on('message', function(this: CustomWebSocket) {
+            console.log(this.example);
+        });
+    });
+}
