@@ -294,6 +294,7 @@ declare namespace googletag {
      * See the article on [companion ads for video](https://support.google.com/admanager/answer/1191131) for more details.
      */
     interface CompanionAdsService extends Service {
+        getName(): 'companion_ads';
         /**
          * Sets whether companion slots that have not been filled will be automatically backfilled.
          * This method can be called multiple times during the page's lifetime to turn backfill on and off.
@@ -307,6 +308,7 @@ declare namespace googletag {
      * The content service. This service is used to set the content of a slot manually.
      */
     interface ContentService extends Service {
+        getName(): 'content';
         /**
          * Fills a slot with the given content. If services are not yet enabled, stores the content and fills it in when services are enabled.
          *
@@ -555,9 +557,7 @@ declare namespace googletag {
         getAttributeKeys(): string[];
         getCorrelator(): string;
         getImaContent(): Record<'vid' | 'cmsid', string>;
-        getName(): string;
-        getSlotIdMap(): Record<string, Slot>;
-        getSlots(): Slot[];
+        getName(): 'publisher_ads';
         getTagSessionCorrelator(): number;
         getVersion(): string;
         getVideoContent(): Record<'vid' | 'cmsid', string>;
@@ -990,6 +990,14 @@ declare namespace googletag {
             eventType: 'slotVisibilityChanged',
             listener: (event: events.SlotVisibilityChangedEvent) => void,
         ): Service;
+        /**
+         * Get the name of this service.
+         */
+        getName(): string;
+        /**
+         * Get the key:value map of slots associated with this service.
+         */
+        getSlotIdMap(): Record<string, Slot>;
         /**
          * Get the list of slots associated with this service.
          * @returns Slots in the order in which they were added to the service.
