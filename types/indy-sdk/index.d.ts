@@ -198,7 +198,7 @@ export function proverStoreCredential(
     credReqMetadata: CredReqMetadata,
     cred: Cred,
     credDef: CredDef,
-    revRegDef: RevRegDef | null,
+    revRegDef: RevocRegDef | null,
 ): Promise<CredentialId>;
 // TODO: proverGetCredentials
 export function proverGetCredential(wh: WalletHandle, credId: string): Promise<IndyCredentialInfo>;
@@ -515,10 +515,6 @@ export interface RevRegsDefs {
     [key: string]: unknown;
 }
 
-export interface RevRegDef {
-    [key: string]: unknown;
-}
-
 export interface RevStates {
     [key: string]: {
         [key: string]: unknown;
@@ -595,7 +591,7 @@ export type BlobStorageReaderHandle = number;
 export interface Cred {
     schema_id: SchemaId;
     cred_def_id: CredDefId;
-    rev_reg_def_id: string;
+    rev_reg_id: string;
     values: CredValues;
     signature: unknown;
     signature_correctness_proof: unknown;
