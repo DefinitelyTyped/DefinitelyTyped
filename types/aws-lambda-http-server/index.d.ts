@@ -1,4 +1,4 @@
-// Type definitions for aws-lambda-http-server
+// Type definitions for aws-lambda-http-server 1.0
 // Project: https://github.com/JamesKyburz/aws-lambda-http-server
 // Definitions by: ElayGelbart <https://github.com/ElayGelbart>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
