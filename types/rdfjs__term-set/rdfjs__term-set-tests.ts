@@ -1,4 +1,4 @@
-import TermSet = require('@rdfjs/term-set');
+import TermSet from '@rdfjs/term-set';
 import { Term } from 'rdf-js';
 
 const type1: Term = <any> {};
