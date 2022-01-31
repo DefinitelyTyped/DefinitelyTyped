@@ -270,7 +270,8 @@ declare namespace needle {
     export type NeedleOptions = core.NeedleOptions;
     export type NeedleResponse = core.NeedleResponse;
     export type ReadableStream = core.ReadableStream;
-
+    export type Cookies = core.Cookies;
+    
     /**
      * Lets override the defaults for all future requests.
      */
