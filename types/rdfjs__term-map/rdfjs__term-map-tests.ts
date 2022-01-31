@@ -1,4 +1,4 @@
-import TermMap = require('@rdfjs/term-map');
+import TermMap from '@rdfjs/term-map';
 import { Term, Literal, BlankNode, NamedNode } from 'rdf-js';
 
 const literal: Literal = <any> {};
