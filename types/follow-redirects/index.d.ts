@@ -1,4 +1,4 @@
-// Type definitions for follow-redirects 1.13
+// Type definitions for follow-redirects 1.14
 // Project: https://github.com/follow-redirects/follow-redirects
 // Definitions by: Emily Klassen <https://github.com/forivall>
 //                 Claas Ahlrichs <https://github.com/claasahl>
@@ -9,6 +9,7 @@
 
 import * as coreHttp from 'http';
 import * as coreHttps from 'https';
+import { URL } from 'url';
 import { Writable } from 'stream';
 
 export interface WrappableRequest {
@@ -71,11 +72,22 @@ export interface RedirectableRequest<Request extends WrappableRequest, Response>
 
 export interface RedirectScheme<Options, Request extends WrappableRequest, Response> {
     request(
-        options: string | Options & FollowOptions<Options>,
+        options: string | URL | Options & FollowOptions<Options>,
+        callback?: (res: Response & FollowResponse) => void
+    ): RedirectableRequest<Request, Response>;
+    request(
+        url: string | URL,
+        options: Options & FollowOptions<Options>,
+        callback?: (res: Response & FollowResponse) => void
+    ): RedirectableRequest<Request, Response>;
+
+    get(
+        options: string | URL | Options & FollowOptions<Options>,
         callback?: (res: Response & FollowResponse) => void
     ): RedirectableRequest<Request, Response>;
     get(
-        options: string | Options & FollowOptions<Options>,
+        url: string | URL,
+        options: Options & FollowOptions<Options>,
         callback?: (res: Response & FollowResponse) => void
     ): RedirectableRequest<Request, Response>;
 }
@@ -104,7 +116,7 @@ export interface Redirect {
     statusCode: number;
 }
 
-export interface  ResponseDetails {
+export interface ResponseDetails {
     headers: coreHttp.IncomingHttpHeaders;
 }
 

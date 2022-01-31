@@ -1,4 +1,5 @@
 import { http, https } from 'follow-redirects';
+import { URL } from 'url';
 
 http.request({
     host: 'localhost',
@@ -28,6 +29,9 @@ http.get('http://bit.ly/900913', (response) => {
 }).on('error', (err) => {
     console.error(err);
 });
+http.get('http://bit.ly/900913', { headers: { Accept: 'application/json' } }, _res => {})
+http.get(new URL('http://bit.ly/900913'), _res => {})
+http.get(new URL('http://bit.ly/900913'), { headers: { Accept: 'application/json' } }, _res => {})
 
 https.get('http://bit.ly/900913', (response) => {
     console.log(response.responseUrl, response.redirects);
@@ -37,3 +41,6 @@ https.get('http://bit.ly/900913', (response) => {
 }).on('error', (err: Error) => {
     console.error(err);
 });
+https.get('http://bit.ly/900913', { headers: { Accept: 'application/json' } }, _res => {})
+https.get(new URL('http://bit.ly/900913'), _res => {})
+https.get(new URL('http://bit.ly/900913'), { headers: { Accept: 'application/json' } }, _res => {})
