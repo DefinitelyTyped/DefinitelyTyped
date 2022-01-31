@@ -23,7 +23,7 @@ function resizeObserverCallback(entries: ReadonlyArray<ResizeObserverEntry>): vo
             const boxSize = entry.contentBoxSize[0];
             console.log(`Content Box Size is ${boxSize.blockSize}, ${boxSize.inlineSize}`);
         }
-        if (entry.devicePixelContentBoxSize && entry.devicePixelContentBoxSize.length > 0) {
+        if (entry.devicePixelContentBoxSize.length > 0) {
             const boxSize = entry.devicePixelContentBoxSize[0];
             console.log(`Device Pixel Content Box Size is ${boxSize.blockSize}, ${boxSize.inlineSize}`);
         }
