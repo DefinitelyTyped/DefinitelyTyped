@@ -11,18 +11,18 @@
 /// <reference types="activex-adodb" />
 
 declare namespace Access {
-    const enum AcBrowseToObjectType {
+    enum AcBrowseToObjectType {
         acBrowseToForm = 2,
         acBrowseToReport = 3,
     }
 
-    const enum AcCloseSave {
+    enum AcCloseSave {
         acSaveNo = 2,
         acSavePrompt = 0,
         acSaveYes = 1,
     }
 
-    const enum AcColorIndex {
+    enum AcColorIndex {
         acColorIndexAqua = 14,
         acColorIndexBlack = 0,
         acColorIndexBlue = 12,
@@ -41,7 +41,7 @@ declare namespace Access {
         acColorIndexYellow = 11,
     }
 
-    const enum AcCommand {
+    enum AcCommand {
         acCmdAboutMicrosoftAccess = 35,
         acCmdAddDataMacroAfterDelete = 720,
         acCmdAddDataMacroAfterInsert = 718,
@@ -749,7 +749,7 @@ declare namespace Access {
         acCmdZoomSelection = 371,
     }
 
-    const enum AcControlType {
+    enum AcControlType {
         acAttachment = 126,
         acBoundObjectFrame = 108,
         acCheckBox = 106,
@@ -776,7 +776,7 @@ declare namespace Access {
         acWebBrowser = 128,
     }
 
-    const enum AcCurrentView {
+    enum AcCurrentView {
         acCurViewDatasheet = 2,
         acCurViewDesign = 0,
         acCurViewFormBrowse = 1,
@@ -787,17 +787,17 @@ declare namespace Access {
         acCurViewReportBrowse = 6,
     }
 
-    const enum AcCursorOnHover {
+    enum AcCursorOnHover {
         acCursorOnHoverDefault = 0,
         acCursorOnHoverHyperlinkHand = 1,
     }
 
-    const enum AcDataAccessPageView {
+    enum AcDataAccessPageView {
         acDataAccessPageBrowse = 0,
         acDataAccessPageDesign = 1,
     }
 
-    const enum AcDataObjectType {
+    enum AcDataObjectType {
         acActiveDataObject = -1,
         acDataForm = 2,
         acDataFunction = 10,
@@ -808,18 +808,18 @@ declare namespace Access {
         acDataTable = 0,
     }
 
-    const enum AcDataTransferType {
+    enum AcDataTransferType {
         acExport = 1,
         acImport = 0,
         acLink = 2,
     }
 
-    const enum AcDefReportView {
+    enum AcDefReportView {
         acDefViewPreview = 0,
         acDefViewReportBrowse = 1,
     }
 
-    const enum AcDefView {
+    enum AcDefView {
         acDefViewContinuous = 1,
         acDefViewDatasheet = 2,
         acDefViewPivotChart = 4,
@@ -828,29 +828,29 @@ declare namespace Access {
         acDefViewSplitForm = 5,
     }
 
-    const enum AcDisplayAs {
+    enum AcDisplayAs {
         acDisplayAsIcon = 1,
         acDisplayAsImageIcon = 0,
         acDisplayAsPaperclip = 2,
     }
 
-    const enum AcDisplayAsHyperlink {
+    enum AcDisplayAsHyperlink {
         acDisplayAsHyperlinkAlways = 1,
         acDisplayAsHyperlinkIfHyperlink = 0,
         acDisplayAsHyperlinkOnScreenOnly = 2,
     }
 
-    const enum AcExportQuality {
+    enum AcExportQuality {
         acExportQualityPrint = 0,
         acExportQualityScreen = 1,
     }
 
-    const enum AcExportXMLEncoding {
+    enum AcExportXMLEncoding {
         acUTF16 = 1,
         acUTF8 = 0,
     }
 
-    const enum AcExportXMLObjectType {
+    enum AcExportXMLObjectType {
         acExportForm = 2,
         acExportFunction = 10,
         acExportQuery = 1,
@@ -860,7 +860,7 @@ declare namespace Access {
         acExportTable = 0,
     }
 
-    const enum AcExportXMLOtherFlags {
+    enum AcExportXMLOtherFlags {
         acEmbedSchema = 1,
         acExcludePrimaryKeyAndIndexes = 2,
         acExportAllTableAndFieldProperties = 32,
@@ -869,12 +869,12 @@ declare namespace Access {
         acRunFromServer = 4,
     }
 
-    const enum AcExportXMLSchemaFormat {
+    enum AcExportXMLSchemaFormat {
         acSchemaNone = 0,
         acSchemaXSD = 1,
     }
 
-    const enum AcFileFormat {
+    enum AcFileFormat {
         acFileFormatAccess2 = 2,
         acFileFormatAccess2000 = 9,
         acFileFormatAccess2002 = 10,
@@ -883,29 +883,29 @@ declare namespace Access {
         acFileFormatAccess97 = 8,
     }
 
-    const enum AcFilterType {
+    enum AcFilterType {
         acFilterNormal = 0,
         acServerFilter = 1,
     }
 
-    const enum AcFindField {
+    enum AcFindField {
         acAll = 0,
         acCurrent = -1,
     }
 
-    const enum AcFindMatch {
+    enum AcFindMatch {
         acAnywhere = 0,
         acEntire = 1,
         acStart = 2,
     }
 
-    const enum AcFormatBarLimits {
+    enum AcFormatBarLimits {
         acAutomatic = 0,
         acNumber = 1,
         acPercent = 2,
     }
 
-    const enum AcFormatConditionOperator {
+    enum AcFormatConditionOperator {
         acBetween = 0,
         acEqual = 2,
         acGreaterThan = 4,
@@ -916,21 +916,21 @@ declare namespace Access {
         acNotEqual = 3,
     }
 
-    const enum AcFormatConditionType {
+    enum AcFormatConditionType {
         acDataBar = 3,
         acExpression = 1,
         acFieldHasFocus = 2,
         acFieldValue = 0,
     }
 
-    const enum AcFormOpenDataMode {
+    enum AcFormOpenDataMode {
         acFormAdd = 0,
         acFormEdit = 1,
         acFormPropertySettings = -1,
         acFormReadOnly = 2,
     }
 
-    const enum AcFormSection {
+    enum AcFormSection {
         acDetail = 0,
         acFooter = 2,
         acHeader = 1,
@@ -938,7 +938,7 @@ declare namespace Access {
         acPageHeader = 3,
     }
 
-    const enum AcFormView {
+    enum AcFormView {
         acDesign = 1,
         acFormDS = 3,
         acFormPivotChart = 5,
@@ -948,13 +948,13 @@ declare namespace Access {
         acPreview = 2,
     }
 
-    const enum AcHorizontalAnchor {
+    enum AcHorizontalAnchor {
         acHorizontalAnchorBoth = 2,
         acHorizontalAnchorLeft = 0,
         acHorizontalAnchorRight = 1,
     }
 
-    const enum AcHyperlinkPart {
+    enum AcHyperlinkPart {
         acAddress = 2,
         acDisplayedValue = 0,
         acDisplayText = 1,
@@ -963,7 +963,7 @@ declare namespace Access {
         acSubAddress = 3,
     }
 
-    const enum AcImeMode {
+    enum AcImeMode {
         acImeModeAlpha = 8,
         acImeModeAlphaFull = 7,
         acImeModeDisable = 3,
@@ -977,50 +977,50 @@ declare namespace Access {
         acImeModeOn = 1,
     }
 
-    const enum AcImeSentenceMode {
+    enum AcImeSentenceMode {
         acImeSentenceModeConversation = 2,
         acImeSentenceModeNone = 3,
         acImeSentenceModePhrasePredict = 0,
         acImeSentenceModePluralClause = 1,
     }
 
-    const enum AcImportXMLOption {
+    enum AcImportXMLOption {
         acAppendData = 2,
         acStructureAndData = 1,
         acStructureOnly = 0,
     }
 
-    const enum AcLayoutType {
+    enum AcLayoutType {
         acLayoutNone = 0,
         acLayoutStacked = 2,
         acLayoutTabular = 1,
     }
 
-    const enum AcSetMenuItemState {
+    enum AcSetMenuItemState {
         acMenuCheck = 3,
         acMenuGray = 1,
         acMenuUncheck = 2,
         acMenuUngray = 0,
     }
 
-    const enum AcModuleType {
+    enum AcModuleType {
         acClassModule = 1,
         acStandardModule = 0,
     }
 
-    const enum AcNavigationSpan {
+    enum AcNavigationSpan {
         acHorizontal = 0,
         acVertical = 1,
     }
 
-    const enum AcNewDatabaseFormat {
+    enum AcNewDatabaseFormat {
         acNewDatabaseFormatAccess2000 = 9,
         acNewDatabaseFormatAccess2002 = 10,
         acNewDatabaseFormatAccess2007 = 12,
         acNewDatabaseFormatUserDefault = 0,
     }
 
-    const enum AcObjectType {
+    enum AcObjectType {
         acDataAccessPage = 6,
         acDatabaseProperties = 11,
         acDefault = -1,
@@ -1037,13 +1037,13 @@ declare namespace Access {
         acTableDataMacro = 12,
     }
 
-    const enum AcOpenDataMode {
+    enum AcOpenDataMode {
         acAdd = 0,
         acEdit = 1,
         acReadOnly = 2,
     }
 
-    const enum AcOutputFormat {
+    enum AcOutputFormat {
         acFormatASP = 'Microsoft Active Server Pages (*.asp)',
         acFormatDAP = 'Microsoft Access Data Access Page (*.htm; *.html)',
         acFormatHTML = 'HTML (*.html)',
@@ -1058,7 +1058,7 @@ declare namespace Access {
         acFormatXPS = 'XPS Format (*.xps)'
     }
 
-    const enum AcOutputObjectType {
+    enum AcOutputObjectType {
         acOutputDataAccessPage = 6,
         acOutputForm = 2,
         acOutputFunction = 10,
@@ -1070,7 +1070,7 @@ declare namespace Access {
         acOutputTable = 0,
     }
 
-    const enum AcPictureCaptionArrangement {
+    enum AcPictureCaptionArrangement {
         acBottom = 3,
         acGeneral = 1,
         acLeft = 4,
@@ -1079,35 +1079,35 @@ declare namespace Access {
         acTop = 2,
     }
 
-    const enum AcPrintColor {
+    enum AcPrintColor {
         acPRCMColor = 2,
         acPRCMMonochrome = 1,
     }
 
-    const enum AcPrintDuplex {
+    enum AcPrintDuplex {
         acPRDPHorizontal = 2,
         acPRDPSimplex = 1,
         acPRDPVertical = 3,
     }
 
-    const enum AcPrintItemLayout {
+    enum AcPrintItemLayout {
         acPRHorizontalColumnLayout = 1953,
         acPRVerticalColumnLayout = 1954,
     }
 
-    const enum AcPrintObjQuality {
+    enum AcPrintObjQuality {
         acPRPQDraft = -1,
         acPRPQHigh = -4,
         acPRPQLow = -2,
         acPRPQMedium = -3,
     }
 
-    const enum AcPrintOrientation {
+    enum AcPrintOrientation {
         acPRORLandscape = 2,
         acPRORPortrait = 1,
     }
 
-    const enum AcPrintPaperBin {
+    enum AcPrintPaperBin {
         acPRBNAuto = 7,
         acPRBNCassette = 14,
         acPRBNEnvelope = 5,
@@ -1123,7 +1123,7 @@ declare namespace Access {
         acPRBNUpper = 1,
     }
 
-    const enum AcPrintPaperSize {
+    enum AcPrintPaperSize {
         acPRPS10x14 = 16,
         acPRPS11x17 = 17,
         acPRPSA3 = 8,
@@ -1168,26 +1168,26 @@ declare namespace Access {
         acPRPSUser = 256,
     }
 
-    const enum AcPrintQuality {
+    enum AcPrintQuality {
         acDraft = 3,
         acHigh = 0,
         acLow = 2,
         acMedium = 1,
     }
 
-    const enum AcPrintRange {
+    enum AcPrintRange {
         acPages = 2,
         acPrintAll = 0,
         acSelection = 1,
     }
 
-    const enum AcProjectType {
+    enum AcProjectType {
         acADP = 1,
         acMDB = 2,
         acNull = 0,
     }
 
-    const enum AcProperty {
+    enum AcProperty {
         acPropertyBackColor = 8,
         acPropertyCaption = 9,
         acPropertyEnabled = 0,
@@ -1201,13 +1201,13 @@ declare namespace Access {
         acPropertyWidth = 5,
     }
 
-    const enum AcQuitOption {
+    enum AcQuitOption {
         acQuitPrompt = 0,
         acQuitSaveAll = 1,
         acQuitSaveNone = 2,
     }
 
-    const enum AcRecord {
+    enum AcRecord {
         acFirst = 2,
         acGoTo = 4,
         acLast = 3,
@@ -1216,7 +1216,7 @@ declare namespace Access {
         acPrevious = 0,
     }
 
-    const enum AcReportSection {
+    enum AcReportSection {
         acDetail = 0,
         acFooter = 2,
         acGroupLevel1Footer = 6,
@@ -1228,18 +1228,18 @@ declare namespace Access {
         acPageHeader = 3,
     }
 
-    const enum AcResourceType {
+    enum AcResourceType {
         acResourceImage = 1,
         acResourceTheme = 0,
     }
 
-    const enum AcSearchDirection {
+    enum AcSearchDirection {
         acDown = 1,
         acSearchAll = 2,
         acUp = 0,
     }
 
-    const enum AcSendObjectType {
+    enum AcSendObjectType {
         acSendDataAccessPage = 6,
         acSendForm = 2,
         acSendModule = 5,
@@ -1249,42 +1249,42 @@ declare namespace Access {
         acSendTable = 0,
     }
 
-    const enum AcSeparatorCharacters {
+    enum AcSeparatorCharacters {
         acSeparatorCharactersComma = 3,
         acSeparatorCharactersNewLine = 1,
         acSeparatorCharactersSemiColon = 2,
         acSeparatorCharactersSystemSeparator = 0,
     }
 
-    const enum AcSharePointListTransferType {
+    enum AcSharePointListTransferType {
         acImportSharePointList = 0,
         acLinkSharePointList = 1,
     }
 
-    const enum AcShowToolbar {
+    enum AcShowToolbar {
         acToolbarNo = 2,
         acToolbarWhereApprop = 1,
         acToolbarYes = 0,
     }
 
-    const enum AcSplitFormDatasheet {
+    enum AcSplitFormDatasheet {
         acDatasheetAllowEdits = 0,
         acDatasheetReadOnly = 1,
     }
 
-    const enum AcSplitFormOrientation {
+    enum AcSplitFormOrientation {
         acDatasheetOnBottom = 1,
         acDatasheetOnLeft = 2,
         acDatasheetOnRight = 3,
         acDatasheetOnTop = 0,
     }
 
-    const enum AcSplitFormPrinting {
+    enum AcSplitFormPrinting {
         acFormOnly = 0,
         acGridOnly = 1,
     }
 
-    const enum AcSpreadSheetType {
+    enum AcSpreadSheetType {
         acSpreadsheetTypeExcel12 = 9,
         acSpreadsheetTypeExcel12Xml = 10,
         acSpreadsheetTypeExcel3 = 0,
@@ -1300,7 +1300,7 @@ declare namespace Access {
         acSpreadsheetTypeLotusWK4 = 7,
     }
 
-    const enum AcSysCmdAction {
+    enum AcSysCmdAction {
         acSysCmdAccessDir = 9,
         acSysCmdAccessVer = 7,
         acSysCmdClearHelpTopic = 11,
@@ -1316,12 +1316,12 @@ declare namespace Access {
         acSysCmdUpdateMeter = 2,
     }
 
-    const enum AcTextFormat {
+    enum AcTextFormat {
         acTextFormatHTMLRichText = 1,
         acTextFormatPlain = 0,
     }
 
-    const enum AcTextTransferType {
+    enum AcTextTransferType {
         acExportDelim = 2,
         acExportFixed = 3,
         acExportHTML = 8,
@@ -1334,19 +1334,19 @@ declare namespace Access {
         acLinkHTML = 9,
     }
 
-    const enum AcTransformXMLScriptOption {
+    enum AcTransformXMLScriptOption {
         acDisableScript = 2,
         acEnableScript = 0,
         acPromptScript = 1,
     }
 
-    const enum AcVerticalAnchor {
+    enum AcVerticalAnchor {
         acVerticalAnchorBoth = 2,
         acVerticalAnchorBottom = 1,
         acVerticalAnchorTop = 0,
     }
 
-    const enum AcView {
+    enum AcView {
         acViewDesign = 1,
         acViewLayout = 6,
         acViewNormal = 0,
@@ -1356,13 +1356,13 @@ declare namespace Access {
         acViewReport = 5,
     }
 
-    const enum AcWebBrowserScrollBars {
+    enum AcWebBrowserScrollBars {
         acScrollAuto = 0,
         acScrollNo = 2,
         acScrollYes = 1,
     }
 
-    const enum AcWebBrowserState {
+    enum AcWebBrowserState {
         acComplete = 4,
         acInteractive = 3,
         acLoaded = 2,
@@ -1370,19 +1370,19 @@ declare namespace Access {
         acUnintialized = 0,
     }
 
-    const enum AcWebUserDisplay {
+    enum AcWebUserDisplay {
         acWebUserEmail = 3,
         acWebUserID = 0,
         acWebUserLoginName = 2,
         acWebUserName = 1,
     }
 
-    const enum AcWebUserGroupsDisplay {
+    enum AcWebUserGroupsDisplay {
         acWebUserGroupID = 0,
         acWebUserGroupName = 1,
     }
 
-    const enum AcWindowMode {
+    enum AcWindowMode {
         acDialog = 3,
         acHidden = 1,
         acIcon = 2,
@@ -1390,7 +1390,7 @@ declare namespace Access {
     }
 
     /** Predefined constants */
-    const enum Constants {
+    enum Constants {
         acAltMask = 4,
         acApplyFilter = 1,
         acApplyServerFilter = 3,
@@ -1628,7 +1628,7 @@ declare namespace Access {
         vbKeyZ = 90,
     }
 
-    const enum OldConstants {
+    enum OldConstants {
         A_ADD = 0,
         A_ALL = 0,
         A_ANYWHERE = 0,
@@ -1883,14 +1883,14 @@ declare namespace Access {
         V_STRING = 8,
     }
 
-    const enum ProcKind {
+    enum ProcKind {
         Get = 3,
         Let = 1,
         Proc = 0,
         Set = 2,
     }
 
-    const enum RefKind {
+    enum RefKind {
         Project = 1,
         TypeLib = 0,
     }
@@ -7806,7 +7806,7 @@ declare namespace Access {
 }
 
 declare namespace AccWizObjects {
-    const enum WIZ_CSIDL_FLAGS {
+    enum WIZ_CSIDL_FLAGS {
         WIZ_CSIDL_APPDATA = 26,
         WIZ_CSIDL_BITBUCKET = 10,
         WIZ_CSIDL_COMMON_DESKTOPDIRECTORY = 25,
@@ -7832,18 +7832,18 @@ declare namespace AccWizObjects {
         WIZ_CSIDL_TEMPLATES = 21,
     }
 
-    const enum WIZ_SLGP_FLAGS {
+    enum WIZ_SLGP_FLAGS {
         WIZ_SLGP_SHORTPATH = 1,
         WIZ_SLGP_UNCPRIORITY = 2,
     }
 
-    const enum WIZ_SLR_FLAGS {
+    enum WIZ_SLR_FLAGS {
         WIZ_SLR_ANY_MATCH = 2,
         WIZ_SLR_NO_UI = 1,
         WIZ_SLR_UPDATE = 4,
     }
 
-    const enum WIZ_SW_FLAGS {
+    enum WIZ_SW_FLAGS {
         WIZ_SW_MAXIMIZE = 3,
         WIZ_SW_MINIMIZE = 7,
         WIZ_SW_NORMAL = 5,
