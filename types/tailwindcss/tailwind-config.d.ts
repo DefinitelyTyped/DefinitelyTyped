@@ -510,9 +510,10 @@ export interface TailwindConfig {
     // Not documented yet.
     content?: string[] | { files: string[]; extract: any; transform: any };
     presets?: any[];
-    darkMode: false | 'media' | 'class';
+    darkMode?: false | 'media' | 'class';
     variantOrder?: TailwindVariant[];
     prefix?: string;
-    important?: boolean;
+    important?: boolean | string;
     separator?: string;
+    safelist?: any[];
 }

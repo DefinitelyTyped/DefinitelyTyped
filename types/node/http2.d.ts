@@ -1349,7 +1349,7 @@ declare module 'http2' {
          * ```
          * @since v8.4.0
          */
-        readonly url: string;
+        url: string;
         /**
          * Sets the `Http2Stream`'s timeout value to `msecs`. If a callback is
          * provided, then it is added as a listener on the `'timeout'` event on
@@ -1516,9 +1516,9 @@ declare module 'http2' {
          * is finished.
          * @since v8.4.0
          */
-        end(callback?: () => void): void;
-        end(data: string | Uint8Array, callback?: () => void): void;
-        end(data: string | Uint8Array, encoding: BufferEncoding, callback?: () => void): void;
+        end(callback?: () => void): this;
+        end(data: string | Uint8Array, callback?: () => void): this;
+        end(data: string | Uint8Array, encoding: BufferEncoding, callback?: () => void): this;
         /**
          * Reads out a header that has already been queued but not sent to the client.
          * The name is case-insensitive.

@@ -1,10 +1,9 @@
-// Type definitions for cssnano 4.0
+// Type definitions for cssnano 5.0
 // Project: https://github.com/cssnano/cssnano
 // Definitions by: Armando Meziat <https://github.com/odnamrataizem>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
 
-import { Plugin } from 'postcss';
+import { PluginCreator } from 'postcss';
 
 declare namespace cssnano {
     interface CssNanoOptions {
@@ -12,7 +11,7 @@ declare namespace cssnano {
         preset?: [string, object] | string | undefined;
     }
 
-    type CssNano = Plugin<CssNanoOptions>;
+    type CssNano = PluginCreator<CssNanoOptions>;
 }
 
 declare const cssnano: cssnano.CssNano;

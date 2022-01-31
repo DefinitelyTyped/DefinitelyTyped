@@ -1,4 +1,4 @@
-// Type definitions for crypto-js v4.0.0
+// Type definitions for crypto-js 4.1
 // Project: https://github.com/brix/crypto-js
 // Definitions by: Michael Zabka <https://github.com/misak113>
 //                 Max Lysenko <https://github.com/maximlysenko>
@@ -1048,6 +1048,10 @@ declare global {
              * Base64 encoding strategy.
              */
             const Base64: Encoder;
+            /**
+             * Base64url encoding strategy.
+             */
+            const Base64url: Encoder;
         }
 
         /**

@@ -12,6 +12,7 @@ const client: BootstrapURLKeys = { client: 'my-client-identifier', v: '3.28' , l
 const options: MapOptions = {
     zoomControl: false,
     gestureHandling: 'cooperative',
+    mapId: '123456789',
     styles: [
         {
             featureType: "administrative",

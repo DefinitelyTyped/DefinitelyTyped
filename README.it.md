@@ -259,7 +259,7 @@ Per maggiori dettagli, leggi il readme di [dtslint](https://github.com/Microsoft
 
 #### Linter: `tslint.json`
 
-Il file di configurazione del linter, `tslint.json`, dovrebbe contenere `{ "extends": "dtslint/dt.json" }` e nessun'altra regola.
+Il file di configurazione del linter, `tslint.json`, dovrebbe contenere `{ "extends": "@definitelytyped/dtslint/dt.json" }` e nessun'altra regola.
 
 Se per qualche ragione qualche regola necessita di essere disabilitata, [disabilitala solo per la riga di codice in cui dovrebbe esserlo](https://palantir.github.io/tslint/usage/rule-flags/#comment-flags-in-source-code:~:text=%2F%2F%20tslint%3Adisable%2Dnext%2Dline%3Arule1%20rule2%20rule3...%20%2D%20Disables%20the%20listed%20rules%20for%20the%20next%20line) usando `// tslint:disable-next-line:[ruleName]` e non disabilitandola per tutto il package. 
 

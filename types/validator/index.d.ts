@@ -4,7 +4,6 @@
 //                 Ilya Mochalov <https://github.com/chrootsu>
 //                 Ayman Nedjmeddine <https://github.com/IOAyman>
 //                 Louay Alakkad <https://github.com/louy>
-//                 Kacper Polak <https://github.com/kacepe>
 //                 Bonggyun Lee <https://github.com/deptno>
 //                 Naoto Yokoyama <https://github.com/builtinnya>
 //                 Philipp Katz <https://github.com/qqilihq>

@@ -1,6 +1,6 @@
 // Type definitions for react-native-share-extension 2.0
 // Project: https://github.com/alinz/react-native-share-extension
-// Definitions by: Haseeb Majid <https://github.com/hmajid230>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface ShareData {

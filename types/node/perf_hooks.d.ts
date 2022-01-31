@@ -397,9 +397,11 @@ declare module 'perf_hooks' {
             options:
                 | {
                       entryTypes: ReadonlyArray<EntryType>;
+                      buffered?: boolean | undefined;
                   }
                 | {
                       type: EntryType;
+                      buffered?: boolean | undefined;
                   }
         ): void;
     }

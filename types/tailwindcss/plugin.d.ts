@@ -8,6 +8,7 @@ export interface TailwindPlugin {
 declare function plugin(
     plugin: (helpers: {
         addUtilities: any;
+        matchUtilities: any;
         addComponents: any;
         addBase: any;
         addVariant: any;

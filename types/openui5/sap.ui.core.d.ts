@@ -264,7 +264,7 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
   ): jQuery;
 }
 
-// For Library Version: 1.97.0
+// For Library Version: 1.98.0
 
 declare module "sap/base/assert" {
   /**
@@ -2001,6 +2001,78 @@ declare module "sap/base/util/Version" {
   }
 }
 
+declare module "sap/ui/util/XMLHelper" {
+  import { URI } from "sap/ui/core/library";
+
+  /**
+   * Error information as provided by the `DOMParser`.
+   *
+   * Note that the set of properties with meaningful content differs between browsers.
+   */
+  export type XMLParseErrorInfo = {
+    errorCode?: int;
+
+    url?: URI;
+
+    reason?: string;
+
+    srcText?: string;
+
+    line?: int;
+
+    linepos?: int;
+
+    filepos?: int;
+
+    type?: "error" | "warning";
+  };
+
+  /**
+   * @SINCE 1.58
+   *
+   * Provides functionality for parsing XML formatted strings and serializing XML documents.
+   */
+  interface XMLHelper {
+    /**
+     * Extracts parse error information from the specified document (if any).
+     *
+     * If an error was found, the returned object contains a browser-specific subset of the properties described
+     * in {@link module:sap/base/util/XMLHelper.XMLParseErrorInfo XMLParseErrorInfo}. Otherwise, it just contains
+     * an `errorCode` property with value 0.
+     */
+    getParseError(
+      /**
+       * The parsed XML document
+       */
+      oDocument: XMLDocument
+    ): XMLParseErrorInfo;
+    /**
+     * Parses the specified XML string into an XML document, using the native parsing functionality of the browser.
+     * If an error occurs during parsing, a {@link module:sap/base/util/XMLHelper.XMLParseErrorInfo parse error
+     * info object} is attached as the `parseError` property of the returned document.
+     */
+    parse(
+      /**
+       * An XML string
+       */
+      sXMLText: string
+    ): XMLDocument;
+    /**
+     * Serializes the specified DOM tree into a string representation.
+     * See:
+     * 	{@link https://developer.mozilla.org/en-US/docs/Web/API/XMLSerializer/serializeToString}
+     */
+    serialize(
+      /**
+       * the XML document object to be serialized as string
+       */
+      oXMLDocument: Node | Attr
+    ): string;
+  }
+  const XMLHelper: XMLHelper;
+  export default XMLHelper;
+}
+
 declare module "sap/ui/core/ComponentSupport" {
   /**
    * @SINCE 1.58.0
@@ -3537,51 +3609,6 @@ declare module "sap/ui/util/Storage" {
   }
 }
 
-declare module "sap/ui/util/XMLHelper" {
-  /**
-   * @SINCE 1.58
-   *
-   * Provides functionality for parsing XML formatted strings and serializing XML documents.
-   */
-  interface XMLHelper {
-    /**
-     * Extracts parse error information from the specified document (if any).
-     *
-     * If an error was found the returned object has the following error information parameters: errorCode,
-     * url, reason, srcText, line, linepos, filepos
-     */
-    getParseError(
-      /**
-       * the parsed XML document
-       */
-      oDocument: string
-    ): object;
-    /**
-     * Parses the specified XML formatted string text using native parsing function of the browser and returns
-     * a valid XML document. If an error occurred during parsing a parse error xobject is returned as property
-     * (parseError) of the returned XML document object. The parse error object has the following error information
-     * parameters: errorCode, url, reason, srcText, line, linepos, filepos
-     */
-    parse(
-      /**
-       * the XML data as string
-       */
-      sXMLText: string
-    ): object;
-    /**
-     * Serializes the specified XML document into a string representation.
-     */
-    serialize(
-      /**
-       * the XML document object to be serialized as string
-       */
-      oXMLDocument: string
-    ): object;
-  }
-  const XMLHelper: XMLHelper;
-  export default XMLHelper;
-}
-
 declare module "sap/ui/VersionInfo" {
   /**
    * @SINCE 1.56.0
@@ -4895,15 +4922,14 @@ declare module "sap/ui/base/ManagedObject" {
      * 	 - `byValue: boolean` (either can be omitted or set to the boolean value `true`) If set to `true`,
      * 			the property value will be {@link module:sap/base/util/deepClone deep cloned} on write and read operations
      * 			to ensure that the internal value can't be modified by the outside. The property `byValue` is currently
-     * 			limited to a `boolean` value. Other types are reserved for future use. Class definitions must only use
-     * 			boolean values for the flag (or omit it), but readers of ManagedObject metadata should handle any truthy
-     * 			value as `true` to be future safe. Note that using `byValue:true` has a performance impact on property
-     * 			access and therefore should be used carefully. It also doesn't make sense to set this option for properties
-     * 			with a primitive type (they have value semantic anyhow) or for properties with arrays of primitive types
-     * 			(they have been cloned already in the past with a cheaper implementation). Future versions of UI5 might
-     * 			encourage this as a limitation during class definition. `group:string` a semantic grouping
-     * 			of the properties, intended to be used in design time tools. Allowed values are (case sensitive): Accessibility,
-     * 			Appearance, Behavior, Data, Designtime, Dimension, Identification, Misc
+     * 			restricted to a `boolean` value. Other types are reserved for future use. Class definitions must only
+     * 			use boolean values for the flag (or omit it), but readers of ManagedObject metadata should handle any
+     * 			truthy value as `true` to be future safe. Note that using `byValue:true` has a performance impact on
+     * 			property access and therefore should be used carefully. It also doesn't make sense to set this option
+     * 			for properties with a primitive type (they have value semantic anyhow) or for properties with arrays
+     * 			of primitive types (they are already cloned with a less expensive implementation). `group:string`
+     * 			a semantic grouping of the properties, intended to be used in design time tools. Allowed values are (case
+     * 			sensitive): Accessibility, Appearance, Behavior, Data, Designtime, Dimension, Identification, Misc
      * 	 - `defaultValue: any` the default value for the property or null if there is no defaultValue.
      *
      * 	 - `bindable: boolean|string` (either can be omitted or set to the boolean value `true` or the
@@ -7909,6 +7935,8 @@ declare module "sap/ui/base/ObjectPool" {
 }
 
 declare module "sap/ui/core/library" {
+  import Control from "sap/ui/core/Control";
+
   import UI5Element from "sap/ui/core/Element";
 
   /**
@@ -7984,7 +8012,7 @@ declare module "sap/ui/core/library" {
    *
    * Noteworthy details:
    * 	 - whitespace is mandatory around a '-' or '+' operator and optional otherwise
-   * 	 - parentheses are accepted but not checked for being balanced (a limitation of regexp based checks)
+   * 	 - parentheses are accepted but not checked for being balanced (a restriction of regexp based checks)
    *
    * 	 - semantic constraints like type restrictions are not checked
    *
@@ -8424,7 +8452,7 @@ declare module "sap/ui/core/library" {
    *
    * Noteworthy details:
    * 	 - whitespace is mandatory around a '-' or '+' operator and optional otherwise
-   * 	 - parentheses are accepted but not checked for being balanced (a limitation of regexp based checks)
+   * 	 - parentheses are accepted but not checked for being balanced (a restriction of regexp based checks)
    *
    * 	 - semantic constraints like type restrictions are not checked
    *
@@ -8516,6 +8544,38 @@ declare module "sap/ui/core/library" {
    */
   export interface IAsyncContentCreation {
     __implements__sap_ui_core_IAsyncContentCreation: boolean;
+  }
+
+  /**
+   * @SINCE 1.98.0
+   * @EXPERIMENTAL (since 1.98)
+   *
+   * Marker interface for controls that can serve as a menu for a table column header.
+   *
+   * Implementation of this interface implements the `openBy` and `getAriaHasPopupType` methods.
+   */
+  export interface IColumnHeaderMenu {
+    __implements__sap_ui_core_IColumnHeaderMenu: boolean;
+
+    /**
+     * @SINCE 1.98.0
+     * @EXPERIMENTAL (since 1.98)
+     *
+     * Returns the sap.ui.core.aria.HasPopup<\code> type of the menu.
+     */
+    getAriaHasPopupType(): aria.HasPopup | keyof typeof aria.HasPopup;
+    /**
+     * @SINCE 1.98.0
+     * @EXPERIMENTAL (since 1.98)
+     *
+     * Opens the menu using the column header.
+     */
+    openBy(
+      /**
+       * Specifies the control where the menu is placed.
+       */
+      oControl: Control
+    ): void;
   }
 
   /**
@@ -11770,8 +11830,8 @@ declare module "sap/ui/core/Configuration" {
     /**
      * @SINCE 1.95.0
      *
-     * Sets the security token handlers for an OData V4 model. See chapter "Security Token Handling" in {@link
-     * topic:9613f1f2d88747cab21896f7216afdac Model Instantiation and Data Access}.
+     * Sets the security token handlers for an OData V4 model. See chapter {@link topic:9613f1f2d88747cab21896f7216afdac/section_STH
+     * Security Token Handling}.
      * See:
      * 	#getSecurityTokenHandlers
      */
@@ -16865,6 +16925,10 @@ declare module "sap/ui/core/Element" {
          * visible before the focus is set
          */
         preventScroll?: boolean;
+        /**
+         * Further control-specific setting of the focus target within the control @since 1.98
+         */
+        targetInfo?: any;
       }
     ): void;
     /**
@@ -24426,6 +24490,8 @@ declare module "sap/ui/core/mvc/JSONView" {
     static asyncSupport: boolean;
 
     /**
+     * @SINCE 1.56.0
+     *
      * Creates a JSON view of the given configuration.
      */
     static create(
@@ -24966,6 +25032,8 @@ declare module "sap/ui/core/mvc/View" {
      */
     static getMetadata(): ElementMetadata;
     /**
+     * @SINCE 1.30
+     *
      * Register a preprocessor for all views of a specific type.
      *
      * The preprocessor can be registered for several stages of view initialization, which are dependent on
@@ -25809,6 +25877,8 @@ declare module "sap/ui/core/mvc/XMLView" {
     static asyncSupport: boolean;
 
     /**
+     * @SINCE 1.56.0
+     *
      * Instantiates an XMLView from the given configuration options.
      *
      * If a `viewName` is given, it must be a dot-separated name of an XML view resource (without the mandatory
@@ -25894,6 +25964,8 @@ declare module "sap/ui/core/mvc/XMLView" {
      */
     static getMetadata(): ElementMetadata;
     /**
+     * @SINCE 1.30
+     *
      * Register a preprocessor for all views of a specific type.
      *
      * The preprocessor can be registered for several stages of view initialization, for xml views these are
@@ -25940,6 +26012,8 @@ declare module "sap/ui/core/mvc/XMLView" {
       mSettings?: object
     ): void;
     /**
+     * @SINCE 1.30
+     *
      * Register a preprocessor for all views of a specific type.
      *
      * The preprocessor can be registered for several stages of view initialization, for xml views these are
@@ -25982,6 +26056,8 @@ declare module "sap/ui/core/mvc/XMLView" {
     ): void;
   }
   /**
+   * @SINCE 1.34
+   *
    * Specifies the available preprocessor types for XMLViews
    * See:
    * 	sap.ui.core.mvc.XMLView
@@ -28153,7 +28229,7 @@ declare module "sap/ui/core/routing/Route" {
 
   export default class Route extends EventProvider {
     /**
-     * Instantiates an SAPUI5 Route
+     * Instantiates a route
      */
     constructor(
       /**
@@ -28232,21 +28308,21 @@ declare module "sap/ui/core/routing/Route" {
         targetParent?: string;
         /**
          * **Deprecated since 1.28, use `target.controlId` instead.**
-         *  Views will be put into a container Control, this might be a {@link sap.ui.ux3.Shell} control or a {@link
-         * sap.m.NavContainer} if working with mobile, or any other container. The id of this control has to be
-         * put in here
+         *  Views will be put into a container Control, this might be an {@link sap.ui.ux3.Shell} control or an
+         * {@link sap.m.NavContainer} if working with mobile, or any other container. The id of this control has
+         * to be put in here
          */
         targetControl?: string;
         /**
          * **Deprecated since 1.28, use `target.controlAggregation` instead.**
-         *  The name of an aggregation of the targetControl, that contains views. Eg: a {@link sap.m.NavContainer}
+         *  The name of an aggregation of the targetControl, that contains views. Eg: an {@link sap.m.NavContainer}
          * has an aggregation "pages", another Example is the {@link sap.ui.ux3.Shell} it has "content".
          */
         targetAggregation?: string;
         /**
          * **Deprecated since 1.28, use `target.clearControlAggregation` instead.**
          *  Defines a boolean that can be passed to specify if the aggregation should be cleared before adding the
-         * View to it. When using a {@link sap.ui.ux3.Shell} this should be true. For a {@link sap.m.NavContainer}
+         * View to it. When using an {@link sap.ui.ux3.Shell} this should be true. For an {@link sap.m.NavContainer}
          * it should be false
          */
         clearTarget?: boolean;
@@ -28542,7 +28618,7 @@ declare module "sap/ui/core/routing/Router" {
 
   export default class Router extends EventProvider {
     /**
-     * Instantiates a SAPUI5 Router
+     * Instantiates a router
      */
     constructor(
       /**
@@ -28680,7 +28756,8 @@ declare module "sap/ui/core/routing/Router" {
            *     {
            *          //same name as in the config.bypassed.target
            *          notFound: {
-           *              viewName: "notFound",
+           *              type: "View"
+           *              name: "notFound",
            *              ...
            *              // more properties to place the view in the correct container
            *          }
@@ -29813,8 +29890,8 @@ declare module "sap/ui/core/routing/Targets" {
      */
     constructor(oOptions: {
       /**
-       * the views instance will create the views of all the targets defined, so if 2 targets have the same viewName,
-       * the same instance of the view will be displayed.
+       * the views instance will create the instances of all the targets defined, so if 2 targets have the same
+       * `type` and `name` set, the same instance of the target will be displayed.
        */
       views: Views;
       /**
@@ -29952,8 +30029,8 @@ declare module "sap/ui/core/routing/Targets" {
           /**
            * Defines the name of the View or Component that will be created. For type 'Component', use option 'usage'
            * instead if an owner component exists. To place the view or component into a Control, use the options
-           * 'controlAggregation' and 'controlId'. Instance of View or Component will only be created once per 'name'
-           * or 'usage' combined with 'id'.
+           * `controlAggregation` and `controlId`. Instance of View or Component will only be created once per `name`
+           * or `usage` combined with `id`.
            * ```javascript
            *
            *
@@ -29988,21 +30065,22 @@ declare module "sap/ui/core/routing/Targets" {
            *
            * {
            *     targets: {
-           *         // If display("masterWelcome") is called, the master viewName will be placed in the 'MasterPages' of a control with the id splitContainter
+           *         // If display("masterWelcome") is called, the view with name "Welcome" will be placed in the 'MasterPages' of a control with the id splitContainter
            *         masterWelcome: {
            *             type: "View",
            *             name: "Welcome",
-           *             controlId: "splitContainer",
-           *             controlAggregation: "masterPages",
            *             id: "masterWelcome",
+           *             controlId: "splitContainer",
+           *             controlAggregation: "masterPages"
            *         },
-           *         // If display("detailWelcome") is called after the masterWelcome, a second instance with an own controller instance will be added in the detail pages.
+           *         // If display("detailWelcome") is called after the "masterWelcome" target, a second instance of the same view with its own controller instance will be added in the detail pages.
            *         detailWelcome: {
            *             type: "View",
-           *             name: "WelcomeWithAlias",
+           *             name: "Welcome",
+           *             // another instance will be created because a different id is used
+           *             id: "detailWelcome",
            *             controlId: "splitContainer",
-           *             controlAggregation: "detailPages",
-           *             id: "detailWelcome"
+           *             controlAggregation: "detailPages"
            *         }
            *     }
            * }
@@ -30022,8 +30100,9 @@ declare module "sap/ui/core/routing/Targets" {
            */
           viewType?: string;
           /**
-           * A prefix that will be prepended in front of the name.
-           *  **Example:** name is set to "myView" and path is set to "myApp" - the created view name will be "myApp.myView".
+           * A prefix that will be prepended in front of the `name`.
+           *  **Example:** `name` is set to "myView" and `path` is set to "myApp" - the created view's name will be
+           * "myApp.myView".
            */
           path?: string;
           /**
@@ -31261,14 +31340,6 @@ declare module "sap/ui/core/theming/Parameters" {
      *
      *  The theming parameters are immutable and cannot be changed at runtime. Multiple `Parameters.get()`
      * API calls for the same parameter name will always result in the same parameter value.
-     *
-     *  **Important, since 1.93:** When using the `Parameters.get()` API to retrieve theming parameters defined
-     * as CSS variables, please be aware that the API can also unknowingly retrieve arbitrary CSS variables
-     * defined in the DOM. All CSS variables defined via the `:root` pseudo-class can be retrieved this way.
-     * Please make sure to only access theming parameters defined in a UI5 theme/library.
-     *
-     *
-     *
      *
      *  The following API variants are available (see also the below examples):
      * 	 -  **(deprecated since 1.92)** If no parameter is given a key-value map containing all parameters is
@@ -35039,7 +35110,7 @@ declare module "sap/ui/core/util/MockServer" {
      *
      * Default value is `[]`
      */
-    getRequests(): object[];
+    getRequests(): RequestHandler[];
     /**
      * Getter for property `rootUri`. Has to be relative and requires a trailing '/'. It also needs to match
      * the URI set in OData/JSON models or simple XHR calls in order for the mock server to intercept them.
@@ -35077,34 +35148,14 @@ declare module "sap/ui/core/util/MockServer" {
     /**
      * Setter for property `requests`.
      *
-     * Default value is is `[]`
-     *
-     * Each array entry should consist of an object with the following properties / values:
-     *
-     *
-     * 	 - **method : "GET"|"POST"|"DELETE|"PUT"**
-     *  (any HTTP verb)
-     * 	 - **path : "/path/to/resource"**
-     *  The path is converted to a regular expression, so it can contain normal regular expression syntax. All
-     * regular expression groups are forwarded as arguments to the `response` function. In addition to this,
-     * parameters can be written in this notation: `:param`. These placeholder will be replaced by regular expression
-     * groups.
-     * 	 - **response : function(xhr, param1, param2, ...) { }**
-     *  The xhr object can be used to respond on the request. Supported methods are:
-     *  `xhr.respond(iStatusCode, mHeaders, sBody)`
-     *  `xhr.respondJSON(iStatusCode, mHeaders, oJsonObjectOrString)`. By default a JSON header is set for response
-     * header
-     *  `xhr.respondXML(iStatusCode, mHeaders, sXmlString)`. By default an XML header is set for response header
-     *
-     *  `xhr.respondFile(iStatusCode, mHeaders, sFileUrl)`. By default the mime type of the file is set for
-     * response header
+     * Default value is `[]`
      */
     setRequests(
       /**
-       * new value for property `requests`
+       * new value for the `requests` property
        */
-      requests: object[]
-    ): void;
+      requests: RequestHandler[]
+    ): this;
     /**
      * Setter for property `rootUri`. All request path URI are prefixed with this root URI if set.
      *
@@ -35180,6 +35231,173 @@ declare module "sap/ui/core/util/MockServer" {
     POST = "POST",
 
     PUT = "PUT",
+  }
+
+  export type RequestHandler = {
+    /**
+     * Any HTTP verb
+     */
+    method: HTTPMETHOD | keyof typeof HTTPMETHOD;
+    /**
+     * A string path is converted to a regular expression, so it can contain normal regular expression syntax.
+     *
+     * All regular expression groups are forwarded as arguments to the `response` function. In addition to this,
+     * parameters can be written in this notation: `:param`. These placeholders will be replaced by regular
+     * expression groups.
+     */
+    path: string | RegExp;
+    /**
+     * A response handler function that will be called when an incoming request matches `method` and `path`.
+     * The first parameter of the handler will be a `Response` object which can be used to respond on the request.
+     */
+    response: (p1: Response, p2: any) => void;
+  };
+
+  /**
+   * Methods that can be used to respond to a request.
+   */
+  export interface Response {
+    __implements__sap_ui_core_util_MockServer_Response: boolean;
+
+    /**
+     * Responds to the incoming request with the given `iStatusCode`, `mHeaders` and `sBody`.
+     */
+    respond(
+      /**
+       * HTTP status code to send with the response
+       */
+      StatusCode?: int,
+      /**
+       * HTTP headers to send with the response
+       */
+      mHeaders?: Record<string, string>,
+      /**
+       * A string that will be sent as response body
+       */
+      sBody?: string
+    ): void;
+    /**
+     * Convenience variant of {@link #respond} which allows to send the content of an external resource as response.
+     *
+     * This method first synchronously fetches the given `sFileUrl`. Depending on the extension and path of
+     * the `sFileUrl`, it propagates the received response body to {@link #respondJSON}, {@link #respondXML}
+     * or {@link #respond}, using the given `iStatus` and `mHeaders`.
+     *
+     * The status code and headers of the received response are ignored. In particular, the `Content-Type` header
+     * is not used for the mock server's response.
+     */
+    respondFile(
+      /**
+       * HTTP status code to send with the response
+       */
+      iStatusCode: int,
+      /**
+       * HTTP Headers to send with the response
+       */
+      mHeaders: Record<string, string>,
+      /**
+       * URL to get the response body from
+       */
+      sFileUrl: string
+    ): void;
+    /**
+     * Convenience variant of {@link #respond} which allows to send the content of an external resource as response.
+     *
+     * This method first synchronously fetches the given `sFileUrl`. Depending on the extension and path of
+     * the `sFileUrl`, it propagates the received response body to {@link #respondJSON}, {@link #respondXML}
+     * or {@link #respond}, using the given `iStatus` and `mHeaders`.
+     *
+     * The status code and headers of the received response are ignored. In particular, the `Content-Type` header
+     * is not used for the mock server's response.
+     */
+    respondFile(
+      /**
+       * HTTP status code to send with the response
+       */
+      iStatusCode: int,
+      /**
+       * URL to get the response body from
+       */
+      sFileUrl: string
+    ): void;
+    /**
+     * Convenience variant of {@link #respond} which allows to send the content of an external resource as response.
+     *
+     * This method first synchronously fetches the given `sFileUrl`. Depending on the extension and path of
+     * the `sFileUrl`, it propagates the received response body to {@link #respondJSON}, {@link #respondXML}
+     * or {@link #respond}, using the given `iStatus` and `mHeaders`.
+     *
+     * The status code and headers of the received response are ignored. In particular, the `Content-Type` header
+     * is not used for the mock server's response.
+     */
+    respondFile(
+      /**
+       * HTTP Headers to send with the response
+       */
+      mHeaders: Record<string, string>,
+      /**
+       * URL to get the response body from
+       */
+      sFileUrl: string
+    ): void;
+    /**
+     * Convenience variant of {@link #respond} which allows to send the content of an external resource as response.
+     *
+     * This method first synchronously fetches the given `sFileUrl`. Depending on the extension and path of
+     * the `sFileUrl`, it propagates the received response body to {@link #respondJSON}, {@link #respondXML}
+     * or {@link #respond}, using the given `iStatus` and `mHeaders`.
+     *
+     * The status code and headers of the received response are ignored. In particular, the `Content-Type` header
+     * is not used for the mock server's response.
+     */
+    respondFile(
+      /**
+       * URL to get the response body from
+       */
+      sFileUrl: string
+    ): void;
+    /**
+     * Convenience variant of {@link #respond} which simplifies sending a JSON response.
+     *
+     * The response content `vBody` can either be given as a string, which is then assumed to be in JSON format.
+     * Or it can be any JSON-stringifiable value which then will be converted to a string using `JSON.stringify`.
+     * If no `vBody` is given, an empty response will be sent.
+     *
+     * If no `Content-Type` header is given, it will be set to `application/json`.
+     */
+    respondJSON(
+      /**
+       * HTTP status code to send with the response
+       */
+      iStatusCode?: int,
+      /**
+       * HTTP Headers to send with the response
+       */
+      mHeaders?: Record<string, string>,
+      /**
+       * A valid JSON-string or a JSON-stringifiable object that should be sent as response body
+       */
+      vBody?: object | string
+    ): void;
+    /**
+     * Convenience variant of {@link #respond} which simplifies sending an XML response.
+     *
+     * If no `Content-Type` header is given, it will be set to `application/xml`.
+     */
+    respondXML(
+      /**
+       * HTTP status code to send with the response
+       */
+      iStatusCode?: int,
+      /**
+       * HTTP Headers to send with the response
+       */
+      mHeaders?: Record<string, string>,
+      /**
+       * XML string to send as response body
+       */
+      sXmlString?: string
+    ): void;
   }
 
   export interface $MockServerSettings extends $ManagedObjectSettings {
@@ -36327,9 +36545,8 @@ declare module "sap/ui/Device" {
      *
      * If this flag is set to `true`, the Safari browser runs in standalone fullscreen mode on iOS.
      *
-     * **Note:** This flag is only available if the Safari browser was detected. Furthermore, if this mode is
-     * detected, technically not a standard Safari is used. There might be slight differences in behavior and
-     * detection, e.g. the availability of {@link sap.ui.Device.browser.version}.
+     * **Note:** This flag is only available if the Safari browser was detected. There might be slight differences
+     * in behavior and detection, e.g. regarding the availability of {@link sap.ui.Device.browser.version}.
      */
     export const fullscreen: boolean;
 
@@ -36390,12 +36607,13 @@ declare module "sap/ui/Device" {
 
     /**
      * @SINCE 1.31.0
+     * @deprecated (since 1.98)
      *
      * If this flag is set to `true`, the Safari browser runs in webview mode on iOS.
      *
-     * **Note:** This flag is only available if the Safari browser was detected. Furthermore, if this mode is
-     * detected, technically not a standard Safari is used. There might be slight differences in behavior and
-     * detection, e.g. the availability of {@link sap.ui.Device.browser.version}.
+     * **Note:** Since iOS 11 it is no longer reliably possible to detect whether an application runs in `webview`.
+     * The flag is `true` if the browser's user agent contains 'SAPFioriClient'. Applications using WKWebView
+     * have the possibility to customize the user agent, and to explicitly add this information.
      */
     export const webview: boolean;
 
@@ -36731,11 +36949,6 @@ declare module "sap/ui/Device" {
     export const android: boolean;
 
     /**
-     * If this flag is set to `true`, a Blackberry operating system is used.
-     */
-    export const blackberry: boolean;
-
-    /**
      * If this flag is set to `true`, an iOS operating system is used.
      */
     export const ios: boolean;
@@ -36762,14 +36975,14 @@ declare module "sap/ui/Device" {
     /**
      * The version of the operating system as `float`.
      *
-     * Might be `-1` if no version can be determined.
+     * Might be `-1` if no version can reliably be determined.
      */
     export const version: float;
 
     /**
      * The version of the operating system as `string`.
      *
-     * Might be empty if no version can be determined.
+     * Might be empty if no version can reliably be determined.
      */
     export const versionStr: string;
 
@@ -36778,11 +36991,6 @@ declare module "sap/ui/Device" {
      */
     export const windows: boolean;
 
-    /**
-     * If this flag is set to `true`, a Windows Phone operating system is used.
-     */
-    export const windows_phone: boolean;
-
     namespace OS {
       /**
        * Android operating system name.
@@ -36790,13 +36998,6 @@ declare module "sap/ui/Device" {
        * 	sap.ui.Device.os.name
        */
       export const ANDROID: undefined;
-
-      /**
-       * Blackberry operating system name.
-       * See:
-       * 	sap.ui.Device.os.name
-       */
-      export const BLACKBERRY: undefined;
 
       /**
        * iOS operating system name.
@@ -36825,13 +37026,6 @@ declare module "sap/ui/Device" {
        * 	sap.ui.Device.os.name
        */
       export const WINDOWS: undefined;
-
-      /**
-       * Windows Phone operating system name.
-       * See:
-       * 	sap.ui.Device.os.name
-       */
-      export const WINDOWS_PHONE: undefined;
     }
   }
 
@@ -37075,10 +37269,9 @@ declare module "sap/ui/model/analytics/AnalyticalBinding" {
         /**
          * A comma-separated list of property names that need to be selected.
          *  If the `select` parameter is given, it has to contain all properties that are contained in the analytical
-         * information (see {@link sap.ui.model.analytics.AnalyticalBinding#updateAnalyticalInfo}) and their associated
-         * dimensions and measures. It must not contain additional dimensions or measures or associated properties
-         * for additional dimensions or measures. But it may contain additional properties like a text property
-         * of a dimension that is also selected.
+         * information (see {@link sap.ui.model.analytics.AnalyticalBinding#updateAnalyticalInfo}). It must not
+         * contain additional dimensions or measures or associated properties for additional dimensions or measures.
+         * But it may contain additional properties like a text property of a dimension that is also selected.
          *  All properties of the `select` parameter are also considered in {@link sap.ui.model.analytics.AnalyticalBinding#getDownloadUrl}.
          *  The `select` parameter must not contain any duplicate entry.
          *  If the `select` parameter does not fit to the analytical information or if the `select` parameter contains
@@ -37434,34 +37627,41 @@ declare module "sap/ui/model/analytics/AnalyticalBinding" {
      * Updates the binding's structure with new analytical information.
      *
      * Analytical information is the mapping of UI columns to properties in the bound OData entity set. Every
-     * column object contains the name of the bound property and in addition:
+     * column object contains the `name` of the bound property and in addition:
      * 	 - A column bound to a dimension property has further boolean properties:
-     * 	grouped: dimension will be used for building groups
-     * 	 - visible: if the column is visible, values for the related property will be fetched from the OData
-     * 			service
+     * 	grouped: dimension is used for building groups
      * 	 - inResult: if the column is not visible, but declared to be part of the result, values for the related
-     * 			property will also be fetched from the OData service
+     * 			property are also fetched from the OData service
+     * 	 - visible: if the column is visible, values for the related property are fetched from the OData service
+     *
      * 	 - A column bound to a measure property has further boolean properties:
-     * 	total: totals and sub-totals will be provided for the measure at all aggregation levels
+     * 	inResult: if the column is not visible, but declared to be part of the result, values for the related
+     * property are also fetched from the OData service
+     * 	 - total: totals and sub-totals are provided for the measure at all aggregation levels
+     * 	 - visible: if the column is visible, values for the related property are fetched from the OData service
      *
      * 	 - A column bound to a hierarchy property has further properties:
-     * 	grouped: boolean value; indicates whether the hierarchy will be used for building groups
+     * 	grouped: boolean value; indicates whether the hierarchy is used for building groups
      * 	 - level: integer value; the hierarchy level is mandatory for at least one of those columns that represent
-     * 			the same hierarchy.
+     * 			the same hierarchy
      *
      * Invoking this function resets the state of the binding and subsequent data requests such as calls to
-     * getNodeContexts() will need to trigger OData requests in order to fetch the data that are in line with
-     * this analytical information.
+     * getNodeContexts() trigger OData requests in order to fetch the data that are in line with this analytical
+     * information.
      *
-     * Please be aware that a call of this function might lead to additional back-end requests, as well as a
-     * control re-rendering later on. Whenever possible use the API of the analytical control, instead of relying
-     * on the binding.
+     * Be aware that a call of this function might lead to additional back-end requests, as well as a control
+     * re-rendering later on. Whenever possible use the API of the analytical control, instead of relying on
+     * the binding.
      */
     updateAnalyticalInfo(
       /**
-       * an array with objects holding the analytical information for every column, from left to right.
+       * An array with objects holding the analytical information for every column
        */
-      aColumns: any[]
+      aColumns: object[],
+      /**
+       * Whether to fire a change event asynchronously even if columns didn't change
+       */
+      bForceChange: boolean
     ): void;
   }
 }
@@ -40488,6 +40688,13 @@ declare module "sap/ui/model/CompositeDataState" {
       bNewState?: boolean
     ): boolean;
     /**
+     * @SINCE 1.98.0
+     *
+     * Returns an array of all model and control messages of all parts of the composite binding, regardless
+     * of whether they are old or new.
+     */
+    getAllMessages(): Message[];
+    /**
      * Returns the changes of the data state in a map that the control can use in the `refreshDataState` method.
      * The changed property's name is the key in the map. Each element in the map contains an object of below
      * structure.
@@ -40509,7 +40716,7 @@ declare module "sap/ui/model/CompositeDataState" {
       }
     >;
     /**
-     * Returns the array of state messages of the control.
+     * Returns the array of current state messages of the control.
      */
     getControlMessages(): Message[];
     /**
@@ -40528,11 +40735,11 @@ declare module "sap/ui/model/CompositeDataState" {
      */
     getInvalidValue(): any;
     /**
-     * Returns the array of all state messages combining the model and control messages.
+     * Returns the array of all current state messages combining the model and control messages.
      */
     getMessages(): Message[];
     /**
-     * Returns the array of state messages of the model or undefined.
+     * Returns the array of current state messages of the model.
      */
     getModelMessages(): Message[];
     /**
@@ -40946,6 +41153,12 @@ declare module "sap/ui/model/DataState" {
       bNewState?: boolean
     ): boolean;
     /**
+     * @SINCE 1.98.0
+     *
+     * Returns an array of all model and control messages, regardless of whether they are old or new.
+     */
+    getAllMessages(): Message[];
+    /**
      * Returns the changes of the data state in a map that the control can use in the `refreshDataState` method.
      * The changed property's name is the key in the map. Each element in the map contains an object with the
      * properties `oldValue` with the old property value and `value` with the new value of the property. The
@@ -40953,7 +41166,7 @@ declare module "sap/ui/model/DataState" {
      */
     getChanges(): object;
     /**
-     * Returns the array of state messages of the control.
+     * Returns the array of this data state's current control messages.
      */
     getControlMessages(): Message[];
     /**
@@ -40963,12 +41176,12 @@ declare module "sap/ui/model/DataState" {
      */
     getInvalidValue(): any;
     /**
-     * Returns the array of this data state's messages combining the model and control messages. The array is
-     * sorted descendingly by message severity.
+     * Returns the array of this data state's current messages combining the model and control messages. The
+     * array is sorted descendingly by message severity.
      */
     getMessages(): Message[];
     /**
-     * Returns the array of state messages of the model or undefined.
+     * Returns the array of this data state's current model messages.
      */
     getModelMessages(): Message[];
     /**
@@ -42009,8 +42222,8 @@ declare module "sap/ui/model/ListBinding" {
      *
      * Returns all current contexts of this list binding in no special order. Just like {@link #getCurrentContexts},
      * this method does not request any data from a back end and does not change the binding's state. In contrast
-     * to {@link #getCurrentContexts}, it does not only return the contexts as last requested by a control,
-     * but all that are currently available in the binding.
+     * to {@link #getCurrentContexts}, it does not only return those contexts that were last requested by a
+     * control, but all contexts that are currently available in the binding.
      */
     getAllCurrentContexts(): Context[];
     /**
@@ -42662,7 +42875,7 @@ declare module "sap/ui/model/Model" {
        * the server
        */
       bReload?: boolean
-    ): Context;
+    ): Context | undefined;
     /**
      * Destroys the model and clears the model data.
      *
@@ -48818,6 +49031,16 @@ declare module "sap/ui/model/odata/v2/Context" {
      */
     created(): Promise<any>;
     /**
+     * @SINCE 1.98.0
+     *
+     * Returns whether this context is inactive. An inactive context will only be sent to the server after the
+     * first property update. From then on it behaves like any other created context.
+     * See:
+     * 	sap.ui.model.odata.v2.ODataListBinding#create
+     * 	sap.ui.model.odata.v2.ODataModel#createEntry
+     */
+    isInactive(): boolean;
+    /**
      * @SINCE 1.94.0
      *
      * For a context created using {@link sap.ui.model.odata.v2.ODataModel#createEntry} or {@link sap.ui.model.odata.v2.ODataListBinding#create},
@@ -49498,9 +49721,9 @@ declare module "sap/ui/model/odata/v2/ODataListBinding" {
 
   import OperationMode from "sap/ui/model/odata/OperationMode";
 
-  import FilterType from "sap/ui/model/FilterType";
-
   import Context1 from "sap/ui/model/odata/v2/Context";
+
+  import FilterType from "sap/ui/model/FilterType";
 
   import Metadata from "sap/ui/base/Metadata";
 
@@ -49544,8 +49767,8 @@ declare module "sap/ui/model/odata/v2/ODataListBinding" {
          */
         countMode?: CountMode | keyof typeof CountMode;
         /**
-         * A key used in combination with the resolved path of this binding to identify the entities created this
-         * binding's {@link #create} method.
+         * A key used in combination with the resolved path of this binding to identify the entities created by
+         * this binding's {@link #create} method.
          *
          * **Note:** Different controls or control aggregation bindings to the same collection must have different
          * `createdEntitiesKey` values.
@@ -49618,6 +49841,230 @@ declare module "sap/ui/model/odata/v2/ODataListBinding" {
      */
     static getMetadata(): Metadata;
     /**
+     * @SINCE 1.98.0
+     *
+     * Attach event handler `fnFunction` to the 'createActivate' event of this binding.
+     */
+    attachCreateActivate(
+      /**
+       * The function to call when the event occurs
+       */
+      fnFunction: Function,
+      /**
+       * Object on which to call the given function
+       */
+      oListener?: object
+    ): void;
+    /**
+     * @SINCE 1.98.0
+     *
+     * Creates a new entity for this binding's collection via {@link sap.ui.model.odata.v2.ODataModel#createEntry}
+     * using the parameters given in `mParameters` and inserts it at the list position specified by the `bAtEnd`
+     * parameter.
+     *
+     * Note: This method requires that the model metadata has been loaded; see {@link sap.ui.model.odata.v2.ODataModel#metadataLoaded}.
+     */
+    create(
+      /**
+       * The initial data for the created entity; see the `mParameters.properties` parameter of {@link sap.ui.model.odata.v2.ODataModel#createEntry}
+       */
+      oInitialData: object,
+      /**
+       * Whether the entity is inserted at the end of the list. The first insertion determines the overall position
+       * of created contexts within the list. Every succeeding insertion is relative to the created contexts within
+       * this list. Note: the order of created contexts in the binding does not necessarily correspond to the
+       * order of the resulting back end creation requests.
+       */
+      bAtEnd: boolean,
+      /**
+       * A map of parameters as specified for {@link sap.ui.model.odata.v2.ODataModel#createEntry} where only
+       * the following subset of these is supported.
+       */
+      mParameters: {
+        /**
+         * The ID of the `ChangeSet` that this request should belong to
+         */
+        changeSetId?: string;
+        /**
+         * The error callback function
+         */
+        error?: Function;
+        /**
+         * A comma-separated list of navigation properties to be expanded for the newly created entity; see {@link
+         * sap.ui.model.odata.v2.ODataModel#createEntry}
+         */
+        expand?: string;
+        /**
+         * The ID of a request group; requests belonging to the same group will be bundled in one batch request
+         */
+        groupId?: string;
+        /**
+         * Whether the created context is inactive. An inactive context will only be sent to the server after the
+         * first property update. From then on it behaves like any other created context.
+         */
+        inactive?: boolean;
+        /**
+         * The success callback function
+         */
+        success?: Function;
+      }
+    ): Context1;
+    /**
+     * @SINCE 1.98.0
+     *
+     * Creates a new entity for this binding's collection via {@link sap.ui.model.odata.v2.ODataModel#createEntry}
+     * using the parameters given in `mParameters` and inserts it at the list position specified by the `bAtEnd`
+     * parameter.
+     *
+     * Note: This method requires that the model metadata has been loaded; see {@link sap.ui.model.odata.v2.ODataModel#metadataLoaded}.
+     */
+    create(
+      /**
+       * The initial data for the created entity; see the `mParameters.properties` parameter of {@link sap.ui.model.odata.v2.ODataModel#createEntry}
+       */
+      oInitialData: object,
+      /**
+       * A map of parameters as specified for {@link sap.ui.model.odata.v2.ODataModel#createEntry} where only
+       * the following subset of these is supported.
+       */
+      mParameters: {
+        /**
+         * The ID of the `ChangeSet` that this request should belong to
+         */
+        changeSetId?: string;
+        /**
+         * The error callback function
+         */
+        error?: Function;
+        /**
+         * A comma-separated list of navigation properties to be expanded for the newly created entity; see {@link
+         * sap.ui.model.odata.v2.ODataModel#createEntry}
+         */
+        expand?: string;
+        /**
+         * The ID of a request group; requests belonging to the same group will be bundled in one batch request
+         */
+        groupId?: string;
+        /**
+         * Whether the created context is inactive. An inactive context will only be sent to the server after the
+         * first property update. From then on it behaves like any other created context.
+         */
+        inactive?: boolean;
+        /**
+         * The success callback function
+         */
+        success?: Function;
+      }
+    ): Context1;
+    /**
+     * @SINCE 1.98.0
+     *
+     * Creates a new entity for this binding's collection via {@link sap.ui.model.odata.v2.ODataModel#createEntry}
+     * using the parameters given in `mParameters` and inserts it at the list position specified by the `bAtEnd`
+     * parameter.
+     *
+     * Note: This method requires that the model metadata has been loaded; see {@link sap.ui.model.odata.v2.ODataModel#metadataLoaded}.
+     */
+    create(
+      /**
+       * Whether the entity is inserted at the end of the list. The first insertion determines the overall position
+       * of created contexts within the list. Every succeeding insertion is relative to the created contexts within
+       * this list. Note: the order of created contexts in the binding does not necessarily correspond to the
+       * order of the resulting back end creation requests.
+       */
+      bAtEnd: boolean,
+      /**
+       * A map of parameters as specified for {@link sap.ui.model.odata.v2.ODataModel#createEntry} where only
+       * the following subset of these is supported.
+       */
+      mParameters: {
+        /**
+         * The ID of the `ChangeSet` that this request should belong to
+         */
+        changeSetId?: string;
+        /**
+         * The error callback function
+         */
+        error?: Function;
+        /**
+         * A comma-separated list of navigation properties to be expanded for the newly created entity; see {@link
+         * sap.ui.model.odata.v2.ODataModel#createEntry}
+         */
+        expand?: string;
+        /**
+         * The ID of a request group; requests belonging to the same group will be bundled in one batch request
+         */
+        groupId?: string;
+        /**
+         * Whether the created context is inactive. An inactive context will only be sent to the server after the
+         * first property update. From then on it behaves like any other created context.
+         */
+        inactive?: boolean;
+        /**
+         * The success callback function
+         */
+        success?: Function;
+      }
+    ): Context1;
+    /**
+     * @SINCE 1.98.0
+     *
+     * Creates a new entity for this binding's collection via {@link sap.ui.model.odata.v2.ODataModel#createEntry}
+     * using the parameters given in `mParameters` and inserts it at the list position specified by the `bAtEnd`
+     * parameter.
+     *
+     * Note: This method requires that the model metadata has been loaded; see {@link sap.ui.model.odata.v2.ODataModel#metadataLoaded}.
+     */
+    create(
+      /**
+       * A map of parameters as specified for {@link sap.ui.model.odata.v2.ODataModel#createEntry} where only
+       * the following subset of these is supported.
+       */
+      mParameters: {
+        /**
+         * The ID of the `ChangeSet` that this request should belong to
+         */
+        changeSetId?: string;
+        /**
+         * The error callback function
+         */
+        error?: Function;
+        /**
+         * A comma-separated list of navigation properties to be expanded for the newly created entity; see {@link
+         * sap.ui.model.odata.v2.ODataModel#createEntry}
+         */
+        expand?: string;
+        /**
+         * The ID of a request group; requests belonging to the same group will be bundled in one batch request
+         */
+        groupId?: string;
+        /**
+         * Whether the created context is inactive. An inactive context will only be sent to the server after the
+         * first property update. From then on it behaves like any other created context.
+         */
+        inactive?: boolean;
+        /**
+         * The success callback function
+         */
+        success?: Function;
+      }
+    ): Context1;
+    /**
+     * @SINCE 1.98.0
+     *
+     * Detach event handler `fnFunction` from the 'createActivate' event of this binding.
+     */
+    detachCreateActivate(
+      /**
+       * The function to call when the event occurs
+       */
+      fnFunction: Function,
+      /**
+       * Object on which to call the given function
+       */
+      oListener?: object
+    ): void;
+    /**
      * Filters the list.
      *
      * When using `sap.ui.model.Filter` the filters are first grouped according to their binding path. All filters
@@ -49644,6 +50091,15 @@ declare module "sap/ui/model/odata/v2/ODataListBinding" {
       bReturnSuccess?: boolean
     ): this;
     /**
+     * @SINCE 1.98.0
+     *
+     * Returns all current contexts of this list binding in no special order. Just like {@link #getCurrentContexts},
+     * this method does not request any data from a back end and does not change the binding's state. In contrast
+     * to {@link #getCurrentContexts}, it does not only return those contexts that were last requested by a
+     * control, but all contexts that are currently available in the binding.
+     */
+    getAllCurrentContexts(): Context1[];
+    /**
      * Return contexts for the list.
      */
     getContexts(
@@ -49660,6 +50116,18 @@ declare module "sap/ui/model/odata/v2/ODataListBinding" {
        */
       iThreshold?: int
     ): Context1[];
+    /**
+     * @SINCE 1.98.0
+     *
+     * Returns the count of active entries in the list if the list length is final, otherwise `undefined`. Contrary
+     * to {#getLength}, this method does not consider inactive entries which are created via {#create}.
+     * See:
+     * 	#create
+     * 	#getLength
+     * 	#isLengthFinal
+     * 	sap.ui.model.odata.v2.Context#isInactive
+     */
+    getCount(): number | undefined;
     /**
      * @SINCE 1.24
      *
@@ -49685,6 +50153,13 @@ declare module "sap/ui/model/odata/v2/ODataListBinding" {
      * do nothing, method will be called again when metadata is loaded.
      */
     initialize(): ODataListBinding;
+    /**
+     * @SINCE 1.98.0
+     *
+     * Returns whether the overall position of created entries is at the end of the list; this is determined
+     * by the first call to {@link sap.ui.model.odata.v2.ODataListBinding#create}.
+     */
+    isFirstCreateAtEnd(): boolean | undefined;
     /**
      * Refreshes the binding, check whether the model data has been changed and fire change event if this is
      * the case. For server side models this should refetch the data from the server. To update a control, even
@@ -50623,7 +51098,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
          * Maps the function import parameter name as specified in the function import's metadata to its value;
          * the value is formatted based on the parameter's type as specified in the metadata
          */
-        urlParameters?: Record<string, string>;
+        urlParameters?: Record<string, any>;
         /**
          * **Deprecated - use `groupId` instead**
          */
@@ -50850,6 +51325,11 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
          */
         headers?: Record<string, string>;
         /**
+         * Whether the created context is inactive. An inactive context will only be sent to the server after the
+         * first property update. From then on it behaves like any other created context. Supported since 1.98.0
+         */
+        inactive?: boolean;
+        /**
          * An array that specifies a set of properties or the entry
          */
         properties?: any[] | object;
@@ -50884,7 +51364,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
       oKeyProperties: object
     ): string;
     /**
-     * @deprecated - since 1.95.0; use {@link #resetChanges} instead
+     * @deprecated (since 1.95.0) - use {@link #resetChanges} instead
      *
      * Deletes a created entry from the request queue and from the model.
      *
@@ -51743,7 +52223,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
      */
     resetChanges(
       /**
-       * Paths to be be reset; if no array is passed, all changes are reset
+       * Paths to be reset; if no array is passed, all changes are reset
        */
       aPath?: any[],
       /**
@@ -52682,7 +53162,7 @@ declare module "sap/ui/model/odata/v4/AnnotationHelper" {
          */
         context: Context;
       }
-    ): string | Promise<any>;
+    ): string | Promise<any> | undefined;
     /**
      * @SINCE 1.63.0
      *
@@ -52942,11 +53422,15 @@ declare module "sap/ui/model/odata/v4/Context" {
        * The group ID to be used for the DELETE request; if not specified, the update group ID for the context's
        * binding is used, see {@link #getUpdateGroupId}; the resulting group ID must not have {@link sap.ui.model.odata.v4.SubmitMode.API}.
        * Since 1.81, if this context is transient (see {@link #isTransient}), no group ID needs to be specified.
+       * Since 1.98.0, you can use `null` to prevent the DELETE request in case of a kept-alive context that is
+       * not in the collection and of which you know that it does not exist on the server anymore (for example,
+       * a draft after activation).
        */
       sGroupId?: string,
       /**
        * Whether not to request the new count from the server; useful in case of {@link #replaceWith} where it
-       * is known that the count remains unchanged (since 1.97.0)
+       * is known that the count remains unchanged (since 1.97.0). Since 1.98.0, this is implied if a `null` group
+       * ID is used.
        */
       bDoNotRequestCount?: boolean
     ): Promise<any>;
@@ -53067,6 +53551,16 @@ declare module "sap/ui/model/odata/v4/Context" {
      */
     isExpanded(): boolean | undefined;
     /**
+     * @SINCE 1.98.0
+     *
+     * Returns whether this context is inactive. The result of this function can also be accessed via instance
+     * annotation "@$ui5.context.isInactive" at the entity.
+     * See:
+     * 	sap.ui.model.odata.v4.ODataListBinding#create
+     * 	sap.ui.model.odata.v4.ODataListBinding#event:createActivate
+     */
+    isInactive(): boolean;
+    /**
      * @SINCE 1.81.0
      *
      * Returns whether this context is kept alive.
@@ -53110,8 +53604,9 @@ declare module "sap/ui/model/odata/v4/Context" {
     /**
      * @SINCE 1.97.0
      *
-     * Replaces this context with the given other context. You probably want to delete this context afterwards
-     * without requesting the new count from the server, see the `bDoNotRequestCount` parameter of {@link #delete}.
+     * Replaces this context with the given other context "in situ", that is, at the index it currently has
+     * in its list binding's collection. You probably want to delete this context afterwards without requesting
+     * the new count from the server, see the `bDoNotRequestCount` parameter of {@link #delete}.
      */
     replaceWith(
       /**
@@ -53258,6 +53753,12 @@ declare module "sap/ui/model/odata/v4/Context" {
      * Sets this context's `keepAlive` attribute. If `true` the context is kept alive even when it is removed
      * from its binding's collection, for example if a filter is applied and the entity represented by this
      * context does not match the filter criteria.
+     *
+     * Normally, a context's lifecycle is managed implicitly. It is created once it is needed and destroyed
+     * if it is not needed anymore, for example, because it is no longer part of its list binding's collection.
+     * It is thus unsafe to keep a reference to a context instance which is not explicitly kept alive. Once
+     * a context is not kept alive anymore, the implicit lifecycle management again takes control and destroys
+     * the context if it is no longer needed.
      * See:
      * 	#isKeepAlive
      */
@@ -53516,6 +54017,12 @@ declare module "sap/ui/model/odata/v4/ODataContextBinding" {
      * The value of this binding is the result of the operation. To access a result of primitive type, bind
      * a control to the path "value", for example `<Text text="{value}"/>`. If the result has a complex or
      * entity type, you can bind properties as usual, for example `<Text text="{street}"/>`.
+     *
+     * Since 1.98.0, a single-valued navigation property can be treated like a function if
+     * 	 it has the same type as the operation binding's parent context,  that parent context is in the
+     * collection (has an index, see {@link sap.ui.model.odata.v4.Context#getIndex}) of a list binding for a
+     * top-level entity set,  there is a navigation property binding which points to that same entity set,
+     *  no operation parameters have been set,  the `bReplaceWithRVC` parameter is used.
      */
     execute(
       /**
@@ -53583,7 +54090,8 @@ declare module "sap/ui/model/odata/v4/ODataContextBinding" {
     getRootBinding():
       | ODataContextBinding
       | ODataListBinding
-      | ODataPropertyBinding;
+      | ODataPropertyBinding
+      | undefined;
     /**
      * @SINCE 1.81.0
      *
@@ -53632,6 +54140,7 @@ declare module "sap/ui/model/odata/v4/ODataContextBinding" {
     isInitial(): boolean;
     /**
      * @SINCE 1.95.0
+     * @deprecated (since 1.96.5)
      * @EXPERIMENTAL
      *
      * Moves the bound entity into the given list binding. This binding loses its data. The method may only
@@ -53791,8 +54300,9 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
    * @SINCE 1.37.0
    *
    * List binding for an OData V4 model. An event handler can only be attached to this binding for the following
-   * events: 'AggregatedDataStateChange', 'change', 'createCompleted', 'createSent', 'dataReceived', 'dataRequested',
-   * 'DataStateChange', 'patchCompleted', 'patchSent', and 'refresh'. For other events, an error is thrown.
+   * events: 'AggregatedDataStateChange', 'change', 'createActivate', 'createCompleted', 'createSent', 'dataReceived',
+   * 'dataRequested', 'DataStateChange', 'patchCompleted', 'patchSent', and 'refresh'. For other events, an
+   * error is thrown.
    */
   export default class ODataListBinding extends ListBinding {
     constructor();
@@ -53822,6 +54332,21 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
      * Returns a metadata object for class sap.ui.model.odata.v4.ODataListBinding.
      */
     static getMetadata(): Metadata;
+    /**
+     * @SINCE 1.98.0
+     *
+     * Attach event handler `fnFunction` to the 'createActivate' event of this binding.
+     */
+    attachCreateActivate(
+      /**
+       * The function to call when the event occurs
+       */
+      fnFunction: Function,
+      /**
+       * Object on which to call the given function
+       */
+      oListener?: object
+    ): void;
     /**
      * @SINCE 1.66.0
      *
@@ -53996,6 +54521,21 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
      */
     destroy(): void;
     /**
+     * @SINCE 1.98.0
+     *
+     * Detach event handler `fnFunction` from the 'createActivate' event of this binding.
+     */
+    detachCreateActivate(
+      /**
+       * The function to call when the event occurs
+       */
+      fnFunction: Function,
+      /**
+       * Object on which to call the given function
+       */
+      oListener?: object
+    ): void;
+    /**
      * @SINCE 1.66.0
      *
      * Detach event handler `fnFunction` from the 'createCompleted' event of this binding.
@@ -54099,6 +54639,17 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
        */
       sFilterType?: FilterType | keyof typeof FilterType
     ): this;
+    /**
+     * @SINCE 1.98.0
+     *
+     * Returns all current contexts of this list binding in no special order. Just like {@link #getCurrentContexts},
+     * this method does not request any data from a back end and does not change the binding's state. In contrast
+     * to {@link #getCurrentContexts}, it does not only return those contexts that were last requested by a
+     * control, but all contexts that are currently available in the binding, including kept-alive contexts.
+     * To filter out kept-alive contexts that are not part of the list, you could check whether the index is
+     * `undefined`, as described in {@link sap.ui.model.odata.v4.Context#getIndex}.
+     */
+    getAllCurrentContexts(): Context[];
     /**
      * @SINCE 1.37.0
      *
@@ -54234,7 +54785,8 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
     getRootBinding():
       | ODataContextBinding
       | ODataListBinding
-      | ODataPropertyBinding;
+      | ODataPropertyBinding
+      | undefined;
     /**
      * @SINCE 1.81.0
      *
@@ -54589,7 +55141,7 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
          */
         as?: string;
       }>
-    ): object;
+    ): object | undefined;
   }
 }
 
@@ -54781,7 +55333,7 @@ declare module "sap/ui/model/odata/v4/ODataMetaModel" {
      * See:
      * 	#requestData
      */
-    getData(): object;
+    getData(): object | undefined;
     /**
      * @SINCE 1.51.0
      *
@@ -56081,7 +56633,8 @@ declare module "sap/ui/model/odata/v4/ODataPropertyBinding" {
     getRootBinding():
       | ODataContextBinding
       | ODataListBinding
-      | ODataPropertyBinding;
+      | ODataPropertyBinding
+      | undefined;
     /**
      * @SINCE 1.81.0
      *
@@ -59912,6 +60465,24 @@ declare module "sap/ui/test/actions/Press" {
      */
     getShiftKey(): boolean;
     /**
+     * @SINCE 1.98
+     *
+     * Gets current value of property {@link #getXPercentage xPercentage}.
+     *
+     * Provide percent value for the X coordinate axis to calculate the position of the click event. The value
+     * must be in the range [0 - 100]
+     */
+    getXPercentage(): float;
+    /**
+     * @SINCE 1.98
+     *
+     * Gets current value of property {@link #getYPercentage yPercentage}.
+     *
+     * Provide percent value for the Y coordinate axis to calculate the position of the click event. The value
+     * must be in the range [0 - 100]
+     */
+    getYPercentage(): float;
+    /**
      * @SINCE 1.97
      *
      * Sets a new value for property {@link #getAltKey altKey}.
@@ -59956,6 +60527,38 @@ declare module "sap/ui/test/actions/Press" {
        */
       bShiftKey: boolean
     ): this;
+    /**
+     * @SINCE 1.98
+     *
+     * Sets a new value for property {@link #getXPercentage xPercentage}.
+     *
+     * Provide percent value for the X coordinate axis to calculate the position of the click event. The value
+     * must be in the range [0 - 100]
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     */
+    setXPercentage(
+      /**
+       * New value for property `xPercentage`
+       */
+      fXPercentage: float
+    ): this;
+    /**
+     * @SINCE 1.98
+     *
+     * Sets a new value for property {@link #getYPercentage yPercentage}.
+     *
+     * Provide percent value for the Y coordinate axis to calculate the position of the click event. The value
+     * must be in the range [0 - 100]
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     */
+    setYPercentage(
+      /**
+       * New value for property `yPercentage`
+       */
+      fYPercentage: float
+    ): this;
   }
 
   export interface $PressSettings extends $ActionSettings {
@@ -59979,6 +60582,22 @@ declare module "sap/ui/test/actions/Press" {
      * If it is set to `true`, the Control Key modifier will be used
      */
     ctrlKey?: boolean | PropertyBindingInfo;
+
+    /**
+     * @SINCE 1.98
+     *
+     * Provide percent value for the X coordinate axis to calculate the position of the click event. The value
+     * must be in the range [0 - 100]
+     */
+    xPercentage?: float | PropertyBindingInfo;
+
+    /**
+     * @SINCE 1.98
+     *
+     * Provide percent value for the Y coordinate axis to calculate the position of the click event. The value
+     * must be in the range [0 - 100]
+     */
+    yPercentage?: float | PropertyBindingInfo;
   }
 }
 
@@ -64739,8 +65358,8 @@ declare namespace sap {
      * 			using `sap.ui.require("something")` are automagically converted into `sap.ui.define` dependencies before
      * 			executing the factory function.
      *
-     * Limitations, Design Considerations:
-     * 	 - **Limitation**: as dependency management is not supported for Non-UI5 modules, the only way to ensure
+     * Restrictions, Design Considerations:
+     * 	 - **Restriction**: as dependency management is not supported for Non-UI5 modules, the only way to ensure
      * 			proper execution order for such modules currently is to rely on the order in the dependency array. Obviously,
      * 			this only works as long as `sap.ui.define` uses synchronous loading. It will be enhanced when asynchronous
      * 			loading is implemented.
@@ -64988,8 +65607,8 @@ declare namespace sap {
      * 			using `sap.ui.require("something")` are automagically converted into `sap.ui.define` dependencies before
      * 			executing the factory function.
      *
-     * Limitations, Design Considerations:
-     * 	 - **Limitation**: as dependency management is not supported for Non-UI5 modules, the only way to ensure
+     * Restrictions, Design Considerations:
+     * 	 - **Restriction**: as dependency management is not supported for Non-UI5 modules, the only way to ensure
      * 			proper execution order for such modules currently is to rely on the order in the dependency array. Obviously,
      * 			this only works as long as `sap.ui.define` uses synchronous loading. It will be enhanced when asynchronous
      * 			loading is implemented.
@@ -65231,8 +65850,8 @@ declare namespace sap {
      * 			using `sap.ui.require("something")` are automagically converted into `sap.ui.define` dependencies before
      * 			executing the factory function.
      *
-     * Limitations, Design Considerations:
-     * 	 - **Limitation**: as dependency management is not supported for Non-UI5 modules, the only way to ensure
+     * Restrictions, Design Considerations:
+     * 	 - **Restriction**: as dependency management is not supported for Non-UI5 modules, the only way to ensure
      * 			proper execution order for such modules currently is to rely on the order in the dependency array. Obviously,
      * 			this only works as long as `sap.ui.define` uses synchronous loading. It will be enhanced when asynchronous
      * 			loading is implemented.
@@ -65475,8 +66094,8 @@ declare namespace sap {
      * 			using `sap.ui.require("something")` are automagically converted into `sap.ui.define` dependencies before
      * 			executing the factory function.
      *
-     * Limitations, Design Considerations:
-     * 	 - **Limitation**: as dependency management is not supported for Non-UI5 modules, the only way to ensure
+     * Restrictions, Design Considerations:
+     * 	 - **Restriction**: as dependency management is not supported for Non-UI5 modules, the only way to ensure
      * 			proper execution order for such modules currently is to rely on the order in the dependency array. Obviously,
      * 			this only works as long as `sap.ui.define` uses synchronous loading. It will be enhanced when asynchronous
      * 			loading is implemented.
@@ -66219,7 +66838,7 @@ declare namespace sap {
       fnCallback?: Function,
       /**
        * Callback function to execute if an error was detected while loading the dependencies or executing the
-       * factory function. Note that due to browser limitations not all errors will be reported via this callback.
+       * factory function. Note that due to browser restrictions not all errors will be reported via this callback.
        * In general, module loading is designed for the non-error case. Error handling is not complete.
        */
       fnErrback?: Function
@@ -67176,9 +67795,8 @@ declare namespace sap {
          *
          * If this flag is set to `true`, the Safari browser runs in standalone fullscreen mode on iOS.
          *
-         * **Note:** This flag is only available if the Safari browser was detected. Furthermore, if this mode is
-         * detected, technically not a standard Safari is used. There might be slight differences in behavior and
-         * detection, e.g. the availability of {@link sap.ui.Device.browser.version}.
+         * **Note:** This flag is only available if the Safari browser was detected. There might be slight differences
+         * in behavior and detection, e.g. regarding the availability of {@link sap.ui.Device.browser.version}.
          */
         export const fullscreen: boolean;
 
@@ -67239,12 +67857,13 @@ declare namespace sap {
 
         /**
          * @SINCE 1.31.0
+         * @deprecated (since 1.98)
          *
          * If this flag is set to `true`, the Safari browser runs in webview mode on iOS.
          *
-         * **Note:** This flag is only available if the Safari browser was detected. Furthermore, if this mode is
-         * detected, technically not a standard Safari is used. There might be slight differences in behavior and
-         * detection, e.g. the availability of {@link sap.ui.Device.browser.version}.
+         * **Note:** Since iOS 11 it is no longer reliably possible to detect whether an application runs in `webview`.
+         * The flag is `true` if the browser's user agent contains 'SAPFioriClient'. Applications using WKWebView
+         * have the possibility to customize the user agent, and to explicitly add this information.
          */
         export const webview: boolean;
 
@@ -67626,11 +68245,6 @@ declare namespace sap {
         export const android: boolean;
 
         /**
-         * If this flag is set to `true`, a Blackberry operating system is used.
-         */
-        export const blackberry: boolean;
-
-        /**
          * If this flag is set to `true`, an iOS operating system is used.
          */
         export const ios: boolean;
@@ -67657,14 +68271,14 @@ declare namespace sap {
         /**
          * The version of the operating system as `float`.
          *
-         * Might be `-1` if no version can be determined.
+         * Might be `-1` if no version can reliably be determined.
          */
         export const version: float;
 
         /**
          * The version of the operating system as `string`.
          *
-         * Might be empty if no version can be determined.
+         * Might be empty if no version can reliably be determined.
          */
         export const versionStr: string;
 
@@ -67672,11 +68286,6 @@ declare namespace sap {
          * If this flag is set to `true`, a Windows operating system is used.
          */
         export const windows: boolean;
-
-        /**
-         * If this flag is set to `true`, a Windows Phone operating system is used.
-         */
-        export const windows_phone: boolean;
 
         /**
          * Enumeration containing the names of known operating systems.
@@ -67688,13 +68297,6 @@ declare namespace sap {
            * 	sap.ui.Device.os.name
            */
           export const ANDROID: undefined;
-
-          /**
-           * Blackberry operating system name.
-           * See:
-           * 	sap.ui.Device.os.name
-           */
-          export const BLACKBERRY: undefined;
 
           /**
            * iOS operating system name.
@@ -67723,13 +68325,6 @@ declare namespace sap {
            * 	sap.ui.Device.os.name
            */
           export const WINDOWS: undefined;
-
-          /**
-           * Windows Phone operating system name.
-           * See:
-           * 	sap.ui.Device.os.name
-           */
-          export const WINDOWS_PHONE: undefined;
         }
       }
       /**
@@ -68167,6 +68762,8 @@ declare namespace sap {
     "sap/ui/core/mvc/XMLView": undefined;
 
     "sap/ui/core/Patcher": undefined;
+
+    "sap/ui/core/Placeholder": undefined;
 
     "sap/ui/core/Popup": undefined;
 

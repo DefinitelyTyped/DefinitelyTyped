@@ -167,9 +167,8 @@ declare class MapboxGeocoder implements mapboxgl.IControl {
     /**
      * Clear and then focus the input.
      * [ev] the event that triggered the clear, if available
-     *
      */
-    clear(ev: Event): void;
+    clear(ev?: Event): void;
     /**
      * Set & query the input
      */

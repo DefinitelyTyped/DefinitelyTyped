@@ -1,6 +1,7 @@
 // Type definitions for koa-generic-session 2.2
 // Project: https://github.com/koajs/generic-session
-// Definitions by: Nick Simmons <https://github.com/nsimmons>, Ragg <https://github.com/Ragg->, Javier Garcia <https://github.com/javiertury>
+// Definitions by: Nick Simmons <https://github.com/nsimmons>
+//                 Javier Garcia <https://github.com/javiertury>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as Koa from 'koa';

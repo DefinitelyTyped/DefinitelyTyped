@@ -26,7 +26,7 @@ declare module 'meteor/ejson' {
     }
     interface EJSON extends EJSONable {}
 
-    module EJSON {
+    namespace EJSON {
         function addType(name: string, factory: (val: JSONable) => EJSONableCustomType): void;
 
         function clone<T>(val: T): T;

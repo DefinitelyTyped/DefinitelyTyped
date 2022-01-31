@@ -1070,6 +1070,23 @@ async function testDeclarativeNetRequestForPromise() {
     await chrome.declarativeNetRequest.updateSessionRules({});
 }
 
+async function testDynamicRules() {
+    await chrome.declarativeNetRequest.updateDynamicRules({});
+    await chrome.declarativeNetRequest.updateDynamicRules({
+      addRules: [{
+        action: {
+          type: chrome.declarativeNetRequest.RuleActionType.ALLOW,
+        },
+        condition: {
+            domains: ["www.example.com"],
+            tabIds: [2, 3, 76],
+        },
+        id: 2,
+        priority: 3,
+      }],
+    });
+}
+
 // https://developer.chrome.com/docs/extensions/reference/storage
 function testStorageForPromise() {
     chrome.storage.sync.getBytesInUse().then(() => {});
@@ -1226,4 +1243,10 @@ function testEnterpriseDeviceAttributes() {
   chrome.enterprise.deviceAttributes.getDeviceAssetId((assetId) => {});
   chrome.enterprise.deviceAttributes.getDeviceAnnotatedLocation((annotatedLocation) => {});
   chrome.enterprise.deviceAttributes.getDeviceHostname((hostName) => {});
+}
+
+function testBrowsingData() {
+    chrome.browsingData.removeServiceWorkers(); // $ExpectError
+    chrome.browsingData.removeServiceWorkers({});
+    chrome.browsingData.removeServiceWorkers({}, () => {});
 }

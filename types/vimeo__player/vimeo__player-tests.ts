@@ -59,6 +59,29 @@ player.loadVideo(76979871).then((id) => {
     }
 });
 
+player.loadVideo('http://vimeo.com/video/76979871').then((id) => {
+    // the video successfully loaded
+}).catch((error) => {
+    switch (error.name) {
+        case 'TypeError':
+            // the id was not a number
+            break;
+
+        case 'PasswordError':
+            // the video is password-protected and the viewer needs to enter the
+            // password first
+            break;
+
+        case 'PrivacyError':
+            // the video is password-protected or private
+            break;
+
+        default:
+            // some other error occurred
+            break;
+    }
+});
+
 player.ready().then(() => {
     // the player is ready
 });

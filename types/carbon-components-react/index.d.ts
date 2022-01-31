@@ -1,4 +1,4 @@
-// Type definitions for carbon-components-react 7.46
+// Type definitions for carbon-components-react 7.49
 // Project: https://github.com/carbon-design-system/carbon/tree/master/packages/react
 // Definitions by: Kyle Albert <https://github.com/kalbert312>
 //                 Sebastien Gregoire <https://github.com/sgregoire>
@@ -7,6 +7,15 @@
 // TypeScript Version: 3.5
 
 export as namespace CarbonReact;
+
+//
+// A note about 'next' components: This types package does not guarantee coverage of next components for
+// carbon v11 mainly due to the complexity of carbon determining which component to use based on React context
+// at runtime. Sometimes next props interfaces will conflict with the 'classic' variant. Additionally, next
+// components may have dependencies on other next components. Because the component variant is determined
+// at runtime, the components would need to be casted to the 'next' variant but for certain components
+// like Button that have multiple overloads this becomes tricky.
+//
 
 // This group is primarily for type exports but will cover non-default exports as well.
 export * from "./lib/components/Accordion";

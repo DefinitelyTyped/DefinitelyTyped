@@ -27,6 +27,7 @@ declare module 'net' {
         allowHalfOpen?: boolean | undefined;
         readable?: boolean | undefined;
         writable?: boolean | undefined;
+        signal?: AbortSignal;
     }
     interface OnReadOpts {
         buffer: Uint8Array | (() => Uint8Array);

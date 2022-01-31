@@ -1,6 +1,6 @@
 // Type definitions for gl-vec4 1.0
 // Project: https://github.com/stackgl/gl-vec4
-// Definitions by:  Adam Zerella <https://github.com/adamzerella>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**

@@ -153,6 +153,14 @@ interface OBSSceneInfo {
     height: number;
 }
 
+interface VisibleInfo {
+    visible: boolean;
+}
+
+interface ActiveInfo {
+    active: boolean;
+}
+
 interface OBSStudioEventMap {
     obsStreamingStarting: CustomEvent<null>;
     obsStreamingStarted: CustomEvent<null>;
@@ -166,15 +174,19 @@ interface OBSStudioEventMap {
     obsRecordingStopping: CustomEvent<null>;
     obsRecordingStopped: CustomEvent<null>;
 
-    obsReplayBufferStarting: CustomEvent<null>;
-    obsReplayBufferStarted: CustomEvent<null>;
-    obsReplayBufferStopping: CustomEvent<null>;
-    obsReplayBufferStopped: CustomEvent<null>;
+    obsReplaybufferStarting: CustomEvent<null>;
+    obsReplaybufferStarted: CustomEvent<null>;
+    obsReplaybufferStopping: CustomEvent<null>;
+    obsReplaybufferStopped: CustomEvent<null>;
+    obsReplaybufferSaved: CustomEvent<null>;
 
     obsVirtualcamStarted: CustomEvent<null>;
     obsVirtualcamStopped: CustomEvent<null>;
 
     obsSceneChanged: CustomEvent<OBSSceneInfo>;
+
+    obsSourceVisibleChanged: CustomEvent<VisibleInfo>;
+    obsSourceActiveChanged: CustomEvent<ActiveInfo>;
 
     obsExit: CustomEvent<null>;
 }
@@ -190,5 +202,17 @@ interface Window {
         type: string,
         listener: EventListenerOrEventListenerObject,
         options?: boolean | AddEventListenerOptions,
+    ): void;
+
+    removeEventListener<K extends keyof OBSStudioEventMap>(
+        type: K,
+        // tslint:disable-next-line:no-any
+        listener: (event: Event & OBSStudioEventMap[K]) => any,
+        options?: boolean | EventListenerOptions,
+    ): void;
+    removeEventListener(
+        type: string,
+        listener: EventListenerOrEventListenerObject,
+        options?: boolean | EventListenerOptions,
     ): void;
 }

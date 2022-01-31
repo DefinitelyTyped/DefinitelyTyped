@@ -1,39 +1,40 @@
 import * as React from 'react';
 import {
-  InstantSearch,
-  Index,
-  createConnector,
-  SearchResults,
-  connectStateResults,
-  SearchBoxProvided,
-  connectSearchBox,
-  connectRefinementList,
-  CurrentRefinementsProvided,
-  connectCurrentRefinements,
-  RefinementListProvided,
-  Refinement,
-  connectHighlight,
-  connectHits,
-  HighlightProvided,
-  HighlightProps,
-  AutocompleteProvided,
-  connectAutoComplete,
-  Hit,
-  TranslatableProvided,
-  translatable,
-  ConnectorProvided,
-  StateResultsProvided,
-  ConnectorSearchResults,
-  BasicDoc,
-  AllSearchResults,
-  connectStats,
-    StatsProvided,
+    AllSearchResults,
+    AutocompleteProvided,
+    BasicDoc,
+    connectAutoComplete,
+    connectCurrentRefinements,
+    connectHighlight,
     connectHitInsights,
-    InsightsClient,
     ConnectHitInsightsProvided,
+    connectHits,
+    ConnectorProvided,
+    ConnectorSearchResults,
+    connectRefinementList,
+    connectSearchBox,
+    connectStateResults,
+    connectStats,
+    createConnector,
+    CurrentRefinementsProvided,
+    DynamicWidgets,
+    HighlightProps,
+    HighlightProvided,
+    Hit,
+    Index,
+    InsightsClient,
+    InstantSearch,
+    Refinement,
+    RefinementListProvided,
+    SearchBoxProvided,
+    SearchResults,
+    StateResultsProvided,
+    StatsProvided,
+    translatable,
+    TranslatableProvided,
 } from 'react-instantsearch-core';
 
-import { Hits } from 'react-instantsearch-dom';
+import { Hits, RefinementList } from 'react-instantsearch-dom';
 
 () => {
   <Index indexName={'test'} indexId="id">
@@ -661,4 +662,8 @@ import { Hits } from 'react-instantsearch-dom';
     const HitWithInsights = connectHitInsights(() => {})(HitComponent);
 
     <Hits hitComponent={HitWithInsights} />;
+};
+
+() => {
+    <DynamicWidgets fallbackComponent={RefinementList} attributesToRender={['']}><RefinementList attribute="brand"/></DynamicWidgets>;
 };

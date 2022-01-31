@@ -13,7 +13,7 @@ export default class EngineInstance extends EmberObject.extend(
     /**
      * Unregister a factory.
      */
-    unregister(fullName: string): any;
+    unregister(fullName: string): unknown;
 
     /**
      *  Initialize the `EngineInstance` and return a promise that resolves

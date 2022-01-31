@@ -9,7 +9,7 @@ const LifetimeHooks = EmberObject.extend({
     },
 
     willDestroy() {
-        delete this.resource;
+        this.resource = undefined;
         this._super();
     },
 });

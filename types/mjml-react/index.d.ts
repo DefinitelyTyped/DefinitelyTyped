@@ -329,6 +329,9 @@ export interface MjmlSectionProps {
     backgroundUrl?: string | undefined;
     backgroundRepeat?: React.CSSProperties['backgroundRepeat'] | undefined;
     backgroundSize?: React.CSSProperties['backgroundSize'] | undefined;
+    backgroundPosition?: React.CSSProperties['backgroundPosition'] | undefined;
+    backgroundPositionX?: React.CSSProperties['backgroundPositionX'] | undefined;
+    backgroundPositionY?: React.CSSProperties['backgroundPositionY'] | undefined;
     verticalAlign?: React.CSSProperties['verticalAlign'] | undefined;
     textAlign?: React.CSSProperties['textAlign'] | undefined;
     direction?: 'ltr' | 'rtl' | undefined;
@@ -436,6 +439,9 @@ export interface MjmlWrapperProps {
     backgroundUrl?: string | undefined;
     backgroundRepeat?: React.CSSProperties['backgroundRepeat'] | undefined;
     backgroundSize?: React.CSSProperties['backgroundSize'] | undefined;
+    backgroundPosition?: React.CSSProperties['backgroundPosition'] | undefined;
+    backgroundPositionX?: React.CSSProperties['backgroundPositionX'] | undefined;
+    backgroundPositionY?: React.CSSProperties['backgroundPositionY'] | undefined;
     verticalAlign?: React.CSSProperties['verticalAlign'] | undefined;
     textAlign?: React.CSSProperties['textAlign'] | undefined;
 }

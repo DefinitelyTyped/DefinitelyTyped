@@ -45,6 +45,34 @@ export enum Direction {
     east = 5
 }
 /**
+ * Represents a game mode for the current world experience.
+ */
+export enum GameMode {
+    /**
+     * World is in a survival mode, where players can take damage
+     * and entities may not be peaceful. Survival mode is where the
+     * player must collect resources, build structures while
+     * surviving in their generated world. Activities can, over
+     * time, chip away at player health and hunger bar.
+     */
+    survival = 0,
+    /**
+     * World is in a full creative mode. In creative mode, the
+     * player has all the resources available in the item selection
+     * tabs and the survival selection tab. They can also destroy
+     * blocks instantly including those which would normally be
+     * indestructible. Command and structure blocks can also be
+     * used in creative mode. Items also do not lose durability or
+     * disappear.
+     */
+    creative = 1,
+    /**
+     * World is in a more locked-down experience, where blocks may
+     * not be manipulated.
+     */
+    adventure = 2
+}
+/**
  * An event that fires as players enter chat messages.
  */
 export class BeforeChatEvent {
@@ -281,12 +309,21 @@ export class BeforeItemUseOnEventSignal {
  * Contains information related to changes before a piston
  * expands or retracts.
  */
-export class BeforePistonActivateEvent {
+export class BeforePistonActivateEvent extends BlockEvent {
+    /**
+     * Block impacted by this event.
+     */
+    readonly "block": Block;
     /**
      * If this is set to true within an event handler, the piston
      * activation is canceled.
      */
     "cancel": boolean;
+    /**
+     * Dimension that contains the block that is the subject of
+     * this event.
+     */
+    readonly "dimension": Dimension;
     /**
      * True if the piston is the process of expanding.
      */
@@ -442,19 +479,126 @@ export class Block {
     setType(blockType: BlockType): void;
 }
 /**
+ * Holds information for expressing the net size of a volume of
+ * blocks.
+ */
+export class BlockAreaSize {
+    /**
+     * X size (west to east) component of this block area.
+     */
+    "x": number;
+    /**
+     * Y size (down to up) of this block area size.
+     */
+    "y": number;
+    /**
+     * Z size (south to north) of this block area size.
+     */
+    "z": number;
+    /**
+     * @remarks
+     * Creates a new BlockAreaSize object.
+     * @param x
+     * @param y
+     * @param z
+     */
+    constructor(x: number, y: number, z: number);
+    /**
+     * @remarks
+     * Tests whether this block area size is equal to another
+     * BlockAreaSize object.
+     * @param other
+     */
+    equals(other: BlockAreaSize): boolean;
+}
+/**
+ * Contains information regarding an event where a player
+ * breaks a block.
+ */
+export class BlockBreakEvent extends BlockEvent {
+    /**
+     * Block broken in this event. Note that because this event
+     * fires right after a block is broken, the block you will
+     * receive will likely be of type 'minecraft:air'. See the
+     * .brokenBlockPermutation property for information on this
+     * block before it was broken.
+     */
+    readonly "block": Block;
+    /**
+     * Returns permutation information about this block before it
+     * was broken.
+     */
+    readonly "brokenBlockPermutation": BlockPermutation;
+    /**
+     * Dimension that contains the block that has been broken in
+     * this event.
+     */
+    readonly "dimension": Dimension;
+    /**
+     * Player that broke the block for this event.
+     */
+    readonly "player": Player;
+}
+/**
+ * Manages callbacks that are connected to when a block is
+ * broken.
+ */
+export class BlockBreakEventSignal {
+    /**
+     * @remarks
+     * Adds a callback that will be called when a block is broken
+     * by a player.
+     * @param callback
+     */
+    subscribe(callback: (arg: BlockBreakEvent) => void): (arg: BlockBreakEvent) => void;
+    /**
+     * @remarks
+     * Removes a callback from being called when an block is
+     * broken.
+     * @param callback
+     * @throws This function can throw errors.
+     */
+    unsubscribe(callback: (arg: BlockBreakEvent) => void): void;
+}
+/**
  * Base type for components associated with blocks.
  */
 export class BlockComponent {
 }
 /**
+ * Contains information regarding an event that impacts a
+ * specific block.
+ */
+export class BlockEvent {
+    /**
+     * Block impacted by this event.
+     */
+    readonly "block": Block;
+    /**
+     * Dimension that contains the block that is the subject of
+     * this event.
+     */
+    readonly "dimension": Dimension;
+}
+/**
  * Contains information regarding an explosion that has
  * occurred for a specific block.
  */
-export class BlockExplodeEvent {
+export class BlockExplodeEvent extends BlockEvent {
     /**
      * Block impacted by this explosion event.
      */
-    readonly "destroyedBlock": Block;
+    readonly "block": Block;
+    /**
+     * Contains core information on the state of the block before
+     * it was destroyed in an explosion.
+     */
+    readonly "destroyedBlockPermutation": BlockPermutation;
+    /**
+     * Dimension that contains the block that is the subject of
+     * this explosion event.
+     */
+    readonly "dimension": Dimension;
     /**
      * Optional source of the explosion.
      */
@@ -704,7 +848,7 @@ export class BlockPermutation {
      * Returns the list of all of the properties that the
      * permutation has.
      */
-    getAllProperties(): any[];
+    getAllProperties(): IBlockProperty[];
     /**
      * @remarks
      * Gets a property for the permutation.
@@ -729,7 +873,7 @@ export class BlockPermutation {
      *
      * ```
      */
-    getProperty(propertyName: string): any;
+    getProperty(propertyName: string): IBlockProperty;
     /**
      * @remarks
      * Creates a copy of the permutation.
@@ -798,6 +942,46 @@ export class BlockPistonComponent {
      * Source location of the block.
      */
     readonly "location": BlockLocation;
+}
+/**
+ * Contains information regarding an event where a player
+ * places a block.
+ */
+export class BlockPlaceEvent extends BlockEvent {
+    /**
+     * Block placed in this event.
+     */
+    readonly "block": Block;
+    /**
+     * Dimension that contains the block that has been placed in
+     * this event.
+     */
+    readonly "dimension": Dimension;
+    /**
+     * Player that placed the block for this event.
+     */
+    readonly "player": Player;
+}
+/**
+ * Manages callbacks that are connected to when a block is
+ * broken.
+ */
+export class BlockPlaceEventSignal {
+    /**
+     * @remarks
+     * Adds a callback that will be called when a block is placed
+     * by a player.
+     * @param callback
+     */
+    subscribe(callback: (arg: BlockPlaceEvent) => void): (arg: BlockPlaceEvent) => void;
+    /**
+     * @remarks
+     * Removes a callback from being called when an block is
+     * placed.
+     * @param callback
+     * @throws This function can throw errors.
+     */
+    unsubscribe(callback: (arg: BlockPlaceEvent) => void): void;
 }
 /**
  * Represents a fluid container block that currently contains a
@@ -1427,13 +1611,13 @@ export class BlockProperties {
  */
 export class BlockRaycastOptions {
     /**
-     * If true, passable blocks like vines and flowers will be
-     * considered as blocks that 'stop' the raycast.
+     * If true, liquid blocks will be considered as blocks that
+     * 'stop' the raycast.
      */
     "includeLiquidBlocks": boolean;
     /**
-     * If true, liquid blocks will be considered as blocks that
-     * 'stop' the raycast.
+     * If true, passable blocks like vines and flowers will be
+     * considered as blocks that 'stop' the raycast.
      */
     "includePassableBlocks": boolean;
     /**
@@ -1561,7 +1745,7 @@ export class BlockWaterContainerComponent {
  * Contains the state of a boolean-based property for a
  * {@link mojang-minecraft.BlockPermutation}.
  */
-export class BoolBlockProperty {
+export class BoolBlockProperty extends IBlockProperty {
     /**
      * The name of this property.
      */
@@ -1805,7 +1989,18 @@ export class Dimension {
      * Additional options for processing this raycast query.
      * @throws This function can throw errors.
      */
-    getBlockFromRay(location: Location, direction: Location, options?: BlockRaycastOptions): Block;
+    getBlockFromRay(location: Location, direction: Vector, options?: BlockRaycastOptions): Block;
+    /**
+     * @remarks
+     * Returns a set of entities based on a set of conditions
+     * defined via the EntityQueryOptions set of filter criteria.
+     * @param getEntities
+     * @returns
+     * An entity iterator that can be used to loop over the
+     * returned entities.
+     * @throws This function can throw errors.
+     */
+    getEntities(getEntities?: EntityQueryOptions): EntityIterator;
     /**
      * @remarks
      * Returns a set of entities at a particular location.
@@ -1825,7 +2020,18 @@ export class Dimension {
      * Additional options for processing this raycast query.
      * @throws This function can throw errors.
      */
-    getEntitiesFromRay(location: Location, direction: Location, options?: EntityRaycastOptions): Entity[];
+    getEntitiesFromRay(location: Location, direction: Vector, options?: EntityRaycastOptions): Entity[];
+    /**
+     * @remarks
+     * Returns a set of players based on a set of conditions
+     * defined via the EntityQueryOptions set of filter criteria.
+     * @param getPlayers
+     * @returns
+     * An entity iterator that can be used to loop over the
+     * returned players.
+     * @throws This function can throw errors.
+     */
+    getPlayers(getPlayers?: EntityQueryOptions): EntityIterator;
     /**
      * @remarks
      * Tests whether a particular location contains an Air (empty)
@@ -1868,7 +2074,7 @@ export class Dimension {
      * Newly created entity at the specified location.
      * @throws This function can throw errors.
      */
-    spawnEntity(identifier: string, location: BlockLocation): Entity;
+    spawnEntity(identifier: string, location: BlockLocation | Location): Entity;
 }
 /**
  * Represents an effect - like poison - that has been added to
@@ -1886,7 +2092,7 @@ export class Effect {
      */
     readonly "displayName": string;
     /**
-     * Gets the entire specified duration, in seconds, of this
+     * Gets the entire specified duration, in ticks, of this
      * effect.
      */
     readonly "duration": number;
@@ -1919,8 +2125,9 @@ export class EffectAddEventSignal {
      * Adds a callback that will be called when an effect is added
      * to an entity.
      * @param callback
+     * @param options
      */
-    subscribe(callback: (arg: EffectAddEvent) => void): (arg: EffectAddEvent) => void;
+    subscribe(callback: (arg: EffectAddEvent) => void, options?: EntityEventOptions): (arg: EffectAddEvent) => void;
     /**
      * @remarks
      * Removes a callback from being called when an effect is added
@@ -1949,10 +2156,20 @@ export class EffectType {
  */
 export class Entity {
     /**
+     * Rotation of the body component of the entity.
+     * @throws This property can throw when used.
+     */
+    readonly "bodyRotation": number;
+    /**
      * Dimension that the entity is currently within.
      * @throws This property can throw when used.
      */
     readonly "dimension": Dimension;
+    /**
+     * Location of the center of the head component of the entity.
+     * @throws This property can throw when used.
+     */
+    readonly "headLocation": Location;
     /**
      * Unique identifier of the entity.
      * @throws This property can throw when used.
@@ -1981,7 +2198,12 @@ export class Entity {
      * Velocity of the entity.
      * @throws This property can throw when used.
      */
-    readonly "velocity": Location;
+    readonly "velocity": Vector;
+    /**
+     * Vector of the current view of the entity.
+     * @throws This property can throw when used.
+     */
+    readonly "viewVector": Vector;
     /**
      * @remarks
      * Adds an effect, like poison, to the entity.
@@ -2114,6 +2336,41 @@ export class Entity {
      * ```
      */
     runCommand(commandString: string): any;
+    /**
+     * @remarks
+     * Sets a velocity for the entity to move with.
+     * @param velocity
+     * X/Y/Z components of the velocity.
+     * @throws This function can throw errors.
+     */
+    setVelocity(velocity: Vector): void;
+    /**
+     * @remarks
+     * Teleports the selected entity to a new location
+     * @param location
+     * New location for the entity.
+     * @param dimension
+     * Dimension to move the selected entity to.
+     * @param xRotation
+     * X rotation of the entity after teleportation.
+     * @param yRotation
+     * Y rotation of the entity after teleportation.
+     * @throws This function can throw errors.
+     */
+    teleport(location: Location, dimension: Dimension, xRotation: number, yRotation: number): void;
+    /**
+     * @remarks
+     * Teleports the selected entity to a new location, and will
+     * have the entity facing a specified location.
+     * @param location
+     * New location for the entity.
+     * @param dimension
+     * Dimension to move the selected entity to.
+     * @param facingLocation
+     * Location that this entity will be facing.
+     * @throws This function can throw errors.
+     */
+    teleportFacing(location: Location, dimension: Dimension, facingLocation: Location): void;
     /**
      * @remarks
      * Triggers an entity type event. For every entity, a number of
@@ -2321,6 +2578,23 @@ export class EntityDefinitionFeedItem {
     readonly "item": string;
 }
 /**
+ * Contains optional parameters for registering an entity
+ * event.
+ */
+export class EntityEventOptions {
+    /**
+     * If this value is set, this event will only fire for entities
+     * that are of the specified types.
+     */
+    "entity": Entity;
+    /**
+     * If this value is set, this event will only fire if the
+     * impacted entity matches this parameter.
+     */
+    "entityTypes": string[];
+    constructor();
+}
+/**
  * Represents the flying speed of an entity.
  */
 export class EntityFlyingSpeedComponent extends IEntityComponent {
@@ -2455,6 +2729,9 @@ export class EntityInventoryComponent extends IEntityComponent {
      * @throws This property can throw when used.
      */
     readonly "restrictToOwner": boolean;
+}
+export class EntityIterator implements Iterable<Entity> {
+    [Symbol.iterator](): Iterator<Entity>;
 }
 /**
  * Defines the base movement speed in lava of this entity.
@@ -3497,6 +3774,165 @@ export class EntityNavigationWalkComponent extends IEntityComponent {
     readonly "isAmphibious": boolean;
 }
 /**
+ * Contains options for selecting entities within an area.
+ */
+export class EntityQueryOptions {
+    /**
+     * Limits the number of entities to return, opting for the
+     * closest N entities as specified by this property. The
+     * location value must also be specified on the query options
+     * object.
+     */
+    "closest": number;
+    /**
+     * Excludes entities that match one or more of the specified
+     * families.
+     */
+    "excludeFamilies": string[];
+    /**
+     * Excludes entities if have a specific gamemode that matches
+     * the specified gamemode.
+     */
+    "excludeGameModes": GameMode[];
+    /**
+     * Excludes entities that have a name that match one of the
+     * specified values.
+     */
+    "excludeNames": string[];
+    /**
+     * Excludes entities with a tag that matches one of the
+     * specified values.
+     */
+    "excludeTags": string[];
+    /**
+     * Excludes entities if they are one of the specified types.
+     */
+    "excludeTypes": string[];
+    /**
+     * If specified, includes entities that match all of the
+     * specified families.
+     */
+    "families": string[];
+    /**
+     * Limits the number of entities to return, opting for the
+     * farthest N entities as specified by this property. The
+     * location value must also be specified on the query options
+     * object.
+     */
+    "farthest": number;
+    /**
+     * If specified, includes entities with a gamemode that matches
+     * the specified gamemode.
+     */
+    "gameMode": GameMode;
+    /**
+     * Adds a seed location to the query that is used in
+     * conjunction with closest, farthest, limit, volume, and
+     * distance properties.
+     */
+    "location": Location;
+    /**
+     * If specified, includes entities that are less than this
+     * distance away from the location specified in the location
+     * property.
+     */
+    "maxDistance": number;
+    /**
+     * If specified, will only include entities that have at most
+     * this horizontal rotation.
+     */
+    "maxHorizontalRotation": number;
+    /**
+     * If defined, only players that have at most this level are
+     * returned.
+     */
+    "maxLevel": number;
+    /**
+     * If specified, only entities that have at most this vertical
+     * rotation are returned.
+     */
+    "maxVerticalRotation": number;
+    /**
+     * If specified, includes entities that are least this distance
+     * away from the location specified in the location property.
+     */
+    "minDistance": number;
+    /**
+     * If specified, will only include entities that have at a
+     * minimum this horizontal rotation.
+     */
+    "minHorizontalRotation": number;
+    /**
+     * If defined, only players that have at least this level are
+     * returned.
+     */
+    "minLevel": number;
+    /**
+     * If specified, will only include entities that have at least
+     * this vertical rotation.
+     */
+    "minVerticalRotation": number;
+    /**
+     * Includes entities with the specified name.
+     */
+    "name": string;
+    /**
+     * Gets/sets a collection of EntityQueryScoreOptions objects
+     * with filters for specific scoreboard objectives.
+     */
+    "scoreOptions": EntityQueryScoreOptions[];
+    /**
+     * Includes entities that match all of the specified tags.
+     */
+    "tags": string[];
+    /**
+     * If defined, entities that match this type are included.
+     */
+    "type": string;
+    /**
+     * In conjunction with location, specified a cuboid volume of
+     * entities to include.
+     */
+    "volume": BlockAreaSize;
+    /**
+     * @remarks
+     * Creates a new EntityQueryOptions query object, for use in
+     * getEntities/getPlayers methods.
+     */
+    constructor();
+}
+/**
+ * Contains additional options for filtering players based on
+ * their score for an objective.
+ */
+export class EntityQueryScoreOptions {
+    /**
+     * If set to true, entities and players within this score range
+     * are excluded from query results.
+     */
+    "exclude": boolean;
+    /**
+     * If defined, only players that have a score equal to or under
+     * maxScore are included.
+     */
+    "maxScore": number;
+    /**
+     * If defined, only players that have a score equal to or over
+     * minScore are included.
+     */
+    "minScore": number;
+    /**
+     * Identifier of the scoreboard objective to filter on.
+     */
+    "objective": string;
+    /**
+     * @remarks
+     * Creates a new EntityQueryScoreOptions query object, for use
+     * in an entity query.
+     */
+    constructor();
+}
+/**
  * Contains additional options for an entity raycast operation.
  */
 export class EntityRaycastOptions {
@@ -3741,11 +4177,19 @@ export class Events {
      */
     "beforePistonActivate": BeforePistonActivateEventSignal;
     /**
+     * This event fires for a block that is broken by a player.
+     */
+    "blockBreak": BlockBreakEventSignal;
+    /**
      * This event fires for each BlockLocation destroyed by an
      * explosion. It is fired after the blocks have already been
      * destroyed.
      */
     "blockExplode": BlockExplodeEventSignal;
+    /**
+     * This event fires for a block that is placed by a player.
+     */
+    "blockPlace": BlockPlaceEventSignal;
     /**
      * This event is triggered after a chat message has been
      * broadcast or sent to players.
@@ -3913,7 +4357,7 @@ export class FeedItemEffect {
      */
     readonly "chance": number;
     /**
-     * Gets the duration, in seconds, of this effect.
+     * Gets the duration, in ticks, of this effect.
      */
     readonly "duration": number;
     /**
@@ -3944,6 +4388,16 @@ export class FluidContainer {
     static readonly "minFillLevel" = 0;
 }
 /**
+ * Contains an interface for defining the state of a property
+ * for a {@link mojang-minecraft.BlockPermutation}.
+ */
+export class IBlockProperty {
+    /**
+     * The name of this property.
+     */
+    readonly "name": string;
+}
+/**
  * Base interface that defines components associated with an
  * entity.
  */
@@ -3957,7 +4411,7 @@ export class IEntityComponent {
  * Contains the state of an integer-based property for a
  * {@link mojang-minecraft.BlockPermutation}.
  */
-export class IntBlockProperty {
+export class IntBlockProperty extends IBlockProperty {
     /**
      * The name of this property.
      */
@@ -4069,6 +4523,36 @@ export class InventoryComponentContainer extends Container {
     transferItem(fromSlot: number, toSlot: number, toContainer: Container): boolean;
 }
 /**
+ * When present on an item, this item has a cooldown effect
+ * when used by entities.
+ */
+export class ItemCooldownComponent {
+    /**
+     * Represents the cooldown category that this item is
+     * associated with.
+     * @throws This property can throw when used.
+     */
+    readonly "cooldownCategory": string;
+    /**
+     * Amount of time, in ticks, that remain for this item
+     * cooldown.
+     * @throws This property can throw when used.
+     */
+    readonly "cooldownTicks": number;
+    /**
+     * Identifier of this component. Should always be
+     * 'minecraft:cooldown'.
+     */
+    readonly "id": string;
+    /**
+     * @remarks
+     * Starts a new cooldown period for this item.
+     * @param player
+     * @throws This function can throw errors.
+     */
+    startCooldown(player: Player): void;
+}
+/**
  * Manages callbacks that are connected to an item's definition
  * and components changing.
  */
@@ -4147,7 +4631,8 @@ export class ItemDurabilityComponent {
     getDamageChance(unbreaking?: number): number;
 }
 /**
- * When present on an item, this item is edible by entities.
+ * When present on an item, this item is consumable by
+ * entities.
  */
 export class ItemFoodComponent {
     /**
@@ -4273,13 +4758,10 @@ export class ItemStack {
  */
 export class ItemType {
     /**
-     * @remarks
      * Returns the identifier of the item type - for example,
-     * 'apple'.
-     * @returns
-     * Identifier of the item type.
+     * 'minecraft:apple'.
      */
-    getName(): string;
+    readonly "id": string;
 }
 /**
  * Contains information related to an item being used.
@@ -5950,6 +6432,7 @@ export class MinecraftBlockTypes {
      * Represents a frame within Minecraft.
      */
     static readonly "frame": BlockType;
+    static readonly "frogEgg": BlockType;
     /**
      * Represents a frosted ice block within Minecraft.
      */
@@ -6441,6 +6924,7 @@ export class MinecraftBlockTypes {
      * Represents an obsidian block within Minecraft.
      */
     static readonly "obsidian": BlockType;
+    static readonly "ochreFroglight": BlockType;
     /**
      * Represents an orange candle within Minecraft.
      */
@@ -6480,6 +6964,7 @@ export class MinecraftBlockTypes {
      * Represents a block of packed ice within Minecraft.
      */
     static readonly "packedIce": BlockType;
+    static readonly "pearlescentFroglight": BlockType;
     /**
      * Represents a pink candle within Minecraft.
      */
@@ -7156,6 +7641,7 @@ export class MinecraftBlockTypes {
      * Represents an unpowered repeater within Minecraft.
      */
     static readonly "unpoweredRepeater": BlockType;
+    static readonly "verdantFroglight": BlockType;
     /**
      * Represents a set of vines within Minecraft.
      */
@@ -9299,6 +9785,8 @@ export class MinecraftItemTypes {
      * Represents an item that can place a frame within Minecraft.
      */
     static readonly "frame": ItemType;
+    static readonly "frogEgg": ItemType;
+    static readonly "frogSpawnEgg": ItemType;
     /**
      * Represents an item that can place a frosted ice block within
      * Minecraft.
@@ -9328,6 +9816,7 @@ export class MinecraftItemTypes {
      */
     static readonly "glassPane": ItemType;
     static readonly "glisteringMelonSlice": ItemType;
+    static readonly "globeBannerPattern": ItemType;
     static readonly "glowBerries": ItemType;
     /**
      * Represents an item that can place a glowing frame within
@@ -10029,6 +10518,7 @@ export class MinecraftItemTypes {
      */
     static readonly "obsidian": ItemType;
     static readonly "ocelotSpawnEgg": ItemType;
+    static readonly "ochreFroglight": ItemType;
     /**
      * Represents an item that can place an orange candle within
      * Minecraft.
@@ -10079,6 +10569,7 @@ export class MinecraftItemTypes {
     static readonly "pandaSpawnEgg": ItemType;
     static readonly "paper": ItemType;
     static readonly "parrotSpawnEgg": ItemType;
+    static readonly "pearlescentFroglight": ItemType;
     static readonly "phantomMembrane": ItemType;
     static readonly "phantomSpawnEgg": ItemType;
     static readonly "piglinBannerPattern": ItemType;
@@ -10848,6 +11339,7 @@ export class MinecraftItemTypes {
      * Minecraft.
      */
     static readonly "sweetBerryBush": ItemType;
+    static readonly "tadpoleSpawnEgg": ItemType;
     /**
      * Represents tall grass within Minecraft.
      */
@@ -10942,6 +11434,7 @@ export class MinecraftItemTypes {
      * within Minecraft.
      */
     static readonly "unpoweredRepeater": ItemType;
+    static readonly "verdantFroglight": ItemType;
     static readonly "vexSpawnEgg": ItemType;
     static readonly "villagerSpawnEgg": ItemType;
     static readonly "vindicatorSpawnEgg": ItemType;
@@ -11325,7 +11818,16 @@ export class NumberRange {
  * Contains information related to changes to a piston
  * expanding or retracting.
  */
-export class PistonActivateEvent {
+export class PistonActivateEvent extends BlockEvent {
+    /**
+     * Block impacted by this event.
+     */
+    readonly "block": Block;
+    /**
+     * Dimension that contains the block that is the subject of
+     * this event.
+     */
+    readonly "dimension": Dimension;
     /**
      * True if the piston is the process of expanding.
      */
@@ -11374,10 +11876,20 @@ export class PitchYawRotation {
  */
 export class Player extends Entity {
     /**
+     * Rotation of the body component of the player.
+     * @throws This property can throw when used.
+     */
+    readonly "bodyRotation": number;
+    /**
      * Dimension that the entity is currently within.
      * @throws This property can throw when used.
      */
     readonly "dimension": Dimension;
+    /**
+     * Location of the center of the head component of the player.
+     * @throws This property can throw when used.
+     */
+    readonly "headLocation": Location;
     /**
      * Identifier for the player.
      * @throws This property can throw when used.
@@ -11402,6 +11914,10 @@ export class Player extends Entity {
      */
     "nameTag": string;
     /**
+     * Manages the selected slot in the player's hotbar.
+     */
+    "selectedSlot": number;
+    /**
      * Retrieves or sets an entity that is used as the target of
      * AI-related behaviors, like attacking. For players, which
      * don't use any AI semantics, this property does not do
@@ -11412,14 +11928,19 @@ export class Player extends Entity {
      * Current speed of the player across X, Y, and Z dimensions.
      * @throws This property can throw when used.
      */
-    readonly "velocity": Location;
+    readonly "velocity": Vector;
+    /**
+     * Vector of the current view of the player.
+     * @throws This property can throw when used.
+     */
+    readonly "viewVector": Vector;
     /**
      * @remarks
      * Adds an effect, like poison, to the entity.
      * @param effectType
      * Type of effect to add to the entity.
      * @param duration
-     * Amount of time, in seconds, for the effect to apply.
+     * Amount of time, in ticks, for the effect to apply.
      * @param amplifier
      * Optional amplification of the effect to apply.
      * @throws This function can throw errors.
@@ -11481,6 +12002,16 @@ export class Player extends Entity {
     getEntitiesFromViewVector(options?: EntityRaycastOptions): Entity[];
     /**
      * @remarks
+     * Gets the current item cooldown time for a particular
+     * cooldown category.
+     * @param itemCategory
+     * Specifies the cooldown category to retrieve the current
+     * cooldown for.
+     * @throws This function can throw errors.
+     */
+    getItemCooldown(itemCategory: string): number;
+    /**
+     * @remarks
      * Returns all tags associated with an entity.
      * @throws This function can throw errors.
      */
@@ -11535,6 +12066,53 @@ export class Player extends Entity {
      * ```
      */
     runCommand(commandString: string): any;
+    /**
+     * @remarks
+     * Sets a velocity for the entity to move with.
+     * @param velocity
+     * X/Y/Z components of the velocity.
+     * @throws This function can throw errors.
+     */
+    setVelocity(velocity: Vector): void;
+    /**
+     * @remarks
+     * Sets the item cooldown time for a particular cooldown
+     * category.
+     * @param itemCategory
+     * Specifies the cooldown category to retrieve the current
+     * cooldown for.
+     * @param tickDuration
+     * Duration in ticks of the item cooldown.
+     * @throws This function can throw errors.
+     */
+    startItemCooldown(itemCategory: string, tickDuration: number): void;
+    /**
+     * @remarks
+     * Teleports the selected player to a new location
+     * @param location
+     * New location for the player.
+     * @param dimension
+     * Dimension to move the selected player to.
+     * @param xRotation
+     * X rotation of the player after teleportation.
+     * @param yRotation
+     * Y rotation of the player after teleportation.
+     * @throws This function can throw errors.
+     */
+    teleport(location: Location, dimension: Dimension, xRotation: number, yRotation: number): void;
+    /**
+     * @remarks
+     * Teleports the selected player to a new location, and will
+     * have the player facing a specified location.
+     * @param location
+     * New location for the player.
+     * @param dimension
+     * Dimension to move the selected player to.
+     * @param facingLocation
+     * Location that this player will be facing.
+     * @throws This function can throw errors.
+     */
+    teleportFacing(location: Location, dimension: Dimension, facingLocation: Location): void;
     /**
      * @remarks
      * Triggers an entity type event. For every entity, a number of
@@ -11712,7 +12290,7 @@ export class Seat {
  * Contains the state of a string-based property for a
  * {@link mojang-minecraft.BlockPermutation}.
  */
-export class StringBlockProperty {
+export class StringBlockProperty extends IBlockProperty {
     /**
      * Name of this property.
      */
@@ -11767,6 +12345,50 @@ export class TickEventSignal {
  * Represents a trigger for firing an event.
  */
 export class Trigger {
+}
+/**
+ * Contains a description of a vector.
+ */
+export class Vector {
+    /**
+     * X component of this vector.
+     */
+    "x": number;
+    /**
+     * Y component of this vector.
+     */
+    "y": number;
+    /**
+     * Z component of this vector.
+     */
+    "z": number;
+    /**
+     * @remarks
+     * Creates a new instance of an abstract vector.
+     * @param x
+     * X component of the vector.
+     * @param y
+     * Y component of the vector.
+     * @param z
+     * Z component of the vector.
+     */
+    constructor(x: number, y: number, z: number);
+    /**
+     * @remarks
+     * Compares this vector and another vector to one another.
+     * @param other
+     * Other vector to compare this vector to.
+     * @returns
+     * True if the two vectors are equal.
+     */
+    equals(other: Vector): boolean;
+    /**
+     * @remarks
+     * To be removed.
+     * @param other
+     * @param epsilon
+     */
+    isNear(other: Vector, epsilon: number): boolean;
 }
 /**
  * Contains information related to changes in weather in the
@@ -11826,10 +12448,12 @@ export class World {
     /**
      * @remarks
      * Returns all players currently in the world.
+     * @param options
      * @returns
      * All players currently in the world.
+     * @throws This function can throw errors.
      */
-    getPlayers(): Player[];
+    getPlayers(options?: EntityQueryOptions): EntityIterator;
 }
 /**
  * How many times the server ticks per second of real time.

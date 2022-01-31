@@ -1349,7 +1349,7 @@ declare module 'http2' {
          * ```
          * @since v8.4.0
          */
-        readonly url: string;
+        url: string;
         /**
          * Sets the `Http2Stream`'s timeout value to `msecs`. If a callback is
          * provided, then it is added as a listener on the `'timeout'` event on
