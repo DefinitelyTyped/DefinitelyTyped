@@ -184,11 +184,18 @@ export interface ResourceHeaderProps {
     resource: object;
 }
 
+export interface DateCellWrapperProps {
+    range: Date[];
+    value: Date;
+    index: number;
+    children: JSX.Element;
+  }
+
 export interface Components<TEvent extends object = Event, TResource extends object = object> {
     event?: React.ComponentType<EventProps<TEvent>>;
     eventWrapper?: React.ComponentType<EventWrapperProps<TEvent>>;
     eventContainerWrapper?: React.ComponentType;
-    dateCellWrapper?: React.ComponentType;
+    dateCellWrapper?: React.ComponentType<DateCellWrapperProps>;
     dayColumnWrapper?: React.ComponentType;
     timeSlotWrapper?: React.ComponentType;
     timeGutterHeader?: React.ComponentType;
