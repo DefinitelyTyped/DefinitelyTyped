@@ -6,13 +6,13 @@
 
 export type BigSource = number | string | Big;
 
-export const enum Comparison {
+export enum Comparison {
     GT = 1,
     EQ = 0,
     LT = -1,
 }
 
-export const enum RoundingMode {
+export enum RoundingMode {
     /**
      * Rounds towards zero.
      * I.e. truncate, no rounding.
