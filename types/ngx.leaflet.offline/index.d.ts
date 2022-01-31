@@ -1,4 +1,4 @@
-// Type definitions for ngx.leaflet.offline 1.1.2
+// Type definitions for ngx.leaflet.offline 1.1
 // Project: https://github.com/BETOXL/ngx.leaflet.offline#readme
 // Definitions by: BETOXL <https://github.com/BETOXL>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
