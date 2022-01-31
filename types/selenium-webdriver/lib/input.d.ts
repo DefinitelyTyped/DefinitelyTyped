@@ -269,55 +269,34 @@ export class Actions {
       Actions;
 
   /**
-   * Clicks a mouse button.
+   * Short-hand for performing a simple left-click (down/up) with the mouse.
    *
-   * If an element is provided, the mouse will first be moved to the center
-   * of that element. This is equivalent to:
-   *
-   *     sequence.mouseMove(element).click()
-   *
-   * @param {(./WebElement|input.Button)=} opt_elementOrButton Either
-   *     the element to interact with or the button to click with.
-   *     Defaults to {@link input.Button.LEFT} if neither an element nor
-   *     button is specified.
-   * @param {input.Button=} opt_button The button to use. Defaults to
-   *     {@link input.Button.LEFT}. Ignored if a button is provided as the
-   *     first argument.
-   * @return {!Actions} A self reference.
-   */
-  click(opt_elementOrButton?: WebElement|string, opt_button?: string): Actions;
-
-  /**
-   * Double-clicks a mouse button.
-   *
-   * If an element is provided, the mouse will first be moved to the center of
-   * that element. This is equivalent to:
-   *
-   *     sequence.mouseMove(element).doubleClick()
-   *
-   * Warning: this method currently only supports the left mouse button. See
-   * [issue 4047](http://code.google.com/p/selenium/issues/detail?id=4047).
-   *
-   * @param {(./WebElement|input.Button)=} opt_elementOrButton Either
-   *     the element to interact with or the button to click with.
-   *     Defaults to {@link input.Button.LEFT} if neither an element nor
-   *     button is specified.
-   * @param {input.Button=} opt_button The button to use. Defaults to
-   *     {@link input.Button.LEFT}. Ignored if a button is provided as the
-   *     first argument.
-   * @return {!Actions} A self reference.
-   */
-  doubleClick(opt_elementOrButton?: WebElement|string, opt_button?: string): Actions;
-
-  /**
-   * Short-hand for performing a simple right-click (down/up) with the mouse.
-   *
-   * @param {./webdriver.WebElement=} element If specified, the mouse will
+   * @param {./WebElement=} element If specified, the mouse will
    *     first be moved to the center of the element before performing the
    *     click.
    * @return {!Actions} a self reference.
    */
-  contextClick(opt_elementOrButton?: WebElement|string): Actions;
+  click(element?: WebElement): Actions;
+
+  /**
+   * Short-hand for performing a double left-click with the mouse.
+   *
+   * @param {./WebElement=} element If specified, the mouse will
+   *     first be moved to the center of the element before performing the
+   *     click.
+   * @return {!Actions} a self reference.
+   */
+  doubleClick(element?: WebElement): Actions;
+
+  /**
+   * Short-hand for performing a simple right-click (down/up) with the mouse.
+   *
+   * @param {./WebElement=} element If specified, the mouse will
+   *     first be moved to the center of the element before performing the
+   *     click.
+   * @return {!Actions} a self reference.
+   */
+  contextClick(element?: WebElement): Actions;
 
   /**
    * Performs a modifier key press. The modifier key is <em>not released</em>
