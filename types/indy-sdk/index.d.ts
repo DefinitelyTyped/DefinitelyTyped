@@ -233,7 +233,7 @@ export function verifierVerifyProof(
     proof: IndyProof,
     schemas: Schemas,
     credentialDefs: CredentialDefs,
-    revRegsDefs: RevRegsDefs,
+    revRegDefs: RevocRegDefs,
     revRegs: RevStates,
 ): Promise<boolean>;
 
@@ -511,8 +511,8 @@ export interface CredentialDefs {
     [key: string]: CredDef;
 }
 
-export interface RevRegsDefs {
-    [key: string]: unknown;
+export interface RevocRegDefs {
+    [revRegId: string]: RevocRegDef;
 }
 
 export interface RevStates {
@@ -602,8 +602,8 @@ export interface RevocRegDelta {
     value: {
         prevAccum: string;
         accum: string;
-        issued: number[];
-        revoked: number[];
+        issued: number[] | undefined;
+        revoked: number[] | undefined;
     };
     ver: string;
 }
