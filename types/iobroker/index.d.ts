@@ -1,4 +1,4 @@
-// Type definitions for ioBroker 3.3
+// Type definitions for ioBroker 4.0
 // Project: https://github.com/ioBroker/ioBroker, http://iobroker.net
 // Definitions by: AlCalzone <https://github.com/AlCalzone>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
