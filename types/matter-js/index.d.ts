@@ -2772,10 +2772,10 @@ declare namespace Matter {
          * @method lookAt
          * @param {Render} render
          * @param {IRenderLookAtObject | IRenderLookAtObject[]} objects
-         * @param {Vector} paddiing
+         * @param {Vector} padding
          * @param {boolean} center
          */
-        static lookAt(render: Render, objects: IRenderLookAtObject | IRenderLookAtObject[], paddiing?: Vector, center?: boolean): void;
+        static lookAt(render: Render, objects: IRenderLookAtObject | IRenderLookAtObject[], padding?: Vector, center?: boolean): void;
 
         /**
         * A back-reference to the `Matter.Render` module.

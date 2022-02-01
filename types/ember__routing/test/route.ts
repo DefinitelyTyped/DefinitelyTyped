@@ -124,6 +124,7 @@ Route.extend({
 
 const route = Route.create();
 route.controllerFor('whatever'); // $ExpectType Controller
+route.paramsFor('whatever'); // $ExpectType object
 
 class RouteUsingClass extends Route.extend({
     randomProperty: 'the .extend + extends bit type-checks properly',
@@ -164,3 +165,25 @@ class WithBadReturningBeforeAndModelHooks extends Route {
         return "returning anything else is nonsensical (if 'legal')"; // $ExpectError
     }
 }
+
+interface RouteParams {
+    cool: string;
+}
+
+class WithParamsInModel extends Route<boolean, RouteParams> {
+    model(params: RouteParams, transition: Transition) {
+        return true;
+    }
+}
+
+// @ts-expect-error
+class WithNonsenseParams extends Route<boolean, number> {}
+
+class WithImplicitParams extends Route {
+    model(params: RouteParams) {
+        return { whatUp: 'dog' };
+    }
+}
+
+// $ExpectType RouteParams
+type ImplicitParams = WithImplicitParams extends Route<any, infer T> ? T : never;

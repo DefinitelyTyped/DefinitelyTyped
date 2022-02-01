@@ -408,6 +408,12 @@ const ForwardingRefComponent = React.forwardRef((props: ForwardingRefComponentPr
     return React.createElement(RefComponent, { ref });
 });
 
+// Declaring forwardRef render function separately (not inline).
+const ForwardRefRenderFunction = (props: ForwardingRefComponentProps, ref: React.ForwardedRef<RefComponent>)  => {
+    return React.createElement(RefComponent, { ref });
+};
+React.forwardRef(ForwardRefRenderFunction);
+
 const ForwardingRefComponentPropTypes: React.WeakValidationMap<ForwardingRefComponentProps> = {};
 ForwardingRefComponent.propTypes = ForwardingRefComponentPropTypes;
 
