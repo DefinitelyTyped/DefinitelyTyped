@@ -187,7 +187,6 @@ export interface ResourceHeaderProps {
 export interface DateCellWrapperProps {
     range: Date[];
     value: Date;
-    index: number;
     children: JSX.Element;
   }
 
