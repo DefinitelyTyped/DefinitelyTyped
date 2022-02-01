@@ -35,3 +35,13 @@ export function debug(bool: boolean): void;
 export function hits(): number;
 export function misses(): number;
 export function keys(): any[];
+
+/**
+ * @returns The new size of the cache
+ * @see {@link https://github.com/ptarjan/node-cache#importjson--functionjson-string-options--skipduplicates-boolean-}
+ */
+export function importJson(json: string, options?: { skipDuplicates?: boolean | undefined }): number;
+/**
+ * @returns A JSON string representing all the cache data
+ */
+export function exportJson(): string;
