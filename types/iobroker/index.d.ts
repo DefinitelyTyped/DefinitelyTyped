@@ -275,6 +275,19 @@ declare global {
             preserve?: ExtendObjectOptionsPreserve;
         }
 
+        /** Predefined notification scopes and their categories */
+        interface NotificationScopes {
+            system:
+                | 'memIssues'
+                | 'fsIoErrors'
+                | 'noDiskSpace'
+                | 'accessErrors'
+                | 'nonExistingFileErrors'
+                | 'remoteHostErrors'
+                | 'restartLoop'
+                | 'fileToJsonl';
+        }
+
         interface AdapterOptions {
             /** The name of the adapter */
             name: string;
@@ -522,6 +535,34 @@ declare global {
              */
             sendToHostAsync(hostName: string, message: MessagePayload): Promise<Message | undefined>;
             sendToHostAsync(hostName: string, command: string, message: MessagePayload): Promise<Message | undefined>;
+
+            /**
+             * Send a notification with the given scope and category to the host of this adapter
+             * @param scope The scope of the notification
+             * @param category The category of the notification. If `null` is passed, ioBroker will try to infer a matching category from the `message` parameter.
+             * @param message The message of the notification
+             */
+            registerNotification<Scope extends keyof NotificationScopes>(
+                scope: Scope,
+                category: NotificationScopes[Scope] | null,
+                message: string,
+            ): Promise<void>;
+
+            /**
+             * Set capabilities of the given executable. Only works on Linux systems.
+             * @param execPath Path to the executable. For Node.js, this can be determined it via `process.execPath`.
+             * @param capabilities Capabilities to set, e.g. ['cap_net_admin', 'cap_net_bind_service']
+             * @param modeEffective Add effective mode
+             * @param modePermitted Add permitted mode
+             * @param modeInherited Add inherited mode
+             */
+            setExecutableCapabilities(
+                execPath: string,
+                capabilities: string[],
+                modeEffective?: boolean,
+                modePermitted?: boolean,
+                modeInherited?: boolean,
+            ): Promise<void>;
 
             /** Convert ID to {device: D, channel: C, state: S} */
             idToDCS(id: string): {
@@ -965,7 +1006,6 @@ declare global {
             // TODO: getHistoryAsync
 
             // MISSING:
-            // pushFifo and similar https://github.com/ioBroker/ioBroker.js-controller/blob/master/lib/adapter.js#L4105
             // logRedirect https://github.com/ioBroker/ioBroker.js-controller/blob/master/lib/adapter.js#L4294
             // requireLog https://github.com/ioBroker/ioBroker.js-controller/blob/master/lib/adapter.js#L4336
             // processLog https://github.com/ioBroker/ioBroker.js-controller/blob/master/lib/adapter.js#L4360
@@ -1006,6 +1046,47 @@ declare global {
             delBinaryState(id: string, options: unknown, callback?: ErrorCallback): void;
             /** Deletes a binary state from the states DB */
             delBinaryStateAsync(id: string, options?: unknown): Promise<void>;
+
+            /**
+             * Writes a binary state into Redis. The ID will not be prefixed with the adapter namespace.
+             * @param id The id of the state
+             * @param binary The data to be written
+             * @param options (optional) Some internal options.
+             * @param callback Is called when the operation has finished (successfully or not)
+             */
+            setForeignBinaryState(id: string, binary: Buffer, callback: SetStateCallback): void;
+            setForeignBinaryState(id: string, binary: Buffer, options: unknown, callback: SetStateCallback): void;
+            /**
+             * Writes a binary state into Redis. The ID will not be prefixed with the adapter namespace.
+             * @param id The id of the state
+             * @param binary The data to be written
+             * @param options (optional) Some internal options.
+             */
+            setForeignBinaryStateAsync(id: string, binary: Buffer, options?: unknown): SetStatePromise;
+            /**
+             * Reads a binary state from Redis. The ID will not be prefixed with the adapter namespace.
+             * @param id The id of the state
+             * @param options (optional) Some internal options.
+             * @param callback Is called when the operation has finished (successfully or not)
+             */
+            getForeignBinaryState(id: string, callback: GetBinaryStateCallback): void;
+            getForeignBinaryState(id: string, options: unknown, callback: GetBinaryStateCallback): void;
+            /**
+             * Reads a binary state from Redis. The ID will not be prefixed with the adapter namespace.
+             * @param id The id of the state
+             * @param options (optional) Some internal options.
+             */
+            getForeignBinaryStateAsync(id: string, options?: unknown): GetBinaryStatePromise;
+
+            /**
+             * Deletes a binary state from the states DB. The ID will not be prefixed with the adapter namespace.
+             */
+            delForeignBinaryState(id: string, callback?: ErrorCallback): void;
+            delForeignBinaryState(id: string, options: unknown, callback?: ErrorCallback): void;
+            /**
+             * Deletes a binary state from the states DB. The ID will not be prefixed with the adapter namespace.
+             */
+            delForeignBinaryStateAsync(id: string, options?: unknown): Promise<void>;
 
             // ==============================
             // enums

@@ -170,6 +170,8 @@ adapter.getForeignState('state.id', (err, state) => state && state.from.toLowerC
 adapter.getForeignStateAsync('state.id').then(state => state && state.from.toLowerCase());
 adapter.getBinaryState('state.id', (err, state) => state && state.writeUInt16BE(0, 0));
 adapter.getBinaryStateAsync('state.id').then(state => state && state.writeUInt16BE(0, 0));
+adapter.getForeignBinaryState('state.id', (err, state) => state && state.writeUInt16BE(0, 0));
+adapter.getForeignBinaryStateAsync('state.id').then(state => state && state.writeUInt16BE(0, 0));
 
 adapter.setObject('obj.id', { type: 'device', common: { name: 'foo' }, native: {} });
 adapter.setObject('obj.id', { type: 'device', common: { name: 'foo' }, native: {} }, (err, id) => {});
@@ -537,6 +539,8 @@ adapter.setStateChangedAsync('id', null);
 adapter.setForeignStateChangedAsync('id', null);
 adapter.delBinaryState('id');
 adapter.delBinaryStateAsync('id').then(() => null);
+adapter.delForeignBinaryState('id');
+adapter.delForeignBinaryStateAsync('id').then(() => null);
 
 // Objects and arrays are not valid state values
 // $ExpectError
@@ -864,3 +868,9 @@ async () => {
     // This should not error
     states['foo'];
 };
+
+// Test registerNotification
+// $ExpectError
+adapter.registerNotification("foobar", "accessErrors", "This is a problem!");
+adapter.registerNotification("system", "accessErrors", "This is a problem!");
+adapter.registerNotification("system", null, "This is a problem!");
