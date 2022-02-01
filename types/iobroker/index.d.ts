@@ -1602,6 +1602,12 @@ declare global {
             /** Creates an interval that can automatically be cleared when the adapter is terminated */
             setInterval<T extends any[]>(callback: (...args: T) => void, ms: number, ...args: T): Interval;
             clearInterval(intervalId: Interval): void;
+
+            /**
+             * Returns a Promise that resolves after the given delay in milliseconds.
+             * This will automatically be cleared (and not resolve) when the adapter is terminated in the meantime.
+             */
+            delay(delayMs: number): Promise<void>;
         } // end interface Adapter
 
         type ReadyHandler = () => void | Promise<void>;
