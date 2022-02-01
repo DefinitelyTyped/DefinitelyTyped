@@ -26,7 +26,7 @@ let adapterOptions: ioBroker.AdapterOptions = {
     objectChange: objectChangeHandler,
     message: messageHandler,
     unload: unloadHandler,
-    error: (err) => {
+    error: err => {
         console.log(err);
         return true;
     },
@@ -54,7 +54,7 @@ function objectChangeHandler(id: string, object: ioBroker.Object | null | undefi
     if (object) {
         object._id.toLowerCase();
         const name = object.common.name;
-        if (typeof name !== "string") {
+        if (typeof name !== 'string') {
             name.de; // $ExpectType string | undefined
         }
         object.common.role && object.common.role.toLowerCase();
@@ -83,7 +83,7 @@ function objectChangeHandler(id: string, object: ioBroker.Object | null | undefi
             case 'state':
                 if (object.acl) object.acl.state.toFixed();
                 object.common.def;
-                typeof object.common.desc === "string" && object.common.desc.toLowerCase();
+                typeof object.common.desc === 'string' && object.common.desc.toLowerCase();
                 object.common.history;
                 object.common.max && object.common.max.toFixed();
                 object.common.min && object.common.min.toFixed();
@@ -170,6 +170,8 @@ adapter.getForeignState('state.id', (err, state) => state && state.from.toLowerC
 adapter.getForeignStateAsync('state.id').then(state => state && state.from.toLowerCase());
 adapter.getBinaryState('state.id', (err, state) => state && state.writeUInt16BE(0, 0));
 adapter.getBinaryStateAsync('state.id').then(state => state && state.writeUInt16BE(0, 0));
+adapter.getForeignBinaryState('state.id', (err, state) => state && state.writeUInt16BE(0, 0));
+adapter.getForeignBinaryStateAsync('state.id').then(state => state && state.writeUInt16BE(0, 0));
 
 adapter.setObject('obj.id', { type: 'device', common: { name: 'foo' }, native: {} });
 adapter.setObject('obj.id', { type: 'device', common: { name: 'foo' }, native: {} }, (err, id) => {});
@@ -205,7 +207,7 @@ adapter.getForeignObjects('*', (err, objs) => objs!['foo']._id.toLowerCase());
 // getForeignObjectsAsync always returns a Record when it doesn't throw
 adapter.getForeignObjectsAsync('*').then(objs => objs['foo']._id.toLowerCase());
 // If an object type was specified, the returned objects have the correct type
-adapter.getForeignObjectsAsync('*', "adapter").then(objs => {
+adapter.getForeignObjectsAsync('*', 'adapter').then(objs => {
     objs[0].type; // $ExpectType "adapter"
 });
 
@@ -290,14 +292,39 @@ adapter.setObject(
 // });
 
 // Check that name as object is okay:
-adapter.extendForeignObject("id", {
+adapter.extendForeignObject('id', {
     common: {
         name: {
-            en: "foobar",
-            fr: "le foo de bar",
-        }
-    }
+            en: 'foobar',
+            fr: 'le foo de bar',
+        },
+    },
 });
+
+// Check that `preserve` is typed correctly
+adapter.extendObject(
+    'id',
+    {},
+    {
+        preserve: { common: ['name'] },
+        // And that undocumented options are allowed
+        undocumented: true,
+    },
+);
+adapter.extendObject(
+    'id',
+    {},
+    {
+        preserve: { common: { name: true } },
+    },
+);
+adapter.extendForeignObject(
+    'id',
+    {},
+    {
+        preserve: { common: { name: { en: true } } },
+    },
+);
 
 adapter.getObjectView('system', 'admin', { startkey: 'foo', endkey: 'bar' }, (err, docs) => {
     docs && docs.rows[0] && docs.rows[0].id.toLowerCase();
@@ -320,9 +347,8 @@ adapter.getObjectListAsync({ startkey: 'foo', endkey: 'bar' }).then(result => {
 });
 
 adapter.delObject('foo');
-adapter.delObject('foo', {recursive: true});
-// $ExpectError
-adapter.delObject('foo', {someWeirdOption: 1});
+adapter.delObject('foo', { recursive: true });
+adapter.delObject('foo', { someWeirdOption: 1 });
 
 adapter.subscribeObjects('*');
 adapter.subscribeStates('*');
@@ -333,8 +359,8 @@ adapter.unsubscribeStates('*');
 adapter.unsubscribeForeignObjects('*');
 adapter.unsubscribeForeignStates('*');
 
-adapter.encrypt("top secret").toLocaleLowerCase();
-adapter.decrypt("garbled nonsense").toLocaleLowerCase();
+adapter.encrypt('top secret').toLocaleLowerCase();
+adapter.decrypt('garbled nonsense').toLocaleLowerCase();
 
 adapter.log.info('msg');
 adapter.log.debug('msg');
@@ -504,85 +530,89 @@ adapter.setState('id', { ack: false });
 adapter.setState('id', {});
 
 // null is a valid state value
-adapter.setState("id", null);
-adapter.setForeignState("id", null);
-adapter.setStateAsync("id", null);
-adapter.setForeignStateAsync("id", null);
-adapter.setStateChanged("id", null);
-adapter.setForeignStateChanged("id", null);
-adapter.setStateChangedAsync("id", null);
-adapter.setForeignStateChangedAsync("id", null);
-adapter.delBinaryState("id");
-adapter.delBinaryStateAsync("id").then(() => null);
+adapter.setState('id', null);
+adapter.setForeignState('id', null);
+adapter.setStateAsync('id', null);
+adapter.setForeignStateAsync('id', null);
+adapter.setStateChanged('id', null);
+adapter.setForeignStateChanged('id', null);
+adapter.setStateChangedAsync('id', null);
+adapter.setForeignStateChangedAsync('id', null);
+adapter.delBinaryState('id');
+adapter.delBinaryStateAsync('id').then(() => null);
+adapter.delForeignBinaryState('id');
+adapter.delForeignBinaryStateAsync('id').then(() => null);
 
 // Objects and arrays are not valid state values
 // $ExpectError
-adapter.setState("id", {an: "object"});
+adapter.setState('id', { an: 'object' });
 // $ExpectError
-adapter.setForeignState("id", {an: "object"});
+adapter.setForeignState('id', { an: 'object' });
 // $ExpectError
-adapter.setStateAsync("id", {an: "object"});
+adapter.setStateAsync('id', { an: 'object' });
 // $ExpectError
-adapter.setForeignStateAsync("id", {an: "object"});
+adapter.setForeignStateAsync('id', { an: 'object' });
 // $ExpectError
-adapter.setStateChanged("id", {an: "object"});
+adapter.setStateChanged('id', { an: 'object' });
 // $ExpectError
-adapter.setForeignStateChanged("id", {an: "object"});
+adapter.setForeignStateChanged('id', { an: 'object' });
 // $ExpectError
-adapter.setStateChangedAsync("id", {an: "object"});
+adapter.setStateChangedAsync('id', { an: 'object' });
 // $ExpectError
-adapter.setForeignStateChangedAsync("id", {an: "object"});
+adapter.setForeignStateChangedAsync('id', { an: 'object' });
 // $ExpectError
-adapter.setState("id", ["an", "array"]);
+adapter.setState('id', ['an', 'array']);
 // $ExpectError
-adapter.setForeignState("id", ["an", "array"]);
+adapter.setForeignState('id', ['an', 'array']);
 // $ExpectError
-adapter.setStateAsync("id", ["an", "array"]);
+adapter.setStateAsync('id', ['an', 'array']);
 // $ExpectError
-adapter.setForeignStateAsync("id", ["an", "array"]);
+adapter.setForeignStateAsync('id', ['an', 'array']);
 // $ExpectError
-adapter.setStateChanged("id", ["an", "array"]);
+adapter.setStateChanged('id', ['an', 'array']);
 // $ExpectError
-adapter.setForeignStateChanged("id", ["an", "array"]);
+adapter.setForeignStateChanged('id', ['an', 'array']);
 // $ExpectError
-adapter.setStateChangedAsync("id", ["an", "array"]);
+adapter.setStateChangedAsync('id', ['an', 'array']);
 // $ExpectError
-adapter.setForeignStateChangedAsync("id", ["an", "array"]);
+adapter.setForeignStateChangedAsync('id', ['an', 'array']);
 // $ExpectError
-adapter.setState("id", {val: {an: "object"}});
+adapter.setState('id', { val: { an: 'object' } });
 // $ExpectError
-adapter.setForeignState("id", {val: {an: "object"}});
+adapter.setForeignState('id', { val: { an: 'object' } });
 // $ExpectError
-adapter.setStateAsync("id", {val: {an: "object"}});
+adapter.setStateAsync('id', { val: { an: 'object' } });
 // $ExpectError
-adapter.setForeignStateAsync("id", {val: {an: "object"}});
+adapter.setForeignStateAsync('id', { val: { an: 'object' } });
 // $ExpectError
-adapter.setStateChanged("id", {val: {an: "object"}});
+adapter.setStateChanged('id', { val: { an: 'object' } });
 // $ExpectError
-adapter.setForeignStateChanged("id", {val: {an: "object"}});
+adapter.setForeignStateChanged('id', { val: { an: 'object' } });
 // $ExpectError
-adapter.setStateChangedAsync("id", {val: {an: "object"}});
+adapter.setStateChangedAsync('id', { val: { an: 'object' } });
 // $ExpectError
-adapter.setForeignStateChangedAsync("id", {val: {an: "object"}});
+adapter.setForeignStateChangedAsync('id', { val: { an: 'object' } });
 // $ExpectError
-adapter.setState("id", {val: ["an", "array"]});
+adapter.setState('id', { val: ['an', 'array'] });
 // $ExpectError
-adapter.setForeignState("id", {val: ["an", "array"]});
+adapter.setForeignState('id', { val: ['an', 'array'] });
 // $ExpectError
-adapter.setStateAsync("id", {val: ["an", "array"]});
+adapter.setStateAsync('id', { val: ['an', 'array'] });
 // $ExpectError
-adapter.setForeignStateAsync("id", {val: ["an", "array"]});
+adapter.setForeignStateAsync('id', { val: ['an', 'array'] });
 // $ExpectError
-adapter.setStateChanged("id", {val: ["an", "array"]});
+adapter.setStateChanged('id', { val: ['an', 'array'] });
 // $ExpectError
-adapter.setForeignStateChanged("id", {val: ["an", "array"]});
+adapter.setForeignStateChanged('id', { val: ['an', 'array'] });
 // $ExpectError
-adapter.setStateChangedAsync("id", {val: ["an", "array"]});
+adapter.setStateChangedAsync('id', { val: ['an', 'array'] });
 // $ExpectError
-adapter.setForeignStateChangedAsync("id", {val: ["an", "array"]});
+adapter.setForeignStateChangedAsync('id', { val: ['an', 'array'] });
 
 // Allow alias states
-adapter.getObjectAsync("id").then(obj => obj && obj.type === "state" && obj.common.alias && obj.common.alias.id.toUpperCase());
+adapter
+    .getObjectAsync('id')
+    .then(obj => obj && obj.type === 'state' && obj.common.alias && obj.common.alias.id.toUpperCase());
 
 adapter.getObjectAsync('id').then(obj => {
     // Allow accessing unknown properties - the user is on its own here
@@ -591,7 +621,7 @@ adapter.getObjectAsync('id').then(obj => {
 });
 
 declare let state: ioBroker.StateObject;
-if (typeof state.common.smartName === "object") {
+if (typeof state.common.smartName === 'object') {
     state.common.smartName.de && state.common.smartName.de.toUpperCase();
     state.common.smartName.byOn && state.common.smartName.byOn.toUpperCase();
 }
@@ -617,7 +647,7 @@ adapter.clearInterval(adapter.setTimeout(() => {}, 10));
 adapter.clearTimeout(adapter.setInterval(() => {}, 10));
 
 // Error callbacks were changed to Error objects
-adapter.delFile(null, "foo", (err) => {
+adapter.delFile(null, 'foo', err => {
     if (err) {
         // And the fs-specific ones now contain the code
         err.code;
@@ -626,7 +656,7 @@ adapter.delFile(null, "foo", (err) => {
     }
 });
 
-adapter.FORBIDDEN_CHARS.test("foo");
+adapter.FORBIDDEN_CHARS.test('foo');
 // $ExpectError
 adapter.FORBIDDEN_CHARS = /_/;
 
@@ -660,31 +690,31 @@ adapter.FORBIDDEN_CHARS = /_/;
 
 // Test some of the more uncommon object types
 const adapterObject: ioBroker.AdapterObject = {
-    _id: "",
-    type: "adapter",
+    _id: '',
+    type: 'adapter',
     native: {},
     common: {
         enabled: true,
-        installedVersion: "1.2.3",
+        installedVersion: '1.2.3',
         materialize: false,
         materializeTab: false,
-        mode: "daemon",
-        name: "test",
-        platform: "Javascript/Node.js",
+        mode: 'daemon',
+        name: 'test',
+        platform: 'Javascript/Node.js',
         titleLang: {
-            de: "foo",
-            es: "foo",
-            fr: "foo",
-            it: "foo",
-            nl: "foo",
-            pl: "foo",
-            pt: "foo",
-            ru: "foo",
-            en: "foo",
-            "zh-cn": "foo"
+            de: 'foo',
+            es: 'foo',
+            fr: 'foo',
+            it: 'foo',
+            nl: 'foo',
+            pl: 'foo',
+            pt: 'foo',
+            ru: 'foo',
+            en: 'foo',
+            'zh-cn': 'foo',
         },
-        version: "1.2.3"
-    }
+        version: '1.2.3',
+    },
 };
 
 const folderObject: ioBroker.FolderObject = {
@@ -723,83 +753,89 @@ const userObject: ioBroker.UserObject = {
 };
 
 // Ensure that getForeignObject tries to resolve a specific object type
-(async () => {
+async () => {
     let inst: ioBroker.InstanceObject | null | undefined;
-    inst = await adapter.getForeignObjectAsync("system.adapter.admin.0");
+    inst = await adapter.getForeignObjectAsync('system.adapter.admin.0');
 
     let adptr: ioBroker.AdapterObject | null | undefined;
-    adptr = await adapter.getForeignObjectAsync("system.adapter.admin");
+    adptr = await adapter.getForeignObjectAsync('system.adapter.admin');
 
     let meta: ioBroker.MetaObject | null | undefined;
-    meta = await adapter.getForeignObjectAsync("admin.0");
-    meta = await adapter.getForeignObjectAsync("admin.admin");
-    meta = await adapter.getForeignObjectAsync("admin.meta");
-    meta = await adapter.getForeignObjectAsync("admin.meta.foobar");
-    meta = await adapter.getForeignObjectAsync("admin.0.meta.blub");
+    meta = await adapter.getForeignObjectAsync('admin.0');
+    meta = await adapter.getForeignObjectAsync('admin.admin');
+    meta = await adapter.getForeignObjectAsync('admin.meta');
+    meta = await adapter.getForeignObjectAsync('admin.meta.foobar');
+    meta = await adapter.getForeignObjectAsync('admin.0.meta.blub');
 
     let chnl: ioBroker.ChannelObject | null | undefined;
-    chnl = await adapter.getForeignObjectAsync("script.js.common");
-    chnl = await adapter.getForeignObjectAsync("script.js.global");
-    chnl = await adapter.getForeignObjectAsync("admin.777.info");
+    chnl = await adapter.getForeignObjectAsync('script.js.common');
+    chnl = await adapter.getForeignObjectAsync('script.js.global');
+    chnl = await adapter.getForeignObjectAsync('admin.777.info');
 
     let state: ioBroker.StateObject | null | undefined;
-    state = await adapter.getForeignObjectAsync("system.adapter.admin.0.foobar");
+    state = await adapter.getForeignObjectAsync('system.adapter.admin.0.foobar');
 
     let scrChnl: ioBroker.ChannelObject | ioBroker.ScriptObject | null | undefined;
-    scrChnl = await adapter.getForeignObjectAsync("script.js.my-script");
-    scrChnl = await adapter.getForeignObjectAsync("script.js.my-script.foobar");
+    scrChnl = await adapter.getForeignObjectAsync('script.js.my-script');
+    scrChnl = await adapter.getForeignObjectAsync('script.js.my-script.foobar');
 
     let enm: ioBroker.EnumObject | null | undefined;
-    enm = await adapter.getForeignObjectAsync("enum.functions");
-    enm = await adapter.getForeignObjectAsync("enum.functions.light");
+    enm = await adapter.getForeignObjectAsync('enum.functions');
+    enm = await adapter.getForeignObjectAsync('enum.functions.light');
 
     let group: ioBroker.GroupObject | null | undefined;
-    group = await adapter.getForeignObjectAsync("system.group.admin.faz");
+    group = await adapter.getForeignObjectAsync('system.group.admin.faz');
 
     let user: ioBroker.UserObject | null | undefined;
-    user = await adapter.getForeignObjectAsync("system.user.admin.faz");
+    user = await adapter.getForeignObjectAsync('system.user.admin.faz');
 
     let host: ioBroker.HostObject | null | undefined;
-    host = await adapter.getForeignObjectAsync("system.host.my-hostname");
+    host = await adapter.getForeignObjectAsync('system.host.my-hostname');
 
-    let config: ioBroker.OtherObject & {type: "config"} | null | undefined;
-    config = await adapter.getForeignObjectAsync("system.repositories");
-    config = await adapter.getForeignObjectAsync("system.config");
-    config = await adapter.getForeignObjectAsync("system.certificates");
+    let config: (ioBroker.OtherObject & { type: 'config' }) | null | undefined;
+    config = await adapter.getForeignObjectAsync('system.repositories');
+    config = await adapter.getForeignObjectAsync('system.config');
+    config = await adapter.getForeignObjectAsync('system.certificates');
 
-    let misc: ioBroker.FolderObject | ioBroker.DeviceObject | ioBroker.ChannelObject | ioBroker.StateObject | null | undefined;
-    misc = await adapter.getForeignObjectAsync("system.host.hostname.foobar");
-    misc = await adapter.getForeignObjectAsync("adapter-name.0.foo");
-    misc = await adapter.getForeignObjectAsync("adapter-name.0.foo.bar");
-    misc = await adapter.getForeignObjectAsync("adapter-name.0.foo.bar.baz");
+    let misc:
+        | ioBroker.FolderObject
+        | ioBroker.DeviceObject
+        | ioBroker.ChannelObject
+        | ioBroker.StateObject
+        | null
+        | undefined;
+    misc = await adapter.getForeignObjectAsync('system.host.hostname.foobar');
+    misc = await adapter.getForeignObjectAsync('adapter-name.0.foo');
+    misc = await adapter.getForeignObjectAsync('adapter-name.0.foo.bar');
+    misc = await adapter.getForeignObjectAsync('adapter-name.0.foo.bar.baz');
 
     // combined
-    const idCombined = "" as "enum.functions" | "script.js.global";
+    const idCombined = '' as 'enum.functions' | 'script.js.global';
     let combined: ioBroker.ChannelObject | ioBroker.EnumObject | null | undefined;
     combined = await adapter.getForeignObjectAsync(idCombined);
 
     // unknown id
     let unknown: ioBroker.Object | null | undefined;
-    unknown = await adapter.getForeignObjectAsync("");
-});
+    unknown = await adapter.getForeignObjectAsync('');
+};
 
 // Ensure that setForeignObject tries to resolve a specific object type
-(async () => {
-    adapter.setForeignObject("system.host.my-hostname", {
+async () => {
+    adapter.setForeignObject('system.host.my-hostname', {
         // $ExpectError
-        type: "not-host"
+        type: 'not-host',
     });
 
-    adapter.setForeignObject("admin.0.maybe-channel", {
-        type: "channel",
+    adapter.setForeignObject('admin.0.maybe-channel', {
+        type: 'channel',
         common: {
-            name: "A channel"
+            name: 'A channel',
         },
-        native: {}
+        native: {},
     });
 
     adapter.setForeignObject(null! as string, null! as ioBroker.Object);
-});
+};
 
 // Test convenience types for subsets of SettableObject
 {
@@ -807,11 +843,11 @@ const userObject: ioBroker.UserObject = {
     const stateObj: ioBroker.SettableStateObject = {
         type: 'state',
         common: {
-            name: "Dummy name",
-            role: "value",
+            name: 'Dummy name',
+            role: 'value',
             read: true,
             write: false,
-            unit: "%"
+            unit: '%',
         },
         native: {},
     };
@@ -821,15 +857,21 @@ const userObject: ioBroker.UserObject = {
         // $ExpectError
         type: 'state',
         common: {
-            name: "Dummy name",
+            name: 'Dummy name',
         },
         native: {},
     };
 }
 
 // Repro for https://github.com/ioBroker/adapter-core/issues/334
-(async () => {
-    const states = await adapter.getStatesAsync("foo");
+async () => {
+    const states = await adapter.getStatesAsync('foo');
     // This should not error
-    states["foo"];
-});
+    states['foo'];
+};
+
+// Test registerNotification
+// $ExpectError
+adapter.registerNotification("foobar", "accessErrors", "This is a problem!");
+adapter.registerNotification("system", "accessErrors", "This is a problem!");
+adapter.registerNotification("system", null, "This is a problem!");
