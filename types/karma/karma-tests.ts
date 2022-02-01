@@ -64,7 +64,23 @@ const testLauncher = (launcher: karma.launcher.Launcher) => {
 // Example of configuration file conf.ts, see http://karma-runner.github.io/latest/config/configuration-file.html
 module.exports = (config: Config) => {
     config.set({
+        autoWatchBatchDelay: 2000,
+        captureTimeout: 5000,
+        colors: true,
+        concurrency: Infinity,
+        crossOriginAttribute: true,
+        customContextFile: './customContextFile.html',
+        customClientContextFile: './customClientContextFile.html',
+        customDebugFile: './customDebugFile.html',
+        hostname: 'localhost',
+        httpModule: 'http',
+        httpsServerOptions: {
+            key: './key.pem',
+        },
         logLevel: config.LOG_DEBUG,
+        proxyValidateSSL: true,
+        reportSlowerThan: 500,
+        transports: ['polling'],
         basePath: '..',
         urlRoot: '/base/',
         frameworks: ['jasmine'],
