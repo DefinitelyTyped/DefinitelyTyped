@@ -3,6 +3,10 @@ import { Extent } from './extent';
 import Projection from './proj/Projection';
 import Triangulation from './reproj/Triangulation';
 
+export interface ImageExtent {
+    extent: Extent;
+    image: HTMLCanvasElement | HTMLImageElement | HTMLVideoElement;
+}
 /**
  * Calculates ideal resolution to use from the source in order to achieve
  * pixel mapping as close as possible to 1:1 during reprojection.
@@ -39,8 +43,8 @@ export function render(
     targetResolution: number,
     targetExtent: Extent,
     triangulation: Triangulation,
-    sources: any[],
+    sources: ImageExtent[],
     gutter: number,
     opt_renderEdges?: boolean,
-    opt_contextOptions?: any,
+    opt_interpolate?: any,
 ): HTMLCanvasElement;

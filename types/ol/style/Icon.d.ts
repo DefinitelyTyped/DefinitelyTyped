@@ -1,6 +1,6 @@
+import ImageState from '../ImageState';
 import { Color } from '../color';
 import BaseEvent from '../events/Event';
-import ImageState from '../ImageState';
 import { Size } from '../size';
 import IconAnchorUnits from './IconAnchorUnits';
 import IconOrigin from './IconOrigin';
@@ -41,7 +41,6 @@ export default class Icon extends ImageStyle {
      */
     getColor(): Color;
     getHitDetectionImage(): HTMLImageElement | HTMLCanvasElement;
-    getHitDetectionImageSize(): Size;
     /**
      * Get the image icon.
      */

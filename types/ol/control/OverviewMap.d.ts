@@ -1,21 +1,32 @@
 import Collection from '../Collection';
-import { EventsKey } from '../events';
-import BaseEvent from '../events/Event';
-import Layer from '../layer/Layer';
 import MapEvent from '../MapEvent';
 import { ObjectEvent } from '../Object';
 import PluggableMap from '../PluggableMap';
-import Source from '../source/Source';
 import View from '../View';
+import { EventsKey, ListenerFunction } from '../events';
+import BaseEvent from '../events/Event';
+import BaseLayer from '../layer/Base';
 import Control from './Control';
 
+export type TControlledMapBaseEventTypes = 'change' | 'error';
+export type TControlledMapObjectEventTypes =
+    | 'change:layerGroup'
+    | 'change:size'
+    | 'change:target'
+    | 'change:view'
+    | 'propertychange';
+export type TControlledMapMapBrowserEventTypes = 'click' | 'dblclick' | 'pointerdrag' | 'pointermove' | 'singleclick';
+export type TControlledMapMapEventTypes = 'moveend' | 'movestart' | 'postrender';
+export type TControlledMapRenderEventTypes = 'postcompose' | 'precompose' | 'rendercomplete';
+export type TOverviewMapBaseEventTypes = 'change' | 'error';
+export type TOverviewMapObjectEventTypes = 'propertychange';
 export interface Options {
     className?: string | undefined;
     collapsed?: boolean | undefined;
     collapseLabel?: string | HTMLElement | undefined;
     collapsible?: boolean | undefined;
     label?: string | HTMLElement | undefined;
-    layers?: Layer<Source>[] | Collection<Layer<Source>> | undefined;
+    layers?: BaseLayer[] | Collection<BaseLayer> | undefined;
     render?: ((p0: MapEvent) => void) | undefined;
     rotateWithView?: boolean | undefined;
     target?: HTMLElement | string | undefined;
@@ -60,16 +71,17 @@ export default class OverviewMap extends Control {
      * Set whether the overview map view should rotate with the main map view.
      */
     setRotateWithView(rotateWithView: boolean): void;
-    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
-    once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
-    un(type: string | string[], listener: (p0: any) => any): void;
-    on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
-    once(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
-    un(type: 'change', listener: (evt: BaseEvent) => void): void;
-    on(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
-    once(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
-    un(type: 'error', listener: (evt: BaseEvent) => void): void;
-    on(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
-    once(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
-    un(type: 'propertychange', listener: (evt: ObjectEvent) => void): void;
+    on(type: TOverviewMapBaseEventTypes, listener: ListenerFunction<BaseEvent>): EventsKey;
+    on(type: TOverviewMapBaseEventTypes[], listener: ListenerFunction<BaseEvent>): EventsKey[];
+    once(type: TOverviewMapBaseEventTypes, listener: ListenerFunction<BaseEvent>): EventsKey;
+    once(type: TOverviewMapBaseEventTypes[], listener: ListenerFunction<BaseEvent>): EventsKey[];
+    un(type: TOverviewMapBaseEventTypes | TOverviewMapBaseEventTypes[], listener: ListenerFunction<BaseEvent>): void;
+    on(type: TOverviewMapObjectEventTypes, listener: ListenerFunction<ObjectEvent>): EventsKey;
+    on(type: TOverviewMapObjectEventTypes[], listener: ListenerFunction<ObjectEvent>): EventsKey[];
+    once(type: TOverviewMapObjectEventTypes, listener: ListenerFunction<ObjectEvent>): EventsKey;
+    once(type: TOverviewMapObjectEventTypes[], listener: ListenerFunction<ObjectEvent>): EventsKey[];
+    un(
+        type: TOverviewMapObjectEventTypes | TOverviewMapObjectEventTypes[],
+        listener: ListenerFunction<ObjectEvent>,
+    ): void;
 }

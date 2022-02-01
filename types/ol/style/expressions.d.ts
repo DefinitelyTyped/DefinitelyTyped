@@ -1,18 +1,26 @@
 import { Color } from '../color';
+import PaletteTexture from '../webgl/PaletteTexture';
 
 /**
  * Base type used for literal style parameters; can be a number literal or the output of an operator,
- * which in turns takes {@link ExpressionValue} arguments.
+ * which in turns takes {@link module:ol/style/expressions~ExpressionValue} arguments.
  * The following operators can be used:
  *
  * Reading operators:
  *
+ * ['band', bandIndex, xOffset, yOffset] For tile layers only. Fetches pixel values from band
+ * bandIndex of the source's data. The first bandIndex of the source data is 1. Fetched values
+ * are in the 0..1 range. {@link module:ol/source/TileImage~TileImage} sources have 4 bands: red,
+ * green, blue and alpha. {@link module:ol/source/DataTile~DataTileSource} sources can have any number
+ * of bands, depending on the underlying data source and
+ * {@link module:ol/source/GeoTIFF~Options configuration}. xOffset and yOffset are optional
+ * and allow specifying pixel offsets for x and y. This is used for sampling data from neighboring pixels.
  * ['get', 'attributeName'] fetches a feature attribute (it will be prefixed by a_ in the shader)
  * Note: those will be taken from the attributes provided to the renderer
- * ['var', 'varName'] fetches a value from the style variables, or 0 if undefined
- * ['time'] returns the time in seconds since the creation of the layer
- * ['zoom'] returns the current zoom level
  * ['resolution'] returns the current resolution
+ * ['time'] returns the time in seconds since the creation of the layer
+ * ['var', 'varName'] fetches a value from the style variables, or 0 if undefined
+ * ['zoom'] returns the current zoom level
  *
  *
  * Math operators:
@@ -24,6 +32,10 @@ import { Color } from '../color';
  * ['clamp', value, low, high] clamps value between low and high
  * ['%', value1, value2] returns the result of value1 % value2 (modulo)
  * ['^', value1, value2] returns the value of value1 raised to the value2 power
+ * ['abs', value1] returns the absolute value of value1
+ * ['sin', value1] returns the sine of value1
+ * ['cos', value1] returns the cosine of value1
+ * ['atan', value1, value2] returns atan2(value1, value2). If value2 is not provided, returns atan(value1)
  *
  *
  * Transform operators:
@@ -53,7 +65,7 @@ import { Color } from '../color';
  * ['>=', value1, value2] returns true if value1 is greater than or equals value2, or false otherwise.
  * ['==', value1, value2] returns true if value1 equals value2, or false otherwise.
  * ['!=', value1, value2] returns true if value1 does not equal value2, or false otherwise.
- * ['!', value1] returns false if value1 is true or greater than 0, or true otherwise.
+ * ['', value1] returns false if value1 is true or greater than 0, or true otherwise.
  * ['all', value1, value2, ...] returns true if all the inputs are true, false otherwise.
  * ['any', value1, value2, ...] returns true if any of the inputs are true, false otherwise.
  * ['between', value1, value2, value3] returns true if value1 is contained between value2 and value3
@@ -67,6 +79,11 @@ import { Color } from '../color';
  * ['color', red, green, blue, alpha] creates a color value from number values; the alpha parameter is
  * optional; if not specified, it will be set to 1.
  * Note: red, green and blue components must be values between 0 and 255; alpha between 0 and 1.
+ * ['palette', index, colors] picks a color value from an array of colors using the given index; the index
+ * expression must evaluate to a number; the items in the colors array must be strings with hex colors
+ * (e.g. '#86A136'), colors using the rgba[a] functional notation (e.g. 'rgb(134, 161, 54)' or 'rgba(134, 161, 54, 1)'),
+ * named colors (e.g. 'red'), or array literals with 3 ([r, g, b]) or 4 ([r, g, b, a]) values (with r, g, and b
+ * in the 0-255 range and a in the 0-1 range).
  *
  *
  *
@@ -96,12 +113,15 @@ export interface ParsingContext {
     inFragmentShader?: boolean | undefined;
     variables: string[];
     attributes: string[];
-    stringLiteralsMap: { [key: string]: number };
+    stringLiteralsMap: Record<string, number>;
+    functions: Record<string, string>;
+    bandCount?: number | undefined;
+    paletteTextures?: PaletteTexture[] | undefined;
 }
 /**
  * Operator declarations
  */
-export const Operators: { [key: string]: Operator };
+export const Operators: Record<string, Operator>;
 /**
  * Possible inferred types from a given value or expression.
  * Note: these are binary flags.
@@ -154,3 +174,7 @@ export function numberToGlsl(v: number): string;
  * converted to be a GLSL-compatible string.
  */
 export function stringToGlsl(context: ParsingContext, string: string): string;
+/**
+ * Get the uniform name given a variable name.
+ */
+export function uniformNameForVariable(variableName: string): string;

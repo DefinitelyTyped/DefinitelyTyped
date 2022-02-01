@@ -1,21 +1,27 @@
 import Collection from '../Collection';
-import { EventsKey } from '../events';
-import { Condition } from '../events/condition';
+import Feature, { FeatureLike } from '../Feature';
+import MapBrowserEvent from '../MapBrowserEvent';
+import { ObjectEvent } from '../Object';
+import PluggableMap from '../PluggableMap';
+import { EventsKey, ListenerFunction } from '../events';
 import BaseEvent from '../events/Event';
-import { Extent } from '../extent';
-import Feature from '../Feature';
+import { Condition } from '../events/condition';
 import Geometry from '../geom/Geometry';
 import SimpleGeometry from '../geom/SimpleGeometry';
 import BaseVectorLayer from '../layer/BaseVector';
 import VectorLayer from '../layer/Vector';
-import MapBrowserEvent from '../MapBrowserEvent';
-import { ObjectEvent } from '../Object';
-import PluggableMap from '../PluggableMap';
+import CanvasVectorImageLayerRenderer from '../renderer/canvas/VectorImageLayer';
+import CanvasVectorLayerRenderer from '../renderer/canvas/VectorLayer';
+import CanvasVectorTileLayerRenderer from '../renderer/canvas/VectorTileLayer';
+import WebGLPointsLayerRenderer from '../renderer/webgl/PointsLayer';
 import VectorSource from '../source/Vector';
 import VectorTile from '../source/VectorTile';
 import { StyleLike } from '../style/Style';
 import PointerInteraction from './Pointer';
 
+export type TModifyBaseEventTypes = 'change' | 'error';
+export type TModifyObjectEventTypes = 'change:active' | 'propertychange';
+export type TModifyModifyEventTypes = 'modifyend' | 'modifystart';
 export interface Options {
     condition?: Condition | undefined;
     deleteCondition?: Condition | undefined;
@@ -23,16 +29,26 @@ export interface Options {
     pixelTolerance?: number | undefined;
     style?: StyleLike | undefined;
     source?: VectorSource<Geometry> | undefined;
-    hitDetection?: boolean | BaseVectorLayer<VectorSource<Geometry> | VectorTile> | undefined;
+    hitDetection?:
+        | boolean
+        | BaseVectorLayer<
+              VectorSource<Geometry> | VectorTile,
+              | CanvasVectorLayerRenderer
+              | CanvasVectorTileLayerRenderer
+              | CanvasVectorImageLayerRenderer
+              | WebGLPointsLayerRenderer
+          >
+        | undefined;
     features?: Collection<Feature<Geometry>> | undefined;
     wrapX?: boolean | undefined;
+    snapToPointer?: boolean | undefined;
 }
 export interface SegmentData {
     depth?: number[] | undefined;
-    feature: Feature<Geometry>;
+    feature: FeatureLike;
     geometry: SimpleGeometry;
     index?: number | undefined;
-    segment: Extent[];
+    segment: number[][];
     featureSegments?: SegmentData[] | undefined;
 }
 declare enum ModifyEventType {
@@ -44,7 +60,7 @@ export default class Modify extends PointerInteraction {
     /**
      * Get the overlay layer that this interaction renders the modification point or vertex to.
      */
-    getOverlay(): VectorLayer;
+    getOverlay(): VectorLayer<VectorSource<Geometry>>;
     /**
      * Handle pointer down events.
      */
@@ -75,38 +91,28 @@ export default class Modify extends PointerInteraction {
      * the map here.
      */
     setMap(map: PluggableMap): void;
-    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
-    once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
-    un(type: string | string[], listener: (p0: any) => any): void;
-    on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
-    once(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
-    un(type: 'change', listener: (evt: BaseEvent) => void): void;
-    on(type: 'change:active', listener: (evt: ObjectEvent) => void): EventsKey;
-    once(type: 'change:active', listener: (evt: ObjectEvent) => void): EventsKey;
-    un(type: 'change:active', listener: (evt: ObjectEvent) => void): void;
-    on(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
-    once(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
-    un(type: 'error', listener: (evt: BaseEvent) => void): void;
-    on(type: 'modifyend', listener: (evt: ModifyEvent) => void): EventsKey;
-    once(type: 'modifyend', listener: (evt: ModifyEvent) => void): EventsKey;
-    un(type: 'modifyend', listener: (evt: ModifyEvent) => void): void;
-    on(type: 'modifystart', listener: (evt: ModifyEvent) => void): EventsKey;
-    once(type: 'modifystart', listener: (evt: ModifyEvent) => void): EventsKey;
-    un(type: 'modifystart', listener: (evt: ModifyEvent) => void): void;
-    on(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
-    once(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
-    un(type: 'propertychange', listener: (evt: ObjectEvent) => void): void;
+    on(type: TModifyBaseEventTypes, listener: ListenerFunction<BaseEvent>): EventsKey;
+    on(type: TModifyBaseEventTypes[], listener: ListenerFunction<BaseEvent>): EventsKey[];
+    once(type: TModifyBaseEventTypes, listener: ListenerFunction<BaseEvent>): EventsKey;
+    once(type: TModifyBaseEventTypes[], listener: ListenerFunction<BaseEvent>): EventsKey[];
+    un(type: TModifyBaseEventTypes | TModifyBaseEventTypes[], listener: ListenerFunction<BaseEvent>): void;
+    on(type: TModifyObjectEventTypes, listener: ListenerFunction<ObjectEvent>): EventsKey;
+    on(type: TModifyObjectEventTypes[], listener: ListenerFunction<ObjectEvent>): EventsKey[];
+    once(type: TModifyObjectEventTypes, listener: ListenerFunction<ObjectEvent>): EventsKey;
+    once(type: TModifyObjectEventTypes[], listener: ListenerFunction<ObjectEvent>): EventsKey[];
+    un(type: TModifyObjectEventTypes | TModifyObjectEventTypes[], listener: ListenerFunction<ObjectEvent>): void;
+    on(type: TModifyModifyEventTypes, listener: ListenerFunction<ModifyEvent>): EventsKey;
+    on(type: TModifyModifyEventTypes[], listener: ListenerFunction<ModifyEvent>): EventsKey[];
+    once(type: TModifyModifyEventTypes, listener: ListenerFunction<ModifyEvent>): EventsKey;
+    once(type: TModifyModifyEventTypes[], listener: ListenerFunction<ModifyEvent>): EventsKey[];
+    un(type: TModifyModifyEventTypes | TModifyModifyEventTypes[], listener: ListenerFunction<ModifyEvent>): void;
 }
 export class ModifyEvent extends BaseEvent {
-    constructor(
-        type: ModifyEventType,
-        features: Collection<Feature<Geometry>>,
-        MapBrowserEvent: MapBrowserEvent<UIEvent>,
-    );
+    constructor(type: ModifyEventType, features: Collection<FeatureLike>, MapBrowserEvent: MapBrowserEvent<UIEvent>);
     /**
      * The features being modified.
      */
-    features: Collection<Feature<Geometry>>;
+    features: Collection<FeatureLike>;
     /**
      * Associated {@link module:ol/MapBrowserEvent}.
      */

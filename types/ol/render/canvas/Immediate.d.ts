@@ -1,5 +1,5 @@
-import { Extent } from '../../extent';
 import Feature from '../../Feature';
+import { Extent } from '../../extent';
 import Circle from '../../geom/Circle';
 import Geometry from '../../geom/Geometry';
 import GeometryCollection from '../../geom/GeometryCollection';
@@ -38,12 +38,12 @@ export default class CanvasImmediateRenderer extends VectorContext {
      * Render a feature into the canvas.  Note that any zIndex on the provided
      * style will be ignored - features are rendered immediately in the order that
      * this method is called.  If you need zIndex support, you should be using an
-     * {@link module:ol/layer/Vector~VectorLayer} instead.
+     * {@link module:ol/layer/Vector~VectorLayer VectorLayer} instead.
      */
     drawFeature(feature: Feature<Geometry>, style: Style): void;
     /**
      * Render a geometry into the canvas.  Call
-     * {@link module:ol/render/canvas/Immediate#setStyle} first to set the rendering style.
+     * {@link module:ol/render/canvas/Immediate~CanvasImmediateRenderer#setStyle renderer.setStyle()} first to set the rendering style.
      */
     drawGeometry(geometry: Geometry | RenderFeature): void;
     /**

@@ -36,4 +36,5 @@ export const CLASS_UNSUPPORTED: string;
  * Get the list of font families from a font spec.  Note that this doesn't work
  * for font families that have commas in them.
  */
-export function getFontParameters(fontSpec: string): FontParameters;
+export const getFontParameters: (fontSpec: string) => FontParameters;
+export function cssOpacity(opacity: number): string;

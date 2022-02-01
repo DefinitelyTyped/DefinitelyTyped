@@ -1,7 +1,10 @@
 import { Coordinate } from './coordinate';
 import { Extent } from './extent';
 import Projection from './proj/Projection';
-import Units from './proj/Units';
+import Units, { METERS_PER_UNIT } from './proj/Units';
+
+export { METERS_PER_UNIT };
+export { Projection };
 
 /**
  * A projection as {@link module:ol/proj/Projection}, SRS identifier
@@ -106,6 +109,12 @@ export function fromUserCoordinate(coordinate: number[], destProjection: Project
  */
 export function fromUserExtent(extent: Extent, destProjection: ProjectionLike): Extent;
 /**
+ * Return the resolution in user projection units per pixel. If no user projection
+ * is set, or source or user projection are missing units, the original resolution
+ * is returned.
+ */
+export function fromUserResolution(resolution: number, destProjection: ProjectionLike): number;
+/**
  * Fetches a Projection object for the code specified.
  */
 export function get(projectionLike: ProjectionLike): Projection;
@@ -170,9 +179,15 @@ export function toUserCoordinate(coordinate: number[], sourceProjection: Project
  */
 export function toUserExtent(extent: Extent, sourceProjection: ProjectionLike): Extent;
 /**
+ * Return the resolution in user projection units per pixel. If no user projection
+ * is set, or source or user projection are missing units, the original resolution
+ * is returned.
+ */
+export function toUserResolution(resolution: number, sourceProjection: ProjectionLike): number;
+/**
  * Transforms a coordinate from source projection to destination projection.
  * This returns a new coordinate (and does not modify the original).
- * See {@link module:ol/proj~transformExtent} for extent transformation.
+ * See {@link module:ol/proj.transformExtent} for extent transformation.
  * See the transform method of {@link module:ol/geom/Geometry~Geometry} and its
  * subclasses for geometry transforms.
  */

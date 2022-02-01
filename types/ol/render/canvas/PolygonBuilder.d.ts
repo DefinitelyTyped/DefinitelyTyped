@@ -1,11 +1,11 @@
-import { Extent } from '../../extent';
 import Feature, { FeatureLike } from '../../Feature';
+import { Extent } from '../../extent';
 import Circle from '../../geom/Circle';
 import Geometry from '../../geom/Geometry';
 import MultiPolygon from '../../geom/MultiPolygon';
 import Polygon from '../../geom/Polygon';
-import { SerializableInstructions } from '../canvas';
 import RenderFeature from '../Feature';
+import { SerializableInstructions } from '../canvas';
 import CanvasBuilder from './Builder';
 
 export default class CanvasPolygonBuilder extends CanvasBuilder {

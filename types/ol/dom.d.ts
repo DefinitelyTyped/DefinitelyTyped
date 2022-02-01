@@ -5,6 +5,7 @@ export function createCanvasContext2D(
     opt_width?: number,
     opt_height?: number,
     opt_canvasPool?: HTMLCanvasElement[],
+    opt_Context2DSettings?: CanvasRenderingContext2DSettings,
 ): CanvasRenderingContext2D;
 /**
  * Get the current computed height for the given element including margin,

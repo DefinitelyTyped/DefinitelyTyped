@@ -1,13 +1,16 @@
-import { EventsKey } from './events';
-import BaseEvent from './events/Event';
 import Observable from './Observable';
+import { EventsKey, Listener, ListenerFunction } from './events';
+import BaseEvent from './events/Event';
 
+export type TBaseObjectBaseEventTypes = 'change' | 'error';
+export type TBaseObjectObjectEventTypes = 'propertychange';
 export default class BaseObject extends Observable {
-    constructor(opt_values?: { [key: string]: any });
+    constructor(opt_values?: Record<string, any>);
     /**
      * Apply any properties from another object without triggering events.
      */
     protected applyProperties(source: BaseObject): void;
+    addChangeListener(key: string, listener: Listener): void;
     /**
      * Gets a value.
      */
@@ -19,9 +22,10 @@ export default class BaseObject extends Observable {
     /**
      * Get an object of all property names and values.
      */
-    getProperties(): { [key: string]: any };
+    getProperties(): Record<string, any>;
     hasProperties(): boolean;
     notify(key: string, oldValue: any): void;
+    removeChangeListener(key: string, listener: Listener): void;
     /**
      * Sets a value.
      */
@@ -30,23 +34,24 @@ export default class BaseObject extends Observable {
      * Sets a collection of key-value pairs.  Note that this changes any existing
      * properties and adds new ones (it does not remove any existing properties).
      */
-    setProperties(values: { [key: string]: any }, opt_silent?: boolean): void;
+    setProperties(values: Record<string, any>, opt_silent?: boolean): void;
     /**
      * Unsets a property.
      */
     unset(key: string, opt_silent?: boolean): void;
-    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
-    once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
-    un(type: string | string[], listener: (p0: any) => any): void;
-    on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
-    once(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
-    un(type: 'change', listener: (evt: BaseEvent) => void): void;
-    on(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
-    once(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
-    un(type: 'error', listener: (evt: BaseEvent) => void): void;
-    on(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
-    once(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
-    un(type: 'propertychange', listener: (evt: ObjectEvent) => void): void;
+    on(type: TBaseObjectBaseEventTypes, listener: ListenerFunction<BaseEvent>): EventsKey;
+    on(type: TBaseObjectBaseEventTypes[], listener: ListenerFunction<BaseEvent>): EventsKey[];
+    once(type: TBaseObjectBaseEventTypes, listener: ListenerFunction<BaseEvent>): EventsKey;
+    once(type: TBaseObjectBaseEventTypes[], listener: ListenerFunction<BaseEvent>): EventsKey[];
+    un(type: TBaseObjectBaseEventTypes | TBaseObjectBaseEventTypes[], listener: ListenerFunction<BaseEvent>): void;
+    on(type: TBaseObjectObjectEventTypes, listener: ListenerFunction<ObjectEvent>): EventsKey;
+    on(type: TBaseObjectObjectEventTypes[], listener: ListenerFunction<ObjectEvent>): EventsKey[];
+    once(type: TBaseObjectObjectEventTypes, listener: ListenerFunction<ObjectEvent>): EventsKey;
+    once(type: TBaseObjectObjectEventTypes[], listener: ListenerFunction<ObjectEvent>): EventsKey[];
+    un(
+        type: TBaseObjectObjectEventTypes | TBaseObjectObjectEventTypes[],
+        listener: ListenerFunction<ObjectEvent>,
+    ): void;
 }
 export class ObjectEvent extends BaseEvent {
     constructor(type: string, key: string, oldValue: any);
@@ -60,4 +65,3 @@ export class ObjectEvent extends BaseEvent {
      */
     oldValue: any;
 }
-export function getChangeEventType(key: string): string;

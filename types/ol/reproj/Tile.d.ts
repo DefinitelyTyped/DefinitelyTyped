@@ -1,5 +1,5 @@
-import Projection from '../proj/Projection';
 import Tile from '../Tile';
+import Projection from '../proj/Projection';
 import { TileCoord } from '../tilecoord';
 import TileGrid from '../tilegrid/TileGrid';
 
@@ -17,7 +17,7 @@ export default class ReprojTile extends Tile {
         getTileFunction: FunctionType,
         opt_errorThreshold?: number,
         opt_renderEdges?: boolean,
-        opt_contextOptions?: any,
+        opt_interpolate?: boolean,
     );
     /**
      * Get the HTML Canvas element for this tile.

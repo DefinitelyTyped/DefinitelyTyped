@@ -1,11 +1,11 @@
-import { Extent } from '../extent';
 import Feature from '../Feature';
+import { Extent } from '../extent';
 import Geometry from '../geom/Geometry';
 import Projection from '../proj/Projection';
 import { ReadOptions } from './Feature';
-import Filter from './filter/Filter';
 import GMLBase, { Options as Options_1 } from './GMLBase';
 import XMLFeature from './XMLFeature';
+import Filter from './filter/Filter';
 
 /**
  * Number of features; bounds/extent.
@@ -20,7 +20,7 @@ export interface FeatureType {
     geometryName: string;
 }
 export interface Options {
-    featureNS?: { [key: string]: string } | string | undefined;
+    featureNS?: Record<string, string> | string | undefined;
     featureType?: string[] | string | undefined;
     gmlFormat?: GMLBase | undefined;
     schemaLocation?: string | undefined;
@@ -103,4 +103,4 @@ export default class WFS extends XMLFeature {
 /**
  * Encode filter as WFS Filter and return the Node.
  */
-export function writeFilter(filter: Filter, version: string): Node;
+export function writeFilter(filter: Filter, opt_version: string): Node;

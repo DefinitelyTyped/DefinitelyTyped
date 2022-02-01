@@ -1,21 +1,22 @@
+import ImageTile from '../../ImageTile';
+import { FrameState } from '../../PluggableMap';
+import Tile from '../../Tile';
 import { Coordinate } from '../../coordinate';
-import { EventsKey } from '../../events';
+import { EventsKey, ListenerFunction } from '../../events';
 import BaseEvent from '../../events/Event';
 import { Extent } from '../../extent';
-import ImageTile from '../../ImageTile';
 import TileLayer from '../../layer/Tile';
 import VectorTileLayer from '../../layer/VectorTile';
-import { FrameState } from '../../PluggableMap';
 import Projection from '../../proj/Projection';
 import TileSource from '../../source/Tile';
-import Tile from '../../Tile';
 import TileGrid from '../../tilegrid/TileGrid';
 import { HitMatch } from '../Map';
 import { FeatureCallback } from '../vector';
 import CanvasLayerRenderer from './Layer';
 
+export type TCanvasTileLayerRendererBaseEventTypes = 'change' | 'error';
 export default class CanvasTileLayerRenderer extends CanvasLayerRenderer {
-    constructor(tileLayer: TileLayer | VectorTileLayer);
+    constructor(tileLayer: TileLayer<TileSource> | VectorTileLayer);
     protected renderedPixelRatio: number;
     protected renderedProjection: Projection;
     protected renderedRevision: number;
@@ -45,11 +46,11 @@ export default class CanvasTileLayerRenderer extends CanvasLayerRenderer {
         extent: Extent,
         currentZ: number,
         preload: number,
-        opt_tileCallback?: () => void,
+        opt_tileCallback?: (p0: Tile) => void,
     ): void;
     protected scheduleExpireCache(frameState: FrameState, tileSource: TileSource): void;
     protected updateUsedTiles(
-        usedTiles: { [key: string]: { [key: string]: boolean } },
+        usedTiles: Record<string, Record<string, boolean>>,
         tileSource: TileSource,
         tile: Tile,
     ): void;
@@ -62,7 +63,6 @@ export default class CanvasTileLayerRenderer extends CanvasLayerRenderer {
         h: number,
         gutter: number,
         transition: boolean,
-        opacity: number,
     ): void;
     forEachFeatureAtCoordinate<T>(
         coordinate: Coordinate,
@@ -72,13 +72,13 @@ export default class CanvasTileLayerRenderer extends CanvasLayerRenderer {
         matches: HitMatch<T>[],
     ): T | undefined;
     getImage(): HTMLCanvasElement;
-    getLayer(): TileLayer | VectorTileLayer;
+    getLayer(): TileLayer<TileSource> | VectorTileLayer;
     getTile(z: number, x: number, y: number, frameState: FrameState): Tile;
     /**
      * Perform action necessary to get the layer rendered after new fonts have loaded
      */
     handleFontsChanged(): void;
-    loadedTileCallback(tiles: { [key: number]: { [key: string]: Tile } }, zoom: number, tile: Tile): boolean;
+    loadedTileCallback(tiles: Record<number, Record<string, Tile>>, zoom: number, tile: Tile): boolean | void;
     /**
      * Determine whether render should be called.
      */
@@ -87,13 +87,12 @@ export default class CanvasTileLayerRenderer extends CanvasLayerRenderer {
      * Render the layer.
      */
     renderFrame(frameState: FrameState, target: HTMLElement): HTMLElement;
-    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
-    once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
-    un(type: string | string[], listener: (p0: any) => any): void;
-    on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
-    once(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
-    un(type: 'change', listener: (evt: BaseEvent) => void): void;
-    on(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
-    once(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
-    un(type: 'error', listener: (evt: BaseEvent) => void): void;
+    on(type: TCanvasTileLayerRendererBaseEventTypes, listener: ListenerFunction<BaseEvent>): EventsKey;
+    on(type: TCanvasTileLayerRendererBaseEventTypes[], listener: ListenerFunction<BaseEvent>): EventsKey[];
+    once(type: TCanvasTileLayerRendererBaseEventTypes, listener: ListenerFunction<BaseEvent>): EventsKey;
+    once(type: TCanvasTileLayerRendererBaseEventTypes[], listener: ListenerFunction<BaseEvent>): EventsKey[];
+    un(
+        type: TCanvasTileLayerRendererBaseEventTypes | TCanvasTileLayerRendererBaseEventTypes[],
+        listener: ListenerFunction<BaseEvent>,
+    ): void;
 }

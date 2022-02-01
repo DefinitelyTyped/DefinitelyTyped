@@ -1,10 +1,12 @@
-import { EventsKey } from '../events';
-import BaseEvent from '../events/Event';
 import MapBrowserEvent from '../MapBrowserEvent';
 import { ObjectEvent } from '../Object';
+import { EventsKey, ListenerFunction } from '../events';
+import BaseEvent from '../events/Event';
 import { Pixel } from '../pixel';
 import Interaction from './Interaction';
 
+export type TPointerInteractionBaseEventTypes = 'change' | 'error';
+export type TPointerInteractionObjectEventTypes = 'change:active' | 'propertychange';
 export interface Options {
     handleDownEvent?: ((p0: MapBrowserEvent<UIEvent>) => boolean) | undefined;
     handleDragEvent?: ((p0: MapBrowserEvent<UIEvent>) => void) | undefined;
@@ -49,20 +51,21 @@ export default class PointerInteraction extends Interaction {
      * to other interactions or should be stopped.
      */
     stopDown(handled: boolean): boolean;
-    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
-    once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
-    un(type: string | string[], listener: (p0: any) => any): void;
-    on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
-    once(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
-    un(type: 'change', listener: (evt: BaseEvent) => void): void;
-    on(type: 'change:active', listener: (evt: ObjectEvent) => void): EventsKey;
-    once(type: 'change:active', listener: (evt: ObjectEvent) => void): EventsKey;
-    un(type: 'change:active', listener: (evt: ObjectEvent) => void): void;
-    on(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
-    once(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
-    un(type: 'error', listener: (evt: BaseEvent) => void): void;
-    on(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
-    once(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
-    un(type: 'propertychange', listener: (evt: ObjectEvent) => void): void;
+    on(type: TPointerInteractionBaseEventTypes, listener: ListenerFunction<BaseEvent>): EventsKey;
+    on(type: TPointerInteractionBaseEventTypes[], listener: ListenerFunction<BaseEvent>): EventsKey[];
+    once(type: TPointerInteractionBaseEventTypes, listener: ListenerFunction<BaseEvent>): EventsKey;
+    once(type: TPointerInteractionBaseEventTypes[], listener: ListenerFunction<BaseEvent>): EventsKey[];
+    un(
+        type: TPointerInteractionBaseEventTypes | TPointerInteractionBaseEventTypes[],
+        listener: ListenerFunction<BaseEvent>,
+    ): void;
+    on(type: TPointerInteractionObjectEventTypes, listener: ListenerFunction<ObjectEvent>): EventsKey;
+    on(type: TPointerInteractionObjectEventTypes[], listener: ListenerFunction<ObjectEvent>): EventsKey[];
+    once(type: TPointerInteractionObjectEventTypes, listener: ListenerFunction<ObjectEvent>): EventsKey;
+    once(type: TPointerInteractionObjectEventTypes[], listener: ListenerFunction<ObjectEvent>): EventsKey[];
+    un(
+        type: TPointerInteractionObjectEventTypes | TPointerInteractionObjectEventTypes[],
+        listener: ListenerFunction<ObjectEvent>,
+    ): void;
 }
 export function centroid(pointerEvents: PointerEvent[]): Pixel;

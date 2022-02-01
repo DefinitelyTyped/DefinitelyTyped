@@ -7,11 +7,11 @@ import { TileCoord } from './tilecoord';
 import TileGrid from './tilegrid/TileGrid';
 
 export interface XYZOptions {
-    extent?: Extent;
-    maxResolution?: number;
-    maxZoom?: number;
-    minZoom?: number;
-    tileSize?: number | Size;
+    extent?: Extent | undefined;
+    maxResolution?: number | undefined;
+    maxZoom?: number | undefined;
+    minZoom?: number | undefined;
+    tileSize?: number | Size | undefined;
 }
 export function createForExtent(
     extent: Extent,

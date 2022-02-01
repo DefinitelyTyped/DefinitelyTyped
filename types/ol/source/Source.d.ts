@@ -1,14 +1,17 @@
-import { EventsKey } from '../events';
-import BaseEvent from '../events/Event';
 import BaseObject, { ObjectEvent } from '../Object';
 import { FrameState } from '../PluggableMap';
+import { ViewOptions } from '../View';
+import { EventsKey, ListenerFunction } from '../events';
+import BaseEvent from '../events/Event';
 import { ProjectionLike } from '../proj';
 import Projection from '../proj/Projection';
 import State from './State';
 
+export type TSourceBaseEventTypes = 'change' | 'error';
+export type TSourceObjectEventTypes = 'propertychange';
 /**
- * A function that returns a string or an array of strings representing source
- * attributions.
+ * A function that takes a {@link module:ol/PluggableMap~FrameState} and returns a string or
+ * an array of strings representing source attributions.
  */
 export type Attribution = (p0: FrameState) => string | string[];
 /**
@@ -27,15 +30,19 @@ export interface Options {
     projection?: ProjectionLike | undefined;
     state?: State | undefined;
     wrapX?: boolean | undefined;
+    interpolate?: boolean | undefined;
 }
 export default abstract class Source extends BaseObject {
     constructor(options: Options);
+    protected projection: Projection;
+    protected viewRejector: () => void;
+    protected viewResolver: () => void;
     /**
      * Get the attribution function for the source.
      */
     getAttributions(): Attribution;
     getAttributionsCollapsible(): boolean;
-    getContextOptions(): object | undefined;
+    getInterpolate(): boolean;
     /**
      * Get the projection of the source.
      */
@@ -45,6 +52,7 @@ export default abstract class Source extends BaseObject {
      * Get the state of the source, see {@link module:ol/source/State~State} for possible states.
      */
     getState(): State;
+    getView(): Promise<ViewOptions>;
     getWrapX(): boolean | undefined;
     /**
      * Refreshes the source. The source will be cleared, and data from the server will be reloaded.
@@ -58,16 +66,14 @@ export default abstract class Source extends BaseObject {
      * Set the state of the source.
      */
     setState(state: State): void;
-    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
-    once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
-    un(type: string | string[], listener: (p0: any) => any): void;
-    on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
-    once(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
-    un(type: 'change', listener: (evt: BaseEvent) => void): void;
-    on(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
-    once(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
-    un(type: 'error', listener: (evt: BaseEvent) => void): void;
-    on(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
-    once(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
-    un(type: 'propertychange', listener: (evt: ObjectEvent) => void): void;
+    on(type: TSourceBaseEventTypes, listener: ListenerFunction<BaseEvent>): EventsKey;
+    on(type: TSourceBaseEventTypes[], listener: ListenerFunction<BaseEvent>): EventsKey[];
+    once(type: TSourceBaseEventTypes, listener: ListenerFunction<BaseEvent>): EventsKey;
+    once(type: TSourceBaseEventTypes[], listener: ListenerFunction<BaseEvent>): EventsKey[];
+    un(type: TSourceBaseEventTypes | TSourceBaseEventTypes[], listener: ListenerFunction<BaseEvent>): void;
+    on(type: TSourceObjectEventTypes, listener: ListenerFunction<ObjectEvent>): EventsKey;
+    on(type: TSourceObjectEventTypes[], listener: ListenerFunction<ObjectEvent>): EventsKey[];
+    once(type: TSourceObjectEventTypes, listener: ListenerFunction<ObjectEvent>): EventsKey;
+    once(type: TSourceObjectEventTypes[], listener: ListenerFunction<ObjectEvent>): EventsKey[];
+    un(type: TSourceObjectEventTypes | TSourceObjectEventTypes[], listener: ListenerFunction<ObjectEvent>): void;
 }

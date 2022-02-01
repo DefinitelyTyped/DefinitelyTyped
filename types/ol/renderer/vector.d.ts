@@ -1,5 +1,5 @@
-import BaseEvent from '../events/Event';
 import { FeatureLike } from '../Feature';
+import BaseEvent from '../events/Event';
 import SimpleGeometry from '../geom/SimpleGeometry';
 import Layer from '../layer/Layer';
 import { TransformFunction } from '../proj';

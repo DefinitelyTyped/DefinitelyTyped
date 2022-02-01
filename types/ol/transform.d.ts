@@ -28,7 +28,7 @@ export function compose(
 /**
  * Creates a composite transform given an initial translation, scale, rotation, and
  * final translation (in that order only, not commutative). The resulting transform
- * string can be applied as transform porperty of an HTMLElement's style.
+ * string can be applied as transform property of an HTMLElement's style.
  */
 export function composeCssTransform(
     dx1: number,
@@ -85,7 +85,7 @@ export function set(transform: Transform, a: number, b: number, c: number, d: nu
  */
 export function setFromArray(transform1: Transform, transform2: Transform): Transform;
 /**
- * A string version of the transform.  This can be used
+ * A rounded string version of the transform.  This can be used
  * for CSS transforms.
  */
 export function toString(mat: Transform): string;

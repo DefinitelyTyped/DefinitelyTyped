@@ -9,7 +9,8 @@ export default class BaseEvent {
      */
     type: string;
     /**
-     * Stop event propagation.
+     * Prevent default. This means that no emulated click, singleclick or doubleclick events
+     * will be fired.
      */
     preventDefault(): void;
     /**

@@ -1,12 +1,12 @@
-import { Extent } from '../../extent';
 import { FeatureLike } from '../../Feature';
+import { Extent } from '../../extent';
 import Geometry from '../../geom/Geometry';
 import SimpleGeometry from '../../geom/SimpleGeometry';
 import Fill from '../../style/Fill';
 import Stroke from '../../style/Stroke';
-import { FillStrokeState, SerializableInstructions } from '../canvas';
 import RenderFeature from '../Feature';
 import VectorContext from '../VectorContext';
+import { FillStrokeState, SerializableInstructions } from '../canvas';
 
 export default class CanvasBuilder extends VectorContext {
     constructor(tolerance: number, maxExtent: Extent, resolution: number, pixelRatio: number);
@@ -39,7 +39,12 @@ export default class CanvasBuilder extends VectorContext {
     applyStroke(state: FillStrokeState): void;
     createFill(state: FillStrokeState): any[];
     createStroke(state: FillStrokeState): any[];
-    drawCustom(geometry: SimpleGeometry, feature: FeatureLike, renderer: () => void): void;
+    drawCustom(
+        geometry: SimpleGeometry,
+        feature: FeatureLike,
+        renderer: () => void,
+        hitDetectionRenderer: () => void,
+    ): void;
     drawCustomCoordinates_(
         flatCoordinates: number[],
         offset: number,

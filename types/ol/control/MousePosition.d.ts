@@ -1,19 +1,22 @@
-import { CoordinateFormat } from '../coordinate';
-import { EventsKey } from '../events';
-import BaseEvent from '../events/Event';
 import MapEvent from '../MapEvent';
 import { ObjectEvent } from '../Object';
 import PluggableMap from '../PluggableMap';
+import { CoordinateFormat } from '../coordinate';
+import { EventsKey, ListenerFunction } from '../events';
+import BaseEvent from '../events/Event';
 import { ProjectionLike } from '../proj';
 import Projection from '../proj/Projection';
 import Control from './Control';
 
+export type TMousePositionBaseEventTypes = 'change' | 'error';
+export type TMousePositionObjectEventTypes = 'change:coordinateFormat' | 'change:projection' | 'propertychange';
 export interface Options {
     className?: string | undefined;
     coordinateFormat?: CoordinateFormat | undefined;
     projection?: ProjectionLike | undefined;
     render?: ((p0: MapEvent) => void) | undefined;
     target?: HTMLElement | string | undefined;
+    placeholder?: string | boolean | undefined;
     undefinedHTML?: string | undefined;
 }
 export default class MousePosition extends Control {
@@ -43,22 +46,20 @@ export default class MousePosition extends Control {
      * Set the projection that is used to report the mouse position.
      */
     setProjection(projection: ProjectionLike): void;
-    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
-    once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
-    un(type: string | string[], listener: (p0: any) => any): void;
-    on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
-    once(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
-    un(type: 'change', listener: (evt: BaseEvent) => void): void;
-    on(type: 'change:coordinateFormat', listener: (evt: ObjectEvent) => void): EventsKey;
-    once(type: 'change:coordinateFormat', listener: (evt: ObjectEvent) => void): EventsKey;
-    un(type: 'change:coordinateFormat', listener: (evt: ObjectEvent) => void): void;
-    on(type: 'change:projection', listener: (evt: ObjectEvent) => void): EventsKey;
-    once(type: 'change:projection', listener: (evt: ObjectEvent) => void): EventsKey;
-    un(type: 'change:projection', listener: (evt: ObjectEvent) => void): void;
-    on(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
-    once(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
-    un(type: 'error', listener: (evt: BaseEvent) => void): void;
-    on(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
-    once(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
-    un(type: 'propertychange', listener: (evt: ObjectEvent) => void): void;
+    on(type: TMousePositionBaseEventTypes, listener: ListenerFunction<BaseEvent>): EventsKey;
+    on(type: TMousePositionBaseEventTypes[], listener: ListenerFunction<BaseEvent>): EventsKey[];
+    once(type: TMousePositionBaseEventTypes, listener: ListenerFunction<BaseEvent>): EventsKey;
+    once(type: TMousePositionBaseEventTypes[], listener: ListenerFunction<BaseEvent>): EventsKey[];
+    un(
+        type: TMousePositionBaseEventTypes | TMousePositionBaseEventTypes[],
+        listener: ListenerFunction<BaseEvent>,
+    ): void;
+    on(type: TMousePositionObjectEventTypes, listener: ListenerFunction<ObjectEvent>): EventsKey;
+    on(type: TMousePositionObjectEventTypes[], listener: ListenerFunction<ObjectEvent>): EventsKey[];
+    once(type: TMousePositionObjectEventTypes, listener: ListenerFunction<ObjectEvent>): EventsKey;
+    once(type: TMousePositionObjectEventTypes[], listener: ListenerFunction<ObjectEvent>): EventsKey[];
+    un(
+        type: TMousePositionObjectEventTypes | TMousePositionObjectEventTypes[],
+        listener: ListenerFunction<ObjectEvent>,
+    ): void;
 }

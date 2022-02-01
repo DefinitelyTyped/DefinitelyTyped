@@ -1,25 +1,29 @@
+import { ObjectEvent } from '../Object';
+import Tile from '../Tile';
+import TileState from '../TileState';
+import { NearestDirectionFunction } from '../array';
 import { Coordinate } from '../coordinate';
-import { EventsKey } from '../events';
+import { EventsKey, ListenerFunction } from '../events';
 import BaseEvent from '../events/Event';
 import { Extent } from '../extent';
-import { ObjectEvent } from '../Object';
 import Projection from '../proj/Projection';
-import Tile from '../Tile';
 import { TileCoord } from '../tilecoord';
-import TileState from '../TileState';
 import TileSource from './Tile';
 import { Config } from './TileJSON';
 
+export type TUTFGridBaseEventTypes = 'change' | 'error';
+export type TUTFGridObjectEventTypes = 'propertychange';
 export interface Options {
     preemptive?: boolean | undefined;
     jsonp?: boolean | undefined;
     tileJSON?: Config | undefined;
     url?: string | undefined;
+    zDirection?: number | NearestDirectionFunction | undefined;
 }
 export interface UTFGridJSON {
     grid: string[];
     keys: string[];
-    data?: { [key: string]: object } | undefined;
+    data?: Record<string, object> | undefined;
 }
 export class CustomTile extends Tile {
     constructor(
@@ -76,16 +80,14 @@ export default class UTFGrid extends TileSource {
      * Marks a tile coord as being used, without triggering a load.
      */
     useTile(z: number, x: number, y: number): void;
-    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
-    once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
-    un(type: string | string[], listener: (p0: any) => any): void;
-    on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
-    once(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
-    un(type: 'change', listener: (evt: BaseEvent) => void): void;
-    on(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
-    once(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
-    un(type: 'error', listener: (evt: BaseEvent) => void): void;
-    on(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
-    once(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
-    un(type: 'propertychange', listener: (evt: ObjectEvent) => void): void;
+    on(type: TUTFGridBaseEventTypes, listener: ListenerFunction<BaseEvent>): EventsKey;
+    on(type: TUTFGridBaseEventTypes[], listener: ListenerFunction<BaseEvent>): EventsKey[];
+    once(type: TUTFGridBaseEventTypes, listener: ListenerFunction<BaseEvent>): EventsKey;
+    once(type: TUTFGridBaseEventTypes[], listener: ListenerFunction<BaseEvent>): EventsKey[];
+    un(type: TUTFGridBaseEventTypes | TUTFGridBaseEventTypes[], listener: ListenerFunction<BaseEvent>): void;
+    on(type: TUTFGridObjectEventTypes, listener: ListenerFunction<ObjectEvent>): EventsKey;
+    on(type: TUTFGridObjectEventTypes[], listener: ListenerFunction<ObjectEvent>): EventsKey[];
+    once(type: TUTFGridObjectEventTypes, listener: ListenerFunction<ObjectEvent>): EventsKey;
+    once(type: TUTFGridObjectEventTypes[], listener: ListenerFunction<ObjectEvent>): EventsKey[];
+    un(type: TUTFGridObjectEventTypes | TUTFGridObjectEventTypes[], listener: ListenerFunction<ObjectEvent>): void;
 }

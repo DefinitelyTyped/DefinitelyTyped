@@ -1,4 +1,5 @@
 import { Extent } from './extent';
+import { Projection } from './proj';
 import TileGrid from './tilegrid/TileGrid';
 
 /**
@@ -13,4 +14,4 @@ export function bbox(extent: Extent, resolution: number): Extent[];
 /**
  * Creates a strategy function for loading features based on a tile grid.
  */
-export function tile(tileGrid: TileGrid): (p0: Extent, p1: number) => Extent[];
+export function tile(tileGrid: TileGrid): (p0: Extent, p1: number, p2: Projection) => Extent[];

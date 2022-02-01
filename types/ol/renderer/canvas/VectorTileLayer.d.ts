@@ -1,20 +1,21 @@
-import { Coordinate } from '../../coordinate';
-import { EventsKey } from '../../events';
-import BaseEvent from '../../events/Event';
 import Feature, { FeatureLike } from '../../Feature';
+import { FrameState } from '../../PluggableMap';
+import Tile from '../../Tile';
+import VectorRenderTile from '../../VectorRenderTile';
+import { Coordinate } from '../../coordinate';
+import { EventsKey, ListenerFunction } from '../../events';
+import BaseEvent from '../../events/Event';
 import Geometry from '../../geom/Geometry';
 import VectorTileLayer from '../../layer/VectorTile';
 import { Pixel } from '../../pixel';
-import { FrameState } from '../../PluggableMap';
 import Projection from '../../proj/Projection';
 import BuilderGroup from '../../render/canvas/BuilderGroup';
 import Style from '../../style/Style';
-import Tile from '../../Tile';
-import VectorRenderTile from '../../VectorRenderTile';
 import { HitMatch } from '../Map';
 import { FeatureCallback } from '../vector';
 import CanvasTileLayerRenderer from './TileLayer';
 
+export type TCanvasVectorTileLayerRendererBaseEventTypes = 'change' | 'error';
 export default class CanvasVectorTileLayerRenderer extends CanvasTileLayerRenderer {
     constructor(layer: VectorTileLayer);
     forEachFeatureAtCoordinate<T>(
@@ -38,12 +39,7 @@ export default class CanvasVectorTileLayerRenderer extends CanvasTileLayerRender
      * Determine whether render should be called.
      */
     prepareFrame(frameState: FrameState): boolean;
-    prepareTile(
-        tile: VectorRenderTile,
-        pixelRatio: number,
-        projection: Projection,
-        queue: boolean,
-    ): boolean | undefined;
+    prepareTile(tile: VectorRenderTile, pixelRatio: number, projection: Projection): boolean | undefined;
     /**
      * Render declutter items for this layer
      */
@@ -59,14 +55,12 @@ export default class CanvasVectorTileLayerRenderer extends CanvasTileLayerRender
      * Render the layer.
      */
     renderFrame(frameState: FrameState, target: HTMLElement): HTMLElement;
-    renderQueuedTileImages_(hifi: boolean, frameState: FrameState): void;
-    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
-    once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
-    un(type: string | string[], listener: (p0: any) => any): void;
-    on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
-    once(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
-    un(type: 'change', listener: (evt: BaseEvent) => void): void;
-    on(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
-    once(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
-    un(type: 'error', listener: (evt: BaseEvent) => void): void;
+    on(type: TCanvasVectorTileLayerRendererBaseEventTypes, listener: ListenerFunction<BaseEvent>): EventsKey;
+    on(type: TCanvasVectorTileLayerRendererBaseEventTypes[], listener: ListenerFunction<BaseEvent>): EventsKey[];
+    once(type: TCanvasVectorTileLayerRendererBaseEventTypes, listener: ListenerFunction<BaseEvent>): EventsKey;
+    once(type: TCanvasVectorTileLayerRendererBaseEventTypes[], listener: ListenerFunction<BaseEvent>): EventsKey[];
+    un(
+        type: TCanvasVectorTileLayerRendererBaseEventTypes | TCanvasVectorTileLayerRendererBaseEventTypes[],
+        listener: ListenerFunction<BaseEvent>,
+    ): void;
 }

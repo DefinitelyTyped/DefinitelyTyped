@@ -1,15 +1,17 @@
-import { Coordinate } from '../../coordinate';
-import { EventsKey } from '../../events';
-import BaseEvent from '../../events/Event';
 import ImageBase from '../../ImageBase';
-import ImageLayer from '../../layer/Image';
 import { FrameState } from '../../PluggableMap';
+import { Coordinate } from '../../coordinate';
+import { EventsKey, ListenerFunction } from '../../events';
+import BaseEvent from '../../events/Event';
+import ImageLayer from '../../layer/Image';
+import ImageSource from '../../source/Image';
 import { HitMatch } from '../Map';
 import { FeatureCallback } from '../vector';
 import CanvasLayerRenderer from './Layer';
 
+export type TCanvasImageLayerRendererBaseEventTypes = 'change' | 'error';
 export default class CanvasImageLayerRenderer extends CanvasLayerRenderer {
-    constructor(imageLayer: ImageLayer);
+    constructor(imageLayer: ImageLayer<ImageSource>);
     protected image_: ImageBase;
     forEachFeatureAtCoordinate<T>(
         coordinate: Coordinate,
@@ -31,13 +33,12 @@ export default class CanvasImageLayerRenderer extends CanvasLayerRenderer {
      * Render the layer.
      */
     renderFrame(frameState: FrameState, target: HTMLElement): HTMLElement;
-    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
-    once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
-    un(type: string | string[], listener: (p0: any) => any): void;
-    on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
-    once(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
-    un(type: 'change', listener: (evt: BaseEvent) => void): void;
-    on(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
-    once(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
-    un(type: 'error', listener: (evt: BaseEvent) => void): void;
+    on(type: TCanvasImageLayerRendererBaseEventTypes, listener: ListenerFunction<BaseEvent>): EventsKey;
+    on(type: TCanvasImageLayerRendererBaseEventTypes[], listener: ListenerFunction<BaseEvent>): EventsKey[];
+    once(type: TCanvasImageLayerRendererBaseEventTypes, listener: ListenerFunction<BaseEvent>): EventsKey;
+    once(type: TCanvasImageLayerRendererBaseEventTypes[], listener: ListenerFunction<BaseEvent>): EventsKey[];
+    un(
+        type: TCanvasImageLayerRendererBaseEventTypes | TCanvasImageLayerRendererBaseEventTypes[],
+        listener: ListenerFunction<BaseEvent>,
+    ): void;
 }

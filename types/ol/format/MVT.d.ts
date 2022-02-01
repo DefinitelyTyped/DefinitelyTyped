@@ -37,13 +37,13 @@ export default class MVT extends FeatureFormat {
     /**
      * Encode a feature in this format.
      */
-    writeFeature(feature: Feature<Geometry>, opt_options?: WriteOptions): string;
+    writeFeature(feature: Feature<Geometry>, opt_options?: WriteOptions): string | ArrayBuffer;
     /**
      * Encode an array of features in this format.
      */
-    writeFeatures(features: Feature<Geometry>[], opt_options?: WriteOptions): string;
+    writeFeatures(features: Feature<Geometry>[], opt_options?: WriteOptions): string | ArrayBuffer;
     /**
      * Write a single geometry in this format.
      */
-    writeGeometry(geometry: Geometry, opt_options?: WriteOptions): string;
+    writeGeometry(geometry: Geometry, opt_options?: WriteOptions): string | ArrayBuffer;
 }

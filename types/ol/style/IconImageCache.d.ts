@@ -5,7 +5,7 @@ import IconImage from './IconImage';
  * The {@link module:ol/style/IconImageCache~IconImageCache} for
  * {@link module:ol/style/Icon~Icon} images.
  */
-export const shared: () => void;
+export const shared: IconImageCache;
 export default class IconImageCache {
     constructor();
     canExpireCache(): boolean;

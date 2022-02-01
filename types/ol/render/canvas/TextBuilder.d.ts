@@ -1,9 +1,9 @@
-import { Extent } from '../../extent';
 import { FeatureLike } from '../../Feature';
+import { Extent } from '../../extent';
 import SimpleGeometry from '../../geom/SimpleGeometry';
 import Text from '../../style/Text';
-import { SerializableInstructions } from '../canvas';
 import RenderFeature from '../Feature';
+import { SerializableInstructions } from '../canvas';
 import CanvasBuilder from './Builder';
 
 export enum TEXT_ALIGN {

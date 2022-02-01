@@ -8,6 +8,7 @@ declare enum Property {
     MAX_ZOOM = 'maxZoom',
     MIN_ZOOM = 'minZoom',
     SOURCE = 'source',
+    MAP = 'map',
 }
 
 export default Property;

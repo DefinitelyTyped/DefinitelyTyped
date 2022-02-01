@@ -1,10 +1,10 @@
 import { CustomAttribute } from '../renderer/webgl/PointsLayer';
-import { LiteralStyle } from '../style/LiteralStyle';
+import { LiteralStyle } from '../style/literal';
 import { UniformValue } from './Helper';
 
 export interface StyleParseResult {
     builder: ShaderBuilder;
-    uniforms: { [key: string]: UniformValue };
+    uniforms: Record<string, UniformValue>;
     attributes: CustomAttribute[];
 }
 export interface VaryingDescription {
@@ -98,7 +98,7 @@ export class ShaderBuilder {
     setTextureCoordinateExpression(expression: string): ShaderBuilder;
 }
 /**
- * Parses a {@link module:ol/style/LiteralStyle~LiteralStyle} object and returns a {@link ShaderBuilder}
+ * Parses a {@link module:ol/style/literal~LiteralStyle} object and returns a {@link ShaderBuilder}
  * object that has been configured according to the given style, as well as attributes and uniforms
  * arrays to be fed to the WebGLPointsRenderer class.
  * Also returns uniforms and attributes properties as expected by the

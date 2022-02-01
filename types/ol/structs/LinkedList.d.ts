@@ -1,6 +1,6 @@
 export interface Item {
-    prev?: Item;
-    next?: Item;
+    prev?: Item | undefined;
+    next?: Item | undefined;
     data: any;
 }
 export default class LinkedList {

@@ -1,19 +1,32 @@
-import { EventsKey } from '../events';
+import Feature from '../Feature';
+import { ObjectEvent } from '../Object';
+import PluggableMap, { FrameState } from '../PluggableMap';
+import { State as State_2 } from '../View';
+import { EventsKey, ListenerFunction } from '../events';
 import BaseEvent from '../events/Event';
 import { Extent } from '../extent';
-import Feature from '../Feature';
 import Geometry from '../geom/Geometry';
-import { ObjectEvent } from '../Object';
 import { Pixel } from '../pixel';
-import PluggableMap, { FrameState } from '../PluggableMap';
 import RenderEvent from '../render/Event';
 import LayerRenderer from '../renderer/Layer';
 import Source from '../source/Source';
 import State_1 from '../source/State';
-import { State as State_2 } from '../View';
 import BaseLayer from './Base';
 
-export interface Options {
+export type TLayerBaseEventTypes = 'change' | 'error';
+export type TLayerObjectEventTypes =
+    | 'change:extent'
+    | 'change:maxResolution'
+    | 'change:maxZoom'
+    | 'change:minResolution'
+    | 'change:minZoom'
+    | 'change:opacity'
+    | 'change:source'
+    | 'change:visible'
+    | 'change:zIndex'
+    | 'propertychange';
+export type TLayerRenderEventTypes = 'postrender' | 'prerender';
+export interface Options<SourceType extends Source = Source> {
     className?: string | undefined;
     opacity?: number | undefined;
     visible?: boolean | undefined;
@@ -23,13 +36,14 @@ export interface Options {
     maxResolution?: number | undefined;
     minZoom?: number | undefined;
     maxZoom?: number | undefined;
-    source?: Source | undefined;
+    source?: SourceType | undefined;
     map?: PluggableMap | undefined;
     render?: RenderFunction | undefined;
+    properties?: Record<string, any> | undefined;
 }
 export type RenderFunction = (p0: FrameState) => HTMLElement;
 export interface State {
-    layer: Layer<Source>;
+    layer: Layer<Source, LayerRenderer>;
     opacity: number;
     sourceState: State_1;
     visible: boolean;
@@ -41,23 +55,30 @@ export interface State {
     minZoom: number;
     maxZoom: number;
 }
-export default class Layer<SourceType extends Source = Source> extends BaseLayer {
-    constructor(options: Options);
+export default class Layer<
+    SourceType extends Source = Source,
+    RendererType extends LayerRenderer = LayerRenderer,
+> extends BaseLayer {
+    constructor(options: Options<SourceType>);
     /**
      * Create a renderer for this layer.
      */
-    protected createRenderer(): LayerRenderer<Layer<Source>>;
+    protected createRenderer(): RendererType;
     /**
      * Clean up.
      */
     disposeInternal(): void;
     getFeatures(pixel: Pixel): Promise<Feature<Geometry>[]>;
-    getLayersArray(opt_array?: Layer<Source>[]): Layer<Source>[];
+    getLayersArray(opt_array?: Layer<Source, LayerRenderer>[]): Layer<Source, LayerRenderer>[];
     getLayerStatesArray(opt_states?: State[]): State[];
+    /**
+     * For use inside the library only.
+     */
+    getMapInternal(): PluggableMap;
     /**
      * Get the renderer for this layer.
      */
-    getRenderer(): LayerRenderer<Layer<Source>>;
+    getRenderer(): RendererType;
     /**
      * Get the layer source.
      */
@@ -72,62 +93,36 @@ export default class Layer<SourceType extends Source = Source> extends BaseLayer
     /**
      * Sets the layer to be rendered on top of other layers on a map. The map will
      * not manage this layer in its layers collection, and the callback in
-     * {@link module:ol/Map#forEachLayerAtPixel} will receive null as layer. This
+     * {@link module:ol/Map~Map#forEachLayerAtPixel} will receive null as layer. This
      * is useful for temporary layers. To remove an unmanaged layer from the map,
      * use #setMap(null).
      * To add the layer to a map and have it managed by the map, use
-     * {@link module:ol/Map#addLayer} instead.
+     * {@link module:ol/Map~Map#addLayer} instead.
      */
     setMap(map: PluggableMap): void;
+    /**
+     * For use inside the library only.
+     */
+    setMapInternal(map: PluggableMap): void;
     /**
      * Set the layer source.
      */
     setSource(source: SourceType): void;
-    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
-    once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
-    un(type: string | string[], listener: (p0: any) => any): void;
-    on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
-    once(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
-    un(type: 'change', listener: (evt: BaseEvent) => void): void;
-    on(type: 'change:extent', listener: (evt: ObjectEvent) => void): EventsKey;
-    once(type: 'change:extent', listener: (evt: ObjectEvent) => void): EventsKey;
-    un(type: 'change:extent', listener: (evt: ObjectEvent) => void): void;
-    on(type: 'change:maxResolution', listener: (evt: ObjectEvent) => void): EventsKey;
-    once(type: 'change:maxResolution', listener: (evt: ObjectEvent) => void): EventsKey;
-    un(type: 'change:maxResolution', listener: (evt: ObjectEvent) => void): void;
-    on(type: 'change:maxZoom', listener: (evt: ObjectEvent) => void): EventsKey;
-    once(type: 'change:maxZoom', listener: (evt: ObjectEvent) => void): EventsKey;
-    un(type: 'change:maxZoom', listener: (evt: ObjectEvent) => void): void;
-    on(type: 'change:minResolution', listener: (evt: ObjectEvent) => void): EventsKey;
-    once(type: 'change:minResolution', listener: (evt: ObjectEvent) => void): EventsKey;
-    un(type: 'change:minResolution', listener: (evt: ObjectEvent) => void): void;
-    on(type: 'change:minZoom', listener: (evt: ObjectEvent) => void): EventsKey;
-    once(type: 'change:minZoom', listener: (evt: ObjectEvent) => void): EventsKey;
-    un(type: 'change:minZoom', listener: (evt: ObjectEvent) => void): void;
-    on(type: 'change:opacity', listener: (evt: ObjectEvent) => void): EventsKey;
-    once(type: 'change:opacity', listener: (evt: ObjectEvent) => void): EventsKey;
-    un(type: 'change:opacity', listener: (evt: ObjectEvent) => void): void;
-    on(type: 'change:source', listener: (evt: ObjectEvent) => void): EventsKey;
-    once(type: 'change:source', listener: (evt: ObjectEvent) => void): EventsKey;
-    un(type: 'change:source', listener: (evt: ObjectEvent) => void): void;
-    on(type: 'change:visible', listener: (evt: ObjectEvent) => void): EventsKey;
-    once(type: 'change:visible', listener: (evt: ObjectEvent) => void): EventsKey;
-    un(type: 'change:visible', listener: (evt: ObjectEvent) => void): void;
-    on(type: 'change:zIndex', listener: (evt: ObjectEvent) => void): EventsKey;
-    once(type: 'change:zIndex', listener: (evt: ObjectEvent) => void): EventsKey;
-    un(type: 'change:zIndex', listener: (evt: ObjectEvent) => void): void;
-    on(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
-    once(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
-    un(type: 'error', listener: (evt: BaseEvent) => void): void;
-    on(type: 'postrender', listener: (evt: RenderEvent) => void): EventsKey;
-    once(type: 'postrender', listener: (evt: RenderEvent) => void): EventsKey;
-    un(type: 'postrender', listener: (evt: RenderEvent) => void): void;
-    on(type: 'prerender', listener: (evt: RenderEvent) => void): EventsKey;
-    once(type: 'prerender', listener: (evt: RenderEvent) => void): EventsKey;
-    un(type: 'prerender', listener: (evt: RenderEvent) => void): void;
-    on(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
-    once(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
-    un(type: 'propertychange', listener: (evt: ObjectEvent) => void): void;
+    on(type: TLayerBaseEventTypes, listener: ListenerFunction<BaseEvent>): EventsKey;
+    on(type: TLayerBaseEventTypes[], listener: ListenerFunction<BaseEvent>): EventsKey[];
+    once(type: TLayerBaseEventTypes, listener: ListenerFunction<BaseEvent>): EventsKey;
+    once(type: TLayerBaseEventTypes[], listener: ListenerFunction<BaseEvent>): EventsKey[];
+    un(type: TLayerBaseEventTypes | TLayerBaseEventTypes[], listener: ListenerFunction<BaseEvent>): void;
+    on(type: TLayerObjectEventTypes, listener: ListenerFunction<ObjectEvent>): EventsKey;
+    on(type: TLayerObjectEventTypes[], listener: ListenerFunction<ObjectEvent>): EventsKey[];
+    once(type: TLayerObjectEventTypes, listener: ListenerFunction<ObjectEvent>): EventsKey;
+    once(type: TLayerObjectEventTypes[], listener: ListenerFunction<ObjectEvent>): EventsKey[];
+    un(type: TLayerObjectEventTypes | TLayerObjectEventTypes[], listener: ListenerFunction<ObjectEvent>): void;
+    on(type: TLayerRenderEventTypes, listener: ListenerFunction<RenderEvent>): EventsKey;
+    on(type: TLayerRenderEventTypes[], listener: ListenerFunction<RenderEvent>): EventsKey[];
+    once(type: TLayerRenderEventTypes, listener: ListenerFunction<RenderEvent>): EventsKey;
+    once(type: TLayerRenderEventTypes[], listener: ListenerFunction<RenderEvent>): EventsKey[];
+    un(type: TLayerRenderEventTypes | TLayerRenderEventTypes[], listener: ListenerFunction<RenderEvent>): void;
 }
 /**
  * Return true if the layer is visible and if the provided view state

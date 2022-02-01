@@ -1,8 +1,8 @@
-import { Extent } from '../extent';
 import Feature from '../Feature';
+import { Extent } from '../extent';
 import Geometry from '../geom/Geometry';
-import LinearRing from '../geom/LinearRing';
 import LineString from '../geom/LineString';
+import LinearRing from '../geom/LinearRing';
 import MultiLineString from '../geom/MultiLineString';
 import MultiPoint from '../geom/MultiPoint';
 import MultiPolygon from '../geom/MultiPolygon';
@@ -13,7 +13,7 @@ import { ReadOptions } from './Feature';
 import XMLFeature from './XMLFeature';
 
 export interface Options {
-    featureNS?: { [key: string]: string } | string | undefined;
+    featureNS?: Record<string, string> | string | undefined;
     featureType?: string[] | string | undefined;
     srsName: string;
     surface?: boolean | undefined;
@@ -26,7 +26,7 @@ export interface Options {
 export const GMLNS: string;
 export default abstract class GMLBase extends XMLFeature {
     constructor(opt_options?: Options);
-    protected featureNS: { [key: string]: string } | string;
+    protected featureNS: Record<string, string> | string;
     protected featureType: string[] | string;
     protected schemaLocation: string;
     protected srsName: string;

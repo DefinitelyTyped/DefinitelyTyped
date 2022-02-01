@@ -1,24 +1,25 @@
-import { Coordinate } from '../../coordinate';
-import { EventsKey } from '../../events';
-import BaseEvent from '../../events/Event';
 import Feature from '../../Feature';
+import { FrameState } from '../../PluggableMap';
+import { Coordinate } from '../../coordinate';
+import { EventsKey, ListenerFunction } from '../../events';
+import BaseEvent from '../../events/Event';
 import Geometry from '../../geom/Geometry';
 import Layer from '../../layer/Layer';
-import { Pixel } from '../../pixel';
-import { FrameState } from '../../PluggableMap';
 import Source from '../../source/Source';
 import { UniformValue } from '../../webgl/Helper';
+import LayerRenderer from '../Layer';
 import { HitMatch } from '../Map';
 import { FeatureCallback } from '../vector';
 import WebGLLayerRenderer, { PostProcessesOptions } from './Layer';
 
+export type TWebGLPointsLayerRendererBaseEventTypes = 'change' | 'error';
 /**
  * A description of a custom attribute to be passed on to the GPU, with a value different
  * for each feature.
  */
 export interface CustomAttribute {
     name: string;
-    callback: (p0: Feature<Geometry>, p1: { [key: string]: any }) => number;
+    callback: (p0: Feature<Geometry>, p1: Record<string, any>) => number;
 }
 /**
  * Object that holds a reference to a feature, its geometry and properties. Used to optimize
@@ -26,7 +27,7 @@ export interface CustomAttribute {
  */
 export interface FeatureCacheItem {
     feature: Feature<Geometry>;
-    properties: { [key: string]: any };
+    properties: Record<string, any>;
     geometry: Geometry;
 }
 export interface Options {
@@ -36,11 +37,11 @@ export interface Options {
     fragmentShader: string;
     hitVertexShader?: string | undefined;
     hitFragmentShader?: string | undefined;
-    uniforms?: { [key: string]: UniformValue } | undefined;
+    uniforms?: Record<string, UniformValue> | undefined;
     postProcesses?: PostProcessesOptions[] | undefined;
 }
 export default class WebGLPointsLayerRenderer extends WebGLLayerRenderer {
-    constructor(layer: Layer<Source>, options: Options);
+    constructor(layer: Layer<Source, LayerRenderer>, options: Options);
     /**
      * Clean up.
      */
@@ -52,15 +53,14 @@ export default class WebGLPointsLayerRenderer extends WebGLLayerRenderer {
         callback: FeatureCallback<T>,
         matches: HitMatch<T>[],
     ): T | undefined;
-    getDataAtPixel(pixel: Pixel, frameState: FrameState, hitTolerance: number): Uint8ClampedArray | Uint8Array;
     /**
      * Perform action necessary to get the layer rendered after new fonts have loaded
      */
     handleFontsChanged(): void;
     /**
-     * Determine whether render should be called.
+     * Determine whether renderFrame should be called.
      */
-    prepareFrame(frameState: FrameState): boolean;
+    prepareFrameInternal(frameState: FrameState): boolean;
     /**
      * Render the layer.
      */
@@ -69,13 +69,12 @@ export default class WebGLPointsLayerRenderer extends WebGLLayerRenderer {
      * Render the hit detection data to the corresponding render target
      */
     renderHitDetection(frameState: FrameState): void;
-    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
-    once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
-    un(type: string | string[], listener: (p0: any) => any): void;
-    on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
-    once(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
-    un(type: 'change', listener: (evt: BaseEvent) => void): void;
-    on(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
-    once(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
-    un(type: 'error', listener: (evt: BaseEvent) => void): void;
+    on(type: TWebGLPointsLayerRendererBaseEventTypes, listener: ListenerFunction<BaseEvent>): EventsKey;
+    on(type: TWebGLPointsLayerRendererBaseEventTypes[], listener: ListenerFunction<BaseEvent>): EventsKey[];
+    once(type: TWebGLPointsLayerRendererBaseEventTypes, listener: ListenerFunction<BaseEvent>): EventsKey;
+    once(type: TWebGLPointsLayerRendererBaseEventTypes[], listener: ListenerFunction<BaseEvent>): EventsKey[];
+    un(
+        type: TWebGLPointsLayerRendererBaseEventTypes | TWebGLPointsLayerRendererBaseEventTypes[],
+        listener: ListenerFunction<BaseEvent>,
+    ): void;
 }

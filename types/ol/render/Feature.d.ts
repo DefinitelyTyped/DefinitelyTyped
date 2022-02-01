@@ -1,13 +1,14 @@
 import { Extent } from '../extent';
 import GeometryType from '../geom/GeometryType';
 import { ProjectionLike, TransformFunction } from '../proj';
+import { StyleFunction } from '../style/Style';
 
 export default class RenderFeature {
     constructor(
         type: GeometryType,
         flatCoordinates: number[],
         ends: number[] | number[][],
-        properties: { [key: string]: any },
+        properties: Record<string, any>,
         id: number | string | undefined,
     );
     /**
@@ -37,10 +38,10 @@ export default class RenderFeature {
     /**
      * Get the feature properties.
      */
-    getProperties(): { [key: string]: any };
+    getProperties(): Record<string, any>;
     getSimplifiedGeometry(squaredTolerance: number): RenderFeature;
     getStride(): number;
-    getStyleFunction(): undefined;
+    getStyleFunction(): StyleFunction | undefined;
     /**
      * Get the type of this feature's geometry.
      */

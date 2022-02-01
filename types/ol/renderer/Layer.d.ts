@@ -1,21 +1,22 @@
-import { Coordinate } from '../coordinate';
-import { EventsKey } from '../events';
-import BaseEvent from '../events/Event';
 import Feature from '../Feature';
-import Geometry from '../geom/Geometry';
 import ImageBase from '../ImageBase';
-import Layer from '../layer/Layer';
 import Observable from '../Observable';
-import { Pixel } from '../pixel';
 import { FrameState } from '../PluggableMap';
-import Projection from '../proj/Projection';
-import TileSource from '../source/Tile';
 import Tile from '../Tile';
 import TileRange from '../TileRange';
+import { Coordinate } from '../coordinate';
+import { EventsKey, ListenerFunction } from '../events';
+import BaseEvent from '../events/Event';
+import Geometry from '../geom/Geometry';
+import Layer from '../layer/Layer';
+import { Pixel } from '../pixel';
+import Projection from '../proj/Projection';
+import TileSource from '../source/Tile';
 import { HitMatch } from './Map';
 import { FeatureCallback } from './vector';
 
-export default class LayerRenderer<LayerType extends Layer = Layer> extends Observable {
+export type TLayerRendererBaseEventTypes = 'change' | 'error';
+export default class LayerRenderer<LayerType extends Layer = any> extends Observable {
     constructor(layer: LayerType);
     protected layer_: LayerType;
     /**
@@ -24,7 +25,7 @@ export default class LayerRenderer<LayerType extends Layer = Layer> extends Obse
     protected createLoadedTileFinder(
         source: TileSource,
         projection: Projection,
-        tiles: { [key: number]: { [key: string]: Tile } },
+        tiles: Record<number, Record<string, Tile>>,
     ): (p0: number, p1: TileRange) => boolean;
     /**
      * Load the image if not already loaded, and register the image change
@@ -49,7 +50,7 @@ export default class LayerRenderer<LayerType extends Layer = Layer> extends Obse
      * Perform action necessary to get the layer rendered after new fonts have loaded
      */
     handleFontsChanged(): void;
-    loadedTileCallback(tiles: { [key: number]: { [key: string]: Tile } }, zoom: number, tile: Tile): boolean;
+    loadedTileCallback(tiles: Record<number, Record<string, Tile>>, zoom: number, tile: Tile): boolean | void;
     /**
      * Determine whether render should be called.
      */
@@ -58,13 +59,12 @@ export default class LayerRenderer<LayerType extends Layer = Layer> extends Obse
      * Render the layer.
      */
     renderFrame(frameState: FrameState, target: HTMLElement): HTMLElement;
-    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
-    once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
-    un(type: string | string[], listener: (p0: any) => any): void;
-    on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
-    once(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
-    un(type: 'change', listener: (evt: BaseEvent) => void): void;
-    on(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
-    once(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
-    un(type: 'error', listener: (evt: BaseEvent) => void): void;
+    on(type: TLayerRendererBaseEventTypes, listener: ListenerFunction<BaseEvent>): EventsKey;
+    on(type: TLayerRendererBaseEventTypes[], listener: ListenerFunction<BaseEvent>): EventsKey[];
+    once(type: TLayerRendererBaseEventTypes, listener: ListenerFunction<BaseEvent>): EventsKey;
+    once(type: TLayerRendererBaseEventTypes[], listener: ListenerFunction<BaseEvent>): EventsKey[];
+    un(
+        type: TLayerRendererBaseEventTypes | TLayerRendererBaseEventTypes[],
+        listener: ListenerFunction<BaseEvent>,
+    ): void;
 }

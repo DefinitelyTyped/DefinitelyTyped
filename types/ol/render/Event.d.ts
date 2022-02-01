@@ -1,5 +1,5 @@
-import BaseEvent from '../events/Event';
 import { FrameState } from '../PluggableMap';
+import BaseEvent from '../events/Event';
 import { Transform } from '../transform';
 import EventType from './EventType';
 
@@ -8,13 +8,14 @@ export default class RenderEvent extends BaseEvent {
         type: EventType,
         opt_inversePixelTransform?: Transform,
         opt_frameState?: FrameState,
-        opt_context?: CanvasRenderingContext2D,
+        opt_context?: CanvasRenderingContext2D | WebGLRenderingContext,
     );
     /**
-     * Canvas context. Not available when the event is dispatched by the map. Only available
-     * when a Canvas renderer is used, null otherwise.
+     * Canvas context. Not available when the event is dispatched by the map. For Canvas 2D layers,
+     * the context will be the 2D rendering context.  For WebGL layers, the context will be the WebGL
+     * context.
      */
-    context: CanvasRenderingContext2D | null;
+    context: CanvasRenderingContext2D | WebGLRenderingContext;
     /**
      * An object representing the current render frame state.
      */

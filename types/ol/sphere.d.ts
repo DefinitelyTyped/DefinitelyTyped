@@ -7,8 +7,8 @@ import { ProjectionLike } from './proj';
  * functions.
  */
 export interface SphereMetricOptions {
-    projection?: ProjectionLike;
-    radius?: number;
+    projection?: ProjectionLike | undefined;
+    radius?: number | undefined;
 }
 /**
  * The mean Earth radius (1/3 * (2a + b)) for the WGS84 ellipsoid.

@@ -1,9 +1,9 @@
-import { Extent } from '../../extent';
 import { FeatureLike } from '../../Feature';
+import { Extent } from '../../extent';
 import LineString from '../../geom/LineString';
 import MultiLineString from '../../geom/MultiLineString';
-import { FillStrokeState, SerializableInstructions } from '../canvas';
 import RenderFeature from '../Feature';
+import { FillStrokeState, SerializableInstructions } from '../canvas';
 import CanvasBuilder from './Builder';
 
 export default class CanvasLineStringBuilder extends CanvasBuilder {

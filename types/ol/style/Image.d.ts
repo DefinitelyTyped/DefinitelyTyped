@@ -1,5 +1,5 @@
-import BaseEvent from '../events/Event';
 import ImageState from '../ImageState';
+import BaseEvent from '../events/Event';
 import { Size } from '../size';
 
 export interface Options {
@@ -25,7 +25,6 @@ export default abstract class ImageStyle {
      */
     getDisplacement(): number[];
     abstract getHitDetectionImage(): HTMLCanvasElement | HTMLVideoElement | HTMLImageElement;
-    abstract getHitDetectionImageSize(): Size;
     /**
      * Get the image element for the symbolizer.
      */
@@ -40,6 +39,10 @@ export default abstract class ImageStyle {
      * Get the origin of the symbolizer.
      */
     abstract getOrigin(): number[];
+    /**
+     * Get the image pixel ratio.
+     */
+    getPixelRatio(pixelRatio: number): number;
     /**
      * Determine whether the symbolizer rotates with the map.
      */
@@ -65,6 +68,10 @@ export default abstract class ImageStyle {
      * Load not yet loaded URI.
      */
     abstract load(): void;
+    /**
+     * Set the displacement.
+     */
+    setDisplacement(displacement: number[]): void;
     /**
      * Set the opacity.
      */

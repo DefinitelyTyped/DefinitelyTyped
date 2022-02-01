@@ -1,5 +1,5 @@
-import { Extent } from '../../extent';
 import { FeatureLike } from '../../Feature';
+import { Extent } from '../../extent';
 import { Pixel } from '../../pixel';
 import { Size } from '../../size';
 import { StyleFunction } from '../../style/Style';

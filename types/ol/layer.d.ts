@@ -9,3 +9,4 @@ export { default as Vector } from './layer/Vector';
 export { default as VectorImage } from './layer/VectorImage';
 export { default as VectorTile } from './layer/VectorTile';
 export { default as WebGLPoints } from './layer/WebGLPoints';
+export { default as WebGLTile } from './layer/WebGLTile';

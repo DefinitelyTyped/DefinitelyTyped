@@ -1,13 +1,16 @@
-import { EventsKey } from '../events';
-import BaseEvent from '../events/Event';
-import { Extent } from '../extent';
 import ImageWrapper, { LoadFunction } from '../Image';
 import { ObjectEvent } from '../Object';
+import { EventsKey, ListenerFunction } from '../events';
+import BaseEvent from '../events/Event';
+import { Extent } from '../extent';
 import { ProjectionLike } from '../proj';
 import Projection from '../proj/Projection';
 import { Size } from '../size';
 import ImageSource, { ImageSourceEvent } from './Image';
 
+export type TImageMapGuideBaseEventTypes = 'change' | 'error';
+export type TImageMapGuideImageSourceEventTypes = 'imageloadend' | 'imageloaderror' | 'imageloadstart';
+export type TImageMapGuideObjectEventTypes = 'propertychange';
 export interface Options {
     url?: string | undefined;
     crossOrigin?: null | string | undefined;
@@ -20,6 +23,7 @@ export interface Options {
     resolutions?: number[] | undefined;
     imageLoadFunction?: LoadFunction | undefined;
     imageSmoothing?: boolean | undefined;
+    interpolate?: boolean | undefined;
     params?: any;
 }
 export default class ImageMapGuide extends ImageSource {
@@ -36,7 +40,7 @@ export default class ImageMapGuide extends ImageSource {
     getParams(): any;
     getUrl(
         baseUrl: string,
-        params: { [key: string]: string | number },
+        params: Record<string, string | number>,
         extent: Extent,
         size: Size,
         projection: Projection,
@@ -49,25 +53,28 @@ export default class ImageMapGuide extends ImageSource {
      * Update the user-provided params.
      */
     updateParams(params: any): void;
-    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
-    once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
-    un(type: string | string[], listener: (p0: any) => any): void;
-    on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
-    once(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
-    un(type: 'change', listener: (evt: BaseEvent) => void): void;
-    on(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
-    once(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
-    un(type: 'error', listener: (evt: BaseEvent) => void): void;
-    on(type: 'imageloadend', listener: (evt: ImageSourceEvent) => void): EventsKey;
-    once(type: 'imageloadend', listener: (evt: ImageSourceEvent) => void): EventsKey;
-    un(type: 'imageloadend', listener: (evt: ImageSourceEvent) => void): void;
-    on(type: 'imageloaderror', listener: (evt: ImageSourceEvent) => void): EventsKey;
-    once(type: 'imageloaderror', listener: (evt: ImageSourceEvent) => void): EventsKey;
-    un(type: 'imageloaderror', listener: (evt: ImageSourceEvent) => void): void;
-    on(type: 'imageloadstart', listener: (evt: ImageSourceEvent) => void): EventsKey;
-    once(type: 'imageloadstart', listener: (evt: ImageSourceEvent) => void): EventsKey;
-    un(type: 'imageloadstart', listener: (evt: ImageSourceEvent) => void): void;
-    on(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
-    once(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
-    un(type: 'propertychange', listener: (evt: ObjectEvent) => void): void;
+    on(type: TImageMapGuideBaseEventTypes, listener: ListenerFunction<BaseEvent>): EventsKey;
+    on(type: TImageMapGuideBaseEventTypes[], listener: ListenerFunction<BaseEvent>): EventsKey[];
+    once(type: TImageMapGuideBaseEventTypes, listener: ListenerFunction<BaseEvent>): EventsKey;
+    once(type: TImageMapGuideBaseEventTypes[], listener: ListenerFunction<BaseEvent>): EventsKey[];
+    un(
+        type: TImageMapGuideBaseEventTypes | TImageMapGuideBaseEventTypes[],
+        listener: ListenerFunction<BaseEvent>,
+    ): void;
+    on(type: TImageMapGuideImageSourceEventTypes, listener: ListenerFunction<ImageSourceEvent>): EventsKey;
+    on(type: TImageMapGuideImageSourceEventTypes[], listener: ListenerFunction<ImageSourceEvent>): EventsKey[];
+    once(type: TImageMapGuideImageSourceEventTypes, listener: ListenerFunction<ImageSourceEvent>): EventsKey;
+    once(type: TImageMapGuideImageSourceEventTypes[], listener: ListenerFunction<ImageSourceEvent>): EventsKey[];
+    un(
+        type: TImageMapGuideImageSourceEventTypes | TImageMapGuideImageSourceEventTypes[],
+        listener: ListenerFunction<ImageSourceEvent>,
+    ): void;
+    on(type: TImageMapGuideObjectEventTypes, listener: ListenerFunction<ObjectEvent>): EventsKey;
+    on(type: TImageMapGuideObjectEventTypes[], listener: ListenerFunction<ObjectEvent>): EventsKey[];
+    once(type: TImageMapGuideObjectEventTypes, listener: ListenerFunction<ObjectEvent>): EventsKey;
+    once(type: TImageMapGuideObjectEventTypes[], listener: ListenerFunction<ObjectEvent>): EventsKey[];
+    un(
+        type: TImageMapGuideObjectEventTypes | TImageMapGuideObjectEventTypes[],
+        listener: ListenerFunction<ObjectEvent>,
+    ): void;
 }

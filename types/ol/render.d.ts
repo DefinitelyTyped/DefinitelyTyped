@@ -1,8 +1,8 @@
 import { FeatureLike } from './Feature';
 import SimpleGeometry from './geom/SimpleGeometry';
 import { Pixel } from './pixel';
-import CanvasImmediateRenderer from './render/canvas/Immediate';
 import RenderEvent from './render/Event';
+import CanvasImmediateRenderer from './render/canvas/Immediate';
 import { Size } from './size';
 
 /**

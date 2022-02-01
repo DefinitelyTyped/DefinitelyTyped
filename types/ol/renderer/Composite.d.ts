@@ -1,6 +1,6 @@
+import PluggableMap, { FrameState } from '../PluggableMap';
 import Layer from '../layer/Layer';
 import { Pixel } from '../pixel';
-import PluggableMap, { FrameState } from '../PluggableMap';
 import EventType from '../render/EventType';
 import Source from '../source/Source';
 import MapRenderer from './Map';

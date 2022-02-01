@@ -1,18 +1,23 @@
 import Collection from '../Collection';
-import { EventsKey } from '../events';
-import { Condition } from '../events/condition';
-import BaseEvent from '../events/Event';
 import Feature, { FeatureLike } from '../Feature';
-import Geometry from '../geom/Geometry';
-import Layer from '../layer/Layer';
-import VectorLayer from '../layer/Vector';
 import MapBrowserEvent from '../MapBrowserEvent';
 import { ObjectEvent } from '../Object';
 import PluggableMap from '../PluggableMap';
+import { EventsKey, ListenerFunction } from '../events';
+import BaseEvent from '../events/Event';
+import { Condition } from '../events/condition';
+import Geometry from '../geom/Geometry';
+import Layer from '../layer/Layer';
+import VectorLayer from '../layer/Vector';
+import LayerRenderer from '../renderer/Layer';
 import Source from '../source/Source';
+import VectorSource from '../source/Vector';
 import { StyleLike } from '../style/Style';
 import Interaction from './Interaction';
 
+export type TSelectBaseEventTypes = 'change' | 'error';
+export type TSelectObjectEventTypes = 'change:active' | 'propertychange';
+export type TSelectSelectEventTypes = 'select';
 /**
  * A function that takes an {@link module:ol/Feature} or
  * {@link module:ol/render/Feature} and an
@@ -23,7 +28,7 @@ export type FilterFunction = (p0: FeatureLike, p1: Layer<Source>) => boolean;
 export interface Options {
     addCondition?: Condition | undefined;
     condition?: Condition | undefined;
-    layers?: Layer<Source>[] | ((p0: Layer<Source>) => boolean) | undefined;
+    layers?: Layer<Source, LayerRenderer>[] | ((p0: Layer<Source>) => boolean) | undefined;
     style?: StyleLike | null | undefined;
     removeCondition?: Condition | undefined;
     toggleCondition?: Condition | undefined;
@@ -46,12 +51,10 @@ export default class Select extends Interaction {
      */
     getHitTolerance(): number;
     /**
-     * Returns the associated {@link module:ol/layer/Vector~Vector vectorlayer} of
-     * the (last) selected feature. Note that this will not work with any
-     * programmatic method like pushing features to
-     * {@link module:ol/interaction/Select~Select#getFeatures collection}.
+     * Returns the associated {@link module:ol/layer/Vector~Vector vector layer} of
+     * a selected feature.
      */
-    getLayer(feature: FeatureLike): VectorLayer;
+    getLayer(feature: FeatureLike): VectorLayer<VectorSource<Geometry>>;
     getStyle(): StyleLike | null;
     /**
      * Handles the {@link module:ol/MapBrowserEvent map browser event} and may change the
@@ -68,24 +71,21 @@ export default class Select extends Interaction {
      * map, if any. Pass null to just remove the interaction from the current map.
      */
     setMap(map: PluggableMap): void;
-    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
-    once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
-    un(type: string | string[], listener: (p0: any) => any): void;
-    on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
-    once(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
-    un(type: 'change', listener: (evt: BaseEvent) => void): void;
-    on(type: 'change:active', listener: (evt: ObjectEvent) => void): EventsKey;
-    once(type: 'change:active', listener: (evt: ObjectEvent) => void): EventsKey;
-    un(type: 'change:active', listener: (evt: ObjectEvent) => void): void;
-    on(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
-    once(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
-    un(type: 'error', listener: (evt: BaseEvent) => void): void;
-    on(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
-    once(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
-    un(type: 'propertychange', listener: (evt: ObjectEvent) => void): void;
-    on(type: 'select', listener: (evt: SelectEvent) => void): EventsKey;
-    once(type: 'select', listener: (evt: SelectEvent) => void): EventsKey;
-    un(type: 'select', listener: (evt: SelectEvent) => void): void;
+    on(type: TSelectBaseEventTypes, listener: ListenerFunction<BaseEvent>): EventsKey;
+    on(type: TSelectBaseEventTypes[], listener: ListenerFunction<BaseEvent>): EventsKey[];
+    once(type: TSelectBaseEventTypes, listener: ListenerFunction<BaseEvent>): EventsKey;
+    once(type: TSelectBaseEventTypes[], listener: ListenerFunction<BaseEvent>): EventsKey[];
+    un(type: TSelectBaseEventTypes | TSelectBaseEventTypes[], listener: ListenerFunction<BaseEvent>): void;
+    on(type: TSelectObjectEventTypes, listener: ListenerFunction<ObjectEvent>): EventsKey;
+    on(type: TSelectObjectEventTypes[], listener: ListenerFunction<ObjectEvent>): EventsKey[];
+    once(type: TSelectObjectEventTypes, listener: ListenerFunction<ObjectEvent>): EventsKey;
+    once(type: TSelectObjectEventTypes[], listener: ListenerFunction<ObjectEvent>): EventsKey[];
+    un(type: TSelectObjectEventTypes | TSelectObjectEventTypes[], listener: ListenerFunction<ObjectEvent>): void;
+    on(type: TSelectSelectEventTypes, listener: ListenerFunction<SelectEvent>): EventsKey;
+    on(type: TSelectSelectEventTypes[], listener: ListenerFunction<SelectEvent>): EventsKey[];
+    once(type: TSelectSelectEventTypes, listener: ListenerFunction<SelectEvent>): EventsKey;
+    once(type: TSelectSelectEventTypes[], listener: ListenerFunction<SelectEvent>): EventsKey[];
+    un(type: TSelectSelectEventTypes | TSelectSelectEventTypes[], listener: ListenerFunction<SelectEvent>): void;
 }
 export class SelectEvent extends BaseEvent {
     constructor(

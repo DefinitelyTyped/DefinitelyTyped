@@ -1,8 +1,8 @@
-import { Extent } from '../extent';
 import Feature from '../Feature';
+import { Extent } from '../extent';
 import Geometry from '../geom/Geometry';
-import LinearRing from '../geom/LinearRing';
 import LineString from '../geom/LineString';
+import LinearRing from '../geom/LinearRing';
 import MultiLineString from '../geom/MultiLineString';
 import MultiPoint from '../geom/MultiPoint';
 import MultiPolygon from '../geom/MultiPolygon';

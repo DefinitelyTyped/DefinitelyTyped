@@ -11,7 +11,7 @@ import { ReadOptions, WriteOptions } from './Feature';
 import XMLFeature from './XMLFeature';
 
 export interface GxTrackObject {
-    flatCoordinates: number[];
+    coordinates: number[][];
     whens: number[];
 }
 /**
@@ -33,7 +33,7 @@ export interface Vec2 {
     xunits: IconAnchorUnits;
     y: number;
     yunits: IconAnchorUnits;
-    origin: IconOrigin;
+    origin?: IconOrigin | undefined;
 }
 export default class KML extends XMLFeature {
     constructor(opt_options?: Options);

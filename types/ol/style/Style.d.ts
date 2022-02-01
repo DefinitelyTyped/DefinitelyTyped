@@ -1,5 +1,5 @@
-import { Coordinate } from '../coordinate';
 import { FeatureLike } from '../Feature';
+import { Coordinate } from '../coordinate';
 import Geometry from '../geom/Geometry';
 import GeometryType from '../geom/GeometryType';
 import { State } from '../render';
@@ -19,6 +19,7 @@ export interface Options {
     fill?: Fill | undefined;
     image?: ImageStyle | undefined;
     renderer?: RenderFunction | undefined;
+    hitDetectionRenderer?: RenderFunction | undefined;
     stroke?: Stroke | undefined;
     text?: Text | undefined;
     zIndex?: number | undefined;
@@ -34,11 +35,11 @@ export type RenderFunction = (p0: Coordinate | Coordinate[] | Coordinate[][], p1
 /**
  * A function that takes an {@link module:ol/Feature} and a {number}
  * representing the view's resolution. The function should return a
- * {@link module:ol/style/Style} or an array of them. This way e.g. a
+ * {@link module:ol/style/Style~Style} or an array of them. This way e.g. a
  * vector layer can be styled. If the function returns undefined, the
  * feature will not be rendered.
  */
-export type StyleFunction = (p0: FeatureLike, p1: number) => Style | Style[];
+export type StyleFunction = (p0: FeatureLike, p1: number) => Style | Style[] | void;
 /**
  * A {@link Style}, an array of {@link Style}, or a {@link StyleFunction}.
  */
@@ -61,6 +62,11 @@ export default class Style {
      * Get the function used to generate a geometry for rendering.
      */
     getGeometryFunction(): GeometryFunction;
+    /**
+     * Get the custom renderer function that was configured with
+     * {@link #setHitDetectionRenderer} or the hitDetectionRenderer constructor option.
+     */
+    getHitDetectionRenderer(): RenderFunction | null;
     /**
      * Get the image style.
      */
@@ -91,6 +97,11 @@ export default class Style {
      */
     setGeometry(geometry: string | Geometry | GeometryFunction): void;
     /**
+     * Sets a custom renderer function for this style used
+     * in hit detection.
+     */
+    setHitDetectionRenderer(renderer: RenderFunction | null): void;
+    /**
      * Set the image style.
      */
     setImage(image: ImageStyle): void;
@@ -116,7 +127,7 @@ export function createDefaultStyle(feature: FeatureLike, resolution: number): St
 /**
  * Default styles for editing features.
  */
-export function createEditingStyle(): { [key in GeometryType]: Style[] };
+export function createEditingStyle(): Record<GeometryType, Style[]>;
 /**
  * Convert the provided object into a style function.  Functions passed through
  * unchanged.  Arrays of Style or single style objects wrapped in a

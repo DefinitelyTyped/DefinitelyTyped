@@ -1,3 +1,8 @@
+import Feature_1 from '../Feature';
+import Geometry_1 from '../geom/Geometry';
+import Projection from '../proj/Projection';
+import { ReadOptions, WriteOptions } from './Feature';
+import JSONFeature from './JSONFeature';
 import {
     Feature,
     FeatureSet,
@@ -10,11 +15,6 @@ import {
     Position,
     SpatialReferenceWkid,
 } from 'arcgis-rest-api';
-import Feature_1 from '../Feature';
-import Geometry_1 from '../geom/Geometry';
-import Projection from '../proj/Projection';
-import { ReadOptions, WriteOptions } from './Feature';
-import JSONFeature from './JSONFeature';
 
 export type EsriJSONFeature = Feature;
 export type EsriJSONFeatureSet = FeatureSet;

@@ -1,6 +1,8 @@
 export { default as BingMaps } from './source/BingMaps';
 export { default as CartoDB } from './source/CartoDB';
 export { default as Cluster } from './source/Cluster';
+export { default as DataTile } from './source/DataTile';
+export { default as GeoTIFF } from './source/GeoTIFF';
 export { default as IIIF } from './source/IIIF';
 export { default as Image } from './source/Image';
 export { default as ImageArcGISRest } from './source/ImageArcGISRest';

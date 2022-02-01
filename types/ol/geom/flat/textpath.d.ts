@@ -7,8 +7,8 @@ export function drawTextOnPath(
     startM: number,
     maxAngle: number,
     scale: number,
-    measureAndCacheTextWidth: (p0: string, p1: string, p2: { [key: string]: number }) => number,
+    measureAndCacheTextWidth: (p0: string, p1: string, p2: Record<string, number>) => number,
     font: string,
-    cache: { [key: string]: number },
+    cache: Record<string, number>,
     rotation: number,
 ): any[][];

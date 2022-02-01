@@ -1,18 +1,21 @@
+import BaseObject, { ObjectEvent } from './Object';
+import Types from './ObjectEventType';
+import ViewHint from './ViewHint';
 import { Type } from './centerconstraint';
 import { Coordinate } from './coordinate';
-import { EventsKey } from './events';
+import { EventsKey, ListenerFunction } from './events';
 import BaseEvent from './events/Event';
 import { Extent } from './extent';
 import SimpleGeometry from './geom/SimpleGeometry';
-import BaseObject, { ObjectEvent } from './Object';
 import { Pixel } from './pixel';
 import { ProjectionLike } from './proj';
 import Projection from './proj/Projection';
 import { Type as Type_1 } from './resolutionconstraint';
 import { Type as Type_2 } from './rotationconstraint';
 import { Size } from './size';
-import ViewHint from './ViewHint';
 
+export type TViewBaseEventTypes = 'change' | 'error';
+export type TViewObjectEventTypes = 'change:center' | 'change:resolution' | 'change:rotation' | 'propertychange';
 /**
  * An animation configuration
  */
@@ -58,9 +61,13 @@ export interface State {
     center: Coordinate;
     projection: Projection;
     resolution: number;
+    nextCenter?: Coordinate | undefined;
+    nextResolution?: number | undefined;
+    nextRotation?: number | undefined;
     rotation: number;
     zoom: number;
 }
+export type ViewObjectEventTypes = Types | 'change:center' | 'change:resolution' | 'change:rotation';
 export interface ViewOptions {
     center?: Coordinate | undefined;
     constrainRotation?: boolean | number | undefined;
@@ -306,6 +313,10 @@ export default class View extends BaseObject {
      */
     resolveConstraints(opt_duration?: number, opt_resolutionDirection?: number, opt_anchor?: Coordinate): void;
     /**
+     * Calculate rotated extent
+     */
+    rotatedExtentForGeometry(geometry: SimpleGeometry): Extent;
+    /**
      * Set the center of the current view. Any extent constraint will apply.
      */
     setCenter(center: Coordinate | undefined): void;
@@ -314,7 +325,7 @@ export default class View extends BaseObject {
      */
     setCenterInternal(center: Coordinate | undefined): void;
     /**
-     * Set whether the view shoud allow intermediary zoom levels.
+     * Set whether the view should allow intermediary zoom levels.
      */
     setConstrainResolution(enabled: boolean): void;
     setHint(hint: ViewHint, delta: number): number;
@@ -349,27 +360,16 @@ export default class View extends BaseObject {
      * Update all animations.
      */
     updateAnimations_(): void;
-    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
-    once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
-    un(type: string | string[], listener: (p0: any) => any): void;
-    on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
-    once(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
-    un(type: 'change', listener: (evt: BaseEvent) => void): void;
-    on(type: 'change:center', listener: (evt: ObjectEvent) => void): EventsKey;
-    once(type: 'change:center', listener: (evt: ObjectEvent) => void): EventsKey;
-    un(type: 'change:center', listener: (evt: ObjectEvent) => void): void;
-    on(type: 'change:resolution', listener: (evt: ObjectEvent) => void): EventsKey;
-    once(type: 'change:resolution', listener: (evt: ObjectEvent) => void): EventsKey;
-    un(type: 'change:resolution', listener: (evt: ObjectEvent) => void): void;
-    on(type: 'change:rotation', listener: (evt: ObjectEvent) => void): EventsKey;
-    once(type: 'change:rotation', listener: (evt: ObjectEvent) => void): EventsKey;
-    un(type: 'change:rotation', listener: (evt: ObjectEvent) => void): void;
-    on(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
-    once(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
-    un(type: 'error', listener: (evt: BaseEvent) => void): void;
-    on(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
-    once(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
-    un(type: 'propertychange', listener: (evt: ObjectEvent) => void): void;
+    on(type: TViewBaseEventTypes, listener: ListenerFunction<BaseEvent>): EventsKey;
+    on(type: TViewBaseEventTypes[], listener: ListenerFunction<BaseEvent>): EventsKey[];
+    once(type: TViewBaseEventTypes, listener: ListenerFunction<BaseEvent>): EventsKey;
+    once(type: TViewBaseEventTypes[], listener: ListenerFunction<BaseEvent>): EventsKey[];
+    un(type: TViewBaseEventTypes | TViewBaseEventTypes[], listener: ListenerFunction<BaseEvent>): void;
+    on(type: TViewObjectEventTypes, listener: ListenerFunction<ObjectEvent>): EventsKey;
+    on(type: TViewObjectEventTypes[], listener: ListenerFunction<ObjectEvent>): EventsKey[];
+    once(type: TViewObjectEventTypes, listener: ListenerFunction<ObjectEvent>): EventsKey;
+    once(type: TViewObjectEventTypes[], listener: ListenerFunction<ObjectEvent>): EventsKey[];
+    un(type: TViewObjectEventTypes | TViewObjectEventTypes[], listener: ListenerFunction<ObjectEvent>): void;
 }
 export function createCenterConstraint(options: ViewOptions): Type;
 export function createResolutionConstraint(options: ViewOptions): any;

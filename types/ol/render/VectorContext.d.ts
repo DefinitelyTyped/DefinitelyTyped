@@ -14,8 +14,8 @@ import ImageStyle from '../style/Image';
 import Stroke from '../style/Stroke';
 import Style from '../style/Style';
 import Text from '../style/Text';
-import { DeclutterImageWithText } from './canvas';
 import RenderFeature from './Feature';
+import { DeclutterImageWithText } from './canvas';
 
 export default class VectorContext {
     constructor();
@@ -23,7 +23,12 @@ export default class VectorContext {
     /**
      * Render a geometry with a custom renderer.
      */
-    drawCustom(geometry: SimpleGeometry, feature: FeatureLike, renderer: () => void): void;
+    drawCustom(
+        geometry: SimpleGeometry,
+        feature: FeatureLike,
+        renderer: () => void,
+        hitDetectionRenderer: () => void,
+    ): void;
     drawFeature(feature: Feature<Geometry>, style: Style): void;
     /**
      * Render a geometry.

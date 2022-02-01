@@ -1,3 +1,9 @@
+import Feature_1 from '../Feature';
+import Geometry_1 from '../geom/Geometry';
+import { ProjectionLike } from '../proj';
+import Projection from '../proj/Projection';
+import { ReadOptions, WriteOptions } from './Feature';
+import JSONFeature from './JSONFeature';
 import {
     Feature,
     FeatureCollection,
@@ -11,12 +17,6 @@ import {
     Point,
     Polygon,
 } from 'geojson';
-import Feature_1 from '../Feature';
-import Geometry_1 from '../geom/Geometry';
-import { ProjectionLike } from '../proj';
-import Projection from '../proj/Projection';
-import { ReadOptions, WriteOptions } from './Feature';
-import JSONFeature from './JSONFeature';
 
 export type GeoJSONFeature = Feature;
 export type GeoJSONFeatureCollection = FeatureCollection;

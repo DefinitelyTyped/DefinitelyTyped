@@ -1,10 +1,10 @@
-import { Extent } from '../../extent';
 import { FeatureLike } from '../../Feature';
+import { Extent } from '../../extent';
 import MultiPoint from '../../geom/MultiPoint';
 import Point from '../../geom/Point';
 import ImageStyle from '../../style/Image';
-import { SerializableInstructions } from '../canvas';
 import RenderFeature from '../Feature';
+import { SerializableInstructions } from '../canvas';
 import CanvasBuilder from './Builder';
 
 export default class CanvasImageBuilder extends CanvasBuilder {

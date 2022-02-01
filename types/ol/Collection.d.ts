@@ -1,8 +1,11 @@
 import CollectionEventType from './CollectionEventType';
-import { EventsKey } from './events';
-import BaseEvent from './events/Event';
 import BaseObject, { ObjectEvent } from './Object';
+import { EventsKey, ListenerFunction } from './events';
+import BaseEvent from './events/Event';
 
+export type TCollectionCollectionEventTypes = 'add' | 'remove';
+export type TCollectionBaseEventTypes = 'change' | 'error';
+export type TCollectionObjectEventTypes = 'change:length' | 'propertychange';
 export interface Options {
     unique?: boolean | undefined;
 }
@@ -62,27 +65,27 @@ export default class Collection<T> extends BaseObject {
      * Set the element at the provided index.
      */
     setAt(index: number, elem: T): void;
-    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
-    once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
-    un(type: string | string[], listener: (p0: any) => any): void;
-    on(type: 'add', listener: (evt: CollectionEvent<T>) => void): EventsKey;
-    once(type: 'add', listener: (evt: CollectionEvent<T>) => void): EventsKey;
-    un(type: 'add', listener: (evt: CollectionEvent<T>) => void): void;
-    on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
-    once(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
-    un(type: 'change', listener: (evt: BaseEvent) => void): void;
-    on(type: 'change:length', listener: (evt: ObjectEvent) => void): EventsKey;
-    once(type: 'change:length', listener: (evt: ObjectEvent) => void): EventsKey;
-    un(type: 'change:length', listener: (evt: ObjectEvent) => void): void;
-    on(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
-    once(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
-    un(type: 'error', listener: (evt: BaseEvent) => void): void;
-    on(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
-    once(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
-    un(type: 'propertychange', listener: (evt: ObjectEvent) => void): void;
-    on(type: 'remove', listener: (evt: CollectionEvent<T>) => void): EventsKey;
-    once(type: 'remove', listener: (evt: CollectionEvent<T>) => void): EventsKey;
-    un(type: 'remove', listener: (evt: CollectionEvent<T>) => void): void;
+    on(type: TCollectionCollectionEventTypes, listener: ListenerFunction<CollectionEvent<T>>): EventsKey;
+    on(type: TCollectionCollectionEventTypes[], listener: ListenerFunction<CollectionEvent<T>>): EventsKey[];
+    once(type: TCollectionCollectionEventTypes, listener: ListenerFunction<CollectionEvent<T>>): EventsKey;
+    once(type: TCollectionCollectionEventTypes[], listener: ListenerFunction<CollectionEvent<T>>): EventsKey[];
+    un(
+        type: TCollectionCollectionEventTypes | TCollectionCollectionEventTypes[],
+        listener: ListenerFunction<CollectionEvent<T>>,
+    ): void;
+    on(type: TCollectionBaseEventTypes, listener: ListenerFunction<BaseEvent>): EventsKey;
+    on(type: TCollectionBaseEventTypes[], listener: ListenerFunction<BaseEvent>): EventsKey[];
+    once(type: TCollectionBaseEventTypes, listener: ListenerFunction<BaseEvent>): EventsKey;
+    once(type: TCollectionBaseEventTypes[], listener: ListenerFunction<BaseEvent>): EventsKey[];
+    un(type: TCollectionBaseEventTypes | TCollectionBaseEventTypes[], listener: ListenerFunction<BaseEvent>): void;
+    on(type: TCollectionObjectEventTypes, listener: ListenerFunction<ObjectEvent>): EventsKey;
+    on(type: TCollectionObjectEventTypes[], listener: ListenerFunction<ObjectEvent>): EventsKey[];
+    once(type: TCollectionObjectEventTypes, listener: ListenerFunction<ObjectEvent>): EventsKey;
+    once(type: TCollectionObjectEventTypes[], listener: ListenerFunction<ObjectEvent>): EventsKey[];
+    un(
+        type: TCollectionObjectEventTypes | TCollectionObjectEventTypes[],
+        listener: ListenerFunction<ObjectEvent>,
+    ): void;
 }
 export class CollectionEvent<T> extends BaseEvent {
     constructor(type: CollectionEventType, opt_element?: T, opt_index?: number);

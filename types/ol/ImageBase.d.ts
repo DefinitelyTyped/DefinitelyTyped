@@ -1,6 +1,6 @@
+import ImageState from './ImageState';
 import Target from './events/Target';
 import { Extent } from './extent';
-import ImageState from './ImageState';
 
 export default abstract class ImageBase extends Target {
     constructor(extent: Extent, resolution: number | undefined, pixelRatio: number, state: ImageState);

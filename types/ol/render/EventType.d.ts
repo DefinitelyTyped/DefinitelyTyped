@@ -1,3 +1,5 @@
+export type LayerRenderEventTypes = 'postrender' | 'prerender';
+export type MapRenderEventTypes = 'postrender' | 'precompose' | 'postcompose' | 'rendercomplete';
 declare enum EventType {
     PRERENDER = 'prerender',
     POSTRENDER = 'postrender',

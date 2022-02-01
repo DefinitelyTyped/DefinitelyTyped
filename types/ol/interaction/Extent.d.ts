@@ -1,13 +1,16 @@
-import { EventsKey } from '../events';
-import { Condition } from '../events/condition';
-import BaseEvent from '../events/Event';
-import { Extent as Extent_1 } from '../extent';
 import MapBrowserEvent from '../MapBrowserEvent';
 import { ObjectEvent } from '../Object';
 import PluggableMap from '../PluggableMap';
+import { EventsKey, ListenerFunction } from '../events';
+import BaseEvent from '../events/Event';
+import { Condition } from '../events/condition';
+import { Extent as Extent_1 } from '../extent';
 import { StyleLike } from '../style/Style';
 import PointerInteraction from './Pointer';
 
+export type TExtentBaseEventTypes = 'change' | 'error';
+export type TExtentObjectEventTypes = 'change:active' | 'propertychange';
+export type TExtentExtentEventTypes = 'extentchanged';
 export interface Options {
     condition?: Condition | undefined;
     extent?: Extent_1 | undefined;
@@ -49,24 +52,21 @@ export default class Extent extends PointerInteraction {
      * the map here.
      */
     setMap(map: PluggableMap): void;
-    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
-    once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
-    un(type: string | string[], listener: (p0: any) => any): void;
-    on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
-    once(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
-    un(type: 'change', listener: (evt: BaseEvent) => void): void;
-    on(type: 'change:active', listener: (evt: ObjectEvent) => void): EventsKey;
-    once(type: 'change:active', listener: (evt: ObjectEvent) => void): EventsKey;
-    un(type: 'change:active', listener: (evt: ObjectEvent) => void): void;
-    on(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
-    once(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
-    un(type: 'error', listener: (evt: BaseEvent) => void): void;
-    on(type: 'extentchanged', listener: (evt: ExtentEvent) => void): EventsKey;
-    once(type: 'extentchanged', listener: (evt: ExtentEvent) => void): EventsKey;
-    un(type: 'extentchanged', listener: (evt: ExtentEvent) => void): void;
-    on(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
-    once(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
-    un(type: 'propertychange', listener: (evt: ObjectEvent) => void): void;
+    on(type: TExtentBaseEventTypes, listener: ListenerFunction<BaseEvent>): EventsKey;
+    on(type: TExtentBaseEventTypes[], listener: ListenerFunction<BaseEvent>): EventsKey[];
+    once(type: TExtentBaseEventTypes, listener: ListenerFunction<BaseEvent>): EventsKey;
+    once(type: TExtentBaseEventTypes[], listener: ListenerFunction<BaseEvent>): EventsKey[];
+    un(type: TExtentBaseEventTypes | TExtentBaseEventTypes[], listener: ListenerFunction<BaseEvent>): void;
+    on(type: TExtentObjectEventTypes, listener: ListenerFunction<ObjectEvent>): EventsKey;
+    on(type: TExtentObjectEventTypes[], listener: ListenerFunction<ObjectEvent>): EventsKey[];
+    once(type: TExtentObjectEventTypes, listener: ListenerFunction<ObjectEvent>): EventsKey;
+    once(type: TExtentObjectEventTypes[], listener: ListenerFunction<ObjectEvent>): EventsKey[];
+    un(type: TExtentObjectEventTypes | TExtentObjectEventTypes[], listener: ListenerFunction<ObjectEvent>): void;
+    on(type: TExtentExtentEventTypes, listener: ListenerFunction<ExtentEvent>): EventsKey;
+    on(type: TExtentExtentEventTypes[], listener: ListenerFunction<ExtentEvent>): EventsKey[];
+    once(type: TExtentExtentEventTypes, listener: ListenerFunction<ExtentEvent>): EventsKey;
+    once(type: TExtentExtentEventTypes[], listener: ListenerFunction<ExtentEvent>): EventsKey[];
+    un(type: TExtentExtentEventTypes | TExtentExtentEventTypes[], listener: ListenerFunction<ExtentEvent>): void;
 }
 export class ExtentEvent extends BaseEvent {
     constructor(extent: Extent_1);

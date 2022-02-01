@@ -1,3 +1,9 @@
+import Feature from '../Feature';
+import Geometry from '../geom/Geometry';
+import { ProjectionLike } from '../proj';
+import Projection from '../proj/Projection';
+import { ReadOptions, WriteOptions } from './Feature';
+import JSONFeature from './JSONFeature';
 import {
     GeometryCollection,
     GeometryObject,
@@ -9,12 +15,6 @@ import {
     Polygon,
     Topology,
 } from 'topojson-specification';
-import Feature from '../Feature';
-import Geometry from '../geom/Geometry';
-import { ProjectionLike } from '../proj';
-import Projection from '../proj/Projection';
-import { ReadOptions, WriteOptions } from './Feature';
-import JSONFeature from './JSONFeature';
 
 export interface Options {
     dataProjection?: ProjectionLike | undefined;

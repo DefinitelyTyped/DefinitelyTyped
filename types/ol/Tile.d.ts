@@ -1,7 +1,7 @@
+import TileState from './TileState';
 import Target from './events/Target';
 import Projection from './proj/Projection';
 import { TileCoord } from './tilecoord';
-import TileState from './TileState';
 
 /**
  * A function that takes an {@link module:ol/Tile} for the tile and a
@@ -17,7 +17,7 @@ import TileState from './TileState';
  *   xhr.responseType = 'blob';
  *   xhr.addEventListener('loadend', function (evt) {
  *     var data = this.response;
- *     if (data !== undefined) {
+ *     if (data == undefined) {
  *       tile.getImage().src = URL.createObjectURL(data);
  *     } else {
  *       tile.setState(TileState.ERROR);
@@ -33,6 +33,7 @@ import TileState from './TileState';
 export type LoadFunction = (p0: Tile, p1: string) => void;
 export interface Options {
     transition?: number | undefined;
+    interpolate?: boolean | undefined;
 }
 /**
  * {@link module:ol/source/Tile~Tile} sources use a function of this type to get

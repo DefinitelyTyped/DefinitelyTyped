@@ -63,7 +63,7 @@ export default class Projection {
      */
     setExtent(extent: Extent): void;
     /**
-     * Set the getPointResolution function (see {@link module:ol/proj~getPointResolution}
+     * Set the getPointResolution function (see {@link module:ol/proj.getPointResolution}
      * for this projection.
      */
     setGetPointResolution(func: (p0: number, p1: Coordinate) => number): void;

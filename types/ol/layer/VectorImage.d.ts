@@ -1,19 +1,29 @@
-import { EventsKey } from '../events';
-import BaseEvent from '../events/Event';
-import { Extent } from '../extent';
-import Geometry from '../geom/Geometry';
 import { ObjectEvent } from '../Object';
 import PluggableMap from '../PluggableMap';
+import { EventsKey, ListenerFunction } from '../events';
+import BaseEvent from '../events/Event';
+import { Extent } from '../extent';
 import { OrderFunction } from '../render';
 import RenderEvent from '../render/Event';
-import LayerRenderer from '../renderer/Layer';
-import Source from '../source/Source';
+import CanvasVectorImageLayerRenderer from '../renderer/canvas/VectorImageLayer';
 import VectorSource from '../source/Vector';
 import { StyleLike } from '../style/Style';
 import BaseVectorLayer from './BaseVector';
-import Layer from './Layer';
 
-export interface Options {
+export type TVectorImageLayerBaseEventTypes = 'change' | 'error';
+export type TVectorImageLayerObjectEventTypes =
+    | 'change:extent'
+    | 'change:maxResolution'
+    | 'change:maxZoom'
+    | 'change:minResolution'
+    | 'change:minZoom'
+    | 'change:opacity'
+    | 'change:source'
+    | 'change:visible'
+    | 'change:zIndex'
+    | 'propertychange';
+export type TVectorImageLayerRenderEventTypes = 'postrender' | 'prerender';
+export interface Options<VectorSourceType extends VectorSource = VectorSource> {
     className?: string | undefined;
     opacity?: number | undefined;
     visible?: boolean | undefined;
@@ -25,62 +35,41 @@ export interface Options {
     maxZoom?: number | undefined;
     renderOrder?: OrderFunction | undefined;
     renderBuffer?: number | undefined;
-    source?: VectorSource<Geometry> | undefined;
+    source?: VectorSourceType | undefined;
     map?: PluggableMap | undefined;
     declutter?: boolean | undefined;
-    style?: StyleLike | undefined;
+    style?: StyleLike | null | undefined;
     imageRatio?: number | undefined;
+    properties?: Record<string, any> | undefined;
 }
-export default class VectorImageLayer extends BaseVectorLayer {
-    constructor(opt_options?: Options);
-    /**
-     * Create a renderer for this layer.
-     */
-    createRenderer(): LayerRenderer<Layer<Source>>;
+export default class VectorImageLayer<VectorSourceType extends VectorSource = VectorSource> extends BaseVectorLayer<
+    VectorSourceType,
+    CanvasVectorImageLayerRenderer
+> {
+    constructor(opt_options?: Options<VectorSourceType>);
     getImageRatio(): number;
-    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
-    once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
-    un(type: string | string[], listener: (p0: any) => any): void;
-    on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
-    once(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
-    un(type: 'change', listener: (evt: BaseEvent) => void): void;
-    on(type: 'change:extent', listener: (evt: ObjectEvent) => void): EventsKey;
-    once(type: 'change:extent', listener: (evt: ObjectEvent) => void): EventsKey;
-    un(type: 'change:extent', listener: (evt: ObjectEvent) => void): void;
-    on(type: 'change:maxResolution', listener: (evt: ObjectEvent) => void): EventsKey;
-    once(type: 'change:maxResolution', listener: (evt: ObjectEvent) => void): EventsKey;
-    un(type: 'change:maxResolution', listener: (evt: ObjectEvent) => void): void;
-    on(type: 'change:maxZoom', listener: (evt: ObjectEvent) => void): EventsKey;
-    once(type: 'change:maxZoom', listener: (evt: ObjectEvent) => void): EventsKey;
-    un(type: 'change:maxZoom', listener: (evt: ObjectEvent) => void): void;
-    on(type: 'change:minResolution', listener: (evt: ObjectEvent) => void): EventsKey;
-    once(type: 'change:minResolution', listener: (evt: ObjectEvent) => void): EventsKey;
-    un(type: 'change:minResolution', listener: (evt: ObjectEvent) => void): void;
-    on(type: 'change:minZoom', listener: (evt: ObjectEvent) => void): EventsKey;
-    once(type: 'change:minZoom', listener: (evt: ObjectEvent) => void): EventsKey;
-    un(type: 'change:minZoom', listener: (evt: ObjectEvent) => void): void;
-    on(type: 'change:opacity', listener: (evt: ObjectEvent) => void): EventsKey;
-    once(type: 'change:opacity', listener: (evt: ObjectEvent) => void): EventsKey;
-    un(type: 'change:opacity', listener: (evt: ObjectEvent) => void): void;
-    on(type: 'change:source', listener: (evt: ObjectEvent) => void): EventsKey;
-    once(type: 'change:source', listener: (evt: ObjectEvent) => void): EventsKey;
-    un(type: 'change:source', listener: (evt: ObjectEvent) => void): void;
-    on(type: 'change:visible', listener: (evt: ObjectEvent) => void): EventsKey;
-    once(type: 'change:visible', listener: (evt: ObjectEvent) => void): EventsKey;
-    un(type: 'change:visible', listener: (evt: ObjectEvent) => void): void;
-    on(type: 'change:zIndex', listener: (evt: ObjectEvent) => void): EventsKey;
-    once(type: 'change:zIndex', listener: (evt: ObjectEvent) => void): EventsKey;
-    un(type: 'change:zIndex', listener: (evt: ObjectEvent) => void): void;
-    on(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
-    once(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
-    un(type: 'error', listener: (evt: BaseEvent) => void): void;
-    on(type: 'postrender', listener: (evt: RenderEvent) => void): EventsKey;
-    once(type: 'postrender', listener: (evt: RenderEvent) => void): EventsKey;
-    un(type: 'postrender', listener: (evt: RenderEvent) => void): void;
-    on(type: 'prerender', listener: (evt: RenderEvent) => void): EventsKey;
-    once(type: 'prerender', listener: (evt: RenderEvent) => void): EventsKey;
-    un(type: 'prerender', listener: (evt: RenderEvent) => void): void;
-    on(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
-    once(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
-    un(type: 'propertychange', listener: (evt: ObjectEvent) => void): void;
+    on(type: TVectorImageLayerBaseEventTypes, listener: ListenerFunction<BaseEvent>): EventsKey;
+    on(type: TVectorImageLayerBaseEventTypes[], listener: ListenerFunction<BaseEvent>): EventsKey[];
+    once(type: TVectorImageLayerBaseEventTypes, listener: ListenerFunction<BaseEvent>): EventsKey;
+    once(type: TVectorImageLayerBaseEventTypes[], listener: ListenerFunction<BaseEvent>): EventsKey[];
+    un(
+        type: TVectorImageLayerBaseEventTypes | TVectorImageLayerBaseEventTypes[],
+        listener: ListenerFunction<BaseEvent>,
+    ): void;
+    on(type: TVectorImageLayerObjectEventTypes, listener: ListenerFunction<ObjectEvent>): EventsKey;
+    on(type: TVectorImageLayerObjectEventTypes[], listener: ListenerFunction<ObjectEvent>): EventsKey[];
+    once(type: TVectorImageLayerObjectEventTypes, listener: ListenerFunction<ObjectEvent>): EventsKey;
+    once(type: TVectorImageLayerObjectEventTypes[], listener: ListenerFunction<ObjectEvent>): EventsKey[];
+    un(
+        type: TVectorImageLayerObjectEventTypes | TVectorImageLayerObjectEventTypes[],
+        listener: ListenerFunction<ObjectEvent>,
+    ): void;
+    on(type: TVectorImageLayerRenderEventTypes, listener: ListenerFunction<RenderEvent>): EventsKey;
+    on(type: TVectorImageLayerRenderEventTypes[], listener: ListenerFunction<RenderEvent>): EventsKey[];
+    once(type: TVectorImageLayerRenderEventTypes, listener: ListenerFunction<RenderEvent>): EventsKey;
+    once(type: TVectorImageLayerRenderEventTypes[], listener: ListenerFunction<RenderEvent>): EventsKey[];
+    un(
+        type: TVectorImageLayerRenderEventTypes | TVectorImageLayerRenderEventTypes[],
+        listener: ListenerFunction<RenderEvent>,
+    ): void;
 }

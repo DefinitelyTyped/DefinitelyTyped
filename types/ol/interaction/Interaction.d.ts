@@ -1,11 +1,13 @@
-import { Coordinate } from '../coordinate';
-import { EventsKey } from '../events';
-import BaseEvent from '../events/Event';
 import MapBrowserEvent from '../MapBrowserEvent';
 import BaseObject, { ObjectEvent } from '../Object';
 import PluggableMap from '../PluggableMap';
 import View from '../View';
+import { Coordinate } from '../coordinate';
+import { EventsKey, ListenerFunction } from '../events';
+import BaseEvent from '../events/Event';
 
+export type TInteractionBaseEventTypes = 'change' | 'error';
+export type TInteractionObjectEventTypes = 'change:active' | 'propertychange';
 /**
  * Object literal with config options for interactions.
  */
@@ -36,21 +38,19 @@ export default class Interaction extends BaseObject {
      * the map here.
      */
     setMap(map: PluggableMap): void;
-    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
-    once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
-    un(type: string | string[], listener: (p0: any) => any): void;
-    on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
-    once(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
-    un(type: 'change', listener: (evt: BaseEvent) => void): void;
-    on(type: 'change:active', listener: (evt: ObjectEvent) => void): EventsKey;
-    once(type: 'change:active', listener: (evt: ObjectEvent) => void): EventsKey;
-    un(type: 'change:active', listener: (evt: ObjectEvent) => void): void;
-    on(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
-    once(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
-    un(type: 'error', listener: (evt: BaseEvent) => void): void;
-    on(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
-    once(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
-    un(type: 'propertychange', listener: (evt: ObjectEvent) => void): void;
+    on(type: TInteractionBaseEventTypes, listener: ListenerFunction<BaseEvent>): EventsKey;
+    on(type: TInteractionBaseEventTypes[], listener: ListenerFunction<BaseEvent>): EventsKey[];
+    once(type: TInteractionBaseEventTypes, listener: ListenerFunction<BaseEvent>): EventsKey;
+    once(type: TInteractionBaseEventTypes[], listener: ListenerFunction<BaseEvent>): EventsKey[];
+    un(type: TInteractionBaseEventTypes | TInteractionBaseEventTypes[], listener: ListenerFunction<BaseEvent>): void;
+    on(type: TInteractionObjectEventTypes, listener: ListenerFunction<ObjectEvent>): EventsKey;
+    on(type: TInteractionObjectEventTypes[], listener: ListenerFunction<ObjectEvent>): EventsKey[];
+    once(type: TInteractionObjectEventTypes, listener: ListenerFunction<ObjectEvent>): EventsKey;
+    once(type: TInteractionObjectEventTypes[], listener: ListenerFunction<ObjectEvent>): EventsKey[];
+    un(
+        type: TInteractionObjectEventTypes | TInteractionObjectEventTypes[],
+        listener: ListenerFunction<ObjectEvent>,
+    ): void;
 }
 export function pan(view: View, delta: Coordinate, opt_duration?: number): void;
 export function zoomByDelta(view: View, delta: number, opt_anchor?: Coordinate, opt_duration?: number): void;

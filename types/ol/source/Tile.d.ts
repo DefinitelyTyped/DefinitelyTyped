@@ -1,17 +1,20 @@
-import { EventsKey } from '../events';
-import BaseEvent from '../events/Event';
 import { ObjectEvent } from '../Object';
+import Tile, { Options as Options_1 } from '../Tile';
+import TileCache from '../TileCache';
+import TileRange from '../TileRange';
+import { NearestDirectionFunction } from '../array';
+import { EventsKey, ListenerFunction } from '../events';
+import BaseEvent from '../events/Event';
 import { ProjectionLike } from '../proj';
 import Projection from '../proj/Projection';
 import { Size } from '../size';
-import Tile, { Options as Options_1 } from '../Tile';
-import TileCache from '../TileCache';
 import { TileCoord } from '../tilecoord';
 import TileGrid from '../tilegrid/TileGrid';
-import TileRange from '../TileRange';
 import Source, { AttributionLike } from './Source';
 import State from './State';
 
+export type TTileSourceBaseEventTypes = 'change' | 'error';
+export type TTileSourceObjectEventTypes = 'propertychange';
 export interface Options {
     attributions?: AttributionLike | undefined;
     attributionsCollapsible?: boolean | undefined;
@@ -24,18 +27,14 @@ export interface Options {
     wrapX?: boolean | undefined;
     transition?: number | undefined;
     key?: string | undefined;
-    zDirection?: number | undefined;
+    zDirection?: number | NearestDirectionFunction | undefined;
+    interpolate?: boolean | undefined;
 }
 export default abstract class TileSource extends Source {
     constructor(options: Options);
     protected tileCache: TileCache;
-    protected tileGrid: TileGrid;
     protected tileOptions: Options_1;
     protected tmpSize: Size;
-    /**
-     * Return the key to be used for all tiles in the source.
-     */
-    protected getKey(): string;
     protected getTileCacheForProjection(projection: Projection): TileCache;
     /**
      * Set the value to be used as the key for all tiles in the source.
@@ -46,14 +45,18 @@ export default abstract class TileSource extends Source {
      * Remove all cached tiles from the source. The next render cycle will fetch new tiles.
      */
     clear(): void;
-    expireCache(projection: Projection, usedTiles: { [key: string]: boolean }): void;
+    expireCache(projection: Projection, usedTiles: Record<string, boolean>): void;
     forEachLoadedTile(
         projection: Projection,
         z: number,
         tileRange: TileRange,
-        callback: (p0: Tile) => boolean,
+        callback: (p0: Tile) => boolean | void,
     ): boolean;
     getGutterForProjection(projection: Projection): number;
+    /**
+     * Return the key to be used for all tiles in the source.
+     */
+    getKey(): string;
     getOpaque(projection: Projection): boolean;
     getResolutions(): number[];
     abstract getTile(z: number, x: number, y: number, pixelRatio: number, projection: Projection): Tile;
@@ -83,18 +86,19 @@ export default abstract class TileSource extends Source {
      * Marks a tile coord as being used, without triggering a load.
      */
     abstract useTile(z: number, x: number, y: number, projection: Projection): void;
-    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
-    once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
-    un(type: string | string[], listener: (p0: any) => any): void;
-    on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
-    once(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
-    un(type: 'change', listener: (evt: BaseEvent) => void): void;
-    on(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
-    once(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
-    un(type: 'error', listener: (evt: BaseEvent) => void): void;
-    on(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
-    once(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
-    un(type: 'propertychange', listener: (evt: ObjectEvent) => void): void;
+    on(type: TTileSourceBaseEventTypes, listener: ListenerFunction<BaseEvent>): EventsKey;
+    on(type: TTileSourceBaseEventTypes[], listener: ListenerFunction<BaseEvent>): EventsKey[];
+    once(type: TTileSourceBaseEventTypes, listener: ListenerFunction<BaseEvent>): EventsKey;
+    once(type: TTileSourceBaseEventTypes[], listener: ListenerFunction<BaseEvent>): EventsKey[];
+    un(type: TTileSourceBaseEventTypes | TTileSourceBaseEventTypes[], listener: ListenerFunction<BaseEvent>): void;
+    on(type: TTileSourceObjectEventTypes, listener: ListenerFunction<ObjectEvent>): EventsKey;
+    on(type: TTileSourceObjectEventTypes[], listener: ListenerFunction<ObjectEvent>): EventsKey[];
+    once(type: TTileSourceObjectEventTypes, listener: ListenerFunction<ObjectEvent>): EventsKey;
+    once(type: TTileSourceObjectEventTypes[], listener: ListenerFunction<ObjectEvent>): EventsKey[];
+    un(
+        type: TTileSourceObjectEventTypes | TTileSourceObjectEventTypes[],
+        listener: ListenerFunction<ObjectEvent>,
+    ): void;
 }
 export class TileSourceEvent extends BaseEvent {
     constructor(type: string, tile: Tile);

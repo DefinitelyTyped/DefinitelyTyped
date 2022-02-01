@@ -1,22 +1,36 @@
-import RBush from 'rbush';
-import { Coordinate } from '../../coordinate';
-import { EventsKey } from '../../events';
-import BaseEvent from '../../events/Event';
 import Feature from '../../Feature';
-import Geometry from '../../geom/Geometry';
-import VectorLayer from '../../layer/Vector';
-import { Pixel } from '../../pixel';
 import { FrameState } from '../../PluggableMap';
+import { Coordinate } from '../../coordinate';
+import { EventsKey, ListenerFunction } from '../../events';
+import BaseEvent from '../../events/Event';
+import Geometry from '../../geom/Geometry';
+import BaseVectorLayer from '../../layer/BaseVector';
+import { Pixel } from '../../pixel';
 import { TransformFunction } from '../../proj';
 import BuilderGroup from '../../render/canvas/BuilderGroup';
 import ExecutorGroup from '../../render/canvas/ExecutorGroup';
+import VectorSource from '../../source/Vector';
+import VectorTile from '../../source/VectorTile';
 import Style from '../../style/Style';
 import { HitMatch } from '../Map';
 import { FeatureCallback } from '../vector';
+import WebGLPointsLayerRenderer from '../webgl/PointsLayer';
 import CanvasLayerRenderer from './Layer';
+import CanvasVectorImageLayerRenderer from './VectorImageLayer';
+import CanvasVectorTileLayerRenderer from './VectorTileLayer';
+import RBush from 'rbush';
 
+export type TCanvasVectorLayerRendererBaseEventTypes = 'change' | 'error';
 export default class CanvasVectorLayerRenderer extends CanvasLayerRenderer {
-    constructor(vectorLayer: VectorLayer);
+    constructor(
+        vectorLayer: BaseVectorLayer<
+            VectorSource<Geometry> | VectorTile,
+            | CanvasVectorLayerRenderer
+            | CanvasVectorTileLayerRenderer
+            | CanvasVectorImageLayerRenderer
+            | WebGLPointsLayerRenderer
+        >,
+    );
     forEachFeatureAtCoordinate<T>(
         coordinate: Coordinate,
         frameState: FrameState,
@@ -53,17 +67,12 @@ export default class CanvasVectorLayerRenderer extends CanvasLayerRenderer {
      */
     renderFrame(frameState: FrameState, target: HTMLElement): HTMLElement;
     renderWorlds(executorGroup: ExecutorGroup, frameState: FrameState, opt_declutterTree?: RBush<any>): void;
-    /**
-     * Get a rendering container from an existing target, if compatible.
-     */
-    useContainer(target: HTMLElement, transform: string, opacity: number): void;
-    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
-    once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
-    un(type: string | string[], listener: (p0: any) => any): void;
-    on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
-    once(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
-    un(type: 'change', listener: (evt: BaseEvent) => void): void;
-    on(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
-    once(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
-    un(type: 'error', listener: (evt: BaseEvent) => void): void;
+    on(type: TCanvasVectorLayerRendererBaseEventTypes, listener: ListenerFunction<BaseEvent>): EventsKey;
+    on(type: TCanvasVectorLayerRendererBaseEventTypes[], listener: ListenerFunction<BaseEvent>): EventsKey[];
+    once(type: TCanvasVectorLayerRendererBaseEventTypes, listener: ListenerFunction<BaseEvent>): EventsKey;
+    once(type: TCanvasVectorLayerRendererBaseEventTypes[], listener: ListenerFunction<BaseEvent>): EventsKey[];
+    un(
+        type: TCanvasVectorLayerRendererBaseEventTypes | TCanvasVectorLayerRendererBaseEventTypes[],
+        listener: ListenerFunction<BaseEvent>,
+    ): void;
 }

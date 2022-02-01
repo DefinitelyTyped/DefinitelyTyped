@@ -1,9 +1,11 @@
-import { EventsKey } from '../events';
-import BaseEvent from '../events/Event';
 import MapEvent from '../MapEvent';
 import { ObjectEvent } from '../Object';
+import { EventsKey, ListenerFunction } from '../events';
+import BaseEvent from '../events/Event';
 import Control from './Control';
 
+export type TRotateBaseEventTypes = 'change' | 'error';
+export type TRotateObjectEventTypes = 'propertychange';
 export interface Options {
     className?: string | undefined;
     label?: string | HTMLElement | undefined;
@@ -17,16 +19,14 @@ export interface Options {
 }
 export default class Rotate extends Control {
     constructor(opt_options?: Options);
-    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
-    once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
-    un(type: string | string[], listener: (p0: any) => any): void;
-    on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
-    once(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
-    un(type: 'change', listener: (evt: BaseEvent) => void): void;
-    on(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
-    once(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
-    un(type: 'error', listener: (evt: BaseEvent) => void): void;
-    on(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
-    once(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
-    un(type: 'propertychange', listener: (evt: ObjectEvent) => void): void;
+    on(type: TRotateBaseEventTypes, listener: ListenerFunction<BaseEvent>): EventsKey;
+    on(type: TRotateBaseEventTypes[], listener: ListenerFunction<BaseEvent>): EventsKey[];
+    once(type: TRotateBaseEventTypes, listener: ListenerFunction<BaseEvent>): EventsKey;
+    once(type: TRotateBaseEventTypes[], listener: ListenerFunction<BaseEvent>): EventsKey[];
+    un(type: TRotateBaseEventTypes | TRotateBaseEventTypes[], listener: ListenerFunction<BaseEvent>): void;
+    on(type: TRotateObjectEventTypes, listener: ListenerFunction<ObjectEvent>): EventsKey;
+    on(type: TRotateObjectEventTypes[], listener: ListenerFunction<ObjectEvent>): EventsKey[];
+    once(type: TRotateObjectEventTypes, listener: ListenerFunction<ObjectEvent>): EventsKey;
+    once(type: TRotateObjectEventTypes[], listener: ListenerFunction<ObjectEvent>): EventsKey[];
+    un(type: TRotateObjectEventTypes | TRotateObjectEventTypes[], listener: ListenerFunction<ObjectEvent>): void;
 }

@@ -16,3 +16,4 @@ export function VOID(): void;
  * this object, it will return the value from the first call in the second call.
  */
 export function memoizeOne<ReturnType>(fn: (p0: any) => ReturnType): (p0: any) => ReturnType;
+export function toPromise<T>(getter: () => T | Promise<T>): Promise<T>;

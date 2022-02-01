@@ -1,5 +1,5 @@
-import { Extent } from '../extent';
 import Feature, { FeatureLike } from '../Feature';
+import { Extent } from '../extent';
 import Geometry from '../geom/Geometry';
 import { ProjectionLike } from '../proj';
 import Projection from '../proj/Projection';
@@ -51,19 +51,19 @@ export default abstract class FeatureFormat {
     /**
      * Read the projection from a source.
      */
-    abstract readProjection(source: Document | Element | object | string): Projection;
+    abstract readProjection(source: Document | Element | object | string): Projection | undefined;
     /**
      * Encode a feature in this format.
      */
-    abstract writeFeature(feature: Feature<Geometry>, opt_options?: WriteOptions): string;
+    abstract writeFeature(feature: Feature<Geometry>, opt_options?: WriteOptions): string | ArrayBuffer;
     /**
      * Encode an array of features in this format.
      */
-    abstract writeFeatures(features: Feature<Geometry>[], opt_options?: WriteOptions): string;
+    abstract writeFeatures(features: Feature<Geometry>[], opt_options?: WriteOptions): string | ArrayBuffer;
     /**
      * Write a single geometry in this format.
      */
-    abstract writeGeometry(geometry: Geometry, opt_options?: WriteOptions): string;
+    abstract writeGeometry(geometry: Geometry, opt_options?: WriteOptions): string | ArrayBuffer;
 }
 export function transformExtentWithOptions(extent: Extent, opt_options?: ReadOptions): Extent;
 export function transformGeometryWithOptions(

@@ -11,6 +11,10 @@ export function createOrUpdate(z: number, x: number, y: number, opt_tileCoord?: 
  */
 export function fromKey(key: string): TileCoord;
 /**
+ * Get the tile cache key for a tile key obtained through tile.getKey().
+ */
+export function getCacheKeyForTileKey(tileKey: string): string;
+/**
  * Get the key for a tile coord.
  */
 export function getKey(tileCoord: TileCoord): string;

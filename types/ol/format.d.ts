@@ -10,6 +10,7 @@ export { default as OWS } from './format/OWS';
 export { default as Polyline } from './format/Polyline';
 export { default as TopoJSON } from './format/TopoJSON';
 export { default as WFS } from './format/WFS';
+export { default as WKB } from './format/WKB';
 export { default as WKT } from './format/WKT';
 export { default as WMSCapabilities } from './format/WMSCapabilities';
 export { default as WMSGetFeatureInfo } from './format/WMSGetFeatureInfo';

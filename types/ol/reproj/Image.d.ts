@@ -1,5 +1,5 @@
-import { Extent } from '../extent';
 import ImageBase from '../ImageBase';
+import { Extent } from '../extent';
 import Projection from '../proj/Projection';
 
 export type FunctionType = (p0: Extent, p1: number, p2: number) => ImageBase;
@@ -11,7 +11,7 @@ export default class ReprojImage extends ImageBase {
         targetResolution: number,
         pixelRatio: number,
         getImageFunction: FunctionType,
-        opt_contextOptions?: any,
+        interpolate: boolean,
     );
     /**
      * Clean up.

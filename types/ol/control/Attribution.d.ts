@@ -1,9 +1,11 @@
-import { EventsKey } from '../events';
-import BaseEvent from '../events/Event';
 import MapEvent from '../MapEvent';
 import { ObjectEvent } from '../Object';
+import { EventsKey, ListenerFunction } from '../events';
+import BaseEvent from '../events/Event';
 import Control from './Control';
 
+export type TAttributionBaseEventTypes = 'change' | 'error';
+export type TAttributionObjectEventTypes = 'propertychange';
 export interface Options {
     className?: string | undefined;
     target?: HTMLElement | string | undefined;
@@ -37,16 +39,17 @@ export default class Attribution extends Control {
      * Set whether the attribution should be collapsible.
      */
     setCollapsible(collapsible: boolean): void;
-    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
-    once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
-    un(type: string | string[], listener: (p0: any) => any): void;
-    on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
-    once(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
-    un(type: 'change', listener: (evt: BaseEvent) => void): void;
-    on(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
-    once(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
-    un(type: 'error', listener: (evt: BaseEvent) => void): void;
-    on(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
-    once(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
-    un(type: 'propertychange', listener: (evt: ObjectEvent) => void): void;
+    on(type: TAttributionBaseEventTypes, listener: ListenerFunction<BaseEvent>): EventsKey;
+    on(type: TAttributionBaseEventTypes[], listener: ListenerFunction<BaseEvent>): EventsKey[];
+    once(type: TAttributionBaseEventTypes, listener: ListenerFunction<BaseEvent>): EventsKey;
+    once(type: TAttributionBaseEventTypes[], listener: ListenerFunction<BaseEvent>): EventsKey[];
+    un(type: TAttributionBaseEventTypes | TAttributionBaseEventTypes[], listener: ListenerFunction<BaseEvent>): void;
+    on(type: TAttributionObjectEventTypes, listener: ListenerFunction<ObjectEvent>): EventsKey;
+    on(type: TAttributionObjectEventTypes[], listener: ListenerFunction<ObjectEvent>): EventsKey[];
+    once(type: TAttributionObjectEventTypes, listener: ListenerFunction<ObjectEvent>): EventsKey;
+    once(type: TAttributionObjectEventTypes[], listener: ListenerFunction<ObjectEvent>): EventsKey[];
+    un(
+        type: TAttributionObjectEventTypes | TAttributionObjectEventTypes[],
+        listener: ListenerFunction<ObjectEvent>,
+    ): void;
 }

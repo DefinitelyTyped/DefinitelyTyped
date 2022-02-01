@@ -9,7 +9,7 @@ export default abstract class TextFeature extends FeatureFormat {
     protected abstract readFeatureFromText(text: string, opt_options?: ReadOptions): Feature<Geometry>;
     protected abstract readFeaturesFromText(text: string, opt_options?: ReadOptions): Feature<Geometry>[];
     protected abstract readGeometryFromText(text: string, opt_options?: ReadOptions): Geometry;
-    protected readProjectionFromText(text: string): Projection;
+    protected readProjectionFromText(text: string): Projection | undefined;
     protected abstract writeFeaturesText(features: Feature<Geometry>[], opt_options?: WriteOptions): string;
     protected abstract writeFeatureText(feature: Feature<Geometry>, opt_options?: WriteOptions): string;
     protected abstract writeGeometryText(geometry: Geometry, opt_options?: WriteOptions): string;
@@ -29,7 +29,7 @@ export default abstract class TextFeature extends FeatureFormat {
     /**
      * Read the projection from the source.
      */
-    readProjection(source: Document | Element | object | string): Projection;
+    readProjection(source: Document | Element | object | string): Projection | undefined;
     /**
      * Encode a feature as a string.
      */

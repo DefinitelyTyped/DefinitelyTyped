@@ -1,21 +1,25 @@
-import { EventsKey } from '../events';
+import { FeatureLike } from '../Feature';
+import { ObjectEvent } from '../Object';
+import { LoadFunction, UrlFunction } from '../Tile';
+import VectorRenderTile from '../VectorRenderTile';
+import VectorTile_1 from '../VectorTile';
+import { NearestDirectionFunction } from '../array';
+import { EventsKey, ListenerFunction } from '../events';
 import BaseEvent from '../events/Event';
 import { Extent } from '../extent';
-import { FeatureLike } from '../Feature';
 import FeatureFormat from '../format/Feature';
-import { ObjectEvent } from '../Object';
 import { ProjectionLike } from '../proj';
 import Projection from '../proj/Projection';
 import { Size } from '../size';
-import { LoadFunction, UrlFunction } from '../Tile';
 import TileGrid from '../tilegrid/TileGrid';
-import VectorRenderTile from '../VectorRenderTile';
-import VectorTile_1 from '../VectorTile';
 import { AttributionLike } from './Source';
 import State from './State';
 import { TileSourceEvent } from './Tile';
 import UrlTile from './UrlTile';
 
+export type TVectorTileBaseEventTypes = 'change' | 'error';
+export type TVectorTileObjectEventTypes = 'propertychange';
+export type TVectorTileTileSourceEventTypes = 'tileloadend' | 'tileloaderror' | 'tileloadstart';
 export interface Options {
     attributions?: AttributionLike | undefined;
     attributionsCollapsible?: boolean | undefined;
@@ -37,7 +41,7 @@ export interface Options {
     transition?: number | undefined;
     urls?: string[] | undefined;
     wrapX?: boolean | undefined;
-    zDirection?: number | undefined;
+    zDirection?: number | NearestDirectionFunction | undefined;
 }
 export default class VectorTile extends UrlTile {
     constructor(options: Options);
@@ -46,7 +50,7 @@ export default class VectorTile extends UrlTile {
      * clear {@link module:ol/TileCache~TileCache} and delete all source tiles
      */
     clear(): void;
-    expireCache(projection: Projection, usedTiles: { [key: string]: boolean }): void;
+    expireCache(projection: Projection, usedTiles: Record<string, boolean>): void;
     /**
      * Get features whose bounding box intersects the provided extent. Only features for cached
      * tiles for the last rendered zoom level are available in the source. So this method is only
@@ -68,27 +72,27 @@ export default class VectorTile extends UrlTile {
      * Increases the cache size if needed
      */
     updateCacheSize(tileCount: number, projection: Projection): void;
-    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
-    once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
-    un(type: string | string[], listener: (p0: any) => any): void;
-    on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
-    once(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
-    un(type: 'change', listener: (evt: BaseEvent) => void): void;
-    on(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
-    once(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
-    un(type: 'error', listener: (evt: BaseEvent) => void): void;
-    on(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
-    once(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
-    un(type: 'propertychange', listener: (evt: ObjectEvent) => void): void;
-    on(type: 'tileloadend', listener: (evt: TileSourceEvent) => void): EventsKey;
-    once(type: 'tileloadend', listener: (evt: TileSourceEvent) => void): EventsKey;
-    un(type: 'tileloadend', listener: (evt: TileSourceEvent) => void): void;
-    on(type: 'tileloaderror', listener: (evt: TileSourceEvent) => void): EventsKey;
-    once(type: 'tileloaderror', listener: (evt: TileSourceEvent) => void): EventsKey;
-    un(type: 'tileloaderror', listener: (evt: TileSourceEvent) => void): void;
-    on(type: 'tileloadstart', listener: (evt: TileSourceEvent) => void): EventsKey;
-    once(type: 'tileloadstart', listener: (evt: TileSourceEvent) => void): EventsKey;
-    un(type: 'tileloadstart', listener: (evt: TileSourceEvent) => void): void;
+    on(type: TVectorTileBaseEventTypes, listener: ListenerFunction<BaseEvent>): EventsKey;
+    on(type: TVectorTileBaseEventTypes[], listener: ListenerFunction<BaseEvent>): EventsKey[];
+    once(type: TVectorTileBaseEventTypes, listener: ListenerFunction<BaseEvent>): EventsKey;
+    once(type: TVectorTileBaseEventTypes[], listener: ListenerFunction<BaseEvent>): EventsKey[];
+    un(type: TVectorTileBaseEventTypes | TVectorTileBaseEventTypes[], listener: ListenerFunction<BaseEvent>): void;
+    on(type: TVectorTileObjectEventTypes, listener: ListenerFunction<ObjectEvent>): EventsKey;
+    on(type: TVectorTileObjectEventTypes[], listener: ListenerFunction<ObjectEvent>): EventsKey[];
+    once(type: TVectorTileObjectEventTypes, listener: ListenerFunction<ObjectEvent>): EventsKey;
+    once(type: TVectorTileObjectEventTypes[], listener: ListenerFunction<ObjectEvent>): EventsKey[];
+    un(
+        type: TVectorTileObjectEventTypes | TVectorTileObjectEventTypes[],
+        listener: ListenerFunction<ObjectEvent>,
+    ): void;
+    on(type: TVectorTileTileSourceEventTypes, listener: ListenerFunction<TileSourceEvent>): EventsKey;
+    on(type: TVectorTileTileSourceEventTypes[], listener: ListenerFunction<TileSourceEvent>): EventsKey[];
+    once(type: TVectorTileTileSourceEventTypes, listener: ListenerFunction<TileSourceEvent>): EventsKey;
+    once(type: TVectorTileTileSourceEventTypes[], listener: ListenerFunction<TileSourceEvent>): EventsKey[];
+    un(
+        type: TVectorTileTileSourceEventTypes | TVectorTileTileSourceEventTypes[],
+        listener: ListenerFunction<TileSourceEvent>,
+    ): void;
 }
 /**
  * Sets the loader for a tile.

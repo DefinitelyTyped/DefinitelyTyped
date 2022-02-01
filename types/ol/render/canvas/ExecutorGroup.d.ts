@@ -1,11 +1,11 @@
-import RBush from 'rbush';
+import { FeatureLike } from '../../Feature';
 import { Coordinate } from '../../coordinate';
 import { Extent } from '../../extent';
-import { FeatureLike } from '../../Feature';
 import SimpleGeometry from '../../geom/SimpleGeometry';
 import { Transform } from '../../transform';
 import { SerializableInstructions } from '../canvas';
 import BuilderType from './BuilderType';
+import RBush from 'rbush';
 
 export default class ExecutorGroup {
     constructor(
@@ -13,7 +13,7 @@ export default class ExecutorGroup {
         resolution: number,
         pixelRatio: number,
         overlaps: boolean,
-        allInstructions: { [key: string]: { [key in BuilderType]: SerializableInstructions } },
+        allInstructions: Record<string, Record<BuilderType, SerializableInstructions>>,
         opt_renderBuffer?: number,
     );
     clip(context: CanvasRenderingContext2D, transform: Transform): void;

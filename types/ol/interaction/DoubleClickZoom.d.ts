@@ -1,9 +1,11 @@
-import { EventsKey } from '../events';
-import BaseEvent from '../events/Event';
 import MapBrowserEvent from '../MapBrowserEvent';
 import { ObjectEvent } from '../Object';
+import { EventsKey, ListenerFunction } from '../events';
+import BaseEvent from '../events/Event';
 import Interaction from './Interaction';
 
+export type TDoubleClickZoomBaseEventTypes = 'change' | 'error';
+export type TDoubleClickZoomObjectEventTypes = 'change:active' | 'propertychange';
 export interface Options {
     duration?: number | undefined;
     delta?: number | undefined;
@@ -15,19 +17,20 @@ export default class DoubleClickZoom extends Interaction {
      * doubleclick) and eventually zooms the map.
      */
     handleEvent(mapBrowserEvent: MapBrowserEvent<UIEvent>): boolean;
-    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
-    once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
-    un(type: string | string[], listener: (p0: any) => any): void;
-    on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
-    once(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
-    un(type: 'change', listener: (evt: BaseEvent) => void): void;
-    on(type: 'change:active', listener: (evt: ObjectEvent) => void): EventsKey;
-    once(type: 'change:active', listener: (evt: ObjectEvent) => void): EventsKey;
-    un(type: 'change:active', listener: (evt: ObjectEvent) => void): void;
-    on(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
-    once(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
-    un(type: 'error', listener: (evt: BaseEvent) => void): void;
-    on(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
-    once(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
-    un(type: 'propertychange', listener: (evt: ObjectEvent) => void): void;
+    on(type: TDoubleClickZoomBaseEventTypes, listener: ListenerFunction<BaseEvent>): EventsKey;
+    on(type: TDoubleClickZoomBaseEventTypes[], listener: ListenerFunction<BaseEvent>): EventsKey[];
+    once(type: TDoubleClickZoomBaseEventTypes, listener: ListenerFunction<BaseEvent>): EventsKey;
+    once(type: TDoubleClickZoomBaseEventTypes[], listener: ListenerFunction<BaseEvent>): EventsKey[];
+    un(
+        type: TDoubleClickZoomBaseEventTypes | TDoubleClickZoomBaseEventTypes[],
+        listener: ListenerFunction<BaseEvent>,
+    ): void;
+    on(type: TDoubleClickZoomObjectEventTypes, listener: ListenerFunction<ObjectEvent>): EventsKey;
+    on(type: TDoubleClickZoomObjectEventTypes[], listener: ListenerFunction<ObjectEvent>): EventsKey[];
+    once(type: TDoubleClickZoomObjectEventTypes, listener: ListenerFunction<ObjectEvent>): EventsKey;
+    once(type: TDoubleClickZoomObjectEventTypes[], listener: ListenerFunction<ObjectEvent>): EventsKey[];
+    un(
+        type: TDoubleClickZoomObjectEventTypes | TDoubleClickZoomObjectEventTypes[],
+        listener: ListenerFunction<ObjectEvent>,
+    ): void;
 }

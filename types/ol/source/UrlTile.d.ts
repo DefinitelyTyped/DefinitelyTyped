@@ -1,15 +1,19 @@
-import { EventsKey } from '../events';
-import BaseEvent from '../events/Event';
 import { ObjectEvent } from '../Object';
+import Tile, { LoadFunction, UrlFunction } from '../Tile';
+import { NearestDirectionFunction } from '../array';
+import { EventsKey, ListenerFunction } from '../events';
+import BaseEvent from '../events/Event';
 import { ProjectionLike } from '../proj';
 import Projection from '../proj/Projection';
-import Tile, { LoadFunction, UrlFunction } from '../Tile';
 import { TileCoord } from '../tilecoord';
 import TileGrid from '../tilegrid/TileGrid';
 import { AttributionLike } from './Source';
 import State from './State';
 import TileSource, { TileSourceEvent } from './Tile';
 
+export type TUrlTileBaseEventTypes = 'change' | 'error';
+export type TUrlTileObjectEventTypes = 'propertychange';
+export type TUrlTileTileSourceEventTypes = 'tileloadend' | 'tileloaderror' | 'tileloadstart';
 export interface Options {
     attributions?: AttributionLike | undefined;
     attributionsCollapsible?: boolean | undefined;
@@ -26,7 +30,8 @@ export interface Options {
     wrapX?: boolean | undefined;
     transition?: number | undefined;
     key?: string | undefined;
-    zDirection?: number | undefined;
+    zDirection?: number | NearestDirectionFunction | undefined;
+    interpolate?: boolean | undefined;
 }
 export default class UrlTile extends TileSource {
     constructor(options: Options);
@@ -72,25 +77,22 @@ export default class UrlTile extends TileSource {
      * Marks a tile coord as being used, without triggering a load.
      */
     useTile(z: number, x: number, y: number): void;
-    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
-    once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
-    un(type: string | string[], listener: (p0: any) => any): void;
-    on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
-    once(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
-    un(type: 'change', listener: (evt: BaseEvent) => void): void;
-    on(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
-    once(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
-    un(type: 'error', listener: (evt: BaseEvent) => void): void;
-    on(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
-    once(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
-    un(type: 'propertychange', listener: (evt: ObjectEvent) => void): void;
-    on(type: 'tileloadend', listener: (evt: TileSourceEvent) => void): EventsKey;
-    once(type: 'tileloadend', listener: (evt: TileSourceEvent) => void): EventsKey;
-    un(type: 'tileloadend', listener: (evt: TileSourceEvent) => void): void;
-    on(type: 'tileloaderror', listener: (evt: TileSourceEvent) => void): EventsKey;
-    once(type: 'tileloaderror', listener: (evt: TileSourceEvent) => void): EventsKey;
-    un(type: 'tileloaderror', listener: (evt: TileSourceEvent) => void): void;
-    on(type: 'tileloadstart', listener: (evt: TileSourceEvent) => void): EventsKey;
-    once(type: 'tileloadstart', listener: (evt: TileSourceEvent) => void): EventsKey;
-    un(type: 'tileloadstart', listener: (evt: TileSourceEvent) => void): void;
+    on(type: TUrlTileBaseEventTypes, listener: ListenerFunction<BaseEvent>): EventsKey;
+    on(type: TUrlTileBaseEventTypes[], listener: ListenerFunction<BaseEvent>): EventsKey[];
+    once(type: TUrlTileBaseEventTypes, listener: ListenerFunction<BaseEvent>): EventsKey;
+    once(type: TUrlTileBaseEventTypes[], listener: ListenerFunction<BaseEvent>): EventsKey[];
+    un(type: TUrlTileBaseEventTypes | TUrlTileBaseEventTypes[], listener: ListenerFunction<BaseEvent>): void;
+    on(type: TUrlTileObjectEventTypes, listener: ListenerFunction<ObjectEvent>): EventsKey;
+    on(type: TUrlTileObjectEventTypes[], listener: ListenerFunction<ObjectEvent>): EventsKey[];
+    once(type: TUrlTileObjectEventTypes, listener: ListenerFunction<ObjectEvent>): EventsKey;
+    once(type: TUrlTileObjectEventTypes[], listener: ListenerFunction<ObjectEvent>): EventsKey[];
+    un(type: TUrlTileObjectEventTypes | TUrlTileObjectEventTypes[], listener: ListenerFunction<ObjectEvent>): void;
+    on(type: TUrlTileTileSourceEventTypes, listener: ListenerFunction<TileSourceEvent>): EventsKey;
+    on(type: TUrlTileTileSourceEventTypes[], listener: ListenerFunction<TileSourceEvent>): EventsKey[];
+    once(type: TUrlTileTileSourceEventTypes, listener: ListenerFunction<TileSourceEvent>): EventsKey;
+    once(type: TUrlTileTileSourceEventTypes[], listener: ListenerFunction<TileSourceEvent>): EventsKey[];
+    un(
+        type: TUrlTileTileSourceEventTypes | TUrlTileTileSourceEventTypes[],
+        listener: ListenerFunction<TileSourceEvent>,
+    ): void;
 }

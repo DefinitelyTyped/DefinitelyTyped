@@ -1,11 +1,38 @@
+import BaseObject, { ObjectEvent } from './Object';
+import Types from './ObjectEventType';
 import { Coordinate } from './coordinate';
-import { EventsKey } from './events';
+import { EventsKey, ListenerFunction } from './events';
 import BaseEvent from './events/Event';
 import Polygon from './geom/Polygon';
-import BaseObject, { ObjectEvent } from './Object';
 import { ProjectionLike } from './proj';
 import Projection from './proj/Projection';
 
+export type TGeolocationBaseEventTypes = 'change' | 'error';
+export type TGeolocationObjectEventTypes =
+    | 'change:accuracy'
+    | 'change:accuracyGeometry'
+    | 'change:altitude'
+    | 'change:altitudeAccuracy'
+    | 'change:heading'
+    | 'change:position'
+    | 'change:projection'
+    | 'change:speed'
+    | 'change:tracking'
+    | 'change:trackingOptions'
+    | 'propertychange';
+export type TGeolocationGeolocationErrorTypes = 'error';
+export type GeolocationObjectEventTypes =
+    | Types
+    | 'change:accuracy'
+    | 'change:accuracyGeometry'
+    | 'change:altitude'
+    | 'change:altitudeAccuracy'
+    | 'change:heading'
+    | 'change:position'
+    | 'change:projection'
+    | 'change:speed'
+    | 'change:tracking'
+    | 'change:trackingOptions';
 export interface Options {
     tracking?: boolean | undefined;
     trackingOptions?: PositionOptions | undefined;
@@ -57,7 +84,7 @@ export default class Geolocation extends BaseObject {
     getTracking(): boolean;
     /**
      * Get the tracking options.
-     * See http://www.w3.org/TR/geolocation-API/#position-options.
+     * See https://www.w3.org/TR/geolocation-API/#position-options.
      */
     getTrackingOptions(): PositionOptions | undefined;
     /**
@@ -73,51 +100,27 @@ export default class Geolocation extends BaseObject {
      * See http://www.w3.org/TR/geolocation-API/#position-options.
      */
     setTrackingOptions(options: PositionOptions): void;
-    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
-    once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
-    un(type: string | string[], listener: (p0: any) => any): void;
-    on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
-    once(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
-    un(type: 'change', listener: (evt: BaseEvent) => void): void;
-    on(type: 'change:accuracy', listener: (evt: ObjectEvent) => void): EventsKey;
-    once(type: 'change:accuracy', listener: (evt: ObjectEvent) => void): EventsKey;
-    un(type: 'change:accuracy', listener: (evt: ObjectEvent) => void): void;
-    on(type: 'change:accuracyGeometry', listener: (evt: ObjectEvent) => void): EventsKey;
-    once(type: 'change:accuracyGeometry', listener: (evt: ObjectEvent) => void): EventsKey;
-    un(type: 'change:accuracyGeometry', listener: (evt: ObjectEvent) => void): void;
-    on(type: 'change:altitude', listener: (evt: ObjectEvent) => void): EventsKey;
-    once(type: 'change:altitude', listener: (evt: ObjectEvent) => void): EventsKey;
-    un(type: 'change:altitude', listener: (evt: ObjectEvent) => void): void;
-    on(type: 'change:altitudeAccuracy', listener: (evt: ObjectEvent) => void): EventsKey;
-    once(type: 'change:altitudeAccuracy', listener: (evt: ObjectEvent) => void): EventsKey;
-    un(type: 'change:altitudeAccuracy', listener: (evt: ObjectEvent) => void): void;
-    on(type: 'change:heading', listener: (evt: ObjectEvent) => void): EventsKey;
-    once(type: 'change:heading', listener: (evt: ObjectEvent) => void): EventsKey;
-    un(type: 'change:heading', listener: (evt: ObjectEvent) => void): void;
-    on(type: 'change:position', listener: (evt: ObjectEvent) => void): EventsKey;
-    once(type: 'change:position', listener: (evt: ObjectEvent) => void): EventsKey;
-    un(type: 'change:position', listener: (evt: ObjectEvent) => void): void;
-    on(type: 'change:projection', listener: (evt: ObjectEvent) => void): EventsKey;
-    once(type: 'change:projection', listener: (evt: ObjectEvent) => void): EventsKey;
-    un(type: 'change:projection', listener: (evt: ObjectEvent) => void): void;
-    on(type: 'change:speed', listener: (evt: ObjectEvent) => void): EventsKey;
-    once(type: 'change:speed', listener: (evt: ObjectEvent) => void): EventsKey;
-    un(type: 'change:speed', listener: (evt: ObjectEvent) => void): void;
-    on(type: 'change:tracking', listener: (evt: ObjectEvent) => void): EventsKey;
-    once(type: 'change:tracking', listener: (evt: ObjectEvent) => void): EventsKey;
-    un(type: 'change:tracking', listener: (evt: ObjectEvent) => void): void;
-    on(type: 'change:trackingOptions', listener: (evt: ObjectEvent) => void): EventsKey;
-    once(type: 'change:trackingOptions', listener: (evt: ObjectEvent) => void): EventsKey;
-    un(type: 'change:trackingOptions', listener: (evt: ObjectEvent) => void): void;
-    on(type: 'error', listener: (evt: GeolocationError) => void): EventsKey;
-    once(type: 'error', listener: (evt: GeolocationError) => void): EventsKey;
-    un(type: 'error', listener: (evt: GeolocationError) => void): void;
-    on(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
-    once(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
-    un(type: 'error', listener: (evt: BaseEvent) => void): void;
-    on(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
-    once(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
-    un(type: 'propertychange', listener: (evt: ObjectEvent) => void): void;
+    on(type: TGeolocationBaseEventTypes, listener: ListenerFunction<BaseEvent>): EventsKey;
+    on(type: TGeolocationBaseEventTypes[], listener: ListenerFunction<BaseEvent>): EventsKey[];
+    once(type: TGeolocationBaseEventTypes, listener: ListenerFunction<BaseEvent>): EventsKey;
+    once(type: TGeolocationBaseEventTypes[], listener: ListenerFunction<BaseEvent>): EventsKey[];
+    un(type: TGeolocationBaseEventTypes | TGeolocationBaseEventTypes[], listener: ListenerFunction<BaseEvent>): void;
+    on(type: TGeolocationObjectEventTypes, listener: ListenerFunction<ObjectEvent>): EventsKey;
+    on(type: TGeolocationObjectEventTypes[], listener: ListenerFunction<ObjectEvent>): EventsKey[];
+    once(type: TGeolocationObjectEventTypes, listener: ListenerFunction<ObjectEvent>): EventsKey;
+    once(type: TGeolocationObjectEventTypes[], listener: ListenerFunction<ObjectEvent>): EventsKey[];
+    un(
+        type: TGeolocationObjectEventTypes | TGeolocationObjectEventTypes[],
+        listener: ListenerFunction<ObjectEvent>,
+    ): void;
+    on(type: TGeolocationGeolocationErrorTypes, listener: ListenerFunction<GeolocationError>): EventsKey;
+    on(type: TGeolocationGeolocationErrorTypes[], listener: ListenerFunction<GeolocationError>): EventsKey[];
+    once(type: TGeolocationGeolocationErrorTypes, listener: ListenerFunction<GeolocationError>): EventsKey;
+    once(type: TGeolocationGeolocationErrorTypes[], listener: ListenerFunction<GeolocationError>): EventsKey[];
+    un(
+        type: TGeolocationGeolocationErrorTypes | TGeolocationGeolocationErrorTypes[],
+        listener: ListenerFunction<GeolocationError>,
+    ): void;
 }
 declare class GeolocationError extends BaseEvent {
     constructor(error: any);

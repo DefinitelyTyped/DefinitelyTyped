@@ -1,19 +1,37 @@
-import { EventsKey } from '../events';
+import Feature from '../Feature';
+import { ObjectEvent } from '../Object';
+import PluggableMap, { FrameState } from '../PluggableMap';
+import { EventsKey, ListenerFunction } from '../events';
 import BaseEvent from '../events/Event';
 import { Extent } from '../extent';
-import Feature from '../Feature';
 import Geometry from '../geom/Geometry';
-import { ObjectEvent } from '../Object';
 import { Pixel } from '../pixel';
-import PluggableMap, { FrameState } from '../PluggableMap';
 import { OrderFunction } from '../render';
 import RenderEvent from '../render/Event';
+import CanvasVectorImageLayerRenderer from '../renderer/canvas/VectorImageLayer';
+import CanvasVectorLayerRenderer from '../renderer/canvas/VectorLayer';
+import CanvasVectorTileLayerRenderer from '../renderer/canvas/VectorTileLayer';
+import WebGLPointsLayerRenderer from '../renderer/webgl/PointsLayer';
 import VectorSource from '../source/Vector';
 import VectorTile from '../source/VectorTile';
 import { StyleFunction, StyleLike } from '../style/Style';
+import { BackgroundColor } from './Base';
 import Layer from './Layer';
 
-export interface Options {
+export type TBaseVectorLayerBaseEventTypes = 'change' | 'error';
+export type TBaseVectorLayerObjectEventTypes =
+    | 'change:extent'
+    | 'change:maxResolution'
+    | 'change:maxZoom'
+    | 'change:minResolution'
+    | 'change:minZoom'
+    | 'change:opacity'
+    | 'change:source'
+    | 'change:visible'
+    | 'change:zIndex'
+    | 'propertychange';
+export type TBaseVectorLayerRenderEventTypes = 'postrender' | 'prerender';
+export interface Options<VectorSourceType extends VectorSource | VectorTile = VectorSource | VectorTile> {
     className?: string | undefined;
     opacity?: number | undefined;
     visible?: boolean | undefined;
@@ -25,17 +43,28 @@ export interface Options {
     maxZoom?: number | undefined;
     renderOrder?: OrderFunction | undefined;
     renderBuffer?: number | undefined;
-    source?: VectorSource<Geometry> | undefined;
+    source?: VectorSourceType | undefined;
     map?: PluggableMap | undefined;
     declutter?: boolean | undefined;
     style?: StyleLike | null | undefined;
+    background?: BackgroundColor | undefined;
     updateWhileAnimating?: boolean | undefined;
     updateWhileInteracting?: boolean | undefined;
+    properties?: Record<string, any> | undefined;
 }
 export default class BaseVectorLayer<
-    VectorSourceType extends VectorSource | VectorTile = VectorSource | VectorTile
-> extends Layer<VectorSourceType> {
-    constructor(opt_options?: Options);
+    VectorSourceType extends VectorSource | VectorTile = VectorSource | VectorTile,
+    RendererType extends
+        | CanvasVectorLayerRenderer
+        | CanvasVectorTileLayerRenderer
+        | CanvasVectorImageLayerRenderer
+        | WebGLPointsLayerRenderer =
+        | CanvasVectorLayerRenderer
+        | CanvasVectorTileLayerRenderer
+        | CanvasVectorImageLayerRenderer
+        | WebGLPointsLayerRenderer,
+> extends Layer<VectorSourceType, RendererType> {
+    constructor(opt_options?: Options<VectorSourceType>);
     getDeclutter(): boolean;
     /**
      * Get the topmost feature that intersects the given pixel on the viewport. Returns a promise
@@ -71,52 +100,31 @@ export default class BaseVectorLayer<
      * an array of styles. If set to null, the layer has no style (a null style),
      * so only features that have their own styles will be rendered in the layer. Call
      * setStyle() without arguments to reset to the default style. See
-     * {@link module:ol/style} for information on the default style.
+     * {@link module:ol/style/Style~Style} for information on the default style.
      */
     setStyle(opt_style?: StyleLike | null): void;
-    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
-    once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
-    un(type: string | string[], listener: (p0: any) => any): void;
-    on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
-    once(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
-    un(type: 'change', listener: (evt: BaseEvent) => void): void;
-    on(type: 'change:extent', listener: (evt: ObjectEvent) => void): EventsKey;
-    once(type: 'change:extent', listener: (evt: ObjectEvent) => void): EventsKey;
-    un(type: 'change:extent', listener: (evt: ObjectEvent) => void): void;
-    on(type: 'change:maxResolution', listener: (evt: ObjectEvent) => void): EventsKey;
-    once(type: 'change:maxResolution', listener: (evt: ObjectEvent) => void): EventsKey;
-    un(type: 'change:maxResolution', listener: (evt: ObjectEvent) => void): void;
-    on(type: 'change:maxZoom', listener: (evt: ObjectEvent) => void): EventsKey;
-    once(type: 'change:maxZoom', listener: (evt: ObjectEvent) => void): EventsKey;
-    un(type: 'change:maxZoom', listener: (evt: ObjectEvent) => void): void;
-    on(type: 'change:minResolution', listener: (evt: ObjectEvent) => void): EventsKey;
-    once(type: 'change:minResolution', listener: (evt: ObjectEvent) => void): EventsKey;
-    un(type: 'change:minResolution', listener: (evt: ObjectEvent) => void): void;
-    on(type: 'change:minZoom', listener: (evt: ObjectEvent) => void): EventsKey;
-    once(type: 'change:minZoom', listener: (evt: ObjectEvent) => void): EventsKey;
-    un(type: 'change:minZoom', listener: (evt: ObjectEvent) => void): void;
-    on(type: 'change:opacity', listener: (evt: ObjectEvent) => void): EventsKey;
-    once(type: 'change:opacity', listener: (evt: ObjectEvent) => void): EventsKey;
-    un(type: 'change:opacity', listener: (evt: ObjectEvent) => void): void;
-    on(type: 'change:source', listener: (evt: ObjectEvent) => void): EventsKey;
-    once(type: 'change:source', listener: (evt: ObjectEvent) => void): EventsKey;
-    un(type: 'change:source', listener: (evt: ObjectEvent) => void): void;
-    on(type: 'change:visible', listener: (evt: ObjectEvent) => void): EventsKey;
-    once(type: 'change:visible', listener: (evt: ObjectEvent) => void): EventsKey;
-    un(type: 'change:visible', listener: (evt: ObjectEvent) => void): void;
-    on(type: 'change:zIndex', listener: (evt: ObjectEvent) => void): EventsKey;
-    once(type: 'change:zIndex', listener: (evt: ObjectEvent) => void): EventsKey;
-    un(type: 'change:zIndex', listener: (evt: ObjectEvent) => void): void;
-    on(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
-    once(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
-    un(type: 'error', listener: (evt: BaseEvent) => void): void;
-    on(type: 'postrender', listener: (evt: RenderEvent) => void): EventsKey;
-    once(type: 'postrender', listener: (evt: RenderEvent) => void): EventsKey;
-    un(type: 'postrender', listener: (evt: RenderEvent) => void): void;
-    on(type: 'prerender', listener: (evt: RenderEvent) => void): EventsKey;
-    once(type: 'prerender', listener: (evt: RenderEvent) => void): EventsKey;
-    un(type: 'prerender', listener: (evt: RenderEvent) => void): void;
-    on(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
-    once(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
-    un(type: 'propertychange', listener: (evt: ObjectEvent) => void): void;
+    on(type: TBaseVectorLayerBaseEventTypes, listener: ListenerFunction<BaseEvent>): EventsKey;
+    on(type: TBaseVectorLayerBaseEventTypes[], listener: ListenerFunction<BaseEvent>): EventsKey[];
+    once(type: TBaseVectorLayerBaseEventTypes, listener: ListenerFunction<BaseEvent>): EventsKey;
+    once(type: TBaseVectorLayerBaseEventTypes[], listener: ListenerFunction<BaseEvent>): EventsKey[];
+    un(
+        type: TBaseVectorLayerBaseEventTypes | TBaseVectorLayerBaseEventTypes[],
+        listener: ListenerFunction<BaseEvent>,
+    ): void;
+    on(type: TBaseVectorLayerObjectEventTypes, listener: ListenerFunction<ObjectEvent>): EventsKey;
+    on(type: TBaseVectorLayerObjectEventTypes[], listener: ListenerFunction<ObjectEvent>): EventsKey[];
+    once(type: TBaseVectorLayerObjectEventTypes, listener: ListenerFunction<ObjectEvent>): EventsKey;
+    once(type: TBaseVectorLayerObjectEventTypes[], listener: ListenerFunction<ObjectEvent>): EventsKey[];
+    un(
+        type: TBaseVectorLayerObjectEventTypes | TBaseVectorLayerObjectEventTypes[],
+        listener: ListenerFunction<ObjectEvent>,
+    ): void;
+    on(type: TBaseVectorLayerRenderEventTypes, listener: ListenerFunction<RenderEvent>): EventsKey;
+    on(type: TBaseVectorLayerRenderEventTypes[], listener: ListenerFunction<RenderEvent>): EventsKey[];
+    once(type: TBaseVectorLayerRenderEventTypes, listener: ListenerFunction<RenderEvent>): EventsKey;
+    once(type: TBaseVectorLayerRenderEventTypes[], listener: ListenerFunction<RenderEvent>): EventsKey[];
+    un(
+        type: TBaseVectorLayerRenderEventTypes | TBaseVectorLayerRenderEventTypes[],
+        listener: ListenerFunction<RenderEvent>,
+    ): void;
 }

@@ -1,6 +1,6 @@
+import ImageState from '../ImageState';
 import { ColorLike } from '../colorlike';
 import BaseEvent from '../events/Event';
-import ImageState from '../ImageState';
 import { Size } from '../size';
 import Fill from './Fill';
 import ImageStyle from './Image';
@@ -26,7 +26,6 @@ export interface RenderOptions {
     strokeStyle?: ColorLike | undefined;
     strokeWidth: number;
     size: number;
-    lineCap: CanvasLineCap;
     lineDash: number[];
     lineDashOffset: number;
     lineJoin: CanvasLineJoin;
@@ -55,7 +54,6 @@ export default class RegularShape extends ImageStyle {
      */
     getFill(): Fill;
     getHitDetectionImage(): HTMLCanvasElement;
-    getHitDetectionImageSize(): Size;
     /**
      * Get the image icon.
      */
@@ -66,6 +64,10 @@ export default class RegularShape extends ImageStyle {
      * Get the origin of the symbolizer.
      */
     getOrigin(): number[];
+    /**
+     * Get the image pixel ratio.
+     */
+    getPixelRatio(pixelRatio: number): number;
     /**
      * Get the number of points for generating the shape.
      */

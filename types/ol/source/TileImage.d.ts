@@ -1,23 +1,29 @@
-import { EventsKey } from '../events';
-import BaseEvent from '../events/Event';
 import ImageTile from '../ImageTile';
 import { ObjectEvent } from '../Object';
+import { LoadFunction, UrlFunction } from '../Tile';
+import TileCache from '../TileCache';
+import { NearestDirectionFunction } from '../array';
+import { EventsKey, ListenerFunction } from '../events';
+import BaseEvent from '../events/Event';
 import { ProjectionLike } from '../proj';
 import Projection from '../proj/Projection';
-import Tile, { LoadFunction, UrlFunction } from '../Tile';
-import TileCache from '../TileCache';
+import ReprojTile from '../reproj/Tile';
 import TileGrid from '../tilegrid/TileGrid';
 import { AttributionLike } from './Source';
 import State from './State';
 import { TileSourceEvent } from './Tile';
 import UrlTile from './UrlTile';
 
+export type TTileImageBaseEventTypes = 'change' | 'error';
+export type TTileImageObjectEventTypes = 'propertychange';
+export type TTileImageTileSourceEventTypes = 'tileloadend' | 'tileloaderror' | 'tileloadstart';
 export interface Options {
     attributions?: AttributionLike | undefined;
     attributionsCollapsible?: boolean | undefined;
     cacheSize?: number | undefined;
     crossOrigin?: null | string | undefined;
     imageSmoothing?: boolean | undefined;
+    interpolate?: boolean | undefined;
     opaque?: boolean | undefined;
     projection?: ProjectionLike | undefined;
     reprojectionErrorThreshold?: number | undefined;
@@ -32,26 +38,31 @@ export interface Options {
     wrapX?: boolean | undefined;
     transition?: number | undefined;
     key?: string | undefined;
-    zDirection?: number | undefined;
+    zDirection?: number | NearestDirectionFunction | undefined;
 }
 export default class TileImage extends UrlTile {
     constructor(options: Options);
     protected crossOrigin: string;
-    protected tileCacheForProjection: { [key: string]: TileCache };
+    protected tileCacheForProjection: Record<string, TileCache>;
     protected tileClass: typeof ImageTile;
-    protected tileGridForProjection: { [key: string]: TileGrid };
+    protected tileGridForProjection: Record<string, TileGrid>;
+    protected getTileInternal(
+        z: number,
+        x: number,
+        y: number,
+        pixelRatio: number,
+        projection: Projection,
+    ): ImageTile | ReprojTile;
+    canExpireCache(): boolean;
+    expireCache(projection: Projection, usedTiles: Record<string, boolean>): void;
+    getGutter(): number;
+    getGutterForProjection(projection: Projection): number;
     /**
      * Return the key to be used for all tiles in the source.
      */
-    protected getKey(): string;
-    protected getTileInternal(z: number, x: number, y: number, pixelRatio: number, projection: Projection): Tile;
-    canExpireCache(): boolean;
-    expireCache(projection: Projection, usedTiles: { [key: string]: boolean }): void;
-    getContextOptions(): object | undefined;
-    getGutter(): number;
-    getGutterForProjection(projection: Projection): number;
+    getKey(): string;
     getOpaque(projection: Projection): boolean;
-    getTile(z: number, x: number, y: number, pixelRatio: number, projection: Projection): Tile;
+    getTile(z: number, x: number, y: number, pixelRatio: number, projection: Projection): ImageTile | ReprojTile;
     getTileCacheForProjection(projection: Projection): TileCache;
     getTileGridForProjection(projection: Projection): TileGrid;
     /**
@@ -66,25 +77,22 @@ export default class TileImage extends UrlTile {
      * for optimization reasons (custom tile size, resolutions, ...).
      */
     setTileGridForProjection(projection: ProjectionLike, tilegrid: TileGrid): void;
-    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
-    once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
-    un(type: string | string[], listener: (p0: any) => any): void;
-    on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
-    once(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
-    un(type: 'change', listener: (evt: BaseEvent) => void): void;
-    on(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
-    once(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
-    un(type: 'error', listener: (evt: BaseEvent) => void): void;
-    on(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
-    once(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
-    un(type: 'propertychange', listener: (evt: ObjectEvent) => void): void;
-    on(type: 'tileloadend', listener: (evt: TileSourceEvent) => void): EventsKey;
-    once(type: 'tileloadend', listener: (evt: TileSourceEvent) => void): EventsKey;
-    un(type: 'tileloadend', listener: (evt: TileSourceEvent) => void): void;
-    on(type: 'tileloaderror', listener: (evt: TileSourceEvent) => void): EventsKey;
-    once(type: 'tileloaderror', listener: (evt: TileSourceEvent) => void): EventsKey;
-    un(type: 'tileloaderror', listener: (evt: TileSourceEvent) => void): void;
-    on(type: 'tileloadstart', listener: (evt: TileSourceEvent) => void): EventsKey;
-    once(type: 'tileloadstart', listener: (evt: TileSourceEvent) => void): EventsKey;
-    un(type: 'tileloadstart', listener: (evt: TileSourceEvent) => void): void;
+    on(type: TTileImageBaseEventTypes, listener: ListenerFunction<BaseEvent>): EventsKey;
+    on(type: TTileImageBaseEventTypes[], listener: ListenerFunction<BaseEvent>): EventsKey[];
+    once(type: TTileImageBaseEventTypes, listener: ListenerFunction<BaseEvent>): EventsKey;
+    once(type: TTileImageBaseEventTypes[], listener: ListenerFunction<BaseEvent>): EventsKey[];
+    un(type: TTileImageBaseEventTypes | TTileImageBaseEventTypes[], listener: ListenerFunction<BaseEvent>): void;
+    on(type: TTileImageObjectEventTypes, listener: ListenerFunction<ObjectEvent>): EventsKey;
+    on(type: TTileImageObjectEventTypes[], listener: ListenerFunction<ObjectEvent>): EventsKey[];
+    once(type: TTileImageObjectEventTypes, listener: ListenerFunction<ObjectEvent>): EventsKey;
+    once(type: TTileImageObjectEventTypes[], listener: ListenerFunction<ObjectEvent>): EventsKey[];
+    un(type: TTileImageObjectEventTypes | TTileImageObjectEventTypes[], listener: ListenerFunction<ObjectEvent>): void;
+    on(type: TTileImageTileSourceEventTypes, listener: ListenerFunction<TileSourceEvent>): EventsKey;
+    on(type: TTileImageTileSourceEventTypes[], listener: ListenerFunction<TileSourceEvent>): EventsKey[];
+    once(type: TTileImageTileSourceEventTypes, listener: ListenerFunction<TileSourceEvent>): EventsKey;
+    once(type: TTileImageTileSourceEventTypes[], listener: ListenerFunction<TileSourceEvent>): EventsKey[];
+    un(
+        type: TTileImageTileSourceEventTypes | TTileImageTileSourceEventTypes[],
+        listener: ListenerFunction<TileSourceEvent>,
+    ): void;
 }

@@ -1,17 +1,19 @@
-import { Coordinate } from '../../coordinate';
-import { EventsKey } from '../../events';
-import BaseEvent from '../../events/Event';
 import Feature from '../../Feature';
+import { FrameState } from '../../PluggableMap';
+import { Coordinate } from '../../coordinate';
+import { EventsKey, ListenerFunction } from '../../events';
+import BaseEvent from '../../events/Event';
 import Geometry from '../../geom/Geometry';
 import VectorImageLayer from '../../layer/VectorImage';
 import { Pixel } from '../../pixel';
-import { FrameState } from '../../PluggableMap';
+import VectorSource from '../../source/Vector';
 import { HitMatch } from '../Map';
 import { FeatureCallback } from '../vector';
 import CanvasImageLayerRenderer from './ImageLayer';
 
+export type TCanvasVectorImageLayerRendererBaseEventTypes = 'change' | 'error';
 export default class CanvasVectorImageLayerRenderer extends CanvasImageLayerRenderer {
-    constructor(layer: VectorImageLayer);
+    constructor(layer: VectorImageLayer<VectorSource<Geometry>>);
     /**
      * Clean up.
      */
@@ -38,13 +40,12 @@ export default class CanvasVectorImageLayerRenderer extends CanvasImageLayerRend
     prepareFrame(frameState: FrameState): boolean;
     preRender(): void;
     renderDeclutter(): void;
-    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
-    once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
-    un(type: string | string[], listener: (p0: any) => any): void;
-    on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
-    once(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
-    un(type: 'change', listener: (evt: BaseEvent) => void): void;
-    on(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
-    once(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
-    un(type: 'error', listener: (evt: BaseEvent) => void): void;
+    on(type: TCanvasVectorImageLayerRendererBaseEventTypes, listener: ListenerFunction<BaseEvent>): EventsKey;
+    on(type: TCanvasVectorImageLayerRendererBaseEventTypes[], listener: ListenerFunction<BaseEvent>): EventsKey[];
+    once(type: TCanvasVectorImageLayerRendererBaseEventTypes, listener: ListenerFunction<BaseEvent>): EventsKey;
+    once(type: TCanvasVectorImageLayerRendererBaseEventTypes[], listener: ListenerFunction<BaseEvent>): EventsKey[];
+    un(
+        type: TCanvasVectorImageLayerRendererBaseEventTypes | TCanvasVectorImageLayerRendererBaseEventTypes[],
+        listener: ListenerFunction<BaseEvent>,
+    ): void;
 }

@@ -16,15 +16,20 @@ export interface BufferCacheEntry {
     buffer: WebGLArrayBuffer;
     webGlBuffer: WebGLBuffer;
 }
+export interface CanvasCacheItem {
+    canvas: HTMLCanvasElement;
+    users: number;
+}
 export interface Options {
-    uniforms?: { [key: string]: UniformValue } | undefined;
+    uniforms?: Record<string, UniformValue> | undefined;
     postProcesses?: PostProcessesOptions[] | undefined;
+    canvasCacheKey?: string | undefined;
 }
 export interface PostProcessesOptions {
     scaleRatio?: number | undefined;
     vertexShader?: string | undefined;
     fragmentShader?: string | undefined;
-    uniforms?: { [key: string]: UniformValue } | undefined;
+    uniforms?: Record<string, UniformValue> | undefined;
 }
 export type UniformLiteralValue = number | number[] | HTMLCanvasElement | HTMLImageElement | ImageData | Transform;
 /**
@@ -69,6 +74,7 @@ export default class WebGLHelper extends Disposable {
      * the cache.
      */
     bindBuffer(buffer: WebGLArrayBuffer): void;
+    canvasCacheKeyMatches(canvasCacheKey: string): boolean;
     /**
      * Will attempt to compile a vertex or fragment shader based on source
      * On error, the shader will be returned but
@@ -105,7 +111,11 @@ export default class WebGLHelper extends Disposable {
     /**
      * Apply the successive post process passes which will eventually render to the actual canvas.
      */
-    finalizeDraw(frameState: FrameState): void;
+    finalizeDraw(
+        frameState: FrameState,
+        preCompose?: (p0: WebGLRenderingContext, p1: FrameState) => void,
+        postCompose?: (p0: WebGLRenderingContext, p1: FrameState) => void,
+    ): void;
     /**
      * Update the data contained in the buffer array; this is required for the
      * new data to be rendered
@@ -117,18 +127,18 @@ export default class WebGLHelper extends Disposable {
     getAttributeLocation(name: string): number;
     getCanvas(): HTMLCanvasElement;
     /**
+     * Get a WebGL extension.  If the extension is not supported, null is returned.
+     * Extensions are cached after they are enabled for the first time.
+     */
+    getExtension(name: string): any;
+    /**
      * Get the WebGL rendering context
      */
     getGL(): WebGLRenderingContext;
     /**
-     * Create a program for a vertex and fragment shader. The shaders compilation may have failed:
-     * use WebGLHelper.getShaderCompileErrors()to have details if any.
+     * Create a program for a vertex and fragment shader.  Throws if shader compilation fails.
      */
     getProgram(fragmentShaderSource: string, vertexShaderSource: string): WebGLProgram;
-    /**
-     * Will return the last shader compilation errors. If no error happened, will return null;
-     */
-    getShaderCompileErrors(): string | null;
     /**
      * Will get the location from the shader or the cache
      */
@@ -143,7 +153,7 @@ export default class WebGLHelper extends Disposable {
      * Post process passes will be initialized here, the first one being bound as a render target for
      * subsequent draw calls.
      */
-    prepareDraw(frameState: FrameState): void;
+    prepareDraw(frameState: FrameState, opt_disableAlphaBlend?: boolean): void;
     /**
      * Clear the render target & bind it for future draw operations.
      * This is similar to prepareDraw, only post processes will not be applied.
@@ -162,6 +172,7 @@ export default class WebGLHelper extends Disposable {
      * Give a value for a standard matrix4 uniform
      */
     setUniformMatrixValue(uniform: string, value: number[]): void;
+    setUniforms(uniforms: Record<string, UniformValue>): void;
     /**
      * Use a program.  If the program is already in use, this will return false.
      */

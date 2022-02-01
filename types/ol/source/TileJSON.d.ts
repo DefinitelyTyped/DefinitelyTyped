@@ -1,12 +1,16 @@
-import { EventsKey } from '../events';
-import BaseEvent from '../events/Event';
 import { ObjectEvent } from '../Object';
-import { Size } from '../size';
 import { LoadFunction } from '../Tile';
+import { NearestDirectionFunction } from '../array';
+import { EventsKey, ListenerFunction } from '../events';
+import BaseEvent from '../events/Event';
+import { Size } from '../size';
 import { AttributionLike } from './Source';
 import { TileSourceEvent } from './Tile';
 import TileImage from './TileImage';
 
+export type TTileJSONBaseEventTypes = 'change' | 'error';
+export type TTileJSONObjectEventTypes = 'propertychange';
+export type TTileJSONTileSourceEventTypes = 'tileloadend' | 'tileloaderror' | 'tileloadstart';
 export interface Config {
     name?: string | undefined;
     description?: string | undefined;
@@ -27,6 +31,7 @@ export interface Options {
     cacheSize?: number | undefined;
     crossOrigin?: null | string | undefined;
     imageSmoothing?: boolean | undefined;
+    interpolate?: boolean | undefined;
     jsonp?: boolean | undefined;
     reprojectionErrorThreshold?: number | undefined;
     tileJSON?: Config | undefined;
@@ -35,31 +40,29 @@ export interface Options {
     url?: string | undefined;
     wrapX?: boolean | undefined;
     transition?: number | undefined;
+    zDirection?: number | NearestDirectionFunction | undefined;
 }
 export default class TileJSON extends TileImage {
     constructor(options: Options);
     protected handleTileJSONError(): void;
     protected handleTileJSONResponse(tileJSON: Config): void;
     getTileJSON(): Config;
-    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
-    once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
-    un(type: string | string[], listener: (p0: any) => any): void;
-    on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
-    once(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
-    un(type: 'change', listener: (evt: BaseEvent) => void): void;
-    on(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
-    once(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
-    un(type: 'error', listener: (evt: BaseEvent) => void): void;
-    on(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
-    once(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
-    un(type: 'propertychange', listener: (evt: ObjectEvent) => void): void;
-    on(type: 'tileloadend', listener: (evt: TileSourceEvent) => void): EventsKey;
-    once(type: 'tileloadend', listener: (evt: TileSourceEvent) => void): EventsKey;
-    un(type: 'tileloadend', listener: (evt: TileSourceEvent) => void): void;
-    on(type: 'tileloaderror', listener: (evt: TileSourceEvent) => void): EventsKey;
-    once(type: 'tileloaderror', listener: (evt: TileSourceEvent) => void): EventsKey;
-    un(type: 'tileloaderror', listener: (evt: TileSourceEvent) => void): void;
-    on(type: 'tileloadstart', listener: (evt: TileSourceEvent) => void): EventsKey;
-    once(type: 'tileloadstart', listener: (evt: TileSourceEvent) => void): EventsKey;
-    un(type: 'tileloadstart', listener: (evt: TileSourceEvent) => void): void;
+    on(type: TTileJSONBaseEventTypes, listener: ListenerFunction<BaseEvent>): EventsKey;
+    on(type: TTileJSONBaseEventTypes[], listener: ListenerFunction<BaseEvent>): EventsKey[];
+    once(type: TTileJSONBaseEventTypes, listener: ListenerFunction<BaseEvent>): EventsKey;
+    once(type: TTileJSONBaseEventTypes[], listener: ListenerFunction<BaseEvent>): EventsKey[];
+    un(type: TTileJSONBaseEventTypes | TTileJSONBaseEventTypes[], listener: ListenerFunction<BaseEvent>): void;
+    on(type: TTileJSONObjectEventTypes, listener: ListenerFunction<ObjectEvent>): EventsKey;
+    on(type: TTileJSONObjectEventTypes[], listener: ListenerFunction<ObjectEvent>): EventsKey[];
+    once(type: TTileJSONObjectEventTypes, listener: ListenerFunction<ObjectEvent>): EventsKey;
+    once(type: TTileJSONObjectEventTypes[], listener: ListenerFunction<ObjectEvent>): EventsKey[];
+    un(type: TTileJSONObjectEventTypes | TTileJSONObjectEventTypes[], listener: ListenerFunction<ObjectEvent>): void;
+    on(type: TTileJSONTileSourceEventTypes, listener: ListenerFunction<TileSourceEvent>): EventsKey;
+    on(type: TTileJSONTileSourceEventTypes[], listener: ListenerFunction<TileSourceEvent>): EventsKey[];
+    once(type: TTileJSONTileSourceEventTypes, listener: ListenerFunction<TileSourceEvent>): EventsKey;
+    once(type: TTileJSONTileSourceEventTypes[], listener: ListenerFunction<TileSourceEvent>): EventsKey[];
+    un(
+        type: TTileJSONTileSourceEventTypes | TTileJSONTileSourceEventTypes[],
+        listener: ListenerFunction<TileSourceEvent>,
+    ): void;
 }

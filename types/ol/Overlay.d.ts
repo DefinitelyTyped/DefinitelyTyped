@@ -1,13 +1,22 @@
+import BaseObject, { ObjectEvent } from './Object';
+import Types from './ObjectEventType';
+import OverlayPositioning from './OverlayPositioning';
+import PluggableMap from './PluggableMap';
 import { Coordinate } from './coordinate';
-import { EventsKey } from './events';
+import { EventsKey, ListenerFunction } from './events';
 import BaseEvent from './events/Event';
 import { Extent } from './extent';
-import BaseObject, { ObjectEvent } from './Object';
-import OverlayPositioning from './OverlayPositioning';
 import { Pixel } from './pixel';
-import PluggableMap from './PluggableMap';
 import { Size } from './size';
 
+export type TOverlayBaseEventTypes = 'change' | 'error';
+export type TOverlayObjectEventTypes =
+    | 'change:element'
+    | 'change:map'
+    | 'change:offset'
+    | 'change:position'
+    | 'change:positioning'
+    | 'propertychange';
 export interface Options {
     id?: number | string | undefined;
     element?: HTMLElement | undefined;
@@ -22,6 +31,13 @@ export interface Options {
     autoPanOptions?: PanIntoViewOptions | undefined;
     className?: string | undefined;
 }
+export type OverlayObjectEventTypes =
+    | Types
+    | 'change:element'
+    | 'change:map'
+    | 'change:offset'
+    | 'change:position'
+    | 'change:positioning';
 export interface PanIntoViewOptions {
     animation?: PanOptions | undefined;
     margin?: number | undefined;
@@ -50,7 +66,7 @@ export default class Overlay extends BaseObject {
     protected handlePositionChanged(): void;
     protected handlePositioningChanged(): void;
     /**
-     * Pan the map so that the overlay is entirely visisble in the current viewport
+     * Pan the map so that the overlay is entirely visible in the current viewport
      * (if necessary) using the configured autoPan parameters
      */
     protected performAutoPan(): void;
@@ -118,31 +134,14 @@ export default class Overlay extends BaseObject {
      * Set the positioning for this overlay.
      */
     setPositioning(positioning: OverlayPositioning): void;
-    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
-    once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
-    un(type: string | string[], listener: (p0: any) => any): void;
-    on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
-    once(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
-    un(type: 'change', listener: (evt: BaseEvent) => void): void;
-    on(type: 'change:element', listener: (evt: ObjectEvent) => void): EventsKey;
-    once(type: 'change:element', listener: (evt: ObjectEvent) => void): EventsKey;
-    un(type: 'change:element', listener: (evt: ObjectEvent) => void): void;
-    on(type: 'change:map', listener: (evt: ObjectEvent) => void): EventsKey;
-    once(type: 'change:map', listener: (evt: ObjectEvent) => void): EventsKey;
-    un(type: 'change:map', listener: (evt: ObjectEvent) => void): void;
-    on(type: 'change:offset', listener: (evt: ObjectEvent) => void): EventsKey;
-    once(type: 'change:offset', listener: (evt: ObjectEvent) => void): EventsKey;
-    un(type: 'change:offset', listener: (evt: ObjectEvent) => void): void;
-    on(type: 'change:position', listener: (evt: ObjectEvent) => void): EventsKey;
-    once(type: 'change:position', listener: (evt: ObjectEvent) => void): EventsKey;
-    un(type: 'change:position', listener: (evt: ObjectEvent) => void): void;
-    on(type: 'change:positioning', listener: (evt: ObjectEvent) => void): EventsKey;
-    once(type: 'change:positioning', listener: (evt: ObjectEvent) => void): EventsKey;
-    un(type: 'change:positioning', listener: (evt: ObjectEvent) => void): void;
-    on(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
-    once(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
-    un(type: 'error', listener: (evt: BaseEvent) => void): void;
-    on(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
-    once(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
-    un(type: 'propertychange', listener: (evt: ObjectEvent) => void): void;
+    on(type: TOverlayBaseEventTypes, listener: ListenerFunction<BaseEvent>): EventsKey;
+    on(type: TOverlayBaseEventTypes[], listener: ListenerFunction<BaseEvent>): EventsKey[];
+    once(type: TOverlayBaseEventTypes, listener: ListenerFunction<BaseEvent>): EventsKey;
+    once(type: TOverlayBaseEventTypes[], listener: ListenerFunction<BaseEvent>): EventsKey[];
+    un(type: TOverlayBaseEventTypes | TOverlayBaseEventTypes[], listener: ListenerFunction<BaseEvent>): void;
+    on(type: TOverlayObjectEventTypes, listener: ListenerFunction<ObjectEvent>): EventsKey;
+    on(type: TOverlayObjectEventTypes[], listener: ListenerFunction<ObjectEvent>): EventsKey[];
+    once(type: TOverlayObjectEventTypes, listener: ListenerFunction<ObjectEvent>): EventsKey;
+    once(type: TOverlayObjectEventTypes[], listener: ListenerFunction<ObjectEvent>): EventsKey[];
+    un(type: TOverlayObjectEventTypes | TOverlayObjectEventTypes[], listener: ListenerFunction<ObjectEvent>): void;
 }

@@ -1,14 +1,15 @@
+import { FrameState } from '../../PluggableMap';
 import { Coordinate } from '../../coordinate';
-import { EventsKey } from '../../events';
+import { EventsKey, ListenerFunction } from '../../events';
 import BaseEvent from '../../events/Event';
 import Layer from '../../layer/Layer';
 import { Pixel } from '../../pixel';
-import { FrameState } from '../../PluggableMap';
 import WebGLHelper, { UniformValue } from '../../webgl/Helper';
 import LayerRenderer from '../Layer';
 import { HitMatch } from '../Map';
 import { FeatureCallback } from '../vector';
 
+export type TWebGLLayerRendererBaseEventTypes = 'change' | 'error';
 /**
  * An object holding positions both in an index and a vertex buffer.
  */
@@ -17,15 +18,14 @@ export interface BufferPositions {
     indexPosition: number;
 }
 export interface Options {
-    className?: string | undefined;
-    uniforms?: { [key: string]: UniformValue } | undefined;
+    uniforms?: Record<string, UniformValue> | undefined;
     postProcesses?: PostProcessesOptions[] | undefined;
 }
 export interface PostProcessesOptions {
     scaleRatio?: number | undefined;
     vertexShader?: string | undefined;
     fragmentShader?: string | undefined;
-    uniforms?: { [key: string]: UniformValue } | undefined;
+    uniforms?: Record<string, UniformValue> | undefined;
 }
 /**
  * This message will trigger the generation of a vertex and an index buffer based on the given render instructions.
@@ -46,8 +46,15 @@ export enum WebGLWorkerMessageType {
 export default class WebGLLayerRenderer<LayerType extends Layer = Layer> extends LayerRenderer {
     constructor(layer: LayerType, opt_options?: Options);
     protected helper: WebGLHelper;
-    protected postRender(frameState: FrameState): void;
-    protected preRender(frameState: FrameState): void;
+    protected afterHelperCreated(): void;
+    protected dispatchPostComposeEvent(context: WebGLRenderingContext, frameState: FrameState): void;
+    protected dispatchPreComposeEvent(context: WebGLRenderingContext, frameState: FrameState): void;
+    protected postRender(context: WebGLRenderingContext, frameState: FrameState): void;
+    /**
+     * Determine whether renderFrame should be called.
+     */
+    protected prepareFrameInternal(frameState: FrameState): boolean;
+    protected preRender(context: WebGLRenderingContext, frameState: FrameState): void;
     /**
      * Clean up.
      */
@@ -61,30 +68,29 @@ export default class WebGLLayerRenderer<LayerType extends Layer = Layer> extends
     ): T | undefined;
     getDataAtPixel(pixel: Pixel, frameState: FrameState, hitTolerance: number): Uint8ClampedArray | Uint8Array;
     /**
-     * Will return the last shader compilation errors. If no error happened, will return null;
-     */
-    getShaderCompileErrors(): string | null;
-    /**
      * Perform action necessary to get the layer rendered after new fonts have loaded
      */
     handleFontsChanged(): void;
     /**
-     * Determine whether render should be called.
+     * Determine whether renderFrame should be called.
      */
     prepareFrame(frameState: FrameState): boolean;
     /**
      * Render the layer.
      */
     renderFrame(frameState: FrameState, target: HTMLElement): HTMLElement;
-    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
-    once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
-    un(type: string | string[], listener: (p0: any) => any): void;
-    on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
-    once(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
-    un(type: 'change', listener: (evt: BaseEvent) => void): void;
-    on(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
-    once(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
-    un(type: 'error', listener: (evt: BaseEvent) => void): void;
+    /**
+     * Reset options (only handles uniforms).
+     */
+    reset(options: Options): void;
+    on(type: TWebGLLayerRendererBaseEventTypes, listener: ListenerFunction<BaseEvent>): EventsKey;
+    on(type: TWebGLLayerRendererBaseEventTypes[], listener: ListenerFunction<BaseEvent>): EventsKey[];
+    once(type: TWebGLLayerRendererBaseEventTypes, listener: ListenerFunction<BaseEvent>): EventsKey;
+    once(type: TWebGLLayerRendererBaseEventTypes[], listener: ListenerFunction<BaseEvent>): EventsKey[];
+    un(
+        type: TWebGLLayerRendererBaseEventTypes | TWebGLLayerRendererBaseEventTypes[],
+        listener: ListenerFunction<BaseEvent>,
+    ): void;
 }
 /**
  * Reads an id from a color-encoded array

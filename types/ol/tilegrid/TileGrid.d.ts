@@ -1,8 +1,9 @@
+import TileRange from '../TileRange';
+import { NearestDirectionFunction } from '../array';
 import { Coordinate } from '../coordinate';
 import { Extent } from '../extent';
 import { Size } from '../size';
 import { TileCoord } from '../tilecoord';
-import TileRange from '../TileRange';
 
 export interface Options {
     extent?: Extent | undefined;
@@ -78,11 +79,12 @@ export default class TileGrid {
      * Get a tile range for the given extent and integer zoom level.
      */
     getTileRangeForExtentAndZ(extent: Extent, z: number, opt_tileRange?: TileRange): TileRange;
+    getTileRangeForTileCoordAndZ(tileCoord: TileCoord, z: number, opt_tileRange?: TileRange): TileRange;
     /**
      * Get the tile size for a zoom level. The type of the return value matches the
      * tileSize or tileSizes that the tile grid was configured with. To always
      * get an module:ol/size~Size, run the result through module:ol/size~Size.toSize().
      */
     getTileSize(z: number): number | Size;
-    getZForResolution(resolution: number, opt_direction?: number): number;
+    getZForResolution(resolution: number, opt_direction?: number | NearestDirectionFunction): number;
 }

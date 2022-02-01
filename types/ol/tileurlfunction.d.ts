@@ -1,5 +1,5 @@
-import Projection from './proj/Projection';
 import { UrlFunction } from './Tile';
+import Projection from './proj/Projection';
 import { TileCoord } from './tilecoord';
 import TileGrid from './tilegrid/TileGrid';
 

@@ -1,11 +1,11 @@
 import Feature, { FeatureLike } from './Feature';
+import Tile, { LoadFunction, Options } from './Tile';
+import TileState from './TileState';
 import { FeatureLoader } from './featureloader';
 import FeatureFormat from './format/Feature';
 import Geometry from './geom/Geometry';
 import Projection from './proj/Projection';
-import Tile, { LoadFunction, Options } from './Tile';
 import { TileCoord } from './tilecoord';
-import TileState from './TileState';
 
 export default class VectorTile extends Tile {
     constructor(

@@ -1,6 +1,6 @@
 import Tile, { LoadFunction, Options } from './Tile';
-import { TileCoord } from './tilecoord';
 import TileState from './TileState';
+import { TileCoord } from './tilecoord';
 
 export default class ImageTile extends Tile {
     constructor(
@@ -19,4 +19,8 @@ export default class ImageTile extends Tile {
      * Load not yet loaded URI.
      */
     load(): void;
+    /**
+     * Sets an HTML image element for this tile (may be a Canvas or preloaded Image).
+     */
+    setImage(element: HTMLCanvasElement | HTMLImageElement): void;
 }

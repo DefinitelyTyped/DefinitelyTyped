@@ -1,12 +1,12 @@
-import { ColorLike } from '../colorlike';
 import BaseObject from '../Object';
+import { ColorLike } from '../colorlike';
 import { Size } from '../size';
 import Fill from '../style/Fill';
 import Stroke from '../style/Stroke';
 import { Transform } from '../transform';
 import { ReplayImageOrLabelArgs } from './canvas/Executor';
 
-export type DeclutterImageWithText = { [key: number]: ReplayImageOrLabelArgs };
+export type DeclutterImageWithText = Record<number, ReplayImageOrLabelArgs>;
 export interface FillState {
     fillStyle: ColorLike;
 }
@@ -38,9 +38,9 @@ export interface SerializableInstructions {
     instructions: any[];
     hitDetectionInstructions: any[];
     coordinates: number[];
-    textStates?: { [key: string]: TextState } | undefined;
-    fillStates?: { [key: string]: FillState } | undefined;
-    strokeStates?: { [key: string]: StrokeState } | undefined;
+    textStates?: Record<string, TextState> | undefined;
+    fillStates?: Record<string, FillState> | undefined;
+    strokeStates?: Record<string, StrokeState> | undefined;
 }
 export interface StrokeState {
     lineCap: CanvasLineCap;
@@ -78,7 +78,7 @@ export const defaultTextAlign: string;
 export const defaultTextBaseline: string;
 /**
  * The label cache for text rendering. To change the default cache size of 2048
- * entries, use {@link module:ol/structs/LRUCache#setSize}.
+ * entries, use {@link module:ol/structs/LRUCache~LRUCache#setSize cache.setSize()}.
  * Deprecated - there is no label cache any more.
  */
 export const labelCache: any;
@@ -86,8 +86,7 @@ export const labelCache: any;
  * Clears the label cache when a font becomes available.
  */
 export const registerFont: (fontSpec: string) => void;
-export const textHeights: { [key: string]: number };
-export function createTransformString(transform: Transform): string;
+export const textHeights: Record<string, number>;
 export function drawImageOrLabel(
     context: CanvasRenderingContext2D,
     transform: Transform | null,
@@ -104,8 +103,8 @@ export function drawImageOrLabel(
 /**
  * Measure text width using a cache.
  */
-export function measureAndCacheTextWidth(font: string, text: string, cache: { [key: string]: number }): number;
-export function measureTextHeight(font: string): Size;
+export function measureAndCacheTextWidth(font: string, text: string, cache: Record<string, number>): number;
+export function measureTextHeight(font: string): number;
 export function measureTextWidth(font: string, text: string): number;
 export function measureTextWidths(font: string, lines: string[], widths: number[]): number;
 export function rotateAtOffset(

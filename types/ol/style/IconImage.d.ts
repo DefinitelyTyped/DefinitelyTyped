@@ -1,6 +1,6 @@
+import ImageState from '../ImageState';
 import { Color } from '../color';
 import Target from '../events/Target';
-import ImageState from '../ImageState';
 import { Size } from '../size';
 
 export default class IconImage extends Target {

@@ -1,19 +1,24 @@
-import { EventsKey } from '../events';
-import BaseEvent from '../events/Event';
 import { ObjectEvent } from '../Object';
-import { ProjectionLike } from '../proj';
 import { LoadFunction } from '../Tile';
+import { NearestDirectionFunction } from '../array';
+import { EventsKey, ListenerFunction } from '../events';
+import BaseEvent from '../events/Event';
+import { ProjectionLike } from '../proj';
 import TileGrid from '../tilegrid/TileGrid';
 import { AttributionLike } from './Source';
 import { TileSourceEvent } from './Tile';
 import TileImage from './TileImage';
 
+export type TTileArcGISRestBaseEventTypes = 'change' | 'error';
+export type TTileArcGISRestObjectEventTypes = 'propertychange';
+export type TTileArcGISRestTileSourceEventTypes = 'tileloadend' | 'tileloaderror' | 'tileloadstart';
 export interface Options {
     attributions?: AttributionLike | undefined;
     cacheSize?: number | undefined;
     crossOrigin?: null | string | undefined;
     imageSmoothing?: boolean | undefined;
-    params?: { [key: string]: any } | undefined;
+    interpolate?: boolean | undefined;
+    params?: Record<string, any> | undefined;
     hidpi?: boolean | undefined;
     tileGrid?: TileGrid | undefined;
     projection?: ProjectionLike | undefined;
@@ -23,6 +28,7 @@ export interface Options {
     wrapX?: boolean | undefined;
     transition?: number | undefined;
     urls?: string[] | undefined;
+    zDirection?: number | NearestDirectionFunction | undefined;
 }
 export default class TileArcGISRest extends TileImage {
     constructor(opt_options?: Options);
@@ -39,25 +45,28 @@ export default class TileArcGISRest extends TileImage {
      * Update the user-provided params.
      */
     updateParams(params: any): void;
-    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
-    once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
-    un(type: string | string[], listener: (p0: any) => any): void;
-    on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
-    once(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
-    un(type: 'change', listener: (evt: BaseEvent) => void): void;
-    on(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
-    once(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
-    un(type: 'error', listener: (evt: BaseEvent) => void): void;
-    on(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
-    once(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
-    un(type: 'propertychange', listener: (evt: ObjectEvent) => void): void;
-    on(type: 'tileloadend', listener: (evt: TileSourceEvent) => void): EventsKey;
-    once(type: 'tileloadend', listener: (evt: TileSourceEvent) => void): EventsKey;
-    un(type: 'tileloadend', listener: (evt: TileSourceEvent) => void): void;
-    on(type: 'tileloaderror', listener: (evt: TileSourceEvent) => void): EventsKey;
-    once(type: 'tileloaderror', listener: (evt: TileSourceEvent) => void): EventsKey;
-    un(type: 'tileloaderror', listener: (evt: TileSourceEvent) => void): void;
-    on(type: 'tileloadstart', listener: (evt: TileSourceEvent) => void): EventsKey;
-    once(type: 'tileloadstart', listener: (evt: TileSourceEvent) => void): EventsKey;
-    un(type: 'tileloadstart', listener: (evt: TileSourceEvent) => void): void;
+    on(type: TTileArcGISRestBaseEventTypes, listener: ListenerFunction<BaseEvent>): EventsKey;
+    on(type: TTileArcGISRestBaseEventTypes[], listener: ListenerFunction<BaseEvent>): EventsKey[];
+    once(type: TTileArcGISRestBaseEventTypes, listener: ListenerFunction<BaseEvent>): EventsKey;
+    once(type: TTileArcGISRestBaseEventTypes[], listener: ListenerFunction<BaseEvent>): EventsKey[];
+    un(
+        type: TTileArcGISRestBaseEventTypes | TTileArcGISRestBaseEventTypes[],
+        listener: ListenerFunction<BaseEvent>,
+    ): void;
+    on(type: TTileArcGISRestObjectEventTypes, listener: ListenerFunction<ObjectEvent>): EventsKey;
+    on(type: TTileArcGISRestObjectEventTypes[], listener: ListenerFunction<ObjectEvent>): EventsKey[];
+    once(type: TTileArcGISRestObjectEventTypes, listener: ListenerFunction<ObjectEvent>): EventsKey;
+    once(type: TTileArcGISRestObjectEventTypes[], listener: ListenerFunction<ObjectEvent>): EventsKey[];
+    un(
+        type: TTileArcGISRestObjectEventTypes | TTileArcGISRestObjectEventTypes[],
+        listener: ListenerFunction<ObjectEvent>,
+    ): void;
+    on(type: TTileArcGISRestTileSourceEventTypes, listener: ListenerFunction<TileSourceEvent>): EventsKey;
+    on(type: TTileArcGISRestTileSourceEventTypes[], listener: ListenerFunction<TileSourceEvent>): EventsKey[];
+    once(type: TTileArcGISRestTileSourceEventTypes, listener: ListenerFunction<TileSourceEvent>): EventsKey;
+    once(type: TTileArcGISRestTileSourceEventTypes[], listener: ListenerFunction<TileSourceEvent>): EventsKey[];
+    un(
+        type: TTileArcGISRestTileSourceEventTypes | TTileArcGISRestTileSourceEventTypes[],
+        listener: ListenerFunction<TileSourceEvent>,
+    ): void;
 }

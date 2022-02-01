@@ -1,17 +1,18 @@
-import { Coordinate } from '../coordinate';
 import Disposable from '../Disposable';
 import { FeatureLike } from '../Feature';
+import PluggableMap, { FrameState } from '../PluggableMap';
+import { Coordinate } from '../coordinate';
 import SimpleGeometry from '../geom/SimpleGeometry';
 import Layer from '../layer/Layer';
 import { Pixel } from '../pixel';
-import PluggableMap, { FrameState } from '../PluggableMap';
 import EventType from '../render/EventType';
 import Source from '../source/Source';
+import LayerRenderer from './Layer';
 import { FeatureCallback } from './vector';
 
 export interface HitMatch<T> {
     feature: FeatureLike;
-    layer: Layer<Source>;
+    layer: Layer<Source, LayerRenderer>;
     geometry: SimpleGeometry;
     distanceSq: number;
     callback: FeatureCallback<T>;
@@ -28,7 +29,7 @@ export default abstract class MapRenderer extends Disposable {
         checkWrapped: boolean,
         callback: FeatureCallback<T>,
         thisArg: S,
-        layerFilter: (this: U, p0: Layer<Source>) => boolean,
+        layerFilter: (this: U, p0: Layer<Source, LayerRenderer>) => boolean,
         thisArg2: U,
     ): T | undefined;
     abstract forEachLayerAtPixel<T>(
@@ -44,7 +45,7 @@ export default abstract class MapRenderer extends Disposable {
         frameState: FrameState,
         hitTolerance: number,
         checkWrapped: boolean,
-        layerFilter: (this: U, p0: Layer<Source>) => boolean,
+        layerFilter: (this: U, p0: Layer<Source, LayerRenderer>) => boolean,
         thisArg: U,
     ): boolean;
     /**

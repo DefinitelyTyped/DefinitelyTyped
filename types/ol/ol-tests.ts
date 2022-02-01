@@ -13,16 +13,18 @@ import {
 } from 'ol/control';
 import { Options as ControlOptions } from 'ol/control/Control';
 import { toStringXY } from 'ol/coordinate';
-import { EventsKey } from 'ol/events';
+import { EventsKey, ListenerFunction } from 'ol/events';
 import { applyTransform } from 'ol/extent';
 import { GeoJSON, MVT } from 'ol/format';
 import { WriteTransactionOptions } from 'ol/format/WFS';
 import GeometryType from 'ol/geom/GeometryType';
 import { Draw, Modify, Select, defaults as defaultInteractions } from 'ol/interaction';
 import { Tile as TileLayer, Vector as VectorLayer, VectorTile as VectorTileLayer } from 'ol/layer';
+import ImageLayer from 'ol/layer/Image';
+import Layer from 'ol/layer/Layer';
 import { fromLonLat, get as getProjection, getTransform } from 'ol/proj';
 import { register } from 'ol/proj/proj4';
-import { OSM, Vector as VectorSource, VectorTile as VectorTileSource } from 'ol/source';
+import { ImageWMS, OSM, Vector as VectorSource, VectorTile as VectorTileSource } from 'ol/source';
 import { Options as XYZOptions } from 'ol/source/XYZ';
 import { Circle, Fill, Stroke, Style } from 'ol/style';
 import { StyleFunction } from 'ol/style/Style';
@@ -377,12 +379,12 @@ setTimeout(() => {
  */
 
 interface CustomControlOptions extends ControlOptions {
-    name?: string | undefined;
+    name?: string;
 }
 
 class CustomControl extends Control {
     name: string;
-    mapViewport?: HTMLElement | undefined;
+    mapViewport?: HTMLElement;
     private readonly _boundListener: (e: MouseEvent) => void;
     private readonly _eventKeys: EventsKey[];
 
@@ -417,8 +419,11 @@ class CustomControl extends Control {
     }
 
     private _listener(evt: MouseEvent) {
-        const mapEvent = new MapBrowserEvent(evt.type, this.getMap(), evt);
-        console.log(mapEvent);
+        const map = this.getMap();
+        if (map) {
+            const mapEvent = new MapBrowserEvent(evt.type, map, evt);
+            console.log(mapEvent);
+        }
     }
 }
 
@@ -474,9 +479,25 @@ const writeTrxOpts: WriteTransactionOptions = {
 
 vectorLayer.on('postrender', evt => {
     // RenderEvent context should be nullable
-    if (evt.context) evt.context.restore();
+    if (evt.context instanceof CanvasRenderingContext2D) evt.context.restore();
 });
 
 const xyzOpts: XYZOptions = {
     crossOrigin: null,
 };
+
+/**
+ * ==================================================
+ * # Layer generic type
+ * ==================================================
+ */
+
+const imageLayer: ImageLayer<ImageWMS> = new ImageLayer<ImageWMS>({ source: new ImageWMS() });
+const layerImage: Layer<ImageWMS> = imageLayer;
+const imageWmsSource: ImageWMS = imageLayer.getSource();
+const osmSource: OSM = osmLayer.getSource();
+
+const eventListener: ListenerFunction = event => console.log(event);
+const eventsKeys: EventsKey[] = map.getLayers().on(['add', 'remove'], eventListener);
+eventsKeys.push(map.once('postrender', eventListener));
+map.un('postrender', eventListener);

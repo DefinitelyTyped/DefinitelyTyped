@@ -1,12 +1,13 @@
 /**
  * Meters per unit lookup table.
  */
-export const METERS_PER_UNIT: { [key in Units]: number };
+export const METERS_PER_UNIT: Record<Units, number>;
 /**
  * Projection units: 'degrees', 'ft', 'm', 'pixels', 'tile-pixels' or
  * 'us-ft'.
  */
 declare enum Units {
+    RADIANS = 'radians',
     DEGREES = 'degrees',
     FEET = 'ft',
     METERS = 'm',
@@ -16,3 +17,4 @@ declare enum Units {
 }
 
 export default Units;
+export function fromCode(code: number): Units;

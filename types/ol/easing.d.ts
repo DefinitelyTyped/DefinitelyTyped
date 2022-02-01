@@ -16,7 +16,7 @@ export function inAndOut(t: number): number;
 export function linear(t: number): number;
 /**
  * Start slow, speed up, and at the very end slow down again.  This has the
- * same general behavior as {@link module:ol/easing~inAndOut}, but the final
+ * same general behavior as {@link module:ol/easing.inAndOut}, but the final
  * slowdown is delayed.
  */
 export function upAndDown(t: number): number;

@@ -1,25 +1,27 @@
-import { EventsKey } from './events';
+import BaseObject, { ObjectEvent } from './Object';
+import { EventsKey, ListenerFunction } from './events';
 import BaseEvent from './events/Event';
 import Geometry from './geom/Geometry';
-import BaseObject, { ObjectEvent } from './Object';
 import RenderFeature from './render/Feature';
 import Style, { StyleFunction, StyleLike } from './style/Style';
 
+export type TFeatureBaseEventTypes = 'change' | 'error';
+export type TFeatureObjectEventTypes = 'change:geometry' | 'propertychange';
 export type FeatureClass = typeof Feature | typeof RenderFeature;
 export type FeatureLike = Feature<Geometry> | RenderFeature;
-export default class Feature<GeomType extends Geometry = Geometry> extends BaseObject {
-    constructor(opt_geometryOrProperties?: GeomType | { [key: string]: any });
+export default class Feature<G extends Geometry = Geometry> extends BaseObject {
+    constructor(opt_geometryOrProperties?: G | ObjectWithGeometry<G>);
     /**
      * Clone this feature. If the original feature has a geometry it
      * is also cloned. The feature id is not set in the clone.
      */
-    clone(): Feature<Geometry>;
+    clone(): Feature<G>;
     /**
      * Get the feature's default geometry.  A feature may have any number of named
      * geometries.  The "default" geometry (the one that is rendered by default) is
      * set when calling {@link module:ol/Feature~Feature#setGeometry}.
      */
-    getGeometry(): GeomType | undefined;
+    getGeometry(): G | undefined;
     /**
      * Get the name of the feature's default geometry.  By default, the default
      * geometry is named geometry.
@@ -44,7 +46,7 @@ export default class Feature<GeomType extends Geometry = Geometry> extends BaseO
      * Set the default geometry for the feature.  This will update the property
      * with the name returned by {@link module:ol/Feature~Feature#getGeometryName}.
      */
-    setGeometry(geometry: GeomType | undefined): void;
+    setGeometry(geometry: G | undefined): void;
     /**
      * Set the property name to be used when getting the feature's default geometry.
      * When calling {@link module:ol/Feature~Feature#getGeometry}, the value of the property with
@@ -65,21 +67,16 @@ export default class Feature<GeomType extends Geometry = Geometry> extends BaseO
      * setStyle() without arguments or a falsey value.
      */
     setStyle(opt_style?: StyleLike): void;
-    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
-    once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
-    un(type: string | string[], listener: (p0: any) => any): void;
-    on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
-    once(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
-    un(type: 'change', listener: (evt: BaseEvent) => void): void;
-    on(type: 'change:geometry', listener: (evt: ObjectEvent) => void): EventsKey;
-    once(type: 'change:geometry', listener: (evt: ObjectEvent) => void): EventsKey;
-    un(type: 'change:geometry', listener: (evt: ObjectEvent) => void): void;
-    on(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
-    once(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
-    un(type: 'error', listener: (evt: BaseEvent) => void): void;
-    on(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
-    once(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
-    un(type: 'propertychange', listener: (evt: ObjectEvent) => void): void;
+    on(type: TFeatureBaseEventTypes, listener: ListenerFunction<BaseEvent>): EventsKey;
+    on(type: TFeatureBaseEventTypes[], listener: ListenerFunction<BaseEvent>): EventsKey[];
+    once(type: TFeatureBaseEventTypes, listener: ListenerFunction<BaseEvent>): EventsKey;
+    once(type: TFeatureBaseEventTypes[], listener: ListenerFunction<BaseEvent>): EventsKey[];
+    un(type: TFeatureBaseEventTypes | TFeatureBaseEventTypes[], listener: ListenerFunction<BaseEvent>): void;
+    on(type: TFeatureObjectEventTypes, listener: ListenerFunction<ObjectEvent>): EventsKey;
+    on(type: TFeatureObjectEventTypes[], listener: ListenerFunction<ObjectEvent>): EventsKey[];
+    once(type: TFeatureObjectEventTypes, listener: ListenerFunction<ObjectEvent>): EventsKey;
+    once(type: TFeatureObjectEventTypes[], listener: ListenerFunction<ObjectEvent>): EventsKey[];
+    un(type: TFeatureObjectEventTypes | TFeatureObjectEventTypes[], listener: ListenerFunction<ObjectEvent>): void;
 }
 /**
  * Convert the provided object into a feature style function.  Functions passed
@@ -87,3 +84,4 @@ export default class Feature<GeomType extends Geometry = Geometry> extends BaseO
  * in a new feature style function.
  */
 export function createStyleFunction(obj: StyleFunction | Style[] | Style): StyleFunction;
+export type ObjectWithGeometry<G> = Record<string, any> & { geometry?: G };

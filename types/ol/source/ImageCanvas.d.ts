@@ -1,8 +1,8 @@
-import { EventsKey } from '../events';
-import BaseEvent from '../events/Event';
-import { Extent } from '../extent';
 import ImageCanvas from '../ImageCanvas';
 import { ObjectEvent } from '../Object';
+import { EventsKey, ListenerFunction } from '../events';
+import BaseEvent from '../events/Event';
+import { Extent } from '../extent';
 import { ProjectionLike } from '../proj';
 import Projection from '../proj/Projection';
 import { Size } from '../size';
@@ -10,12 +10,15 @@ import ImageSource, { ImageSourceEvent } from './Image';
 import { AttributionLike } from './Source';
 import State from './State';
 
+export type TImageCanvasSourceBaseEventTypes = 'change' | 'error';
+export type TImageCanvasSourceImageSourceEventTypes = 'imageloadend' | 'imageloaderror' | 'imageloadstart';
+export type TImageCanvasSourceObjectEventTypes = 'propertychange';
 /**
  * A function returning the canvas element ({HTMLCanvasElement})
  * used by the source as an image. The arguments passed to the function are:
  * {@link module:ol/extent~Extent} the image extent, {number} the image resolution,
- * {number} the device pixel ratio, {@link module:ol/size~Size} the image size, and
- * {@link module:ol/proj/Projection} the image projection. The canvas returned by
+ * {number} the pixel ratio of the map, {@link module:ol/size~Size} the image size,
+ * and {@link module:ol/proj/Projection} the image projection. The canvas returned by
  * this function is cached by the source. The this keyword inside the function
  * references the {@link module:ol/source/ImageCanvas}.
  */
@@ -31,6 +34,7 @@ export interface Options {
     attributions?: AttributionLike | undefined;
     canvasFunction?: FunctionType | undefined;
     imageSmoothing?: boolean | undefined;
+    interpolate?: boolean | undefined;
     projection?: ProjectionLike | undefined;
     ratio?: number | undefined;
     resolutions?: number[] | undefined;
@@ -39,25 +43,28 @@ export interface Options {
 export default class ImageCanvasSource extends ImageSource {
     constructor(opt_options?: Options);
     getImageInternal(extent: Extent, resolution: number, pixelRatio: number, projection: Projection): ImageCanvas;
-    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
-    once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
-    un(type: string | string[], listener: (p0: any) => any): void;
-    on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
-    once(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
-    un(type: 'change', listener: (evt: BaseEvent) => void): void;
-    on(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
-    once(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
-    un(type: 'error', listener: (evt: BaseEvent) => void): void;
-    on(type: 'imageloadend', listener: (evt: ImageSourceEvent) => void): EventsKey;
-    once(type: 'imageloadend', listener: (evt: ImageSourceEvent) => void): EventsKey;
-    un(type: 'imageloadend', listener: (evt: ImageSourceEvent) => void): void;
-    on(type: 'imageloaderror', listener: (evt: ImageSourceEvent) => void): EventsKey;
-    once(type: 'imageloaderror', listener: (evt: ImageSourceEvent) => void): EventsKey;
-    un(type: 'imageloaderror', listener: (evt: ImageSourceEvent) => void): void;
-    on(type: 'imageloadstart', listener: (evt: ImageSourceEvent) => void): EventsKey;
-    once(type: 'imageloadstart', listener: (evt: ImageSourceEvent) => void): EventsKey;
-    un(type: 'imageloadstart', listener: (evt: ImageSourceEvent) => void): void;
-    on(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
-    once(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
-    un(type: 'propertychange', listener: (evt: ObjectEvent) => void): void;
+    on(type: TImageCanvasSourceBaseEventTypes, listener: ListenerFunction<BaseEvent>): EventsKey;
+    on(type: TImageCanvasSourceBaseEventTypes[], listener: ListenerFunction<BaseEvent>): EventsKey[];
+    once(type: TImageCanvasSourceBaseEventTypes, listener: ListenerFunction<BaseEvent>): EventsKey;
+    once(type: TImageCanvasSourceBaseEventTypes[], listener: ListenerFunction<BaseEvent>): EventsKey[];
+    un(
+        type: TImageCanvasSourceBaseEventTypes | TImageCanvasSourceBaseEventTypes[],
+        listener: ListenerFunction<BaseEvent>,
+    ): void;
+    on(type: TImageCanvasSourceImageSourceEventTypes, listener: ListenerFunction<ImageSourceEvent>): EventsKey;
+    on(type: TImageCanvasSourceImageSourceEventTypes[], listener: ListenerFunction<ImageSourceEvent>): EventsKey[];
+    once(type: TImageCanvasSourceImageSourceEventTypes, listener: ListenerFunction<ImageSourceEvent>): EventsKey;
+    once(type: TImageCanvasSourceImageSourceEventTypes[], listener: ListenerFunction<ImageSourceEvent>): EventsKey[];
+    un(
+        type: TImageCanvasSourceImageSourceEventTypes | TImageCanvasSourceImageSourceEventTypes[],
+        listener: ListenerFunction<ImageSourceEvent>,
+    ): void;
+    on(type: TImageCanvasSourceObjectEventTypes, listener: ListenerFunction<ObjectEvent>): EventsKey;
+    on(type: TImageCanvasSourceObjectEventTypes[], listener: ListenerFunction<ObjectEvent>): EventsKey[];
+    once(type: TImageCanvasSourceObjectEventTypes, listener: ListenerFunction<ObjectEvent>): EventsKey;
+    once(type: TImageCanvasSourceObjectEventTypes[], listener: ListenerFunction<ObjectEvent>): EventsKey[];
+    un(
+        type: TImageCanvasSourceObjectEventTypes | TImageCanvasSourceObjectEventTypes[],
+        listener: ListenerFunction<ObjectEvent>,
+    ): void;
 }

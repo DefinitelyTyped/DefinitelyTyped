@@ -1,7 +1,7 @@
-import { Coordinate } from './coordinate';
 import MapEvent from './MapEvent';
-import { Pixel } from './pixel';
 import PluggableMap, { FrameState } from './PluggableMap';
+import { Coordinate } from './coordinate';
+import { Pixel } from './pixel';
 
 export default class MapBrowserEvent<EVENT extends UIEvent = UIEvent> extends MapEvent {
     constructor(
