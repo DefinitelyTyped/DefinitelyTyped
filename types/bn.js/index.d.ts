@@ -1,4 +1,4 @@
-// Type definitions for bn.js 5.1
+// Type definitions for bn.js 5.2
 // Project: https://github.com/indutny/bn.js
 // Definitions by: Leonid Logvinov <https://github.com/LogvinovLeon>
 //                 Henry Nguyen <https://github.com/HenryNguyen5>
