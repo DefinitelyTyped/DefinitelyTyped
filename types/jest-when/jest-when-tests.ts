@@ -181,6 +181,20 @@ describe('mock-when test', () => {
             .mockReturnValue('nay!');
     });
 
+    it('supports mixing function matchers and bare matchers', () => {
+        const fn = jest.fn<string, [{ [key: string]: boolean }, number]>();
+        const allValuesTrue = when((arg: { [key: string]: boolean }) =>
+            Object.keys(arg)
+                .map(k => arg[k])
+                .every(Boolean),
+        );
+
+        when(fn).calledWith(allValuesTrue, 10).mockReturnValue('yay!');
+        when(fn).calledWith({ foo: true }, allValuesTrue); // $ExpectError
+        when(fn).calledWith(10, allValuesTrue); // $ExpectError
+        when(fn).calledWith(allValuesTrue, '10'); // $ExpectError
+    });
+
     it('supports allArgs', () => {
         const fn = jest.fn<string, [] | [number] | [number, number]>();
         const allArgsMatcher = when.allArgs((args: number[]) => args.length === 1);
