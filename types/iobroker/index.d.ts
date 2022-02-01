@@ -264,6 +264,8 @@ declare global {
         interface DelObjectOptions {
             /** Whether all child objects should be deleted aswell */
             recursive?: boolean;
+            // Allow non-documented properties
+            [other: string]: unknown;
         }
 
         interface ExtendObjectOptionsPreserve {
@@ -273,6 +275,8 @@ declare global {
         interface ExtendObjectOptions {
             /** Which properties of the original object should be preserved */
             preserve?: ExtendObjectOptionsPreserve;
+            // Allow non-documented properties
+            [other: string]: unknown;
         }
 
         /** Predefined notification scopes and their categories */
@@ -540,6 +544,8 @@ declare global {
              * Send a notification with the given scope and category to the host of this adapter
              * @param scope The scope of the notification
              * @param category The category of the notification. If `null` is passed, ioBroker will try to infer a matching category from the `message` parameter.
+             *
+             * **Note:** If no category can be inferred, the message will NOT be registered!
              * @param message The message of the notification
              */
             registerNotification<Scope extends keyof NotificationScopes>(
@@ -550,7 +556,7 @@ declare global {
 
             /**
              * Set capabilities of the given executable. Only works on Linux systems.
-             * @param execPath Path to the executable. For Node.js, this can be determined it via `process.execPath`.
+             * @param execPath Path to the executable. For Node.js, this can be determined via `process.execPath`.
              * @param capabilities Capabilities to set, e.g. ['cap_net_admin', 'cap_net_bind_service']
              * @param modeEffective Add effective mode
              * @param modePermitted Add permitted mode

@@ -307,6 +307,8 @@ adapter.extendObject(
     {},
     {
         preserve: { common: ['name'] },
+        // And that undocumented options are allowed
+        undocumented: true,
     },
 );
 adapter.extendObject(
