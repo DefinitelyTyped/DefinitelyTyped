@@ -237,7 +237,7 @@ indy.proverStoreCredential(
     {},
     {
         cred_def_id: 'cred_def_id',
-        rev_reg_def_id: 'rev_reg_def_id',
+        rev_reg_id: 'rev_reg_id',
         schema_id: 'schema_id',
         signature: 'signature',
         signature_correctness_proof: 'signature_correctness_proof',
@@ -288,19 +288,19 @@ indy.proverCreateProof(
 indy.createRevocationState(
     10,
     {
-    id: '',
-    revocDefType: 'CL_ACCUM',
-    tag: '',
-    credDefId: '',
-    value: {
-        issuanceType: 'ISSUANCE_BY_DEFAULT',
-        maxCredNum: 0,
-        tailsHash: '',
-        tailsLocation: '',
-        publicKeys: []
+        id: '',
+        revocDefType: 'CL_ACCUM',
+        tag: '',
+        credDefId: '',
+        value: {
+            issuanceType: 'ISSUANCE_BY_DEFAULT',
+            maxCredNum: 0,
+            tailsHash: '',
+            tailsLocation: '',
+            publicKeys: [],
+        },
+        ver: '',
     },
-    ver: ''
-},
     {
         value: {
             prevAccum: 'prevAccum',
