@@ -36,3 +36,7 @@ customKeys = customCache.keys();
 memoryCache.importJson('{}');
 memoryCache.importJson('{}', { skipDuplicates: true });
 memoryCache.exportJson(); // $ExpectType string
+
+customCache.importJson('{}');
+customCache.importJson('{}', { skipDuplicates: true });
+customCache.exportJson(); // $ExpectType string
