@@ -299,6 +299,29 @@ adapter.extendForeignObject('id', {
     },
 });
 
+// Check that `preserve` is typed correctly
+adapter.extendObject(
+    'id',
+    {},
+    {
+        preserve: { common: ['name'] },
+    },
+);
+adapter.extendObject(
+    'id',
+    {},
+    {
+        preserve: { common: { name: true } },
+    },
+);
+adapter.extendForeignObject(
+    'id',
+    {},
+    {
+        preserve: { common: { name: { en: true } } },
+    },
+);
+
 adapter.getObjectView('system', 'admin', { startkey: 'foo', endkey: 'bar' }, (err, docs) => {
     docs && docs.rows[0] && docs.rows[0].id.toLowerCase();
 });

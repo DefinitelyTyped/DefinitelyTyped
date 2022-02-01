@@ -13,7 +13,7 @@
 import * as fs from 'fs';
 export {}; // avoids exporting AtLeastOne into the global scope
 
-type AtLeastOne<T, U = {[K in keyof T]-?: T[K] }> = { [K in keyof U]: {[P in K]: U[P]} }[keyof U];
+type AtLeastOne<T, U = { [K in keyof T]-?: T[K] }> = { [K in keyof U]: { [P in K]: U[P] } }[keyof U];
 
 declare global {
     namespace ioBroker {
@@ -266,6 +266,15 @@ declare global {
             recursive?: boolean;
         }
 
+        interface ExtendObjectOptionsPreserve {
+            [prop: string]: ExtendObjectOptionsPreserve | boolean | string[];
+        }
+
+        interface ExtendObjectOptions {
+            /** Which properties of the original object should be preserved */
+            preserve?: ExtendObjectOptionsPreserve;
+        }
+
         interface AdapterOptions {
             /** The name of the adapter */
             name: string;
@@ -377,7 +386,7 @@ declare global {
             getPortAsync(port: number): Promise<number>;
 
             /** Stops the adapter. Note: Is not always defined. */
-            stop?: (() => void);
+            stop?: () => void;
 
             // ==============================
             // GENERAL
@@ -512,9 +521,7 @@ declare global {
             sendToHostAsync(hostName: string, command: string, message: MessagePayload): Promise<Message | undefined>;
 
             /** Convert ID to {device: D, channel: C, state: S} */
-            idToDCS(
-                id: string,
-            ): {
+            idToDCS(id: string): {
                 device: string;
                 channel: string;
                 state: string;
@@ -533,11 +540,7 @@ declare global {
             setObject(id: string, obj: ioBroker.SettableObject, callback?: SetObjectCallback): void;
             setObject(id: string, obj: ioBroker.SettableObject, options: unknown, callback?: SetObjectCallback): void;
             /** Creates or overwrites an object in the object db */
-            setObjectAsync(
-                id: string,
-                obj: ioBroker.SettableObject,
-                options?: unknown,
-            ): SetObjectPromise;
+            setObjectAsync(id: string, obj: ioBroker.SettableObject, options?: unknown): SetObjectPromise;
 
             /** Creates an object in the object db. Existing objects are not overwritten. */
             setObjectNotExists(id: string, obj: ioBroker.SettableObject, callback?: SetObjectCallback): void;
@@ -548,11 +551,7 @@ declare global {
                 callback?: SetObjectCallback,
             ): void;
             /** Creates an object in the object db. Existing objects are not overwritten. */
-            setObjectNotExistsAsync(
-                id: string,
-                obj: ioBroker.SettableObject,
-                options?: unknown,
-            ): SetObjectPromise;
+            setObjectNotExistsAsync(id: string, obj: ioBroker.SettableObject, options?: unknown): SetObjectPromise;
 
             /** Get all states, channels, devices and folders of this adapter */
             getAdapterObjects(callback: (objects: Record<string, AdapterScopedObject>) => void): void;
@@ -561,13 +560,14 @@ declare global {
 
             /** Extend an object and create it if it might not exist */
             extendObject(id: string, objPart: PartialObject, callback?: SetObjectCallback): void;
-            extendObject(id: string, objPart: PartialObject, options: unknown, callback?: SetObjectCallback): void;
-            /** Extend an object and create it if it might not exist */
-            extendObjectAsync(
+            extendObject(
                 id: string,
                 objPart: PartialObject,
-                options?: unknown,
-            ): SetObjectPromise;
+                options: ExtendObjectOptions,
+                callback?: SetObjectCallback,
+            ): void;
+            /** Extend an object and create it if it might not exist */
+            extendObjectAsync(id: string, objPart: PartialObject, options?: ExtendObjectOptions): SetObjectPromise;
             /**
              * Deletes an object from the object db
              * @param id - The id of the object without namespace
@@ -593,9 +593,23 @@ declare global {
             // tslint:disable:unified-signatures
             getForeignObjects(pattern: string, callback: GetObjectsCallback): void;
             getForeignObjects(pattern: string, options: unknown, callback: GetObjectsCallback): void;
-            getForeignObjects<T extends ObjectType>(pattern: string, type: T, callback: GetObjectsCallbackTyped<T>): void;
-            getForeignObjects<T extends ObjectType>(pattern: string, type: T, enums: EnumList, callback: GetObjectsCallbackTyped<T>): void;
-            getForeignObjects<T extends ObjectType>(pattern: string, type: T, options: unknown, callback: GetObjectsCallbackTyped<T>): void;
+            getForeignObjects<T extends ObjectType>(
+                pattern: string,
+                type: T,
+                callback: GetObjectsCallbackTyped<T>,
+            ): void;
+            getForeignObjects<T extends ObjectType>(
+                pattern: string,
+                type: T,
+                enums: EnumList,
+                callback: GetObjectsCallbackTyped<T>,
+            ): void;
+            getForeignObjects<T extends ObjectType>(
+                pattern: string,
+                type: T,
+                options: unknown,
+                callback: GetObjectsCallbackTyped<T>,
+            ): void;
             getForeignObjects<T extends ObjectType>(
                 pattern: string,
                 type: T,
@@ -616,53 +630,62 @@ declare global {
                 type: T,
                 options?: unknown,
             ): GetObjectsPromiseTyped<T>;
-            getForeignObjectsAsync(
-                pattern: string,
-                options?: unknown,
-            ): GetObjectsPromise;
+            getForeignObjectsAsync(pattern: string, options?: unknown): GetObjectsPromise;
 
             /** Creates or overwrites an object (which might not belong to this adapter) in the object db */
-            setForeignObject<T extends string>(id: T, obj: ioBroker.SettableObject<ObjectIdToObjectType<T, "write">>, callback?: SetObjectCallback): void;
             setForeignObject<T extends string>(
                 id: T,
-                obj: ioBroker.SettableObject<ObjectIdToObjectType<T, "write">>,
+                obj: ioBroker.SettableObject<ObjectIdToObjectType<T, 'write'>>,
+                callback?: SetObjectCallback,
+            ): void;
+            setForeignObject<T extends string>(
+                id: T,
+                obj: ioBroker.SettableObject<ObjectIdToObjectType<T, 'write'>>,
                 options: unknown,
                 callback?: SetObjectCallback,
             ): void;
             /** Creates or overwrites an object (which might not belong to this adapter) in the object db */
             setForeignObjectAsync<T extends string>(
                 id: T,
-                obj: ioBroker.SettableObject<ObjectIdToObjectType<T, "write">>,
+                obj: ioBroker.SettableObject<ObjectIdToObjectType<T, 'write'>>,
                 options?: unknown,
             ): SetObjectPromise;
             /** Creates an object (which might not belong to this adapter) in the object db. Existing objects are not overwritten. */
-            setForeignObjectNotExists<T extends string>(id: T, obj: ioBroker.SettableObject<ObjectIdToObjectType<T, "write">>, callback?: SetObjectCallback): void;
             setForeignObjectNotExists<T extends string>(
                 id: T,
-                obj: ioBroker.SettableObject<ObjectIdToObjectType<T, "write">>,
+                obj: ioBroker.SettableObject<ObjectIdToObjectType<T, 'write'>>,
+                callback?: SetObjectCallback,
+            ): void;
+            setForeignObjectNotExists<T extends string>(
+                id: T,
+                obj: ioBroker.SettableObject<ObjectIdToObjectType<T, 'write'>>,
                 options: unknown,
                 callback?: SetObjectCallback,
             ): void;
             /** Creates an object (which might not belong to this adapter) in the object db. Existing objects are not overwritten. */
             setForeignObjectNotExistsAsync<T extends string>(
                 id: T,
-                obj: ioBroker.SettableObject<ObjectIdToObjectType<T, "write">>,
+                obj: ioBroker.SettableObject<ObjectIdToObjectType<T, 'write'>>,
                 options?: unknown,
             ): SetObjectPromise;
 
             /** Extend an object (which might not belong to this adapter) and create it if it might not exist */
-            extendForeignObject<T extends string>(id: T, objPart: PartialObject<ObjectIdToObjectType<T, "write">>, callback?: SetObjectCallback): void;
             extendForeignObject<T extends string>(
                 id: T,
-                objPart: PartialObject<ObjectIdToObjectType<T, "write">>,
-                options: unknown,
+                objPart: PartialObject<ObjectIdToObjectType<T, 'write'>>,
+                callback?: SetObjectCallback,
+            ): void;
+            extendForeignObject<T extends string>(
+                id: T,
+                objPart: PartialObject<ObjectIdToObjectType<T, 'write'>>,
+                options: ExtendObjectOptions,
                 callback?: SetObjectCallback,
             ): void;
             /** Extend an object (which might not belong to this adapter) and create it if it might not exist */
             extendForeignObjectAsync<T extends string>(
                 id: T,
-                objPart: PartialObject<ObjectIdToObjectType<T, "write">>,
-                options?: unknown,
+                objPart: PartialObject<ObjectIdToObjectType<T, 'write'>>,
+                options?: ExtendObjectOptions,
             ): SetObjectPromise;
             /**
              * Finds an object by its ID or name
@@ -754,11 +777,7 @@ declare global {
             // Multiple signatures help understanding what the parameters are about
             /** Writes a value into the states DB. */
             // tslint:disable:unified-signatures
-            setState(
-                id: string,
-                state: State | StateValue | SettableState,
-                callback?: SetStateCallback,
-            ): void;
+            setState(id: string, state: State | StateValue | SettableState, callback?: SetStateCallback): void;
             setState(
                 id: string,
                 state: State | StateValue | SettableState,
@@ -779,16 +798,8 @@ declare global {
                 callback?: SetStateCallback,
             ): void;
             /** Writes a value into the states DB. */
-            setStateAsync(
-                id: string,
-                state: State | StateValue | SettableState,
-                ack?: boolean,
-            ): SetStatePromise;
-            setStateAsync(
-                id: string,
-                state: State | StateValue | SettableState,
-                options?: unknown,
-            ): SetStatePromise;
+            setStateAsync(id: string, state: State | StateValue | SettableState, ack?: boolean): SetStatePromise;
+            setStateAsync(id: string, state: State | StateValue | SettableState, options?: unknown): SetStatePromise;
             setStateAsync(
                 id: string,
                 state: State | StateValue | SettableState,
@@ -838,11 +849,7 @@ declare global {
                 options: unknown,
             ): SetStateChangedPromise;
             /** Writes a value (which might not belong to this adapter) into the states DB. */
-            setForeignState(
-                id: string,
-                state: State | StateValue | SettableState,
-                callback?: SetStateCallback,
-            ): void;
+            setForeignState(id: string, state: State | StateValue | SettableState, callback?: SetStateCallback): void;
             setForeignState(
                 id: string,
                 state: State | StateValue | SettableState,
@@ -863,11 +870,7 @@ declare global {
                 callback?: SetStateCallback,
             ): void;
             /** Writes a value (which might not belong to this adapter) into the states DB. */
-            setForeignStateAsync(
-                id: string,
-                state: State | StateValue | SettableState,
-                ack?: boolean,
-            ): SetStatePromise;
+            setForeignStateAsync(id: string, state: State | StateValue | SettableState, ack?: boolean): SetStatePromise;
             setForeignStateAsync(
                 id: string,
                 state: State | StateValue | SettableState,
@@ -979,11 +982,7 @@ declare global {
              * @param binary The data to be written
              * @param options (optional) Some internal options.
              */
-            setBinaryStateAsync(
-                id: string,
-                binary: Buffer,
-                options?: unknown,
-            ): SetStatePromise;
+            setBinaryStateAsync(id: string, binary: Buffer, options?: unknown): SetStatePromise;
             /**
              * Reads a binary state from Redis
              * @param id The id of the state
@@ -1022,10 +1021,7 @@ declare global {
             getEnums(enumList: EnumList, callback: GetEnumsCallback): void;
             getEnums(enumList: EnumList, options: unknown, callback: GetEnumsCallback): void;
             /** Returns the enum tree, filtered by the optional enum name */
-            getEnumsAsync(
-                enumList: EnumList,
-                options?: unknown,
-            ): GetEnumsPromise;
+            getEnumsAsync(enumList: EnumList, options?: unknown): GetEnumsPromise;
 
             addChannelToEnum(
                 enumName: string,
@@ -1203,10 +1199,7 @@ declare global {
                 callback?: SetObjectCallback,
             ): void;
             /** creates an object with type device */
-            createDeviceAsync(
-                deviceName: string,
-                common?: Partial<ioBroker.DeviceCommon>,
-            ): SetObjectPromise;
+            createDeviceAsync(deviceName: string, common?: Partial<ioBroker.DeviceCommon>): SetObjectPromise;
             createDeviceAsync(
                 deviceName: string,
                 common: Partial<ioBroker.DeviceCommon>,
@@ -1443,11 +1436,7 @@ declare global {
              * @param adapterName - adapter name. If adapter name is null, default will be the name of the current adapter.
              * @param path - path to directory without adapter name. E.g. If you want to read "/vis.0/main/views.json", here must be "/main/views.json" and _adapter must be equal to "vis.0".
              */
-            readDirAsync(
-                adapterName: string | null,
-                path: string,
-                options?: unknown,
-            ): ReadDirPromise;
+            readDirAsync(adapterName: string | null, path: string, options?: unknown): ReadDirPromise;
 
             mkDir(adapterName: string | null, path: string, callback: ErrnoCallback): void;
             mkDir(adapterName: string | null, path: string, options: unknown, callback: ErrnoCallback): void;
@@ -1455,11 +1444,7 @@ declare global {
 
             readFile(adapterName: string | null, path: string, callback: ReadFileCallback): void;
             readFile(adapterName: string | null, path: string, options: unknown, callback: ReadFileCallback): void;
-            readFileAsync(
-                adapterName: string | null,
-                path: string,
-                options?: unknown,
-            ): ReadFilePromise;
+            readFileAsync(adapterName: string | null, path: string, options?: unknown): ReadFilePromise;
 
             writeFile(adapterName: string | null, path: string, data: Buffer | string, callback: ErrnoCallback): void;
             // options see https://github.com/ioBroker/ioBroker.js-controller/blob/master/lib/objects/objectsInMemServer.js#L599
@@ -1481,12 +1466,13 @@ declare global {
              * Checks if a file exists in the DB
              */
             fileExists(adapterName: string | null, path: string, callback: GenericCallback<boolean>): void;
-            fileExists(adapterName: string | null, path: string, options: unknown, callback: GenericCallback<boolean>): void;
-            fileExistsAsync(
+            fileExists(
                 adapterName: string | null,
                 path: string,
-                options?: unknown,
-            ): Promise<boolean>;
+                options: unknown,
+                callback: GenericCallback<boolean>,
+            ): void;
+            fileExistsAsync(adapterName: string | null, path: string, options?: unknown): Promise<boolean>;
 
             /**
              * Deletes a given file
@@ -1549,7 +1535,7 @@ declare global {
              * Checks if a given feature is supported by the current installation
              * @param featureName The name of the feature to test for
              */
-            supportsFeature?: ((featureName: string) => boolean);
+            supportsFeature?: (featureName: string) => boolean;
 
             /**
              * Returns an instance of a loaded plugin
@@ -1629,7 +1615,10 @@ declare global {
         type SetObjectCallback = (err?: Error | null, obj?: { id: string }) => void;
         type SetObjectPromise = Promise<NonNullCallbackReturnTypeOf<SetObjectCallback>>;
 
-        type GetObjectCallback<T extends string = string> = (err?: Error | null, obj?: ObjectIdToObjectType<T> | null) => void;
+        type GetObjectCallback<T extends string = string> = (
+            err?: Error | null,
+            obj?: ObjectIdToObjectType<T> | null,
+        ) => void;
         type GetObjectPromise<T extends string = string> = Promise<CallbackReturnTypeOf<GetObjectCallback<T>>>;
 
         type GetEnumCallback = (err?: Error | null, enums?: Record<string, Enum>, requestedEnum?: string) => void;
@@ -1644,8 +1633,13 @@ declare global {
         type GetObjectsCallback = (err?: Error | null, objects?: Record<string, ioBroker.Object>) => void;
         type GetObjectsPromise = Promise<NonNullCallbackReturnTypeOf<GetObjectsCallback>>;
 
-        type GetObjectsCallbackTyped<T extends ObjectType> = (err?: Error | null, objects?: Record<string, ioBroker.AnyObject & {type: T}>) => void;
-        type GetObjectsPromiseTyped<T extends ObjectType> = Promise<NonNullCallbackReturnTypeOf<GetObjectsCallbackTyped<T>>>;
+        type GetObjectsCallbackTyped<T extends ObjectType> = (
+            err?: Error | null,
+            objects?: Record<string, ioBroker.AnyObject & { type: T }>,
+        ) => void;
+        type GetObjectsPromiseTyped<T extends ObjectType> = Promise<
+            NonNullCallbackReturnTypeOf<GetObjectsCallbackTyped<T>>
+        >;
 
         type FindObjectCallback = (
             /** If an error happened, this contains the message */
@@ -1780,7 +1774,7 @@ declare global {
 
         type GetSessionCallback = (session: Session) => void;
 
-        type Timeout = number & {__ioBrokerBrand: "Timeout"};
-        type Interval = number & {__ioBrokerBrand: "Interval"};
+        type Timeout = number & { __ioBrokerBrand: 'Timeout' };
+        type Interval = number & { __ioBrokerBrand: 'Interval' };
     } // end namespace ioBroker
 } // end declare global
