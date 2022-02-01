@@ -85,6 +85,9 @@ declare class Serverless {
     getVersion(): string;
 
     cli: {
+        /**
+         * @deprecated starting from Serverless V3, this method is deprecated, see https://www.serverless.com/framework/docs/guides/plugins/cli-output
+         */
         log(message: string, entity?: string, options?: Serverless.LogOptions): null;
     };
 
