@@ -5,8 +5,6 @@
 //                 Gaylor Bosson <https://github.com/Gilthoniel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="node"/>
-
 declare namespace BN {
     type Endianness = 'le' | 'be';
     type IPrimeName = 'k256' | 'p224' | 'p192' | 'p25519';
