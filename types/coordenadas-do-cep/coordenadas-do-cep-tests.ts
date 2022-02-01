@@ -1,7 +1,7 @@
 import * as Cep from 'coordenadas-do-cep';
 
 const a = Cep.getByEndereco('12345-678'); // $ExpectType Coordinates
-const b = Cep.getByCep('12345-678'); // $ExpectType CepCoords
+const b = Cep.getByCep('12345-678'); // $ExpectType CepWithCoordinates
 const c = Cep.getInfoCep('12345-678'); // $ExpectType InfoCep
 const d = Cep.getDistEntreCeps("a", "b"); // $ExpectType number
 const e = Cep.getDistEntreEnderecos("a", "b"); // $ExpectType number
