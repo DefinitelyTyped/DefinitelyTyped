@@ -348,7 +348,6 @@ adapter.getObjectListAsync({ startkey: 'foo', endkey: 'bar' }).then(result => {
 
 adapter.delObject('foo');
 adapter.delObject('foo', { recursive: true });
-// $ExpectError
 adapter.delObject('foo', { someWeirdOption: 1 });
 
 adapter.subscribeObjects('*');
