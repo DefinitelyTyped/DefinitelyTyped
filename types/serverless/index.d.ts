@@ -1,4 +1,4 @@
-// Type definitions for serverless 1.78
+// Type definitions for serverless 3.0
 // Project: https://github.com/serverless/serverless#readme
 // Definitions by: Hassan Khan <https://github.com/hassankhan>
 //                 Jonathan M. Wilbur <https://github.com/JonathanWilbur>
