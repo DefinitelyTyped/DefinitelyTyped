@@ -14,5 +14,4 @@ const j = Cep.getDistEntreCeps("a"); // $ExpectError
 const k = Cep.getDistEntreEnderecos("a", 1); // $ExpectError
 const l = Cep.getDistancia({ }, { }); // $ExpectError
 
-
 Cep.setOpcoes({}); // this function shoud return void
