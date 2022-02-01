@@ -1,4 +1,4 @@
-import Cep from 'coordenadas-do-cep';
+import * as Cep from 'coordenadas-do-cep';
 
 const a = Cep.getByEndereco('12345-678'); // $ExpectType Coordinates
 const b = Cep.getByCep('12345-678'); // $ExpectType CepCoords

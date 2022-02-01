@@ -3,9 +3,7 @@
 // Definitions by: Carlos Alencar <https://github.com/cybalencar96>
 // Definitions: <https://github.com/DefinitelyTyped/DefinitelyTyped>
 
-export {};
-
-interface CepCoords {
+export interface CepCoords {
     cep: string;
     logradouro: string;
     complemento: string;
@@ -19,7 +17,7 @@ interface CepCoords {
     lon: number;
 }
 
-interface InfoCep {
+export interface InfoCep {
     cep: string;
     logradouro: string;
     complemento: string;
@@ -31,24 +29,21 @@ interface InfoCep {
     gia: string;
 }
 
-interface Coordinates {
+export interface Coordinates {
     lat: number;
     lon: number;
 }
 
-interface Options {
+export interface Options {
     busca_aproximada?: boolean;
     precisao?: number;
     casas_dec_dist?: number;
 }
 
-export default class CoordenadasDoCep {
-    static getByEndereco(address: string): Coordinates;
-    static getByCep(cep: string): CepCoords;
-    static getInfoCep(cep: string): InfoCep;
-    static getDistEntreCeps(cep1: string, cep2: string): number;
-    static getDistEntreEnderecos(end1: string, end2: string): number;
-    static getDistancia(coord1: Coordinates, coord2: Coordinates): number;
-    static setOpcoes(options: Options): void;
-    foo: string;
-}
+export function getByEndereco(address: string): Coordinates;
+export function getByCep(cep: string): CepCoords;
+export function getInfoCep(cep: string): InfoCep;
+export function getDistEntreCeps(cep1: string, cep2: string): number;
+export function getDistEntreEnderecos(end1: string, end2: string): number;
+export function getDistancia(coord1: Coordinates, coord2: Coordinates): number;
+export function setOpcoes(options: Options): void;
