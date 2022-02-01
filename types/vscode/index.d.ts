@@ -218,7 +218,8 @@ declare module 'vscode' {
         /**
          * Get a word-range at the given position. By default words are defined by
          * common separators, like space, -, _, etc. In addition, per language custom
-         * [word definitions] can be defined. It is also possible to provide a custom regular expression.
+         * [word definitions] can be defined. It 
+         * is also possible to provide a custom regular expression.
          *
          * * *Note 1:* A custom regular expression must not match the empty string and
          * if it does, it will be ignored.
