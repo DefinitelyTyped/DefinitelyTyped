@@ -1,4 +1,4 @@
-import RTree from 'rtree';
+import RTree = require('rtree');
 
 const myRTree = RTree(5); // $ExpectType RTree
 const el = 'test';

@@ -19,7 +19,7 @@ declare class RTree {
     toJSON(printing?: string | number): string;
 }
 
-declare var rtreeLib: {
+declare const rtreeLib: {
     (max_node_width?: number): RTree;
     fromJSON(json: string): RTree;
 };
