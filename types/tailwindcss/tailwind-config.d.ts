@@ -197,10 +197,11 @@ export interface TailwindAnimationConfig {
     };
 }
 
-export type TailwindFontConfig = [
+export type TailwindFontConfig = string | [string, string] | [
     string,
     {
-        lineHeight: string;
+        lineHeight?: string;
+        letterSpacing?: string;
     },
 ];
 
