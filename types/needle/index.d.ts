@@ -10,7 +10,6 @@
 /// <reference types="node" />
 
 import * as http from 'http';
-import * as Buffer from 'buffer';
 import * as https from 'https';
 
 declare namespace core {
