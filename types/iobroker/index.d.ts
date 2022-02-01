@@ -391,6 +391,9 @@ declare global {
             // ==============================
             // GENERAL
 
+            /** Returns the ID of the user with the given username, if it exists */
+            getUserID(username: string): Promise<string | undefined>;
+
             /** Validates username and password */
             checkPassword(user: string, password: string, callback: (result: boolean) => void): void;
             checkPassword(user: string, password: string, options: unknown, callback: (result: boolean) => void): void;
