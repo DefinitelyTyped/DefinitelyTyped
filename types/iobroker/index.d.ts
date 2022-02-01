@@ -1011,6 +1011,8 @@ declare global {
             // processLog https://github.com/ioBroker/ioBroker.js-controller/blob/master/lib/adapter.js#L4360
 
             /**
+             * @deprecated Despite the naming convention, this method doesn't prepend the adapter namespace. Use {@link setForeignBinaryState} instead.
+             *
              * Writes a binary state into Redis
              * @param id The id of the state
              * @param binary The data to be written
@@ -1020,6 +1022,8 @@ declare global {
             setBinaryState(id: string, binary: Buffer, callback: SetStateCallback): void;
             setBinaryState(id: string, binary: Buffer, options: unknown, callback: SetStateCallback): void;
             /**
+             * @deprecated Despite the naming convention, this method doesn't prepend the adapter namespace. Use {@link setForeignBinaryStateAsync} instead.
+             *
              * Writes a binary state into Redis
              * @param id The id of the state
              * @param binary The data to be written
@@ -1027,6 +1031,8 @@ declare global {
              */
             setBinaryStateAsync(id: string, binary: Buffer, options?: unknown): SetStatePromise;
             /**
+             * @deprecated Despite the naming convention, this method doesn't prepend the adapter namespace. Use {@link getForeignBinaryState} instead.
+             *
              * Reads a binary state from Redis
              * @param id The id of the state
              * @param options (optional) Some internal options.
@@ -1035,16 +1041,26 @@ declare global {
             getBinaryState(id: string, callback: GetBinaryStateCallback): void;
             getBinaryState(id: string, options: unknown, callback: GetBinaryStateCallback): void;
             /**
+             * @deprecated Despite the naming convention, this method doesn't prepend the adapter namespace. Use {@link getForeignBinaryStateAsync} instead.
+             *
              * Reads a binary state from Redis
              * @param id The id of the state
              * @param options (optional) Some internal options.
              */
             getBinaryStateAsync(id: string, options?: unknown): GetBinaryStatePromise;
 
-            /** Deletes a binary state from the states DB */
+            /**
+             * @deprecated Despite the naming convention, this method doesn't prepend the adapter namespace. Use {@link delForeignBinaryState} instead.
+             *
+             * Deletes a binary state from the states DB
+             */
             delBinaryState(id: string, callback?: ErrorCallback): void;
             delBinaryState(id: string, options: unknown, callback?: ErrorCallback): void;
-            /** Deletes a binary state from the states DB */
+            /**
+             * @deprecated Despite the naming convention, this method doesn't prepend the adapter namespace. Use {@link delForeignBinaryStateAsync} instead.
+             *
+             * Deletes a binary state from the states DB
+             */
             delBinaryStateAsync(id: string, options?: unknown): Promise<void>;
 
             /**
