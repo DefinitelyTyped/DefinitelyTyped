@@ -301,9 +301,6 @@ declare global {
             /** Will be called when ioBroker detects an unhandled error in the adapter. Return `true` to signal that the error was handled and the adapter does not need to be restarted. */
             error?: ErrorHandler;
 
-            /** if true, stateChange will be called with an id that has no namespace, e.g. "state" instead of "adapter.0.state". Default: false */
-            noNamespace?: boolean;
-
             /** If true, the adapter will have a property `oObjects` that contains a live cache of the adapter's objects */
             objects?: boolean;
 
