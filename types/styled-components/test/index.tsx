@@ -19,6 +19,7 @@ import styled, {
     FlattenInterpolation,
 } from 'styled-components';
 import {} from 'styled-components/cssprop';
+import {} from 'styled-components/test-utils'
 
 /**
  * general usage
