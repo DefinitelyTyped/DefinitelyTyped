@@ -111,11 +111,11 @@ for (const action of submitRelatedActions) {
         callback();
     });
 }
-backend.use('connect', (context, callback) => {
+backend.use('connect', (context: ShareDB.middleware.ConnectContext<{ user: { id: any } }>, callback) => {
     // `context.req` is the HTTP / websocket request.
     // This assumes that some request middleware has handled auth and popuplated `req.userId`.
     if (context.req.userId) {
-        context.agent.custom.user = {id: context.req.userId};
+        context.agent.custom.user = { id: context.req.userId };
     }
     console.log(
         context.action,
