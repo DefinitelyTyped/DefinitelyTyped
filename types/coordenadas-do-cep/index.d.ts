@@ -2,7 +2,7 @@
 // Project: <https://github.com/viniciusm2001/coordenadas-do-cep>
 // Definitions by: Carlos Alencar <https://github.com/cybalencar96>
 // Definitions: <https://github.com/DefinitelyTyped/DefinitelyTyped>
-
+/* tslint-disable npm-naming */
 export function getByEndereco(address: string): Coordinates;
 export function getByCep(cep: string): CepWithCoordinates;
 export function getInfoCep(cep: string): InfoCep;
