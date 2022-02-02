@@ -71,5 +71,5 @@ declare namespace Client {
         records: T[];
     }
 }
-function Client(params: Client.iParams): Client.iDataAPIClient;
+declare function Client(params: Client.iParams): Client.iDataAPIClient;
 export = Client;
