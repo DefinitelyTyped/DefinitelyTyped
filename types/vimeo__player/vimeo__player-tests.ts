@@ -16,6 +16,7 @@ player = new Player('handstick', {
     color: '#00adef',
     controls: true,
     dnt: false,
+    interactiveparams: 'key1=value1,key2=value2',
     keyboard: true,
     loop: false,
     muted: false,
