@@ -1250,3 +1250,7 @@ function testBrowsingData() {
     chrome.browsingData.removeServiceWorkers({});
     chrome.browsingData.removeServiceWorkers({}, () => {});
 }
+
+function testPageCapture() {
+  chrome.pageCapture.saveAsMHTML({ tabId: 0 }, (data: Blob | undefined) => {});
+}
