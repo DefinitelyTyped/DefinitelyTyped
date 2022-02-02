@@ -34,9 +34,19 @@ mixpanel.register({
     Email: 'jdoe@example.com',
     'Account Type': 'Free',
 });
+mixpanel.register({ Gender: 'Female' }, 1);
+mixpanel.register({ Gender: 'Female' }, { persistent: true });
 mixpanel.register_once({
     'First Login Date': new Date().toISOString(),
 });
+mixpanel.register_once({
+    'First Login Date': new Date().toISOString(),
+}, 1);
+mixpanel.register_once({
+    'First Login Date': new Date().toISOString(),
+}, { persistent: true });
+mixpanel.unregister('Gender');
+mixpanel.unregister('Gender', { persistent: true });
 mixpanel.init('YOUR PROJECT TOKEN', {
     loaded: mixpanel => {
         const distinct_id = mixpanel.get_distinct_id();
