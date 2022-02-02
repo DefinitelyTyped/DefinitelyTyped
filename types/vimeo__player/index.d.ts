@@ -103,6 +103,7 @@ export interface Options {
     controls?: boolean | undefined;
     dnt?: boolean | undefined;
     height?: number | undefined;
+    interactiveparams?: string | undefined;
     keyboard?: boolean | undefined;
     loop?: boolean | undefined;
     maxheight?: number | undefined;
