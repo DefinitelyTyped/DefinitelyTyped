@@ -1,4 +1,4 @@
-// For Library Version: 1.97.0
+// For Library Version: 1.98.0
 
 declare module "sap/ui/webc/fiori/library" {
   /**
@@ -1360,11 +1360,11 @@ declare module "sap/ui/webc/fiori/FlexibleColumnLayout" {
 
   import Event from "sap/ui/base/Event";
 
+  import { FCLLayout } from "sap/ui/webc/fiori/library";
+
   import Control from "sap/ui/core/Control";
 
   import { CSSSize } from "sap/ui/core/library";
-
-  import { FCLLayout } from "sap/ui/webc/fiori/library";
 
   import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
 
@@ -1540,7 +1540,7 @@ declare module "sap/ui/webc/fiori/FlexibleColumnLayout" {
         /**
          * The current layout
          */
-        layout?: FCLLayout;
+        layout?: FCLLayout | keyof typeof FCLLayout;
         /**
          * The effective column layout, f.e [67%, 33%, 0]
          */
@@ -4719,10 +4719,6 @@ declare module "sap/ui/webc/fiori/ShellBar" {
    * 	 - profile
    * 	 - product-switch
    *
-   * In the context of `sap.ui.webc.fiori.ShellBar`, you can provide a custom stable DOM refs for:
-   * 	 - Every `sap.ui.webc.fiori.ShellBarItem` that you provide. Example: `
-   * 			`
-   *
    * CSS Shadow Parts:
    *
    * CSS Shadow Parts
@@ -5272,6 +5268,10 @@ declare module "sap/ui/webc/fiori/ShellBar" {
       }
     ): this;
     /**
+     * Returns the `copilot` DOM ref.
+     */
+    getCopilotDomRef(): void;
+    /**
      * Gets content of aggregation {@link #getItems items}.
      *
      * Defines the `sap.ui.webc.fiori.ShellBar` aditional items.
@@ -5286,6 +5286,10 @@ declare module "sap/ui/webc/fiori/ShellBar" {
      * or `img` elements as logo.
      */
     getLogo(): IAvatar;
+    /**
+     * Returns the `logo` DOM ref.
+     */
+    getLogoDomRef(): void;
     /**
      * Gets content of aggregation {@link #getMenuItems menuItems}.
      *
@@ -5303,6 +5307,14 @@ declare module "sap/ui/webc/fiori/ShellBar" {
      */
     getNotificationsCount(): string;
     /**
+     * Returns the `notifications` icon DOM ref.
+     */
+    getNotificationsDomRef(): void;
+    /**
+     * Returns the `overflow` icon DOM ref.
+     */
+    getOverflowDomRef(): void;
+    /**
      * Gets current value of property {@link #getPrimaryTitle primaryTitle}.
      *
      * Defines the `primaryTitle`.
@@ -5313,6 +5325,10 @@ declare module "sap/ui/webc/fiori/ShellBar" {
      */
     getPrimaryTitle(): string;
     /**
+     * Returns the `product-switch` icon DOM ref.
+     */
+    getProductSwitchDomRef(): void;
+    /**
      * Gets content of aggregation {@link #getProfile profile}.
      *
      * You can pass `sap.ui.webc.main.Avatar` to set the profile image/icon. If no profile slot is set - profile
@@ -5322,6 +5338,10 @@ declare module "sap/ui/webc/fiori/ShellBar" {
      * specific size by design in the context of `sap.ui.webc.fiori.ShellBar` profile.
      */
     getProfile(): IAvatar;
+    /**
+     * Returns the `profile` icon DOM ref.
+     */
+    getProfileDomRef(): void;
     /**
      * Gets content of aggregation {@link #getSearchField searchField}.
      *
@@ -5775,14 +5795,14 @@ declare module "sap/ui/webc/fiori/ShellBarItem" {
      */
     static getMetadata(): WebComponentMetadata;
     /**
-     * Attaches event handler `fnFunction` to the {@link #event:itemClick itemClick} event of this `sap.ui.webc.fiori.ShellBarItem`.
+     * Attaches event handler `fnFunction` to the {@link #event:click click} event of this `sap.ui.webc.fiori.ShellBarItem`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
      * otherwise it will be bound to this `sap.ui.webc.fiori.ShellBarItem` itself.
      *
      * Fired, when the item is pressed.
      */
-    attachItemClick(
+    attachClick(
       /**
        * An application-specific payload object that will be passed to the event handler along with the event
        * object when firing the event
@@ -5798,14 +5818,14 @@ declare module "sap/ui/webc/fiori/ShellBarItem" {
       oListener?: object
     ): this;
     /**
-     * Attaches event handler `fnFunction` to the {@link #event:itemClick itemClick} event of this `sap.ui.webc.fiori.ShellBarItem`.
+     * Attaches event handler `fnFunction` to the {@link #event:click click} event of this `sap.ui.webc.fiori.ShellBarItem`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
      * otherwise it will be bound to this `sap.ui.webc.fiori.ShellBarItem` itself.
      *
      * Fired, when the item is pressed.
      */
-    attachItemClick(
+    attachClick(
       /**
        * The function to be called when the event occurs
        */
@@ -5816,11 +5836,11 @@ declare module "sap/ui/webc/fiori/ShellBarItem" {
       oListener?: object
     ): this;
     /**
-     * Detaches event handler `fnFunction` from the {@link #event:itemClick itemClick} event of this `sap.ui.webc.fiori.ShellBarItem`.
+     * Detaches event handler `fnFunction` from the {@link #event:click click} event of this `sap.ui.webc.fiori.ShellBarItem`.
      *
      * The passed function and listener object must match the ones used for event registration.
      */
-    detachItemClick(
+    detachClick(
       /**
        * The function to be called, when the event occurs
        */
@@ -5831,12 +5851,12 @@ declare module "sap/ui/webc/fiori/ShellBarItem" {
       oListener?: object
     ): this;
     /**
-     * Fires event {@link #event:itemClick itemClick} to attached listeners.
+     * Fires event {@link #event:click click} to attached listeners.
      *
      * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
      * event object. The return value of this method indicates whether the default action should be executed.
      */
-    fireItemClick(
+    fireClick(
       /**
        * Parameters to pass along with the event
        */
@@ -5937,7 +5957,7 @@ declare module "sap/ui/webc/fiori/ShellBarItem" {
     /**
      * Fired, when the item is pressed.
      */
-    itemClick?: (oEvent: Event) => void;
+    click?: (oEvent: Event) => void;
   }
 }
 
@@ -9737,14 +9757,6 @@ declare module "sap/ui/webc/fiori/Wizard" {
       }
     ): this;
     /**
-     * Gets current value of property {@link #getAccessibleName accessibleName}.
-     *
-     * Sets the accessible aria name of the component.
-     *
-     * Default value is `undefined`.
-     */
-    getAccessibleName(): string;
-    /**
      * Gets current value of property {@link #getHeight height}.
      *
      * Defines the height of the control
@@ -9799,21 +9811,6 @@ declare module "sap/ui/webc/fiori/Wizard" {
       vStep: int | string | IWizardStep
     ): IWizardStep;
     /**
-     * Sets a new value for property {@link #getAccessibleName accessibleName}.
-     *
-     * Sets the accessible aria name of the component.
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * Default value is `undefined`.
-     */
-    setAccessibleName(
-      /**
-       * New value for property `accessibleName`
-       */
-      sAccessibleName?: string
-    ): this;
-    /**
      * Sets a new value for property {@link #getHeight height}.
      *
      * Defines the height of the control
@@ -9829,11 +9826,6 @@ declare module "sap/ui/webc/fiori/Wizard" {
   }
 
   export interface $WizardSettings extends $WebComponentSettings {
-    /**
-     * Sets the accessible aria name of the component.
-     */
-    accessibleName?: string | PropertyBindingInfo;
-
     /**
      * Defines the height of the control
      */
@@ -9960,22 +9952,6 @@ declare module "sap/ui/webc/fiori/WizardStep" {
      * Destroys all the content in the aggregation {@link #getContent content}.
      */
     destroyContent(): this;
-    /**
-     * Gets current value of property {@link #getAccessibleName accessibleName}.
-     *
-     * Sets the accessible aria name of the component.
-     *
-     * Default value is `empty string`.
-     */
-    getAccessibleName(): string;
-    /**
-     * Gets current value of property {@link #getAccessibleNameRef accessibleNameRef}.
-     *
-     * Defines the aria-labelledby of the step.
-     *
-     * Default value is `empty string`.
-     */
-    getAccessibleNameRef(): string;
     /**
      * Gets current value of property {@link #getBranching branching}.
      *
@@ -10104,36 +10080,6 @@ declare module "sap/ui/webc/fiori/WizardStep" {
       vContent: int | string | Control
     ): Control;
     /**
-     * Sets a new value for property {@link #getAccessibleName accessibleName}.
-     *
-     * Sets the accessible aria name of the component.
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * Default value is `empty string`.
-     */
-    setAccessibleName(
-      /**
-       * New value for property `accessibleName`
-       */
-      sAccessibleName?: string
-    ): this;
-    /**
-     * Sets a new value for property {@link #getAccessibleNameRef accessibleNameRef}.
-     *
-     * Defines the aria-labelledby of the step.
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * Default value is `empty string`.
-     */
-    setAccessibleNameRef(
-      /**
-       * New value for property `accessibleNameRef`
-       */
-      sAccessibleNameRef?: string
-    ): this;
-    /**
      * Sets a new value for property {@link #getBranching branching}.
      *
      * When `branching` is enabled a dashed line would be displayed after the step, meant to indicate that the
@@ -10259,16 +10205,6 @@ declare module "sap/ui/webc/fiori/WizardStep" {
   }
 
   export interface $WizardStepSettings extends $WebComponentSettings {
-    /**
-     * Sets the accessible aria name of the component.
-     */
-    accessibleName?: string | PropertyBindingInfo;
-
-    /**
-     * Defines the aria-labelledby of the step.
-     */
-    accessibleNameRef?: string | PropertyBindingInfo;
-
     /**
      * When `branching` is enabled a dashed line would be displayed after the step, meant to indicate that the
      * next step is not yet known and depends on user choice in the current step.

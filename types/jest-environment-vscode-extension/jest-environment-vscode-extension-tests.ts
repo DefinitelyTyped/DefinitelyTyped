@@ -44,11 +44,8 @@ using(
 
 /* waitFor */
 
-// $ExpectType Promise<string>
-waitFor.documentChange(uri);
-
-// $ExpectType Promise<string>
-waitFor.not.documentChange(uri);
+// $ExpectType Promise<number>
+waitFor(() => 1);
 
 /* take */
 

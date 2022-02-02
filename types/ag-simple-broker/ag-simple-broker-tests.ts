@@ -26,3 +26,32 @@ exchange.invokePublish('test', 'dummy');
 exchange.invokePublish('test', {});
 
 brokerEngine.unsubscribeSocket(exchange, 'test');
+
+// check the various events
+(async () => {
+    // $ExpectType {}
+    await brokerEngine.listener('ready').once();
+
+    const subscribeResult = await brokerEngine.listener('subscribe').once();
+
+    // $ExpectType string
+    subscribeResult.channel;
+
+    const unsubscribeResult = await brokerEngine.listener('unsubscribe').once();
+
+    // $ExpectType string
+    unsubscribeResult.channel;
+
+    const errorResult = await brokerEngine.listener('error').once();
+
+    // $ExpectType any
+    errorResult.error;
+
+    const publishResult = await brokerEngine.listener('publish').once();
+
+    // $ExpectType string
+    publishResult.channel;
+
+    // $ExpectType any
+    publishResult.data;
+})();

@@ -103,7 +103,7 @@ declare module 'url' {
         append(name: string, value: string): void;
         delete(name: string): void;
         entries(): IterableIterator<[string, string]>;
-        forEach(callback: (value: string, name: string, searchParams: this) => void): void;
+        forEach(callback: (value: string, name: string, searchParams: URLSearchParams) => void): void;
         get(name: string): string | null;
         getAll(name: string): string[];
         has(name: string): boolean;
@@ -113,5 +113,31 @@ declare module 'url' {
         toString(): string;
         values(): IterableIterator<string>;
         [Symbol.iterator](): IterableIterator<[string, string]>;
+    }
+
+    import { URL as _URL, URLSearchParams as _URLSearchParams } from 'url';
+    global {
+        interface URLSearchParams extends _URLSearchParams {}
+        interface URL extends _URL {}
+        interface Global {
+            URL: typeof _URL;
+            URLSearchParams: typeof _URLSearchParams;
+        }
+        /**
+         * `URL` class is a global reference for `require('url').URL`
+         * https://nodejs.org/api/url.html#the-whatwg-url-api
+         * @since v10.0.0
+         */
+        var URL: typeof globalThis extends { webkitURL: infer URL } ? URL : typeof _URL;
+        /**
+         * `URLSearchParams` class is a global reference for `require('url').URLSearchParams`.
+         * https://nodejs.org/api/url.html#class-urlsearchparams
+         * @since v10.0.0
+         */
+        var URLSearchParams: {
+            prototype: URLSearchParams;
+            new(init?: string[][] | Record<string, string> | string | URLSearchParams): URLSearchParams;
+            toString(): string;
+        };
     }
 }

@@ -614,6 +614,14 @@ async function testAnalytics(conn: sf.Connection): Promise<void> {
         Object.keys(reports[0]).forEach((key: string) => console.log(`key: ${key} : ${_report[key]}`));
         console.log('report keys from callback');
     });
+
+    const jsfReport: sf.Report = await conn.analytics.report('reportId');
+    const reportCallback = (err: Error | null, result: sf.ReportResult) => {
+        return result;
+    };
+    const reportResult1 = await jsfReport.execute({ details: true });
+    const reportResult2 = await jsfReport.execute({ details: true }, reportCallback);
+    const reportResult3 = await jsfReport.execute(reportCallback);
 }
 
 async function testExecuteAnonymous(conn: sf.Connection): Promise<void> {

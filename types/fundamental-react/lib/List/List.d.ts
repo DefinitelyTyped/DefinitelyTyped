@@ -6,6 +6,7 @@ export type ListProps = {
     compact?: boolean | undefined;
     disableStyles?: boolean | undefined;
     noBorder?: boolean | undefined;
+    hasByline?: boolean | undefined;
     ref?: React.Ref<HTMLAnchorElement> | undefined;
     level?: 2 | 3 | 4 | 5 | 6 | undefined;
     navigation?: boolean | undefined;
@@ -44,6 +45,13 @@ export interface ListTextProps {
     secondary?: boolean | undefined;
 }
 
+export interface ListBylineProps {
+    children?: React.ReactNode;
+    className?: string | undefined;
+    cssNamespace?: string | undefined;
+    twoColumns?: boolean | undefined;
+}
+
 export interface ListSelectionProps {
     checkBoxAriaLabel: string;
     className?: string | undefined;
@@ -59,6 +67,7 @@ declare const List: React.FunctionComponent<ListProps> & {
     Icon: React.FunctionComponent<ListIconProps> & { displayName: 'List.Icon' };
     Item: React.FunctionComponent<ListItemProps> & { displayName: 'List.Item' };
     Text: React.FunctionComponent<ListTextProps> & { displayName: 'List.Text' };
+    Byline: React.FunctionComponent<ListBylineProps> & { displayName: 'List.Byline' };
 };
 
 export default List;

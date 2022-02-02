@@ -251,4 +251,10 @@ export interface ThreeDSecure {
      * Documentation link: https://braintree.github.io/braintree-web/current/ThreeDSecure.html#on
      */
     on(event: string, handler: (data?: any, next?: () => void) => void): void;
+
+    /**
+     * Unsubscribes the handler function to a named event
+     * Documentation link: https://braintree.github.io/braintree-web/current/ThreeDSecure.html#off
+     */
+     off(event: string, handler: (data?: any, next?: () => void) => void): void;
 }

@@ -32,6 +32,9 @@ declare module 'meteor/meteor' {
             // One of the tests assigns a new property to the user so it has to be typed
             dexterity?: number | undefined;
         }
+        interface UserProfile {
+            name?: string | undefined;
+        }
     }
 }
 
@@ -693,7 +696,7 @@ namespace MeteorTests {
     Accounts.emailTemplates.siteName = 'AwesomeSite';
     Accounts.emailTemplates.from = 'AwesomeSite Admin <accounts@example.com>';
     Accounts.emailTemplates.enrollAccount.subject = function (user) {
-        return 'Welcome to Awesome Town, ' + user.profile.name;
+        return 'Welcome to Awesome Town, ' + user.profile?.name;
     };
     Accounts.emailTemplates.enrollAccount.text = function (user: any, url: string) {
         return (
@@ -1050,7 +1053,7 @@ namespace MeteorTests {
     Accounts.emailTemplates.headers = { asdf: 'asdf', qwer: 'qwer' };
 
     Accounts.emailTemplates.enrollAccount.subject = function (user: Meteor.User) {
-        return 'Welcome to Awesome Town, ' + user.profile.name;
+        return 'Welcome to Awesome Town, ' + user.profile?.name;
     };
     Accounts.emailTemplates.enrollAccount.html = function (user: Meteor.User, url: string) {
         return '<h1>Some html here</h1>';

@@ -82,8 +82,8 @@ ec('conname'); // $ExpectType Memcached
 
 encrypt('this is a test'); // $ExpectType string
 decrypt('TMxLqkHSs8D7tD02ptbtWQxocJO93ZPvqS4IruHEpj8='); // $ExpectType string
-hash('this is a test'); // $ExpectType Buffer
-hashMD5(new Uint8Array([21, 31])); // $ExpectType Buffer
+hash('this is a test'); // $ExpectType string
+hashMD5(new Uint8Array([21, 31])); // $ExpectType string
 
 db; // $ExpectType AuroraDbService | AuroraDbRDSProxyService
 (async () => {

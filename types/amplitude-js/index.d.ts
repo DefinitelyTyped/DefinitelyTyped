@@ -8,6 +8,7 @@ export as namespace amplitude;
 
 export type Callback = (responseCode: number, responseBody: string, details?: { reason: string }) => void;
 export type LogReturn = number | undefined;
+export type Transport = 'http' | 'beacon';
 // https://github.com/amplitude/Amplitude-JavaScript/blob/v8.9.0/src/server-zone.js#L9
 export type ServerZone = 'EU' | 'US';
 
@@ -41,6 +42,7 @@ export interface Config {
     saveParamsReferrerOncePerSession?: boolean | undefined;
     secureCookie?: boolean | undefined;
     sessionTimeout?: number | undefined;
+    storage?: '' | 'cookies' | 'localStorage' | 'sessionStorage' | 'none';
     trackingOptions?: {
         city?: boolean | undefined;
         country?: boolean | undefined;
@@ -61,6 +63,7 @@ export interface Config {
     unsentIdentifyKey?: string | undefined;
     uploadBatchSize?: number | undefined;
     useNativeDeviceInfo?: boolean | undefined;
+    transport?: Transport | undefined;
     serverZone?: ServerZone | undefined;
     serverZoneBasedApi?: boolean | undefined;
 }
@@ -119,9 +122,13 @@ export class AmplitudeClient {
     setGlobalUserProperties(properties: any): void;
     clearUserProperties(): void;
 
+    clearStorage(): boolean;
+
     setOptOut(enable: boolean): void;
 
     setGroup(groupType: string, groupName: string | string[]): void;
+
+    setTransport(transport: Transport): void;
 
     logEvent(event: string, data?: any, callback?: Callback): LogReturn;
     logEventWithGroups(event: string, data?: any, groups?: any, callback?: Callback): LogReturn;

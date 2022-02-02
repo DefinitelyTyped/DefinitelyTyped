@@ -10,7 +10,6 @@
 /// <reference types="node" />
 
 import * as http from 'http';
-import * as Buffer from 'buffer';
 import * as https from 'https';
 
 declare namespace core {
@@ -270,7 +269,7 @@ declare namespace needle {
     export type NeedleOptions = core.NeedleOptions;
     export type NeedleResponse = core.NeedleResponse;
     export type ReadableStream = core.ReadableStream;
-
+    export type Cookies = core.Cookies;
     /**
      * Lets override the defaults for all future requests.
      */

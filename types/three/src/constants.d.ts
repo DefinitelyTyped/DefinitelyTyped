@@ -105,6 +105,7 @@ export const LinearToneMapping: ToneMapping;
 export const ReinhardToneMapping: ToneMapping;
 export const CineonToneMapping: ToneMapping;
 export const ACESFilmicToneMapping: ToneMapping;
+export const CustomToneMapping: ToneMapping;
 
 // Mapping modes
 export enum Mapping {}
@@ -147,13 +148,11 @@ export const FloatType: TextureDataType;
 export const HalfFloatType: TextureDataType;
 export const UnsignedShort4444Type: TextureDataType;
 export const UnsignedShort5551Type: TextureDataType;
-export const UnsignedShort565Type: TextureDataType;
 export const UnsignedInt248Type: TextureDataType;
 
 // Pixel formats
 export enum PixelFormat {}
 export const AlphaFormat: PixelFormat;
-export const RGBFormat: PixelFormat;
 export const RGBAFormat: PixelFormat;
 export const LuminanceFormat: PixelFormat;
 export const LuminanceAlphaFormat: PixelFormat;
@@ -163,8 +162,9 @@ export const RedFormat: PixelFormat;
 export const RedIntegerFormat: PixelFormat;
 export const RGFormat: PixelFormat;
 export const RGIntegerFormat: PixelFormat;
-export const RGBIntegerFormat: PixelFormat;
 export const RGBAIntegerFormat: PixelFormat;
+export const _SRGBFormat: PixelFormat; // fallback for WebGL 1
+export const _SRGBAFormat: PixelFormat; // fallback for WebGL 1
 
 // Internal Pixel Formats
 export type PixelFormatGPU =
@@ -223,6 +223,7 @@ export type PixelFormatGPU =
     | 'RGB10_A2'
     | 'RGB10_A2UI'
     | 'SRGB8_ALPHA8'
+    | 'SRGB8'
     | 'DEPTH_COMPONENT16'
     | 'DEPTH_COMPONENT24'
     | 'DEPTH_COMPONENT32F'
@@ -263,20 +264,6 @@ export const RGBA_ASTC_10x8_Format: CompressedPixelFormat;
 export const RGBA_ASTC_10x10_Format: CompressedPixelFormat;
 export const RGBA_ASTC_12x10_Format: CompressedPixelFormat;
 export const RGBA_ASTC_12x12_Format: CompressedPixelFormat;
-export const SRGB8_ALPHA8_ASTC_4x4_Format: CompressedPixelFormat;
-export const SRGB8_ALPHA8_ASTC_5x4_Format: CompressedPixelFormat;
-export const SRGB8_ALPHA8_ASTC_5x5_Format: CompressedPixelFormat;
-export const SRGB8_ALPHA8_ASTC_6x5_Format: CompressedPixelFormat;
-export const SRGB8_ALPHA8_ASTC_6x6_Format: CompressedPixelFormat;
-export const SRGB8_ALPHA8_ASTC_8x5_Format: CompressedPixelFormat;
-export const SRGB8_ALPHA8_ASTC_8x6_Format: CompressedPixelFormat;
-export const SRGB8_ALPHA8_ASTC_8x8_Format: CompressedPixelFormat;
-export const SRGB8_ALPHA8_ASTC_10x5_Format: CompressedPixelFormat;
-export const SRGB8_ALPHA8_ASTC_10x6_Format: CompressedPixelFormat;
-export const SRGB8_ALPHA8_ASTC_10x8_Format: CompressedPixelFormat;
-export const SRGB8_ALPHA8_ASTC_10x10_Format: CompressedPixelFormat;
-export const SRGB8_ALPHA8_ASTC_12x10_Format: CompressedPixelFormat;
-export const SRGB8_ALPHA8_ASTC_12x12_Format: CompressedPixelFormat;
 
 // BPTC compressed texture formats
 export const RGBA_BPTC_Format: CompressedPixelFormat;

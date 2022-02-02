@@ -195,6 +195,11 @@ export { RelayProfiler } from './lib/util/RelayProfiler';
 export { default as getRelayHandleKey } from './lib/util/getRelayHandleKey';
 export { default as getRequestIdentifier } from './lib/util/getRequestIdentifier';
 export { default as getFragmentIdentifier } from './lib/util/getFragmentIdentifier';
+export { default as getPaginationMetadata } from './lib/util/getPaginationMetadata';
+export { default as getPaginationVariables } from './lib/util/getPaginationVariables';
+export { default as getRefetchMetadata } from './lib/util/getRefetchMetadata';
+export { default as getValueAtPath } from './lib/util/getValueAtPath';
+export { Direction } from './lib/util/getPaginationVariables';
 
 // INTERNAL-ONLY
 export { RelayConcreteNode } from './lib/util/RelayConcreteNode';
