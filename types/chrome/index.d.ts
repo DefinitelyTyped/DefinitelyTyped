@@ -5820,7 +5820,7 @@ declare namespace chrome.pageCapture {
      * function(binary mhtmlData) {...};
      * Parameter mhtmlData: The MHTML data as a Blob.
      */
-    export function saveAsMHTML(details: SaveDetails, callback: (mhtmlData?: ArrayBuffer) => void): void;
+    export function saveAsMHTML(details: SaveDetails, callback: (mhtmlData?: Blob) => void): void;
 }
 
 ////////////////////
