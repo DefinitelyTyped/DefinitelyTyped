@@ -263,7 +263,7 @@ export interface CarouselProps<T> {
     onBeforeSnapToItem?(slideIndex: number): void;
 }
 
-export type CarouselProperties<T> = ScrollViewProps & FlatListProps<T> & CarouselProps<T>;
+export type CarouselProperties<T> = ScrollViewProps | FlatListProps<T> | CarouselProps<T>;
 
 export interface ParallaxImageProps extends ImageProps, AdditionalParallaxProps {
     /**
