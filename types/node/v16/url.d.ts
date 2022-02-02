@@ -835,11 +835,16 @@ declare module 'url' {
          * https://nodejs.org/api/url.html#class-urlsearchparams
          * @since v10.0.0
          */
-        var URLSearchParams: {
-            prototype: URLSearchParams;
-            new(init?: string[][] | Record<string, string> | string | URLSearchParams): URLSearchParams;
-            toString(): string;
-        };
+        var URLSearchParams: typeof globalThis extends { SpeechRecognitionError: infer SpeechRecognitionError } ?
+            // For TS <= 3.8.2 compatibility
+            {
+                prototype: URLSearchParams;
+                new(init?: string[][] | Record<string, string> | string | URLSearchParams): URLSearchParams;
+            }: {
+                prototype: URLSearchParams;
+                new(init?: string[][] | Record<string, string> | string | URLSearchParams): URLSearchParams;
+                toString(): string;
+            };
     }
 }
 declare module 'node:url' {
