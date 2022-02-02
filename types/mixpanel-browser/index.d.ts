@@ -163,10 +163,8 @@ export interface Mixpanel {
     opt_in_tracking(options?: Partial<InTrackingOptions>): void;
     opt_out_tracking(options?: Partial<OutTrackingOptions>): void;
     push(item: PushItem): void;
-    register(props: Dict, days?: number): void;
-    register(props: Dict, options?: RegisterOptions): void;
-    register_once(props: Dict, default_value?: any, days?: number): void;
-    register_once(props: Dict, default_value?: any, options?: RegisterOptions): void;
+    register(props: Dict, daysOrOptions?: number | RegisterOptions): void;
+    register_once(props: Dict, default_value?: any, daysOrOptions?: number | RegisterOptions): void;
     remove_group(group_key: string, group_ids: string | string[] | number | number[], callback?: Callback): void;
     reset(): void;
     set_config(config: Partial<Config>): void;
