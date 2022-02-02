@@ -8,7 +8,6 @@
         "strictNullChecks": true,
         "baseUrl": "../",
         "typeRoots": ["../"],
-        "types": ["node"],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
