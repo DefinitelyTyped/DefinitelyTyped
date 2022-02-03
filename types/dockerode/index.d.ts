@@ -1066,6 +1066,11 @@ declare namespace Dockerode {
         sshAuthAgent?: string | undefined;
         Promise?: typeof Promise | undefined;
     }
+ 
+    interface DockerImageOptions {
+        force?: boolean | undefined;
+        noprune?: boolean | undefined;
+    }
 
     interface GetEventsOptions {
         since?: number | undefined;
