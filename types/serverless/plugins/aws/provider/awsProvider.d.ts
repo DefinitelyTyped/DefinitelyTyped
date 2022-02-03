@@ -203,6 +203,7 @@ declare namespace Aws {
         payload?: string | undefined;
         cors?: boolean | HttpApiCors | undefined;
         authorizers?: Authorizers | undefined;
+        useProviderTags?: boolean | undefined;
     }
 
     interface Quota {

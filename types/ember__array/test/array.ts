@@ -18,6 +18,9 @@ assertType<boolean>(people.isAny('isHappy'));
 assertType<boolean>(people.isAny('isHappy', false));
 assertType<boolean>(people.isAny('isHappy', "false")); // $ExpectError
 
+assertType<Person | undefined>(people.objectAt(0));
+assertType<EmberArray<Person | undefined>>(people.objectsAt([1, 2, 3]));
+
 const persons1: Person[] = people.filterBy('isHappy');
 const persons2: MutableArray<Person> = people.filterBy('isHappy');
 const persons3: Person[] = people.rejectBy('isHappy');

@@ -1,4 +1,4 @@
-// Type definitions for @hippy/react 2.7
+// Type definitions for @hippy/react 2.11
 // Project: http://hippyjs.org
 // Definitions by: zeroyu <https://github.com/zerosrat>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -466,6 +466,9 @@ interface ListViewProps extends LayoutableProps, ClickableProps, TouchableProps 
      */
     bounces?: boolean;
 
+    editable?: boolean;
+
+    delText?: string;
     /**
      * Passing the data and returns the row component.
      *
@@ -613,6 +616,8 @@ interface ListViewProps extends LayoutableProps, ClickableProps, TouchableProps 
      * Called when a new list item will disappear(1 px)
      */
     onWillDisappear?: (index: number) => void;
+
+    onDelete?: (nativeEvent: { index: number }) => void;
 }
 declare class ListView extends React.Component<ListViewProps> {
     scrollToContentOffset: (xOffset: number, yOffset: number, animated: boolean) => void;
@@ -935,7 +940,7 @@ interface TextProps extends LayoutableProps, ClickableProps, TouchableProps {
      * The default is `tail`.
      */
     ellipsizeMode?: 'head' | 'middle' | 'tail' | 'clip';
-    children?: number | string | string[];
+    children?: string[] | React.ReactNode;
     text?: string;
     style?: TextStyleProp;
 }
@@ -945,6 +950,11 @@ interface KeyboardWillShowEvent {
     keyboardHeight: number;
 }
 interface TextInputProps extends LayoutableProps, ClickableProps, TouchableProps {
+    /**
+     * add in 2.11.5
+     */
+    caretColor?: string;
+
     /**
      * The value to show for the text input. TextInput is a controlled component,
      * which means the native value will be forced to match this value prop if provided.
@@ -1042,7 +1052,7 @@ interface TextInputProps extends LayoutableProps, ClickableProps, TouchableProps
      */
     placeholderTextColors?: string[];
 
-    style: TextStyleProp;
+    style?: TextStyleProp;
 
     /**
      * Callback that is called when the text input is blurred.
@@ -1092,7 +1102,14 @@ interface TextInputProps extends LayoutableProps, ClickableProps, TouchableProps
      */
     onSelectionChange?(evt: { nativeEvent: { selection: { start: number; end: number } } }): void;
 }
-declare class TextInput extends React.Component<TextInputProps> {}
+declare class TextInput extends React.Component<TextInputProps> {
+    blur(): void;
+    clear(): void;
+    focus(): void;
+    getValue(): Promise<string>;
+    hideInputMethod(): void;
+    setValue(value: string): void;
+}
 
 interface ViewProps extends LayoutableProps, ClickableProps, TouchableProps {
     /**
@@ -1171,6 +1188,8 @@ interface ViewPagerProps extends LayoutableProps {
      */
     scrollEnabled?: boolean;
 
+    horizontal?: boolean;
+
     /**
      * iOS only
      * https://developer.apple.com/documentation/uikit/uiscrollview/keyboarddismissmode
@@ -1211,6 +1230,188 @@ declare class ViewPager extends React.Component<ViewPagerProps> {
     setPage: (index: number) => void;
     setPageWithoutAnimation: (index: number) => void;
 }
+
+interface WaterfallViewProps {
+    // Specific number of waterfall column
+    numberOfColumns: number;
+
+    // Number of total items
+    numberOfItems: number;
+
+    // Inner content padding
+    contentInset?: { top?: number; left?: number; bottom?: number; right?: number };
+
+    // Horizontal space between columns
+    columnSpacing: number;
+
+    // Vertical margin between items
+    interItemSpacing: number;
+
+    // Number of items to preload on reaching the listview end
+    preloadItemNumber?: number;
+
+    // Return banner view element
+    renderBanner?(): React.ReactElement;
+
+    // Declare whether PullHeader view exists
+    containPullHeader?: boolean;
+
+    // Declare whether PullFooter view exists
+    containPullFooter?: boolean;
+
+    // Scroll to offset after WaterfallView with data rendered
+    initialContentOffset?: number;
+
+    // Declare whether banner view exists
+    containBannerView?: boolean;
+
+    /**
+     * Passing the data and returns the row component.
+     *
+     * @param {Object} data - Data for row rendering
+     * @returns {(React.Component | undefined)}
+     */
+    renderItem?(data: DataItem): React.ReactElement;
+
+    renderPullHeader?(): React.ReactElement;
+
+    renderPullFooter?(): React.ReactElement;
+
+    /**
+     * Each row have different type, it will be using at render recycle.
+     *
+     * @param {number} index - Index Of data.
+     * @returns {string}
+     */
+    getItemType?(index: number): number;
+
+    /**
+     * Returns the style for specific index of row.
+     *
+     * @param {number} index - Index Of data.
+     * @returns {Object}
+     */
+    getItemStyle?(index: number): Style;
+
+    /**
+     * Specific the key of row, for better data diff
+     * More info: https://reactjs.org/docs/lists-and-keys.html
+     *
+     * @param {number} index - Index Of data.
+     * @returns {string}
+     */
+    getItemKey?(index: number): string;
+
+    style?: Style;
+
+    // Called when the WaterfallView is scrolling to bottom.
+    onEndReached?(): void;
+
+    /**
+     *  Called when the row first layout or layout changed.
+     *
+     * @param {Object} evt - Layout event data
+     * @param {number} evt.nativeEvent.x - The position X of component
+     * @param {number} evt.nativeEvent.y - The position Y of component
+     * @param {number} evt.nativeEvent.width - The width of component
+     * @param {number} evt.nativeEvent.hegiht - The height of component
+     * @param {number} index - Index of data.
+     */
+    onItemLayout?(evt: LayoutEvent, index: number): void;
+
+    /**
+     * Called when user scrolls WaterfallView
+     *
+     * @param {Object} evt - onScroll event
+     * @param {number} evt.startEdgePos - Scrolled offset of List top edge
+     * @param {number} evt.endEdgePos - Scrolled offset of List end edge
+     * @param {number} evt.firstVisibleRowIndex - Index of the first list item at current visible screen
+     * @param {number} evt.lastVisibleRowIndex - Index of the last list item at current visible screen
+     * @param {Object[]} evt.visibleRowFrames - Frame info of current screen visible items
+     * @param {number} evt.visibleRowFrames[].x - Current item's horizontal offset relative to ListView
+     * @param {number} evt.visibleRowFrames[].y - Current item's vertical offset relative to ListView
+     * @param {number} evt.visibleRowFrames[].width - Current item's width
+     * @param {number} evt.visibleRowFrames[].height - Current item's height
+     */
+    onScroll?(evt: {
+        startEdgePos: number;
+        endEdgePos: number;
+        firstVisibleRowIndex: number;
+        lastVisibleRowIndex: number;
+        visibleRowFrames: object;
+    }): void;
+
+    // Called when user pulls the ListView down
+    onHeaderPulling?(): void;
+
+    // Called when user release the pulling WaterfallView
+    onHeaderReleased?(): void;
+
+    // Called when user swipe up WaterfallView to get more data on reaching the footer
+    onFooterPulling?(): void;
+
+    // Called when user release the getting-more-data WaterfallView
+    onFooterReleased?(): void;
+
+    // Called on items exposed
+    onExposureReport?(): void;
+
+    // Called on waterfall ready
+    onInitialListReady?(): void;
+}
+declare class WaterfallView extends React.Component<WaterfallViewProps> {
+    scrollToIndex: (obj: { index: number; animated: boolean }) => void;
+    scrollToContentOffset: (obj: { xOffset: number; yOffset: number; animated: boolean }) => void;
+}
+
+interface LoadEvent {
+    url: string;
+}
+interface WebViewProps {
+    /**
+     * WebView loads url
+     */
+    source: {
+        uri: string;
+    };
+
+    /**
+     * Custom user agent.
+     */
+    userAgent?: string;
+
+    /**
+     * Request method
+     */
+    method?: 'get' | 'post';
+
+    style?: ViewStyleProp;
+
+    /**
+     * Invoke when web page loaded.
+     *
+     * @param {Object} evt - Load event data
+     * @param {string} evt.url - Web page url
+     */
+    onLoad?(evt: LoadEvent): void;
+
+    /**
+     * Invoke when web page start to load.
+     *
+     * @param {Object} evt - Load event data
+     * @param {string} evt.url - Web page url
+     */
+    onLoadStart?(evt: LoadEvent): void;
+
+    /**
+     * Invoke when web page load completed
+     *
+     * @param {Object} evt - Load event data
+     * @param {string} evt.url - Web page url
+     */
+    onLoadEnd(evt: LoadEvent): void;
+}
+declare class WebView extends React.Component<WebViewProps> {}
 
 //
 // Hippy React Event
@@ -1354,6 +1555,21 @@ interface BackAndroid {
 }
 declare const BackAndroid: BackAndroid;
 
+interface Clipboard {
+    getString: () => Promise<string>;
+    setString: (value: string) => void;
+}
+declare const Clipboard: Clipboard;
+
+type logFn = (...value: string[]) => void;
+interface ConsoleModule {
+    log: logFn;
+    info: logFn;
+    warn: logFn;
+    error: logFn;
+}
+declare const ConsoleModule: ConsoleModule;
+
 interface Bridge {
     callNative(moduleName: string, methodName: string, ...args: any[]): void;
     callNativeWithCallbackId(moduleName: string, methodName: string, ...args: any[]): number;
@@ -1402,10 +1618,22 @@ interface NetInfoRevoker {
     listener: NetworkInfoCallback | undefined;
 }
 interface NetInfo {
-    addEventListener(eventName: string, handler: () => void): NetInfoRevoker;
-    fetch(): Promise<NetInfo>;
+    addEventListener(eventName: string, handler: (event: { network_info: string }) => void): NetInfoRevoker;
+    fetch(): Promise<any>;
     removeEventListener(eventName: string, handler: NetInfoRevoker | (() => void)): void;
 }
+export const NetInfo: NetInfo;
+
+interface NetworkModule {
+    getCookies(url: string): Promise<string>;
+    setCookie(url: string, keyValue: string, expires?: string): Promise<void>;
+}
+export const NetworkModule: NetworkModule;
+
+interface PixelRatio {
+    get: () => number;
+}
+export const PixelRatio: PixelRatio;
 
 interface Route {
     routeName: string;
@@ -1495,6 +1723,42 @@ interface UIManagerModule {
     ): Promise<LayoutContent | string>;
 }
 export const UIManagerModule: UIManagerModule;
+
+interface HippyReactConfig {
+    /**
+     * Hippy app name, it's will register to `__GLOBAL__.appRegister` object,
+     * waiting the native load instance event for start the app.
+     */
+    appName: string;
+
+    /**
+     * Entry component of Hippy app.
+     */
+    entryPage: string | React.FunctionComponent<any> | React.ComponentClass<any, any>;
+
+    /**
+     * Disable trace output
+     */
+    silent?: boolean;
+
+    /**
+     * enable global bubbles
+     */
+    bubbles?: boolean;
+
+    /**
+     * The callback after rendering.
+     */
+    callback?: () => void | undefined | null;
+}
+declare class Hippy {
+    constructor(config: HippyReactConfig);
+    config: HippyReactConfig;
+    rootContainer: any;
+    // Keep forward comaptatble.
+    regist(): void;
+    start(): void;
+}
 
 // export = TypedHippyReact;
 // export as namespace TypedHippyReact;
