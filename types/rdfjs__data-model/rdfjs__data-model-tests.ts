@@ -1,5 +1,17 @@
 import factory from "@rdfjs/data-model";
+import Factory from "@rdfjs/data-model/Factory";
 import * as RDF from "@rdfjs/types";
+
+const exports: [
+    'blankNode',
+    'defaultGraph',
+    'fromQuad',
+    'fromTerm',
+    'literal',
+    'namedNode',
+    'quad',
+    'variable'
+] = Factory.exports;
 
 const myQuad = factory.quad(
   factory.namedNode('http://example.org/subject'),
