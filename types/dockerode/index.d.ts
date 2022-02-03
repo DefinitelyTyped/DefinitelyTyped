@@ -1041,6 +1041,12 @@ declare namespace Dockerode {
         abortSignal?: AbortSignal;
     }
 
+    interface ContainerRemoveOptions {
+        v?: boolean | undefined;
+        force?: boolean | undefined;
+        link?: boolean | undefined;
+    }
+
     interface KeyObject {
         pem: string | Buffer;
         passphrase?: string | undefined;
