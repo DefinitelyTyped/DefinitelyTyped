@@ -32,7 +32,7 @@ class CustomPlugin implements Plugin {
     hooks: Plugin.Hooks;
     variableResolvers: Plugin.VariableResolvers;
 
-    constructor(serverless: Serverless, options: Serverless.Options) {
+    constructor(serverless: Serverless, options: Serverless.Options, logging: Plugin.Logging) {
         this.hooks = {
             'command:start': () => {},
         };
