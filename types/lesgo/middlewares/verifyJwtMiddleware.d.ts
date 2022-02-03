@@ -14,7 +14,7 @@ export interface VerifyJwtMiddleware {
 export function token(headers: Record<string, string>): string;
 
 export function verifyJwtMiddlewareBeforeHandler(
-    handler: middy.HandlerLambda<JwtGatewayEvent, any>,
+    handler: middy.HandlerLambda<JwtGatewayEvent>,
     next: middy.NextFunction,
 ): void;
 

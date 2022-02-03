@@ -21,7 +21,7 @@ export interface NormalizeHttpMiddleware {
 export function normalizeRequest(opts?: NormalizeHttpMiddlewareOptions): any;
 
 export function normalizeHttpRequestBeforeHandler(
-    handler: middy.HandlerLambda<HttpGatewayEvent, any>,
+    handler: middy.HandlerLambda<HttpGatewayEvent>,
     next: middy.NextFunction,
 ): void;
 

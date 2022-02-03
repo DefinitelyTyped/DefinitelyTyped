@@ -5,7 +5,7 @@ export interface DynamoDbParams {
 }
 
 export default class DynamoDb {
-    public client: DocumentClient;
+    client: DocumentClient;
 
     constructor(params?: DynamoDbParams);
 

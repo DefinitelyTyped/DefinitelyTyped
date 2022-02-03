@@ -13,7 +13,7 @@ export interface SuccessHttpMiddlewareOptions extends HttpMiddlewareOptions {
 }
 
 export function successHttpResponseAfterHandler(
-    handler: middy.HandlerLambda<HttpGatewayEvent, any>,
+    handler: middy.HandlerLambda<HttpGatewayEvent>,
     next: middy.NextFunction,
     opts?: SuccessHttpMiddlewareOptions,
 ): void;

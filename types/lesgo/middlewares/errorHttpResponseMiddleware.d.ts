@@ -12,7 +12,7 @@ export interface ErrorHttpMiddleware {
 }
 
 export function errorHttpResponseAfterHandler(
-    handler: middy.HandlerLambda<HttpGatewayEvent, any>,
+    handler: middy.HandlerLambda<HttpGatewayEvent>,
     next: middy.NextFunction,
     opts?: ErrorHttpMiddlewareOptions,
 ): void;
