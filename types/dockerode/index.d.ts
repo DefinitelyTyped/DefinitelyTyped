@@ -1594,6 +1594,12 @@ declare namespace Dockerode {
         GID: number;
     }
 
+    interface ListImagesOptions {
+        all?: boolean | undefined;
+        filters?: string | undefined;
+        digests?: boolean | undefined;
+    }
+
     interface ImageRemoveInfo {
         Untagged: string;
         Deleted: string;
@@ -1739,9 +1745,9 @@ declare class Dockerode {
     listContainers(callback: Callback<Dockerode.ContainerInfo[]>): void;
     listContainers(options?: {}): Promise<Dockerode.ContainerInfo[]>;
 
-    listImages(options: {}, callback: Callback<Dockerode.ImageInfo[]>): void;
+    listImages(options: Dockerode.ListImagesOptions, callback: Callback<Dockerode.ImageInfo[]>): void;
     listImages(callback: Callback<Dockerode.ImageInfo[]>): void;
-    listImages(options?: {}): Promise<Dockerode.ImageInfo[]>;
+    listImages(options?: Dockerode.ListImagesOptions): Promise<Dockerode.ImageInfo[]>;
 
     listServices(options: Dockerode.ServiceListOptions, callback: Callback<Dockerode.Service[]>): void;
     listServices(callback: Callback<Dockerode.Service[]>): void;
