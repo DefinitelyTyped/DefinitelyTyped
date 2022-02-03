@@ -168,8 +168,8 @@ import * as url from 'node:url';
     const dataUrl: string = url.URL.createObjectURL(new Blob(['']));
 }
 {
-    const dataUrl1: URL = new url.URL('file://test');
-    const dataUrl2: url.URL = new URL('file://test');
-    const urlSearchParams1: URLSearchParams = new url.URLSearchParams();
-    const urlSearchParams2: url.URLSearchParams = new URLSearchParams();
+    let dataUrl: url.URL = new url.URL('file://test');
+    dataUrl = new URL('file://test');
+    let urlSearchParams: url.URLSearchParams = new url.URLSearchParams('abc=123');
+    urlSearchParams = new URLSearchParams('abc=123');
 }
