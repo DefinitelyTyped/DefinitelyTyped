@@ -1067,7 +1067,7 @@ declare namespace Dockerode {
         Promise?: typeof Promise | undefined;
     }
  
-    interface DockerImageOptions {
+    interface DockerRemoveImageOptions {
         force?: boolean | undefined;
         noprune?: boolean | undefined;
     }
