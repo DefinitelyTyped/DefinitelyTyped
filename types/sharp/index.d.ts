@@ -1,4 +1,4 @@
-// Type definitions for sharp 0.29
+// Type definitions for sharp 0.30
 // Project: https://github.com/lovell/sharp
 // Definitions by: Wooseop Kim <https://github.com/wooseopkim>
 //                 Bradley Odell <https://github.com/BTOdell>
@@ -927,7 +927,7 @@ declare namespace sharp {
         /** Use high quality chroma subsampling (optional, default false) */
         smartSubsample?: boolean | undefined;
         /** Level of CPU effort to reduce file size, integer 0-6 (optional, default 4) */
-        reductionEffort?: number | undefined;
+        effort?: number | undefined;
     }
 
     interface AvifOptions extends OutputOptions {
@@ -949,7 +949,7 @@ declare namespace sharp {
         /** use lossless compression (optional, default false) */
         lossless?: boolean | undefined;
         /** CPU effort vs file size, 0 (slowest/smallest) to 9 (fastest/largest) (optional, default 5) */
-        speed?: number | undefined;
+        effort?: number | undefined;
     }
 
     /**
@@ -1008,6 +1008,8 @@ declare namespace sharp {
         colors?: number | undefined;
         /**  Level of Floyd-Steinberg error diffusion (optional, default 1.0) */
         dither?: number | undefined;
+        /**  CPU effort, between 1 (fastest) and 10 (slowest), sets palette to true (optional, default 7)  */
+        effort?: number | undefined;
     }
 
     interface RotateOptions {

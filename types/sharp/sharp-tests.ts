@@ -305,6 +305,7 @@ sharp(input).png().png({}).png({
     colours: 10,
     colors: 10,
     dither: 10,
+    effort: 6,
 });
 
 sharp(input)
@@ -313,7 +314,7 @@ sharp(input)
     .avif({ quality: 50, lossless: false, speed: 5, chromaSubsampling: '4:2:0' })
     .heif()
     .heif({})
-    .heif({ quality: 50, compression: 'hevc', lossless: false, speed: 5 })
+    .heif({ quality: 50, compression: 'hevc', lossless: false, effort: 5 })
     .toBuffer({ resolveWithObject: true })
     .then(({ data, info }) => {
         console.log(data);
