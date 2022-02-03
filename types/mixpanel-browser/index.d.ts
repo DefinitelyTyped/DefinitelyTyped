@@ -1,4 +1,4 @@
-// Type definitions for mixpanel-browser 2.38
+// Type definitions for mixpanel-browser 2.40
 // Project: https://github.com/mixpanel/mixpanel-js
 // Definitions by: Carlos López <https://github.com/karlos1337>
 //                 Ricardo Rodrigues <https://github.com/RicardoRodrigues>
@@ -47,6 +47,10 @@ export interface InTrackingOptions extends ClearOptOutInOutOptions {
 
 export interface OutTrackingOptions extends ClearOptOutInOutOptions {
     delete_user: boolean;
+}
+
+export interface RegisterOptions {
+    persistent: boolean;
 }
 
 export interface Config {
@@ -159,8 +163,8 @@ export interface Mixpanel {
     opt_in_tracking(options?: Partial<InTrackingOptions>): void;
     opt_out_tracking(options?: Partial<OutTrackingOptions>): void;
     push(item: PushItem): void;
-    register(props: Dict, days?: number): void;
-    register_once(props: Dict, default_value?: any, days?: number): void;
+    register(props: Dict, daysOrOptions?: number | RegisterOptions): void;
+    register_once(props: Dict, default_value?: any, daysOrOptions?: number | RegisterOptions): void;
     remove_group(group_key: string, group_ids: string | string[] | number | number[], callback?: Callback): void;
     reset(): void;
     set_config(config: Partial<Config>): void;
@@ -175,7 +179,7 @@ export interface Mixpanel {
     track_forms(query: Query, event_name: string, properties?: Dict | (() => void)): void;
     track_links(query: Query, event_name: string, properties?: Dict | (() => void)): void;
     track_with_groups(event_name: string, properties: Dict, groups: Dict, callback?: Callback): void;
-    unregister(property: string): void;
+    unregister(property: string, options?: RegisterOptions): void;
     people: People;
 }
 
