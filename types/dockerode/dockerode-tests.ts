@@ -111,6 +111,10 @@ container.remove((err, data) => {
     // NOOP
 });
 
+container.remove({v: true, force: false, link: true}, (err, data) => {
+    // NOOP
+});
+
 const abortController = new AbortController();
 container.wait({
     condition: 'next-exit',
