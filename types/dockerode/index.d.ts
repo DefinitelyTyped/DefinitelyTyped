@@ -86,7 +86,7 @@ declare namespace Dockerode {
         wait(callback: Callback<any>): void;
         wait(options?: ContainerWaitOptions): Promise<any>;
 
-        remove(options: {}, callback: Callback<any>): void;
+        remove(options: ContainerRemoveOptions, callback: Callback<any>): void;
         remove(callback: Callback<any>): void;
         remove(options?: {}): Promise<any>;
 
@@ -146,7 +146,7 @@ declare namespace Dockerode {
         tag(callback: Callback<any>): void;
         tag(options?: {}): Promise<any>;
 
-        remove(options: {}, callback: Callback<ImageRemoveInfo>): void;
+        remove(options: ImageRemoveOptions, callback: Callback<ImageRemoveInfo>): void;
         remove(callback: Callback<ImageRemoveInfo>): void;
         remove(options?: {}): Promise<any>;
     }
@@ -1066,11 +1066,6 @@ declare namespace Dockerode {
         sshAuthAgent?: string | undefined;
         Promise?: typeof Promise | undefined;
     }
- 
-    interface DockerRemoveImageOptions {
-        force?: boolean | undefined;
-        noprune?: boolean | undefined;
-    }
 
     interface GetEventsOptions {
         since?: number | undefined;
@@ -1602,6 +1597,11 @@ declare namespace Dockerode {
     interface ImageRemoveInfo {
         Untagged: string;
         Deleted: string;
+    }
+
+    interface ImageRemoveOptions {
+        force?: boolean | undefined;
+        noprune?: boolean | undefined;
     }
 
     interface PruneImagesInfo {
