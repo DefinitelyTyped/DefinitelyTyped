@@ -9,4 +9,4 @@ declare class DatasetCore<InQuad> {
     constructor(quads: InQuad[]);
 }
 
-export = DatasetCore;
+export default DatasetCore;
