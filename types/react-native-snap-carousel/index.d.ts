@@ -32,7 +32,7 @@ export interface AdditionalParallaxProps {
     vertical?: boolean | undefined;
 }
 
-export interface CarouselProps<T> {
+export interface CarouselProps<T> extends FlatListProps<T> {
     // Required
 
     /**
@@ -43,7 +43,7 @@ export interface CarouselProps<T> {
      * Function that takes an item from the `data` array and returns a React
      * Element. See `react-native`'s `FlatList`
      */
-    renderItem(item: { item: T; index: number }, parallaxProps?: AdditionalParallaxProps): React.ReactNode;
+    renderItem(item: { item: T; index: number }, parallaxProps?: AdditionalParallaxProps): React.ReactElement | null;
     /**
      * Width in pixels of your slides, must be the same for all of them
      * Note: Required with horizontal carousel
@@ -263,7 +263,7 @@ export interface CarouselProps<T> {
     onBeforeSnapToItem?(slideIndex: number): void;
 }
 
-export type CarouselProperties<T> = ScrollViewProps | FlatListProps<T> | CarouselProps<T>;
+export type CarouselProperties<T> = CarouselProps<T>;
 
 export interface ParallaxImageProps extends ImageProps, AdditionalParallaxProps {
     /**
