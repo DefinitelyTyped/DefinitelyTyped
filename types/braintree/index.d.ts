@@ -1,4 +1,4 @@
-// Type definitions for braintree 3.3.0
+// Type definitions for braintree 3.3
 // Project: https://github.com/braintree/braintree_node
 // Definitions by: Sam Rubin <https://github.com/smrubin>
 //                 Aaron Rose <https://github.com/acdr>
