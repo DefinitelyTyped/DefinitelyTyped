@@ -2519,6 +2519,8 @@ const tailwindConfig = resolveConfig(config);
 
 tailwindCss(tailwindConfig);
 
+tailwindCss();
+
 tailwindConfig.theme.height;
 
 // @ts-expect-error `colors` is possibly undefined
