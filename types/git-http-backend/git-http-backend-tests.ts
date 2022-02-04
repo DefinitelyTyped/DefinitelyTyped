@@ -11,7 +11,7 @@ const server = http.createServer((req, res) => {
     const dir = path.join(__dirname, 'repos', repo);
     const s: Duplex = new backend(req.url, (err, service) => {
         if (err) {
-            res.end(err + '\n')
+            res.end(err + '\n');
             return;
         }
         res.setHeader('content-type', service.type);
