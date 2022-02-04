@@ -4,7 +4,7 @@ declare namespace Conflicter {
     /**
      * Provides options for creating a conflicter.
      */
-    interface IConflicterOptions {
+    interface ConflicterOptions {
         /**
          * A value indicating whether conflicts shouldn't be checked.
          */
@@ -61,7 +61,7 @@ declare class Conflicter {
     /**
      * A value indicating whether conflicts shouldn't be checked.
      */
-    public force: boolean;
+    force: boolean;
 
     /**
      * Detects conflicts between the actual file located at the `path` and the `contents` passed to the function.

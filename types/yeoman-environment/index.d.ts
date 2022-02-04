@@ -463,7 +463,7 @@ declare class Environment<TOptions extends Environment.Options = Environment.Opt
      * @param packageName The name of the package to resolve.
      * @param packageVersion The version or the version range of the package to resolve.
      */
-    resolvePackage(packageName: string, packageVersion: string): [packageName: string, version: string];
+    resolvePackage(packageName: string, packageVersion: string): [string, string];
 
     /**
      * Gets the first generator that was queued to run in this environment.
@@ -495,7 +495,7 @@ declare class Environment<TOptions extends Environment.Options = Environment.Opt
      *
      * @param options The conflicter options.
      */
-    start(options: Conflicter.IConflicterOptions): Promise<void>
+    start(options: Conflicter.ConflicterOptions): Promise<void>;
 
     /**
      * Spawns a command asynchronously.
