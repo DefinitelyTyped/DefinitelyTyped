@@ -1,6 +1,6 @@
 import { Handler } from "../handler";
 
-export type DynamoDBStreamHandler = Handler<DynamoDBStreamEvent, void | { state: any }>;
+export type DynamoDBStreamHandler = Handler<DynamoDBStreamEvent, undefined | { state: any }>;
 
 // http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_streams_AttributeValue.html
 export interface AttributeValue {

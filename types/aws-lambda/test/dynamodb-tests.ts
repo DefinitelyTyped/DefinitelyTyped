@@ -95,4 +95,8 @@ const event: DynamoDBStreamEvent = {
             eventSource: 'aws:dynamodb',
         },
     ],
+    isFinalInvokeForWindow: true,
+    isWindowTerminatedEarly: true,
+    state: { some: "state" },
+    window: { start: "2020-03-31T01:09:37Z", end: "2020-03-31T01:07:37Z" }
 };
