@@ -453,6 +453,36 @@ declare namespace Environment {
         cwd?: string | undefined;
 
         /**
+         * A value indicating whether the experimental features should be enabled.
+         */
+        experimental?: boolean;
+
+        /**
+         * The options to pass to generators.
+         */
+        sharedOptions?: Generator.GeneratorOptions;
+
+        /**
+         * A console instance for logging messages.
+         */
+        console?: Console;
+
+        /**
+         * A stream for receiving data from.
+         */
+        stdin?: Stream;
+
+        /**
+         * A stream to write normal messages to.
+         */
+        stdout?: Stream;
+
+        /**
+         * A stream to write error messages to.
+         */
+        stderr?: Stream;
+
+        /**
          * Additional options.
          */
         [key: string]: any;
