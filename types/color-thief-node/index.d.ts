@@ -16,6 +16,12 @@ export function getColor(sourceImage: HTMLImageElement, quality?: number): Promi
  * Use the median cut algorithm provided by quantize.js
  * to cluster similar colors.
  */
+export function getPalette(sourceImage: HTMLImageElement, colorCount?: number, quality?: number): Promise<Palette[]>;
+
+/**
+ * Use the median cut algorithm provided by quantize.js
+ * to cluster similar colors.
+ */
 export function getPaletteFromURL(URL: string, colorCount?: number, quality?: number): Promise<Palette[]>;
 
 /**
