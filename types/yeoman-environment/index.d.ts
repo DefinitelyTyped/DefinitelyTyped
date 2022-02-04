@@ -6,6 +6,8 @@
 // TypeScript Version: 3.3
 
 import { EventEmitter } from "events";
+import { ExecaChildProcess, ExecaSyncReturnValue, Options, SyncOptions } from "execa";
+import { Command } from "commander";
 import { Store as MemFsStore } from "mem-fs";
 import * as inquirer from "inquirer";
 import * as Generator from "yeoman-generator";
@@ -13,6 +15,8 @@ import Storage = require("yeoman-generator/lib/util/storage");
 import TerminalAdapter = require("./lib/adapter");
 import { Logger as LoggerBase } from "./lib/util/log";
 import util = require("./lib/util/util");
+import Conflicter = require("./lib/util/conflicter");
+import { Stream, Transform } from "stream";
 
 /**
  * `Environment` object is responsible of handling the lifecycle and bootstrap
@@ -146,6 +150,23 @@ declare class Environment<TOptions extends Environment.Options = Environment.Opt
     static namespaceToName(namespace: string): string;
 
     /**
+     * Prepares a command for cli support.
+     *
+     * @param generatorClass The generator class to create a command for.
+     * @returns The prepared command.
+     */
+    static prepareCommand(generatorClass: Generator.GeneratorConstructor): Command;
+
+    /**
+     * Prepares a command for cli support.
+     *
+     * @param command The command to prepare.
+     * @param generatorClass The constructor of the generator to prepare the command for.
+     * @returns The prepared command.
+     */
+    static prepareGeneratorCommand(command: Command, generatorClass: Generator.GeneratorConstructor): Command;
+
+    /**
      * Gets the alias for the specified `name`.
      */
     alias(name: string): string;
@@ -173,6 +194,31 @@ declare class Environment<TOptions extends Environment.Options = Environment.Opt
      * // => generator-foo:all
      */
     alias(match: string | RegExp, value: string): void;
+
+    /**
+     * Applies the specified transform streams to the files in the `sharedFs`.
+     *
+     * @param transformStreams The transforms to apply.
+     * @param stream The file stream to apply the transforms on.
+     */
+    applyTransforms(transformStreams: Transform[], stream?: NodeJS.ReadableStream): Promise<void>;
+
+    /**
+     * Commits the `mem-fs` to the disk.
+     *
+     * @param stream The files to commit.
+     */
+    commitSharedFs(stream: Stream): Promise<void>;
+
+    /**
+     * Composes with a generator.
+     *
+     * @param namespaceOrPath The namespace of the generator or the path to a generator.
+     * @param args The options to pass to the generator.
+     * @param options The options to pass to the generator.
+     * @returns The instantiated generator or a singleton instance.
+     */
+    composeWith(namespaceOrPath: string, args: string[], options: Generator.GeneratorOptions): Generator;
 
     /**
      * Creates a new generator.
@@ -312,6 +358,22 @@ declare class Environment<TOptions extends Environment.Options = Environment.Opt
     isPackageRegistered(packageNamespace?: string): boolean;
 
     /**
+     * Applies the specified `options` to the environment.
+     *
+     * @param options The options to load.
+     * @returns The new options of the environment.
+     */
+    loadEnvironmentOptions(options: Environment.Options): Environment.Options;
+
+    /**
+     * Loads the specified `options` into the environment for passing to the generators.
+     *
+     * @param options The options to load.
+     * @return the new shared options of the environment.
+     */
+    loadSharedOptions(options: Generator.GeneratorOptions): Generator.GeneratorOptions;
+
+    /**
      * Searches for generators and their sub-generators.
      *
      * A generator is a `:lookup/:name/index.js` file placed inside an npm package.
@@ -349,6 +411,25 @@ declare class Environment<TOptions extends Environment.Options = Environment.Opt
     namespaces(): string[];
 
     /**
+     * Queue's the environment's commit task.
+     */
+    queueConflicter(): void;
+
+    /**
+     * Queues the specified `generator`.
+     *
+     * @param generator The generator to queue.
+     * @param schedule A value indicating whether the execution of the generator should be scheduled.
+     * @returns The queued generator.
+     */
+    queueGenerator(generator: Generator, schedule?: boolean): Generator;
+
+    /**
+     * Queues the package manager installation task.
+     */
+    queuePackageManagerInstall(): void;
+
+    /**
      * Registers a specific `generator` to this environment.
      * This generator is stored under the provided `namespace` or, if not specified, a default namespace format.
      *
@@ -377,6 +458,14 @@ declare class Environment<TOptions extends Environment.Options = Environment.Opt
     resolveModulePath(moduleId: string): string;
 
     /**
+     * Resolves a package name with a specific version.
+     *
+     * @param packageName The name of the package to resolve.
+     * @param packageVersion The version or the version range of the package to resolve.
+     */
+    resolvePackage(packageName: string, packageVersion: string): [packageName: string, version: string];
+
+    /**
      * Gets the first generator that was queued to run in this environment.
      */
     rootGenerator(): Generator;
@@ -400,6 +489,31 @@ declare class Environment<TOptions extends Environment.Options = Environment.Opt
      * @param generator The generator to run.
      */
     runGenerator(generator: Generator): Promise<void>;
+
+    /**
+     * Starts the environment queue.
+     *
+     * @param options The conflicter options.
+     */
+    start(options: Conflicter.IConflicterOptions): Promise<void>
+
+    /**
+     * Spawns a command asynchronously.
+     *
+     * @param command The command to execute.
+     * @param args The arguments to pass to the program.
+     * @param options The options to use for running the command.
+     */
+    spawnCommand(command: string, args: string[], options: Options): ExecaChildProcess;
+
+    /**
+     * Spawns a command synchronously.
+     *
+     * @param command The command to execute.
+     * @param args The arguments to pass to the program.
+     * @param options The options to use for running the command.
+     */
+    spawnCommandSync(command: string, args: string[], options: SyncOptions): ExecaSyncReturnValue;
 }
 
 declare namespace Environment {
