@@ -497,7 +497,7 @@ Siccome la cartella principale deve sempre contenere le dichiarazioni dei tipi p
 
 Ad esempio, la libreria [`history`](https://github.com/ReactTraining/history/) ha avuto delle modifiche sostanziali passando dalla versione `2.x` alla `3.x`.
 Siccome molti utenti sono rimasti alla `2.x`, un mantenitore che voleva fare ulteriori aggiornamenti alle dichiarazioni dei tipi di questa vecchia versione ha aggiunto una sottocartella `v2` nella repo delle dichiarazioni dei tipi di questa libreria.
-Nel momento in cui questo README è stato scritto, il [`tsconfig.json` della history v2](https://github.com/%44efinitelyTyped/DefinitelyTyped/blob/1253faabf5e0d2c5470db6ea87795d7f96fef7e2/types/history/v2/tsconfig.json) è così:
+Nel momento in cui questo README è stato scritto, il [`tsconfig.json` della history v2](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/1253faabf5e0d2c5470db6ea87795d7f96fef7e2/types/history/v2/tsconfig.json) è così:
 
 ```json
 {

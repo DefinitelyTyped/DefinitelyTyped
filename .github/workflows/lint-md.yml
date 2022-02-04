@@ -2,11 +2,27 @@ name: Check Markdown links
 on:
   pull_request:
     paths:
-      - '**.md'
+      - "**.md"
+      - .github/workflows/lint-md.yml
+      - package.json
+  push:
+    paths:
+      - "**.md"
+      - .github/workflows/lint-md.yml
+      - package.json
 jobs:
   lint-md:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        #with:
+        #  cache: npm
       - run: npm install
-      - run: npx remark --use validate-links --frail . .github
+      - name: Cherry pick https://github.com/remarkjs/remark-validate-links/pull/65
+        run: |
+          curl https://patch-diff.githubusercontent.com/raw/remarkjs/remark-validate-links/pull/65.patch |
+          git apply \
+            --directory node_modules/remark-validate-links \
+            --exclude 'node_modules/remark-validate-links/test/*' \
+      - run: npm exec -- remark --use 'validate-links=repository:"https://github.com/DefinitelyTyped/DefinitelyTyped.git#master"' --frail . .github
