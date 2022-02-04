@@ -8,10 +8,11 @@
 
 /// <reference types="jquery" />
 
-import CoreView from "@ember/component/-private/core-view";
-import ClassNamesSupport from "@ember/component/-private/class-names-support";
-import ViewMixin from "@ember/component/-private/view-mixin";
+import CoreView from '@ember/component/-private/core-view';
+import ClassNamesSupport from '@ember/component/-private/class-names-support';
+import ViewMixin from '@ember/component/-private/view-mixin';
 import { ComponentManager, Capabilities } from './-private/glimmer-interfaces';
+import { Opaque } from 'ember/-private/type-utils';
 
 // Re-export these types so people can use them!
 export { ComponentManager, Capabilities };
@@ -20,10 +21,7 @@ interface TemplateFactory {
     __htmlbars_inline_precompile_template_factory: any;
 }
 
-export default class Component extends CoreView.extend(
-    ViewMixin,
-    ClassNamesSupport
-) {
+export default class Component extends CoreView.extend(ViewMixin, ClassNamesSupport) {
     // methods
     readDOMAttr(name: string): string;
     // properties
@@ -106,10 +104,28 @@ export default class Component extends CoreView.extend(
  * @param object the object to associate with the componetn manager
  * @return the same object passed in, now associated with the manager
  */
-export function setComponentManager<T>(
-    managerFactory: (owner: unknown) => ComponentManager<unknown>,
-    object: T
-): T;
+export function setComponentManager<T>(managerFactory: (owner: unknown) => ComponentManager<unknown>, object: T): T;
+
+// In normal TypeScript, these built-in components are essentially opaque tokens
+// that just need to be importable. Declaring them with unique interfaces
+// like this, however, gives tools like Glint (that DO have a richer
+// notion of what they are) a place to install more detailed type information.
+export interface Input extends Opaque<'component:input'> {}
+export interface Textarea extends Opaque<'component:textarea'> {}
+
+/**
+ * The `Input` component lets you create an HTML `<input>` element.
+ *
+ * @see https://api.emberjs.com/ember/4.1/classes/Ember.Templates.components/methods/Input?anchor=Input
+ */
+export const Input: Input;
+
+/**
+ * The `Textarea` component inserts a new instance of `<textarea>` tag into the template.
+ *
+ * @see https://api.emberjs.com/ember/4.1/classes/Ember.Templates.components/methods/Textarea?anchor=Textarea
+ */
+export const Textarea: Textarea;
 
 // Do not export anything but what we *explicitly* say to export.
 export {};
