@@ -178,12 +178,12 @@ declare class Environment<TOptions extends Environment.Options = Environment.Opt
      * Creates a new generator.
      *
      * @param namespaceOrPath The namespace of the generator or the path to a generator.
+     * @param args The arguments to pass to the generator.
      * @param options The options to pass to the generator.
-     *
      * @returns Either the newly created generator or the error that occurred.
      */
     create<TOptions extends Generator.GeneratorOptions>(
-        namespaceOrPath: string, options?: Environment.InstantiateOptions<TOptions>): Generator<TOptions> | Error;
+        namespaceOrPath: string, args: string[], options?: Environment.InstantiateOptions<TOptions>): Generator<TOptions> | Error;
 
     /**
      * Handles the specified `error`.
@@ -192,9 +192,8 @@ declare class Environment<TOptions extends Environment.Options = Environment.Opt
      * If no `error` listener is registered, the error is thrown.
      *
      * @param error An object representing the error.
-     * @param verifyListener A value indicating whether an error should be thrown if no `error` listener is present.
      */
-    error(error: Error | object, verifyListener?: boolean): Error;
+    error(error: Error | object): Error;
 
     /**
      * Searches npm for every available generator.
@@ -294,11 +293,13 @@ declare class Environment<TOptions extends Environment.Options = Environment.Opt
     /**
      * Instantiates a generator.
      *
-     * @param name The constructor of the generator.
+     * @param generator The constructor of the generator.
+     * @param args The arguments to pass to the generator.
      * @param options The options to pass to the generator.
      */
     instantiate(
-        name: Generator.GeneratorConstructor,
+        generator: Generator.GeneratorConstructor,
+        args: string[],
         options: Environment.InstantiateOptions
     ): Generator;
 
@@ -323,10 +324,9 @@ declare class Environment<TOptions extends Environment.Options = Environment.Opt
      * So the index file `node_modules/generator-dummy/lib/generators/yo/index.js` would be registered as `dummy:yo` generator.
      *
      * @param options The options for the lookup.
-     * @param cb A callback that is called once the lookup has been finished.
      * @returns A list of generators.
      */
-    lookup(options?: Environment.LookupOptions, cb?: (err: null | Error) => void): Environment.LookupGeneratorMeta[];
+    lookup(options?: Environment.LookupOptions): Environment.LookupGeneratorMeta[];
 
     /**
      * Searches and registers generators inside the custom local repository.
@@ -387,36 +387,10 @@ declare class Environment<TOptions extends Environment.Options = Environment.Opt
      *
      * When the environment was unable to resolve a generator, an error is raised.
      *
-     * @param done The callback.
-     */
-    run(done: Environment.Callback): void;
-
-    /**
-     * Tries to locate and run a specific generator.
-     * The lookup is done depending on the provided arguments, options and the list of registered generators.
-     *
-     * When the environment was unable to resolve a generator, an error is raised.
-     *
      * @param args The arguments to pass to the generator.
-     * @param done The callback.
+     * @param options The options to pass to the generator.
      */
-    run(args: string | string[], done: Environment.Callback): void;
-
-    /**
-     * Tries to locate and run a specific generator.
-     * The lookup is done depending on the provided arguments, options and the list of registered generators.
-     *
-     * When the environment was unable to resolve a generator, an error is raised.
-     *
-     * @param args The arguments to pass to the generator.
-     * @param options The options for creating the generator.
-     * @param done The callback.
-     */
-    run(
-        args: string | string[],
-        options: object,
-        done: Environment.Callback
-    ): void;
+    run(args: string | [string, ...string[]], options?: Generator.GeneratorOptions): Promise<void>;
 
     /**
      * Runs the specified generator.
@@ -424,9 +398,8 @@ declare class Environment<TOptions extends Environment.Options = Environment.Opt
      * See [#101](https://github.com/yeoman/environment/pull/101) for more info.
      *
      * @param generator The generator to run.
-     * @param callback The callback.
      */
-    runGenerator(generator: Generator, callback?: Environment.Callback): Promise<void>;
+    runGenerator(generator: Generator): Promise<void>;
 }
 
 declare namespace Environment {
