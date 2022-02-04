@@ -1513,10 +1513,12 @@ declare namespace Tabulator {
 
     type CustomMutatorParams = {} | ((value: any, data: any, type: 'data' | 'edit', cell?: CellComponent) => any);
 
+    type CustomAccessorType = 'data' | 'download' | 'clipboard';
+
     type CustomAccessor = (
         value: any,
         data: any,
-        type: 'data' | 'download' | 'clipboard',
+        type: CustomAccessorType,
         AccessorParams: any,
         column?: ColumnComponent,
         row?: RowComponent,
@@ -1527,7 +1529,7 @@ declare namespace Tabulator {
         | ((
             value: any,
             data: any,
-            type: 'data' | 'download' | 'clipboard',
+            type: CustomAccessorType,
             column?: ColumnComponent,
             row?: RowComponent,
         ) => any);
@@ -1846,7 +1848,7 @@ declare namespace Tabulator {
     // Components-------------------------------------------------------------------
     interface CalculationComponent {
         /** The getData function returns the data object for the row. */
-        getData: () => any;
+        getData: (transform?: CustomAccessorType) => any;
 
         /** The getElement function returns the DOM node for the row. */
         getElement: () => HTMLElement;

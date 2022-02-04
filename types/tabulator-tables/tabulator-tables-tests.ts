@@ -915,6 +915,7 @@ row.isTreeExpanded();
 
 let calcComponent = {} as Tabulator.CalculationComponent;
 calcComponent.getData();
+calcComponent.getData('data');
 calcComponent.getElement();
 calcComponent.getTable();
 calcComponent.getCells();
