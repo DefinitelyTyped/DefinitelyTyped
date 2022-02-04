@@ -57,3 +57,9 @@ if (result instanceof Generator) {
     // $ExpectType Error
     result;
 }
+
+(async () => {
+    await env.run("my-generator", {});
+    await env.runGenerator(null as any as Generator);
+    await env.start({});
+});
