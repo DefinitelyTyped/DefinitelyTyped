@@ -1,7 +1,8 @@
-// Type definitions for pica 5.1
+// Type definitions for pica 9.0
 // Project: https://github.com/nodeca/pica
 // Definitions by: Hamit YILMAZ <https://github.com/hmtylmz>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
+//                 sapphi-red <https://github.com/sapphi-red>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace pica {
@@ -11,21 +12,27 @@ declare namespace pica {
         tile?: number | undefined;
         // list of features to use.
         // Default is [ 'js', 'wasm', 'ww' ]. Can be [ 'js', 'wasm', 'cib', 'ww' ] or [ 'all' ].
-        // Note, resize via createImageBitmap() ('cib') disabled by default due problems with quality.
+        // Note, `cib` is buggy in Chrome and not supports default `mks2013` filter.
         features?: string[] | undefined;
         // cache timeout, ms. Webworkers create is not fast.
         // This option allow reuse webworkers effectively. Default 2000.
         idle?: number | undefined;
         // max webworkers pool size. Default is autodetected CPU count, but not more than 4.
         concurrency?: number | undefined;
+        // function which returns a new canvas, used internally by pica.
+        // Default returns a <canvas> element but this function could return an OffscreenCanvas
+        // instead (to run pica in a Service Worker).
+        createCanvas?(width: number, height: number): HTMLCanvasElement;
     }
 
     interface PicaResizeOptions {
-        // 0..3. Default = 3 (lanczos, win=3).
+        // 0..3. deprecated, use `.filter` instead.
         quality?: number | undefined;
-        // use alpha channel. Default = false.
-        alpha?: boolean | undefined;
-        // >=0, in percents. Default = 0 (off). Usually between 50 to 100 is good.
+        // filter name. 'box' or 'hamming' or 'lanczos2' or 'lanczos3' or 'mks2013'. Default = 'mks2013'.
+        // `mks2013` does both resize and sharpening, it's optimal and not recommended to change.
+        filter?: string | undefined;
+        // >=0, in percents. Default = 0 (off). Usually between 100 to 200 is good.
+        // Note, `mks2013` filter already does optimal sharpening.
         unsharpAmount?: number | undefined;
         //  0.5..2.0. By default it's not set. Radius of Gaussian blur.
         // If it is less than 0.5, Unsharp Mask is off. Big values are clamped to 2.0.
@@ -47,11 +54,13 @@ declare namespace pica {
         toWidth: number;
         // output height, >=0, in pixels.
         toHeigh: number;
-        // 0..3. Default = 3 (lanczos, win=3).
+        // 0..3. deprecated, use `.filter` instead.
         quality?: number | undefined;
-        // use alpha channel. Default = false.
-        alpha?: boolean | undefined;
-        // >=0, in percents. Default = 0 (off). Usually between 50 to 100 is good.
+        // filter name. Default = 'mks2013'.
+        // `mks2013` does both resize and sharpening, it's optimal and not recommended to change.
+        filter?: string | undefined;
+        // >=0, in percents. Default = 0 (off). Usually between 100 to 200 is good.
+        // Note, `mks2013` filter already does optimal sharpening.
         unsharpAmount?: number | undefined;
         // 0.5..2.0. Radius of Gaussian blur.
         // If it is less than 0.5, Unsharp Mask is off. Big values are clamped to 2.0.
@@ -71,7 +80,7 @@ declare namespace pica {
          * Pica already knows how to use multiple cores (if browser allows).
          */
         resize(
-            from: HTMLCanvasElement | HTMLImageElement | File | Blob,
+            from: HTMLCanvasElement | HTMLImageElement | ImageBitmap | File | Blob,
             to: HTMLCanvasElement,
             options?: PicaResizeOptions,
         ): Promise<HTMLCanvasElement>;
