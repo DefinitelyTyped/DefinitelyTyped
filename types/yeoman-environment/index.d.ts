@@ -88,6 +88,7 @@ declare class Environment<TOptions extends Environment.Options = Environment.Opt
      * @param args The arguments to pass to the environment.
      * @param opts The options for the environment.
      * @param adapter A `TerminalAdapter` instance for handling input/output.
+     * @returns The newly created environment.
      */
     static createEnv<TOptions extends Environment.Options = Environment.Options>(
         args?: string | string[],
@@ -102,6 +103,7 @@ declare class Environment<TOptions extends Environment.Options = Environment.Opt
      * @param args The arguments to pass to the environment.
      * @param opts The options for the environment.
      * @param adapter A `TerminalAdapter` instance for handling input/output.
+     * @returns The newly created environment.
      */
     static createEnvWithVersion<TOptions extends Environment.Options>(
         version: string,
