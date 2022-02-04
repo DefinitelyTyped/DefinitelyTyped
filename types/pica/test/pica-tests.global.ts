@@ -6,7 +6,7 @@ const picaOptions: pica.PicaOptions = {
         canvas.width = width;
         canvas.height = height;
         return canvas;
-    }
+    },
 };
 const resizerWithOptions: pica.Pica = pica(picaOptions);
 
