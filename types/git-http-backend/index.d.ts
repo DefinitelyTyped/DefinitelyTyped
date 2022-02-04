@@ -38,4 +38,4 @@ declare class Backend extends Duplex {
     service: string | string[];
     info: boolean;
 }
-export default Backend;
+export = Backend;
