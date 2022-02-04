@@ -1,6 +1,6 @@
 import { Handler } from "../handler";
 
-export type DynamoDBStreamHandler = Handler<DynamoDBStreamEvent, void>;
+export type DynamoDBStreamHandler = Handler<DynamoDBStreamEvent, void | { state: any }>;
 
 // http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_streams_AttributeValue.html
 export interface AttributeValue {
@@ -42,4 +42,8 @@ export interface DynamoDBRecord {
 // http://docs.aws.amazon.com/lambda/latest/dg/eventsources.html#eventsources-ddb-update
 export interface DynamoDBStreamEvent {
     Records: DynamoDBRecord[];
+    window?: { start: string, end: string };
+    state?: any;
+    isFinalInvokeForWindow?: boolean;
+    isWindowTerminatedEarly?: boolean;
 }
