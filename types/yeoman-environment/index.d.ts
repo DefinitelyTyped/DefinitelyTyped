@@ -123,8 +123,18 @@ declare class Environment<TOptions extends Environment.Options = Environment.Opt
      *
      * @param namespace The namespace of the generator to search.
      * @param options Options for searching the generator.
+     * @returns The paths to the generators which were found.
      */
-    static lookupGenerator(namespace: string, options?: Environment.GeneratorLookupOptions): string;
+    static lookupGenerator(namespace: string, options?: Environment.ArrayGeneratorLookupOptions): string[];
+
+    /**
+     * Invokes a lookup for a specific generator.
+     *
+     * @param namespace The namespace of the generator to search.
+     * @param options Options for searching the generator.
+     * @returns The path to the generator which was found.
+     */
+    static lookupGenerator(namespace: string, options?: Environment.SingleGeneratorLookupOptions): string;
 
     /**
      * Converts a generator namespace to its name.
@@ -541,6 +551,26 @@ declare namespace Environment {
          * A value indicating whether only one result should be returned.
          */
         singleResult?: boolean | undefined;
+    }
+
+    /**
+     * Provides options for single generator lookups.
+     */
+    interface SingleGeneratorLookupOptions extends GeneratorLookupOptions {
+        /**
+         * @inheritdoc
+         */
+        singleResult: true;
+    }
+
+    /**
+     * Provides options array generator lookups.
+     */
+    interface ArrayGeneratorLookupOptions extends GeneratorLookupOptions {
+        /**
+         * @inheritdoc
+         */
+        singleResult?: false | undefined;
     }
 
     /**
