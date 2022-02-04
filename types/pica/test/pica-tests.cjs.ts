@@ -32,6 +32,10 @@ imageBitmapPromise.then(imageBitmap => {
 
 // Resize image with options
 const resizeOptions: pica.PicaResizeOptions = {
+    quality: 1,
+};
+const resizeOptionsError: pica.PicaResizeOptions = {
+    // $ExpectError
     quality: 9,
 };
 resizer.resize(image, canvas, resizeOptions);

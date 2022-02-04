@@ -13,7 +13,7 @@ declare namespace pica {
         // list of features to use.
         // Default is [ 'js', 'wasm', 'ww' ]. Can be [ 'js', 'wasm', 'cib', 'ww' ] or [ 'all' ].
         // Note, `cib` is buggy in Chrome and not supports default `mks2013` filter.
-        features?: string[] | undefined;
+        features?: Array<'js' | 'wasm' | 'cib' | 'ww'> | ['all'] | undefined;
         // cache timeout, ms. Webworkers create is not fast.
         // This option allow reuse webworkers effectively. Default 2000.
         idle?: number | undefined;
@@ -27,10 +27,10 @@ declare namespace pica {
 
     interface PicaResizeOptions {
         // 0..3. deprecated, use `.filter` instead.
-        quality?: number | undefined;
+        quality?: 0 | 1 | 2 | 3 | undefined;
         // filter name. 'box' or 'hamming' or 'lanczos2' or 'lanczos3' or 'mks2013'. Default = 'mks2013'.
         // `mks2013` does both resize and sharpening, it's optimal and not recommended to change.
-        filter?: string | undefined;
+        filter?: 'box' | 'hamming' | 'lanczos2' | 'lanczos3' | 'mks2013' | undefined;
         // >=0, in percents. Default = 0 (off). Usually between 100 to 200 is good.
         // Note, `mks2013` filter already does optimal sharpening.
         unsharpAmount?: number | undefined;
@@ -55,10 +55,10 @@ declare namespace pica {
         // output height, >=0, in pixels.
         toHeigh: number;
         // 0..3. deprecated, use `.filter` instead.
-        quality?: number | undefined;
-        // filter name. Default = 'mks2013'.
+        quality?: 0 | 1 | 2 | 3 | undefined;
+        // filter name. 'box' or 'hamming' or 'lanczos2' or 'lanczos3' or 'mks2013'. Default = 'mks2013'.
         // `mks2013` does both resize and sharpening, it's optimal and not recommended to change.
-        filter?: string | undefined;
+        filter?: 'box' | 'hamming' | 'lanczos2' | 'lanczos3' | 'mks2013' | undefined;
         // >=0, in percents. Default = 0 (off). Usually between 100 to 200 is good.
         // Note, `mks2013` filter already does optimal sharpening.
         unsharpAmount?: number | undefined;
