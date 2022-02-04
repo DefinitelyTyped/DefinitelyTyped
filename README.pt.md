@@ -475,7 +475,7 @@ Porque o diretório-raíz deve sempre conter as declarações de tipo para as ú
 
 Por exemplo, a biblioteca [`history`](https://github.com/ReactTraining/history/) introduziu mudanças drásticas entre a versão `2.x` e `3.x`.
 Mas porque muitos usuários ainda consumiam a antiga versão `2.x`, o mantenedor que queria atualizar as declarações de tipo dessa biblioteca para a versão `3.x` adidionou uma pasta `v2` dentro do repositório "history" que contém declarações de tipo para a versão anterior.
-No tempo de escrita, a [history v2 `tsconfig.json`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/1253faabf5e0d2c5470db6ea87795d7f96fef7e2/types/history/v2/tsconfig.json) está assim:
+No tempo de escrita, a [history v2 `tsconfig.json`](https://github.com/%44efinitelyTyped/DefinitelyTyped/blob/1253faabf5e0d2c5470db6ea87795d7f96fef7e2/types/history/v2/tsconfig.json) está assim:
 
 ```json
 {
