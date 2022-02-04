@@ -133,6 +133,10 @@ docker.listContainers().then(containers => {
     return containers.map(container => docker.getContainer(container.Id));
 });
 
+docker.listImages({ all: true, filters: '{"dangling":["true"]}', digests: true}).then(images => {
+    return images.map(image => docker.getImage(image.Id));
+});
+
 docker.buildImage('archive.tar', { t: 'imageName' }, (err, response) => {
     // NOOP
 });
@@ -219,6 +223,11 @@ docker.createService({
         }]
     }
 }, (err, response) => { /* NOOP */ });
+
+const image = docker.getImage('imageName');
+image.remove({force: true, noprune: false}, (err, response) => {
+    // NOOP;
+});
 
 const plugin = docker.getPlugin('pluginName', 'remoteName');
 plugin.configure((err, response) => {
