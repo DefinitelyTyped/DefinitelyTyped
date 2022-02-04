@@ -14,5 +14,5 @@ $('#timepicker').timepicker({
 // with timeFormat function
 $('#timepicker').timepicker({
     timeFormat: (date: Date) =>
-        date.getHours().toString() + ":" + date.getMinutes().toString(),
+        `${date.getHours()}:${date.getMinutes()}`,
 });
