@@ -83,7 +83,7 @@ declare class Environment<TOptions extends Environment.Options = Environment.Opt
     constructor(args?: string | string[], opts?: TOptions, adapter?: Environment.Adapter);
 
     /**
-     * Createas a new `Environment` instance.
+     * Creates a new `Environment` instance.
      *
      * @param args The arguments to pass to the environment.
      * @param opts The options for the environment.
