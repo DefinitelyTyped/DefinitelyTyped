@@ -1,4 +1,4 @@
-// Type definitions for docusign-esign 5.5
+// Type definitions for docusign-esign 5.6
 // Project: https://github.com/docusign/docusign-node-client#readme
 // Definitions by: Edwin Quimbo <https://github.com/equimbo/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -19459,7 +19459,15 @@ export interface Envelope {
     /**
      * The status of the item.
      */
-    status?: string | undefined;
+    status?:
+        | 'completed'
+        | 'created'
+        | 'declined'
+        | 'delivered'
+        | 'sent'
+        | 'voided'
+        | 'signed'
+        | undefined;
     /**
      * The data and time that the status changed.
      */
