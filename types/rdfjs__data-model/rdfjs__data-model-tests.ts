@@ -13,6 +13,10 @@ const exports: [
     'variable'
 ] = Factory.exports;
 
+const fromCtor = new Factory();
+const asFactory: RDF.DataFactory = fromCtor;
+fromCtor.init();
+
 const myQuad = factory.quad(
   factory.namedNode('http://example.org/subject'),
   factory.namedNode('http://example.org/predicate'),

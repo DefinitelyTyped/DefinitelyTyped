@@ -7,7 +7,7 @@ interface DataFactory extends Required<RDF.DataFactory<RDF.BaseQuad>> {
     fromQuad<T extends RDF.BaseQuad = RDF.Quad>(value: T): T;
 }
 
-declare class DataFactory implements Required<RDF.DataFactory<RDF.BaseQuad>> {
+declare class DataFactory {
     static readonly exports: [
         'blankNode',
         'defaultGraph',
