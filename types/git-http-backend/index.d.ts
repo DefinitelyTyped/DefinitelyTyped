@@ -1,4 +1,10 @@
+// Type definitions for git-http-backend 1.0.2
+// Project: https://github.com/substack/git-http-backend
+// Definitions by: Tiago Dinis <https://gitlab.com/tiagodinis33/>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
 /// <reference types='node' />
+
 import { Duplex, Writable } from "stream";
 interface Fields {
     head: string;
