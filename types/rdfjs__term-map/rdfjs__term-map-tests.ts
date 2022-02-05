@@ -19,6 +19,8 @@ const specificKeyMap: Map<NamedNode, string> = new TermMap<NamedNode, string>([
 ]);
 
 const exports: ['termMap'] = Factory.exports;
-const fromFactory: Map<NamedNode, number> = new Factory().termMap([
+const factory = new Factory();
+let fromFactory: Map<NamedNode, number> = factory.termMap();
+fromFactory = factory.termMap([
     [named, 5]
 ]);
