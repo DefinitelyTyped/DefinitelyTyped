@@ -2519,6 +2519,8 @@ const tailwindConfig = resolveConfig(config);
 
 tailwindCss(tailwindConfig);
 
+tailwindCss();
+
 tailwindConfig.theme.height;
 
 // @ts-expect-error `colors` is possibly undefined
@@ -2576,7 +2578,7 @@ defaultTheme.darkMode;
 // @ts-expect-error `colors` is possibly undefined
 defaultTheme.colors.blue[800];
 
-// $ExpectType TailwindPlugin[] | undefined
+// $ExpectType TailwindPlugin<any>[] | undefined
 tailwindConfig.plugins;
 
 // $ExpectType any[] | undefined
