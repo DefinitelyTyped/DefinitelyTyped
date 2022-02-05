@@ -1,4 +1,4 @@
-import { doc, raw } from "serverless-dynamodb-client";
+import { doc, raw } from 'serverless-dynamodb-client';
 
-doc; // $ExpectType AWS.DynamoDB.DocumentClient
-raw; // $ExpectType AWS.DynamoDB
+doc; // $ExpectType DocumentClient
+raw; // $ExpectType DynamoDB

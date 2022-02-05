@@ -6,11 +6,11 @@
     "noImplicitThis": true,
     "strictNullChecks": true,
     "strictFunctionTypes": true,
-    "baseUrl": "../",
-    "typeRoots": ["../"],
+    "baseUrl": "./",
+    "typeRoots": ["./"],
     "types": [],
     "noEmit": true,
     "forceConsistentCasingInFileNames": true
   },
-  "files": ["index.d.ts", "test/serverless-dynamodb-client-test.ts"]
+  "files": ["index.d.ts", "serverless-dynamodb-client.d.ts", "test/serverless-dynamodb-client-test.ts"]
 }

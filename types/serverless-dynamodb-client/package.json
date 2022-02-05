@@ -18,8 +18,10 @@
     "url": "https://github.com/cody-pope/-types-serverless-dynamodb-client.git"
   },
   "scripts": {},
-  "dependencies": {},
   "peerDependencies": {
     "aws-sdk": "^2.3.19"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.15"
   }
 }
