@@ -871,7 +871,7 @@ declare module 'url' {
          */
         var URL:
             // For compatibility with "dom" and "webworker" URL declarations
-            typeof globalThis extends ({ webkitURL: infer URL } | { TransformStreamDefaultController: infer TSDC, URL: infer URL })
+            typeof globalThis extends { onmessage: infer O, URL: infer URL }
                 ? URL
                 : typeof _URL;
         /**
