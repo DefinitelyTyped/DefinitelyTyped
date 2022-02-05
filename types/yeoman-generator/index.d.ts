@@ -180,7 +180,7 @@ declare namespace Generator {
         /**
          * The type of the option.
          */
-        type: typeof Boolean | typeof String | typeof Number;
+        type: typeof Boolean | typeof String | typeof Number | ((opt: string) => any);
 
         /**
          * The option name alias (example `-h` and --help`).
