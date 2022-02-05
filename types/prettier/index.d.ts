@@ -242,6 +242,7 @@ export interface Printer<T = any> {
     massageAstNode?: ((node: any, newNode: any, parent: any) => any) | undefined;
     hasPrettierIgnore?: ((path: AstPath<T>) => boolean) | undefined;
     canAttachComment?: ((node: T) => boolean) | undefined;
+    isBlockComment?: ((node: T) => boolean) | undefined;
     willPrintOwnComments?: ((path: AstPath<T>) => boolean) | undefined;
     printComment?: ((commentPath: AstPath<T>, options: ParserOptions<T>) => Doc) | undefined;
     handleComments?:
