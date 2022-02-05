@@ -33,7 +33,7 @@ declare class Service {
 }
 
 declare class Backend extends Duplex {
-    constructor(uri: string, cb: (err: any, service: Service) => void);
+    constructor(uri: string, cb?: (err: any, service: Service) => void);
     parsed: boolean;
     service: string | string[];
     info: boolean;
