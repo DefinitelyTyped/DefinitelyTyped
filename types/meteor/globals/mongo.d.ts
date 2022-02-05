@@ -334,8 +334,8 @@ declare namespace Mongo {
         movedTo?(document: T, fromIndex: number, toIndex: number, before: T | null): void;
     }
     interface ObserveChangesCallbacks<T> {
-        added?(id: string, fields: Partial<T>): void;
-        addedBefore?(id: string, fields: Partial<T>, before: T | null): void;
+        added?(id: string, fields: Omit<T, '_id'>): void;
+        addedBefore?(id: string, fields: Omit<T, '_id'>, before: T | null): void;
         changed?(id: string, fields: Partial<T>): void;
         movedBefore?(id: string, before: T | null): void;
         removed?(id: string): void;

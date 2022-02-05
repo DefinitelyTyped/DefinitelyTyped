@@ -422,12 +422,13 @@ namespace MeteorTests {
      * From Collections, cursor.observeChanges section
      */
     // DA: I added this line to make it work
-    var Users = new Mongo.Collection('users');
+    var Users = new Mongo.Collection<{ _id: string, name: string }>('users');
 
     var count1 = 0;
     var query = Users.find({ admin: true, onlineNow: true });
     var handle = query.observeChanges({
-        added: function (id: string, user: { name: string }) {
+        added: function (id: string, user) {
+            user._id; // $ExpectError
             count1++;
             console.log(user.name + ' brings the total to ' + count1 + ' admins.');
         },
