@@ -2576,7 +2576,7 @@ defaultTheme.darkMode;
 // @ts-expect-error `colors` is possibly undefined
 defaultTheme.colors.blue[800];
 
-// $ExpectType TailwindPlugin[] | undefined
+// $ExpectType TailwindPlugin<any>[] | undefined
 tailwindConfig.plugins;
 
 // $ExpectType any[] | undefined
