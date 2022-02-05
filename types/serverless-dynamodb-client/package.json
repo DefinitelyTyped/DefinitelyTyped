@@ -1,6 +1,6 @@
 {
   "private": true,
-  "peerDependencies": {
+  "dependencies": {
     "aws-sdk": "^2.3.19"
   }
 }
