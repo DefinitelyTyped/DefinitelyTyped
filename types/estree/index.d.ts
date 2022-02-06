@@ -86,7 +86,7 @@ export type Function =
     FunctionDeclaration | FunctionExpression | ArrowFunctionExpression;
 
 export type Statement =
-    ExpressionStatement | BlockStatement | EmptyStatement |
+    ExpressionStatement | BlockStatement | StaticBlock | EmptyStatement |
     DebuggerStatement | WithStatement | ReturnStatement | LabeledStatement |
     BreakStatement | ContinueStatement | IfStatement | SwitchStatement |
     ThrowStatement | TryStatement | WhileStatement | DoWhileStatement |
@@ -102,6 +102,10 @@ export interface BlockStatement extends BaseStatement {
   type: "BlockStatement";
   body: Array<Statement>;
   innerComments?: Array<Comment> | undefined;
+}
+
+export interface StaticBlock extends Omit<BlockStatement, 'type'> {
+    type: "StaticBlock";
 }
 
 export interface ExpressionStatement extends BaseStatement {
@@ -497,7 +501,7 @@ interface BaseClass extends BaseNode {
 
 export interface ClassBody extends BaseNode {
   type: "ClassBody";
-  body: Array<MethodDefinition | PropertyDefinition>;
+  body: Array<MethodDefinition | PropertyDefinition | StaticBlock>;
 }
 
 export interface MethodDefinition extends BaseNode {
