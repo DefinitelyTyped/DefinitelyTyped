@@ -3,8 +3,27 @@
 // Definitions by: Daniel Rosenwasser <https://github.com/DanielRosenwasser>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
+interface Git {
+  cwd: string;
+  cmd: string;
+  output: string;
+  exec: (command: string) => Promise<this | Error>;
+  init: () => Promise<this | Error>;
+  clean: () => Promise<this | Error>;
+  reset: (remote: string, branch: string) => Promise<this | Error>;
+  fetch: (remote: string) => Promise<this | Error>;
+  checkout: (remote: string, branch: string) => Promise<this | Error>;
+  rm: (files: string | string[]) => Promise<this | Error>;
+  add: (files: string | string[]) => Promise<this | Error>;
+  commit: (message: string)  => Promise<this | Error>;
+  tag: (name: string)  => Promise<this | Error>;
+  push: (remote: string, branch: string, force?: boolean) => Promise<this | Error>;
+  getRemoteUrl: (remote: string) => Promise<this | Error>;
+  deleteRef: (branch: string)=> Promise<this | Error>;
+  clone: (repo: string, dir: string, branch: string, options: PublishOptions) => Promise<this | Error>;
+}
 export interface PublishOptions {
+    beforeAdd?: null | ((git: Git) => Promise<Git | Error>);
     add?: boolean | undefined;
     branch?: string | undefined;
     dest?: string | undefined;
@@ -45,6 +64,7 @@ export function publish(basePath: string, config: PublishOptions, callback?: (er
 export function clean(): void;
 
 export interface Defaults {
+    beforeAdd: null;
     dest: '.';
     add: false;
     git: 'git';
