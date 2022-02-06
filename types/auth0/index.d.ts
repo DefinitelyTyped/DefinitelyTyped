@@ -662,8 +662,9 @@ export interface ResetPasswordOptions {
 }
 
 export interface ResetPasswordEmailOptions {
-    email: string;
+    client_id?: string | undefined;
     connection: string;
+    email: string;
 }
 
 export interface ClientCredentialsGrantOptions {
