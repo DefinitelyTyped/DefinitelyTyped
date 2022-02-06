@@ -91,7 +91,7 @@ export interface StaticRouterProps {
 
 export class StaticRouter extends React.Component<StaticRouterProps, any> {}
 export interface SwitchProps {
-    children?: Route | Redirect;
+    children?: (Route | Redirect)[];
     location?: H.Location;
 }
 export class Switch extends React.Component<SwitchProps, any> {}
