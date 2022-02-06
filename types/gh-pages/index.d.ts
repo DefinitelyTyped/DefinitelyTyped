@@ -8,22 +8,22 @@ export interface Git {
     cmd: string;
     output: string;
     exec: (command: string) => Promise<this>;
-    init: () => Promise<this | Error>;
-    clean: () => Promise<this | Error>;
-    reset: (remote: string, branch: string) => Promise<this | Error>;
-    fetch: (remote: string) => Promise<this | Error>;
-    checkout: (remote: string, branch: string) => Promise<this | Error>;
-    rm: (files: string | string[]) => Promise<this | Error>;
-    add: (files: string | string[]) => Promise<this | Error>;
-    commit: (message: string) => Promise<this | Error>;
-    tag: (name: string) => Promise<this | Error>;
-    push: (remote: string, branch: string, force?: boolean) => Promise<this | Error>;
-    getRemoteUrl: (remote: string) => Promise<this | Error>;
-    deleteRef: (branch: string) => Promise<this | Error>;
-    clone: (repo: string, dir: string, branch: string, options: PublishOptions) => Promise<this | Error>;
+    init: () => Promise<this>;
+    clean: () => Promise<this>;
+    reset: (remote: string, branch: string) => Promise<this>;
+    fetch: (remote: string) => Promise<this>;
+    checkout: (remote: string, branch: string) => Promise<this>;
+    rm: (files: string | string[]) => Promise<this>;
+    add: (files: string | string[]) => Promise<this>;
+    commit: (message: string) => Promise<this>;
+    tag: (name: string) => Promise<this>;
+    push: (remote: string, branch: string, force?: boolean) => Promise<this>;
+    getRemoteUrl: (remote: string) => Promise<this>;
+    deleteRef: (branch: string) => Promise<this>;
+    clone: (repo: string, dir: string, branch: string, options: PublishOptions) => Promise<this>;
 }
 export interface PublishOptions {
-    beforeAdd?: ((git: Git) => Promise<Git | void>) | null | undefined; 
+    beforeAdd?: ((git: Git) => Promise<Git | void>) | null | undefined;
     add?: boolean | undefined;
     branch?: string | undefined;
     dest?: string | undefined;
