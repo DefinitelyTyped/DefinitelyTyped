@@ -710,13 +710,13 @@ declare namespace Xrm {
         interface LookupTagClickEventArguments {
             /**
              * Gets the selected tag value
-             * @returns The lookups TagValue object 
+             * @returns The lookups TagValue object
              */
             getTagValue(): TagValue;
 
             /**
              * Prevents the default onClick behaviour from executing.
-             * All remaining "onLookupTagClick" handlers will continue execution. 
+             * All remaining "onLookupTagClick" handlers will continue execution.
              */
             preventDefault(): void;
 
@@ -828,9 +828,7 @@ declare namespace Xrm {
          */
         type ProcessStatusChangeHandler = (status: ProcessFlow.ProcessStatus) => void;
 
-        
         type LookupTagClickHandler = (context: LookupTagClickEventContext) => void;
-
     }
 
     /**
