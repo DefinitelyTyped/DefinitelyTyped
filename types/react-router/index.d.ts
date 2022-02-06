@@ -122,7 +122,7 @@ export interface StaticRouterProps {
 
 export class StaticRouter extends React.Component<StaticRouterProps, any> {}
 export interface SwitchProps {
-    children?: React.ReactNode | undefined;
+    children?: Route | Redirect | undefined;
     location?: H.Location | undefined;
 }
 export class Switch extends React.Component<SwitchProps, any> {}
