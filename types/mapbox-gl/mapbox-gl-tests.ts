@@ -1573,7 +1573,7 @@ const symbolLayout: mapboxgl.SymbolLayout = {
     'text-pitch-alignment': eitherType('map', 'viewport', 'auto'),
     'text-rotation-alignment': eitherType('map', 'viewport', 'auto'),
     'text-field': eitherType('#000', styleFunction, expression),
-    'text-font': eitherType('arial', ['arial'], expression),
+    'text-font': eitherType(['arial'], expression),
     'text-size': eitherType(0, styleFunction, expression),
     'text-max-width': eitherType(0, styleFunction, expression),
     'text-line-height': eitherType(0, expression),
