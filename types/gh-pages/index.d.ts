@@ -23,7 +23,7 @@ export interface Git {
     clone: (repo: string, dir: string, branch: string, options: PublishOptions) => Promise<this | Error>;
 }
 export interface PublishOptions {
-    beforeAdd?: null | ((git: Git) => Promise<Git | Error>);
+    beforeAdd?: ((git: Git) => Promise<Git | void>) | null | undefined; 
     add?: boolean | undefined;
     branch?: string | undefined;
     dest?: string | undefined;
