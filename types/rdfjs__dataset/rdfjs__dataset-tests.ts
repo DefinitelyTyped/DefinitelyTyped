@@ -13,4 +13,4 @@ interface CustomQuad extends RDF.BaseQuad {
 }
 
 const customQuad: CustomQuad = <any> {};
-const customQuadDataset: RDF.DatasetCore<RDF.Quad, CustomQuad> = rdf.dataset([customQuad]);
+const customQuadDataset: RDF.DatasetCore<CustomQuad> = rdf.dataset([customQuad]);
