@@ -493,88 +493,87 @@ declare class Buffer extends Uint8Array {
     readUintBE(offset: number, byteLength: number): number;
     readIntLE(offset: number, byteLength: number): number;
     readIntBE(offset: number, byteLength: number): number;
-    readUInt8(offset: number): number;
+    readUInt8(offset?: number): number;
     /**
      * @alias Buffer.readUInt8
      * @since v12.19.0
      */
-    readUint8(offset: number): number;
-    readUInt16LE(offset: number): number;
+    readUint8(offset?: number): number;
+    readUInt16LE(offset?: number): number;
     /**
      * @alias Buffer.readUInt16LE
      * @since v12.19.0
      */
-    readUint16LE(offset: number): number;
-    readUInt16BE(offset: number): number;
+    readUint16LE(offset?: number): number;
+    readUInt16BE(offset?: number): number;
     /**
      * @alias Buffer.readUInt16BE
      * @since v12.19.0
      */
-    readUint16BE(offset: number): number;
-    readUInt32LE(offset: number): number;
+    readUint16BE(offset?: number): number;
+    readUInt32LE(offset?: number): number;
     /**
      * @alias Buffer.readUInt32LE
      * @since v12.19.0
      */
-    readUint32LE(offset: number): number;
-    readUInt32BE(offset: number): number;
+    readUint32LE(offset?: number): number;
+    readUInt32BE(offset?: number): number;
     /**
      * @alias Buffer.readUInt32BE
      * @since v12.19.0
      */
-    readUint32BE(offset: number): number;
-    readInt8(offset: number): number;
-    readInt16LE(offset: number): number;
-    readInt16BE(offset: number): number;
-    readInt32LE(offset: number): number;
-    readInt32BE(offset: number): number;
-    readFloatLE(offset: number): number;
-    readFloatBE(offset: number): number;
-    readDoubleLE(offset: number): number;
-    readDoubleBE(offset: number): number;
+    readUint32BE(offset?: number): number;
+    readInt8(offset?: number): number;
+    readInt16LE(offset?: number): number;
+    readInt16BE(offset?: number): number;
+    readInt32LE(offset?: number): number;
+    readInt32BE(offset?: number): number;
+    readFloatLE(offset?: number): number;
+    readDoubleLE(offset?: number): number;
+    readDoubleBE(offset?: number): number;
     reverse(): this;
     swap16(): Buffer;
     swap32(): Buffer;
     swap64(): Buffer;
-    writeUInt8(value: number, offset: number): number;
+    writeUInt8(value: number, offset?: number): number;
     /**
      * @alias Buffer.writeUInt8
      * @since v12.19.0
      */
-    writeUint8(value: number, offset: number): number;
-    writeUInt16LE(value: number, offset: number): number;
+    writeUint8(value: number, offset?: number): number;
+    writeUInt16LE(value: number, offset?: number): number;
     /**
      * @alias Buffer.writeUInt16LE
      * @since v12.19.0
      */
-    writeUint16LE(value: number, offset: number): number;
-    writeUInt16BE(value: number, offset: number): number;
+    writeUint16LE(value: number, offset?: number): number;
+    writeUInt16BE(value: number, offset?: number): number;
     /**
      * @alias Buffer.writeUInt16BE
      * @since v12.19.0
      */
-    writeUint16BE(value: number, offset: number): number;
-    writeUInt32LE(value: number, offset: number): number;
+    writeUint16BE(value: number, offset?: number): number;
+    writeUInt32LE(value: number, offset?: number): number;
     /**
      * @alias Buffer.writeUInt32LE
      * @since v12.19.0
      */
-    writeUint32LE(value: number, offset: number): number;
-    writeUInt32BE(value: number, offset: number): number;
+    writeUint32LE(value: number, offset?: number): number;
+    writeUInt32BE(value: number, offset?: number): number;
     /**
      * @alias Buffer.writeUInt32BE
      * @since v12.19.0
      */
-    writeUint32BE(value: number, offset: number): number;
-    writeInt8(value: number, offset: number): number;
-    writeInt16LE(value: number, offset: number): number;
-    writeInt16BE(value: number, offset: number): number;
-    writeInt32LE(value: number, offset: number): number;
-    writeInt32BE(value: number, offset: number): number;
-    writeFloatLE(value: number, offset: number): number;
-    writeFloatBE(value: number, offset: number): number;
-    writeDoubleLE(value: number, offset: number): number;
-    writeDoubleBE(value: number, offset: number): number;
+    writeUint32BE(value: number, offset?: number): number;
+    writeInt8(value: number, offset?: number): number;
+    writeInt16LE(value: number, offset?: number): number;
+    writeInt16BE(value: number, offset?: number): number;
+    writeInt32LE(value: number, offset?: number): number;
+    writeInt32BE(value: number, offset?: number): number;
+    writeFloatLE(value: number, offset?: number): number;
+    writeFloatBE(value: number, offset?: number): number;
+    writeDoubleLE(value: number, offset?: number): number;
+    writeDoubleBE(value: number, offset?: number): number;
 
     fill(value: string | Uint8Array | number, offset?: number, end?: number, encoding?: BufferEncoding): this;
 
