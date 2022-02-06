@@ -7,7 +7,7 @@ export interface Git {
     cwd: string;
     cmd: string;
     output: string;
-    exec: (command: string) => Promise<this | Error>;
+    exec: (command: string) => Promise<this>;
     init: () => Promise<this | Error>;
     clean: () => Promise<this | Error>;
     reset: (remote: string, branch: string) => Promise<this | Error>;
