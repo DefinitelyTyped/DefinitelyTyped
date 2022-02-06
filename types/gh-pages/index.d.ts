@@ -4,9 +4,6 @@
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 export interface Git {
-    cwd: string;
-    cmd: string;
-    output: string;
     exec: (command: string) => Promise<this>;
     init: () => Promise<this>;
     clean: () => Promise<this>;
