@@ -197,6 +197,13 @@ declare namespace ApplePayJS {
      */
     interface ApplePayError {
         /**
+         * @param errorCode - The error code for the new instance.
+         * @param contactField - The name of the field that contains the error.
+         * @param message - A localized, user-facing string that describes the error.
+         */
+        constructor(errorCode: ApplePayErrorCode, contactField?: ApplePayErrorContactField, message?: string);
+
+        /**
          * The error code for this instance.
          */
         code: ApplePayErrorCode;
