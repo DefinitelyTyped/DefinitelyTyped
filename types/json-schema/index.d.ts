@@ -615,7 +615,7 @@ export type JSONSchema7Version = string;
  * @see https://tools.ietf.org/html/draft-handrews-json-schema-validation-01
  */
 export type JSONSchema7Definition = JSONSchema7 | boolean;
-export interface JSONSchema7 {
+export interface JSONSchema7<T extends JSONSchema7Definition = JSONSchema7Definition> {
     $id?: string | undefined;
     $ref?: string | undefined;
     $schema?: JSONSchema7Version | undefined;
@@ -647,8 +647,8 @@ export interface JSONSchema7 {
     /**
      * @see https://tools.ietf.org/html/draft-handrews-json-schema-validation-01#section-6.4
      */
-    items?: JSONSchema7Definition | JSONSchema7Definition[] | undefined;
-    additionalItems?: JSONSchema7Definition | undefined;
+    items?: T | T[] | undefined;
+    additionalItems?: T | undefined;
     maxItems?: number | undefined;
     minItems?: number | undefined;
     uniqueItems?: boolean | undefined;
@@ -661,31 +661,31 @@ export interface JSONSchema7 {
     minProperties?: number | undefined;
     required?: string[] | undefined;
     properties?: {
-        [key: string]: JSONSchema7Definition;
+        [key: string]: T;
     } | undefined;
     patternProperties?: {
-        [key: string]: JSONSchema7Definition;
+        [key: string]: T;
     } | undefined;
-    additionalProperties?: JSONSchema7Definition | undefined;
+    additionalProperties?: T | undefined;
     dependencies?: {
-        [key: string]: JSONSchema7Definition | string[];
+        [key: string]: T | string[];
     } | undefined;
-    propertyNames?: JSONSchema7Definition | undefined;
+    propertyNames?: T | undefined;
 
     /**
      * @see https://tools.ietf.org/html/draft-handrews-json-schema-validation-01#section-6.6
      */
-    if?: JSONSchema7Definition | undefined;
-    then?: JSONSchema7Definition | undefined;
-    else?: JSONSchema7Definition | undefined;
+    if?: T | undefined;
+    then?: T | undefined;
+    else?: T | undefined;
 
     /**
      * @see https://tools.ietf.org/html/draft-handrews-json-schema-validation-01#section-6.7
      */
-    allOf?: JSONSchema7Definition[] | undefined;
-    anyOf?: JSONSchema7Definition[] | undefined;
-    oneOf?: JSONSchema7Definition[] | undefined;
-    not?: JSONSchema7Definition | undefined;
+    allOf?: T[] | undefined;
+    anyOf?: T[] | undefined;
+    oneOf?: T[] | undefined;
+    not?: T | undefined;
 
     /**
      * @see https://tools.ietf.org/html/draft-handrews-json-schema-validation-01#section-7
@@ -702,7 +702,7 @@ export interface JSONSchema7 {
      * @see https://tools.ietf.org/html/draft-handrews-json-schema-validation-01#section-9
      */
     definitions?: {
-        [key: string]: JSONSchema7Definition;
+        [key: string]: T;
     } | undefined;
 
     /**
