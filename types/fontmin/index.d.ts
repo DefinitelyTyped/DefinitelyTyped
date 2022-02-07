@@ -3,7 +3,6 @@
 
 import stream = require('stream');
 
-export = Fontmin;
 
 type probableAsSrc = string[] | string | Buffer;
 
@@ -107,3 +106,6 @@ declare class Fontmin<srcType extends probableAsSrc> {
 
     static ttf2woff2(opts?: pluginCloneOption): stream.Transform;
 }
+
+
+export default Fontmin;
