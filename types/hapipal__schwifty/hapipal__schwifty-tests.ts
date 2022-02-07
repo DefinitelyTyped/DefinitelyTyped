@@ -51,7 +51,7 @@ declare module '@hapipal/schwifty' {
     const { Dog } = server.models();
 
     // These are undefined in real implementation but
-    // still satisfy constraints
+    // still satisfy typings constraints
     const { Mananger, Members, Admin } = server.models('auth');
     const { CrownCourt, Promissory, Witness } = server.models('oath');
 

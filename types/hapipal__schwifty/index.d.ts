@@ -1,12 +1,10 @@
-// Type definitions for schwifty 5.0
+// Type definitions for @hapipal/schwifty 6
 // Project: https://github.com/hapipal/schwifty
 // Definitions by: ozum <https://github.com/ozum>
 //                 timcosta <https://github.com/timcosta>
+//                 damusix <https://github.com/damusix>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
-
-// HELP NEEDED: If possible, find a better way to define Server.models, Request.models and ResponseToolkit.models
-// They are dynamic types extended from SchwiftyModel.
 
 import * as Objection from "objection";
 import * as Joi from "joi";
@@ -53,12 +51,19 @@ export interface RegisteredModels {
  + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + */
 
 /**
+ * Server decorator for getting models scoped to the
+ * current plugin realm using `server.models()`,
+ * or models registered on the server using `server.models(true)`,
+ * or models scoped to plugin namespace using `server.models('namespace')`.
+ *
+ *
+ *
  * This interface can be overwritten to modify what you want your namespace
  * to actually return. For example:
  *
  * @example
  *
- * declare module '@hapi/schwifty' {
+ * declare module '@hapipal/schwifty' {
  *    type AuthModels = {
  *        Members: Schwifty.Model
  *        Admin: Schwifty.Model
