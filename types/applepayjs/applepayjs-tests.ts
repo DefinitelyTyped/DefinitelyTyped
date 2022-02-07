@@ -316,3 +316,11 @@ describe("ApplePayPaymentRequest", () => {
         paymentRequest.shippingType = "delivery";
     });
 });
+
+describe("ApplePaySession", () => {
+    it("can create a new instance", () => {
+        new ApplePayJS.ApplePayError('shippingContactInvalid');
+        new ApplePayJS.ApplePayError('shippingContactInvalid', 'emailAddress');
+        new ApplePayJS.ApplePayError('shippingContactInvalid', 'emailAddress', 'some message');
+    });
+});
