@@ -20,6 +20,7 @@
 //                 T.J. Tarazevits <https://github.com/venku122>
 //                 Michiel De Mey <https://github.com/michieldemey>
 //                 Dae Heon Han <https://github.com/honeyirene>
+//                 Yongkyun Choi <https://github.com/DracoVirus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
