@@ -212,6 +212,16 @@ declare class ApplePayError implements ApplePayJS.ApplePayError {
 
 declare namespace ApplePayJS {
     /**
+     * Field names used for requesting contact information in a payment request.
+     */
+    type ApplePayContactField =
+        'email' |
+        'name' |
+        'phone' |
+        'postalAddress' |
+        'phoneticName';
+
+    /**
      * A customizable error type that you create to indicate problems with the address or contact information on an Apple Pay sheet.
      */
     interface ApplePayError {
