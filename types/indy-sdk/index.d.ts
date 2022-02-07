@@ -347,6 +347,13 @@ export interface LedgerRejectResponse {
     identifier: string;
 }
 
+export interface LedgerReqnackResponse {
+    op: 'REQNACK';
+    reqId: number;
+    reason: string;
+    identifier: string;
+}
+
 export interface LedgerReplyResponse {
     op: 'REPLY';
     result: Record<string, unknown>;
@@ -388,7 +395,7 @@ export interface LedgerWriteReplyResponse extends LedgerReplyResponse {
     };
 }
 
-export type LedgerResponse = LedgerRejectResponse | LedgerReadReplyResponse | LedgerWriteReplyResponse;
+export type LedgerResponse = LedgerRejectResponse | LedgerReqnackResponse | LedgerReadReplyResponse | LedgerWriteReplyResponse;
 
 export interface Schema {
     id: SchemaId;
