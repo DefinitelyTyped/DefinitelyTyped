@@ -7,7 +7,7 @@
 //                 Igor Strebezhev <https://github.com/xamgore>
 //                 Peter Somogyvari <https://github.com/petermetz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.1
+// TypeScript Version: 4.2
 
 /// <reference types="node" />
 
