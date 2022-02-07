@@ -67,6 +67,12 @@ const ledgerRejectResponse: indy.LedgerRejectResponse = {
     reason: "client request invalid: UnauthorizedClientRequest('The action is forbidden',)",
     identifier: 'TL1EaPFCZ8Si5aUrqScBDt',
 };
+const ledgerReqnackResponse: indy.LedgerReqnackResponse = {
+    op: 'REQNACK',
+    reqId: 1615465027340221000,
+    reason: "client request invalid: UnauthorizedClientRequest('The action is forbidden',)",
+    identifier: 'TL1EaPFCZ8Si5aUrqScBDt',
+};
 const ledgerWriteReply: indy.LedgerWriteReplyResponse = {
     result: {
         auditPath: [
@@ -170,6 +176,7 @@ indy.signRequest(10, 'myDid', ledgerRequest);
 indy.signAndSubmitRequest(10, 10, 'myDid', ledgerRequest);
 indy.submitRequest(10, ledgerRequest);
 indy.parseGetNymResponse(ledgerRejectResponse);
+indy.parseGetNymResponse(ledgerReqnackResponse);
 indy.buildNymRequest('myDid', 'targetDid', 'verKey', 'alias', 'TRUSTEE');
 indy.buildGetSchemaRequest('myDid', 'a');
 indy.parseGetSchemaResponse(ledgerWriteReply);
