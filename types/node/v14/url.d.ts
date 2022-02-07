@@ -137,11 +137,11 @@ declare module 'url' {
          * https://nodejs.org/api/url.html#class-urlsearchparams
          * @since v10.0.0
          */
-        var URLSearchParams: {
-            prototype: URLSearchParams;
-            new(init?: string[][] | Record<string, string> | string | URLSearchParams): URLSearchParams;
-            toString(): string;
-        };
+        var URLSearchParams:
+            // For compatibility with "dom" and "webworker" URLSearchParams declarations
+            typeof globalThis extends { onmessage: infer O, URLSearchParams: infer URLSearchParams }
+                ? URLSearchParams
+                : typeof _URLSearchParams;
     }
 }
 declare module 'node:url' {
