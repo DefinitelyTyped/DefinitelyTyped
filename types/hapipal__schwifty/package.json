@@ -1,0 +1,8 @@
+{
+    "private": true,
+    "dependencies": {
+        "joi": "^17.6.0",
+        "knex": "^1",
+        "objection": "^3"
+    }
+}

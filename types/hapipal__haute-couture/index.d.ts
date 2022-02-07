@@ -154,7 +154,8 @@ type AmendmentExampleType = (
 interface AmendmentExample {
     $literal?: string,
     $comment?: string,
-    $value?: any
+    $value?: any,
+    $requires?: any,
     [key: string]: AmendmentExampleType;
 }
 
