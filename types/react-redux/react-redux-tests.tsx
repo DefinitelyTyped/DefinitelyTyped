@@ -4,11 +4,9 @@ import * as ReactDOM from 'react-dom';
 import {
     Store,
     Dispatch,
-    AnyAction,
     ActionCreator,
     createStore,
     bindActionCreators,
-    ActionCreatorsMapObject,
     Reducer,
 } from 'redux';
 import {
@@ -18,7 +16,6 @@ import {
     Provider,
     DispatchProp,
     MapStateToProps,
-    Options,
     ReactReduxContext,
     ReactReduxContextValue,
     Selector,
@@ -1600,4 +1597,27 @@ function testPreserveDiscriminatedUnions() {
     <ConnectedMyText type="plain" color="red" params={someParams} />; // $ExpectError
     <ConnectedMyText type="localized" color="red" />; // $ExpectError
     <ConnectedMyText type="localized" color="red" params={someParams} />;
+}
+
+/**
+ * The `withStyles` HOC in MUI returns a `JSXElementConstructor` instead of a `ComponentType` as of
+ * https://github.com/mui/material-ui/pull/24746.
+ */
+function testJSXElementConstructorIsAllowed() {
+    interface Props {
+        foo: number;
+        bar: boolean;
+    }
+
+    const TestComponent: React.JSXElementConstructor<Props> = () => null;
+
+    interface StoreState {
+        stateThings: number;
+    }
+    const mapStateToProps = (state: StoreState) => ({
+        foo: state.stateThings,
+    });
+
+    const ConnectedComponent = connect(mapStateToProps)(TestComponent);
+    <ConnectedComponent bar />;
 }
