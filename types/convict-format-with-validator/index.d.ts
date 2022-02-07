@@ -2,7 +2,7 @@
 // Project: https://github.com/mozilla/node-convict/tree/master/packages/convict-format-with-validator
 // Definitions by: Louis Tung <https://github.com/louis79719>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.1
+// TypeScript Version: 4.2
 
 import * as convict from 'convict';
 
