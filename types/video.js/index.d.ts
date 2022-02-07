@@ -3915,6 +3915,7 @@ declare namespace videojs {
 
     /**
      * The `PictureInPictureWindow` interface represents an object able to programmatically obtain the `width` and `height` of the floating video window.
+     * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/PictureInPictureWindow}
      */
     interface PictureInPictureWindow {
         /**
