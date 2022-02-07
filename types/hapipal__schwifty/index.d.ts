@@ -53,6 +53,38 @@ export interface RegisteredModels {
  + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + */
 
 /**
+ * This interface can be overwritten to modify what you want your namespace
+ * to actually return. For example:
+ *
+ * @example
+ *
+ * declare module '@hapi/schwifty' {
+ *    type AuthModels = {
+ *        Members: Schwifty.Model
+ *        Admin: Schwifty.Model
+ *        Mananger: Schwifty.Model
+ *    }
+ *
+ *    type OathModels = {
+ *        Witness: Schwifty.Model
+ *        Promissory: Schwifty.Model
+ *        CrownCourt: Schwifty.Model
+ *    }
+ *
+ *    interface SchwiftyDecorator {
+ *        (namespace: 'auth'): AuthModels
+ *        (namespace: 'oath'): OathModels
+ *    }
+ * }
+ *
+ */
+export interface SchwiftyDecorator {
+
+    (all?: boolean): RegisteredModels
+    (namespace?: string): RegisteredModels
+}
+
+/**
  * Merge decorations into hapi objects.
  */
 declare module "@hapi/hapi" {
@@ -68,16 +100,16 @@ declare module "@hapi/hapi" {
                   }
         ) => void;
         knex: () => Knex;
-        models: (all?: boolean) => RegisteredModels;
+        models: SchwiftyDecorator;
     }
 
     interface Request {
         knex: () => Knex;
-        models: (all?: boolean) => RegisteredModels;
+        models: SchwiftyDecorator;
     }
 
     interface ResponseToolkit {
         knex: () => Knex;
-        models: (all?: boolean) => RegisteredModels;
+        models: SchwiftyDecorator;
     }
 }

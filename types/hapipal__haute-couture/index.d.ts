@@ -25,26 +25,25 @@ import {
     ServerExtOptions,
     ServerExtPointFunction,
     Lifecycle,
-    RouteOptionsAccess
+    RouteOptionsAccess,
+    Request,
+    ResponseToolkit,
+    ServerRoute
 } from '@hapi/hapi';
 
 import { ServerViewsConfiguration } from '@hapi/vision';
 import { ServerSubscriptionOptions } from '@hapi/nes';
 
-import { Service, ServiceFactory } from '@hapipal/schmervice';
+import { Service, ServiceFactory, ServiceRegistrationObject } from '@hapipal/schmervice';
 import { ModelClass } from '@hapipal/schwifty';
 import { Root as Joi } from 'joi'
-
-import { EventEmitter } from 'events';
-import { Stream, FinishedOptions } from 'stream';
-import { AsyncLocalStorage } from 'async_hooks';
 
 type OneOrArrayOf<T> = T | T[];
 
 export namespace HcAmendmentTypes {
 
 
-    type Decoration<T> = {
+    type Decoration<T = Server | Request | ResponseToolkit> = {
         type?: 'handler' | 'request' | 'toolkit' | 'server',
         property?: string,
         method: DecorationMethod<T> | HandlerDecorationMethod
@@ -85,7 +84,7 @@ export namespace HcAmendmentTypes {
 
     type Extensions = {
         type: ServerExtType | ServerRequestExtType,
-        method: Lifecycle.Method | ServerExtPointFunction | ServerExtPointFunction[],
+        method: Lifecycle.Method | OneOrArrayOf<ServerExtPointFunction>,
         options: ServerExtOptions
     }
 
@@ -94,7 +93,9 @@ export namespace HcAmendmentTypes {
         options: ServerStateCookieOptions
     }
 
-    type Models = ModelClass
+    type Models = OneOrArrayOf<ModelClass>
+
+    type Services = typeof ServiceFactory | OneOrArrayOf<Service | ServiceRegistrationObject>
 
     type Subscription = {
         path: string,
@@ -163,42 +164,71 @@ interface AmendmentExample {
     [key: string]: AmendmentExampleType;
 }
 
+// Amendment return type
 export type AmendmentConfig<
     T = {}
 > = {
-    method?: AmendmentMethods,
+    method: AmendmentMethods,
     signature?: (keyof T | `[${string & keyof T}]`)[] | string[],
-    list?: boolean,
+    list: boolean,
     after?: string[],
-    useFilename?: <U = T>(value: U | U[], path: string, filename: string) => U | U[],
-    example?: AmendmentExampleType
+    useFilename: (value: T | T[], path: string, filename: string) => T | T[],
+    example: AmendmentExampleType
 }
 
+// Amendment configuration override
+export type CustomAmendmentConfig<T = {}> = Partial<AmendmentConfig<T>>
+
+// Types that a place enforces
+export type PlaceTypes = {
+    path: string
+    bind: any
+    caches: CachePolicyOptions<any>
+    plugins: HapiPlugin<any>
+    dependencies: HcAmendmentTypes.Dependency
+    methods: HcAmendmentTypes.Method
+    decorations: HcAmendmentTypes.Decoration
+    extensions: HcAmendmentTypes.Extensions
+    expose: HcAmendmentTypes.Expose
+    cookies: HcAmendmentTypes.Cookies
+    models: HcAmendmentTypes.Models
+    services: HcAmendmentTypes.Services
+    subscriptions: HcAmendmentTypes.Subscription
+    validator: Joi
+    routes: ServerRoute
+    'view-manager': ServerViewsConfiguration
+    'auth/schemes': HcAmendmentTypes.AuthScheme
+    'auth/strategies': HcAmendmentTypes.AuthStrategy
+    'auth/default': HcAmendmentTypes.AuthDefault
+}
+
+// Amendment mapping
 type InternalAmemdments = {
-    path: AmendmentConfig<string>
-    bind: AmendmentConfig
-    caches: AmendmentConfig<CachePolicyOptions<any>>
-    plugins: AmendmentConfig<HapiPlugin<any>>
-    dependencies: AmendmentConfig<HcAmendmentTypes.Dependency>
-    methods: AmendmentConfig<HcAmendmentTypes.Method>
-    decorations: AmendmentConfig<HcAmendmentTypes.Decoration<Server>>
-    extensions: AmendmentConfig<HcAmendmentTypes.Extensions>
-    expose: AmendmentConfig<HcAmendmentTypes.Expose>
-    cookies: AmendmentConfig<HcAmendmentTypes.Cookies>
-    models: AmendmentConfig<HcAmendmentTypes.Models>
-    services: AmendmentConfig<typeof ServiceFactory | Service>
-    subscriptions: AmendmentConfig<HcAmendmentTypes.Subscription>
-    validator: AmendmentConfig<Joi>
-    routes: AmendmentConfig<RouteOptions>
-    'view-manager': AmendmentConfig<ServerViewsConfiguration>
-    'auth/schemes': AmendmentConfig<HcAmendmentTypes.AuthScheme>
-    'auth/strategies': AmendmentConfig<HcAmendmentTypes.AuthStrategy>
-    'auth/default': AmendmentConfig<HcAmendmentTypes.AuthDefault>
+    path: AmendmentConfig<PlaceTypes['path']>
+    bind: AmendmentConfig<PlaceTypes['bind']>
+    caches: AmendmentConfig<PlaceTypes['caches']>
+    plugins: AmendmentConfig<PlaceTypes['plugins']>
+    dependencies: AmendmentConfig<PlaceTypes['dependencies']>
+    methods: AmendmentConfig<PlaceTypes['methods']>
+    decorations: AmendmentConfig<PlaceTypes['decorations']>
+    extensions: AmendmentConfig<PlaceTypes['extensions']>
+    expose: AmendmentConfig<PlaceTypes['expose']>
+    cookies: AmendmentConfig<PlaceTypes['cookies']>
+    models: AmendmentConfig<PlaceTypes['models']>
+    services: AmendmentConfig<PlaceTypes['services']>
+    subscriptions: AmendmentConfig<PlaceTypes['subscriptions']>
+    validator: AmendmentConfig<PlaceTypes['validator']>
+    routes: AmendmentConfig<PlaceTypes['routes']>
+    'view-manager': AmendmentConfig<PlaceTypes['view-manager']>
+    'auth/schemes': AmendmentConfig<PlaceTypes['auth/schemes']>
+    'auth/strategies': AmendmentConfig<PlaceTypes['auth/strategies']>
+    'auth/default': AmendmentConfig<PlaceTypes['auth/default']>
 }
 
+// Creates an amendment config
 export function amendment <P extends keyof InternalAmemdments>(
     place: P,
-    override?: AmendmentConfig
+    override?: CustomAmendmentConfig<PlaceTypes[P]>
 ): InternalAmemdments[P]
 
 export function amendments <O extends Record<keyof InternalAmemdments, AmendmentConfig>> (overrides: O): O
@@ -211,7 +241,7 @@ export interface HcComposeFunction<ReturnType, Options = {}> {
 type ComposeOptions = {
     dirname?: string,
     amendments?: {
-        [key: string]: AmendmentConfig
+        [key: string]: CustomAmendmentConfig<any>
     }
 }
 

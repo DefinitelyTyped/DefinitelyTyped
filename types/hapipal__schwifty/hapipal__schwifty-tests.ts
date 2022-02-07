@@ -4,6 +4,26 @@ import * as Schwifty from "@hapipal/schwifty";
 
 import DogModel from "./test/dog";
 
+declare module '@hapipal/schwifty' {
+
+    type AuthModels = {
+        Members: Schwifty.Model
+        Admin: Schwifty.Model
+        Mananger: Schwifty.Model
+    }
+
+    type OathModels = {
+        Witness: Schwifty.Model
+        Promissory: Schwifty.Model
+        CrownCourt: Schwifty.Model
+    }
+
+    interface SchwiftyDecorator {
+        (namespace: 'auth'): AuthModels
+        (namespace: 'oath'): OathModels
+    }
+}
+
 (async () => {
     const server = new Hapi.Server({ port: 3000 });
 
@@ -29,6 +49,11 @@ import DogModel from "./test/dog";
 
     await server.initialize();
     const { Dog } = server.models();
+
+    // These are undefined in real implementation but
+    // still satisfy constraints
+    const { Mananger, Members, Admin } = server.models('auth');
+    const { CrownCourt, Promissory, Witness } = server.models('oath');
 
     await Dog.query().insert({ name: "Guinness" });
 
