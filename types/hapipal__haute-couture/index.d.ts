@@ -24,13 +24,15 @@ import {
     ServerRequestExtType,
     ServerExtOptions,
     ServerExtPointFunction,
-    Lifecycle
+    Lifecycle,
+    RouteOptionsAccess
 } from '@hapi/hapi';
 
 import { ServerViewsConfiguration } from '@hapi/vision';
 import { ServerSubscriptionOptions } from '@hapi/nes';
 
 import { Service, ServiceFactory } from '@hapipal/schmervice';
+import { ModelClass } from '@hapipal/schwifty';
 import { Root as Joi } from 'joi'
 
 import { EventEmitter } from 'events';
@@ -68,6 +70,8 @@ export namespace HcAmendmentTypes {
         options: object
     }
 
+    type AuthDefault = string | RouteOptionsAccess
+
     type Dependency = {
         dependencies: Dependencies,
         after?: ((server: Server) => Promise<void>)
@@ -90,7 +94,7 @@ export namespace HcAmendmentTypes {
         options: ServerStateCookieOptions
     }
 
-    type Models = {}
+    type Models = ModelClass
 
     type Subscription = {
         path: string,
@@ -187,9 +191,9 @@ type InternalAmemdments = {
     validator: AmendmentConfig<Joi>
     routes: AmendmentConfig<RouteOptions>
     'view-manager': AmendmentConfig<ServerViewsConfiguration>
-    'auth/schemes': AmendmentConfig
-    'auth/strategies': AmendmentConfig
-    'auth/default': AmendmentConfig
+    'auth/schemes': AmendmentConfig<HcAmendmentTypes.AuthScheme>
+    'auth/strategies': AmendmentConfig<HcAmendmentTypes.AuthStrategy>
+    'auth/default': AmendmentConfig<HcAmendmentTypes.AuthDefault>
 }
 
 export function amendment <P extends keyof InternalAmemdments>(
