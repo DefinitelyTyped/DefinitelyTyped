@@ -19,8 +19,15 @@ redis.get('foo', cb);
 redis.getdel('foo', cb);
 
 redis.set('foo', 'bar');
-redis.getrangeBuffer("foo", 0, 1, cb);
-redis.getrangeBuffer("foo", 0, 1).then(b => cb(null, b));
+redis.getex('foo', cb);
+redis.getex('key', 'PX', 10);
+redis.getex('key', (err, data) => {});
+redis.getex('key', 'PX', 10, (err, data) => {});
+redis.getdel('foo', cb);
+
+redis.set('foo', 'bar');
+redis.getrangeBuffer('foo', 0, 1, cb);
+redis.getrangeBuffer('foo', 0, 1).then(b => cb(null, b));
 
 // Static check that returned value is always a number
 redis.del('foo', 'bar').then(result => result * 1);
