@@ -195,8 +195,10 @@ declare namespace ApplePayJS {
     /**
      * A customizable error type that you create to indicate problems with the address or contact information on an Apple Pay sheet.
      */
-    interface ApplePayError {
+    class ApplePayError {
         /**
+         * Construct a new ApplePayError instance.
+         *
          * @param errorCode - The error code for the new instance.
          * @param contactField - The name of the field that contains the error.
          * @param message - A localized, user-facing string that describes the error.
