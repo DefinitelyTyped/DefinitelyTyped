@@ -122,7 +122,10 @@ export namespace Smooch {
      *         // Your code after receiving the current user's updated conversation
      *       });
      */
-    function updateConversation(conversationId: string, options: Partial<Nullable<Conversation>>): Promise<Conversation>;
+    function updateConversation(
+        conversationId: string,
+        options: Partial<Nullable<Conversation>>,
+    ): Promise<Conversation>;
     /**
      * Creates a conversation on behalf of current user. If the user does not exist, it first creates the user and then a conversation associated with it.
      *
