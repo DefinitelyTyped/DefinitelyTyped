@@ -411,10 +411,10 @@ declare module 'flashpoint-launcher' {
 
     /** See Electron docs for explanations. https://www.electronjs.org/docs/api/dialog */
     type ShowMessageBoxOptions = {
-        title?: string;
-        message: string;
-        buttons?: string[];
-        cancelId?: number;
+        title?: string | undefined;
+        message: string | undefined;
+        buttons?: string[] | undefined;
+        cancelId?: number | undefined;
     };
 
     /** See Electron docs for explanations. http://electronjs.org/docs/api/structures/file-filter */
@@ -425,19 +425,19 @@ declare module 'flashpoint-launcher' {
 
     /** See Electron docs for explanations. https://www.electronjs.org/docs/api/dialog */
     type ShowSaveDialogOptions = {
-        title?: string;
-        defaultPath?: string;
-        buttonLabel?: string;
-        filters?: FileFilter[];
-        message?: string;
-        nameFieldLabel?: string;
+        title?: string | undefined;
+        defaultPath?: string | undefined;
+        buttonLabel?: string | undefined;
+        filters?: FileFilter[] | undefined;
+        message?: string | undefined;
+        nameFieldLabel?: string | undefined;
     };
 
     /** See Electron docs for explanations. https://www.electronjs.org/docs/api/dialog */
     type ShowOpenDialogOptions = {
-        title?: string;
-        defaultPath?: string;
-        buttonLabel?: string;
+        title?: string | undefined;
+        defaultPath?: string | undefined;
+        buttonLabel?: string | undefined;
         filters: FileFilter[];
         properties?: Array<
             | 'openFile'
@@ -449,15 +449,15 @@ declare module 'flashpoint-launcher' {
             | 'noResolveAliases'
             | 'treatPackageAsDirectory'
             | 'dontAddToRecent'
-        >;
-        message?: string;
+        > | undefined;
+        message?: string | undefined;
     };
 
     type Game = {
         /** ID of the game (unique identifier) */
         id: string;
         /** ID of the game which owns this game */
-        parentGameId?: string;
+        parentGameId?: string | undefined;
         /** Full title of the game */
         title: string;
         /** Any alternate titles to match against search */
@@ -511,17 +511,17 @@ declare module 'flashpoint-launcher' {
         /** If the game is a placeholder (and can therefore not be saved) */
         placeholder: boolean;
         /** ID of the active data */
-        activeDataId?: number;
+        activeDataId?: number | undefined;
         /** Whether the data is present on disk */
         activeDataOnDisk: boolean;
-        data?: GameData[];
+        data?: GameData[] | undefined;
         updateTagsStr: () => void;
     };
 
     type GameData = {
         id: number;
         /** ID of the related game */
-        game?: Game;
+        game?: Game | undefined;
         gameId: string;
         /** Title of this data pack */
         title: string;
@@ -534,7 +534,7 @@ declare module 'flashpoint-launcher' {
         /** Is the data pack present on disk */
         presentOnDisk: boolean;
         /** Path this data pack should reside at, if present on disk */
-        path?: string;
+        path?: string | undefined;
         /** Size of this data pack */
         size: number;
         /** Parameters passed to the mounter */
@@ -544,7 +544,7 @@ declare module 'flashpoint-launcher' {
     type SourceData = {
         id: number;
         /** Source providing the download */
-        source?: Source;
+        source?: Source | undefined;
         sourceId: number;
         /** SHA256 hash of this download */
         sha256: string;
@@ -566,7 +566,7 @@ declare module 'flashpoint-launcher' {
         /** Last time this Source was updated */
         lastUpdated: Date;
         /** Any data provided by this Source */
-        data?: SourceData[];
+        data?: SourceData[] | undefined;
     };
 
     type AdditionalApp = {
@@ -592,7 +592,7 @@ declare module 'flashpoint-launcher' {
 
     type Tag = {
         /** ID of the tag (unique identifier) */
-        id?: number;
+        id?: number | undefined;
         /** Date when this tag was last modified */
         dateModified: string;
         /** ID of Primary Alias */
@@ -602,31 +602,31 @@ declare module 'flashpoint-launcher' {
         /** Aliases / Names of the tag */
         aliases: TagAlias[];
         /** Category this tag is a part of (either ID or TagCategory will exist) */
-        categoryId?: number;
+        categoryId?: number | undefined;
         /** Category this tag is a part of (either ID or TagCategory will exist) */
-        category?: TagCategory;
+        category?: TagCategory | undefined;
         /** Description of the tag */
-        description?: string;
+        description?: string | undefined;
         /** Games which are marked with this Tag */
-        gamesUsing?: Game[];
+        gamesUsing?: Game[] | undefined;
         /** Number of games this tag belongs to */
-        count?: number;
+        count?: number | undefined;
     };
 
     type TagAlias = {
         /** ID of the tag alias (unique identifier) */
         id: number;
         /** Tag this alias belongs to (either ID or Tag will exist) */
-        tagId?: number;
+        tagId?: number | undefined;
         /** Tag this alias belongs to (either ID or Tag will exist) */
-        tag?: Tag;
+        tag?: Tag | undefined;
         /** The name this alias represents */
         name: string;
     };
 
     type TagSuggestion = {
         /** Alias found, only present if not the same as the primary alias */
-        alias?: string;
+        alias?: string | undefined;
         /** Primary alias of the tag suggestion */
         primaryAlias: string;
         /** Tag suggested */
@@ -641,7 +641,7 @@ declare module 'flashpoint-launcher' {
         /** Category Color */
         color: string;
         /** Description of the Tag Category */
-        description?: string;
+        description?: string | undefined;
         /** Tags using this Tag Category */
         tags: Tag[];
     };
@@ -667,19 +667,19 @@ declare module 'flashpoint-launcher' {
 
     type PlaylistGame = {
         /** Internal ID of the playlist game entry */
-        id?: string;
+        id?: string | undefined;
         /** Playlist which owns this game (either ID or Playlist will exist) */
-        playlistId?: string;
+        playlistId?: string | undefined;
         /** Playlist which owns this game (either ID or Playlist will exist) */
-        playlist?: Playlist;
+        playlist?: Playlist | undefined;
         /** Order priority of the game in the playlist */
         order: number;
         /** Notes for the game inside the playlist specifically */
         notes: string;
         /** Game this represents (either ID or Game will exist) */
-        gameId?: string;
+        gameId?: string | undefined;
         /** Game this represents (either ID or Game will exist) */
-        game?: Game;
+        game?: Game | undefined;
     };
 
     /**
@@ -696,11 +696,11 @@ declare module 'flashpoint-launcher' {
 
     type FindGamesOpts = {
         /** Ranges of games to fetch (all games are fetched if undefined). */
-        ranges?: RequestGameRange[];
-        filter?: FilterGameOpts;
-        orderBy?: GameOrderBy;
-        direction?: GameOrderDirection;
-        getTotal?: boolean;
+        ranges?: RequestGameRange[] | undefined;
+        filter?: FilterGameOpts | undefined;
+        orderBy?: GameOrderBy | undefined;
+        direction?: GameOrderDirection | undefined;
+        getTotal?: boolean | undefined;
     };
 
     /** Game field to order the results by */
@@ -718,7 +718,7 @@ declare module 'flashpoint-launcher' {
          * If this is set then "start" must be the index of the game after this (since this will be used instead of
          * "start" when selecting the games).
          */
-        index?: PageTuple;
+        index?: PageTuple | undefined;
     };
 
     /** Tuple of values from the last game of a previous page (look up "keyset pagination"). */
@@ -734,9 +734,9 @@ declare module 'flashpoint-launcher' {
     /** Options for ordering games. */
     type FilterGameOpts = {
         /** Search query to filter by */
-        searchQuery?: ParsedSearch;
+        searchQuery?: ParsedSearch | undefined;
         /** Playlist to limit the results to (no playlist limit will be applied if undefined). */
-        playlistId?: string;
+        playlistId?: string | undefined;
     };
 
     /** Object representation of a parsed search query. */
@@ -763,12 +763,12 @@ declare module 'flashpoint-launcher' {
         /** Index of the first game. */
         start: number;
         /** Number of games requested. */
-        length?: number;
+        length?: number | undefined;
         /** Games found within the range. */
         games: T extends true ? ViewGame[] : Game[];
     };
 
-    /** Shorten version of {@link Game} returned in searches, makes for better performance. */
+    /** Shortend version of {@link Game} returned in searches, makes for better performance. */
     type ViewGame = {
         id: string;
         title: string;
@@ -931,10 +931,10 @@ declare module 'flashpoint-launcher' {
     };
 
     type AppPreferencesDataMainWindow = {
-        x?: number;
-        y?: number;
-        width?: number;
-        height?: number;
+        x?: number | undefined;
+        y?: number | undefined;
+        width?: number | undefined;
+        height?: number | undefined;
         maximized: boolean;
     };
     type ProcessInfo = {
@@ -962,13 +962,13 @@ declare module 'flashpoint-launcher' {
     class DisposableChildProcess extends ManagedChildProcess implements Disposable {
         toDispose: Disposable[];
         isDisposed: boolean;
-        onDispose?: () => void;
+        onDispose?: () => void | undefined;
     }
 
     type ProcessOpts = {
-        detached?: boolean;
-        autoRestart?: boolean;
-        shell?: boolean;
+        detached?: boolean | undefined;
+        autoRestart?: boolean | undefined;
+        shell?: boolean | undefined;
     };
 
     type ServiceChange = {
@@ -1028,7 +1028,7 @@ declare module 'flashpoint-launcher' {
     /** Info type passed to onWillLaunch events */
     type GameLaunchInfo = {
         game: Game;
-        activeData?: GameData;
+        activeData?: GameData | undefined;
         launchInfo: LaunchInfo;
     };
 
@@ -1053,10 +1053,10 @@ declare module 'flashpoint-launcher' {
     interface ZipData {
         file: string;
         status: string;
-        attributes?: string;
-        size?: number;
-        sizeCompressed?: number;
-        hash?: string;
+        attributes?: string | undefined;
+        size?: number | undefined;
+        sizeCompressed?: number | undefined;
+        hash?: string | undefined;
     }
 
     interface ZipProgress {
@@ -1094,7 +1094,7 @@ declare module 'flashpoint-launcher' {
         /** Whether this is already disposed */
         isDisposed: boolean;
         /** Callback to use when disposed */
-        onDispose?: () => void;
+        onDispose?: () => void | undefined;
     };
 
     /** Dispose of a disposable and all its children */
