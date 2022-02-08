@@ -412,7 +412,7 @@ declare module 'flashpoint-launcher' {
     /** See Electron docs for explanations. https://www.electronjs.org/docs/api/dialog */
     type ShowMessageBoxOptions = {
         title?: string | undefined;
-        message: string | undefined;
+        message: string;
         buttons?: string[] | undefined;
         cancelId?: number | undefined;
     };
