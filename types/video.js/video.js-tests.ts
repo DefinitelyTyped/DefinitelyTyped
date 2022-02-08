@@ -160,6 +160,14 @@ videojs('example_video_1', playerOptions).ready(function playerReady() {
 
     this.requestFullscreen();
 
+    this.requestPictureInPicture().then(pipWindow => {
+        // $ExpectType PictureInPictureWindow
+        pipWindow;
+    });
+
+    // $ExpectType Promise<void>
+    this.exitPictureInPicture();
+
     const networkState: videojs.NetworkState = this.networkState();
 
     const responsive: boolean = this.responsive();

@@ -167,3 +167,9 @@ import * as url from 'node:url';
 {
     const dataUrl: string = url.URL.createObjectURL(new Blob(['']));
 }
+{
+    const dataUrl1: URL = new url.URL('file://test');
+    const dataUrl2: url.URL = new URL('file://test');
+    const urlSearchParams1: URLSearchParams = new url.URLSearchParams();
+    const urlSearchParams2: url.URLSearchParams = new URLSearchParams();
+}

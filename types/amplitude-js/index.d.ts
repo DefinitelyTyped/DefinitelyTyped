@@ -122,6 +122,8 @@ export class AmplitudeClient {
     setGlobalUserProperties(properties: any): void;
     clearUserProperties(): void;
 
+    clearStorage(): boolean;
+
     setOptOut(enable: boolean): void;
 
     setGroup(groupType: string, groupName: string | string[]): void;

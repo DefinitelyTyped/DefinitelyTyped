@@ -67,6 +67,12 @@ const ledgerRejectResponse: indy.LedgerRejectResponse = {
     reason: "client request invalid: UnauthorizedClientRequest('The action is forbidden',)",
     identifier: 'TL1EaPFCZ8Si5aUrqScBDt',
 };
+const ledgerReqnackResponse: indy.LedgerReqnackResponse = {
+    op: 'REQNACK',
+    reqId: 1615465027340221000,
+    reason: "client request invalid: UnauthorizedClientRequest('The action is forbidden',)",
+    identifier: 'TL1EaPFCZ8Si5aUrqScBDt',
+};
 const ledgerWriteReply: indy.LedgerWriteReplyResponse = {
     result: {
         auditPath: [
@@ -170,6 +176,7 @@ indy.signRequest(10, 'myDid', ledgerRequest);
 indy.signAndSubmitRequest(10, 10, 'myDid', ledgerRequest);
 indy.submitRequest(10, ledgerRequest);
 indy.parseGetNymResponse(ledgerRejectResponse);
+indy.parseGetNymResponse(ledgerReqnackResponse);
 indy.buildNymRequest('myDid', 'targetDid', 'verKey', 'alias', 'TRUSTEE');
 indy.buildGetSchemaRequest('myDid', 'a');
 indy.parseGetSchemaResponse(ledgerWriteReply);
@@ -237,7 +244,7 @@ indy.proverStoreCredential(
     {},
     {
         cred_def_id: 'cred_def_id',
-        rev_reg_def_id: 'rev_reg_def_id',
+        rev_reg_id: 'rev_reg_id',
         schema_id: 'schema_id',
         signature: 'signature',
         signature_correctness_proof: 'signature_correctness_proof',
@@ -288,19 +295,19 @@ indy.proverCreateProof(
 indy.createRevocationState(
     10,
     {
-    id: '',
-    revocDefType: 'CL_ACCUM',
-    tag: '',
-    credDefId: '',
-    value: {
-        issuanceType: 'ISSUANCE_BY_DEFAULT',
-        maxCredNum: 0,
-        tailsHash: '',
-        tailsLocation: '',
-        publicKeys: []
+        id: '',
+        revocDefType: 'CL_ACCUM',
+        tag: '',
+        credDefId: '',
+        value: {
+            issuanceType: 'ISSUANCE_BY_DEFAULT',
+            maxCredNum: 0,
+            tailsHash: '',
+            tailsLocation: '',
+            publicKeys: [],
+        },
+        ver: '',
     },
-    ver: ''
-},
     {
         value: {
             prevAccum: 'prevAccum',

@@ -2425,7 +2425,7 @@ declare namespace mapboxgl {
         'text-pitch-alignment'?: 'map' | 'viewport' | 'auto' | undefined;
         'text-rotation-alignment'?: 'map' | 'viewport' | 'auto' | undefined;
         'text-field'?: string | StyleFunction | Expression | undefined;
-        'text-font'?: string | string[] | Expression | undefined;
+        'text-font'?: string[] | Expression | undefined;
         'text-size'?: number | StyleFunction | Expression | undefined;
         'text-max-width'?: number | StyleFunction | Expression | undefined;
         'text-line-height'?: number | Expression | undefined;

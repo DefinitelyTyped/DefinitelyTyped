@@ -830,6 +830,9 @@ function testTypedStub() {
     const fooStub: sinon.SinonStubbedInstance<Foo> = {
         bar: sinon.stub(),
     };
+
+    const stub3 = sinon.stub<readonly [number, string], boolean>();
+    stub3.firstCall.args; // $ExpectType readonly [number, string]
 }
 
 function testMock() {
@@ -939,4 +942,8 @@ async function testTypedFake() {
     fake11.firstCall.returnValue; // $ExpectType boolean
 
     sinon.fake<[boolean, string], number>(typedFn); // $ExpectError
+
+    const fake12 = sinon.fake<readonly [boolean, string], number>();
+
+    fake12.firstCall.args; // $ExpectType readonly [boolean, string]
 }

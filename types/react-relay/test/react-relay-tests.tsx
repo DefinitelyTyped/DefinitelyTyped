@@ -172,6 +172,7 @@ const Story = (() => {
         story: Story_story;
         onLike: StoryLike;
         ignoreMe?: {} | undefined;
+        defaultProp: string;
     }
 
     interface State {
@@ -179,6 +180,10 @@ const Story = (() => {
     }
 
     class Story extends React.Component<Props> {
+        static defaultProps = {
+            defaultProp: 'default',
+        };
+
         state = {
             isLoading: false,
         };
@@ -424,9 +429,14 @@ type UserFeed_user = {
         loadMoreTitle: string;
         user: UserFeed_user;
         ignoreMe?: {} | undefined;
+        defaultProp: string;
     }
 
     class UserFeed extends React.Component<Props> {
+        static defaultProps = {
+            defaultProp: 'default',
+        };
+
         render() {
             const onStoryLike = (id: string) => console.log(`Liked story #${id}`);
             return (

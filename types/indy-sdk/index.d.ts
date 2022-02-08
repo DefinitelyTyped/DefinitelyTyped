@@ -198,7 +198,7 @@ export function proverStoreCredential(
     credReqMetadata: CredReqMetadata,
     cred: Cred,
     credDef: CredDef,
-    revRegDef: RevRegDef | null,
+    revRegDef: RevocRegDef | null,
 ): Promise<CredentialId>;
 // TODO: proverGetCredentials
 export function proverGetCredential(wh: WalletHandle, credId: string): Promise<IndyCredentialInfo>;
@@ -233,7 +233,7 @@ export function verifierVerifyProof(
     proof: IndyProof,
     schemas: Schemas,
     credentialDefs: CredentialDefs,
-    revRegsDefs: RevRegsDefs,
+    revRegDefs: RevocRegDefs,
     revRegs: RevStates,
 ): Promise<boolean>;
 
@@ -347,6 +347,13 @@ export interface LedgerRejectResponse {
     identifier: string;
 }
 
+export interface LedgerReqnackResponse {
+    op: 'REQNACK';
+    reqId: number;
+    reason: string;
+    identifier: string;
+}
+
 export interface LedgerReplyResponse {
     op: 'REPLY';
     result: Record<string, unknown>;
@@ -388,7 +395,7 @@ export interface LedgerWriteReplyResponse extends LedgerReplyResponse {
     };
 }
 
-export type LedgerResponse = LedgerRejectResponse | LedgerReadReplyResponse | LedgerWriteReplyResponse;
+export type LedgerResponse = LedgerRejectResponse | LedgerReqnackResponse | LedgerReadReplyResponse | LedgerWriteReplyResponse;
 
 export interface Schema {
     id: SchemaId;
@@ -511,12 +518,8 @@ export interface CredentialDefs {
     [key: string]: CredDef;
 }
 
-export interface RevRegsDefs {
-    [key: string]: unknown;
-}
-
-export interface RevRegDef {
-    [key: string]: unknown;
+export interface RevocRegDefs {
+    [revRegId: string]: RevocRegDef;
 }
 
 export interface RevStates {
@@ -595,7 +598,7 @@ export type BlobStorageReaderHandle = number;
 export interface Cred {
     schema_id: SchemaId;
     cred_def_id: CredDefId;
-    rev_reg_def_id: string;
+    rev_reg_id: string;
     values: CredValues;
     signature: unknown;
     signature_correctness_proof: unknown;
@@ -606,8 +609,8 @@ export interface RevocRegDelta {
     value: {
         prevAccum: string;
         accum: string;
-        issued: number[];
-        revoked: number[];
+        issued: number[] | undefined;
+        revoked: number[] | undefined;
     };
     ver: string;
 }

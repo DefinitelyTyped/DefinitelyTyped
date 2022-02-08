@@ -145,6 +145,7 @@ management
     });
 
 auth.requestChangePasswordEmail({
+    client_id: 'client_id',
     connection: 'My-Connection',
     email: 'hi@me.co',
 })

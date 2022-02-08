@@ -347,7 +347,7 @@ export class DynamicHeightList extends PureComponent<any> {
         return (
             <CellMeasurer cache={this._cache} columnIndex={0} key={key} rowIndex={index} parent={parent}>
                 {({ measure, registerChild }) => (
-                    <div ref={registerChild} className={classNames} style={style}>
+                    <div ref={registerChild as React.Ref<HTMLDivElement>} className={classNames} style={style}>
                         <img
                             onLoad={measure}
                             src={source}
