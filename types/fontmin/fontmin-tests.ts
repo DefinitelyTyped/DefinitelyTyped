@@ -1,6 +1,7 @@
 // --- Below is a sample program from the official GitHub repository.
 
-import Fontmin from 'fontmin';
+import Fontmin = require('fontmin');
+
 {
     const fontmin = new Fontmin().use(
         Fontmin.glyph({
