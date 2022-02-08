@@ -532,8 +532,7 @@ declare namespace Inputmask {
          */
         definitions?: {
             [key: string]: Definition;
-        } | undefined;
-        
+        } | undefined;       
         /**
          * Enable/disable prefilling of the year.
          *
