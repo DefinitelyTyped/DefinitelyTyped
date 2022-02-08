@@ -1,8 +1,11 @@
 import ffi = require('ffi-napi');
 import ref = require('ref-napi');
-import Struct = require('ref-struct-di');
-import Union = require('ref-union-di');
-import TArray = require('ref-array-di');
+import ref_struct = require('ref-struct-di');
+import ref_union = require('ref-union-di');
+import ref_array = require('ref-array-di');
+const Struct = ref_struct(ref);
+const Union = ref_union(ref);
+const TArray = ref_array(ref);
 
 {
     const sqlite3 = ref.types.void;
@@ -37,7 +40,7 @@ import TArray = require('ref-array-di');
     printfGen('string')('This is a string: %s\n', 'hello');
 }
 {
-    ref.address(new Buffer(1));
+    ref.address(Buffer.alloc(1));
     const intBuf = ref.alloc(ref.types.int);
     const intWith4 = ref.alloc(ref.types.int, 4);
     const buf0 = ref.allocCString('hello world');
@@ -45,10 +48,10 @@ import TArray = require('ref-array-di');
     const val = ref.deref(intBuf);
 }
 {
-    ref.isNull(new Buffer(1));
+    ref.isNull(Buffer.alloc(1));
 }
 {
-    const str = ref.readCString(new Buffer('hello\0world\0'), 0);
+    const str = ref.readCString(Buffer.from('hello\0world\0'), 0);
     const buf = ref.alloc('int64');
     ref.writeInt64BE(buf, 0, '9223372036854775807');
     const val = ref.readInt64BE(buf, 0);
@@ -82,7 +85,7 @@ import TArray = require('ref-array-di');
 }
 {
     const CharArray = TArray('char');
-    const b = new Buffer('hello', 'ascii');
+    const b = Buffer.from('hello', 'ascii');
     const a = new CharArray(b);
 }
 {
@@ -111,3 +114,38 @@ import TArray = require('ref-array-di');
     });
     current.atoi('1234');
 }
+
+declare const any: any;
+
+// $ExpectType ForeignFunction<void, []> | VariadicForeignFunction<CoerceType<"void">, []> | ((args_0: (err: any, value: void) => void) => void)
+ffi.Library(null, { x: ["void", [], any]}).x;
+// $ExpectType ForeignFunction<void, []>
+ffi.Library(null, { x: ["void", [], undefined]}).x;
+// $ExpectType ForeignFunction<void, []>
+ffi.Library(null, { x: ["void", [], { }]}).x;
+// $ExpectType ForeignFunction<void, []>
+ffi.Library(null, { x: ["void", [], { varargs: false }]}).x;
+// $ExpectType ForeignFunction<void, []>
+ffi.Library(null, { x: ["void", [], { async: false }]}).x;
+// $ExpectType ForeignFunction<void, []>
+ffi.Library(null, { x: ["void", [], { abi: 0 }]}).x;
+// $ExpectType VariadicForeignFunction<CoerceType<"void">, []>
+ffi.Library(null, { x: ["void", [], { varargs: true }]}).x;
+// $ExpectType (args_0: (err: any, value: void) => void) => void
+ffi.Library(null, { x: ["void", [], { async: true }]}).x;
+
+{
+    // Ensure functions types are valid.
+    const PCALLBACK = ffi.Function("bool", ["int32"]);
+    const lib = ffi.Library(null, {
+        foo: ["void", [PCALLBACK]]
+    });
+    const callback = (x: number) => x > 0;
+    lib.foo(callback);
+}
+
+// $ExpectType PFFI_TYPE | undefined
+ref.types.uint32.ffi_type;
+
+// $ExpectType PFFI_TYPE
+ffi.FFI_TYPES.void;

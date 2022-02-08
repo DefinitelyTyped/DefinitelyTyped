@@ -4,11 +4,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface ElementTreeWriteOptions {
-    default_namespace?: string;
-    encoding?: string; // default is 'utf-8'
-    indent?: number;
-    method?: 'xml' | 'text'; // default is 'xml'
-    xml_declaration?: boolean; // on by default
+    default_namespace?: string | undefined;
+    encoding?: string | undefined; // default is 'utf-8'
+    indent?: number | undefined;
+    method?: 'xml' | 'text' | undefined; // default is 'xml'
+    xml_declaration?: boolean | undefined; // on by default
 }
 
 export class ElementTree {

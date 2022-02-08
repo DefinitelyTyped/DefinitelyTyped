@@ -1,6 +1,10 @@
 import emojijs = require('emoji-js');
+import EmojiConvertor = require('emoji-js');
 
-const emoji = new emojijs.EmojiConvertor();
+// alias support (old)
+let emoji = new emojijs.EmojiConvertor();
+// direct import (class)
+emoji = new EmojiConvertor();
 
 emoji.replace_colons(':smile:');
 

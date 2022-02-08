@@ -7,17 +7,17 @@
 import { Component, HTMLProps } from "react";
 
 interface InfiniteScrollerProps {
-    elementIsScrollable?: boolean;
-    containerHeight?: number | string;
-    threshold?: number;
-    hasMore?: boolean;
-    loadingMore?: boolean;
+    elementIsScrollable?: boolean | undefined;
+    containerHeight?: number | string | undefined;
+    threshold?: number | undefined;
+    hasMore?: boolean | undefined;
+    loadingMore?: boolean | undefined;
     loader?: any;
-    showLoader?: boolean;
+    showLoader?: boolean | undefined;
     loadMore(): void;
-    items?: JSX.Element[];
-    children?: JSX.Element[];
-    holderType?: string;
+    items?: JSX.Element[] | undefined;
+    children?: JSX.Element[] | undefined;
+    holderType?: string | undefined;
 }
 
 declare class InfiniteScoller extends Component<InfiniteScrollerProps & HTMLProps<HTMLDivElement>> {}

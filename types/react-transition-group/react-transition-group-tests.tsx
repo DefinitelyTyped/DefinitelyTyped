@@ -1,18 +1,18 @@
 import * as React from 'react';
-import { UNMOUNTED, EXITED, ENTERING, ENTERED, EXITING, TransitionStatus } from 'react-transition-group/Transition';
+import { UNMOUNTED, EXITED, ENTERING, ENTERED, EXITING } from 'react-transition-group/Transition';
 import { modes } from 'react-transition-group/SwitchTransition';
-import { Transition, CSSTransition, TransitionGroup, SwitchTransition, config } from 'react-transition-group';
+import { Transition, CSSTransition, TransitionGroup, SwitchTransition, TransitionStatus, config } from 'react-transition-group';
 
 interface ContainerProps {
     theme: string;
-    children?: Element[];
+    children?: React.ReactElement[] | undefined;
 }
 
-const Container: React.StatelessComponent<ContainerProps> = (props: ContainerProps) => {
+const Container: React.FunctionComponent<ContainerProps> = (props: ContainerProps) => {
     return <div data-theme={props.theme}>{props.children}</div>;
 };
 
-const Test: React.StatelessComponent = () => {
+const Test: React.FunctionComponent = () => {
     const nodeRef = React.useRef<HTMLDivElement>(null);
 
     function handleEnter(node: HTMLElement, isAppearing: boolean) {}

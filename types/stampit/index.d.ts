@@ -225,27 +225,27 @@ declare namespace stampit {
      */
     interface Descriptor<Obj, S̤t̤a̤m̤p̤ extends StampSignature = Stamp<Obj>> {
         /** A set of methods that will be added to the object's delegate prototype. */
-        methods?: MethodMap<Obj>;
+        methods?: MethodMap<Obj> | undefined;
         /** A set of properties that will be added to new object instances by assignment. */
-        properties?: PropertyMap;
+        properties?: PropertyMap | undefined;
         /** A set of properties that will be added to new object instances by deep property merge. */
-        deepProperties?: PropertyMap;
+        deepProperties?: PropertyMap | undefined;
         /** A set of object property descriptors (`PropertyDescriptor`) used for fine-grained control over object property behaviors. */
-        propertyDescriptors?: PropertyDescriptorMap;
+        propertyDescriptors?: PropertyDescriptorMap | undefined;
         /** A set of static properties that will be copied by assignment to the `Stamp`. */
-        staticProperties?: PropertyMap /* & ThisType<S> */;
+        staticProperties?: PropertyMap | undefined /* & ThisType<S> */;
         /** A set of static properties that will be added to the `Stamp` by deep property merge. */
-        staticDeepProperties?: PropertyMap /* & ThisType<S> */;
+        staticDeepProperties?: PropertyMap | undefined /* & ThisType<S> */;
         /** A set of object property descriptors (`PropertyDescriptor`) to apply to the `Stamp`. */
-        staticPropertyDescriptors?: PropertyDescriptorMap /* & ThisType<S> */;
+        staticPropertyDescriptors?: PropertyDescriptorMap | undefined /* & ThisType<S> */;
         /** An array of functions that will run in sequence while creating an object instance from a `Stamp`. `Stamp` details and arguments get passed to initializers. */
-        initializers?: Initializer<Obj, S̤t̤a̤m̤p̤> | Array<Initializer<Obj, S̤t̤a̤m̤p̤>>;
+        initializers?: Initializer<Obj, S̤t̤a̤m̤p̤> | Array<Initializer<Obj, S̤t̤a̤m̤p̤>> | undefined;
         /** An array of functions that will run in sequence while creating a new `Stamp` from a list of `Composable`s. The resulting `Stamp` and the `Composable`s get passed to composers. */
-        composers?: Array<Composer<S̤t̤a̤m̤p̤>>;
+        composers?: Array<Composer<S̤t̤a̤m̤p̤>> | undefined;
         /** A set of options made available to the `Stamp` and its initializers during object instance creation. These will be copied by assignment. */
-        configuration?: PropertyMap /* & ThisType<S> */;
+        configuration?: PropertyMap | undefined /* & ThisType<S> */;
         /** A set of options made available to the `Stamp` and its initializers during object instance creation. These will be deep merged. */
-        deepConfiguration?: PropertyMap /* & ThisType<S> */;
+        deepConfiguration?: PropertyMap | undefined /* & ThisType<S> */;
     }
 
     /**
@@ -255,21 +255,21 @@ declare namespace stampit {
      */
     interface ExtendedDescriptor<Obj, S̤t̤a̤m̤p̤ extends StampSignature = Stamp<Obj>> extends Descriptor<Obj, S̤t̤a̤m̤p̤> {
         /** A set of properties that will be added to new object instances by assignment. */
-        props?: PropertyMap;
+        props?: PropertyMap | undefined;
         /** A set of properties that will be added to new object instances by deep property merge. */
-        deepProps?: PropertyMap;
+        deepProps?: PropertyMap | undefined;
         /** A set of static properties that will be copied by assignment to the `Stamp`. */
-        statics?: PropertyMap /* & ThisType<S> */;
+        statics?: PropertyMap | undefined /* & ThisType<S> */;
         /** A set of static properties that will be added to the `Stamp` by deep property merge. */
-        deepStatics?: PropertyMap /* & ThisType<S> */;
+        deepStatics?: PropertyMap | undefined /* & ThisType<S> */;
         /** An array of functions that will run in sequence while creating an object instance from a `Stamp`. `Stamp` details and arguments get passed to initializers. */
-        init?: Initializer<Obj, S̤t̤a̤m̤p̤> | Array<Initializer<Obj, S̤t̤a̤m̤p̤>>;
+        init?: Initializer<Obj, S̤t̤a̤m̤p̤> | Array<Initializer<Obj, S̤t̤a̤m̤p̤>> | undefined;
         /** A set of options made available to the `Stamp` and its initializers during object instance creation. These will be copied by assignment. */
-        conf?: PropertyMap /* & ThisType<S> */;
+        conf?: PropertyMap | undefined /* & ThisType<S> */;
         /** A set of options made available to the `Stamp` and its initializers during object instance creation. These will be deep merged. */
-        deepConf?: PropertyMap /* & ThisType<S> */;
+        deepConf?: PropertyMap | undefined /* & ThisType<S> */;
         // TODO: Add description
-        name?: string;
+        name?: string | undefined;
     }
 
     /**

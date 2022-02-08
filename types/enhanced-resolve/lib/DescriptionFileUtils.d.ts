@@ -2,8 +2,8 @@ import Resolver = require('./Resolver');
 import { Dictionary, Concord } from './concord';
 
 export interface DescriptionFileData {
-    concord?: Concord;
-    browser?: Dictionary<string | boolean>;
+    concord?: Concord | undefined;
+    browser?: Dictionary<string | boolean> | undefined;
 }
 
 export interface LoadDescriptionFileResult {

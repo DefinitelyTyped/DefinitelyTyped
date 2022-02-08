@@ -3,7 +3,12 @@ import * as tjs from 'teslajs';
 const options = { authToken: 'token', vehicleID: 'id' };
 
 async function main() {
-  tjs.login('username', 'password', (err, result) => {
+  const credentials = {
+    username: 'username',
+    password: 'password',
+    mfaPassCode: 'mfaPassCode'
+  };
+  tjs.login(credentials, (err, result) => {
     const token = result.authToken;
   });
   const vehicle = await tjs.vehicleAsync(options);

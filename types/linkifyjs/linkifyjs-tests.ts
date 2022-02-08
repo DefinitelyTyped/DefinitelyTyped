@@ -30,7 +30,8 @@ options = { attributes: href => ({}) }; // $ExpectType { attributes: (href: stri
 
 options = { className: null }; // $ExpectError
 options = { className: 'new-link--url' }; // $ExpectType { className: string; }
-options = { className: (href, type) => `new-link-${type}` }; // $ExpectType { className: (href: string, type: LinkEntityType) => string; }
+// tslint:disable-next-line:no-unnecessary-type-assertion
+options = { className: (href, type) => (`new-link-${type}` as string) }; // $ExpectType { className: (href: string, type: LinkEntityType) => string; }
 options = { className: { sunshine: v => v } }; // $ExpectError
 options = { className: { email: () => 'new-link--email' } }; // $ExpectType { className: { email: () => string; }; }
 

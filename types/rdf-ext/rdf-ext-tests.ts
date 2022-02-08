@@ -1,9 +1,14 @@
 import rdf = require('rdf-ext');
-import { Literal, Quad, NamedNode, Stream, Sink, DataFactory, DatasetCoreFactory } from 'rdf-js';
+import { Literal, Quad, NamedNode, Stream, Sink, DataFactory, DatasetCoreFactory, BlankNode, Variable } from 'rdf-js';
 import { DatasetIndexed as Dataset } from 'rdf-dataset-indexed/dataset';
 import QuadExt = require('rdf-ext/lib/Quad');
+import BlankNodeExt = require('rdf-ext/lib/BlankNode');
 import DataFactoryExt = require('rdf-ext/lib/DataFactory');
 import DatasetExt = require('rdf-ext/lib/Dataset');
+import DefaultGraphExt = require('rdf-ext/lib/DefaultGraph');
+import LiteralExt = require('rdf-ext/lib/Literal');
+import NamedNodeExt = require('rdf-ext/lib/NamedNode');
+import VariableExt = require('rdf-ext/lib/Variable');
 import { EventEmitter } from 'events';
 import { Readable } from 'stream';
 
@@ -304,4 +309,27 @@ async function dataset_parserImport() {
     const stream: Readable = <any> {};
 
     const promise: DatasetExt = await dataset.import(parserSink.import(stream));
+}
+
+function constructedTerms() {
+    const blankNode: BlankNode = new BlankNodeExt('b1');
+
+    const namedNode: NamedNode = new NamedNodeExt('foo:bar:baz');
+
+    let literal: Literal;
+    literal = new LiteralExt('foo');
+    literal = new LiteralExt('foo', 'bar');
+    literal = new LiteralExt('foo', null, namedNode);
+
+    const variable: Variable = new VariableExt('foo');
+
+    let quad: Quad;
+    quad = new QuadExt(blankNode, namedNode, literal);
+    quad = new QuadExt(blankNode, namedNode, literal, null);
+    quad = new QuadExt(blankNode, namedNode, literal, namedNode);
+    quad = new QuadExt(blankNode, namedNode, literal, new DefaultGraphExt());
+
+    let dataset: Dataset;
+    dataset = new DatasetExt();
+    dataset = new DatasetExt([quad, quad, quad]);
 }

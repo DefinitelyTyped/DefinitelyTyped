@@ -1584,7 +1584,7 @@ function test_eventParams() {
         event.stopPropagation();
     });
     $("body").click(function (event) {
-        //bugfix, duplicate identifier.  see: http://stackoverflow.com/questions/14824143/duplicate-identifier-nodename-in-jquery-d-ts
+        //bugfix, duplicate identifier.  see: https://stackoverflow.com/questions/14824143/duplicate-identifier-nodename-in-jquery-d-ts
         //$("#log").html("clicked: " + event.target.nodeName);
     });
     $('#whichkey').bind('keydown', function (e) {
@@ -3362,6 +3362,8 @@ function test_not() {
     var el1 = $("<div/>")[0];
     var el2 = $("<div/>")[0];
     $("p").not([el1, el2]);
+
+    $(["a", "c", "b"]).not(["b", "c", "a"]);
 }
 
 function test_EventIsNewable() {
@@ -3381,7 +3383,7 @@ var f2: JQueryPromise<string[]> = f1.then(s => [s, s]);
 var f3: JQueryPromise<number> = f2.then(v => 3);
 
 // ISSUE: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/742
-// http://stackoverflow.com/questions/5392344/sending-multipart-formdata-with-jquery-ajax#answer-5976031
+// https://stackoverflow.com/questions/5392344/sending-multipart-formdata-with-jquery-ajax#answer-5976031
 $.ajax({
     url: 'php/upload.php',
     data: {},

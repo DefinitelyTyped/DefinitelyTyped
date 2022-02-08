@@ -1,11 +1,13 @@
-// Type definitions for Pdfkit v0.10.0
+// Type definitions for Pdfkit v0.12.3
 // Project: http://pdfkit.org
 // Definitions by: Eric Hillah <https://github.com/erichillah>
 //                 Erik Berreßem <https://github.com/she11sh0cked>
 //                 Jeroen Vervaeke <https://github.com/jeroenvervaeke/>
 //                 Thales Agapito <https://github.com/thalesagapito/>
 //                 Evgeny Baram <https://github.com/r4tz52/>
-//                 BamButz <https://github.com/BamButz/>
+//                 Benjamin Just <https://github.com/BamButz/>
+//                 Joanna Gabis <https://github.com/jg-mms/>
+//                 Robin Guinant <https://github.com/Foohx>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -33,20 +35,20 @@ declare namespace PDFKit {
 
 declare namespace PDFKit.Mixins {
     interface AnnotationOption {
-        Type?: string;
+        Type?: string | undefined;
         Rect?: any;
-        Border?: Array<number>;
-        SubType?: string;
-        Contents?: string;
-        Name?: string;
-        color?: string;
-        QuadPoints?: Array<number>;
+        Border?: Array<number> | undefined;
+        SubType?: string | undefined;
+        Contents?: string | undefined;
+        Name?: string | undefined;
+        color?: string | undefined;
+        QuadPoints?: Array<number> | undefined;
 
         A?: any;
         B?: any;
         C?: any;
         L?: any;
-        DA?: string;
+        DA?: string | undefined;
     }
 
     interface PDFAnnotation {
@@ -116,18 +118,18 @@ declare namespace PDFKit.Mixins {
     }
 
     interface ImageOption {
-        width?: number;
-        height?: number;
+        width?: number | undefined;
+        height?: number | undefined;
         /** Scale percentage */
-        scale?: number;
+        scale?: number | undefined;
         /** Two elements array specifying dimensions(w,h)  */
-        fit?: [number, number];
-        cover?: [number, number];
-        align?: 'center' | 'right';
-        valign?: 'center' | 'bottom';
-        link?: AnnotationOption;
-        goTo?: AnnotationOption;
-        destination?: string;
+        fit?: [number, number] | undefined;
+        cover?: [number, number] | undefined;
+        align?: 'center' | 'right' | undefined;
+        valign?: 'center' | 'bottom' | undefined;
+        link?: AnnotationOption | undefined;
+        goTo?: AnnotationOption | undefined;
+        destination?: string | undefined;
     }
 
     interface PDFImage {
@@ -139,49 +141,59 @@ declare namespace PDFKit.Mixins {
     }
 
     interface TextOptions {
-        /**  Set to false to disable line wrapping all together */
-        lineBreak?: boolean;
+        /** Set to false to disable line wrapping all together */
+        lineBreak?: boolean | undefined;
         /** The width that text should be wrapped to (by default, the page width minus the left and right margin) */
-        width?: number;
-        /**  The maximum height that text should be clipped to */
-        height?: number;
+        width?: number | undefined;
+        /** The maximum height that text should be clipped to */
+        height?: number | undefined;
         /** The character to display at the end of the text when it is too long. Set to true to use the default character. */
-        ellipsis?: boolean | string;
-        /**  the number of columns to flow the text into */
-        columns?: number;
-        /** the amount of space between each column (1/4 inch by default) */
-        columnGap?: number;
+        ellipsis?: boolean | string | undefined;
+        /** The number of columns to flow the text into */
+        columns?: number | undefined;
+        /** The amount of space between each column (1/4 inch by default) */
+        columnGap?: number | undefined;
         /** The amount in PDF points (72 per inch) to indent each paragraph of text */
-        indent?: number;
-        /** the amount of space between each paragraph of text */
-        paragraphGap?: number;
-        /** the amount of space between each line of text */
-        lineGap?: number;
-        /** the amount of space between each word in the text */
-        wordSpacing?: number;
-        /** the amount of space between each character in the text */
-        characterSpacing?: number;
-        /** whether to fill the text (true by default) */
-        fill?: boolean;
-        /**  whether to stroke the text */
-        stroke?: boolean;
+        indent?: number | undefined;
+        /** The amount of space between each paragraph of text */
+        paragraphGap?: number | undefined;
+        /** The amount of space between each line of text */
+        lineGap?: number | undefined;
+        /** The amount of space between each word in the text */
+        wordSpacing?: number | undefined;
+        /** The amount of space between each character in the text */
+        characterSpacing?: number | undefined;
+        /** Whether to fill the text (true by default) */
+        fill?: boolean | undefined;
+        /** Whether to stroke the text */
+        stroke?: boolean | undefined;
         /** A URL to link this text to (shortcut to create an annotation) */
-        link?: string;
-        /** whether to underline the text */
-        underline?: boolean;
-        /** whether to strike out the text */
-        strike?: boolean;
-        /** whether the text segment will be followed immediately by another segment. Useful for changing styling in the middle of a paragraph. */
-        continued?: boolean;
-        /** whether to slant the text (angle in degrees or true) */
-        oblique?: boolean | number;
-        /** the alignment of the text (center, justify, left, right) */
+        link?: string | undefined;
+        /** Whether to underline the text */
+        underline?: boolean | undefined;
+        /** Whether to strike out the text */
+        strike?: boolean | undefined;
+        /** Whether the text segment will be followed immediately by another segment. Useful for changing styling in the middle of a paragraph. */
+        continued?: boolean | undefined;
+        /** Whether to slant the text (angle in degrees or true) */
+        oblique?: boolean | number | undefined;
+        /** The alignment of the text (center, justify, left, right) */
         //TODO check this
-        align?: 'center' | 'justify' | 'left' | 'right' | string;
-        /** the vertical alignment of the text with respect to its insertion point */
-        baseline?: number | 'svg-middle' | 'middle' | 'svg-central' | 'bottom' | 'ideographic' | 'alphabetic' | 'mathematical' | 'hanging' | 'top';
-        /** an array of OpenType feature tags to apply. If not provided, a set of defaults is used. */
-        features?: OpenTypeFeatures[];
+        align?: 'center' | 'justify' | 'left' | 'right' | string | undefined;
+        /** The vertical alignment of the text with respect to its insertion point */
+        baseline?: number | 'svg-middle' | 'middle' | 'svg-central' | 'bottom' | 'ideographic' | 'alphabetic' | 'mathematical' | 'hanging' | 'top' | undefined;
+        /** An array of OpenType feature tags to apply. If not provided, a set of defaults is used. */
+        features?: OpenTypeFeatures[] | undefined;
+        /** Sets a list as unordered, ordered or lettered */
+        listType?: 'bullet' | 'numbered' | 'lettered' | undefined;
+        /** The radius of bullet points in a list. Works only with listType: 'bullet' */
+        bulletRadius?: number | undefined;
+        /** The indent of bullet points in a list */
+        bulletIndent?: number | undefined;
+        /** The indent of text in a list */
+        textIndent?: number | undefined;
+        destination?: string | undefined;
+        goTo?: string | undefined;
     }
 
     interface PDFText {
@@ -213,7 +225,7 @@ declare namespace PDFKit.Mixins {
         rect(x: number, y: number, w: number, h: number): this;
         roundedRect(x: number, y: number, w: number, h: number, r?: number): this;
         ellipse(x: number, y: number, r1: number, r2?: number): this;
-        circle(x: number, y: number, raduis: number): this;
+        circle(x: number, y: number, radius: number): this;
         polygon(...points: number[][]): this;
         path(path: string): this;
         fill(color?: ColorValue, rule?: RuleValue): this;
@@ -225,8 +237,74 @@ declare namespace PDFKit.Mixins {
         clip(rule?: RuleValue): this;
         transform(m11: number, m12: number, m21: number, m22: number, dx: number, dy: number): this;
         translate(x: number, y: number): this;
-        rotate(angle: number, options?: { origin?: number[] }): this;
-        scale(xFactor: number, yFactor?: number, options?: { origin?: number[] }): this;
+        rotate(angle: number, options?: { origin?: number[] | undefined }): this;
+        scale(xFactor: number, yFactor?: number, options?: { origin?: number[] | undefined }): this;
+    }
+
+    interface PDFAcroForm {
+        /**
+         * Must call if adding AcroForms to a document. Must also call font() before
+         * this method to set the default font.
+         */
+        initForm(): this;
+
+        /**
+         * Called automatically by document.js
+         */
+        endAcroForm(): this;
+
+        /**
+         * Creates and adds a form field to the document. Form fields are intermediate
+         * nodes in a PDF form that are used to specify form name heirarchy and form
+         * value defaults.
+         * @param name - field name (T attribute in field dictionary)
+         * @param options  - other attributes to include in field dictionary
+         */
+        formField(name: string, options?: Record<string, any>): PDFKitReference;
+
+        /**
+         * Creates and adds a Form Annotation to the document. Form annotations are
+         * called Widget annotations internally within a PDF file.
+         * @param name - form field name (T attribute of widget annotation
+         * dictionary)
+         */
+        formAnnotation(name: string, type: string, x: number, y: number, w: number, h: number, options?: object): this;
+
+        formText(name: string, x: number, y: number, w: number, h: number, options?: object): this;
+        formPushButton(name: string, x: number, y: number, w: number, h: number, options?: object): this;
+        formCombo(name: string, x: number, y: number, w: number, h: number, options?: object): this;
+        formList(name: string, x: number, y: number, w: number, h: number, options?: object): this;
+        formRadioButton(name: string, x: number, y: number, w: number, h: number, options?: object): this;
+        formCheckbox(name: string, x: number, y: number, w: number, h: number, options?: object): this;
+    }
+
+    interface PDFMarking {
+        markContent(tag: string, options?: MarkingOptions): this;
+        endMarkedContent(): this;
+        struct(tag: string, options?: MarkingOptions, children?: PDFStructureElementChild | PDFStructureElementChild[]): PDFStructureElement;
+        addStructure(structElem: PDFStructureElement): this;
+        initMarkings(options?: { tagged?: boolean }): void;
+        initPageMarkings(pageMarkings: PageMarking[]): void;
+        endPageMarkings(page: PDFPage): PageMarking[];
+        markStructureContent(tag: string, options?: MarkingOptions): PDFStructureContent;
+        getMarkingsDictionary(): PDFKitReference;
+        getStructTreeRoot(): PDFKitReference;
+        createStructParentTreeNextKey(): number;
+        endMarkings(): void;
+    }
+    interface MarkingOptions {
+        type?: 'Pagination' | 'Layout' | 'Page';
+        bbox?: [number, number, number, number];
+        attached?: string[];
+        lang?: string;
+        alt?: string;
+        expanded?: string;
+        actual?: string;
+    }
+    interface PageMarking {
+        tag: string;
+        structContent?: PDFStructureContent;
+        options?: MarkingOptions;
     }
 }
 
@@ -271,39 +349,42 @@ declare module 'pdfkit/js/data' {
 
 declare namespace PDFKit {
     interface DocumentInfo {
-        Producer?: string;
-        Creator?: string;
-        CreationDate?: Date;
-        Title?: string;
-        Author?: string;
-        Keywords?: string;
-        ModDate?: Date;
+        Producer?: string | undefined;
+        Creator?: string | undefined;
+        CreationDate?: Date | undefined;
+        Title?: string | undefined;
+        Author?: string | undefined;
+        Keywords?: string | undefined;
+        ModDate?: Date | undefined;
     }
 
     interface DocumentPermissions {
-        modifying?: boolean;
-        copying?: boolean;
-        annotating?: boolean;
-        fillingForms?: boolean;
-        contentAccessibility?: boolean;
-        documentAssembly?: boolean;
-        printing?: 'lowResolution' | 'highResolution';
+        modifying?: boolean | undefined;
+        copying?: boolean | undefined;
+        annotating?: boolean | undefined;
+        fillingForms?: boolean | undefined;
+        contentAccessibility?: boolean | undefined;
+        documentAssembly?: boolean | undefined;
+        printing?: 'lowResolution' | 'highResolution' | undefined;
     }
 
     interface PDFDocumentOptions {
-        compress?: boolean;
-        info?: DocumentInfo;
-        userPassword?: string;
-        ownerPassword?: string;
-        permissions?: DocumentPermissions;
-        pdfVersion?: '1.3' | '1.4' | '1.5' | '1.6' | '1.7' | '1.7ext3';
-        autoFirstPage?: boolean;
-        size?: number[] | string;
-        margin?: number;
-        margins?: { top: number; left: number; bottom: number; right: number };
-        layout?: 'portrait' | 'landscape';
+        compress?: boolean | undefined;
+        info?: DocumentInfo | undefined;
+        userPassword?: string | undefined;
+        ownerPassword?: string | undefined;
+        permissions?: DocumentPermissions | undefined;
+        pdfVersion?: '1.3' | '1.4' | '1.5' | '1.6' | '1.7' | '1.7ext3' | undefined;
+        autoFirstPage?: boolean | undefined;
+        size?: number[] | string | undefined;
+        margin?: number | undefined;
+        margins?: { top: number; left: number; bottom: number; right: number } | undefined;
+        layout?: 'portrait' | 'landscape' | undefined;
 
-        bufferPages?: boolean;
+        bufferPages?: boolean | undefined;
+        tagged?: boolean;
+        lang?: string;
+        displayTitle?: boolean;
     }
 
     interface PDFDocument
@@ -313,7 +394,9 @@ declare namespace PDFKit {
             Mixins.PDFImage,
             Mixins.PDFText,
             Mixins.PDFVector,
-            Mixins.PDFFont {
+            Mixins.PDFFont,
+            Mixins.PDFAcroForm,
+            Mixins.PDFMarking {
         /**
          * PDF Version
          */
@@ -436,6 +519,47 @@ declare module 'pdfkit/js/reference' {
 
     export = PDFKitReference;
 }
+declare namespace PDFKit {
+    /** PDFStructureContent */
+    class PDFStructureContent {
+        constructor(pageRef: PDFKitReference, mcid: number);
+        push(structContent: PDFStructureContent): void;
+    }
+}
+
+declare module 'pdfkit/js/structure_content' {
+    var PDFStructureContent: PDFKit.PDFStructureContent;
+    export = PDFStructureContent;
+}
+
+declare namespace PDFKit {
+    type PDFStructureElementChild =
+        (() => any)
+        | PDFStructureElement
+        | PDFStructureContent;
+
+    /** PDFStructureElement */
+    class PDFStructureElement {
+        constructor(
+            document: PDFDocument,
+            type: string,
+            options?: { title?: string; lang?: string; alt?: string; expanded?: string; actual?: string },
+            children?: PDFStructureElementChild | PDFStructureElementChild[]);
+        constructor(
+            document: PDFDocument,
+            type: string,
+            children?: PDFStructureElementChild | PDFStructureElementChild[]);
+        add(el: PDFStructureElementChild): PDFStructureElement;
+        setParent(parentRef: PDFKitReference): void;
+        setAttached(): void;
+        end(): void;
+    }
+}
+
+declare module 'pdfkit/js/structure_element' {
+    var PDFStructureElement: PDFKit.PDFStructureElement;
+    export = PDFStructureElement;
+}
 
 declare module 'pdfkit/js/mixins/annotations' {
     var PDFKitAnnotation: PDFKit.Mixins.PDFAnnotation;
@@ -465,4 +589,9 @@ declare module 'pdfkit/js/mixins/text' {
 declare module 'pdfkit/js/mixins/vector' {
     var PDFKitVector: PDFKit.Mixins.PDFVector;
     export = PDFKitVector;
+}
+
+declare module 'pdfkit/js/mixins/markings' {
+    var PDFKitMarking: PDFKit.Mixins.PDFMarking;
+    export = PDFKitMarking;
 }

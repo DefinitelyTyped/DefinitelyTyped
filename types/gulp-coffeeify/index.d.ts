@@ -13,26 +13,26 @@ declare namespace coffeeify {
 
     interface Option {
         options?: {
-            debug?: boolean;
-            paths?: string[];
-        },
+            debug?: boolean | undefined;
+            paths?: string[] | undefined;
+        } | undefined,
         /**
          * [DEPRECATED]: You should use a 'paths' options of browserify.
          */
-        aliases?: Aliases;
+        aliases?: Aliases | undefined;
         /**
          * [DEPRECATED]
          */
-        transforms?: Transforms;
+        transforms?: Transforms | undefined;
     }
 
     type Aliases = Array<{
-        cwd?: string;
-        base?: string;
+        cwd?: string | undefined;
+        base?: string | undefined;
     }>;
 
     type Transforms = Array<{
-        ext?: string;
+        ext?: string | undefined;
         transform?(data: string): string;
     }>;
 }

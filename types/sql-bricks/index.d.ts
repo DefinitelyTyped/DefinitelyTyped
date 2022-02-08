@@ -53,7 +53,7 @@ declare namespace SqlBricks {
   }
 
   interface WhereGroup {
-    op?: string
+    op?: string | undefined
     expressions: WhereExpression[]
   }
 

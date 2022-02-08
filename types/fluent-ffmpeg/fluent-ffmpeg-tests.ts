@@ -3,6 +3,10 @@ import { createWriteStream } from 'fs';
 
 const stream = createWriteStream('outputfile.divx');
 
+// Set the CWD
+ffmpeg('file.avi', { cwd: '/path/to' })
+    .output('ouptutfile.mp4');
+
 ffmpeg('/path/to/file.avi')
     .output('outputfile.mp4')
     .output(stream);
@@ -106,3 +110,6 @@ ffmpeg.ffprobe('/path/to/file.mp4', (err, data) => {
 ffmpeg('/path/to.mp4')
     .loop()
     .videoBitrate(300, true);
+
+ffmpeg('/path/to/file.avi')
+    .preset((command) => { command.format('avi').size('720x?'); });

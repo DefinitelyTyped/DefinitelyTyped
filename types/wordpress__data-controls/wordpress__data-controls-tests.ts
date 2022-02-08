@@ -1,7 +1,7 @@
 import { apiFetch, controls, dispatch, select } from '@wordpress/data-controls';
 import { registerStore } from '@wordpress/data';
 
-// $ExpectType void
+// $ExpectType unknown
 apiFetch({ path: '/wp/v2/posts' });
 
 // $ExpectType void
@@ -18,16 +18,10 @@ select('core/edit-post', 'isEditorPanelEnabled', 'foo');
 // $ExpectType void
 select('core/edit-post', 'isEditorPanelEnabled', 'foo', 123, true, 'bar');
 
-/* tslint:disable:no-void-expression */
-function* generator() {
-    // $ExpectType any
-    const apiFetchValue = yield apiFetch({ path: '/wp/v2/posts' });
-    // $ExpectType any
-    const dispatchValue = yield dispatch('core/edit-post', 'togglePublishSidebar');
-    // $ExpectType any
-    const selectValue = yield select('core/edit-post', 'isEditorPanelEnabled', 'foo');
+function* testAction(): Generator {
+    const items = yield apiFetch({ path: '/v2/my-api/items' }) as string[];
+    // do something with items.
 }
-/* tslint:enable:no-void-expression */
 
 const myExistingControls = {
     FOO: () => Promise.resolve('foo'),
@@ -40,4 +34,7 @@ registerStore('my-store', {
         ...controls,
         ...myExistingControls,
     },
+    actions: {
+        testAction,
+    }
 });

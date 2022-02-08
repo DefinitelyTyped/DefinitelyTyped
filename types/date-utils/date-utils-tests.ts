@@ -1,5 +1,5 @@
-import dateUtils = require("date-utils");
+import { language } from "date-utils";
 
-dateUtils('es');
-dateUtils('fr');
-dateUtils('pt-BR');
+language('es'); // $ExpectType string
+language('fr'); // $ExpectType string
+language('pt-BR'); // $ExpectType string

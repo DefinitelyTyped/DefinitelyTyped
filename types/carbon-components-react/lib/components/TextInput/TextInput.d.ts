@@ -1,10 +1,14 @@
+import * as React from "react";
 import ControlledPasswordInput from "./ControlledPasswordInput";
 import PasswordInput from "./PasswordInput";
 import { TextInputSharedProps } from "./props";
-import { ForwardRefReturn, CarbonInputSize } from "../../../typings/shared";
+import { ForwardRefReturn } from "../../../typings/shared";
 
 export interface TextInputProps extends TextInputSharedProps {
-    size?: Extract<CarbonInputSize, "sm" | "xl">,
+    inline?: boolean | undefined,
+    size?: "sm" | "md" | "lg" | "xl" | undefined,
+    warn?: boolean | undefined,
+    warnText?: React.ReactNode | undefined,
 }
 
 interface TextInputFC extends ForwardRefReturn<HTMLInputElement, TextInputProps> {

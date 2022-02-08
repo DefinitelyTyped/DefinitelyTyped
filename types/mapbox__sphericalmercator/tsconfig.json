@@ -14,8 +14,8 @@
         ],
         "types": [],
         "paths": {
-            "@mapbox/sphericalmercator": [
-                "mapbox__sphericalmercator"
+            "@mapbox/*": [
+                "mapbox__*"
             ]
         },
         "noEmit": true,

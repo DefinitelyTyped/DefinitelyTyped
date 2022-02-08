@@ -1,24 +1,22 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "target": "es5",
+        "target": "es6",
         "lib": [
             "es6",
             "dom"
         ],
-        "noImplicitAny": true,
-        "noImplicitThis": true,
-        "strictNullChecks": true,
-        "strictFunctionTypes": true,
+        "strict": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
         ],
         "paths": {
-            "@ember/error": ["ember__error"]
+            "@ember/*": ["ember__*"]
         },
         "types": [],
         "noEmit": true,
+        "exactOptionalPropertyTypes": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [

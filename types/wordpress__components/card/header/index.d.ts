@@ -5,24 +5,24 @@ declare namespace CardHeader {
         /**
          * `className` of the container.
          */
-        className?: string;
+        className?: string | undefined;
 
         /**
          * Renders a borderless card.
          */
-        isBorderless?: boolean;
+        isBorderless?: boolean | undefined;
 
         /**
          * Add visual shading style.
          */
-        isShady?: boolean;
+        isShady?: boolean | undefined;
 
-        size?: Card.CardSize;
+        size?: Card.CardSize | undefined;
 
         /**
          * Render as a different element type
          */
-        as?: T;
+        as?: T | undefined;
     } & JSX.IntrinsicElements[T];
 }
 

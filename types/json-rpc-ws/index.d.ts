@@ -100,10 +100,10 @@ export interface Connection {
 }
 
 export interface Payload<ParamType> {
-    jsonrpc?: '2.0';
+    jsonrpc?: '2.0' | undefined;
     id: string;
     method: string;
-    params?: ParamType;
+    params?: ParamType | undefined;
     result?: any;
     error?: any;
 }

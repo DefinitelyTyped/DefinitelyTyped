@@ -20,4 +20,9 @@ app.use(proxy({
     }
 }));
 
+app.use(proxy({
+    host: 'https://api.github.com',
+    encoding: 'gbk'
+}));
+
 app.listen(3000);

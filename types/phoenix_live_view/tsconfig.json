@@ -18,6 +18,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "index.d.ts"
+        "index.d.ts",
+        "phoenix_live_view-tests.ts"
     ]
 }

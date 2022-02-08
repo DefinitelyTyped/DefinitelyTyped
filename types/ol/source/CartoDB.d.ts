@@ -1,4 +1,4 @@
-import { EventsKey, ListenerFunction } from '../events';
+import { EventsKey } from '../events';
 import BaseEvent from '../events/Event';
 import { ObjectEvent } from '../Object';
 import { ProjectionLike } from '../proj';
@@ -11,23 +11,33 @@ export interface CartoDBLayerInfo {
     cdn_url: any;
 }
 export interface Options {
-    attributions?: AttributionLike;
-    cacheSize?: number;
-    crossOrigin?: string;
-    projection?: ProjectionLike;
-    maxZoom?: number;
-    minZoom?: number;
-    wrapX?: boolean;
+    attributions?: AttributionLike | undefined;
+    cacheSize?: number | undefined;
+    crossOrigin?: null | string | undefined;
+    projection?: ProjectionLike | undefined;
+    maxZoom?: number | undefined;
+    minZoom?: number | undefined;
+    wrapX?: boolean | undefined;
     config?: any;
-    map?: string;
+    map?: string | undefined;
     account: string;
+    transition?: number | undefined;
 }
 export default class CartoDB extends XYZ {
     constructor(options: Options);
+    /**
+     * Returns the current config.
+     */
     getConfig(): any;
+    /**
+     * Sets the CartoDB config
+     */
     setConfig(config: any): void;
+    /**
+     * Updates the carto db config.
+     */
     updateConfig(config: any): void;
-    on(type: string | string[], listener: ListenerFunction): EventsKey | EventsKey[];
+    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     un(type: string | string[], listener: (p0: any) => any): void;
     on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;

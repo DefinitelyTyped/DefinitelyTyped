@@ -1,8 +1,6 @@
 import * as React from "react";
 
-interface InheritedProps extends React.FormHTMLAttributes<HTMLFormElement> { }
-
-export interface FormProps extends InheritedProps { }
+export interface FormProps extends React.FormHTMLAttributes<HTMLFormElement> { }
 
 declare const Form: React.FC<FormProps>;
 

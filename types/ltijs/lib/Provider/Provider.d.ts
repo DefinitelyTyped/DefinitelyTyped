@@ -12,30 +12,30 @@ export interface ServerAddonFunction {
 }
 
 export interface DeploymentOptions {
-    port?: number;
-    silent?: boolean;
-    serverless?: boolean;
+    port?: number | undefined;
+    silent?: boolean | undefined;
+    serverless?: boolean | undefined;
 }
 
 export interface ProviderOptions {
-    appUrl?: string;
-    loginUrl?: string;
-    sessionTimeoutUrl?: string;
-    invalidTokenUrl?: string;
-    keysetUrl?: string;
-    https?: boolean;
+    appUrl?: string | undefined;
+    loginUrl?: string | undefined;
+    sessionTimeoutUrl?: string | undefined;
+    invalidTokenUrl?: string | undefined;
+    keysetUrl?: string | undefined;
+    https?: boolean | undefined;
     ssl?: {
         key: string;
         cert: string;
-    };
-    staticPath?: string;
-    logger?: boolean;
-    cors?: boolean;
-    serverAddon?: ServerAddonFunction;
+    } | undefined;
+    staticPath?: string | undefined;
+    logger?: boolean | undefined;
+    cors?: boolean | undefined;
+    serverAddon?: ServerAddonFunction | undefined;
     cookies?: {
-        secure?: boolean;
-        sameSite?: string;
-    };
+        secure?: boolean | undefined;
+        sameSite?: string | undefined;
+    } | undefined;
 }
 
 export interface OnConnectCallback {
@@ -43,13 +43,13 @@ export interface OnConnectCallback {
 }
 
 export interface OnConnectOptions {
-    sessionTimeout?: (request: Request, response: Response) => Response;
-    invalidToken?: (request: Request, response: Response) => Response;
+    sessionTimeout?: ((request: Request, response: Response) => Response) | undefined;
+    invalidToken?: ((request: Request, response: Response) => Response) | undefined;
 }
 
 export interface RedirectOptions {
-    isNewResource?: boolean;
-    ignoreRoot?: boolean;
+    isNewResource?: boolean | undefined;
+    ignoreRoot?: boolean | undefined;
 }
 
 export class Provider {

@@ -9,14 +9,14 @@ import State_1 from '../source/State';
 import BaseLayer from './Base';
 
 export interface Options {
-    opacity?: number;
-    visible?: boolean;
-    extent?: Extent;
-    zIndex?: number;
-    minResolution?: number;
-    maxResolution?: number;
-    source?: Source;
-    map?: PluggableMap;
+    opacity?: number | undefined;
+    visible?: boolean | undefined;
+    extent?: Extent | undefined;
+    zIndex?: number | undefined;
+    minResolution?: number | undefined;
+    maxResolution?: number | undefined;
+    source?: Source | undefined;
+    map?: PluggableMap | undefined;
 }
 export interface State {
     layer: BaseLayer;
@@ -24,7 +24,7 @@ export interface State {
     sourceState: State_1;
     visible: boolean;
     managed: boolean;
-    extent?: Extent;
+    extent?: Extent | undefined;
     zIndex: number;
     maxResolution: number;
     minResolution: number;

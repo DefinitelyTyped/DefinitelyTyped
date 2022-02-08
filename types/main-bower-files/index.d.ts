@@ -9,9 +9,9 @@
 
 
 interface IPaths {
-    bowerDirectory?: string;
-    bowerrc?: string;
-    bowerJson?: string;
+    bowerDirectory?: string | undefined;
+    bowerrc?: string | undefined;
+    bowerJson?: string | undefined;
 }
 
 interface IFilterFunction {
@@ -19,14 +19,14 @@ interface IFilterFunction {
 }
 
 interface IOptions {
-    debugging?: boolean;
-    main?: string | string[] | Object;
-    env?: string;
-    paths?: IPaths | string;
-    checkExistence?: boolean;
-    includeDev?: boolean | string;
-    includeSelf?: boolean;
-    filter?: RegExp | IFilterFunction | string | string[];
+    debugging?: boolean | undefined;
+    main?: string | string[] | Object | undefined;
+    env?: string | undefined;
+    paths?: IPaths | string | undefined;
+    checkExistence?: boolean | undefined;
+    includeDev?: boolean | string | undefined;
+    includeSelf?: boolean | undefined;
+    filter?: RegExp | IFilterFunction | string | string[] | undefined;
 }
 
 declare function mainBowerFiles(options?: IOptions): string[];

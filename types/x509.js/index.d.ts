@@ -8,9 +8,16 @@ export interface Certificate {
     publicExponent: string;
     subject: {
         commonName: string;
+        organizationalUnitName?: string;
     };
     issuer: {
         commonName: string;
+        countryName?: string;
+        localityName?: string;
+        organizationName?: string;
+        organizationalUnitName?: string;
+        serialNumber?: string;
+        stateOrProvinceName?: string;
     };
     serial: string;
     notBefore: string;

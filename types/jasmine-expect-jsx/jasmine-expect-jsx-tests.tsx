@@ -1,4 +1,3 @@
-/// <reference types="../jasmine"/>
 /// <reference types="./index"/>
 
 describe('test suite', () => {

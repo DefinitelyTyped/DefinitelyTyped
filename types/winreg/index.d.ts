@@ -123,22 +123,22 @@ declare namespace Winreg {
         /**
          * Optional hostname, must start with '\\' sequence.
          */
-        host?: string;
+        host?: string | undefined;
 
         /**
          * Optional hive ID, default is HKLM.
          */
-        hive?: string;
+        hive?: string | undefined;
 
         /**
          * Optional key, default is the root key.
          */
-        key?: string;
+        key?: string | undefined;
 
         /**
          * Optional registry hive architecture ('x86' or 'x64'; only valid on Windows 64 Bit Operating Systems).
          */
-        arch?: string;
+        arch?: string | undefined;
     }
 
     /**

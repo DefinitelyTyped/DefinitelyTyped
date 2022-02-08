@@ -71,6 +71,10 @@ function send(req: restify.Request, res: restify.Response, next: restify.Next) {
     req.getUrl() === url.parse('https://test.test.test/test');
     req.getVersion() === 'test';
     req.version() === 'test';
+    // @ExpectedType restify.Route[]
+    server.router.getRoutes();
+    // @ExpectedType restify.Route
+    req.getRoute();
     req.params;
     res.header('test');
     res.header('test', {});

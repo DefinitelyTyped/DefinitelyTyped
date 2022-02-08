@@ -42,12 +42,20 @@ export interface ArrayLike {
  * <needs description>
  * @param K
  */
-export interface AssocPartialOne<K extends keyof any> {
-    <T>(val: T): <U>(obj: U) => Record<K, T> & U;
-    <T, U>(val: T, obj: U): Record<K, T> & U;
-}
+export type AssocPartialOne<K extends keyof any> =
+    (<T>(val: T) => <U>(obj: U) => Record<K, T> & Omit<U, K>)
+    & (<T, U>(val: T, obj: U) => Record<K, T> & Omit<U, K>);
 
-// ---------------------------------------------------------------------------------------
+/**
+ * Array of functions to compose/pipe with.
+ */
+
+export type AtLeastOneFunctionsFlow<TArgs extends any[], TResult> =
+    [(...args: TArgs) => any, ...Array<(args: any) => any>, (...args: any[]) => TResult] | [(...args: TArgs) => TResult];
+export type AtLeastOneFunctionsFlowFromRightToLeft<TArgs extends any[], TResult> =
+    [(...args: any) => TResult, ...Array<(args: any) => any>, (...args: TArgs) => any] | [(...args: TArgs) => TResult];
+
+    // ---------------------------------------------------------------------------------------
 // C
 
 /**
@@ -58,76 +66,10 @@ export interface CharList extends String {
 }
 
 /**
- * <needs description>
- * @param V0
- * @param R
+ * R.cond's [predicate, transform] pair.
  */
-export type ComposeWithFns<V0, R> = [
-    (x0: V0) => R
-] | [
-    (x: any) => R,
-    (x: V0) => any
-] | [
-    (x: any) => R,
-    (x: any) => any,
-    (x: V0) => any
-] | [
-    (x: any) => R,
-    (x: any) => any,
-    (x: any) => any,
-    (x: V0) => any
-] | [
-    (x: any) => R,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: V0) => any
-] | [
-    (x: any) => R,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: V0) => any
-] | [
-    (x: any) => R,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: V0) => any
-] | [
-    (x: any) => R,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: V0) => any
-] | [
-    (x: any) => R,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: V0) => any
-] | [
-    (x: any) => R,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: V0) => any
-];
+
+export type CondPair<T extends any[], R> = [(...val: T) => boolean, (...val: T) => R];
 
 // ---------------------------------------------------------------------------------------
 // D
@@ -212,33 +154,20 @@ type EvolveValue<V, E> =
 /**
  * <needs description>
  */
-export interface Filter {
-    <T>(fn: (value: T) => boolean): FilterOnceApplied<T>;
-    <T, Kind extends 'array'>(fn: (value: T) => boolean): (list: readonly T[]) => T[];
-    <T, Kind extends 'object'>(fn: (value: T) => boolean): (list: Dictionary<T>) => Dictionary<T>;
-    <T>(fn: (value: T) => boolean, list: readonly T[]): T[];
-    <T>(fn: (value: T) => boolean, obj: Dictionary<T>): Dictionary<T>;
+export interface Find {
+    <T, P extends T>(pred: (val: T) => val is P, list: readonly T[]): P | undefined;
+    <T>(pred: (val: T) => boolean, list: readonly T[]): T | undefined;
+    <T, P extends T>(pred: (val: T) => val is P): (list: readonly T[]) => P | undefined;
+    <T>(pred: (val: T) => boolean): (list: readonly T[]) => T | undefined;
 }
 
 /**
  * <needs description>
  * @param A
  */
-type FilterOnceApplied<A> =
-    <K extends A[] | Dictionary<A>>(source: K) =>
-        K extends Array<infer U>
-        ? U[]
-        : K extends Dictionary<infer U>
-          ? Dictionary<U>
-          : never;
-
-/**
- * <needs description>
- * @param A
- */
-export interface Functor<A> {
-    map<U>(fn: (a: A) => U): Functor<U>;
-}
+export type Functor<A> =
+  | { ['fantasy-land/map']: <B>(fn: (a: A) => B) => Functor<B>; [key: string]: any }
+  | { map: <B>(fn: (a: A) => B) => Functor<B>; [key: string]: any };
 
 // ---------------------------------------------------------------------------------------
 // K
@@ -255,11 +184,12 @@ export type KeyValuePair<K, V> = [K, V];
 
 /**
  * <needs description>
+ * @param S
+ * @param A
  */
-export interface Lens {
-    <T, U>(obj: T): U;
-    set<T, U>(str: string, obj: T): U;
-}
+export type Lens<S, A> = (
+    functorFactory: (a: A) => Functor<A>
+) => (s: S) => Functor<S>;
 
 // ---------------------------------------------------------------------------------------
 // M
@@ -280,7 +210,6 @@ export interface Lens {
  * <created by @pirix-gh>
  */
 export type Merge<O1 extends object, O2 extends object, Depth extends 'flat' | 'deep'> =
-    // tslint:disable-next-line:use-default-type-parameter
     O.MergeUp<T.ObjectOf<O1>, T.ObjectOf<O2>, Depth, 1>;
 
 /**
@@ -293,7 +222,6 @@ export type Merge<O1 extends object, O2 extends object, Depth extends 'flat' | '
  * <created by @pirix-gh>
  */
 export type MergeAll<Os extends readonly object[]> =
-    // tslint:disable-next-line:use-default-type-parameter
     O.AssignUp<{}, Os, 'flat', 1> extends infer M
     ? {} extends M    // nothing merged => bcs no `as const`
       ? T.UnionOf<Os> // so we output the approximate types
@@ -304,14 +232,38 @@ export type MergeAll<Os extends readonly object[]> =
 // O
 
 /**
- * <needs description>
+ * Predicate for an object containing the key.
  */
-export type ObjPred = (value: any, key: string) => boolean;
+export type ObjPred<T = unknown> = (value: any, key: unknown extends T ? string : keyof T) => boolean;
 
 /**
  * <needs description>
  */
 export type Ord = number | string | boolean | Date;
+
+/**
+ * Represents two value's order
+ */
+export type LT = -1;
+export type EQ = 0;
+export type GT = 1;
+
+export type Ordering = LT | EQ | GT;
+
+/**
+ * An object with at least one of its properties beeing of type `Key`.
+ *
+ * @example
+ * ```
+ * // $ExpectType { foo: unknown } | { bar: unknown }
+ * type Foo = ObjectHavingSome<"foo" | "bar">
+ * ```
+ */
+// Implementation taken from
+// https://github.com/piotrwitek/utility-types/blob/df2502ef504c4ba8bd9de81a45baef112b7921d0/src/mapped-types.ts#L351-L362
+export type ObjectHavingSome<Key extends string> = A.Clean<{
+    [K in Key]: { [P in K]: unknown }
+}[Key]>;
 
 // ---------------------------------------------------------------------------------------
 // P
@@ -329,79 +281,7 @@ export type Placeholder = A.x & {'@@functional/placeholder': true};
 /**
  * <needs description>
  */
-export type Pred = (...a: readonly any[]) => boolean;
-
-/**
- * <needs description>
- * @param V0
- * @param R
- */
-export type PipeWithFns<V0, R> = [
-    (x0: V0) => R
-] | [
-    (x0: V0) => any,
-    (x: any) => R
-] | [
-    (x0: V0) => any,
-    (x: any) => any,
-    (x: any) => R
-] | [
-    (x0: V0) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => R
-] | [
-    (x0: V0) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => R
-] | [
-    (x0: V0) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => R
-] | [
-    (x0: V0) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => R
-] | [
-    (x0: V0) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => R
-] | [
-    (x0: V0) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => R
-] | [
-    (x0: V0) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => any,
-    (x: any) => R
-];
+export type Pred<T extends any[] = any[]> = (...a: T) => boolean;
 
 // ---------------------------------------------------------------------------------------
 // R
@@ -415,14 +295,11 @@ export interface Reduced<A> {
     '@@transducer/reduced': true;
 }
 
+type Fn = (...args: any) => any;
+export type ReturnTypesOfFns<A extends ReadonlyArray<Fn>> = A extends [infer H, ...infer R] ? H extends Fn ? R extends Fn[] ? [ReturnType<H>, ...ReturnTypesOfFns<R>] : [] : [] : [];
+export type InputTypesOfFns<A extends ReadonlyArray<Fn>> = A extends [infer H, ...infer R] ? H extends Fn ? R extends Fn[] ? [Parameters<H>[0], ...InputTypesOfFns<R>] : [] : [] : [];
 // ---------------------------------------------------------------------------------------
 // S
-
-/**
- * <needs description>
- * @param A
- */
-export type SafePred<A> = (...a: readonly A[]) => boolean;
 
 // ---------------------------------------------------------------------------------------
 // V
@@ -435,5 +312,47 @@ export type ValueOfRecord<R> =
     R extends Record<any, infer T>
     ? T
     : never;
+
+/**
+ * If `T` is a union, `T[keyof T]` (cf. `map` and `values` in `index.d.ts`) contains the types of object values that are common across the union (i.e., an intersection).
+ * Because we want to include the types of all values, including those that occur in some, but not all members of the union, we first define `ValueOfUnion`.
+ * @see https://stackoverflow.com/a/60085683
+ */
+export type ValueOfUnion<T> = T extends infer U ? U[keyof U] : never;
+
+/**
+ * Take first N types of an Tuple
+ */
+
+export type Take<N extends number, Tuple extends any[], ReturnTuple extends any[] = []> = ReturnTuple['length'] extends N
+    ? ReturnTuple
+    : Tuple extends [infer X, ...infer Xs]
+        ? Take<N, Xs, [...ReturnTuple, X]>
+        : never;
+
+/**
+ * define an n-length tuple type
+ */
+
+ export type Tuple<T, N extends number> = N extends N ? number extends N ? T[] : _TupleOf<T, N, []> : never;
+type _TupleOf<T, N extends number, R extends unknown[]> = R['length'] extends N ? R : _TupleOf<T, N, [T, ...R]>;
+
+/**
+ * map Tuple of ordinary type to Tuple of array type
+ * [string, number] -> [string[], number[]]
+ */
+export type ToTupleOfArray<Tuple extends any[]> =
+    Tuple extends []
+    ? []
+    : Tuple extends [infer X, ...infer Xs]
+        ? [X[], ...ToTupleOfArray<Xs>]
+        : never;
+
+export type ToTupleOfFunction<R, Tuple extends any[]> =
+    Tuple extends []
+    ? []
+    : Tuple extends [infer X, ...infer Xs]
+        ? [(arg: R) => X, ...ToTupleOfFunction<R, Xs>]
+        : never;
 
 export {};

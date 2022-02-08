@@ -86,28 +86,28 @@ export interface ojNBox<K, D> extends dvtBaseComponent<ojNBoxSettableProperties<
     };
     touchResponse: 'touchStart' | 'auto';
     translations: {
-        componentName?: string;
-        highlightedCount?: string;
-        labelAdditionalData?: string;
-        labelAndValue?: string;
-        labelClearSelection?: string;
-        labelCountWithTotal?: string;
-        labelDataVisualization?: string;
-        labelGroup?: string;
-        labelInvalidData?: string;
-        labelNoData?: string;
-        labelOther?: string;
-        labelSize?: string;
-        stateCollapsed?: string;
-        stateDrillable?: string;
-        stateExpanded?: string;
-        stateHidden?: string;
-        stateIsolated?: string;
-        stateMaximized?: string;
-        stateMinimized?: string;
-        stateSelected?: string;
-        stateUnselected?: string;
-        stateVisible?: string;
+        componentName?: string | undefined;
+        highlightedCount?: string | undefined;
+        labelAdditionalData?: string | undefined;
+        labelAndValue?: string | undefined;
+        labelClearSelection?: string | undefined;
+        labelCountWithTotal?: string | undefined;
+        labelDataVisualization?: string | undefined;
+        labelGroup?: string | undefined;
+        labelInvalidData?: string | undefined;
+        labelNoData?: string | undefined;
+        labelOther?: string | undefined;
+        labelSize?: string | undefined;
+        stateCollapsed?: string | undefined;
+        stateDrillable?: string | undefined;
+        stateExpanded?: string | undefined;
+        stateHidden?: string | undefined;
+        stateIsolated?: string | undefined;
+        stateMaximized?: string | undefined;
+        stateMinimized?: string | undefined;
+        stateSelected?: string | undefined;
+        stateUnselected?: string | undefined;
+        stateVisible?: string | undefined;
     };
     onAnimationOnDataChangeChanged: ((event: JetElementCustomEvent<ojNBox<K, D>["animationOnDataChange"]>) => any) | null;
     onAnimationOnDisplayChanged: ((event: JetElementCustomEvent<ojNBox<K, D>["animationOnDisplay"]>) => any) | null;
@@ -271,28 +271,28 @@ export interface ojNBoxSettableProperties<K, D> extends dvtBaseComponentSettable
     };
     touchResponse: 'touchStart' | 'auto';
     translations: {
-        componentName?: string;
-        highlightedCount?: string;
-        labelAdditionalData?: string;
-        labelAndValue?: string;
-        labelClearSelection?: string;
-        labelCountWithTotal?: string;
-        labelDataVisualization?: string;
-        labelGroup?: string;
-        labelInvalidData?: string;
-        labelNoData?: string;
-        labelOther?: string;
-        labelSize?: string;
-        stateCollapsed?: string;
-        stateDrillable?: string;
-        stateExpanded?: string;
-        stateHidden?: string;
-        stateIsolated?: string;
-        stateMaximized?: string;
-        stateMinimized?: string;
-        stateSelected?: string;
-        stateUnselected?: string;
-        stateVisible?: string;
+        componentName?: string | undefined;
+        highlightedCount?: string | undefined;
+        labelAdditionalData?: string | undefined;
+        labelAndValue?: string | undefined;
+        labelClearSelection?: string | undefined;
+        labelCountWithTotal?: string | undefined;
+        labelDataVisualization?: string | undefined;
+        labelGroup?: string | undefined;
+        labelInvalidData?: string | undefined;
+        labelNoData?: string | undefined;
+        labelOther?: string | undefined;
+        labelSize?: string | undefined;
+        stateCollapsed?: string | undefined;
+        stateDrillable?: string | undefined;
+        stateExpanded?: string | undefined;
+        stateHidden?: string | undefined;
+        stateIsolated?: string | undefined;
+        stateMaximized?: string | undefined;
+        stateMinimized?: string | undefined;
+        stateSelected?: string | undefined;
+        stateUnselected?: string | undefined;
+        stateVisible?: string | undefined;
     };
 }
 export interface ojNBoxSettablePropertiesLenient<K, D> extends Partial<ojNBoxSettableProperties<K, D>> {
@@ -301,25 +301,25 @@ export interface ojNBoxSettablePropertiesLenient<K, D> extends Partial<ojNBoxSet
 export namespace ojNBox {
     // tslint:disable-next-line interface-over-type-literal
     type Cell = {
-        label?: string;
+        label?: string | undefined;
         column: string;
-        labelHalign?: string;
-        labelStyle?: object;
-        svgClassName?: string;
-        svgStyle?: object;
-        maximizedSvgStyle?: object;
-        maximizedSvgClassName?: string;
-        minimizedSvgStyle?: object;
-        minimizedSvgClassName?: string;
+        labelHalign?: string | undefined;
+        labelStyle?: object | undefined;
+        svgClassName?: string | undefined;
+        svgStyle?: object | undefined;
+        maximizedSvgStyle?: object | undefined;
+        maximizedSvgClassName?: string | undefined;
+        minimizedSvgStyle?: object | undefined;
+        minimizedSvgClassName?: string | undefined;
         row: string;
-        showCount?: 'on' | 'off' | 'auto' | string;
-        shortDesc?: string;
+        showCount?: 'on' | 'off' | 'auto' | string | undefined;
+        shortDesc?: string | undefined;
     };
     // tslint:disable-next-line interface-over-type-literal
     type Column = {
         id: string;
-        label?: string;
-        labelStyle?: object;
+        label?: string | undefined;
+        labelStyle?: object | undefined;
     };
     // tslint:disable-next-line interface-over-type-literal
     type CountLabelContext = {
@@ -332,8 +332,8 @@ export namespace ojNBox {
     // tslint:disable-next-line interface-over-type-literal
     type Row = {
         id: string;
-        label?: string;
-        labelStyle?: object;
+        label?: string | undefined;
+        labelStyle?: object | undefined;
     };
     // tslint:disable-next-line interface-over-type-literal
     type TooltipContext<K> = {
@@ -352,48 +352,48 @@ export interface ojNBoxNode extends JetElement<ojNBoxNodeSettableProperties> {
     borderColor: string;
     borderWidth: number;
     categories: string[];
-    color?: string;
+    color?: string | undefined;
     column: string;
-    groupCategory?: string;
+    groupCategory?: string | undefined;
     icon?: {
-        borderColor?: string;
-        borderRadius?: string;
+        borderColor?: string | undefined;
+        borderRadius?: string | undefined;
         borderWidth: number;
-        color?: string;
-        height?: number | null;
+        color?: string | undefined;
+        height?: number | null | undefined;
         opacity: number;
         pattern?: 'largeChecker' | 'largeCrosshatch' | 'largeDiagonalLeft' | 'largeDiagonalRight' | 'largeDiamond' | 'largeTriangle' | 'none' | 'mallChecker' | 'smallCrosshatch' |
-           'smallDiagonalLeft' | 'smallDiagonalRight' | 'smallDiamond' | 'smallTriangle';
-        shape?: 'circle' | 'diamond' | 'ellipse' | 'human' | 'plus' | 'rectangle' | 'square' | 'star' | 'triangleDown' | 'triangleUp' | string;
-        source?: string;
+           'smallDiagonalLeft' | 'smallDiagonalRight' | 'smallDiamond' | 'smallTriangle' | undefined;
+        shape?: 'circle' | 'diamond' | 'ellipse' | 'human' | 'plus' | 'rectangle' | 'square' | 'star' | 'triangleDown' | 'triangleUp' | string | undefined;
+        source?: string | undefined;
         svgClassName: string;
-        svgStyle?: object;
-        width?: number | null;
-    };
-    indicatorColor?: string;
+        svgStyle?: object | undefined;
+        width?: number | null | undefined;
+    } | undefined;
+    indicatorColor?: string | undefined;
     indicatorIcon?: {
-        borderColor?: string;
-        borderRadius?: string;
+        borderColor?: string | undefined;
+        borderRadius?: string | undefined;
         borderWidth: number;
-        color?: string;
-        height?: number | null;
+        color?: string | undefined;
+        height?: number | null | undefined;
         opacity: number;
         pattern?: 'largeChecker' | 'largeCrosshatch' | 'largeDiagonalLeft' | 'largeDiagonalRight' | 'largeDiamond' | 'largeTriangle' | 'none' | 'smallChecker' | 'smallCrosshatch' |
-           'smallDiagonalLeft' | 'smallDiagonalRight' | 'smallDiamond' | 'smallTriangle';
-        shape?: 'circle' | 'diamond' | 'ellipse' | 'human' | 'plus' | 'rectangle' | 'square' | 'star' | 'triangleDown' | 'triangleUp' | string;
-        source?: string | null;
+           'smallDiagonalLeft' | 'smallDiagonalRight' | 'smallDiamond' | 'smallTriangle' | undefined;
+        shape?: 'circle' | 'diamond' | 'ellipse' | 'human' | 'plus' | 'rectangle' | 'square' | 'star' | 'triangleDown' | 'triangleUp' | string | undefined;
+        source?: string | null | undefined;
         svgClassName: string;
-        svgStyle?: object | null;
-        width?: number | null;
-    };
+        svgStyle?: object | null | undefined;
+        width?: number | null | undefined;
+    } | undefined;
     label: string;
     row: string;
     secondaryLabel: string;
     shortDesc: string;
     svgClassName: string;
     svgStyle: object | null;
-    xPercentage?: number | null;
-    yPercentage?: number | null;
+    xPercentage?: number | null | undefined;
+    yPercentage?: number | null | undefined;
     onBorderColorChanged: ((event: JetElementCustomEvent<ojNBoxNode["borderColor"]>) => any) | null;
     onBorderWidthChanged: ((event: JetElementCustomEvent<ojNBoxNode["borderWidth"]>) => any) | null;
     onCategoriesChanged: ((event: JetElementCustomEvent<ojNBoxNode["categories"]>) => any) | null;
@@ -442,48 +442,48 @@ export interface ojNBoxNodeSettableProperties extends JetSettableProperties {
     borderColor: string;
     borderWidth: number;
     categories: string[];
-    color?: string;
+    color?: string | undefined;
     column: string;
-    groupCategory?: string;
+    groupCategory?: string | undefined;
     icon?: {
-        borderColor?: string;
-        borderRadius?: string;
+        borderColor?: string | undefined;
+        borderRadius?: string | undefined;
         borderWidth: number;
-        color?: string;
-        height?: number | null;
+        color?: string | undefined;
+        height?: number | null | undefined;
         opacity: number;
         pattern?: 'largeChecker' | 'largeCrosshatch' | 'largeDiagonalLeft' | 'largeDiagonalRight' | 'largeDiamond' | 'largeTriangle' | 'none' | 'mallChecker' | 'smallCrosshatch' |
-           'smallDiagonalLeft' | 'smallDiagonalRight' | 'smallDiamond' | 'smallTriangle';
-        shape?: 'circle' | 'diamond' | 'ellipse' | 'human' | 'plus' | 'rectangle' | 'square' | 'star' | 'triangleDown' | 'triangleUp' | string;
-        source?: string;
+           'smallDiagonalLeft' | 'smallDiagonalRight' | 'smallDiamond' | 'smallTriangle' | undefined;
+        shape?: 'circle' | 'diamond' | 'ellipse' | 'human' | 'plus' | 'rectangle' | 'square' | 'star' | 'triangleDown' | 'triangleUp' | string | undefined;
+        source?: string | undefined;
         svgClassName: string;
-        svgStyle?: object;
-        width?: number | null;
-    };
-    indicatorColor?: string;
+        svgStyle?: object | undefined;
+        width?: number | null | undefined;
+    } | undefined;
+    indicatorColor?: string | undefined;
     indicatorIcon?: {
-        borderColor?: string;
-        borderRadius?: string;
+        borderColor?: string | undefined;
+        borderRadius?: string | undefined;
         borderWidth: number;
-        color?: string;
-        height?: number | null;
+        color?: string | undefined;
+        height?: number | null | undefined;
         opacity: number;
         pattern?: 'largeChecker' | 'largeCrosshatch' | 'largeDiagonalLeft' | 'largeDiagonalRight' | 'largeDiamond' | 'largeTriangle' | 'none' | 'smallChecker' | 'smallCrosshatch' |
-           'smallDiagonalLeft' | 'smallDiagonalRight' | 'smallDiamond' | 'smallTriangle';
-        shape?: 'circle' | 'diamond' | 'ellipse' | 'human' | 'plus' | 'rectangle' | 'square' | 'star' | 'triangleDown' | 'triangleUp' | string;
-        source?: string | null;
+           'smallDiagonalLeft' | 'smallDiagonalRight' | 'smallDiamond' | 'smallTriangle' | undefined;
+        shape?: 'circle' | 'diamond' | 'ellipse' | 'human' | 'plus' | 'rectangle' | 'square' | 'star' | 'triangleDown' | 'triangleUp' | string | undefined;
+        source?: string | null | undefined;
         svgClassName: string;
-        svgStyle?: object | null;
-        width?: number | null;
-    };
+        svgStyle?: object | null | undefined;
+        width?: number | null | undefined;
+    } | undefined;
     label: string;
     row: string;
     secondaryLabel: string;
     shortDesc: string;
     svgClassName: string;
     svgStyle: object | null;
-    xPercentage?: number | null;
-    yPercentage?: number | null;
+    xPercentage?: number | null | undefined;
+    yPercentage?: number | null | undefined;
 }
 export interface ojNBoxNodeSettablePropertiesLenient extends Partial<ojNBoxNodeSettableProperties> {
     [key: string]: any;

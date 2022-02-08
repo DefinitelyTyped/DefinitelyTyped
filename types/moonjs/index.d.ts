@@ -43,15 +43,15 @@ declare namespace Moon {
         & ThisType<Instance<Data & Methods & Record<Props, any>>>;
 
     interface ComponentOptionsProperties<Props extends string, Data, Methods> {
-        el?: string | HTMLElement;
-        template?: string;
-        name?: string;
+        el?: string | HTMLElement | undefined;
+        template?: string | undefined;
+        name?: string | undefined;
 
-        functional?: true;
-        props?: Props[];
-        data?: Data;
-        methods?: Methods;
-        hooks?: LifecycleHooks;
+        functional?: true | undefined;
+        props?: Props[] | undefined;
+        data?: Data | undefined;
+        methods?: Methods | undefined;
+        hooks?: LifecycleHooks | undefined;
         render?(h: CreateElement, ctx: any): VDomElement;
     }
 

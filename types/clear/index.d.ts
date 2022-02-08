@@ -2,7 +2,6 @@
 // Project: https://github.com/bahamas10/node-clear#readme
 // Definitions by: Connor Fitzgerald <https://github.com/connorjayfitzgerald>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
 
 interface ClearOptions {
     /**
@@ -12,12 +11,13 @@ interface ClearOptions {
      *
      * @default true
      */
-    fullClear?: boolean;
+    fullClear?: boolean | undefined;
 }
 
 /**
  * Clear the terminal screen if possible.
  */
 declare function clear(opts?: ClearOptions): void;
+declare function clear(clear: boolean): void;
 
 export = clear;

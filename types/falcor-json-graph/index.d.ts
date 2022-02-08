@@ -1,7 +1,7 @@
 // Type definitions for falcor-json-graph 1.1.7
 // Project: https://github.com/Netflix/falcor-json-graph
 // Definitions by: Quramy <https://github.com/Quramy>, LukeRielley <https://github.com/lukerielley>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
 export = FalcorJsonGraph;
@@ -72,17 +72,17 @@ declare namespace FalcorJsonGraph {
      **/
     interface JSONGraphEnvelope {
         jsonGraph: JSONGraph;
-        paths?: Array<PathSet>;
-        invalidate?: Array<PathSet>;
+        paths?: Array<PathSet> | undefined;
+        invalidate?: Array<PathSet> | undefined;
     }
 
     /**
      * Describe a range of integers. Must contain either a "to" or "length" property.
      **/
     interface Range {
-        from?: number;
-        to?: number;
-        length?: number;
+        from?: number | undefined;
+        to?: number | undefined;
+        length?: number | undefined;
     }
 
     interface Reference extends Sentinel {
@@ -91,7 +91,7 @@ declare namespace FalcorJsonGraph {
     }
 
     interface Sentinel {
-        $expires?: number;
+        $expires?: number | undefined;
     }
 
     function ref(path: string | FalcorJsonGraph.PathSet, props?: FalcorJsonGraph.Sentinel): FalcorJsonGraph.Reference;

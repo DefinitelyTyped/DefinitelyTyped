@@ -1,4 +1,4 @@
-// Type definitions for lusca 1.6
+// Type definitions for lusca 1.7
 // Project: https://github.com/krakenjs/lusca#readme
 // Definitions by: Corbin Crutchley <https://github.com/crutchcorn>
 //                 Naoto Yokoyama <https://github.com/builtinnya>
@@ -14,85 +14,85 @@ declare namespace lusca {
      *~ Setting any value to false will disable it.
      */
     interface LuscaOptions {
-        csrf?: csrfOptions | boolean;
-        csp?: cspOptions | false;
-        xframe?: string | false;
-        p3p?: string | false;
-        hsts?: hstsOptions | false;
-        xssProtection?: xssProtectionOptions | boolean;
-        nosniff?: boolean;
-        referrerPolicy?: string | false;
+        csrf?: csrfOptions | boolean | undefined;
+        csp?: cspOptions | false | undefined;
+        xframe?: string | false | undefined;
+        p3p?: string | false | undefined;
+        hsts?: hstsOptions | false | undefined;
+        xssProtection?: xssProtectionOptions | boolean | undefined;
+        nosniff?: boolean | undefined;
+        referrerPolicy?: string | false | undefined;
     }
 
     interface cspOptions {
-        policy?: string | object | Array<object | string>;
-        reportOnly?: boolean;
-        reportUri?: string;
-        styleNonce?: boolean;
-        scriptNonce?: boolean;
+        policy?: string | object | Array<object | string> | undefined;
+        reportOnly?: boolean | undefined;
+        reportUri?: string | undefined;
+        styleNonce?: boolean | undefined;
+        scriptNonce?: boolean | undefined;
     }
 
     interface hstsOptions {
-        maxAge?: number;
-        includeSubDomains?: boolean;
-        preload?: boolean;
+        maxAge?: number | undefined;
+        includeSubDomains?: boolean | undefined;
+        preload?: boolean | undefined;
     }
 
-    type csrfOptions = csrfOptionsBase & csrfOptionsAngularOrNonAngular & csrfOptionsBlacklistOrWhitelist;
+    type csrfOptions = csrfOptionsBase & csrfOptionsAngularOrNonAngular & csrfOptionsBlocklistOrAllowlist;
 
     interface csrfOptionsBase {
         /**
          * The name of the CSRF token in the model.
          * @default '_csrf'
          */
-        key?: string;
+        key?: string | undefined;
         /**
          * @default '_csrfSecret'
          */
-        secret?: string;
+        secret?: string | undefined;
         /**
          *  An object with create/validate methods for custom tokens
          */
-        impl?: () => any;
+        impl?: (() => any) | undefined;
         /**
          * The name of the response header containing the CSRF token
          * @default 'x-csrf-token'
          */
-        header?: string;
+        header?: string | undefined;
     }
 
     interface csrfOptionsAngular {
         cookie?: string | {
-            options?: object;
-        };
+            options?: object | undefined;
+        } | undefined;
         angular: true;
     }
 
     interface csrfOptionsNonAngular {
         cookie?: string | {
             name: string;
-            options?: object;
-        };
-        angular?: false;
+            options?: object | undefined;
+        } | undefined;
+        angular?: false | undefined;
     }
 
     type csrfOptionsAngularOrNonAngular = csrfOptionsAngular | csrfOptionsNonAngular;
 
-    interface csrfOptionsBlacklist {
-        blacklist?: string[];
-        whitelist?: never;
+    interface csrfOptionsBlocklist {
+        blocklist?: string[] | undefined;
+        allowlist?: never | undefined;
     }
 
-    interface csrfOptionsWhitelist {
-        blacklist?: never;
-        whitelist?: string[];
+    interface csrfOptionsAllowlist {
+        blocklist?: never | undefined;
+        allowlist?: string[] | undefined;
     }
 
-    type csrfOptionsBlacklistOrWhitelist = csrfOptionsBlacklist | csrfOptionsWhitelist;
+    type csrfOptionsBlocklistOrAllowlist = csrfOptionsBlocklist | csrfOptionsAllowlist;
 
     interface xssProtectionOptions {
-        enabled?: boolean;
-        mode?: string;
+        enabled?: boolean | undefined;
+        mode?: string | undefined;
     }
 
     function csrf(options?: csrfOptions): express.RequestHandler;

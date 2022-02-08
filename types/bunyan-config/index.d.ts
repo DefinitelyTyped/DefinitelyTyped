@@ -13,17 +13,17 @@ declare module "bunyan-config" {
         params?: {
             host: string,
             port: number
-        }
+        } | undefined
     }
 
     interface Stream {
-        type?: string;
-        level?: bunyan.LogLevel;
-        path?: string;
-        stream?: string | StreamConfiguration
-        closeOnExit?: boolean;
-        period?: string;
-        count?: number;
+        type?: string | undefined;
+        level?: bunyan.LogLevel | undefined;
+        path?: string | undefined;
+        stream?: string | StreamConfiguration | undefined
+        closeOnExit?: boolean | undefined;
+        period?: string | undefined;
+        count?: number | undefined;
     }
 
     /**
@@ -32,11 +32,11 @@ declare module "bunyan-config" {
      */
     interface Configuration {
         name: string;
-        streams?: Stream[];
-        level?: string | number;
-        stream?: NodeJS.WritableStream;
-        serializers?: {};
-        src?: boolean;
+        streams?: Stream[] | undefined;
+        level?: string | number | undefined;
+        stream?: NodeJS.WritableStream | undefined;
+        serializers?: {} | undefined;
+        src?: boolean | undefined;
     }
 
     /**

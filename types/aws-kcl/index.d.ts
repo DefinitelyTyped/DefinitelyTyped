@@ -41,8 +41,8 @@ declare namespace KCLProcess {
 
     interface InitializeInput {
         shardId: string;
-        sequenceNumber?: string;
-        subSequenceNumber?: number;
+        sequenceNumber?: string | undefined;
+        subSequenceNumber?: number | undefined;
     }
 
     interface CheckpointInput {
@@ -57,7 +57,7 @@ declare namespace KCLProcess {
 
     interface ProcessRecordsInput extends CheckpointInput {
         records: Record[];
-        millisBehindLatest?: number;
+        millisBehindLatest?: number | undefined;
     }
 
     interface LeaseLossInput {} // tslint:disable-line:no-empty-interface

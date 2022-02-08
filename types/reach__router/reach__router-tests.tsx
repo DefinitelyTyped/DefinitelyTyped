@@ -1,10 +1,23 @@
+import {
+    Link,
+    Location,
+    LocationProvider,
+    Redirect,
+    RouteComponentProps,
+    Router,
+    useLocation,
+    useMatch,
+    useParams,
+} from '@reach/router';
 import * as React from 'react';
 import { render } from 'react-dom';
 
-import { Link, Location, LocationProvider, RouteComponentProps, Router, Redirect, useMatch } from '@reach/router';
-
 interface DashParams {
     id: string;
+}
+
+interface UseParamsCheckParams {
+    value: string;
 }
 
 const Home = (props: RouteComponentProps) => <div>Home</div>;
@@ -18,6 +31,24 @@ const UseMatchCheck = (props: RouteComponentProps) => {
     return <div>{match ? match.one : 'NO PATH PARAM'}</div>;
 };
 
+const UseLocationCheck = (props: RouteComponentProps) => {
+    const { pathname, search, state, hash, key } = useLocation();
+    return (
+        <div>
+            Pathname: {pathname}
+            Search: {search}
+            State: {JSON.stringify(state)}
+            Hash: {hash}
+            key: {key}
+        </div>
+    );
+};
+
+const UseParamsCheck = (props: RouteComponentProps) => {
+    const params = useParams<UseParamsCheckParams>();
+    return <div>{params.value}</div>;
+};
+
 render(
     <Router className="my-class">
         <Router component="div">
@@ -29,6 +60,8 @@ render(
         <Home path="/" />
         <Dash path="/default/:id" />
         <UseMatchCheck path="/params/*" />
+        <UseLocationCheck path="/another-path" />
+        <UseParamsCheck path="/current/:value" />
         <NotFound default />
 
         <Link to="/somepath" rel="noopener noreferrer" target="_blank" />
@@ -71,5 +104,7 @@ render(<Link ref={refObject} to="./foo"></Link>, document.getElementById('app-ro
 React.createElement(Link as Link<number>, {
     state: 5 /* Cast is a test-only fix for TS 3.1. Remove when TS >= 3.2 is supported. */ as number | undefined,
     to: './foo',
-    ref: refObject /* Cast is a test-only fix for TS 3.1. Remove when TS >= 3.2 is supported. */ as React.Ref<HTMLAnchorElement> | undefined
+    ref: refObject /* Cast is a test-only fix for TS 3.1. Remove when TS >= 3.2 is supported. */ as
+        | React.Ref<HTMLAnchorElement>
+        | undefined,
 });

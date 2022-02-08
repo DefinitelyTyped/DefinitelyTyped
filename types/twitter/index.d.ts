@@ -39,12 +39,12 @@ declare namespace Twitter {
     interface Options {
         consumer_key: string;
         consumer_secret: string;
-        rest_base?: string;
-        stream_base?: string;
-        user_stream_base?: string;
-        site_stream_base?: string;
-        media_base?: string;
-        request_options?: request.CoreOptions;
+        rest_base?: string | undefined;
+        stream_base?: string | undefined;
+        user_stream_base?: string | undefined;
+        site_stream_base?: string | undefined;
+        media_base?: string | undefined;
+        request_options?: request.CoreOptions | undefined;
     }
 
     interface AccessTokenOptions extends Options {
@@ -60,7 +60,7 @@ declare namespace Twitter {
 
     interface RequestParams {
         [key: string]: any;
-        base?: string;
+        base?: string | undefined;
     }
 
     interface ResponseData {

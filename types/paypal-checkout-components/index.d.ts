@@ -5,7 +5,7 @@
 // TypeScript Version: 3.1
 
 import {
-  Button
+  ButtonRenderer, FundingOption
 } from './modules/button';
 
 import {
@@ -20,7 +20,7 @@ import {
 import {
   Address,
   AuthorizationData,
-  AuthorizationTokenizePayload,
+  AuthorizationResponse,
   CancellationData,
   CreditFinancingOptions,
   FlowType,
@@ -29,16 +29,20 @@ import {
   LineItemKind,
   ShippingOption,
   ShippingOptionType,
-  TokenizePayload,
-  TokenizePayloadDetails,
+  AuthorizationResponseDetails,
 } from './modules/callback-data';
 
-export const Button: Button;
+export const Button: ButtonRenderer;
 
 export {
   Address,
   AuthorizationData,
-  AuthorizationTokenizePayload,
+  AuthorizationResponse,
+  AuthorizationResponse as AuthorizationTokenizePayload, // maintain backwards compatibility
+  AuthorizationResponse as TokenizePayload, // maintain backwards compatibility
+  AuthorizationResponseDetails,
+  AuthorizationResponseDetails as TokenizePayloadDetails, // maintain backwards compatibility
+  ButtonRenderer,
   ButtonColorOption,
   ButtonLabelOption,
   ButtonShapeOption,
@@ -48,13 +52,12 @@ export {
   CreditFinancingOptions,
   Environment,
   FlowType,
+  FundingOption as FUNDING,
   Intent,
   LineItem,
   LineItemKind,
   ShippingOption,
   ShippingOptionType,
-  TokenizePayload,
-  TokenizePayloadDetails,
 };
 
 export as namespace paypal;

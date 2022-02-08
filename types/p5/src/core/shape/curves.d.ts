@@ -14,7 +14,7 @@ declare module '../../../index' {
          *   parameters specify the two control points which
          *   define the shape of the curve. Approximately
          *   speaking, control points "pull" the curve towards
-         *   them.Bezier curves were developed by French
+         *   them. Bezier curves were developed by French
          *   automotive engineer Pierre Bezier, and are
          *   commonly used in computer graphics to define
          *   gently sloping curves. See also curve().
@@ -42,7 +42,7 @@ declare module '../../../index' {
          *   parameters specify the two control points which
          *   define the shape of the curve. Approximately
          *   speaking, control points "pull" the curve towards
-         *   them.Bezier curves were developed by French
+         *   them. Bezier curves were developed by French
          *   automotive engineer Pierre Bezier, and are
          *   commonly used in computer graphics to define
          *   gently sloping curves. See also curve().
@@ -79,10 +79,9 @@ declare module '../../../index' {
         ): p5;
 
         /**
-         *   Sets the resolution at which Beziers display. The
-         *   default value is 20.
-         *
-         *   This function is only useful when using the WEBGL
+         *   Sets the resolution at which Bezier's curve is
+         *   displayed. The default value is 20. Note, This
+         *   function is only useful when using the WEBGL
          *   renderer as the default canvas renderer does not
          *   use this information.
          *   @param detail resolution of the curves
@@ -91,10 +90,13 @@ declare module '../../../index' {
         bezierDetail(detail: number): p5;
 
         /**
-         *   Evaluates the Bezier at position t for points a,
-         *   b, c, d. The parameters a and d are the first and
-         *   last points on the curve, and b and c are the
-         *   control points. The final parameter t varies
+         *   Given the x or y co-ordinate values of control and
+         *   anchor points of a bezier curve, it evaluates the
+         *   x or y coordinate of the bezier at position t. The
+         *   parameters a and d are the x or y coordinates of
+         *   first and last points on the curve while b and c
+         *   are of the control points.The final parameter t is
+         *   the position of the resultant point which is given
          *   between 0 and 1. This can be done once with the x
          *   coordinates and a second time with the y
          *   coordinates to get the location of a bezier curve
@@ -203,7 +205,6 @@ declare module '../../../index' {
         /**
          *   Sets the resolution at which curves display. The
          *   default value is 20 while the minimum value is 3.
-         *
          *   This function is only useful when using the WEBGL
          *   renderer as the default canvas renderer does not
          *   use this information.
@@ -214,7 +215,7 @@ declare module '../../../index' {
 
         /**
          *   Modifies the quality of forms created with curve()
-         *   and curveVertex(). The parameter tightness
+         *   and curveVertex().The parameter tightness
          *   determines how the curve fits to the vertex
          *   points. The value 0.0 is the default value for
          *   tightness (this value defines the curves to be
@@ -253,10 +254,10 @@ declare module '../../../index' {
          *   for points a, b, c, d. The parameter t varies
          *   between 0 and 1, a and d are points on the curve,
          *   and b and c are the control points.
-         *   @param a coordinate of first point on the curve
-         *   @param b coordinate of first control point
-         *   @param c coordinate of second control point
-         *   @param d coordinate of second point on the curve
+         *   @param a coordinate of first control point
+         *   @param b coordinate of first point on the curve
+         *   @param c coordinate of second point on the curve
+         *   @param d coordinate of second conrol point
          *   @param t value between 0 and 1
          *   @return the tangent at position t
          */

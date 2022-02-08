@@ -16,8 +16,8 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@feflow/cli": [
-                "feflow__cli"
+            "@feflow/*": [
+                "feflow__*"
             ]
         }
     },

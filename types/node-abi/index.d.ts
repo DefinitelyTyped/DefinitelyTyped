@@ -1,4 +1,4 @@
-// Type definitions for node-abi 2.10
+// Type definitions for node-abi 3.0
 // Project: https://github.com/lgeiger/node-abi#readme
 // Definitions by: Florian Keller <https://github.com/ffflorian>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -18,5 +18,5 @@ export let futureTargets: Target[];
 export let supportedTargets: Target[];
 
 export function getAbi(target: string, runtime?: Runtime): string;
-export function getTarget(abi?: string, runtime?: Runtime): string;
+export function getTarget(abi?: string | null, runtime?: Runtime): string;
 export function _getNextTarget(runtime: Runtime, targets?: Target[]): string | null;

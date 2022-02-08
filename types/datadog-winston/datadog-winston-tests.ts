@@ -7,6 +7,7 @@ const options: DatadogWinston.DatadogTransportOptions = {
     hostname: 'hostname',
     level: 'error',
     service: 'service',
+    intakeRegion: 'eu',
 };
 
 const logger = new DatadogWinston(options);

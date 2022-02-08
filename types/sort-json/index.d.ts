@@ -9,16 +9,16 @@ declare namespace visit {
          * Depth's level sorting keys on a multidimensional object
          * (default: `Infinity`)
          */
-        depth?: number;
+        depth?: number | undefined;
         /**
          * When sorting keys, converts all keys to lowercase so that
          * capitalization doesn't interfere with sort order (default: `false`)
          */
-        ignoreCase?: boolean;
+        ignoreCase?: boolean | undefined;
         /** Default: `1` */
-        level?: number;
+        level?: number | undefined;
         /** Reverse the ordering z -> a (default: `false`) */
-        reverse?: boolean;
+        reverse?: boolean | undefined;
     }
 
     interface OverwriteOptions extends VisitOptions {
@@ -27,9 +27,9 @@ declare namespace visit {
          * greater then 0 for the value (default: detects the used indentation
          * of the file)
          */
-        indentSize?: number;
+        indentSize?: number | undefined;
         /** Default: `false` */
-        noFinalNewLine?: boolean;
+        noFinalNewLine?: boolean | undefined;
     }
 
     /**

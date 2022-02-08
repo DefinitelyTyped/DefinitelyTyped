@@ -8,16 +8,16 @@ interface Dictionary<T> {
 }
 
 interface SpeakingURLOptions {
-    separator?: string;
-    lang?: string|boolean;
-    symbols?: boolean;
-    maintainCase?: boolean;
-    titleCase?: string[]|boolean;
-    truncate?: number;
-    uric?: boolean;
-    uricNoSlash?: boolean;
-    mark?: boolean;
-    custom?: string[]|Dictionary<string>;
+    separator?: string | undefined;
+    lang?: string|boolean | undefined;
+    symbols?: boolean | undefined;
+    maintainCase?: boolean | undefined;
+    titleCase?: string[]|boolean | undefined;
+    truncate?: number | undefined;
+    uric?: boolean | undefined;
+    uricNoSlash?: boolean | undefined;
+    mark?: boolean | undefined;
+    custom?: string[]|Dictionary<string> | undefined;
 }
 
 declare function getSlug(input: string, options?: SpeakingURLOptions|string): string;

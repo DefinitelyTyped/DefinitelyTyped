@@ -74,28 +74,28 @@ interface QElementList {
 // Element positions and sizes are available on all QElement instances.
 interface ElementDescriptor {
     // The top edge of the element
-    top?: PositionDescriptor;
+    top?: PositionDescriptor | undefined;
     
     // The right edge of the element
-    right?: PositionDescriptor;
+    right?: PositionDescriptor | undefined;
     
     // The bottom edge of the element
-    bottom?: PositionDescriptor;
+    bottom?: PositionDescriptor | undefined;
     
     // The left edge of the element
-    left?: PositionDescriptor;
+    left?: PositionDescriptor | undefined;
     
     // Horizontal center: midway between the right and left edges.
-    center?: PositionDescriptor;
+    center?: PositionDescriptor | undefined;
     
     // Vertical middle: midway between the top and bottom edges.
-    middle?: PositionDescriptor;
+    middle?: PositionDescriptor | undefined;
     
     // Width of the element.
-    width?: SizeDescriptor;
+    width?: SizeDescriptor | undefined;
     
     // Height of the element.
-    height?: SizeDescriptor;
+    height?: SizeDescriptor | undefined;
 }
 
 // Viewport positions and sizes are available on QFrame.viewport()
@@ -187,16 +187,16 @@ interface SizeDescriptor {
 
 interface QuixoteFrameOptions {
     // Width of the iframe. Defaults to a large value (see stability note below)
-    width?: number;
+    width?: number | undefined;
 
     // Height of the iframe. Defaults to a large value (see stability note below)
-    height?: number;
+    height?: number | undefined;
 
     // URL of an HTML document to load into the frame. Must be served from same domain as the enclosing test document, or you could get same-origin policy errors. Defaults to an empty document with <!DOCTYPE html> (to enable standards-mode rendering)
-    src?: string;
+    src?: string | undefined;
 
     // URL of a CSS stylesheet to load into the frame. Defaults to loading nothing
-    stylesheet?: string;
+    stylesheet?: string | undefined;
 }
 
 interface RawPositionObject {

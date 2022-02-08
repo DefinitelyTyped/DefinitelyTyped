@@ -13,8 +13,8 @@
             "../"
         ],
         "paths": {
-            "@hapi/call": [
-                "hapi__call"
+            "@hapi/*": [
+                "hapi__*"
             ]
         },
         "types": [],

@@ -1,8 +1,9 @@
-// Type definitions for AFRAME 1.0
+// Type definitions for AFRAME 1.2
 // Project: https://aframe.io/
 // Definitions by: Paul Shannon <https://github.com/devpaul>
 //                 Roberto Ritger <https://github.com/bertoritger>
 //                 Trygve Wastvedt <https://github.com/twastvedt>
+//                 Marc Buils <https://github.com/metapins>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.6
 
@@ -10,13 +11,12 @@
  * Extended tests and examples available at https://github.com/devpaul/aframe-experiments.git
  */
 
-/// <reference types="tween.js" />
-
+import * as anime from 'animejs';
 import * as three from 'three';
-import * as tween from '@tweenjs/tween.js';
+import * as threeDeprecated from 'three/examples/jsm/deprecated/Geometry';
 
 export type ThreeLib = typeof three;
-export type TweenLib = typeof tween;
+export type AnimeLib = typeof anime;
 
 export interface ObjectMap<T = any> {
     [key: string]: T;
@@ -61,13 +61,13 @@ export interface Behavior {
 }
 
 export interface Component<T extends object = any, S extends System = System> {
-    attrName?: string;
+    attrName?: string | undefined;
     data: T;
-    dependencies?: string[];
+    dependencies?: string[] | undefined;
     el: Entity;
     id: string;
     initialized: boolean;
-    multiple?: boolean;
+    multiple?: boolean | undefined;
     name: string;
     schema: Schema<T>;
     system: S | undefined;
@@ -127,7 +127,7 @@ export interface Entity<C = ObjectMap<Component>> extends ANode {
     isPlaying: boolean;
     object3D: THREE.Object3D;
     object3DMap: ObjectMap<THREE.Object3D>;
-    sceneEl?: Scene;
+    sceneEl?: Scene | undefined;
 
     destroy(): void;
     addState(name: string): void;
@@ -203,7 +203,7 @@ export interface EntityEventMap {
 export interface Geometry<T = any> {
     data: T;
     name: string;
-    geometry: THREE.Geometry;
+    geometry: threeDeprecated.Geometry;
     schema: Schema<any>;
 
     init(data: any): void;
@@ -295,8 +295,8 @@ export interface ShaderDescriptor<T extends Shader = Shader> {
 }
 
 export interface SinglePropertySchema<T> {
-    type?: PropertyTypes;
-    default?: T;
+    type?: PropertyTypes | undefined;
+    default?: T | undefined;
     parse?(value: string): T;
     stringify?(value: T): string;
 }
@@ -332,7 +332,6 @@ export interface Utils {
     };
     device: {
         isWebXRAvailable: boolean;
-        getVRDisplay(): VRDisplay[];
         checkHeadsetConnected(): boolean;
         checkHasPositionalTracking(): boolean;
         isMobile(): boolean;
@@ -374,7 +373,7 @@ export type GeometryDefinition<T extends object = object, U = any> = T & Partial
 export type NodeDefinition<T extends object = object> = T & Partial<ANode>;
 export interface PrimitiveDefinition {
     defaultComponents?: any; // TODO cleanup type
-    deprecated?: boolean;
+    deprecated?: boolean | undefined;
     mappings?: any; // TODO cleanup type
     transforms?: any; // TODO cleanup type
 }
@@ -406,7 +405,7 @@ export interface AFrame {
     shaders: ObjectMap<ShaderDescriptor>;
     systems: ObjectMap<SystemConstructor>;
     THREE: ThreeLib;
-    TWEEN: TweenLib;
+    ANIME: AnimeLib;
     utils: Utils;
     version: string;
 
@@ -443,7 +442,7 @@ export const schema: AFrame['schema'];
 export const shaders: AFrame['shaders'];
 export const systems: AFrame['systems'];
 export const THREE: AFrame['THREE'];
-export const TWEEN: AFrame['TWEEN'];
+export const ANIME: AFrame['ANIME'];
 export const utils: AFrame['utils'];
 export const version: AFrame['version'];
 export const registerComponent: AFrame['registerComponent'];
@@ -470,7 +469,7 @@ declare global {
         const shaders: AFrame['shaders'];
         const systems: AFrame['systems'];
         const THREE: AFrame['THREE'];
-        const TWEEN: AFrame['TWEEN'];
+        const ANIME: AFrame['ANIME'];
         const utils: AFrame['utils'];
         const version: string;
 

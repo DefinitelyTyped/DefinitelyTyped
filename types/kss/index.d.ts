@@ -30,30 +30,30 @@ declare namespace kss {
          * Enabled by default.
          * @default true
          */
-        markdown?: boolean;
+        markdown?: boolean | undefined;
         /**
          * Use a regex or string (e.g. `*.less|*.css`) to only parse files matching this value.
          * @default *.css|*.less|*.sass|*.scss|*.styl|*.stylus
          */
-        mask?: string | RegExp;
+        mask?: string | RegExp | undefined;
         /**
          * kss-node makes the header available separately from the description. To make kss-node
          * behave like the Ruby KSS, disable this option and the title will remain a part of the
          * description. Enabled by default.
          * @default true.
          */
-        header?: boolean;
+        header?: boolean | undefined;
     }
 
     interface KssOptions extends Options {
         builder?: any;
-        clone?: boolean;
+        clone?: boolean | undefined;
         custom?: any;
         logErrorFunction?(...msg: string[]): void;
-        json?: boolean;
-        mask?: string | RegExp;
+        json?: boolean | undefined;
+        mask?: string | RegExp | undefined;
         source: string[];
-        verbose?: boolean;
+        verbose?: boolean | undefined;
     }
 
     type CallbackFn = (error: Error | null, styleguide: KssStyleguide) => void;

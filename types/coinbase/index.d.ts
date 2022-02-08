@@ -7,33 +7,41 @@ export interface ClientConstructOpts {
     /**
      * API key (obtain this from the coinbase website)
      */
-    apiKey?: string;
+    apiKey?: string | undefined;
     /**
      * API key secret (obtain this from the coinbase website)
      */
-    apiSecret?: string;
+    apiSecret?: string | undefined;
     /**
      * OAuth2 access token
      */
-    accessToken?: string;
+    accessToken?: string | undefined;
     /**
      * API version in 'yyyy-mm-dd' format, see https://developers.coinbase.com/api/v2#changelog
      */
-    version?: string;
+    version?: string | undefined;
+    /**
+     * Override security certificates
+     */
+    caFile?: string[] | undefined;
+    /**
+     * Allows disabling strict SSL
+     */
+    strictSSL?: boolean | undefined;
 }
 
 export interface CreateAccountOpts {
     /**
      * Account name
      */
-    name?: string;
+    name?: string | undefined;
 }
 
 export interface GetExchangeRateOpts {
     /**
      * Base currency, default USD
      */
-    currency?: string;
+    currency?: string | undefined;
 }
 
 export interface GetBuyPriceOpts {
@@ -58,21 +66,21 @@ export interface GetSpotPriceOpts {
     /**
      * Specify date for historic spot price in format YYYY-MM-DD (UTC)
      */
-    date?: string;
+    date?: string | undefined;
 }
 
 export interface UpdateAccountOpts {
     /**
      * Account name
      */
-    name?: string;
+    name?: string | undefined;
 }
 
 export interface CreateAddressOpts {
     /**
      * Address label
      */
-    name?: string;
+    name?: string | undefined;
 }
 
 export interface SendMoneyOpts {
@@ -95,28 +103,28 @@ export interface SendMoneyOpts {
     /**
      * Notes to be included in the email that the recipient receives
      */
-    description?: string;
+    description?: string | undefined;
     /**
      * Don’t send notification emails for small amounts (e.g. tips)
      */
-    skip_notifications?: boolean;
+    skip_notifications?: boolean | undefined;
     /**
      * Transaction fee in BTC/ETH/LTC if you would like to pay it. Fees can be added as a string, such as 0.0005
      */
-    fee?: string;
+    fee?: string | undefined;
     /**
      * *Recommended* A token to ensure idempotence. If a previous transaction with the same idem parameter already exists for this sender,
      * that previous transaction will be returned and a new one will not be created. Max length 100 characters
      */
-    idem?: string;
+    idem?: string | undefined;
     /**
      * Whether this send is to another financial institution or exchange. Required if this send is to an address and is valued at over USD$3000.
      */
-    to_financial_institution?: boolean;
+    to_financial_institution?: boolean | undefined;
     /**
      * The website of the financial institution or exchange. Required if to_financial_institution is true.
      */
-    financial_institution_website?: string;
+    financial_institution_website?: string | undefined;
 }
 
 export interface TransferMoneyOpts {
@@ -139,7 +147,7 @@ export interface TransferMoneyOpts {
     /**
      * Notes to be included in the transfer
      */
-    description?: string;
+    description?: string | undefined;
 }
 
 export interface RequestMoneyOpts {
@@ -162,33 +170,33 @@ export interface RequestMoneyOpts {
     /**
      * Notes to be included in the email that the recipient receives
      */
-    description?: string;
+    description?: string | undefined;
 }
 
 export interface UpdateUserOpts {
     /**
      * User’s name
      */
-    name?: string;
+    name?: string | undefined;
     /**
      * Time zone
      */
-    time_zone?: string;
+    time_zone?: string | undefined;
     /**
      * Local currency used to display amounts converted from BTC
      */
-    native_currency?: string;
+    native_currency?: string | undefined;
 }
 
 export interface BuyOpts {
     /**
      * Buy amount without fees (alternative to total)
      */
-    amount?: string;
+    amount?: string | undefined;
     /**
      * Buy amount with fees (alternative to amount)
      */
-    total?: string;
+    total?: string | undefined;
     /**
      * Currency for the amount (see Client#getCurrencies() for available strings)
      */
@@ -196,30 +204,30 @@ export interface BuyOpts {
     /**
      * The ID of the payment method that should be used for the buy. (todo get payment methods)
      */
-    payment_method?: string;
+    payment_method?: string | undefined;
     /**
      * Whether or not you would still like to buy if you have to wait for your money to arrive to lock in a price
      */
-    agree_btc_amount_varies?: boolean;
+    agree_btc_amount_varies?: boolean | undefined;
     /**
      * If set to false, this buy will not be immediately completed. Use the commit call to complete it. Default value: true
      */
-    commit?: boolean;
+    commit?: boolean | undefined;
     /**
      * If set to true, response will return an unsave buy for detailed price quote. Default value: false
      */
-    quote?: boolean;
+    quote?: boolean | undefined;
 }
 
 export interface SellOpts {
     /**
      * Sell amount without fees (alternative to total)
      */
-    amount?: string;
+    amount?: string | undefined;
     /**
      * Sell amount with fees (alternative to amount)
      */
-    total?: string;
+    total?: string | undefined;
     /**
      * Currency for the amount (see Client#getCurrencies() for available strings)
      */
@@ -227,19 +235,19 @@ export interface SellOpts {
     /**
      * The ID of the payment method that should be used for the sell.
      */
-    payment_method?: string;
+    payment_method?: string | undefined;
     /**
      * Whether or not you would still like to sell if you have to wait for your money to arrive to lock in a price
      */
-    agree_btc_amount_varies?: boolean;
+    agree_btc_amount_varies?: boolean | undefined;
     /**
      * If set to false, this sell will not be immediately completed. Use the commit call to complete it. Default value: true
      */
-    commit?: boolean;
+    commit?: boolean | undefined;
     /**
      * If set to true, response will return an unsave sell for detailed price quote. Default value: false
      */
-    quote?: boolean;
+    quote?: boolean | undefined;
 }
 
 export interface DepositOpts {
@@ -254,11 +262,11 @@ export interface DepositOpts {
     /**
      * The ID of the payment method that should be used for the buy. (todo get payment methods)
      */
-    payment_method?: string;
+    payment_method?: string | undefined;
     /**
      * If set to false, this deposit will not be immediately completed. Use the commit call to complete it. Default value: true
      */
-    commit?: boolean;
+    commit?: boolean | undefined;
 }
 
 export interface WithdrawOpts {
@@ -273,11 +281,11 @@ export interface WithdrawOpts {
     /**
      * The ID of the payment method that should be used for the buy. (todo get payment methods)
      */
-    payment_method?: string;
+    payment_method?: string | undefined;
     /**
      * If set to false, this withdrawal will not be immediately completed. Use the commit call to complete it. Default value: true
      */
-    commit?: boolean;
+    commit?: boolean | undefined;
 }
 
 /**
@@ -318,7 +326,23 @@ export interface Price {
             message: string
             url: string
         }
-    ];
+    ] | undefined;
+}
+
+/**
+ * Pagination
+ * Buys, sells, and transactions are paginated, returning 25 items per call
+ * The callback receives a pagination object which can be used to fetch the page of data
+ */
+export interface Pagination {
+    ending_before?: string | undefined;
+    starting_after?: string | undefined;
+    previous_ending_before?: string | undefined;
+    next_starting_after?: string | undefined;
+    limit?: number | undefined;
+    order?: 'asc' | 'desc' | undefined;
+    previous_uri?: string | undefined;
+    next_uri?: string | undefined;
 }
 
 export type ResourceType = "account" | "transaction" | "address" | "user" | "buy" | "sell" | "deposit" | "withdrawal" | "payment_method";
@@ -331,6 +355,16 @@ export interface Resource {
      * Resource type
      */
     resource: ResourceType;
+
+    /**
+     * ISO timestamp (sometimes needs additional permissions)
+     */
+    created_at?: string | undefined;
+
+     /**
+      * ISO timestamp (sometimes needs additional permissions)
+      */
+    updated_at?: string | undefined;
 }
 
 export class User implements Resource {
@@ -345,16 +379,6 @@ export class User implements Resource {
     id: string;
 
     /**
-     * ISO timestamp (sometimes needs additional permissions)
-     */
-    created_at?: string;
-
-    /**
-     * ISO timestamp (sometimes needs additional permissions)
-     */
-    updated_at?: string;
-
-    /**
      * REST endpoint
      */
     resource_path: string;
@@ -362,27 +386,27 @@ export class User implements Resource {
     /**
      * User’s name
      */
-    name?: string;
+    name?: string | undefined;
 
     /**
      * <undocumented>
      */
-    username?: string;
+    username?: string | undefined;
 
     /**
      * Location for user’s profile
      */
-    profile_location?: string;
+    profile_location?: string | undefined;
 
     /**
      * Bio for user’s profile
      */
-    profile_bio?: string;
+    profile_bio?: string | undefined;
 
     /**
      * profile location if user has one
      */
-    profile_url?: string;
+    profile_url?: string | undefined;
 
     /**
      * User’s avatar url
@@ -392,27 +416,27 @@ export class User implements Resource {
     /**
      * Time zone (needs wallet:user:read permission)
      */
-    time_zone?: string;
+    time_zone?: string | undefined;
 
     /**
      * Native currency (needs wallet:user:read permission)
      */
-    native_currency?: string;
+    native_currency?: string | undefined;
 
     /**
      * (needs wallet:user:read permission)
      */
-    bitcoin_unit?: string;
+    bitcoin_unit?: string | undefined;
 
     /**
      * (needs wallet:user:read permission)
      */
-    country?: Country;
+    country?: Country | undefined;
 
     /**
      * Email address (needs wallet:user:email permission)
      */
-    email?: string;
+    email?: string | undefined;
 
     /**
      * Get current user’s authorization information including granted scopes and send limits when using OAuth2 authentication
@@ -468,13 +492,16 @@ export class Address implements Resource {
     /**
      * User defined label for the address
      */
-    name?: string;
+    name?: string | undefined;
 
     /**
      * List transactions that have been sent to a specific address.
      * Scope: wallet:transactions:read
      */
-    getTransactions(opts: {}, cb: (error: Error | null, result: Transaction[]) => void): void;
+    getTransactions(
+        pagination: Pagination | null,
+        cb: (error: Error | null, result: Transaction[], pagination: Pagination) => void
+    ): void;
 }
 
 export type AccountType = "wallet" | "fiat" | "multisig" | "vault" | "multisig_vault";
@@ -499,12 +526,12 @@ export class Account implements Resource {
     /**
      * ISO timestamp (sometimes needs additional permissions)
      */
-    created_at?: string;
+    created_at?: string | undefined;
 
     /**
      * ISO timestamp (sometimes needs additional permissions)
      */
-    updated_at?: string;
+    updated_at?: string | undefined;
 
     /**
      * REST endpoint
@@ -600,7 +627,10 @@ export class Account implements Resource {
      * Lists account’s transactions.
      * Scope: wallet:transactions:read
      */
-    getTransactions(opts: {}, cb: (error: Error | null, result: Transaction[]) => void): void;
+    getTransactions(
+        pagination: Pagination | null,
+        cb: (error: Error | null, result: Transaction[], pagination: Pagination) => void
+    ): void;
 
     /**
      * Show an individual transaction for an account
@@ -645,7 +675,10 @@ export class Account implements Resource {
      * Lists buys for an account.
      * Scope: wallet:buys:read
      */
-    getBuys(opts: null, cb: (error: Error | null, result: Buy[]) => void): void;
+    getBuys(
+        pagination: Pagination | null,
+        cb: (error: Error | null, result: Buy[], pagination: Pagination) => void
+    ): void;
 
     /**
      * Show an individual buy.
@@ -678,7 +711,10 @@ export class Account implements Resource {
      * Lists sells for an account.
      * Scope: wallet:sells:read
      */
-    getSells(opts: null, cb: (error: Error | null, result: Sell[]) => void): void;
+    getSells(
+        pagination: Pagination | null,
+        cb: (error: Error | null, result: Sell[], pagination: Pagination) => void
+    ): void;
 
     /**
      * Show an individual sell.
@@ -756,7 +792,7 @@ export interface ResourceRef {
 }
 
 export type TransactionType = "send" | "request" | "transfer" | "buy" | "sell" | "fiat_deposit" | "fiat_withdrawal" | "exchange_deposit"
-    | "exchange_withdrawal" | "vault_withdrawal";
+    | "exchange_withdrawal" | "vault_withdrawal" | "trade";
 
 export type TransactionStatus = "pending" | "completed" | "failed" | "expired" | "canceled" | "waiting_for_signature" | "waiting_for_clearing";
 
@@ -816,23 +852,65 @@ export class Transaction implements Resource {
      * The receiving party of a debit transaction. Usually another resource but can also be another type like email.
      * Only available for certain types of transactions
      */
-    to?: ResourceRef | string;
+    to?: ResourceRef | string | undefined;
 
     /**
      * The originating party of a credit transaction. Usually another resource but can also be another type like bitcoin network.
      * Only available for certain types of transactions
      */
-    from?: ResourceRef | string;
+    from?: ResourceRef | string | undefined;
 
     /**
      * Associated bitcoin, litecoin or ethereum address for received payment
      */
-    address?: Address;
+    address?: Address | undefined;
 
     /**
      * Associated OAuth2 application
      */
     application?: any;
+
+    /**
+     * ISO timestamp
+     */
+    created_at: string;
+
+    /**
+     * ISO timestamp
+     */
+    updated_at: string;
+
+    /**
+     * Reference to Coinbase client
+     */
+    client: Client;
+
+    /**
+     * If record is a buy, includes reference to Buy resource
+     */
+    buy?: {
+        id: string;
+        resource: "buy";
+        resource_path: string;
+    } | undefined;
+
+    /**
+     * If record is a sell, includes reference to Sell resource
+     */
+    sell?: {
+        id: string;
+        resource: "sell";
+        resource_path: string;
+    } | undefined;
+
+    /**
+     * If record is a trade, includes reference to Trade resource
+     */
+    trade?: {
+        id: string;
+        resource: "trade";
+        resource_path: string;
+    } | undefined;
 
     /**
      * Lets the recipient of a money request complete the request by sending money to the user who requested the money.
@@ -913,7 +991,7 @@ export class Buy implements Resource {
     /**
      * When a buy isn’t executed instantly, it will receive a payout date for the time it will be executed. ISO timestamp
      */
-    payout_at?: string;
+    payout_at?: string | undefined;
 
     /**
      * Unit price of the base currency.
@@ -954,6 +1032,11 @@ export class Buy implements Resource {
      * ISO timestamp
      */
     updated_at: string;
+
+    /**
+     * Reference to Coinbase client
+     */
+    client: Client;
 
     /**
      * Completes a buy that is created in commit: false state.
@@ -1050,7 +1133,7 @@ export class Sell implements Resource {
     /**
      * When a sell isn’t executed instantly, it will receive a payout date for the time it will be executed. ISO timestamp
      */
-    payout_at?: string;
+    payout_at?: string | undefined;
 
     /**
      * Transfer identifier
@@ -1071,6 +1154,11 @@ export class Sell implements Resource {
      * ISO timestamp
      */
     updated_at: string;
+
+    /**
+     * Reference to Coinbase client
+     */
+    client: Client;
 
     /**
      * Completes a sell that is created in commit: false state.
@@ -1100,12 +1188,12 @@ export class Deposit implements Resource {
     /**
      * ISO timestamp (sometimes needs additional permissions)
      */
-    created_at?: string;
+    created_at?: string | undefined;
 
     /**
      * ISO timestamp (sometimes needs additional permissions)
      */
-    updated_at?: string;
+    updated_at?: string | undefined;
 
     /**
      * REST endpoint
@@ -1150,7 +1238,7 @@ export class Deposit implements Resource {
     /**
      * When a deposit isn’t executed instantly, it will receive a payout date for the time it will be executed. ISO timestamp
      */
-    payout_at?: string;
+    payout_at?: string | undefined;
 
     /**
      * Completes a deposit that is created in commit: false state.
@@ -1178,12 +1266,12 @@ export class Withdrawal implements Resource {
     /**
      * ISO timestamp (sometimes needs additional permissions)
      */
-    created_at?: string;
+    created_at?: string | undefined;
 
     /**
      * ISO timestamp (sometimes needs additional permissions)
      */
-    updated_at?: string;
+    updated_at?: string | undefined;
 
     /**
      * REST endpoint
@@ -1228,7 +1316,7 @@ export class Withdrawal implements Resource {
     /**
      * When a withdrawal isn’t executed instantly, it will receive a payout date for the time it will be executed. ISO timestamp
      */
-    payout_at?: string;
+    payout_at?: string | undefined;
 
     /**
      * Completes a withdrawal that is created in commit: false state.
@@ -1313,7 +1401,7 @@ export interface PaymentMethod extends Resource {
      * method data. It will contain information about buy, instant buy, sell and deposit limits (there’s no limits for withdrawals at this time).
      * As each one of these can have several limits you should always look for the lowest remaining value when performing the relevant action.
      */
-    limits?: PaymentMethodLimits;
+    limits?: PaymentMethodLimits | undefined;
 }
 
 /**

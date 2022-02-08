@@ -57,7 +57,6 @@ socket.transmitPublish('myChannel', 'This is a message');
     } catch (error) {}
 })();
 
-// tslint:disable-next-line: no-async-without-await Used in for-await
 (async () => {
     const myChannel = socket.channel('myChannel');
 
@@ -86,7 +85,6 @@ socket.transmitPublish('myChannel', 'This is a message');
     authStatus.isAuthenticated;
 })();
 
-// tslint:disable-next-line: no-async-without-await Used in for-await
 (async () => {
     // tslint:disable-next-line: await-promise Bug in tslint: https://github.com/palantir/tslint/issues/3997
     for await (const event of socket.listener('subscribeStateChange')) {

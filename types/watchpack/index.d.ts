@@ -2,7 +2,7 @@
 // Project: https://github.com/webpack/watchpack
 // Definitions by: e-cloud <https://github.com/e-cloud>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// Minimum TypeScript Version: 3.9
 
 /// <reference types="node" />
 
@@ -44,11 +44,11 @@ declare class Watchpack extends EventEmitter {
 
 declare namespace Watchpack {
     interface WatcherOptions {
-        ignored?: string[] | string | RegExp | ((path: string) => boolean);
-        poll?: boolean | number;
+        ignored?: string[] | string | RegExp | ((path: string) => boolean) | undefined;
+        poll?: boolean | number | undefined;
     }
     interface WatchOptions extends WatcherOptions {
-        aggregateTimeout?: number;
+        aggregateTimeout?: number | undefined;
     }
 }
 

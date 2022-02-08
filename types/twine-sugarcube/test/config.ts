@@ -74,6 +74,8 @@ Config.saves.onSave = (save: TwineSugarCube.SaveObject, details: TwineSugarCube.
 
 Config.saves.slots = 123;
 
+Config.saves.tryDiskOnMobile = b;
+
 Config.saves.version = 123;
 Config.saves.version = "ver-2";
 

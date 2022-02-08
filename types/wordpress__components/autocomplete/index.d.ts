@@ -1,4 +1,4 @@
-import { ComponentType, ReactNode } from 'react';
+import { ReactNode } from 'react';
 import { Value } from '@wordpress/rich-text';
 
 declare namespace Autocomplete {
@@ -42,13 +42,13 @@ declare namespace Autocomplete {
         /**
          * A class name to apply to the autocompletion popup menu.
          */
-        className?: string;
+        className?: string | undefined;
 
         /**
          * Whether to apply debouncing for the autocompleter. Set to `true` to
          * enable debouncing.
          */
-        isDebounced?: boolean;
+        isDebounced?: boolean | undefined;
 
         /**
          * A function that takes a string before and a string after the
@@ -106,6 +106,7 @@ declare namespace Autocomplete {
         activeId: string;
         isExpanded: boolean;
         listBoxId: string;
+        onKeyDown: (event: React.KeyboardEvent<HTMLElement>) => void;
     }
 
     interface Props<T> {
@@ -113,7 +114,8 @@ declare namespace Autocomplete {
         completers: ReadonlyArray<Completer<T>>;
         onChange?(value: Value): void;
         onReplace?(value: Value): void;
-        record?: Value;
+        record?: Value | undefined;
+        isSelected?: boolean | undefined;
     }
 }
 

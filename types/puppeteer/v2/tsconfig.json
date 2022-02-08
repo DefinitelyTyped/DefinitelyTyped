@@ -18,6 +18,9 @@
         "paths": {
             "puppeteer": [
                 "puppeteer/v2"
+            ],
+            "puppeteer/*": [
+                "puppeteer/v2/*"
             ]
         },
         "types": [],

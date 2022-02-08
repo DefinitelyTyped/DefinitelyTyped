@@ -7,21 +7,21 @@ import * as React from 'react';
 
 export interface MorphReplaceProps {
     children: React.ReactElement;
-    width?: number;
-    height?: number;
-    viewBox?: string;
-    duration?: number;
-    rotation?: string;
-    preserveAspectRatio?: string;
-    easing?: (props: any) => number;
+    width?: number | undefined;
+    height?: number | undefined;
+    viewBox?: string | undefined;
+    duration?: number | undefined;
+    rotation?: string | undefined;
+    preserveAspectRatio?: string | undefined;
+    easing?: ((props: any) => number) | undefined;
 }
 
 export interface MorphTransitionProps {
-    width?: number;
-    height?: number;
-    viewBox?: string;
-    propgress?: number;
-    rotation?: string;
+    width?: number | undefined;
+    height?: number | undefined;
+    viewBox?: string | undefined;
+    propgress?: number | undefined;
+    rotation?: string | undefined;
     children: {
         from: React.ReactElement;
         to: React.ReactElement;

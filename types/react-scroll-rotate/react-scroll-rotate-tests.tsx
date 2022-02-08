@@ -10,7 +10,7 @@ const elements = [
     throttle={0.25}
     from={0}
     to={360}
-    method="prec"
+    method="perc"
     loops={1}
     animationDuration={0.25}
   >

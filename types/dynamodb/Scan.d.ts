@@ -1,38 +1,39 @@
 import { ExecuteFilter } from './ExecuteFilter';
+import { Page } from './Model';
 
-export interface Scan {
-    limit(num: number): Scan;
+export interface Scan<T> {
+    limit(num: number): Scan<T>;
     addFilterCondition(condition: {
         attributeNames: any;
         attributeValues: any;
-    }): Scan;
-    startKey(hashKey: string, rangeKey?: string): Scan;
-    attributes(attrs: ReadonlyArray<string> | string): Scan;
-    select(value: string): Scan;
-    returnConsumedCapacity(value?: string): Scan;
-    segments(segment: any, totalSegments: any): Scan;
-    where(keyName: string): Scan;
-    filterExpression(expression: any): Scan;
-    expressionAttributeValues(data: any): Scan;
-    expressionAttributeNames(data: any): Scan;
-    projectionExpression(data: any): Scan;
-    loadAll(): Scan;
-    notNull(): Scan;
-    null(): Scan;
-    contains(name: string): Scan;
-    beginsWith(name: string): Scan;
-    between(start: string, end: string): Scan;
-    notContains(name: string): Scan;
-    equals: (...args: any[]) => Scan;
-    in: (...args: any[]) => Scan;
-    ne: (...args: any[]) => Scan;
-    eq: (...args: any[]) => Scan;
-    lte: (...args: any[]) => Scan;
-    lt: (...args: any[]) => Scan;
-    gte: (...args: any[]) => Scan;
-    gt: (...args: any[]) => Scan;
-    exec: ExecuteFilter;
+    }): Scan<T>;
+    startKey(hashKey: string, rangeKey?: string): Scan<T>;
+    attributes(attrs: ReadonlyArray<string> | string): Scan<T>;
+    select(value: string): Scan<T>;
+    returnConsumedCapacity(value?: string): Scan<T>;
+    segments(segment: any, totalSegments: any): Scan<T>;
+    where(keyName: string): Scan<T>;
+    filterExpression(expression: any): Scan<T>;
+    expressionAttributeValues(data: any): Scan<T>;
+    expressionAttributeNames(data: any): Scan<T>;
+    projectionExpression(data: any): Scan<T>;
+    loadAll(): Scan<T>;
+    notNull(): Scan<T>;
+    null(): Scan<T>;
+    contains(name: string): Scan<T>;
+    beginsWith(name: string): Scan<T>;
+    between(start: string, end: string): Scan<T>;
+    notContains(name: string): Scan<T>;
+    equals: (...args: any[]) => Scan<T>;
+    in: (...args: any[]) => Scan<T>;
+    ne: (...args: any[]) => Scan<T>;
+    eq: (...args: any[]) => Scan<T>;
+    lte: (...args: any[]) => Scan<T>;
+    lt: (...args: any[]) => Scan<T>;
+    gte: (...args: any[]) => Scan<T>;
+    gt: (...args: any[]) => Scan<T>;
+    exec: ExecuteFilter<Page<T>>;
     buildRequest(): any;
 }
 
-export type ParallelScan = Scan;
+export type ParallelScan<T> = Scan<T>;

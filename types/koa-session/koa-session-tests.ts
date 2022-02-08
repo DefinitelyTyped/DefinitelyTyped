@@ -1,6 +1,7 @@
 import Koa = require('koa');
 import session = require('koa-session');
 import * as ContextSession from "koa-session/lib/context";
+import Router = require('koa-router');
 
 import {
     encode,
@@ -39,6 +40,15 @@ app.use(session({
     },
     path: "/",
 }, app));
+
+// test for correct type in `ParameterizedContext`
+const router = new Router();
+
+router.get('/', (ctx) => {
+    ctx.session!.hello = true;
+});
+
+app.use(router.routes());
 
 // can still use koa-session events, although without autocomplete
 app.on('session:missed', () => {});

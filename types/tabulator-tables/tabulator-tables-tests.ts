@@ -1,5 +1,8 @@
+import { Tabulator, Renderer, Module, DataTreeModule, TabulatorFull } from 'tabulator-tables';
+
 // tslint:disable:no-object-literal-type-assertion
 // tslint:disable:whitespace
+// tslint:disable:prefer-const
 
 // constructor
 let table = new Tabulator('#test');
@@ -31,13 +34,14 @@ table.setFilter([
 table
     .setPageToRow(12)
     .then(() => {
-        // run code after table has been successfuly updated
+        // run code after table has been successfully updated
     })
     .catch(error => {
         // handle error loading data
     });
 
 table.setGroupBy('gender');
+table.setGroupBy(['gender', 'age']);
 table.setGroupStartOpen(true);
 
 table.setGroupHeader((value, count, data, group) => {
@@ -136,7 +140,7 @@ colDef.editor = 'number';
 colDef.editor = (cell, onRendered, success, cancel, editorParams) => {
     // cell - the cell component for the editable cell
     // onRendered - function to call when the editor has been rendered
-    // success - function to call to pass the successfuly updated value to Tabulator
+    // success - function to call to pass the successfully updated value to Tabulator
     // cancel - function to call to abort the edit and return to a normal cell
     // editorParams - params object passed into the editorParams column definition property
 
@@ -181,6 +185,8 @@ colDef.cellClick = (_e: UIEvent, cell) => {
 
 colDef.formatterParams = { stars: 3 };
 
+colDef.formatterParams = { url: cell => `${cell.getValue()}` };
+
 colDef.editorParams = {};
 colDef.editorParams = {
     values: [
@@ -215,7 +221,7 @@ colDef.editorParams = {
             ],
         },
         {
-            // ungrouped option
+            // Un-grouped option
             label: 'Other',
             value: 'other',
         },
@@ -288,7 +294,7 @@ colDef.editorParams = {
             ],
         },
         {
-            // ungrouped option
+            // Un-grouped option
             label: 'Other',
             value: 'other',
         },
@@ -317,7 +323,6 @@ let validators: Tabulator.Validator[] = [
     },
 ];
 
-colDef.headerFilterFunc = '!=';
 colDef.headerFilterFunc = (headerValue, rowValue, rowData, filterParams) => {
     return rowData.name === filterParams.name && rowValue < headerValue; // must return a boolean, true if it passes the filter.
 };
@@ -334,7 +339,6 @@ colDef.bottomCalcFormatter = (cell, formatterParams, onRendered) => {
 // Cell Component
 
 let cell = <Tabulator.CellComponent>{};
-cell.nav().down();
 
 let data = cell.getData();
 table = cell.getTable();
@@ -434,11 +438,6 @@ options.groupHeader = [
     },
 ];
 
-options.paginationDataReceived = {
-    last_page: 'max_pages',
-    a: 'b',
-};
-
 options.clipboardPasteParser = clipboard => {
     return []; // return array
 };
@@ -467,7 +466,7 @@ table.download('pdf', 'data.pdf', {
         doc.text('SOME TEXT', 1, 1);
         return {
             styles: {
-                fillColor: [200, 00, 00],
+                fillColor: [200, 40, 40],
             },
         };
     },
@@ -529,7 +528,6 @@ options.tabEndNewRow = row => {
 };
 
 options.headerSort = false;
-options.headerSortTristate = true;
 
 colDef.formatter = 'rowSelection';
 
@@ -593,8 +591,6 @@ table = new Tabulator('#example-table', {
 table = new Tabulator('#test', {});
 table.blockRedraw();
 table.restoreRedraw();
-
-table = Tabulator.prototype.findTable('#example-table')[0];
 
 table.getRows('visible');
 table.deleteRow([15, 7, 9]);
@@ -689,8 +685,6 @@ table = new Tabulator('#example-table', {
     maxHeight: '100%',
     minHeight: 300,
     rowContextMenu,
-    cellVertAlign: 'middle',
-    cellHozAlign: 'center',
     clipboardCopyConfig: {
         columnHeaders: false,
         columnGroups: false,
@@ -853,3 +847,187 @@ let select: Tabulator.SelectParams = {
         },
     ],
 };
+
+// 4.8
+
+table = new Tabulator('#example-table', {
+    textDirection: 'rtl',
+    autoColumnsDefinitions: () => {
+        const columnDefinitions: Tabulator.ColumnDefinition[] = [];
+        return columnDefinitions;
+    },
+});
+
+table = new Tabulator('#example-table', {
+    autoColumnsDefinitions: {
+        name: { editor: 'input' },
+        age: { headerFilter: true },
+        myProp: { title: 'my title' },
+    },
+});
+
+let colDefs: Tabulator.ColumnDefinition[] = [];
+colDefs.push({
+    field: 'name',
+    title: 'input',
+    clickMenu: contextMenu,
+    titleFormatterParams: { rowRange: 'active' },
+    accessor: (value, data, type, params, column, row) => {
+        return Math.floor(value);
+    },
+    accessorParams: (value, data, type, component, row) => {
+        return { param1: 'green' };
+    },
+});
+
+const groupContextMenu: Array<Tabulator.MenuObject<Tabulator.GroupComponent> | Tabulator.MenuSeparator> = [
+    { separator: true },
+];
+
+table = new Tabulator('#example-table', {
+    autoColumnsDefinitions: colDefs,
+
+    rowContextMenu: (component, e: MouseEvent) => {
+        component.delete();
+        return false;
+    },
+    rowClickMenu: rowContextMenu,
+    groupClickMenu: groupContextMenu,
+    headerSortElement: "<i class='fas fa-arrow-up'></i>",
+    dataTreeFilter: false,
+    dataTreeSort: false,
+    groupUpdateOnCellEdit: true,
+    dataChanged: data => {},
+});
+
+table.setGroupValues([['male', 'female', 'smizmar']]);
+table.getData('all');
+table.getDataCount('all');
+table.getRows('all');
+table.selectRow('all');
+
+row.getData();
+row.getElement();
+row.getTable();
+row.getCells();
+row.getCell(column);
+row.isTreeExpanded();
+
+let calcComponent = {} as Tabulator.CalculationComponent;
+calcComponent.getData();
+calcComponent.getElement();
+calcComponent.getTable();
+calcComponent.getCells();
+calcComponent.getCell(column);
+
+// 4.9
+const rowContextMenu2: Array<Tabulator.MenuObject<Tabulator.ColumnComponent>> = [
+    {
+        label: 'Hide Column',
+        action: (e, column) => {
+            column.hide();
+        },
+    },
+    {
+        label: 'Sub Menu',
+        menu: [
+            {
+                label: 'Do Something',
+                action: (e, column) => {
+                    column.delete();
+                },
+            },
+            {
+                label: 'Do Something 2',
+                action: (e, column) => {
+                    column.delete();
+                },
+            },
+            {
+                label: 'Deeper Sub Menu',
+                menu: [
+                    {
+                        label: 'Do Something 3',
+                        action: (e, column) => {
+                            column.delete();
+                        },
+                    },
+                ],
+            },
+        ],
+    },
+];
+
+colDef.formatterParams = {
+    urlPrefix: 'http://',
+    urlSuffix: '.png',
+};
+
+table.refreshFilters();
+table.clearHistory();
+
+colDef.maxWidth = 300;
+colDef.maxWidth = false;
+
+// 5.0
+Tabulator.defaultOptions.movableRows = true;
+Tabulator.extendModule('format', 'formatters', {});
+
+class CustomRenderer extends Renderer {}
+
+table = new Tabulator('#test', {
+    renderVertical: 'virtual',
+    renderHorizontal: CustomRenderer,
+    renderVerticalBuffer: 300,
+    dataLoaderError: 'Error Loading Data',
+    dataLoaderLoading: 'Data Loading',
+    dataLoader: false,
+    sortMode: 'remote',
+    pagination: true,
+    paginationMode: 'remote',
+    filterMode: 'remote',
+    dataSendParams: {
+        page: 'current_page',
+        size: 'page_size',
+    },
+    dataReceiveParams: {
+        last_page: 'last',
+        size: 'page_data',
+    },
+    progressiveLoad: 'scroll',
+    progressiveLoadDelay: 400,
+    progressiveLoadScrollMargin: 300,
+    columnDefaults: {
+        width: 200,
+        title: 'test',
+    },
+    invalidOptionWarning: false,
+    debugInvalidOptions: false,
+});
+
+const dataProcessedEvent = () => {};
+
+table.on('dataLoading', dataProcessedEvent);
+table.on('dataLoaded', () => {});
+table.on('dataLoadError', () => {});
+table.on('dataProcessing', () => {});
+table.on('dataProcessed', () => {});
+table.off('dataProcessed');
+table.off('dataProcessed', dataProcessedEvent);
+table.on('cellClick', () => {});
+table = Tabulator.findTable('#example-table')[0];
+table = TabulatorFull.findTable('#example-table')[0];
+
+Tabulator.bindModules([Renderer]);
+cell.navigateDown();
+
+class CustomModule extends Module {
+    constructor(table: Tabulator) {
+        super(table);
+    }
+
+    initialize() {}
+}
+
+CustomModule.moduleName = 'custom';
+Tabulator.registerModule([CustomModule, DataTreeModule]);

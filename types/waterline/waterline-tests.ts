@@ -1,6 +1,6 @@
 import Waterline = require('waterline');
 const waterline = new Waterline();
-const userCollection = Waterline.Collection.extend({
+const userCollection = Waterline.Model.extend({
     identity: 'user',
     connection: 'default',
     attributes: {
@@ -30,14 +30,14 @@ const petCollection = Waterline.Collection.extend({
     },
 });
 
-waterline.loadCollection(userCollection);
+waterline.registerModel(userCollection);
 waterline.loadCollection(petCollection);
 
 const config: Waterline.Config = {
     adapters: {
         memory: {},
     },
-    connections: {
+    datastores: {
         default: {
             adapter: 'memory',
         },
@@ -122,6 +122,62 @@ const attributes: Waterline.Attribute = {
     autoIncrement: true,
     required: true,
 };
+
+// Experimental lifecycle commands
+
+Waterline.start({
+    adapters: {
+        memory: {}
+    },
+    datastores: {
+        default: {
+            adapter: 'memory'
+        }
+    },
+    models: {
+        person: {
+            identity: 'person',
+            connection: 'local-postgresql',
+
+            attributes: {
+                // Don"t allow two objects with the same value
+                lastName: {
+                    type: 'string',
+                    unique: true,
+                },
+
+                // Ensure a value is set
+                age: {
+                    type: 'integer',
+                    required: true,
+                },
+
+                // Set a default value if no value is set
+                phoneNumber: {
+                    type: 'string',
+                    defaultsTo: '111-222-3333',
+                },
+
+                // Create an auto-incrementing value (not supported by all datastores)
+                incrementMe: {
+                    type: 'integer',
+                    autoIncrement: true,
+                },
+
+                // Index a value for faster queries
+                emailAddress: {
+                    type: 'email', // Email type will get validated by the ORM
+                    index: true,
+                },
+            },
+        }
+    }
+}, (err, orm) => {
+    orm.teardown();
+    orm.teardown(() => {});
+    Waterline.stop(orm, err => {});
+});
+
 // https://github.com/balderdashy/waterline-docs/blob/master/models/validations.md
 const validations: Waterline.AttributeValidations = {
     custom: () => true,
@@ -286,6 +342,8 @@ User.findOrCreate({ name: 'Walter Jr' }, {}, (err, user) => {}).exec((err, users
 User.update({ name: 'Walter Jr' }, { name: 'Flynn' }, (err, value) => {}).exec((err, users) => {});
 // .destroy( criteria , [callback] )
 User.destroy({ name: 'Flynn' }, (err, value) => {}).exec(err => {});
+// .destroyOne( criteria , [callback] )
+User.destroyOne({ name: 'Flynn' }, (err, value) => {}).exec(err => {});
 // .query( query, [data], callback )
 const Movie: Waterline.Model = {} as any;
 const title = 'The Speech';

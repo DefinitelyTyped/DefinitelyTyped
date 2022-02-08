@@ -13,7 +13,7 @@ mirror.model({
     },
     effects: {
         async incrementAsync() {
-            await new Promise((resolve, reject) => {
+            await new Promise<void>((resolve, reject) => {
                 setTimeout(() => {
                     resolve();
                 }, 1000);

@@ -10,54 +10,54 @@ import { StyleProp, TextStyle, ImageStyle, ViewStyle, ImageURISource } from 'rea
 import * as moment from 'moment';
 
 export interface DatePickerCustomStylesProps {
-    placeholderText?: StyleProp<TextStyle>;
-    dateText?: StyleProp<TextStyle>;
-    dateIcon?: StyleProp<ImageStyle>;
-    dateInput?: StyleProp<ViewStyle>;
-    dateTouchBody?: StyleProp<ViewStyle>;
-    datePickerCon?: StyleProp<ViewStyle>;
-    datePicker?: StyleProp<ViewStyle>;
-    btnCancel?: StyleProp<any>;
-    btnTextCancel?: StyleProp<TextStyle>;
-    btnConfirm?: StyleProp<any>;
-    btnTextConfirm?: StyleProp<TextStyle>;
-    disabled?: StyleProp<ViewStyle>;
+    placeholderText?: StyleProp<TextStyle> | undefined;
+    dateText?: StyleProp<TextStyle> | undefined;
+    dateIcon?: StyleProp<ImageStyle> | undefined;
+    dateInput?: StyleProp<ViewStyle> | undefined;
+    dateTouchBody?: StyleProp<ViewStyle> | undefined;
+    datePickerCon?: StyleProp<ViewStyle> | undefined;
+    datePicker?: StyleProp<ViewStyle> | undefined;
+    btnCancel?: StyleProp<any> | undefined;
+    btnTextCancel?: StyleProp<TextStyle> | undefined;
+    btnConfirm?: StyleProp<any> | undefined;
+    btnTextConfirm?: StyleProp<TextStyle> | undefined;
+    disabled?: StyleProp<ViewStyle> | undefined;
 }
 
 export interface DatePickerProps {
-    mode?: 'date' | 'datetime' | 'time';
-    androidMode?: 'default' | 'calendar' | 'spinner';
-    date?: string | Date | moment.Moment;
-    format?: string;
-    iconSource?: ImageURISource;
-    iconComponent?: JSX.Element;
-    hideText?: boolean;
-    minDate?: string | Date;
-    maxDate?: string | Date;
-    height?: number;
-    duration?: number;
-    confirmBtnText?: string;
-    cancelBtnText?: string;
-    showIcon?: boolean;
-    disabled?: boolean;
+    mode?: 'date' | 'datetime' | 'time' | undefined;
+    androidMode?: 'default' | 'calendar' | 'spinner' | undefined;
+    date?: string | Date | moment.Moment | undefined;
+    format?: string | undefined;
+    iconSource?: ImageURISource | undefined;
+    iconComponent?: JSX.Element | undefined;
+    hideText?: boolean | undefined;
+    minDate?: string | Date | undefined;
+    maxDate?: string | Date | undefined;
+    height?: number | undefined;
+    duration?: number | undefined;
+    confirmBtnText?: string | undefined;
+    cancelBtnText?: string | undefined;
+    showIcon?: boolean | undefined;
+    disabled?: boolean | undefined;
     onDateChange?(dateStr: string, date: Date): void;
-    onOpenModal?: () => void;
-    onCloseModal?: () => void;
-    onPressMask?: () => void;
-    placeholder?: string;
+    onOpenModal?: (() => void) | undefined;
+    onCloseModal?: (() => void) | undefined;
+    onPressMask?: (() => void) | undefined;
+    placeholder?: string | undefined;
     modalOnResponderTerminationRequest?(e: any): boolean;
-    is24Hour?: boolean;
-    getDateStr?: (date: Date) => string;
-    style?: StyleProp<any>;
-    customStyles?: DatePickerCustomStylesProps;
-    minuteInterval?: number;
-    TouchableComponent?: React.Component;
-    allowFontScaling?: boolean;
-    locale?: string;
-    timeZoneOffsetInMinutes?: number;
-    testID?: string;
-    cancelBtnTestID?: string;
-    confirmBtnTestID?: string;
+    is24Hour?: boolean | undefined;
+    getDateStr?: ((date: Date) => string) | undefined;
+    style?: StyleProp<any> | undefined;
+    customStyles?: DatePickerCustomStylesProps | undefined;
+    minuteInterval?: number | undefined;
+    TouchableComponent?: React.Component | undefined;
+    allowFontScaling?: boolean | undefined;
+    locale?: string | undefined;
+    timeZoneOffsetInMinutes?: number | undefined;
+    testID?: string | undefined;
+    cancelBtnTestID?: string | undefined;
+    confirmBtnTestID?: string | undefined;
 }
 
 declare class DatePicker extends React.Component<DatePickerProps> {

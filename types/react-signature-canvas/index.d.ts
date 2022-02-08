@@ -7,8 +7,8 @@ import * as React from 'react';
 import SignaturePad = require('signature_pad');
 
 export interface ReactSignatureCanvasProps extends SignaturePad.SignaturePadOptions {
-    canvasProps?: React.CanvasHTMLAttributes<HTMLCanvasElement>;
-    clearOnResize?: boolean;
+    canvasProps?: React.CanvasHTMLAttributes<HTMLCanvasElement> | undefined;
+    clearOnResize?: boolean | undefined;
 }
 
 declare class ReactSignatureCanvas extends React.Component<ReactSignatureCanvasProps> {

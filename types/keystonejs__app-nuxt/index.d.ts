@@ -12,14 +12,14 @@ declare module '@keystonejs/app-nuxt' {
     import { BaseApp } from '@keystonejs/keystone';
 
     interface NuxtOptions {
-        srcDir?: string;
-        buildDir?: string;
+        srcDir?: string | undefined;
+        buildDir?: string | undefined;
     }
 
     class NuxtApp extends BaseApp {
         constructor(options?: NuxtOptions);
 
-        prepareMiddleware({ dev }: { dev?: boolean }): Promise<void>;
+        prepareMiddleware({ dev }: { dev?: boolean | undefined }): Promise<void>;
         build(): Promise<void>;
     }
 }

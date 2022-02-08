@@ -1,6 +1,5 @@
 // Type definitions for gitana 1.0
-// Project: http://cloducms.com/
-//          https://github.com/gitana/gitana-node-js
+// Project: https://github.com/gitana/gitana-node-js
 // Definitions by: Juan E. Tenorio Arzola <https://github.com/tenoriojuann>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7

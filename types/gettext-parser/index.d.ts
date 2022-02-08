@@ -14,11 +14,11 @@ export interface GetTextComment {
 }
 
 export interface GetTextTranslation {
-    msgctxt?: string;
+    msgctxt?: string | undefined;
     msgid: string;
     msgid_plural?: any;
     msgstr: string[];
-    comments?: GetTextComment;
+    comments?: GetTextComment | undefined;
 }
 
 export interface GetTextTranslations {

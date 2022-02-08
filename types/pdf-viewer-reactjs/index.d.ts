@@ -1,22 +1,32 @@
-// Type definitions for pdf-viewer-reactjs 2.0
+// Type definitions for pdf-viewer-reactjs 2.2
 // Project: https://github.com/ansu5555/pdf-viewer-reactjs#readme
 // Definitions by: Ansuman Ghosh <https://github.com/ansu5555>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { Component, Props } from 'react';
+import { Component } from 'react';
 
 interface Document {
-    url?: string;
-    base64?: string;
+    url?: string | undefined;
+    base64?: string | undefined;
+}
+
+interface ShowThumbnail {
+    scale?: number | undefined;
+    rotationAngle?: number | undefined;
+    onTop?: boolean | undefined;
+    backgroundColor?: string | undefined;
+    thumbCss?: string | undefined;
+    selectedThumbCss?: string | undefined;
 }
 
 interface Watermark {
-    text?: string;
-    diagonal?: boolean;
-    opacity?: string;
-    size?: string;
-    color?: string;
+    text?: string | undefined;
+    diagonal?: boolean | undefined;
+    opacity?: string | undefined;
+    font?: string | undefined;
+    size?: string | undefined;
+    color?: string | undefined;
 }
 
 interface Err {
@@ -28,31 +38,36 @@ type BtnClickHandler = (page: number) => void;
 type ZoomClickHandler = (scale: number) => void;
 type RotationClickHandler = (angle: number) => void;
 type AlertHandler = (err: Err) => React.ReactNode;
+type MaxPageCount = (pageCount: number) => void;
 
-interface PDFViewerProps extends Props<PDFViewer> {
+interface PDFViewerProps {
     document: Document;
-    loader?: React.ReactNode;
-    page?: number;
-    scale?: number;
-    defaultScale?: number;
-    scaleStep?: number;
-    maxScale?: number;
-    minScale?: number;
-    css?: string;
-    canvasCss?: string;
-    rotationAngle?: number;
-    onDocumentClick?: DocClickHandler;
-    onPrevBtnClick?: BtnClickHandler;
-    onNextBtnClick?: BtnClickHandler;
-    onZoom?: ZoomClickHandler;
-    onRotation?: RotationClickHandler;
-    hideNavbar?: boolean;
-    navbarOnTop?: boolean;
-    hideZoom?: boolean;
-    hideRotation?: boolean;
-    protectContent?: boolean;
-    watermark?: Watermark;
-    alert?: AlertHandler;
+    withCredentials?: boolean | undefined;
+    password?: string | undefined;
+    loader?: React.ReactNode | undefined;
+    externalInput?: boolean | undefined;
+    page?: number | undefined;
+    scale?: number | undefined;
+    scaleStep?: number | undefined;
+    maxScale?: number | undefined;
+    minScale?: number | undefined;
+    css?: string | undefined;
+    canvasCss?: string | undefined;
+    rotationAngle?: number | undefined;
+    onDocumentClick?: DocClickHandler | undefined;
+    onPrevBtnClick?: BtnClickHandler | undefined;
+    onNextBtnClick?: BtnClickHandler | undefined;
+    onZoom?: ZoomClickHandler | undefined;
+    onRotation?: RotationClickHandler | undefined;
+    getMaxPageCount?: MaxPageCount | undefined;
+    hideNavbar?: boolean | undefined;
+    navbarOnTop?: boolean | undefined;
+    hideZoom?: boolean | undefined;
+    hideRotation?: boolean | undefined;
+    showThumbnail?: ShowThumbnail | undefined;
+    protectContent?: boolean | undefined;
+    watermark?: Watermark | undefined;
+    alert?: AlertHandler | undefined;
     navigation?: any;
 }
 

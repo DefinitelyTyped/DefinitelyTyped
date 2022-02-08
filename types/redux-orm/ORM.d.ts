@@ -24,8 +24,9 @@ export type OrmState<MClassMap extends IndexedModelClasses<any>> = { [K in keyof
  *
  * Enables customization of database creation.
  */
-export interface ORMOpts {
-    createDatabase: DatabaseCreator;
+export interface ORMOpts<MClassMap> {
+    stateSelector?: (state: any) => OrmState<MClassMap>;
+    createDatabase?: DatabaseCreator;
 }
 
 /**
@@ -45,7 +46,7 @@ export class ORM<I extends IndexedModelClasses<any>, ModelNames extends keyof I 
     /**
      * Creates a new ORM instance.
      */
-    constructor(opts?: ORMOpts);
+    constructor(opts?: ORMOpts<I>);
 
     /**
      * Registers a {@link Model} class to the ORM.

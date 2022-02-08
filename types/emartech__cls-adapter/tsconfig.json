@@ -13,8 +13,8 @@
             "../"
         ],
         "paths": {
-            "@emartech/cls-adapter": [
-                "emartech__cls-adapter"
+            "@emartech/*": [
+                "emartech__*"
             ]
         },
         "types": [],

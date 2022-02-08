@@ -10,27 +10,27 @@ declare namespace GoogleAppsScript {
   namespace Mail {
     interface MailAdvancedParameters {
       /** an array of files to send with the email */
-      attachments?: Base.BlobSource[];
+      attachments?: Base.BlobSource[] | undefined;
       /** a comma-separated list of email addresses to BCC */
-      bcc?: string;
+      bcc?: string | undefined;
       /** the body of the email */
-      body?: string;
+      body?: string | undefined;
       /** a comma-separated list of email addresses to CC */
-      cc?: string;
+      cc?: string | undefined;
       /** if set, devices capable of rendering HTML will use it instead of the required body argument; you can add an optional inlineImages field in HTML body if you have inlined images for your email */
-      htmlBody?: string;
+      htmlBody?: string | undefined;
       /** a JavaScript object containing a mapping from image key (String) to image data (BlobSource); this assumes that the htmlBody parameter is used and contains references to these images in the format <img src="cid:imageKey" /> */
-      inlineImages?: { [imageKey: string]: Base.BlobSource };
+      inlineImages?: { [imageKey: string]: Base.BlobSource } | undefined;
       /** the name of the sender of the email (default: the user's name) */
-      name?: string;
+      name?: string | undefined;
       /** true if the email should be sent from a generic no-reply email address to discourage recipients from responding to emails; this option is only possible for G Suite accounts, not Gmail users */
-      noReply?: boolean;
+      noReply?: boolean | undefined;
       /** an email address to use as the default reply-to address (default: the user's email address) */
-      replyTo?: string;
+      replyTo?: string | undefined;
       /** the subject of the email */
-      subject?: string;
+      subject?: string | undefined;
       /** the address of the recipient */
-      to?: string;
+      to?: string | undefined;
     }
     /**
      * Sends email.

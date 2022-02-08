@@ -1,6 +1,7 @@
 import * as fs from 'fs';
-import * as assert from 'assert';
+import assert = require('assert');
 import * as util from 'util';
+import * as url from 'url';
 
 {
     fs.writeFile("thebible.txt",
@@ -297,9 +298,9 @@ async function testPromisify() {
 }
 
 {
-    fs.writev(1, [Buffer.from('123')], (err: NodeJS.ErrnoException | null, bytesWritten: number, buffers: NodeJS.ArrayBufferView[]) => {
+    fs.writev(1, [Buffer.from('123')] as ReadonlyArray<NodeJS.ArrayBufferView>, (err: NodeJS.ErrnoException | null, bytesWritten: number, buffers: NodeJS.ArrayBufferView[]) => {
     });
-    const bytesWritten = fs.writevSync(1, [Buffer.from('123')]);
+    const bytesWritten = fs.writevSync(1, [Buffer.from('123')] as ReadonlyArray<NodeJS.ArrayBufferView>);
 }
 
 (async () => {
@@ -310,11 +311,35 @@ async function testPromisify() {
 })();
 
 {
+    fs.createReadStream('path').close();
+    fs.createReadStream('path').close((err?: NodeJS.ErrnoException | null) => {});
+
+    fs.createWriteStream('path').close();
+    fs.createWriteStream('path').close((err?: NodeJS.ErrnoException | null) => {});
+}
+
+{
     fs.opendir('test', async (err, dir) => {
         const dirEnt: fs.Dirent | null = await dir.read();
     });
 
+    fs.opendir(Buffer.from('test'), async (err, dir) => {
+        const dirEnt: fs.Dirent | null = await dir.read();
+    });
+
+    fs.opendir(new url.URL(`file://${__dirname}`), async (err, dir) => {
+        const dirEnt: fs.Dirent | null = await dir.read();
+    });
+
     const dir: fs.Dir = fs.opendirSync('test', {
+        encoding: 'utf8',
+    });
+
+    const dirBuffer: fs.Dir = fs.opendirSync(Buffer.from('test'), {
+        encoding: 'utf8',
+    });
+
+    const dirUrl: fs.Dir = fs.opendirSync(new url.URL(`file://${__dirname}`), {
         encoding: 'utf8',
     });
 
@@ -325,6 +350,14 @@ async function testPromisify() {
     // });
 
     const dirEntProm: Promise<fs.Dir> = fs.promises.opendir('test', {
+        encoding: 'utf8',
+    });
+
+    const dirEntBufferProm: Promise<fs.Dir> = fs.promises.opendir(Buffer.from('test'), {
+        encoding: 'utf8',
+    });
+
+    const dirEntURLProm: Promise<fs.Dir> = fs.promises.opendir(new url.URL(`file://${__dirname}`), {
         encoding: 'utf8',
     });
 }

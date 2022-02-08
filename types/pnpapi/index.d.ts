@@ -1,8 +1,8 @@
 // Type definitions for pnpapi 0.0
 // Project: https://yarnpkg.github.io/berry/advanced/pnpapi
 // Definitions by: Maël Nison <https://github.com/arcanis>
+//                 ExE Boss <https://github.com/ExE-Boss>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
 
 export interface PhysicalPackageLocator {
     name: string;
@@ -30,12 +30,20 @@ export const topLevel: {name: null, reference: null};
 export function getPackageInformation(locator: PackageLocator): PackageInformation;
 export function findPackageLocator(location: string): PackageLocator | null;
 
-export function resolveToUnqualified(request: string, issuer: string | null, opts?: {considerBuiltins?: boolean}): string | null;
-export function resolveUnqualified(unqualified: string, opts?: { extensions?: string[] }): string;
+export function resolveToUnqualified(request: string, issuer: string | null, opts?: {considerBuiltins?: boolean | undefined}): string | null;
+export function resolveUnqualified(unqualified: string, opts?: { extensions?: string[] | undefined }): string;
 export function resolveRequest(
     request: string,
     issuer: string | null,
-    opts?: { considerBuiltins?: boolean; extensions?: string[] }
+    opts?: { considerBuiltins?: boolean | undefined; extensions?: string[] | undefined }
 ): string | null;
 
 export function setup(): void;
+
+declare global {
+    namespace NodeJS {
+        interface ProcessVersions {
+            pnp?: string | undefined;
+        }
+    }
+}

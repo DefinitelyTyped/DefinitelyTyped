@@ -1,11 +1,11 @@
 export class MergeOptions {
-    version?: number;
-    renameThreshold?: number;
-    targetLimit?: number;
-    fileFavor?: number;
-    fileFlags?: number;
-    defaultDriver?: string;
-    flags?: number;
-    recursionLimit?: number;
+    version?: number | undefined;
+    renameThreshold?: number | undefined;
+    targetLimit?: number | undefined;
+    fileFavor?: number | undefined;
+    fileFlags?: number | undefined;
+    defaultDriver?: string | undefined;
+    flags?: number | undefined;
+    recursionLimit?: number | undefined;
     [key: string]: any;
 }

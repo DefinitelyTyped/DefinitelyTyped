@@ -1,22 +1,22 @@
 import asyncRedis = require("async-redis");
 
-// $ExpectType Promisified<RedisClient>
+// $ExpectType AsyncRedisClient
 const client = asyncRedis.createClient();
 
-// $ExpectType Promisified<RedisClient>
+// $ExpectType AsyncRedisClient
 asyncRedis.createClient(8080);
 
-// $ExpectType Promisified<RedisClient>
+// $ExpectType AsyncRedisClient
 asyncRedis.createClient(8080, "localhost");
 
-// $ExpectType Promisified<RedisClient>
+// $ExpectType AsyncRedisClient
 asyncRedis.createClient("./awesome-redis.sock", {
   host: "localhost",
   port: 8080,
   path: "/",
 });
 
-// $ExpectType Promisified<RedisClient>
+// $ExpectType AsyncRedisClient
 asyncRedis.createClient({
   host: "localhost",
   port: 8080,
@@ -40,20 +40,38 @@ client.connected;
 
 // promisified
 
-// $ExpectType Promise<boolean>
+// $ExpectType Promise<string | null>
+client.get("key");
+
+// $ExpectType Promise<"OK">
+client.set("key", "value");
+
+// $ExpectType Promise<string>
+client.ping();
+
+// $ExpectType Promise<string>
+client.ping("asdf");
+
+// $ExpectType Promise<number>
+client.del("asdf");
+
+// $ExpectType Promise<"asdf">
+client.echo("asdf");
+
+// $ExpectType Promise<number>
 client.append("some", "value");
 
-// $ExpectType Promise<boolean>
+// $ExpectType Promise<number>
 client.hdel("some", "value");
 
-// $ExpectType Promise<boolean>
+// $ExpectType Promise<number>
 client.bitcount("key", 0, 1000);
 
-// $ExpectType Promise<boolean>
-client.discard((err, data) => data);
+// $ExpectType Promise<"OK">
+client.discard();
 
-// $ExpectType Promise<boolean>
-client.brpoplpush("some", "value", 1000, (err, data) => data);
+// $ExpectType Promise<string | null>
+client.brpoplpush("some", "value", 1000);
 
 // overloaded method
 
@@ -66,29 +84,35 @@ client.set("arg1");
 // $ExpectError
 client.set("arg1", false);
 
-// $ExpectType Promise<boolean>
+// $ExpectType Promise<"OK">
 client.set("arg1", "arg2");
 
-// $ExpectType Promise<boolean>
+// $ExpectType Promise<"OK">
 client.set("key", "value", "flag");
 
-// $ExpectType Promise<boolean>
-client.set("key", "value", "flag", (err, reply) => {});
+// $ExpectType Promise<"OK">
+client.set("key", "value", "flag");
 
-// $ExpectType Promise<boolean>
-client.set("key", "value", "arg3", (err, reply) => {});
+// $ExpectType Promise<"OK">
+client.set("key", "value", "arg3");
 
-// $ExpectType Promise<boolean>
-client.set("key", "value", "mode", 1000, (err, reply) => {});
+// $ExpectType Promise<"OK" | undefined>
+client.set("key", "value", "mode", 1000);
 
-// $ExpectType Promise<boolean>
+// $ExpectType Promise<"OK" | undefined>
 client.set("key", "value", "mode", 1000, "flag");
 
-// $ExpectType Promise<boolean>
-client.set("key", "value", "mode", 1000, "flag", (err, reply) => {});
+// $ExpectType Promise<"OK" | undefined>
+client.set("key", "value", "mode", 1000, "flag");
 
 // $ExpectError
 client.set("key", "value", "mode", 1000, "flag", 100);
 
 // $ExpectError
 client.set("key", "value", "mode", 1000, (err, reply) => {}, "flag");
+
+// $ExpectType Promise<number>
+client.bitpos("key", 5, 7);
+
+// $ExpectType Promise<number>
+client.bitpos("key", 5, 7, 14);

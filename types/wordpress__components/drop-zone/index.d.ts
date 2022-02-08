@@ -5,12 +5,12 @@ declare namespace DropZone {
         /**
          * A CSS class to be appended after the default components-drop-zone class.
          */
-        className?: string;
+        className?: string | undefined;
         /**
          * A string to be shown within the drop zone area.
          * @defaultValue "Drop files to upload"
          */
-        label?: string;
+        label?: string | undefined;
         /**
          * The function is called when dropping a file into the DropZone.
          *

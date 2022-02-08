@@ -78,6 +78,15 @@ const optionsArray: HtmlWebpackPlugin.Options[] = [
     {
         template: 'template.html'
     },
+    {
+        templateContent: false
+    },
+    {
+        templateContent: '<html></html>'
+    },
+    {
+        templateContent: () => '<html></html>'
+    },
     // Config from 'favicon' example
     {
         title: 'HtmlWebpackPlugin example',

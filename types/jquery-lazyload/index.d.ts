@@ -8,16 +8,16 @@
 
 declare namespace JQueryLazyLoad {
     interface Options {
-        threshold?: number;
-        failure_limit?: number;
-        event?: string;
-        effect?: string;
-        container?: JQuery;
-        data_attribute?: string;
-        skip_invisible?: boolean;
-        appear?: ((elementsLeft: number, options: Options) => void) | null;
-        load?: (elementsLeft?: number, options?: Options) => void;
-        placeholder?: string;
+        threshold?: number | undefined;
+        failure_limit?: number | undefined;
+        event?: string | undefined;
+        effect?: string | undefined;
+        container?: JQuery | undefined;
+        data_attribute?: string | undefined;
+        skip_invisible?: boolean | undefined;
+        appear?: ((elementsLeft: number, options: Options) => void) | null | undefined;
+        load?: ((elementsLeft?: number, options?: Options) => void) | undefined;
+        placeholder?: string | undefined;
     }
 }
 interface JQuery {

@@ -84,11 +84,11 @@ declare module '@google-cloud/datastore' {
     }
 
     interface InitOptions {
-        apiEndpoint?: string;
-        namespace?: string;
-        projectId?: string;
-        keyFilename?: string;
-        credentials?: object;
+        apiEndpoint?: string | undefined;
+        namespace?: string | undefined;
+        projectId?: string | undefined;
+        keyFilename?: string | undefined;
+        credentials?: object | undefined;
     }
 }
 
@@ -121,18 +121,18 @@ declare module '@google-cloud/datastore/entity' {
     type DatastoreKeyPath = PathElement[];
 
     interface DatastoreKeyOptions {
-        namespace?: string;
+        namespace?: string | undefined;
         path: DatastoreKeyPath;
     }
 
     interface DatastoreKey {
         kind: string;
-        id?: string;
-        name?: string;
+        id?: string | undefined;
+        name?: string | undefined;
 
         readonly path: DatastoreKeyPath;
 
-        parent?: DatastoreKey;
+        parent?: DatastoreKey | undefined;
     }
 
     type KEY_SYMBOL = typeof Datastore.KEY;
@@ -141,7 +141,7 @@ declare module '@google-cloud/datastore/entity' {
         key: DatastoreKey;
         // TODO Include possibility of 'raw data' with indexing options, etc
         data: T | object;
-        excludeFromIndexes?: string[];
+        excludeFromIndexes?: string[] | undefined;
     }
 
     /**
@@ -153,7 +153,6 @@ declare module '@google-cloud/datastore/entity' {
 }
 
 declare module '@google-cloud/datastore/query' {
-    // tslint:disable-next-line no-duplicate-imports (This rule is broken for multiple modules per file)
     import { DatastoreKey } from '@google-cloud/datastore/entity';
 
     type MoreResultsAfterCursor = 'MORE_RESULTS_AFTER_CURSOR';
@@ -196,12 +195,12 @@ declare module '@google-cloud/datastore/query' {
     }
 
     interface QueryOptions {
-        consistency?: 'strong' | 'eventual';
-        maxApiCalls?: number;
+        consistency?: 'strong' | 'eventual' | undefined;
+        maxApiCalls?: number | undefined;
     }
 
     interface QueryInfo {
-        endCursor?: string;
+        endCursor?: string | undefined;
         readonly moreResults: MoreResultsAfterCursor | MoreResultsAfterLimit | NoMoreResults;
     }
 
@@ -210,9 +209,7 @@ declare module '@google-cloud/datastore/query' {
 }
 
 declare module '@google-cloud/datastore/request' {
-    // tslint:disable-next-line no-duplicate-imports (This rule is broken for multiple modules per file)
     import { DatastoreKey, OneOrMany } from '@google-cloud/datastore/entity';
-    // tslint:disable-next-line no-duplicate-imports
     import { Query, QueryCallback, QueryOptions, QueryResult } from '@google-cloud/datastore/query';
 
     /**
@@ -278,11 +275,8 @@ declare module '@google-cloud/datastore/request' {
 
 declare module '@google-cloud/datastore/transaction' {
     import Datastore_ = require('@google-cloud/datastore');
-    // tslint:disable-next-line no-duplicate-imports (This rule is broken for multiple modules per file)
     import { DatastoreKey, OneOrMany } from '@google-cloud/datastore/entity';
-    // tslint:disable-next-line no-duplicate-imports
     import { Query } from '@google-cloud/datastore/query';
-    // tslint:disable-next-line no-duplicate-imports
     import { DatastoreRequest, CommitCallback, CommitResult } from '@google-cloud/datastore/request';
 
     class DatastoreTransaction extends DatastoreRequest {

@@ -22,23 +22,24 @@ import { StatusFile } from './status-file';
 import { StatusOptions } from './status-options';
 import { DiffLine } from './diff-line';
 import { Treebuilder } from './tree-builder';
+import { Error } from './error';
 
 export interface RepositoryInitOptions {
-    description: string;
-    flags: number;
-    initialHead: string;
-    mode: number;
-    originUrl: string;
-    templatePath: string;
-    version: number;
-    workdirPath: string;
+    description?: string;
+    flags?: number;
+    initialHead?: string;
+    mode?: number;
+    originUrl?: string;
+    templatePath?: string;
+    version?: number;
+    workdirPath?: string;
 }
 
 export class Repository {
     /**
      * Creates a branch with the passed in name pointing to the commit
      */
-    static discover(startPath: string, acrossFs: number, ceilingDirs: string): Promise<Buf>;
+    static discover(startPath: string, acrossFs: number, ceilingDirs: string): Promise<string>;
     static init(path: string, isBare: number): Promise<Repository>;
     static initExt(repoPath: string, options?: RepositoryInitOptions): Promise<Repository>;
     static open(path: string): Promise<Repository>;
@@ -147,6 +148,15 @@ export class Repository {
      */
     getHeadCommit(): Promise<Commit>;
     createCommit(updateRef: string, author: Signature, committer: Signature, message: string, Tree: Tree | Oid | string, parents: Array<string | Commit | Oid>, callback?: Function): Promise<Oid>;
+    createCommitWithSignature(
+        updateRef: string,
+        author: Signature,
+        committer: Signature,
+        message: string,
+        Tree: Tree | Oid | string,
+        parents: Array<string | Commit | Oid>,
+        onSignature: (data: string) => Promise<{code: Error.CODE, field?: string | undefined, signedData: string}> | {code: Error.CODE, field?: string | undefined, signedData: string}
+    ): Promise<Oid>;
     /**
      * Creates a new commit on HEAD from the list of passed in files
      */
@@ -160,6 +170,10 @@ export class Repository {
      * Gets the default signature for the default user and now timestamp
      */
     defaultSignature(): Signature;
+    /**
+     * Lists out the names of remotes in the given repository.
+     */
+     getRemoteNames(): Promise<string[]>;
     /**
      * Lists out the remotes in the given repository.
      */

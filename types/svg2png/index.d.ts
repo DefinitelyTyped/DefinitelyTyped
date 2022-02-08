@@ -6,10 +6,10 @@
 /// <reference types="node" />
 
 interface opts {
-  fileName?: string;
-  width?: number;
-  height?: number;
-  url?: string;
+  fileName?: string | undefined;
+  width?: number | undefined;
+  height?: number | undefined;
+  url?: string | undefined;
 }
 
 declare function svg2png(sourceBuffer: Buffer, opts?: opts): Promise<Buffer>;

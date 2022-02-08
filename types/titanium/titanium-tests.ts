@@ -142,3 +142,32 @@ function test_listdataitem() {
     });
     list.replaceSectionAt(0, section2);
 }
+
+function test_globals() {
+    if (OS_ANDROID) {
+        console.log('Device runs Android');
+    }
+    if (ENV_DEVELOPMENT) {
+        console.log('App was built for development');
+    }
+    setTimeout(() => {
+      console.log(global.L('greeting', 'Localized greeting'));
+    }, 200);
+}
+
+function test_string_extension() {
+    String.formatCurrency(3.99);
+    String.formatDate(new Date(), 'long');
+    String.formatDecimal(12.04, '%d');
+    String.formatDecimal(12.04, 'en-US', '%d');
+    String.formatTime(new Date(), 'medium');
+}
+
+function test_media() {
+    Ti.Media.openPhotoGallery({
+        allowMultiple: true,
+        success: (result: CameraMediaMultipleItemsType) => {
+            console.log(`Selected ${result.images.length} photos!`);
+        }
+    });
+}

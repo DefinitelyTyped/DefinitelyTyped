@@ -19,7 +19,7 @@ async function main(): Promise<void> {
     }
 
     // Generate lodash/tsconfig.json
-    fs.writeFileSync(path.join("..", "tsconfig.json"), lodashTsconfig());
+    fs.writeFileSync(path.join("..", "tsconfig.json"), lodashTsconfig(all));
 
     for (const module of all) {
         console.log(module);
@@ -53,7 +53,7 @@ async function globalDefinitionText(moduleName: string): Promise<string> {
 
     return `
 // Type definitions for ${fullName} ${majorMinor}
-// Project: https://lodash.com
+// Project: http://lodash.com/
 // Definitions by: Brian Zengel <https://github.com/bczengel>, Ilya Mochalov <https://github.com/chrootsu>, Stepan Mikhaylyuk <https://github.com/stepancar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
@@ -85,12 +85,13 @@ function compilerOptions(): object {
     };
 }
 
-function lodashTsconfig(): string {
+function lodashTsconfig(moduleNames: ReadonlyArray<string>): string {
     return JSON.stringify({
         compilerOptions: compilerOptions(),
         files: [
             "index.d.ts",
             "lodash-tests.ts",
+            ...moduleNames.map(m => `${m}.d.ts`),
         ]
     }, undefined, 4);
 }
@@ -103,7 +104,7 @@ function lodashDotFooTsconfig(): string {
 }
 
 function tslint(): string {
-    return `{ "extends": "dtslint/dt.json" }\n`;
+    return `{ "extends": "@definitelytyped/dtslint/dt.json" }\n`;
 }
 
 function loadString(url: string): Promise<string> {
@@ -309,7 +310,6 @@ function allModuleNames(): string[] {
         "min",
         "minBy",
         "mixin",
-        "multiply",
         "negate",
         "noConflict",
         "noop",

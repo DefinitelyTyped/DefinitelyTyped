@@ -181,7 +181,7 @@ export type IndividualElementOptions = {
      *
      * @see {@link https://developers.recurly.com/reference/recurly-js/index.html#styling-the-individual-card-elements|Styling the invididual card elements}
      */
-    invalid: CommonElementStyle;
+    invalid?: CommonElementStyle;
 
     /**
      * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/padding}

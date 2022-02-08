@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 import { Transform, TransformOptions } from 'stream';
-import { HexBase64Latin1Encoding } from 'crypto';
+import { BinaryToTextEncoding } from 'crypto';
 
 export interface Blake2Options extends TransformOptions {
     digestLength: number;
@@ -18,7 +18,7 @@ export class Hash extends Transform {
 
     update(buf: Buffer): this;
 
-    digest(encoding: HexBase64Latin1Encoding): string;
+    digest(encoding: BinaryToTextEncoding): string;
     digest(): Buffer;
 
     copy(): this;
@@ -31,7 +31,7 @@ export class KeyedHash extends Transform {
 
     update(buf: Buffer): this;
 
-    digest(encoding: HexBase64Latin1Encoding): string;
+    digest(encoding: BinaryToTextEncoding): string;
     digest(): Buffer;
 
     copy(): this;

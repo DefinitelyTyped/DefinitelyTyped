@@ -25,6 +25,7 @@ function onOwnMessage(msg: Element): boolean {
         }).cnode(own).up().c('error', { type: 'cancel', code: '501' })
             .c('feature-not-implemented', { xmlns: 'urn:ietf:params:xml:ns:xmpp-stanzas' });
 
+        connection.sendPresence(iq);
         connection.sendIQ(iq);
     }
 
@@ -89,8 +90,8 @@ function onConnect(status: Strophe.Status): void {
         log('ECHOBOT: Send a message to ' + connection.jid +
             ' to talk to me.');
 
-        connection.addHandler(onMessage, null, 'message', null, null, null);
-        connection.addHandler(onOwnMessage, null, 'iq', 'set', null, null);
+        connection.addHandler(onMessage, undefined, 'message', undefined, undefined, undefined);
+        connection.addHandler(onOwnMessage, undefined, 'iq', 'set', undefined, undefined);
         connection.send($pres().tree());
     }
 }

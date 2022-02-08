@@ -6,8 +6,8 @@
 /// <reference types="node" />
 
 export interface Options {
-    text?: string;
-    stream?: NodeJS.WritableStream;
+    text?: string | undefined;
+    stream?: NodeJS.WritableStream | undefined;
     onTick?(this: Spinner, msg: string): void;
 }
 

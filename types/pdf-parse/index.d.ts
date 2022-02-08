@@ -18,8 +18,8 @@ declare namespace PdfParse {
         text: string;
     }
     interface Options {
-        pagerender?: (pageData: any) => string;
-        max?: number;
-        version?: Version;
+        pagerender?: ((pageData: any) => string) | undefined;
+        max?: number | undefined;
+        version?: Version | undefined;
     }
 }

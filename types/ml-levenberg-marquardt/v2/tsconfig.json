@@ -1,0 +1,31 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6"
+        ],
+        "strictFunctionTypes": true,
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "baseUrl": "../../",
+        "typeRoots": [
+            "../../"
+        ],
+        "types": [],
+        "paths": {
+            "ml-levenberg-marquardt": [
+                "ml-levenberg-marquardt/v2"
+            ],
+            "ml-levenberg-marquardt/*": [
+                "ml-levenberg-marquardt/v2/*"
+            ]
+        },
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "ml-levenberg-marquardt-tests.ts"
+    ]
+}

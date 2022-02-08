@@ -18,3 +18,11 @@ twemoji.convert.toCodePoint('\ud83c\udde8\ud83c\uddf3');
 if (twemoji.test('foo')) {
     console.log('emoji All The Things!');
 }
+
+const x: HTMLElement = twemoji.parse(foo);
+const y: string = twemoji.parse('foo');
+
+// $ExpectError
+const a: string = twemoji.parse(foo);
+// $ExpectError
+const b: HTMLElement = twemoji.parse('foo');

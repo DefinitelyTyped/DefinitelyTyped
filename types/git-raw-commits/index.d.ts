@@ -24,7 +24,7 @@ declare namespace gitRawCommits {
         /**
          * Current working directory to execute git in.
          */
-        cwd?: string;
+        cwd?: string | undefined;
     }
 
     /**
@@ -51,13 +51,13 @@ declare namespace gitRawCommits {
          * @default
          * ''
          */
-        from?: string;
+        from?: string | undefined;
 
         /**
          * @default
          * 'HEAD'
          */
-        to?: string;
+        to?: string | undefined;
 
         /**
          * Please check http://git-scm.com/docs/git-log for format options.
@@ -65,17 +65,17 @@ declare namespace gitRawCommits {
          * @default
          * '%B'
          */
-        format?: string;
+        format?: string | undefined;
 
         /**
          * A function to get debug information.
          */
-        debug?: (message: any) => void;
+        debug?: ((message: any) => void) | undefined;
 
         /**
          * Filter commits to the path provided.
          */
-        path?: string;
+        path?: string | undefined;
 
         [options: string]: any;
     }

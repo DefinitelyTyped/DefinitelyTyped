@@ -16,7 +16,7 @@ export interface MaterialPickerStylesProps {
 }
 
 export interface MaterialPickerProps extends CustomPickerProps {
-    styles?: Partial<Classes<MaterialPickerStylesProps>>;
+    styles?: Partial<Classes<MaterialPickerStylesProps>> | undefined;
 }
 
 export default class MaterialPicker extends Component<MaterialPickerProps> { }

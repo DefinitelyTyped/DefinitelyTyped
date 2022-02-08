@@ -1,69 +1,56 @@
 import express = require('express');
 import serveIndex = require('serve-index');
-import * as fs from 'fs';
 
 const app = express();
 
-// Serve URLs like /ftp/thing as public/ftp/thing
-app.use('/ftp', serveIndex('public/ftp', {'icons': true}));
+const filter = (name: string): boolean => {
+    if (name.indexOf('foo') === -1) return true;
+    return false;
+};
+
+app.use('/ftp', serveIndex('public/ftp', { icons: true }));
 app.listen(8080);
 
+const fixtures = '/fixtures';
 
-// Taken from https://github.com/expressjs/serve-index/blob/v1.7.2/test/test.js
+serveIndex('test/fixtures', { hidden: false });
+serveIndex('test/fixtures', { hidden: true });
+serveIndex(fixtures, { filter });
+serveIndex(fixtures, { filter, hidden: false });
+serveIndex(fixtures, { icons: true });
+serveIndex(fixtures, { template: __dirname + '/shared/template.html' });
+serveIndex(fixtures, {
+    template: (locals, callback) => {
+        callback(null, 'This is a template.');
+    },
+});
 
-import * as path from 'path';
-var fixtures = path.join(__dirname, '/fixtures');
-const createServer = serveIndex;
+serveIndex(fixtures, {
+    template: (locals, callback) => callback(new Error('boom!')),
+});
 
-var server = createServer('test/fixtures', {'hidden': false});
+serveIndex(fixtures, {
+    template: (locals, callback) => callback(null, JSON.stringify(locals.directory)),
+});
 
-var server = createServer('test/fixtures', {'hidden': true});
+serveIndex(fixtures, {
+    template: (locals, callback) => callback(null, JSON.stringify(locals.displayIcons)),
+});
 
-var server = createServer(fixtures, {'filter': filter});
-function filter(name: string): boolean {
-  if (name.indexOf('foo') === -1) return true
-  return false
-}
+serveIndex(fixtures, {
+    template: (locals, callback) => callback(null, JSON.stringify(locals.fileList.map(file => file))),
+});
 
-var server = createServer(fixtures, {'filter': filter, 'hidden': false});
+serveIndex(fixtures, {
+    template: (locals, callback) => callback(null, JSON.stringify(locals.path)),
+});
 
-var server = createServer(fixtures, {'icons': true});
+serveIndex(fixtures, {
+    template: (locals, callback) => callback(null, JSON.stringify(locals.style)),
+});
 
-var server = createServer(fixtures, {'template': __dirname + '/shared/template.html'});
+serveIndex(fixtures, {
+    template: (locals, callback) => callback(null, JSON.stringify(locals.viewName)),
+});
 
-var server = createServer(fixtures, {'template': function (locals, callback) {
-  callback(null, 'This is a template.');
-}});
-
-var server = createServer(fixtures, {'template': function (locals, callback) {
-  callback(new Error('boom!'));
-}});
-
-var server = createServer(fixtures, {'template': function (locals, callback) {
-  callback(null, JSON.stringify(locals.directory));
-}});
-
-var server = createServer(fixtures, {'template': function (locals, callback) {
-  callback(null, JSON.stringify(locals.displayIcons));
-}});
-
-var server = createServer(fixtures, {'template': function (locals, callback) {
-  callback(null, JSON.stringify(locals.fileList.map(function (file) {
-    //file.stat = file.stat instanceof fs.Stats;
-    return file;
-  })));
-}});
-
-var server = createServer(fixtures, {'template': function (locals, callback) {
-  callback(null, JSON.stringify(locals.path));
-}});
-
-var server = createServer(fixtures, {'template': function (locals, callback) {
-  callback(null, JSON.stringify(locals.style));
-}});
-
-var server = createServer(fixtures, {'template': function (locals, callback) {
-  callback(null, JSON.stringify(locals.viewName));
-}});
-
-var server = createServer(fixtures, {'stylesheet': __dirname + '/shared/styles.css'});
+serveIndex(fixtures, { stylesheet: __dirname + '/shared/styles.css' });

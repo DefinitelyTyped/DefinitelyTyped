@@ -1,7 +1,6 @@
 // Type definitions for escpos 2.5
 // Project: https://github.com/song940/node-escpos#readme
 // Definitions by: Rayo <https://github.com/rayosu>
-//                 Gerry <https://github.com/g3rrydanc3>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -351,7 +350,7 @@ export class Image {
 }
 
 export class Printer {
-    constructor(adapter: Adapter, options?: {  encoding?: string  });
+    constructor(adapter: Adapter, options?: {  encoding?: string | undefined  });
 
     static create(device: Adapter): Promise<Printer>;
 
@@ -531,7 +530,7 @@ export class Printer {
 }
 
 export class Screen {
-    constructor(adapter: Adapter, options?: {  encoding?: string  });
+    constructor(adapter: Adapter, options?: {  encoding?: string | undefined  });
 
     static create(device: Adapter): Promise<Screen>;
 

@@ -199,7 +199,7 @@ let fliktyBindings: Flickity.EventBindings = {
 };
 
 let fliktyOpts1: Flickity.Options = {
-    initialIndex: 0,
+    initialIndex: ".is-initial-select",
     accessibility: true,
     asNavFor: "#nav-bar",
     autoPlay: true,
@@ -223,4 +223,10 @@ let fliktyOpts1: Flickity.Options = {
     resize: true,
     rightToLeft: false,
     on: fliktyBindings
+};
+
+// options test
+let fliktyOpts2: Flickity.Options = {
+    autoPlay: true,
+    pauseAutoPlayOnHover: true,
 };

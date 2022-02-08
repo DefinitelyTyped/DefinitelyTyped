@@ -8,7 +8,7 @@
 //                 Airat Aminev <https://github.com/airato>
 //                 Simon Jespersen <https://github.com/simjes>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.3
+// TypeScript Version: 3.8
 
 import {
     configure,
@@ -19,8 +19,8 @@ import {
 } from '@testing-library/dom';
 
 export interface CTLMatcherOptions {
-    timeout?: number;
-    container?: HTMLElement | JQuery;
+    timeout?: number | undefined;
+    container?: HTMLElement | JQuery | undefined;
 }
 
 export type MatcherOptions = DTLMatcherOptions | CTLMatcherOptions;

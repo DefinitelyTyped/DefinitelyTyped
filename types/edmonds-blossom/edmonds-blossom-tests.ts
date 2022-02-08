@@ -5,3 +5,4 @@ const data = [
       [1, 2, 5]
     ];
 blossom(data); // $ExpectType number[]
+blossom(data, true); // $ExpectType number[]

@@ -17,6 +17,7 @@ import {
 import TimeSyncExtension from 'cometd/TimeSyncExtension';
 import AckExtension from 'cometd/AckExtension';
 import BinaryExtension from 'cometd/BinaryExtension';
+import ReloadExtension from 'cometd/ReloadExtension';
 
 const cometd = new CometD();
 
@@ -47,6 +48,7 @@ cometd.configure({
 
 cometd.registerExtension("ack", new AckExtension());
 cometd.registerExtension("binary", new BinaryExtension());
+cometd.registerExtension("reload", new ReloadExtension());
 
 const timesync = new TimeSyncExtension();
 cometd.registerExtension("timesync", timesync);
@@ -66,6 +68,17 @@ const timeSyncSubscription = cometd.addListener("/foo/bar", () => {
 
 cometd.unregisterTransport("websocket");
 const transportTypes = cometd.getTransportTypes();
+
+// Reload extension usage
+// ======================
+const windowUnloadFunction = () => {
+    if (cometd.isDisconnected()) {
+        return;
+    }
+    if (cometd.reload) cometd.reload();
+    const transport = cometd.getTransport();
+    if (transport) transport.abort();
+};
 
 // Handshaking
 // ===========

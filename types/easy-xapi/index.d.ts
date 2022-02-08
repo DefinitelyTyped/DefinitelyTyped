@@ -21,14 +21,14 @@ declare module "easy-xapi" {
     import Logger = require('bunyan');
 
     interface InitConfig {
-        jSend?: {partial: boolean};
+        jSend?: {partial: boolean} | undefined;
     }
 
     interface Config {
         root: string;
         port: number;
         name: string;
-        xHeaderDefaults?: Object;
+        xHeaderDefaults?: Object | undefined;
         log: {
             name: string;
             level: string

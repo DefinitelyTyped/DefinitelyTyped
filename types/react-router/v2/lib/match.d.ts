@@ -2,11 +2,11 @@ import * as H from 'history';
 import Router from './Router';
 
 interface MatchArgs {
-    routes?: Router.RouteConfig;
-    history?: H.History;
-    location?: H.Location | string;
-    parseQueryString?: Router.ParseQueryString;
-    stringifyQuery?: Router.StringifyQuery;
+    routes?: Router.RouteConfig | undefined;
+    history?: H.History | undefined;
+    location?: H.Location | string | undefined;
+    parseQueryString?: Router.ParseQueryString | undefined;
+    stringifyQuery?: Router.StringifyQuery | undefined;
 }
 interface MatchState extends Router.RouterState {
     history: H.History;

@@ -1,25 +1,25 @@
 // Type definitions for XDate 0.8
 // Project: http://arshaw.com/xdate/
 // Definitions by: yamada28go <https://github.com/yamada28go>
-// Definitions: https://github.com/daptiv/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 interface formatters_info
 {
-    i?: string;
-    u?: string;
-    xxx? : string;
-    vvv?: (xdate : XDate , useutc : boolean ) => string;
+    i?: string | undefined;
+    u?: string | undefined;
+    xxx? : string | undefined;
+    vvv?: ((xdate : XDate , useutc : boolean ) => string) | undefined;
 }
 
 interface locale_detail
 {
-    monthNames? : string [];
-    monthNamesShort?: string [];
-    dayNames?: string[];
-    dayNamesShort?: string [];
-    amDesignator?: string;
-    pmDesignator?: string;
+    monthNames? : string [] | undefined;
+    monthNamesShort?: string [] | undefined;
+    dayNames?: string[] | undefined;
+    dayNamesShort?: string [] | undefined;
+    amDesignator?: string | undefined;
+    pmDesignator?: string | undefined;
 }
 
 

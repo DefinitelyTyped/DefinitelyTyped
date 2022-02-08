@@ -18,8 +18,8 @@ export interface ParcelWatcherEvent {
 export type ParcelWatcherBackend = 'fs-events' | 'watchman' | 'inotify' | 'windows' | 'brute-force';
 
 export interface ParcelWatcherOptions {
-    ignore?: string[];
-    backend?: ParcelWatcherBackend;
+    ignore?: string[] | undefined;
+    backend?: ParcelWatcherBackend | undefined;
 }
 
 export type ParcelWatcherCallback = (error?: Error, events?: ParcelWatcherEvent[]) => any;

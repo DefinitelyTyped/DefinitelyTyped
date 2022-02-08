@@ -1,16 +1,12 @@
 {
-    "extends": "dtslint/dt.json",
+    "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "ban-types": false,
-        "callable-types": false,
         "dt-header": false,
-        "eofline": false,
         "max-line-length": false,
-        "no-redundant-jsdoc": false,
         "no-var-keyword": false,
         "npm-naming": false,
         "object-literal-shorthand": false,
-        "prefer-method-signature": false,
         "radix": false,
         "unified-signatures": false
     }

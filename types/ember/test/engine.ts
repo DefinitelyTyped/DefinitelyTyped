@@ -1,37 +1,39 @@
 import Ember from 'ember';
-import { assertType } from "./lib/assert";
+import { assertType } from './lib/assert';
 
 const BaseEngine = Ember.Engine.extend({
-    modulePrefix: 'my-engine'
+    modulePrefix: 'my-engine',
 });
+
+class Obj extends Ember.Object.extend({ foo: 'bar' }) {}
 
 BaseEngine.initializer({
     name: 'my-initializer',
     initialize(engine) {
-        engine.register('foo:bar', Ember.Object.extend({ foo: 'bar' }));
-    }
+        engine.register('foo:bar', Obj);
+    },
 });
 
 BaseEngine.instanceInitializer({
     name: 'my-instance-initializer',
     initialize(engine) {
-        engine.lookup('foo:bar').get('foo');
-    }
+        (engine.lookup('foo:bar') as Obj).get('foo');
+    },
 });
 
 const Engine1 = BaseEngine.create({
     rootElement: '#engine-one',
     customEvents: {
-        paste: 'paste'
-    }
+        paste: 'paste',
+    },
 });
 
 const Engine2 = BaseEngine.create({
     rootElement: '#engine-two',
     customEvents: {
         mouseenter: null,
-        mouseleave: null
-    }
+        mouseleave: null,
+    },
 });
 
 const Engine3 = BaseEngine.create();

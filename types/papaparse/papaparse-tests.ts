@@ -1,64 +1,151 @@
 import Papa = require('papaparse');
-import { ParseConfig, UnparseConfig, UnparseObject, ParseError, ParseMeta, ParseResult } from 'papaparse';
 import { Readable } from 'stream';
+
+/**
+ * Change global config
+ */
+Papa.DefaultDelimiter = ',';
 
 /**
  * Parsing
  */
-var res = Papa.parse('3,3,3');
+// $ExpectType ParseResult<unknown>
+const res = Papa.parse('3,3,3');
 
 res.errors[0].code;
 
+// $ExpectType ParseResult<unknown>
 Papa.parse('3,3,3', {
     delimiter: ';',
     comments: false,
-    trimHeaders: false,
-    step: function (results, p) {
+    step(results, p) {
         p.abort();
-        results.data.length;
+        //  $ExpectType unknown
+        results.data;
     },
     dynamicTyping: true,
 });
 
+// $ExpectType ParseResult<unknown>
 Papa.parse('3,3,3', {
     dynamicTyping: (field: string | number): boolean => /headerName/i.test(field.toString()),
 });
 
+// $ExpectType ParseResult<unknown>
 Papa.parse('3,3,3', {
     dynamicTyping: { headerName: true },
 });
 
+// $ExpectType ParseResult<unknown>
 Papa.parse('3,3,3', {
     dynamicTyping: { 5: true },
 });
 
+// $ExpectType ParseResult<unknown>
 Papa.parse('4,4,4', {
     delimitersToGuess: [';', ','],
 });
 
+// $ExpectType ParseResult<unknown>
 Papa.parse('4,4,4', {
     delimitersToGuess: [Papa.RECORD_SEP, '|', ',', ';'],
 });
 
-Papa.parse('4;4;4', {
+// $ExpectType ParseResult<[string, string, string]>
+Papa.parse<[string, string, string]>('4;4;4', {
     delimitersToGuess: ['\t', Papa.UNIT_SEP],
 });
 
-var file = new File(null, null, null);
-
-Papa.parse(file, {
-    transform: function (value, field) {},
-    transformHeader: function (header, index) {
-        return header;
-    },
-    complete: function (a, b) {
-        a.meta.fields;
-        b.name;
+// $ExpectType void
+Papa.parse<[string, string, string]>('4;4;4', {
+    delimitersToGuess: ['\t', Papa.UNIT_SEP],
+    worker: true,
+    complete(results) {
+        // $ExpectType ParseResult<[string, string, string]>
+        results;
     },
 });
 
-// .pipe to make sure it returns a stream
-Papa.parse(Papa.NODE_STREAM_INPUT, {}).pipe;
+const file = new File(['foo'], 'foo.txt', {
+    type: 'text/plain',
+});
+
+// $ExpectType void
+Papa.parse(file, {
+    transform(value, field) {},
+    transformHeader(header, index) {
+        return header;
+    },
+    complete(a, b) {
+        // $ExpectType string[] | undefined
+        a.meta.fields;
+        // $ExpectType File
+        b;
+    },
+});
+
+// $ExpectType void
+Papa.parse<[string], File>(file, {
+    transform(value, field) {},
+    transformHeader(header, index) {
+        return header;
+    },
+    complete(a, b) {
+        // $ExpectType ParseResult<[string]>
+        a;
+        // $ExpectType string[] | undefined
+        a.meta.fields;
+        // $ExpectType File
+        b;
+    },
+});
+// $ExpectType void
+Papa.parse<[string]>(file, {
+    transform(value, field) {},
+    transformHeader(header, index) {
+        return header;
+    },
+    complete(a, b) {
+        // $ExpectType ParseResult<[string]>
+        a;
+        // $ExpectType string[] | undefined
+        a.meta.fields;
+        // $ExpectType LocalFile
+        b;
+    },
+});
+
+// $ExpectType void
+Papa.parse('/resources/files/normal.csv', {
+    download: true,
+
+    complete(a, b) {
+        // $ExpectType string[] | undefined
+        a.meta.fields;
+        // $ExpectType string
+        b;
+    },
+});
+
+// Callback must provided for async parser
+// $ExpectError
+Papa.parse('/resources/files/normal.csv', {
+    download: true,
+});
+// $ExpectError
+Papa.parse('1,2,3', {
+    worker: true,
+});
+// $ExpectError
+Papa.parse(file);
+// $ExpectError
+Papa.parse(file, {});
+
+// $ExpectType ReadWriteStream
+Papa.parse(Papa.NODE_STREAM_INPUT, {});
+
+// $ExpectType ReadWriteStream
+Papa.parse(Papa.NODE_STREAM_INPUT);
 
 const readable = new Readable();
 const rows = ['1,2,3', '4,5,6'];
@@ -73,19 +160,57 @@ readable.pipe(papaStream);
 
 // generic
 Papa.parse<string>('a,b,c', {
-    step: function (a) {
+    step(a) {
         a.data[0];
     },
 });
 
+// `chunk` Works only with local and remote files
+// $ExpectError
 Papa.parse<string>('a,b,c', {
-    chunk: function (a) {
+    chunk(a) {
         a.data[0];
+    },
+});
+
+// $ExpectType void
+Papa.parse<[string, string]>('/resources/files/normal.csv', {
+    download: true,
+    chunk(r) {
+        // $ExpectType ParseResult<[string, string]>
+        r;
+    },
+    complete(r, file) {
+        // $ExpectType ParseResult<[string, string]>
+        r;
+        // $ExpectType string
+        file;
+    },
+});
+
+declare const dataOrFile: string | File;
+// $ExpectType void
+Papa.parse<string[]>(dataOrFile, {
+    complete(r: Papa.ParseResult<string[]>) {
+        // $ExpectType ParseResult<string[]>
+        r;
+    },
+});
+
+declare const urlOrFile: string | File;
+// $ExpectType void
+Papa.parse<string[]>(urlOrFile, {
+    download: true,
+    complete(r: Papa.ParseResult<string[]>) {
+        // $ExpectType ParseResult<string[]>
+        r;
     },
 });
 
 Papa.parse<[string, string, string]>('a,b,c', {
-    complete: function (a) {
+    complete(a) {
+        // $ExpectType ParseResult<[string, string, string]>
+        a;
         a.data[0][0];
         a.data[0][1];
         a.data[0][2];
@@ -105,8 +230,11 @@ Papa.unparse({
     data: [],
 });
 
+Papa.unparse([{ a: 1, b: 1, c: 1 }], {});
 Papa.unparse([{ a: 1, b: 1, c: 1 }], { quotes: false });
 Papa.unparse([{ a: 1, b: 1, c: 1 }], { quotes: [false, true, true] });
+Papa.unparse([{ a: 1, b: 1, c: 1 }], { escapeFormulae: false });
+Papa.unparse([{ a: 1, b: 1, c: 1 }], { escapeFormulae: /^[=+\-@\t\r](?![\d.]*$)/ });
 Papa.unparse(
     [
         [1, 2, 3],
@@ -121,17 +249,27 @@ Papa.unparse(
     },
     { newline: '\n' },
 );
+Papa.unparse(
+    {
+        fields: ['3'],
+        data: [],
+    },
+    {
+        quotes: value => typeof value === 'string',
+    },
+);
 
 /**
  * Properties
  */
-Papa.SCRIPT_PATH;
-Papa.LocalChunkSize;
+Papa.RECORD_SEP;
+Papa.UNIT_SEP;
+Papa.BAD_DELIMITERS;
 
 /**
  * Parser
  */
-var parser = new Papa.Parser({});
+const parser = new Papa.Parser({});
 parser.getCharIndex();
 parser.abort();
 parser.parse('', 0, false);

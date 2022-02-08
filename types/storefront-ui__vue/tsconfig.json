@@ -1,0 +1,28 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@storefront-ui/vue": ["storefront-ui__vue"],
+            "@glidejs/glide": ["glidejs__glide"]
+        }
+    },
+    "files": [
+        "index.d.ts",
+        "storefront-ui__vue-tests.ts"
+    ]
+}

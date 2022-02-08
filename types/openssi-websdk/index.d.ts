@@ -612,12 +612,12 @@ export interface CredentialDefinitionQueryParams { [key: string]: any; }
  * {CredentialDefinitionID} [cred_def_id] The credential definition ID.
  */
 export interface Restriction {
-    schema_id?: CredentialSchemaID;
-    schema_issuer_did?: DID;
-    schema_name?: string;
-    schema_version?: string;
-    issuer_did?: DID;
-    cred_def_id?: CredentialDefinitionID;
+    schema_id?: CredentialSchemaID | undefined;
+    schema_issuer_did?: DID | undefined;
+    schema_name?: string | undefined;
+    schema_version?: string | undefined;
+    issuer_did?: DID | undefined;
+    cred_def_id?: CredentialDefinitionID | undefined;
 }
 
 /**
@@ -650,7 +650,7 @@ export interface ProofSchemaPredicate {
  * the attribute.
  */
 export interface ProofSchemaAttribute {
-    restrictions?: Restriction[];
+    restrictions?: Restriction[] | undefined;
 }
 
 /**
@@ -778,8 +778,8 @@ export interface Connection {
     properties: Properties;
     role: string;
     state: ConnectionState;
-    local?: ConnectionAgent;
-    remote?: ConnectionAgent;
+    local?: ConnectionAgent | undefined;
+    remote?: ConnectionAgent | undefined;
 }
 
 /**
@@ -803,8 +803,8 @@ export interface ConnectionQueryParams { [key: string]: any; }
  * {AgentName} [name] The name of an agent in your account.
  */
 export interface ConnectionRecipient {
-    url?: AgentURL;
-    name?: AgentName;
+    url?: AgentURL | undefined;
+    name?: AgentName | undefined;
 }
 
 /**
@@ -871,7 +871,7 @@ export interface Credential {
     offer?: {
         attributes: {[key: string]: string};
         data: string;
-    };
+    } | undefined;
     schema_name: string;
     schema_version: string;
     state: CredentialState;
@@ -881,8 +881,8 @@ export interface Credential {
     credential_definition_id: CredentialDefinitionID;
     issuer_did: DID;
     to: {
-        name?: AgentName;
-        url?: AgentURL;
+        name?: AgentName | undefined;
+        url?: AgentURL | undefined;
     };
 }
 
@@ -919,8 +919,8 @@ export interface SchemaIDObj {
  * {AgentName} [name] The name of an agent in your account.
  */
 export interface RequestRecipient {
-    did?: DID;
-    name?: AgentName;
+    did?: DID | undefined;
+    name?: AgentName | undefined;
 }
 
 /**
@@ -963,8 +963,8 @@ export type VerificationState =
 export interface Verification {
     id: string;
     state: VerificationState;
-    allow_proof_request_override?: boolean;
-    choices?: Choices;
+    allow_proof_request_override?: boolean | undefined;
+    choices?: Choices | undefined;
     proof_request: ProofSchema;
 }
 

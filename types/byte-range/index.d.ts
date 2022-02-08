@@ -42,7 +42,7 @@ declare namespace byteRange {
         /**
          * @default false
          */
-        signed?: boolean;
+        signed?: boolean | undefined;
     }
 
     type ByteRange = [number, number];

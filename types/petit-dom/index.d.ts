@@ -98,8 +98,8 @@ export namespace PetitDom {
     };
 
     interface IntrinsicProps {
-        content?: Content | ReadonlyArray<Content>;
-        key?: Key;
+        content?: Content | ReadonlyArray<Content> | undefined;
+        key?: Key | undefined;
     }
 
     type Props<E extends Element = Element> = IntrinsicProps & DOMElementProps<E>;
@@ -113,7 +113,7 @@ export namespace PetitDom {
 
     interface FunctionComponent<P extends ComponentProps> {
         (props: P, content: ReadonlyArray<Content>): FunctionComponentNode<P>;
-        shouldUpdate?: ShouldUpdate<P>;
+        shouldUpdate?: ShouldUpdate<P> | undefined;
     }
 
     interface ComponentClass<P extends ComponentProps> {
@@ -164,7 +164,6 @@ declare global {
         // tslint:disable-next-line:no-empty-interface
         interface Element extends PetitDom.VNode { }
 
-        // tslint:disable-next-line:no-empty-interface
         interface ElementClass extends PetitDom.Component<PetitDom.ComponentProps> { }
 
         // tslint:disable-next-line:no-empty-interface
@@ -181,7 +180,7 @@ declare global {
             [P in keyof PetitDom.DomElements]:
             PetitDom.Props<PetitDom.DomElements[P]> &
             {
-                content?: PetitDom.Content | ReadonlyArray<PetitDom.Content>;
+                content?: PetitDom.Content | ReadonlyArray<PetitDom.Content> | undefined;
             };
         };
     }

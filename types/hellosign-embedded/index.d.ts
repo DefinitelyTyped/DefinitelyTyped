@@ -1,272 +1,203 @@
-// Type definitions for hellosign-embedded v1.2.0
-// Project: https://github.com/HelloFax/hellosign-embedded
+// Type definitions for hellosign-embedded 2.0
+// Project: https://github.com/hellosign/hellosign-embedded
 // Definitions by: Brian Surowiec <https://github.com/xt0rted>
+//                 Ali Zhdanov <https://github.com/alizhdanov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.8
+
 export declare module HelloSign {
-    interface SignedMessageEvent {
-        event: 'signature_request_signed';
-        signature_id: string;
+    interface ClassNames {
+        BASE: 'x-hellosign-embedded';
+        BASE_IN_MODAL: 'x-hellosign-embedded--in-modal';
+        IFRAME: 'x-hellosign-embedded__iframe';
+        MODAL_CLOSE: 'x-hellosign-embedded__modal-close';
+        MODAL_CLOSE_BTN: 'x-hellosign-embedded__modal-close-button';
+        MODAL_CONTENT: 'x-hellosign-embedded__modal-content';
+        MODAL_SCREEN: 'x-hellosign-embedded__modal-screen';
     }
 
-    interface DeclinedMessageEvent {
-        event: 'signature_request_declined';
-        signature_id: string;
+    interface Events {
+        ERROR: 'error';
+        SEND: 'send';
+        CANCEL: 'cancel';
+        CLOSE: 'close';
+        CREATE_TEMPLATE: 'createTemplate';
+        DECLINE: 'decline';
+        FINISH: 'finish';
+        MESSAGE: 'message';
+        OPEN: 'open';
+        READY: 'ready';
+        REASSIGN: 'reassign';
+        SIGN: 'sign';
     }
 
-    interface CanceledMessageEvent {
-        event: 'signature_request_canceled';
+    interface Locales {
+        CS_CZ: 'cs_CZ';
+        DA_DK: 'da_DK';
+        DE_DE: 'de_DE';
+        EN_US: 'en_US';
+        ES_ES: 'es_ES';
+        ES_MX: 'es_MX';
+        FR_FR: 'fr_FR';
+        IT_IT: 'it_IT';
+        JA_JP: 'ja_JP';
+        NL_NL: 'nl_NL';
+        PL_PL: 'pl_PL';
+        PT_BR: 'pt_BR';
+        SV_SE: 'sv_SE';
+        ZH_CN: 'zh_CN';
     }
 
-    interface SentMessageEvent {
-        event: 'signature_request_sent';
-        signature_request_id: string;
-        signature_request_info: {
+    interface Messages {
+        APP_CONFIGURE: 'hellosign:configure';
+        APP_ERROR: 'hellosign:error';
+        APP_INITIALIZE: 'hellosign:initialize';
+        APP_VERIFY_DOMAIN_REQUEST: 'hellosign:verifyDomainRequest';
+        APP_VERIFY_DOMAIN_RESPONSE: 'hellosign:verifyDomainResponse';
+        USER_CANCEL_REQUEST: 'hellosign:userCancelRequest';
+        USER_CREATE_TEMPLATE: 'hellosign:userCreateTemplate';
+        USER_DECLINE_REQUEST: 'hellosign:userDeclineRequest';
+        USER_FINISH_REQUEST: 'hellosign:userFinishRequest';
+        USER_REASSIGN_REQUEST: 'hellosign:userReassignRequest';
+        USER_SEND_REQUEST: 'hellosign:userSendRequest';
+        USER_SIGN_REQUEST: 'hellosign:userSignRequest';
+    }
+
+    export interface Options {
+        allowCancel?: boolean | undefined;
+        clientId?: string | undefined;
+        container?: HTMLElement | undefined;
+        debug?: boolean | undefined;
+        hideHeader?: boolean | undefined;
+        locale?: Locales[keyof Locales] | undefined;
+        redirectTo?: string | undefined;
+        requestingEmail?: string | undefined;
+        skipDomainVerification?: boolean | undefined;
+        testMode?: boolean | undefined;
+        timeout?: number | undefined;
+        whiteLabeling?: object | undefined;
+    }
+
+    interface Singature {
+        signer_name: string;
+        signer_email_address: string;
+        order?: number | undefined;
+    }
+
+    interface SendEventPayload {
+        signatureRequestId: string;
+        signatureRequestInfo: {
             title: string;
             message: string;
-            signatures: Array<{
-                signature_id: string;
-                signer_email_address: string;
-                signer_name: string;
-                order: number;
-                status_code: string;
-                signed_at: number;
-                last_viewed_at: number;
-                last_reminded_at: number;
-                has_pin: boolean;
-            }>;
-            cc_email_addresses: Array<string>;
+            signatures: Singature[];
+            ccEmailAddresses: string[];
         };
     }
 
-    interface TemplateCreatedMessageEvent {
-        event: 'template_created';
-        template_id: string;
-        template_info: {
+    interface SignEventPayload {
+        signatureId: string;
+    }
+
+    interface ErrorEventPyload {
+        signatureId: string;
+        code: string;
+    }
+
+    interface SignerRole {
+        name: string;
+        order?: number | undefined;
+    }
+
+    interface CreateTemplateEventPyload {
+        templateId: string;
+        templateInfo: {
             title: string;
             message: string;
-            signer_roles: Array<{
-                name: string;
-                order: number;
-            }>;
-            cc_roles: Array<{
-                name: string;
-            }>;
+            signerRoles: SignerRole;
+            ccRoles: string;
         };
     }
 
-    interface ErrorMessageEvent {
-        event: 'error';
-        description: string;
+    interface DeclineEventPyload {
+        signatureId: string;
+        reason: string;
     }
 
-    type MessageEvent = SignedMessageEvent | DeclinedMessageEvent |
-        CanceledMessageEvent | SentMessageEvent | TemplateCreatedMessageEvent |
-        ErrorMessageEvent;
-
-    interface ClientCultures {
-        /**
-         * English (United States)
-         *
-         * @default en_US
-         */
-        EN_US: string;
-
-        /**
-         * French (France)
-         *
-         * @default fr_FR
-         */
-        FR_FR: string;
-
-        /**
-         * German (Germany)
-         *
-         * @default de_DE
-         */
-        DE_DE: string;
-
-        /**
-         * Swedish (Sweden)
-         *
-         * @default sv_SE
-         */
-        SV_SE: string;
-
-        /**
-         * Chinese (China)
-         *
-         * @default zh_CN
-         */
-        ZH_CN: string;
-
-        /**
-         * Danish (Denmark)
-         *
-         * @default da_DK
-         */
-        DA_DK: string;
-
-        /**
-         * Dutch (The Netherlands)
-         * @default nl_NL
-         */
-        NL_NL: string;
-
-        /**
-         * The available client UI cultures
-         */
-        supportedCultures: string[];
+    interface MessageEventPayload {
+        type: Messages;
+        payload?: object | undefined;
     }
 
-    interface OpenParameters {
-        /**
-         * The url to open in the child frame
-         */
-        url?: string;
-
-        /**
-         * Where to go after the signature is completed
-         */
-        redirectUrl?: string;
-
-        /**
-         * Whether a cancel button should be displayed
-         *
-         * @default true
-         */
-        allowCancel?: boolean;
-
-        /**
-         * A listener for X-window messages coming from the child frame
-         */
-        messageListener?: (eventData: MessageEvent) => void;
-
-        /**
-         * One of the HelloSign.CULTURES.supportedCultures
-         *
-         * @default HelloSign.CULTURES.EN_US
-         */
-        userCulture?: string;
-
-        /**
-         * When true, debugging statements will be written to the console
-         *
-         * @default false
-         */
-        debug?: boolean;
-
-        /**
-         * When true, domain verification step will be skipped if and only if the Signature Request was created with test_mode=1
-         *
-         * @default false
-         */
-        skipDomainVerification?: boolean;
-
-        /**
-         * DOM element that will contain the iframe on the page (defaults to document.body)
-         */
-        container?: Element;
-
-        /**
-         * Height of the iFrame (only applicable when a container is specified)
-         */
-        height?: number;
-
-        /**
-         * When true, the header will be hidden.
-         * This is only functional for customers with embedded branding enabled.
-         *
-         * @default false
-         */
-        hideHeader?: boolean;
-
-        /**
-         * The version of the embedded user experience to display to signers (1 = legacy, 2 = responsive).
-         * This option is only honored if your account has accessed the API prior to Nov 14, 2015.
-         */
-        uxVersion?: number;
-
-        /**
-         * The email of the person issuing a signature request.
-         * Required for allowing 'Me + Others' requests
-         */
-        requester?: string;
-
-        /**
-         * An associative array to be used to customize the app's signer page
-         */
-        whiteLabelingOptions?: Object;
+    interface OpenEventPayload {
+        url: string;
+        iFrameUrl: string;
     }
 
-    interface HelloSignStatic {
-        /**
-         * The available client UI cultures
-         */
-        CULTURES: ClientCultures;
+    interface ReadyEventPayload {
+        signatureId: string;
+    }
 
-        /**
-         * The signature request was signed
-         *
-         * @default signature_request_signed
-         */
-        EVENT_SIGNED: string;
+    interface ReassignEventPayload {
+        signatureId: string;
+        name: string;
+        email: string;
+        reason: string;
+    }
 
-        /**
-         * The signature request was declined
-         *
-         * @default signature_request_declined
-         */
-        EVENT_DECLINED: string;
+    type CB = (d: any) => void;
 
-        /**
-         * The user closed the iFrame before completing
-         *
-         * @default signature_request_canceled
-         */
-        EVENT_CANCELED: string;
+    class HelloSign {
+        constructor(opts?: Options);
 
-        /**
-         * The user sent a signature request
-         *
-         * @default signature_request_sent
-         */
-        EVENT_SENT: string;
+        static classNames: ClassNames;
 
-        /**
-         * The template was created or edited
-         *
-         * @default template_created
-         */
-        EVENT_TEMPLATE_CREATED: string;
+        static events: Events;
 
-        /**
-         * An error occurred in the iFrame
-         *
-         * @default error
-         */
-        EVENT_ERROR: string;
+        static locales: Locales;
 
-        /**
-         * Initialize using your HelloSign API client ID.
-         *
-         * @param appClientId The API client ID the request is for.
-         */
-        init(appClientId: string): void;
+        static messages: Messages;
 
-        /**
-         * Open the signing window.
-         *
-         * @param params The options to use when opening the signing window.
-         */
-        open(params: OpenParameters): void;
+        static version: string;
 
-        /**
-         * Close the signing window.
-         */
-        close(): void;
+        readonly element: HTMLElement;
+
+        readonly isOpen: boolean;
+
+        readonly isReady: boolean;
+
+        open: (url: string, opts?: Options) => void;
+
+        close: () => void;
+
+        on(name: Events['CLOSE'] | Events['CANCEL'] | Events['FINISH'], cb: () => void): void;
+        on(name: Events['CREATE_TEMPLATE'], cb: (data: CreateTemplateEventPyload) => void): void;
+        on(name: Events['DECLINE'], cb: (data: DeclineEventPyload) => void): void;
+        on(name: Events['ERROR'], cb: (data: ErrorEventPyload) => void): void;
+        on(name: Events['MESSAGE'], cb: (data: MessageEventPayload) => void): void;
+        on(name: Events['OPEN'], cb: (data: OpenEventPayload) => void): void;
+        on(name: Events['READY'], cb: (data: ReadyEventPayload) => void): void;
+        on(name: Events['REASSIGN'], cb: (data: ReassignEventPayload) => void): void;
+        on(name: Events['SEND'], cb: (data: SendEventPayload) => void): void;
+        on(name: Events['SIGN'], cb: (data: SignEventPayload) => void): void;
+
+        once(name: Events['CLOSE'] | Events['CANCEL'] | Events['FINISH'], cb: () => void): void;
+        once(name: Events['CREATE_TEMPLATE'], cb: (data: CreateTemplateEventPyload) => void): void;
+        once(name: Events['DECLINE'], cb: (data: DeclineEventPyload) => void): void;
+        once(name: Events['ERROR'], cb: (data: ErrorEventPyload) => void): void;
+        once(name: Events['MESSAGE'], cb: (data: MessageEventPayload) => void): void;
+        once(name: Events['OPEN'], cb: (data: OpenEventPayload) => void): void;
+        once(name: Events['READY'], cb: (data: ReadyEventPayload) => void): void;
+        once(name: Events['REASSIGN'], cb: (data: ReassignEventPayload) => void): void;
+        once(name: Events['SEND'], cb: (data: SendEventPayload) => void): void;
+        once(name: Events['SIGN'], cb: (data: SignEventPayload) => void): void;
+
+        off(name: Events['CLOSE'] | Events['CLOSE'] | Events['CREATE_TEMPLATE'] | Events['DECLINE'] |
+              Events['ERROR'] | Events['FINISH'] | Events['MESSAGE'] | Events['OPEN'] | Events['READY'] |
+              Events['REASSIGN'] | Events['SEND'] | Events['SIGN'],
+            cb?: CB): void;
     }
 }
 
-declare var HelloSign: HelloSign.HelloSignStatic;
-
 export as namespace HelloSign;
+
+export default HelloSign.HelloSign;

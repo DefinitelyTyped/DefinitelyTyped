@@ -13,6 +13,24 @@ pendo.initialize({
     },
     account: {
         id: "PUT_ACCOUNT_ID_HERE",
+        name: "CorpSchmorp",
+        tags: ["t-1", "t-2"]
+    }
+});
+
+pendo.initialize({
+    visitor: {
+        id: "PUT_VISITOR_ID_HERE",
+        name: "Neo",
+        email: "neo@thematrix.io",
+        role: "godlike"
+    },
+    account: {
+        id: "PUT_ACCOUNT_ID_HERE",
+        name: "CorpSchmorp"
+    },
+    parentAccount: {
+        id: 'PUT_PARENT_ACCOUNT_ID_HERE',
         name: "CorpSchmorp"
     }
 });
@@ -90,3 +108,7 @@ pendo.dom("").closest('._pendo-guide-next_');
 pendo.onGuideAdvanced();
 pendo.onGuideAdvanced({ steps: 2 });
 pendo.onGuideDismissed();
+
+pendo.feedback.loginAndRedirect();
+const a = document.createElement("a");
+pendo.feedback.loginAndRedirect({ anchor: a });

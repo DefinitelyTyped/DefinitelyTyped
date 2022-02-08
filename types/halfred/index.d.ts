@@ -1,27 +1,25 @@
-// Type definitions for Halfred v1.0.0
+// Type definitions for Halfred 2.0
 // Project: https://github.com/basti1302/halfred
 // Definitions by: David Herges <https://github.com/dherges>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+export as namespace halfred;
 
-declare module "halfred" {
+/**
+ * halfred.parse(object) returns a Resource object.
+ *
+ * @see https://github.com/basti1302/halfred#usage
+ */
+export function parse(object: any): Resource;
 
-  /**
-   * halfred.parse(object) returns a Resource object.
-   *
-   * @see https://github.com/basti1302/halfred#usage
-   */
-  export function parse(object: any): Resource;
+/** @see https://github.com/basti1302/halfred#enabledisable-validation */
+export function enableValidation(flag: boolean): void;
 
-  /** @see https://github.com/basti1302/halfred#enabledisable-validation */
-  export function enableValidation(flag: boolean): void;
+/** @see https://github.com/basti1302/halfred#enabledisable-validation */
+export function disableValidation(): void;
 
-  /** @see https://github.com/basti1302/halfred#enabledisable-validation */
-  export function disableValidation(): void;
-
-  /** @see https://github.com/basti1302/halfred#resource-api */
-  export interface Resource {
-
+/** @see https://github.com/basti1302/halfred#resource-api */
+export interface Resource {
     /**
      * Returns an object which has an array for each link that was present in the source object.
      * See below why each link is represented as an array.
@@ -72,7 +70,7 @@ declare module "halfred" {
     embeddedResource(key: string): Resource;
 
     /** Alias for embeddedResource(key) */
-    embedded(key: string): Resource;  
+    embedded(key: string): Resource;
 
     /**
      * Returns the unmodified, original object that was parsed to this resource. This is rather
@@ -131,25 +129,24 @@ declare module "halfred" {
     them). These are not intended to be accessed by clients directly, instead, use the provided
     methods to work with links and embedded resources.
     */
-  }
+}
 
-  /** @see https://github.com/basti1302/halfred#links-and-embedded-resources */
-  interface ResourceCollection {
+/** @see https://github.com/basti1302/halfred#links-and-embedded-resources */
+export interface ResourceCollection {
     [key: string]: Resource[];
-  }
+}
 
-  /** @see https://github.com/basti1302/halfred#links-and-embedded-resources */
-  interface LinkCollection {
-    [rel: string]: Link[]
-  }
+/** @see https://github.com/basti1302/halfred#links-and-embedded-resources */
+export interface LinkCollection {
+    [rel: string]: Link[];
+}
 
-  /**
-   * A Link Object represents a hyperlink from the containing resource to a URI.
-   *
-   * @see https://tools.ietf.org/html/draft-kelly-json-hal-08#section-5
-   */
-  interface Link {
-
+/**
+ * A Link Object represents a hyperlink from the containing resource to a URI.
+ *
+ * @see https://tools.ietf.org/html/draft-kelly-json-hal-08#section-5
+ */
+export interface Link {
     /**
      * The "href" property is REQUIRED.
      *
@@ -173,7 +170,7 @@ declare module "halfred" {
      *
      * @see https://tools.ietf.org/html/draft-kelly-json-hal-08#section-5.2
      */
-    templated?: boolean;
+    templated?: boolean | undefined;
 
     /**
      * The "type" property is OPTIONAL.
@@ -183,11 +180,11 @@ declare module "halfred" {
      *
      * @see https://tools.ietf.org/html/draft-kelly-json-hal-08#section-5.3
      */
-    type?: string;
+    type?: string | undefined;
 
     /**
      * The "deprecation" property is OPTIONAL.
-     * 
+     *
      * Its presence indicates that the link is to be deprecated (i.e.
      * removed) at a future date.  Its value is a URL that SHOULD provide
      * further information about the deprecation.
@@ -200,7 +197,7 @@ declare module "halfred" {
      *
      * @see https://tools.ietf.org/html/draft-kelly-json-hal-08#section-5.4
      */
-    deprecation?: string;
+    deprecation?: string | undefined;
 
     /**
      * The "name" property is OPTIONAL.
@@ -210,7 +207,7 @@ declare module "halfred" {
      *
      * @see https://tools.ietf.org/html/draft-kelly-json-hal-08#section-5.5
      */
-    name?: string;
+    name?: string | undefined;
 
     /**
      * The "profile" property is OPTIONAL.
@@ -220,7 +217,7 @@ declare module "halfred" {
      *
      * @see https://tools.ietf.org/html/draft-kelly-json-hal-08#section-5.6
      */
-    profile?: string;
+    profile?: string | undefined;
 
     /**
      * The "title" property is OPTIONAL.
@@ -230,7 +227,7 @@ declare module "halfred" {
      *
      * @see https://tools.ietf.org/html/draft-kelly-json-hal-08#section-5.7
      */
-    title?: string;
+    title?: string | undefined;
 
     /**
      * The "hreflang" property is OPTIONAL.
@@ -240,8 +237,5 @@ declare module "halfred" {
      *
      * @see https://tools.ietf.org/html/draft-kelly-json-hal-08#section-5.8
      */
-    hreflang?: string;
-
-  }
-
+    hreflang?: string | undefined;
 }

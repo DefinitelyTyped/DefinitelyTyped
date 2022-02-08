@@ -15,7 +15,7 @@ declare namespace PageIcon {
         mime: string;
     }
     interface FetchOptions {
-        ext?: string;
+        ext?: string | undefined;
     }
 }
 

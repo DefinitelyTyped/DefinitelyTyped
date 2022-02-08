@@ -1,6 +1,6 @@
-import Prompt = require("./base");
-import inquirer = require("../..");
-import { Interface as ReadlineInterface } from "readline";
+import Prompt = require('./base');
+import inquirer = require('../..');
+import { Interface as ReadlineInterface } from 'readline';
 
 /**
  * The question for the `PasswordPrompt<T>`.
@@ -60,7 +60,7 @@ declare class PasswordPrompt<TQuestion extends Question = Question> extends Prom
     /**
      * Handles the `keypress`-event of the prompt.
      */
-    protected onKeyPress(): void;
+    protected onKeypress(): void;
 
     /**
      * Handles the `success`-event of the prompt.

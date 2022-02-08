@@ -368,6 +368,12 @@ const images: TDocumentDefinitions = {
             fit: [100, 100],
             pageBreak: 'after',
         },
+        'You can also cover the image inside a rectangle',
+        {
+            image: 'fonts/sampleImage.jpg',
+            cover: { width: 100, height: 100, valign: "bottom", align: "right" },
+            pageBreak: 'after'
+        },
         'Images can be also provided in dataURL format\n(the one below was taken from http://www.clipartbest.com/clipart-dT7zx5rT9)',
         {
             image: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAAA1BMVEX/TQBcNTh/AAAACklEQVR4nGNiAAAABgADNjd8qAAAAABJRU5ErkJggg==',
@@ -1425,6 +1431,27 @@ const stylingProperties: TDocumentDefinitions = {
         { text: 'Hello World', opacity: 0.4 },
         { text: 'Hello World', opacity: 0.2 },
         { text: 'Hello World', opacity: 0.1 },
+        '\n\n Subscript, superscript:',
+        {
+            text: [
+                'Hello World.',
+                {
+                    text: '1, 2',
+                    sup: true,
+                },
+                ' Let\'s continue our sentence. Notice the leading space.'
+            ]
+        },
+        {
+            text: [
+                'Hello',
+                {
+                    text: '1, 2',
+                    sub: true,
+                },
+                ' World'
+            ]
+        }
     ],
 };
 
@@ -1448,6 +1475,22 @@ const svgs: TDocumentDefinitions = {
         {
             svg: '<svg height="100" width="100"><circle cx="50" cy="50" r="40" stroke="black" stroke-width="3" fill="red" /></svg>',
             fit: [100, 100],
+        },
+    ],
+};
+
+const stack: TDocumentDefinitions = {
+    content: [
+        {
+            stack: [
+                {
+                    text: 'first paragraph',
+                },
+                {
+                    text: 'beginning of another paragraph',
+                    unbreakable: true,
+                },
+            ],
         },
     ],
 };

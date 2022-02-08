@@ -4,12 +4,12 @@ interface TestScope {
     removeItem(key: string): boolean;
     clearNumbers(): boolean;
     clearAll(): boolean;
-    unbind?: () => void;
+    unbind?: (() => void) | undefined;
     update(val: string): void;
 }
 
 class TestController implements TestScope {
-    unbind?: () => void;
+    unbind?: (() => void) | undefined;
 
     constructor(
         private readonly localStorageService: ng.local.storage.ILocalStorageService,

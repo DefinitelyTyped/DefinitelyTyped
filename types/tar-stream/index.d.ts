@@ -1,7 +1,8 @@
-// Type definitions for tar-stream 2.1
+// Type definitions for tar-stream 2.2
 // Project: https://github.com/mafintosh/tar-stream
 // Definitions by: Guy Lichtman <https://github.com/glicht>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
+//                 Kevin Lindsay <https://github.com/kevin-lindsay-1>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -13,12 +14,12 @@ export type Callback = (err?: Error | null) => any;
 // see https://github.com/mafintosh/tar-stream/blob/master/headers.js
 export interface Headers {
     name: string;
-    mode?: number;
-    uid?: number;
-    gid?: number;
-    size?: number;
-    mtime?: Date;
-    linkname?: string | null;
+    mode?: number | undefined;
+    uid?: number | undefined;
+    gid?: number | undefined;
+    size?: number | undefined;
+    mtime?: Date | undefined;
+    linkname?: string | null | undefined;
     type?:
         | 'file'
         | 'link'
@@ -32,11 +33,12 @@ export interface Headers {
         | 'pax-global-header'
         | 'gnu-long-link-path'
         | 'gnu-long-path'
-        | null;
-    uname?: string;
-    gname?: string;
-    devmajor?: number;
-    devminor?: number;
+        | null
+        | undefined;
+    uname?: string | undefined;
+    gname?: string | undefined;
+    devmajor?: number | undefined;
+    devminor?: number | undefined;
 }
 
 export interface Pack extends stream.Readable {
@@ -50,9 +52,23 @@ export interface Pack extends stream.Readable {
 
 export interface Extract extends stream.Writable {
     on(event: string, listener: (...args: any[]) => void): this;
-    on(event: 'entry', listener: (headers: Headers, stream: stream.PassThrough, next: () => void) => void): this;
+    on(
+        event: 'entry',
+        listener: (headers: Headers, stream: stream.PassThrough, next: (error?: unknown) => void) => void,
+    ): this;
 }
 
-export function extract(opts?: stream.WritableOptions): Extract;
+export interface ExtractOptions extends stream.WritableOptions {
+    /**
+     * Whether or not to attempt to extract a file that does not have an
+     * officially supported format in the `magic` header, such as `ustar`.
+     */
+    allowUnknownFormat?: boolean | undefined;
+    /**
+     * The encoding of the file name header.
+     */
+    filenameEncoding?: BufferEncoding | undefined;
+}
+export function extract(opts?: ExtractOptions): Extract;
 
 export function pack(opts?: stream.ReadableOptions): Pack;

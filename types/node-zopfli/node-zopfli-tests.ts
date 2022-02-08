@@ -5,7 +5,7 @@ const opts: Zopfli.Options = {
     verbose: true,
     numiterations: 1
 };
-let input: Buffer = Buffer.from('foo');
+const input: Buffer = Buffer.from('foo');
 const read = fs.createReadStream('foo');
 const write = fs.createWriteStream('foo');
 
@@ -32,14 +32,14 @@ Zopfli.compress(input, 'zlib', opts, cb);
 Zopfli.compress(input, 'zlib', opts).then(then);
 Zopfli.compress(input, 'zlib').then(then);
 
-input = Zopfli.gzipSync();
-input = Zopfli.gzipSync(opts);
+let output: Buffer = Zopfli.gzipSync(input, {});
+output = Zopfli.gzipSync(input, opts);
 
-input = Zopfli.deflateSync();
-input = Zopfli.deflateSync(opts);
+output = Zopfli.deflateSync(input, {});
+output = Zopfli.deflateSync(input, opts);
 
-input = Zopfli.zlibSync();
-input = Zopfli.zlibSync(opts);
+output = Zopfli.zlibSync(input, {});
+output = Zopfli.zlibSync(input, opts);
 
 read.pipe(Zopfli.createGzip()).pipe(write);
 read.pipe(Zopfli.createGzip(opts)).pipe(write);

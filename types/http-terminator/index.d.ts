@@ -16,7 +16,7 @@ export interface HttpTerminatorConfig {
      * Number of milliseconds to allow for the active sockets to complete
      * serving the response (default: 5000).
      */
-    gracefulTerminationTimeout?: number;
+    gracefulTerminationTimeout?: number | undefined;
 
     /**
      * Intsance of http.Server or https.Server.

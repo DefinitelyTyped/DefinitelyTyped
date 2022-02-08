@@ -12,9 +12,7 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@keystonejs/adapter-knex": ["keystonejs__adapter-knex"],
-            "@keystonejs/fields": ["keystonejs__fields"],
-            "@keystonejs/keystone": ["keystonejs__keystone"]
+            "@keystonejs/*": ["keystonejs__*"]
         }
     },
     "files": ["index.d.ts", "keystonejs__oembed-adapters-tests.ts"]

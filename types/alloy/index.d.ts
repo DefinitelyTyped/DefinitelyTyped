@@ -16,12 +16,12 @@ interface AlloyStyleDict {
   /**
    * Array of TSS classes to apply to the Titanium UI object.
    */
-  classes?: string[] | string;
+  classes?: string[] | string | undefined;
 
   /**
    * TSS ID style to apply to the Titanium UI object.
    */
-  id?: string;
+  id?: string | undefined;
 
   [key: string]: any;
 }
@@ -312,20 +312,3 @@ interface WidgetInterface extends AlloyFactories, BackboneSingletons {}
  * components relative to the widget context rather than the Alloy project.
  */
 declare const Widget: WidgetInterface;
-
-/**
- * Shows an AlertDialog with the specified message.
- *
- * @param msg Message to show in the alert dialog
- */
-declare function alert(msg: string): void;
-
-/**
- * True if the current target platform is Android, false otherwise
- */
-declare const OS_ANDROID: boolean;
-
-/**
- * True if the current target platform is iOS, false otherwise
- */
-declare const OS_IOS: boolean;

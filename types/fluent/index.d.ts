@@ -5,9 +5,9 @@
 // TypeScript Version: 2.2
 
 export interface FluentBundleContructorOptions {
-    functions?: object;
-    useIsolating?: boolean;
-    transform?: (...args: any[]) => any;
+    functions?: object | undefined;
+    useIsolating?: boolean | undefined;
+    transform?: ((...args: any[]) => any) | undefined;
 }
 
 export class FluentType {

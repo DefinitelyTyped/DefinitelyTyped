@@ -8,7 +8,7 @@ export interface ViewComponent extends GoldenLayout.ContentItem {
 }
 export interface LayoutEventPayload {
     success: boolean;
-    reason?: string;
+    reason?: string | undefined;
     identity: Identity;
 }
 export declare const addComponentToContentItem: (component: ViewComponent, target: GoldenLayout.ItemConfig) => void;
@@ -24,7 +24,6 @@ export declare const generatePresetLayout: (components: ViewComponent[], type: L
 export declare function createComponent(componentState: {
     name: string;
 }): GoldenLayout.ComponentConfig;
-// tslint:disable-next-line
 export declare const debounce: <T extends (...args: any[]) => any>(callback: T, delay: number, resizing: boolean) => (...args: Parameters<T>) => void;
 export declare const delay: (delay: number) => Promise<unknown>;
 export declare const generateLayout: (componentState: any) => GoldenLayout.Config;

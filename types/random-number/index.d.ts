@@ -8,9 +8,9 @@
 type Generator = (min?: number|null, max?: number|null, integer?: boolean|null) => number;
 
 interface UnparsedOptions {
-    min?: number;
-    max?: number;
-    integer?: boolean;
+    min?: number | undefined;
+    max?: number | undefined;
+    integer?: boolean | undefined;
 }
 interface Options {
     min: number;

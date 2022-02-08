@@ -10,16 +10,16 @@ import { Strategy as PassportStrategy } from "passport-strategy";
 import express = require("express");
 
 interface IStrategyOptions {
-    usernameField?: string;
-    passwordField?: string;
-    session?: boolean;
-    passReqToCallback?: false;
+    usernameField?: string | undefined;
+    passwordField?: string | undefined;
+    session?: boolean | undefined;
+    passReqToCallback?: false | undefined;
 }
 
 interface IStrategyOptionsWithRequest {
-    usernameField?: string;
-    passwordField?: string;
-    session?: boolean;
+    usernameField?: string | undefined;
+    passwordField?: string | undefined;
+    session?: boolean | undefined;
     passReqToCallback: true;
 }
 

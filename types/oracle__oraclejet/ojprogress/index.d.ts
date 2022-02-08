@@ -4,7 +4,7 @@ export interface ojProgress extends baseComponent<ojProgressSettableProperties> 
     type: 'bar' | 'circle';
     value: number;
     translations: {
-        ariaIndeterminateProgressText?: string;
+        ariaIndeterminateProgressText?: string | undefined;
     };
     onMaxChanged: ((event: JetElementCustomEvent<ojProgress["max"]>) => any) | null;
     onTypeChanged: ((event: JetElementCustomEvent<ojProgress["type"]>) => any) | null;
@@ -27,7 +27,7 @@ export interface ojProgressSettableProperties extends baseComponentSettablePrope
     type: 'bar' | 'circle';
     value: number;
     translations: {
-        ariaIndeterminateProgressText?: string;
+        ariaIndeterminateProgressText?: string | undefined;
     };
 }
 export interface ojProgressSettablePropertiesLenient extends Partial<ojProgressSettableProperties> {

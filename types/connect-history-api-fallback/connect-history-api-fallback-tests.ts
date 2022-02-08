@@ -26,6 +26,9 @@ historyApiFallback({
     htmlAcceptHeaders: ['text/html', 'application/xhtml+xml']
 });
 
+const htmlAcceptHeaders = ['text/html', 'application/xhtml+xml'] as const;
+historyApiFallback({htmlAcceptHeaders});
+
 historyApiFallback({
     rewrites: [
         {
@@ -61,3 +64,13 @@ historyApiFallback({
         }
     ]
 });
+
+const emptyArray = [] as const;
+historyApiFallback({rewrites: emptyArray});
+
+// Unfortunately this won't prevent a regression because of
+// https://github.com/microsoft/TypeScript/issues/13347, however it's the right thing to test.
+const options: {readonly index: string} = {
+    index: 'index.html',
+};
+historyApiFallback(options);

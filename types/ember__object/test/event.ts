@@ -9,7 +9,7 @@ function testOn() {
         }),
         logCompleted: on('completed', () => {
             console.log('Job completed!');
-        })
+        }),
     });
 
     const job = Job.create();
@@ -23,34 +23,35 @@ function testEvented() {
     const Person = EmberObject.extend(Evented, {
         greet() {
             this.trigger('greet');
-        }
+        },
     });
 
     const person = Person.create();
 
+    person.on('potato', 'greet');
+
     const target = {
         hi() {
             console.log('Hello!');
-        }
+        },
     };
 
     person.on('greet', () => {
         console.log('Our person has greeted');
     });
 
-    person.on('greet', () => {
-        console.log('Our person has greeted');
-    }).one('greet', () => {
-        console.log('Offer one-time special');
-    }).off('event', {}, () => {});
+    person
+        .on('greet', () => {
+            console.log('Our person has greeted');
+        })
+        .one('greet', () => {
+            console.log('Offer one-time special');
+        })
+        .off('event', {}, () => {});
 
-    person.on('greet', target, 'hi')
-        .one('greet', target, 'hi')
-        .off('event', target, 'hi');
+    person.on('greet', target, 'hi').one('greet', target, 'hi').off('event', target, 'hi');
 
-    person.on('greet', target, target.hi)
-        .one('greet', target, target.hi)
-        .off('event', target, target.hi);
+    person.on('greet', target, target.hi).one('greet', target, target.hi).off('event', target, target.hi);
 
     person.greet();
 }
@@ -65,16 +66,20 @@ function testObserver() {
 }
 
 function testListener() {
+    function willDestroyListener() {}
+
     EmberObject.extend({
         init() {
             addListener(this, 'willDestroy', this, 'willDestroyListener');
             addListener(this, 'willDestroy', this, 'willDestroyListener', true);
-            addListener(this, 'willDestroy', this, this.willDestroyListener);
-            addListener(this, 'willDestroy', this, this.willDestroyListener, true);
+            addListener(this, 'willDestroy', this, willDestroyListener);
+            addListener(this, 'willDestroy', this, willDestroyListener, true);
             removeListener(this, 'willDestroy', this, 'willDestroyListener');
-            removeListener(this, 'willDestroy', this, this.willDestroyListener);
+            removeListener(this, 'willDestroy', this, willDestroyListener);
         },
+
         willDestroyListener() {
-        }
+            willDestroyListener();
+        },
     });
 }

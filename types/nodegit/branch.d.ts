@@ -20,6 +20,6 @@ export class Branch {
     static lookup(repo: Repository, branchName: string, branchType: Branch.BRANCH): Promise<Reference>;
     static move(branch: Reference, newBranchName: string, force: number): Promise<Reference>;
     static name(ref: Reference): Promise<string>;
-    static setUpstream(branch: Reference, upstreamName: string): Promise<number>;
+    static setUpstream(branch: Reference, upstreamName: string | null): Promise<number>;
     static upstream(branch: Reference): Promise<Reference>;
 }

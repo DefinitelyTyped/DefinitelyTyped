@@ -19,6 +19,7 @@
   },
   "files": [
       "index.d.ts",
-      "wanakana-tests.ts"
+      "test/wanakana-tests.cjs.ts",
+      "test/wanakana-tests.global.ts"
   ]
 }

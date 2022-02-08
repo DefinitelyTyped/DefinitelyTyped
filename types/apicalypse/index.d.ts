@@ -21,8 +21,8 @@ export interface Apicalypse {
 }
 
 export interface RequestAllConfig {
-    concurrency?: number;
-    delay?: number;
+    concurrency?: number | undefined;
+    delay?: number | undefined;
 }
 
 export type SortDirection = 'asc' | 'desc';
@@ -31,7 +31,7 @@ declare function apicalypseFactory(options?: ApicalypseConfig): Apicalypse;
 declare function apicalypseFactory(rawQueryString: string, options?: ApicalypseConfig): Apicalypse;
 
 export interface ApicalypseConfig extends AxiosRequestConfig {
-    queryMethod?: QueryMethod;
+    queryMethod?: QueryMethod | undefined;
 }
 
 export type QueryMethod = 'body' | 'url';

@@ -13,35 +13,8 @@
             "../"
         ],
         "paths": {
-            "@hapi/hapi": [
-                "hapi__hapi"
-            ],
-            "@hapi/boom": [
-                "hapi__boom"
-            ],
-            "@hapi/shot": [
-                "hapi__shot"
-            ],
-            "@hapi/mimos": [
-                "hapi__mimos"
-            ],
-            "@hapi/iron": [
-                "hapi__iron"
-            ],
-            "@hapi/joi": [
-                "hapi__joi"
-            ],
-            "@hapi/podium": [
-                "hapi__podium"
-            ],
-            "@hapi/catbox": [
-                "hapi__catbox"
-            ],
-            "@hapi/h2o2": [
-                "hapi__h2o2"
-            ],
-            "@hapi/wreck": [
-                "hapi__wreck"
+            "@hapi/*": [
+                "hapi__*"
             ]
         },
         "types": [],

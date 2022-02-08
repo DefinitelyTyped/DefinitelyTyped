@@ -22,9 +22,9 @@ declare namespace AMap {
 
         type LabelDirection = 'top' | 'right' | 'bottom' | 'left' | 'center';
         interface Label {
-            content?: string;
-            offset?: Pixel;
-            direction?: LabelDirection;
+            content?: string | undefined;
+            offset?: Pixel | undefined;
+            direction?: LabelDirection | undefined;
         }
 
         type Anchor = 'top-left' | 'top-center' | 'top-right' | 'middle-left' | 'center' | 'middle-right' | 'bottom-left' | 'bottom-center' | 'bottom-right';
@@ -33,84 +33,84 @@ declare namespace AMap {
             /**
              * 点标记在地图上显示的位置
              */
-            position?: LocationValue;
+            position?: LocationValue | undefined;
             /**
              * 标记锚点
              */
-            anchor?: Anchor;
+            anchor?: Anchor | undefined;
             /**
              * 点标记显示位置偏移量
              */
-            offset?: Pixel;
+            offset?: Pixel | undefined;
             /**
              * 需在点标记中显示的图标
              */
-            icon?: string | Icon;
+            icon?: string | Icon | undefined;
             /**
              * 点标记显示内容
              */
-            content?: string | HTMLElement;
+            content?: string | HTMLElement | undefined;
             /**
              * 鼠标点击时marker是否置顶
              */
-            topWhenClick?: boolean;
+            topWhenClick?: boolean | undefined;
             /**
              * 是否将覆盖物的鼠标或touch等事件冒泡到地图上
              */
-            bubble?: boolean;
+            bubble?: boolean | undefined;
             /**
              * 点标记是否可拖拽移动
              */
-            draggable?: boolean;
+            draggable?: boolean | undefined;
             /**
              * 拖拽点标记时是否开启点标记离开地图的效果
              */
-            raiseOnDrag?: boolean;
+            raiseOnDrag?: boolean | undefined;
             /**
              * 鼠标悬停时的鼠标样式
              */
-            cursor?: string;
+            cursor?: string | undefined;
             /**
              * 点标记是否可见
              */
-            visible?: boolean;
+            visible?: boolean | undefined;
             /**
              * 点标记的叠加顺序
              */
-            zIndex?: number;
+            zIndex?: number | undefined;
             /**
              * 点标记的旋转角度
              */
-            angle?: number;
+            angle?: number | undefined;
             /**
              * 是否自动旋转
              */
-            autoRotation?: boolean;
+            autoRotation?: boolean | undefined;
             /**
              * 点标记的动画效果
              */
-            animation?: AnimationName;
+            animation?: AnimationName | undefined;
             /**
              * 点标记阴影
              */
-            shadow?: Icon | string;
+            shadow?: Icon | string | undefined;
             /**
              * 鼠标滑过点标记时的文字提示
              */
-            title?: string;
+            title?: string | undefined;
             /**
              * 可点击区域
              */
-            shape?: MarkerShape;
+            shape?: MarkerShape | undefined;
             /**
              * 文本标注
              */
-            label?: Label;
+            label?: Label | undefined;
 
             // internal
-            zooms?: [number, number];
-            topWhenMouseOver?: boolean;
-            height?: number;
+            zooms?: [number, number] | undefined;
+            topWhenMouseOver?: boolean | undefined;
+            height?: number | undefined;
         }
     }
 
@@ -124,7 +124,7 @@ declare namespace AMap {
          * 唤起高德地图客户端标注页
          * @param obj 唤起参数
          */
-        markOnAMAP(obj?: { name?: string, position?: LocationValue }): void;
+        markOnAMAP(obj?: { name?: string | undefined, position?: LocationValue | undefined }): void;
         /**
          * 获取锚点
          */

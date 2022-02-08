@@ -138,9 +138,9 @@ export class Controller extends fxn.Controller {
 
 export interface IComparison {
   [item: string]: any;
-  __order?: string;
-  __offset?: number;
-  __count?: number;
+  __order?: string | undefined;
+  __offset?: number | undefined;
+  __count?: number | undefined;
 }
 
 export class Composer<T extends Model> {
@@ -382,8 +382,8 @@ export class GraphQuery {
 }
 
 export interface IArrayMetadata {
-  total?: number;
-  offset?: number;
+  total?: number | undefined;
+  offset?: number | undefined;
   [other: string]: any;
 }
 
@@ -782,10 +782,10 @@ export class Model {
    *   "multiple": Whether the child exists in multiples for the parent (defaults to false)
    */
   static joinsTo(modelClass: typeof Model, options: {
-    name?: string;
-    via?: string;
-    as?: string;
-    multiple?: boolean;
+    name?: string | undefined;
+    via?: string | undefined;
+    as?: string | undefined;
+    multiple?: boolean | undefined;
   }): RelationshipEdge | null;
   /**
    * Create a validator. These run synchronously and check every time a field is set / cleared.
@@ -955,8 +955,8 @@ export interface IAnyObject {
   [prop: string]: any;
 }
 export interface IExtendedError extends Error {
-  notFound?: boolean;
-  details?: Object;
+  notFound?: boolean | undefined;
+  details?: Object | undefined;
 }
 export interface IColumn {
   name: string;
@@ -968,31 +968,31 @@ export interface ISchema {
   columns: IColumn[];
 }
 export interface IJoin {
-  prevColumn?: string;
-  joinColumn?: string;
+  prevColumn?: string | undefined;
+  joinColumn?: string | undefined;
   joinTable: string;
   prevTable: string;
-  name?: string;
-  key?: string;
-  multiple?: boolean;
-  columns?: string[];
-  columnsObject?: Object;
-  cachedModel?: Model;
-  joinAlias?: string;
+  name?: string | undefined;
+  key?: string | undefined;
+  multiple?: boolean | undefined;
+  columns?: string[] | undefined;
+  columnsObject?: Object | undefined;
+  cachedModel?: Model | undefined;
+  joinAlias?: string | undefined;
   multiFilter?: any;
-  prevAlias?: string;
+  prevAlias?: string | undefined;
   orderBy?: any;
-  offset?: number;
-  count?: number;
+  offset?: number | undefined;
+  count?: number | undefined;
 }
 export type Query = any;
 export interface IColumnProperties {
-  length?: number | null;
-  nullable?: boolean;
-  primary_key?: 0 | 1 | boolean;
-  auto_increment?: boolean;
-  unique?: 0 | 1 | boolean;
-  array?: boolean;
+  length?: number | null | undefined;
+  nullable?: boolean | undefined;
+  primary_key?: 0 | 1 | boolean | undefined;
+  auto_increment?: boolean | undefined;
+  unique?: 0 | 1 | boolean | undefined;
+  array?: boolean | undefined;
   defaultValue?: any;
 }
 export interface IArrInterface {

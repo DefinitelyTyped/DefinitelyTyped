@@ -1,3 +1,4 @@
+import { IControl } from 'mapbox-gl';
 import mapboxgl = require('mapbox-gl');
 
 // These examples adapted from Mapbox's examples (https://www.mapbox.com/mapbox-gl-js/examples)
@@ -36,7 +37,7 @@ expectType<mapboxgl.PluginStatus>(mapboxgl.getRTLTextPluginStatus());
  * Set RTL Text Plugin
  */
 // $ExpectType void
-mapboxgl.setRTLTextPlugin('http://github.com', e => {}, false);
+mapboxgl.setRTLTextPlugin('https://github.com', e => {}, false);
 
 // $ExpectType void
 mapboxgl.prewarm();
@@ -74,6 +75,7 @@ let map = new mapboxgl.Map({
         'FullscreenControl.Enter': 'Розгорнути на весь екран',
         'FullscreenControl.Exit': 'Вийти з повоноеранного режиму',
     },
+    optimizeForTerrain: false,
 });
 
 /**
@@ -111,6 +113,37 @@ expectType<mapboxgl.MapboxOptions>({
 });
 
 /**
+ * Check `touchPitch`, `touchZoomRotate`, `scrollZoom` to accept Object
+ */
+expectType<mapboxgl.MapboxOptions>({
+    container: 'map',
+    touchPitch: { around: 'center' },
+    touchZoomRotate: { around: 'center' },
+    scrollZoom: { around: 'center' },
+});
+
+/**
+ * Check `dragPan` to accept Object
+ */
+expectType<mapboxgl.MapboxOptions>({
+    container: 'map',
+    dragPan: {
+        linearity: 0.3,
+        easing: t => t,
+        maxSpeed: 1400,
+        deceleration: 2500,
+    },
+});
+
+/**
+ * Check `cooperativeGestures`
+ */
+expectType<mapboxgl.MapboxOptions>({
+    container: 'map',
+    cooperativeGestures: true,
+});
+
+/**
  * Create and style marker clusters
  */
 map.on('load', function () {
@@ -124,6 +157,7 @@ map.on('load', function () {
         clusterMinPoints: 8,
         clusterRadius: 50, // Radius of each cluster when clustering points (defaults to 50)
         clusterProperties: { sum: ['+', ['get', 'property']] },
+        filter: 'something',
     });
 
     map.addLayer({
@@ -251,6 +285,36 @@ map.on('load', function () {
     });
 });
 
+//
+// setTerrain
+//
+
+// $ExpectType Map
+map.setTerrain();
+// $ExpectType Map
+map.setTerrain(null);
+// $ExpectType Map
+map.setTerrain(undefined);
+// $ExpectType Map
+map.setTerrain({
+    source: 'something',
+    exaggeration: 10,
+});
+
+//
+// getFreeCameraOptions
+//
+
+// $ExpectType FreeCameraOptions
+map.getFreeCameraOptions();
+
+//
+// setFreeCameraOptions
+//
+
+// $ExpectType Map
+map.setFreeCameraOptions(new mapboxgl.FreeCameraOptions());
+
 // FlyTo
 map.flyTo({
     center: [0, 0],
@@ -345,6 +409,15 @@ map.addSource('some id', videoSourceObj); // add
 map.removeSource('some id'); // remove
 
 /**
+ * Vector Source
+ */
+const vectorSource = map.getSource('tile-source') as mapboxgl.VectorSourceImpl;
+// $ExpectType VectorSourceImpl
+vectorSource.setTiles(['a', 'b']);
+// $ExpectType VectorSourceImpl
+vectorSource.setUrl('https://github.com');
+
+/**
  * Add Raster Source /// made URL optional to allow only tiles.
  */
 map.addSource('radar', {
@@ -383,6 +456,7 @@ const popupOptions: mapboxgl.PopupOptions = {
     closeOnClick: false,
     closeOnMove: true,
     closeButton: true,
+    focusAfterOpen: true,
     anchor: 'top-right',
     offset: {
         top: [0, 0] as [number, number],
@@ -403,6 +477,26 @@ popup.getElement(); // $ExpectType HTMLElement
 popup.addClassName('class1');
 popup.removeClassName('class2');
 popup.toggleClassName('class3');
+// $ExpectType Popup
+popup.setOffset([10, 20]);
+
+/**
+ * Add terrain
+ */
+const terrainStyle: mapboxgl.Style = {
+    version: 8,
+    name: 'terrain',
+    sources: {
+        dem: {
+            type: 'raster-dem',
+            url: 'mapbox://mapbox.mapbox-terrain-dem-v1',
+        },
+    },
+    terrain: {
+        source: 'dem',
+        exaggeration: 1.5,
+    },
+};
 
 /**
  * Add an image
@@ -601,6 +695,9 @@ map = new mapboxgl.Map({
     hash: 'customHash',
 });
 
+const syncOnce: mapboxgl.Map = map.once('load', () => {});
+const asyncOnce: Promise<mapboxgl.MapboxEvent> = map.once('load');
+
 /**
  * Marker
  */
@@ -610,6 +707,7 @@ let marker = new mapboxgl.Marker(undefined, {
     anchor: 'bottom-right',
     color: 'green',
     draggable: false,
+    clickTolerance: 10,
     rotation: 15,
     rotationAlignment: 'map',
     pitchAlignment: 'viewport',
@@ -617,11 +715,15 @@ let marker = new mapboxgl.Marker(undefined, {
 })
     .setLngLat([-50, 50])
     .setPitchAlignment('map')
+    .setRotation(100)
     .setRotationAlignment('viewport')
     .addTo(map);
 
 // $ExpectType Alignment
 marker.getPitchAlignment();
+
+// $ExpectType number
+marker.getRotation();
 
 // $ExpectType Alignment
 marker.getRotationAlignment();
@@ -654,6 +756,12 @@ bounds.extend([
 // $ExpectType LngLatBounds
 bounds.extend([45, 30, 60, 60]);
 
+// controls
+// $ExpectType IControl
+new mapboxgl.Control() as IControl;
+// $ExpectType IControl
+new mapboxgl.AttributionControl() as IControl;
+
 /*
  * GeolocateControl
  */
@@ -672,6 +780,9 @@ new mapboxgl.FullscreenControl();
 new mapboxgl.FullscreenControl(null);
 new mapboxgl.FullscreenControl({});
 new mapboxgl.FullscreenControl({ container: document.querySelector('body') });
+
+// $ExpectType boolean
+map.hasControl(attributionControl);
 
 declare var lnglat: mapboxgl.LngLat;
 declare var lnglatlike: mapboxgl.LngLatLike;
@@ -694,6 +805,7 @@ interface EitherType {
     <A, B, C, D, E, F, G>(a: A, b: B, c: C, d: D, e: E, f: F, g: G): A | B | C | D | E | F | G;
     <A, B, C, D, E, F, G, H>(a: A, b: B, c: C, d: D, e: E, f: F, g: G, h: H): A | B | C | D | E | F | G | H;
     <A, B, C, D, E, F, G, H, I>(a: A, b: B, c: C, d: D, e: E, f: F, g: G, h: H, i: I): A | B | C | D | E | F | G | H | I;
+    <A, B, C, D, E, F, G, H, I, J>(a: A, b: B, c: C, d: D, e: E, f: F, g: G, h: H, i: I, j: J): A | B | C | D | E | F | G | H | I | J;
     /* Add more as needed */
 }
 
@@ -800,11 +912,11 @@ let cameraOpts: mapboxgl.CameraOptions = {
     bearing: 0,
     pitch: 0,
     zoom: 0,
+    padding,
 };
 let cameraForBoundsOpts: mapboxgl.CameraForBoundsOptions = {
     offset: pointlike,
     maxZoom: 10,
-    padding,
     ...cameraOpts,
 };
 
@@ -867,6 +979,8 @@ map.setMinPitch();
 map.setMaxPitch(null);
 // $ExpectType Map
 map.setMaxPitch();
+// $ExpectType Map
+map.resetNorthPitch(animOpts);
 
 // $ExpectType number
 map.getMinPitch();
@@ -885,6 +999,10 @@ expectType<mapboxgl.Map>(
         expectType<undefined>(ev.originalEvent);
     }),
 );
+// $ExpectType Map
+map.on('idle', ev => {
+    ev; // $ExpectType MapboxEvent<undefined> & EventData
+});
 expectType<mapboxgl.Map>(
     map.on('remove', ev => {
         expectType<mapboxgl.MapboxEvent>(ev);
@@ -1268,10 +1386,12 @@ new mapboxgl.Map().scrollZoom.setZoomRate(1);
 
 // $ExpectType void
 new mapboxgl.Map().scrollZoom.setWheelZoomRate(1);
+new mapboxgl.Map().scrollZoom.enable({ around: 'center' });
 
 const touchPitchHandler = new mapboxgl.TouchPitchHandler(map);
 // $ExpectType void
 touchPitchHandler.enable();
+touchPitchHandler.enable({ around: 'center' });
 // $ExpectType boolean
 touchPitchHandler.isActive();
 // $ExpectType boolean
@@ -1280,6 +1400,30 @@ touchPitchHandler.isEnabled();
 touchPitchHandler.disable();
 
 new mapboxgl.Map().touchPitch = touchPitchHandler;
+
+/**
+ * `dragPan`
+ */
+// $ExpectType void
+new mapboxgl.Map().dragPan.enable({
+    linearity: 0.3,
+    easing: t => t,
+    maxSpeed: 1400,
+    deceleration: 2500,
+});
+
+/**
+ * `touchZoomRotate`
+ */
+// $ExpectType void
+new mapboxgl.Map().touchZoomRotate.enable({
+    around: 'center',
+});
+// $ExpectType void
+new mapboxgl.Map().touchZoomRotate.enable();
+
+// $ExpectType void
+new mapboxgl.Map().touchZoomRotate.enable({});
 
 /*
  * Visibility
@@ -1337,7 +1481,7 @@ const backgroundPaint: mapboxgl.BackgroundPaint = {
 };
 
 const fillLayout: mapboxgl.FillLayout = {
-    'fill-sort-key': 0,
+    'fill-sort-key': eitherType(0, expression),
 };
 
 const fillPaint: mapboxgl.FillPaint = {
@@ -1381,7 +1525,7 @@ const lineLayout: mapboxgl.LineLayout = {
     'line-join': eitherType('bevel', 'round', 'miter', expression),
     'line-miter-limit': eitherType(0, expression),
     'line-round-limit': eitherType(0, expression),
-    'line-sort-key': 0,
+    'line-sort-key': eitherType(0, expression),
 };
 
 const linePaint: mapboxgl.LinePaint = {
@@ -1413,7 +1557,7 @@ const symbolLayout: mapboxgl.SymbolLayout = {
     'symbol-avoid-edges': false,
     'symbol-z-order': eitherType('viewport-y', 'source'),
     'icon-allow-overlap': eitherType(false, styleFunction, expression),
-    'icon-ignore-placement': false,
+    'icon-ignore-placement': eitherType(false, expression),
     'icon-optional': false,
     'icon-rotation-alignment': eitherType('map', 'viewport', 'auto'),
     'icon-size': eitherType(0, styleFunction, expression),
@@ -1429,12 +1573,12 @@ const symbolLayout: mapboxgl.SymbolLayout = {
     'text-pitch-alignment': eitherType('map', 'viewport', 'auto'),
     'text-rotation-alignment': eitherType('map', 'viewport', 'auto'),
     'text-field': eitherType('#000', styleFunction, expression),
-    'text-font': eitherType('arial', ['arial'], expression),
+    'text-font': eitherType(['arial'], expression),
     'text-size': eitherType(0, styleFunction, expression),
     'text-max-width': eitherType(0, styleFunction, expression),
     'text-line-height': eitherType(0, expression),
     'text-letter-spacing': eitherType(0, expression),
-    'text-justify': eitherType('left', 'center', 'right', expression),
+    'text-justify': eitherType('auto', 'left', 'center', 'right', expression),
     'text-anchor': eitherType('center', styleFunction, expression),
     'text-max-angle': eitherType(0, expression),
     'text-rotate': eitherType(0, styleFunction, expression),
@@ -1503,11 +1647,11 @@ const rasterPaint: mapboxgl.RasterPaint = {
     'raster-contrast-transition': transition,
     'raster-fade-duration': eitherType(0, expression),
     'raster-resampling': eitherType('linear', 'nearest'),
-    'circle-sort-key': 0,
 };
 
 const circleLayout: mapboxgl.CircleLayout = {
     visibility: eitherType('visible', 'none'),
+    'circle-sort-key': eitherType(0, expression),
 };
 
 const circlePaint: mapboxgl.CirclePaint = {
@@ -1564,6 +1708,22 @@ const hillshadePaint: mapboxgl.HillshadePaint = {
     'hillshade-accent-color-transition': transition,
 };
 
+const skyLayout: mapboxgl.SkyLayout = {
+    visibility: eitherType('visible', 'none'),
+};
+
+const skyPaint: mapboxgl.SkyPaint = {
+    'sky-atmosphere-color': eitherType('white', expression),
+    'sky-atmosphere-halo-color': eitherType('white', expression),
+    'sky-atmosphere-sun': eitherType([0], expression),
+    'sky-atmosphere-sun-intensity': eitherType(0, expression),
+    'sky-gradient': eitherType('#000', expression),
+    'sky-gradient-center': eitherType([0], expression),
+    'sky-gradient-radius': eitherType(0, expression),
+    'sky-opacity': eitherType(0, expression),
+    'sky-type': eitherType('gradient', 'atmosphere'),
+};
+
 /* Make sure every layout has all properties optional */
 eitherType<
     mapboxgl.BackgroundLayout,
@@ -1574,8 +1734,9 @@ eitherType<
     mapboxgl.RasterLayout,
     mapboxgl.CircleLayout,
     mapboxgl.HeatmapLayout,
-    mapboxgl.HillshadeLayout
->({}, {}, {}, {}, {}, {}, {}, {}, {});
+    mapboxgl.HillshadeLayout,
+    mapboxgl.SkyLayout
+>({}, {}, {}, {}, {}, {}, {}, {}, {}, {});
 
 /* Make sure every paint has all properties optional */
 eitherType<
@@ -1587,8 +1748,9 @@ eitherType<
     mapboxgl.RasterPaint,
     mapboxgl.CirclePaint,
     mapboxgl.HeatmapPaint,
-    mapboxgl.HillshadePaint
->({}, {}, {}, {}, {}, {}, {}, {}, {});
+    mapboxgl.HillshadePaint,
+    mapboxgl.SkyPaint
+>({}, {}, {}, {}, {}, {}, {}, {}, {}, {});
 
 /*
  * AnyLayout
@@ -1604,6 +1766,7 @@ expectType<mapboxgl.AnyLayout>(
         circleLayout,
         heatmapLayout,
         hillshadeLayout,
+        skyLayout,
     ),
 );
 
@@ -1621,5 +1784,68 @@ expectType<mapboxgl.AnyPaint>(
         circlePaint,
         heatmapPaint,
         hillshadePaint,
+        skyPaint,
     ),
 );
+
+/*
+ * Make sure layer gets proper Paint, corresponding to layer's type
+ */
+
+expectType<mapboxgl.AnyLayer>({ id: 'unique', type: 'background', paint: { 'background-opacity': 1 } });
+// $ExpectError
+expectType<mapboxgl.AnyLayer>({ id: 'unique', type: 'background', paint: { 'line-opacity': 1 } });
+
+expectType<mapboxgl.AnyLayer>({ id: 'unique', type: 'fill', paint: { 'fill-opacity': 1 } });
+// $ExpectError
+expectType<mapboxgl.AnyLayer>({ id: 'unique', type: 'fill', paint: { 'line-opacity': 1 } });
+
+expectType<mapboxgl.AnyLayer>({ id: 'unique', type: 'line', paint: { 'line-opacity': 1 } });
+// $ExpectError
+expectType<mapboxgl.AnyLayer>({ id: 'unique', type: 'line', paint: { 'fill-opacity': 1 } });
+
+/**
+ * Test map.addImage()
+ */
+
+// HTMLImageElement
+const fooHTMLImageElement = document.createElement('img');
+map.addImage('foo', fooHTMLImageElement);
+
+// ImageData
+const fooImageData = new ImageData(8, 8);
+map.addImage('foo', fooImageData);
+
+// ImageData like
+const fooImageDataLike1 = {
+    width: 10,
+    height: 10,
+    data: new Uint8ClampedArray(8),
+};
+map.addImage('foo', fooImageDataLike1);
+
+const fooImageDataLike2 = {
+    width: 10,
+    height: 10,
+    data: new Uint8Array(8),
+};
+map.addImage('foo', fooImageDataLike2);
+
+// ArrayBufferView
+const fooArrayBufferView: ArrayBufferView = new Uint8Array(8);
+map.addImage('foo', fooArrayBufferView);
+
+// ImageBitmap
+createImageBitmap(fooHTMLImageElement).then(fooImageBitmap => {
+    map.addImage('foo', fooImageBitmap);
+});
+
+// $ExpectType void
+map.loadImage('foo', (error, result) => {});
+
+// KeyboardHandler
+var keyboardHandler = new mapboxgl.KeyboardHandler(map);
+// $ExpectType void
+keyboardHandler.enableRotation();
+// $ExpectType void
+keyboardHandler.disableRotation();

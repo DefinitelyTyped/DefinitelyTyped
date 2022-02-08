@@ -19,7 +19,7 @@ export interface Unmount {
 
 export interface LogOptions {
     /* Log debug messages to the console. */
-    debug?: boolean;
+    debug?: boolean | undefined;
 }
 
 export interface GlobalResolve {
@@ -46,7 +46,7 @@ export interface GlobalHookOptions {
      * - `false` Intercept only those `require` calls which failed to be resolved by the Node.js `require`
      * loader.
      */
-    precede_node_loader?: boolean;
+    precede_node_loader?: boolean | undefined;
 }
 
 declare class Log {

@@ -11,13 +11,13 @@ declare namespace scrypt {
     }
 
     interface Options {
-        N?: number;
-        logN?: number;
+        N?: number | undefined;
+        logN?: number | undefined;
         r: number;
         p: number;
         dkLen: number;
-        encoding?: string;
-        interruptStep?: number;
+        encoding?: string | undefined;
+        interruptStep?: number | undefined;
     }
 
     interface ScryptStatic {

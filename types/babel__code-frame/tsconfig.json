@@ -12,7 +12,7 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@babel/code-frame": ["babel__code-frame"]
+            "@babel/*": ["babel__*"]
         }
     },
     "files": ["index.d.ts", "babel__code-frame-tests.ts"]

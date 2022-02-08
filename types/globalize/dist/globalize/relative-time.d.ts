@@ -7,7 +7,7 @@ declare module "../globalize" {
         /**
          * eg. "short" or "narrow". Or falsy for default long form
          */
-        form?: "short" | "narrow";
+        form?: "short" | "narrow" | undefined;
     }
     interface Shared {
         /**

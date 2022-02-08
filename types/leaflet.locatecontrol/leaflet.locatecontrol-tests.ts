@@ -14,7 +14,9 @@ const lc = L.control.locate({
     position: 'topright',
     strings: {
         title: "Show me where I am, yo!"
-    }
+    },
+    initialZoomLevel: 10,
+    showCompass: false,
 }).addTo(map);
 
 // Locate Options

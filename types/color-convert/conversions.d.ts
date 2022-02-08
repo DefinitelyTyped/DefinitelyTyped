@@ -1,4 +1,4 @@
-import * as cssKeywords from 'color-name';
+import colors = require('color-name');
 
 export type RGB = [number, number, number];
 export type HSL = [number, number, number];
@@ -9,7 +9,7 @@ export type XYZ = [number, number, number];
 export type LAB = [number, number, number];
 export type LCH = [number, number, number];
 export type HEX = string;
-export type KEYWORD = keyof typeof cssKeywords;
+export type KEYWORD = keyof typeof colors;
 export type ANSI16 = number;
 export type ANSI256 = number;
 export type HCG = [number, number, number];
@@ -20,18 +20,31 @@ export namespace rgb {
     const channels: 3;
     const labels: 'rgb';
     function hsl(rgb: RGB): HSL;
+    function hsl(...rgb: RGB): HSL;
     function hsv(rgb: RGB): HSV;
+    function hsv(...rgb: RGB): HSV;
     function hwb(rgb: RGB): HWB;
+    function hwb(...rgb: RGB): HWB;
     function cmyk(rgb: RGB): CMYK;
+    function cmyk(...rgb: RGB): CMYK;
     function keyword(rgb: RGB): KEYWORD;
+    function keyword(...rgb: RGB): KEYWORD;
     function xyz(rgb: RGB): XYZ;
+    function xyz(...rgb: RGB): XYZ;
     function lab(rgb: RGB): LAB;
+    function lab(...rgb: RGB): LAB;
     function ansi16(rgb: RGB): ANSI16;
+    function ansi16(...rgb: RGB): ANSI16;
     function ansi256(rgb: RGB): ANSI256;
+    function ansi256(...rgb: RGB): ANSI256;
     function hex(rgb: RGB): HEX;
+    function hex(...rgb: RGB): HEX;
     function hcg(rgb: RGB): HCG;
+    function hcg(...rgb: RGB): HCG;
     function apple(rgb: RGB): APPLE;
+    function apple(...rgb: RGB): APPLE;
     function gray(rgb: RGB): GRAY;
+    function gray(...rgb: RGB): GRAY;
 }
 
 export namespace hsl {

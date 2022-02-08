@@ -18,9 +18,9 @@ declare const assignmentCompatibilityHack: unique symbol;
 export type MatchingKeys<TRecord, TMatch, K extends keyof TRecord = keyof TRecord> = K extends (TRecord[K] extends TMatch ? K : never) ? K : never;
 export type VoidKeys<Record> = MatchingKeys<Record, void>;
 export interface TypeRecord<T, U, V> {
-    ' _emitterType'?: T;
-    ' _eventsType'?: U;
-    ' _emitType'?: V;
+    ' _emitterType'?: T | undefined;
+    ' _eventsType'?: U | undefined;
+    ' _emitType'?: V | undefined;
 }
 export type ReturnTypeOfMethod<T> = T extends (...args: any[]) => any ? ReturnType<T> : never;
 export type ReturnTypeOfMethodIfExists<T, S extends string> = S extends keyof T ? ReturnTypeOfMethod<T[S]> : never;

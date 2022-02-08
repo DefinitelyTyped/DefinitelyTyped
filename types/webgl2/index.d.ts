@@ -1152,7 +1152,7 @@ declare var WebGL2RenderingContext: {
     readonly MAX_CLIENT_WAIT_TIMEOUT_WEBGL: number;                 // 0x9247
 };
 
-interface WebGLQuery extends WebGLObject {
+interface WebGLQuery {
 }
 
 declare var WebGLQuery: {
@@ -1160,7 +1160,7 @@ declare var WebGLQuery: {
     new (): WebGLQuery;
 };
 
-interface WebGLSampler extends WebGLObject {
+interface WebGLSampler {
 }
 
 declare var WebGLSampler: {
@@ -1168,7 +1168,7 @@ declare var WebGLSampler: {
     new (): WebGLSampler;
 };
 
-interface WebGLSync extends WebGLObject {
+interface WebGLSync {
 }
 
 declare var WebGLSync: {
@@ -1176,7 +1176,7 @@ declare var WebGLSync: {
     new (): WebGLSync;
 };
 
-interface WebGLTransformFeedback extends WebGLObject {
+interface WebGLTransformFeedback {
 }
 
 declare var WebGLTransformFeedback: {
@@ -1184,7 +1184,7 @@ declare var WebGLTransformFeedback: {
     new (): WebGLTransformFeedback;
 };
 
-interface WebGLVertexArrayObject extends WebGLObject {
+interface WebGLVertexArrayObject {
 }
 
 declare var WebGLVertexArrayObject: {

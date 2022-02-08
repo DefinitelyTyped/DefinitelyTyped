@@ -1,5 +1,5 @@
 export interface HttpApiOptions {
-    responseType?: string;
-    transport?: object;
-    noContentResponse?: object
+    responseType?: string | undefined;
+    transport?: object | undefined;
+    noContentResponse?: object | undefined
 }

@@ -19,28 +19,28 @@ export interface ojInputNumber extends editableValue<number | null, ojInputNumbe
     translations: {
         numberRange?: {
             hint?: {
-                exact?: string;
-                inRange?: string;
-                max?: string;
-                min?: string;
-            };
+                exact?: string | undefined;
+                inRange?: string | undefined;
+                max?: string | undefined;
+                min?: string | undefined;
+            } | undefined;
             messageDetail?: {
-                exact?: string;
-                rangeOverflow?: string;
-                rangeUnderflow?: string;
-            };
+                exact?: string | undefined;
+                rangeOverflow?: string | undefined;
+                rangeUnderflow?: string | undefined;
+            } | undefined;
             messageSummary?: {
-                rangeOverflow?: string;
-                rangeUnderflow?: string;
-            };
-        };
+                rangeOverflow?: string | undefined;
+                rangeUnderflow?: string | undefined;
+            } | undefined;
+        } | undefined;
         required?: {
-            hint?: string;
-            messageDetail?: string;
-            messageSummary?: string;
-        };
-        tooltipDecrement?: string;
-        tooltipIncrement?: string;
+            hint?: string | undefined;
+            messageDetail?: string | undefined;
+            messageSummary?: string | undefined;
+        } | undefined;
+        tooltipDecrement?: string | undefined;
+        tooltipIncrement?: string | undefined;
     };
     onAsyncValidatorsChanged: ((event: JetElementCustomEvent<ojInputNumber["asyncValidators"]>) => any) | null;
     onAutocompleteChanged: ((event: JetElementCustomEvent<ojInputNumber["autocomplete"]>) => any) | null;
@@ -121,28 +121,28 @@ export interface ojInputNumberSettableProperties extends editableValueSettablePr
     translations: {
         numberRange?: {
             hint?: {
-                exact?: string;
-                inRange?: string;
-                max?: string;
-                min?: string;
-            };
+                exact?: string | undefined;
+                inRange?: string | undefined;
+                max?: string | undefined;
+                min?: string | undefined;
+            } | undefined;
             messageDetail?: {
-                exact?: string;
-                rangeOverflow?: string;
-                rangeUnderflow?: string;
-            };
+                exact?: string | undefined;
+                rangeOverflow?: string | undefined;
+                rangeUnderflow?: string | undefined;
+            } | undefined;
             messageSummary?: {
-                rangeOverflow?: string;
-                rangeUnderflow?: string;
-            };
-        };
+                rangeOverflow?: string | undefined;
+                rangeUnderflow?: string | undefined;
+            } | undefined;
+        } | undefined;
         required?: {
-            hint?: string;
-            messageDetail?: string;
-            messageSummary?: string;
-        };
-        tooltipDecrement?: string;
-        tooltipIncrement?: string;
+            hint?: string | undefined;
+            messageDetail?: string | undefined;
+            messageSummary?: string | undefined;
+        } | undefined;
+        tooltipDecrement?: string | undefined;
+        tooltipIncrement?: string | undefined;
     };
 }
 export interface ojInputNumberSettablePropertiesLenient extends Partial<ojInputNumberSettableProperties> {

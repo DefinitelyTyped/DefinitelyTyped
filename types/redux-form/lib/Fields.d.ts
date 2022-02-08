@@ -8,13 +8,13 @@ export type FieldsWarnerOrValidator =
 
 interface BaseFieldsProps<P = {}> {
     names: string[];
-    component?: ComponentType<any>;
-    format?: Formatter | null;
-    props?: P;
-    parse?: Parser;
-    forwardRef?: boolean;
-    validate?: FieldsWarnerOrValidator;
-    warn?: FieldsWarnerOrValidator;
+    component?: ComponentType<any> | undefined;
+    format?: Formatter | null | undefined;
+    props?: P | undefined;
+    parse?: Parser | undefined;
+    forwardRef?: boolean | undefined;
+    validate?: FieldsWarnerOrValidator | undefined;
+    warn?: FieldsWarnerOrValidator | undefined;
 }
 
 export interface GenericFields<P> extends Component<BaseFieldsProps<P> & P> {

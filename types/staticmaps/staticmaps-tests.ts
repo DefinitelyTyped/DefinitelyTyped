@@ -1,4 +1,4 @@
-import StaticMaps from 'staticmaps';
+import StaticMaps = require('staticmaps');
 
 // Initialization
 const map = new StaticMaps({
@@ -87,6 +87,8 @@ map.addText({
     fill: '#000000',
     color: '#ffffff',
     font: 'Calibri',
+    offsetX: 50,
+    offsetY: 100
 });
 
 // render

@@ -34,7 +34,7 @@ declare global {
        * @param options optional additional options
        * @see {@link https://github.com/hapijs/boom#boomifyerror-options}
        */
-      boomify(error: Error, options?: { statusCode?: number, message?: string, override?: boolean }): BoomError<null>;
+      boomify(error: Error, options?: { statusCode?: number | undefined, message?: string | undefined, override?: boolean | undefined }): BoomError<null>;
 
       // 4xx
       /**

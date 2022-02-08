@@ -18,6 +18,7 @@
     },
     "files": [
         "index.d.ts",
-        "encoding-japanese-tests.ts"
+        "test/encoding-japanese-tests.cjs.ts",
+        "test/encoding-japanese-tests.global.ts"
     ]
 }

@@ -10,7 +10,7 @@ declare namespace StyleFix {
 
 interface StyleFix {
     fix: StyleFix.StyleFixer;
-    fixers?: StyleFix.StyleFixer[];
+    fixers?: StyleFix.StyleFixer[] | undefined;
     optIn: boolean;
     camelCase(str: string): string;
     deCamelCase(str: string): string;

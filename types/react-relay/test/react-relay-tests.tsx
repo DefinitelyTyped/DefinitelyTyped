@@ -22,7 +22,6 @@ import {
     QueryRenderer,
     LocalQueryRenderer,
     ReactRelayContext,
-    readInlineData,
     RelayPaginationProp,
     RelayProp,
     RelayRefetchProp,
@@ -48,9 +47,11 @@ const modernEnvironment = new Environment({ network, store });
 type MyQueryVariables = {
     pageID: string;
 };
+
 type MyQueryResponse = {
     name: string;
 };
+
 type MyQuery = {
     variables: MyQueryVariables;
     response: MyQueryResponse;
@@ -162,7 +163,7 @@ type Story_story = {
     readonly id: string;
     readonly text: string;
     readonly isPublished: boolean;
-    readonly ' $refType': 'Story_story';
+    readonly ' $fragmentType': 'Story_story';
 };
 
 const Story = (() => {
@@ -170,7 +171,8 @@ const Story = (() => {
         relay: RelayRefetchProp;
         story: Story_story;
         onLike: StoryLike;
-        ignoreMe?: {};
+        ignoreMe?: {} | undefined;
+        defaultProp: string;
     }
 
     interface State {
@@ -178,6 +180,10 @@ const Story = (() => {
     }
 
     class Story extends React.Component<Props> {
+        static defaultProps = {
+            defaultProp: 'default',
+        };
+
         state = {
             isLoading: false,
         };
@@ -294,15 +300,15 @@ type FeedStories_feed = {
     readonly edges: ReadonlyArray<{
         readonly node: {
             readonly id: string;
-            readonly ' $fragmentRefs': FragmentRefs<'Story_story' | 'FeedStories_feed'>;
+            readonly ' $fragmentSpreads': FragmentRefs<'Story_story' | 'FeedStories_feed'>;
         };
-        readonly ' $fragmentRefs': FragmentRefs<'FeedStory_edges'>;
+        readonly ' $fragmentSpreads': FragmentRefs<'FeedStory_edges'>;
     }>;
-    readonly ' $refType': 'FeedStories_feed';
+    readonly ' $fragmentType': 'FeedStories_feed';
 };
 type FeedStory_edges = ReadonlyArray<{
     readonly publishedAt: string;
-    readonly ' $refType': 'FeedStory_edges';
+    readonly ' $fragmentType': 'FeedStory_edges';
 }>;
 
 const Feed = (() => {
@@ -310,7 +316,7 @@ const Feed = (() => {
         relay: RelayProp;
         feed: FeedStories_feed;
         onStoryLike: StoryLike;
-        ignoreMe?: {};
+        ignoreMe?: {} | undefined;
     }
 
     const FeedStoryEdges: React.FC<{ edges: FeedStory_edges; relay: RelayProp }> = ({ edges }) => (
@@ -410,22 +416,27 @@ const Feed = (() => {
 type UserFeed_user = {
     readonly feed: {
         readonly pageInfo: {
-            readonly endCursor?: string | null;
+            readonly endCursor?: string | null | undefined;
             readonly hasNextPage: boolean;
         };
-        readonly ' $fragmentRefs': FragmentRefs<'FeedStories_feed'>;
+        readonly ' $fragmentSpreads': FragmentRefs<'FeedStories_feed'>;
     };
-    readonly ' $refType': 'UserFeed_user';
+    readonly ' $fragmentType': 'UserFeed_user';
 };
 () => {
     interface Props {
         relay: RelayPaginationProp;
         loadMoreTitle: string;
         user: UserFeed_user;
-        ignoreMe?: {};
+        ignoreMe?: {} | undefined;
+        defaultProp: string;
     }
 
     class UserFeed extends React.Component<Props> {
+        static defaultProps = {
+            defaultProp: 'default',
+        };
+
         render() {
             const onStoryLike = (id: string) => console.log(`Liked story #${id}`);
             return (
@@ -553,7 +564,7 @@ type UserFeed_user = {
 // Modern Mutations
 // ~~~~~~~~~~~~~~~~~~~~~
 export const mutation = graphql`
-    mutation MarkReadNotificationMutation($input: MarkReadNotificationData!) {
+    mutation MarkReadNotificationMutation($input: MarkReadNotificationData!) @raw_response_type {
         markReadNotification(data: $input) {
             notification {
                 seenState
@@ -565,6 +576,7 @@ export const mutation = graphql`
 export const optimisticResponse = {
     markReadNotification: {
         notification: {
+            id: '1',
             seenState: 'SEEN' as 'SEEN',
         },
     },
@@ -615,9 +627,18 @@ function markNotificationAsRead(source: string, storyID: string) {
             };
         };
     };
+    type MyMutationRawResponse = {
+        readonly markReadNotification: {
+            readonly notification: {
+                readonly id: string;
+                readonly seenState: 'SEEN' | 'UNSEEN';
+            };
+        };
+    };
     type MyMutation = {
         readonly variables: MyMutationVariables;
         readonly response: MyMutationResponse;
+        readonly rawResponse: MyMutationRawResponse;
     };
 
     commitMutation<MyMutation>(modernEnvironment, {
@@ -646,25 +667,6 @@ function markNotificationAsRead(source: string, storyID: string) {
         },
     });
 }
-
-// ~~~~~~~~~~~~~~~~~~~~~
-// readInlineData
-// ~~~~~~~~~~~~~~~~~~~~~
-
-const storyFragment = graphql`
-    fragment Story_story on Todo {
-        id
-        text
-        isPublished
-    }
-`;
-
-function functionWithInline(storyRef: FragmentRef<Story_story>): Story_story {
-    return readInlineData<Story_story>(storyFragment, storyRef);
-}
-
-const inlineData: _FragmentRefs<'Story_story'> = {} as any;
-functionWithInline(inlineData).isPublished;
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // Modern Subscriptions
@@ -715,7 +717,7 @@ requestSubscription(
 ReactRelayContext.Consumer.prototype;
 ReactRelayContext.Provider.prototype;
 
-const MyRelayContextProvider: React.FunctionComponent = children => {
+const MyRelayContextProvider: React.FunctionComponent = ({children}) => {
     return (
         <ReactRelayContext.Provider
             value={{

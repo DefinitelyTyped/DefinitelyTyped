@@ -4,7 +4,6 @@
 //                 Curtis Layne <https://github.com/clayne11>
 //                 Rasmus Eneman <https://github.com/Pajn>
 //                 Lucas Terra <https://github.com/lucasterra>
-//                 Brian Adams <https://github.com/brian-lives-outdoors>
 //                 Mathieu Masy <https://github.com/TiuSh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
@@ -14,7 +13,7 @@
 declare module 'recompose' {
 
     import * as React from 'react';
-    import { ComponentType as Component, ComponentClass, StatelessComponent, ValidationMap } from 'react';
+    import { ComponentType as Component, ComponentClass, FunctionComponent, ValidationMap } from 'react';
 
     type mapper<TInner, TOutter> = (input: TInner) => TOutter;
     type predicate<T> = mapper<T, boolean>;
@@ -250,17 +249,17 @@ declare module 'recompose' {
 
     // lifecycle: https://github.com/acdlite/recompose/blob/master/docs/API.md#lifecycle
     interface ReactLifeCycleFunctions<TProps, TState, TInstance = {}> {
-        componentWillMount?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>) => void;
+        componentWillMount?: ((this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>) => void) | undefined;
         UNSAFE_componentWillMount?(this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>): void;
-        componentDidMount?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>) => void;
-        componentWillReceiveProps?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>, nextProps: TProps) => void;
+        componentDidMount?: ((this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>) => void) | undefined;
+        componentWillReceiveProps?: ((this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>, nextProps: TProps) => void) | undefined;
         UNSAFE_componentWillReceiveProps?(this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>, nextProps: TProps): void;
-        shouldComponentUpdate?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>, nextProps: TProps, nextState: TState) => boolean;
-        componentWillUpdate?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>, nextProps: TProps, nextState: TState) => void;
+        shouldComponentUpdate?: ((this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>, nextProps: TProps, nextState: TState) => boolean) | undefined;
+        componentWillUpdate?: ((this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>, nextProps: TProps, nextState: TState) => void) | undefined;
         UNSAFE_componentWillUpdate?(this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>, nextProps: TProps, nextState: TState): void;
-        componentDidUpdate?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>, prevProps: TProps, prevState: TState) => void;
-        componentWillUnmount?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>) => void;
-        componentDidCatch?:(this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>, error: Error, info: React.ErrorInfo) => void;
+        componentDidUpdate?: ((this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>, prevProps: TProps, prevState: TState) => void) | undefined;
+        componentWillUnmount?: ((this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>) => void) | undefined;
+        componentDidCatch?:((this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>, error: Error, info: React.ErrorInfo) => void) | undefined;
     }
 
     export function lifecycle<TProps, TState, TInstance = {}>(
@@ -273,7 +272,7 @@ declare module 'recompose' {
     // toRenderProps: https://github.com/acdlite/recompose/blob/master/docs/API.md#torenderprops
     export function toRenderProps<TInner, TOutter>(
         hoc: InferableComponentEnhancerWithProps<TInner & TOutter, TOutter>
-    ): StatelessComponent<TOutter & { children: (props: TInner) => React.ReactElement }>;
+    ): FunctionComponent<TOutter & { children: (props: TInner) => React.ReactElement }>;
 
     // fromRenderProps: https://github.com/acdlite/recompose/blob/master/docs/API.md#fromrenderprops
     export function fromRenderProps<TInner, TOutter, TRenderProps = {}>(
@@ -355,7 +354,7 @@ declare module 'recompose' {
     // componentFromProp: https://github.com/acdlite/recompose/blob/master/docs/API.md#componentFromProp
     export function componentFromProp(
         propName: string
-    ): StatelessComponent<any>;
+    ): FunctionComponent<any>;
 
     // nest: https://github.com/acdlite/recompose/blob/master/docs/API.md#nest
     export function nest(
@@ -405,8 +404,8 @@ declare module 'recompose' {
 
     // setObservableConfig: https://github.com/acdlite/recompose/blob/master/docs/API.md#setObservableConfig
     type ObservableConfig = {
-        fromESObservable?: <T>(observable: Subscribable<T>) => any;
-        toESObservable?: <T>(stream: any) => Subscribable<T>;
+        fromESObservable?: (<T>(observable: Subscribable<T>) => any) | undefined;
+        toESObservable?: (<T>(stream: any) => Subscribable<T>) | undefined;
     };
     export function setObservableConfig(config: ObservableConfig): void;
 }

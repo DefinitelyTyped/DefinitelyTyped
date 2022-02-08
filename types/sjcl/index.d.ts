@@ -362,8 +362,8 @@ declare namespace sjcl {
     // ________________________________________________________________________
 
     interface PBKDF2Params {
-        iter?: number;
-        salt?: BitArray;
+        iter?: number | undefined;
+        salt?: BitArray | undefined;
     }
 
     interface SjclMisc {
@@ -612,13 +612,13 @@ declare namespace sjcl {
     // ________________________________________________________________________
 
     interface SjclCipherParams {
-        v?: number;
-        iter?: number;
-        ks?: number;
-        ts?: number;
-        mode?: string;
-        adata?: string;
-        cipher?: string;
+        v?: number | undefined;
+        iter?: number | undefined;
+        ks?: number | undefined;
+        ts?: number | undefined;
+        mode?: string | undefined;
+        adata?: string | undefined;
+        cipher?: string | undefined;
     }
 
     interface SjclCipherEncryptParams extends SjclCipherParams {
@@ -627,12 +627,12 @@ declare namespace sjcl {
     }
 
     interface SjclCipherDecryptParams extends SjclCipherParams {
-        salt?: BitArray;
-        iv?: BitArray;
+        salt?: BitArray | undefined;
+        iv?: BitArray | undefined;
     }
 
     interface SjclCipherEncrypted extends SjclCipherEncryptParams {
-        kemtag?: BitArray;
+        kemtag?: BitArray | undefined;
         ct: BitArray;
     }
 

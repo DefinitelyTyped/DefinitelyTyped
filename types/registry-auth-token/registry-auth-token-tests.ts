@@ -1,15 +1,36 @@
-import * as authToken from 'registry-auth-token';
+import getAuthToken = require('registry-auth-token');
+import getRegistryUrl = require('registry-auth-token/registry-url');
 
-// $ExpectType NpmCredentials
-authToken('url');
-// $ExpectType NpmCredentials
-authToken({ recursive: true });
-// $ExpectType NpmCredentials
-authToken({ npmrc: { url: 'value' } });
-// $ExpectType NpmCredentials
-authToken({ npmrc: { registry: 'url' } });
-// $ExpectType NpmCredentials
-authToken('url', { npmrc: { url: 'value' } });
+// $ExpectType NpmCredentials | undefined
+getAuthToken('url');
+// $ExpectType NpmCredentials | undefined
+getAuthToken({ recursive: true });
+// $ExpectType NpmCredentials | undefined
+getAuthToken({ npmrc: { url: 'value' } });
+// $ExpectType NpmCredentials | undefined
+getAuthToken({ npmrc: { registry: 'url' } });
+// $ExpectType NpmCredentials | undefined
+getAuthToken('url', { npmrc: { url: 'value' } });
+
+const token = getAuthToken('url', {});
+
+if (token) {
+    token; // $ExpectType NpmCredentials
+    token.password; // $ExpectType string | undefined
+    token.token; // $ExpectType string
+    token.type; // $ExpectType "Basic" | "Bearer"
+    token.username; // $ExpectType string | undefined
+} else {
+    token; // $ExpectType undefined
+}
 
 // $ExpectError
-authToken();
+getAuthToken();
+
+getRegistryUrl('@foobar');
+getRegistryUrl('http://registry.foobar.eu/', {
+    npmrc: {
+        registry: 'http://registry.foobar.eu/',
+        '//registry.foobar.eu/:_authToken': 'qar',
+    },
+});

@@ -97,3 +97,140 @@ client.users.me()
     console.log(list);
   });
 
+// Client should be a constructor and accept a dispatcher (e.g. for rate limiting)
+// see: https://github.com/Asana/node-asana/blob/e8400cb386710bf9d310b9a538e291ce908f1291/test/client_spec.js#L33-L37
+
+let dispatcher = new asana.Dispatcher({retryOnRateLimit: true});
+client = new asana.Client(dispatcher);
+
+// GIDs should handle both strings and numbers
+// https://github.com/Asana/node-asana/blob/master/test/resources/attachments_spec.js
+client.attachments.findById('foobar', {opt_fields: 'id,name'}).then();
+client.attachments.findByTask('foobar', {opt_fields: 'id,name'}).then();
+// https://github.com/Asana/node-asana/blob/master/test/resources/projects_spec.js
+client.projects.createInWorkspace('foobar', { name: 'test' }).then();
+client.projects.findById('foobar', {opt_fields: 'id,name'}).then();
+client.projects.findByWorkspace('foobar', {opt_fields: 'id,name'}).then();
+client.projects.update('foobar', { name: 'test' }).then();
+// minimal task update
+client.tasks.update('my_gid', {}).then((task) => console.log(task.name));
+// christmas tree update
+// https://developers.asana.com/docs/update-a-task
+client.tasks.update('task_gid', {
+    approval_status: 'approved',
+    assignee: 'their_gid',
+    assignee_section: 'section_or_my_tasks_column_gid',
+    completed: true,
+    custom_fields: { custom_field_gid_1: 123, custom_field_gid_2: 456 },
+    due_at: 'some_date_and_time',
+    due_on: 'some_date',
+    html_notes: '<b>some html</b>',
+    liked: true,
+    name: 'some task name',
+    notes: 'some description',
+    parent: 'some parent task gid',
+    start_on: 'some_date',
+    workspace: 'some_workspace_gid',
+}).then((task) => console.log(task.name));
+client.projects.delete('foobar').then();
+// https://github.com/Asana/node-asana/blob/master/test/resources/stories_spec.js
+client.stories.findById('foobar', {opt_fields: 'id,name'}).then();
+client.stories.findByTask('foobar', {opt_fields: 'id,name'}).then();
+client.stories.createOnTask('foobar', { name: 'test' }).then();
+// https://github.com/Asana/node-asana/blob/master/test/resources/tasks_spec.js
+client.tasks.createInWorkspace('foobar', { name: 'Test' }).then();
+client.tasks.findById('foobar', {opt_fields: 'id,name'}).then();
+client.tasks.findByProject('foobar', {opt_fields: 'id,name'}).then();
+client.tasks.findByTag('foobar', {opt_fields: 'id,name'}).then();
+client.tasks.update('foobar', { name: 'Test' }).then();
+client.tasks.delete('foobar').then();
+client.tasks.addFollowers('foobar', {followers: [1]}).then();
+client.tasks.removeFollowers('foobar', {followers: [1]}).then();
+client.tasks.projects('foobar').then();
+client.tasks.addProject('foobar', {project: 1}).then();
+client.tasks.removeProject('foobar', {project: 1}).then();
+client.tasks.tags('foobar').then();
+client.tasks.addTag('foobar', {tag: 1}).then();
+client.tasks.removeTag('foobar', {tag: 1}).then();
+client.tasks.subtasks('foobar').then();
+client.tasks.addSubtask('foobar', {name: 'foo'}).then();
+// client.tasks.setParent('foobar', {parent: 'fizzbuzz'}).then(); TODO: add declaration for this
+// https://github.com/Asana/node-asana/blob/master/test/resources/teams_spec.js
+client.teams.findById('foobar', {opt_fields: 'id,name'}).then();
+client.teams.findByOrganization('foobar', {opt_fields: 'id,name'}).then();
+client.teams.users('foobar', {opt_fields: 'id,name'}).then();
+client.teams.addUser('foobar', {user: 'foo'}).then();
+client.teams.removeUser('foobar', {user: 'foo'}).then();
+// https://github.com/Asana/node-asana/blob/master/test/resources/users_spec.js
+client.users.findById('foobar', {opt_fields: 'id,name'}).then();
+client.users.findByWorkspace('foobar', {opt_fields: 'id,name'}).then();
+// https://github.com/Asana/node-asana/blob/master/test/resources/workspaces_spec.js
+client.workspaces.update('foobar', { name: 'Test' }).then();
+client.workspaces.typeahead('baz', {type: 'task', query: 'foobar'}).then();
+
+// Workspaces have a boolean property "is_organization"
+// https://developers.asana.com/docs/workspace
+let workspaceShort: asana.resources.Workspaces.ShortType;
+workspaceShort.is_organization = true;
+let workspace: asana.resources.Workspaces.Type;
+workspace.is_organization = true;
+
+// Tasks.FindAllParams should accept a project gid and/or a section gid, and the workspace gid should be optional
+// https://developers.asana.com/docs/get-multiple-tasks
+client.tasks.findAll({workspace: 'foobar'}).then();
+client.tasks.findAll({project: 'foobar'}).then();
+client.tasks.findAll({section: 'foobar'}).then();
+
+// Projects.FindAllParams should accept a workspace gid
+// https://developers.asana.com/docs/get-multiple-projects
+client.projects.findAll({workspace: 'foobar'}).then();
+
+// minimal task update
+client.tasks.updateTask('my_gid', {}).then((task) => console.log(task.name));
+
+// christmas tree update
+// https://developers.asana.com/docs/update-a-task
+client.tasks.updateTask('task_gid', {
+  approval_status: 'approved',
+  assignee: 'their_gid',
+  assignee_section: 'section_or_my_tasks_column_gid',
+  completed: true,
+  custom_fields: { custom_field_gid_1: 123, custom_field_gid_2: 456 },
+  due_at: 'some_date_and_time',
+  due_on: 'some_date',
+  html_notes: '<b>some html</b>',
+  liked: true,
+  name: 'some task name',
+  notes: 'some description',
+  parent: 'some parent task gid',
+  start_on: 'some_date',
+  workspace: 'some_workspace_gid',
+}).then((task) => console.log(task.name));
+
+client.tasks.getTask('task_gid');
+
+client.workspaces.getWorkspaces();
+
+client.customFields
+  .getCustomFieldsForWorkspace('workspace_gid')
+  .then((customFields: asana.resources.ResourceList<asana.resources.CustomFields.Type>) => {
+    const stream = customFields.stream();
+    stream.on('data', data => {
+      console.log(data);
+    });
+    stream.on('end', () => { });
+    stream.on('finish', () => { });
+    stream.on('error', () => { });
+  });
+
+// no type in params
+// $ExpectError
+client.typeahead.typeaheadForWorkspace('workspace_gid', {});
+
+const typeaheadForWorkspaceQuery: asana.resources.Typeahead.TypeaheadParams = {
+    resource_type: 'task',
+    query: 'my query',
+    opt_pretty: true,
+    opt_fields: ['name', 'completed', 'parent', 'custom_fields.gid', 'custom_fields.number_value'],
+};
+client.typeahead.typeaheadForWorkspace('workspace_gid', typeaheadForWorkspaceQuery);

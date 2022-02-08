@@ -9,20 +9,20 @@
 export interface CryptexConfig {
     keySource: string;
     keySourceOpts?: {
-        dataKey?: string;
-        region?: string;
-    };
-    algorithm?: string;
-    secretEncoding?: string;
+        dataKey?: string | undefined;
+        region?: string | undefined;
+    } | undefined;
+    algorithm?: string | undefined;
+    secretEncoding?: string | undefined;
     secrets: object;
 }
 // constructor and update params
 export interface CryptexOpts {
-    file?: string;
-    env?: string;
-    cacheKey?: boolean;
-    cacheKeyTimeout?: number;
-    config?: CryptexConfig;
+    file?: string | undefined;
+    env?: string | undefined;
+    cacheKey?: boolean | undefined;
+    cacheKeyTimeout?: number | undefined;
+    config?: CryptexConfig | undefined;
 }
 // cryptex exports a module-level instance by default
 export function decrypt(data: string, encoding?: string): Promise<string>;

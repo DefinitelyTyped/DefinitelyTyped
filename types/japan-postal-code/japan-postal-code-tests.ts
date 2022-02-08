@@ -1,8 +1,15 @@
-import JapanPostalCode from "japan-postal-code";
+import postal_code = require('japan-postal-code');
+import { AddressData, get } from 'japan-postal-code';
 
-JapanPostalCode.get('1000001', (addressData: JapanPostalCode.AddressData) => {
-  console.log(addressData.prefecture);
-  console.log(addressData.city);
-  console.log(addressData.area);
-  console.log(addressData.street);
+postal_code.get('1000001', (address: AddressData) => {
+    address.prefecture; // $ExpectType string
+    address.city; // $ExpectType string
+    address.area; // $ExpectType string
+    address.street; // $ExpectType string
+});
+get('1000001', (address: AddressData) => {
+    address.prefecture; // $ExpectType string
+    address.city; // $ExpectType string
+    address.area; // $ExpectType string
+    address.street; // $ExpectType string
 });

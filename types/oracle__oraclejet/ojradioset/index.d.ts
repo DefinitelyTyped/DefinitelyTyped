@@ -4,17 +4,17 @@ import { JetElement, JetSettableProperties, JetElementCustomEvent, JetSetPropert
 export interface ojRadioset<K, D> extends editableValue<any, ojRadiosetSettableProperties<K, D>> {
     disabled: boolean;
     labelledBy: string | null;
-    optionRenderer?: ((param0: ojRadioset.OptionContext<D>) => Element) | null;
+    optionRenderer?: ((param0: ojRadioset.OptionContext<D>) => Element) | null | undefined;
     options: DataProvider<K, D> | null;
-    optionsKeys?: ojRadioset.OptionsKeys;
+    optionsKeys?: ojRadioset.OptionsKeys | undefined;
     required: boolean;
     value: any;
     translations: {
         required?: {
-            hint?: string;
-            messageDetail?: string;
-            messageSummary?: string;
-        };
+            hint?: string | undefined;
+            messageDetail?: string | undefined;
+            messageSummary?: string | undefined;
+        } | undefined;
     };
     onDisabledChanged: ((event: JetElementCustomEvent<ojRadioset<K, D>["disabled"]>) => any) | null;
     onLabelledByChanged: ((event: JetElementCustomEvent<ojRadioset<K, D>["labelledBy"]>) => any) | null;
@@ -51,8 +51,8 @@ export namespace ojRadioset {
     }
     // tslint:disable-next-line interface-over-type-literal
     type Option = {
-        disabled?: boolean;
-        label?: string;
+        disabled?: boolean | undefined;
+        label?: string | undefined;
         value: any;
     };
     // tslint:disable-next-line interface-over-type-literal
@@ -63,8 +63,8 @@ export namespace ojRadioset {
     };
     // tslint:disable-next-line interface-over-type-literal
     type OptionsKeys = {
-        label?: string;
-        value?: string;
+        label?: string | undefined;
+        value?: string | undefined;
     };
 }
 export interface ojRadiosetEventMap<K, D> extends editableValueEventMap<any, ojRadiosetSettableProperties<K, D>> {
@@ -81,17 +81,17 @@ export interface ojRadiosetEventMap<K, D> extends editableValueEventMap<any, ojR
 export interface ojRadiosetSettableProperties<K, D> extends editableValueSettableProperties<any> {
     disabled: boolean;
     labelledBy: string | null;
-    optionRenderer?: ((param0: ojRadioset.OptionContext<D>) => Element) | null;
+    optionRenderer?: ((param0: ojRadioset.OptionContext<D>) => Element) | null | undefined;
     options: DataProvider<K, D> | null;
-    optionsKeys?: ojRadioset.OptionsKeys;
+    optionsKeys?: ojRadioset.OptionsKeys | undefined;
     required: boolean;
     value: any;
     translations: {
         required?: {
-            hint?: string;
-            messageDetail?: string;
-            messageSummary?: string;
-        };
+            hint?: string | undefined;
+            messageDetail?: string | undefined;
+            messageSummary?: string | undefined;
+        } | undefined;
     };
 }
 export interface ojRadiosetSettablePropertiesLenient<K, D> extends Partial<ojRadiosetSettableProperties<K, D>> {

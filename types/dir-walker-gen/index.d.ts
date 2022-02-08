@@ -13,27 +13,27 @@ declare function DirGen(
          * Does not show console warning when directories do not exist
          * @default {false}
          */
-        silent?: boolean,
+        silent?: boolean | undefined,
         /**
          * Ignores directories that start with a dot (e.g. .git, .vscode, etc)
          * @default {false}
          */
-        ignoreDotDir?: boolean,
+        ignoreDotDir?: boolean | undefined,
         /**
          * Exclude all folder that ends with any of the given strings
          * @default []
          */
-        excludeFolders?: string[],
+        excludeFolders?: string[] | undefined,
         /**
          * List of extensions to ignore
          * @default []
          */
-        excludeExtensions?: string[],
+        excludeExtensions?: string[] | undefined,
         /**
          * List of extensions to scan (all other extensions are ignored)
          * @default []
          */
-        includeExtensions?: string[]
+        includeExtensions?: string[] | undefined
     },
 ): IterableIterator<string>;
 
