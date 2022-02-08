@@ -6,30 +6,59 @@
 
 export type BigSource = number | string | Big;
 
-export enum Comparison {
+// tslint:disable-next-line:no-const-enum
+export const enum Comparison {
+    /**
+     * @deprecated Const enums cannot be used by JavaScript consumers or with single-file transpilation, i.e. isolatedModules
+     * {@link https://github.com/microsoft/DefinitelyTyped-tools/blob/master/packages/dtslint/docs/no-const-enum.md}.
+     * Use > 0 instead.
+     */
     GT = 1,
+    /**
+     * @deprecated Const enums cannot be used by JavaScript consumers or with single-file transpilation, i.e. isolatedModules
+     * {@link https://github.com/microsoft/DefinitelyTyped-tools/blob/master/packages/dtslint/docs/no-const-enum.md}.
+     * Use 0 instead.
+     */
     EQ = 0,
+    /**
+     * @deprecated Const enums cannot be used by JavaScript consumers or with single-file transpilation, i.e. isolatedModules
+     * {@link https://github.com/microsoft/DefinitelyTyped-tools/blob/master/packages/dtslint/docs/no-const-enum.md}.
+     * Use < 0 instead.
+     */
     LT = -1,
 }
 
-export enum RoundingMode {
+// tslint:disable-next-line:no-const-enum
+export const enum RoundingMode {
     /**
      * Rounds towards zero.
      * I.e. truncate, no rounding.
+     * @deprecated Const enums cannot be used by JavaScript consumers or with single-file transpilation, i.e. isolatedModules
+     * {@link https://github.com/microsoft/DefinitelyTyped-tools/blob/master/packages/dtslint/docs/no-const-enum.md}.
+     * Use 0 instead.
      */
     RoundDown = 0,
     /**
      * Rounds towards nearest neighbour.
      * If equidistant, rounds away from zero.
+     * @deprecated Const enums cannot be used by JavaScript consumers or with single-file transpilation, i.e. isolatedModules
+     * {@link https://github.com/microsoft/DefinitelyTyped-tools/blob/master/packages/dtslint/docs/no-const-enum.md}.
+     * Use 1 instead.
      */
     RoundHalfUp = 1,
     /**
      * Rounds towards nearest neighbour.
      * If equidistant, rounds towards even neighbour.
+     * @deprecated Const enums cannot be used by JavaScript consumers or with single-file transpilation, i.e. isolatedModules
+     * {@link https://github.com/microsoft/DefinitelyTyped-tools/blob/master/packages/dtslint/docs/no-const-enum.md}.
+     * Use 2 instead.
      */
     RoundHalfEven = 2,
     /**
      * Rounds away from zero.
+     * @deprecated Const enums cannot be used by JavaScript consumers or with single-file transpilation, i.e. isolatedModules
+     * {@link https://github.com/microsoft/DefinitelyTyped-tools/blob/master/packages/dtslint/docs/no-const-enum.md}.
+     * Use 3 instead.
      */
     RoundUp = 3,
 }
@@ -104,21 +133,21 @@ export interface BigConstructor {
      * Rounds towards zero.
      * I.e. truncate, no rounding.
      */
-    readonly roundDown: RoundingMode.RoundDown;
+    readonly roundDown: 0;
     /**
      * Rounds towards nearest neighbour.
      * If equidistant, rounds away from zero.
      */
-    readonly roundHalfUp: RoundingMode.RoundHalfUp;
+    readonly roundHalfUp: 1;
     /**
      * Rounds towards nearest neighbour.
      * If equidistant, rounds towards even neighbour.
      */
-    readonly roundHalfEven: RoundingMode.RoundHalfEven;
+    readonly roundHalfEven: 2;
     /**
      * Rounds away from zero.
      */
-    readonly roundUp: RoundingMode.RoundUp;
+    readonly roundUp: 3;
 }
 
 export interface Big {
