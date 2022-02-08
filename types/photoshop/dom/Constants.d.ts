@@ -258,6 +258,39 @@ export declare const enum BlendMode {
     PASSTHROUGH = "passThrough"
 }
 /**
+ * The way color should be blended in a fill or stroke operation.
+ * Pass to [[PathItem.fillPath]]()
+ */
+export declare const enum ColorBlendMode {
+    BEHIND = "behind",
+    CLEAR = "clearEnum",
+    COLOR = "color",
+    COLORBURN = "colorBurn",
+    COLORDODGE = "colorDodge",
+    DARKEN = "darken",
+    DARKERCOLOR = "darkerColor",
+    DIFFERENCE = "difference",
+    DISSOLVE = "dissolve",
+    EXCLUSION = "exclusion",
+    HARDLIGHT = "hardLight",
+    HARDMIXBLEND = "hardMix",
+    HUE = "hue",
+    LIGHTEN = "lighten",
+    LIGHTERCOLOR = "lighterColor",
+    LINEARBURN = "linearBurn",
+    LINEARDODGE = "linearDodge",
+    LINEARLIGHT = "linearLight",
+    LUMINOSITY = "luminosity",
+    MULTIPLY = "multiply",
+    NORMAL = "normal",
+    OVERLAY = "overlay",
+    PINLIGHT = "pinLight",
+    SATURATION = "saturation",
+    SCREEN = "screen",
+    SOFTLIGHT = "softLight",
+    VIVIDLIGHT = "vividLight"
+}
+/**
  * Color mode of an open document. See also [[Document.mode]] and [[Document.changeMode]]
  */
 export declare const enum DocumentMode {
@@ -469,4 +502,67 @@ export declare const enum ChannelType {
     SELECTEDAREA = "selectedAreas",
     /** Alpha channel to store a spot color */
     SPOTCOLOR = "spot"
+}
+/**
+ * The type of a [[PathItem]]
+ */
+export declare const enum PathKind {
+    CLIPPINGPATH = "clippingPathEPS",
+    NORMALPATH = "normalPath",
+    TEXTMASK = "textShape",
+    VECTORMASK = "vectorMask",
+    WORKPATH = "workPathIndex"
+}
+/**
+ * The selection behavior when a selection already exists.
+ * Used in [[PathItem.makeSelection]]()
+ */
+export declare const enum SelectionType {
+    /** Remove the selection from the already selected area */
+    DIMINISH = "subtractFrom",
+    /** Add the selection to an already selected area */
+    EXTEND = "addTo",
+    /** Make the selection only the area where the new selection intersectes the already selected area */
+    INTERSECT = "intersectWith",
+    /** Replace the selected area */
+    REPLACE = "set"
+}
+/**
+ * The tool to use with [[PathItem.strokePath]]()
+ */
+export declare const enum ToolType {
+    ARTHISTORYBRUSH = "artBrushTool",
+    BACKGROUNDERASER = "backgroundEraserTool",
+    BLUR = "blurTool",
+    BRUSH = "paintbrushTool",
+    BURN = "burnInTool",
+    CLONESTAMP = "cloneStampTool",
+    COLORREPLACEMENTTOOL = "colorReplacementBrushTool",
+    DODGE = "dodgeTool",
+    ERASER = "eraserTool",
+    HEALINGBRUSH = "magicStampTool",
+    HISTORYBRUSH = "historyBrushTool",
+    PATTERNSTAMP = "patternStampTool",
+    PENCIL = "pencilTool",
+    SHARPEN = "sharpenTool",
+    SMUDGE = "smudgeTool",
+    SPONGE = "saturationTool"
+}
+/**
+ * The role a [[PathPoint]] plays in a [[PathItem]]
+ */
+export declare const enum PointKind {
+    CORNERPOINT = "cornerPoint",
+    SMOOTHPOINT = "smoothPoint"
+}
+/**
+ * How to combine the shapes if the destination path already has a selection.
+ *
+ * Set for [[SubPathInfo.operation]], stored in the resulting [[SubPathItem]]
+ */
+export declare const enum ShapeOperation {
+    SHAPEADD = "add",
+    SHAPEINTERSECT = "intersect",
+    SHAPESUBTRACT = "subtract",
+    SHAPEXOR = "xor"
 }

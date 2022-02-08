@@ -7,6 +7,8 @@ import { Documents } from "./collections/Documents";
 import { TextFonts } from "./collections/TextFonts";
 import { Tool } from "./objects/Tool";
 import { DocumentCreateOptions } from "./objects/CreateOptions";
+import { PathPointInfo } from "./objects/PathPointInfo";
+import { SubPathInfo } from "./objects/SubPathInfo";
 /**
  * The top level application object, root of the Photoshop DOM
  *
@@ -47,6 +49,14 @@ export declare class Photoshop {
      * Allows for polyfills into the Application object
      */
     Photoshop: typeof Photoshop;
+    /**
+     * @ignore
+     */
+    PathPointInfo: typeof PathPointInfo;
+    /**
+     * @ignore
+     */
+    SubPathInfo: typeof SubPathInfo;
     /**
      * The class name of the referenced Photoshop object
      */

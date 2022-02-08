@@ -1,4 +1,4 @@
-import { ColorDescriptor } from "../util/colorTypes";
+import { ColorDescriptor, ColorConversionModel } from "../util/colorTypes";
 /** @ignore */
 declare type NotificationListener = (name: string, descriptor: ActionDescriptor) => void;
 export interface ActionDescriptor {
@@ -11,22 +11,17 @@ interface Scheduling {
     timeOut?: number;
 }
 export interface BatchPlayCommandOptions {
+    commandEnablement?: "normal" | "never" | "always";
+    dialogOptions?: "silent" | "dontDisplay" | "display";
     propagateErrorToDefaultHandler?: boolean;
     historyStateInfo?: {
         name: string;
         target: object;
     };
+    synchronousExecution?: boolean;
     modalBehavior?: "wait" | "execute" | "fail";
-}
-/**
- * These internal numbers are used by Photoshop as target color spaces during [[photoshopCore.convertColor]] calls.
- */
-export declare const enum ColorConversionModel {
-    "RGB" = 15,
-    "HSB" = 4,
-    "CMYK" = 5,
-    "Lab" = 6,
-    "Gray" = 16
+    useMultiGet?: boolean;
+    suppressPlayLevelIncrease?: boolean;
 }
 export declare type CPUVendorKind = "Intel" | "AMD" | "ARM" | "Unknown";
 export interface CPUInfo {
@@ -84,6 +79,16 @@ export declare namespace photoshopAction {
      */
     function batchPlay(commands: ActionDescriptor[], options?: BatchPlayCommandOptions): Promise<Array<ActionDescriptor>>;
     /**
+     * Performs a batchPlay call with the provided commands. Equivalent
+     * to an `executeAction` in ExtendScript.
+     * ```javascript
+     * var target = { _ref: 'layer', _enum: 'ordinal', _value: 'targetEnum'}
+     * var commands = [{ _obj: 'hide', _target: target }]
+     * await PhotoshopAction.batchPlay(commands)
+     * ```
+     */
+    function batchPlaySync(commands: ActionDescriptor[], options?: BatchPlayCommandOptions): Array<ActionDescriptor>;
+    /**
      * Attach a listener to a Photoshop event. A callback in the form
      * of `(eventName: string, descriptor: Descriptor) => void` will be performed.
      * ```javascript
@@ -119,6 +124,10 @@ export declare namespace photoshopCore {
      * If 2, you will have access to latest DOM, modal execution and everything else new we're adding.
      */
     let apiVersion: number;
+    /**
+     *  Returns true if the plugin is currently in a modal state using [[executeAsModal]]
+     */
+    function isModal(): boolean;
     /**
      * Given a Photoshop ZString (of format `"$$$/slash/separated/key=english default value"`),
      * will return the translated string for the current UI language
@@ -248,6 +257,49 @@ export declare namespace photoshopCore {
      * based on embedded color profiles.
      */
     function convertColor(sourceColor: ColorDescriptor, targetModel: ColorConversionModel): ColorDescriptor;
+    /**
+     * The execution mode can be used while debugging a plugin. It is only available
+     * when the developer mode is enabled.
+     *
+     * The following example illustrate how to enable stacktraces for batchPlay commands
+     * that fail. When stacktraces are enabled, then an error result descriptor from a
+     * batchPlay request will include a stacktrace property. The property can be used when
+     * reporting bugs to Adobe.
+     * ```javascript
+     * await PhotoshopCore.setExecutionMode({ enableErrorStacktraces: true })
+     * ```
+     * The following illustrates how to enable console warnings when a promise is rejected:
+     * ```javascript
+     * await PhotoshopCore.setExecutionMode({ logRejections: true })
+     * ```
+     */
+    function setExecutionMode(options: {
+        enableErrorStacktraces?: boolean;
+        logRejections?: boolean;
+    }): Promise<void>;
+    /**
+     * Return information about the execution of the plugin.
+     * This method is intended for developing plugins.
+     * Shipping code should not use this method.
+     *
+     * The returned information include the following properties:
+     *
+     * `numberOfPendingMainThreadTasks`: Number of pending promises.
+     *
+     * `batchPlayCount`: Number of `batchPlay` calls since the plugin was loaded.
+     *
+     * `mainThreadTimeOutCount`: Number of JavaScript calls that have timed out.
+     * This is typically caused by executing commands while Photoshop is modal without using
+     * `executeAsModal`.
+     *
+     * `v8HeapSize`: V8 heap allocated for the plugin. This number is only accurate
+     * when loading plugins through the UXP Developer Tool.
+     *
+     * ```javascript
+     * await PhotoshopCore.getPluginInfo()
+     * ```
+     */
+    function getPluginInfo(): Promise<ActionDescriptor>;
 }
 export interface ExecuteAsModalOptions {
     /**

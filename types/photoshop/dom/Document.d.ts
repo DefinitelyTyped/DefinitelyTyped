@@ -2,6 +2,7 @@ import * as Constants from "./Constants";
 import { Layers } from "./collections/Layers";
 import { Guides } from "./collections/Guides";
 import { HistoryStates } from "./collections/HistoryStates";
+import { PathItems } from "./collections/PathItems";
 import { Channels } from "./collections/Channels";
 import { Channel } from "./Channel";
 import { HistoryState } from "./HistoryState";
@@ -109,6 +110,11 @@ export declare class Document {
      * Full file system path to this document, or the identifier if it is a cloud document
      */
     get path(): string;
+    /**
+     * The collection of paths in this document, currently shown in the
+     * Paths panel. [*Added in 23.3*](/ps_reference/changelog/)
+     */
+    get pathItems(): PathItems;
     /**
      * History states of the document
      */
@@ -459,7 +465,7 @@ export declare class Document {
      *    });
      * ```
      */
-    suspendHistory(callback: (e: SuspendHistoryContext) => void, historyStateName: string): Promise<any>;
+    suspendHistory(callback: (e: SuspendHistoryContext) => void, historyStateName: string): Promise<void>;
     /**
      * All channels in the document.
      */

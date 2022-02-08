@@ -36,3 +36,14 @@ export interface GrayscaleColorDescriptor {
     _obj: "grayscale";
     gray: number;
 }
+/**
+ * These internal numbers are used by Photoshop as target color spaces during [[photoshopCore.convertColor]] calls.
+ * @ignore
+ */
+export declare const enum ColorConversionModel {
+    "RGB" = 15,
+    "HSB" = 4,
+    "CMYK" = 5,
+    "Lab" = 6,
+    "Gray" = 16
+}
