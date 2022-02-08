@@ -1042,12 +1042,12 @@ declare module 'flashpoint-launcher' {
     /** Options expected for 'browser' mode application return */
     type BrowserApplicationOpts = {
         url: string;
-        proxy?: string;
+        proxy?: string | undefined;
     };
 
     type ZipExtractOptions = {
-        onData?: (data: ZipData) => void;
-        onProgress?: (progress: ZipProgress) => void;
+        onData?: ((data: ZipData) => void) | undefined;
+        onProgress?: ((progress: ZipProgress) => void) | undefined;
     };
 
     interface ZipData {
@@ -1094,7 +1094,7 @@ declare module 'flashpoint-launcher' {
         /** Whether this is already disposed */
         isDisposed: boolean;
         /** Callback to use when disposed */
-        onDispose?: () => void | undefined;
+        onDispose?: (() => void) | undefined;
     };
 
     /** Dispose of a disposable and all its children */
