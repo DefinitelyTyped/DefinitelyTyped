@@ -532,10 +532,9 @@ declare namespace Inputmask {
          */
         definitions?: {
             [key: string]: Definition;
-        } | undefined;       
+        } | undefined;
         /**
          * Enable/disable prefilling of the year.
-         *
          * Although you can just over type the proposed value without deleting, many seems to see a problem with the year prediction.
          * This options is to disable this feature.
          *
