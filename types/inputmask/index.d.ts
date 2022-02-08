@@ -532,6 +532,10 @@ declare namespace Inputmask {
          */
         outputFormat?: string | undefined;
         /**
+         * Visual format when the input looses focus
+         */
+        displayFormat?: string | undefined;
+        /**
          * Add new definitions to this inputmask.
          */
         definitions?:

@@ -119,6 +119,15 @@ Inputmask('currency', {
     unmaskAsNumber: false,
 }).mask('');
 
+Inputmask('datetime', {
+    displayFormat: '',
+    jitMasking: true,
+    max: 0,
+    min: 0,
+    outputFormat: '',
+    prefillYear: true,
+}).mask('');
+
 Inputmask('9-a{1,3}9{1,3}').mask('selector');
 Inputmask('9', { repeat: 10 }).mask('selector');
 
