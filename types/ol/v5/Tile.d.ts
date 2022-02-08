@@ -5,7 +5,7 @@ import TileState from './TileState';
 
 export type LoadFunction = (p0: Tile, p1: string) => void;
 export interface Options {
-    transition?: number;
+    transition?: number | undefined;
 }
 export type UrlFunction = (p0: TileCoord, p1: number, p2: Projection) => string | undefined;
 export default class Tile extends Target {

@@ -1,24 +1,24 @@
 import Ember from 'ember';
 
 class AuthService extends Ember.Service {
-    isAuthenticated: boolean;
+    declare isAuthenticated: boolean;
 }
 
 class ApplicationController extends Ember.Controller {
     model = {};
-    string: string;
+    declare string: string;
     transitionToLogin() {}
 }
 
 declare module '@ember/service' {
     interface Registry {
-        'auth': AuthService;
+        auth: AuthService;
     }
 }
 
 declare module '@ember/controller' {
     interface Registry {
-        'application': ApplicationController;
+        application: ApplicationController;
     }
 }
 

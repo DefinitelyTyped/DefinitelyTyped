@@ -14,13 +14,13 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@iopipe/*": ["iopipe__*"]
+        }
     },
     "files": [
         "index.d.ts",
         "iopipe__iopipe-tests.ts"
-    ],
-    "paths": {
-        "@iopipe/iopipe": ["iopipe__iopipe"]
-    }
+    ]
 }

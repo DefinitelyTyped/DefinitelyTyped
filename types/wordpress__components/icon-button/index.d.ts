@@ -11,21 +11,21 @@ declare namespace IconButton {
          * Icon to use. Either a Dashicon slug or a custom component.
          */
         icon: Dashicon.Icon | JSX.Element;
-        shortcut?: Shortcut.ShortcutType;
+        shortcut?: Shortcut.ShortcutType | undefined;
         /**
          * Label for the button.
          */
-        label?: string;
+        label?: string | undefined;
         /**
          * Position for the label.
          * @defaultValue "top"
          */
-        labelPosition?: Popover.Position;
+        labelPosition?: Popover.Position | undefined;
         /**
          * Tooltip text to display.
          * @defaultValue Props.label
          */
-        tooltip?: string;
+        tooltip?: string | undefined;
     }
 }
 declare const IconButton: ComponentType<IconButton.Props>;

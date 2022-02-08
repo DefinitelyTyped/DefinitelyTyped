@@ -35,9 +35,9 @@ declare namespace MailcheckModule {
     }
 
     export interface ISplitEmail {
-        topLevelDomain?: string;
-        domain?: string;
-        address?: string;
+        topLevelDomain?: string | undefined;
+        domain?: string | undefined;
+        address?: string | undefined;
     }
 
     export interface ISuggestion {
@@ -48,19 +48,19 @@ declare namespace MailcheckModule {
 
     export interface IAsynchronousOptions {
         email: string;
-        domains?: string[];
-        secondLevelDomains?: string[];
-        topLevelDomains?: string[];
-        distanceFunction?: IDistanceFunction;
+        domains?: string[] | undefined;
+        secondLevelDomains?: string[] | undefined;
+        topLevelDomains?: string[] | undefined;
+        distanceFunction?: IDistanceFunction | undefined;
         suggested: ISuggested | IJQuerySuggested;
-        empty?: IEmpty | IJQueryEmpty;
+        empty?: IEmpty | IJQueryEmpty | undefined;
     }
     export interface ISynchronousOptions {
         email: string;
-        domains?: string[];
-        secondLevelDomains?: string[];
-        topLevelDomains?: string[];
-        distanceFunction?: IDistanceFunction;
+        domains?: string[] | undefined;
+        secondLevelDomains?: string[] | undefined;
+        topLevelDomains?: string[] | undefined;
+        distanceFunction?: IDistanceFunction | undefined;
 
     }
     export interface Static {

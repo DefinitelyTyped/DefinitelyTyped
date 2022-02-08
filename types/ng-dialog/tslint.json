@@ -1,13 +1,11 @@
 {
-    "extends": "dtslint/dt.json",
+    "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "ban-types": false,
-        "callable-types": false,
         "interface-name": false,
         "max-line-length": false,
         "no-any-union": false,
         "no-padding": false,
-        "no-redundant-jsdoc": false,
         "no-redundant-jsdoc-2": false,
         "no-reference-import": false,
         "no-trailing-whitespace": false,
@@ -27,7 +25,6 @@
             }
         ],
         "prefer-const": false,
-        "prefer-method-signature": false,
         "semicolon": false,
         "strict-export-declare-modifiers": false,
         "typedef-whitespace": false,

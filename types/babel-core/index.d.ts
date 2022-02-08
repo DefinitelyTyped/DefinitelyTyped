@@ -22,7 +22,7 @@ export { GeneratorOptions };
 // The list of allowed plugin keys is here:
 // https://github.com/babel/babel/blob/4e50b2d9d9c376cee7a2cbf56553fe5b982ea53c/packages/babel-core/src/config/option-manager.js#L71
 export interface PluginObj<S = {}> {
-    name?: string;
+    name?: string | undefined;
     manipulateOptions?(opts: any, parserOpts: any): void;
     pre?(this: S, state: any): void;
     visitor: Visitor<S>;
@@ -43,28 +43,28 @@ export function transformFromAst(ast: Node, code?: string, opts?: TransformOptio
 
 export interface TransformOptions {
     /** Include the AST in the returned object. Default: `true`. */
-    ast?: boolean;
+    ast?: boolean | undefined;
 
     /** Attach a comment after all non-user injected code. */
-    auxiliaryCommentAfter?: string;
+    auxiliaryCommentAfter?: string | undefined;
 
     /** Attach a comment before all non-user injected code. */
-    auxiliaryCommentBefore?: string;
+    auxiliaryCommentBefore?: string | undefined;
 
     /** Specify whether or not to use `.babelrc` and `.babelignore` files. Default: `true`. */
-    babelrc?: boolean;
+    babelrc?: boolean | undefined;
 
     /** Enable code generation. Default: `true`. */
-    code?: boolean;
+    code?: boolean | undefined;
 
     /** write comments to generated output. Default: `true`. */
-    comments?: boolean;
+    comments?: boolean | undefined;
 
     /**
      * Do not include superfluous whitespace characters and line terminators. When set to `"auto"`, `compact` is set to
      * `true` on input sizes of >100KB.
      */
-    compact?: boolean | "auto";
+    compact?: boolean | "auto" | undefined;
 
     /**
      * This is an object of keys that represent different environments. For example, you may have:
@@ -72,19 +72,19 @@ export interface TransformOptions {
      * which will use those options when the enviroment variable `BABEL_ENV` is set to `"production"`.
      * If `BABEL_ENV` isn't set then `NODE_ENV` will be used, if it's not set then it defaults to `"development"`.
      */
-    env?: object;
+    env?: object | undefined;
 
     /** A path to an .babelrc file to extend. */
-    extends?: string;
+    extends?: string | undefined;
 
     /** Filename to use when reading from stdin - this will be used in source-maps, errors etc. Default: "unknown". */
-    filename?: string;
+    filename?: string | undefined;
 
     /** Filename relative to `sourceRoot`. */
-    filenameRelative?: string;
+    filenameRelative?: string | undefined;
 
     /** An object containing the options to be passed down to the babel code generator, babel-generator. Default: `{}` */
-    generatorOpts?: GeneratorOptions;
+    generatorOpts?: GeneratorOptions | undefined;
 
     /**
      * Specify a custom callback to generate a module id with. Called as `getModuleId(moduleName)`.
@@ -93,46 +93,46 @@ export interface TransformOptions {
     getModuleId?(moduleName: string): string;
 
     /** Enable/disable ANSI syntax highlighting of code frames. Default: `true`. */
-    highlightCode?: boolean;
+    highlightCode?: boolean | undefined;
 
     /** list of glob paths to **not** compile. Opposite to the `only` option. */
-    ignore?: string[];
+    ignore?: string[] | undefined;
 
     /** A source map object that the output source map will be based on. */
-    inputSourceMap?: object;
+    inputSourceMap?: object | undefined;
 
     /** Should the output be minified. Default: `false` */
-    minified?: boolean;
+    minified?: boolean | undefined;
 
     /** Specify a custom name for module ids. */
-    moduleId?: string;
+    moduleId?: string | undefined;
 
     /**
      * If truthy, insert an explicit id for modules. By default, all modules are anonymous.
      * (Not available for `common` modules).
      */
-    moduleIds?: boolean;
+    moduleIds?: boolean | undefined;
 
     /** Optional prefix for the AMD module formatter that will be prepend to the filename on module definitions. */
-    moduleRoot?: string;
+    moduleRoot?: string | undefined;
 
     /**
      * A glob, regex, or mixed array of both, matching paths to only compile. Can also be an array of arrays containing
      * paths to explicitly match. When attempting to compile a non-matching file it's returned verbatim.
      */
-    only?: string | RegExp | Array<string | RegExp>;
+    only?: string | RegExp | Array<string | RegExp> | undefined;
 
     /** Babylon parser options. */
-    parserOpts?: BabylonOptions;
+    parserOpts?: BabylonOptions | undefined;
 
     /** List of plugins to load and use. */
-    plugins?: any[];
+    plugins?: any[] | undefined;
 
     /** List of presets (a set of plugins) to load and use. */
-    presets?: any[];
+    presets?: any[] | undefined;
 
     /** Retain line numbers - will result in really ugly code. Default: `false` */
-    retainLines?: boolean;
+    retainLines?: boolean | undefined;
 
     /** Resolve a module source ie. import "SOURCE"; to a custom value. */
     resolveModuleSource?(source: string, filename: string): string;
@@ -144,23 +144,23 @@ export interface TransformOptions {
     shouldPrintComment?(comment: string): boolean;
 
     /** Set `sources[0]` on returned source map. */
-    sourceFileName?: string;
+    sourceFileName?: string | undefined;
 
     /**
      * If truthy, adds a `map` property to returned output. If set to `"inline"`, a comment with a `sourceMappingURL`
      * directive is added to the bottom of the returned code. If set to `"both"` then a map property is returned as well
      * as a source map comment appended.
      */
-    sourceMaps?: boolean | "inline" | "both";
+    sourceMaps?: boolean | "inline" | "both" | undefined;
 
     /** Set `file` on returned source map. */
-    sourceMapTarget?: string;
+    sourceMapTarget?: string | undefined;
 
     /** The root from which all sources are relative. */
-    sourceRoot?: string;
+    sourceRoot?: string | undefined;
 
     /** Indicate the mode the code should be parsed in. Can be either “script” or “module”. Default: "module" */
-    sourceType?: "script" | "module";
+    sourceType?: "script" | "module" | undefined;
 
     /**
      * An optional callback that can be used to wrap visitor methods.
@@ -188,11 +188,11 @@ export interface BabelFileMetadata {
 }
 
 export interface BabelFileResult {
-    ast?: Node;
-    code?: string;
-    ignored?: boolean;
-    map?: object;
-    metadata?: BabelFileMetadata;
+    ast?: Node | undefined;
+    code?: string | undefined;
+    ignored?: boolean | undefined;
+    map?: object | undefined;
+    metadata?: BabelFileMetadata | undefined;
 }
 
 export as namespace babel;

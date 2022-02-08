@@ -4,9 +4,12 @@ import { ReadOptions, WriteOptions } from './Feature';
 import TextFeature from './TextFeature';
 
 export interface Options {
-    altitudeMode?: IGCZ | string;
+    altitudeMode?: IGCZ | string | undefined;
 }
-export enum IGCZ {
+/**
+ * IGC altitude/z. One of 'barometric', 'gps', 'none'.
+ */
+declare enum IGCZ {
     BAROMETRIC = 'barometric',
     GPS = 'gps',
     NONE = 'none',

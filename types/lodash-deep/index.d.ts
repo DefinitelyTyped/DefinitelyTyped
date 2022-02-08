@@ -1,5 +1,5 @@
 // Type definitions for lodash-deep 2.0
-// Project: https://github.com/DefinitelyTyped/lodash-deep
+// Project: https://github.com/marklagendijk/lodash-deep
 // Definitions by: Stan <https://github.com/uzust01>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5

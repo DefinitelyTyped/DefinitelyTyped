@@ -26,39 +26,39 @@ export interface ReactMicStopEvent {
 
 export interface ReactMicProps {
     /** Set to true to begin recording */
-    record?: boolean;
+    record?: boolean | undefined;
 
     /** Available in React-Mic-Plus upgrade only */
-    pause?: boolean;
+    pause?: boolean | undefined;
 
-    visualSetting?: 'sinewave' | 'frequencyBars';
+    visualSetting?: 'sinewave' | 'frequencyBars' | undefined;
 
-    className?: string;
+    className?: string | undefined;
 
     /** Callback that is executed when audio stops recording */
-    onStop?: (recordedData: ReactMicStopEvent) => void;
+    onStop?: ((recordedData: ReactMicStopEvent) => void) | undefined;
 
     /** Callback that is executed when chunk of audio is available */
-    onData?: (recordedData: Blob) => void;
+    onData?: ((recordedData: Blob) => void) | undefined;
 
     /** defaults -> "audio/webm".  Set to "audio/wav" for WAV or "audio/mp3" for MP3 audio format (available in React-Mic-Gold) */
-    mimeType?: 'audio/webm' | 'audio/wav';
+    mimeType?: 'audio/webm' | 'audio/wav' | undefined;
 
     /** Sound wave color */
-    strokeColor?: string;
+    strokeColor?: string | undefined;
 
     /** Background color */
-    backgroundColor?: string;
+    backgroundColor?: string | undefined;
 
     /** Specify 1 for mono, defaults -> 2 (stereo) */
-    channelCount?: 1 | 2;
+    channelCount?: 1 | 2 | undefined;
 
     /** Enables/disables echo cancellation, defaults -> false */
-    echoCancellation?: boolean;
+    echoCancellation?: boolean | undefined;
 
     /** Enables/disables auto gain control, defaults -> false */
-    autoGainControl?: boolean;
+    autoGainControl?: boolean | undefined;
 
     /** Enables/disables background noise suppression, defaults -> false */
-    noiseSuppression?: boolean;
+    noiseSuppression?: boolean | undefined;
 }

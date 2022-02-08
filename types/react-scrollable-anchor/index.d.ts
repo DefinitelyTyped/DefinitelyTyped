@@ -8,13 +8,13 @@ import * as React from 'react';
 
 export interface ScrollableAnchorProps {
   id: string;
-  children?: React.ReactNode;
+  children?: React.ReactNode | undefined;
 }
 
 export interface ConfigureAnchorsOptions {
-  offset?: number;
-  scrollDuration?: number;
-  keepLastAnchorHash?: boolean;
+  offset?: number | undefined;
+  scrollDuration?: number | undefined;
+  keepLastAnchorHash?: boolean | undefined;
 }
 
 export default class ScrollableAnchor extends React.Component<ScrollableAnchorProps> { }

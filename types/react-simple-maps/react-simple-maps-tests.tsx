@@ -8,7 +8,28 @@ const Map = () => (
         style={{ height: 'auto', width: '100%' }}
         width={980}
     >
-        <ZoomableGroup center={[0, 20]} disablePanning={true}>
+        <ZoomableGroup
+            center={[0, 20]}
+            disablePanning={true}
+            filterZoomEvent={(event: any) => event.type === 'wheel'}
+            onMoveStart={({ coordinates, zoom }, event) => {
+                coordinates; // $ExpectType [number, number]
+                zoom; // $ExpectType number
+                event; // $ExpectType D3ZoomEvent<SVGElement, any>
+            }}
+            onMove={({ x, y, k, dragging }, event) => {
+                x; // $ExpectType number
+                y; // $ExpectType number
+                k; // $ExpectType number
+                dragging; // $ExpectType WheelEvent
+                event; // $ExpectType D3ZoomEvent<SVGElement, any>
+            }}
+            onMoveEnd={({ coordinates, zoom }, event) => {
+                coordinates; // $ExpectType [number, number]
+                zoom; // $ExpectType number
+                event; // $ExpectType D3ZoomEvent<SVGElement, any>
+            }}
+        >
             <Geographies geography="/worldmap.json">
                 {({ geographies }) =>
                     geographies.map((geography, index) => (

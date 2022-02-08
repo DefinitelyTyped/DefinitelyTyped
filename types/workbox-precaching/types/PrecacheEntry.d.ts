@@ -1,5 +1,5 @@
 export interface PrecacheEntry {
     url: string;
     // integrity?: string;
-    revision?: string;
+    revision?: string | undefined;
 }

@@ -1,17 +1,24 @@
-// Type definitions for blueimp-load-image 2.23
+// Type definitions for blueimp-load-image 5.14
 // Project: https://github.com/blueimp/JavaScript-Load-Image
 // Definitions by: Evan Kesten <https://github.com/ebk46>
 //                 Konstantin Lukaschenko <https://github.com/KonstantinLukaschenko>
 //                 Saeid Rezaei <https://github.com/moeinio>
+//                 Zak Barbuto <https://github.com/zbarbuto>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace loadImage {
     type LoadImageCallback = (eventOrImage: Event | HTMLCanvasElement | HTMLImageElement, data?: MetaData) => void;
+    type LoadImageResult = MetaData & {
+        image: HTMLImageElement | HTMLCanvasElement;
+    };
 
-    type ParseMetaDataCallback = (data: ImageHead) => void;
+    type ParseMetaDataCallback = (data: MetaData) => void;
+
+    type ExifTagValue = number | string | string[];
 
     interface Exif {
-        [tag: number]: number | string | string[];
+        [tag: number]: ExifTagValue;
+        get: (tagName: 'Orientation' | 'Thumbnail' | 'Exif' | 'GPSInfo' | 'Interoperability') => ExifTagValue;
     }
 
     interface Iptc {
@@ -19,25 +26,25 @@ declare namespace loadImage {
     }
 
     interface ImageHead {
-        imageHead?: ArrayBuffer | Uint8Array;
+        imageHead?: ArrayBuffer | Uint8Array | undefined;
     }
 
     interface MetaData extends ImageHead {
-        originalWidth?: number;
-        originalHeight?: number;
-        exif?: Exif;
-        iptc?: Iptc;
+        originalWidth?: number | undefined;
+        originalHeight?: number | undefined;
+        exif?: Exif | undefined;
+        iptc?: Iptc | undefined;
     }
 
     interface BasicOptions {
-        maxWidth?: number;
-        maxHeight?: number;
-        minWidth?: number;
-        minHeight?: number;
-        contain?: boolean;
-        cover?: boolean;
-        crossOrigin?: string;
-        noRevoke?: boolean;
+        maxWidth?: number | undefined;
+        maxHeight?: number | undefined;
+        minWidth?: number | undefined;
+        minHeight?: number | undefined;
+        contain?: boolean | undefined;
+        cover?: boolean | undefined;
+        crossOrigin?: string | undefined;
+        noRevoke?: boolean | undefined;
     }
 
     type Orientation = number | boolean;
@@ -49,61 +56,64 @@ declare namespace loadImage {
     // 'canvas' cannot be false
     interface CanvasTrueOptions {
         canvas: true;
-        sourceWidth?: number;
-        sourceHeight?: number;
-        top?: number;
-        right?: number;
-        bottom?: number;
-        left?: number;
-        pixelRatio?: number;
-        downsamplingRatio?: number;
-        orientation?: Orientation;
-        crop?: boolean;
+        sourceWidth?: number | undefined;
+        sourceHeight?: number | undefined;
+        top?: number | undefined;
+        right?: number | undefined;
+        bottom?: number | undefined;
+        left?: number | undefined;
+        pixelRatio?: number | undefined;
+        downsamplingRatio?: number | undefined;
+        orientation?: Orientation | undefined;
+        crop?: boolean | undefined;
+        imageSmoothingEnabled?: boolean | undefined;
+        imageSmoothingQuality?: 'low' | 'medium' | 'high' | undefined;
     }
     interface CanvasFalseOptions {
-        canvas?: false;
+        canvas?: false | undefined;
     }
     type CanvasOptions = CanvasTrueOptions | CanvasFalseOptions;
 
     // Setting 'aspectRatio' automatically enables 'crop', so setting 'crop' to
     // 'false' in that case is not valid
     interface CropTrueOptions {
-        crop?: true;
-        aspectRatio?: AspectRatio;
+        crop?: true | undefined;
+        aspectRatio?: AspectRatio | undefined;
     }
     interface CropFalseOptions {
-        crop?: false;
+        crop?: false | undefined;
     }
     type CropOptions = CropTrueOptions | CropFalseOptions;
 
     // Setting 'orientation' automatically sets 'meta' to true
     // so setting it to false is not valid in that case
     interface MetaTrueOptions {
-        meta?: true;
+        meta?: true | undefined;
         orientation: Orientation;
     }
     interface MetaFalseOptions {
-        meta?: false;
+        meta?: false | undefined;
     }
     type MetaOptions = MetaTrueOptions | MetaFalseOptions;
 
     interface ParseOptions {
         // Defines the maximum number of bytes to parse.
-        maxMetaDataSize?: number;
+        maxMetaDataSize?: number | undefined;
 
         // Disables creating the imageHead property.
-        disableImageHead?: boolean;
+        disableImageHead?: boolean | undefined;
     }
 
     type LoadImageOptions = BasicOptions & CanvasOptions & CropOptions & MetaOptions;
 }
 
 // loadImage is implemented as a callable object.
-interface LoadImage  {
+interface LoadImage {
     (file: File | Blob | string, callback: loadImage.LoadImageCallback, options: loadImage.LoadImageOptions):
         | HTMLImageElement
         | FileReader
         | false;
+    (file: File | Blob | string, options: loadImage.LoadImageOptions): Promise<loadImage.LoadImageResult>;
 
     // Parses image meta data and calls the callback with the image head
     parseMetaData: (

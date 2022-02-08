@@ -23,23 +23,6 @@ Route.extend({
 });
 
 Route.extend({
-    actions: {
-        showModal(evt: { modalName: string }) {
-            this.render(evt.modalName, {
-                outlet: 'modal',
-                into: 'application',
-            });
-        },
-        hideModal(evt: { modalName: string }) {
-            this.disconnectOutlet({
-                outlet: 'modal',
-                parentView: 'application',
-            });
-        },
-    },
-});
-
-Route.extend({
     model() {
         return this.modelFor('post');
     },
@@ -48,35 +31,6 @@ Route.extend({
 Route.extend({
     queryParams: {
         memberQp: { refreshModel: true },
-    },
-});
-
-Route.extend({
-    renderTemplate() {
-        this.render('photos', {
-            into: 'application',
-            outlet: 'anOutletName',
-        });
-    },
-});
-
-Route.extend({
-    controllerName: 'photos',
-    templateName: 'anOutletName',
-    renderTemplate() {
-        this.render(); // Render using defaults
-    },
-});
-
-Route.extend({
-    renderTemplate(controller: Controller, model: {}) {
-        this.render('posts', {
-            view: 'someView', // the template to render, referenced by name
-            into: 'application', // the template to render into, referenced by name
-            outlet: 'anOutletName', // the outlet inside `options.into` to render into.
-            controller: 'someControllerName', // the controller to use for this template, referenced by name
-            model, // the model to set on `options.controller`.
-        });
     },
 });
 
@@ -98,7 +52,8 @@ class RedirectRoute extends Route {
 }
 
 class InvalidRedirect extends Route {
-    redirect(model: {}, a: Transition, anOddArg: any) { // $ExpectError
+    // $ExpectError
+    redirect(model: {}, a: Transition, anOddArg: unknown) {
         if (!model) {
             this.transitionTo('there');
         }
@@ -110,12 +65,12 @@ class TransitionToExamples extends Route {
     // because the overload for the version where `models` are passed
     // necessarily includes all objects.
     transitionToModelAndQP() {
-        // $ExpectType Transition
+        // $ExpectType Transition<unknown>
         this.transitionTo('somewhere', { queryParams: { neat: true } });
     }
 
     transitionToJustQP() {
-        // $ExpectType Transition
+        // $ExpectType Transition<unknown>
         this.transitionTo({ queryParams: { neat: 'true' } });
     }
 
@@ -128,23 +83,27 @@ class TransitionToExamples extends Route {
     }
 
     transitionToId() {
-        // $ExpectType Transition
+        // $ExpectType Transition<unknown>
         this.transitionTo('blog-post', 1);
     }
 
     transitionToIdWithQP() {
-        // $ExpectType Transition
+        // $ExpectType Transition<unknown>
         this.transitionTo('blog-post', 1, { queryParams: { includeComments: true } });
     }
 
     transitionToIds() {
-        // $ExpectType Transition
+        // $ExpectType Transition<unknown>
         this.transitionTo('blog-comment', 1, '13');
     }
 
     transitionToIdsWithQP() {
-        // $ExpectType Transition
+        // $ExpectType Transition<unknown>
         this.transitionTo('blog-comment', 1, '13', { queryParams: { includePost: true } });
+    }
+
+    buildRouteInfoMetadata() {
+        return { foo: 'bar' };
     }
 }
 
@@ -165,20 +124,66 @@ Route.extend({
 
 const route = Route.create();
 route.controllerFor('whatever'); // $ExpectType Controller
+route.paramsFor('whatever'); // $ExpectType object
 
 class RouteUsingClass extends Route.extend({
     randomProperty: 'the .extend + extends bit type-checks properly',
 }) {
-    beforeModel(this: RouteUsingClass) {
-        return 'beforeModel can return anything, not just promises';
+    beforeModel() {
+        return Promise.resolve('beforeModel can return promises');
+    }
+    afterModel(resolvedModel: unknown, transition: Transition) {
+        return Promise.resolve('afterModel can also return promises');
     }
     intermediateTransitionWithoutModel() {
         this.intermediateTransitionTo('some-route');
     }
     intermediateTransitionWithModel() {
-        this.intermediateTransitionTo('some.other.route', { });
+        this.intermediateTransitionTo('some.other.route', {});
     }
     intermediateTransitionWithMultiModel() {
-        this.intermediateTransitionTo('some.other.route', 1, 2, { });
+        this.intermediateTransitionTo('some.other.route', 1, 2, {});
     }
 }
+
+class WithNonReturningBeforeAndModelHooks extends Route {
+    beforeModel(transition: Transition): void | Promise<unknown> {
+        return;
+    }
+
+    afterModel(resolvedModel: unknown, transition: Transition): void {
+        return;
+    }
+}
+
+class WithBadReturningBeforeAndModelHooks extends Route {
+    beforeModel(transition: Transition): void | Promise<unknown> {
+        return "returning anything else is nonsensical (if 'legal')"; // $ExpectError
+    }
+
+    afterModel(resolvedModel: unknown, transition: Transition): void {
+        return "returning anything else is nonsensical (if 'legal')"; // $ExpectError
+    }
+}
+
+interface RouteParams {
+    cool: string;
+}
+
+class WithParamsInModel extends Route<boolean, RouteParams> {
+    model(params: RouteParams, transition: Transition) {
+        return true;
+    }
+}
+
+// @ts-expect-error
+class WithNonsenseParams extends Route<boolean, number> {}
+
+class WithImplicitParams extends Route {
+    model(params: RouteParams) {
+        return { whatUp: 'dog' };
+    }
+}
+
+// $ExpectType RouteParams
+type ImplicitParams = WithImplicitParams extends Route<any, infer T> ? T : never;

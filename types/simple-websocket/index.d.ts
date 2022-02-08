@@ -11,9 +11,9 @@ import WebSocket = require("ws");
 declare namespace Socket {
   interface Options extends DuplexOptions {
     /** websocket server url */
-    url?: string;
+    url?: string | undefined;
     /** raw websocket instance to wrap */
-    socket?: WebSocket;
+    socket?: WebSocket | undefined;
   }
 }
 
@@ -26,7 +26,7 @@ declare class Socket extends Duplex {
   send(chunk: any): void;
 
   /** Destroy and cleanup this websocket connection */
-  destroy(err?: Error): void;
+  destroy(err?: Error): any;
 }
 
 export = Socket;

@@ -2,6 +2,7 @@
 // Project: https://github.com/lettertwo/appcache-webpack-plugin
 // Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.7
 
 import webpack = require('webpack');
 
@@ -18,34 +19,34 @@ declare namespace AppCachePlugin {
         /**
          * 'additional assets to cache
          */
-        cache?: string[];
+        cache?: string[] | undefined;
         /**
          * Assets that may be accessed via the network.
          * @default ['*']
          */
-        network?: string[] | null;
+        network?: string[] | null | undefined;
         /**
          * Fallback assets
          */
-        fallback?: string[];
+        fallback?: string[] | undefined;
         /**
          * Settings
          */
-        settings?: string[];
+        settings?: string[] | undefined;
         /**
          * Assets in the compilation that match any of these patterns will be excluded from the manifest.
          * @default []
          */
-        exclude?: Array<string | RegExp>;
+        exclude?: Array<string | RegExp> | undefined;
         /**
          * The filename to write the appcache to
          * @default 'manifest.appcache'
          */
-        output?: string;
+        output?: string | undefined;
         /**
          * @default ''
          */
-        comment?: string;
+        comment?: string | undefined;
     }
 
     class AppCache {

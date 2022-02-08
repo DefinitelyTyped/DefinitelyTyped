@@ -1,6 +1,6 @@
 // Type definitions for BaiduMap JsAPI GL v1.0
 // Project: http://lbsyun.baidu.com/index.php?title=jspopularGL
-// Definitions by: Junior2ran <http://github.com/Junior2ran>
+// Definitions by: Junior2ran <https://github.com/Junior2ran>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /* *****************************************************************************
@@ -59,11 +59,11 @@ declare namespace BMapGL {
     }
 
     interface PanoramaOptions {
-        navigationControl?: boolean;
-        linksControl?: boolean;
-        indoorSceneSwitchControl?: boolean;
-        albumsControl?: boolean;
-        albumsControlOptions?: AlbumsControlOptions;
+        navigationControl?: boolean | undefined;
+        linksControl?: boolean | undefined;
+        indoorSceneSwitchControl?: boolean | undefined;
+        albumsControl?: boolean | undefined;
+        albumsControlOptions?: AlbumsControlOptions | undefined;
     }
     interface PanoramaLink {
         description: string;
@@ -110,14 +110,14 @@ declare namespace BMapGL {
         onremove: (event: { type: string, target: any }) => void;
     }
     interface PanoramaLabelOptions {
-        position?: Point;
-        altitude?: number;
+        position?: Point | undefined;
+        altitude?: number | undefined;
     }
     interface AlbumsControlOptions {
-        anchor?: ControlAnchor;
-        offset?: Size;
-        maxWidth?: number | string;
-        imageHeight?: number;
+        anchor?: ControlAnchor | undefined;
+        offset?: Size | undefined;
+        maxWidth?: number | string | undefined;
+        imageHeight?: number | undefined;
     }
     type PanoramaSceneType = string;
     type PanoramaPOIType = string;

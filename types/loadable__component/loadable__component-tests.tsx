@@ -1,7 +1,11 @@
 import * as React from 'react';
 import loadable, { lazy, loadableReady } from '@loadable/component';
 
-const TestComponent: React.SFC<{ foo: string }> = () => <>test</>;
+interface TestProps {
+    foo: string;
+}
+
+const TestComponent: React.FC<TestProps> = () => <>test</>;
 
 function defaultImportComponentLoader() {
     return new Promise<{ default: typeof TestComponent }>(resolve => resolve({ default: TestComponent }));
@@ -13,6 +17,16 @@ function namedImportComponentLoader() {
 
 function importComponentLoader() {
     return new Promise<typeof TestComponent>(resolve => resolve(TestComponent));
+}
+
+async function importClassComponentLoader() {
+    return class TestClassComponent extends React.Component<TestProps> {
+        publicMethod() {}
+
+        render() {
+            return <div>{this.props.foo}</div>;
+        }
+    };
 }
 
 const lib = {
@@ -59,6 +73,35 @@ function importLibLoader() {
         resolveComponent: mod => mod.name,
         cacheKey: (props: { foo: string }) => props.foo, // Annotation needed here for some reason?
     });
+
+    // Should allow ref on a class component
+    const LoadableClassDirect = loadable(importClassComponentLoader);
+    <LoadableClassDirect
+        ref={ref => {
+            ref && ref.publicMethod();
+        }}
+        foo=""
+    />;
+
+    const LoadableClassDirectOnlyClient = loadable(importClassComponentLoader, {
+        ssr: false,
+    });
+    <LoadableClassDirectOnlyClient
+        ref={ref => {
+            ref && ref.publicMethod();
+        }}
+        foo=""
+    />;
+
+    const LoadableClassDefault = loadable(async () => ({
+        default: await importClassComponentLoader(),
+    }));
+    <LoadableClassDefault
+        ref={ref => {
+            ref && ref.publicMethod();
+        }}
+        foo=""
+    />;
 
     // Should allow passing `fallback` prop to loadable component
     <LoadableComponent foo="test" fallback={<div>loading...</div>} />;

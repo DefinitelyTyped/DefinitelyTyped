@@ -16,8 +16,8 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@genyus/country-code": [
-                "genyus__country-code"
+            "@genyus/*": [
+                "genyus__*"
             ]
         }
     },

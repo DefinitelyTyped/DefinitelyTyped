@@ -19,6 +19,6 @@ declare namespace signalExit {
     type Signal = 'SIGABRT' | 'SIGALRM' | 'SIGHUP' | 'SIGINT' | 'SIGTERM' | string;
 
     interface Options {
-        alwaysLast?: boolean;
+        alwaysLast?: boolean | undefined;
     }
 }

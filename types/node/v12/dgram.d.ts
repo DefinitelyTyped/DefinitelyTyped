@@ -1,7 +1,7 @@
-declare module "dgram" {
-    import { AddressInfo } from "net";
-    import * as dns from "dns";
-    import * as events from "events";
+declare module 'dgram' {
+    import { AddressInfo } from 'net';
+    import * as dns from 'dns';
+    import EventEmitter = require('events');
 
     interface RemoteInfo {
         address: string;
@@ -11,37 +11,37 @@ declare module "dgram" {
     }
 
     interface BindOptions {
-        port?: number;
-        address?: string;
-        exclusive?: boolean;
-        fd?: number;
+        port?: number | undefined;
+        address?: string | undefined;
+        exclusive?: boolean | undefined;
+        fd?: number | undefined;
     }
 
     type SocketType = "udp4" | "udp6";
 
     interface SocketOptions {
         type: SocketType;
-        reuseAddr?: boolean;
+        reuseAddr?: boolean | undefined;
         /**
          * @default false
          */
-        ipv6Only?: boolean;
-        recvBufferSize?: number;
-        sendBufferSize?: number;
-        lookup?: (hostname: string, options: dns.LookupOneOptions, callback: (err: NodeJS.ErrnoException | null, address: string, family: number) => void) => void;
+        ipv6Only?: boolean | undefined;
+        recvBufferSize?: number | undefined;
+        sendBufferSize?: number | undefined;
+        lookup?: ((hostname: string, options: dns.LookupOneOptions, callback: (err: NodeJS.ErrnoException | null, address: string, family: number) => void) => void) | undefined;
     }
 
     function createSocket(type: SocketType, callback?: (msg: Buffer, rinfo: RemoteInfo) => void): Socket;
     function createSocket(options: SocketOptions, callback?: (msg: Buffer, rinfo: RemoteInfo) => void): Socket;
 
-    class Socket extends events.EventEmitter {
+    class Socket extends EventEmitter {
         addMembership(multicastAddress: string, multicastInterface?: string): void;
         address(): AddressInfo;
-        bind(port?: number, address?: string, callback?: () => void): void;
-        bind(port?: number, callback?: () => void): void;
-        bind(callback?: () => void): void;
-        bind(options: BindOptions, callback?: () => void): void;
-        close(callback?: () => void): void;
+        bind(port?: number, address?: string, callback?: () => void): this;
+        bind(port?: number, callback?: () => void): this;
+        bind(callback?: () => void): this;
+        bind(options: BindOptions, callback?: () => void): this;
+        close(callback?: () => void): this;
         connect(port: number, address?: string, callback?: () => void): void;
         connect(port: number, callback: () => void): void;
         disconnect(): void;
@@ -50,19 +50,19 @@ declare module "dgram" {
         getSendBufferSize(): number;
         ref(): this;
         remoteAddress(): AddressInfo;
-        send(msg: string | Uint8Array | any[], port?: number, address?: string, callback?: (error: Error | null, bytes: number) => void): void;
-        send(msg: string | Uint8Array | any[], port?: number, callback?: (error: Error | null, bytes: number) => void): void;
-        send(msg: string | Uint8Array | any[], callback?: (error: Error | null, bytes: number) => void): void;
+        send(msg: string | Uint8Array | ReadonlyArray<any>, port?: number, address?: string, callback?: (error: Error | null, bytes: number) => void): void;
+        send(msg: string | Uint8Array | ReadonlyArray<any>, port?: number, callback?: (error: Error | null, bytes: number) => void): void;
+        send(msg: string | Uint8Array | ReadonlyArray<any>, callback?: (error: Error | null, bytes: number) => void): void;
         send(msg: string | Uint8Array, offset: number, length: number, port?: number, address?: string, callback?: (error: Error | null, bytes: number) => void): void;
         send(msg: string | Uint8Array, offset: number, length: number, port?: number, callback?: (error: Error | null, bytes: number) => void): void;
         send(msg: string | Uint8Array, offset: number, length: number, callback?: (error: Error | null, bytes: number) => void): void;
         setBroadcast(flag: boolean): void;
         setMulticastInterface(multicastInterface: string): void;
-        setMulticastLoopback(flag: boolean): void;
-        setMulticastTTL(ttl: number): void;
+        setMulticastLoopback(flag: boolean): boolean;
+        setMulticastTTL(ttl: number): number;
         setRecvBufferSize(size: number): void;
         setSendBufferSize(size: number): void;
-        setTTL(ttl: number): void;
+        setTTL(ttl: number): number;
         unref(): this;
 
         /**

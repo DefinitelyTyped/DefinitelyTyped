@@ -12,25 +12,25 @@ declare namespace minifyHtml {
     // Options from https://github.com/Swaagie/minimize#options
     interface Options {
         // Do not remove empty attributes
-        empty?: boolean;
+        empty?: boolean | undefined;
 
         // Do not strip CDATA from scripts
-        cdata?: boolean;
+        cdata?: boolean | undefined;
 
         // Do not remove comments
-        comments?: boolean;
+        comments?: boolean | undefined;
 
         // Do not remove conditional internet explorer comments
-        conditionals?: boolean;
+        conditionals?: boolean | undefined;
 
         // Do not remove redundant attributes
-        spare?: boolean;
+        spare?: boolean | undefined;
 
         // Do not remove arbitrary quotes
-        quotes?: boolean;
+        quotes?: boolean | undefined;
 
         // Preserve one whitespace
-        loose?: boolean;
+        loose?: boolean | undefined;
     }
 }
 

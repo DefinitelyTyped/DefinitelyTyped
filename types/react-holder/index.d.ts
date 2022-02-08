@@ -14,16 +14,16 @@ interface ReactHolderProp extends React.HTMLAttributes<ReactHolder> {
     updateOnResize: boolean;
 
     // config args
-    theme?: string;
-    random?: boolean;
-    bg?: string
-    fg?: string;
-    text?: string;
-    size?: number;
-    font?: string;
-    align?: string;
-    outline?: boolean;
-    lineWrap?: number;
+    theme?: string | undefined;
+    random?: boolean | undefined;
+    bg?: string | undefined
+    fg?: string | undefined;
+    text?: string | undefined;
+    size?: number | undefined;
+    font?: string | undefined;
+    align?: string | undefined;
+    outline?: boolean | undefined;
+    lineWrap?: number | undefined;
 }
 
 declare class ReactHolder extends React.Component<ReactHolderProp> {

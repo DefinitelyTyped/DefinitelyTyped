@@ -5,19 +5,21 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export { ClientConfig } from "./RSocketClient";
-export { ServerConfig, TransportServer } from "./RSocketServer";
-export { Encodable } from "rsocket-types";
-export { Encoder, Encoders } from "./RSocketEncoding";
-export { Serializer, PayloadSerializers } from "./RSocketSerialization";
-import RSocketClient from "./RSocketClient";
+export { ClientConfig } from './RSocketClient';
+export { ServerConfig, TransportServer } from './RSocketServer';
+export { Encodable } from 'rsocket-types';
+export { Encoder, Encoders } from './RSocketEncoding';
+export { Serializer, PayloadSerializers } from './RSocketSerialization';
+import RSocketClient from './RSocketClient';
 export { RSocketClient };
-import RSocketServer from "./RSocketServer";
+import RSocketServer from './RSocketServer';
 export { RSocketServer };
-import RSocketResumableTransport from "./RSocketResumableTransport";
+import RSocketResumableTransport from './RSocketResumableTransport';
 export { RSocketResumableTransport };
 import WellKnownMimeType from './WellKnownMimeType';
 export { WellKnownMimeType };
+import WellKnownAuthType from './WellKnownAuthType';
+export { WellKnownAuthType };
 export {
     CONNECTION_STREAM_ID,
     ERROR_CODES,
@@ -43,34 +45,18 @@ export {
     isNext,
     isRespond,
     isResumeEnable,
-    printFrame
-} from "./RSocketFrame";
+    printFrame,
+} from './RSocketFrame';
 export {
     deserializeFrame,
     deserializeFrameWithLength,
     deserializeFrames,
     serializeFrame,
-    serializeFrameWithLength
-} from "./RSocketBinaryFraming";
-export {
-    byteLength,
-    createBuffer,
-    readUInt24BE,
-    toBuffer,
-    writeUInt24BE
-} from "./RSocketBufferUtils";
-export {
-    BufferEncoders,
-    BufferEncoder,
-    Utf8Encoders,
-    UTF8Encoder
-} from "./RSocketEncoding";
-export {
-    IdentitySerializer,
-    IdentitySerializers,
-    JsonSerializer,
-    JsonSerializers
-} from "./RSocketSerialization";
+    serializeFrameWithLength,
+} from './RSocketBinaryFraming';
+export { byteLength, createBuffer, readUInt24BE, toBuffer, writeUInt24BE } from './RSocketBufferUtils';
+export { BufferEncoders, BufferEncoder, Utf8Encoders, UTF8Encoder } from './RSocketEncoding';
+export { IdentitySerializer, IdentitySerializers, JsonSerializer, JsonSerializers } from './RSocketSerialization';
 export { LeaseStats, Leases, Lease } from './RSocketLease';
 export {
     UNPARSEABLE_MIME_TYPE,
@@ -116,6 +102,9 @@ export {
     APPLICATION_HESSIAN,
     APPLICATION_JAVA_OBJECT,
     APPLICATION_CLOUDEVENTS_JSON,
+    MESSAGE_RSOCKET_MIMETYPE,
+    MESSAGE_RSOCKET_ACCEPT_MIMETYPES,
+    MESSAGE_RSOCKET_AUTHENTICATION,
     MESSAGE_RSOCKET_TRACING_ZIPKIN,
     MESSAGE_RSOCKET_ROUTING,
     MESSAGE_RSOCKET_COMPOSITE_METADATA,
@@ -128,4 +117,16 @@ export {
     ExplicitMimeTimeEntry,
     encodeAndAddCustomMetadata,
     encodeAndAddWellKnownMetadata,
+    encodeCompositeMetadata,
+    decodeCompositeMetadata,
 } from './CompositeMetadata';
+export { encodeRoute, encodeRoutes, decodeRoutes } from './RoutingMetadata';
+export { UNPARSEABLE_AUTH_TYPE, UNKNOWN_RESERVED_AUTH_TYPE, SIMPLE, BEARER } from './WellKnownAuthType';
+export {
+    encodeWellKnownAuthMetadata,
+    encodeCustomAuthMetadata,
+    encodeSimpleAuthMetadata,
+    encodeBearerAuthMetadata,
+    decodeAuthMetadata,
+    decodeSimpleAuthPayload,
+} from './AuthMetadata';

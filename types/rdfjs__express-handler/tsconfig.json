@@ -16,14 +16,8 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@rdfjs/express-handler": [
-                "rdfjs__express-handler"
-            ],
-            "@rdfjs/formats-common": [
-                "rdfjs__formats-common"
-            ],
-            "@rdfjs/sink-map": [
-                "rdfjs__sink-map"
+            "@rdfjs/*": [
+                "rdfjs__*"
             ]
         }
     },

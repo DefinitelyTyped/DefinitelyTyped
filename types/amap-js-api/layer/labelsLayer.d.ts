@@ -16,8 +16,8 @@ declare namespace AMap {
                 name: string;
                 position: [number, number] | [string, string];
                 zooms: [number, number];
-                rank?: number;
-                txt?: string;
+                rank?: number | undefined;
+                txt?: string | undefined;
             };
             opts: {
                 opacity: number;
@@ -36,16 +36,16 @@ declare namespace AMap {
             /**
              * 图层是否可见
              */
-            visible?: boolean;
+            visible?: boolean | undefined;
             /**
              * 图层的层级
              */
-            zIndex?: number;
+            zIndex?: number | undefined;
             /**
              * 图层的透明度
              */
-            opacity?: number;
-            zooms?: [number, number];
+            opacity?: number | undefined;
+            zooms?: [number, number] | undefined;
         }
     }
 

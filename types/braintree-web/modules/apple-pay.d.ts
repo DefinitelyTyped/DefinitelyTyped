@@ -45,9 +45,12 @@ export interface ApplePayPaymentRequest {
     requiredShippingContactFields?: any;
 }
 
+/**
+ * @deprecated - use ApplePaySession.STATUS_SUCCESS and similar instead
+ */
 export enum ApplePayStatusCodes {
     // The requested action succeeded.
-    STATUS_SUCCESS = 1,
+    STATUS_SUCCESS = 0,
     // The requested action failed.
     STATUS_FAILURE,
     // The billing address is not valid.
@@ -64,18 +67,41 @@ export enum ApplePayStatusCodes {
     STATUS_PIN_LOCKOUT,
 }
 
+export type ApplePayTokenizeValues = 'Yes' | 'No' | 'Unknown';
+
+export interface ApplePayDetails {
+    cardType: string;
+    cardholderName: string;
+    dpanLastTwo: string;
+}
+
 export interface ApplePayPayload {
-    merchantIdentifier: string;
-    domainName: string;
-    displayName: string;
+    nonce: string;
+    description: string;
+    type: string;
+    consumed: boolean;
+    details: ApplePayDetails;
+    binData: {
+        commercial: ApplePayTokenizeValues;
+        countryOfIssuance: string;
+        debit: ApplePayTokenizeValues;
+        durbinRegulated: ApplePayTokenizeValues;
+        healthcare: ApplePayTokenizeValues;
+        issuingBank: ApplePayTokenizeValues;
+        payroll: ApplePayTokenizeValues;
+        prepaid: ApplePayTokenizeValues;
+        productId: string;
+    };
 }
 
 export class ApplePaySession {
     constructor(version: number, request: ApplePayPaymentRequest);
 
-    canMakePayments(): boolean;
+    static canMakePayments(): boolean;
 
-    canMakePaymentsWithActiveCard(merchantIdentifier: string): boolean;
+    static canMakePaymentsWithActiveCard(merchantIdentifier: string): boolean;
+
+    static supportsVersion(version: number): boolean;
 
     completeMerchantValidation(merchantSession: any): void;
 
@@ -96,8 +122,6 @@ export class ApplePaySession {
 
     completeShippingMethodSelection(status: ApplePayStatusCodes, newTotal: any, newLineItems: any): void;
 
-    supportsVersion(version: number): boolean;
-
     oncancel: (event: any) => void;
 
     onpaymentauthorized: (event: any) => void;
@@ -109,6 +133,46 @@ export class ApplePaySession {
     onshippingmethodselected: (event: any) => void;
 
     onvalidatemerchant: (event: any) => void;
+
+    /**
+     * The requested action succeeded.
+     */
+    static readonly STATUS_SUCCESS: number;
+
+    /**
+     * The requested action failed.
+     */
+    static readonly STATUS_FAILURE: number;
+
+    /**
+     * The billing address is not valid.
+     */
+    static readonly STATUS_INVALID_BILLING_POSTAL_ADDRESS: number;
+
+    /**
+     * The shipping address is not valid.
+     */
+    static readonly STATUS_INVALID_SHIPPING_POSTAL_ADDRESS: number;
+
+    /**
+     * The shipping contact information is not valid.
+     */
+    static readonly STATUS_INVALID_SHIPPING_CONTACT: number;
+
+    /**
+     * The PIN information is not valid. Cards on the China Union Pay network may require a PIN.
+     */
+    static readonly STATUS_PIN_INCORRECT: number;
+
+    /**
+     * The maximum number of tries for a PIN has been reached and the user has been locked out. Cards on the China Union Pay network may require a PIN.
+     */
+    static readonly STATUS_PIN_LOCKOUT: number;
+
+    /**
+     * The required PIN information was not provided. Cards on the China Union Pay payment network may require a PIN to authenticate the transaction.
+     */
+    static readonly STATUS_PIN_REQUIRED: number;
 }
 
 /**
@@ -177,7 +241,7 @@ export interface ApplePay {
      * });
      */
     performValidation(
-        options: { validationURL: string; displayName?: string; merchantIdentifier?: string },
+        options: { validationURL: string; displayName?: string | undefined; merchantIdentifier?: string | undefined },
         callback: callback,
     ): void;
 

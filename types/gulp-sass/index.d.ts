@@ -1,4 +1,4 @@
-// Type definitions for gulp-sass 4.0.2
+// Type definitions for gulp-sass 5.0.0
 // Project: https://github.com/dlmanning/gulp-sass
 // Definitions by: Asana <https://asana.com>
 //                 Yuma Hashimoto <https://github.com/yuma84>
@@ -22,23 +22,29 @@ interface SassResults {
 }
 
 interface SassOptions extends Options {
-    success?: (results: SassResults) => any;
-    error?: (err: Error) => any;
-    imagePaths?: string[];
+    success?: ((results: SassResults) => any) | undefined;
+    error?: ((err: Error) => any) | undefined;
+    imagePaths?: string[] | undefined;
 }
 
 interface GulpSassOptions extends SassOptions {
-    errLogToConsole?: boolean;
-    onSuccess?: (css: string) => any;
-    onError?: (err: Error) => any;
-    sync?: boolean;
+    errLogToConsole?: boolean | undefined;
+    onSuccess?: ((css: string) => any) | undefined;
+    onError?: ((err: Error) => any) | undefined;
+    sync?: boolean | undefined;
 }
 
-interface Sass {
+interface GulpSass {
     (opts?: GulpSassOptions): NodeJS.ReadWriteStream;
     logError(error?: string): void;
     sync(options?: GulpSassOptions): NodeJS.ReadWriteStream;
 }
 
-declare var _tmp: Sass;
+type Compiler = any;
+
+interface GulpSassFactory {
+    (compiler: Compiler): GulpSass
+}
+
+declare var _tmp: GulpSassFactory;
 export = _tmp;

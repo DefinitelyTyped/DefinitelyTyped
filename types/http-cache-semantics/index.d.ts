@@ -80,13 +80,13 @@ declare class CachePolicy {
 
 declare namespace CachePolicy {
     interface Request {
-        url?: string;
-        method?: string;
+        url?: string | undefined;
+        method?: string | undefined;
         headers: Headers;
     }
 
     interface Response {
-        status?: number;
+        status?: number | undefined;
         headers: Headers;
     }
 
@@ -98,34 +98,34 @@ declare namespace CachePolicy {
          * `true` is recommended for HTTP clients.
          * @default true
          */
-        shared?: boolean;
+        shared?: boolean | undefined;
         /**
          * A fraction of response's age that is used as a fallback cache duration. The default is 0.1 (10%),
          * e.g. if a file hasn't been modified for 100 days, it'll be cached for 100*0.1 = 10 days.
          * @default 0.1
          */
-        cacheHeuristic?: number;
+        cacheHeuristic?: number | undefined;
         /**
          * A number of milliseconds to assume as the default time to cache responses with `Cache-Control: immutable`.
          * Note that [per RFC](https://httpwg.org/specs/rfc8246.html#the-immutable-cache-control-extension)
          * these can become stale, so `max-age` still overrides the default.
          * @default 24*3600*1000 (24h)
          */
-        immutableMinTimeToLive?: number;
+        immutableMinTimeToLive?: number | undefined;
         /**
          * If `true`, common anti-cache directives will be completely ignored if the non-standard `pre-check`
          * and `post-check` directives are present. These two useless directives are most commonly found
          * in bad StackOverflow answers and PHP's "session limiter" defaults.
          * @default false
          */
-        ignoreCargoCult?: boolean;
+        ignoreCargoCult?: boolean | undefined;
         /**
          * If `false`, then server's `Date` header won't be used as the base for `max-age`. This is against the RFC,
          * but it's useful if you want to cache responses with very short `max-age`, but your local clock
          * is not exactly in sync with the server's.
          * @default true
          */
-        trustServerDate?: boolean;
+        trustServerDate?: boolean | undefined;
     }
 
     interface CachePolicyObject {
@@ -138,8 +138,8 @@ declare namespace CachePolicy {
         resh: Headers;
         rescc: { [key: string]: string };
         m: string;
-        u?: string;
-        h?: string;
+        u?: string | undefined;
+        h?: string | undefined;
         a: boolean;
         reqh: Headers | null;
         reqcc: { [key: string]: string };

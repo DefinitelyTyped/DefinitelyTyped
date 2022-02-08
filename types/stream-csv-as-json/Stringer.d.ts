@@ -10,9 +10,9 @@ declare class Stringer extends Transform {
 
 declare namespace Stringer {
     interface StringerOptions extends TransformOptions {
-        useValues?: boolean;
-        useStringValues?: boolean;
-        separator?: string;
+        useValues?: boolean | undefined;
+        useStringValues?: boolean | undefined;
+        separator?: string | undefined;
     }
 
     function make(options?: StringerOptions): Stringer;

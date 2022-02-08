@@ -18,14 +18,14 @@ interface resize {
      * Dynamically change the canvas' target scale.
      * Note that you still need to manually trigger a resize after doing this.
      */
-    scale?: number;
+    scale: number;
     /**
      * Dynamically change the canvas' target scale.
      * Note that you still need to manually trigger a resize after doing this.
      * Instead of filling a given element, explicitly set the width and height of the canvas.
      * Note that this value will still be scaled up according to resize.scale
      */
-    parent?: Element | (() => [number, number]);
+    parent?: Element | (() => [number, number]) | undefined;
 }
 
 /**

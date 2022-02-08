@@ -24,22 +24,22 @@ declare namespace requireDirectory {
          * @description array of file extensions that will be included in resulting hash as modules
          * @default "['js', 'json', 'coffee']"
          */
-        extensions?: string[];
+        extensions?: string[] | undefined;
         /**
          * @description option to include subdirectories
          * @default true
          */
-        recurse?: boolean;
+        recurse?: boolean | undefined;
         /**
          * @description RegExp or function for whitelisting modules
          * @default undefined
          */
-        include?: RegExp | CheckPathFn;
+        include?: RegExp | CheckPathFn | undefined;
         /**
          * @description RegExp or function for blacklisting modules
          * @default undefined
          */
-        exclude?: RegExp | CheckPathFn;
+        exclude?: RegExp | CheckPathFn | undefined;
         /**
          * @description function for renaming modules in resulting hash
          * @param name name of required module

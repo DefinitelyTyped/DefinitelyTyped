@@ -2,6 +2,7 @@
 // Project: https://developers.facebook.com/docs/ads-for-websites/tag-api/
 // Definitions by: Noctis Hsu <https://github.com/noctishsu>
 //                 Victor Hom <https://github.com/VictorHom>
+//                 BC Choi <https://github.com/ninpeng>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 declare var fbq:facebook.Pixel.Event;
 
@@ -9,7 +10,7 @@ declare var fbq:facebook.Pixel.Event;
 declare module facebook.Pixel {
     interface Event {
         (eventType:string, InitialAppId:string):void;
-        (eventType:string, InitialAppId:string, eventName:string, 
+        (eventType:string, InitialAppId:string, eventName:string,
             parameters:
             facebook.Pixel.ViewContentParameters |
             ViewContentParameters |
@@ -20,7 +21,7 @@ declare module facebook.Pixel {
             AddPaymentInfoParameters |
             PurchaseParameters |
             LeadParameters |
-            CompleteRegistrationParameters 
+            CompleteRegistrationParameters
             ):void;
         (eventType:string, eventName:string):void;
         (eventType:string, eventName:string, parameters:facebook.Pixel.ViewContentParameters):void;
@@ -33,6 +34,7 @@ declare module facebook.Pixel {
         (eventType:string, eventName:string, parameters:PurchaseParameters):void;
         (eventType:string, eventName:string, parameters:LeadParameters):void;
         (eventType:string, eventName:string, parameters:CompleteRegistrationParameters):void;
+        (eventType:string, eventName:string, parameters:CustomParameters):void;
 
         (eventType:string, eventName:string, parameters:facebook.Pixel.DPA.AddToCartParameters):void;
         (eventType:string, eventName:string, parameters:facebook.Pixel.DPA.PurchaseParameters):void;
@@ -41,77 +43,83 @@ declare module facebook.Pixel {
 
 
     interface ViewContentParameters {
-        value?:number;
-        currency?:string;
-        content_name?:string;
-        content_type?:string;
-        content_ids?:string[];
-        content_category?:string;
+        value?:number | undefined;
+        currency?:string | undefined;
+        content_name?:string | undefined;
+        content_type?:string | undefined;
+        content_ids?:string[] | undefined;
+        content_category?:string | undefined;
+        contents?:Array<{
+            id:string;
+            quantity:number;
+        }> | undefined;
     }
 
     interface SearchParameters {
-        value?:number;
-        currency?:string;
-        content_category?:string;
-        content_ids?:string[];
-        search_string?:string;
+        value?:number | undefined;
+        currency?:string | undefined;
+        content_category?:string | undefined;
+        content_ids?:string[] | undefined;
+        search_string?:string | undefined;
     }
 
     interface AddToCartParameters {
-        value?:number;
-        currency?:string;
-        content_name?:string;
-        content_type?:string;
-        content_ids?:string[];
+        value?:number | undefined;
+        currency?:string | undefined;
+        content_name?:string | undefined;
+        content_type?:string | undefined;
+        content_ids?:string[] | undefined;
     }
 
     interface AddToWishlistParameters {
-        value?:number;
-        currency?:string;
-        content_name?:string;
-        content_category?:string;
-        content_ids?:string[];
+        value?:number | undefined;
+        currency?:string | undefined;
+        content_name?:string | undefined;
+        content_category?:string | undefined;
+        content_ids?:string[] | undefined;
     }
 
     interface InitiateCheckoutParameters {
-        value?:number;
-        currency?:string;
-        content_name?:string;
-        content_category?:string;
-        content_ids?:string[];
-        num_items?:number;
+        value?:number | undefined;
+        currency?:string | undefined;
+        content_name?:string | undefined;
+        content_category?:string | undefined;
+        content_ids?:string[] | undefined;
+        num_items?:number | undefined;
     }
 
     interface AddPaymentInfoParameters {
-        value?:number;
-        currency?:string;
-        content_category?:string;
-        content_ids?:string[];
+        value?:number | undefined;
+        currency?:string | undefined;
+        content_category?:string | undefined;
+        content_ids?:string[] | undefined;
     }
 
     interface PurchaseParameters {
         value:number;
         currency:string;
-        content_name?:string;
-        content_type?:string;
-        content_ids?:string[];
-        num_items?:number;
-        order_id?:string;
+        content_name?:string | undefined;
+        content_type?:string | undefined;
+        content_ids?:string[] | undefined;
+        num_items?:number | undefined;
+        order_id?:string | undefined;
     }
 
     interface LeadParameters {
-        value?:number;
-        currency?:string;
-        content_name?:string;
-        content_category?:string;
+        value?:number | undefined;
+        currency?:string | undefined;
+        content_name?:string | undefined;
+        content_category?:string | undefined;
     }
 
     interface CompleteRegistrationParameters {
-        value?:number;
-        currency?:string;
-        content_name?:string;
-        status?:string;
+        value?:number | undefined;
+        currency?:string | undefined;
+        content_name?:string | undefined;
+        status?:boolean | undefined;
     }
+
+    type CustomParameters = Record<string,any>;
 }
 
 // For Facebook Tag API using Dynamic Product Ads

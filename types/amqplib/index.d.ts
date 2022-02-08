@@ -1,6 +1,11 @@
-// Type definitions for amqplib 0.5
+// Type definitions for amqplib 0.8
 // Project: https://github.com/squaremo/amqp.node, http://squaremo.github.io/amqp.node
-// Definitions by: Michael Nahkies <https://github.com/mnahkies>, Ab Reitsma <https://github.com/abreits>, Nicolás Fantone <https://github.com/nfantone>, Nick Zelei <https://github.com/zelein>
+// Definitions by: Michael Nahkies <https://github.com/mnahkies>,
+//                 Ab Reitsma <https://github.com/abreits>,
+//                 Nicolás Fantone <https://github.com/nfantone>,
+//                 Nick Zelei <https://github.com/nickzelei>,
+//                 Vincenzo Chianese <https://github.com/XVincentX>
+//                 Seonggwon Yoon <https://github.com/seonggwonyoon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.2
 
@@ -15,7 +20,9 @@ export interface Connection extends events.EventEmitter {
     close(): Promise<void>;
     createChannel(): Promise<Channel>;
     createConfirmChannel(): Promise<ConfirmChannel>;
-    serverProperties: ServerProperties;
+    connection: {
+        serverProperties: ServerProperties;
+    };
 }
 
 export interface Channel extends events.EventEmitter {
@@ -30,7 +37,7 @@ export interface Channel extends events.EventEmitter {
     bindQueue(queue: string, source: string, pattern: string, args?: any): Promise<Replies.Empty>;
     unbindQueue(queue: string, source: string, pattern: string, args?: any): Promise<Replies.Empty>;
 
-    assertExchange(exchange: string, type: string, options?: Options.AssertExchange): Promise<Replies.AssertExchange>;
+    assertExchange(exchange: string, type: 'direct' | 'topic' | 'headers' | 'fanout' | 'match' | string, options?: Options.AssertExchange): Promise<Replies.AssertExchange>;
     checkExchange(exchange: string): Promise<Replies.Empty>;
 
     deleteExchange(exchange: string, options?: Options.DeleteExchange): Promise<Replies.Empty>;
@@ -41,7 +48,7 @@ export interface Channel extends events.EventEmitter {
     publish(exchange: string, routingKey: string, content: Buffer, options?: Options.Publish): boolean;
     sendToQueue(queue: string, content: Buffer, options?: Options.Publish): boolean;
 
-    consume(queue: string, onMessage: (msg: ConsumeMessage | null) => any, options?: Options.Consume): Promise<Replies.Consume>;
+    consume(queue: string, onMessage: (msg: ConsumeMessage | null) => void, options?: Options.Consume): Promise<Replies.Consume>;
 
     cancel(consumerTag: string): Promise<Replies.Empty>;
     get(queue: string, options?: Options.Get): Promise<GetMessage | false>;
@@ -65,15 +72,21 @@ export interface ConfirmChannel extends Channel {
 }
 
 export const credentials: {
+    amqplain(username: string, password: string): {
+        mechanism: string;
+        response(): Buffer;
+        username: string;
+        password: string;
+    };
     external(): {
-      mechanism: string;
-      response(): Buffer;
+        mechanism: string;
+        response(): Buffer;
     };
     plain(username: string, password: string): {
-      mechanism: string;
-      response(): Buffer;
-      username: string;
-      password: string;
+        mechanism: string;
+        response(): Buffer;
+        username: string;
+        password: string;
     };
 };
 

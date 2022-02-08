@@ -7,8 +7,8 @@
 import { Moment } from 'moment';
 
 export interface Auth {
-    token?: string;
-    password?: string;
+    token?: string | undefined;
+    password?: string | undefined;
 }
 export interface Account {
     userid: string;
@@ -19,7 +19,7 @@ export interface Account {
 export interface AlksAccount {
     account: string;
     role: string;
-    iam?: boolean;
+    iam?: boolean | undefined;
 }
 export interface LongTermKeyData {
     accessKey: string;

@@ -7,8 +7,8 @@ interface Metrics {
 }
 
 interface OptionalMetrics {
-    disk?: Metrics;
-    memory?: Metrics;
+    disk?: Metrics | undefined;
+    memory?: Metrics | undefined;
 }
 
 const memory: Metrics = {

@@ -1,10 +1,8 @@
-import MarkdownIt = require('.');
 import Ruler = require('./ruler');
-import Token = require('./token');
 import StateCore = require('./rules_core/state_core');
 
 declare namespace Core {
-    type RuleCore = (state: StateCore) => boolean;
+    type RuleCore = (state: StateCore) => void;
 }
 
 declare class Core {

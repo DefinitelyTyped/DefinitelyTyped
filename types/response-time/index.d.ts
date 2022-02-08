@@ -37,9 +37,9 @@ declare function responseTime(fn: (request: express.Request, response: express.R
 
 declare namespace responseTime {
     export interface ResponseTimeOptions {
-        digits?: number;
-        header?: string;
-        suffix?: boolean;
+        digits?: number | undefined;
+        header?: string | undefined;
+        suffix?: boolean | undefined;
     }
 
     export interface ResponseTimeFunction {

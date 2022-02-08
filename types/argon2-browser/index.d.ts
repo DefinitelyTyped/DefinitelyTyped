@@ -1,7 +1,8 @@
-// Type definitions for argon2-browser 1.12
+// Type definitions for argon2-browser 1.18
 // Project: https://github.com/antelle/argon2-browser#readme
 // Definitions by: Ivan Gabriele <https://github.com/ivangabriele>
 //                 Brendan Early <https://github.com/mymindstorm>
+//                 Jeremy Forsythe <https://github.com/jdforsythe>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -14,18 +15,20 @@ export function hash(
 
 export function unloadRuntime(): void;
 
-interface Argon2BrowserHashOptions {
+export interface Argon2BrowserHashOptions {
   pass: string | Uint8Array;
   salt: string | Uint8Array;
-  time?: number;
-  mem?: number;
-  hashLen?: number;
-  parallelism?: number;
-  type?: ArgonType;
-  distPath?: string;
+  time?: number | undefined;
+  mem?: number | undefined;
+  hashLen?: number | undefined;
+  parallelism?: number | undefined;
+  type?: ArgonType | undefined;
+  distPath?: string | undefined;
+  secret?: Uint8Array | undefined;
+  ad?: Uint8Array | undefined;
 }
 
-interface Argon2BrowserHashResult {
+export interface Argon2BrowserHashResult {
   encoded: string;
   hash: Uint8Array;
   hashHex: string;
@@ -34,13 +37,15 @@ interface Argon2BrowserHashResult {
 // Argon2Error provided on promise rejection
 export function verify(options: Argon2VerifyOptions): Promise<undefined>;
 
-interface Argon2VerifyOptions {
+export interface Argon2VerifyOptions {
   pass: string;
   encoded: string | Uint8Array;
-  type?: ArgonType;
+  type?: ArgonType | undefined;
+  secret?: Uint8Array | undefined;
+  ad?: Uint8Array | undefined;
 }
 
-interface Argon2Error {
+export interface Argon2Error {
   message: string;
   code: number;
 }

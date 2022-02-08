@@ -5,17 +5,17 @@
 // TypeScript Version: 2.8
 
 interface Options {
-    cwd?: string | ((...args: any[]) => string);
-    buffer?: boolean | ((...args: any[]) => boolean);
-    read?: boolean | ((...args: any[]) => boolean);
-    base?: string | ((...args: any[]) => string);
-    since?: Date | number | ((...args: any[]) => Date | number);
-    passthrough?: boolean | ((...args: any[]) => boolean);
-    allowEmpty?: boolean | ((...args: any[]) => boolean);
-    mode?: string | number | ((...args: any[]) => string | number);
-    dirMode?: string | number | ((...args: any[]) => string | number);
-    overwrite?: boolean | ((...args: any[]) => boolean);
-    deep?: boolean | ((...args: any[]) => boolean);
+    cwd?: string | ((...args: any[]) => string) | undefined;
+    buffer?: boolean | ((...args: any[]) => boolean) | undefined;
+    read?: boolean | ((...args: any[]) => boolean) | undefined;
+    base?: string | ((...args: any[]) => string) | undefined;
+    since?: Date | number | ((...args: any[]) => Date | number) | undefined;
+    passthrough?: boolean | ((...args: any[]) => boolean) | undefined;
+    allowEmpty?: boolean | ((...args: any[]) => boolean) | undefined;
+    mode?: string | number | ((...args: any[]) => string | number) | undefined;
+    dirMode?: string | number | ((...args: any[]) => string | number) | undefined;
+    overwrite?: boolean | ((...args: any[]) => boolean) | undefined;
+    deep?: boolean | ((...args: any[]) => boolean) | undefined;
 }
 
 interface ConfigItem {

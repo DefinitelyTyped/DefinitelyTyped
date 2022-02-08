@@ -29,6 +29,21 @@ function testStringify() {
   var retval: string = importedStringify(obj);
 }
 
+function testStringifyIndent() {
+  var obj: any = {a: "a"};
+  var retval: string = importedStringify(obj, { indent: true });
+}
+
+function testStringifyCanonical() {
+  var obj: any = {a: "a"};
+  var retval: string = importedStringify(obj, { canonical: true });
+}
+
+function testStringifyOptions() {
+  var obj: any = {a: "a"};
+  var retval: string = importedStringify(obj, { canonical: true, indent: 'hello' });
+}
+
 function testToJSONValue() {
   var obj: any = {a:"a"};
   var retval: string = importedToJSONValue(obj);

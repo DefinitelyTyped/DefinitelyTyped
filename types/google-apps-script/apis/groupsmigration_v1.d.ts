@@ -15,13 +15,13 @@ declare namespace GoogleAppsScript {
     }
     namespace Schema {
       interface Groups {
-        kind?: string;
-        responseCode?: string;
+        kind?: string | undefined;
+        responseCode?: string | undefined;
       }
     }
   }
   interface AdminGroupsMigration {
-    Archive?: AdminGroupsMigration.Collection.ArchiveCollection;
+    Archive?: AdminGroupsMigration.Collection.ArchiveCollection | undefined;
   }
 }
 

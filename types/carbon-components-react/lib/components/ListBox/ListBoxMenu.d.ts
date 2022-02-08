@@ -1,14 +1,10 @@
-import * as React from "react";
-import { ReactDivAttr, RequiresIdProps } from "../../../typings/shared";
+import { ReactDivAttr, ForwardRefReturn } from "../../../typings/shared";
 
-interface InheritedProps extends
-    Omit<ReactDivAttr, "id">,
-    RequiresIdProps
-{ }
+export interface ListBoxMenuProps extends Omit<ReactDivAttr, "id"> {
+    id: string;
+}
 
-export interface ListBoxMenuProps extends InheritedProps { }
-
-export interface ListBoxMenuComponent extends React.FC<ListBoxMenuProps> { }
+export interface ListBoxMenuComponent extends ForwardRefReturn<HTMLDivElement, ListBoxMenuProps> { }
 
 declare const ListBoxMenu: ListBoxMenuComponent;
 

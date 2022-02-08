@@ -21,15 +21,15 @@ export interface CallbacksOption {
 }
 
 export interface RegExpOptions {
-    name?: RegExp;
-    attribute?: RegExp;
+    name?: RegExp | undefined;
+    attribute?: RegExp | undefined;
 }
 
 export interface RemovalCallback {
-    attributes: Callback | string[];
-    elements: Callback | string[];
-    comments: Callback | boolean;
-    docTypes: Callback | boolean;
+    attributes?: Callback | string[];
+    elements?: Callback | string[];
+    comments?: Callback | boolean;
+    docTypes?: Callback | boolean;
 }
 
 export function parse(htmlString: string, callbacks?: CallbacksOption, regex?: RegExpOptions): void;

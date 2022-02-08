@@ -274,11 +274,11 @@ interface CreateBucketOptions {
     /**
      * The bucket name
      */
-    name?: string;
-    authType?: string,
-    bucketType?: string;
-    ramQuotaMB?: number;
-    replicaNumber?: number;
+    name?: string | undefined;
+    authType?: string | undefined,
+    bucketType?: string | undefined;
+    ramQuotaMB?: number | undefined;
+    replicaNumber?: number | undefined;
 }
 
 /**
@@ -321,7 +321,7 @@ interface CouchbaseError extends Error {
     /**
      * The error code for this error.
      */
-    code?: errors;
+    code?: errors | undefined;
 
     /**
      * Possible response body included with the error.
@@ -331,24 +331,24 @@ interface CouchbaseError extends Error {
     /**
      * Possible inner error for this error.
      */
-    innerError?: CouchbaseError;
+    innerError?: CouchbaseError | undefined;
 }
 
 interface AppendOptions {
     /**
      * The CAS value to check. If the item on the server contains a different CAS value, the operation will fail. Note that if this option is undefined, no comparison will be performed.
      */
-    cas?: Bucket.CAS;
+    cas?: Bucket.CAS | undefined;
 
     /**
      * Ensures this operation is persisted to this many nodes.
      */
-    persist_to?: number;
+    persist_to?: number | undefined;
 
     /**
      *     Ensures this operation is replicated to this many nodes.
      */
-    replicate_to?: number;
+    replicate_to?: number | undefined;
 }
 
 interface PrependOptions extends AppendOptions { }
@@ -359,7 +359,7 @@ interface ReplaceOptions extends AppendOptions {
     /**
      * Set the initial expiration time for the document. A value of 0 represents never expiring.
      */
-    expiry?: number;
+    expiry?: number | undefined;
 }
 
 interface UpsertOptions extends ReplaceOptions { }
@@ -368,38 +368,38 @@ interface TouchOptions {
     /**
      *     Ensures this operation is persisted to this many nodes.
      */
-    persist_to?: number;
+    persist_to?: number | undefined;
 
     /**
      * Ensures this operation is replicated to this many nodes.
      */
-    replicate_to?: number;
+    replicate_to?: number | undefined;
 }
 
 interface CounterOptions {
     /**
      * Sets the initial value for the document if it does not exist. Specifying a value of undefined will cause the operation to fail if the document does not exist, otherwise this value must be equal to or greater than 0.
      */
-    initial?: number;
+    initial?: number | undefined;
 
     /**
      * Set the initial expiration time for the document. A value of 0 represents never expiring.
      */
-    expiry?: number;
+    expiry?: number | undefined;
 
     /**
      * Ensures this operation is persisted to this many nodes
      */
-    persist_to?: number;
+    persist_to?: number | undefined;
 
     /**
      * Ensures this operation is replicated to this many nodes
      */
-    replicate_to?: number;
+    replicate_to?: number | undefined;
 }
 
 interface GetAndLockOptions {
-    lockTime?: number;
+    lockTime?: number | undefined;
 }
 
 interface GetReplicaOptions {
@@ -407,7 +407,7 @@ interface GetReplicaOptions {
     /**
      * The index for which replica you wish to retrieve this value from, or if undefined, use the value from the first server that replies.
      */
-    index?: number;
+    index?: number | undefined;
 }
 
 interface InsertOptions {
@@ -415,82 +415,82 @@ interface InsertOptions {
     /**
      * Set the initial expiration time for the document. A value of 0 represents never expiring.
      */
-    expiry?: number;
+    expiry?: number | undefined;
 
     /**
      * Ensures this operation is persisted to this many nodes.
      */
-    persist_to?: number;
+    persist_to?: number | undefined;
 
     /**
      *     Ensures this operation is replicated to this many nodes.
      */
-    replicate_to?: number;
+    replicate_to?: number | undefined;
 }
 
 interface CreateIndexOptions {
     /**
      * If a secondary index already exists, an error will be thrown unless this is set to true.
      */
-    ignoreIfExists?: boolean;
+    ignoreIfExists?: boolean | undefined;
 
     /**
      * True to defer building of the index until buildDeferredIndexes is called (or a direct call to the corresponding query service API).
      */
-    deferred?: boolean;
+    deferred?: boolean | undefined;
 }
 
 interface CreatePrimaryIndexOptions {
     /**
      * The custom name for the primary index.
      */
-    name?: string;
+    name?: string | undefined;
 
     /**
      * If a primary index already exists, an error will be thrown unless this is set to true.
      */
-    ignoreIfExists?: boolean;
+    ignoreIfExists?: boolean | undefined;
 
     /**
      * True to defer building of the index until buildDeferredIndexes is called (or a direct call to the corresponding query service API).
      */
-    deferred?: boolean;
+    deferred?: boolean | undefined;
 }
 
 interface DropIndexOptions {
     /**
      * If true, attempting to drop on a bucket without the specified index won't cause an error to be thrown.
      */
-    ignoreIfNotExists?: boolean;
+    ignoreIfNotExists?: boolean | undefined;
 }
 
 interface DropPrimaryIndexOptions {
     /**
      * The custom name for the primary index.
      */
-    name?: string;
+    name?: string | undefined;
 
     /**
      * If true, attempting to drop on a bucket without the specified index won't cause an error to be thrown.
      */
-    ignoreIfNotExists?: boolean;
+    ignoreIfNotExists?: boolean | undefined;
 }
 
 interface CreatePrimaryIndexOptions {
     /**
      * The custom name for the primary index.
      */
-    name?: string;
+    name?: string | undefined;
 
     /**
      * If a primary index already exists, an error will be thrown unless this is set to true.
      */
-    ignoreIfExists?: boolean;
+    ignoreIfExists?: boolean | undefined;
 
     /**
      * True to defer building of the index until buildDeferredIndexes is called (or a direct call to the corresponding query service API).
      */
-    deferred?: boolean;
+    deferred?: boolean | undefined;
 }
 
 interface IndexInfo {
@@ -546,7 +546,7 @@ interface WatchIndexesOptions {
     /**
      * Timeout for the operation in milliseconds.
      */
-    timeout?: number;
+    timeout?: number | undefined;
 }
 
 /**
@@ -879,7 +879,7 @@ declare namespace N1qlQuery {
         /**
          *     This is the default (for single-statement requests).
          */
-        NOT_BOUND,
+        NOT_BOUNDED,
 
         /**
          * This implements strong consistency per request.

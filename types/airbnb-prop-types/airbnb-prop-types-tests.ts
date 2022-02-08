@@ -84,7 +84,7 @@ AirbnbPropTypes.explicitNull().isRequired;
 interface ForbidShape {
     foo: string;
     bar: number;
-    baz?: boolean | null;
+    baz?: boolean | null | undefined;
 }
 
 // $ExpectType ValidationMap<{ foo: string | null | undefined; bar: number; baz: boolean | null | undefined; }>
@@ -174,7 +174,7 @@ validateRequireableTop(AirbnbPropTypes.sequenceOf(
 
 interface ShapeShape {
     foo: string;
-    bar?: number | null;
+    bar?: number | null | undefined;
 }
 
 // $ExpectType Requireable<{ foo: string | null | undefined; }>

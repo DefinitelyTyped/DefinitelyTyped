@@ -4,11 +4,11 @@ import BaseControl from '../base-control';
 
 declare namespace RadioControl {
     interface Props<T> extends BaseControl.ControlProps {
-        options?: ReadonlyArray<Option<T>>;
+        options?: ReadonlyArray<Option<T>> | undefined;
         /**
          * The value property of the currently selected option.
          */
-        selected?: T;
+        selected?: T | undefined;
         /**
          * A function that receives the value of the new option that is being
          * selected as input.

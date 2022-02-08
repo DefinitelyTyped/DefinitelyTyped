@@ -1,10 +1,14 @@
-import { Date } from 'floreal';
+import { Date as Floreal } from "floreal";
 
-const fd1 = new Date();
-const fd2 = new Date('1799-11-09');
+const fd1 = new Floreal(); // $ExpectType FlorealDate
+const fd2 = new Floreal("1799-11-09"); // $ExpectType FlorealDate
+const fd3 = new Floreal(Date.now()); // $ExpectType FlorealDate
+const fd4 = new Floreal(new Date()); // $ExpectType FlorealDate
 
 fd1.dayName(); // $ExpectType: string
 fd2.firstDayOfYear(); // $ExpectType: Date
 fd1.foo(); // $ExpectError
-fd1.setYear('XII');
+fd1.setYear("XII");
 fd1.setYearDecimal(12);
+fd1.toDateString(); // $ExpectType string
+fd1.toString(); // $ExpectType string

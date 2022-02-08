@@ -1,3 +1,30 @@
+// $ExpectType Promise<BluetoothDevice[]>
+navigator.bluetooth.getDevices();
+
+// $ExpectType Promise<boolean>
+navigator.bluetooth.getAvailability();
+
+// $ExpectType Promise<BluetoothDevice>
+navigator.bluetooth.requestDevice({
+    filters: [{
+        services: ['heart_rate'],
+        name: 'some-name',
+        namePrefix: 'prefix',
+        manufacturerData: [{
+            companyIdentifier: 0x0858
+        }],
+        serviceData: [{
+            service: 'heart_rate',
+        }],
+    }]
+});
+// $ExpectType Promise<BluetoothLEScan>
+navigator.bluetooth.requestLEScan({ acceptAllAdvertisements: true });
+
+navigator.bluetooth.addEventListener("advertisementreceived", event => {
+    event; // $ExpectType BluetoothAdvertisingEvent
+});
+
 // Example 1 (from the spec):
 let chosenHeartRateService: BluetoothRemoteGATTService = null;
 
@@ -94,20 +121,23 @@ function parseHeartRate(data: DataView) {
 // Example from the scanning spec
 navigator.bluetooth.requestLEScan({
     acceptAllAdvertisements: true,
-}).then((scan) => {
+}).then((scan: BluetoothLEScan) => {
     console.log('Scan started with:');
     console.log(' acceptAllAdvertisements: ' + scan.acceptAllAdvertisements);
     console.log(' active: ' + scan.active);
     console.log(' keepRepeatedDevices: ' + scan.keepRepeatedDevices);
     console.log(' filters: ' + JSON.stringify(scan.filters));
 
-    navigator.bluetooth.addEventListener('advertisementreceived', event => {
+    navigator.bluetooth.addEventListener('advertisementreceived', (event: BluetoothAdvertisingEvent) => {
         console.log('Advertisement received.');
+        console.log('  Advertisement name: ' + event.name);
+        console.log('  Advertisement UUIDs: ' + event.uuids);
+        console.log('  Advertisement appearance: ' + event.appearance);
+        console.log('  Advertisement RSSI: ' + event.rssi);
+        console.log('  Advertisement TX Power: ' + event.txPower);
         console.log('  Device Name: ' + event.device.name);
         console.log('  Device ID: ' + event.device.id);
-        console.log('  RSSI: ' + event.rssi);
-        console.log('  TX Power: ' + event.txPower);
-        console.log('  UUIDs: ' + event.uuids);
+
         event.manufacturerData.forEach((valueDataView, key) => {
             logDataView('Manufacturer', key, valueDataView);
         });

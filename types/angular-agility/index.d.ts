@@ -76,14 +76,14 @@ declare namespace aa {
 
     export interface INotifyConfig {
         name:string;
-        template?:string;
-        templateName?:string;
+        template?:string | undefined;
+        templateName?:string | undefined;
         options:INotifyOptions;
         namedDefaults:INotifyDefaults;
     }
 
     export interface INotifyOptions {
-        cssClasses?:string;
+        cssClasses?:string | undefined;
         messageType:string;
         allowHtml:boolean;
         message:string;
@@ -102,6 +102,6 @@ declare namespace aa {
         ignore?:any;
         globals?:any;
         resolve?:any;
-        resolveFn?:(modelValue:string)=>string;
+        resolveFn?:((modelValue:string)=>string) | undefined;
     }
 }

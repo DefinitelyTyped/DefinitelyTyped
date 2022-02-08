@@ -2,9 +2,9 @@
     "private": true,
     "types": "index",
     "typesVersions": {
-        ">=4.0.0-0": {
+        "<=3.9": {
             "*": [
-                "ts4.0/*"
+                "ts3.9/*"
             ]
         }
     }

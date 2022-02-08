@@ -105,7 +105,7 @@ RT.registerFormatType('foo', {
         myFoo: 'data-my-foo',
     },
     edit(props) {
-        return <span data-is-active={props.isActive}>{props.value}</span>;
+        return <span data-is-active={props.isActive}>{props.value.text}</span>;
     },
 });
 

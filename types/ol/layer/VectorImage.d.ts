@@ -1,4 +1,4 @@
-import { EventsKey, ListenerFunction } from '../events';
+import { EventsKey } from '../events';
 import BaseEvent from '../events/Event';
 import { Extent } from '../extent';
 import Geometry from '../geom/Geometry';
@@ -14,30 +14,31 @@ import BaseVectorLayer from './BaseVector';
 import Layer from './Layer';
 
 export interface Options {
-    className?: string;
-    opacity?: number;
-    visible?: boolean;
-    extent?: Extent;
-    zIndex?: number;
-    minResolution?: number;
-    maxResolution?: number;
-    minZoom?: number;
-    maxZoom?: number;
-    renderOrder?: OrderFunction;
-    renderBuffer?: number;
-    source?: VectorSource<Geometry>;
-    map?: PluggableMap;
-    declutter?: boolean;
-    style?: StyleLike;
-    updateWhileAnimating?: boolean;
-    updateWhileInteracting?: boolean;
-    imageRatio?: number;
+    className?: string | undefined;
+    opacity?: number | undefined;
+    visible?: boolean | undefined;
+    extent?: Extent | undefined;
+    zIndex?: number | undefined;
+    minResolution?: number | undefined;
+    maxResolution?: number | undefined;
+    minZoom?: number | undefined;
+    maxZoom?: number | undefined;
+    renderOrder?: OrderFunction | undefined;
+    renderBuffer?: number | undefined;
+    source?: VectorSource<Geometry> | undefined;
+    map?: PluggableMap | undefined;
+    declutter?: boolean | undefined;
+    style?: StyleLike | undefined;
+    imageRatio?: number | undefined;
 }
 export default class VectorImageLayer extends BaseVectorLayer {
     constructor(opt_options?: Options);
-    protected createRenderer(): LayerRenderer<Layer<Source>>;
+    /**
+     * Create a renderer for this layer.
+     */
+    createRenderer(): LayerRenderer<Layer<Source>>;
     getImageRatio(): number;
-    on(type: string | string[], listener: ListenerFunction): EventsKey | EventsKey[];
+    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     un(type: string | string[], listener: (p0: any) => any): void;
     on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;

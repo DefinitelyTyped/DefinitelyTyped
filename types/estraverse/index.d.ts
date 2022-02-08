@@ -157,13 +157,13 @@ declare namespace ESTraverse {
     interface VisitorKeys extends Record<NodeType, string[]> {}
 
     interface Visitor {
-        enter?: (this: Controller, node: ESTree.Node, parent: ESTree.Node | null) => VisitorOption | ESTree.Node | void;
+        enter?: ((this: Controller, node: ESTree.Node, parent: ESTree.Node | null) => VisitorOption | ESTree.Node | void) | undefined;
 
-        leave?: (this: Controller, node: ESTree.Node, parent: ESTree.Node | null) => VisitorOption | ESTree.Node | void;
+        leave?: ((this: Controller, node: ESTree.Node, parent: ESTree.Node | null) => VisitorOption | ESTree.Node | void) | undefined;
 
-        fallback?: 'iteration' | ((this: Controller, node: ESTree.Node) => string[]);
+        fallback?: 'iteration' | ((this: Controller, node: ESTree.Node) => string[]) | undefined;
 
-        keys?: Record<string, string[]>;
+        keys?: Record<string, string[]> | undefined;
     }
 }
 

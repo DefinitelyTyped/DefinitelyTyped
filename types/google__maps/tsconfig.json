@@ -14,8 +14,8 @@
             "../"
         ],
         "paths": {
-            "@google/maps": [
-                "google__maps"
+            "@google/*": [
+                "google__*"
             ]
         },
         "types": [],

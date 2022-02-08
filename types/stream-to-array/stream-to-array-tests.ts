@@ -9,7 +9,7 @@ toArray(stream1, (err, arr) => {
     arr; // $ExpectType any[]
 });
 
-const stream2: stream.Readable & { toArray?: typeof toArray } = new stream.Readable();
+const stream2: stream.Readable & { toArray?: typeof toArray | undefined } = new stream.Readable();
 stream2.toArray = toArray;
 stream2.toArray(); // $ExpectType Promise<any[]>
 stream2.toArray((err, arr) => {

@@ -13,6 +13,11 @@
         "typeRoots": [
             "../"
         ],
+        "paths": {
+            "d3-shape": [
+                "d3-shape/v1"
+            ]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

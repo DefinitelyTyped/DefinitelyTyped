@@ -51,7 +51,7 @@ declare namespace ngtoaster {
     }
 
     interface IPopParams extends IToast {
-        toasterId?: number;
+        toasterId?: number | undefined;
     }
 
     interface IPopReturn {
@@ -68,61 +68,61 @@ declare namespace ngtoaster {
          * Acceptable types are:
          * 'error', 'info', 'wait', 'success', and 'warning'
          */
-        type?: string;
-        title?: string;
-        body?: string;
-        timeout?: number;
-        bodyOutputType?: string;
-        clickHandler?: EventListener;
-        showCloseButton?: boolean;
-        closeHtml?: string;
-        toastId?: string|number;
+        type?: string | undefined;
+        title?: string | undefined;
+        body?: string | undefined;
+        timeout?: number | undefined;
+        bodyOutputType?: string | undefined;
+        clickHandler?: EventListener | undefined;
+        showCloseButton?: boolean | undefined;
+        closeHtml?: string | undefined;
+        toastId?: string|number | undefined;
         /**
          * Called when the toast has been displayed.
          * @param toast the displayed toast
          */
-        onShowCallback?: IToastCallback;
+        onShowCallback?: IToastCallback | undefined;
         /**
          * Called when the toast has been removed.
          * @param toast the displayed toast
          */
-        onHideCallback?: IToastCallback;
+        onHideCallback?: IToastCallback | undefined;
         directiveData?: any;
-        tapToDismiss?: boolean;
+        tapToDismiss?: boolean | undefined;
     }
 
     interface IToasterConfig {
         /**
          * limits max number of toasts
          */
-        limit?: number;
-        'tap-to-dismiss'?: boolean;
-        'close-button'?: boolean;
-        'close-html'?: string;
-        'newest-on-top'?: boolean;
-        'time-out'?: number;
-        'icon-classes'?: IIconClasses;
+        limit?: number | undefined;
+        'tap-to-dismiss'?: boolean | undefined;
+        'close-button'?: boolean | undefined;
+        'close-html'?: string | undefined;
+        'newest-on-top'?: boolean | undefined;
+        'time-out'?: number | undefined;
+        'icon-classes'?: IIconClasses | undefined;
         /**
          * Options include:
          * '', 'trustedHtml', 'template', 'templateWithData'
          */
-        'body-output-type'?: string;
-        'body-template'?: string;
-        'icon-class'?: string;
+        'body-output-type'?: string | undefined;
+        'body-template'?: string | undefined;
+        'icon-class'?: string | undefined;
         /**
          * Options include:
          * 'toast-top-full-width', 'toast-bottom-full-width', 'toast-center',
          * 'toast-top-left', 'toast-top-center', 'toast-top-rigt',
          * 'toast-bottom-left', 'toast-bottom-center', 'toast-bottom-rigt',
          */
-        'position-class'?: string;
-        'title-class'?: string;
-        'message-class'?: string;
-        'prevent-duplicates'?: boolean;
+        'position-class'?: string | undefined;
+        'title-class'?: string | undefined;
+        'message-class'?: string | undefined;
+        'prevent-duplicates'?: boolean | undefined;
         /**
          * stop timeout on mouseover and restart timer on mouseout
          */
-        'mouseover-timer-stop'?: boolean;
+        'mouseover-timer-stop'?: boolean | undefined;
     }
 
     interface IIconClasses {

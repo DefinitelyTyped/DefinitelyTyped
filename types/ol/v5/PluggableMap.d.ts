@@ -25,7 +25,7 @@ import View, { State } from './View';
 
 export interface AtPixelOptions {
     layerFilter: (p0: Layer) => boolean;
-    hitTolerance?: number;
+    hitTolerance?: number | undefined;
 }
 export interface FrameState {
     pixelRatio: number;
@@ -48,22 +48,22 @@ export interface FrameState {
     wantedTiles: { [key: string]: { [key: string]: boolean } };
 }
 export interface MapOptions {
-    controls?: Collection<Control> | Control[];
-    pixelRatio?: number;
-    interactions?: Collection<Interaction> | Interaction[];
-    keyboardEventTarget?: HTMLElement | Document | string;
-    layers?: BaseLayer[] | Collection<BaseLayer> | LayerGroup;
-    maxTilesLoading?: number;
-    loadTilesWhileAnimating?: boolean;
-    loadTilesWhileInteracting?: boolean;
-    moveTolerance?: number;
-    overlays?: Collection<Overlay> | Overlay[];
-    target?: HTMLElement | string;
-    view?: View;
+    controls?: Collection<Control> | Control[] | undefined;
+    pixelRatio?: number | undefined;
+    interactions?: Collection<Interaction> | Interaction[] | undefined;
+    keyboardEventTarget?: HTMLElement | Document | string | undefined;
+    layers?: BaseLayer[] | Collection<BaseLayer> | LayerGroup | undefined;
+    maxTilesLoading?: number | undefined;
+    loadTilesWhileAnimating?: boolean | undefined;
+    loadTilesWhileInteracting?: boolean | undefined;
+    moveTolerance?: number | undefined;
+    overlays?: Collection<Overlay> | Overlay[] | undefined;
+    target?: HTMLElement | string | undefined;
+    view?: View | undefined;
 }
 export interface MapOptionsInternal {
-    controls?: Collection<Control>;
-    interactions?: Collection<Interaction>;
+    controls?: Collection<Control> | undefined;
+    interactions?: Collection<Interaction> | undefined;
     keyboardEventTarget: HTMLElement | Document;
     overlays: Collection<Overlay>;
     values: { [key: string]: any };

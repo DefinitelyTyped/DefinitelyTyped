@@ -1,0 +1,1 @@
+components/index.d.ts

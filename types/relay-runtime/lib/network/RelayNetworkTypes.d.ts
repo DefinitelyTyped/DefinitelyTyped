@@ -20,8 +20,8 @@ export interface PayloadError {
     locations?: Array<{
         line: number;
         column: number;
-    }>;
-    severity?: 'CRITICAL' | 'ERROR' | 'WARNING'; // Not officially part of the spec, but used at Facebook
+    }> | undefined;
+    severity?: 'CRITICAL' | 'ERROR' | 'WARNING' | undefined; // Not officially part of the spec, but used at Facebook
 }
 
 export interface PayloadExtensions {
@@ -34,17 +34,17 @@ export interface PayloadExtensions {
  */
 export interface GraphQLResponseWithData {
     data: PayloadData;
-    errors?: PayloadError[];
-    extensions?: PayloadExtensions;
-    label?: string;
-    path?: string[] | number[];
+    errors?: PayloadError[] | undefined;
+    extensions?: PayloadExtensions | undefined;
+    label?: string | undefined;
+    path?: Array<string | number> | undefined;
 }
 export interface GraphQLResponseWithoutData {
-    data?: PayloadData;
+    data?: PayloadData | undefined;
     errors: PayloadError[];
-    extensions?: PayloadExtensions;
-    label?: string;
-    path?: Array<string | number>;
+    extensions?: PayloadExtensions | undefined;
+    label?: string | undefined;
+    path?: Array<string | number> | undefined;
 }
 export interface GraphQLResponseWithExtensionsOnly {
     // Per https://spec.graphql.org/June2018/#sec-Errors
@@ -91,9 +91,9 @@ export type FetchFunction = (
 ) => ObservableFromValue<GraphQLResponse>;
 
 export interface LegacyObserver<T> {
-    onCompleted?: () => void;
-    onError?: (error: Error) => void;
-    onNext?: (data: T) => void;
+    onCompleted?: (() => void) | undefined;
+    onError?: ((error: Error) => void) | undefined;
+    onNext?: ((data: T) => void) | undefined;
 }
 
 /**
@@ -110,4 +110,26 @@ export type SubscribeFunction = (
 export type Uploadable = File | Blob;
 export interface UploadableMap {
     [key: string]: Uploadable;
+}
+
+/**
+ * React Flight tree created on the server.
+ */
+export type ReactFlightServerTree = any;
+export interface ReactFlightPayloadQuery {
+    readonly id: any;
+    readonly module: any;
+    readonly response: GraphQLSingularResponse;
+    readonly variables: Variables;
+}
+/**
+ * Data that is returned by a Flight compliant GraphQL server.
+ *
+ * - tree: an array of values that will be iterated and fed into
+ *     ReactFlightDOMRelayClient.
+ * - queries: an array of queries that the server preloaded for the client.
+ */
+export interface ReactFlightPayloadData {
+    readonly tree: ReactFlightServerTree[];
+    readonly queries: ReactFlightPayloadQuery[];
 }

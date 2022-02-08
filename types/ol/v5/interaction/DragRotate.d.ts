@@ -5,8 +5,8 @@ import { ObjectEvent } from '../Object';
 import PointerInteraction from './Pointer';
 
 export interface Options {
-    condition?: Condition;
-    duration?: number;
+    condition?: Condition | undefined;
+    duration?: number | undefined;
 }
 export default class DragRotate extends PointerInteraction {
     constructor(opt_options?: Options);

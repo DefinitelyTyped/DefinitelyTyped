@@ -5883,11 +5883,23 @@ function JQuery() {
         }
 
         function children() {
-            // $ExpectType JQuery<HTMLElement>
+            // $ExpectType JQuery<HTMLSpanElement>
             $('p').children('span');
+
+            // $ExpectType JQuery<HTMLDivElement>
+            $('p').children('div');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').children('.class-name');
 
             // $ExpectType JQuery<HTMLElement>
             $('p').children();
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').children();
+
+            // $ExpectType JQuery<HTMLElement>
+            $<HTMLDivElement>('p').children();
         }
 
         function siblings() {
@@ -6103,11 +6115,20 @@ function JQuery() {
         }
 
         function parents() {
-            // $ExpectType JQuery<HTMLElement>
+            // $ExpectType JQuery<HTMLSpanElement>
             $('p').parents('span');
 
             // $ExpectType JQuery<HTMLElement>
             $('p').parents();
+
+            // $ExpectType JQuery<HTMLDivElement>
+            $(document).find('select').parents('div');
+
+            // $ExpectType JQuery<HTMLElement>
+            $(document).find('select').parents('.container');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').parents('.container');
         }
 
         function parentsUntil() {
@@ -6318,11 +6339,14 @@ function JQuery() {
         }
 
         function get() {
-            // $ExpectType HTMLElement
+            // $ExpectType HTMLElement | undefined
             $('p').get(0);
 
             // $ExpectType HTMLElement[]
             $('p').get();
+
+            // $ExpectType HTMLElement | undefined
+            $('nonExistentElement').get(0);
         }
 
         function index() {
@@ -8203,7 +8227,7 @@ function JQuery_EventExtensions() {
                 data;
                 // $ExpectType string
                 namespaces;
-                // $ExpectType EventHandlerBase<EventTarget, TriggeredEvent<EventTarget, any, any, any>>
+                // $ExpectType EventHandlerBase<EventTarget, TriggeredEvent<EventTarget, any, any, any>> || EventHandler<EventTarget, any>
                 eventHandle;
 
                 return false;

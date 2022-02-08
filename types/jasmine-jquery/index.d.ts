@@ -91,7 +91,7 @@ declare namespace jasmine {
          * // returns true
          * expect($('<div class="some-class"></div>')).toHaveClass("some-class")
          */
-        toHaveClass(className: string): boolean;
+        toHaveClass(className: string): void;
 
         /**
          * Check if DOM element has the given CSS properties.
@@ -106,13 +106,13 @@ declare namespace jasmine {
          * // returns true
          * expect($('<div style="display: none; margin: 10px;"></div>')).toHaveCss({margin: "10px"})
          */
-        toHaveCss(css: any): boolean;
+        toHaveCss(css: any): void;
 
         /**
          * Checks if DOM element is visible.
          * Elements are considered visible if they consume space in the document. Visible elements have a width or height that is greater than zero.
          */
-        toBeVisible(): boolean;
+        toBeVisible(): void;
         /**
          * Check if DOM element is hidden.
          * Elements can be hidden for several reasons:
@@ -121,7 +121,7 @@ declare namespace jasmine {
          * - Their width and height are explicitly set to 0.
          * - An ancestor element is hidden, so the element is not shown on the page.
          */
-        toBeHidden(): boolean;
+        toBeHidden(): void;
 
         /**
          * Only for tags that have checked attribute
@@ -130,7 +130,7 @@ declare namespace jasmine {
          * // returns true
          * expect($('<option selected="selected"></option>')).toBeSelected()
          */
-        toBeSelected(): boolean;
+        toBeSelected(): void;
 
         /**
          * Only for tags that have checked attribute
@@ -138,24 +138,24 @@ declare namespace jasmine {
          * // returns true
          * expect($('<input type="checkbox" checked="checked"/>')).toBeChecked()
          */
-        toBeChecked(): boolean;
+        toBeChecked(): void;
 
         /**
          * Checks for child DOM elements or text
          */
-        toBeEmpty(): boolean;
+        toBeEmpty(): void;
 
         /**
          * Checks if element exists in or out the DOM.
          */
-        toExist(): boolean;
+        toExist(): void;
 
         /**
          * Checks if array has the given length.
          *
          * @param length Expected length
          */
-        toHaveLength(length: number): boolean;
+        toHaveLength(length: number): void;
 
         /**
          * Check if DOM element contains an attribute and, optionally, if the value of the attribute is equal to the expected one.
@@ -163,7 +163,7 @@ declare namespace jasmine {
          * @param attributeName Name of the attribute to check
          * @param expectedAttributeValue Expected attribute value
          */
-        toHaveAttr(attributeName: string, expectedAttributeValue? : any): boolean;
+        toHaveAttr(attributeName: string, expectedAttributeValue? : any): void;
 
         /**
          * Check if DOM element contains a property and, optionally, if the value of the property is equal to the expected one.
@@ -171,14 +171,14 @@ declare namespace jasmine {
          * @param propertyName Property name to check
          * @param expectedPropertyValue Expected property value
          */
-        toHaveProp(propertyName: string, expectedPropertyValue? : any): boolean;
+        toHaveProp(propertyName: string, expectedPropertyValue? : any): void;
 
         /**
          * Check if DOM element has the given Id
          *
          * @param Id Expected identifier
          */
-        toHaveId(id: string): boolean;
+        toHaveId(id: string): void;
 
         /**
          * Check if DOM element has the specified HTML.
@@ -187,7 +187,7 @@ declare namespace jasmine {
          * // returns true
          * expect($('<div><span></span></div>')).toHaveHtml('<span></span>')
          */
-        toHaveHtml(html: string): boolean;
+        toHaveHtml(html: string): void;
 
         /**
          * Check if DOM element contains the specified HTML.
@@ -196,7 +196,7 @@ declare namespace jasmine {
          * // returns true
          * expect($('<div><ul></ul><h1>header</h1></div>')).toContainHtml('<ul></ul>')
          */
-        toContainHtml(html: string): boolean;
+        toContainHtml(html: string): void;
 
         /**
          * Check if DOM element has the given Text.
@@ -206,7 +206,7 @@ declare namespace jasmine {
          * // returns true
          * expect($('<div>some text</div>')).toHaveText('some text')
          */
-        toHaveText(text: string): boolean;
+        toHaveText(text: string): void;
         /**
          * Check if DOM element contains the specified text.
          *
@@ -214,7 +214,7 @@ declare namespace jasmine {
          * // returns true
          * expect($('<div><ul></ul><h1>header</h1></div>')).toContainText('header')
          */
-        toContainText(text: string): boolean;
+        toContainText(text: string): void;
 
         /**
          * Check if DOM element has the given value.
@@ -224,15 +224,15 @@ declare namespace jasmine {
          * // returns true
          * expect($('<input type="text" value="some text"/>')).toHaveValue('some text')
          */
-        toHaveValue(value : string): boolean;
+        toHaveValue(value : string): void;
 
         /**
          * Check if DOM element has the given data.
          * This can only be applied for element on with jQuery data(key) can be called.
          *
          */
-        toHaveData(key : string, expectedValue : string): boolean;
-        toBe(selector: T): boolean;
+        toHaveData(key : string, expectedValue : string): void;
+        toBe(selector: T): void;
 
         /**
          * Check if DOM element is matched by the given selector.
@@ -241,7 +241,7 @@ declare namespace jasmine {
          * // returns true
          * expect($('<div><span class="some-class"></span></div>')).toContain('some-class')
          */
-        toContain(selector: any): boolean;
+        toContain(selector: any): void;
 
         /**
          * Check if DOM element exists inside the given parent element.
@@ -250,7 +250,7 @@ declare namespace jasmine {
          * // returns true
          * expect($('<div><span class="some-class"></span></div>')).toContainElement('span.some-class')
          */
-        toContainElement(selector: string): boolean;
+        toContainElement(selector: string): void;
 
         /**
          * Check to see if the set of matched elements matches the given selector
@@ -260,7 +260,7 @@ declare namespace jasmine {
          *
          * @returns {Boolean} true if DOM contains the element
          */
-        toBeMatchedBy(selector: string): boolean;
+        toBeMatchedBy(selector: string): void;
 
         /**
          * Only for tags that have disabled attribute
@@ -268,7 +268,7 @@ declare namespace jasmine {
          * // returns true
          * expect('<input type="submit" disabled="disabled"/>').toBeDisabled()
          */
-        toBeDisabled(): boolean;
+        toBeDisabled(): void;
 
         /**
          * Check if DOM element is focused
@@ -276,7 +276,7 @@ declare namespace jasmine {
          * // returns true
          * expect($('<input type="text" />').focus()).toBeFocused()
          */
-        toBeFocused(): boolean;
+        toBeFocused(): void;
 
         /**
          * Checks if DOM element handles event.
@@ -285,7 +285,7 @@ declare namespace jasmine {
          * // returns true
          * expect($form).toHandle("submit")
          */
-        toHandle(eventName: string): boolean;
+        toHandle(eventName: string): void;
 
         /**
          * Assigns a callback to an event of the DOM element.
@@ -296,37 +296,37 @@ declare namespace jasmine {
          * @example
          * expect($form).toHandleWith("submit", yourSubmitCallback)
          */
-        toHandleWith(eventName: string, eventHandler : JQueryCallback): boolean;
+        toHandleWith(eventName: string, eventHandler : JQueryCallback): void;
 
         /**
          * Checks if event was triggered.
          */
-        toHaveBeenTriggered(): boolean;
+        toHaveBeenTriggered(): void;
 
         /**
          * Checks if the event has been triggered on selector.
          * @param selector Selector that should have triggered the event.
          */
-        toHaveBeenTriggeredOn(selector: string): boolean;
+        toHaveBeenTriggeredOn(selector: string): void;
 
         /**
          * Checks if the event has been triggered on selector.
          * @param selector Selector that should have triggered the event.
          * @param args Extra arguments to be passed to jQuery events functions.
          */
-        toHaveBeenTriggeredOnAndWith(selector: string, ...args: any[]): boolean;
+        toHaveBeenTriggeredOnAndWith(selector: string, ...args: any[]): void;
 
         /**
          * Checks if event propagation has been prevented.
          */
-        toHaveBeenPrevented(): boolean;
+        toHaveBeenPrevented(): void;
 
         /**
          * Checks if event propagation has been prevented on element with selector.
          *
          * @param selector Selector that should have prevented the event.
          */
-        toHaveBeenPreventedOn(selector: string): boolean;
+        toHaveBeenPreventedOn(selector: string): void;
 
         /**
          * Checks if event propagation has been stopped.
@@ -338,7 +338,7 @@ declare namespace jasmine {
          * $('#some_element').click()
          * expect(spyEvent).toHaveBeenStopped()
          */
-        toHaveBeenStopped(): boolean;
+        toHaveBeenStopped(): void;
 
         /**
          * Checks if event propagation has been stopped by an element with the given selector.
@@ -350,14 +350,14 @@ declare namespace jasmine {
          * $('#some_element').click()
          * expect('click').toHaveBeenStoppedOn('#some_element')
          */
-        toHaveBeenStoppedOn(selector: string): boolean;
+        toHaveBeenStoppedOn(selector: string): void;
 
         /**
          * Checks to see if the matched element is attached to the DOM.
          * @example
          * expect($('#id-name')[0]).toBeInDOM()
          */
-        toBeInDOM(): boolean;
+        toBeInDOM(): void;
 
     }
 

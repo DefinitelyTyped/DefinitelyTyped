@@ -360,7 +360,7 @@ placeSearch.setLang(lang);
 // $ExpectType void
 placeSearch.setLang();
 
-// $ExpectType "zh_cn" | "en" | "zh_en" | undefined
+// $ExpectType "zh_cn" | "en" | "zh_en" | undefined || Lang | undefined
 placeSearch.getLang();
 
 // $ExpectType void

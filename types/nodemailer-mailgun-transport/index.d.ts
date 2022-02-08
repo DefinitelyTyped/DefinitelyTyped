@@ -12,15 +12,20 @@ import MailMessage = require('nodemailer/lib/mailer/mail-message');
 declare namespace mailgunTransport {
     interface AuthOptions {
         api_key: string;
-        domain?: string;
+        domain?: string | undefined;
+    }
+
+    interface AliasAuthOptions {
+        apiKey: string;
+        domain?: string | undefined;
     }
 
     interface Options {
-        auth: AuthOptions;
-        proxy?: string | boolean;
-        host?: string;
-        protocol?: string;
-        port?: number;
+        auth: AuthOptions | AliasAuthOptions;
+        proxy?: string | boolean | undefined;
+        host?: string | undefined;
+        protocol?: string | undefined;
+        port?: number | undefined;
     }
 
     type MailOptions = Mail.Options;

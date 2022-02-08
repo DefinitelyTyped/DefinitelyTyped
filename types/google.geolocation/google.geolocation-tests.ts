@@ -9,10 +9,10 @@ if(isInit){
    alert("Functionality not available");
 }
 
-function success_callback(position: Position): void {
+function success_callback(position: GeolocationPosition): void {
     geo_position_js.showMap(position.coords.latitude, position.coords.longitude);
 }
 
-function error_callback(positionError: PositionError): void {
+function error_callback(positionError: GeolocationPositionError): void {
     console.log(positionError.code);
 }

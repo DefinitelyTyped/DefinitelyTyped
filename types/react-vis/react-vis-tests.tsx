@@ -14,6 +14,10 @@ import {
     Highlight,
     HighlightArea,
     VerticalRectSeries,
+    Treemap,
+    Sunburst,
+    AreaSeries,
+    DiscreteColorLegend,
 } from 'react-vis';
 
 export function Example() {
@@ -21,8 +25,32 @@ export function Example() {
         <XYPlot width={300} height={300}>
             <VerticalGridLines />
             <HorizontalGridLines />
-            <XAxis />
-            <YAxis />
+            <XAxis
+                style={{
+                    strokeWidth: '3px',
+                    line: { stroke: 'red' },
+                    ticks: { stroke: 'green' },
+                    title: { textTransform: 'uppercase' },
+                    text: {
+                        stroke: 'none',
+                        fill: 'blue',
+                        fontWeight: 600,
+                    },
+                }}
+            />
+            <YAxis
+                style={{
+                    strokeWidth: '3px',
+                    line: { stroke: 'purple' },
+                    ticks: { stroke: 'orange' },
+                    title: { textTransform: 'capitalize' },
+                    text: {
+                        stroke: 'none',
+                        fill: 'rgb(70%, 80%, 54%)',
+                        fontWeight: 600,
+                    },
+                }}
+            />
             <LineMarkSeries
                 className="linemark-series-example"
                 style={{
@@ -35,6 +63,7 @@ export function Example() {
                     { x: 2, y: 5 },
                     { x: 3, y: 15 },
                 ]}
+                strokeWidth={3}
             />
             <LineMarkSeries
                 className="linemark-series-example-2"
@@ -211,3 +240,63 @@ export const HighlightDragExample: React.FC = () => {
         </XYPlot>
     );
 };
+
+const treemapData = {
+    title: 'first level',
+    children: [
+        {
+            title: 'second level',
+            children: [
+                {
+                    title: '#ff0000',
+                    size: 29,
+                    children: [
+                        {
+                            title: 'third level',
+                            size: 30,
+                        },
+                    ],
+                },
+            ],
+        },
+    ],
+};
+
+export function TreemapExample(): JSX.Element {
+    return <Treemap data={treemapData} mode={'partition'} height={150} width={150} />;
+}
+
+export function SunburstExample(): JSX.Element {
+    return <Sunburst data={treemapData} mode={'partition'} height={150} width={150} />;
+}
+
+export function AreaSeriesExample(): JSX.Element {
+    return (
+        <AreaSeries
+            className="area-series-example"
+            curve={'curveMonotoneX'}
+            data={[
+                { x: 1, y: 11 },
+                { x: 1.5, y: 29 },
+                { x: 3, y: 7 },
+            ]}
+        />
+    );
+}
+
+export function DiscreteColorLegendExample(): JSX.Element {
+    return (
+        <DiscreteColorLegend
+            className="discrete-color-legend-example"
+            orientation="horizontal"
+            items={[
+                {
+                    title: 'title',
+                    color: '#ffffff',
+                    strokeDasharray: '10, 10',
+                    strokeWidth: 1,
+                },
+            ]}
+        />
+    );
+}

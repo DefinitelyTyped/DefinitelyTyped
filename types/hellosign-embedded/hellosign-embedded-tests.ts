@@ -1,39 +1,63 @@
-import { HelloSign } from 'hellosign-embedded';
+import HelloSign from 'hellosign-embedded';
 
-HelloSign.init('abc123');
+// init - without params
+new HelloSign();
 
-// some options
-HelloSign.open({
-    url: 'http://example.org',
-    messageListener: (e: HelloSign.MessageEvent) => {
-        if (e.event === HelloSign.EVENT_SIGNED) {
-            console.log('signed');
-        }
-    },
-    uxVersion: 2
-});
+// init - with params
+const client = new HelloSign({ clientId: 'init123' });
 
-// all options
-HelloSign.open({
-    url: 'http://example.org',
-    redirectUrl: 'https://github.com/DefinitelyTyped/DefinitelyTyped',
+// open - only url
+client.open('http://example.org');
+
+// open - with options
+client.open('http://example.org', {
     allowCancel: true,
-    messageListener: (e: HelloSign.MessageEvent) => {
-        if (e.event === HelloSign.EVENT_SIGNED) {
-            console.log('signed');
-        }
-    },
-    userCulture: HelloSign.CULTURES.EN_US,
-    debug: true,
-    skipDomainVerification: true,
     container: document.getElementById('#hellosign-container'),
-    height: 1326,
+    debug: true,
     hideHeader: true,
-    uxVersion: 2,
-    requester: 'hellosign@example.org',
-    whiteLabelingOptions: {
-        "page_background_color": "#f7f8f9"
-    }
+    redirectTo: 'https://github.com/DefinitelyTyped/DefinitelyTyped',
+    locale: 'en_US',
+    skipDomainVerification: true,
+    whiteLabeling: {
+        page_background_color: '#f7f8f9',
+    },
 });
 
-HelloSign.close();
+// close
+client.close();
+
+// on
+// event as string
+client.on('error', data => {
+    console.log(data.code);
+    console.log(data.signatureId);
+});
+// event as enum
+client.on(HelloSign.events.DECLINE, data => {
+    console.log(data.reason);
+});
+
+// once
+// event as string
+client.once('ready', data => {
+    console.log(data.signatureId);
+});
+// event as enum
+client.once(HelloSign.events.REASSIGN, data => {
+    console.log(data.name);
+    console.log(data.email);
+});
+
+// off
+// only name as string
+client.off('message');
+// only name as enum
+client.off(HelloSign.events.CLOSE);
+// name and cb as enum
+const cb = () => {};
+client.off(HelloSign.events.CLOSE, cb);
+
+// getters
+client.isOpen;
+client.isReady;
+client.element;

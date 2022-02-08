@@ -10,7 +10,7 @@ const Person = Ember.Object.extend({
     },
     getFullName2(): string {
         return `${this.get('firstName')} ${this.get('lastName')}`;
-    }
+    },
 });
 
 assertType<string>(Person.prototype.firstName);
@@ -19,15 +19,15 @@ assertType<() => string>(Person.prototype.getFullName);
 const person = Person.create({
     firstName: 'Joe',
     lastName: 'Blow',
-    extra: 42
+    extra: 42,
 });
 
 assertType<string>(person.getFullName());
 assertType<number>(person.extra);
 
 class ES6Person extends Ember.Object {
-    firstName: string;
-    lastName: string;
+    declare firstName: string;
+    declare lastName: string;
 
     get fullName() {
         return `${this.firstName} ${this.lastName}`;
@@ -43,7 +43,7 @@ assertType<string>(ES6Person.prototype.fullName);
 const es6Person = ES6Person.create({
     firstName: 'Joe',
     lastName: 'Blow',
-    extra: 42
+    extra: 42,
 });
 
 assertType<string>(es6Person.fullName);

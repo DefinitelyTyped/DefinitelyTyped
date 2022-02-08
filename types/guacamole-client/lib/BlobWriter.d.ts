@@ -37,7 +37,7 @@ export class BlobWriter {
      * @param offset The offset of the failed read attempt within the blob, in bytes.
      * @param error The error that occurred.
      */
-    onerror: null | ((blob: Blob, offset: number, error: DOMError) => void);
+    onerror: null | ((blob: Blob, offset: number, error: Error) => void);
 
     /**
      * Fired for each successfully-read chunk of data as a blob is being sent via sendBlob().

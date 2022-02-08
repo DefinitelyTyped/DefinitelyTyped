@@ -19,13 +19,14 @@ interface BoxKnownProps
         StyledSystem.SpaceProps,
         StyledSystem.LayoutProps,
         StyledSystem.FontSizeProps,
+        StyledSystem.FontWeightProps,
         StyledSystem.ColorProps,
         StyledSystem.FlexProps,
         StyledSystem.OrderProps,
         StyledSystem.AlignSelfProps,
         Rebass.SxProps {
-    variant?: StyledSystem.ResponsiveValue<string>;
-    tx?: string;
+    variant?: StyledSystem.ResponsiveValue<string> | undefined;
+    tx?: string | undefined;
 }
 
 interface LabelKnownProps
@@ -80,7 +81,7 @@ export const Checkbox: React.ComponentType<CheckboxProps>;
 export interface SwitchProps
     extends BoxKnownProps,
         Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, keyof BoxKnownProps> {
-    checked?: boolean;
+    checked?: boolean | undefined;
 }
 
 export const Switch: React.ComponentType<SwitchProps>;

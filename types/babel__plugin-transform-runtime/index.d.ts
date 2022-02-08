@@ -4,12 +4,12 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface Options {
-    corejs?: CorejsOption;
-    helpers?: boolean;
-    regenerator?: boolean;
-    useESModules?: boolean;
-    absoluteRuntime?: (boolean | string);
-    version?: string;
+    corejs?: CorejsOption | undefined;
+    helpers?: boolean | undefined;
+    regenerator?: boolean | undefined;
+    useESModules?: boolean | undefined;
+    absoluteRuntime?: (boolean | string) | undefined;
+    version?: string | undefined;
 }
 
 export type CorejsOption = (

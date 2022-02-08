@@ -70,9 +70,9 @@ export interface Algorithms {
 }
 
 export interface GenerateKeyOptions extends Pick<SealOptionsSub, 'algorithm' | 'iterations' | 'minPasswordlength'> {
-    saltBits?: number;
-    salt?: string;
-    iv?: string;
+    saltBits?: number | undefined;
+    salt?: string | undefined;
+    iv?: string | undefined;
 }
 
 export interface Key {

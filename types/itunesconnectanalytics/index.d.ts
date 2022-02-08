@@ -19,11 +19,11 @@ export class Itunes {
 }
 
 export interface ItunesOptions {
-    baseURL?: string;
-    loginURL?: string;
-    settingsURL?: string;
-    appleWidgetKey?: string;
-    concurrentRequests?: number;
+    baseURL?: string | undefined;
+    loginURL?: string | undefined;
+    settingsURL?: string | undefined;
+    appleWidgetKey?: string | undefined;
+    concurrentRequests?: number | undefined;
     errorCallback: (error: any) => void;
     successCallback: (cookies: string) => void;
 }
@@ -45,20 +45,20 @@ export interface AnalyticsResult {
 
 export interface AnalyticsDataPoint {
     date: Date;
-    installs?: number;
-    uninstalls?: number;
-    sessions?: number;
-    pageViewCount?: number;
-    activeDevices?: number;
-    rollingActiveDevices?: number;
-    crashes?: number;
-    payingUsers?: number;
-    units?: number;
-    sales?: number;
-    iap?: number;
-    impressionsTotal?: number;
-    impressionsTotalUnique?: number;
-    pageViewUnique?: number;
+    installs?: number | undefined;
+    uninstalls?: number | undefined;
+    sessions?: number | undefined;
+    pageViewCount?: number | undefined;
+    activeDevices?: number | undefined;
+    rollingActiveDevices?: number | undefined;
+    crashes?: number | undefined;
+    payingUsers?: number | undefined;
+    units?: number | undefined;
+    sales?: number | undefined;
+    iap?: number | undefined;
+    impressionsTotal?: number | undefined;
+    impressionsTotalUnique?: number | undefined;
+    pageViewUnique?: number | undefined;
 }
 
 export interface AnalyticsGroup {
@@ -78,10 +78,10 @@ export interface  RequestTask {
 }
 
 export interface QueryGroup {
-    metric?: measures;
+    metric?: measures | undefined;
     dimension: dimension;
-    rank?: string;
-    limit?: number;
+    rank?: string | undefined;
+    limit?: number | undefined;
 }
 
 export interface DimensionFilters {
@@ -90,12 +90,12 @@ export interface DimensionFilters {
 }
 
 export interface QueryConfig {
-    measures?: measures | measures[];
-    start?: QueryDateTypes;
-    end?: QueryDateTypes;
-    frequency?: frequency;
-    group?: QueryGroup;
-    dimensionFilters?: DimensionFilters[];
+    measures?: measures | measures[] | undefined;
+    start?: QueryDateTypes | undefined;
+    end?: QueryDateTypes | undefined;
+    frequency?: frequency | undefined;
+    group?: QueryGroup | undefined;
+    dimensionFilters?: DimensionFilters[] | undefined;
 }
 
 export class AnalyticsQuery {

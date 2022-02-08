@@ -74,7 +74,7 @@ declare function afterEach(action: ImplementationCallback, timeout?: number): vo
 declare function beforeAll(action: ImplementationCallback, timeout?: number): void;
 
 /**
- * Run some shared teardown once before all of the specs in the describe are run.
+ * Run some shared teardown once after all of the specs in the describe are called.
  * Note: Be careful, sharing the teardown from a afterAll makes it easy to accidentally leak state between your specs so that they erroneously pass or fail.
  * @param action Function that contains the code to teardown your specs.
  * @param timeout Custom timeout for an async afterAll
@@ -242,7 +242,7 @@ declare namespace jasmine {
 
     interface CustomMatcherResult {
         pass: boolean;
-        message?: string;
+        message?: string | undefined;
     }
 
     interface MatchersUtil {
@@ -419,7 +419,7 @@ declare namespace jasmine {
         env: Env;
         actual: T;
         spec: Env;
-        isNot?: boolean;
+        isNot?: boolean | undefined;
         message(): any;
 
         /**
@@ -509,12 +509,12 @@ declare namespace jasmine {
 
     interface CustomReporterResult {
         description: string;
-        failedExpectations?: FailedExpectation[];
+        failedExpectations?: FailedExpectation[] | undefined;
         fullName: string;
         id: string;
-        passedExpectations?: PassedExpectation[];
-        pendingReason?: string;
-        status?: string;
+        passedExpectations?: PassedExpectation[] | undefined;
+        pendingReason?: string | undefined;
+        status?: string | undefined;
     }
 
     interface RunDetails {

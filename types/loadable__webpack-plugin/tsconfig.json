@@ -12,14 +12,20 @@
         "typeRoots": [
             "../"
         ],
+        "paths": {
+            "webpack": [
+                "webpack/v4"
+            ],
+            "tapable": [
+                "tapable/v1"
+            ],
+            "@loadable/*": [
+                "loadable__*"
+            ]
+        },
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "paths": {
-            "@loadable/webpack-plugin": [
-                "loadable__webpack-plugin"
-            ]
-        }
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",

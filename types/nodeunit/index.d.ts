@@ -54,9 +54,9 @@ export interface ITestBody {
 
 export interface ITestGroup {
     /** The setUp function is run before each test */
-    setUp?: (callback: ICallbackFunction) => void;
+    setUp?: ((callback: ICallbackFunction) => void) | undefined;
     /** The tearDown function is run after each test calls test.done() */
-    tearDown?: (callback: ICallbackFunction) => void;
+    tearDown?: ((callback: ICallbackFunction) => void) | undefined;
     [property: string]: ITestGroup | ITestBody | ((callback: ICallbackFunction) => void) | undefined;
 }
 

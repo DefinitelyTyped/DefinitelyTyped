@@ -1,6 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "jest-cucumber": "^2.0.11"
-    }
-}

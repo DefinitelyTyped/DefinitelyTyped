@@ -24,15 +24,14 @@ declare namespace AMap {
             interface Options {
                 path: LngLat[] | Pixel[] | Array<LngLat[] | Pixel[] | Array<[number, number]>>;
                 color: string | number[] | Array<string | number[]>;
-                height?: number;
-                color2?: string | number[] | Array<string | number[]>;
+                height?: number | undefined;
+                color2?: string | number[] | Array<string | number[]> | undefined;
             }
         }
         class Prism extends MeshAcceptLights {
             constructor(options: Prism.Options);
         }
 
-        // tslint:disable-next-line
         class Wall extends Prism { }
 
         class Line extends Object3D {
@@ -43,8 +42,8 @@ declare namespace AMap {
             interface Options {
                 path: Array<[number, number]>;
                 color: string;
-                altitude?: number;
-                dashArray?: number[];
+                altitude?: number | undefined;
+                dashArray?: number[] | undefined;
             }
         }
         class ThinLine extends Line {
@@ -63,11 +62,11 @@ declare namespace AMap {
 
         namespace MeshLine {
             type Options = {
-                width?: number;
-                height?: number | number[];
-                color?: string | number[];
+                width?: number | undefined;
+                height?: number | number[] | undefined;
+                color?: string | number[] | undefined;
             } & ({
-                unit?: 'meter';
+                unit?: 'meter' | undefined;
                 path: Array<[number, number]> | LngLat[];
             } | {
                 unit: 'px';

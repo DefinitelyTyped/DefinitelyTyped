@@ -5,10 +5,10 @@ import { Commit } from './commit';
 import { Index } from './index';
 
 export interface RevertOptions {
-    version?: number;
-    mainline?: number;
-    mergeOpts?: MergeOptions;
-    checkoutOpts?: CheckoutOptions;
+    version?: number | undefined;
+    mainline?: number | undefined;
+    mergeOpts?: MergeOptions | undefined;
+    checkoutOpts?: CheckoutOptions | undefined;
     [key: string]: any;
 }
 

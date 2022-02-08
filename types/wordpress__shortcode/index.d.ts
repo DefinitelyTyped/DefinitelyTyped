@@ -22,9 +22,9 @@ export type Shortcode = {
 
 export interface ShortcodeOptions {
     tag: string;
-    type?: 'closed' | 'self-closing' | 'single';
-    attrs?: Partial<ShortcodeAttrs> | string;
-    content?: string;
+    type?: 'closed' | 'self-closing' | 'single' | undefined;
+    attrs?: Partial<ShortcodeAttrs> | string | undefined;
+    content?: string | undefined;
 }
 
 export const attrs: {
@@ -129,9 +129,9 @@ export default class shortcode {
     static string: typeof string;
 
     attrs: ShortcodeAttrs;
-    content?: string;
-    tag?: string;
-    type?: 'closed' | 'self-closing' | 'single';
+    content?: string | undefined;
+    tag?: string | undefined;
+    type?: 'closed' | 'self-closing' | 'single' | undefined;
 
     constructor(options?: Partial<ShortcodeOptions>);
 

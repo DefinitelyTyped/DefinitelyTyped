@@ -9,10 +9,10 @@
 declare module 'mongoose' {
   export interface SequenceOptions {
     inc_field: string;                  // The name of the field to increment. Mandatory, default is _id
-    id?: string;                        // Id of the sequence. Is mandatory only for scoped sequences but its use is strongly encouraged.
-    reference_fields?: Array<string>;   // The field to reference for a scoped counter. Optional
-    disable_hooks?: boolean;            // If true, the counter will not be incremented on saving a new document. Default to false
-    collection_name?: string;           // By default the collection name to mantain the status of the counters is counters. You can override it using this option
+    id?: string | undefined;                        // Id of the sequence. Is mandatory only for scoped sequences but its use is strongly encouraged.
+    reference_fields?: Array<string> | undefined;   // The field to reference for a scoped counter. Optional
+    disable_hooks?: boolean | undefined;            // If true, the counter will not be incremented on saving a new document. Default to false
+    collection_name?: string | undefined;           // By default the collection name to mantain the status of the counters is counters. You can override it using this option
   }
 
   export interface SequenceDocument extends Document {

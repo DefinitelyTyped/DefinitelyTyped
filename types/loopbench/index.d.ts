@@ -19,12 +19,12 @@ declare namespace loopbench {
         /**
          * The interval at which the eventLoop should be sampled, defaults to `5`.
          */
-        sampleInterval?: number;
+        sampleInterval?: number | undefined;
         /**
          * The maximum amount of delay that is tolerated before `overLimit` becomes true,
          * and the `load` event is emitted, defaults to `42`.
          */
-        limit?: number;
+        limit?: number | undefined;
     }
 
     /**

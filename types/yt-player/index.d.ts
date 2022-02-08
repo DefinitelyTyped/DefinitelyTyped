@@ -1,73 +1,87 @@
-// Type definitions for yt-player 3.4
+// Type definitions for yt-player 3.5
 // Project: https://github.com/feross/yt-player
 // Definitions by: Thomas Röggla <https://github.com/troeggla>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { EventEmitter } from "events";
+import { EventEmitter } from 'events';
 
 interface YouTubePlayerOptions {
     /**  This parameter indicates the width of the player. */
-    width?: number;
+    width?: number | undefined;
     /** This parameter indicates the height of the player. */
-    height?: number;
+    height?: number | undefined;
     /**
      * This parameter indicates whether the initial video will automatically
      * start to play when the player loads. The default value is false.
      */
-    autoplay?: boolean;
+    autoplay?: boolean | undefined;
+    /**
+     * This parameter causes the player to begin playing the video at the given number
+     * of seconds from the start of the video. The parameter value is a positive integer.
+     * Note that the player will look for the closest keyframe to the time you specify.
+     * This means that sometimes the play head may seek to just before the requested time,
+     * usually no more than around two seconds. Default is 0.
+     */
+    start?: number | undefined;
     /**
      * This parameter indicates whether closed captions should be shown, even if
      * the user has turned captions off. The default behavior is based on user
      * preference.
      */
-    captions?: false | string;
+    captions?: false | string | undefined;
     /**
      * This parameter indicates whether the video player controls are displayed.
      * The default value is true.
      */
-    controls?: boolean;
+    controls?: boolean | undefined;
     /**
      * This parameter indicates whether the player will respond to keyboard
      * shortcuts. The default value is true.
      */
-    keyboard?: boolean;
+    keyboard?: boolean | undefined;
     /**
      * This parameter indicates whether the player will show a fullscreen
      * button. The default value is true.
      */
-    fullscreen?: boolean;
+    fullscreen?: boolean | undefined;
     /**
      * This parameter indicates whether the player will show video annotations.
      * The default value is true.
      */
-    annotations?: boolean;
+    annotations?: boolean | undefined;
     /**
      * This parameter lets you use a YouTube player that does not show a
      * YouTube logo. Even when this option is enabled, a small YouTube text
      * label will still display in the upper-right corner of a paused video
      * when the user's mouse pointer hovers over the player.
      */
-    modestBranding?: boolean;
+    modestBranding?: boolean | undefined;
     /**
      * This parameter indicates whether the player should show related videos
      * from other channels
      */
-    related?: boolean;
+    related?: boolean | undefined;
     /**
      * The time between onTimeupdate callbacks, in milliseconds. Default is
      * 1000.
      */
-    timeupdateFrequency?: number;
+    timeupdateFrequency?: number | undefined;
     /**
      * This parameter controls whether videos play inline or fullscreen in an
-     * HTML5 player on iOS. The default value is true.
+     * HTML5 player on iOS. The default is true.
      */
-    playsInline?: boolean;
+    playsInline?: boolean | undefined;
+    /**
+     * This parameter controls the hostname that videos are loaded from.
+     * Set to `https://www.youtube-nocookie.com` for enhanced privacy.
+     * The default value is `https://www.youtube.com`.
+     */
+    host?: string | undefined;
 }
 
-type YouTubePlayerState = "unstarted" | "ended" | "playing" | "paused" | "buffering" | "cued";
+type YouTubePlayerState = 'unstarted' | 'ended' | 'playing' | 'paused' | 'buffering' | 'cued';
 
-type YouTubePlayerQuality = "small" | "medium" | "large" | "hd720" | "hd1080" | "highres" | "default";
+type YouTubePlayerQuality = 'small' | 'medium' | 'large' | 'hd720' | 'hd1080' | 'highres' | 'default';
 
 /**
  * Simple, robust, blazing-fast YouTube Player API
@@ -99,7 +113,7 @@ declare class YouTubePlayer extends EventEmitter {
      *
      * This should be the first function called on a new Player instance.
      */
-    load(videoId: string, autoplay?: boolean): void;
+    load(videoId: string, autoplay?: boolean, start?: number): void;
     /** Plays the currently loaded video. */
     play(): void;
     /** Pauses the currently loaded video. */

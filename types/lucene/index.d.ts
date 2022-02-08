@@ -10,14 +10,20 @@ export interface TermLocation {
     offset: number;
 }
 
-export interface Node {
-    boost: null | number;
+export interface NodeField {
     field: string | '<implicit>';
-    fieldLocation: null;
+    fieldLocation: null | {
+        end: TermLocation;
+        start: TermLocation;
+    };
+}
+
+export interface NodeTerm extends NodeField {
+    boost: null | number;
     prefix: null | string;
     quoted: boolean;
     regex: boolean;
-    similarity: null;
+    similarity: null | number;
     term: string;
     termLocation: {
         start: TermLocation;
@@ -25,14 +31,34 @@ export interface Node {
     };
 }
 
-export type Operator = '<implicit>' | 'NOT' | 'OR' | 'AND' | 'AND NOT' | 'OR NOT';
-
-export interface LeftOnlyAST {
-    left: Node;
-    start?: Operator;
+export interface NodeRangedTerm extends NodeField {
+    inclusive: "both" | "none" | "left" | "right";
+    term_max: string;
+    term_min: string;
 }
 
-export interface BinaryAST {
+export type Node =
+    | NodeTerm
+    | NodeRangedTerm
+;
+
+export type Operator = '<implicit>' | 'NOT' | 'OR' | 'AND' | 'AND NOT' | 'OR NOT';
+
+export interface ASTField {
+    field?: string;
+    fieldLocation?: null | {
+        end: TermLocation;
+        start: TermLocation;
+    };
+    parenthesized?: boolean;
+}
+
+export interface LeftOnlyAST extends ASTField {
+    left: AST | Node;
+    start?: Operator | undefined;
+}
+
+export interface BinaryAST extends ASTField {
     left: AST | Node;
     operator: Operator;
     right: AST | Node;

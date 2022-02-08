@@ -1,6 +1,7 @@
 {
   "private": true,
   "dependencies": {
+    "@types/node-fetch": "^2.5.12",
     "zipkin": ">=0.11.0",
     "zipkin-transport-http": "^0.12.0"
   }

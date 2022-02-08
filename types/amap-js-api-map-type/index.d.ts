@@ -18,15 +18,15 @@ declare namespace AMap {
              * 取值为0：默认底图
              * 取值为1：卫星图
              */
-            defaultType?: 0 | 1;
+            defaultType?: 0 | 1 | undefined;
             /**
              * 是否叠加实时交通图层，默认false
              */
-            showTraffic?: boolean;
+            showTraffic?: boolean | undefined;
             /**
              * 是否叠加路网图层，默认false
              */
-            showRoad?: boolean;
+            showRoad?: boolean | undefined;
         }
     }
 

@@ -23,7 +23,7 @@ export declare class Valve {
 }
 
 export interface ICheckOptions {
-    strict?: boolean;
+    strict?: boolean | undefined;
 }
 
 export interface IValveSchema {
@@ -127,9 +127,9 @@ export interface ISerializable {
 }
 
 export interface ISwizOptions {
-    stripNulls?: boolean;
-    stripSerializerType?: boolean;
-    for?: string;
+    stripNulls?: boolean | undefined;
+    stripSerializerType?: boolean | undefined;
+    for?: string | undefined;
 }
 
 interface IValidator {
@@ -159,8 +159,8 @@ export declare module struct {
         src: string;
         singular: string;
         plural: string;
-        desc?: string;
-        val?: IChain;
+        desc?: string | undefined;
+        val?: IChain | undefined;
         attribute: boolean;
         enumerated: boolean;
         ignorePublic: boolean;
@@ -169,22 +169,22 @@ export declare module struct {
     }
 
     export interface IObjOptions {
-        singular?: string;
-        plural?: string;
-        fields?: IField[];
+        singular?: string | undefined;
+        plural?: string | undefined;
+        fields?: IField[] | undefined;
     }
 
     export interface IFieldOptions {
-        src?: string;
-        singular?: string;
-        plural?: string;
-        desc?: string;
-        val?: IChain;
-        attribute?: boolean;
+        src?: string | undefined;
+        singular?: string | undefined;
+        plural?: string | undefined;
+        desc?: string | undefined;
+        val?: IChain | undefined;
+        attribute?: boolean | undefined;
         enumerated?: any;
-        ignorePublic?: boolean;
-        filterFrom?: string[];
-        coerceTo?: string;
+        ignorePublic?: boolean | undefined;
+        filterFrom?: string[] | undefined;
+        coerceTo?: string | undefined;
     }
 }
 

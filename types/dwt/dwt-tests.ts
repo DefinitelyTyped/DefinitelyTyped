@@ -1,7 +1,3 @@
-// tslint:disable:jsdoc-format
-// tslint:disable:max-line-length
-// tslint:disable:no-irregular-whitespace
-
 import Dynamsoft from 'dwt';
 import { DeviceConfiguration } from 'dwt/WebTwain.Acquire';
 

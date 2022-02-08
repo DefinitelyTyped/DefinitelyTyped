@@ -7,22 +7,22 @@
 declare namespace accounting {
     interface CurrencyFormat {
         pos: string;         // for positive values, eg. "$ 1.00"
-        neg?: string;        // for negative values, eg. "$ (1.00)"
-        zero?: string;       // for zero values, eg. "$  --"
+        neg?: string | undefined;        // for negative values, eg. "$ (1.00)"
+        zero?: string | undefined;       // for zero values, eg. "$  --"
     }
 
     interface CurrencySettings<TFormat> {
-        symbol?: string;     // default currency symbol is '$'
-        format?: TFormat;    // controls output: %s = symbol, %v = value/number
-        decimal?: string;    // decimal point separator
-        thousand?: string;   // thousands separator
-        precision?: number;   // decimal places
+        symbol?: string | undefined;     // default currency symbol is '$'
+        format?: TFormat | undefined;    // controls output: %s = symbol, %v = value/number
+        decimal?: string | undefined;    // decimal point separator
+        thousand?: string | undefined;   // thousands separator
+        precision?: number | undefined;   // decimal places
     }
 
     interface NumberSettings {
-        precision?: number;  // default precision on numbers is 0
-        thousand?: string;
-        decimal?: string;
+        precision?: number | undefined;  // default precision on numbers is 0
+        thousand?: string | undefined;
+        decimal?: string | undefined;
     }
 
     interface Settings {

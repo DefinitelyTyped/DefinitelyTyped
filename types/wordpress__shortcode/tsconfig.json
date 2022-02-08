@@ -12,7 +12,7 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@wordpress/shortcode": ["wordpress__shortcode"]
+            "@wordpress/*": ["wordpress__*"]
         }
     },
     "files": ["index.d.ts", "wordpress__shortcode-tests.ts"]

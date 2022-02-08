@@ -9,17 +9,17 @@ import passportOAuth2 = require('passport-oauth2');
 
 declare namespace AppleStrategy {
     interface AuthenticateOptionsBase extends Partial<passportOAuth2._StrategyOptionsBase> {
-        authorizationURL?: string;
-        tokenURL?: string;
+        authorizationURL?: string | undefined;
+        tokenURL?: string | undefined;
         clientID: string;
         teamID: string;
         keyID: string;
-        privateKeyLocation?: string;
-        privateKeyString?: string;
+        privateKeyLocation?: string | undefined;
+        privateKeyString?: string | undefined;
     }
 
     interface AuthenticateOptions extends AuthenticateOptionsBase {
-        passReqToCallback?: false;
+        passReqToCallback?: false | undefined;
     }
 
     interface AuthenticateOptionsWithRequest extends AuthenticateOptionsBase {

@@ -6,10 +6,12 @@
 import * as React from 'react';
 
 export interface SwitchProps {
+    children?: React.ReactNode;
     condition: any;
 }
 
 interface CaseProps {
+    children?: React.ReactNode;
     value: any;
 }
 

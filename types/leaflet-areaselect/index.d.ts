@@ -10,9 +10,9 @@ declare module 'leaflet' {
   function areaSelect(box: AreaSelectOptions): AreaSelect;
 
   interface AreaSelectOptions {
-    width?: number;
-    height?: number;
-    keepAspectRatio?: boolean;
+    width?: number | undefined;
+    height?: number | undefined;
+    keepAspectRatio?: boolean | undefined;
   }
 
   interface Dimension {

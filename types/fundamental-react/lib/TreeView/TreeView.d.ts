@@ -1,33 +1,33 @@
 import * as React from "react";
 
 export type TreeViewProps = {
-    disableStyles?: boolean;
-    expandData?: { [rowId: string]: boolean };
-    isExpandAll?: boolean;
-    onExpandChange?: (expandData: { [rowId: string]: boolean }) => void;
+    disableStyles?: boolean | undefined;
+    expandData?: { [rowId: string]: boolean } | undefined;
+    isExpandAll?: boolean | undefined;
+    onExpandChange?: ((expandData: { [rowId: string]: boolean }) => void) | undefined;
 } & React.HTMLAttributes<HTMLDivElement>;
 
 export type TreeColProps = {
-    className?: string;
+    className?: string | undefined;
 } & React.HTMLAttributes<HTMLDivElement>;
 
 export type TreeHeadProps = {
-    buttonProps?: { [x: string]: any };
-    className?: string;
-    isExpanded?: boolean;
-    onExpandAll?: (...args: any[]) => any;
+    buttonProps?: { [x: string]: any } | undefined;
+    className?: string | undefined;
+    isExpanded?: boolean | undefined;
+    onExpandAll?: ((...args: any[]) => any) | undefined;
 } & React.HTMLAttributes<HTMLDivElement>;
 
 export type TreeItemProps = {
-    isExpanded?: boolean;
-    rowId?: string;
+    isExpanded?: boolean | undefined;
+    rowId?: string | undefined;
 } & React.HTMLAttributes<HTMLLIElement>;
 
 export type TreeRowProps = {
-    isExpanded?: boolean;
-    isParent?: boolean;
-    rowId?: string;
-    onExpandClick?: (...args: any[]) => any;
+    isExpanded?: boolean | undefined;
+    isParent?: boolean | undefined;
+    rowId?: string | undefined;
+    onExpandClick?: ((...args: any[]) => any) | undefined;
 } & React.HTMLAttributes<HTMLDivElement>;
 
 declare class TreeView extends React.Component<TreeViewProps> {

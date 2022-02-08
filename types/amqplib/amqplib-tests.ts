@@ -14,13 +14,13 @@ amqp.connect('amqp://localhost')
 
 amqp.connect('amqp://localhost')
     .then(connection => {
-        connection.serverProperties.copyright; // $ExpectType string | undefined
-        connection.serverProperties.platform; // $ExpectType string
-        connection.serverProperties.information; // $ExpectType string
-        connection.serverProperties.host; // $ExpectType string
-        connection.serverProperties.product; // $ExpectType string
-        connection.serverProperties.version; // $ExpectType string
-        connection.serverProperties.customField; // $ExpectType string | undefined
+        connection.connection.serverProperties.copyright; // $ExpectType string | undefined
+        connection.connection.serverProperties.platform; // $ExpectType string
+        connection.connection.serverProperties.information; // $ExpectType string
+        connection.connection.serverProperties.host; // $ExpectType string
+        connection.connection.serverProperties.product; // $ExpectType string
+        connection.connection.serverProperties.version; // $ExpectType string
+        connection.connection.serverProperties.customField; // $ExpectType string | undefined
 
         return connection.createChannel()
             .tap(channel => channel.checkQueue('myQueue'))
@@ -45,22 +45,22 @@ import amqpcb = require('amqplib/callback_api');
 
 amqpcb.connect('amqp://localhost', (err, connection) => {
     if (!err) {
-        connection.serverProperties.copyright; // $ExpectType string | undefined
-        connection.serverProperties.platform; // $ExpectType string
-        connection.serverProperties.information; // $ExpectType string
-        connection.serverProperties.host; // $ExpectType string
-        connection.serverProperties.product; // $ExpectType string
-        connection.serverProperties.version; // $ExpectType string
-        connection.serverProperties.customField; // $ExpectType string | undefined
+        connection.connection.serverProperties.copyright; // $ExpectType string | undefined
+        connection.connection.serverProperties.platform; // $ExpectType string
+        connection.connection.serverProperties.information; // $ExpectType string
+        connection.connection.serverProperties.host; // $ExpectType string
+        connection.connection.serverProperties.product; // $ExpectType string
+        connection.connection.serverProperties.version; // $ExpectType string
+        connection.connection.serverProperties.customField; // $ExpectType string | undefined
 
         connection.createChannel((err, channel) => {
-          if (!err) {
-              channel.assertQueue('myQueue', {}, (err, ok) => {
-                  if (!err) {
-                      channel.sendToQueue('myQueue', new Buffer(msg));
-                  }
-              });
-          }
+            if (!err) {
+                channel.assertQueue('myQueue', {}, (err, ok) => {
+                    if (!err) {
+                        channel.sendToQueue('myQueue', new Buffer(msg));
+                    }
+                });
+            }
         });
     }
 });
@@ -68,20 +68,20 @@ amqpcb.connect('amqp://localhost', (err, connection) => {
 amqpcb.connect('amqp://localhost', (err, connection) => {
     if (!err) {
         connection.createChannel((err, channel) => {
-          if (!err) {
-              channel.assertQueue('myQueue', {}, (err, ok) => {
-                  if (!err) {
-                      channel.consume('myQueue', newMsg => {
-                          if (newMsg != null) {
-                              // test callback api properties
-                              if (newMsg.properties.contentType === 'application/json') {
-                                  console.log('New Message: ' + newMsg.content.toString());
-                              }
-                          }
-                      });
-                  }
-              });
-          }
+            if (!err) {
+                channel.assertQueue('myQueue', {}, (err, ok) => {
+                    if (!err) {
+                        channel.consume('myQueue', newMsg => {
+                            if (newMsg != null) {
+                                // test callback api properties
+                                if (newMsg.properties.contentType === 'application/json') {
+                                    console.log('New Message: ' + newMsg.content.toString());
+                                }
+                            }
+                        });
+                    }
+                });
+            }
         });
     }
 });

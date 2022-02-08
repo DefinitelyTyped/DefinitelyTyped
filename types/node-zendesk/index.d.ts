@@ -2,16 +2,16 @@
 // Project: https://github.com/blakmatrix/node-zendesk
 // Definitions by: jgeth <https://github.com/jgeth>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// TypeScript Version: 4.0
 
 /// <reference types="node"/>
 
-import { PathLike } from 'fs';
+import { PathLike } from "fs";
 
 export type ZendeskCallback<TResponse, TResult> = (
     error: Error | undefined,
     response: TResponse,
-    result: TResult
+    result: TResult,
 ) => void;
 
 export interface Client {
@@ -35,7 +35,7 @@ export interface Client {
     oauthtokens: unknown;
     organizationfields: unknown;
     organizationmemberships: unknown;
-    organizations: unknown;
+    organizations: Organizations.Methods;
     policies: unknown;
     requests: Requests.Methods;
     satisfactionratings: unknown;
@@ -68,10 +68,10 @@ export interface ClientOptions {
     username: string;
     token: string;
     remoteUri: string;
-    oauth?: boolean;
-    debug?: boolean;
-    disableGlobalState?: boolean;
-    asUser?: string;
+    oauth?: boolean | undefined;
+    debug?: boolean | undefined;
+    disableGlobalState?: boolean | undefined;
+    asUser?: string | undefined;
 }
 
 export function createClient(config: ClientOptions): Client;
@@ -81,36 +81,54 @@ export namespace Attachments {
         request(httpMethod: string, fields: unknown, config: unknown, cb: ZendeskCallback<unknown, unknown>): unknown;
         request(httpMethod: string, fields: unknown, config: unknown): Promise<unknown>;
 
+        show(attachmentId: number, cb: ZendeskCallback<unknown, ShowResponseModel>): unknown;
+        show(attachmentId: number): Promise<ShowResponseModel>;
+
         upload(
             file: PathLike,
             fileOptions: {
                 filename: string;
-                token?: string;
+                token?: string | undefined;
             },
-            cb: ZendeskCallback<unknown, unknown>
+            cb: ZendeskCallback<unknown, UploadResponseModel>,
         ): void;
         upload(
             file: PathLike,
             fileOptions: {
                 filename: string;
-                token?: string;
-            }
-        ): Promise<void>;
+                token?: string | undefined;
+            },
+        ): Promise<UploadResponseModel>;
     }
 
-    interface Photo extends PersistableModel {
-        url: string;
-        file_name: string;
-        content_url: string;
-        content_type: string;
-        size: number;
-        width: number;
-        height: number;
-        inline: boolean;
+    /**
+     * @see {@link https://developer.zendesk.com/rest_api/docs/support/attachments#json-format}
+     */
+    interface Attachment extends PersistableModel {
+        readonly content_type?: string | undefined;
+        readonly content_url?: string | undefined;
+        readonly deleted?: boolean | undefined;
+        readonly file_name?: string | undefined;
+        readonly inline?: boolean | undefined;
+        readonly mapped_content_url?: string | undefined;
+        readonly size?: number | undefined;
+        readonly url?: string | undefined;
     }
 
-    interface Model extends Photo {
-        thumbnails: ReadonlyArray<Photo>;
+    interface Model extends Attachment {
+        thumbnails?: ReadonlyArray<Attachment> | undefined;
+    }
+
+    interface ShowResponseModel {
+        attachment: Attachment;
+    }
+
+    interface UploadResponseModel {
+        upload: {
+            attachment?: Attachment | undefined;
+            attachments?: Attachment[] | undefined;
+            token: string;
+        };
     }
 }
 
@@ -125,16 +143,12 @@ export namespace JobStatuses {
             jobStatusId: ZendeskID,
             interval: number,
             maxAttempts: number,
-            cb: ZendeskCallback<unknown, unknown>
+            cb: ZendeskCallback<unknown, unknown>,
         ): unknown;
-        watch(
-            jobStatusId: ZendeskID,
-            interval: number,
-            maxAttempts: number
-        ): Promise<unknown>;
+        watch(jobStatusId: ZendeskID, interval: number, maxAttempts: number): Promise<unknown>;
     }
 
-    type Status = 'queued' | 'working' | 'failed' | 'completed' | 'killed';
+    type Status = "queued" | "working" | "failed" | "completed" | "killed";
 
     interface Result extends PersistableModel {
         readonly action: string;
@@ -143,12 +157,12 @@ export namespace JobStatuses {
     }
 
     interface ResponseModel extends PersistableModel {
-        readonly url?: string | null;
-        readonly total?: number;
-        readonly progress?: number;
-        readonly status?: Status;
-        readonly message?: string | null;
-        readonly results?: ReadonlyArray<Result>;
+        readonly url?: string | null | undefined;
+        readonly total?: number | undefined;
+        readonly progress?: number | undefined;
+        readonly status?: Status | undefined;
+        readonly message?: string | null | undefined;
+        readonly results?: ReadonlyArray<Result> | undefined;
     }
 
     interface ResponsePayload {
@@ -164,12 +178,9 @@ export namespace Macros {
         applyTicket(
             ticketId: ZendeskID,
             macroId: number,
-            cb: ZendeskCallback<unknown, unknown>
+            cb: ZendeskCallback<unknown, unknown>,
         ): ApplyTicketResponsePayload;
-        applyTicket(
-            ticketId: ZendeskID,
-            macroId: number
-        ): Promise<ApplyTicketResponsePayload>;
+        applyTicket(ticketId: ZendeskID, macroId: number): Promise<ApplyTicketResponsePayload>;
     }
 
     interface ApplyTicketResponsePayload {
@@ -178,8 +189,8 @@ export namespace Macros {
             comment: {
                 body: string;
                 html_body: string;
-                scoped_body?: unknown;
-                public?: boolean;
+                scoped_body?: unknown | undefined;
+                public?: boolean | undefined;
             };
         };
     }
@@ -189,18 +200,86 @@ export namespace Macros {
  * @see {@link https://developer.zendesk.com/rest_api/docs/support/organizations|Zendesk Organizations}
  */
 export namespace Organizations {
-    interface Model extends AuditableModel {
-        readonly url?: string;
-        external_id?: string | null;
+    interface Methods {
+        /** Listing Organizations */
+        list(cb: ZendeskCallback<unknown, unknown>): ListPayload;
+        list(): Promise<ListPayload>;
+
+        /** Showing Organizations */
+        show(organizationId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): ResponsePayload;
+        show(organizationId: ZendeskID): Promise<ResponsePayload>;
+
+        /** Creating Organizations */
+        create(organization: CreatePayload, cb: ZendeskCallback<unknown, unknown>): ResponsePayload;
+        create(organization: CreatePayload): Promise<ResponsePayload>;
+        createMany(organizations: CreateManyPayload, cb: ZendeskCallback<unknown, unknown>): JobStatuses.ResponsePayload;
+        createMany(organizations: CreateManyPayload): Promise<JobStatuses.ResponsePayload>;
+
+        /** Updating Organizations */
+        update(organizationId: ZendeskID, organization: UpdatePayload, cb: ZendeskCallback<unknown, unknown>): ResponsePayload;
+        update(organizationId: ZendeskID, organization: UpdatePayload): Promise<ResponsePayload>;
+        updateMany(organizations: UpdateManyPayload, cb: ZendeskCallback<unknown, unknown>): JobStatuses.ResponsePayload;
+        updateMany(organizations: UpdateManyPayload): Promise<JobStatuses.ResponsePayload>;
+
+        /** Deleting Organizations */
+        delete(organizationId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): unknown;
+        delete(organizationId: ZendeskID): Promise<unknown>;
+
+        /** Searching Organizations */
+        search(params: unknown, cb: ZendeskCallback<unknown, unknown>): ListPayload;
+        search(params: unknown): Promise<ListPayload>;
+        autocomplete(params: unknown, cb: ZendeskCallback<unknown, unknown>): ListPayload;
+        autocomplete(params: unknown): Promise<ListPayload>;
+    }
+
+    interface ResponseModel extends AuditableModel {
+        readonly url?: string | undefined;
+        external_id?: string | null | undefined;
         name: string;
-        domain_names?: ReadonlyArray<string>;
-        details?: string | null;
-        notes?: string | null;
-        group_id?: number | null;
-        shared_tickets?: boolean;
-        shared_comments?: boolean;
-        tags?: ReadonlyArray<string>;
-        organization_fields?: object | null;
+        domain_names?: ReadonlyArray<string> | undefined;
+        details?: string | null | undefined;
+        notes?: string | null | undefined;
+        group_id?: number | null | undefined;
+        shared_tickets?: boolean | undefined;
+        shared_comments?: boolean | undefined;
+        tags?: ReadonlyArray<string> | undefined;
+        organization_fields?: object | null | undefined;
+    }
+
+    interface CreateModel {
+        name: string;
+    }
+
+    interface UpdateModel {
+        notes: string;
+    }
+
+    interface UpdateManyModel extends UpdateModel {
+        id: ZendeskID;
+    }
+
+    interface ResponsePayload {
+        readonly organization: ResponseModel;
+    }
+
+    interface ListPayload extends PaginablePayload {
+        readonly organizations: ReadonlyArray<ResponseModel>;
+    }
+
+    interface CreatePayload {
+        readonly organization: CreateModel;
+    }
+
+    interface CreateManyPayload {
+        readonly organizations: ReadonlyArray<CreateModel>;
+    }
+
+    interface UpdatePayload {
+        readonly organization: UpdateModel;
+    }
+
+    interface UpdateManyPayload {
+        readonly organizations: ReadonlyArray<UpdateManyModel>;
     }
 }
 
@@ -243,12 +322,9 @@ export namespace Requests {
         getComment(
             requestId: ZendeskID,
             commentId: ZendeskID,
-            cb: ZendeskCallback<unknown, unknown>
+            cb: ZendeskCallback<unknown, unknown>,
         ): Comments.ResponsePayload;
-        getComment(
-            requestId: ZendeskID,
-            commentId: ZendeskID
-        ): Promise<Comments.ResponsePayload>;
+        getComment(requestId: ZendeskID, commentId: ZendeskID): Promise<Comments.ResponsePayload>;
 
         /** Inherited */
         requestAll(httpMethod: string, fields: unknown, cb: ZendeskCallback<unknown, unknown>): ListPayload;
@@ -259,26 +335,26 @@ export namespace Requests {
      * @see {@link https://developer.zendesk.com/rest_api/docs/support/requests#create-request|Zendesk Requests Create}
      */
     interface CreateModel {
-        requester?: RequesterAnonymous; // Required for anonymous requests
+        requester?: RequesterAnonymous | undefined; // Required for anonymous requests
         subject: string;
         comment: Comments.CreateModel;
-        priority?: Tickets.Priority | null; // Anonymous requests can set priority, Authenticated requests cannot
-        type?: Tickets.TicketType | null; // Anonymous requests can set type, Authenticated requests cannot
-        custom_fields?: Tickets.Field[] | null;
-        fields?: Tickets.Field[] | null;
-        due_at?: string | null; // Anonymous requests can set due date as long as type == task. Authenticated requests cannot
-        ticket_form_id?: number | null;
-        recipient?: string | null;
-        collaborators?: ZendeskID[] | string[] | Collaborator[];
+        priority?: Tickets.Priority | null | undefined; // Anonymous requests can set priority, Authenticated requests cannot
+        type?: Tickets.TicketType | null | undefined; // Anonymous requests can set type, Authenticated requests cannot
+        custom_fields?: Tickets.Field[] | null | undefined;
+        fields?: Tickets.Field[] | null | undefined;
+        due_at?: string | null | undefined; // Anonymous requests can set due date as long as type == task. Authenticated requests cannot
+        ticket_form_id?: number | null | undefined;
+        recipient?: string | null | undefined;
+        collaborators?: ZendeskID[] | string[] | Collaborator[] | undefined;
     }
 
     /**
      * @see {@link https://developer.zendesk.com/rest_api/docs/support/requests#update-request|Zendesk Requests Update}
      */
     interface UpdateModel {
-        comment?: Comments.CreateModel;
-        solved?: boolean;
-        additional_collaborators?: ZendeskID[] | string[] | Collaborator[];
+        comment?: Comments.CreateModel | undefined;
+        solved?: boolean | undefined;
+        additional_collaborators?: ZendeskID[] | string[] | Collaborator[] | undefined;
     }
 
     /**
@@ -296,27 +372,27 @@ export namespace Requests {
         readonly organization_id: ZendeskID | null;
         readonly requester_id: ZendeskID;
         readonly assignee_id: ZendeskID | null;
-        readonly group_id?: ZendeskID | null;
+        readonly group_id?: ZendeskID | null | undefined;
         readonly collaborator_ids: ZendeskID[];
         readonly email_cc_ids: ZendeskID[];
         readonly via: Tickets.Via;
         readonly is_public: boolean;
         readonly due_at: string | null;
-        readonly can_be_solved_by_me?: boolean;
-        readonly solved?: boolean;
-        readonly ticket_form_id?: number | null;
+        readonly can_be_solved_by_me?: boolean | undefined;
+        readonly solved?: boolean | undefined;
+        readonly ticket_form_id?: number | null | undefined;
         readonly recipient: string | null;
         readonly followup_source_id: string | null;
     }
 
     interface RequesterAnonymous {
         name: string;
-        email?: string;
-        locale_id?: ZendeskID;
+        email?: string | undefined;
+        locale_id?: ZendeskID | undefined;
     }
 
     interface Collaborator {
-        name?: string;
+        name?: string | undefined;
         email: string;
     }
 
@@ -338,13 +414,13 @@ export namespace Requests {
 
     namespace Comments {
         interface CreateModel {
-            url?: string;
-            request_id?: number;
-            body?: string;
-            html_body?: string;
-            public?: boolean;
-            author_id?: ZendeskID;
-            uploads?: ReadonlyArray<string>;
+            url?: string | undefined;
+            request_id?: number | undefined;
+            body?: string | undefined;
+            html_body?: string | undefined;
+            public?: boolean | undefined;
+            author_id?: ZendeskID | undefined;
+            uploads?: ReadonlyArray<string> | undefined;
         }
 
         interface ResponseModel extends TemporalModel {
@@ -357,11 +433,11 @@ export namespace Requests {
             readonly public: boolean;
             readonly author_id: ZendeskID;
             readonly attachments: ReadonlyArray<Attachments.Model>;
-            readonly via?: Tickets.Via;
-            readonly metadata?: Tickets.Comments.Metadata;
+            readonly via?: Tickets.Via | undefined;
+            readonly metadata?: Tickets.Comments.Metadata | undefined;
         }
 
-        type RequestType = 'Comment' | 'VoiceComment';
+        type RequestType = "Comment" | "VoiceComment";
 
         namespace CommentsUsers {
             interface ResponseModel extends PersistableModel {
@@ -439,12 +515,9 @@ export namespace Tickets {
         merge(
             ticketId: ZendeskID,
             mergingTickets: MergePayload,
-            cb: ZendeskCallback<unknown, unknown>
+            cb: ZendeskCallback<unknown, unknown>,
         ): JobStatuses.ResponsePayload;
-        merge(
-            ticketId: ZendeskID,
-            mergingTickets: MergePayload
-        ): Promise<JobStatuses.ResponsePayload>;
+        merge(ticketId: ZendeskID, mergingTickets: MergePayload): Promise<JobStatuses.ResponsePayload>;
 
         /** Ticket Exports */
         export(startTime: number, cb: ZendeskCallback<unknown, unknown>): unknown;
@@ -475,62 +548,63 @@ export namespace Tickets {
      */
     interface CreateModel {
         comment: Requests.Comments.CreateModel;
-        external_id?: string | null;
-        type?: TicketType | null;
-        subject?: string | null;
-        raw_subject?: string | null;
-        priority?: Priority | null;
-        status?: Status | null;
-        recipient?: string | null;
-        requester_id?: ZendeskID;
-        submitter_id?: ZendeskID | null;
-        assignee_id?: ZendeskID | null;
-        organization_id?: number | null;
-        group_id?: number | null;
-        collaborator_ids?: ReadonlyArray<number> | null;
-        collaborators?: ReadonlyArray<any> | null;
-        follower_ids?: ReadonlyArray<number> | null;
-        email_cc_ids?: ReadonlyArray<number> | null;
-        forum_topic_id?: number | null;
-        problem_id?: number | null;
-        due_at?: string | null;
-        tags?: ReadonlyArray<string> | null;
-        custom_fields?: Field[] | null;
-        fields?: Field[] | null;
-        via_followup_source_id?: number | null;
-        macro_ids?: ReadonlyArray<number> | null;
-        ticket_form_id?: number | null;
-        brand_id?: number | null;
+        external_id?: string | null | undefined;
+        type?: TicketType | null | undefined;
+        subject?: string | null | undefined;
+        raw_subject?: string | null | undefined;
+        priority?: Priority | null | undefined;
+        status?: Status | null | undefined;
+        recipient?: string | null | undefined;
+        requester_id?: ZendeskID | undefined;
+        requester?: Requests.RequesterAnonymous | undefined;
+        submitter_id?: ZendeskID | null | undefined;
+        assignee_id?: ZendeskID | null | undefined;
+        organization_id?: number | null | undefined;
+        group_id?: number | null | undefined;
+        collaborator_ids?: ReadonlyArray<number> | null | undefined;
+        collaborators?: ReadonlyArray<any> | null | undefined;
+        follower_ids?: ReadonlyArray<number> | null | undefined;
+        email_cc_ids?: ReadonlyArray<number> | null | undefined;
+        forum_topic_id?: number | null | undefined;
+        problem_id?: number | null | undefined;
+        due_at?: string | null | undefined;
+        tags?: ReadonlyArray<string> | null | undefined;
+        custom_fields?: Field[] | null | undefined;
+        fields?: Field[] | null | undefined;
+        via_followup_source_id?: number | null | undefined;
+        macro_ids?: ReadonlyArray<number> | null | undefined;
+        ticket_form_id?: number | null | undefined;
+        brand_id?: number | null | undefined;
     }
 
     /**
      * @see {@link https://developer.zendesk.com/rest_api/docs/support/tickets#update-ticket|Zendesk Tickets Update}
      */
     interface UpdateModel {
-        subject?: string | null;
-        comment?: Requests.Comments.CreateModel;
-        requester_id?: ZendeskID;
-        assignee_id?: ZendeskID | null;
-        assignee_email?: string | null;
-        group_id?: number | null;
-        organization_id?: number | null;
-        collaborator_ids?: ReadonlyArray<number> | null;
-        additional_collaborators?: ReadonlyArray<any> | null;
-        followers?: ReadonlyArray<Follower> | null;
-        email_ccs?: ReadonlyArray<EmailCC> | null;
-        type?: TicketType | null;
-        priority?: Priority | null;
-        status?: Status | null;
-        tags?: ReadonlyArray<string> | null;
-        external_id?: string | null;
-        problem_id?: number | null;
-        due_at?: string | null;
-        custom_fields?: Field[] | null;
-        updated_stamp?: string | null;
-        safe_update?: boolean;
-        sharing_agreement_ids?: ReadonlyArray<number> | null;
-        macro_ids?: ReadonlyArray<number> | null;
-        attribute_value_ids?: ReadonlyArray<number> | null;
+        subject?: string | null | undefined;
+        comment?: Requests.Comments.CreateModel | undefined;
+        requester_id?: ZendeskID | undefined;
+        assignee_id?: ZendeskID | null | undefined;
+        assignee_email?: string | null | undefined;
+        group_id?: number | null | undefined;
+        organization_id?: number | null | undefined;
+        collaborator_ids?: ReadonlyArray<number> | null | undefined;
+        additional_collaborators?: ReadonlyArray<any> | null | undefined;
+        followers?: ReadonlyArray<Follower> | null | undefined;
+        email_ccs?: ReadonlyArray<EmailCC> | null | undefined;
+        type?: TicketType | null | undefined;
+        priority?: Priority | null | undefined;
+        status?: Status | null | undefined;
+        tags?: ReadonlyArray<string> | null | undefined;
+        external_id?: string | null | undefined;
+        problem_id?: number | null | undefined;
+        due_at?: string | null | undefined;
+        custom_fields?: Field[] | null | undefined;
+        updated_stamp?: string | null | undefined;
+        safe_update?: boolean | undefined;
+        sharing_agreement_ids?: ReadonlyArray<number> | null | undefined;
+        macro_ids?: ReadonlyArray<number> | null | undefined;
+        attribute_value_ids?: ReadonlyArray<number> | null | undefined;
     }
 
     /**
@@ -565,12 +639,12 @@ export namespace Tickets {
         readonly satisfaction_rating: object | string | null;
         readonly sharing_agreement_ids: ReadonlyArray<number>;
         readonly followup_ids: ReadonlyArray<number>;
-        readonly ticket_form_id?: number | null; // Enterprise version only
-        readonly brand_id?: number | null; // Enterprise version only
+        readonly ticket_form_id?: number | null | undefined; // Enterprise version only
+        readonly brand_id?: number | null | undefined; // Enterprise version only
         readonly allow_channelback: boolean;
         readonly allow_attachments: boolean;
         readonly is_public: boolean;
-        readonly comment_count?: number;
+        readonly comment_count?: number | undefined;
     }
 
     interface Audit {
@@ -584,8 +658,8 @@ export namespace Tickets {
     }
 
     interface EmailCC {
-        user_id?: ZendeskID;
-        user_email?: string;
+        user_id?: ZendeskID | undefined;
+        user_email?: string | undefined;
         action: string;
     }
 
@@ -595,23 +669,23 @@ export namespace Tickets {
     }
 
     interface Follower {
-        user_id?: ZendeskID;
-        user_email?: string;
+        user_id?: ZendeskID | undefined;
+        user_email?: string | undefined;
         action: string;
     }
 
-    type Priority = 'urgent' | 'high' | 'normal' | 'low';
+    type Priority = "urgent" | "high" | "normal" | "low";
 
-    type Status = 'new' | 'open' | 'pending' | 'hold' | 'solved' | 'closed';
+    type Status = "new" | "open" | "pending" | "hold" | "solved" | "closed";
 
-    type TicketType = 'problem' | 'incident' | 'question' | 'task';
+    type TicketType = "problem" | "incident" | "question" | "task";
 
     interface Via {
         channel: ViaChannel;
         source: ViaSource;
     }
 
-    type ViaChannel = 'api' | 'web' | 'mobile' | 'rule' | 'system';
+    type ViaChannel = "api" | "web" | "mobile" | "rule" | "system";
 
     interface ViaSource {
         to: object;
@@ -637,8 +711,8 @@ export namespace Tickets {
 
     interface MergePayload {
         readonly ids: ReadonlyArray<ZendeskID>;
-        readonly target_comment?: string | null;
-        readonly source_comment?: string | null;
+        readonly target_comment?: string | null | undefined;
+        readonly source_comment?: string | null | undefined;
     }
 
     interface AuditsListPayload extends PaginablePayload {
@@ -660,12 +734,12 @@ export namespace Tickets {
 
     namespace Comments {
         interface ResponseModel extends Requests.Comments.ResponseModel {
-            readonly via?: Via;
-            readonly metadata?: Metadata;
+            readonly via?: Via | undefined;
+            readonly metadata?: Metadata | undefined;
         }
 
         interface Metadata {
-            flags?: ReadonlyArray<number>;
+            flags?: ReadonlyArray<number> | undefined;
             flag_options: unknown;
         }
 
@@ -693,23 +767,23 @@ export namespace Tickets {
         }
 
         interface ResponseModel extends AuditableModel {
-            readonly ticket_id?: ZendeskID;
-            readonly url?: string;
-            readonly group_stations?: number;
-            readonly assignee_stations?: number;
-            readonly reopens?: number;
-            readonly replies?: number;
-            readonly assignee_updated_at?: string | null;
-            readonly requester_updated_at?: string | null;
-            readonly initially_assigned_at?: string | null;
-            readonly assigned_at?: string | null;
-            readonly solved_at?: string | null;
-            readonly latest_comment_added_at?: string | null;
-            readonly first_resolution_time_in_minutes?: MinutesObject;
-            readonly reply_time_in_minutes?: MinutesObject;
-            readonly full_resolution_time_in_minutes?: MinutesObject;
-            readonly agent_wait_time_in_minutes?: MinutesObject;
-            readonly requester_wait_time_in_minutes?: MinutesObject;
+            readonly ticket_id?: ZendeskID | undefined;
+            readonly url?: string | undefined;
+            readonly group_stations?: number | undefined;
+            readonly assignee_stations?: number | undefined;
+            readonly reopens?: number | undefined;
+            readonly replies?: number | undefined;
+            readonly assignee_updated_at?: string | null | undefined;
+            readonly requester_updated_at?: string | null | undefined;
+            readonly initially_assigned_at?: string | null | undefined;
+            readonly assigned_at?: string | null | undefined;
+            readonly solved_at?: string | null | undefined;
+            readonly latest_comment_added_at?: string | null | undefined;
+            readonly first_resolution_time_in_minutes?: MinutesObject | undefined;
+            readonly reply_time_in_minutes?: MinutesObject | undefined;
+            readonly full_resolution_time_in_minutes?: MinutesObject | undefined;
+            readonly agent_wait_time_in_minutes?: MinutesObject | undefined;
+            readonly requester_wait_time_in_minutes?: MinutesObject | undefined;
         }
 
         interface ResponsePayload {
@@ -754,11 +828,9 @@ export namespace Users {
         createOrUpdate(user: CreatePayload): Promise<ResponsePayload>;
         createOrUpdateMany(
             users: CreateManyPayload,
-            cb: ZendeskCallback<unknown, unknown>
+            cb: ZendeskCallback<unknown, unknown>,
         ): JobStatuses.ResponsePayload;
-        createOrUpdateMany(
-            users: CreateManyPayload
-        ): Promise<JobStatuses.ResponsePayload>;
+        createOrUpdateMany(users: CreateManyPayload): Promise<JobStatuses.ResponsePayload>;
 
         /** Updating Users */
         update(userId: ZendeskID, user: UpdatePayload, cb: ZendeskCallback<unknown, unknown>): ResponsePayload;
@@ -766,12 +838,9 @@ export namespace Users {
         updateMany(
             userIds: UpdateIdPayload,
             users: UpdateManyPayload,
-            cb: ZendeskCallback<unknown, unknown>
+            cb: ZendeskCallback<unknown, unknown>,
         ): JobStatuses.ResponsePayload;
-        updateMany(
-            userIds: UpdateIdPayload,
-            users: UpdateManyPayload
-        ): Promise<JobStatuses.ResponsePayload>;
+        updateMany(userIds: UpdateIdPayload, users: UpdateManyPayload): Promise<JobStatuses.ResponsePayload>;
 
         /** Suspending Users */
         suspend(userId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): ResponsePayload;
@@ -800,13 +869,9 @@ export namespace Users {
             userId: ZendeskID,
             oldPassword: string,
             newPassword: string,
-            cb: ZendeskCallback<unknown, unknown>
+            cb: ZendeskCallback<unknown, unknown>,
         ): unknown;
-        password(
-            userId: ZendeskID,
-            oldPassword: string,
-            newPassword: string
-        ): Promise<unknown>;
+        password(userId: ZendeskID, oldPassword: string, newPassword: string): Promise<unknown>;
 
         /** Users Export */
         incrementalInclude(startTime: number, include: unknown, cb: ZendeskCallback<unknown, unknown>): ListPayload;
@@ -818,28 +883,28 @@ export namespace Users {
     }
 
     interface BaseModel {
-        email?: string | null;
-        alias?: string | null;
-        custom_role_id?: number | null;
-        details?: string | null;
-        external_id?: string | null;
-        locale_id?: number | null;
-        moderator?: boolean | null;
-        notes?: string | null;
-        only_private_comments?: boolean | null;
-        organization_id?: number | null;
-        default_group_id?: number | null;
-        phone?: string | null;
-        photo?: Attachments.Model | null;
-        restricted_agent?: boolean | null;
-        role?: Role | null;
-        signature?: string | null;
-        suspended?: boolean | null;
-        tags?: ReadonlyArray<unknown> | null;
-        ticket_restriction?: TicketRestriction | null;
-        time_zone?: string | null;
-        user_fields?: object | null;
-        verified?: boolean | null;
+        email?: string | null | undefined;
+        alias?: string | null | undefined;
+        custom_role_id?: number | null | undefined;
+        details?: string | null | undefined;
+        external_id?: string | null | undefined;
+        locale_id?: number | null | undefined;
+        moderator?: boolean | null | undefined;
+        notes?: string | null | undefined;
+        only_private_comments?: boolean | null | undefined;
+        organization_id?: number | null | undefined;
+        default_group_id?: number | null | undefined;
+        phone?: string | null | undefined;
+        photo?: Attachments.Model | null | undefined;
+        restricted_agent?: boolean | null | undefined;
+        role?: Role | null | undefined;
+        signature?: string | null | undefined;
+        suspended?: boolean | null | undefined;
+        tags?: ReadonlyArray<unknown> | null | undefined;
+        ticket_restriction?: TicketRestriction | null | undefined;
+        time_zone?: string | null | undefined;
+        user_fields?: object | null | undefined;
+        verified?: boolean | null | undefined;
     }
 
     /**
@@ -853,7 +918,7 @@ export namespace Users {
      * @see {@link https://developer.zendesk.com/rest_api/docs/support/users#update-user|Zendesk Users Update}
      */
     interface UpdateModel extends BaseModel {
-        name?: string;
+        name?: string | undefined;
     }
 
     /**
@@ -886,12 +951,12 @@ export namespace Users {
         readonly shared_agent: boolean;
         readonly signature: string | null;
         readonly suspended: boolean;
-        readonly tags?: ReadonlyArray<unknown> | null;
+        readonly tags?: ReadonlyArray<unknown> | null | undefined;
         readonly ticket_restriction: TicketRestriction | null;
         readonly time_zone: string | null;
         readonly two_factor_auth_enabled: boolean;
         readonly url: string;
-        readonly user_fields?: object | null;
+        readonly user_fields?: object | null | undefined;
         readonly verified: boolean;
         readonly report_csv: boolean;
     }
@@ -926,7 +991,7 @@ export namespace Users {
         users: ReadonlyArray<ResponseModel>;
     }
 
-    type Role = 'admin' | 'agent' | 'end-user';
+    type Role = "admin" | "agent" | "end-user";
 
     /**
      * Defines an agent type
@@ -936,7 +1001,7 @@ export namespace Users {
      */
     type RoleType = 0 | 1 | 2;
 
-    type TicketRestriction = 'assigned' | 'groups' | 'organization' | 'requested';
+    type TicketRestriction = "assigned" | "groups" | "organization" | "requested";
 
     /**
      * @see {@link https://developer.zendesk.com/rest_api/docs/support/user_identities|Zendesk User Identities}
@@ -960,13 +1025,9 @@ export namespace Users {
                 userId: ZendeskID,
                 identityId: ZendeskID,
                 identity: UpdatePayload,
-                cb: ZendeskCallback<unknown, unknown>
+                cb: ZendeskCallback<unknown, unknown>,
             ): ResponsePayload;
-            update(
-                userId: ZendeskID,
-                identityId: ZendeskID,
-                identity: UpdatePayload
-            ): Promise<ResponsePayload>;
+            update(userId: ZendeskID, identityId: ZendeskID, identity: UpdatePayload): Promise<ResponsePayload>;
             makePrimary(userId: ZendeskID, identityId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): ListPayload;
             makePrimary(userId: ZendeskID, identityId: ZendeskID): Promise<ListPayload>;
             verify(userId: ZendeskID, identityId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): ResponsePayload;
@@ -974,12 +1035,9 @@ export namespace Users {
             requestVerification(
                 userId: ZendeskID,
                 identityId: ZendeskID,
-                cb: ZendeskCallback<unknown, unknown>
+                cb: ZendeskCallback<unknown, unknown>,
             ): unknown;
-            requestVerification(
-                userId: ZendeskID,
-                identityId: ZendeskID
-            ): Promise<unknown>;
+            requestVerification(userId: ZendeskID, identityId: ZendeskID): Promise<unknown>;
 
             /** Deleting Identities */
             delete(userId: ZendeskID, identityId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): unknown;
@@ -989,13 +1047,13 @@ export namespace Users {
         interface CreateModel {
             type: IdentityType;
             value: string;
-            verified?: boolean;
-            primary?: boolean;
+            verified?: boolean | undefined;
+            primary?: boolean | undefined;
         }
 
         interface UpdateModel {
-            value?: string;
-            verified?: boolean;
+            value?: string | undefined;
+            verified?: boolean | undefined;
         }
 
         interface ResponseModel extends AuditableModel {
@@ -1025,9 +1083,9 @@ export namespace Users {
             readonly identity: ResponseModel;
         }
 
-        type IdentityType = 'agent_forwarding' | 'email' | 'facebook' | 'google' | 'phone_number' | 'sdk';
+        type IdentityType = "agent_forwarding" | "email" | "facebook" | "google" | "phone_number" | "sdk";
 
-        type DeliverableState = 'deliverable' | 'undeliverable';
+        type DeliverableState = "deliverable" | "undeliverable";
     }
 
     namespace Fields {
@@ -1048,36 +1106,28 @@ export namespace Users {
          * Types of custom fields that can be created
          * @default 'text'
          */
-        type UserFieldType =
-            | 'text'
-            | 'textarea'
-            | 'checkbox'
-            | 'date'
-            | 'integer'
-            | 'decimal'
-            | 'regexp'
-            | 'tagger';
+        type UserFieldType = "text" | "textarea" | "checkbox" | "date" | "integer" | "decimal" | "regexp" | "tagger";
 
         /**
          * Represents 'user_field'
          */
         interface UserField {
-            readonly id?: number;
-            readonly url?: string;
-            readonly type?: UserFieldType;
-            key?: string;
+            readonly id?: number | undefined;
+            readonly url?: string | undefined;
+            readonly type?: UserFieldType | undefined;
+            key?: string | undefined;
             title: string;
-            raw_title?: string;
-            description?: string;
-            raw_description?: string;
-            position?: number;
-            active?: boolean;
-            readonly system?: boolean;
-            regexp_for_validation?: string;
-            created_at?: Date;
-            updated_at?: Date;
-            tag?: string;
-            custom_field_options?: CustomFieldOptions[];
+            raw_title?: string | undefined;
+            description?: string | undefined;
+            raw_description?: string | undefined;
+            position?: number | undefined;
+            active?: boolean | undefined;
+            readonly system?: boolean | undefined;
+            regexp_for_validation?: string | undefined;
+            created_at?: Date | undefined;
+            updated_at?: Date | undefined;
+            tag?: string | undefined;
+            custom_field_options?: CustomFieldOptions[] | undefined;
         }
         interface CreateUserField extends UserField {
             key: string;

@@ -7,17 +7,17 @@ declare namespace PluginSidebar {
         /**
          * An optional class name added to the sidebar body.
          */
-        className?: string;
+        className?: string | undefined;
         /**
          * A Dashicon slug or a custom JSX element to be rendered when the sidebar is pinned to
          * toolbar.
          */
-        icon?: Dashicon.Icon | JSX.Element;
+        icon?: Dashicon.Icon | JSX.Element | undefined;
         /**
          * Whether to allow to pin sidebar to toolbar.
          * @defaultValue `true`
          */
-        isPinnable?: boolean;
+        isPinnable?: boolean | undefined;
         /**
          * A string identifying the sidebar. Must be unique for every sidebar registered within the
          * scope of your plugin.

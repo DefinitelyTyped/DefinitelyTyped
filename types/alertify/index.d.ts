@@ -104,21 +104,21 @@ declare namespace alertify {
      */
     interface IProperties {
         /** Default value for milliseconds display of log messages */
-        delay?: number;
+        delay?: number | undefined;
 
         /** Default values for display of labels */
-        labels?: ILabels;
+        labels?: ILabels | undefined;
 
         /** Default button for focus */
-        buttonFocus?: string;
+        buttonFocus?: string | undefined;
 
         /** Should buttons be displayed in reverse order */
-        buttonReverse?: boolean;
+        buttonReverse?: boolean | undefined;
     }
 
     /** Labels for altertify.set function */
     interface ILabels {
-        ok?: string;
-        cancel?: string;
+        ok?: string | undefined;
+        cancel?: string | undefined;
     }
 }

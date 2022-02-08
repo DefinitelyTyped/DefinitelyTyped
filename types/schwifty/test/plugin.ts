@@ -1,4 +1,4 @@
-import * as Hapi from "hapi";
+import * as Hapi from "@hapi/hapi";
 import * as Schwifty from "schwifty";
 import DogModel from "./dog";
 

@@ -15,13 +15,13 @@ declare namespace DiscourseSSO {
         nonce: string;
         external_id: string;
         email: string;
-        admin?: boolean;
-        moderator?: boolean;
-        username?: string;
-        name?: string;
-        avatar_url?: string;
-        add_groups?: string[];
-        remove_groups?: string[];
+        admin?: boolean | undefined;
+        moderator?: boolean | undefined;
+        username?: string | undefined;
+        name?: string | undefined;
+        avatar_url?: string | undefined;
+        add_groups?: string[] | undefined;
+        remove_groups?: string[] | undefined;
     }
 }
 export = DiscourseSSO;

@@ -16,7 +16,7 @@ declare namespace DomParser {
         getElementsByName(name: string): Node[] | null;
         getElementById(id: string): Node | null;
 
-        getElementsByAttribute(attribute: string): Node[] | null;
+        getElementsByAttribute(attr: string, value: string): Node[] | null;
     }
 
     interface Node extends DOMSearchable {

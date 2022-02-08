@@ -250,7 +250,7 @@ declare namespace Q {
 
     export interface PromiseState<T> {
         state: "fulfilled" | "rejected" | "pending";
-        value?: T;
+        value?: T | undefined;
         reason?: any;
     }
 

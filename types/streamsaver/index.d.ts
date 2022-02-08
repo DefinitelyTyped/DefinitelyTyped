@@ -18,14 +18,14 @@ export interface CreateWriteStreamOptions<I = any, O = any> {
     /**
      * Indicates the size of the streamed data and allows the browser to show progress while downloading.
      */
-    size?: number;
+    size?: number | undefined;
     /**
      * URL to serve the stream from. This is the URL that the browser is going to request from the service worker.
      * You might need to provide this if you're using a custom service worker.
      */
-    pathname?: string;
-    writableStrategy?: QueuingStrategy<I>;
-    readableStrategy?: QueuingStrategy<O>;
+    pathname?: string | undefined;
+    writableStrategy?: QueuingStrategy<I> | undefined;
+    readableStrategy?: QueuingStrategy<O> | undefined;
 }
 
 export interface Version {

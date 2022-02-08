@@ -16,7 +16,7 @@ export interface StreamOptions {
      * @default 4MB for {@link ReadStream}
      * @default 10MB for {@link WriteStream}
      */
-    highWaterMark?: number;
+    highWaterMark?: number | undefined;
 }
 
 export class ReadStream extends Readable {

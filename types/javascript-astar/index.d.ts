@@ -5,7 +5,7 @@
 
 declare class Graph {
     grid: Array<Array<GridNode>>;
-    constructor(grid: Array<Array<number>>, options?: {diagonal?: boolean});
+    constructor(grid: Array<Array<number>>, options?: {diagonal?: boolean | undefined});
 }
 
 declare class GridNode {
@@ -28,8 +28,8 @@ declare namespace astar {
         start: {x: number, y: number},
         end: {x: number, y: number},
         options?: {
-            closest?: boolean,
-            heuristic?: Heuristic
+            closest?: boolean | undefined,
+            heuristic?: Heuristic | undefined
         }
     ): Array<GridNode>;
     var heuristics: Heuristics;

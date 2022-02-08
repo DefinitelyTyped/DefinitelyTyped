@@ -33,3 +33,6 @@ searchApi.indexDocument('uid', 'This is foo');
 // And while we're at it, verify that searching returns a promise containing an array of strings
 
 const promise: Promise<string[]> = searchApi.search('foo');
+
+// Try to terminate the web-workers
+searchApi.terminate();

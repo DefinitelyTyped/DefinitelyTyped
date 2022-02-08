@@ -1876,20 +1876,6 @@ module RatingComponent {
 }
 
 
-
-module ReportViewerComponent {
-	$(function () {
-        var report = new ej.ReportViewer($("#DefaultReportViewer"), {
-			reportServiceUrl: (<any>window).baseurl + 'api/ReportViewer',
-			processingMode: ej.ReportViewer.ProcessingMode.Remote,
-            reportPath: "ConditionalFormating.rdl",
-			isResponsive: true
-		});
-	});
-}
-
-
-
 var fontfamily = ["Segoe UI", "Arial", "Times New Roman", "Tahoma", "Helvetica"], fontsize = ["1pt", "2pt", "3pt", "4pt", "5pt"], action1 = ["New", "Clear"], action2 = ["Bold", "Italic", "Underline", "strikethrough", "superscript", "subscript", "JustifyLeft", "JustifyCenter", "JustifyRight", "JustifyFull", "Undo", "Redo"];
 module RibbonComponent {
     $(function () {
@@ -2754,7 +2740,8 @@ module ScrollerComponent {
         });
         $(window).bind('resize', function () {
             scrollerSample.refresh();
-        });
+        });
+
     });
 }
 

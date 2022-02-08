@@ -12,7 +12,7 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@wordpress/block-serialization-spec-parser": ["wordpress__block-serialization-spec-parser"]
+            "@wordpress/*": ["wordpress__*"]
         }
     },
     "files": ["index.d.ts", "wordpress__block-serialization-spec-parser-tests.ts"]

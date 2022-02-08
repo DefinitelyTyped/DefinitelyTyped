@@ -492,25 +492,25 @@ declare namespace Mixpanel {
         /**
          * @default HTTP_PROTOCOL + 'api.mixpanel.com'
          */
-        api_host?: string;
+        api_host?: string | undefined;
         /**
          * @default HTTP_PROTOCOL + 'mixpanel.com'
          */
-        app_host?: string;
+        app_host?: string | undefined;
         /**
          * @default true
          */
-        autotrack?: boolean;
+        autotrack?: boolean | undefined;
         /**
          * @default HTTP_PROTOCOL + 'cdn.mxpnl.com'
          */
-        cdn?: string;
+        cdn?: string | undefined;
         /**
          * Super properties span subdomains
          *
          * @default true
          */
-        cross_subdomain_cookie?: boolean;
+        cross_subdomain_cookie?: boolean | undefined;
         /**
          * Type of persistent store for super properties
          *
@@ -520,67 +520,67 @@ declare namespace Mixpanel {
          *
          * @default 'cookie'
          */
-        persistence?: 'localStorage' | 'cookie';
+        persistence?: 'localStorage' | 'cookie' | undefined;
         /**
          * Name for super properties persistent store
          *
          * @default ''
          */
-        persistence_name?: string;
+        persistence_name?: string | undefined;
         /**
          * @deprecated Use `persistence_name` instead
          * @default ''
          */
-        cookie_name?: string;
+        cookie_name?: string | undefined;
         /**
          * @default function() {}
          */
-        loaded?: (lib: Mixpanel) => void;
+        loaded?: ((lib: Mixpanel) => void) | undefined;
         /**
          * @default true
          */
-        store_google?: boolean;
+        store_google?: boolean | undefined;
         /**
          * @default true
          */
-        save_referrer?: boolean;
+        save_referrer?: boolean | undefined;
         /**
          * @default false
          */
-        test?: boolean;
+        test?: boolean | undefined;
         /**
          * @default false
          */
-        verbose?: boolean;
+        verbose?: boolean | undefined;
         /**
          * @default false
          */
-        img?: boolean;
+        img?: boolean | undefined;
         /**
          * Should we track a page view on page load
          *
          * @default true
          */
-        track_pageview?: boolean;
+        track_pageview?: boolean | undefined;
         /**
          * Debug mode
          *
          * @default false
          */
-        debug?: boolean;
+        debug?: boolean | undefined;
         /**
          * The amount of time track_links will wait for Mixpanel's
          * servers to respond
          *
          * @default 300
          */
-        track_links_timeout?: number;
+        track_links_timeout?: number | undefined;
         /**
          * Super properties cookie expiration (in days)
          *
          * @default 365
          */
-        cookie_expiration?: number;
+        cookie_expiration?: number | undefined;
         /**
          * If you set upgrade to be true, the library will check for
          * a cookie from our old js library and import super
@@ -590,40 +590,40 @@ declare namespace Mixpanel {
          *
          * @default false
          */
-        upgrade?: boolean;
+        upgrade?: boolean | undefined;
         /**
          * If this is true, the mixpanel cookie or localStorage entry
          * will be deleted, and no user persistence will take place
          *
          * @default false
          */
-        disable_persistence?: boolean;
+        disable_persistence?: boolean | undefined;
         /**
          * @deprecated Use `disable_persistence` instead
          * @default false
          */
-        disable_cookie?: boolean;
+        disable_cookie?: boolean | undefined;
         /**
          * If this is true, mixpanel cookies will be marked as secure,
          * meaning they will only be transmitted over https
          *
          * @default false
          */
-        secure_cookie?: boolean;
+        secure_cookie?: boolean | undefined;
         /**
          * If this is true, Mixpanel will automatically determine City,
          * Region and Country data using the IP address of the client
          *
          * @default true
          */
-        ip?: boolean;
+        ip?: boolean | undefined;
         /**
          * Names of (super) properties which should never be sent
          * with track() calls
          *
          * @default []
          */
-        property_blacklist?: string[];
+        property_blacklist?: string[] | undefined;
     }
 
     type Query = string | Element | Element[];

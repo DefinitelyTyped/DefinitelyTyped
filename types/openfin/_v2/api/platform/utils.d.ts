@@ -10,7 +10,7 @@ export interface ViewComponent extends GoldenLayout.ContentItem {
 }
 export interface LayoutEventPayload {
     success: boolean;
-    reason?: string;
+    reason?: string | undefined;
     identity: Identity;
 }
 export declare const addComponentToContentItem: (component: ViewComponent, target: GoldenLayout.ItemConfig) => void;

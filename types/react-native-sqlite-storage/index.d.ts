@@ -14,10 +14,10 @@ export function deleteDatabase(params: DatabaseParams): Promise<void>;
 export function deleteDatabase(params: DatabaseParams, success?: () => void, error?: (err: SQLError) => void): void;
 export type Location = 'default' | 'Library' | 'Documents' | "Shared";
 export interface DatabaseOptionalParams {
-    createFromLocation?: number | string;
+    createFromLocation?: number | string | undefined;
     // Database encryption pass phrase
-    key?: string;
-    readOnly?: boolean;
+    key?: string | undefined;
+    readOnly?: boolean | undefined;
 }
 
 export interface DatabaseParams extends DatabaseOptionalParams {

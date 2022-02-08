@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface Options {
-  duration?: number;
+  duration?: number | undefined;
   easing?(currentTime: number, beginningTime: number, changeInValue: number, duration: number): number;
   start: number;
   end: number;

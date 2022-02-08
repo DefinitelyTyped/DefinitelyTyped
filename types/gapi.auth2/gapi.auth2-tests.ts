@@ -53,6 +53,11 @@ function test_reloadAuthResponse() {
     });
 }
 
+function test_grantOfflineAccess() {
+  gapi.auth2.getAuthInstance().currentUser.get().grantOfflineAccess({ scope: "profile" })
+  .then(response => console.log(response.code));
+}
+
 function test_render() {
   const success = (googleUser: gapi.auth2.GoogleUser): void => {
     console.log(googleUser);
@@ -154,4 +159,11 @@ function makeApiCall() {
     p.appendChild(document.createTextNode(`Hello, ${name}!`));
     document.getElementById('content').appendChild(p);
   });
+}
+
+async function test_await() {
+  // This used to result in TS1062: "Type is referenced directly or indirectly in the fulfillment callback of its own 'then' method"
+  // tslint:disable-next-line: await-promise Bug in tslint: https://github.com/palantir/tslint/issues/3997
+  const auth = await gapi.auth2.getAuthInstance();
+  console.log(auth.isSignedIn.get());
 }

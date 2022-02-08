@@ -16,23 +16,11 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@node-red/editor-api": [
-                "node-red__editor-api"
+            "@node-red/*": [
+                "node-red__*"
             ],
-            "@node-red/editor-client": [
-                "node-red__editor-client"
-            ],
-            "@node-red/registry": [
-                "node-red__registry"
-            ],
-            "@node-red/runtime": [
-                "node-red__runtime"
-            ],
-            "@node-red/util": [
-                "node-red__util"
-            ],
-            "@sinonjs/fake-timers": [
-                "sinonjs__fake-timers"
+            "@sinonjs/*": [
+                "sinonjs__*"
             ]
         }
     },

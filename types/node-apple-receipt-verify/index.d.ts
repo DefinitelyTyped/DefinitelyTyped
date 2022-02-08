@@ -43,19 +43,19 @@ export enum ERROR_CODES {
 
 export interface ConfigOptions {
     secret: string;
-    verbose?: boolean;
-    environment?: string[];
-    ignoreExpiredError?: boolean;
-    ignoreExpired?: boolean;
-    extended?: boolean;
-    excludeOldTransactions?: boolean;
+    verbose?: boolean | undefined;
+    environment?: string[] | undefined;
+    ignoreExpiredError?: boolean | undefined;
+    ignoreExpired?: boolean | undefined;
+    extended?: boolean | undefined;
+    excludeOldTransactions?: boolean | undefined;
 }
 
 export function config(options: ConfigOptions): ConfigOptions;
 
 export interface ValidateOptions {
     receipt: string;
-    device?: string;
+    device?: string | undefined;
 }
 
 export interface PurchasedProducts {
@@ -64,13 +64,13 @@ export interface PurchasedProducts {
     productId: string;
     purchaseDate: number;
     quantity: number;
-    expirationDate?: number;
-    isTrialPeriod?: boolean; // only for subscriptions and if extended = true
-    isInIntroOfferPeriod?: boolean; // only for subscriptions and if extended = true; since v1.5.1
-    environment?: string; // only if extended = true
-    originalPurchaseDate?: number; // only if extended = true
-    applicationVersion?: string; // only if extended = true
-    originalApplicationVersion?: string; // only if extended = true
+    expirationDate?: number | undefined;
+    isTrialPeriod?: boolean | undefined; // only for subscriptions and if extended = true
+    isInIntroOfferPeriod?: boolean | undefined; // only for subscriptions and if extended = true; since v1.5.1
+    environment?: string | undefined; // only if extended = true
+    originalPurchaseDate?: number | undefined; // only if extended = true
+    applicationVersion?: string | undefined; // only if extended = true
+    originalApplicationVersion?: string | undefined; // only if extended = true
 }
 
 export interface ValidationError extends Error {

@@ -8,7 +8,7 @@ import MediaRight = require('./MediaRight');
 
 declare namespace Media {
     export interface MediaProps extends React.HTMLProps<Media> {
-        componentClass?: React.ReactType;
+        componentClass?: React.ElementType | undefined;
     }
 }
 declare class Media extends React.Component<Media.MediaProps> {

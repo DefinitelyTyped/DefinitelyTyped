@@ -210,7 +210,7 @@ declare namespace jasmine {
         env: Env;
         actual: any;
         spec: Env;
-        isNot?: boolean;
+        isNot?: boolean | undefined;
         message(): any;
 
         toBe(expected: any): boolean;

@@ -48,48 +48,48 @@ declare namespace AMap {
             /**
              * 公交换乘策略
              */
-            policy?: TransferPolicy;
+            policy?: TransferPolicy | undefined;
             /**
              * 是否计算夜班车，默认为不计算
              */
-            nightflag?: boolean;
+            nightflag?: boolean | undefined;
             /**
              * 终点城市，跨城公交路径规划时为必填参数
              */
-            cityd?: string;
+            cityd?: string | undefined;
             /**
              * 返回结果控制, 默认值: base
              * base:返回基本信息
              * all:返回全部信息
              */
-            extensions?: 'all' | 'base';
+            extensions?: 'all' | 'base' | undefined;
             /**
              * AMap.Map对象, 展现结果的地图实例
              */
-            map?: Map;
+            map?: Map | undefined;
             /**
              * 结果列表的HTML容器id或容器元素
              */
-            panel?: string;
+            panel?: string | undefined;
             /**
              * 设置是否隐藏路径规划的起始点图标
              */
-            hideMarkers?: boolean;
+            hideMarkers?: boolean | undefined;
             /**
              * 使用map属性时，绘制的规划线路是否显示描边。默认为true
              */
-            isOutline?: boolean;
+            isOutline?: boolean | undefined;
             /**
              * 使用map属性时，绘制的规划线路的描边颜色。默认为'white'
              */
-            outlineColor?: string;
+            outlineColor?: string | undefined;
             /**
              * 用于控制在路径规划结束后，是否自动调整地图视野使绘制的路线处于视口的可见范围
              */
-            autoFitView?: boolean;
+            autoFitView?: boolean | undefined;
 
             // internal
-            showDir?: boolean;
+            showDir?: boolean | undefined;
         }
         interface SearchPoint {
             /**
@@ -218,7 +218,7 @@ declare namespace AMap {
              * 站点经纬度信息
              */
             location: LngLat;
-            segment?: TransitSegment;
+            segment?: TransitSegment | undefined;
         }
         interface TransitLine {
             /**
@@ -280,11 +280,11 @@ declare namespace AMap {
             /**
              * 地铁站入口
              */
-            entrance?: SubwayEntrance;
+            entrance?: SubwayEntrance | undefined;
             /**
              * 地铁站出口
              */
-            exit?: SubwayEntrance;
+            exit?: SubwayEntrance | undefined;
         }
         interface TransitSegment extends SegmentCommon {
             /**
@@ -317,8 +317,8 @@ declare namespace AMap {
              * 上下车点发车时间
              */
             time: number;
-            wait?: number;
-            segment?: RailwaySegment;
+            wait?: number | undefined;
+            segment?: RailwaySegment | undefined;
         }
         interface Space {
             /**
@@ -499,11 +499,11 @@ declare namespace AMap {
             /**
              * 公交换乘起点
              */
-            start?: Poi;
+            start?: Poi | undefined;
             /**
              * 公交换乘终点
              */
-            end?: Poi;
+            end?: Poi | undefined;
         }
         interface SearchResultExt extends SearchResultCommon {
             /**
@@ -591,7 +591,7 @@ declare namespace AMap {
             /**
              * 起点名称
              */
-            originName?: string,
+            originName?: string | undefined,
             /**
              * 终点坐标
              */
@@ -599,7 +599,7 @@ declare namespace AMap {
             /**
              * 终点名称
              */
-            destinationName?: string
+            destinationName?: string | undefined
         }): void;
 
         // internal

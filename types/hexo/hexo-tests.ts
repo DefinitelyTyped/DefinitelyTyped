@@ -4,6 +4,7 @@ import Bunyan = require('bunyan');
 import { ParsedArgs } from 'minimist';
 import util = require('hexo-util');
 import http = require('http');
+import Bluebird = require('bluebird');
 
 const config: Hexo.InstanceOptions = {};
 config.debug = false;
@@ -402,6 +403,8 @@ h.on('ready', () => {
         };
         h.extend.generator.register('name', local => ret);
         h.extend.generator.register('name', local => [ret]);
+        h.extend.generator.register('name', local => Bluebird.resolve(ret));
+        h.extend.generator.register('name', local => Bluebird.resolve([ret]));
         h.extend.generator.register('name', local => {
             console.log(local.data);
             const categories: Hexo.Locals.Category[] = local.categories.toArray();
@@ -410,6 +413,9 @@ h.on('ready', () => {
             const tags: Hexo.Locals.Tag[] = local.tags.toArray();
 
             return ret;
+        });
+        h.extend.generator.register('name', local => {
+            return { path: '/', data: '' };
         });
     }
 
@@ -447,7 +453,8 @@ h.on('ready', () => {
         h.extend.renderer.register(
             'ts',
             'js',
-            (data: Hexo.extend.RendererData, options) => {
+            function(data: Hexo.extend.RendererData, options) {
+                console.log(this);
                 console.log(data.path);
                 console.log(data.text);
                 return 'result';
@@ -455,8 +462,19 @@ h.on('ready', () => {
             true,
         );
 
-        h.extend.renderer.register('ts', 'js', (data, options) => Promise.resolve('result'), false);
-        h.extend.renderer.register('ts', 'js', (data, options) => Promise.resolve('result'));
+        h.extend.renderer.register(
+            'ts',
+            'js',
+            function(data, options) {
+                console.log(this);
+                return Promise.resolve('result');
+            },
+            false,
+        );
+        h.extend.renderer.register('ts', 'js', function(data, options) {
+            console.log(this);
+            return Bluebird.resolve('result');
+        });
     }
 
     {

@@ -8,30 +8,30 @@ declare namespace TestingBot {
     type TestSuccess = true | false | 0 | 1;
 
     interface TestingBotOptions {
-        api_key?: string;
-        api_secret?: string;
+        api_key?: string | undefined;
+        api_secret?: string | undefined;
     }
 
     interface UserInfo {
-        first_name?: string;
-        last_name?: string;
-        email?: string;
+        first_name?: string | undefined;
+        last_name?: string | undefined;
+        email?: string | undefined;
     }
 
     interface TestData {
-        'test[success]'?: TestSuccess;
-        'test[status_message]'?: string;
-        'test[name]'?: string;
-        'test[extra]'?: string;
-        build?: string;
-        groups?: string;
+        'test[success]'?: TestSuccess | undefined;
+        'test[status_message]'?: string | undefined;
+        'test[name]'?: string | undefined;
+        'test[extra]'?: string | undefined;
+        build?: string | undefined;
+        groups?: string | undefined;
     }
 
     interface TestLabData {
-        'test[url]'?: string;
-        'test[name]'?: string;
-        'test[cron]'?: string;
-        'test[enabled]'?: boolean;
+        'test[url]'?: string | undefined;
+        'test[name]'?: string | undefined;
+        'test[cron]'?: string | undefined;
+        'test[enabled]'?: boolean | undefined;
     }
 
     interface TestingBot {

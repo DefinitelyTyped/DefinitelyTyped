@@ -57,6 +57,7 @@ pool.connect(async connection => {
     // Query methods
     await connection.any(sql`SELECT foo`);
     await connection.anyFirst(sql`SELECT foo`);
+    await connection.exists(sql`SELECT foo`);
     await connection.many(sql`SELECT foo`);
     await connection.manyFirst(sql`SELECT foo`);
     await connection.maybeOne(sql`SELECT foo`);
@@ -115,6 +116,9 @@ const typedQuery = async () => {
 
     // $ExpectType QueryResultType<FooBar>
     await pool.query(getFooBarQuery(10));
+
+    // $ExpectType boolean
+    await pool.exists(getFooQuery(10));
 
     // $ExpectType string
     await pool.oneFirst(getFooQuery(10));

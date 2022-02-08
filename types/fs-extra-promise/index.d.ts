@@ -16,7 +16,7 @@ export * from 'fs-extra';
 
 export interface MkdirOptions {
     fs?: any;
-    mode?: number;
+    mode?: number | undefined;
 }
 
 // promisified versions

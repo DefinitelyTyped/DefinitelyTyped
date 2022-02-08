@@ -1,14 +1,29 @@
 import 'setimmediate';
 
 // $ExpectType number
-const i = setImmediate((...args) => {
-    args; // $ExpectType any[]
+const i1 = setImmediate((...args) => {
+    args; // $ExpectType []
 });
 
-clearImmediate(i);
+// $ExpectType number
+const i2 = setImmediate((...args) => {
+    args; // $ExpectType [number]
+}, 1);
+
+// $ExpectType number
+const i3 = setImmediate((foo, bar, baz) => {
+    foo; // $ExpectType number
+    bar; // $ExpectType string
+    baz; // $ExpectType boolean
+}, 1, 'a', true);
+
+clearImmediate(i1);
+clearImmediate(i2);
+clearImmediate(i3);
 
 // Errors:
 setImmediate(); // $ExpectError
+setImmediate((foo: unknown) => {}); // $ExpectError
 
 clearImmediate(); // $ExpectError
 clearImmediate(null); // $ExpectError

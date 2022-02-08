@@ -16,28 +16,28 @@ declare class Podcast {
 
 declare namespace Podcast {
     interface BaseFeedOptions {
-        title?: string;
-        description?: string;
-        generator?: string;
-        docs?: string;
+        title?: string | undefined;
+        description?: string | undefined;
+        generator?: string | undefined;
+        docs?: string | undefined;
         author: string;
-        managingEditor?: string;
-        webMaster?: string;
-        copyright?: string;
-        language?: string;
-        categories?: string[];
-        pubDate?: Date | string;
-        ttl?: number;
-        itunesAuthor?: string;
-        itunesSubtitle?: string;
-        itunesSummary?: string;
-        itunesOwner?: FeedItunesOwner;
-        itunesExplicit?: boolean;
-        itunesCategory?: FeedItunesCategory[];
-        itunesImage?: string;
-        itunesType?: "episodic" | "serial";
-        customNamespaces?: object;
-        customElements?: object[];
+        managingEditor?: string | undefined;
+        webMaster?: string | undefined;
+        copyright?: string | undefined;
+        language?: string | undefined;
+        categories?: string[] | undefined;
+        pubDate?: Date | string | undefined;
+        ttl?: number | undefined;
+        itunesAuthor?: string | undefined;
+        itunesSubtitle?: string | undefined;
+        itunesSummary?: string | undefined;
+        itunesOwner?: FeedItunesOwner | undefined;
+        itunesExplicit?: boolean | undefined;
+        itunesCategory?: FeedItunesCategory[] | undefined;
+        itunesImage?: string | undefined;
+        itunesType?: "episodic" | "serial" | undefined;
+        customNamespaces?: object | undefined;
+        customElements?: object[] | undefined;
     }
 
     interface FeedItunesOwner {
@@ -47,43 +47,43 @@ declare namespace Podcast {
 
     interface FeedItunesCategory {
         text: string;
-        subcats?: FeedItunesCategory[];
+        subcats?: FeedItunesCategory[] | undefined;
     }
 
     type FeedOptions = BaseFeedOptions &
         ({ feedUrl: string } | { feed_url: string }) &
         ({ siteUrl: string } | { site_url: string }) &
-        ({ imageUrl?: string } | { image_url?: string });
+        ({ imageUrl?: string | undefined } | { image_url?: string | undefined });
 
     interface Item {
-        title?: string;
-        description?: string;
+        title?: string | undefined;
+        description?: string | undefined;
         url: string;
-        guid?: string;
-        categories?: string[];
-        author?: string;
+        guid?: string | undefined;
+        categories?: string[] | undefined;
+        author?: string | undefined;
         date: Date | string;
-        lat?: number;
-        long?: number;
-        enclosure?: ItemEnclosure;
-        content?: string;
-        itunesAuthor?: string;
-        itunesExplicit?: boolean;
-        itunesSubtitle?: string;
-        itunesSummary?: string;
-        itunesDuration?: number | string;
-        itunesImage?: string;
-        itunesSeason?: number;
-        itunesEpisode?: number;
-        itunesTitle?: string;
-        itunesEpisodeType?: 'full' | 'trailer' | 'bonus';
-        customElements?: object[];
+        lat?: number | undefined;
+        long?: number | undefined;
+        enclosure?: ItemEnclosure | undefined;
+        content?: string | undefined;
+        itunesAuthor?: string | undefined;
+        itunesExplicit?: boolean | undefined;
+        itunesSubtitle?: string | undefined;
+        itunesSummary?: string | undefined;
+        itunesDuration?: number | string | undefined;
+        itunesImage?: string | undefined;
+        itunesSeason?: number | undefined;
+        itunesEpisode?: number | undefined;
+        itunesTitle?: string | undefined;
+        itunesEpisodeType?: 'full' | 'trailer' | 'bonus' | undefined;
+        customElements?: object[] | undefined;
     }
 
     interface ItemEnclosure {
         url: string;
-        file?: string;
-        size?: number;
-        type?: string;
+        file?: string | undefined;
+        size?: number | undefined;
+        type?: string | undefined;
     }
 }

@@ -16,6 +16,10 @@ const [GOOGLE_SERVICE_ACCOUNT_EMAIL, GOOGLE_PRIVATE_KEY] = ['email', 'key'];
      // OR use API key -- only for read-only access to public sheets
      doc.useApiKey('YOUR-API-KEY');
 
+     doc.useOAuth2Client({
+         getAccessToken: async () => ({ token: 'test_token' }),
+     });
+
      await doc.loadInfo(); // loads document properties and worksheets
      console.log(doc.title);
      await doc.updateProperties({ title: 'renamed doc' });
@@ -49,6 +53,8 @@ const [GOOGLE_SERVICE_ACCOUNT_EMAIL, GOOGLE_PRIVATE_KEY] = ['email', 'key'];
      await rows[1].save(); // save updates
      await rows[1].delete(); // delete a rowa
 
+    await sheet.loadCells(); // load all cells
+
      await sheet.loadCells('A1:E10'); // loads a range of cells
      console.log(sheet.cellStats); // total cells, loaded, how many non-empty
      const a1 = sheet.getCell(0, 0); // access cells using a zero-based index
@@ -63,4 +69,8 @@ const [GOOGLE_SERVICE_ACCOUNT_EMAIL, GOOGLE_PRIVATE_KEY] = ['email', 'key'];
      a1.textFormat = { bold: true };
      c6.note = 'This is a note!';
      await sheet.saveUpdatedCells(); // save all updates in one call
+
+     // create empty document
+     const emptyDoc = new GoogleSpreadsheet();
+     await emptyDoc.createNewSpreadsheetDocument({title: 'This is a new Spread Sheet'});
  })();

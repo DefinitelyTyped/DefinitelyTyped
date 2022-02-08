@@ -30,21 +30,21 @@ export interface MQ extends MathField {
 }
 
 export interface Config {
-    spaceBehavesLikeTab?: boolean;
-    leftRightIntoCmdGoes?: string;
-    restrictMismatchedBrackets?: boolean;
-    sumStartsWithNEquals?: boolean;
-    supSubsRequireOperand?: boolean;
-    charsThatBreakOutOfSupSub?: string;
-    autoSubscriptNumerals?: boolean;
-    autoCommands?: string;
-    autoOperatorNames?: string;
-    maxDepth?: number;
+    spaceBehavesLikeTab?: boolean | undefined;
+    leftRightIntoCmdGoes?: string | undefined;
+    restrictMismatchedBrackets?: boolean | undefined;
+    sumStartsWithNEquals?: boolean | undefined;
+    supSubsRequireOperand?: boolean | undefined;
+    charsThatBreakOutOfSupSub?: string | undefined;
+    autoSubscriptNumerals?: boolean | undefined;
+    autoCommands?: string | undefined;
+    autoOperatorNames?: string | undefined;
+    maxDepth?: number | undefined;
     substituteTextarea?(): HTMLTextAreaElement;
     handlers?: {
         enter?(mathField: MQ): any;
         edit?(mathField: MQ): any;
         upOutOf?(mathField: MQ): any;
         moveOutOf?(direction: number, mathField: MQ): any;
-    };
+    } | undefined;
 }

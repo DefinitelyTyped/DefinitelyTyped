@@ -1,6 +1,6 @@
 {
     "private": true,
     "dependencies": {
-        "moment": ">=2.14.0"
+        "date-fns": "^2.16.1"
     }
 }

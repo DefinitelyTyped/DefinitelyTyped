@@ -1,6 +1,6 @@
 // Type definitions for mock-require 2.0
 // Project: https://github.com/boblauer/mock-require
-// Definitions by: Giorgio Delgado <https://github.com/gDelgado14>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 

@@ -44,15 +44,15 @@ declare function ellipsize(
          * after this char(s) the text can be ellipsized and the ellipse
          * rendered. (default: [' ', '-'])
          */
-        chars?: string[];
+        chars?: string[] | undefined;
         /**
          * ellipse element (default: '...')
          */
-        ellipse?: string;
+        ellipse?: string | undefined;
         /**
          * truncate the text or not (default: true)
          */
-        truncate?: boolean;
+        truncate?: boolean | undefined;
     },
 ): string;
 

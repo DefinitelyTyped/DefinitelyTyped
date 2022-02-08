@@ -41,19 +41,19 @@ declare namespace BMap {
     }
     type SymbolShapeType = number;
     interface PolylineOptions {
-        strokeColor?: string;
-        strokeWeight?: number;
-        strokeOpacity?: number;
-        strokeStyle?: string;
-        enableMassClear?: boolean;
-        enableEditing?: boolean;
-        enableClicking?: boolean;
+        strokeColor?: string | undefined;
+        strokeWeight?: number | undefined;
+        strokeOpacity?: number | undefined;
+        strokeStyle?: string | undefined;
+        enableMassClear?: boolean | undefined;
+        enableEditing?: boolean | undefined;
+        enableClicking?: boolean | undefined;
     }
     interface GroundOverlayOptions {
-        opacity?: number;
-        imageURL?: string;
-        displayOnMinLevel?: number;
-        displayOnMaxLevel?: number;
+        opacity?: number | undefined;
+        imageURL?: string | undefined;
+        displayOnMinLevel?: number | undefined;
+        displayOnMaxLevel?: number | undefined;
     }
     interface Marker extends Overlay {
         openInfoWindow(infoWnd: InfoWindow): void;
@@ -102,14 +102,14 @@ declare namespace BMap {
         constructor(point: Point, opts?: MarkerOptions);
     }
     interface SymbolOptions {
-        anchor?: Size;
-        fillColor?: string;
-        fillOpacity?: number;
-        scale?: number;
-        rotation?: number;
-        strokeColor?: string;
-        strokeOpacity?: number;
-        strokeWeight?: number;
+        anchor?: Size | undefined;
+        fillColor?: string | undefined;
+        fillOpacity?: number | undefined;
+        scale?: number | undefined;
+        rotation?: number | undefined;
+        strokeColor?: string | undefined;
+        strokeOpacity?: number | undefined;
+        strokeWeight?: number | undefined;
     }
     class IconSequence {
         constructor(symbol: symbol, offset?: string, repeat?: string, fixedRotation?: boolean);
@@ -126,16 +126,16 @@ declare namespace BMap {
         constructor(points: Point[], opts?: PointCollectionOption);
     }
     interface MarkerOptions {
-        offset?: Size;
-        icon?: Icon;
-        enableMassClear?: boolean;
-        enableDragging?: boolean;
-        enableClicking?: boolean;
-        raiseOnDrag?: boolean;
-        draggingCursor?: string;
-        rotation?: number;
-        shadow?: Icon;
-        title?: string;
+        offset?: Size | undefined;
+        icon?: Icon | undefined;
+        enableMassClear?: boolean | undefined;
+        enableDragging?: boolean | undefined;
+        enableClicking?: boolean | undefined;
+        raiseOnDrag?: boolean | undefined;
+        draggingCursor?: string | undefined;
+        rotation?: number | undefined;
+        shadow?: Icon | undefined;
+        title?: string | undefined;
     }
     interface InfoWindow extends Overlay {
         setWidth(width: number): void;
@@ -205,32 +205,32 @@ declare namespace BMap {
         constructor(points: Point[], opts?: PolygonOptions);
     }
     interface PointCollectionOption {
-        shape?: ShapeType;
-        color?: string;
-        size?: SizeType;
+        shape?: ShapeType | undefined;
+        color?: string | undefined;
+        size?: SizeType | undefined;
     }
     type Animation = number;
     interface InfoWindowOptions {
-        width?: number;
-        height?: number;
-        maxWidth?: number;
-        offset?: Size;
-        title?: string;
-        enableAutoPan?: boolean;
-        enableCloseOnClick?: boolean;
-        enableMessage?: boolean;
-        message?: string;
+        width?: number | undefined;
+        height?: number | undefined;
+        maxWidth?: number | undefined;
+        offset?: Size | undefined;
+        title?: string | undefined;
+        enableAutoPan?: boolean | undefined;
+        enableCloseOnClick?: boolean | undefined;
+        enableMessage?: boolean | undefined;
+        message?: string | undefined;
     }
     interface PolygonOptions {
-        strokeColor?: string;
-        fillColor?: string;
-        strokeWeight?: number;
-        strokeOpacity?: number;
-        fillOpacity?: number;
-        strokeStyle?: string;
-        enableMassClear?: boolean;
-        enableEditing?: boolean;
-        enableClicking?: boolean;
+        strokeColor?: string | undefined;
+        fillColor?: string | undefined;
+        strokeWeight?: number | undefined;
+        strokeOpacity?: number | undefined;
+        fillOpacity?: number | undefined;
+        strokeStyle?: string | undefined;
+        enableMassClear?: boolean | undefined;
+        enableEditing?: boolean | undefined;
+        enableClicking?: boolean | undefined;
     }
     type ShapeType = number;
     interface Icon extends Overlay {
@@ -318,26 +318,26 @@ declare namespace BMap {
     }
     type SizeType = number;
     interface IconOptions {
-        anchor?: Size;
-        imageOffset?: Size;
-        infoWindowAnchor?: Size;
-        printImageUrl?: string;
+        anchor?: Size | undefined;
+        imageOffset?: Size | undefined;
+        infoWindowAnchor?: Size | undefined;
+        printImageUrl?: string | undefined;
     }
     interface LabelOptions {
-        offset?: Size;
-        position?: Point;
-        enableMassClear?: boolean;
+        offset?: Size | undefined;
+        position?: Point | undefined;
+        enableMassClear?: boolean | undefined;
     }
     interface CircleOptions {
-        strokeColor?: string;
-        fillColor?: string;
-        strokeWeight?: number;
-        strokeOpacity?: number;
-        fillOpacity?: number;
-        strokeStyle?: string;
-        enableMassClear?: boolean;
-        enableEditing?: boolean;
-        enableClicking?: boolean;
+        strokeColor?: string | undefined;
+        fillColor?: string | undefined;
+        strokeWeight?: number | undefined;
+        strokeOpacity?: number | undefined;
+        fillOpacity?: number | undefined;
+        strokeStyle?: string | undefined;
+        enableMassClear?: boolean | undefined;
+        enableEditing?: boolean | undefined;
+        enableClicking?: boolean | undefined;
     }
     interface Hotspot extends Overlay {
         setPosition(position: Point): void;
@@ -419,20 +419,20 @@ declare namespace BMap {
         constructor(bounds: Bounds, opts?: GroundOverlayOptions);
     }
     interface HotspotOptions {
-        text?: string;
-        offsets?: number[];
+        text?: string | undefined;
+        offsets?: number[] | undefined;
         userData?: any;
-        minZoom?: number;
-        maxZoom?: number;
+        minZoom?: number | undefined;
+        maxZoom?: number | undefined;
     }
     interface MapPanes {
-        floatPane?: HTMLElement;
-        markerMouseTarget?: HTMLElement;
-        floatShadow?: HTMLElement;
-        labelPane?: HTMLElement;
-        markerPane?: HTMLElement;
-        markerShadow?: HTMLElement;
-        mapPane?: HTMLElement;
+        floatPane?: HTMLElement | undefined;
+        markerMouseTarget?: HTMLElement | undefined;
+        floatShadow?: HTMLElement | undefined;
+        labelPane?: HTMLElement | undefined;
+        markerPane?: HTMLElement | undefined;
+        markerShadow?: HTMLElement | undefined;
+        mapPane?: HTMLElement | undefined;
     }
 }
 

@@ -12,7 +12,7 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@wordpress/wordcount": ["wordpress__wordcount"]
+            "@wordpress/*": ["wordpress__*"]
         }
     },
     "files": ["index.d.ts", "wordpress__wordcount-tests.ts"]

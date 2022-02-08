@@ -1,6 +1,6 @@
 // Type definitions for dispatchr 1.2
 // Project: https://github.com/yahoo/fluxible#readme
-// Definitions by: Ragg <https://github.com/Ragg->
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.5
 /// <reference types="node" />
@@ -11,8 +11,8 @@ export interface DispatcherState {
 }
 
 export interface DispatcherOption {
-    stores?: StoreClass[];
-    errorHandler?: (e: DispatcherError, context: DispatcherContext) => void;
+    stores?: StoreClass[] | undefined;
+    errorHandler?: ((e: DispatcherError, context: DispatcherContext) => void) | undefined;
 }
 
 export interface StoreClass {
@@ -57,7 +57,7 @@ export interface DispatcherError {
     message: string;
     type: string;
     meta: {
-        actionName?: string,
+        actionName?: string | undefined,
         payload?: any,
         error: Error
     };

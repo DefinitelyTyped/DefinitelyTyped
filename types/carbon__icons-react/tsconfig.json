@@ -12,7 +12,7 @@
       "noEmit": true,
       "forceConsistentCasingInFileNames": true,
       "paths": {
-          "@carbon/icons-react": ["carbon__icons-react"]
+          "@carbon/*": ["carbon__*"]
       },
       "jsx": "preserve"
   },

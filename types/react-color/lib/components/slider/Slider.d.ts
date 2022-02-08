@@ -8,7 +8,7 @@ export interface SliderPickerStylesProps {
 }
 
 export interface SliderPickerProps extends ColorPickerProps<SliderPicker> {
-    styles?: Partial<Classes<SliderPickerStylesProps>>;
+    styles?: Partial<Classes<SliderPickerStylesProps>> | undefined;
 }
 
 export default class SliderPicker extends Component<SliderPickerProps> { }

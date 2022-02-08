@@ -209,7 +209,7 @@ declare namespace Meshblu {
         devices: string[];
         topic: string;
         payload: any;
-        qos?: number;
+        qos?: number | undefined;
     }
 
     interface UpdateData {
@@ -249,13 +249,13 @@ declare namespace Meshblu {
 
     interface SubscribeData {
         uuid: string;
-        types?: string[];
-        topics?: string[];
+        types?: string[] | undefined;
+        topics?: string[] | undefined;
     }
 
     interface UnsubscribeData {
         uuid: string;
-        types?: string[];
+        types?: string[] | undefined;
     }
 
     interface DataInput {

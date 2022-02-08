@@ -11,105 +11,105 @@ declare namespace JQueryKnob {
         /**
          * min value | default=0
          */
-        min?: number;
+        min?: number | undefined;
         /**
          * max value | default=100
          */
-        max?: number;
+        max?: number | undefined;
         /**
          * step size | default=1
          */
-        step?: number;
+        step?: number | undefined;
         /**
          * starting angle in degrees | default=0
          */
-        angleOffset?: number;
+        angleOffset?: number | undefined;
         /**
          * arc size in degrees | default=360
          */
-        angleArc?: number;
+        angleArc?: number | undefined;
         /**
          * stop at min & max on keydown/mousewheel | default=true
          */
-        stopper?: boolean;
+        stopper?: boolean | undefined;
         /**
          * disable input and events | default=false
          */
-        readOnly?: boolean;
+        readOnly?: boolean | undefined;
         /**
          * direction of progression | default=clockwise
          */
-        rotation?: string;
+        rotation?: string | undefined;
         /**
          * display mode "cursor", cursor size could be changed passing a
          * numeric value to the option, default width is used when passing
          * boolean value "true" | default=gauge
          */
-        cursor?: string | boolean;
+        cursor?: string | boolean | undefined;
         /**
          * gauge thickness
          */
-        thickness?: number;
+        thickness?: number | undefined;
         /**
          * gauge stroke endings | default=butt, round=rounded line endings
          */
-        lineCap?: string;
+        lineCap?: string | undefined;
         /**
          * dial width
          */
-        width?: number;
+        width?: number | undefined;
         /**
          * dial height
          */
-        height?: number;
+        height?: number | undefined;
         /**
          * default=true | false=hide input
          */
-        displayInput?: boolean;
+        displayInput?: boolean | undefined;
         /**
          * default=false | true=displays the previous value with transparency
          */
-        displayPrevious?: boolean;
+        displayPrevious?: boolean | undefined;
         /**
          * foreground color
          */
-        fgColor?: string;
+        fgColor?: string | undefined;
         /**
          * input value (number) color
          */
-        inputColor?: string;
+        inputColor?: string | undefined;
         /**
          * font family
          */
-        font?: string;
+        font?: string | undefined;
         /**
          * font weight
          */
-        fontWeight?: string;
+        fontWeight?: string | undefined;
         /**
          * background color
          */
-        bgColor?: string;
+        bgColor?: string | undefined;
         /**
          * executed on release
          */
-        release?: (value: number) => void;
+        release?: ((value: number) => void) | undefined;
         /**
          * executed at each change of the value
          */
-        change?: (value: number) => void;
+        change?: ((value: number) => void) | undefined;
         /**
          * when drawing the canvas
          */
-        draw?: () => void;
+        draw?: (() => void) | undefined;
         /**
          * triggered on [esc] keydown
          */
-        cancel?: () => void;
+        cancel?: (() => void) | undefined;
         /**
          * allows to format output (add unit %, ms...)
          */
-        format?: (value: number) => void;
+        format?: ((value: number) => void) | undefined;
     }
 }
 

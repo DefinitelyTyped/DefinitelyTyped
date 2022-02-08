@@ -8,14 +8,14 @@
 import * as React from 'react';
 
 export interface AutosizeInputProps extends React.InputHTMLAttributes<HTMLInputElement>, React.ClassAttributes<HTMLInputElement> {
-    inputClassName?: string;
-    inputRef?: (instance: HTMLInputElement | null) => void;
-    inputStyle?: React.CSSProperties;
-    minWidth?: string | number;
-    onAutosize?: (inputWidth: string | number) => void;
-    placeholderIsMinWidth?: boolean;
-    extraWidth?: string | number;
-    injectStyles?: boolean;
+    inputClassName?: string | undefined;
+    inputRef?: ((instance: HTMLInputElement | null) => void) | undefined;
+    inputStyle?: React.CSSProperties | undefined;
+    minWidth?: string | number | undefined;
+    onAutosize?: ((inputWidth: string | number) => void) | undefined;
+    placeholderIsMinWidth?: boolean | undefined;
+    extraWidth?: string | number | undefined;
+    injectStyles?: boolean | undefined;
 }
 
 declare class AutosizeInput extends React.Component<AutosizeInputProps> {

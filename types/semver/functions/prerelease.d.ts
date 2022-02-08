@@ -7,6 +7,6 @@ import semver = require('../index');
 declare function prerelease(
     version: string | SemVer,
     optionsOrLoose?: boolean | semver.Options,
-): ReadonlyArray<string> | null;
+): ReadonlyArray<string | number> | null;
 
 export = prerelease;

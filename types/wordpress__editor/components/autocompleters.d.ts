@@ -1,4 +1,4 @@
-import { Schema } from '@wordpress/api-fetch';
+import { Schema } from '@wordpress/core-data';
 import { EditorInserterItem } from '@wordpress/block-editor';
 import { Autocomplete } from '@wordpress/components';
 

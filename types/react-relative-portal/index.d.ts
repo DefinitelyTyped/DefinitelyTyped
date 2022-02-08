@@ -10,13 +10,13 @@ declare class RelativePortal extends React.Component<RelativePortal.Props> {}
 declare namespace RelativePortal {
     interface Props {
         children: React.ReactNode;
-        className?: string;
+        className?: string | undefined;
         component: string;
-        fullWidth?: boolean;
-        left?: number;
-        onOutClick?: () => void;
-        right?: number;
-        top?: number;
+        fullWidth?: boolean | undefined;
+        left?: number | undefined;
+        onOutClick?: (() => void) | undefined;
+        right?: number | undefined;
+        top?: number | undefined;
     }
 }
 

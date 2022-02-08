@@ -3,8 +3,8 @@ export interface ojMenu extends baseComponent<ojMenuSettableProperties> {
     disabled: boolean;
     openOptions: ojMenu.OpenOptions;
     translations: {
-        ariaFocusSkipLink?: string;
-        labelCancel?: string;
+        ariaFocusSkipLink?: string | undefined;
+        labelCancel?: string | undefined;
     };
     onDisabledChanged: ((event: JetElementCustomEvent<ojMenu["disabled"]>) => any) | null;
     onOpenOptionsChanged: ((event: JetElementCustomEvent<ojMenu["openOptions"]>) => any) | null;
@@ -59,28 +59,28 @@ export namespace ojMenu {
     }
     // tslint:disable-next-line interface-over-type-literal
     type OpenOptions = {
-        display?: string;
-        initialFocus?: string;
-        launcher?: string | Element;
-        position?: Position;
+        display?: string | undefined;
+        initialFocus?: string | undefined;
+        launcher?: string | Element | undefined;
+        position?: Position | undefined;
     };
     // tslint:disable-next-line interface-over-type-literal
     type Position = {
-        my?: PositionAlign;
-        at?: PositionAlign;
-        offset?: PositionPoint;
-        of?: string | PositionPoint;
-        collision?: 'flip' | 'fit' | 'flipfit' | 'flipcenter' | 'none';
+        my?: PositionAlign | undefined;
+        at?: PositionAlign | undefined;
+        offset?: PositionPoint | undefined;
+        of?: string | PositionPoint | undefined;
+        collision?: 'flip' | 'fit' | 'flipfit' | 'flipcenter' | 'none' | undefined;
     };
     // tslint:disable-next-line interface-over-type-literal
     type PositionAlign = {
-        vertical?: 'top' | 'bottom' | 'center';
-        horizontal?: 'start' | 'end' | 'left' | 'center' | 'bottom';
+        vertical?: 'top' | 'bottom' | 'center' | undefined;
+        horizontal?: 'start' | 'end' | 'left' | 'center' | 'bottom' | undefined;
     };
     // tslint:disable-next-line interface-over-type-literal
     type PositionPoint = {
-        x?: number;
-        y?: number;
+        x?: number | undefined;
+        y?: number | undefined;
     };
 }
 export interface ojMenuEventMap extends baseComponentEventMap<ojMenuSettableProperties> {
@@ -97,8 +97,8 @@ export interface ojMenuSettableProperties extends baseComponentSettablePropertie
     disabled: boolean;
     openOptions: ojMenu.OpenOptions;
     translations: {
-        ariaFocusSkipLink?: string;
-        labelCancel?: string;
+        ariaFocusSkipLink?: string | undefined;
+        labelCancel?: string | undefined;
     };
 }
 export interface ojMenuSettablePropertiesLenient extends Partial<ojMenuSettableProperties> {

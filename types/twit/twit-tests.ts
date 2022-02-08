@@ -11,6 +11,7 @@ t.post('statuses/update', { status: 'hello!' }).then(res => {
     console.log(status.id_str);
     console.log(res.resp.statusCode);
     console.log(status.is_quote_status);
+    console.log(status.extended_entities);
 });
 
 t.stream('statuses/filter', {
@@ -20,11 +21,11 @@ t.stream('statuses/filter', {
 
 t.post('lists/members/create_all', {
     list_id: '1',
-    user_id: '1,2,3'
+    user_id: '1,2,3',
 });
 
 t.post('lists/create', {
     name: 'foo',
     description: 'foobar',
-    mode: 'public'
+    mode: 'public',
 });

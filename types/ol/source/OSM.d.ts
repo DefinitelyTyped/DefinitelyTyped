@@ -1,4 +1,4 @@
-import { EventsKey, ListenerFunction } from '../events';
+import { EventsKey } from '../events';
 import BaseEvent from '../events/Event';
 import { ObjectEvent } from '../Object';
 import { LoadFunction } from '../Tile';
@@ -7,20 +7,26 @@ import { TileSourceEvent } from './Tile';
 import XYZ from './XYZ';
 
 export interface Options {
-    attributions?: AttributionLike;
-    cacheSize?: number;
-    crossOrigin?: string;
-    maxZoom?: number;
-    opaque?: boolean;
-    reprojectionErrorThreshold?: number;
-    tileLoadFunction?: LoadFunction;
-    url?: string;
-    wrapX?: boolean;
+    attributions?: AttributionLike | undefined;
+    cacheSize?: number | undefined;
+    crossOrigin?: null | string | undefined;
+    imageSmoothing?: boolean | undefined;
+    maxZoom?: number | undefined;
+    opaque?: boolean | undefined;
+    reprojectionErrorThreshold?: number | undefined;
+    tileLoadFunction?: LoadFunction | undefined;
+    transition?: number | undefined;
+    url?: string | undefined;
+    wrapX?: boolean | undefined;
 }
+/**
+ * The attribution containing a link to the OpenStreetMap Copyright and License
+ * page.
+ */
 export const ATTRIBUTION: string;
 export default class OSM extends XYZ {
     constructor(opt_options?: Options);
-    on(type: string | string[], listener: ListenerFunction): EventsKey | EventsKey[];
+    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     un(type: string | string[], listener: (p0: any) => any): void;
     on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;

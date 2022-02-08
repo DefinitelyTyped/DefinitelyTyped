@@ -1,2 +1,3 @@
-import { currencies } from "./index";
-export = currencies;
+import formatter = require("./");
+
+export = formatter.currencies;

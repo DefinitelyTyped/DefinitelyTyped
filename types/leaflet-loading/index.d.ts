@@ -8,22 +8,22 @@ import * as L from 'leaflet';
 
 declare module 'leaflet' {
     interface MapOptions {
-        loadingControl?: boolean;
+        loadingControl?: boolean | undefined;
     }
 
     interface LoadingOptions extends ControlOptions {
-        delayIndicator?: number;
-        separate?: boolean;
-        zoomControl?: Control.Zoom;
-        spinjs?: boolean;
+        delayIndicator?: number | undefined;
+        separate?: boolean | undefined;
+        zoomControl?: Control.Zoom | undefined;
+        spinjs?: boolean | undefined;
         spin?: {
-            lines?: number;
-            length?: number;
-            width?: number;
-            radius?: number;
-            rotate?: number;
-            top?: string;
-        };
+            lines?: number | undefined;
+            length?: number | undefined;
+            width?: number | undefined;
+            radius?: number | undefined;
+            rotate?: number | undefined;
+            top?: string | undefined;
+        } | undefined;
     }
 
     namespace Control {

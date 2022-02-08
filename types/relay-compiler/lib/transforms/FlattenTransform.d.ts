@@ -1,7 +1,7 @@
 import { CompilerContext } from '../core/CompilerContext';
 
 export interface FlattenOptions {
-    flattenAbstractTypes?: boolean;
+    flattenAbstractTypes?: boolean | undefined;
 }
 
 export function transformWithOptions(

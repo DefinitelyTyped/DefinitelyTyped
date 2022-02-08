@@ -8,7 +8,7 @@ export type RouteHandlerCallback = (context: RouteHandlerCallbackContext) => Pro
 
 export interface RouteHandlerCallbackContext {
     url: URL;
-    event?: FetchEvent;
-    params?: string[] | Record<string, string>;
-    request?: Request;
+    event?: FetchEvent | undefined;
+    params?: string[] | Record<string, string> | undefined;
+    request?: Request | undefined;
 }

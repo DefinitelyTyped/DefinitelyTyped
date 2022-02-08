@@ -79,7 +79,7 @@ interface RowData {
 }
 
 interface MyCellProps extends CellProps {
-    rowIndex?: number;
+    rowIndex?: number | undefined;
     field: string;
     myData: RowData[];
 }

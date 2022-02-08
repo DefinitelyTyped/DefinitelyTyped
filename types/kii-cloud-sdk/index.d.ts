@@ -43,7 +43,7 @@ declare namespace KiiCloud {
 
     type KiiSocialConnectOptions = {
         access_token: string,
-        openID?: string
+        openID?: string | undefined
     } | {
         oauth_token: string,
         oauth_token_secret: string
@@ -69,77 +69,77 @@ declare namespace KiiCloud {
         /**
          * thing type given by thing vendor.
          */
-        _thingType?: string;
+        _thingType?: string | undefined;
 
         /**
          * vendor identifier given by thing vendor.
          */
-        _vendor?: string;
+        _vendor?: string | undefined;
 
         /**
          * firmware version given by thing vendor.
          */
-        _firmwareVersion?: string;
+        _firmwareVersion?: string | undefined;
 
         /**
          * lot identifier given by thing vendor.
          */
-        _lot?: string;
+        _lot?: string | undefined;
 
         /**
          * product name given by thing vendor.
          */
-        _productName?: string;
+        _productName?: string | undefined;
 
         /**
          * arbitrary string field.
          */
-        _stringField1?: string;
+        _stringField1?: string | undefined;
 
         /**
          * arbitrary string field.
          */
-        _stringField2?: string;
+        _stringField2?: string | undefined;
 
         /**
          * arbitrary string field.
          */
-        _stringField3?: string;
+        _stringField3?: string | undefined;
 
         /**
          * arbitrary string field.
          */
-        _stringField4?: string;
+        _stringField4?: string | undefined;
 
         /**
          * arbitrary string field.
          */
-        _stringField5?: string;
+        _stringField5?: string | undefined;
 
         /**
          * arbitrary number field.
          */
-        _numberField1?: number;
+        _numberField1?: number | undefined;
 
         /**
          * arbitrary number field.
          */
-        _numberField2?: number;
+        _numberField2?: number | undefined;
 
         /**
          * arbitrary number field.
          */
-        _numberField3?: number;
+        _numberField3?: number | undefined;
 
         /**
          * arbitrary number field.
          */
-        _numberField4?: number;
+        _numberField4?: number | undefined;
 
         /**
          * arbitrary number field.
          */
-        _numberField5?: number;
+        _numberField5?: number | undefined;
 
         /**
          * custom fields.
@@ -166,9 +166,9 @@ declare namespace KiiCloud {
     }
 
     interface identityData {
-        emailAddress?: string;
-        phoneNumber?: string;
-        username?: string;
+        emailAddress?: string | undefined;
+        phoneNumber?: string | undefined;
+        username?: string | undefined;
     }
 
     interface KiiAccessTokenObject {

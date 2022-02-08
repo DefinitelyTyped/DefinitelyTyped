@@ -1,12 +1,12 @@
 import * as React from 'react';
 import EmailEditor, {
-  Design,
-  FileInfo,
-  FileUploadDoneCallback,
-  HtmlExport,
-  SimpleMergeTag,
-  GroupedMergeTag,
-  ConditionalMergeTag
+    Design,
+    FileInfo,
+    FileUploadDoneCallback,
+    HtmlExport,
+    SimpleMergeTag,
+    GroupedMergeTag,
+    ConditionalMergeTag, DisplayCondition, EmptyDisplayCondition, DisplayConditionDoneCallback
 } from 'react-email-editor';
 
 const TOOLS_CONFIG = {
@@ -56,6 +56,20 @@ class App extends React.Component {
             progress: 100,
             url: `http://example.com/${file.attachments[0].name}`,
           }),
+      );
+      this.editorRef.current.registerCallback(
+        'displayCondition',
+         (data: DisplayCondition | EmptyDisplayCondition, done: DisplayConditionDoneCallback) => done(null),
+      );
+      this.editorRef.current.registerCallback(
+        'displayCondition',
+        (data: DisplayCondition | EmptyDisplayCondition, done: DisplayConditionDoneCallback) => done({
+          type: 'type',
+          label: 'label',
+          description: 'description',
+          before: 'before',
+          after: 'after',
+        }),
       );
       this.editorRef.current.setMergeTags([
           simpleMergeTag,
@@ -134,6 +148,13 @@ class App extends React.Component {
                 'custom.key': 'Custom translation',
               },
             },
+            displayConditions: [{
+              type: 'type',
+              label: 'label',
+              description: 'description',
+              before: 'before',
+              after: 'after',
+            }]
           }}
           tools={TOOLS_CONFIG}
           appearance={{

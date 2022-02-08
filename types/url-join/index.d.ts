@@ -3,7 +3,7 @@
 // Definitions by: Rogier Schouten <https://github.com/rogierschouten>
 //                 Mike Deverell <https://github.com/devrelm>
 //                 BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
  * Join all arguments together and normalize the resulting url.

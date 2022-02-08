@@ -16,18 +16,18 @@ declare namespace jQueryMask {
     }
 
     interface Options {
-        maskElements?: string;
-        dataMaskAttr?: string;
-        dataMask?: boolean;
-        watchInterval?: number;
-        watchInputs?: boolean;
-        watchDataMask?: boolean;
-        byPassKeys?: number[];
-        translation?: Translation;
-        selectOnFocus?: boolean;
-        reverse?: boolean;
-        clearIfNotMatch?: boolean;
-        placeholder?: string;
+        maskElements?: string | undefined;
+        dataMaskAttr?: string | undefined;
+        dataMask?: boolean | undefined;
+        watchInterval?: number | undefined;
+        watchInputs?: boolean | undefined;
+        watchDataMask?: boolean | undefined;
+        byPassKeys?: number[] | undefined;
+        translation?: Translation | undefined;
+        selectOnFocus?: boolean | undefined;
+        reverse?: boolean | undefined;
+        clearIfNotMatch?: boolean | undefined;
+        placeholder?: string | undefined;
         onComplete?(value: string, e: Event, $element: JQuery, options: Options): void;
         onKeyPress?(value: string, e: Event, $element: JQuery, options: Options): void;
         onChange?(value: string, e: Event, $element: JQuery, options: Options): void;
@@ -35,15 +35,15 @@ declare namespace jQueryMask {
     }
 
     interface Pattern {
-        pattern?: RegExp;
-        recursive?: boolean;
-        optional?: boolean;
-        fallback?: string;
+        pattern?: RegExp | undefined;
+        recursive?: boolean | undefined;
+        optional?: boolean | undefined;
+        fallback?: string | undefined;
     }
 
     interface Translation {
         [key: string]: Pattern | {} | undefined;
-        placeholder?: string;
+        placeholder?: string | undefined;
     }
 }
 

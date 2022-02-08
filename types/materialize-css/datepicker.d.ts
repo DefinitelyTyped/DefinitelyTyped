@@ -83,13 +83,15 @@ declare namespace M {
 
         /**
          * Used to create date object from current input string.
+         * @default null
          */
-        parse: (value: string, format: string) => Date;
+        parse: ((value: string, format: string) => Date) | null;
 
         /**
          * The initial date to view when first opened.
+         * @default null
          */
-        defaultDate: Date;
+        defaultDate: Date | null;
 
         /**
          * Make the `defaultDate` the initial selected value
@@ -105,8 +107,9 @@ declare namespace M {
 
         /**
          * Custom function to disable certain days.
+         * @default null
          */
-        disableDayFn: (day: Date) => boolean;
+        disableDayFn: ((day: Date) => boolean) | null;
 
         /**
          * First day of week (0: Sunday, 1: Monday etc).
@@ -116,13 +119,15 @@ declare namespace M {
 
         /**
          * The earliest date that can be selected.
+         * @default null
          */
-        minDate: Date;
+        minDate: Date | null;
 
         /**
          * The latest date that can be selected.
+         * @default null
          */
-        maxDate: Date;
+        maxDate: Date | null;
 
         /**
          * Number of years either side, or array of upper/lower range.
@@ -152,7 +157,7 @@ declare namespace M {
          * Specify a DOM element to render the calendar in, by default it will be placed before the input
          * @default null
          */
-        container: Element;
+        container: Element | null;
 
         /**
          * Show the clear button in the datepicker
@@ -173,23 +178,27 @@ declare namespace M {
 
         /**
          * Callback function when date is selected, first parameter is the newly selected date.
+         * @default null
          */
-        onSelect: (this: Datepicker, selectedDate: Date) => void;
+        onSelect: ((this: Datepicker, selectedDate: Date) => void) | null;
 
         /**
          * Callback function when Datepicker is opened
+         * @default null
          */
-        onOpen: (this: Datepicker) => void;
+        onOpen: ((this: Datepicker) => void) | null;
 
         /**
          * Callback function when Datepicker is closed
+         * @default null
          */
-        onClose: (this: Datepicker) => void;
+        onClose: ((this: Datepicker) => void) | null;
 
         /**
          * Callback function when Datepicker HTML is refreshed
+         * @default null
          */
-        onDraw: (this: Datepicker) => void;
+        onDraw: ((this: Datepicker) => void) | null;
     }
 }
 

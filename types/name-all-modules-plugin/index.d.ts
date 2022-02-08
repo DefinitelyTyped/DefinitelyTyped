@@ -2,6 +2,7 @@
 // Project: https://github.com/timse/name-all-modules-plugin#readme
 // Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.7
 
 import { Plugin } from 'webpack';
 

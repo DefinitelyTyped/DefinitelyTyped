@@ -72,13 +72,13 @@ declare namespace npa {
         fetchSpec: string | null;
 
         /** If set, this is a semver specifier to match against git tags with */
-        gitRange?: string;
+        gitRange?: string | undefined;
 
         /** If set, this is the specific committish to use with a git dependency. */
-        gitCommittish?: string;
+        gitCommittish?: string | undefined;
 
         /** If from === 'hosted' then this will be a hosted-git-info object. This property is not included when serializing the object as JSON. */
-        hosted?: HostedGit;
+        hosted?: HostedGit | undefined;
 
         /** The original un-modified string that was provided. If called as npa.resolve(name, spec) then this will be name + '@' + spec. */
         raw: string;

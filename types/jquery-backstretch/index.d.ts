@@ -14,26 +14,26 @@ declare namespace JQueryBackStretch {
          * width/height of the window. This parameter controls whether or not we
          * center the image on the X axis to account for the discrepancy.
          */
-        centeredX?:boolean;
+        centeredX?:boolean | undefined;
 
         /**
          * This parameter controls whether or not we center the image on the Y axis
          * to account for the aforementioned discrepancy.
          */
-        centeredY?:boolean;
+        centeredY?:boolean | undefined;
 
         /**
          * This is the speed at which the image will fade in. Integers in
          * milliseconds are accepted, as well as standard jQuery speed strings
          * (slow, normal, fast).
          */
-        duration?:number | string;
+        duration?:number | string | undefined;
 
         /**
          * The amount of time in between slides, when using Backstretch as a
          * slideshow, expressed as the number of milliseconds.
          */
-        fade?:number;
+        fade?:number | undefined;
     }
 
     interface BackStretch {

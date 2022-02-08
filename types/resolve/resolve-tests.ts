@@ -1,3 +1,5 @@
+/// <reference types="node" />
+
 import * as fs from 'fs';
 import resolve = require('resolve');
 
@@ -100,8 +102,25 @@ function test_options_sync() {
     });
     console.log(resolved);
     resolved = resolve.sync('typescript', {
-        readFileSync(file, charset) {
-            return fs.readFileSync(file, charset);
+        readFileSync(file) {
+            return fs.readFileSync(file);
+        },
+    });
+    resolved = resolve.sync('typescript', {
+        readPackageSync(readFileSync, file) {
+            // JSON.parse accepts anything with a toString, so a cast here is safe
+            return JSON.parse(readFileSync(file) as string);
+        },
+    });
+    // specifying both `readFile` and `readPackage` is forbidden
+    // $ExpectError
+    resolved = resolve.sync('typescript', {
+        readFileSync(file) {
+            return fs.readFileSync(file);
+        },
+        readPackageSync(readFileSync, file) {
+            // JSON.parse accepts anything with a toString, so a cast here is safe
+            return JSON.parse(readFileSync(file) as string);
         },
     });
 }

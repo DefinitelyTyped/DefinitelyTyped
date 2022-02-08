@@ -7,23 +7,23 @@ import * as React from 'react';
 import { BlockProperties, ValueJSON, Value, Node as SlateNode, Mark, Leaf } from 'slate';
 
 export interface Rule {
-    deserialize?: (el: Element, next: (elements: Element[] | NodeList | Array<Node & ChildNode>) => any) => any;
-    serialize?: (obj: any, children: string) => React.ReactNode;
+    deserialize?: ((el: Element, next: (elements: Element[] | NodeList | Array<Node & ChildNode>) => any) => any) | undefined;
+    serialize?: ((obj: any, children: string) => React.ReactNode) | undefined;
 }
 
 export interface HtmlOptions {
-    rules?: Rule[];
-    defaultBlock?: BlockProperties | string;
-    parseHtml?: (html: string) => HTMLElement;
+    rules?: Rule[] | undefined;
+    defaultBlock?: BlockProperties | string | undefined;
+    parseHtml?: ((html: string) => HTMLElement) | undefined;
 }
 
 export default class Html {
     constructor(options?: HtmlOptions);
 
     deserialize(html: string, options: { toJSON: true }): ValueJSON;
-    deserialize(html: string, options?: { toJSON?: false }): Value;
+    deserialize(html: string, options?: { toJSON?: false | undefined }): Value;
 
-    serialize(value: Value, options?: { render?: true }): string;
+    serialize(value: Value, options?: { render?: true | undefined }): string;
     serialize(value: Value, options: { render: false }): Element[];
 
     protected rules: Rule[];

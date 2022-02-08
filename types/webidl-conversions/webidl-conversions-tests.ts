@@ -31,7 +31,7 @@ conversions.any(any); // $ExpectType any
 conversions.any(unknown); // $ExpectType unknown
 conversions.any(options); // $ExpectType Options
 conversions.any(RegExp); // $ExpectType RegExpConstructor
-conversions.any(Symbol.toStringTag); // $ExpectType symbol
+conversions.any(Symbol.toStringTag); // $ExpectType symbol || typeof toStringTag
 
 conversions.void(); // $ExpectType void
 conversions.boolean(any, integerOptions); // $ExpectType boolean

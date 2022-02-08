@@ -16,7 +16,7 @@ watcher;
 
 watcher.globs; // $ExpectType string[]
 watcher.dot; // $ExpectType boolean
-watcher.ignored; // $ExpectType string | RegExp | ((...testStrings: string[]) => boolean) | AnymatchMatcher[]
+watcher.ignored; // $ExpectType string | RegExp | ((...testStrings: string[]) => boolean) | AnymatchMatcher[] || AnymatchMatcher | AnymatchMatcher[]
 watcher.hasIgnore; // $ExpectType boolean
 watcher.root; // $ExpectType string
 

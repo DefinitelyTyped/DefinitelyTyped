@@ -29,7 +29,7 @@ declare namespace micromatch {
          * //=> ['a/b.js']
          * ```
          */
-        basename?: boolean;
+        basename?: boolean | undefined;
         /**
          * Enabled by default, this option enforces bash-like behavior with stars immediately following a bracket expression.
          * Bash bracket expressions are similar to regex character classes, but unlike regex, a star following a bracket expression **does not repeat the bracketed characters**.
@@ -46,37 +46,37 @@ declare namespace micromatch {
          * console.log(mm(files, '[a-c]*', {bash: false}));
          * ```
          */
-        bash?: boolean;
+        bash?: boolean | undefined;
         /**
          * Return regex matches in supporting methods.
          *
          * @default undefined
          */
-        capture?: boolean;
+        capture?: boolean | undefined;
         /**
          * Allows glob to match any part of the given string(s).
          *
          * @default undefined
          */
-        contains?: boolean;
+        contains?: boolean | undefined;
         /**
          * Current working directory. Used by `picomatch.split()`
          *
          * @default process.cwd()
          */
-        cwd?: string;
+        cwd?: string | undefined;
         /**
          * Debug regular expressions when an error is thrown.
          *
          * @default undefined
          */
-        debug?: boolean;
+        debug?: boolean | undefined;
         /**
          * Match dotfiles. Otherwise dotfiles are ignored unless a `.` is explicitly defined in the pattern.
          *
          * @default false
          */
-        dot?: boolean;
+        dot?: boolean | undefined;
         /**
          * Custom function for expanding ranges in brace patterns, such as `{a..z}`.
          * The function receives the range values as two arguments, and it must return a string to be used in the generated regex.
@@ -84,164 +84,164 @@ declare namespace micromatch {
          *
          * @default undefined
          */
-        expandRange?: (left: string, right: string, options: Options) => string;
+        expandRange?: ((left: string, right: string, options: Options) => string) | undefined;
         /**
          * Similar to the `--failglob` behavior in Bash, throws an error when no matches are found.
          *
          * @default false
          */
-        failglob?: boolean;
+        failglob?: boolean | undefined;
         /**
          * To speed up processing, full parsing is skipped for a handful common glob patterns. Disable this behavior by setting this option to false.
          *
          * @default true
          */
-        fastpaths?: boolean;
+        fastpaths?: boolean | undefined;
         /**
          * Regex flags to use in the generated regex. If defined, the `nocase` option will be overridden.
          *
          * @default undefined
          */
-        flags?: boolean;
+        flags?: boolean | undefined;
         /**
          * Custom function for formatting the returned string. This is useful for removing leading slashes, converting Windows paths to Posix paths, etc.
          *
          * @default undefined
          */
-        format?: (returnedString: string) => string;
+        format?: ((returnedString: string) => string) | undefined;
         /**
          * One or more glob patterns for excluding strings that should not be matched from the result.
          *
          * @default undefined
          */
-        ignore?: string | ReadonlyArray<string>;
+        ignore?: string | ReadonlyArray<string> | undefined;
         /**
          * Retain quotes in the generated regex, since quotes may also be used as an alternative to backslashes.
          *
          * @default false
          */
-        keepQuotes?: boolean;
+        keepQuotes?: boolean | undefined;
         /**
          * When `true`, brackets in the glob pattern will be escaped so that only literal brackets will be matched.
          *
          * @default undefined
          */
-        literalBrackets?: boolean;
+        literalBrackets?: boolean | undefined;
         /**
          * Support regex positive and negative lookbehinds. Note that you must be using Node 8.1.10 or higher to enable regex lookbehinds.
          *
          * @default true
          */
-        lookbehinds?: boolean;
+        lookbehinds?: boolean | undefined;
         /**
          * Alias for `basename`.
          *
          * @default false
          */
-        matchBase?: boolean;
+        matchBase?: boolean | undefined;
         /**
          * Limit the max length of the input string. An error is thrown if the input string is longer than this value.
          *
          * @default 65536
          */
-        maxLength?: number;
+        maxLength?: number | undefined;
         /**
          * Disable brace matching, so that `{a,b}` and `{1..3}` would be treated as literal characters.
          *
          * @default false
          */
-        nobrace?: boolean;
+        nobrace?: boolean | undefined;
         /**
          * Disable matching with regex brackets.
          *
          * @default undefined
          */
-        nobracket?: boolean;
+        nobracket?: boolean | undefined;
         /**
          * Perform case-insensitive matching. Equivalent to the regex `i` flag.
          * Note that this option is ignored when the `flags` option is defined.
          *
          * @default false
          */
-        nocase?: boolean;
+        nocase?: boolean | undefined;
         /**
          * Alias for `noextglob`
          *
          * @default false
          */
-        noext?: boolean;
+        noext?: boolean | undefined;
         /**
          * Disable support for matching with extglobs (like `+(a|b)`)
          *
          * @default false
          */
-        noextglob?: boolean;
+        noextglob?: boolean | undefined;
         /**
          * Disable matching with globstars (`**`).
          *
          * @default undefined
          */
-        noglobstar?: boolean;
+        noglobstar?: boolean | undefined;
         /**
          * Disallow negation (`!`) patterns, and treat leading `!` as a literal character to match.
          *
          * @default undefined
          */
-        nonegate?: boolean;
+        nonegate?: boolean | undefined;
         /**
          * Disable support for regex quantifiers (like `a{1,2}`) and treat them as brace patterns to be expanded.
          *
          * @default false
          */
-        noquantifiers?: boolean;
+        noquantifiers?: boolean | undefined;
         /**
          * Function to be called on ignored items.
          *
          * @default undefined
          */
-        onIgnore?: (item: Item) => void;
+        onIgnore?: ((item: Item) => void) | undefined;
         /**
          * Function to be called on matched items.
          *
          * @default undefined
          */
-        onMatch?: (item: Item) => void;
+        onMatch?: ((item: Item) => void) | undefined;
         /**
          * Function to be called on all items, regardless of whether or not they are matched or ignored.
          *
          * @default undefined
          */
-        onResult?: (item: Item) => void;
+        onResult?: ((item: Item) => void) | undefined;
         /**
          * Support POSIX character classes ("posix brackets").
          *
          * @default false
          */
-        posix?: boolean;
+        posix?: boolean | undefined;
         /**
          * String to prepend to the generated regex used for matching.
          *
          * @default undefined
          */
-        prepend?: boolean;
+        prepend?: boolean | undefined;
         /**
          * Use regular expression rules for `+` (instead of matching literal `+`), and for stars that follow closing parentheses or brackets (as in `)*` and `]*`).
          *
          * @default false
          */
-        regex?: boolean;
+        regex?: boolean | undefined;
         /**
          * Throw an error if brackets, braces, or parens are imbalanced.
          *
          * @default undefined
          */
-        strictBrackets?: boolean;
+        strictBrackets?: boolean | undefined;
         /**
          * When true, picomatch won't match trailing slashes with single stars.
          *
          * @default undefined
          */
-        strictSlashes?: boolean;
+        strictSlashes?: boolean | undefined;
         /**
          * Remove backslashes from returned matches.
          *
@@ -258,13 +258,13 @@ declare namespace micromatch {
          * //=> ['a*c']
          * ```
          */
-        unescape?: boolean;
+        unescape?: boolean | undefined;
         /**
          * Convert all slashes in file paths to forward slashes. This does not convert slashes in the glob pattern itself
          *
          * @default undefined
          */
-        windows?: boolean;
+        windows?: boolean | undefined;
     }
 
     interface ScanOptions extends Options {
@@ -273,14 +273,14 @@ declare namespace micromatch {
          *
          * @default false
          */
-        tokens?: boolean;
+        tokens?: boolean | undefined;
         /**
          * When `true`, the returned object will include an array of strings representing each path "segment" in the scanned glob pattern.
          * This is automatically enabled when `options.tokens` is `true`.
          *
          * @default false
          */
-        parts?: boolean;
+        parts?: boolean | undefined;
     }
 
     interface ScanInfo {
@@ -302,13 +302,13 @@ declare namespace micromatch {
         depth: number;
         isGlob: boolean;
 
-        backslashes?: boolean;
-        isBrace?: boolean;
-        isBracket?: boolean;
-        isExtglob?: boolean;
-        isGlobstar?: boolean;
-        isPrefix?: boolean;
-        negated?: boolean;
+        backslashes?: boolean | undefined;
+        isBrace?: boolean | undefined;
+        isBracket?: boolean | undefined;
+        isExtglob?: boolean | undefined;
+        isGlobstar?: boolean | undefined;
+        isPrefix?: boolean | undefined;
+        negated?: boolean | undefined;
     }
 
     interface ScanInfoWithParts extends ScanInfo {

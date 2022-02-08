@@ -3,7 +3,7 @@ import { Server } from "hapi";
 
 declare module 'hapi' {
     interface ServerOptionsApp {
-        key?: string;
+        key?: string | undefined;
     }
 }
 

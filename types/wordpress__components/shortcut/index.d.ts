@@ -9,14 +9,14 @@ declare namespace Shortcut {
         /**
          * Optional `aria-label` for the `<span>` element.
          */
-        ariaLabel?: string;
+        ariaLabel?: string | undefined;
     }
 
     type ShortcutType = string | ShortcutObj;
 
     interface Props {
-        shortcut?: ShortcutType;
-        className?: string;
+        shortcut?: ShortcutType | undefined;
+        className?: string | undefined;
     }
 }
 declare const Shortcut: ComponentType<Shortcut.Props>;

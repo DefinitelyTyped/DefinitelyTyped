@@ -13,11 +13,15 @@ describe('ReactDOM', () => {
     it('render', () => {
         const rootElement = document.createElement('div');
         ReactDOM.render(React.createElement('div'), rootElement);
+        ReactDOM.render(React.createElement('div'), document.createDocumentFragment());
+        ReactDOM.render(React.createElement('div'), document);
     });
 
     it('hydrate', () => {
         const rootElement = document.createElement('div');
         ReactDOM.hydrate(React.createElement('div'), rootElement);
+        ReactDOM.hydrate(React.createElement('div'), document.createDocumentFragment());
+        ReactDOM.hydrate(React.createElement('div'), document);
     });
 
     it('unmounts', () => {
@@ -59,6 +63,21 @@ describe('ReactDOM', () => {
         ReactDOM.createPortal(React.createElement('div'), document.createElement('div'), 'key');
 
         ReactDOM.render(<ClassComponent />, rootElement);
+    });
+
+    it('flushSync', () => {
+        // $ExpectType void
+        ReactDOM.flushSync(() => {});
+        // $ExpectType number
+        ReactDOM.flushSync(() => 42);
+        // $ExpectType number
+        ReactDOM.flushSync(() => 42, 'not used');
+        // $ExpectType number
+        ReactDOM.flushSync((a: string) => 42, 'not used');
+        // $ExpectError
+        ReactDOM.flushSync((a: string) => 42);
+        // $ExpectError
+        ReactDOM.flushSync((a: string) => 42, 100);
     });
 });
 

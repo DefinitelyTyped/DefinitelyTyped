@@ -16,8 +16,8 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@rdfjs/parser-jsonld": [
-                "rdfjs__parser-jsonld"
+            "@rdfjs/*": [
+                "rdfjs__*"
             ]
         }
     },

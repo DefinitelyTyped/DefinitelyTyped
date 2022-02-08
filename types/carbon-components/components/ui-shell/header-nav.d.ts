@@ -1,17 +1,19 @@
+interface HeaderNavOptions {
+    selectorInit: string;
+    selectorNavKind: string;
+    selectorSubmenu: string;
+    selectorSubmenuLink: string;
+    selectorSubmenuItem: string;
+}
+
 declare const HeaderNav_base: any;
 declare class HeaderNav extends HeaderNav_base {
-    constructor(element: any, options: any);
+    constructor(element: HTMLElement, options?: HeaderNavOptions);
     static components: WeakMap<object, any>;
-    getCurrentNavigation: () => any;
-    navigate: (direction: any) => void;
-    _handleKeyDown: (event: any) => void;
-    static get options(): {
-        selectorInit: string;
-        selectorNavKind: string;
-        selectorSubmenu: string;
-        selectorSubmenuLink: string;
-        selectorSubmenuItem: string;
-    };
+    getCurrentNavigation: () => null | Element;
+    navigate: (direction: number) => void;
+    _handleKeyDown: (event: KeyboardEvent) => void;
+    static get options(): HeaderNavOptions;
     static NAVIGATE: {
         BACKWARD: number;
         FORWARD: number;

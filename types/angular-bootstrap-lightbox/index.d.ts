@@ -9,15 +9,15 @@ declare namespace angular.bootstrap.lightbox {
         url: string;
         width: number;
         height: number;
-        thumbUrl?: string;
-        caption?: string;
+        thumbUrl?: string | undefined;
+        caption?: string | undefined;
     }
 
     export interface IImageDimensionLimits  {
-        minWidth?: number;
-        minHeight?: number;
-        maxWidth?: number;
-        maxHeight?: number;
+        minWidth?: number | undefined;
+        minHeight?: number | undefined;
+        maxWidth?: number | undefined;
+        maxHeight?: number | undefined;
     }
 
     export interface IImageDimensionParameter {

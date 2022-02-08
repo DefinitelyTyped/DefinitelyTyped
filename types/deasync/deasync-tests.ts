@@ -1,14 +1,14 @@
 import * as deasync from "deasync";
 
-function asyncFunction(input: number, cb: (res: number) => void) {}
-function handle(res: number) {}
+function asyncFunction(input: number, cb: (err: any, res: number) => void) {}
+function handle(err: any, res: number) {}
 
 // base case
 asyncFunction(42, handle);
 
 // deasync
 const wrapped = deasync(asyncFunction);
-handle(wrapped(42));
+handle(undefined, wrapped(42));
 
 // deasync.loopWhile
 let done = false;

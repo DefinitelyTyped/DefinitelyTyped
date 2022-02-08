@@ -8,7 +8,7 @@
  * Option form to request an access token.
  */
 interface AccessTokenAuthorizeOptions extends AuthorizeOptions {
-    response_type?: "token";
+    response_type?: "token" | undefined;
 }
 
 /**
@@ -29,15 +29,15 @@ interface AuthorizeOptions {
      * `"never"` will used the cached token; if the token does not work, authorize will return `invalid_grant`.
      * Defaults to `"auto"`.
      */
-    interactive?: AuthorizeInteractiveOption;
+    interactive?: AuthorizeInteractiveOption | undefined;
     /**
      * `true` to use a popup window for login, `false` to redirect the current browser window to the authorization dialog. Defaults to `true`. If `false`, the next parameter MUST be a redirect URL.
      */
-    popup?: boolean;
+    popup?: boolean | undefined;
     /**
      * The grant type requested. Specify `token` to request an Implicit grant or `code` to request an Authorization Code grant. Defaults to `token`.
      */
-    response_type?: AuthorizeResponseType;
+    response_type?: AuthorizeResponseType | undefined;
     /**
      * The access scope requested.
      */
@@ -48,8 +48,8 @@ interface AuthorizeOptions {
      * For more information see [Cross-site Request Forgery](https://developer.amazon.com/docs/login-with-amazon/cross-site-request-forgery.html).
      *
      */
-    state?: string;
-    scope_data?: AuthorizeScopeData;
+    state?: string | undefined;
+    scope_data?: AuthorizeScopeData | undefined;
 }
 
 type AuthorizeScopeData = {
@@ -110,15 +110,15 @@ interface AuthorizeRequestBase<T extends AuthorizeRequest> {
     /**
      * A short error code indicating why the authorization failed.
      */
-    error?: AuthorizeRequestErrorType;
+    error?: AuthorizeRequestErrorType | undefined;
     /**
      * A human-readable description of the error.
      */
-    error_description?: string;
+    error_description?: string | undefined;
     /**
      * A URI for a web page with more information on the error.
      */
-    error_uri?: string;
+    error_uri?: string | undefined;
     /**
      * Registers a callback function or sets a redirect URI to call when the
      * authorization request is complete. If this function is called after the

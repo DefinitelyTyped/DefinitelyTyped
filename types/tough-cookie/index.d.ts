@@ -132,26 +132,26 @@ export class Cookie {
 
 export namespace Cookie {
     interface ParseOptions {
-        loose?: boolean;
+        loose?: boolean | undefined;
     }
 
     interface Properties {
-        key?: string;
-        value?: string;
-        expires?: Date;
-        maxAge?: number | 'Infinity' | '-Infinity';
-        domain?: string;
-        path?: string;
-        secure?: boolean;
-        httpOnly?: boolean;
-        extensions?: string[];
-        creation?: Date;
-        creationIndex?: number;
+        key?: string | undefined;
+        value?: string | undefined;
+        expires?: Date | undefined;
+        maxAge?: number | 'Infinity' | '-Infinity' | undefined;
+        domain?: string | undefined;
+        path?: string | undefined;
+        secure?: boolean | undefined;
+        httpOnly?: boolean | undefined;
+        extensions?: string[] | undefined;
+        creation?: Date | undefined;
+        creationIndex?: number | undefined;
 
-        hostOnly?: boolean;
-        pathIsDefault?: boolean;
-        lastAccessed?: Date;
-        sameSite?: string;
+        hostOnly?: boolean | undefined;
+        pathIsDefault?: boolean | undefined;
+        lastAccessed?: Date | undefined;
+        sameSite?: string | undefined;
     }
 
     interface Serialized {
@@ -215,25 +215,25 @@ export class CookieJar {
 
 export namespace CookieJar {
     interface Options {
-        allowSpecialUseDomain?: boolean;
-        looseMode?: boolean;
-        rejectPublicSuffixes?: boolean;
-        prefixSecurity?: string;
+        allowSpecialUseDomain?: boolean | undefined;
+        looseMode?: boolean | undefined;
+        rejectPublicSuffixes?: boolean | undefined;
+        prefixSecurity?: string | undefined;
     }
 
     interface SetCookieOptions {
-        http?: boolean;
-        secure?: boolean;
-        now?: Date;
-        ignoreError?: boolean;
+        http?: boolean | undefined;
+        secure?: boolean | undefined;
+        now?: Date | undefined;
+        ignoreError?: boolean | undefined;
     }
 
     interface GetCookiesOptions {
-        http?: boolean;
-        secure?: boolean;
-        now?: Date;
-        expire?: boolean;
-        allPaths?: boolean;
+        http?: boolean | undefined;
+        secure?: boolean | undefined;
+        now?: Date | undefined;
+        expire?: boolean | undefined;
+        allPaths?: boolean | undefined;
     }
 
     interface Serialized {

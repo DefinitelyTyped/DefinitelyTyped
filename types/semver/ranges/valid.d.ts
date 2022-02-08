@@ -7,6 +7,6 @@ import semver = require('../index');
 declare function validRange(
     range: string | Range | null | undefined,
     optionsOrLoose?: boolean | semver.Options,
-): string;
+): string | null;
 
 export = validRange;

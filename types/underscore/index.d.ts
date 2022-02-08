@@ -1,11 +1,11 @@
-// Type definitions for Underscore 1.10
-// Project: http://underscorejs.org/
+// Type definitions for Underscore 1.11
+// Project: https://underscorejs.org/
 // Definitions by: Boris Yankov <https://github.com/borisyankov>,
 //                 Josh Baldwin <https://github.com/jbaldwin>,
 //                 Christopher Currens <https://github.com/ccurrens>,
 //                 Ard Timmerman <https://github.com/confususs>,
 //                 Julian Gonggrijp <https://github.com/jgonggrijp>,
-//                 Florian Keller <https://github.com/ffflorian>
+//                 Florian Imdahl <https://github.com/ffflorian>
 //                 Regev Brody <https://github.com/regevbr>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 //                 Michael Ness <https://github.com/reubenrybnik>
@@ -31,12 +31,12 @@ declare module _ {
         /**
         * If you'd like to disable the leading-edge call, pass this as false.
         **/
-        leading?: boolean;
+        leading?: boolean | undefined;
 
         /**
         * If you'd like to disable the execution on the trailing-edge, pass false.
         **/
-        trailing?: boolean;
+        trailing?: boolean | undefined;
     }
 
     /**
@@ -47,23 +47,23 @@ declare module _ {
         /**
         * Default value is '/<%([\s\S]+?)%>/g'.
         **/
-        evaluate?: RegExp;
+        evaluate?: RegExp | undefined;
 
         /**
         * Default value is '/<%=([\s\S]+?)%>/g'.
         **/
-        interpolate?: RegExp;
+        interpolate?: RegExp | undefined;
 
         /**
         * Default value is '/<%-([\s\S]+?)%>/g'.
         **/
-        escape?: RegExp;
+        escape?: RegExp | undefined;
 
         /**
         * By default, 'template()' places the values from your data in the local scope via the 'with' statement.
         * However, you can specify a single variable name with this setting.
         **/
-        variable?: string;
+        variable?: string | undefined;
     }
 
     interface CompiledTemplate {
@@ -83,8 +83,6 @@ declare module _ {
 
     type Collection<T> = List<T> | Dictionary<T>;
 
-    type EnumerableKey = string | number;
-
     type CollectionKey<V> =
         V extends never ? any
         : V extends List<any> ? number
@@ -96,7 +94,7 @@ declare module _ {
         (value: T): boolean;
     }
 
-    interface CollectionIterator<T extends TypeOfCollection<V, any>, TResult, V = Collection<T>> {
+    interface CollectionIterator<T extends TypeOfList<V> | TypeOfDictionary<V, any>, TResult, V = Collection<T>> {
         (element: T, key: CollectionKey<V>, collection: V): TResult;
     }
 
@@ -106,8 +104,8 @@ declare module _ {
 
     type Iteratee<V, R, T extends TypeOfCollection<V, any> = TypeOfCollection<V>> =
         CollectionIterator<T, R, V> |
-        EnumerableKey |
-        EnumerableKey[] |
+        string | number |
+        (string | number)[] |
         Partial<T> |
         null |
         undefined;
@@ -115,14 +113,14 @@ declare module _ {
     type IterateeResult<I, T> =
         I extends (...args: any[]) => infer R ? R
         : I extends keyof T ? T[I]
-        : I extends EnumerableKey | EnumerableKey[] ? any
+        : I extends string | number | (string | number)[] ? any
         : I extends object ? boolean
         : I extends null | undefined ? T
         : never;
 
     type PropertyTypeOrAny<T, K> = K extends keyof T ? T[K] : any;
 
-    interface MemoCollectionIterator<T extends TypeOfCollection<V>, TResult, V = Collection<T>> {
+    interface MemoCollectionIterator<T extends TypeOfList<V> | TypeOfDictionary<V, any>, TResult, V = Collection<T>> {
         (prev: TResult, curr: T, key: CollectionKey<V>, collection: V): TResult;
     }
 
@@ -140,7 +138,7 @@ declare module _ {
         : V extends Dictionary<infer T> ? T
         : TDefault;
 
-    type TypeOfCollection<V, TObjectDefault = never> = TypeOfList<V> | TypeOfDictionary<V, TObjectDefault>;
+    type TypeOfCollection<V, TObjectDefault = never> = V extends List<any> ? TypeOfList<V> : TypeOfDictionary<V, TObjectDefault>;
 
     type ListItemOrSelf<T> = T extends List<infer TItem> ? TItem : T;
 
@@ -158,7 +156,7 @@ declare module _ {
     // if T is a list, assume that it contains pairs of some type, so any
     // if T isn't a list, there's no way that it can provide pairs, so never
     type PairValue<T> =
-        T extends Readonly<[EnumerableKey, infer TValue]> ? TValue
+        T extends Readonly<[string | number, infer TValue]> ? TValue
         : T extends List<infer TValue> ? TValue
         : never;
 
@@ -178,11 +176,17 @@ declare module _ {
 
     type _ChainSingle<V> = _Chain<TypeOfCollection<V>, V>;
 
+    type TypedArray = Int8Array | Uint8Array | Int16Array | Uint16Array | Int32Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array;
+
     interface Cancelable {
         cancel(): void;
     }
 
     interface UnderscoreStatic {
+        /*******
+         * OOP *
+         *******/
+
         /**
          * Underscore OOP Wrapper, all Underscore functions that take an object
          * as the first parameter can be invoked through this function.
@@ -488,7 +492,7 @@ declare module _ {
          * @returns The set of values for the specified `propertyName` for each
          * item in `collection`.
          **/
-        pluck<V extends Collection<any>, K extends EnumerableKey>(
+        pluck<V extends Collection<any>, K extends string | number>(
             collection: V,
             propertyName: K
         ): PropertyTypeOrAny<TypeOfCollection<V>, K>[];
@@ -558,7 +562,7 @@ declare module _ {
          **/
         groupBy<V extends Collection<any>>(
             collection: V,
-            iteratee?: Iteratee<V, EnumerableKey>,
+            iteratee?: Iteratee<V, string | number>,
             context?: any
         ): Dictionary<TypeOfCollection<V>[]>;
 
@@ -576,7 +580,7 @@ declare module _ {
          **/
         indexBy<V extends Collection<any>>(
             collection: V,
-            iteratee?: Iteratee<V, EnumerableKey>,
+            iteratee?: Iteratee<V, string | number>,
             context?: any): Dictionary<TypeOfCollection<V>>;
 
         /**
@@ -594,7 +598,7 @@ declare module _ {
          **/
         countBy<V extends Collection<any>>(
             collection: V,
-            iteratee?: Iteratee<V, EnumerableKey>,
+            iteratee?: Iteratee<V, string | number>,
             context?: any
         ): Dictionary<number>;
 
@@ -756,20 +760,24 @@ declare module _ {
 
         /**
          * Flattens a nested `list` (the nesting can be to any depth). If you
-         * pass shallow, the `list` will only be flattened a single level.
+         * pass true or 1 as the depth, the `list` will only be flattened a
+         * single level. Passing a greater number will cause the flattening to
+         * descend deeper into the nesting hierarchy. Omitting the depth
+         * argument, or passing false or Infinity, flattens the `list` all the
+         * way to the deepest nesting level.
          * @param list The list to flatten.
-         * @param shallow True to only flatten one level, optional,
+         * @param depth True to only flatten one level, optional,
          * default = false.
          * @returns The flattened `list`.
          **/
         flatten<V extends List<any>>(
             list: V,
-            shallow?: false
-        ): DeepestListItemOrSelf<TypeOfList<V>>[];
+            depth: 1 | true
+        ): ListItemOrSelf<TypeOfList<V>>[];
         flatten<V extends List<any>>(
             list: V,
-            shallow: true
-        ): ListItemOrSelf<TypeOfList<V>>[];
+            depth?: number | false
+        ): DeepestListItemOrSelf<TypeOfList<V>>[];
 
         /**
          * Returns a copy of `list` with all instances of `values` removed.
@@ -857,11 +865,12 @@ declare module _ {
          * The opposite of zip. Given a list of lists, returns a series of new
          * arrays, the first of which contains all of the first elements in the
          * input lists, the second of which contains all of the second
-         * elements, and so on.
+         * elements, and so on. (alias: transpose)
          * @param lists The lists to unzip.
          * @returns The unzipped version of `lists`.
          **/
         unzip(lists: List<List<any>>): any[][];
+        transpose(lists: List<List<any>>): any[][];
 
         /**
          * Converts lists into objects. Pass either a single `list` of
@@ -873,7 +882,7 @@ declare module _ {
          * corresponding to those keys.
          * @returns An object comprised of the provided keys and values.
          **/
-        object<TList extends List<EnumerableKey>, TValue>(
+        object<TList extends List<string | number>, TValue>(
             list: TList,
             values: List<TValue>
         ): Dictionary<TValue | undefined>;
@@ -3702,6 +3711,35 @@ declare module _ {
         matcher<T>(attrs: T): _.Predicate<T>;
 
         /**
+         * Returns the specified property of `object`. `path` may be specified
+         * as a simple key, or as an array of object keys or array indexes,
+         * for deep property fetching. If the property does not exist or is `undefined`,
+         * the optional default is returned.
+         * @param object The object that maybe contains the property.
+         * @param path The path to the property on `object`.
+         * @param defaultValue Default if not found.
+         * @returns The item on the `object` or the `defaultValue`
+         **/
+        get(
+            object: null | undefined,
+            path: string | string[]
+        ): undefined;
+        get<U>(
+            object: null | undefined,
+            path: string | string[],
+            defaultValue?: U
+        ): U;
+        get<V extends Collection<any>>(
+            object: V,
+            path: string | string[]
+        ): TypeOfCollection<V> | undefined;
+        get<V extends Collection<any>, U>(
+            object: V,
+            path: string | string[],
+            defaultValue?: U
+        ): TypeOfCollection<V> | U;
+
+        /**
         * Returns a function that will itself return the key property of any passed-in object.
         * @param key Property of the object.
         * @return Function which accept an object an returns the value of key in that object.
@@ -3756,6 +3794,27 @@ declare module _ {
          * @returns True if `object` is an Array, otherwise false.
          **/
         isArray(object: any): object is any[];
+
+        /**
+         * Returns true if `object` is an ArrayBuffer.
+         * @param object The object to check.
+         * @returns True if `object` is an ArrayBuffer, otherwise false.
+         **/
+        isArrayBuffer(object: any): object is ArrayBuffer;
+
+        /**
+         * Returns true if `object` is a DataView.
+         * @param object The object to check.
+         * @returns True if `object` is a DataView, otherwise false.
+         **/
+        isDataView(object: any): object is DataView;
+
+        /**
+         * Returns true if `object` is a TypedArray.
+         * @param object The object to check.
+         * @returns True if `object` is a TypedArray, otherwise false.
+         **/
+        isTypedArray(object: any): object is TypedArray;
 
         /**
          * Returns true if `object` is a Symbol.
@@ -4258,7 +4317,7 @@ declare module _ {
          * @returns The set of values for the specified `propertyName` for each
          * item in the wrapped collection.
          **/
-        pluck<K extends EnumerableKey>(
+        pluck<K extends string | number>(
             propertyName: K
         ): PropertyTypeOrAny<T, K>[];
 
@@ -4314,7 +4373,7 @@ declare module _ {
          * the wrapped collection.
          **/
         groupBy(
-            iteratee?: Iteratee<V, EnumerableKey>,
+            iteratee?: Iteratee<V, string | number>,
             context?: any
         ): Dictionary<T[]>;
 
@@ -4329,7 +4388,7 @@ declare module _ {
          * @returns A dictionary where each item in the wrapped collection is
          * assigned to the property designated by `iteratee`.
          **/
-        indexBy(iteratee?: Iteratee<V, EnumerableKey>, context?: any): Dictionary<T>;
+        indexBy(iteratee?: Iteratee<V, string | number>, context?: any): Dictionary<T>;
 
         /**
          * Sorts the wrapped collection into groups and returns a count for the
@@ -4344,7 +4403,7 @@ declare module _ {
          * elements from the wrapped collection.
          **/
         countBy(
-            iteratee?: Iteratee<V, EnumerableKey>,
+            iteratee?: Iteratee<V, string | number>,
             context?: any
         ): Dictionary<number>;
 
@@ -4468,14 +4527,14 @@ declare module _ {
 
         /**
          * Flattens a nested list (the nesting can be to any depth). If you
-         * pass shallow, the wrapped list will only be flattened a single
+         * pass depth, the wrapped list will only be flattened a single
          * level.
-         * @param shallow True to only flatten one level, optional,
+         * @param depth True to only flatten one level, optional,
          * default = false.
          * @returns The flattened list.
          **/
-        flatten(shallow?: false): DeepestListItemOrSelf<T>[];
-        flatten(shallow: true): ListItemOrSelf<T>[];
+        flatten(depth: 1 | true): ListItemOrSelf<T>[];
+        flatten(depth?: number | false): DeepestListItemOrSelf<T>[];
 
         /**
          * Returns a copy of the wrapped list with all instances of `values`
@@ -4559,10 +4618,11 @@ declare module _ {
          * The opposite of zip. Given the wrapped list of lists, returns a
          * series of new arrays, the first of which contains all of the first
          * elements in the wrapped lists, the second of which contains all of
-         * the second elements, and so on.
+         * the second elements, and so on. (alias: transpose)
          * @returns The unzipped version of the wrapped lists.
          **/
         unzip(): any[][];
+        transpose(): any[][];
 
         /**
          * Converts lists into objects. Call on either a wrapped list of
@@ -4944,6 +5004,18 @@ declare module _ {
         matcher(): _.ListIterator<T, boolean>;
 
         /**
+         * Wrapped type `any`.
+         * @see _.get
+         **/
+        get(
+            path: string | string[]
+        ): TypeOfCollection<V> | undefined;
+        get<U>(
+            path: string | string[],
+            defaultValue?: U
+        ): TypeOfCollection<V> | U;
+
+        /**
         * Wrapped type `string`.
         * @see _.property
         **/
@@ -4993,6 +5065,24 @@ declare module _ {
          * @returns True if the wrapped object is an Array, otherwise false.
          **/
         isArray(): boolean;
+
+        /**
+         * Returns true if the wrapped object is an ArrayBuffer.
+         * @returns True if the wrapped object is an ArrayBuffer, otherwise false.
+         **/
+        isArrayBuffer(): boolean;
+
+        /**
+         * Returns true if the wrapped object is a DataView.
+         * @returns True if the wrapped object is a DataView, otherwise false.
+         **/
+        isDataView(): boolean;
+
+        /**
+         * Returns true if the wrapped object is a TypedArray.
+         * @returns True if the wrapped object is a TypedArray, otherwise false.
+         **/
+        isTypedArray(): boolean;
 
         /**
          * Returns true if the wrapped object is a Symbol.
@@ -5441,7 +5531,7 @@ declare module _ {
          * @returns A chain wrapper around The set of values for the specified
          * `propertyName` for each item in the wrapped collection.
          **/
-        pluck<K extends EnumerableKey>(
+        pluck<K extends string | number>(
             propertyName: K
         ): _Chain<PropertyTypeOrAny<T, K>>;
 
@@ -5506,7 +5596,7 @@ declare module _ {
          * the grouped elements from the wrapped collection.
          **/
         groupBy(
-            iteratee?: Iteratee<V, EnumerableKey>,
+            iteratee?: Iteratee<V, string | number>,
             context?: any
         ): _Chain<T[], Dictionary<T[]>>;
 
@@ -5523,7 +5613,7 @@ declare module _ {
          * `iteratee`.
          **/
         indexBy(
-            iteratee?: Iteratee<V, EnumerableKey>,
+            iteratee?: Iteratee<V, string | number>,
             context?: any
         ): _Chain<T, Dictionary<T>>;
 
@@ -5540,7 +5630,7 @@ declare module _ {
          * the count of the grouped elements from the wrapped collection.
          **/
         countBy(
-            iterator?: Iteratee<V, EnumerableKey>,
+            iterator?: Iteratee<V, string | number>,
             context?: any
         ): _Chain<number, Dictionary<number>>;
 
@@ -5671,14 +5761,17 @@ declare module _ {
 
         /**
          * Flattens a nested list (the nesting can be to any depth). If you
-         * pass shallow, the wrapped list will only be flattened a single
-         * level.
-         * @param shallow True to only flatten one level, optional,
+         * pass true or 1 as the depth, the list will only be flattened a single
+         * level. Passing a greater number will cause the flattening to descend
+         * deeper into the nesting hierarchy. Omitting the depth argument, or
+         * passing false or Infinity, flattens the list all the way to the
+         * deepest nesting level.
+         * @param depth True to only flatten one level, optional,
          * default = false.
          * @returns A chain wrapper around the flattened list.
          **/
-        flatten(shallow?: false): _Chain<DeepestListItemOrSelf<T>>;
-        flatten(shallow: true): _Chain<ListItemOrSelf<T>>;
+        flatten(depth: 1 | true): _Chain<ListItemOrSelf<T>>;
+        flatten(depth?: number | false): _Chain<DeepestListItemOrSelf<T>>;
 
         /**
          * Returns a copy of the wrapped list with all instances of `values`
@@ -5765,11 +5858,12 @@ declare module _ {
          * The opposite of zip. Given the wrapped list of lists, returns a
          * series of new arrays, the first of which contains all of the first
          * elements in the wrapped lists, the second of which contains all of
-         * the second elements, and so on.
-         * @returns A chain wrapper aoround the unzipped version of the wrapped
+         * the second elements, and so on. (alias: transpose)
+         * @returns A chain wrapper around the unzipped version of the wrapped
          * lists.
          **/
         unzip(): _Chain<any[]>;
+        transpose(): _Chain<any[]>;
 
         /**
          * Converts lists into objects. Call on either a wrapped list of
@@ -6156,6 +6250,18 @@ declare module _ {
         matcher(): _Chain<T>;
 
         /**
+         * Wrapped type `any`.
+         * @see _.get
+         **/
+        get(
+            path: string | string[]
+        ): _Chain<TypeOfCollection<V> | undefined, T | undefined>;
+        get<U>(
+            path: string | string[],
+            defaultValue?: U
+        ): _Chain<TypeOfCollection<V> | U, T | U>;
+
+        /**
         * Wrapped type `string`.
         * @see _.property
         **/
@@ -6210,6 +6316,27 @@ declare module _ {
          * The result will be wrapped in a chain wrapper.
          **/
         isArray(): _ChainSingle<boolean>;
+
+        /**
+         * Returns true if the wrapped object is an ArrayBuffer.
+         * @returns True if the wrapped object is an ArrayBuffer, otherwise false.
+         * The result will be wrapped in a chain wrapper.
+         **/
+        isArrayBuffer(): _ChainSingle<boolean>;
+
+        /**
+         * Returns true if the wrapped object is a DataView.
+         * @returns True if the wrapped object is a DataView, otherwise false.
+         * The result will be wrapped in a chain wrapper.
+         **/
+        isDataView(): _ChainSingle<boolean>;
+
+        /**
+         * Returns true if the wrapped object is a TypedArray.
+         * @returns True if the wrapped object is a TypedArray, otherwise false.
+         * The result will be wrapped in a chain wrapper.
+         **/
+        isTypedArray(): _ChainSingle<boolean>;
 
         /**
          * Returns true if the wrapped object is a Symbol.

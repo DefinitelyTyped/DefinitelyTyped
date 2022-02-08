@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface StrategyOverrides {
-    shouldRejectClick?: (lastTouchEventTimestamp: Date, clickEventTimestamp: Date) => boolean;
+    shouldRejectClick?: ((lastTouchEventTimestamp: Date, clickEventTimestamp: Date) => boolean) | undefined;
 }
 
 declare var injectTapEventPlugin: (strategyOverrides?: StrategyOverrides) => void;

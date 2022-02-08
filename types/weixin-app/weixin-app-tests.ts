@@ -600,3 +600,17 @@ Component({
         ageStr: ""
     }
 });
+
+wx.loadFontFace({
+    family: "Bitstream Vera Serif Bold",
+    source: 'url("https://sungd.github.io/Pacifico.ttf")',
+    success(res) {
+        console.log(res.status);
+    },
+    fail(res) {
+        console.log(res.status);
+    },
+    complete(res) {
+        console.log(res.status);
+    }
+});

@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as ReactCrop from 'react-image-crop';
 
 interface TestState {
-    crop?: ReactCrop.Crop;
+    crop?: ReactCrop.Crop | undefined;
 }
 
 const initialState = {

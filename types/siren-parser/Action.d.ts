@@ -5,11 +5,11 @@ export default function(action: object): Action;
 export interface Action {
     name: string;
     href: string;
-    class?: string[];
-    method?: string;
-    title?: string;
-    type?: string;
-    fields?: Field[];
+    class?: string[] | undefined;
+    method?: string | undefined;
+    title?: string | undefined;
+    type?: string | undefined;
+    fields?: Field[] | undefined;
 
     hasClass(cls: string | RegExp): boolean;
     hasField(fieldName: string | RegExp): boolean;

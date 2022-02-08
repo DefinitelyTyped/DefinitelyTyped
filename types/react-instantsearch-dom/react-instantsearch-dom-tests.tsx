@@ -1,24 +1,31 @@
 import * as React from 'react';
 import {
-  InstantSearch,
-  Hits,
-  Highlight,
-  SearchBox,
-  RefinementList,
-  CurrentRefinements,
   ClearRefinements,
-  Pagination,
-  Menu,
   Configure,
-  Index
+  CurrentRefinements,
+  DynamicWidgets,
+  Highlight,
+  Hits,
+  HitsPerPage,
+  Index,
+  InstantSearch,
+  Menu,
+  MenuSelect,
+  Pagination,
+  RefinementList,
+  SearchBox,
+  SortBy,
 } from 'react-instantsearch/dom';
-import { Hit, connectRefinementList, connectMenu } from 'react-instantsearch-core';
+import { Hit, connectRefinementList, connectMenu, InstantSearchProps } from 'react-instantsearch-core';
 
 // DOM
 () => {
   const App = () => (
     <InstantSearch searchClient={{}} indexName="bestbuy">
       <Search />
+      <Index indexName="lol">
+        <Search2 />
+      </Index>
     </InstantSearch>
   );
 
@@ -37,7 +44,7 @@ import { Hit, connectRefinementList, connectMenu } from 'react-instantsearch-cor
   function Search2() {
     return (
       <div>
-        <Hits hitComponent={Product} />
+        <Hits hitComponent={Product2} />
       </div>
     );
   }
@@ -53,9 +60,11 @@ import { Hit, connectRefinementList, connectMenu } from 'react-instantsearch-cor
   }
 
   function Search3() {
+    const inputRef = React.useRef<HTMLInputElement>(null);
+
     return (
       <div className="container">
-        <SearchBox />
+        <SearchBox inputId="search-box" inputRef={inputRef} />
         <RefinementList attribute="category" />
         <Hits hitComponent={Product} />
       </div>
@@ -204,11 +213,19 @@ import { Hit, connectRefinementList, connectMenu } from 'react-instantsearch-cor
 () => {
   function onSearchBoxChange(event: React.SyntheticEvent<HTMLInputElement>) {}
 
+  function onSearchBoxKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {}
+
   function onSearchBoxReset(event: React.SyntheticEvent<HTMLFormElement>) {}
 
   function onSearchBoxSubmit(event: React.SyntheticEvent<HTMLFormElement>) {}
 
-  <SearchBox onChange={onSearchBoxChange} onReset={onSearchBoxReset} onSubmit={onSearchBoxSubmit} submit={<></>} />;
+  <SearchBox
+    onChange={onSearchBoxChange}
+    onKeyDown={onSearchBoxKeyDown}
+    onReset={onSearchBoxReset}
+    onSubmit={onSearchBoxSubmit}
+    submit={<></>}
+  />;
 };
 
 import { findResultsState } from 'react-instantsearch-dom/server';
@@ -217,15 +234,11 @@ declare function createServer(handler: (req: any, res: any) => any): any;
 import { renderToString } from 'react-dom/server';
 
 const test = () => {
-  class App extends React.Component<any> {
+  class App extends React.Component<InstantSearchProps & { something: boolean }> {
     render() {
       return (
-        <InstantSearch
-          indexName="indexName"
-          searchClient={{}}
-          searchState={this.props.searchState}
-          resultsState={this.props.resultsState}
-        >
+        <InstantSearch {...this.props}>
+          {this.props.something}
           <SearchBox />
           <Hits />
         </InstantSearch>
@@ -235,9 +248,18 @@ const test = () => {
 
   const server = createServer(async (req, res) => {
     const searchState = { query: 'chair' };
-    const resultsState = await findResultsState(App, { searchState });
-    const appInitialState = { searchState, resultsState };
-    const appAsString = renderToString(<App {...appInitialState} />);
+    const props = {
+      searchClient: {},
+      indexName: '',
+      searchState,
+      something: false,
+    };
+    const resultsState = await findResultsState(App, props);
+    const appInitialState = {
+      searchState,
+      resultsState,
+    };
+    const appAsString = renderToString(<App {...props} {...appInitialState} />);
     res.send(
       `
   <!doctype html>
@@ -251,4 +273,68 @@ const test = () => {
   </html>`
     );
   });
+};
+
+() => {
+  // https://www.algolia.com/doc/api-reference/widgets/sort-by/react/
+  <SortBy
+    className="sort-by"
+    id="sort-by"
+    defaultRefinement={'dev_index'}
+    items={[
+      { value: 'dev_index', label: 'Relevance' },
+      { value: 'dev_index_name_asc', label: 'Alphabetical' },
+    ]}
+    transformItems={items =>
+      items.map(item => ({
+        ...item,
+        label: item.label.toUpperCase(),
+      }))
+    }
+  />;
+};
+
+() => {
+  // https://www.algolia.com/doc/api-reference/widgets/hits-per-page/react/
+  <HitsPerPage
+    className="hits-per-page"
+    id="hits-per-page"
+    items={[
+      { value: 5, label: 'Show 5 hits' },
+      { value: 10, label: 'Show 10 hits' },
+    ]}
+    defaultRefinement={5}
+    // Optional parameters
+    transformItems={items =>
+      items.map(item => ({
+        ...item,
+        label: item.label.toUpperCase(),
+      }))
+    }
+  />;
+};
+
+() => {
+  // https://www.algolia.com/doc/api-reference/widgets/menu-select/react/
+  <MenuSelect
+    className="menu-select"
+    id="menu-select"
+    attribute="brand"
+    // Optional parameters
+    defaultRefinement="Apple"
+    limit={20}
+    transformItems={items =>
+      items.map(item => ({
+        ...item,
+        label: item.label.toUpperCase(),
+      }))
+    }
+    translations={{
+      seeAllOption: 'See all',
+    }}
+  />;
+};
+
+() => {
+    <DynamicWidgets fallbackComponent={RefinementList} className="test" attributesToRender={['']}><RefinementList attribute="brand"/></DynamicWidgets>;
 };

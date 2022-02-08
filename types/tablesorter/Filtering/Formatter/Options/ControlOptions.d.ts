@@ -5,5 +5,5 @@ export interface ControlOptions {
     /**
      * The label of the control.
      */
-    cellText?: string;
+    cellText?: string | undefined;
 }
