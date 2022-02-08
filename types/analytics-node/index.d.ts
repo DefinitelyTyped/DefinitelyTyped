@@ -58,7 +58,7 @@ declare namespace AnalyticsNode {
       timestamp?: Date | undefined;
       context?: any;
       integrations?: Integrations | undefined;
-    }, callback?: (err: Error) => void): Analytics;
+    }, callback?: (err: Error, data: Data) => void | undefined): Analytics;
 
     /* The track method lets you record the actions your users perform. */
     track(message: Identity & {
@@ -67,7 +67,7 @@ declare namespace AnalyticsNode {
       timestamp?: Date | undefined;
       context?: any;
       integrations?: Integrations | undefined;
-    }, callback?: (err: Error) => void): Analytics;
+    }, callback?: (err: Error, data: Data) => void | undefined): Analytics;
 
     /* The page method lets you record page views on your website, along with
        optional extra information about the page being viewed. */
@@ -78,7 +78,7 @@ declare namespace AnalyticsNode {
       timestamp?: Date | undefined;
       context?: any;
       integrations?: Integrations | undefined;
-    }, callback?: (err: Error) => void): Analytics;
+    }, callback?: (err: Error, data: Data) => void | undefined): Analytics;
 
     /* The screen method lets you record whenever a user sees a screen,
        the mobile equivalent of page, in your mobile app, along with
@@ -89,13 +89,13 @@ declare namespace AnalyticsNode {
       timestamp?: Date | undefined;
       context?: any;
       integrations?: Integrations | undefined;
-    }, callback?: (err: Error) => void): Analytics;
+    }, callback?: (err: Error, data: Data) => void | undefined): Analytics;
 
     /* alias is how you associate one identity with another. */
     alias(message: Identity & {
       previousId: string | number;
       integrations?: Integrations | undefined;
-    }, callback?: (err: Error) => void): Analytics;
+    }, callback?: (err: Error, data: Data) => void | undefined): Analytics;
 
     /* Group calls can be used to associate individual users with shared
        accounts or companies. */
@@ -105,7 +105,7 @@ declare namespace AnalyticsNode {
       context?: any;
       timestamp?: Date | undefined;
       integrations?: Integrations | undefined;
-    }, callback?: (err: Error) => void): Analytics;
+    }, callback?: (err: Error, data: Data) => void | undefined): Analytics;
 
     /* Flush batched calls to make sure nothing is left in the queue */
     flush(callback?: (err: Error, data: Data) => void): Analytics;
