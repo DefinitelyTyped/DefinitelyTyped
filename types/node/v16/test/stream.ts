@@ -583,3 +583,17 @@ async function testTransferringStreamWithPostMessage() {
     // error TS2532: Cannot use 'stream' as a target of a postMessage call because it is not a Transferable.
     // port2.postMessage(stream, [stream]);
 }
+
+function testEndandDestroy() {
+    // $ExpectType Readable
+    new Readable().destroy();
+    // $ExpectType Writable
+    new Writable().destroy();
+
+    // $ExpectType Writable
+    new Writable().end();
+    // $ExpectType Writable
+    new Writable().end('');
+    // $ExpectType Writable
+    new Writable().end('', 'utf8');
+}
