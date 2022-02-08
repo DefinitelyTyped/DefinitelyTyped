@@ -264,7 +264,7 @@ indy.verifierVerifyProof(
     proofReq,
     {
         proof: 'proof',
-        identifiers: [{ schema_id: 'shcema_id' }],
+        identifiers: [{ schema_id: 'schema_id', cred_def_id: "cred_def_id"}],
         requested_proof: {
             requested_predicates: {},
             revealed_attr_groups: {},

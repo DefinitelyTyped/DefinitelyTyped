@@ -505,8 +505,10 @@ export interface IndyProof {
     };
     proof: any;
     identifiers: Array<{
-        schema_id: string;
-        timestamp?: number | undefined;
+        schema_id: SchemaId;
+        cred_def_id: CredDefId;
+        rev_reg_id?: RevRegId;
+        timestamp?: number;
     }>;
 }
 
