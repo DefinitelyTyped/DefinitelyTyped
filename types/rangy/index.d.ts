@@ -54,6 +54,7 @@ interface RangySelection extends Selection {
     detach():any;
     inspect(): string;
     move(units: string, count: number, opts?: any): number;
+    expand(unit: string, expandOptions?);
 }
 
 interface RangyStatic {
