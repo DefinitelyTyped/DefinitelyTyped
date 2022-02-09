@@ -365,7 +365,7 @@ npm 패키지의 경우, `node -p 'require("foo")'` 가 원하는 값이라면 `
 1. `tsconfig.json` 와 `tslint.json` 에 포함된 상대경로들을 수정해주어야 합니다.
 2. 경로 대응 규칙(Path mapping rule)을 추가하여 테스트가 올바른 버전을 검사하도록 해야합니다.
 
-예를 들어, [history 패키지의 2 버전의 `tsconfig.json`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/history/v2/tsconfig.json) 파일은 다음과 같이 생겼습니다.
+예를 들어, [history 패키지의 2 버전의 `tsconfig.json`](https://github.com/%44efinitelyTyped/DefinitelyTyped/blob/1253faabf5e0d2c5470db6ea87795d7f96fef7e2/types/history/v2/tsconfig.json) 파일은 다음과 같이 생겼습니다.
 
 ```json
 {

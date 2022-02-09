@@ -21,7 +21,6 @@
 //                 Nikita Galkin <https://github.com/galkin>
 //                 Parambir Singh <https://github.com/parambirs>
 //                 Sebastian Silbermann <https://github.com/eps1lon>
-//                 Seth Westphal <https://github.com/westy92>
 //                 Simon Schick <https://github.com/SimonSchick>
 //                 Thomas den Hollander <https://github.com/ThomasdenH>
 //                 Wilco Bakker <https://github.com/WilcoBakker>

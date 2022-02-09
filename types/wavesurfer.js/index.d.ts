@@ -1,4 +1,4 @@
-// Type definitions for wavesurfer.js 5.2
+// Type definitions for wavesurfer.js 6.0
 // Project: https://github.com/katspaugh/wavesurfer.js
 // Definitions by: Yusuke Higuchi <https://github.com/higuri>
 //                 Egor Gorbachev <https://github.com/kubk>

@@ -4,20 +4,23 @@
         "lib": [
             "es6"
         ],
-        "noImplicitAny": true,
-        "noImplicitThis": true,
-        "strictFunctionTypes": true,
-        "strictNullChecks": true,
+        "strict": true,
+        "exactOptionalPropertyTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@ember/*": [
+                "ember__*"
+            ]
+        }
     },
     "files": [
         "index.d.ts",
-        "browser-extname-tests.ts"
+        "ember__helper-tests.ts"
     ]
 }

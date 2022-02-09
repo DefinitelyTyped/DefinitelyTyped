@@ -1,4 +1,4 @@
-// Type definitions for tabulator-tables 5.0
+// Type definitions for tabulator-tables 5.1
 // Project: http://tabulator.info
 // Definitions by: Josh Harris <https://github.com/jojoshua>, Mike Lischke <https://github.com/mike-lischke>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -1956,6 +1956,9 @@ declare namespace Tabulator {
          */
         addTreeChild: (rowData: {}, position?: boolean, existingRow?: RowComponent) => void;
 
+        /** Returns a value indicating if the current row is expanded. */
+        isTreeExpanded: () => boolean;
+
         /**
          * You can validate the whole table in one go by calling the validate method on the table instance.
          *
@@ -2346,11 +2349,6 @@ declare class Tabulator {
     /** Destructor. */
     destroy: () => void;
 
-    /**
-     * By default Tabulator will only allow files with a .json extension to be loaded into the table.
-     * You can allow any other type of file into the file picker by passing the extension or mime type into the first argument of the setDataFromLocalFile function as a comma separated list. This argument will accept any of the values valid for the accept field of an input element.
-     */
-    setDataFromLocalFile: (extensions: string) => void;
     setData: (data: any, params?: any, config?: any) => Promise<void>;
 
     /** You can remove all data from the table using clearData */

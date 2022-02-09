@@ -307,7 +307,7 @@ declare namespace ReactGridLayout {
          * Ref for getting a reference for the grid's wrapping div.
          * You can use this instead of a regular ref and the deprecated `ReactDOM.findDOMNode()`` function.
          */
-        innerRef?: React.Ref<"div">;
+        innerRef?: React.Ref<HTMLDivElement>;
     }
 
     interface ReactGridLayoutProps extends CoreProps {

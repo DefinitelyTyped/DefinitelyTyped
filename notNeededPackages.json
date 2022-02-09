@@ -268,6 +268,10 @@
             "libraryName": "babylonjs",
             "asOfVersion": "2.4.1"
         },
+        "backlog-js": {
+            "libraryName": "backlog-js",
+            "asOfVersion": "0.12.5"
+        },
         "baconjs": {
             "libraryName": "baconjs",
             "asOfVersion": "3.0.0"
