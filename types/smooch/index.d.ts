@@ -3,7 +3,7 @@
 // Definitions by: Jordan Sorensen <https://github.com/jpsorensen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export namespace Smooch {
+declare namespace Smooch {
     /**
      * Initializes the Smooch widget in the web page using the specified options. It returns a promise that will resolve when the Web Messenger is ready. Note that except on and off, all methods needs
      * to be called after a successful init.
@@ -946,4 +946,6 @@ export interface Delegate {
     onInvalidAuth?: () => string | Promise<string>;
 }
 
-export type Nullable<T> = { [P in keyof T]: T[P] | null };
+type Nullable<T> = { [P in keyof T]: T[P] | null };
+
+export default Smooch;

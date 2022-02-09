@@ -1,4 +1,4 @@
-import { Smooch } from 'smooch';
+import Smooch from 'smooch';
 
 // InitOptions must always have integrationId
 // $ExpectError
