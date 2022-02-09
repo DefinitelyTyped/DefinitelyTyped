@@ -32,9 +32,9 @@ export class Person extends Ember.Object.extend({
         return [this.firstName + this.lastName].join(' ');
     }),
 }) {
-    firstName: string;
-    lastName: string;
-    age: number;
+    declare firstName: string;
+    declare lastName: string;
+    declare age: number;
 }
 const p = new Person();
 

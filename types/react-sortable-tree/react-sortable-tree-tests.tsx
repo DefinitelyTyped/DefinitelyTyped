@@ -27,7 +27,7 @@ class PlaceholderRenderer extends React.Component<PlaceholderRendererProps> {
 
 class Test extends React.Component {
     render() {
-        const treeData = [
+        const treeData: TreeItem[] = [
             {
                 title: 'Title',
                 subtitle: 'Subtitle',
@@ -97,7 +97,7 @@ class Test extends React.Component {
                     treeData={treeData}
                     onChange={(data: TreeItem[]) => {}}
                     rowHeight={({ treeIndex, node, path }: NodeData & Index): number =>
-                        treeIndex + node.key + path.length
+                        treeIndex + path.length
                     }
                 />
                 <span>{maybeNode ? maybeNode.node.title : ''}</span>
@@ -121,3 +121,35 @@ const treeData = getTreeFromFlatData({
     getParentKey: ({ parent }: FlatItem) => parent,
     rootKey: 0,
 });
+
+const testWithExtendedTreeItemAttributes = () => {
+    const [treeData] = React.useState<Array<TreeItem<{ extraKey?: string }>>>([
+        {
+            title: 'Title',
+            subtitle: 'Subtitle',
+            extraKey: 'val',
+            children: [
+                { title: 'Child 1', subtitle: 'Subtitle', children: [] },
+                { title: 'Child 2', subtitle: 'Subtitle', extraKey: 'val'},
+            ],
+        }
+    ]);
+    return (
+        <div>
+            <SortableTreeWithoutDndContext
+                treeData={[{ title: 'Title', subtitle: 'Subtitle', children: [] }]}
+                onChange={(treeData) => {}}
+                style={{ width: '100px' }}
+                shouldCopyOnOutsideDrop={() => false}
+            />
+            <SortableTree
+                treeData={treeData}
+                onChange={(data) => {}}
+                rowHeight={({ treeIndex, node, path }: NodeData & Index): number =>
+                    treeIndex + path.length
+                }
+                nodeContentRenderer={({ node: { extraKey } }) => <>{`extra key val: ${extraKey}`}</>}
+            />
+        </div>
+    );
+};

@@ -1,4 +1,4 @@
-// Type definitions for @vimeo/player 2.16
+// Type definitions for @vimeo/player 2.16.3
 // Project: https://github.com/vimeo/player.js
 // Definitions by: Denis Yılmaz <https://github.com/denisyilmaz>
 //                 Felix Albert <f.albert.work@icloud.com>
@@ -103,10 +103,13 @@ export interface Options {
     controls?: boolean | undefined;
     dnt?: boolean | undefined;
     height?: number | undefined;
+    interactiveparams?: string | undefined;
+    keyboard?: boolean | undefined;
     loop?: boolean | undefined;
     maxheight?: number | undefined;
     maxwidth?: number | undefined;
     muted?: boolean | undefined;
+    pip?: boolean | undefined;
     playsinline?: boolean | undefined;
     portrait?: boolean | undefined;
     responsive?: boolean | undefined;

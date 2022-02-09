@@ -390,7 +390,7 @@ declare module 'buffer' {
              * @since v0.11.13
              * @return Either `-1`, `0`, or `1`, depending on the result of the comparison. See `compare` for details.
              */
-            compare(buf1: Uint8Array, buf2: Uint8Array): number;
+            compare(buf1: Uint8Array, buf2: Uint8Array): -1 | 0 | 1;
             /**
              * Allocates a new `Buffer` of `size` bytes. If `fill` is `undefined`, the`Buffer` will be zero-filled.
              *

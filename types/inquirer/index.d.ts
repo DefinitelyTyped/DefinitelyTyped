@@ -1,4 +1,4 @@
-// Type definitions for inquirer 8.1
+// Type definitions for inquirer 8.2
 // Project: https://github.com/SBoudrias/Inquirer.js
 // Definitions by: Qubo <https://github.com/tkQubo>
 //                 Parvez <https://github.com/ppathan>
@@ -136,7 +136,7 @@ declare namespace inquirer {
         /**
          * Prompts the questions to the user.
          */
-        <T>(questions: QuestionCollection<T>, initialAnswers?: Partial<T>): Promise<T> & { ui: PromptUI };
+        <T extends Answers = Answers>(questions: QuestionCollection<T>, initialAnswers?: Partial<T>): Promise<T> & { ui: PromptUI<T> };
 
         /**
          * Registers a new prompt-type.
@@ -318,7 +318,22 @@ declare namespace inquirer {
          * Either a value indicating whether the answer is valid or a `string` which describes the error.
          */
         validate?(input: any, answers?: T): boolean | string | Promise<boolean | string>;
+
+        /**
+         * Force to prompt the question if the answer already exists.
+         */
+        askAnswered?: boolean;
     }
+
+    /**
+     * Represents the possible answers of each question in the prompt
+     */
+    type QuestionAnswer<T extends Answers = Answers> = {
+        [K in keyof T]: {
+            name: K;
+            answer: T[K]
+        }
+    }[keyof T];
 
     /**
      * Represents a choice-item.

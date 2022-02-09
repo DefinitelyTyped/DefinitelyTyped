@@ -2528,10 +2528,10 @@ interface Image extends Object, IImageOptions {}
 export class Image {
     /**
      * Constructor
-     * @param element Image or Video element
+     * @param element Image element
      * @param [options] Options object
      */
-    constructor(element?: string | HTMLImageElement | HTMLVideoElement, options?: IImageOptions);
+    constructor(element: string | HTMLImageElement | HTMLCanvasElement | HTMLVideoElement, options?: IImageOptions);
     /**
      * Returns image or video element which this instance is based on
      * @return Image or Video element

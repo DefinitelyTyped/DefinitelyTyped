@@ -145,6 +145,7 @@ management
     });
 
 auth.requestChangePasswordEmail({
+    client_id: 'client_id',
     connection: 'My-Connection',
     email: 'hi@me.co',
 })
@@ -934,6 +935,7 @@ async () => {
     const signInUserData: auth0.SignInOptions = {
         username: '{YOUR_USERNAME}',
         otp: '123456',
+        audience: 'audience',
     };
     signInUserData.realm = 'email';
     signInUserData.realm = 'sms';

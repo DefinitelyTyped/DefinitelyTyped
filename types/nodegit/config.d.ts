@@ -45,7 +45,7 @@ export class Config {
     lock(transaction: any): number;
     setBool(name: string, value: number): Promise<number>;
     setInt32(name: string, value: number): Promise<number>;
-    setInt64(name: string, value: number): number;
+    setInt64(name: string, value: number): Promise<number>;
     setMultivar(name: string, regexp: string, value: string): Promise<number>;
     setString(name: string, value: string): Promise<number>;
     snapshot(): Promise<Config>;

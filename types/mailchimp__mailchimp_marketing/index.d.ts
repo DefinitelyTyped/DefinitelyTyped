@@ -16,13 +16,7 @@ export interface Options {
     skipMergeValidation: boolean;
 }
 
-export enum Status {
-    'subscribed' = 'subscribed',
-    'unsubscribed' = 'unsubscribed',
-    'cleaned' = 'cleaned',
-    'pending' = 'pending',
-    'transactional' = 'transactional',
-}
+export type Status = 'subscribed' | 'unsubscribed' | 'cleaned' | 'pending' | 'transactional';
 
 export interface Body {
     status?: Status | undefined;

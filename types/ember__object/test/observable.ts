@@ -1,12 +1,12 @@
 import { assertType } from './lib/assert';
-import EmberObject, { computed, getWithDefault, getProperties, get, setProperties, set } from '@ember/object';
+import EmberObject, { computed, getProperties, get, setProperties, set } from '@ember/object';
 import { removeObserver, addObserver } from '@ember/object/observers';
 
 class MyComponent extends EmberObject {
     foo = 'bar';
 
     init() {
-        this._super.apply(this, arguments);
+        this._super.apply(this);
         this.addObserver('foo', this, 'fooDidChange');
         this.addObserver('foo', this, this.fooDidChange);
         addObserver(this, 'foo', this, 'fooDidChange');
@@ -65,16 +65,6 @@ function testGetProperties() {
     assertType<{ name: string; age: number }>(getProperties(pojo, 'name', 'age'));
 }
 
-function testGetWithDefault() {
-    assertType<string>(getWithDefault(person, 'name', 'Joe'));
-    assertType<number>(getWithDefault(person, 'age', 20));
-    assertType<string>(getWithDefault(person, 'capitalized', 'JOE'));
-    assertType<string>(person.getWithDefault('name', 'Joe'));
-    assertType<number>(person.getWithDefault('age', 20));
-    assertType<string>(person.getWithDefault('capitalized', 'JOE'));
-    assertType<string>(getWithDefault(pojo, 'name', 'JOE'));
-}
-
 function testSet() {
     assertType<string>(set(person, 'name', 'Joe'));
     assertType<number>(set(person, 'age', 35));
@@ -101,8 +91,6 @@ function testDynamic() {
 
     assertType<any>(get(obj, 'dummy'));
     assertType<any>(get(obj, dynamicKey));
-    assertType<string>(getWithDefault(obj, 'dummy', 'default'));
-    assertType<string>(getWithDefault(obj, dynamicKey, 'default'));
     assertType<{ dummy: any }>(getProperties(obj, 'dummy'));
     assertType<{ dummy: any }>(getProperties(obj, ['dummy']));
     assertType<object>(getProperties(obj, dynamicKey));

@@ -401,3 +401,7 @@ buff.writeDoubleBE(123.123, 0);
     //  local "Blob" which comes with node.
     resolveObjectURL(URL.createObjectURL(new Blob(['']) as any)); // $ExpectType Blob | undefined
 }
+
+{
+    Buffer.compare(buff, buff); // $ExpectType 0 | 1 | -1
+}

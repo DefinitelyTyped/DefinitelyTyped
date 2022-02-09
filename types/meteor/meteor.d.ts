@@ -41,12 +41,19 @@ declare module 'meteor/meteor' {
             address: string;
             verified: boolean;
         }
+        /**
+         * UserProfile is left intentionally underspecified here, to allow you
+         * to override it in your application (but keep in mind that the default
+         * Meteor configuration allows users to write directly to their user
+         * record's profile field)
+         */
+        interface UserProfile {}
         interface User {
             _id: string;
             username?: string | undefined;
             emails?: UserEmail[] | undefined;
             createdAt?: Date | undefined;
-            profile?: any;
+            profile?: UserProfile;
             services?: any;
         }
 

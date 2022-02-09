@@ -1244,3 +1244,13 @@ function testEnterpriseDeviceAttributes() {
   chrome.enterprise.deviceAttributes.getDeviceAnnotatedLocation((annotatedLocation) => {});
   chrome.enterprise.deviceAttributes.getDeviceHostname((hostName) => {});
 }
+
+function testBrowsingData() {
+    chrome.browsingData.removeServiceWorkers(); // $ExpectError
+    chrome.browsingData.removeServiceWorkers({});
+    chrome.browsingData.removeServiceWorkers({}, () => {});
+}
+
+function testPageCapture() {
+  chrome.pageCapture.saveAsMHTML({ tabId: 0 }, (data: Blob | undefined) => {});
+}

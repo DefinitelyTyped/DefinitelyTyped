@@ -694,6 +694,7 @@ export interface SearchResults<TDoc = BasicDoc> {
   facets: any[];
   aroundLatLng?: string | undefined;
   automaticRadius?: string | undefined;
+  queryID?: string;
 }
 
 /**

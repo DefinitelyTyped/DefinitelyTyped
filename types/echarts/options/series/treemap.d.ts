@@ -4156,7 +4156,7 @@ declare namespace echarts {
                         color?: string | undefined;
                     } | undefined;
                 } | undefined;
-            } | undefined;
+            }[] | undefined;
 
             /**
              * Whether to ignore mouse events.

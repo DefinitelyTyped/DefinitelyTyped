@@ -1,13 +1,13 @@
 // Type definitions for Sinon 10.0
 // Project: https://sinonjs.org
 // Definitions by: William Sears <https://github.com/mrbigdog2u>
-//                 Lukas Spieß <https://github.com/lumaxis>
 //                 Nico Jansen <https://github.com/nicojs>
 //                 James Garbutt <https://github.com/43081j>
 //                 Greg Jednaszewski <https://github.com/gjednaszewski>
 //                 John Wood <https://github.com/johnjesse>
 //                 Alec Flett <https://github.com/alecf>
 //                 Simon Schick <https://github.com/SimonSchick>
+//                 Mathias Schreck <https://github.com/lo1tuma>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as FakeTimers from "@sinonjs/fake-timers";
@@ -19,11 +19,15 @@ interface Event {} // tslint:disable-line no-empty-interface
 interface Document {} // tslint:disable-line no-empty-interface
 
 declare namespace Sinon {
+    type DeepPartialOrMatcher<T> = {
+        [K in keyof T]?: SinonMatcher | (T[K] extends object ? DeepPartialOrMatcher<T[K]> : T[K]);
+    };
+
     type MatchArguments<T> = {
         [K in keyof T]: SinonMatcher | (T[K] extends object ? MatchArguments<T[K]> : never) | T[K];
     };
 
-    interface SinonSpyCallApi<TArgs extends any[] = any[], TReturnValue = any> {
+    interface SinonSpyCallApi<TArgs extends readonly any[] = any[], TReturnValue = any> {
         // Properties
         /**
          * Array of received arguments.
@@ -65,7 +69,7 @@ declare namespace Sinon {
          * This behaves the same as spy.calledWith(sinon.match(arg1), sinon.match(arg2), ...).
          * @param args
          */
-        calledWithMatch(...args: TArgs): boolean;
+        calledWithMatch(...args: DeepPartialOrMatcher<TArgs>): boolean;
         /**
          * Returns true if call did not receive provided arguments.
          * @param args
@@ -76,7 +80,7 @@ declare namespace Sinon {
          * This behaves the same as spyCall.notCalledWith(sinon.match(arg1), sinon.match(arg2), ...).
          * @param args
          */
-        notCalledWithMatch(...args: TArgs): boolean;
+        notCalledWithMatch(...args: DeepPartialOrMatcher<TArgs>): boolean;
         /**
          * Returns true if spy returned the provided value at least once.
          * Uses deep comparison for objects and arrays. Use spy.returned(sinon.match.same(obj)) for strict comparison (see matchers).
@@ -123,7 +127,7 @@ declare namespace Sinon {
         yieldToOn(property: string, obj: any, ...args: any[]): unknown[];
     }
 
-    interface SinonSpyCall<TArgs extends any[] = any[], TReturnValue = any>
+    interface SinonSpyCall<TArgs extends readonly any[] = any[], TReturnValue = any>
         extends SinonSpyCallApi<TArgs, TReturnValue> {
         /**
          * The call’s this value.
@@ -166,7 +170,7 @@ declare namespace Sinon {
         calledAfter(call: SinonSpyCall<any>): boolean;
     }
 
-    interface SinonSpy<TArgs extends any[] = any[], TReturnValue = any>
+    interface SinonSpy<TArgs extends readonly any[] = any[], TReturnValue = any>
         extends Pick<
             SinonSpyCallApi<TArgs, TReturnValue>,
             Exclude<keyof SinonSpyCallApi<TArgs, TReturnValue>, "args">
@@ -396,7 +400,7 @@ declare namespace Sinon {
         ? SinonSpy<TArgs, TReturnValue>
         : T;
 
-    interface SinonStub<TArgs extends any[] = any[], TReturnValue = any> extends SinonSpy<TArgs, TReturnValue> {
+    interface SinonStub<TArgs extends readonly any[] = any[], TReturnValue = any> extends SinonSpy<TArgs, TReturnValue> {
         /**
          * Resets the stub’s behaviour to the default behaviour
          * You can reset behaviour of all stubs using sinon.resetBehavior()
@@ -659,7 +663,7 @@ declare namespace Sinon {
         /**
          * Creates an anonymous stub function
          */
-        <TArgs extends any[] = any[], R = any>(): SinonStub<TArgs, R>;
+        <TArgs extends readonly any[] = any[], R = any>(): SinonStub<TArgs, R>;
 
         /* tslint:enable:no-unnecessary-generics */
 
@@ -1158,7 +1162,10 @@ declare namespace Sinon {
          * This behaves the same way as sinon.assert.calledWith(spy, sinon.match(arg1), sinon.match(arg2), ...).
          * It's possible to assert on a dedicated spy call: sinon.assert.calledWithMatch(spy.secondCall, arg1, arg2, ...);.
          */
-        calledWithMatch<TArgs extends any[]>(spyOrSpyCall: SinonSpy<TArgs> | SinonSpyCall<TArgs>, ...args: TArgs): void;
+        calledWithMatch<TArgs extends any[]>(
+            spyOrSpyCall: SinonSpy<TArgs> | SinonSpyCall<TArgs>,
+            ...args: DeepPartialOrMatcher<TArgs>
+        ): void;
         /**
          * Passes if spy was called once with matching arguments.
          * This behaves the same way as calling both sinon.assert.calledOnce(spy) and
@@ -1172,14 +1179,14 @@ declare namespace Sinon {
          * Passes if spy was always called with matching arguments.
          * This behaves the same way as sinon.assert.alwaysCalledWith(spy, sinon.match(arg1), sinon.match(arg2), ...).
          */
-        alwaysCalledWithMatch<TArgs extends any[]>(spy: SinonSpy<TArgs>, ...args: TArgs): void;
+        alwaysCalledWithMatch<TArgs extends any[]>(spy: SinonSpy<TArgs>, ...args: DeepPartialOrMatcher<TArgs>): void;
         /**
          * Passes if spy was never called with matching arguments.
          * This behaves the same way as sinon.assert.neverCalledWith(spy, sinon.match(arg1), sinon.match(arg2), ...).
          * @param spy
          * @param args
          */
-        neverCalledWithMatch<TArgs extends any[]>(spy: SinonSpy<TArgs>, ...args: TArgs): void;
+        neverCalledWithMatch<TArgs extends any[]>(spy: SinonSpy<TArgs>, ...args: DeepPartialOrMatcher<TArgs>): void;
         /**
          * Passes if spy was called with the new operator.
          * It’s possible to assert on a dedicated spy call: sinon.assert.calledWithNew(spy.secondCall, arg1, arg2, ...);.
@@ -1479,43 +1486,48 @@ declare namespace Sinon {
         /**
          * Creates a basic fake, with no behavior
          */
-        (): SinonSpy;
+        <TArgs extends readonly any[] = any[], TReturnValue = any>(): SinonSpy<TArgs, TReturnValue>;
         /**
          * Wraps an existing Function to record all interactions, while leaving it up to the func to provide the behavior.
          * This is useful when complex behavior not covered by the sinon.fake.* methods is required or when wrapping an existing function or method.
          */
-        (fn: Function): SinonSpy;
+        <TArgs extends readonly any[] = any[], TReturnValue = any>(fn: (...args: TArgs) => TReturnValue): SinonSpy<
+            TArgs,
+            TReturnValue
+        >;
         /**
          * Creates a fake that returns the val argument
          * @param val Returned value
          */
-        returns(val: any): SinonSpy;
+        returns<TArgs extends readonly any[] = any[], TReturnValue = any>(val: TReturnValue): SinonSpy<TArgs, TReturnValue>;
         /**
          * Creates a fake that throws an Error with the provided value as the message property.
          * If an Error is passed as the val argument, then that will be the thrown value. If any other value is passed, then that will be used for the message property of the thrown Error.
          * @param val Returned value or throw value if an Error
          */
-        throws(val: Error | string): SinonSpy;
+        throws<TArgs extends readonly any[] = any[], TReturnValue = any>(val: Error | string): SinonSpy<TArgs, TReturnValue>;
         /**
          * Creates a fake that returns a resolved Promise for the passed value.
          * @param val Resolved promise
          */
-        resolves(val: any): SinonSpy;
+        resolves<TArgs extends readonly any[] = any[], TReturnValue = any>(
+            val: TReturnValue extends PromiseLike<infer TResolveValue> ? TResolveValue : any,
+        ): SinonSpy<TArgs, TReturnValue>;
         /**
          * Creates a fake that returns a rejected Promise for the passed value.
          * If an Error is passed as the value argument, then that will be the value of the promise.
          * If any other value is passed, then that will be used for the message property of the Error returned by the promise.
          * @param val Rejected promise
          */
-        rejects(val: any): SinonSpy;
+        rejects<TArgs extends readonly any[] = any[], TReturnValue = any>(val: any): SinonSpy<TArgs, TReturnValue>;
         /**
          * fake expects the last argument to be a callback and will invoke it with the given arguments.
          */
-        yields(...args: any[]): SinonSpy;
+        yields<TArgs extends readonly any[] = any[], TReturnValue = any>(...args: any[]): SinonSpy<TArgs, TReturnValue>;
         /**
          * fake expects the last argument to be a callback and will invoke it asynchronously with the given arguments.
          */
-        yieldsAsync(...args: any[]): SinonSpy;
+        yieldsAsync<TArgs extends readonly any[] = any[], TReturnValue = any>(...args: any[]): SinonSpy<TArgs, TReturnValue>;
     }
 
     interface SinonSandbox {

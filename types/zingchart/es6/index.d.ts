@@ -18681,6 +18681,11 @@ declare namespace zingchart {
     'z-end'?: number;
     zEnd?: number;
     /**
+     * Sets the z-index of the series object
+     */
+    'z-index'?: number;
+    zIndex?: number;
+    /**
      * Sets the z-axis start point on 3d charts. 10 | "10px" | ...
      */
     'z-start'?: number;

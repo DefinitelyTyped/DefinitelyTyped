@@ -1,11 +1,11 @@
 // Type definitions for metalsmith 2.3
-// Project: https://github.com/segmentio/metalsmith
-// Definitions by: Brian Lagerman <https://github.com/brian-lagerman>
+// Project: https://github.com/metalsmith/metalsmith
+// Definitions by: Brian Lagerman <https://github.com/brian-lagerman>, Kevin Van Lierde <https://github.com/webketje>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
 /// <reference types="node" />
-import { Stats } from "fs";
+import { Mode, Stats } from 'fs';
 interface Metalsmith {
     /**
      * Set the path of the `working` directory.
@@ -15,18 +15,18 @@ interface Metalsmith {
      * Metalsmith(__dirname).directory("working");
      * @example
      * Set the absolute `working` directory to 'C:\Projects\Metalsmith\'
-     * Metalsmith(__dirname).directory("C:\\\Projects\\\Metalsmith");
-     * @link [API] https://github.com/segmentio/metalsmith#api
-     * @link [Source] https://github.com/segmentio/metalsmith/blob/00b2c7aaee13fbe0f7fb3be332929a303b2df51d/lib/index.js#L62
+     * Metalsmith(__dirname).directory("C:\\Projects\\Metalsmith");
+     * @link [API] https://github.com/metalsmith/metalsmith#api
+     * @link [Source] https://github.com/metalsmith/metalsmith/blob/v2.3.0/lib/index.js#L62
      */
     directory(directory: string): Metalsmith;
     /**
      * Get the absolute path of the `working` directory
      * @example
      * Retrieve the absolute `working` directory path
-     * var wrk:string = Metalsmith(__dirname).directory();
-     * @link [API] https://github.com/segmentio/metalsmith#api
-     * @link [Source] https://github.com/segmentio/metalsmith/blob/00b2c7aaee13fbe0f7fb3be332929a303b2df51d/lib/index.js#L62
+     * const mwd:string = Metalsmith(__dirname).directory();
+     * @link [API] https://github.com/metalsmith/metalsmith#api
+     * @link [Source] https://github.com/metalsmith/metalsmith/blob/v2.3.0/lib/index.js#L62
      */
     directory(): string;
     /**
@@ -38,8 +38,8 @@ interface Metalsmith {
      * @example
      * Set the absolute `source` directory to 'C:\Projects\Site\'
      * Metalsmith(__dirname).source("C:\\\Projects\\\Site");
-     * @link [API] https://github.com/segmentio/metalsmith#sourcepath
-     * @link [Source] https://github.com/segmentio/metalsmith/blob/00b2c7aaee13fbe0f7fb3be332929a303b2df51d/lib/index.js#L90
+     * @link [API] https://github.com/metalsmith/metalsmith#sourcepath
+     * @link [Source] https://github.com/metalsmith/metalsmith/blob/v2.3.0/lib/index.js#L90
      */
     source(path: string): Metalsmith;
     /**
@@ -47,8 +47,8 @@ interface Metalsmith {
      * @example
      * Retrieve the absolute `source` directory path
      * var src:string = Metalsmith(__dirname).source();
-     * @link [API] https://github.com/segmentio/metalsmith#sourcepath
-     * @link [Source] https://github.com/segmentio/metalsmith/blob/00b2c7aaee13fbe0f7fb3be332929a303b2df51d/lib/index.js#L90
+     * @link [API] https://github.com/metalsmith/metalsmith#sourcepath
+     * @link [Source] https://github.com/metalsmith/metalsmith/blob/v2.3.0/lib/index.js#L90
      */
     source(): string;
     /**
@@ -60,8 +60,8 @@ interface Metalsmith {
      * @example
      * Set the absolute `destination` directory to 'C:\Projects\Out\'
      * Metalsmith(__dirname).destination("C:\\\Projects\\\Out");
-     * @link [API] https://github.com/segmentio/metalsmith#destinationpath
-     * @link [Source] https://github.com/segmentio/metalsmith/blob/00b2c7aaee13fbe0f7fb3be332929a303b2df51d/lib/index.js#L104
+     * @link [API] https://github.com/metalsmith/metalsmith#destinationpath
+     * @link [Source] https://github.com/metalsmith/metalsmith/blob/v2.3.0/lib/index.js#L104
      */
     destination(path: string): Metalsmith;
     /**
@@ -69,8 +69,8 @@ interface Metalsmith {
      * @example
      * Retrieve the absolute `destination` directory path
      * var dst:string = Metalsmith(__dirname).destination();
-     * @link [API] https://github.com/segmentio/metalsmith#destinationpath
-     * @link [Source] https://github.com/segmentio/metalsmith/blob/00b2c7aaee13fbe0f7fb3be332929a303b2df51d/lib/index.js#L104
+     * @link [API] https://github.com/metalsmith/metalsmith#destinationpath
+     * @link [Source] https://github.com/metalsmith/metalsmith/blob/v2.3.0/lib/index.js#L104
      */
     destination(): string;
     /**
@@ -79,8 +79,8 @@ interface Metalsmith {
      * @example
      * Set the `maximum` number of files to open at once to 50
      * Metalsmith(__dirname).concurrency(50);
-     * @link [API] https://github.com/segmentio/metalsmith#concurrencymax
-     * @link [Source] https://github.com/segmentio/metalsmith/blob/00b2c7aaee13fbe0f7fb3be332929a303b2df51d/lib/index.js#L118
+     * @link [API] https://github.com/metalsmith/metalsmith#concurrencymax
+     * @link [Source] https://github.com/metalsmith/metalsmith/blob/v2.3.0/lib/index.js#L118
      */
     concurrency(max: number): Metalsmith;
     /**
@@ -88,8 +88,8 @@ interface Metalsmith {
      * @example
      * Retrieve the `maximum` number of files to open at once
      * var max:number = Metalsmith(__dirname).concurrency();
-     * @link [API] https://github.com/segmentio/metalsmith#concurrencymax
-     * @link [Source] https://github.com/segmentio/metalsmith/blob/00b2c7aaee13fbe0f7fb3be332929a303b2df51d/lib/index.js#L118
+     * @link [API] https://github.com/metalsmith/metalsmith#concurrencymax
+     * @link [Source] https://github.com/metalsmith/metalsmith/blob/v2.3.0/lib/index.js#L118
      */
     concurrency(): number;
     /**
@@ -98,8 +98,8 @@ interface Metalsmith {
      * @example
      * Set the flag to `clean` the destination directory to false
      * Metalsmith(__dirname).clean(false);
-     * @link [API] https://github.com/segmentio/metalsmith#cleanboolean
-     * @link [Source] https://github.com/segmentio/metalsmith/blob/00b2c7aaee13fbe0f7fb3be332929a303b2df51d/lib/index.js#L132
+     * @link [API] https://github.com/metalsmith/metalsmith#cleanboolean
+     * @link [Source] https://github.com/metalsmith/metalsmith/blob/v2.3.0/lib/index.js#L132
      */
     clean(clean: boolean): Metalsmith;
     /**
@@ -107,8 +107,8 @@ interface Metalsmith {
      * @example
      * Retrieve the `clean` flag indicating destination directory removal
      * var clean:boolean = Metalsmith(__dirname).clean();
-     * @link [API] https://github.com/segmentio/metalsmith#cleanboolean
-     * @link [Source] https://github.com/segmentio/metalsmith/blob/00b2c7aaee13fbe0f7fb3be332929a303b2df51d/lib/index.js#L132
+     * @link [API] https://github.com/metalsmith/metalsmith#cleanboolean
+     * @link [Source] https://github.com/metalsmith/metalsmith/blob/v2.3.0/lib/index.js#L132
      */
     clean(): boolean;
     /**
@@ -117,8 +117,8 @@ interface Metalsmith {
      * @example
      * Set the flag to parse YAML `frontmatter` to false
      * Metalsmith(__dirname).frontmatter(false);
-     * @link [API] https://github.com/segmentio/metalsmith#frontmatterboolean
-     * @link [Source] https://github.com/segmentio/metalsmith/blob/00b2c7aaee13fbe0f7fb3be332929a303b2df51d/lib/index.js#L145
+     * @link [API] https://github.com/metalsmith/metalsmith#frontmatterboolean
+     * @link [Source] https://github.com/metalsmith/metalsmith/blob/v2.3.0/lib/index.js#L145
      */
     frontmatter(frontmatter: boolean): Metalsmith;
     /**
@@ -126,8 +126,8 @@ interface Metalsmith {
      * @example
      * Retrieve the `frontmatter` flag indicating YAML parsing
      * var parse:boolean = Metalsmith(__dirname).frontmatter();
-     * @link [API] https://github.com/segmentio/metalsmith#frontmatterboolean
-     * @link [Source] https://github.com/segmentio/metalsmith/blob/00b2c7aaee13fbe0f7fb3be332929a303b2df51d/lib/index.js#L145
+     * @link [API] https://github.com/metalsmith/metalsmith#frontmatterboolean
+     * @link [Source] https://github.com/metalsmith/metalsmith/blob/v2.3.0/lib/index.js#L145
      */
     frontmatter(): boolean;
     /**
@@ -136,8 +136,8 @@ interface Metalsmith {
      * @example
      * Add 'sitename' to the global `metadata` object
      * Metalsmith(__dirname).metadata({sitename: "My Static Site"});
-     * @link [API] https://github.com/segmentio/metalsmith#metadatajson
-     * @link [Source] https://github.com/segmentio/metalsmith/blob/00b2c7aaee13fbe0f7fb3be332929a303b2df51d/lib/index.js#L76
+     * @link [API] https://github.com/metalsmith/metalsmith#metadatajson
+     * @link [Source] https://github.com/metalsmith/metalsmith/blob/v2.3.0/lib/index.js#L76
      */
     metadata(metadata: object): Metalsmith;
     /**
@@ -145,8 +145,8 @@ interface Metalsmith {
      * @example
      * Retrieve the `metadata` object passed to templates
      * var meta:object = Metalsmith(__dirname).metadata();
-     * @link [API] https://github.com/segmentio/metalsmith#metadatajson
-     * @link [Source] https://github.com/segmentio/metalsmith/blob/00b2c7aaee13fbe0f7fb3be332929a303b2df51d/lib/index.js#L76
+     * @link [API] https://github.com/metalsmith/metalsmith#metadatajson
+     * @link [Source] https://github.com/metalsmith/metalsmith/blob/v2.3.0/lib/index.js#L76
      */
     metadata(): object;
     /**
@@ -155,8 +155,8 @@ interface Metalsmith {
      * @example
      * Add 'metalsmith-markdown' to the middleware stack
      * Metalsmith(__dirname).use(markdown());
-     * @link [API] https://github.com/segmentio/metalsmith#useplugin
-     * @link [Source] https://github.com/segmentio/metalsmith/blob/00b2c7aaee13fbe0f7fb3be332929a303b2df51d/lib/index.js#L50
+     * @link [API] https://github.com/metalsmith/metalsmith#useplugin
+     * @link [Source] https://github.com/metalsmith/metalsmith/blob/v2.3.0/lib/index.js#L50
      */
     use(plugin: Metalsmith.Plugin | Metalsmith.Plugin[]): Metalsmith;
     /**
@@ -170,17 +170,17 @@ interface Metalsmith {
      * Metalsmith(__dirname).ignore(ignore(function (filepath: string, stats: Stats) {
      *      return stats.isDirectory() && path.basename(filepath) === 'nested';
      * });
-     * @link [API] https://github.com/segmentio/metalsmith#ignorepath
-     * @link [Source] https://github.com/segmentio/metalsmith/blob/00b2c7aaee13fbe0f7fb3be332929a303b2df51d/lib/index.js#L159
+     * @link [API] https://github.com/metalsmith/metalsmith#ignorepath
+     * @link [Source] https://github.com/metalsmith/metalsmith/blob/v2.3.0/lib/index.js#L159
      */
     ignore(files: string | string[] | Metalsmith.Ignore | Metalsmith.Ignore[]): Metalsmith;
     /**
      * Get the array of `Ignored` files/paths.
      * @example
      * Retrieve the `ignored` array of files in Metalsmith
-     * var ingnored:string[] = Metalsmith(__dirname).ignore();
-     * @link [API] https://github.com/segmentio/metalsmith#ignorepath
-     * @link [Source] https://github.com/segmentio/metalsmith/blob/00b2c7aaee13fbe0f7fb3be332929a303b2df51d/lib/index.js#L159
+     * var ignored:string[] = Metalsmith(__dirname).ignore();
+     * @link [API] https://github.com/metalsmith/metalsmith#ignorepath
+     * @link [Source] https://github.com/metalsmith/metalsmith/blob/v2.3.0/lib/index.js#L159
      */
     ignore(): string[];
     /**
@@ -189,21 +189,21 @@ interface Metalsmith {
      * @example
      * Retrieve the path after resolving sub-directies
      * var path:string = Metalsmith(__dirname).path("path-a", "path-b");
-     * @link [API] https://github.com/segmentio/metalsmith#pathpaths
-     * @link [Source] https://github.com/segmentio/metalsmith/blob/00b2c7aaee13fbe0f7fb3be332929a303b2df51d/lib/index.js#L171
+     * @link [API] https://github.com/metalsmith/metalsmith#pathpaths
+     * @link [Source] https://github.com/metalsmith/metalsmith/blob/v2.3.0/lib/index.js#L171
      */
     path(...paths: string[]): string;
     /**
      * Perform the `build` with the current settings outputting to the destination directory.
-     * @param fn - Optional Callback function.
+     * @param fn - Optional **(but strongly encouraged)** {@link Callback} function.
      * @example
      * Perform the `build` with the current settings
      * Metalsmith(__dirname).build(
      * function (err: Error): any {
      *     if (err) {throw err;}
      * });
-     * @link [API] https://github.com/segmentio/metalsmith#buildfn
-     * @link [Source] https://github.com/segmentio/metalsmith/blob/00b2c7aaee13fbe0f7fb3be332929a303b2df51d/lib/index.js#L184
+     * @link [API] https://github.com/metalsmith/metalsmith#buildfn
+     * @link [Source] https://github.com/metalsmith/metalsmith/blob/v2.3.0/lib/index.js#L184
      */
     build(fn?: Metalsmith.Callback): object;
     /**
@@ -215,8 +215,8 @@ interface Metalsmith {
      * function (err: Error): any {
      *     if (err) {throw err;}
      * });
-     * @link [API] https://github.com/segmentio/metalsmith#processfn
-     * @link [Source] https://github.com/segmentio/metalsmith/blob/00b2c7aaee13fbe0f7fb3be332929a303b2df51d/lib/index.js#L200
+     * @link [API] https://github.com/metalsmith/metalsmith#processfn
+     * @link [Source] https://github.com/metalsmith/metalsmith/blob/v2.3.0/lib/index.js#L200
      */
     process(fn?: Metalsmith.Callback): object;
     /**
@@ -227,8 +227,8 @@ interface Metalsmith {
      * `Run` all of the middleware functions on a dictionary of files.
      * var callback:Metalsmith.Callback = (err: Error, files: object) => {if (err) {throw err;}};
      * Metalsmith(__dirname).run({fileA: "a.html"} , callback);
-     * @link [API] https://github.com/segmentio/metalsmith#runfiles-fn
-     * @link [Source] https://github.com/segmentio/metalsmith/blob/00b2c7aaee13fbe0f7fb3be332929a303b2df51d/lib/index.js#L212
+     * @link [API] https://github.com/metalsmith/metalsmith#runfiles-fn
+     * @link [Source] https://github.com/metalsmith/metalsmith/blob/v2.3.0/lib/index.js#L212
      */
     run(files: object, fn?: Metalsmith.Callback): object;
     /**
@@ -239,8 +239,8 @@ interface Metalsmith {
      * `Run` all of the middleware functions on a dictionary of files.
      * var callback:Metalsmith.Callback = (err: Error, files: object) => {if (err) {throw err;}};
      * Metalsmith(__dirname).run({fileA: "a.html"} , callback);
-     * @link [API] https://github.com/segmentio/metalsmith#runfiles-fn
-     * @link [Source] https://github.com/segmentio/metalsmith/blob/00b2c7aaee13fbe0f7fb3be332929a303b2df51d/lib/index.js#L212
+     * @link [API] https://github.com/metalsmith/metalsmith#runfiles-fn
+     * @link [Source] https://github.com/metalsmith/metalsmith/blob/v2.3.0/lib/index.js#L212
      */
     run(files: object, plugins: Metalsmith.Plugin[], fn?: Metalsmith.Callback): object;
     /**
@@ -250,7 +250,7 @@ interface Metalsmith {
      * @example
      * Read a dictionary of files from a `dir`.
      * var files:object = Metalsmith(__dirname).read("subdir");
-     * @link [Source] https://github.com/segmentio/metalsmith/blob/00b2c7aaee13fbe0f7fb3be332929a303b2df51d/lib/index.js#L227
+     * @link [Source] https://github.com/metalsmith/metalsmith/blob/v2.3.0/lib/index.js#L227
      */
     read(dir: string, fn?: Metalsmith.Callback): object;
     /**
@@ -260,7 +260,7 @@ interface Metalsmith {
      * @example
      * Read a dictionary of files from a `dir`.
      * var files:object = Metalsmith(__dirname).read("subdir");
-     * @link [Source] https://github.com/segmentio/metalsmith/blob/00b2c7aaee13fbe0f7fb3be332929a303b2df51d/lib/index.js#L227
+     * @link [Source] https://github.com/metalsmith/metalsmith/blob/v2.3.0/lib/index.js#L227
      */
     read(fn: Metalsmith.Callback): object;
     /**
@@ -270,7 +270,7 @@ interface Metalsmith {
      * @example
      * Read a `file` by path.
      * var fileData:object = Metalsmith(__dirname).readFile("a.html");
-     * @link [Source] https://github.com/segmentio/metalsmith/blob/00b2c7aaee13fbe0f7fb3be332929a303b2df51d/lib/index.js#L261
+     * @link [Source] https://github.com/metalsmith/metalsmith/blob/v2.3.0/lib/index.js#L261
      */
     readFile(file: string): object;
     /**
@@ -282,7 +282,7 @@ interface Metalsmith {
      * @example
      * Write a dictionary of `files` to a destination `dir`.
      * Metalsmith(__dirname).write({fileA: "a.html"} , "C:\\\OutDir");
-     * @link [Source] https://github.com/segmentio/metalsmith/blob/00b2c7aaee13fbe0f7fb3be332929a303b2df51d/lib/index.js#L308
+     * @link [Source] https://github.com/metalsmith/metalsmith/blob/v2.3.0/lib/index.js#L308
      */
     write(files: object, dir?: string, fn?: Metalsmith.Callback): void;
     /**
@@ -293,7 +293,7 @@ interface Metalsmith {
      * @example
      * Write a dictionary of `files` to a destination `dir`.
      * Metalsmith(__dirname).write({fileA: "a.html"} , "C:\\\OutDir");
-     * @link [Source] https://github.com/segmentio/metalsmith/blob/00b2c7aaee13fbe0f7fb3be332929a303b2df51d/lib/index.js#L308
+     * @link [Source] https://github.com/metalsmith/metalsmith/blob/v2.3.0/lib/index.js#L308
      */
     write(files: object, fn: Metalsmith.Callback): void;
     /**
@@ -304,9 +304,20 @@ interface Metalsmith {
      * @example
      * Write a `file` by path with `data`.
      * Metalsmith(__dirname).writeFile("test.html", {contents: "File Contents"});
-     * @link [Source] https://github.com/segmentio/metalsmith/blob/00b2c7aaee13fbe0f7fb3be332929a303b2df51d/lib/index.js#L336
+     * @link [Source] https://github.com/metalsmith/metalsmith/blob/v2.3.0/lib/index.js#L336
      */
     writeFile(file: string, data: object): void;
+
+    /**
+     * The (read-only) list of plugins `use`'d by the current metalsmith instance.
+     * When read from inside a plugin, the list is guaranteed to be complete
+     */
+    readonly plugins: Metalsmith.Plugin[];
+
+    /**
+     * The (read-only) list of ignores of the current metalsmith instance
+     */
+    readonly ignores: string[];
 }
 
 /**
@@ -316,18 +327,38 @@ interface Metalsmith {
  * initialize Metalsmith with the node.js working directory
  * Metalsmith(__dirname);
  * @link [Metalsmith] http://www.metalsmith.io/
- * @link [API] https://github.com/segmentio/metalsmith#new-metalsmithdir
- * @link [Source] https://github.com/segmentio/metalsmith/blob/00b2c7aaee13fbe0f7fb3be332929a303b2df51d/lib/index.js#L30
+ * @link [API] https://github.com/metalsmith/metalsmith#new-metalsmithdir
+ * @link [Source] https://github.com/metalsmith/metalsmith/blob/v2.3.0/lib/index.js#L30
  */
 declare function Metalsmith(directory: string): Metalsmith;
 
 declare namespace Metalsmith {
-    type Plugin = (files: Files, metalsmith: Metalsmith, callback: Callback)  => void;
+    /**
+     * A Metalsmith plugin is a function that is passed the file list, the metalsmith instance, and a `done` callback.
+     * Calling the callback is required for asynchronous plugins, and optional for synchronous plugins.
+     */
+    type Plugin = (files: Files, metalsmith: Metalsmith, callback: Callback) => void;
     type Callback = (err: Error | null, files: Files, metalsmith: Metalsmith) => void;
     type Ignore = (path: string, stat: Stats) => void;
 
+    /**
+     * Metalsmith representation of a file
+     */
+    interface File {
+        /** A Node {@link Buffer} that can be `.toString`'ed to obtain its human-readable contents */
+        contents: Buffer;
+        /** A Node {@link Stats} object with extra filesystem metadata and methods (like {@link Stats.isFile}) */
+        stats?: Stats;
+        /** Octal permission {@link Mode} of a file */
+        mode?: string;
+        [property: string]: any;
+    }
+    /**
+     * Metalsmith representation of the files in `metalsmith.source()`.
+     * The keys represent the file paths and the values are {@link Metalsmith.File} objects
+     */
     interface Files {
-      [index: string]: any;
+        [filepath: string]: File;
     }
 }
 

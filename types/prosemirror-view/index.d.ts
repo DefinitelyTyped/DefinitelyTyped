@@ -77,6 +77,10 @@ export interface WidgetDecorationSpec {
      * different keys.
      */
     key?: string | null | undefined;
+    /**
+     * Called when the widget decoration is removed as a result of mapping
+     */
+    destroy?: (node: Node) => void;
 }
 /**
  * The `spec` for the inline decoration.
