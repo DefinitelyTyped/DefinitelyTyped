@@ -7,9 +7,9 @@ interface DeepEqualOptions {
     strict: boolean;
 }
 
-declare function deepEqual(
-    actual: any,
-    expected: any,
+declare function deepEqual<T, K = T>(
+    actual: T,
+    expected: K,
     opts?: DeepEqualOptions): boolean;
 
 export = deepEqual;
