@@ -8,20 +8,20 @@
 
 import stream = require('stream');
 
-type probableAsSrc = string[] | string | Buffer;
+type ProbableAsSrc = string[] | string | Buffer;
 
 // tslint:disable-next-line ban-types
-type fontminPlugin = Function | stream.Transform;
+type FontminPlugin = Function | stream.Transform;
 
-interface pluginCloneOption {
+interface PluginCloneOption {
     clone?: boolean;
 }
 
-interface pluginHintOption {
+interface PluginHintOption {
     hinting?: boolean;
 }
 
-interface pluginFromSVGOption extends pluginHintOption {
+interface PluginFromSVGOption extends PluginHintOption {
     fontName?: string;
     adjust?: {
         leftSidebearing: number;
@@ -37,7 +37,7 @@ interface pluginFromSVGOption extends pluginHintOption {
     };
 }
 
-interface fontInfo {
+interface FontInfo {
     fontFile: string;
     fontPath: string;
     base64: boolean;
@@ -46,42 +46,42 @@ interface fontInfo {
     local: boolean;
 }
 
-interface CSSOption {
+interface CssOption {
     glyph?: boolean;
     base64?: boolean;
     iconPrefix?: string;
-    fontFamily?: string | ((fontinfo: fontInfo, ttf: any) => string);
+    fontFamily?: string | ((fontinfo: FontInfo, ttf: any) => string);
     filename?: string;
     fontPath?: string;
     asFileName?: boolean;
     local?: boolean;
 }
 
-interface glyphOption {
+interface GlyphOption {
     text?: string;
     basicText?: boolean;
     hinting?: boolean;
-    use?: fontminPlugin;
+    use?: FontminPlugin;
 }
 
-declare class Fontmin<srcType extends probableAsSrc> {
+declare class Fontmin<SrcType extends ProbableAsSrc> {
     constructor();
 
     dest(): string;
 
-    dest(dir: string): Fontmin<srcType>;
+    dest(dir: string): Fontmin<SrcType>;
 
     run(cb: (err: Error, files: Array<{ _contents: stream.Readable }>, stream: any) => void): any;
 
-    src(): srcType;
+    src(): SrcType;
 
-    src<T extends probableAsSrc>(file: T): Fontmin<T>;
+    src<T extends ProbableAsSrc>(file: T): Fontmin<T>;
 
-    use(plugin: fontminPlugin): Fontmin<srcType>;
+    use(plugin: FontminPlugin): Fontmin<SrcType>;
 
-    static css(opts: CSSOption): stream.Transform;
+    static css(opts: CssOption): stream.Transform;
 
-    static glyph(opts: glyphOption): stream.Transform;
+    static glyph(opts: GlyphOption): stream.Transform;
 
     static mime: {
         '.*': string;
@@ -94,21 +94,21 @@ declare class Fontmin<srcType extends probableAsSrc> {
         woff2: string;
     };
 
-    static otf2ttf(opts?: pluginCloneOption & pluginHintOption): stream.Transform;
+    static otf2ttf(opts?: PluginCloneOption & PluginHintOption): stream.Transform;
 
     static plugins: string[];
 
-    static svg2ttf(opts?: pluginCloneOption & pluginHintOption): stream.Transform;
+    static svg2ttf(opts?: PluginCloneOption & PluginHintOption): stream.Transform;
 
-    static svgs2ttf(file: string, opts?: pluginFromSVGOption): stream.Transform;
+    static svgs2ttf(file: string, opts?: PluginFromSVGOption): stream.Transform;
 
-    static ttf2eot(opts?: pluginCloneOption): stream.Transform;
+    static ttf2eot(opts?: PluginCloneOption): stream.Transform;
 
-    static ttf2svg(opts?: pluginCloneOption): stream.Transform;
+    static ttf2svg(opts?: PluginCloneOption): stream.Transform;
 
-    static ttf2woff(opts?: pluginCloneOption): stream.Transform;
+    static ttf2woff(opts?: PluginCloneOption): stream.Transform;
 
-    static ttf2woff2(opts?: pluginCloneOption): stream.Transform;
+    static ttf2woff2(opts?: PluginCloneOption): stream.Transform;
 }
 
 export = Fontmin;
