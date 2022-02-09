@@ -16,7 +16,7 @@
 /// <reference types="node" />
 
 import FormData = require('form-data');
-import { Agent } from "http";
+import { RequestOptions } from "http";
 import { URLSearchParams, URL } from "url";
 import { AbortSignal } from "./externals";
 
@@ -31,7 +31,7 @@ export class Request extends Body {
     url: string;
 
     // node-fetch extensions to the whatwg/fetch spec
-    agent?: Agent | ((parsedUrl: URL) => Agent) | undefined;
+    agent?: RequestOptions['agent'] | ((parsedUrl: URL) => RequestOptions['agent']);
     compress: boolean;
     counter: number;
     follow: number;
@@ -51,7 +51,7 @@ export interface RequestInit {
     signal?: AbortSignal | null | undefined;
 
     // node-fetch extensions
-    agent?: Agent | ((parsedUrl: URL) => Agent) | undefined; // =null http.Agent instance, allows custom proxy, certificate etc.
+    agent?: RequestOptions['agent'] | ((parsedUrl: URL) => RequestOptions['agent']); // =null http.Agent instance, allows custom proxy, certificate etc.
     compress?: boolean | undefined; // =true support gzip/deflate content encoding. false to disable
     follow?: number | undefined; // =20 maximum redirect count. 0 to not follow redirect
     size?: number | undefined; // =0 maximum response body size in bytes. 0 to disable

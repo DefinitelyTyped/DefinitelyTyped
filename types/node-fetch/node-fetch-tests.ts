@@ -19,7 +19,8 @@ function test_fetchUrlWithOptions() {
         method: "POST",
         redirect: "manual",
         size: 100,
-        timeout: 5000
+        timeout: 5000,
+        agent: false,
     };
     handlePromise(
         fetch("http://www.andlabs.net/html5/uCOR.php", requestOptions)
@@ -75,7 +76,7 @@ function test_fetchUrlWithRequestObject() {
     );
     const timeout: number = request.timeout;
     const size: number = request.size;
-    const agent: Agent | ((parsedUrl: URL) => Agent) | undefined = request.agent;
+    const agent: Agent | ((parsedUrl: URL) => boolean | Agent | undefined) | boolean | undefined = request.agent;
     const protocol: string = request.protocol;
 
     handlePromise(fetch(request));
@@ -127,7 +128,7 @@ function test_fetchUrlObjectWithRequestObject() {
     );
     const timeout: number = request.timeout;
     const size: number = request.size;
-    const agent: Agent | ((parsedUrl: URL) => Agent) | undefined = request.agent;
+    const agent: Agent | ((parsedUrl: URL) => boolean | Agent | undefined) | boolean | undefined = request.agent;
     const protocol: string = request.protocol;
 
     handlePromise(fetch(request));
