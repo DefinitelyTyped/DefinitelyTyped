@@ -192,17 +192,6 @@ export function sign(
 ): void;
 
 /**
- * Synchronously verify given token using a secret or a public key to get a decoded token
- * token - JWT string to verify
- * secretOrPublicKey - Either the secret for HMAC algorithms, or the PEM encoded public key for RSA and ECDSA.
- * [options] - Options for the verification
- * returns - The decoded token.
- */
-export function verify(token: string, secretOrPublicKey: Secret, options: VerifyOptions & { complete: true }): Jwt;
-export function verify(token: string, secretOrPublicKey: Secret, options?: VerifyOptions & { complete?: false }): JwtPayload | string;
-export function verify(token: string, secretOrPublicKey: Secret, options?: VerifyOptions): Jwt | JwtPayload | string;
-
-/**
  * Asynchronously verify given token using a secret or a public key to get a decoded token
  * token - JWT string to verify
  * secretOrPublicKey - A string or buffer containing either the secret for HMAC algorithms,
@@ -234,6 +223,17 @@ export function verify(
     options?: VerifyOptions,
     callback?: VerifyCallback,
 ): void;
+
+/**
+ * Synchronously verify given token using a secret or a public key to get a decoded token
+ * token - JWT string to verify
+ * secretOrPublicKey - Either the secret for HMAC algorithms, or the PEM encoded public key for RSA and ECDSA.
+ * [options] - Options for the verification
+ * returns - The decoded token.
+ */
+export function verify(token: string, secretOrPublicKey: Secret, options: VerifyOptions & { complete: true }): Jwt;
+export function verify(token: string, secretOrPublicKey: Secret, options?: VerifyOptions & { complete?: false }): JwtPayload | string;
+export function verify(token: string, secretOrPublicKey: Secret, options?: VerifyOptions): Jwt | JwtPayload | string;
 
 /**
  * Returns the decoded payload without verifying if the signature is valid.
