@@ -5470,8 +5470,8 @@ declare namespace google.maps {
     /**
      * Additional controls to attach to the panorama. To add a control to the
      * panorama, add the control&#39;s <code>&lt;div&gt;</code> to the
-     * <code>MVCArray</code> corresponding to the <code>ControlPosition</code>
-     * where it should be rendered.
+     * <code>MVCArray</code> corresponding to the {@link
+     * google.maps.ControlPosition} where it should be rendered.
      */
     controls: google.maps.MVCArray<any>[];
     /**
