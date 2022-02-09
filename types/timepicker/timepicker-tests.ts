@@ -7,7 +7,7 @@ $('#timepicker').timepicker({
 });
 
 $('#timepicker').timepicker({
-    appendTo: clickedElement => $(clickedElement),
+    appendTo: clickedElement => clickedElement,
 });
 
 $('#timepicker').timepicker({
@@ -100,7 +100,7 @@ $('#timepicker').timepicker({
 });
 
 $('#timepicker').timepicker({
-    roundingFunction: (seconds, {}) => (Number.isFinite(seconds) ? Number(seconds) : 0),
+    roundingFunction: (seconds, {}) => (seconds && Number.isFinite(seconds) ? Number(seconds) : 0),
 });
 
 $('#timepicker').timepicker({

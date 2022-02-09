@@ -87,14 +87,14 @@ interface JQueryTimepickerOptions {
               value?: string;
               className?: string;
           }
-        | (
+        | Array<
               | string
               | {
                     label?: string;
                     value?: string;
                     className?: string;
                 }
-          )[]
+          >
         | undefined;
 
     // By default the timepicker dropdown will be aligned to the bottom right of the input element, or aligned to the top left if there isn't enough room below the input.
