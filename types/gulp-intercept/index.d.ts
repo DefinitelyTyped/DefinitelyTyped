@@ -10,11 +10,11 @@ import Vinyl = require('vinyl');
 
 declare namespace intercept {
     interface Intercept {
-        <VinylFileWithCustomProperties extends Vinyl>(
+        <VinylFileWithCustomProperties extends Vinyl = Vinyl>(
             interceptFunction: InterceptFunction<VinylFileWithCustomProperties>
         ): NodeJS.ReadWriteStream;
     }
-    interface InterceptFunction<VinylFileWithCustomProperties extends Vinyl> {
+    interface InterceptFunction<VinylFileWithCustomProperties extends Vinyl = Vinyl> {
         (file: VinylFileWithCustomProperties): VinylFileWithCustomProperties;
     }
 }
