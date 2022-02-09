@@ -14,7 +14,7 @@ export = KeyvRedis;
 
 declare class KeyvRedis extends EventEmitter implements Store<string | undefined> {
     readonly ttlSupport: true;
-    namespace?: string;
+    namespace?: string | undefined;
 
     constructor(options?: KeyvRedis.Options);
     constructor(uri: string, options?: KeyvRedis.Options);
@@ -27,6 +27,6 @@ declare class KeyvRedis extends EventEmitter implements Store<string | undefined
 
 declare namespace KeyvRedis {
     interface Options extends ClientOpts {
-        uri?: string;
+        uri?: string | undefined;
     }
 }

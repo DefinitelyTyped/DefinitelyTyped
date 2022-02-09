@@ -18,15 +18,15 @@ declare namespace AMap {
             /**
              * 鹰眼窗体中需显示的切片图层
              */
-            tileLayer?: L;
+            tileLayer?: L | undefined;
             /**
              * 鹰眼是否展开，默认为false
              */
-            isOpen?: boolean;
+            isOpen?: boolean | undefined;
             /**
              * 鹰眼是否显示，默认为true
              */
-            visible?: boolean;
+            visible?: boolean | undefined;
         }
     }
 

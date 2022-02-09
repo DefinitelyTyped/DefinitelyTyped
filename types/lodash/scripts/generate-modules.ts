@@ -104,7 +104,7 @@ function lodashDotFooTsconfig(): string {
 }
 
 function tslint(): string {
-    return `{ "extends": "dtslint/dt.json" }\n`;
+    return `{ "extends": "@definitelytyped/dtslint/dt.json" }\n`;
 }
 
 function loadString(url: string): Promise<string> {
@@ -310,7 +310,6 @@ function allModuleNames(): string[] {
         "min",
         "minBy",
         "mixin",
-        "multiply",
         "negate",
         "noConflict",
         "noop",

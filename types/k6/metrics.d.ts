@@ -1,11 +1,10 @@
 /*
  * Custom metrics.
- * https://docs.k6.io/docs/k6metrics
+ * https://k6.io/docs/javascript-api/k6-metrics/
  */
 
 /**
  * Custom metric.
- * @public
  */
 export abstract class Metric {
     protected __brand: never;
@@ -15,6 +14,9 @@ export abstract class Metric {
      * @param isTime - Whether values are time values.
      */
     constructor(name: string, isTime?: boolean);
+
+    /** The name of the custom metric. */
+    name: string;
 
     /**
      * Add value.
@@ -26,8 +28,14 @@ export abstract class Metric {
 
 /**
  * Cumulative counter.
- * https://docs.k6.io/docs/counter-k6metrics
- * @public
+ * https://k6.io/docs/javascript-api/k6-metrics/counter-k6-metrics/
+ *
+ * @example
+ * // Create instance on init context
+ * const myCounter = new Counter('metricName');
+ * export default function() {
+ *   myCounter.add(1);
+ * }
  */
 export class Counter extends Metric {
     protected __brand: never;
@@ -35,8 +43,7 @@ export class Counter extends Metric {
 
 /**
  * Gauge. Holds only latest value.
- * https://docs.k6.io/docs/gauge-k6metrics
- * @public
+ * https://k6.io/docs/javascript-api/k6-metrics/gauge-k6-metrics/
  */
 export class Gauge extends Metric {
     protected __brand: never;
@@ -44,8 +51,7 @@ export class Gauge extends Metric {
 
 /**
  * Tracks percentage of nonzero values.
- * https://docs.k6.io/docs/rate-k6metrics
- * @public
+ * https://k6.io/docs/javascript-api/k6-metrics/rate-k6-metrics/
  */
 export class Rate extends Metric {
     protected __brand: never;
@@ -53,8 +59,7 @@ export class Rate extends Metric {
 
 /**
  * Calculates summary statistics.
- * https://docs.k6.io/docs/trend-k6metrics
- * @public
+ * https://k6.io/docs/javascript-api/k6-metrics/trend-k6-metrics/
  */
 export class Trend extends Metric {
     protected __brand: never;

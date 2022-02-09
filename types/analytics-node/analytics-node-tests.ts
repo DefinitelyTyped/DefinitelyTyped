@@ -40,11 +40,9 @@ function testIdentify(): void {
       plan: 'Enterprise',
       friends: 42
     }
-  }, (err, data) => {
+  }, (err) => {
     if (err) {
       console.error(err);
-    } else {
-      data.batch.forEach((message) => console.log(`${data.sentAt} : ${message}`));
     }
   });
 }
@@ -60,17 +58,32 @@ function testTrack(): void {
   });
 
   analytics.track({
+    anonymousId: '019mr8mf4r',
+    event: 'Purchased an Item',
+    properties: {
+      revenue: 39.95,
+      shippingMethod: '2-day'
+    }
+  });
+
+  analytics.track({
+    event: 'Purchased an Item',
+    properties: {
+      revenue: 39.95,
+      shippingMethod: '2-day'
+    }
+  });
+
+  analytics.track({
     userId: '019mr8mf4r',
     event: 'Purchased an Item',
     properties: {
       revenue: 39.95,
       shippingMethod: '2-day'
     }
-  }, (err, data) => {
+  }, (err) => {
     if (err) {
       console.error(err);
-    } else {
-      data.batch.forEach((message) => console.log(`${data.sentAt} : ${message}`));
     }
   });
 }
@@ -98,11 +111,37 @@ function testPage(): void {
       title: 'Node.js Library - Segment',
       referrer: 'https://github.com/segmentio/analytics-node'
     }
-  }, (err, data) => {
+  }, (err) => {
     if (err) {
       console.error(err);
-    } else {
-      data.batch.forEach((message) => console.log(`${data.sentAt} : ${message}`));
+    }
+  });
+}
+
+function testScreen(): void {
+  analytics.screen({
+    userId: '019mr8mf4r',
+    name: 'Node.js Library',
+    properties: {
+      url: 'https://segment.com/docs/libraries/node',
+      path: '/docs/libraries/node/',
+      title: 'Node.js Library - Segment',
+      referrer: 'https://github.com/segmentio/analytics-node'
+    }
+  });
+
+  analytics.screen({
+    userId: '019mr8mf4r',
+    name: 'Node.js Library',
+    properties: {
+      url: 'https://segment.com/docs/libraries/node',
+      path: '/docs/libraries/node/',
+      title: 'Node.js Library - Segment',
+      referrer: 'https://github.com/segmentio/analytics-node'
+    }
+  }, (err) => {
+    if (err) {
+      console.error(err);
     }
   });
 }
@@ -135,11 +174,9 @@ function testGroup(): void {
       name: 'Initech',
       description: 'Accounting Software'
     }
-  }, (err, data) => {
+  }, (err) => {
     if (err) {
       console.error(err);
-    } else {
-      data.batch.forEach((message) => console.log(`${data.sentAt} : ${message}`));
     }
   });
 }
@@ -169,11 +206,9 @@ function testIntegrations(): void {
         appsflyer_id: 'example-id'
       }
     }
-  }, (err, data) => {
+  }, (err) => {
     if (err) {
       console.error(err);
-    } else {
-      data.batch.forEach((message) => console.log(`${data.sentAt} : ${message}`));
     }
   });
 }

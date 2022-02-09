@@ -1,5 +1,7 @@
-import { GraphQLCompilerContext } from '../core/GraphQLCompilerContext';
+import { CompilerContext } from '../core/CompilerContext';
 
-export function transform(
-  context: GraphQLCompilerContext,
-): GraphQLCompilerContext;
+declare function skipRedundantNodesTransform(
+  context: CompilerContext,
+): CompilerContext;
+
+export { skipRedundantNodesTransform as transform };

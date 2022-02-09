@@ -34,6 +34,7 @@ class MyTable2 extends React.Component {
                 <Column
                     cell={<Cell>Basic content</Cell>}
                     width={200}
+                    cellClassName="extra-cell-class"
                 />
             </Table>
         );

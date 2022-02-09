@@ -11,19 +11,19 @@ declare class Headroom extends Component<ReactHeadroomProps> {
 }
 
 export interface ReactHeadroomProps {
-    style?: CSSProperties;
-    onPin?: () => void;
-    onUnpin?: () => void;
-    onUnfix?: () => void;
-    upTolerance?: number;
-    downTolerance?: number;
-    disable?: boolean;
-    wrapperStyle?: CSSProperties;
-    parent?: () => any;
-    pinStart?: number;
-    calcHeightOnResize?: boolean;
-    disableInlineStyles?: boolean;
-    className?: string;
+    style?: CSSProperties | undefined;
+    onPin?: (() => void) | undefined;
+    onUnpin?: (() => void) | undefined;
+    onUnfix?: (() => void) | undefined;
+    upTolerance?: number | undefined;
+    downTolerance?: number | undefined;
+    disable?: boolean | undefined;
+    wrapperStyle?: CSSProperties | undefined;
+    parent?: (() => any) | undefined;
+    pinStart?: number | undefined;
+    calcHeightOnResize?: boolean | undefined;
+    disableInlineStyles?: boolean | undefined;
+    className?: string | undefined;
     children: ReactNode;
 }
 

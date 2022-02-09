@@ -1,25 +1,59 @@
 import * as React from 'react';
-import DatePicker, { registerLocale, setDefaultLocale, getDefaultLocale } from 'react-datepicker';
+import DatePicker, {
+    CalendarContainer,
+    registerLocale,
+    setDefaultLocale,
+    getDefaultLocale,
+    ReactDatePickerProps,
+    ReactDatePickerCustomHeaderProps,
+} from 'react-datepicker';
 import enUS from 'date-fns/locale/en-US';
+import { Modifier } from 'react-popper';
 
 registerLocale('en-GB', { options: { weekStartsOn: 1 } });
 setDefaultLocale('en-GB');
 const defaultLocale = getDefaultLocale();
 
+const topLogger: Modifier<'topLogger'> = {
+    name: 'topLogger',
+    enabled: true,
+    phase: 'main',
+    fn({ state }) {
+        if (state.placement === 'top') {
+            console.log('Popper is on the top');
+        }
+    },
+};
+
 <DatePicker
     adjustDateOnChange
     allowSameDay
+    ariaDescribedBy=""
+    ariaInvalid=""
+    ariaLabelledBy=""
+    ariaRequired=""
+    ariaLabelClose=""
     autoComplete=""
     autoFocus
     calendarClassName=""
     calendarContainer={props => <div />}
+    calendarStartDay={0}
     className=""
+    clearButtonClassName=""
     clearButtonTitle=""
+    // closeOnScroll={false} // Or as function:
+    closeOnScroll={e => e.target === document}
     customInput={<input />}
     customInputRef=""
+    chooseDayAriaLabelPrefix=""
+    customTimeInput={<input />}
     dateFormat=""
     dateFormatCalendar=""
     dayClassName={date => ''}
+    weekDayClassName={date => ''}
+    monthClassName={date => ''}
+    timeClassName={date => ''}
+    disabledDayAriaLabelPrefix=""
     disabled
     disabledKeyboardNavigation
     dropdownMode="scroll"
@@ -27,6 +61,7 @@ const defaultLocale = getDefaultLocale();
     excludeDates={[new Date()]}
     excludeTimes={[new Date()]}
     filterDate={date => true}
+    filterTime={date => true}
     fixedHeight
     forceShowMonthNavigation
     formatWeekDay={formattedDate => formattedDate[0]}
@@ -37,6 +72,7 @@ const defaultLocale = getDefaultLocale();
     includeTimes={[new Date()]}
     injectTimes={[new Date()]}
     inline
+    focusSelectedMonth={false}
     isClearable
     locale=""
     maxDate={new Date()}
@@ -45,17 +81,23 @@ const defaultLocale = getDefaultLocale();
     minTime={new Date()}
     monthsShown={1}
     name=""
+    nextMonthAriaLabel=""
     nextMonthButtonLabel=""
+    nextYearAriaLabel=""
     nextYearButtonLabel=""
     onBlur={event => null}
-    onChange={(date: Date | null) => {}}
+    onCalendarClose={() => null}
+    onCalendarOpen={() => null}
+    onChange={(date: Date | [Date | null, Date | null] | null) => {}}
     onChangeRaw={event => null}
     onClickOutside={event => null}
+    onDayMouseEnter={(date: Date) => {}}
     onFocus={event => null}
     onInputClick={() => null}
     onInputError={err => err.code + err.msg}
     onKeyDown={event => null}
     onMonthChange={date => null}
+    onMonthMouseLeave={() => {}}
     onSelect={(date, event) => null}
     onWeekSelect={(firstDayOfWeek, weekNumber, event) => null}
     onYearChange={(date: Date) => {}}
@@ -65,26 +107,45 @@ const defaultLocale = getDefaultLocale();
     placeholderText=""
     popperClassName=""
     popperContainer={props => <div />}
-    popperModifiers={{
-        flip: {
-            enabled: false,
+    popperModifiers={[
+        {
+            name: 'offset',
+            options: {
+                offset: [5, 10],
+            },
         },
-    }}
-    popperPlacement=""
+        {
+            name: 'preventOverflow',
+            options: {
+                rootBoundary: 'viewport',
+                tether: false,
+                altAxis: true,
+            },
+        },
+    ]}
+    popperPlacement="bottom-start"
     popperProps={{}}
     preventOpenOnFocus
+    previousMonthAriaLabel=""
     previousMonthButtonLabel=""
+    previousYearAriaLabel=""
     previousYearButtonLabel=""
     readOnly
     ref={handleRef}
     renderCustomHeader={({
+        monthDate,
         date,
         changeYear,
         changeMonth,
+        customHeaderCount,
         decreaseMonth,
         increaseMonth,
+        decreaseYear,
+        increaseYear,
         prevMonthButtonDisabled,
         nextMonthButtonDisabled,
+        prevYearButtonDisabled,
+        nextYearButtonDisabled,
     }) => <div />}
     renderDayContents={(dayOfMonth, date) => <div />}
     required
@@ -93,22 +154,29 @@ const defaultLocale = getDefaultLocale();
     selected={new Date()}
     selectsEnd
     selectsStart
+    selectsRange
     shouldCloseOnSelect
     showDisabledMonthNavigation
     showMonthDropdown
+    showFullMonthYearPicker
     showMonthYearDropdown
     showMonthYearPicker
-    showQuarterYearPicker
     showPopperArrow
+    showPreviousMonths
+    showQuarterYearPicker
     showTimeSelect
     showTimeSelectOnly
+    showTwoColumnMonthYearPicker
+    showFourColumnMonthYearPicker
     showWeekNumbers
     showYearDropdown
+    showYearPicker
     startDate={new Date()}
     startOpen
     tabIndex={1}
     timeCaption=""
     timeFormat=""
+    timeInputLabel=""
     timeIntervals={1}
     title=""
     todayButton={<div />}
@@ -117,12 +185,12 @@ const defaultLocale = getDefaultLocale();
     value=""
     weekLabel=""
     withPortal
+    portalId=""
     wrapperClassName=""
+    weekAriaLabelPrefix=""
+    excludeScrollbar={false}
+    enableTabLoop={false}
     yearDropdownItemNumber={1}
-    timeInputLabel=""
-    inlineFocusSelectedMonth={false}
-    onDayMouseEnter={(date: Date) => {}}
-    onMonthMouseLeave={() => {}}
 >
     <div />
     <span />
@@ -130,7 +198,9 @@ const defaultLocale = getDefaultLocale();
 
 <DatePicker minDate={null} maxDate={null} startDate={null} endDate={null} locale={enUS} onChange={() => null} />;
 
-function handleRef(ref: DatePicker | null) {
+<DatePicker formatWeekDay={() => <div />} onChange={() => null} />;
+
+function handleRef(ref: DatePicker) {
     if (ref) {
         ref.setBlur();
         ref.setFocus();
@@ -139,3 +209,42 @@ function handleRef(ref: DatePicker | null) {
         }
     }
 }
+
+<CalendarContainer arrowProps={{ someProp: 'someValue' }} className="" showPopperArrow>
+    <div />
+    <span />
+</CalendarContainer>;
+
+<CalendarContainer />;
+
+const props: ReactDatePickerProps = {
+    onChange: () => {},
+};
+
+<DatePicker<'topLogger'>
+    onChange={() => {}}
+    popperModifiers={[{ name: 'arrow', options: { padding: 5 } }, topLogger]}
+    ref={handleRef}
+/>;
+
+const DatePickerCustomHeader = ({
+    monthDate,
+    date,
+    changeYear,
+    changeMonth,
+    customHeaderCount,
+    decreaseMonth,
+    increaseMonth,
+    decreaseYear,
+    increaseYear,
+    prevMonthButtonDisabled,
+    nextMonthButtonDisabled,
+    prevYearButtonDisabled,
+    nextYearButtonDisabled,
+}: ReactDatePickerCustomHeaderProps) => <div></div>;
+
+<DatePicker onChange={() => {}} renderCustomHeader={props => <DatePickerCustomHeader {...props} />} />;
+
+<DatePicker selectsRange onChange={([start]) => start?.getHours()} />;
+
+<DatePicker onChange={date => date?.toISOString()} />;

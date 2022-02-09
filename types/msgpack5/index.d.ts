@@ -7,13 +7,13 @@ import stream = require('stream');
 import bl = require('bl');
   
 interface MsgPackOptions {
-  forceFloat64?: boolean;
-  compatibilityMode?: boolean;
+  forceFloat64?: boolean | undefined;
+  compatibilityMode?: boolean | undefined;
 }
 
 declare namespace msgpack5 {
   interface EncodeDecodeOptions {
-    header?: boolean;
+    header?: boolean | undefined;
   }
 
   class Base extends stream.Transform {}  

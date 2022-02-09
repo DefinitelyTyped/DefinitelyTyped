@@ -9,7 +9,7 @@ const serializer2 = new Serializer({});
 const serializer3 = new Serializer({ encoding: 'string' });
 const serializer4 = new Serializer({ encoding: 'object' });
 
-const sink: Sink = serializer1;
+const sink: Sink<Stream, EventEmitter> = serializer1;
 
 const eventEmitter1: EventEmitter = serializer1.import(stream);
 const eventEmitter2: EventEmitter = serializer1.import(stream, {});

@@ -1,4 +1,4 @@
-// Type definitions for proper-url-join 2.0
+// Type definitions for proper-url-join 2.1
 // Project: https://github.com/moxystudio/js-proper-url-join
 // Definitions by: Jules Sam. Randolph <https://github.com/jsamr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -12,30 +12,30 @@ export interface Options {
      *
      * **Default**: `true`
      */
-    leadingSlash?: boolean;
+    leadingSlash?: boolean | 'keep' | undefined;
     /**
      * Add a trailing slash.
      *
      * **Default**: `false`
      */
-    trailingSlash?: boolean;
+    trailingSlash?: boolean | 'keep' | undefined;
     /**
      * Protocol relative URLs.
      *
      * **Default**: `false`
      */
-    protocolRelative?: boolean;
+    protocolRelative?: boolean | undefined;
     /**
      * Query string object that will be properly stringified and appended to the url.
      * It will be merged with the query string in the url, if it exists.
      */
     query?: {
         [k: string]: string|number|ReadonlyArray<string|number>;
-    };
+    } | undefined;
     /**
      * [query-string](https://github.com/sindresorhus/query-string#stringifyobject-options) singify method options to be considered when stringifying the query.
      */
-    queryOptions?: StringifyOptions;
+    queryOptions?: StringifyOptions | undefined;
 }
 
 export type PathArg = string|null|undefined|number;

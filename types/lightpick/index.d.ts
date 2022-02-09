@@ -114,180 +114,180 @@ declare namespace Lightpick {
         /**
          * If exists then end of date range will set here.
          */
-        secondField?: Options.Field;
+        secondField?: Options.Field | undefined;
 
         /**
          * ISO day of the week.
          */
-        firstDay?: Options.DayOfWeek;
+        firstDay?: Options.DayOfWeek | undefined;
 
         /**
          * Selector of the parent element that the date range picker will be added to, if not provided this will be 'body'.
          */
-        parentEl?: string | Node;
+        parentEl?: string | Node | undefined;
 
         /**
          * Language code for names of days, months by Date.prototype.toLocaleString(). 'auto' will try detect user browser language.
          */
-        lang?: string;
+        lang?: string | undefined;
 
         /**
          * The default output format.
          */
-        format?: string;
+        format?: string | undefined;
 
         /**
          * Separator between dates when one field.
          */
-        separator?: string;
+        separator?: string | undefined;
 
         /**
          * Number of visible months.
          */
-        numberOfMonths?: number;
+        numberOfMonths?: number | undefined;
 
         /**
          * Number of columns months.
          */
-        numberOfColumns?: number;
+        numberOfColumns?: number | undefined;
 
         /**
          * Choose a single date instead of a date range.
          */
-        singleDate?: boolean;
+        singleDate?: boolean | undefined;
 
         /**
          * Close calendar when picked date/range.
          */
-        autoclose?: boolean;
+        autoclose?: boolean | undefined;
 
         /**
          * Repick start/end instead of new range. This option working only when exists `secondField`.
          */
-        repick?: boolean;
+        repick?: boolean | undefined;
 
-        startDate?: InputDate;
+        startDate?: InputDate | undefined;
 
-        endDate?: InputDate;
+        endDate?: InputDate | undefined;
 
         /**
          * The minimum/earliest date that can be selected.
          */
-        minDate?: InputDate;
+        minDate?: InputDate | undefined;
 
         /**
          * The maximum/latest date that can be selected.
          */
-        maxDate?: InputDate;
+        maxDate?: InputDate | undefined;
 
-        disableDates?: ReadonlyArray<DisabledDate>;
+        disableDates?: ReadonlyArray<DisabledDate> | undefined;
 
         /**
          * Select second date after the first selected date.
          */
-        selectForward?: boolean;
+        selectForward?: boolean | undefined;
 
         /**
          * Select second date before the first selected date.
          */
-        selectBackward?: boolean;
+        selectBackward?: boolean | undefined;
 
         /**
          * The minimum days of the selected range.
          */
-        minDays?: number;
+        minDays?: number | undefined;
 
         /**
          * The maximum days of the selected range.
          */
-        maxDays?: number;
+        maxDays?: number | undefined;
 
         /**
          * Show tooltip.
          */
-        hoveringTooltip?: boolean;
+        hoveringTooltip?: boolean | undefined;
 
         /**
          * Close calendar when clicked outside the elements specified in field or parentEl. Recommended use when autoclose is set to false.
          */
-        hideOnBodyClick?: boolean;
+        hideOnBodyClick?: boolean | undefined;
 
         /**
          * Footer calendar, if set to `true` will use default footer (Reset/Apply buttons) or custom string (html).
          */
-        footer?: boolean | string;
+        footer?: boolean | string | undefined;
 
         /**
          * If set to `false` then will reset selected range when disabled dates exists in selected range.
          */
-        disabledDatesInRange?: boolean;
+        disabledDatesInRange?: boolean | undefined;
 
         /**
          * Calc date range in nights. (For hotels when last date doesn't include to range.)
          */
-        tooltipNights?: boolean;
+        tooltipNights?: boolean | undefined;
 
-        orientation?: Options.Orientation;
+        orientation?: Options.Orientation | undefined;
 
         /**
          * Disable Saturday and Sunday.
          */
-        disableWeekends?: boolean;
+        disableWeekends?: boolean | undefined;
 
         /**
          * Show calendar inline. If true and parentEl is not provided then will use parentNode of field.
          */
-        inline?: boolean;
+        inline?: boolean | undefined;
 
         /**
          * Determines the weekday display style.
          * Two weekdays may have the same narrow style for some locales (e.g. Tuesday's narrow style is also T).
          */
-        weekdayStyle?: Options.WeekdayStyle;
+        weekdayStyle?: Options.WeekdayStyle | undefined;
 
         /**
          * Dropdown selections for years, months. Can be false for disable both dropdowns.
          */
-        dropdowns?: boolean | Options.Dropdowns;
+        dropdowns?: boolean | Options.Dropdowns | undefined;
 
-        locale?: Options.Locale;
+        locale?: Options.Locale | undefined;
 
         /**
          * Triggered when either date / start date or end date has been changed.
          */
-        onSelect?: Options.OnSelectFn;
+        onSelect?: Options.OnSelectFn | undefined;
 
         /**
          * Triggered when start date has been changed.
          */
-        onSelectStart?: Options.OnSelectStartEndFn;
+        onSelectStart?: Options.OnSelectStartEndFn | undefined;
 
         /**
          * Triggered when end date has been changed.
          */
-        onSelectEnd?: Options.OnSelectStartEndFn;
+        onSelectEnd?: Options.OnSelectStartEndFn | undefined;
 
         /**
          * Triggered when calendar has been opened.
          */
-        onOpen?: Options.OnOpenFn;
+        onOpen?: Options.OnOpenFn | undefined;
 
         /**
          * Triggered when calendar has been closed.
          */
-        onClose?: Options.OnCloseFn;
+        onClose?: Options.OnCloseFn | undefined;
 
-        onError?: Options.OnErrorFn;
+        onError?: Options.OnErrorFn | undefined;
 
         /**
          * Triggered when the months select is changed.
          */
-        onMonthsChange?: Options.OnMonthsChangeFn;
+        onMonthsChange?: Options.OnMonthsChangeFn | undefined;
 
         /**
          * Triggered when the years select is changed.
          */
-        onYearsChange?: Options.OnYearsChangeFn;
+        onYearsChange?: Options.OnYearsChangeFn | undefined;
     }
 
     namespace Options {
@@ -312,19 +312,19 @@ declare namespace Lightpick {
             /**
              * Can be false for disable dropdown of years.
              */
-            years?: boolean | Dropdowns.Years;
+            years?: boolean | Dropdowns.Years | undefined;
 
             /**
              * true/false for enable/disable dropdown of months.
              */
-            months?: boolean;
+            months?: boolean | undefined;
         }
 
         namespace Dropdowns {
             interface Years {
-                min?: number;
+                min?: number | undefined;
 
-                max?: number;
+                max?: number | undefined;
             }
         }
 
@@ -332,32 +332,32 @@ declare namespace Lightpick {
             /**
              * Text for buttons.
              */
-            buttons?: Locale.Buttons;
+            buttons?: Locale.Buttons | undefined;
 
             /**
              * Text for tooltip.
              */
-            tooltip?: Partial<Locale.PluralizeFnLocale>;
+            tooltip?: Partial<Locale.PluralizeFnLocale> | undefined;
 
             /**
              * Show tooltip text on disabled dates. (Eg. «Already booked»)
              */
-            tooltipOnDisabled?: string;
+            tooltipOnDisabled?: string | undefined;
 
-            pluralize?: Locale.PluralizeFn;
+            pluralize?: Locale.PluralizeFn | undefined;
         }
 
         namespace Locale {
             interface Buttons {
-                prev?: string;
+                prev?: string | undefined;
 
-                next?: string;
+                next?: string | undefined;
 
-                close?: string;
+                close?: string | undefined;
 
-                reset?: string;
+                reset?: string | undefined;
 
-                apply?: string;
+                apply?: string | undefined;
             }
 
             /**

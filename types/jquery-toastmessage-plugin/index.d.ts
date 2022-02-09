@@ -29,30 +29,30 @@ declare namespace JQueryToastmessage {
 
     interface ToastOptions {
         /** in effect duration in miliseconds @default 600 */
-        inEffectDuration?: number;
+        inEffectDuration?: number | undefined;
         /**
          * time in miliseconds before the item has to disappear @default 3000
          */
-        stayTime?: number;
+        stayTime?: number | undefined;
         /** content of the item @default '' */
-        text?: string;
+        text?: string | undefined;
         /** should the toast item sticky or not? @default false */
-        sticky?: boolean;
+        sticky?: boolean | undefined;
         /** the type of toast @default 'notice' */
-        type?: ToastType;
+        type?: ToastType | undefined;
         /**
          * Position of the toast container holding different toast.
          * Position can be set only once at the very first call,
          * changing the position after the first call does nothing
          * @default 'top-right'
          */
-        position?: ToastPosition;
+        position?: ToastPosition | undefined;
         /**
          * text which will be shown as close button,
          * set to '' when you want to introduce an image via css
          * @default ''
          */
-        closeText?: string;
+        closeText?: string | undefined;
         /** callback function when the toastmessage is closed @default null */
         close?(): void;
     }

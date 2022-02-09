@@ -24,82 +24,82 @@ declare namespace JqueryBootpag {
         /**
          * page to show on start
          */
-        page?: number;
+        page?: number | undefined;
 
         /**
          * next/prev buttons move over one page or maximum visible pages (default true)
          */
-        leaps?: boolean;
+        leaps?: boolean | undefined;
 
         /**
          * next button text (default ???)
          */
-        next?: string;
+        next?: string | undefined;
 
         /**
          * prev button text (default ???)
          */
-        prev?: string;
+        prev?: string | undefined;
 
         /**
          * template for pagination links (default "javascript:void(0);")
          */
-        href?: string;
+        href?: string | undefined;
 
         /**
          * variable name in href template for page number (default "{{number}}")
          */
-        hrefVariable?: string;
+        hrefVariable?: string | undefined;
 
         /**
          * do we ant first and last (default true)
          */
-        firstLastUse?: boolean;
+        firstLastUse?: boolean | undefined;
 
         /**
          * name of first (default 'FIRST')
          */
-        first?: string;
+        first?: string | undefined;
 
         /**
          * name of last (default 'LAST')
          */
-        last?: string;
+        last?: string | undefined;
 
         /**
          * css class for wrap (default 'pagination')
          */
-        wrapClass?: string;
+        wrapClass?: string | undefined;
 
         /**
          * css class for active (default 'active')
          */
-        activeClass?: string;
+        activeClass?: string | undefined;
 
         /**
          * css class for disabled (default 'disabled')
          */
-        disabledClass?: string;
+        disabledClass?: string | undefined;
 
         /**
          * css class for next (default 'next')
          */
-        nextClass?: string;
+        nextClass?: string | undefined;
 
         /**
          * css class for prev (default 'prev')
          */
-        prevClass?: string;
+        prevClass?: string | undefined;
 
         /**
          * css class for last (default 'last')
          */
-        lastClass?: string;
+        lastClass?: string | undefined;
 
         /**
          * css class for first (default 'first')
          */
-        firstClass?: string;
+        firstClass?: string | undefined;
     }
 
     /**

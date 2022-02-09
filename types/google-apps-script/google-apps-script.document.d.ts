@@ -1,6 +1,7 @@
-// Type definitions for Google Apps Script 2019-11-06
+// Type definitions for Google Apps Script 2020-01-02
 // Project: https://developers.google.com/apps-script/
-// Definitions by: motemen <https://github.com/motemen/>
+// Definitions by: PopGoesTheWza <https://github.com/PopGoesTheWza>
+//                 motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="google-apps-script.types.d.ts" />
@@ -101,12 +102,12 @@ declare namespace GoogleAppsScript {
       setPageWidth(pageWidth: number): Body;
       setText(text: string): Body;
       setTextAlignment(textAlignment: TextAlignment): Body;
-      /** @deprecated DO NOT USE */getFootnotes(): Footnote[];
-      /** @deprecated DO NOT USE */getLinkUrl(): string;
-      /** @deprecated DO NOT USE */getNextSibling(): Element;
-      /** @deprecated DO NOT USE */getPreviousSibling(): Element;
-      /** @deprecated DO NOT USE */isAtDocumentEnd(): boolean;
-      /** @deprecated DO NOT USE */setLinkUrl(url: string): Body;
+      /** @deprecated DO NOT USE */ getFootnotes(): Footnote[];
+      /** @deprecated DO NOT USE */ getLinkUrl(): string;
+      /** @deprecated DO NOT USE */ getNextSibling(): Element;
+      /** @deprecated DO NOT USE */ getPreviousSibling(): Element;
+      /** @deprecated DO NOT USE */ isAtDocumentEnd(): boolean;
+      /** @deprecated DO NOT USE */ setLinkUrl(url: string): Body;
     }
     /**
      * An object representing a bookmark.
@@ -163,6 +164,24 @@ declare namespace GoogleAppsScript {
       setAttributes(attributes: any): ContainerElement;
       setLinkUrl(url: string): ContainerElement;
       setTextAlignment(textAlignment: TextAlignment): ContainerElement;
+    }
+    /**
+     * An element representing a formatted date.
+     */
+    interface Date extends Element {
+      copy(): Date;
+      getAttributes(): any;
+      getDisplayText(): string;
+      getLocale(): string;
+      getNextSibling(): Element;
+      getParent(): ContainerElement;
+      getPreviousSibling(): Element;
+      getTimestamp(): Date;
+      getType(): ElementType;
+      isAtDocumentEnd(): boolean;
+      merge(): Date;
+      removeFromParent(): Date;
+      setAttributes(attributes: any): Date;
     }
     /**
      * A document, containing rich text and elements such as tables and lists.
@@ -230,7 +249,6 @@ declare namespace GoogleAppsScript {
     interface DocumentApp {
       Attribute: typeof Attribute;
       ElementType: typeof ElementType;
-      /** @deprecated DO NOT USE */FontFamily: typeof FontFamily;
       GlyphType: typeof GlyphType;
       HorizontalAlignment: typeof HorizontalAlignment;
       ParagraphHeading: typeof ParagraphHeading;
@@ -242,6 +260,7 @@ declare namespace GoogleAppsScript {
       getUi(): Base.Ui;
       openById(id: string): Document;
       openByUrl(url: string): Document;
+      /** @deprecated DO NOT USE */ FontFamily: typeof FontFamily;
     }
     /**
      * A generic element. Document contents are
@@ -298,6 +317,7 @@ declare namespace GoogleAppsScript {
      */
     interface Element {
       asBody(): Body;
+      asDate(): Date;
       asEquation(): Equation;
       asEquationFunction(): EquationFunction;
       asEquationFunctionArgumentSeparator(): EquationFunctionArgumentSeparator;
@@ -312,6 +332,8 @@ declare namespace GoogleAppsScript {
       asListItem(): ListItem;
       asPageBreak(): PageBreak;
       asParagraph(): Paragraph;
+      asPerson(): Person;
+      asRichLink(): RichLink;
       asTable(): Table;
       asTableCell(): TableCell;
       asTableOfContents(): TableOfContents;
@@ -339,7 +361,7 @@ declare namespace GoogleAppsScript {
      *       firstChild.asParagraph().setHeading(DocumentApp.ParagraphHeading.HEADING1);
      *     }
      */
-    enum ElementType { BODY_SECTION, COMMENT_SECTION, DOCUMENT, EQUATION, EQUATION_FUNCTION, EQUATION_FUNCTION_ARGUMENT_SEPARATOR, EQUATION_SYMBOL, FOOTER_SECTION, FOOTNOTE, FOOTNOTE_SECTION, HEADER_SECTION, HORIZONTAL_RULE, INLINE_DRAWING, INLINE_IMAGE, LIST_ITEM, PAGE_BREAK, PARAGRAPH, TABLE, TABLE_CELL, TABLE_OF_CONTENTS, TABLE_ROW, TEXT, UNSUPPORTED }
+    enum ElementType { BODY_SECTION, COMMENT_SECTION, DATE, DOCUMENT, EQUATION, EQUATION_FUNCTION, EQUATION_FUNCTION_ARGUMENT_SEPARATOR, EQUATION_SYMBOL, FOOTER_SECTION, FOOTNOTE, FOOTNOTE_SECTION, HEADER_SECTION, HORIZONTAL_RULE, INLINE_DRAWING, INLINE_IMAGE, LIST_ITEM, PAGE_BREAK, PARAGRAPH, PERSON, RICH_LINK, TABLE, TABLE_CELL, TABLE_OF_CONTENTS, TABLE_ROW, TEXT, UNSUPPORTED }
     /**
      * An element representing a mathematical expression. An Equation may contain EquationFunction, EquationSymbol, and Text elements. For more information on
      * document structure, see the guide to
@@ -516,12 +538,12 @@ declare namespace GoogleAppsScript {
       setAttributes(attributes: any): FooterSection;
       setText(text: string): FooterSection;
       setTextAlignment(textAlignment: TextAlignment): FooterSection;
-      /** @deprecated DO NOT USE */getFootnotes(): Footnote[];
-      /** @deprecated DO NOT USE */getLinkUrl(): string;
-      /** @deprecated DO NOT USE */getNextSibling(): Element;
-      /** @deprecated DO NOT USE */getPreviousSibling(): Element;
-      /** @deprecated DO NOT USE */isAtDocumentEnd(): boolean;
-      /** @deprecated DO NOT USE */setLinkUrl(url: string): FooterSection;
+      /** @deprecated DO NOT USE */ getFootnotes(): Footnote[];
+      /** @deprecated DO NOT USE */ getLinkUrl(): string;
+      /** @deprecated DO NOT USE */ getNextSibling(): Element;
+      /** @deprecated DO NOT USE */ getPreviousSibling(): Element;
+      /** @deprecated DO NOT USE */ isAtDocumentEnd(): boolean;
+      /** @deprecated DO NOT USE */ setLinkUrl(url: string): FooterSection;
     }
     /**
      * An element representing a footnote. Each Footnote is contained within a ListItem
@@ -576,10 +598,10 @@ declare namespace GoogleAppsScript {
       setAttributes(attributes: any): FootnoteSection;
       setText(text: string): FootnoteSection;
       setTextAlignment(textAlignment: TextAlignment): FootnoteSection;
-      /** @deprecated DO NOT USE */getFootnotes(): Footnote[];
-      /** @deprecated DO NOT USE */getLinkUrl(): string;
-      /** @deprecated DO NOT USE */isAtDocumentEnd(): boolean;
-      /** @deprecated DO NOT USE */setLinkUrl(url: string): FootnoteSection;
+      /** @deprecated DO NOT USE */ getFootnotes(): Footnote[];
+      /** @deprecated DO NOT USE */ getLinkUrl(): string;
+      /** @deprecated DO NOT USE */ isAtDocumentEnd(): boolean;
+      /** @deprecated DO NOT USE */ setLinkUrl(url: string): FootnoteSection;
     }
     /**
      * An enumeration of the supported glyph types.
@@ -647,12 +669,12 @@ declare namespace GoogleAppsScript {
       setAttributes(attributes: any): HeaderSection;
       setText(text: string): HeaderSection;
       setTextAlignment(textAlignment: TextAlignment): HeaderSection;
-      /** @deprecated DO NOT USE */getFootnotes(): Footnote[];
-      /** @deprecated DO NOT USE */getLinkUrl(): string;
-      /** @deprecated DO NOT USE */getNextSibling(): Element;
-      /** @deprecated DO NOT USE */getPreviousSibling(): Element;
-      /** @deprecated DO NOT USE */isAtDocumentEnd(): boolean;
-      /** @deprecated DO NOT USE */setLinkUrl(url: string): HeaderSection;
+      /** @deprecated DO NOT USE */ getFootnotes(): Footnote[];
+      /** @deprecated DO NOT USE */ getLinkUrl(): string;
+      /** @deprecated DO NOT USE */ getNextSibling(): Element;
+      /** @deprecated DO NOT USE */ getPreviousSibling(): Element;
+      /** @deprecated DO NOT USE */ isAtDocumentEnd(): boolean;
+      /** @deprecated DO NOT USE */ setLinkUrl(url: string): HeaderSection;
     }
     /**
      * An enumeration of the supported horizontal alignment types.
@@ -994,6 +1016,25 @@ declare namespace GoogleAppsScript {
      */
     enum ParagraphHeading { NORMAL, HEADING1, HEADING2, HEADING3, HEADING4, HEADING5, HEADING6, TITLE, SUBTITLE }
     /**
+     * An element representing a link to a person. A person link refers to an email address and might
+     * optionally have a name associated with the address. If the name is set, the name is what is
+     * displayed in the document body.
+     */
+    interface Person extends Element {
+      copy(): Person;
+      getAttributes(): any;
+      getEmail(): string;
+      getName(): string;
+      getNextSibling(): Element;
+      getParent(): ContainerElement;
+      getPreviousSibling(): Element;
+      getType(): ElementType;
+      isAtDocumentEnd(): boolean;
+      merge(): Person;
+      removeFromParent(): Person;
+      setAttributes(attributes: any): Person;
+    }
+    /**
      * A reference to a location in the document, relative to a specific element. The user's cursor is
      * represented as a Position, among other uses. Scripts can only access the cursor of the
      * user who is running the script, and only if the script is bound to the document.
@@ -1091,7 +1132,7 @@ declare namespace GoogleAppsScript {
      */
     interface Range {
       getRangeElements(): RangeElement[];
-      /** @deprecated DO NOT USE */getSelectedElements(): RangeElement[];
+      /** @deprecated DO NOT USE */ getSelectedElements(): RangeElement[];
     }
     /**
      * A builder used to construct Range objects from document elements.
@@ -1113,7 +1154,7 @@ declare namespace GoogleAppsScript {
       addRange(range: Range): RangeBuilder;
       build(): Range;
       getRangeElements(): RangeElement[];
-      /** @deprecated DO NOT USE */getSelectedElements(): RangeElement[];
+      /** @deprecated DO NOT USE */ getSelectedElements(): RangeElement[];
     }
     /**
      * A wrapper around an Element with a possible start and end offset. These offsets allow a
@@ -1125,6 +1166,24 @@ declare namespace GoogleAppsScript {
       getEndOffsetInclusive(): Integer;
       getStartOffset(): Integer;
       isPartial(): boolean;
+    }
+    /**
+     * An element representing a link to a Google resource, such as a Drive file or a YouTube video.
+     */
+    interface RichLink extends Element {
+      copy(): RichLink;
+      getAttributes(): any;
+      getMimeType(): string;
+      getNextSibling(): Element;
+      getParent(): ContainerElement;
+      getPreviousSibling(): Element;
+      getTitle(): string;
+      getType(): ElementType;
+      getUrl(): string;
+      isAtDocumentEnd(): boolean;
+      merge(): RichLink;
+      removeFromParent(): RichLink;
+      setAttributes(attributes: any): RichLink;
     }
     /**
      * An element representing a table. A Table may only contain TableRow elements. For
@@ -1308,7 +1367,7 @@ declare namespace GoogleAppsScript {
       getChild(childIndex: Integer): Element;
       getChildIndex(child: Element): Integer;
       getLinkUrl(): string;
-      getMinimumHeight(): Integer;
+      getMinimumHeight(): number;
       getNextSibling(): Element;
       getNumCells(): Integer;
       getNumChildren(): Integer;
@@ -1329,7 +1388,7 @@ declare namespace GoogleAppsScript {
       replaceText(searchPattern: string, replacement: string): Element;
       setAttributes(attributes: any): TableRow;
       setLinkUrl(url: string): TableRow;
-      setMinimumHeight(minHeight: Integer): TableRow;
+      setMinimumHeight(minHeight: number): TableRow;
       setTextAlignment(textAlignment: TextAlignment): TableRow;
     }
     /**

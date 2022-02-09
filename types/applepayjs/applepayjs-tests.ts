@@ -131,7 +131,9 @@ describe("ApplePaySession", () => {
             },
             {
                 label: "2-hour Shipping",
-                amount: "5.00"
+                amount: "5.00",
+                detail: "2-hour Shipping",
+                identifier: "BusinessShipping"
             }
         ];
 
@@ -179,6 +181,9 @@ describe("ApplePaySession", () => {
         session.onpaymentmethodselected = (event: ApplePayJS.ApplePayPaymentMethodSelectedEvent) => {
             if (event.paymentMethod) {
                 console.log("Payment method:", JSON.stringify(event.paymentMethod));
+            }
+            if (event.paymentMethod.billingContact) {
+                console.log("Billing contact:", JSON.stringify(event.paymentMethod.billingContact));
             }
         };
 
@@ -301,7 +306,9 @@ describe("ApplePayPaymentRequest", () => {
             },
             {
                 label: "2-hour Shipping",
-                amount: "5.00"
+                amount: "5.00",
+                detail: "2-hour Shipping",
+                identifier: "BusinessShipping"
             }
         ];
 

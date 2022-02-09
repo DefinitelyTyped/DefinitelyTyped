@@ -42,3 +42,4 @@ parseFile('', '', filled, attributes);
 sanitize('');
 sanitize('', {attributes: [ 'hello' ], elements: [ 'hi' ], comments: true, docTypes: false});
 sanitize('', {attributes, elements, comments, docTypes });
+sanitize('', { attributes: ['hello'] });

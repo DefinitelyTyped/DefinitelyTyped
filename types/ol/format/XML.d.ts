@@ -1,6 +1,9 @@
-export default class XML {
+export default abstract class XML {
     constructor();
+    /**
+     * Read the source document.
+     */
     read(source: Document | Element | string): any;
     readFromDocument(doc: Document): any;
-    readFromNode(node: Element): any;
+    abstract readFromNode(node: Element): any;
 }

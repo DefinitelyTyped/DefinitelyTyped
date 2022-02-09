@@ -1,7 +1,7 @@
 // Type definitions for connect-redis
 // Project: https://npmjs.com/package/connect-redis
 // Definitions by: Xavier Stouder <https://github.com/xstoudi>
-//				   Seth Butler <https://github.com/sbutler2901>
+//                   Seth Butler <https://github.com/sbutler2901>
 //                 Jip Sterk <https://github.com/JipSterk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
@@ -19,26 +19,27 @@ declare module 'connect-redis' {
     function s(options: (options?: session.SessionOptions) => express.RequestHandler): s.RedisStore;
 
     namespace s {
+        type Client = redis.RedisClient | ioRedis.Redis | ioRedis.Cluster;
         interface RedisStore extends session.Store {
             new (options: RedisStoreOptions): RedisStore;
-            client: redis.RedisClient | ioRedis.Redis;
+            client: Client;
         }
         interface RedisStoreOptions {
-            client?: redis.RedisClient | ioRedis.Redis;
-            host?: string;
-            port?: number;
-            socket?: string;
-            url?: string;
-            ttl?: number | string | ((store: RedisStore, sess: Express.SessionData, sid: string) => number);
-            disableTTL?: boolean;
-            disableTouch?: boolean;
-            db?: number;
-            pass?: string;
-            prefix?: string;
-            unref?: boolean;
-            serializer?: Serializer | JSON;
-            logErrors?: boolean | ((error: string) => void);
-            scanCount?: number;
+            client?: Client | undefined;
+            host?: string | undefined;
+            port?: number | undefined;
+            socket?: string | undefined;
+            url?: string | undefined;
+            ttl?: number | string | ((store: RedisStore, sess: session.SessionData, sid: string) => number) | undefined;
+            disableTTL?: boolean | undefined;
+            disableTouch?: boolean | undefined;
+            db?: number | undefined;
+            pass?: string | undefined;
+            prefix?: string | undefined;
+            unref?: boolean | undefined;
+            serializer?: Serializer | JSON | undefined;
+            logErrors?: boolean | ((error: string) => void) | undefined;
+            scanCount?: number | undefined;
         }
         interface Serializer {
             stringify: Function;

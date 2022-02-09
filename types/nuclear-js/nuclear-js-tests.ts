@@ -17,6 +17,19 @@ Immutable.fromJS([5]);
 new Reactor();
 Reactor();
 new Reactor({ debug: true });
+new Reactor({ options: {} });
+new Reactor({
+    options: {
+        logDispatches: true,
+        logAppState: true,
+        logDirtyStores: true,
+        throwOnUndefinedActionType: true,
+        throwOnUndefinedStoreReturnValue: true,
+        throwOnNonImmutableStore: true,
+        throwOnDispatchInDispatch: true,
+    },
+});
+
 Reactor({ debug: undefined });
 // Make sure that type checking succeeds with or without `new`.
 const r1: Reactor = new Reactor();

@@ -1,10 +1,13 @@
 import WebTorrent = require('webtorrent');
 import * as fs from 'fs';
 
-const client = new WebTorrent();
+const client = new WebTorrent({ utp: false });
 const magnetURI = '...';
+const torrentOpts = {
+    private: false,
+};
 
-client.add(magnetURI, {}, torrent => {
+client.add(magnetURI, torrentOpts, torrent => {
     // Got torrent metadata!
     console.log('Client is downloading:', torrent.infoHash);
 
@@ -81,6 +84,12 @@ client.add(magnetURI, {}, torrent => {
     });
 });
 
+client.add(magnetURI, { announceList: [['wss://tracker.btorrent.xyz'], ['wss://tracker.openwebtorrent.com']] }, torrent => {
+  torrent['announce-list'].forEach(
+    (tracker, trackerIndex) => tracker.forEach(url => console.log(`tracker #${trackerIndex}: ${url}`))
+  );
+});
+
 client.seed('./file.txt', {}, torrent => {
     console.log('Client is seeding:', torrent.infoHash);
 });
@@ -98,4 +107,13 @@ client.add(magnetURI, torrent => {
     // later, cleanup...
     server.close();
     client.destroy();
+});
+
+// torrent destroy opts
+client.add(magnetURI, torrent => {
+    torrent.destroy({ destroyStore: true });
+});
+
+client.add(magnetURI, torrent => {
+    client.remove(torrent, { destroyStore: true });
 });

@@ -3,16 +3,16 @@ type s = number;
 declare namespace Cookies {
     interface Cookie {
         name: string;
-        value?: string;
-        expires?: Date;
-        path?: string;
-        domain?: string;
-        secure?: boolean;
-        httponly?: boolean;
+        value?: string | undefined;
+        expires?: Date | undefined;
+        path?: string | undefined;
+        domain?: string | undefined;
+        secure?: boolean | undefined;
+        httponly?: boolean | undefined;
     }
 
     interface Options {
-        sessionTimeout?: s;
+        sessionTimeout?: s | undefined;
     }
 }
 

@@ -7,18 +7,21 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
         "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
         ],
-        "types": [],
         "paths": {
             "d3": [
-                "d3/v3"
+                "d3/v5"
+            ],
+            "d3-array": [
+                "d3-array/v1"
             ]
         },
+        "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },

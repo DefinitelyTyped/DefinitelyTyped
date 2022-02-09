@@ -32,11 +32,11 @@ declare namespace decompress {
          * Array of plugins to use.
          * Default: [decompressTar(), decompressTarbz2(), decompressTargz(), decompressUnzip()]
          */
-        plugins?: any[];
+        plugins?: any[] | undefined;
         /**
          * Remove leading directory components from extracted files.
          * Default: 0
          */
-        strip?: number;
+        strip?: number | undefined;
     }
 }

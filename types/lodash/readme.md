@@ -20,6 +20,7 @@
   - Before running any scripts, run `npm install` in this directory (it contains its own `package.json`).
   - Most notable script is `npm run generate`, which re-generates all of the `fp` files and `lowdb` wrapper extensions.
 - `v3` directory: contains types for lodash v3.
+- `ts3.1` directory: contains types for `typescript>=3.1.0-0` (See `typesVersions` in `package.json`), which are maintained separately from the files in the root.
 
 ## Different ways people might use lodash
 
@@ -38,6 +39,9 @@
 ## Before creating a PR
 
 - For every function you modify, don't forget to update the corresponding wrapper functions.
+- If you want to add yourself to "Definitions by" section of the package header as described in the root README,
+  you should add your name not only to `index.d.ts` but also the template string in `scripts/generate-modules.ts`
+  since the script generates `lodash.*` packages which include the headers derived from the template.
 - Re-generate the `fp` types by opening a terminal in the `scripts` directory and running `npm run generate`.
   - Note that this directory has its own `package.json`, so you'll need to run `npm install` first if you haven't already.
 - Back at the root directory, do `npm run lint lodash` and make sure there are no errors.

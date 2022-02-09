@@ -1764,14 +1764,14 @@ declare namespace WinJS {
     //#region Interfaces
 
     interface IXHROptions {
-        type?: string;
+        type?: string | undefined;
         url: string;
-        user?: string;
-        password?: string;
+        user?: string | undefined;
+        password?: string | undefined;
         headers?: any;
         data?: any;
-        responseType?: string;
-        customRequestInitializer?: (request: XMLHttpRequest) => void;
+        responseType?: string | undefined;
+        customRequestInitializer?: ((request: XMLHttpRequest) => void) | undefined;
     }
 
     //#endregion Interfaces
@@ -1926,7 +1926,7 @@ declare namespace WinJS.Resources {
      * @param resourceId The resource ID of the string to retrieve.
      * @returns An object that can contain these properties: value, empty, lang.
     **/
-    function getString(resourceId: string): { value: string; empty?: boolean; lang?: string; };
+    function getString(resourceId: string): { value: string; empty?: boolean | undefined; lang?: string | undefined; };
 
     /**
      * Processes data-win-res attributes on elements and replaces attributes and properties with resource strings.
@@ -3742,27 +3742,27 @@ declare namespace WinJS.UI {
         /**
          * Gets or sets index of the ListView item.
         **/
-        index?: number;
+        index?: number | undefined;
 
         /**
          * Gets or sets key of the ListView item.
         **/
-        key?: string;
+        key?: string | undefined;
 
         /**
          * Gets or sets whether the ListView item is focused.
         **/
-        hasFocus?: boolean;
+        hasFocus?: boolean | undefined;
 
         /**
          * Gets or sets whether the ListView item is focused and is showing its focus visual.
         **/
-        showFocus?: boolean;
+        showFocus?: boolean | undefined;
 
         /**
          * Gets the type, if any.
         **/
-        type?: WinJS.UI.ObjectType;
+        type?: WinJS.UI.ObjectType | undefined;
     }
 
     /**
@@ -8894,29 +8894,29 @@ declare namespace WinJS.UI.XYFocus {
         /**
          * The focus scope, only children of this element are considered in the calculation.
         **/
-        focusRoot?: HTMLElement;
+        focusRoot?: HTMLElement | undefined;
 
         /**
          * A rectangle indicating where focus came from before the current state.
         **/
-        historyRect?: IRect;
+        historyRect?: IRect | undefined;
 
         /**
          * The element from which to calculate the next focusable element; if specified, referenceRect is ignored.
         **/
-        referenceElement?: HTMLElement;
+        referenceElement?: HTMLElement | undefined;
 
         /**
          * The rectangle from which to calculate next focusable element; ignored if referenceElement is also specified.
         **/
-        referenceRect?: IRect;
+        referenceRect?: IRect | undefined;
     }
 
     export interface IRect {
         left: number;
-        right?: number;
+        right?: number | undefined;
         top: number;
-        bottom?: number;
+        bottom?: number | undefined;
 
         height: number;
         width: number;
@@ -10386,10 +10386,10 @@ declare namespace WinJS.Utilities {
     //#region Interfaces
 
     interface ILogOptions {
-        type?: string;
-        action?: (message: string, tags: string, type: string) => void;
-        excludeTags?: string;
-        tags?: string;
+        type?: string | undefined;
+        action?: ((message: string, tags: string, type: string) => void) | undefined;
+        excludeTags?: string | undefined;
+        tags?: string | undefined;
     }
 
     interface IPosition {

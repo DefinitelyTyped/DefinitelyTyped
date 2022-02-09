@@ -2,18 +2,18 @@
 // Project: https://github.com/awapps/mongration#readme
 // Definitions by: Anton Lobashev <https://github.com/soulthreads>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// Minimum TypeScript Version: 3.2
 
 import { Db } from 'mongodb';
 
 export interface DbConfig {
-    hosts?: string;
-    db?: string;
-    user?: string;
-    password?: string;
-    mongoUri?: string;
+    hosts?: string | undefined;
+    db?: string | undefined;
+    user?: string | undefined;
+    password?: string | undefined;
+    mongoUri?: string | undefined;
     migrationCollection: string;
-    replicaSet?: string;
+    replicaSet?: string | undefined;
 }
 
 export interface MigrationResponse {
@@ -31,5 +31,5 @@ export class Migration {
 export interface MigrationStep {
     id: string;
     up: (db: Db, cb: (err?: Error) => void) => void;
-    down?: (db: Db, cb: (err?: Error) => void) => void;
+    down?: ((db: Db, cb: (err?: Error) => void) => void) | undefined;
 }

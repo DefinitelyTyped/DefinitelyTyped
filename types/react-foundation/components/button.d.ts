@@ -3,15 +3,15 @@ import * as React from 'react';
 import { ButtonSizes, ButtonColors } from '../enums';
 import { FlexboxPropTypes } from '../utils';
 export interface ButtonPropsCommon extends FlexboxPropTypes {
-    size?: ButtonSizes;
-    isHollow?: boolean;
-    isExpanded?: boolean;
-    isDisabled?: boolean;
-    isDropdown?: boolean;
-    isArrowOnly?: boolean;
+    size?: ButtonSizes | undefined;
+    isHollow?: boolean | undefined;
+    isExpanded?: boolean | undefined;
+    isDisabled?: boolean | undefined;
+    isDropdown?: boolean | undefined;
+    isArrowOnly?: boolean | undefined;
 }
 export interface ButtonProps extends ButtonPropsCommon, React.HTMLAttributes<HTMLDivElement> {
-    color?: ButtonColors;
+    color?: ButtonColors | undefined;
 }
 /**
  * Button component.
@@ -20,9 +20,9 @@ export interface ButtonProps extends ButtonPropsCommon, React.HTMLAttributes<HTM
  * @param {Object} props
  * @returns {Object}
  */
-export declare const Button: React.StatelessComponent<ButtonProps>;
+export declare const Button: React.FunctionComponent<ButtonProps>;
 export interface LinkProps extends ButtonPropsCommon, React.AnchorHTMLAttributes<HTMLAnchorElement> {
-    color?: ButtonColors;
+    color?: ButtonColors | undefined;
 }
 /**
  * Link button component.
@@ -31,4 +31,4 @@ export interface LinkProps extends ButtonPropsCommon, React.AnchorHTMLAttributes
  * @param {Object} props
  * @returns {Object}
  */
-export declare const Link: React.StatelessComponent<LinkProps>;
+export declare const Link: React.FunctionComponent<LinkProps>;

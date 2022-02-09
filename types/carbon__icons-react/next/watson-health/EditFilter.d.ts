@@ -1,0 +1,1 @@
+export { WatsonHealthEditFilter as default } from "../";

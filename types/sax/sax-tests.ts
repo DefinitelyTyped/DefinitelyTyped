@@ -34,6 +34,10 @@ import fs = require("fs");
         }
     };
 
+    parser.onopentagstart = (tag: sax.QualifiedTag) => {};
+
+    parser.onsgmldeclaration = (sgmlDecl: string) => {};
+
     parser.onattribute = (attr: { name: string; value: string; }) => {};
 
     parser.onend = () => {};
@@ -60,6 +64,16 @@ import fs = require("fs");
     saxStream.on("opentag", tag => {
         // $ExpectType Tag | QualifiedTag
         tag;
+    });
+
+    saxStream.on("opentagstart", tag => {
+        // $ExpectType Tag | QualifiedTag
+        tag;
+    });
+
+    saxStream.on("sgmldeclaration", sgmlDecl => {
+        // $ExpectType string
+        sgmlDecl;
     });
 
     saxStream.on("closetag", tagName => {
@@ -140,7 +154,9 @@ import fs = require("fs");
         const attrValue: string = tag.attributes["name"];
     };
 
-    parser.onattribute = (attr: { name: string; value: string; }) => {};
+    parser.onattribute = (attr: { name: string; value: string; }) => {
+        const tag: sax.Tag = parser.tag;
+    };
 
     parser.onend = () => {};
 

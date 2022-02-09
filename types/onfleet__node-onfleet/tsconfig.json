@@ -16,8 +16,8 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@onfleet/node-onfleet": [
-                "onfleet__node-onfleet"
+            "@onfleet/*": [
+                "onfleet__*"
             ]
         }
     },

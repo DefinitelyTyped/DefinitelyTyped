@@ -28,7 +28,7 @@ export interface Context {
     cookie: { [key: string]: string };
     files: formidable.Files;
     ip: string;
-    ips?: string[];
+    ips?: string[] | undefined;
     url: string;
     method: string;
     path: string;

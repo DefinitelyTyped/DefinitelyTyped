@@ -15,68 +15,68 @@ declare namespace GoogleAppsScript {
     }
     namespace Schema {
       interface Activity {
-        combinedEvent?: Appsactivity.Schema.Event;
-        singleEvents?: Appsactivity.Schema.Event[];
+        combinedEvent?: Appsactivity.Schema.Event | undefined;
+        singleEvents?: Appsactivity.Schema.Event[] | undefined;
       }
       interface Event {
-        additionalEventTypes?: string[];
-        eventTimeMillis?: string;
-        fromUserDeletion?: boolean;
-        move?: Appsactivity.Schema.Move;
-        permissionChanges?: Appsactivity.Schema.PermissionChange[];
-        primaryEventType?: string;
-        rename?: Appsactivity.Schema.Rename;
-        target?: Appsactivity.Schema.Target;
-        user?: Appsactivity.Schema.User;
+        additionalEventTypes?: string[] | undefined;
+        eventTimeMillis?: string | undefined;
+        fromUserDeletion?: boolean | undefined;
+        move?: Appsactivity.Schema.Move | undefined;
+        permissionChanges?: Appsactivity.Schema.PermissionChange[] | undefined;
+        primaryEventType?: string | undefined;
+        rename?: Appsactivity.Schema.Rename | undefined;
+        target?: Appsactivity.Schema.Target | undefined;
+        user?: Appsactivity.Schema.User | undefined;
       }
       interface ListActivitiesResponse {
-        activities?: Appsactivity.Schema.Activity[];
-        nextPageToken?: string;
+        activities?: Appsactivity.Schema.Activity[] | undefined;
+        nextPageToken?: string | undefined;
       }
       interface Move {
-        addedParents?: Appsactivity.Schema.Parent[];
-        removedParents?: Appsactivity.Schema.Parent[];
+        addedParents?: Appsactivity.Schema.Parent[] | undefined;
+        removedParents?: Appsactivity.Schema.Parent[] | undefined;
       }
       interface Parent {
-        id?: string;
-        isRoot?: boolean;
-        title?: string;
+        id?: string | undefined;
+        isRoot?: boolean | undefined;
+        title?: string | undefined;
       }
       interface Permission {
-        name?: string;
-        permissionId?: string;
-        role?: string;
-        type?: string;
-        user?: Appsactivity.Schema.User;
-        withLink?: boolean;
+        name?: string | undefined;
+        permissionId?: string | undefined;
+        role?: string | undefined;
+        type?: string | undefined;
+        user?: Appsactivity.Schema.User | undefined;
+        withLink?: boolean | undefined;
       }
       interface PermissionChange {
-        addedPermissions?: Appsactivity.Schema.Permission[];
-        removedPermissions?: Appsactivity.Schema.Permission[];
+        addedPermissions?: Appsactivity.Schema.Permission[] | undefined;
+        removedPermissions?: Appsactivity.Schema.Permission[] | undefined;
       }
       interface Photo {
-        url?: string;
+        url?: string | undefined;
       }
       interface Rename {
-        newTitle?: string;
-        oldTitle?: string;
+        newTitle?: string | undefined;
+        oldTitle?: string | undefined;
       }
       interface Target {
-        id?: string;
-        mimeType?: string;
-        name?: string;
+        id?: string | undefined;
+        mimeType?: string | undefined;
+        name?: string | undefined;
       }
       interface User {
-        isDeleted?: boolean;
-        isMe?: boolean;
-        name?: string;
-        permissionId?: string;
-        photo?: Appsactivity.Schema.Photo;
+        isDeleted?: boolean | undefined;
+        isMe?: boolean | undefined;
+        name?: string | undefined;
+        permissionId?: string | undefined;
+        photo?: Appsactivity.Schema.Photo | undefined;
       }
     }
   }
   interface Appsactivity {
-    Activities?: Appsactivity.Collection.ActivitiesCollection;
+    Activities?: Appsactivity.Collection.ActivitiesCollection | undefined;
   }
 }
 

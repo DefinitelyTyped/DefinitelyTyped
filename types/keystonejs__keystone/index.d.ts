@@ -1,7 +1,8 @@
-// Type definitions for @keystonejs/keystone 5.2
+// Type definitions for @keystonejs/keystone 7.0
 // Project: https://github.com/keystonejs/keystone
 // Definitions by: Kevin Brown <https://github.com/thekevinbrown>
 //                 Timothee Clain <https://github.com/tclain>
+//                 Abhijith Vijayan <https://github.com/abhijithvijayan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
 
@@ -22,25 +23,33 @@ declare module '@keystonejs/keystone' {
     }
 
     interface KeystoneOptions {
-        name: string;
         adapter: BaseKeystoneAdapter;
         adapters?: {
             [key: string]: BaseKeystoneAdapter;
-        };
-        defaultAdapter?: string;
-        onConnect?: () => void;
-        cookieSecret?: string;
-        cookieMaxAge?: number;
-        secureCookies?: boolean;
-        sessionStore?: any; // TODO: bring in express session types
-        schemaNames?: string[];
-        defaultAcces?: {
-            list?: boolean;
-            field?: boolean;
-        };
+        } | undefined;
+        appVersion?: {
+            version?: string | undefined,
+            addVersionToHttpHeaders?: boolean | undefined,
+            access?: unknown | undefined,
+        } | undefined;
+        cookie?: {
+            secure?: boolean | undefined;
+            maxAge?: number | undefined;
+            sameSite?: boolean | undefined;
+        } | undefined;
+        cookieSecret?: string | undefined;
+        defaultAccess?: {
+            list?: boolean | undefined,
+            field?: boolean | undefined,
+            custom?: boolean | undefined
+        } | undefined;
+        defaultAdapter?: string | undefined;
+        onConnect?: (() => void) | undefined;
         queryLimits?: {
-            maxTotalResults?: number;
-        };
+            maxTotalResults?: number | undefined;
+        } | undefined;
+        sessionStore?: any; // TODO: bring in express session types
+        schemaNames?: string[] | undefined;
     }
 
     interface KeystonePrepareResult {
@@ -48,7 +57,21 @@ declare module '@keystonejs/keystone' {
     }
 
     interface AuthenticationContext {
-        authentication: { item: any }; // TODO
+        authentication: {
+            item: {
+                id: string;
+                name: string;
+                email: string;
+                isAdmin: boolean;
+                password: string;
+            };
+            listAuthKey: string;
+            operation: string;
+            originalInput?: any; // TODO: types
+            gqlName: string;
+            itemId?: any; // TODO: types
+            itemIds?: any; // TODO: types
+        };
     }
 
     interface GraphQLWhereClause {
@@ -61,11 +84,11 @@ declare module '@keystonejs/keystone' {
         | boolean // Shorthand documented here: https://www.keystonejs.com/api/access-control#booleans
         | AccessCallback
         | {
-              read?: boolean | GraphQLWhereClause | AccessCallback;
-              update?: boolean | AccessCallback;
-              create?: boolean | AccessCallback;
-              delete?: boolean | AccessCallback;
-              auth?: boolean;
+              read?: boolean | GraphQLWhereClause | AccessCallback | undefined;
+              update?: boolean | AccessCallback | undefined;
+              create?: boolean | AccessCallback | undefined;
+              delete?: boolean | AccessCallback | undefined;
+              auth?: boolean | undefined;
           };
 
     type Plugin = any; // TODO: investigate what a plugin is
@@ -78,71 +101,56 @@ declare module '@keystonejs/keystone' {
         context: any; // TODO: use apollo context
         addFieldValidationError: (error: string) => any; // not clear in the documentation
         list: {
-            query: (
-                args: any,
-                context: any,
-                options?: { skipAccessControl: boolean }
-            ) => Promise<Record>;
-            queryMany: (
-                args: any,
-                context: any,
-                options?: { skipAccessControl: boolean }
-            ) => Promise<Record[]>;
+            query: (args: any, context: any, options?: { skipAccessControl: boolean }) => Promise<Record>;
+            queryMany: (args: any, context: any, options?: { skipAccessControl: boolean }) => Promise<Record[]>;
             queryManyMeta: (
                 args: any,
                 context: any,
-                options?: { skipAccessControl: boolean }
+                options?: { skipAccessControl: boolean },
             ) => Promise<{ count: number }>;
             getList: (key: string) => ResolveInputHooksOptions['list']; // TODO: create a List Object and returns it
         };
     }
 
     type Hooks = Partial<{
-        resolveInput: (
-            opts: Omit<ResolveInputHooksOptions, 'addFieldValidationError' | 'updatedItem'>
-        ) => any; // TODO: return the same shape as resolvedData
+        resolveInput: (opts: Omit<ResolveInputHooksOptions, 'addFieldValidationError' | 'updatedItem'>) => any; // TODO: return the same shape as resolvedData
         validateInput: (opts: Omit<ResolveInputHooksOptions, 'updatedItem'>) => void;
         beforeChange: (opts: Omit<ResolveInputHooksOptions, 'addFieldValidationError'>) => void;
         afterChange: (
-            opts: Pick<
-                ResolveInputHooksOptions,
-                'updatedItem' | 'existingItem' | 'originalInput' | 'context' | 'list'
-            >
+            opts: Pick<ResolveInputHooksOptions, 'updatedItem' | 'existingItem' | 'originalInput' | 'context' | 'list'>,
         ) => void;
-        beforeDelete: (
-            opts: Pick<ResolveInputHooksOptions, 'existingItem' | 'context' | 'list'>
-        ) => void;
+        beforeDelete: (opts: Pick<ResolveInputHooksOptions, 'existingItem' | 'context' | 'list'>) => void;
         validateDelete: (
-            opts: Pick<
-                ResolveInputHooksOptions,
-                'existingItem' | 'context' | 'list' | 'addFieldValidationError'
-            >
+            opts: Pick<ResolveInputHooksOptions, 'existingItem' | 'context' | 'list' | 'addFieldValidationError'>,
         ) => void;
-        afterDelete: (
-            opts: Pick<ResolveInputHooksOptions, 'existingItem' | 'context' | 'list'>
-        ) => void;
+        afterDelete: (opts: Pick<ResolveInputHooksOptions, 'existingItem' | 'context' | 'list'>) => void;
     }>;
 
     /**
      * Lists
      */
+    type DefaultValueFunction = () => any;
+
     interface BaseFieldOptions {
         type: FieldType;
-        isRequired?: boolean;
-        isUnique?: boolean;
-        hooks?: Hooks;
-        access?: Access;
+        schemaDoc?: string | undefined;
+        defaultValue?: boolean | DefaultValueFunction | undefined;
+        isRequired?: boolean | undefined;
+        isUnique?: boolean | undefined;
+        hooks?: Hooks | undefined;
+        access?: Access | undefined;
+        label?: string | undefined;
     }
 
     interface AutoIncrementOptions extends BaseFieldOptions {
-        gqlType?: 'Int' | 'ID';
+        gqlType?: 'Int' | 'ID' | undefined;
     }
 
     interface CalendarDayOptions extends BaseFieldOptions {
-        format?: string;
-        yearRangeFrom?: number;
-        yearRangeTo?: number;
-        yearPickerType?: string;
+        format?: string | undefined;
+        yearRangeFrom?: number | undefined;
+        yearRangeTo?: number | undefined;
+        yearPickerType?: string | undefined;
     }
 
     interface ContentOptions extends BaseFieldOptions {
@@ -152,7 +160,7 @@ declare module '@keystonejs/keystone' {
         knexOptions: any; // FIXME: provide a more precise type from the knex adaptor
     }
     interface FileOptions extends BaseFieldOptions {
-        route?: string;
+        route?: string | undefined;
         adapter?: any; // FIXME: provide a file adapter type
     }
 
@@ -214,39 +222,47 @@ declare module '@keystonejs/keystone' {
     interface ListSchema<Fields extends string = string> {
         fields: { [fieldName in Fields]: AllFieldsOptions };
         listAdapterClass?: any; // TODO: investigate if a specific type can be provided
-        access?: Access;
-        plugins?: Plugin[];
-        hooks?: Hooks;
+        schemaDoc?: string | undefined;
+        access?: Access | undefined;
+        plugins?: Plugin[] | undefined;
+        hooks?: Hooks | undefined;
     }
 
     interface GraphQLExtension<Source = any, Context = any> {
         schema: string;
         resolver: GraphQLFieldResolver<Source, Context>;
-        access?: Access;
+        access?: Access | undefined;
     }
 
     interface GraphQLExtensionSchema {
-        types?: Array<{ type: string }>;
-        queries?: GraphQLExtension[];
-        mutations?: GraphQLExtension[];
+        types?: Array<{ type: string }> | undefined;
+        queries?: GraphQLExtension[] | undefined;
+        mutations?: GraphQLExtension[] | undefined;
     }
 
     class Keystone<ListNames extends string = string> {
         constructor(options: KeystoneOptions);
 
-        createAuthStrategy(options: { type: BaseAuthStrategy; list: ListNames; config?: any }): any; // TODO
+        connect(): Promise<void>;
+        createAuthStrategy(options: { type: BaseAuthStrategy; list: ListNames; config?: any; hooks?: any; plugins?: any[] | undefined }): any; // TODO
         createList(name: string, schema: ListSchema): void;
+        disconnect(): Promise<void>;
         extendGraphQLSchema(schema: GraphQLExtensionSchema): void;
+        prepare(options: {
+            apps?: BaseApp[] | undefined;
+            cors?: {
+                origin?: boolean | undefined;
+                credentials?: boolean | undefined
+            } | undefined,
+            dev?: boolean | undefined,
+            distDir?: string | undefined,
+            pinoOptions?: any
+        }): Promise<KeystonePrepareResult>;
 
-        prepare(options: { apps?: BaseApp[]; dev?: boolean }): Promise<KeystonePrepareResult>;
-
+        // tslint:disable-next-line:no-unnecessary-generics
+        createContext<Context = any>(context: { schemaName?: string | undefined, authentication?: AuthenticationContext | undefined, skipAccessControl?: boolean | undefined; }): Context;
         // The return type is actually important info here. I don't believe this generic is unnecessary.
         // tslint:disable-next-line:no-unnecessary-generics
-        executeQuery<Output = any>(query: string, config: { variables: any; context: any }): Output;
-        connect(): Promise<void>;
-        disconnect(): Promise<void>;
-
-        // tslint:disable-next-line:no-unnecessary-generics
-        createItems<ItemType>(items: { [key in ListNames]: ItemType[] }): Promise<void>;
+        executeGraphQL<Output = any>(options: {context?: any; query?: any, variables?: any}): Output;
     }
 }

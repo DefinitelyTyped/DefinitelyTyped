@@ -6,12 +6,13 @@
 declare namespace ffmpeg {
     interface Options {
         arguments: string[];
-        MEMFS?: Video[];
+        MEMFS?: Video[] | undefined;
         print?(data: any): void;
         printErr?(data: any): void;
         onExit?(code: unknown): void;
         stdin?(data: any): void;
-        mounts?: Mount[];
+        mounts?: Mount[] | undefined;
+        TOTAL_MEMORY?: number | undefined;
     }
 
     interface Opts {

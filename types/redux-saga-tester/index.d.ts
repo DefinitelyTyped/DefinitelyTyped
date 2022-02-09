@@ -10,12 +10,12 @@ import { AnyAction, Middleware, Reducer, ReducersMapObject } from 'redux';
 export type SagaFunction = (...args: any[]) => any;
 
 export interface SagaTesterOptions<StateType> {
-    initialState?: StateType;
-    reducers?: ReducersMapObject | Reducer<StateType>;
-    middlewares?: Middleware[];
-    combineReducers?: (map: ReducersMapObject) => Reducer<StateType>;
-    ignoreReduxActions?: boolean;
-    options?: object;
+    initialState?: StateType | undefined;
+    reducers?: ReducersMapObject | Reducer<StateType> | undefined;
+    middlewares?: Middleware[] | undefined;
+    combineReducers?: ((map: ReducersMapObject) => Reducer<StateType>) | undefined;
+    ignoreReduxActions?: boolean | undefined;
+    options?: object | undefined;
 }
 
 export default class SagaTester<StateType extends object> {
@@ -43,9 +43,10 @@ export default class SagaTester<StateType extends object> {
 
     /**
      * Returns a promise that will resolve if the specified action is dispatched to the store.
+     * @param actionType Action name.
      * @param futureOnly Causes waitFor to only resolve if the action is called in the future.
      */
-    waitFor(actionType: string, futureOnly?: boolean): PromiseLike<void>;
+    waitFor(actionType: string, futureOnly?: boolean): PromiseLike<AnyAction>;
 
     /**
      * Returns whether the specified was dispatched in the past.

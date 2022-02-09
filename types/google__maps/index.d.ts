@@ -1,7 +1,7 @@
 // Type definitions for @google/maps 0.5
 // Project: https://github.com/googlemaps/google-maps-services-js
 // Definitions by: Indri Muska <https://github.com/indrimuska>
-// Definitions: https://github.com/indrimuska/google-maps-api-typings
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 /**
@@ -11,35 +11,39 @@ export interface CreateClientOptions {
     /** API key (required, unless clientID and clientSecret provided). */
     key: string;
     /** Maps API for Work client ID. */
-    clientId?: string;
+    clientId?: string | undefined;
     /** Maps API for Work client secret (a.k.a. private key). */
-    clientSecret?: string;
+    clientSecret?: string | undefined;
     /** Maps API for Work channel. */
-    channel?: string;
+    channel?: string | undefined;
     /** Timeout in milliseconds. (Default: 60 * 1000 ms). */
-    timeout?: number;
+    timeout?: number | undefined;
     /** Default language for all queries. */
-    language?: Language;
-    /** Promise constructor (optional). */
-    Promise?: PromiseConstructor;
+    language?: Language | undefined;
     /** Rate options. */
-    rate?: RateOptions;
+    rate?: RateOptions | undefined;
     /** Retry options. */
-    retryOptions?: RetryOptions;
+    retryOptions?: RetryOptions | undefined;
+}
+/** Create a Google Maps client, with Promise support. */
+export interface CreateClientOptionsWithPromise extends CreateClientOptions {
+    /** Promise constructor */
+    Promise: PromiseConstructor;
 }
 
 export interface RateOptions {
     /** Controls rate-limiting of requests. Maximum number of requests per period. (Default: 50). */
-    limit?: number;
+    limit?: number | undefined;
     /** Period for rate limit, in milliseconds. (Default: 1000 ms). */
-    period?: number;
+    period?: number | undefined;
 }
 
 export interface RetryOptions {
     /** If a transient server error occurs, how long to wait before retrying the request, in milliseconds. (Default: 500 ms). */
-    interval?: number;
+    interval?: number | undefined;
 }
 
+export function createClient(options: CreateClientOptionsWithPromise): GoogleMapsClientWithPromise;
 export function createClient(options: CreateClientOptions): GoogleMapsClient;
 
 /**
@@ -67,14 +71,8 @@ export interface ClientResponse<T> {
     status: number;
 }
 
-/** A handle that allows cancelling a request, or obtaining a Promise. */
+/** A handle that allows cancelling a request. */
 export interface RequestHandle<T> {
-    /**
-     * Returns the response as a [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise).
-     * This method is only available if you supplied the `Promise` constructor to the `createClient()` method when you constructed
-     * the client object.
-     */
-    asPromise(): Promise<ClientResponse<T>>;
     /**
      * Cancels the request.
      * The ResponseCallback will not be invoked, and promises will not be settled.
@@ -87,6 +85,16 @@ export interface RequestHandle<T> {
      * Returns this handle, for chaining.
      */
     finally(callback: () => void): RequestHandle<T>;
+}
+
+/** A handle that allows cancelling a request, or obtaining a Promise. */
+export interface RequestHandleWithPromise<T> extends RequestHandle<T> {
+    /**
+     * Returns the response as a [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise).
+     * This method is only available if you supplied the `Promise` constructor to the `createClient()` method when you constructed
+     * the client object.
+     */
+    asPromise(): Promise<ClientResponse<T>>;
 }
 
 export type LatLngArray = [number, number];
@@ -255,7 +263,11 @@ export type Language = (
 );
 
 export type GoogleMapsClientEndpoint<Request, Response> = (query: Request, callback?: ResponseCallback<Response>) => RequestHandle<Response>;
+export type GoogleMapsClientEndpointWithPromise<Request, Response> = (query: Request, callback?: ResponseCallback<Response>) => RequestHandleWithPromise<Response>;
 
+/**
+ * Google Maps clieant that provides access to all the APIs.
+ */
 export interface GoogleMapsClient {
     /**
      * The Directions API is a service that calculates directions between locations using an HTTP request.
@@ -488,6 +500,241 @@ export interface GoogleMapsClient {
     timezone: GoogleMapsClientEndpoint<TimeZoneRequest, TimeZoneResponse>;
 }
 
+/**
+ * Google Maps clieant that provides access to all the APIs. This supports the `asPromise()` function on API calls.
+ */
+export interface GoogleMapsClientWithPromise {
+    /**
+     * The Directions API is a service that calculates directions between locations using an HTTP request.
+     *
+     * With the Directions API, you can:
+     *  - Search for directions for several modes of transportation, including transit, driving, walking or cycling.
+     *  - Return multi-part directions using a series of waypoints.
+     *  - Specify origins, destinations, and waypoints as text strings
+     *    (e.g. "Chicago, IL" or "Darwin, NT, Australia"), or as latitude/longitude coordinates, or as place IDs.
+     *
+     * The API returns the most efficient routes when calculating directions. Travel time is the primary factor optimized,
+     * but the API may also take into account other factors such as distance, number of turns and many more when deciding
+     * which route is the most efficient.
+     *
+     * **Tip:** Calculating directions is a time and resource intensive task. Whenever possible, use the service to calculate
+     * known addresses ahead of time and store the results in a
+     * [**temporary cache**](https://developers.google.com/maps/documentation/directions/policies#pre-fetching-caching-or-storage-of-content)
+     * of your own design.
+     *
+     * **Note:** This service is not designed to respond in real time to user input. For dynamic directions calculations
+     * (for example, within a user interface element), consult the documentation for the
+     * [Maps JavaScript API Directions Service](https://developers.google.com/maps/documentation/javascript/directions)
+     *
+     * @see https://developers.google.com/maps/documentation/directions/intro
+     */
+    directions: GoogleMapsClientEndpointWithPromise<DirectionsRequest, DirectionsResponse>;
+    /**
+     * The Distance Matrix API is a service that provides travel distance and time for a matrix of origins and destinations.
+     * The API returns information based on the recommended route between start and end points, as calculated by the Google Maps API,
+     * and consists of rows containing duration and distance values for each pair.
+     *
+     * @see https://developers.google.com/maps/documentation/distance-matrix/intro
+     */
+    distanceMatrix: GoogleMapsClientEndpointWithPromise<DistanceMatrixRequest, DistanceMatrixResponse>;
+    /**
+     * The Elevation API provides a simple interface to query locations on the earth for elevation data. With the Elevation API,
+     * you can develop hiking and biking applications, positioning applications, or low resolution surveying applications.
+     *
+     * Elevation data is available for all locations on the surface of the earth, including depth locations on the ocean floor
+     * (which return negative values). In those cases where Google does not possess exact elevation measurements at the precise
+     * location you request, the service interpolates and returns an averaged value using the four nearest locations.
+     * Elevation values are expressed relative to local mean sea level (LMSL).
+     *
+     * You access the Elevation API through an HTTP interface. Users of the Maps JavaScript API may also access this API directly
+     * by using the `ElevationService()` object.
+     * (See [Elevation Service](https://developers.google.com/maps/documentation/javascript/elevation) for more information.)
+     *
+     * @see https://developers.google.com/maps/documentation/elevation/intro
+     */
+    elevation: GoogleMapsClientEndpointWithPromise<ElevationRequest, ElevationResponse>;
+    /**
+     * You may request sampled elevation data along paths, allowing you to calculate elevation changes along routes.
+     * With the Elevation API, you can develop hiking and biking applications, positioning applications,
+     * or low resolution surveying applications.
+     *
+     * @see https://developers.google.com/maps/documentation/elevation/intro
+     */
+    elevationAlongPath: GoogleMapsClientEndpointWithPromise<ElevationAlongPathRequest, ElevationResponse>;
+    /**
+     * The Places API allows you to query for place information on a variety of categories, such as: establishments,
+     * prominent points of interest, geographic locations, and more. You can search for places either by proximity or a text string.
+     * A Place Search returns a list of places along with summary information about each place; additional information is available
+     * via a [Place Details](https://developers.google.com/places/web-service/details) query.
+     *
+     * A Find Place request takes a text input, and returns a place.
+     * The text input can be any kind of Places data, for example, a name, address, or phone number.
+     *
+     * @see https://developers.google.com/places/web-service/search#FindPlaceRequests
+     */
+    findPlace: GoogleMapsClientEndpointWithPromise<FindPlaceRequest, FindPlaceFromTextResponse>;
+    /**
+     * **Geocoding** is the process of converting addresses (like "1600 Amphitheatre Parkway, Mountain View, CA")
+     * into geographic coordinates (like latitude 37.423021 and longitude -122.083739),
+     * which you can use to place markers on a map, or position the map.
+     *
+     * **Note:** This service is generally designed for geocoding static (known in advance) addresses for placement
+     * of application content on a map; this service is not designed to respond in real time to user input.
+     * For dynamic geocoding (for example, within a user interface element), consult the documentation for the
+     * [Maps JavaScript API client geocoder](https://developers.google.com/maps/documentation/javascript/geocoding) and/or the
+     * [Google Play services Location APIs](https://developer.android.com/google/play-services/location.html).
+     *
+     * **Tip:** Geocoding is a time and resource intensive task. Whenever possible, pre-geocode known addresses
+     * (using the Geocoding API described here or another geocoding service), and store your results in a
+     * [**temporary cache**](https://developers.google.com/maps/documentation/geocoding/policies#pre-fetching-caching-or-storage-of-content)
+     * of your own design.
+     *
+     * @see https://developers.google.com/maps/documentation/geocoding/intro#GeocodingRequests
+     */
+    geocode: GoogleMapsClientEndpointWithPromise<GeocodingRequest, GeocodingResponse>;
+    /**
+     * The Geolocation API returns a location and accuracy radius based on information about cell towers and WiFi nodes
+     * that the mobile client can detect. This document describes the protocol used to send this data to the server and
+     * to return a response to the client.
+     *
+     * @see https://developers.google.com/maps/documentation/geolocation/intro
+     */
+    geolocate: GoogleMapsClientEndpointWithPromise<GeolocationRequest, GeolocationResponse>;
+    /**
+     * The Roads API takes up to 100 independent coordinates, and returns the closest road segment for each point.
+     * The points passed do not need to be part of a continuous path.
+     *
+     * If you are working with sequential GPS points, use [Snap to Roads](https://developers.google.com/maps/documentation/roads/snap).
+     *
+     * @see https://developers.google.com/maps/documentation/roads/nearest
+     */
+    nearestRoads: GoogleMapsClientEndpointWithPromise<NearestRoadsRequest, NearestRoadsResponse>;
+    /**
+     * Once you have a `place_id` from a Place Search, you can request more details about a particular establishment
+     * or point of interest by initiating a Place Details request. A Place Details request returns more comprehensive
+     * information about the indicated place such as its complete address, phone number, user rating and reviews.
+     *
+     * @see https://developers.google.com/places/web-service/details
+     */
+    place: GoogleMapsClientEndpointWithPromise<PlaceDetailsRequest, PlaceDetailsResponse>;
+    /**
+     * The Google Places API Text Search Service is a web service that returns information about a set of places
+     * based on a string — for example "pizza in New York" or "shoe stores near Ottawa" or "123 Main Street".
+     * The service responds with a list of places matching the text string and any location bias that has been set.
+     *
+     * The service is especially useful for making
+     * [ambiguous address queries](https://developers.google.com/maps/documentation/geocoding/best-practices) in an automated system,
+     * and non-address components of the string may match businesses as well as addresses.
+     * Examples of ambiguous address queries are incomplete addresses, poorly formatted addresses,
+     * or a request that includes non-address components such as business names.
+     *
+     * The search response will include a list of places. You can send a Place Details request
+     * for more information about any of the places in the response.
+     *
+     * @see https://developers.google.com/places/web-service/search#TextSearchRequests
+     */
+    places: GoogleMapsClientEndpointWithPromise<PlacesRequest, PlaceSearchResponse>;
+    /**
+     * The Place Autocomplete service is a web service that returns place predictions in response to an HTTP request.
+     * The request specifies a textual search string and optional geographic bounds.
+     * The service can be used to provide autocomplete functionality for text-based geographic searches,
+     * by returning places such as businesses, addresses and points of interest as a user types.
+     *
+     * @see https://developers.google.com/places/web-service/autocomplete
+     */
+    placesAutoComplete: GoogleMapsClientEndpointWithPromise<PlaceAutocompleteRequest, PlaceAutocompleteResponse>;
+    /**
+     * A Nearby Search lets you search for places within a specified area.
+     * You can refine your search request by supplying keywords or specifying the type of place you are searching for.
+     *
+     * @see https://developers.google.com/places/web-service/search#PlaceSearchRequests
+     */
+    placesNearby: GoogleMapsClientEndpointWithPromise<PlacesNearbyRequest, PlaceSearchResponse>;
+    /**
+     * The Place Photo service, part of the Places API, is a read- only API that allows you to add high quality photographic content
+     * to your application. The Place Photo service gives you access to the millions of photos stored in the Places database.
+     * When you get place information using a Place Details request, photo references will be returned for relevant photographic content.
+     * The Nearby Search and Text Search requests also return a single photo reference per place, when relevant.
+     * Using the Photo service you can then access the referenced photos and resize the image to the optimal size for your application.
+     *
+     * @see https://developers.google.com/places/web-service/photos
+     */
+    placesPhoto: GoogleMapsClientEndpointWithPromise<PlacePhotoRequest, PlacePhotoResponse>;
+    /**
+     * The Query Autocomplete service can be used to provide a query prediction for text-based geographic searches,
+     * by returning suggested queries as you type.
+     *
+     * The Query Autocomplete service allows you to add on-the-fly geographic query predictions to your application.
+     * Instead of searching for a specific location, a user can type in a categorical search, such as "pizza near New York"
+     * and the service responds with a list of suggested queries matching the string. As the Query Autocomplete service can match
+     * on both full words and substrings, applications can send queries as the user types to provide on-the-fly predictions.
+     *
+     * @see https://developers.google.com/places/web-service/query
+     */
+    placesQueryAutoComplete: GoogleMapsClientEndpointWithPromise<QueryAutocompleteRequest, QueryAutocompleteResponse>;
+    /**
+     * The Google Places API Radar Search Service allows you to search for up to 200 places at once,
+     * but with less detail than is typically returned from a Text Search or Nearby Search request.
+     * With Radar Search, you can create applications that help users identify specific areas of interest within a geographic area.
+     *
+     * The search response will include up to 200 places, and will include only the following information about each place:
+     *  - The `geometry` field containing geographic coordinates.
+     *  - The `place_id`, which you can use in a Place Details request to get more information about the place.
+     *
+     * @deprecated Radar search is deprecated as of June 30, 2018. After that time, this feature will no longer be available.
+     *
+     * @see https://developers.google.com/places/web-service/search#RadarSearchRequests
+     */
+    placesRadar: GoogleMapsClientEndpointWithPromise<PlaceRadarRequest, PlaceSearchResponse>;
+    /**
+     * Reverse geocoding is the process of converting geographic coordinates into a human-readable address.
+     *
+     * @see https://developers.google.com/maps/documentation/geocoding/intro#ReverseGeocoding
+     */
+    reverseGeocode: GoogleMapsClientEndpointWithPromise<ReverseGeocodingRequest, ReverseGeocodingResponse>;
+    /**
+     * The Roads API returns the posted speed limit for a given road segment.
+     * In the case of road segments with variable speed limits, the default speed limit for the segment is returned.
+     *
+     * The accuracy of speed limit data returned by the Roads API cannot be guaranteed.
+     * The speed limit data provided is not real-time, and may be estimated, inaccurate, incomplete, and/or outdated.
+     * You may report inaccuracies in our speed limit data by filing a case in the
+     * [Google Cloud Support Portal](https://developers.google.com/maps/premium/support#support_portal).
+     *
+     * @see https://developers.google.com/maps/documentation/roads/speed-limits
+     */
+    snappedSpeedLimits: GoogleMapsClientEndpointWithPromise<SnappedSpeedLimitsRequest, SpeedLimitsResponse>;
+    /**
+     * The Roads API takes up to 100 GPS points collected along a route, and returns a similar set of data,
+     * with the points snapped to the most likely roads the vehicle was traveling along.
+     * Optionally, you can request that the points be interpolated, resulting in a path that smoothly follows the geometry of the road.
+     *
+     * @see https://developers.google.com/maps/documentation/roads/snap
+     */
+    snapToRoads: GoogleMapsClientEndpointWithPromise<SnapToRoadsRequest, SnapToRoadsResponse>;
+    /**
+     * The Roads API returns the posted speed limit for a given road segment.
+     * In the case of road segments with variable speed limits, the default speed limit for the segment is returned.
+     *
+     * The accuracy of speed limit data returned by the Roads API cannot be guaranteed.
+     * The speed limit data provided is not real-time, and may be estimated, inaccurate, incomplete, and/or outdated.
+     * You may report inaccuracies in our speed limit data by filing a case in the
+     * [Google Cloud Support Portal](https://developers.google.com/maps/premium/support#support_portal).
+     *
+     * @see https://developers.google.com/maps/documentation/roads/speed-limits
+     */
+    speedLimits: GoogleMapsClientEndpointWithPromise<SpeedLimitsRequest, SpeedLimitsResponse>;
+    /**
+     * The Time Zone API provides a simple interface to request the time zone for locations on the surface of the earth,
+     * as well as the time offset from UTC for each of those locations. You request the time zone information for
+     * a specific latitude/longitude pair and date. The API returns the name of that time zone, the time offset from UTC,
+     * and the daylight savings offset.
+     *
+     * @see https://developers.google.com/maps/documentation/timezone/intro
+     */
+    timezone: GoogleMapsClientEndpointWithPromise<TimeZoneRequest, TimeZoneResponse>;
+}
+
 export interface DirectionsRequest {
     /**
      * The address, textual latitude/longitude value, or place ID from which you wish to calculate directions.
@@ -520,7 +767,7 @@ export interface DirectionsRequest {
      *
      * @default TravelMode.driving
      */
-    mode?: TravelMode;
+    mode?: TravelMode | undefined;
     /**
      * Specifies an array of waypoints.
      * Waypoints alter a route by routing it through the specified location(s).
@@ -529,14 +776,14 @@ export interface DirectionsRequest {
      * The place ID may only be specified if the request includes an API key or a Google Maps APIs Premium Plan client ID.
      * Waypoints are only supported for driving, walking and bicycling directions.
      */
-    waypoints?: LatLng[];
+    waypoints?: LatLng[] | undefined;
     /**
      * If set to `true`, specifies that the Directions service may provide more than one route alternative in the response.
      * Note that providing route alternatives may increase the response time from the server.
      */
-    alternatives?: boolean;
+    alternatives?: boolean | undefined;
     /** Indicates that the calculated route(s) should avoid the indicated features. */
-    avoid?: TravelRestriction[];
+    avoid?: TravelRestriction[] | undefined;
     /**
      * The language in which to return results.
      *
@@ -552,17 +799,17 @@ export interface DirectionsRequest {
      *    such as the abbreviations for street types, or synonyms that may be valid in one language but not in another.
      *    For example, utca and tér are synonyms for street in Hungarian.
      */
-    language?: Language;
+    language?: Language | undefined;
     /** Specifies the unit system to use when displaying results. */
-    units?: UnitSystem;
+    units?: UnitSystem | undefined;
     /** Specifies the region code, specified as a ccTLD ("top-level domain") two-character value. */
-    region?: string;
+    region?: string | undefined;
     /**
      * Specifies the desired time of arrival for transit directions, in seconds since midnight, January 1, 1970 UTC.
      * You can specify either `departure_time` or `arrival_time`, but not both.
      * Note that `arrival_time` must be specified as an integer.
      */
-    arrival_time?: Date | number;
+    arrival_time?: Date | number | undefined;
     /**
      * Specifies the desired time of departure. You can specify the time as an integer in seconds since midnight, January 1, 1970 UTC.
      * Alternatively, you can specify a value of `now`, which sets the departure time to the current time (correct to the nearest second).
@@ -575,7 +822,7 @@ export interface DirectionsRequest {
      *    This option is only available if the request contains a valid API key, or a valid Google Maps APIs Premium Plan client ID
      *    and signature. The `departure_time` must be set to the current time or some time in the future. It cannot be in the past.
      */
-    departure_time?: Date | number | 'now';
+    departure_time?: Date | number | 'now' | undefined;
     /**
      * Specifies the assumptions to use when calculating time in traffic.
      * This setting affects the value returned in the `duration_in_traffic` field in the response, which contains the predicted time
@@ -588,22 +835,22 @@ export interface DirectionsRequest {
      *
      * @default TrafficModel.best_guess
      */
-    traffic_model?: TrafficModel;
+    traffic_model?: TrafficModel | undefined;
     /**
      * Specifies one or more preferred modes of transit.
      * This parameter may only be specified for transit directions, and only if the request includes an API key or
      * a Google Maps APIs Premium Plan client ID.
      */
-    transit_mode?: TransitMode[];
+    transit_mode?: TransitMode[] | undefined;
     /**
      * Specifies preferences for transit routes.
      * Using this parameter, you can bias the options returned, rather than accepting the default best route chosen by the API.
      * This parameter may only be specified for transit directions, and only if the request includes an API key or
      * a Google Maps APIs Premium Plan client ID.
      */
-    transit_routing_preference?: TransitRoutingPreference;
+    transit_routing_preference?: TransitRoutingPreference | undefined;
     /** Wherever to optimize the provided route by rearranging the waypoints in a more efficient order. */
-    optimize?: boolean;
+    optimize?: boolean | undefined;
 }
 
 /**
@@ -808,8 +1055,6 @@ export type GeocodedWaypointStatus = (
 );
 
 export type AddressType = (
-    /** indicates a precise street address. */
-    'street_address' |
     /** indicates a named route (such as "US 101"). */
     'route' |
     /** indicates a major intersection, usually of two major roads. */
@@ -1270,7 +1515,7 @@ export interface DistanceMatrixRequest {
      *
      * @default TravelMode.driving
      */
-    mode?: TravelMode;
+    mode?: TravelMode | undefined;
     /**
      * The language in which to return results.
      *  - If `language` is not supplied, the API attempts to use the preferred language as specified in the `Accept-Language` header,
@@ -1285,27 +1530,27 @@ export interface DistanceMatrixRequest {
      *    such as the abbreviations for street types, or synonyms that may be valid in one language but not in another.
      *    For example, utca and tér are synonyms for street in Hungarian.
      */
-    language?: string;
+    language?: string | undefined;
     /**
      * The region code, specified as a [ccTLD](https://en.wikipedia.org/wiki/CcTLD) (country code top-level domain) two-character value.
      * Most ccTLD codes are identical to ISO 3166-1 codes, with some exceptions.
      * This parameter will only influence, not fully restrict, results from the geocoder.
      * If more relevant results exist outside of the specified region, they may be included.
      */
-    region?: string;
+    region?: string | undefined;
     /**
      * Introduces restrictions to the route. Valid values are specified in the Restrictions section of this document.
      * Only one restriction can be specified.
      */
-    avoid?: TravelRestriction[];
+    avoid?: TravelRestriction[] | undefined;
     /** Specifies the unit system to use when expressing distance as text. */
-    units?: UnitSystem;
+    units?: UnitSystem | undefined;
     /**
      * Specifies the desired time of arrival for transit requests, in seconds since midnight, January 1, 1970 UTC.
      * You can specify either `departure_time` or `arrival_time`, but not both.
      * Note that `arrival_time` must be specified as an integer.
      */
-    arrival_time?: Date | number;
+    arrival_time?: Date | number | undefined;
     /**
      * The desired time of departure. You can specify the time as an integer in seconds since midnight, January 1, 1970 UTC.
      * Alternatively, you can specify a value of now, which sets the departure time to the current time (correct to the nearest second).
@@ -1324,7 +1569,7 @@ export interface DistanceMatrixRequest {
      *    **Note:** Distance Matrix requests specifying `departure_time` when `mode=driving` are limited
      *    to a maximum of 100 elements per request. The number of origins times the number of destinations defines the number of elements.
      */
-    departure_time?: Date | number;
+    departure_time?: Date | number | undefined;
     /**
      * Specifies the assumptions to use when calculating time in traffic.
      * This setting affects the value returned in the `duration_in_traffic` field in the response,
@@ -1335,15 +1580,15 @@ export interface DistanceMatrixRequest {
      *
      * @default TrafficModel.best_guess
      */
-    traffic_model?: TrafficModel;
+    traffic_model?: TrafficModel | undefined;
     /** Specifies one or more preferred modes of transit. This parameter may only be specified for requests where the `mode` is `transit`. */
-    transit_mode?: TransitMode[];
+    transit_mode?: TransitMode[] | undefined;
     /**
      * Specifies preferences for transit requests. Using this parameter, you can bias the options returned,
      * rather than accepting the default best route chosen by the API.
      * This parameter may only be specified for requests where the `mode` is `transit`.
      */
-    transit_routing_preference?: TransitRoutingPreference;
+    transit_routing_preference?: TransitRoutingPreference | undefined;
 }
 
 export interface DistanceMatrixResponse {
@@ -1358,7 +1603,7 @@ export interface DistanceMatrixResponse {
      * contains an array of addresses as returned by the API from your original request.
      * These are formatted by the geocoder and localized according to the language parameter passed with the request.
      */
-    origin_addresses: string;
+    origin_addresses: string[];
     /**
      * contains an array of addresses as returned by the API from your original request.
      * As with origin_addresses, these are localized if appropriate.
@@ -1537,18 +1782,18 @@ export interface FindPlaceRequest {
      * The language code, indicating in which language the results should be returned, if possible.
      * Searches are also biased to the selected language; results in the selected language may be given a higher ranking
      */
-    language?: Language;
+    language?: Language | undefined;
     /**
      * The fields specifying the types of place data to return.
      *
      * **Note:** If you omit the fields parameter from a Find Place request, only the place_id for the result will be returned.
      */
-    fields?: Array<keyof PlaceSearchResult>;
+    fields?: Array<keyof PlaceSearchResult> | undefined;
     /**
      * Prefer results in a specified area, by specifying either a radius plus lat/lng, or two lat/lng pairs representing
      * the points of a rectangle. If this parameter is not specified, the API uses IP address biasing by default.
      */
-    locationbias?: string;
+    locationbias?: string | undefined;
 }
 
 /** A Find Place response contains only the data types that were specified using the fields parameter, plus `html_attributions`. */
@@ -1687,7 +1932,7 @@ export interface PlaceSearchResult {
      * contains a feature name of a nearby location. Often this feature refers to a street or neighborhood within the given results.
      * The `vicinity` property is only returned for a Nearby Search.
      */
-    vicinity?: string;
+    vicinity?: string | undefined;
     /**
      * is a string containing the human-readable address of this place. Often this address is equivalent to the "postal address".
      * The `formatted_address` property is only returned for a Text Search.
@@ -1723,7 +1968,7 @@ export interface OpeningPeriod {
      * Clients can rely on always-open being represented as an `open` period containing `day` with value 0
      * and `time` with value 0000, and no `close`.
      */
-    close?: OpeningHoursTime;
+    close?: OpeningHoursTime | undefined;
 }
 
 export interface OpeningHoursTime {
@@ -1733,7 +1978,7 @@ export interface OpeningHoursTime {
      *  may contain a time of day in 24-hour hhmm format. Values are in the range 0000–2359. The `time`
      * will be reported in the place's time zone.
      */
-    time?: string;
+    time?: string | undefined;
 }
 
 /**
@@ -1935,12 +2180,12 @@ export interface GeocodingRequest {
      * The street address that you want to geocode, in the format used by the national postal service of the country concerned.
      * Additional address elements such as business names and unit, suite or floor numbers should be avoided.
      */
-    address?: string;
+    address?: string | undefined;
     /**
      * The bounding box of the viewport within which to bias geocode results more prominently.
      * This parameter will only influence, not fully restrict, results from the geocoder.
      */
-    bounds?: LatLngBounds;
+    bounds?: LatLngBounds | undefined;
     /**
      * The language in which to return results.
      *  - If `language` is not supplied, the geocoder attempts to use the preferred language as specified in the `Accept-Language` header,
@@ -1955,18 +2200,18 @@ export interface GeocodingRequest {
      *    such as the abbreviations for street types, or synonyms that may be valid in one language but not in another.
      *    For example, utca and tér are synonyms for street in Hungarian.
      */
-    language?: string;
+    language?: string | undefined;
     /**
      * The region code, specified as a ccTLD ("top-level domain") two-character value.
      * This parameter will only influence, not fully restrict, results from the geocoder.
      */
-    region?: string;
+    region?: string | undefined;
     /**
      * A components filter with elements separated by a pipe (`|`).
      * The components filter is *required* if the request doesn't include an `address`.
      * Each element in the components filter consists of a `component:value` pair, and fully restricts the results from the geocoder.
      */
-    components?: GeocodingComponents;
+    components?: GeocodingComponents | undefined;
 }
 
 /**
@@ -1985,19 +2230,19 @@ export interface GeocodingRequest {
  */
 export interface GeocodingComponents {
     /** matches `postal_code` and `postal_code_prefix`. */
-    postal_code?: string;
+    postal_code?: string | undefined;
     /**
      * matches a country name or a two letter [ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1) country code.
      * **Note:** The API follows the ISO standard for defining countries, and the filtering works best when using
      * the corresponding ISO code of the country
      */
-    country?: string | string[];
+    country?: string | string[] | undefined;
     /** matches the long or short name of a route. */
-    route?: string;
+    route?: string | undefined;
     /** matches against `locality` and `sublocality` types. */
-    locality?: string;
+    locality?: string | undefined;
     /** matches all the administrative_area levels. */
-    administrative_area?: string;
+    administrative_area?: string | undefined;
 }
 
 export interface GeocodingResponse<STATUSES = GeocodingResponseStatus> {
@@ -2088,7 +2333,7 @@ export interface GeocodingResult {
      *    over time for the same address. A component can change position in the array.
      *    The type of the component can change. A particular component may be missing in a later response.
      */
-    address_components: AddressComponent[];
+    address_components: Array<AddressComponent<AddressType | GeocodingAddressComponentType>>;
     /**
      * is an array denoting all the localities contained in a postal code.
      * This is only present when the result is a postal code that contains multiple localities.
@@ -2129,6 +2374,8 @@ export interface GeocodingResult {
 }
 
 export type GeocodingAddressComponentType = (
+    /** indicates a precise street address. */
+    'street_address' |
     /** indicates the floor of a building address. */
     'floor' |
     /** typically indicates a place that has not yet been categorized. */
@@ -2143,8 +2390,6 @@ export type GeocodingAddressComponentType = (
     'postal_town' |
     /** indicates the room of a building address. */
     'room' |
-    /** indicates the precise street number. */
-    'street_number' |
     /**  indicate the location of a bus. */
     'bus_station' |
     /**  indicate the location of a train. */
@@ -2153,9 +2398,9 @@ export type GeocodingAddressComponentType = (
     'transit_station'
 );
 
-export interface AddressComponent {
+export interface AddressComponent<T> {
     /** is an array indicating the *type* of the address component. */
-    types: Array<AddressType | GeocodingAddressComponentType>;
+    types: T[];
     /** is the full text description or name of the address component as returned by the Geocoder. */
     long_name: string;
     /**
@@ -2215,22 +2460,22 @@ export interface PlusCode {
 
 export interface GeolocationRequest {
     /** The mobile country code (MCC) for the device's home network. */
-    homeMobileCountryCode?: number;
+    homeMobileCountryCode?: number | undefined;
     /** The mobile network code (MNC) for the device's home network. */
-    homeMobileNetworkCode?: number;
+    homeMobileNetworkCode?: number | undefined;
     /** The mobile radio type. While this field is optional, it should be included if a value is available, for more accurate results. */
-    radioType?: RadioType;
+    radioType?: RadioType | undefined;
     /** The carrier name. */
-    carrier?: string;
+    carrier?: string | undefined;
     /**
      * Specifies whether to fall back to IP geolocation if wifi and cell tower signals are not available.
      * Defaults to `true`. Set `considerIp` to `false` to disable fall back.
      */
-    considerIp?: boolean;
+    considerIp?: boolean | undefined;
     /** An array of cell tower objects. */
-    cellTowers?: CellTower[];
+    cellTowers?: CellTower[] | undefined;
     /** An array of WiFi access point objects. */
-    wifiAccessPoints?: WifiAccessPoint[];
+    wifiAccessPoints?: WifiAccessPoint[] | undefined;
 }
 
 export type RadioType = (
@@ -2256,24 +2501,24 @@ export interface CellTower {
     /** The cell tower's Mobile Network Code. This is the MNC for GSM and WCDMA; CDMA uses the System ID (SID). */
     mobileNetworkCode: number;
     /** The number of milliseconds since this cell was primary. If age is 0, the `cellId` represents a current measurement. */
-    age?: number;
+    age?: number | undefined;
     /** Radio signal strength measured in dBm. */
-    signalStrength?: number;
+    signalStrength?: number | undefined;
     /** The [timing advance](https://en.wikipedia.org/wiki/Timing_advance) value. */
-    timingAdvance?: number;
+    timingAdvance?: number | undefined;
 }
 
 export interface WifiAccessPoint {
     /** The MAC address of the WiFi node. It's typically called a BSS, BSSID or MAC address. Separators must be `:` (colon). */
     macAddress: string;
     /** The current signal strength measured in dBm. */
-    signalStrength?: number;
+    signalStrength?: number | undefined;
     /** The number of milliseconds since this access point was detected. */
-    age?: number;
+    age?: number | undefined;
     /** The channel over which the client is communicating with the acces. */
-    channel?: number;
+    channel?: number | undefined;
     /** The current signal to noise ratio measured in dB. */
-    signalToNoiseRatio?: number;
+    signalToNoiseRatio?: number | undefined;
 }
 
 export interface GeolocationResponse {
@@ -2382,7 +2627,7 @@ export interface PlaceDetailsRequest {
      * Note that some fields may not be available in the requested language.
      * Note that we often update supported languages so this list may not be exhaustive.
      */
-    language?: Language;
+    language?: Language | undefined;
     /**
      * The region code, specified as a ccTLD (country code top-level domain) two-character value.
      * Most ccTLD codes are identical to ISO 3166-1 codes, with some exceptions.
@@ -2391,12 +2636,12 @@ export interface PlaceDetailsRequest {
      * When this parameter is used, the country name is omitted from the resulting `formatted_address`
      * for results in the specified region.
      */
-    region?: string;
+    region?: string | undefined;
     /**
      * A random string which identifies an autocomplete session for billing purposes.
      * Use this for Place Details requests that are called following an autocomplete request in the same user session
      */
-    sessiontoken?: string;
+    sessiontoken?: string | undefined;
     /**
      * One or more fields, specifying the types of place data to return, separated by a comma.
      *
@@ -2404,7 +2649,7 @@ export interface PlaceDetailsRequest {
      * parameter from a request, ALL possible fields will be returned, and you will be billed accordingly.
      * This applies only to Place Details requests.
      */
-    fields?: PlaceDetailsRequestField[];
+    fields?: PlaceDetailsRequestField[] | undefined;
 }
 
 export type PlaceDetailsRequestField = (
@@ -2496,7 +2741,7 @@ export interface PlaceDetailsResult {
      *    and can change over time for the same address. A component can change position in the array.
      *    The type of the component can change. A particular component may be missing in a later response.
      */
-    address_components: AddressComponent[];
+    address_components: Array<AddressComponent<AddressType | PlaceDetailsAddressComponentType>>;
     /**
      * is a string containing the human-readable address of this place.
      *
@@ -2625,6 +2870,11 @@ export interface PlaceDetailsResult {
     website: string;
 }
 
+export type PlaceDetailsAddressComponentType = (
+    /** indicates the precise street number. */
+    'street_number'
+);
+
 export interface PlaceReview {
     /**
      * contains a collection of `AspectRating` objects, each of which provides a rating of a single attribute of the establishment.
@@ -2634,7 +2884,7 @@ export interface PlaceReview {
     /** the name of the user who submitted the review. Anonymous reviews are attributed to "A Google user". */
     author_name: string;
     /** the URL to the user's Google Maps Local Guides profile, if available. */
-    author_url?: string;
+    author_url?: string | undefined;
     /**
      * an IETF language code indicating the language used in the user's review.
      * This field contains the main language tag only, and not the secondary tag indicating country or region.
@@ -2687,54 +2937,54 @@ export interface PlacesRequest {
      * When this parameter is used, the country name is omitted from the resulting `formatted_address`
      * for results in the specified region.
      */
-    region?: string;
+    region?: string | undefined;
     /**
      * The latitude/longitude around which to retrieve place information.
      * This must be specified as latitude,longitude. If you specify a location parameter,
      * you must also specify a radius parameter.
      */
-    location?: LatLng;
+    location?: LatLng | undefined;
     /**
      * Defines the distance (in meters) within which to bias place results.
      * The maximum allowed radius is 50 000 meters.
      * Results inside of this region will be ranked higher than results outside of the search circle;
      * however, prominent results from outside of the search radius may be included.
      */
-    radius?: number;
+    radius?: number | undefined;
     /**
      * The language code, indicating in which language the results should be returned, if possible.
      * Note that we often update supported languages so this list may not be exhaustive
      */
-    language?: Language;
+    language?: Language | undefined;
     /**
      * Restricts results to only those places within the specified price level.
      * Valid values are in the range from 0 (most affordable) to 4 (most expensive), inclusive.
      * The exact amount indicated by a specific value will vary from region to region.
      */
-    minprice?: number;
+    minprice?: number | undefined;
     /**
      * Restricts results to only those places within the specified price level.
      * Valid values are in the range from 0 (most affordable) to 4 (most expensive), inclusive.
      * The exact amount indicated by a specific value will vary from region to region.
      */
-    maxprice?: number;
+    maxprice?: number | undefined;
     /**
      * Returns only those places that are open for business at the time the query is sent.
      * Places that do not specify opening hours in the Google Places database will not be returned
      * if you include this parameter in your query.
      */
-    opennow?: boolean;
+    opennow?: boolean | undefined;
     /**
      * Returns the next 20 results from a previously run search.
      * Setting a `pagetoken` parameter will execute a search with the same parameters used previously —
      * all parameters other than `pagetoken` will be ignored.
      */
-    pagetoken?: string;
+    pagetoken?: string | undefined;
     /**
      * Restricts the results to places matching the specified type.
      * Only one type may be specified (if more than one type is provided, all types following the first entry are ignored).
      */
-    type?: PlaceType1;
+    type?: PlaceType1 | undefined;
 }
 
 /**
@@ -2756,7 +3006,7 @@ export interface PlaceAutocompleteRequest {
      * [session](https://developers.google.com/places/web-service/autocomplete#session_tokens) for billing purposes.
      * If this parameter is omitted from an autocomplete request, the request is billed independently
      */
-    sessiontoken: string;
+    sessiontoken?: string | undefined;
     /**
      * The position, in the input term, of the last character that the service uses to match predictions.
      * For example, if the input is 'Google' and the `offset` is 3, the service will match on 'Goo'.
@@ -2765,14 +3015,14 @@ export interface PlaceAutocompleteRequest {
      * If no `offset` is supplied, the service will use the whole term.
      * The `offset` should generally be set to the position of the text caret.
      */
-    offset?: number;
+    offset?: number | undefined;
     /** The point around which you wish to retrieve place information. */
-    location?: LatLng;
+    location?: LatLng | undefined;
     /**
      * The distance (in meters) within which to return place results. Note that setting a radius biases results to the indicated area,
      * but may not fully restrict results to the specified area.
      */
-    radius?: number;
+    radius?: number | undefined;
     /**
      * The language code, indicating in which language the results should be returned, if possible.
      * Searches are also biased to the selected language; results in the selected language may be given a higher ranking.
@@ -2781,9 +3031,9 @@ export interface PlaceAutocompleteRequest {
      * If language is not supplied, the Place Autocomplete service will attempt to use the native language
      * of the domain from which the request is sent.
      */
-    language?: string;
+    language?: string | undefined;
     /** The types of place results to return. */
-    types?: PlaceAutocompleteType;
+    types?: PlaceAutocompleteType | undefined;
     /**
      * A grouping of places to which you would like to restrict your results.
      * Currently, you can use `components` to filter by up to 5 countries.
@@ -2793,13 +3043,13 @@ export interface PlaceAutocompleteRequest {
      * For example: `components=country:us|country:pr|country:vi|country:gu|country:mp` would restrict your results
      * to places within the United States and its unincorporated organized territories.
      */
-    components?: string[];
+    components?: string[] | undefined;
     /**
      * Returns only those places that are strictly within the region defined by `location` and `radius`.
      * This is a restriction, rather than a bias, meaning that results outside this region
      * will not be returned even if they match the user input.
      */
-    strictbounds?: boolean;
+    strictbounds?: boolean | undefined;
 }
 
 /**
@@ -2947,59 +3197,59 @@ export interface PlacesNearbyRequest {
      * The maximum allowed radius is 50 000 meters.
      * Note that `radius` must not be included if `rankby=distance` is specified.
      */
-    radius?: number;
+    radius?: number | undefined;
     /**
      * A term to be matched against all content that Google has indexed for this place, including but not limited to
      * name, type, and address, as well as customer reviews and other third-party content.
      */
-    keyword?: string;
+    keyword?: string | undefined;
     /**
      * The language code, indicating in which language the results should be returned, if possible.
      * Note that we often update supported languages so this list may not be exhaustive.
      */
-    language?: Language;
+    language?: Language | undefined;
     /**
      * Restricts results to only those places within the specified range.
      * Valid values range between 0 (most affordable) to 4 (most expensive), inclusive.
      * The exact amount indicated by a specific value will vary from region to region.
      */
-    minprice?: number;
+    minprice?: number | undefined;
     /**
      * Restricts results to only those places within the specified range.
      * Valid values range between 0 (most affordable) to 4 (most expensive), inclusive.
      * The exact amount indicated by a specific value will vary from region to region.
      */
-    maxprice?: number;
+    maxprice?: number | undefined;
     /**
      * A term to be matched against all content that Google has indexed for this place.
      * Equivalent to `keyword`. The `name` field is no longer restricted to place names.
      * Values in this field are combined with values in the `keyword` field and passed as part of the same search string.
      * We recommend using only the `keyword` parameter for all search terms.
      */
-    name?: string;
+    name?: string | undefined;
     /**
      * Returns only those places that are open for business at the time the query is sent.
      * Places that do not specify opening hours in the Google Places database will not be returned if you include this parameter in your query.
      */
-    opennow?: boolean;
+    opennow?: boolean | undefined;
     /**
      * Specifies the order in which results are listed.
      * Note that `rankby` must not be included if `radius` is specified.
      *
      * @default PlacesNearbyRanking.prominence
      */
-    rankby?: PlacesNearbyRanking;
+    rankby?: PlacesNearbyRanking | undefined;
     /**
      * Restricts the results to places matching the specified type.
      * Only one type may be specified (if more than one type is provided, all types following the first entry are ignored).
      */
-    type?: AddressType;
+    type?: PlaceType1|PlaceType2 | undefined;
     /**
      * Returns the next 20 results from a previously run search.
      * Setting a pagetoken parameter will execute a search with the same parameters used previously —
      * all parameters other than pagetoken will be ignored.
      */
-    pagetoken?: string;
+    pagetoken?: string | undefined;
 }
 
 export type PlacesNearbyRanking = (
@@ -3027,14 +3277,14 @@ export interface PlacePhotoRequest {
      * If the image is larger in either dimension, it will be scaled to match the smaller of the two dimensions,
      * restricted to its original aspect ratio. Both the `maxheight` and `maxwidth` properties accept an integer between 1 and 1600.
      */
-    maxwidth?: number;
+    maxwidth?: number | undefined;
     /**
      * Specifies the maximum desired height or width, in pixels, of the image returned by the Place Photos service.
      * If the image is smaller than the values specified, the original image will be returned.
      * If the image is larger in either dimension, it will be scaled to match the smaller of the two dimensions,
      * restricted to its original aspect ratio. Both the `maxheight` and `maxwidth` properties accept an integer between 1 and 1600.
      */
-    maxheight?: number;
+    maxheight?: number | undefined;
 }
 
 /**
@@ -3063,20 +3313,20 @@ export interface QueryAutocompleteRequest {
      * The offset should generally be set to the position of the text caret.
      * If no offset is supplied, the service will use the entire term.
      */
-    offset?: number;
+    offset?: number | undefined;
     /** The point around which you wish to retrieve place information. Must be specified as latitude,longitude. */
-    location?: LatLng;
+    location?: LatLng | undefined;
     /**
      * The distance (in meters) within which to return place results.
      * Note that setting a radius biases results to the indicated area, but may not fully restrict results to the specified area.
      */
-    radius?: number;
+    radius?: number | undefined;
     /**
      * The language code, indicating in which language the results should be returned, if possible.
      * Searches are also biased to the selected language; results in the selected language may be given a higher ranking.
      * If language is not supplied, the Places service will attempt to use the native language of the domain from which the request is sent.
      */
-    language?: Language;
+    language?: Language | undefined;
 }
 
 export interface QueryAutocompleteResponse {
@@ -3147,42 +3397,42 @@ export interface PlaceRadarRequest {
      * A term to be matched against all content that Google has indexed for this place, including but not limited to
      * name, type, and address, as well as customer reviews and other third-party content.
      */
-    keyword?: string;
+    keyword?: string | undefined;
     /**
      * The language code, indicating in which language the results should be returned, if possible.
      * Searches are also biased to the selected language; results in the selected language may be given a higher ranking.
      * Note that we often update supported languages so this list may not be exhaustive.
      */
-    language?: string;
+    language?: string | undefined;
     /**
      * Restricts results to only those places within the specified price level.
      * Valid values are in the range from 0 (most affordable) to 4 (most expensive), inclusive.
      * The exact amount indicated by a specific value will vary from region to region.
      */
-    minprice?: number;
+    minprice?: number | undefined;
     /**
      * Restricts results to only those places within the specified price level.
      * Valid values are in the range from 0 (most affordable) to 4 (most expensive), inclusive.
      * The exact amount indicated by a specific value will vary from region to region.
      */
-    maxprice?: number;
+    maxprice?: number | undefined;
     /**
      * A term to be matched against all content that Google has indexed for this place.
      * Equivalent to keyword. The `name` field is no longer restricted to place names.
      * Values in this field are combined with values in the `keyword` field and passed as part of the same search string.
      * We recommend using only the `keyword` parameter for all search terms.
      */
-    name?: string;
+    name?: string | undefined;
     /**
      * Returns only those places that are open for business at the time the query is sent.
      * Places that do not specify opening hours in the Google Places database will not be returned if you include this parameter in your query.
      */
-    opennow?: boolean;
+    opennow?: boolean | undefined;
     /**
      * Restricts the results to places matching the specified type.
      * Only one type may be specified (if more than one type is provided, all types following the first entry are ignored).
      */
-    type?: AddressType;
+    type?: AddressType | undefined;
 }
 
 /**
@@ -3191,14 +3441,14 @@ export interface PlaceRadarRequest {
  */
 export interface ReverseGeocodingRequest {
     /** The latitude and longitude values specifying the location for which you wish to obtain the closest, human-readable address. */
-    latlng?: LatLng;
+    latlng?: LatLng | undefined;
     /**
      * The place ID of the place for which you wish to obtain the human-readable address.
      * The place ID is a unique identifier that can be used with other Google APIs.
      * For example, you can use the `placeID` returned by the Roads API to get the address for a snapped point.
      * The place ID may only be specified if the request includes an API key or a Google Maps APIs Premium Plan client ID.
      */
-    place_id?: string;
+    place_id?: string | undefined;
     /**
      * The language in which to return results.
      *  - Google often updates the supported languages, so this list may not be exhaustive.
@@ -3210,7 +3460,7 @@ export interface ReverseGeocodingRequest {
      *    Address components are all returned in the same language, which is chosen from the first component.
      *  - If a name is not available in the preferred language, the geocoder uses the closest match.
      */
-    language?: Language;
+    language?: Language | undefined;
     /**
      * A filter of one or more address types, separated by a pipe (`|`).
      * If the parameter contains multiple address types, the API returns all addresses that match any of the types.
@@ -3219,7 +3469,7 @@ export interface ReverseGeocodingRequest {
      * then discards those results that do not match the specified address type(s).
      * Note: This parameter is available only for requests that include an API key or a client ID.
      */
-    result_type?: AddressType;
+    result_type?: AddressType | undefined;
     /**
      * A filter of one or more location types, separated by a pipe (`|`).
      * If the parameter contains multiple location types, the API returns all addresses that match any of the types.
@@ -3228,7 +3478,7 @@ export interface ReverseGeocodingRequest {
      * then discards those results that do not match the specified location type(s).
      * Note: This parameter is available only for requests that include an API key or a client ID.
      */
-    location_type?: ReverseGeocodingLocationType;
+    location_type?: ReverseGeocodingLocationType | undefined;
 }
 
 export type ReverseGeocodingLocationType = (
@@ -3294,7 +3544,7 @@ export interface SnappedSpeedLimitsRequest {
      *
      * @default SpeedLimitUnit.KPH
      */
-    units?: SpeedLimitUnit;
+    units?: SpeedLimitUnit | undefined;
 }
 
 export interface SpeedLimitsRequest {
@@ -3316,7 +3566,7 @@ export interface SpeedLimitsRequest {
      *
      * @default SpeedLimitUnit.KPH
      */
-    units?: SpeedLimitUnit;
+    units?: SpeedLimitUnit | undefined;
 }
 
 export type SpeedLimitUnit = (
@@ -3378,7 +3628,7 @@ export interface SnapToRoadsRequest {
      *
      * @default false
      */
-    interpolate?: boolean;
+    interpolate?: boolean | undefined;
 }
 
 export interface SnapToRoadsResponse {
@@ -3401,14 +3651,14 @@ export interface TimeZoneRequest {
      * That is, if you specify a past timestamp, the API does not take into account the possibility that
      * the location was previously in a different time zone.
      */
-    timestamp?: Date | number;
+    timestamp?: Date | number | undefined;
     /**
      * The language in which to return results.
      * Note that we often update supported languages so this list may not be exhaustive.
      *
      * @default Language.English
      */
-    language?: Language;
+    language?: Language | undefined;
 }
 
 /** For each valid request, the time zone service will return a response in the format indicated within the request URL. */

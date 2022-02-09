@@ -6,3 +6,6 @@ concatMap(xs, x => (x % 2 ? [x - 0.1, x, x + 0.1] : []));
 
 concatMap(xs, x => x % 2);
 // [1, 0, 1, 0, 1, 0]
+
+concatMap(xs, (_, i) => i);
+// [0, 1, 2, 3, 4, 5]

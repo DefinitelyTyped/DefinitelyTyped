@@ -2,11 +2,8 @@ import {
     AuthToken,
     AuthClientTwoLegged,
     AuthClientThreeLegged,
-    ActivitiesApi,
-    AppPackagesApi,
     BucketsApi,
     DerivativesApi,
-    EnginesApi,
     FoldersApi,
     HubsApi,
     ItemsApi,
@@ -14,7 +11,6 @@ import {
     ProjectsApi,
     UserProfileApi,
     VersionsApi,
-    WorkItemsApi,
 } from 'forge-apis';
 
 const authToken: AuthToken = {
@@ -38,99 +34,11 @@ authClientTwoLegged.isAuthorized();
 // $ExpectType AuthClientThreeLegged
 const authClientThreeLegged = new AuthClientThreeLegged('', '', '', [], true);
 // $ExpectType string
-authClientThreeLegged.generateAuthUrl();
+authClientThreeLegged.generateAuthUrl('');
 // $ExpectType Promise<AuthToken>
 authClientThreeLegged.getToken('');
 // $ExpectType Promise<AuthToken>
 authClientThreeLegged.refreshToken(authToken);
-
-// $ExpectType ActivitiesApi
-const activitiesApi = new ActivitiesApi();
-
-// $ExpectType Promise<ApiResponse>
-activitiesApi.createActivity(
-    {
-        id: '',
-        instruction: {},
-        appPackages: [''],
-        requiredEngineVersion: '',
-        parameters: {},
-        allowedChildProcesses: [{}],
-        version: 0,
-        description: '',
-        hostApplication: '',
-        isPublic: true,
-    },
-    authClientTwoLegged,
-    authToken,
-);
-// $ExpectType Promise<ApiResponse>
-activitiesApi.deleteActivity('', authClientTwoLegged, authToken);
-// $ExpectType Promise<ApiResponse>
-activitiesApi.deleteActivityHistory('', authClientTwoLegged, authToken);
-// $ExpectType Promise<ApiResponse>
-activitiesApi.getActivity('', authClientTwoLegged, authToken);
-// $ExpectType Promise<ApiResponse>
-activitiesApi.getActivityVersions('', authClientTwoLegged, authToken);
-// $ExpectType Promise<ApiResponse>
-activitiesApi.getAllActivities(authClientTwoLegged, authToken);
-// $ExpectType Promise<ApiResponse>
-activitiesApi.patchActivity('', {}, authClientTwoLegged, authToken);
-// $ExpectType Promise<ApiResponse>
-activitiesApi.setActivityVersion('', {}, authClientTwoLegged, authToken);
-
-// $ExpectType AppPackagesApi
-const appPackagesApi = new AppPackagesApi();
-
-// $ExpectType Promise<ApiResponse>
-appPackagesApi.createAppPackage(
-    {
-        id: '',
-        resource: '',
-        references: [''],
-        requiredEngineVersion: '',
-        version: 0,
-        description: '',
-        isPublic: true,
-        isObjectEnabler: true,
-    },
-    authClientTwoLegged,
-    authToken,
-);
-// $ExpectType Promise<ApiResponse>
-appPackagesApi.deleteAppPackage('', authClientTwoLegged, authToken);
-// $ExpectType Promise<ApiResponse>
-appPackagesApi.deleteAppPackageHistory('', authClientTwoLegged, authToken);
-// $ExpectType Promise<ApiResponse>
-appPackagesApi.getAllAppPackages(authClientTwoLegged, authToken);
-// $ExpectType Promise<ApiResponse>
-appPackagesApi.getAppPackage('', authClientTwoLegged, authToken);
-// $ExpectType Promise<ApiResponse>
-appPackagesApi.getAppPackageVersions('', authClientTwoLegged, authToken);
-// $ExpectType Promise<ApiResponse>
-appPackagesApi.getUploadUrl(authClientTwoLegged, authToken);
-// $ExpectType Promise<ApiResponse>
-appPackagesApi.getUploadUrlWithRequireContentType(true, authClientTwoLegged, authToken);
-// $ExpectType Promise<ApiResponse>
-appPackagesApi.patchAppPackage('', {}, authClientTwoLegged, authToken);
-// $ExpectType Promise<ApiResponse>
-appPackagesApi.setAppPackageVersion('', {}, authClientTwoLegged, authToken);
-// $ExpectType Promise<ApiResponse>
-appPackagesApi.updateAppPackage(
-    '',
-    {
-        id: '',
-        resource: '',
-        references: [''],
-        requiredEngineVersion: '',
-        version: 0,
-        description: '',
-        isPublic: true,
-        isObjectEnabler: true,
-    },
-    authClientTwoLegged,
-    authToken,
-);
 
 // $ExpectType BucketsApi
 const bucketsApi = new BucketsApi();
@@ -191,18 +99,19 @@ derivativesApi.translate(
                 },
             ],
         },
+        misc: {
+            workflow: 'my-workflow-id',
+            workflowAttributes: {
+                attribute1: 'attribute1',
+                attribute2: 2,
+                attribute3: [3],
+            },
+        },
     },
     {},
     authClientTwoLegged,
     authToken,
 );
-
-// $ExpectType EnginesApi
-const enginesApi = new EnginesApi();
-// $ExpectType Promise<ApiResponse>
-enginesApi.getAllEngines(authClientTwoLegged, authToken);
-// $ExpectType Promise<ApiResponse>
-enginesApi.getEngine('', authClientTwoLegged, authToken);
 
 // $ExpectType FoldersApi
 const foldersApi = new FoldersApi();
@@ -252,17 +161,19 @@ const objectsApi = new ObjectsApi();
 // $ExpectType Promise<ApiResponse>
 objectsApi.copyTo('', '', '', authClientTwoLegged, authToken);
 // $ExpectType Promise<ApiResponse>
-objectsApi.createSignedResource('', '', { minutesExpiration: 0 }, '', authClientTwoLegged, authToken);
+objectsApi.createSignedResource('', '', { minutesExpiration: 0 }, {}, authClientTwoLegged, authToken);
 // $ExpectType Promise<ApiResponse>
 objectsApi.deleteObject('', '', authClientTwoLegged, authToken);
 // $ExpectType Promise<ApiResponse>
-objectsApi.deleteSignedResource('', '', authClientTwoLegged, authToken);
+objectsApi.deleteSignedResource('', '');
 // $ExpectType Promise<ApiResponse>
 objectsApi.getObjectDetails('', '', {}, authClientTwoLegged, authToken);
 // $ExpectType Promise<ApiResponse>
+objectsApi.getObject('', '', {}, authClientTwoLegged, authToken);
+// $ExpectType Promise<ApiResponse>
 objectsApi.getObjects('', {}, authClientTwoLegged, authToken);
 // $ExpectType Promise<ApiResponse>
-objectsApi.getSignedResource('', {}, authClientTwoLegged, authToken);
+objectsApi.getSignedResource('', {});
 // $ExpectType Promise<ApiResponse>
 objectsApi.getStatusBySessionId('', '', '', authClientTwoLegged, authToken);
 // $ExpectType Promise<ApiResponse>
@@ -270,9 +181,9 @@ objectsApi.uploadChunk('', '', 0, '', '', '', {}, authClientTwoLegged, authToken
 // $ExpectType Promise<ApiResponse>
 objectsApi.uploadObject('', '', 0, '', {}, authClientTwoLegged, authToken);
 // $ExpectType Promise<ApiResponse>
-objectsApi.uploadSignedResource('', 0, '', {}, authClientTwoLegged, authToken);
+objectsApi.uploadSignedResource('', 0, '', {});
 // $ExpectType Promise<ApiResponse>
-objectsApi.uploadSignedResourcesChunk('', 0, '', '', {}, authClientTwoLegged, authToken);
+objectsApi.uploadSignedResourcesChunk('', 0, '', '', {});
 
 // $ExpectType ProjectsApi
 const projectsApi = new ProjectsApi();
@@ -284,8 +195,27 @@ projectsApi.getProject('', '', authClientTwoLegged, authToken);
 projectsApi.getProjectHub('', '', authClientTwoLegged, authToken);
 // $ExpectType Promise<ApiResponse>
 projectsApi.getProjectTopFolders('', '', authClientTwoLegged, authToken);
+
 // $ExpectType Promise<ApiResponse>
-projectsApi.postStorage('', {}, authClientTwoLegged, authToken);
+projectsApi.postStorage('', {
+    jsonapi: {
+       version: '1.0'
+    },
+    data: {
+       type: 'objects',
+       attributes: {
+          name: '{{Filename}}'
+       },
+       relationships: {
+          target: {
+             data: {
+                type: 'folders',
+                id: '{{FolderId}}'
+             }
+          }
+       }
+    }
+ }, authClientTwoLegged, authToken);
 
 // $ExpectType UserProfileApi
 const userProfileApi = new UserProfileApi();
@@ -306,27 +236,3 @@ versionsApi.getVersionRelationshipsRefs('', '', {}, authClientTwoLegged, authTok
 versionsApi.postVersion('', {}, authClientTwoLegged, authToken);
 // $ExpectType Promise<ApiResponse>
 versionsApi.postVersion('', {}, authClientTwoLegged, authToken);
-
-// $ExpectType WorkItemsApi
-const workItemsApi = new WorkItemsApi();
-// $ExpectType Promise<ApiResponse>
-workItemsApi.createWorkItem(
-    {
-        id: '',
-        _arguments: {},
-        status: '',
-        statusDetail: {},
-        availabilityZone: '',
-        activityId: '',
-        version: 0,
-        timestamp: '',
-    },
-    authClientTwoLegged,
-    authToken,
-);
-// $ExpectType Promise<ApiResponse>
-workItemsApi.deleteWorkItem('', authClientTwoLegged, authToken);
-// $ExpectType Promise<ApiResponse>
-workItemsApi.getAllWorkItems(0, authClientTwoLegged, authToken);
-// $ExpectType Promise<ApiResponse>
-workItemsApi.getWorkItem('', authClientTwoLegged, authToken);

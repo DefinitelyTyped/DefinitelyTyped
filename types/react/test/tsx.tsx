@@ -2,7 +2,7 @@ import PropTypes = require("prop-types");
 import React = require("react");
 
 interface SCProps {
-    foo?: number;
+    foo?: number | undefined;
 }
 const FunctionComponent: React.FunctionComponent<SCProps> = ({ foo }: SCProps) => {
     return <div>{foo}</div>;
@@ -12,6 +12,7 @@ FunctionComponent.defaultProps = {
     foo: 42
 };
 <FunctionComponent />;
+<slot name="slot1"></slot>;
 
 const FunctionComponent2: React.FunctionComponent<SCProps> = ({ foo, children }) => {
     return <div>{foo}{children}</div>;
@@ -22,11 +23,35 @@ FunctionComponent2.defaultProps = {
 };
 <FunctionComponent2>24</FunctionComponent2>;
 
+const VoidFunctionComponent: React.VoidFunctionComponent<SCProps> = ({ foo }: SCProps) => {
+    return <div>{foo}</div>;
+};
+VoidFunctionComponent.displayName = "VoidFunctionComponent1";
+VoidFunctionComponent.defaultProps = {
+    foo: 42
+};
+<VoidFunctionComponent />;
+
+// $ExpectError
+const VoidFunctionComponent2: React.VoidFunctionComponent<SCProps> = ({ foo, children }) => {
+    return <div>{foo}{children}</div>;
+};
+VoidFunctionComponent2.displayName = "VoidFunctionComponent2";
+VoidFunctionComponent2.defaultProps = {
+    foo: 42
+};
+<VoidFunctionComponent2>24</VoidFunctionComponent2>; // $ExpectError
+
 // svg sanity check
 <svg viewBox="0 0 1000 1000">
     <g>
         <text x="200" y="300" strokeWidth="5" stroke="black" alignmentBaseline="middle">
             Hello, world!
+            <animateMotion
+                path="M20,50 C20,-50 180,150 180,50 C180-50 20,150 20,50 z"
+                dur="5s"
+                repeatCount="indefinite"
+            />
         </text>
         <div slot="Some Div"> Hello again! </div>
     </g>
@@ -86,6 +111,14 @@ const FunctionComponentWithoutProps: React.FunctionComponent = (props) => {
 // React.createContext
 const ContextWithRenderProps = React.createContext('defaultValue');
 
+// unstable APIs should not be part of the typings
+// $ExpectError
+const ContextUsingUnstableObservedBits = React.createContext(undefined, (previous, next) => 7);
+// $ExpectError
+<ContextWithRenderProps.Consumer unstable_observedBits={4}>
+    {(value: unknown) => null}
+</ContextWithRenderProps.Consumer>;
+
 // Fragments
 <div>
     <React.Fragment>
@@ -129,17 +162,17 @@ class SetStateTest extends React.Component<{}, { foo: boolean, bar: boolean }> {
 
 // Below tests that extended types for state work
 export abstract class SetStateTestForExtendsState<P, S extends { baseProp: string }> extends React.Component<P, S> {
-	foo() {
-		this.setState({ baseProp: 'foobar' });
-	}
+    foo() {
+        this.setState({ baseProp: 'foobar' });
+    }
 }
 
 // Below tests that & generic still works
 // This is invalid because 'S' may specify a different type for `baseProp`.
 // export abstract class SetStateTestForAndedState<P, S> extends React.Component<P, S & { baseProp: string }> {
-// 	   foo() {
-// 	       this.setState({ baseProp: 'foobar' });
-// 	   }
+//        foo() {
+//            this.setState({ baseProp: 'foobar' });
+//        }
 // }
 
 interface NewProps { foo: string; }
@@ -215,7 +248,7 @@ const Memoized2 = React.memo(
 );
 <Memoized2 bar='string'/>;
 
-const Memoized3 = React.memo(class Test extends React.Component<{ x?: string }> {});
+const Memoized3 = React.memo(class Test extends React.Component<{ x?: string | undefined }> {});
 <Memoized3 ref={ref => { if (ref) { ref.props.x; } }}/>;
 
 const memoized4Ref = React.createRef<HTMLDivElement>();
@@ -260,6 +293,10 @@ const LazyRefForwarding = React.lazy(async () => ({ default: Memoized4 }));
 <React.Suspense fallback={null}/>;
 // $ExpectError
 <React.Suspense/>;
+
+// unstable API should not be part of the typings
+// $ExpectError
+<React.Suspense fallback={null} unstable_avoidThisFallback />;
 
 class LegacyContext extends React.Component {
     static contextTypes = { foo: PropTypes.node.isRequired };
@@ -314,7 +351,7 @@ const ForwardNewContext = React.forwardRef((_props: {}, ref?: React.Ref<NewConte
 <ForwardNewContext ref='string'/>; // $ExpectError
 
 const ForwardRef3 = React.forwardRef(
-    (props: JSX.IntrinsicElements['div'] & Pick<JSX.IntrinsicElements['div'] & { theme?: {} }, 'ref'|'theme'>, ref?: React.Ref<HTMLDivElement>) =>
+    (props: JSX.IntrinsicElements['div'] & Pick<JSX.IntrinsicElements['div'] & { theme?: {} | undefined }, 'ref'|'theme'>, ref?: React.Ref<HTMLDivElement>) =>
         <div {...props} ref={ref}/>
 );
 
@@ -363,6 +400,10 @@ const imgProps: ImgProps = {};
 imgProps.decoding = 'async';
 imgProps.decoding = 'auto';
 imgProps.decoding = 'sync';
+imgProps.loading = 'eager';
+imgProps.loading = 'lazy';
+// $ExpectError
+imgProps.loading = 'nonsense';
 // $ExpectError
 imgProps.decoding = 'nonsense';
 type ImgPropsWithRef = React.ComponentPropsWithRef<'img'>;
@@ -372,12 +413,12 @@ type ImgPropsWithoutRef = React.ComponentPropsWithoutRef<'img'>;
 // $ExpectType false
 type ImgPropsHasRef = 'ref' extends keyof ImgPropsWithoutRef ? true : false;
 
-const HasClassName: React.ReactType<{ className?: string }> = 'a';
+const HasClassName: React.ReactType<{ className?: string | undefined }> = 'a';
 const HasFoo: React.ReactType<{ foo: boolean }> = 'a'; // $ExpectError
 const HasFoo2: React.ReactType<{ foo: boolean }> = (props: { foo: boolean }) => null;
 const HasFoo3: React.ReactType<{ foo: boolean }> = (props: { foo: string }) => null; // $ExpectError
-const HasHref: React.ReactType<{ href?: string }> = 'a';
-const HasHref2: React.ReactType<{ href?: string }> = 'div'; // $ExpectError
+const HasHref: React.ReactType<{ href?: string | undefined }> = 'a';
+const HasHref2: React.ReactType<{ href?: string | undefined }> = 'div'; // $ExpectError
 
 const CustomElement: React.ReactType = 'my-undeclared-element'; // $ExpectError
 
@@ -396,13 +437,13 @@ interface TestPropTypesProps {
     foo: string;
 }
 interface TestPropTypesProps1 {
-    foo?: string;
+    foo?: string | undefined;
 }
 interface TestPropTypesProps2 {
     foo: string | null;
 }
 interface TestPropTypesProps3 {
-    foo?: string | null;
+    foo?: string | null | undefined;
 }
 const testPropTypes = {
     foo: PropTypes.string
@@ -416,3 +457,58 @@ type propTypesTest1 = typeof testPropTypes extends DeclaredPropTypes<TestPropTyp
 type propTypesTest2 = typeof testPropTypes extends DeclaredPropTypes<TestPropTypesProps2> ? true : false;
 // $ExpectType true
 type propTypesTest3 = typeof testPropTypes extends DeclaredPropTypes<TestPropTypesProps3> ? true : false;
+function CustomSelect(props: {
+    children: ReadonlyArray<
+      React.ReactElement<
+        React.ComponentPropsWithoutRef<typeof CustomSelectOption>
+      >
+    >;
+  }): JSX.Element {
+    return (
+      <div>
+        <ul>{props.children}</ul>
+        <select>
+          {React.Children.map(props.children, child => (
+            // key should be mappable from children.
+            <option key={child.key} value={child.props.value}>
+              {child.props.children}
+            </option>
+          ))}
+        </select>
+      </div>
+    );
+}
+function CustomSelectOption(props: {
+    value: string;
+    children: React.ReactNode;
+}): JSX.Element {
+    return <li data-value={props.value}>{props.children}</li>;
+}
+function Example() {
+    return (
+        <CustomSelect>
+        <CustomSelectOption value="one">One</CustomSelectOption>
+        <CustomSelectOption value="two">Two</CustomSelectOption>
+        </CustomSelect>
+    );
+}
+
+function reactNodeTests() {
+    function *createChildren() {
+        yield <div key="one">one</div>;
+        yield <div key="two">two</div>;
+    }
+
+    <div>{Object.freeze([<div key="one">one</div>, <div key="two">two</div>])}</div>;
+    <div>{new Set([<div key="one">one</div>, <div key="two">two</div>])}</div>;
+    // TODO: This warns at runtime so we should probably reject it as well
+    <div>
+        {
+            new Map([
+                ['one', <div key="one">one</div>],
+                ['two', <div key="two">two</div>],
+            ])
+        }
+    </div>;
+    <div>{createChildren()}</div>;
+}

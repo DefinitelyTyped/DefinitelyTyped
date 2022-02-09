@@ -1,4 +1,4 @@
-import { create, fields, validators, widgets, FieldBound } from 'forms';
+import { create, fields, validators, widgets, Field, FormBound } from 'forms';
 
 const complexForm = create({
     name: fields.string({ required: validators.required('%s is required, silly!') }),
@@ -55,7 +55,12 @@ const complexForm = create({
     })
 });
 
-const output = complexForm.toHTML();
+const boundForm: FormBound = complexForm.bind({ foo: 123 });
+const name: 'bar' = 'bar';
+const boundFormWithData = complexForm.bind({ name });
+const nameFromData: 'bar' = boundFormWithData.data.name;
+
+const output: string = complexForm.toHTML();
 const bootstrapOutput = complexForm.toHTML((name, object) => {
     if (!Array.isArray(object.widget.classes)) {
         object.widget.classes = [];
@@ -71,4 +76,17 @@ const bootstrapOutput = complexForm.toHTML((name, object) => {
     const error = object.error ? `<div class="alert alert-error help-block">${object.error}</div>` : '';
 
     return `<div class="form-group row ${validationclass}">${label}${widget}${error}</div>`;
+});
+
+const simpleForm = create({
+    name: fields.string({ required: validators.required('%s is required, silly!') }),
+    email: fields.email({ required: true, label: 'Email Address' }),
+});
+
+const boundSimpleForm: FormBound<{ name: Field<string>, email: Field<string> }> = simpleForm.bind({ foo: 123 });
+
+simpleForm.handle({ name: 'foo' }, {
+    success: (form: FormBound<{ name: Field<string>, email: Field<string> }>) => {
+        const name: string = form.data.name;
+    }
 });

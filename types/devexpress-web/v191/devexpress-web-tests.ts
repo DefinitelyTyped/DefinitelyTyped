@@ -308,8 +308,8 @@ module DXDemo {
     };
 
     export function updateRatingLabels(ratingControl: ASPxClientTrackBar) {
-		$("#cpLeftLabelID").html(ratingControl.GetPositionStart().toString());
-		$("#cpRightLabelID").html(ratingControl.GetPositionEnd().toString());
+        $("#cpLeftLabelID").html(ratingControl.GetPositionStart().toString());
+        $("#cpRightLabelID").html(ratingControl.GetPositionEnd().toString());
     };
 
     export function onAboutWindowCloseUp(): void {

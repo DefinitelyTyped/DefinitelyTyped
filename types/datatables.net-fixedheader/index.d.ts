@@ -12,7 +12,7 @@ declare namespace DataTables {
         /*
          * FixedHeader extension options
          */
-        fixedHeader?: boolean | FixedHeaderSettings;
+        fixedHeader?: boolean | FixedHeaderSettings | undefined;
     }
 
     interface StaticFunctions {
@@ -63,21 +63,21 @@ declare namespace DataTables {
         /*
          * Enable / disable fixed footer
          */
-        footer?: boolean;
+        footer?: boolean | undefined;
 
         /*
          * Offset the table's fixed footer
          */
-        footerOffset?: number;
+        footerOffset?: number | undefined;
 
         /*
          * Enable / disable fixed header
          */
-        header?: boolean;
+        header?: boolean | undefined;
 
         /*
          * Offset the table's fixed header
          */
-        headerOffset?: number;
+        headerOffset?: number | undefined;
     }
 }

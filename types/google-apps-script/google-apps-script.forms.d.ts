@@ -1,6 +1,7 @@
-// Type definitions for Google Apps Script 2019-11-06
+// Type definitions for Google Apps Script 2020-01-02
 // Project: https://developers.google.com/apps-script/
-// Definitions by: motemen <https://github.com/motemen/>
+// Definitions by: PopGoesTheWza <https://github.com/PopGoesTheWza>
+//                 motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="google-apps-script.types.d.ts" />
@@ -651,7 +652,7 @@ declare namespace GoogleAppsScript {
      *       item.setHelpText('Description of new section.');
      *     }
      */
-    enum ItemType { CHECKBOX, CHECKBOX_GRID, DATE, DATETIME, DURATION, GRID, IMAGE, LIST, MULTIPLE_CHOICE, PAGE_BREAK, PARAGRAPH_TEXT, SCALE, SECTION_HEADER, TEXT, TIME, VIDEO }
+    enum ItemType { CHECKBOX, CHECKBOX_GRID, DATE, DATETIME, DURATION, GRID, IMAGE, LIST, MULTIPLE_CHOICE, PAGE_BREAK, PARAGRAPH_TEXT, SCALE, SECTION_HEADER, TEXT, TIME, VIDEO, FILE_UPLOAD }
     /**
      * A question item that allows the respondent to select one choice from a drop-down list. Items can
      * be accessed or created from a Form.
@@ -981,7 +982,6 @@ declare namespace GoogleAppsScript {
      */
     // tslint:disable-next-line: no-empty-interface
     interface TextValidation {
-      // TODO: no-empty-interface
     }
     /**
      * A DataValidationBuilder for a TextValidation.

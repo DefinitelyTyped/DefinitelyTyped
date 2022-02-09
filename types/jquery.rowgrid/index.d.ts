@@ -7,8 +7,8 @@
 /// <reference types="jquery" />
 
 interface JQueryRowGridJSOptions {
-    minMargin?: number;
-    maxMargin?: number;
+    minMargin?: number | undefined;
+    maxMargin?: number | undefined;
     itemSelector: string;
 }
 

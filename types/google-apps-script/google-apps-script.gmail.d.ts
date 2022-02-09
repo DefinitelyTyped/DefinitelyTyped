@@ -1,6 +1,7 @@
-// Type definitions for Google Apps Script 2019-11-06
+// Type definitions for Google Apps Script 2020-01-02
 // Project: https://developers.google.com/apps-script/
-// Definitions by: motemen <https://github.com/motemen/>
+// Definitions by: PopGoesTheWza <https://github.com/PopGoesTheWza>
+//                 motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="google-apps-script.types.d.ts" />
@@ -112,7 +113,7 @@ declare namespace GoogleAppsScript {
       setDataFromString(string: string): Base.Blob;
       setDataFromString(string: string, charset: string): Base.Blob;
       setName(name: string): Base.Blob;
-      /** @deprecated DO NOT USE */getAllBlobs(): Base.Blob[];
+      /** @deprecated DO NOT USE */ getAllBlobs(): Base.Blob[];
     }
     /**
      * A user-created draft message in a user's Gmail account.
@@ -147,7 +148,6 @@ declare namespace GoogleAppsScript {
        */
       update(recipient: string, subject: string, body: string, options: GmailAdvancedOptions): GmailDraft;
     }
-
     /**
      * Options for a Gmail draft.
      */
@@ -155,39 +155,42 @@ declare namespace GoogleAppsScript {
       /**
        * An array of files to send with the email.
        */
-      attachments?: Base.BlobSource[];
+      attachments?: Base.BlobSource[] | undefined;
       /**
        * A comma-separated list of email addresses to BCC.
        */
-      bcc?: string;
+      bcc?: string | undefined;
       /**
        * A comma-separated list of email addresses to CC.
        */
-      cc?: string;
+      cc?: string | undefined;
       /**
        * The address that the email should be sent from, which must be one of the values returned by `GmailApp.getAliases()`.
        */
-      from?: string;
+      from?: string | undefined;
       /**
        * If set, devices capable of rendering HTML will use it instead of the required body argument; you can add an optional `inlineImages` field in HTML body if you have inlined images for your email.
        */
-      htmlBody?: string;
+      htmlBody?: string | undefined;
       /**
        * A JavaScript object containing a mapping from image key (`String`) to image data (`BlobSource`) ; this assumes that the `htmlBody` parameter is used and contains references to these images in the format `<img src="cid:imageKey" />`.
        */
-      inlineImages?: { [imageKey: string]: Base.BlobSource };
+      inlineImages?: { [imageKey: string]: Base.BlobSource } | undefined;
       /**
        * The name of the sender of the email (default: the user's name).
        */
-      name?: string;
+      name?: string | undefined;
+      /**
+       * True if the email should be sent from a generic no-reply email address to discourage recipients from responding to emails; this option is only possible for Google Workspace accounts, not Gmail users.
+       */
+      noReply?: boolean | undefined;
       /**
        * An email address to use as the default reply-to address (default: the user's email address).
        */
-      replyTo?: string;
+      replyTo?: string | undefined;
     }
     /** alias to GmailAdvancedOptions */
     type GmailDraftOptions = GmailAdvancedOptions;
-
     /**
      * Options for a Gmail Attachments.
      */
@@ -195,16 +198,15 @@ declare namespace GoogleAppsScript {
       /**
        * If the returned array of Blob attachments should include inline images.
        */
-      includeInlineImages?: boolean;
+      includeInlineImages?: boolean | undefined;
       /**
        *  If the returned array of Blob attachments should include regular (non-inline) attachments.
        */
-      includeAttachments?: boolean;
+      includeAttachments?: boolean | undefined;
       /**
        * A comma-separated list of email addresses to BCC.
        */
     }
-
     /**
      * A user-created label in a user's Gmail account.
      */

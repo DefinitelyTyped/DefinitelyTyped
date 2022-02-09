@@ -1,11 +1,11 @@
 import * as React from "react";
 
 export type FormLabelProps = {
-    className?: string;
-    customStyles?: {[x: string]: any};
-    disableStyles?: boolean;
-    /* Set to **true** for required input fields. */
-    required?: boolean;
+    className?: string | undefined;
+    disabled?: boolean | undefined;
+    disableStyles?: boolean | undefined;
+    isInlineHelp?: boolean | undefined;
+    required?: boolean | undefined;
 } & { [x: string]: any };
 
 declare const FormLabel: React.FunctionComponent<FormLabelProps>;

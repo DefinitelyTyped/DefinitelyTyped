@@ -9,6 +9,7 @@ import t, {
 } from "terminal-kit";
 import "node";
 import * as fs from "fs";
+import assert from "assert";
 
 new t.Rect({width: 4, height: 4});
 // The term() function simply output a string to stdout, using current style
@@ -52,9 +53,9 @@ term.moveTo.cyan(1, 1, "My name is %s, I'm %d.\n", "Jack", 32);
 
 // Get some user input
 term.magenta("Enter your name: ");
-term.inputField((error: any, input: any) => {
+assert(term.inputField((error, input) => {
   term.green("\nYour name is '%s'\n", input);
-});
+}).abort);
 
 function terminate() {
   term.grabInput(false);
@@ -144,7 +145,7 @@ term("Please enter your name: ");
 
 term.inputField(
   { history, autoComplete, autoCompleteMenu: true },
-  (error: any, input: string) => {
+  (error: any, input: string | undefined) => {
     term.green("\nYour name is '%s'\n", input);
   }
 );

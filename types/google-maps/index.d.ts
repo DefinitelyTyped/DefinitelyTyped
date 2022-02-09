@@ -3,9 +3,9 @@
 // Definitions by: Deividas Bakanas <https://github.com/DeividasBakanas>, Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// TypeScript Version: 2.7
+// TypeScript Version: 3.0
 
-/// <reference types="googlemaps" />
+/// <reference types="google.maps" />
 
 declare namespace GoogleMapsLoader {
     type google = { maps: typeof google.maps };

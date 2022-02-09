@@ -1,21 +1,31 @@
 import { Collection, Map, MapBrowserEvent, Overlay, PluggableMap, View } from 'ol';
 import { unByKey } from 'ol/Observable';
 import { stableSort } from 'ol/array';
-import { Control, FullScreen, MousePosition, OverviewMap, ScaleLine, ZoomSlider, ZoomToExtent, defaults as defaultControls } from 'ol/control';
+import {
+    Control,
+    FullScreen,
+    MousePosition,
+    OverviewMap,
+    ScaleLine,
+    ZoomSlider,
+    ZoomToExtent,
+    defaults as defaultControls,
+} from 'ol/control';
 import { Options as ControlOptions } from 'ol/control/Control';
 import { toStringXY } from 'ol/coordinate';
 import { EventsKey } from 'ol/events';
 import { applyTransform } from 'ol/extent';
 import { GeoJSON, MVT } from 'ol/format';
+import { WriteTransactionOptions } from 'ol/format/WFS';
 import GeometryType from 'ol/geom/GeometryType';
 import { Draw, Modify, Select, defaults as defaultInteractions } from 'ol/interaction';
 import { Tile as TileLayer, Vector as VectorLayer, VectorTile as VectorTileLayer } from 'ol/layer';
 import { fromLonLat, get as getProjection, getTransform } from 'ol/proj';
 import { register } from 'ol/proj/proj4';
 import { OSM, Vector as VectorSource, VectorTile as VectorTileSource } from 'ol/source';
+import { Options as XYZOptions } from 'ol/source/XYZ';
 import { Circle, Fill, Stroke, Style } from 'ol/style';
 import { StyleFunction } from 'ol/style/Style';
-
 import proj4 = require('proj4');
 /**
  * ==================================================
@@ -109,24 +119,59 @@ const geojsonObj = {
         { type: 'Feature', geometry: { type: 'Point', coordinates: [0, 0] } },
         {
             type: 'Feature',
-            geometry: { type: 'LineString', coordinates: [[4000000, -2000000], [8000000, 2000000]] },
+            geometry: {
+                type: 'LineString',
+                coordinates: [
+                    [4000000, -2000000],
+                    [8000000, 2000000],
+                ],
+            },
         },
         {
             type: 'Feature',
-            geometry: { type: 'LineString', coordinates: [[4000000, 2000000], [8000000, -2000000]] },
+            geometry: {
+                type: 'LineString',
+                coordinates: [
+                    [4000000, 2000000],
+                    [8000000, -2000000],
+                ],
+            },
         },
         {
             type: 'Feature',
             geometry: {
                 type: 'Polygon',
-                coordinates: [[[-5000000, -1000000], [-4000000, 1000000], [-3000000, -1000000]]],
+                coordinates: [
+                    [
+                        [-5000000, -1000000],
+                        [-4000000, 1000000],
+                        [-3000000, -1000000],
+                    ],
+                ],
             },
         },
         {
             type: 'Feature',
             geometry: {
                 type: 'MultiLineString',
-                coordinates: [[[-1000000, -750000], [-1000000, 750000]], [[1000000, -750000], [1000000, 750000]], [[-750000, -1000000], [750000, -1000000]], [[-750000, 1000000], [750000, 1000000]]],
+                coordinates: [
+                    [
+                        [-1000000, -750000],
+                        [-1000000, 750000],
+                    ],
+                    [
+                        [1000000, -750000],
+                        [1000000, 750000],
+                    ],
+                    [
+                        [-750000, -1000000],
+                        [750000, -1000000],
+                    ],
+                    [
+                        [-750000, 1000000],
+                        [750000, 1000000],
+                    ],
+                ],
             },
         },
         {
@@ -134,9 +179,30 @@ const geojsonObj = {
             geometry: {
                 type: 'MultiPolygon',
                 coordinates: [
-                    [[[-5000000, 6000000], [-5000000, 8000000], [-3000000, 8000000], [-3000000, 6000000]]],
-                    [[[-2000000, 6000000], [-2000000, 8000000], [0, 8000000], [0, 6000000]]],
-                    [[[1000000, 6000000], [1000000, 8000000], [3000000, 8000000], [3000000, 6000000]]],
+                    [
+                        [
+                            [-5000000, 6000000],
+                            [-5000000, 8000000],
+                            [-3000000, 8000000],
+                            [-3000000, 6000000],
+                        ],
+                    ],
+                    [
+                        [
+                            [-2000000, 6000000],
+                            [-2000000, 8000000],
+                            [0, 8000000],
+                            [0, 6000000],
+                        ],
+                    ],
+                    [
+                        [
+                            [1000000, 6000000],
+                            [1000000, 8000000],
+                            [3000000, 8000000],
+                            [3000000, 6000000],
+                        ],
+                    ],
                 ],
             },
         },
@@ -145,9 +211,24 @@ const geojsonObj = {
             geometry: {
                 type: 'GeometryCollection',
                 geometries: [
-                    { type: 'LineString', coordinates: [[-5000000, -5000000], [0, -5000000]] },
+                    {
+                        type: 'LineString',
+                        coordinates: [
+                            [-5000000, -5000000],
+                            [0, -5000000],
+                        ],
+                    },
                     { type: 'Point', coordinates: [4000000, -5000000] },
-                    { type: 'Polygon', coordinates: [[[1000000, -6000000], [2000000, -4000000], [3000000, -6000000]]] },
+                    {
+                        type: 'Polygon',
+                        coordinates: [
+                            [
+                                [1000000, -6000000],
+                                [2000000, -4000000],
+                                [3000000, -6000000],
+                            ],
+                        ],
+                    },
                 ],
             },
         },
@@ -253,7 +334,7 @@ const view = new View({
 });
 
 const map = new Map({
-    target: document.getElementById('map') as HTMLElement,
+    target: 'map',
     view,
     layers,
     controls,
@@ -296,13 +377,13 @@ setTimeout(() => {
  */
 
 interface CustomControlOptions extends ControlOptions {
-    name?: string;
+    name?: string | undefined;
 }
 
 class CustomControl extends Control {
     name: string;
-    mapViewport?: HTMLElement;
-    private readonly _boundListener: (e: Event) => void;
+    mapViewport?: HTMLElement | undefined;
+    private readonly _boundListener: (e: MouseEvent) => void;
     private readonly _eventKeys: EventsKey[];
 
     constructor(options: CustomControlOptions = {}) {
@@ -331,7 +412,7 @@ class CustomControl extends Control {
         this._eventKeys.push(
             view.on('change:center', evt => {
                 console.log(evt.oldValue, view.getCenter());
-            })
+            }),
         );
     }
 
@@ -372,3 +453,30 @@ const arr = Array(10)
     .map((_, i) => i);
 
 stableSort(arr, (a: number, b: number) => (a < b ? 1 : a > b ? -1 : 0));
+
+/**
+ * ==================================================
+ * # ol/format/WFS.WriteTransactionOptions optional nativeElements
+ * ==================================================
+ */
+
+const writeTrxOpts: WriteTransactionOptions = {
+    featureNS: 'namespace',
+    featurePrefix: '',
+    featureType: 'layer',
+};
+
+/**
+ * ==================================================
+ * # Nullable property
+ * ==================================================
+ */
+
+vectorLayer.on('postrender', evt => {
+    // RenderEvent context should be nullable
+    if (evt.context) evt.context.restore();
+});
+
+const xyzOpts: XYZOptions = {
+    crossOrigin: null,
+};

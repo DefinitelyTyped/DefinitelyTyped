@@ -7,7 +7,7 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
         "strictFunctionTypes": true,
         "baseUrl": "../",
         "jsx": "react",
@@ -15,7 +15,7 @@
             "../"
         ],
         "paths": {
-            "@styled-system/css": ["styled-system__css"]
+            "@styled-system/*": ["styled-system__*"]
         },
         "types": [],
         "noEmit": true,

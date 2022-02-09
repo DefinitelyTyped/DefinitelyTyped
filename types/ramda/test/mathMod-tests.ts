@@ -11,3 +11,8 @@ import * as R from 'ramda';
   const seventeenMod = R.mathMod(17);
   seventeenMod(3); // => 2
 };
+
+() => {
+  R.mathMod(R.__, 12)(15); // 3
+  R.mathMod(R.__)(12, 15); // 3
+};

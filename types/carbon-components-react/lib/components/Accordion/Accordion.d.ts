@@ -1,12 +1,11 @@
 import * as React from "react";
 import { ReactAttr } from "../../../typings/shared";
 
-interface InheritedProps {
-    children?: ReactAttr["children"],
-    className?: ReactAttr["className"],
+export interface AccordionProps extends ReactAttr<HTMLUListElement> {
+    align?: "end" | "start" | undefined;
+    disabled?: boolean | undefined;
+    size?: "sm" | "md" | "lg" | "xl" | undefined;
 }
-
-export interface AccordionProps extends InheritedProps { }
 
 declare const Accordion: React.FC<AccordionProps>;
 

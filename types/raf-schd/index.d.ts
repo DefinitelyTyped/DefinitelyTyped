@@ -4,11 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
-interface Schedule<T extends (...args: any[]) => void> {
-    (...args: Parameters<T>): void;
-    cancel(): void;
-}
+type ScheduledFn<T extends (...args: any[]) => void> = T & { cancel(): void };
 
-declare function rafSchd<T extends (...args: any[]) => void>(fn: T): Schedule<T>;
+declare function rafSchd<T extends (...args: any[]) => void>(fn: T): ScheduledFn<T>;
 
 export = rafSchd;

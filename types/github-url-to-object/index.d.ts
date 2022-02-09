@@ -5,7 +5,7 @@
 
 declare namespace gh {
     interface Options {
-        enterprise?: boolean;
+        enterprise?: boolean | undefined;
     }
     interface Result {
         user: string;

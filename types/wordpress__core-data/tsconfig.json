@@ -17,17 +17,8 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@wordpress/api-fetch": [
-                "wordpress__api-fetch"
-            ],
-            "@wordpress/core-data": [
-                "wordpress__core-data"
-            ],
-            "@wordpress/element": [
-                "wordpress__element"
-            ],
-            "@wordpress/data": [
-                "wordpress__data"
+            "@wordpress/*": [
+                "wordpress__*"
             ]
         }
     },

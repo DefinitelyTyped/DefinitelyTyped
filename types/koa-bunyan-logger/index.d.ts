@@ -22,30 +22,35 @@ declare namespace koaBunyanLogger {
     }
 
     interface RequestIdContextOptions {
-        header?: string;
-        prop?: string;
-        requestProp?: string;
-        field?: string;
+        header?: string | undefined;
+        prop?: string | undefined;
+        requestProp?: string | undefined;
+        field?: string | undefined;
     }
 
     interface RequestLoggerOptions {
-        durationField?: string;
-        levelFn?: (status: number, err: Error) => string;
-        updateLogFields?: (data: RequestData) => RequestData;
-        updateRequestLogFields?: (requestData: RequestData) => RequestData;
-        updateResponseLogFields?: (responseData: ResponseData) => ResponseData;
-        formatRequestMessage?: (requestData: RequestData) => string;
-        formatResponseMessage?: (responseData: ResponseData) => string;
-        ignorePath?: string[];
+        durationField?: string | undefined;
+        levelFn?: ((status: number, err: Error) => string) | undefined;
+        updateLogFields?: ((data: RequestData) => RequestData) | undefined;
+        updateRequestLogFields?: ((requestData: RequestData) => RequestData) | undefined;
+        updateResponseLogFields?: ((responseData: ResponseData) => ResponseData) | undefined;
+        formatRequestMessage?: ((requestData: RequestData) => string) | undefined;
+        formatResponseMessage?: ((responseData: ResponseData) => string) | undefined;
+        ignorePath?: string[] | undefined;
+    }
+
+    interface TimeContextOptions {
+        logLevel?: string | undefined;
+        updateLogFields?: ((fields: any) => any) | undefined;
     }
 
     function requestLogger(opts?: RequestLoggerOptions): Middleware;
     function requestIdContext(opts?: RequestIdContextOptions): Middleware;
+    function timeContext(opts?: TimeContextOptions): Middleware;
 }
 
 // Extend the Koa context to add the logger..
 declare module 'koa' {
-    // tslint:disable-next-line: interface-name
     interface BaseContext {
         log: Logger;
     }

@@ -8,18 +8,18 @@ const input = new stream.PassThrough();
 const output = new stream.PassThrough();
 const rl = readline.createInterface({ input, output });
 const rlc = readline.createInterface({
-	input,
-	output,
-	completer,
-	terminal: true,
+    input,
+    output,
+    completer,
+    terminal: true,
 });
 
 rl.question('a'); // $ExpectType Promise<string>
 rl.question('a', answer => {
-	answer; // $ExpectType string
+    answer; // $ExpectType string
 });
 
 rlc.question('a'); // $ExpectType Promise<string>
 rlc.question('a', answer => {
-	answer; // $ExpectType string
+    answer; // $ExpectType string
 });

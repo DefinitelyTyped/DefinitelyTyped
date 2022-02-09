@@ -1,40 +1,87 @@
+import JsonPointer = require("json-pointer");
 
-import JsonPointer = require('json-pointer');
+// test type exports
+type JsonObject = JsonPointer.JsonObject;
+type Api = JsonPointer.Api;
+type Wrapper = JsonPointer.Wrapper;
+type BoundApi = JsonPointer.BoundApi;
+type BoundWrapper = JsonPointer.BoundWrapper;
+type DropFirst = JsonPointer.DropFirst; // $ExpectError
 
-var value: any;
-var str: string;
-var strArr: string[];
-var pointer: string;
-var bool: any;
-var object:Object;
-
-bool = JsonPointer.has(object, pointer);
-value = JsonPointer.get(object, pointer);
-JsonPointer.set(object, pointer, value);
-JsonPointer.remove(object, pointer);
-
-object = JsonPointer.dict(object);
-
-JsonPointer.walk(object, (elem) => {
-
+JsonPointer.get({ example: "hello" }, "/example"); // $ExpectType any
+JsonPointer.get({ example: "hello" }, ["example"]); // $ExpectType any
+JsonPointer.set({ example: "hello" }, "/example", "world"); // $ExpectType Api
+JsonPointer.set({ example: "hello" }, ["example"], "world"); // $ExpectType Api
+JsonPointer.remove({ example: "hello" }, "/example"); // $ExpectType void
+JsonPointer.remove({ example: "hello" }, ["example"]); // $ExpectType void
+JsonPointer.dict({ example: "hello" }); // $ExpectType Record<string, any>
+// $ExpectType Record<string, any>
+JsonPointer.dict({ example: "hello" }, value => {
+    value; // $ExpectType any
+    return false;
 });
-
-str = JsonPointer.escape(str);
-str = JsonPointer.unescape(str);
-
-strArr = JsonPointer.parse(str);
-str = JsonPointer.compile(strArr);
-
-var wrap = JsonPointer(object);
-
-bool = wrap.has(pointer);
-value = wrap.get(pointer);
-wrap.set(pointer, value);
-wrap.remove(pointer);
-
-object = wrap.dict();
-
-wrap.walk((elem, key) => {
-	value = elem;
-	str = key;
+// $ExpectType void
+JsonPointer.walk({ example: "hello" }, (value, ref) => {
+    value; // $ExpectType any
+    ref; // $ExpectType string
 });
+// $ExpectType void
+JsonPointer.walk(
+    { example: "hello" },
+    (value, ref) => {
+        value; // $ExpectType any
+        ref; // $ExpectType string
+    },
+    value => {
+        value; // $ExpectType any
+        return false;
+    },
+);
+JsonPointer.has({ example: "hello" }, "/example"); // $ExpectType boolean
+JsonPointer.has({ example: "hello" }, ["example"]); // $ExpectType boolean
+JsonPointer.escape("/example"); // $ExpectType string
+JsonPointer.unescape("/example"); // $ExpectType string
+JsonPointer.parse("/example"); // $ExpectType string[]
+JsonPointer.compile(["example"]); // $ExpectType string
+
+JsonPointer({ example: "hello" }, "/example"); // $ExpectType any
+JsonPointer({ example: "hello" }, ["example"]); // $ExpectType any
+JsonPointer({ example: "hello" }, "/example", "world"); // $ExpectType Api
+JsonPointer({ example: "hello" }, ["example"], "world"); // $ExpectType Api
+
+const bound = JsonPointer({ example: "hello" });
+bound("/example");
+bound("/example"); // $ExpectType any
+bound(["example"]); // $ExpectType any
+bound("/example", "world"); // $ExpectType BoundApi
+bound(["example"], "world"); // $ExpectType BoundApi
+bound.get("/example"); // $ExpectType any
+bound.get(["example"]); // $ExpectType any
+bound.set("/example", "world"); // $ExpectType BoundApi
+bound.set(["example"], "world"); // $ExpectType BoundApi
+bound.remove("/example"); // $ExpectType void
+bound.remove(["example"]); // $ExpectType void
+bound.dict(); // $ExpectType Record<string, any>
+// $ExpectType Record<string, any>
+bound.dict(value => {
+    value; // $ExpectType any
+    return false;
+});
+// $ExpectType void
+bound.walk((value, ref) => {
+    value; // $ExpectType any
+    ref; // $ExpectType string
+});
+// $ExpectType void
+bound.walk(
+    (value, ref) => {
+        value; // $ExpectType any
+        ref; // $ExpectType string
+    },
+    value => {
+        value; // $ExpectType any
+        return false;
+    },
+);
+bound.has("/example"); // $ExpectType boolean
+bound.has(["example"]); // $ExpectType boolean

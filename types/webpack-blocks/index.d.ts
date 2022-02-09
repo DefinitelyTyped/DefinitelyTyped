@@ -2,7 +2,7 @@
 // Project: https://github.com/andywer/webpack-blocks
 // Definitions by: Max Boguslavskiy <https://github.com/maxbogus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// TypeScript Version: 3.7
 
 import { css, url, file } from '@webpack-blocks/assets';
 import babel = require('@webpack-blocks/babel');

@@ -96,6 +96,8 @@ async.all(['file1', 'file2', 'file3'], funcStringCbErrBoolean, (err: Error, resu
 
 async.concat(['dir1', 'dir2', 'dir3'], fs.readdir, (err, files) => { });
 async.concatSeries(['dir1', 'dir2', 'dir3'], fs.readdir, (err, files) => { });
+async.concatLimit(['dir1', 'dir2', 'dir3'], 2, fs.readdir, (err, files) => { });
+async.concatLimit<string, string>(['dir1', 'dir2', 'dir3'], 2, fs.readdir); // $ExpectType Promise<string[]>
 
 // Control Flow //
 
@@ -150,18 +152,16 @@ async.parallelLimit({
     (err, results) => { }
 );
 
-function whileFn(callback: any) {
+function whileFn(callback: (err: any, ...rest: any[]) => void) {
     setTimeout(() => callback(null, ++count), 1000);
 }
-
-function whileTest() { return count < 5; }
-function doWhileTest(count: number) { return count < 5; }
+function whileTest(callback: (err: any, truth: boolean) => void) { callback(null, count < 5); }
 
 let count = 0;
 async.whilst(whileTest, whileFn, err => { });
 async.until(whileTest, whileFn, err => { });
-async.doWhilst(whileFn, doWhileTest, err => { });
-async.doUntil(whileFn, doWhileTest, err => { });
+async.doWhilst(whileFn, whileTest, err => { });
+async.doUntil(whileFn, whileTest, err => { });
 
 async.during(testCallback => { testCallback(new Error(), false); }, callback => { callback(); }, error => { console.log(error); });
 async.doDuring(callback => { callback(); }, testCallback => { testCallback(new Error(), false); }, error => { console.log(error); });
@@ -179,15 +179,25 @@ const q = async.queue<any>((task: any, callback: (err?: Error, msg?: string) => 
     callback(undefined, 'a message.');
 }, 2);
 
-q.drain(() => { console.log('all items have been processed'); });
-
-q.push({ name: 'foo' });
-q.push({ name: 'bar' }, err => { console.log('finished processing bar'); });
+// $ExpectType Promise<string>
+q.push<string>({ name: 'foo' });
+// $ExpectType Promise<string[]>
+q.pushAsync<string[]>({ name: 'foo' });
+// $ExpectType void
+q.push<number, SyntaxError>({ name: 'bar' }, (err: SyntaxError | null, result?: number) => {
+    console.log('finished processing bar');
+});
 q.push([{ name: 'baz' }, { name: 'bay' }, { name: 'bax' }], err => { console.log('finished processing bar'); });
 q.push<string>({name: 'foo'}, (err, msg) => { console.log(`foo finished with a message "${msg!}"`); });
 
-q.unshift({ name: 'foo' });
-q.unshift({ name: 'bar' }, err => { console.log('finished processing bar'); });
+// $ExpectType Promise<string>
+q.unshift<string>({ name: 'foo' });
+// $ExpectType Promise<string>
+q.unshiftAsync<string>({ name: 'foo' });
+// $ExpectType void
+q.unshift<number, SyntaxError>({ name: 'bar' }, (err: SyntaxError | null, result?: number) => {
+    console.log('finished processing bar');
+});
 q.unshift([{ name: 'baz' }, { name: 'bay' }, { name: 'bax' }], err => { console.log('finished processing bar'); });
 
 const qLength: number = q.length();
@@ -196,11 +206,25 @@ const qPaused: boolean = q.paused;
 const qProcessingCount: number = q.running();
 const qIsIdle: boolean = q.idle();
 
+// $ExpectType void
 q.saturated(() => { console.log('queue is saturated.'); });
+// $ExpectType Promise<void>
+q.saturated();
 
+// $ExpectType void
+q.unsaturated(() => { console.log('queue is unsaturated.'); });
+// $ExpectType Promise<void>
+q.unsaturated();
+
+// $ExpectType void
 q.empty(() => { console.log('queue is empty.'); });
+// $ExpectType Promise<void>
+q.empty();
 
+// $ExpectType void
 q.drain(() => { console.log('queue was drained.'); });
+// $ExpectType Promise<void>
+q.drain();
 
 q.pause();
 q.resume();
@@ -242,28 +266,43 @@ const q3 = async.queue<string>((task: string, callback: ErrorCallback) => {
     callback(new Error(task));
 }, 1);
 
-q3.error((error, task) => {
+// $ExpectType void
+q3.error((error: Error, task: string) => {
     console.log('task: ' +  task);
     console.log('error: ' + error);
 });
 
+// $ExpectType Promise<never>
+q3.error();
+
 q3.push(["task1", "task2", "task3"]);
 
 // create a cargo object with payload 2
-const cargo = async.cargo((tasks, callback) => {
+const cargo = async.cargo<{ name: string }>((tasks, callback) => {
     for (const task of tasks) {
         console.log('hello ' + task.name);
     }
     callback();
 }, 2);
+cargo.drain(); // $ExpectType Promise<void>
+cargo.drain(() => { console.log('done processing queue'); }); // $ExpectType void
 
 // add some items
 cargo.push({ name: 'foo' }, (err: Error) => { console.log('finished processing foo'); });
 cargo.push({ name: 'bar' }, (err: Error) => { console.log('finished processing bar'); });
 cargo.push({ name: 'baz' }, (err: Error) => { console.log('finished processing baz'); });
 
+interface A {
+    get_data: any;
+    make_folder: any;
+    write_file: any;
+    email_link: any;
+}
+
 const filename = '';
-async.auto({
+
+// $ExpectType void
+async.auto<A>({
     get_data: (callback: AsyncResultCallback<any>) => { },
     make_folder: (callback: AsyncResultCallback<any>) => { },
 
@@ -274,9 +313,24 @@ async.auto({
 
     // arrays with different types are not accepted by TypeScript.
     email_link: ['write_file', ((callback: AsyncResultCallback<any>, results: any) => { }) as any]
+}, (err, results) => { console.log('finished auto'); });
+
+// $ExpectType Promise<A>
+async.auto<A>({
+    get_data: async () => { },
+    make_folder: async () => { },
+
+    // arrays with different types are not accepted by TypeScript.
+    write_file: ['get_data', 'make_folder', (async () => {
+        return filename;
+    }) as any],
+
+    // arrays with different types are not accepted by TypeScript.
+    email_link: ['write_file', (async (results: any) => { }) as any]
 });
 
-async.auto({
+// $ExpectType void
+async.auto<A>({
         get_data: (callback: AsyncResultCallback<any>) => { },
         make_folder: (callback: AsyncResultCallback<any>) => { },
 
@@ -289,13 +343,23 @@ async.auto({
     (err, results) => { console.log('finished auto'); }
 );
 
-interface A {
-    get_data: any;
-    make_folder: any;
-    write_file: any;
-    email_link: any;
-}
+// $ExpectType Promise<A>
+async.auto<A>({
+        get_data: async () => { },
+        make_folder: async () => { },
 
+        // arrays with different types are not accepted by TypeScript.
+        write_file: ['get_data', 'make_folder', (async () => {
+            return filename;
+        }) as any],
+
+        // arrays with different types are not accepted by TypeScript.
+        email_link: ['write_file', (async (results: any) => { }) as any]
+    },
+    1
+);
+
+// $ExpectType void
 async.auto<A>({
         get_data: (callback: AsyncResultCallback<any>) => { },
         make_folder: (callback: AsyncResultCallback<any>) => { },
@@ -310,10 +374,42 @@ async.auto<A>({
     (err, results) => { console.log('finished auto'); }
 );
 
-async.retry(3, (callback, results) => { }, (err, result) => { });
-async.retry({ times: 3, interval: 200 }, (callback, results) => { }, (err, result) => { });
-async.retry({ times: 3, interval: (retryCount) => 200 * retryCount }, (callback, results) => { }, (err, result) => { });
-async.retry({ times: 3, interval: 200, errorFilter: (err) => true }, (callback, results) => { }, (err, result) => { });
+async.retry(); // $ExpectError
+async.retry(3); // $ExpectError
+
+async.retry(async () => 2); // $ExpectType Promise<number>
+async.retry<number>(async () => 2); // $ExpectType Promise<number>
+
+// dtslint doesn't seem to handle $ExpectType Promise<unknown>, expects Promise<{}>
+const xx: Promise<number> = async.retry(cb => { cb(null, 2); });
+async.retry<number>(cb => { cb(null, 2); }); // $ExpectType Promise<number>
+
+async.retry(1, async () => 2); // $ExpectType Promise<number>
+async.retry<number>(1, async () => 2); // $ExpectType Promise<number>
+
+async.retry<number>(1, cb => { cb(null, 2); }); // $ExpectType Promise<number>
+async.retry<number>({ times: 3, interval: 200 }, cb => { cb(null, 2); }); // $ExpectType Promise<number>
+async.retry<number>(cb => { cb(null, 2); }, (err: Error, r: number) => {}); // $ExpectType void
+async.retry<number>(1, cb => { cb(null, 2); }, (err: Error, r: number) => {}); // $ExpectType void
+async.retry<number>({ times: 3, interval: 200 }, cb => { cb(null, 2); }, (err: Error, r: number) => {}); // $ExpectType void
+async.retry<number>({ interval: rc => 200 * rc }, cb => { cb(null, 2); }, (err: Error, r: number) => {}); // $ExpectType void
+async.retry<number, string>({ errorFilter: (x: string) => true }, cb => { cb("oh no"); }); // $ExpectType Promise<number>
+
+async.retryable(
+    (callback) => {},
+);
+async.retryable(
+    3,
+    (callback) => {},
+);
+async.retryable(
+    { times: 3, interval: 200 },
+    (callback) => {},
+);
+async.retryable(
+    { times: 3, interval: retryCount => 200 * retryCount },
+    (callback) => {},
+);
 
 async.parallel([
         (callback: (err: Error, val: string) => void) => { },
@@ -447,6 +543,24 @@ async.map<number, string>(
     },
     (err: Error, results: string[]) => { console.log("async.map: done with results", results); }
 );
+
+async function promiseTest() {
+    const promiseMap = await async.map<number, string>(
+        { a: 1, b: 2, c: 3 },
+        async (val: number) => {
+            return new Promise<string>((resolve, reject) => {
+                setTimeout(
+                    () => {
+                        console.log(`async.map: ${val}`);
+                        resolve(val.toString());
+                    },
+                    500);
+            });
+        }
+    );
+    console.log("async.map promise: done with results", promiseMap);
+}
+promiseTest();
 
 async.mapSeries<number, string>(
     { a: 1, b: 2, c: 3 },
@@ -584,23 +698,23 @@ async.some<number>(
 // timeout
 
 function myFunction1(foo: any, callback: (err?: Error, result?: any) => void): void {
-	console.log(`async.timeout 1 ${foo}`);
-	callback(undefined, foo);
+    console.log(`async.timeout 1 ${foo}`);
+    callback(undefined, foo);
 }
 const wrapped1 = async.timeout(myFunction1, 1000);
 wrapped1({ bar: 'bar' }, (err: Error, data: any) => { console.log(`async.timeout 1 end ${data}`); });
 
 function myFunction2(callback: (err?: Error, result?: any) => void): void {
-	console.log(`async.timeout 2`);
-	callback(undefined, { bar: 'bar' });
+    console.log(`async.timeout 2`);
+    callback(undefined, { bar: 'bar' });
 }
 
 const wrapped2 = async.timeout(myFunction2, 1000);
 wrapped2((err: Error, data: any) => { console.log(`async.timeout 2 end ${data}`); });
 
 function myFunction3(callback: (err?: Error, result?: any) => void): void {
-	console.log(`async.timeout 3`);
-	callback(undefined, { bar: 'bar' });
+    console.log(`async.timeout 3`);
+    callback(undefined, { bar: 'bar' });
 }
 
 const wrapped3 = async.timeout(myFunction3, 1000, { bar: 'bar' });

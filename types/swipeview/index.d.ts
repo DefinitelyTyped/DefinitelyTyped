@@ -9,11 +9,11 @@ interface SwipeViewEvent {
 }
 
 interface SwipeViewOptions {
-    text?: string;
-    numberOfPages?: number;
-    snapThreshold?: number;
-    hastyPageFlip?: boolean;
-    loop?: boolean;
+    text?: string | undefined;
+    numberOfPages?: number | undefined;
+    snapThreshold?: number | undefined;
+    hastyPageFlip?: boolean | undefined;
+    loop?: boolean | undefined;
 }
 
 declare class SwipeView {

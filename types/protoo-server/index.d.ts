@@ -28,8 +28,8 @@ export interface ProotooResponse {
     id: number;
     ok: boolean;
     data?: any;
-    errorCode?: number;
-    errorReason?: string;
+    errorCode?: number | undefined;
+    errorReason?: string | undefined;
 }
 
 export interface ProtooNotification {
@@ -44,22 +44,24 @@ export type ConnectionRequestCb = (
     reject: ConnectionRequestRejectFn,
 ) => void;
 
+export type WebSocketServerOptions = Pick<IServerConfig, Exclude<keyof IServerConfig, 'httpServer'>>;
+
 export type ConnectionRequestAcceptFn = () => WebSocketTransport;
 
-export type ConnectionRequestRejectFn = ((code: number, reason: string) => void) | ((error: Error) => void);
+export type ConnectionRequestRejectFn = ((code: number, reason: string) => void) & ((error: Error) => void);
 
 export type RequestCb = (request: ProtooRequest, accept: AcceptFn, reject: RejectFn) => void;
 
 export type AcceptFn = (data: any) => void;
 
-export type RejectFn = ((errorCode?: Error) => void) | ((errorCode: number, errorReason: Error | string) => void);
+export type RejectFn = ((errorCode?: Error) => void) & ((errorCode: number, errorReason: Error | string) => void);
 
 export type EmptyCb = () => void;
 
 export type NotificationCb = (notification: ProtooNotification) => void;
 
 export class WebSocketServer {
-    constructor(server: HttpServer | HttpsServer, options?: IServerConfig);
+    constructor(server: HttpServer | HttpsServer, options?: WebSocketServerOptions);
     stop(): void;
     on(eventType: 'connectionrequest', callback: ConnectionRequestCb): void;
 }

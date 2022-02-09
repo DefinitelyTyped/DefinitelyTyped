@@ -1,13 +1,13 @@
 // Type definitions for barbellweights 0.4
 // Project: https://github.com/toddhibbs/barbellweight#readme
-// Definitions by: evelijn <https://github.com/evelijn>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface options {
-    program?: string;
-    bar?: number;
-    plates?: number[];
-    warmup_round_to?: number;
+    program?: string | undefined;
+    bar?: number | undefined;
+    plates?: number[] | undefined;
+    warmup_round_to?: number | undefined;
 }
 
 export class BarbellWeight {

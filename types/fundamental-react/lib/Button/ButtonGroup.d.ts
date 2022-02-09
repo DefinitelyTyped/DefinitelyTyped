@@ -1,9 +1,8 @@
 import * as React from "react";
 
 export type ButtonGroupProps = {
-    customStyles?: {[x: string]: any};
-    disabled?: boolean;
-    disableStyles?: boolean;
+    disabled?: boolean | undefined;
+    disableStyles?: boolean | undefined;
 } & React.HTMLAttributes<HTMLDivElement>;
 
 declare const ButtonGroup: React.FunctionComponent<ButtonGroupProps> & {

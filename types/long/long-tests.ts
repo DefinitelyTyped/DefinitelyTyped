@@ -128,3 +128,23 @@ bytes = val.toBytesLE()
 val = Long.fromBytesLE(bytes)
 bytes = val.toBytesBE()
 val = Long.fromBytesBE(bytes)
+
+
+// Testing module augmentation
+declare module 'long' {
+    interface Long {
+        to42(): number;
+    }
+  
+    interface LongConstructor {
+        from42(input: number): Long;
+    }
+}
+
+Long.prototype.to42 = function() {
+    return 42
+}
+
+Long.from42 = function(input: number): Long {
+    return Long.fromNumber(42)
+}

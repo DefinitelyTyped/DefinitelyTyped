@@ -10,10 +10,10 @@ declare function archy(obj: string, prefix?: string, opts?: archy.Options): stri
 declare namespace archy {
     interface Data {
         label: string;
-        nodes?: (Data | string)[];
+        nodes?: (Data | string)[] | undefined;
     }
     interface Options {
-        unicode?: boolean;
+        unicode?: boolean | undefined;
     }
 }
 

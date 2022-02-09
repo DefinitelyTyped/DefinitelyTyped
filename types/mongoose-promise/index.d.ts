@@ -1,8 +1,8 @@
 // Type definitions for Mongoose-Promise 4.5.4
 // Project: http://mongoosejs.com/
-// Definitions by: simonxca <https://github.com/simonxca>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// Minimum TypeScript Version: 3.2
 
 /// <reference types="mongoose" />
 /// <reference types="mpromise" />

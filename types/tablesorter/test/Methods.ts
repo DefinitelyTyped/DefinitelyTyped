@@ -161,9 +161,9 @@ export class TestMethods<T extends HTMLElement> {
         $.tablesorter.getData($(), config.headers[0], "sorter");
         // $ExpectType string | boolean | undefined
         $.tablesorter.getData($()[0], config.headers[0], "sorter");
-        // $ExpectType "top" | "bottom" | "zero" | "min" | "max" | undefined
+        // $ExpectType "top" | "bottom" | "zero" | "min" | "max" | undefined || "top" | "bottom" | "min" | "max" | "zero" | undefined || StringSorting | undefined
         $.tablesorter.getData($(), config.headers[0], "string");
-        // $ExpectType "top" | "bottom" | "zero" | "min" | "max" | undefined
+        // $ExpectType "top" | "bottom" | "zero" | "min" | "max" | undefined || "top" | "bottom" | "min" | "max" | "zero" | undefined || StringSorting | undefined
         $.tablesorter.getData($()[0], config.headers[0], "string");
 
         // $ExpectType string[]

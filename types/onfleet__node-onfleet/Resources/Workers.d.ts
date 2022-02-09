@@ -1,5 +1,5 @@
 import { Location } from './Destinations';
-import { OnfleetMetadata } from '../metadata';
+import { OnfleetMetadata, MatchMetadata } from '../metadata';
 
 declare class Worker {
   create(worker: Worker.CreateWorkerProps): Promise<Worker.OnfleetWorker>;
@@ -9,6 +9,7 @@ declare class Worker {
   getByLocation(location: Worker.GetWorkerByLocationProps): Promise<{ workers: Worker.OnfleetWorker[] }>;
   getSchedule(id: string): Promise<{ entries: Worker.WorkerSchedule[] }>;
   insertTask(id: string, obj: { tasks: string[] }): Promise<Worker.OnfleetWorker>;
+  matchMetadata: MatchMetadata<Worker.OnfleetWorker['metadata']>;
   setSchedule(id: string, schedule: Worker.WorkerSchedule): Promise<{ entries: Worker.WorkerSchedule[] }>;
   update(id: string, worker: Worker.UpdateWorkerProps): Promise<Worker.OnfleetWorker>;
 }
@@ -44,9 +45,9 @@ declare namespace Worker {
 
   interface Vehicle {
     type: 'BICYCLE' | 'CAR' | 'MOTORCYCLE' | 'TRUCK';
-    color?: string;
-    description?: string;
-    licensePlate?: string;
+    color?: string | undefined;
+    description?: string | undefined;
+    licensePlate?: string | undefined;
   }
 
   /**
@@ -57,14 +58,14 @@ declare namespace Worker {
    * @prop teams - Optional. A comma-separated list of the team IDs that workers must be part of.
    */
   interface GetWorkerQueryProps {
-    filter?: string;
-    phones?: string;
-    states?: string;
-    teams?: string;
+    filter?: string | undefined;
+    phones?: string | undefined;
+    states?: string | undefined;
+    teams?: string | undefined;
   }
 
   interface GetWorkerByLocationProps extends Location {
-    radius?: number;
+    radius?: number | undefined;
   }
 
   /**
@@ -80,18 +81,18 @@ declare namespace Worker {
     name: string;
     phone: string;
     teams: string;
-    vehicle?: Vehicle;
-    capacity?: number;
-    displayName?: string;
+    vehicle?: Vehicle | undefined;
+    capacity?: number | undefined;
+    displayName?: string | undefined;
   }
 
   interface UpdateWorkerProps {
-    capacity?: number;
-    displayName?: string;
-    metadata?: OnfleetMetadata;
-    name?: string;
-    teams?: string;
-    vehicle?: Vehicle;
+    capacity?: number | undefined;
+    displayName?: string | undefined;
+    metadata?: OnfleetMetadata | undefined;
+    name?: string | undefined;
+    teams?: string | undefined;
+    vehicle?: Vehicle | undefined;
   }
 
   interface WorkerSchedule {

@@ -7,7 +7,7 @@ class Wrapper extends React.Component {
     }
 }
 
-function FunctionWrapper(props: { children?: React.ReactNode }) {
+function FunctionWrapper(props: { children?: React.ReactNode | undefined }) {
     return <div>{props.children}</div>;
 }
 
@@ -18,6 +18,7 @@ class MyComponent extends React.Component {
                 <Breadcrumbs
                     className="demo__crumbs"
                     hidden
+                    separator="|"
                     setCrumbs={crumbs => null}
                     wrapper={Wrapper}
                 />

@@ -7,19 +7,19 @@
 
 import { Stream } from "stream";
 export interface LzmaOptions {
-    synchronous?: boolean;
-    bufsize?: number;
-    memlimit?: number;
-    check?: Check;
-    preset?: Preset;
+    synchronous?: boolean | undefined;
+    bufsize?: number | undefined;
+    memlimit?: number | undefined;
+    check?: Check | undefined;
+    preset?: Preset | undefined;
     flags?:
         | "TELL_NO_CHECK"
         | "TELL_UNSUPPORTED_CHECK"
         | "TELL_ANY_CHECK"
-        | "CONCATENATED";
-    threads?: number;
-    blockSize?: number;
-    timeout?: number;
+        | "CONCATENATED" | undefined;
+    threads?: number | undefined;
+    blockSize?: number | undefined;
+    timeout?: number | undefined;
 }
 
 export type Check =
@@ -41,7 +41,7 @@ export type Preset = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
 
 export interface FileOptions {
     fileSize: number;
-    memlimit?: number;
+    memlimit?: number | undefined;
     read: (
         count: number,
         offset: number,

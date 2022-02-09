@@ -10,8 +10,8 @@ export interface CodecEncoder {
     type: string;
 }
 export interface CodecOptions {
-    keyEncoding?: string | CodecEncoder;
-    valueEncoding?: string | CodecEncoder;
+    keyEncoding?: string | CodecEncoder | undefined;
+    valueEncoding?: string | CodecEncoder | undefined;
 }
 export interface Codec {
     encodeKey(key: any, opts?: CodecOptions, batchOpts?: CodecOptions): any;

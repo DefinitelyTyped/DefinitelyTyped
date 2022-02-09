@@ -226,12 +226,12 @@ export interface Native {
     /**
      * 通过js登录用户
      * @param params - 接口入参
-     * @param params.uid			-用户hsid
-     * @param params.mobile			-用户手机号码
-     * @param params.token			-用户令牌
-     * @param params.nickname			-用户昵称
-     * @param params.photoURL			-用户头像地址
-     * @param params.logoutWhenExit			-app退出后是否注销当前用户
+     * @param params.uid            -用户hsid
+     * @param params.mobile            -用户手机号码
+     * @param params.token            -用户令牌
+     * @param params.nickname            -用户昵称
+     * @param params.photoURL            -用户头像地址
+     * @param params.logoutWhenExit            -app退出后是否注销当前用户
      * @param cb 功能处理后的回调函数
      */
     userLogin(params: any, cb: any): void;
@@ -243,13 +243,13 @@ export interface Native {
     /**
      * 通过js设置登录用户信息
      * @param params - 接口入参
-     * @param params.uid			-用户hsid
-     * @param params.mobile			-用户手机号码
-     * @param params.token			-用户令牌
-     * @param params.nickname			-用户昵称
-     * @param params.photoURL			-用户头像地址
-     * @param params.logoutWhenExit			-app退出后是否注销当前用户
-     * @param params.extraInfo			-用户额外信息
+     * @param params.uid            -用户hsid
+     * @param params.mobile            -用户手机号码
+     * @param params.token            -用户令牌
+     * @param params.nickname            -用户昵称
+     * @param params.photoURL            -用户头像地址
+     * @param params.logoutWhenExit            -app退出后是否注销当前用户
+     * @param params.extraInfo            -用户额外信息
      * @param cb 功能处理后的回调函数
      */
     userSetInfo(params: any, cb: (res: CallbackResult) => void): void;
@@ -617,8 +617,8 @@ export interface Native {
      * 通过js传入经服务器加签后的订单信息(orderInfo)并调用相应支付渠道SDK的支付接口
      * @param params - 接口入参
      * @param params.channel_id -021:支付宝钱包022:微信钱包
-     * @param params.orderInfo			- 具体内容见下方的”其他(当支付渠道为微信钱包时/当支付渠道为微信钱包时)”项
-     * @param params.isSandBox			-是否进入沙箱环境（只对支付宝有效）
+     * @param params.orderInfo            - 具体内容见下方的”其他(当支付渠道为微信钱包时/当支付渠道为微信钱包时)”项
+     * @param params.isSandBox            -是否进入沙箱环境（只对支付宝有效）
      * @param cb 功能处理后的回调函数
      */
     tradePay(params: any, cb: (res: CallbackResult) => void): void;

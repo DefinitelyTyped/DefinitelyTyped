@@ -15,13 +15,13 @@ declare namespace Selectize {
         /**
          * An array of the initial selected values. By default this is populated from the original input element.
          */
-        items?: T[];
+        items?: T[] | undefined;
         
         /**
          * The placeholder of the control (displayed when nothing is selected / typed).
          * Defaults to input element's placeholder, unless this one is specified.
          */
-        placeholder?: string;
+        placeholder?: string | undefined;
 
         /**
          * The string to separate items by. This option is only used when Selectize is instantiated from a
@@ -29,14 +29,14 @@ declare namespace Selectize {
          *
          * Default: ','
          */
-        delimiter?: string;
+        delimiter?: string | undefined;
 
         /**
          * Enable or disable international character support.
          *
          * Default: true
          */
-        diacritics?: boolean;
+        diacritics?: boolean | undefined;
 
         /**
          * Allows the user to create a new items that aren't in the list of options.
@@ -53,7 +53,7 @@ declare namespace Selectize {
          *
          * Default: false
          */
-        createOnBlur?: boolean;
+        createOnBlur?: boolean | undefined;
 
         /**
          * Specifies a RegExp or String containing a regular expression that the current search filter must match to
@@ -69,49 +69,49 @@ declare namespace Selectize {
          *
          * Default: true
          */
-        highlight?: boolean;
+        highlight?: boolean | undefined;
 
         /**
          * If false, items created by the user will not show up as available options once they are unselected.
          *
          * Default: true
          */
-        persist?: boolean;
+        persist?: boolean | undefined;
 
         /**
          * Show the dropdown immediately when the control receives focus.
          *
          * Default: true
          */
-        openOnFocus?: boolean;
+        openOnFocus?: boolean | undefined;
 
         /**
          * The max number of items to render at once in the dropdown list of options.
          *
          * Default: 1000
          */
-        maxOptions?: number;
+        maxOptions?: number | undefined;
 
         /**
          * The max number of items the user can select.
          *
          * Default: Infinity
          */
-        maxItems?: number;
+        maxItems?: number | undefined;
 
         /**
          * If true, the items that are currently selected will not be shown in the dropdown list of available options.
          *
          * Default: false
          */
-        hideSelected?: boolean;
+        hideSelected?: boolean | undefined;
 
         /**
          * If true, the dropdown will be closed after a selection is made.
          *
          * Default: false
          */
-        closeAfterSelect?: boolean;
+        closeAfterSelect?: boolean | undefined;
 
         /**
          * If true, Selectize will treat any options with a "" value like normal. This defaults to false to
@@ -119,7 +119,7 @@ declare namespace Selectize {
          *
          * Default: false
          */
-        allowEmptyOption?: boolean;
+        allowEmptyOption?: boolean | undefined;
 
         /**
          * The animation duration (in milliseconds) of the scroll animation triggered when going [up] and [down] in
@@ -127,7 +127,7 @@ declare namespace Selectize {
          *
          * Default: 60
          */
-        scrollDuration?: number;
+        scrollDuration?: number | undefined;
 
         /**
          * The number of milliseconds to wait before requesting options from the server or null.
@@ -135,7 +135,7 @@ declare namespace Selectize {
          *
          * Default: 300
          */
-        loadThrottle?: number;
+        loadThrottle?: number | undefined;
 
         /**
          * If true, the "load" function will be called upon control initialization (with an empty search).
@@ -143,7 +143,7 @@ declare namespace Selectize {
          *
          * Default: false
          */
-        preload?: boolean | 'focus';
+        preload?: boolean | 'focus' | undefined;
 
         /**
          * The element the dropdown menu is appended to. This should be "body" or null.
@@ -151,28 +151,28 @@ declare namespace Selectize {
          *
          * Default: null
          */
-        dropdownParent?: string;
+        dropdownParent?: string | undefined;
 
         /**
          * Sets if the "Add..." option should be the default selection in the dropdown.
          *
          * Default: false
          */
-        addPrecedence?: boolean;
+        addPrecedence?: boolean | undefined;
 
         /**
          * If true, the tab key will choose the currently selected item.
          *
          * Default: false
          */
-        selectOnTab?: boolean;
+        selectOnTab?: boolean | undefined;
 
         /**
          * Plugins to use
          *
          * Default: null
          */
-        plugins?: string[] | IPluginOption[] | { [name: string]: any };
+        plugins?: string[] | IPluginOption[] | { [name: string]: any } | undefined;
 
         // Data / Searching
         // ------------------------------------------------------------------------------------------------------------
@@ -184,35 +184,35 @@ declare namespace Selectize {
          *
          * Default: []
          */
-        options?: U[];
+        options?: U[] | undefined;
 
         /**
          * The <option> attribute from which to read JSON data about the option.
          *
          * Default: "data-data"
          */
-        dataAttr?: string;
+        dataAttr?: string | undefined;
 
         /**
          * The name of the property to use as the "value" when an item is selected.
          *
          * Default: "value"
          */
-        valueField?: string;
+        valueField?: string | undefined;
 
         /**
          * Option groups that options will be bucketed into.
          * If your element is a <select> with <optgroup>s this property gets populated automatically.
          * Make sure each object in the array has a property named whatever "optgroupValueField" is set to.
          */
-        optgroups?: U[];
+        optgroups?: U[] | undefined;
 
         /**
          * The name of the option group property that serves as its unique identifier.
          *
          * Default: "value"
          */
-        optgroupValueField?: string;
+        optgroupValueField?: string | undefined;
 
         /**
          * The name of the property to render as an option / item label (not needed when custom rendering
@@ -220,7 +220,7 @@ declare namespace Selectize {
          *
          * Default: "text"
          */
-        labelField?: string;
+        labelField?: string | undefined;
 
         /**
          * The name of the property to render as an option group label (not needed when custom rendering
@@ -228,21 +228,21 @@ declare namespace Selectize {
          *
          * Default: "label"
          */
-        optgroupLabelField?: string;
+        optgroupLabelField?: string | undefined;
 
         /**
          * The name of the property to group items by.
          *
          * Default: "optgroup"
          */
-        optgroupField?: string;
+        optgroupField?: string | undefined;
 
         /**
          * The name of the property to disabled option and optgroup.
          *
          * Default: 'disabled'
          */
-        disabledField?: string;
+        disabledField?: string | undefined;
 
         /**
          * A single field or an array of fields to sort by. Each item in the array should be an object containing at
@@ -254,21 +254,21 @@ declare namespace Selectize {
          *
          * Default: "$order"
          */
-        sortField?: string | { field: string, direction?: 'asc' | 'desc' }[];
+        sortField?: string | { field: string, direction?: 'asc' | 'desc' | undefined }[] | undefined;
 
         /**
          * An array of property names to analyze when filtering options.
          *
          * Default: ["text"]
          */
-        searchField?: string | string[];
+        searchField?: string | string[] | undefined;
 
         /**
          * When searching for multiple terms (separated by a space), this is the operator used. Can be "and" or "or".
          *
          * Default: "and"
          */
-        searchConjunction?: string;
+        searchConjunction?: string | undefined;
 
         /**
          * If truthy, Selectize will make all optgroups be in the same order as they were added (by the `$order`
@@ -276,7 +276,7 @@ declare namespace Selectize {
          *
          * Default: false
          */
-        lockOptgroupOrder?: boolean;
+        lockOptgroupOrder?: boolean | undefined;
 
         /**
          * An array of optgroup values that indicates the order they should be listed in in the dropdown.
@@ -284,14 +284,14 @@ declare namespace Selectize {
          *
          * Default: null
          */
-        optgroupOrder?: string[];
+        optgroupOrder?: string[] | undefined;
 
         /**
          * Copy the original input classes to the Dropdown element.
          *
          * Default: true
          */
-        copyClassesToDropdown?: boolean;
+        copyClassesToDropdown?: boolean | undefined;
 
         // Callbacks
         // ------------------------------------------------------------------------------------------------------------
@@ -384,7 +384,7 @@ declare namespace Selectize {
         // Rendering
         // ------------------------------------------------------------------------------------------------------------
 
-        render?: ICustomRenderers<U>;
+        render?: ICustomRenderers<U> | undefined;
     }
 
     /**

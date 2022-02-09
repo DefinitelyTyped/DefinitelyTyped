@@ -973,6 +973,18 @@ testPixel.toFixed();
 testPixel.toFixed(2);
 
 /**
+ * plugin.ts
+ */
+
+AMap.plugin('plugin name', () => {
+ // callback
+});
+
+AMap.service('plugin name', () => {
+ // callback
+});
+
+/**
  * size.ts
  */
 
@@ -1356,7 +1368,7 @@ testLabelsLayer.on('click', (event: AMap.LabelsLayer.EventMap['click']) => {
             // $ExpectType string | undefined
             textOptions.content;
             if (textOptions.direction !== undefined) {
-                // $ExpectType TextDirection
+                // $ExpectType TextDirection || "top" | "right" | "bottom" | "left" | "center"
                 textOptions.direction;
             } else {
                 // $ExpectType undefined
@@ -1384,7 +1396,7 @@ testLabelsLayer.on('click', (event: AMap.LabelsLayer.EventMap['click']) => {
                     textStyle.fontFamily;
 
                     if (textStyle.fontWeight !== undefined) {
-                        // $ExpectType FontWeight
+                        // $ExpectType FontWeight || "normal" | "thin" | "bold"
                         textStyle.fontWeight;
                     } else {
                         // $ExpectType undefined
@@ -1425,7 +1437,7 @@ testLabelsLayer.on('click', (event: AMap.LabelsLayer.EventMap['click']) => {
             }
 
             if (iconOptions.anchor !== undefined) {
-                // $ExpectType Anchor
+                // $ExpectType Anchor || "center" | "top-left" | "top-center" | "top-right" | "middle-left" | "middle-right" | "bottom-left" | "bottom-center" | "bottom-right"
                 iconOptions.anchor;
             } else {
                 // $ExpectType undefined
@@ -2039,9 +2051,9 @@ testBezierCurve.setOptions({
     options.geodesic;
     // $ExpectType boolean | undefined
     options.isOutline;
-    // $ExpectType "round" | "butt" | "square" | undefined
+    // $ExpectType "round" | "butt" | "square" | undefined || StrokeLineCap | undefined
     options.lineCap;
-    // $ExpectType "miter" | "round" | "bevel" | undefined
+    // $ExpectType "miter" | "round" | "bevel" | undefined || StrokeLineJoin | undefined
     options.lineJoin;
     // $ExpectType Map | undefined
     options.map;
@@ -2057,7 +2069,7 @@ testBezierCurve.setOptions({
     options.strokeDasharray;
     // $ExpectType number | undefined
     options.strokeOpacity;
-    // $ExpectType "dashed" | "solid" | undefined
+    // $ExpectType "dashed" | "solid" | undefined || StrokeStyle | undefined
     options.strokeStyle;
     // $ExpectType number | undefined
     options.strokeWeight;
@@ -2191,7 +2203,7 @@ testCircle.setOptions({
     options.fillColor;
     // $ExpectType number | undefined
     options.fillOpacity;
-    // $ExpectType "miter" | "round" | "bevel" | undefined
+    // $ExpectType "miter" | "round" | "bevel" | undefined || StrokeLineJoin | undefined
     options.lineJoin;
     // $ExpectType Map | undefined
     options.map;
@@ -2205,7 +2217,7 @@ testCircle.setOptions({
     options.strokeDasharray;
     // $ExpectType number | undefined
     options.strokeOpacity;
-    // $ExpectType "dashed" | "solid" | undefined
+    // $ExpectType "dashed" | "solid" | undefined || StrokeStyle | undefined
     options.strokeStyle;
     // $ExpectType number | undefined
     options.strokeWeight;
@@ -2383,7 +2395,7 @@ testEllipse.setOptions({
     options.fillColor;
     // $ExpectType number | undefined
     options.fillOpacity;
-    // $ExpectType "miter" | "round" | "bevel" | undefined
+    // $ExpectType "miter" | "round" | "bevel" | undefined || StrokeLineJoin | undefined
     options.lineJoin;
     // $ExpectType Map | undefined
     options.map;
@@ -2397,7 +2409,7 @@ testEllipse.setOptions({
     options.strokeDasharray;
     // $ExpectType number | undefined
     options.strokeOpacity;
-    // $ExpectType "dashed" | "solid" | undefined
+    // $ExpectType "dashed" | "solid" | undefined || StrokeStyle | undefined
     options.strokeStyle;
     // $ExpectType number | undefined
     options.strokeWeight;
@@ -2616,7 +2628,7 @@ testInfoWindow.getPosition();
 
 const testInfoWindowAnchor = testInfoWindow.getAnchor();
 if (testInfoWindowAnchor !== undefined) {
-    // $ExpectType Anchor
+    // $ExpectType Anchor || "center" | "top-left" | "top-center" | "top-right" | "middle-left" | "middle-right" | "bottom-left" | "bottom-center" | "bottom-right"
     testInfoWindowAnchor;
 } else {
     // $ExpectType undefined
@@ -2777,7 +2789,7 @@ testMarker.markOnAMAP({
 
 const testMarkerAnchor = testMarker.getAnchor();
 if (testMarkerAnchor) {
-    // $ExpectType Anchor
+    // $ExpectType Anchor || "center" | "top-left" | "top-center" | "top-right" | "middle-left" | "middle-right" | "bottom-left" | "bottom-center" | "bottom-right"
     testMarkerAnchor;
 } else {
     // $ExpectType undefined
@@ -3179,7 +3191,7 @@ testPolygon.setOptions({
     options.fillColor;
     // $ExpectType number | undefined
     options.fillOpacity;
-    // $ExpectType "miter" | "round" | "bevel" | undefined
+    // $ExpectType "miter" | "round" | "bevel" | undefined || StrokeLineJoin | undefined
     options.lineJoin;
     // $ExpectType Map | undefined
     options.map;
@@ -3191,7 +3203,7 @@ testPolygon.setOptions({
     options.strokeDasharray;
     // $ExpectType number | undefined
     options.strokeOpacity;
-    // $ExpectType "dashed" | "solid" | undefined
+    // $ExpectType "dashed" | "solid" | undefined || StrokeStyle | undefined
     options.strokeStyle;
     // $ExpectType number | undefined
     options.strokeWeight;
@@ -3314,9 +3326,9 @@ testPolyline.setOptions({
     options.geodesic;
     // $ExpectType boolean | undefined
     options.isOutline;
-    // $ExpectType "round" | "butt" | "square" | undefined
+    // $ExpectType "round" | "butt" | "square" | undefined || StrokeLineCap | undefined
     options.lineCap;
-    // $ExpectType "miter" | "round" | "bevel" | undefined
+    // $ExpectType "miter" | "round" | "bevel" | undefined || StrokeLineJoin | undefined
     options.lineJoin;
     // $ExpectType Map | undefined
     options.map;
@@ -3332,7 +3344,7 @@ testPolyline.setOptions({
     options.strokeDasharray;
     // $ExpectType number | undefined
     options.strokeOpacity;
-    // $ExpectType "dashed" | "solid" | undefined
+    // $ExpectType "dashed" | "solid" | undefined || StrokeStyle | undefined
     options.strokeStyle;
     // $ExpectType number | undefined
     options.strokeWeight;
@@ -3438,7 +3450,7 @@ testRectangle.setOptions({
     options.fillColor;
     // $ExpectType number | undefined
     options.fillOpacity;
-    // $ExpectType "miter" | "round" | "bevel" | undefined
+    // $ExpectType "miter" | "round" | "bevel" | undefined || StrokeLineJoin | undefined
     options.lineJoin;
     // $ExpectType Map | undefined
     options.map;
@@ -3450,7 +3462,7 @@ testRectangle.setOptions({
     options.strokeDasharray;
     // $ExpectType number | undefined
     options.strokeOpacity;
-    // $ExpectType "dashed" | "solid" | undefined
+    // $ExpectType "dashed" | "solid" | undefined || StrokeStyle | undefined
     options.strokeStyle;
     // $ExpectType number | undefined
     options.strokeWeight;
@@ -3530,7 +3542,7 @@ const testText = new AMap.Text<TextExtraData>({
 
 const testTextAnchor = testText.getAnchor();
 if (testTextAnchor) {
-    // $ExpectType Anchor
+    // $ExpectType Anchor || "center" | "top-left" | "top-center" | "top-right" | "middle-left" | "middle-right" | "bottom-left" | "bottom-center" | "bottom-right"
     testTextAnchor;
 } else {
     // $ExpectType undefined

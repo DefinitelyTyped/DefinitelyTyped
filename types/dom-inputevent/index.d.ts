@@ -4,11 +4,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface InputEventInit extends UIEventInit {
-    data?: string | null;
-    isComposing?: boolean;
+    data?: string | null | undefined;
+    isComposing?: boolean | undefined;
 }
 
-// tslint:disable-next-line no-empty-interface
 interface InputEvent extends UIEvent {
     readonly data: string | null;
     readonly isComposing: boolean;

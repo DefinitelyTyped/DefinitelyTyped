@@ -3,12 +3,10 @@
 // Definitions by: Klaus Reimer <https://github.com/kayahr>
 //                        Oleg Varaksin <https://github.com/ova2>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.4
-
-/// <reference types="webgl2" />
+// TypeScript Version: 4.3
 
 // https://html.spec.whatwg.org/multipage/canvas.html#dom-canvas-transfercontroltooffscreen
-interface HTMLCanvasElement extends HTMLElement {
+interface HTMLCanvasElement {
     transferControlToOffscreen(): OffscreenCanvas;
 }
 
@@ -39,7 +37,7 @@ interface OffscreenCanvas extends EventTarget {
 
     getContext(contextId: "webgl2", contextAttributes?: WebGLContextAttributes): WebGL2RenderingContext | null;
 
-    convertToBlob(options?: { type?: string, quality?: number }): Promise<Blob>;
+    convertToBlob(options?: { type?: string | undefined, quality?: number | undefined }): Promise<Blob>;
 
     transferToImageBitmap(): ImageBitmap;
 }
@@ -60,20 +58,19 @@ declare function createImageBitmap(image: ImageBitmapSource | OffscreenCanvas, s
                                    sw: number, sh: number): Promise<ImageBitmap>;
 
 // OffscreenCanvas should be a part of Transferable => extend all postMessage methods
-interface Worker extends EventTarget, AbstractWorker {
+interface Worker {
     postMessage(message: any, transfer?: Array<Transferable | OffscreenCanvas>): void;
 }
 
-interface ServiceWorker extends EventTarget, AbstractWorker {
+interface ServiceWorker {
     postMessage(message: any, transfer?: Array<Transferable | OffscreenCanvas>): void;
 }
 
-interface MessagePort extends EventTarget {
+interface MessagePort {
     postMessage(message: any, transfer?: Array<Transferable | OffscreenCanvas>): void;
 }
 
-interface Window extends EventTarget, WindowTimers, WindowSessionStorage, WindowLocalStorage, WindowConsole,
-    GlobalEventHandlers, IDBEnvironment, WindowBase64, WindowOrWorkerGlobalScope, WindowEventHandlers {
+interface Window {
     postMessage(message: any, targetOrigin: string, transfer?: Array<Transferable | OffscreenCanvas>): void;
 }
 

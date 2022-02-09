@@ -114,23 +114,23 @@ declare namespace H.datalens {
          */
         interface Options {
             /** Subdomain of the Data Lens REST API URL */
-            subDomain?: string;
+            subDomain?: string | undefined;
             /** Pathname prefix of the Data Lens REST API endpoints */
-            version?: string;
+            version?: string | undefined;
             /** The token used to authenticate all requests */
-            access_token?: string;
+            access_token?: string | undefined;
             /**
              * The token used to fetch a new access token after the previous access token has expired.
              * When refresh_token is provided, Service will automatically update the expired access_token.
              */
-            refresh_token?: string;
+            refresh_token?: string | undefined;
             /**
              * To increase the number of simultaneous requests to the Data Lens REST API, domain sharding is used.
              * This option can be used when the Data Lens environment does not support domain sharding.
              */
-            domainSharding?: string[];
+            domainSharding?: string[] | undefined;
             /** Defines an alternative host for the Data Lens REST API URL */
-            baseUrl?: string;
+            baseUrl?: string | undefined;
         }
 
         /**
@@ -292,7 +292,7 @@ declare namespace H.datalens {
             /** The ID for the Data Lens REST API query */
             queryId: string;
             /** The query's dynamic parameters. The dynamic parameters can be used to filter data provided by the query. */
-            queryParams?: string;
+            queryParams?: string | undefined;
         }
 
         /**
@@ -382,7 +382,7 @@ declare namespace H.datalens {
             /** Column relative to tile */
             y: number;
             /** Reference to source data row */
-            data?: Row;
+            data?: Row | undefined;
         }
 
         /**
@@ -471,7 +471,7 @@ declare namespace H.datalens {
              * Alternatively defines the level of smoothing as a function of the zoom level. The callback must return a value in pixels.
              * The cut-off of the Gaussian kernel is defined as 3 * bandwidth , a multiple (default 3) of bandwidth.
              */
-            bandwidth?: Bandwidth | BandwidthStop | BandwidthStop[] | BandwidthCallback;
+            bandwidth?: Bandwidth | BandwidthStop | BandwidthStop[] | BandwidthCallback | undefined;
             /**
              * Defines the range for the color scale as a function of the zoom level.
              * The returned value must be an array of 2 numbers.
@@ -496,13 +496,13 @@ declare namespace H.datalens {
              * Specifies which type of aggregation was applied (eg. type of aggregation function for bucket in the Data Lens query).
              * Possible values are SUM or AVERAGE. If the aggregation type is AVERAGE , then an averaged heat map is rendered.
              */
-            aggregation?: Aggregation;
+            aggregation?: Aggregation | undefined;
             /**
              * Defines the scale (eg logarithmic scale) of the TilePoint value.
              * Note: if the value is not in a linear scale, then the aggregation in the source query must be defined with respect to the scale type.
              * For example, before applying the average aggregation function in a query, the value must be transformed to the linear scale. This guarantees correct linear averaging of values.
              */
-            inputScale?: InputScale;
+            inputScale?: InputScale | undefined;
         }
 
         /**
@@ -523,9 +523,9 @@ declare namespace H.datalens {
          * This representation can be changed with the dataToRows callback.
          */
         interface Row {
-            tx?: number;
-            ty?: number;
-            count?: number;
+            tx?: number | undefined;
+            ty?: number | undefined;
+            count?: number | undefined;
         }
 
         /**
@@ -544,7 +544,7 @@ declare namespace H.datalens {
         interface BandwidthStop {
             zoom: number;
             value: number;
-            zoomIncrementFactor?: number;
+            zoomIncrementFactor?: number | undefined;
         }
 
         /**
@@ -566,7 +566,7 @@ declare namespace H.datalens {
             /** Number of contributors to the value at the point (eg number of rows in a bucket) */
             count: number;
             /** Reference to source data row */
-            data?: Row;
+            data?: Row | undefined;
         }
 
         /**
@@ -660,9 +660,9 @@ declare namespace H.datalens {
              */
             rowToStyle?(row: Row, z: QueryTileProvider.Zoom, styleState: StyleState): ObjectStyleOptions;
             /** Defines quantization of data for improving data-driven styling performance */
-            dataDomains?: DataDomains;
+            dataDomains?: DataDomains | undefined;
             /** When present, client-side clustering is applied */
-            clustering?: Clustering;
+            clustering?: Clustering | undefined;
         }
 
         /**
@@ -704,11 +704,11 @@ declare namespace H.datalens {
             /** Marker icon */
             icon: map.Icon;
             /** Spatial style */
-            style?: map.SpatialStyle.Options;
+            style?: map.SpatialStyle.Options | undefined;
             /** Style of arrows to render along a polyline */
-            arrows?: map.ArrowStyle.Options;
+            arrows?: map.ArrowStyle.Options | undefined;
             /** The z-index value of the map object, default is 0 */
-            zIndex?: number;
+            zIndex?: number | undefined;
         }
 
         /**
@@ -739,7 +739,7 @@ declare namespace H.datalens {
     namespace RawDataProvider {
         interface Options {
             /** The data url to fetch */
-            dataUrl?: string;
+            dataUrl?: string | undefined;
             /** Defines how the input data is mapped to an array of GeoJSON features */
             dataToFeatures?(obj: any): Feature[];
             /** Defines how GeoJSON features on a tile should be mapped to data rows, which are inputs to layers such as ObjectLayer and HeatmapLayer */

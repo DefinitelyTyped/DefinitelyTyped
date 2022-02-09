@@ -38,19 +38,19 @@ declare namespace InsertModuleGlobals {
          * This is handy because parsing the scope can take a long time, so you can prioritize fast builds over saving bytes in the final output.
          * When opts.always is truthy but not true, avoid parsing but perform a quick test to determine if wrapping should be skipped.
          */
-        always?: boolean;
+        always?: boolean | undefined;
         /**
          * Use opts.vars to override the default inserted variables, or set opts.vars[name] to undefined to not insert a variable which would otherwise be inserted.
          *
          * opts.vars properties with a . in their name will be executed instead of the parent object if ONLY that property is used.
          * For example, "Buffer.isBuffer" will mask "Buffer" only when there is a Buffer.isBuffer() call in a file and no other references to Buffer.
          */
-        vars?: VarsOption;
+        vars?: VarsOption | undefined;
         /**
          * If opts.debug is true, an inline source map will be generated to compensate for the extra lines.
          */
-        debug?: boolean;
-        basedir?: string;
+        debug?: boolean | undefined;
+        basedir?: string | undefined;
     }
 
     interface VarsOption {
@@ -62,6 +62,6 @@ declare namespace InsertModuleGlobals {
     interface VariableConfig {
         id: string;
         source: string;
-        suffix?: string;
+        suffix?: string | undefined;
     }
 }

@@ -1,19 +1,35 @@
 // Type definitions for react-wait 0.3
 // Project: https://github.com/f/react-wait#readme
 // Definitions by: Ifiok Jr. <https://github.com/ifiokjr>
+//                 Paweł Maciejewski <https://github.com/pwlmaciejewski>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { ComponentType, FunctionComponent } from 'react';
+import { ComponentType, FunctionComponent, ReactNode } from 'react';
 
-export const Waiter: FunctionComponent;
+export const Waiter: FunctionComponent<{ children?: ReactNode }>;
 
-export interface WaitProps {
+export interface WaitingContextWaitProps {
+    children?: ReactNode;
     fallback: JSX.Element;
+}
+
+export interface WaitProps extends WaitingContextWaitProps {
     on: string;
 }
 
+export interface WaitingContext {
+    isWaiting(): boolean;
+    startWaiting(): void;
+    endWaiting(): void;
+    Wait: ComponentType<WaitingContextWaitProps>;
+}
+
 export interface UseWaitAPI {
+    /**
+     * Returns an array of waiters.
+     */
+    waiters: string[];
     /**
      * Using Wait Component
      *
@@ -79,6 +95,19 @@ export interface UseWaitAPI {
      * ```
      */
     endWaiting(waiter: string): void;
+    /**
+     * Creates a waiting context.
+     *
+     * ```tsx
+     * const { startWaiting, endWaiting, isWaiting, Wait } = createWaitingContext("creating user");
+     *  return (
+     *   <button disabled={isWaiting()}>
+     *     Disabled while creating user
+     *   </button>
+     * );
+     * ```
+     */
+    createWaitingContext(waiter: string): WaitingContext;
 }
 
 export function useWait(): UseWaitAPI;

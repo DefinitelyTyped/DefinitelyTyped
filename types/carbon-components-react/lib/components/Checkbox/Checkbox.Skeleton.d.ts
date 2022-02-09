@@ -1,10 +1,8 @@
 import * as React from "react";
-import { ReactLabelAttr } from "../../../typings/shared";
+import { ReactDivAttr } from "../../../typings/shared";
 
-export interface CheckboxSkeletonProps {
-    id?: ReactLabelAttr["htmlFor"],
-}
+export interface CheckboxSkeletonProps extends ReactDivAttr { }
 
-declare class CheckboxSkeleton extends React.Component<CheckboxSkeletonProps> { }
+declare const CheckboxSkeleton: React.FC<CheckboxSkeletonProps>;
 
 export default CheckboxSkeleton;

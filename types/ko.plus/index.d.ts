@@ -111,7 +111,7 @@ declare namespace KoPlus {
         action: Function;
 
         // [optional] function to determine if command can be executed
-        canExecute?: () => boolean;
+        canExecute?: (() => boolean) | undefined;
 
         // [optional] context to use in the command
         context?: any;

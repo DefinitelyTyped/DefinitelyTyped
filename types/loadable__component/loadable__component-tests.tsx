@@ -1,14 +1,32 @@
 import * as React from 'react';
 import loadable, { lazy, loadableReady } from '@loadable/component';
 
-const TestComponent: React.SFC<{ foo: string }> = () => <>test</>;
+interface TestProps {
+    foo: string;
+}
+
+const TestComponent: React.FC<TestProps> = () => <>test</>;
 
 function defaultImportComponentLoader() {
     return new Promise<{ default: typeof TestComponent }>(resolve => resolve({ default: TestComponent }));
 }
 
+function namedImportComponentLoader() {
+    return new Promise<{ name: typeof TestComponent }>(resolve => resolve({ name: TestComponent }));
+}
+
 function importComponentLoader() {
     return new Promise<typeof TestComponent>(resolve => resolve(TestComponent));
+}
+
+async function importClassComponentLoader() {
+    return class TestClassComponent extends React.Component<TestProps> {
+        publicMethod() {}
+
+        render() {
+            return <div>{this.props.foo}</div>;
+        }
+    };
 }
 
 const lib = {
@@ -33,23 +51,76 @@ function importLibLoader() {
     const LoadableComponent = loadable(importComponentLoader);
     <LoadableComponent foo="test-prop" />;
 
+    // Should infer props from imported component when using resolveComponent
+    const LoadableResolvedComponent = loadable(namedImportComponentLoader, {
+        resolveComponent: mod => mod.name,
+    });
+
     // Should allow passing JSX element to fallback in options
     loadable(defaultImportComponentLoader, { fallback: <div>loading...</div> });
+    loadable(importComponentLoader, { fallback: <div>loading...</div> });
+    loadable(namedImportComponentLoader, { resolveComponent: mod => mod.name, fallback: <div>loading...</div> });
 
     // Should allow passing boolean to `ssr` in options
     loadable(defaultImportComponentLoader, { ssr: true });
+    loadable(importComponentLoader, { ssr: true });
+    loadable(namedImportComponentLoader, { resolveComponent: mod => mod.name, ssr: true });
 
     // Should allow passing function to `cacheKey` in options
     loadable(defaultImportComponentLoader, { cacheKey: props => props.foo });
+    loadable(importComponentLoader, { cacheKey: props => props.foo });
+    loadable(namedImportComponentLoader, {
+        resolveComponent: mod => mod.name,
+        cacheKey: (props: { foo: string }) => props.foo, // Annotation needed here for some reason?
+    });
+
+    // Should allow ref on a class component
+    const LoadableClassDirect = loadable(importClassComponentLoader);
+    <LoadableClassDirect
+        ref={ref => {
+            ref && ref.publicMethod();
+        }}
+        foo=""
+    />;
+
+    const LoadableClassDirectOnlyClient = loadable(importClassComponentLoader, {
+        ssr: false,
+    });
+    <LoadableClassDirectOnlyClient
+        ref={ref => {
+            ref && ref.publicMethod();
+        }}
+        foo=""
+    />;
+
+    const LoadableClassDefault = loadable(async () => ({
+        default: await importClassComponentLoader(),
+    }));
+    <LoadableClassDefault
+        ref={ref => {
+            ref && ref.publicMethod();
+        }}
+        foo=""
+    />;
 
     // Should allow passing `fallback` prop to loadable component
     <LoadableComponent foo="test" fallback={<div>loading...</div>} />;
+    <LoadableDefaultComponent foo="test" fallback={<div>loading...</div>} />;
+    <LoadableResolvedComponent foo="test" fallback={<div>loading...</div>} />;
 
     // Should allow preloading
     LoadableComponent.preload();
+    LoadableDefaultComponent.preload();
+    LoadableResolvedComponent.preload();
 
     // Should allow force loading
     LoadableComponent.load().then(Component => {
+        <Component foo="test" />;
+    });
+    LoadableDefaultComponent.load().then(Component => {
+        <Component foo="test" />;
+    });
+    LoadableResolvedComponent.load().then(Component => {
         <Component foo="test" />;
     });
 }
@@ -93,7 +164,7 @@ function importLibLoader() {
     loadable.lib(defaultImportComponentLoader, { ssr: true });
 
     // Should allow passing function to `cacheKey` in options
-    loadable.lib(defaultImportComponentLoader, { cacheKey: props => props.foo });
+    loadable.lib(defaultImportComponentLoader, { cacheKey: (props: { foo: string }) => props.foo });
 
     // Should allow passing fallback prop
     <LoadableLibrary fallback={<div>Loading library...</div>}>{({ getTestObj }) => getTestObj().foo}</LoadableLibrary>;

@@ -1,6 +1,6 @@
 // Type definitions for CookieJar 2.1
 // Project: https://github.com/bmeck/node-cookiejar
-// Definitions by: Rafal Proszowski <https://github.com/paroxp>
+// Definitions by: Rafal Proszowski <https://github.com/paroxp>, Charles Samborski <https://github.com/demurgos>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -99,14 +99,14 @@ export class CookieJar {
      * @param requestDomain string argument is used to default the domain if it is not explicit in the cookie string
      * @param requestPath string argument is used to set the path if it is not explicit in a cookie String
      */
-    setCookies(cookie: string | ReadonlyArray<string>, requestDomain?: string, requestPath?: string): ReadonlyArray<Cookie> | false;
+    setCookies(cookie: string | ReadonlyArray<string>, requestDomain?: string, requestPath?: string): Cookie[];
 
     /**
      * get a cookie with the name and access_info matching
      * @param cookieName string to be parsed into a Cookie
      * @param accessInfo CookieAccessInfo
      */
-    getCookie(cookieName: string, accessInfo: CookieAccessInfo): Cookie;
+    getCookie(cookieName: string, accessInfo: CookieAccessInfo): Cookie | undefined;
 
     /**
      * grab all cookies matching this access_info

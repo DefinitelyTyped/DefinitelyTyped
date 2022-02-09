@@ -6,20 +6,21 @@
 
 import * as React from 'react';
 
-type Icon = string | React.ElementType;
+type Icon = string | React.ReactElement;
 type Anchor = 'top' | 'bottom';
 type Position = 'left' | 'right';
 
 interface TabProps {
+  children?: React.ReactNode;
   id: string;
   header: string;
   icon: Icon;
-  anchor?: Anchor;
-  disabled?: boolean;
-  onClose?: () => void;
-  closeIcon?: Icon;
-  position?: Position;
-  active?: boolean;
+  anchor?: Anchor | undefined;
+  disabled?: boolean | undefined;
+  onClose?: (() => void) | undefined;
+  closeIcon?: Icon | undefined;
+  position?: Position | undefined;
+  active?: boolean | undefined;
 }
 
 declare class Tab extends React.Component<TabProps, any> {}
@@ -31,9 +32,9 @@ interface SidebarProps {
   collapsed: boolean;
   position: Position;
   selected: string;
-  closeIcon?: Icon;
-  onClose?: () => void;
-  onOpen?: () => void;
+  closeIcon?: Icon | undefined;
+  onClose?: (() => void) | undefined;
+  onOpen?: ((id: string) => void) | undefined;
   children: TabType;
 }
 

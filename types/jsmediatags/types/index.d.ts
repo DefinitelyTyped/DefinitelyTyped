@@ -3,16 +3,16 @@ import MediaFileReader from '../build2/MediaFileReader';
 export interface jsmediatagsError {
     type: string;
     info: string;
-    xhr?: XMLHttpRequest;
+    xhr?: XMLHttpRequest | undefined;
 }
 export interface CallbackType {
     onSuccess: (data: TagType) => void;
-    onError?: (error: jsmediatagsError) => void;
+    onError?: ((error: jsmediatagsError) => void) | undefined;
 }
 
 export interface LoadCallbackType {
     onSuccess: () => void;
-    onError?: (error: jsmediatagsError) => void;
+    onError?: ((error: jsmediatagsError) => void) | undefined;
 }
 
 export type CharsetType =
@@ -62,7 +62,7 @@ export interface TagFrameHeader {
     id: string;
     size: number;
     headerSize: number;
-    flags?: TagFrameFlags;
+    flags?: TagFrameFlags | undefined;
 }
 
 export interface TagFrameFlags {
@@ -101,15 +101,15 @@ export interface TagType {
 }
 
 export interface ShortcutTags {
-    title?: string;
-    artist?: string;
-    album?: string;
-    year?: string;
-    comment?: string;
-    track?: string;
-    genre?: string;
-    picture?: PictureType;
-    lyrics?: string;
+    title?: string | undefined;
+    artist?: string | undefined;
+    album?: string | undefined;
+    year?: string | undefined;
+    comment?: string | undefined;
+    track?: string | undefined;
+    genre?: string | undefined;
+    picture?: PictureType | undefined;
+    lyrics?: string | undefined;
 }
 
 export interface PictureType {

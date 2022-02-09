@@ -1,4 +1,4 @@
-import { ComponentType, SVGProps } from '@wordpress/element';
+import { ComponentType, SVGProps } from 'react';
 
 declare namespace Dashicon {
     interface Props extends SVGProps<SVGSVGElement> {
@@ -10,7 +10,7 @@ declare namespace Dashicon {
          * Width of the icon (in pixels).
          * @defaultValue 20
          */
-        size?: number;
+        size?: number | undefined;
     }
     type Icon =
         | 'admin-appearance'

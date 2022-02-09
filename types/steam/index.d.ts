@@ -5,6 +5,8 @@
 
 /// <reference types="node" />
 
+import { EventEmitter } from 'events';
+
 export = Steam;
 
 declare namespace Steam {
@@ -13,8 +15,8 @@ declare namespace Steam {
     export interface LogonOptions {
         accountName: string;
         password: string;
-        shaSentryfile?: string;
-        authCode?: string;
+        shaSentryfile?: string | undefined;
+        authCode?: string | undefined;
     }
 
     export enum EResult {
@@ -33,7 +35,7 @@ declare namespace Steam {
         Kicked
     }
 
-    export class SteamClient extends NodeJS.EventEmitter {
+    export class SteamClient extends EventEmitter {
         sessionId: string;
         cookie: string[];
         steamID: string;

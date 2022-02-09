@@ -8,7 +8,7 @@
 declare namespace PouchDB {
     namespace LiveFind {
         interface RequestDef<Content extends {}> extends Pick<Find.FindRequest<Content>, Exclude<keyof Find.FindRequest<Content>, 'use_index'>> {
-            aggregate?: boolean; // if true outputs an aggregate list on every update event
+            aggregate?: boolean | undefined; // if true outputs an aggregate list on every update event
         }
 
         interface PaginateOptions<Content extends {}> extends Pick<Find.FindRequest<Content>, 'sort' | 'skip'| 'limit'> {}

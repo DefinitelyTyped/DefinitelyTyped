@@ -1,10 +1,13 @@
 import * as React from "react";
-import { Direction, ReactDivAttr } from "../../../typings/shared";
+import { ReactAttr, ReactDivAttr, TooltipAlignment, VerticalDirection } from "../../../typings/shared";
 
-interface InheritedProps extends ReactDivAttr { }
-
-export interface TooltipDefinitionProps extends InheritedProps {
-    direction?: Extract<Direction, "bottom" | "top">, // required but has default value
+type ExcludedPropsKeys = "onBlur" | "onFocus";
+export interface TooltipDefinitionProps extends Omit<ReactAttr<HTMLSpanElement>, ExcludedPropsKeys> {
+    align?: TooltipAlignment | undefined,
+    direction?: VerticalDirection | undefined, // required but has default value
+    onBlur?(event: React.FocusEvent<HTMLButtonElement>): void;
+    onFocus?(event: React.FocusEvent<HTMLButtonElement>): void,
+    triggerClassName?: string | undefined
     tooltipText: NonNullable<React.ReactNode>,
 }
 

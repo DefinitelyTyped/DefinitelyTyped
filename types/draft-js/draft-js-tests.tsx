@@ -1,11 +1,13 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
+import * as Immutable from "immutable";
 
 import {
   ContentBlock,
   DefaultDraftBlockRenderMap,
   Editor,
   EditorState,
+  EditorCommand,
   Modifier,
   RichUtils,
   SelectionState,
@@ -20,6 +22,7 @@ import {
   DraftInlineStyleType,
   DraftEntityMutability,
   DraftEntityType,
+  EntityInstance,
   convertFromHTML,
   convertToRaw,
   DraftDecorator,
@@ -77,6 +80,10 @@ class RichEditorExample extends React.Component<{}, { editorState: EditorState }
     }
     state = RichEditorExample.initState()
 
+    editor: Editor;
+    editorElement: HTMLElement;
+    editorContainer: HTMLElement;
+
     onChange: (editorState: EditorState) => void = (editorState: EditorState) => this.setState({ editorState });
 
     keyBindingFn(e: SyntheticKeyboardEvent): string {
@@ -100,7 +107,19 @@ class RichEditorExample extends React.Component<{}, { editorState: EditorState }
         return getDefaultKeyBinding(e);
     }
 
-    handleKeyCommand = (command: string, editorState: EditorState, eventTimeStamp: number) => {
+    getEditorKey = (): string => this.editor.getEditorKey();
+
+    focus = (): void => this.editor.focus();
+
+    blur = (): void => this.editor.blur();
+
+    handleEditorRef = (editor: Editor | null) => {
+        this.editor = editor;
+        this.editorElement = this.editor?.editor;
+        this.editorContainer = this.editor?.editorContainer;
+    }
+
+    handleKeyCommand = (command: EditorCommand, editorState: EditorState, eventTimeStamp: number) => {
         if (command === SPLIT_HEADER_BLOCK) {
             this.onChange(this.splitHeaderToNewBlock());
             return 'handled';
@@ -124,6 +143,16 @@ class RichEditorExample extends React.Component<{}, { editorState: EditorState }
         this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, inlineStyle));
     };
 
+    toggleCodeBlockLanguage: (language: string) => void = (language: string) => {
+      const { editorState } = this.state;
+      const contentState = editorState.getCurrentContent();
+      const selection = editorState.getSelection();
+
+      const blockData = Immutable.Map<string, string>([['language', language]]);
+      const contentWithData = Modifier.setBlockData(contentState, selection, blockData);
+      this.onChange(EditorState.push(editorState, contentWithData, 'change-block-data'));
+    }
+
     splitHeaderToNewBlock(): EditorState {
         const { editorState } = this.state;
         const selection = editorState.getSelection();
@@ -133,6 +162,10 @@ class RichEditorExample extends React.Component<{}, { editorState: EditorState }
 
         // Change the new block type to be normal 'unstyled' text,
         const newBlock = contentWithBlock.getBlockAfter(selection.getEndKey());
+        // Return the current EditorState when a block does not exist
+        if (newBlock === undefined) {
+            return editorState
+        }
         const contentWithUnstyledBlock = Modifier.setBlockType(
             contentWithBlock,
             SelectionState.createEmpty(newBlock.getKey()),
@@ -168,6 +201,7 @@ class RichEditorExample extends React.Component<{}, { editorState: EditorState }
             <div className="RichEditor-root">
                 <BlockStyleControls editorState={this.state.editorState} onToggle={this.toggleBlockType} />
                 <InlineStyleControls editorState={this.state.editorState} onToggle={this.toggleInlineStyle} />
+                <CodeBlockTypeControl editorState={this.state.editorState} onToggle={this.toggleCodeBlockLanguage} />
                 <div className={className}>
                     <Editor
                         blockStyleFn={getBlockStyle}
@@ -178,8 +212,9 @@ class RichEditorExample extends React.Component<{}, { editorState: EditorState }
                         handleKeyCommand={this.handleKeyCommand}
                         onChange={this.onChange}
                         placeholder="Tell a story..."
-                        ref="editor"
+                        ref={this.handleEditorRef}
                         spellCheck={true}
+                        preserveSelectionOnBlur={false}
                     />
                 </div>
             </div>
@@ -311,12 +346,50 @@ const InlineStyleControls = (props: {editorState: EditorState, onToggle: (blockT
   );
 };
 
+const SUPPORTED_LANGUAGES = [
+  { label: 'JavaScript', value: 'javascript' },
+  { label: 'Java', value: 'java' },
+  { label: 'Python', value: 'python' },
+  { label: 'C++', value: 'c++' },
+]
+
+const CodeBlockTypeControl = (props: {editorState: EditorState, onToggle: (blockType: string) => void}) => {
+  const {editorState} = props;
+  const selection = editorState.getSelection();
+  const block = editorState
+    .getCurrentContent()
+    .getBlockForKey(selection.getStartKey())
+
+  if (block.getType() === 'code-block') {
+    return (
+      <div className="RichEditor-controls">
+        {SUPPORTED_LANGUAGES.map((language) =>
+          <StyleButton
+            key={language.label}
+            active={block.getData().get('language') === language}
+            label={language.label}
+            onToggle={props.onToggle}
+            style={language.value}
+          />
+        ) }
+      </div>
+    );
+  } else {
+    return null
+  }
+};
+
 ReactDOM.render(
   <RichEditorExample />,
   document.getElementById('target')
 );
 
 const editorState = EditorState.createEmpty();
+
+const selection = editorState.getSelection();
+const newSelection = selection.merge({ focusKey: '8ajs', focusOffset: 0, isBackward: true });
+EditorState.forceSelection(editorState, newSelection);
+
 const contentState = editorState.getCurrentContent();
 const entityMap = contentState.getEntityMap();
 const rawContentState: RawDraftContentState = convertToRaw(contentState);
@@ -335,4 +408,13 @@ rawContentState.blocks.forEach((block: RawDraftContentBlock) => {
     const inlineStyle: DraftInlineStyleType = inlineStyleRange.style;
     console.log(inlineStyle, offset, length);
   });
+
+  if (block.type === 'code-block' && block.data.language) {
+    console.log(block.data.language)
+  }
+});
+
+const entities = contentState.getAllEntities();
+entities.forEach((entity: EntityInstance) => {
+  console.log(entity.getType(), entity.getData());
 });

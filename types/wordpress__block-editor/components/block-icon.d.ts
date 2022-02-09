@@ -1,11 +1,11 @@
 import { Icon } from '@wordpress/components';
-import { ComponentType } from '@wordpress/element';
+import { ComponentType } from 'react';
 
 declare namespace BlockIcon {
     interface Props {
-        className?: string;
+        className?: string | undefined;
         icon: Icon.Props<any>['icon'];
-        showColors?: boolean;
+        showColors?: boolean | undefined;
     }
 }
 declare const BlockIcon: ComponentType<BlockIcon.Props>;

@@ -7,14 +7,14 @@
 import * as CSS from 'csstype';
 
 export type Properties = CSS.Properties<string | number>;
-export type FontFace = CSS.FontFace;
+export type FontFace = CSS.AtRule.FontFace;
 export interface KeyframesPercentageObject {
     [key: string]: Properties;
 }
 
 export type KeyframesObject = KeyframesPercentageObject & {
-    from?: Properties;
-    to?: Properties;
+    from?: Properties | undefined;
+    to?: Properties | undefined;
 };
 
 // Unrecognized properties are assumed to be media queries

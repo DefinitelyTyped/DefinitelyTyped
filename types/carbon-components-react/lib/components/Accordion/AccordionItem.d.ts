@@ -1,17 +1,22 @@
 import * as React from "react";
-import { EmbeddedIconProps, ReactLIAttr } from "../../../typings/shared";
-
-interface InheritedProps extends ReactLIAttr, EmbeddedIconProps { }
+import { ReactLIAttr } from "../../../typings/shared";
 
 export interface HeadingClickData {
     event: React.MouseEvent<HTMLElement>;
     isOpen: boolean;
 }
 
-export interface AccordionItemProps extends InheritedProps {
+export interface AccordionItemProps extends Omit<ReactLIAttr, "title"> {
+    disabled?: boolean | undefined;
+    /**
+     * @deprecated
+     */
+    iconDescription?: string | undefined;
     onHeadingClick?(data: HeadingClickData): void,
-    open?: boolean,
-    renderExpando?: React.ReactNode,
+    open?: boolean | undefined,
+    renderExpando?: React.ReactNode | undefined,
+    /** The accordion title. */
+    title?: React.ReactNode | undefined;
 }
 
 declare class AccordionItem extends React.Component<AccordionItemProps> { }

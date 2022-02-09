@@ -11,26 +11,26 @@ export type EffectType = 'sliceDown' | 'sliceDownLeft' | 'sliceUp' | 'sliceUpLef
     'boxRainGrow' | 'boxRainGrowReverse';
 
 export interface Options {
-    effect?: EffectType;
-    slices?: number;
-    boxCols?: number;
-    boxRows?: number;
-    animSpeed?: number;
-    pauseTime?: number;
-    startSlide?: number;
-    directionNav?: boolean;
-    controlNav?: boolean;
-    controlNavThumbs?: boolean;
-    pauseOnHover?: boolean;
-    manualAdvance?: boolean;
-    prevText?: string;
-    nextText?: string;
-    randomStart?: boolean;
-    beforeChange?: () => void;
-    afterChange?: () => void;
-    slideshowEnd?: () => void;
-    lastSlide?: () => void;
-    afterLoad?: () => void;
+    effect?: EffectType | undefined;
+    slices?: number | undefined;
+    boxCols?: number | undefined;
+    boxRows?: number | undefined;
+    animSpeed?: number | undefined;
+    pauseTime?: number | undefined;
+    startSlide?: number | undefined;
+    directionNav?: boolean | undefined;
+    controlNav?: boolean | undefined;
+    controlNavThumbs?: boolean | undefined;
+    pauseOnHover?: boolean | undefined;
+    manualAdvance?: boolean | undefined;
+    prevText?: string | undefined;
+    nextText?: string | undefined;
+    randomStart?: boolean | undefined;
+    beforeChange?: (() => void) | undefined;
+    afterChange?: (() => void) | undefined;
+    slideshowEnd?: (() => void) | undefined;
+    lastSlide?: (() => void) | undefined;
+    afterLoad?: (() => void) | undefined;
 }
 declare global {
     interface JQuery {

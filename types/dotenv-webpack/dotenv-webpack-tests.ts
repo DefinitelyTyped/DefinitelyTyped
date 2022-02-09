@@ -1,29 +1,27 @@
-import * as webpack from 'webpack';
-import DotenvWebpackPlugin = require('dotenv-webpack');
+import Dotenv = require('dotenv-webpack');
+import { Options } from 'dotenv-webpack';
+import { Configuration } from 'webpack';
 
-new DotenvWebpackPlugin(); // $ExpectType DotenvWebpackPlugin
+new Dotenv(); // $ExpectType DotenvWebpackPlugin
 
-const optionsEmpty: DotenvWebpackPlugin.Options = {};
+const optionsEmpty: Options = {};
 
-const optionsFull: DotenvWebpackPlugin.Options = {
+const optionsFull: Options = {
     path: './some.other.env',
     safe: true,
+    allowEmptyValues: true,
     systemvars: true,
     silent: true,
     expand: true,
-    defaults: true
+    defaults: true,
+    ignoreStub: true,
 };
 
-const optionsStrings: DotenvWebpackPlugin.Options = {
+const optionsStrings: Options = {
     safe: './some.other.env.example',
-    defaults: './some.other.env.defaults'
+    defaults: './some.other.env.defaults',
 };
 
-const config: webpack.Configuration = {
-    plugins: [
-        new DotenvWebpackPlugin(),
-        new DotenvWebpackPlugin(optionsEmpty),
-        new DotenvWebpackPlugin(optionsFull),
-        new DotenvWebpackPlugin(optionsStrings)
-    ]
+const config: Configuration = {
+    plugins: [new Dotenv(), new Dotenv(optionsEmpty), new Dotenv(optionsFull), new Dotenv(optionsStrings)],
 };

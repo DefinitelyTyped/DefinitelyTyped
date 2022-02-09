@@ -20,8 +20,8 @@ declare namespace expressWs {
     type Router = express.Router & WithWebsocketMethod;
 
     interface Options {
-        leaveRouterUntouched?: boolean;
-        wsOptions?: ws.ServerOptions;
+        leaveRouterUntouched?: boolean | undefined;
+        wsOptions?: ws.ServerOptions | undefined;
     }
 
     interface RouterLike {

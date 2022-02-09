@@ -13,12 +13,12 @@ declare namespace appendQuery {
          * whether or not to encode appended passed params using `encodeURIComponent`.
          * Default: `true`.
          */
-        encodeComponents?: boolean;
+        encodeComponents?: boolean | undefined;
         /**
          * whether or not to remove params for `null` properties in the query object.
          * Default: `false` (properties will be preserved with no value).
          */
-        removeNull?: boolean;
+        removeNull?: boolean | undefined;
     }
 }
 

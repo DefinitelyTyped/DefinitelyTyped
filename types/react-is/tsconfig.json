@@ -15,11 +15,12 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
-        "strictFunctionTypes": false,
+        "strictFunctionTypes": true,
         "jsx": "preserve"
     },
     "files": [
         "index.d.ts",
-        "react-is-tests.tsx"
+        "test/react-is-tests.tsx",
+        "test/next-tests.tsx"
     ]
 }

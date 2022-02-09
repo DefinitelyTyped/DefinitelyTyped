@@ -1,12 +1,14 @@
 import React from 'react';
-import { MockEnvironment, MockPayloadGenerator, unwrapContainer } from 'relay-test-utils';
+import { MockEnvironment, MockPayloadGenerator, createMockEnvironment, unwrapContainer } from 'relay-test-utils';
 import { createFragmentContainer, graphql, QueryRenderer } from 'react-relay';
 
-const environment = MockEnvironment.createMockEnvironment();
+const environment = createMockEnvironment();
 
 environment.mock.resolveMostRecentOperation(operation => {
     MockPayloadGenerator.generate(operation);
 });
+
+environment.mock.queuePendingOperation(graphql``, {foo: 'bar'});
 
 function Test() {
     return <div />;
@@ -24,7 +26,7 @@ function TestQueryRenderer() {
             environment={environment}
             query={graphql``}
             render={({ error, props }) => {
-                if (error) return <div>{error}</div>;
+                if (error) return <div>{String(error)}</div>;
 
                 if (props) return <TestFragment {...props} />;
 
@@ -34,3 +36,5 @@ function TestQueryRenderer() {
         />
     );
 }
+
+const mockEnvironment: MockEnvironment = createMockEnvironment();

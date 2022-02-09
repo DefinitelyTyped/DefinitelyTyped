@@ -1,7 +1,7 @@
 // Type definitions for pinterest-sdk
 // Project: https://assets.pinterest.com/sdk/sdk.js
 // Definitions by: Adam Burmister <https://github.com/adamburmister>
-// Definitions: https://github.com/adamburmister/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = PDK;
 export as namespace PDK;
@@ -13,31 +13,31 @@ declare namespace PDK {
   enum HttpMethod { 'get', 'put', 'post', 'delete' }
 
   type OauthSession = {
-    accessToken?: string;
-    scope?: string;
-    error?: string;
+    accessToken?: string | undefined;
+    scope?: string | undefined;
+    error?: string | undefined;
   }
 
   interface LoginOptions {
     scope: string|OAuthScopes;
-    method?: string;
-    appId?: string;
-    cookie?: boolean;
-    logging?: boolean;
-    session?: OauthSession;
+    method?: string | undefined;
+    appId?: string | undefined;
+    cookie?: boolean | undefined;
+    logging?: boolean | undefined;
+    session?: OauthSession | undefined;
   }
 
   interface OAuthRequestParams {
-    accessToken?: string;
+    accessToken?: string | undefined;
     data?: any;
   }
 
   interface InitOptions {
     /** Your application ID from developer.pinterest.com */
-    appId?: string;
-    cookie?: boolean;
-    logging?: boolean;
-    session?: OauthSession;
+    appId?: string | undefined;
+    cookie?: boolean | undefined;
+    logging?: boolean | undefined;
+    session?: OauthSession | undefined;
   }
 
   interface PinData {

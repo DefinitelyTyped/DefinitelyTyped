@@ -12,41 +12,41 @@ declare namespace AMap {
             /**
              * 是否自定义窗体
              */
-            isCustom?: boolean;
+            isCustom?: boolean | undefined;
             /**
              * 是否自动调整窗体到视野内
              */
-            autoMove?: boolean;
+            autoMove?: boolean | undefined;
             /**
              * 控制是否在鼠标点击地图后关闭信息窗体
              */
-            closeWhenClickMap?: boolean;
+            closeWhenClickMap?: boolean | undefined;
             /**
              * 显示内容
              */
-            content?: string | HTMLElement;
+            content?: string | HTMLElement | undefined;
             /**
              * 信息窗体尺寸
              */
-            size?: SizeValue;
+            size?: SizeValue | undefined;
             /**
              * 信息窗体锚点
              */
-            anchor?: Anchor;
+            anchor?: Anchor | undefined;
             /**
              * 信息窗体显示位置偏移量
              */
-            offset?: Pixel;
+            offset?: Pixel | undefined;
             /**
              * 信息窗体显示基点位置
              */
-            position?: LocationValue;
+            position?: LocationValue | undefined;
             /**
              * 是否显示信息窗体阴影
              */
-            showShadow?: boolean;
+            showShadow?: boolean | undefined;
             // internal
-            height?: number;
+            height?: number | undefined;
         }
     }
 

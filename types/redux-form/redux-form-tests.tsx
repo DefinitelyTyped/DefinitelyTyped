@@ -24,8 +24,10 @@ import {
     actionTypes,
     submit,
     SubmissionError,
-    FieldArrayFieldsProps
-} from "redux-form";
+    FieldArrayFieldsProps,
+    DecoratedFormProps,
+    ReduxFormContext
+} from 'redux-form';
 
 import {
     Field as ImmutableField,
@@ -52,7 +54,7 @@ interface TestFormData {
 /* Some tests only make sense with multiple values */
 interface MultivalueFormData {
     foo: string;
-    bar?: string;
+    bar?: string | undefined;
     fizz: string;
 }
 
@@ -76,7 +78,7 @@ const TestForm = reduxForm<TestFormData, TestFormComponentProps>({ form : "test"
 const TestFormImmRequired = immutableReduxForm<TestFormData, TestFormComponentProps>({})(TestFormComponent);
 const TestFormImm = immutableReduxForm<TestFormData, TestFormComponentProps>({ form : "test" })(TestFormComponent);
 
-const TestFormStatelessComponent: React.StatelessComponent<TestFormComponentProps & InjectedProps> = ({ form, initialValues }) => {
+const TestFormStatelessComponent: React.FunctionComponent<TestFormComponentProps & InjectedProps> = ({ form, initialValues }) => {
     const foo = initialValues.foo;
     return null;
 };
@@ -104,7 +106,7 @@ interface MyFormSectionProps {
     foo: string;
 }
 
-const MyFormSection: React.StatelessComponent<MyFormSectionProps> = ({ children, foo }) => null;
+const MyFormSection: React.FunctionComponent<MyFormSectionProps> = ({ children, foo }) => null;
 
 /* Custom Field */
 
@@ -112,7 +114,7 @@ interface MyFieldCustomProps {
     foo: string;
 }
 type MyFieldProps = MyFieldCustomProps & WrappedFieldProps;
-const MyField: React.StatelessComponent<MyFieldProps> = ({
+const MyField: React.FunctionComponent<MyFieldProps> = ({
     children,
     input,
     meta,
@@ -134,11 +136,11 @@ const MyField: React.StatelessComponent<MyFieldProps> = ({
 const FieldCustom = Field as new () => GenericField<MyFieldCustomProps>;
 
 type FieldProps = BaseFieldProps<MyFieldCustomProps> & MyFieldCustomProps;
-const FieldCustomComp: React.StatelessComponent<FieldProps> = props => (
+const FieldCustomComp: React.FunctionComponent<FieldProps> = props => (
     <FieldCustom {...props} component={MyField} />
 );
 
-const MyFieldImm: React.StatelessComponent<MyFieldProps> = ({
+const MyFieldImm: React.FunctionComponent<MyFieldProps> = ({
     children,
     input,
     meta,
@@ -152,7 +154,7 @@ interface MyFieldsCustomProps {
     foo: string;
 }
 type MyFieldsProps = MyFieldsCustomProps & WrappedFieldsProps;
-const MyFields: React.StatelessComponent<MyFieldsCustomProps> = ({
+const MyFields: React.FunctionComponent<MyFieldsCustomProps> = ({
     children,
     foo
 }) => null;
@@ -160,7 +162,7 @@ const FieldsCustom = Fields as new () => GenericFields<MyFieldsCustomProps>;
 
 /* FieldArray */
 
-const MyArrayField: React.StatelessComponent<WrappedFieldArrayProps> = ({
+const MyArrayField: React.FunctionComponent<WrappedFieldArrayProps> = ({
     children
 }) => null;
 
@@ -175,7 +177,7 @@ interface MyFieldArrayCustomProps {
     bar: number;
 }
 
-const MyCustomArrayField: React.StatelessComponent<MyFieldArrayCustomProps & WrappedFieldArrayProps<MyFieldValue>> = ({
+const MyCustomArrayField: React.FunctionComponent<MyFieldArrayCustomProps & WrappedFieldArrayProps<MyFieldValue>> = ({
     children,
     fields,
     foo,
@@ -185,7 +187,7 @@ const MyCustomArrayField: React.StatelessComponent<MyFieldArrayCustomProps & Wra
 const FieldArrayCustom = FieldArray as new () => GenericFieldArray<MyFieldValue, MyFieldArrayCustomProps>;
 
 /* Tests */
-const TestForms: React.StatelessComponent = () => {
+const TestForms: React.FunctionComponent = () => {
     return (
         <div>
             <TestFormRequired form="test" baz='baz' />
@@ -233,16 +235,26 @@ const testFormWithInitialValuesAndValidationDecorator = reduxForm<MultivalueForm
 });
 
 const testFormWithChangeFunctionDecorator = reduxForm<TestFormData, TestFormComponentProps>({
-    form: "testWithValidation",
-    onChange: (values: Partial<TestFormData>,
+    form: 'testWithValidation',
+    onChange: (
+        values: Partial<TestFormData>,
         dispatch: Dispatch<any>,
-        props: TestFormComponentProps & InjectedFormProps<TestFormData, TestFormComponentProps>,
+        props: DecoratedFormProps<TestFormData, TestFormComponentProps>,
         previousValues: Partial<TestFormData>) => {}
 });
 
 type TestProps = {} & InjectedFormProps<TestFormData>;
 const Test = reduxForm<TestFormData>({
-    form : "test"
+    form : "test",
+    shouldError: ({
+        values,
+        nextProps,
+        props,
+        initialRender,
+        lastFieldValidatorKeys,
+        fieldValidatorKeys,
+        structure
+    }) => true,
 })(
     class Test extends React.Component<TestProps> {
         handleSubmitForm = (values: Partial<TestFormData>, dispatch: Dispatch<any>, props: {}) => {};
@@ -475,5 +487,17 @@ class TestFormComponent2 extends React.Component<TestFormComponentProps & Inject
 
         handleSubmit((values) => ({ foo: ['string'], _error: [] }));
         return null;
+    }
+}
+
+// Test ReduxFormContext
+// See https://github.com/DefinitelyTyped/DefinitelyTyped/pull/46798
+class TestReduxFormContext extends React.Component {
+    render() {
+        return (
+            <ReduxFormContext.Consumer>
+                {values => <div>{values.form}</div>}
+            </ReduxFormContext.Consumer>
+        );
     }
 }

@@ -1,4 +1,4 @@
-// Type definitions for bn.js 4.11
+// Type definitions for bn.js 5.1
 // Project: https://github.com/indutny/bn.js
 // Definitions by: Leonid Logvinov <https://github.com/LogvinovLeon>
 //                 Henry Nguyen <https://github.com/HenryNguyen5>
@@ -7,42 +7,47 @@
 
 /// <reference types="node"/>
 
-type Endianness = 'le' | 'be';
-type IPrimeName = 'k256' | 'p224' | 'p192' | 'p25519';
+declare namespace BN {
+    type Endianness = 'le' | 'be';
+    type IPrimeName = 'k256' | 'p224' | 'p192' | 'p25519';
 
-interface MPrime {
-    name: string;
-    p: BN;
-    n: number;
-    k: BN;
-}
+    interface MPrime {
+        name: string;
+        p: BN;
+        n: number;
+        k: BN;
+    }
 
-interface ReductionContext {
-    m: number;
-    prime: MPrime;
-    [key: string]: any;
+    interface ReductionContext {
+        m: number;
+        prime: MPrime;
+        [key: string]: any;
+    }
 }
 
 declare class BN {
+    static BN: typeof BN;
+    static wordSize: 26;
+
     constructor(
         number: number | string | number[] | Uint8Array | Buffer | BN,
         base?: number | 'hex',
-        endian?: Endianness
+        endian?: BN.Endianness
     );
     constructor(
         number: number | string | number[] | Uint8Array | Buffer | BN,
-        endian?: Endianness
+        endian?: BN.Endianness
     )
 
     /**
      * @description  create a reduction context
      */
-    static red(reductionContext: BN | IPrimeName): ReductionContext;
+    static red(reductionContext: BN | BN.IPrimeName): BN.ReductionContext;
 
     /**
      * @description  create a reduction context  with the Montgomery trick.
      */
-    static mont(num: BN): ReductionContext;
+    static mont(num: BN): BN.ReductionContext;
 
     /**
      * @description returns true if the supplied object is a BN.js instance
@@ -82,27 +87,27 @@ declare class BN {
     /**
      * @description  convert to byte Array, and optionally zero pad to length, throwing if already exceeding
      */
-    toArray(endian?: Endianness, length?: number): number[];
+    toArray(endian?: BN.Endianness, length?: number): number[];
 
     /**
      * @description convert to an instance of `type`, which must behave like an Array
      */
     toArrayLike(
         ArrayType: typeof Buffer,
-        endian?: Endianness,
+        endian?: BN.Endianness,
         length?: number
     ): Buffer;
 
     toArrayLike(
         ArrayType: any[],
-        endian?: Endianness,
+        endian?: BN.Endianness,
         length?: number
     ): any[];
 
     /**
      * @description  convert to Node.js Buffer (if available). For compatibility with browserify and similar tools, use this instead: a.toArrayLike(Buffer, endian, length)
      */
-    toBuffer(endian?: Endianness, length?: number): Buffer;
+    toBuffer(endian?: BN.Endianness, length?: number): Buffer;
 
     /**
      * @description get number of bits occupied
@@ -335,10 +340,15 @@ declare class BN {
     umod(b: BN): BN;
 
     /**
-     * @see API consistency https://github.com/indutny/bn.js/pull/130
+     * @deprecated
      * @description reduct
      */
     modn(b: number): number;
+
+    /**
+     * @description reduct
+     */
+    modrn(b: number): number;
 
     /**
      * @description  rounded division
@@ -502,7 +512,7 @@ declare class BN {
     /**
      * @description Convert number to red
      */
-    toRed(reductionContext: ReductionContext): RedBN;
+    toRed(reductionContext: BN.ReductionContext): RedBN;
 }
 
 /**

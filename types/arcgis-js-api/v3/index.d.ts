@@ -1,4 +1,4 @@
-// Type definitions for ArcGIS API for JavaScript 3.30
+// Type definitions for ArcGIS API for JavaScript 3.39
 // Project: https://developers.arcgis.com/javascript/3/
 // Definitions by: Esri <https://github.com/Esri>
 //                 Bjorn Svensson <https://github.com/bsvensson>
@@ -230,7 +230,7 @@ declare module "esri" {
     /** Define the tile info for the layer including lods, rows, cols, origin and spatial reference. */
     tileInfo?: TileInfo;
     /** Define additional tile server domains for the layer. */
-    tileServer?: string[];
+    tileServers?: string[];
     /** The type of layer. */
     type?: string;
     /** URL to the ArcGIS Server REST resource that represents a map or image service. */
@@ -633,6 +633,8 @@ declare module "esri" {
     pageBackButton?: string;
     /** Selected variables array. */
     selection?: string[];
+    /** The maximum number of variables to select. */
+    selectionLimit?: number;
     /** Whether to display the "Shopping Cart" of selected variables. */
     shoppingCart?: boolean;
     /** Title to show in the top left hand corner. */
@@ -1421,7 +1423,7 @@ declare module "esri" {
     attributionWidth?: number;
     /** When true the map will automatically resize when the browser window is resized or when the ContentPane widget enclosing the map is resized. */
     autoResize?: boolean;
-    /** Specify a basemap for the map. */
+    /** Specify a basemap for the map, for example "topo-vector" or "satellite". */
     basemap?: string;
     /** The location where the map should be centered. */
     center?: number[] | Point;
@@ -2530,7 +2532,7 @@ declare module "esri/Credential" {
   class Credential {
     /** Token expiration time specified as number of milliseconds since 1 January 1970 00:00:00 UTC. */
     expires: number;
-    /** Indicates that this credential was created to access the ArcGIS REST Admin service */
+    /** Indicates that this credential was created to access the ArcGIS REST Admin service. */
     isAdmin: boolean;
     /** The Identity Manager's  setOAuthRedirectionHandler returns an object that contains a "state" parameter. */
     oAuthState: any;
@@ -2596,10 +2598,8 @@ declare module "esri/IdentityManagerBase" {
   class IdentityManagerBase {
     /** The suggested lifetime of the token in minutes. */
     tokenValidity: number;
-    /** If your application is on the same domain as *.arcgis.com or ArcGIS Enterprise Server, the IdentityManager will redirect the user to its sign-in page. */
-    useSignInPage: boolean;
     /**
-     * Returns a Credential object if the user has already signed in to access the given resource and is allowed to do so when using the given application id.
+     * Returns a credential if the user has already signed in to access the given resource and is allowed to do so when using the given application id.
      * @param resUrl The resource URL.
      * @param appId The registered OAuth application id.
      */
@@ -2611,6 +2611,13 @@ declare module "esri/IdentityManagerBase" {
     checkSignInStatus(resUrl: string): any;
     /** Destroys all credentials. */
     destroyCredentials(): void;
+    /** Disables the use of window.postMessage to serve authentication requests that was enabled by enablePostMessageAuth. */
+    disablePostMessageAuth(): void;
+    /**
+     * Enables the IdentityManager to serve authentication requests for the given resource from apps running in child iframes.
+     * @param resUrl The resource URL.
+     */
+    enablePostMessageAuth(resUrl?: string): void;
     /**
      * Returns the credential for the resource identified by the specified url.
      * @param url The url to a server.
@@ -2675,11 +2682,6 @@ declare module "esri/IdentityManagerBase" {
      * @param handlerFunction The function to call when the protocol is mismatched.
      */
     setProtocolErrorHandler(handlerFunction: Function): void;
-    /**
-     * If your application is on the same domain as *.arcgis.com or ArcGIS Enterprise Server, the IdentityManager will redirect the user to its sign-in page.
-     * @param handlerFunction When called, the function passed to setRedirectionHandler receives an object containing redirection properties.
-     */
-    setRedirectionHandler(handlerFunction: Function): void;
     /**
      * Sub-classes must implement this method to create and manager the user interface that is used to obtain a username and password from the end-user.
      * @param url Url for the secure resource.
@@ -2855,6 +2857,10 @@ declare module "esri/ServerInfo" {
     adminTokenServiceUrl: string;
     /** Version of the ArcGIS Server REST API deployed on this server. */
     currentVersion: number;
+    /** Indicates whether the server is a Portal instance. */
+    hasPortal: boolean;
+    /** Indicates whether the server is an ArcGIS Server instance. */
+    hasServer: boolean;
     /** The server URL. */
     server: string;
     /** Validity of short-lived token in minutes. */
@@ -3028,6 +3034,8 @@ declare module "esri/arcgis/OAuthInfo" {
     popupWindowFeatures: string;
     /** The ArcGIS for Portal URL. */
     portalUrl: string;
+    /** Set this property to true when popup is false in order to have the window's location hash value restored after signing in. */
+    preserveUrlHash: boolean;
     /**
      * Creates a new OAuthInfo given the specified parameters.
      * @param params Various options to configure the OAuthInfo object.
@@ -3471,9 +3479,12 @@ declare module "esri/arcgis/utils" {
 declare module "esri/basemaps" {
   /** This class contains properties referencing default basemaps used in the JS API that allow you to add map services as default basemaps in web applications. */
   var basemaps: {
-    /** The Light Gray Canvas basemap is designed to be used as a neutral background map for overlaying and emphasizing other map layers. */
+    /**
+     * [deprecated]  The services used in this basemap are now in Mature Support and are no longer updated - please use gray-vector instead.
+     * @deprecated
+     */
     gray: any;
-    /** The World Imagery with Labels map is a detailed imagery map layer and labels that is designed to be used as a basemap for various maps and applications: https://services.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer   https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer */
+    /** The World Imagery with Labels map is a detailed  imagery map layer and labels that is designed to be used as a basemap for various maps and applications. */
     hybrid: any;
     /** The Ocean Basemap is designed to be used as a basemap by marine GIS professionals and as a reference map by anyone interested in ocean data. */
     oceans: any;
@@ -3481,11 +3492,17 @@ declare module "esri/basemaps" {
     osm: any;
     /** The World Imagery map is a detailed imagery map layer that is designed to be used as a basemap for various maps and applications:  https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer. */
     satellite: any;
-    /** The Streets basemap presents a multiscale street map for the world: https://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer. */
+    /**
+     * [deprecated]  The service used in this basemap is now in Mature Support and is no longer updated - please use streets-vector instead.
+     * @deprecated
+     */
     streets: any;
     /** The Terrain with Labels basemap is designed to be used to overlay and emphasize other thematic map layers. */
     terrain: any;
-    /** The Topographic map includes boundaries, cities, water features, physiographic features, parks, landmarks, transportation, and buildings: https://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer */
+    /**
+     * [deprecated]  The World_Topo_Map service used in this basemap is now in Mature Support and is no longer updated - please use topo-vector instead.
+     * @deprecated
+     */
     topo: any;
   };
   export = basemaps;
@@ -3675,7 +3692,7 @@ declare module "esri/dijit/BasemapLayer" {
     /** The tile info for the layer including lods, rows, cols, origin and spatial reference. */
     tileInfo: TileInfo;
     /** Additional tile server domains for the layer. */
-    tileServer: string[];
+    tileServers: string[];
     /** The type of layer. */
     type: string;
     /**
@@ -5666,7 +5683,7 @@ declare module "esri/dijit/Search" {
     maxResults: number;
     /** The default maximum number of suggestions returned by the widget if not specified by source. */
     maxSuggestions: number;
-    /** The default minimum number of characters needed for the search if not specified by source. */
+    /** The default minimum number of characters needed for the search and suggestions if not specified by source. */
     minCharacters: number;
     /** Read-only property that returns an array of current results from the search. */
     searchResults: any[];
@@ -7630,6 +7647,19 @@ declare module "esri/dijit/geoenrichment/ReportPlayer/PlayerViewModes" {
     static PANELS_IN_STACK: any;
   }
   export = PlayerViewModes;
+}
+
+declare module "esri/dijit/geoenrichment/ReportPlayer/PlayerZoomBehaviors" {
+  /** Enumerator of available zoom behavior options for the ReportPlayer. */
+  class PlayerZoomBehaviors {
+    /** The Report Player zooms in to fit a full page in the viewable area. */
+    static FIT_PAGE: any;
+    /** The Report Player zooms to fit the full page's width in the viewable area. */
+    static FIT_PAGE_WIDTH: any;
+    /** The zoom will be set to 100% (not zoomed). */
+    static RESET: any;
+  }
+  export = PlayerZoomBehaviors;
 }
 
 declare module "esri/dijit/geoenrichment/ReportPlayer/ReportPlayer" {
@@ -11879,10 +11909,11 @@ declare module "esri/layers/WFSLayer" {
      */
     constructor(options: esri.WFSLayerOptions);
     /**
-     * Creates a WFSLayer using the provided JSON object.
+     * Initializes a WFSLayer using the provided JSON object.
      * @param json The input JSON.
+     * @param callback The function to call when the method has completed.
      */
-    fromJson(json: Object): void;
+    fromJson(json: Object, callback?: Function): void;
     /** Redraws all the graphics in the layer. */
     redraw(): void;
     /** Refreshes the features in the WFS layer. */
@@ -12538,7 +12569,7 @@ declare module "esri/map" {
     setBackgroundColor(color: Color | string): void;
     /**
      * Change the map's current basemap.
-     * @param basemap A valid basemap name.
+     * @param basemap Specify a basemap for the map, for example "topo-vector" or "satellite".
      */
     setBasemap(basemap: string): void;
     /**
@@ -14176,6 +14207,8 @@ declare module "esri/symbols/SimpleMarkerSymbol" {
     static STYLE_PATH: any;
     /** The marker is a square. */
     static STYLE_SQUARE: any;
+    /** The marker is a triangle. */
+    static STYLE_TRIANGLE: any;
     /** The marker is a diagonal cross. */
     static STYLE_X: any;
     /** Outline of the marker. */
@@ -17518,6 +17551,8 @@ declare module "esri/tasks/query" {
     static SPATIAL_REL_TOUCHES: any;
     /** The feature from feature class 1 is completely enclosed by the feature from feature class 2. */
     static SPATIAL_REL_WITHIN: any;
+    /** Indicates if the service should cache the query results. */
+    cacheHint: boolean;
     /** Buffer distance for input geometries. */
     distance: number;
     /** The geometry to apply to the spatial filter. */
@@ -18018,8 +18053,11 @@ declare module "esri/urlUtils" {
      * @param rule The rule argument should have the following properties.
      */
     addProxyRule(rule: any): number;
-    /** Returns the proxy rule that matches the given url. */
-    getProxyRule(): any;
+    /**
+     * Returns the proxy rule that matches the given url.
+     * @param url The URL of the resources accessed via proxy.
+     */
+    getProxyRule(url: string): any;
     /**
      * Converts the URL arguments to an object representation.
      * @param url The input URL.
@@ -18192,18 +18230,5 @@ declare module "esri/workers/WorkerClient" {
     terminate(): void;
   }
   export = WorkerClient;
-}
-
-declare module "sri/dijit/geoenrichment/ReportPlayer/PlayerZoomBehaviors" {
-  /** Enumerator of available zoom behavior options for the ReportPlayer. */
-  class PlayerZoomBehaviors {
-    /** The Report Player zooms in to fit a full page in the viewable area. */
-    static FIT_PAGE: any;
-    /** The Report Player zooms to fit the full page's width in the viewable area. */
-    static FIT_PAGE_WIDTH: any;
-    /** The zoom will be set to 100% (not zoomed). */
-    static RESET: any;
-  }
-  export = PlayerZoomBehaviors;
 }
 

@@ -1,11 +1,14 @@
 {
     "private": true,
-    "types": "index",
-    "typesVersions": {
-        ">=3.1.0-0": {
-            "*": [
-                "ts3.1/*"
-            ]
+    "exports": {
+        ".": {
+            "types": "./index.d.ts"
+        },
+        "./use-at-your-own-risk": {
+            "types": "./use-at-your-own-risk.d.ts"
+        },
+        "./rules": {
+            "types": "./rules/index.d.ts"
         }
     }
 }

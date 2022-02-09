@@ -9,6 +9,7 @@ let trend: Trend;
 // Counter
 new Counter(); // $ExpectError
 counter = new Counter('counter');
+counter.name; // $ExpectType string
 new Counter('counter', 5); // $ExpectError
 counter = new Counter('counter', true);
 metric = new Counter('counter');
@@ -17,6 +18,7 @@ gauge = new Counter('counter'); // $ExpectError
 // Gauge
 new Gauge(); // $ExpectError
 gauge = new Gauge('gauge');
+gauge.name; // $ExpectType string
 new Gauge('gauge', 5); // $ExpectError
 gauge = new Gauge('gauge', true);
 metric = new Gauge('gauge');
@@ -25,6 +27,7 @@ rate = new Gauge('gauge'); // $ExpectError
 // Rate
 new Rate(); // $ExpectError
 rate = new Rate('rate');
+rate.name; // $ExpectType string
 new Rate('rate', 5); // $ExpectError
 rate = new Rate('rate', true);
 metric = new Rate('rate');
@@ -33,6 +36,7 @@ trend = new Rate('rate'); // $ExpectError
 // Trend
 new Trend(); // $ExpectError
 trend = new Trend('trend');
+trend.name; // $ExpectType string
 new Trend('trend', 5); // $ExpectError
 trend = new Trend('trend', true);
 metric = new Trend('trend');

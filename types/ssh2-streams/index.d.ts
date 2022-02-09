@@ -1,6 +1,7 @@
 // Type definitions for ssh2-streams v0.1.9
 // Project: https://github.com/mscdex/ssh2-streams
 // Definitions by: Ron Buckton <https://github.com/rbuckton>
+//                 Leo Toneff <https://github.com/bragle>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -613,45 +614,45 @@ export interface SSH2StreamConfig {
     /**
      * Set to true to create an instance in server mode.
      */
-    server?: boolean;
+    server?: boolean | undefined;
 
     /**
      * If in server mode, an object keyed on host key format.
      */
-    hostKeys?: HostKeys;
+    hostKeys?: HostKeys | undefined;
 
     /**
      * A message that is sent to clients immediately upon connection, before handshaking begins.
      */
-    banner?: string;
+    banner?: string | undefined;
 
     /**
      * A custom server software name/version identifier.
      * @default 'ssh2js' + moduleVersion + 'srv'
      */
-    ident?: string;
+    ident?: string | undefined;
 
     /**
      * This is the maximum packet size that will be accepted. It should be 35000 bytes or larger to be compatible with other SSH2 implementations.
      * @default 35000
      */
-    maxPacketSize?: number;
+    maxPacketSize?: number | undefined;
 
     /**
      * This is the highWaterMark to use for the parser stream.
      * @default 32 * 1024
      */
-    highWaterMark?: number;
+    highWaterMark?: number | undefined;
 
     /**
      * This option allows you to explicitly override the default transport layer algorithms used for the connection. Each value must be an array of valid algorithms for that category. The order of the algorithms in the arrays are important, with the most favorable being first.
      */
-    algorithms?: Algorithms;
+    algorithms?: Algorithms | undefined;
 
     /**
      * Set this to a function that receives a single string argument to get detailed (local) debug information.
      */
-    debug?: (information: string) => any;
+    debug?: ((information: string) => any) | undefined;
 }
 
 export interface HostKeys {
@@ -669,18 +670,18 @@ export interface HostKey {
  * The order of the algorithms in the arrays are important, with the most favorable being first.
  */
 export interface Algorithms {
-    kex?: string[];
-    cipher?: string[];
-    serverHostKey?: string[];
-    hmac?: string[];
-    compress?: string[];
+    kex?: string[] | undefined;
+    cipher?: string[] | undefined;
+    serverHostKey?: string[] | undefined;
+    hmac?: string[] | undefined;
+    compress?: string[] | undefined;
 }
 
 export interface Header {
     /**
      * (Client-only) An optional greeting message presented by the server.
      */
-    greeting?: string;
+    greeting?: string | undefined;
 
     /**
      * The raw identification string sent by the remote party.
@@ -909,15 +910,15 @@ export type ChannelRequest = ExitStatusChannelRequest | ExitSignalChannelRequest
 export interface PublicKeyAuthMethodData {
     keyAlgo: string;
     key: Buffer;
-    signature?: Buffer;
-    blob?: Buffer;
+    signature?: Buffer | undefined;
+    blob?: Buffer | undefined;
 }
 
 export interface HostbasedAuthMethodData {
     keyAlgo: string;
     key: Buffer;
-    signature?: Buffer;
-    blob?: Buffer;
+    signature?: Buffer | undefined;
+    blob?: Buffer | undefined;
     localHostname: string;
     localUsername: string;
 }
@@ -974,7 +975,7 @@ export interface SocketForwardingConfig {
 
 export interface Prompt {
     prompt: string;
-    echo?: boolean;
+    echo?: boolean | undefined;
 }
 
 export interface ForwardedTcpip {
@@ -1067,6 +1068,24 @@ export class SFTPStream extends stream.Transform {
      * Returns a new readable stream for `path`.
      */
     createReadStream(path: string, options?: ReadStreamOptions): stream.Readable;
+
+    /**
+     * (Client-only)
+     * Writes data to a file
+     */
+    writeFile(remotePath: string, data: string | Buffer, options: WriteFileOptions, callback?: (err: any) => void): void;
+
+    /**
+     * (Client-only)
+     * Writes data to a file
+     */
+    writeFile(remotePath: string, data: string | Buffer, encoding: string, callback?: (err: any) => void): void;
+
+    /**
+     * (Client-only)
+     * Writes data to a file
+     */
+    writeFile(remotePath: string, data: string | Buffer, callback?: (err: any) => void): void;
 
     /**
      * (Client-only)
@@ -1600,55 +1619,55 @@ export interface SFTPStreamConfig {
     /**
      * Set to true to create an instance in server mode.
      */
-    server?: boolean;
+    server?: boolean | undefined;
 
     /**
      * This is the highWaterMark to use for the stream.
      */
-    highWaterMark?: number;
+    highWaterMark?: number | undefined;
 
     /**
      * Set this to a function that receives a single string argument to get detailed (local) debug information.
      */
-    debug?: (information: string) => any;
+    debug?: ((information: string) => any) | undefined;
 }
 
 export interface TransferOptions {
     /**
      * Number of concurrent reads
      */
-    concurrency?: number;
+    concurrency?: number | undefined;
 
     /**
      * Size of each read in bytes
      */
-    chunkSize?: number;
+    chunkSize?: number | undefined;
 
     /**
      * Called every time a part of a file was transferred
      */
-    step?: (total_transferred: number, chunk: number, total: number) => void;
+    step?: ((total_transferred: number, chunk: number, total: number) => void) | undefined;
 
     /**
      * Integer or string representing the file mode to set for the uploaded file.
      */
-    mode?: number | string;
+    mode?: number | string | undefined;
 }
 
 export interface ReadStreamOptions {
-    flags?: string;
-    encoding?: string;
-    handle?: Buffer;
-    mode?: number;
-    autoClose?: boolean;
-    start?: number;
-    end?: number;
+    flags?: string | undefined;
+    encoding?: string | undefined;
+    handle?: Buffer | undefined;
+    mode?: number | undefined;
+    autoClose?: boolean | undefined;
+    start?: number | undefined;
+    end?: number | undefined;
 }
 
 export interface WriteStreamOptions {
-    flags?: string;
-    encoding?: string;
-    mode?: number;
+    flags?: string | undefined;
+    encoding?: string | undefined;
+    mode?: number | undefined;
 }
 
 export interface FileEntry {
@@ -1658,12 +1677,12 @@ export interface FileEntry {
 }
 
 export interface InputAttributes {
-    mode?: number | string;
-    uid?: number;
-    gid?: number;
-    size?: number;
-    atime?: number | Date;
-    mtime?: number | Date;
+    mode?: number | string | undefined;
+    uid?: number | undefined;
+    gid?: number | undefined;
+    size?: number | undefined;
+    atime?: number | Date | undefined;
+    mtime?: number | Date | undefined;
 }
 
 export interface Attributes {
@@ -1686,7 +1705,7 @@ export interface Stats extends Attributes {
 }
 
 export namespace utils {
-    export function parseKey(keyData: string | Buffer, passphrase?: string): ParsedKey | {}[];
+    export function parseKey(keyData: string | Buffer, passphrase?: string): ParsedKey | ParsedKey[] | Error | null;
 }
 
 export interface ParsedKey {
@@ -1700,6 +1719,12 @@ export interface ParsedKey {
 }
 
 export interface ReadFileOptions {
-    encoding?: string;
-    flag?: string;
+    encoding?: string | undefined;
+    flag?: string | undefined;
+}
+
+export interface WriteFileOptions {
+    encoding?: string | undefined;
+    mode?: number | undefined;
+    flag?: string | undefined;
 }

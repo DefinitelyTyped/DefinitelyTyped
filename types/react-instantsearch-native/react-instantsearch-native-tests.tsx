@@ -1,43 +1,10 @@
 import * as React from "react";
 
-import { SearchBox, Hits, Highlight, Menu } from "react-instantsearch-dom";
-import { InstantSearch, Index, connectStateResults } from 'react-instantsearch-native';
+import { SearchBox, Hits } from "react-instantsearch-dom";
+import { InstantSearch, Index, connectStateResults, StateResultsProvided } from 'react-instantsearch-native';
 import { values } from 'lodash';
 
 // https://community.algolia.com/react-instantsearch/guide/Conditional_display.html
-const App1 = () => (
-  <InstantSearch appId="" apiKey="" indexName="first">
-    <SearchBox />
-    <AllResults>
-      <div>
-        <Index indexName="first">
-          <IndexResults>
-            <div>
-              <div>first: </div>
-              <Hits />
-            </div>
-          </IndexResults>
-        </Index>
-        <Index indexName="second">
-          <IndexResults>
-            <div>
-              <div>second: </div>
-              <Hits />
-            </div>
-          </IndexResults>
-        </Index>
-        <Index indexName="third">
-          <IndexResults>
-            <div>
-              <div>third: </div>
-              <Hits />
-            </div>
-          </IndexResults>
-        </Index>
-      </div>
-    </AllResults>
-  </InstantSearch>
-);
 
 const App2 = () => (
   <InstantSearch searchClient={{}} indexName="first">
@@ -74,7 +41,7 @@ const App2 = () => (
 );
 
 const IndexResults = connectStateResults(
-  ({ searchState, searchResults, children }) =>
+  ({ searchState, searchResults, children }: React.PropsWithChildren<StateResultsProvided>) =>
     searchResults && searchResults.nbHits !== 0 ? (
       children as React.ReactElement
     ) : (
@@ -85,7 +52,7 @@ const IndexResults = connectStateResults(
     )
 );
 
-const AllResults = connectStateResults(({ allSearchResults, children }) => {
+const AllResults = connectStateResults(({ allSearchResults, children }: React.PropsWithChildren<StateResultsProvided>) => {
   const hasResults =
     allSearchResults &&
       values(allSearchResults).some(results => results.nbHits > 0);

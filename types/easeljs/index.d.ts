@@ -942,11 +942,11 @@ declare namespace createjs {
     }
 
     interface IStageGLOptions {
-        preserveBuffer?: boolean;
-        antialias?: boolean;
-        transparent?: boolean;
-        premultiply?: boolean;
-        autoPurge?: number;
+        preserveBuffer?: boolean | undefined;
+        antialias?: boolean | undefined;
+        transparent?: boolean | undefined;
+        premultiply?: boolean | undefined;
+        autoPurge?: number | undefined;
     }
 
     export class StageGL extends Stage {

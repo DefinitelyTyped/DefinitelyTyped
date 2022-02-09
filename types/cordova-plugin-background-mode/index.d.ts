@@ -1,6 +1,6 @@
 // Type definitions for Apache Background Mode plugin
 // Project: https://github.com/katzer/cordova-plugin-background-mode
-// Definitions by: Paul Thiel <https://github.com/Lordnoname>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
@@ -51,23 +51,23 @@ interface ICordovaPluginBackgroundModeNotificationItem {
   /**
    * The title of the notification displayed in background mode
    */
-  title?: string,
+  title?: string | undefined,
   /**
    * The ticker of the notification displayed in background mode
    */
-  ticker?: string,
+  ticker?: string | undefined,
   /**
    * The body of the notification displayed in background mode
    */
-  text?: string,
+  text?: string | undefined,
   /**
    * Handles if app is coming to foreground when tapping on the notification
    */
-  resume?: boolean,
+  resume?: boolean | undefined,
   /**
    * Handles if there is a notification when background is activated
    */
-  silent?: boolean
+  silent?: boolean | undefined
 }
 
 interface CordovaPlugins {

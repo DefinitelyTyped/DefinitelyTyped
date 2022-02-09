@@ -1,9 +1,13 @@
-// Type definitions for Google Apps Script 2019-11-06
+// Type definitions for Google Apps Script 2021-01-24
 // Project: https://developers.google.com/apps-script/
-// Definitions by: motemen <https://github.com/motemen/>
+// Definitions by: PopGoesTheWza <https://github.com/PopGoesTheWza>
+//                 motemen <https://github.com/motemen/>
+//                 Safal Pillai <https://github.com/malienist>
+//                 Oleg Valter <https://github.com/Oaphi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="google-apps-script.types.d.ts" />
+/// <reference path="google-apps-script.conference-data.d.ts" />
 /// <reference path="google-apps-script.gmail.d.ts" />
 
 declare namespace GoogleAppsScript {
@@ -21,7 +25,7 @@ declare namespace GoogleAppsScript {
       setFunctionName(functionName: string): Action;
       setLoadIndicator(loadIndicator: LoadIndicator): Action;
       setParameters(parameters: { [key: string]: string }): Action;
-      /** @deprecated DO NOT USE */setMethodName(functionName: string): Action;
+      /** @deprecated DO NOT USE */ setMethodName(functionName: string): Action;
     }
     /**
      * The response object that may be returned from a callback function (e.g., a form response handler)
@@ -148,6 +152,10 @@ declare namespace GoogleAppsScript {
       setText(text: string): CardAction;
     }
     /**
+     * An enum that defines the display style of card.
+     */
+     enum DisplayStyle { PEEK, REPLACE }
+    /**
      * A builder for Card objects.
      */
     interface CardBuilder {
@@ -156,6 +164,9 @@ declare namespace GoogleAppsScript {
       build(): Card;
       setHeader(cardHeader: CardHeader): CardBuilder;
       setName(name: string): CardBuilder;
+      setFixedFooter(fixedFooter: FixedFooter): CardBuilder;
+      setDisplayStyle(displayStyle: DisplayStyle):	CardBuilder;
+      setPeekCardHeader(peekCardHeader: CardHeader): CardBuilder;
     }
     /**
      * The header of a Card.
@@ -237,28 +248,66 @@ declare namespace GoogleAppsScript {
      *     }
      */
     interface CardService {
+      BorderType: typeof BorderType;
       ComposedEmailType: typeof ComposedEmailType;
       ContentType: typeof ContentType;
+      DisplayStyle: typeof DisplayStyle;
+      GridItemLayout: typeof GridItemLayout;
+      HorizontalAlignment: typeof HorizontalAlignment;
       Icon: typeof Icon;
+      ImageCropType: typeof ImageCropType;
       ImageStyle: typeof ImageStyle;
       LoadIndicator: typeof LoadIndicator;
       OnClose: typeof OnClose;
       OpenAs: typeof OpenAs;
       SelectionInputType: typeof SelectionInputType;
+      SwitchControlType: typeof SwitchControlType;
       TextButtonStyle: typeof TextButtonStyle;
       UpdateDraftBodyType: typeof UpdateDraftBodyType;
       newAction(): Action;
       newActionResponseBuilder(): ActionResponseBuilder;
       newAuthorizationAction(): AuthorizationAction;
       newAuthorizationException(): AuthorizationException;
+      /**
+       * Creates a new BorderStyle.
+       */
+      newBorderStyle(): BorderStyle;
       newButtonSet(): ButtonSet;
+      newCalendarEventActionResponseBuilder(): CalendarEventActionResponseBuilder;
       newCardAction(): CardAction;
       newCardBuilder(): CardBuilder;
       newCardHeader(): CardHeader;
       newCardSection(): CardSection;
       newComposeActionResponseBuilder(): ComposeActionResponseBuilder;
+      newDatePicker(): DatePicker;
+      newDateTimePicker(): DateTimePicker;
+      newDecoratedText(): DecoratedText;
+      newDivider(): Divider;
+      newDriveItemsSelectedActionResponseBuilder(): DriveItemsSelectedActionResponseBuilder;
+      /**
+       * Creates a new EditorFileScopeActionResponseBuilder.
+       */
+      newEditorFileScopeActionResponseBuilder(): EditorFileScopeActionResponseBuilder;
+      newFixedFooter(): FixedFooter;
+      newIconImage(): IconImage;
+      /**
+       * Creates a new Grid
+       */
+      newGrid(): Grid;
+      /**
+       * Creates a new GridItem.
+       */
+      newGridItem(): GridItem;
       newImage(): Image;
       newImageButton(): ImageButton;
+      /**
+       * Creates a new ImageComponent.
+       */
+      newImageComponent(): ImageComponent;
+      /**
+       * Creates a new ImageCropStyle.
+       */
+      newImageCropStyle(): ImageCropStyle;
       newKeyValue(): KeyValue;
       newNavigation(): Navigation;
       newNotification(): Notification;
@@ -270,9 +319,14 @@ declare namespace GoogleAppsScript {
       newTextButton(): TextButton;
       newTextInput(): TextInput;
       newTextParagraph(): TextParagraph;
+      newTimePicker(): TimePicker;
       newUniversalActionResponseBuilder(): UniversalActionResponseBuilder;
       newUpdateDraftActionResponseBuilder(): UpdateDraftActionResponseBuilder;
+      newUpdateDraftBccRecipientsAction(): UpdateDraftBccRecipientsAction;
       newUpdateDraftBodyAction(): UpdateDraftBodyAction;
+      newUpdateDraftCcRecipientsAction(): UpdateDraftCcRecipientsAction;
+      newUpdateDraftSubjectAction(): UpdateDraftSubjectAction;
+      newUpdateDraftToRecipientsAction(): UpdateDraftToRecipientsAction;
     }
     /**
      * The response object that may be returned from a callback method for compose action in a Gmail add-on.
@@ -313,6 +367,17 @@ declare namespace GoogleAppsScript {
      * Predefined icons that can be used in various UI objects, such as ImageButton or KeyValue widgets.
      */
     enum Icon { NONE, AIRPLANE, BOOKMARK, BUS, CAR, CLOCK, CONFIRMATION_NUMBER_ICON, DOLLAR, DESCRIPTION, EMAIL, EVENT_PERFORMER, EVENT_SEAT, FLIGHT_ARRIVAL, FLIGHT_DEPARTURE, HOTEL, HOTEL_ROOM_TYPE, INVITE, MAP_PIN, MEMBERSHIP, MULTIPLE_PEOPLE, OFFER, PERSON, PHONE, RESTAURANT_ICON, SHOPPING_CART, STAR, STORE, TICKET, TRAIN, VIDEO_CAMERA, VIDEO_PLAY }
+    /**
+     * A widget that shows an icon image.
+     *
+     *     var icon = CardService.newIconImage().setAltText("A nice icon").setIconUrl("https://example.com/icon.png");
+     */
+     interface IconImage {
+      setAltText(altText: string): IconImage;
+      setIcon(icon: Icon): IconImage;
+      setIconUrl(url: string): IconImage;
+      setImageCropType(imageCropType: ImageCropType): IconImage;
+    }
     /**
      * A widget that shows a single image.
      *
@@ -537,6 +602,7 @@ declare namespace GoogleAppsScript {
      *         .setSwitch(CardService.newSwitch()
      *             .setFieldName("form_input_switch_key")
      *             .setValue("form_input_switch_value")
+     *             .setControlType(CardService.SwitchControlType.SWITCH)
      *             .setOnChangeAction(CardService.newAction()
      *                 .setFunctionName("handleSwitchChange")));
      */
@@ -545,7 +611,12 @@ declare namespace GoogleAppsScript {
       setOnChangeAction(action: Action): Switch;
       setSelected(selected: boolean): Switch;
       setValue(value: string): Switch;
+      setControlType(type: SwitchControlType): Switch;
     }
+    /**
+     * Type of switch.
+     */
+    enum SwitchControlType { SWITCH, CHECK_BOX }
     /**
      * A TextButton with a text label. You can set the background color and disable the button when
      * needed.
@@ -625,6 +696,25 @@ declare namespace GoogleAppsScript {
       printJson(): string;
     }
     /**
+     * An input field that allows users to input a time.
+     *
+     *     // A time picker with default value of 3:30 PM.
+     *     var dateTimePicker = CardService.newTimePicker()
+     *         .setTitle("Enter the time.")
+     *         .setFieldName("time_field")
+     *         .setHours(15)
+     *         .setMinutes(30)
+     *         .setOnChangeAction(CardService.newAction()
+     *             .setFunctionName("handleTimeChange"));
+     */
+    interface TimePicker {
+      setFieldName(fieldName: string): TimePicker;
+      setHours(hours: number): TimePicker;
+      setMinutes(hours: number): TimePicker;
+      setOnChangeAction(action: Action): TimePicker;
+      setTitle(title: string): TimePicker;
+    }
+    /**
      * A builder for the UniversalActionResponse objects.
      */
     interface UniversalActionResponseBuilder {
@@ -676,7 +766,11 @@ declare namespace GoogleAppsScript {
      */
     interface UpdateDraftActionResponseBuilder {
       build(): UpdateDraftActionResponse;
+      setUpdateDraftBccRecipientsAction(updateDraftBccRecipientsAction: UpdateDraftBccRecipientsAction): UpdateDraftActionResponseBuilder;
       setUpdateDraftBodyAction(updateDraftBodyAction: UpdateDraftBodyAction): UpdateDraftActionResponseBuilder;
+      setUpdateDraftCcRecipientsAction(updateDraftCcRecipientsAction: UpdateDraftCcRecipientsAction):	UpdateDraftActionResponseBuilder;
+      setUpdateDraftSubjectAction(updateDraftSubjectAction: UpdateDraftSubjectAction):	UpdateDraftActionResponseBuilder;
+      setUpdateDraftToRecipientsAction(updateDraftToRecipientsAction: UpdateDraftToRecipientsAction): UpdateDraftActionResponseBuilder;
     }
     /**
      * Represents an action that updates the email draft body.
@@ -685,6 +779,325 @@ declare namespace GoogleAppsScript {
       addUpdateContent(content: string, contentType: ContentType): UpdateDraftBodyAction;
       setUpdateType(updateType: UpdateDraftBodyType): UpdateDraftBodyAction;
     }
+
+    /**
+     * Sets an action that updates the email Bcc recipients of a draft.
+     */
+    interface UpdateDraftBccRecipientsAction {
+      addUpdateBccRecipients(bccRecipientEmails: string[]): UpdateDraftBccRecipientsAction;
+    }
+
+    /**
+     * Sets an action that updates the Cc recipients of a draft.
+     */
+    interface UpdateDraftCcRecipientsAction {
+      addUpdateCcRecipients(ccRecipientEmails: string[]): UpdateDraftCcRecipientsAction;
+    }
+
+    /**
+     * Updates the subject line of an email draft.
+     */
+    interface UpdateDraftSubjectAction {
+      addUpdateSubject(subject: string): UpdateDraftSubjectAction;
+    }
+
+    /**
+     * Updates the To recipients of an email draft.
+     */
+    interface UpdateDraftToRecipientsAction {
+      addUpdateToRecipients(toRecipientEmails: string[]): UpdateDraftToRecipientsAction;
+    }
+    /**
+     * The fixed footer shown at the bottom of an add-on Card.
+     */
+    interface FixedFooter {
+      setPrimaryButton(button: TextButton): FixedFooter;
+      setSecondaryButton(button: TextButton): FixedFooter;
+    }
+
+    /**
+     * Represents a response that makes changes to the calendar event that the user is currently editing in reaction to an action taken in the UI, such as a button click.
+     */
+    interface CalendarEventActionResponse {
+      printJson(): string;
+    }
+
+    /**
+     * A builder for CalendarEventActionResponse objects.
+     */
+    interface CalendarEventActionResponseBuilder {
+      addAttendees(emails: string[]): CalendarEventActionResponseBuilder;
+      build(): CalendarEventActionResponse;
+      setConferenceData(conferenceData: Conference_Data.ConferenceData): CalendarEventActionResponseBuilder;
+    }
+
+    /**
+     * An input field that allows inputing a date.
+     */
+    interface DatePicker {
+      setFieldName(fieldName: string): DatePicker;
+      setOnChangeAction(action: Action): DatePicker;
+      setTitle(title: string): DatePicker;
+      setValueInMsSinceEpoch(valueMsEpoch: number): DatePicker;
+      setValueInMsSinceEpoch(valueMsEpoch: string): DatePicker;
+    }
+
+    /**
+     * An input field that allows inputing a date.
+     */
+    interface DateTimePicker {
+      setFieldName(fieldName: string): DateTimePicker;
+      setOnChangeAction(action: Action): DateTimePicker;
+      setTimeZoneOffsetInMins(timeZoneOffsetMins: Integer): DateTimePicker;
+      setTitle(title: string): DateTimePicker;
+      setValueInMsSinceEpoch(valueMsEpoch: number): DateTimePicker;
+      setValueInMsSinceEpoch(valueMsEpoch: string): DateTimePicker;
+    }
+
+    /**
+     * A widget that displays text with optional decorations. Possible keys include an icon, a label
+     * above and a label below. Setting the text content and one of the keys is required using setText(text)
+     * and one of setIcon(icon), setIconUrl(url), setTopLabel(text), or setBottomLabel(text).
+     * This class is intended to replace KeyValue.
+     */
+    interface DecoratedText {
+      setAuthorizationAction(action: AuthorizationAction): DecoratedText;
+      setBottomLabel(text: string): DecoratedText;
+      setButton(button: Button): DecoratedText;
+      setComposeAction(action: Action, composedEmailType: ComposedEmailType): DecoratedText;
+      setEndIcon(endIcon: IconImage): DecoratedText;
+      setIcon(icon: Icon): DecoratedText;
+      setIconAltText(altText: string): DecoratedText;
+      setIconUrl(url: string): DecoratedText;
+      setOnClickAction(action: Action): DecoratedText;
+      setOnClickOpenLinkAction(action: Action): DecoratedText;
+      setOpenLink(openLink: OpenLink): DecoratedText;
+      setStartIcon(startIcon: IconImage): DecoratedText;
+      setSwitchControl(switchToSet: Switch): DecoratedText;
+      setText(text: string): DecoratedText;
+      setTopLabel(text: string): DecoratedText;
+      setWrapText(wrapText: boolean): DecoratedText;
+    }
+
+    /**
+     * A horizontal divider.
+     */
+    // tslint:disable-next-line:no-empty-interface
+    interface Divider {
+    }
+
+    /**
+     * An enum that represents the border types that can be applied to widgets.
+     */
+    enum BorderType {
+      /** No border style. */
+      NO_BORDER,
+      /** Stroke border style. */
+      STROKE,
+    }
+
+    /**
+     * An enum that defines the image and text style of a GridItem.
+     */
+    enum GridItemLayout {
+      /** The title and subtitle are shown below the grid item's image. */
+      TEXT_BELOW,
+      /** The title and subtitle are shown above the grid item's image. */
+      TEXT_ABOVE,
+    }
+
+    /**
+     * An enum that specifies the horizontal alignment of a widget.
+     */
+    enum HorizontalAlignment {
+      /** Align the widget to the start of the sentence side. */
+      START,
+      /** Align the widget to the center. */
+      CENTER,
+      /** Align the widget to the end of the sentence side. */
+      END,
+    }
+
+    /**
+     * An enum that represents the crop styles applied to image components.
+     * If you want to apply a crop style to an IconImage, you can only use SQUARE or CIRCLE.
+     */
+    enum ImageCropType {
+      /** Square shape crop style. */
+      SQUARE,
+      /** Circle shape crop style. */
+      CIRCLE,
+      /** Rectangle shape crop style with custom ratio. */
+      RECTANGLE_CUSTOM,
+      /** Rectangle shape crop style with 4:3 ratio. */
+      RECTANGLE_4_3,
+    }
+
+    /**
+     * A class that represents a complete border style that can be applied to widgets.
+     */
+    interface BorderStyle {
+      /**
+       * Sets the corner radius of the border, for example 8.
+       */
+      setCornerRadius(radius: number): BorderStyle;
+      /**
+       * The color in #RGB format to be applied to the border.
+       */
+      setStrokeColor(color: string): BorderStyle;
+      /**
+       * Sets the type of the border.
+       */
+      setType(type: BorderType): BorderStyle;
+    }
+
+    /**
+     * A class that represents a crop style that can be applied to image components.
+     */
+    interface ImageCropStyle {
+      /**
+       * Sets the aspect ratio to use if the crop type is RECTANGLE_CUSTOM. The ratio must be a positive value.
+       */
+      setAspectRatio(ratio: number): ImageCropStyle;
+      /**
+       * Sets the crop type for the image.
+       */
+      setImageCropType(type: ImageCropType): ImageCropStyle;
+    }
+
+    /**
+     * An image component that can be added to grid items.
+     */
+    interface ImageComponent {
+      /**
+       * Sets the alternative text of the image.
+       */
+      setAltText(altText: string): ImageComponent;
+      /**
+       * Sets the border style applied to the image.
+       */
+      setBorderStyle(borderStyle: BorderStyle): ImageComponent;
+      /**
+       * Sets the crop style for the image.
+       */
+      setCropStyle(imageCropStyle: ImageCropStyle): ImageComponent;
+      /**
+       * Sets the URL of the image.
+       */
+      setImageUrl(url: string): ImageComponent;
+    }
+
+    /**
+     * The items users interact with within a grid widget.
+     */
+    interface GridItem {
+      /**
+       * Sets the identifier for the grid item. When a user clicks this grid item,
+       * this ID is returned in the parent grid's on_click call back parameters.
+       */
+      setIdentifier(id: string): GridItem;
+      /**
+       * Sets the image for this grid item.
+       */
+      setImage(image: ImageComponent): GridItem;
+      /**
+       * Sets the layout of text and image for the grid item. Default is TEXT_BELOW
+       */
+      setLayout(layout: GridItemLayout): GridItem;
+      /**
+       * Sets the subtitle of the grid item.
+       */
+      setSubtitle(subtitle: string): GridItem;
+      /**
+       * Sets the horizontal alignment of the grid item. Default is START.
+       */
+      setTextAlignment(alignment: HorizontalAlignment): GridItem;
+      /**
+       * Sets the title text of the grid item.
+       */
+      setTitle(title: string): GridItem;
+    }
+
+    /**
+     * An organized grid to display a collection of grid items.
+     */
+    interface Grid {
+      /**
+       * Adds a new grid item to the grid.
+       */
+      addItem(gridItem: GridItem): Grid;
+      /**
+       * Sets an authorization action that opens a URL to the authorization flow when the object is clicked.
+       */
+      setAuthorizationAction(action: AuthorizationAction): Grid;
+      /**
+       * Sets the border style applied to each grid item.
+       */
+      setBorderStyle(borderStyle: BorderStyle): Grid;
+      /**
+       * Sets an action that composes a draft email when the object is clicked.
+       */
+      setComposeAction(action: Action, composedEmailType: ComposedEmailType): Grid;
+      /**
+       * The number of columns to display in the grid.
+       */
+      setNumColumns(numColumns: number): Grid;
+      /**
+       * Sets an action that executes when the object is clicked.
+       */
+      setOnClickAction(action: Action): Grid;
+      /**
+       * Sets an action that opens a URL in a tab when the object is clicked.
+       */
+      setOnClickOpenLinkAction(action: Action): Grid;
+      /**
+       * Sets a URL to be opened when the object is clicked.
+       */
+      setOpenLink(openLink: OpenLink): Grid;
+      /**
+       * Sets the title text of the grid.
+       */
+      setTitle(title: string): Grid;
+    }
+
+    /**
+     * A builder for DriveItemsSelectedActionResponse objects.
+     */
+    interface DriveItemsSelectedActionResponseBuilder {
+      build(): DriveItemsSelectedActionResponse;
+      requestFileScope(itemId: string): DriveItemsSelectedActionResponseBuilder;
+    }
+
+    /**
+     * Represents a response that makes changes to Drive while Drive items are selected and in reaction to an action taken in the UI, such as a button click.
+     */
+    interface DriveItemsSelectedActionResponse {
+      printJson(): string;
+    }
+
+    /**
+     * Makes changes to an Editor, such as Google Docs, Sheets, or Slides in reaction to an action taken in the UI.
+     */
+    interface EditorFileScopeActionResponse {
+        /**
+         * Prints the JSON representation of this object.
+         */
+        printJson(): string;
+    }
+    /**
+     * A builder for EditorFileScopeActionResponse objects.
+     */
+    interface EditorFileScopeActionResponseBuilder {
+        /**
+         * Builds the current Editor action response.
+         */
+        build(): EditorFileScopeActionResponse;
+        /**
+         * Requests the drive.file scope for the current active Editor document.
+         */
+        requestFileScopeForActiveDocument(): EditorFileScopeActionResponseBuilder;
+    }
+
     /**
      * An enum value that specifies the type of an UpdateDraftBodyAction.
      */

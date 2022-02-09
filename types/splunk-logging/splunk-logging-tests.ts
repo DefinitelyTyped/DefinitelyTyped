@@ -9,7 +9,7 @@ const logger = new Logger(config);
 logger.requestOptions.strictSSL = true;
 logger.eventFormatter = (msg, sev) => ({});
 logger.error = (err, context) => { context.message; };
-logger.serializedEventQueue[0] = { foo: 'bar' };
+logger.serializedContextQueue[0] = { foo: 'bar' };
 
 const payload = {
     message: {

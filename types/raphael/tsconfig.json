@@ -5,9 +5,9 @@
             "es6",
             "dom"
         ],
-        "noImplicitAny": false,
+        "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
         "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
@@ -19,6 +19,12 @@
     },
     "files": [
         "index.d.ts",
-        "raphael-tests.ts"
+        "test/raphael-tests-plugin.ts",
+        "test/raphael-tests-old.ts",
+        "test/raphael-tests-official.ts",
+        "test/raphael-tests-module.ts",
+        "test/raphael-tests-global.ts",
+        "test/raphael-tests-api.ts",
+        "test/raphael-tests-font.ts"
     ]
 }

@@ -1,4 +1,4 @@
-import { ComponentType } from '@wordpress/element';
+import { ComponentType } from 'react';
 
 import BaseControl from '../base-control';
 
@@ -9,7 +9,7 @@ declare namespace ToggleControl {
          * `false` the toggle will be unchecked. If no value is passed the
          * toggle will be unchecked.
          */
-        checked?: boolean;
+        checked?: boolean | undefined;
         /**
          * A function that receives the checked state as input.
          */

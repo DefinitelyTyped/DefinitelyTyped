@@ -1,13 +1,10 @@
 import * as React from "react";
 
 export type FormItemProps = {
-    className?: string;
-    customStyles?: {[x: string]: any};
-    disableStyles?: boolean;
-    /* Set to **true** to render an `<input>` with `type` of **checkbox**. */
-    isCheck?: boolean;
-    /* Set to **true** to display radio buttons and checkboxes in a row. */
-    isInline?: boolean;
+    className?: string | undefined;
+    disableStyles?: boolean | undefined;
+    isHorizontal?: boolean | undefined;
+    isInline?: boolean | undefined;
 } & { [x: string]: any };
 
 declare const FormItem: React.FunctionComponent<FormItemProps>;

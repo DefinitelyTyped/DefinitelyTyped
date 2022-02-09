@@ -32,15 +32,15 @@ declare module 'backbone' {
             /** The cardinality of this relationship. */
             type: string;
             /** Determines the type of collection used. If used, the relatedModel property is ignored */
-            collectionType?: string | (new() => Backbone.Collection<any>);
+            collectionType?: string | (new() => Backbone.Collection<any>) | undefined;
             /** If set to true, then the attribute will not be serialized in toJSON() calls. Defaults to false */
-            isTransient?: boolean;
+            isTransient?: boolean | undefined;
             /** Specify remoteKey to serialize the key to a different key name in toJSON() calls. Useful in ROR nested-attributes like scenarios. */
-            remoteKey?: string;
+            remoteKey?: string | undefined;
             /** the attributes to serialize when calling toJSON */
-            serialize?: string[];
+            serialize?: string[] | undefined;
             /** A transformation function to convert the value before it is assigned to the key on the relatedModel */
-            map?: (...args: any[]) => any;
+            map?: ((...args: any[]) => any) | undefined;
         }
 
         /** A Backbone model with special provision for handling relations to other models */

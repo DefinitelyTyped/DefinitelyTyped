@@ -21,7 +21,7 @@ declare namespace parse {
         name: string;
         attributes: Attributes;
         children: Node[];
-        content?: string;
+        content?: string | undefined;
     }
 
     export interface Attributes {

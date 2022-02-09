@@ -2,7 +2,7 @@
 // Project: https://github.com/davidbkemp/jsqubits
 // Definitions by: kamakiri01 <https://github.com/kamakiri01>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// TypeScript Version: 4.0
 
 export = jsqubits;
 
@@ -12,7 +12,7 @@ declare namespace jsqubits {
     namespace jsqubits {
         interface QState {
             numBits(): number;
-            amplitude(basisState: string | QState): Complex;
+            amplitude(basisState: string | number): Complex;
             each: (callBack: (stateWithAmplitude: StateWithAmplitude) => false | void) => void;
 
             multiply(amount: number | Complex): QState;
@@ -74,13 +74,7 @@ declare namespace jsqubits {
             controlledSwap(controlBits: undefined | SingleQubitOperatorTargetQubits, targetBit1: number, targetBit2: number): QState;
             swap(targetBit1: number, targetBit2: number): QState;
 
-            /**
-             * toffoli args is
-             * (...controlBit: SingleQubitOperatorTargetQubits[], targetBit: SingleQubitOperatorTargetQubits)
-             * but TypeScript3.4 cannot define this args.
-             * welcome Pull Request.
-             */
-            toffoli(...args: SingleQubitOperatorTargetQubits[]): QState;
+            toffoli(...args: ToffoliArgs): QState;
 
             controlledApplicationOfqBitOperator(
                 controlBits: undefined | SingleQubitOperatorTargetQubits,
@@ -103,6 +97,8 @@ declare namespace jsqubits {
         }
 
         interface Complex {
+            real: number;
+            imaginary: number;
             add(other: number | Complex): Complex;
             multiply(other: number | Complex): Complex;
             conjugate(): Complex;
@@ -115,8 +111,6 @@ declare namespace jsqubits {
             subtract(other: number | Complex): Complex;
             eql(other: number | Complex): boolean;
             closeTo(other: Complex): number;
-            real(): number | Complex;
-            imaginary(): number | Complex;
         }
 
         interface Measurement {
@@ -136,6 +130,11 @@ declare namespace jsqubits {
         }
     }
 }
+
+// At least one control bit must be supplied to toffoli()
+type ToffoliControlQubits = [SingleQubitOperatorTargetQubits, ...SingleQubitOperatorTargetQubits[]];
+
+type ToffoliArgs = [...controlBits: ToffoliControlQubits, targetBit: SingleQubitOperatorTargetQubits];
 
 interface ExternalJSQubitsStatic {
     jsqubits: JSQubitsStatic;

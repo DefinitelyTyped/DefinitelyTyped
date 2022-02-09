@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useStep, useForm } from 'react-hooks-helper';
+import { useStep, useForm, Step } from 'react-hooks-helper';
 
 export const ReactHooksHelperTest: React.FunctionComponent = () => {
     const { index, navigation } = useStep({ steps: 3 });
@@ -20,4 +20,21 @@ export const ReactHooksHelperTest: React.FunctionComponent = () => {
             {JSON.stringify(formData)}
         </>
     );
+};
+
+// $ExpectedType number
+export const UseStepReturnNumber = (): number => {
+    const { step, navigation } = useStep({ steps: 3 });
+    const [formData, setForm] = useForm({ name: '', city: '' });
+
+    return step as number;
+};
+
+// $ExpectedType string
+export const UseStepReturnObject = (): string => {
+    const { step, navigation } = useStep({ steps: [{ id: 'Step1' }, { id: 'Step2' }, { id: 'Step3' }] });
+    const [formData, setForm] = useForm({ name: '', city: '' });
+    const { id } = step as Step;
+
+    return id;
 };

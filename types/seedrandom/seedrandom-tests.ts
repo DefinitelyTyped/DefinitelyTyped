@@ -1,27 +1,47 @@
+import seedrandom = require('seedrandom');
+import {
+    alea,
+    Alea,
+    tychei,
+    Tychei,
+    xor128,
+    Xor128,
+    xor4096,
+    Xor4096,
+    xorshift7,
+    XorShift7,
+    xorwow,
+    XorWow,
+} from 'seedrandom';
 
+let prng = seedrandom('added entropy.', { entropy: true }); // $ExpectType prng
+prng = seedrandom('hello.', { global: true }); // $ExpectType prng
+prng = seedrandom('hello.'); // $ExpectType prng
+prng = seedrandom(); // $ExpectType prng
 
-import seedrandom = require("seedrandom");
+prng = seedrandom.alea('hello.'); // $ExpectType prng
+prng = seedrandom.tychei('hello.'); // $ExpectType prng
+prng = seedrandom.xor128('hello.'); // $ExpectType prng
+prng = seedrandom.xor4096('hello.'); // $ExpectType prng
+prng = seedrandom.xorshift7('hello.'); // $ExpectType prng
+prng = seedrandom.xorwow('hello.'); // $ExpectType prng
 
-var rng = seedrandom("hello.");
-var n = rng();
+prng = alea('hello.'); // $ExpectType prng
+prng = tychei('hello.'); // $ExpectType prng
+prng = xor128('hello.'); // $ExpectType prng
+prng = xor4096('hello.'); // $ExpectType prng
+prng = xorshift7('hello.'); // $ExpectType prng
+prng = xorwow('hello.'); // $ExpectType prng
 
-seedrandom("hello.", {global: true});
-n = Math.random();
+prng.double(); // $ExpectType number
+prng.int32(); // $ExpectType number
+prng.quick(); // $ExpectType number
+prng.state(); // $ExpectType object
+prng(); // $ExpectType number
 
-rng = seedrandom();
-n = rng();
-
-rng = seedrandom('added entropy.', { entropy: true });
-n = rng();
-
-var rng2 = seedrandom.xor4096('hello.');
-n = rng2();
-
-n = rng.quick();
-n = rng.int32();
-n = rng.double();
-
-var saveable = seedrandom("secret-seed", {state: true});
-for (var j = 0; j < 1e5; ++j) saveable();
-var saved = saveable.state();
-var replica = seedrandom("", {state: saved});
+new Alea('hello.'); // $ExpectType prng
+new Tychei('hello.'); // $ExpectType prng
+new Xor128('hello.'); // $ExpectType prng
+new Xor4096('hello.'); // $ExpectType prng
+new XorShift7('hello.'); // $ExpectType prng
+new XorWow('hello.'); // $ExpectType prng

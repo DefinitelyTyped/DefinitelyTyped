@@ -1,4 +1,4 @@
-// Type definitions for args 3.0
+// Type definitions for args 5.0
 // Project: https://github.com/leo/args#readme
 // Definitions by: Slessi <https://github.com/Slessi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -16,45 +16,46 @@ interface args {
     examples(list: Example[]): args;
     parse(argv: string[], options?: ConfigurationOptions): { [key: string]: any };
     showHelp(): void;
+    showVersion(): void;
 }
 
 type OptionInitFunction = (value: any) => any;
 
 interface MriOptions {
-    args?: string[];
+    args?: string[] | undefined;
     alias?: {
         [key: string]: string | string[]
-    };
-    boolean?: string | string[];
+    } | undefined;
+    boolean?: string | string[] | undefined;
     default?: {
         [key: string]: any
-    };
-    string?: string | string[];
-    unknown?: (param: string) => boolean;
+    } | undefined;
+    string?: string | string[] | undefined;
+    unknown?: ((param: string) => boolean) | undefined;
 }
 
 interface MinimistOptions {
-    string?: string | string[];
-    boolean?: boolean | string | string[];
+    string?: string | string[] | undefined;
+    boolean?: boolean | string | string[] | undefined;
     alias?: {
         [key: string]: string | string[]
-    };
+    } | undefined;
     default?: {
         [key: string]: any
-    };
-    stopEarly?: boolean;
-    "--"?: boolean;
-    unknown?: (param: string) => boolean;
+    } | undefined;
+    stopEarly?: boolean | undefined;
+    "--"?: boolean | undefined;
+    unknown?: ((param: string) => boolean) | undefined;
 }
 
 interface ConfigurationOptions {
-    help?: boolean;
-    name?: string;
-    version?: boolean;
-    usageFilter?: (output: any) => any;
-    value?: string;
+    help?: boolean | undefined;
+    name?: string | undefined;
+    version?: boolean | undefined;
+    usageFilter?: ((output: any) => any) | undefined;
+    value?: string | undefined;
     mri: MriOptions;
-    minimist?: MinimistOptions;
+    minimist?: MinimistOptions | undefined;
     mainColor: string | string[];
     subColor: string | string[];
 }
@@ -62,7 +63,7 @@ interface ConfigurationOptions {
 interface Option {
     name: string | [string, string];
     description: string;
-    init?: OptionInitFunction;
+    init?: OptionInitFunction | undefined;
     defaultValue?: any;
 }
 

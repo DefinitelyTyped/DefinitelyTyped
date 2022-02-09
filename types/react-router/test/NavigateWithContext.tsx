@@ -10,7 +10,7 @@ import {
 } from 'react-router-dom';
 
 interface Params {
-  id?: string;
+  id?: string | undefined;
 }
 type Props = RouteComponentProps<Params>;
 

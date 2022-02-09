@@ -1,23 +1,24 @@
 // Type definitions for node-resque 5.5
-// Project: http://github.com/taskrabbit/node-resque
+// Project: https://github.com/taskrabbit/node-resque
 // Definitions by: Gordey Doronin <https://github.com/gordey4doronin>, Pete Nykänen <https://github.com/petetnt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
 /// <reference types="node" />
+import { EventEmitter } from 'events';
 
 export interface ConnectionOptions {
-    pkg?: string;
-    host?: string;
-    port?: number;
-    database?: number;
-    namespace?: string;
-    looping?: boolean;
+    pkg?: string | undefined;
+    host?: string | undefined;
+    port?: number | undefined;
+    database?: number | undefined;
+    namespace?: string | undefined;
+    looping?: boolean | undefined;
     options?: any;
     redis?: any;
 }
 
-export class Connection extends NodeJS.EventEmitter {
+export class Connection extends EventEmitter {
     constructor(options: ConnectionOptions);
 
     connect(): Promise<void>;
@@ -25,8 +26,8 @@ export class Connection extends NodeJS.EventEmitter {
 }
 
 export interface Job<TResult> {
-    plugins?: string[];
-    pluginOptions?: { [pluginName: string]: any };
+    plugins?: string[] | undefined;
+    pluginOptions?: { [pluginName: string]: any } | undefined;
     perform: (...args: any[]) => Promise<TResult>;
 }
 
@@ -35,7 +36,7 @@ export interface JobsHash {
 }
 
 export interface QueueOptions {
-    connection?: ConnectionOptions;
+    connection?: ConnectionOptions | undefined;
 }
 
 export interface WorkerStatus {
@@ -49,7 +50,7 @@ export interface WorkerStatus {
     worker: string;
 }
 
-export class Queue extends NodeJS.EventEmitter {
+export class Queue extends EventEmitter {
     constructor(options: QueueOptions, jobs?: JobsHash);
 
     connect(): Promise<void>;
@@ -85,16 +86,16 @@ export class Queue extends NodeJS.EventEmitter {
 }
 
 export interface WorkerOptions {
-    connection?: ConnectionOptions;
+    connection?: ConnectionOptions | undefined;
     queues: string[];
-    name?: string;
-    timeout?: number;
-    looping?: boolean;
+    name?: string | undefined;
+    timeout?: number | undefined;
+    looping?: boolean | undefined;
 }
 
 export type WorkerEvent = 'start' | 'end' | 'cleaning_worker' | 'poll' | 'ping' | 'job' | 'reEnqueue' | 'success' | 'failure' | 'error' | 'pause';
 
-export class Worker extends NodeJS.EventEmitter {
+export class Worker extends EventEmitter {
     constructor(options: WorkerOptions, jobs?: JobsHash);
 
     connect(): Promise<void>;
@@ -125,16 +126,16 @@ export class Worker extends NodeJS.EventEmitter {
 }
 
 export interface SchedulerOptions {
-    connection?: ConnectionOptions;
-    name?: string;
-    timeout?: number;
-    stuckWorkerTimeout?: number;
-    masterLockTimeout?: number;
+    connection?: ConnectionOptions | undefined;
+    name?: string | undefined;
+    timeout?: number | undefined;
+    stuckWorkerTimeout?: number | undefined;
+    masterLockTimeout?: number | undefined;
 }
 
 export type SchedulerEvent = 'start' | 'end' | 'poll' | 'master' | 'cleanStuckWorker' | 'error' | 'workingTimestamp' | 'transferredJob';
 
-export class Scheduler extends NodeJS.EventEmitter {
+export class Scheduler extends EventEmitter {
     constructor(options: SchedulerOptions, jobs?: JobsHash);
 
     connect(): Promise<void>;

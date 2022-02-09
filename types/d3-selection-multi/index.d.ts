@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-// Last module patch version validated against: 1.0.0
+// Last module patch version validated against: 1.0.1
 
 import { Selection, BaseType, ArrayLike, ValueFn } from 'd3-selection';
 import { Transition } from 'd3-transition';

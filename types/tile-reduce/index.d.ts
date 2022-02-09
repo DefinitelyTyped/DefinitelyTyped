@@ -5,11 +5,7 @@
 
 /// <reference types="node" />
 
-declare namespace NodeJS  {
-    interface Global {
-        mapOptions: any
-    }
-}
+declare var mapOptions: Options;
 
 interface Events {
     /**
@@ -72,15 +68,15 @@ interface Options {
     map: string;
     zoom: number;
     sources: Array<TileReduce.Source>;
-    bbox?: TileReduce.BBox;
+    bbox?: TileReduce.BBox | undefined;
     geojson?: any;
-    log?: boolean;
+    log?: boolean | undefined;
     mapOptions?: any;
-    maxWorkers?: number;
+    maxWorkers?: number | undefined;
     output?: any;
-    tiles?: Array<TileReduce.Tile>;
+    tiles?: Array<TileReduce.Tile> | undefined;
     tileStream?: any;
-    sourceCover?: string;
+    sourceCover?: string | undefined;
 }
 
 /**
@@ -114,11 +110,11 @@ declare namespace TileReduce {
     type Types = "start" | "map" | "reduce" | "end";
     interface Source {
         name: string;
-        mbtiles?: string;
-        url?: string;
-        layers?: Array<string>;
-        maxrate?: number;
-        raw?: boolean;
+        mbtiles?: string | undefined;
+        url?: string | undefined;
+        layers?: Array<string> | undefined;
+        maxrate?: number | undefined;
+        raw?: boolean | undefined;
     }
 }
 

@@ -4,15 +4,15 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface HumaneMessageOptions {
-    addnCls?: string;
-    timeout?: number;
-    waitForMove?: boolean;
-    clickToClose?: boolean;
+    addnCls?: string | undefined;
+    timeout?: number | undefined;
+    waitForMove?: boolean | undefined;
+    clickToClose?: boolean | undefined;
 }
 
 interface HumaneOptions extends HumaneMessageOptions {
-    baseCls?: string;
-    container?: Element;
+    baseCls?: string | undefined;
+    container?: Element | undefined;
 }
 
 type completionCallback = () => void;
@@ -33,8 +33,8 @@ interface Humane {
     clickToClose: boolean;
 
     create(options?: HumaneOptions): Humane;
-    info?: SpawnLogFunction;
-    error?: SpawnLogFunction;
+    info?: SpawnLogFunction | undefined;
+    error?: SpawnLogFunction | undefined;
     spawn(options: HumaneMessageOptions): SpawnLogFunction;
     remove(cb?: completionCallback): void;
     log(message: logMessage, options?: HumaneMessageOptions): Humane;

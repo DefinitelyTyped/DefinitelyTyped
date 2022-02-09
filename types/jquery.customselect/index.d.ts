@@ -7,9 +7,9 @@
 ///<reference types="jquery" />
 
 interface JQueryCustomSelectOption {
-    customClass?: string;
-    mapClass?: boolean;
-    mapStyle?: boolean;
+    customClass?: string | undefined;
+    mapClass?: boolean | undefined;
+    mapStyle?: boolean | undefined;
 }
 
 interface JQuery {

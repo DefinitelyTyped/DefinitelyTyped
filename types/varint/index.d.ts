@@ -1,4 +1,4 @@
-// Type definitions for varint 5.0
+// Type definitions for varint 6.0
 // Project: https://github.com/chrisdickinson/varint#readme
 // Definitions by: David Brockman Smoliansky <https://github.com/dbrockman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -11,6 +11,12 @@ export const encode: {
      * `varint.encode.bytes` will now be set to the number of bytes modified.
      */
     (num: number, buffer: Buffer, offset?: number): Buffer;
+
+    /**
+     * Encodes `num` into `bytes` starting at `offset`. returns `bytes`, with the encoded varint written into it.
+     * `varint.encode.bytes` will now be set to the number of bytes modified.
+     */
+    (num: number, bytes: Uint8Array, offset?: number): Uint8Array;
 
     /**
      * Encodes `num` into `array` starting at `offset`. returns `array`, with the encoded varint written into it.
@@ -31,7 +37,7 @@ export const decode: {
      * Decodes `data`, which can be either a buffer or array of integers, from position `offset` or default 0 and returns the decoded original integer.
      * Throws a `RangeError` when `data` does not represent a valid encoding.
      */
-    (buf: Buffer | number[], offset?: number): number;
+    (buf: Uint8Array | number[], offset?: number): number;
 
     /**
      * If you also require the length (number of bytes) that were required to decode the integer you can access it via `varint.decode.bytes`.

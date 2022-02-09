@@ -1,6 +1,8 @@
 {
     "private": true,
     "dependencies": {
-        "re-resizable": "^4.7.1"
+        "@wordpress/element": "^3.0.0",
+        "downshift": "^6.0.15",
+        "re-resizable": "^6.4.0"
     }
 }

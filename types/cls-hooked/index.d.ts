@@ -23,6 +23,6 @@ export interface Namespace {
 }
 
 export function createNamespace(name: string): Namespace;
-export function getNamespace(name: string): Namespace;
+export function getNamespace(name: string): Namespace | undefined;
 export function destroyNamespace(name: string): void;
 export function reset(): void;

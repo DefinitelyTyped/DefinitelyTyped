@@ -1,3 +1,8 @@
+/**
+ * Overlay position: 'bottom-left', 'bottom-center',  'bottom-right',
+ * 'center-left', 'center-center', 'center-right', 'top-left',
+ * 'top-center', 'top-right'
+ */
 declare enum OverlayPositioning {
     BOTTOM_LEFT = 'bottom-left',
     BOTTOM_CENTER = 'bottom-center',

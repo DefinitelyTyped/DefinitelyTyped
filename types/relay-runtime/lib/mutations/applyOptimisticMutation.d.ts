@@ -4,11 +4,11 @@ import { GraphQLTaggedNode } from '../query/RelayModernGraphQLTag';
 import { SelectorStoreUpdater, Environment } from '../store/RelayStoreTypes';
 
 export interface OptimisticMutationConfig {
-    configs?: ReadonlyArray<DeclarativeMutationConfig> | null;
+    configs?: ReadonlyArray<DeclarativeMutationConfig> | null | undefined;
     mutation: GraphQLTaggedNode;
     variables: Variables;
-    optimisticUpdater?: SelectorStoreUpdater | null;
-    optimisticResponse?: object;
+    optimisticUpdater?: SelectorStoreUpdater | null | undefined;
+    optimisticResponse?: object | undefined;
 }
 
 /**

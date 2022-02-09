@@ -27,7 +27,7 @@ declare class Rect {
     dstRect: Rect;
     offsetX: number;
     offsetY: number;
-    wrapOnly?: "x" | "y";
+    wrapOnly?: "x" | "y" | undefined;
   }): void;
 
   set(obj: Rect.Region): void;
@@ -48,8 +48,8 @@ declare namespace Rect {
   interface AbsoluteOptions {
     width: number;
     height: number;
-    x?: number;
-    y?: number;
+    x?: number | undefined;
+    y?: number | undefined;
   }
 
   interface Region {

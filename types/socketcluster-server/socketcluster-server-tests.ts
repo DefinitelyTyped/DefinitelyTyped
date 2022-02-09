@@ -1,120 +1,113 @@
 // Adapted from README
 
-// Using with basic http(s) module (example)
+import http = require('http');
+import AuthEngine = require('ag-auth');
+import socketClusterServer = require('socketcluster-server');
+import { Secret, VerifyOptions, Jwt, SignOptions } from 'jsonwebtoken';
 
-import http = require("http");
-import WebSocket = require("ws");
-import * as socketClusterServer from "socketcluster-server";
+const httpServer = http.createServer();
+let agServer = socketClusterServer.attach(httpServer);
 
-let httpServer = http.createServer();
-let scServer = socketClusterServer.attach(httpServer);
+(async () => {
+    // Handle new inbound sockets.
+    // tslint:disable-next-line: await-promise Bug in tslint: https://github.com/palantir/tslint/issues/3997
+    for await (const { socket } of agServer.listener('connection')) {
+        (async () => {
+            // Set up a loop to handle and respond to RPCs for a procedure.
+            // tslint:disable-next-line: await-promise Bug in tslint: https://github.com/palantir/tslint/issues/3997
+            for await (const req of socket.procedure('customProc')) {
+                if (req.data.bad) {
+                    const error = new Error('Server failed to execute the procedure');
+                    error.name = 'BadCustomError';
+                    req.error(error);
+                } else {
+                    req.end('Success');
+                }
+            }
+        })();
 
-scServer.on("connection", socket => {
-    // ... Handle new socket connections here
-});
+        (async () => {
+            // Set up a loop to handle remote transmitted events.
+            // tslint:disable-next-line: await-promise Bug in tslint: https://github.com/palantir/tslint/issues/3997
+            for await (const data of socket.receiver('customRemoteEvent')) {
+                // $ExpectType any
+                data;
+            }
+        })();
+    }
+})();
 
 httpServer.listen(8000);
 
-// Using with Express (example)
-
-import serveStatic = require("serve-static");
-import path = require("path");
-import express = require("express");
-
-const app = express();
-
-app.use(serveStatic(path.resolve(__dirname, "public")));
-
-httpServer = http.createServer();
-
-// Attach express to our httpServer
-httpServer.on("request", app);
-
-// Attach socketcluster-server to our httpServer
-scServer = socketClusterServer.attach(httpServer);
-
-scServer.on("connection", socket => {
-    // ... Handle new socket connections here
+agServer = socketClusterServer.attach(httpServer, {
+    protocolVersion: 1,
+    path: '/socketcluster/',
 });
 
-httpServer.listen(8000);
+agServer = socketClusterServer.attach(httpServer, {});
 
-// Tests of the server-side socket
+// Adapted from API overview
 
-scServer.on("connection", socket => {
-    // Check the standard events, with normal subscription,
-    // one-time subscription and unsubscription.
+agServer.setMiddleware(agServer.MIDDLEWARE_INBOUND, async middlewareStream => {
+    // tslint:disable-next-line: await-promise Bug in tslint: https://github.com/palantir/tslint/issues/3997
+    for await (const action of middlewareStream) {
+        switch (action.type) {
+            case action.TRANSMIT:
+                if (!action.data) {
+                    const error = new Error('Transmit action must have a data object');
+                    error.name = 'InvalidActionError';
+                    action.block(error);
+                    continue;
+                }
+                break;
+            case action.INVOKE:
+                if (!action.data) {
+                    const error = new Error('Invoke action must have a data object');
+                    error.name = 'InvalidActionError';
+                    action.block(error);
+                    continue;
+                }
+                break;
+            case action.PUBLISH_IN:
+                {
+                    if (action.channel === 'chat' && !action.authTokenExpiredError) {
+                        if (typeof action.data === 'string') {
+                            action.allow(action.data.replace('bad-word', '***'));
+                            continue;
+                        }
+                    }
+                }
+                break;
+        }
 
-    const errorListener: (error: Error) => void = err => {
-        console.log(err);
-    };
-    socket.on("error", errorListener);
-    socket.once("error", errorListener);
-    socket.off("error", errorListener);
-    socket.off("error");
+        action.allow();
+    }
+});
 
-    const messageListener: (message: WebSocket.Data) => void = message => {
-        console.log(message);
-    };
-    socket.on("message", messageListener);
-    socket.once("message", messageListener);
-    socket.off("message", messageListener);
-    socket.off("message");
+// Various server options
 
-    socket.on("raw", messageListener);
-    socket.once("raw", messageListener);
-    socket.off("raw", messageListener);
-    socket.off("raw");
+agServer = socketClusterServer.attach(httpServer, {
+    wsEngine: require('ws')
+});
 
-    const closeListener: (code: number, data?: any) => void = (code, data) => {
-        console.log(`${code} ${data}`);
-    };
-    socket.on("connectAbort", closeListener);
-    socket.once("connectAbort", closeListener);
-    socket.off("connectAbort", closeListener);
-    socket.off("connectAbort");
+agServer = socketClusterServer.attach(httpServer, {
+    wsEngine: 'ws'
+});
 
-    socket.on("disconnect", closeListener);
-    socket.once("disconnect", closeListener);
-    socket.off("disconnect", closeListener);
-    socket.off("disconnect");
+agServer = socketClusterServer.attach(httpServer, {
+    authEngine: new AuthEngine()
+});
 
-    socket.on("close", closeListener);
-    socket.once("close", closeListener);
-    socket.off("close", closeListener);
-    socket.off("close");
+class CustomAuthEngine implements socketClusterServer.AGServer.AuthEngineType {
+    verifyToken(signedToken: string | null, key: Secret, options?: VerifyOptions): Promise<Jwt> {
+        throw new Error('Method not implemented.');
+    }
 
-    const authStateChangeListener: (stateChangeData: socketClusterServer.SCServerSocket.StateChangeData) => void = data => {
-        console.log(data);
-    };
-    socket.on("authStateChange", authStateChangeListener);
-    socket.once("authStateChange", authStateChangeListener);
-    socket.off("authStateChange", authStateChangeListener);
-    socket.off("authStateChange");
+    signToken(token: string | object | Buffer, key: Secret, options?: SignOptions): Promise<string | undefined> {
+        throw new Error('Method not implemented.');
+    }
+}
 
-    const authenticateListener: (authToken?: socketClusterServer.SCServer.AuthToken) => void = authToken => {
-        console.log(authToken);
-    };
-    socket.on("authenticate", authenticateListener);
-    socket.once("authenticate", authenticateListener);
-    socket.off("authenticate", authenticateListener);
-    socket.off("authenticate");
-
-    const deauthenticateListener: (oldToken?: socketClusterServer.SCServer.AuthToken) => void = oldToken => {
-        console.log(oldToken);
-    };
-    socket.on("deauthenticate", deauthenticateListener);
-    socket.once("deauthenticate", deauthenticateListener);
-    socket.off("deauthenticate", deauthenticateListener);
-    socket.off("deauthenticate");
-
-    // Check custom events, with normal subscription,
-    // one-time subscription and unsubscription.
-    const customEventListener: (data?: any) => void = data => {
-        console.log(data);
-    };
-    socket.on("custom-event", customEventListener);
-    socket.once("custom-event", customEventListener);
-    socket.off("custom-event", customEventListener);
-    socket.off("custom-event");
+agServer = socketClusterServer.attach(httpServer, {
+    authEngine: new CustomAuthEngine()
 });

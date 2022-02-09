@@ -100,18 +100,18 @@ export function putJson(url: string, data?: any, options?: RestlingOptions): Pro
  */
 export function request(url: string, options?: RestlingOptions): Promise<RestlingResult>;
 
-export function settleAsync(requests: Array<{ url: string, options?: RestlingOptions }>): Promise<[RestlingResult]>;
-export function settleAsync(requests: { [key: string]: { url: string, options?: RestlingOptions } }): Promise<{ [key: string]: RestlingResult }>;
+export function settleAsync(requests: Array<{ url: string, options?: RestlingOptions | undefined }>): Promise<[RestlingResult]>;
+export function settleAsync(requests: { [key: string]: { url: string, options?: RestlingOptions | undefined } }): Promise<{ [key: string]: RestlingResult }>;
 
-export function allAsync(requests: Array<{ url: string, options?: RestlingOptions }>): Promise<[RestlingResult]>;
-export function allAsync(requests: { [key: string]: { url: string, options?: RestlingOptions } }): Promise<{ [key: string]: RestlingResult }>;
+export function allAsync(requests: Array<{ url: string, options?: RestlingOptions | undefined }>): Promise<[RestlingResult]>;
+export function allAsync(requests: { [key: string]: { url: string, options?: RestlingOptions | undefined } }): Promise<{ [key: string]: RestlingResult }>;
 
 /**
  * Interface for the result.
  */
 export interface RestlingResult {
     data?: any;
-    response?: ServerResponse;
+    response?: ServerResponse | undefined;
 }
 
 /**
@@ -128,7 +128,7 @@ export interface RestlingOptions {
     /**
      * OAuth Bearer Token.
      */
-    accessToken?: string;
+    accessToken?: string | undefined;
 
     /**
      *  HTTP Agent instance to use. If not defined globalAgent will be used. If false opts out of connection pooling with an Agent, defaults request to Connection: close.
@@ -148,32 +148,32 @@ export interface RestlingOptions {
     /**
      * Encoding of the response body
      */
-    decoding?: string;
+    decoding?: string | undefined;
 
     /**
      * Encoding of the request body.
      */
-    encoding?: string;
+    encoding?: string | undefined;
 
     /**
      * If set will recursively follow redirects.
      */
-    followRedirects?: boolean;
+    followRedirects?: boolean | undefined;
 
     /**
      * A hash of HTTP headers to be sent.
      */
-    headers?: RestlerOptionsHeader;
+    headers?: RestlerOptionsHeader | undefined;
 
     /**
      * Request method
      */
-    method?: string;
+    method?: string | undefined;
 
     /**
      * If set the data passed will be formatted as <code>multipart/form-encoded</code>.
      */
-    multipart?: boolean;
+    multipart?: boolean | undefined;
 
     /**
      * A function that will be called on the returned data. Use any of predefined <code>restler.parsers</code>.
@@ -183,7 +183,7 @@ export interface RestlingOptions {
     /**
      * Basic auth password.
      */
-    password?: string;
+    password?: string | undefined;
 
     /**
      * Query string variables as a javascript object, will override the querystring in the URL.
@@ -194,17 +194,17 @@ export interface RestlingOptions {
      * If true, the server certificate is verified against the list of supplied CAs.
      * An 'error' event is emitted if verification fails. Verification happens at the connection level, before the HTTP request is sent.
      */
-    rejectUnauthorized?: boolean;
+    rejectUnauthorized?: boolean | undefined;
 
     /**
      * Emit the timeout event when the response does not return within the said value (in ms).
      */
-    timeout?: number;
+    timeout?: number | undefined;
 
     /**
      * Basic auth username.
      */
-    username?: string;
+    username?: string | undefined;
 
     /**
      * Options for xml2js.

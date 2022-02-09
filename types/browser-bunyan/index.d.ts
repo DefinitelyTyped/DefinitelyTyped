@@ -27,8 +27,8 @@ declare namespace BrowserBunyan {
     }
 
     interface ConsoleFormattedStreamOptions {
-        logByLevel?: boolean;
-        css?: Partial<ConsoleFormattedStreamStyle>;
+        logByLevel?: boolean | undefined;
+        css?: Partial<ConsoleFormattedStreamStyle> | undefined;
     }
 
     type ConsoleFormattedStream = new(options?: ConsoleFormattedStreamOptions) => NodeJS.WritableStream;

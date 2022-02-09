@@ -1,6 +1,6 @@
 import * as jsonld from 'jsonld';
 
-const doc = {
+const doc: jsonld.JsonLdDocument = {
     "http://schema.org/name": "Manu Sporny",
     "http://schema.org/url": {"@id": "http://manu.sporny.org/"},
     "http://schema.org/image": {"@id": "http://manu.sporny.org/images/manu.png"}
@@ -11,7 +11,7 @@ const docNQuads =
     _: <http://schema.org/url> <http://manu.sporny.org/> .
     _: <http://schema.org/image> <http://manu.sporny.org/images/manu.png> .`;
 
-const context = {
+const context: jsonld.ContextDefinition = {
     name: "http://schema.org/name",
     homepage: {"@id": "http://schema.org/url", "@type": "@id"},
     image: {"@id": "http://schema.org/image", "@type": "@id"}
@@ -92,6 +92,11 @@ jsonld.flatten(doc, context)
     log(res);
 });
 
+jsonld.flatten(doc)
+    .then((res) => {
+        log(res);
+    });
+
 jsonld.flatten(doc, context, {base: baseUrl})
 .then((res) => {
     log(res);
@@ -140,16 +145,29 @@ jsonld.normalize(doc, {expansion: false})
 });
 
 /**
+ * canonize() test
+ */
+jsonld.canonize(doc, (err, res) => {
+    log(res);
+});
+
+jsonld.canonize(doc, {algorithm: 'URDNA2015', expansion: false}, (err, res) => {
+    log(res);
+});
+
+jsonld.canonize(doc)
+.then((res) => {
+    log(res);
+});
+
+jsonld.canonize(doc, {expansion: false})
+.then((res) => {
+    log(res);
+});
+
+/**
  * fromRDF() test
  */
-jsonld.fromRDF(docNQuads, (err, res) => {
-    log(res);
-});
-
-jsonld.fromRDF(docNQuads, {format: 'application/n-quads'}, (err, res) => {
-    log(res);
-});
-
 jsonld.fromRDF(docRDF)
 .then((res) => {
     log(res);

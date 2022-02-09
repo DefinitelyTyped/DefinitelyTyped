@@ -1,8 +1,7 @@
 {
-    "extends": "dtslint/dt.json",
+    "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "ban-types": true,                     // PRODUCES ERRORS WHEN REMOVED
-        "callable-types": false,               // HAS ISSUES
-        "no-unnecessary-generics": false       // HAS ISSUES
+        "ban-types": false,
+        "no-unnecessary-generics": false
     }
 }

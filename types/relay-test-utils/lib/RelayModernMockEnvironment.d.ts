@@ -12,11 +12,12 @@ import {
     Variables,
     OptimisticUpdate,
     MissingFieldHandler,
+    GraphQLTaggedNode,
 } from 'relay-runtime';
 
-type OperationMockResolver = (operation: OperationDescriptor) => GraphQLResponse | Error | null;
+export type OperationMockResolver = (operation: OperationDescriptor) => GraphQLResponse | Error | null;
 
-interface MockFunctions {
+export interface MockFunctions {
     clearCache: () => void;
     cachePayload: (
         request: ConcreteRequest | OperationDescriptor,
@@ -34,6 +35,7 @@ interface MockFunctions {
     resolve: (request: ConcreteRequest | OperationDescriptor, payload: GraphQLResponse) => void;
     getAllOperations: () => ReadonlyArray<OperationDescriptor>;
     findOperation: (findFn: (operation: OperationDescriptor) => boolean) => OperationDescriptor;
+    queuePendingOperation: (query: GraphQLTaggedNode, variables: Variables) => void;
     getMostRecentOperation: () => OperationDescriptor;
     resolveMostRecentOperation: (
         payload: GraphQLResponse | ((operation: OperationDescriptor) => GraphQLResponse | void),
@@ -42,12 +44,12 @@ interface MockFunctions {
     queueOperationResolver: (resolver: OperationMockResolver) => void;
 }
 
-interface MockEnvironment {
+export interface MockEnvironment {
     mock: MockFunctions;
     mockClear: () => void;
 }
 
-interface RelayMockEnvironment extends MockEnvironment, IEnvironment {
+export interface RelayMockEnvironment extends MockEnvironment, IEnvironment {
     configName: string | null | undefined;
     revertUpdate(update: OptimisticUpdate): void;
     replaceUpdate(update: OptimisticUpdate, newUpdate: OptimisticUpdate): void;
@@ -90,10 +92,8 @@ interface RelayMockEnvironment extends MockEnvironment, IEnvironment {
  *   with a specific error
  */
 export function createMockEnvironment(config?: {
-    handlerProvider?: HandlerProvider;
-    missingFieldHandlers?: ReadonlyArray<MissingFieldHandler>;
-    operationTracker?: OperationTracker;
-    operationLoader?: OperationLoader;
+    handlerProvider?: HandlerProvider | undefined;
+    missingFieldHandlers?: ReadonlyArray<MissingFieldHandler> | undefined;
+    operationTracker?: OperationTracker | undefined;
+    operationLoader?: OperationLoader | undefined;
 }): RelayMockEnvironment;
-
-export {};

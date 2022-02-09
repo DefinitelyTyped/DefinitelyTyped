@@ -7,9 +7,12 @@
     "fp": "ts-node generate-fp"
   },
   "devDependencies": {
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.11",
     "ts-node": "^4.1.0",
     "typescript": "^2.7.1"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@types/lodash": "^4.14.123",
+    "@types/node": "^11.13.9"
+  }
 }

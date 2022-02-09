@@ -1,20 +1,24 @@
 import dlv = require('dlv');
 
 const obj = {
-	undef: undefined,
-	zero: 0,
-	one: 1,
-	n: null,
-	f: false,
-	a: {
-		two: 2,
-		b: {
-			three: 3,
-			c: {
-				four: 4
-			}
-		}
-	}
+    undef: undefined,
+    zero: 0,
+    one: 1,
+    n: null,
+    f: false,
+    a: {
+        two: 2,
+        b: {
+            three: 3,
+            c: {
+                four: 4,
+            },
+        },
+    },
+    array: [
+        ['a', 'b'],
+        ['c', 'd'],
+    ],
 };
 
 // Test without defaults
@@ -31,6 +35,8 @@ dlv(obj, 'n');
 dlv(obj, 'n.badkey');
 dlv(obj, 'f');
 dlv(obj, 'f.badkey');
+dlv(obj, ['array', 0, 1]);
+dlv(obj, ['array', 1, 1]);
 
 // Test defaults
 dlv(obj, '', 'foo');

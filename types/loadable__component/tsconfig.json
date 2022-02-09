@@ -14,8 +14,8 @@
             "../"
         ],
         "paths": {
-            "@loadable/component": [
-                "loadable__component"
+            "@loadable/*": [
+                "loadable__*"
             ]
         },
         "types": [],

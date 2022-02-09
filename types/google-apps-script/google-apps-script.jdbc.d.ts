@@ -1,6 +1,7 @@
-// Type definitions for Google Apps Script 2019-11-06
+// Type definitions for Google Apps Script 2020-01-02
 // Project: https://developers.google.com/apps-script/
-// Definitions by: motemen <https://github.com/motemen/>
+// Definitions by: PopGoesTheWza <https://github.com/PopGoesTheWza>
+//                 motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="google-apps-script.types.d.ts" />
@@ -11,34 +12,34 @@ declare namespace GoogleAppsScript {
     /** JdbcAdvancedParameters */
     interface CloudSqlAdvancedParameters {
       /** connection timeout in seconds */
-      connectTimeoutSeconds?: Integer;
+      connectTimeoutSeconds?: Integer | undefined;
       /** the database to connect to */
-      database?: string;
+      database?: string | undefined;
       /** the name of a Google SQL Service instance */
-      instance?: string;
+      instance?: string | undefined;
       /** the user's password */
-      password?: string;
+      password?: string | undefined;
       /** query timeout in seconds */
-      queryTimeoutSeconds?: Integer;
+      queryTimeoutSeconds?: Integer | undefined;
       /** the username to pass to the database */
-      user?: string;
+      user?: string | undefined;
     }
     /** JdbcAdvancedParameters */
     interface ConnectionAdvancedParameters {
       /** the database to connect to */
-      databaseName?: string;
+      databaseName?: string | undefined;
       /** the user's password */
-      password?: string;
+      password?: string | undefined;
       /** whether or not the connection should comply with JDBC rules when converting time zones. The default is false. */
-      useJDBCCompliantTimeZoneShift?: boolean;
+      useJDBCCompliantTimeZoneShift?: boolean | undefined;
       /** the username to pass to the database */
-      user?: string;
+      user?: string | undefined;
       /** the server's SSL certificate */
-      _serverSslCertificate?: string;
+      _serverSslCertificate?: string | undefined;
       /** the client's SSL certificate */
-      _clientSslCertificate?: string;
+      _clientSslCertificate?: string | undefined;
       /** the client's SSL key */
-      _clientSslKey?: string;
+      _clientSslKey?: string | undefined;
     }
     /**
      * The JDBC service allows scripts to connect to Google Cloud SQL, MySQL,

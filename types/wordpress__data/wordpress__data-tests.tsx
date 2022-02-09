@@ -3,6 +3,9 @@ import * as data from '@wordpress/data';
 data.select('core/block-editor').isTyping<boolean>();
 data.dispatch('core/block-editor').resetBlocks('');
 
+const unsubscribe = data.subscribe(() => console.log('Store was updated.'));
+unsubscribe();
+
 data.use(data.plugins.persistence, { storage: window.localStorage });
 
 interface FooBar {
@@ -10,6 +13,7 @@ interface FooBar {
     bar: number;
 }
 
+// $ExpectType Store<FooBar, AnyAction>
 data.registerStore<FooBar>('foo', {
     reducer(state = { foo: 'foo', bar: 21 }, action) {
         return state;
@@ -45,7 +49,7 @@ const HookComponent = () => {
 // `dispatch` overload tests
 //
 
-// $ExpectType Record<string, <T = void>(...args: readonly any[]) => T>
+// $ExpectType Record<string, <T = void>(...args: readonly any[]) => T> || DispatcherMap
 data.dispatch('foo/bar');
 
 // $ExpectType void
@@ -54,7 +58,7 @@ data.dispatch('foo/bar').foobar();
 // $ExpectType number
 data.dispatch('foo/bar').foobar<number>();
 
-// $ExpectType Record<string, <T = unknown>(...args: readonly any[]) => T>
+// $ExpectType Record<string, <T = unknown>(...args: readonly any[]) => T> || SelectorMap
 data.select('foo/bar');
 
 // $ExpectType unknown

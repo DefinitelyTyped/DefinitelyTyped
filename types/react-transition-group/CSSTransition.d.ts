@@ -2,18 +2,18 @@ import { Component } from 'react';
 import { TransitionProps } from "./Transition";
 
 export interface CSSTransitionClassNames {
-    appear?: string;
-    appearActive?: string;
-    appearDone?: string;
-    enter?: string;
-    enterActive?: string;
-    enterDone?: string;
-    exit?: string;
-    exitActive?: string;
-    exitDone?: string;
+    appear?: string | undefined;
+    appearActive?: string | undefined;
+    appearDone?: string | undefined;
+    enter?: string | undefined;
+    enterActive?: string | undefined;
+    enterDone?: string | undefined;
+    exit?: string | undefined;
+    exitActive?: string | undefined;
+    exitDone?: string | undefined;
 }
 
-export interface CSSTransitionProps extends TransitionProps {
+export type CSSTransitionProps<Ref extends undefined | HTMLElement = undefined> = TransitionProps<Ref> & {
     /**
      * The animation `classNames` applied to the component as it enters or exits.
      * A single name can be provided and it will be suffixed for each stage: e.g.
@@ -37,9 +37,9 @@ export interface CSSTransitionProps extends TransitionProps {
      * }}
      * ```
      */
-    classNames?: string | CSSTransitionClassNames;
-}
+    classNames?: string | CSSTransitionClassNames | undefined;
+};
 
-declare class CSSTransition extends Component<CSSTransitionProps> {}
+declare class CSSTransition<Ref extends undefined | HTMLElement> extends Component<CSSTransitionProps<Ref>> {}
 
 export default CSSTransition;

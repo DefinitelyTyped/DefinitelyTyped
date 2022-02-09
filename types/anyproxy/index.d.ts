@@ -1,6 +1,7 @@
 // Type definitions for anyproxy 4.1
 // Project: https://github.com/alibaba/anyproxy
 // Definitions by: Maxime LUCE <https://github.com/SomaticIT>
+//                 Roland Reed <https://github.com/roland-reed>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -21,41 +22,43 @@ import {
 
 export type MaybePromise<T> = T | Promise<T>;
 
+export type NetworkType = 'http' | 'https';
+
 export interface ProxyOptions {
     /** Port number of proxy server */
     port: string | number;
     /** Your rule module */
-    rule?: string | RuleModule;
+    rule?: string | RuleModule | undefined;
     /** Throttle in kb/s, unlimited for default */
-    throttle?: number;
+    throttle?: number | undefined;
     /** Type of the proxy server, could be 'http' or 'https'. */
-    type?: "http" | "https";
+    type?: "http" | "https" | undefined;
     /** Host name of the proxy server, required when this is an https proxy */
-    hostname?: string;
+    hostname?: string | undefined;
     /** Force intercept all https request, default to false */
-    forceProxyHttps?: boolean;
+    forceProxyHttps?: boolean | undefined;
     /** If keep silent in console, false for default false */
-    silent?: boolean;
+    silent?: boolean | undefined;
     /** If ignore certificate error in request, default to false */
-    dangerouslyIgnoreUnauthorized?: boolean;
+    dangerouslyIgnoreUnauthorized?: boolean | undefined;
     /** Whether to intercept websocket, default to false */
-    wsIntercept?: boolean;
+    wsIntercept?: boolean | undefined;
     /** Config for web interface */
-    webInterface?: WebInterfaceOptions;
+    webInterface?: WebInterfaceOptions | undefined;
     /** Recorder to use */
-    recorder?: ProxyRecorder;
+    recorder?: ProxyRecorder | undefined;
 }
 
 export interface WebInterfaceOptions {
     /** If enable web interface, default to false */
-    enable?: boolean;
+    enable?: boolean | undefined;
     /** Port number for web interface */
-    webPort?: number;
+    webPort?: number | undefined;
 }
 
 export interface RuleModule {
     /** Introduction of this rule file. AnyProxy will read this field and give some tip to user. */
-    summary?: string;
+    summary?: string | undefined;
     /** Before sending request to server, AnyProxy will call beforeSendRequest with param requestDetail. */
     beforeSendRequest?(requestDetail: RequestDetail): MaybePromise<BeforeSendRequestResult | null | undefined>;
     /** Before sending response to client, AnyProxy will call beforeSendResponse with param requestDetail responseDetail. */
@@ -77,7 +80,7 @@ export interface RuleModule {
 
 // TypeScript Version: 2.2
 export interface BeforeSendRequestResult extends Partial<RequestDetail> {
-    response?: Partial<Response>;
+    response?: Partial<Response> | undefined;
 }
 
 export interface BeforeSendResponseResult {
@@ -229,9 +232,9 @@ export namespace utils {
     /** Manage the system proxy config. sudo password may be required. */
     namespace systemProxyMgr {
         /** Enable global system proxy with specified params. sudo password may be required. */
-        function enableGlobalProxy(host: string, port: string | number): void;
+        function enableGlobalProxy(host: string, port: string | number, networkType?: NetworkType): void;
         /** Disable global system proxy. sudo password may be required. */
-        function disableGlobalProxy(): void;
+        function disableGlobalProxy(networkType?: NetworkType): void;
     }
 
     /** Manage certificates of AnyProxy. */

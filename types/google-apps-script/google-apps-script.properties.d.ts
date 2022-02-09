@@ -1,6 +1,7 @@
-// Type definitions for Google Apps Script 2019-11-06
+// Type definitions for Google Apps Script 2020-01-02
 // Project: https://developers.google.com/apps-script/
-// Definitions by: motemen <https://github.com/motemen/>
+// Definitions by: PopGoesTheWza <https://github.com/PopGoesTheWza>
+//                 motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="google-apps-script.types.d.ts" />
@@ -50,14 +51,14 @@ declare namespace GoogleAppsScript {
      * are scoped per script, regardless of which user runs the script.
      */
     interface ScriptProperties {
-      /** @deprecated DO NOT USE */deleteAllProperties(): ScriptProperties;
-      /** @deprecated DO NOT USE */deleteProperty(key: string): ScriptProperties;
-      /** @deprecated DO NOT USE */getKeys(): string[];
-      /** @deprecated DO NOT USE */getProperties(): { [key: string]: string };
-      /** @deprecated DO NOT USE */getProperty(key: string): string | null ;
-      /** @deprecated DO NOT USE */setProperties(properties: { [key: string]: string }): ScriptProperties;
-      /** @deprecated DO NOT USE */setProperties(properties: { [key: string]: string }, deleteAllOthers: boolean): ScriptProperties;
-      /** @deprecated DO NOT USE */setProperty(key: string, value: string): ScriptProperties;
+      /** @deprecated DO NOT USE */ deleteAllProperties(): ScriptProperties;
+      /** @deprecated DO NOT USE */ deleteProperty(key: string): ScriptProperties;
+      /** @deprecated DO NOT USE */ getKeys(): string[];
+      /** @deprecated DO NOT USE */ getProperties(): { [key: string]: string };
+      /** @deprecated DO NOT USE */ getProperty(key: string): string | null;
+      /** @deprecated DO NOT USE */ setProperties(properties: { [key: string]: string }): ScriptProperties;
+      /** @deprecated DO NOT USE */ setProperties(properties: { [key: string]: string }, deleteAllOthers: boolean): ScriptProperties;
+      /** @deprecated DO NOT USE */ setProperty(key: string, value: string): ScriptProperties;
     }
     /**
      *
@@ -66,14 +67,14 @@ declare namespace GoogleAppsScript {
      * script running under the identity of a user can access User Properties for that user only.
      */
     interface UserProperties {
-      /** @deprecated DO NOT USE */deleteAllProperties(): UserProperties;
-      /** @deprecated DO NOT USE */deleteProperty(key: string): UserProperties;
-      /** @deprecated DO NOT USE */getKeys(): string[];
-      /** @deprecated DO NOT USE */getProperties(): { [key: string]: string };
-      /** @deprecated DO NOT USE */getProperty(key: string): string | null;
-      /** @deprecated DO NOT USE */setProperties(properties: { [key: string]: string }): UserProperties;
-      /** @deprecated DO NOT USE */setProperties(properties: { [key: string]: string }, deleteAllOthers: boolean): UserProperties;
-      /** @deprecated DO NOT USE */setProperty(key: string, value: string): UserProperties;
+      /** @deprecated DO NOT USE */ deleteAllProperties(): UserProperties;
+      /** @deprecated DO NOT USE */ deleteProperty(key: string): UserProperties;
+      /** @deprecated DO NOT USE */ getKeys(): string[];
+      /** @deprecated DO NOT USE */ getProperties(): { [key: string]: string };
+      /** @deprecated DO NOT USE */ getProperty(key: string): string | null;
+      /** @deprecated DO NOT USE */ setProperties(properties: { [key: string]: string }): UserProperties;
+      /** @deprecated DO NOT USE */ setProperties(properties: { [key: string]: string }, deleteAllOthers: boolean): UserProperties;
+      /** @deprecated DO NOT USE */ setProperty(key: string, value: string): UserProperties;
     }
   }
 }

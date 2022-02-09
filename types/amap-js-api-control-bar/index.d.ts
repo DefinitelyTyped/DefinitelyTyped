@@ -13,24 +13,24 @@ declare namespace AMap {
             show: Event<'show'>;
         }
         interface Position {
-            top?: string;
-            right?: string;
-            bottom?: string;
-            left?: string;
+            top?: string | undefined;
+            right?: string | undefined;
+            bottom?: string | undefined;
+            left?: string | undefined;
         }
         interface Options {
             /**
              * 显示位置
              */
-            position?: Position;
+            position?: Position | undefined;
             /**
              * 是否显示缩放按钮
              */
-            showZoomBar?: boolean;
+            showZoomBar?: boolean | undefined;
             /**
              * 是否显示倾斜、旋转按钮
              */
-            showControlButton?: boolean;
+            showControlButton?: boolean | undefined;
         }
     }
     class ControlBar extends EventEmitter {

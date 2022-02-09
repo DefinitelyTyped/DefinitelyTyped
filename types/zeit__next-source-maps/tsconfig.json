@@ -16,7 +16,7 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@zeit/next-source-maps": ["zeit__next-source-maps"]
+            "@zeit/*": ["zeit__*"]
         }
     },
     "files": [

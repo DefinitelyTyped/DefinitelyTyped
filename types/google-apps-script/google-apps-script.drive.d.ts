@@ -1,6 +1,8 @@
-// Type definitions for Google Apps Script 2019-11-06
+// Type definitions for Google Apps Script 2020-01-02
 // Project: https://developers.google.com/apps-script/
-// Definitions by: motemen <https://github.com/motemen/>
+// Definitions by: PopGoesTheWza <https://github.com/PopGoesTheWza>
+//                 motemen <https://github.com/motemen/>
+//                 mahaker <https://github.com/mahaker/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="google-apps-script.types.d.ts" />
@@ -69,6 +71,8 @@ declare namespace GoogleAppsScript {
       createFile(name: string, content: string, mimeType: string): File;
       /** Creates a folder in the root of the user's Drive with the given name. */
       createFolder(name: string): Folder;
+      /** Creates a shortcut to the provided Drive item ID, and returns it. */
+      createShortcut(targetId: string): File;
       /**
        * Gets the file with the given ID.
        * Throws a scripting exception if the file does not exist or
@@ -158,7 +162,7 @@ declare namespace GoogleAppsScript {
       getAs(contentType: string): Base.Blob;
       getBlob(): Base.Blob;
       getDateCreated(): Base.Date;
-      getDescription(): string;
+      getDescription(): string | null;
       getDownloadUrl(): string;
       getEditors(): User[];
       getId(): string;
@@ -167,9 +171,13 @@ declare namespace GoogleAppsScript {
       getName(): string;
       getOwner(): User;
       getParents(): FolderIterator;
+      getResourceKey(): string | null;
+      getSecurityUpdateEligible(): boolean;
+      getSecurityUpdateEnabled(): boolean;
       getSharingAccess(): Access;
       getSharingPermission(): Permission;
       getSize(): Integer;
+      getTargetId(): string | null;
       getThumbnail(): Base.Blob;
       getUrl(): string;
       getViewers(): User[];
@@ -180,6 +188,7 @@ declare namespace GoogleAppsScript {
       makeCopy(destination: Folder): File;
       makeCopy(name: string): File;
       makeCopy(name: string, destination: Folder): File;
+      moveTo(destination: Folder): File;
       removeCommenter(emailAddress: string): File;
       removeCommenter(user: Base.User): File;
       removeEditor(emailAddress: string): File;
@@ -193,6 +202,7 @@ declare namespace GoogleAppsScript {
       setName(name: string): File;
       setOwner(emailAddress: string): File;
       setOwner(user: Base.User): File;
+      setSecurityUpdateEnabled(enabled: boolean): File;
       setShareableByEditors(shareable: boolean): File;
       setSharing(accessType: Access, permissionType: Permission): File;
       setStarred(starred: boolean): File;
@@ -250,7 +260,7 @@ declare namespace GoogleAppsScript {
       getAccess(email: string): Permission;
       getAccess(user: Base.User): Permission;
       getDateCreated(): Base.Date;
-      getDescription(): string;
+      getDescription(): string | null;
       getEditors(): User[];
       getFiles(): FileIterator;
       getFilesByName(name: string): FileIterator;
@@ -262,6 +272,9 @@ declare namespace GoogleAppsScript {
       getName(): string;
       getOwner(): User;
       getParents(): FolderIterator;
+      getResourceKey(): string | null;
+      getSecurityUpdateEligible(): boolean;
+      getSecurityUpdateEnabled(): boolean;
       getSharingAccess(): Access;
       getSharingPermission(): Permission;
       getSize(): Integer;
@@ -270,6 +283,7 @@ declare namespace GoogleAppsScript {
       isShareableByEditors(): boolean;
       isStarred(): boolean;
       isTrashed(): boolean;
+      moveTo(destination: Folder): Folder;
       removeEditor(emailAddress: string): Folder;
       removeEditor(user: Base.User): Folder;
       removeFile(child: File): Folder;
@@ -284,6 +298,7 @@ declare namespace GoogleAppsScript {
       setName(name: string): Folder;
       setOwner(emailAddress: string): Folder;
       setOwner(user: Base.User): Folder;
+      setSecurityUpdateEnabled(enabled: boolean): Folder;
       setShareableByEditors(shareable: boolean): Folder;
       setSharing(accessType: Access, permissionType: Permission): Folder;
       setStarred(starred: boolean): Folder;
@@ -341,11 +356,7 @@ declare namespace GoogleAppsScript {
       getName(): string;
       /** Gets the URL for the user's photo. This method returns null if the user's photo is not available. */
       getPhotoUrl(): string;
-      /**
-       * Gets the user's email address.
-       * @deprecated As of June 24, 2013, replaced by getEmail()
-       */
-      getUserLoginId(): string;
+      /** @deprecated DO NOT USE */ getUserLoginId(): string;
     }
   }
 }

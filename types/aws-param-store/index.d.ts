@@ -1,6 +1,6 @@
 // Type definitions for aws-param-store 2.1
 // Project: https://github.com/vandium-io/aws-param-store#readme
-// Definitions by: Jason Gray <https://github.com/jasonthomasgray>
+// Definitions by: Jason Gray <https://github.com/jasonthomasgray>, Nathan Oertel <https://github.com/nathanoertel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -27,12 +27,12 @@ export function getParametersSync(
 ): SSM.Types.GetParametersResult;
 
 export function getParametersByPath(
-    path: SSM.Types.ParameterNameList,
+    path: SSM.Types.PSParameterName,
     options?: SSM.Types.ClientConfiguration
 ): Promise<SSM.Types.ParameterList>;
 
 export function getParametersByPathSync(
-    path: SSM.Types.ParameterNameList,
+    path: SSM.Types.PSParameterName,
     options?: SSM.Types.ClientConfiguration
 ): SSM.Types.ParameterList;
 

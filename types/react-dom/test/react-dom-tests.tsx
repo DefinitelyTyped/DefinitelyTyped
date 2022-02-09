@@ -13,17 +13,27 @@ describe('ReactDOM', () => {
     it('render', () => {
         const rootElement = document.createElement('div');
         ReactDOM.render(React.createElement('div'), rootElement);
+        ReactDOM.render(React.createElement('div'), document.createDocumentFragment());
+        ReactDOM.render(React.createElement('div'), document);
     });
 
     it('hydrate', () => {
         const rootElement = document.createElement('div');
         ReactDOM.hydrate(React.createElement('div'), rootElement);
+        ReactDOM.hydrate(React.createElement('div'), document.createDocumentFragment());
+        ReactDOM.hydrate(React.createElement('div'), document);
     });
 
     it('unmounts', () => {
         const rootElement = document.createElement('div');
         ReactDOM.render(React.createElement('div'), rootElement);
         ReactDOM.unmountComponentAtNode(rootElement);
+    });
+
+    it('works with document fragments', () => {
+        const fragment = document.createDocumentFragment();
+        ReactDOM.render(React.createElement('div'), fragment);
+        ReactDOM.unmountComponentAtNode(fragment);
     });
 
     it('find dom node', () => {
@@ -53,6 +63,21 @@ describe('ReactDOM', () => {
         ReactDOM.createPortal(React.createElement('div'), document.createElement('div'), 'key');
 
         ReactDOM.render(<ClassComponent />, rootElement);
+    });
+
+    it('flushSync', () => {
+        // $ExpectType void
+        ReactDOM.flushSync(() => {});
+        // $ExpectType number
+        ReactDOM.flushSync(() => 42);
+        // $ExpectType number
+        ReactDOM.flushSync(() => 42, 'not used');
+        // $ExpectType number
+        ReactDOM.flushSync((a: string) => 42, 'not used');
+        // $ExpectError
+        ReactDOM.flushSync((a: string) => 42);
+        // $ExpectError
+        ReactDOM.flushSync((a: string) => 42, 100);
     });
 });
 
@@ -182,20 +207,33 @@ describe('React dom test utils', () => {
     });
 
     describe('act', () => {
-        it('accepts a sync callback that is void', () => {
-            ReactTestUtils.act(() => {});
+        describe('with sync callback', () => {
+            it('accepts a callback that is void', () => {
+                ReactTestUtils.act(() => {});
+            });
+            it('rejects a callback that returns null', () => {
+                // $ExpectError
+                ReactTestUtils.act(() => null);
+            });
+            it('returns a type that is not Promise-like', () => {
+                // tslint:disable-next-line no-void-expression
+                const result = ReactTestUtils.act(() => {});
+                // $ExpectError
+                result.then((x) => {});
+            });
         });
-        it('accepts an async callback that is void', async () => {
-            await ReactTestUtils.act(async () => {});
-        });
-        it('rejects a callback that returns null', () => {
-            // $ExpectError
-            ReactTestUtils.act(() => null);
-        });
-        it('returns a Promise-like that errors out on use', () => {
-            const result = ReactTestUtils.act(() => {});
-            // $ExpectError
-            Promise.resolve(result);
+        describe('with async callback', () => {
+            it('accepts a callback that is void', async () => {
+                await ReactTestUtils.act(async () => {});
+            });
+            it('rejects a callback that returns a value', async () => {
+                // $ExpectError
+                await ReactTestUtils.act(async () => null);
+            });
+            it('returns a Promise-like', () => {
+                const result = ReactTestUtils.act(async () => {});
+                result.then((x) => {});
+            });
         });
     });
 });

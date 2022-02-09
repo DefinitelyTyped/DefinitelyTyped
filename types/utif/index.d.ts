@@ -18,10 +18,10 @@ export type TiffTag = string[] | number[];
  */
 // tslint:disable-next-line:interface-name
 export interface IFD {
-	[property: string]: TiffTag | number | Uint8Array;
-	data: Uint8Array;
-	width: number;
-	height: number;
+    [property: string]: TiffTag | number | Uint8Array;
+    data: Uint8Array;
+    width: number;
+    height: number;
 }
 
 /**

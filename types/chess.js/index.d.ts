@@ -1,22 +1,89 @@
-// Type definitions for chess.js 0.10
+// Type definitions for chess.js 0.11
 // Project: https://github.com/jhlywa/chess.js
 // Definitions by: Jacob Fischer <https://github.com/JacobFischer>
+//                 Zachary Svoboda <https://github.com/zacnomore>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 3.3
 
 /**
- * One of the possible sqaures on a chess board in san format,
+ * One of the possible squares on a chess board in san format,
  * e.g. "a8" to "h1".
  */
 export type Square =
-    "a8" | "b8" | "c8" | "d8" | "e8" | "f8" | "g8" | "h8" |
-    "a7" | "b7" | "c7" | "d7" | "e7" | "f7" | "g7" | "h7" |
-    "a6" | "b6" | "c6" | "d6" | "e6" | "f6" | "g6" | "h6" |
-    "a5" | "b5" | "c5" | "d5" | "e5" | "f5" | "g5" | "h5" |
-    "a4" | "b4" | "c4" | "d4" | "e4" | "f4" | "g4" | "h4" |
-    "a3" | "b3" | "c3" | "d3" | "e3" | "f3" | "g3" | "h3" |
-    "a2" | "b2" | "c2" | "d2" | "e2" | "f2" | "g2" | "h2" |
-    "a1" | "b1" | "c1" | "d1" | "e1" | "f1" | "g1" | "h1"
-;
+    | "a8"
+    | "b8"
+    | "c8"
+    | "d8"
+    | "e8"
+    | "f8"
+    | "g8"
+    | "h8"
+    | "a7"
+    | "b7"
+    | "c7"
+    | "d7"
+    | "e7"
+    | "f7"
+    | "g7"
+    | "h7"
+    | "a6"
+    | "b6"
+    | "c6"
+    | "d6"
+    | "e6"
+    | "f6"
+    | "g6"
+    | "h6"
+    | "a5"
+    | "b5"
+    | "c5"
+    | "d5"
+    | "e5"
+    | "f5"
+    | "g5"
+    | "h5"
+    | "a4"
+    | "b4"
+    | "c4"
+    | "d4"
+    | "e4"
+    | "f4"
+    | "g4"
+    | "h4"
+    | "a3"
+    | "b3"
+    | "c3"
+    | "d3"
+    | "e3"
+    | "f3"
+    | "g3"
+    | "h3"
+    | "a2"
+    | "b2"
+    | "c2"
+    | "d2"
+    | "e2"
+    | "f2"
+    | "g2"
+    | "h2"
+    | "a1"
+    | "b1"
+    | "c1"
+    | "d1"
+    | "e1"
+    | "f1"
+    | "g1"
+    | "h1";
+
+/**
+ * - "p" for Pawn
+ * - "n" for Knight
+ * - "b" for Bishop
+ * - "r" for Rook
+ * - "q" for Queen
+ * - "k" for King
+ */
+export type PieceType = "p" | "n" | "b" | "r" | "q" | "k";
 
 /**
  * Partial data about a chess move including the from and to square, and if a
@@ -37,12 +104,8 @@ export interface ShortMove {
 
     /**
      * If this move results in a promotion, this will have the unit promotion.
-     * - "n" for Knight
-     * - "b" for Bishop
-     * - "r" for Rook
-     * - "q" for Queen
      */
-    promotion?: "n" | "b" | "r" | "q";
+    promotion?: Exclude<PieceType, "p" | "k"> | undefined;
 }
 
 /**
@@ -61,40 +124,23 @@ export interface Move extends ShortMove {
 
     /**
      * The type of the piece that moved
-     * - "p" for Pawn
-     * - "n" for Knight
-     * - "b" for Bishop
-     * - "r" for Rook
-     * - "q" for Queen
-     * - "k" for King
      */
-    piece: "p" | "n" | "b" | "r" | "q" | "k";
+    piece: PieceType;
 
     /** The Standard Algebraic Notation (SAN) representation of the move */
     san: string;
 
     /**
-     * If an enemy piece was captured this is their type.
-     * - "p" for Pawn
-     * - "n" for Knight
-     * - "b" for Bishop
-     * - "r" for Rook
-     * - "q" for Queen
+     * If an enemy piece was captured this is their type
      */
-    captured?: "p" | "n" | "b" | "r" | "q";
+    captured?: Exclude<PieceType, "k"> | undefined;
 }
 
 export interface Piece {
     /**
      * The type of the piece to place
-     * - "p" for Pawn
-     * - "n" for Knight
-     * - "b" for Bishop
-     * - "r" for Rook
-     * - "q" for Queen
-     * - "k" for King
      */
-    type: "p" | "n" | "b" | "r" | "q" | "k";
+    type: PieceType;
 
     /**
      * The color of the piece
@@ -102,6 +148,11 @@ export interface Piece {
      * - "w" for White
      */
     color: "b" | "w";
+}
+
+export interface Comment {
+    fen: string;
+    comment: string;
 }
 
 export interface ChessInstance {
@@ -130,32 +181,88 @@ export interface ChessInstance {
 
     /** A list of all the squares in the game, from "a1" to "h8" */
     readonly SQUARES: [
-        "a8", "b8", "c8", "d8", "e8", "f8", "g8", "h8",
-        "a7", "b7", "c7", "d7", "e7", "f7", "g7", "h7",
-        "a6", "b6", "c6", "d6", "e6", "f6", "g6", "h6",
-        "a5", "b5", "c5", "d5", "e5", "f5", "g5", "h5",
-        "a4", "b4", "c4", "d4", "e4", "f4", "g4", "h4",
-        "a3", "b3", "c3", "d3", "e3", "f3", "g3", "h3",
-        "a2", "b2", "c2", "d2", "e2", "f2", "g2", "h2",
-        "a1", "b1", "c1", "d1", "e1", "f1", "g1", "h1"
+        "a8",
+        "b8",
+        "c8",
+        "d8",
+        "e8",
+        "f8",
+        "g8",
+        "h8",
+        "a7",
+        "b7",
+        "c7",
+        "d7",
+        "e7",
+        "f7",
+        "g7",
+        "h7",
+        "a6",
+        "b6",
+        "c6",
+        "d6",
+        "e6",
+        "f6",
+        "g6",
+        "h6",
+        "a5",
+        "b5",
+        "c5",
+        "d5",
+        "e5",
+        "f5",
+        "g5",
+        "h5",
+        "a4",
+        "b4",
+        "c4",
+        "d4",
+        "e4",
+        "f4",
+        "g4",
+        "h4",
+        "a3",
+        "b3",
+        "c3",
+        "d3",
+        "e3",
+        "f3",
+        "g3",
+        "h3",
+        "a2",
+        "b2",
+        "c2",
+        "d2",
+        "e2",
+        "f2",
+        "g2",
+        "h2",
+        "a1",
+        "b1",
+        "c1",
+        "d1",
+        "e1",
+        "f1",
+        "g1",
+        "h1",
     ];
 
     /** Flags used to build flag strings for moves */
     readonly FLAGS: {
         /** a non-capture */
-        NORMAL: "n",
+        NORMAL: "n";
         /** a standard capture */
-        CAPTURE: "c",
+        CAPTURE: "c";
         /** a pawn push of two squares */
-        BIG_PAWN: "b",
+        BIG_PAWN: "b";
         /** an en passant capture */
-        EP_CAPTURE: "e",
+        EP_CAPTURE: "e";
         /** a promotion */
-        PROMOTION: "p",
+        PROMOTION: "p";
         /** kingside castling */
-        KSIDE_CASTLE: "k",
+        KSIDE_CASTLE: "k";
         /** queenside castling */
-        QSIDE_CASTLE: "q",
+        QSIDE_CASTLE: "q";
     };
 
     /**
@@ -188,7 +295,7 @@ export interface ChessInstance {
          * The string to test if it is a valid move, if it is not then an
          * empty array is returned
          */
-        square?: string;
+        square?: string | undefined;
     }): Move[];
 
     /**
@@ -202,12 +309,12 @@ export interface ChessInstance {
      */
     moves(options?: {
         /** Set to true to return verbose move objects instead of strings */
-        verbose?: false;
+        verbose?: false | undefined;
         /**
          * The string to test if it is a valid move, if it is not then an
          * empty array is returned
          */
-        square?: string;
+        square?: string | undefined;
     }): string[];
 
     /**
@@ -221,12 +328,12 @@ export interface ChessInstance {
      */
     moves(options?: {
         /** Set to true to return verbose move objects instead of strings */
-        verbose?: boolean;
+        verbose?: boolean | undefined;
         /**
          * The string to test if it is a valid move, if it is not then an
          * empty array is returned
          */
-        square?: string;
+        square?: string | undefined;
     }): string[] | Move[];
 
     /**
@@ -318,9 +425,9 @@ export interface ChessInstance {
      */
     pgn(options?: {
         /** the maximum width of a line */
-        max_width?: number,
+        max_width?: number | undefined;
         /** Specific newline character */
-        newline_char?: string;
+        newline_char?: string | undefined;
     }): string;
 
     /**
@@ -331,28 +438,31 @@ export interface ChessInstance {
      * @returns The method will return true if the PGN was parsed successfully,
      * otherwise false.
      */
-    load_pgn(pgn: string, options?: {
-        /**
-         * The newline_char is a string representation of a valid RegExp
-         * fragment and is used to process the PGN.
-         * It defaults to \r?\n.
-         * Special characters should not be pre-escaped, but any literal
-         * special characters should be escaped as is normal for a RegExp.
-         * Keep in mind that backslashes in JavaScript strings must
-         * themselves be escaped.
-         * Avoid using a newline_char that may occur elsewhere in a PGN,
-         * such as . or x, as this will result in unexpected behavior.
-         */
-        newline_char?: string;
+    load_pgn(
+        pgn: string,
+        options?: {
+            /**
+             * The newline_char is a string representation of a valid RegExp
+             * fragment and is used to process the PGN.
+             * It defaults to \r?\n.
+             * Special characters should not be pre-escaped, but any literal
+             * special characters should be escaped as is normal for a RegExp.
+             * Keep in mind that backslashes in JavaScript strings must
+             * themselves be escaped.
+             * Avoid using a newline_char that may occur elsewhere in a PGN,
+             * such as . or x, as this will result in unexpected behavior.
+             */
+            newline_char?: string | undefined;
 
-        /**
-         * The sloppy flag is a boolean that permits chess.js to parse moves in
-         * non-standard notations.
-         * See .move documentation for more information about non-SAN
-         * notations.
-         */
-        sloppy?: boolean;
-    }): boolean;
+            /**
+             * The sloppy flag is a boolean that permits chess.js to parse moves in
+             * non-standard notations.
+             * See .move documentation for more information about non-SAN
+             * notations.
+             */
+            sloppy?: boolean | undefined;
+        },
+    ): boolean;
 
     /**
      * Allows header information to be added to PGN output.
@@ -391,13 +501,16 @@ export interface ChessInstance {
      * and the chess board's state changes.
      * If the move was invalid, null is returned and the state does not update.
      */
-    move(move: string | ShortMove, options?: {
-        /**
-         * An optional sloppy flag can be used to parse a variety of
-         * non-standard move notations.
-         */
-        sloppy?: boolean;
-    }): Move | null;
+    move(
+        move: string | ShortMove,
+        options?: {
+            /**
+             * An optional sloppy flag can be used to parse a variety of
+             * non-standard move notations.
+             */
+            sloppy?: boolean | undefined;
+        },
+    ): Move | null;
 
     /**
      * Take back the last half-move, returning a move object if successful,
@@ -472,7 +585,7 @@ export interface ChessInstance {
          * Pass true if you want this function to output verbose objects
          * instead of strings.
          */
-        verbose?: false;
+        verbose?: false | undefined;
     }): string[];
 
     /**
@@ -504,8 +617,20 @@ export interface ChessInstance {
          * Pass true if you want this function to output verbose objects
          * instead of strings.
          */
-        verbose?: boolean;
+        verbose?: boolean | undefined;
     }): string[] | Move[];
+
+    board(): Array<Array<{ type: PieceType; color: "w" | "b" } | null>>;
+
+    get_comment(): string | undefined;
+
+    set_comment(comment: string): void;
+
+    delete_comment(): string | undefined;
+
+    get_comments(): Comment[];
+
+    delete_comments(): Comment[];
 }
 
 /**

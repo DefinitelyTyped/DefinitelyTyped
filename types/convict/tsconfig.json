@@ -6,12 +6,17 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
         "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
         ],
+        "paths": {
+            "js-yaml": [
+                "js-yaml/v3"
+            ]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

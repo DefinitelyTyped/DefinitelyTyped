@@ -49,7 +49,7 @@ export declare function clearFields(form: string, keepTouched: boolean, persiste
 export declare function touch(form: string, ...fields: string[]): FormAction;
 export declare function unregisterField(form: string, name: string): FormAction;
 export declare function untouch(form: string, ...fields: string[]): FormAction;
-export declare function updateSyncErrors<T = any>(from: string, syncErrors: FormErrors<any, T>, error: T): FormAction;
+export declare function updateSyncErrors<T = any>(form: string, syncErrors: FormErrors<any, T>, error: T): FormAction;
 export declare function updateSyncWarnings<T = any>(form: string, syncWarnings: FormWarnings<any, T>, warning: T): FormAction;
 
 declare const actions: {
@@ -75,6 +75,7 @@ declare const actions: {
     initialize: typeof initialize,
     registerField: typeof registerField,
     reset: typeof reset,
+    resetSection: typeof resetSection,
     startAsyncValidation: typeof startAsyncValidation,
     startSubmit: typeof startSubmit,
     stopAsyncValidation: typeof stopAsyncValidation,

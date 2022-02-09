@@ -11,6 +11,7 @@ function example1() {
         .register({
             plugin: HapiPino,
             options: {
+                timestamp: () => `,"time":"${new Date(Date.now()).toISOString()}"`,
                 logPayload: false,
                 logRouteTags: false,
                 stream: process.stdout,
@@ -37,7 +38,7 @@ function example1() {
             },
         })
         .then(() => {
-            server.logger().debug('using logger object directly');
+            server.logger.debug('using logger object directly');
 
             server.route({
                 method: 'GET',
@@ -58,6 +59,7 @@ function example2() {
                 remove: true,
             },
             logRequestStart: true,
+            logRequestComplete: true,
             prettyPrint: {
                 levelFirst: true,
                 colorize: true,
@@ -80,5 +82,16 @@ function example3() {
             debug: 'debug',
         },
         redact: ['test.property'],
+    });
+}
+
+function example4() {
+    server.register({
+        plugin: HapiPino,
+        options: {
+            logRequestStart: (req: Request) => req.path !== '/ping',
+            logRequestComplete: (req: Request) => req.path !== '/ping',
+            getChildBindings: (req: Request) => ({}),
+        },
     });
 }

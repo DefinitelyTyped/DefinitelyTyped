@@ -361,7 +361,9 @@ function TestWebDriverTargetLocator() {
     let alert: webdriver.Alert = locator.alert();
     promise = locator.defaultContent();
     promise = locator.frame(1);
+    promise = locator.parentFrame();
     promise = locator.window('nameOrHandle');
+    promise = locator.newWindow('tab');
 }
 
 function TestWebDriverWindow() {
@@ -377,6 +379,8 @@ function TestWebDriverWindow() {
     locationPromise = window.getPosition();
     sizePromise = window.getSize();
     voidPromise = window.maximize();
+    voidPromise = window.minimize();
+    voidPromise = window.fullsceen();
     voidPromise = window.setPosition(12, 34);
     voidPromise = window.setSize(12, 34);
 }
@@ -519,56 +523,12 @@ function TestWebElementPromise() {
     elementPromise.then();
     elementPromise.then((element: webdriver.WebElement) => {});
     elementPromise.then((element: webdriver.WebElement) => {}, (error: any) => {});
-    elementPromise.then((element: webdriver.WebElement) => 'foo', (error: any) => {}).then((result: string) => {});
+    elementPromise.then((element: webdriver.WebElement) => 'foo', (error: any) => 'bar').then((result: string) => {});
 }
 
-function TestLogging() {
-    let preferences: webdriver.logging.Preferences = new webdriver.logging.Preferences();
-    preferences.setLevel(webdriver.logging.Type.BROWSER, webdriver.logging.Level.ALL);
-    let prefs: any = preferences.toJSON();
-
-    let level: webdriver.logging.Level = webdriver.logging.getLevel('OFF');
-    level = webdriver.logging.getLevel(1);
-
-    level = webdriver.logging.Level.ALL;
-    level = webdriver.logging.Level.DEBUG;
-    level = webdriver.logging.Level.INFO;
-    level = webdriver.logging.Level.OFF;
-    level = webdriver.logging.Level.SEVERE;
-    level = webdriver.logging.Level.WARNING;
-
-    let name: string = level.name;
-    let value: number = level.value;
-
-    let type: string;
-    type = webdriver.logging.Type.BROWSER;
-    type = webdriver.logging.Type.CLIENT;
-    type = webdriver.logging.Type.DRIVER;
-    type = webdriver.logging.Type.PERFORMANCE;
-    type = webdriver.logging.Type.SERVER;
-
-    let logger: webdriver.logging.Logger = webdriver.logging.getLogger();
-    webdriver.logging.addConsoleHandler();
-    webdriver.logging.addConsoleHandler(logger);
-    webdriver.logging.removeConsoleHandler();
-    webdriver.logging.removeConsoleHandler(logger);
-}
-
-function TestLoggingEntry() {
-    let entry: webdriver.logging.Entry;
-
-    entry = new webdriver.logging.Entry(webdriver.logging.Level.ALL, 'ABC');
-    entry = new webdriver.logging.Entry('ALL', 'ABC');
-    entry = new webdriver.logging.Entry(webdriver.logging.Level.ALL, 'ABC', 123);
-    entry = new webdriver.logging.Entry('ALL', 'ABC', 123);
-    entry = new webdriver.logging.Entry(webdriver.logging.Level.ALL, 'ABC', 123, webdriver.logging.Type.BROWSER);
-    entry = new webdriver.logging.Entry('ALL', 'ABC', 123, webdriver.logging.Type.BROWSER);
-
-    let entryObj: any = entry.toJSON();
-
-    let message: string = entry.message;
-    let timestamp: number = entry.timestamp;
-    let type: string = entry.type;
+function testCondition() {
+    const conditionString = new webdriver.Condition<string>('message', () => Math.random() > 0.5 ? 'foo' : null);
+    const conditionStringPromise = new webdriver.Condition<string>('message', async () => Math.random() > 0.5 ? 'foo' : null);
 }
 
 declare let stringPromise: Promise<string>;

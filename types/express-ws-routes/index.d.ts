@@ -12,22 +12,22 @@ import { Router as coreRouter } from 'express-serve-static-core';
 declare function expressWsRoutes(): expressWsRoutes.Express;
 
 declare namespace expressWsRoutes {
-	interface ClientInfo { origin: string; secure: boolean; req: Request; }
-	type WebSocketHandler = (socket: WebSocket) => void;
-	type CbHandler = (connectHandler: WebSocketHandler | boolean) => void;
-	type WebSocketRouteHandler = (info: ClientInfo, cb: CbHandler, next: NextFunction) => void;
+    interface ClientInfo { origin: string; secure: boolean; req: Request; }
+    type WebSocketHandler = (socket: WebSocket) => void;
+    type CbHandler = (connectHandler: WebSocketHandler | boolean) => void;
+    type WebSocketRouteHandler = (info: ClientInfo, cb: CbHandler, next: NextFunction) => void;
 
-	interface Server extends httpServer {
-		wsServer: WebSocket.Server;
-	}
+    interface Server extends httpServer {
+        wsServer: WebSocket.Server;
+    }
 
-	interface Express extends exExpress {
-		websocket(route: string, handler: WebSocketRouteHandler): Express;
-	}
+    interface Express extends exExpress {
+        websocket(route: string, handler: WebSocketRouteHandler): Express;
+    }
 
-	interface Router extends coreRouter {
-		websocket(route: string, handler: WebSocketRouteHandler): Router;
-	}
+    interface Router extends coreRouter {
+        websocket(route: string, handler: WebSocketRouteHandler): Router;
+    }
 }
 
 export = expressWsRoutes;

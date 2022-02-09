@@ -1,8 +1,8 @@
 import { _Window } from '../window/window';
-import { AnchorType, Bounds } from '../../shapes';
+import { AnchorType, Bounds } from '../../shapes/shapes';
 import { Base, EmitterBase } from '../base';
 import { ExternalWindowEvents } from '../events/externalWindow';
-import { Identity, ExternalWindowIdentity } from '../../identity';
+import { Identity } from '../../identity';
 import Transport from '../../transport/transport';
 /**
  * @lends ExternalWindow
@@ -13,13 +13,13 @@ export default class ExternalWindowModule extends Base {
      * an existing external window.<br>
      * Note: This method is restricted by default and must be enabled via
      * <a href="https://developers.openfin.co/docs/api-security">API security settings</a>.
-     * @param { Identity } identity
+     * @param { ExternalWindowIdentity } identity
      * @return {Promise.<ExternalWindow>}
      * @static
      * @experimental
      * @tutorial ExternalWindow.wrap
      */
-    wrap(identity: ExternalWindowIdentity): Promise<ExternalWindow>;
+    wrap(identity: Identity): Promise<ExternalWindow>;
 }
 /**
  * @classdesc An ExternalWindow is an OpenFin object representing a window that belongs to a non-openfin application.<br>
@@ -49,7 +49,7 @@ export declare class ExternalWindow extends EmitterBase<ExternalWindowEvents> {
      * @return {Promise.<void>}
      * @experimental
      * @tutorial Window.close
-    */
+     */
     close(): Promise<void>;
     /**
      * Flashes the external window’s frame and taskbar icon until stopFlashing is called.
@@ -71,7 +71,7 @@ export declare class ExternalWindow extends EmitterBase<ExternalWindowEvents> {
      * @return {Promise.<Bounds>}
      * @experimental
      * @tutorial Window.getBounds
-    */
+     */
     getBounds(): Promise<Bounds>;
     /**
      * Retrieves an array containing wrapped external windows that are grouped

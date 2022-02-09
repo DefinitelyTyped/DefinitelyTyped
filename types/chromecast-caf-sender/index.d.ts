@@ -11,7 +11,7 @@
 ////////////////////
 interface Window {
   cast: typeof cast;
-  __onGCastApiAvailable(available: boolean): void;
+  __onGCastApiAvailable(available: boolean, reason?: string): void;
 }
 
 ////////////////////
@@ -75,7 +75,8 @@ declare namespace cast.framework {
     DISPLAY_STATUS_CHANGED = "displayStatusChanged",
     MEDIA_INFO_CHANGED = "mediaInfoChanged",
     IMAGE_URL_CHANGED = "imageUrlChanged",
-    PLAYER_STATE_CHANGED = "playerStateChanged"
+    PLAYER_STATE_CHANGED = "playerStateChanged",
+    LIVE_SEEKABLE_RANGE_CHANGED = "liveSeekableRange"
   }
 
   enum ActiveInputState {
@@ -86,9 +87,9 @@ declare namespace cast.framework {
 
   interface CastOptions {
     autoJoinPolicy: chrome.cast.AutoJoinPolicy;
-    language?: string;
-    receiverApplicationId?: string;
-    resumeSavedSession?: boolean;
+    language?: string | undefined;
+    receiverApplicationId?: string | undefined;
+    resumeSavedSession?: boolean | undefined;
   }
 
   const VERSION: string;
@@ -236,7 +237,8 @@ declare namespace cast.framework {
     statusText: string;
     title: string;
     displayStatus: string;
-    mediaInfo?: chrome.cast.media.MediaInfo;
+    liveSeekableRange?: chrome.cast.media.LiveSeekableRange | undefined;
+    mediaInfo?: chrome.cast.media.MediaInfo | undefined;
     imageUrl: string | null;
     playerState: chrome.cast.media.PlayerState | null;
     savedPlayerState: SavedPlayerState | null;

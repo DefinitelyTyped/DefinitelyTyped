@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "dependencies": {
+        "@azure/functions": "^1.2"
+    }
+}

@@ -1,24 +1,32 @@
 {
-	"compilerOptions": {
-		"module": "commonjs",
-		"lib": [
-			"es6"
-		],
-		"noImplicitAny": true,
-		"noImplicitThis": true,
-		"strictNullChecks": true,
-		"strictFunctionTypes": true,
-		"esModuleInterop": true,
-		"baseUrl": "../",
-		"typeRoots": [
-			"../"
-		],
-		"types": [],
-		"noEmit": true,
-		"forceConsistentCasingInFileNames": true
-	},
-	"files": [
-		"index.d.ts",
-		"webpack-assets-manifest-tests.ts"
-	]
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "esModuleInterop": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "paths": {
+            "webpack": [
+                "./node_modules/webpack"
+            ],
+            "tapable": [
+                "./node_modules/tapable"
+            ]
+        },
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "webpack-assets-manifest-tests.ts"
+    ]
 }

@@ -15,9 +15,9 @@ declare module '@keystonejs/email' {
         send: (rendererOpts: any, transportOptions: any) => any;
     };
     interface MailSenderBuilder {
-        mjml: (opts?: { root?: string; transport?: string }) => Sender;
-        jsx: (opts?: { root?: string; transport?: string }) => Sender;
-        pug: (opts?: { root?: string; transport?: string }) => Sender;
+        mjml: (opts?: { root?: string | undefined; transport?: string | undefined }) => Sender;
+        jsx: (opts?: { root?: string | undefined; transport?: string | undefined }) => Sender;
+        pug: (opts?: { root?: string | undefined; transport?: string | undefined }) => Sender;
     }
 
     const emailSender: MailSenderBuilder;

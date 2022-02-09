@@ -1,4 +1,4 @@
-import Tweezer from 'tweezer.js';
+import Tweezer = require('tweezer.js');
 
 const tweezer = new Tweezer({
     start: 100,

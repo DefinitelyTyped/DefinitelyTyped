@@ -1,5 +1,19 @@
-import getFolderSize = require('get-folder-size');
+import fs = require("fs/promises");
+import getFolderSize from "get-folder-size";
 
-getFolderSize('.', (err: Error | null, size: number) => {});
+const myFolder = "/path/to/my/folder";
 
-getFolderSize('.', /types/, (err: Error | null, size: number) => {});
+(async () => {
+    // $ExpectType FolderSizeInfo
+    await getFolderSize(myFolder);
+    // $ExpectType number
+    await getFolderSize.loose(myFolder);
+    // $ExpectType number
+    await getFolderSize.loose(myFolder, { ignore: /ignore-path/, fs });
+    // $ExpectType number
+    await getFolderSize.strict(myFolder);
+    // $ExpectType number
+    await getFolderSize.strict(myFolder, {});
+    // $ExpectType number
+    await getFolderSize.strict(myFolder, { ignore: /ignore-path/, fs });
+})();

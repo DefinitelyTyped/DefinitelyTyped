@@ -21,6 +21,16 @@ gulp.src('./src/js/**/*.js')
     }))
     .pipe(gulp.dest('./build/js'));
 
+
+const customSort = (a: any, b: any): any[] => a;
+gulp.src('./src/js/**/*.js')
+    .pipe(sort({
+        customSortFn: function(files, comparator) {
+            return customSort(files, comparator);
+        }
+    }))
+    .pipe(gulp.dest('./build/js'));
+
 // sort with a custom comparator
 gulp.src('./src/js/**/*.js')
     .pipe(sort({

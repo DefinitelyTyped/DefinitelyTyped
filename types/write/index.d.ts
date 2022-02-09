@@ -10,9 +10,9 @@ import * as fs from "fs";
 type Data = string|Buffer|Uint8Array;
 
 interface CommonOptions {
-    newline?: boolean;
-    overwrite?: boolean;
-    increment?: boolean;
+    newline?: boolean | undefined;
+    overwrite?: boolean | undefined;
+    increment?: boolean | undefined;
 }
 
 type Options = Omit<fs.WriteFileOptions, "encoding"> &

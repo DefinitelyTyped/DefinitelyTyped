@@ -1,48 +1,58 @@
-import { EventEmitter } from "events";
-import SCClientSocket = require("socketcluster-client/lib/scclientsocket");
-import Hasher = require("./hasher");
-import { Secret } from "jsonwebtoken";
+import AsyncStreamEmitter = require('async-stream-emitter');
+import { AGClientSocket } from 'socketcluster-client';
+import { Secret } from 'jsonwebtoken';
+import AGChannel = require('ag-channel');
+import ConsumableStream = require('consumable-stream');
+
+import Hasher = require('./hasher');
 
 interface ClientPoolOptions {
-    clientCount?: number;
+    clientCount?: number | undefined;
     targetURI: string;
-    authKey?: Secret;
+    authKey?: Secret | undefined;
 }
 
 interface BrokenDownURI {
     hostname: string;
-    port?: string;
-    secure?: true;
+    port?: string | undefined;
+    secure?: true | undefined;
 }
 
-declare class ClientPool extends EventEmitter {
+declare class ClientPool extends AsyncStreamEmitter<any> {
     hasher: Hasher;
     clientCount: number;
     targetURI: string;
-    authKey?: Secret;
-    areClientListenersBound: boolean;
-    clients: SCClientSocket[];
+    authKey?: Secret | undefined;
+    clients: AGClientSocket[];
 
     constructor(options?: ClientPoolOptions);
 
-    on(event: "error", listener: (err: Error) => void): this;
-    on(event: "subscribe", listener: (data: ClientPool.SubscribeData) => void): this;
-    on(event: "subscribeFail", listener: (data: ClientPool.SubscribeFailData) => void): this;
-    on(event: "publish" | "publishFail", listener: (data: ClientPool.PublishData) => void): this;
+    emit(eventName: 'error', data: { error: Error }): void;
+    emit(eventName: 'subscribe', data: ClientPool.SubscribeData): void;
+    emit(eventName: 'subscribeFail', data: ClientPool.SubscribeFailData): void;
+    emit(eventName: 'publish', data: ClientPool.PublishData): void;
+    emit(eventName: 'publishFail', data: ClientPool.PublishFailData): void;
 
-    bindClientListeners(): void;
-    unbindClientListeners(): void;
+    listener(eventName: 'error'): ConsumableStream<{ error: Error }>;
+    listener(eventName: 'subscribe'): ConsumableStream<ClientPool.SubscribeData>;
+    listener(eventName: 'subscribeFail'): ConsumableStream<ClientPool.SubscribeFailData>;
+    listener(eventName: 'publish'): ConsumableStream<ClientPool.PublishData>;
+    listener(eventName: 'publishFail'): ConsumableStream<ClientPool.PublishFailData>;
 
     breakDownURI(uri: string): BrokenDownURI;
 
-    selectClient(key: string): SCClientSocket;
+    selectClient(key: string): AGClientSocket;
 
-    publish(channelName: string, data: any): void;
+    invokePublish(channelName: string, data: any): Promise<void>;
 
     subscriptions(includePending?: boolean): string[];
-    subscribeAndWatch(channelName: string, handler: (data: any) => void): void;
 
-    destroyChannel(channelName: string): void;
+    subscribe(channelName: string, options?: AGClientSocket.SubscribeOptions): AGChannel<any>;
+    unsubscribe(channelName: string): Promise<void>;
+    isSubscribed(channelName: string, includePending?: boolean): boolean;
+
+    closeChannel(channelName: string): void;
+
     destroy(): void;
 }
 
@@ -64,5 +74,12 @@ declare namespace ClientPool {
         poolIndex: number;
         channel: string;
         data: any;
+    }
+
+    interface PublishFailData {
+        targetURI: string;
+        poolIndex: number;
+        channel: string;
+        error: Error;
     }
 }

@@ -1,6 +1,7 @@
 import waitOn = require('wait-on');
+import { WaitOnOptions } from 'wait-on';
 
-const opts = {
+const opts: WaitOnOptions = {
     resources: [
         'file1',
         'http://foo.com:8000/bar',
@@ -16,6 +17,7 @@ const opts = {
     interval: 100, // poll interval in ms, default 250ms
     timeout: 30000, // timeout in ms, default Infinity
     tcpTimeout: 1000, // tcp timeout in ms, default 300ms
+    httpTimeout: 1000,
     window: 1000, // stabilization time in ms, default 750ms
 
     // http options
@@ -30,19 +32,26 @@ const opts = {
     ],
     passphrase: 'yourpassphrase',
     auth: {
-        user: 'theuser', // or username
-        pass: 'thepassword', // or password
+        username: 'theuser',
+        password: 'thepassword',
     },
-    httpSignature: {
-        keyId: 'yourKeyId',
-        key: 'yourKey',
+    validateStatus: (status: number) => {
+        return status === 401 || (status >= 200 && status < 300);
+    },
+    proxy: {
+        host: '127.0.0.1',
+        port: 9000,
+        auth: {
+            username: 'mikeymike',
+            password: 'rapunz3l',
+        },
     },
     strictSSL: false,
-    followAllRedirects: true,
     followRedirect: true,
     headers: {
         'x-custom': 'headers',
     },
+    simultaneous: 2,
 };
 
 const handleError = (err: any) => undefined;

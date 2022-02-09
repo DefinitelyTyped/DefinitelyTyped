@@ -1,4 +1,4 @@
-import { ComponentType, HTMLProps } from '@wordpress/element';
+import { ComponentType, HTMLProps } from 'react';
 
 declare namespace ColorIndicator {
     interface Props extends HTMLProps<HTMLSpanElement> {

@@ -36,7 +36,7 @@ declare namespace gitUrlParse {
         /** The organization the owner belongs to. This is CloudForge specific. */
         organization: string;
         /** Whether to add the `.git` suffix or not. */
-        git_suffix?: boolean;
+        git_suffix?: boolean | undefined;
         toString(type?: string): string;
     }
 

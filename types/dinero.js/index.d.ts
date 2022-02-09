@@ -1,9 +1,9 @@
-// Type definitions for dinero.js 1.6
+// Type definitions for dinero.js 1.9
 // Project: https://sarahdayan.github.io/dinero.js
 // Definitions by: BendingBender <https://github.com/BendingBender>
 //                 David Acosta <https://github.com/juandaco>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
 
 export as namespace Dinero;
 
@@ -21,16 +21,18 @@ declare namespace DineroFactory {
     let globalFormatRoundingMode: string;
     let globalExchangeRatesApi: ExchangeRatesApiOptions;
     function normalizePrecision(objects: ReadonlyArray<Dinero>): Dinero[];
+    function minimum(objects: ReadonlyArray<Dinero>): Dinero;
+    function maximum(objects: ReadonlyArray<Dinero>): Dinero;
 
     interface Options {
-        amount?: number;
-        currency?: Currency;
-        precision?: number;
+        amount?: number | undefined;
+        currency?: Currency | undefined;
+        precision?: number | undefined;
     }
 
     interface Dinero {
         getAmount(): number;
-        getCurrency(): string;
+        getCurrency(): Currency;
         getLocale(): string;
         setLocale(newLocale: string): Dinero;
         getPrecision(): number;
@@ -39,7 +41,7 @@ declare namespace DineroFactory {
         subtract(subtrahend: Dinero): Dinero;
         multiply(multiplier: number, roundingMode?: RoundingMode): Dinero;
         divide(divisor: number, roundingMode?: RoundingMode): Dinero;
-        percentage(percentage: number): Dinero;
+        percentage(percentage: number, roundingMode?: RoundingMode): Dinero;
         allocate(ratios: ReadonlyArray<number>): Dinero[];
         convert(currency: string, options?: ExchangeRatesApiOptions): Promise<Dinero>;
         equalsTo(comparator: Dinero): boolean;
@@ -61,7 +63,7 @@ declare namespace DineroFactory {
         toUnit(): number;
         toRoundedUnit(digits: number, roundingMode?: RoundingMode): number;
         toObject(): DineroObject;
-        toJson(): DineroObject;
+        toJSON(): DineroObject;
     }
 
     type RoundingMode =
@@ -70,13 +72,14 @@ declare namespace DineroFactory {
         | 'HALF_UP'
         | 'HALF_DOWN'
         | 'HALF_TOWARDS_ZERO'
-        | 'HALF_AWAY_FROM_ZERO';
+        | 'HALF_AWAY_FROM_ZERO'
+        | 'DOWN';
 
     interface ExchangeRatesApiOptions {
         endpoint: string | Promise<{[key: string]: any}>;
-        propertyPath: string;
-        headers?: { [header: string]: string };
-        roundingMode?: RoundingMode;
+        propertyPath?: string | undefined;
+        headers?: { [header: string]: string } | undefined;
+        roundingMode?: RoundingMode | undefined;
     }
 
     interface DineroObject {

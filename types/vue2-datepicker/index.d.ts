@@ -1,4 +1,4 @@
-// Type definitions for vue2-datepicker 2.12
+// Type definitions for vue2-datepicker 3.3
 // Project: https://github.com/mengxiong10/vue2-datepicker
 // Definitions by: ChristianStornowski <https://github.com/ChristianStornowski>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -16,15 +16,26 @@ declare namespace Datepicker {
         start: string;
         step: string;
         end: string;
+        format: string;
     }
 
     interface Lang {
-        days: string[];
-        months: string[];
-        pickers: string[];
-        placeholder: {
-            date: string;
-            dateRange: string;
+        days?: string[] | undefined;
+        months?: string[] | undefined;
+        yearFormat: string;
+        monthFormat: string;
+        monthBeforeYear: boolean;
+        formatLocale: {
+            months: string[];
+            monthsShort: string[];
+            weekdays: string[];
+            weekdaysShort: string[];
+            weekdaysMin: string[];
+            firstDayOfWeek: number;
+            firstWeekContainsDate: number;
+            meridiem: (h: number, _: number, isLowercase: boolean) => boolean;
+            meridiemParse: RegExp;
+            isPM: (input: string) => boolean;
         };
     }
 
@@ -32,43 +43,50 @@ declare namespace Datepicker {
         date: Date;
         timestamp: number;
         format: string;
-    }
-
-    interface TimeSelectOptions {
-        hours: number[];
-        minutes: number[];
-        seconds: number[];
+        token: string;
     }
 }
 
 declare const Datepicker: Component<any, any, any, {
-    type?: string;
-    range?: boolean;
-    format?: string;
-    valueType?: Datepicker.ValueType;
-    lang?: string | Datepicker.Lang;
-    clearable?: boolean;
-    confirm?: boolean;
-    editable?: boolean;
-    disabled?: boolean;
-    placeholder?: string;
-    width?: number | string;
-    appendToBody?: boolean;
-    defaultValue?: string;
-    popupStyle?: string;
-    notBefore?: string | Date;
-    notAfter?: string | Date;
-    disabledDays?: number[] | string[] | ((date: Date) => Date[]);
-    shortcuts?: boolean | Datepicker.Shortcuts[]
-    timePickerOptions?: Datepicker.TimePickerOptions[] | (() => Datepicker.TimePickerOptions[]);
-    timeSelectOptions?: Datepicker.TimeSelectOptions;
-    minuteStep?: number;
-    firstDayOfWeek?: number;
-    inputClass?: string;
-    inputAttr?: string;
-    confirmText?: string;
-    rangeSeparator?: string;
-    dateFormat?: string;
+    type?: 'date'|'datetime'|'year'|'month'|'time'|'week' | undefined;
+    range?: boolean | undefined;
+    format?: string | undefined;
+    valueType?: Datepicker.ValueType | undefined;
+    lang?: string | Datepicker.Lang | undefined;
+    clearable?: boolean | undefined;
+    confirm?: boolean | undefined;
+    editable?: boolean | undefined;
+    disabled?: boolean | undefined;
+    placeholder?: string | undefined;
+    appendToBody?: boolean | undefined;
+    defaultValue?: Date | undefined;
+    popupStyle?: (() => {}) | undefined;
+    shortcuts?: Datepicker.Shortcuts[] | undefined;
+    timePickerOptions?: Datepicker.TimePickerOptions | undefined;
+    minuteStep?: number | undefined;
+    inputClass?: string | undefined;
+    inputAttr?: (() => {}) | undefined;
+    confirmText?: string | undefined;
+    rangeSeparator?: string | undefined;
+    disabledDate?: ((date: Date) => boolean) | undefined;
+    disabledTime?: ((date: Date) => boolean) | undefined;
+    inline?: boolean | undefined;
+    open?: boolean | undefined
+    popupClass?: string | undefined;
+    titleFormat?: string | undefined;
+    partialUpdate?: boolean | undefined;
+    showWeekNumber?: boolean | undefined
+    hourStep?: number | undefined;
+    secondStep?: number | undefined;
+    hourOptions?: number[] | undefined;
+    minuteOptions?: number[] | undefined;
+    secondOptions?: number[] | undefined;
+    showHour?: boolean | undefined;
+    showMinute?: boolean | undefined;
+    showSecond?: boolean | undefined;
+    use12h?: boolean | undefined;
+    showTimeHeader?: boolean | undefined;
+    timeTitleFormat?: string | undefined;
 }>;
 
 export default Datepicker;

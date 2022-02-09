@@ -177,3 +177,19 @@ async function exampleDecrypt() {
         }
     });
 }
+
+async function exampleAsymmetricSign() {
+    const crypto = require('crypto');
+    const hash = crypto.createHash('sha384').update('[MESSAGE_TO_SIGN]');
+
+    const [asymmetricSignResult] = await kmsClient.asymmetricSign({
+        name: '[KEY_NAME]',
+        digest: {
+            sha384: hash.digest()
+        }
+    });
+
+    if (asymmetricSignResult != null) {
+        console.log(`Signed signature: ${asymmetricSignResult.signature.toString('utf8')}`);
+    }
+}

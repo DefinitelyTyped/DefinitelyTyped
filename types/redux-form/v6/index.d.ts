@@ -10,16 +10,16 @@
 
 import {
   ComponentClass,
-  StatelessComponent,
+  FunctionComponent,
   ReactElement
 } from "react";
 
 export type FieldValue = any;
 
 export interface FieldState {
-    active?: boolean;
-    touched?: boolean;
-    visited?: boolean;
+    active?: boolean | undefined;
+    touched?: boolean | undefined;
+    visited?: boolean | undefined;
     error?: any;
 }
 
@@ -30,11 +30,11 @@ export interface DataShape {
 }
 
 export type FormErrors<FormData extends DataShape> = {
-    [P in keyof FormData]?: ReactElement | string | { _error?: string };
+    [P in keyof FormData]?: ReactElement | string | { _error?: string | undefined };
 };
 
 export type FormWarnings<FormData extends DataShape> = {
-    [P in keyof FormData]?: ReactElement | string | { _warning?: string };
+    [P in keyof FormData]?: ReactElement | string | { _warning?: string | undefined };
 };
 
 export type FormMeta<FormData extends DataShape> = {
@@ -43,11 +43,11 @@ export type FormMeta<FormData extends DataShape> = {
 
 /**
  * A component class or stateless function component.
- * Workaround for: ComponentClass<P> | SFC<P> which does
+ * Workaround for: ComponentClass<P> | FC<P> which does
  * not resolve due to a bug in TypeScript.
  * https://github.com/Microsoft/TypeScript/pull/8674
  */
-export type ComponentConstructor<P> = ComponentClass<P> | StatelessComponent<P>;
+export type ComponentConstructor<P> = ComponentClass<P> | FunctionComponent<P>;
 
 export * from "./lib/reduxForm";
 export * from "./lib/Field";

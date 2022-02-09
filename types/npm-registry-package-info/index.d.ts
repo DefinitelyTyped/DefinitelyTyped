@@ -6,15 +6,15 @@
 declare namespace pkginfo {
     interface Options {
         /** Boolean indicating whether to return only the latest package information from a registry. */
-        latest?: boolean;
+        latest?: boolean | undefined;
         /** Array of package names (required). */
         packages: string[];
         /** Registry port. Default: 443 (HTTPS) or 80 (HTTP). */
-        port?: number;
+        port?: number | undefined;
         /** Registry protocol. Default: 'https'. */
-        protocol?: 'http' | 'https';
+        protocol?: 'http' | 'https' | undefined;
         /** Registry. Default: 'registry.npmjs.org'. */
-        registry?: string;
+        registry?: string | undefined;
     }
 
     interface Data {

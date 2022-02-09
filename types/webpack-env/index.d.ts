@@ -1,4 +1,4 @@
-// Type definitions for webpack (module API) 1.14
+// Type definitions for webpack (module API) 1.16
 // Project: https://github.com/webpack/webpack
 // Definitions by: use-strict <https://github.com/use-strict>
 //                 rhonsby <https://github.com/rhonsby>
@@ -10,6 +10,10 @@
  */
 
 declare namespace __WebpackModuleApi {
+    interface RequireResolve {
+        (id: string): string | number;
+    }
+
     interface RequireContext {
         keys(): string[];
         (id: string): any;
@@ -42,7 +46,7 @@ declare namespace __WebpackModuleApi {
          *
          * The module id is a number in webpack (in contrast to node.js where it is a string, the filename).
          */
-        resolve(path: string): number | string;
+        resolve: NodeJS.RequireResolve;
         /**
          * Like require.resolve, but doesn’t include the module into the bundle. It’s a weak dependency.
          */
@@ -55,20 +59,18 @@ declare namespace __WebpackModuleApi {
          * Multiple requires to the same module result in only one module execution and only one export. Therefore a cache in the runtime exists. Removing values from this cache cause new module execution and a new export. This is only needed in rare cases (for compatibility!).
          */
         cache: {
-            [id: string]: any;
+            [id: string]: NodeModule | undefined;
         }
     }
 
     interface Module {
         exports: any;
-        require(id: string): any;
-        require<T>(id: string): T;
         id: string;
         filename: string;
         loaded: boolean;
-        parent: any;
-        children: any[];
-        hot?: Hot;
+        parent: NodeModule | null | undefined;
+        children: NodeModule[];
+        hot?: Hot | undefined;
     }
     type ModuleId = string|number;
 
@@ -89,34 +91,34 @@ declare namespace __WebpackModuleApi {
         /**
          * For errors: the module id owning the accept handler.
          */
-        dependencyId?: number;
+        dependencyId?: number | undefined;
         /**
          * For declined/accepted/unaccepted: the chain from where the update was propagated.
          */
-        chain?: number[];
+        chain?: number[] | undefined;
         /**
          * For declined: the module id of the declining parent
          */
-        parentId?: number;
+        parentId?: number | undefined;
         /**
          * For accepted: the modules that are outdated and will be disposed
          */
-        outdatedModules?: number[];
+        outdatedModules?: number[] | undefined;
         /**
          * For accepted: The location of accept handlers that will handle the update
          */
         outdatedDependencies?: {
           [dependencyId: number]: number[];
-        };
+        } | undefined;
         /**
          * For errors: the thrown error
          */
-        error?: Error;
+        error?: Error | undefined;
         /**
          * For self-accept-error-handler-errored: the error thrown by the module
          * before the error handler tried to handle it.
          */
-        originalError?: Error;
+        originalError?: Error | undefined;
       }
 
     interface Hot {
@@ -124,14 +126,16 @@ declare namespace __WebpackModuleApi {
          * Accept code updates for the specified dependencies. The callback is called when dependencies were replaced.
          * @param dependencies
          * @param callback
+         * @param errorHandler
          */
-        accept(dependencies: string[], callback?: (updatedDependencies: ModuleId[]) => void): void;
+        accept(dependencies: string[], callback?: (updatedDependencies: ModuleId[]) => void, errorHandler?: (err: Error) => void): void;
         /**
          * Accept code updates for the specified dependencies. The callback is called when dependencies were replaced.
          * @param dependency
          * @param callback
+         * @param errorHandler
          */
-        accept(dependency: string, callback?: () => void): void;
+        accept(dependency: string, callback?: () => void, errorHandler?: (err: Error) => void): void;
         /**
          * Accept code updates for this module without notification of parents.
          * This should only be used if the module doesn’t export anything.
@@ -230,39 +234,39 @@ declare namespace __WebpackModuleApi {
         /**
          * If true the update process continues even if some modules are not accepted (and would bubble to the entry point).
          */
-        ignoreUnaccepted?: boolean;
+        ignoreUnaccepted?: boolean | undefined;
         /**
          * Ignore changes made to declined modules.
          */
-        ignoreDeclined?: boolean;
+        ignoreDeclined?: boolean | undefined;
         /**
          *  Ignore errors throw in accept handlers, error handlers and while reevaluating module.
          */
-        ignoreErrored?: boolean;
+        ignoreErrored?: boolean | undefined;
         /**
          * Notifier for declined modules.
          */
-        onDeclined?: (info: HotNotifierInfo) => void;
+        onDeclined?: ((info: HotNotifierInfo) => void) | undefined;
         /**
          * Notifier for unaccepted modules.
          */
-        onUnaccepted?: (info: HotNotifierInfo) => void;
+        onUnaccepted?: ((info: HotNotifierInfo) => void) | undefined;
         /**
          * Notifier for accepted modules.
          */
-        onAccepted?: (info: HotNotifierInfo) => void;
+        onAccepted?: ((info: HotNotifierInfo) => void) | undefined;
         /**
          * Notifier for disposed modules.
          */
-        onDisposed?: (info: HotNotifierInfo) => void;
+        onDisposed?: ((info: HotNotifierInfo) => void) | undefined;
         /**
          * Notifier for errors.
          */
-        onErrored?: (info: HotNotifierInfo) => void;
+        onErrored?: ((info: HotNotifierInfo) => void) | undefined;
         /**
          * Indicates that apply() is automatically called by check function
          */
-        autoApply?: boolean;
+        autoApply?: boolean | undefined;
     }
     /**
     * Inside env you can pass any variable
@@ -276,8 +280,7 @@ declare namespace __WebpackModuleApi {
     type RequireLambda = __Require1 & __Require2;
 }
 
-interface NodeRequire extends __WebpackModuleApi.RequireFunction {
-}
+interface NodeRequire extends NodeJS.Require {}
 
 declare var require: NodeRequire;
 
@@ -302,9 +305,8 @@ declare var __webpack_require__: any;
  * The internal chunk loading function
  *
  * @param chunkId The id for the chunk to load.
- * @param callback A callback function called once the chunk is loaded.
  */
-declare var __webpack_chunk_load__: (chunkId: any, callback: (require: __WebpackModuleApi.RequireLambda) => void) => void;
+declare var __webpack_chunk_load__: (chunkId: any) => Promise<any>;
 
 /**
  * Access to the internal object of all modules.
@@ -324,11 +326,33 @@ declare var __webpack_hash__: any;
 declare var __non_webpack_require__: any;
 
 /**
+ * Adds nonce to all scripts that webpack loads.
+ *
+ * To activate the feature a __webpack_nonce__ variable needs to be set in your entry script.
+ */
+declare var __webpack_nonce__: string;
+
+/**
  * Equals the config option debug
  */
 declare var DEBUG: boolean;
 
-interface NodeModule extends __WebpackModuleApi.Module {}
+interface ImportMeta {
+    /**
+     * `import.meta.webpackHot` is an alias for` module.hot` which is also available in strict ESM
+     */
+    webpackHot?: __WebpackModuleApi.Hot | undefined;
+    /**
+     * `import.meta.webpack` is the webpack major version as number
+     */
+    webpack: number;
+    /**
+     * `import.meta.url` is the `file:` url of the current file (similar to `__filename` but as file url)
+     */
+    url: string;
+}
+
+interface NodeModule extends NodeJS.Module {}
 
 declare var module: NodeModule;
 
@@ -337,5 +361,8 @@ declare var module: NodeModule;
 */
 declare namespace NodeJS {
     interface Process extends __WebpackModuleApi.NodeProcess {}
+    interface RequireResolve extends __WebpackModuleApi.RequireResolve {}
+    interface Module extends __WebpackModuleApi.Module {}
+    interface Require extends __WebpackModuleApi.RequireFunction {}
 }
 declare var process: NodeJS.Process;

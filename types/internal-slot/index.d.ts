@@ -1,6 +1,7 @@
 // Type definitions for internal-slot 1.0
 // Project: https://github.com/ljharb/internal-slot#readme
 // Definitions by: ExE Boss <https://github.com/ExE-Boss>
+//                 Jordan Harband <https://github.com/ljharb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 

@@ -6,34 +6,35 @@ import MutableArray from '@ember/array/mutable';
 type Person = typeof Person.prototype;
 const Person = EmberObject.extend({
     name: '',
-    isHappy: false
+    isHappy: false,
 });
 
-const people = A([
-    Person.create({ name: 'Yehuda', isHappy: true }),
-    Person.create({ name: 'Majd', isHappy: false }),
-]);
+const people = A([Person.create({ name: 'Yehuda', isHappy: true }), Person.create({ name: 'Majd', isHappy: false })]);
 
 assertType<number>(people.get('length'));
 assertType<Person>(people.get('lastObject'));
 assertType<Person>(people.get('firstObject'));
 assertType<boolean>(people.isAny('isHappy'));
-assertType<boolean>(people.isAny('isHappy', 'false'));
+assertType<boolean>(people.isAny('isHappy', false));
+assertType<boolean>(people.isAny('isHappy', "false")); // $ExpectError
+
+assertType<Person | undefined>(people.objectAt(0));
+assertType<EmberArray<Person | undefined>>(people.objectsAt([1, 2, 3]));
 
 const persons1: Person[] = people.filterBy('isHappy');
 const persons2: MutableArray<Person> = people.filterBy('isHappy');
 const persons3: Person[] = people.rejectBy('isHappy');
 const persons4: MutableArray<Person> = people.rejectBy('isHappy');
-const persons5: Person[] = people.filter((person) => person.get('name') === 'Yehuda');
-const persons6: MutableArray<Person> = people.filter((person) => person.get('name') === 'Yehuda');
+const persons5: Person[] = people.filter(person => person.get('name') === 'Yehuda');
+const persons6: MutableArray<Person> = people.filter(person => person.get('name') === 'Yehuda');
 
 assertType<typeof people>(people.get('[]'));
-assertType<Person>(people.get('[]').get('firstObject')); // $ExpectType any
+assertType<Person>(people.get('[]').get('firstObject'));
 
-assertType<boolean[]>(people.mapBy('isHappy')); // $ExpectType boolean[]
-assertType<any[]>(people.mapBy('name.length'));
+assertType<boolean[]>(people.mapBy('isHappy'));
+assertType<unknown[]>(people.mapBy('name.length'));
 
-const last = people.get('lastObject');  // $ExpectType ({ name: string; isHappy: boolean; } & EmberObject & { name: string; isHappy: boolean; }) | undefined
+const last = people.get('lastObject'); // $ExpectType ({ name: string; isHappy: boolean; } & EmberObject & { name: string; isHappy: boolean; }) | undefined
 if (last) {
     assertType<string>(last.get('name'));
 }
@@ -55,5 +56,9 @@ const filters = A(value.split(','));
 filters.push('4');
 filters.sort();
 
-const multiSortArr = A([{ k: 'a', v: 'z' }, { k: 'a', v: 'y' }, { k: 'b', v: 'c' }]);
+const multiSortArr = A([
+    { k: 'a', v: 'z' },
+    { k: 'a', v: 'y' },
+    { k: 'b', v: 'c' },
+]);
 multiSortArr.sortBy('k', 'v');

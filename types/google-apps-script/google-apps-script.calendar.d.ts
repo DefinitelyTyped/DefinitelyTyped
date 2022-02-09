@@ -1,6 +1,7 @@
-// Type definitions for Google Apps Script 2019-11-06
+// Type definitions for Google Apps Script 2020-01-02
 // Project: https://developers.google.com/apps-script/
-// Definitions by: motemen <https://github.com/motemen/>
+// Definitions by: PopGoesTheWza <https://github.com/PopGoesTheWza>
+//                 motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="google-apps-script.types.d.ts" />
@@ -230,7 +231,7 @@ declare namespace GoogleAppsScript {
       getEmail(): string;
       getGuestStatus(): GuestStatus;
       getName(): string;
-      /** @deprecated DO NOT USE */getStatus(): string;
+      /** @deprecated DO NOT USE */ getStatus(): string;
     }
     /**
      * Represents the recurrence settings for an event series.

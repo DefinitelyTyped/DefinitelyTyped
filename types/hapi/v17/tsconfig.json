@@ -7,7 +7,7 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
-        "strictFunctionTypes": false,
+        "strictFunctionTypes": true,
         "baseUrl": "../../",
         "typeRoots": [
             "../../"
@@ -16,6 +16,9 @@
         "paths": {
             "hapi": [
                 "hapi/v17"
+            ],
+            "hapi/*": [
+                "hapi/v17/*"
             ]
         },
         "noEmit": true,
@@ -59,7 +62,6 @@
         "test/server/server-expose.ts",
         "test/server/server-info.ts",
         "test/server/server-inject.ts",
-        "test/server/server-listener.ts",
         "test/server/server-load.ts",
         "test/server/server-lookup.ts",
         "test/server/server-match.ts",

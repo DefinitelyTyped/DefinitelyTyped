@@ -1,12 +1,8 @@
 import * as React from "react";
-import { ReactAttr } from "../../../typings/shared";
+import { ReactDivAttr } from "../../../typings/shared";
 
-interface InheritedProps {
-    id?: ReactAttr["id"],
-}
-
-export interface DatePickerSkeletonProps extends InheritedProps {
-    range?: boolean,
+export interface DatePickerSkeletonProps extends ReactDivAttr {
+    range?: boolean | undefined,
 }
 
 declare const DatePickerSkeleton: React.FC<DatePickerSkeletonProps>;

@@ -9,8 +9,8 @@
 // https://www.adobe.com/content/dam/acom/en/devnet/font/pdfs/5005.BDF_Spec.pdf
 
 export interface ParseOptions {
-  allprops?: boolean;
-  onlymeta?: boolean;
+  allprops?: boolean | undefined;
+  onlymeta?: boolean | undefined;
 }
 
 export interface BoundingBox {
@@ -38,28 +38,28 @@ export interface Properties {
   fontAscent: number;
   fontDescent: number;
 
-  addStyleName?: string;
-  averageWidth?: number;
-  capHeight?: number;
-  charsetEncoding?: string;
-  charsetRegistry?: string;
-  copyright?: string;
-  faceName?: string;
-  familyName?: string;
-  font?: string;
-  fontnameRegistry?: string;
-  fontVersion?: string;
-  foundry?: string;
-  notice?: string;
-  pixelSize?: number;
-  pointSize?: number;
-  resolutionX?: number;
-  resolutionY?: number;
-  setwidthName?: string;
-  slant?: string;
-  spacing?: string;
-  weightName?: string;
-  xHeight?: number;
+  addStyleName?: string | undefined;
+  averageWidth?: number | undefined;
+  capHeight?: number | undefined;
+  charsetEncoding?: string | undefined;
+  charsetRegistry?: string | undefined;
+  copyright?: string | undefined;
+  faceName?: string | undefined;
+  familyName?: string | undefined;
+  font?: string | undefined;
+  fontnameRegistry?: string | undefined;
+  fontVersion?: string | undefined;
+  foundry?: string | undefined;
+  notice?: string | undefined;
+  pixelSize?: number | undefined;
+  pointSize?: number | undefined;
+  resolutionX?: number | undefined;
+  resolutionY?: number | undefined;
+  setwidthName?: string | undefined;
+  slant?: string | undefined;
+  spacing?: string | undefined;
+  weightName?: string | undefined;
+  xHeight?: number | undefined;
 
   [key: string]: string | number | undefined;
 }
@@ -90,7 +90,7 @@ export interface Font {
 export function parse(text: string | Buffer, options?: ParseOptions): Font;
 
 export interface DrawOptions {
-  kerningBias?: number;
+  kerningBias?: number | undefined;
 }
 
 export interface Bitmap {

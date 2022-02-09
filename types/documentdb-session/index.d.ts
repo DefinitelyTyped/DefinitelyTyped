@@ -22,7 +22,7 @@ interface Options {
      *
      * @default `"sessions"`
      */
-    collection?: string;
+    collection?: string | undefined;
 
     /**
      * The ID of the database where the session data should be stored.
@@ -30,7 +30,7 @@ interface Options {
      *
      * @default `"sessionstore"`
      */
-    database?: string;
+    database?: string | undefined;
 
     /**
      * By default, `documentdb-session` sets a `"type"` attribute on each session document with a value of `"session"`,
@@ -40,7 +40,7 @@ interface Options {
      *
      * @default `{ type: "session" }`
      */
-    discriminator?: object;
+    discriminator?: object | undefined;
     /**
      * The URL / hostname of your DocumentDB database account, usually of the form `https://mydbaccount.documents.azure.com:443/`.
      * You can also provide this in an environment variable, (`DOCUMENTDB_URL`) instead.
@@ -59,5 +59,5 @@ interface Options {
      * See more on [**Configuring TTL**](https://github.com/dwhieb/documentdb-session#configuring-ttl-time-to-live-or-expiration-time).
      * *Enabling TTL is strongly recommended.*
      */
-    ttl?: number;
+    ttl?: number | undefined;
 }
