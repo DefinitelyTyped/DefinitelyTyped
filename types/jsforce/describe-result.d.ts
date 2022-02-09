@@ -82,7 +82,7 @@ export interface Field {
     deprecatedAndHidden: boolean;
     digits?: maybe<number> | undefined;
     displayLocationInDecimal?: maybe<boolean> | undefined;
-    encrypted?: maybe<true> | undefined;
+    encrypted?: maybe<boolean> | undefined;
     externalId: boolean;
     extraTypeInfo?: maybe<ExtraTypeInfo> | undefined;
     filterable: boolean;
