@@ -11,14 +11,14 @@ type lineTagPropsFunction = (lineNumber: number) => React.HTMLProps<HTMLElement>
 
 declare module 'react-syntax-highlighter' {
     export interface SyntaxHighlighterProps {
-        language?: string;
+        language?: string | undefined;
         style?: any;
         customStyle?: any;
-        lineProps?: lineTagPropsFunction | React.HTMLProps<HTMLElement>;
-        codeTagProps?: React.HTMLProps<HTMLElement>;
-        useInlineStyles?: boolean;
-        showLineNumbers?: boolean;
-        startingLineNumber?: number;
+        lineProps?: lineTagPropsFunction | React.HTMLProps<HTMLElement> | undefined;
+        codeTagProps?: React.HTMLProps<HTMLElement> | undefined;
+        useInlineStyles?: boolean | undefined;
+        showLineNumbers?: boolean | undefined;
+        startingLineNumber?: number | undefined;
         lineNumberStyle?: any;
         [spread: string]: any;
     }
@@ -37,7 +37,9 @@ declare module 'react-syntax-highlighter' {
 declare module 'react-syntax-highlighter/dist/esm/default-highlight' {
     import * as React from 'react';
     import { SyntaxHighlighterProps } from 'react-syntax-highlighter';
-    export default class SyntaxHighlighter extends React.Component<SyntaxHighlighterProps> {}
+    export default class SyntaxHighlighter extends React.Component<SyntaxHighlighterProps> {
+        static supportedLanguages: string[];
+    }
 }
 
 declare module 'react-syntax-highlighter/dist/esm/light-async' {
@@ -81,7 +83,9 @@ declare module 'react-syntax-highlighter/dist/esm/prism-light' {
 declare module 'react-syntax-highlighter/dist/esm/prism' {
     import * as React from 'react';
     import { SyntaxHighlighterProps } from 'react-syntax-highlighter';
-    export default class SyntaxHighlighter extends React.Component<SyntaxHighlighterProps> {}
+    export default class SyntaxHighlighter extends React.Component<SyntaxHighlighterProps> {
+        static supportedLanguages: string[];
+    }
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs' {
@@ -2946,7 +2950,9 @@ declare module 'react-syntax-highlighter/dist/esm/languages/prism/zig' {
 declare module 'react-syntax-highlighter/dist/cjs/default-highlight' {
     import * as React from 'react';
     import { SyntaxHighlighterProps } from 'react-syntax-highlighter';
-    export default class SyntaxHighlighter extends React.Component<SyntaxHighlighterProps> {}
+    export default class SyntaxHighlighter extends React.Component<SyntaxHighlighterProps> {
+        static supportedLanguages: string[];
+    }
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/light-async' {
@@ -2990,7 +2996,9 @@ declare module 'react-syntax-highlighter/dist/cjs/prism-light' {
 declare module 'react-syntax-highlighter/dist/cjs/prism' {
     import * as React from 'react';
     import { SyntaxHighlighterProps } from 'react-syntax-highlighter';
-    export default class SyntaxHighlighter extends React.Component<SyntaxHighlighterProps> {}
+    export default class SyntaxHighlighter extends React.Component<SyntaxHighlighterProps> {
+        static supportedLanguages: string[];
+    }
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs' {

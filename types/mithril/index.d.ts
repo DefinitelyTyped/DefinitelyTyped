@@ -37,7 +37,7 @@ declare namespace Mithril {
         /** The onupdate hook is called after a DOM element is updated, while attached to the document. */
         onupdate?(this: State, vnode: VnodeDOM<Attrs, State>): any;
         /** A key to optionally associate with this element. */
-        key?: string | number;
+        key?: string | number | undefined;
     }
 
     interface Hyperscript {
@@ -79,17 +79,17 @@ declare namespace Mithril {
 
     interface RouteOptions {
         /** Routing parameters. If path has routing parameter slots, the properties of this object are interpolated into the path string. */
-        replace?: boolean;
+        replace?: boolean | undefined;
         /** The state object to pass to the underlying history.pushState / history.replaceState call. */
         state?: any;
         /** The title string to pass to the underlying history.pushState / history.replaceState call. */
-        title?: string;
+        title?: string | undefined;
     }
 
     interface RouteLinkAttrs extends Attributes {
         href: string;
-        selector?: string | ComponentTypes<any>;
-        options?: RouteOptions;
+        selector?: string | ComponentTypes<any> | undefined;
+        options?: RouteOptions | undefined;
     }
 
     interface Route {
@@ -111,23 +111,23 @@ declare namespace Mithril {
 
     interface RequestOptions<T> {
         /** The HTTP method to use. */
-        method?: string;
+        method?: string | undefined;
         /** The data to be interpolated into the URL and serialized into the querystring. */
-        params?: { [key: string]: any };
+        params?: { [key: string]: any } | undefined;
         /** The data to be serialized into the request body. */
-        body?: (XMLHttpRequest['send'] extends (x: infer R) => any ? R : never) | (object & { [id: string]: any });
+        body?: (XMLHttpRequest['send'] extends (x: infer R) => any ? R : never) | (object & { [id: string]: any }) | undefined;
         /** Whether the request should be asynchronous. Defaults to true. */
-        async?: boolean;
+        async?: boolean | undefined;
         /** A username for HTTP authorization. */
-        user?: string;
+        user?: string | undefined;
         /** A password for HTTP authorization. */
-        password?: string;
+        password?: string | undefined;
         /** Whether to send cookies to 3rd party domains. */
-        withCredentials?: boolean;
+        withCredentials?: boolean | undefined;
         /** Exposes the underlying XMLHttpRequest object for low-level configuration. */
         config?(xhr: XMLHttpRequest, options: this): XMLHttpRequest | void;
         /** Headers to append to the request before sending it. */
-        headers?: { [key: string]: string };
+        headers?: { [key: string]: string } | undefined;
         /** A constructor to be applied to each object in the response. */
         type?: new (o: any) => any;
         /** A serialization method to be applied to data. Defaults to JSON.stringify, or if options.data is an instance of FormData, defaults to the identity function. */
@@ -141,28 +141,28 @@ declare namespace Mithril {
          * or the use of querystring for other HTTP methods when set to false.
          * Defaults to false for GET requests and true for other methods.
          */
-        useBody?: boolean;
+        useBody?: boolean | undefined;
         /** If false, redraws mounted components upon completion of the request. If true, it does not. */
-        background?: boolean;
+        background?: boolean | undefined;
         /** Milliseconds a request can take before automatically being terminated. */
-        timeout?: number;
+        timeout?: number | undefined;
         /** The expected type of the response, as a legal value of XMLHttpRequest.responseType. */
-        responseType?: '' | 'arraybuffer' | 'blob' | 'document' | 'json' | 'text';
+        responseType?: '' | 'arraybuffer' | 'blob' | 'document' | 'json' | 'text' | undefined;
     }
 
     interface JsonpOptions {
         /** The data to be interpolated into the URL and serialized into the querystring. */
-        params?: { [id: string]: any };
+        params?: { [id: string]: any } | undefined;
         /** The data to be serialized into the request body. */
         body?: any;
         /** A constructor to be applied to each object in the response. */
         type?: new (o: any) => any;
         /** The name of the function that will be called as the callback. */
-        callbackName?: string;
+        callbackName?: string | undefined;
         /** The name of the querystring parameter name that specifies the callback name. */
-        callbackKey?: string;
+        callbackKey?: string | undefined;
         /** If false, redraws mounted components upon completion of the request. If true, it does not. */
-        background?: boolean;
+        background?: boolean | undefined;
     }
 
     interface Redraw {
@@ -212,15 +212,15 @@ declare namespace Mithril {
         /** An object that is persisted between redraws. In component vnodes, state is a shallow clone of the component object. */
         state: State;
         /** The value used to map a DOM element to its respective item in an array of data. */
-        key?: string | number;
+        key?: string | number | undefined;
         /** In most vnode types, the children property is an array of vnodes. For text and trusted HTML vnodes, The children property is either a string, a number or a boolean. */
-        children?: ChildArrayOrPrimitive;
+        children?: ChildArrayOrPrimitive | undefined;
         /**
          * This is used instead of children if a vnode contains a text node as its only child.
          * This is done for performance reasons.
          * Component vnodes never use the text property even if they have a text node as their only child.
          */
-        text?: string | number | boolean;
+        text?: string | number | boolean | undefined;
     }
 
     // In some lifecycle methods, Vnode will have a dom property
@@ -229,7 +229,7 @@ declare namespace Mithril {
         /** Points to the element that corresponds to the vnode. */
         dom: Element;
         /** This defines the number of DOM elements that the vnode represents (starting from the element referenced by the dom property). */
-        domSize?: number;
+        domSize?: number | undefined;
     }
 
     type _NoLifecycle<T> = Omit<T, keyof Component>;
@@ -311,9 +311,9 @@ declare namespace Mithril {
     /** This represents the attributes available for configuring virtual elements, beyond the applicable DOM attributes. */
     interface Attributes extends CommonAttributes<any, any> {
         /** The class name(s) for this virtual element, as a space-separated list. */
-        className?: string;
+        className?: string | undefined;
         /** The class name(s) for this virtual element, as a space-separated list. */
-        class?: string;
+        class?: string | undefined;
         /** Any other virtual element properties, including attributes and event handlers. */
         [property: string]: any;
     }

@@ -3,7 +3,6 @@
 // Definitions by: Dániel Tar <https://github.com/qcz>
 //                 Alan Choi <https://github.com/alanhchoi>
 //                 Nic Barker <https://github.com/nicbarker>
-//                 Mitsuka Hanakura a.k.a ragg <https://github.com/ra-gg>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -25,17 +24,6 @@ declare namespace Mousetrap {
         unbind(keys: string | string[], action?: string): MousetrapInstance;
         trigger(keys: string, action?: string): MousetrapInstance;
         reset(): MousetrapInstance;
-
-        /** https://craig.is/killing/mice#extensions.global */
-        bindGlobal(
-            keyArray: string | string[],
-            callback: (e: ExtendedKeyboardEvent, combo: string) => any,
-            action?: string,
-        ): void;
-
-        /** https://craig.is/killing/mice#extensions.pause */
-        pause(): MousetrapInstance;
-        unpause(): MousetrapInstance;
     }
 
     interface MousetrapInstance {
@@ -49,14 +37,10 @@ declare namespace Mousetrap {
         trigger(keys: string, action?: string): this;
         handleKey(character: string, modifiers: string[], e: ExtendedKeyboardEvent): void;
         reset(): this;
-
-        /** https://craig.is/killing/mice#extensions.pause */
-        pause(): this;
-        unpause(): this;
     }
 }
 
-declare var Mousetrap: Mousetrap.MousetrapStatic;
+declare const Mousetrap: Mousetrap.MousetrapStatic;
 
 export = Mousetrap;
 

@@ -7,7 +7,7 @@
 // documentation taken from https://react-bootstrap-table.github.io/react-bootstrap-table2/docs/table-props.html
 
 import { CSSProperties, ReactNode } from 'react';
-import { ColumnDescription } from 'react-bootstrap-table-next';
+import { ColumnDescription, SearchProps } from 'react-bootstrap-table-next';
 
 /**
  * declaration for table toolkit sub module
@@ -26,37 +26,37 @@ export interface SearchMatchProps<T extends object = any> {
 }
 
 export interface TableSearchProps<T extends object = any> {
-    searchFormatted?: boolean;
-    defaultSearch?: string;
-    placeholder?: string;
-    onColumnMatch?: (props: SearchMatchProps<T>) => void;
-    customMatchFunc?: (props: SearchMatchProps<T>) => boolean;
+    searchFormatted?: boolean | undefined;
+    defaultSearch?: string | undefined;
+    placeholder?: string | undefined;
+    onColumnMatch?: ((props: SearchMatchProps<T>) => void) | undefined;
+    customMatchFunc?: ((props: SearchMatchProps<T>) => boolean) | undefined;
 }
 
 export interface CSVProps {
-    fileName?: string;
-    separator?: string;
-    ignoreHeader?: boolean;
-    noAutoBOM?: boolean;
+    fileName?: string | undefined;
+    separator?: string | undefined;
+    ignoreHeader?: boolean | undefined;
+    noAutoBOM?: boolean | undefined;
     /**
      * default is text/plain;charset=utf-8
      */
-    blobType?: string;
-    exportAll?: boolean;
-    onlyExportSelection?: boolean;
-    onlyExportFiltered?: boolean;
+    blobType?: string | undefined;
+    exportAll?: boolean | undefined;
+    onlyExportSelection?: boolean | undefined;
+    onlyExportFiltered?: boolean | undefined;
 }
 
 export interface TableToolkitProps<T extends object = any> {
-    bootstrap4?: boolean;
-    search?: TableSearchProps<T> | boolean;
+    bootstrap4?: boolean | undefined;
+    search?: TableSearchProps<T> | boolean | undefined;
     keyField: keyof T | string;
     data: T[];
     ref?: any;
     columns: Array<ColumnDescription<T>>;
     children: (props: ToolkitContextType) => JSX.Element;
-    exportCSV?: boolean | CSVProps;
-    columnToggle?: boolean;
+    exportCSV?: boolean | CSVProps | undefined;
+    columnToggle?: boolean | undefined;
 }
 
 export interface ToolkitContextType {
@@ -79,7 +79,7 @@ export interface ToolkitContextType {
         keyField: any;
         columns: ColumnDescription[];
         data: any[];
-        bootstrap4?: boolean;
+        bootstrap4?: boolean | undefined;
     };
 }
 
@@ -90,9 +90,9 @@ export interface ToggleListProps {
      */
     toggles: boolean[];
     onColumnToggle: (dataField: string) => void;
-    btnClassName?: string;
-    className?: string;
-    contextual?: string;
+    btnClassName?: string | undefined;
+    className?: string | undefined;
+    contextual?: string | undefined;
 }
 
 export namespace ColumnToggle {
@@ -102,27 +102,26 @@ export namespace ColumnToggle {
 export interface ExportCSVButtonProps {
     children: ReactNode;
     onExport: () => void;
-    style?: CSSProperties;
-    className?: string;
+    style?: CSSProperties | undefined;
+    className?: string | undefined;
 }
 
 export namespace CSVExport {
     function ExportCSVButton(props: ExportCSVButtonProps): React.ReactElement | null;
 }
 
-export interface SearchBarProps {
-    onSearch: (searchText: string) => void;
-    className?: string;
-    placeholder?: string;
-    style?: CSSProperties;
-    delay?: number;
-    searchText?: string;
-    tableId?: string;
+export interface SearchBarProps<T = any> extends SearchProps<T> {
+    className?: string | undefined;
+    style?: CSSProperties | undefined;
+    delay?: number | undefined;
+    searchText?: string | undefined;
+    tableId?: string | undefined;
+    ref?: React.RefObject<React.Component<SearchProps<T>>>;
 }
 export interface ClearSearchButtonProps {
-    onClear?: () => void;
-    className?: string;
-    text?: string;
+    onClear?: (() => void) | undefined;
+    className?: string | undefined;
+    text?: string | undefined;
 }
 
 export namespace Search {

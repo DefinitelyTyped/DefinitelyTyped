@@ -11,6 +11,7 @@ export type FirehoseTransformationCallback = Callback<FirehoseTransformationResu
 export interface FirehoseTransformationEvent {
     invocationId: string;
     deliveryStreamArn: string;
+    sourceKinesisStreamArn?: string | undefined;
     region: string;
     records: FirehoseTransformationEventRecord[];
 }
@@ -20,7 +21,7 @@ export interface FirehoseTransformationEventRecord {
     approximateArrivalTimestamp: number;
     /** Base64 encoded */
     data: string;
-    kinesisRecordMetadata?: FirehoseRecordMetadata;
+    kinesisRecordMetadata?: FirehoseRecordMetadata | undefined;
 }
 
 export interface FirehoseRecordMetadata {
@@ -33,11 +34,16 @@ export interface FirehoseRecordMetadata {
 
 export type FirehoseRecordTransformationStatus = 'Ok' | 'Dropped' | 'ProcessingFailed';
 
+export interface FirehoseTransformationMetadata {
+    partitionKeys: { [name: string]: string };
+}
+
 export interface FirehoseTransformationResultRecord {
     recordId: string;
     result: FirehoseRecordTransformationStatus;
     /** Encode in Base64 */
     data: string;
+    metadata?: FirehoseTransformationMetadata;
 }
 
 export interface FirehoseTransformationResult {

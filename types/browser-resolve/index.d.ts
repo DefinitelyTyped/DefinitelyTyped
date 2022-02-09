@@ -28,29 +28,29 @@ declare namespace resolve {
         /**
          * directory to begin resolving from
          */
-        basedir?: string;
+        basedir?: string | undefined;
         /**
          * the 'browser' property to use from package.json
          * @default 'browser'
          */
-        browser?: string;
+        browser?: string | undefined;
         /**
          * the calling filename where the require() call originated (in the source)
          */
-        filename?: string;
+        filename?: string | undefined;
         /**
          * modules object with id to path mappings to consult before doing manual resolution
          * (use to provide core modules)
          */
-        modules?: { [id: string]: string };
+        modules?: { [id: string]: string } | undefined;
         /**
          * transform the parsed package.json contents before looking at the main field
          */
-        packageFilter?: (info: any, pkgdir: string) => any;
+        packageFilter?: ((info: any, pkgdir: string) => any) | undefined;
         /**
          * require.paths array to use if nothing is found on the normal node_modules recursive walk
          */
-        paths?: string[];
+        paths?: string[] | undefined;
     }
 
     type AsyncOpts = resv.AsyncOpts & Opts;

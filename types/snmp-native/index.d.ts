@@ -168,8 +168,8 @@ export class Session {
     getAll(
         options: {
             oids: OID[];
-            abortOnError?: boolean;
-            combinedTimeout?: number;
+            abortOnError?: boolean | undefined;
+            combinedTimeout?: number | undefined;
         } & Options,
         callback: ResponseCallback
     ): void;
@@ -204,7 +204,7 @@ export class Session {
     getSubtree(
         options: {
             oid: OID;
-            combinedTimeout?: number;
+            combinedTimeout?: number | undefined;
         } & Options,
         callback: ResponseCallback
     ): void;
@@ -237,7 +237,7 @@ export class Session {
     set(
         options: {
             oid: OID;
-            type?: DataTypes[keyof DataTypes] | null,
+            type?: DataTypes[keyof DataTypes] | null | undefined,
             value?: any;
         } & Options,
         callback?: ResponseCallback
@@ -287,12 +287,12 @@ export interface SessionOptions extends Options {
      * The UDP port used to bind the socket locally, or 0 to use a
      * random port.
      */
-    bindPort?: number;
+    bindPort?: number | undefined;
     /**
      * Address family to bind to. This is only used by the Session
      * constructor since that is when the bind is done.
      */
-    family?: 'udp4' | 'udp6';
+    family?: 'udp4' | 'udp6' | undefined;
     /**
      * Function responsible for handling incoming messages and sending UDP
      * responses back. If nothing is given here, the default implementation
@@ -311,15 +311,15 @@ export interface Options {
      * The host to send the request to. Any resolvable name is allowed in
      * addition to IP addresses.
      */
-    host?: string;
+    host?: string | undefined;
     /**
      * The UDP port number to send the request to.
      */
-    port?: number;
+    port?: number | undefined;
     /**
      * The SNMP community name.
      */
-    community?: string;
+    community?: string | undefined;
     /**
      * An array of timeout values. Values are times in milliseconds, the
      * length of the array is the total number of transmissions that will
@@ -333,7 +333,7 @@ export interface Options {
      * [ 5000 ] // Disable re-transmission
      *
      */
-    timeouts?: number[];
+    timeouts?: number[] | undefined;
 }
 
 /**
@@ -379,7 +379,7 @@ export interface VarBind {
     /**
      * For octet string values, this is a hex string representation of the value.
      */
-    valueHex?: string;
+    valueHex?: string | undefined;
     /**
      * The timestamp (in milliseconds) when the response was received.
      */

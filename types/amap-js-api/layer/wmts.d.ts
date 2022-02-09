@@ -2,10 +2,10 @@ declare namespace AMap {
     namespace TileLayer {
         namespace WMTS {
             interface Params {
-                Version?: string;
-                Layer?: string;
-                Style?: string;
-                Format?: string;
+                Version?: string | undefined;
+                Layer?: string | undefined;
+                Style?: string | undefined;
+                Format?: string | undefined;
             }
             interface Options extends Flexible.Options {
                 /**
@@ -19,7 +19,7 @@ declare namespace AMap {
                 /**
                  * 地图级别切换时，不同级别的图片是否进行混合
                  */
-                blend?: boolean;
+                blend?: boolean | undefined;
             }
         }
 

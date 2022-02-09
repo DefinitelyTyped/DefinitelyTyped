@@ -2,12 +2,12 @@ import { RemoteCallbacks } from './remote-callbacks';
 import { Strarray } from './str-array';
 
 export class FetchOptions {
-    version?: number;
-    callbacks?: RemoteCallbacks;
-    prune?: number;
-    updateFetchhead?: number;
-    downloadTags?: number;
-    customHeaders?: Strarray | string | string[];
+    version?: number | undefined;
+    callbacks?: RemoteCallbacks | undefined;
+    prune?: number | undefined;
+    updateFetchhead?: number | undefined;
+    downloadTags?: number | undefined;
+    customHeaders?: Strarray | string | string[] | undefined;
     proxyOpts?: any;
     [key: string]: any;
 }

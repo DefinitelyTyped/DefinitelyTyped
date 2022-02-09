@@ -1,6 +1,6 @@
 // Type definitions for ffmpeg-concat 1.1
 // Project: https://github.com/transitive-bullshit/ffmpeg-concat
-// Definitions by: Weslen Nascimento <https://github.com/weslenng>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface Transition {
@@ -10,15 +10,15 @@ interface Transition {
 }
 
 interface ConcatOptions {
-    audio?: string;
-    cleanupFrames?: boolean;
-    concurrency?: number;
-    frameFormat?: 'jpg' | 'png' | 'raw';
-    log?: (stdout: string) => void;
+    audio?: string | undefined;
+    cleanupFrames?: boolean | undefined;
+    concurrency?: number | undefined;
+    frameFormat?: 'jpg' | 'png' | 'raw' | undefined;
+    log?: ((stdout: string) => void) | undefined;
     output: string;
-    tempDir?: string;
-    transition?: Transition;
-    transitions?: ReadonlyArray<Transition>;
+    tempDir?: string | undefined;
+    transition?: Transition | undefined;
+    transitions?: ReadonlyArray<Transition> | undefined;
     videos: ReadonlyArray<string>;
 }
 

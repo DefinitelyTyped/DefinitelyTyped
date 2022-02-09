@@ -1,4 +1,4 @@
-// Type definitions for simpl-schema 1.10
+// Type definitions for simpl-schema 1.12
 // Project: https://github.com/aldeed/simpl-schema
 // Definitions by: Andreas Richter <https://github.com/arichter83>
 //                 Qkramer <https://github.com/Qkramer>
@@ -46,7 +46,7 @@ interface CustomValidationContext {
     value: any;
 
     /** The Mongo operator for which we're doing validation. Might be null. */
-    operator?: string | null;
+    operator?: string | null | undefined;
 
     /** The current validation context */
     validationContext: ValidationContext;
@@ -90,53 +90,56 @@ export interface AutoValueContext {
     parentField: () => FieldInfo;
     siblingField: (fieldName: string) => FieldInfo;
     unset: () => void;
-    value?: FieldInfo['value'];
+    value?: FieldInfo['value'] | undefined;
 }
 
 type Validator = (this: CustomValidationContext) => undefined | string | SimpleSchemaValidationError;
 
 export interface SchemaDefinition {
     type: any;
-    label?: string | (() => string);
-    optional?: boolean | (() => boolean);
-    min?: number | boolean | Date | (() => number | boolean | Date);
-    max?: number | boolean | Date | (() => number | boolean | Date);
-    minCount?: number | (() => number);
-    maxCount?: number | (() => number);
-    allowedValues?: any[] | (() => any[]);
-    decimal?: boolean;
-    exclusiveMax?: boolean;
-    exclusiveMin?: boolean;
-    regEx?: RegExp | RegExp[];
+    label?: string | (() => string) | undefined;
+    optional?: boolean | (() => boolean) | undefined;
+    min?: number | boolean | Date | (() => number | boolean | Date) | undefined;
+    max?: number | boolean | Date | (() => number | boolean | Date) | undefined;
+    minCount?: number | (() => number) | undefined;
+    maxCount?: number | (() => number) | undefined;
+    allowedValues?: any[] | (() => any[]) | undefined;
+    decimal?: boolean | undefined;
+    exclusiveMax?: boolean | undefined;
+    exclusiveMin?: boolean | undefined;
+    regEx?: RegExp | RegExp[] | undefined;
     /**
      * For custom validation function. If you use an arrow function the context
      * for "this" will not be available. Use "custom: function() { return
      * something(this.value); }" instead.
      */
-    custom?: Validator;
-    blackbox?: boolean;
-    autoValue?: (this: AutoValueContext) => any;
+    custom?: Validator | undefined;
+    blackbox?: boolean | undefined;
+    autoValue?: ((this: AutoValueContext) => any) | undefined;
     defaultValue?: any;
-    trim?: boolean;
+    trim?: boolean | undefined;
 }
 
 interface CleanOption {
-    filter?: boolean;
-    autoConvert?: boolean;
-    removeEmptyStrings?: boolean;
-    trimStrings?: boolean;
-    getAutoValues?: boolean;
-    isModifier?: boolean;
-    extendAutoValueContext?: boolean;
-    removeNullsFromArrays?: boolean;
+    filter?: boolean | undefined;
+    autoConvert?: boolean | undefined;
+    removeEmptyStrings?: boolean | undefined;
+    trimStrings?: boolean | undefined;
+    getAutoValues?: boolean | undefined;
+    isModifier?: boolean | undefined;
+    extendAutoValueContext?: boolean | undefined;
+    removeNullsFromArrays?: boolean | undefined;
+    mutate?: boolean | undefined;
+    isUpsert?: boolean | undefined;
+    mongoObject?: boolean | undefined;
 }
 
 interface SimpleSchemaOptions {
-  check?: typeof check;
-  clean?: CleanOption;
-  defaultLabel?: string;
-  humanizeAutoLabels?: boolean;
-  requiredByDefault?: boolean;
+  check?: typeof check | undefined;
+  clean?: CleanOption | undefined;
+  defaultLabel?: string | undefined;
+  humanizeAutoLabels?: boolean | undefined;
+  requiredByDefault?: boolean | undefined;
   tracker?: any;
 }
 
@@ -198,7 +201,7 @@ export class SimpleSchema {
   objectKeys(keyPrefix?: any): any[];
   validate(obj: any, options?: ValidationOption): void;
   static validate(obj: any, schema: SimpleSchema, options?: ValidationOption): void;
-  validator(options?: ValidationOption): (obj: any) => boolean;
+  validator(options?: ValidatorOption): (obj: any) => boolean;
   extend(otherSchema: SimpleSchema | SimpleSchemaDefinition): SimpleSchema;
   static extendOptions(options: ReadonlyArray<string>): void;
   static RegEx: {
@@ -237,35 +240,20 @@ export class SimpleSchema {
 }
 
 interface ValidationOption {
-    modifier?: boolean;
-    upsert?: boolean;
-    clean?: boolean;
-    filter?: boolean;
-    upsertextendedCustomContext?: boolean;
-    keys?: string[];
+    modifier?: boolean | undefined;
+    upsert?: boolean | undefined;
+    extendedCustomContext?: Record<string, any> | undefined;
+    ignore?: string[];
+    keys?: string[] | undefined;
 }
 
-interface SimpleSchemaValidationContextStaticKeys {
-    name: string;
-    type: string;
-    value?: any;
-}
-
-interface SimpleSchemaError {
-    name: string;
-    type: string;
-}
+type ValidatorOption = ({clean: true} & ValidationOption & CleanOption) | ({clean?: false | undefined} & ValidationOption);
 
 interface SimpleSchemaValidationContextStatic {
     validate(obj: any, options?: ValidationOption): boolean;
-    validateOne(doc: any, keyName: string, options?: ValidationOption): boolean;
-    resetValidation(): void;
     isValid(): boolean;
-    invalidKeys(): SimpleSchemaValidationContextStaticKeys[];
-    addInvalidKeys(errors: ReadonlyArray<SimpleSchemaError>): void;
     keyIsInvalid(name: any): boolean;
     keyErrorMessage(name: any): string;
-    getErrorObject(): any;
 }
 
 interface MongoObjectStatic {
@@ -288,7 +276,7 @@ interface MongoObjectStatic {
     setValueForKey(key: string, val: any): void;
     setValueForGenericKey(key: string, val: any): void;
     getObject(): any;
-    getFlatObject(options?: {keepArrays?: boolean}): any;
+    getFlatObject(options?: {keepArrays?: boolean | undefined}): any;
     affectsKey(key: string): any;
     affectsGenericKey(key: string): any;
     affectsGenericKeyImplicit(key: string): any;

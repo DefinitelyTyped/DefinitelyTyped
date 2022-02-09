@@ -18,6 +18,7 @@
     },
     "files": [
         "index.d.ts",
-        "luxon-tests.ts"
+        "test/luxon-tests.global.ts",
+        "test/luxon-tests.module.ts"
     ]
 }

@@ -249,7 +249,7 @@ export interface ojDiagram<K1, K2, D1, D2> extends dvtBaseComponent<ojDiagramSet
                 height: number;
                 pattern: 'smallChecker' | 'smallCrosshatch' | 'smallDiagonalLeft' | 'smallDiagonalRight' | 'smallDiamond' | 'smallTriangle' | 'largeChecker' | 'largeCrosshatch' | 'largeDiagonalLeft' |
                    'largeDiagonalRight' | 'largeDiamond' | 'largeTriangle' | 'none';
-                shape?: 'circle' | 'diamond' | 'ellipse' | 'human' | 'plus' | 'rectangle' | 'square' | 'star' | 'triangleDown' | 'triangleUp' | string;
+                shape?: 'circle' | 'diamond' | 'ellipse' | 'human' | 'plus' | 'rectangle' | 'square' | 'star' | 'triangleDown' | 'triangleUp' | string | undefined;
                 source: string;
                 sourceHover: string;
                 sourceHoverSelected: string;
@@ -283,26 +283,26 @@ export interface ojDiagram<K1, K2, D1, D2> extends dvtBaseComponent<ojDiagramSet
     } | void) | null;
     zooming: 'auto' | 'none';
     translations: {
-        componentName?: string;
-        labelAndValue?: string;
-        labelClearSelection?: string;
-        labelCountWithTotal?: string;
-        labelDataVisualization?: string;
-        labelInvalidData?: string;
-        labelNoData?: string;
-        promotedLink?: string;
-        promotedLinkAriaDesc?: string;
-        promotedLinks?: string;
-        stateCollapsed?: string;
-        stateDrillable?: string;
-        stateExpanded?: string;
-        stateHidden?: string;
-        stateIsolated?: string;
-        stateMaximized?: string;
-        stateMinimized?: string;
-        stateSelected?: string;
-        stateUnselected?: string;
-        stateVisible?: string;
+        componentName?: string | undefined;
+        labelAndValue?: string | undefined;
+        labelClearSelection?: string | undefined;
+        labelCountWithTotal?: string | undefined;
+        labelDataVisualization?: string | undefined;
+        labelInvalidData?: string | undefined;
+        labelNoData?: string | undefined;
+        promotedLink?: string | undefined;
+        promotedLinkAriaDesc?: string | undefined;
+        promotedLinks?: string | undefined;
+        stateCollapsed?: string | undefined;
+        stateDrillable?: string | undefined;
+        stateExpanded?: string | undefined;
+        stateHidden?: string | undefined;
+        stateIsolated?: string | undefined;
+        stateMaximized?: string | undefined;
+        stateMinimized?: string | undefined;
+        stateSelected?: string | undefined;
+        stateUnselected?: string | undefined;
+        stateVisible?: string | undefined;
     };
     onAnimationOnDataChangeChanged: ((event: JetElementCustomEvent<ojDiagram<K1, K2, D1, D2>["animationOnDataChange"]>) => any) | null;
     onAnimationOnDisplayChanged: ((event: JetElementCustomEvent<ojDiagram<K1, K2, D1, D2>["animationOnDisplay"]>) => any) | null;
@@ -563,7 +563,7 @@ export interface ojDiagramSettableProperties<K1, K2, D1, D2> extends dvtBaseComp
                 height: number;
                 pattern: 'smallChecker' | 'smallCrosshatch' | 'smallDiagonalLeft' | 'smallDiagonalRight' | 'smallDiamond' | 'smallTriangle' | 'largeChecker' | 'largeCrosshatch' | 'largeDiagonalLeft' |
                    'largeDiagonalRight' | 'largeDiamond' | 'largeTriangle' | 'none';
-                shape?: 'circle' | 'diamond' | 'ellipse' | 'human' | 'plus' | 'rectangle' | 'square' | 'star' | 'triangleDown' | 'triangleUp' | string;
+                shape?: 'circle' | 'diamond' | 'ellipse' | 'human' | 'plus' | 'rectangle' | 'square' | 'star' | 'triangleDown' | 'triangleUp' | string | undefined;
                 source: string;
                 sourceHover: string;
                 sourceHoverSelected: string;
@@ -597,26 +597,26 @@ export interface ojDiagramSettableProperties<K1, K2, D1, D2> extends dvtBaseComp
     } | void) | null;
     zooming: 'auto' | 'none';
     translations: {
-        componentName?: string;
-        labelAndValue?: string;
-        labelClearSelection?: string;
-        labelCountWithTotal?: string;
-        labelDataVisualization?: string;
-        labelInvalidData?: string;
-        labelNoData?: string;
-        promotedLink?: string;
-        promotedLinkAriaDesc?: string;
-        promotedLinks?: string;
-        stateCollapsed?: string;
-        stateDrillable?: string;
-        stateExpanded?: string;
-        stateHidden?: string;
-        stateIsolated?: string;
-        stateMaximized?: string;
-        stateMinimized?: string;
-        stateSelected?: string;
-        stateUnselected?: string;
-        stateVisible?: string;
+        componentName?: string | undefined;
+        labelAndValue?: string | undefined;
+        labelClearSelection?: string | undefined;
+        labelCountWithTotal?: string | undefined;
+        labelDataVisualization?: string | undefined;
+        labelInvalidData?: string | undefined;
+        labelNoData?: string | undefined;
+        promotedLink?: string | undefined;
+        promotedLinkAriaDesc?: string | undefined;
+        promotedLinks?: string | undefined;
+        stateCollapsed?: string | undefined;
+        stateDrillable?: string | undefined;
+        stateExpanded?: string | undefined;
+        stateHidden?: string | undefined;
+        stateIsolated?: string | undefined;
+        stateMaximized?: string | undefined;
+        stateMinimized?: string | undefined;
+        stateSelected?: string | undefined;
+        stateUnselected?: string | undefined;
+        stateVisible?: string | undefined;
     };
 }
 export interface ojDiagramSettablePropertiesLenient<K1, K2, D1, D2> extends Partial<ojDiagramSettableProperties<K1, K2, D1, D2>> {
@@ -624,18 +624,18 @@ export interface ojDiagramSettablePropertiesLenient<K1, K2, D1, D2> extends Part
 }
 export interface ojDiagramLink extends JetElement<ojDiagramLinkSettableProperties> {
     categories: string[];
-    color?: string;
-    endConnectorType?: 'arrow' | 'arrowConcave' | 'arrowOpen' | 'circle' | 'none' | 'rectangle' | 'rectangleRounded';
+    color?: string | undefined;
+    endConnectorType?: 'arrow' | 'arrowConcave' | 'arrowOpen' | 'circle' | 'none' | 'rectangle' | 'rectangleRounded' | undefined;
     endNode: any;
-    label?: string;
-    labelStyle?: object | null;
-    selectable?: 'auto' | 'off';
-    shortDesc?: string;
-    startConnectorType?: 'arrow' | 'arrowConcave' | 'arrowOpen' | 'circle' | 'none' | 'rectangle' | 'rectangleRounded';
+    label?: string | undefined;
+    labelStyle?: object | null | undefined;
+    selectable?: 'auto' | 'off' | undefined;
+    shortDesc?: string | undefined;
+    startConnectorType?: 'arrow' | 'arrowConcave' | 'arrowOpen' | 'circle' | 'none' | 'rectangle' | 'rectangleRounded' | undefined;
     startNode: any;
-    svgClassName?: string;
-    svgStyle?: object;
-    width?: number;
+    svgClassName?: string | undefined;
+    svgStyle?: object | undefined;
+    width?: number | undefined;
     onCategoriesChanged: ((event: JetElementCustomEvent<ojDiagramLink["categories"]>) => any) | null;
     onColorChanged: ((event: JetElementCustomEvent<ojDiagramLink["color"]>) => any) | null;
     onEndConnectorTypeChanged: ((event: JetElementCustomEvent<ojDiagramLink["endConnectorType"]>) => any) | null;
@@ -674,55 +674,55 @@ export interface ojDiagramLinkEventMap extends HTMLElementEventMap {
 }
 export interface ojDiagramLinkSettableProperties extends JetSettableProperties {
     categories: string[];
-    color?: string;
-    endConnectorType?: 'arrow' | 'arrowConcave' | 'arrowOpen' | 'circle' | 'none' | 'rectangle' | 'rectangleRounded';
+    color?: string | undefined;
+    endConnectorType?: 'arrow' | 'arrowConcave' | 'arrowOpen' | 'circle' | 'none' | 'rectangle' | 'rectangleRounded' | undefined;
     endNode: any;
-    label?: string;
-    labelStyle?: object | null;
-    selectable?: 'auto' | 'off';
-    shortDesc?: string;
-    startConnectorType?: 'arrow' | 'arrowConcave' | 'arrowOpen' | 'circle' | 'none' | 'rectangle' | 'rectangleRounded';
+    label?: string | undefined;
+    labelStyle?: object | null | undefined;
+    selectable?: 'auto' | 'off' | undefined;
+    shortDesc?: string | undefined;
+    startConnectorType?: 'arrow' | 'arrowConcave' | 'arrowOpen' | 'circle' | 'none' | 'rectangle' | 'rectangleRounded' | undefined;
     startNode: any;
-    svgClassName?: string;
-    svgStyle?: object;
-    width?: number;
+    svgClassName?: string | undefined;
+    svgStyle?: object | undefined;
+    width?: number | undefined;
 }
 export interface ojDiagramLinkSettablePropertiesLenient extends Partial<ojDiagramLinkSettableProperties> {
     [key: string]: any;
 }
 export interface ojDiagramNode extends JetElement<ojDiagramNodeSettableProperties> {
-    categories?: string[];
-    descendantsConnectivity?: 'connected' | 'disjoint' | 'unknown';
+    categories?: string[] | undefined;
+    descendantsConnectivity?: 'connected' | 'disjoint' | 'unknown' | undefined;
     icon?: {
-        borderColor?: string;
-        borderRadius?: string;
-        borderWidth?: number;
-        color?: string;
-        height?: number;
-        opacity?: number;
+        borderColor?: string | undefined;
+        borderRadius?: string | undefined;
+        borderWidth?: number | undefined;
+        color?: string | undefined;
+        height?: number | undefined;
+        opacity?: number | undefined;
         pattern?: 'largeChecker' | 'largeCrosshatch' | 'largeDiagonalLeft' | 'largeDiagonalRight' | 'largeDiamond' | 'largeTriangle' | 'none' | 'mallChecker' | 'smallCrosshatch' |
-           'smallDiagonalLeft' | 'smallDiagonalRight' | 'smallDiamond' | 'smallTriangle';
-        shape?: 'circle' | 'diamond' | 'ellipse' | 'human' | 'plus' | 'rectangle' | 'square' | 'star' | 'triangleDown' | 'triangleUp' | string;
-        source?: string;
-        sourceHover?: string;
-        sourceHoverSelected?: string;
-        sourceSelected?: string;
-        svgClassName?: string;
-        svgStyle?: object;
-        width?: number;
-    };
-    label?: string;
-    labelStyle?: object | null;
+           'smallDiagonalLeft' | 'smallDiagonalRight' | 'smallDiamond' | 'smallTriangle' | undefined;
+        shape?: 'circle' | 'diamond' | 'ellipse' | 'human' | 'plus' | 'rectangle' | 'square' | 'star' | 'triangleDown' | 'triangleUp' | string | undefined;
+        source?: string | undefined;
+        sourceHover?: string | undefined;
+        sourceHoverSelected?: string | undefined;
+        sourceSelected?: string | undefined;
+        svgClassName?: string | undefined;
+        svgStyle?: object | undefined;
+        width?: number | undefined;
+    } | undefined;
+    label?: string | undefined;
+    labelStyle?: object | null | undefined;
     overview?: {
         icon?: {
-            shape?: 'inherit' | 'circle' | 'diamond' | 'ellipse' | 'human' | 'plus' | 'rectangle' | 'square' | 'star' | 'triangleDown' | 'triangleUp' | string;
-            svgClassName?: string;
-            svgStyle?: object;
-        };
-    };
-    selectable?: 'auto' | 'off';
-    shortDesc?: string;
-    showDisclosure?: 'on' | 'off';
+            shape?: 'inherit' | 'circle' | 'diamond' | 'ellipse' | 'human' | 'plus' | 'rectangle' | 'square' | 'star' | 'triangleDown' | 'triangleUp' | string | undefined;
+            svgClassName?: string | undefined;
+            svgStyle?: object | undefined;
+        } | undefined;
+    } | undefined;
+    selectable?: 'auto' | 'off' | undefined;
+    shortDesc?: string | undefined;
+    showDisclosure?: 'on' | 'off' | undefined;
     onCategoriesChanged: ((event: JetElementCustomEvent<ojDiagramNode["categories"]>) => any) | null;
     onDescendantsConnectivityChanged: ((event: JetElementCustomEvent<ojDiagramNode["descendantsConnectivity"]>) => any) | null;
     onIconChanged: ((event: JetElementCustomEvent<ojDiagramNode["icon"]>) => any) | null;
@@ -752,38 +752,38 @@ export interface ojDiagramNodeEventMap extends HTMLElementEventMap {
     'showDisclosureChanged': JetElementCustomEvent<ojDiagramNode["showDisclosure"]>;
 }
 export interface ojDiagramNodeSettableProperties extends JetSettableProperties {
-    categories?: string[];
-    descendantsConnectivity?: 'connected' | 'disjoint' | 'unknown';
+    categories?: string[] | undefined;
+    descendantsConnectivity?: 'connected' | 'disjoint' | 'unknown' | undefined;
     icon?: {
-        borderColor?: string;
-        borderRadius?: string;
-        borderWidth?: number;
-        color?: string;
-        height?: number;
-        opacity?: number;
+        borderColor?: string | undefined;
+        borderRadius?: string | undefined;
+        borderWidth?: number | undefined;
+        color?: string | undefined;
+        height?: number | undefined;
+        opacity?: number | undefined;
         pattern?: 'largeChecker' | 'largeCrosshatch' | 'largeDiagonalLeft' | 'largeDiagonalRight' | 'largeDiamond' | 'largeTriangle' | 'none' | 'mallChecker' | 'smallCrosshatch' |
-           'smallDiagonalLeft' | 'smallDiagonalRight' | 'smallDiamond' | 'smallTriangle';
-        shape?: 'circle' | 'diamond' | 'ellipse' | 'human' | 'plus' | 'rectangle' | 'square' | 'star' | 'triangleDown' | 'triangleUp' | string;
-        source?: string;
-        sourceHover?: string;
-        sourceHoverSelected?: string;
-        sourceSelected?: string;
-        svgClassName?: string;
-        svgStyle?: object;
-        width?: number;
-    };
-    label?: string;
-    labelStyle?: object | null;
+           'smallDiagonalLeft' | 'smallDiagonalRight' | 'smallDiamond' | 'smallTriangle' | undefined;
+        shape?: 'circle' | 'diamond' | 'ellipse' | 'human' | 'plus' | 'rectangle' | 'square' | 'star' | 'triangleDown' | 'triangleUp' | string | undefined;
+        source?: string | undefined;
+        sourceHover?: string | undefined;
+        sourceHoverSelected?: string | undefined;
+        sourceSelected?: string | undefined;
+        svgClassName?: string | undefined;
+        svgStyle?: object | undefined;
+        width?: number | undefined;
+    } | undefined;
+    label?: string | undefined;
+    labelStyle?: object | null | undefined;
     overview?: {
         icon?: {
-            shape?: 'inherit' | 'circle' | 'diamond' | 'ellipse' | 'human' | 'plus' | 'rectangle' | 'square' | 'star' | 'triangleDown' | 'triangleUp' | string;
-            svgClassName?: string;
-            svgStyle?: object;
-        };
-    };
-    selectable?: 'auto' | 'off';
-    shortDesc?: string;
-    showDisclosure?: 'on' | 'off';
+            shape?: 'inherit' | 'circle' | 'diamond' | 'ellipse' | 'human' | 'plus' | 'rectangle' | 'square' | 'star' | 'triangleDown' | 'triangleUp' | string | undefined;
+            svgClassName?: string | undefined;
+            svgStyle?: object | undefined;
+        } | undefined;
+    } | undefined;
+    selectable?: 'auto' | 'off' | undefined;
+    shortDesc?: string | undefined;
+    showDisclosure?: 'on' | 'off' | undefined;
 }
 export interface ojDiagramNodeSettablePropertiesLenient extends Partial<ojDiagramNodeSettableProperties> {
     [key: string]: any;

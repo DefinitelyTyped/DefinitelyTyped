@@ -17,18 +17,18 @@ declare namespace AMap {
              * 页码
              * 默认值：1, 取值范围：1-100
              */
-            pageIndex?: number;
+            pageIndex?: number | undefined;
             /**
              * 单页显示结果条数
              * 默认值：20, 取值范围：1-100
              */
-            pageSize?: number;
+            pageSize?: number | undefined;
             /**
              * 公交站点所在城市
              * 可选值：cityname（中文或中文全拼）、citycode、adcode
              * 默认值：“全国”
              */
-            city?: string;
+            city?: string | undefined;
         }
         interface Busline {
             /**
@@ -108,11 +108,11 @@ declare namespace AMap {
             /**
              * 查无此公交站时，返回的建议关键字列表，可根据建议关键字查询
              */
-            keywordList?: string[];
+            keywordList?: string[] | undefined;
             /**
              * 查该城市无此公交站时，返回的建议城市列表
              */
-            cityList?: CityInfo[];
+            cityList?: CityInfo[] | undefined;
         }
         type SearchStatus = 'complete' | 'error' | 'no_data';
     }

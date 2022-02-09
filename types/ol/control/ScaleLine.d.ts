@@ -5,15 +5,15 @@ import { ObjectEvent } from '../Object';
 import Control from './Control';
 
 export interface Options {
-    className?: string;
-    minWidth?: number;
-    render?: (p0: MapEvent) => void;
-    target?: HTMLElement | string;
-    units?: Units | string;
-    bar?: boolean;
-    steps?: number;
-    text?: boolean;
-    dpi?: number;
+    className?: string | undefined;
+    minWidth?: number | undefined;
+    render?: ((p0: MapEvent) => void) | undefined;
+    target?: HTMLElement | string | undefined;
+    units?: Units | string | undefined;
+    bar?: boolean | undefined;
+    steps?: number | undefined;
+    text?: boolean | undefined;
+    dpi?: number | undefined;
 }
 /**
  * Units for the scale line. Supported values are 'degrees', 'imperial',

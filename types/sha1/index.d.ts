@@ -18,13 +18,13 @@ declare function main(message: string | Buffer, options?: Sha1Options): string |
 export = main;
 
 interface Sha1AsStringOptions {
-    asBytes?: false;
-    asString?: boolean;
+    asBytes?: false | undefined;
+    asString?: boolean | undefined;
 }
 
 interface Sha1AsBytesOptions {
     asBytes: true;
-    asString?: false;
+    asString?: false | undefined;
 }
 
 type Sha1Options = Sha1AsStringOptions | Sha1AsBytesOptions;

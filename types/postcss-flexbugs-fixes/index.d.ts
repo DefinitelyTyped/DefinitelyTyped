@@ -12,15 +12,15 @@ declare namespace postcssFlexbugsFixes {
         /**
          * @default true
          */
-        bug4?: boolean;
+        bug4?: boolean | undefined;
         /**
          * @default true
          */
-        bug6?: boolean;
+        bug6?: boolean | undefined;
         /**
          * @default true
          */
-        bug81a?: boolean;
+        bug81a?: boolean | undefined;
     }
 }
 

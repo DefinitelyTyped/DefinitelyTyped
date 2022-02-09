@@ -106,8 +106,8 @@ declare namespace freedom {
     }
 
     interface FreedomInCoreEnvOptions {
-        debug?: string;  // debug level
-        logger?: string;  // string to json for logging provider.
+        debug?: string | undefined;  // debug level
+        logger?: string | undefined;  // string to json for logging provider.
     }
 
     interface FreedomInCoreEnv extends OnAndEmit<any,any> {
@@ -177,9 +177,9 @@ declare namespace freedom.Console {
 declare namespace freedom.RTCDataChannel {
     interface Message {
         // Exactly one of the below must be specified.
-        text?: string;
-        buffer?: ArrayBuffer;
-        binary?: Blob;  // Not yet supported in Chrome.
+        text?: string | undefined;
+        buffer?: ArrayBuffer | undefined;
+        binary?: Blob | undefined;  // Not yet supported in Chrome.
     }
 
     // Constructed by |freedom['rtcdatachannel'](id)| where |id| is a string
@@ -212,21 +212,21 @@ declare namespace freedom.RTCDataChannel {
 declare namespace freedom.RTCPeerConnection {
     interface RTCIceServer {
         urls: string[];
-        username?: string;
-        credential?: string;
+        username?: string | undefined;
+        credential?: string | undefined;
     }
 
     interface RTCConfiguration {
         iceServers: RTCIceServer[];
-        iceTransports?: string;
-        peerIdentity?: string;
+        iceTransports?: string | undefined;
+        peerIdentity?: string | undefined;
     }
 
     interface RTCOfferOptions {
-        offerToReceiveVideo?: number;
-        offerToReceiveAudio?: number;
-        voiceActivityDetection?: boolean;
-        iceRestart?: boolean;
+        offerToReceiveVideo?: number | undefined;
+        offerToReceiveAudio?: number | undefined;
+        voiceActivityDetection?: boolean | undefined;
+        iceRestart?: boolean | undefined;
     }
 
     interface RTCSessionDescription {
@@ -236,8 +236,8 @@ declare namespace freedom.RTCPeerConnection {
 
     interface RTCIceCandidate {
         candidate: string;
-        sdpMid?: string;
-        sdpMLineIndex?: number;
+        sdpMid?: string | undefined;
+        sdpMLineIndex?: number | undefined;
     }
 
     interface OnIceCandidateEvent {
@@ -245,12 +245,12 @@ declare namespace freedom.RTCPeerConnection {
     }
 
     interface RTCDataChannelInit {
-        ordered?: boolean;
-        maxPacketLifeTime?: number;
-        maxRetransmits?: number;
-        protocol?: string;
-        negotiated?: boolean;
-        id?: number;
+        ordered?: boolean | undefined;
+        maxPacketLifeTime?: number | undefined;
+        maxRetransmits?: number | undefined;
+        protocol?: string | undefined;
+        negotiated?: boolean | undefined;
+        id?: number | undefined;
     }
 
     // Note: the freedom factory constructor
@@ -331,10 +331,10 @@ declare namespace freedom.TcpSocket {
 
     interface SocketInfo {
         connected: boolean;
-        localAddress?: string;
-        localPort?: number;
-        peerAddress?: string;
-        peerPort?: number;
+        localAddress?: string | undefined;
+        localPort?: number | undefined;
+        peerAddress?: string | undefined;
+        peerPort?: number | undefined;
     }
 
     interface ConnectInfo {
@@ -437,13 +437,13 @@ declare namespace freedom.PortControl {
     interface Mapping {
         internalIp: string;
         internalPort: number;
-        externalIp?: string;
+        externalIp?: string | undefined;
         externalPort: number;
         lifetime: number;
         protocol: string;
-        timeoutId?: number;
-        nonce?: number[];
-        errInfo?: string;
+        timeoutId?: number | undefined;
+        nonce?: number[] | undefined;
+        errInfo?: string | undefined;
     }
 
     // A collection of Mappings
@@ -496,11 +496,11 @@ declare namespace freedom.Social {
     interface UserProfile {
         userId: string;
         name: string;
-        status?: number;
-        url?: string;
+        status?: number | undefined;
+        url?: string | undefined;
         // Image URI (e.g. data:image/png;base64,adkwe329...)
-        imageData?: string;
-        timestamp?: number;
+        imageData?: string | undefined;
+        timestamp?: number | undefined;
     }
 
     interface Users {

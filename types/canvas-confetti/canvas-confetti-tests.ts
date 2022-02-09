@@ -57,5 +57,12 @@ confetti.reset();
 myConfetti.reset();
 
 myConfetti({
-    particleCount: 150
+    particleCount: 150,
+});
+
+confetti()!.then(() => {
+    // ready
+});
+confetti()!.then(param => {
+    param; // $ExpectType undefined
 });

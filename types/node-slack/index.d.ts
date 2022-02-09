@@ -23,12 +23,12 @@ declare namespace Slack {
 
     interface Message {
         text: string;
-        channel?: string;
-        username?: string;
-        icon_emoji?: string;
-        attachments?: any[];
-        unfurl_links?: boolean;
-        link_names?: number;
+        channel?: string | undefined;
+        username?: string | undefined;
+        icon_emoji?: string | undefined;
+        attachments?: any[] | undefined;
+        unfurl_links?: boolean | undefined;
+        link_names?: number | undefined;
     }
 
     interface SendCallback {
@@ -36,13 +36,13 @@ declare namespace Slack {
     }
 
     interface Query {
-        token?: string;
-        team_id?: string;
-        channel_id?: string;
-        channel_name?: string;
-        timestamp?: number;
-        user_id?: string;
-        user_name?: string;
+        token?: string | undefined;
+        team_id?: string | undefined;
+        channel_id?: string | undefined;
+        channel_name?: string | undefined;
+        timestamp?: number | undefined;
+        user_id?: string | undefined;
+        user_name?: string | undefined;
         text: string;
     }
 

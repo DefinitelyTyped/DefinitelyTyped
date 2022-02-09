@@ -119,3 +119,12 @@ gulp.task('connect', () => {
         middleware: (connect, opt) => middleware
     });
 });
+
+// Pass a callback function for when server starts listening
+gulp.task('callback-connect', () => {
+  function cb() {
+    console.log('server has started listening');
+  }
+
+  connect.server({}, cb);
+});

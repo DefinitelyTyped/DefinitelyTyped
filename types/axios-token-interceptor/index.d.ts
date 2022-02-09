@@ -10,21 +10,21 @@ import { AxiosRequestConfig } from 'axios';
 // Module
 declare function AxiosTokenProvider(Options: AxiosTokenProvider.InterceptorOptions): AxiosTokenProvider.TokenProvider;
 declare namespace AxiosTokenProvider {
-    function tokenCache(getToken: () => Promise<string>, options: TokenCacheOptions): TokenCache;
+    function tokenCache<T>(getToken: () => Promise<T>, options: TokenCacheOptions<T>): TokenCache;
 
     // Interfaces
-    interface InterceptorOptions {
-        token?: string;
-        getToken?: () => string | Promise<string>;
-        header?: string;
-        headerFormatter?: (token: string) => string;
+    interface InterceptorOptions<T = unknown> {
+        token?: string | undefined;
+        getToken?: (() => string | Promise<string>) | undefined;
+        header?: string | undefined;
+        headerFormatter?: ((token: T) => string) | undefined;
     }
 
     type TokenProvider = (config: AxiosRequestConfig) => Promise<AxiosRequestConfig>;
 
-    interface TokenCacheOptions {
-        getMaxAge?: () => number;
-        maxAge?: number;
+    interface TokenCacheOptions<T = unknown> {
+        getMaxAge?: (() => number) | ((el: T) => number) | undefined;
+        maxAge?: number | undefined;
     }
 
     interface TokenCache {

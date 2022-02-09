@@ -301,8 +301,8 @@ interface KnockoutReadonlyObservable<T> extends KnockoutSubscribable<T>, Knockou
      * Returns the current value of the computed observable without creating a dependency.
      */
     peek(): T;
-    valueHasMutated?: { (): void; };
-    valueWillMutate?: { (): void; };
+    valueHasMutated?: { (): void; } | undefined;
+    valueWillMutate?: { (): void; } | undefined;
 }
 
 interface KnockoutObservable<T> extends KnockoutReadonlyObservable<T> {
@@ -327,7 +327,7 @@ interface KnockoutComputedOptions<T> {
      * Disposal of the computed observable will be triggered when the specified DOM node is removed by KO.
      * This feature is used to dispose computed observables used in bindings when nodes are removed by the template and control-flow bindings.
      */
-    disposeWhenNodeIsRemoved?: Node;
+    disposeWhenNodeIsRemoved?: Node | undefined;
     /**
      * This function is executed before each re-evaluation to determine if the computed observable should be disposed.
      * A true-ish result will trigger disposal of the computed observable.
@@ -341,11 +341,11 @@ interface KnockoutComputedOptions<T> {
      * If true, then the value of the computed observable will not be evaluated until something actually attempts to access its value or manually subscribes to it.
      * By default, a computed observable has its value determined immediately during creation.
      */
-    deferEvaluation?: boolean;
+    deferEvaluation?: boolean | undefined;
     /**
      * If true, the computed observable will be set up as a purecomputed observable. This option is an alternative to the ko.pureComputed constructor.
      */
-    pure?: boolean;
+    pure?: boolean | undefined;
 }
 
 interface KnockoutComputedDefine<T> extends KnockoutComputedOptions<T> {
@@ -361,8 +361,8 @@ interface KnockoutBindingContext {
     $root: any;
     $data: any;
     $rawData: any | KnockoutObservable<any>;
-    $index?: KnockoutObservable<number>;
-    $parentContext?: KnockoutBindingContext;
+    $index?: KnockoutObservable<number> | undefined;
+    $parentContext?: KnockoutBindingContext | undefined;
     $component: any;
     $componentTemplateNodes: Node[];
 
@@ -388,11 +388,11 @@ interface KnockoutAllBindingsAccessor {
 }
 
 interface KnockoutBindingHandler<E extends Node = any, V = any, VM = any> {
-    after?: Array<string>;
-    init?: (element: E, valueAccessor: () => V, allBindingsAccessor: KnockoutAllBindingsAccessor, viewModel: VM, bindingContext: KnockoutBindingContext) => void | { controlsDescendantBindings: boolean; };
-    update?: (element: E, valueAccessor: () => V, allBindingsAccessor: KnockoutAllBindingsAccessor, viewModel: VM, bindingContext: KnockoutBindingContext) => void;
+    after?: Array<string> | undefined;
+    init?: ((element: E, valueAccessor: () => V, allBindingsAccessor: KnockoutAllBindingsAccessor, viewModel: VM, bindingContext: KnockoutBindingContext) => void | { controlsDescendantBindings: boolean; }) | undefined;
+    update?: ((element: E, valueAccessor: () => V, allBindingsAccessor: KnockoutAllBindingsAccessor, viewModel: VM, bindingContext: KnockoutBindingContext) => void) | undefined;
     options?: any;
-    preprocess?: (value: string, name: string, addBindingCallback?: (name: string, value: string) => void) => string;
+    preprocess?: ((value: string, name: string, addBindingCallback?: (name: string, value: string) => void) => string) | undefined;
     [s: string]: any;
 }
 
@@ -459,7 +459,7 @@ interface KnockoutExtenders {
     notify(target: any, notifyWhen: string): any;
 
     rateLimit(target: any, timeout: number): any;
-    rateLimit(target: any, options: { timeout: number; method?: string; }): any;
+    rateLimit(target: any, options: { timeout: number; method?: string | undefined; }): any;
 
     trackArrayChanges(target: any): any;
 }
@@ -576,7 +576,7 @@ interface KnockoutArrayChange<T> {
     status: "added" | "deleted" | "retained";
     value: T;
     index: number;
-    moved?: number;
+    moved?: number | undefined;
 }
 
 //////////////////////////////////
@@ -920,7 +920,7 @@ interface KnockoutStatic {
     // utils.js
     /////////////////////////////////
 
-    onError?: (error: Error) => void;
+    onError?: ((error: Error) => void) | undefined;
 }
 
 interface KnockoutBindingProvider {
@@ -950,13 +950,13 @@ declare namespace KnockoutComponentTypes {
     type ViewModel = ViewModelFunction | ViewModelSharedInstance | ViewModelFactoryFunction | AMDModule;
     
     interface Config<T> {
-        viewModel?: T;
+        viewModel?: T | undefined;
         template: string | Node[] | DocumentFragment | TemplateElement | AMDModule;
-        synchronous?: boolean;
+        synchronous?: boolean | undefined;
     }
 
     interface ComponentConfig<T = ViewModel> {
-        viewModel?: T;
+        viewModel?: T | undefined;
         template: any;
         createViewModel?: any;
     }
@@ -1012,7 +1012,7 @@ declare namespace KnockoutComponentTypes {
          * @see {@link https://knockoutjs.com/documentation/component-loaders.html}
          */
         loadViewModel?(componentName: string, viewModelConfig: any, callback: (result: any) => void): void;
-        suppressLoaderExceptions?: boolean;
+        suppressLoaderExceptions?: boolean | undefined;
     }
 
     interface Definition {

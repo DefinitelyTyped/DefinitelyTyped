@@ -5,7 +5,7 @@ import * as moxios from 'moxios';
 
 declare const sinon: any;
 declare const describe: any;
-declare function it(testName: string, test: (done: () => void) => void|Promise<any>): void;
+declare function it(testName: string, test: (done: () => void) => void | Promise<any>): void;
 declare const beforeEach: any;
 declare const afterEach: any;
 
@@ -133,6 +133,73 @@ describe('moxios', () => {
             moxios.wait(() => {
                 const response = onFulfilled.getCall(0).args[0];
                 deepEqual(response.data, USER_FRED);
+                done();
+            });
+        });
+
+        it('should stub GET requests', (done) => {
+            moxios.stubRequest('GET', '/users/12345', {
+                status: 200,
+                response: USER_FRED
+            });
+
+            axios.get('/users/12345').then(onFulfilled);
+
+            moxios.wait(() => {
+                const response = onFulfilled.getCall(0).args[0];
+                deepEqual(response.data, USER_FRED);
+                done();
+            });
+        });
+
+        it('should stub POST requests, but not GET requests', (done) => {
+            moxios.stubRequest('POST', '/users/', {
+                status: 200,
+                response: USER_FRED
+            });
+
+            axios.get('/users/').then(onFulfilled);
+            axios.post('/users/', USER_FRED).then(onFulfilled);
+
+            moxios.wait(() => {
+                equal(onFulfilled.calledOnce, true);
+                const response = onFulfilled.getCall(0).args[0];
+                deepEqual(response.data, USER_FRED);
+                done();
+            });
+        });
+
+        it('should pick the correct stub based on method', (done) => {
+            const USER_WILMA = {
+                id: 54321,
+                firstName: 'Wilma',
+                lastName: 'Flintstone'
+            };
+
+            moxios.stubRequest('GET', '/users/', {
+                status: 200,
+                response: USER_FRED
+            });
+
+            moxios.stubRequest('POST', '/users/', {
+                status: 200,
+                response: USER_WILMA
+            });
+
+            moxios.stubRequest('PUT', '/users/', {
+                status: 200,
+                response: USER_FRED
+            });
+
+            axios.put('/users/', USER_FRED).then(onFulfilled);
+            axios.post('/users/', USER_WILMA).then(onFulfilled);
+
+            moxios.wait(() => {
+                equal(onFulfilled.calledTwice, true);
+                let response = onFulfilled.getCall(0).args[0];
+                deepEqual(response.data, USER_FRED);
+                response = onFulfilled.getCall(1).args[0];
+                deepEqual(response.data, USER_WILMA);
                 done();
             });
         });

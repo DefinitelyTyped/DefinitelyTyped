@@ -5,7 +5,7 @@
 
 export interface RemarkConfig {
     resolve: "gatsby-transformer-remark";
-    options?: RemarkOptions;
+    options?: RemarkOptions | undefined;
 }
 
 /**
@@ -14,27 +14,27 @@ export interface RemarkConfig {
  */
 export interface RemarkOptions {
     /** CommonMark mode (default: true) */
-    commonmark?: boolean;
+    commonmark?: boolean | undefined;
     /** Footnotes mode (default: true) */
-    footnotes?: boolean;
+    footnotes?: boolean | undefined;
     /** Pedantic mode (default: true) */
-    pedantic?: boolean;
+    pedantic?: boolean | undefined;
     /** GitHub Flavored Markdown mode (default: true) */
-    gfm?: boolean;
+    gfm?: boolean | undefined;
     /** Plugins configs */
-    plugins?: any[];
+    plugins?: any[] | undefined;
     /**
      * Pass default options to the plugin generating tableOfContents
      * @see https://www.gatsbyjs.com/plugins/gatsby-transformer-remark/#configuring-the-tableofcontents
      */
     tableOfContents?: {
-        absolute?: boolean
-        pathToSlugField?: string
-        heading?: null | string;
-        maxDepth?: number
-    };
+        absolute?: boolean | undefined
+        pathToSlugField?: string | undefined
+        heading?: null | string | undefined;
+        maxDepth?: number | undefined
+    } | undefined;
     /**
      * @see https://www.gatsbyjs.com/plugins/gatsby-transformer-remark/#example-excerpts
      */
-    excerpt_separator?: string;
+    excerpt_separator?: string | undefined;
 }

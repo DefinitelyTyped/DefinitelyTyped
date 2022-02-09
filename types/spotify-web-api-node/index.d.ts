@@ -47,12 +47,12 @@ declare class SpotifyWebApi {
 
     /**
      * Look up several tracks.
-     * @param trackIds The IDs of the artists.
+     * @param trackIds The IDs of the tracks.
      * @param options The possible options, currently only market.
      * @param callback Optional callback method to be called instead of the promise.
-     * @example getArtists(['0oSGxfWSnnOXhD2fKuz2Gy', '3dBVyJ7JuOMt4GE9607Qin']).then(...)
+     * @example getTracks(['3AyuigFWbuirWHvidbMz8O', '6bP4GyrKNbcKPMDqWJqpxI']).then(...)
      * @returns A promise that if successful, returns an object containing information
-     *          about the artists. Not returned if a callback is given.
+     *          about the tracks. Not returned if a callback is given.
      */
     getTracks(trackIds: ReadonlyArray<string>, options: MarketOptions, callback: Callback<SpotifyApi.MultipleTracksResponse>): void;
     getTracks(trackIds: ReadonlyArray<string>, options?: MarketOptions): Promise<Response<SpotifyApi.MultipleTracksResponse>>;
@@ -74,7 +74,7 @@ declare class SpotifyWebApi {
      * @param albumIds The IDs of the albums.
      * @param options The possible options, currently only market.
      * @param callback Optional callback method to be called instead of the promise.
-     * @example getAlbums(['0oSGxfWSnnOXhD2fKuz2Gy', '3dBVyJ7JuOMt4GE9607Qin']).then(...)
+     * @example getAlbums(['26TtzBrPdUkHMSTPSbctbl', '5kUSMNOHu33TTDtV8RGHLg']).then(...)
      * @returns A promise that if successful, returns an object containing information
      *          about the albums. Not returned if a callback is given.
      */
@@ -85,7 +85,7 @@ declare class SpotifyWebApi {
      * Look up an artist.
      * @param artistId The artist's ID.
      * @param callback Optional callback method to be called instead of the promise.
-     * @example api.getArtist('1u7kkVrr14iBvrpYnZILJR').then(...)
+     * @example getArtist('1u7kkVrr14iBvrpYnZILJR').then(...)
      * @returns A promise that if successful, returns an object containing information
      *          about the artist. Not returned if a callback is given.
      */
@@ -581,8 +581,8 @@ declare class SpotifyWebApi {
      *          otherwise an error. Not returned if a callback is given. Note that the response will be empty
      *          in case the user has enabled private session.
      */
-    getMyRecentlyPlayedTracks(options: BeforeOptions | AfterOptions, callback: Callback<SpotifyApi.UsersRecentlyPlayedTracksResponse>): void;
-    getMyRecentlyPlayedTracks(options?: BeforeOptions | AfterOptions): Promise<Response<SpotifyApi.UsersRecentlyPlayedTracksResponse>>;
+    getMyRecentlyPlayedTracks(options: BeforeOptions | AfterOptions<number>, callback: Callback<SpotifyApi.UsersRecentlyPlayedTracksResponse>): void;
+    getMyRecentlyPlayedTracks(options?: BeforeOptions | AfterOptions<number>): Promise<Response<SpotifyApi.UsersRecentlyPlayedTracksResponse>>;
 
     /**
      * Add track or episode to device queue
@@ -789,8 +789,8 @@ declare class SpotifyWebApi {
      * @returns A promise that if successful, resolves to an object containing a paging object which contains
      * album objects. Not returned if a callback is given.
      */
-    getFollowedArtists(options: AfterOptions, callback: Callback<SpotifyApi.UsersFollowedArtistsResponse>): void;
-    getFollowedArtists(options?: AfterOptions): Promise<Response<SpotifyApi.UsersFollowedArtistsResponse>>;
+    getFollowedArtists(options: AfterOptions<string>, callback: Callback<SpotifyApi.UsersFollowedArtistsResponse>): void;
+    getFollowedArtists(options?: AfterOptions<string>): Promise<Response<SpotifyApi.UsersFollowedArtistsResponse>>;
 
     /**
      * Check if users are following a playlist.
@@ -932,7 +932,7 @@ declare class SpotifyWebApi {
      *          playlist show objects. Not returned if a callback is given.
      */
     getMySavedShows(options: PaginationMarketOptions, callback: Callback<SpotifyApi.UsersSavedShowsResponse>): void;
-    getMySavedShows(options?: PaginationMarketOptions): Promise<Response<SpotifyApi.SavedShowObject>>;
+    getMySavedShows(options?: PaginationMarketOptions): Promise<Response<SpotifyApi.UsersSavedShowsResponse>>;
 
     /**
      * Get the episodes of an show.
@@ -1041,60 +1041,60 @@ interface Response<T> {
 }
 
 interface Credentials {
-    accessToken?: string;
-    clientId?: string;
-    clientSecret?: string;
-    redirectUri?: string;
-    refreshToken?: string;
+    accessToken?: string | undefined;
+    clientId?: string | undefined;
+    clientSecret?: string | undefined;
+    redirectUri?: string | undefined;
+    refreshToken?: string | undefined;
 }
 
 interface Track {
-    positions?: ReadonlyArray<number>;
+    positions?: ReadonlyArray<number> | undefined;
     uri: string;
 }
 
 interface LimitOptions {
-    limit?: number;
+    limit?: number | undefined;
 }
 
 interface PaginationOptions extends LimitOptions {
-    offset?: number;
+    offset?: number | undefined;
 }
 
 interface DeviceOptions {
-    device_id?: string;
+    device_id?: string | undefined;
 }
 
 interface MarketOptions {
-    market?: string;
+    market?: string | undefined;
 }
 
 interface FieldsOptions {
-    fields?: string;
+    fields?: string | undefined;
 }
 
 interface PublicOptions {
-    public?: boolean;
+    public?: boolean | undefined;
 }
 
 interface SnapshotOptions {
-    snapshot_id?: string;
+    snapshot_id?: string | undefined;
 }
 
 interface CountryOptions {
-    country?: string;
+    country?: string | undefined;
 }
 
 interface BeforeOptions extends LimitOptions {
-    before?: number;
+    before?: number | undefined;
 }
 
-interface AfterOptions extends LimitOptions {
-    after?: number;
+interface AfterOptions<T extends number | string> extends LimitOptions {
+    after?: T | undefined;
 }
 
 interface LocaleOptions extends CountryOptions {
-    locale?: string;
+    locale?: string | undefined;
 }
 
 interface PaginationMarketOptions extends PaginationOptions, MarketOptions { }
@@ -1106,20 +1106,20 @@ interface PaginationLocaleOptions extends PaginationOptions, LocaleOptions { }
 interface GetPlaylistOptions extends MarketOptions, FieldsOptions { }
 
 interface PlaylistDetailsOptions extends PublicOptions {
-    collaborative?: boolean;
-    description?: string;
+    collaborative?: boolean | undefined;
+    description?: string | undefined;
 }
 
 interface ChangePlaylistOptions extends PlaylistDetailsOptions {
-    name?: string;
+    name?: string | undefined;
 }
 
 interface PositionOptions {
-    position?: number;
+    position?: number | undefined;
 }
 
 interface GetArtistAlbumsOptions extends PaginationCountryOptions {
-    include_groups?: string;
+    include_groups?: string | undefined;
 }
 
 interface GetPlaylistTracksOptions extends PaginationMarketOptions, FieldsOptions { }
@@ -1127,80 +1127,80 @@ interface GetPlaylistTracksOptions extends PaginationMarketOptions, FieldsOption
 type SearchType = 'album' | 'artist' | 'playlist' | 'track' | 'show' | 'episode';
 
 interface SearchOptions extends PaginationMarketOptions {
-    include_external?: 'audio';
+    include_external?: 'audio' | undefined;
 }
 
 interface ReorderPlaylistTracksOptions extends SnapshotOptions {
-    range_length?: number;
+    range_length?: number | undefined;
 }
 
 interface GetRecommendationsOptions extends LimitOptions, MarketOptions {
-    max_acousticness?: number;
-    max_danceability?: number;
-    max_duration_ms?: number;
-    max_energy?: number;
-    max_instrumentalness?: number;
-    max_key?: number;
-    max_liveness?: number;
-    max_loudness?: number;
-    max_mode?: number;
-    max_popularity?: number;
-    max_speechiness?: number;
-    max_tempo?: number;
-    max_time_signature?: number;
-    max_valence?: number;
-    min_acousticness?: number;
-    min_danceability?: number;
-    min_duration_ms?: number;
-    min_energy?: number;
-    min_instrumentalness?: number;
-    min_key?: number;
-    min_liveness?: number;
-    min_loudness?: number;
-    min_mode?: number;
-    min_popularity?: number;
-    min_speechiness?: number;
-    min_tempo?: number;
-    min_time_signature?: number;
-    min_valence?: number;
-    seed_artists?: ReadonlyArray<string> | string;
-    seed_genres?: ReadonlyArray<string> | string;
-    seed_tracks?: ReadonlyArray<string> | string;
-    target_acousticness?: number;
-    target_danceability?: number;
-    target_duration_ms?: number;
-    target_energy?: number;
-    target_instrumentalness?: number;
-    target_key?: number;
-    target_liveness?: number;
-    target_loudness?: number;
-    target_mode?: number;
-    target_popularity?: number;
-    target_speechiness?: number;
-    target_tempo?: number;
-    target_time_signature?: number;
-    target_valence?: number;
+    max_acousticness?: number | undefined;
+    max_danceability?: number | undefined;
+    max_duration_ms?: number | undefined;
+    max_energy?: number | undefined;
+    max_instrumentalness?: number | undefined;
+    max_key?: number | undefined;
+    max_liveness?: number | undefined;
+    max_loudness?: number | undefined;
+    max_mode?: number | undefined;
+    max_popularity?: number | undefined;
+    max_speechiness?: number | undefined;
+    max_tempo?: number | undefined;
+    max_time_signature?: number | undefined;
+    max_valence?: number | undefined;
+    min_acousticness?: number | undefined;
+    min_danceability?: number | undefined;
+    min_duration_ms?: number | undefined;
+    min_energy?: number | undefined;
+    min_instrumentalness?: number | undefined;
+    min_key?: number | undefined;
+    min_liveness?: number | undefined;
+    min_loudness?: number | undefined;
+    min_mode?: number | undefined;
+    min_popularity?: number | undefined;
+    min_speechiness?: number | undefined;
+    min_tempo?: number | undefined;
+    min_time_signature?: number | undefined;
+    min_valence?: number | undefined;
+    seed_artists?: ReadonlyArray<string> | string | undefined;
+    seed_genres?: ReadonlyArray<string> | string | undefined;
+    seed_tracks?: ReadonlyArray<string> | string | undefined;
+    target_acousticness?: number | undefined;
+    target_danceability?: number | undefined;
+    target_duration_ms?: number | undefined;
+    target_energy?: number | undefined;
+    target_instrumentalness?: number | undefined;
+    target_key?: number | undefined;
+    target_liveness?: number | undefined;
+    target_loudness?: number | undefined;
+    target_mode?: number | undefined;
+    target_popularity?: number | undefined;
+    target_speechiness?: number | undefined;
+    target_tempo?: number | undefined;
+    target_time_signature?: number | undefined;
+    target_valence?: number | undefined;
 }
 
 interface GetTopOptions extends PaginationOptions {
-    time_range?: 'long_term' | 'medium_term' | 'short_term';
+    time_range?: 'long_term' | 'medium_term' | 'short_term' | undefined;
 }
 
 interface TransferPlaybackOptions {
-    play?: boolean;
+    play?: boolean | undefined;
 }
 
 interface PlayOptions extends DeviceOptions {
-    context_uri?: string;
-    uris?: ReadonlyArray<string>;
-    offset?: { position: number } | { uri: string };
-    position_ms?: number;
+    context_uri?: string | undefined;
+    uris?: ReadonlyArray<string> | undefined;
+    offset?: { position: number } | { uri: string } | undefined;
+    position_ms?: number | undefined;
 }
 
 type RepeatState = 'track' | 'context' | 'off';
 
 interface GetFeaturedPlaylistsOptions extends PaginationLocaleOptions {
-    timestamp?: string;
+    timestamp?: string | undefined;
 }
 
 /**
@@ -1233,7 +1233,7 @@ interface AuthorizationCodeGrantResponse {
 interface RefreshAccessTokenResponse {
     access_token: string;
     expires_in: number;
-    refresh_token?: string;
+    refresh_token?: string | undefined;
     scope: string;
     token_type: string;
 }

@@ -72,7 +72,7 @@ export class Audio<NodeType extends AudioNode = GainNode> extends Object3D {
     /**
      * @default []
      */
-    filters: any[];
+    filters: AudioNode[];
 
     getOutput(): NodeType;
     setNodeSource(audioNode: AudioBufferSourceNode): this;
@@ -87,10 +87,10 @@ export class Audio<NodeType extends AudioNode = GainNode> extends Object3D {
     disconnect(): this;
     setDetune(value: number): this;
     getDetune(): number;
-    getFilters(): any[];
-    setFilters(value: any[]): this;
-    getFilter(): any;
-    setFilter(filter: any): this;
+    getFilters(): AudioNode[];
+    setFilters(value: AudioNode[]): this;
+    getFilter(): AudioNode;
+    setFilter(filter: AudioNode): this;
     setPlaybackRate(value: number): this;
     getPlaybackRate(): number;
     getLoop(): boolean;

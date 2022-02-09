@@ -237,6 +237,9 @@ import { URL } from 'node:url';
         server.on('request', (request: Http2ServerRequest, response: Http2ServerResponse) => {});
         server.on('timeout', () => {});
         server.setTimeout().setTimeout(5).setTimeout(5, () => {});
+        server.updateSettings({
+            enableConnectProtocol: true,
+        });
     });
 
     http2SecureServer.on('unknownProtocol', (socket: TLSSocket) => {});
@@ -252,7 +255,8 @@ import { URL } from 'node:url';
         paddingStrategy: 0,
         peerMaxConcurrentStreams: 0,
         selectPadding: (frameLen: number, maxFrameLen: number) => 0,
-        settings
+        settings,
+        unknownProtocolTimeout: 123,
     };
     // tslint:disable-next-line prefer-object-spread (ts2.1 feature)
     const secureServerOptions: SecureServerOptions = Object.assign({}, serverOptions);
@@ -273,6 +277,7 @@ import { URL } from 'node:url';
         let socket: Socket | TLSSocket = request.socket;
         let stream: ServerHttp2Stream = request.stream;
         const url: string = request.url;
+        request.url = "new url";
 
         request.setTimeout(0, () => {});
         request.on('aborted', (hadError: boolean, code: number) => {});
@@ -284,6 +289,7 @@ import { URL } from 'node:url';
         response.addTrailers(outgoingHeaders);
         socket = response.connection;
         const finished: boolean = response.finished;
+        request = response.req;
         response.sendDate = true;
         response.statusCode = 200;
         response.statusMessage = '';
@@ -304,7 +310,7 @@ import { URL } from 'node:url';
         response.createPushResponse(outgoingHeaders, (err: Error | null, res: Http2ServerResponse) => {});
 
         response.writeContinue();
-        response.writeHead(200).end();
+        response.writeHead(200).end().end();
         response.writeHead(200, outgoingHeaders);
         response.writeHead(200, 'OK', outgoingHeaders);
         response.writeHead(200, 'OK');
@@ -316,14 +322,14 @@ import { URL } from 'node:url';
         response.write(Buffer.from([]), (err: Error) => {});
         response.write(Buffer.from([]), 'utf8');
         response.write(Buffer.from([]), 'utf8', (err: Error) => {});
-        response.end();
-        response.end(() => {});
-        response.end('');
-        response.end('', () => {});
-        response.end('', 'utf8');
-        response.end('', 'utf8', () => {});
-        response.end(Buffer.from([]));
-        response.end(Buffer.from([]), () => {});
+        response.end()
+            .end(() => {})
+            .end('')
+            .end('', () => {})
+            .end('', 'utf8')
+            .end('', 'utf8', () => {})
+            .end(Buffer.from([]))
+            .end(Buffer.from([]), () => {});
         const writable: boolean = response.writable;
 
         request.on('aborted', (hadError: boolean, code: number) => {});

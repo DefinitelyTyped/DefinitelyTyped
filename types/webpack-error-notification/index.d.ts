@@ -24,7 +24,7 @@ declare namespace WebpackErrorNotificationPlugin {
 
     interface Options {
         /** if you do not want to notify warnings, set this to `false` */
-        notifyWarnings?: boolean;
+        notifyWarnings?: boolean | undefined;
     }
 }
 

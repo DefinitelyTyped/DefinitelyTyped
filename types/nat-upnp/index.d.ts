@@ -13,17 +13,19 @@ export interface StandardOpts {
         | number
         | null
         | {
-              port?: number;
-              host?: string;
-          };
+              port?: number | undefined;
+              host?: string | undefined;
+          }
+        | undefined;
     private?:
         | number
         | null
         | {
-              port?: number;
-              host?: string;
-          };
-    protocol?: string;
+              port?: number | undefined;
+              host?: string | undefined;
+          }
+        | undefined;
+    protocol?: string | undefined;
 }
 
 /**
@@ -50,9 +52,9 @@ export type CB<T> = (err: Error | null, res?: T) => void;
 export interface RawService {
     serviceType: string;
     serviceId: string;
-    controlURL?: string;
-    eventSubURL?: string;
-    SCPDURL?: string;
+    controlURL?: string | undefined;
+    eventSubURL?: string | undefined;
+    SCPDURL?: string | undefined;
 }
 
 export interface RawDevice {
@@ -68,14 +70,14 @@ export interface RawDevice {
     serialNumber: string;
     UDN: string;
     UPC: string;
-    serviceList?: { service: RawService | RawService[] };
-    deviceList?: { device: RawDevice | RawDevice[] };
+    serviceList?: { service: RawService | RawService[] } | undefined;
+    deviceList?: { device: RawDevice | RawDevice[] } | undefined;
 }
 
 export interface Device {
     /**
      * Get the available services on the network device
-     * @param types List of service types to lookf or
+     * @param types List of service types to look for
      * @param callback
      */
     getService(
@@ -92,19 +94,17 @@ export interface Device {
      * @param info
      * @returns the available devices and services in array form
      */
-    parseDescription(info: {
-        device?: RawDevice;
-    }): {
+    parseDescription(info: { device?: RawDevice | undefined }): {
         services: RawService[];
         devices: RawDevice[];
     };
     /**
      * Perform a SSDP/UPNP request
      * @param action the action to perform
-     * @param args arguments of said action
+     * @param args key-value pair arguments of said action
      * @param callback Callback to be run when completed, or on error
      */
-    run(action: string, args: string[], callback: CB<RawResponse>): void;
+    run(action: string, args: Array<[string, string | number]>, callback: CB<RawResponse>): void;
 }
 
 // Note for the SSDP class/interface
@@ -133,13 +133,13 @@ export interface Ssdp extends EventEmitter {
 // Types for client.
 //
 export interface NewPortMappingOpts extends StandardOpts {
-    description?: string;
-    ttl?: number;
+    description?: string | undefined;
+    ttl?: number | undefined;
 }
 export type DeletePortMappingOpts = StandardOpts;
 export interface GetMappingOpts {
-    local?: boolean;
-    description?: RegExp | string;
+    local?: boolean | undefined;
+    description?: RegExp | string | undefined;
 }
 export interface Mapping {
     public: { host: string; port: number };
@@ -223,7 +223,7 @@ export const ssdp: {
 export const utils: {
     getNamespace(
         data: {
-            '@'?: Record<string, string>;
+            '@'?: Record<string, string> | undefined;
         },
         uri: string,
     ): string;

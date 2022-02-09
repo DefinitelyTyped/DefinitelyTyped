@@ -34,22 +34,14 @@ var distortion = audioCtx.createWaveShaper();
 var gainNode = audioCtx.createGain();
 var biquadFilter = audioCtx.createBiquadFilter();
 
-navigator.getUserMedia({
-    audio: true
-},
-    (stream) => {
-        const source = audioCtx.createMediaStreamSource(stream);
-        source.connect(analyser);
-        analyser.connect(distortion);
-        distortion.connect(biquadFilter);
-        biquadFilter.connect(gainNode);
-        gainNode.connect(audioCtx.destination); // connecting the different audio graph nodes together
-    },
-    (error) => {
-        console.error(error);
-    }
-);
-
+navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
+    const source = audioCtx.createMediaStreamSource(stream);
+    source.connect(analyser);
+    analyser.connect(distortion);
+    distortion.connect(biquadFilter);
+    biquadFilter.connect(gainNode);
+    gainNode.connect(audioCtx.destination); // connecting the different audio graph nodes together
+});
 
 ///
 /// HTML5 Canvas

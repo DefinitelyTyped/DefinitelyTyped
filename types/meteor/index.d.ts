@@ -1,10 +1,9 @@
-// Type definitions for Meteor 1.4
+// Type definitions for Meteor 2.0
 // Project: http://www.meteor.com/
 // Definitions by: Alex Borodach <https://github.com/barbatus>
 //                 Dave Allen <https://github.com/fullflavedave>
 //                 Olivier Refalo <https://github.com/orefalo>
 //                 Daniel Neveux <https://github.com/dagatsoin>
-//                 Birk Skyum <https://github.com/birkskyum>
 //                 Arda TANRIKULU <https://github.com/ardatan>
 //                 Stefan Holzapfel <https://github.com/stefanholzapfel>
 //                 Andrey Markeev <https://github.com/andrei-markeev>
@@ -17,6 +16,8 @@
 //                 Radosław Miernik <https://github.com/radekmie>
 //                 Wojciech Adamek <https://github.com/wadamek65>
 //                 Maciej Stasieluk <https://github.com/MacRusher>
+//                 Markus Peloso <https://github.com/ToastHawaii>
+//                 Erik Demaine <https://github.com/edemaine>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.7
 
@@ -39,19 +40,25 @@
 /// <reference path="./globals/email.d.ts" />
 /// <reference path="./http.d.ts" />
 /// <reference path="./globals/http.d.ts" />
+/// <reference path="./hot-module-replacement.d.ts" />
 /// <reference path="./meteor.d.ts" />
 /// <reference path="./globals/meteor.d.ts" />
+/// <reference path="./modern-browsers.d.ts" />
+/// <reference path="./globals/modern-browsers.d.ts" />
 /// <reference path="./mongo.d.ts" />
 /// <reference path="./globals/mongo.d.ts" />
 /// <reference path="./promise.d.ts" />
 /// <reference path="./random.d.ts" />
 /// <reference path="./globals/random.d.ts" />
+/// <reference path="./react-meteor-data.d.ts" />
 /// <reference path="./reactive-dict.d.ts" />
 /// <reference path="./globals/reactive-dict.d.ts" />
 /// <reference path="./reactive-var.d.ts" />
 /// <reference path="./globals/reactive-var.d.ts" />
 /// <reference path="./server-render.d.ts" />
+/// <reference path="./globals/server-render.d.ts" />
 /// <reference path="./service-configuration.d.ts" />
+/// <reference path="./globals/service-configuration.d.ts" />
 /// <reference path="./session.d.ts" />
 /// <reference path="./globals/session.d.ts" />
 /// <reference path="./templating.d.ts" />
@@ -63,4 +70,6 @@
 /// <reference path="./tracker.d.ts" />
 /// <reference path="./globals/tracker.d.ts" />
 /// <reference path="./underscore.d.ts" />
+/// <reference path="./globals/underscore.d.ts" />
 /// <reference path="./webapp.d.ts" />
+/// <reference path="./globals/webapp.d.ts" />

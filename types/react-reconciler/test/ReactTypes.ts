@@ -18,56 +18,56 @@ export interface ReactFundamentalComponentInstance<C, H> {
 export interface ReactFundamentalImpl<C, H> {
   displayName: string;
   reconcileChildren: boolean;
-  getInitialState?: (props: {
+  getInitialState?: ((props: {
     [key: string]: any;
   }) => {
     [key: string]: any;
-  };
+  });
   getInstance: (context: C, props: {
     [key: string]: any;
   }, state: {
     [key: string]: any;
   }) => H;
-  getServerSideString?: (context: C, props: {
+  getServerSideString?: ((context: C, props: {
     [key: string]: any;
-  }) => string;
-  getServerSideStringClose?: (context: C, props: {
+  }) => string);
+  getServerSideStringClose?: ((context: C, props: {
     [key: string]: any;
-  }) => string;
+  }) => string);
   onMount: (context: C, instance: unknown, props: {
     [key: string]: any;
   }, state: {
     [key: string]: any;
   }) => void;
-  shouldUpdate?: (context: C, prevProps: null | {
+  shouldUpdate?: ((context: C, prevProps: null | {
     [key: string]: any;
   }, nextProps: {
     [key: string]: any;
   }, state: {
     [key: string]: any;
-  }) => boolean;
-  onUpdate?: (context: C, instance: unknown, prevProps: null | {
+  }) => boolean);
+  onUpdate?: ((context: C, instance: unknown, prevProps: null | {
     [key: string]: any;
   }, nextProps: {
     [key: string]: any;
   }, state: {
     [key: string]: any;
-  }) => void;
-  onUnmount?: (context: C, instance: unknown, props: {
+  }) => void);
+  onUnmount?: ((context: C, instance: unknown, props: {
     [key: string]: any;
   }, state: {
     [key: string]: any;
-  }) => void;
-  onHydrate?: (context: C, props: {
+  }) => void);
+  onHydrate?: ((context: C, props: {
     [key: string]: any;
   }, state: {
     [key: string]: any;
-  }) => boolean;
-  onFocus?: (context: C, props: {
+  }) => boolean);
+  onFocus?: ((context: C, props: {
     [key: string]: any;
   }, state: {
     [key: string]: any;
-  }) => boolean;
+  }) => boolean);
 }
 
 export interface ReactFundamentalComponent<C, H> {

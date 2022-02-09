@@ -1,5 +1,5 @@
-declare module "meteor/browser-policy-common" {
-    module BrowserPolicy {
+declare module 'meteor/browser-policy-common' {
+    namespace BrowserPolicy {
         var framing: {
             disallow(): void;
             restrictToOrigin(origin: string): void;

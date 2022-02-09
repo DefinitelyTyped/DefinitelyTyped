@@ -12,17 +12,17 @@ export interface DiscoveryConstructorOptions {
     /**
      * The port to listen upon for service announcements. Default: 44201.
      */
-    port?: number;
+    port?: number | undefined;
 
     /**
      * The address to bind to. Default: listens to all interfaces.
      */
-    bindAddr?: string;
+    bindAddr?: string | undefined;
 
     /**
      * Either 'udp4' or 'udp6'. Default: 'udp4'.
      */
-    dgramType?: string;
+    dgramType?: string | undefined;
 }
 
 /**
@@ -61,7 +61,7 @@ export interface DiscoveryEvents {
      * @param eventName The name of the event.
      * @param data The payload for the event.
      */
-    MessageBus?: (eventName: string, data: any) => void;
+    MessageBus?: ((eventName: string, data: any) => void) | undefined;
 }
 
 /**

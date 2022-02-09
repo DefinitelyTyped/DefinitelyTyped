@@ -2,12 +2,12 @@ import { ComponentType } from 'react';
 
 declare namespace BlockMover {
     interface Props {
-        blockElementId?: string;
+        blockElementId?: string | undefined;
         clientIds: string[];
-        children?: never;
-        instanceId?: string;
-        isDraggable?: boolean;
-        isHidden?: boolean;
+        children?: never | undefined;
+        instanceId?: string | undefined;
+        isDraggable?: boolean | undefined;
+        isHidden?: boolean | undefined;
         onDragEnd?(): void;
         onDragStart?(): void;
     }

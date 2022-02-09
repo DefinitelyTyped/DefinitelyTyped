@@ -1,30 +1,52 @@
-import { AnimationClip, Audio, Camera, Mesh, Object3D, SkinnedMesh } from '../../../src/Three';
+import {
+    AnimationClip,
+    Audio,
+    Camera,
+    Mesh,
+    Object3D,
+    Quaternion,
+    SkinnedMesh,
+    Bone,
+    AnimationMixer,
+} from '../../../src/Three';
+
+import { CCDIKSolver } from './CCDIKSolver';
+import { MMDPhysics } from './MMDPhysics';
 
 export interface MMDAnimationHelperParameter {
-    sync?: boolean;
-    afterglow?: number;
-    resetPhysicsOnLoop?: boolean;
+    sync?: boolean | undefined;
+    afterglow?: number | undefined;
+    resetPhysicsOnLoop?: boolean | undefined;
 }
 
 export interface MMDAnimationHelperAddParameter {
-    animation?: AnimationClip | AnimationClip[];
-    physics?: boolean;
-    warmup?: number;
-    unitStep?: number;
-    maxStepNum?: number;
-    gravity?: number;
-    delayTime?: number;
+    animation?: AnimationClip | AnimationClip[] | undefined;
+    physics?: boolean | undefined;
+    warmup?: number | undefined;
+    unitStep?: number | undefined;
+    maxStepNum?: number | undefined;
+    gravity?: number | undefined;
+    delayTime?: number | undefined;
 }
 
 export interface MMDAnimationHelperPoseParameter {
-    resetPose?: boolean;
-    ik?: boolean;
-    grant?: boolean;
+    resetPose?: boolean | undefined;
+    ik?: boolean | undefined;
+    grant?: boolean | undefined;
+}
+
+export interface MMDAnimationHelperMixer {
+    looped: boolean;
+    mixer?: AnimationMixer | undefined;
+    ikSolver: CCDIKSolver;
+    grantSolver: GrantSolver;
+    physics?: MMDPhysics | undefined;
+    duration?: number | undefined;
 }
 
 export class MMDAnimationHelper {
     constructor(params?: MMDAnimationHelperParameter);
-    meshes: Mesh[];
+    meshes: SkinnedMesh[];
     camera: Camera | null;
     cameraTarget: Object3D;
     audio: Audio;
@@ -41,6 +63,7 @@ export class MMDAnimationHelper {
         physics: boolean;
         cameraAnimation: boolean;
     };
+    objects: WeakMap<SkinnedMesh | Camera | AudioManager, MMDAnimationHelperMixer>;
     onBeforePhysics: (mesh: SkinnedMesh) => void;
     sharedPhysics: boolean;
     masterPhysics: null;
@@ -54,7 +77,7 @@ export class MMDAnimationHelper {
 }
 
 export interface AudioManagerParameter {
-    delayTime?: number;
+    delayTime?: number | undefined;
 }
 
 export class AudioManager {
@@ -75,4 +98,6 @@ export class GrantSolver {
     grants: object[];
 
     update(): this;
+    updateOne(gran: object[]): this;
+    addGrantRotation(bone: Bone, q: Quaternion, ratio: number): this;
 }

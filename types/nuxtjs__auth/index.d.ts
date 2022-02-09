@@ -61,7 +61,7 @@ export interface Auth<T = any> {
 
 declare module 'vue/types/options' {
     interface ComponentOptions<V extends Vue> {
-        auth?: boolean | string;
+        auth?: boolean | string | undefined;
     }
 }
 

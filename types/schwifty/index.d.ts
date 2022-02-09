@@ -22,11 +22,11 @@ export class Model extends Objection.Model {
 }
 
 export interface RegistrationOptions {
-    knex?: Knex | Knex.Config;
-    models?: ModelClass[] | string;
-    migrationsDir?: string;
-    teardownOnStop?: boolean;
-    migrateOnStart?: boolean | "latest" | "rollback";
+    knex?: Knex | Knex.Config | undefined;
+    models?: ModelClass[] | string | undefined;
+    migrationsDir?: string | undefined;
+    teardownOnStop?: boolean | undefined;
+    migrateOnStart?: boolean | "latest" | "rollback" | undefined;
 }
 
 export function assertCompatible(

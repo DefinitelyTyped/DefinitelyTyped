@@ -48,6 +48,25 @@ $ = cheerio.load(html, {
 const [$ele1] = Array.from($('.class'));
 
 /**
+ * Start and end indicies for all tags
+ */
+
+const indicesHTML = `<div id="fruits"><!-- This is a pear -->Pear</div>`;
+
+const indicesHTMLRoot = cheerio.load(indicesHTML, {
+  withStartIndices: true,
+  withEndIndices: true,
+});
+
+const tagEl = indicesHTMLRoot('*')[0] as cheerio.TagElement;
+const commentEl = tagEl.firstChild as cheerio.CommentElement;
+const textEl = tagEl.lastChild as cheerio.TextElement;
+
+tagEl.endIndex! - tagEl.startIndex!;
+commentEl.endIndex! - commentEl.startIndex!;
+textEl.endIndex! - textEl.startIndex!;
+
+/**
  * Selectors
  */
 var $el = $('.class');
@@ -302,6 +321,7 @@ $el.text('text');
 $el.wrap($('<div class="red-fruit"></div>')).html();
 
 // .css
+$el.css();
 $el.css('width');
 $el.css(['width', 'height']);
 $el.css('width', '50px');

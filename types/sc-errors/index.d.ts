@@ -79,7 +79,7 @@ export class BrokerError extends Error {
 }
 
 export class ProcessExitError extends Error {
-    code?: number;
+    code?: number | undefined;
 
     constructor(message: string, code?: number);
 }

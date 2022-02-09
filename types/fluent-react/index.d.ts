@@ -12,7 +12,7 @@ import {
 export interface Node {
   TEXT_NODE: 3;
   nodeType: number;
-  localName?: string;
+  localName?: string | undefined;
   textContext: string;
 }
 
@@ -24,7 +24,8 @@ export interface Context {
 }
 export interface LocalizationProviderProps {
   bundles: IterableIterator<FluentBundle>;
-  parseMarkup?: MarkupParser;
+  children: React.ReactElement;
+  parseMarkup?: MarkupParser | undefined;
 }
 export class LocalizationProvider extends React.Component<LocalizationProviderProps> {
 }
@@ -36,7 +37,7 @@ export class ReactLocalization {
 
 export interface LocalizedProps {
   id: string;
-  attrs?: object;
+  attrs?: object | undefined;
   [key: string]: any;
 }
 

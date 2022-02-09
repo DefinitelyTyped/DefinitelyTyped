@@ -5,11 +5,11 @@ import { Options as Options_1 } from './Rotate';
 import { Options as Options_2 } from './Zoom';
 
 export interface DefaultsOptions {
-    attribution?: boolean;
-    attributionOptions?: Options;
-    rotate?: boolean;
-    rotateOptions?: Options_1;
-    zoom?: boolean;
-    zoomOptions?: Options_2;
+    attribution?: boolean | undefined;
+    attributionOptions?: Options | undefined;
+    rotate?: boolean | undefined;
+    rotateOptions?: Options_1 | undefined;
+    zoom?: boolean | undefined;
+    zoomOptions?: Options_2 | undefined;
 }
 export function defaults(opt_options?: DefaultsOptions): Collection<Control>;

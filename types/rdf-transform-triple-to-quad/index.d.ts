@@ -13,7 +13,7 @@ declare namespace TripleToQuadTransform {
 }
 
 declare class TripleToQuadTransform<Q extends BaseQuad = Quad> extends Transform implements Stream<Q> {
-    constructor(graph?: Quad_Graph, options?: TripleToQuadTransform.TripleToQuadTransformOptions);
+    constructor(graph?: Quad_Graph | string, options?: TripleToQuadTransform.TripleToQuadTransformOptions);
 }
 
 export = TripleToQuadTransform;

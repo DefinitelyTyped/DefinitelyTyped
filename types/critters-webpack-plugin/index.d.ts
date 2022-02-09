@@ -18,72 +18,72 @@ declare namespace Critters {
          * Inline styles from external stylesheets.
          * @default true
          */
-        external?: boolean;
+        external?: boolean | undefined;
         /**
          * Inline external stylesheets smaller than a given size.
          * @default 0
          */
-        inlineThreshold?: number;
+        inlineThreshold?: number | undefined;
         /**
          * If the non-critical external stylesheet would be below this size, just inline it.
          * @default 0
          */
-        minimumExternalSize?: number;
+        minimumExternalSize?: number | undefined;
         /**
          * Remove inlined rules from the external stylesheet.
          * @default true
          */
-        pruneSource?: boolean;
+        pruneSource?: boolean | undefined;
         /**
          * Merged inlined stylesheets into a single <style> tag.
          * @default true
          */
-        mergeStylesheets?: boolean;
+        mergeStylesheets?: boolean | undefined;
         /**
          * Glob for matching other stylesheets to be used while looking for critical CSS
          */
-        additionalStylesheets?: string[];
+        additionalStylesheets?: string[] | undefined;
         /**
          * The mechanism to use for lazy-loading stylesheets.
          *
          */
-        preload?: 'body' | 'media' | 'swap' | 'js' | 'js-lazy';
+        preload?: 'body' | 'media' | 'swap' | 'js' | 'js-lazy' | undefined;
         /**
          * Add <noscript> fallback to JS-based strategies
          */
-        noscriptFallback?: boolean;
+        noscriptFallback?: boolean | undefined;
         /**
          * Inline critical font-face rules.
          * @default false
          */
-        inlineFonts?: boolean;
+        inlineFonts?: boolean | undefined;
         /**
          * Preloads critical fonts.
          * @default true
          */
-        preloadFonts?: boolean;
+        preloadFonts?: boolean | undefined;
         /**
          * Shorthand for setting inlineFonts+preloadFonts - Values:
          * - true to inline critical font-face rules and preload the fonts.
          * - false to don"t inline any font-face rules and don"t preload fonts.
          */
-        fonts?: boolean;
+        fonts?: boolean | undefined;
         /**
          * Controls which keyframes rules are inlined.
          * See {@link KeyFrameStrategy keyframe strategy}
          * @default "critical"
          */
-        keyframes?: KeyframeStrategy;
+        keyframes?: KeyframeStrategy | undefined;
         /**
          * Compress resulting critical CSS.
          * @default true
          */
-        compress?: boolean;
+        compress?: boolean | undefined;
         /**
          * Controls {@link LogLevel log level} of the plugin
          * @default 'info'
          */
-        logLevel?: LogLevel;
+        logLevel?: LogLevel | undefined;
     }
 
     /**

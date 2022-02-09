@@ -2,9 +2,9 @@ import { Extent } from '../../extent';
 import { FeatureLike } from '../../Feature';
 import SimpleGeometry from '../../geom/SimpleGeometry';
 import Text from '../../style/Text';
-import { DeclutterGroups } from '../canvas';
+import { SerializableInstructions } from '../canvas';
 import RenderFeature from '../Feature';
-import CanvasBuilder, { SerializableInstructions } from './Builder';
+import CanvasBuilder from './Builder';
 
 export enum TEXT_ALIGN {
     left = 0,
@@ -23,5 +23,5 @@ export default class CanvasTextBuilder extends CanvasBuilder {
     constructor(tolerance: number, maxExtent: Extent, resolution: number, pixelRatio: number);
     drawText(geometry: SimpleGeometry | RenderFeature, feature: FeatureLike): void;
     finish(): SerializableInstructions;
-    setTextStyle(textStyle: Text, declutterGroups: DeclutterGroups): void;
+    setTextStyle(textStyle: Text, opt_sharedData?: any): void;
 }

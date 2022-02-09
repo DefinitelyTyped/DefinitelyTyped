@@ -1,6 +1,7 @@
 import waitOn = require('wait-on');
+import { WaitOnOptions } from 'wait-on';
 
-const opts = {
+const opts: WaitOnOptions = {
     resources: [
         'file1',
         'http://foo.com:8000/bar',
@@ -44,10 +45,6 @@ const opts = {
             username: 'mikeymike',
             password: 'rapunz3l',
         },
-    },
-    httpSignature: {
-        keyId: 'yourKeyId',
-        key: 'yourKey',
     },
     strictSSL: false,
     followRedirect: true,

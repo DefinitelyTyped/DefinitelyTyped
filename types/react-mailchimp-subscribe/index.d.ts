@@ -48,7 +48,7 @@ export interface SubscribeArg<FormFields> {
 export type FormHooks<FormFields> = SubscribeArg<FormFields> & (ErrorResponseArgs | SuccessResponseArgs | PendingArgs);
 
 export interface Props<FormFields> {
-    render?: (hooks: FormHooks<FormFields>) => ReactNode;
+    render?: ((hooks: FormHooks<FormFields>) => ReactNode) | undefined;
     url: string;
 }
 

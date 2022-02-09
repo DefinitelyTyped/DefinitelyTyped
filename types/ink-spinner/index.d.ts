@@ -13,7 +13,7 @@ interface SpinnerProps {
      *
      * @default 'dot'
      */
-    type?: cliSpinners.SpinnerName;
+    type?: cliSpinners.SpinnerName | undefined;
 }
 
 declare class Spinner extends Component<SpinnerProps> {}

@@ -56,19 +56,19 @@ declare namespace mariasql {
         host: string;
         user: string;
         password: string;
-        db?: string;
-        port?: number;
-        unixSocket?: string;
-        keepQueries?: boolean;
-        multiStatements?: boolean;
-        connTimeout?: number;
-        pingInterval?: number;
-        secureAuth?: boolean;
-        compress?: boolean;
+        db?: string | undefined;
+        port?: number | undefined;
+        unixSocket?: string | undefined;
+        keepQueries?: boolean | undefined;
+        multiStatements?: boolean | undefined;
+        connTimeout?: number | undefined;
+        pingInterval?: number | undefined;
+        secureAuth?: boolean | undefined;
+        compress?: boolean | undefined;
         ssl?:any;
-        local_infile?: boolean;
-        read_default_group?: string;
-        charset?: string;
+        local_infile?: boolean | undefined;
+        read_default_group?: string | undefined;
+        charset?: string | undefined;
     }
 
     export interface MariaResult {

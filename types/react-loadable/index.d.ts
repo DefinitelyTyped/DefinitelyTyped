@@ -34,13 +34,13 @@ declare namespace LoadableExport {
          *
          * Only show the loading component if the loader() has taken this long to succeed or error.
          */
-        delay?: number | false | null;
+        delay?: number | false | null | undefined;
         /**
          * Disabled by default.
          *
          * After the specified time in milliseconds passes, the component's `timedOut` prop will be set to true.
          */
-        timeout?: number | false | null;
+        timeout?: number | false | null | undefined;
 
         /**
          * Optional array of module paths that `Loadable.Capture`'s `report` function will be applied on during
@@ -52,7 +52,7 @@ declare namespace LoadableExport {
          * });
          * ```
          */
-        modules?: string[];
+        modules?: string[] | undefined;
 
         /**
          * An optional function which returns an array of Webpack module ids which you can get
@@ -65,7 +65,7 @@ declare namespace LoadableExport {
          * });
          * ```
          */
-        webpack?: () => Array<string | number>;
+        webpack?: (() => Array<string | number>) | undefined;
     }
 
     interface OptionsWithoutRender<Props> extends CommonOptions {

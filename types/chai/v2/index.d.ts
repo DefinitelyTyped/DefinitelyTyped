@@ -49,8 +49,8 @@ declare namespace Chai {
     interface Assertion extends LanguageChains, NumericComparison, TypeComparison {
         not: Assertion;
         deep: Deep;
-        a: TypeComparison;
-        an: TypeComparison;
+        a: Assertion;
+        an: Assertion;
         include: Include;
         contain: Include;
         ok: Assertion;
@@ -280,6 +280,7 @@ declare namespace Chai {
 
         sameMembers(set1: any[], set2: any[], msg?: string): void;
         includeMembers(set1: any[], set2: any[], msg?: string): void;
+        notIncludeMembers(set1: any[], set2: any[], msg?: string): void;
 
         ifError(val: any, msg?: string): void;
     }

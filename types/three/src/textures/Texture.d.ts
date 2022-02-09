@@ -154,6 +154,17 @@ export class Texture extends EventDispatcher {
     encoding: TextureEncoding;
 
     /**
+     * @default false
+     */
+    isRenderTargetTexture: boolean;
+
+    /**
+     * An object that can be used to store custom data about the Material. It should not hold references to functions as these will not be cloned.
+     * @default {}
+     */
+    userData: any;
+
+    /**
      * @default 0
      */
     version: number;
@@ -164,7 +175,7 @@ export class Texture extends EventDispatcher {
     static DEFAULT_IMAGE: any;
     static DEFAULT_MAPPING: any;
 
-    clone(): Texture;
+    clone(): this;
     copy(source: Texture): this;
     toJSON(meta: any): any;
     dispose(): void;

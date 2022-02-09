@@ -15,6 +15,9 @@ mp.emittedEnd = true; // $ExpectError
 mp.encoding = encoding;
 mp.readable; // $ExpectType boolean
 mp.writable; // $ExpectType boolean
+mp.objectMode; // $ExpectType boolean
+mp.paused; // $ExpectType boolean
+mp.destroyed; // $ExpectType boolean
 mp.buffer; // $ExpectType any
 mp.pipes; // $ExpectType any
 
@@ -36,6 +39,29 @@ mp.end('bar', encoding, () => {});
 mp.resume();
 mp.pause();
 mp.pipe(process.stdout); // $ExpectType WriteStream & { fd: 1; }
+
+mp.promise().then(() => {
+    // stream is finished
+}, er => {
+    // stream emitted an error
+});
+
+mp.collect().then(all => {
+    all;  // $ExpectType any[]
+    // all is an array of all the data emitted
+    // encoding is supported in this case, so
+    // so the result will be a collection of strings if
+    // an encoding is specified, or buffers/objects if not.
+    //
+    // In an async function, you may do
+    // const data = await stream.collect()
+});
+
+mp.concat().then(onebigchunk => {
+    onebigchunk;  // $ExpectType string | Buffer
+    // onebigchunk is a string if the stream
+    // had an encoding set, or a buffer otherwise.
+});
 
 mp.on('data', chunk => {
     chunk; // $ExpectType any

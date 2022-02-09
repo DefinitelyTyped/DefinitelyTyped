@@ -16,14 +16,14 @@ declare namespace anchorjs {
     type AnchorVisibility = 'always' | 'hover' | 'touch';
 
     interface AnchorOptions {
-        ariaLabel?: string;
-        base?: string;
-        class?: string;
-        icon?: string;
-        placement?: AnchorPlacement;
-        titleText?: string;
-        truncate?: number;
-        visible?: AnchorVisibility;
+        ariaLabel?: string | undefined;
+        base?: string | undefined;
+        class?: string | undefined;
+        icon?: string | undefined;
+        placement?: AnchorPlacement | undefined;
+        titleText?: string | undefined;
+        truncate?: number | undefined;
+        visible?: AnchorVisibility | undefined;
     }
 
     interface AnchorStatic {

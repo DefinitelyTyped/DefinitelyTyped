@@ -12,7 +12,7 @@ declare namespace DataTables {
         /*
          * KeyTable extension options
          */
-        keys?: boolean | KeyTableSettings;
+        keys?: boolean | KeyTableSettings | undefined;
     }
 
     interface KeyTableSettings {
@@ -22,26 +22,26 @@ declare namespace DataTables {
          * When set to true this option allows the table to lose focus (i.e. to be blurred),
          * while false will not allow the table to lose focus.
          */
-        blurable?: boolean;
+        blurable?: boolean | undefined;
 
         /*
          * Set the class name used for the focused cell
          *
          * The class name to be added and removed from cells as they gain and loose focus.
          */
-        className?: string;
+        className?: string | undefined;
 
         /*
          * Enable / disable clipboard interaction with KeyTable
          *
          * A boolean flag that can optionally be used to disable KeyTables' clipboard interaction.
          */
-        clipboard?: boolean;
+        clipboard?: boolean | undefined;
 
         /*
          * Set the orthogonal data point for the data to copy to clipboard.
          */
-        clipboardOrthogonal?: string;
+        clipboardOrthogonal?: string | undefined;
 
         /*
          * Select the columns that can gain focus
@@ -56,7 +56,7 @@ declare namespace DataTables {
          *
          * true to enable editing on focus, false to disable.
          */
-        editOnFocus?: boolean;
+        editOnFocus?: boolean | undefined;
 
         /*
          * Attach an Editor instance for Excel like editing
@@ -81,7 +81,7 @@ declare namespace DataTables {
          * an array you can limit the keys that KeyTable will take action on to just the key
          * codes given in the array.
          */
-        keys?: number[] | null;
+        keys?: number[] | null | undefined;
 
         /*
          * Set the table's tab index for when it will receive focus
@@ -89,7 +89,7 @@ declare namespace DataTables {
          * The tab index for the table. Like all other tab indexes, this can be -1 to disallow
          * tabbing into the table.
          */
-        tabIndex?: number;
+        tabIndex?: number | undefined;
     }
 
     interface Api {

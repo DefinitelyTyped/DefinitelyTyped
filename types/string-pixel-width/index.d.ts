@@ -11,8 +11,8 @@ declare function getWidth(
 ): number;
 
 interface Settings {
-    bold?: boolean;
-    font?: "andale mono"|"arial"|"avenir next"|"avenir"|"comic sans ms"|"courier new"|"georgia"|"impact"|"open sans"|"tahoma"|"times new roman"|"trebuchet ms"|"verdana"|"webdings";
-    italic?: boolean;
-    size?: number;
+    bold?: boolean | undefined;
+    font?: "andale mono"|"arial"|"avenir next"|"avenir"|"comic sans ms"|"courier new"|"georgia"|"impact"|"open sans"|"tahoma"|"times new roman"|"trebuchet ms"|"verdana"|"webdings" | undefined;
+    italic?: boolean | undefined;
+    size?: number | undefined;
 }

@@ -26,7 +26,7 @@ export interface Artifact {
 export interface Credentials {
     accessKeyId: string;
     secretAccessKey: string;
-    sessionToken?: string;
+    sessionToken?: string | undefined;
 }
 
 export interface EncryptionKey {
@@ -48,8 +48,8 @@ export interface CodePipelineEvent {
             inputArtifacts: Artifact[];
             outputArtifacts: Artifact[];
             artifactCredentials: Credentials;
-            encryptionKey?: EncryptionKey & { type: 'KMS' };
-            continuationToken?: string;
+            encryptionKey?: EncryptionKey & { type: 'KMS' } | undefined;
+            continuationToken?: string | undefined;
         };
     };
 }

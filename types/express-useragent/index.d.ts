@@ -10,13 +10,14 @@ import { Request, Response, NextFunction } from 'express';
 declare global {
     namespace Express {
         interface Request {
-            useragent?: Details;
+            useragent?: Details | undefined;
         }
     }
 }
 
 export interface Details {
     isMobile: boolean;
+    isMobileNative: boolean;
     isTablet: boolean;
     isiPad: boolean;
     isiPod: boolean;

@@ -11,36 +11,36 @@ import { FSWatcher } from 'fs';
 
 interface ServerConfig {
     /** Protocol Version defaults to "7" */
-    version?: string;
+    version?: string | undefined;
     /** Sets server port number: Defaults to 35729 */
-    port?: number;
+    port?: number | undefined;
 
     /** File Extensions to watch */
-    exts?: string[];
+    exts?: string[] | undefined;
 
-    extraExts?: string[];
+    extraExts?: string[] | undefined;
 
     /** Extensions to not watch */
-    exclusions?: RegExp[];
-    applyCSSLive?: boolean;
-    applyImgLive?: boolean;
-    originalPath?: string;
-    overrideURL?: string;
-    usePolling?: boolean;
-    server?: httpServer | httpsServer;
+    exclusions?: RegExp[] | undefined;
+    applyCSSLive?: boolean | undefined;
+    applyImgLive?: boolean | undefined;
+    originalPath?: string | undefined;
+    overrideURL?: string | undefined;
+    usePolling?: boolean | undefined;
+    server?: httpServer | httpsServer | undefined;
 
     /** ms to delay browser refresh */
-    delay?: number;
+    delay?: number | undefined;
 
     /** Logs debug messages to console */
-    debug?: boolean;
+    debug?: boolean | undefined;
 }
 
 /** Create Server Parameters */
 interface CreateServerConfig extends ServerConfig {
-    https?: ServerOptions;
-    server?: httpServer | httpsServer;
-    noListen?: boolean;
+    https?: ServerOptions | undefined;
+    server?: httpServer | httpsServer | undefined;
+    noListen?: boolean | undefined;
 }
 
 /** Live Reload Server object, provides main functionality */

@@ -9,7 +9,8 @@ import {
     VerifyOIDCFunction,
     VerifyOIDCFunctionWithReq,
     IProfile,
-    VerifyCallback
+    VerifyCallback,
+    ITokenPayload
 } from "passport-azure-ad";
 
 const bearerStrategyOptions: IBearerStrategyOptionWithRequest = {
@@ -59,3 +60,45 @@ new BearerStrategy(bearerStrategyOptions, verifyBearer);
 new OIDCStrategy(oidcStrategyOptions, verifyOidc);
 
 new OIDCStrategy(oidcStrategyOptionWithoutRequest, verifyOidcWithoutReq);
+
+const tokenPayloadV2: ITokenPayload = {
+    aud: "test-aud",
+    iss: "test-iss",
+    idp: "test-idp",
+    iat: 1,
+    nbf: 2,
+    exp: 3,
+    aio: "test-aio",
+    acr: "0" as "0" | "1",
+    amr: [""],
+    appid: "test-appid",
+    azp: "test-azp",
+    appidacr: "0" as "0" | "1" | "2",
+    azpacr: "0" as "0" | "1" | "2",
+    preferred_username: 'test-username',
+    name: 'test-name',
+    scp: 'test-scp',
+    roles: ['test-role'],
+    groups: ['group1'],
+    hasgroups: true,
+    sub: 'test-sub',
+    oid: 'test-oid',
+    tid: 'test-tid',
+    unique_name: 'test-unique-name',
+    uti: 'test-uti',
+    rh: 'test-rh',
+    ver: "2.0",
+};
+
+const tokenPayloadV1: ITokenPayload = {
+    ipaddr: '127.0.0.1',
+    onprem_sid: 'test-sid',
+    pwd_exp: 1234,
+    pwd_url: 'test-url',
+    in_corp: 'no',
+    nickname: 'test-nickname',
+    family_name: 'test-family-name',
+    given_name: 'test-given-name',
+    upn: 'test-upn',
+    ver: "1.0",
+};

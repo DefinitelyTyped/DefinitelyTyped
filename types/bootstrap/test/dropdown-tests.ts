@@ -1,13 +1,15 @@
-import { Dropdown } from "bootstrap";
-import * as $ from "jquery";
+import { Dropdown } from 'bootstrap';
+import * as $ from 'jquery';
 
 const element = new Element();
 
 new Dropdown(element, { flip: true }); // $ExpectError
 new Dropdown(element, { offset: [0, 2] }); // $ExpectType Dropdown
 
-// $ExpectType Dropdown
+// $ExpectType Dropdown | null
 Dropdown.getInstance(element);
+// $ExpectType Dropdown
+Dropdown.getOrCreateInstance(element);
 
 // $ExpectType string
 Dropdown.VERSION;
@@ -47,12 +49,12 @@ element.addEventListener(Dropdown.Events.hidden, event => {
 });
 
 // $ExpectType void
-$(".alert").dropdown();
+$('.alert').dropdown();
 
-$(".alert").dropdown({ flip: true }); // $ExpectError
-$(".alert").dropdown({ offset: [0, 2] }); // $ExpectType void
+$('.alert').dropdown({ flip: true }); // $ExpectError
+$('.alert').dropdown({ offset: [0, 2], autoClose: true }); // $ExpectType void
 
-$(".alert").dropdown("show"); // $ExpectType void
-$(".alert").dropdown("hide"); // $ExpectType void
-$(".alert").dropdown("toggle"); // $ExpectType void
-$(".alert").dropdown("update"); // $ExpectType void
+$('.alert').dropdown('show'); // $ExpectType void
+$('.alert').dropdown('hide'); // $ExpectType void
+$('.alert').dropdown('toggle'); // $ExpectType void
+$('.alert').dropdown('update'); // $ExpectType void

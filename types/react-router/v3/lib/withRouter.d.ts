@@ -1,10 +1,10 @@
-import { ComponentClass, StatelessComponent } from "react";
+import { ComponentClass, FunctionComponent } from "react";
 import { InjectedRouter, Params } from "./Router";
 import { Location } from "history";
 import { PlainRoute } from "./Route";
 
 interface Options {
-    withRef?: boolean;
+    withRef?: boolean | undefined;
 }
 
 export interface WithRouterProps<P = Params, Q = any> {
@@ -14,7 +14,7 @@ export interface WithRouterProps<P = Params, Q = any> {
     routes: PlainRoute[];
 }
 
-type ComponentConstructor<P> = ComponentClass<P> | StatelessComponent<P>;
+type ComponentConstructor<P> = ComponentClass<P> | FunctionComponent<P>;
 
 declare function withRouter<P, S>(
     component: ComponentConstructor<P & WithRouterProps> & S,

@@ -28,8 +28,8 @@ export interface RelayRefetchProp {
     hasMore: undefined; // ensures no RelayPaginationProp is used with a refetch container
 }
 export interface RefetchOptions {
-    force?: boolean;
-    fetchPolicy?: 'store-or-network' | 'network-only';
+    force?: boolean | undefined;
+    fetchPolicy?: 'store-or-network' | 'network-only' | undefined;
 }
 
 type ObserverOrCallback = Observer<void> | ((error: Error | null | undefined) => void);

@@ -8,19 +8,19 @@ import * as React from 'react';
 import { TextStyle } from 'react-native';
 
 export interface SnackbarComponentProps {
-    accentColor?: string;
-    actionText?: string;
-    messageColor?: string;
-    backgroundColor?: string;
-    distanceCallback?: () => void;
-    actionHandler?: () => void;
-    left?: number;
-    right?: number;
-    bottom?: number;
-    position?: string;
-    textMessage?: string;
-    autoHidingTime?: number;
-    visible?: boolean;
+    accentColor?: string | undefined;
+    actionText?: string | undefined;
+    messageColor?: string | undefined;
+    backgroundColor?: string | undefined;
+    distanceCallback?: (() => void) | undefined;
+    actionHandler?: (() => void) | undefined;
+    left?: number | undefined;
+    right?: number | undefined;
+    bottom?: number | undefined;
+    position?: string | undefined;
+    textMessage?: string | undefined;
+    autoHidingTime?: number | undefined;
+    visible?: boolean | undefined;
 }
 
 export default class SnackbarComponent extends React.Component<SnackbarComponentProps> {}

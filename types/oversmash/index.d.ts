@@ -32,22 +32,22 @@ export interface CallerOptions {
 export interface Account {
     level: number;
     portrait: string;
-    displayName?: string;
+    displayName?: string | undefined;
     platform: string;
     public: boolean;
 }
 
 export interface Player {
-    name?: string;
+    name?: string | undefined;
     nameEscaped: string;
     nameEscapedUrl: string;
     accounts: Account[];
 }
 
 export interface CompetitiveRank {
-    support?: number;
-    tank?: number;
-    damage?: number;
+    support?: number | undefined;
+    tank?: number | undefined;
+    damage?: number | undefined;
 }
 
 export interface Achievement {
@@ -75,25 +75,25 @@ export type Game = {
 
 export type Hero = {
     name: string;
-    combat?: Statistic;
-    game?: Game;
-    best?: Statistic;
-    misc?: Statistic;
-    awards?: Statistic;
-    hero?: Statistic;
-    assists?: Statistic;
-    average?: Statistic;
+    combat?: Statistic | undefined;
+    game?: Game | undefined;
+    best?: Statistic | undefined;
+    misc?: Statistic | undefined;
+    awards?: Statistic | undefined;
+    hero?: Statistic | undefined;
+    assists?: Statistic | undefined;
+    average?: Statistic | undefined;
     rawName: string;
 } & {
     name: string;
-    combat?: Statistic;
-    game?: Game;
-    best?: Statistic;
-    misc?: Statistic;
-    awards?: Statistic;
-    hero?: Statistic;
-    assists?: Statistic;
-    average?: Statistic;
+    combat?: Statistic | undefined;
+    game?: Game | undefined;
+    best?: Statistic | undefined;
+    misc?: Statistic | undefined;
+    awards?: Statistic | undefined;
+    hero?: Statistic | undefined;
+    assists?: Statistic | undefined;
+    average?: Statistic | undefined;
     raw_name: string;
 };
 
@@ -118,10 +118,10 @@ export type Stats = {
 };
 
 export interface PlayerStats {
-    name?: string;
+    name?: string | undefined;
     nameEscaped: string;
-    nameEscapedUrl?: string;
-    region?: string;
+    nameEscapedUrl?: string | undefined;
+    region?: string | undefined;
     platform: string;
     stats: Stats;
 }

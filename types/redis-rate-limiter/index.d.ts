@@ -18,11 +18,11 @@ declare namespace RedisRateLimiter {
     export interface Options {
         redis: redis.RedisClient;
         key: 'ip' | ((req: express.Request) => string);
-        window?: number;
-        limit?: number;
-        rate?: string;
-        deleteImmediatelyIfRaceCondition?: boolean;
-        onPossibleRaceCondition?: (key: string) => void;
+        window?: number | undefined;
+        limit?: number | undefined;
+        rate?: string | undefined;
+        deleteImmediatelyIfRaceCondition?: boolean | undefined;
+        onPossibleRaceCondition?: ((key: string) => void) | undefined;
     }
 
     export interface Response {

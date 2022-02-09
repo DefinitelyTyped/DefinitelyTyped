@@ -15,7 +15,7 @@ interface IntlState {
 }
 
 interface IntlAction extends Action {
-    payload?: IntlState
+    payload?: IntlState | undefined
 }
 
 export function intlReducer(state: IntlState | undefined, action: IntlAction): IntlState

@@ -14,15 +14,15 @@ var config: sql.config = {
     options: {
         encrypt: true
     },
-    pool: {
-        autostart: true
-    },
-    beforeConnect: conn => {
+    pool: {},
+    beforeConnect: (conn) => {
         conn.on('debug', message => console.info(message));
         conn.on('error', err => console.error(err));
         conn.removeAllListeners();
     }
 }
+
+var connectionString = 'Server=localhost,1433;Database=database;User Id=username;Password=password;Encrypt=true';
 
 var minimalConfig: sql.config = { server: 'ip' };
 
@@ -95,6 +95,8 @@ var connection: sql.ConnectionPool = new sql.ConnectionPool(config, function (er
         var testId: number = 0;
         var testString: string = 'test';
 
+        // checking default input/output methods
+
         requestStoredProcedureWithOutput.input("name", sql.VarChar, "abc");               // varchar(3)
         requestStoredProcedureWithOutput.input("name", sql.VarChar(50), "abc");           // varchar(MAX)
         requestStoredProcedureWithOutput.output("name", sql.VarChar);                     // varchar(8000)
@@ -106,6 +108,24 @@ var connection: sql.ConnectionPool = new sql.ConnectionPool(config, function (er
 
         requestStoredProcedureWithOutput.input("name", sql.DateTime2, new Date());        // datetime2(7)
         requestStoredProcedureWithOutput.input("name", sql.DateTime2(5), new Date());     // datetime2(5)
+
+        requestStoredProcedureWithOutput.input("name", "abc");
+
+        // checking replaceInput method
+
+        requestStoredProcedureWithOutput.replaceInput("name", sql.VarChar, "abc");               // varchar(3)
+        requestStoredProcedureWithOutput.replaceInput("name", sql.VarChar(50), "abc");           // varchar(MAX)
+
+        requestStoredProcedureWithOutput.replaceInput("name", sql.Decimal, 155.33);              // decimal(18, 0)
+        requestStoredProcedureWithOutput.replaceInput("name", sql.Decimal(10), 155.33);          // decimal(10, 0)
+        requestStoredProcedureWithOutput.replaceInput("name", sql.Decimal(10, 2), 155.33);       // decimal(10, 2)
+
+        requestStoredProcedureWithOutput.replaceInput("name", sql.DateTime2, new Date());        // datetime2(7)
+        requestStoredProcedureWithOutput.replaceInput("name", sql.DateTime2(5), new Date());     // datetime2(5)
+
+        requestStoredProcedureWithOutput.replaceInput("name", "abc");
+
+        // executing stored procedure
 
         requestStoredProcedure.execute('StoredProcedureName', function (err, recordsets, returnValue) {
             if (err != null) {
@@ -281,4 +301,124 @@ function test_mssql_errors() {
         err = preparedStatementError.originalError;
         err = transactionError.originalError;
     }
+}
+
+async function test_global_connect_config() {
+    const value = 'test_value';
+    try {
+        let pool = await sql.connect(config)
+        let result1 = await pool.request()
+            .input('input_parameter', sql.Int, value)
+            .query('select * from mytable where id = @input_parameter')
+
+        console.dir(result1)
+
+        // Stored procedure
+
+        let result2 = await pool.request()
+            .input('input_parameter', sql.Int, value)
+            .output('output_parameter', sql.VarChar(50))
+            .execute('procedure_name')
+
+        console.dir(result2)
+    } catch (err) {
+        // ... error checks
+    }
+}
+
+function test_globa_request_callback_config() {
+    const value = 'test_value';
+    sql.connect(config, err => {
+        // ... error checks
+
+        // Query
+
+        new sql.Request().query('select 1 as number', (err, result) => {
+            // ... error checks
+
+            console.dir(result)
+        })
+
+        // Stored Procedure
+
+        new sql.Request()
+        .input('input_parameter', sql.Int, value)
+        .output('output_parameter', sql.VarChar(50))
+        .execute('procedure_name', (err, result) => {
+            // ... error checks
+
+            console.dir(result)
+        })
+    })
+}
+
+function test_global_request_promise_config() {
+    const value = 'test_value';
+    sql.connect(connectionString).then(pool => {
+        // Query
+
+        return pool.request()
+            .input('input_parameter', sql.Int, value)
+            .query('select * from mytable where id = @input_parameter')
+    }).then(() => { }).catch(err => { });
+}
+
+async function test_global_connect_connection_string() {
+    const value = 'test_value';
+    try {
+        let pool = await sql.connect(connectionString)
+        let result1 = await pool.request()
+            .input('input_parameter', sql.Int, value)
+            .query('select * from mytable where id = @input_parameter')
+
+        console.dir(result1)
+
+        // Stored procedure
+
+        let result2 = await pool.request()
+            .input('input_parameter', sql.Int, value)
+            .output('output_parameter', sql.VarChar(50))
+            .execute('procedure_name')
+
+        console.dir(result2)
+    } catch (err) {
+        // ... error checks
+    }
+}
+
+function test_globa_request_callback_connection_string() {
+    const value = 'test_value';
+    sql.connect(connectionString, err => {
+        // ... error checks
+
+        // Query
+
+        new sql.Request().query('select 1 as number', (err, result) => {
+            // ... error checks
+
+            console.dir(result)
+        })
+
+        // Stored Procedure
+
+        new sql.Request()
+        .input('input_parameter', sql.Int, value)
+        .output('output_parameter', sql.VarChar(50))
+        .execute('procedure_name', (err, result) => {
+            // ... error checks
+
+            console.dir(result)
+        })
+    })
+}
+
+function test_global_request_promise_connection_string() {
+    const value = 'test_value';
+    sql.connect(connectionString).then(pool => {
+        // Query
+
+        return pool.request()
+            .input('input_parameter', sql.Int, value)
+            .query('select * from mytable where id = @input_parameter')
+    }).then(() => { }).catch(err => { });
 }

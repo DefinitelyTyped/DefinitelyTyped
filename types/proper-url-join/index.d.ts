@@ -12,30 +12,30 @@ export interface Options {
      *
      * **Default**: `true`
      */
-    leadingSlash?: boolean | 'keep';
+    leadingSlash?: boolean | 'keep' | undefined;
     /**
      * Add a trailing slash.
      *
      * **Default**: `false`
      */
-    trailingSlash?: boolean | 'keep';
+    trailingSlash?: boolean | 'keep' | undefined;
     /**
      * Protocol relative URLs.
      *
      * **Default**: `false`
      */
-    protocolRelative?: boolean;
+    protocolRelative?: boolean | undefined;
     /**
      * Query string object that will be properly stringified and appended to the url.
      * It will be merged with the query string in the url, if it exists.
      */
     query?: {
         [k: string]: string|number|ReadonlyArray<string|number>;
-    };
+    } | undefined;
     /**
      * [query-string](https://github.com/sindresorhus/query-string#stringifyobject-options) singify method options to be considered when stringifying the query.
      */
-    queryOptions?: StringifyOptions;
+    queryOptions?: StringifyOptions | undefined;
 }
 
 export type PathArg = string|null|undefined|number;

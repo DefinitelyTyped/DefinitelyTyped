@@ -142,8 +142,6 @@ describe('jasminewd', () => {
         }
       };
       jasmine.addMatchers(matchers);
-      jasmine.getEnv().addMatchers(matchers);
-      jasmine.getEnv().currentSpec.addMatchers(matchers);
     });
   });
 });

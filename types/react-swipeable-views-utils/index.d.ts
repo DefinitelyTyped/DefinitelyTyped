@@ -12,15 +12,15 @@ import { OnChangeIndexCallback, OnSwitchingCallback, OnTransitionEndCallback } f
 export interface WithAutoPlay {
     index: number;
     onChangeIndex: OnChangeIndexCallback;
-    onSwitching?: OnSwitchingCallback;
+    onSwitching?: OnSwitchingCallback | undefined;
 }
 export interface WithAutoPlayProps {
-    autoplay?: boolean;
-    direction?: 'incremental' | 'decremental';
+    autoplay?: boolean | undefined;
+    direction?: 'incremental' | 'decremental' | undefined;
     index: number;
-    interval?: number;
+    interval?: number | undefined;
     onChangeIndex: OnChangeIndexCallback;
-    slideCount?: number;
+    slideCount?: number | undefined;
 }
 
 export interface WithVirtualize {
@@ -31,11 +31,11 @@ export interface WithVirtualize {
 export interface WithVirtualizeProps {
     index: number;
     onChangeIndex: OnChangeIndexCallback;
-    onTransitionEnd?: OnTransitionEndCallback;
-    overscanSlideAfter?: number;
-    overscanSlideBefore?: number;
-    slideCount?: number;
-    children?: React.ReactNode;
+    onTransitionEnd?: OnTransitionEndCallback | undefined;
+    overscanSlideAfter?: number | undefined;
+    overscanSlideBefore?: number | undefined;
+    slideCount?: number | undefined;
+    children?: React.ReactNode | undefined;
     slideRenderer: SlideRendererCallback;
 }
 export interface SlideRenderProps {
@@ -48,10 +48,10 @@ export interface WithBindKeyboard {
     onChangeIndex: OnChangeIndexCallback;
 }
 export interface WithBindKeyboardProps {
-    axis?: "x" | "x-reverse" | "y" | "y-reverse";
+    axis?: "x" | "x-reverse" | "y" | "y-reverse" | undefined;
     index: number;
     onChangeIndex: OnChangeIndexCallback;
-    slidecount?: number;
+    slidecount?: number | undefined;
 }
 
 export const autoPlay: PropInjector<WithAutoPlay, WithAutoPlayProps>;

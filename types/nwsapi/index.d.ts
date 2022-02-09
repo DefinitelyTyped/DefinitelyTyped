@@ -384,10 +384,10 @@ declare namespace nwsapi {
          *  };
          *  ```
          */
-        readonly modvar?: string;
+        readonly modvar?: string | undefined;
 
         /** Used to return a new `match` array. */
-        readonly match?: RegExpMatchArray;
+        readonly match?: RegExpMatchArray | undefined;
     }
 
     interface AttributeOperator {

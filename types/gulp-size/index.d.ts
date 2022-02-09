@@ -8,11 +8,11 @@
 
 declare namespace size {
     interface Options {
-        showFiles?: boolean;
-        gzip?: boolean;
-        title?: string;
-        pretty?: boolean;
-        showTotal?: boolean;
+        showFiles?: boolean | undefined;
+        gzip?: boolean | undefined;
+        title?: string | undefined;
+        pretty?: boolean | undefined;
+        showTotal?: boolean | undefined;
     }
 
     interface SizeStream extends NodeJS.ReadWriteStream {

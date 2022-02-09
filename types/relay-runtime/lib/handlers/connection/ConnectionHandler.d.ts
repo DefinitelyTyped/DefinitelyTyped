@@ -11,7 +11,7 @@ export interface ConnectionMetadata {
     direction: string | null | undefined; // 'forward' | 'backward' | 'bidirectional' | null | undefined;
     cursor: string | null | undefined;
     count: string | null | undefined;
-    stream?: boolean;
+    stream?: boolean | undefined;
 }
 
 export function buildConnectionEdge(
@@ -34,6 +34,12 @@ export function getConnection(
     key: string,
     filters?: Variables | null,
 ): RecordProxy | null | undefined;
+
+export function getConnectionID(
+    recordID: DataID,
+    key: string,
+    filters?: Variables | null,
+): DataID;
 
 export function insertEdgeAfter(record: RecordProxy, newEdge: RecordProxy, cursor?: string | null): void;
 

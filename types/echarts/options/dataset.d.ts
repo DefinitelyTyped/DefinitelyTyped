@@ -12,14 +12,14 @@ declare namespace echarts {
              * Component ID, not specified by default.
              * If specified, it can be used to refer the component in option or API.
              */
-            id?: string;
+            id?: string | undefined;
             /**
              * Source data. Generally speaking, a source data describe a table, where these format below can be applied:
              * 2d array, where dimension names can be provided in the first row/column, or do not provide, only data.
              *
              * @see https://echarts.apache.org/en/option.html#dataset.source
              */
-            source?: any[] | object;
+            source?: any[] | object | undefined;
             /**
              * dimensions can be used to define dimension info for series.data or dataset.source.
              * Notice: if dataset is used, we can provide dimension names in the first column/row of dataset.source,
@@ -28,7 +28,7 @@ declare namespace echarts {
              *
              * @see https://echarts.apache.org/en/option.html#dataset.dimensions
              */
-            dimensions?: string[] | Dataset.DimensionObject[];
+            dimensions?: string[] | Dataset.DimensionObject[] | undefined;
         }
 
         namespace Dataset {
@@ -36,9 +36,9 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#dataset.dimensions
              */
             interface DimensionObject {
-                name?: string;
-                type?: 'number' | 'float' | 'int' | 'ordinal' | 'time';
-                displayName?: string;
+                name?: string | undefined;
+                type?: 'number' | 'float' | 'int' | 'ordinal' | 'time' | undefined;
+                displayName?: string | undefined;
             }
         }
     }

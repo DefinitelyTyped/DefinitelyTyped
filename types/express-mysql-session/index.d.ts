@@ -13,16 +13,16 @@ declare function MySQLStore(session: typeof expressSession): typeof MySQLStoreCl
 
 declare namespace MySQLStore {
     interface Options {
-        host?: string;
-        port?: number;
-        user?: string;
-        password?: string;
-        database?: string;
-        checkExpirationInterval?: number;
-        expiration?: number;
-        createDatabaseTable?: boolean;
-        connectionLimit?: number;
-        schema?: Partial<Schema>;
+        host?: string | undefined;
+        port?: number | undefined;
+        user?: string | undefined;
+        password?: string | undefined;
+        database?: string | undefined;
+        checkExpirationInterval?: number | undefined;
+        expiration?: number | undefined;
+        createDatabaseTable?: boolean | undefined;
+        connectionLimit?: number | undefined;
+        schema?: Partial<Schema> | undefined;
     }
     interface Schema {
         tableName: string;

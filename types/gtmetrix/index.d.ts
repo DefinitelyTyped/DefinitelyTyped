@@ -30,18 +30,18 @@ declare namespace gtmetrix {
          * API email
          * @default null
          */
-        email?: string;
+        email?: string | undefined;
         /**
          * API key
          * @default null
          */
-        apikey?: string;
+        apikey?: string | undefined;
 
         /**
          * Request timeout in ms
          * @default 5000
          */
-        timeout?: number;
+        timeout?: number | undefined;
     }
 
     interface BrowsersApi {
@@ -66,7 +66,7 @@ declare namespace gtmetrix {
         name: string;
         platform: string;
         id: number;
-        device?: string;
+        device?: string | undefined;
     }
 
     interface TestBasicInfo {
@@ -79,7 +79,7 @@ declare namespace gtmetrix {
         resources: {
             [resource: string]: string;
         };
-        error?: string;
+        error?: string | undefined;
         results: {
             [result: string]: any;
         };

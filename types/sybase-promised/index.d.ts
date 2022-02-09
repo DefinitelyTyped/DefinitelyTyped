@@ -12,8 +12,8 @@ declare namespace SybasePromised {
         dbname: string;
         username: string;
         password: string;
-        logTiming?: boolean;
-        pathToJavaBtidge?: string;
+        logTiming?: boolean | undefined;
+        pathToJavaBtidge?: string | undefined;
     }
 }
 

@@ -13,12 +13,12 @@ declare namespace NotificationCenter {
         /**
          * Case Sensitive string for location of sound file, or use one of macOS' native sounds.
          */
-        sound?: boolean | string;
-        subtitle?: string;
+        sound?: boolean | string | undefined;
+        subtitle?: string | undefined;
         /** Attach image? (Absolute path) */
-        contentImage?: string;
+        contentImage?: string | undefined;
         /** URL to open on click */
-        open?: string;
+        open?: string | undefined;
         /**
          * The amount of seconds before the notification closes.
          * Takes precedence over wait if both are defined.
@@ -27,18 +27,18 @@ declare namespace NotificationCenter {
          * set `timeout` to `false`.
          * If you are using action it is recommended to set `timeout` to a high value to ensure the user has time to respond.
          */
-        timeout?: number | false;
+        timeout?: number | false | undefined;
         /** Label for cancel button */
-        closeLabel?: string;
+        closeLabel?: string | undefined;
         /** Action label or list of labels in case of dropdown. */
-        actions?: string | string[];
+        actions?: string | string[] | undefined;
         /** Label to be used if there are multiple actions */
-        dropdownLabel?: string;
+        dropdownLabel?: string | undefined;
         /**
          * If notification should take input.
          * Value passed as third argument in callback and event emitter.
          */
-        reply?: boolean;
+        reply?: boolean | undefined;
     }
 }
 

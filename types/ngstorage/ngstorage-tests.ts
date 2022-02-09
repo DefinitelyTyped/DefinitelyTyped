@@ -76,6 +76,6 @@ app.config(($sessionStorageProvider: ngStorage.StorageProvider) => {
 });
 
 interface MyStore {
-    counter?: number;
-    foo?: string;
+    counter?: number | undefined;
+    foo?: string | undefined;
 }

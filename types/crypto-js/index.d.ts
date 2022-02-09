@@ -1,4 +1,4 @@
-// Type definitions for crypto-js v4.0.0
+// Type definitions for crypto-js 4.1
 // Project: https://github.com/brix/crypto-js
 // Definitions by: Michael Zabka <https://github.com/misak113>
 //                 Max Lysenko <https://github.com/maximlysenko>
@@ -281,8 +281,8 @@ interface CipherOption {
     /**
      * The IV to use for this operation.
      */
-    iv?: WordArray;
-    format?: Format;
+    iv?: WordArray | undefined;
+    format?: Format | undefined;
     [key: string]: any;
 }
 
@@ -503,15 +503,15 @@ interface KDFOption {
     /**
      * The key size in words to generate.
      */
-    keySize?: number;
+    keySize?: number | undefined;
     /**
      * The hasher to use.
      */
-    hasher?: HasherStatic;
+    hasher?: HasherStatic | undefined;
     /**
      * The number of iterations to perform.
      */
-    iterations?: number;
+    iterations?: number | undefined;
 }
 
 declare global {
@@ -1048,6 +1048,10 @@ declare global {
              * Base64 encoding strategy.
              */
             const Base64: Encoder;
+            /**
+             * Base64url encoding strategy.
+             */
+            const Base64url: Encoder;
         }
 
         /**
@@ -1190,7 +1194,7 @@ declare global {
                  *     var kdf = CryptoJS.algo.EvpKDF.create({ keySize: 8 });
                  *     var kdf = CryptoJS.algo.EvpKDF.create({ keySize: 8, iterations: 1000 });
                  */
-                static create(cfg?: { keySize: number; hasher?: HasherStatic; iterations: number }): EvpKDF;
+                static create(cfg?: { keySize: number; hasher?: HasherStatic | undefined; iterations: number }): EvpKDF;
 
                 /**
                  * Derives a key from a password.
@@ -1723,7 +1727,7 @@ declare global {
             salt: WordArray | string,
             cfg?: {
                 keySize: number;
-                hasher?: HasherStatic;
+                hasher?: HasherStatic | undefined;
                 iterations: number;
             },
         ): WordArray;

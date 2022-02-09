@@ -15,6 +15,6 @@ declare class Throttle extends stream.Transform {
 declare namespace Throttle {
     interface Options extends stream.TransformOptions {
         bps: number;
-        chunkSize?: number;
+        chunkSize?: number | undefined;
     }
 }

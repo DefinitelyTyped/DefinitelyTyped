@@ -7,7 +7,6 @@ export interface ReactDivAttr extends ReactAttr<HTMLDivElement> {}
 export interface ReactInputAttr<T = HTMLInputElement> extends React.InputHTMLAttributes<T> {}
 export interface ReactLabelAttr<T = HTMLLabelElement> extends React.LabelHTMLAttributes<T> {}
 export interface ReactLIAttr<T = HTMLLIElement> extends React.LiHTMLAttributes<T> {}
-export type ReactCreateElementParam = Parameters<typeof React.createElement>[0];
 
 export type ShapeOf<B extends object, E extends object = { [key: string]: any }> = (E extends never ? {} : E) & B;
 export type Overwrite<T, U> = [T] extends [never] ? U : Omit<T, keyof U> & U;
@@ -36,12 +35,12 @@ export interface InternationalProps<MID = string, ARGS = Record<string, unknown>
 }
 
 export interface MenuOffsetData {
-    left?: number;
-    top?: number;
+    left?: number | undefined;
+    top?: number | undefined;
 }
 
 export interface RenderIconProps<P = any> {
-    renderIcon?: React.ComponentType<P>;
+    renderIcon?: React.ComponentType<P> | undefined;
 }
 
 export interface RequiresChildrenProps<T = React.ReactNode> {
@@ -53,15 +52,15 @@ export interface RequiresIdProps<T = ReactAttr['id']> {
 }
 
 export interface SizingProps {
-    small?: boolean;
+    small?: boolean | undefined;
 }
 
 export interface SideNavSharedProps {
-    isSideNavExpanded?: boolean;
+    isSideNavExpanded?: boolean | undefined;
 }
 
 export interface SideNavSizingProps {
-    large?: boolean;
+    large?: boolean | undefined;
 }
 
 //
@@ -83,3 +82,6 @@ export type JSXIntrinsicElementProps<
     K extends keyof JSX.IntrinsicElements,
     REF extends boolean = false
 > = REF extends true ? JSX.IntrinsicElements[K] : Omit<JSX.IntrinsicElements[K], 'ref'>;
+
+// for "as" props
+export type ReactComponentConstructor<P> = ((props: P) => FCReturn) | (new (props: P) => React.Component<unknown, any>);

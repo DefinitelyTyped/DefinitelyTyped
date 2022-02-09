@@ -1,7 +1,7 @@
 // Type definitions for jQuery.SOAP 1.7
 // Project: https://github.com/doedje/jquery.soap
 // Definitions by: Roland Greim <https://github.com/tigerxy>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped/
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 /// <reference types="jquery"/>
@@ -52,29 +52,29 @@ declare namespace JQuerySOAP {
         val(value: number): SOAPObject
     }
     interface Options {
-        appendMethodToURL?: boolean;
-        async?: boolean;
-        beforeSend?: (SOAPEnvelope: SOAPEnvelope) => void;
+        appendMethodToURL?: boolean | undefined;
+        async?: boolean | undefined;
+        beforeSend?: ((SOAPEnvelope: SOAPEnvelope) => void) | undefined;
         context?: any;
-        data?: Object;
+        data?: Object | undefined;
         envAttributes?: any;
-        elementName?: string;
-        enableLogging?: boolean;
-        error?: (SOAPResponse: SOAPResponse) => void;
-        HTTPHeaders?: Object;
-        method?: string;
-        namespaceQualifier?: string;
-        namespaceURL?: string;
-        noPrefix?: boolean;
-        request?: (SOAPEnvelope: SOAPEnvelope) => void;
-        soap12?: boolean;
-        SOAPAction?: string;
-        SOAPHeader?: Object;
-        statusCode?: Object;
-        success?: (SOAPResponse: SOAPResponse) => void;
-        timeout?: number;
-        url?: string;
-        wss?: Object;
+        elementName?: string | undefined;
+        enableLogging?: boolean | undefined;
+        error?: ((SOAPResponse: SOAPResponse) => void) | undefined;
+        HTTPHeaders?: Object | undefined;
+        method?: string | undefined;
+        namespaceQualifier?: string | undefined;
+        namespaceURL?: string | undefined;
+        noPrefix?: boolean | undefined;
+        request?: ((SOAPEnvelope: SOAPEnvelope) => void) | undefined;
+        soap12?: boolean | undefined;
+        SOAPAction?: string | undefined;
+        SOAPHeader?: Object | undefined;
+        statusCode?: Object | undefined;
+        success?: ((SOAPResponse: SOAPResponse) => void) | undefined;
+        timeout?: number | undefined;
+        url?: string | undefined;
+        wss?: Object | undefined;
     }
     interface SOAP {
         (options?: Options): JQueryXHR;

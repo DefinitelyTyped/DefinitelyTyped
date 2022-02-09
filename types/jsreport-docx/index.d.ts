@@ -7,7 +7,7 @@ import { ExtensionDefinition, TemplateBase } from 'jsreport-core';
 
 declare namespace JsReportDocx {
     interface DocxTemplateModifier extends TemplateBase {
-        docx?: DocxTemplate;
+        docx?: DocxTemplate | undefined;
     }
 
     interface Configuration {
@@ -15,15 +15,15 @@ declare namespace JsReportDocx {
             enabled: true;
             publicUri: string;
             showWarning: false;
-        };
+        } | undefined;
     }
 
     interface DocxTemplate {
-        templateAsetShortid?: string;
+        templateAsetShortid?: string | undefined;
         templateAsset?: {
             content: string;
             encoding: string;
-        };
+        } | undefined;
     }
 }
 

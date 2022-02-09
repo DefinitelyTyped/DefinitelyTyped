@@ -9,8 +9,8 @@
 declare namespace PouchDB {
     namespace Core {
         interface DatabaseInfo {
-            sqlite_plugin?: boolean;
-            websql_encoding?: 'UTF-8' | 'UTF-16';
+            sqlite_plugin?: boolean | undefined;
+            websql_encoding?: 'UTF-8' | 'UTF-16' | undefined;
         }
     }
 
@@ -20,7 +20,7 @@ declare namespace PouchDB {
             /**
              * Amount in MB to request for storage.
              */
-            size?: number;
+            size?: number | undefined;
             adapter: 'websql';
         }
     }

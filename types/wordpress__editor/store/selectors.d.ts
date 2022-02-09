@@ -1,7 +1,6 @@
-import { Schema } from '@wordpress/api-fetch';
 import { EditorSettings } from '@wordpress/block-editor';
 import { BlockInstance } from '@wordpress/blocks';
-import { Autosave } from '@wordpress/core-data';
+import { Autosave, Schema } from '@wordpress/core-data';
 
 export {
     canInsertBlockType,
@@ -200,7 +199,7 @@ export function getPermalink(): string | null;
  * @returns An object containing the prefix, postName, and suffix for the permalink, or `null` if
  * the post is not viewable.
  */
-export function getPermalinkParts(): { postName: string; prefix: string; suffix?: string } | null;
+export function getPermalinkParts(): { postName: string; prefix: string; suffix?: string | undefined } | null;
 
 /**
  * Returns any post values which have been changed in the editor but not yet been saved.

@@ -67,25 +67,25 @@ export interface UrlEntity {
     indices: [number, number];
 }
 export interface AutoLinkOptions {
-    hashtagClass?: string;
-    hashtagUrlBase?: string;
-    cashtagClass?: string;
-    cashtagUrlBase?: string;
-    listClass?: string;
-    usernameClass?: string;
-    usernameUrlBase?: string;
-    listUrlBase?: string;
-    invisibleTagAttrs?: string;
-    htmlEscapeNonEntities?: boolean;
-    targetBlank?: boolean;
-    suppressNoFollow?: boolean;
-    urlEntities?: ReadonlyArray<UrlEntity>;
-    usernameIncludeSymbol?: boolean;
-    linkAttributeBlock?: (entity: EntityWithIndices, attributes: Attributes) => void;
-    linkTextBlock?: (entity: EntityWithIndices, text: string) => void;
-    symbolTag?: string;
-    textWithSymbolTag?: string;
-    htmlAttrs?: Attributes;
+    hashtagClass?: string | undefined;
+    hashtagUrlBase?: string | undefined;
+    cashtagClass?: string | undefined;
+    cashtagUrlBase?: string | undefined;
+    listClass?: string | undefined;
+    usernameClass?: string | undefined;
+    usernameUrlBase?: string | undefined;
+    listUrlBase?: string | undefined;
+    invisibleTagAttrs?: string | undefined;
+    htmlEscapeNonEntities?: boolean | undefined;
+    targetBlank?: boolean | undefined;
+    suppressNoFollow?: boolean | undefined;
+    urlEntities?: ReadonlyArray<UrlEntity> | undefined;
+    usernameIncludeSymbol?: boolean | undefined;
+    linkAttributeBlock?: ((entity: EntityWithIndices, attributes: Attributes) => void) | undefined;
+    linkTextBlock?: ((entity: EntityWithIndices, text: string) => void) | undefined;
+    symbolTag?: string | undefined;
+    textWithSymbolTag?: string | undefined;
+    htmlAttrs?: Attributes | undefined;
 }
 
 export function autoLink(text: string, options?: AutoLinkOptions): string;
@@ -128,17 +128,17 @@ export function hitHighlight(
 ): string;
 
 export interface ParseTweetOptions {
-    version?: number;
-    maxWeightedTweetLength?: number;
-    scale?: number;
-    defaultWeight?: number;
-    transformedURLLength?: number;
+    version?: number | undefined;
+    maxWeightedTweetLength?: number | undefined;
+    scale?: number | undefined;
+    defaultWeight?: number | undefined;
+    transformedURLLength?: number | undefined;
     ranges?: Array<{
         start: number;
         end: number;
         weight: number;
-    }>;
-    emojiParsingEnabled?: boolean;
+    }> | undefined;
+    emojiParsingEnabled?: boolean | undefined;
 }
 
 export interface ParsedTweet {

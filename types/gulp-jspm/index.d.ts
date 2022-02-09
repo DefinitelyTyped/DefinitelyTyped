@@ -6,11 +6,11 @@
 
 
 interface Options {
-    arithmetic?: string;
-    selfExecutingBundle?: boolean;
-    plugin?: boolean | string;
-    inject?: boolean;
-    minify?: boolean;
+    arithmetic?: string | undefined;
+    selfExecutingBundle?: boolean | undefined;
+    plugin?: boolean | string | undefined;
+    inject?: boolean | undefined;
+    minify?: boolean | undefined;
 }
 
 interface GulpJspm {

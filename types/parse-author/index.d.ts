@@ -14,8 +14,8 @@ export = parse;
 
 declare namespace parse {
     interface Author {
-        name?: string;
-        email?: string;
-        url?: string;
+        name?: string | undefined;
+        email?: string | undefined;
+        url?: string | undefined;
     }
 }

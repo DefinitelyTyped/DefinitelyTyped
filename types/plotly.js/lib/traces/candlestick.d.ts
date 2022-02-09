@@ -65,20 +65,20 @@ export interface CandlestickData {
     /**
      * @default width=2
      */
-    line: { width?: number };
+    line: { width?: number | undefined };
 
     increasing: {
         line?: {
-            color?: string;
-            width?: number;
-        };
+            color?: string | undefined;
+            width?: number | undefined;
+        } | undefined;
     };
 
     decreasing: {
         line?: {
-            color?: string;
-            width?: number;
-        };
+            color?: string | undefined;
+            width?: number | undefined;
+        } | undefined;
     };
 
     hoverlabel: OhclData['hoverlabel'];

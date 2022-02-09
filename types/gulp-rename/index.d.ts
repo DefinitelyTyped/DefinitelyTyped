@@ -14,15 +14,15 @@ declare namespace rename {
     }
 
     interface Options {
-        dirname?: string;
-        basename?: string;
-        extname?: string;
-        prefix?: string;
-        suffix?: string;
+        dirname?: string | undefined;
+        basename?: string | undefined;
+        extname?: string | undefined;
+        prefix?: string | undefined;
+        suffix?: string | undefined;
     }
 
     interface PluginOptions {
-        multiExt?: boolean;
+        multiExt?: boolean | undefined;
     }
 }
 

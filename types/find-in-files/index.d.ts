@@ -11,5 +11,18 @@ export interface FindResult {
     };
 }
 
-export function find(pattern: string | RegExp, directory: string, fileFilter?: string | RegExp): Promise<FindResult>;
-export function findSync(pattern: string | RegExp, directory: string, fileFilter?: string | RegExp): FindResult;
+export interface RegexControlOptions {
+    term: string;
+    flags: string;
+}
+
+export function find(
+    pattern: string | RegExp | RegexControlOptions,
+    directory: string,
+    fileFilter?: string | RegExp,
+): Promise<FindResult>;
+export function findSync(
+    pattern: string | RegExp | RegexControlOptions,
+    directory: string,
+    fileFilter?: string | RegExp,
+): FindResult;

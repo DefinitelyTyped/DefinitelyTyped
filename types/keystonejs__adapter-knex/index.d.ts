@@ -13,10 +13,10 @@ declare module '@keystonejs/adapter-knex' {
     import { BaseKeystoneAdapter } from '@keystonejs/keystone';
 
     interface KnexAdaptorOptions {
-        knexOptions?: Config;
-        schemaName?: string;
+        knexOptions?: Config | undefined;
+        schemaName?: string | undefined;
         listAdapterClass?: any;
-        dropDatabase?: boolean;
+        dropDatabase?: boolean | undefined;
     }
     class KnexAdapter extends BaseKeystoneAdapter {
         constructor(options?: KnexAdaptorOptions);

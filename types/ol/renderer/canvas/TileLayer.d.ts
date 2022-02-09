@@ -2,17 +2,16 @@ import { Coordinate } from '../../coordinate';
 import { EventsKey } from '../../events';
 import BaseEvent from '../../events/Event';
 import { Extent } from '../../extent';
-import { FeatureLike } from '../../Feature';
 import ImageTile from '../../ImageTile';
-import Layer from '../../layer/Layer';
 import TileLayer from '../../layer/Tile';
 import VectorTileLayer from '../../layer/VectorTile';
 import { FrameState } from '../../PluggableMap';
 import Projection from '../../proj/Projection';
-import Source from '../../source/Source';
 import TileSource from '../../source/Tile';
 import Tile from '../../Tile';
 import TileGrid from '../../tilegrid/TileGrid';
+import { HitMatch } from '../Map';
+import { FeatureCallback } from '../vector';
 import CanvasLayerRenderer from './Layer';
 
 export default class CanvasTileLayerRenderer extends CanvasLayerRenderer {
@@ -69,9 +68,9 @@ export default class CanvasTileLayerRenderer extends CanvasLayerRenderer {
         coordinate: Coordinate,
         frameState: FrameState,
         hitTolerance: number,
-        callback: (p0: FeatureLike, p1: Layer<Source>) => T,
-        declutteredFeatures: FeatureLike[],
-    ): T;
+        callback: FeatureCallback<T>,
+        matches: HitMatch<T>[],
+    ): T | undefined;
     getImage(): HTMLCanvasElement;
     getLayer(): TileLayer | VectorTileLayer;
     getTile(z: number, x: number, y: number, frameState: FrameState): Tile;

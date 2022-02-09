@@ -205,7 +205,7 @@ whale.commands.onCommand.addListener(function(command) {
 whale.commands.onCommand.addListener(function(command) {
     if (command === `open-popup`) {
         whale.browserAction.setPopup({
-            popup: whale.runtime.getManifest().browser_action!.default_popup!
+            popup: whale.runtime.getManifest().browser_action.default_popup
         });
     }
 });

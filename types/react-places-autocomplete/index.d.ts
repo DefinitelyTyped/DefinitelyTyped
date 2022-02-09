@@ -8,7 +8,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 //
-/// <reference types="googlemaps" />
+/// <reference types="google.maps" />
 import * as React from 'react';
 
 export type AutocompletePrediction = google.maps.places.AutocompletePrediction;
@@ -29,23 +29,23 @@ export interface Suggestion {
 }
 
 export interface PropTypes {
-    onChange?: (value: string) => void;
-    value?: string;
-    onError?: (status: string, clearSuggestion: () => void) => void;
-    onSelect?: (address: string, placeID: string) => void;
+    onChange?: ((value: string) => void) | undefined;
+    value?: string | undefined;
+    onError?: ((status: string, clearSuggestion: () => void) => void) | undefined;
+    onSelect?: ((address: string, placeID: string) => void) | undefined;
     searchOptions?: {
-        bounds?: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral;
-        componentRestrictions?: google.maps.GeocoderComponentRestrictions;
-        location?: google.maps.LatLng | google.maps.LatLngLiteral;
-        offset?: number | string;
-        radius?: number | string;
+        bounds?: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral | undefined;
+        componentRestrictions?: google.maps.places.ComponentRestrictions | undefined;
+        location?: google.maps.LatLng | google.maps.LatLngLiteral | undefined;
+        offset?: number | string | undefined;
+        radius?: number | string | undefined;
         sessionToken?: any;
-        types?: string[];
-    };
-    debounce?: number;
-    highlightFirstSuggestion?: boolean;
-    shouldFetchSuggestions?: boolean;
-    googleCallbackName?: string;
+        types?: string[] | undefined;
+    } | undefined;
+    debounce?: number | undefined;
+    highlightFirstSuggestion?: boolean | undefined;
+    shouldFetchSuggestions?: boolean | undefined;
+    googleCallbackName?: string | undefined;
     children: (opts: Readonly<{
         loading: boolean;
         suggestions: ReadonlyArray<Suggestion>;

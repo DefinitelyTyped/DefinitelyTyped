@@ -12,7 +12,7 @@ export class Plugin implements WorkboxPlugin {
 }
 
 export interface ExpirationPluginConfig {
-    maxAgeSeconds?: number;
-    maxEntries?: number;
-    purgeOnQuotaError?: boolean;
+    maxAgeSeconds?: number | undefined;
+    maxEntries?: number | undefined;
+    purgeOnQuotaError?: boolean | undefined;
 }

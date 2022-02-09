@@ -6,8 +6,10 @@ const element = new Element();
 // $ExpectType Toast
 new Toast(element, { animation: false });
 
-// $ExpectType Toast
+// $ExpectType Toast | null
 Toast.getInstance(element);
+// $ExpectType Toast
+Toast.getOrCreateInstance(element);
 
 // $ExpectType string
 Toast.VERSION;

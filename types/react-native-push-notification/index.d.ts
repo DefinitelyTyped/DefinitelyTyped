@@ -1,16 +1,17 @@
-// Type definitions for react-native-push-notification 7.2
+// Type definitions for react-native-push-notification 7.3
 // Project: https://github.com/zo0r/react-native-push-notification#readme
 // Definitions by: Paito Anderson <https://github.com/PaitoAnderson>
 //                 Tom Sawkins <https://github.com/tomSawkins>
 //                 Andrew Li <https://github.com/Li357>
 //                 Clément Rucheton <https://github.com/rucheton>
+//                 alternacrow <https://github.com/alternacrow>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
 
 export interface PushNotificationPermissions {
-    alert?: boolean;
-    badge?: boolean;
-    sound?: boolean;
+    alert?: boolean | undefined;
+    badge?: boolean | undefined;
+    sound?: boolean | undefined;
 }
 
 export interface ReceivedNotification {
@@ -19,81 +20,81 @@ export interface ReceivedNotification {
     message: string | object;
     data: Record<string, any>;
     userInfo: Record<string, any>;
-    subText?: string;
+    subText?: string | undefined;
     badge: number;
     alert: object;
     sound: string;
-    id: number;
-    action?: string;
+    id: string;
+    action?: string | undefined;
     finish: (fetchResult: string) => void;
 }
 
 export interface PushNotificationOptions {
-    onRegister?: (token: { os: string; token: string }) => void;
-    onNotification?: (notification: Omit<ReceivedNotification, "userInfo">) => void;
-    onAction?: (notification: ReceivedNotification) => void;
-    onRegistrationError?: (error: any) => void;
-    onRemoteFetch?: (notificationData: any) => void;
-    permissions?: PushNotificationPermissions;
-    popInitialNotification?: boolean;
-    requestPermissions?: boolean;
+    onRegister?: ((token: { os: string; token: string }) => void) | undefined;
+    onNotification?: ((notification: Omit<ReceivedNotification, 'userInfo'>) => void) | undefined;
+    onAction?: ((notification: ReceivedNotification) => void) | undefined;
+    onRegistrationError?: ((error: any) => void) | undefined;
+    onRemoteFetch?: ((notificationData: any) => void) | undefined;
+    permissions?: PushNotificationPermissions | undefined;
+    popInitialNotification?: boolean | undefined;
+    requestPermissions?: boolean | undefined;
 }
 
 export class PushNotificationObject {
     /* Android only properties */
-    ticker?: string;
-    showWhen?: boolean;
-    autoCancel?: boolean;
-    largeIcon?: string;
-    largeIconUrl?: string;
-    smallIcon?: string;
-    bigText?: string;
-    subText?: string;
-    bigPictureUrl?: string;
-    bigLargeIcon?: string;
-    bigLargeIconUrl?: string;
-    color?: string;
-    vibrate?: boolean;
-    vibration?: number;
-    tag?: string;
-    group?: string;
-    groupSummary?: boolean;
-    ongoing?: boolean;
-    priority?: "max" | "high" | "low" | "min" | "default";
-    visibility?: "private" | "public" | "secret";
-    importance?: "default" | "max" | "high" | "low" | "min" | "none" | "unspecified";
-    ignoreInForeground?: boolean;
-    shortcutId?: string;
-    channelId?: string;
-    onlyAlertOnce?: boolean;
-    allowWhileIdle?: boolean;
-    timeoutAfter?: number | null;
-    messageId?: string;
+    ticker?: string | undefined;
+    showWhen?: boolean | undefined;
+    autoCancel?: boolean | undefined;
+    largeIcon?: string | undefined;
+    largeIconUrl?: string | undefined;
+    smallIcon?: string | undefined;
+    bigText?: string | undefined;
+    subText?: string | undefined;
+    bigPictureUrl?: string | undefined;
+    bigLargeIcon?: string | undefined;
+    bigLargeIconUrl?: string | undefined;
+    color?: string | undefined;
+    vibrate?: boolean | undefined;
+    vibration?: number | undefined;
+    tag?: string | undefined;
+    group?: string | undefined;
+    groupSummary?: boolean | undefined;
+    ongoing?: boolean | undefined;
+    priority?: 'max' | 'high' | 'low' | 'min' | 'default' | undefined;
+    visibility?: 'private' | 'public' | 'secret' | undefined;
+    importance?: 'default' | 'max' | 'high' | 'low' | 'min' | 'none' | 'unspecified' | undefined;
+    ignoreInForeground?: boolean | undefined;
+    shortcutId?: string | undefined;
+    channelId?: string | undefined;
+    onlyAlertOnce?: boolean | undefined;
+    allowWhileIdle?: boolean | undefined;
+    timeoutAfter?: number | null | undefined;
+    messageId?: string | undefined;
 
-    when?: number | null;
-    usesChronometer?: boolean;
+    when?: number | null | undefined;
+    usesChronometer?: boolean | undefined;
 
-    actions?: string[];
-    invokeApp?: boolean;
+    actions?: string[] | undefined;
+    invokeApp?: boolean | undefined;
 
     /* iOS only properties */
     category?: any;
 
     /* iOS and Android properties */
-    id?: number;
-    title?: string;
+    id?: string | number | undefined;
+    title?: string | undefined;
     message: string;
     userInfo?: any;
-    playSound?: boolean;
-    soundName?: string;
-    number?: string | number;
-    repeatType?: "week" | "day" | "hour" | "minute" | "time";
-    repeatTime?: number;
+    playSound?: boolean | undefined;
+    soundName?: string | undefined;
+    number?: string | number | undefined;
+    repeatType?: 'week' | 'day' | 'hour' | 'minute' | 'time' | undefined;
+    repeatTime?: number | undefined;
 }
 
 export class PushNotificationScheduleObject extends PushNotificationObject {
     date: Date;
-    allowWhileIdle?: boolean;
+    allowWhileIdle?: boolean | undefined;
 }
 
 export class PushNotificationDeliveredObject {
@@ -102,12 +103,12 @@ export class PushNotificationDeliveredObject {
     body: string;
     tag: string;
     group: string;
-    category?: string;
+    category?: string | undefined;
     userInfo?: any;
 }
 
 export class PushNotificationScheduledLocalObject {
-    id: number;
+    id: string;
     date: Date;
     title: string;
     body: string;
@@ -117,14 +118,23 @@ export class PushNotificationScheduledLocalObject {
     data: Record<string, any>;
 }
 
+export enum Importance {
+    DEFAULT = 3,
+    HIGH = 4,
+    LOW = 2,
+    MIN = 1,
+    NONE = 0,
+    UNSPECIFIED = -1000,
+}
+
 export class ChannelObject {
     channelId: string;
     channelName: string;
-    channelDescription?: string;
-    soundName?: string;
-    importance?: number;
-    vibrate?: boolean;
-    playSound?: boolean;
+    channelDescription?: string | undefined;
+    soundName?: string | undefined;
+    importance?: Importance | undefined;
+    vibrate?: boolean | undefined;
+    playSound?: boolean | undefined;
 }
 
 export interface PushNotification {
@@ -132,12 +142,17 @@ export interface PushNotification {
     unregister(): void;
     localNotification(notification: PushNotificationObject): void;
     localNotificationSchedule(notification: PushNotificationScheduleObject): void;
-    requestPermissions(permissions?: Array<"alert" | "badge" | "sound">): Promise<PushNotificationPermissions>;
+    requestPermissions(permissions?: Array<'alert' | 'badge' | 'sound'>): Promise<PushNotificationPermissions>;
     subscribeToTopic(topic: string): void;
     unsubscribeFromTopic(topic: string): void;
     presentLocalNotification(notification: PushNotificationObject): void;
     scheduleLocalNotification(notification: PushNotificationScheduleObject): void;
+
+    /**
+     * @deprecated use cancelLocalNotification method
+     */
     cancelLocalNotifications(details: { id: string }): void;
+    cancelLocalNotification(notificationId: string): void;
     clearLocalNotification(tag: string, notificationID: number): void;
     cancelAllLocalNotifications(): void;
     setApplicationIconBadgeNumber(badgeCount: number): void;

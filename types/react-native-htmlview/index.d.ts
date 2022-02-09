@@ -1,34 +1,47 @@
-// Type definitions for react-native-htmlview 0.12
+// Type definitions for react-native-htmlview 0.16
 // Project: https://github.com/jsdf/react-native-htmlview
-// Definitions by: Ifiok Jr. <https://github.com/ifiokjr>
+// Definitions by: Ifiok Jr. <https://github.com/ifiokjr>, Kiruse <https://github.com/Kiruse>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { Component, ComponentType, ReactNode } from 'react';
+import { ComponentType, ReactNode } from 'react';
 import {
     StyleProp,
-    TextProperties,
-    ViewProperties,
+    TextProps,
+    ViewProps,
     TextStyle,
     ViewStyle,
     ImageStyle,
 } from 'react-native';
 
-export interface HTMLViewNode {
-    data?: string;
-    type?: string;
-    name?: string;
-    attribs: { [key: string]: string };
+type Nullish = null | undefined;
+
+interface GenericAttribs {
+    [key: string]: string;
 }
+interface SpecificAttribs {
+    style: StyleProp<ViewStyle | TextStyle | ImageStyle>;
+}
+
+export interface HTMLViewNode {
+    data?: string | undefined;
+    type?: string | undefined;
+    name?: string | undefined;
+    attribs: GenericAttribs & SpecificAttribs;
+    children: HTMLViewNode[];
+}
+
 export interface HTMLViewProps {
     /**
      * a string of HTML content to render
      */
     value: string;
 
-    stylesheet?: {
-        [key: string]: StyleProp<ViewStyle | TextStyle | ImageStyle>;
-    };
+    stylesheet?:
+        | {
+            [key: string]: StyleProp<ViewStyle | TextStyle | ImageStyle>;
+          }
+        | undefined;
 
     onLinkPress?(url: string): void;
 
@@ -52,60 +65,66 @@ export interface HTMLViewProps {
     renderNode?(
         node: HTMLViewNode,
         index: number,
-        siblings: HTMLViewNode,
+        siblings: HTMLViewNode[],
         parent: HTMLViewNode,
-        defaultRenderer: (node: HTMLViewNode, parent: HTMLViewNode) => ReactNode
+        defaultRenderer: HTMLViewNodeRenderer,
     ): ReactNode;
 
     /**
      * Text which is rendered before every li inside a ul
      */
-    bullet?: string;
+    bullet?: string | undefined;
 
     /**
      * Text which appears after every p element
      */
-    paragraphBreak?: string;
+    paragraphBreak?: string | undefined;
 
     /**
      * Text which appears after text elements which create a new line (br, headings)
      */
-    lineBreak?: string;
+    lineBreak?: string | undefined;
 
     /**
      *  When explicitly false, effectively sets paragraphBreak and lineBreak to null
      */
-    addLineBreaks?: boolean;
+    addLineBreaks?: boolean | undefined;
 
     /*
      * The root wrapper component
      */
-    RootComponent?: ComponentType;
+    RootComponent?: ComponentType | undefined;
 
     /*
      * Properties for the RootComponent, can be used independently from RootComponent
      */
-    rootComponentProps?: ViewProperties;
+    rootComponentProps?: ViewProps | undefined;
 
     /*
      * The component used for rendering HTML element nodes
      */
-    NodeComponent?: ComponentType;
+    NodeComponent?: ComponentType | undefined;
 
     /*
      * Properties for the NodeComponent, can be used independently from NodeComponent
      */
-    nodeComponentProps?: TextProperties;
+    nodeComponentProps?: TextProps | undefined;
 
     /*
      * The component used for rendering text element nodes
      */
-    TextComponent?: ComponentType;
+    TextComponent?: ComponentType | undefined;
 
     /*
      * Properties for the TextComponent, can be used independently from TextComponent
      */
-    textComponentProps?: TextProperties;
+    textComponentProps?: TextProps | undefined;
 }
 
-export default class HTMLView extends Component<HTMLViewProps> {}
+export type HTMLViewNodeRenderer = (
+    node: HTMLViewNode[],
+    parent: HTMLViewNode | Nullish,
+) => ReactNode;
+
+declare const HTMLView: ComponentType<HTMLViewProps>;
+export default HTMLView;

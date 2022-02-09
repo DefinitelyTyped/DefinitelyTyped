@@ -33,17 +33,17 @@ export type InfiniteLoaderProps = {
      * Minimum number of rows to be loaded at a time.
      * This property can be used to batch requests to reduce HTTP requests.
      */
-    minimumBatchSize?: number;
+    minimumBatchSize?: number | undefined;
     /**
      * Number of rows in list; can be arbitrary high number if actual number is unknown.
      */
-    rowCount?: number;
+    rowCount?: number | undefined;
     /**
      * Threshold at which to pre-fetch data.
      * A threshold X means that data will start loading when a user scrolls within X rows.
      * This value defaults to 15.
      */
-    threshold?: number;
+    threshold?: number | undefined;
     /**
      * PLEASE NOTE
      * The [key: string]: any; line is here on purpose

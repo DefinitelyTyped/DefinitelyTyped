@@ -25,10 +25,10 @@ declare function koaWebpack(
 
 declare namespace koaWebpack {
     interface Options {
-        compiler?: webpack.Compiler | webpack.MultiCompiler;
-        config?: webpack.Configuration;
-        devMiddleware?: webpackDevMiddleware.Options;
-        hotClient?: webpackHotClient.Options | boolean;
+        compiler?: webpack.Compiler | webpack.MultiCompiler | undefined;
+        config?: webpack.Configuration | undefined;
+        devMiddleware?: webpackDevMiddleware.Options | undefined;
+        hotClient?: webpackHotClient.Options | boolean | undefined;
     }
 
     interface CombinedWebpackMiddleware {

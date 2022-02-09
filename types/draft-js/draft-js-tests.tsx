@@ -7,6 +7,7 @@ import {
   DefaultDraftBlockRenderMap,
   Editor,
   EditorState,
+  EditorCommand,
   Modifier,
   RichUtils,
   SelectionState,
@@ -21,6 +22,7 @@ import {
   DraftInlineStyleType,
   DraftEntityMutability,
   DraftEntityType,
+  EntityInstance,
   convertFromHTML,
   convertToRaw,
   DraftDecorator,
@@ -78,6 +80,10 @@ class RichEditorExample extends React.Component<{}, { editorState: EditorState }
     }
     state = RichEditorExample.initState()
 
+    editor: Editor;
+    editorElement: HTMLElement;
+    editorContainer: HTMLElement;
+
     onChange: (editorState: EditorState) => void = (editorState: EditorState) => this.setState({ editorState });
 
     keyBindingFn(e: SyntheticKeyboardEvent): string {
@@ -101,7 +107,19 @@ class RichEditorExample extends React.Component<{}, { editorState: EditorState }
         return getDefaultKeyBinding(e);
     }
 
-    handleKeyCommand = (command: string, editorState: EditorState, eventTimeStamp: number) => {
+    getEditorKey = (): string => this.editor.getEditorKey();
+
+    focus = (): void => this.editor.focus();
+
+    blur = (): void => this.editor.blur();
+
+    handleEditorRef = (editor: Editor | null) => {
+        this.editor = editor;
+        this.editorElement = this.editor?.editor;
+        this.editorContainer = this.editor?.editorContainer;
+    }
+
+    handleKeyCommand = (command: EditorCommand, editorState: EditorState, eventTimeStamp: number) => {
         if (command === SPLIT_HEADER_BLOCK) {
             this.onChange(this.splitHeaderToNewBlock());
             return 'handled';
@@ -194,7 +212,7 @@ class RichEditorExample extends React.Component<{}, { editorState: EditorState }
                         handleKeyCommand={this.handleKeyCommand}
                         onChange={this.onChange}
                         placeholder="Tell a story..."
-                        ref="editor"
+                        ref={this.handleEditorRef}
                         spellCheck={true}
                         preserveSelectionOnBlur={false}
                     />
@@ -394,4 +412,9 @@ rawContentState.blocks.forEach((block: RawDraftContentBlock) => {
   if (block.type === 'code-block' && block.data.language) {
     console.log(block.data.language)
   }
+});
+
+const entities = contentState.getAllEntities();
+entities.forEach((entity: EntityInstance) => {
+  console.log(entity.getType(), entity.getData());
 });

@@ -27,7 +27,7 @@ export function override(...args: Array<OverrideFunc | false | undefined | null 
 export function overrideDevServer(...args: OverrideFunc[]): OverrideFunc;
 
 /** logs the config to the console, useful for debugging */
-export function tap(options?: { message?: string; dest?: string }): OverrideFunc;
+export function tap(options?: { message?: string | undefined; dest?: string | undefined }): OverrideFunc;
 
 /**
  *

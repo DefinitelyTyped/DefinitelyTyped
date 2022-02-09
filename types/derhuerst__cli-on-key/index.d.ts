@@ -7,12 +7,12 @@
 
 declare namespace listen {
     interface Key {
-        name?: string;
+        name?: string | undefined;
         ctrl: boolean;
         meta: boolean;
         shift: boolean;
         sequence: string;
-        code?: string; // ansi code leaving out leading \x1b's
+        code?: string | undefined; // ansi code leaving out leading \x1b's
         raw: string;
     }
 

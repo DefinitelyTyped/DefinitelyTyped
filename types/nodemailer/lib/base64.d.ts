@@ -9,7 +9,7 @@ export function encode(buffer: Buffer | string): string;
 export function wrap(str: string, lineLength?: number): string;
 
 export interface EncoderOptions extends TransformOptions {
-    lineLength?: number | false;
+    lineLength?: number | false | undefined;
 }
 
 export class Encoder extends Transform {

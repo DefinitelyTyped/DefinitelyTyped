@@ -12,7 +12,7 @@ declare module "react-file-input" {
         className: string;
         accept: string;
         placeholder: string;
-        disabled?: boolean;
+        disabled?: boolean | undefined;
         onChange: (event: React.SyntheticEvent<any>) => void;
     }
 

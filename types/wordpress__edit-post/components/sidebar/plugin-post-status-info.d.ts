@@ -7,7 +7,7 @@ declare namespace PluginPostStatusInfo {
         /**
          * An optional class name added to the row.
          */
-        className?: string;
+        className?: string | undefined;
     }
 }
 

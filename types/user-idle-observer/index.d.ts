@@ -19,16 +19,16 @@ declare namespace userIDLEObserver {
          * fire callback on user inactivity time in ms
          * @default 3_000
          */
-        idleTime?: number;
+        idleTime?: number | undefined;
         /**
          * callback that will triger after opts.idleTime of user's IDLE
          * @default console.log
          */
-        cb?: Callback;
+        cb?: Callback | undefined;
         /**
          * @default ["mousemove", "mousedown", "keydown", "scroll", "touchstart", "resize", "visibilitychange"]
          */
-        listeners?: Array<keyof WindowEventMap>;
+        listeners?: Array<keyof WindowEventMap> | undefined;
     }
 
     interface UserIDLEObserver {

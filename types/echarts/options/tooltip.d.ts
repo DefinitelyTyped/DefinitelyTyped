@@ -1,3 +1,4 @@
+// Type definitions for ECharts v4.7.0
 declare namespace echarts {
     namespace EChartOption {
         interface BaseTooltip {
@@ -42,7 +43,7 @@ declare namespace echarts {
              *
              * @see https://echarts.apache.org/en/option.html#tooltip.position
              */
-            position?: Tooltip.Position.Type;
+            position?: Tooltip.Position.Type | undefined;
 
             /**
              * The content formatter of tooltip's floating layer
@@ -108,28 +109,28 @@ declare namespace echarts {
              * }
              * ```
              */
-            formatter?: string | Tooltip.Formatter;
+            formatter?: string | Tooltip.Formatter | undefined;
 
             /**
              * The background color of tooltip's floating layer.
              *
              * @default 'rgba(50, 50, 50, 0.7)'
              */
-            backgroundColor?: string;
+            backgroundColor?: string | undefined;
 
             /**
              * The border color of tooltip's floating layer.
              *
              * @default '#333'
              */
-            borderColor?: string;
+            borderColor?: string | undefined;
 
             /**
              * The border width of tooltip's floating layer.
              *
              * @default 0
              */
-            borderWidth?: number;
+            borderWidth?: number | undefined;
 
             /**
              * The floating layer of tooltip space around content.
@@ -152,12 +153,12 @@ declare namespace echarts {
              *
              * @default 5
              */
-            padding?: number | number[];
+            padding?: number | number[] | undefined;
 
             /**
              * The text style of tooltip's floating layer.
              */
-            textStyle?: BaseTextStyle;
+            textStyle?: BaseTextStyle | undefined;
 
             /**
              * Extra CSS style for floating layer.
@@ -166,7 +167,7 @@ declare namespace echarts {
              * @example
              * extraCssText: 'box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);'
              */
-            extraCssText?: string;
+            extraCssText?: string | undefined;
         }
 
         interface Tooltip extends BaseTooltip {
@@ -176,7 +177,7 @@ declare namespace echarts {
              *
              * @default true
              */
-            show?: boolean;
+            show?: boolean | undefined;
 
             /**
              * Type of triggering.
@@ -194,7 +195,7 @@ declare namespace echarts {
              *
              * @default 'item'
              */
-            trigger?: 'item' | 'axis' | 'none';
+            trigger?: "item" | "axis" | "none" | undefined;
 
             /**
              * `axisPointer` is a tool for displaying reference line
@@ -213,7 +214,7 @@ declare namespace echarts {
              *
              * @see https://echarts.apache.org/en/option.html#tooltip.axisPointer
              */
-            axisPointer?: Tooltip.AxisPointer;
+            axisPointer?: Tooltip.AxisPointer | undefined;
 
             /**
              * Whether to show the tooltip floating layer,
@@ -224,7 +225,7 @@ declare namespace echarts {
              *
              * @default true
              */
-            showContent?: boolean;
+            showContent?: boolean | undefined;
 
             /**
              * Whether to show tooltip content all the time.
@@ -234,7 +235,7 @@ declare namespace echarts {
              *
              * @default false
              */
-            alwaysShowContent?: boolean;
+            alwaysShowContent?: boolean | undefined;
 
             /**
              * Conditions to trigger tooltip.
@@ -251,7 +252,7 @@ declare namespace echarts {
              *
              * @default 'mousemove|click'
              */
-            triggerOn?: 'mousemove' | 'click' | 'mousemove|click' | 'none';
+            triggerOn?: "mousemove" | "click" | "mousemove|click" | "none" | undefined;
 
             /**
              * Delay time for showing tooltip, in ms.
@@ -260,7 +261,7 @@ declare namespace echarts {
              *
              * @default 0
              */
-            showDelay?: number;
+            showDelay?: number | undefined;
 
             /**
              * Delay time for hiding tooltip, in ms.
@@ -268,7 +269,7 @@ declare namespace echarts {
              *
              * @default 100
              */
-            hideDelay?: number;
+            hideDelay?: number | undefined;
 
             /**
              * Whether mouse is allowed to enter the floating layer
@@ -278,7 +279,7 @@ declare namespace echarts {
              *
              * @default true
              */
-            enterable?: boolean;
+            enterable?: boolean | undefined;
 
             /**
              * Render mode for tooltip.
@@ -292,7 +293,7 @@ declare namespace echarts {
              *
              * @default 'html'
              */
-            renderMode?: 'html';
+            renderMode?: "html" | undefined;
 
             /**
              * Whether confine tooltip content in the view rect
@@ -303,7 +304,7 @@ declare namespace echarts {
              *
              * @default false
              */
-            confine?: boolean;
+            confine?: boolean | undefined;
 
             /**
              * The transition duration of tooltip's animation, in seconds.
@@ -311,20 +312,41 @@ declare namespace echarts {
              *
              * @default 0.4
              */
-            transitionDuration?: number;
+            transitionDuration?: number | undefined;
+
+            /**
+             * Since v4.7.0
+             *
+             * Whether to append the tooltip DOM element as a child of the <body> of the HTML page,
+             * when using renderMode 'html'.
+             * By default false, means that the tooltip DOM element will be one of a descendant
+             * of its echarts DOM container.
+             * But that means that the tooltip might be cut when overflow the container
+             * if some of the ancestors DOM element of the echarts container are styled with overflow: hidden.
+             * This case could also be resolved by setting tooltip.confine, but it might not suitable for all scenarios.
+             * Here we provide appendToBody: true to auto append the tooltip element to <body>,
+             * which is a common way to resolve this kind of issue.
+             * But true is not set as a default value because to void to bring break change
+             * for some cases where tooltip is deeply customized and to void some unexpected bad cases.
+             *
+             * Note that it also works when CSS transform used.
+             *
+             * @default false
+             */
+            appendToBody?: boolean | undefined;
         }
 
         namespace Tooltip {
             namespace Position {
                 type Type = Position.Str | Position.Obj | (number | string)[] | Position.Fn;
 
-                type Str = 'inside' | 'top' | 'left' | 'right' | 'bottom';
+                type Str = "inside" | "top" | "left" | "right" | "bottom";
 
                 interface Obj {
-                    top?: string | number;
-                    right?: string | number;
-                    bottom?: string | number;
-                    left?: string | number;
+                    top?: string | number | undefined;
+                    right?: string | number | undefined;
+                    bottom?: string | number | undefined;
+                    left?: string | number | undefined;
                 }
 
                 interface Fn {
@@ -369,37 +391,37 @@ declare namespace echarts {
             }
 
             interface Format {
-                componentType?: 'series';
+                componentType?: "series" | undefined;
 
                 // Series type
-                seriesType?: string;
+                seriesType?: string | undefined;
 
                 // Series index in option.series
-                seriesIndex?: number;
+                seriesIndex?: number | undefined;
 
                 // Series name
-                seriesName?: string;
+                seriesName?: string | undefined;
 
                 // item marker, string of HTMLElement
-                marker?: string;
+                marker?: string | undefined;
 
                 // Data name, or category name
-                name?: string;
+                name?: string | undefined;
 
                 // Data index in input data array
-                dataIndex?: number;
+                dataIndex?: number | undefined;
 
                 // Original data as input
                 data?: any;
 
                 // Value of data
-                value?: number | any[];
+                value?: number | any[] | undefined;
 
                 // Value of axis
-                axisValue?: number | string;
+                axisValue?: number | string | undefined;
 
                 // Label of axis value
-                axisValueLabel?: string;
+                axisValueLabel?: string | undefined;
 
                 // encoding info of coordinate system
                 // Key: coord, like ('x' 'y' 'radius' 'angle')
@@ -408,47 +430,47 @@ declare namespace echarts {
                 //     x: [2] // values on dimension index 2 are mapped to x axis.
                 //     y: [0] // values on dimension index 0 are mapped to y axis.
                 // }
-                encode?: object;
+                encode?: object | undefined;
 
                 // dimension names list
-                dimensionNames?: string[];
+                dimensionNames?: string[] | undefined;
 
                 // data dimension index, for example 0 or 1 or 2 ...
                 // Only work in `radar` series.
-                dimensionIndex?: number;
+                dimensionIndex?: number | undefined;
 
                 // Color of data
-                color?: string;
+                color?: string | undefined;
 
                 // the percentage of pie chart
-                percent?: number;
+                percent?: number | undefined;
             }
             interface AxisPointer {
-                show?: boolean;
-                type?: 'line' | 'shadow' | 'none' | 'cross';
-                axis?: 'auto' | 'x' | 'y' | 'radius' | 'angle';
-                snap?: boolean;
-                z?: number;
-                label?: BasicComponents.CartesianAxis.PointerLabel;
-                lineStyle?: LineStyle;
+                show?: boolean | undefined;
+                type?: "line" | "shadow" | "none" | "cross" | undefined;
+                axis?: "auto" | "x" | "y" | "radius" | "angle" | undefined;
+                snap?: boolean | undefined;
+                z?: number | undefined;
+                label?: BasicComponents.CartesianAxis.PointerLabel | undefined;
+                lineStyle?: LineStyle | undefined;
                 shadowStyle?: {
-                    color?: string;
-                    shadowBlur?: number;
-                    shadowColor?: string;
-                    shadowOffsetX?: number;
-                    shadowOffsetY?: number;
-                    opacity?: number;
-                };
+                    color?: string | undefined;
+                    shadowBlur?: number | undefined;
+                    shadowColor?: string | undefined;
+                    shadowOffsetX?: number | undefined;
+                    shadowOffsetY?: number | undefined;
+                    opacity?: number | undefined;
+                } | undefined;
                 // It is valid when axisPointer.type is 'cross'.
-                crossStyle?: LineStyle;
-                animation?: boolean;
-                animationThreshold?: number;
-                animationDuration?: number;
-                animationEasing?: string;
-                animationDelay?: number | Function;
-                animationDurationUpdate?: number | Function;
-                animationEasingUpdate?: string;
-                animationDelayUpdate?: number | Function;
+                crossStyle?: LineStyle | undefined;
+                animation?: boolean | undefined;
+                animationThreshold?: number | undefined;
+                animationDuration?: number | undefined;
+                animationEasing?: string | undefined;
+                animationDelay?: number | Function | undefined;
+                animationDurationUpdate?: number | Function | undefined;
+                animationEasingUpdate?: string | undefined;
+                animationDelayUpdate?: number | Function | undefined;
             }
         }
     }

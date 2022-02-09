@@ -14,31 +14,31 @@ declare namespace yar {
          * Determines the name of the cookie used to store session information.
          * Defaults to session.
          */
-        name?: string;
+        name?: string | undefined;
 
         /**
          * maximum cookie size before using server-side storage.
          * Defaults to 1K. Set to zero to always use server-side storage.
          */
-        maxCookieSize?: number;
+        maxCookieSize?: number | undefined;
 
         /**
          * determines whether to store empty session before they've been modified.
          * Defaults to true.
          */
-        storeBlank?: boolean;
+        storeBlank?: boolean | undefined;
 
         /**
          * will cause yar to throw an exception if trying to persist to cache when the cache is unavailable.
          * Setting this to false will allow applications using yar to run uninterrupted if the cache is not ready (however sessions will not be saving).
          * Defaults to true.
          */
-        errorOnCacheNotReady?: boolean;
+        errorOnCacheNotReady?: boolean | undefined;
 
         /**
          * hapi cache options which includes (among other options):
          */
-        cache?: CachePolicyOptions<any>;
+        cache?: CachePolicyOptions<any> | undefined;
 
         /**
          * the configuration for cookie-specific features:
@@ -52,7 +52,7 @@ declare namespace yar {
              * In that case you should probably change this back to true for a short time to allow session cookies to get reset for the best user experience.
              * Defaults to true.
              */
-            ignoreErrors?: boolean;
+            ignoreErrors?: boolean | undefined;
 
             /**
              * Tells Hapi that if a session cookie is invalid for any reason,
@@ -63,7 +63,7 @@ declare namespace yar {
              * other way you may set this to false.
              * Defaults to true
              */
-            clearInvalid?: boolean;
+            clearInvalid?: boolean | undefined;
             /**
              * (Required) used to encrypt and sign the cookie data.
              * Must be at least 32 chars.
@@ -73,27 +73,27 @@ declare namespace yar {
              * determines the cookie path.
              * Defaults to '/'.
              */
-            path?: string;
+            path?: string | undefined;
             /**
              * enables the same-site cookie parameter.
              * Default to 'Lax'.
              */
-            isSameSite?: 'Lax' | 'Strict' | 'None' | false;
+            isSameSite?: 'Lax' | 'Strict' | 'None' | false | undefined;
             /**
              * determines whether or not to transfer using TLS/SSL.
              * Defaults to true.
              */
-            isSecure?: boolean;
+            isSecure?: boolean | undefined;
             /**
              * determines whether or not to set HttpOnly option in cookie.
              * Defaults to false.
              */
-            isHttpOnly?: boolean;
+            isHttpOnly?: boolean | undefined;
             /**
              * sets the time for the cookie to live in the browser, in milliseconds.
              * Defaults to null (session time-life - cookies are deleted when the browser is closed).
              */
-            ttl?: number;
+            ttl?: number | undefined;
             /**
              * an optional function to create custom session IDs.
              * Must retun a string and have the signature function (request) where:

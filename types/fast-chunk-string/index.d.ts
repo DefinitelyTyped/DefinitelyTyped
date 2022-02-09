@@ -5,7 +5,7 @@
 
 interface Options {
     size: number;
-    unicodeAware?: boolean;
+    unicodeAware?: boolean | undefined;
 }
 
 declare function fastChunkString(str: string, options: Options): string[];

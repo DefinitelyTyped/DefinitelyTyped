@@ -13,11 +13,11 @@ export interface CustomPickerInjectedProps<T = HSLColor | HSVColor | RGBColor> e
 }
 
 export interface CustomPickerProps {
-    color?: Color;
-    className?: string;
-    styles?: Partial<Classes<any>>;
-    onChange?: OnChangeHandler;
-    onChangeComplete?: OnChangeHandler; // e: ColorState
+    color?: Color | undefined;
+    className?: string | undefined;
+    styles?: Partial<Classes<any>> | undefined;
+    onChange?: OnChangeHandler | undefined;
+    onChangeComplete?: OnChangeHandler | undefined; // e: ColorState
 }
 
 export default function CustomPicker<A>(

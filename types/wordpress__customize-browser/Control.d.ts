@@ -5,7 +5,7 @@ import { Setting } from './Setting';
 import { Value } from './Value';
 
 export type Control_Settings = (Record<string, Setting<any> | Value<any>> | Array<Setting<any> | Value<any>>) & {
-    default?: string | Setting<any>;
+    default?: string | Setting<any> | undefined;
 };
 
 export interface Control_Params {
@@ -14,17 +14,17 @@ export interface Control_Params {
     active: boolean;
     priority: number;
     type: any;
-    content?: string;
-    templateId?: string;
+    content?: string | undefined;
+    templateId?: string | undefined;
     section: string;
-    setting?: string | Setting<any>;
+    setting?: string | Setting<any> | undefined;
     settings: Control_Settings;
-    instanceNumber?: number;
-    params?: Control_Params;
+    instanceNumber?: number | undefined;
+    params?: Control_Params | undefined;
 }
 
 export class Control extends Class {
-    static instanceCounter?: number;
+    static instanceCounter?: number | undefined;
     defaultActiveArguments: Container_Arguments;
     defaults: Control_Params;
     params: Control_Params;

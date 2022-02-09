@@ -4,7 +4,6 @@ import Geometry from '../geom/Geometry';
 import Projection from '../proj/Projection';
 import { ReadOptions } from './Feature';
 import Filter from './filter/Filter';
-
 import GMLBase, { Options as Options_1 } from './GMLBase';
 import XMLFeature from './XMLFeature';
 
@@ -15,11 +14,17 @@ export interface FeatureCollectionMetadata {
     numberOfFeatures: number;
     bounds: Extent;
 }
+export interface FeatureType {
+    name: string;
+    bbox: Extent;
+    geometryName: string;
+}
 export interface Options {
-    featureNS?: { [key: string]: string } | string;
-    featureType?: string[] | string;
-    gmlFormat?: GMLBase;
-    schemaLocation?: string;
+    featureNS?: { [key: string]: string } | string | undefined;
+    featureType?: string[] | string | undefined;
+    gmlFormat?: GMLBase | undefined;
+    schemaLocation?: string | undefined;
+    version?: string | undefined;
 }
 /**
  * Total deleted; total inserted; total updated; array of insert ids.
@@ -33,34 +38,38 @@ export interface TransactionResponse {
 export interface WriteGetFeatureOptions {
     featureNS: string;
     featurePrefix: string;
-    featureTypes: string[];
-    srsName?: string;
-    handle?: string;
-    outputFormat?: string;
-    maxFeatures?: number;
-    geometryName?: string;
-    propertyNames?: string[];
-    viewParams?: string;
-    startIndex?: number;
-    count?: number;
-    bbox?: Extent;
-    filter?: Filter;
-    resultType?: string;
+    featureTypes: (string | FeatureType)[];
+    srsName?: string | undefined;
+    handle?: string | undefined;
+    outputFormat?: string | undefined;
+    maxFeatures?: number | undefined;
+    geometryName?: string | undefined;
+    propertyNames?: string[] | undefined;
+    viewParams?: string | undefined;
+    startIndex?: number | undefined;
+    count?: number | undefined;
+    bbox?: Extent | undefined;
+    filter?: Filter | undefined;
+    resultType?: string | undefined;
 }
 export interface WriteTransactionOptions {
     featureNS: string;
     featurePrefix: string;
     featureType: string;
-    srsName?: string;
-    handle?: string;
-    hasZ?: boolean;
-    nativeElements: object[];
-    gmlOptions?: Options_1;
-    version?: string;
+    srsName?: string | undefined;
+    handle?: string | undefined;
+    hasZ?: boolean | undefined;
+    nativeElements?: object[] | undefined;
+    gmlOptions?: Options_1 | undefined;
+    version?: string | undefined;
 }
 export default class WFS extends XMLFeature {
     constructor(opt_options?: Options);
     protected readFeaturesFromNode(node: Element, opt_options?: ReadOptions): Feature<Geometry>[];
+    /**
+     * Create a bbox filter and combine it with another optional filter.
+     */
+    combineBboxAndFilter(geometryName: string, extent: Extent, opt_srsName?: string, opt_filter?: Filter): Filter;
     getFeatureType(): string[] | string | undefined;
     /**
      * Read feature collection metadata of the source.
@@ -94,4 +103,4 @@ export default class WFS extends XMLFeature {
 /**
  * Encode filter as WFS Filter and return the Node.
  */
-export function writeFilter(filter: Filter): Node;
+export function writeFilter(filter: Filter, version: string): Node;

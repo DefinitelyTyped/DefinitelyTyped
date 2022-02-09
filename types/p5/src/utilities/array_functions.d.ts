@@ -22,12 +22,11 @@ declare module '../../index' {
          *   length. Note that copying values overwrites
          *   existing values in the destination array. To
          *   append values instead of overwriting them, use
-         *   concat().  The simplified version with only two
+         *   concat(). The simplified version with only two
          *   arguments, arrayCopy(src, dst), copies an entire
          *   array to another of the same size. It is
          *   equivalent to arrayCopy(src, 0, dst, 0,
          *   src.length).
-         *
          *
          *   Using this function is far more efficient for
          *   copying array data than iterating through a for()
@@ -52,12 +51,11 @@ declare module '../../index' {
          *   length. Note that copying values overwrites
          *   existing values in the destination array. To
          *   append values instead of overwriting them, use
-         *   concat().  The simplified version with only two
+         *   concat(). The simplified version with only two
          *   arguments, arrayCopy(src, dst), copies an entire
          *   array to another of the same size. It is
          *   equivalent to arrayCopy(src, 0, dst, 0,
          *   src.length).
-         *
          *
          *   Using this function is far more efficient for
          *   copying array data than iterating through a for()

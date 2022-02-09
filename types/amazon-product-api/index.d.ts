@@ -16,30 +16,30 @@ interface IAmazonProductQueryCallback {
 }
 
 interface IItemSearchOptions {
-    condition?: string;
-    keywords?: string;
-    responseGroup?: string;
-    searchIndex?: string;
-    itemPage?: number;
-    sort?: string;
+    condition?: string | undefined;
+    keywords?: string | undefined;
+    responseGroup?: string | undefined;
+    searchIndex?: string | undefined;
+    itemPage?: number | undefined;
+    sort?: string | undefined;
 }
 
 interface IItemLookupOptions {
-    condition?: string;
-    idType?: string;
-    includeReviewsSummary?: boolean;
-    itemId?: string | string[];
-    responseGroup?: string;
-    searchIndex?: string;
-    truncateReviewsAt?: number;
-    variationPage?: string;
-    domain?: string;
-    request?: Function;
+    condition?: string | undefined;
+    idType?: string | undefined;
+    includeReviewsSummary?: boolean | undefined;
+    itemId?: string | string[] | undefined;
+    responseGroup?: string | undefined;
+    searchIndex?: string | undefined;
+    truncateReviewsAt?: number | undefined;
+    variationPage?: string | undefined;
+    domain?: string | undefined;
+    request?: Function | undefined;
 }
 
 interface IBrowseNodeLookupOptions {
-    browseNodeId?: string;
-    responseGroup?: string;
+    browseNodeId?: string | undefined;
+    responseGroup?: string | undefined;
 }
 
 interface IAmazonProductClient {

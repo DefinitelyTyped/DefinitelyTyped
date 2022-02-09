@@ -1,6 +1,6 @@
 // Type definitions for ranjs 1.22
 // Project: https://synesenom.github.io/ran/
-// Definitions by: problem233 <https://github.com/problem233>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.4
 
@@ -531,8 +531,8 @@ declare namespace mc {
         constructor(
             logDensity: (x: number[]) => number,
             config?: {
-                dim?: number;
-                maxHistory?: number;
+                dim?: number | undefined;
+                maxHistory?: number | undefined;
             },
             initialState?: State,
         );

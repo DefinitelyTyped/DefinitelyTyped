@@ -92,12 +92,12 @@ declare class Two {
 
 declare namespace Two {
     interface ConstructorParams {
-        type?: Types;
-        width?: number;
-        height?: number;
-        autostart?: boolean;
-        fullscreen?: boolean;
-        ratio?: number;
+        type?: Types | undefined;
+        width?: number | undefined;
+        height?: number | undefined;
+        autostart?: boolean | undefined;
+        fullscreen?: boolean | undefined;
+        ratio?: number | undefined;
     }
 
     namespace Utils {
@@ -321,7 +321,7 @@ declare namespace Two {
         );
 
         command: Commands | string;
-        controls?: { right: Vector; left: Vector };
+        controls?: { right: Vector; left: Vector } | undefined;
 
         listen(): this;
         ignore(): this;

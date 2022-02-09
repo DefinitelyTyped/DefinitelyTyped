@@ -11,7 +11,7 @@ type OnTransform = (chunk: any, callback: TransformCallback) => void;
 
 declare namespace ParallelTransform {
     interface Options extends TransformOptions {
-        ordered?: boolean;
+        ordered?: boolean | undefined;
     }
 }
 

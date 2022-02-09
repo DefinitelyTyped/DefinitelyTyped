@@ -1,0 +1,3 @@
+src/highlightstack.d.ts
+src/verticalnavigation.d.ts
+src/widgettypearound/utils.d.ts

@@ -8,12 +8,12 @@
 import { RequestHandler } from "micro";
 
 interface Options {
-    maxAge?: number;
-    origin?: string;
-    allowHeaders?: string[];
-    allowMethods?: string[];
-    exposeHeaders?: string[];
-    allowCredentials?: boolean;
+    maxAge?: number | undefined;
+    origin?: string | undefined;
+    allowHeaders?: string[] | undefined;
+    allowMethods?: string[] | undefined;
+    exposeHeaders?: string[] | undefined;
+    allowCredentials?: boolean | undefined;
 }
 
 declare function micro_cors(options?: Options): (handler: RequestHandler) => RequestHandler;

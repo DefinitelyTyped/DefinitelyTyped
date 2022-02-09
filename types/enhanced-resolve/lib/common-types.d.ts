@@ -20,23 +20,23 @@ export interface ResolveParseResult {
 }
 
 export interface ResolveContext {
-    issuer?: string;
+    issuer?: string | undefined;
 }
 
 export interface ResolverRequest {
     context: ResolveContext;
-    descriptionFileData?: DescriptionFileData;
-    descriptionFilePath?: string;
-    descriptionFileRoot?: string;
-    directory?: boolean;
-    module?: boolean;
+    descriptionFileData?: DescriptionFileData | undefined;
+    descriptionFilePath?: string | undefined;
+    descriptionFileRoot?: string | undefined;
+    directory?: boolean | undefined;
+    module?: boolean | undefined;
     path: string;
-    query?: string;
-    relativePath?: string;
+    query?: string | undefined;
+    relativePath?: string | undefined;
     request: string;
-    __innerRequest?: string;
-    __innerRequest_request?: string;
-    __innerRequest_relativePath?: string;
+    __innerRequest?: string | undefined;
+    __innerRequest_request?: string | undefined;
+    __innerRequest_relativePath?: string | undefined;
 }
 
 export interface LoggingCallbackTools {
@@ -44,7 +44,7 @@ export interface LoggingCallbackTools {
     stack?: string[] | undefined;
     missing?: string[] | {
         push: (item: string) => void;
-    };
+    } | undefined;
 }
 
 export interface LoggingCallbackWrapper extends LoggingCallbackTools {
@@ -63,12 +63,12 @@ export interface AbstractInputFileSystem {
     readFile(
         filename: string, options: {
             encoding: string;
-            flag?: string;
+            flag?: string | undefined;
         }, callback: (err: NodeJS.ErrnoException, data: string) => void
     ): void;
     readFile(
         filename: string, options: {
-            flag?: string;
+            flag?: string | undefined;
         }, callback: (err: NodeJS.ErrnoException, data: Buffer) => void
     ): void;
     readFile(filename: string, callback: (err: NodeJS.ErrnoException, data: Buffer) => void): void;

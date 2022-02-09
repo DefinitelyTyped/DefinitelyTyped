@@ -31,8 +31,8 @@ declare namespace PropertiesReader {
     }
 
     interface FullOptions {
-        appender?: AppenderOptions;
-        writer?: WriterOptions;
+        appender?: AppenderOptions | undefined;
+        writer?: WriterOptions | undefined;
     }
 }
 

@@ -3,10 +3,10 @@ export type OutputBuffer = ArrayLike<number>;
 export type InputBuffer = ArrayLike<number>;
 
 export interface V1Options {
-    node?: InputBuffer;
-    clockseq?: number;
-    msecs?: number | Date;
-    nsecs?: number;
+    node?: InputBuffer | undefined;
+    clockseq?: number | undefined;
+    msecs?: number | Date | undefined;
+    nsecs?: number | undefined;
 }
 
 export type V4Options = {random: InputBuffer} | {rng(): InputBuffer};

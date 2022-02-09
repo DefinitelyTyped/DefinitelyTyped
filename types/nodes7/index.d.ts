@@ -120,23 +120,23 @@ declare namespace NodeS7 {
          *
          * This option is global and shared between instances of the NodeS7 class
          */
-        silent?: boolean;
+        silent?: boolean | undefined;
         /**
          * If set to true, the NodeS7 library will output additional data to the console.
          *
          * This option is global and shared between instances of the NodeS7 class
          */
-        debug?: boolean;
+        debug?: boolean | undefined;
     }
 
     interface ConnectionOptions {
-        rack?: number;
-        slot?: number;
-        port?: number;
-        host?: string;
-        timeout?: number;
-        localTSAP?: number;
-        remoteTSAP?: number;
+        rack?: number | undefined;
+        slot?: number | undefined;
+        port?: number | undefined;
+        host?: string | undefined;
+        timeout?: number | undefined;
+        localTSAP?: number | undefined;
+        remoteTSAP?: number | undefined;
     }
 
     interface ReadValues {

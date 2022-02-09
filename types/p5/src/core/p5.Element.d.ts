@@ -5,16 +5,25 @@ import * as p5 from '../../index';
 declare module '../../index' {
     class Element {
         /**
+         *   Base class for all elements added to a sketch,
+         *   including canvas, graphics buffers, and other HTML
+         *   elements. It is not called directly, but
+         *   p5.Element objects are created by calling
+         *   createCanvas, createGraphics, createDiv,
+         *   createImg, createInput, etc.
+         *
+         *   @param elt DOM node that is wrapped
+         *   @param [pInst] pointer to p5 instance
+         */
+        constructor(elt: string, pInst?: p5);
+
+        /**
          *   Attaches the element to the parent specified. A
          *   way of setting the container for the element.
          *   Accepts either a string ID, DOM node, or
          *   p5.Element. If no arguments given, parent node is
          *   returned. For more ways to position the canvas,
-         *   see the  positioning the canvas wiki page. All
-         *   above examples except for the first one require
-         *   the inclusion of the p5.dom library in your
-         *   index.html. See the using a library section for
-         *   information on how to include this library.
+         *   see the  positioning the canvas wiki page.
          *   @param parent the ID, DOM node, or p5.Element of
          *   desired parent element
          *   @chainable
@@ -27,11 +36,7 @@ declare module '../../index' {
          *   Accepts either a string ID, DOM node, or
          *   p5.Element. If no arguments given, parent node is
          *   returned. For more ways to position the canvas,
-         *   see the  positioning the canvas wiki page. All
-         *   above examples except for the first one require
-         *   the inclusion of the p5.dom library in your
-         *   index.html. See the using a library section for
-         *   information on how to include this library.
+         *   see the  positioning the canvas wiki page.
          */
         parent(): Element;
 
@@ -103,10 +108,10 @@ declare module '../../index' {
         doubleClicked(fxn: ((...args: any[]) => any) | boolean): Element;
 
         /**
-         *   The .mouseWheel() function is called once after
+         *   The mouseWheel() function is called once after
          *   every time a mouse wheel is scrolled over the
          *   element. This can be used to attach element
-         *   specific event listeners.  The function accepts a
+         *   specific event listeners. The function accepts a
          *   callback function as argument which will be
          *   executed when the wheel event is triggered on the
          *   element, the callback function is passed one
@@ -116,7 +121,6 @@ declare module '../../index' {
          *   direction. The event.deltaX does the same as
          *   event.deltaY except it reads the horizontal wheel
          *   scroll of the mouse wheel.
-         *
          *
          *   On OS X with "natural" scrolling enabled, the
          *   event.deltaY values are reversed.
@@ -129,7 +133,7 @@ declare module '../../index' {
         mouseWheel(fxn: ((...args: any[]) => any) | boolean): Element;
 
         /**
-         *   The .mouseReleased() function is called once after
+         *   The mouseReleased() function is called once after
          *   every time a mouse button is released over the
          *   element. Some mobile browsers may also trigger
          *   this event on a touch screen, if the user performs
@@ -148,7 +152,7 @@ declare module '../../index' {
          *   a mouse button is pressed and released over the
          *   element. Some mobile browsers may also trigger
          *   this event on a touch screen, if the user performs
-         *   a quick tap. This can be used to attach element
+         *   a quick tap.This can be used to attach element
          *   specific event listeners.
          *   @param fxn function to be fired when mouse is
          *   clicked over the element. if false is passed

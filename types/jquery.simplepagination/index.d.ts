@@ -13,21 +13,21 @@ interface SimplePaginationOptions {
      * @type {number}
      * @memberof SimplePaginationOptions
      */
-    items?: number;
+    items?: number | undefined;
     /**
      * Number of items displayed on each page.
      * 
      * @type {number}
      * @memberof SimplePaginationOptions
      */
-    itemsOnPage?: number;
+    itemsOnPage?: number | undefined;
     /**
      *     If specified, items and itemsOnPage will not be used to calculate the number of pages.
      * 
      * @type {number}
      * @memberof SimplePaginationOptions
      */
-    pages?: number;
+    pages?: number | undefined;
     /**
      * How many page numbers should be visible while navigating.
      * Minimum allowed: 3 (previous, current & next)
@@ -35,65 +35,65 @@ interface SimplePaginationOptions {
      * @type {number}
      * @memberof SimplePaginationOptions
      */
-    displayedPages?: number;
+    displayedPages?: number | undefined;
     /**
      * How many page numbers are visible at the beginning/ending of the pagination.
      * 
      * @type {number}
      * @memberof SimplePaginationOptions
      */
-    edges?: number;
+    edges?: number | undefined;
     /**
      * Which page will be selected immediately after init.
      * 
      * @type {number}
      * @memberof SimplePaginationOptions
      */
-    currentPage?: number;
+    currentPage?: number | undefined;
     /**
      * A string used to build the href attribute, added before the page number.
      * 
      * @type {string}
      * @memberof SimplePaginationOptions
      */
-    hrefTextPrefix?: string;
+    hrefTextPrefix?: string | undefined;
     /**
      * Another string used to build the href attribute, added after the page number.
      * 
      * @type {string}
      * @memberof SimplePaginationOptions
      */
-    hrefTextSuffix?: string;
+    hrefTextSuffix?: string | undefined;
     /**
      * Text to be display on the previous button.
      * 
      * @type {string}
      * @memberof SimplePaginationOptions
      */
-    prevText?: string;
+    prevText?: string | undefined;
     /**
      * Text to be display on the next button.
      * 
      * @type {string}
      * @memberof SimplePaginationOptions
      */
-    nextText?: string;
+    nextText?: string | undefined;
     /**
      * The class of the CSS theme.
      * 
      * @type {string}
      * @memberof SimplePaginationOptions
      */
-    cssStyle?: string;
+    cssStyle?: string | undefined;
     /**
      * Set to false if you don't want to select the page immediately after click.
      * 
      * @type {boolean}
      * @memberof SimplePaginationOptions
      */
-    selectOnClick?: boolean;
-    useAnchors?: boolean,
-    ellipseText?: string;
+    selectOnClick?: boolean | undefined;
+    useAnchors?: boolean | undefined,
+    ellipseText?: string | undefined;
     /**
      * When this option is true,
      * clicking on the ellipse will replace the ellipse
@@ -102,32 +102,32 @@ interface SimplePaginationOptions {
      * @type {boolean}
      * @memberof SimplePaginationOptions
      */
-    ellipsePageSet?: boolean;
-    listStyle?: boolean;
+    ellipsePageSet?: boolean | undefined;
+    listStyle?: boolean | undefined;
     /**
      * A collection of labels that will be used to render the pagination items, replacing the numbers.
      * 
      * @type {any[]}
      * @memberof SimplePaginationOptions
      */
-    labelMap?: any[];
-    nextAtFront?: boolean;
-    invertPageOrder?: boolean;
-    useStartEdge?: boolean;
-    useEndEdge?: boolean;
+    labelMap?: any[] | undefined;
+    nextAtFront?: boolean | undefined;
+    invertPageOrder?: boolean | undefined;
+    useStartEdge?: boolean | undefined;
+    useEndEdge?: boolean | undefined;
     /**
      * Function to call when a page is clicked.
      * Page number and event are optional parameters.
      * 
      * @memberof SimplePaginationOptions
      */
-    onPageClick?: (page: number, event: any) => void;
+    onPageClick?: ((page: number, event: any) => void) | undefined;
     /**
      * Function to call when the pagination is initialized.
      * 
      * @memberof SimplePaginationOptions
      */
-    onInit?: () => void;
+    onInit?: (() => void) | undefined;
 }
 
 interface JQuery {

@@ -21,7 +21,7 @@ export interface Profile extends passportProfile {
 }
 
 export interface AuthenticateOptions extends PassportAuthenticateOptions {
-    authType?: string;
+    authType?: string | undefined;
 }
 
 export interface StrategyOption {
@@ -29,10 +29,10 @@ export interface StrategyOption {
     clientSecret: string;
     callbackURL: string;
 
-    scope?: string[];
-    scopeSeparator?: string;
-    enableProof?: boolean;
-    profileFields?: string[];
+    scope?: string[] | undefined;
+    scopeSeparator?: string | undefined;
+    enableProof?: boolean | undefined;
+    profileFields?: string[] | undefined;
 }
 
 export interface StrategyOptionWithRequest extends StrategyOption {

@@ -1,7 +1,6 @@
 // Type definitions for node-xlsx 0.15
 // Project: https://github.com/mgcrea/node-xlsx#readme
-// Definitions by: chenc <https://github.com/cWatermelon>
-//                 kinuxroot <https://github.com/kinuxroot>
+// Definitions by: kinuxroot <https://github.com/kinuxroot>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -26,7 +25,7 @@ export function parse(
  * @returns returns a buffer of worksheets
  */
 export function build(
-    worksheets: Array<{ name: string; data: any[][]; options?: {} }>,
+    worksheets: Array<{ name: string; data: any[][]; options?: {} | undefined }>,
     options?: {}
 ): ArrayBuffer;
 declare const _default: {

@@ -1,6 +1,6 @@
 // Type definitions for procurios.resizesensor 0.2
 // Project: https://github.com/procurios/ResizeSensor
-// Definitions by: Taylor Clark <https://github.com/DefinitelyTyped>
+// Definitions by: Taylor Clark <https://github.com/tnclark8012>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export as namespace resizeSensor;

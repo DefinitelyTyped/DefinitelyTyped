@@ -12,6 +12,9 @@
         "typeRoots": [
             "../"
         ],
+        "paths": {
+            "@riderize/*": ["riderize__*"]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

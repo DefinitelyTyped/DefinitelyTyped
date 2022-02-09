@@ -7,9 +7,9 @@
 import { Block } from 'webpack-blocks';
 
 interface babel {
-    cacheDirectory?: boolean;
-    plugins?: string[];
-    presets?: string[];
+    cacheDirectory?: boolean | undefined;
+    plugins?: string[] | undefined;
+    presets?: string[] | undefined;
 }
 
 declare function babel(options?: babel): Block;

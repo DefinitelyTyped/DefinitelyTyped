@@ -13,7 +13,7 @@ export interface AnimationData {
 declare global {
     namespace SnapchatLensStudio {
         interface ScriptApi {
-            animationData?: AnimationData;
+            animationData?: AnimationData | undefined;
         }
     }
 }

@@ -5,6 +5,7 @@
 
 import dayjs = require('dayjs');
 
+export as namespace preciseDiff;
 export = dayjs;
 
 declare module 'dayjs' {

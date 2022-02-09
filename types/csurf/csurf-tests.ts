@@ -1,8 +1,8 @@
-import cookieParser = require('cookie-parser');
-import csrf = require('csurf');
-import bodyParser = require('body-parser');
-import express = require('express');
-import { Router } from 'express';
+import cookieParser = require("cookie-parser");
+import csrf = require("csurf");
+import { urlencoded } from "body-parser";
+import express = require("express");
+import { Router } from "express";
 
 // create express app
 const app = express();
@@ -13,8 +13,8 @@ const api = createApiRouter();
 // mount api before csrf is appended to the app stack
 app.use('/api', api);
 
-// now add csrf and other middlewares, after the "/api" was mounted
-app.use(bodyParser.urlencoded({ extended: false }));
+// now add csrf and other middleware, after the "/api" was mounted
+app.use(urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(csrf({ cookie: true }));
 

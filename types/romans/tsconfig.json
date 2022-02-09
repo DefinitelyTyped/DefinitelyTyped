@@ -18,7 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "test/romans-tests.cjs.ts",
-        "test/romans-tests.global.ts"
+        "romans-tests.ts"
     ]
 }

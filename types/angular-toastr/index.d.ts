@@ -20,44 +20,44 @@ export type IToastrService = angular.toastr.IToastrService;
 declare module 'angular' {
     export namespace toastr {
         interface IToastBaseConfig {
-            allowHtml?: boolean;
-            closeButton?: boolean;
-            closeHtml?: string;
-            extendedTimeOut?: number;
+            allowHtml?: boolean | undefined;
+            closeButton?: boolean | undefined;
+            closeHtml?: string | undefined;
+            extendedTimeOut?: number | undefined;
             extraData?: any,
-            messageClass?: string;
-            onHidden?: (wasClicked: boolean, toast: angular.toastr.IToast) => void;
-            onShown?: (toast: angular.toastr.IToast) => void;
-            onTap?: (toast: angular.toastr.IToast) => void;
-            progressBar?: boolean;
-            tapToDismiss?: boolean;
+            messageClass?: string | undefined;
+            onHidden?: ((wasClicked: boolean, toast: angular.toastr.IToast) => void) | undefined;
+            onShown?: ((toast: angular.toastr.IToast) => void) | undefined;
+            onTap?: ((toast: angular.toastr.IToast) => void) | undefined;
+            progressBar?: boolean | undefined;
+            tapToDismiss?: boolean | undefined;
             templates?: {
-                toast?: string;
-                progressbar?: string;
-            };
-            timeOut?: number;
-            titleClass?: string;
-            toastClass?: string;
+                toast?: string | undefined;
+                progressbar?: string | undefined;
+            } | undefined;
+            timeOut?: number | undefined;
+            titleClass?: string | undefined;
+            toastClass?: string | undefined;
         }
 
         interface IToastContainerConfig {
-            autoDismiss?: boolean;
-            containerId?: string;
-            maxOpened?: number;
-            newestOnTop?: boolean;
-            positionClass?: string;
-            preventDuplicates?: boolean;
-            preventOpenDuplicates?: boolean;
-            target?: string;
+            autoDismiss?: boolean | undefined;
+            containerId?: string | undefined;
+            maxOpened?: number | undefined;
+            newestOnTop?: boolean | undefined;
+            positionClass?: string | undefined;
+            preventDuplicates?: boolean | undefined;
+            preventOpenDuplicates?: boolean | undefined;
+            target?: string | undefined;
         }
 
         interface IToastConfig extends IToastBaseConfig {
             iconClasses?: {
-                error?: string;
-                info?: string;
-                success?: string;
-                warning?: string;
-            };
+                error?: string | undefined;
+                info?: string | undefined;
+                success?: string | undefined;
+                warning?: string | undefined;
+            } | undefined;
         }
 
         interface IToastrConfig extends IToastContainerConfig, IToastConfig { }
@@ -80,8 +80,8 @@ declare module 'angular' {
         }
 
         interface IToastOptions extends IToastBaseConfig {
-            iconClass?: string;
-            target?: string;
+            iconClass?: string | undefined;
+            target?: string | undefined;
         }
 
         interface IToastrService {

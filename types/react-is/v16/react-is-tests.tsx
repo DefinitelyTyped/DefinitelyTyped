@@ -7,7 +7,7 @@ import * as ReactIs from 'react-is';
 
 interface CompProps {
     forwardedRef: React.Ref<any>;
-    children?: React.ReactNode;
+    children?: React.ReactNode | undefined;
 }
 
 class ClassComponent extends React.Component<CompProps> {

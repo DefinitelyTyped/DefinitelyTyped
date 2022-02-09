@@ -1,11 +1,4 @@
-import {
-    LineBasicMaterial,
-    Matrix4,
-    MeshBasicMaterial,
-    Object3D,
-    SkinnedMesh,
-    SphereGeometry,
-} from '../../../src/Three';
+import { Object3D, SkinnedMesh } from '../../../src/Three';
 
 // tslint:disable-next-line:interface-name
 export interface IKS {
@@ -23,6 +16,7 @@ export class CCDIKSolver {
     constructor(mesh: SkinnedMesh, iks: IKS[]);
 
     update(): this;
+    updateOne(iks: IKS): this;
     createHelper(): CCDIKHelper;
 }
 

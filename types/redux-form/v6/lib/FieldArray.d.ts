@@ -13,14 +13,14 @@ interface BaseFieldArrayProps {
      *
      * Required but made optional so interface can be used on decorated components.
      */
-    name?: string;
+    name?: string | undefined;
 
     /**
      * A Component or stateless function to render the field array.
      *
      * Required but made optional so interface can be used on decorated components.
      */
-    component?: ComponentConstructor<any>;
+    component?: ComponentConstructor<any> | undefined;
 
     /**
      * Allows you to to provide a field-level validation rule. The function will be given the
@@ -28,7 +28,7 @@ interface BaseFieldArrayProps {
      * should return `undefined`, if the field is invalid, it should return an error
      * (usually, but not necessarily, a `String`).
      */
-    validate?: Validator | Validator[];
+    validate?: Validator | Validator[] | undefined;
 
     /**
      * Allows you to to provide a field-level warning rule. The function will be given the
@@ -36,14 +36,14 @@ interface BaseFieldArrayProps {
      * it should return the warning (usually, but not necessarily, a `String`). If the field
      * does not need a warning, it should return `undefined`.
      */
-    warn?: Validator | Validator[];
+    warn?: Validator | Validator[] | undefined;
 
     /**
      * If true, the rendered component will be available with the
      * getRenderedComponent() method. Defaults to false. Cannot be used if your
      * component is a stateless function component.
      */
-    withRef?: boolean;
+    withRef?: boolean | undefined;
 
     props?: any;
 }
@@ -205,7 +205,7 @@ interface FieldArrayMetaProps {
      * Array-specific errors should be returned from the validation function as an
      * _error key on the array.
      */
-    error?: string;
+    error?: string | undefined;
 
     /**
      * Name of your form provided to `reduxForm()` as the `form` config property.
@@ -249,5 +249,5 @@ interface FieldArrayMetaProps {
      * Array-specific errors should be returned from the validation function as an
      * `_warning` key on the array.
      */
-    warning?: string;
+    warning?: string | undefined;
 }

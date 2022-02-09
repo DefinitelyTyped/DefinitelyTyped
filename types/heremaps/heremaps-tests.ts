@@ -227,3 +227,16 @@ map.setCenter(position).setZoom(18);
 
 // Test GeoJSON
 const geoJSON = map.screenToGeo(0, 0).toGeoJSON();
+
+// Test H.data.geojson.Reader https://developer.here.com/documentation/examples/maps-js/data/display-geojson-on-map
+const reader = new H.data.geojson.Reader('data/berlin.json', {
+    style: (mapObject) => {
+        if (mapObject instanceof H.map.Polygon) {
+            mapObject.setStyle({
+                fillColor: 'rgba(255, 0, 0, 0.5)',
+                strokeColor: 'rgba(0, 0, 255, 0.2)',
+                lineWidth: 3
+            });
+        }
+    }
+});

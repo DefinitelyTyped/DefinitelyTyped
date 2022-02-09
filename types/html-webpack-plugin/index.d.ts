@@ -39,9 +39,9 @@ declare namespace HtmlWebpackPlugin {
         /** Will contain all css files */
         css: string[];
         /** Will contain a favicon if it exists */
-        favicon?: string;
+        favicon?: string | undefined;
         /** Will contain amn appcache manifest file if it exists */
-        manifest?: string;
+        manifest?: string | undefined;
     }
 
     interface Options {
@@ -49,7 +49,7 @@ declare namespace HtmlWebpackPlugin {
          * Emit the file only if it was changed.
          * Default: `true`.
          */
-        cache?: boolean;
+        cache?: boolean | undefined;
         /**
          * Allows to control how chunks should be sorted before they are included to the html.
          * Default: `'auto'`.
@@ -59,84 +59,84 @@ declare namespace HtmlWebpackPlugin {
             | 'auto'
             | 'dependency'
             | 'manual'
-            | ((a: compilation.Chunk, b: compilation.Chunk) => number);
+            | ((a: compilation.Chunk, b: compilation.Chunk) => number) | undefined;
         /**
          * Allows you to add only some chunks (e.g. only the unit-test chunk).
          * Default: 'all'.
          */
-        chunks?: 'all' | string[];
+        chunks?: 'all' | string[] | undefined;
         /**
          * Allows you to skip some chunks (e.g. don't add the unit-test chunk).
          * Default: `[]`.
          */
-        excludeChunks?: string[];
+        excludeChunks?: string[] | undefined;
         /**
          * Adds the given favicon path to the output html.
          * Default: `false`.
          */
-        favicon?: false | string;
+        favicon?: false | string | undefined;
         /**
          * The file to write the HTML to.
          * You can specify a subdirectory here too (eg: `assets/admin.html`).
          * Default: `'index.html'`.
          */
-        filename?: string;
+        filename?: string | undefined;
         /**
          * If true then append a unique webpack compilation hash to all included scripts and CSS files.
          * This is useful for cache busting.
          * Default: `false`.
          */
-        hash?: boolean;
+        hash?: boolean | undefined;
         /**
          * Inject all assets into the given template or templateContent.
          * When passing true or 'body' all javascript resources will be placed at the bottom of the body element.
          * 'head' will place the scripts in the head element.
          * Default: `true`.
          */
-        inject?: 'body' | 'head' | boolean;
+        inject?: 'body' | 'head' | boolean | undefined;
         /**
          * Allows to inject meta-tags, e.g. meta: `{viewport: 'width=device-width, initial-scale=1, shrink-to-fit=no'}`.
          * Default: `{}`.
          */
-        meta?: false | { [name: string]: any };
+        meta?: false | { [name: string]: any } | undefined;
         /**
          * Pass a html-minifier options object to minify the output.
          * https://github.com/kangax/html-minifier#options-quick-reference
          * Default: `false`.
          */
-        minify?: false | MinifyOptions;
+        minify?: false | MinifyOptions | undefined;
         /**
          * Errors details will be written into the HTML page.
          * Default: `true`.
          */
-        showErrors?: boolean;
+        showErrors?: boolean | undefined;
         /**
          * The `webpack` require path to the template.
          * @see https://github.com/jantimon/html-webpack-plugin/blob/master/docs/template-option.md
          */
-        template?: string;
+        template?: string | undefined;
         /**
          * Allow to use a html string instead of reading from a file.
          * Default: `false`, meaning the `template` option should be used instead.
          */
-        templateContent?: false | string | TemplateFunction;
+        templateContent?: false | string | TemplateFunction | undefined;
         /**
          * Allows to overwrite the parameters used in the template.
          */
         templateParameters?:
             false
             | ((compilation: compilation.Compilation, assets: TemplateParametersAssets, options: Options) => any)
-            | { [key: string]: any };
+            | { [key: string]: any } | undefined;
         /**
          * The title to use for the generated HTML document.
          * Default: `'Webpack App'`.
          */
-        title?: string;
+        title?: string | undefined;
         /**
          * If true render the link tags as self-closing (XHTML compliant).
          * Default: `false`.
          */
-        xhtml?: boolean;
+        xhtml?: boolean | undefined;
         /**
          * In addition to the options actually used by this plugin, you can use this hash to pass arbitrary data through
          * to your template.
@@ -220,5 +220,5 @@ interface HtmlTagObject {
     /**
      * Inner HTML The
      */
-    innerHTML?: string;
+    innerHTML?: string | undefined;
 }

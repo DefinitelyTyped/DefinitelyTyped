@@ -1,6 +1,6 @@
-import inquirer = require("../..");
-import Choice = require("./choice");
-import Separator = require("./separator");
+import { AllChoiceMap, Answers, KeyUnion, UnionToIntersection } from '../..';
+import Choice = require('./choice');
+import Separator = require('./separator');
 
 /**
  * Represents a valid choice for the `Choices` class.
@@ -8,7 +8,7 @@ import Separator = require("./separator");
  * @template T
  * The type of the answers.
  */
-type DistinctChoice<T> = inquirer.AllChoiceMap<T>[keyof inquirer.AllChoiceMap<T>];
+type DistinctChoice<T> = AllChoiceMap<T>[keyof AllChoiceMap<T>];
 
 /**
  * Represents a valid real choice for the `Choices` class.
@@ -16,7 +16,7 @@ type DistinctChoice<T> = inquirer.AllChoiceMap<T>[keyof inquirer.AllChoiceMap<T>
  * @template T
  * The type of the answers.
  */
-type RealChoice<T> = Exclude<DistinctChoice<T>, { type: Separator["type"] }>;
+type RealChoice<T> = Exclude<DistinctChoice<T>, { type: Separator['type'] }>;
 
 /**
  * Represents a property-name of any choice-type.
@@ -24,7 +24,7 @@ type RealChoice<T> = Exclude<DistinctChoice<T>, { type: Separator["type"] }>;
  * @template T
  * The type of the answers.
  */
-type ChoiceProperty<T> = inquirer.KeyUnion<inquirer.UnionToIntersection<RealChoice<T>>>;
+type ChoiceProperty<T> = KeyUnion<UnionToIntersection<RealChoice<T>>>;
 
 /**
  * A collection of multiple `Choice`-objects.
@@ -32,7 +32,7 @@ type ChoiceProperty<T> = inquirer.KeyUnion<inquirer.UnionToIntersection<RealChoi
  * @template T
  * The type of the answers.
  */
-declare class Choices<T extends inquirer.Answers = inquirer.Answers> {
+declare class Choices<T extends Answers = Answers> {
     /**
      * The number of selectable choices.
      */
@@ -109,7 +109,9 @@ declare class Choices<T extends inquirer.Answers = inquirer.Answers> {
      * @returns
      * The value of the property of each choice.
      */
-    pluck<TProperty extends ChoiceProperty<T>>(property: TProperty | ChoiceProperty<T>): Array<(RealChoice<T> & { [key: string]: undefined })[TProperty]>;
+    pluck<TProperty extends ChoiceProperty<T>>(
+        property: TProperty | ChoiceProperty<T>,
+    ): Array<(RealChoice<T> & { [key: string]: undefined })[TProperty]>;
 
     /**
      * Returns the index of the first occurrence of a value in an array.
@@ -140,7 +142,10 @@ declare class Choices<T extends inquirer.Answers = inquirer.Answers> {
      *
      * If `thisArg` is omitted, undefined is used as the this value.
      */
-    forEach(callbackfn: (value: Choice<T> | Separator, index: number, array: Array<Choice<T> | Separator>) => void, thisArg?: any): void;
+    forEach(
+        callbackfn: (value: Choice<T> | Separator, index: number, array: Array<Choice<T> | Separator>) => void,
+        thisArg?: any,
+    ): void;
 
     /**
      * Returns the elements of an array that meet the condition specified in a callback function.
@@ -158,7 +163,14 @@ declare class Choices<T extends inquirer.Answers = inquirer.Answers> {
      * @returns
      * The elements in the collection which meet the conditions.
      */
-    filter<TElement extends Choice<T> | Separator>(callbackfn: (value: Choice<T> | Separator, index: number, array: Array<Choice<T> | Separator>) => value is TElement, thisArg?: any): TElement[];
+    filter<TElement extends Choice<T> | Separator>(
+        callbackfn: (
+            value: Choice<T> | Separator,
+            index: number,
+            array: Array<Choice<T> | Separator>,
+        ) => value is TElement,
+        thisArg?: any,
+    ): TElement[];
 
     /**
      * Returns the value of the first element in the array where predicate is true, and `undefined` otherwise.
@@ -174,7 +186,10 @@ declare class Choices<T extends inquirer.Answers = inquirer.Answers> {
      *
      * If it is not provided, undefined is used instead.
      */
-    find(predicate: (value: Choice<T> | Separator, index: number, obj: Array<Choice<T> | Separator>) => boolean, thisArg?: any): Choice<T> | Separator;
+    find(
+        predicate: (value: Choice<T> | Separator, index: number, obj: Array<Choice<T> | Separator>) => boolean,
+        thisArg?: any,
+    ): Choice<T> | Separator;
 
     /**
      * Appends new elements to an array, and returns the new length of the array.

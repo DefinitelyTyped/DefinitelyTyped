@@ -1,7 +1,7 @@
 // Type definitions for leadfoot
 // Project: https://github.com/theintern/leadfoot
 // Definitions by: theintern <https://github.com/theintern>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="dojo" />
 /// <reference types="node" />
@@ -141,129 +141,129 @@ declare module leadfoot {
         /**
          * Environments with this capability expose the state of the browser’s offline application cache via the WebDriver API.
          */
-        applicationCacheEnabled?: boolean;
+        applicationCacheEnabled?: boolean | undefined;
 
         /**
          * Environments with this capability are incapable of clearing or deleting cookies. This issue cannot be worked around.
          */
-        brokenCookies?: boolean;
+        brokenCookies?: boolean | undefined;
 
         /**
          * Environments with this capability do not correctly retrieve the size of a CSS transformed element. This issue is
          * automatically corrected.
          */
-        brokenCssTransformedSize?: boolean;
+        brokenCssTransformedSize?: boolean | undefined;
 
         /**
          * Environments with this capability do not correctly delete cookies. This issue is automatically corrected for cookies
          * that are accessible via JavaScript.
          */
-        brokenDeleteCookie?: boolean;
+        brokenDeleteCookie?: boolean | undefined;
 
         /**
          * Environments with this capability do not follow the correct event order when double-clicking. This issue is
          * automatically corrected.
          */
-        brokenDoubleClick?: boolean;
+        brokenDoubleClick?: boolean | undefined;
 
         /**
          * Environments with this capability return invalid element handles from execute functions. This issue cannot be worked
          * around.
          */
-        brokenExecuteElementReturn?: boolean;
+        brokenExecuteElementReturn?: boolean | undefined;
 
         /**
          * Environments with this capability claim fully transparent elements are non-hidden. This issue is automatically
          * corrected.
          */
-        brokenElementDisplayedOpacity?: boolean;
+        brokenElementDisplayedOpacity?: boolean | undefined;
 
         /**
          * Environments with this capability claim elements positioned offscreen to the top/left of the page are non-hidden.
          * This issue is automatically corrected.
          */
-        brokenElementDisplayedOffscreen?: boolean;
+        brokenElementDisplayedOffscreen?: boolean | undefined;
 
         /**
          * Environments with this capability do not correctly retrieve the position of a CSS transformed element. This issue is
          * automatically corrected.
          */
-        brokenElementPosition?: boolean;
+        brokenElementPosition?: boolean | undefined;
 
         /**
          * Environments with this capability do not operate correctly when the `flickFinger` method is called. This issue cannot
          * be corrected.
          */
-        brokenFlickFinger?: boolean;
+        brokenFlickFinger?: boolean | undefined;
 
         /**
          * Environments with this capability return HTML tag names with the incorrect case. This issue is automatically
          * corrected.
          */
-        brokenHtmlTagName?: boolean;
+        brokenHtmlTagName?: boolean | undefined;
 
         /**
          * Environments with this capability fail to perform long tap gestures. This issue is not currently corrected.
          */
-        brokenLongTap?: boolean;
+        brokenLongTap?: boolean | undefined;
 
         /**
          * Environments with this capability have broken mouse event APIs. This issue is automatically corrected as much as
          * possible through JavaScript-based event emulation.
          */
-        brokenMouseEvents?: boolean;
+        brokenMouseEvents?: boolean | undefined;
 
         /**
          * Environments with this capability do not support dragging fingers across the page. This issue is not currently
          * corrected.
          */
-        brokenMoveFinger?: boolean;
+        brokenMoveFinger?: boolean | undefined;
 
         /**
          * Environments with this capability do not support browser navigation functions (back, forward, refresh). This issue
          * cannot be corrected.
          */
-        brokenNavigation?: boolean;
+        brokenNavigation?: boolean | undefined;
 
         /**
          * Environments with this capability incorrectly return an empty string instead of `null` for attributes that do not
          * exist when using the `getSpecAttribute` retrieval method. This issue is automatically corrected.
          */
-        brokenNullGetSpecAttribute?: boolean;
+        brokenNullGetSpecAttribute?: boolean | undefined;
 
         /**
          * Environments with this capability fail to complete calls to refresh a page through the standard WebDriver API. This
          * issue is automatically corrected.
          */
-        brokenRefresh?: boolean;
+        brokenRefresh?: boolean | undefined;
 
         /**
          * Environments with this capability have broken keyboard event APIs. This issue is automatically corrected as much as
          * possible through JavaScript-based event emulation.
          */
-        brokenSendKeys?: boolean;
+        brokenSendKeys?: boolean | undefined;
 
         /**
          * Environments with this capability incorrectly omit the key/value of the button being submitted. This issue is
          * automatically corrected.
          */
-        brokenSubmitElement?: boolean;
+        brokenSubmitElement?: boolean | undefined;
 
         /**
          * Environments with this capability do not operate correctly when the `touchScroll` method is called. This issue is
          * automatically corrected.
          */
-        brokenTouchScroll?: boolean;
+        brokenTouchScroll?: boolean | undefined;
 
         /**
          * Environments with this capability cannot switch between windows. This issue cannot be corrected.
          */
-        brokenWindowSwitch?: boolean;
+        brokenWindowSwitch?: boolean | undefined;
 
         /**
          * Environments with this capability break when `setWindowPosition` is called. This issue cannot be corrected.
          */
-        brokenWindowPosition?: boolean;
+        brokenWindowPosition?: boolean | undefined;
 
         /**
          * The name of the current environment.
@@ -273,40 +273,40 @@ declare module leadfoot {
         /**
          * Environments with this capability can use CSS selectors to find elements.
          */
-        cssSelectorsEnabled?: boolean;
+        cssSelectorsEnabled?: boolean | undefined;
 
         /**
          * Environments with this capability have viewports that can be resized.
          */
-        dynamicViewport?: boolean;
+        dynamicViewport?: boolean | undefined;
 
         /**
          * Environments with this capability break when the `getLogTypes` method is called. The list of log types provided here
          * are used in lieu of the values provided by the server when calling `getLogTypes`.
          */
-        fixedLogTypes?: boolean | string[];
+        fixedLogTypes?: boolean | string[] | undefined;
 
         /**
          * Environments with this capability have JavaScript enabled. Leadfoot does not operate in environments without
          * JavaScript.
          */
-        javascriptEnabled?: boolean;
+        javascriptEnabled?: boolean | undefined;
 
         /**
          * Environments with this capability allow the geographic location of the browser to be set and retrieved using the
          * WebDriver API.
          */
-        locationContextEnabled?: boolean;
+        locationContextEnabled?: boolean | undefined;
 
         /**
          * Environments with this capability support interaction via mouse commands.
          */
-        mouseEnabled?: boolean;
+        mouseEnabled?: boolean | undefined;
 
         /**
          * Environments with this capability use platform native events instead of emulated events.
          */
-        nativeEvents?: boolean;
+        nativeEvents?: boolean | undefined;
 
         /**
          * The name of the platform on which the current environment is running.
@@ -316,42 +316,42 @@ declare module leadfoot {
         /**
          * Environments with this capability allow files to be uploaded from a remote client.
          */
-        remoteFiles?: boolean;
+        remoteFiles?: boolean | undefined;
 
         /**
          * Environments with this capability allow the rotation of the device to be set and retrieved using the WebDriver API.
          */
-        rotatable?: boolean;
+        rotatable?: boolean | undefined;
 
         /**
          * The special key that is used by default on the given platform to perform keyboard shortcuts.
          */
-        shortcutKey?: string;
+        shortcutKey?: string | undefined;
 
         /**
          * Environments with this capability support CSS transforms.
          */
-        supportsCssTransforms?: boolean;
+        supportsCssTransforms?: boolean | undefined;
 
         /**
          * Environments with this capability support asynchronous JavaScript execution.
          */
-        supportsExecuteAsync?: boolean;
+        supportsExecuteAsync?: boolean | undefined;
 
         /**
          * Environments with this capability support navigation to `data:` URIs.
          */
-        supportsNavigationDataUris?: boolean;
+        supportsNavigationDataUris?: boolean | undefined;
 
         /** {boolean} takesScreenshot
          * Environments with this capability allow screenshots of the current screen to be taken.
          */
-        takesScreenshot?: boolean;
+        takesScreenshot?: boolean | undefined;
 
         /**
          * Environments with this capability support interaction via touch commands.
          */
-        touchEnabled?: boolean;
+        touchEnabled?: boolean | undefined;
 
         /**
          * The version number of the current environment.
@@ -362,7 +362,7 @@ declare module leadfoot {
          * Environments with this capability allow local storage and session storage to be set and retrieved using the
          * WebDriver API.
          */
-        webStorageEnabled?: boolean;
+        webStorageEnabled?: boolean | undefined;
     }
 }
 

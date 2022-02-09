@@ -1,9 +1,10 @@
-// Type definitions for webpack-sources 2.1
+// Type definitions for webpack-sources 3.2
 // Project: https://github.com/webpack/webpack-sources
 // Definitions by: e-cloud <https://github.com/e-cloud>
 //                 Chris Eppstein <https://github.com/chriseppstein>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
 /// <reference types="node" />
 
 export import CachedSource = require('./lib/CachedSource');

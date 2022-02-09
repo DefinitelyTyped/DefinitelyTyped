@@ -1,14 +1,14 @@
 // Type definitions for math-expression-evaluator 1.2
 // Project: https://github.com/bugwheels94/math-expression-evaluator
-// Definitions by:  Adam Zerella <https://github.com/adamzerella>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface Token {
     token: string;
     type: number;
-    value?: string|((a: number, b?: number) => number);
+    value?: string|((a: number, b?: number) => number) | undefined;
     show: string;
-    preced?: number;
+    preced?: number | undefined;
 }
 
 declare class Mexp {

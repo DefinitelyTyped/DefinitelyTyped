@@ -12,17 +12,17 @@ interface ReactMessengerProps {
     origin: string;
     userRef: string;
 
-    prechecked?: boolean;
-    allowLogin?: boolean;
-    size?: 'small' | 'medium' | 'large' | 'standard' | 'xlarge';
-    skin?: 'light' | 'dark';
-    centerAlign?: boolean;
-    autoLogAppEvents?: boolean;
-    xfbml?: boolean;
-    version?: string;
-    language?: string;
-    debug?: boolean;
-    onEvent?: (event: any) => void;
+    prechecked?: boolean | undefined;
+    allowLogin?: boolean | undefined;
+    size?: 'small' | 'medium' | 'large' | 'standard' | 'xlarge' | undefined;
+    skin?: 'light' | 'dark' | undefined;
+    centerAlign?: boolean | undefined;
+    autoLogAppEvents?: boolean | undefined;
+    xfbml?: boolean | undefined;
+    version?: string | undefined;
+    language?: string | undefined;
+    debug?: boolean | undefined;
+    onEvent?: ((event: any) => void) | undefined;
 }
 
 /**

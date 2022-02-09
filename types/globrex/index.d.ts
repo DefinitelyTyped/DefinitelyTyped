@@ -14,7 +14,7 @@ declare function globrex(glob: string, options?: globrex.Options): globrex.Resul
 declare namespace globrex {
     interface Results {
         /** This property only exists if the option `filepath` is true. */
-        path?: Path;
+        path?: Path | undefined;
         /** JavaScript RegExp instance. */
         regex: RegExp;
     }
@@ -48,7 +48,7 @@ declare namespace globrex {
          * To match a literal -, include it as first or last character.
          * @default false
          */
-        extended?: boolean;
+        extended?: boolean | undefined;
         /**
          * When `globstar` is false globs like '/foo/*' are transformed to the following '^\/foo\/.*$'
          * which will match any string beginning with '/foo/'
@@ -58,20 +58,20 @@ declare namespace globrex {
          * Note: When globstar is true, '/foo/**' is equivalent to '/foo/*' when globstar is false
          * @default false
          */
-        globstar?: boolean;
+        globstar?: boolean | undefined;
         /**
          * Be forgiving about multiple slashes, like /// and make everything after the first / optional
          * This is how bash glob works.
          * @default false
          */
-        strict?: boolean;
+        strict?: boolean | undefined;
         /**
          * Parse input strings as it was a file path for special path related features.
          * This feature only makes sense if the input is a POSIX path like /foo/bar/hello.js or URLs.
          * When true the returned object will have an additional path object.
          * @default false
          */
-        filepath?: boolean;
+        filepath?: boolean | undefined;
     }
 }
 

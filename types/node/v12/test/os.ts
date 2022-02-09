@@ -1,4 +1,4 @@
-import * as os from 'node:os';
+import * as os from 'os';
 {
     let result: string;
 

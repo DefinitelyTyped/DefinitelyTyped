@@ -19,7 +19,7 @@ export class Disposable implements DisposableLike {
     constructor(disposableAction?: () => void);
 
     /** A callback which will be called within dispose(). */
-    disposalAction?: () => void;
+    disposalAction?: (() => void) | undefined;
 
     /**
      *  Perform the disposal action, indicating that the resource associated

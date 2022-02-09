@@ -39,6 +39,22 @@ figlet.text(
         font: "Fun Face",
         horizontalLayout: "full",
         verticalLayout: "fitted",
+        width: 80,
+        whitespaceBreak: true,
+    },
+    (err, str) => {
+        // $ExpectType Error | null
+        err;
+        // $ExpectType string | undefined
+        str;
+    },
+);
+figlet.text(
+    "Annyeong",
+    {
+        font: "Fun Face",
+        horizontalLayout: "full",
+        verticalLayout: "fitted",
     },
     (err, str) => {
         // $ExpectType Error | null

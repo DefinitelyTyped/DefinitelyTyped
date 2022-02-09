@@ -12,16 +12,16 @@ import VectorSource from '../source/Vector';
 import PointerInteraction from './Pointer';
 
 export interface Options {
-    features?: Collection<Feature<Geometry>>;
-    edge?: boolean;
-    vertex?: boolean;
-    pixelTolerance?: number;
-    source?: VectorSource<Geometry>;
+    features?: Collection<Feature<Geometry>> | undefined;
+    edge?: boolean | undefined;
+    vertex?: boolean | undefined;
+    pixelTolerance?: number | undefined;
+    source?: VectorSource<Geometry> | undefined;
 }
 export interface Result {
     snapped: boolean;
-    vertex: Coordinate;
-    vertexPixel: Pixel;
+    vertex: Coordinate | null;
+    vertexPixel: Pixel | null;
 }
 export interface SegmentData {
     feature: Feature<Geometry>;

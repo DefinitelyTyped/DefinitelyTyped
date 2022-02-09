@@ -14,23 +14,23 @@ export interface AddOptions {
     /**
      * The services display name, defaults to the name parameter
      */
-    displayName?: string;
+    displayName?: string | undefined;
     /**
      * The fully qualified path to the node binary used to run the service (i.e. c:\Program Files\nodejs\node.exe, defaults to the value of process.execPath
      */
-    nodePath?: string;
+    nodePath?: string | undefined;
     /**
      * An array of strings specifying parameters to pass to nodePath, defaults to []
      */
-    nodeArgs?: string[];
+    nodeArgs?: string[] | undefined;
     /**
      * The program to run using nodePath, defaults to the value of process.argv[1]
      */
-    programPath?: string;
+    programPath?: string | undefined;
     /**
      * An array of strings specifying parameters to pass to programPath, defaults to []
      */
-    programArgs?: string[];
+    programArgs?: string[] | undefined;
 }
 
 /**

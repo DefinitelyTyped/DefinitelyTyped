@@ -18,6 +18,6 @@ export function setDriftlessInterval(
 export function clearDriftless(
     id: number,
     options?: {
-        customClearTimeout?: (...args: any[]) => void;
+        customClearTimeout?: ((...args: any[]) => void) | undefined;
     }
 ): void;

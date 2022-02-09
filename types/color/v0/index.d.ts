@@ -9,28 +9,28 @@ declare namespace Color {
         r: number
         g: number
         b: number
-        a?: number
+        a?: number | undefined
     }
 
     interface FullRGBColor {
         red: number
         green: number
         blue: number
-        alpha?: number
+        alpha?: number | undefined
     }
 
     interface HSLColor {
         h: number
         s: number
         l: number
-        a?: number
+        a?: number | undefined
     }
 
     interface FullHSLColor {
         hue: number
         saturation: number
         lightness: number
-        alpha?: number
+        alpha?: number | undefined
     }
 
     interface HSVColor {

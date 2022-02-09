@@ -6,17 +6,18 @@
 //
 
 interface VaporStoreOptions {
-    bucket?: string;
-    contentType?: string;
-    expires?: string;
-    visibility?: string;
-    baseURL?: string;
+    bucket?: string | undefined;
+    contentType?: string | undefined;
+    expires?: string | undefined;
+    visibility?: string | undefined;
+    baseURL?: string | undefined;
     headers?: any;
     options?: any;
 }
 
 declare class Vapor {
     store(file: File, options?: VaporStoreOptions): Promise<any>;
+    asset(path: string): string;
 }
 
 declare const VaporInstance: Vapor;

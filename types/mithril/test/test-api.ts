@@ -167,7 +167,7 @@ const FRAME_BUDGET = 100;
 }
 
 {
-    const ComponentWithDynamicState: m.Comp<{ text: string }, { data?: string }> = {
+    const ComponentWithDynamicState: m.Comp<{ text: string }, { data?: string | undefined }> = {
         oninit(vnode) {
             vnode.state.data = vnode.attrs.text;
         },
@@ -180,7 +180,7 @@ const FRAME_BUDGET = 100;
 }
 
 {
-    const ComponentUsingThis: m.Comp<{ text: string }, { data?: string }> = {
+    const ComponentUsingThis: m.Comp<{ text: string }, { data?: string | undefined }> = {
         oninit(vnode) {
             this.data = vnode.attrs.text;
         },

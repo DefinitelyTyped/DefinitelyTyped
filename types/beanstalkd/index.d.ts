@@ -14,9 +14,9 @@ export type UnPromise<T> = T extends Promise<infer R> ? R : T;
 export type MergePromise<T> = Promise<UnPromise<T>>;
 
 export default class BeanstalkdClient {
-    host?: string;
-    port?: number;
-    options?: {};
+    host?: string | undefined;
+    port?: number | undefined;
+    options?: {} | undefined;
 
     closed: boolean;
     protocol: BeanstalkdProtocol;

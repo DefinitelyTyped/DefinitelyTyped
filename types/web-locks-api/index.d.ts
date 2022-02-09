@@ -8,16 +8,22 @@ interface Lock {
   readonly name: string;
 }
 
+interface LockInfo {
+    clientId?: string;
+    mode?: 'exclusive' | 'shared';
+    name?: string;
+}
+
 interface LockManagerSnapshot {
-  held: Lock[];
-  pending: Lock[];
+  held?: LockInfo[] | undefined;
+  pending?: LockInfo[] | undefined;
 }
 
 interface LockManagerRequestOptions {
-  mode?: 'exclusive' | 'shared';
-  ifAvailable?: boolean;
-  steal?: boolean;
-  signal?: AbortSignal;
+  mode?: 'exclusive' | 'shared' | undefined;
+  ifAvailable?: boolean | undefined;
+  steal?: boolean | undefined;
+  signal?: AbortSignal | undefined;
 }
 
 interface LockManager {

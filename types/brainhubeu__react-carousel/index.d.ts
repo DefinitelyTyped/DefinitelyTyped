@@ -6,33 +6,40 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from "react";
+import * as React from 'react';
 export type ImgProps = React.ReactComponentElement<'img'>;
 
 export interface DotsProps {
-    number?: number;
-    thumbnails?: ImgProps[];
-    value?: number;
+    number?: number | undefined;
+    thumbnails?: ImgProps[] | undefined;
+    value?: number | undefined;
     onChange?(value: number): void;
-    rtl?: boolean;
-    className?: string;
+    rtl?: boolean | undefined;
+    className?: string | undefined;
 }
 
-export class Dots extends React.Component<DotsProps> {
-}
+export class Dots extends React.Component<DotsProps> {}
 
 export type PluginStrategy = (originalValue: number, previousValue: number) => number;
 
-export type CarouselPluginFunc = ({ options, carouselProps, refs }: { options?: any, carouselProps: CarouselProps, refs: Record<string, React.RefObject<HTMLElement>>}) => {
-    plugin?: () => void;
-    beforeCarouselItems?: () => JSX.Element;
-    afterCarouselItems?: () => JSX.Element;
-    carouselCustomProps?: () => Record<string, () => any>;
-    trackCustomProps?: () => Record<string, () => any>;
-    slideCustomProps?: () => Record<string, () => any>;
-    strategies?: () => Record<string, PluginStrategy>;
-    itemClassNames?: () => string[];
-    carouselClassNames?: () => string[];
+export type CarouselPluginFunc = ({
+    options,
+    carouselProps,
+    refs,
+}: {
+    options?: any;
+    carouselProps: CarouselProps;
+    refs: Record<string, React.RefObject<HTMLElement>>;
+}) => {
+    plugin?: (() => void) | undefined;
+    beforeCarouselItems?: (() => JSX.Element) | undefined;
+    afterCarouselItems?: (() => JSX.Element) | undefined;
+    carouselCustomProps?: (() => Record<string, () => any>) | undefined;
+    trackCustomProps?: (() => Record<string, () => any>) | undefined;
+    slideCustomProps?: (() => Record<string, () => any>) | undefined;
+    strategies?: (() => Record<string, PluginStrategy>) | undefined;
+    itemClassNames?: (() => string[]) | undefined;
+    carouselClassNames?: (() => string[]) | undefined;
 };
 
 export interface CarouselPluginTypes {
@@ -40,21 +47,25 @@ export interface CarouselPluginTypes {
     options?: any;
 }
 
-export interface CarouselProps {
-    itemWidth?: number;
-    value?: number;
-    onChange?(value: number): void;
-    slides?: JSX.Element[];
-    offset?: number;
-    draggable?: boolean;
-    animationSpeed?: number;
-    className?: string;
-    breakpoints?: Pick<CarouselProps, Exclude<keyof CarouselProps, "breakpoints" | "plugins">>;
-    plugins?: Array<string|CarouselPluginTypes>;
+export interface CarouselBreakpoints {
+    [breakpointNumber: number]: Pick<CarouselProps, Exclude<keyof CarouselProps, 'breakpoints'>>;
 }
 
-export default class extends React.Component<CarouselProps> {
+export interface CarouselProps {
+    children?: React.ReactNode;
+    itemWidth?: number | undefined;
+    value?: number | undefined;
+    onChange?(value: number): void;
+    slides?: JSX.Element[] | undefined;
+    offset?: number | undefined;
+    draggable?: boolean | undefined;
+    animationSpeed?: number | undefined;
+    className?: string | undefined;
+    breakpoints?: CarouselBreakpoints | undefined;
+    plugins?: Array<string | CarouselPluginTypes> | undefined;
 }
+
+export default class extends React.Component<CarouselProps> {}
 
 export const slidesToShowPlugin: CarouselPluginFunc;
 export const infinitePlugin: CarouselPluginFunc;

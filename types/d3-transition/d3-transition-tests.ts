@@ -225,6 +225,20 @@ paragraphsTransition = firstDivTransition.selectAll<HTMLParagraphElement, Paragr
     return this.querySelectorAll('p'); // 'this' type is HTMLElement, return type is HTMLParagraphElement
 });
 
+// selectChild() ---------------------------------------------------------------
+
+let one = document.querySelector("#one");
+let two = document.querySelector("#two");
+let t1 = selectAll([one, two]).data([1, 2]).transition().delay((d) => d * 10);
+let t2 = t1.selectChild("child");
+
+// selectChildren() ---------------------------------------------------------------
+
+one = document.querySelector("#one");
+two = document.querySelector("#two");
+t1 = selectAll([one, two]).data([1, 2]).transition().delay((d) => d * 10);
+t2 = t1.selectChildren("child");
+
 // filter () -----------------------------------------------------------------
 
 // Scenario 1: Filter retaining the element type of the select group (i.e. no type narrowing during filtering)

@@ -26,13 +26,13 @@ import {
 
 interface TestProps {
     data: SuggestionDataItem[];
-    value?: string;
-    onChange?: () => void;
-    onAdd?: () => void;
+    value?: string | undefined;
+    onChange?: (() => void) | undefined;
+    onAdd?: (() => void) | undefined;
     regex: RegExp;
 }
 
-export const TestSimple: React.SFC<TestProps> = props => {
+export const TestSimple: React.FC<TestProps> = props => {
     const inputEl = React.createRef<HTMLTextAreaElement>();
 
     function handleClick() {
@@ -57,7 +57,7 @@ export const TestSimple: React.SFC<TestProps> = props => {
     );
 };
 
-export const TestMultipleTrigger: React.SFC<TestProps> = props => {
+export const TestMultipleTrigger: React.FC<TestProps> = props => {
     return (
         <MentionsInput value={props.value} onChange={props.onChange} placeholder={"Mention people using '@'"}>
             <Mention
@@ -78,6 +78,27 @@ export const TestMultipleTrigger: React.SFC<TestProps> = props => {
                 trigger={props.regex}
                 markup={`@[${PLACEHOLDERS.display}](__type__:${PLACEHOLDERS.id})`}
                 data={search => [{ id: search, display: search }]}
+                onAdd={props.onAdd}
+            />
+        </MentionsInput>
+    );
+};
+
+export const TestAsyncDataFunc: React.FunctionComponent<TestProps> = props => {
+    return (
+        <MentionsInput value={props.value} onChange={props.onChange} placeholder={"Mention people using '@'"}>
+            {/* Using async function syntax: */}
+            <Mention
+                trigger={props.regex}
+                markup={`@[${PLACEHOLDERS.display}](__type__:${PLACEHOLDERS.id})`}
+                data={async search => [{ id: search, display: search }]}
+                onAdd={props.onAdd}
+            />
+            {/* Using explicit Promise syntax: */}
+            <Mention
+                trigger={props.regex}
+                markup={`@[${PLACEHOLDERS.display}](__type__:${PLACEHOLDERS.id})`}
+                data={search => Promise.resolve([{ id: search, display: search }])}
                 onAdd={props.onAdd}
             />
         </MentionsInput>

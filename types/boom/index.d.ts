@@ -33,28 +33,28 @@ declare class Boom<Data = any> extends Error {
      * isMissing will be true on the error object." mentioned in
      * @see {@link https://github.com/hapijs/boom#boomunauthorizedmessage-scheme-attributes}
      */
-    isMissing?: boolean;
+    isMissing?: boolean | undefined;
     /** https://github.com/hapijs/boom#createstatuscode-message-data and https://github.com/hapijs/boom/blob/v4.3.0/lib/index.js#L99 */
     data: Data;
 }
 declare namespace Boom {
     interface Options<Data> {
         /** statusCode - the HTTP status code. Defaults to 500 if no status code is already set. */
-        statusCode?: number;
+        statusCode?: number | undefined;
         /** data - additional error information (assigned to error.data). */
-        data?: Data;
+        data?: Data | undefined;
         /** decorate - an option with extra properties to set on the error object. */
-        decorate?: object;
+        decorate?: object | undefined;
         /** ctor - constructor reference used to crop the exception call stack output. */
         ctor?: any;
         /** message - error message string. If the error already has a message, the provided message is added as a prefix. Defaults to no message. */
-        message?: string;
+        message?: string | undefined;
         /**
          * override - if false, the err provided is a Boom object, and a statusCode or message are
          * provided, the values are ignored. Defaults to true (apply the provided statusCode and
          * message options to the error regardless of its type, Error or Boom object).
          */
-        override?: boolean;
+        override?: boolean | undefined;
     }
 
     interface Output {
@@ -96,7 +96,7 @@ declare namespace Boom {
      * @param options optional additional options
      * @see {@link https://github.com/hapijs/boom#boomifyerror-options}
      */
-    function boomify(error: Error, options?: { statusCode?: number, message?: string, override?: boolean }): Boom<null>;
+    function boomify(error: Error, options?: { statusCode?: number | undefined, message?: string | undefined, override?: boolean | undefined }): Boom<null>;
 
     /**
      * Identifies whether an error is a Boom object. Same as calling instanceof Boom.

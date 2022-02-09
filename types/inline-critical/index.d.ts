@@ -25,29 +25,29 @@ declare namespace inline {
          * Whether to minify the styles before inlining.
          * @default true
          */
-        minify?: boolean;
+        minify?: boolean | undefined;
 
         /**
          * Whether to remove the inlined styles from any stylesheets referenced in the HTML.
          * @default false
          */
-        extract?: boolean;
+        extract?: boolean | undefined;
 
         /**
          * The path to be used when extracting styles to find the files references by `href` attributes.
          * @default process.cwd
          */
-        basePath?: string;
+        basePath?: string | undefined;
 
         /**
          * Stylesheets to ignore when inlining.
          * @default []
          * @example [/bootstrap/]
          */
-        ignore?: string | RegExp | Array<string | RegExp>;
+        ignore?: string | RegExp | Array<string | RegExp> | undefined;
 
         /** The selector for the element used by loadCSS as a reference for inlining. */
-        selector?: string;
+        selector?: string | undefined;
 
         /**
          * The position of the `noscript` fallback.
@@ -56,18 +56,18 @@ declare namespace inline {
          * * `false`: no `noscript`
          * @default 'body'
          */
-        noscript?: 'body' | 'head' | false;
+        noscript?: 'body' | 'head' | false | undefined;
 
         /**
          * Whether to add loadCSS if it's not already loaded.
          * @default true
          */
-        polyfill?: boolean;
+        polyfill?: boolean | undefined;
 
         /**
          * Paths to use in the `href` tag of the `link` elements.
          * @default false
          */
-        replaceStylesheets?: string[] | false;
+        replaceStylesheets?: string[] | false | undefined;
     }
 }

@@ -1,24 +1,19 @@
-import BaseComponent from './base-component';
+import BaseComponent, { GetInstanceFactory, GetOrCreateInstanceFactory } from './base-component';
 
 declare class ScrollSpy extends BaseComponent {
-    constructor(element: Element, options?: Partial<ScrollSpy.Options>);
-
-    /**
-     * When using scrollspy in conjunction with adding or removing of
-     * elements from the DOM, you’ll need to call the refresh method like
-     * so:
-     */
-    refresh(): void;
-
     /**
      * Static method which allows you to get the scrollspy instance associated
      * with a DOM element
      */
-    static getInstance(element: Element, options?: Partial<ScrollSpy.Options>): ScrollSpy;
+    static getInstance: GetInstanceFactory<ScrollSpy>;
+
+    /**
+     * Static method which allows you to get the scrollspy instance associated with
+     * a DOM element, or create a new one in case it wasn’t initialised
+     */
+    static getOrCreateInstance: GetOrCreateInstanceFactory<ScrollSpy, Partial<ScrollSpy.Options>>;
 
     static jQueryInterface: ScrollSpy.jQueryInterface;
-
-    // static NAME: 'scrollspy';
 
     /**
      * Default settings of this plugin
@@ -26,6 +21,14 @@ declare class ScrollSpy extends BaseComponent {
      * @link https://getbootstrap.com/docs/5.0/getting-started/javascript/#default-settings
      */
     static Default: ScrollSpy.Options;
+    constructor(element: string | Element, options?: Partial<ScrollSpy.Options>);
+
+    /**
+     * When using scrollspy in conjunction with adding or removing of
+     * elements from the DOM, you’ll need to call the refresh method like
+     * so:
+     */
+    refresh(): void;
 }
 
 declare namespace ScrollSpy {

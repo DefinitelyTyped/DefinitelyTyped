@@ -11,47 +11,47 @@ declare namespace JQueryTinyCarousel {
         /**
         * Start block of the carousel. (default: 1)
         */
-        start?: number;
+        start?: number | undefined;
         /**
         * Vertical or horizontal scroller? 'x' or 'y'. (default: 'x')
         */
-        axis?: string;
+        axis?: string | undefined;
         /**
         * How many blocks do you want to move at a time? (default: 1)
         */
-        display?: number;
+        display?: number | undefined;
         /**
         * If interval is true and rewind is true it will play in reverse if the last slide is reached. (default: false)
         */
-        rewind?: boolean;
+        rewind?: boolean | undefined;
         /**
         * Show left and right navigation buttons? (default: true)
         */
-        controls?: boolean;
+        controls?: boolean | undefined;
         /**
         * Show page number navigation buttons? (default: false)
         */
-        pager?: boolean;
+        pager?: boolean | undefined;
         /**
         * Move to the next block on an interval. (default: false)
         */
-        interval?: boolean;
+        interval?: boolean | undefined;
         /**
         * Interval time in milliseconds. (default: 3000)
         */
-        intervaltime?: number;
+        intervaltime?: number | undefined;
         /**
         * Show animation when changing block? (default: true)
         */
-        animation?: boolean;
+        animation?: boolean | undefined;
         /**
         * Time of the animation in miliseconds (default: 1000)
         */
-        duration?: number;
+        duration?: number | undefined;
         /**
         * Function that executes after every move (default: null)
         */
-        callback? : (element: HTMLElement, index: number) => void;
+        callback? : ((element: HTMLElement, index: number) => void) | undefined;
     }
 }
 interface JQuery {

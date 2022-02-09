@@ -13,7 +13,7 @@ import * as Q from "q";
 /** A module for sequencing and executing tasks and dependencies in maximum concurrency
  */
 declare class Orchestrator extends events.EventEmitter {
-    doneCallback?: (error?: any) => any;
+    doneCallback?: ((error?: any) => any) | undefined;
     isRunning: boolean;
     seq: any[];
     tasks: { [name: string]: Orchestrator.Task };
@@ -150,7 +150,7 @@ declare namespace Orchestrator {
         message: string;
         task: string;
         err: any;
-        duration?: number;
+        duration?: number | undefined;
     }
 
     interface OnAllCallbackEvent extends OnCallbackEvent {
@@ -161,10 +161,10 @@ declare namespace Orchestrator {
         fn: TaskFunc;
         dep: string[];
         name: string;
-        done?: boolean;
-        duration?: number;
-        hrDuration?: [number, number];
-        running?: boolean;
+        done?: boolean | undefined;
+        duration?: number | undefined;
+        hrDuration?: [number, number] | undefined;
+        running?: boolean | undefined;
     }
 
     interface Meta {

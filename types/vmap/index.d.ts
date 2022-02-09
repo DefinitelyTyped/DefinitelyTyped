@@ -20,7 +20,7 @@ declare namespace VMAP {
         /**
          * An optional string identifier for the ad break
          */
-        breakId?: string;
+        breakId?: string | undefined;
         /**
          * An option used to distribute ad breaks equally spaced apart from one another along a linear timeline
          */

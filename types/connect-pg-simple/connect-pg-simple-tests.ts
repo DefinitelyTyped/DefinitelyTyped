@@ -21,6 +21,7 @@ app.use(session({
 
 const store2: Store = new pgSession({
     conString: "postgres://postgres@localhost:5432/foo",
+    createTableIfMissing: true,
     ttl: 3600,
     schemaName: "someschema",
     pruneSessionInterval: false,
@@ -43,3 +44,7 @@ store4.close();
 store4.pruneSessions();
 
 store4.pruneSessions(err => console.log(err));
+
+const store5 = new pgSession({
+    disableTouch: true
+});

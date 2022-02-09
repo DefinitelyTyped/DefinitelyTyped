@@ -1,19 +1,30 @@
-import { add, enable, disable, merge, enabled, unstable_featureFlagInfo } from '@carbon/feature-flags';
+import { FeatureFlagScope, add, createScope, enable, disable, merge, enabled } from "@carbon/feature-flags";
 
-add('feature-flag-a', false);
+add("feature-flag-a", false);
 
-enable('feature-flag-a');
+enable("feature-flag-a");
 
-disable('feature-flag-a');
+disable("feature-flag-a");
 
 merge({
-    'feature-flag-a': true,
-    'feature-flag-b': false,
-    'feature-flag-c': true,
+    "feature-flag-a": true,
+    "feature-flag-b": false,
+    "feature-flag-c": true,
 });
 
-enabled('feature-flag-a');
+enabled("feature-flag-a");
 
-unstable_featureFlagInfo[0].name;
+const scope = new FeatureFlagScope({
+    "enable-2021-release": true,
+});
 
-unstable_featureFlagInfo[1].name;
+const scopeWithoutFlags = createScope();
+const scopeWithFlags = createScope({
+    "custom-flag": true,
+    "enable-css-custom-properties": true,
+    "enable-use-controlled-state-with-value": true,
+});
+
+scopeWithFlags.add("custom", true);
+scopeWithFlags.disable("custom");
+scopeWithFlags.mergeWithScope(scope);

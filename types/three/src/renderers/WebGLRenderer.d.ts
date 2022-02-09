@@ -6,12 +6,13 @@ import { WebGLShadowMap } from './webgl/WebGLShadowMap';
 import { WebGLCapabilities } from './webgl/WebGLCapabilities';
 import { WebGLProperties } from './webgl/WebGLProperties';
 import { WebGLProgram } from './webgl/WebGLProgram';
-import { RenderTarget, WebGLRenderLists } from './webgl/WebGLRenderLists';
+import { WebGLRenderLists } from './webgl/WebGLRenderLists';
 import { WebGLState } from './webgl/WebGLState';
 import { Vector2 } from './../math/Vector2';
 import { Vector4 } from './../math/Vector4';
 import { Color } from './../math/Color';
 import { WebGLRenderTarget } from './WebGLRenderTarget';
+import { WebGLMultipleRenderTargets } from './WebGLMultipleRenderTargets';
 import { Object3D } from './../core/Object3D';
 import { Material } from './../materials/Material';
 import { ToneMapping, ShadowMapType, CullFace, TextureEncoding } from '../constants';
@@ -23,6 +24,7 @@ import { XRAnimationLoopCallback } from './webxr/WebXR';
 import { Vector3 } from '../math/Vector3';
 import { Box3 } from '../math/Box3';
 import { DataTexture2DArray } from '../textures/DataTexture2DArray';
+import { ColorRepresentation } from '../utils';
 
 export interface Renderer {
     domElement: HTMLCanvasElement;
@@ -31,68 +33,72 @@ export interface Renderer {
     setSize(width: number, height: number, updateStyle?: boolean): void;
 }
 
+/** This is only available in worker JS contexts, not the DOM. */
+// tslint:disable-next-line:no-empty-interface
+export interface OffscreenCanvas extends EventTarget {}
+
 export interface WebGLRendererParameters {
     /**
      * A Canvas where the renderer draws its output.
      */
-    canvas?: HTMLCanvasElement | OffscreenCanvas;
+    canvas?: HTMLCanvasElement | OffscreenCanvas | undefined;
 
     /**
      * A WebGL Rendering Context.
      * (https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext)
      * Default is null
      */
-    context?: WebGLRenderingContext;
+    context?: WebGLRenderingContext | undefined;
 
     /**
      * shader precision. Can be "highp", "mediump" or "lowp".
      */
-    precision?: string;
+    precision?: string | undefined;
 
     /**
      * default is false.
      */
-    alpha?: boolean;
+    alpha?: boolean | undefined;
 
     /**
      * default is true.
      */
-    premultipliedAlpha?: boolean;
+    premultipliedAlpha?: boolean | undefined;
 
     /**
      * default is false.
      */
-    antialias?: boolean;
+    antialias?: boolean | undefined;
 
     /**
      * default is true.
      */
-    stencil?: boolean;
+    stencil?: boolean | undefined;
 
     /**
      * default is false.
      */
-    preserveDrawingBuffer?: boolean;
+    preserveDrawingBuffer?: boolean | undefined;
 
     /**
      * Can be "high-performance", "low-power" or "default"
      */
-    powerPreference?: string;
+    powerPreference?: string | undefined;
 
     /**
      * default is true.
      */
-    depth?: boolean;
+    depth?: boolean | undefined;
 
     /**
      * default is false.
      */
-    logarithmicDepthBuffer?: boolean;
+    logarithmicDepthBuffer?: boolean | undefined;
 
     /**
      * default is false.
      */
-    failIfMajorPerformanceCaveat?: boolean;
+    failIfMajorPerformanceCaveat?: boolean | undefined;
 }
 
 export interface WebGLDebug {
@@ -197,16 +203,6 @@ export class WebGLRenderer implements Renderer {
      */
     toneMappingExposure: number;
 
-    /**
-     * @default 8
-     */
-    maxMorphTargets: number;
-
-    /**
-     * @default 4
-     */
-    maxMorphNormals: number;
-
     info: WebGLInfo;
 
     shadowMap: WebGLShadowMap;
@@ -226,6 +222,7 @@ export class WebGLRenderer implements Renderer {
     getContext(): WebGLRenderingContext;
     getContextAttributes(): any;
     forceContextLoss(): void;
+    forceContextRestore(): void;
 
     /**
      * @deprecated Use {@link WebGLCapabilities#getMaxAnisotropy .capabilities.getMaxAnisotropy()} instead.
@@ -286,12 +283,12 @@ export class WebGLRenderer implements Renderer {
     /**
      * Sets the custom opaque sort function for the WebGLRenderLists. Pass null to use the default painterSortStable function.
      */
-    setOpaqueSort(method: () => void): void;
+    setOpaqueSort(method: (a: any, b: any) => number): void;
 
     /**
      * Sets the custom transparent sort function for the WebGLRenderLists. Pass null to use the default reversePainterSortStable function.
      */
-    setTransparentSort(method: () => void): void;
+    setTransparentSort(method: (a: any, b: any) => number): void;
 
     /**
      * Returns a THREE.Color instance with the current clear color.
@@ -301,7 +298,7 @@ export class WebGLRenderer implements Renderer {
     /**
      * Sets the clear color, using color for the color and alpha for the opacity.
      */
-    setClearColor(color: Color | string | number, alpha?: number): void;
+    setClearColor(color: ColorRepresentation, alpha?: number): void;
 
     /**
      * Returns a float with the current clear alpha. Ranges from 0 to 1.
@@ -326,8 +323,6 @@ export class WebGLRenderer implements Renderer {
      */
     resetGLState(): void;
     dispose(): void;
-
-    renderBufferImmediate(object: Object3D, program: WebGLProgram): void;
 
     renderBufferDirect(
         camera: Camera,
@@ -378,22 +373,14 @@ export class WebGLRenderer implements Renderer {
     getActiveMipmapLevel(): number;
 
     /**
-     * Sets the given WebGLFramebuffer. This method can only be used if no render target is set via
-     * {@link WebGLRenderer#setRenderTarget .setRenderTarget}.
-     *
-     * @param value The WebGLFramebuffer.
-     */
-    setFramebuffer(value: WebGLFramebuffer): void;
-
-    /**
      * Returns the current render target. If no render target is set, null is returned.
      */
-    getRenderTarget(): RenderTarget | null;
+    getRenderTarget(): WebGLRenderTarget | null;
 
     /**
      * @deprecated Use {@link WebGLRenderer#getRenderTarget .getRenderTarget()} instead.
      */
-    getCurrentRenderTarget(): RenderTarget | null;
+    getCurrentRenderTarget(): WebGLRenderTarget | null;
 
     /**
      * Sets the active render target.
@@ -402,10 +389,14 @@ export class WebGLRenderer implements Renderer {
      * @param activeCubeFace Specifies the active cube side (PX 0, NX 1, PY 2, NY 3, PZ 4, NZ 5) of {@link WebGLCubeRenderTarget}.
      * @param activeMipmapLevel Specifies the active mipmap level.
      */
-    setRenderTarget(renderTarget: RenderTarget | null, activeCubeFace?: number, activeMipmapLevel?: number): void;
+    setRenderTarget(
+        renderTarget: WebGLRenderTarget | WebGLMultipleRenderTargets | null,
+        activeCubeFace?: number,
+        activeMipmapLevel?: number,
+    ): void;
 
     readRenderTargetPixels(
-        renderTarget: RenderTarget,
+        renderTarget: WebGLRenderTarget | WebGLMultipleRenderTargets,
         x: number,
         y: number,
         width: number,
@@ -461,11 +452,6 @@ export class WebGLRenderer implements Renderer {
      * Can be used to reset the internal WebGL state.
      */
     resetState(): void;
-
-    /**
-     * @deprecated
-     */
-    gammaFactor: number;
 
     /**
      * @deprecated Use {@link WebGLRenderer#xr .xr} instead.

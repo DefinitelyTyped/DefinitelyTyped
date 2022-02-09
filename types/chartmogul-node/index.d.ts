@@ -21,18 +21,18 @@ export namespace Ping {
 
 export namespace DataSource {
     interface DataSource {
-        uuid?: string;
+        uuid?: string | undefined;
         name: string;
-        created_at?: string;
-        status?: string;
-        system?: string;
+        created_at?: string | undefined;
+        status?: string | undefined;
+        system?: string | undefined;
     }
     interface DataSources {
         data_sources: DataSource[];
     }
     interface ListDataSourcesParams {
-        name?: string;
-        system?: string;
+        name?: string | undefined;
+        system?: string | undefined;
     }
 
     function create(config: Config, data: DataSource): Promise<DataSource>;
@@ -43,92 +43,92 @@ export namespace DataSource {
 
 export namespace Customer {
     interface Customer {
-        id?: number;
-        data_source_uuid?: string;
-        data_source_uuids?: Strings;
-        uuid?: string;
-        external_id?: string;
-        external_ids?: Strings;
-        name?: string;
-        email?: string;
-        status?: string;
-        ['customer-since']?: string;
-        attributes?: Attributes;
+        id?: number | undefined;
+        data_source_uuid?: string | undefined;
+        data_source_uuids?: Strings | undefined;
+        uuid?: string | undefined;
+        external_id?: string | undefined;
+        external_ids?: Strings | undefined;
+        name?: string | undefined;
+        email?: string | undefined;
+        status?: string | undefined;
+        ['customer-since']?: string | undefined;
+        attributes?: Attributes | undefined;
         address?: {
-            address_zip?: string;
-            city?: string;
-            state?: string;
-            country?: string;
-        };
-        mrr?: number;
-        arr?: number;
-        ['billing-system-url']?: string;
-        ['chartmogul-url']?: string;
-        ['billing-system-type']?: string;
-        currency?: string;
-        ['currency-sign']?: string;
-        company?: string;
-        country?: string;
-        state?: string;
-        city?: string;
-        zip?: string;
-        lead_created_at?: string;
-        free_trial_started_at?: string;
+            address_zip?: string | undefined;
+            city?: string | undefined;
+            state?: string | undefined;
+            country?: string | undefined;
+        } | undefined;
+        mrr?: number | undefined;
+        arr?: number | undefined;
+        ['billing-system-url']?: string | undefined;
+        ['chartmogul-url']?: string | undefined;
+        ['billing-system-type']?: string | undefined;
+        currency?: string | undefined;
+        ['currency-sign']?: string | undefined;
+        company?: string | undefined;
+        country?: string | undefined;
+        state?: string | undefined;
+        city?: string | undefined;
+        zip?: string | undefined;
+        lead_created_at?: string | undefined;
+        free_trial_started_at?: string | undefined;
     }
     interface NewCustomer {
         data_source_uuid: string;
         external_id: string;
         name: string;
-        email?: string;
-        company?: string;
-        country?: string;
-        state?: string;
-        city?: string;
-        zip?: string;
-        lead_created_at?: string;
-        free_trial_started_at?: string;
-        attributes?: NewAttributes;
+        email?: string | undefined;
+        company?: string | undefined;
+        country?: string | undefined;
+        state?: string | undefined;
+        city?: string | undefined;
+        zip?: string | undefined;
+        lead_created_at?: string | undefined;
+        free_trial_started_at?: string | undefined;
+        attributes?: NewAttributes | undefined;
     }
     interface UpdateCustomer {
-        name?: string;
-        email?: string;
-        company?: string;
-        country?: string;
-        state?: string;
-        city?: string;
-        zip?: string;
-        lead_created_at?: string;
-        free_trial_started_at?: string;
-        attributes?: NewAttributes;
+        name?: string | undefined;
+        email?: string | undefined;
+        company?: string | undefined;
+        country?: string | undefined;
+        state?: string | undefined;
+        city?: string | undefined;
+        zip?: string | undefined;
+        lead_created_at?: string | undefined;
+        free_trial_started_at?: string | undefined;
+        attributes?: NewAttributes | undefined;
     }
     interface NewAttributes {
-        tags?: Strings;
-        custom?: NewCustomAttributes[];
+        tags?: Strings | undefined;
+        custom?: NewCustomAttributes[] | undefined;
     }
     interface NewCustomAttributes {
-        type?: string;
+        type?: string | undefined;
         key: string;
         value: any;
-        source?: string;
+        source?: string | undefined;
     }
     interface Attributes {
-        tags?: Strings;
-        stripe?: Map;
-        clearbit?: Map;
-        custom?: Map;
+        tags?: Strings | undefined;
+        stripe?: Map | undefined;
+        clearbit?: Map | undefined;
+        custom?: Map | undefined;
     }
     interface ListCustomersParams extends CursorParams {
-        data_source_uuid?: string;
-        status?: string;
-        system?: string;
-        external_id?: string;
+        data_source_uuid?: string | undefined;
+        status?: string | undefined;
+        system?: string | undefined;
+        external_id?: string | undefined;
     }
     interface SearchCustomersParams extends CursorParams {
         email: string;
     }
     interface MergeID {
-        customer_uuid?: string;
-        external_id?: string;
+        customer_uuid?: string | undefined;
+        external_id?: string | undefined;
     }
     interface MergeCustomersParams {
         from: MergeID;
@@ -147,17 +147,17 @@ export namespace Customer {
 
 export namespace Plan {
     interface Plan {
-        uuid?: string;
-        data_source_uuid?: string;
-        external_id?: string;
-        name?: string;
-        interval_count?: number;
-        interval_unit?: string;
+        uuid?: string | undefined;
+        data_source_uuid?: string | undefined;
+        external_id?: string | undefined;
+        name?: string | undefined;
+        interval_count?: number | undefined;
+        interval_unit?: string | undefined;
     }
     interface ListPlansParams extends CursorParams {
-        data_source_uuid?: string;
-        system?: string;
-        external_id?: string;
+        data_source_uuid?: string | undefined;
+        system?: string | undefined;
+        external_id?: string | undefined;
     }
     interface Plans extends Cursor {
         plans: Plan[];
@@ -172,50 +172,50 @@ export namespace Plan {
 
 export namespace Invoice {
     interface Invoice {
-        uuid?: string;
-        customer_uuid?: string;
-        currency?: string;
-        data_source_uuid?: string;
-        date?: string;
-        due_date?: string;
-        external_id?: string;
-        line_items?: LineItem[];
-        transactions?: Transaction[];
+        uuid?: string | undefined;
+        customer_uuid?: string | undefined;
+        currency?: string | undefined;
+        data_source_uuid?: string | undefined;
+        date?: string | undefined;
+        due_date?: string | undefined;
+        external_id?: string | undefined;
+        line_items?: LineItem[] | undefined;
+        transactions?: Transaction[] | undefined;
     }
     interface LineItem {
-        uuid?: string;
-        account_code?: string;
-        amount_in_cents?: number;
-        cancelled_at?: string;
-        description?: string;
-        discount_amount_in_cents?: number;
-        discount_code?: string;
-        external_id?: string;
-        plan_uuid?: string;
-        prorated?: boolean;
-        quantity?: number;
-        service_period_end?: string;
-        service_period_start?: string;
-        subscription_external_id?: string;
-        subscription_uuid?: string;
-        tax_amount_in_cents?: number;
-        transaction_fees_in_cents?: number;
-        type?: string;
+        uuid?: string | undefined;
+        account_code?: string | undefined;
+        amount_in_cents?: number | undefined;
+        cancelled_at?: string | undefined;
+        description?: string | undefined;
+        discount_amount_in_cents?: number | undefined;
+        discount_code?: string | undefined;
+        external_id?: string | undefined;
+        plan_uuid?: string | undefined;
+        prorated?: boolean | undefined;
+        quantity?: number | undefined;
+        service_period_end?: string | undefined;
+        service_period_start?: string | undefined;
+        subscription_external_id?: string | undefined;
+        subscription_uuid?: string | undefined;
+        tax_amount_in_cents?: number | undefined;
+        transaction_fees_in_cents?: number | undefined;
+        type?: string | undefined;
     }
     interface Transaction {
-        uuid?: string;
-        date?: string;
-        external_id?: string;
-        result?: string;
-        type?: string;
+        uuid?: string | undefined;
+        date?: string | undefined;
+        external_id?: string | undefined;
+        result?: string | undefined;
+        type?: string | undefined;
     }
     interface ListInvoicesParams  extends CursorParams {
-        data_source_uuid?: string;
-        customer_uuid?: string;
-        external_id?: string;
+        data_source_uuid?: string | undefined;
+        customer_uuid?: string | undefined;
+        external_id?: string | undefined;
     }
     interface Invoices extends Cursor {
-        customer_uuid?: string;
+        customer_uuid?: string | undefined;
         invoices: Invoice[];
     }
 
@@ -230,9 +230,9 @@ export namespace Invoice {
 
 export namespace Transaction {
     interface Transaction {
-        uuid?: string;
+        uuid?: string | undefined;
         date: string;
-        external_id?: string;
+        external_id?: string | undefined;
         result: string;
         type: string;
     }
@@ -250,11 +250,11 @@ export namespace Subscription {
         data_source_uuid: string;
     }
     interface CancelSubscriptionParams {
-        cancelled_at?: string;
-        cancellation_dates?: Strings;
+        cancelled_at?: string | undefined;
+        cancellation_dates?: Strings | undefined;
     }
     interface Subscriptions extends Cursor {
-        customer_uuid?: string;
+        customer_uuid?: string | undefined;
         subscriptions: Subscription[];
     }
 
@@ -296,13 +296,13 @@ export namespace CustomAttribute {
 
 export namespace Metrics {
     interface Params extends ParamsNoInterval {
-        interval?: string;
+        interval?: string | undefined;
     }
     interface ParamsNoInterval {
         ['start-date']: string;
         ['end-date']: string;
-        geo?: string;
-        plans?: string;
+        geo?: string | undefined;
+        plans?: string | undefined;
     }
     interface All {
         entries: {

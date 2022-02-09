@@ -73,7 +73,7 @@ export class Vector3 implements Vector {
     /**
      * Clones this vector.
      */
-    clone(): Vector3;
+    clone(): this;
 
     /**
      * Copies value of v to this vector.
@@ -287,4 +287,6 @@ export class Vector3 implements Vector {
      * Sets this vector's x, y and z from Math.random
      */
     random(): this;
+
+    randomDirection(): this;
 }

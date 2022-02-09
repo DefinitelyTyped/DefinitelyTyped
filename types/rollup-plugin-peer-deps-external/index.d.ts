@@ -11,8 +11,8 @@ import { Plugin } from 'rollup';
 
 declare namespace PeerDepsExternalPlugin {
     interface PluginPeerDepsExternalOptions {
-        packageJsonPath?: string;
-        includeDependencies?: boolean;
+        packageJsonPath?: string | undefined;
+        includeDependencies?: boolean | undefined;
     }
 }
 

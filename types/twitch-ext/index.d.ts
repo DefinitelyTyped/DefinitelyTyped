@@ -316,7 +316,7 @@ declare namespace Twitch.ext {
         /**
          * This field is returned only for extension versions that are not in the Released state.
          */
-        inDevelopment?: boolean;
+        inDevelopment?: boolean | undefined;
 
         /**
          * Unique ID for the product.
@@ -449,6 +449,11 @@ declare namespace Twitch.ext {
         token: string;
 
         /**
+         * JWT that can be used for front end API requests.
+         */
+        helixToken: string;
+
+        /**
          * Opaque user ID.
          */
         userId: string;
@@ -504,7 +509,7 @@ declare namespace Twitch.ext {
              * Numeric ID of the host channel
              */
             hostingChannelId: string;
-        };
+        } | undefined;
 
         /**
          * If true, the viewer is watching in fullscreen mode.

@@ -13,7 +13,7 @@ declare namespace jackrabbit {
   type Message = amqplib.Message;
 
   type ExchangeOptions = amqplib.Options.AssertExchange & {
-    noReply?: boolean;
+    noReply?: boolean | undefined;
   };
 
   interface JackRabbit extends NodeJS.EventEmitter {
@@ -45,14 +45,14 @@ declare namespace jackrabbit {
 
   type PublishOptions = amqplib.Options.Publish & {
     key: string;
-    reply?: AckCallback;
+    reply?: AckCallback | undefined;
   };
 
   type QueueOptions = amqplib.Options.AssertQueue & {
-    name?: string;
-    key?: string;
-    keys?: ReadonlyArray<string>;
-    prefetch?: number;
+    name?: string | undefined;
+    key?: string | undefined;
+    keys?: ReadonlyArray<string> | undefined;
+    prefetch?: number | undefined;
   };
 
   type AckCallback = (data?: any) => void;

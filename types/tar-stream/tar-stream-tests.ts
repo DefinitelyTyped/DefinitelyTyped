@@ -39,7 +39,10 @@ extract.on('entry', (header, stream, next) => {
     // call next when you are done with this entry
     entries[header.name] = true;
     stream.on('end', () => {
+        next; // $ExpectType (error?: unknown) => void
         next();
+        next(null);
+        next(new Error());
     });
 
     stream.resume(); // just auto drain the stream

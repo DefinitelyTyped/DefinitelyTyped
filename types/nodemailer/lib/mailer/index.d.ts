@@ -5,7 +5,7 @@ import { Socket } from 'net';
 import { Readable } from 'stream';
 import { Url } from 'url';
 
-import { SentMessageInfo, Transport, TransportOptions } from '../..';
+import { Transport, TransportOptions } from '../..';
 import * as shared from '../shared';
 
 import DKIM = require('../dkim');
@@ -32,50 +32,50 @@ declare namespace Mail {
 
     interface AttachmentLike {
         /** String, Buffer or a Stream contents for the attachmentent */
-        content?: string | Buffer | Readable;
+        content?: string | Buffer | Readable | undefined;
         /** path to a file or an URL (data uris are allowed as well) if you want to stream the file instead of including it (better for larger attachments) */
-        path?: string | Url;
+        path?: string | Url | undefined;
     }
 
     interface Attachment extends AttachmentLike {
         /** filename to be reported as the name of the attached file, use of unicode is allowed. If you do not want to use a filename, set this value as false, otherwise a filename is generated automatically */
-        filename?: string | false;
+        filename?: string | false | undefined;
         /** optional content id for using inline images in HTML message source. Using cid sets the default contentDisposition to 'inline' and moves the attachment into a multipart/related mime node, so use it only if you actually want to use this attachment as an embedded image */
-        cid?: string;
+        cid?: string | undefined;
         /** If set and content is string, then encodes the content to a Buffer using the specified encoding. Example values: base64, hex, binary etc. Useful if you want to use binary attachments in a JSON formatted e-mail object */
-        encoding?: string;
+        encoding?: string | undefined;
         /** optional content type for the attachment, if not set will be derived from the filename property */
-        contentType?: string;
+        contentType?: string | undefined;
         /** optional transfer encoding for the attachment, if not set it will be derived from the contentType property. Example values: quoted-printable, base64. If it is unset then base64 encoding is used for the attachment. If it is set to false then previous default applies (base64 for most, 7bit for text). */
-        contentTransferEncoding?: '7bit' | 'base64' | 'quoted-printable' | false;
+        contentTransferEncoding?: '7bit' | 'base64' | 'quoted-printable' | false | undefined;
         /** optional content disposition type for the attachment, defaults to ‘attachment’ */
-        contentDisposition?: 'attachment' | 'inline';
+        contentDisposition?: 'attachment' | 'inline' | undefined;
         /** is an object of additional headers */
-        headers?: Headers;
+        headers?: Headers | undefined;
         /** an optional value that overrides entire node content in the mime message. If used then all other options set for this node are ignored. */
-        raw?: string | Buffer | Readable | AttachmentLike;
+        raw?: string | Buffer | Readable | AttachmentLike | undefined;
     }
 
     interface AmpAttachment extends AttachmentLike {
         /** is an alternative for content to load the AMP4EMAIL data from an URL */
-        href?: string;
+        href?: string | undefined;
         /** defines optional content encoding, eg. ‘base64’ or ‘hex’. This only applies if the content is a string. By default an unicode string is assumed. */
-        encoding?: string;
+        encoding?: string | undefined;
         /** optional content type for the attachment, if not set will be derived from the filename property */
-        contentType?: string;
+        contentType?: string | undefined;
         /** an optional value that overrides entire node content in the mime message. If used then all other options set for this node are ignored. */
-        raw?: string | Buffer | Readable | AttachmentLike;
+        raw?: string | Buffer | Readable | AttachmentLike | undefined;
     }
 
     interface IcalAttachment extends AttachmentLike {
         /** optional method, case insensitive, defaults to ‘publish’. Other possible values would be ‘request’, ‘reply’, ‘cancel’ or any other valid calendar method listed in RFC5546. This should match the METHOD: value in calendar event file. */
-        method?: string;
+        method?: string | undefined;
         /** optional filename, defaults to ‘invite.ics’ */
-        filename?: string | false;
+        filename?: string | false | undefined;
         /** is an alternative for content to load the calendar data from an URL */
-        href?: string;
+        href?: string | undefined;
         /** defines optional content encoding, eg. ‘base64’ or ‘hex’. This only applies if the content is a string. By default an unicode string is assumed. */
-        encoding?: string;
+        encoding?: string | undefined;
     }
 
     interface Connection {
@@ -84,90 +84,90 @@ declare namespace Mail {
 
     interface Envelope {
         /** the first address gets used as MAIL FROM address in SMTP */
-        from?: string;
+        from?: string | undefined;
         /** addresses from this value get added to RCPT TO list */
-        to?: string;
+        to?: string | undefined;
         /** addresses from this value get added to RCPT TO list */
-        cc?: string;
+        cc?: string | undefined;
         /** addresses from this value get added to RCPT TO list */
-        bcc?: string;
+        bcc?: string | undefined;
     }
 
     interface Options {
         /** The e-mail address of the sender. All e-mail addresses can be plain 'sender@server.com' or formatted 'Sender Name <sender@server.com>' */
-        from?: string | Address;
+        from?: string | Address | undefined;
         /** An e-mail address that will appear on the Sender: field */
-        sender?: string | Address;
+        sender?: string | Address | undefined;
         /** Comma separated list or an array of recipients e-mail addresses that will appear on the To: field */
-        to?: string | Address | Array<string | Address>;
+        to?: string | Address | Array<string | Address> | undefined;
         /** Comma separated list or an array of recipients e-mail addresses that will appear on the Cc: field */
-        cc?: string | Address | Array<string | Address>;
+        cc?: string | Address | Array<string | Address> | undefined;
         /** Comma separated list or an array of recipients e-mail addresses that will appear on the Bcc: field */
-        bcc?: string | Address | Array<string | Address>;
+        bcc?: string | Address | Array<string | Address> | undefined;
         /** An e-mail address that will appear on the Reply-To: field */
-        replyTo?: string | Address;
+        replyTo?: string | Address | undefined;
         /** The message-id this message is replying */
-        inReplyTo?: string | Address;
+        inReplyTo?: string | Address | undefined;
         /** Message-id list (an array or space separated string) */
-        references?: string | string[];
+        references?: string | string[] | undefined;
         /** The subject of the e-mail */
-        subject?: string;
+        subject?: string | undefined;
         /** The plaintext version of the message */
-        text?: string | Buffer | Readable | AttachmentLike;
+        text?: string | Buffer | Readable | AttachmentLike | undefined;
         /** The HTML version of the message */
-        html?: string | Buffer | Readable | AttachmentLike;
+        html?: string | Buffer | Readable | AttachmentLike | undefined;
         /** Apple Watch specific HTML version of the message, same usage as with text and html */
-        watchHtml?: string | Buffer | Readable | AttachmentLike;
+        watchHtml?: string | Buffer | Readable | AttachmentLike | undefined;
         /** AMP4EMAIL specific HTML version of the message, same usage as with text and html. Make sure it is a full and valid AMP4EMAIL document, otherwise the displaying email client falls back to html and ignores the amp part */
-        amp?: string | Buffer | Readable | AmpAttachment;
+        amp?: string | Buffer | Readable | AmpAttachment | undefined;
         /** iCalendar event, same usage as with text and html. Event method attribute defaults to ‘PUBLISH’ or define it yourself: {method: 'REQUEST', content: iCalString}. This value is added as an additional alternative to html or text. Only utf-8 content is allowed */
-        icalEvent?: string | Buffer | Readable | IcalAttachment;
+        icalEvent?: string | Buffer | Readable | IcalAttachment | undefined;
         /** An object or array of additional header fields */
-        headers?: Headers;
+        headers?: Headers | undefined;
         /** An object where key names are converted into list headers. List key help becomes List-Help header etc. */
-        list?: ListHeaders;
+        list?: ListHeaders | undefined;
         /** An array of attachment objects */
-        attachments?: Attachment[];
+        attachments?: Attachment[] | undefined;
         /** An array of alternative text contents (in addition to text and html parts) */
-        alternatives?: Attachment[];
+        alternatives?: Attachment[] | undefined;
         /** optional SMTP envelope, if auto generated envelope is not suitable */
-        envelope?: Envelope | MimeNode.Envelope;
+        envelope?: Envelope | MimeNode.Envelope | undefined;
         /** optional Message-Id value, random value will be generated if not set */
-        messageId?: string;
+        messageId?: string | undefined;
         /** optional Date value, current UTC string will be used if not set */
-        date?: Date | string;
+        date?: Date | string | undefined;
         /** optional transfer encoding for the textual parts */
-        encoding?: string;
+        encoding?: string | undefined;
         /** if set then overwrites entire message output with this value. The value is not parsed, so you should still set address headers or the envelope value for the message to work */
-        raw?: string | Buffer | Readable | AttachmentLike;
+        raw?: string | Buffer | Readable | AttachmentLike | undefined;
         /** set explicitly which encoding to use for text parts (quoted-printable or base64). If not set then encoding is detected from text content (mostly ascii means quoted-printable, otherwise base64) */
-        textEncoding?: TextEncoding;
+        textEncoding?: TextEncoding | undefined;
         /** if set to true then fails with an error when a node tries to load content from URL */
-        disableUrlAccess?: boolean;
+        disableUrlAccess?: boolean | undefined;
         /** if set to true then fails with an error when a node tries to load content from a file */
-        disableFileAccess?: boolean;
+        disableFileAccess?: boolean | undefined;
         /** is an object with DKIM options */
-        dkim?: DKIM.Options;
+        dkim?: DKIM.Options | undefined;
         /** method to normalize header keys for custom caseing */
         normalizeHeaderKey?(key: string): string;
-        priority?: "high"|"normal"|"low";
+        priority?: "high"|"normal"|"low" | undefined;
     }
 
-    type PluginFunction = (mail: MailMessage, callback: (err?: Error | null) => void) => void;
+    type PluginFunction<T = any> = (mail: MailMessage<T>, callback: (err?: Error | null) => void) => void;
 }
 
 /** Creates an object for exposing the Mail API */
-declare class Mail extends EventEmitter {
+declare class Mail<T = any> extends EventEmitter {
     options: Mail.Options;
     meta: Map<string, any>;
     dkim: DKIM;
-    transporter: Transport;
+    transporter: Transport<T>;
     logger: shared.Logger;
 
     /** Usage: typeof transporter.MailMessage */
-    MailMessage: MailMessage;
+    MailMessage: MailMessage<T>;
 
-    constructor(transporter: Transport, options?: TransportOptions, defaults?: TransportOptions);
+    constructor(transporter: Transport<T>, options?: TransportOptions, defaults?: TransportOptions);
 
     /** Closes all connections in the pool. If there is a message being sent, the connection is closed later */
     close(): void;
@@ -179,11 +179,11 @@ declare class Mail extends EventEmitter {
     verify(callback: (err: Error | null, success: true) => void): void;
     verify(): Promise<true>;
 
-    use(step: string, plugin: Mail.PluginFunction): this;
+    use(step: string, plugin: Mail.PluginFunction<T>): this;
 
     /** Sends an email using the preselected transport object */
-    sendMail(mailOptions: Mail.Options, callback: (err: Error | null, info: SentMessageInfo) => void): void;
-    sendMail(mailOptions: Mail.Options): Promise<SentMessageInfo>;
+    sendMail(mailOptions: Mail.Options, callback: (err: Error | null, info: T) => void): void;
+    sendMail(mailOptions: Mail.Options): Promise<T>;
 
     getVersionString(): string;
 

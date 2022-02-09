@@ -7,13 +7,13 @@
 /// <reference types="jquery" />
 
 export interface Options {
-    minWidth?: number;
-    activeClass?: string;
-    containerSelector?: string;
+    minWidth?: number | undefined;
+    activeClass?: string | undefined;
+    containerSelector?: string | undefined;
     padding?: {
-        top?: number;
-        bottom?: number;
-    };
+        top?: number | undefined;
+        bottom?: number | undefined;
+    } | undefined;
 }
 declare global {
     interface JQuery {

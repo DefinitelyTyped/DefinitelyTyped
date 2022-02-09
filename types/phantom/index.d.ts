@@ -4,15 +4,15 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export function create(args?: string[], config?: {
-    phantomPath?: string,
-    shimPath?: string,
+    phantomPath?: string | undefined,
+    shimPath?: string | undefined,
     logger?: {
-        info?: winstonLeveledLogMethod,
-        debug?: winstonLeveledLogMethod,
-        error?: winstonLeveledLogMethod,
-        warn?: winstonLeveledLogMethod,
-    },
-    logLevel?: 'debug' | 'info' | 'warn' | 'error',
+        info?: winstonLeveledLogMethod | undefined,
+        debug?: winstonLeveledLogMethod | undefined,
+        error?: winstonLeveledLogMethod | undefined,
+        warn?: winstonLeveledLogMethod | undefined,
+    } | undefined,
+    logLevel?: 'debug' | 'info' | 'warn' | 'error' | undefined,
 }): Promise<PhantomJS>;
 
 export interface winstonLeveledLogMethod {
@@ -86,7 +86,7 @@ export interface WebPage {
     sendEvent(keyboardEventType: string, key: string, null1?: void, null2?: void, modifier?: number): Promise<void>;
 
     render(filename: string): Promise<void>;
-    render(filename: string, options?: { format?: string; quality?: string; }): Promise<void>;
+    render(filename: string, options?: { format?: string | undefined; quality?: string | undefined; }): Promise<void>;
     renderBase64(type: string): Promise<string>;
 
     setContent(html: string, url: string): Promise<string>;
@@ -125,34 +125,34 @@ export interface WebPage {
 export interface ICookie {
     name: string,
     value: string,
-    domain?: string,
+    domain?: string | undefined,
     path: string,
-    httponly?: boolean,
-    secure?: boolean,
-    expires?: string
+    httponly?: boolean | undefined,
+    secure?: boolean | undefined,
+    expires?: string | undefined
 }
 
 export interface IPaperSizeOptions {
-    width?: string;
-    height?: string;
-    format?: 'A3' | 'A4' | 'A5' | 'Legal' | 'Letter' | 'Tabloid';
-    orientation?: 'portrait' | 'landscape';
-    margin?: string | { top?: string; left?: string; bottom?: string; right?: string; };
+    width?: string | undefined;
+    height?: string | undefined;
+    format?: 'A3' | 'A4' | 'A5' | 'Legal' | 'Letter' | 'Tabloid' | undefined;
+    orientation?: 'portrait' | 'landscape' | undefined;
+    margin?: string | { top?: string | undefined; left?: string | undefined; bottom?: string | undefined; right?: string | undefined; } | undefined;
     header?: {
         height: string,
         contents: IPhantomCallback
-    };
+    } | undefined;
     footer?: {
         height: string;
         contents: IPhantomCallback
-    };
+    } | undefined;
 }
 
 export interface IOpenWebPageSettings {
-    operation?: 'GET' | 'POST' | 'HEAD' | 'DELETE' | 'PUT' | string;
-    encoding?: 'utf8' | string;
-    headers?: { [s: string]: string };
-    data?: string;
+    operation?: 'GET' | 'POST' | 'HEAD' | 'DELETE' | 'PUT' | string | undefined;
+    encoding?: 'utf8' | string | undefined;
+    headers?: { [s: string]: string } | undefined;
+    data?: string | undefined;
 }
 
 /**

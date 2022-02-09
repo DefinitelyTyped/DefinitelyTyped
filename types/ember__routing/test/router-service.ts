@@ -14,29 +14,29 @@ router.transitionTo(
 
 const transition = router.transitionTo('someRoute');
 
-// $ExpectType Transition<any>
+// $ExpectType Transition<unknown>
 transition.abort();
 
-// $ExpectType Promise<never>
+// $ExpectType Promise<unknown>
 transition.catch();
 transition.catch(err => console.log(err), 'label');
 
-// $ExpectType Promise<any>
+// $ExpectType Promise<unknown>
 transition.finally();
 transition.finally(() => console.log('finally!'));
 transition.finally(() => console.log('finally!'), 'label');
 
-// $ExpectType Promise<any>
+// $ExpectType Promise<unknown>
 transition.followRedirects();
 
-// $ExpectType Transition<any>
+// $ExpectType Transition<unknown>
 transition.method();
 transition.method('replace');
 
-// $ExpectType Transition<any>
+// $ExpectType Transition<unknown>
 transition.retry();
 
-// $ExpectType Promise<any>
+// $ExpectType Promise<unknown>
 transition.then();
 transition.then(
     result => console.log(result),
@@ -57,7 +57,7 @@ transition.from;
 // $ExpectError
 transition.from = 'from';
 
-// $ExpectType Promise<any>
+// $ExpectType Promise<unknown>
 transition.promise;
 // $ExpectError
 transition.promise = 'promise';
@@ -90,3 +90,6 @@ router.recognizeAndLoad('foo/bar'); // $ExpectType RouteInfoWithAttributes
 
 router.rootURL; // $ExpectType string
 router.rootURL = 'foo'; // $ExpectError
+
+router.refresh(); // $ExpectType Transition<unknown>
+router.refresh('my-route'); // $ExpectType Transition<unknown>

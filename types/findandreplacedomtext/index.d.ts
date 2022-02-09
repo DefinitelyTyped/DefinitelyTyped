@@ -19,40 +19,40 @@ interface Options {
      *
      * $' to represent everything to the right of the match.
      */
-    replace?: string | ((portion: Portion, match?: any) => string | number | HTMLElement | Text);
+    replace?: string | ((portion: Portion, match?: any) => string | number | HTMLElement | Text) | undefined;
     /**
      * A string representing the node-name of an element that will be wrapped around matches (e.g. span or em).
      *
      * Or a Node (i.e. a stencil node) that we will clone for each match portion.
      */
-    wrap?: string | HTMLElement;
+    wrap?: string | HTMLElement | undefined;
     /**
      * A string representing the class name to be assigned to the wrapping element (e.g. <span class="myClass">found text</span>).
      *
      * If the wrap option is not specified, then this option is ignored.
      */
-    wrapClass?: string;
+    wrapClass?: string | undefined;
     /**
      * Indicates whether to re-use existing node boundaries when replacing a match with text (i.e. the default, "retain"),
      * or whether to instead place the entire replacement in the first-found match portion's node.
      *
      * Most of the time you'll want the default.
      */
-    portionMode?: 'retain' | 'first';
+    portionMode?: 'retain' | 'first' | undefined;
     /**
      * A function to be called on every element encountered by findAndReplaceDOMText.
      * If the function returns false the element will be altogether ignored.
      */
-    filterElements?: (el: HTMLElement) => boolean;
+    filterElements?: ((el: HTMLElement) => boolean) | undefined;
     /**
      * A boolean or a boolean-returning function that'll be called on every element to determine if it should be considered as its own matching context.
      * More info: https://github.com/padolsey/findAndReplaceDOMText#contexts
      */
-    forceContext?: boolean | ((el: HTMLElement) => boolean);
+    forceContext?: boolean | ((el: HTMLElement) => boolean) | undefined;
     /**
      * Currently there's only one preset: prose. https://github.com/padolsey/findAndReplaceDOMText#presetprose
      */
-    preset?: 'prose' | string;
+    preset?: 'prose' | string | undefined;
 }
 
 interface Portion {

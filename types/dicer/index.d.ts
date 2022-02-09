@@ -1,7 +1,6 @@
 // Type definitions for dicer 0.2
 // Project: https://github.com/mscdex/dicer
-// Definitions by: Robin Goupil <https://github.com/GoupilRobin>
-//                 BendingBender <https://github.com/BendingBender>
+// Definitions by: BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 /// <reference types="node" />
@@ -103,15 +102,15 @@ declare namespace Dicer {
         /**
          * This is the boundary used to detect the beginning of a new part.
          */
-        boundary?: string;
+        boundary?: string | undefined;
         /**
          * If true, preamble header parsing will be performed first.
          */
-        headerFirst?: boolean;
+        headerFirst?: boolean | undefined;
         /**
          * The maximum number of header key=>value pairs to parse Default: 2000 (same as node's http).
          */
-        maxHeaderPairs?: number;
+        maxHeaderPairs?: number | undefined;
     }
 
     /**

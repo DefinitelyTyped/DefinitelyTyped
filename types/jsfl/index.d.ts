@@ -553,12 +553,12 @@ interface FlashSoundItem {
 
 // if FlashElement.elementType == 'instance'
 interface FlashInstance {
-    instanceType?: string;
-    libraryItem?: FlashItem;
+    instanceType?: string | undefined;
+    libraryItem?: FlashItem | undefined;
 }
 
 interface _FlashBitmap {
-    width; height; depth; bits; cTab?: string[];
+    width; height; depth; bits; cTab?: string[] | undefined;
 }
 
 // if FlashElement.elementType == 'instance'

@@ -3,6 +3,7 @@ import LoadOptions = yaml.LoadOptions;
 import DumpOptions = yaml.DumpOptions;
 import TypeConstructorOptions = yaml.TypeConstructorOptions;
 import SchemaDefinition = yaml.SchemaDefinition;
+import Mark = yaml.Mark;
 
 const bool = true;
 const num = 0;
@@ -28,6 +29,15 @@ const typeConstructorOptions: TypeConstructorOptions = {
     defaultStyle: str,
     multi: false,
     styleAliases: map,
+};
+
+const yamlExceptionMark: Mark = {
+    buffer: str,
+    column: num,
+    line: num,
+    name: str,
+    position: num,
+    snippet: str,
 };
 
 const schema: yaml.Schema = new yaml.Schema(schemaDefinition);
@@ -119,7 +129,7 @@ new yaml.Type(str, typeConstructorOptions);
 type.kind;
 // $ExpectType (data: any) => boolean
 type.resolve;
-// $ExpectType (data: any) => any
+// $ExpectType (data: any, type?: string | undefined) => any
 type.construct;
 // $ExpectType object | null
 type.instanceOf;
@@ -134,18 +144,18 @@ type.styleAliases;
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
-// $ExpectType string | number | object | null | undefined
+// $ExpectType unknown
 yaml.load(str);
-// $ExpectType string | number | object | null | undefined
+// $ExpectType unknown
 yaml.load(str, loadOpts);
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
-// $ExpectType any[]
+// $ExpectType unknown[]
 value = yaml.loadAll(str);
-// $ExpectType any[]
+// $ExpectType unknown[]
 value = yaml.loadAll(str, null, loadOpts);
-// $ExpectType any[]
+// $ExpectType unknown[]
 value = yaml.loadAll(str, undefined, loadOpts);
 
 // $ExpectType void
@@ -168,7 +178,14 @@ yaml.dump(str);
 // $ExpectType string
 yaml.dump(str, dumpOpts);
 
+// $ExpectType YAMLException
 new yaml.YAMLException();
+
+// $ExpectType YAMLException
+const exception = new yaml.YAMLException('error', yamlExceptionMark);
+
+// $ExpectType Mark
+exception.mark;
 
 // $ExpectType Schema
 yaml.DEFAULT_SCHEMA.extend([type]);

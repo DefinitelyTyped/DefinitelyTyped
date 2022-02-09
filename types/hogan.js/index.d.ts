@@ -14,19 +14,19 @@ export interface SectionTags {
 }
 
 export interface HoganOptions {
-    asString?: boolean;
-    sectionTags?: ReadonlyArray<SectionTags>;
-    delimiters?: string;
-    disableLambda?: boolean;
+    asString?: boolean | undefined;
+    sectionTags?: ReadonlyArray<SectionTags> | undefined;
+    delimiters?: string | undefined;
+    disableLambda?: boolean | undefined;
 }
 
 export interface Token {
     tag: string;
-    otag?: string;
-    ctag?: string;
-    i?: number;
-    n?: string;
-    text?: string;
+    otag?: string | undefined;
+    ctag?: string | undefined;
+    i?: number | undefined;
+    n?: string | undefined;
+    text?: string | undefined;
 }
 
 export interface Leaf extends Token {

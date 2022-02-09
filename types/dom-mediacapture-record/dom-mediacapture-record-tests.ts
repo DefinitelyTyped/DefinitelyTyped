@@ -24,8 +24,8 @@ const onDataAvailable = (event: BlobEvent) => {
     const blobType = event.data.type;
 };
 
-const onError = (event: MediaRecorderErrorEvent) => {
-    const errorMessage = event.error.message;
+const onError = (event: Event) => {
+    const errorMessage = (event as MediaRecorderErrorEvent).error.message;
 };
 
 const onEvent = (event: Event) => {};
@@ -38,7 +38,7 @@ recorder.stop();
 recorder.start(1000);
 recorder.pause();
 recorder.requestData();
-const state: RecordingState = recorder.state;
+const state: 'inactive' | 'recording' | 'paused' = recorder.state;
 const isRecording = state === 'recording';
 const isAudioVariableBitrate = recorder.audioBitrateMode === 'vbr';
 
@@ -62,7 +62,7 @@ recorder.onstart = null;
 recorder.onstop = null;
 
 recorder.addEventListener('dataavailable', (e: BlobEvent) => {});
-recorder.addEventListener('error', (e: MediaRecorderErrorEvent) => {});
+recorder.addEventListener('error', (e: Event) => {});
 recorder.addEventListener('pause', onEvent);
 recorder.addEventListener('resume', onEvent);
 recorder.addEventListener('dataavailable', onEvent);

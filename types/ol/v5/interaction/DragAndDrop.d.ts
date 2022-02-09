@@ -9,10 +9,10 @@ import VectorSource from '../source/Vector';
 import Interaction from './Interaction';
 
 export interface Options {
-    formatConstructors?: FeatureFormat[];
-    source?: VectorSource;
-    projection?: ProjectionLike;
-    target?: HTMLElement;
+    formatConstructors?: FeatureFormat[] | undefined;
+    source?: VectorSource | undefined;
+    projection?: ProjectionLike | undefined;
+    target?: HTMLElement | undefined;
 }
 export enum DragAndDropEventType {
     ADD_FEATURES = 'addfeatures',

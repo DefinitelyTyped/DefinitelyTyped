@@ -1,15 +1,17 @@
-// Type definitions for levelup 4.3
+// Type definitions for levelup 5.1
 // Project: https://github.com/Level/levelup
 // Definitions by: Meirion Hughes <https://github.com/MeirionHughes>
 //                 Daniel Byrne <https://github.com/danwbyrne>
 //                 Carson Farmer <https://github.com/carsonfarmer>
+//                 Steffen Park <https://github.com/istherepie>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 2.3
 
 /// <reference types="node" />
 
 import { EventEmitter } from 'events';
 import { AbstractLevelDOWN, AbstractIteratorOptions, AbstractBatch, ErrorCallback, AbstractOptions, ErrorValueCallback, AbstractGetOptions, AbstractIterator } from 'abstract-leveldown';
+import { LevelUPError, InitializationError, OpenError, ReadError, WriteError, NotFoundError, EncodingError } from 'level-errors';
 
 type LevelUpPut<K, V, O> =
     ((key: K, value: V, callback: ErrorCallback) => void) &
@@ -20,6 +22,11 @@ type LevelUpGet<K, V, O> =
     ((key: K, callback: ErrorValueCallback<V>) => void) &
     ((key: K, options: O, callback: ErrorValueCallback<V>) => void) &
     ((key: K, options?: O) => Promise<V>);
+
+type LevelUpGetMany<K, V, O> =
+    ((keys: K[], callback: ErrorValueCallback<V[]>) => void) &
+    ((keys: K[], options: O, callback: ErrorValueCallback<V[]>) => void) &
+    ((keys: K[], options?: O) => Promise<V[]>);
 
 type LevelUpDel<K, O> =
     ((key: K, callback: ErrorCallback) => void) &
@@ -46,6 +53,11 @@ type InferDBGet<DB> =
     LevelUpGet<K, V, O> :
     LevelUpGet<any, any, AbstractGetOptions>;
 
+type InferDBGetMany<DB> =
+    DB extends { getMany: (keys: Array<infer K>, options: infer O, callback: ErrorValueCallback<Array<infer V>>) => void } ?
+    LevelUpGetMany<K, V, O> :
+    LevelUpGetMany<any, any, AbstractGetOptions>;
+
 type InferDBDel<DB> =
     DB extends { del: (key: infer K, options: infer O, callback: ErrorCallback) => void } ?
     LevelUpDel<K, O> :
@@ -57,12 +69,12 @@ type InferDBClear<DB> =
     LevelUpClear<AbstractClearOptions>;
 
 interface AbstractClearOptions<K = any> extends AbstractOptions {
-    gt?: K;
-    gte?: K;
-    lt?: K;
-    lte?: K;
-    reverse?: boolean;
-    limit?: number;
+    gt?: K | undefined;
+    gte?: K | undefined;
+    lt?: K | undefined;
+    lte?: K | undefined;
+    reverse?: boolean | undefined;
+    limit?: number | undefined;
 }
 
 export interface LevelUp<DB = AbstractLevelDOWN, Iterator = AbstractIterator<any, any>> extends EventEmitter {
@@ -75,6 +87,7 @@ export interface LevelUp<DB = AbstractLevelDOWN, Iterator = AbstractIterator<any
     get: InferDBGet<DB>;
     del: InferDBDel<DB>;
     clear: InferDBClear<DB>;
+    getMany: InferDBGetMany<DB>;
 
     batch(array: AbstractBatch[], options?: any): Promise<void>;
     batch(array: AbstractBatch[], options: any, callback: (err?: any) => any): void;
@@ -85,6 +98,9 @@ export interface LevelUp<DB = AbstractLevelDOWN, Iterator = AbstractIterator<any
 
     isOpen(): boolean;
     isClosed(): boolean;
+
+    readonly status: "new" | "opening" | "open" | "closing" | "closed";
+    isOperational(): boolean;
 
     createReadStream(options?: AbstractIteratorOptions): NodeJS.ReadableStream;
     createKeyStream(options?: AbstractIteratorOptions): NodeJS.ReadableStream;
@@ -131,7 +147,15 @@ interface LevelUpConstructor {
         db: DB,
         cb?: ErrorCallback): LevelUp<DB>;
 
-    errors: /*typeof levelerrors*/ any; // ? level-errors is not in DT
+    errors: {
+        LevelUPError: typeof LevelUPError;
+        InitializationError: typeof InitializationError;
+        OpenError: typeof OpenError;
+        ReadError: typeof ReadError;
+        WriteError: typeof WriteError;
+        NotFoundError: typeof NotFoundError;
+        EncodingError: typeof EncodingError;
+    };
 }
 
 export interface LevelUpChain<K = any, V = any> {
@@ -143,7 +167,8 @@ export interface LevelUpChain<K = any, V = any> {
     write(): Promise<this>;
 }
 
-export const errors: /*typeof levelerrors*/ any; // ? level-errors is not in DT
+export const errors: LevelUpConstructor["errors"];
 
-declare const LevelUp: LevelUpConstructor;
-export default LevelUp;
+export const LevelUp: LevelUpConstructor;
+
+export {};

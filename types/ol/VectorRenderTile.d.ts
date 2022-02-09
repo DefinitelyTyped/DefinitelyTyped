@@ -8,7 +8,7 @@ import VectorTile from './VectorTile';
 
 export interface ReplayState {
     dirty: boolean;
-    renderedRenderOrder: OrderFunction;
+    renderedRenderOrder: null | OrderFunction;
     renderedTileRevision: number;
     renderedResolution: number;
     renderedRevision: number;

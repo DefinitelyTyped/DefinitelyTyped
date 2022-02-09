@@ -5,9 +5,9 @@ export interface AtlasManagerInfo {
     hitImage: HTMLCanvasElement;
 }
 export interface Options {
-    initialSize?: number;
-    maxSize?: number;
-    space?: number;
+    initialSize?: number | undefined;
+    maxSize?: number | undefined;
+    space?: number | undefined;
 }
 export default class AtlasManager {
     constructor(opt_options?: Options);

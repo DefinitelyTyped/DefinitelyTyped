@@ -2,7 +2,6 @@
 // Project: https://github.com/kpdecker/jsdiff
 // Definitions by: vvakame <https://github.com/vvakame>
 //                 szdc <https://github.com/szdc>
-//                 moc-yuto <https://github.com/moc-yuto>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -15,26 +14,26 @@ declare namespace JsDiff {
     }
 
     interface ILinesOptions extends IOptions {
-        ignoreWhitespace?: boolean;
-        newlineIsToken?: boolean;
+        ignoreWhitespace?: boolean | undefined;
+        newlineIsToken?: boolean | undefined;
     }
 
     interface IArrayOptions {
-        comparator?: (left: any, right: any) => boolean;
+        comparator?: ((left: any, right: any) => boolean) | undefined;
     }
 
     interface IDiffResult {
         value: string;
-        count?: number;
-        added?: boolean;
-        removed?: boolean;
+        count?: number | undefined;
+        added?: boolean | undefined;
+        removed?: boolean | undefined;
     }
 
     interface IDiffArraysResult<T> {
         value: T[];
-        count?: number;
-        added?: boolean;
-        removed?: boolean;
+        count?: number | undefined;
+        added?: boolean | undefined;
+        removed?: boolean | undefined;
     }
 
     interface IBestPath {

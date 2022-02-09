@@ -27,8 +27,7 @@ export interface SSRShader {
         opacity: IUniform<number>;
         maxDistance: IUniform<number>;
         cameraRange: IUniform<number>;
-        surfDist: IUniform<number>;
-        thickTolerance: IUniform<number>;
+        thickness: IUniform<number>;
     };
     vertexShader: string;
     fragmentShader: string;

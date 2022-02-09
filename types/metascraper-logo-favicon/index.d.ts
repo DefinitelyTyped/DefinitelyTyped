@@ -14,18 +14,18 @@ declare namespace getData {
     type PickFunction = (sizes: FaviconSize[], pickDefault: PickDefaultFunction) => FaviconSize;
 
     interface FaviconSize {
-        rel?: string;
+        rel?: string | undefined;
         href: string;
-        sizes?: string;
+        sizes?: string | undefined;
         url: string;
         size: number;
     }
 
     interface Options {
         /** Any option provided here will passed to `got#options`. */
-        gotOpts?: http.ClientRequestArgs;
+        gotOpts?: http.ClientRequestArgs | undefined;
         /** Truncate the value extracted to a maximum size (default: `300`). */
-        pickFn?: PickFunction;
+        pickFn?: PickFunction | undefined;
     }
 }
 

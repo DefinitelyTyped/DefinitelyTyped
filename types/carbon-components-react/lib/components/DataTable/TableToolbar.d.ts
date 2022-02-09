@@ -2,7 +2,7 @@ import { ReactAttr } from "../../../typings/shared";
 import * as React from "react";
 
 export interface TableToolbarProps extends ReactAttr {
-    size?: "normal" | "small",
+    size?: "lg" | "normal" | "sm" | "small" | undefined,
 }
 
 declare const TableToolbar: React.FC<TableToolbarProps>;

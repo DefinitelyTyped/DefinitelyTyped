@@ -1,21 +1,61 @@
 import { Transform, Options, Parser } from './core';
 
 export interface TestOptions {
-  parser?: Parser | string;
+    parser?: Parser | 'babylon' | 'flow' | 'ts' | 'tsx' | 'babel' | undefined;
 }
 
+export function applyTransform(
+    module: { default: Transform; parser: TestOptions['parser'] } | Transform,
+    options: Options | null | undefined,
+    input: {
+        path?: string;
+        source: string;
+    },
+    testOptions?: TestOptions,
+): string;
+
 export function defineTest(
-  dirName: string,
-  transformName: string,
-  options: Options,
-  testFilePrefix?: string,
-  testOptions?: TestOptions
-): () => any;
+    dirName: string,
+    transformName: string,
+    options?: Options | null,
+    testFilePrefix?: string,
+    testOptions?: TestOptions,
+): void;
+
+export function runTest(
+    dirName: string,
+    transformName: string,
+    options: Options,
+    testFilePrefix?: string,
+    testOptions?: TestOptions,
+): string;
 
 export function defineInlineTest(
-  module: Transform,
-  options: Options,
-  inputSource: string,
-  expectedOutputSource: string,
-  testName?: string
-): () => any;
+    module: Transform,
+    options: Options,
+    inputSource: string,
+    expectedOutputSource: string,
+    testName?: string,
+): void;
+
+export function runInlineTest(
+    module: Transform,
+    options: Options,
+    input: {
+        path?: string;
+        source: string;
+    },
+    expectedOutput: string,
+    testOptions?: TestOptions,
+): string;
+
+export function defineSnapshotTest(module: Transform, options: Options, input: string, testName?: string): void;
+
+export function runSnapshotTest(
+    module: Transform,
+    options: Options,
+    input: {
+        path?: string;
+        source: string;
+    },
+): string;

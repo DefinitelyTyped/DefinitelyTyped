@@ -19,27 +19,27 @@ interface Auth0WidgetStatic {
 
 type ClientOptions = import("auth0-js").AuthOptions;
 interface Auth0Constructor extends ClientOptions {
-     assetsUrl?: string;
-     cdn?: string;
+     assetsUrl?: string | undefined;
+     cdn?: string | undefined;
      dict?: any;
  }
 
 interface Auth0Options {
-     access_token?: string;
-     connections?: string[];
-     container?: string;
-     enableReturnUserExperience?: boolean;
+     access_token?: string | undefined;
+     connections?: string[] | undefined;
+     container?: string | undefined;
+     enableReturnUserExperience?: boolean | undefined;
      extraParameters?: any;
-     icon?: string;
-     protocol?: string;
-     request_id?: string;
-     scope?: string;
-     showIcon?: boolean;
-     showForgot?: boolean;
-     showSignup?: boolean;
+     icon?: string | undefined;
+     protocol?: string | undefined;
+     request_id?: string | undefined;
+     scope?: string | undefined;
+     showIcon?: boolean | undefined;
+     showForgot?: boolean | undefined;
+     showSignup?: boolean | undefined;
      state?: any;
-     userPwdConnectionName?: string;
-     username_style?: string;
+     userPwdConnectionName?: string | undefined;
+     username_style?: string | undefined;
 }
 
 declare var Auth0Widget: Auth0WidgetStatic;

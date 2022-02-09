@@ -11,9 +11,9 @@ import { AllocateIdsResult, CommitCallback, CommitResponse, CommitResult } from 
 import { DatastoreTransaction, TransactionResult } from '@google-cloud/datastore/transaction';
 
 interface TestEntity {
-    name?: string;
-    location?: string;
-    symbol?: string;
+    name?: string | undefined;
+    location?: string | undefined;
+    symbol?: string | undefined;
     [Datastore.KEY]?: any;
 }
 

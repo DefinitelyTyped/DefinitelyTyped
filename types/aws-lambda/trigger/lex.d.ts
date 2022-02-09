@@ -68,12 +68,12 @@ export interface LexDialogActionBase {
     message?: {
         contentType: 'PlainText' | 'SSML' | 'CustomPayload';
         content: string;
-    };
+    } | undefined;
     responseCard?: {
         version: number;
         contentType: 'application/vnd.amazonaws.card.generic';
         genericAttachments: LexGenericAttachment[];
-    };
+    } | undefined;
 }
 
 export interface LexDialogActionClose extends LexDialogActionBase {
@@ -111,6 +111,6 @@ export type LexDialogAction =
     | LexDialogActionDelegate;
 
 export interface LexResult {
-    sessionAttributes?: { [key: string]: string };
+    sessionAttributes?: { [key: string]: string } | undefined;
     dialogAction: LexDialogAction;
 }

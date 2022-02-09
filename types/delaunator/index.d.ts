@@ -1,4 +1,4 @@
-// Type definitions for delaunator 3.0
+// Type definitions for delaunator 5.0
 // Project: https://github.com/mapbox/delaunator#readme
 // Definitions by: Denis Carriere <https://github.com/DenisCarriere>
 //                 Bradley Odell <https://github.com/BTOdell>
@@ -48,6 +48,12 @@ declare class Delaunator<P> {
      * getX and getY are optional functions for custom point formats. Duplicate points are skipped.
      */
     static from<P>(points: ArrayLike<P>, getX: (point: P) => number, getY: (point: P) => number): Delaunator<P>;
+
+    /**
+     * Updates the triangulation if you modified delaunay.coords values in place, avoiding expensive memory
+     * allocations. Useful for iterative relaxation algorithms such as Lloyd's.
+     */
+    update(): void;
 }
 
 export = Delaunator;

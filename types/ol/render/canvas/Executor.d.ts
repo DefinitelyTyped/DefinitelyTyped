@@ -1,18 +1,32 @@
+import RBush from 'rbush';
 import { Coordinate } from '../../coordinate';
 import { Extent } from '../../extent';
 import { FeatureLike } from '../../Feature';
+import SimpleGeometry from '../../geom/SimpleGeometry';
 import { Size } from '../../size';
 import { Transform } from '../../transform';
-import { DeclutterGroup, FillState, Label, StrokeState, TextState } from '../canvas';
+import { Label, SerializableInstructions } from '../canvas';
 
-export interface SerializableInstructions {
-    instructions: any[];
-    hitDetectionInstructions: any[];
-    coordinates: number[];
-    textStates: { [key: string]: TextState };
-    fillStates: { [key: string]: FillState };
-    strokeStates: { [key: string]: StrokeState };
+export interface BBox {
+    minX: number;
+    minY: number;
+    maxX: number;
+    maxY: number;
+    value: any;
 }
+export type FeatureCallback<T> = (p0: FeatureLike, p1: SimpleGeometry) => T;
+export interface ImageOrLabelDimensions {
+    drawImageX: number;
+    drawImageY: number;
+    drawImageW: number;
+    drawImageH: number;
+    originX: number;
+    originY: number;
+    scale: number[];
+    declutterBox: BBox;
+    canvasTransform: Transform;
+}
+export type ReplayImageOrLabelArgs = any;
 export default class Executor {
     constructor(
         resolution: number,
@@ -34,15 +48,15 @@ export default class Executor {
         transform: Transform,
         viewRotation: number,
         snapToPixel: boolean,
+        opt_declutterTree?: RBush<any>,
     ): void;
     executeHitDetection<T>(
         context: CanvasRenderingContext2D,
         transform: Transform,
         viewRotation: number,
-        opt_featureCallback?: () => void,
+        opt_featureCallback?: FeatureCallback<T>,
         opt_hitExtent?: Extent,
     ): T | undefined;
-    renderDeclutter(declutterGroup: DeclutterGroup, feature: FeatureLike, opacity: number, declutterTree: any): any;
     replayTextBackground_(
         context: CanvasRenderingContext2D,
         p1: Coordinate,
@@ -51,6 +65,5 @@ export default class Executor {
         p4: Coordinate,
         fillInstruction: any[],
         strokeInstruction: any[],
-        declutter: boolean,
     ): void;
 }

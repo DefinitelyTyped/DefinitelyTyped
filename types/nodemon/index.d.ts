@@ -55,103 +55,103 @@ declare namespace nodemon {
     function reset(done?: () => void): void;
 
     interface Settings {
-        env?: { [key: string]: string | boolean | number };
-        script?: string;
+        env?: { [key: string]: string | boolean | number } | undefined;
+        script?: string | undefined;
         /**
          * Extensions to look for, ie. js,jade,hbs.
          */
-        ext?: string;
+        ext?: string | undefined;
         /**
          * Execute script with "app", ie. -x "python -v". May use variables.
          */
-        exec?: string;
+        exec?: string | undefined;
         /**
          * Watch directory or file.  One entry per watched value.  Wildcards are allowed.
          */
-        watch?: ReadonlyArray<string | { re: string }>;
+        watch?: ReadonlyArray<string | { re: string }> | undefined;
         /**
          * Ignore specific files or directories.  One entry per ignored value.  Wildcards are allowed.
          */
-        ignore?: ReadonlyArray<string | { re: string }>;
+        ignore?: ReadonlyArray<string | { re: string }> | undefined;
         /**
          * Minimise nodemon messages to start/stop only.
          */
-        quiet?: boolean;
+        quiet?: boolean | undefined;
         /**
          * Show detail on what is causing restarts.
          */
-        verbose?: boolean;
+        verbose?: boolean | undefined;
         /**
          * Try to read from stdin. Set to false to have nodemon pass stdin directly to child process
          */
-        stdin?: boolean;
-        stdout?: boolean;
+        stdin?: boolean | undefined;
+        stdout?: boolean | undefined;
         /**
          * Execute script on change only, not startup
          */
-        runOnChangeOnly?: boolean;
+        runOnChangeOnly?: boolean | undefined;
         /**
          * Debounce restart in seconds.
          */
-        delay?: number;
+        delay?: number | undefined;
         /**
          * Forces node to use the most compatible version for watching file changes.
          *
          * Use polling to watch for changes (typically needed when watching over a network/Docker)
          */
-        legacyWatch?: boolean;
+        legacyWatch?: boolean | undefined;
         /**
          * Exit on crash, allows use of nodemon with daemon tools like forever.js.
          */
-        exitcrash?: boolean;
+        exitcrash?: boolean | undefined;
         /**
          * The global config file is useful for setting up default executables
          */
         execMap?: {
             [k: string]: any;
-        };
-        events?: { [key: string]: string };
-        restartable?: string;
-        args?: ReadonlyArray<string>;
+        } | undefined;
+        events?: { [key: string]: string } | undefined;
+        restartable?: string | undefined;
+        args?: ReadonlyArray<string> | undefined;
         /**
          * Arguments to pass to node if exec is "node"
          */
-        nodeArgs?: ReadonlyArray<string>;
-        scriptPosition?: number;
+        nodeArgs?: ReadonlyArray<string> | undefined;
+        scriptPosition?: number | undefined;
         /**
          * Set to false to disable color output
          */
-        colours?: boolean;
+        colours?: boolean | undefined;
         /**
          * Change into <dir> before running the script
          */
-        cwd?: string;
+        cwd?: string | undefined;
         /**
          * Print full debug configuration
          */
-        dump?: boolean;
+        dump?: boolean | undefined;
         /**
          * Root paths to ignore
          */
-        ignoreRoot?: string[];
+        ignoreRoot?: string[] | undefined;
         /**
          * Opt-out of update version check
          */
-        noUpdateNotifier?: boolean;
+        noUpdateNotifier?: boolean | undefined;
         /**
          * Combined with legacyWatch, milliseconds to poll for (default 100)
          */
-        pollingInterval?: number;
+        pollingInterval?: number | undefined;
         /**
          * Use specified kill signal instead of default (ex. SIGTERM)
          */
         signal?: {
             [k: string]: any;
-        };
+        } | undefined;
         /**
          * Force nodemon to use spawn (over fork) [node only]
          */
-        spawn?: boolean;
+        spawn?: boolean | undefined;
         [k: string]: any;
     }
 

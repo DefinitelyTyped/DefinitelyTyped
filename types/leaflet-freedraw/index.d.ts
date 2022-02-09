@@ -114,61 +114,61 @@ export interface FreeDrawOptions {
      * Modifies the default mode.
      * @default ALL
      */
-    mode?: number;
+    mode?: number | undefined;
 
     /**
      * By how much to smooth the polygons.
      * @default 0.3
      */
-    smoothFactor?: number;
+    smoothFactor?: number | undefined;
 
     /**
      * Factor to determine when to delete or when to append an edge.
      * @default 10
      */
-    elbowDistance?: number;
+    elbowDistance?: number | undefined;
 
     /**
      * By how much to simplify the polygon.
      * @default 1.1
      */
-    simplifyFactor?: number;
+    simplifyFactor?: number | undefined;
 
     /**
      * Whether to attempt merging of polygons that intersect.
      * @default true
      */
-    mergePolygons?: boolean;
+    mergePolygons?: boolean | undefined;
 
     /**
      * Whether to apply the concaving algorithm to the polygons.
      * @default true
      */
-    concavePolygon?: boolean;
+    concavePolygon?: boolean | undefined;
 
     /**
      * Maximum number of polygons to be added to the map layer.
      * @default Infinity
      */
-    maximumPolygons?: number;
+    maximumPolygons?: number | undefined;
 
     /**
      * Whether to defer markers event until after exiting EDIT mode.
      * @default false
      */
-    notifyAfterEditExit?: boolean;
+    notifyAfterEditExit?: boolean | undefined;
 
     /**
      * Whether to exit CREATE mode after each polygon creation.
      * @default false
      */
-    leaveModeAfterCreate?: boolean;
+    leaveModeAfterCreate?: boolean | undefined;
 
     /**
      * Size of the stroke when drawing.
      * @default 2
      */
-    strokeWidth?: number;
+    strokeWidth?: number | undefined;
 }
 
 /**

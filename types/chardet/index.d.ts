@@ -9,12 +9,12 @@
 export interface Confidence {
     name: string;
     confidence: number;
-    lang?: string;
+    lang?: string | undefined;
 }
 
 export interface Options {
-    returnAllMatches?: boolean;
-    sampleSize?: number;
+    returnAllMatches?: boolean | undefined;
+    sampleSize?: number | undefined;
 }
 
 // As of v0.6, these fns return the highest-confidence result

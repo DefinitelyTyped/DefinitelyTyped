@@ -6,20 +6,20 @@
 declare namespace Shippo {
     // https://goshippo.com/docs/reference#addresses
     interface Address {
-        city?: string;
-        company?: string;
-        country?: string;
-        name?: string;
-        phone?: string;
-        state?: string;
+        city?: string | undefined;
+        company?: string | undefined;
+        country?: string | undefined;
+        name?: string | undefined;
+        phone?: string | undefined;
+        state?: string | undefined;
         street1: string;
-        street2?: string;
-        street3?: string;
-        zip?: string;
+        street2?: string | undefined;
+        street3?: string | undefined;
+        zip?: string | undefined;
         validation_results?: {
-            is_valid?: boolean;
-            messages?: Array<{ text: string }>;
-        };
+            is_valid?: boolean | undefined;
+            messages?: Array<{ text: string }> | undefined;
+        } | undefined;
     }
 
     // https://goshippo.com/docs/reference#parcels
@@ -67,7 +67,7 @@ declare namespace Shippo {
     interface CreateCustomsDeclarationRequest {
         certify: boolean;
         certify_signer: string;
-        contents_explanation?: string;
+        contents_explanation?: string | undefined;
         contents_type:
             | 'DOCUMENTS'
             | 'GIFT'
@@ -76,8 +76,8 @@ declare namespace Shippo {
             | 'HUMANITARIAN_DONATION'
             | 'RETURN_MERCHANDISE'
             | 'OTHER';
-        eel_pfc?: 'NOEEI_30_37_a' | 'NOEEI_30_37_h' | 'NOEEI_30_36' | 'AES_ITN';
-        incoterm?: 'DDP' | 'DDU';
+        eel_pfc?: 'NOEEI_30_37_a' | 'NOEEI_30_37_h' | 'NOEEI_30_36' | 'AES_ITN' | undefined;
+        incoterm?: 'DDP' | 'DDU' | undefined;
         items: CreateCustomsItemRequest[];
         non_delivery_option: 'ABANDON' | 'RETURN';
     }
@@ -85,22 +85,22 @@ declare namespace Shippo {
     interface CreateShipmentRequest {
         address_from: Address;
         address_to: Address;
-        async?: boolean;
-        customs_declaration?: CreateCustomsDeclarationRequest;
+        async?: boolean | undefined;
+        customs_declaration?: CreateCustomsDeclarationRequest | undefined;
         parcels: string | Parcel | Parcel[];
     }
 
     interface CreateAddressRequest {
         name: string;
         street1: string;
-        street2?: string;
-        street3?: string;
+        street2?: string | undefined;
+        street3?: string | undefined;
         city: string;
         zip: string;
         state: string;
         country: string;
-        async?: boolean;
-        validate?: boolean;
+        async?: boolean | undefined;
+        validate?: boolean | undefined;
     }
 
     interface Shippo {

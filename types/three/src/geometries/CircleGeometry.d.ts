@@ -20,6 +20,8 @@ export class CircleGeometry extends BufferGeometry {
         thetaStart: number;
         thetaLength: number;
     };
+
+    static fromJSON(data: any): CircleGeometry;
 }
 
 export { CircleGeometry as CircleBufferGeometry };

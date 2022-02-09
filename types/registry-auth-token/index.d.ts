@@ -17,7 +17,7 @@ declare namespace auth {
          * Wether or not url's path parts are recursively trimmed from the registry
          * url when searching for tokens
          */
-        recursive?: boolean;
+        recursive?: boolean | undefined;
         /**
          * An npmrc configuration object used when searching for tokens. If no object is provided,
          * the `.npmrc` file at the base of the project is used.
@@ -26,12 +26,12 @@ declare namespace auth {
             /**
              * A registry url used for matching
              */
-            registry?: string;
+            registry?: string | undefined;
             /**
              * Registry url's with token information
              */
             [registryUrls: string]: string | undefined;
-        };
+        } | undefined;
     }
     /**
      * The generated authentication information
@@ -48,11 +48,11 @@ declare namespace auth {
         /**
          * The username used in `Basic`
          */
-        username?: string;
+        username?: string | undefined;
         /**
          * The password used in `Basic`
          */
-        password?: string;
+        password?: string | undefined;
     }
 }
 

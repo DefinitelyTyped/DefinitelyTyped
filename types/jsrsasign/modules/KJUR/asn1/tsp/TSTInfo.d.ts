@@ -29,14 +29,14 @@ declare namespace jsrsasign.KJUR.asn1.tsp {
      */
     class TSTInfo extends ASN1Object {
         constructor(params: {
-            accuracy?: { seconds: number; millis: number; micros: number };
-            genTime?: StringParam | HexParam | DateParam | string;
+            accuracy?: { seconds: number; millis: number; micros: number } | undefined;
+            genTime?: StringParam | HexParam | DateParam | string | undefined;
             messageImprint: { hashAlg: string; hashMsgHex: string };
-            nonce?: IntegerParam | BigIntegerParam | HexParam | number;
-            ordering?: boolean;
+            nonce?: IntegerParam | BigIntegerParam | HexParam | number | undefined;
+            ordering?: boolean | undefined;
             policy: string;
-            serialNumber?: IntegerParam | BigIntegerParam | HexParam | number;
-            tsa?: StringParam;
+            serialNumber?: IntegerParam | BigIntegerParam | HexParam | number | undefined;
+            tsa?: StringParam | undefined;
         });
 
         getEncodedHex(): string;

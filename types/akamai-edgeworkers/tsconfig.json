@@ -27,6 +27,7 @@
         "test/set_variable.ts", 
         "test/scenario-stream.ts",
         "test/stream.ts",
+        "test/transformstream.ts",
         "test/url-search-params-tests.ts"
     ]
 }

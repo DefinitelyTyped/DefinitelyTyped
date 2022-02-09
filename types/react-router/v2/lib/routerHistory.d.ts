@@ -13,8 +13,8 @@ export interface HistoryRoutes {
 
 export interface HistoryBase extends H.History {
     routes: Router.PlainRoute[];
-    parseQueryString?: Router.ParseQueryString;
-    stringifyQuery?: Router.StringifyQuery;
+    parseQueryString?: Router.ParseQueryString | undefined;
+    stringifyQuery?: Router.StringifyQuery | undefined;
 }
 
 export type History = HistoryBase & H.HistoryQueries & HistoryRoutes;

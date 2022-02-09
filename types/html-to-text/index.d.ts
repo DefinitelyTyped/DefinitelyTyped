@@ -1,4 +1,4 @@
-// Type definitions for html-to-text 6.0
+// Type definitions for html-to-text 8.0
 // Project: https://github.com/html-to-text/node-html-to-text
 // Definitions by: Eryk Warren <https://github.com/erykwarren>
 //                 Carson Full <https://github.com/CarsonF>
@@ -6,6 +6,14 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { BlockTextBuilder } from './lib/block-text-builder';
+
+export type compiledFunction = (str: string) => string;
+
+/**
+ * Preprocess options, compile selectors into a decision tree,
+ * return a function intended for batch processing.
+ */
+ export function compile(options?: HtmlToTextOptions): compiledFunction;
 
 /**
  * Convert given HTML content to plain text string.
@@ -18,6 +26,7 @@ import { BlockTextBuilder } from './lib/block-text-builder';
  * console.log(text); // HELLO WORLD
  */
 export function htmlToText(html: string, options?: HtmlToTextOptions): string;
+export { htmlToText as convert };
 
 /**
  * @deprecated Import/require `{ htmlToText }` function instead!
@@ -27,134 +36,130 @@ export function fromString(html: string, options?: HtmlToTextOptions): string;
 
 export interface HtmlToTextOptions {
     /**
-     * The resulting text output will be composed from the text content of this element
-     * (or elements if an array of strings is specified).
-     *
-     * Each entry is a single tag name with optional css class and id parameters,
-     * e.g. `['p.class1.class2#id1#id2', 'p.class1.class2#id1#id2']`.
+     * Options for narrowing down to informative parts of HTML document.
      */
-    baseElement?: string | string[];
+    baseElements?: BaseElementsOptions | undefined;
     /**
      * Text decoding options given to `he.decode`.
      *
      * For more informations see the [he](https://github.com/mathiasbynens/he) module.
      */
-    decodeOptions?: DecodeOptions;
+    decodeOptions?: DecodeOptions | undefined;
     /**
      * A dictionary with custom formatting functions for specific kinds of elements.
      *
      * Keys are custom string identifiers, values are callbacks.
      */
-    formatters?: Record<string, FormatCallback>;
+    formatters?: Record<string, FormatCallback> | undefined;
     /**
      * Options for handling complex documents and limiting the output size.
      */
-    limits?: LimitsOptions;
+    limits?: LimitsOptions | undefined;
     /**
      * Describes how to wrap long words.
      */
-    longWordSplit?: LongWordSplitOptions;
+    longWordSplit?: LongWordSplitOptions | undefined;
     /**
      * By default, any newlines `\n` from the input HTML are dropped.
      *
      * If `true`, these newlines will be preserved in the output.
      */
-    preserveNewlines?: boolean;
+    preserveNewlines?: boolean | undefined;
     /**
-     * Use the entire document if we don't find the tag defined in `Options.baseElement`.
+     * Instructions for how to render HTML elements based on matched selectors.
+     *
+     * Use this to (re)define options for new or already supported tags.
      */
-    returnDomByDefault?: boolean;
-    /**
-     * Allows to select and format certain tables by the `class` or `id` attribute from the HTML document.
-     *
-     * This is necessary because the majority of HTML E-Mails uses a table based layout.
-     *
-     * Prefix your table selectors with a `.` for the `class` and with a `#` for the `id` attribute.
-     * All other tables are ignored (processed as layout containers, not tabular data).
-     *
-     * You can assign `true` to this property to format all tables.
-     */
-    tables?: string[] | boolean;
-    /**
-     * A dictionary with custom tag definitions.
-     *
-     * Use this to (re)define how to handle new or already supported tags.
-     *
-     * Empty string (`''`) as a key used for the default definition for "any other" tags.
-     */
-    tags?: TagDefinitions;
+    selectors?: SelectorDefinition[] | undefined;
     /**
      * All characters that are considered whitespace.
      * Default is according to HTML specifications.
      */
-    whitespaceCharacters?: string;
+    whitespaceCharacters?: string | undefined;
     /**
      * After how many chars a line break should follow in `p` elements.
      *
      * Set to `null` or `false` to disable word-wrapping.
      */
-    wordwrap?: number | boolean | null;
+    wordwrap?: number | boolean | null | undefined;
 
     /**
      * The following are deprecated options.  See the documentation.
      */
 
     /**
-     *  @deprecated See the documentation.
-     *  By default links are translated the following
-     *      <a href='link'>text</a> => becomes => text [link].
-     *  If this option is set to true and link and text are the same,
-     *  [link] will be hidden and only text visible.
+     * @deprecated. Use baseElements.selectors instead.
      */
-    hideLinkHrefIfSameAsText?: boolean;
+    baseElement?: string | string[] | undefined;
 
     /**
      *  @deprecated See the documentation.
-     *  Allows you to specify the server host for href attributes, where the links start at the root (/).
-     *  For example, linkHrefBaseUrl = 'http://asdf.com' and <a href='/dir/subdir'>...</a>
-     *  the link in the text will be http://asdf.com/dir/subdir.
-     *  Keep in mind that linkHrefBaseUrl shouldn't end with a /.
      */
-    linkHrefBaseUrl?: string;
-
+    hideLinkHrefIfSameAsText?: boolean | undefined;
     /**
      *  @deprecated See the documentation.
-     *  Ignore all document links if true.
      */
-    ignoreHref?: boolean;
-
+    linkHrefBaseUrl?: string | undefined;
     /**
      *  @deprecated See the documentation.
-     *  Ignore all document images if true.
      */
-    ignoreImage?: boolean;
-
+    ignoreHref?: boolean | undefined;
     /**
      *  @deprecated See the documentation.
-     *  Dont print brackets around the link if true
      */
-    noLinkBrackets?: boolean;
-
+    ignoreImage?: boolean | undefined;
     /**
      *  @deprecated See the documentation.
-     *  By default, headings (<h1>, <h2>, etc) are upper-cased.
-     *  Set to false to leave headings as they are.
      */
-    uppercaseHeadings?: boolean;
-
+    noLinkBrackets?: boolean | undefined;
     /**
      *  @deprecated See the documentation.
-     *  By default, paragraphs are converted with two newlines (\n\n).
-     *  Set to true to convert to a single newline.
      */
-    singleNewLineParagraphs?: boolean;
-
+    uppercaseHeadings?: boolean | undefined;
     /**
      *  @deprecated See the documentation.
-     * defines the string that is used as item prefix for unordered lists `<ol>`.
-     * Default: ' * '
      */
-    unorderedListItemPrefix?: string;
+    singleNewLineParagraphs?: boolean | undefined;
+    /**
+     *  @deprecated See the documentation.
+     */
+    unorderedListItemPrefix?: string | undefined;
+    /**
+     * @deprecated. Use baseElements instead.
+     */
+    returnDomByDefault?: boolean | undefined;
+    /**
+     * @deprecated. Use selectors with `format: 'dataTable'` instead.
+     */
+    tables?: string[] | boolean | undefined;
+    /**
+     * @deprecated. Use selectors instead.
+     */
+    tags?: TagDefinitions | undefined;
+ }
+
+ /**
+  * Options for narrowing down to informative parts of HTML document.
+  */
+ export interface BaseElementsOptions {
+    /**
+     * The resulting text output will be composed from the text content of elements
+     * matched with these selectors.
+     */
+    selectors?: string[] | undefined;
+    /**
+     * When multiple selectors are set, this option specifies
+     * whether the selectors order has to be reflected in the output text.
+     *
+     * `'selectors'` (default) - matches for the first selector will appear first, etc;
+     *
+     * `'occurrence'` - all bases will appear in the same order as in input HTML.
+     */
+    orderBy?: 'selectors' | 'occurrence' | undefined;
+    /**
+     * Use the entire document if none of provided selectors matched.
+     */
+    returnDomByDefault?: boolean | undefined;
 }
 
 /**
@@ -166,11 +171,11 @@ export interface DecodeOptions {
     /**
      * TLDR: If set to `true` - leave attribute values raw, don't parse them as text content.
      */
-    isAttributeValue?: boolean;
+    isAttributeValue?: boolean | undefined;
     /**
      * TLDR: If set to `true` - throw an error on invalid HTML input.
      */
-    strict?: boolean;
+    strict?: boolean | undefined;
 }
 
 /**
@@ -181,7 +186,7 @@ export interface LimitsOptions {
      * ...]
      * A string to put in place of skipped content.
      */
-    ellipsis?: string;
+    ellipsis?: string | undefined;
     /**
      * Process only this many child nodes of any element.
      *
@@ -191,7 +196,7 @@ export interface LimitsOptions {
      *
      * No limit if undefined.
      */
-    maxChildNodes?: number;
+    maxChildNodes?: number | undefined;
     /**
      * Only go to a certain depth starting from `Options.baseElement`.
      *
@@ -199,14 +204,14 @@ export interface LimitsOptions {
      *
      * No depth limit if undefined.
      */
-    maxDepth?: number;
+    maxDepth?: number | undefined;
     /**
      * If the input string is longer than this value - it will be truncated
      * and a message will be sent to `stderr`.
      *
      * Ellipsis is not used in this case.
      */
-    maxInputLength?: number;
+    maxInputLength?: number | undefined;
 }
 
 /**
@@ -216,11 +221,29 @@ export interface LongWordSplitOptions {
     /**
      * Break long words on the `Options.wordwrap` limit when there are no characters to wrap on.
      */
-    forceWrapOnLimit?: boolean;
+    forceWrapOnLimit?: boolean | undefined;
     /**
      * An array containing the characters that may be wrapped on.
      */
-    wrapCharacters?: string[];
+    wrapCharacters?: string[] | undefined;
+}
+
+/**
+ * Describes how to handle tags matched by a selector.
+ */
+ export interface SelectorDefinition {
+    /**
+     * CSS selector. Refer to README for notes on supported selectors etc.
+     */
+    selector: string;
+    /**
+     * Identifier of a {@link FormatCallback}, built-in or provided in `Options.formatters` dictionary.
+     */
+    format?: string | undefined;
+    /**
+     * Options to customize the formatter for this tag.
+     */
+    options?: FormatOptions | undefined;
 }
 
 /**
@@ -230,11 +253,11 @@ export interface TagDefinition {
     /**
      * Identifier of a {@link FormatCallback}, built-in or provided in `Options.formatters` dictionary.
      */
-    format?: string;
+    format?: string | undefined;
     /**
      * Options to customize the formatter for this tag.
      */
-    options?: FormatOptions;
+    options?: FormatOptions | undefined;
 }
 
 /**
@@ -247,13 +270,13 @@ export interface FormatOptions {
      *
      * Note that N+1 line breaks are needed to make N empty lines.
      */
-    leadingLineBreaks?: number;
+    leadingLineBreaks?: number | undefined;
     /**
      * Number of line breaks to separate this block from the next one.
      *
      * Note that N+1 line breaks are needed to make N empty lines.
      */
-    trailingLineBreaks?: number;
+    trailingLineBreaks?: number | undefined;
     /**
      * (Only for: `anchor` and `image` formatters.) Server host for link `href` attributes and image `src` attributes
      * relative to the root (the ones that start with `/`).
@@ -263,7 +286,7 @@ export interface FormatOptions {
      *
      * Keep in mind that `baseUrl` should not end with a `/`.
      */
-    baseUrl?: string;
+    baseUrl?: string | undefined;
     /**
      * (Only for: `anchor` formatter.) By default links are translated in the following way:
      *
@@ -272,29 +295,29 @@ export interface FormatOptions {
      * If this option is set to `true` and `link` and `text` are the same,
      * `[link]` will be omitted and only `text` will be present.
      */
-    hideLinkHrefIfSameAsText?: boolean;
+    hideLinkHrefIfSameAsText?: boolean | undefined;
     /**
      * (Only for: `anchor` formatter.) Ignore all links. Only process internal text of anchor tags.
      */
-    ignoreHref?: boolean;
+    ignoreHref?: boolean | undefined;
     /**
      * (Only for: `anchor` formatter.) Ignore anchor links (where `href='#...'`).
      */
-    noAnchorUrl?: boolean;
+    noAnchorUrl?: boolean | undefined;
     /**
      * (Only for: `anchor` formatter.) Don't print brackets around links.
      */
-    noLinkBrackets?: boolean;
+    noLinkBrackets?: boolean | undefined;
     /**
      * (Only for: `unorderedList` formatter.) String prefix for each list item.
      */
-    itemPrefix?: string;
+    itemPrefix?: string | undefined;
     /**
      * (Only for: `heading` formatter.) By default, headings (`<h1>`, `<h2>`, etc) are uppercased.
      *
      * Set this to `false` to leave headings as they are.
      */
-    uppercase?: boolean;
+    uppercase?: boolean | undefined;
     /**
      * (Only for: `horizontalLine` formatter.) Length of the `<hr/>` line.
      *
@@ -302,32 +325,32 @@ export interface FormatOptions {
      * Otherwise, if global `wordwrap` number is provided - it is used.
      * If neither is true, then the fallback value of 40 is used.
      */
-    length?: number;
+    length?: number | undefined;
     /**
      * (Only for: `blockquote` formatter.) Trim empty lines from blockquote.
      */
-    trimEmptyLines?: boolean;
+    trimEmptyLines?: boolean | undefined;
     /**
      * (Only for: `table`, `dataTable` formatter.) By default, heading cells (`<th>`) are uppercased.
      *
      * Set this to `false` to leave heading cells as they are.
      */
-    uppercaseHeaderCells?: boolean;
+    uppercaseHeaderCells?: boolean | undefined;
     /**
      * (Only for: `table`, `dataTable` formatter.) Data table cell content will be wrapped to fit this width
      * instead of global `wordwrap` limit.
      *
      * Set to `undefined` in order to fall back to `wordwrap` limit.
      */
-    maxColumnWidth?: number;
+    maxColumnWidth?: number | undefined;
     /**
      * (Only for: `table`, `dataTable` formatter.) Number of spaces between data table columns.
      */
-    colSpacing?: number;
+    colSpacing?: number | undefined;
     /**
      * (Only for: `table`, `dataTable` formatter.) Number of empty lines between data table rows.
      */
-    rowSpacing?: number;
+    rowSpacing?: number | undefined;
 }
 
 /**
@@ -343,11 +366,11 @@ export interface DomNode {
     /**
      * Content of a data node.
      */
-    data?: string;
+    data?: string | undefined;
     /**
      * Tag name.
      */
-    name?: string;
+    name?: string | undefined;
     /**
      * Tag attributes dictionary.
      */
@@ -360,7 +383,7 @@ export interface DomNode {
     /**
      * Parent node.
      */
-    parent?: DomNode;
+    parent?: DomNode | undefined;
 }
 
 /**
@@ -379,30 +402,30 @@ export type RecursiveCallback = (nodes: DomNode[], builder: BlockTextBuilder) =>
  * Type of object passed to tags in the options.
  */
 export interface TagDefinitions {
-    ''?: TagDefinition;
-    a?: TagDefinition;
-    article?: TagDefinition;
-    aside?: TagDefinition;
-    blockquote?: TagDefinition;
-    br?: TagDefinition;
-    div?: TagDefinition;
-    footer?: TagDefinition;
-    form?: TagDefinition;
-    h1?: TagDefinition;
-    h2?: TagDefinition;
-    h3?: TagDefinition;
-    h4?: TagDefinition;
-    h5?: TagDefinition;
-    h6?: TagDefinition;
-    header?: TagDefinition;
-    hr?: TagDefinition;
-    img?: TagDefinition;
-    main?: TagDefinition;
-    nav?: TagDefinition;
-    ol?: TagDefinition;
-    p?: TagDefinition;
-    pre?: TagDefinition;
-    table?: TagDefinition;
-    ul?: TagDefinition;
-    wbr?: TagDefinition;
+    ''?: TagDefinition | undefined;
+    a?: TagDefinition | undefined;
+    article?: TagDefinition | undefined;
+    aside?: TagDefinition | undefined;
+    blockquote?: TagDefinition | undefined;
+    br?: TagDefinition | undefined;
+    div?: TagDefinition | undefined;
+    footer?: TagDefinition | undefined;
+    form?: TagDefinition | undefined;
+    h1?: TagDefinition | undefined;
+    h2?: TagDefinition | undefined;
+    h3?: TagDefinition | undefined;
+    h4?: TagDefinition | undefined;
+    h5?: TagDefinition | undefined;
+    h6?: TagDefinition | undefined;
+    header?: TagDefinition | undefined;
+    hr?: TagDefinition | undefined;
+    img?: TagDefinition | undefined;
+    main?: TagDefinition | undefined;
+    nav?: TagDefinition | undefined;
+    ol?: TagDefinition | undefined;
+    p?: TagDefinition | undefined;
+    pre?: TagDefinition | undefined;
+    table?: TagDefinition | undefined;
+    ul?: TagDefinition | undefined;
+    wbr?: TagDefinition | undefined;
 }

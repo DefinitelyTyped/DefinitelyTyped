@@ -26,24 +26,24 @@ declare namespace findCacheDir {
          * An array of files that will be searched for a common parent directory.
          * This common parent directory will be used in lieu of the `cwd` option below.
          */
-        files?: string | string[];
+        files?: string | string[] | undefined;
 
         /**
          * Directory to start searching for a `package.json` from.
          */
-        cwd?: string;
+        cwd?: string | undefined;
 
         /**
          * If `true`, the directory will be created synchronously before returning.
          * @default false
          */
-        create?: boolean;
+        create?: boolean | undefined;
 
         /**
          * If `true`, this modifies the return type to be a function that is a thunk for `path.join(theFoundCacheDirectory)`.
          * @default false
          */
-        thunk?: boolean;
+        thunk?: boolean | undefined;
     }
 
     interface OptionsWithThunk extends Options {

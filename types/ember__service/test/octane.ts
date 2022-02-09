@@ -1,4 +1,4 @@
-import Service, { inject } from '@ember/service';
+import Service, { inject, service } from '@ember/service';
 import EmberObject from '@ember/object';
 
 class FirstSvc extends Service {
@@ -22,7 +22,13 @@ declare module '@ember/service' {
 }
 
 class Foo extends EmberObject {
-    @inject foo: FirstSvc;
-    @inject('first') baz: FirstSvc;
-    @inject() bar: FirstSvc;
+    @inject declare foo: FirstSvc;
+    @inject('first') declare baz: FirstSvc;
+    @inject() declare bar: FirstSvc;
+}
+
+class FooService extends EmberObject {
+    @service declare foo: FirstSvc;
+    @service('first') declare baz: FirstSvc;
+    @service() declare bar: FirstSvc;
 }

@@ -7,5 +7,5 @@ export interface RangeOptions extends IntervalOptions {
     /**
      * The text indicating the whole range.
      */
-    allText?: string;
+    allText?: string | undefined;
 }

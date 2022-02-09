@@ -66,7 +66,7 @@ export function version(cb?: Callback): void;
 export function versionStatus(cb: (err: ErrorArg, out?: {status: string, major: number, minor: number, patch: number}) => void): void;
 export function globalStatus(cb: (err: ErrorArg, out?: Array<{id: string, name: string, provider: string, state: string}>) => void): void;
 export function globalStatus(args: string | string[], cb: (err: ErrorArg, out?: Array<{id: string, name: string, provider: string, state: string}>) => void): void;
-export function create(opts?: {cwd?: string, env?: NodeJS.ProcessEnv}): Machine;
+export function create(opts?: {cwd?: string | undefined, env?: NodeJS.ProcessEnv | undefined}): Machine;
 export function boxAdd(box: string, cb?: Callback): ProgressEmitter;
 export function boxAdd(box: string, args?: string | string[], cb?: Callback): ProgressEmitter;
 export function boxList(cb: (err: ErrorArg, out?: Array<{name: string, provider: string, version: string}>) => void): void;

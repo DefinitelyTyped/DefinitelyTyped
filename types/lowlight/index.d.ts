@@ -11,6 +11,7 @@ declare module 'lowlight/lib/core' {
     export function highlight(language: string, value: string, options?: lowlight.HighlightOptions): lowlight.HighlightResult;
     export function highlightAuto(value: string, options?: lowlight.HighlightAutoOptions): lowlight.HighlightAutoResult;
     export function registerLanguage(name: string, syntax: Function): void;
+    export function listLanguages(): string[];
 }
 
 declare namespace lowlight {
@@ -23,19 +24,19 @@ declare namespace lowlight {
             interface Position {
                 line: number;
                 column: number;
-                offset?: number;
+                offset?: number | undefined;
             }
 
             interface Location {
                 start: Position;
                 end: Position;
-                indent?: Array<number>;
+                indent?: Array<number> | undefined;
             }
 
             export interface Node {
                 type: string;
-                data?: Data;
-                position?: Location;
+                data?: Data | undefined;
+                position?: Location | undefined;
             }
 
             export interface Parent extends Node {
@@ -64,8 +65,8 @@ declare namespace lowlight {
         export interface Doctype extends Unist.Node {
             type: 'doctype';
             name: string;
-            public?: string;
-            system?: string;
+            public?: string | undefined;
+            system?: string | undefined;
         }
 
         export interface Comment extends Unist.Text {
@@ -80,11 +81,11 @@ declare namespace lowlight {
     type HastNode = AST.Root | AST.Element | AST.Doctype | AST.Comment | AST.Text;
 
     interface HighlightOptions {
-            prefix?: string;
+            prefix?: string | undefined;
     }
 
     interface HighlightAutoOptions extends HighlightOptions {
-        subset?: Array<string>;
+        subset?: Array<string> | undefined;
     }
 
     interface HighlightResult {
@@ -94,6 +95,6 @@ declare namespace lowlight {
     }
 
     interface HighlightAutoResult extends HighlightResult {
-        secondBest?: HighlightAutoResult;
+        secondBest?: HighlightAutoResult | undefined;
     }
 }

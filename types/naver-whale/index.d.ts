@@ -251,12 +251,12 @@ declare namespace whale {
     export namespace sidebarAction {
         export interface SidebarShowDetail {
             /** Optional. 사이드바 영역에 표시할 페이지 URL. 지정하지 않으면 매니페스트에 정의한 default_page. */
-            url?: string;
+            url?: string | undefined;
             /**
              * Optional. url 인자와 현재 URL이 같을 때에도 페이지를 새로고침 할 것인지 여부.
              * @default false
              */
-            reload?: boolean;
+            reload?: boolean | undefined;
         }
 
         export interface SidebarTitleDetail {
@@ -282,7 +282,7 @@ declare namespace whale {
 
         export interface SidebarDockDetail {
             /** 부모 윈도우의 ID. 지정하지 않으면 마지막 사용된 윈도우에 도킹합니다. */
-            targetWindowId?: number;
+            targetWindowId?: number | undefined;
         }
 
         export interface BadgeBackgroundColorDetails {

@@ -16,43 +16,43 @@ declare namespace audit {
          * `true` - include request in audit, `false` - don't.
          * {@link https://github.com/PayU/express-request-logger#audit}
          */
-        audit?: boolean;
+        audit?: boolean | undefined;
 
         /**
          * pass the fields you wish to exclude in the body of the requests (sensitive data like passwords, credit cards numbers etc..). * field - exclude all body
          * {@link https://github.com/PayU/express-request-logger#excludebody}
          */
-        excludeBody?: string[];
+        excludeBody?: string[] | undefined;
 
         /**
          * pass the fields you wish to mask in the body of the requests (sensitive data like passwords, credit cards numbers etc..).
          * {@link https://github.com/PayU/express-request-logger#maskbody}
          */
-        maskBody?: string[];
+        maskBody?: string[] | undefined;
 
         /**
          * pass the fields you wish to mask in the query of the requests (sensitive data like passwords, credit cards numbers etc..).
          * {@link https://github.com/PayU/express-request-logger#maskquery}
          */
-        maskQuery?: string[];
+        maskQuery?: string[] | undefined;
 
         /**
          * pass the header names you wish to exclude from the audit (senstitive data like authorization headers etc..). * field - exclude all headers
          * {@link https://github.com/PayU/express-request-logger#excludeheaders}
          */
-        excludeHeaders?: string[];
+        excludeHeaders?: string[] | undefined;
 
         /**
          * pass the fields you wish to mask in the headers of the requests (senstitive data like authorization headers etc..).
          * {@link https://github.com/PayU/express-request-logger#maskheaders}
          */
-        maskHeaders?: string[];
+        maskHeaders?: string[] | undefined;
 
         /**
          * Restrict request body's logged content length (inputs other than positive integers will be ignored).
          * {@link https://github.com/PayU/express-request-logger#maxbodylength}
          */
-        maxBodyLength?: number;
+        maxBodyLength?: number | undefined;
     }
 
     /**
@@ -64,7 +64,7 @@ declare namespace audit {
          * Package tested only with `bunyan` logger, but should work with any logger which has a info method which takes an object.
          * {@link https://github.com/PayU/express-request-logger#logger}
          */
-        logger?: Logger;
+        logger?: Logger | undefined;
 
         /**
          * `true` - log once the request arrives (request details), and log after response is sent (both request and response).
@@ -72,13 +72,13 @@ declare namespace audit {
          * `false` - log only after the response is sent.
          * {@link https://github.com/PayU/express-request-logger#doubleaudit}
          */
-        doubleAudit?: boolean;
+        doubleAudit?: boolean | undefined;
 
         /**
          * if the request url matches one of the values in the array, the request/response won't be logged.
          * {@link https://github.com/PayU/express-request-logger#excludeurls}
          */
-        excludeURLs?: string[];
+        excludeURLs?: string[] | undefined;
 
         /**
          * Specific configuration for requests
@@ -92,13 +92,13 @@ declare namespace audit {
          * The custom function gets the full express request and should return the masked body.
          * {@link https://github.com/PayU/express-request-logger#custommaskbodyfunc}
          */
-        customMaskBodyFunc?: (req: Request) => string;
+        customMaskBodyFunc?: ((req: Request) => string) | undefined;
 
         /**
          * Specific configuration for responses
          * {@link https://github.com/PayU/express-request-logger#response}
          */
-        response?: ResponseOptions;
+        response?: ResponseOptions | undefined;
     }
 
     interface ResponseOptions extends CommonOptions {
@@ -107,7 +107,7 @@ declare namespace audit {
          * By default the audit is logged with level 'info'.
          * It is possible to override it by configuration according to the statusCode of the response
          */
-        levels?: StatusCodeMap;
+        levels?: StatusCodeMap | undefined;
     }
 
     type StatusCodeMap = Record<string, 'trace' | 'debug' | 'info' | 'warn' | 'error'>;
