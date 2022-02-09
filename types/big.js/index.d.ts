@@ -35,7 +35,7 @@ export const enum RoundingMode {
      * I.e. truncate, no rounding.
      * @deprecated Const enums cannot be used by JavaScript consumers or with single-file transpilation, i.e. isolatedModules
      * {@link https://github.com/microsoft/DefinitelyTyped-tools/blob/master/packages/dtslint/docs/no-const-enum.md}.
-     * Use 0 instead.
+     * Use 0 or Big.roundDown instead.
      */
     RoundDown = 0,
     /**
@@ -43,7 +43,7 @@ export const enum RoundingMode {
      * If equidistant, rounds away from zero.
      * @deprecated Const enums cannot be used by JavaScript consumers or with single-file transpilation, i.e. isolatedModules
      * {@link https://github.com/microsoft/DefinitelyTyped-tools/blob/master/packages/dtslint/docs/no-const-enum.md}.
-     * Use 1 instead.
+     * Use 1 or Big.roundHalfUp instead.
      */
     RoundHalfUp = 1,
     /**
@@ -51,14 +51,14 @@ export const enum RoundingMode {
      * If equidistant, rounds towards even neighbour.
      * @deprecated Const enums cannot be used by JavaScript consumers or with single-file transpilation, i.e. isolatedModules
      * {@link https://github.com/microsoft/DefinitelyTyped-tools/blob/master/packages/dtslint/docs/no-const-enum.md}.
-     * Use 2 instead.
+     * Use 2 or Big.roundHalfEven instead.
      */
     RoundHalfEven = 2,
     /**
      * Rounds away from zero.
      * @deprecated Const enums cannot be used by JavaScript consumers or with single-file transpilation, i.e. isolatedModules
      * {@link https://github.com/microsoft/DefinitelyTyped-tools/blob/master/packages/dtslint/docs/no-const-enum.md}.
-     * Use 3 instead.
+     * Use 3 or Big.roundUp instead.
      */
     RoundUp = 3,
 }
@@ -247,7 +247,7 @@ export interface Big {
      * significant digits using rounding mode rm, or Big.RM if rm is not specified.
      *
      * @param sd Significant digits: integer, 1 to MAX_DP inclusive.
-     * @param [rm] The rounding mode, one of the RoundingMode enumeration values
+     * @param rm Rounding mode: 0 (down), 1 (half-up), 2 (half-even) or 3 (up).
      * @throws `!prec!` if sd is invalid.
      * @throws `!Big.RM!` if rm is invalid.
      */
@@ -256,7 +256,7 @@ export interface Big {
      * Returns a Big number whose value is the value of this Big number rounded using rounding mode rm to a maximum of dp decimal places.
      *
      * @param dp Decimal places, 0 to 1e+6 inclusive
-     * @param rm The rounding mode, one of the RoundingMode enumeration values
+     * @param rm Rounding mode: 0 (down), 1 (half-up), 2 (half-even) or 3 (up).
      * @throws `!round!` if dp is invalid.
      * @throws `!Big.RM!` if rm is invalid.
      */
