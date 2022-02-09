@@ -1801,12 +1801,13 @@ export class WebDriver {
    * @param {number=} opt_timeout How long to wait for the condition to be true.
    * @param {string=} opt_message An optional message to use if the wait times
    *     out.
+   * @param {number=} opt_pollTimeout How long to wait between polling the condition.
    * @return {!WebElementPromise} A promise that will be fulfilled
    *     with the first truthy value returned by the condition function, or
    *     rejected if the condition times out.
    * @template T
    */
-  wait(condition: WebElementCondition, opt_timeout?: number, opt_message?: string):
+  wait(condition: WebElementCondition, opt_timeout?: number, opt_message?: string, opt_pollTimeout?: number):
       WebElementPromise;
 
   /**
