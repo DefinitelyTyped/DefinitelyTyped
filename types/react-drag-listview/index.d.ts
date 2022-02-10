@@ -7,12 +7,19 @@
 import * as React from 'react';
 
 export interface DragListViewProps {
+    // on drag end callback, required
     onDragEnd: (fromIndex: number, toIndex: number) => void;
+    // get drag handle cssQuery
     handleSelector?: string;
+    // get drag item cssQuery
     nodeSelector?: string;
+    // ignore node list
     ignoreSelector?: string;
+    // whether use auto scroll for dragging
     enableScroll?: boolean;
+    // scroll speed
     scrollSpeed?: number;
+    // get dragLine's className, css properties must be use !important
     lineClassName?: string;
 }
 
