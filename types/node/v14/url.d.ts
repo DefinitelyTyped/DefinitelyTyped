@@ -129,7 +129,7 @@ declare module 'url' {
          */
         var URL:
             // For compatibility with "dom" and "webworker" URL declarations
-            typeof globalThis extends { onmessage: infer O, URL: infer URL }
+            typeof globalThis extends { onmessage: any, URL: infer URL }
                 ? URL
                 : typeof _URL;
         /**
@@ -139,7 +139,7 @@ declare module 'url' {
          */
         var URLSearchParams:
             // For compatibility with "dom" and "webworker" URLSearchParams declarations
-            typeof globalThis extends { onmessage: infer O, URLSearchParams: infer URLSearchParams }
+            typeof globalThis extends { onmessage: any, URLSearchParams: infer URLSearchParams }
                 ? URLSearchParams
                 : typeof _URLSearchParams;
     }
