@@ -499,7 +499,7 @@ export class LiveStatusEvent extends Event {
  * Event data for @see{@link EventType.TIMED_METADATA_CHANGED}, @see{@link EventType.TIMED_METADATA_ENTER} and @see{@link EventType.TIMED_METADATA_EXIT} events.
  */
 export class TimedMetadataEvent extends Event {
-    constructor(type: EventType, liveSeekableRange: LiveSeekableRange);
+    constructor(type: EventType, timedMetadataInfo: TimedMetadata);
 
     /**
      * The timed metadata.
