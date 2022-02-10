@@ -1,0 +1,25 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "forceConsistentCasingInFileNames": true,
+        "noEmit": true,
+        "jsx": "react",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": []
+    },
+    "files": [
+        "index.d.ts",
+        "react-drag-listview-tests.tsx"
+    ]
+}
