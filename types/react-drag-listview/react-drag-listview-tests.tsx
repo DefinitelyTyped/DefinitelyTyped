@@ -20,7 +20,7 @@ class TestReactDragListView extends React.Component {
         const item = data.splice(fromIndex, 1)[0];
         data.splice(toIndex, 0, item);
         this.setState({ data });
-    };
+    }
 
     render() {
         return (
@@ -56,7 +56,7 @@ class TestReactDragColumnView extends React.Component {
         const item = data.splice(fromIndex, 1)[0];
         data.splice(toIndex, 0, item);
         this.setState({ data });
-    };
+    }
 
     render() {
         return (
