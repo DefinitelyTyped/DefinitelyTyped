@@ -707,6 +707,26 @@ declare namespace Xrm {
             getStage(): ProcessFlow.Stage;
         }
 
+        interface LookupTagClickEventArguments {
+            /**
+             * Gets the selected tag value
+             * @returns The lookups TagValue object
+             */
+            getTagValue(): TagValue;
+
+            /**
+             * Prevents the default onClick behaviour from executing.
+             * All remaining "onLookupTagClick" handlers will continue execution.
+             */
+            preventDefault(): void;
+
+            /**
+             * Returns a boolean value to indicate if the lookups onClick has been prevented.
+             * @returns true if saving is prevented, otherwise false.
+             */
+            isDefaultPrevented(): boolean;
+        }
+
         /**
          * Interface for the event context.
          * In the API documentation, this is sometimes refferred to as the executionContext.
@@ -789,6 +809,13 @@ declare namespace Xrm {
             getEventArgs(): StageSelectedEventArguments;
         }
 
+        interface LookupTagClickEventContext extends EventContext {
+            /**
+             * Gets an object that contains details about the lookup tag clicked
+             */
+            getEventArgs(): LookupTagClickEventArguments;
+        }
+
         /**
          * Type for a context-sensitive handler.
          * @param context The context.
@@ -800,6 +827,8 @@ declare namespace Xrm {
          * @param status The process status.
          */
         type ProcessStatusChangeHandler = (status: ProcessFlow.ProcessStatus) => void;
+
+        type LookupTagClickHandler = (context: LookupTagClickEventContext) => void;
     }
 
     /**
@@ -2287,6 +2316,16 @@ declare namespace Xrm {
     }
 
     /**
+     * Interface for a (lookup) Tag value
+     */
+    interface TagValue extends LookupValue {
+        /**
+         * The originating lookup column that raised the event.
+         */
+        fieldName: string;
+    }
+
+    /**
      * Interface for an OptionSet value.
      */
     interface OptionSetValue {
@@ -3157,6 +3196,12 @@ declare namespace Xrm {
             ): void;
 
             /**
+             * Adds an event handler to the "lookup tag click" event.
+             * @param handler The function to add to the OnLookupTagClick event.
+             */
+            addOnLookupTagClick(handler: Events.LookupTagClickHandler): void;
+
+            /**
              * Gets the control's bound attribute.
              * @returns The attribute.
              */
@@ -3168,6 +3213,12 @@ declare namespace Xrm {
              * @example Example return: "{00000000-0000-0000-0000-000000000000}"
              */
             getDefaultView(): string;
+
+            /**
+             * Removes the handler from the "lookup tag click" event.
+             * @param handler The function to be removed from the OnLookupTagClick event.
+             */
+            removeOnLookupTagClick(handler: Events.LookupTagClickHandler): void;
 
             /**
              * Removes the handler from the "pre search" event of the Lookup control.
