@@ -265,8 +265,8 @@ Java.perform(() => {
         });
     });
 
-    // $ExpectType Frame[]
+    // $ExpectType Backtrace
     Java.backtrace();
-    // $ExpectType Frame[]
+    // $ExpectType Backtrace
     Java.backtrace({ limit: 42 });
 });

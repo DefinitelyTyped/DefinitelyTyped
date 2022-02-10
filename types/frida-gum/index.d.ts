@@ -1,4 +1,4 @@
-// Type definitions for non-npm package frida-gum 17.3
+// Type definitions for non-npm package frida-gum 18.0
 // Project: https://github.com/frida/frida
 // Definitions by: Ole André Vadla Ravnås <https://github.com/oleavr>
 //                 Francesco Tamagni <https://github.com/mrmacete>
@@ -4513,11 +4513,9 @@ declare namespace Java {
     /**
      * Generates a backtrace for the current thread.
      *
-     * Note that this API is unstable and subject to change.
-     *
      * @param options Options to customize the stack-walking.
      */
-    function backtrace(options?: BacktraceOptions): Frame[];
+    function backtrace(options?: BacktraceOptions): Backtrace;
 
     /**
      * Determines whether the caller is running on the main thread.
@@ -4644,38 +4642,35 @@ declare namespace Java {
     }
 
     /**
-     * Stack frame returned by `Java.backtrace()`.
+     * Backtrace returned by `Java.backtrace()`.
      */
+    interface Backtrace {
+        /**
+         * ID that can be used for deduplicating identical backtraces.
+         */
+        id: string;
+
+        /**
+         * Stack frames.
+         */
+        frames: Frame[];
+    }
+
     interface Frame {
         /**
-         * Method being called.
+         * Signature, e.g. `"Landroid/os/Looper;,loopOnce,(Landroid/os/Looper;JI)Z"`.
          */
-        method: {
-            /**
-             * The jmethodID of the method. On ART, this is an `ArtMethod *`.
-             */
-            handle: NativePointer;
-
-            /**
-             * Method name, e.g. `"loopOnce"`.
-             */
-            name: string;
-
-            /**
-             * Return type, e.g. `"boolean"`.
-             */
-            returnType: string;
-
-            /**
-             * Argument types, e.g. `["android.os.Looper", "long", "int"]`.
-             */
-            argumentTypes: string[];
-        };
+        signature: string;
 
         /**
          * Class name that method belongs to, e.g. `"android.os.Looper"`.
          */
         className: string;
+
+        /**
+         * Method name, e.g. `"loopOnce"`.
+         */
+        methodName: string;
 
         /**
          * Source file name, e.g. `"Looper.java"`.
