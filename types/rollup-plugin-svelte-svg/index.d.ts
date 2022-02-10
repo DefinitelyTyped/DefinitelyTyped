@@ -10,7 +10,7 @@ import type { Plugin } from 'rollup';
 import type { OptimizeOptions } from 'svgo';
 
 export interface Options {
-    enforce?: boolean;
+    enforce?: 'pre' | 'post';
     svgo?: OptimizeOptions;
 }
 
