@@ -10,6 +10,7 @@
 //                 Sarun Intaralawan <https://github.com/sarunint>
 //                 Tony Brix <https://github.com/UziTech>
 //                 Anatolii Titov <https://github.com/Toliak>
+//                 Jean-Francois Cere <https://github.com/jfcere>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
@@ -161,39 +162,39 @@ export namespace marked {
     class Renderer<T = never> {
         constructor(options?: MarkedOptions);
         options: MarkedOptions;
-        code(this: RendererThis, code: string, language: string | undefined, isEscaped: boolean): string | T;
-        blockquote(this: RendererThis, quote: string): string | T;
-        html(this: RendererThis, html: string): string | T;
+        code(this: Renderer | RendererThis, code: string, language: string | undefined, isEscaped: boolean): string | T;
+        blockquote(this: Renderer | RendererThis, quote: string): string | T;
+        html(this: Renderer | RendererThis, html: string): string | T;
         heading(
-            this: RendererThis,
+            this: Renderer | RendererThis,
             text: string,
             level: 1 | 2 | 3 | 4 | 5 | 6,
             raw: string,
             slugger: Slugger,
         ): string | T;
-        hr(this: RendererThis): string | T;
-        list(this: RendererThis, body: string, ordered: boolean, start: number): string | T;
-        listitem(this: RendererThis, text: string, task: boolean, checked: boolean): string | T;
-        checkbox(this: RendererThis, checked: boolean): string | T;
-        paragraph(this: RendererThis, text: string): string | T;
-        table(this: RendererThis, header: string, body: string): string | T;
-        tablerow(this: RendererThis, content: string): string | T;
+        hr(this: Renderer | RendererThis): string | T;
+        list(this: Renderer | RendererThis, body: string, ordered: boolean, start: number): string | T;
+        listitem(this: Renderer | RendererThis, text: string, task: boolean, checked: boolean): string | T;
+        checkbox(this: Renderer | RendererThis, checked: boolean): string | T;
+        paragraph(this: Renderer | RendererThis, text: string): string | T;
+        table(this: Renderer | RendererThis, header: string, body: string): string | T;
+        tablerow(this: Renderer | RendererThis, content: string): string | T;
         tablecell(
-            this: RendererThis,
+            this: Renderer | RendererThis,
             content: string,
             flags: {
                 header: boolean;
                 align: 'center' | 'left' | 'right' | null;
             },
         ): string | T;
-        strong(this: RendererThis, text: string): string | T;
-        em(this: RendererThis, text: string): string | T;
-        codespan(this: RendererThis, code: string): string | T;
-        br(this: RendererThis): string | T;
-        del(this: RendererThis, text: string): string | T;
-        link(this: RendererThis, href: string | null, title: string | null, text: string): string | T;
-        image(this: RendererThis, href: string | null, title: string | null, text: string): string | T;
-        text(this: RendererThis, text: string): string | T;
+        strong(this: Renderer | RendererThis, text: string): string | T;
+        em(this: Renderer | RendererThis, text: string): string | T;
+        codespan(this: Renderer | RendererThis, code: string): string | T;
+        br(this: Renderer | RendererThis): string | T;
+        del(this: Renderer | RendererThis, text: string): string | T;
+        link(this: Renderer | RendererThis, href: string | null, title: string | null, text: string): string | T;
+        image(this: Renderer | RendererThis, href: string | null, title: string | null, text: string): string | T;
+        text(this: Renderer | RendererThis, text: string): string | T;
     }
 
     type RendererObject = Partial<Omit<Renderer<false>, 'constructor' | 'options'>>;

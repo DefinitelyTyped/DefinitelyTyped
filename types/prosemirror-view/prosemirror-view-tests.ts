@@ -15,6 +15,7 @@ const widgetDecoration = Decoration.widget<{ a: number }>(0, x => x.dom, { a: 1 
 widgetDecoration.spec.a; // $ExpectType number
 widgetDecoration.spec.stopEvent; // $ExpectType ((event: Event) => boolean) | null | undefined
 widgetDecoration.spec.ignoreSelection; // $ExpectType boolean | undefined
+widgetDecoration.spec.destroy; // $ExpectType ((node: Node) => void) | undefined
 
 Decoration.node<{ a: number }>(0, 10, {}, { a: '' }); // $ExpectError
 const nodeDecoration = Decoration.node<{ a: number }>(0, 10, {}, { a: 1 });

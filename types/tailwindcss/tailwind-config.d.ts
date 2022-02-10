@@ -197,10 +197,11 @@ export interface TailwindAnimationConfig {
     };
 }
 
-export type TailwindFontConfig = [
+export type TailwindFontConfig = string | [string, string] | [
     string,
     {
-        lineHeight: string;
+        lineHeight?: string;
+        letterSpacing?: string;
     },
 ];
 
@@ -510,9 +511,10 @@ export interface TailwindConfig {
     // Not documented yet.
     content?: string[] | { files: string[]; extract: any; transform: any };
     presets?: any[];
-    darkMode: false | 'media' | 'class';
+    darkMode?: false | 'media' | 'class';
     variantOrder?: TailwindVariant[];
     prefix?: string;
-    important?: boolean;
+    important?: boolean | string;
     separator?: string;
+    safelist?: any[];
 }

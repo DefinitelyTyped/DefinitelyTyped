@@ -31,7 +31,6 @@
 //                 Abe Dolinger <https://github.com/256hz>
 //                 Dominique Richard <https://github.com/doumart>
 //                 Mohamed Shaban <https://github.com/drmas>
-//                 André Krüger <https://github.com/akrger>
 //                 Jérémy Barbet <https://github.com/jeremybarbet>
 //                 Christian Ost <https://github.com/ca057>
 //                 David Sheldrick <https://github.com/ds300>
@@ -479,7 +478,7 @@ export interface PressableAndroidRippleConfig {
     radius?: null | number;
 }
 
-export interface PressableProps extends AccessibilityProps, Omit<ViewProps, 'style' | 'hitSlop'> {
+export interface PressableProps extends AccessibilityProps, Omit<ViewProps, 'children' | 'style' | 'hitSlop'> {
     /**
      * Called when a single tap gesture is detected.
      */
@@ -1427,6 +1426,8 @@ export interface TextInputSelectionChangeEventData extends TargetedEvent {
  */
 export interface TextInputKeyPressEventData {
     key: string;
+    eventCount?: number | null | undefined;
+    target?: number | null | undefined;
 }
 
 /**

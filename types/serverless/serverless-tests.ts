@@ -32,7 +32,7 @@ class CustomPlugin implements Plugin {
     hooks: Plugin.Hooks;
     variableResolvers: Plugin.VariableResolvers;
 
-    constructor(serverless: Serverless, options: Serverless.Options) {
+    constructor(serverless: Serverless, options: Serverless.Options, logging: Plugin.Logging) {
         this.hooks = {
             'command:start': () => {},
         };
@@ -174,6 +174,7 @@ const awsServerless: Aws.Serverless = {
         rolePermissionsBoundary: 'testrolePermissionsBoundary',
         cfnRole: 'testcfnRole',
         versionFunctions: true,
+        architecture: 'x86_64',
         environment: {
             testenvironmentkey: 'testenvironmentvalue'
         },
@@ -267,7 +268,8 @@ const awsServerless: Aws.Serverless = {
                     issuerUrl: 'testissuerUrl',
                     audience: ['testaudience']
                 }
-            }
+            },
+            useProviderTags: true
         },
         usagePlan: {
             quota: {
@@ -363,6 +365,9 @@ const awsServerless: Aws.Serverless = {
                 format: 'testformat'
             },
             frameworkLambda: false
+        },
+        eventBridge: {
+            useCloudFormation: true
         }
     },
     package: {
@@ -549,7 +554,8 @@ const awsServerless: Aws.Serverless = {
                         arn: 'testarn',
                         batchSize: 1,
                         maximumRetryAttempts: 1,
-                        enabled: true
+                        enabled: true,
+                        functionResponseType: 'ReportBatchItemFailures'
                     }
                 }, {
                     activemq: {
@@ -689,9 +695,15 @@ const awsServerless: Aws.Serverless = {
     },
     resources: {
         Description: 'testStackDescription',
+        Conditions: {
+            TestCondition: {
+                'Fn::Equals': ['testcond', 'testcond']
+            }
+        },
         Resources: {
             testcloudformationresource: {
                 Type: 'testType',
+                Condition: 'TestCondition',
                 Properties: {
                     testpropertykey: 'testpropertyvalue'
                 },

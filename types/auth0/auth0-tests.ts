@@ -145,6 +145,7 @@ management
     });
 
 auth.requestChangePasswordEmail({
+    client_id: 'client_id',
     connection: 'My-Connection',
     email: 'hi@me.co',
 })
@@ -194,6 +195,22 @@ auth.passwordGrant({username: 'username', password: 'password'}).then((response:
 auth.passwordGrant({username: 'username', password: 'password'}, (err, response: auth0.TokenResponse) => { console.log(response); });
 auth.passwordGrant({username: 'username', password: 'password'}, { forwardedFor: '12.34.56.78' }).then((response: auth0.TokenResponse) => { console.log(response); });
 auth.passwordGrant({username: 'username', password: 'password'}, { forwardedFor: '12.34.56.78' }, (err, response: auth0.TokenResponse) => { console.log(response); });
+
+// SMS/Email OTP Login
+auth.requestEmailCode({email: 'hi@me.co', authParams: {}}).then((response: any) => { console.log(response); });
+auth.requestEmailCode({email: 'hi@me.co', authParams: {}}, (response: any) => { console.log(response); });
+
+auth.requestSMSCode({ phone_number: '+1234567890'}, (response: any) => { console.log(response); });
+auth.requestSMSCode({ phone_number: '+1234567890'}).then((response: any) => { console.log(response); });
+
+auth.verifyEmailCode({email: 'hi@me.co', otp: 'password'}).then((response: any) => { console.log(response); });
+auth.verifyEmailCode({email: 'hi@me.co', otp: 'password'}, (response: any) => { console.log(response); });
+
+auth.verifySMSCode({username: '+1234567890', password: 'password'}).then((response: any) => { console.log(response); });
+auth.verifySMSCode({username: '+1234567890', password: 'password'}, (response: any) => { console.log(response); });
+
+auth.verifySMSCode({username: '+1234567890', otp: 'password'}).then((response: any) => { console.log(response); });
+auth.verifySMSCode({username: '+1234567890', otp: 'password'}, (response: any) => { console.log(response); });
 
 // Get management client access token
 management
@@ -918,6 +935,7 @@ async () => {
     const signInUserData: auth0.SignInOptions = {
         username: '{YOUR_USERNAME}',
         otp: '123456',
+        audience: 'audience',
     };
     signInUserData.realm = 'email';
     signInUserData.realm = 'sms';
@@ -1367,14 +1385,6 @@ management.organizations.removeMembers({ id: 'organization_id' }, { members: ['u
  */
 management.organizations.getInvitations(
     { id: 'organization_id' },
-    (err, invitations: auth0.OrganizationInvitation[]) => {
-        console.log(invitations);
-    },
-);
-
-management.organizations.getInvitations(
-    //  checkpoint pagination tests
-    { id: 'organization_id', take: 2, from: '' },
     (err, invitations: auth0.OrganizationInvitation[]) => {
         console.log(invitations);
     },

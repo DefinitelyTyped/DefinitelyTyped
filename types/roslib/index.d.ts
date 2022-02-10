@@ -2,7 +2,6 @@
 // Project: http://wiki.ros.org/roslibjs
 // Definitions by: Stefan Profanter <https://github.com/Pro>
 //                 David Gonzalez <https://github.com/dgorobopec>
-//                 Arvid Norlander <https://github.com/VorpalBlade>
 //                 Aluma Gelbard <https://github.com/alumag>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7

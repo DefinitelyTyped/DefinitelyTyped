@@ -1,4 +1,4 @@
-// Type definitions for non-npm package frida-gum 17.2
+// Type definitions for non-npm package frida-gum 17.3
 // Project: https://github.com/frida/frida
 // Definitions by: Ole André Vadla Ravnås <https://github.com/oleavr>
 //                 Francesco Tamagni <https://github.com/mrmacete>
@@ -4511,6 +4511,15 @@ declare namespace Java {
     function array(type: string, elements: any[]): any[];
 
     /**
+     * Generates a backtrace for the current thread.
+     *
+     * Note that this API is unstable and subject to change.
+     *
+     * @param options Options to customize the stack-walking.
+     */
+    function backtrace(options?: BacktraceOptions): Frame[];
+
+    /**
      * Determines whether the caller is running on the main thread.
      */
     function isMainThread(): boolean;
@@ -4608,7 +4617,7 @@ declare namespace Java {
         methods: [string, ...string[]];
     }
 
-    interface ChooseCallbacks {
+    interface ChooseCallbacks<T extends Members<T> = {}> {
         /**
          * Called with each live instance found with a ready-to-use `instance`
          * just as if you would have called `Java.cast()` with a raw handle to
@@ -4616,12 +4625,67 @@ declare namespace Java {
          *
          * May return `EnumerateAction.Stop` to stop the enumeration early.
          */
-        onMatch: (instance: Wrapper) => void | EnumerateAction;
+        onMatch: (instance: Wrapper<T>) => void | EnumerateAction;
 
         /**
          * Called when all instances have been enumerated.
          */
         onComplete: () => void;
+    }
+
+    /**
+     * Options that may be passed to `Java.backtrace()`.
+     */
+    interface BacktraceOptions {
+        /**
+         * Limit how many frames up the stack to walk. Defaults to 16.
+         */
+        limit?: number;
+    }
+
+    /**
+     * Stack frame returned by `Java.backtrace()`.
+     */
+    interface Frame {
+        /**
+         * Method being called.
+         */
+        method: {
+            /**
+             * The jmethodID of the method. On ART, this is an `ArtMethod *`.
+             */
+            handle: NativePointer;
+
+            /**
+             * Method name, e.g. `"loopOnce"`.
+             */
+            name: string;
+
+            /**
+             * Return type, e.g. `"boolean"`.
+             */
+            returnType: string;
+
+            /**
+             * Argument types, e.g. `["android.os.Looper", "long", "int"]`.
+             */
+            argumentTypes: string[];
+        };
+
+        /**
+         * Class name that method belongs to, e.g. `"android.os.Looper"`.
+         */
+        className: string;
+
+        /**
+         * Source file name, e.g. `"Looper.java"`.
+         */
+        fileName: string;
+
+        /**
+         * Source line number, e.g. `201`.
+         */
+        lineNumber: number;
     }
 
     type Members<T> = Record<keyof T, MethodDispatcher | Field>;

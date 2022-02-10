@@ -128,7 +128,7 @@ export enum DRMType {
 
 export interface VideoProperties extends ViewProps {
     filter?: FilterType | undefined;
-    filterEnable?: boolean | undefined;
+    filterEnabled?: boolean | undefined;
 
     /* Native only */
     src?: any;

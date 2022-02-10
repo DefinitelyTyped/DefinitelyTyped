@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import { Hit, BasicDoc } from 'react-instantsearch-core';
+import { Hit, BasicDoc, DynamicWidgetsProps as CoreDynamicWidgetsProps } from 'react-instantsearch-core';
 
 // Core
 export { createConnector } from 'react-instantsearch-core';
@@ -207,3 +207,9 @@ export interface VoiceSearchHelper {
 export function createVoiceSearchHelper(params: VoiceSearchHelperParams): VoiceSearchHelper;
 
 export function createInfiniteHitsSessionStorageCache(...args: any[]): any;
+
+export interface DynamicWidgetsProps extends CoreDynamicWidgetsProps {
+    className?: string | undefined;
+}
+
+export class DynamicWidgets extends React.Component<DynamicWidgetsProps> {}

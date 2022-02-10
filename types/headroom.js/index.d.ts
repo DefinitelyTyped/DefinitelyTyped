@@ -3,6 +3,7 @@
 // Definitions by: Jakub Olek <https://github.com/hakubo>
 //                 Juninho Cruz <https://github.com/juninhocruzg3>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
+//                 Manol Donev <https://github.com/manoldonev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export as namespace Headroom;
@@ -44,10 +45,10 @@ declare class Headroom {
 declare namespace Headroom {
     interface HeadroomOptions {
         /**
-         * vertical offset in px before element is first unpinned
+         * vertical offset in px before element is first unpinned or you can specify offset individually for up/down scroll
          * @default 0
          */
-        offset?: number | undefined;
+        offset?: Offset | number | undefined;
         /** scroll tolerance in px before state changes or you can specify tolerance individually for up/down scroll */
         tolerance?: Tolerance | number | undefined;
         /** css classes to apply multiple classes are also supported with a space-separated list */
@@ -113,6 +114,13 @@ declare namespace Headroom {
     }
 
     interface Tolerance {
+        /** @default 0 */
+        up?: number | undefined;
+        /** @default 0 */
+        down?: number | undefined;
+    }
+
+    interface Offset {
         /** @default 0 */
         up?: number | undefined;
         /** @default 0 */

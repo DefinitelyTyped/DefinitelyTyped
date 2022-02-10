@@ -1,8 +1,6 @@
 // Type definitions for auth0 2.34
 // Project: https://github.com/auth0/node-auth0
-// Definitions by: Seth Westphal <https://github.com/westy92>
-//                 Ian Howe <https://github.com/ianhowe76>
-//                 Alex Bjørlig <https://github.com/dauledk>
+// Definitions by: Ian Howe <https://github.com/ianhowe76>
 //                 Dan Rumney <https://github.com/dancrumb>
 //                 Peter <https://github.com/pwrnrd>
 //                 Anthony Messerschmidt <https://github.com/CatGuardian>
@@ -634,9 +632,19 @@ export interface RequestSMSOptions {
     phone_number: string;
 }
 
-export interface VerifyOptions {
+export interface VerifySMSOptions {
+    username: string;
+    otp: string;
+}
+
+export interface VerifySMSOptionsDeprecated {
     username: string;
     password: string;
+}
+
+export interface VerifyEmailOptions {
+    email: string;
+    otp: string;
 }
 
 export interface DelegationTokenOptions {
@@ -654,8 +662,9 @@ export interface ResetPasswordOptions {
 }
 
 export interface ResetPasswordEmailOptions {
-    email: string;
+    client_id?: string | undefined;
     connection: string;
+    email: string;
 }
 
 export interface ClientCredentialsGrantOptions {
@@ -976,6 +985,7 @@ export interface SignInOptions {
     username: string;
     otp: string;
     realm?: 'email' | 'sms';
+    audience?: string | undefined;
     /**
      * @deprecated
      */
@@ -1084,9 +1094,6 @@ export interface PagingOptions {
 }
 
 export interface CheckpointPagingOptions {
-    /**
-     * @default 50
-     */
     take?: number | undefined;
     from?: string | undefined;
 }
@@ -1124,11 +1131,11 @@ export class AuthenticationClient {
     requestSMSCode(data: RequestSMSOptions): Promise<any>;
     requestSMSCode(data: RequestSMSOptions, cb: (err: Error, message: string) => void): void;
 
-    verifyEmailCode(data: VerifyOptions): Promise<any>;
-    verifyEmailCode(data: VerifyOptions, cb: (err: Error, message: string) => void): void;
+    verifyEmailCode(data: VerifyEmailOptions): Promise<any>;
+    verifyEmailCode(data: VerifyEmailOptions, cb: (err: Error, message: string) => void): void;
 
-    verifySMSCode(data: VerifyOptions): Promise<any>;
-    verifySMSCode(data: VerifyOptions, cb: (err: Error, message: string) => void): void;
+    verifySMSCode(data: VerifySMSOptions | VerifySMSOptionsDeprecated): Promise<any>;
+    verifySMSCode(data: VerifySMSOptions | VerifySMSOptionsDeprecated, cb: (err: Error, message: string) => void): void;
 
     getDelegationToken(data: DelegationTokenOptions): Promise<any>;
     getDelegationToken(data: DelegationTokenOptions, cb: (err: Error, message: string) => void): void;
@@ -1374,44 +1381,20 @@ export class OrganizationsManager {
 
     getInvitations(
         params: ObjectWithId &
-            PagingOptions &
-            CheckpointPagingOptions & {
-                fields?: string;
-                include_fields?: boolean;
-                sort?: string;
-                include_totals?: false;
-            },
+            PagingOptions & { fields?: string; include_fields?: boolean; sort?: string; include_totals?: false },
     ): Promise<OrganizationInvitation[]>;
     getInvitations(
         params: ObjectWithId &
-            PagingOptions &
-            CheckpointPagingOptions & {
-                fields?: string;
-                include_fields?: boolean;
-                sort?: string;
-                include_totals: true;
-            },
+            PagingOptions & { fields?: string; include_fields?: boolean; sort?: string; include_totals: true },
     ): Promise<OrganizationInvitationsPaged>;
     getInvitations(
         params: ObjectWithId &
-            PagingOptions &
-            CheckpointPagingOptions & {
-                fields?: string;
-                include_fields?: boolean;
-                sort?: string;
-                include_totals?: false;
-            },
+            PagingOptions & { fields?: string; include_fields?: boolean; sort?: string; include_totals?: false },
         cb: (err: Error, invitations: OrganizationInvitation[]) => void,
     ): void;
     getInvitations(
         params: ObjectWithId &
-            PagingOptions &
-            CheckpointPagingOptions & {
-                fields?: string;
-                include_fields?: boolean;
-                sort?: string;
-                include_totals: true;
-            },
+            PagingOptions & { fields?: string; include_fields?: boolean; sort?: string; include_totals: true },
         cb: (err: Error, pagedInvitations: OrganizationInvitationsPaged) => void,
     ): void;
 

@@ -1,6 +1,6 @@
 // Type definitions for ffmpeg-concat 1.1
 // Project: https://github.com/transitive-bullshit/ffmpeg-concat
-// Definitions by: Weslen Nascimento <https://github.com/weslenng>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface Transition {

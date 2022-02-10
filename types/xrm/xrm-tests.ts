@@ -390,3 +390,6 @@ Xrm.App.sidePanes.createPane({
 Xrm.App.sidePanes.getAllPanes();
 Xrm.App.sidePanes.getPane("panelId");
 Xrm.App.sidePanes.getSelectedPane();
+
+// Demonstrate GetSettings
+const settingValue = Xrm.Utility.getGlobalContext().getCurrentAppSetting("SettingsName");

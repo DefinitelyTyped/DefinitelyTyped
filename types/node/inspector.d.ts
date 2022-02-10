@@ -15,7 +15,7 @@
  * ```js
  * const inspector = require('inspector');
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/inspector.js)
+ * @see [source](https://github.com/nodejs/node/blob/v17.0.0/lib/inspector.js)
  */
 declare module 'inspector' {
     import EventEmitter = require('node:events');
@@ -1779,10 +1779,9 @@ declare module 'inspector' {
          */
         connect(): void;
         /**
-         * Connects a session to the main thread inspector back-end.
-         * An exception will be thrown if this API was not called on a Worker
-         * thread.
-         * @since 12.11.0
+         * Connects a session to the main thread inspector back-end. An exception will
+         * be thrown if this API was not called on a Worker thread.
+         * @since v12.11.0
          */
         connectToMainThread(): void;
         /**

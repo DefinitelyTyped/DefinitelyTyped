@@ -1,4 +1,4 @@
-// Type definitions for Visual Studio Code 1.62
+// Type definitions for Visual Studio Code 1.64
 // Project: https://github.com/microsoft/vscode
 // Definitions by: Visual Studio Code Team, Microsoft <https://github.com/microsoft>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -10,7 +10,7 @@
  *--------------------------------------------------------------------------------------------*/
 
 /**
- * Type Definition for Visual Studio Code 1.62 Extension API
+ * Type Definition for Visual Studio Code 1.64 Extension API
  * See https://code.visualstudio.com/api for more information
  */
 
@@ -147,9 +147,8 @@ declare module 'vscode' {
         /**
          * Save the underlying file.
          *
-         * @return A promise that will resolve to true when the file
-         * has been saved. If the file was not dirty or the save failed,
-         * will return false.
+         * @return A promise that will resolve to `true` when the file
+         * has been saved. If the save failed, will return `false`.
          */
         save(): Thenable<boolean>;
 
@@ -829,7 +828,7 @@ declare module 'vscode' {
         /**
          * The optional ThemeColor of the icon. The color is currently only used in {@link TreeItem}.
          */
-        readonly color?: ThemeColor;
+        readonly color?: ThemeColor | undefined;
 
         /**
          * Creates a reference to a theme icon.
@@ -1118,13 +1117,13 @@ declare module 'vscode' {
         /**
          * The selections in this text editor. The primary selection is always at index 0.
          */
-        selections: Selection[];
+        selections: readonly Selection[];
 
         /**
          * The current visible ranges in the editor (vertically).
          * This accounts only for vertical scrolling, and not for horizontal scrolling.
          */
-        readonly visibleRanges: Range[];
+        readonly visibleRanges: readonly Range[];
 
         /**
          * Text editor options.
@@ -1265,7 +1264,7 @@ declare module 'vscode' {
     export class Uri {
 
         /**
-         * Create an URI from a string, e.g. `http://www.msft.com/some/path`,
+         * Create an URI from a string, e.g. `http://www.example.com/some/path`,
          * `file:///usr/home`, or `scheme:with/path`.
          *
          * *Note* that for a while uris without a `scheme` were accepted. That is not correct
@@ -1288,16 +1287,16 @@ declare module 'vscode' {
          * `Uri.parse('file://' + path)` because the path might contain characters that are
          * interpreted (# and ?). See the following sample:
          * ```ts
-        const good = URI.file('/coding/c#/project1');
-        good.scheme === 'file';
-        good.path === '/coding/c#/project1';
-        good.fragment === '';
-
-        const bad = URI.parse('file://' + '/coding/c#/project1');
-        bad.scheme === 'file';
-        bad.path === '/coding/c'; // path is now broken
-        bad.fragment === '/project1';
-        ```
+         * const good = URI.file('/coding/c#/project1');
+         * good.scheme === 'file';
+         * good.path === '/coding/c#/project1';
+         * good.fragment === '';
+         *
+         * const bad = URI.parse('file://' + '/coding/c#/project1');
+         * bad.scheme === 'file';
+         * bad.path === '/coding/c'; // path is now broken
+         * bad.fragment === '/project1';
+         * ```
          *
          * @param path A file system or UNC path.
          * @return A new Uri instance.
@@ -1341,29 +1340,29 @@ declare module 'vscode' {
         private constructor(scheme: string, authority: string, path: string, query: string, fragment: string);
 
         /**
-         * Scheme is the `http` part of `http://www.msft.com/some/path?query#fragment`.
+         * Scheme is the `http` part of `http://www.example.com/some/path?query#fragment`.
          * The part before the first colon.
          */
         readonly scheme: string;
 
         /**
-         * Authority is the `www.msft.com` part of `http://www.msft.com/some/path?query#fragment`.
+         * Authority is the `www.example.com` part of `http://www.example.com/some/path?query#fragment`.
          * The part between the first double slashes and the next slash.
          */
         readonly authority: string;
 
         /**
-         * Path is the `/some/path` part of `http://www.msft.com/some/path?query#fragment`.
+         * Path is the `/some/path` part of `http://www.example.com/some/path?query#fragment`.
          */
         readonly path: string;
 
         /**
-         * Query is the `query` part of `http://www.msft.com/some/path?query#fragment`.
+         * Query is the `query` part of `http://www.example.com/some/path?query#fragment`.
          */
         readonly query: string;
 
         /**
-         * Fragment is the `fragment` part of `http://www.msft.com/some/path?query#fragment`.
+         * Fragment is the `fragment` part of `http://www.example.com/some/path?query#fragment`.
          */
         readonly fragment: string;
 
@@ -1381,11 +1380,11 @@ declare module 'vscode' {
          * The *difference* to the {@linkcode Uri.path path}-property is the use of the platform specific
          * path separator and the handling of UNC paths. The sample below outlines the difference:
          * ```ts
-        const u = URI.parse('file://server/c$/folder/file.txt')
-        u.authority === 'server'
-        u.path === '/shares/c$/file.txt'
-        u.fsPath === '\\server\c$\folder\file.txt'
-        ```
+         * const u = URI.parse('file://server/c$/folder/file.txt')
+         * u.authority === 'server'
+         * u.path === '/shares/c$/file.txt'
+         * u.fsPath === '\\server\c$\folder\file.txt'
+         * ```
          */
         readonly fsPath: string;
 
@@ -1496,22 +1495,25 @@ declare module 'vscode' {
     export class Disposable {
 
         /**
-         * Combine many disposable-likes into one. Use this method
-         * when having objects with a dispose function which are not
-         * instances of Disposable.
+         * Combine many disposable-likes into one. You can use this method when having objects with
+         * a dispose function which aren't instances of `Disposable`.
          *
-         * @param disposableLikes Objects that have at least a `dispose`-function member.
+         * @param disposableLikes Objects that have at least a `dispose`-function member. Note that asynchronous
+         * dispose-functions aren't awaited.
          * @return Returns a new disposable which, upon dispose, will
          * dispose all provided disposables.
          */
         static from(...disposableLikes: { dispose: () => any }[]): Disposable;
 
         /**
-         * Creates a new Disposable calling the provided function
+         * Creates a new disposable that calls the provided function
          * on dispose.
+         *
+         * *Note* that an asynchronous function is not awaited.
+         *
          * @param callOnDispose Function that disposes something.
          */
-        constructor(callOnDispose: Function);
+        constructor(callOnDispose: () => any);
 
         /**
          * Dispose this object.
@@ -1555,6 +1557,7 @@ declare module 'vscode' {
         /**
          * The event listeners can subscribe to.
          */
+        // eslint-disable-next-line vscode-dts-event-naming
         event: Event<T>;
 
         /**
@@ -1648,6 +1651,21 @@ declare module 'vscode' {
     }
 
     /**
+     * The kind of {@link QuickPickItem quick pick item}.
+     */
+    export enum QuickPickItemKind {
+        /**
+         * When a {@link QuickPickItem} has a kind of {@link Separator}, the item is just a visual separator and does not represent a real item.
+         * The only property that applies is {@link QuickPickItem.label label }. All other properties on {@link QuickPickItem} will be ignored and have no effect.
+         */
+        Separator = -1,
+        /**
+         * The default {@link QuickPickItem.kind} is an item that can be selected in the quick pick.
+         */
+        Default = 0,
+    }
+
+    /**
      * Represents an item that can be selected from
      * a list of items.
      */
@@ -1660,29 +1678,55 @@ declare module 'vscode' {
         label: string;
 
         /**
+         * The kind of QuickPickItem that will determine how this item is rendered in the quick pick. When not specified,
+         * the default is {@link QuickPickItemKind.Default}.
+         */
+        kind?: QuickPickItemKind;
+
+        /**
          * A human-readable string which is rendered less prominent in the same line. Supports rendering of
          * {@link ThemeIcon theme icons} via the `$(<name>)`-syntax.
+         *
+         * Note: this property is ignored when {@link QuickPickItem.kind kind} is set to {@link QuickPickItemKind.Separator}
          */
         description?: string;
 
         /**
          * A human-readable string which is rendered less prominent in a separate line. Supports rendering of
          * {@link ThemeIcon theme icons} via the `$(<name>)`-syntax.
+         *
+         * Note: this property is ignored when {@link QuickPickItem.kind kind} is set to {@link QuickPickItemKind.Separator}
          */
         detail?: string;
 
         /**
-         * Optional flag indicating if this item is picked initially.
-         * (Only honored when the picker allows multiple selections.)
+         * Optional flag indicating if this item is picked initially. This is only honored when using
+         * the {@link window.showQuickPick()} API. To do the same thing with the {@link window.createQuickPick()} API,
+         * simply set the {@link QuickPick.selectedItems} to the items you want picked initially.
+         * (*Note:* This is only honored when the picker allows multiple selections.)
          *
          * @see {@link QuickPickOptions.canPickMany}
+         *
+         * Note: this property is ignored when {@link QuickPickItem.kind kind} is set to {@link QuickPickItemKind.Separator}
          */
         picked?: boolean;
 
         /**
          * Always show this item.
+         *
+         * Note: this property is ignored when {@link QuickPickItem.kind kind} is set to {@link QuickPickItemKind.Separator}
          */
         alwaysShow?: boolean;
+
+        /**
+         * Optional buttons that will be rendered on this particular item. These buttons will trigger
+         * an {@link QuickPickItemButtonEvent} when clicked. Buttons are only rendered when using a quickpick
+         * created by the {@link window.createQuickPick()} API. Buttons are not rendered when using
+         * the {@link window.showQuickPick()} API.
+         *
+         * Note: this property is ignored when {@link QuickPickItem.kind kind} is set to {@link QuickPickItemKind.Separator}
+         */
+        buttons?: readonly QuickInputButton[];
     }
 
     /**
@@ -1946,6 +1990,18 @@ declare module 'vscode' {
         /**
          * A base file path to which this pattern will be matched against relatively.
          */
+        baseUri: Uri;
+
+        /**
+         * A base file path to which this pattern will be matched against relatively.
+         *
+         * This matches the `fsPath` value of {@link RelativePattern.baseUri}.
+         *
+         * *Note:* updating this value will update {@link RelativePattern.baseUri} to
+         * be a uri with `file` scheme.
+         *
+         * @deprecated This property is deprecated, please use {@link RelativePattern.baseUri} instead.
+         */
         base: string;
 
         /**
@@ -1979,7 +2035,7 @@ declare module 'vscode' {
          * Otherwise, a uri or string should only be used if the pattern is for a file path outside the workspace.
          * @param pattern A file glob pattern like `*.{ts,js}` that will be matched on paths relative to the base.
          */
-        constructor(base: WorkspaceFolder | Uri | string, pattern: string)
+        constructor(base: WorkspaceFolder | Uri | string, pattern: string);
     }
 
     /**
@@ -2716,7 +2772,7 @@ declare module 'vscode' {
         /*
          * If specified the expression overrides the extracted expression.
          */
-        readonly expression?: string;
+        readonly expression?: string | undefined;
 
         /**
          * Creates a new evaluatable expression object.
@@ -2783,7 +2839,7 @@ declare module 'vscode' {
         /**
          * If specified the name of the variable to look up.
          */
-        readonly variableName?: string;
+        readonly variableName?: string | undefined;
         /**
          * How to perform the lookup.
          */
@@ -2812,7 +2868,7 @@ declare module 'vscode' {
         /**
          * If specified the expression overrides the extracted expression.
          */
-        readonly expression?: string;
+        readonly expression?: string | undefined;
         /**
          * Creates a new InlineValueEvaluatableExpression object.
          *
@@ -4912,7 +4968,7 @@ declare module 'vscode' {
          * An optional word pattern that describes valid contents for the given ranges.
          * If no pattern is provided, the language configuration's word pattern will be used.
          */
-        readonly wordPattern?: RegExp;
+        readonly wordPattern: RegExp | undefined;
     }
 
     /**
@@ -5142,18 +5198,17 @@ declare module 'vscode' {
      * - *Workspace Folder settings* - From one of the {@link workspace.workspaceFolders Workspace Folders} under which requested resource belongs to.
      * - *Language settings* - Settings defined under requested language.
      *
-     * The *effective* value (returned by {@linkcode WorkspaceConfiguration.get get}) is computed by overriding or merging the values in the following order.
+     * The *effective* value (returned by {@linkcode WorkspaceConfiguration.get get}) is computed by overriding or merging the values in the following order:
      *
-     * ```
-     * `defaultValue` (if defined in `package.json` otherwise derived from the value's type)
-     * `globalValue` (if defined)
-     * `workspaceValue` (if defined)
-     * `workspaceFolderValue` (if defined)
-     * `defaultLanguageValue` (if defined)
-     * `globalLanguageValue` (if defined)
-     * `workspaceLanguageValue` (if defined)
-     * `workspaceFolderLanguageValue` (if defined)
-     * ```
+     * 1. `defaultValue` (if defined in `package.json` otherwise derived from the value's type)
+     * 1. `globalValue` (if defined)
+     * 1. `workspaceValue` (if defined)
+     * 1. `workspaceFolderValue` (if defined)
+     * 1. `defaultLanguageValue` (if defined)
+     * 1. `globalLanguageValue` (if defined)
+     * 1. `workspaceLanguageValue` (if defined)
+     * 1. `workspaceFolderLanguageValue` (if defined)
+     *
      * **Note:** Only `object` value types are merged and all other value types are overridden.
      *
      * Example 1: Overriding
@@ -5669,6 +5724,13 @@ declare module 'vscode' {
         appendLine(value: string): void;
 
         /**
+         * Replaces all output from the channel with the given value.
+         *
+         * @param value A string, falsy values will not be printed.
+         */
+        replace(value: string): void;
+
+        /**
          * Removes all output from the channel.
          */
         clear(): void;
@@ -5915,6 +5977,50 @@ declare module 'vscode' {
          * Dispose and free associated resources.
          */
         dispose(): void;
+    }
+
+    /**
+     * The location of the terminal.
+     */
+    export enum TerminalLocation {
+        /**
+         * In the terminal view
+         */
+        Panel = 1,
+        /**
+         * In the editor area
+         */
+        Editor = 2,
+    }
+
+    /**
+     * Assumes a {@link TerminalLocation} of editor and allows specifying a {@link ViewColumn} and
+     * {@link TerminalEditorLocationOptions.preserveFocus preserveFocus } property
+     */
+    export interface TerminalEditorLocationOptions {
+        /**
+         * A view column in which the {@link Terminal terminal} should be shown in the editor area.
+         * Use {@link ViewColumn.Active active} to open in the active editor group, other values are
+         * adjusted to be `Min(column, columnCount + 1)`, the
+         * {@link ViewColumn.Active active}-column is not adjusted. Use
+         * {@linkcode ViewColumn.Beside} to open the editor to the side of the currently active one.
+         */
+        viewColumn: ViewColumn;
+        /**
+         * An optional flag that when `true` will stop the {@link Terminal} from taking focus.
+         */
+        preserveFocus?: boolean;
+    }
+
+    /**
+     * Uses the parent {@link Terminal}'s location for the terminal
+     */
+    export interface TerminalSplitLocationOptions {
+        /**
+         * The parent terminal to split this terminal beside. This works whether the parent terminal
+         * is in the panel or the editor area.
+         */
+        parentTerminal: Terminal;
     }
 
     /**
@@ -6214,6 +6320,8 @@ declare module 'vscode' {
         /**
          * An array to which disposables can be added. When this
          * extension is deactivated the disposables will be disposed.
+         *
+         * *Note* that asynchronous dispose-functions aren't awaited.
          */
         readonly subscriptions: { dispose(): any }[];
 
@@ -6576,7 +6684,7 @@ declare module 'vscode' {
          * Whether the task that is part of this group is the default for the group.
          * This property cannot be set through API, and is controlled by a user's task configurations.
          */
-        readonly isDefault?: boolean;
+        readonly isDefault: boolean | undefined;
 
         /**
          * The ID of the task group. Is one of TaskGroup.Clean.id, TaskGroup.Build.id, TaskGroup.Rebuild.id, or TaskGroup.Test.id.
@@ -6912,7 +7020,7 @@ declare module 'vscode' {
         /**
          * The task's scope.
          */
-        readonly scope?: TaskScope.Global | TaskScope.Workspace | WorkspaceFolder;
+        readonly scope: TaskScope.Global | TaskScope.Workspace | WorkspaceFolder | undefined;
 
         /**
          * The task's name
@@ -7354,13 +7462,23 @@ declare module 'vscode' {
         readonly onDidChangeFile: Event<FileChangeEvent[]>;
 
         /**
-         * Subscribe to events in the file or folder denoted by `uri`.
+         * Subscribes to file change events in the file or folder denoted by `uri`. For folders,
+         * the option `recursive` indicates whether subfolders, sub-subfolders, etc. should
+         * be watched for file changes as well. With `recursive: false`, only changes to the
+         * files that are direct children of the folder should trigger an event.
          *
-         * The editor will call this function for files and folders. In the latter case, the
-         * options differ from defaults, e.g. what files/folders to exclude from watching
-         * and if subfolders, sub-subfolder, etc. should be watched (`recursive`).
+         * The `excludes` array is used to indicate paths that should be excluded from file
+         * watching. It is typically derived from the `files.watcherExclude` setting that
+         * is configurable by the user. Each entry can be be:
+         * - the absolute path to exclude
+         * - a relative path to exclude (for example `build/output`)
+         * - a simple glob pattern (for example `**​/build`, `output/**`)
          *
-         * @param uri The uri of the file to be watched.
+         * It is the file system provider's job to call {@linkcode FileSystemProvider.onDidChangeFile onDidChangeFile}
+         * for every change given these rules. No event should be emitted for files that match any of the provided
+         * excludes.
+         *
+         * @param uri The uri of the file or folder to be watched.
          * @param options Configures the watch.
          * @returns A disposable that tells the provider to stop watching the `uri`.
          */
@@ -7581,7 +7699,7 @@ declare module 'vscode' {
         /**
          * Controls whether forms are enabled in the webview content or not.
          *
-         * Defaults to true if {@link enableScripts scripts are enabled}. Otherwise defaults to false.
+         * Defaults to true if {@link WebViewOptions.enableScripts scripts are enabled}. Otherwise defaults to false.
          * Explicitly setting this property to either true or false overrides the default.
          */
         readonly enableForms?: boolean;
@@ -7701,8 +7819,8 @@ declare module 'vscode' {
          *
          * This is the origin that should be used in a content security policy rule:
          *
-         * ```
-         * img-src https: ${webview.cspSource} ...;
+         * ```ts
+         * `img-src https: ${webview.cspSource} ...;`
          * ```
          */
         readonly cspSource: string;
@@ -7755,7 +7873,7 @@ declare module 'vscode' {
         /**
          * Icon for the panel shown in UI.
          */
-        iconPath?: Uri | { light: Uri; dark: Uri };
+        iconPath?: Uri | { readonly light: Uri; readonly dark: Uri };
 
         /**
          * {@linkcode Webview} belonging to the panel.
@@ -8597,10 +8715,10 @@ declare module 'vscode' {
          *
          * @param command Identifier of the command to execute.
          * @param rest Parameters passed to the command function.
-         * @return A thenable that resolves to the returned value of the given command. `undefined` when
+         * @return A thenable that resolves to the returned value of the given command. Returns `undefined` when
          * the command handler function doesn't return anything.
          */
-        export function executeCommand<T>(command: string, ...rest: any[]): Thenable<T | undefined>;
+        export function executeCommand<T = unknown>(command: string, ...rest: any[]): Thenable<T>;
 
         /**
          * Retrieve the list of all available commands. Commands starting with an underscore are
@@ -8655,7 +8773,7 @@ declare module 'vscode' {
         /**
          * The currently visible editors or an empty array.
          */
-        export let visibleTextEditors: TextEditor[];
+        export let visibleTextEditors: readonly TextEditor[];
 
         /**
          * An {@link Event} which fires when the {@link window.activeTextEditor active editor}
@@ -8668,7 +8786,7 @@ declare module 'vscode' {
          * An {@link Event} which fires when the array of {@link window.visibleTextEditors visible editors}
          * has changed.
          */
-        export const onDidChangeVisibleTextEditors: Event<TextEditor[]>;
+        export const onDidChangeVisibleTextEditors: Event<readonly TextEditor[]>;
 
         /**
          * An {@link Event} which fires when the selection in an editor has changed.
@@ -8761,7 +8879,7 @@ declare module 'vscode' {
         /**
          * A short-hand for `openTextDocument(uri).then(document => showTextDocument(document, options))`.
          *
-         * @see {@link openTextDocument}
+         * @see {@link workspace.openTextDocument}
          *
          * @param uri A resource identifier.
          * @param options {@link TextDocumentShowOptions Editor options} to configure the behavior of showing the {@link TextEditor editor}.
@@ -8785,7 +8903,7 @@ declare module 'vscode' {
          * @param items A set of items that will be rendered as actions in the message.
          * @return A thenable that resolves to the selected item or `undefined` when being dismissed.
          */
-        export function showInformationMessage(message: string, ...items: string[]): Thenable<string | undefined>;
+        export function showInformationMessage<T extends string>(message: string, ...items: T[]): Thenable<T | undefined>;
 
         /**
          * Show an information message to users. Optionally provide an array of items which will be presented as
@@ -8796,7 +8914,7 @@ declare module 'vscode' {
          * @param items A set of items that will be rendered as actions in the message.
          * @return A thenable that resolves to the selected item or `undefined` when being dismissed.
          */
-        export function showInformationMessage(message: string, options: MessageOptions, ...items: string[]): Thenable<string | undefined>;
+        export function showInformationMessage<T extends string>(message: string, options: MessageOptions, ...items: T[]): Thenable<T | undefined>;
 
         /**
          * Show an information message.
@@ -8830,7 +8948,7 @@ declare module 'vscode' {
          * @param items A set of items that will be rendered as actions in the message.
          * @return A thenable that resolves to the selected item or `undefined` when being dismissed.
          */
-        export function showWarningMessage(message: string, ...items: string[]): Thenable<string | undefined>;
+        export function showWarningMessage<T extends string>(message: string, ...items: T[]): Thenable<T | undefined>;
 
         /**
          * Show a warning message.
@@ -8842,7 +8960,7 @@ declare module 'vscode' {
          * @param items A set of items that will be rendered as actions in the message.
          * @return A thenable that resolves to the selected item or `undefined` when being dismissed.
          */
-        export function showWarningMessage(message: string, options: MessageOptions, ...items: string[]): Thenable<string | undefined>;
+        export function showWarningMessage<T extends string>(message: string, options: MessageOptions, ...items: T[]): Thenable<T | undefined>;
 
         /**
          * Show a warning message.
@@ -8876,7 +8994,7 @@ declare module 'vscode' {
          * @param items A set of items that will be rendered as actions in the message.
          * @return A thenable that resolves to the selected item or `undefined` when being dismissed.
          */
-        export function showErrorMessage(message: string, ...items: string[]): Thenable<string | undefined>;
+        export function showErrorMessage<T extends string>(message: string, ...items: T[]): Thenable<T | undefined>;
 
         /**
          * Show an error message.
@@ -8888,7 +9006,7 @@ declare module 'vscode' {
          * @param items A set of items that will be rendered as actions in the message.
          * @return A thenable that resolves to the selected item or `undefined` when being dismissed.
          */
-        export function showErrorMessage(message: string, options: MessageOptions, ...items: string[]): Thenable<string | undefined>;
+        export function showErrorMessage<T extends string>(message: string, options: MessageOptions, ...items: T[]): Thenable<T | undefined>;
 
         /**
          * Show an error message.
@@ -9197,7 +9315,7 @@ declare module 'vscode' {
          * Registers a webview panel serializer.
          *
          * Extensions that support reviving should have an `"onWebviewPanel:viewType"` activation event and
-         * make sure that {@link registerWebviewPanelSerializer} is called during activation.
+         * make sure that `registerWebviewPanelSerializer` is called during activation.
          *
          * Only a single serializer may be registered at a time for a given `viewType`.
          *
@@ -9353,7 +9471,7 @@ declare module 'vscode' {
         /**
          * Selected elements.
          */
-        readonly selection: T[];
+        readonly selection: readonly T[];
 
     }
 
@@ -9387,7 +9505,7 @@ declare module 'vscode' {
         /**
          * Currently selected elements.
          */
-        readonly selection: T[];
+        readonly selection: readonly T[];
 
         /**
          * Event that is fired when the {@link TreeView.selection selection} has changed
@@ -9556,17 +9674,17 @@ declare module 'vscode' {
          * Context value of the tree item. This can be used to contribute item specific actions in the tree.
          * For example, a tree item is given a context value as `folder`. When contributing actions to `view/item/context`
          * using `menus` extension point, you can specify context value for key `viewItem` in `when` expression like `viewItem == folder`.
-         * ```
-         *    "contributes": {
-         *        "menus": {
-         *            "view/item/context": [
-         *                {
-         *                    "command": "extension.deleteFolder",
-         *                    "when": "viewItem == folder"
-         *                }
-         *            ]
-         *        }
-         *    }
+         * ```json
+         * "contributes": {
+         *   "menus": {
+         *     "view/item/context": [
+         *       {
+         *         "command": "extension.deleteFolder",
+         *         "when": "viewItem == folder"
+         *       }
+         *     ]
+         *   }
+         * }
          * ```
          * This will show action `extension.deleteFolder` only for items with `contextValue` is `folder`.
          */
@@ -9693,6 +9811,11 @@ declare module 'vscode' {
          * recommended for the best contrast and consistency across themes.
          */
         color?: ThemeColor;
+
+        /**
+        * The {@link TerminalLocation} or {@link TerminalEditorLocationOptions} or {@link TerminalSplitLocationOptions} for the terminal.
+        */
+        location?: TerminalLocation | TerminalEditorLocationOptions | TerminalSplitLocationOptions;
     }
 
     /**
@@ -9721,6 +9844,11 @@ declare module 'vscode' {
          * recommended for the best contrast and consistency across themes.
          */
         color?: ThemeColor;
+
+        /**
+         * The {@link TerminalLocation} or {@link TerminalEditorLocationOptions} or {@link TerminalSplitLocationOptions} for the terminal.
+         */
+        location?: TerminalLocation | TerminalEditorLocationOptions | TerminalSplitLocationOptions;
     }
 
     /**
@@ -10205,6 +10333,12 @@ declare module 'vscode' {
         readonly onDidTriggerButton: Event<QuickInputButton>;
 
         /**
+         * An event signaling when a button in a particular {@link QuickPickItem} was triggered.
+         * This event does not fire for buttons in the title bar.
+         */
+        readonly onDidTriggerItemButton: Event<QuickPickItemButtonEvent<T>>;
+
+        /**
          * Items to pick from. This can be read and updated by the extension.
          */
         items: readonly T[];
@@ -10223,6 +10357,11 @@ declare module 'vscode' {
          * If the filter text should also be matched against the detail of the items. Defaults to false.
          */
         matchOnDetail: boolean;
+
+        /*
+         * An optional flag to maintain the scroll position of the quick pick when the quick pick items are updated. Defaults to false.
+         */
+        keepScrollPosition?: boolean;
 
         /**
          * Active items. This can be read and updated by the extension.
@@ -10333,6 +10472,21 @@ declare module 'vscode' {
          * @hidden
          */
         private constructor();
+    }
+
+    /**
+     * An event signaling when a button in a particular {@link QuickPickItem} was triggered.
+     * This event does not fire for buttons in the title bar.
+     */
+    export interface QuickPickItemButtonEvent<T extends QuickPickItem> {
+        /**
+         * The button that was clicked.
+         */
+        readonly button: QuickInputButton;
+        /**
+         * The item that the button belongs to.
+         */
+        readonly item: T;
     }
 
     /**
@@ -10470,6 +10624,11 @@ declare module 'vscode' {
     export interface FileWillCreateEvent {
 
         /**
+         * A cancellation token.
+         */
+        readonly token: CancellationToken;
+
+        /**
          * The files that are going to be created.
          */
         readonly files: readonly Uri[];
@@ -10525,6 +10684,11 @@ declare module 'vscode' {
     export interface FileWillDeleteEvent {
 
         /**
+         * A cancellation token.
+         */
+        readonly token: CancellationToken;
+
+        /**
          * The files that are going to be deleted.
          */
         readonly files: readonly Uri[];
@@ -10578,6 +10742,11 @@ declare module 'vscode' {
      * thenable that resolves to a {@link WorkspaceEdit workspace edit}.
      */
     export interface FileWillRenameEvent {
+
+        /**
+         * A cancellation token.
+         */
+        readonly token: CancellationToken;
 
         /**
          * The files that are going to be renamed.
@@ -10757,6 +10926,11 @@ declare module 'vscode' {
 
         /**
          * An event that is emitted when a workspace folder is added or removed.
+         *
+         * **Note:** this event will not fire if the first workspace folder is added, removed or changed,
+         * because in that case the currently executing extensions (including the one that listens to this
+         * event) will be terminated and restarted so that the (deprecated) `rootPath` property is updated
+         * to point to the first workspace folder.
          */
         export const onDidChangeWorkspaceFolders: Event<WorkspaceFoldersChangeEvent>;
 
@@ -10828,21 +11002,114 @@ declare module 'vscode' {
         export function updateWorkspaceFolders(start: number, deleteCount: number | undefined | null, ...workspaceFoldersToAdd: { uri: Uri, name?: string }[]): boolean;
 
         /**
-         * Creates a file system watcher.
+         * Creates a file system watcher that is notified on file events (create, change, delete)
+         * depending on the parameters provided.
          *
-         * A glob pattern that filters the file events on their absolute path must be provided. Optionally,
-         * flags to ignore certain kinds of events can be provided. To stop listening to events the watcher must be disposed.
+         * By default, all opened {@link workspace.workspaceFolders workspace folders} will be watched
+         * for file changes recursively.
          *
-         * *Note* that only files within the current {@link workspace.workspaceFolders workspace folders} can be watched.
-         * *Note* that when watching for file changes such as '**​/*.js', notifications will not be sent when a parent folder is
-         * moved or deleted (this is a known limitation of the current implementation and may change in the future).
+         * Additional folders can be added for file watching by providing a {@link RelativePattern} with
+         * a `base` that is outside of any of the currently opened workspace folders. If the `pattern` is
+         * complex (e.g. contains `**` or path segments), the folder will be watched recursively and
+         * otherwise will be watched non-recursively (i.e. only changes to the first level of the path
+         * will be reported).
          *
-         * @param globPattern A {@link GlobPattern glob pattern} that is applied to the absolute paths of created, changed,
-         * and deleted files. Use a {@link RelativePattern relative pattern} to limit events to a certain {@link WorkspaceFolder workspace folder}.
+         * Providing a `string` as `globPattern` acts as convenience method for watching file events in
+         * all opened workspace folders. It cannot be used to add more folders for file watching, nor will
+         * it report any file events from folders that are not part of the opened workspace folders.
+         *
+         * Optionally, flags to ignore certain kinds of events can be provided.
+         *
+         * To stop listening to events the watcher must be disposed.
+         *
+         * *Note* that file events from file watchers may be excluded based on user configuration.
+         * The setting `files.watcherExclude` helps to reduce the overhead of file events from folders
+         * that are known to produce many file changes at once (such as `node_modules` folders). As such,
+         * it is highly recommended to watch with simple patterns that do not require recursive watchers.
+         *
+         * *Note* that symbolic links are not automatically followed for file watching unless the path to
+         * watch itself is a symbolic link.
+         *
+         * *Note* that file changes for the path to be watched may not be delivered when the path itself
+         * changes. For example, when watching a path `/Users/somename/Desktop` and the path itself is
+         * being deleted, the watcher may not report an event and may not work anymore from that moment on.
+         * The underlying behaviour depends on the path that is provided for watching:
+         * * if the path is within any of the workspace folders, deletions are tracked and reported unless
+         *   excluded via `files.watcherExclude` setting
+         * * if the path is equal to any of the workspace folders, deletions are not tracked
+         * * if the path is outside of any of the workspace folders, deletions are not tracked
+         *
+         * If you are interested in being notified when the watched path itself is being deleted, you have
+         * to watch it's parent folder. Make sure to use a simple `pattern` (such as putting the name of the
+         * folder) to not accidentally watch all sibling folders recursively.
+         *
+         * *Note* that the file paths that are reported for having changed may have a different path casing
+         * compared to the actual casing on disk on case-insensitive platforms (typically macOS and Windows
+         * but not Linux). We allow a user to open a workspace folder with any desired path casing and try
+         * to preserve that. This means:
+         * * if the path is within any of the workspace folders, the path will match the casing of the
+         *   workspace folder up to that portion of the path and match the casing on disk for children
+         * * if the path is outside of any of the workspace folders, the casing will match the case of the
+         *   path that was provided for watching
+         * In the same way, symbolic links are preserved, i.e. the file event will report the path of the
+         * symbolic link as it was provided for watching and not the target.
+         *
+         * ### Examples
+         *
+         * The basic anatomy of a file watcher is as follows:
+         *
+         * ```ts
+         * const watcher = vscode.workspace.createFileSystemWatcher(new vscode.RelativePattern(<folder>, <pattern>));
+         *
+         * watcher.onDidChange(uri => { ... }); // listen to files being changed
+         * watcher.onDidCreate(uri => { ... }); // listen to files/folders being created
+         * watcher.onDidDelete(uri => { ... }); // listen to files/folders getting deleted
+         *
+         * watcher.dispose(); // dispose after usage
+         * ```
+         *
+         * #### Workspace file watching
+         *
+         * If you only care about file events in a specific workspace folder:
+         *
+         * ```ts
+         * vscode.workspace.createFileSystemWatcher(new vscode.RelativePattern(vscode.workspace.workspaceFolders[0], '**​/*.js'));
+         * ```
+         *
+         * If you want to monitor file events across all opened workspace folders:
+         *
+         * ```ts
+         * vscode.workspace.createFileSystemWatcher('**​/*.js'));
+         * ```
+         *
+         * *Note:* the array of workspace folders can be empy if no workspace is opened (empty window).
+         *
+         * #### Out of workspace file watching
+         *
+         * To watch a folder for changes to *.js files outside the workspace (non recursively), pass in a `Uri` to such
+         * a folder:
+         *
+         * ```ts
+         * vscode.workspace.createFileSystemWatcher(new vscode.RelativePattern(vscode.Uri.file(<path to folder outside workspace>), '*.js'));
+         * ```
+         *
+         * And use a complex glob pattern to watch recursively:
+         *
+         * ```ts
+         * vscode.workspace.createFileSystemWatcher(new vscode.RelativePattern(vscode.Uri.file(<path to folder outside workspace>), '**​/*.js'));
+         * ```
+         *
+         * Here is an example for watching the active editor for file changes:
+         *
+         * ```ts
+         * vscode.workspace.createFileSystemWatcher(new vscode.RelativePattern(vscode.window.activeTextEditor.document.uri, '*'));
+         * ```
+         *
+         * @param globPattern A {@link GlobPattern glob pattern} that controls which file events the watcher should report.
          * @param ignoreCreateEvents Ignore when files have been created.
          * @param ignoreChangeEvents Ignore when files have been changed.
          * @param ignoreDeleteEvents Ignore when files have been deleted.
-         * @return A new file system watcher instance.
+         * @return A new file system watcher instance. Must be disposed when no longer needed.
          */
         export function createFileSystemWatcher(globPattern: GlobPattern, ignoreCreateEvents?: boolean, ignoreChangeEvents?: boolean, ignoreDeleteEvents?: boolean): FileSystemWatcher;
 
@@ -10869,7 +11136,8 @@ declare module 'vscode' {
          * Save all dirty files.
          *
          * @param includeUntitled Also save files that have been created during this session.
-         * @return A thenable that resolves when the files have been saved.
+         * @return A thenable that resolves when the files have been saved. Will return `false`
+         * for any file that failed to save.
          */
         export function saveAll(includeUntitled?: boolean): Thenable<boolean>;
 
@@ -10920,7 +11188,7 @@ declare module 'vscode' {
         /**
          * A short-hand for `openTextDocument(Uri.file(fileName))`.
          *
-         * @see {@link openTextDocument}
+         * @see {@link workspace.openTextDocument}
          * @param fileName A name of a file on disk.
          * @return A promise that resolves to a {@link TextDocument document}.
          */
@@ -11024,7 +11292,7 @@ declare module 'vscode' {
          * Open an untitled notebook. The editor will prompt the user for a file
          * path when the document is to be saved.
          *
-         * @see {@link openNotebookDocument}
+         * @see {@link workspace.openNotebookDocument}
          * @param notebookType The notebook type that should be used.
          * @param content The initial contents of the notebook.
          * @returns A promise that resolves to a {@link NotebookDocument notebook}.
@@ -11266,7 +11534,7 @@ declare module 'vscode' {
          * 2. A string will be desugared to become the `language`-part of a {@linkcode DocumentFilter}, so `"fooLang"` is like `{ language: "fooLang" }`.
          * 3. A {@linkcode DocumentFilter} will be matched against the document by comparing its parts with the document. The following rules apply:
          *  1. When the `DocumentFilter` is empty (`{}`) the result is `0`
-         *  2. When `scheme`, `language`, or `pattern` are defined but one doesn’t match, the result is `0`
+         *  2. When `scheme`, `language`, or `pattern` are defined but one doesn't match, the result is `0`
          *  3. Matching against `*` gives a score of `5`, matching via equality or via a glob-pattern gives a score of `10`
          *  4. The result is the maximum value of each match
          *
@@ -12673,17 +12941,17 @@ declare module 'vscode' {
          * Context value of the resource state. This can be used to contribute resource specific actions.
          * For example, if a resource is given a context value as `diffable`. When contributing actions to `scm/resourceState/context`
          * using `menus` extension point, you can specify context value for key `scmResourceState` in `when` expressions, like `scmResourceState == diffable`.
-         * ```
-         *    "contributes": {
-         *        "menus": {
-         *            "scm/resourceState/context": [
-         *                {
-         *                    "command": "extension.diff",
-         *                    "when": "scmResourceState == diffable"
-         *                }
-         *            ]
-         *        }
-         *    }
+         * ```json
+         * "contributes": {
+         *   "menus": {
+         *     "scm/resourceState/context": [
+         *       {
+         *         "command": "extension.diff",
+         *         "when": "scmResourceState == diffable"
+         *       }
+         *     ]
+         *   }
+         * }
          * ```
          * This will show action `extension.diff` only for resources with `contextValue` is `diffable`.
          */
@@ -13051,7 +13319,7 @@ declare module 'vscode' {
         /**
          * The host.
          */
-        readonly host?: string;
+        readonly host?: string | undefined;
 
         /**
          * Create a description for a debug adapter running as a socket based server.
@@ -13224,15 +13492,15 @@ declare module 'vscode' {
         /**
          * An optional expression for conditional breakpoints.
          */
-        readonly condition?: string;
+        readonly condition?: string | undefined;
         /**
          * An optional expression that controls how many hits of the breakpoint are ignored.
          */
-        readonly hitCondition?: string;
+        readonly hitCondition?: string | undefined;
         /**
          * An optional message that gets logged when this breakpoint is hit. Embedded expressions within {} are interpolated by the debug adapter.
          */
-        readonly logMessage?: string;
+        readonly logMessage?: string | undefined;
 
         protected constructor(enabled?: boolean, condition?: string, hitCondition?: string, logMessage?: string);
     }
@@ -13360,7 +13628,7 @@ declare module 'vscode' {
         /**
          * List of breakpoints.
          */
-        export let breakpoints: Breakpoint[];
+        export let breakpoints: readonly Breakpoint[];
 
         /**
          * An {@link Event} which fires when the {@link debug.activeDebugSession active debug session}
@@ -13590,17 +13858,17 @@ declare module 'vscode' {
          * Context value of the comment thread. This can be used to contribute thread specific actions.
          * For example, a comment thread is given a context value as `editable`. When contributing actions to `comments/commentThread/title`
          * using `menus` extension point, you can specify context value for key `commentThread` in `when` expression like `commentThread == editable`.
-         * ```
-         *    "contributes": {
-         *        "menus": {
-         *            "comments/commentThread/title": [
-         *                {
-         *                    "command": "extension.deleteCommentThread",
-         *                    "when": "commentThread == editable"
-         *                }
-         *            ]
-         *        }
-         *    }
+         * ```json
+         * "contributes": {
+         *   "menus": {
+         *     "comments/commentThread/title": [
+         *       {
+         *         "command": "extension.deleteCommentThread",
+         *         "when": "commentThread == editable"
+         *       }
+         *     ]
+         *   }
+         * }
          * ```
          * This will show action `extension.deleteCommentThread` only for comment threads with `contextValue` is `editable`.
          */
@@ -13861,6 +14129,17 @@ declare module 'vscode' {
      */
     export interface AuthenticationGetSessionOptions {
         /**
+         * Whether the existing user session preference should be cleared.
+         *
+         * For authentication providers that support being signed into multiple accounts at once, the user will be
+         * prompted to select an account to use when {@link authentication.getSession getSession} is called. This preference
+         * is remembered until {@link authentication.getSession getSession} is called with this flag.
+         *
+         * Defaults to false.
+         */
+        clearSessionPreference?: boolean;
+
+        /**
          * Whether login should be performed if there is no matching session.
          *
          * If true, a modal dialog will be shown asking the user to sign in. If false, a numbered badge will be shown
@@ -13871,19 +14150,32 @@ declare module 'vscode' {
          * will also result in an immediate modal dialog, and false will add a numbered badge to the accounts icon.
          *
          * Defaults to false.
+         *
+         * Note: you cannot use this option with {@link AuthenticationGetSessionOptions.silent silent}.
          */
         createIfNone?: boolean;
 
         /**
-         * Whether the existing user session preference should be cleared.
+         * Whether we should attempt to reauthenticate even if there is already a session available.
          *
-         * For authentication providers that support being signed into multiple accounts at once, the user will be
-         * prompted to select an account to use when {@link authentication.getSession getSession} is called. This preference
-         * is remembered until {@link authentication.getSession getSession} is called with this flag.
+         * If true, a modal dialog will be shown asking the user to sign in again. This is mostly used for scenarios
+         * where the token needs to be re minted because it has lost some authorization.
          *
          * Defaults to false.
          */
-        clearSessionPreference?: boolean;
+        forceNewSession?: boolean | { detail: string };
+
+        /**
+         * Whether we should show the indication to sign in in the Accounts menu.
+         *
+         * If false, the user will be shown a badge on the Accounts menu with an option to sign in for the extension.
+         * If true, no indication will be shown.
+         *
+         * Defaults to false.
+         *
+         * Note: you cannot use this option with any other options that prompt the user like {@link AuthenticationGetSessionOptions.createIfNone createIfNone}.
+         */
+        silent?: boolean;
     }
 
     /**
@@ -14007,6 +14299,21 @@ declare module 'vscode' {
          * @returns A thenable that resolves to an authentication session
          */
         export function getSession(providerId: string, scopes: readonly string[], options: AuthenticationGetSessionOptions & { createIfNone: true }): Thenable<AuthenticationSession>;
+
+        /**
+         * Get an authentication session matching the desired scopes. Rejects if a provider with providerId is not
+         * registered, or if the user does not consent to sharing authentication information with
+         * the extension. If there are multiple sessions with the same scopes, the user will be shown a
+         * quickpick to select which account they would like to use.
+         *
+         * Currently, there are only two authentication providers that are contributed from built in extensions
+         * to the editor that implement GitHub and Microsoft authentication: their providerId's are 'github' and 'microsoft'.
+         * @param providerId The id of the provider to use
+         * @param scopes A list of scopes representing the permissions requested. These are dependent on the authentication provider
+         * @param options The {@link AuthenticationGetSessionOptions} to use
+         * @returns A thenable that resolves to an authentication session
+         */
+        export function getSession(providerId: string, scopes: readonly string[], options: AuthenticationGetSessionOptions & { forceNewSession: true | { detail: string } }): Thenable<AuthenticationSession>;
 
         /**
          * Get an authentication session matching the desired scopes. Rejects if a provider with providerId is not
@@ -14214,7 +14521,7 @@ declare module 'vscode' {
          * the function returns or the returned thenable resolves.
          *
          * @param item An unresolved test item for which children are being
-         * requested, or `undefined` to resolve the controller's initial {@link items}.
+         * requested, or `undefined` to resolve the controller's initial {@link TestController.items items}.
          */
         resolveHandler?: (item: TestItem | undefined) => Thenable<void> | void;
 
@@ -14264,7 +14571,7 @@ declare module 'vscode' {
      * A TestRunRequest is a precursor to a {@link TestRun}, which in turn is
      * created by passing a request to {@link tests.runTests}. The TestRunRequest
      * contains information about which tests should be run, which should not be
-     * run, and how they are run (via the {@link profile}).
+     * run, and how they are run (via the {@link TestRunRequest.profile profile}).
      *
      * In general, TestRunRequests are created by the editor and pass to
      * {@link TestRunProfile.runHandler}, however you can also create test
@@ -14280,7 +14587,7 @@ declare module 'vscode' {
          * The process of running tests should resolve the children of any test
          * items who have not yet been resolved.
          */
-        readonly include: TestItem[] | undefined;
+        readonly include: readonly TestItem[] | undefined;
 
         /**
          * An array of tests the user has marked as excluded from the test included
@@ -14289,7 +14596,7 @@ declare module 'vscode' {
          * May be omitted if no exclusions were requested. Test controllers should
          * not run excluded tests or any children of excluded tests.
          */
-        readonly exclude: TestItem[] | undefined;
+        readonly exclude: readonly TestItem[] | undefined;
 
         /**
          * The profile used for this request. This will always be defined
@@ -14466,7 +14773,7 @@ declare module 'vscode' {
         /**
          * The parent of this item. It's set automatically, and is undefined
          * top-level items in the {@link TestController.items} and for items that
-         * aren't yet included in another item's {@link children}.
+         * aren't yet included in another item's {@link TestItem.children children}.
          */
         readonly parent: TestItem | undefined;
 
@@ -14506,7 +14813,7 @@ declare module 'vscode' {
         description?: string;
 
         /**
-         * Location of the test item in its {@link uri}.
+         * Location of the test item in its {@link TestItem.uri uri}.
          *
          * This is only meaningful if the `uri` points to a file.
          */
@@ -14532,12 +14839,12 @@ declare module 'vscode' {
         message: string | MarkdownString;
 
         /**
-         * Expected test output. If given with {@link actualOutput}, a diff view will be shown.
+         * Expected test output. If given with {@link TestMessage.actualOutput actualOutput }, a diff view will be shown.
          */
         expectedOutput?: string;
 
         /**
-         * Actual test output. If given with {@link expectedOutput}, a diff view will be shown.
+         * Actual test output. If given with {@link TestMessage.expectedOutput expectedOutput }, a diff view will be shown.
          */
         actualOutput?: string;
 

@@ -1113,18 +1113,6 @@ declare namespace React {
     /**
      * `useMemo` will only recompute the memoized value when one of the `deps` has changed.
      *
-     * Usage note: if calling `useMemo` with a referentially stable function, also give it as the input in
-     * the second argument.
-     *
-     * ```ts
-     * function expensive () { ... }
-     *
-     * function Component () {
-     *   const expensiveResult = useMemo(expensive, [expensive])
-     *   return ...
-     * }
-     * ```
-     *
      * @version 16.8.0
      * @see https://reactjs.org/docs/hooks-reference.html#usememo
      */

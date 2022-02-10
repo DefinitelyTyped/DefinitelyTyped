@@ -1149,12 +1149,12 @@ declare namespace jasmine {
         /** Set this spy to do a shallow clone of arguments passed to each invocation. */
         saveArgumentsByValue(): void;
         /** Get the "this" object that was passed to a specific invocation of this spy. */
-        thisFor(index: number): any;
+        thisFor(index: number): ThisType<Fn>;
     }
 
     interface CallInfo<Fn extends Func> {
         /** The context (the this) for the call */
-        object: any;
+        object: ThisType<Fn>;
         /** All arguments passed to the call */
         args: Parameters<Fn>;
         /** The return value of the call */

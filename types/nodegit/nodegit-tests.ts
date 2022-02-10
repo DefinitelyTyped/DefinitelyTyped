@@ -84,6 +84,12 @@ signature.name();
 signature.email();
 signature.when();
 
+Git.Signature.default(repo).then(defaultSigniture => {
+    defaultSigniture.name();
+    defaultSigniture.email();
+    defaultSigniture.when();
+});
+
 repo.createBlobFromBuffer(Buffer.from('test')).then((oid: Git.Oid) => oid.cpy());
 repo.commondir();
 
@@ -157,4 +163,14 @@ Git.Worktree.list(repo).then(list => {
 Git.Worktree.openFromRepository(repo).then(worktree => {
     worktree.name(); // $ExpectType string
     worktree.path(); // $ExpectType string
+});
+
+Git.Refspec.parse('+refs/heads/*:refs/remotes/origin/*', 0).then(refspec => {
+    refspec.direction(); // $ExpectType number
+    refspec.dst(); // $ExpectType string
+    refspec.dstMatches('+refs/heads/*'); // $ExpectType number
+    refspec.force(); // $ExpectType number
+    refspec.src(); // $ExpectType string
+    refspec.srcMatches('refs/remotes/origin/*'); // $ExpectType number
+    refspec.string(); // $ExpectType string
 });

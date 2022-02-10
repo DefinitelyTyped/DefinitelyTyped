@@ -1,4 +1,4 @@
-// Type definitions for prosemirror-view 1.19
+// Type definitions for prosemirror-view 1.23
 // Project: https://github.com/ProseMirror/prosemirror-view
 // Definitions by: Bradley Ayers <https://github.com/bradleyayers>
 //                 David Hahn <https://github.com/davidka>
@@ -6,6 +6,7 @@
 //                 Patrick Simmelbauer <https://github.com/patsimm>
 //                 Ifiok Jr. <https://github.com/ifiokjr>
 //                 Mike Morearty <https://github.com/mmorearty>
+//                 Ocavue <https://github.com/ocavue>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -76,6 +77,10 @@ export interface WidgetDecorationSpec {
      * different keys.
      */
     key?: string | null | undefined;
+    /**
+     * Called when the widget decoration is removed as a result of mapping
+     */
+    destroy?: (node: Node) => void;
 }
 /**
  * The `spec` for the inline decoration.
@@ -367,6 +372,12 @@ export class EditorView<S extends Schema = any> {
      * views](#view.NodeView).
      */
     destroy(): void;
+    /**
+     * This is true when the view has been
+     * [destroyed](#view.EditorView.destroy) (and thus should not be
+     * used anymore).
+     */
+    isDestroyed: boolean;
     /**
      * Dispatch a transaction. Will call
      * [`dispatchTransaction`](#view.DirectEditorProps.dispatchTransaction)

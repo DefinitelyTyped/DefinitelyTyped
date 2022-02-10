@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "dependencies": {
+        "javascript-obfuscator": "^3.0.0"
+    }
+}

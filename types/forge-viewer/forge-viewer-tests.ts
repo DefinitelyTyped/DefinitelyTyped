@@ -16,7 +16,10 @@ Autodesk.Viewing.Initializer(options, async () => {
         console.error('Failed to create a Viewer: WebGL not supported.');
         return;
     }
-
+    if (!viewer.running) {
+        console.error('Failed to run a Viewer');
+        return;
+    }
     const documentId = 'urn:dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6bXktYnVja2V0L215LWF3ZXNvbWUtZm9yZ2UtZmlsZS5ydnQ';
     const doc = await loadDocument(documentId);
 
@@ -30,6 +33,7 @@ Autodesk.Viewing.Initializer(options, async () => {
     bufferReaderTest(model);
     callbackTests(viewer);
     cameraTests(viewer);
+    extensionTests(viewer);
     formattingTests();
     fragListTests(model);
     instanceTreeTests(model);
@@ -44,6 +48,7 @@ Autodesk.Viewing.Initializer(options, async () => {
     await dataVizPlanarTests(viewer);
     await edit2DTests(viewer);
     await measureTests(viewer);
+    await multipageTests(viewer);
     await pixelCompareTests(viewer);
     await propertyTests(viewer);
     await propertyDbTests(model);
@@ -413,19 +418,6 @@ async function edit2DTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void> 
     const resXor = Autodesk.Edit2D.BooleanOps.apply(rectOne, rectTwo, Autodesk.Edit2D.BooleanOps.Operator.Xor);
 }
 
-async function extensionTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void> {
-    const ext = await viewer.loadExtension('Autodesk.Measure');
-
-    // $ExpectType string
-    ext.getName();
-    const modes = ext.getModes();
-
-    modes.forEach((m) => {
-        // $ExpectType boolean
-        ext.isActive(m);
-    });
-}
-
 function fragListTests(model: Autodesk.Viewing.Model): void {
     const fragId = 1; // hard coded value for testing
     const fragList = model.getFragmentList();
@@ -439,6 +431,14 @@ function fragListTests(model: Autodesk.Viewing.Model): void {
     fragList.getAnimTransform(fragId, s, r, t);
 }
 
+function extensionTests(viewer: Autodesk.Viewing.GuiViewer3D): void {
+    const extensions = viewer.getLoadedExtensions();
+
+    for (const ext in extensions) {
+        console.debug(ext);
+    }
+}
+
 function formattingTests(): void {
     // $ExpectType string
     Autodesk.Viewing.Private.formatValueWithUnits(10, Autodesk.Viewing.Private.ModelUnits.CENTIMETER, 3, 2);
@@ -447,12 +447,35 @@ function formattingTests(): void {
 async function measureTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void> {
     const ext = await viewer.loadExtension('Autodesk.Measure') as Autodesk.Extensions.Measure.MeasureExtension;
 
+    // $ExpectType string
+    ext.getName();
+    const modes = ext.getModes();
+
+    modes.forEach((m) => {
+        // $ExpectType boolean
+        ext.isActive(m);
+    });
     ext.sharedMeasureConfig.units = 'in';
     ext.calibrateByScale('in', 0.0254);
     const m = ext.getMeasurementList();
 
     ext.deleteMeasurements();
     ext.setMeasurements(m);
+}
+
+async function multipageTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void> {
+    const ext = await viewer.loadExtension('Autodesk.Multipage') as Autodesk.Viewing.Extensions.Multipage.MultipageExtension;
+
+    // $ExpectType any[]
+    ext.getAllPages();
+    // $ExpectType string
+    ext.focusFirstPage();
+    // $ExpectType number
+    ext.getCurrentPageIndex();
+    // $ExpectType string
+    ext.focusLastPage();
+    // $ExpectType number
+    ext.getCurrentPageIndex();
 }
 
 async function searchTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<number[]> {

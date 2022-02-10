@@ -2519,6 +2519,8 @@ const tailwindConfig = resolveConfig(config);
 
 tailwindCss(tailwindConfig);
 
+tailwindCss();
+
 tailwindConfig.theme.height;
 
 // @ts-expect-error `colors` is possibly undefined
@@ -2535,18 +2537,36 @@ tailwindConfig.theme.screens.md;
 // @ts-expect-error `boxShadow` is possibly undefined
 tailwindConfig.theme.boxShadow['2xl'];
 
+colors.inherit;
+colors.current;
+colors.transparent;
+colors.black;
+colors.white;
+colors.slate[500];
+colors.gray[500];
+colors.zinc[500];
+colors.neutral[500];
+colors.stone[500];
 colors.red[500];
-colors.rose[500];
-colors.fuchsia[500];
-colors.violet[500];
-colors.lightBlue[500];
-colors.sky[500];
-colors.cyan[500];
-colors.teal[500];
-colors.emerald[500];
-colors.lime[500];
-colors.amber[500];
 colors.orange[500];
+colors.amber[500];
+colors.yellow[500];
+colors.lime[500];
+colors.green[500];
+colors.emerald[500];
+colors.teal[500];
+colors.cyan[500];
+colors.sky[500];
+colors.blue[500];
+colors.indigo[500];
+colors.violet[500];
+colors.purple[500];
+colors.fuchsia[500];
+colors.pink[500];
+colors.rose[500];
+
+// Deprecated color names
+colors.lightBlue[500];
 colors.warmGray[500];
 colors.trueGray[500];
 colors.coolGray[500];
@@ -2558,13 +2578,13 @@ defaultTheme.darkMode;
 // @ts-expect-error `colors` is possibly undefined
 defaultTheme.colors.blue[800];
 
-// $ExpectType TailwindPlugin[] | undefined
+// $ExpectType TailwindPlugin<any>[] | undefined
 tailwindConfig.plugins;
 
 // $ExpectType any[] | undefined
 tailwindConfig.presets;
 
-// $ExpectType false | "media" | "class"
+// $ExpectType false | "media" | "class" | undefined
 tailwindConfig.darkMode;
 
 tailwindConfig.darkMode = false;
@@ -2591,13 +2611,15 @@ tailwindConfig.prefix = 'tw-';
 // @ts-expect-error value should be string
 tailwindConfig.prefix = 1000;
 
-// $ExpectType boolean | undefined
+// $ExpectType string | boolean | undefined
 tailwindConfig.important;
 
 tailwindConfig.important = false;
 
-// @ts-expect-error should be boolean
-tailwindConfig.important = 'false';
+tailwindConfig.important = 'selector';
+
+// @ts-expect-error should be boolean or string
+tailwindConfig.important = 0;
 
 // $ExpectType string | undefined
 tailwindConfig.separator;
