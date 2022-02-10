@@ -230,6 +230,12 @@ function useEveryHook(ref: React.Ref<{ id: number }>|undefined): () => boolean {
     const [toggle, setToggle] = React.useState(false);
     // $ExpectType boolean
     toggle;
+    // $ExpectError
+    useState<() => number>(() => 0);
+    useState<() => number>(() => () => 0);
+    // $ExpectError
+    useState<() => number>(() => () => 0)[1](() => 123);
+    useState<() => number>(() => () => 0)[1](() => () => 123);
     // make sure setState accepts a function
     setToggle(r => !r);
 
