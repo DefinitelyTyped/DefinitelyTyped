@@ -1,5 +1,5 @@
-// Type definitions for rollup-plugin-json 1.1
-// Project: https://github.com/rollup/rollup-plugin-json#readme
+// Type definitions for rollup-plugin-less 1.1
+// Project: https://github.com/xiaofuzi/rollup-plugin-less##readme
 // Definitions by: Tristan <https://github.com/LeoDog896>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
