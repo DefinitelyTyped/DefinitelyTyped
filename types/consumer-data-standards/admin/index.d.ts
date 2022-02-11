@@ -1,7 +1,3 @@
-// Type definitions for consumer-data-standards 2.0
-// Project: https://github.com/ConsumerDataStandardsAustralia
-// Definitions by: Tomas Schier <https://github.com/tom-schier>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 export * from './AvailabilityMetrics';
 export * from './AverageResponseMetricsV2';
 export * from './AverageTPSMetrics';
