@@ -2,8 +2,6 @@
 // Project: https://github.com/ConsumerDataStandardsAustralia
 // Definitions by: Tomas Schier <https://github.com/tom-schier>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-
 export * as admin from "./admin";
 export * as banking from "./banking";
 export * as common from "./common";
