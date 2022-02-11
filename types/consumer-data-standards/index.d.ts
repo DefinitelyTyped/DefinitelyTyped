@@ -6,5 +6,6 @@
 /// <reference types="./common" />
 /// <reference types="./register" />
 /// <reference types="./energy" />
-/// <reference types="./admin" />
 /// <reference types="./dcr" />
+
+export * from "./admin";
