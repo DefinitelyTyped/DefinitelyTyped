@@ -100,7 +100,11 @@ let record: Value = {
     Anchor Button
 </C.Button>;
 
-<C.Button autoFocus isDestructive isLarge isSecondary>
+<C.Button autoFocus isDestructive isSecondary>
+    Deprecated Button
+</C.Button>;
+
+<C.Button autoFocus isDestructive variant='primary'>
     Button Button
 </C.Button>;
 
@@ -483,7 +487,7 @@ const kbshortcuts = {
 // menu-group, menu-item
 //
 <C.MenuGroup>
-    <C.MenuItem icon="yes" isSelected={true} onClick={() => console.log('clicked')} isLarge>
+    <C.MenuItem icon="yes" isSelected={true} onClick={() => console.log('clicked')} isSmall>
         Toggle
     </C.MenuItem>
 </C.MenuGroup>;
