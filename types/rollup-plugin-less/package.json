@@ -1,7 +1,6 @@
 {
     "private": true,
     "dependencies": {
-        "@types/less": "^3.0.3",
         "rollup": "^0.63.4"
     }
 }
