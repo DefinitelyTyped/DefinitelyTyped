@@ -125,20 +125,16 @@ const buttonGroupRef = createRef<HTMLDivElement>();
 // card
 //
 <C.Card>I'm a card!</C.Card>;
-<C.Card isElevated isBorderless className="card" size="large">
+<C.Card elevation={4} isBorderless className="card" size="large">
     I'm a card with props!
 </C.Card>;
 <C.Card onClick={(e: ReactMouseEvent<HTMLDivElement, MouseEvent>) => {}} />;
 
-// These components can be rendered as other components:
-<C.Card as={C.HorizontalRule} />;
 // Card renders a `div` by default:
 <C.Card onClick={(e: ReactMouseEvent<HTMLDivElement, MouseEvent>) => {}} />;
 // `div` doesn't support autoFocus:
 // $ExpectError
 <C.Card autoFocus />;
-// With `as="button"`, a `button` element is rendered and `button` props are accepted:
-<C.Card as="button" autoFocus onClick={(e: ReactMouseEvent<HTMLButtonElement, MouseEvent>) => {}} />;
 
 <C.CardBody isShady size="extraSmall">
     Hello world!
