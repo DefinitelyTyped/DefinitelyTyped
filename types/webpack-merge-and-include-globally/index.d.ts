@@ -2,9 +2,8 @@
 // Project: https://github.com/markshapiro/webpack-merge-and-include-globally#readme
 // Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
 
-import { Plugin, compilation } from 'webpack';
+import { Plugin, Compiler } from 'webpack';
 
 declare namespace MergeIntoFile {
     /**
@@ -72,8 +71,10 @@ declare namespace MergeIntoFile {
  * and achieving same effect as you would by including them all separately through <script> or <link>.
  */
 declare class MergeIntoFile extends Plugin {
-    constructor(options: MergeIntoFile.Options, onComplete?: (files: { [key: string]: string }) => void);
     static getHashOfRelatedFile(assets: any, fileName: string): string | null;
+    constructor(options: MergeIntoFile.Options, onComplete?: (files: { [key: string]: string }) => void);
+    /** Hook into the Webpack compiler */
+    apply(compiler: Compiler): void;
 }
 
 export = MergeIntoFile;
