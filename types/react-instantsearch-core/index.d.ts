@@ -41,7 +41,7 @@ export interface IndexProps {
 export class Index extends React.Component<IndexProps> {}
 
 export interface ConnectorSearchResults<TDoc = BasicDoc> {
-  results: AllSearchResults<TDoc>;
+  results: AllSearchResults<TDoc> | null;
   searching: boolean;
   searchingForFacetValues: boolean;
   isSearchStalled: boolean;
@@ -564,9 +564,9 @@ export interface StateResultsProvided<TDoc = BasicDoc> {
    * In case of multiple indices: if used under <Index>, results will be those of the corresponding index
    * otherwise it’ll be those of the root index
    */
-  searchResults: SearchResults<TDoc>;
+  searchResults: SearchResults<TDoc> | null;
   /** In case of multiple indices you can retrieve all the results */
-  allSearchResults: AllSearchResults<TDoc>;
+  allSearchResults: AllSearchResults<TDoc> | null;
   /** If there is a search in progress. */
   searching: boolean;
   /** Flag that indicates if React InstantSearch has detected that searches are stalled. */
