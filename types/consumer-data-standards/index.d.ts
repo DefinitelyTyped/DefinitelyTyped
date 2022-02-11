@@ -2,9 +2,9 @@
 // Project: https://github.com/ConsumerDataStandardsAustralia
 // Definitions by: Tomas Schier <https://github.com/tom-schier>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-export * as admin from "./admin";
-export * as banking from "./banking";
-export * as common from "./common";
-export * as energy from "./energy";
-export * as dcr from "./dcr";
-export * as register from "./register";
+export *  from "./admin";
+export *  from "./banking";
+export *  from "./common";
+export *  from "./energy";
+export *  from "./dcr";
+export { Links, LinksPaginated }  from "./register";

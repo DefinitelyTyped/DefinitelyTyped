@@ -1,3 +1,4 @@
+/* tslint:disable: array-type max-line-length no-trailing-whitespace */
 export type ClientRegistration = {
     /**
      * Contains the identifier for the ADR Software Product (SoftwareProductId) as defined in the CDR Register
@@ -287,5 +288,3 @@ export type ClientRegistration = {
     scope: string;
     [k: string]: unknown;
   }
-  
-  

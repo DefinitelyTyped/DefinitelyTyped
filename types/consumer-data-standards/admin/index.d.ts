@@ -1,3 +1,4 @@
+/* tslint:disable: array-type max-line-length no-trailing-whitespace */
 export interface AvailabilityMetrics {
     /**
      * Percentage availability of the CDR platform so far for the current calendar month. 0.0 means 0%. 1.0 means 100%.
@@ -155,7 +156,7 @@ export interface AvailabilityMetrics {
     [k: string]: unknown;
   }
 
-  /**
+/**
  * Transactions per second over time
  */
 export interface AverageTPSMetrics {
@@ -170,7 +171,7 @@ export interface AverageTPSMetrics {
     [k: string]: unknown;
   }
   
-  /**
+/**
  * Number of calls resulting in error due to server execution over time
  */
 export interface ErrorMetrics {
@@ -827,5 +828,3 @@ export interface ErrorMetrics {
     previousDays?: number[];
     [k: string]: unknown;
   }
-                
-

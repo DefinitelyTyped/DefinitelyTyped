@@ -1,3 +1,4 @@
+/* tslint:disable: array-type max-line-length no-trailing-whitespace */
 export interface BankingAccount {
     /**
      * A unique ID of the account adhering to the standards for ID permanence
@@ -5823,7 +5824,6 @@ export interface BankingAccount {
       totalPages: number;
       [k: string]: unknown;
     };
-    [k: string]: unknown;
   }
   
 export interface ResponseBankingProductListV2 {
@@ -7217,4 +7217,3 @@ export interface ResponseBankingProductListV2 {
     };
     [k: string]: unknown;
   }
-    

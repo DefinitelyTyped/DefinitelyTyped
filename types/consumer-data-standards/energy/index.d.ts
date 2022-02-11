@@ -1,3 +1,4 @@
+/* tslint:disable: array-type max-line-length no-trailing-whitespace */
 export type EnergyAccount = {
     /**
      * The ID of the account.  To be created in accordance with CDR ID permanence requirements
@@ -6108,5 +6109,3 @@ export interface ErrorListResponse {
   }[];
   [k: string]: unknown;
 }
-
-                          

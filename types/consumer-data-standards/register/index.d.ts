@@ -1,3 +1,4 @@
+/* tslint:disable: array-type max-line-length no-trailing-whitespace */
 export interface DataHoldersStatusList {
     /**
      * Response data for the query
@@ -843,7 +844,7 @@ export interface RegisterDataHolderAuth {
     };
     [k: string]: unknown;
   }
-  /**
+/**
  * Response containing a list of Data Recipients in the CDR Register
  */
 export interface ResponseRegisterDataRecipientList {
@@ -999,5 +1000,4 @@ export interface ResponseRegisterDataRecipientList {
      */
     status: "ACTIVE" | "INACTIVE" | "REMOVED";
     [k: string]: unknown;
-  }      
-                                        
+  }

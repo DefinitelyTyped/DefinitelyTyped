@@ -1,3 +1,4 @@
+/* tslint:disable: array-type max-line-length no-trailing-whitespace */
 export interface CommonEmailAddress {
     /**
      * May be true for one and only one email record in the collection. Denotes the default email address
@@ -13,7 +14,6 @@ export interface CommonEmailAddress {
     address: string;
     [k: string]: unknown;
   }
-
   
 export interface CommonOrganisation {
     /**
@@ -1789,6 +1789,3 @@ export type CommonOrganisationDetail = {
     }[];
     [k: string]: unknown;
   }
-                                    
-  
-  
