@@ -6,14 +6,17 @@
 
 /// <reference types="node" />
 import { Plugin } from 'rollup';
+import { render } from "less"
 
 declare namespace less {
+
+    type LessOptions = Parameters<typeof render>[1]
+
     interface Options {
         insert?: boolean;
         watch?: boolean;
-        option?: {
-            filename?: string;
-        };
+        option?: LessOptions,
+        plugins?: Exclude<LessOptions["plugins"], undefined>[0]
         output?: string | boolean | (() => string);
         include?: string | string[];
         exclude?: string | string[];
