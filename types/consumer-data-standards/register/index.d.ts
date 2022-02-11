@@ -26,17 +26,17 @@ export interface DataHoldersStatusList {
     };
     [k: string]: unknown;
   }
-  export interface DataHolderStatus {
-    /**
-     * Unique id of the Data Holder Legal Entity issued by the CDR Register.
-     */
-    legalEntityId: string;
-    /**
-     * Data Holder status in the CDR Register
-     */
-    status: "ACTIVE" | "REMOVED";
-    [k: string]: unknown;
-  }
+export interface DataHolderStatus {
+/**
+ * Unique id of the Data Holder Legal Entity issued by the CDR Register.
+ */
+legalEntityId: string;
+/**
+ * Data Holder status in the CDR Register
+ */
+status: "ACTIVE" | "REMOVED";
+[k: string]: unknown;
+}
 /**
  * Metadata related to Data Recipient Brand
  */
