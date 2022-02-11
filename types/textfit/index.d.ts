@@ -3,7 +3,10 @@
 // Definitions by: Muhun Kim <https://github.com/x86chi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function textFit(element: HTMLElement, options?: textFit.TextFitOption): void;
+declare function textFit(
+    els: HTMLElement | HTMLElement[] | NodeListOf<Element> | HTMLCollection | null,
+    options?: textFit.TextFitOption,
+): void;
 
 export = textFit;
 

@@ -1,6 +1,7 @@
-import textFit = require("textfit");
+import textFit = require('textfit');
 
-const element = document.createElement("div");
+const element = document.createElement('div');
+const elements = Array(2).map(() => document.createElement('div'));
 
 const options: textFit.TextFitOption = {
     alignVert: false,
@@ -14,3 +15,15 @@ const options: textFit.TextFitOption = {
 };
 
 textFit(element, options);
+textFit(elements, options);
+
+const ul = document.createElement('ul');
+ul.append(document.createElement('li'));
+
+const nodeList = ul.querySelectorAll('li');
+textFit(nodeList, options);
+
+const htmlCollection = ul.children;
+textFit(htmlCollection, options);
+
+textFit(null, options);
