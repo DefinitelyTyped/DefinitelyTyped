@@ -336,7 +336,7 @@ const buttonGroupRef = createRef<HTMLDivElement>();
 // flex
 //
 <C.Flex
-    isReversed
+    direction='column'
     gap={3}
     align='bottom'
     justify='left'
