@@ -1,7 +1,3 @@
-// Type definitions for consumer-data-standards 2.0
-// Project: https://github.com/ConsumerDataStandardsAustralia
-// Definitions by: Tomas Schier <https://github.com/tom-schier>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 export type EnergyAccount = {
     /**
      * The ID of the account.  To be created in accordance with CDR ID permanence requirements

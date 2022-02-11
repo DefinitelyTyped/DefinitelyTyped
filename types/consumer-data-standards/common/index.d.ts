@@ -1,7 +1,3 @@
-// Type definitions for consumer-data-standards 2.0
-// Project: https://github.com/ConsumerDataStandardsAustralia
-// Definitions by: Tomas Schier <https://github.com/tom-schier>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 export interface CommonEmailAddress {
     /**
      * May be true for one and only one email record in the collection. Denotes the default email address

@@ -1,7 +1,3 @@
-// Type definitions for consumer-data-standards 2.0
-// Project: https://github.com/ConsumerDataStandardsAustralia
-// Definitions by: Tomas Schier <https://github.com/tom-schier>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 export interface AvailabilityMetrics {
     /**
      * Percentage availability of the CDR platform so far for the current calendar month. 0.0 means 0%. 1.0 means 100%.
