@@ -398,6 +398,12 @@ declare namespace Twitch.ext {
         sessionToken: string;
 
         /**
+         * A token to use with the Twitch API. This is the same as the helixToken property of the authData parameter
+         * that currently gets passed to the onAuthorized callback.
+         */
+        helixToken: string;
+
+        /**
          * An object containing information about the viewer’s subscription. The value of subscriptionStatus will be null if
          * the user is either not a subscriber, or opting not to share their identity. The value will also be null if the
          * extension otherwise doesn't have subscription capabilities.
