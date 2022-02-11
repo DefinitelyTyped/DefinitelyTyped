@@ -2,11 +2,51 @@ name: Check Markdown links
 on:
   pull_request:
     paths:
-      - '**.md'
+      - "**.md"
+      - .github/workflows/lint-md.yml
+      - package.json
+      - scripts/normalize-links.ts
+      - scripts/tsconfig.json
+  push:
+    paths:
+      - "**.md"
+      - .github/workflows/lint-md.yml
+      - package.json
+      - scripts/normalize-links.ts
+      - scripts/tsconfig.json
 jobs:
   lint-md:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        #with:
+        #  cache: npm
       - run: npm install
-      - run: npx remark --use validate-links --frail . .github
+      - run: tsc --build scripts
+      - run: git config user.name .github/workflows/lint-md.yml
+      - run: git config user.email bot@typescriptlang.org
+      - run: npm exec -- remark --output -- . .github
+      - run: npm exec -- prettier --ignore-path /dev/null --no-config --write '**.md'
+      - run: |
+          git diff --quiet ||
+          git commit --all --message 'Collateral diffs'
+      - run: |
+          npm exec -- remark \
+            --output \
+            --use './scripts/normalize-links=base:"https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/",fix:true' \
+            --use validate-links \
+            --frail \
+            . .github
+      - run: npm exec -- prettier --ignore-path /dev/null --no-config --write '**.md'
+      - name: Don't edit URLs in .github templates
+        run: git checkout .github
+      - run: |
+          git diff --quiet ||
+          git commit --all \
+            --message '[README] 🤖 Make URLs relative' \
+            --message "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID" \
+      - name: Subtract collateral diffs
+        run: git rebase --onto '@^{/Collateral diffs}^' --strategy-option theirs '@^{/Collateral diffs}'
+      - if: github.event_name != 'pull_request'
+        run: git push
