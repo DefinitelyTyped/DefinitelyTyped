@@ -304,7 +304,7 @@ export interface TableProps extends React.ClassAttributes<Table> {
      * Callback that is called when a row is clicked.
      */
     onRowClick?: TableRowEventHandler | undefined;
-    
+
     /**
      * Callback that is called when a contextual-menu event happens on a row.
      */
