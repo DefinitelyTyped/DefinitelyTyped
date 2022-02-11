@@ -3,9 +3,9 @@
 // Definitions by: Tomas Schier <https://github.com/tom-schier>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="./register" />
-/// <reference types="./energy" />
 /// <reference types="./dcr" />
 
 export * from "./admin";
 export * from "./banking";
 export * from "./common";
+export * from "./energy";
