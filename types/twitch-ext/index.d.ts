@@ -505,17 +505,19 @@ declare namespace Twitch.ext {
         /**
          * Information about the current channel’s hosting status, or undefined if the channel is not currently hosting.
          */
-        hostingInfo?: {
-            /**
-             * Numeric ID of the channel being hosted by the currently visible channel
-             */
-            hostedChannelId: string;
+        hostingInfo?:
+            | {
+                  /**
+                   * Numeric ID of the channel being hosted by the currently visible channel
+                   */
+                  hostedChannelId: string;
 
-            /**
-             * Numeric ID of the host channel
-             */
-            hostingChannelId: string;
-        } | undefined;
+                  /**
+                   * Numeric ID of the host channel
+                   */
+                  hostingChannelId: string;
+              }
+            | undefined;
 
         /**
          * If true, the viewer is watching in fullscreen mode.
