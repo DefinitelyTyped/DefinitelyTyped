@@ -243,29 +243,29 @@ declare namespace sharedb {
         interface CommitContext<TAgentCustom = any> extends BaseContext<TAgentCustom>, SubmitRequest {
         }
 
-        interface ConnectContext<TAgentCustom = any> extends BaseContext<TAgentCustom>{
+        interface ConnectContext<TAgentCustom = any> extends BaseContext<TAgentCustom> {
             stream: any;
             req: any;  // Property always exists, value may be undefined
         }
 
-        interface DocContext<TAgentCustom = any> extends BaseContext<TAgentCustom>{
+        interface DocContext<TAgentCustom = any> extends BaseContext<TAgentCustom> {
             collection: string;
             id: string;
             snapshot: Snapshot;
         }
 
-        interface OpContext<TAgentCustom = any> extends BaseContext<TAgentCustom>{
+        interface OpContext<TAgentCustom = any> extends BaseContext<TAgentCustom> {
             collection: string;
             id: string;
             op: any;
         }
 
-        interface PresenceContext<TAgentCustom = any> extends BaseContext<TAgentCustom>{
+        interface PresenceContext<TAgentCustom = any> extends BaseContext<TAgentCustom> {
             presence: PresenceMessage;
             collection?: string;
         }
 
-        interface QueryContext<TAgentCustom = any> extends BaseContext<TAgentCustom>{
+        interface QueryContext<TAgentCustom = any> extends BaseContext<TAgentCustom> {
             index: string;
             collection: string;
             projection: ReadonlyProjection;
@@ -277,17 +277,17 @@ declare namespace sharedb {
             snapshotProjection: ReadonlyProjection | null;
         }
 
-        interface ReadSnapshotsContext<TAgentCustom = any> extends BaseContext<TAgentCustom>{
+        interface ReadSnapshotsContext<TAgentCustom = any> extends BaseContext<TAgentCustom> {
             collection: string;
             snapshots: Snapshot[];
             snapshotType: SnapshotType;
         }
 
-        interface ReceiveContext<TAgentCustom = any> extends BaseContext<TAgentCustom>{
+        interface ReceiveContext<TAgentCustom = any> extends BaseContext<TAgentCustom> {
             data: {[key: string]: any};  // ClientRequest, but before any validation
         }
 
-        interface ReplyContext<TAgentCustom = any> extends BaseContext<TAgentCustom>{
+        interface ReplyContext<TAgentCustom = any> extends BaseContext<TAgentCustom> {
             request: ShareDB.ClientRequest;
             reply: {[key: string]: any};
         }
