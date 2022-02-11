@@ -251,30 +251,33 @@ export class Howl {
     pannerAttr(options: PannerAttributes, id?: number): this;
 }
 
-export class HowlerGlobal {
-    mute(muted: boolean): this;
-    stop(): this;
+declare global {
+    class HowlerGlobal {
+        mute(muted: boolean): this;
+        stop(): this;
 
-    volume(): number;
-    volume(volume: number): this;
+        volume(): number;
+        volume(volume: number): this;
 
-    codecs(ext: string): boolean;
-    unload(): this;
-    usingWebAudio: boolean;
-    html5PoolSize: number;
-    noAudio: boolean;
-    autoUnlock: boolean;
-    autoSuspend: boolean;
-    ctx: AudioContext;
-    masterGain: GainNode;
+        codecs(ext: string): boolean;
+        unload(): this;
+        usingWebAudio: boolean;
+        html5PoolSize: number;
+        noAudio: boolean;
+        autoUnlock: boolean;
+        autoSuspend: boolean;
+        ctx: AudioContext;
+        masterGain: GainNode;
 
-    stereo(pan: number): this;
+        stereo(pan: number): this;
 
-    pos(): SpatialPosition;
-    pos(x: number, y?: number, z?: number): this;
+        pos(): SpatialPosition;
+        pos(x: number, y?: number, z?: number): this;
 
-    orientation(): SpatialOrientation;
-    orientation(x: number, y?: number, z?: number, xUp?: number, yUp?: number, zUp?: number): this;
+        orientation(): SpatialOrientation;
+        orientation(x: number, y?: number, z?: number, xUp?: number, yUp?: number, zUp?: number): this;
+    }
+    const Howler: typeof HowlerGlobal;
 }
 
 export const Howler: typeof HowlerGlobal;
