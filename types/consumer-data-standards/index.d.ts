@@ -1,4 +1,4 @@
-// Type definitions for non-npm package consumer-data-standards 1.1
+// Type definitions for consumer-data-standards 1.1
 // Project: https://github.com/ConsumerDataStandardsAustralia
 // Definitions by: Tomas Schier <https://github.com/tom-schier>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
