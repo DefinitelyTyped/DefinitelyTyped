@@ -256,6 +256,33 @@ export interface BBOX {
     maxY: number;
 }
 
+/**
+ * Each font can create a Subset of itself, and 
+ * then append some Glyphs into it, and create an
+ * stream from it
+ */
+ export interface Subset {
+    /** Font of the Subset */
+    font: Font;
+    
+    /** Glyphs array of the Subset */
+    glyphs: Glyph[];
+
+    /** A mapping between Glyph id and count of glyphs in this Subset */
+    mapping: {
+        [id: number]: number;
+    };
+
+    /** 
+     * Append a new glyph to the glyphs of this Subset, and returns count of
+     * glyphs of this type (Ignore already added glyphs)
+    */
+    includeGlyph(glyph: Glyph): number;
+
+    /** Encode the subset into an stream, and returns it */
+    encodeStream(): NodeJS.ReadableStream;
+}
+
 interface Fontkit {
     /**
      * Opens a font file asynchronously, and calls the callback with a font object.
