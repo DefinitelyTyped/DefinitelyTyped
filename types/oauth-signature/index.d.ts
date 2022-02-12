@@ -4,6 +4,15 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace OauthSignature {
+    function generate(
+        httpMethod: string,
+        url: string,
+        parameters: { [key: string]: any },
+        consumerSecret: string,
+        tokenSecret?: string,
+        options?: GenerateOptions,
+    ): string;
+
     interface GenerateOptions {
         encodeSignature: boolean;
     }
@@ -63,16 +72,7 @@ declare namespace OauthSignature {
     }
 }
 
+declare var oauthSignature: typeof OauthSignature;
+
+export as namespace oauthSignature;
 export = oauthSignature;
-declare var oauthSignature: OAuthSignature;
-declare function OAuthSignature(): void;
-declare class OAuthSignature {
-    generate(
-        httpMethod: string,
-        url: string,
-        parameters: { [key: string]: any },
-        consumerSecret: string,
-        tokenSecret?: string,
-        options?: OauthSignature.GenerateOptions,
-    ): string;
-}
