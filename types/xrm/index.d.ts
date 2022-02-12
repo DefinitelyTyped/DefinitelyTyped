@@ -3529,8 +3529,8 @@ declare namespace Xrm {
 
             /**
               * Opens a search result in the search control by specifying the result number.
-              * @arg resultNumber Numerical value specifying the result number to be opened. Result number starts from 1.
-              * @arg mode Specify "Inline" or "Popout". "Inline" mode opens the result inline either in the reading pane of the control or in a reference panel tab in case of reference panel. "Popout" mode opens the result in a pop-out window.
+              * @param resultNumber Numerical value specifying the result number to be opened. Result number starts from 1.
+              * @param mode Specify "Inline" or "Popout". "Inline" mode opens the result inline either in the reading pane of the control or in a reference panel tab in case of reference panel. "Popout" mode opens the result in a pop-out window.
               * @returns Status of opening the specified search result. Returns 1 if successful; 0 if unsuccessful. The method will return -1 if the specified resultNumber value is not present, or if the specified mode value is invalid.
               * @see             https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/controls/opensearchresult
               */
@@ -3538,28 +3538,28 @@ declare namespace Xrm {
 
             /**
               * Removes an event handler from the PostSearch event.
-              * @arg handler The function to remove from the PostSearch event.
+              * @param handler The function to remove from the PostSearch event.
               * @see https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/controls/removeonpostsearch
               */
             removeOnPostSearch(handler: Events.ContextSensitiveHandler): void;
 
             /**
               * Removes an event handler from the OnResultOpened event.
-              * @arg handler The function to remove from the OnResultOpened event.
+              * @param handler The function to remove from the OnResultOpened event.
               * @see https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/controls/removeonresultopened
               */
             removeOnResultOpened(handler: Events.ContextSensitiveHandler): void;
 
             /**
               * Removes an event handler from the OnResultSelection event.
-              * @arg handler The function to remove from the OnSelection event.
+              * @param handler The function to remove from the OnSelection event.
               * @see https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/controls/removeonselection
               */
             removeOnSelection(handler: Events.ContextSensitiveHandler): void;
 
             /**
               * Sets the text used as the search criteria for the knowledge base search control.
-              * @arg searchString The text for the search query.
+              * @param searchString The text for the search query.
               * @see https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/controls/setsearchquery
               */
             setSearchQuery(searchString: string): void;
