@@ -9,5 +9,5 @@ interface GenerateOptions {
     multiline?: boolean;
 }
 
-declare const _exports: RegExpConstructor & { generate(options?: GenerateOptions): RegExp };
+declare const _exports: RegExp & { generate(options?: GenerateOptions): RegExp };
 export = _exports;
