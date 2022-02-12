@@ -8,13 +8,12 @@ export as namespace fcl;
 type Environment = 'local' | 'canarynet' | 'testnet' | 'mainnet';
 
 // Ref: https://docs.onflow.org/fcl/reference/api/#common-configuration-keys
-// Ref:  https://docs.onflow.org/fcl/reference/configure-fcl/
+// Ref: https://docs.onflow.org/fcl/reference/configure-fcl/
 type ConfigurationOptions = {
     /**
      * API URL for the Flow Blockchain Access Node you want to be communicating
      * with. See all available access node endpoints
-     * {@link https://docs.onflow.org/access-api/#flow-access-node-endpoints
-     * |here}.
+     * [here]{@link https://docs.onflow.org/access-api/#flow-access-node-endpoints}.
      */
     'accessNode.api': string;
     /**
@@ -28,7 +27,7 @@ type ConfigurationOptions = {
     /**
      * ALPHA - Endpoint for alternative configurable Wallet Discovery mechanism.
      * Read more on
-     * {@link https://docs.onflow.org/fcl/reference/api/#discovery|discovery}.
+     * [discovery]{@link https://docs.onflow.org/fcl/reference/api/#discovery}.
      */
     'discovery.authn.endpoint'?: string;
     /**
@@ -94,6 +93,6 @@ type Configuration = {
  *
  * @param options - The initial configuration values.
  */
-export function config(options: ConfigurationOptions): Configuration;
+export function config(options?: ConfigurationOptions): Configuration;
 
 export function authenticate(): void;
