@@ -6,4 +6,4 @@ if (isValidGlob(input)) {
     input; // $ExpectType string | string[]
 }
 
-isValidGlob() // $ExpectType string | string[]
+isValidGlob(); // $ExpectType boolean
