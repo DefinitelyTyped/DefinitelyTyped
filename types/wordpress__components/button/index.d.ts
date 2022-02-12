@@ -8,31 +8,31 @@ declare namespace Button {
     interface BaseProps {
         /**
          * Renders a default button style.
-         * @deprecated use `variant` instead.
+         * @deprecated use `variant="secondary"` instead.
          */
         isDefault?: boolean | undefined;
 
         /**
          * Renders a primary button style.
-         * @deprecated use `variant` instead.
+         * @deprecated use `variant="primary"` instead.
          */
         isPrimary?: boolean | undefined;
 
         /**
          * Renders a default button style.
-         * @deprecated use `variant` instead.
+         * @deprecated use `variant="secondary"` instead.
          */
         isSecondary?: boolean | undefined;
 
         /**
          * Renders a text-based button style.
-         * @deprecated use `variant` instead.
+         * @deprecated use `variant="tertiary"` instead.
          */
         isTertiary?: boolean | undefined;
 
         /**
          * Renders a button with an anchor style.
-         * @deprecated use `variant` instead.
+         * @deprecated use `variant="link"` instead.
          */
         isLink?: boolean | undefined;
 

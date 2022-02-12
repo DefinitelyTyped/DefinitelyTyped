@@ -3,6 +3,13 @@ import { ComponentType, HTMLProps, CSSProperties } from 'react';
 declare namespace Flex {
     interface FlexProps {
         /**
+         * Reverses the flex direction.
+         *
+         * @deprecated Use `direction` instead.
+         */
+        isReversed?: boolean | undefined;
+
+        /**
          * Sets align-items. Top and bottom are shorthand for flex-start and flex-end respectively.
          */
         align?: CSSProperties['alignItems'] | 'top' | 'bottom' | undefined;

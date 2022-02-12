@@ -7,6 +7,13 @@ declare namespace Card {
         className?: string | undefined;
 
         /**
+         * Renders an elevated card.
+         *
+         * @deprecated Use `elevation={2}` instead.
+         */
+        isElevated?: boolean | undefined;
+
+        /**
          * Size of the elevation shadow, based on the Style system’s elevation
          * system. This may be helpful in highlighting certain content. For more
          * information, check out [Elevation]{@link https://developer.wordpress.org/block-editor/designers-developers/developers/components/elevation/}.
