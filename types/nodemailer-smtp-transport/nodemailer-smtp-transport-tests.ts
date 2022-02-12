@@ -23,6 +23,8 @@ var opts: smtpTransport.SmtpOptions = {
 
 var transport: nodemailer.Transport = smtpTransport(opts);
 
+var anotherTransport: nodemailer.Transport = smtpTransport(opts);
+
 // setup e-mail data with unicode symbols
 var mailOptions: nodemailer.SendMailOptions = {
     from: 'Fred Foo ✔ <foo@blurdybloop.com>', // sender address

@@ -202,6 +202,6 @@ declare namespace smtpTransport {
     }
 }
 
-declare function smtpTransport(options: smtpTransport.SmtpOptions): nodemailer.Transport;
+declare function smtpTransport(options?: smtpTransport.SmtpOptions): nodemailer.Transport;
 
 export = smtpTransport;
