@@ -6,7 +6,7 @@ export function random(inputSeed: any): {
     /**
      * Generates random integer number in the range from 0 (inclusive) to maxValue (exclusive)
      *
-     * @param maxValue Number REQUIRED. Ommitting this number will result in NaN values from PRNG.
+     * maxValue Number REQUIRED. Ommitting this number will result in NaN values from PRNG.
      */
     next: (maxValue: any) => number;
     /**
@@ -15,7 +15,10 @@ export function random(inputSeed: any): {
      */
     nextDouble: () => number;
 };
-export function randomIterator(array: any, customRandom: any): {
+export function randomIterator(
+    array: any,
+    customRandom: any,
+): {
     forEach: (callback: any) => void;
     /**
      * Shuffles array randomly, in place.

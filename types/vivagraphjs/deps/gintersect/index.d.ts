@@ -10,17 +10,26 @@ export = intersect;
  * If the lines intersect, the output variables x, y are
  * set to coordinates of the point of intersection.
  *
- * @param {Number} x1 First line segment coordinates
- * @param {Number} y1 First line segment coordinates
- * @param {Number} x2 First line segment coordinates
- * @param {Number} x2 First line segment coordinates
+ * {Number} x1 First line segment coordinates
+ * {Number} y1 First line segment coordinates
+ * {Number} x2 First line segment coordinates
+ * {Number} x2 First line segment coordinates
  *
- * @param {Number} x3 Second line segment coordinates
- * @param {Number} y3 Second line segment coordinates
- * @param {Number} x4 Second line segment coordinates
- * @param {Number} x4 Second line segment coordinates
+ * {Number} x3 Second line segment coordinates
+ * {Number} y3 Second line segment coordinates
+ * {Number} x4 Second line segment coordinates
+ * {Number} x4 Second line segment coordinates
  *
- * @return {Object} x, y coordinates of intersection point or falsy value if no
+ * return {object} x, y coordinates of intersection point or falsy value if no
  * intersection found..
  */
-declare function intersect(x1: number, y1: number, x2: number, y2: any, x3: number, y3: number, x4: number, y4: any): Object;
+declare function intersect(
+    x1: number,
+    y1: number,
+    x2: number,
+    y2: number,
+    x3: number,
+    y3: number,
+    x4: number,
+    y4: number,
+): { x: number; y: number; };

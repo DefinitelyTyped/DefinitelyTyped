@@ -1,24 +1,30 @@
-export function ladder(n: any): any;
-export function complete(n: any): any;
-export function completeBipartite(n: any, m: any): any;
-export function balancedBinTree(n: any): any;
-export function path(n: any): any;
-export function circularLadder(n: any): any;
-export function grid(n: any, m: any): any;
-export function grid3(n: any, m: any, z: any): any;
-export function noLinks(n: any): any;
-export function wattsStrogatz(n: any, k: any, p: any, seed: any): any;
-export function cliqueCircle(cliqueCount: any, cliqueSize: any): any;
-export function factory(createGraph: any): {
-    ladder: (n: any) => any;
-    complete: (n: any) => any;
-    completeBipartite: (n: any, m: any) => any;
-    balancedBinTree: (n: any) => any;
-    path: (n: any) => any;
-    circularLadder: (n: any) => any;
-    grid: (n: any, m: any) => any;
-    grid3: (n: any, m: any, z: any) => any;
-    noLinks: (n: any) => any;
-    wattsStrogatz: (n: any, k: any, p: any, seed: any) => any;
-    cliqueCircle: (cliqueCount: any, cliqueSize: any) => any;
-};
+// eslint-disable-next-line import/no-unresolved
+import * as ngraph from '../ngraph.graph';
+
+export interface Generators {
+    ladder(n: number): ngraph.Graph;
+    complete(n: number): ngraph.Graph;
+    completeBipartite(n: number, m: number): ngraph.Graph;
+    balancedBinTree(n: number): ngraph.Graph;
+    path(n: number): ngraph.Graph;
+    circularLadder(n: number): ngraph.Graph;
+    grid(n: number, m: number): ngraph.Graph;
+    grid3(n: number, m: number, z: number): ngraph.Graph;
+    noLinks(n: number): ngraph.Graph;
+    wattsStrogatz(n: number, k: number, p: any, seed: number): ngraph.Graph;
+    cliqueCircle(cliqueCount: number, cliqueSize: number): ngraph.Graph;
+}
+
+export function factory(createGraph: any): Generators;
+
+export const ladder: Generators[ 'ladder' ];
+export const complete: Generators[ 'complete' ];
+export const completeBipartite: Generators[ 'completeBipartite' ];
+export const balancedBinTree: Generators[ 'balancedBinTree' ];
+export const path: Generators[ 'path' ];
+export const circularLadder: Generators[ 'circularLadder' ];
+export const grid: Generators[ 'grid' ];
+export const grid3: Generators[ 'grid3' ];
+export const noLinks: Generators[ 'noLinks' ];
+export const wattsStrogatz: Generators[ 'wattsStrogatz' ];
+export const cliqueCircle: Generators[ 'cliqueCircle' ];

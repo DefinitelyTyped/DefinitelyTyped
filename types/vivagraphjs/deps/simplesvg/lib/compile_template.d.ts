@@ -1,4 +1,4 @@
 export = template;
-declare function template(domNode: any): {
-    link: (model: any) => void;
+declare function template(domNode: Element): {
+    link: (model: object) => void;
 };

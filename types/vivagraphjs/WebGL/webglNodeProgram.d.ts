@@ -7,8 +7,8 @@ declare function webglNodeProgram(): {
     /**
      * Updates position of node in the buffer of nodes.
      *
-     * @param idx - index of current node.
-     * @param pos - new position of the node.
+     * idx - index of current node.
+     * pos - new position of the node.
      */
     position: (nodeUI: any, pos: any) => void;
     updateTransform: (newTransform: any) => void;

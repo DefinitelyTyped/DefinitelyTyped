@@ -1,4 +1,7 @@
-declare function _exports(bodies: any, settings: any): {
+declare function _exports(
+    bodies: any,
+    settings: any,
+): {
     box: {
         x1: number;
         y1: number;

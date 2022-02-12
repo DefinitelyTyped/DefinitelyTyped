@@ -1,20 +1,19 @@
+import Rect = require('../Utils/rect.js');
 export = constant;
-/**
- * Does not really perform any layouting algorithm but is compliant
- * with renderer interface. Allowing clients to provide specific positioning
- * callback and get static layout of the graph
- *
- * @param {Viva.Graph.graph} graph to layout
- * @param {Object} userSettings
- */
-declare function constant(graph: typeof import('../deps/ngraph.graph'), userSettings: Object): {
+
+declare function constant(
+    graph: typeof import('../deps/ngraph.graph'),
+    userSettings: { maxX: number; maxY: number; seed: string; },
+): Constant;
+
+interface Constant {
     /**
      * Attempts to layout graph within given number of iterations.
      *
-     * @param {integer} [iterationsCount] number of algorithm's iterations.
+     *  [iterationsCount] number of algorithm's iterations.
      *  The constant layout ignores this parameter.
      */
-    run: (iterationsCount?: any) => void;
+    run: (iterationsCount?: number) => void;
     /**
      * One step of layout algorithm.
      */
@@ -28,26 +27,23 @@ declare function constant(graph: typeof import('../deps/ngraph.graph'), userSett
      * Request to release all resources
      */
     dispose: () => void;
-    isNodePinned: (node: any) => boolean;
-    pinNode: (node: any, isPinned: any) => void;
-    getNodePosition: (nodeId: any) => any;
+    isNodePinned: (node: Element) => boolean;
+    pinNode: (node: Element, isPinned: boolean) => void;
+    getNodePosition: (nodeId: string) => NodePosition;
     /**
      * Returns {from, to} position of a link.
      */
-    getLinkPosition: (linkId: any) => {
-        from: any;
-        to: any;
-    };
+    getLinkPosition: (linkId: string) => { from: number; to: number; };
     /**
      * Sets position of a node to a given coordinates
      */
-    setNodePosition: (nodeId: any, x: any, y: any) => void;
+    setNodePosition: (nodeId: string, x: number, y: number) => void;
     /**
      * Based on argument either update default node placement callback or
      * attempts to place given node using current placement callback.
      * Setting new node callback triggers position update for all nodes.
      *
-     * @param {Object} newPlaceNodeCallbackOrNode - if it is a function then
+     * newPlaceNodeCallbackOrNode - if it is a function then
      * default node placement callback is replaced with new one. Node placement
      * callback has a form of function (node) {}, and is expected to return an
      * object with x and y properties set to numbers.
@@ -55,9 +51,8 @@ declare function constant(graph: typeof import('../deps/ngraph.graph'), userSett
      * Otherwise if it's not a function the argument is treated as graph node
      * and current node placement callback will be used to place it.
      */
-    placeNode: (newPlaceNodeCallbackOrNode: Object) => any | {
-        x: any;
-        y: any;
-    };
-};
-import Rect = require("../Utils/rect.js");
+    placeNode(newPlaceNodeCallbackOrNode: (node: Element) => NodePosition): NodePosition;
+    placeNode(this: ThisType<Constant>, point: NodePosition): this;
+}
+
+interface NodePosition { x: number; y: number; }

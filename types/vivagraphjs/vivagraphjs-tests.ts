@@ -1,4 +1,5 @@
-import * as Viva from './index.d';
+// eslint-disable-next-line import/no-unresolved
+import * as Viva from 'vivagraphjs';
 
 export const createRenderer = (options: { container: HTMLElement; }) => {
     const { container } = options;
@@ -10,7 +11,7 @@ export const createRenderer = (options: { container: HTMLElement; }) => {
         springLength: 10,
         springCoeff: 0.0005,
         dragCoeff: 0.02,
-        gravity: -1.2
+        gravity: -1.2,
     });
 
     const graphics = Viva.Graph.View.svgGraphics();
@@ -19,15 +20,13 @@ export const createRenderer = (options: { container: HTMLElement; }) => {
         renderer: Viva.Graph.View.renderer(graph, {
             layout,
             container,
-            graphics
+            graphics,
         }),
-        graphics
+        graphics,
     };
 };
 
-
 export const createGraph = () => {
-
     // Step 1. We create a graph object.
     const graph = Viva.Graph.graph();
 
@@ -45,7 +44,6 @@ export const createGraph = () => {
     const renderer = Viva.Graph.View.renderer(graph);
     renderer.run();
 };
-
 
 export const createCustomNode = () => {
     // Step 1. Create a graph:
@@ -67,20 +65,17 @@ export const createCustomNode = () => {
 
     // This function let us override default node appearance and create
     // something better than blue dots:
-    graphics.node((node: { data: any; }) => {
+    graphics.node(node => {
         // node.data holds custom object passed to graph.addNode():
         const url = `https://secure.gravatar.com/avatar/${node.data}`;
 
-        return Viva.Graph.svg('image')
-            .attr('width', 24)
-            .attr('height', 24)
-            .link(url);
+        return Viva.Graph.svg('image').attr('width', 24).attr('height', 24).link(url);
     });
 
     // Usually when you have custom look for nodes, you might want to
     // set their position in a new way too. placeNode() method serves
     // this goal:
-    graphics.placeNode((nodeUI: { attr: (arg0: string, arg1: number) => { (): any; new(): any; attr: { (arg0: string, arg1: number): void; new(): any; }; }; }, pos: { x: number; y: number; }) => {
+    graphics.placeNode((nodeUI, pos) => {
         // nodeUI - is exactly the same object that we returned from
         //   node() callback above.
         // pos - is calculated position for this node.
@@ -89,11 +84,10 @@ export const createCustomNode = () => {
 
     // Step 4. Render the graph with our customized graphics object:
     const renderer = Viva.Graph.View.renderer(graph, {
-        graphics
+        graphics,
     });
     renderer.run();
 };
-
 
 export const createCustomLink = () => {
     // Step 1. Create a graph:
@@ -110,40 +104,40 @@ export const createCustomLink = () => {
 
     // Nothing changed in these lines. They are the same as in Step 2
     // of this tutorial. Except maybe chaining support:
-    graphics.node((node: { data: any; }) => {
-        return Viva.Graph.svg('image')
-            .attr('width', 24)
-            .attr('height', 24)
-            .link(`https://secure.gravatar.com/avatar/${node.data}`);
-    }).placeNode((nodeUI: { attr: (arg0: string, arg1: number) => { (): any; new(): any; attr: { (arg0: string, arg1: number): void; new(): any; }; }; }, pos: { x: number; y: number; }) => {
-        nodeUI.attr('x', pos.x - 12).attr('y', pos.y - 12);
-    });
+    graphics
+        .node(node => {
+            return Viva.Graph.svg('image')
+                .attr('width', 24)
+                .attr('height', 24)
+                .link(`https://secure.gravatar.com/avatar/${node.data}`);
+        })
+        .placeNode((nodeUI, pos) => {
+            nodeUI.attr('x', pos.x - 12).attr('y', pos.y - 12);
+        });
 
     // Step 4. Customize link appearance:
     //   As you might have guessed already the link()/placeLink()
     //   functions complement the node()/placeNode() functions
     //   and let us override default presentation of edges:
-    graphics.link((_link: any) => {
-        return Viva.Graph.svg('path')
-            .attr('stroke', 'red')
-            .attr('stroke-dasharray', '5, 5');
-    }).placeLink((linkUI: { attr: (arg0: string, arg1: string) => void; }, fromPos: { x: any; y: any; }, toPos: { x: any; y: any; }) => {
-        // linkUI - is the object returend from link() callback above.
-        const data = `M${fromPos.x},${fromPos.y
-            }L${toPos.x},${toPos.y}`;
+    graphics
+        .link(_link => {
+            return Viva.Graph.svg('path').attr('stroke', 'red').attr('stroke-dasharray', '5, 5');
+        })
+        .placeLink((linkUI, fromPos, toPos) => {
+            // linkUI - is the object returend from link() callback above.
+            const data = `M${fromPos.x},${fromPos.y}L${toPos.x},${toPos.y}`;
 
-        // 'Path data' (http://www.w3.org/TR/SVG/paths.html#DAttribute )
-        // is a common way of rendering paths in SVG:
-        linkUI.attr('d', data);
-    });
+            // 'Path data' (http://www.w3.org/TR/SVG/paths.html#DAttribute )
+            // is a common way of rendering paths in SVG:
+            linkUI.attr('d', data);
+        });
 
     // Step 5. Render the graph with our customized graphics object:
     const renderer = Viva.Graph.View.renderer(graph, {
-        graphics
+        graphics,
     });
     renderer.run();
 };
-
 
 export const listenToMouseEfvents = () => {
     // As in previous steps, we create a basic structure of a graph:
@@ -157,9 +151,9 @@ export const listenToMouseEfvents = () => {
     const nodeSize = 24;
     // we use this method to highlight all realted links
     // when user hovers mouse over a node:
-    const highlightRelatedNodes = function (nodeId: any, isOn: boolean) {
+    const highlightRelatedNodes = (nodeId: string | number, isOn: boolean) => {
         // just enumerate all realted nodes and update link color:
-        graph.forEachLinkedNode(nodeId, (_node: any, link: { id: any; }) => {
+        graph.forEachLinkedNode(nodeId, (_node, link) => {
             const linkUI = graphics.getLinkUI(link.id);
             if (linkUI) {
                 // linkUI is a UI object created by graphics below
@@ -171,39 +165,40 @@ export const listenToMouseEfvents = () => {
     // Since we are using SVG we can easily subscribe to any supported
     // events (http://www.w3.org/TR/SVG/interact.html#SVGEvents ),
     // including mouse events:
-    graphics.node((node: { data: any; id: any; }) => {
-        const ui = Viva.Graph.svg('image')
-            .attr('width', nodeSize)
-            .attr('height', nodeSize)
-            .link(`https://secure.gravatar.com/avatar/${node.data}`);
+    graphics
+        .node(node => {
+            const ui = Viva.Graph.svg('image')
+                .attr('width', nodeSize)
+                .attr('height', nodeSize)
+                .link(`https://secure.gravatar.com/avatar/${node.data}`);
 
-        document.querySelector(ui).hover(() => { // mouse over
-            highlightRelatedNodes(node.id, true);
-        }, () => { // mouse out
-            highlightRelatedNodes(node.id, false);
+            const el = document.querySelector(ui.id);
+
+            el?.addEventListener('mouseenter', _event => highlightRelatedNodes(node.id, true), false);
+            el?.addEventListener('mouseout', _event => highlightRelatedNodes(node.id, false), false);
+
+            return ui;
+        })
+        .placeNode((nodeUI, pos) => {
+            nodeUI.attr('x', pos.x - nodeSize / 2).attr('y', pos.y - nodeSize / 2);
         });
-        return ui;
-    }).placeNode((nodeUI: { attr: (arg0: string, arg1: number) => { (): any; new(): any; attr: { (arg0: string, arg1: number): void; new(): any; }; }; }, pos: { x: number; y: number; }) => {
-        nodeUI.attr('x', pos.x - nodeSize / 2).attr('y', pos.y - nodeSize / 2);
-    });
 
-    graphics.link((_link: any) => {
-        return Viva.Graph.svg('path')
-            .attr('stroke', 'gray');
-    }).placeLink((linkUI: { attr: (arg0: string, arg1: string) => void; }, fromPos: { x: any; y: any; }, toPos: { x: any; y: any; }) => {
-        const data = `M${fromPos.x},${fromPos.y
-            }L${toPos.x},${toPos.y}`;
+    graphics
+        .link(_link => {
+            return Viva.Graph.svg('path').attr('stroke', 'gray');
+        })
+        .placeLink((linkUI, fromPos, toPos) => {
+            const data = `M${fromPos.x},${fromPos.y}L${toPos.x},${toPos.y}`;
 
-        linkUI.attr('d', data);
-    });
+            linkUI.attr('d', data);
+        });
 
     // Finally render the graph with our customized graphics object:
     const renderer = Viva.Graph.View.renderer(graph, {
-        graphics
+        graphics,
     });
     renderer.run();
 };
-
 
 export const edgesWithArrow = () => {
     // This demo shows how to create a directional arrow in SVG renderer.
@@ -216,16 +211,16 @@ export const edgesWithArrow = () => {
     const graphics = Viva.Graph.View.svgGraphics();
     const nodeSize = 24;
 
-
-    graphics.node((node: { data: any; }) => {
-        return Viva.Graph.svg('image')
-            .attr('width', nodeSize)
-            .attr('height', nodeSize)
-            .link(`https://secure.gravatar.com/avatar/${node.data}`);
-    }).placeNode((nodeUI: { attr: (arg0: string, arg1: number) => { (): any; new(): any; attr: { (arg0: string, arg1: number): void; new(): any; }; }; }, pos: { x: number; y: number; }) => {
-        nodeUI.attr('x', pos.x - nodeSize / 2).attr('y', pos.y - nodeSize / 2);
-    });
-
+    graphics
+        .node(node => {
+            return Viva.Graph.svg('image')
+                .attr('width', nodeSize)
+                .attr('height', nodeSize)
+                .link(`https://secure.gravatar.com/avatar/${node.data}`);
+        })
+        .placeNode((nodeUI, pos) => {
+            nodeUI.attr('x', pos.x - nodeSize / 2).attr('y', pos.y - nodeSize / 2);
+        });
 
     // To render an arrow we have to address two problems:
     //  1. Links should start/stop at node's bounding box, not at the node center.
@@ -233,7 +228,7 @@ export const edgesWithArrow = () => {
 
     // Rendering arrow shape is achieved by using SVG markers, part of the SVG
     // standard: http://www.w3.org/TR/SVG/painting.html#Markers
-    const createMarker = function (id: string) {
+    const createMarker = (id: string) => {
         return Viva.Graph.svg('marker')
             .attr('id', id)
             .attr('viewBox', '0 0 10 10')
@@ -254,45 +249,52 @@ export const edgesWithArrow = () => {
 
     const geom = Viva.Graph.geom();
 
-    graphics.link((_link: any) => {
-        // Notice the Triangle marker-end attribe:
-        return Viva.Graph.svg('path')
-            .attr('stroke', 'gray')
-            .attr('marker-end', 'url(#Triangle)');
-    }).placeLink((linkUI: { attr: (arg0: string, arg1: string) => void; }, fromPos: { x: number; y: number; }, toPos: { x: number; y: number; }) => {
-        // Here we should take care about
-        //  "Links should start/stop at node's bounding box, not at the node center."
+    graphics
+        .link(_link => {
+            // Notice the Triangle marker-end attribe:
+            return Viva.Graph.svg('path').attr('stroke', 'gray').attr('marker-end', 'url(#Triangle)');
+        })
+        .placeLink((linkUI, fromPos, toPos) => {
+            // Here we should take care about
+            //  "Links should start/stop at node's bounding box, not at the node center."
 
-        // For rectangular nodes Viva.Graph.geom() provides efficient way to find
-        // an intersection point between segment and rectangle
-        const toNodeSize = nodeSize;
-        const fromNodeSize = nodeSize;
+            // For rectangular nodes Viva.Graph.geom() provides efficient way to find
+            // an intersection point between segment and rectangle
+            const toNodeSize = nodeSize;
+            const fromNodeSize = nodeSize;
 
-        const from = geom.intersectRect(
-            // rectangle:
-            fromPos.x - fromNodeSize / 2, // left
-            fromPos.y - fromNodeSize / 2, // top
-            fromPos.x + fromNodeSize / 2, // right
-            fromPos.y + fromNodeSize / 2, // bottom
-            // segment:
-            fromPos.x, fromPos.y, toPos.x, toPos.y)
-            || fromPos; // if no intersection found - return center of the node
+            const from =
+                geom.intersectRect(
+                    // rectangle:
+                    fromPos.x - fromNodeSize / 2, // left
+                    fromPos.y - fromNodeSize / 2, // top
+                    fromPos.x + fromNodeSize / 2, // right
+                    fromPos.y + fromNodeSize / 2, // bottom
+                    // segment:
+                    fromPos.x,
+                    fromPos.y,
+                    toPos.x,
+                    toPos.y,
+                ) || fromPos; // if no intersection found - return center of the node
 
-        const to = geom.intersectRect(
-            // rectangle:
-            toPos.x - toNodeSize / 2, // left
-            toPos.y - toNodeSize / 2, // top
-            toPos.x + toNodeSize / 2, // right
-            toPos.y + toNodeSize / 2, // bottom
-            // segment:
-            toPos.x, toPos.y, fromPos.x, fromPos.y)
-            || toPos; // if no intersection found - return center of the node
+            const to =
+                geom.intersectRect(
+                    // rectangle:
+                    toPos.x - toNodeSize / 2, // left
+                    toPos.y - toNodeSize / 2, // top
+                    toPos.x + toNodeSize / 2, // right
+                    toPos.y + toNodeSize / 2, // bottom
+                    // segment:
+                    toPos.x,
+                    toPos.y,
+                    fromPos.x,
+                    fromPos.y,
+                ) || toPos; // if no intersection found - return center of the node
 
-        const data = `M${from.x},${from.y
-            }L${to.x},${to.y}`;
+            const data = `M${from.x},${from.y}L${to.x},${to.y}`;
 
-        linkUI.attr('d', data);
-    });
+            linkUI.attr('d', data);
+        });
 
     // Finally we add something to the graph:
     graph.addNode('anvaka', '91bad8ceeec43ae303790f8fe238164b');
@@ -301,12 +303,10 @@ export const edgesWithArrow = () => {
 
     // All is ready. Render the graph:
     const renderer = Viva.Graph.View.renderer(graph, {
-        graphics
+        graphics,
     });
     renderer.run();
 };
-
-
 
 export const compositeNodes = () => {
     // This demo shows how to create an SVG node which is a bit more complex
@@ -321,65 +321,65 @@ export const compositeNodes = () => {
     graph.addNode('indexzero', 'd43e8ea63b61e7669ded5b9d3c2e980f');
     graph.addLink('anvaka', 'indexzero');
 
-    graphics.node((node: { id: any; data: any; }) => {
-        // This time it's a group of elements: http://www.w3.org/TR/SVG/struct.html#Groups
-        const ui = Viva.Graph.svg('g');
-        // Create SVG text element with user id as content
-        const svgText = Viva.Graph.svg('text').attr('y', '-4px').text(node.id);
-        const img = Viva.Graph.svg('image')
-            .attr('width', nodeSize)
-            .attr('height', nodeSize)
-            .link(`https://secure.gravatar.com/avatar/${node.data}`);
+    graphics
+        .node(node => {
+            // This time it's a group of elements: http://www.w3.org/TR/SVG/struct.html#Groups
+            const ui = Viva.Graph.svg('g');
+            // Create SVG text element with user id as content
+            const svgText = Viva.Graph.svg('text').attr('y', '-4px').text(node.id);
+            const img = Viva.Graph.svg('image')
+                .attr('width', nodeSize)
+                .attr('height', nodeSize)
+                .link(`https://secure.gravatar.com/avatar/${node.data}`);
 
-        ui.append(svgText);
-        ui.append(img);
-        return ui;
-    }).placeNode((nodeUI: { attr: (arg0: string, arg1: string) => void; }, pos: { x: number; y: number; }) => {
-        // 'g' element doesn't have convenient (x,y) attributes, instead
-        // we have to deal with transforms: http://www.w3.org/TR/SVG/coords.html#SVGGlobalTransformAttribute
-        nodeUI.attr('transform',
-            `translate(${pos.x - nodeSize / 2},${pos.y - nodeSize / 2
-            })`);
-    });
+            ui.append(svgText);
+            ui.append(img);
+            return ui;
+        })
+        .placeNode((nodeUI, pos) => {
+            // 'g' element doesn't have convenient (x,y) attributes, instead
+            // we have to deal with transforms: http://www.w3.org/TR/SVG/coords.html#SVGGlobalTransformAttribute
+            nodeUI.attr('transform', `translate(${pos.x - nodeSize / 2},${pos.y - nodeSize / 2})`);
+        });
 
     // Render the graph
     const renderer = Viva.Graph.View.renderer(graph, {
-        graphics
+        graphics,
     });
     renderer.run();
 };
 
-
 export const showDualLinks = () => {
     const graph = Viva.Graph.graph();
-    const graphics = Viva.Graph.View.svgGraphics();
+    const graphics = Viva.Graph.View.svgGraphics<unknown, string, {}, { isBuy: boolean; }>();
     const renderer = Viva.Graph.View.renderer(graph, {
-        graphics
+        graphics,
     });
 
     graph.addLink(1, 2, 'Buy');
     graph.addLink(1, 2, 'Sell');
 
-    graphics.link((link: { data: string; }) => {
-        const isBuy = (link.data === 'Buy');
-        const ui = Viva.Graph.svg('path')
-            .attr('stroke', isBuy ? 'red' : 'blue')
-            .attr('fill', 'none');
+    graphics
+        .link(link => {
+            const isBuy = link.data === 'Buy';
+            const ui = Viva.Graph.svg('path')
+                .attr('stroke', isBuy ? 'red' : 'blue')
+                .attr('fill', 'none') as ReturnType<typeof Viva.Graph.svg> & { isBuy: boolean; };
 
-        ui.isBuy = isBuy; // remember for future.
+            ui.isBuy = isBuy; // remember for future.
 
-        return ui;
-    }).placeLink((linkUI: { isBuy: any; attr: (arg0: string, arg1: string) => void; }, fromPos: { x: any; y: any; }, toPos: { x: any; y: any; }) => {
-        // linkUI - is the object returend from link() callback above.
-        const ry = linkUI.isBuy ? 10 : 0;
-        // using arc command: http://www.w3.org/TR/SVG/paths.html#PathDataEllipticalArcCommands
-        const data = `M${fromPos.x},${fromPos.y
-            } A 10,${ry},-30,0,1,${toPos.x},${toPos.y}`;
+            return ui;
+        })
+        .placeLink((linkUI, fromPos, toPos) => {
+            // linkUI - is the object returend from link() callback above.
+            const ry = linkUI.isBuy ? 10 : 0;
+            // using arc command: http://www.w3.org/TR/SVG/paths.html#PathDataEllipticalArcCommands
+            const data = `M${fromPos.x},${fromPos.y} A 10,${ry},-30,0,1,${toPos.x},${toPos.y}`;
 
-        // 'Path data' (http://www.w3.org/TR/SVG/paths.html#DAttribute )
-        // is a common way of rendering paths in SVG:
-        linkUI.attr('d', data);
-    });
+            // 'Path data' (http://www.w3.org/TR/SVG/paths.html#DAttribute )
+            // is a common way of rendering paths in SVG:
+            linkUI.attr('d', data);
+        });
 
     renderer.run();
 };

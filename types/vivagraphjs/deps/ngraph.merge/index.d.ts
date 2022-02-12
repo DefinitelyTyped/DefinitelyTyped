@@ -4,6 +4,6 @@ export = merge;
  * target's properties if they are defined and matches expected type in
  * options
  *
- * @returns {Object} merged object
+ * returns {object} merged object
  */
-declare function merge(target: any, options: any): Object;
+declare function merge(target: any, options: any): object;

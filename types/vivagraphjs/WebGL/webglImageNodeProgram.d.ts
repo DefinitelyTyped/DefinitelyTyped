@@ -2,7 +2,7 @@ export = webglImageNodeProgram;
 /**
  * Defines simple UI for nodes in webgl renderer. Each node is rendered as an image.
  *
- * @param {number} tilesPerTexture
+ * {number} tilesPerTexture
  *
  */
 declare function webglImageNodeProgram(tilesPerTexture: number): {
@@ -10,8 +10,8 @@ declare function webglImageNodeProgram(tilesPerTexture: number): {
     /**
      * Updates position of current node in the buffer of nodes.
      *
-     * @param idx - index of current node.
-     * @param pos - new position of the node.
+     * idx - index of current node.
+     * pos - new position of the node.
      */
     position: (nodeUI: any, pos: any) => void;
     createNode: (ui: any) => void;

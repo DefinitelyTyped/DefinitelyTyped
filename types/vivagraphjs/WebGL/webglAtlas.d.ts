@@ -3,7 +3,7 @@ export = webglAtlas;
  * My naive implementation of textures atlas. It allows clients to load
  * multiple images into atlas and get canvas representing all of them.
  *
- * @param tilesPerTexture - indicates how many images can be loaded to one
+ * tilesPerTexture - indicates how many images can be loaded to one
  *          texture of the atlas. If number of loaded images exceeds this
  *          parameter a new canvas will be created.
  */

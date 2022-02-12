@@ -9,11 +9,16 @@
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
-        "baseUrl": "./",
+        "baseUrl": "../",
         "typeRoots": [
-            "./"
+            "../"
         ],
         "types": [],
+        "paths": {
+            "vivagraphjs": [
+                "vivagraphjs"
+            ]
+        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },

@@ -5,9 +5,11 @@ declare function _exports(options: any): {
      */
     getRoot: () => any;
     updateBodyForce: (sourceBody: any) => void;
-    options: (newOptions: any) => any | {
-        gravity: any;
-        theta: any;
-    };
+    options: (newOptions: any) =>
+        | any
+        | {
+              gravity: any;
+              theta: any;
+          };
 };
 export = _exports;

@@ -3,8 +3,8 @@ export = renderer;
  * This is heart of the rendering. Class accepts graph to be rendered and rendering settings.
  * It monitors graph changes and depicts them accordingly.
  *
- * @param graph - Viva.Graph.graph() object to be rendered.
- * @param settings - rendering settings, composed from the following parts (with their defaults shown):
+ * graph - Viva.Graph.graph() object to be rendered.
+ * settings - rendering settings, composed from the following parts (with their defaults shown):
  *   settings = {
  *     // Represents a module that is capable of displaying graph nodes and links.
  *     // all graphics has to correspond to defined interface and can be later easily
@@ -35,11 +35,14 @@ export = renderer;
  *     prerender : 0
  *   }
  */
-declare function renderer(graph: any, settings?: any): {
+declare function renderer(
+    graph: any,
+    settings?: any,
+): {
     /**
      * Performs rendering of the graph.
      *
-     * @param iterationsCount if specified renderer will run only given number of iterations
+     * iterationsCount if specified renderer will run only given number of iterations
      * and then stop. Otherwise graph rendering is performed indefinitely.
      *
      * Note: if rendering stopped by used started dragging nodes or new nodes were added to the

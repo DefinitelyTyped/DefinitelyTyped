@@ -1,44 +1,48 @@
+import ngraph = require('../ngraph.graph');
 export = createLayout;
 /**
  * Creates force based layout for a given graph.
  *
- * @param {ngraph.graph} graph which needs to be laid out
- * @param {object} physicsSettings if you need custom settings
+ * {ngraph.graph} graph which needs to be laid out
+ * {object} physicsSettings if you need custom settings
  * for physics simulator you can pass your own settings here. If it's not passed
  * a default one will be created.
  */
-declare function createLayout(graph: typeof import('../ngraph.graph'), physicsSettings: object): {
+declare function createLayout(
+    graph: ngraph.Graph,
+    physicsSettings: object,
+): {
     /**
      * Performs one step of iterative layout algorithm
      *
-     * @returns {boolean} true if the system should be considered stable; Flase otherwise.
+     * returns {boolean} true if the system should be considered stable; Flase otherwise.
      * The system is stable if no further call to `step()` can improve the layout.
      */
     step: () => boolean;
     /**
      * For a given `nodeId` returns position
      */
-    getNodePosition: (nodeId: any) => any;
+    getNodePosition: (nodeId: string) => any;
     /**
      * Sets position of a node to a given coordinates
-     * @param {string} nodeId node identifier
-     * @param {number} x position of a node
-     * @param {number} y position of a node
-     * @param {number=} z position of node (only if applicable to body)
+     * {string} nodeId node identifier
+     * {number} x position of a node
+     * {number} y position of a node
+     * {number=} z position of node (only if applicable to body)
      */
     setNodePosition: (nodeId: string, ...args: any[]) => void;
     /**
-     * @returns {Object} Link position by link id
-     * @returns {Object.from} {x, y} coordinates of link start
-     * @returns {Object.to} {x, y} coordinates of link end
+     * returns {object} Link position by link id
+     * returns {object.from} {x, y} coordinates of link start
+     * returns {object.to} {x, y} coordinates of link end
      */
-    getLinkPosition: (linkId: any) => Object;
+    getLinkPosition: (linkId: string) => object;
     /**
-     * @returns {Object} area required to fit in the graph. Object contains
+     * returns {object} area required to fit in the graph. object contains
      * `x1`, `y1` - top left coordinates
      * `x2`, `y2` - bottom right coordinates
      */
-    getGraphRect: () => Object;
+    getGraphRect: () => { x1: number; y1: number; x2: number; y2: number; };
     /**
      * Iterates over each body in the layout simulator and performs a callback(body, nodeId)
      */
@@ -60,9 +64,9 @@ declare function createLayout(graph: typeof import('../ngraph.graph'), physicsSe
     /**
      * Gets spring for a given edge.
      *
-     * @param {string} linkId link identifer. If two arguments are passed then
+     * {string} linkId link identifer. If two arguments are passed then
      * this argument is treated as formNodeId
-     * @param {string=} toId when defined this parameter denotes head of the link
+     * {string=} toId when defined this parameter denotes head of the link
      * and first argument is trated as tail of the link (fromId)
      */
     getSpring: (fromId: any, toId: any) => any;

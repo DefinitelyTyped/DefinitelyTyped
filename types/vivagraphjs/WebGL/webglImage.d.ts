@@ -2,7 +2,10 @@ export = webglImage;
 /**
  * Represents a model for image.
  */
-declare function webglImage(size: any, src: any): {
+declare function webglImage(
+    size: any,
+    src: any,
+): {
     /**
      * Gets texture index where current image is placed.
      */

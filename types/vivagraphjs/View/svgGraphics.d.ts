@@ -1,38 +1,52 @@
+import domInputManager = require('../Input/domInputManager.js');
+import ngraph = require('../deps/ngraph.graph');
+import svg = require('../deps/simplesvg');
+
 export = svgGraphics;
+
+/* tslint:disable:no-unnecessary-generics */
+interface Position { x: number; y: number; }
+type NodeUI<Data, ExtraData> = ngraph.Node<Data> & { position: Position; node: Element; } & svg.SimpleSvg & ExtraData;
+type LinkUI<Data, ExtraData> = ngraph.Link<Data> & { position: { from: Position; to: Position; }; link: Element; } & svg.SimpleSvg & ExtraData;
+
 /**
  * Performs svg-based graph rendering. This module does not perform
  * layout, but only visualizes nodes and edges of the graph.
  */
-declare function svgGraphics(): {
-    getNodeUI: (nodeId: any) => any;
-    getLinkUI: (linkId: any) => any;
+
+declare function svgGraphics<NodeData = {}, LinkData = {}, ExtraDataNode = {}, ExtraDataLink = {}>(): SvgGraphics<NodeData, LinkData, ExtraDataNode, ExtraDataLink>;
+
+interface SvgGraphics<NodeData = {}, LinkData = {}, ExtraDataNode = {}, ExtraDataLink = {}> {
+    getNodeUI: (nodeId: ngraph.NodeId) => NodeUI<NodeData, ExtraDataNode>;
+    getLinkUI: (linkId: ngraph.LinkId) => LinkUI<LinkData, ExtraDataLink>;
     /**
      * Sets the callback that creates node representation.
      *
-     * @param builderCallback a callback function that accepts graph node
+     * builderCallback a callback function that accepts graph node
      * as a parameter and must return an element representing this node.
      *
-     * @returns If builderCallbackOrNode is a valid callback function, instance of this is returned;
+     * returns If builderCallbackOrNode is a valid callback function, instance of this is returned;
      * Otherwise undefined value is returned
      */
-    node: (builderCallback: any) => any | undefined;
+    node<D = NodeData, E = ExtraDataNode>(builderCallback: (node: ngraph.Node) => { id: ngraph.Node[ 'id' ]; }): SvgGraphics<D, LinkData, E, ExtraDataLink>;
     /**
      * Sets the callback that creates link representation
      *
-     * @param builderCallback a callback function that accepts graph link
+     * builderCallback a callback function that accepts graph link
      * as a parameter and must return an element representing this link.
      *
-     * @returns If builderCallback is a valid callback function, instance of this is returned;
+     * returns If builderCallback is a valid callback function, instance of this is returned;
      * Otherwise undefined value is returned.
      */
-    link: (builderCallback: any) => any | undefined;
+    link<D = LinkData, L = ExtraDataLink>(builderCallback: (link: ngraph.Link) => { id: ngraph.Link[ 'id' ]; }): SvgGraphics<NodeData, D, ExtraDataNode, L>;
+
     /**
      * Allows to override default position setter for the node with a new
      * function. newPlaceCallback(nodeUI, position, node) is function which
      * is used by updateNodePosition().
      */
-    placeNode: (newPlaceCallback: any) => any;
-    placeLink: (newPlaceLinkCallback: any) => any;
+    placeNode(newPlaceCallback: (nodeUI: NodeUI<NodeData, ExtraDataNode>, pos: Position) => void): this;
+    placeLink(newPlaceCallback: (linkUI: LinkUI<LinkData, ExtraDataLink>, fromPos: Position, toPos: Position) => void): this;
     /**
      * Called every before renderer starts rendering.
      */
@@ -44,52 +58,52 @@ declare function svgGraphics(): {
     /**
      * Sets translate operation that should be applied to all nodes and links.
      */
-    graphCenterChanged: (x: any, y: any) => void;
+    graphCenterChanged: (x: number, y: number) => void;
     /**
      * Default input manager listens to DOM events to process nodes drag-n-drop
      */
     inputManager: typeof domInputManager;
-    translateRel: (dx: any, dy: any) => void;
-    scale: (scaleFactor: any, scrollPoint: any) => number;
-    resetScale: () => any;
+    translateRel: (dx: number, dy: number) => void;
+    scale: (scaleFactor: number, scrollPoint: Position) => number;
+    resetScale(): this;
     /**
      * Called by Viva.Graph.View.renderer to let concrete graphic output
      * provider prepare to render.
      */
-    init: (container: any) => void;
+    init: (container: Element) => void;
     /**
      * Called by Viva.Graph.View.renderer to let concrete graphic output
      * provider release occupied resources.
      */
-    release: (container: any) => void;
+    release: (container: Element) => void;
     /**
      * Called by Viva.Graph.View.renderer to let concrete graphic output
      * provider prepare to render given link of the graph
      *
-     * @param link - model of a link
+     * link - model of a link
      */
-    addLink: (link: any, pos: any) => any;
+    addLink: (link: ngraph.Link, pos: Position) => LinkUI<LinkData, ExtraDataLink>;
     /**
      * Called by Viva.Graph.View.renderer to let concrete graphic output
      * provider remove link from rendering surface.
      *
-     * @param linkUI visual representation of the link created by link() execution.
-     **/
-    releaseLink: (link: any) => void;
+     * linkUI visual representation of the link created by link() execution.
+     */
+    releaseLink: (link: ngraph.Link) => void;
     /**
      * Called by Viva.Graph.View.renderer to let concrete graphic output
      * provider prepare to render given node of the graph.
      *
-     * @param nodeUI visual representation of the node created by node() execution.
-     **/
-    addNode: (node: any, pos: any) => any;
+     * nodeUI visual representation of the node created by node() execution.
+     */
+    addNode: (node: ngraph.Node, pos: Position) => NodeUI<NodeData, ExtraDataNode>;
     /**
      * Called by Viva.Graph.View.renderer to let concrete graphic output
      * provider remove node from rendering surface.
      *
-     * @param node graph's node
-     **/
-    releaseNode: (node: any) => void;
+     * node graph's node
+     */
+    releaseNode: (node: ngraph.Node) => void;
     renderNodes: () => void;
     renderLinks: () => void;
     /**
@@ -101,6 +115,5 @@ declare function svgGraphics(): {
      *
      * Note: This is internal method specific to this renderer
      */
-    getSvgRoot: () => any;
-};
-import domInputManager = require("../Input/domInputManager.js");
+    getSvgRoot: () => svg.SimpleSvg;
+}

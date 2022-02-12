@@ -1,15 +1,6 @@
 {
-    "name": "@upradata/vivagraphjs-dts",
-    "version": "1.0.0",
-    "description": "",
-    "main": "index.js",
     "private": true,
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
-    },
-    "author": "Thomas Milotti <thomas.milotti@gmail.com> (https://github.com/milottit)",
     "license": "MIT",
-    "types": "./index",
     "dependencies": {
         "ngraph.events": "^1.2.1",
         "ngraph.fromjson": "^3.1.0",

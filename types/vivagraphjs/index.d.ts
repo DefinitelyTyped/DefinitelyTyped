@@ -1,5 +1,5 @@
-// Type definitions for vivagraphjs 0.12.0
-// Project:https://github.com/anvaka/VivaGraphJS
+// Type definitions for vivagraphjs 0.12
+// Project: https://github.com/anvaka/VivaGraphJS
 // Definitions by: Thomas Milotti (Upra-Data) <https://github.com/upradata>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -7,8 +7,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
 export function lazyExtend<T, O>(target: T, options: O): T & O; // typeof import('ngraph.merge');
-export const randomIterator: (typeof import('./deps/ngraph.random'))[ 'randomIterator' ];
-export const random: (typeof import('./deps/ngraph.random'))[ 'random' ];
+export const randomIterator: typeof import('./deps/ngraph.random')[ 'randomIterator' ];
+export const random: typeof import('./deps/ngraph.random')[ 'random' ];
 export const events: typeof import('ngraph.events');
 export namespace Graph {
     const version: string;
