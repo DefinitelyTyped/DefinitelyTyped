@@ -393,3 +393,9 @@ Xrm.App.sidePanes.getSelectedPane();
 
 // Demonstrate GetSettings
 const settingValue = Xrm.Utility.getGlobalContext().getCurrentAppSetting("SettingsName");
+
+// Demonstrate Navigating to a specific dashboard
+Xrm.Navigation.navigateTo({ pageType: "dashboard", dashboardId: "84fd907e-8bfe-11ec-a8a3-0242ac120002"})
+
+// Demonstrate Navigating to the default dashboard
+Xrm.Navigation.navigateTo({ pageType: "dashboard" })
