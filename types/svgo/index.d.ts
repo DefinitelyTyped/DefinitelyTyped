@@ -8,7 +8,6 @@
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 //                 Remco Haszing <https://github.com/remcohaszing>
 //                 Petr Zahradník <https://github.com/petrzjunior>
-//                 Tomer Aberbach <https://github.com/TomerAberbach>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node"/>
