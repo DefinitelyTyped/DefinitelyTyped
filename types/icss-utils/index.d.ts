@@ -1,4 +1,4 @@
-// Type definitions for icss-utils 4.1
+// Type definitions for icss-utils 5.1
 // Project: https://github.com/css-modules/icss-utils#readme
 // Definitions by: Bob Matcuk <https://github.com/bmatcuk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

@@ -1,4 +1,4 @@
-// Type definitions for oidc-provider 7.4
+// Type definitions for oidc-provider 7.8
 // Project: https://github.com/panva/node-oidc-provider
 // Definitions by: Filip Skokan <https://github.com/panva>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -52,6 +52,10 @@ export interface JWK {
     y?: string | undefined;
 }
 
+export interface JWKS {
+    keys: JWK[];
+}
+
 export interface AllClientMetadata {
     client_id?: string | undefined;
     redirect_uris?: string[] | undefined;
@@ -70,7 +74,7 @@ export interface AllClientMetadata {
     id_token_signed_response_alg?: SigningAlgorithmWithNone | undefined;
     initiate_login_uri?: string | undefined;
     jwks_uri?: string | undefined;
-    jwks?: { keys: JWK[] } | undefined;
+    jwks?: JWKS | undefined;
     logo_uri?: string | undefined;
     policy_uri?: string | undefined;
     post_logout_redirect_uris?: string[] | undefined;
@@ -503,6 +507,7 @@ declare class ClientCredentials extends BaseToken {
     readonly tokenType: string;
     'x5t#S256'?: string | undefined;
     jkt?: string | undefined;
+    resourceServer?: ResourceServer | undefined;
 
     isSenderConstrained(): boolean;
 }
@@ -538,6 +543,7 @@ declare class AccessToken extends BaseToken {
     });
     readonly kind: 'AccessToken';
     accountId: string;
+    resourceServer?: ResourceServer | undefined;
     aud: string | string[];
     claims?: ClaimsParameter | undefined;
     extra?: UnknownObject | undefined;
@@ -605,7 +611,7 @@ declare class Client {
     readonly idTokenSignedResponseAlg?: string | undefined;
     readonly initiateLoginUri?: string | undefined;
     readonly jwksUri?: string | undefined;
-    readonly jwks?: { keys: JWK[] } | undefined;
+    readonly jwks?: JWKS | undefined;
     readonly logoUri?: string | undefined;
     readonly policyUri?: string | undefined;
     readonly postLogoutRedirectUris?: string[] | undefined;
@@ -676,7 +682,7 @@ export interface ResourceServer {
         } | undefined;
     } | undefined;
     paseto?: {
-        version: 1 | 2;
+        version: 1 | 2 | 3 | 4;
         purpose: 'local' | 'public';
         key?: crypto.KeyObject | Buffer | undefined;
         kid?: string | undefined;
@@ -876,8 +882,9 @@ declare class JWTStructured {
 }
 
 declare class PASETOStructured {
-    footer?: UnknownObject | Buffer | string | undefined;
+    footer?: UnknownObject | undefined;
     payload: UnknownObject;
+    assertion?: string | Buffer | undefined;
 }
 
 export interface Configuration {
@@ -1032,7 +1039,6 @@ export interface Configuration {
 
         ciba?: {
             enabled?: boolean | undefined;
-            ack?: string | undefined;
             deliveryModes: CIBADeliveryMode[];
             triggerAuthenticationDevice?: ((ctx: KoaContextWithOIDC, request: BackchannelAuthenticationRequest, account: Account, client: Client) => CanBePromise<void>) | undefined;
             validateBindingMessage?: ((ctx: KoaContextWithOIDC, bindingMessage?: string) => CanBePromise<void>) | undefined;
@@ -1065,7 +1071,6 @@ export interface Configuration {
         pushedAuthorizationRequests?: {
             requirePushedAuthorizationRequests?: boolean | undefined;
             enabled?: boolean | undefined;
-            ack?: string | undefined;
         } | undefined;
 
         rpInitiatedLogout?: {
@@ -1118,7 +1123,7 @@ export interface Configuration {
         code: AuthorizationCode | DeviceCode | BackchannelAuthenticationRequest,
     ) => CanBePromise<boolean>) | undefined;
 
-    jwks?: { keys: JWK[] } | undefined;
+    jwks?: JWKS | undefined;
 
     responseTypes?: ResponseType[] | undefined;
 
@@ -1272,10 +1277,12 @@ export interface InteractionResults {
         ts?: number | undefined;
         amr?: string[] | undefined;
         acr?: string | undefined;
+        [key: string]: unknown;
     } | undefined;
 
     consent?: {
         grantId?: string | undefined;
+        [key: string]: unknown;
     } | undefined;
 
     [key: string]: unknown;
@@ -2071,6 +2078,9 @@ export namespace errors {
         constructor(description?: string, detail?: string);
     }
     class InvalidScope extends OIDCProviderError {
+        constructor(description: string, scope: string);
+    }
+    class InsufficientScope extends OIDCProviderError {
         constructor(description: string, scope: string);
     }
     class InvalidSoftwareStatement extends OIDCProviderError {

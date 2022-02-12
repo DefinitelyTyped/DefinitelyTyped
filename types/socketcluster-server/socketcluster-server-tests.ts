@@ -1,7 +1,9 @@
 // Adapted from README
 
 import http = require('http');
+import AuthEngine = require('ag-auth');
 import socketClusterServer = require('socketcluster-server');
+import { Secret, VerifyOptions, Jwt, SignOptions } from 'jsonwebtoken';
 
 const httpServer = http.createServer();
 let agServer = socketClusterServer.attach(httpServer);
@@ -80,4 +82,32 @@ agServer.setMiddleware(agServer.MIDDLEWARE_INBOUND, async middlewareStream => {
 
         action.allow();
     }
+});
+
+// Various server options
+
+agServer = socketClusterServer.attach(httpServer, {
+    wsEngine: require('ws')
+});
+
+agServer = socketClusterServer.attach(httpServer, {
+    wsEngine: 'ws'
+});
+
+agServer = socketClusterServer.attach(httpServer, {
+    authEngine: new AuthEngine()
+});
+
+class CustomAuthEngine implements socketClusterServer.AGServer.AuthEngineType {
+    verifyToken(signedToken: string | null, key: Secret, options?: VerifyOptions): Promise<Jwt> {
+        throw new Error('Method not implemented.');
+    }
+
+    signToken(token: string | object | Buffer, key: Secret, options?: SignOptions): Promise<string | undefined> {
+        throw new Error('Method not implemented.');
+    }
+}
+
+agServer = socketClusterServer.attach(httpServer, {
+    authEngine: new CustomAuthEngine()
 });

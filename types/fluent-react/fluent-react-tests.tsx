@@ -20,7 +20,7 @@ function* generateBundles(currentLocales: string[]) {
 
 ReactDOM.render(
   <LocalizationProvider bundles={generateBundles(['en-US'])}>
-    Content
+    <div />
   </LocalizationProvider>,
   document.getElementById('root')
 );

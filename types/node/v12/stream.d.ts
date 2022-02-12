@@ -43,7 +43,7 @@ declare module 'stream' {
             wrap(oldStream: NodeJS.ReadableStream): this;
             push(chunk: any, encoding?: string): boolean;
             _destroy(error: Error | null, callback: (error?: Error | null) => void): void;
-            destroy(error?: Error): void;
+            destroy(error?: Error): this;
 
             /**
              * Event emitter
@@ -135,12 +135,12 @@ declare module 'stream' {
             write(chunk: any, cb?: (error: Error | null | undefined) => void): boolean;
             write(chunk: any, encoding: string, cb?: (error: Error | null | undefined) => void): boolean;
             setDefaultEncoding(encoding: string): this;
-            end(cb?: () => void): void;
-            end(chunk: any, cb?: () => void): void;
-            end(chunk: any, encoding: string, cb?: () => void): void;
+            end(cb?: () => void): this;
+            end(chunk: any, cb?: () => void): this;
+            end(chunk: any, encoding: string, cb?: () => void): this;
             cork(): void;
             uncork(): void;
-            destroy(error?: Error): void;
+            destroy(error?: Error): this;
 
             /**
              * Event emitter
@@ -230,6 +230,7 @@ declare module 'stream' {
             readonly writableHighWaterMark: number;
             readonly writableLength: number;
             readonly writableObjectMode: boolean;
+            allowHalfOpen: boolean;
             constructor(opts?: DuplexOptions);
             _write(chunk: any, encoding: string, callback: (error?: Error | null) => void): void;
             _writev?(chunks: Array<{ chunk: any, encoding: string }>, callback: (error?: Error | null) => void): void;
@@ -238,9 +239,9 @@ declare module 'stream' {
             write(chunk: any, encoding?: string, cb?: (error: Error | null | undefined) => void): boolean;
             write(chunk: any, cb?: (error: Error | null | undefined) => void): boolean;
             setDefaultEncoding(encoding: string): this;
-            end(cb?: () => void): void;
-            end(chunk: any, cb?: () => void): void;
-            end(chunk: any, encoding?: string, cb?: () => void): void;
+            end(cb?: () => void): this;
+            end(chunk: any, cb?: () => void): this;
+            end(chunk: any, encoding?: string, cb?: () => void): this;
             cork(): void;
             uncork(): void;
         }

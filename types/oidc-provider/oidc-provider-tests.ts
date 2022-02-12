@@ -1,4 +1,4 @@
-import { Provider, interactionPolicy, errors } from 'oidc-provider';
+import { Provider, interactionPolicy, errors, JWKS } from 'oidc-provider';
 
 errors.AccessDenied.name;
 
@@ -19,10 +19,8 @@ new Provider('https://op.example.com', {
                 ctx.oidc.issuer.substring(0);
                 token.iat.toFixed();
                 parts.footer = { foo: 'bar' };
-                parts.footer = Buffer.from('foo');
-                parts.footer = undefined;
-                parts.footer = 'foo';
                 parts.payload.foo = 'bar';
+                parts.assertion = 'bar';
                 return parts;
             },
         },
@@ -69,6 +67,25 @@ new Provider('https://op.example.com', {
         async findByUid(uid: string) {},
     }),
 });
+
+const jwks: JWKS = {
+    keys: [
+        {
+            kty: 'RSA',
+            d: 'foo',
+            n: 'foo',
+            e: 'AQAB',
+        },
+        {
+            kty: 'OKP',
+            x: 'foo',
+            d: 'foo',
+            crv: 'Ed25519',
+        },
+    ],
+};
+
+new Provider('https://op.example.com', { jwks });
 
 const provider = new Provider('https://op.example.com', {
     acrValues: ['urn:example:bronze'],
@@ -165,9 +182,6 @@ const provider = new Provider('https://op.example.com', {
                 ctx.oidc.issuer.substring(0);
                 token.iat.toFixed();
                 parts.footer = { foo: 'bar' };
-                parts.footer = Buffer.from('foo');
-                parts.footer = undefined;
-                parts.footer = 'foo';
                 parts.payload.foo = 'bar';
                 return parts;
             },
@@ -233,12 +247,22 @@ const provider = new Provider('https://op.example.com', {
     ttl: {
         CustomToken: 23,
         AccessToken(ctx, accessToken) {
+            if (accessToken.resourceServer) {
+                return accessToken.resourceServer.accessTokenTTL || 60 * 60;
+            }
             ctx.oidc.issuer.substring(0);
             accessToken.iat.toFixed();
             return 2;
         },
+        ClientCredentials(ctx, cc) {
+            if (cc.resourceServer) {
+                return cc.resourceServer.accessTokenTTL || 60 * 60;
+            }
+            ctx.oidc.issuer.substring(0);
+            cc.iat.toFixed();
+            return 2;
+        },
         AuthorizationCode: 3,
-        ClientCredentials: 3,
         DeviceCode: 3,
         IdToken: 3,
         RefreshToken: 3,
@@ -351,7 +375,7 @@ const provider = new Provider('https://op.example.com', {
         revocation: { enabled: false },
         jwtIntrospection: { enabled: false, ack: 'draft' },
         jwtResponseModes: { enabled: false, ack: 'draft' },
-        pushedAuthorizationRequests: { enabled: false, ack: 'draft' },
+        pushedAuthorizationRequests: { enabled: false },
         registration: {
             enabled: true,
             initialAccessToken: true,
@@ -396,7 +420,6 @@ const provider = new Provider('https://op.example.com', {
         fapi: { enabled: false, profile: '1.0 Final' },
         ciba: {
             enabled: false,
-            ack: 'foo',
             deliveryModes: ['ping'],
             async triggerAuthenticationDevice(ctx, request, account, client) {
                 ctx.oidc.issuer.substring(0);

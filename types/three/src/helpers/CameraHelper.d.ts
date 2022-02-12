@@ -13,4 +13,6 @@ export class CameraHelper extends LineSegments {
     type: string;
 
     update(): void;
+
+    dispose(): void;
 }

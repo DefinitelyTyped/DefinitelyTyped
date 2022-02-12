@@ -494,7 +494,7 @@ declare namespace Highland {
         /**
          * Ends a Stream. This is the same as sending a [nil](#nil) value as data.
          * You shouldn't need to call this directly, rather it will be called by
-         * any [Node Readable Streams](http://nodejs.org/api/stream.html#stream_class_stream_readable)
+         * any [Node Readable Streams](https://nodejs.org/api/stream.html#stream_class_stream_readable)
          * you pipe in.
          *
          * @id end
@@ -532,7 +532,7 @@ declare namespace Highland {
          * paused, true otherwise. This lets Node's pipe method handle back-pressure.
          *
          * You shouldn't need to call this yourself, but it may be called by Node
-         * functions which treat Highland Streams as a [Node Writable Stream](http://nodejs.org/api/stream.html#stream_class_stream_writable).
+         * functions which treat Highland Streams as a [Node Writable Stream](https://nodejs.org/api/stream.html#stream_class_stream_writable).
          *
          * @id write
          * @section Streams
@@ -1479,7 +1479,7 @@ declare namespace Highland {
 
         /**
          * Pipes a Highland Stream to a [Node Writable
-         * Stream](http://nodejs.org/api/stream.html#stream_class_stream_writable).
+         * Stream](https://nodejs.org/api/stream.html#stream_class_stream_writable).
          * This will pull all the data from the source Highland Stream and write it to
          * the destination, automatically managing flow so that the destination is not
          * overwhelmed by a fast source.
@@ -1573,12 +1573,12 @@ declare namespace Highland {
          * or pipes that depend on the native stream type.
          *
          * The options parameter can be an object passed into the [`Readable`
-         * constructor](http://nodejs.org/api/stream.html#stream_class_stream_readable).
+         * constructor](https://nodejs.org/api/stream.html#stream_class_stream_readable).
          *
          * @id toNodeStream
          * @section Consumption
          * @name Stream.toNodeStream(options)
-         * @param {Object} options - (optional) [`Readable` constructor](http://nodejs.org/api/stream.html#stream_class_stream_readable) options
+         * @param {Object} options - (optional) [`Readable` constructor](https://nodejs.org/api/stream.html#stream_class_stream_readable) options
          * @api public
          *
          * _(fs.createReadStream('./abc')).toNodeStream()

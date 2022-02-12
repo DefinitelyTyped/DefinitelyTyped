@@ -1,4 +1,4 @@
-// Type definitions for non-npm package WebExtension Development in FireFox 82.0
+// Type definitions for non-npm package WebExtension Development in FireFox 94.0
 // Project: https://developer.mozilla.org/en-US/Add-ons/WebExtensions
 // Definitions by: Jasmin Bom <https://github.com/jsmnbom>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -16,9 +16,23 @@ declare namespace browser._manifest {
     /* _manifest types */
     type PermissionNoPrompt = OptionalPermission | _PermissionNoPrompt;
 
+    interface ActionManifest {
+        default_title?: string | undefined;
+        default_icon?: IconPath | undefined;
+        /** Specifies icons to use for dark and light themes */
+        theme_icons?: ThemeIcons[] | undefined;
+        default_popup?: string | undefined;
+        browser_style?: boolean | undefined;
+        /** Defines the location the browserAction will appear by default. The default location is navbar. */
+        default_area?: _ActionManifestDefaultArea | undefined;
+    }
+
     /** Represents a WebExtension manifest.json file */
     interface WebExtensionManifest {
-        browser_action?: _WebExtensionManifestBrowserAction | undefined;
+        /** Needs at least manifest version 3. */
+        action?: ActionManifest | undefined;
+        /** Not supported on manifest versions above 2. */
+        browser_action?: ActionManifest | undefined;
         experiment_apis?: { [key: string]: experiments.ExperimentAPI } | undefined;
         /** A list of protocol handler definitions. */
         protocol_handlers?: ProtocolHandler[] | undefined;
@@ -39,7 +53,8 @@ declare namespace browser._manifest {
               }
             | {
                   service_worker: ExtensionURL;
-              } | undefined;
+              }
+            | undefined;
         options_ui?: _WebExtensionManifestOptionsUi | undefined;
         content_scripts?: ContentScript[] | undefined;
         content_security_policy?:
@@ -47,16 +62,19 @@ declare namespace browser._manifest {
             | {
                   /** The Content Security Policy used for extension pages. */
                   extension_pages?: string | undefined;
-                  /** The Content Security Policy used for content scripts. */
-                  content_scripts?: string | undefined;
-                  /**
-                   * An alias for content_scripts to support Chrome compatibility. Content Security Policy implementations may differ between Firefox and Chrome. If both isolated_world and content_scripts exist, the value from content_scripts will be used.
-                   */
-                  isolated_world?: string | undefined;
-              } | undefined;
-        permissions?: PermissionOrOrigin[] | undefined;
+              }
+            | undefined;
+        permissions?: PermissionOrOrigin[] | Permission[] | undefined;
+        /** Needs at least manifest version 3. */
+        host_permissions?: MatchPattern[] | undefined;
         optional_permissions?: OptionalPermissionOrOrigin[] | undefined;
-        web_accessible_resources?: string[] | undefined;
+        web_accessible_resources?:
+            | string[]
+            | Array<{
+                  resources: string[];
+                  matches: MatchPatternRestricted[];
+              }>
+            | undefined;
         developer?: _WebExtensionManifestDeveloper | undefined;
         hidden?: boolean | undefined;
         page_action?: _WebExtensionManifestPageAction | undefined;
@@ -84,7 +102,7 @@ declare namespace browser._manifest {
 
     type OptionalPermissionNoPrompt = _OptionalPermissionNoPrompt;
 
-    type Permission = string | PermissionNoPrompt | OptionalPermission | 'nativeMessaging';
+    type Permission = string | PermissionNoPrompt | OptionalPermission;
 
     /** Represents a protocol handler definition. */
     interface ProtocolHandler {
@@ -123,7 +141,9 @@ declare namespace browser._manifest {
         sources?: _WebExtensionLangpackManifestSources | undefined;
         manifest_version: number;
         applications?: _WebExtensionLangpackManifestApplications | undefined;
-        browser_specific_settings?: _WebExtensionLangpackManifestBrowserSpecificSettings | undefined;
+        browser_specific_settings?:
+            | _WebExtensionLangpackManifestBrowserSpecificSettings
+            | undefined;
         name: string;
         short_name?: string | undefined;
         description?: string | undefined;
@@ -137,7 +157,9 @@ declare namespace browser._manifest {
         dictionaries: _WebExtensionDictionaryManifestDictionaries;
         manifest_version: number;
         applications?: _WebExtensionDictionaryManifestApplications | undefined;
-        browser_specific_settings?: _WebExtensionDictionaryManifestBrowserSpecificSettings | undefined;
+        browser_specific_settings?:
+            | _WebExtensionDictionaryManifestBrowserSpecificSettings
+            | undefined;
         name: string;
         short_name?: string | undefined;
         description?: string | undefined;
@@ -226,7 +248,6 @@ declare namespace browser._manifest {
     /** @deprecated An unexpected property was found in the WebExtension manifest. */
     type UnrecognizedProperty = any;
 
-    /** @deprecated Event pages are not currently supported. This will run as a persistent background page. */
     type PersistentBackgroundProperty = boolean;
 
     /** Represents a native manifest file */
@@ -291,22 +312,7 @@ declare namespace browser._manifest {
         | 'urlbar';
 
     /** Defines the location the browserAction will appear by default. The default location is navbar. */
-    type _WebExtensionManifestBrowserActionDefaultArea =
-        | 'navbar'
-        | 'menupanel'
-        | 'tabstrip'
-        | 'personaltoolbar';
-
-    interface _WebExtensionManifestBrowserAction {
-        default_title?: string | undefined;
-        default_icon?: IconPath | undefined;
-        /** Specifies icons to use for dark and light themes */
-        theme_icons?: ThemeIcons[] | undefined;
-        default_popup?: string | undefined;
-        browser_style?: boolean | undefined;
-        /** Defines the location the browserAction will appear by default. The default location is navbar. */
-        default_area?: _WebExtensionManifestBrowserActionDefaultArea | undefined;
-    }
+    type _ActionManifestDefaultArea = 'navbar' | 'menupanel' | 'tabstrip' | 'personaltoolbar';
 
     interface _WebExtensionManifestIcons {
         [key: number]: ExtensionFileUrl;
@@ -377,11 +383,15 @@ declare namespace browser._manifest {
         /** A url parameter name */
         name: string;
         /** The type of param can be either "purpose" or "pref". */
-        condition?: _WebExtensionManifestChromeSettingsOverridesSearchProviderParamsCondition | undefined;
+        condition?:
+            | _WebExtensionManifestChromeSettingsOverridesSearchProviderParamsCondition
+            | undefined;
         /** The preference to retrieve the value from. */
         pref?: string | undefined;
         /** The context that initiates a search, required if condition is "purpose". */
-        purpose?: _WebExtensionManifestChromeSettingsOverridesSearchProviderParamsPurpose | undefined;
+        purpose?:
+            | _WebExtensionManifestChromeSettingsOverridesSearchProviderParamsPurpose
+            | undefined;
         /** A url parameter value. */
         value?: string | undefined;
     }
@@ -477,6 +487,7 @@ declare namespace browser._manifest {
 
     type _OptionalPermission =
         | 'browserSettings'
+        | 'browsingData'
         | 'downloads'
         | 'downloads.open'
         | 'management'
@@ -486,9 +497,9 @@ declare namespace browser._manifest {
         | 'notifications'
         | 'privacy'
         | 'proxy'
+        | 'nativeMessaging'
         | 'webNavigation'
         | 'bookmarks'
-        | 'browsingData'
         | 'devtools'
         | 'find'
         | 'history'
@@ -511,6 +522,7 @@ declare namespace browser._manifest {
         | 'bitcoin'
         | 'dat'
         | 'dweb'
+        | 'ftp'
         | 'geo'
         | 'gopher'
         | 'im'
@@ -520,6 +532,7 @@ declare namespace browser._manifest {
         | 'ircs'
         | 'magnet'
         | 'mailto'
+        | 'matrix'
         | 'mms'
         | 'news'
         | 'nntp'
@@ -620,6 +633,7 @@ declare namespace browser._manifest {
         toolbar_field?: ThemeColor | undefined;
         toolbar_field_text?: ThemeColor | undefined;
         toolbar_field_border?: ThemeColor | undefined;
+        /** @deprecated This color property is ignored in Firefox >= 89. */
         toolbar_field_separator?: ThemeColor | undefined;
         toolbar_top_separator?: ThemeColor | undefined;
         toolbar_bottom_separator?: ThemeColor | undefined;
@@ -637,6 +651,7 @@ declare namespace browser._manifest {
         popup_highlight?: ThemeColor | undefined;
         popup_highlight_text?: ThemeColor | undefined;
         ntp_background?: ThemeColor | undefined;
+        ntp_card_background?: ThemeColor | undefined;
         ntp_text?: ThemeColor | undefined;
         sidebar?: ThemeColor | undefined;
         sidebar_border?: ThemeColor | undefined;
@@ -809,7 +824,241 @@ declare namespace browser.alarms {
 /**
  * Use browser actions to put icons in the main browser toolbar, to the right of the address bar. In addition to its icon, a browser action can also have a tooltip, a badge, and a popup.
  *
- * Manifest keys: `browser_action`
+ * Manifest keys: `action`, `browser_action`
+ *
+ * Needs at least manifest version 3.
+ *
+ * Not allowed in: Content scripts, Devtools pages
+ */
+declare namespace browser.action {
+    /* action types */
+    /**
+     * Specifies to which tab or window the value should be set, or from which one it should be retrieved. If no tab nor window is specified, the global value is set or retrieved.
+     */
+    interface Details {
+        /**
+         * When setting a value, it will be specific to the specified tab, and will automatically reset when the tab navigates. When getting, specifies the tab to get the value from; if there is no tab-specific value, the window one will be inherited.
+         */
+        tabId?: number | undefined;
+        /**
+         * When setting a value, it will be specific to the specified window. When getting, specifies the window to get the value from; if there is no window-specific value, the global one will be inherited.
+         */
+        windowId?: number | undefined;
+    }
+
+    type ColorArray = [number, number, number, number];
+
+    /** Pixel data for an image. Must be an ImageData object (for example, from a `canvas` element). */
+    type ImageDataType = ImageData;
+
+    /**
+     * An array of four integers in the range [0,255] that make up the RGBA color of the badge. For example, opaque red is `[255, 0, 0, 255]`. Can also be a string with a CSS value, with opaque red being `#FF0000` or `#F00`.
+     */
+    type ColorValue = string | ColorArray | null;
+
+    /** Information sent when a browser action is clicked. */
+    interface OnClickData {
+        /** An array of keyboard modifiers that were held while the menu item was clicked. */
+        modifiers: _OnClickDataModifiers[];
+        /** An integer value of button by which menu item was clicked. */
+        button?: number | undefined;
+    }
+
+    type _OnClickDataModifiers = 'Shift' | 'Alt' | 'Command' | 'Ctrl' | 'MacCtrl';
+
+    /**
+     * Specifies to which tab or window the value should be set, or from which one it should be retrieved. If no tab nor window is specified, the global value is set or retrieved.
+     */
+    interface _SetTitleDetails {
+        /** The string the browser action should display when moused over. */
+        title: string | null;
+        /**
+         * When setting a value, it will be specific to the specified tab, and will automatically reset when the tab navigates. When getting, specifies the tab to get the value from; if there is no tab-specific value, the window one will be inherited.
+         */
+        tabId?: number | undefined;
+        /**
+         * When setting a value, it will be specific to the specified window. When getting, specifies the window to get the value from; if there is no window-specific value, the global one will be inherited.
+         */
+        windowId?: number | undefined;
+    }
+
+    /**
+     * Specifies to which tab or window the value should be set, or from which one it should be retrieved. If no tab nor window is specified, the global value is set or retrieved.
+     */
+    interface _SetIconDetails {
+        /**
+         * Either an ImageData object or a dictionary {size -> ImageData} representing icon to be set. If the icon is specified as a dictionary, the actual image to be used is chosen depending on screen's pixel density. If the number of image pixels that fit into one screen space unit equals `scale`, then image with size `scale` * 19 will be selected. Initially only scales 1 and 2 will be supported. At least one image must be specified. Note that 'details.imageData = foo' is equivalent to 'details.imageData = {'19': foo}'
+         */
+        imageData?:
+            | ImageDataType
+            | {
+                  [key: number]: ImageDataType;
+              }
+            | undefined;
+        /**
+         * Either a relative image path or a dictionary {size -> relative image path} pointing to icon to be set. If the icon is specified as a dictionary, the actual image to be used is chosen depending on screen's pixel density. If the number of image pixels that fit into one screen space unit equals `scale`, then image with size `scale` * 19 will be selected. Initially only scales 1 and 2 will be supported. At least one image must be specified. Note that 'details.path = foo' is equivalent to 'details.imageData = {'19': foo}'
+         */
+        path?:
+            | string
+            | {
+                  [key: number]: string;
+              }
+            | undefined;
+        /**
+         * When setting a value, it will be specific to the specified tab, and will automatically reset when the tab navigates. When getting, specifies the tab to get the value from; if there is no tab-specific value, the window one will be inherited.
+         */
+        tabId?: number | undefined;
+        /**
+         * When setting a value, it will be specific to the specified window. When getting, specifies the window to get the value from; if there is no window-specific value, the global one will be inherited.
+         */
+        windowId?: number | undefined;
+    }
+
+    /**
+     * Specifies to which tab or window the value should be set, or from which one it should be retrieved. If no tab nor window is specified, the global value is set or retrieved.
+     */
+    interface _SetPopupDetails {
+        /** The html file to show in a popup. If set to the empty string (''), no popup is shown. */
+        popup: string | null;
+        /**
+         * When setting a value, it will be specific to the specified tab, and will automatically reset when the tab navigates. When getting, specifies the tab to get the value from; if there is no tab-specific value, the window one will be inherited.
+         */
+        tabId?: number | undefined;
+        /**
+         * When setting a value, it will be specific to the specified window. When getting, specifies the window to get the value from; if there is no window-specific value, the global one will be inherited.
+         */
+        windowId?: number | undefined;
+    }
+
+    /**
+     * Specifies to which tab or window the value should be set, or from which one it should be retrieved. If no tab nor window is specified, the global value is set or retrieved.
+     */
+    interface _SetBadgeTextDetails {
+        /** Any number of characters can be passed, but only about four can fit in the space. */
+        text: string | null;
+        /**
+         * When setting a value, it will be specific to the specified tab, and will automatically reset when the tab navigates. When getting, specifies the tab to get the value from; if there is no tab-specific value, the window one will be inherited.
+         */
+        tabId?: number | undefined;
+        /**
+         * When setting a value, it will be specific to the specified window. When getting, specifies the window to get the value from; if there is no window-specific value, the global one will be inherited.
+         */
+        windowId?: number | undefined;
+    }
+
+    /**
+     * Specifies to which tab or window the value should be set, or from which one it should be retrieved. If no tab nor window is specified, the global value is set or retrieved.
+     */
+    interface _SetBadgeBackgroundColorDetails {
+        color: ColorValue;
+        /**
+         * When setting a value, it will be specific to the specified tab, and will automatically reset when the tab navigates. When getting, specifies the tab to get the value from; if there is no tab-specific value, the window one will be inherited.
+         */
+        tabId?: number | undefined;
+        /**
+         * When setting a value, it will be specific to the specified window. When getting, specifies the window to get the value from; if there is no window-specific value, the global one will be inherited.
+         */
+        windowId?: number | undefined;
+    }
+
+    /**
+     * Specifies to which tab or window the value should be set, or from which one it should be retrieved. If no tab nor window is specified, the global value is set or retrieved.
+     */
+    interface _SetBadgeTextColorDetails {
+        color: ColorValue;
+        /**
+         * When setting a value, it will be specific to the specified tab, and will automatically reset when the tab navigates. When getting, specifies the tab to get the value from; if there is no tab-specific value, the window one will be inherited.
+         */
+        tabId?: number | undefined;
+        /**
+         * When setting a value, it will be specific to the specified window. When getting, specifies the window to get the value from; if there is no window-specific value, the global one will be inherited.
+         */
+        windowId?: number | undefined;
+    }
+
+    /* action functions */
+    /**
+     * Sets the title of the browser action. This shows up in the tooltip.
+     * @param details Specifies to which tab or window the value should be set, or from which one it should be retrieved. If no tab nor window is specified, the global value is set or retrieved.
+     */
+    function setTitle(details: _SetTitleDetails): Promise<void>;
+
+    /** Gets the title of the browser action. */
+    function getTitle(details: Details): Promise<string>;
+
+    /**
+     * Sets the icon for the browser action. The icon can be specified either as the path to an image file or as the pixel data from a canvas element, or as dictionary of either one of those. Either the **path** or the **imageData** property must be specified.
+     * @param details Specifies to which tab or window the value should be set, or from which one it should be retrieved. If no tab nor window is specified, the global value is set or retrieved.
+     */
+    function setIcon(details: _SetIconDetails): Promise<void>;
+
+    /**
+     * Sets the html document to be opened as a popup when the user clicks on the browser action's icon.
+     * @param details Specifies to which tab or window the value should be set, or from which one it should be retrieved. If no tab nor window is specified, the global value is set or retrieved.
+     */
+    function setPopup(details: _SetPopupDetails): Promise<void>;
+
+    /** Gets the html document set as the popup for this browser action. */
+    function getPopup(details: Details): Promise<string>;
+
+    /**
+     * Sets the badge text for the browser action. The badge is displayed on top of the icon.
+     * @param details Specifies to which tab or window the value should be set, or from which one it should be retrieved. If no tab nor window is specified, the global value is set or retrieved.
+     */
+    function setBadgeText(details: _SetBadgeTextDetails): Promise<void>;
+
+    /**
+     * Gets the badge text of the browser action. If no tab nor window is specified is specified, the global badge text is returned.
+     */
+    function getBadgeText(details: Details): Promise<string>;
+
+    /**
+     * Sets the background color for the badge.
+     * @param details Specifies to which tab or window the value should be set, or from which one it should be retrieved. If no tab nor window is specified, the global value is set or retrieved.
+     */
+    function setBadgeBackgroundColor(details: _SetBadgeBackgroundColorDetails): Promise<void>;
+
+    /** Gets the background color of the browser action badge. */
+    function getBadgeBackgroundColor(details: Details): Promise<ColorArray>;
+
+    /**
+     * Sets the text color for the badge.
+     * @param details Specifies to which tab or window the value should be set, or from which one it should be retrieved. If no tab nor window is specified, the global value is set or retrieved.
+     */
+    function setBadgeTextColor(details: _SetBadgeTextColorDetails): Promise<any>;
+
+    /** Gets the text color of the browser action badge. */
+    function getBadgeTextColor(details: Details): Promise<any>;
+
+    /**
+     * Enables the browser action for a tab. By default, browser actions are enabled.
+     * @param [tabId] The id of the tab for which you want to modify the browser action.
+     */
+    function enable(tabId?: number): Promise<void>;
+
+    /**
+     * Disables the browser action for a tab.
+     * @param [tabId] The id of the tab for which you want to modify the browser action.
+     */
+    function disable(tabId?: number): Promise<void>;
+
+    /** Checks whether the browser action is enabled. */
+    function isEnabled(details: Details): Promise<any>;
+
+    /** Opens the extension popup window in the active window. */
+    function openPopup(): Promise<boolean>;
+
+    /* action events */
+    /**
+     * Fired when a browser action icon is clicked. This event will not fire if the browser action has a popup.
+     */
+    const onClicked: WebExtEvent<(tab: tabs.Tab, info?: OnClickData) => void>;
+}
+
+/**
+ * Manifest keys: `action`, `browser_action`
+ *
+ * Not supported on manifest versions above 2.
  *
  * Not allowed in: Content scripts, Devtools pages
  */
@@ -876,7 +1125,8 @@ declare namespace browser.browserAction {
             | ImageDataType
             | {
                   [key: number]: ImageDataType;
-              } | undefined;
+              }
+            | undefined;
         /**
          * Either a relative image path or a dictionary {size -> relative image path} pointing to icon to be set. If the icon is specified as a dictionary, the actual image to be used is chosen depending on screen's pixel density. If the number of image pixels that fit into one screen space unit equals `scale`, then image with size `scale` * 19 will be selected. Initially only scales 1 and 2 will be supported. At least one image must be specified. Note that 'details.path = foo' is equivalent to 'details.imageData = {'19': foo}'
          */
@@ -884,7 +1134,8 @@ declare namespace browser.browserAction {
             | string
             | {
                   [key: number]: string;
-              } | undefined;
+              }
+            | undefined;
         /**
          * When setting a value, it will be specific to the specified tab, and will automatically reset when the tab navigates. When getting, specifies the tab to get the value from; if there is no tab-specific value, the window one will be inherited.
          */
@@ -1051,6 +1302,9 @@ declare namespace browser.browserSettings {
     /** After which mouse event context menus should popup. */
     type ContextMenuMouseEvent = 'mouseup' | 'mousedown';
 
+    /** Color management mode. */
+    type ColorManagementMode = 'off' | 'full' | 'tagged_only';
+
     /* browserSettings properties */
     /** Allows or disallows pop-up windows from opening in response to user events. */
     const allowPopupsForUserEvents: types.Setting;
@@ -1066,7 +1320,10 @@ declare namespace browser.browserSettings {
      */
     const contextMenuShowEvent: types.Setting;
 
-    /** This boolean setting controls whether the FTP protocol is enabled. */
+    /**
+     * Returns whether the FTP protocol is enabled. Read-only.
+     * @deprecated FTP support was removed from Firefox in bug 1574475
+     */
     const ftpProtocolEnabled: types.Setting;
 
     /** Returns the value of the overridden home page. Read-only. */
@@ -1110,6 +1367,165 @@ declare namespace browser.browserSettings {
      * This boolean setting controls whether zoom is applied on a per-site basis or to the current tab only. If privacy.resistFingerprinting is true, this setting has no effect and zoom is applied to the current tab only.
      */
     const zoomSiteSpecific: types.Setting;
+}
+
+/**
+ * Use the `browserSettings.colorManagement` API to query and set items related to color management.
+ *
+ * Permissions: `browserSettings`
+ *
+ * Not allowed in: Content scripts, Devtools pages
+ */
+declare namespace browser.browserSettings.colorManagement {
+    /* browserSettings.colorManagement properties */
+    /**
+     * This setting controls the mode used for color management and must be a string from `browserSettings.ColorManagementMode`
+     */
+    const mode: types.Setting;
+
+    /** This boolean setting controls whether or not native sRGB color management is used. */
+    const useNativeSRGB: types.Setting;
+
+    /** This boolean setting controls whether or not the WebRender compositor is used. */
+    const useWebRenderCompositor: types.Setting;
+}
+
+/**
+ * Use the `browser.browsingData` API to remove browsing data from a user's local profile.
+ *
+ * Permissions: `browsingData`
+ *
+ * Not allowed in: Content scripts, Devtools pages
+ */
+declare namespace browser.browsingData {
+    /* browsingData types */
+    /** Options that determine exactly what data will be removed. */
+    interface RemovalOptions {
+        /**
+         * Remove data accumulated on or after this date, represented in milliseconds since the epoch (accessible via the `getTime` method of the JavaScript `Date` object). If absent, defaults to 0 (which would remove all browsing data).
+         */
+        since?: extensionTypes.Date | undefined;
+        /** Only remove data associated with these hostnames (only applies to cookies and localStorage). */
+        hostnames?: string[] | undefined;
+        /** Only remove data associated with this specific cookieStoreId. */
+        cookieStoreId?: string | undefined;
+        /**
+         * An object whose properties specify which origin types ought to be cleared. If this object isn't specified, it defaults to clearing only "unprotected" origins. Please ensure that you _really_ want to remove application data before adding 'protectedWeb' or 'extensions'.
+         */
+        originTypes?: _RemovalOptionsOriginTypes | undefined;
+    }
+
+    /** A set of data types. Missing data types are interpreted as `false`. */
+    interface DataTypeSet {
+        /**
+         * The browser's cache. Note: when removing data, this clears the _entire_ cache: it is not limited to the range you specify.
+         */
+        cache?: boolean | undefined;
+        /** The browser's cookies. */
+        cookies?: boolean | undefined;
+        /** The browser's download list. */
+        downloads?: boolean | undefined;
+        /** The browser's stored form data. */
+        formData?: boolean | undefined;
+        /** The browser's history. */
+        history?: boolean | undefined;
+        /** Websites' IndexedDB data. */
+        indexedDB?: boolean | undefined;
+        /** Websites' local storage data. */
+        localStorage?: boolean | undefined;
+        /** Server-bound certificates. */
+        serverBoundCertificates?: boolean | undefined;
+        /** Stored passwords. */
+        passwords?: boolean | undefined;
+        /** Plugins' data. */
+        pluginData?: boolean | undefined;
+        /** Service Workers. */
+        serviceWorkers?: boolean | undefined;
+    }
+
+    /**
+     * An object whose properties specify which origin types ought to be cleared. If this object isn't specified, it defaults to clearing only "unprotected" origins. Please ensure that you _really_ want to remove application data before adding 'protectedWeb' or 'extensions'.
+     */
+    interface _RemovalOptionsOriginTypes {
+        /** Normal websites. */
+        unprotectedWeb?: boolean | undefined;
+        /** Websites that have been installed as hosted applications (be careful!). */
+        protectedWeb?: boolean | undefined;
+        /** Extensions and packaged applications a user has installed (be _really_ careful!). */
+        extension?: boolean | undefined;
+    }
+
+    interface _SettingsReturnResult {
+        options: RemovalOptions;
+        /**
+         * All of the types will be present in the result, with values of `true` if they are both selected to be removed and permitted to be removed, otherwise `false`.
+         */
+        dataToRemove: DataTypeSet;
+        /**
+         * All of the types will be present in the result, with values of `true` if they are permitted to be removed (e.g., by enterprise policy) and `false` if not.
+         */
+        dataRemovalPermitted: DataTypeSet;
+    }
+
+    /* browsingData functions */
+    /**
+     * Reports which types of data are currently selected in the 'Clear browsing data' settings UI. Note: some of the data types included in this API are not available in the settings UI, and some UI settings control more than one data type listed here.
+     */
+    function settings(): Promise<_SettingsReturnResult>;
+
+    /**
+     * Clears various types of browsing data stored in a user's profile.
+     * @param dataToRemove The set of data types to remove.
+     */
+    function remove(options: RemovalOptions, dataToRemove: DataTypeSet): Promise<void>;
+
+    /**
+     * Clears websites' appcache data.
+     * @deprecated Unsupported on Firefox at this time.
+     */
+    function removeAppcache(options: RemovalOptions): Promise<void>;
+
+    /** Clears the browser's cache. */
+    function removeCache(options: RemovalOptions): Promise<void>;
+
+    /** Clears the browser's cookies and server-bound certificates modified within a particular timeframe. */
+    function removeCookies(options: RemovalOptions): Promise<void>;
+
+    /** Clears the browser's list of downloaded files (_not_ the downloaded files themselves). */
+    function removeDownloads(options: RemovalOptions): Promise<void>;
+
+    /**
+     * Clears websites' file system data.
+     * @deprecated Unsupported on Firefox at this time.
+     */
+    function removeFileSystems(options: RemovalOptions): Promise<void>;
+
+    /** Clears the browser's stored form data (autofill). */
+    function removeFormData(options: RemovalOptions): Promise<void>;
+
+    /** Clears the browser's history. */
+    function removeHistory(options: RemovalOptions): Promise<void>;
+
+    /**
+     * Clears websites' IndexedDB data.
+     * @deprecated Unsupported on Firefox at this time.
+     */
+    function removeIndexedDB(options: RemovalOptions): Promise<void>;
+
+    /** Clears websites' local storage data. */
+    function removeLocalStorage(options: RemovalOptions): Promise<void>;
+
+    /** Clears plugins' data. */
+    function removePluginData(options: RemovalOptions): Promise<void>;
+
+    /** Clears the browser's stored passwords. */
+    function removePasswords(options: RemovalOptions): Promise<void>;
+
+    /**
+     * Clears websites' WebSQL data.
+     * @deprecated Unsupported on Firefox at this time.
+     */
+    function removeWebSQL(options: RemovalOptions): Promise<void>;
 }
 
 /**
@@ -1338,6 +1754,14 @@ declare namespace browser.cookies {
      */
     type SameSiteStatus = 'no_restriction' | 'lax' | 'strict';
 
+    /**
+     * The description of the storage partition of a cookie. This object may be omitted (null) if a cookie is not partitioned.
+     */
+    interface PartitionKey {
+        /** The first-party URL of the cookie, if the cookie is in storage partitioned by the top-level site. */
+        topLevelSite?: string | undefined;
+    }
+
     /** Represents information about an HTTP cookie. */
     interface Cookie {
         /** The name of the cookie. */
@@ -1370,6 +1794,8 @@ declare namespace browser.cookies {
         storeId: string;
         /** The first-party domain of the cookie. */
         firstPartyDomain: string;
+        /** The cookie's storage partition, if any. null if not partitioned. */
+        partitionKey?: PartitionKey | undefined;
     }
 
     /**
@@ -1405,6 +1831,10 @@ declare namespace browser.cookies {
          * The first-party domain which the cookie to retrieve is associated. This attribute is required if First-Party Isolation is enabled.
          */
         firstPartyDomain?: string | undefined;
+        /**
+         * The storage partition, if the cookie is part of partitioned storage. By default, only non-partitioned cookies are returned.
+         */
+        partitionKey?: PartitionKey | undefined;
     }
 
     /** Information to filter the cookies being retrieved. */
@@ -1429,6 +1859,10 @@ declare namespace browser.cookies {
          * Restricts the retrieved cookies to those whose first-party domains match this one. This attribute is required if First-Party Isolation is enabled. To not filter by a specific first-party domain, use `null` or `undefined`.
          */
         firstPartyDomain?: string | undefined;
+        /**
+         * Selects a specific storage partition to look up cookies. Defaults to null, in which case only non-partitioned cookies are retrieved. If an object iis passed, partitioned cookies are also included, and filtered based on the keys present in the given PartitionKey description. An empty object ({}) returns all cookies (partitioned + unpartitioned), a non-empty object (e.g. {topLevelSite: '...'}) only returns cookies whose partition match all given attributes.
+         */
+        partitionKey?: PartitionKey | undefined;
     }
 
     /** Details about the cookie being set. */
@@ -1463,6 +1897,10 @@ declare namespace browser.cookies {
          * The first-party domain of the cookie. This attribute is required if First-Party Isolation is enabled.
          */
         firstPartyDomain?: string | undefined;
+        /**
+         * The storage partition, if the cookie is part of partitioned storage. By default, non-partitioned storage is used.
+         */
+        partitionKey?: PartitionKey | undefined;
     }
 
     /**
@@ -1477,6 +1915,8 @@ declare namespace browser.cookies {
         storeId: string;
         /** The first-party domain associated with the cookie that's been removed. */
         firstPartyDomain: string;
+        /** The storage partition, if the cookie is part of partitioned storage. null if not partitioned. */
+        partitionKey?: PartitionKey | undefined;
     }
 
     /** Information to identify the cookie to remove. */
@@ -1495,6 +1935,10 @@ declare namespace browser.cookies {
          * The first-party domain associated with the cookie. This attribute is required if First-Party Isolation is enabled.
          */
         firstPartyDomain?: string | undefined;
+        /**
+         * The storage partition, if the cookie is part of partitioned storage. By default, non-partitioned storage is used.
+         */
+        partitionKey?: PartitionKey | undefined;
     }
 
     interface _OnChangedChangeInfo {
@@ -1661,6 +2105,8 @@ declare namespace browser.downloads {
         filename: string;
         /** False if this download is recorded in the history, true if it is not recorded. */
         incognito: boolean;
+        /** The cookie store ID of the contextual identity. */
+        cookieStoreId?: string | undefined;
         /** Indication of whether this download is thought to be safe or known to be suspicious. */
         danger: DangerType;
         /** The file's MIME type. */
@@ -1745,6 +2191,8 @@ declare namespace browser.downloads {
         url?: string | undefined;
         /** Absolute local path. */
         filename?: string | undefined;
+        /** The cookie store ID of the contextual identity. */
+        cookieStoreId?: string | undefined;
         /** Indication of whether this download is thought to be safe or known to be suspicious. */
         danger?: DangerType | undefined;
         /** The file's MIME type. */
@@ -1784,6 +2232,8 @@ declare namespace browser.downloads {
         filename?: string | undefined;
         /** Whether to associate the download with a private browsing session. */
         incognito?: boolean | undefined;
+        /** The cookie store ID of the contextual identity; requires "cookies" permission. */
+        cookieStoreId?: string | undefined;
         conflictAction?: FilenameConflictAction | undefined;
         /**
          * Use a file-chooser to allow the user to select a filename. If the option is not specified, the file chooser will be shown only if the Firefox "Always ask you where to save files" option is enabled (i.e. the pref `browser.download.useDownloadDir` is set to `false`).
@@ -2101,6 +2551,8 @@ declare namespace browser.extension {
 
     /**
      * Set for the lifetime of a callback if an ansychronous extension api has resulted in an error. If no error has occured lastError will be `undefined`.
+     * @deprecated Please use `runtime.lastError`.
+     * Not supported on manifest versions above 2.
      */
     interface _LastError {
         /** Description of the error that has taken place. */
@@ -2121,6 +2573,8 @@ declare namespace browser.extension {
     /* extension properties */
     /**
      * Set for the lifetime of a callback if an ansychronous extension api has resulted in an error. If no error has occured lastError will be `undefined`.
+     * @deprecated Please use `runtime.lastError`.
+     * Not supported on manifest versions above 2.
      */
     const lastError: _LastError | undefined;
 
@@ -2133,6 +2587,8 @@ declare namespace browser.extension {
     /**
      * Converts a relative path within an extension install directory to a fully-qualified URL.
      * @param path A path to a resource within an extension expressed relative to its install directory.
+     * @deprecated Please use `runtime.getURL`.
+     * Not supported on manifest versions above 2.
      * @returns The fully-qualified URL to the resource.
      */
     function getURL(path: string): string;
@@ -2145,6 +2601,7 @@ declare namespace browser.extension {
 
     /**
      * Returns the JavaScript 'window' object for the background page running inside the current extension. Returns null if the extension has no background page.
+     * Not supported on manifest versions above 2.
      */
     function getBackgroundPage(): Window | void;
 
@@ -2222,6 +2679,10 @@ declare namespace browser.extensionTypes {
         rect?: _ImageDetailsRect | undefined;
         /** The scale of the resulting image. Defaults to `devicePixelRatio`. */
         scale?: number | undefined;
+        /**
+         * If true, temporarily resets the scroll position of the document to 0\. Only takes effect if rect is also specified.
+         */
+        resetScrollPosition?: boolean | undefined;
     }
 
     /** The soonest that the JavaScript or CSS will be injected into the tab. */
@@ -2307,7 +2768,6 @@ declare namespace browser.geckoProfiler {
         | 'screenshots'
         | 'seqstyle'
         | 'stackwalk'
-        | 'tasktracer'
         | 'threads'
         | 'jstracer'
         | 'jsallocations'
@@ -2318,7 +2778,9 @@ declare namespace browser.geckoProfiler {
         | 'fileio'
         | 'fileioall'
         | 'noiostacks'
-        | 'audiocallbacktracing';
+        | 'audiocallbacktracing'
+        | 'cpu'
+        | 'notimerresolutionchange';
 
     type Supports = 'windowLength';
 
@@ -2493,7 +2955,7 @@ declare namespace browser.identity {
      * Gets an OAuth2 access token using the client ID and scopes specified in the oauth2 section of manifest.json.
      * @deprecated Unsupported on Firefox at this time.
      */
-    function getAuthToken(details?: _GetAuthTokenDetails): Promise<AccountInfo[]>;
+    function getAuthToken(details?: _GetAuthTokenDetails): Promise<string>;
 
     /**
      * Retrieves email address and obfuscated gaia id of the user signed into a profile.
@@ -2717,15 +3179,7 @@ declare namespace browser.networkStatus {
     type _NetworkLinkInfoStatus = 'unknown' | 'up' | 'down';
 
     /** If known, the type of network connection that is avialable. */
-    type _NetworkLinkInfoType =
-        | 'unknown'
-        | 'ethernet'
-        | 'usb'
-        | 'wifi'
-        | 'wimax'
-        | '2g'
-        | '3g'
-        | '4g';
+    type _NetworkLinkInfoType = 'unknown' | 'ethernet' | 'usb' | 'wifi' | 'wimax' | 'mobile';
 
     /* networkStatus functions */
     /** Returns the $(ref:NetworkLinkInfo} of the current network connection. */
@@ -2958,7 +3412,8 @@ declare namespace browser.pageAction {
             | ImageDataType
             | {
                   [key: number]: ImageDataType;
-              } | undefined;
+              }
+            | undefined;
         /**
          * Either a relative image path or a dictionary {size -> relative image path} pointing to icon to be set. If the icon is specified as a dictionary, the actual image to be used is chosen depending on screen's pixel density. If the number of image pixels that fit into one screen space unit equals `scale`, then image with size `scale` * 19 will be selected. Initially only scales 1 and 2 will be supported. At least one image must be specified. Note that 'details.path = foo' is equivalent to 'details.imageData = {'19': foo}'
          */
@@ -2966,7 +3421,8 @@ declare namespace browser.pageAction {
             | string
             | {
                   [key: number]: string;
-              } | undefined;
+              }
+            | undefined;
     }
 
     interface _SetPopupDetails {
@@ -3096,6 +3552,9 @@ declare namespace browser.privacy.network {
         maximum?: _TlsVersionRestrictionConfigMaximum | undefined;
     }
 
+    /** The mode for https-only mode. */
+    type HTTPSOnlyModeOption = 'always' | 'private_browsing' | 'never';
+
     /** The minimum TLS version supported. */
     type _TlsVersionRestrictionConfigMinimum =
         | 'TLSv1'
@@ -3130,6 +3589,11 @@ declare namespace browser.privacy.network {
      * This property controls the minimum and maximum TLS versions. This setting's value is an object of `tlsVersionRestrictionConfig`.
      */
     const tlsVersionRestriction: types.Setting;
+
+    /**
+     * Allow users to query the mode for 'HTTPS-Only Mode'. This setting's value is of type HTTPSOnlyModeOption, defaulting to `never`.
+     */
+    const httpsOnlyMode: types.Setting;
 }
 
 /**
@@ -3237,7 +3701,10 @@ declare namespace browser.proxy {
         http?: string | undefined;
         /** Use the http proxy server for all protocols. */
         httpProxyAll?: boolean | undefined;
-        /** The address of the ftp proxy, can include a port. */
+        /**
+         * The address of the ftp proxy, can include a port. Deprecated since Firefox 88.
+         * @deprecated The address of the ftp proxy, can include a port. Deprecated since Firefox 88.
+         */
         ftp?: string | undefined;
         /** The address of the ssl proxy, can include a port. */
         ssl?: string | undefined;
@@ -3366,7 +3833,7 @@ declare namespace browser.runtime {
     type PlatformOs = 'mac' | 'win' | 'android' | 'cros' | 'linux' | 'openbsd';
 
     /** The machine's processor architecture. */
-    type PlatformArch = 'arm' | 'x86-32' | 'x86-64';
+    type PlatformArch = 'aarch64' | 'arm' | 'ppc64' | 's390x' | 'sparc64' | 'x86-32' | 'x86-64';
 
     /** An object containing information about the current platform. */
     interface PlatformInfo {
@@ -3469,6 +3936,7 @@ declare namespace browser.runtime {
     /* runtime functions */
     /**
      * Retrieves the JavaScript 'window' object for the background page running inside the current extension/app. If the background page is an event page, the system will ensure it is loaded before calling the callback. If there is no background page, an error is set.
+     * Not supported on manifest versions above 2.
      */
     function getBackgroundPage(): Promise<Window>;
 
@@ -3622,11 +4090,13 @@ declare namespace browser.runtime {
      * @param sendResponse Function to call (at most once) when you have a response. The argument should be any JSON-ifiable object. If you have more than one `onMessage` listener in the same document, then only one may send a response. This function becomes invalid when the event listener returns, unless you return true from the event listener to indicate you wish to send a response asynchronously (this will keep the message channel open to the other end until `sendResponse` is called).
      * @returns Return true from the event listener if you wish to call `sendResponse` after the event listener returns.
      */
-    const onMessage: WebExtEvent<(
-        message: any,
-        sender: MessageSender,
-        sendResponse: (response?: any) => void
-    ) => boolean | Promise<any> | void>;
+    const onMessage: WebExtEvent<
+        (
+            message: any,
+            sender: MessageSender,
+            sendResponse: (response?: any) => void
+        ) => boolean | Promise<any> | void
+    >;
 
     /**
      * Fired when a message is sent from another extension/app. Cannot be used in a content script.
@@ -3634,11 +4104,13 @@ declare namespace browser.runtime {
      * @param sendResponse Function to call (at most once) when you have a response. The argument should be any JSON-ifiable object. If you have more than one `onMessage` listener in the same document, then only one may send a response. This function becomes invalid when the event listener returns, unless you return true from the event listener to indicate you wish to send a response asynchronously (this will keep the message channel open to the other end until `sendResponse` is called).
      * @returns Return true from the event listener if you wish to call `sendResponse` after the event listener returns.
      */
-    const onMessageExternal: WebExtEvent<(
-        message: any,
-        sender: MessageSender,
-        sendResponse: (response?: any) => void
-    ) => boolean | Promise<any> | void>;
+    const onMessageExternal: WebExtEvent<
+        (
+            message: any,
+            sender: MessageSender,
+            sendResponse: (response?: any) => void
+        ) => boolean | Promise<any> | void
+    >;
 
     /**
      * Fired when an app or the device that it runs on needs to be restarted. The app should close all its windows at its earliest convenient time to let the restart to happen. If the app does nothing, a restart will be enforced after a 24-hour grace period has passed. Currently, this event is only fired for Chrome OS kiosk apps.
@@ -3735,10 +4207,9 @@ declare namespace browser.storage {
      * @param changes Object mapping each key that changed to its corresponding `storage.StorageChange` for that item.
      * @param areaName The name of the storage area (`"sync"`, `"local"` or `"managed"`) the changes are for.
      */
-    const onChanged: WebExtEvent<(
-        changes: { [key: string]: StorageChange },
-        areaName: string
-    ) => void>;
+    const onChanged: WebExtEvent<
+        (changes: { [key: string]: StorageChange }, areaName: string) => void
+    >;
 }
 
 /**
@@ -5534,11 +6005,15 @@ declare namespace browser.bookmarks {
      */
     function update(id: string, changes: _UpdateChanges): Promise<BookmarkTreeNode>;
 
-    /** Removes a bookmark or an empty bookmark folder. */
-    function remove(id: string): Promise<void>;
+    /**
+     * Removes a bookmark or an empty bookmark folder, given the node's ID.
+     */
+    function remove(id: string): Promise<BookmarkTreeNode>;
 
-    /** Recursively removes a bookmark folder. */
-    function removeTree(id: string): Promise<void>;
+    /**
+     * Recursively removes a bookmark folder; that is, given the ID of a folder node, removes that node and all its descendants.
+     */
+    function removeTree(id: string): Promise<BookmarkTreeNode>;
 
     /* bookmarks events */
     /** Fired when a bookmark or folder is created. */
@@ -5564,142 +6039,6 @@ declare namespace browser.bookmarks {
     const onChildrenReordered:
         | WebExtEvent<(id: string, reorderInfo: _OnChildrenReorderedReorderInfo) => void>
         | undefined;
-}
-
-/**
- * Use the `browser.browsingData` API to remove browsing data from a user's local profile.
- *
- * Permissions: `browsingData`
- *
- * Not allowed in: Content scripts, Devtools pages
- */
-declare namespace browser.browsingData {
-    /* browsingData types */
-    /** Options that determine exactly what data will be removed. */
-    interface RemovalOptions {
-        /**
-         * Remove data accumulated on or after this date, represented in milliseconds since the epoch (accessible via the `getTime` method of the JavaScript `Date` object). If absent, defaults to 0 (which would remove all browsing data).
-         */
-        since?: extensionTypes.Date | undefined;
-        /** Only remove data associated with these hostnames (only applies to cookies and localStorage). */
-        hostnames?: string[] | undefined;
-        /**
-         * An object whose properties specify which origin types ought to be cleared. If this object isn't specified, it defaults to clearing only "unprotected" origins. Please ensure that you _really_ want to remove application data before adding 'protectedWeb' or 'extensions'.
-         */
-        originTypes?: _RemovalOptionsOriginTypes | undefined;
-    }
-
-    /** A set of data types. Missing data types are interpreted as `false`. */
-    interface DataTypeSet {
-        /**
-         * The browser's cache. Note: when removing data, this clears the _entire_ cache: it is not limited to the range you specify.
-         */
-        cache?: boolean | undefined;
-        /** The browser's cookies. */
-        cookies?: boolean | undefined;
-        /** The browser's download list. */
-        downloads?: boolean | undefined;
-        /** The browser's stored form data. */
-        formData?: boolean | undefined;
-        /** The browser's history. */
-        history?: boolean | undefined;
-        /** Websites' IndexedDB data. */
-        indexedDB?: boolean | undefined;
-        /** Websites' local storage data. */
-        localStorage?: boolean | undefined;
-        /** Server-bound certificates. */
-        serverBoundCertificates?: boolean | undefined;
-        /** Stored passwords. */
-        passwords?: boolean | undefined;
-        /** Plugins' data. */
-        pluginData?: boolean | undefined;
-        /** Service Workers. */
-        serviceWorkers?: boolean | undefined;
-    }
-
-    /**
-     * An object whose properties specify which origin types ought to be cleared. If this object isn't specified, it defaults to clearing only "unprotected" origins. Please ensure that you _really_ want to remove application data before adding 'protectedWeb' or 'extensions'.
-     */
-    interface _RemovalOptionsOriginTypes {
-        /** Normal websites. */
-        unprotectedWeb?: boolean | undefined;
-        /** Websites that have been installed as hosted applications (be careful!). */
-        protectedWeb?: boolean | undefined;
-        /** Extensions and packaged applications a user has installed (be _really_ careful!). */
-        extension?: boolean | undefined;
-    }
-
-    interface _SettingsReturnResult {
-        options: RemovalOptions;
-        /**
-         * All of the types will be present in the result, with values of `true` if they are both selected to be removed and permitted to be removed, otherwise `false`.
-         */
-        dataToRemove: DataTypeSet;
-        /**
-         * All of the types will be present in the result, with values of `true` if they are permitted to be removed (e.g., by enterprise policy) and `false` if not.
-         */
-        dataRemovalPermitted: DataTypeSet;
-    }
-
-    /* browsingData functions */
-    /**
-     * Reports which types of data are currently selected in the 'Clear browsing data' settings UI. Note: some of the data types included in this API are not available in the settings UI, and some UI settings control more than one data type listed here.
-     */
-    function settings(): Promise<_SettingsReturnResult>;
-
-    /**
-     * Clears various types of browsing data stored in a user's profile.
-     * @param dataToRemove The set of data types to remove.
-     */
-    function remove(options: RemovalOptions, dataToRemove: DataTypeSet): Promise<void>;
-
-    /**
-     * Clears websites' appcache data.
-     * @deprecated Unsupported on Firefox at this time.
-     */
-    function removeAppcache(options: RemovalOptions): Promise<void>;
-
-    /** Clears the browser's cache. */
-    function removeCache(options: RemovalOptions): Promise<void>;
-
-    /** Clears the browser's cookies and server-bound certificates modified within a particular timeframe. */
-    function removeCookies(options: RemovalOptions): Promise<void>;
-
-    /** Clears the browser's list of downloaded files (_not_ the downloaded files themselves). */
-    function removeDownloads(options: RemovalOptions): Promise<void>;
-
-    /**
-     * Clears websites' file system data.
-     * @deprecated Unsupported on Firefox at this time.
-     */
-    function removeFileSystems(options: RemovalOptions): Promise<void>;
-
-    /** Clears the browser's stored form data (autofill). */
-    function removeFormData(options: RemovalOptions): Promise<void>;
-
-    /** Clears the browser's history. */
-    function removeHistory(options: RemovalOptions): Promise<void>;
-
-    /**
-     * Clears websites' IndexedDB data.
-     * @deprecated Unsupported on Firefox at this time.
-     */
-    function removeIndexedDB(options: RemovalOptions): Promise<void>;
-
-    /** Clears websites' local storage data. */
-    function removeLocalStorage(options: RemovalOptions): Promise<void>;
-
-    /** Clears plugins' data. */
-    function removePluginData(options: RemovalOptions): Promise<void>;
-
-    /** Clears the browser's stored passwords. */
-    function removePasswords(options: RemovalOptions): Promise<void>;
-
-    /**
-     * Clears websites' WebSQL data.
-     * @deprecated Unsupported on Firefox at this time.
-     */
-    function removeWebSQL(options: RemovalOptions): Promise<void>;
 }
 
 /**
@@ -6136,7 +6475,7 @@ declare namespace browser.find {
             endTextNodePos: number;
             startOffset: number;
             endOffset: number;
-        }> | undefined;
+        }>;
         rectData?: Array<{
             rectsAndTexts: {
                 rectList: Array<{
@@ -6148,7 +6487,7 @@ declare namespace browser.find {
                 textList: string[];
             };
             textList: string;
-        }> | undefined;
+        }>;
     }>;
 
     /**
@@ -6321,22 +6660,7 @@ declare namespace browser.contextMenus {
     /**
      * The different contexts a menu can appear in. Specifying 'all' is equivalent to the combination of all other contexts except for 'tab' and 'tools_menu'.
      */
-    type ContextType =
-        | 'all'
-        | 'page'
-        | 'frame'
-        | 'selection'
-        | 'link'
-        | 'editable'
-        | 'password'
-        | 'image'
-        | 'video'
-        | 'audio'
-        | 'launcher'
-        | 'bookmark'
-        | 'browser_action'
-        | 'page_action'
-        | 'tab';
+    type ContextType = _ContextType;
 
     /** The type of menu item. */
     type ItemType = 'normal' | 'checkbox' | 'radio' | 'separator';
@@ -6387,11 +6711,38 @@ declare namespace browser.contextMenus {
         targetElementId?: number | undefined;
     }
 
+    type _ContextType =
+        | 'all'
+        | 'page'
+        | 'frame'
+        | 'selection'
+        | 'link'
+        | 'editable'
+        | 'password'
+        | 'image'
+        | 'video'
+        | 'audio'
+        | 'launcher'
+        | 'bookmark'
+        | 'tab'
+        | 'tools_menu'
+        | 'browser_action'
+        | 'page_action'
+        | 'action';
+
     type _OnClickDataModifiers = 'Shift' | 'Alt' | 'Command' | 'Ctrl' | 'MacCtrl';
 
     interface _CreateCreatePropertiesIcons {
         [key: number]: string;
     }
+
+    type _CreateCreatePropertiesCommand =
+        | '_execute_browser_action'
+        | '_execute_page_action'
+        | '_execute_sidebar_action'
+        | '_execute_action'
+        | '_execute_page_action'
+        | '_execute_sidebar_action';
 
     interface _CreateCreateProperties {
         /** The type of menu item. Defaults to 'normal' if not specified. */
@@ -6422,7 +6773,7 @@ declare namespace browser.contextMenus {
          * @param info Information about the item clicked and the context where the click happened.
          * @param tab The details of the tab where the click took place. Note: this parameter only present for extensions.
          */
-        onclick?: ((info: OnClickData, tab: tabs.Tab) => void) | undefined;
+        onclick?: (info: OnClickData, tab: tabs.Tab) => void | undefined;
         /** The ID of a parent menu item; this makes the item a child of a previously added item. */
         parentId?: number | string | undefined;
         /**
@@ -6435,10 +6786,8 @@ declare namespace browser.contextMenus {
         targetUrlPatterns?: string[] | undefined;
         /** Whether this context menu item is enabled or disabled. Defaults to true. */
         enabled?: boolean | undefined;
-        /**
-         * Specifies a command to issue for the context click. Currently supports internal commands _execute_page_action, _execute_browser_action and _execute_sidebar_action.
-         */
-        command?: string | undefined;
+        /** Specifies a command to issue for the context click. */
+        command?: string | _CreateCreatePropertiesCommand | undefined;
     }
 
     interface _UpdateUpdatePropertiesIcons {
@@ -6458,7 +6807,7 @@ declare namespace browser.contextMenus {
         /**
          * @param tab The details of the tab where the click took place. Note: this parameter only present for extensions.
          */
-        onclick?: ((info: OnClickData, tab: tabs.Tab) => void) | undefined;
+        onclick?: (info: OnClickData, tab: tabs.Tab) => void | undefined;
         /** Note: You cannot change an item to be a child of one of its own descendants. */
         parentId?: number | string | undefined;
         documentUrlPatterns?: string[] | undefined;
@@ -6505,9 +6854,6 @@ declare namespace browser.contextMenus {
     }
 
     /* contextMenus properties */
-    /**
-     * The maximum number of top level extension items that can be added to an extension action context menu. Any items beyond this limit will be ignored.
-     */
     const ACTION_MENU_TOP_LEVEL_LIMIT: number;
 
     /* contextMenus functions */
@@ -6582,23 +6928,7 @@ declare namespace browser.menus {
     /**
      * The different contexts a menu can appear in. Specifying 'all' is equivalent to the combination of all other contexts except for 'tab' and 'tools_menu'.
      */
-    type ContextType =
-        | 'all'
-        | 'page'
-        | 'frame'
-        | 'selection'
-        | 'link'
-        | 'editable'
-        | 'password'
-        | 'image'
-        | 'video'
-        | 'audio'
-        | 'launcher'
-        | 'bookmark'
-        | 'browser_action'
-        | 'page_action'
-        | 'tab'
-        | 'tools_menu';
+    type ContextType = _ContextType;
 
     /** The type of menu item. */
     type ItemType = 'normal' | 'checkbox' | 'radio' | 'separator';
@@ -6649,11 +6979,38 @@ declare namespace browser.menus {
         targetElementId?: number | undefined;
     }
 
+    type _ContextType =
+        | 'all'
+        | 'page'
+        | 'frame'
+        | 'selection'
+        | 'link'
+        | 'editable'
+        | 'password'
+        | 'image'
+        | 'video'
+        | 'audio'
+        | 'launcher'
+        | 'bookmark'
+        | 'tab'
+        | 'tools_menu'
+        | 'browser_action'
+        | 'page_action'
+        | 'action';
+
     type _OnClickDataModifiers = 'Shift' | 'Alt' | 'Command' | 'Ctrl' | 'MacCtrl';
 
     interface _CreateCreatePropertiesIcons {
         [key: number]: string;
     }
+
+    type _CreateCreatePropertiesCommand =
+        | '_execute_browser_action'
+        | '_execute_page_action'
+        | '_execute_sidebar_action'
+        | '_execute_action'
+        | '_execute_page_action'
+        | '_execute_sidebar_action';
 
     interface _CreateCreateProperties {
         /** The type of menu item. Defaults to 'normal' if not specified. */
@@ -6684,7 +7041,7 @@ declare namespace browser.menus {
          * @param info Information about the item clicked and the context where the click happened.
          * @param tab The details of the tab where the click took place. Note: this parameter only present for extensions.
          */
-        onclick?: ((info: OnClickData, tab: tabs.Tab) => void) | undefined;
+        onclick?: (info: OnClickData, tab: tabs.Tab) => void | undefined;
         /** The ID of a parent menu item; this makes the item a child of a previously added item. */
         parentId?: number | string | undefined;
         /**
@@ -6697,10 +7054,8 @@ declare namespace browser.menus {
         targetUrlPatterns?: string[] | undefined;
         /** Whether this context menu item is enabled or disabled. Defaults to true. */
         enabled?: boolean | undefined;
-        /**
-         * Specifies a command to issue for the context click. Currently supports internal commands _execute_page_action, _execute_browser_action and _execute_sidebar_action.
-         */
-        command?: string | undefined;
+        /** Specifies a command to issue for the context click. */
+        command?: string | _CreateCreatePropertiesCommand | undefined;
     }
 
     interface _UpdateUpdatePropertiesIcons {
@@ -6720,7 +7075,7 @@ declare namespace browser.menus {
         /**
          * @param tab The details of the tab where the click took place. Note: this parameter only present for extensions.
          */
-        onclick?: ((info: OnClickData, tab: tabs.Tab) => void) | undefined;
+        onclick?: (info: OnClickData, tab: tabs.Tab) => void | undefined;
         /** Note: You cannot change an item to be a child of one of its own descendants. */
         parentId?: number | string | undefined;
         documentUrlPatterns?: string[] | undefined;
@@ -6993,16 +7348,14 @@ declare namespace browser.omnibox {
      * User has changed what is typed into the omnibox.
      * @param suggest A callback passed to the onInputChanged event used for sending suggestions back to the browser.
      */
-    const onInputChanged: WebExtEvent<(
-        text: string,
-        suggest: (suggestResults: SuggestResult[]) => void
-    ) => void>;
+    const onInputChanged: WebExtEvent<
+        (text: string, suggest: (suggestResults: SuggestResult[]) => void) => void
+    >;
 
     /** User has accepted what is typed into the omnibox. */
-    const onInputEntered: WebExtEvent<(
-        text: string,
-        disposition: OnInputEnteredDisposition
-    ) => void>;
+    const onInputEntered: WebExtEvent<
+        (text: string, disposition: OnInputEnteredDisposition) => void
+    >;
 
     /** User has ended the keyword input session without accepting the input. */
     const onInputCancelled: WebExtEvent<() => void>;
@@ -7027,9 +7380,7 @@ declare namespace browser.pkcs11 {
     function uninstallModule(name: string): Promise<void>;
 
     /** Enumerate a module's slots, each with their name and whether a token is present */
-    function getModuleSlots(
-        name: string
-    ): Promise<{
+    function getModuleSlots(name: string): Promise<{
         name: string;
         token?: {
             name: string;
@@ -7038,7 +7389,7 @@ declare namespace browser.pkcs11 {
             FWVersion: string;
             serial: string;
             isLoggedIn: string;
-        } | undefined;
+        };
     }>;
 }
 
@@ -7237,7 +7588,8 @@ declare namespace browser.sidebarAction {
             | ImageDataType
             | {
                   [key: number]: ImageDataType;
-              } | undefined;
+              }
+            | undefined;
         /**
          * Either a relative image path or a dictionary {size -> relative image path} pointing to icon to be set. If the icon is specified as a dictionary, the actual image to be used is chosen depending on screen's pixel density. If the number of image pixels that fit into one screen space unit equals `scale`, then image with size `scale` * 19 will be selected. Initially only scales 1 and 2 will be supported. At least one image must be specified. Note that 'details.path = foo' is equivalent to 'details.imageData = {'19': foo}'
          */
@@ -7530,7 +7882,8 @@ declare namespace browser.tabs {
         | 'pinned'
         | 'sharingState'
         | 'status'
-        | 'title';
+        | 'title'
+        | 'url';
 
     /** An object describing filters to apply to tabs.onUpdated events. */
     interface UpdateFilter {
@@ -8465,10 +8818,7 @@ declare namespace browser.windows {
          * The height in pixels of the new window, including the frame. If not specified defaults to a natural height.
          */
         height?: number | undefined;
-        /**
-         * If true, opens an active window. If false, opens an inactive window.
-         * @deprecated Unsupported on Firefox at this time.
-         */
+        /** If true, opens an active window. If false, opens an inactive window. */
         focused?: boolean | undefined;
         /** Whether the new window should be an incognito window. */
         incognito?: boolean | undefined;

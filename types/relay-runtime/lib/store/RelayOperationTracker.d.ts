@@ -15,5 +15,10 @@ export class RelayOperationTracker {
 
     _resolveOwnerResolvers(owner: RequestDescriptor): void;
 
-    getPromiseForPendingOperationsAffectingOwner(owner: RequestDescriptor): Promise<void> | null;
+    getPendingOperationsAffectingOwner(
+        owner: RequestDescriptor,
+    ): {
+        promise: Promise<void>;
+        pendingOperations: ReadonlyArray<RequestDescriptor>;
+    } | null;
 }

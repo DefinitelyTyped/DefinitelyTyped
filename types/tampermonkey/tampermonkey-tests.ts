@@ -287,7 +287,7 @@ const openTabObject = GM_openInTab('http://www.example.com/', {
     setParent: true
 });
 
-openTabObject.onclosed = () => {
+openTabObject.onclose = () => {
     GM_log('Tab closed', openTabObject.closed);
 };
 
@@ -336,3 +336,376 @@ GM_setClipboard('<b>Some text in clipboard</b>', {
     type: 'text',
     mimetype: 'text/plain'
 });
+
+// GM_info
+
+// I created a basic userscript and copied GM_info from there for testing if the real thing fits the types
+// I don't think there's a real way of testing this other than testing if it fits the original
+const exampleInfo: Tampermonkey.ScriptInfo = {
+    isFirstPartyIsolation: undefined,
+    script: {
+        antifeatures: {},
+        author: null,
+        blockers: [],
+        copyright: null,
+        description: 'A description',
+        description_i18n: {},
+        downloadURL: null,
+        evilness: 0,
+        excludes: [],
+        grant: ['GM_setValue', 'GM_getValue', 'GM_deleteValue'],
+        header: 'headers',
+        homepage: null,
+        icon: null,
+        icon64: null,
+        includes: [],
+        lastModified: 1630000000000,
+        matches: ['https://*/*'],
+        name: 'Example userscript',
+        name_i18n: {},
+        namespace: 'namespace',
+        options: {
+            check_for_updates: false,
+            comment: '',
+            compat_foreach: false,
+            compat_metadata: false,
+            compat_prototypes: false,
+            compat_wrappedjsobject: false,
+            compatopts_for_requires: true,
+            noframes: null,
+            override: {
+                merge_connects: true,
+                merge_excludes: true,
+                merge_includes: true,
+                merge_matches: true,
+                orig_connects: ['https://google.com'],
+                orig_excludes: [],
+                orig_includes: [],
+                orig_matches: ['https://*/*'],
+                orig_noframes: null,
+                orig_run_at: 'document-idle',
+                use_blockers: [],
+                use_connects: [],
+                use_excludes: [],
+                use_includes: [],
+                use_matches: [],
+            },
+            run_at: 'document-idle',
+        },
+        position: 1,
+        resources: [
+            {
+                content: 'robots.txt',
+                meta: 'application',
+                name: 'github-robots.txt',
+                url: 'https://github.com/robots.txt',
+            },
+        ],
+        'run-at': 'document-idle',
+        supportURL: null,
+        sync: {
+            imported: false,
+        },
+        unwrap: false,
+        updateURL: null,
+        uuid: 'c0ffeec0-ffee-c0ff-eec0-ffeec0ffeec0',
+        version: '1.0',
+        webRequest: [],
+    },
+    scriptMetaStr: 'metadata',
+    scriptSource: 'console.log(GM_info);',
+    scriptUpdateURL: undefined,
+    scriptWillUpdate: false,
+    version: '4.13.6136',
+    scriptHandler: 'Tampermonkey',
+    isIncognito: false,
+    downloadMode: 'native',
+};
+
+// GM.*
+
+// GM.info
+
+const exampleInfo1: Tampermonkey.ScriptInfo = GM.info;
+
+async () => {
+    // GM.addStyle
+
+    // $ExpectType HTMLStyleElement
+    await GM.addStyle('div {color: #000;}');
+
+    // GM.setValue
+
+    // $ExpectType void
+    await GM.setValue('str', 'string');
+    await GM.setValue('num', 0);
+    await GM.setValue('bool', true);
+    await GM.setValue('obj', {
+        nested: {
+            values: true,
+        },
+    });
+
+    // GM.getValue
+
+    // $ExpectType string
+    await GM.getValue<string>('str');
+
+    // GM.deleteValue
+
+    await GM.deleteValue('a');
+
+    // GM.listValues
+
+    // $ExpectType string[]
+    await GM.listValues();
+
+    // GM.addValueChangeListener
+
+    // $ExpectType number
+    await GM.addValueChangeListener('a', (name: string, oldValue: string, newValue: string, remote: boolean) => {});
+    // $ExpectType number
+    await GM.addValueChangeListener('a', (name: string, oldValue: number, newValue: number, remote: boolean) => {});
+
+    // GM.removeValueChangeListener
+
+    // $ExpectType void
+    await GM.removeValueChangeListener(2);
+
+    // GM.getResourceText
+
+    // $ExpectType string
+    await GM.getResourceText('template');
+
+    // GM.getResourceUrl
+
+    // $ExpectType string
+    await GM.getResourceUrl('template');
+
+    // GM.registerMenuCommand
+
+    // $ExpectType number
+    await GM.registerMenuCommand('Do thing', () => {});
+    // $ExpectType number
+    await GM.registerMenuCommand('Do other thing', () => {}, 'T');
+
+    // GM.unregisterMenuCommand
+
+    // $ExpectType void
+    await GM.unregisterMenuCommand(1);
+
+    // GM.xmlHttpRequest
+
+    // Bare minimum
+
+    const minResponse = await GM.xmlHttpRequest({
+        url: 'https://github.com/',
+        method: 'GET',
+    });
+
+    // $ExpectType string
+    minResponse.finalUrl;
+    // $ExpectType number
+    minResponse.status;
+    // $ExpectType string
+    minResponse.responseText;
+
+    // GET request
+    await GM.xmlHttpRequest({
+        method: 'GET',
+        url: 'http://www.example.net/',
+        headers: {
+            'User-Agent': 'Mozilla/5.0',
+            Accept: 'text/xml',
+        },
+    });
+
+    // POST request
+    await GM.xmlHttpRequest({
+        method: 'POST',
+        url: 'http://www.example.net/login',
+        data: 'username=johndoe&password=xyz123',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+    });
+
+    // HEAD request
+    await GM.xmlHttpRequest({
+        url: 'http://www.example.com',
+        method: 'HEAD',
+    });
+
+    // All options
+    interface RequestContext {
+        form: {
+            name: string;
+        };
+    }
+
+    const allOptionsResponse = await GM.xmlHttpRequest<RequestContext>({
+        method: 'POST',
+        url: 'http://example.com/',
+        headers: { 'User-Agent': 'greasemonkey' },
+        data: 'foo=1&bar=2',
+        cookie: 'secret=42',
+        nocache: true,
+        revalidate: true,
+        binary: false,
+        timeout: 10,
+        context: {
+            form: {
+                name: 'Alice',
+            },
+        },
+        responseType: 'json',
+        overrideMimeType: 'text/plain',
+        anonymous: false,
+        user: 'guest',
+        password: 'abc123',
+        onabort() {},
+        onerror(response) {
+            // $ExpectType string
+            response.error;
+        },
+        onloadstart(response) {
+            // $ExpectType RequestContext
+            response.context;
+        },
+        onload(response) {
+            // $ExpectType RequestContext
+            response.context;
+        },
+        onprogress(response) {
+            // $ExpectType number
+            response.status;
+            // $ExpectType boolean
+            response.lengthComputable;
+            // $ExpectType number
+            response.loaded;
+            // $ExpectType number
+            response.total;
+        },
+        onreadystatechange(response) {
+            GM_log(response.context.form.name);
+        },
+        ontimeout() {},
+    });
+
+    // $ExpectType string
+    allOptionsResponse.finalUrl;
+    // $ExpectType RequestContext
+    allOptionsResponse.context;
+    // $ExpectType number
+    allOptionsResponse.status;
+    // $ExpectType string
+    allOptionsResponse.statusText;
+    // $ExpectType string
+    allOptionsResponse.responseText;
+    // $ExpectType ReadyState
+    allOptionsResponse.readyState;
+    // $ExpectType string
+    allOptionsResponse.responseHeaders;
+    // $ExpectType string
+    allOptionsResponse.responseText;
+    // $ExpectType Document | null
+    allOptionsResponse.responseXML;
+
+    // GM.download
+
+    // $ExpectType void
+    await GM.download({
+        url: 'http://tampermonkey.net/crx/tampermonkey.xml',
+        name: 'tampermonkey.xml',
+        headers: { 'User-Agent': 'greasemonkey' },
+        saveAs: true,
+        timeout: 3000,
+        onerror(response) {
+            response.error.toUpperCase();
+            // $ExpectType string | undefined
+            response.details;
+        },
+        ontimeout() {},
+        onload() {},
+        onprogress(response) {
+            // $ExpectType string
+            response.finalUrl;
+            // $ExpectType number
+            response.loaded;
+            // $ExpectType number
+            response.total;
+        },
+    });
+
+    interface TabState {
+        form: { name: string };
+    }
+
+    const tabState: TabState = {
+        form: {
+            name: 'Alice',
+        },
+    };
+
+    // GM.saveTab
+
+    // $ExpectType void
+    await GM.saveTab(tabState);
+
+    // GM.getTab
+
+    // $ExpectType any
+    await GM.getTab();
+    const tab: Record<string, string> = await GM.getTab();
+
+    // GM.getTabs
+
+    const tab0 = (await GM.getTabs())[0];
+
+    // GM.log
+
+    // $ExpectType void
+    await GM.log(42);
+    await GM.log('Hello', 'World!');
+
+    // GM.openInTab
+
+    await GM.openInTab('https://example.org');
+    await GM.openInTab('https://example.org', true);
+
+    const openTabObject = await GM.openInTab('https://example.org', {
+        active: true,
+        insert: false,
+        setParent: true,
+    });
+    openTabObject.onclose = () => {};
+    // $ExpectType boolean
+    openTabObject.closed;
+    openTabObject.close();
+
+    // GM.notification
+
+    // Using globals from GM_notification tests above
+    // specifically textNotification and highlightNotification
+
+    // $ExpectType boolean
+    await GM.notification(textNotification);
+
+    // $ExpectType boolean
+    await GM.notification(highlightNotification);
+
+    // $ExpectType boolean
+    await GM.notification(textNotification, textNotification.ondone);
+
+    await GM.notification('text', 'title', 'https://tampermonkey.net/favicon.ico', () => {});
+
+    // GM.setClipboard
+
+    // $ExpectType void
+    await GM.setClipboard('Some text');
+    await GM.setClipboard('Some text', 'text');
+    await GM.setClipboard('Some text', {
+        type: 'text',
+        mimetype: 'text/plain',
+    });
+};

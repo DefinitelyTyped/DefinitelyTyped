@@ -11,7 +11,11 @@ import {
     Side,
     StencilFunc,
     StencilOp,
+    PixelFormat,
 } from '../constants';
+import { ColorRepresentation } from '../utils';
+import { Color } from '../math/Color';
+import { Texture } from '../textures/Texture';
 
 export interface MaterialParameters {
     alphaTest?: number | undefined;
@@ -46,6 +50,7 @@ export interface MaterialParameters {
     transparent?: boolean | undefined;
     vertexColors?: boolean | undefined;
     visible?: boolean | undefined;
+    format?: PixelFormat | undefined;
     stencilWrite?: boolean | undefined;
     stencilFunc?: StencilFunc | undefined;
     stencilRef?: number | undefined;
@@ -74,6 +79,11 @@ export class Material extends EventDispatcher {
      * @default false
      */
     alphaToCoverage: boolean;
+
+    /**
+     * @default false
+     */
+    alphaWrite: boolean;
 
     /**
      * Blending destination. It's one of the blending mode constants defined in Three.js. Default is {@link OneMinusSrcAlphaFactor}.
@@ -306,7 +316,7 @@ export class Material extends EventDispatcher {
      * If *null*, the value is opposite that of side, above.
      * @default null
      */
-    shadowSide: Side;
+    shadowSide: Side | null;
 
     /**
      * Defines whether this material is tone mapped according to the renderer's toneMapping setting.

@@ -1,7 +1,6 @@
 import { Editor } from '@ckeditor/ckeditor5-core';
 import { HtmlEmbed, HtmlEmbedUI, HtmlEmbedEditing } from '@ckeditor/ckeditor5-html-embed';
-import InsertHtmlEmbedCommand from '@ckeditor/ckeditor5-html-embed/src/inserthtmlembedcommand';
-import UpdateHtmlEmbedCommand from '@ckeditor/ckeditor5-html-embed/src/updatehtmlembedcommand';
+import HtmlEmbedCommand from '@ckeditor/ckeditor5-html-embed/src/htmlembedcommand';
 
 class MyEditor extends Editor {}
 const editor = new MyEditor();
@@ -11,8 +10,18 @@ new HtmlEmbed(editor);
 
 [HtmlEmbedUI, HtmlEmbedEditing].forEach(Plugin => new Plugin(editor).init());
 
-new InsertHtmlEmbedCommand(editor).execute();
-new InsertHtmlEmbedCommand(editor).refresh();
+new HtmlEmbedCommand(editor).execute();
+new HtmlEmbedCommand(editor).refresh();
+new HtmlEmbedCommand(editor).execute('');
 
-new UpdateHtmlEmbedCommand(editor).execute('');
-new UpdateHtmlEmbedCommand(editor).refresh();
+// $ExpectType HtmlEmbed
+editor.plugins.get('HtmlEmbed');
+
+// $ExpectType HtmlEmbedEditing
+editor.plugins.get('HtmlEmbedEditing');
+
+// $ExpectType HtmlEmbedUI
+editor.plugins.get('HtmlEmbedUI');
+
+// $ExpectType HtmlEmbedCommand | undefined
+editor.commands.get('HtmlEmbedCommand');

@@ -1,8 +1,9 @@
-import { OnfleetMetadata } from '../metadata';
+import { OnfleetMetadata, MatchMetadata } from '../metadata';
 
 declare class Recipient {
   create(recipient: Recipient.CreateRecipientProps): Promise<Recipient.OnfleetRecipient>;
   get(queryOrId: string, queryKey?: Recipient.RecipientQueryKey): Promise<Recipient.OnfleetRecipient>;
+  matchMetadata: MatchMetadata<Recipient.OnfleetRecipient['metadata']>;
   update(id: string, recipient: Partial<Recipient.CreateRecipientProps>): Promise<Recipient.OnfleetRecipient>;
 }
 

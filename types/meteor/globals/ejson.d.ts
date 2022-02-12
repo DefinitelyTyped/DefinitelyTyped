@@ -25,7 +25,7 @@ declare interface JSONable {
 }
 declare interface EJSON extends EJSONable {}
 
-declare module EJSON {
+declare namespace EJSON {
     function addType(name: string, factory: (val: JSONable) => EJSONableCustomType): void;
 
     function clone<T>(val: T): T;
@@ -34,7 +34,7 @@ declare module EJSON {
 
     function fromJSONValue(val: JSONable): any;
 
-    function isBinary(x: Object): boolean;
+    function isBinary(x: Object): x is Uint8Array;
     function newBinary(size: number): Uint8Array;
 
     function parse(str: string): EJSON;

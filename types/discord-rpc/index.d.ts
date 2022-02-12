@@ -1,4 +1,4 @@
-// Type definitions for discord-rpc 3.0
+// Type definitions for discord-rpc 4.0
 // Project: https://github.com/discordjs/RPC#readme
 // Definitions by: Jason Bothell <https://github.com/jasonhaxstuff>
 //                 Jack Baron <https://github.com/lolPants>
@@ -85,8 +85,9 @@ export interface RPCLoginOptions {
     clientSecret?: string | undefined;
     accessToken?: string | undefined;
     rpcToken?: string | undefined;
-    tokenEndpoint?: string | undefined;
+    redirectUri?: string | undefined;
     scopes?: string[] | undefined;
+    prompt?: 'none' | 'consent' | undefined;
 }
 
 export interface Guild {

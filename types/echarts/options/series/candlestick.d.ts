@@ -5277,6 +5277,40 @@ declare namespace echarts {
                         y?: number | undefined;
 
                         /**
+                         * Markline at x at given value, which only works for single data item. Example:
+                         * data: [{
+                         *     name: 'A vertical line with X valued 100',
+                         *     xAxis: 100
+                         * }]
+                         * or if xAxis is in 'time' type, it can be set as:
+                         * [{
+                         *     name: 'A vertical line with X valued "2020-01-01"',
+                         *     xAxis: '2020-01-01'
+                         * }]
+                         *
+                         *
+                         * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.0.xAxis
+                         */
+                        xAxis?: number | string | undefined;
+
+                         /**
+                         * Markline at y at given value, which only works for single data item. Example:
+                         * data: [{
+                         *     name: 'A horizontal line with X valued 100',
+                         *     yAxis: 100
+                         * }]
+                         * or if yAxis is in 'time' type, it can be set as:
+                         * [{
+                         *     name: 'A horizontal line with Y valued "2020-01-01"',
+                         *     yAxis: '2020-01-01'
+                         * }]
+                         *
+                         *
+                         * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.0.yAxis
+                         */
+                        yAxis?: number | string | undefined;
+
+                        /**
                          * Label value, which can be ignored.
                          *
                          *

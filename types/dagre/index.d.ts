@@ -1,7 +1,6 @@
 // Type definitions for dagre 0.7
 // Project: https://github.com/dagrejs/dagre
 // Definitions by: Qinfeng Chen <https://github.com/qinfchen>
-//                 Lisa Vallfors <https://github.com/Frankrike>
 //                 Pete Vilter <https://github.com/vilterp>
 //                 David Newell <https://github.com/rustedgrail>
 //                 Graham Lea <https://github.com/GrahamLea>
@@ -41,6 +40,7 @@ export namespace graphlib {
         parent(childName: string): string | undefined;
         predecessors(name: string): Array<Node<T>> | undefined;
         removeNode(name: string): Graph<T>;
+        filterNodes(callback: (nodeId: string) => boolean): Graph<T>;
         setDefaultNodeLabel(callback: string | ((nodeId: string) => string | Label)): Graph<T>;
         setNode(name: string, label: string | Label): Graph<T>;
         setParent(childName: string, parentName: string): void;

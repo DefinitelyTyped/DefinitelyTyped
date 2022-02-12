@@ -294,7 +294,10 @@ export interface ParallaxImageProps extends ImageProps, AdditionalParallaxProps 
 
 export type ParallaxImageStatic = React.ComponentClass<ParallaxImageProps>;
 
-export type ParallaxImageProperties = ParallaxImageProps & React.Props<ParallaxImageStatic>;
+export type ParallaxImageProperties = ParallaxImageProps & {
+    children?: React.ReactNode;
+    ref?: React.LegacyRef<ParallaxImageStatic> | undefined;
+};
 
 export class ParallaxImage extends React.Component<ParallaxImageProperties> { }
 
@@ -397,7 +400,10 @@ export interface PaginationProps {
 
 export type PaginationStatic = React.ComponentClass<PaginationProps>;
 
-export type PaginationProperties = PaginationProps & React.Props<PaginationStatic>;
+export type PaginationProperties = PaginationProps & {
+    children?: React.ReactNode;
+    ref?: React.LegacyRef<PaginationStatic> | undefined;
+};
 
 export class Pagination extends React.Component<PaginationProperties> { }
 

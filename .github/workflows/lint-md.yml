@@ -1,11 +1,12 @@
 name: Check Markdown links
 on:
   pull_request:
-    paths: "**.md"
+    paths:
+      - '**.md'
 jobs:
   lint-md:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - run: npm install
-      - run: npx remark --use validate-links . .github
+      - run: npx remark --use validate-links --frail . .github

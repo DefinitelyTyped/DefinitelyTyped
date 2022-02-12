@@ -68,6 +68,7 @@ declare namespace Spotify {
         duration: number;
         paused: boolean;
         position: number;
+        loading: boolean;
         /**
          * 0: NO_REPEAT
          * 1: ONCE_REPEAT
@@ -94,9 +95,11 @@ declare namespace Spotify {
     type ErrorListener = (err: Error) => void;
     type PlaybackInstanceListener = (inst: WebPlaybackInstance) => void;
     type PlaybackStateListener = (s: PlaybackState) => void;
+    type EmptyListener = () => void;
 
     type AddListenerFn =
         & ((event: 'ready' | 'not_ready', cb: PlaybackInstanceListener) => void)
+        & ((event: 'autoplay_failed', cb: EmptyListener) => void)
         & ((event: 'player_state_changed', cb: PlaybackStateListener) => void)
         & ((event: ErrorTypes, cb: ErrorListener) => void);
 

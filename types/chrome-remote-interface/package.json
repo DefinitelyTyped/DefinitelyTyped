@@ -1,6 +1,6 @@
 {
     "private": true,
     "dependencies": {
-        "devtools-protocol": ">=0.0.894172"
+        "devtools-protocol": "0.0.927104"
     }
 }

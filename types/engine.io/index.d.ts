@@ -9,6 +9,7 @@
 import http = require('http');
 import net = require('net');
 import { EventEmitter } from "events";
+import { Duplex } from "stream";
 
 declare namespace engine {
     type Message = string|Buffer|ArrayBuffer|ArrayBufferView;
@@ -146,7 +147,7 @@ declare namespace engine {
         /**
          * Called internally when a Engine ws upgrade is intercepted.
          */
-        handleUpgrade(req: http.IncomingMessage, socket: net.Socket, head: Buffer): this;
+        handleUpgrade(req: http.IncomingMessage, socket: Duplex, head: Buffer): this;
         /**
          * Attach this Server instance to an http.Server
          * Captures upgrade requests for a http.Server. In other words, makes a regular http.Server WebSocket-compatible.

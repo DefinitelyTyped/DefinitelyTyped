@@ -9,7 +9,7 @@ declare namespace libphonenumber {
         E164,
         INTERNATIONAL,
         NATIONAL,
-        RFC3966
+        RFC3966,
     }
 
     export enum PhoneNumberType {
@@ -24,7 +24,7 @@ declare namespace libphonenumber {
         PAGER = 8,
         UAN = 9,
         VOICEMAIL = 10,
-        UNKNOWN = -1
+        UNKNOWN = -1,
     }
 
     export module PhoneNumber {
@@ -95,10 +95,31 @@ declare namespace libphonenumber {
 
     export module PhoneNumberUtil {
         export enum ValidationResult {
+            /** The number length matches that of valid numbers for this region. =0 */
             IS_POSSIBLE,
+            /** The number has an invalid country calling code. =1 */
             INVALID_COUNTRY_CODE,
+            /** The number is shorter than all valid numbers for this region. =2 */
             TOO_SHORT,
-            TOO_LONG
+            /** The number is longer than all valid numbers for this region. =3 */
+            TOO_LONG,
+            /**
+             * The number length matches that of local numbers for this region only (i.e.
+             * numbers that may be able to be dialled within an area, but do not have all
+             * the information to be dialled from anywhere inside or outside the country).
+             * =4
+             */
+            IS_POSSIBLE_LOCAL_ONLY,
+            /**
+             * The number is longer than the shortest valid numbers for this region,
+             * shorter than the longest valid numbers for this region, and does not itself
+             * have a number length that matches valid numbers for this region.
+             * This can also be returned in the case where
+             * isPossibleNumberForTypeWithReason was called, and there are no numbers of
+             * this type at all for this region.
+             * =5
+             */
+            INVALID_LENGTH,
         }
 
         export enum MatchType {
@@ -106,7 +127,7 @@ declare namespace libphonenumber {
             NO_MATCH,
             NOT_A_NUMBER,
             NSN_MATCH,
-            SHORT_NSN_MATCH
+            SHORT_NSN_MATCH,
         }
     }
 
@@ -117,19 +138,19 @@ declare namespace libphonenumber {
     }
 
     export class PhoneNumberUtil {
-        static getInstance(): PhoneNumberUtil
+        static getInstance(): PhoneNumberUtil;
         extractCountryCode(fullNumber: StringBuffer, nationalNumber: StringBuffer): number;
         format(phoneNumber: PhoneNumber, format: PhoneNumberFormat): string;
         formatInOriginalFormat(phoneNumber: PhoneNumber, regionDialingFrom?: string): string;
         formatOutOfCountryCallingNumber(phoneNumber: PhoneNumber, regionDialingFrom?: string): string;
         getNddPrefixForRegion(regionCode?: string, stripNonDigits?: boolean): string | undefined;
         getNumberType(phoneNumber: PhoneNumber): PhoneNumberType;
-        getCountryCodeForRegion(supportedRegion:string):number;
+        getCountryCodeForRegion(supportedRegion: string): number;
         getExampleNumber(regionCode: string): PhoneNumber;
         getExampleNumberForType(regionCode: string, type: PhoneNumberType): PhoneNumber;
         getRegionCodeForCountryCode(countryCallingCode: number): string;
         getRegionCodeForNumber(phoneNumber: PhoneNumber): string | undefined;
-        getSupportedRegions():string [];
+        getSupportedRegions(): string[];
         isAlphaNumber(number: string): boolean;
         isLeadingZeroPossible(countryCallingCode: number): boolean;
         isNANPACountry(regionCode?: string): boolean;
@@ -147,6 +168,7 @@ declare namespace libphonenumber {
         truncateTooLongNumber(number: PhoneNumber): boolean;
         isNumberMatch(firstNumber: string | PhoneNumber, secondNumber: string | PhoneNumber): PhoneNumberUtil.MatchType;
         getLengthOfGeographicalAreaCode(number: PhoneNumber): number;
+        getNationalSignificantNumber(number: PhoneNumber): string;
     }
 
     export class AsYouTypeFormatter {
@@ -155,7 +177,6 @@ declare namespace libphonenumber {
         clear(): void;
     }
 }
-
 
 declare module 'google-libphonenumber' {
     export = libphonenumber;

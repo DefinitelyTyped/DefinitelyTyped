@@ -20,6 +20,7 @@ declare class Service {
         };
 
         name: string;
+        stackTags?: { [key: string]: any; };
         stage: string;
         region: string;
         runtime?: string | undefined;

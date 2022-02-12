@@ -454,7 +454,7 @@ export class QueryParam extends Property<QueryParamDefinition> implements QueryP
 }
 
 export interface RequestDefinition extends PropertyDefinition {
-  url: string | Url;
+  url: string | UrlDefinition;
   method?: string | undefined;
   header?: HeaderDefinition[] | undefined;
   body?: RequestBodyDefinition | undefined;

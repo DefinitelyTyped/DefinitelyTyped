@@ -16,6 +16,7 @@ import { PluginDefinition, PluginParams } from "wavesurfer.js/types/plugin";
 // - create an instance
 const wavesurfer = WaveSurfer.create({
     container: "#waveform",
+    ignoreSilenceMode: true, // 5.2
     progressColor: "purple",
     vertical: false,
     waveColor: "violet",
@@ -98,7 +99,8 @@ const waveSurferWithMarkersPlugin = WaveSurfer.create({
             {
                 time: 5.5,
                 label: "V1",
-                color: '#ff990a'
+                color: '#ff990a',
+                draggable: true
             },
             {
                 time: 10,

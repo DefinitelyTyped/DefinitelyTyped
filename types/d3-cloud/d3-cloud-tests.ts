@@ -33,13 +33,16 @@ d3.layout
         }),
     )
     .padding(5)
+    .rotate(10)
     .rotate(function() {
         return ~~(Math.random() * 2) * 90;
     })
     .font('Impact')
+    .fontSize(10)
     .fontSize(function(d: ICompTextSize) {
         return d.size;
     })
+    .spiral('archimedean')
     .spiral(archimedeanSpiral)
     .on('end', draw)
     .random()

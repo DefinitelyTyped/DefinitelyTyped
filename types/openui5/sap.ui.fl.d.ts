@@ -1,4 +1,4 @@
-// For Library Version: 1.92.0
+// For Library Version: 1.98.0
 
 declare module "sap/ui/fl/library" {}
 
@@ -661,6 +661,31 @@ declare module "sap/ui/fl/variants/VariantManagement" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.fl.variants.VariantManagement with name `sClassName` and enriches
+     * it with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, VariantManagement>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.fl.variants.VariantManagement.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Adds some for into the association {@link #getFor for}.
      */
     addFor(
@@ -962,27 +987,6 @@ declare module "sap/ui/fl/variants/VariantManagement" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.ui.fl.variants.VariantManagement with name `sClassName` and enriches
-     * it with the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, VariantManagement>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:cancel cancel} to attached listeners.
      */
     fireCancel(
@@ -1114,10 +1118,6 @@ declare module "sap/ui/fl/variants/VariantManagement" {
      */
     getManualVariantKey(): boolean;
     /**
-     * Returns a metadata object for class sap.ui.fl.variants.VariantManagement.
-     */
-    static getMetadata(): ElementMetadata;
-    /**
      * Gets current value of property {@link #getModelName modelName}.
      *
      * Determines the name of the model. The binding context will be defined by the current ID.  **Note:**
@@ -1167,28 +1167,6 @@ declare module "sap/ui/fl/variants/VariantManagement" {
      * Retrieves all variants.
      */
     getVariants(): any[];
-    /**
-     * Opens the Manage Views dialog.
-     */
-    openManagementDialog(
-      /**
-       * Indicates that if this is set to `true`, the former dialog will be destroyed before a new one is created
-       */
-      bCreateAlways: boolean,
-      /**
-       * style-class to be used
-       */
-      sClass: string
-    ): void;
-    /**
-     * Opens the Save as dialog.
-     */
-    openSaveAsDialogForKeyUser(
-      /**
-       * style-class to be used
-       */
-      sRtaStyleClassName: string
-    ): void;
     /**
      * Removes all the controls in the association named {@link #getFor for}.
      */
@@ -1431,27 +1409,27 @@ declare module "sap/ui/fl/variants/VariantManagement" {
      * This event is fired when the Save View dialog or the Save As dialog is closed with the
      * save button.
      */
-    save?: Function;
+    save?: (oEvent: Event) => void;
 
     /**
      * This event is fired when users presses the cancel button inside Save As dialog.
      */
-    cancel?: Function;
+    cancel?: (oEvent: Event) => void;
 
     /**
      * This event is fired when users apply changes to variants in the Manage Views dialog.
      */
-    manage?: Function;
+    manage?: (oEvent: Event) => void;
 
     /**
      * This event is fired when the model and context are set.
      */
-    initialized?: Function;
+    initialized?: (oEvent: Event) => void;
 
     /**
      * This event is fired when a new variant is selected.
      */
-    select?: Function;
+    select?: (oEvent: Event) => void;
   }
 }
 
@@ -1594,7 +1572,7 @@ declare module "sap/ui/fl/write/api/FeaturesAPI" {
    */
   interface FeaturesAPI {
     /**
-     * Checks if context sharing is enbaled.
+     * Checks if context sharing is enabled.
      */
     isContextSharingEnabled(
       /**
@@ -1611,7 +1589,12 @@ declare module "sap/ui/fl/write/api/FeaturesAPI" {
     /**
      * Checks if key user has also the admin role to enable the translation button
      */
-    isKeyUserTranslationEnabled(): Promise<boolean>;
+    isKeyUserTranslationEnabled(
+      /**
+       * Current layer
+       */
+      sLayer: /* was: sap.ui.fl.Layer */ any
+    ): Promise<boolean>;
     /**
      * Checks if the data storing implementation for a given layer is capable of handling versioning.
      */
@@ -1647,6 +1630,8 @@ declare namespace sap {
     "sap/ui/fl/apply/_internal/changes/descriptor/app/ChangeInbound": undefined;
 
     "sap/ui/fl/apply/_internal/changes/descriptor/app/SetTitle": undefined;
+
+    "sap/ui/fl/apply/_internal/changes/descriptor/fiori/SetAbstract": undefined;
 
     "sap/ui/fl/apply/_internal/changes/descriptor/fiori/SetRegistrationIds": undefined;
 
@@ -1724,8 +1709,6 @@ declare namespace sap {
 
     "sap/ui/fl/ChangePersistenceFactory": undefined;
 
-    "sap/ui/fl/ControlPersonalizationAPI": undefined;
-
     "sap/ui/fl/descriptorRelated/api/DescriptorChangeFactory": undefined;
 
     "sap/ui/fl/descriptorRelated/api/DescriptorInlineChangeFactory": undefined;
@@ -1767,6 +1750,10 @@ declare namespace sap {
     "sap/ui/fl/PreprocessorImpl": undefined;
 
     "sap/ui/fl/registry/Settings": undefined;
+
+    "sap/ui/fl/support/_internal/getChangeDependencies": undefined;
+
+    "sap/ui/fl/support/api/SupportAPI": undefined;
 
     "sap/ui/fl/transport/TransportDialog": undefined;
 
@@ -1851,6 +1838,8 @@ declare namespace sap {
     "sap/ui/fl/write/api/SmartBusinessWriteAPI": undefined;
 
     "sap/ui/fl/write/api/SmartVariantManagementWriteAPI": undefined;
+
+    "sap/ui/fl/write/api/TranslationAPI": undefined;
 
     "sap/ui/fl/write/api/UI2PersonalizationWriteAPI": undefined;
 

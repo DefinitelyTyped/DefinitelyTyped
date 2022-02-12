@@ -5,16 +5,14 @@
 
 export = gitUsername;
 
-declare function gitUsername(options: gitUsername.StrictOptions): string;
-declare function gitUsername(options?: string | gitUsername.BaseOptions): string | null;
+declare function gitUsername(cwd?: string, options?: gitUsername.OptionsWithoutCwd): string | null;
+declare function gitUsername(options: gitUsername.Options): string | null;
 
 declare namespace gitUsername {
-    interface BaseOptions {
-        cwd?: string | undefined;
-        strict?: boolean | undefined;
+    interface Options {
+        strict?: boolean;
+        cwd?: string;
     }
 
-    interface StrictOptions extends BaseOptions {
-        strict: true;
-    }
+    type OptionsWithoutCwd = Omit<Options, 'cwd'>;
 }

@@ -1,4 +1,4 @@
-// Type definitions for Jest 26.0
+// Type definitions for Jest 27.4
 // Project: https://jestjs.io/
 // Definitions by: Asana (https://asana.com)
 //                 Ivo Stratev <https://github.com/NoHomey>
@@ -11,7 +11,6 @@
 //                 Jamie Mason <https://github.com/JamieMason>
 //                 Douglas Duteil <https://github.com/douglasduteil>
 //                 Ahn <https://github.com/ahnpnl>
-//                 Josh Goldberg <https://github.com/joshuakgoldberg>
 //                 Jeff Lau <https://github.com/UselessPickles>
 //                 Andrew Makarov <https://github.com/r3nya>
 //                 Martin Hochel <https://github.com/hotell>
@@ -28,6 +27,7 @@
 //                 Pawel Fajfer <https://github.com/pawfa>
 //                 Regev Brody <https://github.com/regevbr>
 //                 Alexandre Germain <https://github.com/gerkindev>
+//                 Adam Jones <https://github.com/domdomegg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.8
 
@@ -73,10 +73,6 @@ type ExtractEachCallbackArgs<T extends ReadonlyArray<any>> = {
 ];
 
 declare namespace jest {
-    /**
-     * Provides a way to add Jasmine-compatible matchers into your Jest context.
-     */
-    function addMatchers(matchers: jasmine.CustomMatcherFactories): typeof jest;
     /**
      * Disables automatic mocking in the module loader.
      */
@@ -182,6 +178,25 @@ declare namespace jest {
      * Mocks a module with an auto-mocked version when it is being required.
      */
     function mock(moduleName: string, factory?: () => unknown, options?: MockOptions): typeof jest;
+
+    /**
+     * The mocked test helper provides typings on your mocked modules and even
+     * their deep methods, based on the typing of its source. It makes use of
+     * the latest TypeScript feature, so you even have argument types
+     * completion in the IDE (as opposed to jest.MockInstance).
+     *
+     * Note: while it needs to be a function so that input type is changed, the helper itself does nothing else than returning the given input value.
+     */
+     function mocked<T>(item: T, deep?: false): MaybeMocked<T>;
+    /**
+     * The mocked test helper provides typings on your mocked modules and even
+     * their deep methods, based on the typing of its source. It makes use of
+     * the latest TypeScript feature, so you even have argument types
+     * completion in the IDE (as opposed to jest.MockInstance).
+     *
+     * Note: while it needs to be a function so that input type is changed, the helper itself does nothing else than returning the given input value.
+     */
+     function mocked<T>(item: T, deep: true): MaybeMockedDeep<T>;
     /**
      * Returns the actual module instead of a mock, bypassing all checks on
      * whether the module should receive a mock implementation or not.
@@ -194,11 +209,6 @@ declare namespace jest {
      */
     // tslint:disable-next-line: no-unnecessary-generics
     function requireMock<TModule extends {} = any>(moduleName: string): TModule;
-    /**
-     * Resets the module registry - the cache of all required modules. This is
-     * useful to isolate modules where local state might conflict between tests.
-     */
-    function resetModuleRegistry(): typeof jest;
     /**
      * Resets the module registry - the cache of all required modules. This is
      * useful to isolate modules where local state might conflict between tests.
@@ -216,6 +226,8 @@ declare namespace jest {
     function retryTimes(numRetries: number): typeof jest;
     /**
      * Exhausts tasks queued by setImmediate().
+     * > Note: This function is only available when using modern fake timers
+     * > implementation
      */
     function runAllImmediates(): typeof jest;
     /**
@@ -223,7 +235,9 @@ declare namespace jest {
      */
     function runAllTicks(): typeof jest;
     /**
-     * Exhausts the macro-task queue (i.e., all tasks queued by setTimeout() and setInterval()).
+     * Exhausts both the macro-task queue (i.e., all tasks queued by setTimeout(),
+     * setInterval(), and setImmediate()) and the micro-task queue (usually interfaced
+     * in node via process.nextTick).
      */
     function runAllTimers(): typeof jest;
     /**
@@ -233,11 +247,6 @@ declare namespace jest {
      * those new tasks will not be executed by this call.
      */
     function runOnlyPendingTimers(): typeof jest;
-    /**
-     * (renamed to `advanceTimersByTime` in Jest 21.3.0+) Executes only the macro
-     * task queue (i.e. all tasks queued by setTimeout() or setInterval() and setImmediate()).
-     */
-    function runTimersToTime(msToRun: number): typeof jest;
     /**
      * Advances all timers by msToRun milliseconds. All pending "macro-tasks" that have been
      * queued via setTimeout() or setInterval(), and would be executed within this timeframe
@@ -322,6 +331,34 @@ declare namespace jest {
         virtual?: boolean | undefined;
     }
 
+    type MockableFunction = (...args: any[]) => any;
+    type MethodKeysOf<T> = { [K in keyof T]: T[K] extends MockableFunction ? K : never }[keyof T];
+    type PropertyKeysOf<T> = { [K in keyof T]: T[K] extends MockableFunction ? never : K }[keyof T];
+    type ArgumentsOf<T> = T extends (...args: infer A) => any ? A : never;
+    type ConstructorArgumentsOf<T> = T extends new (...args: infer A) => any ? A : never;
+
+    interface MockWithArgs<T extends MockableFunction> extends MockInstance<ReturnType<T>, ArgumentsOf<T>> {
+        new (...args: ConstructorArgumentsOf<T>): T;
+        (...args: ArgumentsOf<T>): ReturnType<T>;
+    }
+    type MaybeMockedConstructor<T> = T extends new (...args: any[]) => infer R
+        ? MockInstance<R, ConstructorArgumentsOf<T>>
+        : T;
+    type MockedFn<T extends MockableFunction> = MockWithArgs<T> & { [K in keyof T]: T[K] };
+    type MockedFunctionDeep<T extends MockableFunction> = MockWithArgs<T> & MockedObjectDeep<T>;
+    type MockedObject<T> = MaybeMockedConstructor<T> & {
+        [K in MethodKeysOf<T>]: T[K] extends MockableFunction ? MockedFn<T[K]> : T[K];
+    } & { [K in PropertyKeysOf<T>]: T[K] };
+    type MockedObjectDeep<T> = MaybeMockedConstructor<T> & {
+        [K in MethodKeysOf<T>]: T[K] extends MockableFunction ? MockedFunctionDeep<T[K]> : T[K];
+    } & { [K in PropertyKeysOf<T>]: MaybeMockedDeep<T[K]> };
+    type MaybeMockedDeep<T> = T extends MockableFunction
+        ? MockedFunctionDeep<T>
+        : T extends object // eslint-disable-line @typescript-eslint/ban-types
+        ? MockedObjectDeep<T>
+        : T;
+    // eslint-disable-next-line @typescript-eslint/ban-types
+    type MaybeMocked<T> = T extends MockableFunction ? MockedFn<T> : T extends object ? MockedObject<T> : T;
     type EmptyFunction = () => void;
     type ArgsType<T> = T extends (...args: infer A) => any ? A : never;
     type ConstructorArgsType<T> = T extends new (...args: infer A) => any ? A : never;
@@ -340,9 +377,10 @@ declare namespace jest {
         fail(error?: string | { message: string }): any;
     }
 
-    type ProvidesCallback = (cb: DoneCallback) => any;
+    type ProvidesCallback = ((cb: DoneCallback) => void | undefined) | (() => Promise<unknown>);
+    type ProvidesHookCallback = (() => any) | ProvidesCallback;
 
-    type Lifecycle = (fn: ProvidesCallback, timeout?: number) => any;
+    type Lifecycle = (fn: ProvidesHookCallback, timeout?: number) => any;
 
     interface FunctionLike {
         readonly name: string;
@@ -1371,7 +1409,6 @@ declare namespace jasmine {
     function createSpyObj<T>(baseName: string, methodNames: any[]): T;
     function pp(value: any): string;
     function addCustomEqualityTester(equalityTester: CustomEqualityTester): void;
-    function addMatchers(matchers: CustomMatcherFactories): void;
     function stringMatching(value: string | RegExp): Any;
 
     interface Clock {

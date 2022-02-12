@@ -455,6 +455,11 @@ declare namespace ApplePayJS {
          * The payment pass object currently selected to complete the payment.
          */
         paymentPass: ApplePayPaymentPass;
+
+        /**
+         * The billing contact associated with the card.
+         */
+        billingContact?: ApplePayPaymentContact | undefined;
     }
 
     /**

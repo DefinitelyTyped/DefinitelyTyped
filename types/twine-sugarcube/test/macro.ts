@@ -18,6 +18,24 @@ Macro.add('if', {
     }
 });
 
+Macro.add("thing", {
+    skipArgs: ["sub"],
+    handler() {
+        const element = document.createElement("div");
+        element.addEventListener("keydown", this.createShadowWrapper((evt) => {
+            if (evt.shiftKey) {
+                // do something
+            }
+        }));
+        $(this.output).append(element);
+    }
+});
+
+Macro.add('dummy', {
+    tags: null,
+    handler() { }
+});
+
 Macro.delete("if"); // $ExpectType void
 Macro.delete(["if", "iif"]); // $ExpectType void
 

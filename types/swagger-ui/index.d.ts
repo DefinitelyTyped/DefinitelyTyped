@@ -1,6 +1,7 @@
-// Type definitions for swagger-ui 3.47
+// Type definitions for swagger-ui 3.52
 // Project: https://github.com/swagger-api/swagger-ui
 // Definitions by: Julian Pfeil <https://github.com/juarrow>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = SwaggerUI;
@@ -48,6 +49,10 @@ declare namespace SwaggerUI {
          * for Swagger UI.
          */
         layout?: string | undefined;
+        /**
+         * A Javascript object to configure plugin integration and behaviors
+         */
+        pluginsOptions?: PluginsOptions;
         /**
          * An array of plugin functions to use in Swagger UI.
          */
@@ -248,6 +253,19 @@ declare namespace SwaggerUI {
          */
         persistAuthorization?: boolean | undefined;
     }
+
+    interface PluginsOptions {
+        /**
+         * Control behavior of plugins when targeting the same component with wrapComponent.<br/>
+         * - `legacy` (default) : last plugin takes precedence over the others<br/>
+         * - `chain` : chain wrapComponents when targeting the same core component,
+         *  allowing multiple plugins to wrap the same component
+         * @default 'legacy'
+         */
+        pluginLoadType?: PluginLoadType;
+    }
+
+    type PluginLoadType = 'legacy' | 'chain';
 
     type SupportedHTTPMethods = "get" | "put" | "post" | "delete" | "options" | "head" | "patch" | "trace";
 

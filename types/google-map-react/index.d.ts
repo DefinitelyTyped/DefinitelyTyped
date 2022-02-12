@@ -13,6 +13,7 @@ declare namespace googleMapReact {
         language?: string | undefined;
         region?: string | undefined;
         libraries?: string[] | string | undefined;
+        id?: string | undefined
     };
 
     interface MapTypeStyle {
@@ -37,6 +38,7 @@ declare namespace googleMapReact {
         gestureHandling?: string | undefined;
         heading?: number | undefined;
         keyboardShortcuts?: boolean | undefined;
+        mapId?: string | undefined;
         mapTypeControl?: boolean | undefined;
         mapTypeControlOptions?: any;
         mapTypeId?: string | undefined;

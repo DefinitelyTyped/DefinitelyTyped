@@ -150,7 +150,6 @@ function init() {
         camera,
         width: innerWidth,
         height: innerHeight,
-        encoding: THREE.sRGBEncoding,
         isPerspectiveCamera,
         groundReflector: params.groundReflector ? groundReflector : null,
         selects: params.groundReflector ? selects : null,

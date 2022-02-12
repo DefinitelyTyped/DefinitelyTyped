@@ -1,4 +1,4 @@
-// Type definitions for minipass 2.2
+// Type definitions for minipass 3.1
 // Project: https://github.com/isaacs/minipass#readme
 // Definitions by: BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -8,13 +8,18 @@ import { EventEmitter } from 'events';
 
 export = MiniPass;
 
-declare class MiniPass extends EventEmitter implements NodeJS.WritableStream {
+// Initially was declared with the line below, but minipass types differ slightly
+// declare class MiniPass extends EventEmitter implements NodeJS.WritableStream {
+declare class MiniPass extends EventEmitter {
     readonly bufferLength: number;
     readonly flowing: boolean;
     readonly emittedEnd: boolean;
+    readonly destroyed: boolean;
     encoding: string | null;
     readable: boolean;
     writable: boolean;
+    paused: boolean;
+    objectMode: boolean;
     pipes: any;
     buffer: any;
 
@@ -24,11 +29,15 @@ declare class MiniPass extends EventEmitter implements NodeJS.WritableStream {
     read(size?: number): any;
     write(chunk: any, cb?: () => void): boolean;
     write(chunk: any, encoding?: string | null, cb?: () => void): boolean;
-    end(cb?: () => void): void;
-    end(chunk: any, cb?: () => void): void;
-    end(chunk: any, encoding?: string | null, cb?: () => void): void;
+    end(cb?: () => void): this;
+    end(chunk: any, cb?: () => void): this;
+    end(chunk: any, encoding?: string | null, cb?: () => void): this;
     resume(): void;
     pause(): void;
+    promise(): Promise<void>;
+    collect(): Promise<any[]>;
+    concat(): Promise<Buffer | string>;
+    destroy(err?: any): void;
     pipe<T extends NodeJS.WritableStream>(destination: T, options?: { end?: boolean | undefined; }): T;
 
     addEventHandler(event: string, listener: (...args: any[]) => void): this;

@@ -354,7 +354,7 @@ export const SortDirection: SortDirectionStatic;
 
 export type SortDirectionType = 'ASC' | 'DESC';
 
-export const SortIndicator: React.StatelessComponent<{
+export const SortIndicator: React.FunctionComponent<{
     sortDirection?: SortDirectionType | undefined;
 }>;
 
@@ -424,6 +424,8 @@ export class Table extends PureComponent<TableProps> {
     Grid: Grid;
 
     forceUpdateGrid(): void;
+
+    getScrollbarWidth(): number;
 
     /** See Grid#getOffsetForCell */
     getOffsetForRow(params: { alignment?: Alignment | undefined; index?: number | undefined }): number;

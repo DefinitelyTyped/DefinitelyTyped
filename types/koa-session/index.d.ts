@@ -205,7 +205,7 @@ declare namespace session {
         /**
          * get session object by key
          */
-        get(ctx: Koa.Context): string;
+        get(ctx: Koa.Context): string | undefined;
 
         /**
          * set session object for key, with a maxAge (in ms)

@@ -5,7 +5,7 @@
 // TypeScript Version: 3.3
 
 import { GraphQLSchema } from "graphql";
-import { Middleware, ParameterizedContext } from "koa";
+import { DefaultContext, DefaultState, Middleware, ParameterizedContext } from "koa";
 
 export interface ExecuteOptions {
   schema?: GraphQLSchema | undefined;
@@ -16,8 +16,8 @@ export interface ExecuteOptions {
 
 export function errorHandler(): Middleware;
 
-export function execute<StateT = any, CustomT = {}>(
+export function execute<StateT = DefaultState, ContextT = DefaultContext>(
   options: ExecuteOptions & {
-    override?: ((ctx: ParameterizedContext<StateT, CustomT>) => ExecuteOptions) | undefined;
+    override?: ((ctx: ParameterizedContext<StateT, ContextT>) => ExecuteOptions) | undefined;
   }
-): Middleware<StateT, CustomT>;
+): Middleware<StateT, ContextT>;

@@ -29,4 +29,12 @@ export class NavLinkProps {
     preserveScrollPosition?: boolean | undefined;
     className?: string | undefined;
     type?: string | undefined;
+    activeClass?: string;
+    activeElement?: string;
+    followLink?: boolean;
+    stopPropagation?: boolean;
+    replaceState?: boolean;
+    validate?: boolean;
+    navParams?: object;
+    queryParams?: object;
 }

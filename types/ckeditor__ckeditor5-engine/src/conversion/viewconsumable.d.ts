@@ -1,6 +1,7 @@
 import DocumentFragment from "../view/documentfragment";
 import Element from "../view/element";
 import Text from "../view/text";
+import Node from "../view/node";
 
 export default class ViewConsumable {
     add(element: Text | DocumentFragment): void;
@@ -34,7 +35,7 @@ export default class ViewConsumable {
     ): void;
     revert(element: Text | DocumentFragment): void;
     test(
-        element: Element,
+        element: Node | DocumentFragment,
         consumables?: {
             name?: boolean | undefined;
             attributes?: string | string[] | undefined;

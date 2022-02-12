@@ -7,7 +7,7 @@
 
 export interface ShareData {
     mimeType: string;
-    data: string;
+    data: string | string[];
     extraData?: object | undefined;
 }
 

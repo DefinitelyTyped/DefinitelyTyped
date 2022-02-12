@@ -15,6 +15,9 @@ export abstract class Metric {
      */
     constructor(name: string, isTime?: boolean);
 
+    /** The name of the custom metric. */
+    name: string;
+
     /**
      * Add value.
      * @param value - Value to add.

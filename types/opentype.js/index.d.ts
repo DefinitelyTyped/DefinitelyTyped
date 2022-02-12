@@ -292,6 +292,8 @@ export interface RenderOptions {
     kerning?: boolean | undefined;
     xScale?: number | undefined;
     yScale?: number | undefined;
+    letterSpacing?: number | undefined;
+    tracking?: number | undefined;
     features?: {
         [key: string]: boolean;
     } | undefined;

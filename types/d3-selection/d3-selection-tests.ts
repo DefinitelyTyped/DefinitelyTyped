@@ -1273,8 +1273,8 @@ const groups = svgEl.selectAll<SVGGElement, {}>('g')
         .text(d => d.text)
         .attr('dy', '0.32em');
 
-declare const mockTransition: <GElement extends d3Selection.BaseType, Datum, PElement extends d3Selection.BaseType, PDatum>(
-    selection: d3Selection.Selection<GElement, Datum, PElement, PDatum>
+declare const mockTransition: <GElement extends d3Selection.BaseType, Datum>(
+    selection: d3Selection.Selection<GElement, Datum, HTMLElement, unknown>
 ) => d3Selection.TransitionLike<GElement, Datum>;
 
 d3Selection

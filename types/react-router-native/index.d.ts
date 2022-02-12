@@ -47,6 +47,7 @@ export interface LinkProps {
 export class Link extends React.Component<LinkProps> {}
 
 export interface NativeRouterProps {
+  children?: React.ReactNode;
   getUserConfirmation?: Function | undefined;
   keyLength?: number | undefined;
   initialEntries?: string[] | undefined;

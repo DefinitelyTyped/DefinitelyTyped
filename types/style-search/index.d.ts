@@ -32,6 +32,8 @@ declare namespace styleSearch {
         readonly insideComment: boolean;
         /** whether the match is inside a string */
         readonly insideString: boolean;
+        /** whether the match is inside parenthesis */
+        readonly insideParens: boolean;
     }
     /**
      * Syntax feature options all accept three keywords:"skip", "check", "only".
@@ -53,31 +55,31 @@ declare namespace styleSearch {
          * If true, the search will stop after one match is found.
          * @default false
          */
-        once?: boolean | undefined;
+        once?: boolean;
         /**
          * This includes both standard `/* CSS comments *\/`
          * and non-standard but widely used `// single line comments`.
          * @default 'skip'
          */
-        comments?: SyntaxFeatureOption | undefined;
+        comments?: SyntaxFeatureOption;
         /**
          * @default 'skip'
          */
-        strings?: SyntaxFeatureOption | undefined;
+        strings?: SyntaxFeatureOption;
         /**
          * @default 'skip'
          */
-        functionNames?: SyntaxFeatureOption | undefined;
+        functionNames?: SyntaxFeatureOption;
         /**
          * @default 'check'
          */
-        functionArguments?: SyntaxFeatureOption | undefined;
+        functionArguments?: SyntaxFeatureOption;
         /**
          * This designates anything inside parentheses, which includes standard functions,but also Sass maps and other non-standard constructs.
          * `parentheticals` is a broader category than `functionArguments`
          * @default 'check'
          */
-        parentheticals?: SyntaxFeatureOption | undefined;
+        parentheticals?: SyntaxFeatureOption;
     }
 }
 

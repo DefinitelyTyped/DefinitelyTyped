@@ -3,7 +3,7 @@
 // Definitions by: Khairul Azhar Kasmiran <https://github.com/kazarmy>
 //                 Seth Westphal <https://github.com/westy92>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.8
+// Minimum TypeScript Version: 3.9
 
 import type ProtocolProxyApi from 'devtools-protocol/types/protocol-proxy-api';
 import type ProtocolMappingApi from 'devtools-protocol/types/protocol-mapping';
@@ -45,6 +45,18 @@ declare namespace CDP {
         sessionId?: string | undefined;
     }
 
+    interface SendError {
+        code: number;
+        message: string;
+        data?: string | undefined;
+    }
+
+    interface SendCallback<T extends keyof ProtocolMappingApi.Commands> {
+        (error: true, response: SendError): void;
+        (error: false, response: ProtocolMappingApi.Commands[T]['returnType']): void;
+        (error: Error, response: undefined): void;
+    }
+
     interface Target {
         description: string;
         devtoolsFrontendUrl: string;
@@ -65,9 +77,9 @@ declare namespace CDP {
     }
 
     /////////////////////////////////////////////////
-    // Generated from https://app.quicktype.io/,
-    // TypeEnum simplified.
-    // Source: https://github.com/cyrus-and/chrome-remote-interface/blob/v0.30.1/lib/protocol.json
+    // Generated with https://app.quicktype.io/, Name: Protocol, Language: TypeScript, Interfaces only.
+    // Manually done: TypeEnum simplified, add " | undefined" for optional properties.
+    // Source: https://github.com/ChromeDevTools/devtools-protocol/blob/master/json/ (merge JSON objects)
     /////////////////////////////////////////////////
     interface Protocol {
         version: Version;
@@ -149,6 +161,12 @@ declare namespace CDP {
         on<T extends keyof ProtocolMappingApi.Events>(event: T, callback: (params: ProtocolMappingApi.Events[T][0], sessionId?: string) => void): void;
         // '<domain>.<method>.<sessionId>' i.e. Network.requestWillBeSent.abc123
         on(event: string, callback: (params: object, sessionId?: string) => void): void;
+        // client.send(method, [params], [sessionId], [callback])
+        send<T extends keyof ProtocolMappingApi.Commands>(event: T, callback: SendCallback<T>): void;
+        send<T extends keyof ProtocolMappingApi.Commands>(event: T, params: ProtocolMappingApi.Commands[T]['paramsType'][0], callback: SendCallback<T>): void;
+        send<T extends keyof ProtocolMappingApi.Commands>(event: T, params: ProtocolMappingApi.Commands[T]['paramsType'][0], sessionId: string, callback: SendCallback<T>): void;
+        send<T extends keyof ProtocolMappingApi.Commands>(event: T, params?: ProtocolMappingApi.Commands[T]['paramsType'][0], sessionId?: string):
+            Promise<ProtocolMappingApi.Commands[T]['returnType']>;
 
         // stable domains
         Browser: ProtocolProxyApi.BrowserApi;
@@ -166,36 +184,69 @@ declare namespace CDP {
         Runtime: ProtocolProxyApi.RuntimeApi;
         Security: ProtocolProxyApi.SecurityApi;
         Target: ProtocolProxyApi.TargetApi;
-        // unstable domains
+
+        // deprecated domains
+        /** @deprecated This domain is deprecated - use Runtime or Log instead. */
         Console: ProtocolProxyApi.ConsoleApi;
+        /** @deprecated This domain is deprecated. */
         Schema: ProtocolProxyApi.SchemaApi;
+
+        // experimental domains
+        /** @deprecated this API is experimental. */
         Accessibility: ProtocolProxyApi.AccessibilityApi;
+        /** @deprecated this API is experimental. */
         Animation: ProtocolProxyApi.AnimationApi;
+        /** @deprecated this API is experimental. */
         ApplicationCache: ProtocolProxyApi.ApplicationCacheApi;
+        /** @deprecated this API is experimental. */
         Audits: ProtocolProxyApi.AuditsApi;
+        /** @deprecated this API is experimental. */
         BackgroundService: ProtocolProxyApi.BackgroundServiceApi;
+        /** @deprecated this API is experimental. */
         CacheStorage: ProtocolProxyApi.CacheStorageApi;
+        /** @deprecated this API is experimental. */
         Cast: ProtocolProxyApi.CastApi;
+        /** @deprecated this API is experimental. */
         CSS: ProtocolProxyApi.CSSApi;
+        /** @deprecated this API is experimental. */
         Database: ProtocolProxyApi.DatabaseApi;
+        /** @deprecated this API is experimental. */
         DeviceOrientation: ProtocolProxyApi.DeviceOrientationApi;
+        /** @deprecated this API is experimental. */
         DOMSnapshot: ProtocolProxyApi.DOMSnapshotApi;
+        /** @deprecated this API is experimental. */
         DOMStorage: ProtocolProxyApi.DOMStorageApi;
+        /** @deprecated this API is experimental. */
         Fetch: ProtocolProxyApi.FetchApi;
+        /** @deprecated this API is experimental. */
         HeadlessExperimental: ProtocolProxyApi.HeadlessExperimentalApi;
+        /** @deprecated this API is experimental. */
         HeapProfiler: ProtocolProxyApi.HeapProfilerApi;
+        /** @deprecated this API is experimental. */
         IndexedDB: ProtocolProxyApi.IndexedDBApi;
+        /** @deprecated this API is experimental. */
         Inspector: ProtocolProxyApi.InspectorApi;
+        /** @deprecated this API is experimental. */
         LayerTree: ProtocolProxyApi.LayerTreeApi;
+        /** @deprecated this API is experimental. */
         Media: ProtocolProxyApi.MediaApi;
+        /** @deprecated this API is experimental. */
         Memory: ProtocolProxyApi.MemoryApi;
+        /** @deprecated this API is experimental. */
         Overlay: ProtocolProxyApi.OverlayApi;
+        /** @deprecated this API is experimental. */
         ServiceWorker: ProtocolProxyApi.ServiceWorkerApi;
+        /** @deprecated this API is experimental. */
         Storage: ProtocolProxyApi.StorageApi;
+        /** @deprecated this API is experimental. */
         SystemInfo: ProtocolProxyApi.SystemInfoApi;
+        /** @deprecated this API is experimental. */
         Tethering: ProtocolProxyApi.TetheringApi;
+        /** @deprecated this API is experimental. */
         Tracing: ProtocolProxyApi.TracingApi;
+        /** @deprecated this API is experimental. */
         WebAudio: ProtocolProxyApi.WebAudioApi;
+        /** @deprecated this API is experimental. */
         WebAuthn: ProtocolProxyApi.WebAuthnApi;
     } & EventPromises<ProtocolMappingApi.Events> & EventCallbacks<ProtocolMappingApi.Events>;
 

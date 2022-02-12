@@ -39,7 +39,9 @@ const gateway: BraintreeGateway = new braintree.BraintreeGateway({
     };
     const response = await gateway.address.create(addressRequest).catch(console.error);
     if (!response) return;
-    const { id, customerId }: Address = response.address;
+    const { id, customerId, createdAt }: Address = response.address;
+    // Assert type string
+    createdAt.toUpperCase();
 })();
 
 (async () => {
@@ -49,13 +51,17 @@ const gateway: BraintreeGateway = new braintree.BraintreeGateway({
     };
     const response = await gateway.creditCard.update('abcdef', creditCardRequest).catch(console.error);
     if (!response) return;
-    const { bin, maskedNumber, last4 }: CreditCard = response.creditCard;
+    const { bin, maskedNumber, last4, createdAt }: CreditCard = response.creditCard;
+    // Assert type string
+    createdAt.toUpperCase();
 })();
 
 (async () => {
     const response = await gateway.customer.find('abcdef').catch(console.error);
     if (!response) return;
-    const { id, paymentMethods }: Customer = response;
+    const { id, paymentMethods, createdAt }: Customer = response;
+    // Assert type string
+    createdAt.toUpperCase();
 })();
 
 (async () => {

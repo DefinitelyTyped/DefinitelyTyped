@@ -7,3 +7,9 @@ export default class DeleteCommand extends Command {
     readonly buffer: ChangeBuffer;
     execute(options?: { unit?: "character"; sequence?: number }): void;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/commandcollection' {
+    interface Commands {
+        DeleteCommand: DeleteCommand;
+    }
+}

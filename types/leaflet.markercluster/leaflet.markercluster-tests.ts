@@ -21,7 +21,7 @@ markerClusterGroupOptions = {
     iconCreateFunction: (cluster: L.MarkerCluster) => {
         const childMarkers: L.Marker[] = cluster.getAllChildMarkers();
         const childCount: number = cluster.getChildCount();
-        cluster.zoomToBounds({padding: [1, 2]});
+        cluster.zoomToBounds({ padding: [1, 2] });
         const bounds: L.LatLngBounds = cluster.getBounds();
         return icon;
     },
@@ -119,3 +119,8 @@ s1.refreshClusters();
 s2.refreshClusters();
 s3.getAllChildMarkers();
 s4.getAllChildMarkers();
+
+if (marker instanceof L.MarkerCluster) {
+    marker.spiderfy();
+    marker.unspiderfy();
+}

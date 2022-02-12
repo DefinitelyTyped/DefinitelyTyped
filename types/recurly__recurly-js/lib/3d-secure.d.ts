@@ -16,7 +16,7 @@ export type RiskOptions = {
    *
    * @see {@link https://developers.recurly.com/reference/recurly-js/index.html#fn-recurlythreedsecure|ThreeDSecure}
    */
-  actionTokenId?: string | undefined;
+  actionTokenId?: string;
 };
 
 export type ThreeDSecure = (riskOptions: RiskOptions) => ThreeDSecureEmitter;

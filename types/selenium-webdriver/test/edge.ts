@@ -18,6 +18,7 @@ function TestEdgeOptions() {
     options = options.excludeSwitches('a', 'b', 'c');
     options = options.detachDriver(true);
     options = options.setChromeBinaryPath('path');
+    options = options.setEdgeChromiumBinaryPath('path');
     options = options.setEdgeLogFile('logfile');
     options = options.setLocalState('state');
     options = options.androidActivity('com.example.Activity');

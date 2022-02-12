@@ -9,6 +9,7 @@ import { Writable, Readable, Pipe } from 'stream';
     childProcess.exec("echo test");
     childProcess.exec("echo test", { windowsHide: true });
     childProcess.spawn("echo");
+    childProcess.spawn("echo", { serialization: 'json' });
     childProcess.spawn("echo", { windowsHide: true });
     childProcess.spawn("echo", ["test"], { windowsHide: true });
     childProcess.spawn("echo", ["test"], { windowsHide: true, argv0: "echo-test" });
@@ -18,6 +19,9 @@ import { Writable, Readable, Pipe } from 'stream';
     childProcess.spawnSync("echo test", {windowsVerbatimArguments: false, argv0: "echo-test"});
     childProcess.spawnSync("echo test", {input: new Uint8Array([])});
     childProcess.spawnSync("echo test", {input: new DataView(new ArrayBuffer(1))});
+
+    childProcess.spawnSync("echo test", { encoding: 'utf-8' }).output; // $ExpectType (string | null)[]
+    childProcess.spawnSync("echo test", { encoding: 'buffer' }).output; // $ExpectType (Buffer | null)[]
 }
 
 {
@@ -40,6 +44,7 @@ import { Writable, Readable, Pipe } from 'stream';
 {
     const forked = childProcess.fork('./', ['asd'] as ReadonlyArray<string>, {
         windowsVerbatimArguments: true,
+        serialization: 'advanced',
         silent: false,
         stdio: "inherit",
         execPath: '',

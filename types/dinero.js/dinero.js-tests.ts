@@ -60,6 +60,7 @@ dinero = dinero.multiply(2.00125, 'HALF_UP');
 dinero = dinero.divide(2);
 dinero = dinero.divide(2, 'HALF_UP');
 dinero = dinero.percentage(50);
+dinero = dinero.percentage(50, 'HALF_UP');
 dineroArr = dinero.allocate([50, 50]);
 dinero.convert('EUR').then(d => (dinero = d));
 dinero.convert('XBT', {

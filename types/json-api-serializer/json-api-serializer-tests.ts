@@ -146,6 +146,16 @@ const jsonDocument = {
           type: 'comment',
           id: '2'
         }]
+      },
+      photos: {
+        meta: {
+          counts: 10
+        }
+      },
+      tags: {
+        links: {
+          related: "/articles/1/tags"
+        }
       }
     }
   }

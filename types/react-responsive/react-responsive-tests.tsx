@@ -43,7 +43,7 @@ class QueryTests extends React.Component {
     }
 }
 
-const ChildrenPropTest: React.SFC = ({ children }) => <MediaQuery minWidth={992} children={children} />;
+const ChildrenPropTest: React.FC<React.PropsWithChildren<{}>> = ({ children }) => <MediaQuery minWidth={992} children={children} />;
 
 class PropsTests extends React.Component {
     render() {

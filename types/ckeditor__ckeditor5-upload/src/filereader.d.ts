@@ -7,7 +7,7 @@ export default class FileRead implements Observable {
     read(file: File): Promise<string>;
     abort(): void;
 
-    set(option: Record<string, string>): void;
+    set(option: Record<string, unknown>): void;
     set(name: string, value: unknown): void;
     bind(...bindProperties: string[]): BindChain;
     unbind(...unbindProperties: string[]): void;

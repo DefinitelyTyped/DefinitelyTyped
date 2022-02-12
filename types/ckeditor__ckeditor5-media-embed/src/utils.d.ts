@@ -1,5 +1,4 @@
-import { DowncastWriter, Element, Model } from '@ckeditor/ckeditor5-engine';
-import Position from '@ckeditor/ckeditor5-engine/src/model/position';
+import { DowncastWriter, Element, Model, Range } from '@ckeditor/ckeditor5-engine';
 import Selection from '@ckeditor/ckeditor5-engine/src/model/selection';
 import ContainerElement from '@ckeditor/ckeditor5-engine/src/view/containerelement';
 import DocumentSelection from '@ckeditor/ckeditor5-engine/src/view/documentselection';
@@ -17,9 +16,13 @@ export function createMediaFigureElement(
     writer: DowncastWriter,
     registry: MediaRegistry,
     url: string,
-    options?: { elementName?: string | undefined; useSemanticWrapper?: boolean | undefined; renderForEditingView?: boolean | undefined },
+    options?: {
+        elementName?: string | undefined;
+        useSemanticWrapper?: boolean | undefined;
+        renderForEditingView?: boolean | undefined;
+    },
 ): ContainerElement;
 
 export function getSelectedMediaModelWidget(selection: Selection): Element;
 
-export function insertMedia(model: Model, url: string, insertPosition: Position): void;
+export function insertMedia(model: Model, url: string, insertRange?: Range): void;

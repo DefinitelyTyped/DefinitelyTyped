@@ -1,6 +1,8 @@
 import { BlockInstance } from '@wordpress/blocks';
 import * as be from '@wordpress/block-editor';
+import * as UseBlockProps from '@wordpress/block-editor/components/use-block-props';
 import { dispatch, select } from '@wordpress/data';
+import { useRef } from 'react';
 
 declare const BLOCK_INSTANCE: BlockInstance;
 
@@ -118,8 +120,8 @@ const STYLES = [{ css: '.foo { color: red; }' }, { css: '.bar { color: blue; }',
 //
 // button-block-appender
 //
-<be.ButtonBlockerAppender rootClientId="foo" />;
-<be.ButtonBlockerAppender rootClientId="foo" className="bar" />;
+<be.ButtonBlockAppender rootClientId="foo" />;
+<be.ButtonBlockAppender rootClientId="foo" className="bar" />;
 
 //
 // color-palette/with-color-context
@@ -199,7 +201,7 @@ be.withFontSizes('fontSize')(() => <h1>Hello World</h1>);
 // inner-blocks
 //
 <be.InnerBlocks />;
-<be.InnerBlocks renderAppender={be.InnerBlocks.ButtonBlockerAppender} />;
+<be.InnerBlocks renderAppender={be.InnerBlocks.ButtonBlockAppender} />;
 <be.InnerBlocks.Content />;
 <be.InnerBlocks.DefaultBlockAppender />;
 
@@ -534,3 +536,26 @@ select('core/block-editor').getAdjacentBlockClientId();
 select('core/block-editor').getAdjacentBlockClientId('foo');
 select('core/block-editor').getAdjacentBlockClientId('foo', -1);
 select('core/block-editor').getAdjacentBlockClientId('foo', 1);
+
+{
+  const blockProps: UseBlockProps.Merged & UseBlockProps.Reserved = be.useBlockProps();
+  blockProps;
+}
+
+{
+  const blockProps = be.useBlockProps({ foo: "bar" });
+  // $ExpectType string
+  blockProps.foo;
+}
+
+{
+  const blockProps = be.useBlockProps({ ref: useRef("test") });
+  // $ExpectType (instance: unknown) => void
+  blockProps.ref;
+}
+
+// $ExpectType Record<string, unknown>
+be.useBlockProps.save();
+
+// $ExpectType Record<string, unknown>
+be.useBlockProps.save({ foo: "bar" });

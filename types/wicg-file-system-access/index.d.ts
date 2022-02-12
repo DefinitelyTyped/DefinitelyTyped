@@ -2,14 +2,13 @@
 // Project: https://github.com/WICG/file-system-access
 // Definitions by: Ingvar Stepanyan <https://github.com/RReverser>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.5
+// Minimum TypeScript Version: 4.6
 
 export {};
 
-declare class BaseFileSystemHandle {
-    protected constructor();
-
-    readonly kind: FileSystemHandleKind;
+declare global {
+interface FileSystemHandle {
+    readonly kind: 'file' | 'directory';
     readonly name: string;
 
     isSameEntry(other: FileSystemHandle): Promise<boolean>;
@@ -19,15 +18,19 @@ declare class BaseFileSystemHandle {
     /**
      * @deprecated Old property just for Chromium <=85. Use `kind` property in the new API.
      */
-    readonly isFile: this['kind'] extends 'file' ? true : false;
+    readonly isFile: boolean;
 
     /**
      * @deprecated Old property just for Chromium <=85. Use `kind` property in the new API.
      */
-    readonly isDirectory: this['kind'] extends 'directory' ? true : false;
+    readonly isDirectory: boolean;
 }
+var FileSystemHandle: {
+    prototype: FileSystemHandle;
+    new(): FileSystemHandle;
+};
+type FileSystemHandleUnion = FileSystemFileHandle | FileSystemDirectoryHandle;
 
-declare global {
 interface FilePickerAcceptType {
     description?: string | undefined;
     accept: Record<string, string | string[]>;
@@ -42,8 +45,9 @@ interface OpenFilePickerOptions extends FilePickerOptions {
     multiple?: boolean | undefined;
 }
 
-// tslint:disable-next-line:no-empty-interface
-interface SaveFilePickerOptions extends FilePickerOptions {}
+interface SaveFilePickerOptions extends FilePickerOptions {
+    suggestedName?: string;
+}
 
 // tslint:disable-next-line:no-empty-interface
 interface DirectoryPickerOptions {}
@@ -58,8 +62,6 @@ interface FileSystemPermissionDescriptor extends PermissionDescriptor {
 interface FileSystemHandlePermissionDescriptor {
     mode?: FileSystemPermissionMode | undefined;
 }
-
-type FileSystemHandleKind = 'file' | 'directory';
 
 interface FileSystemCreateWritableOptions {
     keepExistingData?: boolean | undefined;
@@ -96,34 +98,49 @@ class FileSystemWritableFileStream extends WritableStream {
     truncate(size: number): Promise<void>;
 }
 
-const FileSystemHandle: typeof BaseFileSystemHandle;
-type FileSystemHandle = FileSystemFileHandle | FileSystemDirectoryHandle;
-
-class FileSystemFileHandle extends FileSystemHandle {
+interface FileSystemFileHandle extends FileSystemHandle {
     readonly kind: 'file';
-
     getFile(): Promise<File>;
     createWritable(options?: FileSystemCreateWritableOptions): Promise<FileSystemWritableFileStream>;
+    /**
+     * @deprecated Old property just for Chromium <=85. Use `kind` property in the new API.
+     */
+    readonly isFile: true;
+    /**
+     * @deprecated Old property just for Chromium <=85. Use `kind` property in the new API.
+     */
+    readonly isDirectory: false;
 }
 
-class FileSystemDirectoryHandle extends BaseFileSystemHandle {
-    readonly kind: 'directory';
+var FileSystemFileHandle: {
+    prototype: FileSystemFileHandle;
+    new(): FileSystemFileHandle;
+};
 
-    getFileHandle(name: string, options?: FileSystemGetFileOptions): Promise<FileSystemFileHandle>;
+interface FileSystemDirectoryHandle extends FileSystemHandle {
+    readonly kind: 'directory';
     getDirectoryHandle(name: string, options?: FileSystemGetDirectoryOptions): Promise<FileSystemDirectoryHandle>;
+    getFileHandle(name: string, options?: FileSystemGetFileOptions): Promise<FileSystemFileHandle>;
     removeEntry(name: string, options?: FileSystemRemoveOptions): Promise<void>;
     resolve(possibleDescendant: FileSystemHandle): Promise<string[] | null>;
-
     keys(): AsyncIterableIterator<string>;
-    values(): AsyncIterableIterator<FileSystemHandle>;
-    entries(): AsyncIterableIterator<[string, FileSystemHandle]>;
+    values(): AsyncIterableIterator<FileSystemDirectoryHandle | FileSystemFileHandle>;
+    entries(): AsyncIterableIterator<[string, FileSystemDirectoryHandle | FileSystemFileHandle]>;
     [Symbol.asyncIterator]: FileSystemDirectoryHandle['entries'];
-
     /**
-     * @deprecated Old method just for Chromium <=85. Use `navigator.storage.getDirectory()` in the new API.
+     * @deprecated Old property just for Chromium <=85. Use `kind` property in the new API.
      */
-    static getSystemDirectory(options: GetSystemDirectoryOptions): Promise<FileSystemDirectoryHandle>;
+    readonly isFile: false;
+    /**
+     * @deprecated Old property just for Chromium <=85. Use `kind` property in the new API.
+     */
+    readonly isDirectory: true;
 }
+
+var FileSystemDirectoryHandle: {
+    prototype: FileSystemDirectoryHandle;
+    new(): FileSystemDirectoryHandle;
+};
 
 interface DataTransferItem {
     getAsFileSystemHandle(): Promise<FileSystemHandle | null>;

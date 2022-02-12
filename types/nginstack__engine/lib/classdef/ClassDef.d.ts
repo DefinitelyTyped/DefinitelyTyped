@@ -7,7 +7,7 @@ declare class ClassDef {
     classKey: number | null;
     key: number | null;
     private init;
-    __proto__: ClassDef;
+    private __proto__;
     private evalSource;
 }
 import Logger = require('../log/Logger.js');

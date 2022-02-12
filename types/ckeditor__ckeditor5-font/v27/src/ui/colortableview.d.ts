@@ -1,6 +1,6 @@
 import { Model } from '@ckeditor/ckeditor5-engine';
-import { View, ViewCollection } from '@ckeditor/ckeditor5-ui';
-import ColorGridView, { ColorDefinition } from '@ckeditor/ckeditor5-ui/src/colorgrid/colorgrid';
+import { ColorGridView, View, ViewCollection } from '@ckeditor/ckeditor5-ui';
+import { ColorDefinition } from '@ckeditor/ckeditor5-ui/src/colorgrid/colorgridview';
 import { FocusTracker, KeystrokeHandler, Locale } from '@ckeditor/ckeditor5-utils';
 import DocumentColorCollection from '../documentcolorcollection';
 

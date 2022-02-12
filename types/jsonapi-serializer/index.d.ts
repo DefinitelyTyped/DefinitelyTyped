@@ -32,6 +32,7 @@ export interface SerializerOptions {
     typeForAttribute?: TypeForAttribute | undefined;
     meta?: object | undefined;
     transform?: Transform | undefined;
+    [key: string]: any;
 }
 
 export interface KeyForAttribute {

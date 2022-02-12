@@ -35,6 +35,11 @@ declare namespace decomment {
          * @defualt false - do not trim comments
          */
         trim?: boolean | undefined;
+        /**
+         * pass `tolerant` flag to [esprima] parser (the parser _may_ choose to continue parsing and produce a syntax tree).
+         * @default false - performs strict parsing.
+         */
+        tolerant?: boolean | undefined;
     }
 
     /**

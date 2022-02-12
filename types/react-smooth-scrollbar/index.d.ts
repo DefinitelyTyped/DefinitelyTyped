@@ -10,6 +10,7 @@ import { ScrollbarOptions, ScrollStatus } from "smooth-scrollbar/interfaces";
 
 declare namespace Scrollbar {
     interface ScrollbarProps extends Partial<ScrollbarOptions> {
+        children?: React.ReactNode;
         /**
          * Pipe to scrollbar.addListener()
          */

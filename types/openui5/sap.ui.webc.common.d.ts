@@ -1,4 +1,4 @@
-// For Library Version: 1.92.0
+// For Library Version: 1.95.0
 
 declare module "sap/ui/webc/common/library" {}
 

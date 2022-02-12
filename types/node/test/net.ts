@@ -3,11 +3,13 @@ import { LookupOneOptions } from 'node:dns';
 import { Socket } from 'node:dgram';
 
 {
+    const abort = new AbortController();
     const connectOpts: net.NetConnectOpts = {
         allowHalfOpen: true,
         family: 4,
         host: "localhost",
         port: 443,
+        signal: abort.signal,
         timeout: 10E3
     };
     const socket: net.Socket = net.createConnection(connectOpts, (): void => {
@@ -116,6 +118,7 @@ import { Socket } from 'node:dgram';
 
         str = host;
     });
+    _socket = _socket.addListener("ready", () => { });
     _socket = _socket.addListener("timeout", () => { });
 
     /// emit
@@ -127,6 +130,7 @@ import { Socket } from 'node:dgram';
     bool = _socket.emit("error", error);
     bool = _socket.emit("lookup", error, str, str, str);
     bool = _socket.emit("lookup", error, str, num, str);
+    bool = _socket.emit("ready");
     bool = _socket.emit("timeout");
 
     /// on
@@ -153,6 +157,7 @@ import { Socket } from 'node:dgram';
 
         str = host;
     });
+    _socket = _socket.on("ready", () => { });
     _socket = _socket.on("timeout", () => { });
 
     /// once
@@ -179,6 +184,7 @@ import { Socket } from 'node:dgram';
 
         str = host;
     });
+    _socket = _socket.once("ready", () => { });
     _socket = _socket.once("timeout", () => { });
 
     /// prependListener
@@ -205,6 +211,7 @@ import { Socket } from 'node:dgram';
 
         str = host;
     });
+    _socket = _socket.prependListener("ready", () => { });
     _socket = _socket.prependListener("timeout", () => { });
 
     /// prependOnceListener
@@ -231,11 +238,12 @@ import { Socket } from 'node:dgram';
 
         str = host;
     });
+    _socket = _socket.prependOnceListener("ready", () => { });
     _socket = _socket.prependOnceListener("timeout", () => { });
 
     bool = _socket.connecting;
     bool = _socket.destroyed;
-    _socket.destroy();
+    _socket.destroy().destroy();
 }
 
 {

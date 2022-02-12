@@ -83,7 +83,7 @@ declare namespace React {
 
     type JSXElementConstructor<P> =
         | ((props: P) => ReactElement<any, any> | null)
-        | (new (props: P) => Component<P, any>);
+        | (new (props: P) => Component<any, any>);
 
     interface RefObject<T> {
         readonly current: T | null;
@@ -232,8 +232,11 @@ declare namespace React {
     type ReactText = string | number;
     type ReactChild = ReactElement | ReactText;
 
-    interface ReactNodeArray extends Array<ReactNode> {}
-    type ReactFragment = {} | ReactNodeArray;
+    /**
+     * @deprecated Use either `ReactNode[]` if you need an array or `Iterable<ReactNode>` if its passed to a host component.
+     */
+    interface ReactNodeArray extends ReadonlyArray<ReactNode> {}
+    type ReactFragment = {} | Iterable<ReactNode>;
     type ReactNode = ReactChild | ReactFragment | ReactPortal | boolean | null | undefined;
 
     //
@@ -348,7 +351,7 @@ declare namespace React {
     // However, we have no way of telling the JSX parser that it's a JSX element type or its props other than
     // by pretending to be a normal component.
     //
-    // We don't just use ComponentType or SFC types because you are not supposed to attach statics to this
+    // We don't just use ComponentType or FunctionComponent types because you are not supposed to attach statics to this
     // object, but rather to the original function.
     interface ExoticComponent<P = {}> {
         /**
@@ -392,9 +395,12 @@ declare namespace React {
     interface SuspenseProps {
         children?: ReactNode | undefined;
 
+        // TODO(react18): `fallback?: ReactNode;`
         /** A fallback react tree to show when a Suspense child (like React.lazy) suspends */
         fallback: NonNullable<ReactNode>|null;
     }
+
+    // TODO(react18): Updated JSDoc to reflect that Suspense works on the server.
     /**
      * This feature is not yet available for server-side rendering.
      * Suspense support will be added in a later release.
@@ -805,11 +811,10 @@ declare namespace React {
 
     /** Ensures that the props do not include ref at all */
     type PropsWithoutRef<P> =
-        // Just Pick would be sufficient for this, but I'm trying to avoid unnecessary mapping over union types
+        // Pick would not be sufficient for this. We'd like to avoid unnecessary mapping and need a distributive conditional to support unions.
+        // see: https://www.typescriptlang.org/docs/handbook/2/conditional-types.html#distributive-conditional-types
         // https://github.com/Microsoft/TypeScript/issues/28339
-        'ref' extends keyof P
-            ? Pick<P, Exclude<keyof P, 'ref'>>
-            : P;
+        P extends any ? ('ref' extends keyof P ? Pick<P, Exclude<keyof P, 'ref'>> : P) : P;
     /** Ensures that the props do not include string ref, which cannot be forwarded */
     type PropsWithRef<P> =
         // Just "P extends { ref?: infer R }" looks sufficient, but R will infer as {} if P is {}.
@@ -834,11 +839,19 @@ declare namespace React {
                 ? JSX.IntrinsicElements[T]
                 : {};
     type ComponentPropsWithRef<T extends ElementType> =
-        T extends ComponentClass<infer P>
+        T extends (new (props: infer P) => Component<any, any>)
             ? PropsWithoutRef<P> & RefAttributes<InstanceType<T>>
             : PropsWithRef<ComponentProps<T>>;
     type ComponentPropsWithoutRef<T extends ElementType> =
         PropsWithoutRef<ComponentProps<T>>;
+
+    type ComponentRef<T extends ElementType> = T extends NamedExoticComponent<
+        ComponentPropsWithoutRef<T> & RefAttributes<infer Method>
+    >
+        ? Method
+        : ComponentPropsWithRef<T> extends RefAttributes<infer Method>
+            ? Method
+            : never;
 
     // will show `Memo(${Component.displayName || Component.name})` in devtools by default,
     // but can be given its own specific name
@@ -847,7 +860,7 @@ declare namespace React {
     };
 
     function memo<P extends object>(
-        Component: SFC<P>,
+        Component: FunctionComponent<P>,
         propsAreEqual?: (prevProps: Readonly<PropsWithChildren<P>>, nextProps: Readonly<PropsWithChildren<P>>) => boolean
     ): NamedExoticComponent<P>;
     function memo<T extends ComponentType<any>>(
@@ -1100,18 +1113,6 @@ declare namespace React {
     /**
      * `useMemo` will only recompute the memoized value when one of the `deps` has changed.
      *
-     * Usage note: if calling `useMemo` with a referentially stable function, also give it as the input in
-     * the second argument.
-     *
-     * ```ts
-     * function expensive () { ... }
-     *
-     * function Component () {
-     *   const expensiveResult = useMemo(expensive, [expensive])
-     *   return ...
-     * }
-     * ```
-     *
      * @version 16.8.0
      * @see https://reactjs.org/docs/hooks-reference.html#usememo
      */
@@ -1186,9 +1187,9 @@ declare namespace React {
         isPrimary: boolean;
     }
 
-    interface FocusEvent<T = Element> extends SyntheticEvent<T, NativeFocusEvent> {
-        relatedTarget: EventTarget | null;
-        target: EventTarget & T;
+    interface FocusEvent<Target = Element, RelatedTarget = Element> extends SyntheticEvent<Target, NativeFocusEvent> {
+        relatedTarget: (EventTarget & RelatedTarget) | null;
+        target: EventTarget & Target;
     }
 
     interface FormEvent<T = Element> extends SyntheticEvent<T> {
@@ -1202,7 +1203,7 @@ declare namespace React {
         target: EventTarget & T;
     }
 
-    interface KeyboardEvent<T = Element> extends SyntheticEvent<T, NativeKeyboardEvent> {
+    interface KeyboardEvent<T = Element> extends UIEvent<T, NativeKeyboardEvent> {
         altKey: boolean;
         /** @deprecated */
         charCode: number;
@@ -1555,14 +1556,14 @@ declare namespace React {
         /** Identifies the currently active element when DOM focus is on a composite widget, textbox, group, or application. */
         'aria-activedescendant'?: string | undefined;
         /** Indicates whether assistive technologies will present all, or only parts of, the changed region based on the change notifications defined by the aria-relevant attribute. */
-        'aria-atomic'?: boolean | 'false' | 'true' | undefined;
+        'aria-atomic'?: Booleanish | undefined;
         /**
          * Indicates whether inputting text could trigger display of one or more predictions of the user's intended value for an input and specifies how predictions would be
          * presented if they are made.
          */
         'aria-autocomplete'?: 'none' | 'inline' | 'list' | 'both' | undefined;
         /** Indicates an element is being modified and that assistive technologies MAY want to wait until the modifications are complete before exposing them to the user. */
-        'aria-busy'?: boolean | 'false' | 'true' | undefined;
+        'aria-busy'?: Booleanish | undefined;
         /**
          * Indicates the current "checked" state of checkboxes, radio buttons, and other widgets.
          * @see aria-pressed @see aria-selected.
@@ -1604,7 +1605,7 @@ declare namespace React {
          * Indicates that the element is perceivable but disabled, so it is not editable or otherwise operable.
          * @see aria-hidden @see aria-readonly.
          */
-        'aria-disabled'?: boolean | 'false' | 'true' | undefined;
+        'aria-disabled'?: Booleanish | undefined;
         /**
          * Indicates what functions can be performed when a dragged object is released on the drop target.
          * @deprecated in ARIA 1.1
@@ -1616,7 +1617,7 @@ declare namespace React {
          */
         'aria-errormessage'?: string | undefined;
         /** Indicates whether the element, or another grouping element it controls, is currently expanded or collapsed. */
-        'aria-expanded'?: boolean | 'false' | 'true' | undefined;
+        'aria-expanded'?: Booleanish | undefined;
         /**
          * Identifies the next element (or elements) in an alternate reading order of content which, at the user's discretion,
          * allows assistive technology to override the general default of reading in document source order.
@@ -1626,14 +1627,14 @@ declare namespace React {
          * Indicates an element's "grabbed" state in a drag-and-drop operation.
          * @deprecated in ARIA 1.1
          */
-        'aria-grabbed'?: boolean | 'false' | 'true' | undefined;
+        'aria-grabbed'?: Booleanish | undefined;
         /** Indicates the availability and type of interactive popup element, such as menu or dialog, that can be triggered by an element. */
         'aria-haspopup'?: boolean | 'false' | 'true' | 'menu' | 'listbox' | 'tree' | 'grid' | 'dialog' | undefined;
         /**
          * Indicates whether the element is exposed to an accessibility API.
          * @see aria-disabled.
          */
-        'aria-hidden'?: boolean | 'false' | 'true' | undefined;
+        'aria-hidden'?: Booleanish | undefined;
         /**
          * Indicates the entered value does not conform to the format expected by the application.
          * @see aria-errormessage.
@@ -1656,11 +1657,11 @@ declare namespace React {
         /** Indicates that an element will be updated, and describes the types of updates the user agents, assistive technologies, and user can expect from the live region. */
         'aria-live'?: 'off' | 'assertive' | 'polite' | undefined;
         /** Indicates whether an element is modal when displayed. */
-        'aria-modal'?: boolean | 'false' | 'true' | undefined;
+        'aria-modal'?: Booleanish | undefined;
         /** Indicates whether a text box accepts multiple lines of input or only a single line. */
-        'aria-multiline'?: boolean | 'false' | 'true' | undefined;
+        'aria-multiline'?: Booleanish | undefined;
         /** Indicates that the user may select more than one item from the current selectable descendants. */
-        'aria-multiselectable'?: boolean | 'false' | 'true' | undefined;
+        'aria-multiselectable'?: Booleanish | undefined;
         /** Indicates whether the element's orientation is horizontal, vertical, or unknown/ambiguous. */
         'aria-orientation'?: 'horizontal' | 'vertical' | undefined;
         /**
@@ -1688,14 +1689,14 @@ declare namespace React {
          * Indicates that the element is not editable, but is otherwise operable.
          * @see aria-disabled.
          */
-        'aria-readonly'?: boolean | 'false' | 'true' | undefined;
+        'aria-readonly'?: Booleanish | undefined;
         /**
          * Indicates what notifications the user agent will trigger when the accessibility tree within a live region is modified.
          * @see aria-atomic.
          */
         'aria-relevant'?: 'additions' | 'additions removals' | 'additions text' | 'all' | 'removals' | 'removals additions' | 'removals text' | 'text' | 'text additions' | 'text removals' | undefined;
         /** Indicates that user input is required on the element before a form may be submitted. */
-        'aria-required'?: boolean | 'false' | 'true' | undefined;
+        'aria-required'?: Booleanish | undefined;
         /** Defines a human-readable, author-localized description for the role of an element. */
         'aria-roledescription'?: string | undefined;
         /**
@@ -1717,7 +1718,7 @@ declare namespace React {
          * Indicates the current "selected" state of various widgets.
          * @see aria-checked @see aria-pressed.
          */
-        'aria-selected'?: boolean | 'false' | 'true' | undefined;
+        'aria-selected'?: Booleanish | undefined;
         /**
          * Defines the number of items in the current set of listitems or treeitems. Not required if all elements in the set are present in the DOM.
          * @see aria-posinset.
@@ -1892,7 +1893,7 @@ declare namespace React {
         autoComplete?: string | undefined;
         autoFocus?: boolean | undefined;
         autoPlay?: boolean | undefined;
-        capture?: boolean | string | undefined;
+        capture?: boolean | 'user' | 'environment' | undefined;
         cellPadding?: number | string | undefined;
         cellSpacing?: number | string | undefined;
         charSet?: string | undefined;
@@ -2159,12 +2160,37 @@ declare namespace React {
         dateTime?: string | undefined;
     }
 
+    type HTMLInputTypeAttribute =
+        | 'button'
+        | 'checkbox'
+        | 'color'
+        | 'date'
+        | 'datetime-local'
+        | 'email'
+        | 'file'
+        | 'hidden'
+        | 'image'
+        | 'month'
+        | 'number'
+        | 'password'
+        | 'radio'
+        | 'range'
+        | 'reset'
+        | 'search'
+        | 'submit'
+        | 'tel'
+        | 'text'
+        | 'time'
+        | 'url'
+        | 'week'
+        | (string & {});
+
     interface InputHTMLAttributes<T> extends HTMLAttributes<T> {
         accept?: string | undefined;
         alt?: string | undefined;
         autoComplete?: string | undefined;
         autoFocus?: boolean | undefined;
-        capture?: boolean | string | undefined; // https://www.w3.org/TR/html-media-capture/#the-capture-attribute
+        capture?: boolean | 'user' | 'environment' | undefined; // https://www.w3.org/TR/html-media-capture/#the-capture-attribute
         checked?: boolean | undefined;
         crossOrigin?: string | undefined;
         disabled?: boolean | undefined;
@@ -2190,7 +2216,7 @@ declare namespace React {
         size?: number | undefined;
         src?: string | undefined;
         step?: number | string | undefined;
-        type?: string | undefined;
+        type?: HTMLInputTypeAttribute | undefined;
         value?: string | ReadonlyArray<string> | number | undefined;
         width?: number | string | undefined;
 
@@ -2223,6 +2249,7 @@ declare namespace React {
         hrefLang?: string | undefined;
         integrity?: string | undefined;
         media?: string | undefined;
+        imageSrcSet?: string | undefined;
         referrerPolicy?: HTMLAttributeReferrerPolicy | undefined;
         rel?: string | undefined;
         sizes?: string | undefined;
@@ -2256,6 +2283,7 @@ declare namespace React {
         content?: string | undefined;
         httpEquiv?: string | undefined;
         name?: string | undefined;
+        media?: string | undefined;
     }
 
     interface MeterHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -2350,11 +2378,13 @@ declare namespace React {
     }
 
     interface SourceHTMLAttributes<T> extends HTMLAttributes<T> {
+        height?: number | string | undefined;
         media?: string | undefined;
         sizes?: string | undefined;
         src?: string | undefined;
         srcSet?: string | undefined;
         type?: string | undefined;
+        width?: number | string | undefined;
     }
 
     interface StyleHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -2535,6 +2565,7 @@ declare namespace React {
         fontVariant?: number | string | undefined;
         fontWeight?: number | string | undefined;
         format?: number | string | undefined;
+        fr?: number | string | undefined;
         from?: number | string | undefined;
         fx?: number | string | undefined;
         fy?: number | string | undefined;

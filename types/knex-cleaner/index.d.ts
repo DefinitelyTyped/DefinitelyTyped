@@ -2,8 +2,8 @@
 // Project: https://github.com/steven-ferguson/knex-cleaner
 // Definitions by: Karol Goraus <https://github.com/Szarlus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-import * as Knex from 'knex';
+// TypeScript Version: 4.1
+import { Knex } from 'knex';
 
 export interface KnexCleanerOptions {
     /**

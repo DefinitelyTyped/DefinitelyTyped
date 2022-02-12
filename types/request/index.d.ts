@@ -25,7 +25,6 @@ import FormData = require('form-data');
 import net = require('net');
 import tough = require('tough-cookie');
 import { Url } from 'url';
-import { SecureContextOptions } from 'tls';
 
 declare namespace request {
     interface RequestAPI<TRequest extends Request, TOptions extends CoreOptions, TUriUrlOptions> {
@@ -250,9 +249,9 @@ declare namespace request {
 
         write(buffer: Buffer | string, cb?: (err?: Error) => void): boolean;
         write(str: string, encoding?: string, cb?: (err?: Error) => void): boolean;
-        end(cb?: () => void): void;
-        end(chunk: string | Buffer, cb?: () => void): void;
-        end(str: string, encoding?: string, cb?: () => void): void;
+        end(cb?: () => void): any;
+        end(chunk: string | Buffer, cb?: () => void): any;
+        end(str: string, encoding?: string, cb?: () => void): any;
 
         pause(): void;
         resume(): void;

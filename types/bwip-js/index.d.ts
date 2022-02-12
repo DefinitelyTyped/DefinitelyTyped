@@ -1,8 +1,8 @@
-// Type definitions for bwip-js  2.1.1
+// Type definitions for bwip-js  3.0.1
 // Project: https://github.com/metafloor/bwip-js
 // Definitions by: TANAKA Koichi <https://github.com/MugeSo>
 //                 Guillaume VanderEst <https://github.com/gvanderest>
-//                 Ryan Jentzsch <http://github.com/RyanNerd>
+//                 Ryan Jentzsch <https://github.com/RyanNerd>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -34,7 +34,7 @@ declare namespace BwipJs {
         paddingheight?: number | undefined;
 
         monochrome?: boolean | undefined;
-        alttext?: boolean | undefined;
+        alttext?: string | undefined;
 
         includetext?: boolean | undefined;
         textfont?: string | undefined;

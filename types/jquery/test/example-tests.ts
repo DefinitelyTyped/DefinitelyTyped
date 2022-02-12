@@ -1943,7 +1943,9 @@ function examples() {
         $('*', document.body).click(function(event) {
             event.stopPropagation();
             var domElement = $(this).get(0);
-            $('span:first').text('Clicked on - ' + domElement.nodeName);
+            if (domElement) {
+                $('span:first').text('Clicked on - ' + domElement.nodeName);
+            }
         });
     }
 
@@ -2555,6 +2557,10 @@ function examples() {
         }, 'json');
     }
 
+    function jQuery_get_6() {
+      $.get('test.php', { name: 'John', time: '2pm' }, 'json');
+    }
+
     function jQuery_get_json_0() {
         (function() {
             var flickerAPI = 'http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?';
@@ -3014,6 +3020,10 @@ function examples() {
         });
     }
 
+    function jQuery_post_8() {
+      $.post('test.php', { name: 'John', time: '2pm' }, 'json');
+    }
+
     function jQuery_proxy_0() {
         var me = {
             type: 'zombie',
@@ -3451,21 +3461,26 @@ function examples() {
 
     function map_1() {
         var mappedItems = $('li').map(function(index) {
-            var replacement: Element | null = $('<li>').text($(this).text()).get(0);
-            if (index === 0) {
-                // Make the first item all caps
-                $(replacement).text($(replacement).text().toUpperCase());
-            } else if (index === 1 || index === 3) {
-                // Delete the second and fourth items
-                replacement = null;
-            } else if (index === 2) {
-                // Make two of the third item and add some text
-                var _replacement = [replacement, $('<li>').get(0)];
-                $(_replacement[0]).append('<b> - A</b>');
-                $(_replacement[1]).append('Extra <b> - B</b>');
+            var replacement: Element | undefined = $('<li>').text($(this).text()).get(0);
+            if (replacement) {
+                if (index === 0) {
+                    // Make the first item all caps
+                    $(replacement).text($(replacement).text().toUpperCase());
+                } else if (index === 1 || index === 3) {
+                    // Delete the second and fourth items
+                    replacement = undefined;
+                } else if (index === 2) {
+                    // Make two of the third item and add some text
+                    var li = $('<li>').get(0);
+                    if (li) {
+                        var _replacement = [replacement, li];
+                        $(_replacement[0]).append('<b> - A</b>');
+                        $(_replacement[1]).append('Extra <b> - B</b>');
+                    }
+                }
             }
 
-            // Replacement will be a dom element, null,
+            // Replacement will be a dom element, undefined,
             // or an array of dom elements
             return replacement;
         });
@@ -3954,8 +3969,11 @@ function examples() {
 
     function parent_1() {
         $('*', document.body).each(function() {
-            var parentTag = $(this).parent().get(0).tagName;
-            $(this).prepend(document.createTextNode(parentTag + ' > '));
+            var parent = $(this).parent().get(0);
+            if (parent) {
+                var parentTag = parent.tagName;
+                $(this).prepend(document.createTextNode(parentTag + ' > '));
+            }
         });
     }
 

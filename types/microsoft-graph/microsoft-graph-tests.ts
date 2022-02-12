@@ -173,3 +173,27 @@ const bodyType: MicrosoftGraph.BodyType = "text";
 const channel: MicrosoftGraph.Channel = {
     description: "Test",
 };
+
+const countryLookupMethodType: MicrosoftGraph.CountryLookupMethodType = "clientIpAddress";
+
+const volumeType: MicrosoftGraph.VolumeType = "unknownFutureValue";
+
+const win32LobAppDeliveryOptimizationPriority: MicrosoftGraph.Win32LobAppDeliveryOptimizationPriority = "foreground";
+
+const compliance: MicrosoftGraph.Compliance = {};
+
+const columnTypes: MicrosoftGraph.ColumnTypes = "approvalStatus";
+
+const broadcastMeetingAudience: MicrosoftGraph.BroadcastMeetingAudience = "unknownFutureValue";
+
+const filterMode: MicrosoftGraph.FilterMode = "include";
+
+const policyPlatformType: MicrosoftGraph.PolicyPlatformType = "androidForWork";
+
+const dataSubjectType: MicrosoftGraph.DataSubjectType = "teacher";
+
+const advancedConfigState: MicrosoftGraph.AdvancedConfigState = "disabled";
+
+const messageActionFlag: MicrosoftGraph.MessageActionFlag = "read";
+
+const stagedFeatureName: MicrosoftGraph.StagedFeatureName = "seamlessSso";

@@ -22,7 +22,19 @@ const gpx = new L.GPX(
    </ns3:TrackPointExtension></extensions></trkpt><trkpt lat="45.6161034107208251953125" lon="5.14358597807586193084716796875">\
    <ele>282</ele><time>2017-09-12T18:03:44.000Z</time><extensions><ns3:TrackPointExtension><ns3:cad>58</ns3:cad></ns3:TrackPointExtension></extensions>\
    </trkpt></trkseg></trk></gpx>',
-    { async: true })
+    {
+        async: true,
+        marker_options: {
+            startIconUrl: 'images/pin-icon-start.png',
+            endIconUrl: 'images/pin-icon-end.png',
+            shadowUrl: 'images/pin-shadow.png',
+            wptIconUrls: {
+                '': 'img/gpx/default-waypoint.png',
+                'Geocache Found': 'img/gpx/geocache.png',
+                Park: 'img/gpx/tree.png'
+            },
+        },
+    })
     .on('loaded', (e: any) => {
         map.fitBounds(e.target.getBounds());
     }).addTo(map);

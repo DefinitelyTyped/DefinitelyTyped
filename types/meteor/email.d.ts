@@ -1,5 +1,5 @@
 declare module 'meteor/email' {
-    module Email {
+    namespace Email {
         function send(options: {
             from?: string | undefined;
             to?: string | string[] | undefined;

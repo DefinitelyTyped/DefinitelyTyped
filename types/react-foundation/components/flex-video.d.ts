@@ -12,4 +12,4 @@ export interface FlexVideoProps extends FlexboxPropTypes, React.HTMLAttributes<H
  * @param {Object} props
  * @returns {Object}
  */
-export declare const FlexVideo: React.StatelessComponent<FlexVideoProps>;
+export declare const FlexVideo: React.FunctionComponent<FlexVideoProps>;

@@ -24,7 +24,7 @@ declare namespace envhandlebars {
         /** @default process.stderr */
         stderr?: typeof process.stderr | undefined;
         /** @default true */
-        arrayEnabled?: boolean | undefined;
+        arraysEnabled?: boolean | undefined;
         /** @default false */
         arrayVarPrefix?: boolean | undefined;
         /**

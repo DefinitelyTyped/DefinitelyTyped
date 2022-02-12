@@ -12,8 +12,8 @@
 import glob = require('glob');
 import fs = require('fs');
 
-declare function rimraf(path: string, options: rimraf.Options, callback: (error: Error) => void): void;
-declare function rimraf(path: string, callback: (error: Error) => void): void;
+declare function rimraf(path: string, options: rimraf.Options, callback: (error: Error | null | undefined) => void): void;
+declare function rimraf(path: string, callback: (error: Error | null | undefined) => void): void;
 declare namespace rimraf {
     /**
      * It can remove stuff synchronously, too.

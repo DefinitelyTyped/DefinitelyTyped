@@ -1,0 +1,12 @@
+{
+    "private": true,
+    "exports": {
+        "./package.json": "./package.json",
+        ".": {
+            "types": {
+                "import": "./index.d.mts",
+                "default": "./index.d.ts"
+            }
+        }
+    }
+}

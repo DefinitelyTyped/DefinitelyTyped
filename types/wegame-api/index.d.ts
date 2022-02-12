@@ -608,6 +608,11 @@ declare class WxWorker {
      * @param callback.res.message 接收主线程/Worker 线程向当前线程发送的消息
      */
     onMessage(callback: (res: { message: any }) => void): void;
+
+    /**
+     * 监听 worker线程被系统回收事件（当iOS系统资源紧张时，worker线程存在被系统回收的可能，开发者可监听此事件并重新创建一个worker）。仅限在主线程 worker 对象上调用。
+     */
+    onProcessKilled(callback: () => void): void;
 }
 
 /**
@@ -2144,6 +2149,77 @@ declare namespace wx {
              */
             fixed?: boolean | undefined;
         }
+
+        interface BannerAdParams {
+            /**
+             * 广告单元 id
+             */
+            adUnitId: string;
+            /**
+             * 广告自动刷新的间隔时间，单位为秒，参数值必须大于等于30（该参数不传入时 Banner 广告不会自动刷新）
+             */
+            adIntervals?: number | undefined;
+            /**
+             * banner 广告组件的样式
+             */
+            style: AdStyle;
+        }
+
+        interface VideoAdParams {
+            /**
+             * 广告单元 id
+             */
+            adUnitId: string;
+            /**
+             * 是否启用多例模式，默认为false
+             */
+            multiton?: boolean | undefined;
+        }
+
+        interface InterstitialAdParam {
+            /**
+             * 广告单元 id
+             */
+            adUnitId: string;
+        }
+
+        interface GridAdParam {
+            /**
+             * 广告单元 id
+             */
+            adUnitId: string;
+            /**
+             * 广告自动刷新的间隔时间，单位为秒，参数值必须大于等于30（该参数不传入时 grid(格子) 广告不会自动刷新）
+             */
+            adIntervals?: number | undefined;
+            /**
+             * grid(格子) 广告组件的样式
+             */
+            style: AdStyle;
+            /**
+             * grid(格子) 广告广告组件的主题，提供 white black 两种主题选择。
+             */
+            adTheme: 'white' | 'black';
+            /**
+             * grid(格子) 广告组件的格子个数，可设置为5，8两种格子个数样式，默认值为5
+             */
+            gridCount?: 5 | 8 | undefined;
+        }
+
+        interface CustomAdParam {
+            /**
+             * 广告单元 id
+             */
+            adUnitId: string;
+            /**
+             * 广告自动刷新的间隔时间，单位为秒，参数值必须大于等于30（该参数不传入时 grid(格子) 广告不会自动刷新）
+             */
+            adIntervals?: number | undefined;
+            /**
+             * 原生模板广告组件的样式
+             */
+            style: CustomAdStyle;
+        }
     }
 
     /**
@@ -3636,7 +3712,14 @@ declare namespace wx {
     /**
      * 创建一个 Worker 线程，目前限制最多只能创建一个 Worker，创建下一个 Worker 前请调用 Worker.terminate
      */
-    function createWorker(): WxWorker;
+    function createWorker(scriptPath: string, options?: {
+        /**
+         * 是否使用实验worker。在iOS下，实验worker的JS运行效率比非实验worker提升近十倍，如需在worker内进行重度计算的建议开启
+         * 此选项。同时，实验worker存在极小概率会在系统资源紧张时被系统回收，因此建议配合 worker.onProcessKilled 事件使用，
+         * 在worker被回收后可重新创建一个。
+         */
+        useExperimentalWorker?: boolean | undefined
+    }): WxWorker;
 
     // --音频
     /**
@@ -3950,86 +4033,25 @@ declare namespace wx {
      * 创建 banner 广告组件。请通过 wx.getSystemInfoSync() 返回对象的 SDKVersion 判断基础库版本号 >= 2.0.4 后再使用该 API。每次调用该方法创建 banner 广告都会返回一个全新的实例。
      * 基础库 2.0.4 开始支持，低版本需做兼容处理。
      */
-    function createBannerAd(param: {
-        /**
-         * 广告单元 id
-         */
-        adUnitId: string,
-        /**
-         * 广告自动刷新的间隔时间，单位为秒，参数值必须大于等于30（该参数不传入时 Banner 广告不会自动刷新）
-         */
-        adIntervals?: number | undefined,
-        /**
-         * banner 广告组件的样式
-         */
-        style: types.AdStyle
-    }): BannerAd;
+    function createBannerAd(param: types.BannerAdParams): BannerAd;
     /**
      * 创建激励视频广告组件。请通过 wx.getSystemInfoSync() 返回对象的 SDKVersion 判断基础库版本号后再使用该 API（小游戏端要求 >= 2.0.4， 小程序端要求 >= 2.6.0）。调用该方法创建的激励视频广告是一个单例（小游戏端是全局单例，小程序端是页面内单例，在小程序端的单例对象不允许跨页面使用）。
      * 基础库 2.0.4 开始支持，低版本需做兼容处理。
      */
-    function createRewardedVideoAd(param: {
-        /**
-         * 广告单元 id
-         */
-        adUnitId: string;
-        /**
-         * 是否启用多例模式，默认为false
-         */
-        multiton?: boolean | undefined;
-    }): RewardedVideoAd;
+    function createRewardedVideoAd(param: types.VideoAdParams): RewardedVideoAd;
     /**
      * 插屏广告组件。插屏广告组件是一个原生组件，层级比普通组件高。插屏广告组件每次创建都会返回一个全新的实例（小程序端的插屏广告实例不允许跨页面使用），默认是隐藏的，需要调用 InterstitialAd.show() 将其显示。
      */
-    function createInterstitialAd(param: {
-        /**
-         * 广告单元 id
-         */
-        adUnitId: string
-    }): InterstitialAd;
+    function createInterstitialAd(param: types.InterstitialAdParam): InterstitialAd;
     /**
      * 创建 grid(格子) 广告组件。请通过 wx.getSystemInfoSync() 返回对象的 SDKVersion 判断基础库版本号 >= 2.9.2 后再使用该 API。每次调用该方法创建 grid(格子) 广告都会返回一个全新的实例。
      * 基础库 2.9.2 开始支持，低版本需做兼容处理
      */
-    function createGridAd(param: {
-        /**
-         * 广告单元 id
-         */
-        adUnitId: string;
-        /**
-         * 广告自动刷新的间隔时间，单位为秒，参数值必须大于等于30（该参数不传入时 grid(格子) 广告不会自动刷新）
-         */
-        adIntervals?: number | undefined;
-        /**
-         * grid(格子) 广告组件的样式
-         */
-        style: types.AdStyle;
-        /**
-         * grid(格子) 广告广告组件的主题，提供 white black 两种主题选择。
-         */
-        adTheme: 'white' | 'black';
-        /**
-         * grid(格子) 广告组件的格子个数，可设置为5，8两种格子个数样式，默认值为5
-         */
-        gridCount?: 5 | 8 | undefined;
-    }): GridAd;
+    function createGridAd(param: types.GridAdParam): GridAd;
     /**
      * 创建原生模板广告组件。请通过 wx.getSystemInfoSync() 返回对象的 SDKVersion 判断基础库版本号 >= 2.11.1 后再使用该 API。每次调用该方法创建原生模板广告都会返回一个全新的实例。
      */
-    function createCustomAd(param: {
-        /**
-         * 广告单元 id
-         */
-        adUnitId: string;
-        /**
-         * 广告自动刷新的间隔时间，单位为秒，参数值必须大于等于30（该参数不传入时 grid(格子) 广告不会自动刷新）
-         */
-        adIntervals?: number | undefined;
-        /**
-         * 原生模板广告组件的样式
-         */
-        style: types.CustomAdStyle;
-    }): CustomAd;
+    function createCustomAd(param: types.CustomAdParam): CustomAd;
 
     // --虚拟支付
     /**

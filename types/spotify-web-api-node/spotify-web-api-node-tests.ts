@@ -674,6 +674,16 @@ spotifyApi.getMyTopTracks()
 
 /* Shows */
 
+// Get shows in the signed in user's Your Music library
+spotifyApi.getMySavedShows()
+  .then((data) => {
+    const shows = data.body.items;
+    console.log(shows);
+  }, (err) => {
+    console.log('Something went wrong!', err);
+  });
+
+// Get the episodes of a show.
 spotifyApi.getShowEpisodes('53TsTEHBmnGHUNTf5PIuSg')
   .then((data) => {
     const episodes = data.body.items;

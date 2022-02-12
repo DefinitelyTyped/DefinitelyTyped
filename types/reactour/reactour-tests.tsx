@@ -152,7 +152,7 @@ class CustomTour extends React.Component<{}, { isTourOpen: boolean }> {
                     CustomHelper={({ current, content, totalSteps, gotoStep, close }: CustomHelperProps) => (
                         <main className="CustomHelper__wrapper">
                             <div className="CustomHelper__content">
-                                {content}
+                                {typeof content !== 'function' && content}
                                 <Controls
                                     data-tour-elem="controls"
                                     className="CustomHelper__controls"

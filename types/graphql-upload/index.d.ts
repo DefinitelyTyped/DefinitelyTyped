@@ -2,14 +2,14 @@
 // Project: https://github.com/jaydenseric/graphql-upload#readme
 // Definitions by: Mike Marcacci <https://github.com/mike-marcacci>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.3
+// TypeScript Version: 4.1
 
 /* tslint:disable:no-unnecessary-generics */
 
 import { IncomingMessage, ServerResponse } from "http";
 import { GraphQLScalarType } from "graphql";
 import { RequestHandler } from "express";
-import { Middleware } from "koa";
+import { DefaultContext, DefaultState, Middleware } from "koa";
 import { ReadStream } from "fs-capacitor";
 
 export interface UploadOptions {
@@ -34,9 +34,9 @@ export function graphqlUploadExpress(
   uploadOptions?: UploadOptions
 ): RequestHandler;
 
-export function graphqlUploadKoa <StateT = any, CustomT = {}>(
+export function graphqlUploadKoa <StateT = DefaultState, ContextT = DefaultContext>(
   uploadOptions?: UploadOptions
-): Middleware<StateT, CustomT>;
+): Middleware<StateT, ContextT>;
 
 export const GraphQLUpload: GraphQLScalarType;
 
@@ -48,6 +48,6 @@ export interface FileUpload {
 }
 
 export class Upload {
-  resolve(file: FileUpload): void;
-  reject(reason?: any): void;
+  promise: Promise<FileUpload>;
+  file?: FileUpload;
 }

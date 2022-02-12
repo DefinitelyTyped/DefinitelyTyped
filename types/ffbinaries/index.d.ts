@@ -27,7 +27,7 @@ export interface DownloadOptions {
     /**
      * Defaults to detecting the current platform.
      */
-    platform?: Platform | undefined;
+    platform?: Platform | null | undefined;
     /**
      * Version of ffmpeg to download.
      */
@@ -125,7 +125,7 @@ export function listPlatforms(): Platform[];
 /**
  * Returns the platform code of the machine as detected by the module.
  */
-export function detectPlatform(): Platform;
+export function detectPlatform(options?: { type: string, arch: string }): Platform | null;
 /**
  * Resolves input to a platform code (matches aliases).
  */

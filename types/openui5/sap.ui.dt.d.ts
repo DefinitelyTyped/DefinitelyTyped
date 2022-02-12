@@ -1,5 +1,3 @@
-// For Library Version: 1.91.0
+// For Library Version: 1.95.0
 
-declare namespace sap {
-  interface IUI5DefineDependencyNames {}
-}
+declare namespace sap {}

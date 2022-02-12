@@ -4,20 +4,21 @@
 //                 Tate Thurston <https://github.com/tatethurston>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function throng(startOrOptions: throng.ProcessCallback | throng.Options): void;
-declare function throng(workers: throng.WorkerCount, start: throng.ProcessCallback): void;
+declare function throng(startOrOptions: throng.WorkerCallback | throng.Options): Promise<void>;
+declare function throng(workers: throng.WorkerCount, start: throng.WorkerCallback): Promise<void>;
 declare namespace throng {
     type WorkerCount = number | string;
-    type ProcessCallback = (id: number) => any;
+    type WorkerCallback = (id: number, disconnect: () => void) => void;
+    type MasterCallback = () => void;
 
     type Options = {
         signals?: string[] | undefined;
         grace?: number | undefined;
         lifetime?: number | undefined;
-        master?: ProcessCallback | undefined;
+        master?: MasterCallback | undefined;
         count?: number | undefined;
         workers?: WorkerCount | undefined;
-    } & ({start: ProcessCallback} | {worker: ProcessCallback});
+    } & ({start: WorkerCallback} | {worker: WorkerCallback});
 }
 
 export = throng;

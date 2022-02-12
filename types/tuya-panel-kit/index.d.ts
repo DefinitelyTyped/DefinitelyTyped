@@ -1,4 +1,4 @@
-// Type definitions for tuya-panel-kit 4.0
+// Type definitions for tuya-panel-kit 4.7
 // Project: https://github.com/TuyaInc/tuya-panel-kit#readme
 // Definitions by: youngjuning <https://github.com/youngjuning>
 //                 ShinyLeee <https://github.com/ShinyLeee>
@@ -28,7 +28,7 @@ import {
     SectionListProps,
     ListRenderItem,
 } from 'react-native';
-import { ParamListBase, RouteProp } from './@react-navigation/native';
+import { NavigationContainerProps, ParamListBase, RouteProp, NavigationContainerRef } from './@react-navigation/native';
 import { StackNavigationOptions } from './@react-navigation/stack';
 import { TransitionPreset } from './@react-navigation/stack/types';
 import { GlobalTheme, StopsProps, LinearGradientBackground, RadialGradientBackground, BackgroundProps } from './theme';
@@ -140,9 +140,11 @@ export interface BatteryProps {
      * @description Theme configuration
      * @defaultValue {}
      */
-    theme?: {
-        batteryColor: string;
-    } | undefined;
+    theme?:
+        | {
+              batteryColor: string;
+          }
+        | undefined;
 }
 export class Battery extends React.Component<BatteryProps> {}
 
@@ -379,20 +381,22 @@ export interface BrickButtonProps {
      * @description Theme configuration
      * @defaultValue {}
      */
-    theme?: {
-        fontSize?: number | undefined;
-        fontColor?: string | undefined;
-        bgRadius?: number | undefined;
-        bgHeight?: number | undefined;
-        bgWidth?: number | undefined;
-        margin?: number[] | undefined;
-        padding?: number[] | undefined;
-        bgColor?: string | undefined;
-        bgBorder?: string | undefined;
-        bgBorderWidth?: number | undefined;
-        loadingColor?: string | undefined;
-        loadingBackground?: string | undefined;
-    } | undefined;
+    theme?:
+        | {
+              fontSize?: number | undefined;
+              fontColor?: string | undefined;
+              bgRadius?: number | undefined;
+              bgHeight?: number | undefined;
+              bgWidth?: number | undefined;
+              margin?: number[] | undefined;
+              padding?: number[] | undefined;
+              bgColor?: string | undefined;
+              bgBorder?: string | undefined;
+              bgBorderWidth?: number | undefined;
+              loadingColor?: string | undefined;
+              loadingBackground?: string | undefined;
+          }
+        | undefined;
 }
 export class BrickButton extends React.Component<BrickButtonProps> {}
 
@@ -719,17 +723,19 @@ export interface ButtonProps extends TouchableOpacityProps {
      * @description Theme configuration
      * @defaultValue {}
      */
-    theme?: {
-        fontSize?: number | undefined;
-        fontColor?: string | undefined;
-        iconSize?: number | undefined;
-        bgWidth?: number | undefined;
-        bgHeight?: number | undefined;
-        bgColor?: string | undefined;
-        margin?: number[] | undefined;
-        iconColor?: string | undefined;
-        bgRadius?: number | undefined;
-    } | undefined;
+    theme?:
+        | {
+              fontSize?: number | undefined;
+              fontColor?: string | undefined;
+              iconSize?: number | undefined;
+              bgWidth?: number | undefined;
+              bgHeight?: number | undefined;
+              bgColor?: string | undefined;
+              margin?: number[] | undefined;
+              iconColor?: string | undefined;
+              bgRadius?: number | undefined;
+          }
+        | undefined;
 }
 export class Button extends React.Component<ButtonProps> {}
 
@@ -821,7 +827,8 @@ export interface CarouselProps extends ViewPagerAndroidProps {
               dotActiveStyle: StyleProp<ViewStyle>;
               currentIndex: number;
               count: number;
-          }) => React.ReactNode) | undefined;
+          }) => React.ReactNode)
+        | undefined;
     /**
      * @language zh-CN
      * @description 指示点样式
@@ -1484,7 +1491,8 @@ export interface DatePickerProps extends Omit<PickerViewProps, 'mode'> {
               minute?: string | undefined;
               am?: string | undefined;
               pm?: string | undefined;
-          } | undefined;
+          }
+        | undefined;
     /**
      * @language zh-CN
      * @description The selection type of the selector
@@ -1842,7 +1850,8 @@ export interface DialogProps {
         | MotionPullUpProps
         | MotionScaleFadeInProps
         | MotionScalePullDownProps
-        | MotionPushDownProps | undefined;
+        | MotionPushDownProps
+        | undefined;
 }
 export interface DialogCancelProps {
     /**
@@ -2320,12 +2329,12 @@ export interface GlobalToastProps extends ToastProps, IconFontProps {
     showIcon?: boolean | undefined;
 }
 export const GlobalToast: {
-    show: (option: Omit<GlobalToastProps, 'show' | 'onFinish'>) => void;
+    show: (option: Omit<GlobalToastProps, 'show'>) => void;
     hide: () => void;
 };
 
 // IconFont
-type IconFontName =
+export type IconFontName =
     | 0
     | 1
     | 2
@@ -2949,12 +2958,14 @@ export interface MotionProps {
      * @description Animation configuration parameters
      * @defaultValue { duration: 300, delay: 0, isInteraction: true, useNativeDriver: true }
      */
-    animationConfig?: {
-        duration?: number | undefined;
-        delay?: number | undefined;
-        isInteraction?: boolean | undefined;
-        useNativeDriver?: boolean | undefined;
-    } | undefined;
+    animationConfig?:
+        | {
+              duration?: number | undefined;
+              delay?: number | undefined;
+              isInteraction?: boolean | undefined;
+              useNativeDriver?: boolean | undefined;
+          }
+        | undefined;
 }
 export interface MotionFadeProps extends MotionProps {
     /**
@@ -3156,16 +3167,18 @@ export interface NotificationProps extends TouchableOpacityProps {
      * @description Theme configuration
      * @defaultValue { background: '#fff', text: '#495054', iconColor: undefined, successIcon: undefined, warningIcon: undefined, errorIcon: undefined, closeIcon: '#81828B' }
      */
-    theme?: {
-        background?: string | undefined;
-        text?: string | undefined;
-        iconColor?: string | undefined;
-        successIcon?: string | undefined;
-        warningIcon?: string | undefined;
-        errorIcon?: string | undefined;
-        closeIcon?: string | undefined;
-        radius?: number | undefined;
-    } | undefined;
+    theme?:
+        | {
+              background?: string | undefined;
+              text?: string | undefined;
+              iconColor?: string | undefined;
+              successIcon?: string | undefined;
+              warningIcon?: string | undefined;
+              errorIcon?: string | undefined;
+              closeIcon?: string | undefined;
+              radius?: number | undefined;
+          }
+        | undefined;
     /**
      * @language zh-CN
      * @description Show notification bar
@@ -3330,7 +3343,7 @@ export interface NotificationProps extends TouchableOpacityProps {
     backIconCenter?: boolean | undefined;
 }
 // tslint:disable-next-line no-unnecessary-class
-export class Notification {
+export class Notification extends React.Component<NotificationProps> {
     static show: (option: NotificationProps) => void;
     static hide: () => void;
 }
@@ -3371,16 +3384,18 @@ export interface NotificationLegacyProps extends TouchableOpacityProps {
      * @description Theme configuration
      * @defaultValue { background: '#fff', text: '#495054', iconColor: undefined, successIcon: undefined, warningIcon: undefined, errorIcon: undefined, closeIcon: '#81828B' }
      */
-    theme?: {
-        background?: string | undefined;
-        text?: string | undefined;
-        iconColor?: string | undefined;
-        successIcon?: string | undefined;
-        warningIcon?: string | undefined;
-        errorIcon?: string | undefined;
-        closeIcon?: string | undefined;
-        radius?: number | undefined;
-    } | undefined;
+    theme?:
+        | {
+              background?: string | undefined;
+              text?: string | undefined;
+              iconColor?: string | undefined;
+              successIcon?: string | undefined;
+              warningIcon?: string | undefined;
+              errorIcon?: string | undefined;
+              closeIcon?: string | undefined;
+              radius?: number | undefined;
+          }
+        | undefined;
     /**
      * @language zh-CN
      * @description 通知栏自定义的图标路径
@@ -3495,13 +3510,15 @@ export interface PickerViewIOSProps extends PickerIOSProps {
      * @description Theme configuration
      * @defaultValue {}
      */
-    theme?: {
-        fontSize?: number | undefined;
-        fontColor?: string | undefined;
-        dividerColor?: string | undefined;
-        unitFontSize?: number | undefined;
-        unitFontColor?: string | undefined;
-    } | undefined;
+    theme?:
+        | {
+              fontSize?: number | undefined;
+              fontColor?: string | undefined;
+              dividerColor?: string | undefined;
+              unitFontSize?: number | undefined;
+              unitFontColor?: string | undefined;
+          }
+        | undefined;
 }
 export interface PickerViewProps extends Omit<PickerIOSProps, 'onValueChange' | 'selectedValue'>, PickerProps {
     /**
@@ -3583,12 +3600,12 @@ export interface PickerViewProps extends Omit<PickerIOSProps, 'onValueChange' | 
     dividerColor?: string | undefined;
     /**
      * @language zh-CN
-     * @description 可视区域项目个数
+     * @description 可视区域项目个数（仅安卓）
      * @defaultValue 8
      */
     /**
      * @language en-US
-     * @description The number of items in the visible area
+     * @description The number of items in the visible area(Android only)
      * @defaultValue 8
      */
     visibleItemCount?: number | undefined;
@@ -3648,13 +3665,67 @@ export interface PickerViewProps extends Omit<PickerIOSProps, 'onValueChange' | 
      * @description Theme configuration
      * @defaultValue {}
      */
-    theme?: {
-        fontSize?: number | undefined;
-        fontColor?: string | undefined;
-        dividerColor?: string | undefined;
-        unitFontSize?: number | undefined;
-        unitFontColor?: string | undefined;
-    } | undefined;
+    /**
+     * @language zh-CN
+     * @description 是否使用 App 3.28.0 支持的插件 Picker
+     * @defaultValue false
+     * @platform IOS only
+     */
+    /**
+     * @language en-US
+     * @description Whether to use the plugin Picker supported by App 3.28.0
+     * @defaultValue false
+     * @platform IOS only
+     */
+    useTYRCTPicker?: boolean;
+    /**
+     * @language zh-CN
+     * @description 字体粗细
+     * @defaultValue 'normal'
+     * @platform IOS only
+     */
+    /**
+     * @language en-US
+     * @description font weight
+     * @defaultValue 'normal'
+     * @platform IOS only
+     */
+    fontWeight?: string;
+    /**
+     * @language zh-CN
+     * @description 文本上下边界大小
+     * @defaultValue 14
+     * @platform IOS only
+     */
+    /**
+     * @language en-US
+     * @description 文本上下边界大小
+     * @defaultValue 14
+     * @platform IOS only
+     */
+    itemPadding?: number;
+    /**
+     * @language zh-CN
+     * @description 字体
+     * @defaultValue 'DIN Alternate'
+     * @platform IOS only
+     */
+    /**
+     * @language en-US
+     * @description fontFamily
+     * @defaultValue 'DIN Alternate'
+     * @platform IOS only
+     */
+    fontFamily?: 'DIN Alternate' | 'Times New Roman' | 'PingFangHK-Regular' | 'PingFangHK-Medium' | string;
+    theme?:
+        | {
+              fontSize?: number | undefined;
+              fontColor?: string | undefined;
+              dividerColor?: string | undefined;
+              unitFontSize?: number | undefined;
+              unitFontColor?: string | undefined;
+          }
+        | undefined;
 }
 export class Picker extends React.Component<PickerViewProps> {
     static Item: React.ElementType;
@@ -3931,6 +4002,17 @@ export interface PopupProps extends Omit<ModalProps, 'onMaskPress'> {
     showBack?: boolean | undefined;
     /**
      * @language zh-CN
+     * @description 是否显示头部栏与内容框的分割线
+     * @defaultValue true
+     */
+    /**
+     * @language en-US
+     * @description Whether to show the split line between the header bar and the content box
+     * @defaultValue true
+     */
+    showTitleDivider?: boolean | undefined;
+    /**
+     * @language zh-CN
      * @description 遮罩层点击
      * @defaultValue () => {}
      */
@@ -3952,35 +4034,41 @@ export interface PopupProps extends Omit<ModalProps, 'onMaskPress'> {
      * @types <a target="_blank" href="https://github.com/tuya/DefinitelyTyped/blob/299b2dd5a2ac708ca9464aba3685300acb7c865c/types/tuya-panel-kit/index.d.ts#L2925">theme</a>
      * @defaultValue {}
      */
-    theme?: {
-        cellHeight?: number | undefined;
-        cellBg?: string | undefined;
-        cellFontColor?: string | undefined;
-        cellFontSize?: number | undefined;
-        subTitleFontColor?: string | undefined;
-        titleRadius?: number | undefined;
-        titleBg?: string | undefined;
-        titleHeight?: number | undefined;
-        footerRadius?: number | undefined;
-        bottomBg?: string | undefined;
-        lineColor?: string | undefined;
-        titleFontSize?: number | undefined;
-        checkboxColor?: string | undefined;
-        titleFontColor?: string | undefined;
-        cancelFontSize?: number | undefined;
-        cancelFontColor?: string | undefined;
-        confirmFontSize?: number | undefined;
-        confirmFontColor?: string | undefined;
-        backIconColor?: string | undefined;
-        tintColor?: string | undefined;
-        numberSelector?: {
-            cellPlusColor?: string | undefined;
-            maximumTrackTintColor?: string | undefined;
-        } | undefined;
-        list?: {
-            cellFontColor?: string | undefined;
-        } | undefined;
-    } | undefined;
+    theme?:
+        | {
+              cellHeight?: number | undefined;
+              cellBg?: string | undefined;
+              cellFontColor?: string | undefined;
+              cellFontSize?: number | undefined;
+              subTitleFontColor?: string | undefined;
+              titleRadius?: number | undefined;
+              titleBg?: string | undefined;
+              titleHeight?: number | undefined;
+              footerRadius?: number | undefined;
+              bottomBg?: string | undefined;
+              lineColor?: string | undefined;
+              titleFontSize?: number | undefined;
+              checkboxColor?: string | undefined;
+              titleFontColor?: string | undefined;
+              cancelFontSize?: number | undefined;
+              cancelFontColor?: string | undefined;
+              confirmFontSize?: number | undefined;
+              confirmFontColor?: string | undefined;
+              backIconColor?: string | undefined;
+              tintColor?: string | undefined;
+              numberSelector?:
+                  | {
+                        cellPlusColor?: string | undefined;
+                        maximumTrackTintColor?: string | undefined;
+                    }
+                  | undefined;
+              list?:
+                  | {
+                        cellFontColor?: string | undefined;
+                    }
+                  | undefined;
+          }
+        | undefined;
 }
 
 export interface ListDate extends TYFlatListData {
@@ -3994,15 +4082,17 @@ export interface ListDate extends TYFlatListData {
      * @description List item style
      * @defaultValue {}
      */
-    styles?: {
-        container?: StyleProp<ViewStyle> | undefined;
-        content?: StyleProp<ViewStyle> | undefined;
-        contentLeft?: StyleProp<ViewStyle> | undefined;
-        contentCenter?: StyleProp<ViewStyle> | undefined;
-        contentRight?: StyleProp<ViewStyle> | undefined;
-        title?: StyleProp<TextStyle> | undefined;
-        subTitle?: StyleProp<TextStyle> | undefined;
-    } | undefined;
+    styles?:
+        | {
+              container?: StyleProp<ViewStyle> | undefined;
+              content?: StyleProp<ViewStyle> | undefined;
+              contentLeft?: StyleProp<ViewStyle> | undefined;
+              contentCenter?: StyleProp<ViewStyle> | undefined;
+              contentRight?: StyleProp<ViewStyle> | undefined;
+              title?: StyleProp<TextStyle> | undefined;
+              subTitle?: StyleProp<TextStyle> | undefined;
+          }
+        | undefined;
     /**
      * @language zh-CN
      * @description 列表标题文案
@@ -4177,21 +4267,23 @@ export interface PopUpListProps extends PopupProps, Omit<TYFlatListProps<{}>, 'r
     /**
      * @language zh-CN
      * @description 各部分的样式
-     * @types <a href="_blank" href="https://github.com/tuya/DefinitelyTyped/blob/299b2dd5a2ac708ca9464aba3685300acb7c865c/types/tuya-panel-kit/index.d.ts#L2969">styles</a>
+     * @types <a target="_blank" href="https://github.com/tuya/DefinitelyTyped/blob/299b2dd5a2ac708ca9464aba3685300acb7c865c/types/tuya-panel-kit/index.d.ts#L2969">styles</a>
      * @defaultValue {}
      */
     /**
      * @language en-US
      * @description Style of each part
-     * @types <a href="_blank" href="https://github.com/tuya/DefinitelyTyped/blob/299b2dd5a2ac708ca9464aba3685300acb7c865c/types/tuya-panel-kit/index.d.ts#L2969">styles</a>
+     * @types <a target="_blank" href="https://github.com/tuya/DefinitelyTyped/blob/299b2dd5a2ac708ca9464aba3685300acb7c865c/types/tuya-panel-kit/index.d.ts#L2969">styles</a>
      * @defaultValue {}
      */
-    styles?: {
-        container?: StyleProp<ViewStyle> | undefined;
-        content?: StyleProp<ViewStyle> | undefined;
-        title?: StyleProp<TextStyle> | undefined;
-        contentRight?: StyleProp<ViewStyle> | undefined;
-    } | undefined;
+    styles?:
+        | {
+              container?: StyleProp<ViewStyle> | undefined;
+              content?: StyleProp<ViewStyle> | undefined;
+              title?: StyleProp<TextStyle> | undefined;
+              contentRight?: StyleProp<ViewStyle> | undefined;
+          }
+        | undefined;
 }
 export interface PopUpCountdownProps extends PopupProps {
     /**
@@ -4316,7 +4408,9 @@ export interface PopUpCountdownProps extends PopupProps {
      * @description Value change callback
      * @defaultValue () => {}
      */
-    onValueChange?: ((data?: { hour?: number | undefined; minute?: number | undefined; value?: number | undefined }) => void) | undefined;
+    onValueChange?:
+        | ((data?: { hour?: number | undefined; minute?: number | undefined; value?: number | undefined }) => void)
+        | undefined;
     /**
      * @language zh-CN
      * @description 值更改回调
@@ -5019,7 +5113,8 @@ export interface ProgressProps extends GestureProps {
         | StopsProps[]
         | {
               [key: string]: string;
-          } | undefined;
+          }
+        | undefined;
     /**
      * @language zh-CN
      * @description 渐变起始点的 x 轴坐标
@@ -5575,7 +5670,8 @@ export interface ComposeProps extends GestureProps {
         | StopsProps[]
         | {
               [key: string]: string;
-          } | undefined;
+          }
+        | undefined;
     /**
      * @language zh-CN
      * @description 进度条1 Thumb 小圆球的填充色
@@ -5908,16 +6004,18 @@ export interface SliderProps {
      * @description Theme configuration
      * @defaultValue {}
      */
-    theme?: {
-        width?: number | undefined;
-        trackRadius?: number | undefined;
-        trackHeight?: number | undefined;
-        minimumTrackTintColor?: string | undefined;
-        maximumTrackTintColor?: string | undefined;
-        thumbSize?: number | undefined;
-        thumbRadius?: number | undefined;
-        thumbTintColor?: string | undefined;
-    } | undefined;
+    theme?:
+        | {
+              width?: number | undefined;
+              trackRadius?: number | undefined;
+              trackHeight?: number | undefined;
+              minimumTrackTintColor?: string | undefined;
+              maximumTrackTintColor?: string | undefined;
+              thumbSize?: number | undefined;
+              thumbRadius?: number | undefined;
+              thumbTintColor?: string | undefined;
+          }
+        | undefined;
     /**
      * @language zh-CN
      * @description 测试标识
@@ -6049,10 +6147,12 @@ export interface SliderProps {
      * @description Thumb size
      * @defaultValue { width: 40, height: 40 }
      */
-    thumbTouchSize?: {
-        width: number;
-        height: number;
-    } | undefined;
+    thumbTouchSize?:
+        | {
+              width: number;
+              height: number;
+          }
+        | undefined;
     /**
      * @language zh-CN
      * @description 滑动值变更回调
@@ -6201,13 +6301,15 @@ export interface SliderProps {
      * @description Animation configuration
      * @defaultValue undefined
      */
-    animationConfig?: {
-        friction?: number | undefined;
-        tension?: number | undefined;
-        duration?: number | undefined;
-        easing?: (() => void) | undefined;
-        delay?: number | undefined;
-    } | undefined;
+    animationConfig?:
+        | {
+              friction?: number | undefined;
+              tension?: number | undefined;
+              duration?: number | undefined;
+              easing?: (() => void) | undefined;
+              delay?: number | undefined;
+          }
+        | undefined;
     /**
      * @language zh-CN
      * @description 定制渲染小于当前值的轨道
@@ -6262,13 +6364,15 @@ export interface SliderProps {
      * @description Slide bar styles collection
      * @defaultValue {}
      */
-    styles?: {
-        container?: StyleProp<ViewStyle> | undefined;
-        track?: StyleProp<ViewStyle> | undefined;
-        thumb?: StyleProp<ViewStyle> | undefined;
-        touchArea?: StyleProp<ViewStyle> | undefined;
-        debugThumbTouchArea?: StyleProp<ViewStyle> | undefined;
-    } | undefined;
+    styles?:
+        | {
+              container?: StyleProp<ViewStyle> | undefined;
+              track?: StyleProp<ViewStyle> | undefined;
+              thumb?: StyleProp<ViewStyle> | undefined;
+              touchArea?: StyleProp<ViewStyle> | undefined;
+              debugThumbTouchArea?: StyleProp<ViewStyle> | undefined;
+          }
+        | undefined;
     /**
      * @language zh-CN
      * @description 滑块的类型，parcel：包裹类型
@@ -6282,6 +6386,43 @@ export interface SliderProps {
      * @defaultValue normal
      */
     type?: 'normal' | 'parcel' | undefined;
+    /**
+     * @language zh-CN
+     * @description 是否使用刻度
+     * @defaultValue false
+     */
+    /**
+     * @language en-US
+     * @description Whether to use the scale
+     * @defaultValue false
+     */
+    useNoun?: boolean | undefined;
+    /**
+     * @language zh-CN
+     * @description 大于当前值的刻度样式
+     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
+     * @defaultValue null
+     */
+    /**
+     * @language en-US
+     * @description Scale style greater than the current value
+     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
+     * @defaultValue null
+     */
+    maxNounStyle?: StyleProp<ViewStyle> | undefined;
+    /**
+     * @language zh-CN
+     * @description 小于当前值的刻度样式
+     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
+     * @defaultValue null
+     */
+    /**
+     * @language en-US
+     * @description Scale style less than current value
+     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
+     * @defaultValue null
+     */
+    minNounStyle?: StyleProp<ViewStyle> | undefined;
 }
 export class Slider extends React.Component<SliderProps> {
     static Horizontal: React.ElementType<SliderProps>;
@@ -6442,108 +6583,306 @@ export class SliderProgress extends React.Component<SliderProgressProps> {}
 export interface SliderWithLineProps {
     /**
      * @language zh-CN
-     * @description 内容样式
+     * @description 刻度滑动条样式
      * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
-     * @defaultValue {}
+     * @defaultValue null
      */
     /**
      * @language en-US
-     * @description Container Style
+     * @description Scale slider style
      * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
-     * @defaultValue {}
+     * @defaultValue null
      */
     style?: StyleProp<ViewStyle> | undefined;
     /**
      * @language zh-CN
-     * @description 左边和右边的值
-     * @defaultValue [0, 50]
+     * @description 最大具体值
+     * @defaultValue 50
      */
     /**
      * @language en-US
-     * @description Container Style
-     * @defaultValue [0, 50]
+     * @description Maximum specific value
+     * @defaultValue 50
      */
-    values?: number[] | undefined;
+    maxValue?: number | undefined;
     /**
      * @language zh-CN
-     * @description 激活状态的颜色
-     * @defaultValue 'blue'
+     * @description 最小具体值
+     * @defaultValue 0
      */
     /**
      * @language en-US
-     * @description color of active state
-     * @defaultValue 'blue'
+     * @description Minimum specific value
+     * @defaultValue 0
      */
-    activeColor?: string | undefined;
+    minValue?: number | undefined;
     /**
      * @language zh-CN
-     * @description 激活状态的颜色
+     * @description 是否为水平方向
+     * @defaultValue true
+     */
+    /**
+     * @language en-US
+     * @description Whether it is horizontal direction
+     * @defaultValue true
+     */
+    horizontal?: boolean | undefined;
+    /**
+     * @language zh-CN
+     * @description 步长
+     * @defaultValue 0
+     */
+    /**
+     * @language en-US
+     * @description step value
+     * @defaultValue 0
+     */
+    stepValue?: number | undefined;
+    /**
+     * @language zh-CN
+     * @description 触摸轨道是否可以更改值
+     * @defaultValue true
+     */
+    /**
+     * @language en-US
+     * @description Whether the value can be changed by touching the track
+     * @defaultValue true
+     */
+    canTouchTrack?: boolean | undefined;
+    /**
+     * @language zh-CN
+     * @description 刻度宽度
+     * @defaultValue cx(1)
+     */
+    /**
+     * @language en-US
+     * @description Scale width
+     * @defaultValue cx(1)
+     */
+    nounWidth?: number | undefined;
+    /**
+     * @language zh-CN
+     * @description 刻度高度
+     * @defaultValue cx(14)
+     */
+    /**
+     * @language en-US
+     * @description Scale height
+     * @defaultValue cx(14)
+     */
+    nounHeight?: number | undefined;
+    /**
+     * @language zh-CN
+     * @description 刻度圆角
+     * @defaultValue cx(0.5)
+     */
+    /**
+     * @language en-US
+     * @description Graduated rounded corners
+     * @defaultValue cx(0.5)
+     */
+    nounRadius?: number | undefined;
+    /**
+     * @language zh-CN
+     * @description 刻度 && 文字颜色
+     * @defaultValue '#000'
+     */
+    /**
+     * @language en-US
+     * @description Scale && Text color
+     * @defaultValue '#000'
+     */
+    nounColor?: string | undefined;
+    /**
+     * @language zh-CN
+     * @description 文字大小
+     * @defaultValue cx(12)
+     */
+    /**
+     * @language en-US
+     * @description fontSize
+     * @defaultValue cx(12)
+     */
+    fontSize?: number | undefined;
+    /**
+     * @language zh-CN
+     * @description 滑动条宽度
+     * @defaultValue cx(327)
+     */
+    /**
+     * @language en-US
+     * @description Slider width
+     * @defaultValue cx(327)
+     */
+    width?: number | undefined;
+    /**
+     * @language zh-CN
+     * @description 滑动条高度
+     * @defaultValue cx(60)
+     */
+    /**
+     * @language en-US
+     * @description Slider height
+     * @defaultValue cx(60)
+     */
+    height?: number | undefined;
+    /**
+     * @language zh-CN
+     * @description 滑动条圆角
+     * @defaultValue cx(16)
+     */
+    /**
+     * @language en-US
+     * @description Slider rounded corners
+     * @defaultValue cx(16)
+     */
+    borderRadius?: number | undefined;
+    /**
+     * @language zh-CN
+     * @description 滑动条背景色
+     * @defaultValue '#FFF'
+     */
+    /**
+     * @language en-US
+     * @description Slider background color
+     * @defaultValue '#FFF'
+     */
+    backgroundColor?: string | undefined;
+    /**
+     * @language zh-CN
+     * @description 滑动条激活背景色
+     * @defaultValue '#57BCFB'
+     */
+    /**
+     * @language en-US
+     * @description Slider to activate background color
+     * @defaultValue '#57BCFB'
+     */
+    activeBackgroundColor?: string | undefined;
+    /**
+     * @language zh-CN
+     * @description 刻度数量
+     * @defaultValue 9
+     */
+    /**
+     * @language en-US
+     * @description Number of scales
+     * @defaultValue 9
+     */
+    nounNumber?: string | undefined;
+    /**
+     * @language zh-CN
+     * @description 滑动开始文案
+     * @defaultValue '0%'
+     */
+    /**
+     * @language en-US
+     * @description Slide to start copywriting
+     * @defaultValue '0%'
+     */
+    startText?: string | undefined;
+    /**
+     * @language zh-CN
+     * @description 滑动结束文案
+     * @defaultValue '100%'
+     */
+    /**
+     * @language en-US
+     * @description Sliding End Copy
+     * @defaultValue '100%'
+     */
+    endText?: string | undefined;
+    /**
+     * @language zh-CN
+     * @description 激活刻度 && 文字颜色
+     * @defaultValue '#FFF'
+     */
+    /**
+     * @language en-US
+     * @description Activate scale && text color
+     * @defaultValue '#FFF'
+     */
+    activeNounColor?: string | undefined;
+    /**
+     * @language zh-CN
+     * @description 禁用滑动条滑动
      * @defaultValue false
      */
     /**
      * @language en-US
-     * @description color of active state
+     * @description Disable slider sliding
      * @defaultValue false
      */
     disabled?: boolean | undefined;
     /**
-     * @language zh-CN
+     * @language zh-CN
      * @description 最小值
-     * @defaultValue 10
+     * @defaultValue 0
      */
     /**
      * @language en-US
      * @description min value
-     * @defaultValue 10
+     * @defaultValue 0
      */
     min?: number | undefined;
     /**
      * @language zh-CN
      * @description 最大值
-     * @defaultValue 1000
+     * @defaultValue 100
      */
     /**
      * @language en-US
      * @description max value
-     * @defaultValue 1000
+     * @defaultValue 100
      */
     max?: number | undefined;
     /**
      * @language zh-CN
-     * @description minValue 的百分比范围
+     * @description 开始滑动回调
      * @defaultValue null
      */
     /**
      * @language en-US
-     * @description percent range of minValue
+     * @description Start sliding callback
      * @defaultValue null
      */
-    minValuePercentRange?: any;
+    onSlidingStart?: ((result?: { minValue?: number; maxValue?: number }) => void) | undefined;
     /**
      * @language zh-CN
-     * @description maxValue 的百分比范围
+     * @description 滑动过程中回调
      * @defaultValue null
      */
     /**
      * @language en-US
-     * @description percent range of maxValue
+     * @description Callback during sliding
      * @defaultValue null
      */
-    maxValuePercentRange?: any;
+    onValueChange?: ((result?: { minValue?: number; maxValue?: number }) => void) | undefined;
+    /**
+     * @language zh-CN
+     * @description 结束滑动回调
+     * @defaultValue null
+     */
+    /**
+     * @language en-US
+     * @description End slide callback
+     * @defaultValue null
+     */
+    onSlidingComplete?: ((result?: { minValue?: number; maxValue?: number }) => void) | undefined;
     /**
      * @language zh-CN
      * @description 禁用 minValue 调节
-     * @defaultValue false
+     * @defaultValue true
      */
     /**
      * @language en-US
      * @description Disable minValue adjustment
-     * @defaultValue false
+     * @defaultValue true
      */
     minDisabled?: boolean | undefined;
     /**
      * @language zh-CN
-     * @description 禁用 minValue 调节
+     * @description 禁用 maxValue 调节
      * @defaultValue false
      */
     /**
@@ -6918,26 +7257,26 @@ export interface SwipeoutProps {
     /**
      * @language zh-CN
      * @description 往左滑出现的按钮
-     * @types <a href='_target' href='https://github.com/tuya/DefinitelyTyped/blob/master/types/tuya-panel-kit/index.d.ts#L2536'>SwipeoutAction[]</a>
+     * @types <a target='_blank' href='https://github.com/tuya/DefinitelyTyped/blob/master/types/tuya-panel-kit/index.d.ts#L2536'>SwipeoutAction[]</a>
      * @defaultValue undefined
      */
     /**
      * @language en-US
      * @description Swipeout buttons on the left.
-     * @types <a href='_target' href='https://github.com/tuya/DefinitelyTyped/blob/master/types/tuya-panel-kit/index.d.ts#L2536'>SwipeoutAction[]</a>
+     * @types <a target='_blank' href='https://github.com/tuya/DefinitelyTyped/blob/master/types/tuya-panel-kit/index.d.ts#L2536'>SwipeoutAction[]</a>
      * @defaultValue undefined
      */
     left?: SwipeoutAction[] | undefined;
     /**
      * @language zh-CN
      * @description 往右滑出现的按钮
-     * @types <a href='_target' href='https://github.com/tuya/DefinitelyTyped/blob/3a07a00d4e5e3400adeee9c4857b5799d41e53d7/types/tuya-panel-kit/index.d.ts#L6245'>SwipeoutAction[]</a>
+     * @types <a target='_blank' href='https://github.com/tuya/DefinitelyTyped/blob/3a07a00d4e5e3400adeee9c4857b5799d41e53d7/types/tuya-panel-kit/index.d.ts#L6245'>SwipeoutAction[]</a>
      * @defaultValue undefined
      */
     /**
      * @language en-US
      * @description Swipeout buttons on the right.
-     * @types <a href='_target' href='https://github.com/tuya/DefinitelyTyped/blob/3a07a00d4e5e3400adeee9c4857b5799d41e53d7/types/tuya-panel-kit/index.d.ts#L6245'>SwipeoutAction[]</a>
+     * @types <a target='_blank' href='https://github.com/tuya/DefinitelyTyped/blob/3a07a00d4e5e3400adeee9c4857b5799d41e53d7/types/tuya-panel-kit/index.d.ts#L6245'>SwipeoutAction[]</a>
      * @defaultValue undefined
      */
     right?: SwipeoutAction[] | undefined;
@@ -7057,20 +7396,23 @@ export interface SwitchButtonProps {
      * @description Theme configuration
      * @defaultValue null
      */
-    theme?: {
-        width?: number | undefined;
-        height?: number | undefined;
-        thumbSize?: number | undefined;
-        margin?: number | number[] | undefined;
-        tintColor?:
-            | string
-            | {
-                  [key: string]: string;
-              } | undefined;
-        onTintColor?: string | undefined;
-        thumbTintColor?: string | undefined;
-        onThumbTintColor?: string | undefined;
-    } | undefined;
+    theme?:
+        | {
+              width?: number | undefined;
+              height?: number | undefined;
+              thumbSize?: number | undefined;
+              margin?: number | number[] | undefined;
+              tintColor?:
+                  | string
+                  | {
+                        [key: string]: string;
+                    }
+                  | undefined;
+              onTintColor?: string | undefined;
+              thumbTintColor?: string | undefined;
+              onThumbTintColor?: string | undefined;
+          }
+        | undefined;
     /**
      * @language zh-CN
      * @description 容器样式
@@ -7138,7 +7480,14 @@ export interface SwitchButtonProps {
      * @description Set the size of the development component
      * @defaultValue undefined
      */
-    size?: { width?: number | undefined; height?: number | undefined; activeSize?: number | undefined; margin?: number | undefined } | undefined;
+    size?:
+        | {
+              width?: number | undefined;
+              height?: number | undefined;
+              activeSize?: number | undefined;
+              margin?: number | undefined;
+          }
+        | undefined;
     /**
      * @language zh-CN
      * @description 改变 SwitchButton 值时执行此回调
@@ -7164,7 +7513,8 @@ export interface SwitchButtonProps {
         | string
         | {
               [key: string]: string;
-          } | undefined;
+          }
+        | undefined;
     /**
      * @language zh-CN
      * @description 设置当 SwitchButton的 value 为 true 时颜色
@@ -7179,7 +7529,8 @@ export interface SwitchButtonProps {
         | string
         | {
               [key: string]: string;
-          } | undefined;
+          }
+        | undefined;
     /**
      * @language zh-CN
      * @description 设置当 SwitchButton 的 value 为 false 时 thumb 颜色
@@ -8134,10 +8485,12 @@ export interface TopBarProps extends TopBarContentProps {
      * @description TopBar theme
      * @defaultValue null
      */
-    theme?: {
-        background?: string | undefined;
-        color?: string | undefined;
-    } | undefined;
+    theme?:
+        | {
+              background?: string | undefined;
+              color?: string | undefined;
+          }
+        | undefined;
     /**
      * @language zh-CN
      * @description TopBar的左工具栏配置。如果它为空，它将呈现iOS和Android的默认返回按钮。
@@ -8569,13 +8922,15 @@ export interface TabsProps {
      * @description Animation configuration
      * @defaultValue { duration: 200, easing: Easing.linear, delay: 0, isInteraction: true, useNativeDriver: true }
      */
-    animationConfig?: {
-        duration?: number | undefined;
-        easing?: (() => void) | undefined;
-        delay?: number | undefined;
-        isInteraction?: boolean | undefined;
-        useNativeDriver?: boolean | undefined;
-    } | undefined;
+    animationConfig?:
+        | {
+              duration?: number | undefined;
+              easing?: (() => void) | undefined;
+              delay?: number | undefined;
+              isInteraction?: boolean | undefined;
+              useNativeDriver?: boolean | undefined;
+          }
+        | undefined;
 }
 export interface TabContentProps {
     /**
@@ -8711,13 +9066,15 @@ export interface TabContentProps {
      * @description Animation configuration
      * @defaultValue { duration: 200, easing: Easing.linear, delay: 0, isInteraction: true, useNativeDriver: true }
      */
-    animationConfig?: {
-        duration?: number | undefined;
-        easing?: (() => void) | undefined;
-        delay?: number | undefined;
-        isInteraction?: boolean | undefined;
-        useNativeDriver?: boolean | undefined;
-    } | undefined;
+    animationConfig?:
+        | {
+              duration?: number | undefined;
+              easing?: (() => void) | undefined;
+              delay?: number | undefined;
+              isInteraction?: boolean | undefined;
+              useNativeDriver?: boolean | undefined;
+          }
+        | undefined;
 }
 export interface TabPanelProps extends ViewProps {
     /**
@@ -8876,6 +9233,28 @@ export interface TimerPickerProps extends Omit<PickerViewProps, 'children'> {
      * @defaultValue undefined
      */
     symbol?: string | undefined;
+    /**
+     * @language zh-CN
+     * @description 上午字段
+     * @defaultValue 'AM'
+     */
+    /**
+     * @language en-US
+     * @description AM Text
+     * @defaultValue 'AM'
+     */
+    amText?: string | undefined;
+    /**
+     * @language zh-CN
+     * @description 下午字段
+     * @defaultValue 'PM'
+     */
+    /**
+     * @language en-US
+     * @description PM 字段
+     * @defaultValue 'PM'
+     */
+    pmText?: string | undefined;
 }
 export class TimerPicker extends React.Component<TimerPickerProps> {}
 
@@ -8990,7 +9369,8 @@ export interface TipsProps {
         | MotionFadeProps
         | MotionPullUpProps
         | MotionScalePullDownProps
-        | MotionPushDownProps | undefined;
+        | MotionPushDownProps
+        | undefined;
     /**
      * @language zh-CN
      * @description 是否应用于 Popup 上，并伴有遮罩
@@ -9587,15 +9967,17 @@ export interface TYListItemProps extends TouchableOpacityProps {
      * @description All styles for list items
      * @defaultValue {}
      */
-    styles?: {
-        container?: StyleProp<ViewStyle> | undefined;
-        content?: StyleProp<ViewStyle> | undefined;
-        contentLeft?: StyleProp<ViewStyle> | undefined;
-        contentCenter?: StyleProp<ViewStyle> | undefined;
-        contentRight?: StyleProp<ViewStyle> | undefined;
-        title?: StyleProp<TextStyle> | undefined;
-        subTitle?: StyleProp<TextStyle> | undefined;
-    } | undefined;
+    styles?:
+        | {
+              container?: StyleProp<ViewStyle> | undefined;
+              content?: StyleProp<ViewStyle> | undefined;
+              contentLeft?: StyleProp<ViewStyle> | undefined;
+              contentCenter?: StyleProp<ViewStyle> | undefined;
+              contentRight?: StyleProp<ViewStyle> | undefined;
+              title?: StyleProp<TextStyle> | undefined;
+              subTitle?: StyleProp<TextStyle> | undefined;
+          }
+        | undefined;
     /**
      * @language zh-CN
      * @description 主题配置
@@ -9606,17 +9988,19 @@ export interface TYListItemProps extends TouchableOpacityProps {
      * @description Theme configuration
      * @defaultValue {}
      */
-    theme?: {
-        boardBg?: string | undefined;
-        fontColor?: string | undefined;
-        subFontColor?: string | undefined;
-        descFontColor?: string | undefined;
-        cellLine?: string | undefined;
-        cellBg?: string | undefined;
-        cellRadius?: number | undefined;
-        margin?: number[] | number | undefined;
-        padding?: number[] | number | undefined;
-    } | undefined;
+    theme?:
+        | {
+              boardBg?: string | undefined;
+              fontColor?: string | undefined;
+              subFontColor?: string | undefined;
+              descFontColor?: string | undefined;
+              cellLine?: string | undefined;
+              cellBg?: string | undefined;
+              cellRadius?: number | undefined;
+              margin?: number[] | number | undefined;
+              padding?: number[] | number | undefined;
+          }
+        | undefined;
     /**
      * @language zh-CN
      * @description 列表项右边区域是否显示 arrow 标签
@@ -9885,18 +10269,20 @@ export interface SectionDataProps {
      * @description Theme configuration
      * @defaultValue null
      */
-    theme?: {
-        boardBg?: string | undefined;
-        iconColor?: string | undefined;
-        fontColor?: string | undefined;
-        subFontColor?: string | undefined;
-        descFontColor?: string | undefined;
-        cellLine?: string | undefined;
-        cellBg?: string | undefined;
-        cellRadius?: number | undefined;
-        margin?: number[] | number | undefined;
-        padding?: number[] | number | undefined;
-    } | undefined;
+    theme?:
+        | {
+              boardBg?: string | undefined;
+              iconColor?: string | undefined;
+              fontColor?: string | undefined;
+              subFontColor?: string | undefined;
+              descFontColor?: string | undefined;
+              cellLine?: string | undefined;
+              cellBg?: string | undefined;
+              cellRadius?: number | undefined;
+              margin?: number[] | number | undefined;
+              padding?: number[] | number | undefined;
+          }
+        | undefined;
     /**
      * @language zh-CN
      * @description 数据源
@@ -9907,18 +10293,20 @@ export interface SectionDataProps {
      * @description Data source
      * @defaultValue null
      */
-    data?: Array<{
-        key?: string | number | undefined;
-        value?: string | number | boolean | undefined;
-        Action?: any;
-        title?: string | number | undefined;
-        subTitle?: string | undefined;
-        arrow?: boolean | undefined;
-        checked?: boolean | undefined;
-        disabled?: boolean | undefined;
-        onPress?: ((idx: number) => void) | undefined;
-        onValueChange?: ((value: string) => void) | undefined;
-    }> | undefined;
+    data?:
+        | Array<{
+              key?: string | number | undefined;
+              value?: string | number | boolean | undefined;
+              Action?: any;
+              title?: string | number | undefined;
+              subTitle?: string | undefined;
+              arrow?: boolean | undefined;
+              checked?: boolean | undefined;
+              disabled?: boolean | undefined;
+              onPress?: ((idx: number) => void) | undefined;
+              onValueChange?: ((value: string) => void) | undefined;
+          }>
+        | undefined;
 }
 export interface TYSectionListProps extends SectionListProps<SectionDataProps> {
     /**
@@ -10450,14 +10838,49 @@ export interface UnitTextProps {
 }
 export class UnitText extends React.Component<UnitTextProps, ViewProps> {}
 
-// i18n
-export class I18N {
-    constructor(...args: any[]);
-    language: string;
-    getDpLang: (code: string, value?: string | boolean) => string;
-    getLang: (key: string, defaultString?: string) => string;
+export interface StringType {
+    [key: string]: string;
+}
+// i18n core
+declare class I18NCore<LanMap extends I18NLanMap, Lan extends LanMap[keyof LanMap] = LanMap[keyof LanMap]> {
+    constructor(config: LanMap);
+    strings: LanMap;
+    getLang: (key: keyof Lan, defaultString?: string) => string;
+    getDpLang: (code: string, value?: DpValue) => string;
+    /**
+     * @param strings
+     * @param force false
+     */
+    applyStrings(strings: Lan, force?: boolean): void;
+    forceUpdateNetworkLang(productId: string): void;
+    mergeLanguage(L1: LanMap, L2: LanMap): LanMap;
+    setLanguage(language: string): void;
+    buildLanguage(language: string): void;
+    formatString(str: string, ...values: string[]): string;
+    formatValue(key: keyof Lan, ...values: string[]): string;
+    getDpName(code: string, defaultName?: string): string;
+    getDpsLang(key: keyof Lan): {};
+    /**
+     *  开关倒计时转换为文案 time => 设备将在xxx后 关闭／开启
+     *  精确到分钟
+     * @param t 倒计时剩余(秒)
+     * @param power 设备当前的开关状态 (如果当前设备为开启状态， 则倒计时显示为关闭)
+     */
+    parseCountdown(t: number, power: boolean): string;
+    /**
+     * 获取 picker 标题
+     * @param dpCode
+     */
     getRangeStrings: (dpCode: string) => Record<string, string>;
-    getFaultStrings: (faultCode: string, faultValue: string, onlyPrior: boolean) => string;
+}
+
+// i18n wrapper
+export class I18N<LanMap extends I18NLanMap, Lan extends LanMap[keyof LanMap] = LanMap[keyof LanMap]> extends I18NCore<
+    LanMap,
+    Lan
+> {
+    getRangeStrings: (dpCode: string) => Record<string, string>;
+    getFaultStrings: (faultCode: string, faultValue: string, onlyPrior?: boolean) => string;
 }
 
 export interface ThemeProps {
@@ -10536,7 +10959,10 @@ export let Utils: {
             rgb2hsv(...args: number[]): number[];
             rgb2hsl(r: number, g: number, b: number): number[];
             hsl2rgb(h: number, s: number, l: number, a: number): number[];
-            temp2rgb(kelvin: number, option?: { temperatureMin?: number | undefined; temperatureMax?: number | undefined }): string;
+            temp2rgb(
+                kelvin: number,
+                option?: { temperatureMin?: number | undefined; temperatureMax?: number | undefined },
+            ): string;
             brightKelvin2rgb(
                 bright: number,
                 kelvin?: number,
@@ -10843,7 +11269,8 @@ export interface NavigationOptions {
         | string
         | { uri: string }
         | RadialGradientBackground
-        | (LinearGradientBackground & LinearGradientBackgroundOffset) | undefined;
+        | (LinearGradientBackground & LinearGradientBackgroundOffset)
+        | undefined;
     /**
      * 自定义头部栏样式
      */
@@ -10901,7 +11328,8 @@ export interface NavigationRoute {
     options?:
         | StackNavigationOptions
         | ((props: { route: RouteProp<ParamListBase, string>; navigation: any }) => StackNavigationOptions)
-        | NavigationOptions | undefined;
+        | NavigationOptions
+        | undefined;
 }
 
 export type ScreenOptions =
@@ -10917,7 +11345,7 @@ export interface NavigationComponentClass<P = {}, S = {}> {
     new (props: P, context?: any): NavigatorLayout<P, S>;
 }
 // tslint:disable-next-line no-unnecessary-generics
-export function createNavigator<P = {}, S = {}>(createNavigatorParam: NavigationParam): NavigationComponentClass<P, S>;
+export function createNavigator<P = {}, S = {}>(createNavigatorParam: NavigationParam, navigationContainerProps?: Omit<NavigationContainerProps, 'children'>): any;
 
 export type GotoDpAlarmData = Array<{
     dpId: string;
@@ -10929,6 +11357,7 @@ export type GotoDpAlarmData = Array<{
 
 export const TransitionPresets: {
     SlideFromRightIOS: TransitionPreset;
+    ModalPresentationDarkThemeIOS: TransitionPreset;
     ModalSlideFromBottomIOS: TransitionPreset;
     ModalPresentationIOS: TransitionPreset;
     FadeFromBottomAndroid: TransitionPreset;
@@ -10939,41 +11368,7 @@ export const TransitionPresets: {
     SlideFromRightWithMargin: TransitionPreset;
 };
 
-export interface StringType {
-    [key: string]: string;
-}
-export let Strings: {
-    /**
-     * @param strings
-     * @param force false
-     */
-    applyStrings: (
-        strings: {
-            [key: string]: StringType;
-        },
-        force?: boolean,
-    ) => void;
-    setLanguage: (language: string) => void;
-    buildLanguage: (language: string) => void;
-    formatString: (str: string, ...args: string[]) => string;
-    formatValue: (key: string, value: string | number) => string;
-    getDpLang: (code: string, value?: boolean | string) => string;
-    getDpName: (code: string, defaultName?: string) => string;
-    getDpsLang: (key: string) => { [key: string]: string };
-    getLang: (key: string, defaultString?: string) => string;
-    /**
-     * 获取 picker 标题
-     * @param dpCode
-     */
-    getRangeStrings: (dpCode: string | number) => string;
-    /**
-     *  开关倒计时转换为文案 time => 设备将在xxx后 关闭／开启
-     *  精确到分钟
-     * @param t 倒计时剩余(秒)
-     * @param power 设备当前的开关状态 (如果当前设备为开启状态， 则倒计时显示为关闭)
-     */
-    parseCountdown: (t: number, power: 'on' | 'off') => string;
-};
+export let Strings: InstanceType<typeof I18NCore>;
 
 export let TYSdk: {
     DeviceEventEmitter: {
@@ -10982,7 +11377,7 @@ export let TYSdk: {
         removeListener: (eventType: string, cb: AnyFunction) => void;
         removeAllListeners: (eventType?: string) => void;
     };
-    Navigator: DeprecatedNavigator;
+    Navigator: DeprecatedNavigator | NavigationContainerRef;
     /**
      * @param a api name
      * @param postData api params

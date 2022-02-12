@@ -23,8 +23,8 @@ export type ReferenceType = 'shortcut' | 'collapsed' | 'full';
  * @example
  * declare module 'mdast' {
  *   interface BlockContentMap {
- *     // Allow using toml nodes defined by remark-frontmatter.
- *     toml: TOML;
+ *     // Allow using math nodes defined by `remark-math`.
+ *     math: Math;
  *   }
  * }
  */
@@ -40,6 +40,23 @@ export interface BlockContentMap {
 }
 
 /**
+ * This map registers all frontmatter node types.
+ *
+ * This interface can be augmented to register custom node types.
+ *
+ * @example
+ * declare module 'mdast' {
+ *   interface FrontmatterContentMap {
+ *     // Allow using toml nodes defined by `remark-frontmatter`.
+ *     toml: TOML;
+ *   }
+ * }
+ */
+export interface FrontmatterContentMap {
+    yaml: YAML;
+}
+
+/**
  * This map registers all node definition types.
  *
  * This interface can be augmented to register custom node types.
@@ -47,8 +64,7 @@ export interface BlockContentMap {
  * @example
  * declare module 'mdast' {
  *   interface DefinitionContentMap {
- *     // Allow using toml nodes defined by remark-frontmatter.
- *     toml: TOML;
+ *     custom: Custom;
  *   }
  * }
  */
@@ -85,7 +101,7 @@ export interface StaticPhrasingContentMap {
 }
 
 /**
- * This map registers all node types that are acceptable in a static phrasing context, except links.
+ * This map registers all node types that are acceptable in a (interactive) phrasing context (so not in links).
  *
  * This interface can be augmented to register custom node types in a phrasing context, excluding links and link
  * references.
@@ -93,7 +109,7 @@ export interface StaticPhrasingContentMap {
  * @example
  * declare module 'mdast' {
  *   interface PhrasingContentMap {
- *     mdxJsxTextElement: MDXJSXTextElement;
+ *     custom: Custom;
  *   }
  * }
  */
@@ -156,7 +172,7 @@ export type TopLevelContent = BlockContent | FrontmatterContent | DefinitionCont
 
 export type BlockContent = BlockContentMap[keyof BlockContentMap];
 
-export type FrontmatterContent = YAML;
+export type FrontmatterContent = FrontmatterContentMap[keyof FrontmatterContentMap];
 
 export type DefinitionContent = DefinitionContentMap[keyof DefinitionContentMap];
 
@@ -199,27 +215,27 @@ export interface ThematicBreak extends Node {
 
 export interface Blockquote extends Parent {
     type: 'blockquote';
-    children: BlockContent[];
+    children: Array<BlockContent | DefinitionContent>;
 }
 
 export interface List extends Parent {
     type: 'list';
-    ordered?: boolean | undefined;
-    start?: number | undefined;
-    spread?: boolean | undefined;
+    ordered?: boolean | null | undefined;
+    start?: number | null | undefined;
+    spread?: boolean | null | undefined;
     children: ListContent[];
 }
 
 export interface ListItem extends Parent {
     type: 'listItem';
-    checked?: boolean | undefined;
-    spread?: boolean | undefined;
-    children: BlockContent[];
+    checked?: boolean | null | undefined;
+    spread?: boolean | null | undefined;
+    children: Array<BlockContent | DefinitionContent>;
 }
 
 export interface Table extends Parent {
     type: 'table';
-    align?: AlignType[] | undefined;
+    align?: AlignType[] | null | undefined;
     children: TableContent[];
 }
 
@@ -239,8 +255,8 @@ export interface HTML extends Literal {
 
 export interface Code extends Literal {
     type: 'code';
-    lang?: string | undefined;
-    meta?: string | undefined;
+    lang?: string | null | undefined;
+    meta?: string | null | undefined;
 }
 
 export interface YAML extends Literal {
@@ -253,7 +269,7 @@ export interface Definition extends Node, Association, Resource {
 
 export interface FootnoteDefinition extends Parent, Association {
     type: 'footnoteDefinition';
-    children: BlockContent[];
+    children: Array<BlockContent | DefinitionContent>;
 }
 
 export interface Text extends Literal {
@@ -318,7 +334,7 @@ export interface Resource {
 
 export interface Association {
     identifier: string;
-    label?: string | undefined;
+    label?: string | null | undefined;
 }
 
 export interface Reference extends Association {
@@ -326,5 +342,5 @@ export interface Reference extends Association {
 }
 
 export interface Alternative {
-    alt?: string | undefined;
+    alt?: string | null | undefined;
 }

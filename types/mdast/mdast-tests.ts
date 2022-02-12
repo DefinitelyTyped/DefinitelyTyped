@@ -3,7 +3,7 @@ import * as Mdast from 'mdast';
 // Augmentations
 
 declare module 'mdast' {
-    interface BlockContentMap {
+    interface FrontmatterContentMap {
         toml: TOML;
     }
 

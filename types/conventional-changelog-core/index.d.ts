@@ -1,4 +1,4 @@
-// Type definitions for conventional-changelog-core 4.1
+// Type definitions for conventional-changelog-core 4.2
 // Project: https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-core#readme
 // Definitions by: Jason Kwok <https://github.com/JasonHK>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -17,7 +17,7 @@ import {
     Options as BaseParserOptions,
 } from "conventional-commits-parser";
 import { Options as RecommendedBumpOptions } from "conventional-recommended-bump";
-import { GitOptions as BaseGitRawCommitsOptions } from "git-raw-commits";
+import { ExecOptions as GitRawExecOptions, GitOptions as BaseGitRawCommitsOptions } from "git-raw-commits";
 
 import { Package } from "normalize-package-data";
 
@@ -31,7 +31,7 @@ import { Package } from "normalize-package-data";
  * @param writerOpts
  */
 // tslint:disable-next-line max-line-length
-declare function conventionalChangelogCore<TCommit extends Commit = Commit, TContext extends BaseContext = Context>(options?: Options<TCommit, TContext>, context?: Partial<TContext>, gitRawCommitsOpts?: GitRawCommitsOptions, parserOpts?: ParserOptions, writerOpts?: WriterOptions<TCommit, TContext>): Stream.Readable;
+declare function conventionalChangelogCore<TCommit extends Commit = Commit, TContext extends BaseContext = Context>(options?: Options<TCommit, TContext>, context?: Partial<TContext>, gitRawCommitsOpts?: GitRawCommitsOptions, parserOpts?: ParserOptions, writerOpts?: WriterOptions<TCommit, TContext>, execOpts?: GitRawExecOptions): Stream.Readable;
 
 declare namespace conventionalChangelogCore {
     interface Context extends BaseContext {
@@ -194,6 +194,11 @@ declare namespace conventionalChangelogCore {
          * 1
          */
         releaseCount?: number | undefined;
+
+        /**
+         * If given, unstable tags (e.g. `x.x.x-alpha.1`, `x.x.x-rc.2`) will be skipped.
+         */
+        skipUnstable?: boolean | undefined;
 
         /**
          * A debug function. EG: `console.debug.bind(console)`.

@@ -2,7 +2,7 @@ export = FieldNameList;
 declare function FieldNameList(): void;
 declare class FieldNameList {
     private init_;
-    _items: {};
+    private _items;
     private _nameToFieldId;
     getCount(): any;
     clear(): void;

@@ -7,7 +7,7 @@ ZC.VERSION = '2.9.4';
 
 zingchart.render({
     id: 'myChart',
-    data: {
+    data: [{
         type: 'line',
         series: [
             {
@@ -18,7 +18,13 @@ zingchart.render({
             label: {
               text: 'Days'
             },
-            labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+            labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+            lineColor: 'red',
+            offsetStart: '10%',
+        },
+        scaleY: {
+            autoFit: true,
+            zooming: true,
         },
         plot: {
             animation: {
@@ -27,12 +33,37 @@ zingchart.render({
               sequence: 2,
               speed: 275,
             },
+            'selected-state': {
+                'line-color': 'red',
+            },
             tooltip: {
                 text: 'Hello world',
             },
             'value-box': {
                 text: 'Hello World',
-            }
+            },
+        },
+        timeZone: 1,
+        zoom: {
+            shared: true,
+        }
+    }],
+    labels: [{
+        alpha: 0.5,
+        text: 'testing',
+    }],
+    scaleX: {
+        step: '3hour',
+        transform: {
+            type: 'date',
         },
     },
+    series: [{
+        borderRadius: 3,
+        legendMarker: {
+            lineStyle: 'dotted',
+        },
+    }],
+    zoom: {},
+    zoomSnap: true,
 });

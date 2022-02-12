@@ -78,6 +78,7 @@ import amplitude = require('amplitude-js');
     client.setGlobalUserProperties({ gender: 'female', sign_up_complete: true });
     client.setVersionName('1.12.3');
     client.setSessionId(1505430378000);
+    client.resetSessionId();
     client.options.logLevel = 'WARN';
     client.getSessionId() === 123;
     client.isNewSession();
@@ -102,6 +103,8 @@ import amplitude = require('amplitude-js');
     identify.append('some_list', [1, 2, 3, 4, 'values']);
     identify = new amplitude.Identify().prepend('ab-tests', 'new-user-tests');
     identify.prepend('some_list', [1, 2, 3, 4, 'values']);
+    identify = new amplitude.Identify().preInsert('ab-tests', 'new-user-tests');
+    identify.preInsert('some_list', [1, 2, 3, 4, 'values']);
     identify = new amplitude.Identify().set('user_type', 'beta');
     identify.set('name', { first: 'John', last: 'Doe' });
     identify = new amplitude.Identify().setOnce('sign_up_date', '2016-04-01');
@@ -196,6 +199,7 @@ const defaults: amplitude.Config = {
     saveParamsReferrerOncePerSession: true,
     secureCookie: false,
     sessionTimeout: 30 * 60 * 1000,
+    storage: 'cookies',
     trackingOptions: {
         city: true,
         country: true,
@@ -216,3 +220,30 @@ const defaults: amplitude.Config = {
     unsentIdentifyKey: 'amplitude_unsent_identify',
     uploadBatchSize: 100,
 };
+
+// For versions starting from 8.9.0
+// No need to call setServerUrl for sending data to Amplitude's EU servers
+amplitude.getInstance().init('API_KEY', 'USER_ID', {
+    serverZone: 'EU',
+    serverZoneBasedApi: true,
+});
+
+// set transport to 'beacon' when initializing an event
+amplitude.getInstance().init('API_KEY', 'USER_ID', {transport: 'beacon'});
+
+// set transport to 'beacon' after initialization
+amplitude.getInstance().setTransport('beacon');
+
+// cookieStorage use example
+// https://github.com/DefinitelyTyped/DefinitelyTyped/discussions/57387
+const deviceId = amplitude.getInstance().cookieStorage.get('deviceId');
+if (deviceId) {
+    amplitude.getInstance().setDeviceId(deviceId);
+} else {
+    amplitude.getInstance().cookieStorage.set('deviceId', amplitude.getInstance().options.deviceId);
+}
+
+const domain = amplitude.getInstance().cookieStorage.options().domain;
+amplitude.getInstance().cookieStorage.options({ domain });
+
+amplitude.getInstance().clearStorage();

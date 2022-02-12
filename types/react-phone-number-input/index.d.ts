@@ -34,6 +34,12 @@ export function isPossiblePhoneNumber(value: string): boolean;
  */
 export function isValidPhoneNumber(value?: string): boolean;
 
+/**
+ * Checks if a country is supported by this library.
+ * This is simply an alias for isSupportedCountry() from libphonenumber-js.
+ */
+export function isSupportedCountry(country: string): boolean;
+
 export interface ParsePhoneNumberOptions {
     /**
      * Default country for parsing national numbers. Instead of passing options.defaultCountry
@@ -110,7 +116,7 @@ export interface CountrySelectComponentProps {
     labels?: { [key: string]: string } | undefined;
 }
 
-export interface PhoneInputProps extends Omit<React.InputHTMLAttributes<string>, 'onChange'> {
+export interface PhoneInputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
     // Required props
     onChange: (value: string) => void;
     /**
@@ -259,6 +265,12 @@ export interface PhoneInputProps extends Omit<React.InputHTMLAttributes<string>,
      * set `useNationalFormatForDefaultCountryValue` property to `true`.
      */
     useNationalFormatForDefaultCountryValue?: boolean;
+    /**
+     * If set to false, and international is true, then users won't be able
+     * to erase the "country calling part" of a phone number in the <input/>.
+     * @default true
+     */
+    countryCallingCodeEditable?: boolean;
 }
 
 export default class PhoneInput extends React.Component<PhoneInputProps, object> {}

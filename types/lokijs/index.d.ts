@@ -1,12 +1,11 @@
-// Type definitions for lokijs v1.5.3
+// Type definitions for lokijs v1.5.9
 // Project: https://github.com/techfort/LokiJS
 // Definitions by: TeamworkGuy2 <https://github.com/TeamworkGuy2>
 //                 Thomas Conner <https://github.com/thomasconner>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-// NOTE: definition last updated (2017-11-25) based on latest code as of https://github.com/techfort/LokiJS/commit/f6c8f1c362cfc9ed63d93cd165ef0ac3bad131bf
-
+// NOTE: definition last updated (2021-09-08) based on the changes in v1.5.9 (https://github.com/techfort/LokiJS/tree/6a8f453d5075e8637970b71afeb46ee37c161909)
 /**
  * LokiJS
  * A lightweight document oriented javascript database
@@ -1292,6 +1291,7 @@ interface CollectionOptions<E> {
     disableMeta: boolean;
     disableChangesApi: boolean;
     disableDeltaChangesApi: boolean;
+    disableFreeze: boolean;
     adaptiveBinaryIndices: boolean;
     asyncListeners: boolean;
     autoupdate: boolean;
@@ -1344,6 +1344,7 @@ declare class Collection<E extends object> extends LokiEventEmitter {
     };
     disableChangesApi: boolean;
     disableDeltaChangesApi: boolean;
+    disableFreeze: boolean;
     DynamicViews: DynamicView<object>[];
     idIndex: number[];
     ttl: { age: any; ttlInterval: any; daemon: any; };
@@ -1465,7 +1466,7 @@ declare class Collection<E extends object> extends LokiEventEmitter {
      * @param [force] - (Optional) flag indicating whether to construct index immediately
      */
     public ensureIndex(property: keyof E, force?: boolean): void;
-    
+
     /**
      * Perform checks to determine validity/consistency of all binary indices
      * @param [options] - optional configuration object
@@ -1474,7 +1475,7 @@ declare class Collection<E extends object> extends LokiEventEmitter {
      * @param [options.repair] - whether to fix problems if they are encountered
      */
     public checkAllIndexes(options?: Partial<CheckIndexOptions>): string[];
-    
+
     /**
      * Perform checks to determine validity/consistency of a binary index
      * @param property - name of the binary-indexed property to check
@@ -1999,6 +2000,7 @@ declare class SortedIndex {
 
 // type aliases to allow the nested classes inside LokiConstructor to extend classes sharing them same name(s) as themselves
 declare class _Collection<E extends object> extends Collection<E> { }
+declare class _DynamicView<E extends object> extends DynamicView<E> { }
 declare class _KeyValueStore extends KeyValueStore { }
 declare class _LokiMemoryAdapter extends LokiMemoryAdapter { }
 declare class _LokiPartitioningAdapter extends LokiPartitioningAdapter { }
@@ -2029,6 +2031,8 @@ declare module LokiConstructor {
     export var LokiOps: LokiOps;
 
     export class Collection<E extends object = any> extends _Collection<E> { }
+
+    export class DynamicView<E extends object = any> extends _DynamicView<E> { }
 
     export class KeyValueStore extends _KeyValueStore { }
 

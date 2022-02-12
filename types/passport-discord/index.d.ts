@@ -1,6 +1,6 @@
 // Type definitions for passport-discord 0.1
 // Project: https://github.com/nicholastay/passport-discord#readme
-// Definitions by: Gonthier Renaud <https://github.com/kzay>
+// Definitions by: Gonthier Renaud <https://github.com/kzay>, Daniel Gonzalez <https://github.com/dannyxt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -57,7 +57,9 @@ declare namespace Strategy {
         locale: string;
         mfa_enabled: boolean;
         flags: number;
-        avatar: string;
+        banner: string | null;
+        accent_color: number | null;
+        avatar: string | null;
         discriminator: string;
         verified: boolean;
         fetchedAt: string;
@@ -78,9 +80,10 @@ declare namespace Strategy {
     interface GuildInfo {
         owner: boolean;
         permissions: number;
-        icon: string;
+        icon: string | null;
         id: string;
         name: string;
+        features?: string[] | undefined;
     }
 }
 

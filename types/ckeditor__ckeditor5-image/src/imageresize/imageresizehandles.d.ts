@@ -6,3 +6,9 @@ export default class ImageResizeHandles extends Plugin {
     static readonly pluginName: 'ImageResizeHandles';
     init(): void;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        ImageResizeHandles: ImageResizeHandles;
+    }
+}

@@ -8,6 +8,7 @@ export as namespace Money;
 export function add(a: string, b: string): string;
 export function amountToCents(value: string): string;
 export function centsToAmount(value: string): string;
+export function centsToAmount(): undefined;
 export function subtract(a: string, b: string): string;
 export function mul(a: string, b: string): string;
 export function div(a: string, b: string): string;

@@ -115,7 +115,7 @@ function renderOutTestEmail() {
 // TestMjmlBreakpointTag
 {
     const minProps: React.ReactNode = <MjmlBreakpoint />;
-    const maxProps: React.ReactNode = <MjmlBreakpoint width="">child</MjmlBreakpoint>;
+    const maxProps: React.ReactNode = <MjmlBreakpoint width="" />;
 }
 // TestMjmlBodyTag
 {
@@ -137,7 +137,8 @@ function renderOutTestEmail() {
 }
 // TestMjmlPreviewTag
 {
-    const minMaxProps: React.ReactNode = <MjmlPreview>""</MjmlPreview>;
+    const minProps: React.ReactNode = <MjmlPreview />;
+    const maxProps: React.ReactNode = <MjmlPreview>""</MjmlPreview>;
 
     // children cannot be anything other than string
     // prettier-ignore
@@ -145,7 +146,7 @@ function renderOutTestEmail() {
 }
 // TestMjmlStyleTag
 {
-    const minProps: React.ReactNode = <MjmlStyle>""</MjmlStyle>;
+    const minProps: React.ReactNode = <MjmlStyle />;
     const maxProps: React.ReactNode = <MjmlStyle inline>child</MjmlStyle>;
 
     // children cannot be anything other than string
@@ -154,7 +155,8 @@ function renderOutTestEmail() {
 }
 // TestMjmlTitleTag
 {
-    const minMaxProps: React.ReactNode = <MjmlTitle>""</MjmlTitle>;
+    const minProps: React.ReactNode = <MjmlTitle />;
+    const maxProps: React.ReactNode = <MjmlTitle>""</MjmlTitle>;
 
     // children cannot be anything other than string
     // prettier-ignore
@@ -238,18 +240,22 @@ function renderOutTestEmail() {
 {
     {
         const minProps: React.ReactNode = <MjmlAccordion />;
+        const maxProps: React.ReactNode = <MjmlAccordion>child</MjmlAccordion>;
     }
     // MjmlAccordionElement
     {
         const minProps: React.ReactNode = <MjmlAccordionElement />;
+        const maxProps: React.ReactNode = <MjmlAccordionElement>child</MjmlAccordionElement>;
     }
     // MjmlAccordionText
     {
         const minProps: React.ReactNode = <MjmlAccordionText />;
+        const maxProps: React.ReactNode = <MjmlAccordionText>child</MjmlAccordionText>;
     }
     // TestMjmlAccordionTitleTag
     {
         const minProps: React.ReactNode = <MjmlAccordionTitle />;
+        const maxProps: React.ReactNode = <MjmlAccordionTitle>child</MjmlAccordionTitle>;
     }
 }
 // TestMjmlCarouselTag

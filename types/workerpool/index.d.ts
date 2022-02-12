@@ -1,4 +1,4 @@
-// Type definitions for workerpool 6.0
+// Type definitions for workerpool 6.1
 // Project: https://github.com/josdejong/workerpool
 // Definitions by: Alorel <https://github.com/Alorel>
 //                 Seulgi Kim <https://github.com/sgkim126>
@@ -32,7 +32,11 @@ export interface WorkerPool {
      * and executed there with the provided parameters. The provided function must be static,
      * it must not depend on variables in a surrounding scope.
      */
-    exec<T extends (...args: any[]) => any>(method: T | string, params: Parameters<T> | null): Promise<ReturnType<T>>;
+    exec<T extends (...args: any[]) => any>(
+        method: T | string,
+        params: Parameters<T> | null,
+        options?: { on: (payload: any) => void }
+    ): Promise<ReturnType<T>>;
 
     /**
      * Create a proxy for the worker pool.
@@ -129,6 +133,7 @@ export function pool(options?: WorkerPoolOptions): WorkerPool;
  * Registered functions will be available via the worker pool.
  */
 export function worker(methods?: {[k: string]: (...args: any[]) => any}): any;
+export function workerEmit(payload: any): void;
 export const platform: 'node' | 'browser';
 export const isMainThread: boolean;
 export const cpus: number;

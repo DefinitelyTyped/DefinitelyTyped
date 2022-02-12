@@ -1,7 +1,6 @@
 // Type definitions for Summernote 0.8
 // Project: https://github.com/summernote/summernote#readme
 // Definitions by: Wouter Staelens <https://github.com/wstaelens>
-//                 Denny Harijanto <https://github.com/nusantara-cloud>
 //                 Corbin Crutchley <https://github.com/crutchcorn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.7
@@ -19,7 +18,7 @@ declare global {
             codeviewFilterRegex?: string | undefined;
             codeviewIframeWhitelistSrc?: string[] | undefined;
             codeviewIframeFilter?: boolean | undefined;
-            callbacks?: any; // todo
+            callbacks?: SummernoteCallbacks | SummernoteUndocumentedCallbacks | undefined; // todo
             codemirror?: CodemirrorOptions | undefined;
             colors?: colorsDef | undefined;
             dialogsInBody?: boolean | undefined;
@@ -70,6 +69,7 @@ declare global {
         type toolbarDef = Array<
             ['style', toolbarStyleGroupOptions[]]
             | ['font', toolbarFontGroupOptions[]]
+            | ['fontname', toolbarFontNameOptions[]]
             | ['fontsize', toolbarFontsizeGroupOptions[]]
             | ['color', toolbarColorGroupOptions[]]
             | ['para', toolbarParaGroupOptions[]]
@@ -168,6 +168,33 @@ declare global {
         }
 
         type EditImageCallback = ($image: JQuery.Node) => void;
+
+        type toolbarFontNameOptions = string;
+
+        interface SummernoteCallbacks {
+            onBeforeCommand?: (contents: string) => void;
+            onChange?: (contents: string, $editable: JQuery) => void;
+            onChangeCodeview?: (code: string, $editor: JQuery) => void;
+            onDialogShown?: () => void;
+            onEnter?: (ev: Event) => void;
+            onFocus?: (ev: Event) => void;
+            onBlur?: (ev: Event) => void;
+            onBlurCodeview?: (code: string, ev: Event) => void;
+            onImageLinkInsert?: (url: string) => void;
+            onImageUpload?: (files: Blob[]) => void;
+            onImageUploadError?: (err: any) => void;
+            onInit?: () => void;
+            onKeyup?: (ev: KeyboardEvent) => void;
+            onKeydown?: (ev: KeyboardEvent) => void;
+            onMouseDown?: (ev: MouseEvent) => void;
+            onMouseUp?: (ev: MouseEvent) => void;
+            onPaste?: (e: Event) => void;
+            onScroll?: (e: Event) => void;
+        }
+
+        type SummernoteUndocumentedCallbacks = {
+            [key in Exclude<keyof SummernoteCallbacks, string>]: (...args: any[]) => void;
+        };
     }
 
     interface JQuery {
@@ -251,4 +278,4 @@ declare global {
     }
 }
 
-export {};
+export { };

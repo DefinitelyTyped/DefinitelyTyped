@@ -1,4 +1,4 @@
-import Code from '@ckeditor/ckeditor5-code-block';
+import { CodeBlock, CodeBlockEditing, CodeBlockUI } from '@ckeditor/ckeditor5-code-block';
 import CodeCommand from '@ckeditor/ckeditor5-code-block/src/codeblockcommand';
 import * as converters from '@ckeditor/ckeditor5-code-block/src/converters';
 import IndentCodeBlockCommand from '@ckeditor/ckeditor5-code-block/src/indentcodeblockcommand';
@@ -14,14 +14,15 @@ import View from '@ckeditor/ckeditor5-engine/src/view/view';
 class MyEditor extends Editor {}
 const editor = new MyEditor();
 
-new Code.CodeBlock(editor);
-Code.CodeBlock.requires.map(Plugin => new Plugin(editor).init());
+new CodeBlock(editor);
+CodeBlock.requires.map(Plugin => new Plugin(editor).init());
 
-new Code.CodeBlockUi(editor).init();
+new CodeBlockUI(editor).init();
 
-new Code.CodeBlockEditing(editor).init();
+new CodeBlockEditing(editor).init();
 
 new CodeCommand(editor).execute();
+new CodeCommand(editor).execute({ forceValue: true, language: 'php', usePreviousLanguageChoice: true });
 new CodeCommand(editor).refresh();
 
 converters.modelToViewCodeBlockInsertion(new Model(), [{ language: 'php', label: 'PHP' }], true);
@@ -40,3 +41,21 @@ new IndentCodeBlockCommand(editor).refresh();
 
 new OutdentCodeBlockCommand(editor).execute();
 new OutdentCodeBlockCommand(editor).refresh();
+
+// $ExpectType CodeBlock
+editor.plugins.get('CodeBlock');
+
+// $ExpectType CodeBlockEditing
+editor.plugins.get('CodeBlockEditing');
+
+// $ExpectType CodeBlockUI
+editor.plugins.get('CodeBlockUI');
+
+// $ExpectType CodeBlockCommand | undefined
+editor.commands.get('CodeBlockCommand');
+
+// $ExpectType OutdentCodeBlockCommand | undefined
+editor.commands.get('OutdentCodeBlockCommand');
+
+// $ExpectType IndentCodeBlockCommand | undefined
+editor.commands.get('IndentCodeBlockCommand');

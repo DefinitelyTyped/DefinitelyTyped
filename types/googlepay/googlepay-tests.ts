@@ -100,6 +100,13 @@ function addGooglePayButton() {
     const buttonOptions: google.payments.api.ButtonOptions = {
         onClick: onGooglePaymentButtonClick,
         buttonColor: 'black',
+        allowedPaymentMethods: [{
+            type: 'CARD',
+            parameters: {
+                allowedAuthMethods: ['PAN_ONLY', 'CRYPTOGRAM_3DS'],
+                allowedCardNetworks,
+            },
+        }]
     };
 
     // $ExpectError

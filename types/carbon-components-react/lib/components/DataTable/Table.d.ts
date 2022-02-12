@@ -7,6 +7,9 @@ export type DataTableSize = "compact" | "lg" | "md" | "normal" | "short" | "sm" 
 export interface TableCarbonProps {
     isSortable?: boolean | undefined,
     overflowMenuOnHover?: boolean | undefined,
+    /**
+     * @deprecated
+     */
     shouldShowBorder?: boolean | undefined,
     size?: DataTableSize | undefined,
     useStaticWidth?: boolean | undefined,

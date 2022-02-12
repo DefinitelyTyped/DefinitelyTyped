@@ -8,7 +8,7 @@ import * as R from 'ramda';
   const x4: boolean = R.where(spec)({ x: 1, y: 'moo', z: true }); // => false
 
   // There's no way to represent the below functionality in typescript
-  // per http://stackoverflow.com/a/29803848/632495
+  // per https://stackoverflow.com/a/29803848/632495
   // will need a work around.
 
   const spec2 = {

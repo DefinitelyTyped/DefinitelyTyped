@@ -176,7 +176,7 @@ const EditableCell = ({
 function DefaultColumnFilter({ column: { filterValue, preFilteredRows, setFilter, parent } }: FilterProps<Data>) {
     const count = preFilteredRows.length;
 
-    const foo = parent;  // $ExpectType ColumnInstance<Data> | undefined
+    const foo = parent; // $ExpectType ColumnInstance<Data> | undefined
 
     return (
         <input
@@ -304,7 +304,7 @@ function NumberRangeColumnFilter({ column: { filterValue = [], preFilteredRows, 
     );
 }
 
-function fuzzyTextFilterFn<T extends object>(rows: Array<Row<T>>, id: IdType<T>, filterValue: FilterValue) {
+function fuzzyTextFilterFn<T extends object>(rows: Array<Row<T>>, ids: Array<IdType<T>>, filterValue: FilterValue) {
     // return matchSorter(rows, filterValue, {
     //     keys: [(row: Row<any>) => row.values[id]],
     // });
@@ -315,7 +315,7 @@ function fuzzyTextFilterFn<T extends object>(rows: Array<Row<T>>, id: IdType<T>,
 fuzzyTextFilterFn.autoRemove = (val: any) => !val;
 
 interface Table<T extends object> {
-    columns: Array<Column<T>>;
+    columns: ReadonlyArray<Column<T>>;
     data: T[];
     updateMyData?: any;
     skipPageReset?: boolean | undefined;
@@ -329,9 +329,9 @@ function Table({ columns, data, updateMyData, skipPageReset = false }: Table<Dat
             fuzzyText: fuzzyTextFilterFn,
             // Or, override the default text filter to use
             // "startWith"
-            text: (rows: Array<Row<Data>>, id: IdType<Data>, filterValue: FilterValue) => {
+            text: (rows: Array<Row<Data>>, ids: Array<IdType<Data>>, filterValue: FilterValue) => {
                 return rows.filter(row => {
-                    const rowValue = row.values[id];
+                    const rowValue = row.values[ids[0]];
                     return rowValue !== undefined
                         ? String(rowValue).toLowerCase().startsWith(String(filterValue).toLowerCase())
                         : true;
@@ -390,6 +390,7 @@ function Table({ columns, data, updateMyData, skipPageReset = false }: Table<Dat
             // Do not reset hidden columns when columns change. Allows
             // for creating columns during render.
             autoResetHiddenColumns: false,
+            autoResetResize: false
         },
         useGroupBy,
         useFilters,
@@ -429,25 +430,43 @@ function Table({ columns, data, updateMyData, skipPageReset = false }: Table<Dat
                 <thead>
                     {headerGroups.map((headerGroup: HeaderGroup<Data>) => (
                         <tr {...headerGroup.getHeaderGroupProps()}>
-                            {headerGroup.headers.map(column => (
-                                <th {...column.getHeaderProps()}>
-                                    <div>
-                                        {column.canGroupBy ? (
-                                            // If the column can be grouped, let's add a toggle
-                                            <span {...column.getGroupByToggleProps()}>
-                                                {column.isGrouped ? '🛑 ' : '👊 '}
+                            {headerGroup.headers.map(column => {
+                                // $ExpectType TableHeaderProps
+                                const headerProps = column.getHeaderProps();
+                                const {
+                                    key: headerKey,
+                                    className: headerClassName,
+                                    style: headerStyle,
+                                    role: headerRole,
+                                } = headerProps;
+                                // $ExpectType TableGroupByToggleProps
+                                const groupByToggleProps = column.getGroupByToggleProps();
+                                const {
+                                    title: groupTitle,
+                                    style: groupStyle,
+                                    onClick: groupOnClick,
+                                } = groupByToggleProps;
+                                // $ExpectType TableSortByToggleProps
+                                const sortByProps = column.getSortByToggleProps();
+                                const { title: sortTitle, style: sortStyle, onClick: sortOnClick } = sortByProps;
+                                return (
+                                    <th {...headerProps}>
+                                        <div>
+                                            {column.canGroupBy ? (
+                                                // If the column can be grouped, let's add a toggle
+                                                <span {...groupByToggleProps}>{column.isGrouped ? '🛑 ' : '👊 '}</span>
+                                            ) : null}
+                                            <span {...sortByProps}>
+                                                {column.render('Header')}
+                                                {/* Add a sort direction indicator */}
+                                                {column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : ''}
                                             </span>
-                                        ) : null}
-                                        <span {...column.getSortByToggleProps()}>
-                                            {column.render('Header')}
-                                            {/* Add a sort direction indicator */}
-                                            {column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : ''}
-                                        </span>
-                                    </div>
-                                    {/* Render the columns filter UI */}
-                                    <div>{column.canFilter ? column.render('Filter') : null}</div>
-                                </th>
-                            ))}
+                                        </div>
+                                        {/* Render the columns filter UI */}
+                                        <div>{column.canFilter ? column.render('Filter') : null}</div>
+                                    </th>
+                                );
+                            })}
                         </tr>
                     ))}
                 </thead>
@@ -597,7 +616,7 @@ const Component = (props: {}) => {
         { firstName: 'surprise', lastName: 'zinc', age: 23, visits: 7, progress: 48, status: 'single' },
         { firstName: 'riddle', lastName: 'information', age: 2, visits: 63, progress: 3, status: 'complicated' },
     ];
-    const columns: Array<Column<Data>> = [
+    const columns: ReadonlyArray<Column<Data>> = [
         {
             id: 'selection',
             // The header can use the table's getToggleAllRowsSelectedProps method
@@ -626,10 +645,10 @@ const Component = (props: {}) => {
                     // then sum any of those counts if they are
                     // aggregated further
                     aggregate: 'count',
-                    Aggregated: ({ cell: { value } }: CellProps<Data>) => `${value} Names`,
+                    Aggregated: ({ cell: { value } }: CellProps<Data>) => <>{value} Names</>,
                     Cell: ({ value }) => {
                         const v = value; // $ExpectType string
-                        return value;
+                        return <>{value}</>;
                     },
                 },
                 {
@@ -642,7 +661,7 @@ const Component = (props: {}) => {
                     // being aggregated, then sum those counts if
                     // they are aggregated further
                     aggregate: 'uniqueCount',
-                    Aggregated: ({ cell: { value } }: CellProps<Data>) => `${value} Unique Names`,
+                    Aggregated: ({ cell: { value } }: CellProps<Data>) => <>{value} Unique Names</>,
                 },
             ],
         },
@@ -656,11 +675,11 @@ const Component = (props: {}) => {
                     filter: 'equals',
                     // Aggregate the average age of visitors
                     aggregate: 'average',
-                    Aggregated: ({ cell: { value } }: CellProps<Data>) => `${value} (avg)`,
+                    Aggregated: ({ cell: { value } }: CellProps<Data>) => <>{value} (avg)</>,
                     disableGlobalFilter: true,
                     Cell: ({ value }) => {
                         const v = value; // $ExpectType number
-                        return value;
+                        return <>{value}</>;
                     },
                 },
                 {
@@ -670,7 +689,7 @@ const Component = (props: {}) => {
                     filter: 'between',
                     // Aggregate the sum of all visits
                     aggregate: 'sum',
-                    Aggregated: ({ cell: { value } }: CellProps<Data>) => `${value} (total)`,
+                    Aggregated: ({ cell: { value } }: CellProps<Data>) => <>{value} (total)</>,
                 },
                 {
                     Header: 'Status',
@@ -685,14 +704,14 @@ const Component = (props: {}) => {
                     filter: filterGreaterThan,
                     // Use our custom roundedMedian aggregator
                     aggregate: roundedMedian,
-                    Aggregated: ({ cell: { value } }: CellProps<Data>) => `${value} (med)`,
+                    Aggregated: ({ cell: { value } }: CellProps<Data>) => <>{value} (med)</>,
                 },
             ],
         },
     ];
 
     // mostly the same as above but minus the grouping
-    const columns2: Array<Column<Data>> = [
+    const columns2: ReadonlyArray<Column<Data>> = [
         {
             Header: 'First Name',
             accessor: 'firstName',
@@ -701,10 +720,10 @@ const Component = (props: {}) => {
             // then sum any of those counts if they are
             // aggregated further
             aggregate: 'count',
-            Aggregated: ({ cell: { value } }: CellProps<Data>) => `${value} Names`,
+            Aggregated: ({ cell: { value } }: CellProps<Data>) => <>{value} Names</>,
             Cell: ({ value }) => {
                 const v = value; // $ExpectType string
-                return value;
+                return <>{value}</>;
             },
         },
         {
@@ -714,11 +733,11 @@ const Component = (props: {}) => {
             filter: 'equals',
             // Aggregate the average age of visitors
             aggregate: 'average',
-            Aggregated: ({ cell: { value } }: CellProps<Data>) => `${value} (avg)`,
+            Aggregated: ({ cell: { value } }: CellProps<Data>) => <>{value} (avg)</>,
             disableGlobalFilter: true,
             Cell: ({ value }) => {
                 const v = value; // $ExpectType number
-                return value;
+                return <>{value}</>;
             },
         },
         {
@@ -728,7 +747,7 @@ const Component = (props: {}) => {
             filter: 'between',
             // Aggregate the sum of all visits
             aggregate: 'sum',
-            Aggregated: ({ cell: { value } }: CellProps<Data>) => `${value} (total)`,
+            Aggregated: ({ cell: { value } }: CellProps<Data>) => <>{value} (total)</>,
         },
         {
             Header: 'Sub Rows',
@@ -736,7 +755,7 @@ const Component = (props: {}) => {
             Cell: ({ value }) => {
                 const v = value; // $ExpectType Data[] | undefined
                 const l = value!.length; // $ExpectType number
-                return l;
+                return <>{l}</>;
             },
         },
     ];
@@ -791,7 +810,7 @@ const Component = (props: {}) => {
                     accessor: 'firstName',
                     Cell: ({ value }) => {
                         const v = value; // $ExpectType string
-                        return value;
+                        return <>{value}</>;
                     },
                 },
             ]}

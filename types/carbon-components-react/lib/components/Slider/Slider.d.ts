@@ -7,8 +7,10 @@ export interface SliderOnChangeArg {
 
 export interface SliderProps extends Omit<ReactDivAttr, "onChange"> {
     ariaLabelInput?: string | undefined,
+    disabled?: boolean | undefined;
     formatLabel?(value: SliderProps["value"], minOrMaxLabel: string): string,
     hideTextInput?: boolean | undefined,
+    invalid?: boolean | undefined;
     inputType?: ReactInputAttr["type"] | undefined,
     labelText?: React.ReactNode | undefined,
     light?: boolean | undefined,

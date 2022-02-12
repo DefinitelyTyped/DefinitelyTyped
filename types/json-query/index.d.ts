@@ -1,5 +1,5 @@
 // Type definitions for json-query 2.2
-// Project: http://github.com/mmckegg/json-query#readme
+// Project: https://github.com/mmckegg/json-query#readme
 // Definitions by: Matt Traynham <https://github.com/mtraynham>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -44,6 +44,7 @@ declare namespace JsonQuery {
         context?: Context | undefined;
         parent?: Context | undefined;
         locals?: Locals | undefined;
+        filters?: Locals | undefined;
         globals?: boolean | undefined;
         force?: boolean | undefined;
         allowRegexp?: boolean | undefined;

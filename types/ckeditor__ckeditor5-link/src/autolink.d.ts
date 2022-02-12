@@ -5,3 +5,9 @@ export default class AutoLink extends Plugin {
     init(): void;
     afterInit(): void;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        AutoLink: AutoLink;
+    }
+}

@@ -1,13 +1,11 @@
-import utils = require('./common/utils');
-import helpers = require('./helpers');
-import State = require('./rules_core/state_core');
-import Renderer = require('./renderer');
-import ParserCore = require('./parser_core');
-import ParserBlock = require('./parser_block');
-import ParserInline = require('./parser_inline');
-
 import LinkifyIt = require('linkify-it');
 
+import utils = require('./common/utils');
+import helpers = require('./helpers');
+import ParserBlock = require('./parser_block');
+import ParserCore = require('./parser_core');
+import ParserInline = require('./parser_inline');
+import Renderer = require('./renderer');
 import Token = require('./token');
 
 declare namespace MarkdownIt {
@@ -76,7 +74,7 @@ declare namespace MarkdownIt {
          * `['«\xA0', '\xA0»', '‹\xA0', '\xA0›']` for French (including nbsp).
          * @default '“”‘’'
          */
-        quotes?: string | string[] | undefined;
+        quotes?: string | string[];
 
         /**
          * Highlighter function for fenced code blocks.

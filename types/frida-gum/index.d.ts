@@ -1,9 +1,9 @@
-// Type definitions for non-npm package frida-gum 17.0
+// Type definitions for non-npm package frida-gum 18.0
 // Project: https://github.com/frida/frida
 // Definitions by: Ole André Vadla Ravnås <https://github.com/oleavr>
 //                 Francesco Tamagni <https://github.com/mrmacete>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.5
+// Minimum TypeScript Version: 4.1
 
 /**
  * Returns a hexdump of the provided ArrayBuffer or NativePointerValue target.
@@ -168,11 +168,6 @@ declare namespace Frida {
      * the hosting process.
      */
     const heapSize: number;
-
-    /**
-     * Source map for the GumJS runtime.
-     */
-    const sourceMap: SourceMap;
 }
 
 declare namespace Script {
@@ -180,16 +175,6 @@ declare namespace Script {
      * Runtime being used.
      */
     const runtime: ScriptRuntime;
-
-    /**
-     * File name of the current script.
-     */
-    const fileName: string;
-
-    /**
-     * Source map of the current script.
-     */
-    const sourceMap: SourceMap;
 
     /**
      * Runs `func` on the next tick, i.e. when the current native thread exits
@@ -202,7 +187,7 @@ declare namespace Script {
      * This is reference-counted, so there must be one matching `unpin()`
      * happening at a later point.
      *
-     * Typically used in the callback of `WeakRef.bind()` when you need to
+     * Typically used in the callback of `Script.bindWeak()` when you need to
      * schedule cleanup on another thread.
      */
     function pin(): void;
@@ -229,10 +214,10 @@ declare namespace Script {
     function bindWeak(target: any, callback: WeakRefCallback): WeakRefId;
 
     /**
-     * Stops monitoring the value passed to `WeakRef.bind()` and calls the
+     * Stops monitoring the value passed to `Script.bindWeak()` and calls the
      * callback immediately.
      *
-     * @param id ID returned by a previous call to `WeakRef.bind()`.
+     * @param id ID returned by a previous call to `Script.bindWeak()`.
      */
     function unbindWeak(id: WeakRefId): void;
 
@@ -590,25 +575,20 @@ declare namespace Memory {
      *
      * @param address Starting address to scan from.
      * @param size Number of bytes to scan.
-     * @param pattern Match pattern of the form “13 37 ?? ff” to match 0x13 followed by 0x37 followed by any byte
-     *                followed by 0xff. For more advanced matching it is also possible to specify an r2-style mask.
-     *                The mask is bitwise AND-ed against both the needle and the haystack. To specify the mask append
-     *                a `:` character after the needle, followed by the mask using the same syntax.
-     *                For example: “13 37 13 37 : 1f ff ff f1”.
-     *                For convenience it is also possible to specify nibble-level wildcards, like “?3 37 13 ?7”,
-     *                which gets translated into masks behind the scenes.
+     * @param pattern Match pattern, see `MatchPattern` for details.
      * @param callbacks Object with callbacks.
      */
-    function scan(address: NativePointerValue, size: number | UInt64, pattern: string, callbacks: MemoryScanCallbacks): void;
+    function scan(address: NativePointerValue, size: number | UInt64, pattern: string | MatchPattern,
+        callbacks: MemoryScanCallbacks): Promise<void>;
 
     /**
      * Synchronous version of `scan()`.
      *
      * @param address Starting address to scan from.
      * @param size Number of bytes to scan.
-     * @param pattern Match pattern, see `Memory.scan()` for details.
+     * @param pattern Match pattern, see `MatchPattern` for details.
      */
-    function scanSync(address: NativePointerValue, size: number | UInt64, pattern: string): MemoryScanMatch[];
+    function scanSync(address: NativePointerValue, size: number | UInt64, pattern: string | MatchPattern): MemoryScanMatch[];
 
     /**
      * Allocates `size` bytes of memory on Frida's private heap, or, if `size` is a multiple of Process#pageSize,
@@ -1177,7 +1157,7 @@ interface MemoryScanCallbacks {
     /**
      * Called when the memory range has been fully scanned.
      */
-    onComplete: () => void;
+    onComplete?: () => void;
 }
 
 interface MemoryScanMatch {
@@ -1211,7 +1191,7 @@ interface KernelMemoryScanCallbacks {
     /**
      * Called when the memory range has been fully scanned.
      */
-    onComplete: () => void;
+    onComplete?: () => void;
 }
 
 interface KernelMemoryScanMatch {
@@ -1604,46 +1584,81 @@ type NativePointerValue = NativePointer | ObjectWrapper;
 declare const NativeFunction: NativeFunctionConstructor;
 
 interface NativeFunctionConstructor {
-    new(address: NativePointerValue, retType: NativeType, argTypes: NativeType[], abiOrOptions?: NativeABI | NativeFunctionOptions): NativeFunction;
-    readonly prototype: NativeFunction;
+    new <RetType extends NativeFunctionReturnType, ArgTypes extends NativeFunctionArgumentType[] | []>(
+        address: NativePointerValue,
+        retType: RetType,
+        argTypes: ArgTypes,
+        abiOrOptions?: NativeABI | NativeFunctionOptions,
+    ): NativeFunction<
+        GetNativeFunctionReturnValue<RetType>,
+        ResolveVariadic<Extract<GetNativeFunctionArgumentValue<ArgTypes>, unknown[]>>
+    >;
+    readonly prototype: NativeFunction<void, []>;
 }
 
-interface NativeFunction extends NativePointer {
-    (...args: NativeArgumentValue[]): NativeReturnValue;
-    apply(thisArg: NativePointerValue | null | undefined, args: NativeArgumentValue[]): NativeReturnValue;
-    call(thisArg?: NativePointerValue | null, ...args: NativeArgumentValue[]): NativeReturnValue;
+interface NativeFunction<RetType extends NativeFunctionReturnValue, ArgTypes extends NativeFunctionArgumentValue[] | []>
+    extends NativePointer {
+    (...args: ArgTypes): RetType;
+    apply(thisArg: NativePointerValue | null | undefined, args: ArgTypes): RetType;
+    call(thisArg?: NativePointerValue | null, ...args: ArgTypes): RetType;
 }
 
 declare const SystemFunction: SystemFunctionConstructor;
 
 interface SystemFunctionConstructor {
-    new(address: NativePointerValue, retType: NativeType, argTypes: NativeType[], abiOrOptions?: NativeABI | NativeFunctionOptions): SystemFunction;
-    readonly prototype: SystemFunction;
+    new <RetType extends NativeFunctionReturnType, ArgTypes extends NativeFunctionArgumentType[] | []>(
+        address: NativePointerValue,
+        retType: RetType,
+        argTypes: ArgTypes,
+        abiOrOptions?: NativeABI | NativeFunctionOptions,
+    ): SystemFunction<
+        GetNativeFunctionReturnValue<RetType>,
+        ResolveVariadic<Extract<GetNativeFunctionArgumentValue<ArgTypes>, unknown[]>>
+    >;
+    readonly prototype: SystemFunction<void, []>;
 }
 
-interface SystemFunction extends NativePointer {
-    (...args: NativeArgumentValue[]): SystemFunctionResult;
-    apply(thisArg: NativePointerValue | null | undefined, args: NativeArgumentValue[]): SystemFunctionResult;
-    call(thisArg?: NativePointerValue | null, ...args: NativeArgumentValue[]): SystemFunctionResult;
+interface SystemFunction<RetType extends NativeFunctionReturnValue, ArgTypes extends NativeFunctionArgumentValue[] | []>
+    extends NativePointer {
+    (...args: ArgTypes): SystemFunctionResult<RetType>;
+    apply(thisArg: NativePointerValue | null | undefined, args: ArgTypes): SystemFunctionResult<RetType>;
+    call(thisArg?: NativePointerValue | null, ...args: ArgTypes): SystemFunctionResult<RetType>;
 }
 
-type SystemFunctionResult = WindowsSystemFunctionResult | UnixSystemFunctionResult;
+type SystemFunctionResult<Value extends NativeFunctionReturnValue> =
+    | WindowsSystemFunctionResult<Value>
+    | UnixSystemFunctionResult<Value>
+    ;
 
-interface WindowsSystemFunctionResult {
-    value: NativeReturnValue;
+interface WindowsSystemFunctionResult<Value extends NativeFunctionReturnValue> {
+    value: Value;
     lastError: number;
 }
 
-interface UnixSystemFunctionResult {
-    value: NativeReturnValue;
+interface UnixSystemFunctionResult<Value extends NativeFunctionReturnValue> {
+    value: Value;
     errno: number;
 }
 
-declare class NativeCallback extends NativePointer {
-    constructor(func: NativeCallbackImplementation, retType: NativeType, argTypes: NativeType[], abi?: NativeABI);
+declare class NativeCallback<
+    RetType extends NativeCallbackReturnType,
+    ArgTypes extends NativeCallbackArgumentType[] | [],
+> extends NativePointer {
+    constructor(
+        func: NativeCallbackImplementation<
+            GetNativeCallbackReturnValue<RetType>,
+            Extract<GetNativeCallbackArgumentValue<ArgTypes>, unknown[]>
+        >,
+        retType: RetType,
+        argTypes: ArgTypes,
+        abi?: NativeABI,
+    );
 }
 
-type NativeCallbackImplementation = (this: CallbackContext | InvocationContext, ...params: any[]) => any;
+type NativeCallbackImplementation<
+    RetType extends NativeCallbackReturnValue,
+    ArgTypes extends NativeCallbackArgumentValue[] | [],
+> = (this: CallbackContext | InvocationContext, ...args: ArgTypes) => RetType;
 
 interface CallbackContext {
     /**
@@ -1659,11 +1674,125 @@ interface CallbackContext {
     context: CpuContext;
 }
 
-type NativeArgumentValue = NativePointerValue | UInt64 | Int64 | number | boolean | any[];
+type Variadic = "...";
 
-type NativeReturnValue = NativePointer | UInt64 | Int64 | number | boolean | any[];
+type ResolveVariadic<List extends any[]> = List extends [Variadic, ...infer Tail]
+    ? [...Array<Tail[0]>]
+    : List extends [infer Head, ...infer Tail]
+    ? [Head, ...ResolveVariadic<Tail>]
+    : [];
 
-type NativeType = string | any[];
+type RecursiveValuesOf<T> = T[keyof T] | Array<RecursiveValuesOf<T>>;
+
+type RecursiveKeysOf<T> = keyof T | Array<RecursiveKeysOf<T>> | [];
+
+type GetValue<Map, Value, Type, T extends Type> = Type[] extends T
+    ? Value
+    : T extends keyof Map
+    ? Map[T]
+    : { [P in keyof T]: T[P] extends Type ? GetValue<Map, Value, Type, T[P]> : never };
+
+// tslint:disable-next-line:interface-over-type-literal
+type BaseNativeTypeMap = {
+    int: number;
+    uint: number;
+    long: number;
+    ulong: number;
+    char: number;
+    uchar: number;
+    float: number;
+    double: number;
+    int8: number;
+    uint8: number;
+    int16: number;
+    uint16: number;
+    int32: number;
+    uint32: number;
+    bool: number;
+};
+
+type NativeFunctionArgumentTypeMap = BaseNativeTypeMap & {
+    void: undefined;
+    pointer: NativePointerValue;
+    size_t: number | UInt64;
+    ssize_t: number | Int64;
+    int64: number | Int64;
+    uint64: number | UInt64;
+    "...": Variadic;
+};
+
+type NativeFunctionArgumentValue = RecursiveValuesOf<NativeFunctionArgumentTypeMap>;
+
+type NativeFunctionArgumentType = RecursiveKeysOf<NativeFunctionArgumentTypeMap>;
+
+type GetNativeFunctionArgumentValue<T extends NativeFunctionArgumentType> = GetValue<
+    NativeFunctionArgumentTypeMap,
+    NativeFunctionArgumentValue,
+    NativeFunctionArgumentType,
+    T
+>;
+
+type NativeFunctionReturnTypeMap = BaseNativeTypeMap & {
+    // tslint:disable-next-line:void-return
+    void: void;
+    pointer: NativePointer;
+    size_t: UInt64;
+    ssize_t: Int64;
+    int64: Int64;
+    uint64: UInt64;
+};
+
+type NativeFunctionReturnValue = RecursiveValuesOf<NativeFunctionReturnTypeMap>;
+
+type NativeFunctionReturnType = RecursiveKeysOf<NativeFunctionReturnTypeMap>;
+
+type GetNativeFunctionReturnValue<T extends NativeFunctionReturnType> = GetValue<
+    NativeFunctionReturnTypeMap,
+    NativeFunctionReturnValue,
+    NativeFunctionReturnType,
+    T
+>;
+
+type NativeCallbackArgumentTypeMap = BaseNativeTypeMap & {
+    void: undefined;
+    pointer: NativePointer;
+    size_t: UInt64;
+    ssize_t: Int64;
+    int64: Int64;
+    uint64: UInt64;
+};
+
+type NativeCallbackArgumentValue = RecursiveValuesOf<NativeCallbackArgumentTypeMap>;
+
+type NativeCallbackArgumentType = RecursiveKeysOf<NativeCallbackArgumentTypeMap>;
+
+type GetNativeCallbackArgumentValue<T extends NativeCallbackArgumentType> = GetValue<
+    NativeCallbackArgumentTypeMap,
+    NativeCallbackArgumentValue,
+    NativeCallbackArgumentType,
+    T
+>;
+
+type NativeCallbackReturnTypeMap = BaseNativeTypeMap & {
+    // tslint:disable-next-line:void-return
+    void: void;
+    pointer: NativePointerValue;
+    size_t: number | UInt64;
+    ssize_t: number | Int64;
+    int64: number | Int64;
+    uint64: number | UInt64;
+};
+
+type NativeCallbackReturnValue = RecursiveValuesOf<NativeCallbackReturnTypeMap>;
+
+type NativeCallbackReturnType = RecursiveKeysOf<NativeCallbackReturnTypeMap>;
+
+type GetNativeCallbackReturnValue<T extends NativeCallbackReturnType> = GetValue<
+    NativeCallbackReturnTypeMap,
+    NativeCallbackReturnValue,
+    NativeCallbackReturnType,
+    T
+>;
 
 type NativeABI =
     | "default"
@@ -1828,58 +1957,22 @@ interface MipsCpuContext extends PortableCpuContext {
     k1: NativePointer;
 }
 
-/**
- * Helper used internally for source map parsing in order to provide helpful
- * JavaScript stack-traces.
- */
-declare class SourceMap {
+// tslint:disable:no-unnecessary-class
+declare class MatchPattern {
     /**
-     * Constructs a source map from JSON.
+     * Compiles a match pattern for use with e.g. `Memory.scan()`.
      *
-     * @param json String containing the source map encoded as JSON.
-     */
-    constructor(json: string);
-
-    /**
-     * Attempts to map a generated source position back to the original.
+     * @param pattern Match pattern of the form “13 37 ?? ff” to match 0x13 followed by 0x37 followed by any byte
+     *                followed by 0xff, or “/Some\s*Pattern/” for matching a regular expression.
      *
-     * @param generatedPosition Position in generated code.
+     *                For more advanced matching it is also possible to specify an r2-style mask.
+     *                The mask is bitwise AND-ed against both the needle and the haystack. To specify the mask append
+     *                a `:` character after the needle, followed by the mask using the same syntax.
+     *                For example: “13 37 13 37 : 1f ff ff f1”.
+     *                For convenience it is also possible to specify nibble-level wildcards, like “?3 37 13 ?7”,
+     *                which gets translated into masks behind the scenes.
      */
-    resolve(generatedPosition: GeneratedSourcePosition): OriginalSourcePosition | null;
-}
-
-interface GeneratedSourcePosition {
-    /**
-     * Line number.
-     */
-    line: number;
-
-    /**
-     * Column number, if available.
-     */
-    column?: number | undefined;
-}
-
-interface OriginalSourcePosition {
-    /**
-     * Source file name.
-     */
-    source: string;
-
-    /**
-     * Line number.
-     */
-    line: number;
-
-    /**
-     * Column number.
-     */
-    column: number;
-
-    /**
-     * Identifier, if available.
-     */
-    name: string | null;
+    constructor(pattern: string);
 }
 
 /**
@@ -3065,27 +3158,27 @@ declare class DebugSymbol {
  * through the constructor's second argument.
  */
 declare class CModule {
-  /**
-   * Creates a new C module from the provided `code`.
-   *
-   * @param code C source code to compile, or a precompiled shared library.
-   * @param symbols Symbols to expose to the C module. Declare them as `extern`.
-   *    This may for example be one or more memory blocks allocated using
-   *     `Memory.alloc()`, and/or `NativeCallback` values for receiving
-   *     callbacks from the C module.
-   * @param options Options for customizing the construction.
-   */
-  constructor(code: string | ArrayBuffer, symbols?: CSymbols, options?: CModuleOptions);
+    /**
+     * Creates a new C module from the provided `code`.
+     *
+     * @param code C source code to compile, or a precompiled shared library.
+     * @param symbols Symbols to expose to the C module. Declare them as `extern`.
+     *    This may for example be one or more memory blocks allocated using
+     *     `Memory.alloc()`, and/or `NativeCallback` values for receiving
+     *     callbacks from the C module.
+     * @param options Options for customizing the construction.
+     */
+    constructor(code: string | ArrayBuffer, symbols?: CSymbols, options?: CModuleOptions);
 
-  /**
-   * Eagerly unmaps the module from memory. Useful for short-lived modules
-   * when waiting for a future garbage collection isn't desirable.
-   */
-  dispose(): void;
+    /**
+     * Eagerly unmaps the module from memory. Useful for short-lived modules
+     * when waiting for a future garbage collection isn't desirable.
+     */
+    dispose(): void;
 
-  readonly [name: string]: any;
+    readonly [name: string]: any;
 
-  static builtins: CModuleBuiltins;
+    static builtins: CModuleBuiltins;
 }
 
 interface CModuleOptions {
@@ -3198,6 +3291,11 @@ declare class X86Instruction extends Instruction {
     operands: X86Operand[];
 
     /**
+     * Registers accessed by this instruction, either implicitly or explicitly.
+     */
+    regsAccessed: RegsAccessed<X86Register>;
+
+    /**
      * Registers implicitly read by this instruction.
      */
     regsRead: X86Register[];
@@ -3213,6 +3311,11 @@ declare class ArmInstruction extends Instruction {
      * Array of objects describing each operand.
      */
     operands: ArmOperand[];
+
+    /**
+     * Registers accessed by this instruction, either implicitly or explicitly.
+     */
+    regsAccessed: RegsAccessed<ArmRegister>;
 
     /**
      * Registers implicitly read by this instruction.
@@ -3232,6 +3335,11 @@ declare class Arm64Instruction extends Instruction {
     operands: Arm64Operand[];
 
     /**
+     * Registers accessed by this instruction, either implicitly or explicitly.
+     */
+    regsAccessed: RegsAccessed<Arm64Register>;
+
+    /**
      * Registers implicitly read by this instruction.
      */
     regsRead: Arm64Register[];
@@ -3249,6 +3357,11 @@ declare class MipsInstruction extends Instruction {
     operands: MipsOperand[];
 
     /**
+     * Registers accessed by this instruction, either implicitly or explicitly.
+     */
+    regsAccessed: RegsAccessed<MipsRegister>;
+
+    /**
      * Registers implicitly read by this instruction.
      */
     regsRead: MipsRegister[];
@@ -3259,12 +3372,20 @@ declare class MipsInstruction extends Instruction {
     regsWritten: MipsRegister[];
 }
 
+interface RegsAccessed<T> {
+    read: T[];
+    written: T[];
+}
+
+type OperandAccess = "" | "r" | "w" | "rw";
+
 type X86Operand = X86RegOperand | X86ImmOperand | X86MemOperand;
 
 type X86OperandType = "reg" | "imm" | "mem";
 
 interface X86BaseOperand {
     size: number;
+    access: OperandAccess;
 }
 
 interface X86RegOperand extends X86BaseOperand {
@@ -3310,6 +3431,7 @@ interface ArmBaseOperand {
     } | undefined;
     vectorIndex?: number | undefined;
     subtracted: boolean;
+    access: OperandAccess;
 }
 
 interface ArmRegOperand extends ArmBaseOperand {
@@ -3383,6 +3505,7 @@ interface Arm64BaseOperand {
     ext?: Arm64Extender | undefined;
     vas?: Arm64Vas | undefined;
     vectorIndex?: number | undefined;
+    access: OperandAccess;
 }
 
 interface Arm64RegOperand extends Arm64BaseOperand {
@@ -3556,16 +3679,11 @@ declare namespace Kernel {
      *
      * @param address Starting address to scan from.
      * @param size Number of bytes to scan.
-     * @param pattern Match pattern of the form “13 37 ?? ff” to match 0x13 followed by 0x37 followed by any byte
-     *                followed by 0xff. For more advanced matching it is also possible to specify an r2-style mask.
-     *                The mask is bitwise AND-ed against both the needle and the haystack. To specify the mask append
-     *                a `:` character after the needle, followed by the mask using the same syntax.
-     *                For example: “13 37 13 37 : 1f ff ff f1”.
-     *                For convenience it is also possible to specify nibble-level wildcards, like “?3 37 13 ?7”,
-     *                which gets translated into masks behind the scenes.
+     * @param pattern Match pattern, see `MatchPattern` for details.
      * @param callbacks Object with callbacks.
      */
-    function scan(address: UInt64, size: number | UInt64, pattern: string, callbacks: KernelMemoryScanCallbacks): void;
+    function scan(address: UInt64, size: number | UInt64, pattern: string | MatchPattern,
+        callbacks: KernelMemoryScanCallbacks): Promise<void>;
 
     /**
      * Synchronous version of `scan()`.
@@ -3574,7 +3692,7 @@ declare namespace Kernel {
      * @param size Number of bytes to scan.
      * @param pattern Match pattern, see `Memory.scan()` for details.
      */
-    function scanSync(address: UInt64, size: number | UInt64, pattern: string): KernelMemoryScanMatch[];
+    function scanSync(address: UInt64, size: number | UInt64, pattern: string | MatchPattern): KernelMemoryScanMatch[];
 
     function readS8(address: UInt64): number;
     function readU8(address: UInt64): number;
@@ -3918,7 +4036,7 @@ declare namespace ObjC {
      * @param method Method to implement.
      * @param fn Implementation.
      */
-    function implement(method: ObjectMethod, fn: AnyFunction): NativeCallback;
+    function implement(method: ObjectMethod, fn: AnyFunction): NativeCallback<any, any>;
 
     /**
      * Creates a new class designed to act as a proxy for a target object.
@@ -4393,6 +4511,13 @@ declare namespace Java {
     function array(type: string, elements: any[]): any[];
 
     /**
+     * Generates a backtrace for the current thread.
+     *
+     * @param options Options to customize the stack-walking.
+     */
+    function backtrace(options?: BacktraceOptions): Backtrace;
+
+    /**
      * Determines whether the caller is running on the main thread.
      */
     function isMainThread(): boolean;
@@ -4490,7 +4615,7 @@ declare namespace Java {
         methods: [string, ...string[]];
     }
 
-    interface ChooseCallbacks {
+    interface ChooseCallbacks<T extends Members<T> = {}> {
         /**
          * Called with each live instance found with a ready-to-use `instance`
          * just as if you would have called `Java.cast()` with a raw handle to
@@ -4498,12 +4623,64 @@ declare namespace Java {
          *
          * May return `EnumerateAction.Stop` to stop the enumeration early.
          */
-        onMatch: (instance: Wrapper) => void | EnumerateAction;
+        onMatch: (instance: Wrapper<T>) => void | EnumerateAction;
 
         /**
          * Called when all instances have been enumerated.
          */
         onComplete: () => void;
+    }
+
+    /**
+     * Options that may be passed to `Java.backtrace()`.
+     */
+    interface BacktraceOptions {
+        /**
+         * Limit how many frames up the stack to walk. Defaults to 16.
+         */
+        limit?: number;
+    }
+
+    /**
+     * Backtrace returned by `Java.backtrace()`.
+     */
+    interface Backtrace {
+        /**
+         * ID that can be used for deduplicating identical backtraces.
+         */
+        id: string;
+
+        /**
+         * Stack frames.
+         */
+        frames: Frame[];
+    }
+
+    interface Frame {
+        /**
+         * Signature, e.g. `"Landroid/os/Looper;,loopOnce,(Landroid/os/Looper;JI)Z"`.
+         */
+        signature: string;
+
+        /**
+         * Class name that method belongs to, e.g. `"android.os.Looper"`.
+         */
+        className: string;
+
+        /**
+         * Method name, e.g. `"loopOnce"`.
+         */
+        methodName: string;
+
+        /**
+         * Source file name, e.g. `"Looper.java"`.
+         */
+        fileName: string;
+
+        /**
+         * Source line number, e.g. `201`.
+         */
+        lineNumber: number;
     }
 
     type Members<T> = Record<keyof T, MethodDispatcher | Field>;

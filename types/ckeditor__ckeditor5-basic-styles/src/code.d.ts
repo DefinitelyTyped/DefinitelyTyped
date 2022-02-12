@@ -6,3 +6,9 @@ export default class Code extends Plugin {
     static readonly requires: [typeof CodeEditing, typeof CodeUI];
     static readonly pluginName: "Code";
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        Code: Code;
+    }
+}

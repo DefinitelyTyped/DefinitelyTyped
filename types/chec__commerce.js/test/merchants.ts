@@ -10,10 +10,9 @@ commerce.merchants.about();
 // From https://api.chec.io/v1/merchants
 const merchants: Merchant.Merchant = {
     id: 17851,
-    business_name: 'Commerce',
-    business_description: '',
+    name: 'Commerce',
+    description: '',
     status: 'active',
-    timezone: null,
     country: 'CA',
     currency: {
         symbol: '$',
@@ -36,6 +35,6 @@ const merchants: Merchant.Merchant = {
         logo: true,
         cover: false,
         analytics: false,
-        business_description: false,
+        description: false,
     },
 };

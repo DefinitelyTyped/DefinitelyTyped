@@ -8,6 +8,10 @@ withId(() => {
     const id: string = getId() || "";
 });
 
+const num: number = withId(() => {
+    return 5;
+});
+
 const x: string = bindId("my-id", (foo: string, bar: number): string => {
     const id: string = getId() || "";
 

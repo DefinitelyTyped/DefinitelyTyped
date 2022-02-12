@@ -117,15 +117,19 @@ export function registerBlockStyle(blockName: string, styleVariation: BlockStyle
  * behavior. Once registered, the block is made available as an option to any
  * editor interface where blocks are implemented.
  *
- * @param name - Block name.
+ * @param blockNameOrMetadata - Block type name or its metadata.
  * @param settings - Block settings.
  *
  * @returns The block if it has been successfully registered, otherwise `undefined`.
  */
-export function registerBlockType<T extends Record<string, any> = {}>(
+export function registerBlockType<TAttributes extends Record<string, any> = {}>(
+    metadata: BlockConfiguration<TAttributes>,
+    settings?: Partial<BlockConfiguration<TAttributes>>,
+): Block<TAttributes> | undefined;
+export function registerBlockType<TAttributes extends Record<string, any> = {}>(
     name: string,
-    settings: BlockConfiguration<T>
-): Block<T> | undefined;
+    settings: BlockConfiguration<TAttributes>,
+): Block<TAttributes> | undefined;
 
 /**
  * Assigns the default block name.

@@ -2,13 +2,13 @@
 
 /// <reference types="node" />
 
-import * as fs from 'fs';
-import * as path from 'path';
+import * as fs from 'node:fs';
+import * as path from 'node:path';
 
-const home = path.join(__dirname, "..", "types");
+const home = path.join('.', 'types');
 
 for (const dirName of fs.readdirSync(home)) {
-    if (dirName.startsWith(".") || dirName === "node_modules" || dirName === "scripts") {
+    if (dirName.startsWith('.') || dirName === 'node_modules' || dirName === 'scripts') {
         continue;
     }
 
@@ -29,14 +29,14 @@ function fixTsconfig(dir: string): void {
     const target = path.join(dir, 'tsconfig.json');
     let json = JSON.parse(fs.readFileSync(target, 'utf-8'));
     json = fix(json);
-    fs.writeFileSync(target, JSON.stringify(json, undefined, 4), "utf-8");
+    fs.writeFileSync(target, JSON.stringify(json, undefined, 4), 'utf-8');
 }
 
 function fix(config: any): any {
     const out: any = {};
     for (const key in config) {
         let value = config[key];
-        if (key === "compilerOptions") {
+        if (key === 'compilerOptions') {
             value = fixCompilerOptions(value);
         }
         out[key] = value;

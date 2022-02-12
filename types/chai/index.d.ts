@@ -1,11 +1,10 @@
-// Type definitions for chai 4.2
+// Type definitions for chai 4.3
 // Project: http://chaijs.com/
 // Definitions by: Jed Mao <https://github.com/jedmao>,
 //                 Bart van der Schoor <https://github.com/Bartvds>,
 //                 Andrew Brown <https://github.com/AGBrown>,
 //                 Olivier Chevet <https://github.com/olivr70>,
 //                 Matt Wistrand <https://github.com/mwistrand>,
-//                 Josh Goldberg <https://github.com/joshuakgoldberg>,
 //                 Shaun Luttin <https://github.com/shaunluttin>,
 //                 Gintautas Miselis <https://github.com/Naktibalda>,
 //                 Satana Charuwichitratana <https://github.com/micksatana>,
@@ -314,6 +313,7 @@ declare namespace Chai {
     }
 
     interface Deep extends KeyFilter {
+        be: Assertion;
         equal: Equal;
         equals: Equal;
         eq: Equal;
@@ -324,6 +324,7 @@ declare namespace Chai {
         property: Property;
         ordered: Ordered;
         nested: Nested;
+        oneOf: OneOf;
         own: Own;
     }
 

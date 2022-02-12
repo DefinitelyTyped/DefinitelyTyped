@@ -49,6 +49,7 @@ declare namespace Waterline {
         loadCollection(collection: CollectionClass): void;
         registerModel(collection: CollectionClass): void;
         initialize: (config: Config, cb: (err: Error, ontology: Ontology) => any) => any;
+        teardown(done?: Function): void;
         collections: any;
     }
 
@@ -307,6 +308,13 @@ declare namespace Waterline {
         native(cb: (err: Error, collection: any) => void): void;
         stream(criteria: any, writeEnd: any): NodeJS.WritableStream | Error;
     }
+
+    export interface StartOptions {
+        adapters: Record<string, Adapter>;
+        datastores: Record<string, DatastoreConfig & { identity?: undefined }>;
+        models: Record<string, CollectionDefinition>;
+        defaultModelSettings?: CollectionDefinition;
+    }
 }
 
 declare interface WaterlineStatic {
@@ -317,6 +325,8 @@ declare interface WaterlineStatic {
         extend: (params: Waterline.CollectionDefinition) => Waterline.CollectionClass;
     };
     new(): Waterline.Waterline;
+    start<CB extends (err: Error | undefined, orm: Waterline.Waterline) => unknown>(options: Waterline.StartOptions, done: CB): CB;
+    stop<CB extends (err: Error | undefined) => unknown>(orm: Waterline.Waterline, done: CB): ReturnType<CB>;
 }
 
 declare var Waterline: WaterlineStatic;

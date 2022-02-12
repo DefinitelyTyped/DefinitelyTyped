@@ -222,16 +222,20 @@ match({ history, routes }, (error, redirectLocation, renderProps) => {
     renderToString(<RouterContext {...renderProps} />);
 });
 
-ReactDOM.render((
+ReactDOM.render(
     <Router
         history={history}
         routes={routes}
-        render={applyRouterMiddleware({
-            renderRouteComponent: child => child
-        })}
-    >
-    </Router>
-), document.body);
+        render={props => {
+            const Context = applyRouterMiddleware({
+                renderRouteComponent: child => child,
+            })(props);
+
+            return <Context></Context>;
+        }}
+    ></Router>,
+    document.body,
+);
 
 const matchedPattern = matchPattern("/foo", "/foo/bar");
 
@@ -243,7 +247,7 @@ if (matchedPattern) {
 
 matchPattern("/foo", "/baz") === null;
 
-const CreateHref: React.SFC<WithRouterProps> = ({ router }) => (
+const CreateHref: React.FC<WithRouterProps> = ({ router }) => (
     <div>
         {router.createHref({ pathname: "/foo", query: { bar: "baz" } })}
         {router.createHref("/foo?bar=baz")}

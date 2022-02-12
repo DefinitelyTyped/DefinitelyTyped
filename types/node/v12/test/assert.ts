@@ -19,12 +19,15 @@ assert.doesNotThrow(
 
 assert.equal(3, '3', 'uses == comparator');
 
-assert.fail('stuff broke');
-
-assert.fail('actual', 'expected', 'message');
-
-assert.fail(1, 2, undefined, '>');
-
+() => {
+    assert.fail('stuff broke');
+};
+() => {
+    assert.fail('actual', 'expected', 'message');
+};
+() => {
+    assert.fail(1, 2, undefined, '>');
+};
 assert.ifError(0);
 
 assert.notDeepStrictEqual({ x: { y: '3' } }, { x: { y: 3 } }, 'uses !== comparator');
@@ -63,3 +66,59 @@ assert.strict.strict.strict(1);
 assert.strict.strict(1);
 assert.strict(1);
 assert(1);
+
+assert(true, "it's working");
+
+assert.ok(true, 'inner functions work as well');
+
+assert.throws(() => { });
+assert.throws(() => { }, /Regex test/);
+assert.throws(
+    () => { },
+    () => { },
+    'works wonderfully',
+);
+
+assert['fail'](true, true, 'works like a charm');
+
+{
+    const a = null as any;
+    assert.ifError(a);
+    a; // $ExpectType null | undefined
+}
+
+{
+    const a = true as boolean;
+    assert(a);
+    a; // $ExpectType true
+}
+
+{
+    const a = 13 as number | null | undefined;
+    assert(a);
+    a; // $ExpectType number
+}
+
+{
+    const a = true as boolean;
+    assert.ok(a);
+    a; // $ExpectType true
+}
+
+{
+    const a = 13 as number | null | undefined;
+    assert.ok(a);
+    a; // $ExpectType number
+}
+
+{
+    const a = 'test' as any;
+    assert.strictEqual(a, 'test');
+    a; // $ExpectType string
+}
+
+{
+    const a = { b: 2 } as any;
+    assert.deepStrictEqual(a, { b: 2 });
+    a; // $ExpectType { b: number; }
+}

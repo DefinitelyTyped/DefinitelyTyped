@@ -1,4 +1,4 @@
-// Type definitions for @yaireo/tagify 4.3
+// Type definitions for @yaireo/tagify 4.9
 // Project: https://github.com/yairEO/tagify
 // Definitions by: Brakebein <https://github.com/Brakebein>
 //                 Andre Wachsmuth <https://github.com/blutorange>
@@ -195,6 +195,41 @@ declare namespace Tagify {
          * @default true
          */
         keepInvalid: boolean;
+    }
+
+    /**
+     * Messages for reasons if tag validation fails.
+     */
+    interface InvalidTagsMessages {
+        /**
+         * When a new tag is empty.
+         * @default 'empty'
+         */
+        empty: string;
+
+        /**
+         * When the new tag cannot be added, because it would exceed the maximum number of allowed tags.
+         * @default 'number of tags exceeded'
+         */
+        exceed: string;
+
+        /**
+         * When the new tag does not conform to the specified (regex) pattern.
+         * @default 'pattern mismatch'
+         */
+        pattern: string;
+
+        /**
+         * When a tag with the same value already exists and duplicates are not allowed.
+         * @default 'already exists'
+         */
+        duplicate: string;
+
+        /**
+         * When the new tag is not allowed for any other reason.
+         * @default 'not allowed'
+         */
+        notAllowed: string;
     }
 
     /**
@@ -577,11 +612,23 @@ declare namespace Tagify {
         trim?: boolean | undefined;
 
         /**
+         * Assign a unique id to enable the feature to store and load persisted data via `localStorage`.
+         * @default undefined
+         */
+        id?: string | undefined;
+
+        /**
          * Should ONLY use tags allowed in whitelist.
          * In `mix` mode, setting it to `false` will not allow creating new tags.
          * @default false
          */
         enforceWhitelist?: boolean | undefined;
+
+        /**
+         * Set `false` to disable manually typing/pasting/editing tags (tags may only be added from the whitelist).
+         * @default true
+         */
+        userInput?: boolean | undefined;
 
         /**
          * Options for offering autocomplete suggestions as the user types.
@@ -641,6 +688,11 @@ declare namespace Tagify {
         editTags?: 1 | 2 | false | null | EditTagsSettings | undefined;
 
         /**
+         * Customize messages for reasons if tag validation fails.
+         */
+        texts?: Partial<InvalidTagsMessages> | undefined;
+
+        /**
          * Functions that return template strings. Can be used to customize how
          * tags, drop down menus etc. are rendered.
          */
@@ -661,9 +713,9 @@ declare namespace Tagify {
 
         /**
          * Takes a tag data as an argument and allows mutating it before a tag
-         * is created or edited.
+         * is created or edited and also before validation.
          *
-         * Should not return anything, only mutate.
+         * Should not return anything, only mutate the argument.
          */
         transformTag?:
         /**
@@ -955,12 +1007,7 @@ declare namespace Tagify {
         data: T;
         /**
          * Message indicating the type of error. Can be either a boolean to indicate success,
-         * or a message code. Common message codes are:
-         * - `empty` - When the new tag is empty.
-         * - `number of tags exceeded` - When the new tag cannot be added because doing so would exceed the maximum number of allowed tags.
-         * - `pattern mismatch` - When the new tag does not conform to the specified (regex) pattern.
-         * - `already exists` - When a tag with the same name as the new tag exists already and duplicates are not allowed.
-         * - `not allowed` -  When the new tag is not allowed for any other reason.
+         * or a message code as defined with {@link InvalidTagsMessages} or returned by the custom {@link TagifySettings.validate} method.
          */
         message: string | boolean;
     }
@@ -1185,17 +1232,23 @@ declare class Tagify<T extends Tagify.BaseTagData = Tagify.TagData> {
         refilter(filterValue?: string): void;
 
         /**
-         * Shows the suggestions select box.
+         * Shows the suggestions list dropdown.
          * @param filterValue Filter the whitelist by this value (optional).
          */
         show(filterValue?: string): void;
 
         /**
-         * Hide the suggestions select box.
+         * Hides the suggestions list dropdown.
          * @param force Whether the dropdown menu should be hidden even when it
          * would need to be prevented.
          */
         hide(force?: boolean): void;
+
+        /**
+         * Toggles the suggestions list dropdown show/hide.
+         * @param show Force show.
+         */
+        toggle(show?: boolean): void;
 
         /**
          * Add all whitelist items as tags and close the suggestion dropdown.
@@ -1227,6 +1280,11 @@ declare class Tagify<T extends Tagify.BaseTagData = Tagify.TagData> {
      * References to DOM elements used by this tagify instance.
      */
     DOM: Tagify.DomReference;
+
+    /**
+     * Reference to messages for reasons if tag validation fails.
+     */
+    TEXTS: Tagify.InvalidTagsMessages;
 
     /**
      * Creates a new tagify editor on the given input element.
@@ -1546,6 +1604,36 @@ declare class Tagify<T extends Tagify.BaseTagData = Tagify.TagData> {
     setReadonly(readonly: boolean): void;
 
     /**
+     * Toggles "disabled" mode on/off.
+     */
+    setDisabled(disabled: boolean): void;
+
+    /**
+     * Get data for the specific instance by `key` parameter from `localStorage`.
+     * @param key `localStorage` key (under the tagify namespace).
+     * @returns Data stored under `key` in `localStorage`.
+     * Returns `undefined` if {@link TagifyConstructorSettings.id} has not been set or no entry exists for `key` in `localStorage`.
+     */
+    getPersistedData(key: string): unknown;
+
+    /**
+     * Set data for the specific instance.
+     * Must supply a second parameter which will be the key to save the data in the `localStorage`
+     * (under the tagify namespace).
+     * In order to use this method, {@link TagifyConstructorSettings.id} must be set.
+     * @param data Data to store in `localStorage`.
+     * @param key `localStorage` key (under the tagify namespace).
+     */
+    setPersistedData(data: unknown, key: string): void;
+
+    /**
+     * Clears data for the specific instance by `key` parameter.
+     * If the `key` parameter is omitted, clears all persisted data related to this instance (by its `id` which was set in the settings).
+     * @param key `localStorage` key (under the tagify namespace).
+     */
+    clearPersistedData(key?: string): void;
+
+    /**
      * Removes a listener previously added via `on`.
      * @template K Name of the event.
      * @param event Name of the event.
@@ -1571,3 +1659,5 @@ declare class Tagify<T extends Tagify.BaseTagData = Tagify.TagData> {
 }
 
 export = Tagify;
+
+export as namespace Tagify;

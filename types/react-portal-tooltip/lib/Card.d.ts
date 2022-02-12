@@ -10,6 +10,7 @@ declare namespace Card {
     type Align = null | 'center' | 'right' | 'left';
 
     interface CardProps {
+        children?: React.ReactNode;
         position?: Position | undefined;
         arrow?: Arrow | undefined;
         align?: Align | undefined;

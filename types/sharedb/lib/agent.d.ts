@@ -16,21 +16,21 @@ export = Agent;
  *
  * @see https://github.com/share/sharedb#class-sharedbagent
  */
-declare class Agent {
+declare class Agent<TCustom = any> {
     backend: ShareDbBackend;
     stream: Duplex & {
         /**
          * `true` if this is agent is handling a ShareDB client in the same
          * Node process.
          */
-        isServer?: boolean | undefined;
+        isServer?: boolean;
     };
     /**
      * Object for custom use in middleware to store app-specific state for a
      * given client session. It is in memory only as long as the session is
      * active, and it is passed to each middleware call.
      */
-    custom: any;
+    custom: TCustom;
 
     /**
      * Sends a JSON-compatible message to the client for this agent.

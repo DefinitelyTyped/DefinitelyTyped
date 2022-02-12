@@ -9,3 +9,9 @@ export default class DiscardSelectedSuggestionsCommand extends Command {
         suggestions: Map<string, Suggestion>,
     );
 }
+
+declare module '@ckeditor/ckeditor5-core/src/commandcollection' {
+    interface Commands {
+        DiscardSelectedSuggestionsCommand: DiscardSelectedSuggestionsCommand;
+    }
+}

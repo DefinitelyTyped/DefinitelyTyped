@@ -5,3 +5,9 @@ export default class RestrictedEditingModeEditing extends Plugin {
     init(): void;
     enableCommand(commandName: string): void;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        RestrictedEditingModeEditing: RestrictedEditingModeEditing;
+    }
+}

@@ -1,6 +1,8 @@
 import BaseSuggestionThreadView from './ui/view/basesuggestionthreadview';
 import { Plugin } from '@ckeditor/ckeditor5-core';
 import Suggestion from './suggestion';
+import './trackchangesediting';
+import './trackchangesui';
 
 export interface SuggestionData {
     attributes: Record<string, unknown>;
@@ -43,4 +45,10 @@ export default class TrackChanges extends Plugin {
     addSuggestion(suggestionData: SuggestionData): Suggestion;
     getSuggestion(id: string): Suggestion;
     getSuggestions(options?: { skipNotAttached?: boolean | undefined; toJSON?: boolean | undefined }): Suggestion[];
+}
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        TrackChanges: TrackChanges;
+    }
 }

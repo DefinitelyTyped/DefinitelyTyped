@@ -1,6 +1,6 @@
 ---
 name: Infrastructure Issue
-about: Discuss a DT infrastructure issue
+about: Report a DefinitelyTyped infrastructure issue
 labels: 'infra'
 ---
 

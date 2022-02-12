@@ -30,3 +30,9 @@ export interface LinkConfig {
     decorators?: Record<string, LinkDecoratorDefinition> | undefined;
     defaultProtocol?: string | undefined;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        Link: Link;
+    }
+}

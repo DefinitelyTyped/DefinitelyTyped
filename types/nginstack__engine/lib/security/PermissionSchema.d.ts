@@ -1,17 +1,11 @@
 export = PermissionSchema;
 declare function PermissionSchema(): void;
 declare class PermissionSchema {
-    fieldsByMimeType_: {
-        [x: number]: string[];
-    };
-    fieldsByClass_: {
-        [x: number]: string[];
-    };
-    declaredFieldsByClass_: {
-        [x: number]: string[];
-    };
-    databaseFieldNames_: any;
-    classDefManager_: ClassDefManager;
+    private fieldsByMimeType_;
+    private fieldsByClass_;
+    private declaredFieldsByClass_;
+    private databaseFieldNames_;
+    private classDefManager_;
     private NON_PERMISSION_FIELDS_;
     private logger_;
     private tableCacheForGetFieldValue_;
@@ -77,8 +71,6 @@ declare namespace PermissionSchema {
     const TARGET_FIELDS: string[];
     const PERIOD_FIELDS: string[];
     const INHERITANCE_FIELDS: string[];
-    const _instance: PermissionSchema;
     function getInstance(): PermissionSchema;
 }
-import ClassDefManager = require('../classdef/ClassDefManager.js');
 import DataSet = require('../dataset/DataSet.js');

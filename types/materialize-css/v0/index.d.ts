@@ -478,7 +478,7 @@ declare namespace Materialize {
 /**
  * Declare Pickadate namespace again in order to add more Materialize specific properties to TimeOptions and DateOptions interfaces
  *
- * @see http://www.typescriptlang.org/docs/handbook/declaration-merging.html
+ * @see https://www.typescriptlang.org/docs/handbook/declaration-merging.html
  */
 declare namespace Pickadate {
     interface DateOptions {

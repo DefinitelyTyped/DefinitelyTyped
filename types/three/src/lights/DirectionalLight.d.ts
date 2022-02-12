@@ -24,7 +24,7 @@ export class DirectionalLight extends Light {
     /**
      * @default THREE.Object3D.DefaultUp
      */
-    position: Vector3;
+    readonly position: Vector3;
 
     /**
      * Target used for shadow camera orientation.

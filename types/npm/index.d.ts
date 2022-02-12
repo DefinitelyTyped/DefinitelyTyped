@@ -1,14 +1,14 @@
-// Type definitions for npm 2.0.0
-// Project: https://github.com/npm/npm
+// Type definitions for npm 7.19.0
+// Project: https://github.com/npm/cli
 // Definitions by: Maxime LUCE <https://github.com/SomaticIT>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
 
-declare var npm: NPM.Static;
+declare var npm: npm.Static;
 export = npm;
 
-declare namespace NPM {
+declare namespace npm {
     export interface Static extends NodeJS.EventEmitter {
         config: Config;
         commands: Commands;
@@ -27,9 +27,7 @@ declare namespace NPM {
         tmp: string;
 
 
-        load(cli: ConfigOptions): void;
-        load(callback: SimpleCallback<Config>): void;
-        load(cli: ConfigOptions, callback: SimpleCallback<Config>): void;
+        load(callback?: SimpleCallback<void>): Promise<void>;
 
         deref(command: string): string;
     }
@@ -49,6 +47,45 @@ declare namespace NPM {
         submodule: CommandFunction;
         pack: CommandFunction;
         dedupe: CommandFunction;
+
+        /** https://docs.npmjs.com/cli/v7/commands/npm-access */
+        access: CommandFunction;
+        /** https://docs.npmjs.com/cli/v7/commands/npm-audit */
+        audit: CommandFunction;
+        /** https://docs.npmjs.com/cli/v7/commands/npm-ci */
+        ci: CommandFunction;
+        /** https://docs.npmjs.com/cli/v7/commands/npm-diff */
+        diff: CommandFunction;
+        /** https://docs.npmjs.com/cli/v7/commands/npm-dist-tag */
+        "dist-tag": CommandFunction;
+        /** https://docs.npmjs.com/cli/v7/commands/npm-doctor */
+        doctor: CommandFunction;
+        /** https://docs.npmjs.com/cli/v7/commands/npm-exec */
+        exec: CommandFunction;
+        /** https://docs.npmjs.com/cli/v7/commands/npm-explain */
+        explain: CommandFunction;
+        /** https://docs.npmjs.com/cli/v7/commands/npm-fund */
+        fund: CommandFunction;
+        /** https://docs.npmjs.com/cli/v7/commands/npm-hook */
+        hook: CommandFunction;
+        /** https://docs.npmjs.com/cli/v7/commands/npm-install-ci-test */
+        "install-ci-test": CommandFunction;
+        /** https://docs.npmjs.com/cli/v7/commands/npm-install-test */
+        "install-test": CommandFunction;
+        /** https://docs.npmjs.com/cli/v7/commands/npm-logout */
+        logout: CommandFunction;
+        /** https://docs.npmjs.com/cli/v7/commands/npm-org */
+        org: CommandFunction;
+        /** https://docs.npmjs.com/cli/v7/commands/npm-ping */
+        ping: CommandFunction;
+        /** https://docs.npmjs.com/cli/v7/commands/npm-profile */
+        profile: CommandFunction;
+        /** https://docs.npmjs.com/cli/v7/commands/npm-set-script */
+        "set-script": CommandFunction;
+        /** https://docs.npmjs.com/cli/v7/commands/npm-team */
+        team: CommandFunction;
+        /** https://docs.npmjs.com/cli/v7/commands/npm-token */
+        token: CommandFunction;
 
         rebuild: CommandFunction;
         link: CommandFunction;
@@ -125,6 +162,36 @@ declare namespace NPM {
         t: CommandFunction;                // test
         "find-dupes": CommandFunction;     // dedupe
         ddp: CommandFunction;              // dedupe
+        /**
+         * Alias for `dist-tag`
+         *
+         * https://docs.npmjs.com/cli/v7/commands/npm-dist-tag
+         */
+        "dist-tags": CommandFunction;
+        /**
+         * Alias for `exec`
+         *
+         * https://docs.npmjs.com/cli/v7/commands/npm-exec
+         */
+        x: CommandFunction;
+        /**
+         * Alias for `explain`
+         *
+         * https://docs.npmjs.com/cli/v7/commands/npm-dist-tag
+         */
+        why: CommandFunction;
+        /**
+         * Alias for `install-ci-test`
+         *
+         * https://docs.npmjs.com/cli/v7/commands/npm-install-ci-test
+         */
+        cit: CommandFunction;
+        /**
+         * Alias for `install-test`
+         *
+         * https://docs.npmjs.com/cli/v7/commands/npm-install-test
+         */
+        it: CommandFunction;
 
 
         // plumbing

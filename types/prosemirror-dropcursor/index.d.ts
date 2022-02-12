@@ -14,7 +14,12 @@ import { Plugin } from 'prosemirror-state';
  * is dragged over the editor.
  *
  * @param options These options are supported:
+ * @param options.class A CSS class name to add to the cursor element.
  * @param options.color The color of the cursor. Defaults to `black`.
  * @param options.width The precise width of the cursor in pixels. Defaults to 1.
  */
-export function dropCursor(options?: { color?: string | null | undefined; width?: number | null | undefined }): Plugin;
+export function dropCursor(options?: {
+  class?: string | null | undefined;
+  color?: string | null | undefined;
+  width?: number | null | undefined;
+}): Plugin;

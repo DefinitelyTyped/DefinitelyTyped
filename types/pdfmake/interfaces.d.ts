@@ -8,6 +8,11 @@ export interface CustomPageSize {
     height: number | 'auto';
 }
 
+export interface Position {
+    x: number;
+    y: number;
+}
+
 export type PredefinedPageSize =
     | '4A0' | '2A0'
     | 'A0' | 'A1' | 'A2' | 'A3' | 'A4' | 'A5' | 'A6' | 'A7' | 'A8' | 'A9' | 'A10'
@@ -283,8 +288,8 @@ export interface ContentQr extends ContentBase {
 
 export interface ContentBase extends Style {
     style?: string | string[] | Style | undefined;
-    absolutePosition?: { x: number; y: number } | undefined;
-    relativePosition?: { x: number; y: number } | undefined;
+    absolutePosition?: Position | undefined;
+    relativePosition?: Position | undefined;
     pageBreak?: PageBreak | undefined;
     pageOrientation?: PageOrientation | undefined;
     headlineLevel?: number | undefined;

@@ -30,26 +30,10 @@ export function packMessage(
     senderVk: Verkey | null,
 ): Promise<Buffer>;
 export function unpackMessage(wh: WalletHandle, jwe: Buffer): Promise<Buffer>;
-export function addWalletRecord(
-    wh: WalletHandle,
-    type: string,
-    id: string,
-    value: string,
-    tags: Record<string, string>,
-): Promise<void>;
+export function addWalletRecord(wh: WalletHandle, type: string, id: string, value: string, tags: Tags): Promise<void>;
 export function updateWalletRecordValue(wh: WalletHandle, type: string, id: string, value: string): Promise<void>;
-export function updateWalletRecordTags(
-    wh: WalletHandle,
-    type: string,
-    id: string,
-    tags: Record<string, string>,
-): Promise<void>;
-export function addWalletRecordTags(
-    wh: WalletHandle,
-    type: string,
-    id: string,
-    tags: Record<string, string>,
-): Promise<void>;
+export function updateWalletRecordTags(wh: WalletHandle, type: string, id: string, tags: Tags): Promise<void>;
+export function addWalletRecordTags(wh: WalletHandle, type: string, id: string, tags: Tags): Promise<void>;
 export function deleteWalletRecord(wh: WalletHandle, type: string, id: string): Promise<void>;
 export function getWalletRecord(
     wh: WalletHandle,
@@ -70,7 +54,9 @@ export function fetchWalletSearchNextRecords(
 ): Promise<WalletRecordSearch>;
 export function closeWalletSearch(sh: SearchHandle): Promise<void>;
 export function createPoolLedgerConfig(configName: string, config?: PoolConfig): Promise<void>;
+export function deletePoolLedgerConfig(configName: string): Promise<void>;
 export function openPoolLedger(configName: string, config?: RuntimePoolConfig): Promise<PoolHandle>;
+export function closePoolLedger(poolHandle: PoolHandle): Promise<void>;
 export function setProtocolVersion(version: number): Promise<void>;
 export function buildNymRequest(
     submitterDid: Did,
@@ -133,6 +119,14 @@ export function appendTxnAuthorAgreementAcceptanceToRequest(
 ): Promise<LedgerRequest>;
 export function abbreviateVerkey(did: Did, fullVerkey: Verkey): Promise<Verkey>;
 export function generateNonce(): Promise<string>;
+
+export function buildGetAttribRequest(
+    submitterDid: Did | null,
+    targetDid: Did,
+    raw: string | null,
+    hash: string | null,
+    enc: string | null,
+): Promise<LedgerRequest>;
 
 // -------------------------------------------- //
 // ----------------- ANONCREDS ---------------- //
@@ -204,7 +198,7 @@ export function proverStoreCredential(
     credReqMetadata: CredReqMetadata,
     cred: Cred,
     credDef: CredDef,
-    revRegDef: RevRegDef | null,
+    revRegDef: RevocRegDef | null,
 ): Promise<CredentialId>;
 // TODO: proverGetCredentials
 export function proverGetCredential(wh: WalletHandle, credId: string): Promise<IndyCredentialInfo>;
@@ -239,9 +233,17 @@ export function verifierVerifyProof(
     proof: IndyProof,
     schemas: Schemas,
     credentialDefs: CredentialDefs,
-    revRegsDefs: RevRegsDefs,
+    revRegDefs: RevocRegDefs,
     revRegs: RevStates,
 ): Promise<boolean>;
+
+export function createRevocationState(
+    blobStorageReaderHandle: BlobReaderHandle,
+    revRegDef: RevocRegDef,
+    revRegDelta: RevocRegDelta,
+    timestamp: number,
+    credRevId: CredRevocId,
+): Promise<RevState>;
 
 // -------------------------------------------- //
 // --------------- BLOB STORAGE --------------- //
@@ -261,6 +263,7 @@ export type SchemaId = string;
 export type CredDefId = string;
 export type CredentialId = string;
 export type KeyDerivationMethod = 'ARGON2I_MOD' | 'ARGON2I_INT' | 'RAW';
+export type Tags = Record<string, string | undefined>;
 
 // TODO: Maybe we can make this a bit more specific?
 export type WalletQuery = Record<string, unknown>;
@@ -344,6 +347,13 @@ export interface LedgerRejectResponse {
     identifier: string;
 }
 
+export interface LedgerReqnackResponse {
+    op: 'REQNACK';
+    reqId: number;
+    reason: string;
+    identifier: string;
+}
+
 export interface LedgerReplyResponse {
     op: 'REPLY';
     result: Record<string, unknown>;
@@ -385,7 +395,7 @@ export interface LedgerWriteReplyResponse extends LedgerReplyResponse {
     };
 }
 
-export type LedgerResponse = LedgerRejectResponse | LedgerReadReplyResponse | LedgerWriteReplyResponse;
+export type LedgerResponse = LedgerRejectResponse | LedgerReqnackResponse | LedgerReadReplyResponse | LedgerWriteReplyResponse;
 
 export interface Schema {
     id: SchemaId;
@@ -495,10 +505,10 @@ export interface IndyProof {
     };
     proof: any;
     identifiers: Array<{
-        schema_id: string;
-        cred_def_id: string;
-        rev_reg_id?: string | undefined;
-        timestamp?: number | undefined;
+        schema_id: SchemaId;
+        cred_def_id: CredDefId;
+        rev_reg_id?: RevRegId;
+        timestamp?: number;
     }>;
 }
 
@@ -510,18 +520,20 @@ export interface CredentialDefs {
     [key: string]: CredDef;
 }
 
-export interface RevRegsDefs {
-    [key: string]: unknown;
-}
-
-export interface RevRegDef {
-    [key: string]: unknown;
+export interface RevocRegDefs {
+    [revRegId: string]: RevocRegDef;
 }
 
 export interface RevStates {
     [key: string]: {
         [key: string]: unknown;
     };
+}
+
+export interface RevState {
+    rev_reg: RevocReg;
+    witness: Witness;
+    timestamp: number;
 }
 
 export interface IndyRequestedCredentials {
@@ -588,7 +600,7 @@ export type BlobStorageReaderHandle = number;
 export interface Cred {
     schema_id: SchemaId;
     cred_def_id: CredDefId;
-    rev_reg_def_id: string;
+    rev_reg_id: string;
     values: CredValues;
     signature: unknown;
     signature_correctness_proof: unknown;
@@ -599,8 +611,8 @@ export interface RevocRegDelta {
     value: {
         prevAccum: string;
         accum: string;
-        issued: number[];
-        revoked: number[];
+        issued: number[] | undefined;
+        revoked: number[] | undefined;
     };
     ver: string;
 }
@@ -610,6 +622,10 @@ export interface RevocReg {
         accum: string;
     };
     ver: string;
+}
+
+export interface Witness {
+    [key: string]: unknown;
 }
 
 export interface KeyConfig {
@@ -640,7 +656,7 @@ export interface WalletRecord {
 
 export interface WalletRecordSearch {
     totalCount: string | null;
-    records: WalletRecord[];
+    records: WalletRecord[] | null;
 }
 
 export interface GetNymResponse {

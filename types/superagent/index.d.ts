@@ -15,12 +15,12 @@
 // TypeScript Version: 3.0
 
 /// <reference types="node" />
-/// <reference lib="dom" />
 
 import * as fs from "fs";
 import * as http from "http";
 import * as stream from "stream";
 import * as cookiejar from "cookiejar";
+import { Blob } from "buffer";
 
 type CallbackHandler = (err: any, res: request.Response) => void;
 
@@ -114,7 +114,7 @@ declare namespace request {
         header: any;
         headers: any;
         info: boolean;
-        links: object;
+        links: Record<string, string>;
         noContent: boolean;
         notAcceptable: boolean;
         notFound: boolean;
@@ -127,7 +127,7 @@ declare namespace request {
         text: string;
         type: string;
         unauthorized: boolean;
-        xhr: XMLHttpRequest;
+        xhr: any;
         redirects: string[];
     }
 

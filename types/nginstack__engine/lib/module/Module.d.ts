@@ -8,7 +8,7 @@ declare class Module {
     filename: string;
     loaded: boolean;
     children: any[];
-    resolveFileNameCache_: {};
+    private resolveFileNameCache_;
     protected compileSource_(content: string, fileName: string): void;
     protected compile_(fileName: string): void;
     load(path: string): void;

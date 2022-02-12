@@ -21,6 +21,7 @@
     "files": [
         "index.d.ts",
         "test/index.tsx",
-        "test/macro.tsx"
+        "test/macro.tsx",
+        "test/reexport.tsx"
     ]
 }

@@ -1,17 +1,17 @@
 // flow object
-let flowObject!: flowjs.Flow;
+let flowObject = new flowjs.Flow({});
 let bool: boolean = flowObject.support;
 bool = flowObject.supportDirectory;
 let flowOpts: flowjs.FlowOptions = flowObject.opts;
 let flowFileArray: flowjs.FlowFile[] = flowObject.files;
 let flowChunkParams: flowjs.FlowChunkParams;
 
-flowObject.assignBrowse(<HTMLElement[]> []);
-flowObject.assignBrowse(<HTMLElement[]> [], false, false, {});
-flowObject.assignDrop(<HTMLElement[]> []);
-flowObject.unAssignDrop(<HTMLElement[]> []);
-flowObject.on("fileSuccess", (file: flowjs.FlowFile, serverMessage: string, chunk: flowjs.FlowChunk) => {});
-flowObject.off("fileSuccess", () => {});
+flowObject.assignBrowse([] as HTMLElement[]);
+flowObject.assignBrowse([] as HTMLElement[], false, false, {});
+flowObject.assignDrop([] as HTMLElement[]);
+flowObject.unAssignDrop([] as HTMLElement[]);
+flowObject.on('fileSuccess', (file: flowjs.FlowFile, serverMessage: string, chunk: flowjs.FlowChunk) => {});
+flowObject.off('fileSuccess', () => {});
 flowObject.upload();
 flowObject.pause();
 flowObject.resume();
@@ -20,25 +20,25 @@ flowObject.progress();
 bool = flowObject.isUploading();
 flowObject.addFile({} as any as File);
 flowObject.removeFile({} as any as flowjs.FlowFile);
-let flowFile: flowjs.FlowFile = flowObject.getFromUniqueIdentifier("");
+let flowFile: flowjs.FlowFile = flowObject.getFromUniqueIdentifier('');
 let num: number = flowObject.getSize();
 num = flowObject.sizeUploaded();
 num = flowObject.timeRemaining();
 
 // flow options
 let flowOptions: flowjs.FlowOptions = {};
-flowOptions.target = "";
+flowOptions.target = '';
 flowOptions.singleFile = true;
 flowOptions.chunkSize = 0;
 flowOptions.forceChunkSize = true;
 flowOptions.simultaneousUploads = 0;
-flowOptions.fileParameterName = "";
+flowOptions.fileParameterName = '';
 flowOptions.query = {};
 flowOptions.headers = {};
 flowOptions.withCredentials = true;
-flowOptions.method = "";
-flowOptions.testMethod = "";
-flowOptions.uploadMethod = "";
+flowOptions.method = '';
+flowOptions.testMethod = '';
+flowOptions.uploadMethod = '';
 flowOptions.allowDuplicateUploads = true;
 flowOptions.prioritizeFirstAndLastChunk = true;
 flowOptions.testChunks = true;

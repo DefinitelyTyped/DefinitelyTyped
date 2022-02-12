@@ -32,18 +32,26 @@ export interface Client extends Resource {
      *  Creates the WebSocket connection, subscribing to the given apps.
      *
      *  @param apps - Name or array of names of the applications to be started.
-     *  @param subscribeAll - Subscribe to all Asterisk events (true/false).
-     *  @param [callback] - The callback to be called after applications have started.
+     *  @param [subscribeAll] - Subscribe to all Asterisk events (true/false).
      */
-    start(apps: string | string[], subscribeAll: boolean, callback?: (err: Error, ...args: any[]) => void): void;
+    start(apps: string | string[], subscribeAll?: boolean): Promise<void>;
 
     /**
      *  Creates the WebSocket connection, subscribing to the given apps.
      *
      *  @param apps - Name or array of names of the applications to be started.
-     *  @param [callback] - The callback to be called after applications have started.
+     *  @param subscribeAll - Subscribe to all Asterisk events (true/false).
+     *  @param callback - The callback to be called after applications have started.
      */
-    start(apps: string | string[], callback?: (err: Error, ...args: any[]) => void): void;
+    start(apps: string | string[], subscribeAll: boolean, callback: (err: Error, ...args: any[]) => void): void;
+
+    /**
+     *  Creates the WebSocket connection, subscribing to the given apps.
+     *
+     *  @param apps - Name or array of names of the applications to be started.
+     *  @param callback - The callback to be called after applications have started.
+     */
+    start(apps: string | string[], callback: (err: Error, ...args: any[]) => void): void;
 
     /**
      *  Closes the WebSocket connection.
@@ -173,6 +181,10 @@ export interface IndexableObject {
     [key: string]: any;
 }
 /* Event Types */
+export type WebSocketConnectedEventType = 'WebSocketConnected';
+export type WebSocketReconnectingEventType = 'WebSocketReconnecting';
+export type WebSocketMaxRetriesEventType = 'WebSocketMaxRetries';
+export type PongEventType = 'pong';
 export type APILoadErrorEventType = 'APILoadError';
 export type EventsEventType = 'Events';
 export type MessageEventType = 'Message';
@@ -219,6 +231,11 @@ export type StasisStartEventType = 'StasisStart';
 export type TextMessageReceivedEventType = 'TextMessageReceived';
 export type ChannelConnectedLineEventType = 'ChannelConnectedLine';
 export type AnyEventType =
+    | WebSocketConnectedEventType
+    | WebSocketReconnectingEventType
+    | WebSocketMaxRetriesEventType
+    | PongEventType
+    | APILoadErrorEventType
     | EventsEventType
     | MessageEventType
     | MissingParamsEventType
@@ -893,6 +910,41 @@ export interface ChannelConnectedLine extends Event {
 }
 export interface Resource {
     /**
+     * The ARI client instance.
+     */
+    _client: Client;
+
+    /**
+     * Error emitted when WebSocket reconnection attempts exceeded MaxRetries.
+     */
+    // tslint:disable-next-line:unified-signatures
+    on(type: WebSocketMaxRetriesEventType, listener: (err: Error) => void): void;
+
+    /**
+     * Error emitted when the WebSocket is reconnecting.
+     */
+    // tslint:disable-next-line:unified-signatures
+    on(type: WebSocketReconnectingEventType, listener: (err: Error) => void): void;
+
+    /**
+     * Event emitted when the WebSocket is connected.
+     */
+    // tslint:disable-next-line:unified-signatures
+    on(type: WebSocketConnectedEventType, listener: () => void): void;
+
+    /**
+     * Event emitted when a WebSocket pong is received.
+     */
+    // tslint:disable-next-line:unified-signatures
+    on(type: PongEventType, listener: () => void): void;
+
+    /**
+     * Error event sent when connection to API fails.
+     */
+    // tslint:disable-next-line:unified-signatures
+    on(type: APILoadErrorEventType, listener: (err: Error) => void): void;
+
+    /**
      * Base type for errors and events.
      */
     on(event: MessageEventType, callback: (event: Message, instances: Message) => void): void;
@@ -1137,6 +1189,36 @@ export interface Resource {
      * Channel changed Connected Line.
      */
     on(event: ChannelConnectedLineEventType, callback: (event: ChannelConnectedLine, channel: Channel) => void): void;
+
+    /**
+     * Error emitted when WebSocket reconnection attempts exceeded MaxRetries.
+     */
+    // tslint:disable-next-line:unified-signatures
+    once(type: WebSocketMaxRetriesEventType, listener: (err: Error) => void): void;
+
+    /**
+     * Error emitted when the WebSocket is reconnecting.
+     */
+    // tslint:disable-next-line:unified-signatures
+    once(type: WebSocketReconnectingEventType, listener: (err: Error) => void): void;
+
+    /**
+     * Event emitted when the WebSocket is connected.
+     */
+    // tslint:disable-next-line:unified-signatures
+    once(type: WebSocketConnectedEventType, listener: () => void): void;
+
+    /**
+     * Event emitted when a WebSocket pong is received.
+     */
+    // tslint:disable-next-line:unified-signatures
+    once(type: PongEventType, listener: () => void): void;
+
+    /**
+     * Error event sent when connection to API fails.
+     */
+    // tslint:disable-next-line:unified-signatures
+    once(type: APILoadErrorEventType, listener: (err: Error) => void): void;
 
     /**
      * Base type for errors and events.
@@ -1392,6 +1474,36 @@ export interface Resource {
      * Channel changed Connected Line.
      */
     once(event: ChannelConnectedLineEventType, callback: (event: ChannelConnectedLine, channel: Channel) => void): void;
+
+    /**
+     * Error emitted when WebSocket reconnection attempts exceeded MaxRetries.
+     */
+    // tslint:disable-next-line:unified-signatures
+    addListener(type: WebSocketMaxRetriesEventType, listener: (err: Error) => void): void;
+
+    /**
+     * Error emitted when the WebSocket is reconnecting.
+     */
+    // tslint:disable-next-line:unified-signatures
+    addListener(type: WebSocketReconnectingEventType, listener: (err: Error) => void): void;
+
+    /**
+     * Event emitted when the WebSocket is connected.
+     */
+    // tslint:disable-next-line:unified-signatures
+    addListener(type: WebSocketConnectedEventType, listener: () => void): void;
+
+    /**
+     * Event emitted when a WebSocket pong is received.
+     */
+    // tslint:disable-next-line:unified-signatures
+    addListener(type: PongEventType, listener: () => void): void;
+
+    /**
+     * Error event sent when connection to API fails.
+     */
+    // tslint:disable-next-line:unified-signatures
+    addListener(type: APILoadErrorEventType, listener: (err: Error) => void): void;
 
     /**
      * Base type for errors and events.

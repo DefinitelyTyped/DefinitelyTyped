@@ -44,3 +44,38 @@ import { Dictionary } from 'ramda/tools';
   R.filter(R.where({ x: 10 }), xs); // ==> [{x: 10, y: 2}, {x: 10, y: 4}]
   R.filter(R.where({ x: 10 }))(xs); // ==> [{x: 10, y: 2}, {x: 10, y: 4}]
 };
+
+() => {
+  function isEven(n: number) {
+    return n % 2 === 0;
+  }
+
+  // $ExpectError
+  R.filter(isEven, ["foo"]);
+};
+
+() => {
+  const filterNumbers = R.filter(R.is(Number));
+
+  const unknownArray: unknown[] = [];
+  let numberArray: number[];
+  let stringArray: string[];
+
+  numberArray = R.filter(R.is(Number), unknownArray);
+  numberArray = filterNumbers(unknownArray);
+  // $ExpectError
+  stringArray = R.filter(R.is(Number), unknownArray);
+  // $ExpectError
+  stringArray = filterNumbers(unknownArray);
+
+  const unknownDictionary: Dictionary<unknown> = {};
+  let numberDictionary: Dictionary<number>;
+  let stringDictionary: Dictionary<string>;
+
+  numberDictionary = R.filter(R.is(Number), unknownDictionary);
+  numberDictionary = filterNumbers(unknownDictionary);
+  // $ExpectError
+  stringDictionary = R.filter(R.is(Number), unknownDictionary);
+  // $ExpectError
+  stringDictionary = filterNumbers(unknownDictionary);
+};

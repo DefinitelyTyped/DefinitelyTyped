@@ -1428,7 +1428,7 @@ declare namespace OracleDB {
         user?: string | undefined;
     }
 
-    interface DBError {
+    interface DBError extends Error {
         /**
          * The Oracle error number. This value is undefined for non-Oracle errors and for messages prefixed with NJS or DPI.
          */

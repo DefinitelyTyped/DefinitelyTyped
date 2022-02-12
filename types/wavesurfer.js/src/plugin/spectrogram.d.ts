@@ -38,6 +38,8 @@ export interface SpectrogramPluginParams extends PluginParams {
     container: string | HTMLElement;
     /** Number of samples to fetch to FFT. Must be a power of 2. */
     fftSamples?: number | undefined;
+    /** Render with separate spectograms for the channels of the audio. */
+    splitChannels?: boolean | undefined;
     /** Set to true to display frequency labels. */
     labels?: boolean | undefined;
     /** Size of the overlapping window. Must be < fftSamples. Auto deduced from canvas size by default. */

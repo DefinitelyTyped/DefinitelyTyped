@@ -1,4 +1,4 @@
-/// <reference types="../../react/next"/>
+/// <reference types="../../react/experimental"/>
 import * as React from 'react';
 import * as ReactIs from 'react-is';
 import 'react-is/next';

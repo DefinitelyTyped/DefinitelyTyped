@@ -90,6 +90,7 @@ export type StyledInterface = ThemedStyledInterface<DefaultTheme>;
 export interface DefaultTheme {}
 
 export interface ThemeProviderProps<T> {
+    children?: React.ReactElement | undefined | null;
     theme?: T | ((theme: T) => T) | undefined;
 }
 export type BaseThemeProviderComponent<T> = React.ComponentClass<ThemeProviderProps<T>>;
@@ -147,6 +148,7 @@ interface StylesheetComponentProps {
 }
 
 interface StyleSheetManagerProps {
+    children?: React.ReactNode;
     sheet?: StyleSheet | undefined;
     target?: Node | undefined;
 }

@@ -6,7 +6,6 @@
 //                 Christoph Wagner <https://github.com/IgelCampus>
 //                 Gio Freitas <https://github.com/giofreitas>
 //                 Grzegorz Błaszczyk <https://github.com/gjanblaszczyk>
-//                 Adam Eisenreich <https://github.com/AkxeOne>
 //                 Mei Qingguang <https://github.com/meikidd>
 //                 Joe Flateau <https://github.com/joeflateau>
 //                 KuanYu Chu <https://github.com/ckybonist>
@@ -454,6 +453,19 @@ declare namespace videojs {
     function use(type: string, middleware: (player: Player) => Middleware): void;
 
     /**
+     * Used to subclass an existing class by emulating ES subclassing using the extends keyword.
+     * @param superClass super component to extend
+     * @param [subClassMethods] methods sub class will add to super
+     */
+    function extend<
+        TSuper extends new (...args: any[]) => any,
+        TSubClassMethods extends Record<string | symbol, (this: InstanceType<TSuper>, ...args: any[]) => any>,
+    >(
+        superClass: TSuper,
+        subClassMethods?: TSubClassMethods,
+    ): new (...args: ConstructorParameters<TSuper>) => InstanceType<TSuper> & TSubClassMethods;
+
+    /**
      * Current software version. Follows semver.
      *
      */
@@ -621,13 +633,32 @@ declare namespace videojs {
         new (player: Player, options?: AudioTrackMenuItemOptions): AudioTrackMenuItem;
     };
 
-    interface VideojsAudioTrack {
+    interface VideojsAudioTrack extends Track {
         enabled: boolean;
         readonly id: string;
         kind: string;
         readonly label: string;
         language: string;
         readonly sourceBuffer: SourceBuffer | null;
+    }
+
+    /**
+     * The current list of {@link VideojsAudioTrack} for a media file.
+     *
+     * @see [Spec]{@link https://html.spec.whatwg.org/multipage/media.html#audiotracklist}
+     */
+     interface AudioTrackList extends TrackList {
+        [index: number]: VideojsAudioTrack;
+
+        /**
+         * Add a {@link VideojsAudioTrack} to the `AudioTrackList`
+         *
+         * @param track
+         *        The audio track to add to the list.
+         *
+         * @fires TrackList#addtrack
+         */
+        addTrack(track: VideojsAudioTrack): void;
     }
 
     interface AudioTrackMenuItemOptions extends MenuItemOptions {
@@ -1940,7 +1971,9 @@ declare namespace videojs {
     };
 
     interface ComponentOptions {
-        children?: Child[] | undefined;
+        children?: undefined | Child[];
+        createEl?: boolean;
+        el?: HTMLElement;
     }
 
     namespace Component {
@@ -3878,6 +3911,22 @@ declare namespace videojs {
         Idle = 1,
         Loading = 2,
         NoSource = 3,
+    }
+
+    /**
+     * The `PictureInPictureWindow` interface represents an object able to programmatically obtain the `width` and `height` of the floating video window.
+     * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/PictureInPictureWindow}
+     */
+    interface PictureInPictureWindow {
+        /**
+         * Determines the height of the floating video window.
+         */
+         height: number;
+
+        /**
+         * Determines the width of the floating video window.
+         */
+         width: number;
     }
 
     type Player = VideoJsPlayer;
@@ -6084,6 +6133,12 @@ export interface VideoJsPlayer extends videojs.Component {
     textTracks(): TextTrackList;
 
     /**
+     * Get the remote {@link videojs.AudioTrackList}
+     * @return The current remote audio track list
+     */
+    audioTracks(): videojs.AudioTrackList;
+
+    /**
      * Get the remote {@link TextTrackList}
      * @return The current remote text track list
      */
@@ -6441,6 +6496,15 @@ export interface VideoJsPlayer extends videojs.Component {
     exitFullWindow(): void;
 
     /**
+     * Exit Picture-in-Picture mode.
+     *
+     * @see [Spec]{@link https://wicg.github.io/picture-in-picture}
+     *
+     * @fires Player#leavepictureinpicture
+     */
+    exitPictureInPicture(): Promise<void>;
+
+    /**
      * Get a clone of the current Player~MediaObject for this player.
      * If the loadMedia method has not been used, will attempt to return a Player~MediaObject based on the current state of the player.
      */
@@ -6726,6 +6790,17 @@ export interface VideoJsPlayer extends videojs.Component {
      * @fires Player#fullscreenchange
      */
     requestFullscreen(): videojs.Player;
+
+    /**
+     * Create a floating video window always on top of other windows so that
+     * users may continue consuming media while they interact with other
+     * content sites, or applications on their device.
+     *
+     * @see [Spec]{@link https://wicg.github.io/picture-in-picture}
+     *
+     * @fires Player#enterpictureinpicture
+     */
+    requestPictureInPicture(): Promise<videojs.PictureInPictureWindow>;
 
     /**
      * Report user activity

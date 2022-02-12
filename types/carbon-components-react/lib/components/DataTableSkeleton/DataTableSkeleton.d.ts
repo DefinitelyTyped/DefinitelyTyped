@@ -1,7 +1,7 @@
 import * as React from "react";
 
 export interface DataTableSkeletonHeader {
-    key?: string | undefined;
+    header?: string | undefined;
 }
 
 export interface DataTableSkeletonProps extends React.TableHTMLAttributes<HTMLTableElement> {

@@ -47,6 +47,10 @@ export class OrbitControls {
     mouseButtons: { LEFT: MOUSE; MIDDLE: MOUSE; RIGHT: MOUSE };
     touches: { ONE: TOUCH; TWO: TOUCH };
 
+    target0: Vector3;
+    position0: Vector3;
+    zoomO: number;
+
     update(): boolean;
 
     listenToKeyEvents(domElement: HTMLElement): void;
@@ -60,6 +64,8 @@ export class OrbitControls {
     getPolarAngle(): number;
 
     getAzimuthalAngle(): number;
+
+    getDistance(): number;
 
     // EventDispatcher mixins
     addEventListener(type: string, listener: (event: any) => void): void;

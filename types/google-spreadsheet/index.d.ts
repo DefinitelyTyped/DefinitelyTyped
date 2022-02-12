@@ -286,8 +286,12 @@ export interface ServiceAccountCredentials {
     private_key: string;
 }
 
+export interface GetAccessTokenResponse {
+    token?: string | null;
+}
+
 export interface OAuth2Client {
-    getAccessToken: () => { token: string };
+    getAccessToken: () => Promise<GetAccessTokenResponse> ;
 }
 
 // #endregion

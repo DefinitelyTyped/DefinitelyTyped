@@ -398,6 +398,12 @@ declare namespace Twitch.ext {
         sessionToken: string;
 
         /**
+         * A token to use with the Twitch API. This is the same as the helixToken property of the authData parameter
+         * that currently gets passed to the onAuthorized callback.
+         */
+        helixToken: string;
+
+        /**
          * An object containing information about the viewer’s subscription. The value of subscriptionStatus will be null if
          * the user is either not a subscriber, or opting not to share their identity. The value will also be null if the
          * extension otherwise doesn't have subscription capabilities.
@@ -449,6 +455,11 @@ declare namespace Twitch.ext {
         token: string;
 
         /**
+         * JWT that can be used for front end API requests.
+         */
+        helixToken: string;
+
+        /**
          * Opaque user ID.
          */
         userId: string;
@@ -494,17 +505,19 @@ declare namespace Twitch.ext {
         /**
          * Information about the current channel’s hosting status, or undefined if the channel is not currently hosting.
          */
-        hostingInfo?: {
-            /**
-             * Numeric ID of the channel being hosted by the currently visible channel
-             */
-            hostedChannelId: string;
+        hostingInfo?:
+            | {
+                  /**
+                   * Numeric ID of the channel being hosted by the currently visible channel
+                   */
+                  hostedChannelId: string;
 
-            /**
-             * Numeric ID of the host channel
-             */
-            hostingChannelId: string;
-        } | undefined;
+                  /**
+                   * Numeric ID of the host channel
+                   */
+                  hostingChannelId: string;
+              }
+            | undefined;
 
         /**
          * If true, the viewer is watching in fullscreen mode.

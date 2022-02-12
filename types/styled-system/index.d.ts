@@ -5,7 +5,6 @@
 //                 Christopher Pappas <https://github.com/damassi>
 //                 Eloy Durán <https://github.com/alloy>
 //                 Matthieu Vachon <https://github.com/maoueh>
-//                 Adam Lavin <https://github.com/lavoaster>
 //                 Joachim Schuler <https://github.com/jschuler>
 //                 Adam Misiorny <https://github.com/adam187>
 //                 Sara F-P <https://github.com/gretzky>
@@ -17,7 +16,6 @@
 //                 Eliseu Monar dos Santos <https://github.com/eliseumds>
 //                 Craig Michael Thompson <https://github.com/craga89>
 //                 Nicholas Hehr <https://github.com/HipsterBrown>
-//                 Hammad Jutt <https://github.com/hammadj>
 //                 Dhruv Jain <https://github.com/maddhruv>
 //                 Jeffrey Cherewaty <https://github.com/cherewaty>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -152,6 +150,14 @@ export interface styleFn {
     cache?: object | undefined;
 }
 
+export interface ConfigFunction {
+    (value: any, scale: Scale | undefined, props: any): any;
+    /** A string referencing a key in the `theme` object. */
+    scale?: string;
+    /** A fallback scale object for when there isn't one defined in the `theme` object. */
+    defaults?: Scale;
+}
+
 export interface ConfigStyle {
     /** The CSS property to use in the returned style object (overridden by `properties` if present). */
     property?: keyof CSS.Properties | undefined;
@@ -170,7 +176,7 @@ export interface ConfigStyle {
 
 export interface Config {
     /** Property name exposed for use in components */
-    [customStyleName: string]: ConfigStyle | boolean;
+    [customStyleName: string]: ConfigStyle | ConfigFunction | boolean;
 }
 
 export function compose(...parsers: styleFn[]): styleFn;

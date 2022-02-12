@@ -2,7 +2,7 @@ export = KeyPrefetcher;
 declare function KeyPrefetcher(database?: Database | Connection): void;
 declare class KeyPrefetcher {
     constructor(database?: Database | Connection);
-    database_: Database | Connection;
+    private database_;
     private logger_;
     private reservedQty_;
     private reservedBase_;

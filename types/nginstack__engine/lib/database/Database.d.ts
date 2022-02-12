@@ -5,6 +5,7 @@ declare class Database {
     dbName: string;
     serverHost: string;
     dbType: string;
+    getVersionInfo(): DatabaseVersionInfo;
     uniqueId: string;
     date: Date;
     userKey: number;
@@ -54,8 +55,18 @@ declare class Database {
     userHasScope(userKey: DBKey | number, scope: string | DBKey | number): boolean;
 }
 declare namespace Database {
-    function fromConfig(key: number | DBKey): Database;
+    export { fromConfig, VersionInfo, DatabaseVersionInfo };
 }
 import Connection = require('../connection/Connection.js');
+interface DatabaseVersionInfo {
+    server: VersionInfo;
+    client: VersionInfo;
+}
 import DataSet = require('../dataset/DataSet.js');
 import DBKey = require('../dbkey/DBKey.js');
+declare function fromConfig(key: DBKey | number): Database;
+interface VersionInfo {
+    major: number;
+    minor: number;
+    name: string;
+}

@@ -5,6 +5,7 @@ import {
     Swatches,
     Slider,
     Sketch,
+    Twitter,
     Chrome,
     Photoshop
 } from 'vue-color';
@@ -20,7 +21,8 @@ new Vue({
         'slider-picker': Slider,
         'sketch-picker': Sketch,
         'chrome-picker': Chrome,
-        'photoshop-picker': Photoshop
+        'photoshop-picker': Photoshop,
+        'twitter-picker': Twitter
     },
     template: `
         <material-picker v-model="colors"></material-picker>

@@ -254,7 +254,7 @@ declare namespace cheerio {
         wrap(content: Document): Cheerio;
         wrap(content: Cheerio): Cheerio;
 
-        css(propertyName: string): string;
+        css(propertyName?: string): string;
         css(propertyNames: string[]): string[];
         css(propertyName: string, value: string): Cheerio;
         css(propertyName: string, value: number): Cheerio;

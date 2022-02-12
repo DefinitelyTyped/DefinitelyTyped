@@ -4,7 +4,6 @@
 //                 Arne Schubert <https://github.com/atd-schubert>
 //                 Michael Auer <https://github.com/mcauer>
 //                 Roni Karilkar <https://github.com/ronikar>
-//                 Sandra Frischmuth <https://github.com/sanfrisc>
 //                 Vladimir Dashukevich <https://github.com/life777>
 //                 Henry Thasler <https://github.com/henrythasler>
 //                 Colin Doig <https://github.com/captain-igloo>
@@ -232,7 +231,7 @@ export type BoundsLiteral = [PointTuple, PointTuple];
 
 export class Bounds {
     constructor(topLeft: PointExpression, bottomRight: PointExpression);
-    constructor(points: Point[] | BoundsLiteral);
+    constructor(points?: Point[] | BoundsLiteral);
     extend(point: PointExpression): this;
     getCenter(round?: boolean): Point;
     getBottomLeft(): Point;
@@ -243,6 +242,7 @@ export class Bounds {
     contains(pointOrBounds: BoundsExpression | PointExpression): boolean;
     intersects(otherBounds: BoundsExpression): boolean;
     overlaps(otherBounds: BoundsExpression): boolean;
+    isValid(): boolean;
 
     min?: Point | undefined;
     max?: Point | undefined;
@@ -1100,9 +1100,10 @@ export class Renderer extends Layer {
 export class SVG extends Renderer {}
 
 export namespace SVG {
+    function create<K extends keyof SVGElementTagNameMap>(name: K): SVGElementTagNameMap[K];
     function create(name: string): SVGElement;
 
-    function pointsToPath(rings: PointExpression[], close: boolean): string;
+    function pointsToPath(rings: PointExpression[], closed: boolean): string;
 }
 
 export function svg(options?: RendererOptions): SVG;
@@ -1613,7 +1614,7 @@ export interface FitBoundsOptions extends ZoomOptions, PanOptions {
     maxZoom?: number | undefined;
 }
 
-export interface PanInsideOptions {
+export interface PanInsideOptions extends PanOptions {
     paddingTopLeft?: PointExpression | undefined;
     paddingBottomRight?: PointExpression | undefined;
     padding?: PointExpression | undefined;

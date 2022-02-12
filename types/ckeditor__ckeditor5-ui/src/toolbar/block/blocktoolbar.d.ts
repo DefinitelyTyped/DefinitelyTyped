@@ -8,3 +8,9 @@ export default class BlockToolbar extends Plugin {
     panelView: BalloonPanelView;
     toolbarView: ToolbarView;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        BlockToolbar: BlockToolbar;
+    }
+}

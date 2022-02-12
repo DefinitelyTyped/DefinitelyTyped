@@ -2,7 +2,10 @@
 // Project: https://github.com/glejeune/node-graphviz
 // Definitions by: Matt Frantz <https://github.com/mhfrantz>,
 //                 Kamontat Chantrachirathumrong <https://github.com/kamontat>
+//                 Kirill Ivanov <https://github.com/koorya>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+/// <reference types="node" />
 
 export type PossibleValue = string | number | boolean;
 
@@ -27,7 +30,7 @@ export interface Node extends HasAttributes {
 export interface Edge extends HasAttributes {}
 
 export interface OutputCallback {
-    (data: string): void;
+    (data: Buffer): void;
 }
 
 export interface ErrorCallback {
@@ -72,6 +75,7 @@ export interface Graph extends HasAttributes {
     use: RenderEngine;
 
     addNode(id: string, attrs?: any): Node;
+    getNode(id: string): Node;
     nodeCount(): number;
 
     addEdge(nodeOne: string | Node, nodeTwo: string | Node, attrs?: Options): Edge;

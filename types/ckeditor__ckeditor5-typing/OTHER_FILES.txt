@@ -1,6 +1,2 @@
-src/deletecommand.d.ts
 src/deleteobserver.d.ts
-src/inputcommand.d.ts
-src/utils/changebuffer.d.ts
-src/utils/changebuffer.d.ts
 src/utils/injecttypingmutationshandling.d.ts

@@ -1,7 +1,6 @@
-// Type definitions for relay-runtime 11.0
+// Type definitions for relay-runtime 13.0
 // Project: https://github.com/facebook/relay, https://facebook.github.io/relay
 // Definitions by: Eloy Durán <https://github.com/alloy>
-//                 Stephen Pittman <https://github.com/Stephen2>
 //                 Marais Rossouw <https://github.com/maraisr>
 //                 Lorenzo Di Giacomo <https://github.com/morrys>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -58,7 +57,9 @@ export {
     Environment as IEnvironment,
     FragmentMap,
     FragmentPointer,
-    FragmentReference,
+    // DEPRECATED: use FragmentType instead of FragmentReference
+    FragmentType as FragmentReference,
+    FragmentType,
     FragmentSpecResolver,
     HandleFieldPayload,
     InvalidationState,
@@ -89,6 +90,8 @@ export {
     SingularReaderSelector,
     Snapshot,
     StoreUpdater,
+    LogEvent,
+    LogFunction,
 } from './lib/store/RelayStoreTypes';
 export { GraphQLSubscriptionConfig } from './lib/subscription/requestSubscription';
 export {
@@ -192,6 +195,11 @@ export { RelayProfiler } from './lib/util/RelayProfiler';
 export { default as getRelayHandleKey } from './lib/util/getRelayHandleKey';
 export { default as getRequestIdentifier } from './lib/util/getRequestIdentifier';
 export { default as getFragmentIdentifier } from './lib/util/getFragmentIdentifier';
+export { default as getPaginationMetadata } from './lib/util/getPaginationMetadata';
+export { default as getPaginationVariables } from './lib/util/getPaginationVariables';
+export { default as getRefetchMetadata } from './lib/util/getRefetchMetadata';
+export { default as getValueAtPath } from './lib/util/getValueAtPath';
+export { Direction } from './lib/util/getPaginationVariables';
 
 // INTERNAL-ONLY
 export { RelayConcreteNode } from './lib/util/RelayConcreteNode';
@@ -215,11 +223,11 @@ export const __internal: Internal;
  */
 
 export interface _RefType<Ref extends string> {
-    ' $refType': Ref;
+    ' $fragmentType': Ref;
 }
 
 export interface _FragmentRefs<Refs extends string> {
-    ' $fragmentRefs': FragmentRefs<Refs>;
+    ' $fragmentSpreads': FragmentRefs<Refs>;
 }
 
 // This is used in the actual artifacts to define the various fragment references a container holds.

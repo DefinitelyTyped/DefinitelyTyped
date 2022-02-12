@@ -1,4 +1,4 @@
-import inquirer = require("inquirer");
+import inquirer = require('inquirer');
 
 /**
  * Represents answers provided by the user.
@@ -12,7 +12,7 @@ interface RPGAnswers {
     /**
      * The direction chosen by the user.
      */
-    direction: "Forward" | "Right" | "Left" | "Back";
+    direction: 'Forward' | 'Right' | 'Left' | 'Back';
 }
 
 /**
@@ -22,7 +22,7 @@ const directionsPrompt: inquirer.DistinctQuestion<RPGAnswers> = {
     type: 'list',
     name: 'direction',
     message: 'Which direction would you like to go?',
-    choices: ['Forward', 'Right', 'Left', 'Back']
+    choices: ['Forward', 'Right', 'Left', 'Back'],
 };
 
 function main() {
@@ -35,7 +35,7 @@ function exitHouse() {
         if (answers.direction === 'Forward') {
             console.log('You find yourself in a forest');
             console.log(
-                'There is a wolf in front of you; a friendly looking dwarf to the right and an impasse to the left.'
+                'There is a wolf in front of you; a friendly looking dwarf to the right and an impasse to the left.',
             );
             encounter1();
         } else {
@@ -50,9 +50,7 @@ function encounter1() {
         const direction = answers.direction;
         if (direction === 'Forward') {
             console.log('You attempt to fight the wolf');
-            console.log(
-                'Theres a stick and some stones lying around you could use as a weapon'
-            );
+            console.log('Theres a stick and some stones lying around you could use as a weapon');
             encounter2b();
         } else if (direction === 'Right') {
             console.log('You befriend the dwarf');
@@ -89,12 +87,7 @@ function encounter2b() {
             type: 'list',
             name: 'weapon',
             message: 'Pick one',
-            choices: [
-                'Use the stick',
-                'Grab a large rock',
-                'Try and make a run for it',
-                'Attack the wolf unarmed'
-            ]
+            choices: ['Use the stick', 'Grab a large rock', 'Try and make a run for it', 'Attack the wolf unarmed'],
         })
         .then(() => {
             console.log('The wolf mauls you. You die. The end.');

@@ -31,13 +31,13 @@ declare const URI: {
 
     new(value?: string | URI.URIOptions | HTMLElement): URI;
 
-    addQuery(data: object, prop: string, value: string): object;
-    addQuery(data: object, qryObj: object): object;
+    addQuery(data: URI.QueryDataMap, prop: string, value: string): object;
+    addQuery(data: URI.QueryDataMap, qryObj: object): object;
 
     build(parts: URI.URIOptions): string;
     buildAuthority(parts: { username?: string | undefined; password?: string | undefined; hostname?: string | undefined; port?: string | undefined }): string;
     buildHost(parts: { hostname?: string | undefined; port?: string | undefined }): string;
-    buildQuery(data: object, duplicateQueryParameters?: boolean, escapeQuerySpace?: boolean): string;
+    buildQuery(data: URI.QueryDataMap, duplicateQueryParameters?: boolean, escapeQuerySpace?: boolean): string;
     buildUserinfo(parts: { username?: string | undefined; password?: string | undefined }): string;
 
     commonPath(path1: string, path2: string): string;
@@ -118,17 +118,84 @@ declare namespace URI {
         preventInvalidHostname: boolean;
     }
 
-    interface QueryDataMap {
-        [key: string]: string | null | Array<string | null>;
+    type QueryDataMap = Partial<Record<string, any>>;
+
+    interface ReadonlyURI {
+        clone(): URI;
+
+        authority(): string;
+        directory(dir?: boolean): string;
+        domain(domain?: boolean): string;
+        filename(file?: boolean): string;
+        fragment(): string;
+        hash(): string;
+        host(): string;
+        hostname(): string;
+        href(): string;
+        origin(): string;
+        password(): string;
+        path(path?: boolean): string;
+        pathname(path?: boolean): string;
+        port(): string;
+        protocol(): string;
+        query(): string;
+        query(v: boolean): QueryDataMap;
+        readable(): string;
+        resource(): string;
+        scheme(): string;
+        search(): string;
+        search(v: boolean): QueryDataMap;
+        segment(): string[];
+        segment(position: number): string | undefined;
+        segmentCoded(): string[];
+        segmentCoded(position: number): string;
+        subdomain(): string;
+        suffix(suffix?: boolean): string;
+        tld(tld?: boolean): string;
+        userinfo(): string;
+        username(): string;
+        valueOf(): string;
+
+        equals(url?: string | ReadonlyURI | URI): boolean;
+        is(
+            qry:
+                | 'relative'
+                | 'absolute'
+                | 'urn'
+                | 'url'
+                | 'domain'
+                | 'name'
+                | 'sld'
+                | 'idn'
+                | 'punycode'
+                | 'ip'
+                | 'ip4'
+                | 'ipv4'
+                | 'inet4'
+                | 'ip6'
+                | 'ipv6'
+                | 'inet6',
+        ): boolean;
+
+        hasQuery(
+            name: /*string | */ any,
+            value?: string | number | boolean | string[] | number[] | boolean[] | RegExp | ((...args: any[]) => any),
+            withinArray?: boolean,
+        ): boolean;
+        hasSearch(
+            name: /*string | */ any,
+            value?: string | number | boolean | string[] | number[] | boolean[] | RegExp | ((...args: any[]) => any),
+            withinArray?: boolean,
+        ): boolean;
     }
 }
 
 interface URI {
     absoluteTo(path: string | URI): URI;
     addFragment(fragment: string): URI;
-    addQuery(qry: string | object): URI;
+    addQuery(qry: string | URI.QueryDataMap): URI;
     addQuery(qry: string, value: any): URI;
-    addSearch(qry: string | object): URI;
+    addSearch(qry: string | URI.QueryDataMap): URI;
     addSearch(key: string, value: any): URI;
     authority(): string;
     authority(authority: string): URI;
@@ -216,9 +283,9 @@ interface URI {
 
     readable(): string;
     relativeTo(path: string): URI;
-    removeQuery(qry: string | object): URI;
+    removeQuery(qry: string | URI.QueryDataMap): URI;
     removeQuery(name: string, value: string): URI;
-    removeSearch(qry: string | object): URI;
+    removeSearch(qry: string | URI.QueryDataMap): URI;
     removeSearch(name: string, value: string): URI;
     resource(): string;
     resource(resource: string): URI;
@@ -237,10 +304,10 @@ interface URI {
     segmentCoded(segments: string[] | string): URI;
     segmentCoded(position: number): string;
     segmentCoded(position: number, level: string): URI;
-    setQuery(key: string, value: string): URI;
-    setQuery(qry: object): URI;
-    setSearch(key: string, value: string): URI;
-    setSearch(qry: object): URI;
+    setQuery(key: string, value: any): URI;
+    setQuery(qry: URI.QueryDataMap): URI;
+    setSearch(key: string, value: any): URI;
+    setSearch(qry: URI.QueryDataMap): URI;
     hasQuery(
         name: /*string | */ any,
         value?: string | number | boolean | string[] | number[] | boolean[] | RegExp | ((...args: any[]) => any),

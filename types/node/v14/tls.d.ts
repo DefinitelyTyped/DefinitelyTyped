@@ -1,5 +1,6 @@
 declare module 'tls' {
     import * as net from 'net';
+    import * as stream from 'stream';
 
     const CLIENT_RENEG_LIMIT: number;
     const CLIENT_RENEG_WINDOW: number;
@@ -150,9 +151,10 @@ declare module 'tls' {
 
         /**
          * String containing the selected ALPN protocol.
-         * When ALPN has no selected protocol, tlsSocket.alpnProtocol equals false.
+         * Before a handshake has completed, this value is always null.
+         * When a handshake is completed but not ALPN protocol was selected, tlsSocket.alpnProtocol equals false.
          */
-        alpnProtocol?: string | undefined;
+        alpnProtocol: string | false | null;
 
         /**
          * Returns an object representing the local certificate. The returned
@@ -440,7 +442,7 @@ declare module 'tls' {
         host?: string | undefined;
         port?: number | undefined;
         path?: string | undefined; // Creates unix socket connection to path. If this option is specified, `host` and `port` are ignored.
-        socket?: net.Socket | undefined; // Establish secure connection on a given socket rather than creating a new socket
+        socket?: stream.Duplex | undefined; // Establish secure connection on a given socket rather than creating a new socket
         checkServerIdentity?: typeof checkServerIdentity | undefined;
         servername?: string | undefined; // SNI TLS Extension
         session?: Buffer | undefined;
@@ -776,4 +778,7 @@ declare module 'tls' {
      * of the ca option to tls.createSecureContext().
      */
     const rootCertificates: ReadonlyArray<string>;
+}
+declare module 'node:tls' {
+    export * from 'tls';
 }

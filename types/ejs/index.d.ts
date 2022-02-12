@@ -1,4 +1,4 @@
-// Type definitions for ejs 3.0
+// Type definitions for ejs 3.1
 // Project: http://ejs.co/, https://github.com/mde/ejs
 // Definitions by: Ben Liddicott <https://github.com/benliddicott>
 //                 ExE Boss <https://github.com/ExE-Boss>
@@ -31,9 +31,15 @@ export function resolveInclude(name: string, filename: string, isDir?: boolean):
 /**
  * Compile the given `str` of ejs into a template function.
  */
-export function compile(template: string, opts: Options & { async: true; client?: false | undefined }): AsyncTemplateFunction;
+export function compile(
+    template: string,
+    opts: Options & { async: true; client?: false | undefined },
+): AsyncTemplateFunction;
 export function compile(template: string, opts: Options & { async: true; client: true }): AsyncClientFunction;
-export function compile(template: string, opts?: Options & { async?: false | undefined; client?: false | undefined }): TemplateFunction;
+export function compile(
+    template: string,
+    opts?: Options & { async?: false | undefined; client?: false | undefined },
+): TemplateFunction;
 export function compile(template: string, opts?: Options & { async?: false | undefined; client: true }): ClientFunction;
 export function compile(template: string, opts?: Options): TemplateFunction | AsyncTemplateFunction;
 
@@ -279,6 +285,19 @@ export type RethrowCallback = (
  */
 export type IncludeCallback = (path: string, data?: Data) => string;
 
+/**
+ * An object where {@link filename} is the final parsed path or {@link template} is the content of the included template
+ */
+export type IncluderResult = { filename: string; template?: never } | { template: string; filename?: never };
+
+/**
+ * @param originalPath the path as it appears in the include statement
+ * @param parsedPath the previously resolved path
+ *
+ * @return An {@link IncluderResult} object containing the filename or template data.
+ */
+export type IncluderCallback = (originalPath: string, parsedPath: string) => IncluderResult;
+
 export interface Options {
     /**
      * Log the generated JavaScript source for the EJS template to the console.
@@ -435,6 +454,11 @@ export interface Options {
      * An array of paths to use when resolving includes with relative paths
      */
     views?: string[] | undefined;
+
+    /**
+     * Custom function to handle EJS includes
+     */
+    includer?: IncluderCallback;
 }
 
 export interface Cache {

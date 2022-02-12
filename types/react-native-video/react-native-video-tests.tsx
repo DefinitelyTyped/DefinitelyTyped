@@ -6,15 +6,30 @@ import Video, { FilterType } from 'react-native-video';
     onProgress={data => console.log(data.currentTime, data.playableDuration, data.seekableDuration)}
     onError={error => console.log(error.error[''], error.error.errorString)}
     onLoad={data => {
-        console.log(data.canPlayFastForward, data.canPlayReverse, data.canPlaySlowForward, data.canPlaySlowReverse,
-        data.canStepBackward, data.canStepForward, data.currentTime, data.duration, data.naturalSize.height, data.naturalSize.width, data.naturalSize.orientation);
+        console.log(
+            data.canPlayFastForward,
+            data.canPlayReverse,
+            data.canPlaySlowForward,
+            data.canPlaySlowReverse,
+            data.canStepBackward,
+            data.canStepForward,
+            data.currentPosition,
+            data.currentTime,
+            data.duration,
+            data.naturalSize.height,
+            data.naturalSize.width,
+            data.naturalSize.orientation,
+            data.audioTracks,
+            data.textTracks,
+            data.videoTracks
+        );
     }}
     onPlaybackRateChange={({playbackRate}) => console.log(playbackRate)}
     posterResizeMode={"cover"}
     onPictureInPictureStatusChanged={data => {
         console.log(data.isActive);
     }}
-    filterEnable={true}
+    filterEnabled={true}
     filter={FilterType.MONO}
     selectedAudioTrack={{ type: 'index', value: 6 }}
     selectedVideoTrack={{ type: 'auto' }}

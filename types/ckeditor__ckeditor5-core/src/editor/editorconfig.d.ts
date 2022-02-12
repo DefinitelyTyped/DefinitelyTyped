@@ -17,6 +17,7 @@ import { IndentBlockConfig } from '@ckeditor/ckeditor5-indent/src/indentblock';
 import { TextPartLanguageOption } from '@ckeditor/ckeditor5-language/src/textpartlanguage';
 import { LinkConfig } from '@ckeditor/ckeditor5-link/src/link';
 import { MediaEmbedConfig } from '@ckeditor/ckeditor5-media-embed/src/mediaembed';
+import { MentionConfig } from '@ckeditor/ckeditor5-mention/src/mention';
 import { PaginationConfig } from '@ckeditor/ckeditor5-pagination/src/pagination';
 import { RealTimeCollaborationConfig } from '@ckeditor/ckeditor5-real-time-collaboration/src/realtimecollaborativeediting';
 import { RestrictedEditingModeConfig } from '@ckeditor/ckeditor5-restricted-editing/src/restrictededitingmode';
@@ -30,8 +31,6 @@ import Plugin, { PluginInterface } from '../plugin';
 
 // TODO: import {CommentsConfig} from "@ckeditor/ckeditor5-comments/src/comments";
 type CommentsConfig = any;
-// TODO: import {MentionConfig} from "@ckeditor/ckeditor5-mention/src/mention";
-type MentionConfig = any;
 // TODO: import {SidebarConfig} from "@ckeditor/ckeditor5-comments/src/annotations/sidebar";
 type SidebarConfig = any;
 
@@ -73,7 +72,13 @@ export interface EditorConfig {
     title?: TitleConfig | undefined;
     toolbar?:
         | string[]
-        | { items?: string[] | undefined; viewportTopOffset?: number | undefined; shouldNotGroupWhenFull?: boolean | undefined; removeItems?: string[] | undefined } | undefined;
+        | {
+              items?: string[] | undefined;
+              viewportTopOffset?: number | undefined;
+              shouldNotGroupWhenFull?: boolean | undefined;
+              removeItems?: string[] | undefined;
+          }
+        | undefined;
     trackChanges?: TrackChangesConfig | undefined;
     typing?: TypingConfig | undefined;
     wordCount?: WordCountConfig | undefined;

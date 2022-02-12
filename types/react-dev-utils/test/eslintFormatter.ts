@@ -1,13 +1,15 @@
-import { CLIEngine } from 'eslint';
+import { ESLint } from 'eslint';
 import eslintFormatter = require('react-dev-utils/eslintFormatter');
 
-const { results } = new CLIEngine({}).executeOnText('');
+async function main() {
+    const results = await (new ESLint({}).lintText(''));
 
-// $ExpectError
-eslintFormatter(['error']);
+    // $ExpectError
+    eslintFormatter(['error']);
 
-// $ExpectError
-eslintFormatter([results]);
+    // $ExpectError
+    eslintFormatter([results]);
 
-// $ExpectType string
-eslintFormatter(results);
+    // $ExpectType string
+    eslintFormatter(results);
+}

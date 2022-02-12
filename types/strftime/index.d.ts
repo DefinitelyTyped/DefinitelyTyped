@@ -22,6 +22,12 @@ declare module "strftime" {
         export function timezone(offset: number | string): strftimeFunction;
 
         /**
+         * Sets the timezone to UTC.
+         * @return {strftimeFunction} A strftime function.
+         */
+        export function utc(): strftimeFunction;
+
+        /**
          * Locale formats.
          * @interface
          */

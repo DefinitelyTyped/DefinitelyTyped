@@ -1,4 +1,12 @@
-import MUIDataTable, { ExpandButton, MUIDataTableCheckboxProps, MUIDataTableColumn, MUIDataTableOptions, MUIDataTableProps, MUIDataTableState } from 'mui-datatables';
+import MUIDataTable, {
+    ExpandButton,
+    MUIDataTableCheckboxProps,
+    MUIDataTableColumn,
+    MUIDataTableOptions,
+    MUIDataTableProps,
+    MUIDataTableState,
+    Popover,
+} from 'mui-datatables';
 import * as React from 'react';
 import { createMuiTheme, Checkbox, Radio } from '@material-ui/core';
 
@@ -43,6 +51,13 @@ const MuiCustomTable: React.FC<Props> = props => {
             label: 'Color',
             options: {
                 filter: true,
+                filterOptions: {
+                    logic: (prop: string, filterValue: any[], row: any[] | undefined) => {
+                        if (prop === 'test') return true;
+                        if (filterValue.length === 0) return true;
+                        return true;
+                    },
+                },
                 customFilterListOptions: {
                     render: (value: string) => value.toUpperCase(),
                 },
@@ -52,7 +67,7 @@ const MuiCustomTable: React.FC<Props> = props => {
             name: 'amount',
             label: 'Amount',
             options: {
-                customHeadLabelRender: (options) => {
+                customHeadLabelRender: options => {
                     return <p>Some customize Header - {options.name}</p>;
                 },
             },
@@ -174,7 +189,9 @@ const MuiCustomTable: React.FC<Props> = props => {
         },
     };
 
-    return <MUIDataTable title={props.title} data={data} columns={columns} options={TableOptions} innerRef={tableRef} />;
+    return (
+        <MUIDataTable title={props.title} data={data} columns={columns} options={TableOptions} innerRef={tableRef} />
+    );
 };
 
 const TableFruits = [
@@ -216,12 +233,12 @@ const todoOptions: MUIDataTableOptions = {
 <MuiCustomTable title="Todo Table" data={Todos} options={todoOptions} />;
 
 const CustomCheckbox = (props: MUIDataTableCheckboxProps) => {
-    const newProps = {...props};
+    const newProps = { ...props };
     newProps.color = props['data-description'] === 'row-select' ? 'secondary' : 'primary';
     if (props['data-description'] === 'row-select') {
-      return (<Radio {...newProps} />);
+        return <Radio {...newProps} />;
     } else {
-      return (<Checkbox {...newProps} />);
+        return <Checkbox {...newProps} />;
     }
 };
 
@@ -232,8 +249,8 @@ const customComponents: MUIDataTableProps['components'] = {
     icons: {
         DownloadIcon: <>DownloadIcon</>,
         FilterIcon: <>FilterIcon</>,
-        SearchIcon: <>SearchIcon</>
-    }
+        SearchIcon: <>SearchIcon</>,
+    },
 };
 
 <MuiCustomTable title="Todo Table" data={Todos} options={todoOptions} components={customComponents} />;
@@ -251,11 +268,18 @@ const MuiTheme = createMuiTheme({
     overrides: {
         MUIDataTable: {
             root: {
-                fontWeight: 300
-            }
+                fontWeight: 300,
+            },
         },
         MUIDataTableBody: {
-            emptyTitle: {}
-        }
-    }
+            emptyTitle: {},
+        },
+    },
 });
+
+<Popover
+    classes={{ icon: 'icon_class' }}
+    content={<span>content</span>}
+    trigger={<button>trigger</button>}
+    refExit={() => {}}
+/>;

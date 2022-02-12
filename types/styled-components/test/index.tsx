@@ -19,6 +19,7 @@ import styled, {
     FlattenInterpolation,
 } from 'styled-components';
 import {} from 'styled-components/cssprop';
+import { find, findAll, enzymeFind } from 'styled-components/test-utils';
 
 /**
  * general usage
@@ -397,7 +398,7 @@ styled('div').withConfig<{ test: boolean }>({
  */
 
 declare const A: React.ComponentClass;
-declare const B: React.StatelessComponent;
+declare const B: React.FunctionComponent;
 declare const C: React.ComponentType;
 
 styled(A); // succeeds
@@ -495,7 +496,7 @@ const ComponentWithTheme = withTheme(Component);
 
 const StyledComponent = styled.h1``;
 
-const StatelessComponent = () => <div />;
+const FunctionComponent = () => <div />;
 
 class ClassComponent extends React.Component {
     render() {
@@ -504,7 +505,7 @@ class ClassComponent extends React.Component {
 }
 
 isStyledComponent(StyledComponent);
-isStyledComponent(StatelessComponent);
+isStyledComponent(FunctionComponent);
 isStyledComponent(ClassComponent);
 isStyledComponent('div');
 
@@ -587,10 +588,10 @@ const AnchorContainer = () => (
 
 const WithComponentRandomHeading = WithComponentH1.withComponent(Random);
 
-const WithComponentCompA: React.SFC<{ a: number; className?: string | undefined }> = ({ className }) => (
+const WithComponentCompA: React.FC<{ a: number; className?: string | undefined }> = ({ className }) => (
     <div className={className} />
 );
-const WithComponentCompB: React.SFC<{ b: number; className?: string | undefined }> = ({ className }) => (
+const WithComponentCompB: React.FC<{ b: number; className?: string | undefined }> = ({ className }) => (
     <div className={className} />
 );
 const WithComponentStyledA = styled(WithComponentCompA)`
@@ -627,6 +628,9 @@ const asTest = (
     <>
         <WithComponentH1 as="h2" />
         <WithComponentH1 as={WithComponentH2} />
+        <WithComponentH1 as="a" href="" />
+        <WithComponentH1 as="div" href="" /> { // $ExpectError
+        }
     </>
 );
 
@@ -636,6 +640,9 @@ const forwardedAsTest = (
     <>
         <ForwardedAsComponent forwardedAs="h2" />
         <ForwardedAsComponent forwardedAs={WithComponentH2} />
+        <ForwardedAsComponent forwardedAs="a" href="" />
+        <ForwardedAsComponent forwardedAs="div" href="" /> { // $ExpectError
+        }
     </>
 );
 
@@ -669,7 +676,9 @@ const HasAttributesOfAsOrForwardedAsComponent = (
     <>
         <WrappedExternalAsComponent as="a" type="primitive" href="/" />
         <WrappedExternalAsComponent forwardedAs="a" type="complex" href="/" />
-        <WrappedExternalAsComponent as={OtherExternalComponent} type="primitive" requiredProp="test" />
+        <WrappedExternalAsComponent as={OtherExternalComponent} requiredProp="test" />
+        <WrappedExternalAsComponent as={OtherExternalComponent} type="primitive" requiredProp="test" /> { // $ExpectError
+        }
         <WrappedExternalAsComponent forwardedAs={OtherExternalComponent} type="complex" requiredProp="test" />
     </>
 );
@@ -695,8 +704,40 @@ class Test2Container extends React.Component<Test2ContainerProps> {
     }
 }
 
-const containerTest = <StyledTestContainer as={Test2Container} type="foo" size="big"/>;
+const containerTest = <StyledTestContainer as={Test2Container} type="foo" />;
+const containerTestFailed = <StyledTestContainer as={Test2Container} type="foo" size="big" />; // $ExpectError
 const containerTestTwo = <StyledTestContainer forwardedAs={Test2Container} type="foo" size="big" />;
+
+interface GenericComponentProps<T> {
+    someProp: T;
+}
+const GenericComponent = <T, >(props: GenericComponentProps<T>): React.ReactElement<GenericComponentProps<T>> | null => null;
+const StyledGenericComponent = styled(GenericComponent)``;
+const TestStyledGenericComponent = (
+    <>
+        <StyledGenericComponent /> { // $ExpectError
+        }
+        <StyledGenericComponent someProp="someString" />
+        <StyledGenericComponent someProp={42} />
+        <StyledGenericComponent<React.FC<GenericComponentProps<string>>> someProp="someString" />
+        <StyledGenericComponent<React.FC<GenericComponentProps<string>>> someProp={42} /> { // $ExpectError
+        }
+        <StyledGenericComponent as="h1" />
+        <StyledGenericComponent as="h1" someProp="someString" /> { // $ExpectError
+        }
+
+        <WithComponentH1 as={GenericComponent} /> { // $ExpectError
+        }
+        <WithComponentH1 as={GenericComponent} someProp="someString" />
+        <WithComponentH1 as={GenericComponent} someProp={42} />
+        <WithComponentH1<React.FC<GenericComponentProps<string>>> as={GenericComponent} /> { // $ExpectError
+        }
+        <WithComponentH1<React.FC<GenericComponentProps<string>>> as={GenericComponent} someProp="someString" />
+        <WithComponentH1<React.FC<GenericComponentProps<number>>> as={GenericComponent} someProp={42} />
+        <WithComponentH1<React.FC<GenericComponentProps<string>>> as={GenericComponent} someProp={42} /> { // $ExpectError
+        }
+    </>
+);
 
 // 4.0 refs
 
@@ -1111,8 +1152,7 @@ const wrapperClassNoChildren = <StyledWrapperClassFuncChild>Text</StyledWrapperC
 
 const WrapperFunction: React.FunctionComponent<WrapperProps> = () => <div />;
 const StyledWrapperFunction = styled(WrapperFunction)``;
-// React.FunctionComponent typings always add `children` to props, so this should accept children
-const wrapperFunction = <StyledWrapperFunction>Text</StyledWrapperFunction>;
+const wrapperFunction = <StyledWrapperFunction />;
 
 const WrapperFunc = (props: WrapperProps) => <div />;
 const StyledWrapperFunc = styled(WrapperFunc)``;
@@ -1181,8 +1221,7 @@ function unionTest() {
         font-size: ${props => (props.kind === 'book' ? 16 : 14)};
     `;
 
-    // undesired, fix was reverted because of https://github.com/Microsoft/TypeScript/issues/30663
-    <StyledReadable kind="book" author="Hejlsberg" />; // $ExpectError
+    <StyledReadable kind="book" author="Hejlsberg" />;
     <StyledReadable kind="magazine" author="Hejlsberg" />; // $ExpectError
 }
 
@@ -1205,3 +1244,32 @@ function unionTest2() {
     <C />; // $ExpectError
     <C foo={123} bar="foobar" />; // $ExpectError
 }
+
+function unionPerformanceTest() {
+    type ManyUnion = ({ signal1: 'green'; greenTime1?: number } | { signal1: 'red'; redTime1: number }) &
+        ({ signal2?: 'green'; greenTime2?: number } | { signal2: 'red'; redTime2: number }) &
+        ({ signal3?: 'green'; greenTime3?: number } | { signal3: 'red'; redTime3: number }) &
+        ({ signal4?: 'green'; greenTime4?: number } | { signal4: 'red'; redTime4: number }) &
+        ({ signal5?: 'green'; greenTime5?: number } | { signal5: 'red'; redTime5: number });
+
+    const C = (props: ManyUnion) => null;
+
+    const Styled = styled(C)<{ defaultColor?: string }>`
+        .signal1 {
+            color: ${props => props.signal1 || 'green'};
+        }
+    `;
+
+    <Styled signal1="green" greenTime1={100} />;
+    <Styled signal1="red" redTime1={200} />;
+    <Styled signal1="red" greenTime1={100} />; // $ExpectError
+    <Styled signal1="green" greenTime1={100} signal2="green" greenTime2={100} />;
+    <Styled signal1="green" greenTime1={100} signal2="red" greenTime2={100} />; // $ExpectError
+}
+
+const SomeStyledComponent = styled.div``;
+const somethingWithFindMethod = { find: (_: string) => {} };
+
+find(document.body, SomeStyledComponent);
+findAll(document.body, SomeStyledComponent);
+enzymeFind(somethingWithFindMethod, SomeStyledComponent);

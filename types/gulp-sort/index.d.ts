@@ -1,4 +1,4 @@
-// Type definitions for gulp-sort
+// Type definitions for gulp-sort 2.0
 // Project: https://github.com/pgilad/gulp-sort
 // Definitions by: Joe Skeen <https://github.com/joeskeen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -6,7 +6,6 @@
 /// <reference types="node" />
 
 /** Sort files in stream by path or any custom sort comparator */
-
 
 import gulpUtil = require('gulp-util');
 
@@ -21,6 +20,8 @@ interface IOptions {
     comparator?: IComparatorFunction | undefined;
     /** Whether to sort in ascending order, default is true */
     asc?: boolean | undefined;
+    /** Whether to use a custom sort function. */
+    customSortFn?: (files: gulpUtil.File[], comparator?: IComparatorFunction) => gulpUtil.File[];
 }
 
 interface IComparatorFunction {
@@ -39,6 +40,6 @@ declare function gulpSort(): NodeJS.ReadWriteStream;
 declare function gulpSort(comparator: IComparatorFunction): NodeJS.ReadWriteStream;
 declare function gulpSort(options: IOptions): NodeJS.ReadWriteStream;
 
-declare namespace gulpSort { }
+declare namespace gulpSort {}
 
 export = gulpSort;

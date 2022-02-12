@@ -8,6 +8,14 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
+export interface Transport {
+    readonly type: string;
+    url: string;
+
+    accept(version: string, crossDomain: boolean, url: string): boolean;
+    abort(): void;
+}
+
 export interface Configuration {
     /**
      * The URL of the Bayeux server this client will connect to.
@@ -542,6 +550,11 @@ export class CometD {
     getConfiguration(): Configuration;
 
     /**
+     * Returns the transport object associated with this CometD object
+     */
+    getTransport(): Transport | null;
+
+    /**
      * Handler invoked every time a listener or subscriber throws an exception.
      *
      * @param exception the exception thrown
@@ -562,4 +575,11 @@ export class CometD {
      * Functionally equivelant to cometd.unregisterTransport('websocket');
      */
     websocketEnabled: boolean;
+
+    /**
+     * Function attached to the CometD instance when the ReloadExtension is registered
+     *
+     * @param config the configuration object for the ReloadExtension
+     */
+    reload?: (config?: { name?: string }) => void;
 }

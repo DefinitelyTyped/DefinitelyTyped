@@ -1,41 +1,87 @@
-import BaseComponent from "./base-component";
+import BaseComponent, { GetInstanceFactory, GetOrCreateInstanceFactory } from './base-component';
 
 declare class Offcanvas extends BaseComponent {
-    toggle(relatedTarget: HTMLElement): void;
-
-    show(relatedTarget: HTMLElement): void;
-
-    hide(): void;
+    /**
+     * Static method which allows you to get the offcanvas instance associated with a DOM element
+     */
+    static getInstance: GetInstanceFactory<Offcanvas>;
 
     /**
-     * Static method which allows you to get the offcanvas instance associated to a
-     * DOM element, you can use it like this: getInstance(offcanvas)
+     * Static method which allows you to get the offcanvas instance associated with
+     *  a DOM element, or create a new one in case it wasn’t initialised
      */
-    static getInstance(element: Element): Offcanvas | null;
+    static getOrCreateInstance: GetOrCreateInstanceFactory<Offcanvas, Partial<Offcanvas.Options>>;
 
     static jQueryInterface: Offcanvas.jQueryInterface;
 
-    // static NAME: 'offcanvas';
+    constructor(element: string | Element, options?: Partial<Offcanvas.Options>);
+
+    /**
+     * Toggles an offcanvas element to shown or hidden. Returns to the caller before the offcanvas element has actually
+     * been shown or hidden (i.e. before the shown.bs.offcanvas or hidden.bs.offcanvas event occurs).
+     */
+    toggle(relatedTarget?: HTMLElement): void;
+
+    /**
+     * Shows an offcanvas element. Returns to the caller before the offcanvas element has actually been shown
+     * (i.e. before the shown.bs.offcanvas event occurs).
+     */
+    show(relatedTarget?: HTMLElement): void;
+
+    /**
+     * Hides an offcanvas element. Returns to the caller before the offcanvas element has actually been hidden
+     * (i.e. before the hidden.bs.offcanvas event occurs).
+     */
+    hide(): void;
 }
 
 declare namespace Offcanvas {
-    type jQueryInterface = (config?: "toggle" | "show" | "hide" | "dispose") => void;
+    interface Options {
+        /**
+         * Apply a backdrop on body while offcanvas is open
+         *
+         * @default true
+         */
+        backdrop: boolean;
+
+        /**
+         * Closes the offcanvas when escape key is pressed
+         *
+         * @default true
+         */
+        keyboard: boolean;
+
+        /**
+         * Allow body scrolling while offcanvas is open
+         *
+         * @default false
+         */
+        scroll: boolean;
+    }
 
     enum Events {
-        show = "show.bs.offcanvas",
+        /**
+         * This event fires immediately when the show instance method is called.
+         */
+        show = 'show.bs.offcanvas',
 
-        shown = "shown.bs.offcanvas",
+        /**
+         * This event is fired when an offcanvas element has been made visible to the user (will wait for CSS transitions to complete).
+         */
+        shown = 'shown.bs.offcanvas',
 
-        hide = "hide.bs.offcanvas",
+        /**
+         * This event is fired immediately when the hide method has been called.
+         */
+        hide = 'hide.bs.offcanvas',
 
-        hidden = "hidden.bs.offcanvas",
-
-        focusin = "focusin.bs.offcanvas",
-
-        click = "click.bs.offcanvas",
-
-        clickDismiss = "click.dismiss.bs.offcanvas",
+        /**
+         * This event is fired when an offcanvas element has been hidden from the user (will wait for CSS transitions to complete).
+         */
+        hidden = 'hidden.bs.offcanvas',
     }
+
+    type jQueryInterface = (config?: 'toggle' | 'show' | 'hide') => void;
 }
 
 export default Offcanvas;

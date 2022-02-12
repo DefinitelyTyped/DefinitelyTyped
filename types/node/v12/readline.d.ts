@@ -45,6 +45,7 @@ declare module 'readline' {
         resume(): this;
         close(): void;
         write(data: string | Buffer, key?: Key): void;
+        write(data: undefined | null | string | Buffer, key: Key): void;
 
         /**
          * events.EventEmitter

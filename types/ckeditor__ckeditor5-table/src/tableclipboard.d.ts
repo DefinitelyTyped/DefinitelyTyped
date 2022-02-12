@@ -7,3 +7,9 @@ export default class TableClipboard extends Plugin {
     static readonly requires: [typeof TableSelection, typeof TableUtils];
     init(): void;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        TableClipboard: TableClipboard;
+    }
+}

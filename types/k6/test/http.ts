@@ -22,6 +22,7 @@ import http, {
 } from 'k6/http';
 
 const address = 'http://example.com';
+const addressFromHttpURL = http.url`http://example.com/posts/${5}/${'10'}/`;
 
 let response: Response;
 let responseDefault: RefinedResponse<undefined>;
@@ -47,6 +48,7 @@ let jar: CookieJar;
 // del
 del(); // $ExpectError
 del(5); // $ExpectError
+del(addressFromHttpURL);
 responseDefault = del(address);
 del(address, 5); // $ExpectError
 responseDefault = del(address, 'skadoosh');
@@ -59,6 +61,7 @@ del(address, {}, {}, 5); // $ExpectError
 // get
 get(); // $ExpectError
 get(5); // $ExpectError
+get(addressFromHttpURL);
 responseDefault = get(address);
 get(address, 5); // $ExpectError
 responseDefault = get(address, {});
@@ -70,6 +73,7 @@ get(address, {}, 5); // $ExpectError
 // options
 options(); // $ExpectError
 options(5); // $ExpectError
+options(addressFromHttpURL);
 responseDefault = options(address);
 options(address, 5); // $ExpectError
 responseDefault = options(address, 'choices choices');
@@ -83,6 +87,7 @@ options(address, {}, {}, 5); // $ExpectError
 // patch
 patch(); // $ExpectError
 patch(5); // $ExpectError
+patch(addressFromHttpURL);
 responseDefault = patch(address);
 patch(address, 5); // $ExpectError
 responseDefault = patch(address, 'a life of contrasts and patchwork');
@@ -96,6 +101,7 @@ patch(address, {}, {}, 5); // $ExpectError
 // post
 post(); // $ExpectError
 post(5); // $ExpectError
+post(addressFromHttpURL);
 responseDefault = post(address);
 post(address, 5); // $ExpectError
 responseDefault = post(address, 'hello in cyberspace');
@@ -109,6 +115,7 @@ post(address, {}, {}, 5); // $ExpectError
 // put
 put(); // $ExpectError
 put(5); // $ExpectError
+put(addressFromHttpURL);
 responseDefault = put(address);
 put(address, 5); // $ExpectError
 responseDefault = put(address, 'cat in box');
@@ -124,6 +131,7 @@ request(); // $ExpectError
 request(5); // $ExpectError
 request('get'); // $ExpectError
 request('get', 5); // $ExpectError
+request('get', addressFromHttpURL);
 responseDefault = request('get', address);
 request('post', address, 5); // $ExpectError
 responseDefault = request('post', address, 'welcome to the internet');
@@ -146,10 +154,11 @@ batch([ address ], 5); // $ExpectError
 // batch(Array)
 responsesArray = batch([]);
 responsesArrayDefault = batch([ address ]);
+responsesArrayDefault = batch([ addressFromHttpURL ]);
 responsesArrayDefault = batch([ address, address, address ]);
 responsesArrayDefault = batch([
     [ 'GET', address ],
-    [ 'POST', address, 'hello' ],
+    [ 'POST', addressFromHttpURL, 'hello' ],
     [ 'POST', address, { title: 'Hello' }, {} ]
 ]);
 responsesArrayBinary = batch([
@@ -182,13 +191,13 @@ responsesArrayText = batch([
 responsesArray = batch([
     [ 'GET', address, null, { responseType: 'binary' } ],
     [ 'GET', address, null, { responseType: 'none' } ],
-    [ 'GET', address, null, { responseType: 'text' } ]
+    [ 'GET', addressFromHttpURL, null, { responseType: 'text' } ]
 ]);
 responsesArrayDefault = batch([ { method: 'GET', url: address } ]);
 responsesArrayDefault = batch([
     { method: 'GET', url: address },
     { method: 'GET', url: address },
-    { method: 'GET', url: address }
+    { method: 'GET', url: addressFromHttpURL }
 ]);
 responsesArrayBinary = batch([
     { method: 'GET', url: address, params: { responseType: 'binary' } },

@@ -116,11 +116,9 @@ class PlayerCube extends React.Component<Props, State> {
                 onDisconnect={this.disconnectHandler.bind(this)}
                 onAxisChange={this.axisChangeHandler.bind(this)}
             >
-                {this.state.connected && (
-                    <div id={`player${this.props.playerIndex}`} style={this.getPlayerStyle()}>
-                        {this.props.playerIndex}
-                    </div>
-                )}
+                <div hidden={!this.state.connected} id={`player${this.props.playerIndex}`} style={this.getPlayerStyle()}>
+                    {this.props.playerIndex}
+                </div>
             </Gamepad>
         );
     }

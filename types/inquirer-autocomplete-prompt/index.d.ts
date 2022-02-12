@@ -2,6 +2,7 @@
 // Project: https://www.npmjs.com/package/inquirer-autocomplete-prompt
 // Definitions by: Jason Catel <https://github.com/jayeeson/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 4.2
 
 import { Answers, KeyUnion, Question, QuestionCollection } from "inquirer";
 import Choices = require("inquirer/lib/objects/choices");

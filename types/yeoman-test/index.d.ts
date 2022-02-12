@@ -3,7 +3,7 @@
 // Definitions by: Ika <https://github.com/ikatyang>
 //                 Manuel Thalmann <https://github.com/manuth>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.3
+// TypeScript Version: 4.2
 
 import { EventEmitter } from 'events';
 import Generator = require('yeoman-generator');

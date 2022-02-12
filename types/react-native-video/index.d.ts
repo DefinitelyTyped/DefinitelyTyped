@@ -16,6 +16,7 @@ export interface OnLoadData {
     canPlaySlowReverse: boolean;
     canStepBackward: boolean;
     canStepForward: boolean;
+    currentPosition: number;
     currentTime: number;
     duration: number;
     naturalSize: {
@@ -23,6 +24,25 @@ export interface OnLoadData {
         width: number;
         orientation: 'portrait' | 'landscape';
     };
+    videoTracks: Array<{
+        bitrate: number;
+        codecs: string;
+        width: number;
+        height: number;
+        trackId: string;
+    }>;
+    audioTracks: Array<{
+        index: number;
+        title: string;
+        language: string;
+        type: string;
+    }>;
+    textTracks: Array<{
+        index: number;
+        title: string;
+        language: string;
+        type: string;
+    }>;
 }
 
 export interface OnProgressData {
@@ -108,7 +128,7 @@ export enum DRMType {
 
 export interface VideoProperties extends ViewProps {
     filter?: FilterType | undefined;
-    filterEnable?: boolean | undefined;
+    filterEnabled?: boolean | undefined;
 
     /* Native only */
     src?: any;
@@ -166,6 +186,7 @@ export interface VideoProperties extends ViewProps {
     audioOnly?: boolean | undefined;
     preventsDisplaySleepDuringVideoPlayback?: boolean | undefined;
     drm?: DRMSettings | undefined;
+    preferredForwardBufferDuration?: number | undefined;
 
     onLoadStart?(): void;
     onLoad?(data: OnLoadData): void;

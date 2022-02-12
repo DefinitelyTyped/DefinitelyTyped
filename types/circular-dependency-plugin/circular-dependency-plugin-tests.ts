@@ -15,16 +15,20 @@ new CircularDependencyPlugin({
   failOnError: true,
   onDetected({ module: webpackModuleRecord, paths, compilation }) {
     numCyclesDetected++;
-    compilation.warnings.push(new Error(paths.join(' -> ')));
+    compilation.warnings.push(new Error(paths.join(' -> ')) as webpack.WebpackError);
   },
   onStart({ compilation }) {
     numCyclesDetected = 0;
   },
   onEnd({ compilation }) {
     if (numCyclesDetected > MAX_CYCLES) {
-      compilation.errors.push(new Error('Too many cycles'));
+      compilation.errors.push(new Error('Too many cycles') as webpack.WebpackError);
     }
   },
 });
 
 webpack({ plugins: [new CircularDependencyPlugin()] });
+
+const compiler: webpack.Compiler = new webpack.Compiler('foo');
+const plugin = new CircularDependencyPlugin();
+plugin.apply(compiler);

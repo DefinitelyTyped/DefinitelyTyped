@@ -1,9 +1,9 @@
-// Type definitions for @ckeditor/ckeditor5-engine 28.0
+// Type definitions for @ckeditor/ckeditor5-engine 31.0
 // Project: https://github.com/ckeditor/ckeditor5/tree/master/packages/ckeditor5-engine
 // Definitions by: Federico Panico <https://github.com/fedemp>
 //                 denisname <https://github.com/denisname>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.2
+// Minimum TypeScript Version: 4.3
 
 export * from './src/view/placeholder';
 

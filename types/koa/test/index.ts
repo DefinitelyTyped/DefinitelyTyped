@@ -37,7 +37,7 @@ app.use<{}, UserContext>(async ctx => {
     ctx.user = {};
 });
 
-app.use((ctx, next) => {
+app.use((ctx: Koa.Context, next) => {
     const start: any = new Date();
     return next().then(() => {
         const end: any = new Date();

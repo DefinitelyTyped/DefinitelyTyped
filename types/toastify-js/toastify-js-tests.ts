@@ -41,6 +41,11 @@ const options: Options = {
     },
     close: true,
     backgroundColor: 'linear-gradient(to right, #00b09b, #96c93d)',
+    style: {
+        color: '#aabbcc',
+    },
+    escapeMarkup: true,
+    oldestFirst: true,
 };
 
 Toastify(options);

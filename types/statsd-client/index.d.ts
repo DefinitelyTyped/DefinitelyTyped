@@ -1,4 +1,4 @@
-// Type definitions for statsd-client v0.4.0
+// Type definitions for statsd-client v0.4.7
 // Project: https://github.com/msiebuhr/node-statsd-client
 // Definitions by: Peter Kooijmans <https://github.com/peterkooijmans>
 //                 Christopher Eck <https://github.com/chrisleck>
@@ -104,13 +104,24 @@ declare namespace StatsdClient {
          * Optional callback called after reporting metrics for an
          * express route.
          */
-        onResponseEnd?: ((client: StatsdClient, startTime: Date, req: express.Request, res: express.Response) => void) | undefined;
+        onResponseEnd?:
+            | ((client: StatsdClient, startTime: Date, req: express.Request, res: express.Response) => void)
+            | undefined;
 
         /**
          * Enables inclusion of per-URL response code and timing
          * metrics (default false).
          */
         timeByUrl?: boolean | undefined;
+    }
+
+    interface WrappedCallbackOptions {
+        /**
+         * Object of string key/value pairs which will be appended on
+         * to all StatsD payloads (excluding raw payloads)
+         * (default {})
+         */
+        tags?: Tags | undefined;
     }
 }
 
@@ -130,6 +141,8 @@ declare class StatsdClient {
 
     histogram(name: string, value: number, tags?: StatsdClient.Tags): this;
 
+    distribution(name: string, value: number, tags?: StatsdClient.Tags): this;
+
     raw(rawData: string): this;
 
     close(): this;
@@ -140,6 +153,11 @@ declare class StatsdClient {
 
     helpers: {
         getExpressMiddleware(prefix?: string, options?: StatsdClient.ExpressMiddlewareOptions): express.RequestHandler;
+        wrapCallback(
+            prefix: string,
+            callback: (...args: any[]) => any,
+            options?: StatsdClient.WrappedCallbackOptions,
+        ): (...args: any[]) => any;
     };
 }
 

@@ -6,10 +6,10 @@ declare function MultipartFormDataPart(
 ): void;
 declare class MultipartFormDataPart {
     constructor(reader: any, readFunc: (arg0: number) => string, headers: any);
-    reader_: any;
-    readFunc_: (arg0: number) => string;
-    headers_: any;
-    options_: MultipartFormDataOptions | Record<any, any>;
+    private reader_;
+    private readFunc_;
+    private headers_;
+    private options_;
     private contentDisposition_;
     private name_;
     private fileName_;
@@ -25,5 +25,4 @@ declare class MultipartFormDataPart {
 declare namespace MultipartFormDataPart {
     export { File };
 }
-import MultipartFormDataOptions = require('./MultipartFormDataOptions.js');
 type File = import('../io/File');

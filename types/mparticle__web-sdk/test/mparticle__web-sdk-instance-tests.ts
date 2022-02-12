@@ -25,6 +25,10 @@ const customFlags: mParticle.SDKEventCustomFlags = {
     attr5: { foo: 'bar' },
 };
 
+const eventOptions: mParticle.SDKEventOptions = {
+    shouldUploadEvent: false,
+};
+
 const identifyRequest: mParticle.IdentifyRequest = {
     userIdentities: {
         customerid: 'test',
@@ -133,6 +137,15 @@ instance.logBaseEvent({
     messageType: 1,
     eventType: 1,
 });
+instance.logBaseEvent(
+    {
+        data: {},
+        name: 'baseEventName',
+        messageType: 1,
+        eventType: 1,
+    },
+    eventOptions
+);
 
 instance.logError('Login Failed', customAttrs);
 instance.logError(
@@ -152,6 +165,13 @@ instance.logEvent(
     instance.EventType.Location,
     customAttrs,
     customFlags,
+);
+instance.logEvent(
+    'eventName',
+    mParticle.EventType.Location,
+    customAttrs,
+    customFlags,
+    eventOptions,
 );
 
 instance.logForm('click', 'eventName');
@@ -176,6 +196,12 @@ instance.logPageView();
 instance.logPageView('pageName');
 instance.logPageView('pageName', customAttrs);
 instance.logPageView('pageName', customAttrs, customFlags);
+instance.logPageView(
+    'pageName',
+    customAttrs,
+    customFlags,
+    eventOptions
+);
 
 instance.ready(() => {
     console.log('hi');
@@ -402,6 +428,15 @@ instance.eCommerce.logProductAction(
     eCommerceCustomFlags,
 );
 
+instance.eCommerce.logProductAction(
+    300,
+    [product1, product2],
+    eCommerceCustomAttributes,
+    eCommerceCustomFlags,
+    transactionAttributes1,
+    eventOptions,
+);
+
 instance.eCommerce.logPurchase(
     transactionAttributes1,
     [product1, product2],
@@ -414,6 +449,12 @@ instance.eCommerce.logPromotion(
     instance.PromotionType.PromotionClick,
     promotion1,
 );
+
+instance.eCommerce.logPromotion(
+    instance.PromotionType.PromotionClick,
+    [promotion1, promotion2],
+);
+
 instance.eCommerce.logPromotion(
     instance.PromotionType.PromotionView,
     promotion1,
@@ -426,6 +467,13 @@ instance.eCommerce.logPromotion(
     eCommerceCustomAttributes,
     eCommerceCustomFlags,
 );
+instance.eCommerce.logPromotion(
+    instance.PromotionType.Unknown,
+    promotion1,
+    eCommerceCustomAttributes,
+    eCommerceCustomFlags,
+    eventOptions,
+);
 
 instance.eCommerce.logImpression(impression1);
 instance.eCommerce.logImpression([impression1, impression2]);
@@ -433,6 +481,7 @@ instance.eCommerce.logImpression(
     impression1,
     eCommerceCustomAttributes,
     eCommerceCustomFlags,
+    eventOptions,
 );
 
 instance.eCommerce.logRefund(
@@ -607,6 +656,7 @@ instance.Identity.identify(identifyIdentities, (result) => {
         sourceMpid: result.getUser().getMPID(),
         startTime: new Date().getTime(),
         endTime: new Date().getTime(),
+        scope: 'mpid',
     };
 
     instance.Identity.aliasUsers(userAliasObject, (result) => {

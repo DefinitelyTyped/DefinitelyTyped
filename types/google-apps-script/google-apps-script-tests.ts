@@ -237,6 +237,19 @@ CardService.newDecoratedText().setText(""); // $ExpectType DecoratedText
 CardService.newDecoratedText().setTopLabel(""); // $ExpectType DecoratedText
 CardService.newDecoratedText().setWrapText(true); // $ExpectType DecoratedText
 
+CardService.newDivider(); // $ExpectType Divider
+
+CardService.newTimePicker(); // $ExpectType TimePicker
+CardService.newTimePicker().setFieldName(""); // $ExpectType TimePicker
+CardService.newTimePicker().setHours(0); // $ExpectType TimePicker
+CardService.newTimePicker().setMinutes(0); // $ExpectType TimePicker
+CardService.newTimePicker().setOnChangeAction(CardService.newAction()); // $ExpectType TimePicker
+CardService.newTimePicker().setTitle(""); // $ExpectType TimePicker
+
+// CardService.newCardBuilder().setDisplayStyle(CardService.DisplayStyle.PEEK)
+CardService.DisplayStyle.PEEK;
+CardService.DisplayStyle.REPLACE;
+
 DriveApp.createShortcut("").getTargetId();
 DriveApp.createFile("", "").moveTo(DriveApp.getFolderById(""));
 
@@ -454,4 +467,143 @@ const handleCommonAction = (e: GoogleAppsScript.Addons.EventObject) => {
         Details: ${message}
         `);
     }
+};
+
+const fileSecurityUpdateInfo = () => {
+    // get file
+    const file = DriveApp.getFileById('');
+    // get resource key
+    Logger.log(file.getResourceKey());
+
+    // update flag for update enabled
+    if (file.getSecurityUpdateEligible() && !file.getSecurityUpdateEnabled()) {
+        file.setSecurityUpdateEnabled(true);
+    }
+};
+const folderSecurityUpdateInfo = () => {
+    // get folder
+    const folder = DriveApp.getFolderById('');
+    // get resource key
+    Logger.log(folder.getResourceKey());
+
+    // update flag for update enabled
+    if (folder.getSecurityUpdateEligible() && !folder.getSecurityUpdateEnabled()) {
+        folder.setSecurityUpdateEnabled(true);
+    }
+};
+
+interface BorderStyleOptions {
+    color: string;
+    radius: number;
+}
+
+interface ImageComponentOptions extends BorderStyleOptions {
+    alt: string;
+    src: string;
+}
+
+interface GridItemOptions extends ImageComponentOptions {
+    id: string;
+    title: string;
+    subtitle: string;
+}
+
+interface GridOptions extends BorderStyleOptions {
+    items: GoogleAppsScript.Card_Service.GridItem[];
+}
+
+const makeBorderStyle = ({ color, radius }: BorderStyleOptions) => {
+    // $ExpectType BorderStyle
+    const style = CardService.newBorderStyle();
+    style
+        .setCornerRadius(radius)
+        .setStrokeColor(color)
+        .setType(CardService.BorderType.STROKE);
+
+    return style;
+};
+
+const makeImageCropStyle = (ratio: number) => {
+    // $ExpectType ImageCropStyle
+    const style = CardService.newImageCropStyle();
+    style
+        .setAspectRatio(ratio)
+        .setImageCropType(CardService.ImageCropType.CIRCLE);
+
+    return style;
+};
+
+const makeImageComponent = ({ alt, src, ...options }: ImageComponentOptions) => {
+    // $ExpectType ImageComponent
+    const img = CardService.newImageComponent();
+    img
+        .setAltText(alt)
+        .setBorderStyle(makeBorderStyle(options))
+        .setCropStyle(makeImageCropStyle(42))
+        .setImageUrl(src);
+
+    return img;
+};
+
+const makeGridItem = ({ id, subtitle, title, ...options }: GridItemOptions) => {
+    // $ExpectType GridItem
+    const item = CardService.newGridItem();
+    item
+        .setIdentifier(id)
+        .setImage(makeImageComponent(options))
+        .setLayout(CardService.GridItemLayout.TEXT_BELOW)
+        .setSubtitle(subtitle)
+        .setTextAlignment(CardService.HorizontalAlignment.CENTER)
+        .setTitle(title);
+
+    return item;
+};
+
+const makeGrid = ({ items, ...options}: GridOptions) => {
+    // $ExpectType Grid
+    const grid = CardService.newGrid();
+    items.forEach(item => grid.addItem(item));
+
+    const action = CardService.newAction();
+    action.setFunctionName("somefunc");
+
+    grid
+        .setOnClickAction(action)
+        .setBorderStyle(makeBorderStyle(options))
+        .setNumColumns(2)
+        .setTitle('My Grid');
+
+    return grid;
+};
+
+const handleScopeAction = () => {
+    // $ExpectType EditorFileScopeActionResponseBuilder
+    const builder = CardService.newEditorFileScopeActionResponseBuilder();
+    builder.requestFileScopeForActiveDocument();
+
+    // $ExpectType EditorFileScopeActionResponse
+    const response = builder.build();
+
+    // $ExpectType string
+    const serialized = response.printJson();
+
+    return serialized;
+};
+
+// Analytics Test
+const requestAnalyticsData = (): string => {
+    const gaData = Analytics.Data.Ga.get(
+        'An Id',
+        '2022-01-18',
+        '2022-01-18',
+        'Some metrics',
+        {
+            dimensions: 'Some dimensions',
+        },
+    );
+
+    const totalsForAllResults = gaData.totalsForAllResults;
+    const totalSessions = totalsForAllResults['ga:sessions'];
+
+    return totalSessions;
 };

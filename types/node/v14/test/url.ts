@@ -1,5 +1,5 @@
-import assert = require('assert');
-import * as url from 'url';
+import assert = require('node:assert');
+import * as url from 'node:url';
 
 {
     url.format(url.parse('http://www.example.com/xyz'));
@@ -142,10 +142,22 @@ import * as url from 'url';
 }
 
 {
+    // $ExpectError
+    new url.URLSearchParams({ foobar: undefined });
+}
+
+{
     let path: string = url.fileURLToPath('file://test');
     path = url.fileURLToPath(new url.URL('file://test'));
 }
 
 {
     const path: url.URL = url.pathToFileURL('file://test');
+}
+
+{
+    const dataUrl1: URL = new url.URL('file://test');
+    const dataUrl2: url.URL = new URL('file://test');
+    const urlSearchParams1: URLSearchParams = new url.URLSearchParams();
+    const urlSearchParams2: url.URLSearchParams = new URLSearchParams();
 }

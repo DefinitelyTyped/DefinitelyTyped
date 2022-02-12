@@ -7,3 +7,9 @@ export default class LinkEditing extends Plugin {
     static readonly requires: [typeof TwoStepCaretMovement, typeof Input, typeof ClipboardPipeline];
     init(): void;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        LinkEditing: LinkEditing;
+    }
+}
