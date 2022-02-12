@@ -3,12 +3,11 @@
 // Definitions by: Ryan Arora <https://github.com/ryanArora>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export interface GenerateOptions {
+interface GenerateOptions {
     exact?: boolean;
     global?: boolean;
     multiline?: boolean;
 }
-export function generate(options?: GenerateOptions): RegExp;
 
-declare const regex: RegExp;
-export default regex;
+declare const _exports: RegExpConstructor & { generate(options?: GenerateOptions): RegExp };
+export = _exports;

@@ -1,6 +1,9 @@
-import regex, { generate } from 'snowflake-regex';
+import regex = require('snowflake-regex');
+const generate = regex.generate;
 
-regex; // $ExpectType RegExp
+// RegExp & { generate(options?: GenerateOptions): RegExp }
+regex;
+
 generate(); // $ExpectType RegExp
 generate({}); // $ExpectType RegExp
 generate({ exact: true }); // $ExpectType RegExp
