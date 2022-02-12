@@ -64,6 +64,6 @@ declare namespace gaussian {
         /**
          * generates given number of samples of the distribution
          */
-        random(x: number): number[];
+        random(x: number, randFn?: () => number): number[];
     }
 }
