@@ -95,4 +95,71 @@ type Configuration = {
  */
 export function config(options?: ConfigurationOptions): Configuration;
 
-export function authenticate(): void;
+// Ref: https://github.com/onflow/fcl-discovery/blob/master/data/services.json
+type WalletService = {
+    f_type: 'Service';
+    f_vsn: string;
+    type: 'authn';
+    method: string;
+    uid: string;
+    endpoint: string;
+    provider: {
+        address: Address;
+        name: string;
+        icon: string;
+        description: string;
+        color: string;
+        supportEmail: string;
+        website: string;
+    };
+};
+type AuthenticateOptions = {
+    service: WalletService;
+};
+// Ref: https://docs.onflow.org/fcl/reference/api/#authenticate
+/**
+ * Calling this method will authenticate the current user via any wallet that supports FCL.
+ * Once called, FCL will initiate communication with the configured `discovery.wallet`
+ * endpoint which lets the user select a wallet to authenticate with.
+ * Once the wallet provider has authenticated the user, FCL will set the values on the
+ * [current user object]{@link CurrentUserObject} for future use and authorization.
+ * 
+ * ⚠️ `authenticate` can also take a service returned from {@link discovery} with `fcl.authenticate({ service })`.
+ */
+export function authenticate(options?: AuthenticateOptions): void;
+
+// Ref: https://docs.onflow.org/fcl/reference/api/#address
+type Address = string;
+
+// Ref: https://docs.onflow.org/fcl/reference/api/#currentuserobject
+type CurrentUserObject = {
+    /**
+     * The public address of the current user
+     */
+    addr: Address;
+    /**
+     * Allows wallets to specify a content identifier for user metadata.
+     */
+    cid: string;
+    /**
+     * Allows wallets to specify a time-frame for a valid session.
+     */
+    expiresAt: number;
+    /**
+     * A type identifier used internally by FCL.
+     */
+    f_type: string;
+    /**
+     * FCL protocol version.
+     */
+    f_vsn: string;
+    /**
+     * If the user is logged in.
+     */
+    loggedIn: boolean;
+    /**
+     * A list of trusted services that express ways of interacting with the current user's identity,
+     * including means to further discovery, authentication, authorization, or other kinds of interactions.
+     */
+    services: Object[];
+};

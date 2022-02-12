@@ -1,5 +1,6 @@
 import * as fcl from '@onflow/fcl';
 
+// CONFIGURATION
 // Setting Configuration Values
 // Ref: https://docs.onflow.org/fcl/reference/api/#setting-configuration-values
 fcl.config({
@@ -19,3 +20,25 @@ fcl.config()
 // Address replacement in scripts and transactions
 // Ref: https://docs.onflow.org/fcl/reference/api/#address-replacement-in-scripts-and-transactions
 fcl.config().put('0xFlowToken', '0x7e60df042a9c0868');
+
+// WALLET INTERACTIONS
+fcl.authenticate();
+fcl.authenticate({
+    service: {
+        f_type: 'Service',
+        f_vsn: '1.0.0',
+        type: 'authn',
+        method: 'IFRAME/RPC',
+        uid: 'blocto#authn',
+        endpoint: 'https://flow-wallet.blocto.app/authn',
+        provider: {
+            address: '0x55ad22f01ef568a1',
+            name: 'Blocto',
+            icon: '/images/blocto.png',
+            description: 'Your Entrance To The Blockchain World.',
+            color: '#afd8f7',
+            supportEmail: 'support@blocto.app',
+            website: 'https://blocto.portto.io',
+        },
+    },
+});
