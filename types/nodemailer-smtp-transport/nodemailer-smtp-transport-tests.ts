@@ -23,7 +23,7 @@ var opts: smtpTransport.SmtpOptions = {
 
 var transport: nodemailer.Transport = smtpTransport(opts);
 
-var anotherTransport: nodemailer.Transport = smtpTransport(opts);
+var anotherTransport: nodemailer.Transport = smtpTransport();
 
 // setup e-mail data with unicode symbols
 var mailOptions: nodemailer.SendMailOptions = {
