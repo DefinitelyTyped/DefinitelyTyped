@@ -98,7 +98,6 @@ type Configuration = {
  */
 export function config(options?: ConfigurationOptions): Configuration;
 
-
 // WALLET INTERACTIONS
 /**
  * @see {@link https://github.com/onflow/fcl-discovery/blob/master/data/services.json}
@@ -269,91 +268,9 @@ export namespace discovery {
 // TODO
 
 // TYPES, INTERFACES, AND DEFINITIONS
-/**
- * @see {@link https://docs.onflow.org/fcl/reference/api/#payload}
- */
-type SigningPayload = {
-    /**
-     * The encoded string which needs to be used to produce the signature.
-     */
-    message: string;
-    /**
-     * The encoded string which needs to be used to produce the signature.
-     */
-    addr: Address;
-    /**
-     * The encoded string which needs to be used to produce the signature.
-     */
-    keyId: string;
-    /**
-     * The encoded string which needs to be used to produce the signature.
-     */
-    roles: string;
-    /**
-     * The raw transactions information, can be used to create the message
-     * for additional safety and lack of trust in the supplied message.
-     */
-    voucher: Object;
-};
 
-/**
- * An object that contains all the information needed for FCL to sign a message with the user's signature.
- * @see {@link https://docs.onflow.org/fcl/reference/api/#signableobject}
- */
-type SignableObject = {
-    /**
-     * The address of the authorizer
-     */
-    addr: Address;
-    /**
-     * The index of the key to use during authorization. (Multiple keys on an account is possible).
-     */
-    keyId: number;
-    /**
-     * A {@link SigningFunction} that can produce a valid signature for a user from a message.
-     */
-    signature: SigningFunction;
-};
-
-/**
- * Consumes a payload and produces a signature for a transaction.
- * @see {@link https://docs.onflow.org/fcl/reference/api/#signing-function}
- */
-type SigningFunction = (options: SigningPayload) => Promise<SignableObject>;
-
-/**
- * An authorization function must produce the information of the user that is going
- * to sign and a signing function to use the information to produce a signature.
- *
- * 📣 By default FCL exposes `fcl.authz` that produces the authorization object
- * for the current user (given they are signed in and only on the browser).
- * Replace this with your own function that conforms to this interface to
- * use it wherever an authorization object is needed.
- * @see {@link https://docs.onflow.org/fcl/reference/api/#authorizationobject}
- */
-type AuthorizationObject = {
-    /**
-     * The address of the authorizer
-     */
-    addr: Address;
-    /**
-     * A function that allows FCL to sign using the authorization details and produce a valid signature.
-     */
-    signingFunction: SigningFunction;
-    /**
-     * The index of the key to use during authorization. (Multiple keys on an account is possible).
-     */
-    keyId: number;
-    /**
-     * A number that is incremented per transaction using they keyId.
-     */
-    sequenceNum: number;
-};
-
-/**
- * @see {@link https://docs.onflow.org/fcl/reference/api/#address}
- */
-type Address = string;
+// TODO: Builders
+// TODO: Interaction
 
 /**
  * @see {@link https://docs.onflow.org/fcl/reference/api/#currentuserobject}
@@ -389,3 +306,312 @@ type CurrentUserObject = {
      */
     services: Object[];
 };
+
+/**
+ * An authorization function must produce the information of the user that is going
+ * to sign and a signing function to use the information to produce a signature.
+ *
+ * 📣 By default FCL exposes `fcl.authz` that produces the authorization object
+ * for the current user (given they are signed in and only on the browser).
+ * Replace this with your own function that conforms to this interface to
+ * use it wherever an authorization object is needed.
+ * @see {@link https://docs.onflow.org/fcl/reference/api/#authorizationobject}
+ */
+type AuthorizationObject = {
+    /**
+     * The address of the authorizer
+     */
+    addr: Address;
+    /**
+     * A function that allows FCL to sign using the authorization details and produce a valid signature.
+     */
+    signingFunction: SigningFunction;
+    /**
+     * The index of the key to use during authorization. (Multiple keys on an account is possible).
+     */
+    keyId: number;
+    /**
+     * A number that is incremented per transaction using they keyId.
+     */
+    sequenceNum: number;
+};
+
+/**
+ * An object that contains all the information needed for FCL to sign a message with the user's signature.
+ * @see {@link https://docs.onflow.org/fcl/reference/api/#signableobject}
+ */
+type SignableObject = {
+    /**
+     * The address of the authorizer
+     */
+    addr: Address;
+    /**
+     * The index of the key to use during authorization. (Multiple keys on an account is possible).
+     */
+    keyId: number;
+    /**
+     * A {@link SigningFunction} that can produce a valid signature for a user from a message.
+     */
+    signature: SigningFunction;
+};
+
+// TODO: AccountObject
+
+/**
+ * @see {@link https://docs.onflow.org/fcl/reference/api/#address}
+ */
+type Address = string;
+
+// TODO: ArgumentObject
+// TODO: ArgumentFunction
+// TODO: Authorization Function
+
+/**
+ * @see {@link https://docs.onflow.org/fcl/reference/api/#payload}
+ */
+type SigningPayload = {
+    /**
+     * The encoded string which needs to be used to produce the signature.
+     */
+    message: string;
+    /**
+     * The encoded string which needs to be used to produce the signature.
+     */
+    addr: Address;
+    /**
+     * The encoded string which needs to be used to produce the signature.
+     */
+    keyId: string;
+    /**
+     * The encoded string which needs to be used to produce the signature.
+     */
+    roles: string;
+    /**
+     * The raw transactions information, can be used to create the message
+     * for additional safety and lack of trust in the supplied message.
+     */
+    voucher: Object;
+};
+
+/**
+ * Consumes a payload and produces a signature for a transaction.
+ * @see {@link https://docs.onflow.org/fcl/reference/api/#signing-function}
+ */
+type SigningFunction = (options: SigningPayload) => Promise<SignableObject>;
+
+// TODO: TransactionRolesObject
+
+/**
+ * A event name in Flow must follow the format `A.{AccountAddress}.{ContractName}.{EventName}`
+ * eg. `A.ba1132bc08f82fe2.Debug.Log`
+ * @see {@link https://docs.onflow.org/fcl/reference/api/#eventname}
+ */
+type EventName = string;
+
+// TODO: Contract
+// TODO: KeyObject
+// TODO: BlockObject
+// TODO: BlockHeaderObject
+// TODO: CollectionGuaranteeObject
+// TODO: CollectionObject
+// TODO: ResponseObject
+
+/**
+ * @see {@link https://docs.onflow.org/fcl/reference/api/#event-object}
+ */
+type EventObject = {
+    /**
+     * ID of the block that contains the event.
+     */
+    blockId: string;
+    /**
+     * Height of the block that contains the event.
+     */
+    blockHeight: number;
+    /**
+     * The timestamp of when the block was sealed in a `DateString` format. eg. '2021-06-25T13:42:04.227Z'
+     */
+    blockTimestamp: string;
+    /**
+     * A string containing the event name.
+     */
+    type: EventName;
+    /**
+     * Can be used to query transaction information, eg. via a Flow block
+     * explorer.
+     */
+    transactionId: string;
+    /**
+     * Used to prevent replay attacks.
+     */
+    transactionIndex: number;
+    /**
+     * Used to prevent replay attacks.
+     */
+    eventIndex: number;
+    /**
+     * The data emitted from the event.
+     */
+    data: Record<string, unknown>;
+};
+
+/**
+ * The status of a transaction will depend on the Flow blockchain network and which
+ * phase it is in as it completes and is finalized.
+ * @see {@link https://docs.onflow.org/fcl/reference/api/#transaction-statuses}
+ */
+export enum TransactionStatus {
+    UNKNOWN = 0,
+    /**
+     * Transaction Pending - Awaiting Finalization
+     */
+    PENDING = 1,
+    /**
+     * Transaction Finalized - Awaiting Execution
+     */
+    FINALIZED = 2,
+    /**
+     * Transaction Executed - Awaiting Sealing
+     */
+    EXECUTED = 3,
+    /**
+     * Transaction Sealed - Transaction Complete. At this point the transaction
+     * result has been committed to the blockchain.
+     */
+    SEALED = 4,
+    /**
+     * Transaction Expired
+     */
+    EXPIRED = 5,
+}
+
+/**
+ * The access node GRPC implementation follows the standard GRPC Core status code spec.
+ * @see {@link https://grpc.github.io/grpc/core/md_doc_statuscodes.html}
+ */
+export enum GRPCStatus {
+    /**
+     *  Not an error; returned on success.
+     */
+    OK = 0,
+    /**
+     * The operation was cancelled, typically by the caller.
+     */
+    CANCELLED = 1,
+    /**
+     * Unknown error. For example, this error may be returned when a
+     * Status value received from another address space belongs to an error
+     * space that is not known in this address space. Also errors raised by APIs
+     * that do  not return enough error information may be converted to this
+     * error.
+     */
+    UNKNOWN = 2,
+    /**
+     * The client specified an invalid argument. Note that
+     * this differs from FAILED_PRECONDITION. INVALID_ARGUMENT indicates
+     * arguments that are problematic regardless of the state of the system
+     * (e.g., a malformed file name).
+     */
+    INVALID_ARGUMENT = 3,
+    /**
+     * The deadline expired before the operation could
+     * complete. For operations that change the state of the system, this error
+     * may be returned even if the operation has completed successfully. For
+     * example, a successful response from a server could have been delayed
+     * long.
+     */
+    DEADLINE_EXCEEDED = 4,
+    /**
+     * Some requested entity (e.g., file or directory) was not
+     * found. Note to server developers: if a request is denied for an entire
+     * class of users, such as gradual feature rollout or undocumented
+     * allowlist, NOT_FOUND may be used. If a request is denied for some users
+     * within a class of users, such as user-based access control,
+     * PERMISSION_DENIED must be used.
+     */
+    NOT_FOUND = 5,
+    /**
+     * The entity that a client attempted to create (e.g., file
+     * or directory) already exists.
+     */
+    ALREADY_EXISTS = 6,
+    /**
+     * The caller does not have permission to execute the
+     * specified operation. PERMISSION_DENIED must not be used for rejections
+     * caused by exhausting some resource (use RESOURCE_EXHAUSTED instead for
+     * those errors). PERMISSION_DENIED must not be used if the caller can not
+     * be identified (use UNAUTHENTICATED instead for those errors). This error
+     * code does not imply the request is valid or the requested entity exists
+     * or satisfies other pre-conditions.
+     */
+    PERMISSION_DENIED = 7,
+    /**
+     * Some resource has been exhausted, perhaps a per-user
+     * quota, or perhaps the entire file system is out of space.
+     */
+    RESOURCE_EXHAUSTED = 8,
+    /**
+     * The operation was rejected because the system is
+     * not in a state required for the operation's execution. For example, the
+     * directory to be deleted is non-empty, an rmdir operation is applied to a
+     * non-directory, etc. Service implementors can use the following guidelines
+     * to decide between FAILED_PRECONDITION, ABORTED, and UNAVAILABLE: (a) Use
+     * UNAVAILABLE if the client can retry just the failing call. (b) Use
+     * ABORTED if the client should retry at a higher level (e.g., when a
+     * client-specified test-and-set fails, indicating the client should restart
+     * a read-modify-write sequence). (c) Use FAILED_PRECONDITION if the client
+     * should not retry until the system state has been explicitly fixed. E.g.,
+     * if an "rmdir" fails because the directory is non-empty,
+     * FAILED_PRECONDITION should be returned since the client should not retry
+     * unless the files are deleted from the directory.
+     */
+    FAILED_PRECONDITION = 9,
+    /**
+     * The operation was aborted, typically due to a concurrency issue
+     * such as a sequencer check failure or transaction abort. See the
+     * guidelines above for deciding between FAILED_PRECONDITION, ABORTED, and
+     * UNAVAILABLE.
+     */
+    ABORTED = 10,
+    /**
+     * The operation was attempted past the valid range. E.g.,
+     * seeking or reading past end-of-file. Unlike INVALID_ARGUMENT, this error
+     * indicates a problem that may be fixed if the system state changes. For
+     * example, a 32-bit file system will generate INVALID_ARGUMENT if asked to
+     * read at an offset that is not in the range [0,2^32-1], but it will
+     * generate OUT_OF_RANGE if asked to read from an offset past the current
+     * file size. There is a fair bit of overlap between FAILED_PRECONDITION and
+     * OUT_OF_RANGE. We recommend using OUT_OF_RANGE (the more specific error)
+     * when it applies so that callers who are iterating through a space can
+     * easily look for an OUT_OF_RANGE error to detect when they are done.
+     */
+    OUT_OF_RANGE = 11,
+    /**
+     * The operation is not implemented or is not
+     * supported/enabled in this service.
+     */
+    UNIMPLEMENTED = 12,
+    /**
+     * Internal errors. This means that some invariants expected by
+     * the underlying system have been broken. This error code is reserved for
+     * serious errors.
+     */
+    INTERNAL = 13,
+    /**
+     * The service is currently unavailable. This is most likely a
+     * transient condition, which can be corrected by retrying with a backoff.
+     * Note that it is not always safe to retry non-idempotent operations.
+     */
+    UNAVAILABLE = 14,
+    /**
+     * Unrecoverable data loss or corruption.
+     */
+    DATA_LOSS = 15,
+    /**
+     * The request does not have valid authentication
+     * credentials for the operation.
+     */
+    UNAUTHENTICATED = 16,
+}
+
+// TODO: FType
