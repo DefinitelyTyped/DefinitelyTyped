@@ -399,11 +399,11 @@ Xrm.Navigation.navigateTo({
     pageType: "dashboard",
     dashboardId: "84fd907e-8bfe-11ec-a8a3-0242ac120002"
 }).then(
-    success => { console.log("Dashboard opened") },
-    error => { console.log(error.message) }
+    success => { console.log("Dashboard opened"); },
+    error => { console.log(error.message); }
 );
 
 // Demonstrate Navigating to the default dashboard
 Xrm.Navigation.navigateTo({ pageType: "dashboard" });
-var dashboard;
+let dashboard;
 Xrm.Navigation.navigateTo({ pageType: "dashboard", dashboardId: dashboard });

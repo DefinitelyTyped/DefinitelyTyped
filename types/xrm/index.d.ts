@@ -4863,11 +4863,11 @@ declare namespace Xrm {
         }
 
         interface Dashboard {
-            pageType: "dashboard",
+            pageType: "dashboard";
             /**
              * The GUID of the dashboard to load. If not specified, navigates to the default dashboard
              */
-            dashboardId?: string | undefined
+            dashboardId?: string | undefined;
         }
 
         /**
