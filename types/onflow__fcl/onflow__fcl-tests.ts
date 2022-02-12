@@ -42,3 +42,26 @@ fcl.authenticate({
         },
     },
 });
+
+fcl.unauthenticate();
+
+fcl.reauthenticate();
+
+fcl.signUp();
+fcl.logIn();
+
+console.log(fcl.authz);
+
+fcl.currentUser.subscribe(console.log);
+const user = fcl.currentUser.snapshot();
+
+export const signMessage = async () => {
+    const MSG = Buffer.from('FOO').toString('hex');
+    try {
+        return await fcl.currentUser.signUserMessage(MSG);
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+fcl.discovery.authn.subscribe(res => console.log(res.results));

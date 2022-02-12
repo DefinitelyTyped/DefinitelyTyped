@@ -3,7 +3,7 @@
         "module": "commonjs",
         "lib": [
             "es6",
-            "dom"
+            "dom",
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
@@ -13,11 +13,15 @@
         "typeRoots": [
             "../"
         ],
-        "types": [],
+        "types": [
+            "node"
+        ],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@onflow/fcl": ["onflow__fcl"]
+            "@onflow/fcl": [
+                "onflow__fcl"
+            ]
         }
     },
     "files": [
