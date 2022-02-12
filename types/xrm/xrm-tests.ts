@@ -395,7 +395,15 @@ Xrm.App.sidePanes.getSelectedPane();
 const settingValue = Xrm.Utility.getGlobalContext().getCurrentAppSetting("SettingsName");
 
 // Demonstrate Navigating to a specific dashboard
-Xrm.Navigation.navigateTo({ pageType: "dashboard", dashboardId: "84fd907e-8bfe-11ec-a8a3-0242ac120002"})
+Xrm.Navigation.navigateTo({
+    pageType: "dashboard",
+    dashboardId: "84fd907e-8bfe-11ec-a8a3-0242ac120002"
+}).then(
+    success => { console.log("Dashboard opened") },
+    error => { console.log(error.message) }
+);
 
 // Demonstrate Navigating to the default dashboard
-Xrm.Navigation.navigateTo({ pageType: "dashboard" })
+Xrm.Navigation.navigateTo({ pageType: "dashboard" });
+var dashboard;
+Xrm.Navigation.navigateTo({ pageType: "dashboard", dashboardId: dashboard });

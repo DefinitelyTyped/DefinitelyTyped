@@ -4862,6 +4862,14 @@ declare namespace Xrm {
             data?: string | undefined;
         }
 
+        interface Dashboard {
+            pageType: "dashboard",
+            /**
+             * The GUID of the dashboard to load. If not specified, navigates to the default dashboard
+             */
+            dashboardId?: string | undefined
+        }
+
         /**
          * Options for navigating to a page: whether to open inline or in a dialog. If you don't specify this parameter, page is opened inline by default.
          * */
@@ -4917,7 +4925,8 @@ declare namespace Xrm {
                 | Navigation.PageInputEntityRecord
                 | Navigation.PageInputEntityList
                 | Navigation.CustomPage
-                | Navigation.PageInputHtmlWebResource,
+                | Navigation.PageInputHtmlWebResource
+                | Navigation.Dashboard,
             navigationOptions?: Navigation.NavigationOptions,
         ): Async.PromiseLike<any>;
 
