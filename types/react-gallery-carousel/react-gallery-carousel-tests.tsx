@@ -116,3 +116,15 @@ carouselRef.current?.toggleIsMaximized();
 carouselRef.current?.goLeft();
 carouselRef.current?.goRight();
 carouselRef.current?.goToIndex(2);
+
+// Test small and large widget positions
+<Carousel
+    minIcon={<i></i>}
+    maxIcon={<i></i>}
+    hasLeftButton="bottomRight"
+    hasRightButton="bottomRight"
+    hasCaptions="bottom"
+    hasDotButtons="top"
+>
+    <></>
+</Carousel>;
