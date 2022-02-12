@@ -10,6 +10,8 @@ declare namespace packlist {
     interface Options {
         /** Directory to walk recusively. Defaults to `process.cwd()`. */
         path?: string | undefined;
+        /** packageJsonCache */
+        packageJsonCache?: Map<string, string | { files: string[] }>;
     }
     function sync(options?: Options): string[];
 }
