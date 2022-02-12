@@ -84,6 +84,9 @@ export interface Font {
         language?: string,
         direction?: string
     ): GlyphRun;
+
+    /** It creates and returns a Subset object */
+    createSubset(): Subset;
 }
 
 export interface GlyphRun {
