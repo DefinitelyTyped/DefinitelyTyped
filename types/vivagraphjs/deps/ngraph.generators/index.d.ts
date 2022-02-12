@@ -1,0 +1,24 @@
+export function ladder(n: any): any;
+export function complete(n: any): any;
+export function completeBipartite(n: any, m: any): any;
+export function balancedBinTree(n: any): any;
+export function path(n: any): any;
+export function circularLadder(n: any): any;
+export function grid(n: any, m: any): any;
+export function grid3(n: any, m: any, z: any): any;
+export function noLinks(n: any): any;
+export function wattsStrogatz(n: any, k: any, p: any, seed: any): any;
+export function cliqueCircle(cliqueCount: any, cliqueSize: any): any;
+export function factory(createGraph: any): {
+    ladder: (n: any) => any;
+    complete: (n: any) => any;
+    completeBipartite: (n: any, m: any) => any;
+    balancedBinTree: (n: any) => any;
+    path: (n: any) => any;
+    circularLadder: (n: any) => any;
+    grid: (n: any, m: any) => any;
+    grid3: (n: any, m: any, z: any) => any;
+    noLinks: (n: any) => any;
+    wattsStrogatz: (n: any, k: any, p: any, seed: any) => any;
+    cliqueCircle: (cliqueCount: any, cliqueSize: any) => any;
+};
