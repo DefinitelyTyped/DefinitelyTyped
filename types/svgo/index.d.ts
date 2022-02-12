@@ -8,6 +8,7 @@
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 //                 Remco Haszing <https://github.com/remcohaszing>
 //                 Petr Zahradník <https://github.com/petrzjunior>
+//                 Tomer Aberbach <https://github.com/TomerAberbach>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node"/>
@@ -21,7 +22,10 @@ export interface DefaultPlugin<N extends string, P = never> {
 /**
  * adds attributes to an outer <svg> element
  */
-export type AddAttributesToSVGElementPlugin = DefaultPlugin<'addAttributesToSVGElement'>;
+export type AddAttributesToSVGElementPlugin = DefaultPlugin<
+    'addAttributesToSVGElement',
+    { attribute: string | Record<string, null | string> } | { attributes: Array<string | Record<string, null | string>> }
+>;
 
 /**
  * adds classnames to an outer <svg> element
