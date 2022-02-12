@@ -393,3 +393,29 @@ Xrm.App.sidePanes.getSelectedPane();
 
 // Demonstrate GetSettings
 const settingValue = Xrm.Utility.getGlobalContext().getCurrentAppSetting("SettingsName");
+
+function onLoadSetupEvents(eventContext: Xrm.Events.EventContext) {
+    const formContext = eventContext.getFormContext();
+    // Demonstrate Knowledge base handler events
+    const kbSearchControl: Xrm.Controls.KbSearchControl = formContext.getControl("<name>");
+    const kbHandler = () => { alert("hit handler"); };
+
+    kbSearchControl.addOnPostSearch(kbHandler);
+    kbSearchControl.removeOnPostSearch(kbHandler);
+
+    kbSearchControl.addOnResultOpened(kbHandler);
+    kbSearchControl.removeOnResultOpened(kbHandler);
+
+    kbSearchControl.addOnSelection(kbHandler);
+    kbSearchControl.removeOnSelection(kbHandler);
+
+    const numKbResults = kbSearchControl.getTotalResultCount();
+    const searchResult = kbSearchControl.getSelectedResults();
+
+    let ret = kbSearchControl.openSearchResult(1);
+    ret = kbSearchControl.openSearchResult(1, "Inline");
+    ret = kbSearchControl.openSearchResult(1, "Popup");
+
+    const searchText = kbSearchControl.getSearchQuery();
+    kbSearchControl.setSearchQuery("pot of gold");
+}
