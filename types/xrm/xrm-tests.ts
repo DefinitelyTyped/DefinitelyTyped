@@ -81,6 +81,7 @@ Xrm.Page.ui.controls.forEach((control: Xrm.Page.StandardControl) => { control.se
 
 Xrm.Page.ui.tabs.forEach((tab) => {
     tab.setVisible(true);
+    tab.setFocus();
 
     tab.sections.forEach((section) => {
         section.setVisible(true);
