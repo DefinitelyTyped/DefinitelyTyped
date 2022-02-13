@@ -597,15 +597,15 @@ type CurrentUserObject = {
     /**
      * The public address of the current user
      */
-    addr: Address;
+    addr: Address | undefined;
     /**
      * Allows wallets to specify a content identifier for user metadata.
      */
-    cid: string;
+    cid: string | undefined;
     /**
      * Allows wallets to specify a time-frame for a valid session.
      */
-    expiresAt: number;
+    expiresAt: number | undefined;
     /**
      * A type identifier used internally by FCL.
      */
@@ -617,7 +617,7 @@ type CurrentUserObject = {
     /**
      * If the user is logged in.
      */
-    loggedIn: boolean;
+    loggedIn: boolean | undefined;
     /**
      * A list of trusted services that express ways of interacting with the current user's identity,
      * including means to further discovery, authentication, authorization, or other kinds of interactions.
