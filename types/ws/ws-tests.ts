@@ -314,3 +314,17 @@ function f() {
         }
     });
 }
+
+declare module 'ws' {
+    interface WebSocket {
+        id?: string;
+    }
+}
+
+{
+    const ws: wslib.WebSocket = new wslib.WebSocket('ws://www.host.com/path');
+
+    // $ExpectType string
+    ws.id;
+    ws.id = 'foo';
+}
