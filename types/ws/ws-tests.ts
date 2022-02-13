@@ -324,7 +324,7 @@ declare module 'ws' {
 {
     const ws: wslib.WebSocket = new wslib.WebSocket('ws://www.host.com/path');
 
-    // $ExpectType string
+    // $ExpectType string | undefined
     ws.id;
     ws.id = 'foo';
 }
