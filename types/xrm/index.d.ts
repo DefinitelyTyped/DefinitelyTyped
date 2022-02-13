@@ -3534,7 +3534,7 @@ declare namespace Xrm {
               * @returns Status of opening the specified search result. Returns 1 if successful; 0 if unsuccessful. The method will return -1 if the specified resultNumber value is not present, or if the specified mode value is invalid.
               * @see             https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/controls/opensearchresult
               */
-            openSearchResult(resultNumber: number, mode?: "Inline" | "Popup"): boolean;
+            openSearchResult(resultNumber: number, mode?: XrmEnum.OpenSearchResultMode): boolean;
 
             /**
               * Removes an event handler from the PostSearch event.
@@ -6159,5 +6159,10 @@ declare namespace XrmEnum {
         Audio = "audio",
         Video = "video",
         Image = "image",
+    }
+
+    const enum OpenSearchResultMode {
+        Inline = "Inline",
+        Popup = "Popup"
     }
 }

@@ -413,8 +413,8 @@ function onLoadSetupEvents(eventContext: Xrm.Events.EventContext) {
     const searchResult = kbSearchControl.getSelectedResults();
 
     let ret = kbSearchControl.openSearchResult(1);
-    ret = kbSearchControl.openSearchResult(1, "Inline");
-    ret = kbSearchControl.openSearchResult(1, "Popup");
+    ret = kbSearchControl.openSearchResult(1, XrmEnum.OpenSearchResultMode.Inline);
+    ret = kbSearchControl.openSearchResult(1, XrmEnum.OpenSearchResultMode.Popup);
 
     const searchText = kbSearchControl.getSearchQuery();
     kbSearchControl.setSearchQuery("pot of gold");
