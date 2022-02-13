@@ -5,6 +5,7 @@
 
 import * as express from "express";
 import { EventEmitter } from "events";
+import * as Connect from "connect";
 
 interface SQLiteStoreOptions {
 	/**
@@ -165,6 +166,6 @@ declare class SQLiteStore extends Store {
 interface SQLiteStoreInitator {
 	new(options?: SQLiteStoreOptions): SQLiteStore;
 }
-declare function connect(): SQLiteStoreInitator;
+declare function connect(connect: typeof Connect): SQLiteStoreInitator;
 
 export = connect;

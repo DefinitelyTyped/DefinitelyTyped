@@ -1,1 +1,1 @@
-{ "extends": "@definitelytyped/dtslint/dt.json" }
+{ "extends": "dtslint/dt.json" }
