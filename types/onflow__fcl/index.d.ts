@@ -588,7 +588,7 @@ type Builders = any;
  * @see {@link https://docs.onflow.org/fcl/reference/api/#interaction}
  * @see {@link https://github.com/onflow/fcl-js/blob/master/packages/sdk/src/interaction/interaction.js#L66}
  */
-type Interaction = Object;
+type Interaction = object;
 
 /**
  * @see {@link https://docs.onflow.org/fcl/reference/api/#currentuserobject}
@@ -622,7 +622,7 @@ type CurrentUserObject = {
      * A list of trusted services that express ways of interacting with the current user's identity,
      * including means to further discovery, authentication, authorization, or other kinds of interactions.
      */
-    services: Object[];
+    services: object[];
 };
 
 /**
@@ -764,7 +764,7 @@ type SigningPayload = {
      * The raw transactions information, can be used to create the message
      * for additional safety and lack of trust in the supplied message.
      */
-    voucher: Object;
+    voucher: object;
 };
 
 /**
@@ -851,7 +851,7 @@ type KeyObject = {
 };
 
 // TODO: SealedBlockObject
-type SealedBlockObject = Object;
+type SealedBlockObject = object;
 
 /**
  * The JSON representation of a key on the Flow blockchain.
