@@ -3,7 +3,7 @@
         "module": "commonjs",
         "lib": [
             "es6",
-            "dom",
+            "dom"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
@@ -13,9 +13,7 @@
         "typeRoots": [
             "../"
         ],
-        "types": [
-            "node"
-        ],
+        "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {

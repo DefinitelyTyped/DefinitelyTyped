@@ -56,7 +56,7 @@ fcl.currentUser.subscribe(console.log);
 const user = fcl.currentUser.snapshot();
 
 export const signMessage = async () => {
-    const MSG = Buffer.from('FOO').toString('hex');
+    const MSG = '464f4f'; // 'FOO' to hex
     try {
         return await fcl.currentUser.signUserMessage(MSG);
     } catch (error) {

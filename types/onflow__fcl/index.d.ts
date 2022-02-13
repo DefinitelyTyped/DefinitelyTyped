@@ -1,4 +1,4 @@
-// Type definitions for @onflow/fcl 0.0.78
+// Type definitions for @onflow/fcl 0.0
 // Project: https://github.com/onflow/fcl-js
 // Definitions by: Louis Guitton <https://github.com/louisguitton/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -6,13 +6,13 @@
 export as namespace fcl;
 
 // CONFIGURATION
-type Environment = 'local' | 'canarynet' | 'testnet' | 'mainnet';
+export type Environment = 'local' | 'canarynet' | 'testnet' | 'mainnet';
 
 /**
  * @see {@link https://docs.onflow.org/fcl/reference/api/#common-configuration-keys}
  * @see {@link https://docs.onflow.org/fcl/reference/configure-fcl/}
  */
-type ConfigurationOptions = {
+export interface ConfigurationOptions {
     /**
      * API URL for the Flow Blockchain Access Node you want to be communicating
      * with. See all available access node endpoints
@@ -42,9 +42,9 @@ type ConfigurationOptions = {
      * services.
      */
     'app.detail.icon'?: string;
-};
+}
 
-type Configuration = {
+export interface Configuration {
     /**
      * Set a configuration value.
      *
@@ -72,7 +72,7 @@ type Configuration = {
      * was not set.
      */
     get(key: string, fallback?: string | number): Promise<string | number | undefined>;
-};
+}
 
 /**
  * FCL has a mechanism that lets you configure various aspects of FCL. The
@@ -102,7 +102,7 @@ export function config(options?: ConfigurationOptions): Configuration;
 /**
  * @see {@link https://github.com/onflow/fcl-discovery/blob/master/data/services.json}
  */
-type WalletService = {
+export interface WalletService {
     f_type: 'Service';
     f_vsn: string;
     type: 'authn';
@@ -118,11 +118,11 @@ type WalletService = {
         supportEmail: string;
         website: string;
     };
-};
+}
 
-type AuthenticateOptions = {
+export interface AuthenticateOptions {
     service: WalletService;
-};
+}
 
 /**
  * Calling this method will authenticate the current user via any wallet that supports FCL.
@@ -217,13 +217,13 @@ export namespace currentUser {
 /**
  * @see {@link https://github.com/onflow/fcl-js/blob/master/packages/fcl/src/wallet-provider-spec/draft-v2.md#compositesignature}
  */
-type CompositeSignature = {
+export interface CompositeSignature {
     f_type: 'CompositeSignature';
     f_vsn: string;
     addr: Address;
     keyId: number;
     signature: string;
-};
+}
 
 /**
  * Discovery abstracts away code so that developers don't have to deal with the
@@ -266,7 +266,7 @@ export namespace discovery {
 
 // ON-CHAIN INTERACTIONS
 
-type QueryOptions = {
+export interface QueryOptions {
     /**
      * A valid cadence script.
      */
@@ -281,7 +281,7 @@ type QueryOptions = {
      * computation cost for information about how computation cost is calculated on Flow.
      */
     limit?: number;
-};
+}
 /**
  * Allows you to submit scripts to query the blockchain.
  * @param options Pass in the following as a single object with the following keys.
@@ -290,7 +290,7 @@ type QueryOptions = {
  */
 export function query(options: QueryOptions): Promise<any>;
 
-type MutateOptions = {
+export interface MutateOptions {
     /**
      * A valid cadence transaction.
      */
@@ -308,7 +308,7 @@ type MutateOptions = {
      * The authorization function that returns a valid {@link AuthorizationObject} for the proposer role.
      */
     proposer?: AuthorizationFunction;
-};
+}
 
 /**
  * Allows you to submit transactions to the blockchain to potentially mutate the state.
@@ -321,11 +321,11 @@ type MutateOptions = {
  */
 export function mutate(options: MutateOptions): Promise<string>;
 
-type CompositeSignatures = {
+export interface CompositeSignatures {
     addr: Address;
     keyId: string;
     signature: string;
-};
+}
 
 /**
  * A method allowing applications to cryptographically verify the ownership of a
@@ -498,9 +498,9 @@ export function script(CODE: string): Interaction;
  * to produce a valid interaction before sending to the chain.
  * 📣 Use with {@link args} to pass in arguments dynamically.
  * @param CODE Should be valid a Cadence transaction.
-* @returns An partial interaction containing the code passed in.
-Further builders are required to complete the interaction - see warning.
-* @see {@link https://docs.onflow.org/fcl/reference/api/#transaction}
+ * @returns An partial interaction containing the code passed in.
+ * Further builders are required to complete the interaction - see warning.
+ * @see {@link https://docs.onflow.org/fcl/reference/api/#transaction}
  */
 export function transaction(CODE: string): Partial<Interaction>;
 
@@ -576,24 +576,24 @@ export function events(eventName: string): {
  * depend on the script or transaction that is being sent.
  * @see {@link https://docs.onflow.org/fcl/reference/api/#builders-1}
  */
-type Builders = any;
+export type Builders = any;
 
 // TODO: Interaction
 /**
  * An interaction is an object containing the information to perform an action on chain.
  * This object is populated through builders and converted into the approriate access node API call.
  * A 'partial' interaction is an interaction object that does not have sufficient
- *information to the intended on-chain action. Multiple partial interactions (through builders)
+ * information to the intended on-chain action. Multiple partial interactions (through builders)
  * can be coupled to create a complete interaction.
  * @see {@link https://docs.onflow.org/fcl/reference/api/#interaction}
  * @see {@link https://github.com/onflow/fcl-js/blob/master/packages/sdk/src/interaction/interaction.js#L66}
  */
-type Interaction = object;
+export type Interaction = object;
 
 /**
  * @see {@link https://docs.onflow.org/fcl/reference/api/#currentuserobject}
  */
-type CurrentUserObject = {
+export interface CurrentUserObject {
     /**
      * The public address of the current user
      */
@@ -623,7 +623,7 @@ type CurrentUserObject = {
      * including means to further discovery, authentication, authorization, or other kinds of interactions.
      */
     services: object[];
-};
+}
 
 /**
  * An authorization function must produce the information of the user that is going
@@ -635,7 +635,7 @@ type CurrentUserObject = {
  * use it wherever an authorization object is needed.
  * @see {@link https://docs.onflow.org/fcl/reference/api/#authorizationobject}
  */
-type AuthorizationObject = {
+export interface AuthorizationObject {
     /**
      * The address of the authorizer
      */
@@ -652,13 +652,13 @@ type AuthorizationObject = {
      * A number that is incremented per transaction using they keyId.
      */
     sequenceNum: number;
-};
+}
 
 /**
  * An object that contains all the information needed for FCL to sign a message with the user's signature.
  * @see {@link https://docs.onflow.org/fcl/reference/api/#signableobject}
  */
-type SignableObject = {
+export interface SignableObject {
     /**
      * The address of the authorizer
      */
@@ -671,13 +671,13 @@ type SignableObject = {
      * A {@link SigningFunction} that can produce a valid signature for a user from a message.
      */
     signature: SigningFunction;
-};
+}
 
 /**
  * The JSON representation of an account on the Flow blockchain.
  * @see {@link https://docs.onflow.org/fcl/reference/api/#accountobject}
  */
-type AccountObject = {
+export interface AccountObject {
     /**
      * The address of the account
      */
@@ -698,18 +698,18 @@ type AccountObject = {
      * Any contracts deployed to this account.
      */
     keys: KeyObject[];
-};
+}
 
 /**
  * @see {@link https://docs.onflow.org/fcl/reference/api/#address}
  */
-type Address = string;
+export type Address = string;
 
 /**
  * An argument object created by `fcl.arg(value,type)`
  * @see {@link https://docs.onflow.org/fcl/reference/api/#argumentobject}
  */
-type ArgumentObject = {
+export interface ArgumentObject {
     /**
      * Any value to be used as an argument to a builder.
      */
@@ -718,14 +718,14 @@ type ArgumentObject = {
      * Any of the supported types on Flow.
      */
     xform: FType;
-};
+}
 
 /**
  * An function that takes the `fcl.arg` function and fcl types `t`
  * and returns an array of `fcl.arg(value,type)`.
  * @see {@link https://docs.onflow.org/fcl/reference/api/#argumentfunction}
  */
-type ArgumentFunction = (arg: (value: any, xform: FType) => ArgumentObject, t: FType) => ArgumentObject[];
+export type ArgumentFunction = (arg: (value: any, xform: FType) => ArgumentObject, t: FType) => ArgumentObject[];
 
 /**
  * An authorization function must produce the information of the user that
@@ -738,12 +738,12 @@ type ArgumentFunction = (arg: (value: any, xform: FType) => ArgumentObject, t: F
  * @returns The object that contains all the information needed by FCL to authorize a user's transaction.
  * @see {@link https://docs.onflow.org/fcl/reference/api/#authorization-function}
  */
-type AuthorizationFunction = (account: AccountObject) => Promise<AuthorizationObject>;
+export type AuthorizationFunction = (account: AccountObject) => Promise<AuthorizationObject>;
 
 /**
  * @see {@link https://docs.onflow.org/fcl/reference/api/#payload}
  */
-type SigningPayload = {
+export interface SigningPayload {
     /**
      * The encoded string which needs to be used to produce the signature.
      */
@@ -765,18 +765,18 @@ type SigningPayload = {
      * for additional safety and lack of trust in the supplied message.
      */
     voucher: object;
-};
+}
 
 /**
  * Consumes a payload and produces a signature for a transaction.
  * @see {@link https://docs.onflow.org/fcl/reference/api/#signing-function}
  */
-type SigningFunction = (options: SigningPayload) => Promise<SignableObject>;
+export type SigningFunction = (options: SigningPayload) => Promise<SignableObject>;
 
 /**
  * @see {@link https://docs.onflow.org/fcl/reference/api/#transactionrolesobject}
  */
-type TransactionRolesObject = {
+export interface TransactionRolesObject {
     /**
      * A Boolean representing if this signature to be produced for a proposer.
      */
@@ -789,20 +789,20 @@ type TransactionRolesObject = {
      * A Boolean representing if this signature to be produced for a payer.
      */
     payer: boolean;
-};
+}
 
 /**
  * A event name in Flow must follow the format `A.{AccountAddress}.{ContractName}.{EventName}`
  * eg. `A.ba1132bc08f82fe2.Debug.Log`
  * @see {@link https://docs.onflow.org/fcl/reference/api/#eventname}
  */
-type EventName = string;
+export type EventName = string;
 
 /**
  * A formatted string that is a valid cadence contract.
  * @see {@link https://docs.onflow.org/fcl/reference/api/#contract}
  */
-type Contract = string;
+export type Contract = string;
 
 /**
  * @see {@link https://github.com/onflow/fcl-js/blob/9cf62bfaabb02444e6daa24b1ee10faeed40f732/packages/util-encode-key/src/index.js#L4}
@@ -822,7 +822,7 @@ export enum Hash {
  * This is the JSON representation of a key on the Flow blockchain.
  * @see {@link https://docs.onflow.org/fcl/reference/api/#keyobject}
  */
-type KeyObject = {
+export interface KeyObject {
     /**
      * The address of the account
      */
@@ -848,16 +848,16 @@ type KeyObject = {
      * If this key has been disabled for use.
      */
     revoked: boolean;
-};
+}
 
 // TODO: SealedBlockObject
-type SealedBlockObject = object;
+export type SealedBlockObject = object;
 
 /**
  * The JSON representation of a key on the Flow blockchain.
  * @see {@link https://docs.onflow.org/fcl/reference/api/#blockobject}
  */
-type BlockObject = BlockHeaderObject & {
+export type BlockObject = BlockHeaderObject & {
     /**
      * Contains the ids of collections included in the block.
      */
@@ -876,7 +876,7 @@ type BlockObject = BlockHeaderObject & {
  * The subset of the {@link BlockObject} containing only the header values of a block.
  * @see {@link https://docs.onflow.org/fcl/reference/api/#blockheaderobject}
  */
-type BlockHeaderObject = {
+export interface BlockHeaderObject {
     /**
      * The id of the block.
      */
@@ -892,14 +892,14 @@ type BlockHeaderObject = {
     /**
      * Contains time related fields.
      */
-    timestamp: Object;
-};
+    timestamp: object;
+}
 
 /**
  * A collection that has been included in a block.
  * @see {@link https://docs.onflow.org/fcl/reference/api/#collectionguaranteeobject}
  */
-type CollectionGuaranteeObject = {
+export interface CollectionGuaranteeObject {
     /**
      * The id of the block.
      */
@@ -908,13 +908,13 @@ type CollectionGuaranteeObject = {
      * All signatures.
      */
     signatures: SignableObject[];
-};
+}
 
 /**
  * A collection is a list of transactions that are contained in the same block.
  * @see {@link https://docs.onflow.org/fcl/reference/api/#collectionobject}
  */
-type CollectionObject = {
+export interface CollectionObject {
     /**
      * The id of the collection.
      */
@@ -923,7 +923,7 @@ type CollectionObject = {
      * The ids of the transactions included in the collection.
      */
     transactionIds: string[];
-};
+}
 
 // TODO: ResponseObject
 /**
@@ -932,12 +932,12 @@ type CollectionObject = {
  * @see {@link https://docs.onflow.org/fcl/reference/api/#responseobject}
  * @see {@link https://github.com/onflow/fcl-js/tree/master/packages/sdk/src/response#internal-properties}
  */
-type ResponseObject = any;
+export type ResponseObject = any;
 
 /**
  * @see {@link https://docs.onflow.org/fcl/reference/api/#event-object}
  */
-type EventObject = {
+export interface EventObject {
     /**
      * ID of the block that contains the event.
      */
@@ -971,7 +971,7 @@ type EventObject = {
      * The data emitted from the event.
      */
     data: Record<string, unknown>;
-};
+}
 
 /**
  * The status of a transaction will depend on the Flow blockchain network and which
@@ -1136,7 +1136,7 @@ export enum GRPCStatus {
 /**
  * @see {@link https://docs.onflow.org/fcl/reference/api/#ftype}
  */
-type FType = {
+export interface FType {
     UInt: any;
     UInt8: any;
     UInt16: any;
@@ -1165,9 +1165,9 @@ type FType = {
     Array: any;
     Dictionary: any;
     Path: any;
-};
+}
 
-type TransactionObject = {
+export interface TransactionObject {
     /**
      * An array of events that were emitted during the transaction.
      */
@@ -1184,4 +1184,4 @@ type TransactionObject = {
      * The status from the GRPC response.
      */
     statusCode: GRPCStatus;
-};
+}
