@@ -11,6 +11,7 @@
 //                 Alex Savin <https://github.com/alexandrusavin>
 //                 Alexis Tyler <https://github.com/OmgImAlexis>
 //                 Jakub Kisielewski <https://github.com/kbkk>
+//                 David Glasser <https://github.com/glasser>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
