@@ -3657,11 +3657,6 @@ declare namespace Xrm {
             setDisplayState(displayState: DisplayState): void;
 
             /**
-             * Sets the focus on the tab.
-             */
-            setFocus(): void;
-
-            /**
              * A reference to the collection of form sections within this tab.
              * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/collections External Link: Collections (Client API reference)}
              */
