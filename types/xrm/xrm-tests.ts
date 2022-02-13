@@ -393,3 +393,13 @@ Xrm.App.sidePanes.getSelectedPane();
 
 // Demonstrate GetSettings
 const settingValue = Xrm.Utility.getGlobalContext().getCurrentAppSetting("SettingsName");
+
+// Demonstrate addOnPostSave/removeOnPostSave
+function onLoadAddRemovePostSave(executionContext: Xrm.Events.EventContext) {
+    const formContext = executionContext.getFormContext();
+
+    const postSaveHandler = () => { alert("postSave hit"); };
+
+    formContext.data.entity.addOnPostSave(postSaveHandler);
+    formContext.data.entity.removeOnPostSave(postSaveHandler);
+}

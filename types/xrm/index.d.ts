@@ -3902,6 +3902,12 @@ declare namespace Xrm {
         isValid(): boolean;
 
         /**
+         * Removes the event handler from the PostSave event.
+         * @param handler The function to be removed from the PostSave event.
+         */
+        removeOnPostSave(handler: Events.ContextSensitiveHandler): void;
+
+        /**
          * Removes the handler from the "on save" event.
          * @param handler The handler.
          */
