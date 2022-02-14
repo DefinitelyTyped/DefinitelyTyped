@@ -485,35 +485,6 @@ declare namespace jest {
         each: Each;
     }
 
-    type PrintLabel = (string: string) => string;
-
-    type MatcherHintColor = (arg: string) => string;
-
-    interface MatcherHintOptions {
-        comment?: string | undefined;
-        expectedColor?: MatcherHintColor | undefined;
-        isDirectExpectCall?: boolean | undefined;
-        isNot?: boolean | undefined;
-        promise?: string | undefined;
-        receivedColor?: MatcherHintColor | undefined;
-        secondArgument?: string | undefined;
-        secondArgumentColor?: MatcherHintColor | undefined;
-    }
-
-    interface ChalkFunction {
-        (text: TemplateStringsArray, ...placeholders: any[]): string;
-        (...text: any[]): string;
-    }
-
-    interface ChalkColorSupport {
-        level: 0 | 1 | 2 | 3;
-        hasBasic: boolean;
-        has256: boolean;
-        has16m: boolean;
-    }
-
-    type MatcherColorFn = ChalkFunction & { supportsColor: ChalkColorSupport };
-
     type EqualityTester = (a: any, b: any) => boolean | undefined;
 
     interface MatcherUtils {
@@ -527,41 +498,7 @@ declare namespace jest {
         readonly expand: boolean;
         readonly testPath: string;
         readonly currentTestName: string;
-        utils: {
-            readonly EXPECTED_COLOR: MatcherColorFn;
-            readonly RECEIVED_COLOR: MatcherColorFn;
-            readonly INVERTED_COLOR: MatcherColorFn;
-            readonly BOLD_WEIGHT: MatcherColorFn;
-            readonly DIM_COLOR: MatcherColorFn;
-            readonly SUGGEST_TO_CONTAIN_EQUAL: string;
-            diff(a: any, b: any, options?: import("jest-diff").DiffOptions): string | null;
-            ensureActualIsNumber(actual: any, matcherName: string, options?: MatcherHintOptions): void;
-            ensureExpectedIsNumber(actual: any, matcherName: string, options?: MatcherHintOptions): void;
-            ensureNoExpected(actual: any, matcherName: string, options?: MatcherHintOptions): void;
-            ensureNumbers(actual: any, expected: any, matcherName: string, options?: MatcherHintOptions): void;
-            ensureExpectedIsNonNegativeInteger(expected: any, matcherName: string, options?: MatcherHintOptions): void;
-            matcherHint(
-                matcherName: string,
-                received?: string,
-                expected?: string,
-                options?: MatcherHintOptions
-            ): string;
-            matcherErrorMessage(
-              hint: string,
-              generic: string,
-              specific: string
-            ): string;
-            pluralize(word: string, count: number): string;
-            printReceived(object: any): string;
-            printExpected(value: any): string;
-            printWithType(name: string, value: any, print: (value: any) => string): string;
-            stringify(object: {}, maxDepth?: number): string;
-            highlightTrailingWhitespace(text: string): string;
-
-            printDiffOrStringify(expected: any, received: any, expectedLabel: string, receivedLabel: string, expand: boolean): string;
-
-            getLabelPrinter(...strings: string[]): PrintLabel;
-
+        utils: typeof import('jest-matcher-utils') & {
             iterableEquality: EqualityTester;
             subsetEquality: EqualityTester;
         };
