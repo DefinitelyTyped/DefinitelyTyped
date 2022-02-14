@@ -26,7 +26,7 @@ declare namespace algebra.js {
     lhs: Expression;
     rhs: Expression;
     constructor(lhs: Expression, rhs: Expression | Fraction | number)
-    solveFor(variable: string): Fraction | Fraction[] | number[];
+    solveFor(variable: string): Fraction | Fraction[] | number[] | Expression | undefined;
     toString(): string;
   }
 
