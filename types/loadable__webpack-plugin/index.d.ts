@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 
-import webpack from 'webpack';
+import webpack = require('webpack');
 
 interface PluginOptions {
     /**
@@ -29,7 +29,7 @@ interface PluginOptions {
 
 declare class LoadablePlugin implements webpack.WebpackPluginInstance {
     constructor(options?: PluginOptions);
-    apply: (compiler: webpack.Compiler) => void;
+    apply(compiler: webpack.Compiler): void;
 }
 
 export default LoadablePlugin;
