@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-import type { SecureContextOptions } from 'tls';
+import type { ConnectionOptions } from 'tls';
 
 export interface Constants {
     OUTCOME_SUCCESS: 0;
@@ -155,11 +155,7 @@ export namespace send {
 
     interface TlsConnDetail extends CommonConnDetail {
         interface: 'tls';
-        options: {
-            key: SecureContextOptions['key'];
-            cert: SecureContextOptions['cert'];
-            ca: SecureContextOptions['ca'];
-        };
+        options?: ConnectionOptions;
     }
 
     type SendConnDetail = UdpConnDetail | TcpConnDetail | TlsConnDetail;

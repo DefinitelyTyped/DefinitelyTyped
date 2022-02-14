@@ -6,6 +6,7 @@ declare var functionAst: ESTree.Function;
 declare var statement: ESTree.Statement;
 declare var emptyStatement: ESTree.EmptyStatement;
 declare var blockStatement: ESTree.BlockStatement;
+declare var staticBlock: ESTree.StaticBlock;
 declare var expressionStatement: ESTree.ExpressionStatement;
 declare var directive: ESTree.Directive;
 declare var ifStatement: ESTree.IfStatement;
@@ -122,6 +123,11 @@ number = program!.range![0];
 var blockStatement: ESTree.BlockStatement;
 string = blockStatement.type;
 statement = blockStatement.body[0];
+
+// StaticBlock
+var staticBlock: ESTree.StaticBlock;
+string = staticBlock.type;
+statement = staticBlock.body[0];
 
 // ExpressionStatement
 var expressionStatement: ESTree.ExpressionStatement;
@@ -501,6 +507,9 @@ switch (node.type) {
   case 'PropertyDefinition':
     propertyDefinition = node
     break;
+  case 'StaticBlock':
+    staticBlock = node
+    break;
 
   // narrowing of ModuleDeclaration
   case 'ImportDeclaration':
@@ -542,6 +551,9 @@ switch (statement.type) {
     break;
   case 'BlockStatement':
     blockStatement = statement;
+    break;
+  case 'StaticBlock':
+    staticBlock = statement;
     break;
   case 'EmptyStatement':
     emptyStatement = statement;

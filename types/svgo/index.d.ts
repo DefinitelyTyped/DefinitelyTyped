@@ -21,7 +21,10 @@ export interface DefaultPlugin<N extends string, P = never> {
 /**
  * adds attributes to an outer <svg> element
  */
-export type AddAttributesToSVGElementPlugin = DefaultPlugin<'addAttributesToSVGElement'>;
+export type AddAttributesToSVGElementPlugin = DefaultPlugin<
+    'addAttributesToSVGElement',
+    { attribute: string | Record<string, null | string> } | { attributes: Array<string | Record<string, null | string>> }
+>;
 
 /**
  * adds classnames to an outer <svg> element

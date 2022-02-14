@@ -20,6 +20,7 @@
 //                 T.J. Tarazevits <https://github.com/venku122>
 //                 Michiel De Mey <https://github.com/michieldemey>
 //                 Dae Heon Han <https://github.com/honeyirene>
+//                 Yongkyun Choi <https://github.com/DracoVirus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -219,6 +220,10 @@ declare namespace IORedis {
 
         getBuffer(key: KeyType, callback: Callback<Buffer>): void;
         getBuffer(key: KeyType): Promise<Buffer>;
+
+        getex(key: KeyType, expiryMode?: string, time?: number | string): Promise<string | null>;
+        getex(key: KeyType, callback: Callback<string | null>): void;
+        getex(key: KeyType, expiryMode: string, time: number | string, callback: Callback<string | null>): void;
 
         set(
             key: KeyType,
@@ -1333,6 +1338,7 @@ declare namespace IORedis {
 
         get(key: KeyType, callback?: Callback<string>): Pipeline;
         getBuffer(key: KeyType, callback?: Callback<Buffer>): Pipeline;
+        getex(key: KeyType, expiryMode: string, time: number, callback?: Callback<string>): Pipeline;
 
         set(key: KeyType, value: ValueType, callback?: Callback<string>): Pipeline;
         set(key: KeyType, value: ValueType, setMode: string, callback?: Callback<string>): Pipeline;
