@@ -314,3 +314,18 @@ function f() {
         }
     });
 }
+
+{
+    class CustomWebSocket extends WebSocket.WebSocket {
+        foo(): 'foo' {
+            return 'foo';
+        }
+    }
+    const webSocketServer = new WebSocket.WebSocketServer<CustomWebSocket>({WebSocket: CustomWebSocket});
+    webSocketServer.on('connection', (ws) => {
+        // $ExpectType CustomWebSocket
+        ws;
+        // $ExpectType "foo"
+        ws.foo();
+    });
+}

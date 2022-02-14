@@ -63,9 +63,9 @@ declare class WebSocket extends EventEmitter {
     onclose: (event: WebSocket.CloseEvent) => void;
     onmessage: (event: WebSocket.MessageEvent) => void;
 
-    constructor(address: string | URL, options?: WebSocket.ClientOptions | ClientRequestArgs);
+    constructor(address: string | URL | null, options?: WebSocket.ClientOptions | ClientRequestArgs);
     constructor(
-        address: string | URL,
+        address: string | URL | null,
         protocols?: string | string[],
         options?: WebSocket.ClientOptions | ClientRequestArgs,
     );
@@ -288,6 +288,7 @@ declare namespace WebSocket {
         perMessageDeflate?: boolean | PerMessageDeflateOptions | undefined;
         maxPayload?: number | undefined;
         skipUTF8Validation?: boolean | undefined;
+        WebSocket?: typeof WebSocket.WebSocket | undefined;
     }
 
     interface AddressInfo {
@@ -297,10 +298,10 @@ declare namespace WebSocket {
     }
 
     // WebSocket Server
-    class Server extends EventEmitter {
+    class Server<T extends WebSocket = WebSocket> extends EventEmitter {
         options: ServerOptions;
         path: string;
-        clients: Set<WebSocket>;
+        clients: Set<T>;
 
         constructor(options?: ServerOptions, callback?: () => void);
 
@@ -315,31 +316,31 @@ declare namespace WebSocket {
         shouldHandle(request: IncomingMessage): boolean | Promise<boolean>;
 
         // Events
-        on(event: "connection", cb: (this: Server, socket: WebSocket, request: IncomingMessage) => void): this;
+        on(event: "connection", cb: (this: Server, socket: T, request: IncomingMessage) => void): this;
         on(event: "error", cb: (this: Server, error: Error) => void): this;
         on(event: "headers", cb: (this: Server, headers: string[], request: IncomingMessage) => void): this;
         on(event: "close" | "listening", cb: (this: Server) => void): this;
         on(event: string | symbol, listener: (this: Server, ...args: any[]) => void): this;
 
-        once(event: "connection", cb: (this: Server, socket: WebSocket, request: IncomingMessage) => void): this;
+        once(event: "connection", cb: (this: Server, socket: T, request: IncomingMessage) => void): this;
         once(event: "error", cb: (this: Server, error: Error) => void): this;
         once(event: "headers", cb: (this: Server, headers: string[], request: IncomingMessage) => void): this;
         once(event: "close" | "listening", cb: (this: Server) => void): this;
         once(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        off(event: "connection", cb: (this: Server, socket: WebSocket, request: IncomingMessage) => void): this;
+        off(event: "connection", cb: (this: Server, socket: T, request: IncomingMessage) => void): this;
         off(event: "error", cb: (this: Server, error: Error) => void): this;
         off(event: "headers", cb: (this: Server, headers: string[], request: IncomingMessage) => void): this;
         off(event: "close" | "listening", cb: (this: Server) => void): this;
         off(event: string | symbol, listener: (this: Server, ...args: any[]) => void): this;
 
-        addListener(event: "connection", cb: (client: WebSocket, request: IncomingMessage) => void): this;
+        addListener(event: "connection", cb: (client: T, request: IncomingMessage) => void): this;
         addListener(event: "error", cb: (err: Error) => void): this;
         addListener(event: "headers", cb: (headers: string[], request: IncomingMessage) => void): this;
         addListener(event: "close" | "listening", cb: () => void): this;
         addListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        removeListener(event: "connection", cb: (client: WebSocket) => void): this;
+        removeListener(event: "connection", cb: (client: T) => void): this;
         removeListener(event: "error", cb: (err: Error) => void): this;
         removeListener(event: "headers", cb: (headers: string[], request: IncomingMessage) => void): this;
         removeListener(event: "close" | "listening", cb: () => void): this;
