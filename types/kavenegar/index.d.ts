@@ -1,9 +1,9 @@
-// Type definitions for kavenegar 1.1.4
+// Type definitions for kavenegar 1.1
 // Project: https://github.com/kavenegar/kavenegar-node
 // Definitions by: Nima Ebrazeh <https://github.com/nimaebra>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare namespace kavenegar {
+export namespace kavenegar {
     interface Options {
         apikey: string;
         host?: string;
@@ -34,7 +34,7 @@ declare namespace kavenegar {
     type Actions = 'sms' | 'verify' | 'account' | 'call';
 
     interface KavenegarInstance {
-        request: (action: Actions, method: Methods, params: object, callback: Function) => void;
+        request: (action: Actions, method: Methods, params: object, callback: void) => void;
         Send: ResponseK<
             {
                 receptor: string;
@@ -45,7 +45,7 @@ declare namespace kavenegar {
                 localid?: string;
                 hide?: number;
             },
-            {
+            Array<{
                 messageid: number;
                 message: string;
                 status: number;
@@ -54,7 +54,7 @@ declare namespace kavenegar {
                 receptor: string;
                 date: number;
                 cost: number;
-            }[]
+            }>
         >;
         SendArray: ResponseK<
             {
@@ -66,7 +66,7 @@ declare namespace kavenegar {
                 localmessageids?: string[];
                 hide?: number;
             },
-            {
+            Array<{
                 messageid: number;
                 message: string;
                 status: number;
@@ -75,24 +75,24 @@ declare namespace kavenegar {
                 receptor: string;
                 date: number;
                 cost: number;
-            }[]
+            }>
         >;
         Status: ResponseK<
             { messageid: string | number[] },
-            { messageid: number; status: number; statustext: string }[]
+            Array<{ messageid: number; status: number; statustext: string }>
         >;
         StatusLocalMessageid: ResponseK<
             { localid: string | string[] },
-            {
+            Array<{
                 messageid: number;
                 localid: string;
                 status: number;
                 statustext: string;
-            }[]
+            }>
         >;
         Select: ResponseK<
             { messageid: string | number[] },
-            {
+            Array<{
                 messageid: number;
                 message: string;
                 status: number;
@@ -101,7 +101,7 @@ declare namespace kavenegar {
                 receptor: string;
                 date: number;
                 cost: number;
-            }[]
+            }>
         >;
         SelectOutbox: ResponseK<
             {
@@ -109,7 +109,7 @@ declare namespace kavenegar {
                 enddate?: number;
                 sender?: string;
             },
-            {
+            Array<{
                 messageid: number;
                 message: string;
                 status: number;
@@ -118,11 +118,11 @@ declare namespace kavenegar {
                 receptor: string;
                 date: number;
                 cost: number;
-            }[]
+            }>
         >;
         LatestOutbox: ResponseK<
             { pagesize?: number; sender?: string },
-            {
+            Array<{
                 messageid: number;
                 message: string;
                 status: number;
@@ -131,7 +131,7 @@ declare namespace kavenegar {
                 receptor: string;
                 date: number;
                 cost: number;
-            }[]
+            }>
         >;
         CountOutbox: ResponseK<
             {
@@ -139,27 +139,27 @@ declare namespace kavenegar {
                 enddate?: number;
                 status?: number;
             },
-            {
+            Array<{
                 startdate: number;
                 enddate: number;
                 sumpart: number;
                 sumcount: number;
                 cost: number;
-            }[]
+            }>
         >;
         Cancel: ResponseK<
             { messageid: string | number[] },
-            { messageid: number; status: number; statustext: string }[]
+            Array<{ messageid: number; status: number; statustext: string }>
         >;
         Receive: ResponseK<
             { linenumber: string; isread: 0 | 1 },
-            {
+            Array<{
                 messageid: number;
                 message: string;
                 sender: string;
                 receptor: string;
                 date: number;
-            }[]
+            }>
         >;
         CountInbox: ResponseK<
             {
@@ -168,7 +168,7 @@ declare namespace kavenegar {
                 linenumber?: string;
                 isread?: 0 | 1;
             },
-            { startdate: number; enddate: number; sumcount: number }[]
+            Array<{ startdate: number; enddate: number; sumcount: number }>
         >;
         CountPostalCode: ResponseK<any, any>;
         SendByPostalCode: ResponseK<any, any>;
@@ -181,7 +181,7 @@ declare namespace kavenegar {
                 template: string;
                 type?: string;
             },
-            {
+            Array<{
                 messageid: number;
                 message: string;
                 status: number;
@@ -190,7 +190,7 @@ declare namespace kavenegar {
                 receptor: string;
                 date: number;
                 cost: number;
-            }[]
+            }>
         >;
         CallMakeTTS: ResponseK<
             {
@@ -200,7 +200,7 @@ declare namespace kavenegar {
                 localid?: string;
                 repeat?: number;
             },
-            {
+            Array<{
                 messageid: number;
                 message: string;
                 status: number;
@@ -209,7 +209,7 @@ declare namespace kavenegar {
                 receptor: string;
                 date: number;
                 cost: number;
-            }[]
+            }>
         >;
         AccountInfo: ResponseK<{}, { remaincredit: number; expiredate: number; type: string }>;
         AccountConfig: ResponseK<
@@ -231,8 +231,6 @@ declare namespace kavenegar {
             }
         >;
     }
-
-    function KavenegarApi(options: kavenegar.Options): KavenegarInstance;
 }
 
-export = kavenegar;
+export function KavenegarApi(options: kavenegar.Options): kavenegar.KavenegarInstance;
