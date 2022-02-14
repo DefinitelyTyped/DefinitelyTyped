@@ -14,9 +14,6 @@
             "../"
         ],
         "paths": {
-            "tapable": [
-                "tapable/v1"
-            ],
             "@loadable/*": [
                 "loadable__*"
             ]
