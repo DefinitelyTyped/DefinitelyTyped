@@ -387,6 +387,7 @@ function allModuleNames(): string[] {
         "takeWhile",
         "tap",
         "template",
+        "templateSettings",
         "throttle",
         "thru",
         "times",

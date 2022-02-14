@@ -9,6 +9,7 @@
 //                 Jack Moore <https://github.com/jtmthf>,
 //                 Dominique Rau <https://github.com/DomiR>
 //                 William Chelman <https://github.com/WilliamChelman>
+//                 Peter Placzek <https://github.com/tada5hi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="./common/common.d.ts" />
