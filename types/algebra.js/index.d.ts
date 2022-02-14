@@ -1,4 +1,4 @@
-// Type definitions for algebra.js 0.2
+// Type definitions for algebra.js 0.2.6
 // Project: http://algebra.js.org
 // Definitions by: Federico Caselli <https://github.com/CaselIT>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
