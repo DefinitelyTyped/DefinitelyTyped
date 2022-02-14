@@ -259,7 +259,7 @@ export namespace discovery {
          * @param callback The callback sent to `subscribe` will be called with a list of `authn` services.
          * @see {@link https://docs.onflow.org/fcl/reference/api/#discoveryauthnsubscribecallback}
          */
-        // TODO: check param
+        // TODO: check syntax of param in https://github.com/onflow/fcl-js or with FCL dev team
         function subscribe(callback: (res: { results: WalletService[] }) => void): void;
     }
 }
@@ -534,7 +534,8 @@ export function tx(transactionId: string): {
     /**
      * Returns the current state of the transaction.
      */
-    snapshot(): TransactionObject; // TODO: double check this line
+    // TODO: check return type in https://github.com/onflow/fcl-js or with FCL dev team
+    snapshot(): TransactionObject;
     /**
      * Calls the callback passed in with the new transaction on a status change.
      */
@@ -568,8 +569,9 @@ export function events(eventName: string): {
 };
 
 // TYPES, INTERFACES, AND DEFINITIONS
-// TODO: Builders [getAccount, getBlock, atBlockHeight, atBlockId, getBlockHeader, getEventsAtBlockHeightRange, getEventsAtBlockIds ...
-// TODO: ...getCollection, getTransactionStatus, getTransaction, arg, script, transaction, account, block]
+// TODO: How to better leverage TypeScript to say that Builders us the union of all builder methods:
+// getAccount, getBlock, atBlockHeight, atBlockId, getBlockHeader, getEventsAtBlockHeightRange, getEventsAtBlockIds,
+// getCollection, getTransactionStatus, getTransaction, arg, script, transaction, account, block
 /**
  * Builders are modular functions that can be coupled together with `fcl.send([...builders])``
  * to create an {@link Interaction}. The builders needed to create an interaction
@@ -578,7 +580,7 @@ export function events(eventName: string): {
  */
 export type Builders = any;
 
-// TODO: Interaction
+// TODO: Double check with FCL dev team if Interaction needs to be added from https://github.com/onflow/fcl-js/blob/master/packages/sdk/src/interaction/interaction.js#L66
 /**
  * An interaction is an object containing the information to perform an action on chain.
  * This object is populated through builders and converted into the approriate access node API call.
@@ -850,7 +852,7 @@ export interface KeyObject {
     revoked: boolean;
 }
 
-// TODO: SealedBlockObject
+// TODO: Double check with FCL dev team where I can find types for SealedBlockObject (they are absent from docs https://docs.onflow.org/fcl/reference/api/#blockobject)
 export type SealedBlockObject = object;
 
 /**
@@ -925,7 +927,7 @@ export interface CollectionObject {
     transactionIds: string[];
 }
 
-// TODO: ResponseObject
+// TODO: Double check with FCL dev team that ResponseObject needs to be typed from https://github.com/onflow/fcl-js/tree/master/packages/sdk/src/response#internal-properties
 /**
  * The format of all responses in FCL returned from `fcl.send(...)`.
  * For full details on the values and descriptions of the keys, view here.
@@ -1132,7 +1134,10 @@ export enum GRPCStatus {
     UNAUTHENTICATED = 16,
 }
 
-// TODO: Is there a better way?
+// TODO: How to better leverage Typescript here?
+// when writing `t.String`, given `t` is a `FType`, I want auto-completion on all different types
+// but `String` is a value that FType can take, it is not of type `any` per say.
+// but I don't know enough TS to find the right pattern here.
 /**
  * @see {@link https://docs.onflow.org/fcl/reference/api/#ftype}
  */
