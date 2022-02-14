@@ -143,11 +143,10 @@ import { Equation, Expression, Fraction, parse, toTex } from 'algebra.js';
   exp.toString();
 }
 {
-    let eq = new Equation(new Expression('x').multiply('m'), new Expression('k'))
-    eq.solveFor('x')
-    eq = new Equation(new Expression('x').multiply('m'), new Expression('k'))
-    eq.solveFor('k')
-
+    let eq = new Equation(new Expression('x').multiply('m'), new Expression('k'));
+    eq.solveFor('x');
+    eq = new Equation(new Expression('x').multiply('m'), new Expression('k'));
+    eq.solveFor('k');
 }
 {
   const eq = parse("x^2 + 4 * x + 4 = 0") as Equation;
