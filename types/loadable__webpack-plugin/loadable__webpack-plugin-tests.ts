@@ -1,7 +1,7 @@
 import LoadablePlugin from '@loadable/webpack-plugin';
-import { Configuration } from 'webpack';
+import webpack from 'webpack';
 
-let config: Configuration = {
+let config: webpack.Configuration = {
   plugins: [new LoadablePlugin()],
 };
 

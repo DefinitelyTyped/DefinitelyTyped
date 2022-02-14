@@ -5,6 +5,7 @@
             "es6"
         ],
         "noImplicitAny": true,
+        "esModuleInterop": true,
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
@@ -13,9 +14,6 @@
             "../"
         ],
         "paths": {
-            "webpack": [
-                "webpack/v4"
-            ],
             "tapable": [
                 "tapable/v1"
             ],
