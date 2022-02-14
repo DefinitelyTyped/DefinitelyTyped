@@ -34,7 +34,7 @@ export namespace kavenegar {
     type Actions = 'sms' | 'verify' | 'account' | 'call';
 
     interface KavenegarInstance {
-        request: (action: Actions, method: Methods, params: object, callback: void) => void;
+        request: (action: Actions, method: Methods, params: object, callback: any) => void;
         Send: ResponseK<
             {
                 receptor: string;
