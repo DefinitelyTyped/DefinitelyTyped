@@ -1,6 +1,7 @@
 // Type definitions for @loadable/webpack-plugin 5.7
 // Project: https://github.com/smooth-code/loadable-components
 // Definitions by: Spencer Miskoviak <https://github.com/skovy>
+//                 Max Duval <https://github.com/mxdvl>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 
