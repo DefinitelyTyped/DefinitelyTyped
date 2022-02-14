@@ -4,8 +4,6 @@
 //                 SardineFish <https://github.com/SardineFish>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export as namespace Noise;
-
 export class Noise {
   /**
    * Passing in seed will seed this Noise instance
@@ -49,4 +47,8 @@ export class Noise {
    * @param {number} seed [description]
    */
   seed(seed: number): void;
+}
+
+declare global {
+  const Noise: Noise;
 }
