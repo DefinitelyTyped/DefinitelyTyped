@@ -1,4 +1,4 @@
-// Type definitions for kavenegar-node 1.1.4
+// Type definitions for kavenegar 1.1.4
 // Project: https://github.com/kavenegar/kavenegar-node
 // Definitions by: Nima Ebrazeh <https://github.com/nimaebra>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
