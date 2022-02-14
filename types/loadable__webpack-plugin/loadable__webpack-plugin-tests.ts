@@ -18,3 +18,7 @@ config = {
 config = {
   plugins: [new LoadablePlugin({ writeToDisk: { filename: 'stats.json' } })],
 };
+
+config = {
+    plugins: [new LoadablePlugin().apply]
+}
