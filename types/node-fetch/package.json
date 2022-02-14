@@ -1,6 +1,6 @@
 {
     "private": true,
     "dependencies": {
-        "@types/node-fetch": "^2.5.12"
+        "form-data": "^2.3.3"
     }
 }

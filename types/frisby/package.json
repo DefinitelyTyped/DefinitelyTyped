@@ -1,7 +1,6 @@
 {
     "private": true,
     "dependencies": {
-        "@types/node-fetch": "^2.5.12",
         "joi": "^17.3.0"
     }
 }
