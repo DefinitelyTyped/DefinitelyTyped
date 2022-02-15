@@ -1,26 +1,28 @@
-import { Oid } from './oid';
-import { Reference } from './reference';
-import { Odb } from './odb';
-import { Index } from './index_';
-import { Commit } from './commit';
-import { Blob } from './blob';
-import { Tree } from './tree';
-import { Signature } from './signature';
 import { AnnotatedCommit } from './annotated-commit';
-import { FetchOptions } from './fetch-options';
+import { Blob } from './blob';
 import { CheckoutOptions } from './checkout-options';
-import { Remote } from './remote';
-import { Tag } from './tag';
+import { Commit } from './commit';
 import { Config } from './config';
+import { DiffLine } from './diff-line';
+import { Error } from './error';
+import { FetchOptions } from './fetch-options';
+import { Index } from './index_';
 import { Merge } from './merge';
 import { MergeOptions } from './merge-options';
+import { Odb } from './odb';
+import { Oid } from './oid';
 import { Refdb } from './ref-db';
+import { Reference } from './reference';
+import { Remote } from './remote';
 import { Revwalk } from './rev-walk';
+import { Signature } from './signature';
 import { StatusFile } from './status-file';
 import { StatusOptions } from './status-options';
-import { DiffLine } from './diff-line';
+import { Submodule } from './submodule';
+import { Tag } from './tag';
+import { Tree } from './tree';
 import { Treebuilder } from './tree-builder';
-import { Error } from './error';
+import { Worktree } from './worktree';
 
 export interface RepositoryInitOptions {
     description?: string;
@@ -43,6 +45,7 @@ export class Repository {
     static open(path: string): Promise<Repository>;
     static openBare(barePath: string): Promise<Repository>;
     static openExt(path: string, flags?: number, ceilingDirs?: string): Promise<Repository>;
+    static openFromWorktree(wt: Worktree): Promise<Repository>;
     static wrapOdb(odb: Odb): Promise<Repository>;
 
     cleanup(): Promise<void>;
@@ -54,6 +57,7 @@ export class Repository {
 
     free(): void;
     getNamespace(): string;
+    getSubmodules(): Promise<Submodule[]>
     head(): Promise<Reference>;
     headDetached(): number;
     headUnborn(): number;
@@ -61,11 +65,13 @@ export class Repository {
     isBare(): number;
     isEmpty(): number;
     isShallow(): number;
+    itemPath(item: number): Promise<string>;
     mergeheadForeach(callback?: Function): Promise<any>;
     messageRemove(): number;
     odb(): Promise<Odb>;
     path(): string;
     refdb(): Promise<Refdb>;
+    refreshReferences(): Promise<void>;
     setHead(refname: string): Promise<number>;
     setHeadDetached(commitish: Oid): number;
     setHeadDetachedFromAnnotated(commitish: AnnotatedCommit): number;
