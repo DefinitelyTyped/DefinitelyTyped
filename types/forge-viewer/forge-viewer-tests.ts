@@ -142,7 +142,7 @@ async function bulkPropertiesTests(model: Autodesk.Viewing.Model): Promise<void>
 }
 
 async function compGeomTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void> {
-    await viewer.loadExtension('Autodesk.DataVisualization');
+    await viewer.loadExtension('Autodesk.CompGeom');
     const pln = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0);
 
     Autodesk.Extensions.CompGeom.makePlaneBasis(pln);
@@ -177,7 +177,9 @@ async function dataVizTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void>
     heatmapData.addChild(level);
     heatmapData.initialize(viewer.model);
     await ext.setupSurfaceShading(viewer.model, heatmapData);
-    ext.registerSurfaceShadingColors('temperature', [ 0xff0000, 0x0000ff ]);
+    ext.registerSurfaceShadingColors('temperature', [ 0xff0000, 0x0000ff ], {
+        alpha: 0.7
+    });
 
     const getSensorValue = (device: any, sensorType: any) => {
         const value = Math.random();
@@ -205,7 +207,9 @@ async function dataVizPlanarTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise
     await ext.setupSurfaceShading(viewer.model, heatmapData, {
         type: 'PlanarHeatmap'
     });
-    ext.registerSurfaceShadingColors('temperature', [ 0xff0000, 0x0000ff ]);
+    ext.registerSurfaceShadingColors('temperature', [ 0xff0000, 0x0000ff ], {
+        alpha: 0.7
+    });
 
     const getSensorValue = (device: any, sensorType: any) => {
         const value = Math.random();
