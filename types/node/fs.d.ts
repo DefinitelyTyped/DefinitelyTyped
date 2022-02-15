@@ -2233,6 +2233,20 @@ declare module 'fs' {
      */
     export function writeSync(fd: number, string: string, position?: number | null, encoding?: BufferEncoding | null): number;
     export type ReadPosition = number | bigint;
+    export interface ReadSyncOptions {
+        /**
+         * @default 0
+         */
+        offset?: number | undefined;
+        /**
+         * @default `length of buffer`
+         */
+        length?: number | undefined;
+        /**
+         * @default null
+         */
+        position?: ReadPosition | null | undefined;
+    }
     /**
      * Read data from the file specified by `fd`.
      *
@@ -2276,20 +2290,6 @@ declare module 'fs' {
             bytesRead: number;
             buffer: TBuffer;
         }>;
-    }
-    export interface ReadSyncOptions {
-        /**
-         * @default 0
-         */
-        offset?: number | undefined;
-        /**
-         * @default `length of buffer`
-         */
-        length?: number | undefined;
-        /**
-         * @default null
-         */
-        position?: ReadPosition | null | undefined;
     }
     /**
      * Returns the number of `bytesRead`.
