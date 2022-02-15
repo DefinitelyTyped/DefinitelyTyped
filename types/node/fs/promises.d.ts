@@ -17,6 +17,7 @@ declare module 'fs/promises' {
         StatOptions,
         WriteVResult,
         ReadVResult,
+        StringLike,
         PathLike,
         RmDirOptions,
         RmOptions,
@@ -356,7 +357,7 @@ declare module 'fs/promises' {
             buffer: TBuffer;
         }>;
         write(
-            data: string,
+            string: StringLike,
             position?: number | null,
             encoding?: BufferEncoding | null
         ): Promise<{

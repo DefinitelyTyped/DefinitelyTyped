@@ -10,6 +10,10 @@ import { CopyOptions, cpSync, cp } from 'fs';
         "Do unto others as you would have them do unto you.",
         assert.ifError);
 
+    const testObj = {
+        toString: function() { return 'testing' },
+    }
+    fs.write(1234, testObj, () => { });
     fs.write(1234, "test", () => { });
 
     fs.writeFile("Harry Potter",
@@ -442,7 +446,10 @@ async () => {
 
     await handle.read(new Uint32Array(), 1, 2, 3);
     await handle.read(Buffer.from('hurr'));
-
+    const testObj = {
+        toString: function() { return 'testing' },
+    }
+    await handle.write(testObj);
     await handle.write('hurr', 0, 'utf-8');
     await handle.write(Buffer.from('hurr'), 0, 42, 10);
 };

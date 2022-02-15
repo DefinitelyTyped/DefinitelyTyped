@@ -27,6 +27,10 @@ declare module 'fs' {
     /**
      * Valid types for path values in "fs".
      */
+    interface objectWithToString extends Object {
+        toString: () => string;
+    }
+    export type StringLike = string | objectWithToString;
     export type PathLike = string | Buffer | URL;
     export type PathOrFileDescriptor = PathLike | number;
     export type TimeLike = string | number | Date;
@@ -2162,7 +2166,7 @@ declare module 'fs' {
      */
     export function write(
         fd: number,
-        string: string,
+        string: StringLike,
         position: number | undefined | null,
         encoding: BufferEncoding | undefined | null,
         callback: (err: NodeJS.ErrnoException | null, written: number, str: string) => void
@@ -2173,13 +2177,13 @@ declare module 'fs' {
      * @param string A string to write.
      * @param position The offset from the beginning of the file where this data should be written. If not supplied, defaults to the current position.
      */
-    export function write(fd: number, string: string, position: number | undefined | null, callback: (err: NodeJS.ErrnoException | null, written: number, str: string) => void): void;
+    export function write(fd: number, string: StringLike, position: number | undefined | null, callback: (err: NodeJS.ErrnoException | null, written: number, str: string) => void): void;
     /**
      * Asynchronously writes `string` to the file referenced by the supplied file descriptor.
      * @param fd A file descriptor.
      * @param string A string to write.
      */
-    export function write(fd: number, string: string, callback: (err: NodeJS.ErrnoException | null, written: number, str: string) => void): void;
+    export function write(fd: number, string: StringLike, callback: (err: NodeJS.ErrnoException | null, written: number, str: string) => void): void;
     export namespace write {
         /**
          * Asynchronously writes `buffer` to the file referenced by the supplied file descriptor.
@@ -2207,7 +2211,7 @@ declare module 'fs' {
          */
         function __promisify__(
             fd: number,
-            string: string,
+            string: StringLike,
             position?: number | null,
             encoding?: BufferEncoding | null
         ): Promise<{
@@ -2231,7 +2235,7 @@ declare module 'fs' {
      * @param position The offset from the beginning of the file where this data should be written. If not supplied, defaults to the current position.
      * @param encoding The expected string encoding.
      */
-    export function writeSync(fd: number, string: string, position?: number | null, encoding?: BufferEncoding | null): number;
+    export function writeSync(fd: number, string: StringLike, position?: number | null, encoding?: BufferEncoding | null): number;
     export type ReadPosition = number | bigint;
     /**
      * Read data from the file specified by `fd`.
