@@ -36,14 +36,14 @@ declare namespace M {
 
         /**
          * HTML content that will be appended to to text.
-         * Only use properly sanitized or otherwise trusted data for unsafeHTML. 
+         * Only use properly sanitized or otherwise trusted data for unsafeHTML.
          */
         unsafeHTML: string;
 
         /**
-         * HTML content that will be appended to text.  
-         * Only use properly sanitized or otherwise trusted data for html.  
-         * Will be ignored if unsafeHTML is set.  
+         * HTML content that will be appended to text.
+         * Only use properly sanitized or otherwise trusted data for html.
+         * Will be ignored if unsafeHTML is set.
          * @deprecated Will be removed in a later release.
          */
         html: string;

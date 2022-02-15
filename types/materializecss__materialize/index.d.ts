@@ -1,4 +1,4 @@
-// Type definitions for materializecss__materialize 1.1.0
+// Type definitions for materializecss__materialize 1.1
 // Project: https://materializecss.github.io/materialize/
 // Definitions by:  胡玮文 <https://github.com/huww98>
 //                  Maxim Balaganskiy <https://github.com/MaximBalaganskiy>

@@ -1,4 +1,4 @@
-import * as M from "@materializecss/materialize";
+import * as M from "materializecss__materialize";
 import * as jQuery from "jquery";
 import cash from "cash-dom";
 

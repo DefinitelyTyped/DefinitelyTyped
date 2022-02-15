@@ -1,4 +1,4 @@
-import * as materialize from "@materializecss/materialize";
+import * as materialize from "materializecss__materialize";
 import cash from "cash-dom";
 
 const elem = document.querySelector('.whatever') as HTMLElement;
