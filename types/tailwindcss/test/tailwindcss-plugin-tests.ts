@@ -52,5 +52,18 @@ const tailwindConfig: TailwindConfig = {
                 });
             };
         }),
+        plugin.withOptions(options => {
+            return ({ addComponents }) => {
+                const className = options.className ?? 'markdown';
+
+                addComponents([
+                    {
+                        [`.${className}`]: {
+                            // ...
+                        },
+                    },
+                ]);
+            };
+        }),
     ],
 };
