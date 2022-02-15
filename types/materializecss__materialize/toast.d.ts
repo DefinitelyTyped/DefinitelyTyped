@@ -36,14 +36,24 @@ declare namespace M {
 
         /**
          * HTML content that will be appended to to text.
+<<<<<<< HEAD
          * Only use properly sanitized or otherwise trusted data for unsafeHTML.
+=======
+         * Only use properly sanitized or otherwise trusted data for unsafeHTML. 
+>>>>>>> adfd14cf47 (Type declarations for @materializecss/materialize)
          */
         unsafeHTML: string;
 
         /**
+<<<<<<< HEAD
          * HTML content that will be appended to text.
          * Only use properly sanitized or otherwise trusted data for html.
          * Will be ignored if unsafeHTML is set.
+=======
+         * HTML content that will be appended to text.  
+         * Only use properly sanitized or otherwise trusted data for html.  
+         * Will be ignored if unsafeHTML is set.  
+>>>>>>> adfd14cf47 (Type declarations for @materializecss/materialize)
          * @deprecated Will be removed in a later release.
          */
         html: string;

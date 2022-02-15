@@ -1,1 +1,10 @@
+<<<<<<< HEAD
 { "extends": "@definitelytyped/dtslint/dt.json" }
+=======
+{
+    "extends": "@definitelytyped/dtslint/dt.json",
+    "rules": {
+
+    }
+ }
+>>>>>>> adfd14cf47 (Type declarations for @materializecss/materialize)
