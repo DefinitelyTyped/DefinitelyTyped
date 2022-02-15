@@ -104,7 +104,7 @@ repo.getHeadCommit().then(async commit => {
     }
 });
 
-repo.getRemoteNames().then((remoteNames) => {
+repo.getRemoteNames().then(remoteNames => {
     const names: string[] = remoteNames;
 });
 
@@ -146,11 +146,11 @@ revwalk.fastWalk(100).then(oids => {
         oid; // $ExpectType Oid
 
         const sha = oid.tostrS();
-        sha;  // $ExpectType string
+        sha; // $ExpectType string
     }
 });
 
-Git.Remote.create(repo, 'test-repository', 'https://github.com/test-repository/test-repository').then((remote) => {
+Git.Remote.create(repo, 'test-repository', 'https://github.com/test-repository/test-repository').then(remote => {
     remote.connect(Git.Enums.DIRECTION.FETCH, {});
     remote.defaultBranch(); // $ExpectType Promise<string>
 });

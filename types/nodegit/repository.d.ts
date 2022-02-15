@@ -57,7 +57,7 @@ export class Repository {
 
     free(): void;
     getNamespace(): string;
-    getSubmodules(): Promise<Submodule[]>
+    getSubmodules(): Promise<Submodule[]>;
     head(): Promise<Reference>;
     headDetached(): number;
     headUnborn(): number;
@@ -113,7 +113,7 @@ export class Repository {
      * Lookup reference names for a repository.
      */
     getReferenceNames(type: Reference.TYPE): Promise<string[]>;
-    getCommit(string: string | Commit| Oid): Promise<Commit>;
+    getCommit(string: string | Commit | Oid): Promise<Commit>;
     /**
      * Retrieve the blob represented by the oid.
      */
@@ -151,7 +151,15 @@ export class Repository {
      * Retrieve the commit that HEAD is currently pointing to
      */
     getHeadCommit(): Promise<Commit>;
-    createCommit(updateRef: string, author: Signature, committer: Signature, message: string, Tree: Tree | Oid | string, parents: Array<string | Commit | Oid>, callback?: Function): Promise<Oid>;
+    createCommit(
+        updateRef: string,
+        author: Signature,
+        committer: Signature,
+        message: string,
+        Tree: Tree | Oid | string,
+        parents: Array<string | Commit | Oid>,
+        callback?: Function,
+    ): Promise<Oid>;
     createCommitWithSignature(
         updateRef: string,
         author: Signature,
@@ -159,7 +167,11 @@ export class Repository {
         message: string,
         Tree: Tree | Oid | string,
         parents: Array<string | Commit | Oid>,
-        onSignature: (data: string) => Promise<{code: Error.CODE, field?: string | undefined, signedData: string}> | {code: Error.CODE, field?: string | undefined, signedData: string}
+        onSignature: (
+            data: string,
+        ) =>
+            | Promise<{ code: Error.CODE; field?: string | undefined; signedData: string }>
+            | { code: Error.CODE; field?: string | undefined; signedData: string },
     ): Promise<Oid>;
     /**
      * Creates a new commit on HEAD from the list of passed in files
@@ -177,7 +189,7 @@ export class Repository {
     /**
      * Lists out the names of remotes in the given repository.
      */
-     getRemoteNames(): Promise<string[]>;
+    getRemoteNames(): Promise<string[]>;
     /**
      * Lists out the remotes in the given repository.
      */
@@ -194,11 +206,23 @@ export class Repository {
      * Fetches from all remotes. This is done in series due to deadlocking issues with fetching from many remotes that can happen.
      */
     fetchAll(fetchOptions?: FetchOptions, callback?: Function): Promise<void>;
-    mergeBranches(to: string | Reference, from: string | Reference, signature?: Signature, mergePreference?: Merge.PREFERENCE, mergeOptions?: MergeOptions): Promise<Oid>;
+    mergeBranches(
+        to: string | Reference,
+        from: string | Reference,
+        signature?: Signature,
+        mergePreference?: Merge.PREFERENCE,
+        mergeOptions?: MergeOptions,
+    ): Promise<Oid>;
     /**
      * Rebases a branch onto another branch
      */
-    rebaseBranches(branch: string, upstream: string, onto: string, signature: Signature, beforeNextFn: Function): Promise<Oid>;
+    rebaseBranches(
+        branch: string,
+        upstream: string,
+        onto: string,
+        signature: Signature,
+        beforeNextFn: Function,
+    ): Promise<Oid>;
     continueRebase(signature: Signature, beforeNextFn: Function): Promise<Oid>;
     /**
      * Get the status of a repo to it's working directory
