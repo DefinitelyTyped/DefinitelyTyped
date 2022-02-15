@@ -11,8 +11,8 @@ import { CopyOptions, cpSync, cp } from 'fs';
         assert.ifError);
 
     const testObj = {
-        toString: function() { return 'testing' },
-    }
+        toString: () => 'testing',
+    };
     fs.write(1234, testObj, () => { });
     fs.write(1234, "test", () => { });
 
@@ -447,8 +447,8 @@ async () => {
     await handle.read(new Uint32Array(), 1, 2, 3);
     await handle.read(Buffer.from('hurr'));
     const testObj = {
-        toString: function() { return 'testing' },
-    }
+        toString: () => 'testing',
+    };
     await handle.write(testObj);
     await handle.write('hurr', 0, 'utf-8');
     await handle.write(Buffer.from('hurr'), 0, 42, 10);

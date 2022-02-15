@@ -28,7 +28,7 @@ declare module 'fs' {
      * Valid types for path values in "fs".
      */
     interface objectWithToString extends Object {
-        toString: () => string;
+        toString(): string;
     }
     export type StringLike = string | objectWithToString;
     export type PathLike = string | Buffer | URL;
