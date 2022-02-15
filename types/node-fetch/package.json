@@ -1,6 +1,6 @@
 {
     "private": true,
     "dependencies": {
-        "form-data": "^2.3.3"
+        "form-data": "^3.0.0"
     }
 }
