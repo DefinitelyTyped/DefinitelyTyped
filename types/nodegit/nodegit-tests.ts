@@ -174,3 +174,5 @@ Git.Refspec.parse('+refs/heads/*:refs/remotes/origin/*', 0).then(refspec => {
     refspec.srcMatches('refs/remotes/origin/*'); // $ExpectType number
     refspec.string(); // $ExpectType string
 });
+
+repo.cleanup();
