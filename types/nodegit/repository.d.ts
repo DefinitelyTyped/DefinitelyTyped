@@ -1,8 +1,6 @@
 import { Oid } from './oid';
-import { Buf } from './buf';
 import { Reference } from './reference';
 import { Odb } from './odb';
-import { Object } from './object';
 import { Index } from './index_';
 import { Commit } from './commit';
 import { Blob } from './blob';
