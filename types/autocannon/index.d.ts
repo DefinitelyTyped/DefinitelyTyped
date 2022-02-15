@@ -164,6 +164,11 @@ declare namespace autocannon {
          * @default false
          */
         excludeErrorStats?: boolean | undefined;
+        
+        /**
+         * The number of worker threads to use to fire requests.
+         */
+        workers?: number | undefined;
     }
 
     interface Request {
