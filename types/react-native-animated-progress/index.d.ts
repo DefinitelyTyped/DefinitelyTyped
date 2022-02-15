@@ -1,4 +1,4 @@
-// Type definitions for react-native-animated-progress 1.0.2
+// Type definitions for react-native-animated-progress 1.0
 // Project: https://github.com/kcotias/react-native-animated-progress
 // Definitions by: tup1tsa <https://github.com/tup1tsa>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
