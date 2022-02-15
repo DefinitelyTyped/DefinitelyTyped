@@ -2290,10 +2290,9 @@ declare module 'fs' {
         options: readAsyncOptions<TBuffer>,
         callback: (err: NodeJS.ErrnoException | null, bytesRead: number, buffer: TBuffer) => void
     ): void;
-    export function read<TBuffer extends NodeJS.ArrayBufferView>(
+    export function read(
         fd: number,
-        // tslint:disable-next-line:no-unnecessary-generics
-        callback: (err: NodeJS.ErrnoException | null, bytesRead: number, buffer: TBuffer) => void
+        callback: (err: NodeJS.ErrnoException | null, bytesRead: number, buffer: NodeJS.ArrayBufferView) => void
     ): void;
     export namespace read {
         /**
@@ -2318,10 +2317,9 @@ declare module 'fs' {
             options: readAsyncOptions<TBuffer>,
             callback: (err: NodeJS.ErrnoException | null, bytesRead: number, buffer: TBuffer) => void
         ): void;
-        function __promisify__<TBuffer extends NodeJS.ArrayBufferView>(
+        function __promisify__(
             fd: number,
-            // tslint:disable-next-line:no-unnecessary-generics
-            callback: (err: NodeJS.ErrnoException | null, bytesRead: number, buffer: TBuffer) => void
+            callback: (err: NodeJS.ErrnoException | null, bytesRead: number, buffer: NodeJS.ArrayBufferView) => void
         ): void;
     }
     /**
