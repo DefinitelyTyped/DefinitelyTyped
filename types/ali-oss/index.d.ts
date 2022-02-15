@@ -185,7 +185,11 @@ declare namespace OSS {
         rt: number;
     }
 
-    interface UserMeta {
+    /**
+     * @see x-oss-meta-* in https://help.aliyun.com/document_detail/31978.html for Aliyun user
+     * @see x-oss-meta-* in https://www.alibabacloud.com/help/en/doc-detail/31978.html for AlibabaCloud user
+     */
+    interface UserMeta extends Record<string, string | number> {
         uid: number;
         pid: number;
     }
@@ -251,6 +255,7 @@ declare namespace OSS {
         /** the remote addr */
         RemoteAddr: string;
     }
+
     // parameters type
     interface ListBucketsQueryType {
         /** search buckets using prefix key */
