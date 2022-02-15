@@ -208,7 +208,8 @@ declare namespace autocannon {
             | 'UNBIND'
             | 'UNLINK'
             | 'UNLOCK'
-            | 'UNSUBSCRIBE' | undefined;
+            | 'UNSUBSCRIBE'
+            | undefined;
         path?: string | undefined;
     }
 
