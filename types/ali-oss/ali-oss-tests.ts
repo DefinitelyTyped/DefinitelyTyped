@@ -53,5 +53,5 @@ sts.assumeRole('roleArn', undefined, 3600, 'session name').then(token => {
 const userMeta: OSS.UserMeta = {
     uid: 0,
     pid: 0,
-    anything: 'anything'
+    anything: 'anything',
 };
