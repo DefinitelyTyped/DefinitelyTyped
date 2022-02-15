@@ -2247,6 +2247,10 @@ declare module 'fs' {
          */
         position?: ReadPosition | null | undefined;
     }
+    // tslint:disable-next-line:no-unnecessary-generics
+    export interface readAsyncOptions<TBuffer extends NodeJS.ArrayBufferView> extends ReadSyncOptions {
+        buffer?: TBuffer;
+    }
     /**
      * Read data from the file specified by `fd`.
      *
@@ -2272,6 +2276,25 @@ declare module 'fs' {
         position: ReadPosition | null,
         callback: (err: NodeJS.ErrnoException | null, bytesRead: number, buffer: TBuffer) => void
     ): void;
+    /**
+     * Similar to the above `fs.read` function, this version takes an optional `options` object.
+     * If not otherwise specified in an `options` object,
+     * `buffer` defaults to `Buffer.alloc(16384)`,
+     * `offset` defaults to `0`,
+     * `length` defaults to `buffer.byteLength`,  `- offset` after https://github.com/nodejs/node/pull/40349 is merged
+     * `position` defaults to `null`
+     * @since v12.17.0, 13.11.0
+     */
+    export function read<TBuffer extends NodeJS.ArrayBufferView>(
+        fd: number,
+        options: readAsyncOptions<TBuffer>,
+        callback: (err: NodeJS.ErrnoException | null, bytesRead: number, buffer: TBuffer) => void
+    ): void;
+    export function read<TBuffer extends NodeJS.ArrayBufferView>(
+        fd: number,
+        // tslint:disable-next-line:no-unnecessary-generics
+        callback: (err: NodeJS.ErrnoException | null, bytesRead: number, buffer: TBuffer) => void
+    ): void;
     export namespace read {
         /**
          * @param fd A file descriptor.
@@ -2290,6 +2313,16 @@ declare module 'fs' {
             bytesRead: number;
             buffer: TBuffer;
         }>;
+        function __promisify__<TBuffer extends NodeJS.ArrayBufferView>(
+            fd: number,
+            options: readAsyncOptions<TBuffer>,
+            callback: (err: NodeJS.ErrnoException | null, bytesRead: number, buffer: TBuffer) => void
+        ): void;
+        function __promisify__<TBuffer extends NodeJS.ArrayBufferView>(
+            fd: number,
+            // tslint:disable-next-line:no-unnecessary-generics
+            callback: (err: NodeJS.ErrnoException | null, bytesRead: number, buffer: TBuffer) => void
+        ): void;
     }
     /**
      * Returns the number of `bytesRead`.
