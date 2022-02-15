@@ -664,6 +664,10 @@
             "libraryName": "cordova-plugin-battery-status",
             "asOfVersion": "1.2.3"
         },
+        "cordova-plugin-ble-central": {
+            "libraryName": "cordova-plugin-ble-central",
+            "asOfVersion": "1.4.2"
+        },
         "cordova-plugin-camera": {
             "libraryName": "cordova-plugin-camera",
             "asOfVersion": "2.4.0"
