@@ -45,7 +45,7 @@ export class Repository {
     static openExt(path: string, flags?: number, ceilingDirs?: string): Promise<Repository>;
     static wrapOdb(odb: Odb): Promise<Repository>;
 
-    cleanup(): void;
+    cleanup(): Promise<void>;
     commondir(): string;
     config(): Promise<Config>;
     configSnapshot(): Promise<Config>;
