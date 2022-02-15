@@ -54,4 +54,4 @@ const userMeta: OSS.UserMeta = {
     uid: 0,
     pid: 0,
     anything: 'anything'
-}
+};
