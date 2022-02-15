@@ -39,6 +39,7 @@ const complexOptions: Options = {
             dest: 'style.css',
         },
     ],
+    transformFileName: (fileNameBase, extension, hash) => `${fileNameBase}.[${hash}]${extension}`,
 };
 
 const webpackConfiguration: Configuration = {

@@ -30,6 +30,10 @@ declare namespace MergeIntoFile {
         [key: string]: string[];
     }
 
+    interface TransformFileNameFunction {
+        (fileNameBase: string, extension: string, hash: string): string;
+    }
+
     interface Options {
         /**
          * array of entry points (strings) for which this plugin should run only
@@ -52,11 +56,18 @@ declare namespace MergeIntoFile {
         hash?: boolean | undefined;
         /**
          * Object that maps resulting file names to transform methods that will be applied on merged content before saving. Use to minify / uglify the result.
-         * {@linkhttps://github.com/markshapiro/webpack-merge-and-include-globally#transform}
+         * {@link https://github.com/markshapiro/webpack-merge-and-include-globally#transform}
          */
-        transform?: {
-            [key: string]: (code: string) => string;
-        } | undefined;
+        transform?:
+            | {
+                  [key: string]: (code: string) => string;
+              }
+            | undefined;
+        /**
+         * A function for change output file name with hash
+         * {@link https://github.com/markshapiro/webpack-merge-and-include-globally#transformfilename}
+         */
+        transformFileName?: TransformFileNameFunction | undefined;
         /**
          * string used between files when joining them together
          * {@link https://github.com/markshapiro/webpack-merge-and-include-globally#separator}
