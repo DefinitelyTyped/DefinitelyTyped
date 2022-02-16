@@ -308,10 +308,10 @@ export interface HostedFields {
         vault?: boolean | undefined;
         cardholderName?: string | undefined;
         billingAddress?: any;
-        fieldsToTokenize?: string[];
+        fieldsToTokenize?: string[] | undefined;
     }): Promise<HostedFieldsTokenizePayload>;
     tokenize(
-        options: { vault?: boolean | undefined; cardholderName?: string | undefined; billingAddress?: any; fieldsToTokenize?: string[] },
+        options: { vault?: boolean | undefined; cardholderName?: string | undefined; billingAddress?: any; fieldsToTokenize?: string[] | undefined},
         callback: callback<HostedFieldsTokenizePayload>,
     ): void;
     tokenize(callback: callback<HostedFieldsTokenizePayload>): void;
