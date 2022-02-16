@@ -1055,6 +1055,16 @@ declare namespace Xrm {
         close(): void;
 
         /**
+         * Provides information on how to set the visibility of footer section.
+         */
+        footerSection: Controls.FooterSection;
+
+        /**
+         * Provides information on how to set the visibility of header section.
+         */
+        headerSection: Controls.HeaderSection;
+
+        /**
          * Gets form type.
          * @returns The form type.
          * @remarks **Values returned are**:
@@ -3684,6 +3694,64 @@ declare namespace Xrm {
              * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/collections External Link: Collections (Client API reference)}
              */
             controls: Collection.ItemCollection<Control>;
+        }
+
+        interface FooterSection {
+            /**
+             * Returns the footer section visibility.
+             * @remarks Available only for Unified Interface.  Footers aren't supported after 2021 wave 2 release.
+             * @see {@link https://docs.microsoft.com/en-us/power-platform/important-changes-coming#form-footers-in-model-driven-apps-wont-be-supported-with-the-2021-release-wave-2 External Link: Important notices}
+             */
+            getVisible(): boolean;
+
+            /**
+             * Sets the visibility of the footer section.
+             * @arg bool Specify true to show the footer section; false to hide the footer section.
+             * @remarks Available only for Unified Interface.  Footers aren't supported after 2021 wave 2 release.
+             * @see {@link https://docs.microsoft.com/en-us/power-platform/important-changes-coming#form-footers-in-model-driven-apps-wont-be-supported-with-the-2021-release-wave-2 External Link: Important notices}
+             */
+            setVisible(bool: boolean): void;
+        }
+
+        interface HeaderSection {
+            /**
+             * Returns the header's body visibility.
+             * @remarks Available only for Unified Interface.
+             */
+            getBodyVisible(): boolean;
+
+            /**
+             * Returns the command bar visibility.
+             * @remarks Available only for Unified Interface.
+             */
+            getCommandBarVisible(): boolean;
+
+            /**
+             * Returns the tab navigator visibility.
+             * @remarks Available only for Unified Interface.
+             */
+            getTabNavigatorVisible(): boolean;
+
+            /**
+             * Sets the header's body visibility.
+             * @arg bool Specify true to show the body; false to hide the body.
+             * @remarks Available only for Unified Interface.
+             */
+            setBodyVisible(bool: boolean): void;
+
+            /**
+             * Sets the command bar visibility.
+             * @arg bool Specify true to show the command bar; false to hide the command bar.
+             * @remarks Available only for Unified Interface.
+             */
+            setCommandBarVisible(bool: boolean): void;
+
+            /**
+             * Sets the tab navigator visibility.
+             * @arg bool Specify true to show the tab navigator; false to hide the tab navigator.
+             * @remarks Available only for Unified Interface.
+             */
+            setTabNavigatorVisible(bool: boolean): void;
         }
 
         interface AddControlNotificationOptions {

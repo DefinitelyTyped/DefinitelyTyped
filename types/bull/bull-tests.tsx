@@ -113,6 +113,7 @@ videoQueue.addBulk([
       }
     }
 ]);
+imageQueue.add({ image: 'http://example.com/image1.tiff' }, { removeOnComplete: { age: 60 * 60 * 24 }, removeOnFail: { age: 60 * 60 * 24, count: 10 } });
 
 //////////////////////////////////////////////////////////////////////////////////
 //

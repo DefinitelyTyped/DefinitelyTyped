@@ -13,7 +13,7 @@ export namespace Pathspec {
         NO_GLOB = 4,
         NO_MATCH_ERROR = 8,
         FIND_FAILURES = 16,
-        FAILURES_ONLY = 32
+        FAILURES_ONLY = 32,
     }
 }
 

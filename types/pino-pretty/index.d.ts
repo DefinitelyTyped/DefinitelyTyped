@@ -9,7 +9,7 @@ import { LogDescriptor } from "pino";
 
 export = PinoPretty;
 
-declare function PinoPretty(options: PinoPretty.PrettyOptions): PinoPretty.Prettifier;
+declare function PinoPretty(options?: PinoPretty.PrettyOptions): PinoPretty.Prettifier;
 
 declare namespace PinoPretty {
     type Prettifier = (inputData: string | object) => string;
