@@ -17,7 +17,7 @@ export function parse(str: string): any;
 export function stringify(obj: any, options?: StringifyOptions): string;
 
 export function toJSONValue(obj: any): string;
-export function fromJSONValue(obj: string): any;
+export function fromJSONValue(obj: Object): any;
 export function isBinary(value: any): boolean;
 export function newBinary(len: number): Uint8Array;
 export function equals(a: any, b: any, options?: CloneOptions): boolean;
