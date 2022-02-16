@@ -8,14 +8,12 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
         "paths": {
-            "lru-cache": [
-                "lru-cache/v5"
-            ]
+            "lru-cache": ["lru-cache/v5"]
         },
         "types": [],
         "noEmit": true,
@@ -23,6 +21,6 @@
     },
     "files": [
         "index.d.ts",
-        "async-cache-tests.ts"
+        "lru-cache-tests.ts"
     ]
 }

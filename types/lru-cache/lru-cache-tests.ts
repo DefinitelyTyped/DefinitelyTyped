@@ -7,58 +7,84 @@ interface Foo {
 }
 
 const foo = {
-    foo() {}
+    foo() {},
 };
 
 const cache = new LRUCache<string, Foo>();
 cache; // $ExpectType LRUCache<string, Foo>
+// prettier-ignore
 new LRUCache<string, Foo>({ // $ExpectType LRUCache<string, Foo>
     max: num,
-    maxAge: num,
-    length(value) {
+    maxSize: num,
+    ttl: num,
+    ttlResolution: num,
+    ttlAutopurge: false,
+    sizeCalculation(value) {
         value; // $ExpectType Foo
         return num;
     },
-    dispose(key, value) {
+    dispose(value, key) {
+        value; // $ExpectType Foo
         key; // $ExpectType string
-        value; // $ExpectType Foo
     },
-    stale: false,
+    allowStale: false,
     noDisposeOnSet: false,
+    updateAgeOnGet: false
 });
-new LRUCache<string, Foo>(num); // $ExpectType LRUCache<string, Foo>
+new LRUCache<string, Foo>(num); // $ExpectError
 new LRUCache<string, Foo>(); // $ExpectType LRUCache<string, Foo>
+// prettier-ignore
 new LRUCache<string, Foo>({ // $ExpectType LRUCache<string, Foo>
     max: num,
-    maxAge: num,
-    length: (value) => {
+    ttl: num,
+    sizeCalculation: value => {
         return num;
     },
-    dispose: (key, value) => {},
-    stale: false,
+    dispose: (value, key) => {},
+    allowStale: false,
     noDisposeOnSet: false,
 });
-new LRUCache<string, Foo>(num); // $ExpectType LRUCache<string, Foo>
 
-cache.length; // $ExpectType number
-cache.length = 1; // $ExpectError
+cache.size; // $ExpectType number
+cache.size = 1; // $ExpectError
 
-cache.itemCount; // $ExpectType number
-cache.itemCount = 1; // $ExpectError
-
-cache.allowStale; // $ExpectType boolean
-cache.allowStale = true;
-
-cache.lengthCalculator; // $ExpectType (value: Foo) => number
-cache.lengthCalculator = () => 1;
+cache.calculatedSize; // $ExpectType number
+cache.calculatedSize = 1; // $ExpectError
 
 cache.max; // $ExpectType number
 cache.max = 1;
 
-cache.maxAge; // $ExpectType number
-cache.maxAge = 1;
+cache.maxSize; // $ExpectType number | undefined
+cache.maxSize = 1;
 
-cache.set('foo', foo); // $ExpectType boolean
+cache.sizeCalculation; // $ExpectType ((value: Foo, key?: string | undefined) => number) | undefined
+cache.sizeCalculation = () => 1;
+
+cache.dispose; // $ExpectType ((value: Foo, key: string, reason: "evict" | "set" | "delete") => void) | undefined
+cache.dispose = () => 1;
+
+cache.disposeAfter; // $ExpectType ((value: Foo, key: string, reason: "evict" | "set" | "delete") => void) | undefined
+cache.disposeAfter = () => 1;
+
+cache.noDisposeOnSet; // $ExpectType boolean | undefined
+cache.noDisposeOnSet = true;
+
+cache.ttl; // $ExpectType number | undefined
+cache.ttl = 1;
+
+cache.ttlResolution; // $ExpectType number | undefined
+cache.ttlResolution = 1;
+
+cache.ttlAutopurge; // $ExpectType boolean | undefined
+cache.ttlAutopurge = true;
+
+cache.allowStale; // $ExpectType boolean | undefined
+cache.allowStale = true;
+
+cache.updateAgeOnGet; // $ExpectType boolean | undefined
+cache.updateAgeOnGet = true;
+
+cache.set('foo', foo); // $ExpectType LRUCache<string, Foo>
 cache.set(1, foo); // $ExpectError
 cache.set('foo', 1); // $ExpectError
 
@@ -71,11 +97,13 @@ cache.peek(1); // $ExpectError
 cache.has('foo'); // $ExpectType boolean
 cache.has(1); // $ExpectError
 
-cache.del('foo');
-cache.del(1); // $ExpectError
+cache.delete('foo');
+cache.delete(1); // $ExpectError
 
-cache.reset();
-cache.prune();
+cache.clear();
+cache.keys(); // $ExpectType Generator<string, void, unknown>
+cache.values(); // $ExpectType Generator<Foo, void, unknown>
+cache.entries(); // $ExpectType Generator<Entry<string, Foo>, void, unknown>
 
 cache.forEach(function(value, key, cache) {
     value; // $ExpectType Foo
@@ -102,9 +130,6 @@ cache.rforEach(function(value, key, cache) {
     cache; // $ExpectType LRUCache<string, Foo>
     this; // $ExpectType { foo(): void; }
 }, foo);
-
-cache.keys(); // $ExpectType string[]
-cache.values(); // $ExpectType Foo[]
 
 const dump = cache.dump();
 dump; // $ExpectType Entry<string, Foo>[]
