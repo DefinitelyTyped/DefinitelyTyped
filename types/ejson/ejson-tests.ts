@@ -50,8 +50,8 @@ function testToJSONValue() {
 }
 
 function testFromJSONValue() {
-  var str: string = '{a:"a"}';
-  importedFromJSONValue(str);
+  var json: Object = {a:"a"};
+  importedFromJSONValue(json);
 }
 
 function testIsBinary() {
