@@ -1,8 +1,13 @@
+// https://tailwindcss.com/docs/plugins#css-in-js-syntax
+export type AddComponentsFn = (
+    components: Record<string, any> | Array<Record<string, any>>
+) => void;
+
 // https://tailwindcss.com/docs/plugins
 export type TailwindPluginFn = (helpers: {
     addUtilities: any;
     matchUtilities: any;
-    addComponents: any;
+    addComponents: (components: Record<string, any>) => void;
     matchComponents: any;
     addBase: any;
     addVariant: any;

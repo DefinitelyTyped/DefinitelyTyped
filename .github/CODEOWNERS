@@ -89,6 +89,7 @@
 /types/akamai-edgeworkers/                              @evan-hughes @wabain @swathimr @ananner @bmatthew
 /types/akumina-core/                                    @akumina @jasonarden @MarshHawk
 /types/akumina-core/v4/                                 @akumina @jasonarden @MarshHawk
+/types/alcides/                                         @asaidimu
 /types/ale-url-parser/                                  @msn0 @peterblazejewicz
 /types/alertify/                                        @jjeffery
 /types/alexa-voice-service/                             @dolanmiu
@@ -2128,7 +2129,7 @@
 /types/fixed-data-table/                                @pepaar @stephenjelfs
 /types/fixed-data-table-2/                              @ilivit
 /types/flagged-respawn/                                 @BendingBender
-/types/flashpoint-launcher/                             @colin969
+/types/flashpoint-launcher/                             @colin969 @XXLuigiMario
 /types/flat/                                            @chrootsu @thewizarodofoz
 /types/flat-cache/                                      @kevinpollet
 /types/flatbush/                                        @mfedderly
@@ -2170,6 +2171,7 @@
 /types/fontagon/                                        @peterblazejewicz
 /types/fontfaceobserver/                                @RandScullard
 /types/fontkit/                                         @Teoxoy
+/types/fontmin/                                         @AsPulse
 /types/fontoxml/                                        @rolandzwaga
 /types/foreach/                                         @ExE-Boss @ljharb
 /types/forest-express-mongoose/                         @SteveBunlon @ghusse
@@ -2904,7 +2906,7 @@
 /types/hdkey/                                           @LogvinovLeon @TvrtkoM @JAlbertoGonzalez
 /types/he/                                              @sedwards2009 @lokidokicoki
 /types/headroom/                                        @hakubo @juninhocruzg3
-/types/headroom.js/                                     @hakubo @juninhocruzg3 @peterblazejewicz
+/types/headroom.js/                                     @hakubo @juninhocruzg3 @peterblazejewicz @manoldonev
 /types/heap/                                            @DefinitelyTyped
 /types/heapdump/                                        @weekens
 /types/heatmap.js/                                      @lookuptable @rhys-vdw
@@ -3833,7 +3835,7 @@
 /types/kube-probe/                                      @emacsified
 /types/kue/                                             @drudge @amiram @pc-jedi @deerawan
 /types/kue-ui-client/                                   @bengry
-/types/kurento-client/                                  @jhukdev @michelalbers @joeflateau @whitphx
+/types/kurento-client/                                  @jahilldev @michelalbers @joeflateau @whitphx
 /types/kurento-utils/                                   @nenadalm @riggs
 /types/kuromoji/                                        @mzsm @kgtkr
 /types/kythe/                                           @ayazhafiz
@@ -4371,6 +4373,7 @@
 /types/makeup-screenreader-trap/                        @darkwebdev
 /types/mandrill-api/                                    @pocesar
 /types/map-to-obj/                                      @JasonHK
+/types/map-values/                                      @ChocolateLoverRaj
 /types/mapbox/                                          @anahkiasen @Fluccioni
 /types/mapbox-gl/                                       @dobrud @patrickr @macobo @dmytro-gokun @LiamAttClarke @life777 @amxfonseca @Nosfit
 /types/mapbox-gl/v1/                                    @dobrud @patrickr @macobo @dmytro-gokun @LiamAttClarke @life777 @mklopets @amxfonseca
@@ -5047,6 +5050,7 @@
 /types/oakdex-pokedex/                                  @jalyna
 /types/oauth/                                           @nonAlgebraic @EduardoAC
 /types/oauth-shim/                                      @BendingBender
+/types/oauth-signature/                                 @okcoker
 /types/oauth.js/                                        @nobuoka
 /types/oauth2-implicit/                                 @VladimirGrenaderov @maxbogus
 /types/oauth2-server/                                   @vangorra @cirick @d-fischer @rvitorsantos
@@ -5771,7 +5775,7 @@
 /types/rdf-validate-datatype/                           @tpluscode
 /types/rdf-validate-shacl/                              @tpluscode
 /types/rdfjs__data-model/                               @jeswr @rubensworks @tpluscode
-/types/rdfjs__dataset/                                  @tpluscode
+/types/rdfjs__dataset/                                  @tpluscode @jeswr
 /types/rdfjs__express-handler/                          @tpluscode
 /types/rdfjs__fetch/                                    @tpluscode
 /types/rdfjs__fetch-lite/                               @tpluscode
@@ -7033,6 +7037,7 @@
 /types/snekfetch/                                       @ANekoIsFineToo @ShayBox
 /types/snmp-native/                                     @traverse1984
 /types/snowball-stemmers/                               @ryanvolum
+/types/snowflake-regex/                                 @ryanArora
 /types/snowflake-sdk/                                   @htunnicliff @orellabac
 /types/snowpack-env/                                    @FredKSchott @stramel @drwpow @Jack-Works
 /types/sns-validator/                                   @kevin68
@@ -7784,6 +7789,7 @@
 /types/videojs-hls-quality-selector/                    @peterblazejewicz
 /types/videojs-hotkeys/                                 @Coteh
 /types/videojs-mobile-ui/                               @peterblazejewicz
+/types/videojs-playlist-ui/                             @peterblazejewicz
 /types/videojs-seek-buttons/                            @peterblazejewicz
 /types/viewability-helper/                              @lironzluf
 /types/viewport-list/                                   @satyarohith
@@ -8049,7 +8055,7 @@
 /types/wordpress__block-serialization-default-parser/   @dsifford
 /types/wordpress__block-serialization-spec-parser/      @dsifford
 /types/wordpress__blocks/                               @dsifford @sirreal @dmsnell
-/types/wordpress__components/                           @dsifford @sirreal @p-jackson @sarayourfriend
+/types/wordpress__components/                           @dsifford @sirreal @p-jackson @sarayourfriend @michaelhthomas
 /types/wordpress__compose/                              @dsifford
 /types/wordpress__core-data/                            @dsifford
 /types/wordpress__custom-templated-path-webpack-plugin/ @dsifford

@@ -419,3 +419,25 @@ function onLoadSetupEvents(eventContext: Xrm.Events.EventContext) {
     const searchText = kbSearchControl.getSearchQuery();
     kbSearchControl.setSearchQuery("pot of gold");
 }
+
+// Demonstrate formContext.ui.footerSection methods
+function onChangeFormField(executionContext: Xrm.Events.EventContext): void {
+    const formContext = executionContext.getFormContext();
+    const footerSection = formContext.ui.footerSection;
+
+    const visible = footerSection.getVisible();
+    footerSection.setVisible(true);
+}
+
+// Demonstrate formContext.ui.headerSection methods
+function onChangeHeaderField(executionContext: Xrm.Events.EventContext): void {
+    const formContext = executionContext.getFormContext();
+    const headerSection = formContext.ui.headerSection;
+
+    const bodyVisible = headerSection.getBodyVisible();
+    const commandBarVisible = headerSection.getCommandBarVisible();
+    const getTabNavigatorVisible = headerSection.getTabNavigatorVisible();
+    headerSection.setBodyVisible(true);
+    headerSection.setCommandBarVisible(true);
+    headerSection.setTabNavigatorVisible(true);
+}

@@ -97,7 +97,6 @@ export { GraphQLSubscriptionConfig } from './lib/subscription/requestSubscriptio
 export {
     NormalizationArgument,
     NormalizationDefer,
-    NormalizationConnection,
     NormalizationField,
     NormalizationFlightField,
     NormalizationLinkedField,
@@ -108,8 +107,9 @@ export {
     NormalizationSelection,
     NormalizationSplitOperation,
     NormalizationStream,
+    NormalizationTypeDiscriminator,
+    NormalizationOperation,
 } from './lib/util/NormalizationNode';
-export { NormalizationOperation } from './lib/util/NormalizationNode';
 export {
     ReaderArgument,
     ReaderArgumentDefinition,
