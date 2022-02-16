@@ -869,17 +869,21 @@ declare module 'url' {
          * https://nodejs.org/api/url.html#the-whatwg-url-api
          * @since v10.0.0
          */
-        var URL: typeof globalThis extends { webkitURL: infer URL } ? URL : typeof _URL;
+        var URL:
+            // For compatibility with "dom" and "webworker" URL declarations
+            typeof globalThis extends { onmessage: any, URL: infer URL }
+                ? URL
+                : typeof _URL;
         /**
          * `URLSearchParams` class is a global reference for `require('url').URLSearchParams`
          * https://nodejs.org/api/url.html#class-urlsearchparams
          * @since v10.0.0
          */
-        var URLSearchParams: {
-            prototype: URLSearchParams;
-            new(init?: string[][] | Record<string, string> | string | URLSearchParams): URLSearchParams;
-            toString(): string;
-        };
+        var URLSearchParams:
+            // For compatibility with "dom" and "webworker" URLSearchParams declarations
+            typeof globalThis extends { onmessage: any, URLSearchParams: infer URLSearchParams }
+                ? URLSearchParams
+                : typeof _URLSearchParams;
     }
 }
 declare module 'node:url' {

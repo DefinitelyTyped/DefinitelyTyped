@@ -86,6 +86,7 @@ export interface BuyTrade {
     receiveAmount?: number | undefined; // 0.12345 - DEPRECATED, used only for TREZOR
     receiveStringAmount?: string | undefined; // 0.12345
     receiveAddress?: string | undefined; // users address for receive tx
+    receiveAddressExtraId?: string | undefined; // Extra ID for receive tx to exchange for networks that require it (destinationTag)
     rate?: number | undefined; // 100
     quoteId?: string | undefined; // ID of the quote assigned by exchange
     orderId?: string | undefined; // ID of the order assigned by us
@@ -107,6 +108,7 @@ export interface BuyTrade {
     wantCrypto?: boolean | undefined;
     tags?: BuyTradeTag[] | undefined;
     partnerData?: string | undefined; // arbitrary data specific for the partner
+    partnerData2?: string | undefined; // arbitrary data specific for the partner
     id?: string | undefined; // internal DB id
     // locally used data types
     tradeForm?: BuyTradeFormResponse | undefined;
@@ -337,6 +339,8 @@ export type SellTradeStatus =
 
 export type SellProviderType = 'Fiat' | 'Voucher';
 
+export type SellFiatFlowType = 'BANK_ACCOUNT' | 'PAYMENT_GATE' | 'N/A';
+
 export interface SellProviderInfo {
     name: string; // simplex
     companyName: string; // Simplex
@@ -351,6 +355,8 @@ export interface SellProviderInfo {
     quoteInfo?: string | undefined; // some info text shown on quote
     voucherSiteOrigin?: string | undefined;
     paymentMethods?: SellCryptoPaymentMethod[] | undefined;
+    flow?: SellFiatFlowType | undefined;
+    isRefundAddressRequired?: boolean | undefined;
 }
 
 export interface SellListResponse {
@@ -382,6 +388,7 @@ export interface SellFiatTradeQuoteRequest {
     cryptoCurrency: string; // BTC
     country?: string | undefined;
     paymentMethod?: SellCryptoPaymentMethod | undefined;
+    flows?: SellFiatFlowType[] | undefined;
 }
 
 export type SellFiatTradeQuoteResponse = SellFiatTrade[];
@@ -401,6 +408,7 @@ export interface SellFiatTrade {
     siteUrl?: string | undefined; // sell site url
     status?: SellTradeStatus | undefined; // state of trade after confirmTrade
     refundAddress?: string | undefined; // crypto address to which sent crypto currency will be returned in case of a refund
+    refundAddressExtraId?: string | undefined; // Extra ID for returns to exchange for networks that require it (destinationTag)
     destinationAddress?: string | undefined; // crypto address to which sent crypto currency to sell
     destinationPaymentExtraId?: string | undefined; // Extra ID for payments to exchange for networks that require it (destinationTag)
     error?: string | undefined; // something went wrong
@@ -418,6 +426,9 @@ export interface SellFiatTrade {
     country?: string | undefined; // CZ
     bankAccount?: BankAccount | undefined; // selected bank account
     bankAccounts?: BankAccount[] | undefined; // list of available bank accounts
+    partnerData?: string | undefined; // arbitrary data specific for the partner
+    partnerData2?: string | undefined; // arbitrary data specific for the partner
+    id?: string | undefined; // internal DB id
 }
 
 export interface SellVoucherTradeQuoteRequest {
@@ -476,6 +487,8 @@ export interface SellFiatTradeResponse {
 export interface WatchSellTradeResponse {
     status?: SellTradeStatus | undefined; // new state of trade
     error?: string | undefined; // something went wrong
+    destinationAddress?: string | undefined; // crypto address to which sent crypto currency to sell
+    destinationPaymentExtraId?: string | undefined; // Extra ID for payments to exchange for networks that require it (destinationTag)
 }
 
 export type SpendTrade = SellVoucherTrade;
