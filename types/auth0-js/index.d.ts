@@ -892,6 +892,7 @@ export interface CrossOriginLoginOptions {
     nonce?: string | undefined;
     scope?: string | undefined;
     audience?: string | undefined;
+    onRedirecting?: (done: () => void) => void
 }
 
 export interface LogoutOptions {
