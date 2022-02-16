@@ -10,20 +10,10 @@ kavenegar.Send(
         sender: '10004346',
         receptor: '09123456789,09367891011',
     },
-    (response, status) => {
-        console.log(response);
-        console.log(status);
-    },
-);
-
-kavenegar.Send(
-    {
-        message: 'خدمات پیام کوتاه کاوه نگار',
-        sender: '10004346',
-        receptor: '09123456789',
-    },
     (response, status, message) => {
-        console.log(response, status, message);
+        const responseTest = response;
+        const statusTest = status;
+        const messageTest = message;
     },
 );
 
@@ -34,7 +24,7 @@ kavenegar.SendArray(
         receptor: '["09123456789","09123456781"]',
     },
     (response, status, message) => {
-        console.log(response, status, message);
+        const responseMessage = message;
     },
 );
 
@@ -43,10 +33,8 @@ kavenegar.Status(
         messageid: '85463238,85463239',
     },
     (response, status, message) => {
-        console.log(response, status, message);
-        console.log(response[0].messageid);
-        console.log(response[0].status);
-        console.log(response[0].statustext);
+        const messageId = response[0].messageid;
+        const responseStatus = response[0].status;
     },
 );
 
@@ -55,11 +43,9 @@ kavenegar.StatusLocalMessageid(
         localid: '450',
     },
     (response, status, message) => {
-        console.log(response, status, message);
-        console.log(response[0].messageid);
-        console.log(response[0].localid);
-        console.log(response[0].status);
-        console.log(response[0].statustext);
+        const messageId = response[0].messageid;
+        const localId = response[0].localid;
+        const statusText = response[0].statustext;
     },
 );
 
@@ -68,11 +54,9 @@ kavenegar.Select(
         messageid: '989405630,31031213,31031214',
     },
     (response, status, message) => {
-        console.log(response, status, message);
-        console.log(response[0].messageid);
-        console.log(response[0].status);
-        console.log(response[0].statustext);
-        console.log(response[0].cost);
+        const messageId = response[0].messageid;
+        const statusText = response[0].statustext;
+        const cost = response[0].cost;
     },
 );
 
@@ -82,31 +66,20 @@ kavenegar.SelectOutbox(
         enddate: 1644869633,
     },
     (response, status, message) => {
-        console.log(response, status, message);
-        console.log(response[0].messageid);
-        console.log(response[0].status);
-        console.log(response[0].statustext);
-        console.log(response[0].cost);
+        const responseTest = response;
     },
 );
 
 kavenegar.LatestOutbox({ pagesize: 12, sender: '10004535' }, (response, status, message) => {
-    console.log(response, status, message);
-    console.log(response[0].messageid);
-    console.log(response[0].status);
-    console.log(response[0].statustext);
-    console.log(response[0].cost);
+    const responseTest = response;
 });
 
 kavenegar.Cancel({ messageid: '989405630,31031213,31031214' }, (response, status, message) => {
-    console.log(response, status, message);
-    console.log(response[0].messageid);
-    console.log(response[0].status);
-    console.log(response[0].statustext);
+    const responseTest = response[0];
 });
 
 kavenegar.Receive({ linenumber: '30002225', isread: 1 }, (response, status, message) => {
-    console.log(response, status, message);
+    const responseTest = response;
 });
 
 kavenegar.CountInbox(
@@ -117,7 +90,7 @@ kavenegar.CountInbox(
         isread: 1,
     },
     (response, status, message) => {
-        console.log(response, status, message);
+        const responseTest = response[0];
     },
 );
 
@@ -128,7 +101,7 @@ kavenegar.VerifyLookup(
         template: 'registerverify',
     },
     (response, status, message) => {
-        console.log(response, status, message);
+        const responseTest = response;
     },
 );
 
@@ -138,17 +111,17 @@ kavenegar.CallMakeTTS(
         message: 'خدمات پیام کوتاه کاوه نگار',
     },
     (response, status, message) => {
-        console.log(response, status, message);
+        const responseTest = response;
     },
 );
 
 kavenegar.AccountInfo({}, (response, status, message) => {
-    console.log(response, status, message);
-    console.log(response.remaincredit);
-    console.log(response.expiredate);
-    console.log(response.type);
+    const responseTest = response;
+    const remainCredit = response.remaincredit;
+    const expireDate = response.expiredate;
+    const type = response.type;
 });
 
 kavenegar.AccountConfig({ apilogs: 'justfaults', defaultsender: '10004535' }, (response, status, message) => {
-    console.log(response, status, message);
+    const responseTest = response;
 });
