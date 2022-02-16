@@ -1,4 +1,4 @@
-// Type definitions for react-native-modal-dropdown 0.7
+// Type definitions for react-native-modal-dropdown 1.0.2
 // Project: https://github.com/sohobloo/react-native-modal-dropdown
 // Definitions by: Carlos Li <https://github.com/echoulen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -36,6 +36,12 @@ export interface ModalDropdownProps<T = any> extends ViewProps {
     onSelect?: ((index: string, option: T) => void | boolean) | undefined;
     accessible?: boolean | undefined;
     keyboardShouldPersistTaps?: 'always' | 'never' | 'handled' | undefined;
+    multipleSelect?: boolean | undefined;
+    dropdownListProps?: StyleProp<TextStyle> | undefined;
+    showSearch?: boolean | undefined;
+    renderSearch?: (() => void) | undefined;
+    keySearchObject?: string | undefined;
+    buttonAndRightComponentContainerStyle?: StyleProp<TextStyle> | undefined;
 }
 
 export default class ModalDropdown<T = any> extends React.Component<ModalDropdownProps<T>> {
