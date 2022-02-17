@@ -6,8 +6,8 @@
 export namespace kavenegar {
     interface Options {
         apikey: string;
-        host?: string;
-        version?: string;
+        host?: string | undefined;
+        version?: string | undefined;
     }
 
     type ResponseK<T, Y> = (data: T, callback: (entries: Y, status: number, message: string) => void) => void;
@@ -39,11 +39,11 @@ export namespace kavenegar {
             {
                 receptor: string;
                 message: string;
-                sender?: string;
-                date?: number;
-                type?: string;
-                localid?: string;
-                hide?: number;
+                sender?: string | undefined;
+                date?: number | undefined;
+                type?: string | undefined;
+                localid?: string | undefined;
+                hide?: number | undefined;
             },
             Array<{
                 messageid: number;
@@ -61,10 +61,10 @@ export namespace kavenegar {
                 receptor: string;
                 sender: string;
                 message: string;
-                date?: number;
-                type?: number[];
-                localmessageids?: string[];
-                hide?: number;
+                date?: number | undefined;
+                type?: number[] | undefined;
+                localmessageids?: string[] | undefined;
+                hide?: number | undefined;
             },
             Array<{
                 messageid: number;
@@ -106,8 +106,8 @@ export namespace kavenegar {
         SelectOutbox: ResponseK<
             {
                 startdate: number;
-                enddate?: number;
-                sender?: string;
+                enddate?: number | undefined;
+                sender?: string | undefined;
             },
             Array<{
                 messageid: number;
@@ -121,7 +121,7 @@ export namespace kavenegar {
             }>
         >;
         LatestOutbox: ResponseK<
-            { pagesize?: number; sender?: string },
+            { pagesize?: number | undefined; sender?: string | undefined },
             Array<{
                 messageid: number;
                 message: string;
@@ -136,8 +136,8 @@ export namespace kavenegar {
         CountOutbox: ResponseK<
             {
                 startdate: number;
-                enddate?: number;
-                status?: number;
+                enddate?: number | undefined;
+                status?: number | undefined;
             },
             Array<{
                 startdate: number;
@@ -164,9 +164,9 @@ export namespace kavenegar {
         CountInbox: ResponseK<
             {
                 startdate: number;
-                enddate?: number;
-                linenumber?: string;
-                isread?: 0 | 1;
+                enddate?: number | undefined;
+                linenumber?: string | undefined;
+                isread?: 0 | 1 | undefined;
             },
             Array<{ startdate: number; enddate: number; sumcount: number }>
         >;
@@ -176,10 +176,10 @@ export namespace kavenegar {
             {
                 receptor: string;
                 token: string;
-                token2?: string;
-                token3?: string;
-                template: string;
-                type?: string;
+                token2?: string | undefined;
+                token3?: string | undefined;
+                template: string | undefined;
+                type?: string | undefined;
             },
             Array<{
                 messageid: number;
@@ -196,9 +196,9 @@ export namespace kavenegar {
             {
                 receptor: string;
                 message: string;
-                date?: number;
-                localid?: string;
-                repeat?: number;
+                date?: number | undefined;
+                localid?: string | undefined;
+                repeat?: number | undefined;
             },
             Array<{
                 messageid: number;
@@ -214,12 +214,12 @@ export namespace kavenegar {
         AccountInfo: ResponseK<{}, { remaincredit: number; expiredate: number; type: string }>;
         AccountConfig: ResponseK<
             {
-                apilogs?: string;
-                dailyreport?: string;
-                debugmode?: string;
-                defaultsender?: string;
-                mincreditalarm?: number;
-                resendfailed?: string;
+                apilogs?: string | undefined;
+                dailyreport?: string | undefined;
+                debugmode?: string | undefined;
+                defaultsender?: string | undefined;
+                mincreditalarm?: number | undefined;
+                resendfailed?: string | undefined;
             },
             {
                 apilogs: string;
