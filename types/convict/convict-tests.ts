@@ -61,7 +61,7 @@ interface Foo {
 // $ExpectType Config<{ foo: Foo; }>
 convict({
     foo: {
-        format(val): asserts val is Foo {},
+        format(val): asserts val is Foo { },
         default: { a: "a" },
     },
 });
@@ -196,8 +196,6 @@ const schema = conf.getSchema();
 
 const schemaVal = conf.getSchema().properties.db.properties.port.default;
 
-conf.get();
-
 // @ts-expect-error Trying to access no existing property
 conf.get("unknownkey");
 
@@ -209,6 +207,9 @@ conf.getSchema();
 conf.getProperties();
 conf.getSchemaString();
 conf.toString();
+
+// @ts-expect-error Trying to access schemaObj keys
+conf.get('db.password.default');
 
 const conf2 = convict(
     {

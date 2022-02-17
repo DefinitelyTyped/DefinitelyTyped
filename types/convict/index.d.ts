@@ -112,9 +112,7 @@ declare namespace convict {
         ? T[K] extends Record<string, any>
             ? T[K] extends ArrayLike<any>
                 ? K | `${K}.${PathImpl<T[K], Exclude<keyof T[K], keyof any[]>>}`
-                : T[K] extends SchemaObj
-                    ? K
-                    : K | `${K}.${PathImpl<T[K], keyof T[K]>}`
+                : K | `${K}.${PathImpl<T[K], keyof T[K]>}`
             : K
         : never;
 
@@ -127,8 +125,8 @@ declare namespace convict {
                 : never
             : never
         : P extends keyof T
-        ? T[P]
-        : never;
+            ? T[P]
+            : never;
 
     interface Config<T> {
         /**
