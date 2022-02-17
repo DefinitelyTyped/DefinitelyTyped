@@ -347,7 +347,7 @@ export function verifyUserSignatures(message: string, compositeSignatures: Compo
  * Should always be decoded with `fcl.decode()` to get back appropriate JSON keys and values.
  * @see {@link https://docs.onflow.org/fcl/reference/api/#send}
  */
-export function send(builders: Builders[]): ResponseObject;
+export function send(builders: Builders[]): Promise<ResponseObject>;
 
 /**
  * Decodes the response from `fcl.send()` into the appropriate JSON
@@ -927,14 +927,156 @@ export interface CollectionObject {
     transactionIds: string[];
 }
 
-// TODO: Double check with FCL dev team that ResponseObject needs to be typed from https://github.com/onflow/fcl-js/tree/master/packages/sdk/src/response#internal-properties
+interface Signature {
+    /**
+     * Sequence number of the key used to perform this signature
+     */
+    sequenceNumber: string;
+    /**
+     * ID of the key in the account used to perform this signature
+     */
+    keyId: number;
+    /**
+     * The signature
+     */
+    signature: string;
+}
+
 /**
  * The format of all responses in FCL returned from `fcl.send(...)`.
  * For full details on the values and descriptions of the keys, view here.
  * @see {@link https://docs.onflow.org/fcl/reference/api/#responseobject}
  * @see {@link https://github.com/onflow/fcl-js/tree/master/packages/sdk/src/response#internal-properties}
  */
-export type ResponseObject = any;
+export interface ResponseObject {
+    /**
+     * A marker that represents the type of the response. See {@link Interaction} for information on the possible tag values.
+     */
+    tag: number;
+    transaction: {
+        /**
+         * The Cadence code used to execute this transaction
+         */
+        script: string;
+        /**
+         * The arguments passed in to the transaction
+         */
+        args: string[];
+        /**
+         * The reference block id for this transaction
+         */
+        referenceBlockId: string;
+        /**
+         * The gas limit for the transaction
+         */
+        gasLimit: number;
+        proposalKey: {
+            /**
+             Sequence number of key used by the proposer of this transaction
+              */
+            sequenceNumber: string;
+            /**
+             The ID of the key in the account used by the proposer of this transaction
+              */
+            keyId: number;
+            /**
+             The address of the proposer of this transaction
+              */
+            address: Address;
+        };
+        /**
+         * Address of the payer of the transaction
+         */
+        payer: Address;
+        /**
+         * Address of the proposer of this transaction
+         */
+        proposer: Address;
+        /**
+         * Array of addresses of authorizers of this transaction
+         */
+        authorizers: Address[];
+        /**
+         * The payload signatures for the transaction
+         */
+        payloadSignatures: Signature[];
+        /**
+         * The envelope signtaures for the transaction
+         */
+        envelopeSignatures: Signature[];
+    };
+    /**
+     * The response from {@link getTransactionStatus} request.
+     */
+    transactionStatus: TransactionObject;
+    /**
+     * The id of the transaction executed during a Transaction request.
+     */
+    transactionId: string;
+    /**
+     * The encoded JSON-CDC data returned from a ExecuteScript request.
+     */
+    encodedData: Uint8Array;
+    /**
+     * The events returned from a GetEvents request.
+     */
+    events: {
+        /**
+         * The results returned from a GetEvents request
+         */
+        results: {
+            /**
+             * The block id of this result
+             */
+            blockId: number;
+            /**
+             * The block height of this result
+             */
+            blockHeight: number;
+            /**
+             * The events for this result
+             */
+            events: {
+                /**
+                 * The type of this event
+                 */
+                type: string;
+                /**
+                 * The transactionId of this event
+                 */
+                transactionId: number;
+                /**
+                 * The transactionIndex of this event
+                 */
+                transactionIndex: number;
+                /**
+                 * The index of this event
+                 */
+                eventIndex: number;
+                /**
+                 * The encoded JSON-CDC payload of this event.
+                 */
+                payload: Uint8Array;
+            }[];
+        }[];
+    };
+    /**
+     *  The account returned from a {@link getAccount} request.
+     */
+    account: Partial<AccountObject>;
+    /**
+     * The block retured from a {@link getBlock} request
+     */
+    block: BlockObject;
+    /**
+     * The block header returned from a {@link getBlockHeader} request.
+     */
+    blockHeader: BlockHeaderObject;
+    /**
+     * The collection returned from a {@link getCollection} request
+     */
+    collection: CollectionObject;
+}
 
 /**
  * @see {@link https://docs.onflow.org/fcl/reference/api/#event-object}
