@@ -328,4 +328,10 @@ function f() {
         // $ExpectType "foo"
         ws.foo();
     });
+    webSocketServer.clients.forEach((ws) => {
+        // $ExpectType CustomWebSocket
+        ws;
+        // $ExpectType "foo"
+        ws.foo();
+    });
 }
