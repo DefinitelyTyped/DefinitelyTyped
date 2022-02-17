@@ -63,7 +63,7 @@ kavenegar.Select(
 kavenegar.SelectOutbox(
     {
         startdate: 1644822633,
-        enddate: 1644869633,
+        enddate: undefined,
     },
     (response, status, message) => {
         const responseTest = response;
@@ -71,11 +71,11 @@ kavenegar.SelectOutbox(
 );
 
 kavenegar.LatestOutbox({ pagesize: 12, sender: '10004535' }, (response, status, message) => {
-    const responseTest = response;
+    const responseTest = response[0];
 });
 
 kavenegar.Cancel({ messageid: '989405630,31031213,31031214' }, (response, status, message) => {
-    const responseTest = response[0];
+    const responseTest = response;
 });
 
 kavenegar.Receive({ linenumber: '30002225', isread: 1 }, (response, status, message) => {
