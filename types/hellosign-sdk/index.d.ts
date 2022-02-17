@@ -452,7 +452,11 @@ declare namespace HelloSign {
     }
     type FilesOptions = { file_type: 'pdf', get_url?: boolean, get_data_uri?: boolean } | { file_type: 'zip' };
     interface TemplateModule {
-        list(): Promise<{ templates: Template[] }>;
+        list(params?: {
+            page?: number | undefined;
+            page_size?: number | undefined;
+            query?: string | undefined;
+        }): Promise<{ templates: Template[] }>;
         get(templateId: string): Promise<TemplateResponse>;
         addUser(templateId: string, user: AccountIdOrEmailRequestOptions): Promise<TemplateResponse>;
         removeUser(templateId: string, user: AccountIdOrEmailRequestOptions): Promise<TemplateResponse>;
