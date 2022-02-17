@@ -3,8 +3,6 @@
 // Definitions by: Spence DiNicolantonio <https://github.com/SpenceDiNicolantonio>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export as namespace lax;
-
 declare module 'lax.js' {
     export interface Lax {
         drivers: LaxDriver[];
