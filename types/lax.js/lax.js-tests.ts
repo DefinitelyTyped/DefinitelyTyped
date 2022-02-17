@@ -1,8 +1,8 @@
-import lax from 'lax.js';
+import { lax } from 'lax.js';
 
 lax.init();
-lax.addDriver('driverName', frame => frame);
-lax.addElement('.selector', {
+lax.addDriver('driverName', (frame: number) => frame);
+lax.addElements('.selector', {
     driverName: {
         scale: [
             ['elInY', 'elOutY'],
