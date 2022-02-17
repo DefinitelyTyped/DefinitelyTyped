@@ -636,6 +636,16 @@ export class SimulatedPlayer extends mojangminecraft.Player {
     navigateToLocations(locations: mojangminecraft.Location[], speed?: number): void;
     /**
      * @remarks
+     * Plays a sound that only this particular player can hear.
+     * @param soundID
+     * Identifier of the sound to play.
+     * @param soundOptions
+     * Additional optional options for the sound.
+     * @throws This function can throw errors.
+     */
+    playSound(soundID: string, soundOptions?: mojangminecraft.SoundOptions): void;
+    /**
+     * @remarks
      * Removes a specified tag from a simulated player.
      * @param tag
      * Content of the tag to remove.
@@ -841,7 +851,7 @@ export class SimulatedPlayer extends mojangminecraft.Player {
  * These well-known tags can be used to classify different
  * tests into suites to run.
  */
-// tslint:disable-next-line:no-unnecessary-class
+ // tslint:disable-next-line:no-unnecessary-class
 export class Tags {
     /**
      * Indicates that the tagged test should be a part of all
@@ -1739,12 +1749,5 @@ export function register(testClassName: string, testName: string, testFunction: 
  * Returns a {@link mojang-gametest.RegistrationBuilder} object where
  * additional options for this test can be specified via
  * builder methods.
- * @example example1.js
- * ```typescript
- *        GameTest.register("ExampleTests", "alwaysFail", (test) => {
- *        test.fail("This test, runnable via '/gametest run ExampleTests:alwaysFail', will always fail");
- *        });
- *
- * ```
  */
 export function registerAsync(testClassName: string, testName: string, testFunction: (arg: Test) => Promise<void>): RegistrationBuilder;

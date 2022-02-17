@@ -17,7 +17,9 @@ gt.register("StarterTests", "simpleMobTest", (test: gt.Test) => {
   test.succeedWhen(() => {
     test.assertEntityPresentInArea(victimId, false);
   });
-}).maxTicks(400).structureName("startertests:mediumglass");
+})
+  .maxTicks(400)
+  .structureName("startertests:mediumglass");
 
 function phantomsShouldFlyFromCats(test: gt.Test) {
   const catEntityType = "cat";
@@ -69,7 +71,16 @@ gt.register("ChallengeTests", "collapsing", collapsing).structureName("gametests
 
 // tslint:disable-next-line:no-unnecessary-class
 export class Utilities {
-  static fillBlock(test: gt.Test, blockType: mc.BlockType, xFrom: number, yFrom: number, zFrom: number, xTo: number, yTo: number, zTo: number) {
+  static fillBlock(
+    test: gt.Test,
+    blockType: mc.BlockType,
+    xFrom: number,
+    yFrom: number,
+    zFrom: number,
+    xTo: number,
+    yTo: number,
+    zTo: number
+  ) {
     for (let i = xFrom; i <= xTo; i++) {
       for (let j = yFrom; j <= yTo; j++) {
         for (let k = zFrom; k <= zTo; k++) {
@@ -79,7 +90,16 @@ export class Utilities {
     }
   }
 
-  static assertEntityInSpecificArea(test: gt.Test, entityType: string, xFrom: number, yFrom: number, zFrom: number, xTo: number, yTo: number, zTo: number) {
+  static assertEntityInSpecificArea(
+    test: gt.Test,
+    entityType: string,
+    xFrom: number,
+    yFrom: number,
+    zFrom: number,
+    xTo: number,
+    yTo: number,
+    zTo: number
+  ) {
     let count = 0;
 
     for (let i = xFrom; i <= xTo; i++) {
