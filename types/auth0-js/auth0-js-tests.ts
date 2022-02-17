@@ -332,7 +332,7 @@ webAuth.renderCaptcha(
 );
 
 // $ExpectType void
-webAuth.renderCaptcha(input).reload((err) => {
+webAuth.renderCaptcha(input).reload(err => {
     if (err) {
         // handle error
     }
