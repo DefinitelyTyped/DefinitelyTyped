@@ -2,6 +2,7 @@
     "private": true,
     "types": "index",
     "typesVersions": {
+        "<=3.6": { "*": ["ts3.6/*"] },
         "<=4.2": { "*": ["ts4.2/*"] }
     }
 }
