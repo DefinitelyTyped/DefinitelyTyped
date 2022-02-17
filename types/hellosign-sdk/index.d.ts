@@ -184,8 +184,8 @@ declare namespace HelloSign {
     interface SignatureRequestRequestOptions<Metadata = GenericObject> {
         test_mode?: number | undefined;
         clientId?: string;
-        files?: string[] | undefined;
-        files_url?: string[] | undefined;
+        file?: string[] | undefined;
+        file_url?: string[] | undefined;
         title?: string | undefined;
         subject?: string | undefined;
         message?: string | undefined;
