@@ -1,6 +1,5 @@
 import { lax } from 'lax.js';
 
-lax.init();
 lax.addDriver('driverName', (frame: number) => frame);
 lax.addElements('.selector', {
     driverName: {
@@ -10,3 +9,4 @@ lax.addElements('.selector', {
         ],
     }
 });
+lax.removeElements('.selector');
