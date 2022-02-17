@@ -417,3 +417,7 @@ buff.writeDoubleBE(123.123, 0);
 {
     Buffer.compare(buff, buff); // $ExpectType 0 | 1 | -1
 }
+
+{
+    buff.compare(buff); // $ExpectType 0 | 1 | -1
+}
