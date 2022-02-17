@@ -1,13 +1,7 @@
 // Type definitions for materializecss__materialize 1.1
 // Project: https://materializecss.github.io/materialize/
-// Definitions by:  胡玮文 <https://github.com/huww98>
-//                  Maxim Balaganskiy <https://github.com/MaximBalaganskiy>
-//                  David Moniz <https://github.com/MonizDave>
-//                  Daniel Hoenes <https://github.com/broccoliarchy>
-//                  Rick Lucassen <https://github.com/SnowyLeopard>
-//                  Mauro Mascarenhas <https://github.com/mauromascarenhas/>
+// Definitions by:  Mauro Mascarenhas <https://github.com/mauromascarenhas/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1
 
 /// <reference types="jquery" />
 /// <reference path="./autocomplete.d.ts" />
