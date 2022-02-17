@@ -185,6 +185,7 @@ declare namespace HelloSign {
         test_mode?: number | undefined;
         clientId?: string;
         files?: string[] | undefined;
+        files_url?: string[] | undefined;
         title?: string | undefined;
         subject?: string | undefined;
         message?: string | undefined;
@@ -215,6 +216,13 @@ declare namespace HelloSign {
               }>
             | undefined;
         cc_email_addresses?: string[] | undefined;
+        ccs?:
+            | {
+                  [role_name: string]: {
+                      email_address: string;
+                  };
+              }
+            | undefined;
         use_text_tags?: number | undefined;
         hide_text_tags?: number | undefined;
         metadata?: GenericObject<Metadata> | undefined;
