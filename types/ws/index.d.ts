@@ -311,12 +311,12 @@ declare namespace WebSocket {
             request: IncomingMessage,
             socket: Duplex,
             upgradeHead: Buffer,
-            callback: (client: WebSocket, request: IncomingMessage) => void,
+            callback: (client: T, request: IncomingMessage) => void,
         ): void;
         shouldHandle(request: IncomingMessage): boolean | Promise<boolean>;
 
         // Events
-        on(event: "connection", cb: (this: Server, socket: T, request: IncomingMessage) => void): this;
+        on(event: "connection", cb: (this: Server<T>, socket: T, request: IncomingMessage) => void): this;
         on(event: "error", cb: (this: Server, error: Error) => void): this;
         on(event: "headers", cb: (this: Server, headers: string[], request: IncomingMessage) => void): this;
         on(event: "close" | "listening", cb: (this: Server) => void): this;
