@@ -382,6 +382,31 @@ declare namespace HelloSign {
         ): Promise<TeamResponse>;
     }
 
+    interface CustomFieldTemplate {
+        name: string;
+        type: string;
+        signer?: string | undefined;
+        x: number;
+        y: number;
+        width: number;
+        height: number;
+        required: boolean;
+        api_id: boolean;
+        group?: string | undefined;
+        avg_text_length: {
+            num_lines: number;
+            num_chars_per_line: number;
+        };
+        /**
+         * @deprecated Use `form_fields` under the `documents` array instead.
+         */
+        named_form_fields: string;
+        /**
+         * @deprecated
+         */
+        reusable_form_id: string;
+    }
+
     interface Template<Metadata = GenericObject>
         extends Partial<{
             template_id: string;
@@ -413,29 +438,9 @@ declare namespace HelloSign {
                     required: boolean;
                     group?: string | undefined;
                 }>;
-                custom_fields: {
-                    name: string;
-                    type: string;
-                    x: number;
-                    y: number;
-                    width: number;
-                    height: number;
-                    required: string;
-                    group: string;
-                    avg_text_length: {
-                        num_lines: number;
-                        num_chars_per_line: number;
-                    };
-                    /**
-                     * @deprecated Use `form_fields` under the `documents` array instead.
-                     */
-                    named_form_fields: string;
-                    /**
-                     * @deprecated
-                     */
-                    reusable_form_id: string;
-                };
+                custom_fields: CustomFieldTemplate[];
             }>;
+            custom_fields: CustomFieldTemplate[];
             accounts: BaseAccount[];
             is_creator: boolean;
             is_embedded: boolean;
