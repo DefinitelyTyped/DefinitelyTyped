@@ -679,3 +679,17 @@ let map: Record<string, googletag.Slot> = googletag.content().getSlotIdMap();
 
 slots = googletag.companionAds().getSlots();
 map = googletag.companionAds().getSlotIdMap();
+
+// DEMO 64
+googletag
+    .pubads()
+    .set('adsense_channel_ids', '271828183+314159265')
+    .set('adsense_ad_format', 'text_image')
+    .set('adsense_background_color', '#000000')
+    .set('adsense_border_color', '#000000')
+    .set('adsense_link_color', '#000000')
+    .set('adsense_test_mode', 'on')
+    .set('adsense_text_color', '#000000')
+    .set('adsense_url_color', '#000000')
+    .set('adsense_ui_features', 'rc:10')
+    .set('page_url', 'www.mysite.com');
