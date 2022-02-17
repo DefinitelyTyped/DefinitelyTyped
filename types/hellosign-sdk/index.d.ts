@@ -450,7 +450,7 @@ declare namespace HelloSign {
     interface TemplateResponse {
         template: Template;
     }
-    type FilesOptions = { file_type: 'pdf', get_url?: boolean, get_data_uri?: boolean } | { file_type: 'zip' };
+    type FilesOptions = { file_type: 'pdf'; get_url?: boolean; get_data_uri?: boolean } | { file_type: 'zip' };
     interface TemplateModule {
         list(params?: {
             page?: number | undefined;
@@ -465,13 +465,13 @@ declare namespace HelloSign {
         files: <Options extends FilesOptions | undefined>(
             templateId: string,
             options?: Options,
-          ) => Promise<
-            Options extends { file_type: 'pdf', get_url: true }
-              ? { file_url: string; expires_at: Date }
-              : Options extends { file_type: 'pdf', get_data_uri: true }
-              ? { data_uri: string; expires_at: Date }
-              : Buffer
-          >;
+        ) => Promise<
+            Options extends { file_type: 'pdf'; get_url: true }
+                ? { file_url: string; expires_at: Date }
+                : Options extends { file_type: 'pdf'; get_data_uri: true }
+                ? { data_uri: string; expires_at: Date }
+                : Buffer
+        >;
     }
 
     interface UnclaimedDraft {
