@@ -231,13 +231,7 @@ declare namespace HelloSign {
               }>
             | undefined;
         cc_email_addresses?: string[] | undefined;
-        ccs?:
-            | {
-                  [role_name: string]: {
-                      email_address: string;
-                  };
-              }
-            | undefined;
+        ccs?: Record<string, { email_address: string; }> | undefined;
         use_text_tags?: number | undefined;
         hide_text_tags?: number | undefined;
         metadata?: GenericObject<Metadata> | undefined;
