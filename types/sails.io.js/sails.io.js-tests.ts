@@ -83,3 +83,11 @@ io.socket
     .removeAllListeners()
     .off('error', () => {})
     .replay();
+
+function jobReceived(resp: any) {
+    if (resp.done) {
+        io.socket.off('custom-event', jobReceived);
+    }
+}
+
+io.socket.on('custom-event', jobReceived);
