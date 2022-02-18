@@ -8,6 +8,14 @@
 declare class LRUCache<K, V> implements Iterable<[K, V]> {
     constructor(options?: LRUCache.Options<K, V>);
 
+    /**
+     * Return total length of objects in cache taking into account `length` options function.
+     *
+     * @deprecated use `cache.size` instead
+     * @since 7.0.0
+     */
+    readonly length: number;
+
     // values populated from the constructor options
     readonly max: number;
     readonly maxSize: number;
@@ -69,16 +77,10 @@ declare class LRUCache<K, V> implements Iterable<[K, V]> {
      */
     clear(): void;
 
-    /** @deprecated */
-    reset(): void;
-
     /**
      * Delete any stale entries. Returns true if anything was removed, false otherwise.
      */
     purgeStale(): boolean;
-
-    /** @deprecated */
-    prune(): boolean;
 
     /**
      * Find a value for which the supplied fn method returns a truthy value, similar to Array.find().
@@ -130,6 +132,32 @@ declare class LRUCache<K, V> implements Iterable<[K, V]> {
      * Evict the least recently used item, returning its value or `undefined` if cache is empty.
      */
     pop(): V | undefined;
+
+    // ========================= Deprecated
+
+    /**
+     * Deletes a key out of the cache.
+     *
+     * @deprecated use delete() instead
+     * @since 7.0.0
+     */
+    del(key: K): boolean;
+
+    /**
+     * Clear the cache entirely, throwing away all values.
+     *
+     * @deprecated use clear() instead
+     * @since 7.0.0
+     */
+    reset(): void;
+
+    /**
+     * Manually iterates over the entire cache proactively pruning old entries.
+     *
+     * @deprecated use purgeStale() instead
+     * @since 7.0.0
+     */
+    prune(): boolean;
 }
 
 declare namespace LRUCache {
@@ -139,14 +167,45 @@ declare namespace LRUCache {
 
     type Disposer<K, V> = (value: V, key: K, reason: DisposeReason) => void;
 
-    interface Options<K, V> {
-        /** @deprecated */
-        length?: SizeCalculator<K, V>;
-        /** @deprecated */
+    interface DeprecatedOptions<K, V> {
+        /**
+         * Maximum age in ms. Items are not pro-actively pruned out as they age,
+         * but if you try to get an item that is too old, it'll drop it and return
+         * undefined instead of giving it to you.
+         *
+         * @deprecated use options.ttl instead
+         * @since 7.0.0
+         */
         maxAge?: number;
-        /** @deprecated */
-        stale?: boolean;
 
+        /**
+         * Function that is used to calculate the length of stored items.
+         * If you're storing strings or buffers, then you probably want to do
+         * something like `function(n, key){return n.length}`. The default
+         * is `function(){return 1}`, which is fine if you want to store
+         * `max` like-sized things. The item is passed as the first argument,
+         * and the key is passed as the second argument.
+         *
+         * @deprecated use options.sizeCalculation instead
+         * @since 7.0.0
+         */
+        length?(value: V, key?: K): number;
+
+        /**
+         * By default, if you set a `maxAge`, it'll only actually pull stale items
+         * out of the cache when you `get(key)`. (That is, it's not pre-emptively
+         * doing a `setTimeout` or anything.) If you set `stale:true`, it'll return
+         * the stale value before deleting it. If you don't set this, then it'll
+         * return `undefined` when you try to get a stale entry,
+         * as if it had already been deleted.
+         *
+         * @deprecated use options.allowStale instead
+         * @since 7.0.0
+         */
+        stale?: boolean;
+    }
+
+    interface Options<K, V> extends DeprecatedOptions<K, V> {
         /**
          * The number of most recently used items to keep.
          * Note that we may store fewer items than this if maxSize is hit.
@@ -195,6 +254,8 @@ declare namespace LRUCache {
          * Set to true to suppress calling the dispose() function if the entry
          * key is still accessible within the cache.
          * This may be overridden by passing an options object to cache.set().
+         *
+         * @default false
          */
         noDisposeOnSet?: boolean;
 
@@ -203,6 +264,8 @@ declare namespace LRUCache {
          * setting a new value for an existing key (ie, when updating a value rather
          * than inserting a new value).  Note that the TTL value is _always_ set
          * (if provided) when adding a new entry into the cache.
+         *
+         * @default false
          */
         noUpdateTTL?: boolean;
 
@@ -211,9 +274,11 @@ declare namespace LRUCache {
          * Note that stale items are NOT preemptively removed by default,
          * and MAY live in the cache, contributing to its LRU max, long after
          * they have expired.
+         *
          * Also, as this cache is optimized for LRU/MRU operations, some of
          * the staleness/TTL checks will reduce performance, as they will incur
          * overhead by deleting items.
+         *
          * Must be a positive integer in ms, defaults to 0, which means "no TTL"
          */
         ttl?: number;
@@ -228,6 +293,8 @@ declare namespace LRUCache {
          * Note that setting this to a higher value will improve performance
          * somewhat while using ttl tracking, albeit at the expense of keeping
          * stale items around a bit longer than intended.
+         *
+         * @default 1
          */
         ttlResolution?: number;
 
@@ -242,16 +309,22 @@ declare namespace LRUCache {
          * as stale items will be deleted almost as soon as they expire.
          *
          * Use with caution!
+         *
+         * @default false
          */
         ttlAutopurge?: boolean;
 
         /**
          * Return stale items from cache.get() before disposing of them
+         *
+         * @default false
          */
         allowStale?: boolean;
 
         /**
          * Update the age of items on cache.get(), renewing their TTL
+         *
+         * @default false
          */
         updateAgeOnGet?: boolean;
     }

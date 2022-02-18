@@ -7,29 +7,41 @@ interface Foo {
 }
 
 const foo = {
-    foo() {}
+    foo() {},
 };
 
 const cache = new LRUCache<string, Foo>();
 cache; // $ExpectType LRUCache<string, Foo>
-new LRUCache<string, Foo>({ // $ExpectType LRUCache<string, Foo>
+
+// $ExpectType LRUCache<string, Foo>
+new LRUCache<string, Foo>({
     max: num,
-    ttl: num,
-    sizeCalculation(value) {
+    maxAge: num, // deprecated
+    stale: false, // deprecated
+    noDisposeOnSet: false,
+    ttl: 1000 * 60 * 5,
+    allowStale: false,
+    updateAgeOnGet: false,
+    length(value) {
         value; // $ExpectType Foo
         return num;
-    },
+    }, // deprecated
     dispose(value, key, reason) {
-        key; // $ExpectType string
         value; // $ExpectType Foo
+        key; // $ExpectType string
         reason; // $ExpectType DisposeReason
     },
-    allowStale : false,
-    noDisposeOnSet: false,
+    sizeCalculation(value, key) {
+        value; // $ExpectType Foo
+        key; // $ExpectType string
+
+        return 1;
+    },
 });
 new LRUCache<string, Foo>({ max: num }); // $ExpectType LRUCache<string, Foo>
 new LRUCache<string, Foo>(); // $ExpectType LRUCache<string, Foo>
-new LRUCache<string, Foo>({ // $ExpectType LRUCache<string, Foo>
+// $ExpectType LRUCache<string, Foo>
+new LRUCache<string, Foo>({
     max: num,
     ttl: num,
     sizeCalculation: (value) => {
@@ -56,8 +68,21 @@ cache.sizeCalculation = () => 1; // $ExpectError
 cache.max; // $ExpectType number
 cache.max = 1; // $ExpectError
 
+cache.maxSize; // $ExpectType number
+cache.maxSize = 1; // $ExpectError
+
+cache.noDisposeOnSet; // $ExpectType boolean
+cache.noDisposeOnSet = true; // $ExpectError
+
 cache.ttl; // $ExpectType number
 cache.ttl = 1; // $ExpectError
+
+cache.updateAgeOnGet; // $ExpectType boolean
+cache.updateAgeOnGet = false; // $ExpectError
+
+cache.size = 1; // $ExpectError
+
+cache.calculatedSize = 1; // $ExpectError
 
 cache.set('foo', foo); // $ExpectType LRUCache<string, Foo>
 cache.set(1, foo); // $ExpectError
@@ -74,9 +99,16 @@ cache.has(1); // $ExpectError
 
 cache.delete('foo');
 cache.delete(1); // $ExpectError
+cache.del('foo');
+cache.del(1); // $ExpectError
 
 cache.clear();
 cache.purgeStale();
+cache.reset();
+
+cache.prune();
+
+cache.pop();
 
 cache.forEach(function(value, key, cache) {
     value; // $ExpectType Foo
