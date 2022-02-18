@@ -1014,7 +1014,7 @@ table.on('dataProcessing', () => {});
 table.on('dataProcessed', () => {});
 table.off('dataProcessed');
 table.off('dataProcessed', dataProcessedEvent);
-table.on('cellClick', () => {});
+table.on('cellClick', () => { });
 table = Tabulator.findTable('#example-table')[0];
 table = TabulatorFull.findTable('#example-table')[0];
 
@@ -1031,3 +1031,11 @@ class CustomModule extends Module {
 
 CustomModule.moduleName = 'custom';
 Tabulator.registerModule([CustomModule, DataTreeModule]);
+
+const sortHandler = {} as (sorters: Tabulator.SorterFromTable[]) => void;
+table = new Tabulator('#test', {
+    dataSorting: sortHandler,
+    dataSorted: sortHandler,
+});
+table.on('dataSorting', ([sorter]) => sorter.field);
+table.on('dataSorted', ([sorter]) => sorter.field);
