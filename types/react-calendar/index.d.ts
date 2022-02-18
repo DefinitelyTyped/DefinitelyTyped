@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
 
-import { MouseEvent, ChangeEvent, MutableRefObject, RefObject } from 'react';
+import { ReactNode, MouseEvent, ChangeEvent, MutableRefObject, RefObject } from 'react';
 
 export type CalendarType = "ISO 8601" | 'US' | 'Arabic' | 'Hebrew';
 export type Detail = 'month' | 'year' | 'decade' | 'century';
@@ -103,6 +103,7 @@ export function MonthView(props: DetailViewProps): JSX.Element;
 export function YearView(props: DetailViewProps): JSX.Element;
 export function DecadeView(props: DetailViewProps): JSX.Element;
 export function CenturyView(props: DetailViewProps): JSX.Element;
+export function Navigation(props: NavigationProps): JSX.Element;
 
 export interface DetailViewProps {
     activeStartDate: Date;
@@ -118,4 +119,38 @@ export interface DetailViewProps {
     tileContent?: JSX.Element | ((props: CalendarTileProperties) => JSX.Element | null) | undefined;
     tileDisabled?: ((props: CalendarTileProperties) => boolean) | undefined;
     value?: Date | Date[] | undefined;
+}
+
+export type ViewType = 'century' | 'decade' | 'year' | 'month';
+
+export type NavigationLabelType = {
+    date: Date;
+    label: string;
+    locale: string;
+    view: ViewType;
+};
+
+export interface NavigationProps {
+  activeStartDate: Date;
+  drillUp: () => void;
+  formatMonthYear?: (locale: string, date: Date) => void;
+  formatYear?: (locale: string, date: Date) => void;
+  locale?: string;
+  maxDate?: Date;
+  minDate?: Date;
+  navigationAriaLabel?: ReactNode;
+  navigationAriaLive?: ReactNode;
+  navigationLabel?: (props: NavigationLabelType) => string;
+  next2AriaLabel?: string;
+  next2Label?: ReactNode;
+  nextAriaLabel?: string;
+  nextLabel?: ReactNode;
+  prev2AriaLabel?: string;
+  prev2Label?: ReactNode;
+  prevAriaLabel?: ReactNode;
+  prevLabel?: ReactNode;
+  setActiveStartDate: (activeStartDate: Date) => void;
+  showDoubleView?: boolean;
+  view: ViewType;
+  views: ViewType[];
 }
