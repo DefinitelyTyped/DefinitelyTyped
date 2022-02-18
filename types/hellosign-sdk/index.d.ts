@@ -231,7 +231,7 @@ declare namespace HelloSign {
               }>
             | undefined;
         cc_email_addresses?: string[] | undefined;
-        ccs?: Record<string, { email_address: string; }> | undefined;
+        ccs?: Record<string, { email_address: string }> | undefined;
         use_text_tags?: number | undefined;
         hide_text_tags?: number | undefined;
         metadata?: GenericObject<Metadata> | undefined;
@@ -266,7 +266,7 @@ declare namespace HelloSign {
     interface SignatureListRequestResponse extends BaseResponse, ListInfo {
         signature_requests: SignatureRequest[];
     }
-    interface DownloadResponse extends BaseAccount {
+    interface DownloadResponse extends BaseResponse {
         file_url?: string | undefined;
         expires_at?: number | undefined;
     }
@@ -466,11 +466,11 @@ declare namespace HelloSign {
             can_edit: boolean;
             is_locked: boolean;
         }> {}
-    interface TemplateResponse extends BaseAccount {
+    interface TemplateResponse extends BaseResponse {
         template: Template;
     }
     interface TemplatesResponse extends BaseResponse, ListInfo {
-        templates: Template;
+        templates: Template[];
     }
     interface TemplateModule {
         list(params?: {
