@@ -326,7 +326,7 @@ declare namespace WebSocket {
         once(event: "error", cb: (this: Server<T>, error: Error) => void): this;
         once(event: "headers", cb: (this: Server<T>, headers: string[], request: IncomingMessage) => void): this;
         once(event: "close" | "listening", cb: (this: Server<T>) => void): this;
-        once(event: string | symbol, listener: (...args: any[]) => void): this;
+        once(event: string | symbol, listener: (this: Server<T>, ...args: any[]) => void): this;
 
         off(event: "connection", cb: (this: Server<T>, socket: T, request: IncomingMessage) => void): this;
         off(event: "error", cb: (this: Server<T>, error: Error) => void): this;
