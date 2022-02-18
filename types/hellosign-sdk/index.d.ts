@@ -61,6 +61,21 @@ declare namespace HelloSign {
               client_secret: string;
           };
 
+    interface BaseResponse {
+        resHeaders: IncomingMessage['headers'];
+        statusCode?: IncomingMessage['statusCode'];
+        statusMessage?: IncomingMessage['statusMessage'];
+    }
+
+    interface ListInfo {
+        list_info: {
+            num_pages: number;
+            num_results: number;
+            page: number;
+            page_size: number;
+        };
+    }
+
     interface BaseAccount {
         account_id: string;
         email_address: string;
@@ -78,7 +93,7 @@ declare namespace HelloSign {
         callback_url: string;
         role_code: string;
     }
-    interface AccountResponse {
+    interface AccountResponse extends BaseResponse {
         account: Account;
     }
     interface AccountModule {
@@ -251,39 +266,49 @@ declare namespace HelloSign {
             | undefined;
         signing_redirect_url?: string | undefined;
     }
-    interface SignatureRequestResponse {
+    interface SignatureRequestResponse extends BaseResponse {
         signature_request: SignatureRequest;
     }
+    interface SignatureListRequestResponse extends BaseResponse, ListInfo {
+        signature_requests: SignatureRequest[];
+    }
+    interface DownloadResponse extends BaseAccount {
+        file_url?: string | undefined;
+        expires_at?: number | undefined;
+    }
+    type FilesOptions = { file_type: 'pdf'; get_url?: boolean; get_data_uri?: boolean } | { file_type: 'zip' };
     interface SignatureRequestModule {
         get(signatureRequestId: string): Promise<SignatureRequestResponse>;
         list(params?: {
             page?: number | undefined;
             page_size?: number | undefined;
             query?: string | undefined;
-        }): Promise<{ signature_requests: SignatureRequest[] }>;
+        }): Promise<SignatureListRequestResponse>;
         send(options: SignatureRequestRequestOptions): Promise<SignatureRequestResponse>;
         sendWithTemplate(options: SignatureRequestRequestOptions): Promise<SignatureRequestResponse>;
         remind(requestId: string, options: any): Promise<SignatureRequestResponse>;
-        download(
+        download<Options extends FilesOptions | undefined>(
             requestId: string,
-            options: {
-                file_type: string;
-                get_url?: boolean;
-                get_data_uri?: boolean;
-            },
-        ): Promise<IncomingMessage>;
-        cancel(requestId: string): Promise<any>;
-        removeAccess(requestId: string): Promise<any>;
+            options?: Options,
+        ): Promise<
+            Options extends { file_type: 'pdf'; get_url: true }
+                ? { file_url: string; expires_at: Date } & BaseResponse
+                : Options extends { file_type: 'pdf'; get_data_uri: true }
+                ? { data_uri: string; expires_at: Date } & BaseResponse
+                : IncomingMessage
+        >;
+        cancel(requestId: string): Promise<BaseResponse>;
+        removeAccess(requestId: string): Promise<BaseResponse>;
         createEmbedded(
             options: Omit<SignatureRequestRequestOptions, 'signing_redirect_url'>,
         ): Promise<SignatureRequestResponse>;
         createEmbeddedWithTemplate(
             options: Omit<SignatureRequestRequestOptions, 'signing_redirect_url'>,
         ): Promise<SignatureRequestResponse>;
-        releaseHold(requestId: string): Promise<any>;
+        releaseHold(requestId: string): Promise<BaseResponse>;
     }
 
-    interface EmbeddedResponse {
+    interface EmbeddedResponse extends BaseResponse {
         embedded: {
             sign_url: string;
             expires_at: number;
@@ -327,7 +352,7 @@ declare namespace HelloSign {
     interface Report extends Omit<ReportsRequestOptions, 'test_mode'> {
         success?: string | undefined;
     }
-    interface ReportResponse {
+    interface ReportResponse extends BaseResponse {
         report: Report;
     }
     interface ReportsModule {
@@ -341,7 +366,7 @@ declare namespace HelloSign {
     interface OAuth extends GenericObject {
         refresh_token?: string | undefined;
     }
-    interface OAuthResponse {
+    interface OAuthResponse extends BaseResponse {
         oauth: OAuth;
     }
     interface OAuthModule {
@@ -368,7 +393,7 @@ declare namespace HelloSign {
             email_address: string;
         }>;
     }
-    interface TeamResponse {
+    interface TeamResponse extends BaseResponse {
         team: Team;
     }
     interface TeamModule {
@@ -447,30 +472,32 @@ declare namespace HelloSign {
             can_edit: boolean;
             is_locked: boolean;
         }> {}
-    interface TemplateResponse {
+    interface TemplateResponse extends BaseAccount {
         template: Template;
     }
-    type FilesOptions = { file_type: 'pdf'; get_url?: boolean; get_data_uri?: boolean } | { file_type: 'zip' };
+    interface TemplatesResponse extends BaseResponse, ListInfo {
+        templates: Template;
+    }
     interface TemplateModule {
         list(params?: {
             page?: number | undefined;
             page_size?: number | undefined;
             query?: string | undefined;
-        }): Promise<{ templates: Template[] }>;
+        }): Promise<TemplatesResponse>;
         get(templateId: string): Promise<TemplateResponse>;
         addUser(templateId: string, user: AccountIdOrEmailRequestOptions): Promise<TemplateResponse>;
         removeUser(templateId: string, user: AccountIdOrEmailRequestOptions): Promise<TemplateResponse>;
         createEmbeddedDraft(options: Template): Promise<TemplateResponse>;
-        delete(templateId: string): Promise<any>;
+        delete(templateId: string): Promise<BaseResponse>;
         files: <Options extends FilesOptions | undefined>(
             templateId: string,
             options?: Options,
         ) => Promise<
             Options extends { file_type: 'pdf'; get_url: true }
-                ? { file_url: string; expires_at: Date }
+                ? { file_url: string; expires_at: Date } & BaseResponse
                 : Options extends { file_type: 'pdf'; get_data_uri: true }
-                ? { data_uri: string; expires_at: Date }
-                : Buffer
+                ? { data_uri: string; expires_at: Date } & BaseResponse
+                : IncomingMessage
         >;
     }
 
@@ -482,7 +509,7 @@ declare namespace HelloSign {
         expires_at: number;
         test_mode?: number | undefined;
     }
-    interface UnclaimedDraftResponse {
+    interface UnclaimedDraftResponse extends BaseResponse {
         unclaimed_draft: UnclaimedDraft;
     }
     interface UnclaimedDraftRequestOptions<Metadata = GenericObject> {
@@ -627,8 +654,11 @@ declare namespace HelloSign {
         };
         white_labeling_options: GenericObject;
     }
-    interface ApiAppResponse {
+    interface ApiAppResponse extends BaseResponse {
         api_app: ApiApp;
+    }
+    interface ApiAppListResponse extends BaseResponse, ListInfo {
+        api_apps: ApiApp[];
     }
     interface ApiAppRequestOptions {
         name?: string | undefined;
@@ -650,10 +680,10 @@ declare namespace HelloSign {
     }
     interface ApiAppModule {
         get(clientId: string): Promise<ApiAppResponse>;
-        list(): Promise<{ api_apps: ApiApp[] }>;
+        list(): Promise<ApiAppListResponse>;
         create(clientId: string, options: ApiAppRequestOptions): Promise<ApiAppResponse>;
         update(clientId: string, options: ApiAppRequestOptions): Promise<ApiAppResponse>;
-        delete(clientId: string): Promise<any>;
+        delete(clientId: string): Promise<BaseResponse>;
     }
 }
 
