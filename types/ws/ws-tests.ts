@@ -334,4 +334,14 @@ function f() {
         // $ExpectType "foo"
         ws.foo();
     });
+    webSocketServer.on('upgrade', (request, socket, head) => {
+        if (request.url === '/path') {
+            webSocketServer.handleUpgrade(request, socket, head, (ws) => {
+                // $ExpectType CustomWebSocket
+                ws;
+                // $ExpectType "foo"
+                ws.foo();
+            });
+        }
+    });
 }
