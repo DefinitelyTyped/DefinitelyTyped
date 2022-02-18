@@ -2,14 +2,12 @@
     "exclude": ["fix-tslint.ts", "update-config"],
     "compilerOptions": {
         "target": "es6",
-        "module": "es2020",
+        "module": "esnext",
         "strict": true,
         "baseUrl": "../types",
         "moduleResolution": "node",
         "resolveJsonModule": true,
-        "typeRoots": [
-            "../types"
-        ],
+        "typeRoots": ["../types"],
         "types": [],
         "allowSyntheticDefaultImports": true,
         "forceConsistentCasingInFileNames": true
