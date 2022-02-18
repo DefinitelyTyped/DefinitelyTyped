@@ -160,6 +160,8 @@ declare module 'meteor/mongo' {
             reactive?: boolean | undefined;
             /**  Overrides `transform` on the  [`Collection`](#collections) for this cursor.  Pass `null` to disable transformation. */
             transform?: Transform<T> | undefined;
+            /** specifies the index */
+            hint?: string | undefined;
         };
 
         type DispatchTransform<Transform, T, U> = Transform extends (...args: any) => any
