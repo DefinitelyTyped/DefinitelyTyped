@@ -319,12 +319,20 @@ declare module 'ws' {
     interface WebSocket {
         id?: string;
     }
+
+    interface Server {
+        getWebSocketId(): string;
+    }
 }
 
 {
-    const ws: wslib.WebSocket = new wslib.WebSocket('ws://www.host.com/path');
+    const server = new wslib.WebSocketServer();
 
-    // $ExpectType string | undefined
-    ws.id;
-    ws.id = 'foo';
+    server.on('connection', (ws) => {
+
+        // $ExpectType string | undefined
+        ws.id;
+
+        ws.id = server.getWebSocketId();
+    });
 }
