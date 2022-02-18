@@ -122,12 +122,12 @@ export interface DetailViewProps {
 
 export type ViewType = 'century' | 'decade' | 'year' | 'month';
 
-export type NavigationLabelType = {
+export interface NavigationLabelType {
     date: Date;
     label: string;
     locale: string;
     view: ViewType;
-};
+}
 
 export interface NavigationProps {
     activeStartDate: Date;
