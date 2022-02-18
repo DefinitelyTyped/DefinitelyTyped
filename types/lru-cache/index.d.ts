@@ -114,8 +114,6 @@ declare class LRUCache<K, V> implements Iterable<[K, V]> {
      */
     entries(): Generator<[K, V]>;
 
-    [Symbol.iterator](): Iterator<[K, V]>;
-
     /**
      * Return an array of [key, entry] objects which can be passed to cache.load()
      */
@@ -138,7 +136,7 @@ declare class LRUCache<K, V> implements Iterable<[K, V]> {
     /**
      * Deletes a key out of the cache.
      *
-     * @deprecated use delete() instead
+     * @deprecated use `delete()` instead
      * @since 7.0.0
      */
     del(key: K): boolean;
@@ -146,7 +144,7 @@ declare class LRUCache<K, V> implements Iterable<[K, V]> {
     /**
      * Clear the cache entirely, throwing away all values.
      *
-     * @deprecated use clear() instead
+     * @deprecated use `clear()` instead
      * @since 7.0.0
      */
     reset(): void;
@@ -154,14 +152,16 @@ declare class LRUCache<K, V> implements Iterable<[K, V]> {
     /**
      * Manually iterates over the entire cache proactively pruning old entries.
      *
-     * @deprecated use purgeStale() instead
+     * @deprecated use `purgeStale()` instead
      * @since 7.0.0
      */
     prune(): boolean;
+
+    [Symbol.iterator](): Iterator<[K, V]>;
 }
 
 declare namespace LRUCache {
-    type DisposeReason = "evict" | "set" | "delete";
+    type DisposeReason = 'evict' | 'set' | 'delete';
 
     type SizeCalculator<K, V> = (value: V, key: K) => number;
 
@@ -173,10 +173,10 @@ declare namespace LRUCache {
          * but if you try to get an item that is too old, it'll drop it and return
          * undefined instead of giving it to you.
          *
-         * @deprecated use options.ttl instead
+         * @deprecated use `options.ttl` instead
          * @since 7.0.0
          */
-        maxAge?: number;
+        maxAge?: number | undefined;
 
         /**
          * Function that is used to calculate the length of stored items.
@@ -186,7 +186,7 @@ declare namespace LRUCache {
          * `max` like-sized things. The item is passed as the first argument,
          * and the key is passed as the second argument.
          *
-         * @deprecated use options.sizeCalculation instead
+         * @deprecated use `options.sizeCalculation` instead
          * @since 7.0.0
          */
         length?(value: V, key?: K): number;
@@ -199,10 +199,10 @@ declare namespace LRUCache {
          * return `undefined` when you try to get a stale entry,
          * as if it had already been deleted.
          *
-         * @deprecated use options.allowStale instead
+         * @deprecated use `options.allowStale` instead
          * @since 7.0.0
          */
-        stale?: boolean;
+        stale?: boolean | undefined;
     }
 
     interface Options<K, V> extends DeprecatedOptions<K, V> {
@@ -221,7 +221,7 @@ declare namespace LRUCache {
          * Note also that size tracking can negatively impact performance,
          * though for most cases, only minimally.
          */
-        maxSize?: number;
+        maxSize?: number | undefined;
 
         /**
          * Function to calculate size of items.  Useful if storing strings or
@@ -257,7 +257,7 @@ declare namespace LRUCache {
          *
          * @default false
          */
-        noDisposeOnSet?: boolean;
+        noDisposeOnSet?: boolean | undefined;
 
         /**
          * Boolean flag to tell the cache to not update the TTL when
@@ -267,7 +267,7 @@ declare namespace LRUCache {
          *
          * @default false
          */
-        noUpdateTTL?: boolean;
+        noUpdateTTL?: boolean | undefined;
 
         /**
          * Max time to live for items before they are considered stale.
@@ -281,7 +281,7 @@ declare namespace LRUCache {
          *
          * Must be a positive integer in ms, defaults to 0, which means "no TTL"
          */
-        ttl?: number;
+        ttl?: number | undefined;
 
         /**
          * Minimum amount of time in ms in which to check for staleness.
@@ -296,7 +296,7 @@ declare namespace LRUCache {
          *
          * @default 1
          */
-        ttlResolution?: number;
+        ttlResolution?: number | undefined;
 
         /**
          * Preemptively remove stale items from the cache.
@@ -312,47 +312,47 @@ declare namespace LRUCache {
          *
          * @default false
          */
-        ttlAutopurge?: boolean;
+        ttlAutopurge?: boolean | undefined;
 
         /**
          * Return stale items from cache.get() before disposing of them
          *
          * @default false
          */
-        allowStale?: boolean;
+        allowStale?: boolean | undefined;
 
         /**
          * Update the age of items on cache.get(), renewing their TTL
          *
          * @default false
          */
-        updateAgeOnGet?: boolean;
+        updateAgeOnGet?: boolean | undefined;
     }
 
     interface SetOptions<K, V> {
         /**
          * A value for the size of the entry, prevents calls to `sizeCalculation` function
          */
-        size?: number;
-        sizeCalculation?: SizeCalculator<K, V>;
-        ttl?: number;
-        noDisposeOnSet?: boolean;
-        noUpdateTTL?: boolean;
+        size?: number | undefined;
+        sizeCalculation?: SizeCalculator<K, V> | undefined;
+        ttl?: number | undefined;
+        noDisposeOnSet?: boolean | undefined;
+        noUpdateTTL?: boolean | undefined;
     }
 
     interface GetOptions {
-        allowStale?: boolean;
-        updateAgeOnGet?: boolean;
+        allowStale?: boolean | undefined;
+        updateAgeOnGet?: boolean | undefined;
     }
 
     interface PeekOptions {
-        allowStale?: boolean;
+        allowStale?: boolean | undefined;
     }
 
     interface Entry<V> {
         value: V;
-        ttl?: number;
-        size?: number;
+        ttl?: number | undefined;
+        size?: number | undefined;
     }
 }
 

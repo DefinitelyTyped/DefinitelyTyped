@@ -44,7 +44,7 @@ new LRUCache<string, Foo>(); // $ExpectType LRUCache<string, Foo>
 new LRUCache<string, Foo>({
     max: num,
     ttl: num,
-    sizeCalculation: (value) => {
+    sizeCalculation: value => {
         return num;
     },
     dispose: (key, value) => {},
@@ -82,8 +82,6 @@ cache.updateAgeOnGet = false; // $ExpectError
 
 cache.size = 1; // $ExpectError
 
-cache.calculatedSize = 1; // $ExpectError
-
 cache.set('foo', foo); // $ExpectType LRUCache<string, Foo>
 cache.set(1, foo); // $ExpectError
 cache.set('foo', 1); // $ExpectError
@@ -97,15 +95,15 @@ cache.peek(1); // $ExpectError
 cache.has('foo'); // $ExpectType boolean
 cache.has(1); // $ExpectError
 
-cache.delete('foo');
-cache.delete(1); // $ExpectError
 cache.del('foo');
 cache.del(1); // $ExpectError
+cache.delete('foo');
+cache.delete(1); // $ExpectError
 
 cache.clear();
-cache.purgeStale();
 cache.reset();
 
+cache.purgeStale();
 cache.prune();
 
 cache.pop();
@@ -139,6 +137,6 @@ cache.rforEach(function(value, key, cache) {
 cache.keys(); // $ExpectType Generator<string, any, unknown>
 cache.values(); // $ExpectType Generator<Foo, any, unknown>
 
+// $ExpectType [string, Entry<Foo>][]
 const dump = cache.dump();
-dump; // $ExpectType [string, Entry<Foo>][]
 cache.load(dump);
