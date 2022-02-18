@@ -329,7 +329,6 @@ declare module 'ws' {
     const server = new wslib.WebSocketServer();
 
     server.on('connection', (ws) => {
-
         // $ExpectType string | undefined
         ws.id;
 
