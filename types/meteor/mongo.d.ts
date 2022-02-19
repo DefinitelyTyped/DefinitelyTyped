@@ -160,8 +160,8 @@ declare module 'meteor/mongo' {
             reactive?: boolean | undefined;
             /**  Overrides `transform` on the  [`Collection`](#collections) for this cursor.  Pass `null` to disable transformation. */
             transform?: Transform<T> | undefined;
-            /** specifies the index */
-            hint?: string | undefined;
+            /** (Server only) Overrides MongoDB's default index selection and query optimization process. Specify an index to force its use, either by its name or index specification. */
+            hint?: string | Record<string, any> | undefined;
         };
 
         type DispatchTransform<Transform, T, U> = Transform extends (...args: any) => any
