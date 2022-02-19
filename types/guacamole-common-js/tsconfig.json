@@ -9,7 +9,6 @@
       "noImplicitThis": true,
       "strictNullChecks": true,
       "strictFunctionTypes": true,
-      "strict": true,
       "esModuleInterop": true,
       "lib": ["DOM", "ES6", "ES7"],
       "typeRoots": ["../"],
