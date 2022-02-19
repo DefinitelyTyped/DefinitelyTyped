@@ -342,7 +342,8 @@ declare module 'ws' {
             return 'foo';
         }
     }
-    const webSocketServer = new WebSocket.WebSocketServer<CustomWebSocket>({WebSocket: CustomWebSocket});
+    const server = new http.Server();
+    const webSocketServer = new WebSocket.WebSocketServer<CustomWebSocket>({WebSocket: CustomWebSocket, noServer: true});
     webSocketServer.on('connection', (ws) => {
         // $ExpectType CustomWebSocket
         ws;
@@ -355,7 +356,7 @@ declare module 'ws' {
         // $ExpectType "foo"
         ws.foo();
     });
-    webSocketServer.on('upgrade', (request, socket, head) => {
+    server.on('upgrade', (request, socket, head) => {
         if (request.url === '/path') {
             webSocketServer.handleUpgrade(request, socket, head, (ws) => {
                 // $ExpectType CustomWebSocket
