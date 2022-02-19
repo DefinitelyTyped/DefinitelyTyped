@@ -7,6 +7,7 @@
 //                 teidesu <https://github.com/teidesu>
 //                 Bartosz Wojtkowiak <https://github.com/wojtkowiak>
 //                 Kyle Hensel <https://github.com/k-yle>
+//                 Samuel Skeen <https://github.com/cwadrupldijjit>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -171,7 +172,7 @@ declare class WebSocket extends EventEmitter {
 }
 
 declare const WebSocketAlias: typeof WebSocket;
-type WebSocketAlias = WebSocket;
+interface WebSocketAlias extends WebSocket {} // tslint:disable-line no-empty-interface
 
 declare namespace WebSocket {
     /**
@@ -347,9 +348,9 @@ declare namespace WebSocket {
     }
 
     const WebSocketServer: typeof Server;
-    type WebSocketServer = Server;
+    interface WebSocketServer extends Server {} // tslint:disable-line no-empty-interface
     const WebSocket: typeof WebSocketAlias;
-    type WebSocket = WebSocketAlias;
+    interface WebSocket extends WebSocketAlias {} // tslint:disable-line no-empty-interface
 
     // WebSocket stream
     function createWebSocketStream(websocket: WebSocket, options?: DuplexOptions): Duplex;

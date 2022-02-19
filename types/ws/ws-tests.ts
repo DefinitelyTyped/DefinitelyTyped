@@ -314,3 +314,24 @@ function f() {
         }
     });
 }
+
+declare module 'ws' {
+    interface WebSocket {
+        id?: string;
+    }
+
+    interface Server {
+        getWebSocketId(): string;
+    }
+}
+
+{
+    const server = new wslib.WebSocketServer();
+
+    server.on('connection', (ws) => {
+        // $ExpectType string | undefined
+        ws.id;
+
+        ws.id = server.getWebSocketId();
+    });
+}
