@@ -134,6 +134,13 @@ declare namespace LRUCache {
     type Disposer<K, V> = (value: V, key: K, reason: DisposeReason) => void;
 
     interface Options<K, V> {
+        /** @deprecated */
+        length?: SizeCalculator<K, V>;
+        /** @deprecated */
+        maxAge?: number;
+        /** @deprecated */
+        stale?: boolean;
+
         /**
          * The number of most recently used items to keep.
          * Note that we may store fewer items than this if maxSize is hit.
