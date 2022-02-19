@@ -1603,14 +1603,13 @@ function testPreserveDiscriminatedUnions() {
  * The `withStyles` HOC in MUI returns a `JSXElementConstructor` instead of a `ComponentType` as of
  * https://github.com/mui/material-ui/pull/24746.
  */
+interface Props {
+    foo: number;
+    bar: boolean;
+}
+declare const TestComponentJSXElementConstructorIsAllowed: React.JSXElementConstructor<Props>;
+
 function testJSXElementConstructorIsAllowed() {
-    interface Props {
-        foo: number;
-        bar: boolean;
-    }
-
-    const TestComponent: React.JSXElementConstructor<Props> = () => null;
-
     interface StoreState {
         stateThings: number;
     }
@@ -1618,6 +1617,6 @@ function testJSXElementConstructorIsAllowed() {
         foo: state.stateThings,
     });
 
-    const ConnectedComponent = connect(mapStateToProps)(TestComponent);
+    const ConnectedComponent = connect(mapStateToProps)(TestComponentJSXElementConstructorIsAllowed);
     <ConnectedComponent bar />;
 }
