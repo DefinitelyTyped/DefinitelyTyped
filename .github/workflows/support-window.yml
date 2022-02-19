@@ -11,7 +11,7 @@ on:
   # https://docs.github.com/en/actions/managing-workflow-runs/manually-running-a-workflow
   workflow_dispatch:
 jobs:
-  build:
+  support-window:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2

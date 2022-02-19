@@ -13,6 +13,27 @@ window.obsstudio.getCurrentScene((scene: OBSSceneInfo) => {
     scene.height;
 });
 
+window.obsstudio.setCurrentScene('Scene 1');
+
+window.obsstudio.getCurrentTransition();
+window.obsstudio.getCurrentTransition((transition: string) => {
+    transition;
+});
+
+window.obsstudio.setCurrentTransition('Cut');
+
+window.obsstudio.getScenes();
+window.obsstudio.getScenes((scenes: string[]) => {
+    scenes;
+    scenes[0];
+});
+
+window.obsstudio.getTransitions();
+window.obsstudio.getTransitions((transitions: string[]) => {
+    transitions;
+    transitions[0];
+});
+
 window.obsstudio.getStatus();
 window.obsstudio.getStatus((status: OBSStatus) => {
     status.recording;
