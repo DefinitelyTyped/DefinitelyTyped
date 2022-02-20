@@ -648,8 +648,8 @@ adapter.setForeignStateChangedAsync('id', { val: ['an', 'array'] });
 
 // Allow alias states
 adapter
-    .getObjectAsync('id')
-    .then(obj => obj && obj.type === 'state' && obj.common.alias && obj.common.alias.id.toUpperCase());
+    .getForeignObjectAsync('adapter.0.stateId')
+    .then(obj => obj && obj.type === 'state' && (typeof obj.common.alias?.id === "string" || typeof obj.common.alias?.id.read === "string"));
 
 adapter.getObjectAsync('id').then(obj => {
     // Allow accessing unknown properties - the user is on its own here
