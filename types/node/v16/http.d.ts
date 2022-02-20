@@ -140,7 +140,7 @@ declare module 'http' {
     }
     interface ServerOptions {
         IncomingMessage?: typeof IncomingMessage | undefined;
-        ServerResponse?: typeof ServerResponse| undefined;
+        ServerResponse?: typeof ServerResponse | undefined;
         /**
          * Optionally overrides the value of
          * `--max-http-header-size` for requests received by this server, i.e.
