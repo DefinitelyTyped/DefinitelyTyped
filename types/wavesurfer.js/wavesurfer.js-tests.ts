@@ -153,7 +153,11 @@ waveSurferWithMinimapPlugin.minimap.destroy();
 // - plugin: regions
 const waveSurferWithRegionsPlugin = WaveSurfer.create({
     container: "#waveform",
-    plugins: [RegionsPlugin.create({})],
+    plugins: [
+        RegionsPlugin.create({
+            maxRegions: 2
+        })
+    ],
 });
 waveSurferWithRegionsPlugin.regions.destroy();
 
