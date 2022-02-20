@@ -1,4 +1,5 @@
 import SteamUser = require('steam-user');
+import SteamID = require('steamid');
 
 console.log(SteamUser.formatCurrency(12.34, SteamUser.ECurrencyCode.USD));
 console.log(SteamUser.formatCurrency(12345, SteamUser.ECurrencyCode.JPY));
@@ -115,4 +116,40 @@ user.chat.getFriendMessageHistory('76561197960287930').then(response => {
 
 user.getFriendsThatPlay(730).then(response => {
     // do something with response
+user.chat.on('chatRoomGroupRoomsChange', details => {
+    console.log(details.chat_group_id);
+    console.log(details.default_chat_id);
+    console.log(details.chat_rooms);
+});
+
+// ADDED IN v4.21.0
+
+user.chat.createGroup(['76561197960287930', '76561197960287931', '76561197960287932']).then(response => {
+    console.log(response.chat_group_id);
+    console.log(response.state);
+    console.log(response.user_chat_state);
+}).catch(err => console.error(err));
+
+user.chat.saveGroup('groupId', 'myAwesomeGroupName').catch(err => console.error(err));
+
+user.chat.leaveGroup('groupId').catch(err => console.error(err));
+
+user.chat.setGroupUserRoleState('groupId', new SteamID('76561197960287931'), 'roleId', true).catch(err => console.error);
+
+user.chat.on('chatRoomGroupSelfStateChange', details => {
+    console.log(details.chat_group_id);
+    console.log(details.user_action);
+    console.log(details.user_chat_group_state);
+    console.log(details.group_summary);
+});
+
+user.chat.on('chatRoomGroupMemberStateChange', details => {
+    console.log(details.chat_group_id);
+    console.log(details.member);
+    console.log(details.change);
+});
+
+user.chat.on('chatRoomGroupHeaderStateChange', details => {
+    console.log(details.chat_group_id);
+    console.log(details.header_state);
 });
