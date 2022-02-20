@@ -58,6 +58,8 @@ import * as dns from 'dns';
         foo = req.foo;
         bar = res.bar;
     });
+    server = http.createServer<MyIncomingMessage, MyServerResponse>(reqListener);
+    server = http.createServer<MyIncomingMessage, MyServerResponse>({}, reqListener);
 
     server.addListener('checkContinue', (req, res) => {
        foo = req.foo;

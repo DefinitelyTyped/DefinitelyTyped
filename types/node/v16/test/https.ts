@@ -112,6 +112,8 @@ import * as dns from 'node:dns';
         bar = res.bar;
         foo = res.req.foo;
     });
+    server = https.createServer<MyIncomingMessage, MyServerResponse>(reqListener);
+    server = https.createServer<MyIncomingMessage, MyServerResponse>({}, reqListener);
 
     server.addListener('checkContinue', (req, res) => {
        foo = req.foo;
