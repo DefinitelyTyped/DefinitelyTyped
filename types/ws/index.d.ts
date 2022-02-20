@@ -115,12 +115,12 @@ declare class WebSocket extends EventEmitter {
     removeEventListener(method: 'open', cb: (event: WebSocket.Event) => void): void;
 
     // Events
-    on(event: 'close', listener: (this: WebSocket, code: number, reason: Buffer) => void): this;
-    on(event: 'error', listener: (this: WebSocket, err: Error) => void): this;
-    on(event: 'upgrade', listener: (this: WebSocket, request: IncomingMessage) => void): this;
-    on(event: 'message', listener: (this: WebSocket, data: WebSocket.RawData, isBinary: boolean) => void): this;
-    on(event: 'open', listener: (this: WebSocket) => void): this;
-    on(event: 'ping' | 'pong', listener: (this: WebSocket, data: Buffer) => void): this;
+    on(event: "close", listener: (this: WebSocket, code: number, reason: Buffer) => void): this;
+    on(event: "error", listener: (this: WebSocket, err: Error) => void): this;
+    on(event: "upgrade", listener: (this: WebSocket, request: IncomingMessage) => void): this;
+    on(event: "message", listener: (this: WebSocket, data: WebSocket.RawData, isBinary: boolean) => void): this;
+    on(event: "open", listener: (this: WebSocket) => void): this;
+    on(event: "ping" | "pong", listener: (this: WebSocket, data: Buffer) => void): this;
     on(
         event: "unexpected-response",
         listener: (this: WebSocket, request: ClientRequest, response: IncomingMessage) => void,
