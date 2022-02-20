@@ -265,6 +265,13 @@ declare global {
             enabled: boolean;
             /** How and when this instance should be started */
             mode: InstanceMode;
+            /**
+             * The starting priority of this adapter:
+             * - **1:** Logic adapters
+             * - **2:** Data providers
+             * - **3:** All other adapters
+             */
+            tier?: 1 | 2 | 3;
 
             // Make it possible to narrow the object type using the custom property
             custom?: undefined;
