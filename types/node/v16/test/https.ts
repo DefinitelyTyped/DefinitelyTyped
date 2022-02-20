@@ -115,10 +115,12 @@ import * as dns from 'node:dns';
     server.addListener('checkContinue', (req, res) => {
        foo = req.foo;
        bar = res.bar;
+       foo = res.req.foo;
     });
     server.addListener('checkExpectation', (req, res) => {
        foo = req.foo;
        bar = res.bar;
+       foo = res.req.foo;
     });
     server.addListener('connect', (req) => {
        foo = req.foo;
@@ -126,6 +128,7 @@ import * as dns from 'node:dns';
     server.addListener('request', (req, res) => {
        foo = req.foo;
        bar = res.bar;
+       foo = res.req.foo;
     });
     server.addListener('upgrade', (req) => {
        foo = req.foo;
@@ -134,10 +137,12 @@ import * as dns from 'node:dns';
     server.on('checkContinue', (req, res) => {
        foo = req.foo;
        bar = res.bar;
+       foo = res.req.foo;
     });
     server.on('checkExpectation', (req, res) => {
        foo = req.foo;
        bar = res.bar;
+       foo = res.req.foo;
     });
     server.on('connect', (req) => {
        foo = req.foo;
@@ -145,6 +150,7 @@ import * as dns from 'node:dns';
     server.on('request', (req, res) => {
        foo = req.foo;
        bar = res.bar;
+       foo = res.req.foo;
     });
     server.on('upgrade', (req) => {
        foo = req.foo;
@@ -153,10 +159,12 @@ import * as dns from 'node:dns';
     server.once('checkContinue', (req, res) => {
        foo = req.foo;
        bar = res.bar;
+       foo = res.req.foo;
     });
     server.once('checkExpectation', (req, res) => {
        foo = req.foo;
        bar = res.bar;
+       foo = res.req.foo;
     });
     server.once('connect', (req) => {
        foo = req.foo;
@@ -164,6 +172,7 @@ import * as dns from 'node:dns';
     server.once('request', (req, res) => {
        foo = req.foo;
        bar = res.bar;
+       foo = res.req.foo;
     });
     server.once('upgrade', (req) => {
        foo = req.foo;
@@ -172,10 +181,12 @@ import * as dns from 'node:dns';
     server.prependListener('checkContinue', (req, res) => {
        foo = req.foo;
        bar = res.bar;
+       foo = res.req.foo;
     });
     server.prependListener('checkExpectation', (req, res) => {
        foo = req.foo;
        bar = res.bar;
+       foo = res.req.foo;
     });
     server.prependListener('connect', (req) => {
        foo = req.foo;
@@ -183,6 +194,7 @@ import * as dns from 'node:dns';
     server.prependListener('request', (req, res) => {
        foo = req.foo;
        bar = res.bar;
+       foo = res.req.foo;
     });
     server.prependListener('upgrade', (req) => {
        foo = req.foo;
@@ -191,10 +203,12 @@ import * as dns from 'node:dns';
     server.prependOnceListener('checkContinue', (req, res) => {
        foo = req.foo;
        bar = res.bar;
+       foo = res.req.foo;
     });
     server.prependOnceListener('checkExpectation', (req, res) => {
        foo = req.foo;
        bar = res.bar;
+       foo = res.req.foo;
     });
     server.prependOnceListener('connect', (req) => {
        foo = req.foo;
@@ -202,6 +216,7 @@ import * as dns from 'node:dns';
     server.prependOnceListener('request', (req, res) => {
        foo = req.foo;
        bar = res.bar;
+       foo = res.req.foo;
     });
     server.prependOnceListener('upgrade', (req) => {
        foo = req.foo;
