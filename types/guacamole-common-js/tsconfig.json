@@ -16,6 +16,6 @@
   },
   "files": [
     "index.d.ts",
-    "guacamole-common-js-tests.ts"
+    "test/guacamole-common-js-test.ts"
   ]
 }
