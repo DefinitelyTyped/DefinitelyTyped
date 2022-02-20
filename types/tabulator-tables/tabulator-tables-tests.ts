@@ -1014,7 +1014,7 @@ table.on('dataProcessing', () => {});
 table.on('dataProcessed', () => {});
 table.off('dataProcessed');
 table.off('dataProcessed', dataProcessedEvent);
-table.on('cellClick', () => { });
+table.on('cellClick', () => {});
 table = Tabulator.findTable('#example-table')[0];
 table = TabulatorFull.findTable('#example-table')[0];
 
