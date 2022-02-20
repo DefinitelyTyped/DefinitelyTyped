@@ -1,4 +1,4 @@
-// Type definitions for ws 8.2
+// Type definitions for ws 8.5
 // Project: https://github.com/websockets/ws
 // Definitions by: Paul Loyd <https://github.com/loyd>
 //                 Margus Lamp <https://github.com/mlamp>
