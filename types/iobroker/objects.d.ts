@@ -699,5 +699,25 @@ declare global {
         type SettableGroupObject = SettableObject<GroupObject>;
         type SettableScriptObject = SettableObject<ScriptObject>;
         type SettableOtherObject = SettableObject<OtherObject>;
+
+        // Used to infer the return type of GetObjectView
+        type InferGetObjectViewItemType<Design extends string, View extends string> =
+            Design extends 'system' ? (
+                View extends "host" ? HostObject :
+                View extends "adapter" ? AdapterObject :
+                View extends "instance" ? InstanceObject :
+                View extends "meta" ? MetaObject :
+                View extends "device" ? DeviceObject :
+                View extends "channel" ? ChannelObject :
+                View extends "state" ? StateObject :
+                View extends "folder" ? FolderObject :
+                View extends "enum" ? EnumObject :
+                View extends "script" ? ScriptObject :
+                View extends "group" ? GroupObject :
+                View extends "user" ? UserObject :
+                View extends "config" ? OtherObject & { type: "config" } :
+                View extends "custom" ? NonNullable<StateObject["common"]["custom"]> :
+                ioBroker.Object
+            ) : any;
     }
 }
