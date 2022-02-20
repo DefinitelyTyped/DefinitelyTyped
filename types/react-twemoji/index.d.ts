@@ -5,7 +5,7 @@
 
 import * as React from 'react';
 
-export type TwemojiProps = {
+export interface TwemojiProps {
     children?: React.ReactNode
 
     /**
