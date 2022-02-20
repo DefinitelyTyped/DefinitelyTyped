@@ -116,6 +116,7 @@ user.chat.getFriendMessageHistory('76561197960287930').then(response => {
 
 user.getFriendsThatPlay(730).then(response => {
     // do something with response
+});
 user.chat.on('chatRoomGroupRoomsChange', details => {
     console.log(details.chat_group_id);
     console.log(details.default_chat_id);

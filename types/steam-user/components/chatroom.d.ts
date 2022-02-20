@@ -24,8 +24,8 @@ declare class SteamChatRoomClient extends EventEmitter {
     createGroup(inviteeSteamIDs?: SteamID[] | string[] | string, name?: string, callback?: (
         err: Error | null,
         response: { chat_group_id: string, state: ChatRoomGroupState, user_chat_state: UserChatRoomGroupState }
-        ) => void
-    ): Promise<{ chat_group_id: string, state: ChatRoomGroupState, user_chat_state: UserChatRoomGroupState }>
+    ) => void
+    ): Promise<{ chat_group_id: string, state: ChatRoomGroupState, user_chat_state: UserChatRoomGroupState }>;
 
     /**
      * Converts an "ad-hoc" multi-user group chat into a full-fledged chat room group, which can contain multiple channels.
