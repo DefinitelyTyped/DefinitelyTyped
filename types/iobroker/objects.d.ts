@@ -191,17 +191,23 @@ declare global {
 
             /**
              * Dictionary of possible values for this state in the form
-             * <pre>
+             * ```jsonc
              * {
              *     "internal value 1": "displayed value 1",
              *     "internal value 2": "displayed value 2",
-             *     ...
+             *     // ...
              * }
-             * </pre>
+             * ```
+             *
+             * or as an array:
+             * ```jsonc
+             * [ "value 1", "value 2", // ... ]
+             * ```
+             *
              * In old ioBroker versions, this could also be a string of the form
-             * "val1:text1;val2:text2" (now deprecated)
+             * `"val1:text1;val2:text2"` (now deprecated)
              */
-            states?: Record<string, string> | string;
+            states?: Record<string, string> | string[] | string;
 
             /** ID of a helper state indicating if the handler of this state is working */
             workingID?: string;
