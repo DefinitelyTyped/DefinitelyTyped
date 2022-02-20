@@ -60,6 +60,7 @@ import * as dns from 'node:dns';
     server = new http.Server<MyIncomingMessage, MyServerResponse>((req, res) => {
         foo = req.foo;
         bar = res.bar;
+        foo = res.req.foo;
     });
 
     server.addListener('checkContinue', (req, res) => {
