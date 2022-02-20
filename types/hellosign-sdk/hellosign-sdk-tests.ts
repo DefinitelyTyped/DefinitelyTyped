@@ -131,7 +131,7 @@ export const sendSigningRequest = async (pdfFilePath: string) => {
                 role: 'Signer',
             },
         ],
-        files: [pdfFilePath],
+        file: [pdfFilePath],
         form_fields_per_document: [
             [
                 {
