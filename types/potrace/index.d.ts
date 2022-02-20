@@ -3,7 +3,8 @@
 // Definitions by: Direnc Timur <https://github.com/proohit>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import 'node';
+/// <reference types="node" />
+
 import Jimp = require('jimp');
 
 export interface PotraceOptions {
