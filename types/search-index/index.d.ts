@@ -2,6 +2,7 @@
 // Project: https://github.com/fergiemcdowall/search-index
 // Definitions by: Travis Harrison <https://github.com/TravisYeah>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 4.0
 
 import { AbstractLevelDOWNConstructor } from 'abstract-leveldown';
 
