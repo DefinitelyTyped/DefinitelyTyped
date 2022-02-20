@@ -122,7 +122,7 @@ declare class WebSocket extends EventEmitter {
     on(event: 'open', listener: (this: WebSocket) => void): this;
     on(event: 'ping' | 'pong', listener: (this: WebSocket, data: Buffer) => void): this;
     on(
-        event: 'unexpected-response',
+        event: "unexpected-response",
         listener: (this: WebSocket, request: ClientRequest, response: IncomingMessage) => void,
     ): this;
     on(event: string | symbol, listener: (this: WebSocket, ...args: any[]) => void): this;
