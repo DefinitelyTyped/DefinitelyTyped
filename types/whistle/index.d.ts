@@ -10,95 +10,231 @@
 
  =============================================== */
 
-import { IncomingMessage, ServerResponse, Server } from 'http';
-import EventEmitter from 'events';
+ /// <reference types="node" />
 
-export type Session = {
+ import { IncomingMessage, ServerResponse, Server } from 'http';
+ import { Request, Response, NextFunction } from 'express';
+ import { EventEmitter } from 'events';
+ import {
+   WhistleRuntimeInfo,
+   WhistleFile,
+   WhistleStorage,
+   WhistlePluginOptions,
+} from './plugin';
+
+type StrExt = string | false;
+
+interface WhistleFrame {
+  reqId: string;
+  frameId: string;
+  base64?: string;
+  bin?: '' | Buffer;
+  text?: string;
+  mask?: boolean;
+  compressed?: boolean;
+  length?: number;
+  opcode?: number;
+  isClient?: boolean;
+  err?: string;
+  closed?: true;
+  code?: string | number;
+  [propName: string]: any;
+}
+
+interface WhistleSession {
+  id: string;
   url: string;
-};
+  useH2?: boolean;
+  isHttps?: boolean;
+  startTime: number;
+  dnsTime?: number;
+  requestTime: number;
+  responseTime: number;
+  endTime?: number;
+  req: {
+    method?: string;
+    httpVersion?: string;
+    ip?: string;
+    port?: string | number;
+    rawHeaderNames?: object;
+    headers: object;
+    size?: number;
+    body?: StrExt;
+    base64?: StrExt;
+    rawHeaders?: object;
+    [propName: string]: any;
+  };
+  res: {
+    ip?: string;
+    port?: string | number;
+    rawHeaderNames?: object;
+    statusCode?: number | string;
+    statusMessage?: string;
+    headers?: object;
+    size?: number;
+    body?: StrExt;
+    base64?: StrExt;
+    rawHeaders?: object;
+    [propName: string]: any;
+  };
+  rules: object;
+  rulesHeaders?: object;
+  frames?: WhistleFrame[];
+  [propName: string]: any;
+}
 
-export type WhistleSecureFilter = ((item: Session, clientIp?: string, filter?: string) => Session) | string;
+ 
+type WhistleSecureFilter = ((item: WhistleSession, clientIp?: string, filter?: string) => WhistleSession) | string;
 
+ interface WhistleOptions {
+   config?: string;
+   cluster?: number;
+   server?: Server | EventEmitter;
+   debugMode?: boolean;
+   mode?: string;
+   realPort?: number;
+   port?: number | string;
+   uiport?: number | string;
+   socksPort?: number | string;
+   httpPort?: number | string;
+   httpsPort?: number | string;
+   host?: string;
+   addon?: string;
+   authKey?: string;
+   guestAuthKey?: string;
+   reqCacheSize?: number;
+   frameCacheSize?: number;
+   allowMultipleChoice?: boolean;
+   timeout?: number;
+   username?: string;
+   password?: string;
+   guestName?: string;
+   guestPassword?: string;
+   disableAllRules?: boolean;
+   disableAllPlugins?: boolean;
+   replaceExistRule?: boolean;
+   replaceExistValue?: boolean;
+   allowPluginList?: boolean;
+   blockPluginList?: boolean;
+   webUIPath?: string;
+   certDir?: string;
+   middlewares?: string;
+   uiMiddleware?: string;
+   cmdName?: string;
+   dnsServer?: string;
+   projectPluginsPath?: string;
+   customPluginsPath?: string;
+   pluginsPath?: string;
+   inspect?: boolean;
+   inspectBrk?: boolean;
+   secureFilter?: WhistleSecureFilter;
+   encrypted?: boolean;
+   sockets?: number;
+   dataDirname?: string;
+   storage?: string;
+   baseDir?: string;
+   noGlobalPlugins?: boolean;
+   pluginsDataMap?: object;
+   globalData?: object;
+   localUIHost?: string;
+   extra?: string;
+   rules?: object;
+   values?: object;
+   shadowRules?: string;
+   dnsCache?: number;
+   allowDisableShadowRules?: boolean;
+   customHandler?: (req: Request, res: Response, next?: NextFunction) => void;
+   pluginHost?: string;
+   copy?: string;
+   [propName: string]: any;
+ }
 
-type WhistleOptions = {
-  config?: string;
-  cluster?: number;
-  server?: Server | EventEmitter;
-  debugMode?: boolean;
-  mode?: string;
-  realPort?: number;
-  port?: number | string;
-  socksPort?: number | string;
-  httpPort?: number | string;
-  httpsPort?: number | string;
-  addon?: string;
-  authKey?: string;
-  guestAuthKey?: string;
-  reqCacheSize?: number;
-  frameCacheSize?: number;
-  allowMultipleChoice?: boolean;
-  timeout?: number;
+interface WhistleAuth {
   username?: string;
   password?: string;
   guestName?: string;
   guestPassword?: string;
-  disableAllRules?: boolean;
-  disableAllPlugins?: boolean;
-  replaceExistRule?: boolean;
-  replaceExistValue?: boolean;
-  allowPluginList?: boolean;
-  blockPluginList?: boolean;
-  webUIPath?: string;
-  certDir?: string;
-  middlewares?: string;
-  uiMiddleware?: string;
-  cmdName?: string;
-  dnsServer?: string;
-  projectPluginPath?: string;
-  customPluginPath?: string;
-  inspect?: boolean;
-  inspectBrk?: boolean;
-  secureFilter?: WhistleSecureFilter;
-  encrypted?: boolean;
-  sockets?: number;
-  dataDirname?: string;
-  storage?: string;
-  baseDir?: string;
-  noGlobalPlugins?: boolean;
-  pluginsDataMap?: object;
-  globalData?: object;
-  localUIHost?: string;
-  extra?: string;
-  rules?: object;
-  values?: object;
-  dnsCache?: number;
-  allowDisableShadowRules?: boolean;
-  customHandler?: Function;
-};
-
-export type Options = WhistleOptions;
-
-export type Result = {
-
-};
-
-export default function(options?: Options, callback?: Function): Result | void;
-
-declare global {
-  namespace Whistle {
-    type Options = WhistleOptions;
-    type SecureFilter = WhistleSecureFilter;
-
-    class PluginRequest extends IncomingMessage {
-
-    }
-    
-    class PluginResponse extends ServerResponse {
-    
-    }
-    
-    class PluginServer extends Server {
-    
-    }
-  }
+  guest?: {
+    username?: string;
+    password?: string;
+  };
 }
+
+export const enum Level {
+  Fatal = 'fatal',
+  Error = 'error',
+  Warn = 'warn',
+  Info = 'info',
+  Debug = 'debug',
+}
+
+type LogFn = (msg: Object, ...restMsg: Object[]) => void;
+ 
+interface WhistleResult {
+  logger: {
+    log: (msg: Object, level?: Level) => void;
+    fatal: LogFn;
+    error: LogFn;
+    warn: LogFn;
+    info: LogFn;
+    debug: LogFn;
+  };
+  setAuth: (auth: WhistleAuth) => void;
+  setUIHost: (host: string | string[]) => void;
+  setPluginUIHost: (pluginName: string, host: string | string[]) => void;
+  getRuntimeInfo: () => WhistleRuntimeInfo;
+  getShadowRules:() => string;
+  setShadowRules:(shadowRules: string) => void;
+  [propName: string]: any;
+ }
+ 
+ export default function(options?: WhistleOptions, callback?: Function): WhistleResult;
+
+ type WhistleLevel = Level;
+ 
+ declare global {
+   namespace Whistle {
+     type Options = WhistleOptions;
+     type SecureFilter = WhistleSecureFilter;
+     type Session = WhistleSession;
+     type RuntimeInfo = WhistleRuntimeInfo;
+     type Result = WhistleResult;
+     type Auth = WhistleAuth;
+     type Level = WhistleLevel;
+     type Frame = WhistleFrame;
+     type File = WhistleFile;
+     type Storage = WhistleStorage;
+     type PluginOptions = WhistlePluginOptions;
+
+     class PluginRequest extends IncomingMessage {
+ 
+     }
+     
+     class PluginResponse extends ServerResponse {
+     
+     }
+     
+     class PluginServer extends Server {
+     
+     }
+
+     class PluginUIRequest extends IncomingMessage {
+ 
+    }
+    
+    class PluginUIResponse extends ServerResponse {
+    
+    }
+    
+    class PluginUIServer extends Server {
+    
+    }
+
+    type PluginHook = () => void;
+
+    interface Hooks {
+
+    }
+   }
+ }
+ 
