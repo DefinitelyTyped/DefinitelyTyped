@@ -9,7 +9,7 @@ createServer((req, res) => {
 
     onFinished(res, (err, res) => {
         err; // $ExpectType Error | null
-        res; // $ExpectType ServerResponse
+        res; // $ExpectType ServerResponse<IncomingMessage>
     });
 
     // $ExpectType boolean
