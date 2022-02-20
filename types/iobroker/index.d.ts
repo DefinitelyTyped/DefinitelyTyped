@@ -386,6 +386,12 @@ declare global {
             /** Can be used to test for forbidden chars in object IDs */
             readonly FORBIDDEN_CHARS: RegExp;
 
+            /**
+             * Whether the adapter should warn if states are set without an corresponding existing object.
+             * Defaults to the value passed to the constructor via the option {@link AdapterOptions.strictObjectChecks}.
+             */
+            performStrictObjectChecks: boolean;
+
             /* ===============================
                Functions defined in adapter.js
                =============================== */

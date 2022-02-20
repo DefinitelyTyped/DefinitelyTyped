@@ -924,3 +924,6 @@ adapter.getForeignObjectAsync(`system.adapter.${adapter.namespace}`).then(o => {
     // $ExpectType InstanceObject
     o!;
 });
+
+// https://github.com/ioBroker/adapter-core/issues/378
+adapter.performStrictObjectChecks = true;
