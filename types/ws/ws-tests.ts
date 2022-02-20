@@ -335,3 +335,10 @@ declare module 'ws' {
         ws.id = server.getWebSocketId();
     });
 }
+
+{
+    const ws = new WebSocket("ws://www.host.com/path", {
+        generateMask: (mask) => {},
+        skipUTF8Validation: true,
+    });
+}
