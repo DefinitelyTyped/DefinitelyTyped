@@ -6,7 +6,7 @@
 import * as React from 'react';
 
 export interface TwemojiProps {
-    children?: React.ReactNode
+    children?: React.ReactNode;
 
     /**
      * When it is true, Twemoji will not render a wrapping element (with tag)
@@ -15,18 +15,18 @@ export interface TwemojiProps {
      * noWrapper is true. E.g. foo in
      * <Twemoji noWrapper={true}>foo<p>bar</p></Twemoji> is not parsed.
      */
-    noWrapper?: boolean
+    noWrapper?: boolean;
 
     /**
      * twemoji.parse options.
      */
-    options?: object
+    options?: object;
 
     /**
      * The tag of the wrapping element. This option is ignored when noWrapper is
      * true.
      */
-    tag?: string
+    tag?: string;
 }
 
 /**
