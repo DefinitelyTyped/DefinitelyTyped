@@ -25,7 +25,7 @@ export default class RegionsPlugin extends Observer implements WaveSurferPlugin 
     getRegionSnapToGridValue(value: number, params: RegionParams): number;
 
     readonly list: { [id: string]: Region };
-    readonly maxRegions: number[];
+    readonly maxRegions: number;
     readonly params: RegionsPluginParams;
     readonly regionsMinLength: number;
     readonly util: WaveSurfer["util"];
