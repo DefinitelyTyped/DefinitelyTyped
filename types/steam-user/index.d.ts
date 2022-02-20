@@ -151,6 +151,8 @@ declare class SteamUser extends EventEmitter {
      */
     packageVersion: string;
 
+    CurrencyData: Record<SteamUser.ECurrencyCode, { prepend?: string, append?: string, commas?: boolean, whole?: boolean }>;
+
     // EVENTS
     on<K extends keyof Events>(event: K, listener: (...args: Events[K]) => void): this;
     once<K extends keyof Events>(event: K, listener: (...args: Events[K]) => void): this;
