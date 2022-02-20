@@ -175,22 +175,22 @@ interface SearchIndex {
     QUERY(query: Token, options?: QueryOptions): Promise<QueryResult>;
     SEARCH(token: Token): Promise<QueryResult>;
     ALL_DOCUMENTS(limit?: number): Promise<AllDocumentsResultItem[]>;
-    BUCKETS(...tokens: Token[]): Promise<FieldValueIdObject[]>;
-    DELETE(...docIds: string[]): Promise<Operation[]>;
+    BUCKETS(...tokens: ReadonlyArray<Token>): Promise<FieldValueIdObject[]>;
+    DELETE(...docIds: ReadonlyArray<string>): Promise<Operation[]>;
     CREATED(): Promise<number>;
     DICTIONARY(token?: Token): Promise<string[]>;
-    DOCUMENTS(...docIds: string[]): Promise<any[]>;
+    DOCUMENTS(...docIds: ReadonlyArray<string>): Promise<any[]>;
     DISTINCT(token?: Token): Promise<FieldValue[]>;
     DOCUMENT_COUNT(): Promise<number>;
     EXPORT(): Promise<KeyValue[]>;
     FACETS(token?: Token): Promise<FieldValueIdObject[]>;
     FIELDS(): Promise<string[]>;
     FLUSH(): Promise<void>;
-    IMPORT(index: KeyValue[]): Promise<void>;
+    IMPORT(index: ReadonlyArray<KeyValue>): Promise<void>;
     MIN(token?: Token): Promise<string>;
     MAX(token?: Token): Promise<string>;
-    PUT(documents: any[], options?: PutOptions): Promise<Operation[]>;
-    PUT_RAW(documents: any[]): Promise<Operation[]>;
+    PUT(documents: ReadonlyArray<any>, options?: PutOptions): Promise<Operation[]>;
+    PUT_RAW(documents: ReadonlyArray<any>): Promise<Operation[]>;
     TOKENIZATION_PIPELINE_STAGES: TokenizationPipelineStages;
 }
 
