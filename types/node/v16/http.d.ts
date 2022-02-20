@@ -140,7 +140,7 @@ declare module 'http' {
     }
     interface ServerOptions {
         IncomingMessage?: typeof IncomingMessage | undefined;
-        ServerResponse?: typeof ServerResponse | undefined;
+        ServerResponse?: typeof ServerResponse| undefined;
         /**
          * Optionally overrides the value of
          * `--max-http-header-size` for requests received by this server, i.e.
@@ -156,13 +156,13 @@ declare module 'http' {
          */
         insecureHTTPParser?: boolean | undefined;
     }
-    type RequestListener = (req: IncomingMessage, res: ServerResponse) => void;
+    type RequestListener<Request extends IncomingMessage = IncomingMessage, Response extends ServerResponse<Request> = ServerResponse<Request>> = (req: Request, res: Response) => void;
     /**
      * @since v0.1.17
      */
-    class Server extends NetServer {
-        constructor(requestListener?: RequestListener);
-        constructor(options: ServerOptions, requestListener?: RequestListener);
+    class Server<Request extends IncomingMessage = IncomingMessage, Response extends ServerResponse<Request> = ServerResponse<Request>> extends NetServer {
+        constructor(requestListener?: RequestListener<Request, Response>);
+        constructor(options: ServerOptions, requestListener?: RequestListener<Request, Response>);
         /**
          * Sets the timeout value for sockets, and emits a `'timeout'` event on
          * the Server object, passing the socket as an argument, if a timeout
@@ -256,75 +256,75 @@ declare module 'http' {
         addListener(event: 'connection', listener: (socket: Socket) => void): this;
         addListener(event: 'error', listener: (err: Error) => void): this;
         addListener(event: 'listening', listener: () => void): this;
-        addListener(event: 'checkContinue', listener: RequestListener): this;
-        addListener(event: 'checkExpectation', listener: RequestListener): this;
+        addListener(event: 'checkContinue', listener: RequestListener<Request, Response>): this;
+        addListener(event: 'checkExpectation', listener: RequestListener<Request, Response>): this;
         addListener(event: 'clientError', listener: (err: Error, socket: stream.Duplex) => void): this;
-        addListener(event: 'connect', listener: (req: IncomingMessage, socket: stream.Duplex, head: Buffer) => void): this;
-        addListener(event: 'request', listener: RequestListener): this;
-        addListener(event: 'upgrade', listener: (req: IncomingMessage, socket: stream.Duplex, head: Buffer) => void): this;
+        addListener(event: 'connect', listener: (req: Request, socket: stream.Duplex, head: Buffer) => void): this;
+        addListener(event: 'request', listener: RequestListener<Request, Response>): this;
+        addListener(event: 'upgrade', listener: (req: Request, socket: stream.Duplex, head: Buffer) => void): this;
         emit(event: string, ...args: any[]): boolean;
         emit(event: 'close'): boolean;
         emit(event: 'connection', socket: Socket): boolean;
         emit(event: 'error', err: Error): boolean;
         emit(event: 'listening'): boolean;
-        emit(event: 'checkContinue', req: IncomingMessage, res: ServerResponse): boolean;
-        emit(event: 'checkExpectation', req: IncomingMessage, res: ServerResponse): boolean;
+        emit(event: 'checkContinue', req: Request, res: Response): boolean;
+        emit(event: 'checkExpectation', req: Request, res: Response): boolean;
         emit(event: 'clientError', err: Error, socket: stream.Duplex): boolean;
-        emit(event: 'connect', req: IncomingMessage, socket: stream.Duplex, head: Buffer): boolean;
-        emit(event: 'request', req: IncomingMessage, res: ServerResponse): boolean;
-        emit(event: 'upgrade', req: IncomingMessage, socket: stream.Duplex, head: Buffer): boolean;
+        emit(event: 'connect', req: Request, socket: stream.Duplex, head: Buffer): boolean;
+        emit(event: 'request', req: Request, res: Response): boolean;
+        emit(event: 'upgrade', req: Request, socket: stream.Duplex, head: Buffer): boolean;
         on(event: string, listener: (...args: any[]) => void): this;
         on(event: 'close', listener: () => void): this;
         on(event: 'connection', listener: (socket: Socket) => void): this;
         on(event: 'error', listener: (err: Error) => void): this;
         on(event: 'listening', listener: () => void): this;
-        on(event: 'checkContinue', listener: RequestListener): this;
-        on(event: 'checkExpectation', listener: RequestListener): this;
+        on(event: 'checkContinue', listener: RequestListener<Request, Response>): this;
+        on(event: 'checkExpectation', listener: RequestListener<Request, Response>): this;
         on(event: 'clientError', listener: (err: Error, socket: stream.Duplex) => void): this;
-        on(event: 'connect', listener: (req: IncomingMessage, socket: stream.Duplex, head: Buffer) => void): this;
-        on(event: 'request', listener: RequestListener): this;
-        on(event: 'upgrade', listener: (req: IncomingMessage, socket: stream.Duplex, head: Buffer) => void): this;
+        on(event: 'connect', listener: (req: Request, socket: stream.Duplex, head: Buffer) => void): this;
+        on(event: 'request', listener: RequestListener<Request, Response>): this;
+        on(event: 'upgrade', listener: (req: Request, socket: stream.Duplex, head: Buffer) => void): this;
         once(event: string, listener: (...args: any[]) => void): this;
         once(event: 'close', listener: () => void): this;
         once(event: 'connection', listener: (socket: Socket) => void): this;
         once(event: 'error', listener: (err: Error) => void): this;
         once(event: 'listening', listener: () => void): this;
-        once(event: 'checkContinue', listener: RequestListener): this;
-        once(event: 'checkExpectation', listener: RequestListener): this;
+        once(event: 'checkContinue', listener: RequestListener<Request, Response>): this;
+        once(event: 'checkExpectation', listener: RequestListener<Request, Response>): this;
         once(event: 'clientError', listener: (err: Error, socket: stream.Duplex) => void): this;
-        once(event: 'connect', listener: (req: IncomingMessage, socket: stream.Duplex, head: Buffer) => void): this;
-        once(event: 'request', listener: RequestListener): this;
-        once(event: 'upgrade', listener: (req: IncomingMessage, socket: stream.Duplex, head: Buffer) => void): this;
+        once(event: 'connect', listener: (req: Request, socket: stream.Duplex, head: Buffer) => void): this;
+        once(event: 'request', listener: RequestListener<Request, Response>): this;
+        once(event: 'upgrade', listener: (req: Request, socket: stream.Duplex, head: Buffer) => void): this;
         prependListener(event: string, listener: (...args: any[]) => void): this;
         prependListener(event: 'close', listener: () => void): this;
         prependListener(event: 'connection', listener: (socket: Socket) => void): this;
         prependListener(event: 'error', listener: (err: Error) => void): this;
         prependListener(event: 'listening', listener: () => void): this;
-        prependListener(event: 'checkContinue', listener: RequestListener): this;
-        prependListener(event: 'checkExpectation', listener: RequestListener): this;
+        prependListener(event: 'checkContinue', listener: RequestListener<Request, Response>): this;
+        prependListener(event: 'checkExpectation', listener: RequestListener<Request, Response>): this;
         prependListener(event: 'clientError', listener: (err: Error, socket: stream.Duplex) => void): this;
-        prependListener(event: 'connect', listener: (req: IncomingMessage, socket: stream.Duplex, head: Buffer) => void): this;
-        prependListener(event: 'request', listener: RequestListener): this;
-        prependListener(event: 'upgrade', listener: (req: IncomingMessage, socket: stream.Duplex, head: Buffer) => void): this;
+        prependListener(event: 'connect', listener: (req: Request, socket: stream.Duplex, head: Buffer) => void): this;
+        prependListener(event: 'request', listener: RequestListener<Request, Response>): this;
+        prependListener(event: 'upgrade', listener: (req: Request, socket: stream.Duplex, head: Buffer) => void): this;
         prependOnceListener(event: string, listener: (...args: any[]) => void): this;
         prependOnceListener(event: 'close', listener: () => void): this;
         prependOnceListener(event: 'connection', listener: (socket: Socket) => void): this;
         prependOnceListener(event: 'error', listener: (err: Error) => void): this;
         prependOnceListener(event: 'listening', listener: () => void): this;
-        prependOnceListener(event: 'checkContinue', listener: RequestListener): this;
-        prependOnceListener(event: 'checkExpectation', listener: RequestListener): this;
+        prependOnceListener(event: 'checkContinue', listener: RequestListener<Request, Response>): this;
+        prependOnceListener(event: 'checkExpectation', listener: RequestListener<Request, Response>): this;
         prependOnceListener(event: 'clientError', listener: (err: Error, socket: stream.Duplex) => void): this;
-        prependOnceListener(event: 'connect', listener: (req: IncomingMessage, socket: stream.Duplex, head: Buffer) => void): this;
-        prependOnceListener(event: 'request', listener: RequestListener): this;
-        prependOnceListener(event: 'upgrade', listener: (req: IncomingMessage, socket: stream.Duplex, head: Buffer) => void): this;
+        prependOnceListener(event: 'connect', listener: (req: Request, socket: stream.Duplex, head: Buffer) => void): this;
+        prependOnceListener(event: 'request', listener: RequestListener<Request, Response>): this;
+        prependOnceListener(event: 'upgrade', listener: (req: Request, socket: stream.Duplex, head: Buffer) => void): this;
     }
     /**
      * This class serves as the parent class of {@link ClientRequest} and {@link ServerResponse}. It is an abstract of outgoing message from
      * the perspective of the participants of HTTP transaction.
      * @since v0.1.17
      */
-    class OutgoingMessage extends stream.Writable {
-        readonly req: IncomingMessage;
+    class OutgoingMessage<Request extends IncomingMessage = IncomingMessage> extends stream.Writable {
+        readonly req: Request;
         chunkedEncoding: boolean;
         shouldKeepAlive: boolean;
         useChunkedEncodingByDefault: boolean;
@@ -461,7 +461,7 @@ declare module 'http' {
      * passed as the second parameter to the `'request'` event.
      * @since v0.1.17
      */
-    class ServerResponse extends OutgoingMessage {
+    class ServerResponse<Request extends IncomingMessage = IncomingMessage> extends OutgoingMessage<Request> {
         /**
          * When using implicit headers (not calling `response.writeHead()` explicitly),
          * this property controls the status code that will be sent to the client when
@@ -491,7 +491,7 @@ declare module 'http' {
          * @since v0.11.8
          */
         statusMessage: string;
-        constructor(req: IncomingMessage);
+        constructor(req: Request);
         assignSocket(socket: Socket): void;
         detachSocket(socket: Socket): void;
         /**
@@ -1114,8 +1114,14 @@ declare module 'http' {
      * added to the `'request'` event.
      * @since v0.1.13
      */
-    function createServer(requestListener?: RequestListener): Server;
-    function createServer(options: ServerOptions, requestListener?: RequestListener): Server;
+    function createServer<
+        Request extends IncomingMessage = IncomingMessage,
+        Response extends ServerResponse<Request> = ServerResponse<Request>,
+    >(requestListener?: RequestListener<Request, Response>): Server<Request, Response>;
+    function createServer<
+        Request extends IncomingMessage = IncomingMessage,
+        Response extends ServerResponse<Request> = ServerResponse<Request>,
+    >(options: ServerOptions, requestListener?: RequestListener<Request, Response>): Server<Request, Response>;
     // although RequestOptions are passed as ClientRequestArgs to ClientRequest directly,
     // create interface RequestOptions would make the naming more clear to developers
     interface RequestOptions extends ClientRequestArgs {}
