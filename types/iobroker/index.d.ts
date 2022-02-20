@@ -2,7 +2,7 @@
 // Project: https://github.com/ioBroker/ioBroker, http://iobroker.net
 // Definitions by: AlCalzone <https://github.com/AlCalzone>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.1
+// TypeScript Version: 4.5
 
 // Note: This is not the definition for the package `iobroker`,
 // which is just an installer, not a library.
@@ -349,8 +349,8 @@ declare global {
             host: string;
             /** instance number of this adapter instance */
             instance: number;
-            /** Namespace of adapter objects: "<name>.<instance>" */
-            readonly namespace: string;
+            /** Namespace of adapter objects: `<name>.<instance>` */
+            readonly namespace: `${string}.${number}`;
             /** native part of the adapter settings */
             config: AdapterConfig;
             /** common part of the adapter settings */

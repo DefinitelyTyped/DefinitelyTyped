@@ -912,3 +912,15 @@ async () => {
 adapter.registerNotification("foobar", "accessErrors", "This is a problem!");
 adapter.registerNotification("system", "accessErrors", "This is a problem!");
 adapter.registerNotification("system", null, "This is a problem!");
+
+// https://github.com/ioBroker/adapter-core/issues/429
+adapter.namespace === 'foo-bar.0';
+adapter.namespace === 'foooooo.10';
+// $ExpectError
+adapter.namespace === 'foo.bar.0';
+// $ExpectError
+adapter.namespace === 'foo-bar.a';
+adapter.getForeignObjectAsync(`system.adapter.${adapter.namespace}`).then(o => {
+    // $ExpectType InstanceObject
+    o!;
+});
