@@ -1,3 +1,5 @@
+import * as piWifi from "pi-wifi";
+
 piWifi.check('myTestNetwork', (err, result) => {
     if (err) {
         return err.message;

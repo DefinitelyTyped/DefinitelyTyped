@@ -3,8 +3,6 @@
 // Definitions by: Kent Loofbourrow <https://github.com/loofkid>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export as namespace piWifi;
-
 export interface ScanNetwork {
     bssid: string;
     frequency: number;
