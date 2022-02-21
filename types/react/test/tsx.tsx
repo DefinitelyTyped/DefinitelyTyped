@@ -324,7 +324,7 @@ class NewContext extends React.Component {
     }
 }
 
-const ForwardRef = React.forwardRef((props: JSX.IntrinsicElements['div'], ref?: React.Ref<HTMLDivElement>) => <div {...props} ref={ref}/>);
+const ForwardRef = React.forwardRef((props: React.JSX.IntrinsicElements['div'], ref?: React.Ref<HTMLDivElement>) => <div {...props} ref={ref}/>);
 const ForwardRef2 = React.forwardRef((props: React.ComponentProps<typeof ForwardRef>, ref?: React.Ref<HTMLDivElement>) => <ForwardRef {...props} ref={ref}/>);
 const divFnRef = (ref: HTMLDivElement|null) => { /* empty */ };
 const divRef = React.createRef<HTMLDivElement>();
@@ -345,7 +345,7 @@ const ForwardNewContext = React.forwardRef((_props: {}, ref?: React.Ref<NewConte
 <ForwardNewContext ref='string'/>; // $ExpectError
 
 const ForwardRef3 = React.forwardRef(
-    (props: JSX.IntrinsicElements['div'] & Pick<JSX.IntrinsicElements['div'] & { theme?: {} | undefined }, 'ref'|'theme'>, ref?: React.Ref<HTMLDivElement>) =>
+    (props: React.JSX.IntrinsicElements['div'] & Pick<React.JSX.IntrinsicElements['div'] & { theme?: {} | undefined }, 'ref'|'theme'>, ref?: React.Ref<HTMLDivElement>) =>
         <div {...props} ref={ref}/>
 );
 
@@ -417,7 +417,7 @@ const HasHref2: React.ElementType<{ href?: string | undefined }> = 'div'; // $Ex
 const CustomElement: React.ElementType = 'my-undeclared-element'; // $ExpectError
 
 // custom elements now need to be declared as intrinsic elements
-declare global {
+declare module 'react' {
     namespace JSX {
         interface IntrinsicElements {
             'my-declared-element': {};
@@ -457,7 +457,7 @@ function CustomSelect(props: {
         React.ComponentPropsWithoutRef<typeof CustomSelectOption>
       >
     >;
-  }): JSX.Element {
+  }): React.JSX.Element {
     return (
       <div>
         <ul>{props.children}</ul>
@@ -475,7 +475,7 @@ function CustomSelect(props: {
 function CustomSelectOption(props: {
     value: string;
     children: React.ReactNode;
-}): JSX.Element {
+}): React.JSX.Element {
     return <li data-value={props.value}>{props.children}</li>;
 }
 function Example() {
