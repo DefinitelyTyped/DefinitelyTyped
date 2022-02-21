@@ -83,6 +83,9 @@ function testCancel() {
         }
     };
 
+    cancel(null);
+    cancel(undefined);
+
     const runNext = next(myContext, () => {
         // will not be executed
     });
