@@ -5,4 +5,4 @@
 
 declare function consoleClear(isSoft?: boolean): void;
 
-export default consoleClear;
+export = consoleClear;
