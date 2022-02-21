@@ -84,7 +84,7 @@ export class PushNotificationObject {
     id?: string | number | undefined;
     title?: string | undefined;
     message: string;
-	picture?: string;
+    picture?: string;
     userInfo?: any;
     playSound?: boolean | undefined;
     soundName?: string | undefined;
