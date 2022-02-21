@@ -1,7 +1,7 @@
  /// <reference types="node" />
 
  import { ParsedUrlQuery } from 'querystring';
- import LRU from 'lru-cache';
+ import LRUCache from 'lru-cache';
 
 export interface WhistleFile {
   index: number;
@@ -11,7 +11,7 @@ export interface WhistleFile {
 }
 
 export class WhistleStorage {
-  constructor(dir, filters?: object, disabled?: boolean);
+  constructor(dir: string, filters?: object, disabled?: boolean);
   count(): number;
   existsFile(file: string): false | WhistleFile;
   getFileList(origin: boolean): WhistleFile[];
@@ -25,7 +25,7 @@ export class WhistleStorage {
   hasProperty(file: string): boolean;
   setProperties(obj: object): boolean;
   getProperty(name: string): any;
-  removeProperty(name): void;
+  removeProperty(name: string): void;
 }
 
 export interface WhistleRuntimeInfo {
@@ -115,7 +115,7 @@ export interface WhistlePluginOptions {
   localStorage: WhistleStorage;
   storage: WhistleStorage;
   baseUrl: string;
-  LRU: LRU<string, any>;
+  LRU: LRUCache<string, any>;
   getValue(key: string, cb: (value: string) => void): void;
   getCert(domain: string, cb: (cert: any) => void): void;
   getRootCA(cb: (cert: any) => void): void;
