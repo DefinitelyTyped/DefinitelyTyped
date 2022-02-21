@@ -250,6 +250,7 @@ webAuth.redirect.signupAndLogin(
         userMetadata: {
             foo: "bar",
         },
+        onRedirecting: () => {},
     },
     (err, data) => {
         if (err) /* handle error */ return;
@@ -257,7 +258,7 @@ webAuth.redirect.signupAndLogin(
     },
 );
 
-webAuth.login({ username: "bar", password: "foo", state: "1234" }, (err, data) => {});
+webAuth.login({ username: "bar", password: "foo", state: "1234", onRedirecting: () => {} }, (err, data) => {});
 
 // cross-origin verification
 webAuth.crossOriginVerification();
@@ -331,7 +332,7 @@ webAuth.renderCaptcha(
 );
 
 // $ExpectType void
-webAuth.renderCaptcha(input).reload((err) => {
+webAuth.renderCaptcha(input).reload(err => {
     if (err) {
         // handle error
     }
