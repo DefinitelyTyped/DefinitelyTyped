@@ -14,6 +14,7 @@
         "target": "ES5"
     },
     "files": [
+        "test/domexception.index.test.ts",
         "index.d.ts"
     ]
 }
