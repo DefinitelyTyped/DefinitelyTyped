@@ -622,6 +622,14 @@ export interface JSONSchema7 {
     $comment?: string | undefined;
 
     /**
+     * @see https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-8.2.4
+     * @see https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#appendix-A
+     */
+    $defs?: {
+              [key: string]: JSONSchema7Definition;
+    } | undefined;
+
+    /**
      * @see https://tools.ietf.org/html/draft-handrews-json-schema-validation-01#section-6.1
      */
     type?: JSONSchema7TypeName | JSONSchema7TypeName[] | undefined;
