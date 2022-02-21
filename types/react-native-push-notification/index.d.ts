@@ -1,4 +1,4 @@
-// Type definitions for react-native-push-notification 8.1.1
+// Type definitions for react-native-push-notification 8.1
 // Project: https://github.com/zo0r/react-native-push-notification#readme
 // Definitions by: Paito Anderson <https://github.com/PaitoAnderson>
 //                 Tom Sawkins <https://github.com/tomSawkins>
