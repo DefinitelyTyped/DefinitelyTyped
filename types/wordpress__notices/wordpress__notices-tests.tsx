@@ -15,9 +15,15 @@ dispatch('core/notices').createNotice('info', 'hello world', {
         },
         {
             label: 'bar',
-            callback: () => void 0,
+            onClick: () => void 0,
         },
     ],
+});
+
+dispatch('core/notices').createNotice(undefined, 'hello world', {
+    icon: <div />,
+    explicitDismiss: true,
+    onDismiss: () => {},
 });
 
 dispatch('core/notices').createErrorNotice('hello world');

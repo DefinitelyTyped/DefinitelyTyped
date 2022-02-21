@@ -1,10 +1,10 @@
-// Type definitions for @wordpress/notices 1.5
+// Type definitions for @wordpress/notices 3.3
 // Project: https://github.com/WordPress/gutenberg/tree/master/packages/notices/README.md
 // Definitions by: Derek Sifford <https://github.com/dsifford>
+//                Chi-Hsuan Huang <https://github.com/chihsuan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.6
 
-import { dispatch, select } from '@wordpress/data';
 import { MouseEventHandler } from 'react';
 
 declare module '@wordpress/data' {
@@ -19,26 +19,26 @@ export interface Notice {
     status: Status;
     content: string;
     isDismissible: boolean;
-    actions: readonly Action[];
+    actions: readonly WPNoticeAction[];
 }
 
-export interface URLAction {
+export interface BaseAction {
     label: string;
+}
+export interface ButtonAction extends BaseAction {
+    onClick: MouseEventHandler<HTMLButtonElement>;
+}
+export interface URLAction extends BaseAction {
     url: string;
 }
 
-export interface CallbackAction {
-    label: string;
-    callback(): void;
-}
-
-export type Action = URLAction | CallbackAction;
+export type WPNoticeAction = ButtonAction | URLAction;
 
 export interface Options {
     /**
      * User actions to be presented with notice.
      */
-    actions: readonly Action[];
+    actions: readonly WPNoticeAction[];
     /**
      * Context under which to group notice.
      * @defaultValue `'global'`
@@ -63,4 +63,21 @@ export interface Options {
      * @defaultValue `'default'`
      */
     type: 'default' | 'snackbar';
+    /**
+     *  An icon displayed with the notice.
+     * @defaultValue `null`
+     */
+    icon: null | JSX.Element;
+    /**
+     * Whether the notice includes
+     * an explict dismiss button and
+     * can't be dismissed by clicking
+     * the body of the notice.
+     * @defaultValue `false`
+     */
+    explicitDismiss: boolean;
+    /**
+     *  Called when the notice is dismissed.
+     */
+    onDismiss?(): void;
 }
