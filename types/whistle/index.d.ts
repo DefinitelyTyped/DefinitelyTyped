@@ -171,70 +171,135 @@ export const enum Level {
 type LogFn = (msg: Object, ...restMsg: Object[]) => void;
  
 interface WhistleResult {
-  logger: {
-    log: (msg: Object, level?: Level) => void;
-    fatal: LogFn;
-    error: LogFn;
-    warn: LogFn;
-    info: LogFn;
-    debug: LogFn;
-  };
-  setAuth: (auth: WhistleAuth) => void;
-  setUIHost: (host: string | string[]) => void;
-  setPluginUIHost: (pluginName: string, host: string | string[]) => void;
-  getRuntimeInfo: () => WhistleRuntimeInfo;
-  getShadowRules:() => string;
-  setShadowRules:(shadowRules: string) => void;
-  [propName: string]: any;
- }
- 
- export default function(options?: WhistleOptions, callback?: Function): WhistleResult;
+logger: {
+  log: (msg: Object, level?: Level) => void;
+  fatal: LogFn;
+  error: LogFn;
+  warn: LogFn;
+  info: LogFn;
+  debug: LogFn;
+};
+setAuth: (auth: WhistleAuth) => void;
+setUIHost: (host: string | string[]) => void;
+setPluginUIHost: (pluginName: string, host: string | string[]) => void;
+getRuntimeInfo: () => WhistleRuntimeInfo;
+getShadowRules:() => string;
+setShadowRules:(shadowRules: string) => void;
+[propName: string]: any;
+}
 
- type WhistleLevel = Level;
- 
- declare global {
-   namespace Whistle {
-     type Options = WhistleOptions;
-     type SecureFilter = WhistleSecureFilter;
-     type Session = WhistleSession;
-     type RuntimeInfo = WhistleRuntimeInfo;
-     type Result = WhistleResult;
-     type Auth = WhistleAuth;
-     type Level = WhistleLevel;
-     type Frame = WhistleFrame;
-     type File = WhistleFile;
-     type Storage = WhistleStorage;
-     type PluginOptions = WhistlePluginOptions;
+export default function(options?: WhistleOptions, callback?: Function): WhistleResult;
 
-     class PluginRequest extends IncomingMessage {
- 
-     }
-     
-     class PluginResponse extends ServerResponse {
-     
-     }
-     
-     class PluginServer extends Server {
-     
-     }
+type WhistleLevel = Level;
 
-     class PluginUIRequest extends IncomingMessage {
- 
+type GetSession = (cb: (session: WhistleSession | '') => void) => void;
+type GetFrame = (cb: (Frames: WhistleFrame[] | '') => void) => void;
+
+declare global {
+  namespace Whistle {
+    type Options = WhistleOptions;
+    type SecureFilter = WhistleSecureFilter;
+    type Session = WhistleSession;
+    type RuntimeInfo = WhistleRuntimeInfo;
+    type Result = WhistleResult;
+    type Auth = WhistleAuth;
+    type Level = WhistleLevel;
+    type Frame = WhistleFrame;
+    type File = WhistleFile;
+    type Storage = WhistleStorage;
+    type PluginOptions = WhistlePluginOptions;
+
+    class PluginRequest extends IncomingMessage {
+      clientIp: string;
+      isUIRequest: boolean;
+      fullUrl: string;
+      isHttps: boolean;
+      fromTunnel: boolean;
+      fromComposer: boolean;
+      isHttpsServer?: boolean;
+      isSNI: boolean;
+      getReqSession: GetSession;
+      getSession: GetSession;
+      getFrames: GetFrame;
+      Storage: WhistleStorage;
+      localStorage: WhistleStorage;
+      storage: WhistleStorage;
+      sessionStorage: {
+        set(key: string, value: any): any;
+        get(key: string): any;
+        remove(key: string): any;
+      }
+      originalReq: {
+        id: string;
+        clientIp: string;
+        isH2: boolean;
+        existsCustomCert: boolean;
+        isUIRequest: boolean;
+        enableCapture: boolean;
+        isFromPlugin: boolean;
+        ruleValue: string;
+        ruleUrl: string;
+        pipeValue: string;
+        sniValue: string;
+        hostValue: string;
+        fullUrl: string;
+        url: string;
+        isHttps: boolean;
+        remoteAddress: string;
+        remotePort: number;
+        fromTunnel: boolean;
+        fromComposer: boolean;
+        servername: string;
+        certCacheName: string;
+        certCacheTime: number;
+        isSNI: boolean;
+        commonName: string;
+        realUrl: string;
+        relativeUrl: string;
+        method: string;
+        clientPort: string;
+        globalValue: string;
+        proxyValue: string;
+        pacValue: string;
+        pluginVars: string[];
+        globalPluginVars: string[];
+        headers: any;
+        isRexExp?: boolean;
+        pattern?: string;
+        customParser: boolean | '';
+
+      };
+      originalRes: {
+        serverIp: string;
+        statusCode: string;
+      };
     }
     
-    class PluginUIResponse extends ServerResponse {
-    
+    class PluginResponse extends ServerResponse {
+      
     }
     
-    class PluginUIServer extends Server {
+    class PluginServer extends Server {
     
     }
 
-    type PluginHook = () => void;
+    class PluginUIRequest extends IncomingMessage {
 
-    interface Hooks {
+  }
+  
+  class PluginUIResponse extends ServerResponse {
+  
+  }
+  
+  class PluginUIServer extends Server {
+  
+  }
 
-    }
-   }
- }
+  type PluginHook = () => void;
+
+  interface Hooks {
+
+  }
+  }
+}
  

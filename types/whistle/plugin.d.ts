@@ -102,7 +102,6 @@ export interface WhistlePluginOptions {
     host: string;
     [propName: string]: any;
   };
-  Storage: WhistleStorage;
   parseUrl(url: string): ParsedUrlQuery;
   wsParser: {
     getExtensions(res: any, isServer?: boolean): any;
@@ -112,6 +111,7 @@ export interface WhistlePluginOptions {
   wrapWsReader(socket?: any, maxPayload?: number): any;
   wrapWsWriter(socket?: any): any;
   shortName: string;
+  Storage: WhistleStorage;
   localStorage: WhistleStorage;
   storage: WhistleStorage;
   baseUrl: string;
