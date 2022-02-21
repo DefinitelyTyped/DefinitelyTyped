@@ -19,7 +19,8 @@
 //                 Markus Peloso <https://github.com/ToastHawaii>
 //                 Erik Demaine <https://github.com/edemaine>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.7
+// Minimum TypeScript Version: 4.1
+// (4.1 required for tslint to not fail on mongodb types)
 
 /// <reference path="./accounts-base.d.ts" />
 /// <reference path="./globals/accounts-base.d.ts" />
