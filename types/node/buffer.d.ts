@@ -704,7 +704,7 @@ declare module 'buffer' {
              * @param [sourceStart=0] The offset within `buf` at which to begin comparison.
              * @param [sourceEnd=buf.length] The offset within `buf` at which to end comparison (not inclusive).
              */
-            compare(target: Uint8Array, targetStart?: number, targetEnd?: number, sourceStart?: number, sourceEnd?: number): number;
+            compare(target: Uint8Array, targetStart?: number, targetEnd?: number, sourceStart?: number, sourceEnd?: number): -1 | 0 | 1;
             /**
              * Copies data from a region of `buf` to a region in `target`, even if the `target`memory region overlaps with `buf`.
              *
