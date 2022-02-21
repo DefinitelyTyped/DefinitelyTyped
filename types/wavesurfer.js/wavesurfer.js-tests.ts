@@ -159,6 +159,8 @@ const waveSurferWithRegionsPlugin = WaveSurfer.create({
         })
     ],
 });
+// $ExpectType number
+waveSurferWithRegionsPlugin.regions.maxRegions;
 waveSurferWithRegionsPlugin.regions.destroy();
 
 // - plugin: spectrogram
