@@ -2,7 +2,8 @@
 // Project: https://github.com/okgrow/meteor-persistent-session
 // Definitions by: Robbie Van Gorkom <https://github.com/vangorra>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.7
+// Minimum TypeScript Version: 4.1
+// Required for mongodb 4 in Meteor 2.6+
 
 /// <reference types="meteor" />
 

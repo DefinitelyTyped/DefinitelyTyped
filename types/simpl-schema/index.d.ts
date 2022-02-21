@@ -7,7 +7,8 @@
 //                 Rafa Horo <https://github.com/rafahoro>
 //                 Stepan Yurtsiv <https://github.com/yurtsiv>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.7
+// Minimum TypeScript Version: 4.1
+// Required for mongodb 4 in Meteor 2.6+
 
 import { check } from 'meteor/check';
 

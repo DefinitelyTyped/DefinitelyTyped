@@ -2,7 +2,8 @@
 // Project: https://github.com/Urigo/angular-meteor
 // Definitions by: Peter Grman <https://github.com/pgrm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.7
+// Minimum TypeScript Version: 4.1
+// Required for mongodb 4 in Meteor 2.6+
 
 /// <reference types="meteor" />
 
