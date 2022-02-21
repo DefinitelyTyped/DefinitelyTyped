@@ -1,5 +1,5 @@
 // Type definitions for react-twemoji 0.4
-// Project: https://github.com/baz/foo (Does not have to be to GitHub, but prefer linking to a source code repository rather than to a project website.)
+// Project: https://github.com/zxmys/react-twemoji
 // Definitions by: smallpence <https://github.com/smallpence>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
