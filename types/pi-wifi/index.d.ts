@@ -1,12 +1,8 @@
 // Type definitions for pi-wifi 1.2
-// Project: https://github.com/baz/foo (Does not have to be to GitHub, but prefer linking to a source code repository rather than to a project website.)
+// Project: https://github.com/matrix-io/pi-wifi
 // Definitions by: Kent Loofbourrow <https://github.com/loofkid>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/*~ If this module is a UMD module that exposes a global variable 'myLib' when
- *~ loaded outside a module loader environment, declare that global here.
- *~ Otherwise, delete this declaration.
- */
 export as namespace piWifi;
 
 export interface ScanNetwork {
@@ -186,5 +182,5 @@ export function startSupplicant(options: object, callback: (error: Error) => any
  *   id: 0
  * }
  */
-export function status(iface: string, cb: (error: Error, status: Status) => any): any;
+export function status(iface: string, callback: (error: Error, status: Status) => any): any;
 export { checkConnection as check, connection as connectTo, secureConnection as connect, openConnection as connectOpen, enterpriseConnection as connectEAP, disableSupplicant as killSupplicant };

@@ -6,7 +6,7 @@ piWifi.check('myTestNetwork', (err, result) => {
 });
 const ssid = 'MyOpenNetwork';
 piWifi.connectTo({ssid}, (err) => {
-    if (!err) { // Network created correctly
+    if (!err) {
         return `Connected to the network ${ssid}!`;
     } else {
         return `Unable to create the network ${ssid}.`;
