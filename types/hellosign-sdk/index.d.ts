@@ -394,7 +394,7 @@ declare namespace HelloSign {
         get(): Promise<TeamResponse>;
         create(options: Pick<Team, 'name'>): Promise<TeamResponse>;
         update(options: Pick<Team, 'name'>): Promise<TeamResponse>;
-        destroy(): Promise<void>;
+        destroy(): Promise<BaseResponse>;
         addMember(options: AccountIdOrEmailRequestOptions): Promise<TeamResponse>;
         removeMember(
             options: { new_owner_email_address?: string | undefined } & AccountIdOrEmailRequestOptions,
@@ -410,7 +410,7 @@ declare namespace HelloSign {
         width: number;
         height: number;
         required: boolean;
-        api_id: boolean;
+        api_id: string;
         group?: string | undefined;
         avg_text_length: {
             num_lines: number;
@@ -674,7 +674,7 @@ declare namespace HelloSign {
     }
     interface ApiAppModule {
         get(clientId: string): Promise<ApiAppResponse>;
-        list(): Promise<ApiAppListResponse>;
+        list(params?: { page?: number | undefined; page_size?: number | undefined }): Promise<ApiAppListResponse>;
         create(clientId: string, options: ApiAppRequestOptions): Promise<ApiAppResponse>;
         update(clientId: string, options: ApiAppRequestOptions): Promise<ApiAppResponse>;
         delete(clientId: string): Promise<BaseResponse>;
