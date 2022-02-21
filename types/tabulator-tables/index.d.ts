@@ -913,10 +913,10 @@ declare namespace Tabulator {
         pageLoaded?: ((pageno: number) => void) | undefined;
 
         /** The dataSorting callback is triggered whenever a sort event occurs, before sorting happens. */
-        dataSorting?: ((sorters: Sorter[]) => void) | undefined;
+        dataSorting?: ((sorters: SorterFromTable[]) => void) | undefined;
 
         /** The dataSorted callback is triggered after the table dataset is sorted. */
-        dataSorted?: ((sorters: Sorter[], rows: RowComponent[]) => void) | undefined;
+        dataSorted?: ((sorters: SorterFromTable[], rows: RowComponent[]) => void) | undefined;
 
         /** Setting the invalidOptionWarnings option to false will disable console warning messages for invalid properties in the table constructor and column definition object. */
         invalidOptionWarnings?: boolean | undefined;
@@ -2216,8 +2216,8 @@ interface EventCallBackMethods {
     dataChanged: (data: any[]) => void;
     dataFiltering: (filters: Tabulator.Filter[]) => void;
     dataFiltered: (filters: Tabulator.Filter[], rows: Tabulator.RowComponent[]) => void;
-    dataSorting: (sorters: Tabulator.Sorter) => void;
-    dataSorted: (sorters: Tabulator.Sorter, rows: Tabulator.RowComponent[]) => void;
+    dataSorting: (sorters: Tabulator.SorterFromTable[]) => void;
+    dataSorted: (sorters: Tabulator.SorterFromTable[], rows: Tabulator.RowComponent[]) => void;
     movableRowsSendingStart: (toTables: Tabulator[]) => void;
     movableRowsSent: (fromRow: Tabulator.RowComponent, toRow: Tabulator.RowComponent, toTable: Tabulator) => void;
     movableRowsSentFailed: (fromRow: Tabulator.RowComponent, toRow: Tabulator.RowComponent, toTable: Tabulator) => void;
