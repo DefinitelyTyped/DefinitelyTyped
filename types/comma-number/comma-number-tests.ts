@@ -1,4 +1,4 @@
-import commaNumber from 'comma-number';
+import commaNumber = require('comma-number');
 
 commaNumber('100');
 
