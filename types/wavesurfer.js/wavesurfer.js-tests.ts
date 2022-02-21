@@ -155,7 +155,7 @@ const waveSurferWithRegionsPlugin = WaveSurfer.create({
     container: "#waveform",
     plugins: [
         RegionsPlugin.create({
-            maxRegions: 2
+            maxRegions: 1
         })
     ],
 });
