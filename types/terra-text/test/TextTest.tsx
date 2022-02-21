@@ -15,4 +15,4 @@ const TextAllProps = (
 
 const TextRequiredProps = (
     <Text>Some Required Sample Text</Text>
-)
+);
