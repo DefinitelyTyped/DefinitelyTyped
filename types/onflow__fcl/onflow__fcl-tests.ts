@@ -65,6 +65,7 @@ export const signMessage = async () => {
 };
 
 fcl.discovery.authn.subscribe(res => console.log(res.results));
+fcl.discovery.authn.snapshot().then(res => console.log(res));
 
 // ON-CHAIN INTERACTIONS
 async () => {

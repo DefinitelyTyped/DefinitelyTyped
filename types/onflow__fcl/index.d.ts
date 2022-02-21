@@ -253,7 +253,7 @@ export namespace discovery {
          * Return a list of `authn` services.
          * @see {@link https://docs.onflow.org/fcl/reference/api/#discoveryauthnsnapshot}
          */
-        function snapshot(): WalletService[];
+        function snapshot(): Promise<WalletService[]>;
 
         /**
          * @param callback The callback sent to `subscribe` will be called with a list of `authn` services.
