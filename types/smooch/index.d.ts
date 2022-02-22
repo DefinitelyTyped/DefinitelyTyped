@@ -873,6 +873,7 @@ declare namespace Smooch {
         email: string;
         avatarUrl: string;
         metadata: unknown;
+        properties: unknown;
     }
 
     interface ConversationParticipant {
