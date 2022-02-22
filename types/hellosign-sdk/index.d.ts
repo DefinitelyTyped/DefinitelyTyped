@@ -231,7 +231,7 @@ declare namespace HelloSign {
               }>
             | undefined;
         cc_email_addresses?: string[] | undefined;
-        ccs?: Record<string, { email_address: string; }> | undefined;
+        ccs?: Record<string, { email_address: string }> | undefined;
         use_text_tags?: number | undefined;
         hide_text_tags?: number | undefined;
         metadata?: GenericObject<Metadata> | undefined;
@@ -266,7 +266,7 @@ declare namespace HelloSign {
     interface SignatureListRequestResponse extends BaseResponse, ListInfo {
         signature_requests: SignatureRequest[];
     }
-    interface DownloadResponse extends BaseAccount {
+    interface DownloadResponse extends BaseResponse {
         file_url?: string | undefined;
         expires_at?: number | undefined;
     }
@@ -394,7 +394,7 @@ declare namespace HelloSign {
         get(): Promise<TeamResponse>;
         create(options: Pick<Team, 'name'>): Promise<TeamResponse>;
         update(options: Pick<Team, 'name'>): Promise<TeamResponse>;
-        destroy(): Promise<void>;
+        destroy(): Promise<BaseResponse>;
         addMember(options: AccountIdOrEmailRequestOptions): Promise<TeamResponse>;
         removeMember(
             options: { new_owner_email_address?: string | undefined } & AccountIdOrEmailRequestOptions,
@@ -410,7 +410,7 @@ declare namespace HelloSign {
         width: number;
         height: number;
         required: boolean;
-        api_id: boolean;
+        api_id: string;
         group?: string | undefined;
         avg_text_length: {
             num_lines: number;
@@ -466,11 +466,11 @@ declare namespace HelloSign {
             can_edit: boolean;
             is_locked: boolean;
         }> {}
-    interface TemplateResponse extends BaseAccount {
+    interface TemplateResponse extends BaseResponse {
         template: Template;
     }
     interface TemplatesResponse extends BaseResponse, ListInfo {
-        templates: Template;
+        templates: Template[];
     }
     interface TemplateModule {
         list(params?: {
@@ -674,7 +674,7 @@ declare namespace HelloSign {
     }
     interface ApiAppModule {
         get(clientId: string): Promise<ApiAppResponse>;
-        list(): Promise<ApiAppListResponse>;
+        list(params?: { page?: number | undefined; page_size?: number | undefined }): Promise<ApiAppListResponse>;
         create(clientId: string, options: ApiAppRequestOptions): Promise<ApiAppResponse>;
         update(clientId: string, options: ApiAppRequestOptions): Promise<ApiAppResponse>;
         delete(clientId: string): Promise<BaseResponse>;
