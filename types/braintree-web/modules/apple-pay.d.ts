@@ -209,8 +209,16 @@ export interface ApplePay {
      *
      */
     createPaymentRequest(
-        paymentRequest: Omit<ApplePayPaymentRequest, 'countryCode' | 'currencyCode' | 'merchantCapabilities' | 'supportedNetworks'> & 
-        Partial<Pick<ApplePayPaymentRequest,  'countryCode' | 'currencyCode' | 'merchantCapabilities' | 'supportedNetworks'>>
+        paymentRequest: Omit<
+            ApplePayPaymentRequest,
+            'countryCode' | 'currencyCode' | 'merchantCapabilities' | 'supportedNetworks'
+        > &
+            Partial<
+                Pick<
+                    ApplePayPaymentRequest,
+                    'countryCode' | 'currencyCode' | 'merchantCapabilities' | 'supportedNetworks'
+                >
+            >,
     ): ApplePayPaymentRequest;
 
     /**
