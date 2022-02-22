@@ -69,10 +69,16 @@ declare class LRUCache<K, V> implements Iterable<[K, V]> {
      */
     clear(): void;
 
+    /** @deprecated */
+    reset(): void;
+
     /**
      * Delete any stale entries. Returns true if anything was removed, false otherwise.
      */
     purgeStale(): boolean;
+
+    /** @deprecated */
+    prune(): boolean;
 
     /**
      * Find a value for which the supplied fn method returns a truthy value, similar to Array.find().
