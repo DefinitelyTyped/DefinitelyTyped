@@ -1,4 +1,4 @@
-// Type definitions for lru-cache 7.3
+// Type definitions for lru-cache 7.4
 // Project: https://github.com/isaacs/node-lru-cache
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
 //                 BendingBender <https://github.com/BendingBender>
@@ -199,6 +199,14 @@ declare namespace LRUCache {
         noDisposeOnSet?: boolean;
 
         /**
+         * Boolean flag to tell the cache to not update the TTL when
+         * setting a new value for an existing key (ie, when updating a value rather
+         * than inserting a new value).  Note that the TTL value is _always_ set
+         * (if provided) when adding a new entry into the cache.
+         */
+        noUpdateTTL?: boolean;
+
+        /**
          * Max time to live for items before they are considered stale.
          * Note that stale items are NOT preemptively removed by default,
          * and MAY live in the cache, contributing to its LRU max, long after
@@ -256,6 +264,7 @@ declare namespace LRUCache {
         sizeCalculation?: SizeCalculator<K, V>;
         ttl?: number;
         noDisposeOnSet?: boolean;
+        noUpdateTTL?: boolean;
     }
 
     interface GetOptions {
