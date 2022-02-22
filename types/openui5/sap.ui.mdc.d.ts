@@ -1,20 +1,4 @@
-// For Library Version: 1.98.0
-
-declare module "sap/ui/mdc/library" {
-  /**
-   * Enumeration of the `multiSelectMode>/code> in ListBase`.
-   */
-  export enum MultiSelectMode {
-    /**
-     * Renders the `clearAll` icon.
-     */
-    ClearAll = "ClearAll",
-    /**
-     * Renders the `selectAll` checkbox (default behavior).
-     */
-    Default = "Default",
-  }
-}
+// For Library Version: 1.99.0
 
 declare namespace sap {
   interface IUI5DefineDependencyNames {
@@ -125,6 +109,10 @@ declare namespace sap {
     "sap/ui/mdc/field/MultiValueFieldItem": undefined;
 
     "sap/ui/mdc/field/OutParameter": undefined;
+
+    "sap/ui/mdc/field/TokenDisplay": undefined;
+
+    "sap/ui/mdc/field/TokenizerDisplay": undefined;
 
     "sap/ui/mdc/field/ValueHelpPanel": undefined;
 
