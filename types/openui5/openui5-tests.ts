@@ -32,9 +32,7 @@ Core.attachInit(() => {
     new Text({
         text: "Hello World"
     }).placeAt("content");
-});
 
-Core.attachInit(() => {
     new XMLView({
         viewName: "sap.ui.demo.wt.App"
     }).placeAt("content");
@@ -145,3 +143,4 @@ messagePage.setTitleLevel(TitleLevel.H1);
 
 const odataV4ListBinding = new ODataV4ListBinding();
 const odataV4ListBindingCount = odataV4ListBinding.getCount();
+const context = odataV4ListBinding.getKeepAliveContext("x");
