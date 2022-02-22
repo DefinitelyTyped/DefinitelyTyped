@@ -125,7 +125,7 @@ declare namespace request {
         oauth?: OAuthOptions | undefined;
         aws?: AWSOptions | undefined;
         hawk?: HawkOptions | undefined;
-        qs?: any;
+        qs?: { [k: string]: any };
         qsStringifyOptions?: any;
         qsParseOptions?: any;
         json?: any;
