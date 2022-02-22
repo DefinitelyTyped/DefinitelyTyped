@@ -353,6 +353,18 @@ braintree.client.create(
             },
         );
 
+        // Check that apple pay createPaymentRequest fields are optional
+        braintree.applePay.create({ client: clientInstance }, (createErr, applePayInstance) => {
+            
+            const request = {
+                total: { label: 'Your Label', amount: '10.00' },
+            };
+
+            const paymentRequest = applePayInstance.createPaymentRequest(request);
+            console.log(paymentRequest);
+            // { total: { }, countryCode: 'US', currencyCode: 'USD', merchantCapabilities: [ ], supportedNetworks: [ ] }
+        })
+
         braintree.applePay.create({ client: clientInstance }, (createErr, applePayInstance) => {
             const request = {
                 countryCode: 'US',
