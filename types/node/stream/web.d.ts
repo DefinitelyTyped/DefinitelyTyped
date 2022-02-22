@@ -139,7 +139,8 @@ declare module 'stream/web' {
         pipeThrough<T>(transform: ReadableWritablePair<T, R>, options?: StreamPipeOptions): ReadableStream<T>;
         pipeTo(destination: WritableStream<R>, options?: StreamPipeOptions): Promise<void>;
         tee(): [ReadableStream<R>, ReadableStream<R>];
-        [Symbol.asyncIterator](options?: { preventCancel?: boolean }): AsyncIterableIterator<R>;
+        values(options?: { preventCancel?: boolean }): AsyncIterableIterator<R>;
+        [Symbol.asyncIterator](): AsyncIterableIterator<R>;
     }
     const ReadableStream: {
         prototype: ReadableStream;
