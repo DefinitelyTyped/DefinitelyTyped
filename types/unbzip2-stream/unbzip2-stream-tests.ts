@@ -1,4 +1,4 @@
-import stream from "stream";
-import bz2 from "unbzip2-stream";
+import { Readable } from "stream";
+import bz2 = require('unbzip2-stream');
 
-stream.Readable.from('test').pipe(bz2()).pipe(process.stdout);
+Readable.from('test').pipe(bz2()).pipe(process.stdout);
