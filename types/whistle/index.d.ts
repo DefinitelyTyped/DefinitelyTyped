@@ -164,10 +164,6 @@ export const enum Level {
   Debug = 'debug',
 }
 
- /// <reference types="node" />
-
-
-
  interface WhistleFile {
   index: number;
   name: string;
@@ -365,7 +361,6 @@ declare global {
       getFrames: GetFrame;
       Storage: WhistleStorage;
       localStorage: WhistleStorage;
-      storage: WhistleStorage;
       sessionStorage: {
         set(key: string, value: any): any;
         get(key: string): any;
@@ -430,28 +425,21 @@ declare global {
     class PluginResponse extends ServerResponse {
       setReqRules: SetRules;
       setResRules: SetRules;
+      disableTrailers?: boolean;
     }
-    
-    class PluginServer extends Server {
-    
-    }
-
     class PluginUIRequest extends IncomingMessage {
-
-    }
-    
-    class PluginUIResponse extends ServerResponse {
-    
-    }
-    
-    class PluginUIServer extends Server {
-    
+      clientIp: string;
+      Storage: WhistleStorage;
+      localStorage: WhistleStorage;
     }
 
+    class PluginUIResponse extends ServerResponse {}
+    
     type PluginHook = (server?: Server, options?: PluginOptions) => void;
+    type PluginUIHook = (server?: Server, options?: PluginOptions) => void;
 
     interface PluginHooks {
-      uiServer?: PluginHook;
+      uiServer?: PluginUIHook;
       rulesServer?: PluginHook;
       tunnelRulesServer?: PluginHook;
       server?: PluginHook;
