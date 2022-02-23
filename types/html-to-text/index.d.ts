@@ -310,6 +310,7 @@ export interface FormatOptions {
      */
     noAnchorUrl?: boolean | undefined;
     /**
+     * @deprecated. Use linkBrackets instead.
      * (Only for: `anchor` formatter.) Don't print brackets around links.
      */
     noLinkBrackets?: boolean | undefined;
