@@ -210,7 +210,7 @@ declare namespace WebSocket {
     interface ClientOptions extends SecureContextOptions {
         protocol?: string | undefined;
         followRedirects?: boolean | undefined;
-        generateMask?: (mask: Buffer) => void;
+        generateMask?(mask: Buffer): void;
         handshakeTimeout?: number | undefined;
         maxRedirects?: number | undefined;
         perMessageDeflate?: boolean | PerMessageDeflateOptions | undefined;
