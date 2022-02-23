@@ -4,142 +4,117 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.8
 
+import type * as React from 'react'
+
 import type {
-    Attributes,
-    ClassAttributes,
-    ClassType,
-    ClassicComponent,
-    ClassicComponentClass,
-    Component,
-    ComponentClass,
-    ComponentElement,
-    ComponentState,
-    DOMAttributes,
-    DOMElement,
-    DetailedReactHTMLElement,
-    FunctionComponent,
-    FunctionComponentElement,
-    HTMLAttributes,
-    InputHTMLAttributes,
-    PropsWithChildren,
     ReactElement,
     ReactHTML,
     ReactNode,
     ReactSVG,
     ReactSVGElement,
-    SVGAttributes,
-} from 'react';
+    ReactText,
+} from 'react'
 
-export = $;
+type Children = ReactNode[] | ReactText
 
-type Children = ReactNode | ReactNode[];
-
-declare namespace $ {}
+export default $
 
 declare function $(
     children?: Children,
-): ReactElement;
+): ReactElement
 
 // dom elements without attributes
 
 declare function $(
     tag: 'input',
     children?: Children,
-): DetailedReactHTMLElement<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
+): React.DetailedReactHTMLElement<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
 
-declare function $<T extends HTMLElement>(
+declare function $<P extends React.HTMLAttributes<T>, T extends HTMLElement>(
     tag: keyof ReactHTML,
     children?: Children,
-): DetailedReactHTMLElement<HTMLAttributes<T>, T>;
+): React.DetailedReactHTMLElement<P, T>
 
 declare function $(
     tag: keyof ReactSVG,
     children?: Children,
-): ReactSVGElement;
+): ReactSVGElement
 
-declare function $<T extends Element>(
+declare function $<P extends React.DOMAttributes<T>, T extends Element>(
     tag: string,
     children?: Children,
-): DOMElement<DOMAttributes<T>, T>;
+): React.DOMElement<P, T>
 
 // dom elements with attributes
 
 declare function $(
     tag: 'input',
-    attributes?: null | InputHTMLAttributes<HTMLInputElement> & ClassAttributes<HTMLInputElement>,
+    attributes?: React.ClassAttributes<HTMLInputElement> & React.InputHTMLAttributes<HTMLInputElement>,
     children?: Children,
-): DetailedReactHTMLElement<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
+): React.DetailedReactHTMLElement<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
 
-declare function $<P extends HTMLAttributes<T>, T extends HTMLElement>(
+declare function $<P extends React.HTMLAttributes<T>, T extends HTMLElement>(
     tag: keyof ReactHTML,
-    attributes?: null | ClassAttributes<T> & P,
+    attributes?: React.ClassAttributes<T> & P,
     children?: Children,
-): DetailedReactHTMLElement<P, T>;
+): React.DetailedReactHTMLElement<P, T>
 
-declare function $<T extends SVGElement>(
+declare function $<P extends React.SVGAttributes<T>, T extends SVGElement>(
     tag: keyof ReactSVG,
-    attributes?: null | ClassAttributes<T> & SVGAttributes<T>,
+    attributes?: React.ClassAttributes<T> & P,
     children?: Children,
-): ReactSVGElement;
+): ReactSVGElement
 
-declare function $<P extends DOMAttributes<T>, T extends Element>(
+declare function $<P extends React.DOMAttributes<T>, T extends Element>(
     tag: string,
-    attributes?: null | ClassAttributes<T> & P,
+    attributes?: React.ClassAttributes<T> & P,
     children?: Children,
-): DOMElement<P, T>;
+): React.DOMElement<P, T>
 
 // react components without props
 
 declare function $<P extends {}>(
-    component: FunctionComponent<P>,
+    component: React.FunctionComponent<P>,
     children?: Children,
-): FunctionComponentElement<P>;
+): React.FunctionComponentElement<P>
 
 declare function $<P extends {}>(
-    component: ClassType<P, ClassicComponent<P, ComponentState>, ClassicComponentClass<P>>,
+    component: React.ClassType<P, React.ClassicComponent<P, React.ComponentState>, React.ClassicComponentClass<P>>,
     children?: Children,
-): ComponentElement<P, ClassicComponent<P, ComponentState>>;
+): React.ComponentElement<P, React.ClassicComponent<P, React.ComponentState>>
 
-declare function $<P extends {}, T extends Component<P, ComponentState>>(
-    component: ClassType<P, T, ComponentClass<P>>,
+declare function $<P extends {}, T extends React.Component<P, React.ComponentState>, C extends React.ComponentClass<P>>(
+    component: React.ClassType<P, T, C>,
     children?: Children,
-): ComponentElement<P, T>;
+): React.ComponentElement<P, T>
 
 declare function $<P extends {}>(
-    component: FunctionComponent<P> | string | ComponentClass<P>,
+    component: React.FunctionComponent<P> | React.ComponentClass<P> | string,
     children?: Children,
-): ReactElement<P>;
+): ReactElement<P>
 
 // react components with props
 
 declare function $<P extends {}>(
-    component: FunctionComponent<P>,
-    props?: Attributes,
+    component: React.FunctionComponent<P>,
+    props?: P & React.Attributes,
     children?: Children,
-): FunctionComponentElement<P>;
+): React.FunctionComponentElement<P>
 
 declare function $<P extends {}>(
-    component: ClassType<P, ClassicComponent<P, ComponentState>, ClassicComponentClass<P>>,
-    props?: null | ClassAttributes<ClassicComponent<P, ComponentState>> & P,
+    component: React.ClassType<P, React.ClassicComponent<P, React.ComponentState>, React.ClassicComponentClass<P>>,
+    props?: P & React.ClassAttributes<React.ClassicComponent<P, React.ComponentState>>,
     children?: Children,
-): ComponentElement<P, ClassicComponent<P, ComponentState>>;
+): React.ComponentElement<P, React.ClassicComponent<P, React.ComponentState>>
 
-declare function $<P extends {}, T extends Component<P, ComponentState>>(
-    component: ClassType<P, T, ComponentClass<P>>,
-    props?: null | ClassAttributes<T> & P,
+declare function $<P extends {}, T extends React.Component<P, React.ComponentState>, C extends React.ComponentClass<P>>(
+    component: React.ClassType<P, T, C>,
+    props?: P & React.ClassAttributes<T>,
     children?: Children,
-): ComponentElement<P, T>;
+): React.ComponentElement<P, T>
 
 declare function $<P extends {}>(
-    component: FunctionComponent<P> | string | ComponentClass<P>,
-    props?: null | Attributes & P,
+    component: React.FunctionComponent<P> | React.ComponentClass<P> | string,
+    props?: P & React.Attributes,
     children?: Children,
-): ReactElement<P>;
-
-// others
-
-declare function $<P extends {}, R = P extends PropsWithChildren<infer T> ? T : P>(
-    component: FunctionComponent<P> | string | ComponentClass<P>,
-    props: null | Attributes & R,
-    children: Children,
-): ReactElement<R>;
+): ReactElement<P>
