@@ -1,115 +1,97 @@
-// Type definitions for lru-cache 5.1
+// Type definitions for lru-cache 7.3.0
 // Project: https://github.com/isaacs/node-lru-cache
-// Definitions by: Bart van der Schoor <https://github.com/Bartvds>
-//                 BendingBender <https://github.com/BendingBender>
+// Definitions by: Brian-McBride <https://github.com/Brian-McBride>
+//                 eugene1g <https://github.com/eugene1g>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 4.5.5
 
 declare class LRUCache<K, V> {
-    constructor(options?: LRUCache.Options<K, V>);
-    constructor(max: number);
+    constructor(options: LRUCache.Options<K, V>);
 
     /**
-     * Return total length of objects in cache taking into account `length` options function.
+     * The total number of items held in the cache at the current moment.
      */
-    readonly length: number;
-
+    public readonly size: number;
     /**
-     * Return total quantity of objects currently in cache. Note,
-     * that `stale` (see options) items are returned as part of this item count.
+     * The total size of items in cache when using size tracking.
      */
-    readonly itemCount: number;
+    public readonly calculatedSize: number;
+
+    // All option names are exposed as public members on the cache object
+    public readonly max: LRUCache.Options<K, V>['max'];
+    public readonly maxSize: LRUCache.Options<K, V>['maxSize'];
+    public readonly allowStale: LRUCache.Options<K, V>['allowStale'];
+    public readonly noDisposeOnSet: LRUCache.Options<K, V>['noDisposeOnSet'];
+    public readonly sizeCalculation: LRUCache.Options<K, V>['sizeCalculation'];
+    public readonly dispose: LRUCache.Options<K, V>['dispose'];
+    public readonly ttl: LRUCache.Options<K, V>['ttl'];
+    public readonly updateAgeOnGet: LRUCache.Options<K, V>['updateAgeOnGet'];
 
     /**
-     * Same as Options.allowStale.
+     * Add a value to the cache. Will update the recency of the entry.
+     * Optional options object may contain -
+     *  - `ttl`: override ttl time for this entry
+     *  - `size`: prevent calling the `sizeCalculation` function and just use the specified number if it is a positive integer.
+     *  - `sizeCalculation`
+     *  - `noDisposeOnSet`: prevent calling a dispose function in the case of overwrites.
      */
-    allowStale: boolean;
+    public set(key: K, value: V, options?: LRUCache.SetOptions<V> | undefined): this;
 
     /**
-     * Same as Options.length.
+     * Return a value from the cache. Will update the recency of the cache entry found.
+     * If the key is not found, get() will return undefined. This can be confusing when setting values specifically to undefined, as in cache.set(key, undefined).
+     * Use cache.has() to determine whether a key is present in the cache at all.
      */
-    lengthCalculator(value: V): number;
+    public get(key: K): V | undefined;
 
     /**
-     * Same as Options.max. Resizes the cache when the `max` changes.
-     */
-    max: number;
-
-    /**
-     * Same as Options.maxAge. Resizes the cache when the `maxAge` changes.
-     */
-    maxAge: number;
-
-    /**
-     * Will update the "recently used"-ness of the key. They do what you think.
-     * `maxAge` is optional and overrides the cache `maxAge` option if provided.
-     */
-    set(key: K, value: V, maxAge?: number): boolean;
-
-    /**
-     * Will update the "recently used"-ness of the key. They do what you think.
-     * `maxAge` is optional and overrides the cache `maxAge` option if provided.
+     * Like get() but doesn't update recency or delete stale items.
+     * Returns undefined if the item is stale, unless allowStale is set either on the cache or in the options object.
      *
-     * If the key is not found, will return `undefined`.
+     * (If you find yourself using this a lot, you might be using the wrong sort of data structure, but there are some use cases where it's handy.)
      */
-    get(key: K): V | undefined;
-
-    /**
-     * Returns the key value (or `undefined` if not found) without updating
-     * the "recently used"-ness of the key.
-     *
-     * (If you find yourself using this a lot, you might be using the wrong
-     * sort of data structure, but there are some use cases where it's handy.)
-     */
-    peek(key: K): V | undefined;
+    public peek(key: K): V | undefined;
 
     /**
      * Check if a key is in the cache, without updating the recent-ness
      * or deleting it for being stale.
      */
-    has(key: K): boolean;
+    public has(key: K): boolean;
 
     /**
      * Deletes a key out of the cache.
      */
-    del(key: K): void;
+    public delete(key: K): boolean;
 
     /**
      * Clear the cache entirely, throwing away all values.
      */
-    reset(): void;
-
-    /**
-     * Manually iterates over the entire cache proactively pruning old entries.
-     */
-    prune(): void;
-
-    /**
-     * Just like `Array.prototype.forEach`. Iterates over all the keys in the cache,
-     * in order of recent-ness. (Ie, more recently used items are iterated over first.)
-     */
-    forEach<T = this>(callbackFn: (this: T, value: V, key: K, cache: this) => void, thisArg?: T): void;
-
-    /**
-     * The same as `cache.forEach(...)` but items are iterated over in reverse order.
-     * (ie, less recently used items are iterated over first.)
-     */
-    rforEach<T = this>(callbackFn: (this: T, value: V, key: K, cache: this) => void, thisArg?: T): void;
+    public clear(): void;
 
     /**
      * Return an array of the keys in the cache.
      */
-    keys(): K[];
+    public keys(): Iterable<K>;
 
     /**
-     * Return an array of the values in the cache.
+     * Return a generator yielding the values in the cache.
      */
-    values(): V[];
+    public values(): Iterable<V>;
+
+    /**
+     * Return a generator yielding [key, value] pairs.
+     */
+    public entries(): Iterable<[K, V]>;
+
+    /**
+     * Find a value for which the supplied fn method returns a truthy value, similar to Array.find().
+     */
+    public find(fn: (value: V, key: K, cache: this) => void, getOptions: LRUCache.Options<K, V>): V | undefined;
 
     /**
      * Return an array of the cache entries ready for serialization and usage with `destinationCache.load(arr)`.
      */
-    dump(): Array<LRUCache.Entry<K, V>>;
+    public dump(): Array<LRUCache.Entry<K, V>>;
 
     /**
      * Loads another cache entries array, obtained with `sourceCache.dump()`,
@@ -117,24 +99,149 @@ declare class LRUCache<K, V> {
      *
      * @param cacheEntries Obtained from `sourceCache.dump()`
      */
-    load(cacheEntries: ReadonlyArray<LRUCache.Entry<K, V>>): void;
+    public load(cacheEntries: ReadonlyArray<LRUCache.Entry<K, V>>): void;
+
+    /**
+     * Delete any stale entries. Returns true if anything was removed, false otherwise.
+     */
+    public purgeStale(): boolean;
+
+    /**
+     * Just like `Array.prototype.forEach`. Iterates over all the keys in the cache,
+     * in order of recent-ness. (Ie, more recently used items are iterated over first.)
+     */
+    public forEach<T = this>(callbackFn: (this: T, value: V, key: K, cache: this) => void, thisArg?: T): void;
+
+    /**
+     * Same as cache.forEach(fn, thisp), but in order from least recently used to most recently used.
+     */
+    public rforEach<T = this>(callbackFn: (this: T, value: V, key: K, cache: this) => void, thisArg?: T): void;
+
+    /**
+     * Evict the least recently used item, returning its value. Returns undefined if cache is empty.
+     */
+    public pop(): V | void;
+
+    /**
+     * @deprecated
+     * @see this.clear()
+     */
+    public reset(): void;
+
+    /**
+     * @deprecated
+     * @see this.purgeStale()
+     */
+    public prune(): boolean;
 }
 
 declare namespace LRUCache {
     interface Options<K, V> {
         /**
-         * The maximum size of the cache, checked by applying the length
-         * function to all values in the cache. Not setting this is kind of silly,
-         * since that's the whole purpose of this lib, but it defaults to `Infinity`.
+         * The maximum number (or size) of items that remain in the cache (assuming no TTL pruning or explicit deletions).
+         * Note that fewer items may be stored if size calculation is used, and maxSize is exceeded. This must be a positive finite intger.
+         * This option is required, and must be a positive integer.
          */
-        max?: number | undefined;
+        max: number;
 
         /**
-         * Maximum age in ms. Items are not pro-actively pruned out as they age,
-         * but if you try to get an item that is too old, it'll drop it and return
-         * undefined instead of giving it to you.
+         * Set to a positive integer to track the sizes of items added to the cache, and automatically evict items in order to stay below this size.
+         * Note that this may result in fewer than max items being stored.
+         * Optional, must be a positive integer if provided.
+         * Required if other size tracking features are used.
          */
-        maxAge?: number | undefined;
+        maxSize?: number;
+
+        /**
+         * Function used to calculate the size of stored items.
+         * If you're storing strings or buffers, then you probably want to do something like `n => n.length`.
+         * The item is passed as the first argument, and the key is passed as the second argument.
+         */
+        sizeCalculation?(value: V, key: K): number;
+
+        /**
+         * function to call when the item is removed from the cache
+         * Note that using this can negatively impact performance.
+         */
+        dispose?(value: V, key: K, reason: 'evict' | 'set' | 'delete'): void;
+
+        /**
+         * The same as dispose, but called after the entry is completely removed and the cache is once again in a clean state.
+         * It is safe to add an item right back into the cache at this point. However, note that it is very easy to inadvertently create infinite recursion in this way.
+         * @since 7.3.0
+         */
+        disposeAfter?(value: V, key: K, reason: 'evict' | 'set' | 'delete'): void;
+
+        /**
+         * By default, if you set a `dispose()` method, then it'll be called whenever
+         * a `set()` operation overwrites an existing key. If you set this option,
+         * `dispose()` will only be called when a key falls out of the cache, not when it is overwritten.
+         * Only relevant if `dispose` or `disposeAfter` options are set.
+         * @since 7.3.0
+         * @default false
+         */
+        noDisposeOnSet?: boolean | undefined;
+
+        /**
+         * max time to live (in milliseconds) for items before they are considered stale note that stale items are NOT preemptively removed by default, and MAY live in the cache, contributing to its LRU max, long after they have expired.
+         * Also, as this cache is optimized for LRU/MRU operations, some of the staleness/TTL checks will reduce performance, as they will incur
+         * overhead by deleting items.
+         * Must be a positive integer in ms, defaults to 0, which means "no TTL"
+         * @default 0
+         */
+        ttl?: number;
+
+        /**
+         * Minimum amount of time in ms in which to check for staleness. Defaults to 1, which means that the current time is checked at most once per millisecond.
+         * Set to 0 to check the current time every time staleness is tested.
+         * Note that setting this to a higher value will improve performance somewhat while using ttl tracking, albeit at the expense of keeping stale items around a bit longer than intended.
+         * @since 7.1.0
+         * @default 1
+         */
+        ttlResolution?: number;
+
+        /**
+         * Preemptively remove stale items from the cache.
+         * Note that this may significantly degrade performance, especially if the cache is storing a large number of items. It is almost always best to just leave the stale items in the cache, and let them fall out as new items are added.
+         * Note that this means that allowStale is a bit pointless, as stale items will be deleted almost as soon as they expire.
+         * Use with caution!
+         * @since 7.1.0
+         * @default false
+         */
+        ttlAutopurge?: boolean;
+
+        /**
+         * By default, if you set ttl, it'll only delete stale items from the cache when you get(key).
+         * That is, it's not preemptively pruning items.
+         * If you set allowStale:true, it'll return the stale value as well as deleting it. If you don't set this, then it'll return undefined when you try to get a stale entry.
+         * Note that when a stale entry is fetched, even if it is returned due to allowStale being set, it is removed from the cache immediately.
+         * You can immediately put it back in the cache if you wish, thus resetting the TTL.
+         * This may be overridden by passing an options object to cache.get().
+         * The cache.has() method will always return false for stale items.
+         * Only relevant if `ttl` is set.
+         * @default false
+         */
+        allowStale?: boolean;
+
+        /**
+         * When using time-expiring entries with ttl, setting this to true will make each item's age reset to 0 whenever it is retrieved from cache with get(), causing it to not expire.
+         * (It can still fall out of cache based on recency of use, of course.)
+         * This may be overridden by passing an options object to cache.get().
+         * @default false
+         */
+        updateAgeOnGet?: boolean;
+
+        /**
+         * update the age of items on cache.has(), renewing their TTL
+         * @default false
+         */
+        updateAgeOnHas?: boolean;
+
+        /**
+         * update the "recently-used"-ness of items on cache.has()
+         * @default false
+         */
+        updateRecencyOnHas?: boolean;
 
         /**
          * Function that is used to calculate the length of stored items.
@@ -147,40 +254,26 @@ declare namespace LRUCache {
         length?(value: V, key?: K): number;
 
         /**
-         * Function that is called on items when they are dropped from the cache.
-         * This can be handy if you want to close file descriptors or do other
-         * cleanup tasks when items are no longer accessible. Called with `key, value`.
-         * It's called before actually removing the item from the internal cache,
-         * so if you want to immediately put it back in, you'll have to do that in
-         * a `nextTick` or `setTimeout` callback or it won't do anything.
-         */
-        dispose?(key: K, value: V): void;
-
-        /**
          * By default, if you set a `maxAge`, it'll only actually pull stale items
          * out of the cache when you `get(key)`. (That is, it's not pre-emptively
          * doing a `setTimeout` or anything.) If you set `stale:true`, it'll return
          * the stale value before deleting it. If you don't set this, then it'll
          * return `undefined` when you try to get a stale entry,
          * as if it had already been deleted.
+         * @deprecated
+         * @see this.allowStale()
          */
         stale?: boolean | undefined;
+    }
 
-        /**
-         * By default, if you set a `dispose()` method, then it'll be called whenever
-         * a `set()` operation overwrites an existing key. If you set this option,
-         * `dispose()` will only be called when a key falls out of the cache,
-         * not when it is overwritten.
-         */
-        noDisposeOnSet?: boolean | undefined;
-
-        /**
-         * When using time-expiring entries with `maxAge`, setting this to `true` will make each
-         * item's effective time update to the current time whenever it is retrieved from cache,
-         * causing it to not expire. (It can still fall out of cache based on recency of use, of
-         * course.)
-         */
-        updateAgeOnGet?: boolean | undefined;
+    interface SetOptions<V> {
+        ttl?: number;
+        // Will prevent calling the sizeCalculation function
+        // and just use the specified number if it is a positive integer
+        size?: number;
+        sizeCalculation?(value: V): number;
+        // Will prevent calling a dispose function in the case of overwrites
+        noDisposeOnSet?: boolean;
     }
 
     interface Entry<K, V> {
@@ -189,5 +282,4 @@ declare namespace LRUCache {
         e: number;
     }
 }
-
 export = LRUCache;
