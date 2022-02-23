@@ -1,1 +1,1 @@
-const type = 1; // $ExpectType BankingProductCategory.BUSINESS_LOANS
+const type = 1; // $ExpectType 1
