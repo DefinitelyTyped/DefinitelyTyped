@@ -118,7 +118,7 @@ export interface UnlayerOptions {
 
 export interface EmailEditorProps {
     readonly style?: CSSProperties | undefined;
-    readonly minHeight?: number | undefined;
+    readonly minHeight?: number | string | undefined;
     readonly options?: UnlayerOptions | undefined;
     readonly tools?: ToolsConfig | undefined;
     readonly appearance?: AppearanceConfig | undefined;
