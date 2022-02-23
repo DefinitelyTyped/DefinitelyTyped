@@ -1031,3 +1031,11 @@ class CustomModule extends Module {
 
 CustomModule.moduleName = 'custom';
 Tabulator.registerModule([CustomModule, DataTreeModule]);
+
+const sortHandler = {} as (sorters: Tabulator.SorterFromTable[]) => void;
+table = new Tabulator('#test', {
+    dataSorting: sortHandler,
+    dataSorted: sortHandler,
+});
+table.on('dataSorting', ([sorter]) => sorter.field);
+table.on('dataSorted', ([sorter]) => sorter.field);

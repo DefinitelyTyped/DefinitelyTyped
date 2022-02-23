@@ -123,7 +123,9 @@ export interface EmailEditorProps {
     readonly tools?: ToolsConfig | undefined;
     readonly appearance?: AppearanceConfig | undefined;
     readonly projectId?: number | undefined;
+    /** @deprecated Use **onReady** instead */
     onLoad?(): void;
+    onReady?(): void;
 }
 
 export interface HtmlExport {

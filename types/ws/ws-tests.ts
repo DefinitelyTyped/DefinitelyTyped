@@ -337,6 +337,13 @@ declare module 'ws' {
 }
 
 {
+    const ws = new WebSocket("ws://www.host.com/path", {
+        generateMask: (mask) => {},
+        skipUTF8Validation: true,
+    });
+}
+
+{
     class CustomWebSocket extends WebSocket.WebSocket {
         foo(): 'foo' {
             return 'foo';
@@ -367,3 +374,5 @@ declare module 'ws' {
         }
     });
 }
+
+

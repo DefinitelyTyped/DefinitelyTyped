@@ -1,4 +1,4 @@
-// Type definitions for ws 8.2
+// Type definitions for ws 8.5
 // Project: https://github.com/websockets/ws
 // Definitions by: Paul Loyd <https://github.com/loyd>
 //                 Margus Lamp <https://github.com/mlamp>
@@ -210,6 +210,7 @@ declare namespace WebSocket {
     interface ClientOptions extends SecureContextOptions {
         protocol?: string | undefined;
         followRedirects?: boolean | undefined;
+        generateMask?(mask: Buffer): void;
         handshakeTimeout?: number | undefined;
         maxRedirects?: number | undefined;
         perMessageDeflate?: boolean | PerMessageDeflateOptions | undefined;
@@ -223,6 +224,7 @@ declare namespace WebSocket {
         checkServerIdentity?(servername: string, cert: CertMeta): boolean;
         rejectUnauthorized?: boolean | undefined;
         maxPayload?: number | undefined;
+        skipUTF8Validation?: boolean | undefined;
     }
 
     interface PerMessageDeflateOptions {

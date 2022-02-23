@@ -326,11 +326,48 @@ adapter.extendForeignObject(
     },
 );
 
+// Make sure the return type of getObjectView is inferred correctly
 adapter.getObjectView('system', 'admin', { startkey: 'foo', endkey: 'bar' }, (err, docs) => {
-    docs && docs.rows[0] && docs.rows[0].id.toLowerCase();
+    docs!.rows[0].id; // $ExpectType string
+    // FIXME: This should check for ioBroker.Object | null instead, but dtslint with TS4.7 is broken
+    // https://github.com/microsoft/dtslint/issues/352
+    docs!.rows[0].value?._id; // $ExpectType string | undefined
 });
 adapter.getObjectViewAsync('system', 'admin', { startkey: 'foo', endkey: 'bar' }).then(docs => {
-    docs && docs.rows[0] && docs.rows[0].id.toLowerCase();
+    docs.rows[0].id; // $ExpectType string
+    // FIXME: This should check for ioBroker.Object | null instead, but dtslint with TS4.7 is broken
+    // https://github.com/microsoft/dtslint/issues/352
+    docs.rows[0].value?._id; // $ExpectType string | undefined
+});
+adapter.getObjectView('system', 'admin', { startkey: 'foo', endkey: 'bar' }, (err, docs) => {
+    docs!.rows[0].id; // $ExpectType string
+    // FIXME: This should check for ioBroker.Object | null instead, but dtslint with TS4.7 is broken
+    // https://github.com/microsoft/dtslint/issues/352
+    docs!.rows[0].value?._id; // $ExpectType string | undefined
+});
+adapter.getObjectViewAsync('system', 'admin', { startkey: 'foo', endkey: 'bar' }).then(docs => {
+    docs.rows[0].id; // $ExpectType string
+    // FIXME: This should check for ioBroker.Object | null instead, but dtslint with TS4.7 is broken
+    // https://github.com/microsoft/dtslint/issues/352
+    docs.rows[0].value?._id; // $ExpectType string | undefined
+});
+adapter.getObjectView('hm-rpc', 'foo', { startkey: 'foo', endkey: 'bar' }, (err, docs) => {
+    docs!.rows[0].id; // $ExpectType string
+    docs!.rows[0].value; // $ExpectType any
+});
+adapter.getObjectViewAsync('hm-rpc', 'admin', { startkey: 'foo', endkey: 'bar' }).then(docs => {
+    docs.rows[0].id; // $ExpectType string
+    docs.rows[0].value; // $ExpectType any
+});
+// And without repetition some of the special ones:
+adapter.getObjectViewAsync('system', 'instance', { startkey: 'foo', endkey: 'bar' }).then(docs => {
+    docs.rows[0].value!.type; // $ExpectType "instance"
+});
+adapter.getObjectViewAsync('system', 'state', { startkey: 'foo', endkey: 'bar' }).then(docs => {
+    docs.rows[0].value!.type; // $ExpectType "state"
+});
+adapter.getObjectViewAsync('system', 'custom', { startkey: 'foo', endkey: 'bar' }).then(docs => {
+    docs.rows[0].value; // $ExpectType Record<string, any> | null
 });
 
 adapter.getObjectList({ startkey: 'foo', endkey: 'bar' }, {}, (err, result) => {
@@ -611,8 +648,8 @@ adapter.setForeignStateChangedAsync('id', { val: ['an', 'array'] });
 
 // Allow alias states
 adapter
-    .getObjectAsync('id')
-    .then(obj => obj && obj.type === 'state' && obj.common.alias && obj.common.alias.id.toUpperCase());
+    .getForeignObjectAsync('adapter.0.stateId')
+    .then(obj => obj && obj.type === 'state' && (typeof obj.common.alias?.id === "string" || typeof obj.common.alias?.id.read === "string"));
 
 adapter.getObjectAsync('id').then(obj => {
     // Allow accessing unknown properties - the user is on its own here
@@ -875,3 +912,18 @@ async () => {
 adapter.registerNotification("foobar", "accessErrors", "This is a problem!");
 adapter.registerNotification("system", "accessErrors", "This is a problem!");
 adapter.registerNotification("system", null, "This is a problem!");
+
+// https://github.com/ioBroker/adapter-core/issues/429
+adapter.namespace === 'foo-bar.0';
+adapter.namespace === 'foooooo.10';
+// $ExpectError
+adapter.namespace === 'foo.bar.0';
+// $ExpectError
+adapter.namespace === 'foo-bar.a';
+adapter.getForeignObjectAsync(`system.adapter.${adapter.namespace}`).then(o => {
+    // $ExpectType InstanceObject
+    o!;
+});
+
+// https://github.com/ioBroker/adapter-core/issues/378
+adapter.performStrictObjectChecks = true;
