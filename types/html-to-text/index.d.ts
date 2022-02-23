@@ -301,10 +301,16 @@ export interface FormatOptions {
      */
     ignoreHref?: boolean | undefined;
     /**
+     * (Only for: `anchor` and `image` formatters.) Surround links with these brackets.
+     * Set to false or ['', ''] to disable.
+     */
+    linkBrackets?: [string, string] | false | undefined;
+    /**
      * (Only for: `anchor` formatter.) Ignore anchor links (where `href='#...'`).
      */
     noAnchorUrl?: boolean | undefined;
     /**
+     * @deprecated. Use linkBrackets instead.
      * (Only for: `anchor` formatter.) Don't print brackets around links.
      */
     noLinkBrackets?: boolean | undefined;

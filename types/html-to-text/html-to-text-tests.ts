@@ -51,6 +51,7 @@ const htmlOptions: HtmlToTextOptions = {
         a: {
             options: {
                 hideLinkHrefIfSameAsText: true,
+                linkBrackets: ["[", "]"],
             },
         },
         h1: headerOptions,
@@ -209,3 +210,33 @@ console.log(htmlToText("<h1>Starting foo test</h1><foo>bar</foo>", {
         },
     ]
 }));
+
+console.log('Test with linkBrackets false');
+console.log(htmlToText("<a href=\"https://github.com/DefinitelyTyped\">Link</a>"), {
+    selectors: [
+        {
+            selector: "a",
+            options: { linkBrackets: false }
+        }
+    ]
+});
+
+console.log('Test with custom linkBrackets');
+console.log(htmlToText("<a href=\"https://github.com/DefinitelyTyped\">Link</a>"), {
+    selectors: [
+        {
+            selector: "a",
+            options: { linkBrackets: ['@', '@'] }
+        }
+    ]
+});
+
+console.log('Test without linkBrackets');
+console.log(htmlToText("<a href=\"https://github.com/DefinitelyTyped\">Link</a>"), {
+    selectors: [
+        {
+            selector: "a",
+            options: { linkBrackets: undefined }
+        }
+    ]
+});
