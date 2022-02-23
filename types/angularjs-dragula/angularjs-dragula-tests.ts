@@ -1,4 +1,3 @@
-/// <reference types="angular" />
 /// <reference types="angularjs-dragula" />
 
 const app = angular.module('my-app', [angularDragula(angular)]);
