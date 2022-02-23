@@ -6,3 +6,11 @@ export * from './banking';
 export * from './common';
 export * from './dcr';
 export * from './energy';
+export { DataHoldersStatusList, DataHolderStatus, DataRecipientBrandMetaData,
+    Links, LinksPaginated, DataRecipientsStatusList, DataRecipientStatus,
+    Error, JWK, LegalEntityDetail, Meta, MetaError, MetaPaginated,
+    RegisterDataHolderAuth, RegisterDataHolderBrand, RegisterDataHolderBrandServiceEndpoint,
+    RegisterDataRecipient, ResponseErrorList, ResponseErrorListV2Errors, ResponseErrorListV2,
+    ResponseJWKS, ResponseOpenIDProviderConfigMetadata, ResponseRegisterDataHolderBrandList,
+    ResponseRegisterDataRecipientList, SoftwareProductMetaData, SoftwareProductsStatusList,
+    SoftwareProductStatus }  from "./register";
