@@ -1,6 +1,6 @@
 // Type definitions for react-barcode 1.4
 // Project: https://github.com/kciter/react-barcode#readme
-// Definitions by: Junyoung Clare Jang <https://github.com/magichim>
+// Definitions by: Songwon Park <https://github.com/magichim>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as React from "react";
