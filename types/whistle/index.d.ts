@@ -435,8 +435,8 @@ declare global {
 
     class PluginUIResponse extends ServerResponse {}
     
-    type PluginHook = (server?: Server, options?: PluginOptions) => void;
-    type PluginUIHook = (server?: Server, options?: PluginOptions) => void;
+    type PluginHook = (server: Server, options?: PluginOptions) => void;
+    type PluginUIHook = (server: Server, options?: PluginOptions) => void;
 
     interface PluginHooks {
       uiServer?: PluginUIHook;
