@@ -342,6 +342,14 @@ const divRef = React.createRef<HTMLDivElement>();
 <ForwardRef2 ref={divRef}/>;
 <ForwardRef2 ref='string'/>; // $ExpectError
 
+const htmlElementFnRef = (instance: HTMLElement | null) => {};
+const htmlElementRef = React.createRef<HTMLElement>();
+<div ref={htmlElementFnRef} />;
+<div ref={htmlElementRef} />;
+const unsoundDivFnRef = (instance: HTMLDivElement) => {};
+// `instance` is nullable
+<div ref={unsoundDivFnRef} />; // $ExpectError
+
 const newContextRef = React.createRef<NewContext>();
 <NewContext ref={newContextRef}/>;
 <NewContext ref='string'/>;
@@ -407,7 +415,7 @@ imgProps.loading = 'nonsense';
 // $ExpectError
 imgProps.decoding = 'nonsense';
 type ImgPropsWithRef = React.ComponentPropsWithRef<'img'>;
-// $ExpectType ((instance: HTMLImageElement | null) => void) | RefObject<HTMLImageElement> | null | undefined
+// $ExpectType RefCallback<HTMLImageElement> | RefObject<HTMLImageElement> | null | undefined
 type ImgPropsWithRefRef = ImgPropsWithRef['ref'];
 type ImgPropsWithoutRef = React.ComponentPropsWithoutRef<'img'>;
 // $ExpectType false
