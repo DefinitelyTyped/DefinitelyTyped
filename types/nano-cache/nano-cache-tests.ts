@@ -10,6 +10,10 @@ cache.set('some value', {
     hello: true
 });
 
+cache.set('some value to delete', {
+    hello: true
+});
+
 cache.set('some other value', {
     val: false
 }, {
@@ -23,6 +27,7 @@ cache.set('some other value', {
 
 cache.get('some value');
 cache.clear();
+cache.del('some value to delete');
 cache.get('some value');
 cache.clearExpired();
 cache.isTTLExpired('some value');
