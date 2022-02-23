@@ -16,10 +16,19 @@ declare namespace PleaseJS{
 
         /***
          * make a color scheme
+         * @param {HSV} base_color
          * @param {MakeSchemeOption} options
          * @returns {Array}
          */
         make_scheme(base_color: HSV, options?: MakeSchemeOption): Array<string | RGB | HSV>;
+
+        /***
+         * make a contrasting color scheme
+         * @param {HSV} base_color
+         * @param {MakeContrastOption} options
+         * @returns {string|RGB|HSV}
+         */
+        make_contrast(base_color: HSV, options?: MakeContrastOption): string | RGB | HSV;
 
         /***
          * convert color name into hex string
@@ -100,6 +109,11 @@ declare namespace PleaseJS{
 
     export interface MakeSchemeOption{
         scheme_type: string;
+        format: string;
+    }
+
+    export interface MakeContrastOption{
+        golden: boolean;
         format: string;
     }
 

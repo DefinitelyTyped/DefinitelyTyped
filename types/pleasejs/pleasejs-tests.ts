@@ -25,6 +25,24 @@ Please.make_scheme(
     }
 );
 
+Please.make_contrast({
+    h: 92,
+    s: .4,
+    v: .2
+});
+
+Please.make_contrast(
+    {
+        h: 92,
+        s: .4,
+        v: .2
+    },
+    {
+        golden: false,
+        format: 'rgb'
+    }
+);
+
 Please.NAME_to_HEX("red");
 
 Please.NAME_to_HSV("red");
