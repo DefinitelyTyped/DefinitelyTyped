@@ -2248,7 +2248,7 @@ declare module 'fs' {
         position?: ReadPosition | null | undefined;
     }
     // tslint:disable-next-line:no-unnecessary-generics
-    export interface readAsyncOptions<TBuffer extends NodeJS.ArrayBufferView> extends ReadSyncOptions {
+    export interface ReadAsyncOptions<TBuffer extends NodeJS.ArrayBufferView> extends ReadSyncOptions {
         buffer?: TBuffer;
     }
     /**
@@ -2287,7 +2287,7 @@ declare module 'fs' {
      */
     export function read<TBuffer extends NodeJS.ArrayBufferView>(
         fd: number,
-        options: readAsyncOptions<TBuffer>,
+        options: ReadAsyncOptions<TBuffer>,
         callback: (err: NodeJS.ErrnoException | null, bytesRead: number, buffer: TBuffer) => void
     ): void;
     export function read(
@@ -2314,7 +2314,7 @@ declare module 'fs' {
         }>;
         function __promisify__<TBuffer extends NodeJS.ArrayBufferView>(
             fd: number,
-            options: readAsyncOptions<TBuffer>,
+            options: ReadAsyncOptions<TBuffer>,
             callback: (err: NodeJS.ErrnoException | null, bytesRead: number, buffer: TBuffer) => void
         ): void;
         function __promisify__(
