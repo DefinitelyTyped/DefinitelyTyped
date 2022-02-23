@@ -1,4 +1,4 @@
-// Type definitions for react-barcode
+// Type definitions for react-barcode 1.4
 // Project: https://github.com/kciter/react-barcode#readme
 // Definitions by: Junyoung Clare Jang <https://github.com/magichim>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -8,7 +8,7 @@ import * as React from "react";
 declare namespace Barcode {
   interface Props {
     value: string;
-    
+
     renderer?: string;
 
     format?: string;
@@ -42,7 +42,7 @@ declare namespace Barcode {
     marginBottom?: number;
 
     marginLeft?: number;
-    
+
     marginRight?: number;
   }
 }
@@ -50,4 +50,4 @@ declare namespace Barcode {
 declare class Barcode extends React.Component<Barcode.Props> {
 }
 
-export = Barcode
+export = Barcode;
