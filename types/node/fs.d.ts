@@ -2281,7 +2281,7 @@ declare module 'fs' {
      * If not otherwise specified in an `options` object,
      * `buffer` defaults to `Buffer.alloc(16384)`,
      * `offset` defaults to `0`,
-     * `length` defaults to `buffer.byteLength`,  `- offset` after https://github.com/nodejs/node/pull/40349 is merged
+     * `length` defaults to `buffer.byteLength`, `- offset` as of Node 17.6.0
      * `position` defaults to `null`
      * @since v12.17.0, 13.11.0
      */
