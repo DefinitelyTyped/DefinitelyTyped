@@ -4,3 +4,4 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 export * from './banking';
 export * from './common';
+export * from './dcr';
