@@ -374,5 +374,3 @@ declare module 'ws' {
         }
     });
 }
-
-
