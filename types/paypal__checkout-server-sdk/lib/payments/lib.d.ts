@@ -132,7 +132,7 @@ export interface CaptureRequest {
     final_capture: boolean;
     invoice_id: string;
     note_to_payer: string;
-    payment_instruction: PaymentInstruction;
+    payment_instruction?: PaymentInstruction;
     soft_descriptor: string;
 }
 

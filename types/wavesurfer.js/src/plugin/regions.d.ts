@@ -25,7 +25,7 @@ export default class RegionsPlugin extends Observer implements WaveSurferPlugin 
     getRegionSnapToGridValue(value: number, params: RegionParams): number;
 
     readonly list: { [id: string]: Region };
-    readonly maxRegions: number[];
+    readonly maxRegions: number;
     readonly params: RegionsPluginParams;
     readonly regionsMinLength: number;
     readonly util: WaveSurfer["util"];
@@ -45,7 +45,7 @@ export interface RegionsPluginParams extends PluginParams {
     /** Shift the snap-to-grid by the specified seconds. May also be negative. */
     snapToGridOffset?: number | undefined;
     /** Maximum number of regions that may be created by the user at one time. */
-    maxRegions?: number[] | undefined;
+    maxRegions?: number | undefined;
     /** Allows custom formating for region tooltip. */
     formatTimeCallback?: (() => string) | undefined;
     /** from container edges' Optional width for edgeScroll to start (default: 5% of viewport width). */

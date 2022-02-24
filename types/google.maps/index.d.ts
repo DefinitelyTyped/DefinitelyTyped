@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Google Maps JavaScript API 3.47
+// Type definitions for non-npm package Google Maps JavaScript API 3.48
 // Project: https://developers.google.com/maps/
 // Definitions by: Justin Poehnelt <https://github.com/jpoehnelt>
 //                 Alex Muramoto <https://github.com/amuramoto>
@@ -9,7 +9,7 @@
 // To report an issue with these types, please open a support ticket at:
 // https://issuetracker.google.com/savedsearches/558438
 
-// Google Maps JS API Version: 3.47
+// Google Maps JS API Version: 3.48
 // tslint:disable:enforce-name-casing
 // tslint:disable:no-any
 // tslint:disable:interface-over-type-literal
@@ -348,8 +348,10 @@ declare namespace google.maps {
    */
   interface CoordinateTransformer {
     fromLatLngAltitude(
-        latLng: google.maps.LatLng|google.maps.LatLngLiteral, altitude: number,
-        rotations?: Float32Array, scale?: Float32Array): Float64Array;
+        latLngOrLatLngAltitude: google.maps.LatLng|
+        google.maps.LatLngLiteral|google.maps.LatLngAltitudeLiteral,
+        altitudeOrRotations?: number|Float32Array,
+        rotationsOrScale?: Float32Array, scale?: Float32Array): Float64Array;
     getCameraParams(): google.maps.CameraParams;
   }
 }
@@ -3085,7 +3087,7 @@ declare namespace google.maps {
     constructor(
         latOrLatLngOrLatLngLiteral: number|google.maps.LatLngLiteral|
         google.maps.LatLng,
-        lngOrNoWrap?: number|boolean|null, noWrap?: boolean);
+        lngOrNoClampNoWrap?: number|boolean|null, noClampNoWrap?: boolean);
     /**
      * Comparison function.
      */
@@ -3112,6 +3114,82 @@ declare namespace google.maps {
      * round the lat/lng values to 6 decimal places by default.
      */
     toUrlValue(precision?: number): string;
+  }
+}
+declare namespace google.maps {
+  /**
+   * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+   * A <code>LatLngAltitude</code> is a 3D point in geographical coordinates:
+   * latitude, longitude, and altitude.<br> <ul> <li>Latitude ranges between -90
+   * and 90 degrees, inclusive. Values above or below this range will be clamped
+   * to the range [-90, 90]. This means that if the value specified is less than
+   * -90, it will be set to -90. And if the value is greater than 90, it will be
+   * set to 90.</li> <li>Longitude ranges between -180 and 180 degrees,
+   * inclusive. Values above or below this range will be wrapped so that they
+   * fall within the range. For example, a value of -190 will be converted to
+   * 170. A value of 190 will be converted to -170. This reflects the fact that
+   * longitudes wrap around the globe.</li> <li>Altitude is measured in meters.
+   * Positive values denote heights above ground level, and negative values
+   * denote heights underneath the ground surface.</li> </ul>
+   */
+  class LatLngAltitude implements google.maps.LatLngAltitudeLiteral,
+                                  google.maps.LatLngLiteral {
+    /**
+     * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+     * Returns the altitude.
+     */
+    altitude: number;
+    /**
+     * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+     * Comparison function.
+     * @param other Another LatLngAltitude object.
+     */
+    equals(other: google.maps.LatLngAltitude|null): boolean;
+    /**
+     * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+     * Returns the latitude.
+     */
+    lat: number;
+    /**
+     * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+     * Returns the longitude.
+     */
+    lng: number;
+    /**
+     * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+     */
+    toJSON(): google.maps.LatLngAltitudeLiteral;
+  }
+}
+declare namespace google.maps {
+  /**
+   * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+   * Object literals are accepted in place of <code>LatLngAltitude</code>
+   * objects, as a convenience, in many places. These are converted to
+   * <code>LatLngAltitude</code> objects when the Maps API encounters them.
+   */
+  interface LatLngAltitudeLiteral extends google.maps.LatLngLiteral {
+    /**
+     * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+     * Distance (in meters) above the ground surface. Negative value means
+     * underneath the ground surface. Defaults to 0.
+     */
+    altitude: number;
+    /**
+     * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+     * Latitude in degrees. Values will be clamped to the range [-90, 90]. This
+     * means that if the value specified is less than -90, it will be set to
+     * -90. And if the value is greater than 90, it will be set to 90.
+     */
+    lat: number;
+    /**
+     * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+     * Longitude in degrees. Values outside the range [-180, 180] will be
+     * wrapped so that they fall within the range. For example, a value of -190
+     * will be converted to 170. A value of 190 will be converted to -170. This
+     * reflects the fact that longitudes wrap around the globe.
+     */
+    lng: number;
   }
 }
 declare namespace google.maps {
@@ -3592,14 +3670,16 @@ declare namespace google.maps {
      * Computes the geographical coordinates from pixel coordinates in the
      * map&#39;s container.
      */
-    fromContainerPixelToLatLng(pixel: google.maps.Point|null, nowrap?: boolean):
-        google.maps.LatLng|null;
+    fromContainerPixelToLatLng(
+        pixel: google.maps.Point|null,
+        noClampNoWrap?: boolean): google.maps.LatLng|null;
     /**
      * Computes the geographical coordinates from pixel coordinates in the div
      * that holds the draggable map.
      */
-    fromDivPixelToLatLng(pixel: google.maps.Point|null, nowrap?: boolean):
-        google.maps.LatLng|null;
+    fromDivPixelToLatLng(
+        pixel: google.maps.Point|null,
+        noClampNoWrap?: boolean): google.maps.LatLng|null;
     /**
      * Computes the pixel coordinates of the given geographical location in the
      * map&#39;s container element.
@@ -5119,7 +5199,7 @@ declare namespace google.maps {
      * this method, but may return <code>null</code> if the projection cannot
      * calculate the <code>LatLng</code>.
      */
-    fromPointToLatLng(pixel: google.maps.Point, noWrap?: boolean):
+    fromPointToLatLng(pixel: google.maps.Point, noClampNoWrap?: boolean):
         google.maps.LatLng|null;
   }
 }
@@ -5296,6 +5376,32 @@ declare namespace google.maps {
      * The standard scale control.
      */
     DEFAULT = 0.0,
+  }
+}
+declare namespace google.maps {
+  /**
+   * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+   * Settings which control the behavior of the Maps JavaScript API as a whole.
+   */
+  class Settings {
+    /**
+     * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+     * A collection of unique experience IDs to which to attribute Maps JS API
+     * calls. The returned value is a copy of the internal value that is stored
+     * in the <code>Settings</code> class singleton instance. Operations on
+     * <code>google.maps.Settings.getInstance().experienceIds</code> will
+     * therefore only modify the copy and not the internal value.<br/><br/>To
+     * update the internal value, set the property equal to the new value on the
+     * singleton instance (ex:
+     * <code>google.maps.Settings.getInstance().experienceIds =
+     * [experienceId];</code>).
+     */
+    experienceIds: Iterable<string>;
+    /**
+     * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+     * Returns the singleton instance of <code>google.maps.Settings</code>.
+     */
+    static getInstance(this: any): google.maps.Settings;
   }
 }
 declare namespace google.maps {

@@ -71,23 +71,28 @@ export interface RedirectableRequest<Request extends WrappableRequest, Response>
 }
 
 export interface RedirectScheme<Options, Request extends WrappableRequest, Response> {
+    /**
+     * This function has two overloads:
+     * ```typescript
+     * request(options: string | URL | Options, callback)
+     * request(url: string | URL, options: Options, callback)
+     * ```
+     */
     request(
-        options: string | URL | (Options & FollowOptions<Options>),
+        url: string | URL | (Options & FollowOptions<Options>),
+        options?: (Options & FollowOptions<Options>) | ((res: Response & FollowResponse) => void),
         callback?: (res: Response & FollowResponse) => void,
     ): RedirectableRequest<Request, Response>;
-    request(
-        url: string | URL,
-        options: Options & FollowOptions<Options>,
-        callback?: (res: Response & FollowResponse) => void,
-    ): RedirectableRequest<Request, Response>;
-
+    /**
+     * This function has two overloads:
+     * ```typescript
+     * get(options: string | URL | Options, callback)
+     * get(url: string | URL, options: Options, callback)
+     * ```
+     */
     get(
-        options: string | URL | (Options & FollowOptions<Options>),
-        callback?: (res: Response & FollowResponse) => void,
-    ): RedirectableRequest<Request, Response>;
-    get(
-        url: string | URL,
-        options: Options & FollowOptions<Options>,
+        url: string | URL | (Options & FollowOptions<Options>),
+        options?: (Options & FollowOptions<Options>) | ((res: Response & FollowResponse) => void),
         callback?: (res: Response & FollowResponse) => void,
     ): RedirectableRequest<Request, Response>;
 }

@@ -139,6 +139,9 @@ optimized = optimize('', {
         { active: true, name: 'addAttributesToSVGElement' },
         { active: false, name: 'addClassesToSVGElement' },
 
+        { name: 'addAttributesToSVGElement', params: { attribute: 'mySvg' } },
+        { name: 'addAttributesToSVGElement', params: { attributes: ['mySvg', 'size-big'] } },
+        { name: 'addAttributesToSVGElement', params: { attributes: [{ focusable: 'false' }, { id: 'svg' }] } },
         { name: 'cleanupAttrs', params: { newlines: true, trim: true, spaces: true } },
         { name: 'cleanupEnableBackground' },
         {

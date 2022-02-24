@@ -1,4 +1,4 @@
-// For Library Version: 1.98.0
+// For Library Version: 1.99.0
 
 declare module "sap/tnt/library" {
   export interface IToolHeader {
@@ -7489,72 +7489,14 @@ declare module "sap/f/FlexibleColumnLayoutSemanticHelper" {
       oSettings?: object
     ): FlexibleColumnLayoutSemanticHelper;
     /**
-     * Returns an object, describing the current state of the control and the expected action buttons for each
+     * Returns an object describing the current state of the control and the expected action buttons for each
      * column.
-     *
-     * The returned object has the following structure:
-     * 	 - layout - the value of the `layout` property
-     * 	 - maxColumnsCount - the maximum number of columns that can be displayed at once based on the control
-     * 			width. See {@link sap.f.FlexibleColumnLayout#getMaxColumnsCount}
-     * 	 - columnsSizes - an object with fields `beginColumn, midColumn, endColumn`, representing the relative
-     * 			percentage sizes of the three columns as integers
-     * 	 - columnsVisibility - an object with fields `beginColumn, midColumn, endColumn`, representing the visibility
-     * 			of the three columns
-     * 	 - isFullScreen - `true` if only one column is visible at the moment, `false` otherwise **Note:** This
-     * 			may be due to small screen size (phone) or due to a layout, for which a single column takes up the whole
-     * 			width
-     * 	 - isLogicallyFullScreen - `true` if the current `layout` is one of the following: `sap.f.LayoutType.OneColumn,
-     * 			sap.f.LayoutType.MidColumnFullScreen, sap.f.LayoutType.EndColumnFullScreen`, `false` otherwise **Note:**
-     * 			While `isFullScreen` can be `true` for any layout, due to small screen size, `isLogicallyFullScreen`
-     * 			will only be `true` for the layout values, listed above.
-     * 	 - actionButtonsInfo - an object with fields `midColumn, endColumn`, each containing an object, telling
-     * 			whether action buttons should be shown in the `mid` and `end` columns, and what value of the `layout`
-     * 			property should be set upon clicking these buttons. Each of these objects has the following fields: `closeColumn,
-     * 			fullScreen, exitFullScreen`. If `null`, then the respective action button should not be shown, otherwise
-     * 			provides the value of `layout` property for the action button.
      *
      * **Note:** This method relies on the internal `FlexibleColumnLayout` reference to be rendered in the DOM
      * tree. For convenience, use methods {@link sap.f.FlexibleColumnLayoutSemanticHelper#isDOMReady} and {@link
      * sap.f.FlexibleColumnLayoutSemanticHelper#whenDOMReady}.
-     *
-     * Example value:
-     *
-     *
-     * ```javascript
-     *
-     *
-     *  {
-     * 	   "layout":"ThreeColumnsMidExpanded",
-     * 	   "maxColumnsCount":3,
-     * 	   "columnsSizes":{
-     * 		  "beginColumn":25,
-     * 		  "midColumn":50,
-     * 		  "endColumn":25
-     * 	   },
-     * 	   "columnsVisibility":{
-     * 		  "beginColumn":true,
-     * 		  "midColumn":true,
-     * 		  "endColumn":true
-     * 	   },
-     * 	   "isFullScreen":false,
-     * 	   "isLogicallyFullScreen":false,
-     * 	   "actionButtonsInfo":{
-     * 		  "midColumn":{
-     * 			 "fullScreen":null,
-     * 			 "exitFullScreen":null,
-     * 			 "closeColumn":null
-     * 		  },
-     * 		  "endColumn":{
-     * 			 "fullScreen":"EndColumnFullScreen",
-     * 			 "exitFullScreen":null,
-     * 			 "closeColumn":"TwoColumnsBeginExpanded"
-     * 		  }
-     * 	   }
-     * 	}
-     *
-     *  ```
      */
-    getCurrentUIState(): object;
+    getCurrentUIState(): UIState;
     /**
      * Returns the default layout types for the different numbers of columns.
      *
@@ -7570,8 +7512,6 @@ declare module "sap/f/FlexibleColumnLayoutSemanticHelper" {
     /**
      * Returns an object, describing the state that the control will have after navigating to a different view
      * level.
-     *
-     * About the format of return value, see: {@link sap.f.FlexibleColumnLayoutSemanticHelper#getCurrentUIState}
      */
     getNextUIState(
       /**
@@ -7579,7 +7519,7 @@ declare module "sap/f/FlexibleColumnLayoutSemanticHelper" {
        * 3 and above - subsequent views
        */
       iNextLevel: int
-    ): object;
+    ): UIState;
     /**
      * @SINCE 1.72
      *
@@ -7608,6 +7548,155 @@ declare module "sap/f/FlexibleColumnLayoutSemanticHelper" {
      */
     whenReady(): Promise<any>;
   }
+  /**
+   * The configuration of the navigation actions in the columns.
+   */
+  export type ColumnsNavigationActions = {
+    /**
+     * Configuration of the navigation actions of the mid column.
+     */
+    midColumn?: NavigationActionsTargets;
+    /**
+     * Configuration of the navigation actions of the end column.
+     */
+    endColumn?: NavigationActionsTargets;
+  };
+
+  /**
+   * Represents the relative percentage sizes of all columns as integers.
+   */
+  export type ColumnsSizes = {
+    /**
+     * The relative percentage width of the begin column as integer.
+     */
+    beginColumn?: number;
+    /**
+     * The relative percentage width of the mid column as integer.
+     */
+    midColumn?: number;
+    /**
+     * The relative percentage width of the end column as integer.
+     */
+    endColumn?: number;
+  };
+
+  /**
+   * Represents the visibility of the columns.
+   */
+  export type ColumnsVisibility = {
+    /**
+     * The visibility of the begin column.
+     */
+    beginColumn?: boolean;
+    /**
+     * The visibility of the mid column.
+     */
+    midColumn?: boolean;
+    /**
+     * The visibility of the end column.
+     */
+    endColumn?: boolean;
+  };
+
+  /**
+   * Configures the target layouts of the navigation acion buttons in a column.
+   */
+  export type NavigationActionsTargets = {
+    /**
+     * The target {@link sap.f.FlexibleColumnLayout#getLayout layout} when the `fullscreen` navigation action
+     * button is pressed. If null, then the respective action button should not be shown.
+     */
+    fullScreen?: string | null;
+    /**
+     * The target {@link sap.f.FlexibleColumnLayout#getLayout layout} when the `exitFullScreen` navigation action
+     * button is pressed. If null, then the respective action button should not be shown.
+     */
+    exitFullScreen?: string | null;
+    /**
+     * The target {@link sap.f.FlexibleColumnLayout#getLayout layout} when the `closeColumn` navigation action
+     * button is pressed. If null, then the respective action button should not be shown.
+     */
+    closeColumn?: string | null;
+  };
+
+  /**
+   * Configuration of the state of the `FlexibleColumnLayout` control and the expected action buttons for
+   * each column.
+   *
+   * Example value:
+   *
+   *
+   * ```javascript
+   *
+   *
+   *  {
+   * 	   "layout":"ThreeColumnsMidExpanded",
+   * 	   "maxColumnsCount":3,
+   * 	   "columnsSizes":{
+   * 		  "beginColumn":25,
+   * 		  "midColumn":50,
+   * 		  "endColumn":25
+   * 	   },
+   * 	   "columnsVisibility":{
+   * 		  "beginColumn":true,
+   * 		  "midColumn":true,
+   * 		  "endColumn":true
+   * 	   },
+   * 	   "isFullScreen":false,
+   * 	   "isLogicallyFullScreen":false,
+   * 	   "actionButtonsInfo":{
+   * 		  "midColumn":{
+   * 			 "fullScreen":null,
+   * 			 "exitFullScreen":null,
+   * 			 "closeColumn":null
+   * 		  },
+   * 		  "endColumn":{
+   * 			 "fullScreen":"EndColumnFullScreen",
+   * 			 "exitFullScreen":null,
+   * 			 "closeColumn":"TwoColumnsBeginExpanded"
+   * 		  }
+   * 	   }
+   * 	}
+   *
+   *  ```
+   */
+  export type UIState = {
+    /**
+     * The value of the {@link sap.f.FlexibleColumnLayout#getLayout layout} property.
+     */
+    layout?: string;
+    /**
+     * The maximum number of columns that can be displayed at once based on the control width. See {@link sap.f.FlexibleColumnLayout#getMaxColumnsCount}
+     */
+    maxColumnsCount?: number;
+    /**
+     * Represents the relative percentage sizes of all columns as integers.
+     */
+    columnsSizes?: ColumnsSizes;
+    /**
+     * Represents the visibility of the columns.
+     */
+    columnsVisibility?: ColumnsVisibility;
+    /**
+     * The value is `true` if only one column is visible at the moment, `false` otherwise.
+     *
+     * **Note:** This may be due to small screen size (phone) or due to a layout, for which a single column
+     * takes up the whole width.
+     */
+    isFullScreen?: boolean;
+    /**
+     * The value is `true` if the current `layout` is one of the following: `sap.f.LayoutType.OneColumn, sap.f.LayoutType.MidColumnFullScreen,
+     * sap.f.LayoutType.EndColumnFullScreen`, `false` otherwise.
+     *
+     * **Note:** While `isFullScreen` can be `true` for any layout, due to small screen size, `isLogicallyFullScreen`
+     * will only be `true` for the layout values, listed above.
+     */
+    isLogicallyFullScreen?: boolean;
+    /**
+     * The configuration of the navigation actions in the columns.
+     */
+    actionButtonsInfo?: ColumnsNavigationActions;
+  };
 }
 
 declare module "sap/f/GridContainer" {
