@@ -433,10 +433,10 @@ declare global {
       localStorage: WhistleStorage;
     }
 
-    class PluginUIResponse extends ServerResponse {}
-    
+    type PluginUIResponse = ServerResponse;
     type PluginHook = (server: Server, options?: PluginOptions) => void;
     type PluginUIHook = (server: Server, options?: PluginOptions) => void;
+    type PluginServer = Server;
 
     interface PluginHooks {
       uiServer?: PluginUIHook;
