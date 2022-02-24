@@ -4,13 +4,13 @@
 //                 Connor Schlesiger <https://github.com/schlesiger>
 //                 Clayton Astrom <https://github.com/ClaytonAstrom>
 //                 Lukas Beranek <https://github.com/lloiser>
-//                 Vaibhav Singh<https://github.com/vaibhavsingh97>
-//                 David Burns<https://github.com/AutomatedTester>
-//                 Ravi Sawlani<https://github.com/gravityvi>
-//                 Binayak Ghosh<https://github.com/swrdfish>
-//                 Harshit Agrawal<https://github.com/harshit-bs>
+//                 Vaibhav Singh <https://github.com/vaibhavsingh97>
+//                 David Burns <https://github.com/AutomatedTester>
+//                 Ravi Sawlani <https://github.com/gravityvi>
+//                 Binayak Ghosh <https://github.com/swrdfish>
+//                 Harshit Agrawal <https://github.com/harshit-bs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.5.5
+// TypeScript Version: 4.5
 
 import { WebElement, By } from 'selenium-webdriver';
 
