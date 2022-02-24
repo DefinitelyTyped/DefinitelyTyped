@@ -54,6 +54,7 @@ export type WrapArgsType<T> =
   | string 
   | ((callback: CallbackFunc<T>) => void)
   | CachingConfig 
+  | CallbackFunc<T>
   | (() => PromiseLike<T> | T);
 
 export interface Cache {
