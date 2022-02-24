@@ -13,7 +13,13 @@ declare enum HOWLER_STATE {
     LOADED = 'loaded',
 }
 
-interface Props {
+export interface PropTyoesXHR {
+  method?: string | undefined;
+  headers?: Record<string, string> | undefined;
+  withCredentials?: boolean | undefined;
+}
+
+export interface PropTypes {
     src: string | string[];
     format?: string[] | undefined;
     playing?: boolean | undefined;
@@ -29,9 +35,14 @@ interface Props {
     onLoad?: (() => void) | undefined;
     onLoadError?: ((id: number) => void) | undefined;
     html5?: boolean | undefined;
+    rate?: number | undefined;
+    format?: string[] | undefined;
+    xhr?: PropsXHR | undefined;
+    onSeek?: ((id: number) => void) | undefined;
+    onPlayError?: ((id: number) => void) | undefined;
 }
 
-declare class ReactHowler extends React.Component<Props> {
+declare class ReactHowler extends React.Component<PropTypes> {
     stop(id?: number): void;
 
     duration(id?: number): number;
