@@ -11,9 +11,9 @@ declare enum HOWLER_STATE {
     UNLOADED = 'unloaded',
     LOADING = 'loading',
     LOADED = 'loaded',
-}
+};
 
-export { HowlCallback, HowlErrorCallback }
+export { HowlCallback, HowlErrorCallback };
 
 export interface PropTypes {
     src: HowlOptions['src'];
@@ -35,7 +35,7 @@ export interface PropTypes {
     onEnd?: HowlCallback | undefined;
     onSeek?: HowlCallback | undefined;
     onPlayError?: HowlErrorCallback | undefined;
-}
+};
 
 declare class ReactHowler extends React.Component<PropTypes> {
     stop(id?: number): void;
@@ -47,6 +47,6 @@ declare class ReactHowler extends React.Component<PropTypes> {
     howlerState(): HOWLER_STATE;
 
     howler: Howl;
-}
+};
 
 export default ReactHowler;
