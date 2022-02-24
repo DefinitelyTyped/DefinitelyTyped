@@ -18,13 +18,9 @@ export class ReactHowlerTest extends React.Component {
                     playing={false}
                     mute={true}
                     onPlay={id => console.log('playing sound with id ', id)}
-                    onPlayError={id =>
-                        console.log('error playing sound with id ', id)
-                    }
+                    onPlayError={id => console.log('error playing sound with id ', id)}
                     onLoad={() => console.log('sound loaded')}
-                    onLoadError={id =>
-                        console.log('error loading sound with id ', id)
-                    }
+                    onLoadError={id => console.log('error loading sound with id ', id)}
                     onEnd={() => console.log('sound ended')}
                     onPause={() => console.log('sound paused')}
                     onStop={id => console.log('sound with id paused', id)}
@@ -37,7 +33,7 @@ export class ReactHowlerTest extends React.Component {
                     preload={false}
                     ref={this.player}
                     rate={1}
-                    format={["mp3"]}
+                    format={['mp3']}
                     xhr={{ method: "GET" }}
                 />
             </div>
