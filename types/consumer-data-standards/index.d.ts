@@ -6,6 +6,7 @@ export * from './banking';
 export * from './common';
 export * from './dcr';
 export * from './energy';
+export * from './admin';
 export { DataHoldersStatusList, DataHolderStatus, DataRecipientBrandMetaData,
     Links, LinksPaginated, DataRecipientsStatusList, DataRecipientStatus,
     Error, JWK, LegalEntityDetail, Meta, MetaError, MetaPaginated,
