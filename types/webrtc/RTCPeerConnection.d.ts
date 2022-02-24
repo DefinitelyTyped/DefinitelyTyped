@@ -10,6 +10,7 @@
 // ES6 library ones.
 
 /// <reference path='MediaStream.d.ts' />
+/// <reference path='IceCandidate.d.ts' />
 
 // https://www.w3.org/TR/webrtc/#idl-def-rtcerrordetailtype
 type RTCErrorDetailType =
