@@ -18,7 +18,8 @@ mermaidAPI.initialize({
     deterministicIds: true,
     secure: ["startOnLoad", "theme"],
     maxTextSize: 20,
-    fontFamily: "verdana"
+    fontFamily: "verdana",
+    securityLevel: mermaidAPI.SecurityLevel.Loose
 });
 
 const element = document.querySelector("#graphDiv")!;
