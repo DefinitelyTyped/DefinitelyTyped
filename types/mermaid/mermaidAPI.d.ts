@@ -25,9 +25,29 @@ declare namespace mermaidAPI {
     }
 
     enum Theme {
-        Default = 'default',
+        /**
+         * Designed to modified, as the name implies it is supposed to be used as the base for making custom themes.
+         */
+        Base = 'base',
+
+        /**
+         * A theme full of light greens that is easy on the eyes.
+         */
         Forest = 'forest',
+
+        /**
+         * A theme that would go well with other dark colored elements.
+         */
         Dark = 'dark',
+
+        /**
+         *  The default theme for all diagrams.
+         */
+        Default = 'default',
+
+        /**
+         * The theme to be used for black and white printing
+         */
         Neutral = 'neutral'
     }
 
