@@ -412,7 +412,7 @@ declare module "../index" {
         /**
          * @see _.isArrayLike
          */
-        isArrayLike(value: any): value is { length: number };
+        isArrayLike(value: any): value is { readonly length: number };
     }
     interface LoDashImplicitWrapper<TValue> {
         /**

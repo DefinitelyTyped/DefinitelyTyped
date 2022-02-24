@@ -1908,7 +1908,7 @@ declare namespace _ {
     interface LodashIsArrayLike {
         <T extends { __lodashAnyHack: any }>(t: T): boolean;
         (value: ((...args: any[]) => any) | null | undefined): value is never;
-        (value: any): value is { length: number };
+        (value: any): value is { readonly length: number };
     }
     interface LodashIsArrayLikeObject {
         <T extends { __lodashAnyHack: any }>(value: T): boolean;
