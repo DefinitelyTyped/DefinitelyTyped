@@ -50,10 +50,10 @@ export interface CacheOptions {
 }
 
 export type CallbackFunc<T> = (error: any, result: T) => void;
-export type WrapArgsType<T> = 
-  | string 
+export type WrapArgsType<T> =
+  | string
   | ((callback: CallbackFunc<T>) => void)
-  | CachingConfig 
+  | CachingConfig
   | CallbackFunc<T>
   | (() => PromiseLike<T> | T);
 
