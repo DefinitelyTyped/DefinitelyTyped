@@ -7,6 +7,7 @@ const flatOptions: Array<ValueOption<string>> = [
     { label: 'One', value: 'one' }, // ValueOption<string>
     { label: 'Two', value: 'two' }, // ValueOption<string>
 ];
+const readonlyFlatOptions = flatOptions as ReadonlyArray<ValueOption<string>>;
 
 // Nested options
 const nestedOptions: Array<Option<string>> = [
@@ -24,6 +25,7 @@ const nestedOptions: Array<Option<string>> = [
         ],
     }, // CategoryOption<string>
 ]; // Option<string>[]
+const readonlyNestedOptions = nestedOptions as ReadonlyArray<Option<string>>;
 
 /** Example change handlers */
 // Simple value change handler.
@@ -33,12 +35,17 @@ const optionsChange = (selectedValues: Array<Option<string>>) => {};
 
 /** Using flat and nested option structures. */
 <DualListBox options={flatOptions} className="foo" />;
+<DualListBox options={readonlyFlatOptions} className="foo" />;
 <DualListBox options={nestedOptions} />;
+<DualListBox options={readonlyNestedOptions} />;
 
 /** Selection examples. */
 <DualListBox options={flatOptions} onChange={valuesChange} />;
+<DualListBox options={readonlyFlatOptions} onChange={valuesChange} />;
 <DualListBox options={flatOptions} simpleValue onChange={valuesChange} />;
+<DualListBox options={readonlyFlatOptions} simpleValue onChange={valuesChange} />;
 <DualListBox options={flatOptions} simpleValue={false} onChange={optionsChange} />;
+<DualListBox options={readonlyFlatOptions} simpleValue={false} onChange={optionsChange} />;
 
 /** Selection error examples. */
 <DualListBox
@@ -61,11 +68,23 @@ const optionsChange = (selectedValues: Array<Option<string>>) => {};
 
 /** Filtering examples. */
 <DualListBox options={flatOptions} canFilter={false} />;
+<DualListBox options={readonlyFlatOptions} canFilter={false} />;
 <DualListBox
     options={flatOptions}
     canFilter
     filter={{
         available: flatOptions.map(o => o.value),
+        selected: [],
+    }}
+    onFilterChange={() => {}}
+    filterPlaceholder={''}
+    filterCallback={(option: Option<string>) => true}
+/>;
+<DualListBox
+    options={readonlyFlatOptions}
+    canFilter
+    filter={{
+        available: readonlyFlatOptions.map(o => o.value),
         selected: [],
     }}
     onFilterChange={() => {}}

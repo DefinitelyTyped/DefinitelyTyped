@@ -10,6 +10,7 @@ import express = require("express");
 
 declare function unless(options: unless.Options): express.RequestHandler;
 declare function unless(options: unless.Options["custom"]): express.RequestHandler;
+declare function unless(middleware: express.RequestHandler, options: unless.Options): express.RequestHandler;
 
 declare namespace unless {
     type pathFilter = string | RegExp | { url: string | RegExp, methods?: string[] | undefined, method?: string | string[] | undefined };

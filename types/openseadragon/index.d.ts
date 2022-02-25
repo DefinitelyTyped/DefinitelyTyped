@@ -969,7 +969,7 @@ declare namespace OpenSeadragon {
         getRotation(current?: boolean): number;
         getSizeInWindowCoordinates(): Point;
         getTileBounds(level: number, x: number, y: number): Rect;
-        imageToViewerElementCoordinats(pixel: Point): Point;
+        imageToViewerElementCoordinates(pixel: Point): Point;
         imageToViewportCoordinates(position: Point, current?: boolean): Point;
         imageToViewportCoordinates(imageX: number, imageY: number, current?: boolean): Point;
         imageToViewportRectangle(

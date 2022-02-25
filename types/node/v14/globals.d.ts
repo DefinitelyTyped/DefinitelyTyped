@@ -298,24 +298,89 @@ declare class Buffer extends Uint8Array {
     writeBigInt64BE(value: bigint, offset?: number): number;
     writeBigInt64LE(value: bigint, offset?: number): number;
     writeBigUInt64BE(value: bigint, offset?: number): number;
+    /**
+     * @alias Buffer.writeBigUInt64BE
+     * @since v14.10.0, v12.19.0
+     */
+    writeBigUint64BE(value: bigint, offset?: number): number;
     writeBigUInt64LE(value: bigint, offset?: number): number;
+    /**
+     * @alias Buffer.writeBigUInt64LE
+     * @since v14.10.0, v12.19.0
+     */
+    writeBigUint64LE(value: bigint, offset?: number): number;
     writeUIntLE(value: number, offset: number, byteLength: number): number;
+    /**
+     * @alias Buffer.writeUIntLE
+     * @since v14.9.0, v12.19.0
+     */
+    writeUintLE(value: number, offset: number, byteLength: number): number;
     writeUIntBE(value: number, offset: number, byteLength: number): number;
+    /**
+     * @alias Buffer.writeUIntBE
+     * @since v14.9.0, v12.19.0
+     */
+    writeUintBE(value: number, offset: number, byteLength: number): number;
     writeIntLE(value: number, offset: number, byteLength: number): number;
     writeIntBE(value: number, offset: number, byteLength: number): number;
     readBigUInt64BE(offset?: number): bigint;
+    /**
+     * @alias Buffer.readBigUInt64BE
+     * @since v14.10.0, v12.19.0
+     */
+    readBigUint64BE(offset?: number): bigint;
     readBigUInt64LE(offset?: number): bigint;
+    /**
+     * @alias Buffer.readBigUInt64LE
+     * @since v14.10.0, v12.19.0
+     */
+    readBigUint64LE(offset?: number): bigint;
     readBigInt64BE(offset?: number): bigint;
     readBigInt64LE(offset?: number): bigint;
     readUIntLE(offset: number, byteLength: number): number;
+    /**
+     * @alias Buffer.readUIntLE
+     * @since v14.9.0, v12.19.0
+     */
+    readUintLE(offset: number, byteLength: number): number;
     readUIntBE(offset: number, byteLength: number): number;
+    /**
+     * @alias Buffer.readUIntBE
+     * @since v14.9.0, v12.19.0
+     */
+    readUintBE(offset: number, byteLength: number): number;
     readIntLE(offset: number, byteLength: number): number;
     readIntBE(offset: number, byteLength: number): number;
     readUInt8(offset?: number): number;
+    /**
+     * @alias Buffer.readUInt8
+     * @since v14.9.0, v12.19.0
+     */
+    readUint8(offset?: number): number;
     readUInt16LE(offset?: number): number;
+    /**
+     * @alias Buffer.readUInt16LE
+     * @since v14.9.0, v12.19.0
+     */
+    readUint16LE(offset?: number): number;
     readUInt16BE(offset?: number): number;
+    /**
+     * @alias Buffer.readUInt16BE
+     * @since v14.9.0, v12.19.0
+     */
+    readUint16BE(offset?: number): number;
     readUInt32LE(offset?: number): number;
+    /**
+     * @alias Buffer.readUInt32LE
+     * @since v14.9.0, v12.19.0
+     */
+    readUint32LE(offset?: number): number;
     readUInt32BE(offset?: number): number;
+    /**
+     * @alias Buffer.readUInt32BE
+     * @since v14.9.0, v12.19.0
+     */
+    readUint32BE(offset?: number): number;
     readInt8(offset?: number): number;
     readInt16LE(offset?: number): number;
     readInt16BE(offset?: number): number;
@@ -330,10 +395,35 @@ declare class Buffer extends Uint8Array {
     swap32(): Buffer;
     swap64(): Buffer;
     writeUInt8(value: number, offset?: number): number;
+    /**
+     * @alias Buffer.writeUInt8
+     * @since v14.9.0, v12.19.0
+     */
+    writeUint8(value: number, offset?: number): number;
     writeUInt16LE(value: number, offset?: number): number;
+    /**
+     * @alias Buffer.writeUInt16LE
+     * @since v14.9.0, v12.19.0
+     */
+    writeUint16LE(value: number, offset?: number): number;
     writeUInt16BE(value: number, offset?: number): number;
+    /**
+     * @alias Buffer.writeUInt16BE
+     * @since v14.9.0, v12.19.0
+     */
+    writeUint16BE(value: number, offset?: number): number;
     writeUInt32LE(value: number, offset?: number): number;
+    /**
+     * @alias Buffer.writeUInt32LE
+     * @since v14.9.0, v12.19.0
+     */
+    writeUint32LE(value: number, offset?: number): number;
     writeUInt32BE(value: number, offset?: number): number;
+    /**
+     * @alias Buffer.writeUInt32BE
+     * @since v14.9.0, v12.19.0
+     */
+    writeUint32BE(value: number, offset?: number): number;
     writeInt8(value: number, offset?: number): number;
     writeInt16LE(value: number, offset?: number): number;
     writeInt16BE(value: number, offset?: number): number;

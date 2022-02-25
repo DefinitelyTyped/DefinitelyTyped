@@ -60,4 +60,4 @@ Our goal is to reduce the number of disabled tslint rules, but due to years of U
 
 ## Copyright
 
-Copyright (c) 2021 SAP SE or an SAP affiliate company and OpenUI5 contributors.
+Copyright (c) 2022 SAP SE or an SAP affiliate company and OpenUI5 contributors.
