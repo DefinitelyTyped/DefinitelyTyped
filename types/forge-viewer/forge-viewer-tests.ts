@@ -16,7 +16,10 @@ Autodesk.Viewing.Initializer(options, async () => {
         console.error('Failed to create a Viewer: WebGL not supported.');
         return;
     }
-
+    if (!viewer.running) {
+        console.error('Failed to run a Viewer');
+        return;
+    }
     const documentId = 'urn:dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6bXktYnVja2V0L215LWF3ZXNvbWUtZm9yZ2UtZmlsZS5ydnQ';
     const doc = await loadDocument(documentId);
 
@@ -45,6 +48,7 @@ Autodesk.Viewing.Initializer(options, async () => {
     await dataVizPlanarTests(viewer);
     await edit2DTests(viewer);
     await measureTests(viewer);
+    await multipageTests(viewer);
     await pixelCompareTests(viewer);
     await propertyTests(viewer);
     await propertyDbTests(model);
@@ -138,7 +142,7 @@ async function bulkPropertiesTests(model: Autodesk.Viewing.Model): Promise<void>
 }
 
 async function compGeomTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void> {
-    await viewer.loadExtension('Autodesk.DataVisualization');
+    await viewer.loadExtension('Autodesk.CompGeom');
     const pln = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0);
 
     Autodesk.Extensions.CompGeom.makePlaneBasis(pln);
@@ -173,7 +177,9 @@ async function dataVizTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void>
     heatmapData.addChild(level);
     heatmapData.initialize(viewer.model);
     await ext.setupSurfaceShading(viewer.model, heatmapData);
-    ext.registerSurfaceShadingColors('temperature', [ 0xff0000, 0x0000ff ]);
+    ext.registerSurfaceShadingColors('temperature', [ 0xff0000, 0x0000ff ], {
+        alpha: 0.7
+    });
 
     const getSensorValue = (device: any, sensorType: any) => {
         const value = Math.random();
@@ -201,7 +207,9 @@ async function dataVizPlanarTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise
     await ext.setupSurfaceShading(viewer.model, heatmapData, {
         type: 'PlanarHeatmap'
     });
-    ext.registerSurfaceShadingColors('temperature', [ 0xff0000, 0x0000ff ]);
+    ext.registerSurfaceShadingColors('temperature', [ 0xff0000, 0x0000ff ], {
+        alpha: 0.7
+    });
 
     const getSensorValue = (device: any, sensorType: any) => {
         const value = Math.random();
@@ -457,6 +465,21 @@ async function measureTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void>
 
     ext.deleteMeasurements();
     ext.setMeasurements(m);
+}
+
+async function multipageTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void> {
+    const ext = await viewer.loadExtension('Autodesk.Multipage') as Autodesk.Viewing.Extensions.Multipage.MultipageExtension;
+
+    // $ExpectType any[]
+    ext.getAllPages();
+    // $ExpectType string
+    ext.focusFirstPage();
+    // $ExpectType number
+    ext.getCurrentPageIndex();
+    // $ExpectType string
+    ext.focusLastPage();
+    // $ExpectType number
+    ext.getCurrentPageIndex();
 }
 
 async function searchTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<number[]> {

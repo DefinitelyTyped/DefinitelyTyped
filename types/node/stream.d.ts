@@ -408,7 +408,7 @@ declare module 'stream' {
              * @since v8.0.0
              * @param error Error which will be passed as payload in `'error'` event
              */
-            destroy(error?: Error): void;
+            destroy(error?: Error): this;
             /**
              * Event emitter
              * The defined events on documents including:
@@ -639,9 +639,9 @@ declare module 'stream' {
              * @param encoding The encoding if `chunk` is a string
              * @param callback Callback for when the stream is finished.
              */
-            end(cb?: () => void): void;
-            end(chunk: any, cb?: () => void): void;
-            end(chunk: any, encoding: BufferEncoding, cb?: () => void): void;
+            end(cb?: () => void): this;
+            end(chunk: any, cb?: () => void): this;
+            end(chunk: any, encoding: BufferEncoding, cb?: () => void): this;
             /**
              * The `writable.cork()` method forces all written data to be buffered in memory.
              * The buffered data will be flushed when either the {@link uncork} or {@link end} methods are called.
@@ -707,7 +707,7 @@ declare module 'stream' {
              * @since v8.0.0
              * @param error Optional, an error to emit with `'error'` event.
              */
-            destroy(error?: Error): void;
+            destroy(error?: Error): this;
             /**
              * Event emitter
              * The defined events on documents including:
@@ -853,9 +853,9 @@ declare module 'stream' {
             write(chunk: any, encoding?: BufferEncoding, cb?: (error: Error | null | undefined) => void): boolean;
             write(chunk: any, cb?: (error: Error | null | undefined) => void): boolean;
             setDefaultEncoding(encoding: BufferEncoding): this;
-            end(cb?: () => void): void;
-            end(chunk: any, cb?: () => void): void;
-            end(chunk: any, encoding?: BufferEncoding, cb?: () => void): void;
+            end(cb?: () => void): this;
+            end(chunk: any, cb?: () => void): this;
+            end(chunk: any, encoding?: BufferEncoding, cb?: () => void): this;
             cork(): void;
             uncork(): void;
         }

@@ -1,4 +1,4 @@
-// Type definitions for node-forge 0.10.0
+// Type definitions for node-forge 1.0.0
 // Project: https://github.com/digitalbazaar/forge
 // Definitions by: Seth Westphal       <https://github.com/westy92>
 //                 Kay Schecker        <https://github.com/flynetworks>

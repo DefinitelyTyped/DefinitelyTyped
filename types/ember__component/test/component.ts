@@ -121,3 +121,9 @@ Component.extend({
         // rendered element is clicked
     },
 });
+
+// $ExpectError
+Component.reopen({
+    attributeBindings: ['metadata:data-my-metadata'],
+    metadata: ''
+});

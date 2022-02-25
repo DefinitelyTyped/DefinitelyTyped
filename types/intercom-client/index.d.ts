@@ -64,6 +64,7 @@ export class Client {
      * Note that certain request options (such as `json`, and certain `headers` names cannot be overridden).
      */
     useRequestOpts(options?: request.CoreOptions): this;
+    usePromises(): this;
 }
 
 export class ApiResponse<T> extends IncomingMessage {

@@ -6,7 +6,7 @@ import Service from '@ember/service';
 // tslint:disable-next-line:strict-export-declare-modifiers
 type RouteModel = object | string | number;
 
-// https://emberjs.com/api/ember/2.18/classes/RouterService
+// https://emberjs.com/api/ember/release/classes/RouterService
 /**
  * The Router service is the public API that provides component/view layer access to the router.
  */
@@ -117,7 +117,7 @@ export default class RouterService extends Service {
         options?: { queryParams: object }
     ): boolean;
 
-    // https://emberjs.com/api/ember/2.18/classes/RouterService/methods/isActive?anchor=replaceWith
+    // https://emberjs.com/api/ember/4.0/classes/RouterService/methods/isActive?anchor=replaceWith
     /**
      * Transition into another route while replacing the current URL, if
      * possible. The route may be either a single route or route path.
@@ -230,7 +230,7 @@ export default class RouterService extends Service {
     ): Transition;
     transitionTo(options: { queryParams: object }): Transition;
 
-    // https://emberjs.com/api/ember/2.18/classes/RouterService/methods/isActive?anchor=urlFor
+    // https://emberjs.com/api/ember/4.0/classes/RouterService/methods/isActive?anchor=urlFor
     /**
      * Generate a URL based on the supplied route name.
      *
@@ -319,4 +319,14 @@ export default class RouterService extends Service {
      * the browser including the app's `rootURL`.
      */
     recognizeAndLoad(url: string): RouteInfoWithAttributes;
+
+    /**
+     * Refreshes all currently active routes, doing a full transition.
+     * If a route name is provided and refers to a currently active route,
+     * it will refresh only that route and its descendents.
+     * Returns a promise that will be resolved once the refresh is complete.
+     * All resetController, beforeModel, model, afterModel, redirect, and setupController
+     * hooks will be called again. You will get new data from the model hook.
+     */
+    refresh(pivotRouteName?: string): Transition;
 }

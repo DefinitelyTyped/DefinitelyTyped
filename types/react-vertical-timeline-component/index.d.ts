@@ -12,6 +12,7 @@ export interface VerticalTimelineProps {
     children?: React.ReactNode;
     className?: string | undefined;
     layout?: '1-column' | '2-columns' | undefined;
+    lineColor?: string | undefined;
 }
 
 export interface VerticalTimelineElementProps {

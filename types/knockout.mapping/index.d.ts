@@ -18,8 +18,8 @@ type Primitives = string | number | boolean | symbol;
 declare global {
 
     type MappedType<T> =
-        T extends Primitives ? KnockoutObservable<T> :
-        T extends object ? KnockoutObservableType<T> :
+        [T] extends [Primitives] ? KnockoutObservable<T> :
+        [T] extends [object] ? KnockoutObservableType<T> :
         any;
 
     type KnockoutObservableType<T> = {

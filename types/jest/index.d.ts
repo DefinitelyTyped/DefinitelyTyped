@@ -1,4 +1,4 @@
-// Type definitions for Jest 27.0
+// Type definitions for Jest 27.4
 // Project: https://jestjs.io/
 // Definitions by: Asana (https://asana.com)
 //                 Ivo Stratev <https://github.com/NoHomey>
@@ -178,6 +178,25 @@ declare namespace jest {
      * Mocks a module with an auto-mocked version when it is being required.
      */
     function mock(moduleName: string, factory?: () => unknown, options?: MockOptions): typeof jest;
+
+    /**
+     * The mocked test helper provides typings on your mocked modules and even
+     * their deep methods, based on the typing of its source. It makes use of
+     * the latest TypeScript feature, so you even have argument types
+     * completion in the IDE (as opposed to jest.MockInstance).
+     *
+     * Note: while it needs to be a function so that input type is changed, the helper itself does nothing else than returning the given input value.
+     */
+     function mocked<T>(item: T, deep?: false): MaybeMocked<T>;
+    /**
+     * The mocked test helper provides typings on your mocked modules and even
+     * their deep methods, based on the typing of its source. It makes use of
+     * the latest TypeScript feature, so you even have argument types
+     * completion in the IDE (as opposed to jest.MockInstance).
+     *
+     * Note: while it needs to be a function so that input type is changed, the helper itself does nothing else than returning the given input value.
+     */
+     function mocked<T>(item: T, deep: true): MaybeMockedDeep<T>;
     /**
      * Returns the actual module instead of a mock, bypassing all checks on
      * whether the module should receive a mock implementation or not.
@@ -312,6 +331,34 @@ declare namespace jest {
         virtual?: boolean | undefined;
     }
 
+    type MockableFunction = (...args: any[]) => any;
+    type MethodKeysOf<T> = { [K in keyof T]: T[K] extends MockableFunction ? K : never }[keyof T];
+    type PropertyKeysOf<T> = { [K in keyof T]: T[K] extends MockableFunction ? never : K }[keyof T];
+    type ArgumentsOf<T> = T extends (...args: infer A) => any ? A : never;
+    type ConstructorArgumentsOf<T> = T extends new (...args: infer A) => any ? A : never;
+
+    interface MockWithArgs<T extends MockableFunction> extends MockInstance<ReturnType<T>, ArgumentsOf<T>> {
+        new (...args: ConstructorArgumentsOf<T>): T;
+        (...args: ArgumentsOf<T>): ReturnType<T>;
+    }
+    type MaybeMockedConstructor<T> = T extends new (...args: any[]) => infer R
+        ? MockInstance<R, ConstructorArgumentsOf<T>>
+        : T;
+    type MockedFn<T extends MockableFunction> = MockWithArgs<T> & { [K in keyof T]: T[K] };
+    type MockedFunctionDeep<T extends MockableFunction> = MockWithArgs<T> & MockedObjectDeep<T>;
+    type MockedObject<T> = MaybeMockedConstructor<T> & {
+        [K in MethodKeysOf<T>]: T[K] extends MockableFunction ? MockedFn<T[K]> : T[K];
+    } & { [K in PropertyKeysOf<T>]: T[K] };
+    type MockedObjectDeep<T> = MaybeMockedConstructor<T> & {
+        [K in MethodKeysOf<T>]: T[K] extends MockableFunction ? MockedFunctionDeep<T[K]> : T[K];
+    } & { [K in PropertyKeysOf<T>]: MaybeMockedDeep<T[K]> };
+    type MaybeMockedDeep<T> = T extends MockableFunction
+        ? MockedFunctionDeep<T>
+        : T extends object // eslint-disable-line @typescript-eslint/ban-types
+        ? MockedObjectDeep<T>
+        : T;
+    // eslint-disable-next-line @typescript-eslint/ban-types
+    type MaybeMocked<T> = T extends MockableFunction ? MockedFn<T> : T extends object ? MockedObject<T> : T;
     type EmptyFunction = () => void;
     type ArgsType<T> = T extends (...args: infer A) => any ? A : never;
     type ConstructorArgsType<T> = T extends new (...args: infer A) => any ? A : never;
@@ -438,35 +485,6 @@ declare namespace jest {
         each: Each;
     }
 
-    type PrintLabel = (string: string) => string;
-
-    type MatcherHintColor = (arg: string) => string;
-
-    interface MatcherHintOptions {
-        comment?: string | undefined;
-        expectedColor?: MatcherHintColor | undefined;
-        isDirectExpectCall?: boolean | undefined;
-        isNot?: boolean | undefined;
-        promise?: string | undefined;
-        receivedColor?: MatcherHintColor | undefined;
-        secondArgument?: string | undefined;
-        secondArgumentColor?: MatcherHintColor | undefined;
-    }
-
-    interface ChalkFunction {
-        (text: TemplateStringsArray, ...placeholders: any[]): string;
-        (...text: any[]): string;
-    }
-
-    interface ChalkColorSupport {
-        level: 0 | 1 | 2 | 3;
-        hasBasic: boolean;
-        has256: boolean;
-        has16m: boolean;
-    }
-
-    type MatcherColorFn = ChalkFunction & { supportsColor: ChalkColorSupport };
-
     type EqualityTester = (a: any, b: any) => boolean | undefined;
 
     interface MatcherUtils {
@@ -480,41 +498,7 @@ declare namespace jest {
         readonly expand: boolean;
         readonly testPath: string;
         readonly currentTestName: string;
-        utils: {
-            readonly EXPECTED_COLOR: MatcherColorFn;
-            readonly RECEIVED_COLOR: MatcherColorFn;
-            readonly INVERTED_COLOR: MatcherColorFn;
-            readonly BOLD_WEIGHT: MatcherColorFn;
-            readonly DIM_COLOR: MatcherColorFn;
-            readonly SUGGEST_TO_CONTAIN_EQUAL: string;
-            diff(a: any, b: any, options?: import("jest-diff").DiffOptions): string | null;
-            ensureActualIsNumber(actual: any, matcherName: string, options?: MatcherHintOptions): void;
-            ensureExpectedIsNumber(actual: any, matcherName: string, options?: MatcherHintOptions): void;
-            ensureNoExpected(actual: any, matcherName: string, options?: MatcherHintOptions): void;
-            ensureNumbers(actual: any, expected: any, matcherName: string, options?: MatcherHintOptions): void;
-            ensureExpectedIsNonNegativeInteger(expected: any, matcherName: string, options?: MatcherHintOptions): void;
-            matcherHint(
-                matcherName: string,
-                received?: string,
-                expected?: string,
-                options?: MatcherHintOptions
-            ): string;
-            matcherErrorMessage(
-              hint: string,
-              generic: string,
-              specific: string
-            ): string;
-            pluralize(word: string, count: number): string;
-            printReceived(object: any): string;
-            printExpected(value: any): string;
-            printWithType(name: string, value: any, print: (value: any) => string): string;
-            stringify(object: {}, maxDepth?: number): string;
-            highlightTrailingWhitespace(text: string): string;
-
-            printDiffOrStringify(expected: any, received: any, expectedLabel: string, receivedLabel: string, expand: boolean): string;
-
-            getLabelPrinter(...strings: string[]): PrintLabel;
-
+        utils: typeof import('jest-matcher-utils') & {
             iterableEquality: EqualityTester;
             subsetEquality: EqualityTester;
         };

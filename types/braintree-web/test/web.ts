@@ -399,14 +399,14 @@ braintree.client.create(
                     },
                     (err: braintree.BraintreeError, tokenizedPayload: braintree.ApplePayPayload) => {
                         if (err) {
-                            session.completePayment(braintree.ApplePayStatusCodes.STATUS_FAILURE);
+                            session.completePayment(braintree.ApplePaySession.STATUS_FAILURE);
                             return;
                         }
 
                         // Send the tokenizedPayload to your server.
                         console.log(tokenizedPayload.nonce);
 
-                        session.completePayment(braintree.ApplePayStatusCodes.STATUS_SUCCESS);
+                        session.completePayment(braintree.ApplePaySession.STATUS_SUCCESS);
                     },
                 );
             };
@@ -737,6 +737,48 @@ braintree.client.create(
 
         clientInstance.teardown(err => {
             // implementation
+        });
+
+        // Local Payment
+        braintree.localPayment.create({
+            client: clientInstance
+        }, (err, localPaymentInstance) => {
+            localPaymentInstance
+                .startPayment({
+                    amount: 11.00,
+                    currencyCode: 'EUR',
+                    paymentType: 'sofort',
+                    onPaymentStart: (data, next) => {
+                        if (data.paymentId) {
+                            // Implementation
+                        }
+                        next();
+                    }
+                })
+                .then((payload: braintree.LocalPaymentTokenizePayload) => {
+                    console.log(payload.nonce);
+                })
+                .catch((error: braintree.BraintreeError) => {
+                    console.error('Error!', error);
+                });
+
+            localPaymentInstance.tokenize({
+                btLpPayerId: '1234',
+                btLpPaymentId: '1234',
+                btLpToken: '1234'
+            }, (error, data) => {
+                if (error) {
+                    console.error('Tokenize Error!', error);
+                    return;
+                }
+
+                // Implementation
+                console.log(data.nonce);
+            });
+
+            localPaymentInstance.teardown(err => {
+                // Implementation
+            });
         });
     },
 );

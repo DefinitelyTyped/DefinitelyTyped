@@ -1,5 +1,8 @@
 interface CommonEvent {
-    state: number; // state: 0 // normal   state: 1 // began   state: 2 // changed   state: 3 // ended   state: 4 // cancelled
+    /**
+     * @summary state: 0 // normal   state: 1 // began   state: 2 // changed   state: 3 // ended   state: 4 // cancelled
+     */
+    state: number;
     timestaps: number;
     position: {
         x: number;
@@ -25,7 +28,10 @@ export interface PanEvent extends Omit<CommonEvent, 'position'> {
 
 export interface SwipeEvent extends Omit<CommonEvent, 'position'> {
     type: 'swiper';
-    direction: number; // 1:right, 2:left, 4:up, 8:down
+    /**
+     * @summary 1:right, 2:left, 4:up, 8:down
+     */
+    direction: number;
 }
 
 export interface PinchEvent extends Omit<CommonEvent, 'position'> {
@@ -40,10 +46,22 @@ export interface InputEvent extends Omit<CommonEvent, 'position'> {
 
 export interface ScrollEvent extends Omit<CommonEvent, 'position'> {
     type: 'scroll';
-    offsetX: number; // x方向实际滚动偏移量
-    offsetY: number; // y方向实际滚动偏移量
-    dx: number; // x方向滚动与上一个事件的差值
-    dy: number; // y方向滚动与上一个事件的差值
+    /**
+     * @summary x方向实际滚动偏移量
+     */
+    offsetX: number;
+    /**
+     * @summary y方向实际滚动偏移量
+     */
+    offsetY: number;
+    /**
+     * @summary x方向滚动与上一个事件的差值
+     */
+    dx: number;
+    /**
+     * @summary y方向滚动与上一个事件的差值
+     */
+    dy: number;
 }
 
 export interface SwitchEvent extends Omit<CommonEvent, 'position' | 'state'> {

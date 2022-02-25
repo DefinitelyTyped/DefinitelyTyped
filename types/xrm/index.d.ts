@@ -707,6 +707,26 @@ declare namespace Xrm {
             getStage(): ProcessFlow.Stage;
         }
 
+        interface LookupTagClickEventArguments {
+            /**
+             * Gets the selected tag value
+             * @returns The lookups TagValue object
+             */
+            getTagValue(): TagValue;
+
+            /**
+             * Prevents the default onClick behaviour from executing.
+             * All remaining "onLookupTagClick" handlers will continue execution.
+             */
+            preventDefault(): void;
+
+            /**
+             * Returns a boolean value to indicate if the lookups onClick has been prevented.
+             * @returns true if saving is prevented, otherwise false.
+             */
+            isDefaultPrevented(): boolean;
+        }
+
         /**
          * Interface for the event context.
          * In the API documentation, this is sometimes refferred to as the executionContext.
@@ -789,6 +809,13 @@ declare namespace Xrm {
             getEventArgs(): StageSelectedEventArguments;
         }
 
+        interface LookupTagClickEventContext extends EventContext {
+            /**
+             * Gets an object that contains details about the lookup tag clicked
+             */
+            getEventArgs(): LookupTagClickEventArguments;
+        }
+
         /**
          * Type for a context-sensitive handler.
          * @param context The context.
@@ -800,6 +827,8 @@ declare namespace Xrm {
          * @param status The process status.
          */
         type ProcessStatusChangeHandler = (status: ProcessFlow.ProcessStatus) => void;
+
+        type LookupTagClickHandler = (context: LookupTagClickEventContext) => void;
     }
 
     /**
@@ -1024,6 +1053,16 @@ declare namespace Xrm {
          * Closes the form.
          */
         close(): void;
+
+        /**
+         * Provides information on how to set the visibility of footer section.
+         */
+        footerSection: Controls.FooterSection;
+
+        /**
+         * Provides information on how to set the visibility of header section.
+         */
+        headerSection: Controls.HeaderSection;
 
         /**
          * Gets form type.
@@ -2287,6 +2326,16 @@ declare namespace Xrm {
     }
 
     /**
+     * Interface for a (lookup) Tag value
+     */
+    interface TagValue extends LookupValue {
+        /**
+         * The originating lookup column that raised the event.
+         */
+        fieldName: string;
+    }
+
+    /**
      * Interface for an OptionSet value.
      */
     interface OptionSetValue {
@@ -3157,6 +3206,12 @@ declare namespace Xrm {
             ): void;
 
             /**
+             * Adds an event handler to the "lookup tag click" event.
+             * @param handler The function to add to the OnLookupTagClick event.
+             */
+            addOnLookupTagClick(handler: Events.LookupTagClickHandler): void;
+
+            /**
              * Gets the control's bound attribute.
              * @returns The attribute.
              */
@@ -3168,6 +3223,12 @@ declare namespace Xrm {
              * @example Example return: "{00000000-0000-0000-0000-000000000000}"
              */
             getDefaultView(): string;
+
+            /**
+             * Removes the handler from the "lookup tag click" event.
+             * @param handler The function to be removed from the OnLookupTagClick event.
+             */
+            removeOnLookupTagClick(handler: Events.LookupTagClickHandler): void;
 
             /**
              * Removes the handler from the "pre search" event of the Lookup control.
@@ -3633,6 +3694,64 @@ declare namespace Xrm {
              * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/collections External Link: Collections (Client API reference)}
              */
             controls: Collection.ItemCollection<Control>;
+        }
+
+        interface FooterSection {
+            /**
+             * Returns the footer section visibility.
+             * @remarks Available only for Unified Interface.  Footers aren't supported after 2021 wave 2 release.
+             * @see {@link https://docs.microsoft.com/en-us/power-platform/important-changes-coming#form-footers-in-model-driven-apps-wont-be-supported-with-the-2021-release-wave-2 External Link: Important notices}
+             */
+            getVisible(): boolean;
+
+            /**
+             * Sets the visibility of the footer section.
+             * @arg bool Specify true to show the footer section; false to hide the footer section.
+             * @remarks Available only for Unified Interface.  Footers aren't supported after 2021 wave 2 release.
+             * @see {@link https://docs.microsoft.com/en-us/power-platform/important-changes-coming#form-footers-in-model-driven-apps-wont-be-supported-with-the-2021-release-wave-2 External Link: Important notices}
+             */
+            setVisible(bool: boolean): void;
+        }
+
+        interface HeaderSection {
+            /**
+             * Returns the header's body visibility.
+             * @remarks Available only for Unified Interface.
+             */
+            getBodyVisible(): boolean;
+
+            /**
+             * Returns the command bar visibility.
+             * @remarks Available only for Unified Interface.
+             */
+            getCommandBarVisible(): boolean;
+
+            /**
+             * Returns the tab navigator visibility.
+             * @remarks Available only for Unified Interface.
+             */
+            getTabNavigatorVisible(): boolean;
+
+            /**
+             * Sets the header's body visibility.
+             * @arg bool Specify true to show the body; false to hide the body.
+             * @remarks Available only for Unified Interface.
+             */
+            setBodyVisible(bool: boolean): void;
+
+            /**
+             * Sets the command bar visibility.
+             * @arg bool Specify true to show the command bar; false to hide the command bar.
+             * @remarks Available only for Unified Interface.
+             */
+            setCommandBarVisible(bool: boolean): void;
+
+            /**
+             * Sets the tab navigator visibility.
+             * @arg bool Specify true to show the tab navigator; false to hide the tab navigator.
+             * @remarks Available only for Unified Interface.
+             */
+            setTabNavigatorVisible(bool: boolean): void;
         }
 
         interface AddControlNotificationOptions {

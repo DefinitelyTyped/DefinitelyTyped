@@ -19,7 +19,6 @@
 //                 Ceyhun Ozugur <https://github.com/ceyhun>
 //                 Mike Martin <https://github.com/mcmar>
 //                 Theo Henry de Villeneuve <https://github.com/theohdv>
-//                 Eli White <https://github.com/TheSavior>
 //                 Romain Faust <https://github.com/romain-faust>
 //                 Be Birchall <https://github.com/bebebebebe>
 //                 Jesse Katsumata <https://github.com/Naturalclar>
@@ -32,7 +31,6 @@
 //                 Dominique Richard <https://github.com/doumart>
 //                 Mohamed Shaban <https://github.com/drmas>
 //                 Jérémy Barbet <https://github.com/jeremybarbet>
-//                 Christian Ost <https://github.com/ca057>
 //                 David Sheldrick <https://github.com/ds300>
 //                 Natsathorn Yuthakovit <https://github.com/natsathorn>
 //                 ConnectDotz <https://github.com/connectdotz>
@@ -453,7 +451,7 @@ export interface PressableAndroidRippleConfig {
     foreground?: null | boolean | undefined;
 }
 
-export interface PressableProps extends AccessibilityProps, Omit<ViewProps, 'style' | 'hitSlop'> {
+export interface PressableProps extends AccessibilityProps, Omit<ViewProps, 'children' | 'style' | 'hitSlop'> {
     /**
      * Called when a single tap gesture is detected.
      */
@@ -4149,7 +4147,7 @@ export class FlatList<ItemT = any> extends React.Component<FlatListProps<ItemT>>
     /**
      * Provides a reference to the underlying host component
      */
-    getNativeScrollRef: () => React.RefObject<View> | React.RefObject<ScrollViewComponent> | null | undefined;
+    getNativeScrollRef: () => React.ElementRef<typeof View> | React.ElementRef<typeof ScrollViewComponent> | null | undefined;
 
     getScrollableNode: () => any;
 
@@ -6345,6 +6343,12 @@ export interface ScrollViewPropsIOS {
     automaticallyAdjustContentInsets?: boolean | undefined; // true
 
     /**
+     * Controls whether iOS should automatically adjust the scroll indicator
+     * insets. The default value is true. Available on iOS 13 and later.
+     */
+    automaticallyAdjustsScrollIndicatorInsets?: boolean | undefined;
+
+    /**
      * When true the scroll view bounces when it reaches the end of the
      * content if the content is larger then the scroll view along the axis of
      * the scroll direction. When false it disables all bouncing even if
@@ -6940,7 +6944,7 @@ export interface ActionSheetIOSOptions {
     message?: string | undefined;
     anchor?: number | undefined;
     tintColor?: ColorValue | ProcessedColorValue | undefined;
-    userInterfaceStyle?: string | undefined;
+    userInterfaceStyle?: 'light' | 'dark' | undefined;
     disabledButtonIndices?: number[] | undefined;
 }
 

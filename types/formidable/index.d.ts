@@ -120,11 +120,25 @@ declare namespace formidable {
         minFileSize?: number | undefined;
 
         /**
+         * limit the amount of uploaded files, set Infinity for unlimited
+         *
+         * @default Infinity
+         */
+        maxFiles?: number | undefined;
+
+        /**
          * limit the size of uploaded file
          *
          * @default 200 * 1024 * 1024
          */
         maxFileSize?: number | undefined;
+
+        /**
+         * limit the size of the batch of uploaded files
+         *
+         * @default options.maxFileSize
+         */
+        maxTotalFileSize?: number | undefined;
 
         /**
          * limit the number of fields, set 0 for unlimited
@@ -176,9 +190,11 @@ declare namespace formidable {
          *
          * @default undefined
          */
-        filename?: (name: string, ext: string, part: string, form: string) => string | undefined;
+        filename?: (name: string, ext: string, part: Part, form: Formidable) => string;
 
         enabledPlugins?: string[] | undefined;
+
+        filter?: (part: Part) => boolean;
     }
 
     interface Fields {
@@ -189,10 +205,9 @@ declare namespace formidable {
     }
 
     interface Part extends Stream {
-        filename?: string | undefined;
-        headers: Record<string, string>;
-        mime?: string | undefined;
-        name: string;
+        name: string | null;
+        originalFilename: string | null;
+        mimetype: string | null;
     }
 
     /**
@@ -225,7 +240,7 @@ declare namespace formidable {
         /**
          * Calculated based on options provided
          */
-        newFilename: string | null;
+        newFilename: string;
 
         /**
          * The mime type of this file, according to the uploading client.

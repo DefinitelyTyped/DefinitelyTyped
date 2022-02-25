@@ -1103,7 +1103,7 @@ export namespace SVG {
     function create<K extends keyof SVGElementTagNameMap>(name: K): SVGElementTagNameMap[K];
     function create(name: string): SVGElement;
 
-    function pointsToPath(rings: PointExpression[], close: boolean): string;
+    function pointsToPath(rings: PointExpression[], closed: boolean): string;
 }
 
 export function svg(options?: RendererOptions): SVG;
@@ -1614,7 +1614,7 @@ export interface FitBoundsOptions extends ZoomOptions, PanOptions {
     maxZoom?: number | undefined;
 }
 
-export interface PanInsideOptions {
+export interface PanInsideOptions extends PanOptions {
     paddingTopLeft?: PointExpression | undefined;
     paddingBottomRight?: PointExpression | undefined;
     padding?: PointExpression | undefined;

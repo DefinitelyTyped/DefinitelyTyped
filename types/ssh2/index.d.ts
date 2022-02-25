@@ -71,7 +71,7 @@ export interface Channel extends stream.Duplex {
     /**
      * Shuts down the channel on this side.
      */
-    destroy(): void;
+    destroy(): this;
 }
 
 export interface ClientChannel extends Channel {
@@ -1116,7 +1116,7 @@ export interface SocketBindInfo {
     socketPath: string;
 }
 
-type SessionAcceptReject = (() => boolean) | undefined
+export type SessionAcceptReject = (() => boolean) | undefined
 
 export interface Session extends events.EventEmitter {
     // Session events

@@ -69,7 +69,7 @@ mapping.fromJS(userInput, {}, userInput) // $ExpectError
 mapping.fromJS(userInput, userInput) // $ExpectError
 
 let untypedObject: any = { age: 22 }
-mapping.fromJS(untypedObject) // $ExpectType any
+mapping.fromJS(untypedObject) // $ExpectType KnockoutObservable<any>
 
 ////////////////////////////////
 // fromJS function with JS object with Array properties
@@ -89,7 +89,6 @@ mapping.fromJS(numberInput) // $ExpectType KnockoutObservable<number>
 mapping.fromJS(stringInput) // $ExpectType KnockoutObservable<string>
 mapping.fromJS(symbolInput) // $ExpectType KnockoutObservable<symbol>
 
-// Typescript weirdly returns KnockoutObservable<false> | KnockoutObservable<true>
 let booleanMapped: KnockoutObservable<boolean> = mapping.fromJS(booleanInput)
 
 ////////////////////////////////

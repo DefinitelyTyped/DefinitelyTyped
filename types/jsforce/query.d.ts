@@ -49,7 +49,7 @@ export class Query<T> extends Readable implements Promise<T> {
 
     destroy(type?: string, callback?: (err: Error, ret: RecordResult) => void): Promise<RecordResult[]>;
     destroy(callback?: (err: Error, ret: RecordResult) => void): Promise<RecordResult[]>;
-    destroy(error?: Error): void;
+    destroy(error?: Error): this;
 
     explain(callback?: (err: Error, info: ExplainInfo) => void): Promise<ExplainInfo>;
 

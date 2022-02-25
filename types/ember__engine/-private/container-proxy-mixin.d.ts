@@ -12,11 +12,11 @@ interface ContainerProxyMixin {
     /**
      * Given a fullName return a corresponding instance.
      */
-    lookup(fullName: string, options?: {}): any;
+    lookup(fullName: string, options?: {}): unknown;
     /**
      * Given a fullName return a corresponding factory.
      */
-    factoryFor(fullName: string, options?: {}): any;
+    factoryFor(fullName: string, options?: {}): unknown;
 }
 declare const ContainerProxyMixin: Mixin<ContainerProxyMixin>;
 export default ContainerProxyMixin;

@@ -49,4 +49,32 @@ x509.getSubject(); // $ExpectType IdentityResponse
 x509.getIssuer(); // $ExpectType IdentityResponse
 x509.getExtAuthorityKeyIdentifier("sampleExt", true); // $ExpectType AuthorityKeyIdentifierResult
 
-KJUR.asn1.csr.CSRUtil.getParam(pemCert); // $ExpectType ParamResponse
+const params = KJUR.asn1.csr.CSRUtil.getParam(pemCert); // $ExpectType ParamResponse
+const crq = new KJUR.asn1.csr.CertificationRequest(params);
+crq.getPEM(); // $ExpectType string
+const crqi = new KJUR.asn1.csr.CertificationRequestInfo(params);
+crqi.getEncodedHex(); // $ExpectType string
+const crqi2 = new KJUR.asn1.csr.CertificationRequestInfo();
+crqi2.setByParam(params);
+crqi2.getEncodedHex(); // $ExpectType string
+
+const tbscert = new KJUR.asn1.x509.TBSCertificate({
+    version: 3, // this can be omitted, the default is 3.
+    serial: { hex: "1234..." }, // DERInteger parameter
+    sigalg: "SHA256withRSA",
+    issuer: { array: [[{type: 'O', value: 'Test', ds: 'prn'}]] }, // X500Name parameter
+    notbefore: "151231235959Z", // string, passed to Time
+    notafter: "251231235959Z", // string, passed to Time
+    subject: { array: [[{type: 'O', value: 'Test', ds: 'prn'}]] }, // X500Name parameter
+    sbjpubkey: "-----BEGIN...", // KEYUTIL.getKey pubkey parameter
+    // As for extension parameters, please see extension class
+    // All extension parameters need to have "extname" parameter additionaly.
+    ext: [{
+        extname: "keyUsage", critical: true,
+        names: ["digitalSignature", "keyEncipherment"]
+    }, {
+        extname: "cRLDistributionPoints",
+        array: [{dpname: {full: [{uri: "http://example.com/a1.crl"}]}}]
+    }]
+});
+new KJUR.asn1.x509.Certificate({tbsobj: tbscert, sigalg: "SHA256withRSA", cakey: "------BEGIN..."});

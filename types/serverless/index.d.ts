@@ -1,4 +1,4 @@
-// Type definitions for serverless 1.78
+// Type definitions for serverless 3.0
 // Project: https://github.com/serverless/serverless#readme
 // Definitions by: Hassan Khan <https://github.com/hassankhan>
 //                 Jonathan M. Wilbur <https://github.com/JonathanWilbur>
@@ -85,6 +85,9 @@ declare class Serverless {
     getVersion(): string;
 
     cli: {
+        /**
+         * @deprecated starting from Serverless V3, this method is deprecated, see https://www.serverless.com/framework/docs/guides/plugins/cli-output
+         */
         log(message: string, entity?: string, options?: Serverless.LogOptions): null;
     };
 

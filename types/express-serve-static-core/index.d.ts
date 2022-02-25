@@ -1,7 +1,6 @@
 // Type definitions for Express 4.17
 // Project: http://expressjs.com
 // Definitions by: Boris Yankov <https://github.com/borisyankov>
-//                 Michał Lytek <https://github.com/19majkel94>
 //                 Satana Charuwichitratana <https://github.com/micksatana>
 //                 Sami Jaber <https://github.com/samijaber>
 //                 Jose Luis Leon <https://github.com/JoseLion>

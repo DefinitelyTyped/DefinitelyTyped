@@ -68,6 +68,7 @@ router.get('/users.json', async (req: Request, res: Response) => {
         docs: 'docsCustom',
         nextPage: 'nextPageCustom',
         prevPage: 'prevPageCustom',
+        pagingCounter: false,
     };
     options.pagination = false;
     options.useEstimatedCount = true;
@@ -90,6 +91,7 @@ router.get('/users.json', async (req: Request, res: Response) => {
         console.log('prevPage: ' + value.prevPageCustom);
         console.log('totalPages: ' + value.totalPagesCustom);
         console.log('offset: ' + value.offset);
+        console.log('pagingCounter: ' + value.pagingCounter);
         console.log('docs: ');
         console.dir(value.docsCustom);
         const user = value.docs[0];

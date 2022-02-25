@@ -13,6 +13,7 @@ declare namespace jsts {
         import Coordinate = jsts.geom.Coordinate;
         import Geometry = jsts.geom.Geometry;
         import GeometryFactory = jsts.geom.GeometryFactory;
+        import PrecisionModel = jsts.geom.PrecisionModel;
 
         export class Orientation {
             static CLOCKWISE: number;
@@ -87,6 +88,315 @@ declare namespace jsts {
              * @returns the coordinate of an interior point or null if the input geometry is empty
              */
             getInteriorPoint(): Coordinate | null;
+        }
+
+        /**
+         * A LineIntersector is an algorithm that can both test whether
+         * two line segments intersect and compute the intersection point(s) if they do.
+         *
+         * There are three possible outcomes when determining whether two line segments intersect:
+         * NO_INTERSECTION - the segments do not intersect
+         * POINT_INTERSECTION - the segments intersect in a single point
+         * COLLINEAR_INTERSECTION - the segments are collinear and they intersect in a line segment
+         *
+         * For segments which intersect in a single point, the point may be either an endpoint
+         * or in the interior of each segment.
+         * If the point lies in the interior of both segments,
+         * this is termed a proper intersection. The method isProper() test for this situation.
+         *
+         * The intersection point(s) may be computed in a precise or non-precise manner.
+         * Computing an intersection point precisely involves rounding it via a supplied PrecisionModel.
+         *
+         * LineIntersectors do not perform an initial envelope intersection test to determine
+         * if the segments are disjoint. This is because this class is likely to be used
+         * in a context where envelope overlap is already known to occur (or be likely).
+         */
+        export class LineIntersector {
+            /**
+             * @type {int}
+             */
+            static COLLINEAR: number;
+            /**
+             * Indicates that line segments intersect in a line segment
+             *
+             * @type {int}
+             */
+            static COLLINEAR_INTERSECTION: number;
+            /**
+             * @type {int}
+             */
+            static DO_INTERSECT: number;
+            /**
+             * These are deprecated, due to ambiguous naming
+             *
+             * @type {int}
+             */
+            static DONT_INTERSECT: number;
+            /**
+             * Indicates that line segments do not intersect
+             *
+             * @type {int}
+             */
+            static NO_INTERSECTION: number;
+            /**
+             * Indicates that line segments intersect in a single point
+             *
+             * @type {int}
+             */
+            static POINT_INTERSECTION: number;
+
+            /**
+             * @constructor
+             */
+            constructor();
+
+            /**
+             * Computes the "edge distance" of an intersection point p along a segment.
+             * The edge distance is a metric of the point along the edge.
+             * The metric used is a robust and easy to compute metric function.
+             * It is not equivalent to the usual Euclidean metric.
+             * It relies on the fact that either the x or the y ordinates of the points
+             * in the edge are unique, depending on whether the edge is longer
+             * in the horizontal or vertical direction.
+             *
+             * NOTE: This function may produce incorrect distances for inputs
+             * where p is not precisely on p1-p2
+             * (E.g. p = (139,9) p1 = (139,10), p2 = (280,1) produces distance 0.0, which is incorrect.
+             * My hypothesis is that the function is safe to use for points which are
+             * the result of rounding points which lie on the line,
+             * but not safe to use for truncated points.
+             */
+            static computeEdgeDistance(p: Coordinate, p0: Coordinate, p1: Coordinate): number;
+
+            /**
+             * This function is non-robust, since it may compute the square of large numbers.
+             * Currently not sure how to improve this.
+             */
+            static nonRobustComputeEdgeDistance(p: Coordinate, p1: Coordinate, p2: Coordinate): number;
+
+            /**
+             * Force computed intersection to be rounded to a given precision model.
+             * No getter is provided, because the precision model is not required to be specified.
+             */
+            setPrecisionModel(precisionModel: PrecisionModel): void;
+
+            /**
+             * Gets an endpoint of an input segment.
+             * @param {int} segmentIndex the index of the input segment (0 or 1)
+             * @param {int} ptIndex  the index of the endpoint (0 or 1)
+             * @returns the specified endpoint
+             */
+            getEndpoint(segmentIndex: number, ptIndex: number): Coordinate;
+
+            /**
+             * Computes the intersection of the lines p1-p2 and p3-p4.
+             * This function computes both the boolean value of the hasIntersection test
+             * and the (approximate) value of the intersection point itself (if there is one).
+             */
+            computeIntersection(p1: Coordinate, p2: Coordinate, p3: Coordinate, p4: Coordinate): void;
+
+            toString(): string;
+
+            /**
+             * Tests whether the input geometries intersect.
+             *
+             * @returns true if the input geometries intersect
+             */
+            hasIntersection(): boolean;
+
+            /**
+             * Returns the number of intersection points found. This will be either 0, 1 or 2.
+             * @returns {int} the number of intersection points found (0, 1, or 2)
+             */
+            getIntersectionNum(): number;
+
+            /**
+             *
+             * @param {int} intIndex is 0 or 1
+             * @returns the intIndex'th intersection point
+             */
+            getIntersection(intIndex: number): Coordinate;
+
+            /**
+             * Test whether a point is a intersection point of two line segments.
+             * Note that if the intersection is a line segment, this method only tests
+             * for equality with the endpoints of the intersection segment.
+             * It does not return true if the input point is internal to the intersection segment.
+             *
+             * @returns true if the input point is one of the intersection points.
+             */
+            isIntersection(pt: Coordinate): boolean;
+
+            /**
+             * Tests whether either intersection point is an interior point of one of the input segments.
+             *
+             * @returns true if either intersection point is in the interior of one of the input segments
+             */
+            isInteriorIntersection(): boolean;
+
+            /**
+             * Tests whether either intersection point is an interior point of the specified input segment.
+             * @param {int} inputLineIndex
+             *
+             * @returns true if either intersection point is in the interior of the input segment
+             */
+            isInteriorIntersection(inputLineIndex: number): boolean;
+
+            /**
+             *  Tests whether an intersection is proper.
+             * The intersection between two line segments is considered proper if they intersect
+             * in a single point in the interior of both segments
+             * (e.g. the intersection is a single point and is not equal to any of the endpoints).
+             * The intersection between a point and a line segment is considered proper if
+             * the point lies in the interior of the segment (e.g. is not equal to either of the endpoints).
+             *
+             * @returns true if the intersection is proper
+             */
+            isProper(): boolean;
+
+            /**
+             * Computes the intIndex'th intersection point in the direction
+             * of a specified input line segment
+             *
+             * @param {int} segmentIndex is 0 or 1
+             * @param {int} intIndex is 0 or 1
+             *
+             * @returns the intIndex'th intersection point in the direction
+             * of the specified input line segment
+             */
+            getIntersectionAlongSegment(segmentIndex: number, intIndex: number): Coordinate;
+
+            /**
+             * Computes the index (order) of the intIndex'th intersection point
+             * in the direction of a specified input line segment
+             *
+             * @param {int} segmentIndex is 0 or 1
+             * @param {int} intIndex is 0 or 1
+             *
+             * @returns {int} the index of the intersection point along the input segment (0 or 1)
+             */
+            getIndexAlongSegment(segmentIndex: number, intIndex: number): number;
+
+            /**
+             * Computes the "edge distance" of an intersection point
+             * along the specified input line segment.
+             *
+             * @param {int} segmentIndex is 0 or 1
+             * @param {int} intIndex is 0 or 1
+             *
+             * @returns {double} the edge distance of the intersection point
+             */
+            getEdgeDistance(segmentIndex: number, intIndex: number): number;
+        }
+
+        /**
+         * A robust version of {@link LineIntersector}.
+         */
+        export class RobustLineIntersector extends LineIntersector {
+            /**
+             * @constructor
+             */
+            constructor();
+
+            /**
+             * Compute the intersection of a point p and the line p1-p2.
+             * This function computes the boolean value of the hasIntersection test.
+             * The actual value of the intersection (if there is one) is equal to the value of p.
+             */
+            computeIntersection(p: Coordinate, p1: Coordinate, p2: Coordinate): void;
+
+            computeIntersection(p: Coordinate, p1: Coordinate, p2: Coordinate, p3: Coordinate): void;
+        }
+
+        namespace locate {
+            import Polygon = jsts.geom.Polygon;
+
+            /**
+             * An interface for classes which determine the Location of points in a Geometry.
+             */
+            interface PointOnGeometryLocator {
+                /**
+                 * Determines the Location of a point in the Geometry.
+                 *
+                 * @param p the point to test
+                 *
+                 * @returns {int} the location of the point in the geometry
+                 */
+                locate(p: Coordinate): number;
+            }
+
+            /**
+             * Computes the location of points relative to a Polygonal Geometry,
+             * using a simple O(n) algorithm.
+             *
+             * The algorithm used reports if a point lies in the interior, exterior,
+             * or exactly on the boundary of the Geometry.
+             *
+             * Instance methods are provided to implement the interface PointInAreaLocator.
+             * However, they provide no performance advantage over the class methods.
+             *
+             * This algorithm is suitable for use in cases where only a few points will be tested.
+             * If many points will be tested, IndexedPointInAreaLocator may provide better performance.
+             */
+            export class SimplePointInAreaLocator implements PointOnGeometryLocator {
+                /**
+                 * Create an instance of a point-in-area locator, using the provided areal geometry.
+                 */
+                constructor(geom: Geometry);
+
+                /**
+                 * Determines the Location of a point in an areal Geometry. The return value is one of:
+                 * Location.INTERIOR if the point is in the geometry interior
+                 * Location.BOUNDARY if the point lies exactly on the boundary
+                 * Location.EXTERIOR if the point is outside the geometry
+                 *
+                 * @returns {int} the Location of the point in the geometry
+                 */
+                static locate(p: Coordinate, geom: Geometry): number;
+
+                /**
+                 * Determines whether a point is contained in a Geometry, or lies on its boundary.
+                 * This is a convenience method for Location.EXTERIOR != locate(p, geom)
+                 */
+                static isContained(p: Coordinate, geom: Geometry): boolean;
+
+                /**
+                 * Determines the Location of a point in a Polygon. The return value is one of:
+                 * - Location.INTERIOR if the point is in the geometry interior
+                 * - Location.BOUNDARY if the point lies exactly on the boundary
+                 * - Location.EXTERIOR if the point is outside the geometry
+                 * This method is provided for backwards compatibility only. Use locate(Coordinate, Geometry) instead.
+                 *
+                 * @param p {Coordinate} the point to test
+                 * @param poly {Polygon} the geometry to test
+                 *
+                 * @returns {int} the Location of the point in the polygon
+                 */
+                static locatePointInPolygon(p: Coordinate, poly: Polygon): number;
+
+                /**
+                 * Determines whether a point lies in a Polygon. If the point lies on the polygon boundary it is considered to be inside.
+                 *
+                 * @param p {Coordinate} the point to test
+                 * @param poly {Polygon} the geometry to test
+                 *
+                 * @returns {boolean} true if the point lies in or on the polygon
+                 */
+
+                static containsPointInPolygon(p: Coordinate, poly: Polygon): boolean;
+
+                /**
+                 * Determines the Location of a point in an areal Geometry. The return value is one of:
+                 * - Location.INTERIOR if the point is in the geometry interior
+                 * - Location.BOUNDARY if the point lies exactly on the boundary
+                 * - Location.EXTERIOR if the point is outside the geometry
+                 *
+                 * @param p {Coordinate} the point to test
+                 *
+                 * @returns {int} the Location of the point in the geometry
+                 */
+                locate(p: Coordinate): number;
+            }
         }
     }
 
@@ -2322,7 +2632,7 @@ declare namespace jsts {
         }
 
         export class GeoJSONReader {
-            constructor();
+            constructor(geometryFactory?: jsts.geom.GeometryFactory);
 
             /**
              * Converts a GeoJSON to its <code>Geometry</code> representation.
@@ -3041,6 +3351,65 @@ declare namespace jsts {
              * @param removeCollapsed if true collapsed components will be removed
              */
             setRemoveCollapsedComponents(removeCollapsed: boolean): void;
+        }
+    }
+
+    namespace simplify {
+        import Geometry = jsts.geom.Geometry;
+
+        /**
+         * Simplifies a geometry and ensures that the result is a valid geometry
+         * having the same dimension and number of components as the input,
+         * and with the components having the same topological relationship.
+         *
+         * If the input is a polygonal geometry ( Polygon or MultiPolygon ):
+         * - The result has the same number of shells and holes as the input,
+         * with the same topological structure
+         * - The result rings touch at no more than the number of touching points
+         * in the input (although they may touch at fewer points).
+         * The key implication of this statement is that if the input is topologically valid,
+         * so is the simplified output.
+         *
+         * For linear geometries, if the input does not contain any intersecting line segments,
+         * this property will be preserved in the output.
+         *
+         * For all geometry types, the result will contain enough vertices to ensure validity.
+         * For polygons and closed linear geometries, the result will have at least 4 vertices;
+         * for open linestrings the result will have at least 2 vertices.
+         *
+         * All geometry types are handled. Empty and point geometries are returned unchanged.
+         * Empty geometry components are deleted.
+         *
+         * The simplification uses a maximum-distance difference algorithm similar to
+         * the Douglas-Peucker algorithm.
+         *
+         * KNOWN BUGS
+         * May create invalid topology if there are components which are small relative
+         * to the tolerance value. In particular, if a small hole is very near an edge,
+         * it is possible for the edge to be moved by a relatively large tolerance value
+         * and end up with the hole outside the result shell (or inside another hole).
+         * Similarly, it is possible for a small polygon component to end up inside
+         * a nearby larger polygon. A workaround is to test for this situation in post-processing
+         * and remove any invalid holes or polygons.
+         */
+        export class TopologyPreservingSimplifier {
+            constructor(inputGeom: Geometry);
+
+            /**
+             * @param {double} distanceTolerance
+             */
+            static simplify(geom: Geometry, distanceTolerance: number): Geometry;
+
+            /**
+             * Sets the distance tolerance for the simplification.
+             * All vertices in the simplified geometry will be within this distance of the original geometry.
+             * The tolerance value must be non-negative. A tolerance value of zero is effectively a no-op.
+             *
+             * @param {double} distanceTolerance the approximation tolerance to use
+             */
+            setDistanceTolerance(distanceTolerance: number): void;
+
+            getResultGeometry(): Geometry;
         }
     }
 }

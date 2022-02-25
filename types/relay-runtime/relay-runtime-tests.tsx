@@ -428,12 +428,12 @@ const nodeFragment: ReaderFragment = {
 
 interface Module_data {
     readonly id: string;
-    readonly ' $refType': 'Module_data';
+    readonly ' $fragmentType': 'Module_data';
 }
 type Module_data$data = Module_data;
 interface Module_data$key {
     readonly ' $data'?: Module_data$data;
-    readonly ' $fragmentRefs': FragmentRefs<'Module_data'>;
+    readonly ' $fragmentSpreads': FragmentRefs<'Module_data'>;
 }
 
 function readData(

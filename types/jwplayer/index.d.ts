@@ -302,6 +302,7 @@ declare namespace jwplayer {
         adTime: AdTimeParam;
         cast: CastParam;
         meta: MetadataParam;
+        metadataCueParsed: MetadataParam;
         audioTracks: AudioTracksParam;
         audioTrackChanged: AudioTrackChangedParam;
         firstFrame: FirstFrameParam;
