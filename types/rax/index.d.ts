@@ -1837,7 +1837,7 @@ declare namespace Rax {
   interface MediaHTMLAttributes<T> extends HTMLAttributes<T> {
     autoPlay?: boolean | undefined;
     controls?: boolean | undefined;
-    controlsList?: string | undefined;
+    controlsList?: 'nodownload' | 'nofullscreen' | 'noremoteplayback';
     crossOrigin?: string | undefined;
     loop?: boolean | undefined;
     mediaGroup?: string | undefined;
