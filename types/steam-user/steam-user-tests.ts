@@ -154,3 +154,34 @@ user.chat.on('chatRoomGroupHeaderStateChange', details => {
     console.log(details.chat_group_id);
     console.log(details.header_state);
 });
+
+// ADDED / MODIFIED in v4.22.0
+user.getOwnedApps((element) => {
+    return element.package_id === 123;
+});
+user.ownsApp(456, (element, index) => {
+    return element.package_id === 123 && index > 4;
+});
+user.getOwnedDepots((element, index, array) => {
+    return array.length > 4;
+});
+user.ownsDepot(2, (element, index, array) => {
+    return array.length > 4;
+});
+user.getOwnedPackages((element, index, array) => {
+    return array.length > 4;
+});
+user.ownsPackage(4, (element, index, array) => {
+    return array.length > 4;
+});
+user.getOwnedApps({ excludeFree: true });
+user.ownsApp(456, { excludeExpiring: true });
+user.getOwnedDepots({ excludeShared: true });
+user.ownsDepot(2, {excludeExpiring: false, excludeFree: true});
+user.getOwnedPackages({ excludeShared: false, excludeFree: false});
+user.ownsPackage(4, {excludeExpiring: true, excludeFree: true, excludeShared: true });
+
+// deprecated since v4.22.1
+user.on('appOwnershipCached', () => { });
+// not deprecated
+user.on('ownershipCached', () => { });
