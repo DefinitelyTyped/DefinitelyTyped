@@ -651,7 +651,7 @@ declare module 'events' {
 
         /** An event which takes place in Node. */
         class Event {
-            new(type: string, options?: EventInit): Event;
+            constructor(type: string, options?: EventInit);
             /** Returns true or false depending on how event was initialized. True if event goes through its target's ancestors in reverse tree order, and false otherwise. */
             readonly bubbles: boolean;
             cancelBubble: boolean;
