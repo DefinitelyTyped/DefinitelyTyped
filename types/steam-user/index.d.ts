@@ -1,4 +1,4 @@
-// Type definitions for steam-user 4.21
+// Type definitions for steam-user 4.22
 // Project: https://github.com/DoctorMcKay/node-steam-user
 // Definitions by: Joshua Jeschek <https://github.com/joshuajeschek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
