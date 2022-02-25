@@ -43,6 +43,11 @@ interface MockStateType {
 
 const sagaTester = new SagaTester<MockStateType>({initialState: {orders: []}});
 
+// store
+const store = sagaTester.store;
+store.dispatch({type: 'LOAD_ORDERS', orders: []});
+store.getState().orders;
+
 // start
 function* fakeSaga() {
     return 23;
