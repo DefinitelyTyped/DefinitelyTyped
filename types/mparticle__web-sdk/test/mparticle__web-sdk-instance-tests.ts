@@ -213,6 +213,8 @@ instance.setAppName('appName');
 
 instance.setAppVersion('1.0.0');
 
+instance.setDeviceId('foo-uuid-v4');
+
 instance.setIntegrationAttribute(123, { key: 'value' });
 
 instance.getIntegrationAttributes(123);

@@ -211,6 +211,8 @@ mParticle.setAppName('appName');
 
 mParticle.setAppVersion('1.0.0');
 
+mParticle.setDeviceId('foo-uuid-v4');
+
 mParticle.setIntegrationAttribute(123, { key: 'value' });
 
 mParticle.getIntegrationAttributes(123);

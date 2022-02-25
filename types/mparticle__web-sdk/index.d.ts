@@ -1,4 +1,4 @@
-// Type definitions for mParticle/web-sdk SDK 2.14
+// Type definitions for mParticle/web-sdk SDK 2.15
 // Project: https://github.com/mParticle/mparticle-web-sdk
 // Definitions by: Alex Sapountzis <https://github.com/asap>
 //                 Robert Ing <https://github.com/rmi22186>
@@ -17,6 +17,7 @@ export interface MPConfiguration {
     logLevel?: 'verbose' | 'warning' | 'none' | undefined;
     logger?: Logger | undefined;
     sessionTimeout?: number | undefined;
+    deviceId?: string | undefined;
     useCookieStorage?: boolean | undefined;
     maxCookieSize?: number | undefined;
     cookieDomain?: string | undefined;
@@ -124,6 +125,9 @@ interface Ready {
 }
 interface Reset {
     (): void;
+}
+interface SetDeviceId {
+    (uuid: string): void;
 }
 interface SetAppName {
     (name: string): void;
@@ -317,6 +321,7 @@ export const endSession: EndSession;
 export const getAppName: GetAppName;
 export const getAppVersion: GetAppVersion;
 export const getDeviceId: GetDeviceId;
+export const setDeviceId: SetDeviceId;
 export function getInstance(instanceName?: string): mParticleInstance;
 export const getVersion: GetVersion;
 /**
@@ -686,6 +691,7 @@ declare class mParticleInstance {
     getAppName: GetAppName;
     getAppVersion: GetAppVersion;
     getDeviceId: GetDeviceId;
+    setDeviceId: SetDeviceId;
     getVersion: GetVersion;
     init: Init;
     logBaseEvent: LogBaseEvent;
