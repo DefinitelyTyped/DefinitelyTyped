@@ -131,6 +131,8 @@ instance.getVersion();
 instance.init('apiKey', config);
 instance.init('apiKey', config, 'instance');
 
+instance.isInitialized();
+
 instance.logBaseEvent({
     data: {},
     name: 'baseEventName',

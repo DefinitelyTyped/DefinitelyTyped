@@ -129,6 +129,8 @@ mParticle.getVersion();
 mParticle.init('apiKey', config);
 mParticle.init('apiKey', config, 'instance');
 
+mParticle.isInitialized();
+
 mParticle.logBaseEvent({
     data: {},
     name: 'baseEventName',

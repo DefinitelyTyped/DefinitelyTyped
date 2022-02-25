@@ -79,6 +79,10 @@ interface Init {
     (apiKey: string, config: MPConfiguration, instanceName?: string): void;
 }
 
+interface IsInitialized {
+    (): boolean
+}
+
 interface LogError {
     (error: string | errorObject, attrs?: SDKEventAttrs): void;
 }
@@ -328,6 +332,7 @@ export const getVersion: GetVersion;
  * @warning You should only use mParticle.init if you are in a self-hosted environment. https://docs.mparticle.com/developers/sdk/web/self-hosting/
  */
 export const init: Init;
+export const isInitialized: IsInitialized;
 export const logBaseEvent: LogBaseEvent;
 export const logError: LogError;
 export const logEvent: LogEvent;
@@ -694,6 +699,7 @@ declare class mParticleInstance {
     setDeviceId: SetDeviceId;
     getVersion: GetVersion;
     init: Init;
+    isInitialized: IsInitialized;
     logBaseEvent: LogBaseEvent;
     logError: LogError;
     logEvent: LogEvent;
