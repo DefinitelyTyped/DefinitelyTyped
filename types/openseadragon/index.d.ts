@@ -891,7 +891,7 @@ declare namespace OpenSeadragon {
         getOpacity(): number;
         getPreload(): boolean;
         getRotation(current?: boolean): number;
-        imageToViewerElementCoordinats(pixel: Point): Point;
+        imageToViewerElementCoordinates(pixel: Point): Point;
         imageToViewportCoordinates(position: Point, current?: boolean): Point;
         imageToViewportCoordinates(imageX: number, imageY: number, current?: boolean): Point;
         imageToViewportRectangle(
