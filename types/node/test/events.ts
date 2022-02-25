@@ -127,5 +127,4 @@ async function test() {
 
     const event = new Event('test');
     event.preventDefault();
-    event.NONE;
 }
