@@ -124,4 +124,8 @@ async function test() {
 
     const eventEmitter = new events.EventEmitter();
     events.EventEmitter.setMaxListeners(42, eventTarget, eventEmitter);
+
+    const event = new Event('test');
+    event.preventDefault();
+    event.NONE;
 }
