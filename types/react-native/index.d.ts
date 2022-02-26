@@ -987,8 +987,7 @@ export interface TextPropsAndroid {
         | 'normal'
         | 'none'
         | 'full'
-        | 'high'
-        | 'balanced' | undefined;
+        | undefined;
 }
 
 // https://reactnative.dev/docs/text#props
