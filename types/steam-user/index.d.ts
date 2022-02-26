@@ -876,9 +876,9 @@ interface Proto_CMsgClientLicenseList_License {
     minute_limit: number;
     minutes_used: number;
     payment_method: SteamUser.EPaymentMethod;
-    flags: number;
+    flags: SteamUser.ELicenseFlags;
     purchase_country_code: string;
-    license_type: number;
+    license_type: SteamUser.ELicenseType;
     territory_code: number;
     change_number: number;
     owner_id: number;
