@@ -1556,7 +1556,7 @@ function testRef() {
     const classLegacyRef: React.LegacyRef<ClassComponent> | undefined = undefined;
     <ConnectedClassComponent ref={classLegacyRef}></ConnectedClassComponent>;
     <ConnectedClassComponent ref={React.createRef<ClassComponent>()}></ConnectedClassComponent>;
-    <ConnectedClassComponent ref={(ref: ClassComponent) => {}}></ConnectedClassComponent>;
+    <ConnectedClassComponent ref={(ref: ClassComponent | null) => {}}></ConnectedClassComponent>;
     <ConnectedClassComponent ref={''}></ConnectedClassComponent>;
     // ref type should be the typeof the wrapped component
     <ConnectedClassComponent ref={React.createRef<string>()}></ConnectedClassComponent>; // $ExpectError
