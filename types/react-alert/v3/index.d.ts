@@ -107,6 +107,4 @@ export interface AlertContainer {
 }
 
 export type InjectedAlertProps = { alert: AlertContainer };
-export function withAlert<P extends InjectedAlertProps = InjectedAlertProps>(
-    c: ComponentType<P>,
-): ComponentType<Omit<P, 'alert'>>;
+export function withAlert<P extends InjectedAlertProps>(c: ComponentType<P>): ComponentType<Omit<P, 'alert'>>;
