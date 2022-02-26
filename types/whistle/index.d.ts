@@ -1,4 +1,4 @@
-// Type definitions for Whistle 2.9.2
+// Type definitions for Whistle 2.9
 // Project: https://wproxy.org
 // Definitions by: Aven Wu <https://github.com/avwo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -298,21 +298,21 @@ interface WhistlePluginOptions {
 type LogFn = (msg: Object, ...restMsg: Object[]) => void;
  
 interface WhistleResult {
-logger: {
-  log: (msg: Object, level?: Level) => void;
-  fatal: LogFn;
-  error: LogFn;
-  warn: LogFn;
-  info: LogFn;
-  debug: LogFn;
-};
-setAuth: (auth: WhistleAuth) => void;
-setUIHost: (host: string | string[]) => void;
-setPluginUIHost: (pluginName: string, host: string | string[]) => void;
-getRuntimeInfo: () => WhistleRuntimeInfo;
-getShadowRules:() => string;
-setShadowRules:(shadowRules: string) => void;
-[propName: string]: any;
+  logger: {
+    log: (msg: Object, level?: Level) => void;
+    fatal: LogFn;
+    error: LogFn;
+    warn: LogFn;
+    info: LogFn;
+    debug: LogFn;
+  };
+  setAuth(auth: WhistleAuth): void;
+  setUIHost(host: string | string[]): void;
+  setPluginUIHost(pluginName: string, host: string | string[]): void;
+  getRuntimeInfo(): WhistleRuntimeInfo;
+  getShadowRules(): string;
+  setShadowRules(shadowRules: string): void;
+  [propName: string]: any;
 }
 
 export default function(options?: WhistleOptions, callback?: Function): WhistleResult;
@@ -363,7 +363,7 @@ declare global {
         set(key: string, value: any): any;
         get(key: string): any;
         remove(key: string): any;
-      }
+      };
       originalReq: {
         id: string;
         clientIp: string;
@@ -419,7 +419,7 @@ declare global {
       connect: RequestFn;
       passThrough: PassThrough;
     }
-    
+
     class PluginServerResponse extends ServerResponse {
       setReqRules: SetRules;
       setResRules: SetRules;
@@ -487,4 +487,3 @@ declare global {
     }
   }
 }
- 
