@@ -349,13 +349,11 @@ declare global {
 
     class PluginRequest extends IncomingMessage {
       clientIp: string;
-      isUIRequest: boolean;
       fullUrl: string;
       isHttps: boolean;
       fromTunnel: boolean;
       fromComposer: boolean;
       isHttpsServer?: boolean;
-      isSNI: boolean;
       getReqSession: GetSession;
       getSession: GetSession;
       getFrames: GetFrame;
@@ -409,20 +407,17 @@ declare global {
         serverIp: string;
         statusCode: string;
       };
+    }
+    class PluginServerRequest extends PluginRequest {
       setReqRules: SetRules;
       setResRules: SetRules;
       writeHead: WriteHead;
       request: RequestFn;
       connect: RequestFn;
       passThrough: PassThrough;
-      setHtml(html: string): void;
-      setUrl(url: string): void;
-      setHeader(key: string, value: string): void;
-      setRedirect(url: string): void;;
-      setLogin(login: boolean): void;
     }
     
-    class PluginResponse extends ServerResponse {
+    class PluginServerResponse extends ServerResponse {
       setReqRules: SetRules;
       setResRules: SetRules;
       disableTrailers?: boolean;
@@ -434,11 +429,36 @@ declare global {
     }
 
     type PluginUIResponse = ServerResponse;
-    type PluginHook = (server: Server, options?: PluginOptions) => void;
-    type PluginUIHook = (server: Server, options?: PluginOptions) => void;
+
+    class PluginAuthRequest extends PluginRequest {
+      isUIRequest: boolean;
+      setHtml(html: string): void;
+      setUrl(url: string): void;
+      setFile(url: string): void;
+      setHeader(key: string, value: string): void;
+      setRedirect(url: string): void;
+      setLogin(login: boolean): void;
+    }
+
+    class PluginSNIRequest extends PluginRequest {
+      isSNI: boolean;
+    }
+
+    type PluginSNIResult = boolean | {
+      key: string;
+      cert: string;
+      mtime?: number;
+    };
+
+    type PluginAuthHook = (req: PluginAuthRequest, options?: PluginOptions) => Promise<boolean>;
+    type PluginSNIHook = (req: PluginSNIRequest, options?: PluginOptions) => PluginSNIResult | Promise<PluginSNIResult>;
     type PluginServer = Server;
+    type PluginHook = (server: PluginServer, options?: PluginOptions) => void | Promise<void>;
+    type PluginUIHook = (server: PluginServer, options?: PluginOptions) => void | Promise<void>;
 
     interface PluginHooks {
+      auth: PluginAuthHook;
+      sniCallback: PluginSNIHook;
       uiServer?: PluginUIHook;
       rulesServer?: PluginHook;
       tunnelRulesServer?: PluginHook;
