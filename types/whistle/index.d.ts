@@ -13,9 +13,9 @@
  /// <reference types="node" />
 
  import { IncomingMessage, ServerResponse, Server } from 'http';
- import { Request, Response, NextFunction } from 'express';
  import { EventEmitter } from 'events';
  import { ParsedUrlQuery } from 'querystring';
+ import { Request, Response, NextFunction } from 'express';
  import LRUCache from 'lru-cache';
 
 type StrExt = string | false;
