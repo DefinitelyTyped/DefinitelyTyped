@@ -16,7 +16,7 @@
  import { EventEmitter } from 'events';
  import { ParsedUrlQuery } from 'querystring';
  import { Request, Response, NextFunction } from 'express';
- import LRUCache from 'lru-cache';
+ import LRUCache = require('lru-cache');
 
 export type StrExt = string | false;
 
