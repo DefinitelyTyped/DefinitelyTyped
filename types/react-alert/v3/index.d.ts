@@ -86,7 +86,7 @@ export interface AlertProviderProps extends AlertOptions {
 
 export class Provider extends Component<AlertProviderProps> {}
 
-export interface AlertCustomOptions extends AlertOptions {
+export type AlertCustomOptionsFactory<T> = T & {
     /**
      * Callback that will be executed after this alert open.
      */
@@ -96,15 +96,18 @@ export interface AlertCustomOptions extends AlertOptions {
      * Callback that will be executed after this alert is removed.
      */
     onClose?(): void;
-}
+};
 
-export interface AlertContainer {
-    show(message?: ReactNode, options?: AlertCustomOptions): Alert;
-    info(message?: ReactNode, options?: AlertCustomOptions): Alert;
-    success(message?: ReactNode, options?: AlertCustomOptions): Alert;
-    error(message?: ReactNode, options?: AlertCustomOptions): Alert;
+export interface AlertContainerFactory<T> {
+    show(message?: ReactNode, options?: T): Alert;
+    info(message?: ReactNode, options?: T): Alert;
+    success(message?: ReactNode, options?: T): Alert;
+    error(message?: ReactNode, options?: T): Alert;
     remove(alert: Alert): void;
 }
+
+export type AlertCustomOptions = AlertCustomOptionsFactory<AlertOptions>;
+export type AlertContainer = AlertContainerFactory<AlertCustomOptions>;
 
 export type InjectedAlertProps = { alert: AlertContainer };
 export function withAlert<P extends InjectedAlertProps>(c: ComponentType<P>): ComponentType<Omit<P, 'alert'>>;

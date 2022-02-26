@@ -7,11 +7,13 @@
 import { CSSProperties, ComponentType, Context, Component } from 'react';
 import {
     AlertPosition as AlertPositionV4,
-    InjectedAlertProps,
     AlertOptions as AlertOptionsV4,
-    AlertContainer,
     AlertTemplateProps,
+    AlertCustomOptionsFactory,
+    AlertContainerFactory,
 } from 'react-alert/v4';
+
+export { AlertType, AlertTransition, AlertTemplateProps } from 'react-alert/v4';
 
 export type AlertPosition = AlertPositionV4 | 'middle left' | 'middle' | 'middle right';
 export interface Positions {
@@ -25,15 +27,6 @@ export interface Positions {
     BOTTOM_CENTER: 'bottom center';
     BOTTOM_RIGHT: 'bottom right';
 }
-
-export {
-    AlertType,
-    AlertTransition,
-    AlertTemplateProps,
-    AlertCustomOptions,
-    AlertContainer,
-    InjectedAlertProps,
-} from 'react-alert/v4';
 export interface Types {
     INFO: 'info';
     SUCCESS: 'success';
@@ -72,11 +65,15 @@ export interface AlertProviderProps extends AlertOptions {
      */
     template: React.ComponentType<AlertTemplateProps>;
 
-    context?: Context<AlertContainer>
+    context?: Context<AlertContainer>;
 }
 
 export class Provider extends Component<AlertProviderProps> {}
 
+export type AlertCustomOptions = AlertCustomOptionsFactory<AlertOptions>;
+export type AlertContainer = AlertContainerFactory<AlertCustomOptions>;
+
+export type InjectedAlertProps = { alert: AlertContainer };
 export function withAlert<P extends InjectedAlertProps = InjectedAlertProps>(
     context?: Context<P['alert']>,
 ): (c: ComponentType<P>) => ComponentType<Omit<P, 'alert'>>;
