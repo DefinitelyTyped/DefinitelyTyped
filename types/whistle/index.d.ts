@@ -401,13 +401,16 @@ declare global {
         headers: any;
         isRexExp?: boolean;
         pattern?: string;
-        customParser: boolean | '';
+        customParser?: boolean | '';
       };
       originalRes: {
         serverIp: string;
         statusCode: string;
       };
     }
+
+    type PluginResponse = ServerResponse;
+    type PluginServer = Server;
     class PluginServerRequest extends PluginRequest {
       setReqRules: SetRules;
       setResRules: SetRules;
@@ -452,9 +455,12 @@ declare global {
 
     type PluginAuthHook = (req: PluginAuthRequest, options?: PluginOptions) => Promise<boolean>;
     type PluginSNIHook = (req: PluginSNIRequest, options?: PluginOptions) => PluginSNIResult | Promise<PluginSNIResult>;
-    type PluginServer = Server;
     type PluginHook = (server: PluginServer, options?: PluginOptions) => void | Promise<void>;
     type PluginUIHook = (server: PluginServer, options?: PluginOptions) => void | Promise<void>;
+
+    type PluginListener = (req: PluginRequest, res: PluginResponse) => void;
+    type PluginServerListener = (req: PluginServerRequest, res: PluginServerResponse) => void;
+    type PluginUIListener = (req: PluginUIRequest, res: PluginUIResponse) => void;
 
     interface PluginHooks {
       auth: PluginAuthHook;
