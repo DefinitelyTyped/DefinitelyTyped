@@ -79,7 +79,6 @@ interface WhistleSession {
   [propName: string]: any;
 }
 
- 
 type WhistleSecureFilter = ((item: WhistleSession, clientIp?: string, filter?: string) => WhistleSession) | string;
 
  interface WhistleOptions {
@@ -154,14 +153,6 @@ interface WhistleAuth {
     username?: string;
     password?: string;
   };
-}
-
-export const enum Level {
-  Fatal = 'fatal',
-  Error = 'error',
-  Warn = 'warn',
-  Info = 'info',
-  Debug = 'debug',
 }
 
  interface WhistleFile {
@@ -294,12 +285,11 @@ interface WhistlePluginOptions {
   [propName: string]: any;
 }
 
-
 type LogFn = (msg: Object, ...restMsg: Object[]) => void;
- 
+
 interface WhistleResult {
   logger: {
-    log: (msg: Object, level?: Level) => void;
+    log: (msg: Object, level?: string) => void;
     fatal: LogFn;
     error: LogFn;
     warn: LogFn;
@@ -316,8 +306,6 @@ interface WhistleResult {
 }
 
 export default function(options?: WhistleOptions, callback?: Function): WhistleResult;
-
-type WhistleLevel = Level;
 
 type GetSession = (cb: (session: WhistleSession | '') => void) => void;
 type GetFrame = (cb: (Frames: WhistleFrame[] | '') => void) => void;
@@ -341,7 +329,6 @@ declare global {
     type RuntimeInfo = WhistleRuntimeInfo;
     type Result = WhistleResult;
     type Auth = WhistleAuth;
-    type Level = WhistleLevel;
     type Frame = WhistleFrame;
     type File = WhistleFile;
     type Storage = WhistleStorage;
