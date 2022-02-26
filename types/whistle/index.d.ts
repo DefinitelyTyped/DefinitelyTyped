@@ -18,9 +18,9 @@
  import { Request, Response, NextFunction } from 'express';
  import LRUCache from 'lru-cache';
 
-type StrExt = string | false;
+export type StrExt = string | false;
 
-interface WhistleFrame {
+export interface WhistleFrame {
   reqId: string;
   frameId: string;
   base64?: string;
@@ -37,7 +37,7 @@ interface WhistleFrame {
   [propName: string]: any;
 }
 
-interface WhistleSession {
+export interface WhistleSession {
   id: string;
   url: string;
   useH2?: boolean;
@@ -79,9 +79,9 @@ interface WhistleSession {
   [propName: string]: any;
 }
 
-type WhistleSecureFilter = ((item: WhistleSession, clientIp?: string, filter?: string) => WhistleSession) | string;
+export type WhistleSecureFilter = ((item: WhistleSession, clientIp?: string, filter?: string) => WhistleSession) | string;
 
- interface WhistleOptions {
+export interface WhistleOptions {
    config?: string;
    cluster?: number;
    server?: Server | EventEmitter;
@@ -144,7 +144,7 @@ type WhistleSecureFilter = ((item: WhistleSession, clientIp?: string, filter?: s
    [propName: string]: any;
  }
 
-interface WhistleAuth {
+export interface WhistleAuth {
   username?: string;
   password?: string;
   guestName?: string;
@@ -155,14 +155,14 @@ interface WhistleAuth {
   };
 }
 
- interface WhistleFile {
+export interface WhistleFile {
   index: number;
   name: string;
   data: string;
   selected: boolean;
 }
 
-declare class WhistleStorage {
+export class WhistleStorage {
   constructor(dir: string, filters?: object, disabled?: boolean);
   count(): number;
   existsFile(file: string): false | WhistleFile;
@@ -180,7 +180,7 @@ declare class WhistleStorage {
   removeProperty(name: string): void;
 }
 
-interface WhistleRuntimeInfo {
+export interface WhistleRuntimeInfo {
   memUsage: NodeJS.MemoryUsage;
   uptime: number;
   cpuPercent: string;
@@ -206,7 +206,7 @@ interface WhistleRuntimeInfo {
   maxCpu: number;
 }
 
-interface WhistlePluginOptions {
+export interface WhistlePluginOptions {
   name: string;
   version: string;
   debugMode?: boolean;
@@ -285,9 +285,9 @@ interface WhistlePluginOptions {
   [propName: string]: any;
 }
 
-type LogFn = (msg: Object, ...restMsg: Object[]) => void;
+export type LogFn = (msg: Object, ...restMsg: Object[]) => void;
 
-interface WhistleResult {
+export interface WhistleResult {
   logger: {
     log: (msg: Object, level?: string) => void;
     fatal: LogFn;
@@ -307,17 +307,17 @@ interface WhistleResult {
 
 export default function(options?: WhistleOptions, callback?: Function): WhistleResult;
 
-type GetSession = (cb: (session: WhistleSession | '') => void) => void;
-type GetFrame = (cb: (Frames: WhistleFrame[] | '') => void) => void;
-type SetRules = (rules: string) => boolean;
-type PassThrough = (uri?: any, trailers?: any) => void;
+export type GetSession = (cb: (session: WhistleSession | '') => void) => void;
+export type GetFrame = (cb: (Frames: WhistleFrame[] | '') => void) => void;
+export type SetRules = (rules: string) => boolean;
+export type PassThrough = (uri?: any, trailers?: any) => void;
 
-interface WriteHead {
+export interface WriteHead {
   (code: string | number, msg?: string, headers?: any): void;
   (code: string | number, headers?: any): void;
 }
 
-interface RequestFn {
+export interface RequestFn {
   (uri: any, cb?: (res: any) => void, opts?: any): any;
   (uri: any, opts?: any, cb?: (res: any) => void): any;
 }
