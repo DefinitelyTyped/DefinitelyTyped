@@ -362,13 +362,6 @@ declare class SteamUser extends EventEmitter {
     ownsDepot(depotid: number, filter?: OwnsFilterObject | OwnsFilterFunction): boolean;
 
     /**
-     * Returns an array of licenses this account owns.
-     * Might be unsafe for public use.
-     * @throws Error if there is no license list.
-     */
-    getOwnedLicenses(): number[];
-
-    /**
      * Returns an array of package IDs this account owns (different from owned licenses). The filter only
      * works, if enablePicsCache option is enabled and appOwnershipCached event has been emitted.
      * @param [filter] - Options for what counts for ownership, or a custom filter function
