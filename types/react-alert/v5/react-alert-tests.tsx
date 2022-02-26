@@ -49,6 +49,12 @@ const App = () => {
     );
 };
 
+const Root = () => (
+    <AlertProvider template={AlertTemplate} {...options}>
+        <App />
+    </AlertProvider>
+);
+
 const AppWithInjectedAlert: React.FC<{} & InjectedAlertProps> = ({ alert }) => (
     <button
         onClick={() => {
@@ -60,9 +66,3 @@ const AppWithInjectedAlert: React.FC<{} & InjectedAlertProps> = ({ alert }) => (
 );
 
 const AppWithAlert = withAlert()(AppWithInjectedAlert);
-
-const Root = () => (
-    <AlertProvider template={AlertTemplate} {...options}>
-        <App />
-    </AlertProvider>
-);

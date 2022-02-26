@@ -11,9 +11,9 @@ import {
     AlertTemplateProps,
     AlertCustomOptionsFactory,
     AlertContainerFactory,
-} from 'react-alert/v4';
+} from '../v4';
 
-export { AlertType, AlertTransition, AlertTemplateProps } from 'react-alert/v4';
+export { AlertType, AlertTransition, AlertTemplateProps } from '../v4';
 
 export type AlertPosition = AlertPositionV4 | 'middle left' | 'middle' | 'middle right';
 export interface Positions {
@@ -73,7 +73,9 @@ export class Provider extends Component<AlertProviderProps> {}
 export type AlertCustomOptions = AlertCustomOptionsFactory<AlertOptions>;
 export type AlertContainer = AlertContainerFactory<AlertCustomOptions>;
 
-export type InjectedAlertProps = { alert: AlertContainer };
+export interface InjectedAlertProps {
+    alert: AlertContainer;
+}
 export function withAlert<P extends InjectedAlertProps = InjectedAlertProps>(
     context?: Context<P['alert']>,
 ): (c: ComponentType<P>) => ComponentType<Omit<P, 'alert'>>;

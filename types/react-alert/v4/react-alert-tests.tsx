@@ -52,6 +52,16 @@ class App extends React.Component<{} & InjectedAlertProps> {
 
 const AppWithAlert = withAlert(App);
 
+export default class Root extends React.Component {
+    render() {
+        return (
+            <AlertProvider template={AlertTemplate} {...options}>
+                <AppWithAlert />
+            </AlertProvider>
+        );
+    }
+}
+
 class AppUseAlertConsumer extends React.Component {
     render() {
         return (
@@ -66,16 +76,6 @@ class AppUseAlertConsumer extends React.Component {
                     </button>
                 )}
             </Alert>
-        );
-    }
-}
-
-export default class Root extends React.Component {
-    render() {
-        return (
-            <AlertProvider template={AlertTemplate} {...options}>
-                <AppWithAlert />
-            </AlertProvider>
         );
     }
 }

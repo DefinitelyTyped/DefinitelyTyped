@@ -54,7 +54,7 @@ export interface AlertOptions {
     zIndex?: number;
 }
 
-interface Alert {
+export interface AlertInstance {
     id: number;
 
     /**
@@ -70,7 +70,7 @@ interface Alert {
     close: () => void;
 }
 
-export interface AlertTemplateProps extends Omit<Alert, 'id'> {
+export interface AlertTemplateProps extends Omit<AlertInstance, 'id'> {
     /**
      * The style contains only the margin given as offset.
      */
@@ -99,15 +99,17 @@ export type AlertCustomOptionsFactory<T> = T & {
 };
 
 export interface AlertContainerFactory<T> {
-    show(message?: ReactNode, options?: T): Alert;
-    info(message?: ReactNode, options?: T): Alert;
-    success(message?: ReactNode, options?: T): Alert;
-    error(message?: ReactNode, options?: T): Alert;
-    remove(alert: Alert): void;
+    show(message?: ReactNode, options?: T): AlertInstance;
+    info(message?: ReactNode, options?: T): AlertInstance;
+    success(message?: ReactNode, options?: T): AlertInstance;
+    error(message?: ReactNode, options?: T): AlertInstance;
+    remove(alert: AlertInstance): void;
 }
 
 export type AlertCustomOptions = AlertCustomOptionsFactory<AlertOptions>;
 export type AlertContainer = AlertContainerFactory<AlertCustomOptions>;
 
-export type InjectedAlertProps = { alert: AlertContainer };
+export interface InjectedAlertProps {
+    alert: AlertContainer;
+}
 export function withAlert<P extends InjectedAlertProps>(c: ComponentType<P>): ComponentType<Omit<P, 'alert'>>;

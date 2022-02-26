@@ -1,149 +1,23 @@
-// Type definitions for react-alert 5.2
+// Type definitions for react-alert 7.0
 // Project: https://github.com/schiehll/react-alert
 // Definitions by: Yue Yang <https://github.com/g1eny0ung>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from 'react';
+import { Context, ComponentType } from 'react';
+import { AlertContainer as AlertContainerV5 } from './v5';
 
-export type AlertPosition =
-    | 'top left'
-    | 'top center'
-    | 'top right'
-    | 'middle left'
-    | 'middle'
-    | 'middle right'
-    | 'bottom left'
-    | 'bottom center'
-    | 'bottom right';
+export * from './v5';
 
-export interface Positions {
-    TOP_LEFT: 'top left';
-    TOP_CENTER: 'top center';
-    TOP_RIGHT: 'top right';
-    MIDDLE_LEFT: 'middle left';
-    MIDDLE: 'middle';
-    MIDDLE_RIGHT: 'middle right';
-    BOTTOM_LEFT: 'bottom left';
-    BOTTOM_CENTER: 'bottom center';
-    BOTTOM_RIGHT: 'bottom right';
+export type AlertContainer = AlertContainerV5 & {
+    removeAll(): void;
+};
+
+export interface InjectedAlertProps {
+    alert: AlertContainer;
 }
+export function withAlert<P extends InjectedAlertProps = InjectedAlertProps>(
+    context?: Context<P['alert']>,
+): (c: ComponentType<P>) => ComponentType<Omit<P, 'alert'>>;
 
-export const positions: Positions;
-
-export type AlertType = 'info' | 'success' | 'error';
-
-export interface Types {
-    INFO: 'info';
-    SUCCESS: 'success';
-    ERROR: 'error';
-}
-
-export const types: Types;
-
-export type AlertTransition = 'fade' | 'scale';
-
-export interface Transitions {
-    FADE: 'fade';
-    SCALE: 'scale';
-}
-
-export const transitions: Transitions;
-
-export interface AlertProviderProps extends React.HTMLAttributes<HTMLDivElement> {
-    /**
-     * The margin of each alert
-     *
-     * Default value: '10px'
-     */
-    offset?: string | undefined;
-    /**
-     * The position of the alerts in the page
-     *
-     * Default value: 'top center'
-     */
-    position?: AlertPosition | undefined;
-    /**
-     * Timeout to alert remove itself, if  set to 0 it never removes itself
-     *
-     * Default value: 0
-     */
-    timeout?: number | undefined;
-    /**
-     * The default alert type used when calling this.props.alert.show
-     *
-     * Default value: 'info'
-     */
-    type?: AlertType | undefined;
-    /**
-     * The transition animation
-     *
-     * Default value: 'fade'
-     */
-    transition?: AlertTransition | undefined;
-    /**
-     * The style of the alert container
-     *
-     * Default z-index value: 100
-     */
-    containerStyle?: React.CSSProperties | undefined;
-    /**
-     * The alert component for each message
-     */
-    template: React.ComponentType<AlertComponentPropsWithStyle>;
-    /**
-     * Custom context to separate alerts.
-     */
-    context?: React.Context<AlertManager | undefined> | undefined;
-}
-
-export interface AlertComponentProps {
-    id: string;
-    message: React.ReactNode;
-    options: AlertCustomOptionsWithType;
-    close(): void;
-}
-
-export interface AlertComponentPropsWithStyle extends AlertComponentProps {
-    style: React.CSSProperties;
-}
-
-export class Provider extends React.Component<AlertProviderProps> {}
-
-export interface AlertCustomOptions {
-    /**
-     * Custom timeout just for this one alert
-     */
-    timeout?: number | undefined;
-    /**
-     * Callback that will be executed after this alert open
-     */
-    onOpen?(): void;
-    /**
-     * Callback that will be executed after this alert is removed
-     */
-    onClose?(): void;
-}
-
-export interface AlertCustomOptionsWithType extends AlertCustomOptions {
-    type?: AlertType | undefined;
-}
-
-export interface AlertManager {
-    root?: HTMLElement | undefined;
-    alerts: AlertComponentProps[];
-    show(
-        message?: React.ReactNode,
-        options?: AlertCustomOptionsWithType
-    ): AlertComponentProps;
-    remove(alert: AlertComponentProps): void;
-    success(message?: React.ReactNode, options?: AlertCustomOptions): AlertComponentProps;
-    error(message?: React.ReactNode, options?: AlertCustomOptions): AlertComponentProps;
-    info(message?: React.ReactNode, options?: AlertCustomOptions): AlertComponentProps;
-}
-
-export function withAlert<P extends { alert: AlertManager }>(context?: React.Context<AlertManager | undefined>):
-    (c: React.ComponentType<P>) =>
-        React.ComponentType<Pick<P, Exclude<keyof P, 'alert'>>>;
-
-export function useAlert(context?: React.Context<AlertManager | undefined>): AlertManager;
+export function useAlert<T extends AlertContainer = AlertContainer>(context?: Context<T>): T;
