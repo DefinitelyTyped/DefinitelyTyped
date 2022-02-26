@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from 'react';
+import { ReactNode, Component, ReactElement } from 'react';
 
 export interface AlertContainerProps {
     /**
@@ -13,38 +13,45 @@ export interface AlertContainerProps {
      *
      * Default: 14
      */
-    offset: number;
+    offset?: number;
 
     /**
      * The position of the alert. Can be [bottom left, bottom right, top left, top right].
      *
      * Default: 'bottom left'
      */
-    position: 'bottom left' | 'bottom right' | 'top left' | 'top right';
+    position?: 'bottom left' | 'bottom right' | 'top left' | 'top right';
 
     /**
      * The color theme of the alert. Can be [dark, light].
      *
      * Default: 'dark'
      */
-    theme: 'dark' | 'light';
+    theme?: 'dark' | 'light';
 
     /**
      * The time in miliseconds to the alert close itself. Use 0 to prevent auto close (apply to all alerts).
      *
      * Default: 5000
      */
-    time: number;
+    time?: number;
 
     /**
      * The transition animation. Can be [scale, fade].
      *
      * Default: 'scale'
      */
-    transition: 'scale' | 'fade';
+    transition?: 'scale' | 'fade';
 }
 
 export interface AlertShowOptions {
+    /**
+     * The alert type. Can be [info, success, error]. Only used in `show` method.
+     *
+     * Default: info
+     */
+    type?: 'info' | 'success' | 'error';
+
     /**
      * The time in miliseconds to the alert close itself. Use 0 to prevent auto close (apply to this alert only).
      *
@@ -57,38 +64,42 @@ export interface AlertShowOptions {
      *
      * Default: the icon which matches the type of alert to be shown.
      */
-    icon?: React.ReactNode;
+    icon?: ReactElement;
 
     /**
-     * A callback function that will be called when the alert is closed.
+     * The function called when message is closed.
      */
     onClose?: () => void;
 }
 
-export default class AlertContainer extends React.Component<AlertContainerProps> {
+export default class AlertContainer extends Component<AlertContainerProps> {
     /**
-     * Show a success alert.
+     * Show an alert.
+     *
      * @returns The id of the created alert.
      */
-    success(message: string, options?: AlertShowOptions): string;
-
-    /**
-     * Show an error alert.
-     * @returns The id of the created alert.
-     */
-    error(message: string, options?: AlertShowOptions): string;
+    show(message: ReactNode, options?: AlertShowOptions): string;
 
     /**
      * Show an info alert.
+     *
      * @returns The id of the created alert.
      */
-    info(message: string, options?: AlertShowOptions): string;
+    info(message: ReactNode, options?: AlertShowOptions): string;
 
     /**
-     * Show an alert.
+     * Show an success alert.
+     *
      * @returns The id of the created alert.
      */
-    show(message: string, options?: AlertShowOptions): string;
+    success(message: ReactNode, options?: AlertShowOptions): string;
+
+    /**
+     * Show an error alert.
+     *
+     * @returns The id of the created alert.
+     */
+    error(message: ReactNode, options?: AlertShowOptions): string;
 
     /**
      * Remove all alerts from the page.
@@ -98,5 +109,5 @@ export default class AlertContainer extends React.Component<AlertContainerProps>
     /**
      * Removes the alert with the specified id from the page.
      */
-    remove(id: string): void;
+    removeAlert(id: string): void;
 }

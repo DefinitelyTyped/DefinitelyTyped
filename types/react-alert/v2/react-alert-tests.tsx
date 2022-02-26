@@ -1,48 +1,52 @@
-import * as React from "react";
-import AlertContainer, { AlertContainerProps, AlertShowOptions } from "react-alert";
+import * as React from 'react';
 
-export class ReactAlertTest extends React.Component {
+import AlertContainer, { AlertContainerProps, AlertShowOptions } from 'react-alert';
+
+export default class ReactAlertTests extends React.Component {
     private _alert: AlertContainer;
+
     render() {
-        const props: AlertContainerProps = {
+        const partialProps: AlertContainerProps = {
             offset: 14,
-            position: "bottom left",
-            theme: "dark",
-            time: 5000,
-            transition: "scale"
         };
 
-        return (
-            <div>
-                <AlertContainer ref={a => this._alert = a as AlertContainer} {...props} />
-            </div>
-        );
+        const props: AlertContainerProps = {
+            offset: 14,
+            position: 'bottom left',
+            theme: 'dark',
+            time: 5000,
+            transition: 'scale',
+        };
+
+        return <AlertContainer ref={a => (this._alert = a!)} {...props} />;
     }
 
-    private _testMethods(): void {
+    testMethods(): void {
         const options: AlertShowOptions = {
+            type: 'info',
             time: 5000,
-            type: "info",
-            onClose: this._onAlertClosed,
-            icon: <img src="path/to/some/image/32x32.png" />
+            icon: <img src="path/to/some/image/32x32.png" />,
+            onClose: this.onAlertClosed,
         };
 
         let alertId: string;
-        alertId = this._alert.show("show without options");
-        alertId = this._alert.show("show with options", options);
+        alertId = this._alert.show('show without options');
+        alertId = this._alert.show('show with options', options);
 
-        alertId = this._alert.error("error without options");
-        alertId = this._alert.error("error with options", options);
+        alertId = this._alert.info('info without options');
+        alertId = this._alert.info('info with options', options);
 
-        alertId = this._alert.info("info without options");
-        alertId = this._alert.info("info with options", options);
+        alertId = this._alert.success('success without options');
+        alertId = this._alert.success('success with options', options);
 
-        alertId = this._alert.success("success without options");
-        alertId = this._alert.success("success with options", options);
+        alertId = this._alert.error('error without options');
+        alertId = this._alert.error('error with options', options);
 
-        this._alert.remove(alertId);
+        alertId = this._alert.show(<div />, options);
+
+        this._alert.removeAlert(alertId);
         this._alert.removeAll();
     }
 
-    private _onAlertClosed(): void { }
+    onAlertClosed() {}
 }
