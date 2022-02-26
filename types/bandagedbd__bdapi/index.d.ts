@@ -301,7 +301,7 @@ declare namespace BdApiModule {
      * @param filter A function to use to filter modules.
      * @returns The modules found or null if none were found.
      */
-    function findModule(filter: (any) => boolean): any | null;
+    function findModule(filter: (any) => boolean): any;
 
     /**
      * Searches for multiple internal Discord webpack module based on `filter`. It's the same as `findModule` but will return all matches.
@@ -315,21 +315,21 @@ declare namespace BdApiModule {
      * @param props A series of properties to check for.
      * @returns The modules found or null if none were found.
      */
-    function findModuleByProps(...props: string[]): any | null;
+    function findModuleByProps(...props: string[]): any;
 
     /**
      * Searches for an internal Discord webpack module that has every property passed on its prototype.
      * @param props A series of prototype properties to check for
      * @returns The modules found or null if none were found..
      */
-    function findModuleByPrototypes(...props: string[]): any | null;
+    function findModuleByPrototypes(...props: string[]): any;
 
     /**
      * Searches for an internal Discord webpack module with a specific `displayName` value.
      * @param name The `displayName` to look for.
      * @returns The modules found or null if none were found.
      */
-    function findModuleByDisplayName(name: string): any | null;
+    function findModuleByDisplayName(name: string): any;
 
     /**
      * Returns BandagedBD's instance of the core module. Only use this if you know what you are doing.
