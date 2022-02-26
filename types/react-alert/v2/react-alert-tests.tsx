@@ -21,12 +21,12 @@ export default class ReactAlertTests extends React.Component {
         return <AlertContainer ref={a => (this._alert = a!)} {...props} />;
     }
 
-    testMethods(): void {
+    testMethods() {
         const options: AlertShowOptions = {
             type: 'info',
             time: 5000,
             icon: <img src="path/to/some/image/32x32.png" />,
-            onClose: this.onAlertClosed,
+            onClose: () => {},
         };
 
         let alertId: string;
@@ -47,6 +47,4 @@ export default class ReactAlertTests extends React.Component {
         this._alert.removeAlert(alertId);
         this._alert.removeAll();
     }
-
-    onAlertClosed() {}
 }
