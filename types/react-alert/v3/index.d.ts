@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { ReactNode, Component, ComponentType } from 'react';
+import { ReactNode, ComponentType, Component } from 'react';
 
 export type AlertPosition = 'top left' | 'top center' | 'top right' | 'bottom left' | 'bottom center' | 'bottom right';
 export type AlertType = 'info' | 'success' | 'error';
@@ -86,7 +86,7 @@ export interface AlertProviderProps extends AlertOptions {
 
 export class Provider extends Component<AlertProviderProps> {}
 
-export type AlertCustomOptionsFactory<T> = T & {
+export interface AlertCustomOptions extends AlertOptions {
     /**
      * Callback that will be executed after this alert open.
      */
@@ -96,7 +96,7 @@ export type AlertCustomOptionsFactory<T> = T & {
      * Callback that will be executed after this alert is removed.
      */
     onClose?(): void;
-};
+}
 
 export interface AlertContainerFactory<T> {
     show(message?: ReactNode, options?: T): AlertInstance;
@@ -105,8 +105,6 @@ export interface AlertContainerFactory<T> {
     error(message?: ReactNode, options?: T): AlertInstance;
     remove(alert: AlertInstance): void;
 }
-
-export type AlertCustomOptions = AlertCustomOptionsFactory<AlertOptions>;
 export type AlertContainer = AlertContainerFactory<AlertCustomOptions>;
 
 export interface InjectedAlertProps {

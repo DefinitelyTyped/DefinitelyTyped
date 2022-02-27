@@ -4,18 +4,12 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { CSSProperties, ComponentType, Context, Component } from 'react';
-import {
-    AlertPosition as AlertPositionV4,
-    AlertOptions as AlertOptionsV4,
-    AlertTemplateProps,
-    AlertCustomOptionsFactory,
-    AlertContainerFactory,
-} from '../v4';
+import { CSSProperties, ReactNode, ComponentType, Component, Context } from 'react';
 
-export { AlertType, AlertTransition, AlertTemplateProps } from '../v4';
-
+export type AlertPositionV4 = 'top left' | 'top center' | 'top right' | 'bottom left' | 'bottom center' | 'bottom right';
 export type AlertPosition = AlertPositionV4 | 'middle left' | 'middle' | 'middle right';
+export type AlertType = 'info' | 'success' | 'error';
+export type AlertTransition = 'fade' | 'scale';
 export interface Positions {
     TOP_LEFT: 'top left';
     TOP_CENTER: 'top center';
@@ -41,13 +35,41 @@ export const positions: Positions;
 export const types: Types;
 export const transitions: Transitions;
 
-export interface AlertOptions extends Omit<AlertOptionsV4, 'position' | 'zIndex'> {
+export interface AlertOptions {
+    /**
+     * The margin of each alert.
+     *
+     * Default: '10px'
+     */
+    offset?: string;
+
     /**
      * The position of the alerts in the page.
      *
      * Default: positions.TOP_CENTER
      */
     position?: AlertPosition;
+
+    /**
+     * Timeout to alert remove itself, if set to 0 it never removes itself.
+     *
+     * Default: 0
+     */
+    timeout?: number;
+
+    /**
+     * The default alert type used when calling this.props.alert.show.
+     *
+     * Default: types.INFO
+     */
+    type?: AlertType;
+
+    /**
+     * The transition animation.
+     *
+     * Default: transitions.FADE
+     */
+    transition?: AlertTransition;
 
     /**
      * Style to be applied in the alerts container.
@@ -57,6 +79,29 @@ export interface AlertOptions extends Omit<AlertOptionsV4, 'position' | 'zIndex'
      * }
      */
     containerStyle?: CSSProperties;
+}
+
+export interface AlertInstance {
+    id: number;
+
+    /**
+     * The alert message.
+     */
+    message: ReactNode;
+
+    options: AlertOptions;
+
+    /**
+     * A function that closes the alert.
+     */
+    close: () => void;
+}
+
+export interface AlertTemplateProps extends Omit<AlertInstance, 'id'> {
+    /**
+     * The style contains only the margin given as offset.
+     */
+    style: { margin: string };
 }
 
 export interface AlertProviderProps extends AlertOptions {
@@ -70,7 +115,25 @@ export interface AlertProviderProps extends AlertOptions {
 
 export class Provider extends Component<AlertProviderProps> {}
 
-export type AlertCustomOptions = AlertCustomOptionsFactory<AlertOptions>;
+export interface AlertCustomOptions extends AlertOptions {
+    /**
+     * Callback that will be executed after this alert open.
+     */
+    onOpen?(): void;
+
+    /**
+     * Callback that will be executed after this alert is removed.
+     */
+    onClose?(): void;
+}
+
+export interface AlertContainerFactory<T> {
+    show(message?: ReactNode, options?: T): AlertInstance;
+    info(message?: ReactNode, options?: T): AlertInstance;
+    success(message?: ReactNode, options?: T): AlertInstance;
+    error(message?: ReactNode, options?: T): AlertInstance;
+    remove(alert: AlertInstance): void;
+}
 export type AlertContainer = AlertContainerFactory<AlertCustomOptions>;
 
 export interface InjectedAlertProps {

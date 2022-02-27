@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { ReactNode, Component, ReactElement } from 'react';
+import { ReactElement, Component, ReactNode } from 'react';
 
 export interface AlertContainerProps {
     /**

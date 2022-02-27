@@ -15,7 +15,6 @@
         "paths": {
             "react": ["react/v16"],
             "react-alert": ["react-alert/v4"],
-            "react-alert/*": ["react-alert/v4/*"]
         },
         "types": [],
         "noEmit": true,
