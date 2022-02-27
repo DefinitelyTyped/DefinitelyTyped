@@ -19,7 +19,7 @@ export default class App extends React.Component {
             type: 'success',
             icon: <img src="path/to/some/img/32x32.png" />,
         });
-    };
+    }
 
     render() {
         return (
