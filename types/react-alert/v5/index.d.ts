@@ -6,7 +6,13 @@
 
 import { CSSProperties, ReactNode, ComponentType, Component, Context } from 'react';
 
-export type AlertPositionV4 = 'top left' | 'top center' | 'top right' | 'bottom left' | 'bottom center' | 'bottom right';
+export type AlertPositionV4 =
+    | 'top left'
+    | 'top center'
+    | 'top right'
+    | 'bottom left'
+    | 'bottom center'
+    | 'bottom right';
 export type AlertPosition = AlertPositionV4 | 'middle left' | 'middle' | 'middle right';
 export type AlertType = 'info' | 'success' | 'error';
 export type AlertTransition = 'fade' | 'scale';
