@@ -13,7 +13,8 @@
             "../../"
         ],
         "paths": {
-            "react-alert": ["react-alert/v5"]
+            "react-alert": ["react-alert/v5"],
+            "react-alert/*": ["react-alert/*"]
         },
         "types": [],
         "noEmit": true,
