@@ -5,9 +5,9 @@
 // TypeScript Version: 2.8
 
 import { Context, ComponentType } from 'react';
-import { AlertContainer as AlertContainerV5 } from './v5';
+import { AlertContainer as AlertContainerV5 } from 'react-alert/v5';
 
-export * from './v5';
+export * from 'react-alert/v5';
 
 export type AlertContainer = AlertContainerV5 & {
     removeAll(): void;

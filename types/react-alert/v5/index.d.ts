@@ -11,9 +11,9 @@ import {
     AlertTemplateProps,
     AlertCustomOptionsFactory,
     AlertContainerFactory,
-} from '../v4';
+} from 'react-alert/v4';
 
-export { AlertType, AlertTransition, AlertTemplateProps } from '../v4';
+export { AlertType, AlertTransition, AlertTemplateProps } from 'react-alert/v4';
 
 export type AlertPosition = AlertPositionV4 | 'middle left' | 'middle' | 'middle right';
 export interface Positions {
