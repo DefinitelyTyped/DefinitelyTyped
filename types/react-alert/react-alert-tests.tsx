@@ -35,6 +35,9 @@ const options: AlertOptions = {
     transition: transitions.SCALE,
 };
 
+// $ExpectError
+options.position = 'top';
+
 const App = () => {
     const alert = useAlert();
 
