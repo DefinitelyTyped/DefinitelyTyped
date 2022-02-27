@@ -337,7 +337,7 @@ export type FormatInput = number | string | Date;
 
 export interface DateLocalizerSpec {
     firstOfWeek: (culture: Culture) => number;
-    format: (value: FormatInput, format: string, culture: Culture) => string;
+    format: (value: FormatInput, format: string, culture?: Culture) => string;
     formats: Formats;
     propType?: Validator<any> | undefined;
 }
@@ -349,7 +349,7 @@ export class DateLocalizer {
 
     constructor(spec: DateLocalizerSpec);
 
-    format(value: FormatInput, format: string, culture: Culture): string;
+    format(value: FormatInput, format: string, culture?: Culture): string;
     messages: Messages;
 }
 
@@ -399,7 +399,7 @@ export interface CalendarProps<TEvent extends object = Event, TResource extends 
     min?: Date;
     max?: Date;
     scrollToTime?: Date;
-    culture?: string | undefined;
+    culture?: Culture | undefined;
     formats?: Formats | undefined;
     components?: Components<TEvent, TResource> | undefined;
     messages?: Messages | undefined;
@@ -423,7 +423,7 @@ export interface CalendarProps<TEvent extends object = Event, TResource extends 
 
 export interface TitleOptions {
     formats: DateFormat[];
-    culture?: string | undefined;
+    culture?: Culture | undefined;
     [propName: string]: any;
 }
 
