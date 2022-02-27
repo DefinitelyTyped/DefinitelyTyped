@@ -51,7 +51,7 @@ class App extends React.Component<{} & InjectedAlertProps> {
 
 const AppWithAlert = withAlert(App);
 
-export default class Root extends React.Component {
+class Root extends React.Component {
     render() {
         return (
             <AlertProvider template={AlertTemplate} {...options}>
