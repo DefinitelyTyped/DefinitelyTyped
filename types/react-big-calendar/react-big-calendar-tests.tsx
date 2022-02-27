@@ -18,6 +18,7 @@ import {
     EventProps,
     EventWrapperProps,
     NavigateAction,
+    Culture,
     DayLayoutAlgorithm,
     DayLayoutFunction,
     stringOrDate,
@@ -315,8 +316,8 @@ class CalendarResource {
                     scrollToTime={new Date()}
                     formats={{
                         dateFormat: 'h a',
-                        agendaDateFormat: (date: Date, culture?: string, localizer?: DateLocalizer) => 'some-format',
-                        dayRangeHeaderFormat: (range: DateRange, culture?: string, localizer?: DateLocalizer) =>
+                        agendaDateFormat: (date: Date, culture?: Culture, localizer?: DateLocalizer) => 'some-format',
+                        dayRangeHeaderFormat: (range: DateRange, culture?: Culture, localizer?: DateLocalizer) =>
                             'some-format',
                     }}
                     messages={{
