@@ -34,23 +34,25 @@ debug('Too many tomsters!', 'foo'); // $ExpectError
 // next is not called, so no warnings get the default behavior
 registerWarnHandler(); // $ExpectError
 registerWarnHandler(() => {}); // $ExpectType void
-// $ExpectType void
-registerWarnHandler((message, { id }, next) => {
+registerWarnHandler((message, options, next) => { // $ExpectType void
     message; // $ExpectType string
-    id; // $ExpectType string
-    next; // $ExpectType (message?: string | undefined, options?: { id: string; } | undefined) => void
+    options; // $ExpectType { id: string; } | undefined
+    next; // $ExpectType (message: string, options?: { id: string; } | undefined) => void
 });
-// $ExpectType void
-registerWarnHandler((message, { id }, next) => {
+registerWarnHandler((message, options, next) => { // $ExpectType void
     message; // $ExpectType string
-    id; // $ExpectType string
-    next(); // $ExpectType void
+    options; // $ExpectType { id: string; } | undefined
+    next(); // $ExpectError
 });
-// $ExpectType void
-registerWarnHandler((message, { id }, next) => {
+registerWarnHandler((message, options, next) => { // $ExpectType void
     message; // $ExpectType string
-    id; // $ExpectType string
-    next(message, { id }); // $ExpectType void
+    options; // $ExpectType { id: string; } | undefined
+    next(message); // $ExpectType void
+});
+registerWarnHandler((message, options, next) => { // $ExpectType void
+    message; // $ExpectType string
+    options; // $ExpectType { id: string; } | undefined
+    next(message, options); // $ExpectType void
 });
 
 // next is not called, so no warnings get the default behavior
