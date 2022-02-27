@@ -5,8 +5,8 @@
 // TypeScript Version: 2.8
 
 import { Consumer } from 'react';
-import { AlertContainer } from 'react-alert-v3';
+import { AlertContainer } from 'react-alert/v3';
 
-export * from 'react-alert-v3';
+export * from 'react-alert/v3';
 
 export const Alert: Consumer<AlertContainer>;
