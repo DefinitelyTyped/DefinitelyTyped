@@ -12,6 +12,13 @@ export type AlertTransition = 'fade' | 'scale';
 
 export interface AlertOptions {
     /**
+     * The margin of each alert.
+     *
+     * Default: '10px'
+     */
+    offset?: string;
+
+    /**
      * The position of the alerts in the page.
      *
      * Default: 'top center'
