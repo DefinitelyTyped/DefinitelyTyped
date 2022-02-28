@@ -25,112 +25,114 @@ declare namespace braintree {
     }
 
     export type TextFieldSearchFn = () => {
-      is: (input: string) => void
-      isNot: (input: string) => void
-      startsWith: (input: string) => void
-      endsWith: (input: string) => void
-      contains: (input: string) => void
+        is: (input: string) => void;
+        isNot: (input: string) => void;
+        startsWith: (input: string) => void;
+        endsWith: (input: string) => void;
+        contains: (input: string) => void;
     };
 
-    export type MultiValueSearchFn<T>  = () => {
-      is: (input: T) => void
-      in: (input: T[]) => void
+    export type MultiValueSearchFn<T> = () => {
+        is: (input: T) => void;
+        in: (input: T[]) => void;
     };
 
     export type RangeFieldSearchFn<T> = () => {
-      is: (input: T) => void
-      /** Inclusive */
-      between: (lowerBound: T, upperBoundIncl: T) => void
-      min: (minimum: T) => void
-      max: (maximum: T) => void
+        is: (input: T) => void;
+        /** Inclusive */
+        between: (lowerBound: T, upperBoundIncl: T) => void;
+        min: (minimum: T) => void;
+        max: (maximum: T) => void;
     };
 
     export type EqualitySearchFn<T> = () => {
-      is: (input: T) => void
-      isNot: (input: T) => void
+        is: (input: T) => void;
+        isNot: (input: T) => void;
     };
 
     export type PartialMatchSearchFn<T> = () => {
-      startsWith: (input: T) => void
-      endsWith: (input: T) => void
+        startsWith: (input: T) => void;
+        endsWith: (input: T) => void;
     };
 
     export type KeyValueSearchFn<T> = () => {
-      is: (input: T) => void
+        is: (input: T) => void;
     };
 
     export type TransactionSearchFn = (search: {
-      // text fields https://github.com/braintree/braintree_node/blob/master/lib/braintree/transaction_search.js#L9
-      billingCompany: TextFieldSearchFn
-      billingCountryName: TextFieldSearchFn
-      billingExtendedAddress: TextFieldSearchFn
-      billingFirstName: TextFieldSearchFn
-      billingLastName: TextFieldSearchFn
-      billingLocality: TextFieldSearchFn
-      billingPostalCode: TextFieldSearchFn
-      billingRegion: TextFieldSearchFn
-      billingStreetAddress: TextFieldSearchFn
-      creditCardCardholderName: TextFieldSearchFn
-      creditCardUniqueIdentifier: TextFieldSearchFn
-      currency: TextFieldSearchFn
-      customerCompany: TextFieldSearchFn
-      customerEmail: TextFieldSearchFn
-      customerFax: TextFieldSearchFn
-      customerFirstName: TextFieldSearchFn
-      customerId: TextFieldSearchFn
-      customerLastName: TextFieldSearchFn
-      customerPhone: TextFieldSearchFn
-      customerWebsite: TextFieldSearchFn
-      id: TextFieldSearchFn
-      orderId: TextFieldSearchFn
-      paymentMethodToken: TextFieldSearchFn
-      paypalPayerEmail: TextFieldSearchFn
-      paypalPaymentId: TextFieldSearchFn
-      paypalAuthorizationId: TextFieldSearchFn
-      processorAuthorizationCode: TextFieldSearchFn
-      settlementBatchId: TextFieldSearchFn
-      shippingCompany: TextFieldSearchFn
-      shippingCountryName: TextFieldSearchFn
-      shippingExtendedAddress: TextFieldSearchFn
-      shippingFirstName: TextFieldSearchFn
-      shippingLastName: TextFieldSearchFn
-      shippingLocality: TextFieldSearchFn
-      shippingPostalCode: TextFieldSearchFn
-      shippingRegion: TextFieldSearchFn
-      shippingStreetAddress: TextFieldSearchFn
-      storeId: TextFieldSearchFn
+        // text fields https://github.com/braintree/braintree_node/blob/master/lib/braintree/transaction_search.js#L9
+        billingCompany: TextFieldSearchFn;
+        billingCountryName: TextFieldSearchFn;
+        billingExtendedAddress: TextFieldSearchFn;
+        billingFirstName: TextFieldSearchFn;
+        billingLastName: TextFieldSearchFn;
+        billingLocality: TextFieldSearchFn;
+        billingPostalCode: TextFieldSearchFn;
+        billingRegion: TextFieldSearchFn;
+        billingStreetAddress: TextFieldSearchFn;
+        creditCardCardholderName: TextFieldSearchFn;
+        creditCardUniqueIdentifier: TextFieldSearchFn;
+        currency: TextFieldSearchFn;
+        customerCompany: TextFieldSearchFn;
+        customerEmail: TextFieldSearchFn;
+        customerFax: TextFieldSearchFn;
+        customerFirstName: TextFieldSearchFn;
+        customerId: TextFieldSearchFn;
+        customerLastName: TextFieldSearchFn;
+        customerPhone: TextFieldSearchFn;
+        customerWebsite: TextFieldSearchFn;
+        id: TextFieldSearchFn;
+        orderId: TextFieldSearchFn;
+        paymentMethodToken: TextFieldSearchFn;
+        paypalPayerEmail: TextFieldSearchFn;
+        paypalPaymentId: TextFieldSearchFn;
+        paypalAuthorizationId: TextFieldSearchFn;
+        processorAuthorizationCode: TextFieldSearchFn;
+        settlementBatchId: TextFieldSearchFn;
+        shippingCompany: TextFieldSearchFn;
+        shippingCountryName: TextFieldSearchFn;
+        shippingExtendedAddress: TextFieldSearchFn;
+        shippingFirstName: TextFieldSearchFn;
+        shippingLastName: TextFieldSearchFn;
+        shippingLocality: TextFieldSearchFn;
+        shippingPostalCode: TextFieldSearchFn;
+        shippingRegion: TextFieldSearchFn;
+        shippingStreetAddress: TextFieldSearchFn;
+        storeId: TextFieldSearchFn;
 
-      creditCardExpirationDate: EqualitySearchFn<string>
-      creditCardNumber: PartialMatchSearchFn<string>
+        creditCardExpirationDate: EqualitySearchFn<string>;
+        creditCardNumber: PartialMatchSearchFn<string>;
 
-      createdUsing: MultiValueSearchFn<typeof Transaction.CreatedUsing[keyof typeof Transaction.CreatedUsing]>
-      creditcardCardType: MultiValueSearchFn<typeof CreditCard.CardType[keyof Omit<typeof CreditCard.CardType, 'All'>]>
-      creditCardCustomerLocation: MultiValueSearchFn<CustomerLocation>
+        createdUsing: MultiValueSearchFn<typeof Transaction.CreatedUsing[keyof typeof Transaction.CreatedUsing]>;
+        creditcardCardType: MultiValueSearchFn<
+            typeof CreditCard.CardType[keyof Omit<typeof CreditCard.CardType, 'All'>]
+        >;
+        creditCardCustomerLocation: MultiValueSearchFn<CustomerLocation>;
 
-      ids: MultiValueSearchFn<string>
-      user: MultiValueSearchFn<string>
-      paymentInstrumentType: MultiValueSearchFn<string>
-      merchantAccountId: MultiValueSearchFn<string>
-      status: MultiValueSearchFn<TransactionStatus>
-      source: MultiValueSearchFn<TransactionSource | string>
-      type: MultiValueSearchFn<typeof Transaction.Type[keyof Omit<typeof Transaction.Type, 'All'>]>
-      storeIds: MultiValueSearchFn<string>
+        ids: MultiValueSearchFn<string>;
+        user: MultiValueSearchFn<string>;
+        paymentInstrumentType: MultiValueSearchFn<string>;
+        merchantAccountId: MultiValueSearchFn<string>;
+        status: MultiValueSearchFn<TransactionStatus>;
+        source: MultiValueSearchFn<TransactionSource | string>;
+        type: MultiValueSearchFn<typeof Transaction.Type[keyof Omit<typeof Transaction.Type, 'All'>]>;
+        storeIds: MultiValueSearchFn<string>;
 
-      refund: KeyValueSearchFn<boolean>
+        refund: KeyValueSearchFn<boolean>;
 
-      // range fields
-      amount: RangeFieldSearchFn<string>
-      authorizationExpiredAt: RangeFieldSearchFn<Date>
-      authorizedAt: RangeFieldSearchFn<Date>
-      createdAt: RangeFieldSearchFn<Date>
-      disbursementDate: RangeFieldSearchFn<Date>
-      disputeDate: RangeFieldSearchFn<Date>
-      failedAt: RangeFieldSearchFn<Date>
-      gatewayRejectedAt: RangeFieldSearchFn<Date>
-      processorDeclinedAt: RangeFieldSearchFn<Date>
-      settledAt: RangeFieldSearchFn<Date>
-      submittedForSettlementAt: RangeFieldSearchFn<Date>
-      voidedAt: RangeFieldSearchFn<Date>
+        // range fields
+        amount: RangeFieldSearchFn<string>;
+        authorizationExpiredAt: RangeFieldSearchFn<Date>;
+        authorizedAt: RangeFieldSearchFn<Date>;
+        createdAt: RangeFieldSearchFn<Date>;
+        disbursementDate: RangeFieldSearchFn<Date>;
+        disputeDate: RangeFieldSearchFn<Date>;
+        failedAt: RangeFieldSearchFn<Date>;
+        gatewayRejectedAt: RangeFieldSearchFn<Date>;
+        processorDeclinedAt: RangeFieldSearchFn<Date>;
+        settledAt: RangeFieldSearchFn<Date>;
+        submittedForSettlementAt: RangeFieldSearchFn<Date>;
+        voidedAt: RangeFieldSearchFn<Date>;
     }) => void;
 
     export type GatewayConfig = KeyGatewayConfig | ClientGatewayConfig | AccessTokenGatewayConfig;
@@ -1375,18 +1377,18 @@ declare namespace braintree {
         static Type: {
             Credit: 'credit';
             Sale: 'sale';
-            All: () => Array<typeof Transaction.Type[keyof Omit<typeof Transaction.Type, 'All'>]>
+            All: () => Array<typeof Transaction.Type[keyof Omit<typeof Transaction.Type, 'All'>]>;
         };
 
         static Source: {
-            Api: 'Api',
-            ControlPanel: 'ControlPanel',
-            Recurring: 'Recurring'
+            Api: 'Api';
+            ControlPanel: 'ControlPanel';
+            Recurring: 'Recurring';
         };
 
         static CreatedUsing: {
-          Token: 'token',
-          FullInformation: 'full_information'
+            Token: 'token';
+            FullInformation: 'full_information';
         };
 
         static GatewayRejectionReason: {
@@ -1415,7 +1417,7 @@ declare namespace braintree {
             SettlementPending: 'settlement_pending';
             SubmittedForSettlement: 'submitted_for_settlement';
             Voided: 'voided';
-            All: () => Array<typeof Transaction.Status[keyof Omit<typeof Transaction.Status, 'All'>]>
+            All: () => Array<typeof Transaction.Status[keyof Omit<typeof Transaction.Status, 'All'>]>;
         };
 
         addOns?: AddOn[] | undefined;
