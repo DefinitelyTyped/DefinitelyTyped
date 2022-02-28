@@ -44,7 +44,7 @@ declare module 'http' {
     import { URL } from 'node:url';
     import { TcpSocketConnectOpts, Socket, Server as NetServer, LookupFunction } from 'node:net';
     // incoming headers will never contain number
-    interface IncomingHttpHeaders extends NodeJS.Dict<string | string[]> {
+    interface IncomingHttpHeaders extends NodeJS.Dict<string> {
         accept?: string | undefined;
         'accept-language'?: string | undefined;
         'accept-patch'?: string | undefined;
