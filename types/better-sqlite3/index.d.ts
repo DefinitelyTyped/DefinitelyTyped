@@ -123,6 +123,7 @@ declare namespace Database {
         varargs?: boolean | undefined;
         deterministic?: boolean | undefined;
         safeIntegers?: boolean | undefined;
+        directOnly?: boolean | undefined;
     }
 
     interface AggregateOptions extends RegistrationOptions {
