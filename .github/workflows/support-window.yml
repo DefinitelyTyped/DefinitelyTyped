@@ -12,6 +12,7 @@ on:
   workflow_dispatch:
 jobs:
   support-window:
+    if: github.repository == 'DefinitelyTyped/DefinitelyTyped'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2

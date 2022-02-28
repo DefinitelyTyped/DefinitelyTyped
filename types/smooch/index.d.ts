@@ -872,9 +872,8 @@ declare namespace Smooch {
         surname: string;
         email: string;
         avatarUrl: string;
-        metadata: {
-            justGotUpdated: boolean;
-        };
+        metadata: unknown;
+        properties: unknown;
     }
 
     interface ConversationParticipant {

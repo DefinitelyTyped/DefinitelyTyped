@@ -87,8 +87,10 @@ render(
     document.getElementById('app-root'),
 );
 
-const handleRef = (el: HTMLAnchorElement) => {
-    el.focus();
+const handleRef = (el: HTMLAnchorElement | null) => {
+    if (el !== null) {
+        el.focus();
+    }
 };
 
 render(<Link innerRef={handleRef} to="./foo"></Link>, document.getElementById('app-root'));
