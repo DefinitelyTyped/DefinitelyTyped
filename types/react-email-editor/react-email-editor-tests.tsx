@@ -166,7 +166,7 @@ class App extends React.Component {
             },
           }}
           projectId={1}
-          onLoad={this.handleLoad}
+          onReady={this.handleLoad}
         />
         <button onClick={this.handleClick}>save all</button>
       </>

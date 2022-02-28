@@ -1,4 +1,4 @@
-// Type definitions for react-native 0.66
+// Type definitions for react-native 0.67
 // Project: https://github.com/facebook/react-native
 // Definitions by: Eloy Durán <https://github.com/alloy>
 //                 HuHuanming <https://github.com/huhuanming>
@@ -987,8 +987,7 @@ export interface TextPropsAndroid {
         | 'normal'
         | 'none'
         | 'full'
-        | 'high'
-        | 'balanced' | undefined;
+        | undefined;
 }
 
 // https://reactnative.dev/docs/text#props
