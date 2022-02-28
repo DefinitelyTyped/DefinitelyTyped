@@ -5,6 +5,7 @@
 //                 Clayton Astrom <https://github.com/ClaytonAstrom>
 //                 Lukas Beranek <https://github.com/lloiser>
 //                 Vaibhav Singh <https://github.com/vaibhavsingh97>
+//                 Andrei Rusu <https://github.com/beatfactor>
 //                 David Burns <https://github.com/AutomatedTester>
 //                 Ravi Sawlani <https://github.com/gravityvi>
 //                 Binayak Ghosh <https://github.com/swrdfish>
