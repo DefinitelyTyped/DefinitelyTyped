@@ -90,6 +90,11 @@ export class MjmlAttributes extends React.Component<{ children?: React.ReactNode
 export class MjmlAll extends React.Component<{ [key: string]: any; children?: React.ReactNode | undefined }> { }
 export class MjmlClass extends React.Component<{ [key: string]: any; children?: React.ReactNode | undefined; name: string }> { }
 
+// mj-html-attributes
+export class MjmlHtmlAttributes extends React.Component<{ children?: React.ReactNode }> { }
+export class MjmlSelector extends React.Component<{ children?: React.ReactNode | undefined; path: string }> { }
+export class MjmlHtmlAttribute extends React.Component<{ children?: React.ReactNode | undefined; name: string }> { }
+
 // mj-breakpoint
 export interface MjmlBreakpointProps {
     width?: string | number | undefined;

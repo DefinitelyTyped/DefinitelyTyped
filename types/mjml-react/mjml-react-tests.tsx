@@ -34,6 +34,9 @@ import {
     MjmlStyle,
     MjmlTable,
     MjmlWrapper,
+    MjmlHtmlAttributes,
+    MjmlSelector,
+    MjmlHtmlAttribute
 } from 'mjml-react';
 
 import { MjmlComment, MjmlConditionalComment, MjmlTrackingPixel, MjmlYahooStyle } from 'mjml-react/extensions';
@@ -111,6 +114,21 @@ function renderOutTestEmail() {
             child
         </MjmlClass>
     );
+}
+// TestMjmlHtmlAttributesTag
+{
+    const minProps: React.ReactNode = <MjmlHtmlAttributes />;
+    const maxProps: React.ReactNode = <MjmlHtmlAttributes>child</MjmlHtmlAttributes>;
+}
+// TestMjmlSelectorTag
+{
+    const minProps: React.ReactNode = <MjmlSelector path="div.hello" />;
+    const maxProps: React.ReactNode = <MjmlSelector path="div.hello">child</MjmlSelector>;
+}
+// TestMjmlHtmlAttributesTag
+{
+    const minProps: React.ReactNode = <MjmlHtmlAttribute name="data-testid" />;
+    const maxProps: React.ReactNode = <MjmlHtmlAttribute name="data-testid">child</MjmlHtmlAttribute>;
 }
 // TestMjmlBreakpointTag
 {
