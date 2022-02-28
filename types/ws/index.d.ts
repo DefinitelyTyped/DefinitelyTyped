@@ -41,6 +41,8 @@ declare class WebSocket extends EventEmitter {
     binaryType: "nodebuffer" | "arraybuffer" | "fragments";
     readonly bufferedAmount: number;
     readonly extensions: string;
+    /** Indicates whether the websocket is paused */
+    readonly isPaused: boolean;
     readonly protocol: string;
     /** The current state of the connection */
     readonly readyState:
@@ -82,6 +84,18 @@ declare class WebSocket extends EventEmitter {
         cb?: (err?: Error) => void,
     ): void;
     terminate(): void;
+
+    /**
+     * Pause the websocket causing it to stop emitting events. Some events can still be
+     * emitted after this is called, until all buffered data is consumed. This method
+     * is a noop if the ready state is `CONNECTING` or `CLOSED`.
+     */
+    pause(): void;
+    /**
+     * Make a paused socket resume emitting events. This method is a noop if the ready
+     * state is `CONNECTING` or `CLOSED`.
+     */
+    resume(): void;
 
     // HTML5 WebSocket events
     addEventListener(
