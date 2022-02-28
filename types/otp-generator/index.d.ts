@@ -11,6 +11,6 @@ interface Options {
 }
 
 declare const _default: {
-    generate: (length: number, options: Options) => string;
+    generate: (length?: number, options?: Options) => string;
 };
 export = _default;
