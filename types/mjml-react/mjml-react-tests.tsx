@@ -39,7 +39,7 @@ import {
     MjmlHtmlAttribute
 } from 'mjml-react';
 
-import { MjmlComment, MjmlConditionalComment, MjmlTrackingPixel, MjmlYahooStyle } from 'mjml-react/extensions';
+import { MjmlComment, MjmlConditionalComment, MjmlTrackingPixel, MjmlYahooStyle, MjmlHtml } from 'mjml-react/extensions';
 
 import {
     addQueryParams,
