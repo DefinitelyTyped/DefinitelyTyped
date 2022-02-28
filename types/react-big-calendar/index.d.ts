@@ -31,7 +31,7 @@ export type EventPropGetter<T> = (
     start: Date,
     end: Date,
     isSelected: boolean,
-) => { className?: string; style?: React.CSSProperties };
+) => { className?: string | undefined; style?: React.CSSProperties };
 export type SlotPropGetter = (date: Date, resourceId?: number | string) => React.HTMLAttributes<HTMLDivElement>;
 export type SlotGroupPropGetter = () => React.HTMLAttributes<HTMLDivElement>;
 
@@ -188,7 +188,7 @@ export interface DateCellWrapperProps {
     range: Date[];
     value: Date;
     children: JSX.Element;
-  }
+}
 
 export interface Components<TEvent extends object = Event, TResource extends object = object> {
     event?: React.ComponentType<EventProps<TEvent>> | undefined;
@@ -268,7 +268,7 @@ export interface EventWrapperProps<TEvent extends object = Event> {
     event: TEvent;
     isRtl: boolean;
     getters: {
-        eventProp?: EventPropGetter<TEvent>;
+        eventProp?: EventPropGetter<TEvent> | undefined;
         slotProp?: SlotPropGetter | undefined;
         dayProp?: DayPropGetter | undefined;
     };
@@ -315,21 +315,25 @@ export interface SlotInfo {
     end: Date;
     slots: Date[];
     action: 'select' | 'click' | 'doubleClick';
-    resourceId?: number | string;
-    bounds?: {
-        x: number;
-        y: number;
-        top: number;
-        bottom: number;
-        left: number;
-        right: number;
-    };
-    box?: {
-        x: number;
-        y: number;
-        clientX: number;
-        clientY: number;
-    };
+    resourceId?: number | string | undefined;
+    bounds?:
+        | {
+              x: number;
+              y: number;
+              top: number;
+              bottom: number;
+              left: number;
+              right: number;
+          }
+        | undefined;
+    box?:
+        | {
+              x: number;
+              y: number;
+              clientX: number;
+              clientY: number;
+          }
+        | undefined;
 }
 
 export type Culture = string;
@@ -358,8 +362,8 @@ export interface CalendarProps<TEvent extends object = Event, TResource extends 
     ref?: React.LegacyRef<Calendar<TEvent, TResource>> | undefined;
     localizer: DateLocalizer;
 
-    date?: stringOrDate;
-    getNow?: () => stringOrDate;
+    date?: stringOrDate | undefined;
+    getNow?: () => stringOrDate | undefined;
     view?: View | undefined;
     events?: TEvent[] | undefined;
     backgroundEvents?: TEvent[] | undefined;
@@ -372,7 +376,7 @@ export interface CalendarProps<TEvent extends object = Event, TResource extends 
     onSelectEvent?: ((event: TEvent, e: React.SyntheticEvent<HTMLElement>) => void) | undefined;
     onKeyPressEvent?: ((event: TEvent, e: React.SyntheticEvent<HTMLElement>) => void) | undefined;
     onSelecting?: (range: { start: Date; end: Date }) => boolean | undefined;
-    onRangeChange?: (range: Date[] | { start: Date; end: Date }, view?: View) => void;
+    onRangeChange?: (range: Date[] | { start: Date; end: Date }, view?: View) => void | undefined;
     showAllEvents?: boolean | undefined;
     selected?: any;
     views?: ViewsProps<TEvent, TResource> | undefined;
@@ -391,14 +395,14 @@ export interface CalendarProps<TEvent extends object = Event, TResource extends 
     step?: number | undefined;
     timeslots?: number | undefined;
     rtl?: boolean | undefined;
-    eventPropGetter?: EventPropGetter<TEvent>;
+    eventPropGetter?: EventPropGetter<TEvent> | undefined;
     slotPropGetter?: SlotPropGetter | undefined;
     slotGroupPropGetter?: SlotGroupPropGetter | undefined;
     dayPropGetter?: DayPropGetter | undefined;
     showMultiDayTimes?: boolean | undefined;
-    min?: Date;
-    max?: Date;
-    scrollToTime?: Date;
+    min?: Date | undefined;
+    max?: Date | undefined;
+    scrollToTime?: Date | undefined;
     culture?: Culture | undefined;
     formats?: Formats | undefined;
     components?: Components<TEvent, TResource> | undefined;
@@ -414,7 +418,7 @@ export interface CalendarProps<TEvent extends object = Event, TResource extends 
     resourceIdAccessor?: keyof TResource | ((resource: TResource) => any) | undefined;
     resourceTitleAccessor?: keyof TResource | ((resource: TResource) => any) | undefined;
     defaultView?: View | undefined;
-    defaultDate?: stringOrDate;
+    defaultDate?: stringOrDate | undefined;
     className?: string | undefined;
     elementProps?: React.HTMLAttributes<HTMLElement> | undefined;
     style?: React.CSSProperties | undefined;
@@ -474,8 +478,8 @@ export interface TimeGridProps<TEvent extends object = Event, TResource extends 
     step?: number | undefined;
     timeslots?: number | undefined;
     range?: any[] | undefined;
-    min?: Date;
-    max?: Date;
+    min?: Date | undefined;
+    max?: Date | undefined;
     getNow?: (() => Date) | undefined;
     scrollToTime?: Date | undefined;
     showMultiDayTimes?: boolean | undefined;
