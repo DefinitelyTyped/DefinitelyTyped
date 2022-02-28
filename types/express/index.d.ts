@@ -4,7 +4,6 @@
 //                 China Medical University Hospital <https://github.com/CMUH>
 //                 Puneet Arora <https://github.com/puneetar>
 //                 Dylan Frankland <https://github.com/dfrankland>
-//                 Kyle Chine <https://github.com/kyle-chine-leismore>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /* =================== USAGE ===================
