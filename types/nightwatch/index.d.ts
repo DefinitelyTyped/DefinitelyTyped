@@ -3730,6 +3730,7 @@ export interface WebDriverProtocolSessions {
         ms: number,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
     ): this;
+    timeouts(callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void): this;
 
     /**
      * Set the amount of time, in milliseconds, that asynchronous scripts executed by `.executeAsync` are permitted to run before they are aborted and a |Timeout| error is returned to the client.
@@ -3829,29 +3830,7 @@ export interface WebDriverProtocolNavigation {
      *   }
      * }
      */
-    url(url: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void): this;
-    /**
-     * Retrieve the URL of the current page or navigate to a new URL.
-     *
-     * @example
-     * module.exports = {
-     *  'demo Test' : function(browser) {
-     *     browser.url(function(result) {
-     *       // return the current url
-     *       console.log(result);
-     *     });
-     *     //
-     *     // navigate to new url:
-     *     browser.url('{URL}');
-     *     //
-     *     //
-     *     // navigate to new url:
-     *     browser.url('{URL}', function(result) {
-     *       console.log(result);
-     *     });
-     *   }
-     * }
-     */
+    url(url?: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void): this;
     url(callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void): this;
 
     /**
@@ -3928,7 +3907,7 @@ export interface WebDriverProtocolCommandContexts {
      * }
      */
     windowMaximize(
-        handleOrName: string,
+        handleOrName?: string,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
     ): this;
 
@@ -3958,26 +3937,6 @@ export interface WebDriverProtocolCommandContexts {
         offsetY: number,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
     ): this;
-    /**
-     * Change or get the position of the specified window. If the second argument is a function it will be used as a callback and
-     * the call will perform a get request to retrieve the existing window position.
-     *
-     * @example
-     *  this.demoTest = function (browser) {
-     *
-     *    // Change the position of the specified window.
-     *    // If the :windowHandle URL parameter is "current", the currently active window will be moved.
-     *    browser.windowPosition('current', 0, 0, function(result) {
-     *      console.log(result);
-     *    });
-     *
-     *    // Get the position of the specified window.
-     *    // If the :windowHandle URL parameter is "current", the position of the currently active window will be returned.
-     *    browser.windowPosition('current', function(result) {
-     *      console.log(result.value);
-     *    });
-     * }
-     */
     windowPosition(
         windowHandle: string,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<{ x: number; y: number }>) => void,
@@ -4007,27 +3966,49 @@ export interface WebDriverProtocolCommandContexts {
         height: number,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
     ): this;
-    /**
-     * Change or get the size of the specified window. If the second argument is a function it will be used as a callback and the call will perform a get request to retrieve the existing window size.
-     *
-     * @example
-     *  this.demoTest = function (browser) {
-     *
-     *    // Return the size of the specified window. If the :windowHandle URL parameter is "current", the size of the currently active window will be returned.
-     *    browser.windowSize('current', function(result) {
-     *      console.log(result.value);
-     *    });
-     *
-     *    // Change the size of the specified window.
-     *    // If the :windowHandle URL parameter is "current", the currently active window will be resized.
-     *    browser.windowSize('current', 300, 300, function(result) {
-     *      console.log(result.value);
-     *    });
-     * }
-     */
     windowSize(
         windowHandle: string,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<{ width: number; height: number }>) => void,
+    ): this;
+
+    /**
+     *
+     * Change or get the [window rect](https://w3c.github.io/webdriver/#dfn-window-rect).
+     * This is defined as a dictionary of the `screenX`, `screenY`, `outerWidth` and `outerHeight` attributes of the window.
+     *
+     * Its JSON representation is the following:
+     * - `x` - window's screenX attribute;
+     * - `y` - window's screenY attribute;
+     * - `width` - outerWidth attribute;
+     * - `height` - outerHeight attribute.
+     *
+     * All attributes are in in CSS pixels. To change the window react, you can either specify `width` and `height`, `x` and `y` or all properties together.
+     *
+     * @example
+     * module.exports = {
+     *   'demo test .windowRect()': function(browser) {
+     *
+     *      // Change the screenX and screenY attributes of the window rect.
+     *      browser.windowRect({x: 500, y: 500});
+     *
+     *      // Change the width and height attributes of the window rect.
+     *      browser.windowRect({width: 600, height: 300});
+     *
+     *      // Retrieve the attributes
+     *      browser.windowRect(function(result) {
+     *        console.log(result.value);
+     *      });
+     *   },
+     *
+     *   'windowRect ES6 demo test': async function(browser) {
+     *      const resultValue = await browser.windowRect();
+     *      console.log('result value', resultValue);
+     *   }
+     * }
+     */
+    windowRect(
+        options: { width?: number; height?: number; x?: number; y?: number },
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
     ): this;
 
     /**
@@ -4041,7 +4022,7 @@ export interface WebDriverProtocolCommandContexts {
      * }
      */
     frame(
-        frameId: WebElement | number | null,
+        frameId?: WebElement | number | null,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
     ): this;
 
@@ -4291,11 +4272,17 @@ export interface WebDriverProtocolElementState {
 export interface WebDriverProtocolElementInteraction {
     /**
      * Scrolls into view a submittable element excluding buttons or editable element, and then attempts to clear its value, reset the checked state, or text content.
+     *
+     * @example
+     * browser.elementIdClear(elementId);
      */
     elementIdClear(id: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void): this;
 
     /**
      * Scrolls into view the element and clicks the in-view center point. If the element is not pointer-interactable, an <code>element not interactable</code> error is returned.
+     *
+     * @example
+     * browser.elementIdClick(elementId);
      */
     elementIdClick(id: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void): this;
 
@@ -4305,16 +4292,13 @@ export interface WebDriverProtocolElementInteraction {
      */
     elementIdValue(
         id: string,
-        value: string,
+        value?: string,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
     ): this;
-    /**
-     * Scrolls into view the form control element and then sends the provided keys to the element, or returns the current value of the element.
-     * In case the element is not keyboard interactable, an <code>element not interactable error</code> is returned.
-     */
     elementIdValue(
         id: string,
-        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void,
+        value: string,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
     ): this;
 
     /**
@@ -4324,6 +4308,12 @@ export interface WebDriverProtocolElementInteraction {
      *
      * Rather than the `setValue`, the modifiers are not released at the end of the call. The state of the modifier keys is kept between calls,
      * so mouse interactions can be performed while modifier keys are depressed.
+     *
+     * @example
+     * browser
+     * .keys(browser.Keys.CONTROL) // hold down CONTROL key
+     * .click('#element')
+     * .keys(browser.Keys.NULL) // release all keys
      */
     keys(
         keysToSend: string | string[],
@@ -4332,6 +4322,9 @@ export interface WebDriverProtocolElementInteraction {
 
     /**
      * Submit a FORM element. The submit command may also be applied to any element that is a descendant of a FORM element.
+     *
+     * @example
+     * browser.submit(elementID);
      */
     submit(id: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void): this;
 }
@@ -4341,6 +4334,8 @@ export interface WebDriverProtocolElementLocation {
      * Determine an element's location on the page. The point (0, 0) refers to the upper-left corner of the page.
      *
      * The element's coordinates are returned as a JSON object with x and y properties.
+     *
+     * @deprecated
      */
     elementIdLocation(
         id: string,
@@ -4349,6 +4344,8 @@ export interface WebDriverProtocolElementLocation {
 
     /**
      * Determine an element's location on the screen once it has been scrolled into view.
+     *
+     * @deprecated
      */
     elementIdLocationInView(
         id: string,
@@ -4359,6 +4356,9 @@ export interface WebDriverProtocolElementLocation {
 export interface WebDriverProtocolDocumentHandling {
     /**
      * Returns a string serialisation of the DOM of the current page.
+     *
+     * @example
+     * browser.source();
      */
     source(callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void): this;
 
@@ -4440,14 +4440,55 @@ export interface WebDriverProtocolCookies {
 
 export interface WebDriverProtocolUserActions {
     /**
-     * Double-clicks at the current mouse coordinates (set by `.moveTo()`).
+     * Move to the element and peforms a double-click in the middle of the element.
+     *
+     * @example
+     * module.exports = {
+     *   demoTest() {
+     *     browser.doubleClick('#main ul li a.first');
+     *
+     *     browser.doubleClick('#main ul li a.first', function(result) {
+     *       console.log('double click result', result);
+     *     });
+     *
+     *     // with explicit locate strategy
+     *     browser.doubleClick('css selector', '#main ul li a.first');
+     *
+     *     // with selector object - see https://nightwatchjs.org/guide#element-properties
+     *     browser.doubleClick({
+     *       selector: '#main ul li a',
+     *       index: 1,
+     *       suppressNotFoundErrors: true
+     *     });
+     *
+     *     browser.doubleClick({
+     *       selector: '#main ul li a.first',
+     *       timeout: 2000 // overwrite the default timeout (in ms) to check if the element is present
+     *     });
+     *   },
+     *
+     *   demoTestAsync: async function() {
+     *     const result = await browser.doubleClick('#main ul li a.first');
+     *     console.log('double click result', result);
+     *   }
+     * }
      */
-    doubleClick(callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void): this;
+    doubleClick(
+        selector: string,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
+    ): this;
+    doubleClick(
+        using: LocateStrategy,
+        selector: string,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
+    ): this;
 
     /**
      * Click at the current mouse coordinates (set by `.moveTo()`).
      *
      * The button can be (0, 1, 2) or ('left', 'middle', 'right'). It defaults to left mouse button.
+     *
+     * @deprecated
      */
     mouseButtonClick(
         button: 0 | 1 | 2 | 'left' | 'middle' | 'right',
@@ -4460,6 +4501,11 @@ export interface WebDriverProtocolUserActions {
      *
      * Can be used for implementing drag-and-drop. The button can be (0, 1, 2) or ('left', 'middle', 'right'). It defaults to left mouse button,
      * and if you don't pass in a button but do pass in a callback, it will handle it correctly.
+     *
+     * **Since v2.0, this command is deprecated.** It is only available on older JSONWire-based drivers.
+     * Please use the new [User Actions API](/api/useractions/).
+     *
+     * @deprecated
      */
     mouseButtonDown(
         button: 0 | 1 | 2 | 'left' | 'middle' | 'right',
@@ -4471,6 +4517,11 @@ export interface WebDriverProtocolUserActions {
      *
      * Can be used for implementing drag-and-drop. The button can be (0, 1, 2) or ('left', 'middle', 'right'). It defaults to left mouse button,
      * and if you don't pass in a button but do pass in a callback, it will handle it correctly.
+     *
+     * **Since v2.0, this command is deprecated.** It is only available on older JSONWire-based drivers.
+     * Please use the new [User Actions API](/api/useractions/).
+     *
+     * @deprecated
      */
     mouseButtonUp(
         button: 0 | 1 | 2 | 'left' | 'middle' | 'right',
@@ -4499,6 +4550,9 @@ export interface WebDriverProtocolUserActions {
 export interface WebDriverProtocolUserPrompts {
     /**
      * Accepts the currently displayed alert dialog. Usually, this is equivalent to clicking on the 'OK' button in the dialog.
+     *
+     * @example
+     * browser.acceptAlert()
      */
     acceptAlert(callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void): this;
 
@@ -4506,16 +4560,25 @@ export interface WebDriverProtocolUserPrompts {
      * Dismisses the currently displayed alert dialog. For confirm() and prompt() dialogs, this is equivalent to clicking the 'Cancel' button.
      *
      * For alert() dialogs, this is equivalent to clicking the 'OK' button.
+     *
+     * @example
+     * browser.dismissAlert();
      */
     dismissAlert(callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void): this;
 
     /**
      * Gets the text of the currently displayed JavaScript alert(), confirm(), or prompt() dialog.
+     *
+     * @example
+     * browser.getAlertText();
      */
     getAlertText(callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void): this;
 
     /**
      * Sends keystrokes to a JavaScript prompt() dialog.
+     *
+     * @example
+     * browser.setAlertText('randomalert');
      */
     setAlertText(value: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void): this;
 }
@@ -4523,6 +4586,9 @@ export interface WebDriverProtocolUserPrompts {
 export interface WebDriverProtocolScreenCapture {
     /**
      * Take a screenshot of the current page.
+     *
+     * @example
+     * browser.screenshot(true);
      */
     screenshot(log_screenshot_data: boolean, callback?: (screenshotEncoded: string) => void): this;
 }
@@ -4530,6 +4596,9 @@ export interface WebDriverProtocolScreenCapture {
 export interface WebDriverProtocolMobileRelated {
     /**
      * Get the current browser orientation.
+     *
+     * @example
+     * browser.getOrientation()
      */
     getOrientation(
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<'LANDSCAPE' | 'PORTRAIT'>) => void,
@@ -4537,6 +4606,9 @@ export interface WebDriverProtocolMobileRelated {
 
     /**
      * Sets the browser orientation.
+     *
+     * @example
+     * browser.setOrientation(orientation)
      */
     setOrientation(
         orientation: 'LANDSCAPE' | 'PORTRAIT',
@@ -4546,17 +4618,26 @@ export interface WebDriverProtocolMobileRelated {
     /**
      * Get a list of the available contexts.
      *
+     * @example
+     * browser.contexts();
+     *
      * Used by Appium when testing hybrid mobile web apps. More info here: https://github.com/appium/appium/blob/master/docs/en/advanced-concepts/hybrid.md.
      */
     contexts(callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<any>) => void): this;
 
     /**
      * Get current context.
+     *
+     * @example
+     * browser.currentContext();
      */
     currentContext(callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<any>) => void): this;
 
     /**
      * Sets the context.
+     *
+     * @example
+     * browser.setContext(context);
      */
     setContext(context: string, callback?: () => void): this;
 }
