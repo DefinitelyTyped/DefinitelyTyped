@@ -243,6 +243,7 @@ export interface MjmlGroupProps {
     width?: string | number | undefined;
     verticalAlign?: React.CSSProperties['verticalAlign'] | undefined;
     backgroundColor?: React.CSSProperties['backgroundColor'] | undefined;
+    direction?: 'ltr' | 'rtl' | undefined;
 }
 
 export class MjmlGroup extends React.Component<MjmlGroupProps & ClassNameProps> { }
@@ -377,6 +378,7 @@ export interface MjmlSocialElementProps {
     src?: string | undefined;
     alt?: string | undefined;
     iconPadding?: string | undefined;
+    direction?: 'ltr' | 'rtl' | undefined;
 }
 
 export class MjmlSocialElement extends React.Component<MjmlSocialElementProps & HrefProps & PaddingProps> { }
