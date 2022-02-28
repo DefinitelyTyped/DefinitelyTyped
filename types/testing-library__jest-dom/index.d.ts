@@ -9,7 +9,7 @@
 
 /// <reference types="jest" />
 
-import { TestingLibraryMatchers } from "./matchers";
+import { TestingLibraryMatchers } from './matchers';
 
 declare global {
     namespace jest {
