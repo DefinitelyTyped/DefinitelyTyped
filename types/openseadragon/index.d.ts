@@ -969,7 +969,7 @@ declare namespace OpenSeadragon {
         getRotation(current?: boolean): number;
         getSizeInWindowCoordinates(): Point;
         getTileBounds(level: number, x: number, y: number): Rect;
-        imageToViewerElementCoordinats(pixel: Point): Point;
+        imageToViewerElementCoordinates(pixel: Point): Point;
         imageToViewportCoordinates(position: Point, current?: boolean): Point;
         imageToViewportCoordinates(imageX: number, imageY: number, current?: boolean): Point;
         imageToViewportRectangle(
@@ -1019,7 +1019,7 @@ declare namespace OpenSeadragon {
         aspectRatio: number;
         dimensions: Point;
         maxLevel: number;
-        minlevel: number;
+        minLevel: number;
         ready: boolean;
         tileOverlap: number;
         constructor(options: TileSourceOptions);
@@ -1282,7 +1282,7 @@ declare namespace OpenSeadragon {
         constructor(width: number, height: number, tileSize: number, tilesUrl: string);
     }
 
-    // TODO: use proper eventName type aliases, and OSDEvent where appropiate
+    // TODO: use proper eventName type aliases, and OSDEvent where appropriate
 
     type EventHandler<T extends OSDEvent<any>> = (event: T) => void;
 
@@ -1295,7 +1295,7 @@ declare namespace OpenSeadragon {
         | 'composite-operation-change'
         | 'fully-loaded-change'
         | 'opacity-change';
-    type TileSourceEventname = 'open-failed' | 'ready';
+    type TileSourceEventName = 'open-failed' | 'ready';
     type ViewerEventName =
         | 'add-item-failed'
         | 'add-overlay'
@@ -1415,7 +1415,7 @@ declare namespace OpenSeadragon {
         homeBounds?: Rect | undefined;
         contentFactor?: number | undefined;
         newContainerSize?: Point | undefined;
-        mantain?: boolean | undefined;
+        maintain?: boolean | undefined;
         degrees?: number | undefined;
         tile?: Tile | undefined;
         tiledImage?: TiledImage | XMLHttpRequest | undefined;

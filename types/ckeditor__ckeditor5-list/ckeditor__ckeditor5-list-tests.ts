@@ -10,6 +10,7 @@ import * as converters from '@ckeditor/ckeditor5-list/src/converters';
 import IndentCommand from '@ckeditor/ckeditor5-list/src/indentcommand';
 import ListCommand from '@ckeditor/ckeditor5-list/src/listcommand';
 import ListStyleCommand from '@ckeditor/ckeditor5-list/src/liststylecommand';
+import ListProperties from '@ckeditor/ckeditor5-list/src/listproperties';
 import * as todoConverters from '@ckeditor/ckeditor5-list/src/todolistconverters';
 import * as utils from '@ckeditor/ckeditor5-list/src/utils';
 
@@ -46,6 +47,9 @@ new ListCommand(editor, 'bulleted').execute();
 
 new ListStyleCommand(editor, '').execute();
 new ListStyleCommand(editor, '').execute({ type: '' });
+
+new ListProperties(editor);
+ListProperties.requires.map(Plugin => new Plugin(editor).init());
 
 todoConverters.modelViewInsertion(new Model(), () => {});
 todoConverters.modelViewChangeType(() => {}, new View(new StylesProcessor()));
