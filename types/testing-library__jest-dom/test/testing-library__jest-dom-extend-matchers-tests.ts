@@ -4,7 +4,7 @@ const element: HTMLElement = document.body;
 
 expect.extend(matchers);
 
-function customExpect<T>(actual: T): TestingLibraryMatchers<any, void> | TestingLibraryMatchers<any, Promise<void>> {
+function customExpect(actual: HTMLElement): TestingLibraryMatchers<any, void> | TestingLibraryMatchers<any, Promise<void>> {
     throw new Error('Method not implemented.');
 }
 
