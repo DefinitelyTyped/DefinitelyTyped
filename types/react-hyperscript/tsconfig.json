@@ -1,6 +1,7 @@
 {
     "compilerOptions": {
         "baseUrl": "../",
+        "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true,
         "lib": ["es6"],
         "module": "commonjs",
