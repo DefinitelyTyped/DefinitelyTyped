@@ -22,8 +22,8 @@ function hydrateRoot() {
         },
         identifierPrefix: 'react-18-app',
         onRecoverableError: error => {
-            console.error(error)
-        }
+            console.error(error);
+        },
     });
     hydrateable.render(<div>render update</div>);
     ReactDOM.hydrateRoot(document, {

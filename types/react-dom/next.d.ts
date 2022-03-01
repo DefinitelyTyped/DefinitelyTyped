@@ -38,7 +38,7 @@ declare module '.' {
          * Prefix for `useId`.
          */
         identifierPrefix?: string;
-        onRecoverableError?: (error: unknown) => void,
+        onRecoverableError?: (error: unknown) => void;
     }
 
     interface RootOptions {
@@ -46,7 +46,7 @@ declare module '.' {
          * Prefix for `useId`.
          */
         identifierPrefix?: string;
-        onRecoverableError?: (error: unknown) => void,
+        onRecoverableError?: (error: unknown) => void;
     }
 
     interface Root {
