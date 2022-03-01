@@ -19,6 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "nightwatch-tests.ts"
+        "test/nightwatch-tests.ts"
     ]
 }
