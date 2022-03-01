@@ -185,3 +185,6 @@ user.ownsPackage(4, {excludeExpiring: true, excludeFree: true, excludeShared: tr
 user.on('appOwnershipCached', () => { });
 // not deprecated
 user.on('ownershipCached', () => { });
+
+// added in v4.23 revision, not necessarily part of that release tho
+user.setOption('ownershipFilter', { excludeExpiring: false });

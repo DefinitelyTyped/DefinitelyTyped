@@ -170,7 +170,7 @@ declare class SteamUser extends EventEmitter {
      * @param option
      * @param value
      */
-    setOption(option: keyof Options, value: any): void;
+    setOption<K extends keyof Options>(option: K, value: Options[K]): void;
 
     /**
      * Set one or more configuration options
@@ -917,7 +917,8 @@ interface Options {
 	changelistUpdateInterval?: number;
 	saveAppTickets?: boolean;
 	additionalHeaders?: Record<string, string>;
-	webCompatibilityMode?: boolean;
+    webCompatibilityMode?: boolean;
+    ownershipFilter?: OwnsFilterObject | OwnsFilterFunction;
 }
 
 interface CreateQuickInviteLinkOptions {
