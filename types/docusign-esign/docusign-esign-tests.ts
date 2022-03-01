@@ -22,6 +22,10 @@ const apiClient = () => {
     return new docusign.ApiClient({ basePath, oAuthBasePath });
 };
 
+const apiClientWithOutConstructorParams = () => {
+    return new docusign.ApiClient();
+};
+
 const getEnvelope = async (
     envelopeId: string,
     options: { advancedUpdate?: string | undefined; include?: string | undefined },
