@@ -1,5 +1,5 @@
 import micro, { json, RequestHandler, buffer, text, send, createError } from 'micro';
-import { Server as HttpServer } from 'http;
+import { Server as HttpServer } from 'http';
 
 // Json sample
 
