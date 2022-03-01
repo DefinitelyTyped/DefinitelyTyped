@@ -10,15 +10,7 @@ function createRoot() {
 
 function hydrateRoot() {
     const legacyHydrateable = ReactDOM.createRoot(document, {
-        hydrate: true,
-        hydrationOptions: {
-            onHydrated: () => {
-                console.log('hydrated');
-            },
-            onDeleted: () => {
-                console.log('deleted');
-            },
-        },
+        identifierPrefix: 'legacy-app',
     });
 
     const hydrateable = ReactDOM.hydrateRoot(document, <div>initial render</div>, {
@@ -27,6 +19,10 @@ function hydrateRoot() {
         },
         onDeleted: () => {
             console.log('deleted');
+        },
+        identifierPrefix: 'react-18-app',
+        onRecoverableError: error => {
+            console.error(error);
         },
     });
     hydrateable.render(<div>render update</div>);
