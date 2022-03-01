@@ -1,5 +1,6 @@
 import { connect } from 'net';
-import cluster, { ClusterSettings, Worker } from 'node:cluster'; // requires synthetic default imports, is this worth it?
+import * as cluster from 'node:cluster';
+import type { ClusterSettings, Worker } from 'node:cluster';
 cluster.fork();
 Object.keys(cluster.workers!).forEach(key => {
     const worker = cluster.workers![key];

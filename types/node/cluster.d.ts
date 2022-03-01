@@ -327,7 +327,7 @@ declare module 'cluster' {
             prependOnceListener(event: 'message', listener: (message: any, handle: net.Socket | net.Server) => void): this; // the handle is a net.Socket or net.Server object, or undefined.
             prependOnceListener(event: 'online', listener: () => void): this;
         }
-        
+
         interface Cluster extends EventEmitter {
             Worker: {
                 new(options?: ConstructorParameters<typeof EventEmitter>[0]): Worker;
@@ -417,7 +417,7 @@ declare module 'cluster' {
 
     const cluster: cluster.Cluster;
 
-    export= cluster;
+    export = cluster;
 }
 declare module 'node:cluster' {
     import cluster = require('cluster');
