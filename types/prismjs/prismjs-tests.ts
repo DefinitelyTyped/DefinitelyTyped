@@ -1,4 +1,4 @@
-import * as Prism from 'prismjs';
+import Prism = require('prismjs');
 import * as components from 'prismjs/components';
 import loadLanguages = require('prismjs/components/');
 
@@ -12,6 +12,9 @@ const myGrammar: Prism.Grammar = {
 const element = document.createElement('code');
 const container = document.querySelector('div');
 const callback = (element: Element) => console.log(element);
+
+Prism.disableWorkerMessageHandler = true;
+Prism.manual = true;
 
 Prism.highlightElement(element, false, callback);
 Prism.highlightElement(element, false);

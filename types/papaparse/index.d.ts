@@ -390,7 +390,7 @@ export interface UnparseConfig {
      * because Excel and LibreOffice will automatically parse such cells as formulae.
      * @default false
      */
-    escapeFormulae?: boolean | undefined;
+    escapeFormulae?: boolean | RegExp | undefined;
 }
 
 export interface UnparseObject<T> {

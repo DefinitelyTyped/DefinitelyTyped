@@ -19,6 +19,7 @@ import styled, {
     FlattenInterpolation,
 } from 'styled-components';
 import {} from 'styled-components/cssprop';
+import { find, findAll, enzymeFind } from 'styled-components/test-utils';
 
 /**
  * general usage
@@ -1265,3 +1266,10 @@ function unionPerformanceTest() {
     <Styled signal1="green" greenTime1={100} signal2="green" greenTime2={100} />;
     <Styled signal1="green" greenTime1={100} signal2="red" greenTime2={100} />; // $ExpectError
 }
+
+const SomeStyledComponent = styled.div``;
+const somethingWithFindMethod = { find: (_: string) => {} };
+
+find(document.body, SomeStyledComponent);
+findAll(document.body, SomeStyledComponent);
+enzymeFind(somethingWithFindMethod, SomeStyledComponent);

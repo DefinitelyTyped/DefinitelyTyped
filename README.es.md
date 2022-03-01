@@ -338,7 +338,7 @@ Si planeas continuar actualizando la versión anterior del paquete, puedes crear
 1. Actualiza las rutas relativas en `tsconfig.json` al igual que `tslint.json`.
 2. Añadir reglas de mapeo de rutas para asegurarte de que la prueba se está ejecutando contra la versión prevista.
 
-Por ejemplo [history v2 `tsconfig.json`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/history/v2/tsconfig.json) se ve así:
+Por ejemplo [history v2 `tsconfig.json`](https://github.com/%44efinitelyTyped/DefinitelyTyped/blob/1253faabf5e0d2c5470db6ea87795d7f96fef7e2/types/history/v2/tsconfig.json) se ve así:
 
 ```json
 {

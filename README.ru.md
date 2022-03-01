@@ -360,7 +360,7 @@ Once a week the Definition Owners are synced to the file [.github/CODEOWNERS](ht
 1. Обновите относительные пути в `tsconfig.json` а также в `tslint.json`.
 2. Добавьте правила сопоставления путей, чтобы убедиться, что тесты выполняются для предполагаемой версии.
 
-Например [history v2 `tsconfig.json`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/history/v2/tsconfig.json) looks like:
+Например [history v2 `tsconfig.json`](https://github.com/%44efinitelyTyped/DefinitelyTyped/blob/1253faabf5e0d2c5470db6ea87795d7f96fef7e2/types/history/v2/tsconfig.json) looks like:
 
 ```json
 {
