@@ -53,7 +53,7 @@ declare function $(
     children?: Children,
 ): React.DetailedReactHTMLElement<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
 
-declare function $<P extends React.HTMLAttributes<T>, T extends HTMLElement>(
+declare function $<T extends HTMLElement, P extends React.HTMLAttributes<T>>(
     tag: keyof ReactHTML,
     attributes?: React.ClassAttributes<T> & P,
     children?: Children,
@@ -65,7 +65,7 @@ declare function $<T extends SVGElement>(
     children?: Children,
 ): ReactSVGElement;
 
-declare function $<P extends React.DOMAttributes<T>, T extends Element>(
+declare function $<T extends Element, P extends React.DOMAttributes<T>>(
     tag: string,
     attributes?: React.ClassAttributes<T> & P,
     children?: Children,
