@@ -163,6 +163,11 @@ declare namespace Xrm {
          * Returns information whether the server is online or offline.
          */
         isOffline(): boolean;
+
+        /**
+         * Returns information whether the network is available or not.
+         */
+        isNetworkAvailable(): boolean;
     }
 
     /**
