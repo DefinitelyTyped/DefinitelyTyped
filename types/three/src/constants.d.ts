@@ -153,6 +153,7 @@ export const UnsignedInt248Type: TextureDataType;
 // Pixel formats
 export enum PixelFormat {}
 export const AlphaFormat: PixelFormat;
+export const RGBFormat: PixelFormat;
 export const RGBAFormat: PixelFormat;
 export const LuminanceFormat: PixelFormat;
 export const LuminanceAlphaFormat: PixelFormat;
@@ -302,8 +303,6 @@ export enum TextureEncoding {}
 export const LinearEncoding: TextureEncoding;
 export const sRGBEncoding: TextureEncoding;
 export const LogLuvEncoding: TextureEncoding;
-export const RGBM7Encoding: TextureEncoding;
-export const RGBM16Encoding: TextureEncoding;
 
 // Depth packing strategies
 export enum DepthPackingStrategies {}
