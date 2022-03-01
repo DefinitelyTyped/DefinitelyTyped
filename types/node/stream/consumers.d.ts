@@ -8,7 +8,7 @@ interface Blob {
     readonly type: string;
     arrayBuffer(): Promise<ArrayBuffer>;
     slice(start?: number, end?: number, contentType?: string): Blob;
-    stream(): NodeJS.ReadableStream;
+    stream(): ReadableStream;
     text(): Promise<string>;
 }
 declare module 'stream/consumers' {
