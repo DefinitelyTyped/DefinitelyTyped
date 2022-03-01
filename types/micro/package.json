@@ -1,6 +1,6 @@
 {
     "private": true,
-    "dependencies": {
+    "devDependencies": {
         "@types/socket.io": "2.1.13"
     }
 }
