@@ -88,7 +88,7 @@ declare namespace Chance {
         ip(): string;
         ipv6(): string;
         klout(): string;
-        profession(opts?: Options): string;
+        profession(opts?: Partial<ProfessionOptions>): string;
         tld(): string;
         twitter(): string;
         url(opts?: Partial<UrlOptions>): string;
@@ -199,6 +199,10 @@ declare namespace Chance {
     // the correct options interfaces for each method
     interface Options {
         [id: string]: any;
+    }
+    
+    interface ProfessionOptions {
+        rank: boolean;
     }
 
     interface WordOptions {
