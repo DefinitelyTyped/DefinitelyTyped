@@ -1,4 +1,4 @@
-import * as $ from 'react-hyperscript';
+import $ from 'react-hyperscript';
 import * as React from 'react';
 
 interface PropTypes {
