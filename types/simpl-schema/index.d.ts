@@ -7,7 +7,7 @@
 //                 Rafa Horo <https://github.com/rafahoro>
 //                 Stepan Yurtsiv <https://github.com/yurtsiv>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.7
+// Minimum TypeScript Version: 4.1
 
 import { check } from 'meteor/check';
 

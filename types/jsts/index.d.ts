@@ -307,6 +307,97 @@ declare namespace jsts {
 
             computeIntersection(p: Coordinate, p1: Coordinate, p2: Coordinate, p3: Coordinate): void;
         }
+
+        namespace locate {
+            import Polygon = jsts.geom.Polygon;
+
+            /**
+             * An interface for classes which determine the Location of points in a Geometry.
+             */
+            interface PointOnGeometryLocator {
+                /**
+                 * Determines the Location of a point in the Geometry.
+                 *
+                 * @param p the point to test
+                 *
+                 * @returns {int} the location of the point in the geometry
+                 */
+                locate(p: Coordinate): number;
+            }
+
+            /**
+             * Computes the location of points relative to a Polygonal Geometry,
+             * using a simple O(n) algorithm.
+             *
+             * The algorithm used reports if a point lies in the interior, exterior,
+             * or exactly on the boundary of the Geometry.
+             *
+             * Instance methods are provided to implement the interface PointInAreaLocator.
+             * However, they provide no performance advantage over the class methods.
+             *
+             * This algorithm is suitable for use in cases where only a few points will be tested.
+             * If many points will be tested, IndexedPointInAreaLocator may provide better performance.
+             */
+            export class SimplePointInAreaLocator implements PointOnGeometryLocator {
+                /**
+                 * Create an instance of a point-in-area locator, using the provided areal geometry.
+                 */
+                constructor(geom: Geometry);
+
+                /**
+                 * Determines the Location of a point in an areal Geometry. The return value is one of:
+                 * Location.INTERIOR if the point is in the geometry interior
+                 * Location.BOUNDARY if the point lies exactly on the boundary
+                 * Location.EXTERIOR if the point is outside the geometry
+                 *
+                 * @returns {int} the Location of the point in the geometry
+                 */
+                static locate(p: Coordinate, geom: Geometry): number;
+
+                /**
+                 * Determines whether a point is contained in a Geometry, or lies on its boundary.
+                 * This is a convenience method for Location.EXTERIOR != locate(p, geom)
+                 */
+                static isContained(p: Coordinate, geom: Geometry): boolean;
+
+                /**
+                 * Determines the Location of a point in a Polygon. The return value is one of:
+                 * - Location.INTERIOR if the point is in the geometry interior
+                 * - Location.BOUNDARY if the point lies exactly on the boundary
+                 * - Location.EXTERIOR if the point is outside the geometry
+                 * This method is provided for backwards compatibility only. Use locate(Coordinate, Geometry) instead.
+                 *
+                 * @param p {Coordinate} the point to test
+                 * @param poly {Polygon} the geometry to test
+                 *
+                 * @returns {int} the Location of the point in the polygon
+                 */
+                static locatePointInPolygon(p: Coordinate, poly: Polygon): number;
+
+                /**
+                 * Determines whether a point lies in a Polygon. If the point lies on the polygon boundary it is considered to be inside.
+                 *
+                 * @param p {Coordinate} the point to test
+                 * @param poly {Polygon} the geometry to test
+                 *
+                 * @returns {boolean} true if the point lies in or on the polygon
+                 */
+
+                static containsPointInPolygon(p: Coordinate, poly: Polygon): boolean;
+
+                /**
+                 * Determines the Location of a point in an areal Geometry. The return value is one of:
+                 * - Location.INTERIOR if the point is in the geometry interior
+                 * - Location.BOUNDARY if the point lies exactly on the boundary
+                 * - Location.EXTERIOR if the point is outside the geometry
+                 *
+                 * @param p {Coordinate} the point to test
+                 *
+                 * @returns {int} the Location of the point in the geometry
+                 */
+                locate(p: Coordinate): number;
+            }
+        }
     }
 
     namespace densify {

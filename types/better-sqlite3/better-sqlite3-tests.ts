@@ -7,6 +7,7 @@ const registrationOptions: Sqlite.RegistrationOptions = {
     deterministic: true,
     safeIntegers: true,
     varargs: true,
+    directOnly: true,
 };
 
 let db: Sqlite.Database = Sqlite(':memory:');
@@ -21,12 +22,17 @@ db.table('vtable', {
     },
 });
 db.function('noop', () => {});
-db.function('noop', { deterministic: true, varargs: true }, () => {});
+db.function('noop', {
+    deterministic: true,
+    varargs: true,
+    directOnly: true
+}, () => {});
 db.aggregate('add', {
     start: 0,
     step: (t, n) => t + n,
     deterministic: true,
     varargs: true,
+    directOnly: true,
 });
 db.aggregate('getAverage', {
     start: () => [],

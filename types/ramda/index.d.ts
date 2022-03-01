@@ -1,4 +1,4 @@
-// Type definitions for ramda 0.27
+// Type definitions for ramda 0.28
 // Project: https://ramdajs.com
 // Definitions by: Scott O'Malley <https://github.com/TheHandsomeCoder>
 //                 Erwin Poeze <https://github.com/donnut>
@@ -31,6 +31,7 @@
 //                 Mikael Couzic <https://github.com/couzic>
 //                 Nikita Balikhin <https://github.com/NEWESTERS>
 //                 Wang Zengdi <https://github.com/adispring>
+//                 Marcus Blättermann <https://github.com/essenmitsosse>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.2
 
@@ -556,6 +557,12 @@ export function converge<
     branches: [((...args: TArgs) => R1)]
 ): (...args: TArgs) => TResult;
 // tslint:enable:max-line-length
+
+/**
+ * Returns the number of items in a given `list` matching the predicate `f`
+ */
+export function count<T>(fn: (a: T) => boolean, list: readonly T[]): number;
+export function count<T>(fn: (a: T) => boolean): (list: readonly T[]) => number;
 
 /**
  * Counts the elements of a list according to how many match each value

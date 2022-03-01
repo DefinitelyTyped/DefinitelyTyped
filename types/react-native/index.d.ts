@@ -1,4 +1,4 @@
-// Type definitions for react-native 0.66
+// Type definitions for react-native 0.67
 // Project: https://github.com/facebook/react-native
 // Definitions by: Eloy Durán <https://github.com/alloy>
 //                 HuHuanming <https://github.com/huhuanming>
@@ -31,7 +31,6 @@
 //                 Dominique Richard <https://github.com/doumart>
 //                 Mohamed Shaban <https://github.com/drmas>
 //                 Jérémy Barbet <https://github.com/jeremybarbet>
-//                 Christian Ost <https://github.com/ca057>
 //                 David Sheldrick <https://github.com/ds300>
 //                 Natsathorn Yuthakovit <https://github.com/natsathorn>
 //                 ConnectDotz <https://github.com/connectdotz>
@@ -988,8 +987,7 @@ export interface TextPropsAndroid {
         | 'normal'
         | 'none'
         | 'full'
-        | 'high'
-        | 'balanced' | undefined;
+        | undefined;
 }
 
 // https://reactnative.dev/docs/text#props
@@ -6941,7 +6939,7 @@ export interface ActionSheetIOSOptions {
     title?: string | undefined;
     options: string[];
     cancelButtonIndex?: number | undefined;
-    destructiveButtonIndex?: number | undefined;
+    destructiveButtonIndex?: number | number[] | undefined | null;
     message?: string | undefined;
     anchor?: number | undefined;
     tintColor?: ColorValue | ProcessedColorValue | undefined;

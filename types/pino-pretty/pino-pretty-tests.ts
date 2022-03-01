@@ -1,6 +1,8 @@
 import prettyFactory = require("pino-pretty");
 import { PrettyOptions } from "pino-pretty";
 
+prettyFactory();
+
 const options: PrettyOptions = {
     colorize: true,
     crlf: false,

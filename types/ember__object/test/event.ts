@@ -76,6 +76,13 @@ function testListener() {
             addListener(this, 'willDestroy', this, willDestroyListener, true);
             removeListener(this, 'willDestroy', this, 'willDestroyListener');
             removeListener(this, 'willDestroy', this, willDestroyListener);
+
+            addListener(this, 'willDestroy', 'willDestroyListener');
+            addListener(this, 'willDestroy', 'willDestroyListener', true);
+            addListener(this, 'willDestroy', willDestroyListener);
+            addListener(this, 'willDestroy', willDestroyListener, true);
+            removeListener(this, 'willDestroy', 'willDestroyListener');
+            removeListener(this, 'willDestroy', willDestroyListener);
         },
 
         willDestroyListener() {

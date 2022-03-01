@@ -17,6 +17,7 @@ interface UrlAssembler {
     valueOf(): string;
     toJSON(): string;
     qsConfig(config: qs.IStringifyOptions): UrlAssembler;
+    pathname: string;
 }
 
 interface UrlAssemblerConstructor {
