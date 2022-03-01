@@ -252,6 +252,10 @@ export interface NightwatchOptions {
      */
     page_objects_path?: string | string[] | undefined;
 
+    // An array specifying a list of Nightwatch plugin names that should be used;
+    // e.g.: plugins: ['vite-plugin-nightwatch']
+    plugins: string[];
+
     /**
      * Location of an external globals module which will be loaded and made available to the test as a property globals on the main client instance.
      * Globals can also be defined/overwritten inside a test_settings environment.
@@ -1425,7 +1429,17 @@ export interface NightwatchCustomAssertions {}
 // tslint:disable-next-line:no-empty-interface
 export interface NightwatchCustomPageObjects {}
 
-export interface NightwatchBrowser extends NightwatchAPI, NightwatchCustomCommands {}
+export interface NightwatchBrowser
+    extends NightwatchAPI,
+        NightwatchComponentTestingCommands,
+        NightwatchCustomCommands {}
+
+export interface NightwatchComponentTestingCommands {
+    importScript(scriptPath: string, options: { scriptType: string; componentTyp: string }, callback: () => void): this;
+    mountReactComponent(componentPath: string, props: string | (() => void), callback: () => void): this;
+    mountVueComponent(componentPath: string, options: any, callback: () => void): this;
+    launchComponentRenderer(): this;
+}
 
 // tslint:disable-next-line
 export interface NightwatchElement extends WebElement {}
