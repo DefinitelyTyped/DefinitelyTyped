@@ -2314,13 +2314,17 @@ declare module 'fs' {
         }>;
         function __promisify__<TBuffer extends NodeJS.ArrayBufferView>(
             fd: number,
-            options: ReadAsyncOptions<TBuffer>,
-            callback: (err: NodeJS.ErrnoException | null, bytesRead: number, buffer: TBuffer) => void
-        ): void;
+            options: ReadAsyncOptions<TBuffer>
+        ): Promise<{
+            bytesRead: number;
+            buffer: TBuffer;
+        }>;
         function __promisify__(
-            fd: number,
-            callback: (err: NodeJS.ErrnoException | null, bytesRead: number, buffer: NodeJS.ArrayBufferView) => void
-        ): void;
+            fd: number
+        ): Promise<{
+            bytesRead: number;
+            buffer: NodeJS.ArrayBufferView;
+        }>;
     }
     /**
      * Returns the number of `bytesRead`.
