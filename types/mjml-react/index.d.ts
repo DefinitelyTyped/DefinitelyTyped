@@ -130,43 +130,62 @@ export class MjmlStyle extends React.Component<{ children?: string | undefined, 
 export class MjmlTitle extends React.Component<{ children?: string | undefined }> { }
 
 // mj-accordion
-export class MjmlAccordion extends React.Component<MjmlAccordionElementProps> { }
+export interface MjmlAccordionProps {
+    children?: React.ReactNode;
+    border?: string | undefined;
+    containerBackgroundColor?: React.CSSProperties['backgroundColor'] | undefined;
+    fontFamily?: string | undefined;
+    iconAlign?: string | undefined;
+    iconHeight?: string | undefined;
+    iconPosition?: 'left' | 'right' | undefined;
+    iconUnwrappedAlt?: string | undefined;
+    iconUnwrappedUrl?: string | undefined;
+    iconWidth?: string | undefined;
+    iconWrappedAlt?: string | undefined;
+    iconWrappedUrl?: string | undefined;
+}
+
+export class MjmlAccordion extends React.Component<MjmlAccordionProps & PaddingProps & ClassNameProps> { }
 
 export interface MjmlAccordionElementProps {
     children?: React.ReactNode;
+    border?: string | undefined;
+    backgroundColor?: React.CSSProperties['backgroundColor'] | undefined;
     fontFamily?: string | undefined;
     iconAlign?: string | undefined;
-    iconWrappedUrl?: string | undefined;
-    iconWrappedAlt?: string | undefined;
+    iconHeight?: string | undefined;
+    iconPosition?: 'left' | 'right' | undefined;
     iconUnwrappedAlt?: string | undefined;
     iconUnwrappedUrl?: string | undefined;
-    iconPosition?: 'left' | 'right' | undefined;
-    iconHeight?: string | undefined;
     iconWidth?: string | undefined;
-    backgroundColor?: React.CSSProperties['backgroundColor'] | undefined;
+    iconWrappedAlt?: string | undefined;
+    iconWrappedUrl?: string | undefined;
 }
 
 export class MjmlAccordionElement extends React.Component<MjmlAccordionElementProps & ClassNameProps> { }
 
-export interface MjmlAccordionTextProps {
-    children?: React.ReactNode;
-    color?: React.CSSProperties['color'] | undefined;
-    fontFamily?: string | undefined;
-    fontSize?: string | number | undefined;
-    backgroundColor?: React.CSSProperties['backgroundColor'] | undefined;
-}
-
-export class MjmlAccordionText extends React.Component<MjmlAccordionTextProps & PaddingProps & ClassNameProps> { }
-
 export interface MjmlAccordionTitleProps {
     children?: React.ReactNode;
-    color?: React.CSSProperties['color'] | undefined;
     backgroundColor?: React.CSSProperties['backgroundColor'] | undefined;
+    color?: React.CSSProperties['color'] | undefined;
     fontFamily?: string | undefined;
     fontSize?: string | number | undefined;
 }
 
 export class MjmlAccordionTitle extends React.Component<MjmlAccordionTitleProps & PaddingProps & ClassNameProps> { }
+
+export interface MjmlAccordionTextProps {
+    children?: React.ReactNode;
+    backgroundColor?: React.CSSProperties['backgroundColor'] | undefined;
+    color?: React.CSSProperties['color'] | undefined;
+    fontFamily?: string | undefined;
+    fontSize?: string | number | undefined;
+    fontWeight?: string | number | undefined;
+    letterSpacing?: string | number | undefined;
+    lineHeight?: string | number | undefined;
+}
+
+export class MjmlAccordionText extends React.Component<MjmlAccordionTextProps & PaddingProps & ClassNameProps> { }
 
 // mj-button
 export interface MjmlButtonProps {
