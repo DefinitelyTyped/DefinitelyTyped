@@ -17,7 +17,7 @@ import type {
 
 type Children = ReactNode[] | ReactText;
 
-export default $;
+export = $;
 
 declare function $(
     children?: Children,
