@@ -21,6 +21,9 @@ function hydrateRoot() {
             console.log('deleted');
         },
         identifierPrefix: 'react-18-app',
+        onRecoverableError: error => {
+            console.error(error)
+        }
     });
     hydrateable.render(<div>render update</div>);
     ReactDOM.hydrateRoot(document, {
