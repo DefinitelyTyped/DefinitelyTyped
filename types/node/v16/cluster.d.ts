@@ -57,11 +57,11 @@ declare module 'cluster' {
     import * as net from 'node:net';
 
     /**
- * A `Worker` object contains all public information and method about a worker.
- * In the primary it can be obtained using `cluster.workers`. In a worker
- * it can be obtained using `cluster.worker`.
- * @since v0.7.0
- */
+     * A `Worker` object contains all public information and method about a worker.
+     * In the primary it can be obtained using `cluster.workers`. In a worker
+     * it can be obtained using `cluster.worker`.
+     * @since v0.7.0
+     */
     class ClusterWorker extends EventEmitter {
         /**
          * Each new worker is given its own unique id, this id is stored in the`id`.
@@ -328,8 +328,8 @@ declare module 'cluster' {
             addressType: number | 'udp4' | 'udp6'; // 4, 6, -1, "udp4", "udp6"
         }
 
-        interface Worker extends ClusterWorker {}
-        
+        interface Worker extends ClusterWorker { }
+
         interface Cluster extends EventEmitter {
             Worker: {
                 new(options: ConstructorParameters<typeof EventEmitter>[0]): ClusterWorker;
@@ -369,7 +369,8 @@ declare module 'cluster' {
             addListener(event: 'exit', listener: (worker: ClusterWorker, code: number, signal: string) => void): this;
             addListener(event: 'fork', listener: (worker: ClusterWorker) => void): this;
             addListener(event: 'listening', listener: (worker: ClusterWorker, address: Address) => void): this;
-            addListener(event: 'message', listener: (worker: ClusterWorker, message: any, handle: net.Socket | net.Server) => void): this; // the handle is a net.Socket or net.Server object, or undefined.
+            // the handle is a net.Socket or net.Server object, or undefined.
+            addListener(event: 'message', listener: (worker: ClusterWorker, message: any, handle: net.Socket | net.Server) => void): this;
             addListener(event: 'online', listener: (worker: ClusterWorker) => void): this;
             addListener(event: 'setup', listener: (settings: ClusterSettings) => void): this;
             emit(event: string | symbol, ...args: any[]): boolean;
@@ -420,6 +421,6 @@ declare module 'cluster' {
     export = cluster;
 }
 declare module 'node:cluster' {
-    import cluster = require('cluster')
-    export = cluster
+    import cluster = require('cluster');
+    export = cluster;
 }
