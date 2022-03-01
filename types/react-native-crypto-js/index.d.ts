@@ -1,11 +1,10 @@
-// Type definitions for react-native-crypto-js 1.0.0
+// Type definitions for react-native-crypto-js 1.0
 // Project: https://github.com/imchintan/react-native-crypto-js
 // Definitions by: Mufaddal Hamid <https://github.com/mufaddalhamidofficial>
 //                 Michael Zabka <https://github.com/misak113>
 //                 Max Lysenko <https://github.com/maximlysenko>
 //                 Brendan Early <https://github.com/mymindstorm>
 //                 Doma <https://github.com/SevenOutman>
-//                 
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = RNCryptoJS;
@@ -521,7 +520,7 @@ declare global {
         /**
          * Library namespace.
          */
-        export namespace lib {
+        namespace lib {
             /**
              * Base object for prototypal inheritance.
              */
@@ -915,7 +914,7 @@ declare global {
         /**
          * Padding namespace.
          */
-        export namespace pad {
+        namespace pad {
             /**
              * PKCS #5/7 padding strategy.
              */
@@ -950,7 +949,7 @@ declare global {
         /**
          * Key derivation function namespace.
          */
-        export namespace kdf {
+        namespace kdf {
             /**
              * OpenSSL key derivation function.
              */
@@ -977,7 +976,7 @@ declare global {
         /**
          * Mode namespace.
          */
-        export namespace mode {
+        namespace mode {
             /**
              * Cipher Block Chaining mode.
              */
@@ -1012,7 +1011,7 @@ declare global {
         /**
          * Format namespace.
          */
-        export namespace format {
+        namespace format {
             /**
              * OpenSSL formatting strategy.
              */
@@ -1023,7 +1022,7 @@ declare global {
         /**
          * Encoder namespace.
          */
-        export namespace enc {
+        namespace enc {
             /**
              * Hex encoding strategy.
              */
@@ -1059,7 +1058,7 @@ declare global {
         /**
          * Algorithm namespace.
          */
-        export namespace algo {
+        namespace algo {
             /**
              * MD5 hash algorithm.
              */
@@ -1256,7 +1255,7 @@ declare global {
         /**
          * x64 namespace.
          */
-        export namespace x64 {
+        namespace x64 {
             /**
              * A 64-bit word.
              */
@@ -1423,7 +1422,7 @@ declare global {
          *     var hash = RNCryptoJS.MD5('message');
          *     var hash = RNCryptoJS.MD5(wordArray);
          */
-        export const MD5: HasherHelper;
+        const MD5: HasherHelper;
         /**
          * Shortcut function to the HMAC's object interface.
          *
@@ -1436,7 +1435,7 @@ declare global {
          *
          *     var hmac = RNCryptoJS.HmacMD5(message, key);
          */
-        export const HmacMD5: HmacHasherHelper;
+        const HmacMD5: HmacHasherHelper;
         /**
          * Shortcut function to the hasher's object interface.
          *
@@ -1449,7 +1448,7 @@ declare global {
          *     var hash = RNCryptoJS.SHA1('message');
          *     var hash = RNCryptoJS.SHA1(wordArray);
          */
-        export const SHA1: HasherHelper;
+        const SHA1: HasherHelper;
         /**
          * Shortcut function to the HMAC's object interface.
          *
@@ -1462,7 +1461,7 @@ declare global {
          *
          *     var hmac = RNCryptoJS.HmacSHA1(message, key);
          */
-        export const HmacSHA1: HmacHasherHelper;
+        const HmacSHA1: HmacHasherHelper;
 
         /**
          * Shortcut function to the hasher's object interface.
@@ -1476,7 +1475,7 @@ declare global {
          *     var hash = RNCryptoJS.SHA256('message');
          *     var hash = RNCryptoJS.SHA256(wordArray);
          */
-        export const SHA256: HasherHelper;
+        const SHA256: HasherHelper;
         /**
          * Shortcut function to the HMAC's object interface.
          *
@@ -1489,7 +1488,7 @@ declare global {
          *
          *     var hmac = RNCryptoJS.HmacSHA256(message, key);
          */
-        export const HmacSHA256: HmacHasherHelper;
+        const HmacSHA256: HmacHasherHelper;
         /**
          * Shortcut function to the hasher's object interface.
          *
@@ -1502,7 +1501,7 @@ declare global {
          *     var hash = RNCryptoJS.SHA224('message');
          *     var hash = RNCryptoJS.SHA224(wordArray);
          */
-        export const SHA224: HasherHelper;
+        const SHA224: HasherHelper;
         /**
          * Shortcut function to the HMAC's object interface.
          *
@@ -1515,7 +1514,7 @@ declare global {
          *
          *     var hmac = RNCryptoJS.HmacSHA224(message, key);
          */
-        export const HmacSHA224: HmacHasherHelper;
+        const HmacSHA224: HmacHasherHelper;
         /**
          * Shortcut function to the hasher's object interface.
          *
@@ -1528,7 +1527,7 @@ declare global {
          *     var hash = RNCryptoJS.SHA512('message');
          *     var hash = RNCryptoJS.SHA512(wordArray);
          */
-        export const SHA512: HasherHelper;
+        const SHA512: HasherHelper;
         /**
          * Shortcut function to the HMAC's object interface.
          *
@@ -1541,7 +1540,7 @@ declare global {
          *
          *     var hmac = RNCryptoJS.HmacSHA512(message, key);
          */
-        export const HmacSHA512: HmacHasherHelper;
+        const HmacSHA512: HmacHasherHelper;
         /**
          * Shortcut function to the hasher's object interface.
          *
@@ -1554,7 +1553,7 @@ declare global {
          *     var hash = RNCryptoJS.SHA384('message');
          *     var hash = RNCryptoJS.SHA384(wordArray);
          */
-        export const SHA384: HasherHelper;
+        const SHA384: HasherHelper;
         /**
          * Shortcut function to the HMAC's object interface.
          *
@@ -1567,7 +1566,7 @@ declare global {
          *
          *     var hmac = RNCryptoJS.HmacSHA384(message, key);
          */
-        export const HmacSHA384: HmacHasherHelper;
+        const HmacSHA384: HmacHasherHelper;
 
         /**
          * Shortcut function to the hasher's object interface.
@@ -1581,7 +1580,7 @@ declare global {
          *     var hash = RNCryptoJS.SHA3('message');
          *     var hash = RNCryptoJS.SHA3(wordArray);
          */
-        export const SHA3: HasherHelper;
+        const SHA3: HasherHelper;
         /**
          * Shortcut function to the HMAC's object interface.
          *
@@ -1594,7 +1593,7 @@ declare global {
          *
          *     var hmac = RNCryptoJS.HmacSHA3(message, key);
          */
-        export const HmacSHA3: HmacHasherHelper;
+        const HmacSHA3: HmacHasherHelper;
 
         /**
          * Shortcut function to the hasher's object interface.
@@ -1608,7 +1607,7 @@ declare global {
          *     var hash = RNCryptoJS.RIPEMD160('message');
          *     var hash = RNCryptoJS.RIPEMD160(wordArray);
          */
-        export const RIPEMD160: HasherHelper;
+        const RIPEMD160: HasherHelper;
         /**
          * Shortcut function to the HMAC's object interface.
          *
@@ -1621,7 +1620,7 @@ declare global {
          *
          *     var hmac = RNCryptoJS.HmacRIPEMD160(message, key);
          */
-        export const HmacRIPEMD160: HmacHasherHelper;
+        const HmacRIPEMD160: HmacHasherHelper;
         /**
          * Computes the Password-Based Key Derivation Function 2.
          *
@@ -1637,7 +1636,7 @@ declare global {
          *     var key = RNCryptoJS.PBKDF2(password, salt, { keySize: 8 });
          *     var key = RNCryptoJS.PBKDF2(password, salt, { keySize: 8, iterations: 1000 });
          */
-        export function PBKDF2(password: WordArray | string, salt: WordArray | string, cfg?: KDFOption): WordArray;
+        function PBKDF2(password: WordArray | string, salt: WordArray | string, cfg?: KDFOption): WordArray;
 
         /**
          * Shortcut functions to the cipher's object interface.
@@ -1647,7 +1646,7 @@ declare global {
          *     var ciphertext = RNCryptoJS.AES.encrypt(message, key, cfg);
          *     var plaintext  = RNCryptoJS.AES.decrypt(ciphertext, key, cfg);
          */
-        export const AES: CipherHelper;
+        const AES: CipherHelper;
 
         /**
          * Shortcut functions to the cipher's object interface.
@@ -1657,7 +1656,7 @@ declare global {
          *     var ciphertext = RNCryptoJS.DES.encrypt(message, key, cfg);
          *     var plaintext  = RNCryptoJS.DES.decrypt(ciphertext, key, cfg);
          */
-        export const DES: CipherHelper;
+        const DES: CipherHelper;
 
         /**
          * Shortcut functions to the cipher's object interface.
@@ -1667,7 +1666,7 @@ declare global {
          *     var ciphertext = RNCryptoJS.TripleDES.encrypt(message, key, cfg);
          *     var plaintext  = RNCryptoJS.TripleDES.decrypt(ciphertext, key, cfg);
          */
-        export const TripleDES: CipherHelper;
+        const TripleDES: CipherHelper;
 
         /**
          * Shortcut functions to the cipher's object interface.
@@ -1677,7 +1676,7 @@ declare global {
          *     var ciphertext = RNCryptoJS.RC4.encrypt(message, key, cfg);
          *     var plaintext  = RNCryptoJS.RC4.decrypt(ciphertext, key, cfg);
          */
-        export const RC4: CipherHelper;
+        const RC4: CipherHelper;
 
         /**
          * Shortcut functions to the cipher's object interface.
@@ -1687,7 +1686,7 @@ declare global {
          *     var ciphertext = RNCryptoJS.RC4Drop.encrypt(message, key, cfg);
          *     var plaintext  = RNCryptoJS.RC4Drop.decrypt(ciphertext, key, cfg);
          */
-        export const RC4Drop: CipherHelper;
+        const RC4Drop: CipherHelper;
 
         /**
          * Shortcut functions to the cipher's object interface.
@@ -1697,7 +1696,7 @@ declare global {
          *     var ciphertext = RNCryptoJS.Rabbit.encrypt(message, key, cfg);
          *     var plaintext  = RNCryptoJS.Rabbit.decrypt(ciphertext, key, cfg);
          */
-        export const Rabbit: CipherHelper;
+        const Rabbit: CipherHelper;
 
         /**
          * Shortcut functions to the cipher's object interface.
@@ -1707,7 +1706,7 @@ declare global {
          *     var ciphertext = RNCryptoJS.RabbitLegacy.encrypt(message, key, cfg);
          *     var plaintext  = RNCryptoJS.RabbitLegacy.decrypt(ciphertext, key, cfg);
          */
-        export const RabbitLegacy: CipherHelper;
+        const RabbitLegacy: CipherHelper;
 
         /**
          * Derives a key from a password.
@@ -1724,7 +1723,7 @@ declare global {
          *     var key = RNCryptoJS.EvpKDF(password, salt, { keySize: 8 });
          *     var key = RNCryptoJS.EvpKDF(password, salt, { keySize: 8, iterations: 1000 });
          */
-        export function EvpKDF(
+        function EvpKDF(
             password: WordArray | string,
             salt: WordArray | string,
             cfg?: {

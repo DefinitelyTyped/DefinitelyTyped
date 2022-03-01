@@ -4,7 +4,7 @@
 import RNCryptoJS = require('react-native-crypto-js');
 
 // Hashing
-var hash: RNCryptoJS.lib.WordArray;
+let hash: RNCryptoJS.lib.WordArray;
 hash = RNCryptoJS.MD5('Message');
 hash = RNCryptoJS.SHA1('Message');
 hash = RNCryptoJS.SHA256('Message');
@@ -22,7 +22,7 @@ hash.toString(RNCryptoJS.enc.Base64url);
 hash.toString(RNCryptoJS.enc.Hex);
 
 // Progressive Hashing
-var sha256 = RNCryptoJS.algo.SHA256.create();
+const sha256 = RNCryptoJS.algo.SHA256.create();
 sha256.update('Message Part 1');
 sha256.update('Message Part 2');
 sha256.update('Message Part 3');
@@ -35,32 +35,32 @@ hash = RNCryptoJS.HmacSHA256('Message', 'Secret Passphrase');
 hash = RNCryptoJS.HmacSHA512('Message', 'Secret Passphrase');
 
 // Progressive HMAC Hasing
-var hmac = RNCryptoJS.algo.HMAC.create(RNCryptoJS.algo.SHA256, 'Secret Passphrase');
+const hmac = RNCryptoJS.algo.HMAC.create(RNCryptoJS.algo.SHA256, 'Secret Passphrase');
 hmac.update('Message Part 1');
 hmac.update('Message Part 2');
 hmac.update('Message Part 3');
 hash = hmac.finalize();
 
 // PBKDF2
-var salt = RNCryptoJS.lib.WordArray.random(128 / 8);
-var key128Bits = RNCryptoJS.PBKDF2('Secret Passphrase', salt, {
+const salt = RNCryptoJS.lib.WordArray.random(128 / 8);
+const key128Bits = RNCryptoJS.PBKDF2('Secret Passphrase', salt, {
     keySize: 128 / 32,
 });
-var key256Bits = RNCryptoJS.PBKDF2('Secret Passphrase', salt, {
+const key256Bits = RNCryptoJS.PBKDF2('Secret Passphrase', salt, {
     keySize: 256 / 32,
 });
-var key512Bits = RNCryptoJS.PBKDF2('Secret Passphrase', salt, {
+const key512Bits = RNCryptoJS.PBKDF2('Secret Passphrase', salt, {
     keySize: 512 / 32,
 });
 
-var key512Bits1000Iterations = RNCryptoJS.PBKDF2('Secret Passphrase', salt, {
+const key512Bits1000Iterations = RNCryptoJS.PBKDF2('Secret Passphrase', salt, {
     keySize: 512 / 32,
     iterations: 1000,
 });
 
 // Ciphers
-var encrypted;
-var decrypted;
+let encrypted;
+let decrypted;
 encrypted = RNCryptoJS.AES.encrypt('Message', 'Secret Passphrase');
 decrypted = RNCryptoJS.AES.decrypt(encrypted, 'Secret Passphrase');
 encrypted = RNCryptoJS.DES.encrypt('Message', 'Secret Passphrase');
@@ -80,12 +80,12 @@ decrypted = RNCryptoJS.RC4Drop.decrypt(encrypted, 'Secret Passphrase', {
 });
 
 // .decrypt() returns WordArray
-RNCryptoJS.AES.decrypt('Message', 'Secret Passphrase').toString(RNCryptoJS.enc.Utf8)
+RNCryptoJS.AES.decrypt('Message', 'Secret Passphrase').toString(RNCryptoJS.enc.Utf8);
 
 // Custome Key and IV
-var key = RNCryptoJS.enc.Hex.parse('000102030405060708090a0b0c0d0e0f');
-var iv = RNCryptoJS.enc.Hex.parse('101112131415161718191a1b1c1d1e1f');
-encrypted = RNCryptoJS.AES.encrypt('Message', key, { iv: iv });
+let key = RNCryptoJS.enc.Hex.parse('000102030405060708090a0b0c0d0e0f');
+let iv = RNCryptoJS.enc.Hex.parse('101112131415161718191a1b1c1d1e1f');
+encrypted = RNCryptoJS.AES.encrypt('Message', key, { iv });
 
 // Block Modes and Padding
 encrypted = RNCryptoJS.AES.encrypt('Message', 'Secret Passphrase', {
@@ -94,10 +94,10 @@ encrypted = RNCryptoJS.AES.encrypt('Message', 'Secret Passphrase', {
 });
 
 // The Cipher Output
-var JsonFormatter = {
-    stringify: function (cipherParams: RNCryptoJS.lib.CipherParams) {
+const JsonFormatter = {
+    stringify(cipherParams: RNCryptoJS.lib.CipherParams) {
         // create json object with ciphertext
-        var jsonObj: any = { ct: cipherParams.ciphertext.toString(RNCryptoJS.enc.Base64) };
+        const jsonObj: any = { ct: cipherParams.ciphertext.toString(RNCryptoJS.enc.Base64) };
         // optionally add iv or salt
         if (cipherParams.iv) {
             jsonObj.iv = cipherParams.iv.toString();
@@ -108,11 +108,11 @@ var JsonFormatter = {
         // stringify json object
         return JSON.stringify(jsonObj);
     },
-    parse: function (jsonStr: string) {
+    parse(jsonStr: string) {
         // parse json string
-        var jsonObj = JSON.parse(jsonStr);
+        const jsonObj = JSON.parse(jsonStr);
         // extract ciphertext from json object, and create cipher params object
-        var cipherParams = RNCryptoJS.lib.CipherParams.create({
+        const cipherParams = RNCryptoJS.lib.CipherParams.create({
             ciphertext: RNCryptoJS.enc.Base64.parse(jsonObj.ct),
         });
         // optionally extract iv or salt
@@ -135,31 +135,31 @@ decrypted = RNCryptoJS.AES.decrypt(encrypted, 'Secret Passphrase', {
 // Progressive Ciphering
 key = RNCryptoJS.enc.Hex.parse('000102030405060708090a0b0c0d0e0f');
 iv = RNCryptoJS.enc.Hex.parse('101112131415161718191a1b1c1d1e1f');
-var aesEncryptor = RNCryptoJS.algo.AES.createEncryptor(key, { iv: iv });
-var ciphertextPart1 = aesEncryptor.process('Message Part 1');
-var ciphertextPart2 = aesEncryptor.process('Message Part 2');
-var ciphertextPart3 = aesEncryptor.process('Message Part 3');
-var ciphertextPart4 = aesEncryptor.finalize();
-var aesDecryptor = RNCryptoJS.algo.AES.createDecryptor(key, { iv: iv });
-var plaintextPart1 = aesDecryptor.process(ciphertextPart1);
-var plaintextPart2 = aesDecryptor.process(ciphertextPart2);
-var plaintextPart3 = aesDecryptor.process(ciphertextPart3);
-var plaintextPart4 = aesDecryptor.process(ciphertextPart4);
-var plaintextPart5 = aesDecryptor.finalize();
+const aesEncryptor = RNCryptoJS.algo.AES.createEncryptor(key, { iv });
+const ciphertextPart1 = aesEncryptor.process('Message Part 1');
+const ciphertextPart2 = aesEncryptor.process('Message Part 2');
+const ciphertextPart3 = aesEncryptor.process('Message Part 3');
+const ciphertextPart4 = aesEncryptor.finalize();
+const aesDecryptor = RNCryptoJS.algo.AES.createDecryptor(key, { iv });
+const plaintextPart1 = aesDecryptor.process(ciphertextPart1);
+const plaintextPart2 = aesDecryptor.process(ciphertextPart2);
+const plaintextPart3 = aesDecryptor.process(ciphertextPart3);
+const plaintextPart4 = aesDecryptor.process(ciphertextPart4);
+const plaintextPart5 = aesDecryptor.finalize();
 
 // Enchoders
-var words;
+let words;
 words = RNCryptoJS.enc.Base64.parse('SGVsbG8sIFdvcmxkIQ==');
-var base64 = RNCryptoJS.enc.Base64.stringify(words);
+const base64 = RNCryptoJS.enc.Base64.stringify(words);
 words = RNCryptoJS.enc.Base64url.parse('SGVsbG8sIFdvcmxkIQ');
-var base64url = RNCryptoJS.enc.Base64url.stringify(words);
+const base64url = RNCryptoJS.enc.Base64url.stringify(words);
 words = RNCryptoJS.enc.Latin1.parse('Hello, World!');
-var latin1 = RNCryptoJS.enc.Latin1.stringify(words);
+const latin1 = RNCryptoJS.enc.Latin1.stringify(words);
 words = RNCryptoJS.enc.Hex.parse('48656c6c6f2c20576f726c6421');
-var hex = RNCryptoJS.enc.Hex.stringify(words);
+const hex = RNCryptoJS.enc.Hex.stringify(words);
 words = RNCryptoJS.enc.Utf8.parse('𔭢');
-var utf8 = RNCryptoJS.enc.Utf8.stringify(words);
+const utf8 = RNCryptoJS.enc.Utf8.stringify(words);
 words = RNCryptoJS.enc.Utf16.parse('Hello, World!');
-var utf16 = RNCryptoJS.enc.Utf16.stringify(words);
+const utf16 = RNCryptoJS.enc.Utf16.stringify(words);
 words = RNCryptoJS.enc.Utf16LE.parse('Hello, World!');
-var utf16 = RNCryptoJS.enc.Utf16LE.stringify(words);
+const utf16_le = RNCryptoJS.enc.Utf16LE.stringify(words);

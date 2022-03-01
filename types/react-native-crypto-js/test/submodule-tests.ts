@@ -53,7 +53,7 @@ import PadZeroPadding = require('react-native-crypto-js/pad-zeropadding');
 import PadNoPadding = require('react-native-crypto-js/pad-nopadding');
 
 // Hashing
-var hash: Core.lib.WordArray;
+let hash: Core.lib.WordArray;
 hash = MD5('Message');
 hash = SHA1('Message');
 hash = SHA256('Message');
@@ -71,7 +71,7 @@ hash.toString(EncBase64url);
 hash.toString(EncHex);
 
 // Progressive Hashing
-var sha256 = Core.algo.SHA256.create();
+const sha256 = Core.algo.SHA256.create();
 sha256.update('Message Part 1');
 sha256.update('Message Part 2');
 sha256.update('Message Part 3');
@@ -84,32 +84,32 @@ hash = HmacSHA256('Message', 'Secret Passphrase');
 hash = HmacSHA512('Message', 'Secret Passphrase');
 
 // Progressive HMAC Hasing
-var hmac = Core.algo.HMAC.create(Core.algo.SHA256, 'Secret Passphrase');
+const hmac = Core.algo.HMAC.create(Core.algo.SHA256, 'Secret Passphrase');
 hmac.update('Message Part 1');
 hmac.update('Message Part 2');
 hmac.update('Message Part 3');
 hash = hmac.finalize();
 
 // PBKDF2
-var salt = Core.lib.WordArray.random(128 / 8);
-var key128Bits = PBKDF2('Secret Passphrase', salt, {
+const salt = Core.lib.WordArray.random(128 / 8);
+const key128Bits = PBKDF2('Secret Passphrase', salt, {
     keySize: 128 / 32,
 });
-var key256Bits = PBKDF2('Secret Passphrase', salt, {
+const key256Bits = PBKDF2('Secret Passphrase', salt, {
     keySize: 256 / 32,
 });
-var key512Bits = PBKDF2('Secret Passphrase', salt, {
+const key512Bits = PBKDF2('Secret Passphrase', salt, {
     keySize: 512 / 32,
 });
 
-var key512Bits1000Iterations = PBKDF2('Secret Passphrase', salt, {
+const key512Bits1000Iterations = PBKDF2('Secret Passphrase', salt, {
     keySize: 512 / 32,
     iterations: 1000,
 });
 
 // Ciphers
-var encrypted;
-var decrypted;
+let encrypted;
+let decrypted;
 encrypted = AES.encrypt('Message', 'Secret Passphrase');
 decrypted = AES.decrypt(encrypted, 'Secret Passphrase');
 encrypted = Core.DES.encrypt('Message', 'Secret Passphrase');
@@ -129,9 +129,9 @@ decrypted = Core.RC4Drop.decrypt(encrypted, 'Secret Passphrase', {
 });
 
 // Custome Key and IV
-var key = EncHex.parse('000102030405060708090a0b0c0d0e0f');
-var iv = EncHex.parse('101112131415161718191a1b1c1d1e1f');
-encrypted = AES.encrypt('Message', key, { iv: iv });
+let key = EncHex.parse('000102030405060708090a0b0c0d0e0f');
+let iv = EncHex.parse('101112131415161718191a1b1c1d1e1f');
+encrypted = AES.encrypt('Message', key, { iv });
 
 // Block Modes and Padding
 encrypted = AES.encrypt('Message', 'Secret Passphrase', {
@@ -140,10 +140,10 @@ encrypted = AES.encrypt('Message', 'Secret Passphrase', {
 });
 
 // The Cipher Output
-var JsonFormatter = {
-    stringify: function (cipherParams: Core.lib.CipherParams) {
+const JsonFormatter = {
+    stringify(cipherParams: Core.lib.CipherParams) {
         // create json object with ciphertext
-        var jsonObj: any = { ct: cipherParams.ciphertext.toString(EncBase64) };
+        const jsonObj: any = { ct: cipherParams.ciphertext.toString(EncBase64) };
         // optionally add iv or salt
         if (cipherParams.iv) {
             jsonObj.iv = cipherParams.iv.toString();
@@ -154,11 +154,11 @@ var JsonFormatter = {
         // stringify json object
         return JSON.stringify(jsonObj);
     },
-    parse: function (jsonStr: string) {
+    parse(jsonStr: string) {
         // parse json string
-        var jsonObj = JSON.parse(jsonStr);
+        const jsonObj = JSON.parse(jsonStr);
         // extract ciphertext from json object, and create cipher params object
-        var cipherParams = Core.lib.CipherParams.create({
+        const cipherParams = Core.lib.CipherParams.create({
             ciphertext: EncBase64.parse(jsonObj.ct),
         });
         // optionally extract iv or salt
@@ -181,31 +181,31 @@ decrypted = AES.decrypt(encrypted, 'Secret Passphrase', {
 // Progressive Ciphering
 key = EncHex.parse('000102030405060708090a0b0c0d0e0f');
 iv = EncHex.parse('101112131415161718191a1b1c1d1e1f');
-var aesEncryptor = Core.algo.AES.createEncryptor(key, { iv: iv });
-var ciphertextPart1 = aesEncryptor.process('Message Part 1');
-var ciphertextPart2 = aesEncryptor.process('Message Part 2');
-var ciphertextPart3 = aesEncryptor.process('Message Part 3');
-var ciphertextPart4 = aesEncryptor.finalize();
-var aesDecryptor = Core.algo.AES.createDecryptor(key, { iv: iv });
-var plaintextPart1 = aesDecryptor.process(ciphertextPart1);
-var plaintextPart2 = aesDecryptor.process(ciphertextPart2);
-var plaintextPart3 = aesDecryptor.process(ciphertextPart3);
-var plaintextPart4 = aesDecryptor.process(ciphertextPart4);
-var plaintextPart5 = aesDecryptor.finalize();
+const aesEncryptor = Core.algo.AES.createEncryptor(key, { iv });
+const ciphertextPart1 = aesEncryptor.process('Message Part 1');
+const ciphertextPart2 = aesEncryptor.process('Message Part 2');
+const ciphertextPart3 = aesEncryptor.process('Message Part 3');
+const ciphertextPart4 = aesEncryptor.finalize();
+const aesDecryptor = Core.algo.AES.createDecryptor(key, { iv });
+const plaintextPart1 = aesDecryptor.process(ciphertextPart1);
+const plaintextPart2 = aesDecryptor.process(ciphertextPart2);
+const plaintextPart3 = aesDecryptor.process(ciphertextPart3);
+const plaintextPart4 = aesDecryptor.process(ciphertextPart4);
+const plaintextPart5 = aesDecryptor.finalize();
 
 // Enchoders
-var words;
+let words;
 words = EncBase64.parse('SGVsbG8sIFdvcmxkIQ==');
-var base64 = EncBase64.stringify(words);
+const base64 = EncBase64.stringify(words);
 words = EncBase64url.parse('SGVsbG8sIFdvcmxkIQ');
-var base64url = EncBase64url.stringify(words);
+const base64url = EncBase64url.stringify(words);
 words = EncLatin1.parse('Hello, World!');
-var latin1 = EncLatin1.stringify(words);
+const latin1 = EncLatin1.stringify(words);
 words = EncHex.parse('48656c6c6f2c20576f726c6421');
-var hex = EncHex.stringify(words);
+const hex = EncHex.stringify(words);
 words = EncUtf8.parse('𔭢');
-var utf8 = EncUtf8.stringify(words);
+const utf8 = EncUtf8.stringify(words);
 words = EncUtf16.parse('Hello, World!');
-var utf16 = EncUtf16.stringify(words);
+const utf16 = EncUtf16.stringify(words);
 words = Core.enc.Utf16LE.parse('Hello, World!');
-var utf16 = Core.enc.Utf16LE.stringify(words);
+const utf16_le = Core.enc.Utf16LE.stringify(words);
