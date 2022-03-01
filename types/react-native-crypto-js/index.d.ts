@@ -1,4 +1,4 @@
-// Type definitions for react-native-crypto-js 4.1
+// Type definitions for react-native-crypto-js 1.0.0
 // Project: https://github.com/imchintan/react-native-crypto-js
 // Definitions by: Michael Zabka <https://github.com/misak113>
 //                 Max Lysenko <https://github.com/maximlysenko>
