@@ -34,17 +34,17 @@ declare module '.' {
     interface HydrationOptions {
         onHydrated?(suspenseInstance: Comment): void;
         onDeleted?(suspenseInstance: Comment): void;
+        /**
+         * Prefix for `useId`.
+         */
+        identifierPrefix?: string;
     }
 
     interface RootOptions {
         /**
-         * @deprecated Use `hydrateRoot(container)` instead
+         * Prefix for `useId`.
          */
-        hydrate?: boolean | undefined;
-        /**
-         * @deprecated Use `hydrateRoot(container, hydrateOptions)` instead
-         */
-        hydrationOptions?: HydrationOptions | undefined;
+        identifierPrefix?: string;
     }
 
     interface Root {
