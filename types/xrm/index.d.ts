@@ -1101,6 +1101,13 @@ declare namespace Xrm {
         refreshRibbon(refreshAll?: boolean): void;
 
         /**
+         * Sets the name of the table to be displayed on the form.
+         * @param name Name of the table to be displayed on the form.
+         * @see {@link https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/formcontext-ui/setformentityname External Link: setFormEntityName (Client API reference)}
+         */
+        setFormEntityName(name: string): void;
+
+        /**
          * The business process flow API, used to interact with the business process flow control in a form.
          */
         process: Controls.ProcessControl;
@@ -3833,6 +3840,12 @@ declare namespace Xrm {
              * @returns The label.
              */
             getLabel(): string;
+
+            /**
+             * Returns a value that indicates whether the form is currently visible.
+             * @returns true if the form is visible; false otherwise.
+             */
+            getVisible(): boolean;
 
             /**
              * Navigates the user to this form.
