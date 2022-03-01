@@ -30,20 +30,20 @@ declare function $(
     children?: Children,
 ): React.DetailedReactHTMLElement<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
 
-declare function $<P extends React.HTMLAttributes<T>, T extends HTMLElement>(
+declare function $<T extends HTMLElement>(
     tag: keyof ReactHTML,
     children?: Children,
-): React.DetailedReactHTMLElement<P, T>;
+): React.DetailedReactHTMLElement<React.HTMLAttributes<T>, T>;
 
 declare function $(
     tag: keyof ReactSVG,
     children?: Children,
 ): ReactSVGElement;
 
-declare function $<P extends React.DOMAttributes<T>, T extends Element>(
+declare function $<T extends Element>(
     tag: string,
     children?: Children,
-): React.DOMElement<P, T>;
+): React.DOMElement<React.DOMAttributes<T>, T>;
 
 // dom elements with attributes
 
@@ -59,9 +59,9 @@ declare function $<P extends React.HTMLAttributes<T>, T extends HTMLElement>(
     children?: Children,
 ): React.DetailedReactHTMLElement<P, T>;
 
-declare function $<P extends React.SVGAttributes<T>, T extends SVGElement>(
+declare function $<T extends SVGElement>(
     tag: keyof ReactSVG,
-    attributes?: React.ClassAttributes<T> & P,
+    attributes?: React.ClassAttributes<T> & React.SVGAttributes<T>,
     children?: Children,
 ): ReactSVGElement;
 
@@ -83,8 +83,8 @@ declare function $<P extends {}>(
     children?: Children,
 ): React.ComponentElement<P, React.ClassicComponent<P, React.ComponentState>>;
 
-declare function $<P extends {}, T extends React.Component<P, React.ComponentState>, C extends React.ComponentClass<P>>(
-    component: React.ClassType<P, T, C>,
+declare function $<P extends {}, T extends React.Component<P, React.ComponentState>>(
+    component: React.ClassType<P, T, React.ComponentClass<P>>,
     children?: Children,
 ): React.ComponentElement<P, T>;
 
@@ -107,8 +107,8 @@ declare function $<P extends {}>(
     children?: Children,
 ): React.ComponentElement<P, React.ClassicComponent<P, React.ComponentState>>;
 
-declare function $<P extends {}, T extends React.Component<P, React.ComponentState>, C extends React.ComponentClass<P>>(
-    component: React.ClassType<P, T, C>,
+declare function $<P extends {}, T extends React.Component<P, React.ComponentState>>(
+    component: React.ClassType<P, T, React.ComponentClass<P>>,
     props?: P & React.ClassAttributes<T>,
     children?: Children,
 ): React.ComponentElement<P, T>;
