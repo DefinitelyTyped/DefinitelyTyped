@@ -1,8 +1,7 @@
-import drawMultilineText = require('./');
+import drawMultilineText = require('canvas-multiline-text');
 
 // When no Context is given
-// $ExpectError
 drawMultilineText({} as any, 'Test', {
     minFontSize: 10,
     maxFontSize: 10
-}) // 10
+}); // 10
