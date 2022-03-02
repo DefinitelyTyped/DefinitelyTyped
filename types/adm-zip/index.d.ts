@@ -368,7 +368,7 @@ declare namespace AdmZip {
         /* The local file header */
         LOCHDR: 30; // LOC header size
         LOCSIG: 0x04034b50; // "PK\003\004"
-        LOCVER: 4;	// version needed to extract
+        LOCVER: 4; // version needed to extract
         LOCFLG: 6; // general purpose bit flag
         LOCHOW: 8; // compression method
         LOCTIM: 10; // modification time (2 bytes time, 2 bytes date)
@@ -456,10 +456,10 @@ declare namespace AdmZip {
 
         /* General purpose bit flag */
         // values can obtained with expression 2**bitnr
-        FLG_ENC: 1;  // Bit 0: encrypted file
-        FLG_COMP1: 2;  // Bit 1, compression option
-        FLG_COMP2: 4;  // Bit 2, compression option
-        FLG_DESC: 8;  // Bit 3, data descriptor
+        FLG_ENC: 1; // Bit 0: encrypted file
+        FLG_COMP1: 2; // Bit 1, compression option
+        FLG_COMP2: 4; // Bit 2, compression option
+        FLG_DESC: 8; // Bit 3, data descriptor
         FLG_ENH: 16; // Bit 4, enhanced deflating
         FLG_PATCH: 32; // Bit 5, indicates that the file is compressed patched data.
         FLG_STR: 64; // Bit 6, strong encryption (patented)
