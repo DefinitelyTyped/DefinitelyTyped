@@ -1,4 +1,8 @@
 import {
+    injectSelectionPostFixer,
+    mergeIntersectingRanges,
+} from '@ckeditor/ckeditor5-engine/src/model/utils/selection-post-fixer';
+import {
     ClickObserver,
     Conversion,
     DataController,
@@ -23,7 +27,7 @@ import {
     StylesProcessor,
     transformSets,
     TreeWalker,
-    ViewDocument
+    ViewDocument,
 } from '@ckeditor/ckeditor5-engine';
 import DowncastDispatcher from '@ckeditor/ckeditor5-engine/src/conversion/downcastdispatcher';
 import DowncastHelpers, {
@@ -34,14 +38,15 @@ import DowncastHelpers, {
     insertText,
     insertUIElement,
     remove,
-    wrap
+    wrap,
 } from '@ckeditor/ckeditor5-engine/src/conversion/downcasthelpers';
 import Mapper from '@ckeditor/ckeditor5-engine/src/conversion/mapper';
 import UpcastDispatcher from '@ckeditor/ckeditor5-engine/src/conversion/upcastdispatcher';
 import UpcastHelpers, {
     convertText,
-    convertToModelFragment
+    convertToModelFragment,
 } from '@ckeditor/ckeditor5-engine/src/conversion/upcasthelpers';
+import Batch from '@ckeditor/ckeditor5-engine/src/model/batch';
 import DocumentFragment from '@ckeditor/ckeditor5-engine/src/model/documentfragment';
 import { Item } from '@ckeditor/ckeditor5-engine/src/model/item';
 import MarkerCollection, { Marker } from '@ckeditor/ckeditor5-engine/src/model/markercollection';
@@ -172,6 +177,8 @@ model.schema.addAttributeCheck(context => {
         return true;
     }
 });
+model.createBatch();
+model.createBatch({ isUndo: true });
 
 const view: View = new View(new StylesProcessor());
 view.change(writer => {
@@ -179,6 +186,8 @@ view.change(writer => {
 });
 
 const viewElement = new DowncastWriter(new ViewDocument(new StylesProcessor())).createEmptyElement('div');
+// $ExpectType boolean
+viewElement.shouldRenderUnsafeAttribute('');
 
 let viewDocument = new ViewDocument(stylesProcessor);
 // $ExpectType boolean
@@ -525,11 +534,11 @@ livePosition = new LivePosition(model.document.createRoot(), [0]);
 livePosition = LivePosition.fromPosition(position);
 position = livePosition.toPosition();
 
-model = new Model();
 model.change((writer: Writer) => {
     console.log(writer);
 });
-model.enqueueChange('transparent', (writer: Writer) => {
+model.enqueueChange(new Batch(), () => {});
+model.enqueueChange(new Batch({ isUndoable: true, isUndo: false }), (writer: Writer) => {
     console.log(writer);
 });
 model.enqueueChange((writer: Writer) => {
@@ -558,7 +567,7 @@ model.createSelection();
 // $ExpectType Batch
 model.createBatch();
 // $ExpectType Batch
-model.createBatch('transparent');
+model.createBatch({ isUndo: false });
 operation = model.createOperationFromJSON({
     __className: 'NoOperation',
     baseVersion: 0,
@@ -596,8 +605,13 @@ num = element.getChildStartOffset(node);
 num = element.offsetToIndex(num);
 
 let domConverter = new DomConverter(viewDocument);
+domConverter.setDomElementAttribute(document.body, 'foo', 'bar');
+domConverter.setDomElementAttribute(document.body, 'foo', 'bar', viewElement);
+domConverter.removeDomElementAttribute(document.body, 'foo');
+// $ExpectError
+domConverter.isComment;
 // $ExpectType boolean
-domConverter.shouldRenderAttribute('', '');
+domConverter.shouldRenderAttribute('', '', '');
 // $ExpectError
 domConverter.shouldRenderAttribute('', 5);
 domConverter.setContentOf(document.createElement('div'), '');
@@ -636,6 +650,15 @@ new Mapper().on('foo', () => {});
 const downcastWriter = new DowncastWriter(new Document(new StylesProcessor()));
 downcastWriter.createPositionAt(downcastWriter.createEmptyElement('div'), 'after');
 downcastWriter.createPositionAt(new Position(downcastWriter.createEmptyElement('div'), 5));
+downcastWriter.createAttributeElement('fo');
+downcastWriter.createAttributeElement('fo', { foo: 'bar' });
+downcastWriter.createAttributeElement('fo', { foo: 'bar' }, { renderUnsafeAttributes: ['foo', 'bar'] });
+downcastWriter.createEmptyElement('fo');
+downcastWriter.createEmptyElement('fo', { foo: 'bar' });
+downcastWriter.createEmptyElement('fo', { foo: 'bar' }, { renderUnsafeAttributes: ['foo', 'bar'] });
+downcastWriter.createContainerElement('fo');
+downcastWriter.createContainerElement('fo', { foo: 'bar' });
+downcastWriter.createContainerElement('fo', { foo: 'bar' }, { renderUnsafeAttributes: ['foo', 'bar'] });
 
 type ModelIsTypes =
     | DocumentFragment
@@ -845,11 +868,11 @@ if (
 {
     const obj = viewObj as ViewElement;
     if (obj.is('element', 'p') || obj.is('element', 'div')) {
-        // $ExpectType (ContainerElement & { name: "p"; }) | (ContainerElement & { name: "div"; })
+        // $ExpectType (EmptyElement & { name: "p"; }) | (EmptyElement & { name: "div"; })
         obj;
     }
     if (obj.is('view:element', 'p') || obj.is('view:element', 'div')) {
-        // $ExpectType (ContainerElement & { name: "p"; }) | (ContainerElement & { name: "div"; })
+        // $ExpectType (EmptyElement & { name: "p"; }) | (EmptyElement & { name: "div"; })
         obj;
     }
     if (obj.is('element', 'p')) {
@@ -1272,3 +1295,14 @@ stylesProcessor.setReducer('margin', margin => {
 getBoxSidesValues().top;
 // $ExpectType undefined
 getBoxSidesValues('').top;
+
+class MyOperation extends Operation {
+    toJSON() {
+        return { __className: '', baseVersion: 0 };
+    }
+}
+new Batch().addOperation(new MyOperation(1));
+
+injectSelectionPostFixer(model);
+// $ExpectType Range[]
+mergeIntersectingRanges([range]);

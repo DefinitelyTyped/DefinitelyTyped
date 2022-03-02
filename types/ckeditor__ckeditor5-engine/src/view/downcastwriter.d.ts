@@ -1,19 +1,19 @@
-import AttributeElement from "./attributeelement";
-import ContainerElement from "./containerelement";
-import Document from "./document";
-import DocumentFragment from "./documentfragment";
-import EditableElement from "./editableelement";
-import Element from "./element";
-import EmptyElement from "./emptyelement";
-import { Item } from "./item";
-import Node from "./node";
-import Position from "./position";
-import Range from "./range";
-import RawElement from "./rawelement";
-import Selection, { Selectable } from "./selection";
-import Text from "./text";
-import UIElement from "./uielement";
-import View from "./view";
+import AttributeElement from './attributeelement';
+import ContainerElement from './containerelement';
+import Document from './document';
+import DocumentFragment from './documentfragment';
+import EditableElement from './editableelement';
+import Element from './element';
+import EmptyElement from './emptyelement';
+import { Item } from './item';
+import Node from './node';
+import Position from './position';
+import Range from './range';
+import RawElement from './rawelement';
+import Selection, { Selectable } from './selection';
+import Text from './text';
+import UIElement from './uielement';
+import View from './view';
 
 export default class DowncastWriter {
     readonly document: Document;
@@ -27,22 +27,32 @@ export default class DowncastWriter {
     createAttributeElement(
         name: string,
         attributes?: Record<string, string>,
-        options?: { priority: number; id: number | string },
+        options?: { priority?: number; id?: string; renderUnsafeAttributes?: string[] },
     ): AttributeElement;
     createContainerElement(
         name: string,
         attributes?: Record<string, string>,
-        options?: { isAllowedInsideAttributeElement?: boolean | undefined },
+        options?: {
+            isAllowedInsideAttributeElement?: boolean | undefined;
+            renderUnsafeAttributes?: string[] | undefined;
+        },
     ): ContainerElement;
     createDocumentFragment(children: Node | Iterable<Node>): DocumentFragment;
-    createEditableElement(name: string, attributes?: Record<string, string>): EditableElement;
+    createEditableElement(
+        name: string,
+        attributes?: Record<string, string>,
+        options?: { renderUnsafeAttributes?: string[] },
+    ): EditableElement;
     createEmptyElement(
         name: string,
         attributes?: Record<string, string>,
-        options?: { isAllowedInsideAttributeElement?: boolean | undefined },
+        options?: {
+            isAllowedInsideAttributeElement?: boolean | undefined;
+            renderUnsafeAttributes?: string[] | undefined;
+        },
     ): EmptyElement;
     createPositionAfter(item: Item): Position;
-    createPositionAt(itemOrPosition: Item, offset?: number | "end" | "before" | "after"): Position;
+    createPositionAt(itemOrPosition: Item, offset?: number | 'end' | 'before' | 'after'): Position;
     createPositionAt(itemOrPosition: Position): Position;
     createPositionBefore(item: Item): Position;
     createRange(start: Position, end?: Position): Range;
@@ -52,11 +62,14 @@ export default class DowncastWriter {
         name?: string,
         attributes?: Record<string, string>,
         renderFunction?: (domElement: HTMLElement) => void,
-        options?: { isAllowedInsideAttributeElement?: boolean | undefined },
+        options?: {
+            renderUnsafeAttributes?: string[] | undefined;
+            isAllowedInsideAttributeElement?: boolean | undefined;
+        },
     ): RawElement;
     createSelection(
         selectable?: Selectable,
-        placeOrOffset?: number | "before" | "end" | "after" | "on" | "in",
+        placeOrOffset?: number | 'before' | 'end' | 'after' | 'on' | 'in',
         options?: { backward?: boolean | undefined; fake?: boolean | undefined; label?: string | undefined },
     ): Selection;
     createText(data: string): Text;
@@ -90,10 +103,10 @@ export default class DowncastWriter {
     setCustomProperty(key: string, value: any, element: Element): void;
     setSelection(
         selectable: Selectable,
-        placeOrOffset?: number | "before" | "end" | "after" | "on" | "in",
+        placeOrOffset?: number | 'before' | 'end' | 'after' | 'on' | 'in',
         options?: { backward?: boolean | undefined; fake?: boolean | undefined; label?: string | undefined },
     ): void;
-    setSelectionFocus(itemOrPosition: View, offset?: number | "end" | "before" | "after"): void;
+    setSelectionFocus(itemOrPosition: View, offset?: number | 'end' | 'before' | 'after'): void;
     setSelectionFocus(itemOrPosition: Item | Position): void;
     setStyle(property: string, value: string, element: Element): void;
     setStyle(property: Record<string, string>, element: Element): void;
