@@ -420,6 +420,11 @@ function onLoadSetupEvents(eventContext: Xrm.Events.EventContext) {
     kbSearchControl.setSearchQuery("pot of gold");
 }
 
+// Demonstrate htmlAttributeEncode/htmlEncode/htmlDecode
+let html = Xrm.Encoding.htmlAttributeEncode("<&>");
+html = Xrm.Encoding.htmlEncode("<&>");
+const xml = Xrm.Encoding.htmlDecode("&lt;&amp;&gt;");
+
 // Demonstrate Navigating to a specific dashboard
 Xrm.Navigation.navigateTo({
     pageType: "dashboard",
