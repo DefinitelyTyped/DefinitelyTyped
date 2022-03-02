@@ -1,3 +1,4 @@
+import Element from '../model/element';
 import ViewDocument from './document';
 import ViewDocumentFragment from './documentfragment';
 import DocumentSelection from './documentselection';
@@ -32,7 +33,6 @@ export default class DomConverter {
     );
     readonly document: ViewDocument;
     readonly renderingMode: 'data' | 'editing';
-    readonly experimentalRenderingMode: false;
     readonly blockFillerMode: BlockFillerMode;
     readonly preElements: ['pre'];
     readonly blockElements: [
@@ -98,7 +98,7 @@ export default class DomConverter {
     /**
      * Decides whether given pair of attribute key and value should be passed further down the pipeline.
      */
-    shouldRenderAttribute(attributeKey: string, attributeValue: string): boolean;
+    shouldRenderAttribute(attributeKey: string, attributeValue: string, elementName: string): boolean;
     /**
      * Set `domElement`'s content using provided `html` argument. Apply necessary filtering for the editing pipeline.
      */
@@ -131,7 +131,6 @@ export default class DomConverter {
     focus(viewEditable: EditableElement): void;
     getHostViewElement(domNode: Node): UIElement | RawElement | null;
     isBlockFiller(domNode: Node): boolean;
-    isComment(node: Node): boolean;
     isDocumentFragment(node: Node): boolean;
     isDomSelectionBackward(DOM: Selection): boolean;
     isDomSelectionCorrect(domSelection: Selection): boolean;
@@ -158,6 +157,24 @@ export default class DomConverter {
         domDocument?: Document,
         options?: { bind?: boolean | undefined; withChildren?: boolean | undefined },
     ): Node | DocumentFragment;
+    /**
+     * Sets the attribute on a DOM element.
+     *
+     * **Note**: To remove the attribute, use {@link #removeDomElementAttribute}.
+     */
+    setDomElementAttribute(
+        domElement: HTMLElement,
+        key: string,
+        value: string,
+        relatedViewElement?: ViewElement | null,
+    ): void;
+
+    /**
+     * Removes an attribute from a DOM element.
+     *
+     * **Note**: To set the attribute, use {@link #setDomElementAttribute}.
+     */
+    removeDomElementAttribute(domElement: HTMLElement, key: string): void;
 }
 
 export type BlockFillerMode = 'br' | 'nbsp' | 'markednbsp';
