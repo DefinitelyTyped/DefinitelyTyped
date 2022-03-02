@@ -49,6 +49,13 @@ export class WebGLRenderTarget extends EventDispatcher {
      * @default null
      */
     depthTexture: DepthTexture;
+
+    /**
+     * Defines the count of MSAA samples. Can only be used with WebGL 2. Default is **0**.
+     * @default 0
+     */
+    samples: number;
+
     readonly isWebGLRenderTarget: true;
 
     /**
@@ -92,7 +99,6 @@ export class WebGLRenderTarget extends EventDispatcher {
      */
     generateMipmaps: any;
 
-    setTexture(texture: Texture): void;
     setSize(width: number, height: number, depth?: number): void;
     clone(): this;
     copy(source: WebGLRenderTarget): this;
