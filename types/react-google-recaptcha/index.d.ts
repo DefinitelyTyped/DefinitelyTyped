@@ -6,6 +6,7 @@
 //                 Meir Keller <https://github.com/meirkl>
 //                 Florian Roher <https://github.com/RohrerF>
 //                 Timotei Mocan <https://github.com/mocantimoteidavid>
+//                 Michael Szmadzinski <https://github.com/smujmaiku>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
