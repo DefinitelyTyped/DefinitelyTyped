@@ -400,29 +400,14 @@ declare namespace Mocha {
          *
          * - _Only available when invoked via the mocha CLI._
          */
-        (fn: Func): void;
-
-        /**
-         * [bdd, qunit, tdd] Describe a "hook" to execute the given callback `fn`. The name of the
-         * function is used as the name of the hook.
-         *
-         * - _Only available when invoked via the mocha CLI._
-         */
-        (fn: AsyncFunc): void;
+        (fn: Func | AsyncFunc): void;
 
         /**
          * [bdd, qunit, tdd] Describe a "hook" to execute the given `title` and callback `fn`.
          *
          * - _Only available when invoked via the mocha CLI._
          */
-        (name: string, fn?: Func): void;
-
-        /**
-         * [bdd, qunit, tdd] Describe a "hook" to execute the given `title` and callback `fn`.
-         *
-         * - _Only available when invoked via the mocha CLI._
-         */
-        (name: string, fn?: AsyncFunc): void;
+        (name: string, fn?: Func | AsyncFunc): void;
     }
 
     interface SuiteFunction {
@@ -494,15 +479,7 @@ declare namespace Mocha {
          *
          * - _Only available when invoked via the mocha CLI._
          */
-        (fn: Func): Test;
-
-        /**
-         * Describe a specification or test-case with the given callback `fn` acting as a thunk.
-         * The name of the function is used as the name of the test.
-         *
-         * - _Only available when invoked via the mocha CLI._
-         */
-        (fn: AsyncFunc): Test;
+        (fn: Func | AsyncFunc): Test;
 
         /**
          * Describe a specification or test-case with the given `title` and callback `fn` acting
@@ -510,15 +487,7 @@ declare namespace Mocha {
          *
          * - _Only available when invoked via the mocha CLI._
          */
-        (title: string, fn?: Func): Test;
-
-        /**
-         * Describe a specification or test-case with the given `title` and callback `fn` acting
-         * as a thunk.
-         *
-         * - _Only available when invoked via the mocha CLI._
-         */
-        (title: string, fn?: AsyncFunc): Test;
+         (title: string, fn?: Func | AsyncFunc): Test;
 
         /**
          * Indicates this test should be executed exclusively.
@@ -550,16 +519,7 @@ declare namespace Mocha {
          *
          * - _Only available when invoked via the mocha CLI._
          */
-        (fn: Func): Test;
-
-        /**
-         * [bdd, tdd, qunit] Describe a specification or test-case with the given callback `fn`
-         * acting as a thunk. The name of the function is used as the name of the test. Indicates
-         * this test should be executed exclusively.
-         *
-         * - _Only available when invoked via the mocha CLI._
-         */
-        (fn: AsyncFunc): Test;
+        (fn: Func | AsyncFunc): Test;
 
         /**
          * [bdd, tdd, qunit] Describe a specification or test-case with the given `title` and
@@ -567,15 +527,7 @@ declare namespace Mocha {
          *
          * - _Only available when invoked via the mocha CLI._
          */
-        (title: string, fn?: Func): Test;
-
-        /**
-         * [bdd, tdd, qunit] Describe a specification or test-case with the given `title` and
-         * callback `fn` acting as a thunk. Indicates this test should be executed exclusively.
-         *
-         * - _Only available when invoked via the mocha CLI._
-         */
-        (title: string, fn?: AsyncFunc): Test;
+        (title: string, fn?: Func | AsyncFunc): Test;
     }
 
     interface PendingTestFunction {
@@ -586,16 +538,7 @@ declare namespace Mocha {
          *
          * - _Only available when invoked via the mocha CLI._
          */
-        (fn: Func): Test;
-
-        /**
-         * [bdd, tdd, qunit] Describe a specification or test-case with the given callback `fn`
-         * acting as a thunk. The name of the function is used as the name of the test. Indicates
-         * this test should not be executed.
-         *
-         * - _Only available when invoked via the mocha CLI._
-         */
-        (fn: AsyncFunc): Test;
+        (fn: Func | AsyncFunc): Test;
 
         /**
          * [bdd, tdd, qunit] Describe a specification or test-case with the given `title` and
@@ -603,15 +546,7 @@ declare namespace Mocha {
          *
          * - _Only available when invoked via the mocha CLI._
          */
-        (title: string, fn?: Func): Test;
-
-        /**
-         * [bdd, tdd, qunit] Describe a specification or test-case with the given `title` and
-         * callback `fn` acting as a thunk. Indicates this test should not be executed.
-         *
-         * - _Only available when invoked via the mocha CLI._
-         */
-        (title: string, fn?: AsyncFunc): Test;
+        (title: string, fn?: Func | AsyncFunc): Test;
     }
 
     /**
@@ -1875,112 +1810,56 @@ declare namespace Mocha {
          *
          * @see https://mochajs.org/api/Mocha.Suite.html#beforeAll
          */
-        beforeAll(fn?: Func): this;
+        beforeAll(fn?: Func | AsyncFunc): this;
 
         /**
          * Run `fn(test[, done])` before running tests.
          *
          * @see https://mochajs.org/api/Mocha.Suite.html#beforeAll
          */
-        beforeAll(fn?: AsyncFunc): this;
-
-        /**
-         * Run `fn(test[, done])` before running tests.
-         *
-         * @see https://mochajs.org/api/Mocha.Suite.html#beforeAll
-         */
-        beforeAll(title: string, fn?: Func): this;
-
-        /**
-         * Run `fn(test[, done])` before running tests.
-         *
-         * @see https://mochajs.org/api/Mocha.Suite.html#beforeAll
-         */
-        beforeAll(title: string, fn?: AsyncFunc): this;
+        beforeAll(title: string, fn?: Func | AsyncFunc): this;
 
         /**
          * Run `fn(test[, done])` after running tests.
          *
          * @see https://mochajs.org/api/Mocha.Suite.html#afterAll
          */
-        afterAll(fn?: Func): this;
+        afterAll(fn?: Func | AsyncFunc): this;
 
         /**
          * Run `fn(test[, done])` after running tests.
          *
          * @see https://mochajs.org/api/Mocha.Suite.html#afterAll
          */
-        afterAll(fn?: AsyncFunc): this;
-
-        /**
-         * Run `fn(test[, done])` after running tests.
-         *
-         * @see https://mochajs.org/api/Mocha.Suite.html#afterAll
-         */
-        afterAll(title: string, fn?: Func): this;
-
-        /**
-         * Run `fn(test[, done])` after running tests.
-         *
-         * @see https://mochajs.org/api/Mocha.Suite.html#afterAll
-         */
-        afterAll(title: string, fn?: AsyncFunc): this;
+        afterAll(title: string, fn?: Func | AsyncFunc): this;
 
         /**
          * Run `fn(test[, done])` before each test case.
          *
          * @see https://mochajs.org/api/Mocha.Suite.html#beforeEach
          */
-        beforeEach(fn?: Func): this;
+        beforeEach(fn?: Func | AsyncFunc): this;
 
         /**
          * Run `fn(test[, done])` before each test case.
          *
          * @see https://mochajs.org/api/Mocha.Suite.html#beforeEach
          */
-        beforeEach(fn?: AsyncFunc): this;
-
-        /**
-         * Run `fn(test[, done])` before each test case.
-         *
-         * @see https://mochajs.org/api/Mocha.Suite.html#beforeEach
-         */
-        beforeEach(title: string, fn?: Func): this;
-
-        /**
-         * Run `fn(test[, done])` before each test case.
-         *
-         * @see https://mochajs.org/api/Mocha.Suite.html#beforeEach
-         */
-        beforeEach(title: string, fn?: AsyncFunc): this;
+        beforeEach(title: string, fn?: Func | AsyncFunc): this;
 
         /**
          * Run `fn(test[, done])` after each test case.
          *
          * @see https://mochajs.org/api/Mocha.Suite.html#afterEach
          */
-        afterEach(fn?: Func): this;
+        afterEach(fn?: Func | AsyncFunc): this;
 
         /**
          * Run `fn(test[, done])` after each test case.
          *
          * @see https://mochajs.org/api/Mocha.Suite.html#afterEach
          */
-        afterEach(fn?: AsyncFunc): this;
-
-        /**
-         * Run `fn(test[, done])` after each test case.
-         *
-         * @see https://mochajs.org/api/Mocha.Suite.html#afterEach
-         */
-        afterEach(title: string, fn?: Func): this;
-
-        /**
-         * Run `fn(test[, done])` after each test case.
-         *
-         * @see https://mochajs.org/api/Mocha.Suite.html#afterEach
-         */
-        afterEach(title: string, fn?: AsyncFunc): this;
+        afterEach(title: string, fn?: Func | AsyncFunc): this;
 
         /**
          * Add a test `suite`.
