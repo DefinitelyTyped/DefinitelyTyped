@@ -6,7 +6,9 @@ import DualContentModelElementSupport from './integrations/dualcontent';
 import HeadingElementSupport from './integrations/heading';
 import ImageElementSupport from './integrations/image';
 import MediaEmbedElementSupport from './integrations/mediaembed';
+import ScriptElementSupport from './integrations/script';
 import TableElementSupport from './integrations/table';
+
 /**
  * The General HTML Support feature.
  *
@@ -23,6 +25,7 @@ export default class GeneralHtmlSupport extends Plugin {
         typeof HeadingElementSupport,
         typeof ImageElementSupport,
         typeof MediaEmbedElementSupport,
+        typeof ScriptElementSupport,
         typeof TableElementSupport,
     ];
 }

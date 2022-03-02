@@ -2600,7 +2600,7 @@ declare global {
      *   loop(), isLooping() returns the current state for
      *   use within custom event handlers.
      */
-    function isLooping(): void;
+    function isLooping(): boolean;
 
     /**
      *   The push() function saves the current drawing

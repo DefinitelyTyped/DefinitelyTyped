@@ -12,6 +12,23 @@ router.transitionTo(
     { queryParams: {} },
 );
 
+const routeWillChangeHandler = () => {};
+
+// $ExpectType RouterService
+router.on('routeWillChange', routeWillChangeHandler);
+
+// $ExpectType boolean
+router.has('routeWillChange');
+
+// $ExpectType RouterService
+router.off('routeWillChange', routeWillChangeHandler);
+
+// $ExpectType RouterService
+router.one('routeWillChange', routeWillChangeHandler);
+
+// $ExpectType void
+router.trigger('routeWillChange', 'boo');
+
 const transition = router.transitionTo('someRoute');
 
 // $ExpectType Transition<unknown>

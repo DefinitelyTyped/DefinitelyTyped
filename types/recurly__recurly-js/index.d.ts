@@ -1,4 +1,4 @@
-// Type definitions for non-npm package @recurly/recurly-js 4.18
+// Type definitions for non-npm package @recurly/recurly-js 4.19
 // Project: https://github.com/recurly/recurly-js
 // Definitions by: Christopher Rogers <https://github.com/chrissrogers>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -20,6 +20,7 @@ export * from './lib/pricing/index';
 export * from './lib/3d-secure';
 export * from './lib/address';
 export * from './lib/adyen';
+export * from './lib/bank-redirect';
 export * from './lib/apple-pay';
 export * from './lib/bank-account';
 export * from './lib/configure';

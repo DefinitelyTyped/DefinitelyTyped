@@ -29,14 +29,26 @@ export function inspect(obj: any): string;
  * The following example demonstrates its usage by registering a handler that throws an error if the
  * message contains the word "should", otherwise defers to the default handler.
  */
-export function registerDeprecationHandler(handler: (message: string, options: { id: string, until: string }, next: () => void) => void): void;
+export function registerDeprecationHandler(
+    handler: (
+        message: string,
+        options: { id: string; until: string } | undefined,
+        next: (message: string, options?: { id: string; until: string }) => void,
+    ) => void,
+): void;
 /**
  * Allows for runtime registration of handler functions that override the default warning behavior.
  * Warnings are invoked by calls made to [Ember.warn](http://emberjs.com/api/classes/Ember.html#method_warn).
  * The following example demonstrates its usage by registering a handler that does nothing overriding Ember's
  * default warning behavior.
  */
-export function registerWarnHandler(handler: (message: string, options: { id: string }, next: (message?: string, options?: { id: string }) => void) => void): void;
+export function registerWarnHandler(
+    handler: (
+        message: string,
+        options: { id: string } | undefined,
+        next: (message: string, options?: { id: string }) => void,
+    ) => void,
+): void;
 
 /**
  * Run a function meant for debugging.

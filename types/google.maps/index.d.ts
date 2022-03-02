@@ -341,8 +341,8 @@ declare namespace google.maps {
 declare namespace google.maps {
   /**
    * Available only in the v=beta channel: https://goo.gle/3oAthT3.
-   * This class provides convenience methods for generating matrices to use for
-   * rendering WebGL scenes on top of the Google base map. <br><br>Note: A
+   * This interface provides convenience methods for generating matrices to use
+   * for rendering WebGL scenes on top of the Google base map. <br><br>Note: A
    * reference to this object should <b>not</b> be held outside of the scope of
    * the encapsulating {@link google.maps.WebglOverlayView.onDraw} call.
    */

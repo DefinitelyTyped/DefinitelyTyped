@@ -64,7 +64,7 @@ export interface PosterizerOptions extends PotraceOptions {
 export function trace(
     file: string | Buffer | Jimp,
     cb: (error: Error | null, svg: string, potrace: Potrace) => void,
-): Promise<string>;
+): void;
 
 export function trace(
     file: string | Buffer | Jimp,

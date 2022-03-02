@@ -258,7 +258,13 @@ declare namespace mermaidAPI {
 
         theme?: Theme | undefined;
 
+        themeVariables?: any; // [todo]
+
+        themeCSS?: string | undefined;
+
         maxTextSize?: number | undefined;
+
+        darkMode?: boolean | undefined;
 
         fontFamily?: string | undefined;
 
@@ -305,8 +311,17 @@ declare namespace mermaidAPI {
          */
         gantt?: GanttConfig | undefined;
 
-        class?: any;
-        git?: any;
+        journey?: any; // [todo]
+
+        class?: any; // [todo]
+
+        git?: any; // [todo]
+
+        state?: any; // [todo]
+
+        pie?: any; // [todo]
+
+        requirement?: any; // [todo]
     }
 
     /**

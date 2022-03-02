@@ -64,3 +64,10 @@ const testCard: azdata.CardProperties = {
     iconHeight: '16px',
     iconWidth: '16px'
 };
+
+const updateDisplayData: azdata.nb.IUpdateDisplayData = {
+    output_type: 'update_display_data',
+    data: {
+        key1: 'value1'
+    }
+};

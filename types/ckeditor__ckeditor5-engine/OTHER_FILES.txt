@@ -20,4 +20,3 @@ src/view/observer/inputobserver.d.ts
 src/view/observer/keyobserver.d.ts
 src/view/observer/mutationobserver.d.ts
 src/view/observer/selectionobserver.d.ts
-src/view/renderer.d.ts
