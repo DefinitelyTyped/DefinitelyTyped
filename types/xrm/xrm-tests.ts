@@ -394,6 +394,20 @@ Xrm.App.sidePanes.getSelectedPane();
 // Demonstrate GetSettings
 const settingValue = Xrm.Utility.getGlobalContext().getCurrentAppSetting("SettingsName");
 
+// Demonstrate Navigating to a specific dashboard
+Xrm.Navigation.navigateTo({
+    pageType: "dashboard",
+    dashboardId: "84fd907e-8bfe-11ec-a8a3-0242ac120002"
+}).then(
+    success => { console.log("Dashboard opened"); },
+    error => { console.log(error.message); }
+);
+
+// Demonstrate Navigating to the default dashboard
+Xrm.Navigation.navigateTo({ pageType: "dashboard" });
+let dashboard;
+Xrm.Navigation.navigateTo({ pageType: "dashboard", dashboardId: dashboard });
+
 // Demonstrate formContext.ui.footerSection methods
 function onChangeFormField(executionContext: Xrm.Events.EventContext): void {
     const formContext = executionContext.getFormContext();
