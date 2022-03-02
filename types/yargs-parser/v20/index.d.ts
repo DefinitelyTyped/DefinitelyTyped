@@ -1,4 +1,4 @@
-// Type definitions for yargs-parser 21.0
+// Type definitions for yargs-parser 20.2
 // Project: https://github.com/yargs/yargs-parser#readme
 // Definitions by: Miles Johnson <https://github.com/milesj>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -7,9 +7,9 @@
 declare namespace yargsParser {
     interface Arguments {
         /** Non-option arguments */
-        _: Array<string | number>;
-        /** Arguments after the end-of-options flag `--` */
-        '--'?: Array<string | number>;
+        _: string[];
+        /** The script name or node command */
+        $0: string;
         /** All remaining options */
         [argName: string]: any;
     }
@@ -108,9 +108,6 @@ declare namespace yargsParser {
     interface Parser {
         (argv: string | string[], opts?: Options): Arguments;
         detailed(argv: string | string[], opts?: Options): DetailedArguments;
-        camelCase(str: string): string;
-        decamelize(str: string, joinString?: string): string;
-        looksLikeNumber(value: string | number | null | undefined): boolean;
     }
 }
 
