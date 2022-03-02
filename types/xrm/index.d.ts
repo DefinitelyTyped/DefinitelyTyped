@@ -2985,7 +2985,7 @@ declare namespace Xrm {
              * * webresource
              * * notes
              * * timercontrol
-             * * kbsearch (CRM Online Only, use parature.d.ts)
+             * * kbsearch
              * * quickform (see ui.QuickForm)
              * * customcontrol: <namespace>.<name> (A custom control for mobile phone and tablet clients).
              * * customsubgrid: <namespace>.<name> (A custom dataset control for mobile phone and tablet clients).
@@ -3510,6 +3510,173 @@ declare namespace Xrm {
              * @remarks Unavailable for Microsoft Dynamics CRM for tablets.
              */
             getInitialUrl(): string;
+        }
+
+        /**
+          * Interface for a knowledge base search control
+          */
+        interface KbSearchControl extends Control {
+            /**
+              * Adds an event handler to the PostSearch event.
+              * @see https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/controls/addonpostsave
+              */
+            addOnPostSearch(handler: Events.ContextSensitiveHandler): void;
+
+            /**
+              * Adds an event handler to the OnResultOpened event.
+              * @see https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/controls/addonresultopened
+              */
+            addOnResultOpened(handler: Events.ContextSensitiveHandler): void;
+
+            addOnSelection(handler: Events.ContextSensitiveHandler): void;
+
+            /**
+              * Gets the text used as the search criteria for the knowledge base management control.
+              * @see https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/controls/getsearchquery
+              */
+            getSearchQuery(): string;
+
+            /**
+              * Gets the currently selected result of the search control. The currently selected result also represents the result that is currently open.
+              * @see https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/controls/getselectedresults
+              */
+            getSelectedResults(): KbSearchResult;
+
+            /**
+              * Gets the count of results found in the search control.
+              * @returns The count of the search result.
+              * @see             https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/controls/gettotalresultcount
+              */
+            getTotalResultCount(): number;
+
+            /**
+              * Opens a search result in the search control by specifying the result number.
+              * @param resultNumber Numerical value specifying the result number to be opened. Result number starts from 1.
+              * @param mode Specify "Inline" or "Popout". "Inline" mode opens the result inline either in the reading pane of the control or in a reference panel tab in case of reference panel. "Popout" mode opens the result in a pop-out window.
+              * @returns Status of opening the specified search result. Returns 1 if successful; 0 if unsuccessful. The method will return -1 if the specified resultNumber value is not present, or if the specified mode value is invalid.
+              * @see             https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/controls/opensearchresult
+              */
+            openSearchResult(resultNumber: number, mode?: XrmEnum.OpenSearchResultMode): boolean;
+
+            /**
+              * Removes an event handler from the PostSearch event.
+              * @param handler The function to remove from the PostSearch event.
+              * @see https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/controls/removeonpostsearch
+              */
+            removeOnPostSearch(handler: Events.ContextSensitiveHandler): void;
+
+            /**
+              * Removes an event handler from the OnResultOpened event.
+              * @param handler The function to remove from the OnResultOpened event.
+              * @see https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/controls/removeonresultopened
+              */
+            removeOnResultOpened(handler: Events.ContextSensitiveHandler): void;
+
+            /**
+              * Removes an event handler from the OnResultSelection event.
+              * @param handler The function to remove from the OnSelection event.
+              * @see https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/controls/removeonselection
+              */
+            removeOnSelection(handler: Events.ContextSensitiveHandler): void;
+
+            /**
+              * Sets the text used as the search criteria for the knowledge base search control.
+              * @param searchString The text for the search query.
+              * @see https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/controls/setsearchquery
+              */
+            setSearchQuery(searchString: string): void;
+        }
+
+        /**
+         * Interface for a knowledge base search result.
+         */
+        interface KbSearchResult {
+            /**
+             * The HTML markup containing the content of the article.
+             */
+            answer: string;
+
+            /**
+             * The article ID that is used as an alternate key.
+             * @remarks You can use this to see if this article already exists in Microsoft Dataverse.
+             */
+            articleId: string;
+
+            /**
+             * The unique article ID. This value is used as an alternate key.
+             */
+            articleUid: string;
+
+            /**
+             * Number of attachments in the article.
+             */
+            attachmentCount: number;
+
+            /**
+             * The date the article was created in the user's current time zone and format.
+             */
+            createdOn: Date;
+
+            /**
+             * The date the article was or will be expired.
+             */
+            expiredDate: Date;
+
+            /**
+             * The link to the folder path of the article.
+             */
+            folderHref: string;
+
+            /**
+             * The direct link to the article.
+             */
+            href: string;
+
+            /**
+             * Indicates whether the article is associated with the parent record.
+             */
+            isAssociated: boolean;
+
+            /**
+             * Date on which the article was last modified in the current user's timezone and format.
+             */
+            lastModifiedOn: Date;
+
+            /**
+             * Support Portal URL of the article.
+             * @remarks If the Portal URL option is turned off, this will be blank.
+             */
+            publicUrl: string;
+
+            /**
+             * Whether the Article is in published or draft state.
+             */
+            published: boolean;
+
+            /**
+             * The title of the article.
+             */
+            question: string;
+
+            /**
+             * The rating of the article.
+             */
+            rating: number;
+
+            /**
+             * A short snippet of article content which contains the areas where the search query was hit.
+             */
+            searchBlurb: string;
+
+            /**
+             * Link to the article. Use this link to open the article.
+             */
+            serviceDeskUri: string;
+
+            /**
+             * The number of times an article is viewed on the portal by customers.
+             */
+            timesViewed: number;
         }
 
         /**
@@ -6108,5 +6275,10 @@ declare namespace XrmEnum {
         Audio = "audio",
         Video = "video",
         Image = "image",
+    }
+
+    const enum OpenSearchResultMode {
+        Inline = "Inline",
+        Popup = "Popup"
     }
 }
