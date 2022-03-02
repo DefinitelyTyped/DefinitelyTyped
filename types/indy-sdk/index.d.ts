@@ -452,7 +452,7 @@ export interface IndyCredentialInfo {
     schema_id: string;
     cred_def_id: string;
     rev_reg_id?: number | undefined;
-    cred_rev_id?: number | undefined;
+    cred_rev_id?: string | undefined;
 }
 
 export interface IndyCredential {
