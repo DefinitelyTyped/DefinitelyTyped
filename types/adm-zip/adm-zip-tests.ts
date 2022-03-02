@@ -23,7 +23,7 @@ zip.extractEntryTo(/*entry name*/ 'some_folder/my_file.txt', /*target path*/ '/h
 // extracts everything
 zip.extractAllTo(/*target path*/ '/home/me/zipcontent/', /*overwrite*/ true);
 // extracts everything and calls callback -> async extracction
-zip.extractAllToAsync(/*target path*/ '/home/me/zipcontent/', /*overwrite*/ true, (error: Error) => {});
+zip.extractAllToAsync(/*target path*/ '/home/me/zipcontent/', /*overwrite*/ true, false, (error?: Error) => {});
 
 // creating archives
 new AdmZip();
