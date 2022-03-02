@@ -128,6 +128,7 @@ dt.toSQLTime({ includeOffset: false, includeZone: true }); // $ExpectType string
 dt.valueOf(); // $ExpectType number
 dt.toObject(); // $ExpectType ToObjectOutput
 dt.toObject({ includeConfig: true }); // $ExpectType ToObjectOutput
+dt.toUnixInteger(); // $ExpectType number
 
 // $ExpectType string | null
 dt.toRelative({

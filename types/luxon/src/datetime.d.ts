@@ -1354,6 +1354,11 @@ export class DateTime {
     toSeconds(): number;
 
     /**
+     * Returns the epoch seconds (as a whole number) of this DateTime.
+     */
+    toUnixInteger(): number;
+
+    /**
      * Returns an ISO 8601 representation of this DateTime appropriate for use in JSON.
      */
     toJSON(): string;
