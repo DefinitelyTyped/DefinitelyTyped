@@ -172,7 +172,7 @@ declare class AdmZip {
      *   will be overwriten if this is `true`. Default: `false`.
      * @param keepOriginalPermission The file will be set as the permission from
      *   the entry if this is true. Default: `false`.
-     * @param outFileName String If set will override the filename of the 
+     * @param outFileName String If set will override the filename of the
      *   extracted file (Only works if the entry is a file)
      * @return Boolean
      */
@@ -368,7 +368,7 @@ declare namespace AdmZip {
         /* The local file header */
         LOCHDR: 30; // LOC header size
         LOCSIG: 0x04034b50; // "PK\003\004"
-        LOCVER: 4,	// version needed to extract
+        LOCVER: 4;	// version needed to extract
         LOCFLG: 6; // general purpose bit flag
         LOCHOW: 8; // compression method
         LOCTIM: 10; // modification time (2 bytes time, 2 bytes date)
