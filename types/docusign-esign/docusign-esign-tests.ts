@@ -34,6 +34,19 @@ const getEnvelope = async (
     return results;
 };
 
+const getEnvelopeWithStoredConfiguredClient = async (
+    envelopeId: string,
+    options: { advancedUpdate?: string | undefined; include?: string | undefined },
+) => {
+    const params = await getDsRequestParams();
+    const client = await getClient(params.token);
+    docusign.Configuration.default.setDefaultApiClient(client);
+    const envelopesApi = new docusign.EnvelopesApi();
+
+    const results = await envelopesApi.getEnvelope(params.accountId, envelopeId, options);
+    return results;
+};
+
 const getClient = async (token: string) => {
     const client = apiClient();
     client.addDefaultHeader('Authorization', `Bearer ${token}`);

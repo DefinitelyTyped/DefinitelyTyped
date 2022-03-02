@@ -490,6 +490,12 @@ const ComponentWithTheme = withTheme(Component);
 <ComponentWithTheme text={'hi'} theme={{ color: 'red' }} />; // ok
 <ThemeConsumer>{theme => <Component text="hi" theme={theme} />}</ThemeConsumer>;
 
+// should consider default props of a component
+const ComponentWithDefaultProps = ({ text }: WithThemeProps) => <div>{text}</div>;
+ComponentWithDefaultProps.defaultProps = { text: 'hi' };
+const ComponentWithDefaultPropsAndTheme = withTheme(ComponentWithDefaultProps);
+<ComponentWithDefaultPropsAndTheme />;
+
 /**
  * isStyledComponent utility
  */

@@ -23,7 +23,7 @@ import {
     StylesProcessor,
     transformSets,
     TreeWalker,
-    ViewDocument,
+    ViewDocument
 } from '@ckeditor/ckeditor5-engine';
 import DowncastDispatcher from '@ckeditor/ckeditor5-engine/src/conversion/downcastdispatcher';
 import DowncastHelpers, {
@@ -34,13 +34,13 @@ import DowncastHelpers, {
     insertText,
     insertUIElement,
     remove,
-    wrap,
+    wrap
 } from '@ckeditor/ckeditor5-engine/src/conversion/downcasthelpers';
 import Mapper from '@ckeditor/ckeditor5-engine/src/conversion/mapper';
 import UpcastDispatcher from '@ckeditor/ckeditor5-engine/src/conversion/upcastdispatcher';
 import UpcastHelpers, {
     convertText,
-    convertToModelFragment,
+    convertToModelFragment
 } from '@ckeditor/ckeditor5-engine/src/conversion/upcasthelpers';
 import DocumentFragment from '@ckeditor/ckeditor5-engine/src/model/documentfragment';
 import { Item } from '@ckeditor/ckeditor5-engine/src/model/item';
@@ -53,6 +53,7 @@ import Selection from '@ckeditor/ckeditor5-engine/src/model/selection';
 import Text from '@ckeditor/ckeditor5-engine/src/model/text';
 import TextProxy from '@ckeditor/ckeditor5-engine/src/model/textproxy';
 import Writer from '@ckeditor/ckeditor5-engine/src/model/writer';
+import { getBoxSidesValues } from '@ckeditor/ckeditor5-engine/src/styles/utils';
 import AttributeElement from '@ckeditor/ckeditor5-engine/src/view/attributeelement';
 import ContainerElement, { getFillerOffset } from '@ckeditor/ckeditor5-engine/src/view/containerelement';
 import Document from '@ckeditor/ckeditor5-engine/src/view/document';
@@ -78,6 +79,7 @@ import View from '@ckeditor/ckeditor5-engine/src/view/view';
 import { EmitterMixin } from '@ckeditor/ckeditor5-utils';
 
 let str = '';
+const stylesProcessor = new StylesProcessor();
 let viewDocumentFragment = new ViewDocumentFragment();
 let pattern: MatcherPattern = { name: /^p/ };
 
@@ -178,7 +180,6 @@ view.change(writer => {
 
 const viewElement = new DowncastWriter(new ViewDocument(new StylesProcessor())).createEmptyElement('div');
 
-let stylesProcessor = new StylesProcessor();
 let viewDocument = new ViewDocument(stylesProcessor);
 // $ExpectType boolean
 viewDocument.isSelecting;
@@ -186,8 +187,10 @@ viewDocument.isSelecting;
 viewDocument.isSelecting = true;
 let bool: boolean = viewDocument.isReadOnly;
 num = viewDocument.roots.length;
-let rootEditableElement: RootEditableElement = viewDocument.roots.get('main')!;
-rootEditableElement = viewDocument.getRoot()!;
+// $ExpectType (RootEditableElement & { id: string; }) | null
+viewDocument.roots.get('main');
+// $ExpectType RootEditableElement | null
+viewDocument.getRoot();
 
 enablePlaceholder({
     view,
@@ -214,7 +217,8 @@ editingcontroller.downcastDispatcher.on('insert:$element', () => {});
 
 const datacontroller: DataController = new DataController(model, stylesProcessor);
 model = datacontroller.model;
-stylesProcessor = datacontroller.stylesProcessor;
+// $ExpectType StylesProcessor
+datacontroller.stylesProcessor;
 // $ExpectType DocumentFragment
 datacontroller.parse(str);
 // $ExpectType DocumentFragment
@@ -306,7 +310,8 @@ downcastHelper = downcastHelper.add(dispatcher => {
         'insert:myElem',
         insertElement((modelItem, { writer }) => {
             modelItem; // $ExpectType Element
-            const text = writer.createText('myText');
+            // ExpectType ViewText
+            writer.createText('myText');
             return writer.createAttributeElement('myElem', { myAttr: 'my-' + modelItem.getAttribute('myAttr') });
         }),
     );
@@ -458,8 +463,10 @@ const result = documentSelection.getRanges().next();
 if (!result.done) {
     range = result.value;
 }
-let modelPosition: ModelPosition = documentSelection.anchor!;
-modelPosition = documentSelection.focus!;
+// $ExpectType Position | null
+documentSelection.anchor;
+// $ExpectType Position | null
+documentSelection.focus;
 bool = documentSelection.isBackward;
 bool = documentSelection.hasOwnRange;
 bool = documentSelection.isCollapsed;
@@ -481,8 +488,10 @@ bool = range.isCollapsed;
 range = range.clone();
 bool = range.isIntersecting(range);
 bool = range.isEqual(range);
-let treeWalker: TreeWalker = range.getWalker();
-treeWalker = range.getWalker({ singleCharacters: true });
+// $ExpectType TreeWalker
+range.getWalker();
+// $ExpectType TreeWalker
+range.getWalker({ singleCharacters: true });
 const result3 = range.getItems({ startPosition: position }).next();
 range.getItems();
 if (!result3.done) {
@@ -532,12 +541,16 @@ model.deleteContent(model.document.selection);
 model.modifySelection(model.document.selection);
 model.modifySelection(model.document.selection, { direction: 'backward' });
 model.on('getSelectedContent', () => {});
-let modelDocumentFragment = new DocumentFragment();
-modelDocumentFragment = model.getSelectedContent(model.document.selection);
+new DocumentFragment();
+// $ExpectType DocumentFragment
+model.getSelectedContent(model.document.selection);
 bool = model.hasContent(range);
-modelPosition = model.createPositionFromPath(model.document.getRoot()!, [0]);
-modelPosition = model.createPositionAfter(model.document.getRoot()!.getChild(0));
-modelPosition = model.createPositionBefore(model.document.getRoot()!.getChild(0));
+// $ExpectType Position
+model.createPositionFromPath(model.document.getRoot()!, [0]);
+// $ExpectType Position
+model.createPositionAfter(model.document.getRoot()!.getChild(0));
+// $ExpectType Position
+model.createPositionBefore(model.document.getRoot()!.getChild(0));
 range = model.createRangeIn(model.document.getRoot()!.getChild(0) as Element);
 range = model.createRangeOn(model.document.getRoot()!.getChild(0));
 // $ExpectType Selection
@@ -553,10 +566,10 @@ operation = model.createOperationFromJSON({
 model.destroy();
 model.listenTo(Object.create(EmitterMixin), 'event', () => {});
 
-treeWalker = new TreeWalker({
+new TreeWalker({
     startPosition: position,
 });
-treeWalker = new TreeWalker({
+new TreeWalker({
     startPosition: position,
     boundaries: range,
     direction: 'forward',
@@ -597,7 +610,7 @@ blockFillerMode = domConverter.blockFillerMode;
 domConverter.bindElements(document.createElement('div'), viewEditableElement);
 domConverter.unbindDomElement(document.createElement('div'));
 domConverter.focus(viewEditableElement);
-// $ExpectType DocumentFragment | Node | null
+// $ExpectType Node | DocumentFragment | null
 domConverter.domToView(document.createElement('div'), { skipComments: true });
 bool = domConverter.isElement(document.createElement('div'));
 
@@ -832,11 +845,11 @@ if (
 {
     const obj = viewObj as ViewElement;
     if (obj.is('element', 'p') || obj.is('element', 'div')) {
-        // $ExpectType (Element & { name: "p"; }) | (Element & { name: "div"; })
+        // $ExpectType (ContainerElement & { name: "p"; }) | (ContainerElement & { name: "div"; })
         obj;
     }
     if (obj.is('view:element', 'p') || obj.is('view:element', 'div')) {
-        // $ExpectType (Element & { name: "p"; }) | (Element & { name: "div"; })
+        // $ExpectType (ContainerElement & { name: "p"; }) | (ContainerElement & { name: "div"; })
         obj;
     }
     if (obj.is('element', 'p')) {
@@ -1250,3 +1263,12 @@ const myRawElement = downcastWriter.createRawElement('div');
 myRawElement.render = (domElement, domConverter) => {
     domConverter.setContentOf(domElement, '<b>This is the raw content of myRawElement.</b>');
 };
+
+stylesProcessor.setReducer('margin', margin => {
+    return [['margin', `${margin.top} ${margin.right} ${margin.bottom} ${margin.left}`]];
+});
+
+// $ExpectType string | undefined
+getBoxSidesValues().top;
+// $ExpectType undefined
+getBoxSidesValues('').top;
