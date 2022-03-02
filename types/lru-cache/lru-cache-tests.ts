@@ -1,4 +1,4 @@
-import LRUCache = require('lru-cache');
+import LRUCache from 'lru-cache';
 
 const num = 1;
 
