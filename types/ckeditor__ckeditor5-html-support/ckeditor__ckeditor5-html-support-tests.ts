@@ -14,6 +14,7 @@ import HtmlComment from '@ckeditor/ckeditor5-html-support/src/htmlcomment';
 import CodeBlockHtmlSupport from '@ckeditor/ckeditor5-html-support/src/integrations/codeblock';
 import TableElementSupport from '@ckeditor/ckeditor5-html-support/src/integrations/table';
 import schemas from '@ckeditor/ckeditor5-html-support/src/schemadefinitions';
+import ScriptElementSupport from '@ckeditor/ckeditor5-html-support/src/integrations/script';
 
 class MyEditor extends Editor {}
 const editor = new MyEditor();
@@ -82,6 +83,9 @@ CodeBlockHtmlSupport.requires.forEach(Plugin => new Plugin(editor));
 new TableElementSupport(editor).init();
 TableElementSupport.requires.forEach(Plugin => new Plugin(editor));
 
+new ScriptElementSupport(editor).init();
+ScriptElementSupport.requires.forEach(Plugin => new Plugin(editor));
+
 schemas.block.concat([]);
 schemas.inline.concat([]).lastIndexOf(schemas.inline[0]) === 0;
 
@@ -99,6 +103,9 @@ editor.plugins.get('GeneralHtmlSupport');
 
 // $ExpectType TableElementSupport
 editor.plugins.get('TableElementSupport');
+
+// $ExpectType ScriptElementSupport
+editor.plugins.get('ScriptElementSupport');
 
 const position = new Position(new Element('div'), [4]);
 // $ExpectType boolean

@@ -53,6 +53,11 @@ declare namespace session {
         maxAge: opts["maxAge"];
 
         /**
+         * commit this session's headers if autoCommit is set to false.
+         */
+        manuallyCommit(): Promise<void>;
+
+        /**
          * save this session no matter whether it is populated
          */
         save(): void;
@@ -182,6 +187,11 @@ declare namespace session {
          * Hook: before save session
          */
         beforeSave?(ctx: Koa.Context, session: Session): void;
+
+        /**
+         * (boolean) automatically commit headers (default true).
+         */
+        autoCommit?: boolean;
     }
 
     interface stores {

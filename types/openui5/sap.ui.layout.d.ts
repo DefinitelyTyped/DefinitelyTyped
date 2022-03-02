@@ -1,4 +1,4 @@
-// For Library Version: 1.98.0
+// For Library Version: 1.99.0
 
 declare module "sap/ui/layout/library" {
   import Control from "sap/ui/core/Control";
@@ -394,6 +394,9 @@ declare module "sap/ui/layout/library" {
        */
       ColumnLayout = "ColumnLayout",
       /**
+       * @deprecated (since 1.67.0) - as the `sap.ui.commons` library is deprecated, and the `GridLayout` must
+       * not be used in responsive applications. Please use `ResponsiveGridLayout` or `ColumnLayout` instead.
+       *
        * Uses the `GridLayout` layout to render the `SimpleForm` control
        */
       GridLayout = "GridLayout",

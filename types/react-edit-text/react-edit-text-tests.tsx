@@ -1,5 +1,5 @@
-import { EditText, EditTextarea, onSaveProps } from 'react-edit-text';
 import * as React from 'react';
+import { EditText, EditTextarea, onSaveProps } from 'react-edit-text';
 
 const onSaveTest = ({ name, value, previousValue }: onSaveProps) => {
     console.log(name + value + previousValue);
@@ -7,6 +7,10 @@ const onSaveTest = ({ name, value, previousValue }: onSaveProps) => {
 
 const onChangeTest = (value: string) => {
     console.log(value);
+};
+
+const formatDisplayTextTest = (value: string) => {
+    return '$' + value;
 };
 
 <EditText />;
@@ -22,6 +26,7 @@ const onChangeTest = (value: string) => {
 <EditText inline />;
 <EditText style={{ margin: 0 }} />;
 <EditText readonly />;
+<EditText type="number" value="100" formatDisplayText={formatDisplayTextTest} />;
 
 <EditTextarea />;
 <EditTextarea id="desc" />;
@@ -35,3 +40,4 @@ const onChangeTest = (value: string) => {
 <EditTextarea rows={5} />;
 <EditTextarea style={{ padding: 0 }} />;
 <EditTextarea readonly />;
+<EditTextarea value="100" formatDisplayText={formatDisplayTextTest} />;

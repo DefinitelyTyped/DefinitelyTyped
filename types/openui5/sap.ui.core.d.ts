@@ -264,7 +264,7 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
   ): jQuery;
 }
 
-// For Library Version: 1.98.0
+// For Library Version: 1.99.0
 
 declare module "sap/base/assert" {
   /**
@@ -2405,9 +2405,14 @@ declare module "sap/ui/dom/includeStylesheet" {
   /**
    * @SINCE 1.58
    *
-   * Includes the specified stylesheet via a <link>-tag in the head of the current document. If there
-   * is call to `includeStylesheet` providing the sId of an already included stylesheet, the existing element
-   * will be replaced.
+   * Includes the specified stylesheet via a <link>-tag in the head of the current document.
+   *
+   * If `includeStylesheet` is called with an `sId` of an already included stylesheet and:
+   * 	 - either `fnLoadCallback` or `fnErrorCallback` is given: the old stylesheet is deleted and a new one
+   * 			is inserted
+   * 	 - `vUrl` is different from the existing one's: the old stylesheet is deleted and a new one is inserted
+   *
+   * 	 - otherwise: no action
    */
   export default function includeStylesheet(
     /**
@@ -3349,6 +3354,49 @@ declare module "sap/ui/test/opaQunit" {
      */
     async?: boolean
   ): void;
+  /**
+   * QUnit test adapter for OPA: add a test to be executed by QUnit Has the same signature as QUnit.test (QUnit
+   * version is also considered) Suggested usage:
+   * ```javascript
+   *
+   * sap.ui.require(["sap/ui/test/Opa5", "sap/ui/test/opaQunit"], function (Opa5, opaTest) {
+   *
+   *    Opa5.extendConfig({
+   *        assertions: new Opa5({
+   *            checkIfSomethingIsOk : function () {
+   *                this.waitFor({
+   *                    success: function () {
+   *                        Opa5.assert.ok(true, "Everything is fine");
+   *                    }
+   *                });
+   *            }
+   *        })
+   *    });
+   *
+   *    opaTest("Should test something", function (Given, When, Then) {
+   *       // Implementation of the test
+   *       Then.checkIfSomethingIsOk();
+   *    });
+   *
+   * });
+   * ```
+   */
+  export default function opaQunit(
+    /**
+     * name of the QUnit test.
+     */
+    testName: string,
+    /**
+     * the test function. Expects 3 arguments, in order: {@link sap.ui.test.Opa.config}.arrangements, {@link
+     * sap.ui.test.Opa.config}.actions, {@link sap.ui.test.Opa.config}.assertions. These arguments will be prefilled
+     * by OPA
+     */
+    callback: Function,
+    /**
+     * available only in QUnit v1.x. Indicates whether the test is asynchronous. False by default.
+     */
+    async?: boolean
+  ): void;
 }
 
 declare module "sap/ui/util/Mobile" {
@@ -3617,24 +3665,25 @@ declare module "sap/ui/VersionInfo" {
     /**
      * @SINCE 1.56.0
      *
-     * Loads the version info file (resources/sap-ui-version.json) asynchronously and returns a Promise. The
-     * returned Promise resolves with the version info files content.
+     * Loads the version info asynchronously from resource "sap-ui-version.json".
      *
-     * If a library name is specified then the version info of the individual library will be retrieved.
+     * By default, the returned promise will resolve with the whole version info file's content. If a library
+     * name is specified in the options, then the promise will resolve with the version info for that library
+     * only or with `undefined`, if the named library is not listed in the version info file.
      *
-     * In case of the version info file is not available an error will occur when calling this function.
+     * If loading the version info file fails, the promise will be rejected with the corresponding error.
      */
     load(
       /**
-       * an object map (see below)
+       * Map of options
        */
-      mOptions: {
+      mOptions?: {
         /**
-         * name of the library (e.g. "sap.ui.core")
+         * Name of a library (e.g. "sap.ui.core")
          */
-        library: string;
+        library?: string;
       }
-    ): Promise<any>;
+    ): Promise<object | undefined>;
   }
   const VersionInfo: VersionInfo;
   export default VersionInfo;
@@ -5550,34 +5599,9 @@ declare module "sap/ui/base/ManagedObject" {
      */
     bindObject(
       /**
-       * An object describing the binding
+       * Binding info
        */
-      oBindingInfo: {
-        /**
-         * Path in the model to bind to, either an absolute path or relative to the binding context for the corresponding
-         * model; when the path contains a '>' sign, the string preceding it will override the `model` property
-         * and the remainder after the '>' will be used as binding path
-         */
-        path: string;
-        /**
-         * Name of the model to bind against; when `undefined` or omitted, the default model is used
-         */
-        model?: string;
-        /**
-         * Map of additional parameters for this binding; the names and value ranges of the supported parameters
-         * depend on the model implementation, they should be documented with the `bindContext` method of the corresponding
-         * model class or with the model specific subclass of `sap.ui.model.ContextBinding`
-         */
-        parameters?: object;
-        /**
-         * Whether the binding should be suspended initially
-         */
-        suspended?: boolean;
-        /**
-         * Map of event handler functions keyed by the name of the binding events that they should be attached to
-         */
-        events?: object;
-      }
+      oBindingInfo: ObjectBindingInfo
     ): this;
     /**
      * Binds a property to the model.
@@ -6400,11 +6424,7 @@ declare module "sap/ui/base/ManagedObject" {
       /**
        * name of the aggregation to refresh
        */
-      sName: string,
-      /**
-       * the change reason
-       */
-      sChangeReason: ChangeReason
+      sName: string
     ): void;
     /**
      * Removes an object from the aggregation named `sAggregationName` with cardinality 0..n.
@@ -6904,6 +6924,38 @@ declare module "sap/ui/base/ManagedObject" {
     groupHeaderFactory?: Function;
     /**
      * Map of event handler functions keyed by the name of the binding events that they should be attached to
+     */
+    events?: Record<string, Function>;
+  };
+
+  /**
+   * Configuration for the binding of a managed object
+   *
+   * `path` is the only mandatory property, all others are optional.
+   */
+  export type ObjectBindingInfo = {
+    /**
+     * Path in the model to bind to, either an absolute path or relative to the binding context for the corresponding
+     * model. If the path contains a '>' sign, the string preceding it will override the `model` property,
+     * and the remainder after the '>' sign will be used as binding path
+     */
+    path: string;
+    /**
+     * Name of the model to bind against; when `undefined` or omitted, the default model is used
+     */
+    model?: string;
+    /**
+     * Whether the binding is initially suspended
+     */
+    suspended?: boolean;
+    /**
+     * Map of additional parameters for this binding; the names and value ranges of the supported parameters
+     * depend on the model implementation and should be documented with the `bindContext` method of the corresponding
+     * model class or with the model-specific subclass of `sap.ui.model.ContextBinding`
+     */
+    parameters?: object;
+    /**
+     * Map of event handler functions keyed by the name of the binding events that they are attached to
      */
     events?: Record<string, Function>;
   };
@@ -8526,7 +8578,7 @@ declare module "sap/ui/core/library" {
    * Marker interface for subclasses of `sap.ui.core.UIComponent`.
    *
    * Implementing this interface allows a {@link sap.ui.core.UIComponent} to be created fully asynchronously.
-   * This interface will implicitily set the component's rootView and router configuration to async. Nested
+   * This interface will implicitly set the component's rootView and router configuration to async. Nested
    * views will also be handled asynchronously. Additionally the error handling during the processing of views
    * is stricter and will fail if a view definition contains errors, e.g. broken binding strings.
    *
@@ -11544,8 +11596,7 @@ declare module "sap/ui/core/Configuration" {
     /**
      * @SINCE 1.27.0
      *
-     * Returns whether the framework automatically adds automatically the ARIA role 'application' to the HTML
-     * body or not.
+     * Returns whether the framework automatically adds the ARIA role 'application' to the HTML body or not.
      */
     getAutoAriaBodyRole(): boolean;
     /**
@@ -11593,7 +11644,7 @@ declare module "sap/ui/core/Configuration" {
     /**
      * Returns a string that identifies the current language.
      *
-     * The value returned by this methods in most cases corresponds to the exact value that has been configured
+     * The value returned by this method in most cases corresponds to the exact value that has been configured
      * by the user or application or that has been determined from the user agent settings. It has not been
      * normalized, but has been validated against a relaxed version of {@link http://www.ietf.org/rfc/bcp/bcp47.txt
      * BCP47}, allowing underscores ('_') instead of the suggested dashes ('-') and not taking the case of letters
@@ -11681,6 +11732,13 @@ declare module "sap/ui/core/Configuration" {
      * Returns the theme name
      */
     getTheme(): string;
+    /**
+     * @SINCE 1.99.0
+     * @EXPERIMENTAL (since 1.99.0)
+     *
+     * Retrieves the configured IANA timezone ID
+     */
+    getTimezone(): string;
     /**
      * Prefix to be used for automatically generated control IDs. Default is a double underscore "__".
      */
@@ -11841,6 +11899,22 @@ declare module "sap/ui/core/Configuration" {
        */
       aSecurityTokenHandlers: Function[]
     ): void;
+    /**
+     * @SINCE 1.99.0
+     * @EXPERIMENTAL (since 1.99.0)
+     *
+     * Sets the timezone such that all date and time based calculations use this timezone.
+     *
+     * When the timezone has changed, the Core will fire its {@link sap.ui.core.Core#event:localizationChanged
+     * localizationChanged} event.
+     */
+    setTimezone(
+      /**
+       * IANA timezone ID, e.g. "America/New_York". Use `null` to reset the timezone to the browser's local timezone.
+       * An invalid IANA timezone ID will fall back to the browser's timezone.
+       */
+      sTimezone?: string | null
+    ): this;
   }
   /**
    * @SINCE 1.50.0
@@ -12113,7 +12187,7 @@ declare module "sap/ui/core/Configuration" {
       /**
        * must be one of decimal, group, plusSign, minusSign.
        */
-      sStyle: string,
+      sType: string,
       /**
        * will be used to represent the given symbol type
        */
@@ -12481,24 +12555,6 @@ declare module "sap/ui/core/Control" {
        */
       vFieldGroupIds?: string | string[]
     ): boolean;
-    /**
-     * Overrides {@link sap.ui.core.Element#clone Element.clone} to clone additional internal state.
-     *
-     * The additionally cloned information contains:
-     * 	 - browser event handlers attached with {@link #attachBrowserEvent}
-     * 	 - text selection behavior
-     * 	 - style classes added with {@link #addStyleClass}
-     */
-    clone(
-      /**
-       * a suffix to be appended to the cloned element id
-       */
-      sIdSuffix?: string,
-      /**
-       * an array of local IDs within the cloned hierarchy (internally used)
-       */
-      aLocalIds?: string[]
-    ): this;
     /**
      * Removes event handlers which have been previously attached using {@link #attachBrowserEvent}.
      *
@@ -14943,18 +14999,18 @@ declare module "sap/ui/core/delegate/ScrollEnablement" {
       /**
        * Horizontal position of the scrollbar
        */
-      iHorizontalPosition: int,
+      x: int,
       /**
        * Vertical position of the scrollbar
        */
-      iVerticalPosition: int,
+      y: int,
       /**
        * The duration of animated scrolling in milliseconds. To scroll immediately without animation, give 0 as
        * value.
        */
-      iTime: int,
+      time: int,
 
-      fnCallback: Function
+      fnScrollEndCallback: Function
     ): this;
     /**
      * Scrolls to a specific position in scroll container.
@@ -14963,13 +15019,13 @@ declare module "sap/ui/core/delegate/ScrollEnablement" {
       /**
        * Horizontal position of the scrollbar
        */
-      iHorizontalPosition: int,
+      x: int,
       /**
        * Vertical position of the scrollbar
        */
-      iVerticalPosition: int,
+      y: int,
 
-      fnCallback: Function
+      fnScrollEndCallback: Function
     ): this;
     /**
      * Scrolls to an element within a container.
@@ -16328,6 +16384,7 @@ declare module "sap/ui/core/dnd/DropInfo" {
 declare module "sap/ui/core/Element" {
   import {
     default as ManagedObject,
+    ObjectBindingInfo,
     $ManagedObjectSettings,
     PropertyBindingInfo,
     AggregationBindingInfo,
@@ -16701,30 +16758,11 @@ declare module "sap/ui/core/Element" {
       /**
        * the binding path or an object with more detailed binding options
        */
-      vPath:
-        | string
-        | {
-            /**
-             * the binding path
-             */
-            path: string;
-            /**
-             * map of additional parameters for this binding
-             */
-            parameters?: object;
-            /**
-             * name of the model
-             */
-            model?: string;
-            /**
-             * map of event listeners for the binding events
-             */
-            events?: object;
-          },
+      vPath: string | ObjectBindingInfo,
       /**
-       * map of additional parameters for this binding (only taken into account when vPath is a string in that
-       * case it corresponds to vPath.parameters). The supported parameters are listed in the corresponding model-specific
-       * implementation of `sap.ui.model.ContextBinding`.
+       * map of additional parameters for this binding. Only taken into account when `vPath` is a string. In that
+       * case it corresponds to `mParameters` of {@link sap.ui.base.ManagedObject.ObjectBindingInfo}. The supported
+       * parameters are listed in the corresponding model-specific implementation of `sap.ui.model.ContextBinding`.
        */
       mParameters?: object
     ): this;
@@ -17797,6 +17835,9 @@ declare module "sap/ui/core/format/DateFormat" {
    * The DateFormat is a static class for formatting and parsing single date and time values or date and time
    * intervals according to a set of format options.
    *
+   * Important: Every Date is converted with the timezone taken from {@link sap.ui.core.Configuration#getTimezone}.
+   * The timezone falls back to the browser's local timezone.
+   *
    * Supported format options are pattern based on Unicode LDML Date Format notation. Please note that only
    * a subset of the LDML date symbols is supported. If no pattern is specified a default pattern according
    * to the locale settings is used.
@@ -17911,9 +17952,8 @@ declare module "sap/ui/core/format/DateFormat" {
          */
         strictParsing?: boolean;
         /**
-         * if true, the date is formatted relatively to todays date if it is within the given day range, e.g. "today",
-         * "yesterday", "in 5 days"@param {boolean} [oFormatOptions.UTC] if true, the date is formatted and parsed
-         * as UTC instead of the local timezone
+         * if true, the date is formatted relatively to today's date if it is within the given day range, e.g. "today",
+         * "yesterday", "in 5 days"
          */
         relative?: boolean;
         /**
@@ -17959,6 +17999,77 @@ declare module "sap/ui/core/format/DateFormat" {
        */
       oLocale?: Locale
     ): DateFormat;
+    /**
+     * @SINCE 1.99.0
+     *
+     * Get a datetimeWithTimezone instance of the DateFormat, which can be used for formatting.
+     */
+    static getDateTimeWithTimezoneInstance(
+      /**
+       * An object which defines the format options
+       */
+      oFormatOptions?: {
+        /**
+         * A string containing pattern symbols (e.g. "yMMMd" or "Hms") which will be converted into a pattern for
+         * the used locale that matches the wanted symbols best. The symbols must be in canonical order, that is:
+         * Era (G), Year (y/Y), Quarter (q/Q), Month (M/L), Week (w), Day-Of-Week (E/e/c), Day (d), Hour (h/H/k/K/j/J),
+         * Minute (m), Second (s), Timezone (z/Z/v/V/O/X/x) See http://unicode.org/reports/tr35/tr35-dates.html#availableFormats_appendItems
+         */
+        format?: string;
+        /**
+         * a datetime pattern in LDML format. It is not verified whether the pattern represents a full datetime.
+         */
+        pattern?: string;
+        /**
+         * Specifies the display of the timezone:
+         * 	 - "Show": display both datetime and timezone
+         * 	 - "Hide": display only datetime
+         * 	 - "Only": display only timezone  It is ignored for formatting when an options pattern or a format
+         * 			are supplied.
+         */
+        showTimezone?: /* was: sap.ui.core.format.DateFormatTimezoneDisplay */ any;
+        /**
+         * Can be either 'short, 'medium', 'long' or 'full'. For datetime you can also define mixed styles, separated
+         * with a slash, where the first part is the date style and the second part is the time style (e.g. "medium/short").
+         * If no pattern is given, a locale-dependent default datetime pattern of that style from the LocaleData
+         * class is used.
+         */
+        style?: string;
+        /**
+         * Whether to check by parsing if the value is a valid datetime
+         */
+        strictParsing?: boolean;
+        /**
+         * Whether the date is formatted relatively to today's date if it is within the given day range, e.g. "today",
+         * "yesterday", "in 5 days"
+         */
+        relative?: boolean;
+        /**
+         * The day range used for relative formatting. If `oFormatOptions.relativeScale` is set to the default value
+         * 'day', the `relativeRange is by default [-6, 6], which means that only the previous 6 and the following
+         * 6 days are formatted relatively. If oFormatOptions.relativeScale` is set to 'auto', all dates are
+         * formatted relatively.
+         */
+        relativeRange?: int[];
+        /**
+         * If 'auto' is set, a new relative time format is switched on for all Date/Time instances.
+         */
+        relativeScale?: string;
+        /**
+         * The style of the relative format. The valid values are "wide", "short", "narrow"
+         */
+        relativeStyle?: string;
+        /**
+         * The calendar type which is used to format and parse the date. This value is by default either set in
+         * the configuration or calculated based on the current locale.
+         */
+        calendarType?: CalendarType | keyof typeof CalendarType;
+      },
+      /**
+       * Locale to ask for locale-specific texts/settings
+       */
+      oLocale?: Locale
+    ): DateTimeWithTimezone;
     /**
      * Get a time instance of the DateFormat, which can be used for formatting.
      */
@@ -18037,6 +18148,9 @@ declare module "sap/ui/core/format/DateFormat" {
     ): DateFormat;
     /**
      * Format a date according to the given format options.
+     *
+     * Uses the timezone from {@link sap.ui.core.Configuration#getTimezone}, which falls back to the browser's
+     * local timezone to convert the given date.
      */
     format(
       /**
@@ -18050,6 +18164,9 @@ declare module "sap/ui/core/format/DateFormat" {
     ): string;
     /**
      * Parse a string which is formatted according to the given format options.
+     *
+     * Uses the timezone from {@link sap.ui.core.Configuration#getTimezone}, which falls back to the browser's
+     * local timezone to convert the given date.
      */
     parse(
       /**
@@ -18061,10 +18178,64 @@ declare module "sap/ui/core/format/DateFormat" {
        */
       bUTC: boolean,
       /**
-       * to use strict value check
+       * whether to use strict value check
        */
       bStrict: boolean
     ): Date | Date[];
+  }
+  /**
+   * @SINCE 1.99
+   *
+   * Interface for a timezone-specific DateFormat, which is able to format and parse a date based on a given
+   * timezone. The timezone is used to convert the given date, and also for timezone-related pattern symbols.
+   * The timezone is an IANA timezone ID, e.g. "America/New_York".
+   * See:
+   * 	sap.ui.core.format.DateFormat
+   */
+  export interface DateTimeWithTimezone {
+    __implements__sap_ui_core_format_DateFormat_DateTimeWithTimezone: boolean;
+
+    /**
+     * @SINCE 1.99
+     * @EXPERIMENTAL (since 1.99.0)
+     *
+     * Format a date object to a string according to the given timezone and format options.
+     */
+    format(
+      /**
+       * The date to format
+       */
+      oJSDate: Date,
+      /**
+       * The IANA timezone ID in which the date will be calculated and formatted e.g. "America/New_York". If omitted,
+       * the timezone will be taken from {@link sap.ui.core.Configuration#getTimezone}.
+       */
+      sTimezone?: string
+    ): string;
+    /**
+     * @SINCE 1.99
+     * @EXPERIMENTAL (since 1.99.0)
+     *
+     * Parse a string which is formatted according to the given format options to an array containing a date
+     * object and the timezone.
+     */
+    parse(
+      /**
+       * the string containing a formatted date/time value
+       */
+      sValue: string,
+      /**
+       * The IANA timezone ID which should be used to convert the date e.g. "America/New_York". If omitted, the
+       * timezone will be taken from {@link sap.ui.core.Configuration#getTimezone}.
+       */
+      sTimezone?: string,
+      /**
+       * Whether to be strict with regards to the value ranges of date fields, e.g. for a month pattern of `MM`
+       * and a value range of [1-12] `strict` ensures that the value is within the range; if it is larger than
+       * `12` it cannot be parsed and `null` is returned
+       */
+      bStrict?: boolean
+    ): any[];
   }
 }
 
@@ -18345,8 +18516,8 @@ declare module "sap/ui/core/format/NumberFormat" {
          */
         groupingEnabled?: boolean;
         /**
-         * defines the used grouping separator, note that the groupingSeparator must always be different than the
-         * used decimalSeparator.
+         * defines the character used as grouping separator. Note: `groupingSeparator` must always be different
+         * from `decimalSeparator`.
          */
         groupingSeparator?: string;
         /**
@@ -18359,8 +18530,8 @@ declare module "sap/ui/core/format/NumberFormat" {
          */
         groupingBaseSize?: int;
         /**
-         * defines the used decimal separator, note that the decimalSeparator must always be different than the
-         * used groupingSeparator.
+         * defines the character used as decimal separator. Note: `decimalSeparator` must always be different from
+         * `groupingSeparator`.
          */
         decimalSeparator?: string;
         /**
@@ -18515,8 +18686,8 @@ declare module "sap/ui/core/format/NumberFormat" {
          */
         groupingEnabled?: boolean;
         /**
-         * defines the used grouping separator, note that the groupingSeparator must always be different than the
-         * used decimalSeparator.
+         * defines the character used as grouping separator. Note: `groupingSeparator` must always be different
+         * from `decimalSeparator`.
          */
         groupingSeparator?: string;
         /**
@@ -18529,8 +18700,8 @@ declare module "sap/ui/core/format/NumberFormat" {
          */
         groupingBaseSize?: int;
         /**
-         * defines the used decimal separator, note that the decimalSeparator must always be different than the
-         * used groupingSeparator.
+         * defines the character used as decimal separator. Note: `decimalSeparator` must always be different from
+         * `groupingSeparator`.
          */
         decimalSeparator?: string;
         /**
@@ -18651,8 +18822,8 @@ declare module "sap/ui/core/format/NumberFormat" {
          */
         groupingEnabled?: boolean;
         /**
-         * defines the used grouping separator, note that the groupingSeparator must always be different than the
-         * used decimalSeparator.
+         * defines the character used as grouping separator. Note: `groupingSeparator` must always be different
+         * from `decimalSeparator`.
          */
         groupingSeparator?: string;
         /**
@@ -18665,8 +18836,8 @@ declare module "sap/ui/core/format/NumberFormat" {
          */
         groupingBaseSize?: int;
         /**
-         * defines the used decimal separator, note that the decimalSeparator must always be different than the
-         * used groupingSeparator.
+         * defines the character used as decimal separator. Note: `decimalSeparator` must always be different from
+         * `groupingSeparator`.
          */
         decimalSeparator?: string;
         /**
@@ -18790,8 +18961,8 @@ declare module "sap/ui/core/format/NumberFormat" {
          */
         groupingEnabled?: boolean;
         /**
-         * defines the used grouping separator, note that the groupingSeparator must always be different than the
-         * used decimalSeparator.
+         * defines the character used as grouping separator. Note: `groupingSeparator` must always be different
+         * from `decimalSeparator`.
          */
         groupingSeparator?: string;
         /**
@@ -18804,8 +18975,8 @@ declare module "sap/ui/core/format/NumberFormat" {
          */
         groupingBaseSize?: int;
         /**
-         * defines the used decimal separator, note that the decimalSeparator must always be different than the
-         * used groupingSeparator.
+         * defines the character used as decimal separator. Note: `decimalSeparator` must always be different from
+         * `groupingSeparator`.
          */
         decimalSeparator?: string;
         /**
@@ -18930,8 +19101,8 @@ declare module "sap/ui/core/format/NumberFormat" {
          */
         groupingEnabled?: boolean;
         /**
-         * defines the used grouping separator, note that the groupingSeparator must always be different than the
-         * used decimalSeparator.
+         * defines the character used as grouping separator. Note: `groupingSeparator` must always be different
+         * from `decimalSeparator`.
          */
         groupingSeparator?: string;
         /**
@@ -18944,8 +19115,8 @@ declare module "sap/ui/core/format/NumberFormat" {
          */
         groupingBaseSize?: int;
         /**
-         * defines the used decimal separator, note that the decimalSeparator must always be different than the
-         * used groupingSeparator.
+         * defines the character used as decimal separator. Note: `decimalSeparator` must always be different from
+         * `groupingSeparator`.
          */
         decimalSeparator?: string;
         /**
@@ -22042,7 +22213,7 @@ declare module "sap/ui/core/LocaleData" {
       iWeekNumber: int
     ): string;
     /**
-     * Get combined datetime pattern with given date and and time style.
+     * Get combined datetime pattern with given date and time style.
      */
     getCombinedDateTimePattern(
       /**
@@ -35004,9 +35175,9 @@ declare module "sap/ui/core/util/MockServer" {
      */
     attachAfter(
       /**
-       * type according to HTTP Method
+       * event type according to HTTP Method
        */
-      event: string,
+      sHttpMethod: string,
       /**
        * the name of the function that will be called at this exit The callback function exposes an event with
        * parameters, depending on the type of the request. oEvent.getParameters() lists the parameters as per
@@ -35025,9 +35196,9 @@ declare module "sap/ui/core/util/MockServer" {
      */
     attachBefore(
       /**
-       * type according to HTTP Method
+       * event type according to HTTP Method
        */
-      event: string,
+      sHttpMethod: string,
       /**
        * the name of the function that will be called at this exit. The callback function exposes an event with
        * parameters, depending on the type of the request. oEvent.getParameters() lists the parameters as per
@@ -35060,9 +35231,9 @@ declare module "sap/ui/core/util/MockServer" {
      */
     detachAfter(
       /**
-       * type according to HTTP Method
+       * event type according to HTTP Method
        */
-      event: string,
+      sHttpMethod: string,
       /**
        * the name of the function that will be called at this exit
        */
@@ -35077,9 +35248,9 @@ declare module "sap/ui/core/util/MockServer" {
      */
     detachBefore(
       /**
-       * type according to HTTP Method
+       * event type according to HTTP Method
        */
-      event: string,
+      sHttpMethod: string,
       /**
        * the name of the function that will be called at this exit
        */
@@ -35477,9 +35648,6 @@ declare module "sap/ui/core/util/XMLPreprocessor" {
    * refers to ".../Value". This means, the root formatter can access the ith part of the composite binding
    * at will (since 1.31.0); see also {@link #.getInterface getInterface}. The function `foo` is called with
    * arguments such that ` oInterface.getModel(i).getObject(oInterface.getPath(i)) === arguments[i + 1]` holds.
-   * This use is not supported within an expression binding, that is, `<Text text="{= ${parts: [{path:
-   * 'Label'}, {path: 'Value'}], formatter: 'foo'} }"/>` does not work as expected because the property `requiresIContext
-   * = true` is ignored.
    *
    * To distinguish those two use cases, just check whether `oInterface.getModel() === undefined`, in which
    * case the formatter is called on root level of a composite binding. To find out the number of parts, probe
@@ -39383,6 +39551,17 @@ declare module "sap/ui/model/base/ManagedObjectModel" {
       fnFilter: Function
     ): void;
     /**
+     * Private method iterating the registered bindings of this model instance and initiating their check for
+     * update
+     */
+    checkUpdate(
+      bAsync: boolean,
+      /**
+       * an optional test function to filter the binding
+       */
+      fnFilter: Function
+    ): void;
+    /**
      * Inserts the user-defined custom data into the model.
      */
     setData(
@@ -39763,7 +39942,7 @@ declare module "sap/ui/model/Binding" {
       /**
        * Update the bound control even if no data has been changed
        */
-      bForceUpdate: boolean
+      bForceUpdate?: boolean
     ): void;
     /**
      * Resumes the binding update. Change events will be fired again.
@@ -47145,6 +47324,132 @@ declare module "sap/ui/model/odata/type/DateTimeOffset" {
   }
 }
 
+declare module "sap/ui/model/odata/type/DateTimeWithTimezone" {
+  import CompositeType from "sap/ui/model/CompositeType";
+
+  import FormatException from "sap/ui/model/FormatException";
+
+  import Metadata from "sap/ui/base/Metadata";
+
+  import ParseException from "sap/ui/model/ParseException";
+
+  /**
+   * @SINCE 1.99.0
+   * @EXPERIMENTAL
+   *
+   * This class represents the `DateTimeWithTimezone` composite type which has the parts timestamp and time
+   * zone. The type formats the timestamp part using the time zone part. For this, the timestamp part has
+   * to be provided in the UTC time zone.
+   */
+  export default class DateTimeWithTimezone extends CompositeType {
+    /**
+     * Constructor for a `DateTimeWithTimezone` composite type.
+     */
+    constructor(
+      /**
+       * Format options. For a list of all available options, see {@link sap.ui.core.format.DateFormat.getDateTimeWithTimezoneInstance
+       * DateFormat}. Format options are immutable, that is, they can only be set once on construction.
+       */
+      oFormatOptions?: object,
+      /**
+       * Constraints are not supported
+       */
+      oConstraints?: object
+    );
+
+    /**
+     * Creates a new subclass of class sap.ui.model.odata.type.DateTimeWithTimezone with name `sClassName` and
+     * enriches it with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.model.CompositeType.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, DateTimeWithTimezone>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.model.odata.type.DateTimeWithTimezone.
+     */
+    static getMetadata(): Metadata;
+    /**
+     * Formats the given values of the parts of the `DateTimeWithTimezone` composite type to the given target
+     * type.
+     */
+    formatValue(
+      /**
+       * The array of the part values to be formatted; the first entry has to be a `Date` object for the timestamp,
+       * and the second entry has to be a string representing a time zone ID
+       */
+      aValues: any[],
+      /**
+       * The target type, must be "object", "string", or a type with one of these types as its {@link sap.ui.base.DataType#getPrimitiveType
+       * primitive type}; see {@link sap.ui.model.odata.type} for more information
+       */
+      sTargetType: string
+    ): any;
+    /**
+     * Returns the type's name.
+     */
+    getName(): string;
+    /**
+     * Gets an array of indices that determine which parts of this type shall not propagate their model messages
+     * to the attached control. Prerequisite is that the corresponding binding supports this feature, see {@link
+     * sap.ui.model.Binding#supportsIgnoreMessages}. If the `showTimezone` format option is set to `sap.ui.core.format.DateFormatTimezoneDisplay.Hide`
+     * and the time zone is not shown in the control, the part for the time zone shall not propagate model messages
+     * to the control. Analogously, if the format option `showTimezone` is set to `sap.ui.core.format.DateFormatTimezoneDisplay.Only`,
+     * the date and time are not shown in the control and the parts for the date and time shall not propagate
+     * model messages to the control.
+     * See:
+     * 	sap.ui.model.Binding#supportsIgnoreMessages
+     */
+    getPartsIgnoringMessages(): number[];
+    /**
+     * Parses the given value.
+     */
+    parseValue(
+      /**
+       * The value to be parsed
+       */
+      vValue: string | Date,
+      /**
+       * The source type (the expected type of `vValue`); must be "object", "string", or a type with one of these
+       * types as its {@link sap.ui.base.DataType#getPrimitiveType primitive type}; see {@link sap.ui.model.odata.type}
+       * for more information
+       */
+      sSourceType: string,
+      /**
+       * The array of current part values; the first entry has to be a `Date` object for the timestamp, and the
+       * second entry has to be a string representing a time zone ID; **Note:** This parameter is required, see
+       * definition of this parameter in {@link sap.ui.model.CompositeType#parseValue}
+       */
+      aCurrentValues?: any[]
+    ): any[];
+    /**
+     * Validates whether the given raw values meet the defined constraints. This method does nothing as no constraints
+     * are supported.
+     * See:
+     * 	sap.ui.model.SimpleType#validateValue
+     */
+    validateValue(
+      /**
+       * The set of values to be validated
+       */
+      aValues: any[]
+    ): void;
+  }
+}
+
 declare module "sap/ui/model/odata/type/Decimal" {
   import ODataType from "sap/ui/model/odata/type/ODataType";
 
@@ -49860,7 +50165,8 @@ declare module "sap/ui/model/odata/v2/ODataListBinding" {
      *
      * Creates a new entity for this binding's collection via {@link sap.ui.model.odata.v2.ODataModel#createEntry}
      * using the parameters given in `mParameters` and inserts it at the list position specified by the `bAtEnd`
-     * parameter.
+     * parameter. See {@link topic:6c47b2b39db9404582994070ec3d57a2#loio4c4cd99af9b14e08bb72470cc7cabff4 Creating
+     * Entities documentation} for comprehensive information on the topic.
      *
      * Note: This method requires that the model metadata has been loaded; see {@link sap.ui.model.odata.v2.ODataModel#metadataLoaded}.
      */
@@ -49914,7 +50220,8 @@ declare module "sap/ui/model/odata/v2/ODataListBinding" {
      *
      * Creates a new entity for this binding's collection via {@link sap.ui.model.odata.v2.ODataModel#createEntry}
      * using the parameters given in `mParameters` and inserts it at the list position specified by the `bAtEnd`
-     * parameter.
+     * parameter. See {@link topic:6c47b2b39db9404582994070ec3d57a2#loio4c4cd99af9b14e08bb72470cc7cabff4 Creating
+     * Entities documentation} for comprehensive information on the topic.
      *
      * Note: This method requires that the model metadata has been loaded; see {@link sap.ui.model.odata.v2.ODataModel#metadataLoaded}.
      */
@@ -49961,7 +50268,8 @@ declare module "sap/ui/model/odata/v2/ODataListBinding" {
      *
      * Creates a new entity for this binding's collection via {@link sap.ui.model.odata.v2.ODataModel#createEntry}
      * using the parameters given in `mParameters` and inserts it at the list position specified by the `bAtEnd`
-     * parameter.
+     * parameter. See {@link topic:6c47b2b39db9404582994070ec3d57a2#loio4c4cd99af9b14e08bb72470cc7cabff4 Creating
+     * Entities documentation} for comprehensive information on the topic.
      *
      * Note: This method requires that the model metadata has been loaded; see {@link sap.ui.model.odata.v2.ODataModel#metadataLoaded}.
      */
@@ -50011,7 +50319,8 @@ declare module "sap/ui/model/odata/v2/ODataListBinding" {
      *
      * Creates a new entity for this binding's collection via {@link sap.ui.model.odata.v2.ODataModel#createEntry}
      * using the parameters given in `mParameters` and inserts it at the list position specified by the `bAtEnd`
-     * parameter.
+     * parameter. See {@link topic:6c47b2b39db9404582994070ec3d57a2#loio4c4cd99af9b14e08bb72470cc7cabff4 Creating
+     * Entities documentation} for comprehensive information on the topic.
      *
      * Note: This method requires that the model metadata has been loaded; see {@link sap.ui.model.odata.v2.ODataModel#metadataLoaded}.
      */
@@ -51111,7 +51420,9 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
      */
     canonicalRequestsEnabled(): boolean;
     /**
-     * Trigger a `POST` request to the OData service that was specified in the model constructor.
+     * Trigger a `POST` request to the OData service that was specified in the model constructor; see {@link
+     * topic:6c47b2b39db9404582994070ec3d57a2#loio4c4cd99af9b14e08bb72470cc7cabff4 Creating Entities documentation}
+     * for comprehensive information on the topic.
      *
      * Please note that deep creates are not supported and may not work.
      */
@@ -51229,7 +51540,9 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
     ): Context1 | undefined;
     /**
      * Creates a new entry object which is described by the metadata of the entity type of the specified `sPath`
-     * Name. A context object is returned which can be used to bind against the newly created object.
+     * Name. A context object is returned which can be used to bind against the newly created object. See {@link
+     * topic:6c47b2b39db9404582994070ec3d57a2#loio4c4cd99af9b14e08bb72470cc7cabff4 Creating Entities documentation}
+     * for comprehensive information on the topic.
      *
      * For each created entry a request is created and stored in a request queue. The request queue can be submitted
      * by calling {@link #submitChanges}. As long as the context is transient (see {@link sap.ui.model.odata.v2.Context#isTransient}),
@@ -52872,16 +53185,16 @@ declare module "sap/ui/model/odata/v4/AnnotationHelper" {
      * ```javascript
      *
      * <Annotations Target="com.sap.gateway.default.iwbep.tea_busi.v0001.EQUIPMENT">
-     * 	<Annotation Term="com.sap.vocabularies.UI.v1.Facets">
-     * 		<Collection>
-     * 			<Record Type="com.sap.vocabularies.UI.v1.ReferenceFacet">
-     * 				<PropertyValue Property="Target" AnnotationPath="EQUIPMENT_2_PRODUCT/@com.sap.vocabularies.Common.v1.QuickInfo" />
-     * 			</Record>
-     * 		</Collection>
-     * 	</Annotation>
+     *   <Annotation Term="com.sap.vocabularies.UI.v1.Facets">
+     *     <Collection>
+     *       <Record Type="com.sap.vocabularies.UI.v1.ReferenceFacet">
+     *         <PropertyValue Property="Target" AnnotationPath="EQUIPMENT_2_PRODUCT/@com.sap.vocabularies.Common.v1.QuickInfo" />
+     *       </Record>
+     *     </Collection>
+     *   </Annotation>
      * </Annotations>
      * <Annotations Target="com.sap.gateway.default.iwbep.tea_busi_product.v0001.Product">
-     * 	<Annotation Term="com.sap.vocabularies.Common.v1.QuickInfo" Path="Name" />
+     *   <Annotation Term="com.sap.vocabularies.Common.v1.QuickInfo" Path="Name" />
      * </Annotations>
      * ```
      *
@@ -52895,16 +53208,16 @@ declare module "sap/ui/model/odata/v4/AnnotationHelper" {
      * ```javascript
      *
      * <Annotations Target="com.sap.gateway.default.iwbep.tea_busi.v0001.EQUIPMENT">
-     * 	<Annotation Term="com.sap.vocabularies.UI.v1.LineItem">
-     * 		<Collection>
-     * 			<Record Type="com.sap.vocabularies.UI.v1.DataField">
-     * 				<PropertyValue Property="Value" Path="EQUIPMENT_2_PRODUCT/Name" />
-     * 			</Record>
-     * 		</Collection>
-     * 	</Annotation>
+     *   <Annotation Term="com.sap.vocabularies.UI.v1.LineItem">
+     *     <Collection>
+     *       <Record Type="com.sap.vocabularies.UI.v1.DataField">
+     *         <PropertyValue Property="Value" Path="EQUIPMENT_2_PRODUCT/Name" />
+     *       </Record>
+     *     </Collection>
+     *   </Annotation>
      * </Annotations>
      * <Annotations Target="com.sap.gateway.default.iwbep.tea_busi_product.v0001.Product/Name">
-     * 	<Annotation Term="com.sap.vocabularies.Common.v1.QuickInfo" Path="PRODUCT_2_SUPPLIER/Supplier_Name" />
+     *   <Annotation Term="com.sap.vocabularies.Common.v1.QuickInfo" Path="PRODUCT_2_SUPPLIER/Supplier_Name" />
      * </Annotations>
      * ```
      *
@@ -53495,6 +53808,8 @@ declare module "sap/ui/model/odata/v4/Context" {
      *
      * Returns `undefined` if the data is not (yet) available; no request is triggered. Use {@link #requestObject}
      * for asynchronous access.
+     *
+     * The header context of a list binding only delivers `$count` (wrapped in an object if `sPath` is "").
      * See:
      * 	sap.ui.model.Context#getObject
      */
@@ -53538,7 +53853,8 @@ declare module "sap/ui/model/odata/v4/Context" {
      *
      * Returns whether there are pending changes for bindings dependent on this context, or for unresolved bindings
      * (see {@link sap.ui.model.Binding#isResolved}) which were dependent on this context at the time the pending
-     * change was created. This includes the context itself being transient (see {@link #isTransient}).
+     * change was created. This includes the context itself being {@link #isTransient transient}. Since 1.98.0,
+     * {@link #isInactive inactive} contexts are ignored.
      */
     hasPendingChanges(): boolean;
     /**
@@ -53556,6 +53872,7 @@ declare module "sap/ui/model/odata/v4/Context" {
      * Returns whether this context is inactive. The result of this function can also be accessed via instance
      * annotation "@$ui5.context.isInactive" at the entity.
      * See:
+     * 	#isTransient
      * 	sap.ui.model.odata.v4.ODataListBinding#create
      * 	sap.ui.model.odata.v4.ODataListBinding#event:createActivate
      */
@@ -53575,6 +53892,8 @@ declare module "sap/ui/model/odata/v4/Context" {
      * `true` if the context is transient, meaning that the promise returned by {@link #created} is not yet
      * resolved or rejected, and returns `false` if the context is not transient. The result of this function
      * can also be accessed via instance annotation "@$ui5.context.isTransient" at the entity.
+     * See:
+     * 	#isInactive
      */
     isTransient(): boolean;
     /**
@@ -53633,6 +53952,8 @@ declare module "sap/ui/model/odata/v4/Context" {
      * structure as described in
      * "OData JSON Format Version 4.0". Note that the function clones the result. Modify values via {@link
      * sap.ui.model.odata.v4.Context#setProperty}.
+     *
+     * The header context of a list binding only delivers `$count` (wrapped in an object if `sPath` is "").
      *
      * If you want {@link #requestObject} to read fresh data, call {@link #refresh} first.
      * See:
@@ -54108,7 +54429,8 @@ declare module "sap/ui/model/odata/v4/ODataContextBinding" {
      * Returns `true` if this binding or its dependent bindings have pending property changes or created entities
      * which have not been sent successfully to the server. This function does not take into account the deletion
      * of entities (see {@link sap.ui.model.odata.v4.Context#delete}) and the execution of OData operations
-     * (see {@link sap.ui.model.odata.v4.ODataContextBinding#execute}).
+     * (see {@link sap.ui.model.odata.v4.ODataContextBinding#execute}). Since 1.98.0, {@link sap.ui.model.odata.v4.Context#isInactive
+     * inactive} contexts are ignored.
      *
      * Note: If this binding is relative, its data is cached separately for each parent context path. This method
      * returns `true` if there are pending changes for the current parent context path of this binding. If this
@@ -54119,7 +54441,10 @@ declare module "sap/ui/model/odata/v4/ODataContextBinding" {
        * Whether to ignore changes which will not be lost by APIs like {@link sap.ui.model.odata.v4.ODataListBinding#changeParameters
        * changeParameters}, {@link sap.ui.model.odata.v4.ODataListBinding#filter filter}, {@link sap.ui.model.odata.v4.ODataListBinding#sort
        * sort}, or {@link sap.ui.model.odata.v4.ODataListBinding#suspend suspend} because they relate to a {@link
-       * sap.ui.model.odata.v4.Context#setKeepAlive kept-alive} context of this binding.
+       * sap.ui.model.odata.v4.Context#setKeepAlive kept-alive} context of this binding. Since 1.98.0, {@link
+       * sap.ui.model.odata.v4.Context#isTransient transient} contexts of a {@link #getRootBinding root binding}
+       * are treated as kept-alive by this flag. Since 1.99.0, the same happens for bindings using the `$$ownRequest`
+       * parameter (see {@link sap.ui.model.odata.v4.ODataModel#bindList}).
        */
       bIgnoreKeptAlive?: boolean
     ): boolean;
@@ -54138,21 +54463,6 @@ declare module "sap/ui/model/odata/v4/ODataContextBinding" {
      * Method not supported
      */
     isInitial(): boolean;
-    /**
-     * @SINCE 1.95.0
-     * @deprecated (since 1.96.5)
-     * @EXPERIMENTAL
-     *
-     * Moves the bound entity into the given list binding. This binding loses its data. The method may only
-     * be called when this binding has finished loading. You can verify this by calling `oBinding.getBoundContext().requestObject()`.
-     * If that promise resolves, the binding has finished loading.
-     */
-    moveEntityTo(
-      /**
-       * The list binding to take the entity
-       */
-      oListBinding: ODataListBinding
-    ): void;
     /**
      * @SINCE 1.37.0
      *
@@ -54258,7 +54568,8 @@ declare module "sap/ui/model/odata/v4/ODataContextBinding" {
      * Suspends this binding. A suspended binding does not fire change events nor does it trigger data service
      * requests. Call {@link #resume} to resume the binding. Before 1.53.0, this method was not supported and
      * threw an error. Since 1.97.0, pending changes are ignored if they relate to a {@link sap.ui.model.odata.v4.Context#setKeepAlive
-     * kept-alive} context of this binding.
+     * kept-alive} context of this binding. Since 1.98.0, {@link sap.ui.model.odata.v4.Context#isTransient transient}
+     * contexts of a {@link #getRootBinding root binding} do not count as pending changes.
      * See:
      * 	{@link topic:b0f5c531e5034a27952cc748954cbe39 Suspend and Resume}
      * 	sap.ui.model.Binding#suspend
@@ -54453,9 +54764,9 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
      * For creating the new entity, the binding's update group ID is used, see {@link #getUpdateGroupId}.
      *
      * You can call {@link sap.ui.model.odata.v4.Context#delete} to delete the created context again. As long
-     * as the context is transient (see {@link sap.ui.model.odata.v4.Context#isTransient}), {@link #resetChanges}
-     * and a call to {@link sap.ui.model.odata.v4.ODataModel#resetChanges} with the update group ID as parameter
-     * also delete the created context together with other changes.
+     * as the context is {@link sap.ui.model.odata.v4.Context#isTransient transient} and {@link sap.ui.model.odata.v4.Context#isInactive
+     * active}, {@link #resetChanges} and a call to {@link sap.ui.model.odata.v4.ODataModel#resetChanges} with
+     * the update group ID as parameter also delete the created context together with other changes.
      *
      * If the creation of the entity on the server failed, the creation is repeated automatically. If the binding's
      * update group ID has {@link sap.ui.model.odata.v4.SubmitMode.API}, it is repeated with the next call of
@@ -54501,14 +54812,19 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
        */
       bSkipRefresh?: boolean,
       /**
-       * Whether the entity is inserted at the end of the list. When creating multiple entities, this parameter
-       * must have the same value for each entity. Supported since 1.66.0
+       * Whether the entity is inserted at the end of the list. Supported since 1.66.0. Since 1.99.0 the first
+       * insertion determines the overall position of created contexts within the binding's context list. Every
+       * succeeding insertion is relative to the created contexts within this list.
        */
       bAtEnd?: boolean,
       /**
        * Create an inactive context. Such a context will only be sent to the server after the first property update.
        * From then on it behaves like any other created context. This parameter is experimental and its implementation
-       * may still change. Do not use it in productive code yet. Supported since 1.97.0
+       * may still change. Do not use it in productive code yet. Supported since 1.97.0  Since 1.98.0, when
+       * the first property updates happens, the context is no longer {@link sap.ui.model.odata.v4.Context#isInactive
+       * inactive} and the {@link sap.ui.model.odata.v4.ODataListBinding#event:createActivate createActivate}
+       * event is fired. While inactive, it does not count as a {@link #hasPendingChanges pending change} and
+       * does not contribute to the {@link #getCount count}.
        */
       bInactive?: boolean
     ): Context;
@@ -54687,7 +55003,8 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
      * Returns the count of elements.
      *
      * If known, the value represents the sum of the element count of the collection on the server and the number
-     * of transient entities created on the client. Otherwise, it is `undefined`. The value is a number of type
+     * of {@link sap.ui.model.odata.v4.Context#isInactive active} {@link sap.ui.model.odata.v4.Context#isTransient
+     * transient} entities created on the client. Otherwise, it is `undefined`. The value is a number of type
      * `Edm.Int64`. Since 1.91.0, in case of data aggregation with group levels, the count is the leaf count
      * on the server; it is only determined if the `$count` system query option is given.
      *
@@ -54757,6 +55074,24 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
      */
     getHeaderContext(): Context;
     /**
+     * @SINCE 1.99.0
+     *
+     * Calls {@link sap.ui.model.odata.v4.Context#setKeepAlive} at the context for the given path and returns
+     * it.
+     * See:
+     * 	sap.ui.model.odata.v4.Model#getKeepAliveContext
+     */
+    getKeepAliveContext(
+      /**
+       * The path of the context to be kept alive
+       */
+      sPath: string,
+      /**
+       * Whether to request messages for the context's entity
+       */
+      bRequestMessages?: boolean
+    ): Context | undefined;
+    /**
      * @SINCE 1.37.0
      *
      * Returns the number of entries in the list. As long as the client does not know the size on the server,
@@ -54803,7 +55138,8 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
      * Returns `true` if this binding or its dependent bindings have pending property changes or created entities
      * which have not been sent successfully to the server. This function does not take into account the deletion
      * of entities (see {@link sap.ui.model.odata.v4.Context#delete}) and the execution of OData operations
-     * (see {@link sap.ui.model.odata.v4.ODataContextBinding#execute}).
+     * (see {@link sap.ui.model.odata.v4.ODataContextBinding#execute}). Since 1.98.0, {@link sap.ui.model.odata.v4.Context#isInactive
+     * inactive} contexts are ignored.
      *
      * Note: If this binding is relative, its data is cached separately for each parent context path. This method
      * returns `true` if there are pending changes for the current parent context path of this binding. If this
@@ -54814,7 +55150,10 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
        * Whether to ignore changes which will not be lost by APIs like {@link sap.ui.model.odata.v4.ODataListBinding#changeParameters
        * changeParameters}, {@link sap.ui.model.odata.v4.ODataListBinding#filter filter}, {@link sap.ui.model.odata.v4.ODataListBinding#sort
        * sort}, or {@link sap.ui.model.odata.v4.ODataListBinding#suspend suspend} because they relate to a {@link
-       * sap.ui.model.odata.v4.Context#setKeepAlive kept-alive} context of this binding.
+       * sap.ui.model.odata.v4.Context#setKeepAlive kept-alive} context of this binding. Since 1.98.0, {@link
+       * sap.ui.model.odata.v4.Context#isTransient transient} contexts of a {@link #getRootBinding root binding}
+       * are treated as kept-alive by this flag. Since 1.99.0, the same happens for bindings using the `$$ownRequest`
+       * parameter (see {@link sap.ui.model.odata.v4.ODataModel#bindList}).
        */
       bIgnoreKeptAlive?: boolean
     ): boolean;
@@ -54828,6 +55167,13 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
      * 	#getRootBinding
      */
     initialize(): void;
+    /**
+     * @SINCE 1.99.0
+     *
+     * Returns whether the overall position of created entries is at the end of the list; this is determined
+     * by the first call to {@link #create}.
+     */
+    isFirstCreateAtEnd(): boolean | undefined;
     /**
      * @SINCE 1.37.0
      *
@@ -55063,7 +55409,8 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
      * Suspends this binding. A suspended binding does not fire change events nor does it trigger data service
      * requests. Call {@link #resume} to resume the binding. Before 1.53.0, this method was not supported and
      * threw an error. Since 1.97.0, pending changes are ignored if they relate to a {@link sap.ui.model.odata.v4.Context#setKeepAlive
-     * kept-alive} context of this binding.
+     * kept-alive} context of this binding. Since 1.98.0, {@link sap.ui.model.odata.v4.Context#isTransient transient}
+     * contexts of a {@link #getRootBinding root binding} do not count as pending changes.
      * See:
      * 	{@link topic:b0f5c531e5034a27952cc748954cbe39 Suspend and Resume}
      * 	sap.ui.model.Binding#suspend
@@ -55942,7 +56289,7 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
          */
         synchronizationMode: string;
         /**
-         * The group ID that is used for update requests. If no update group ID is specified, ` mParameters.groupId`
+         * The group ID that is used for update requests. If no update group ID is specified, `mParameters.groupId`
          * is used. Valid update group IDs are `undefined`, '$auto', '$direct' or an application group ID.
          */
         updateGroupId?: string;
@@ -56123,6 +56470,11 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
          * from its context's path for data service requests; only the value `true` is allowed.
          */
         $$canonicalPath?: boolean;
+        /**
+         * Whether this binding is considered for a match when {@link #getKeepAliveContext} is called; only the
+         * value `true` is allowed. Supported since 1.99.0
+         */
+        $$getKeepAliveContext?: boolean;
         /**
          * The group ID to be used for **read** requests triggered by this binding; if not specified, either the
          * parent binding's group ID (if the binding is relative) or the model's group ID is used, see {@link sap.ui.model.odata.v4.ODataModel#constructor}.
@@ -56381,6 +56733,25 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
       bIncludeContextId?: boolean
     ): object;
     /**
+     * @SINCE 1.99.0
+     *
+     * Returns a context with the given path belonging to a matching list binding that has been marked with
+     * `$$getKeepAliveContext` (see {@link #bindList}). If such a context exists, it is returned and kept alive
+     * (see {@link sap.ui.model.odata.v4.Context#setKeepAlive}).
+     * See:
+     * 	sap.ui.model.odata.v4.ODataListBinding#getKeepAliveContext
+     */
+    getKeepAliveContext(
+      /**
+       * A list context path to an entity
+       */
+      sPath: string,
+      /**
+       * Whether to request messages for the context's entity
+       */
+      bRequestMessages?: boolean
+    ): Context | undefined;
+    /**
      * @SINCE 1.85.0
      *
      * Returns messages of this model associated with the given context, that is messages belonging to the object
@@ -56440,7 +56811,8 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
      * @SINCE 1.39.0
      *
      * Returns `true` if there are pending changes, meaning updates or created entities (see {@link sap.ui.model.odata.v4.ODataListBinding#create})
-     * that have not yet been successfully sent to the server.
+     * that have not yet been successfully sent to the server. Since 1.98.0, {@link sap.ui.model.odata.v4.Context#isInactive
+     * inactive} contexts are ignored.
      */
     hasPendingChanges(
       /**
@@ -56665,7 +57037,8 @@ declare module "sap/ui/model/odata/v4/ODataPropertyBinding" {
      * Returns `true` if this binding or its dependent bindings have pending property changes or created entities
      * which have not been sent successfully to the server. This function does not take into account the deletion
      * of entities (see {@link sap.ui.model.odata.v4.Context#delete}) and the execution of OData operations
-     * (see {@link sap.ui.model.odata.v4.ODataContextBinding#execute}).
+     * (see {@link sap.ui.model.odata.v4.ODataContextBinding#execute}). Since 1.98.0, {@link sap.ui.model.odata.v4.Context#isInactive
+     * inactive} contexts are ignored.
      *
      * Note: If this binding is relative, its data is cached separately for each parent context path. This method
      * returns `true` if there are pending changes for the current parent context path of this binding. If this
@@ -56676,7 +57049,10 @@ declare module "sap/ui/model/odata/v4/ODataPropertyBinding" {
        * Whether to ignore changes which will not be lost by APIs like {@link sap.ui.model.odata.v4.ODataListBinding#changeParameters
        * changeParameters}, {@link sap.ui.model.odata.v4.ODataListBinding#filter filter}, {@link sap.ui.model.odata.v4.ODataListBinding#sort
        * sort}, or {@link sap.ui.model.odata.v4.ODataListBinding#suspend suspend} because they relate to a {@link
-       * sap.ui.model.odata.v4.Context#setKeepAlive kept-alive} context of this binding.
+       * sap.ui.model.odata.v4.Context#setKeepAlive kept-alive} context of this binding. Since 1.98.0, {@link
+       * sap.ui.model.odata.v4.Context#isTransient transient} contexts of a {@link #getRootBinding root binding}
+       * are treated as kept-alive by this flag. Since 1.99.0, the same happens for bindings using the `$$ownRequest`
+       * parameter (see {@link sap.ui.model.odata.v4.ODataModel#bindList}).
        */
       bIgnoreKeptAlive?: boolean
     ): boolean;
@@ -68687,6 +69063,8 @@ declare namespace sap {
 
     "sap/ui/core/format/NumberFormat": undefined;
 
+    "sap/ui/core/format/TimezoneUtil": undefined;
+
     "sap/ui/core/Fragment": undefined;
 
     "sap/ui/core/History": undefined;
@@ -69070,6 +69448,8 @@ declare namespace sap {
     "sap/ui/model/odata/type/DateTimeBase": undefined;
 
     "sap/ui/model/odata/type/DateTimeOffset": undefined;
+
+    "sap/ui/model/odata/type/DateTimeWithTimezone": undefined;
 
     "sap/ui/model/odata/type/Decimal": undefined;
 

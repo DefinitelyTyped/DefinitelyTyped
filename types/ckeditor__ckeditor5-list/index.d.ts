@@ -6,10 +6,11 @@
 
 export { default as List } from './src/list';
 export { default as ListEditing } from './src/listediting';
-export { default as ListUI } from './src/listui';
+export { default as ListProperties } from './src/listproperties';
 export { default as ListStyle } from './src/liststyle';
 export { default as ListStyleEditing } from './src/liststyleediting';
 export { default as ListStyleUI } from './src/liststyleui';
+export { default as ListUI } from './src/listui';
 export { default as TodoList } from './src/todolist';
 export { default as TodoListEditing } from './src/todolistediting';
 export { default as TodoListUI } from './src/todolistui';

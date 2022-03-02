@@ -189,12 +189,18 @@ class MyMap extends React.Component<{}, State> {
         );
     }
 
-    private readonly setRefInteractive = (el: InteractiveMap) => {
+    private readonly setRefInteractive = (el: InteractiveMap | null) => {
+        if (el === null) {
+            return;
+        }
         this.map = el;
         this.mapboxMap = el.getMap();
     }
 
-    private readonly setRefStatic = (el: StaticMap) => {
+    private readonly setRefStatic = (el: StaticMap | null) => {
+        if (el === null) {
+            return;
+        }
         this.mapboxMap = el.getMap();
     }
 }

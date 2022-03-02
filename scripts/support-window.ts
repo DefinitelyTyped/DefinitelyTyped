@@ -6,7 +6,7 @@ import { utcYear } from "d3-time";
 import { utcFormat } from "d3-time-format";
 import { JSDOM } from "jsdom";
 import serialize from "w3c-xmlserializer";
-import data from "../docs/support-window.json";
+import data from "../docs/support-window.json" assert { type: "json" };
 
 const width = 640;
 const height = 250;
@@ -45,6 +45,7 @@ const y = scaleBand()
   .range([margin.top, height - margin.bottom])
   .padding(0.2);
 
+// https://github.com/d3/d3/wiki#supported-environments
 const dom = new JSDOM();
 const svg = select(dom.window.document.body)
   .append("svg")
@@ -62,14 +63,16 @@ const axes = svg
   .attr("stroke-dasharray", 2)
   .attr("stroke-opacity", 0.5)
   .attr("stroke-width", 0.5);
-const xAxis = axes.append("g").attr("transform", `translate(0,${margin.top})`);
-axisTop(x)
+const gx = axes.append("g").attr("transform", `translate(0,${margin.top})`);
+const xAxis = axisTop(x)
   .ticks(5)
-  .tickSize(margin.top - height - margin.bottom)(xAxis);
-xAxis.selectAll(".domain").remove();
-const yAxis = axes.append("g");
-axisLeft(y).tickSize(margin.left - width - margin.right)(yAxis);
-yAxis.selectAll(".domain").remove();
+  .tickSize(margin.top - height - margin.bottom);
+xAxis(gx);
+gx.selectAll(".domain").remove();
+const gy = axes.append("g");
+const yAxis = axisLeft(y).tickSize(margin.left - width - margin.right);
+yAxis(gy);
+gy.selectAll(".domain").remove();
 svg
   .append("g")
   .attr("shape-rendering", "crispEdges")
@@ -108,7 +111,7 @@ texts
   .text((d) => d.version);
 texts
   .append("g")
-  .attr("font-size", "0.8em")
+  .attr("font-size", "smaller")
   .selectAll("text")
   .data(supported)
   .join("text")
@@ -118,7 +121,7 @@ texts
   .text((d) => formatDate(d.releaseDate));
 texts
   .append("g")
-  .attr("font-size", "0.8em")
+  .attr("font-size", "smaller")
   .selectAll("text")
   .data(supported)
   .join("text")
