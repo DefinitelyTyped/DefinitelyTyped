@@ -51,13 +51,13 @@ declare const URLParse: {
     new(address: string, parser?: false): URLParse<string>;
     new(address: string, parser: true): URLParse<Record<string, string | undefined>>;
     new <T>(address: string, parser?: URLParse.QueryParser<T>): URLParse<T>;
-    new(address: string, location?: string | object, parser?: false): URLParse<string>;
+    new(address: string, location?: string | object, parser?: boolean | URLParse.QueryParser): URLParse<string>;
     new(address: string, location: string | object | undefined, parser: true): URLParse<Record<string, string | undefined>>;
     new <T>(address: string, location: string | object | undefined, parser: URLParse.QueryParser<T>): URLParse<T>;
     (address: string, parser?: false): URLParse<string>;
     (address: string, parser: true): URLParse<Record<string, string | undefined>>;
     <T>(address: string, parser: URLParse.QueryParser<T>): URLParse<T>;
-    (address: string, location?: string | object, parser?: false): URLParse<string>;
+    (address: string, location?: string | object, parser?: boolean | URLParse.QueryParser): URLParse<string>;
     (address: string, location: string | object | undefined, parser: true): URLParse<Record<string, string | undefined>>;
     <T>(address: string, location: string | object | undefined, parser: URLParse.QueryParser<T>): URLParse<T>;
 
