@@ -36,6 +36,7 @@ class AvatarEditorTest extends React.Component {
                 <AvatarEditor image="" className="helloworld" />
                 <AvatarEditor image="" width={1} />
                 <AvatarEditor image="" height={1} />
+                <AvatarEditor image="" backgroundColor="green" />
                 <AvatarEditor image="" border={1} />
                 <AvatarEditor image="" border={[1, 2]} />
                 <AvatarEditor image="" borderRadius={1} />

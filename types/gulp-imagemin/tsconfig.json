@@ -6,9 +6,6 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "paths": {
-            "svgo": ["svgo/v1"]
-        },
         "strictNullChecks": true,
         "strictFunctionTypes": true,
         "baseUrl": "../",

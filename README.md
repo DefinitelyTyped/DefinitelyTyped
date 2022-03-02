@@ -278,7 +278,7 @@ f(1);
 f("one");
 ```
 
-For more details, see [dtslint](https://github.com/Microsoft/dtslint#write-tests) readme.
+For more details, see [dtslint](https://github.com/Microsoft/DefinitelyTyped-tools/tree/master/packages/dtslint#write-tests) readme.
 
 #### Linter: `tslint.json`
 

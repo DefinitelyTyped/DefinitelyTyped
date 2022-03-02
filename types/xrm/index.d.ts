@@ -163,6 +163,11 @@ declare namespace Xrm {
          * Returns information whether the server is online or offline.
          */
         isOffline(): boolean;
+
+        /**
+         * Returns information whether the network is available or not.
+         */
+        isNetworkAvailable(): boolean;
     }
 
     /**
@@ -1099,6 +1104,13 @@ declare namespace Xrm {
          * @remarks This method does not work with Microsoft Dynamics CRM for tablets.
          */
         refreshRibbon(refreshAll?: boolean): void;
+
+        /**
+         * Sets the name of the table to be displayed on the form.
+         * @param name Name of the table to be displayed on the form.
+         * @see {@link https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/formcontext-ui/setformentityname External Link: setFormEntityName (Client API reference)}
+         */
+        setFormEntityName(name: string): void;
 
         /**
          * The business process flow API, used to interact with the business process flow control in a form.
@@ -3835,6 +3847,12 @@ declare namespace Xrm {
             getLabel(): string;
 
             /**
+             * Returns a value that indicates whether the form is currently visible.
+             * @returns true if the form is visible; false otherwise.
+             */
+            getVisible(): boolean;
+
+            /**
              * Navigates the user to this form.
              */
             navigate(): void;
@@ -4930,6 +4948,14 @@ declare namespace Xrm {
             data?: string | undefined;
         }
 
+        interface Dashboard {
+            pageType: "dashboard";
+            /**
+             * The GUID of the dashboard to load. If not specified, navigates to the default dashboard
+             */
+            dashboardId?: string | undefined;
+        }
+
         /**
          * Options for navigating to a page: whether to open inline or in a dialog. If you don't specify this parameter, page is opened inline by default.
          * */
@@ -4985,7 +5011,8 @@ declare namespace Xrm {
                 | Navigation.PageInputEntityRecord
                 | Navigation.PageInputEntityList
                 | Navigation.CustomPage
-                | Navigation.PageInputHtmlWebResource,
+                | Navigation.PageInputHtmlWebResource
+                | Navigation.Dashboard,
             navigationOptions?: Navigation.NavigationOptions,
         ): Async.PromiseLike<any>;
 
