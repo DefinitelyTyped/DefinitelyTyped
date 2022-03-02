@@ -394,6 +394,11 @@ Xrm.App.sidePanes.getSelectedPane();
 // Demonstrate GetSettings
 const settingValue = Xrm.Utility.getGlobalContext().getCurrentAppSetting("SettingsName");
 
+// Demonstrate htmlAttributeEncode/htmlEncode/htmlDecode
+let html = Xrm.Encoding.htmlAttributeEncode("<&>");
+html = Xrm.Encoding.htmlEncode("<&>");
+const xml = Xrm.Encoding.htmlDecode("&lt;&amp;&gt;");
+
 // Demonstrate Navigating to a specific dashboard
 Xrm.Navigation.navigateTo({
     pageType: "dashboard",

@@ -5337,6 +5337,27 @@ declare namespace Xrm {
      */
     interface Encoding {
         /**
+         * Encodes the specified string so that it can be used in HTML.
+         * @param arg String to be encoded.
+         * @returns Encoded string
+         */
+        htmlAttributeEncode(arg: string): string;
+
+        /**
+         * Converts a string that has been HTML-encoded into a decoded string.
+         * @param arg HTML-encoded string to be decoded.
+         * @returns Decoded string
+         */
+        htmlDecode(arg: string): string;
+
+        /**
+         * Converts a string to an HTML-encoded string.
+         * @param arg String to be encoded.
+         * @returns Encoded string
+         */
+        htmlEncode(arg: string): string;
+
+        /**
          * Applies attribute encoding to a string.
          * @param arg String to be encoded.
          * @returns Encoded string.
