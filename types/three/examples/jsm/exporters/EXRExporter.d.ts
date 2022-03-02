@@ -1,8 +1,7 @@
 /**
  * @author sciecode / https://github.com/sciecode
  *
- * EXR format references:
- * 	https://www.openexr.com/documentation/openexrfilelayout.pdf
+ * EXR format references: https://www.openexr.com/documentation/openexrfilelayout.pdf
  */
 
 import { WebGLRenderer, WebGLRenderTarget, TextureDataType } from '../../../src/Three';
