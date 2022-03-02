@@ -80,7 +80,7 @@ interface Init {
 }
 
 interface IsInitialized {
-    (): boolean
+    (): boolean;
 }
 
 interface LogError {
