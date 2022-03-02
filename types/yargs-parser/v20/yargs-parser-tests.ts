@@ -132,13 +132,4 @@ parse.detailed(['--foo', '-bar']);
 
 parse.detailed(['--foo'], {});
 
-// $ExpectType string
-parse.camelCase('value');
-
-// $ExpectType string
-parse.decamelize('value');
-
-// $ExpectType boolean
-parse.looksLikeNumber(1);
-
 function test(args: Arguments) {}
