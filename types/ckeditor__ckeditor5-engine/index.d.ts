@@ -28,6 +28,7 @@ export { default as TreeWalker } from './src/model/treewalker';
 export { default as Element } from './src/model/element';
 
 export { default as DomConverter } from './src/view/domconverter';
+export { default as Renderer } from './src/view/renderer';
 export { default as ViewDocument } from './src/view/document';
 
 export { getFillerOffset } from './src/view/containerelement';

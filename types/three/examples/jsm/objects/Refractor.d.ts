@@ -7,6 +7,7 @@ export interface RefractorOptions {
     clipBias?: number;
     shader?: object;
     encoding?: TextureEncoding;
+    multisample?: number;
 }
 
 export class Refractor extends Mesh {
