@@ -1,4 +1,4 @@
-import parse, { Arguments } from 'yargs-parser';
+import parse, { Arguments, detailed, camelCase, decamelize, looksLikeNumber } from 'yargs-parser';
 
 parse('--foo -bar');
 
@@ -126,19 +126,19 @@ parse(['--foo', '-bar'], {
     number: ['foo', 'bar'],
 });
 
-parse.detailed('--foo -bar');
+detailed('--foo -bar');
 
-parse.detailed(['--foo', '-bar']);
+detailed(['--foo', '-bar']);
 
-parse.detailed(['--foo'], {});
-
-// $ExpectType string
-parse.camelCase('value');
+detailed(['--foo'], {});
 
 // $ExpectType string
-parse.decamelize('value');
+camelCase('value');
+
+// $ExpectType string
+decamelize('value');
 
 // $ExpectType boolean
-parse.looksLikeNumber(1);
+looksLikeNumber(1);
 
 function test(args: Arguments) {}
