@@ -9158,6 +9158,19 @@ export interface ImageStoreStatic {
 }
 
 //
+// Turbo Module
+//
+
+export interface TurboModule {
+    getConstants?(): {}
+}
+
+export const TurboModuleRegistry: {
+    get<T extends TurboModule>(name: string): T | null;
+    getEnforcing<T extends TurboModule>(name: string): T;
+}
+
+//
 // Interfacing with Native Modules
 // https://reactnative.dev/docs/native-modules-ios
 //
