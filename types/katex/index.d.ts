@@ -1,4 +1,4 @@
-// Type definitions for KaTeX 0.11
+// Type definitions for KaTeX 0.15
 // Project: http://khan.github.io/KaTeX/
 // Definitions by: Michael Randolph <https://github.com/mrand01>
 //                 Kevin Nguyen <https://github.com/knguyen0125>
@@ -12,14 +12,14 @@
 
 export as namespace katex;
 
-export interface TrustContext {
+interface TrustContext {
     command: string
     url: string
     protocol: string
 }
 
 /** Documentation: https://katex.org/docs/options.html */
-export interface KatexOptions {
+interface KatexOptions {
     /**
      * If `true`, math will be rendered in display mode
      * (math in display style and center math on page)
@@ -136,7 +136,7 @@ export interface KatexOptions {
     globalGroup?: boolean | undefined;
 }
 
-export class ParseError implements Error {
+class ParseError implements Error {
     constructor(message: string, lexer: any, position: number);
     name: string;
     message: string;
@@ -149,10 +149,12 @@ export class ParseError implements Error {
  * @param element The DOM element to render into
  * @param options KaTeX options
  */
-export function render(tex: string, element: HTMLElement, options?: KatexOptions): void;
+function render(tex: string, element: HTMLElement, options?: KatexOptions): void;
 /**
  * Renders a TeX expression into an HTML string
  * @param tex A TeX expression
  * @param options KaTeX options
  */
-export function renderToString(tex: string, options?: KatexOptions): string;
+function renderToString(tex: string, options?: KatexOptions): string;
+
+export default {TrustContext, KatexOptions, ParseError, render, renderToString};
