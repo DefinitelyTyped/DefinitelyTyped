@@ -13,7 +13,7 @@ import {
 //
 
 const testGeneral: NightwatchTests = {
-    'Demo test Google 1': (browser: NightwatchBrowser) => {
+    'Demo test Google 1': () => {
         browser.url('https://google.com').pause(1000);
 
         // expect element <body> to be present in 1000ms
@@ -36,7 +36,7 @@ const testGeneral: NightwatchTests = {
         browser.end();
     },
 
-    'Demo test Google 2': (browser: NightwatchBrowser) => {
+    'Demo test Google 2': () => {
         browser
             .url('https://www.google.com')
             .waitForElementVisible('body')
@@ -51,7 +51,7 @@ const testGeneral: NightwatchTests = {
             .end();
     },
 
-    'step one: navigate to google': (browser: NightwatchBrowser) => {
+    'step one: navigate to google': () => {
         browser
             .url('https://www.google.com')
             .waitForElementVisible('body', 1000)
@@ -59,7 +59,7 @@ const testGeneral: NightwatchTests = {
             .waitForElementVisible('input[name=btnK]', 1000);
     },
 
-    'step two: click input': (browser: NightwatchBrowser) => {
+    'step two: click input': () => {
         browser.click('input[name=btnK]').pause(1000).assert.containsText('#main', 'Night Watch').end();
     },
 };
@@ -155,14 +155,14 @@ declare module 'nightwatch' {
 }
 
 const testPage = {
-    'Test commands': (browser: NightwatchBrowser) => {
+    'Test commands': () => {
         const google = browser.page.google();
         google.setValue('@searchBar', 'nightwatch').submit();
 
         browser.end();
     },
 
-    'Test sections': (browser: NightwatchBrowser) => {
+    'Test sections': () => {
         const google = browser.page.google();
 
         const menuSection = google.section.menu;
@@ -180,7 +180,7 @@ const testPage = {
         browser.end();
     },
 
-    'Test assertions on page': (browser: NightwatchBrowser) => {
+    'Test assertions on page': () => {
         const google = browser.page.google();
 
         google
@@ -199,7 +199,7 @@ const testPage = {
 //
 
 const testSpecificCommands: NightwatchTests = {
-    executeAsync: (browser: NightwatchBrowser) => {
+    executeAsync: () => {
         browser.executeAsync(
             done => {
                 setTimeout(() => {
@@ -264,7 +264,7 @@ declare module 'nightwatch' {
 // module.exports.command = resizeCommand;
 
 const testCustomCommandFunction = {
-    'Test command function': (browser: NightwatchBrowser) => {
+    'Test command function': () => {
         browser.localStorageValue('my-key', result => {
             console.log(result);
         });
@@ -296,7 +296,7 @@ declare module 'nightwatch' {
 // module.exports = ConsoleLog;
 
 const testCustomCommandClass = {
-    'Test command class': (browser: NightwatchBrowser) => {
+    'Test command class': () => {
         browser.consoleLog('Hello world!');
     },
 };
@@ -341,7 +341,7 @@ declare module 'nightwatch' {
 }
 
 const testCustomAssertion = {
-    'Test custom assertion': (browser: NightwatchBrowser) => {
+    'Test custom assertion': () => {
         browser.assert.text('#checkme', 'Exactly match text');
     },
 };
