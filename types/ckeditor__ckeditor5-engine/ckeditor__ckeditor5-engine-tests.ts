@@ -1282,10 +1282,20 @@ new MarkerCollection().has(
     new Marker('', new LiveRange(new ModelPosition(model.document.createRoot(), [0])), true, true),
 );
 
-const myRawElement = downcastWriter.createRawElement('div');
-myRawElement.render = (domElement, domConverter) => {
+// $ExpectError
+downcastWriter.createRawElement();
+// prettier-ignore
+downcastWriter.createRawElement('div').render = function(domElement: HTMLElement, domConverter: DomConverter) {
     domConverter.setContentOf(domElement, '<b>This is the raw content of myRawElement.</b>');
+    // $ExpectType DowncastWriter
+    this;
 };
+// prettier-ignore
+downcastWriter.createRawElement('div', { id: 'foo' }, function(domElement, domConverter) {
+    domConverter.setContentOf(domElement, '<b>This is the raw content of myRawElement.</b>');
+    // $ExpectType DowncastWriter
+    this;
+});
 
 stylesProcessor.setReducer('margin', margin => {
     return [['margin', `${margin.top} ${margin.right} ${margin.bottom} ${margin.left}`]];
@@ -1306,3 +1316,8 @@ new Batch().addOperation(new MyOperation(1));
 injectSelectionPostFixer(model);
 // $ExpectType Range[]
 mergeIntersectingRanges([range]);
+
+class MyViewNode extends ViewNode {}
+// $ExpectError
+new DomConverter(viewDocument).viewToDom(new MyViewNode());
+new DomConverter(viewDocument).viewToDom(new MyViewNode(), window.document);
