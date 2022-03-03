@@ -1,4 +1,4 @@
-import { ColorDefinition } from '@ckeditor/ckeditor5-ui';
+import { ColorDefinition } from '@ckeditor/ckeditor5-ui/src/colorgrid/colorgridview';
 import { Collection } from '@ckeditor/ckeditor5-utils';
 import { BindChain, Observable } from '@ckeditor/ckeditor5-utils/src/observablemixin';
 

@@ -1,4 +1,5 @@
-import { ColorDefinition, View } from '@ckeditor/ckeditor5-ui';
+import { View } from '@ckeditor/ckeditor5-ui';
+import { ColorDefinition } from '@ckeditor/ckeditor5-ui/src/colorgrid/colorgridview';
 import { Locale } from '@ckeditor/ckeditor5-utils';
 
 /**
