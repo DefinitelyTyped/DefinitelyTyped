@@ -7,6 +7,7 @@ import {
     Editor,
     EditorUI,
     MultiCommand,
+    PendingActions,
     Plugin,
 } from '@ckeditor/ckeditor5-core';
 import { EditorWithUI } from '@ckeditor/ckeditor5-core/src/editor/editorwithui';
@@ -153,8 +154,14 @@ contextWithConfig.initPlugins().then(plugins => plugins.map(plugin => plugin.plu
 /**
  * ContextPlugin
  */
-const CPlugin = new ContextPlugin(context) && new ContextPlugin(editor);
-const afterInitPromise = CPlugin.afterInit?.();
+class CPlugin extends ContextPlugin {}
+// $ExpectError
+class CPlugin2 extends ContextPlugin {
+    static requires: [MyPlugin];
+}
+// $ExpectType true
+CPlugin.isContextPlugin;
+const afterInitPromise = new CPlugin(context).afterInit?.();
 if (afterInitPromise != null) {
     afterInitPromise.then(() => {});
 }
@@ -202,3 +209,15 @@ MC.registerChildCommand(comm);
 /* EditorUI */
 new EditorUI(editor).componentFactory.editor === editor;
 new EditorUI(editor).componentFactory.add('', locale => new View(locale));
+
+/** Pending Actions */
+// $ExpectType boolean
+new PendingActions(context).hasAny;
+// $ExpectError
+new PendingActions(context).hasAny = true;
+new PendingActions(context).remove(new PendingActions(context).add(''));
+
+// $ExpectType PendingActions
+new MyEditor('').plugins.get('PendingActions');
+// $ExpectType PendingActions
+new MyEditor('').plugins.get(PendingActions);

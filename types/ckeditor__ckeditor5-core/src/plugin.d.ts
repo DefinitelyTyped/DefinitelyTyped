@@ -174,6 +174,9 @@ export default class Plugin implements Observable {
 // Beware that this defines a class constructor, not the class instance.
 export interface PluginInterface<T = Plugin> {
     new (editor: Editor): T;
+    init?(): Promise<void>|void;
+    afterInit?(): Promise<void>|void;
+    destroy?(): Promise<void>|void;
 }
 
 export type LoadedPlugins = Array<typeof Plugin | typeof ContextPlugin>;
