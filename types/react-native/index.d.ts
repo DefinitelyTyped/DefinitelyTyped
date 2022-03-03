@@ -40,6 +40,7 @@
 //                 Arafat Zahan <https://github.com/kuasha420>
 //                 Pedro Hernández <https://github.com/phvillegas>
 //                 Sebastian Silbermann <https://github.com/eps1lon>
+//                 Zihan Chen <https://github.com/ZihanChen-MSFT>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
