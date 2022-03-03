@@ -1,6 +1,7 @@
 // Type definitions for canvas-multiline-text 1.0
 // Project: https://gitlab.com/davideblasutto/canvas-multiline-text
-// Definitions by: A-K-O-R-A <https://github.com/A-K-O-R-A>
+// Definitions by: AKORA <https://github.com/A-K-O-R-A>
+//                 Kiara <https://github.com/DragonCat4012>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface Options {
@@ -17,10 +18,6 @@ interface Options {
     maxFontSize?: number;
 }
 
-declare function drawMultilineText(
-    ctx: CanvasRenderingContext2D,
-    text: string,
-    opts?: Options
-): number;
+declare function drawMultilineText(ctx: CanvasRenderingContext2D, text: string, opts?: Options): number;
 
 export = drawMultilineText;
