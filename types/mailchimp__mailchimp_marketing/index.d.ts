@@ -58,6 +58,17 @@ export interface SetListMemberBody {
     merge_fields?: Record<string, any> | undefined;
 }
 
+export type StatusTag = 'active' | 'inactive';
+
+export interface TagBody {
+    name: string;
+    status: StatusTag;
+}
+
+export interface MemberTagsBody {
+    tags: TagBody[];
+}
+
 /*~ If there are types, properties, or methods inside dotted names
  *~ of the module, declare them inside a 'namespace'.
  */
@@ -88,4 +99,6 @@ export namespace lists {
     ): Promise<void>;
 
     function deleteListMemberPermanent(listId: string, subscriberHash: string): Promise<void>;
+
+    function updateListMemberTags(listId: string, subscriberHash: string, body: any): Promise<void>;
 }
