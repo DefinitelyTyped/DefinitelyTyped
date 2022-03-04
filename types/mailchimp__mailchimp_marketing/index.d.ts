@@ -2,7 +2,9 @@
 // Project: https://github.com/mailchimp/mailchimp-client-lib-codegen
 // Definitions by: Jan Müller <https://github.com/rattkin>
 //                 Jérémy Barbet <https://github.com/jeremybarbet>
+//                 Daniel Castro <https://github.com/odanieldcs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// API Documentation: https://mailchimp.com/developer/marketing/api/
 
 export function setConfig(config: Config): void;
 
