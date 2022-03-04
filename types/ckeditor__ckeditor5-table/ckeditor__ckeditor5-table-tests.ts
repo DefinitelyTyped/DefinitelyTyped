@@ -1,5 +1,5 @@
 import { Editor } from '@ckeditor/ckeditor5-core';
-import { Element } from '@ckeditor/ckeditor5-engine';
+import { Conversion, Element } from '@ckeditor/ckeditor5-engine';
 import Writer from '@ckeditor/ckeditor5-engine/src/model/writer';
 import InsertColumnCommand from '@ckeditor/ckeditor5-table/src/commands/insertcolumncommand';
 import InsertRowCommand from '@ckeditor/ckeditor5-table/src/commands/insertrowcommand';
@@ -18,7 +18,7 @@ import injectTableCellParagraphPostFixer from '@ckeditor/ckeditor5-table/src/con
 import injectTableCellRefreshPostFixer from '@ckeditor/ckeditor5-table/src/converters/table-cell-refresh-post-fixer';
 import injectTableHeadingRowsRefreshPostFixer from '@ckeditor/ckeditor5-table/src/converters/table-heading-rows-refresh-post-fixer';
 import injectTableLayoutPostFixer from '@ckeditor/ckeditor5-table/src/converters/table-layout-post-fixer';
-import { upcastStyleToAttribute } from '@ckeditor/ckeditor5-table/src/converters/tableproperties';
+import { upcastBorderStyles, upcastStyleToAttribute } from '@ckeditor/ckeditor5-table/src/converters/tableproperties';
 import upcastTable from '@ckeditor/ckeditor5-table/src/converters/upcasttable';
 import TableCaptionEditing from '@ckeditor/ckeditor5-table/src/tablecaption/tablecaptionediting';
 import TableCaptionUI from '@ckeditor/ckeditor5-table/src/tablecaption/tablecaptionui';
@@ -76,6 +76,10 @@ import {
     TableUtils,
 } from '@ckeditor/ckeditor5-table';
 import { downcastInsertTable } from '@ckeditor/ckeditor5-table/src/converters/downcast';
+import { Locale } from '@ckeditor/ckeditor5-utils';
+import { convertCollapsedSelection } from '@ckeditor/ckeditor5-engine/src/conversion/downcasthelpers';
+import DowncastDispatcher from '@ckeditor/ckeditor5-engine/src/conversion/downcastdispatcher';
+import UpcastDispatcher from '@ckeditor/ckeditor5-engine/src/conversion/upcastdispatcher';
 
 class MyEditor extends Editor {}
 const editor = new MyEditor();
@@ -248,3 +252,36 @@ downcastInsertTable({ asWidget: true });
     TableCellVerticalAlignmentCommand,
     TableCellWidthCommand,
 ].forEach(Command => new Command(editor, '').execute());
+
+new TableCellPropertiesView(new Locale(), {
+    borderColors: '',
+    backgroundColors: {
+        color: '',
+        label: '',
+    },
+    defaultTableCellProperties: {
+        width: '',
+        height: '',
+        padding: '',
+        backgroundColor: '',
+        borderColor: '',
+        borderWidth: '',
+    },
+}).destroy();
+
+new TablePropertiesView(new Locale()).destroy();
+
+upcastBorderStyles(
+    new Conversion(new DowncastDispatcher({}), new UpcastDispatcher()),
+    '',
+    {
+        color: '',
+        style: '',
+        width: '',
+    },
+    {
+        color: '',
+        style: '',
+        width: '',
+    },
+);
