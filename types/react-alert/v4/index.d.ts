@@ -1,50 +1,13 @@
-// Type definitions for react-alert 7.0
+// Type definitions for react-alert 4.0
 // Project: https://github.com/schiehll/react-alert
 // Definitions by: Yue Yang <https://github.com/g1eny0ung>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// The 7.x definition also applies to [6.x, 5.x].
-//
-// Some points to note:
-//
-// 1. `alert.removeAll()` has been added since `6.x`.
+import { ReactNode, ComponentType, Component, Consumer } from 'react';
 
-import { CSSProperties, ReactNode, ComponentType, Component, Context } from 'react';
-
-export type AlertPositionV4 =
-    | 'top left'
-    | 'top center'
-    | 'top right'
-    | 'bottom left'
-    | 'bottom center'
-    | 'bottom right';
-export type AlertPosition = AlertPositionV4 | 'middle left' | 'middle' | 'middle right';
+export type AlertPosition = 'top left' | 'top center' | 'top right' | 'bottom left' | 'bottom center' | 'bottom right';
 export type AlertType = 'info' | 'success' | 'error';
 export type AlertTransition = 'fade' | 'scale';
-export interface Positions {
-    TOP_LEFT: 'top left';
-    TOP_CENTER: 'top center';
-    TOP_RIGHT: 'top right';
-    MIDDLE_LEFT: 'middle left';
-    MIDDLE: 'middle';
-    MIDDLE_RIGHT: 'middle right';
-    BOTTOM_LEFT: 'bottom left';
-    BOTTOM_CENTER: 'bottom center';
-    BOTTOM_RIGHT: 'bottom right';
-}
-export interface Types {
-    INFO: 'info';
-    SUCCESS: 'success';
-    ERROR: 'error';
-}
-export interface Transitions {
-    FADE: 'fade';
-    SCALE: 'scale';
-}
-
-export const positions: Positions;
-export const types: Types;
-export const transitions: Transitions;
 
 export interface AlertOptions {
     /**
@@ -57,7 +20,7 @@ export interface AlertOptions {
     /**
      * The position of the alerts in the page.
      *
-     * Default: positions.TOP_CENTER
+     * Default: 'top center'
      */
     position?: AlertPosition | undefined;
 
@@ -71,25 +34,23 @@ export interface AlertOptions {
     /**
      * The default alert type used when calling this.props.alert.show.
      *
-     * Default: types.INFO
+     * Default: 'info'
      */
     type?: AlertType | undefined;
 
     /**
      * The transition animation.
      *
-     * Default: transitions.FADE
+     * Default: 'fade'
      */
     transition?: AlertTransition | undefined;
 
     /**
-     * Style to be applied in the alerts container.
+     * The z-index of alerts.
      *
-     * Default: {
-     *   zIndex: 100,
-     * }
+     * Default: 100
      */
-    containerStyle?: CSSProperties | undefined;
+    zIndex?: number | undefined;
 }
 
 export interface AlertInstance {
@@ -120,8 +81,6 @@ export interface AlertProviderProps extends AlertOptions {
      * The alert template to be used.
      */
     template: React.ComponentType<AlertTemplateProps>;
-
-    context?: Context<AlertContainer> | undefined;
 }
 
 export class Provider extends Component<AlertProviderProps> {}
@@ -144,15 +103,12 @@ export interface AlertContainerFactory<T> {
     success(message?: ReactNode, options?: T): AlertInstance;
     error(message?: ReactNode, options?: T): AlertInstance;
     remove(alert: AlertInstance): void;
-    removeAll(): void;
 }
 export type AlertContainer = AlertContainerFactory<AlertCustomOptions>;
 
 export interface InjectedAlertProps {
     alert: AlertContainer;
 }
-export function withAlert<P extends InjectedAlertProps = InjectedAlertProps>(
-    context?: Context<P['alert']>,
-): (c: ComponentType<P>) => ComponentType<Omit<P, 'alert'>>;
+export function withAlert<P extends InjectedAlertProps>(c: ComponentType<P>): ComponentType<Omit<P, 'alert'>>;
 
-export function useAlert<T extends AlertContainer = AlertContainer>(context?: Context<T>): T;
+export const Alert: Consumer<AlertContainer>;
