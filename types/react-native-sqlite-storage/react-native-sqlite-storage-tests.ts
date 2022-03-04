@@ -38,3 +38,19 @@ sqlite.openDatabase({ name: 'test.db', location: 'default' }).then((db) => {
         // handle result
     });
 });
+
+// $ExpectError
+const invalidIOSDatabaseParams: sqlite.DatabaseParamsIOS = {
+    name: 'db'
+};
+
+const correctIOSDatabaseParams: sqlite.DatabaseParamsIOS = {
+    name: 'db',
+    location: 'default'
+};
+sqlite.openDatabase(correctIOSDatabaseParams);
+
+const androidDatabaseParams: sqlite.DatabaseParamsAndroid = {
+    name: 'db'
+};
+sqlite.openDatabase(androidDatabaseParams);

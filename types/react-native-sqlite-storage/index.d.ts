@@ -20,7 +20,9 @@ export interface DatabaseOptionalParams {
     readOnly?: boolean | undefined;
 }
 
-export interface DatabaseParams extends DatabaseOptionalParams {
+export type DatabaseParams = DatabaseParamsIOS | DatabaseParamsAndroid;
+
+export interface DatabaseParamsIOS extends DatabaseOptionalParams {
     name: string;
     /**
      * Affects iOS database file location
@@ -29,6 +31,10 @@ export interface DatabaseParams extends DatabaseOptionalParams {
      * 'Documents': Documents subdirectory - visible to iTunes and backed up by iCloud
      */
     location: Location;
+}
+
+export interface DatabaseParamsAndroid extends DatabaseOptionalParams {
+    name: string;
 }
 
 export interface ResultSet {
