@@ -9,10 +9,14 @@ export function DEBUG(isDebug: boolean): void;
 export function enablePromise(enablePromise: boolean): void;
 
 export function openDatabase(params: DatabaseParams): Promise<SQLiteDatabase>;
-export function openDatabase(params: DatabaseParams, success?: () => void, error?: (e: SQLError) => void): SQLiteDatabase;
+export function openDatabase(
+    params: DatabaseParams,
+    success?: () => void,
+    error?: (e: SQLError) => void,
+): SQLiteDatabase;
 export function deleteDatabase(params: DatabaseParams): Promise<void>;
 export function deleteDatabase(params: DatabaseParams, success?: () => void, error?: (err: SQLError) => void): void;
-export type Location = 'default' | 'Library' | 'Documents' | "Shared";
+export type Location = 'default' | 'Library' | 'Documents' | 'Shared';
 export interface DatabaseOptionalParams {
     createFromLocation?: number | string | undefined;
     // Database encryption pass phrase
@@ -57,7 +61,7 @@ export enum SQLErrors {
     QUOTA_ERR = 4,
     SYNTAX_ERR = 5,
     CONSTRAINT_ERR = 6,
-    TIMEOUT_ERR = 7
+    TIMEOUT_ERR = 7,
 }
 
 export interface SQLError {
@@ -69,7 +73,12 @@ export type StatementCallback = (transaction: Transaction, resultSet: ResultSet)
 export type StatementErrorCallback = (transaction: Transaction, error: SQLError) => void;
 export interface Transaction {
     executeSql(sqlStatement: string, arguments?: any[]): Promise<[Transaction, ResultSet]>;
-    executeSql(sqlStatement: string, arguments?: any[], callback?: StatementCallback, errorCallback?: StatementErrorCallback): void;
+    executeSql(
+        sqlStatement: string,
+        arguments?: any[],
+        callback?: StatementCallback,
+        errorCallback?: StatementErrorCallback,
+    ): void;
 }
 
 export type TransactionCallback = (transaction: Transaction) => void;
@@ -77,9 +86,17 @@ export type TransactionErrorCallback = (error: SQLError) => void;
 
 export interface SQLiteDatabase {
     transaction(scope: (tx: Transaction) => void): Promise<Transaction>;
-    transaction(scope: (tx: Transaction) => void, error?: TransactionErrorCallback, success?: TransactionCallback): void;
+    transaction(
+        scope: (tx: Transaction) => void,
+        error?: TransactionErrorCallback,
+        success?: TransactionCallback,
+    ): void;
     readTransaction(scope: (tx: Transaction) => void): Promise<TransactionCallback>;
-    readTransaction(scope: (tx: Transaction) => void, error?: TransactionErrorCallback, success?: TransactionCallback): void;
+    readTransaction(
+        scope: (tx: Transaction) => void,
+        error?: TransactionErrorCallback,
+        success?: TransactionCallback,
+    ): void;
     close(): Promise<void>;
     close(success: () => void, error: (err: SQLError) => void): void;
     executeSql(statement: string, params?: any[]): Promise<[ResultSet]>;
