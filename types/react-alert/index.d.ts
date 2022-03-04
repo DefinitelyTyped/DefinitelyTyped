@@ -3,7 +3,11 @@
 // Definitions by: Yue Yang <https://github.com/g1eny0ung>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// Note: The 7.x definition also applies to 6.x.
+// The 7.x definition also applies to [6.x, 5.x].
+//
+// Some points to note:
+//
+// 1. `alert.removeAll()` has been added since `6.x`.
 
 import { CSSProperties, ReactNode, ComponentType, Component, Context } from 'react';
 
