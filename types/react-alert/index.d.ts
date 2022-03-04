@@ -48,35 +48,35 @@ export interface AlertOptions {
      *
      * Default: '10px'
      */
-    offset?: string;
+    offset?: string | undefined;
 
     /**
      * The position of the alerts in the page.
      *
      * Default: positions.TOP_CENTER
      */
-    position?: AlertPosition;
+    position?: AlertPosition | undefined;
 
     /**
      * Timeout to alert remove itself, if set to 0 it never removes itself.
      *
      * Default: 0
      */
-    timeout?: number;
+    timeout?: number | undefined;
 
     /**
      * The default alert type used when calling this.props.alert.show.
      *
      * Default: types.INFO
      */
-    type?: AlertType;
+    type?: AlertType | undefined;
 
     /**
      * The transition animation.
      *
      * Default: transitions.FADE
      */
-    transition?: AlertTransition;
+    transition?: AlertTransition | undefined;
 
     /**
      * Style to be applied in the alerts container.
@@ -85,7 +85,7 @@ export interface AlertOptions {
      *   zIndex: 100,
      * }
      */
-    containerStyle?: CSSProperties;
+    containerStyle?: CSSProperties | undefined;
 }
 
 export interface AlertInstance {
@@ -117,7 +117,7 @@ export interface AlertProviderProps extends AlertOptions {
      */
     template: React.ComponentType<AlertTemplateProps>;
 
-    context?: Context<AlertContainer>;
+    context?: Context<AlertContainer> | undefined;
 }
 
 export class Provider extends Component<AlertProviderProps> {}
@@ -126,12 +126,12 @@ export interface AlertCustomOptions extends AlertOptions {
     /**
      * Callback that will be executed after this alert open.
      */
-    onOpen?(): void;
+    onOpen?: () => void | undefined;
 
     /**
      * Callback that will be executed after this alert is removed.
      */
-    onClose?(): void;
+    onClose?: () => void | undefined;
 }
 
 export interface AlertContainerFactory<T> {
