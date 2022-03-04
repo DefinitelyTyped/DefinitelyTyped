@@ -3,7 +3,6 @@
 // Definitions by: Steve Syrell <https://github.com/ssyrell>
 //                 Yue Yang <https://github.com/g1eny0ung>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
 
 import { ReactElement, Component, ReactNode } from 'react';
 
