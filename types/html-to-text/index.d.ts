@@ -1,4 +1,4 @@
-// Type definitions for html-to-text 8.0
+// Type definitions for html-to-text 8.1
 // Project: https://github.com/html-to-text/node-html-to-text
 // Definitions by: Eryk Warren <https://github.com/erykwarren>
 //                 Carson Full <https://github.com/CarsonF>
@@ -287,6 +287,11 @@ export interface FormatOptions {
      * Keep in mind that `baseUrl` should not end with a `/`.
      */
     baseUrl?: string | undefined;
+    /**
+     * Surround links with these brackets.<br/>Set to `false` or `['', '']` to disable.
+     * @default ['[', ']']
+     */
+    linkBrackets?: [string, string] | false | undefined;
     /**
      * (Only for: `anchor` formatter.) By default links are translated in the following way:
      *
