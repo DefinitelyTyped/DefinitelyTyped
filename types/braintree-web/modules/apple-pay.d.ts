@@ -208,7 +208,18 @@ export interface ApplePay {
      *   // { total: { }, countryCode: 'US', currencyCode: 'USD', merchantCapabilities: [ ], supportedNetworks: [ ] }
      *
      */
-    createPaymentRequest(paymentRequest: ApplePayPaymentRequest): ApplePayPaymentRequest;
+    createPaymentRequest(
+        paymentRequest: Omit<
+            ApplePayPaymentRequest,
+            'countryCode' | 'currencyCode' | 'merchantCapabilities' | 'supportedNetworks'
+        > &
+            Partial<
+                Pick<
+                    ApplePayPaymentRequest,
+                    'countryCode' | 'currencyCode' | 'merchantCapabilities' | 'supportedNetworks'
+                >
+            >,
+    ): ApplePayPaymentRequest;
 
     /**
      * Validates the merchant website, as required by ApplePaySession before payment can be authorized.     * - The canonical name for your store.
