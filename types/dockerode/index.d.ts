@@ -154,7 +154,6 @@ declare namespace Dockerode {
         distribution(options: ImageDistributionOptions, callback: Callback<ImageDistributionInfo>): void;
         distribution(callback: Callback<ImageDistributionInfo>): void;
         distribution(options?: ImageDistributionOptions): Promise<ImageDistributionInfo>;
-
     }
 
     class Volume {
