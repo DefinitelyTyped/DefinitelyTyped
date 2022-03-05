@@ -4,7 +4,7 @@ import { Box, Flex, Text, Heading, Button, Link, Image, Card, BoxProps } from 'r
 import { Box as StyledBox } from 'rebass/styled-components';
 import 'styled-components/macro';
 
-const CustomComponent: React.FunctionComponent = ({ children }) => {
+const CustomComponent: React.FunctionComponent<{ children?: React.ReactNode }> = ({ children }) => {
     return <div>{children}</div>;
 };
 
