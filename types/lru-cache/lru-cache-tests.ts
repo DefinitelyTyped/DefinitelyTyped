@@ -40,7 +40,7 @@ new LRUCache<string, Foo>({
 });
 new LRUCache<string, Foo>({ max: num }); // $ExpectType LRUCache<string, Foo>
 new LRUCache<string, Foo>(); // $ExpectError
-// $ExpectType LRUCache<string, Foo>
+
 new LRUCache<string, Foo>({
     max: num,
     ttl: num,
