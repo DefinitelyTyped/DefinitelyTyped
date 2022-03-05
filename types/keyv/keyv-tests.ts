@@ -61,17 +61,17 @@ new Keyv();
     // Base options accessible and typed correctly with TOpts unused
     const keyv = new Keyv<string>();
     keyv.opts.namespace; // $ExpectType string
-    keyv.opts.deserialize; // $ExpectType (data: string) => DeserializedData<string>
+    keyv.opts.deserialize; // $ExpectType (data: string) => DeserializedData<string> | undefined
     keyv.opts.serialize; // $ExpectType (data: DeserializedData<string>) => string
     keyv.opts.store; // $ExpectType Store<string>
 
     // Base options accessible and typed correctly with TOpts used
     const customOptsKeyv = new Keyv<string, { customProperty: string }>();
     customOptsKeyv.opts.namespace; // $ExpectType string
-    customOptsKeyv.opts.deserialize; // $ExpectType (data: string) => DeserializedData<string>
+    customOptsKeyv.opts.deserialize; // $ExpectType (data: string) => DeserializedData<string> | undefined
     customOptsKeyv.opts.serialize; // $ExpectType (data: DeserializedData<string>) => string
     customOptsKeyv.opts.store; // $ExpectType Store<string>
 
     // TOpts typings are correct when used
-    customOptsKeyv.opts.customProperty; // $ExpectType string;
+    customOptsKeyv.opts.customProperty; // $ExpectType string
 }

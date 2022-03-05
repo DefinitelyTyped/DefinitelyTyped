@@ -16,7 +16,7 @@ declare class Keyv<TValue = any, TOpts extends { [key: string]: any } = {}> exte
      * below. However, `Keyv.Options` allows arbitrary properties as well.
      * These properties can be specified as the second type parameter to `Keyv`.
      */
-    public opts: WithRequiredProperties<
+    opts: WithRequiredProperties<
         Keyv.Options<TValue>,
         'deserialize' | 'namespace' | 'serialize' | 'store' | 'uri'
     > &
