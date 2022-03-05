@@ -15,12 +15,33 @@ import { MessageChannel } from 'node:worker_threads';
 function simplified_stream_ctor_test() {
     new Readable({
         construct(cb) {
-            // $ExpectType Readable
+            // $ExpectType Readable<any>
             this;
             cb();
         },
         read(size) {
-            // $ExpectType Readable
+            // $ExpectType Readable<any>
+            this;
+            // $ExpectType number
+            size;
+        },
+        destroy(error, cb) {
+            // $ExpectType Error | null
+            error;
+            // $ExpectType (error: Error | null) => void
+            cb;
+        },
+        signal: new AbortSignal(),
+    });
+
+    new Readable<number>({
+        construct(cb) {
+            // $ExpectType Readable<number>
+            this;
+            cb();
+        },
+        read(size) {
+            // $ExpectType Readable<number>
             this;
             // $ExpectType number
             size;
@@ -36,12 +57,12 @@ function simplified_stream_ctor_test() {
 
     new Writable({
         construct(cb) {
-            // $ExpectType Writable
+            // $ExpectType Writable<any>
             this;
             cb();
         },
         write(chunk, enc, cb) {
-            // $ExpectType Writable
+            // $ExpectType Writable<any>
             this;
             // $ExpectType any
             chunk;
@@ -51,7 +72,7 @@ function simplified_stream_ctor_test() {
             cb;
         },
         writev(chunks, cb) {
-            // $ExpectType Writable
+            // $ExpectType Writable<any>
             this;
             // $ExpectType { chunk: any; encoding: BufferEncoding; }[]
             chunks;
@@ -59,7 +80,7 @@ function simplified_stream_ctor_test() {
             cb;
         },
         destroy(error, cb) {
-            // $ExpectType Writable
+            // $ExpectType Writable<any>
             this;
             // $ExpectType Error | null
             error;
@@ -67,7 +88,49 @@ function simplified_stream_ctor_test() {
             cb;
         },
         final(cb) {
-            // $ExpectType Writable
+            // $ExpectType Writable<any>
+            this;
+            // $ExpectType (error?: Error | null | undefined) => void
+            cb;
+        },
+        defaultEncoding: 'utf8',
+        signal: new AbortSignal(),
+    });
+
+    new Writable<number>({
+        construct(cb) {
+            // $ExpectType Writable<number>
+            this;
+            cb();
+        },
+        write(chunk, enc, cb) {
+            // $ExpectType Writable<number>
+            this;
+            // $ExpectType number
+            chunk;
+            // $ExpectType BufferEncoding
+            enc;
+            // $ExpectType (error?: Error | null | undefined) => void
+            cb;
+        },
+        writev(chunks, cb) {
+            // $ExpectType Writable<number>
+            this;
+            // $ExpectType { chunk: number; encoding: BufferEncoding; }[]
+            chunks;
+            // $ExpectType (error?: Error | null | undefined) => void
+            cb;
+        },
+        destroy(error, cb) {
+            // $ExpectType Writable<number>
+            this;
+            // $ExpectType Error | null
+            error;
+            // $ExpectType (error: Error | null) => void
+            cb;
+        },
+        final(cb) {
+            // $ExpectType Writable<number>
             this;
             // $ExpectType (error?: Error | null | undefined) => void
             cb;
@@ -78,18 +141,18 @@ function simplified_stream_ctor_test() {
 
     new Duplex({
         construct(cb) {
-            // $ExpectType Duplex
+            // $ExpectType Duplex<any, any>
             this;
             cb();
         },
         read(size) {
-            // $ExpectType Duplex
+            // $ExpectType Duplex<any, any>
             this;
             // $ExpectType number
             size;
         },
         write(chunk, enc, cb) {
-            // $ExpectType Duplex
+            // $ExpectType Duplex<any, any>
             this;
             // $ExpectType any
             chunk;
@@ -99,7 +162,7 @@ function simplified_stream_ctor_test() {
             cb;
         },
         writev(chunks, cb) {
-            // $ExpectType Duplex
+            // $ExpectType Duplex<any, any>
             this;
             // $ExpectType { chunk: any; encoding: BufferEncoding; }[]
             chunks;
@@ -107,7 +170,7 @@ function simplified_stream_ctor_test() {
             cb;
         },
         destroy(error, cb) {
-            // $ExpectType Duplex
+            // $ExpectType Duplex<any, any>
             this;
             // $ExpectType Error | null
             error;
@@ -115,7 +178,57 @@ function simplified_stream_ctor_test() {
             cb;
         },
         final(cb) {
-            // $ExpectType Duplex
+            // $ExpectType Duplex<any, any>
+            this;
+            // $ExpectType (error?: Error | null | undefined) => void
+            cb;
+        },
+        readableObjectMode: true,
+        writableObjectMode: true,
+        readableHighWaterMark: 2048,
+        writableHighWaterMark: 1024
+    });
+
+    new Duplex<number, string>({
+        construct(cb) {
+            // $ExpectType Duplex<number, string>
+            this;
+            cb();
+        },
+        read(size) {
+            // $ExpectType Duplex<number, string>
+            this;
+            // $ExpectType number
+            size;
+        },
+        write(chunk, enc, cb) {
+            // $ExpectType Duplex<number, string>
+            this;
+            // $ExpectType string
+            chunk;
+            // $ExpectType BufferEncoding
+            enc;
+            // $ExpectType (error?: Error | null | undefined) => void
+            cb;
+        },
+        writev(chunks, cb) {
+            // $ExpectType Duplex<number, string>
+            this;
+            // $ExpectType { chunk: string; encoding: BufferEncoding; }[]
+            chunks;
+            // $ExpectType (error?: Error | null | undefined) => void
+            cb;
+        },
+        destroy(error, cb) {
+            // $ExpectType Duplex<number, string>
+            this;
+            // $ExpectType Error | null
+            error;
+            // $ExpectType (error: Error | null) => void
+            cb;
+        },
+        final(cb) {
+            // $ExpectType Duplex<number, string>
             this;
             // $ExpectType (error?: Error | null | undefined) => void
             cb;
@@ -128,18 +241,18 @@ function simplified_stream_ctor_test() {
 
     new Transform({
         construct(cb) {
-            // $ExpectType Transform
+            // $ExpectType Transform<any, any>
             this;
             cb();
         },
         read(size) {
-            // $ExpectType Transform
+            // $ExpectType Transform<any, any>
             this;
             // $ExpectType number
             size;
         },
         write(chunk, enc, cb) {
-            // $ExpectType Transform
+            // $ExpectType Transform<any, any>
             this;
             // $ExpectType any
             chunk;
@@ -149,7 +262,7 @@ function simplified_stream_ctor_test() {
             cb;
         },
         writev(chunks, cb) {
-            // $ExpectType Transform
+            // $ExpectType Transform<any, any>
             this;
             // $ExpectType { chunk: any; encoding: BufferEncoding; }[]
             chunks;
@@ -157,7 +270,7 @@ function simplified_stream_ctor_test() {
             cb;
         },
         destroy(error, cb) {
-            // $ExpectType Transform
+            // $ExpectType Transform<any, any>
             this;
             // $ExpectType Error | null
             error;
@@ -165,23 +278,88 @@ function simplified_stream_ctor_test() {
             cb;
         },
         final(cb) {
-            // $ExpectType Transform
+            // $ExpectType Transform<any, any>
             this;
             // $ExpectType (error?: Error | null | undefined) => void
             cb;
         },
         transform(chunk, enc, cb) {
-            // $ExpectType Transform
+            // $ExpectType Transform<any, any>
             this;
             // $ExpectType any
             chunk;
             // $ExpectType BufferEncoding
             enc;
-            // $ExpectType TransformCallback
+            // $ExpectType TransformCallback<any>
             cb;
         },
         flush(cb) {
-            // $ExpectType TransformCallback
+            // $ExpectType TransformCallback<any>
+            cb;
+        },
+        allowHalfOpen: true,
+        readableObjectMode: true,
+        writableObjectMode: true,
+        readableHighWaterMark: 2048,
+        writableHighWaterMark: 1024
+    });
+
+    new Transform<string, number>({
+        construct(cb) {
+            // $ExpectType Transform<string, number>
+            this;
+            cb();
+        },
+        read(size) {
+            // $ExpectType Transform<string, number>
+            this;
+            // $ExpectType number
+            size;
+        },
+        write(chunk, enc, cb) {
+            // $ExpectType Transform<string, number>
+            this;
+            // $ExpectType number
+            chunk;
+            // $ExpectType BufferEncoding
+            enc;
+            // $ExpectType (error?: Error | null | undefined) => void
+            cb;
+        },
+        writev(chunks, cb) {
+            // $ExpectType Transform<string, number>
+            this;
+            // $ExpectType { chunk: number; encoding: BufferEncoding; }[]
+            chunks;
+            // $ExpectType (error?: Error | null | undefined) => void
+            cb;
+        },
+        destroy(error, cb) {
+            // $ExpectType Transform<string, number>
+            this;
+            // $ExpectType Error | null
+            error;
+            // $ExpectType (error: Error | null) => void
+            cb;
+        },
+        final(cb) {
+            // $ExpectType Transform<string, number>
+            this;
+            // $ExpectType (error?: Error | null | undefined) => void
+            cb;
+        },
+        transform(chunk, enc, cb) {
+            // $ExpectType Transform<string, number>
+            this;
+            // $ExpectType number
+            chunk;
+            // $ExpectType BufferEncoding
+            enc;
+            // $ExpectType TransformCallback<string>
+            cb;
+        },
+        flush(cb) {
+            // $ExpectType TransformCallback<string>
             cb;
         },
         allowHalfOpen: true,
@@ -303,7 +481,17 @@ function streamPipelineAsyncTransform() {
         err => console.error(err));
 
     // Accepts buffer as source
-    pipeline(Buffer.from('test'), stdout);
+    pipeline(
+        Buffer.from('test'),
+        async function *(source) {
+            // $ExpectType Iterable<Buffer>
+            source;
+            for (const chunk of source) {
+                yield chunk;
+            }
+        },
+        stdout
+    );
 }
 
 async function streamPipelineAsyncPromiseTransform() {
@@ -590,15 +778,15 @@ async function testTransferringStreamWithPostMessage() {
 }
 
 function testEndandDestroy() {
-    // $ExpectType Readable
+    // $ExpectType Readable<any>
     new Readable().destroy();
-    // $ExpectType Writable
+    // $ExpectType Writable<any>
     new Writable().destroy();
 
-    // $ExpectType Writable
+    // $ExpectType Writable<any>
     new Writable().end();
-    // $ExpectType Writable
+    // $ExpectType Writable<any>
     new Writable().end('');
-    // $ExpectType Writable
+    // $ExpectType Writable<any>
     new Writable().end('', 'utf8');
 }

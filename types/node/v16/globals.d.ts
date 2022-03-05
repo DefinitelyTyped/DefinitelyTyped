@@ -187,9 +187,9 @@ declare namespace NodeJS {
         syscall?: string | undefined;
     }
 
-    interface ReadableStream extends EventEmitter {
+    interface ReadableStream<A = string | Buffer> extends EventEmitter {
         readable: boolean;
-        read(size?: number): string | Buffer;
+        read(size?: number): A;
         setEncoding(encoding: BufferEncoding): this;
         pause(): this;
         resume(): this;
@@ -198,19 +198,19 @@ declare namespace NodeJS {
         unpipe(destination?: WritableStream): this;
         unshift(chunk: string | Uint8Array, encoding?: BufferEncoding): void;
         wrap(oldStream: ReadableStream): this;
-        [Symbol.asyncIterator](): AsyncIterableIterator<string | Buffer>;
+        [Symbol.asyncIterator](): AsyncIterableIterator<A>;
     }
 
-    interface WritableStream extends EventEmitter {
+    interface WritableStream<A = Uint8Array | string> extends EventEmitter {
         writable: boolean;
-        write(buffer: Uint8Array | string, cb?: (err?: Error | null) => void): boolean;
+        write(buffer: A, cb?: (err?: Error | null) => void): boolean;
         write(str: string, encoding?: BufferEncoding, cb?: (err?: Error | null) => void): boolean;
-        end(cb?: () => void): void;
-        end(data: string | Uint8Array, cb?: () => void): void;
-        end(str: string, encoding?: BufferEncoding, cb?: () => void): void;
+        end(cb?: () => void): this;
+        end(data: A, cb?: () => void): this;
+        end(str: string, encoding?: BufferEncoding, cb?: () => void): this;
     }
 
-    interface ReadWriteStream extends ReadableStream, WritableStream { }
+    interface ReadWriteStream<R = string | Buffer, W = Uint8Array | string> extends ReadableStream<R>, WritableStream<W> { }
 
     interface RefCounted {
         ref(): this;
