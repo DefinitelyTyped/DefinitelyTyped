@@ -2076,6 +2076,13 @@ declare module chrome {
          * Attaches debugger to the given target.
          * @param target Debugging target to which you want to attach.
          * @param requiredVersion Required debugging protocol version ("0.1"). One can only attach to the debuggee with matching major version and greater or equal minor version. List of the protocol versions can be obtained in the documentation pages.
+         * @return The `attach` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+         */
+         export function attach(target: Debuggee, requiredVersion: string): Promise<void>;
+        /**
+         * Attaches debugger to the given target.
+         * @param target Debugging target to which you want to attach.
+         * @param requiredVersion Required debugging protocol version ("0.1"). One can only attach to the debuggee with matching major version and greater or equal minor version. List of the protocol versions can be obtained in the documentation pages.
          * @param callback Called once the attach operation succeeds or fails. Callback receives no arguments. If the attach fails, runtime.lastError will be set to the error message.
          * If you specify the callback parameter, it should be a function that looks like this:
          * function() {...};
@@ -2084,11 +2091,30 @@ declare module chrome {
         /**
          * Detaches debugger from the given target.
          * @param target Debugging target from which you want to detach.
+         * @return The `detach` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+         */
+        export function detach(target: Debuggee): Promise<void>;
+        /**
+         * Detaches debugger from the given target.
+         * @param target Debugging target from which you want to detach.
          * @param callback Called once the detach operation succeeds or fails. Callback receives no arguments. If the detach fails, runtime.lastError will be set to the error message.
          * If you specify the callback parameter, it should be a function that looks like this:
          * function() {...};
          */
         export function detach(target: Debuggee, callback?: () => void): void;
+        /**
+         * Sends given command to the debugging target.
+         * @param target Debugging target to which you want to send the command.
+         * @param method Method name. Should be one of the methods defined by the remote debugging protocol.
+         * @param commandParams Since Chrome 22.
+         * JSON object with request parameters. This object must conform to the remote debugging params scheme for given method.
+         * @return The `sendCommand` method provides its result via callback or returned as a `Promise` (MV3 only).
+         */
+        export function sendCommand(
+            target: Debuggee,
+            method: string,
+            commandParams?: Object,
+        ): Promise<Object>;
         /**
          * Sends given command to the debugging target.
          * @param target Debugging target to which you want to send the command.
@@ -2105,6 +2131,12 @@ declare module chrome {
             commandParams?: Object,
             callback?: (result?: Object) => void,
         ): void;
+        /**
+         * Since Chrome 28.
+         * Returns the list of available debug targets.
+         * @return The `getTargets` method provides its result via callback or returned as a `Promise` (MV3 only).
+         */
+        export function getTargets(): Promise<TargetInfo[]>;
         /**
          * Since Chrome 28.
          * Returns the list of available debug targets.
