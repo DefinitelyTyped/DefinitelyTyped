@@ -100,9 +100,9 @@ export interface ReactDatePickerProps<CustomModifierNames extends string = never
     focusSelectedMonth?: boolean | undefined;
     isClearable?: boolean | undefined;
     locale?: string | Locale | undefined;
-    maxDate?: Date | null | undefined;
+    maxDate?: Date | undefined;
     maxTime?: Date | undefined;
-    minDate?: Date | null | undefined;
+    minDate?: Date | undefined;
     minTime?: Date | undefined;
     monthsShown?: number | undefined;
     name?: string | undefined;
