@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare function textFit(
-    els: HTMLElement | HTMLElement[] | NodeListOf<Element> | HTMLCollection,
+    els: HTMLElement | HTMLElement[] | NodeListOf<Element> | HTMLCollection | JQuery,
     options?: textFit.TextFitOption,
 ): void;
 

@@ -1,4 +1,5 @@
 import textFit = require('textfit');
+import $ = require('jquery');
 
 const element = document.createElement('div');
 const elements = Array(2).map(() => document.createElement('div'));
@@ -25,3 +26,5 @@ textFit(nodeList, options);
 
 const htmlCollection = ul.children;
 textFit(htmlCollection, options);
+
+textFit($('#dummy_selector'), options);
