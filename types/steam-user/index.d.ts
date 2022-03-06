@@ -919,7 +919,7 @@ interface Options {
 	additionalHeaders?: Record<string, string>;
     webCompatibilityMode?: boolean;
     ownershipFilter?: OwnsFilterObject | OwnsFilterFunction;
-    dataDirectory?: string;
+    dataDirectory?: string | null;
 }
 
 interface CreateQuickInviteLinkOptions {
