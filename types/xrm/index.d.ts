@@ -6,6 +6,7 @@
 //                  Daryl LaBar <https://github.com/daryllabar>
 //                  Tully H <https://github.com/clownwilleatme>
 //                  Scott Durow <https://github.com/scottdurow>
+//                  Phil Cole <https://github.com/filcole>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
