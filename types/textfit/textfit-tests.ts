@@ -25,5 +25,3 @@ textFit(nodeList, options);
 
 const htmlCollection = ul.children;
 textFit(htmlCollection, options);
-
-textFit(null, options);
