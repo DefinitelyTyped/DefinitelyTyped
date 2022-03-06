@@ -4453,6 +4453,12 @@ declare namespace chrome.i18n {
 
     /**
      * Gets the accept-languages of the browser. This is different from the locale used by the browser; to get the locale, use i18n.getUILanguage.
+     * @return The `getAcceptLanguages` method provides its result via callback or returned as a `Promise` (MV3 only).
+     * @since MV3
+     */
+     export function getAcceptLanguages(): Promise<string[]>;
+    /**
+     * Gets the accept-languages of the browser. This is different from the locale used by the browser; to get the locale, use i18n.getUILanguage.
      * @param callback The callback parameter should be a function that looks like this:
      * function(array of string languages) {...};
      * Parameter languages: Array of the accept languages of the browser, such as en-US,en,zh-CN
@@ -4470,6 +4476,12 @@ declare namespace chrome.i18n {
      */
     export function getUILanguage(): string;
 
+    /** Detects the language of the provided text using CLD.
+     * @param text User input string to be translated.
+     * @return The `detectLanguage` method provides its result via callback or returned as a `Promise` (MV3 only).
+     * @since MV3
+     */
+     export function detectLanguage(text: string): Promise<LanguageDetectionResult>;
     /** Detects the language of the provided text using CLD.
      * @param text User input string to be translated.
      * @param callback The callback parameter should be a function that looks like this: function(object result) {...};
