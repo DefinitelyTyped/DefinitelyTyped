@@ -99,7 +99,8 @@ const waveSurferWithMarkersPlugin = WaveSurfer.create({
             {
                 time: 5.5,
                 label: "V1",
-                color: '#ff990a'
+                color: '#ff990a',
+                draggable: true
             },
             {
                 time: 10,
@@ -152,8 +153,14 @@ waveSurferWithMinimapPlugin.minimap.destroy();
 // - plugin: regions
 const waveSurferWithRegionsPlugin = WaveSurfer.create({
     container: "#waveform",
-    plugins: [RegionsPlugin.create({})],
+    plugins: [
+        RegionsPlugin.create({
+            maxRegions: 1
+        })
+    ],
 });
+// $ExpectType number
+waveSurferWithRegionsPlugin.regions.maxRegions;
 waveSurferWithRegionsPlugin.regions.destroy();
 
 // - plugin: spectrogram

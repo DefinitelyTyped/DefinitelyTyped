@@ -536,6 +536,19 @@ function testGetManifest() {
     };
 }
 
+// https://developer.chrome.com/docs/extensions/reference/runtime/#method-restart
+function testRestart() {
+    chrome.runtime.restart();
+}
+
+// https://developer.chrome.com/docs/extensions/reference/runtime/#method-restartAfterDelay
+function testRestartAfterDelay() {
+    chrome.runtime.restartAfterDelay(10);
+    chrome.runtime.restartAfterDelay(10, () => {
+        console.log('This is a callback!');
+    })
+}
+
 async function testGetPlatformInfo() {
     chrome.runtime.getPlatformInfo(platformInfo => {
         platformInfo; // $ExpectType PlatformInfo
@@ -1243,4 +1256,14 @@ function testEnterpriseDeviceAttributes() {
   chrome.enterprise.deviceAttributes.getDeviceAssetId((assetId) => {});
   chrome.enterprise.deviceAttributes.getDeviceAnnotatedLocation((annotatedLocation) => {});
   chrome.enterprise.deviceAttributes.getDeviceHostname((hostName) => {});
+}
+
+function testBrowsingData() {
+    chrome.browsingData.removeServiceWorkers(); // $ExpectError
+    chrome.browsingData.removeServiceWorkers({});
+    chrome.browsingData.removeServiceWorkers({}, () => {});
+}
+
+function testPageCapture() {
+  chrome.pageCapture.saveAsMHTML({ tabId: 0 }, (data: Blob | undefined) => {});
 }

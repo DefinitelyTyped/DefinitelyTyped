@@ -23,7 +23,7 @@ export default class Model implements Observable {
 
     applyOperation(operation: Operation): void;
     change<T>(callback: (writer: Writer) => T): T;
-    createBatch(type?: 'transparent' | 'default'): Batch;
+    createBatch(type?: ConstructorParameters<typeof Batch>[0]): Batch;
     createOperationFromJSON(arg: Record<string, unknown>): Operation;
     createPositionAfter(item: Item): Position;
     createPositionAt(itemOrPosition: Item, offset?: number | 'end' | 'before' | 'after'): Position;
@@ -49,7 +49,10 @@ export default class Model implements Observable {
     ): void;
     destroy(): void;
     enqueueChange(callback: (writer: Writer) => void): void;
-    enqueueChange(batchOrType: Batch | 'transparent' | 'default', callback: (writer: Writer) => void): void;
+    enqueueChange(
+        batchOrType: Batch | ConstructorParameters<typeof Batch>[0],
+        callback: (writer: Writer) => void,
+    ): void;
     getSelectedContent(selection: Selection | DocumentSelection): DocumentFragment;
     hasContent(
         rangeOrElement: Range | Element,

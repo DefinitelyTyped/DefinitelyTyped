@@ -1,10 +1,10 @@
-// Type definitions for non-npm package eyevinn-iaf 1.0
+// Type definitions for non-npm package eyevinn-iaf 2.0
 // Project: https://github.com/Eyevinn/ingest-application-framework
 // Definitions by: Jonas Birmé <https://github.com/birme>
 //                 Oscar Nord <https://github.com/oscnord>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="node" />
+/// <reference types="node"/>
 
 import { Readable } from 'stream';
 
@@ -19,7 +19,7 @@ export interface IafUploadModule {
     playlistName: string;
     onFileAdd(filePath: string, readStream: Readable, contentType?: string): any;
     progressDelegate: (result: any) => any;
-    fileUploadedDelegate: (result: any) => any;
+    fileUploadedDelegate: (result: any, error?: any) => any;
 }
 export interface IafFileWatchModule {
     fileInput: string;

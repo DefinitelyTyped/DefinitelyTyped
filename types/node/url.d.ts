@@ -778,7 +778,7 @@ declare module 'url' {
          * @param fn Invoked for each name-value pair in the query
          * @param thisArg To be used as `this` value for when `fn` is called
          */
-        forEach<TThis = this>(callback: (this: TThis, value: string, name: string, searchParams: this) => void, thisArg?: TThis): void;
+        forEach<TThis = this>(callback: (this: TThis, value: string, name: string, searchParams: URLSearchParams) => void, thisArg?: TThis): void;
         /**
          * Returns the value of the first name-value pair whose name is `name`. If there
          * are no such pairs, `null` is returned.
@@ -854,6 +854,36 @@ declare module 'url' {
          */
         values(): IterableIterator<string>;
         [Symbol.iterator](): IterableIterator<[string, string]>;
+    }
+
+    import { URL as _URL, URLSearchParams as _URLSearchParams } from 'url';
+    global {
+        interface URLSearchParams extends _URLSearchParams {}
+        interface URL extends _URL {}
+        interface Global {
+            URL: typeof _URL;
+            URLSearchParams: typeof _URLSearchParams;
+        }
+        /**
+         * `URL` class is a global reference for `require('url').URL`
+         * https://nodejs.org/api/url.html#the-whatwg-url-api
+         * @since v10.0.0
+         */
+        var URL:
+            // For compatibility with "dom" and "webworker" URL declarations
+            typeof globalThis extends { onmessage: any, URL: infer URL }
+                ? URL
+                : typeof _URL;
+        /**
+         * `URLSearchParams` class is a global reference for `require('url').URLSearchParams`
+         * https://nodejs.org/api/url.html#class-urlsearchparams
+         * @since v10.0.0
+         */
+        var URLSearchParams:
+            // For compatibility with "dom" and "webworker" URLSearchParams declarations
+            typeof globalThis extends { onmessage: any, URLSearchParams: infer URLSearchParams }
+                ? URLSearchParams
+                : typeof _URLSearchParams;
     }
 }
 declare module 'node:url' {

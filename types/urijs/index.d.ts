@@ -27,9 +27,9 @@ export = URI;
 export as namespace URI;
 
 declare const URI: {
-    (value?: string | URI.URIOptions | HTMLElement): URI;
+    (value?: string | URI.URIOptions | HTMLElement, base?: string | URI): URI;
 
-    new(value?: string | URI.URIOptions | HTMLElement): URI;
+    new(value?: string | URI.URIOptions | HTMLElement, base?: string | URI): URI;
 
     addQuery(data: URI.QueryDataMap, prop: string, value: string): object;
     addQuery(data: URI.QueryDataMap, qryObj: object): object;

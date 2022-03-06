@@ -1,4 +1,3 @@
-import Ember from 'ember';
 import hbs from 'htmlbars-inline-precompile';
 import { module } from 'qunit';
 import {
@@ -7,159 +6,132 @@ import {
     skip,
     only,
     todo,
-    moduleFor,
-    moduleForModel,
-    moduleForComponent,
     setResolver,
     setupRenderingTest,
     setupTest,
 } from 'ember-qunit';
-import { TestContext } from 'ember-test-helpers';
-
-moduleForComponent('x-foo', {
-    integration: true,
-});
-
-moduleForComponent('x-foo', {
-    unit: true,
-    needs: ['helper:pluralize-string'],
-});
-
-moduleForModel('user', {
-    needs: ['model:child'],
-});
-
-moduleFor('controller:home');
-
-moduleFor('component:x-foo', 'Some description');
-
-moduleFor('component:x-foo', 'TestModule callbacks', {
-    beforeSetup() {},
-
-    beforeEach(assert) {
-        this.registry.register('helper:i18n', {});
-        this.register('service:i18n', {});
-        this.inject.service('i18n');
-        this.inject.service('i18n', { as: 'i18n' });
-        this.factory('object:user').create();
-        assert.ok(true);
-    },
-
-    afterEach(assert) {
-        assert.ok(true);
-    },
-
-    afterTeardown(assert) {
-        assert.ok(true);
-    },
-});
+import { render, TestContext } from '@ember/test-helpers';
+import EmberResolver from 'ember-resolver';
+import EmberObject from '@ember/object';
 
 // if you don't have a custom resolver, do it like this:
-setResolver(Ember.DefaultResolver.create());
+setResolver(EmberResolver.create());
 
-test('it renders', function (assert) {
-    assert.expect(2);
+// (modified) tests ported from ember-test-helpers
+module('rendering', function (hooks) {
+    setupRenderingTest(hooks);
 
-    // setup the outer context
-    this.set('value', 'cat');
-    this.on('action', function (result) {
-        assert.equal(result, 'bar', 'The correct result was returned');
-        assert.equal(this.get('value'), 'cat');
+    test('it renders', function (assert) {
+        assert.expect(2);
+
+        // setup the outer context
+        this.set('value', 'cat');
+
+        // render the component
+        this.render(hbs`
+            {{ x-foo value=value action="result" }}
+        `);
+        this.render('{{ x-foo value=value action="result" }}');
+        this.render(['{{ x-foo value=value action="result" }}']);
+
+        const el = this.element.querySelector('div');
+        assert.equal(el?.innerText, 'cat', 'The component shows the correct value');
+
+        this.element.querySelector('button')?.click();
     });
 
-    // render the component
-    this.render(hbs`
-        {{ x-foo value=value action="result" }}
-    `);
-    this.render('{{ x-foo value=value action="result" }}');
-    this.render(['{{ x-foo value=value action="result" }}']);
+    test('it renders', async function (assert) {
+        assert.expect(1);
 
-    assert.equal(this.$('div>.value').text(), 'cat', 'The component shows the correct value');
+        // creates the component instance
+        await render(hbs`<Foo />`);
 
-    this.$('button').click();
+        await render(hbs`<Foo @item={{42}} />`);
+
+        const { inputFormat } = this.setProperties({
+            inputFormat: 'M/D/YY',
+            outputFormat: 'MMMM D, YYYY',
+            date: '5/3/10',
+        });
+
+        const { inputFormat: if2, outputFormat } = this.getProperties('inputFormat', 'outputFormat');
+
+        const inputFormat2 = this.get('inputFormat');
+
+        // render the component on the page
+        this.render();
+        assert.equal(this.element.querySelector('div')?.innerText, 'bar');
+    });
 });
 
-test('it renders', function (assert) {
-    assert.expect(1);
-
-    // creates the component instance
-    const subject = this.subject();
-
-    const subject2 = this.subject({
-        item: 42,
+module('misc and async', function (hooks) {
+    hooks.beforeEach(async function(assert) {
+        assert.ok(true, 'hooks can be async');
     });
 
-    const { inputFormat } = this.setProperties({
-        inputFormat: 'M/D/YY',
-        outputFormat: 'MMMM D, YYYY',
-        date: '5/3/10',
+    test('It can calculate the result', function (assert) {
+        assert.expect(1);
+
+        interface Foo extends EmberObject {
+            value: string;
+            result: string;
+        }
+
+        const subject = this.owner.lookup('foo') as Foo;
+
+        subject.set('value', 'foo');
+        assert.equal(subject.get('result'), 'bar');
     });
 
-    const { inputFormat: if2, outputFormat } = this.getProperties('inputFormat', 'outputFormat');
+    // This test is intended to ensure the appropriate behavior for @typescript-eslint/no-misused-promises.
+    // However, we don't actually use typescript-eslint in this project and tslint has no equivalent,
+    // so we can't properly test it.
+    test('it can be async', async function (assert) {
+        assert.expect(1);
 
-    const inputFormat2 = this.get('inputFormat');
+        await this.render();
 
-    // render the component on the page
-    this.render();
-    assert.equal(this.$('.foo').text(), 'bar');
+        assert.ok(true, 'rendered');
+    });
+
+    skip('disabled test');
+
+    skip('disabled test', function (assert) {});
+
+    // This test is intended to ensure the appropriate behavior for @typescript-eslint/no-misused-promises.
+    // However, we don't actually use typescript-eslint in this project and tslint has no equivalent,
+    // so we can't properly test it.
+    skip('it can skip async', async function (assert) {
+        assert.expect(1);
+
+        await this.render();
+
+        assert.ok(true, 'rendered');
+    });
+
+    // This test is intended to ensure the appropriate behavior for @typescript-eslint/no-misused-promises.
+    // However, we don't actually use typescript-eslint in this project and tslint has no equivalent,
+    // so we can't properly test it.
+    only('it can only run async', async function (assert) {
+        assert.expect(1);
+
+        await this.render();
+
+        assert.ok(true, 'rendered');
+    });
+
+    // This test is intended to ensure the appropriate behavior for @typescript-eslint/no-misused-promises.
+    // However, we don't actually use typescript-eslint in this project and tslint has no equivalent,
+    // so we can't properly test it.
+    todo('it can have an async todo', async function (assert) {
+        assert.expect(1);
+
+        await this.render();
+
+        assert.ok(true, 'rendered');
+    });
 });
-
-test('It can calculate the result', function (assert) {
-    assert.expect(1);
-
-    const subject = this.subject();
-
-    subject.set('value', 'foo');
-    assert.equal(subject.get('result'), 'bar');
-});
-
-// This test is intended to ensure the appropriate behavior for @typescript-eslint/no-misused-promises.
-// However, we don't actually use typescript-eslint in this project and tslint has no equivalent,
-// so we can't properly test it.
-test('it can be async', async function (assert) {
-    assert.expect(1);
-
-    await this.render();
-
-    assert.ok(true, 'rendered');
-});
-
-skip('disabled test');
-
-skip('disabled test', function (assert) {});
-
-// This test is intended to ensure the appropriate behavior for @typescript-eslint/no-misused-promises.
-// However, we don't actually use typescript-eslint in this project and tslint has no equivalent,
-// so we can't properly test it.
-skip('it can skip async', async function (assert) {
-    assert.expect(1);
-
-    await this.render();
-
-    assert.ok(true, 'rendered');
-});
-
-// This test is intended to ensure the appropriate behavior for @typescript-eslint/no-misused-promises.
-// However, we don't actually use typescript-eslint in this project and tslint has no equivalent,
-// so we can't properly test it.
-only('it can only run async', async function (assert) {
-    assert.expect(1);
-
-    await this.render();
-
-    assert.ok(true, 'rendered');
-});
-
-// This test is intended to ensure the appropriate behavior for @typescript-eslint/no-misused-promises.
-// However, we don't actually use typescript-eslint in this project and tslint has no equivalent,
-// so we can't properly test it.
-todo('it can have an async todo', async function (assert) {
-    assert.expect(1);
-
-    await this.render();
-
-    assert.ok(true, 'rendered');
-});
+// end tests ported from ember-test-helpers
 
 // https://github.com/emberjs/rfcs/blob/master/text/0232-simplify-qunit-testing-api.md#qunit-nested-modules-api
 QUnit.module('some description', function (hooks) {
@@ -186,7 +158,7 @@ module('foo service', function (hooks) {
 // RFC-232 equivalent of https://github.com/ember-engines/ember-engines#unitintegration-testing-for-in-repo-engines
 module('engine foo component', function (hooks) {
     setupTest(hooks, {
-        resolver: Ember.Resolver.create(),
+        resolver: EmberResolver.create(),
     });
 });
 

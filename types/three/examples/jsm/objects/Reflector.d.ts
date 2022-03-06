@@ -7,6 +7,7 @@ export interface ReflectorOptions {
     clipBias?: number;
     shader?: object;
     encoding?: TextureEncoding;
+    multisample?: number;
 }
 
 export class Reflector extends Mesh {

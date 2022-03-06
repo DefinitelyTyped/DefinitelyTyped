@@ -7,6 +7,8 @@ export interface HSL {
     l: number;
 }
 
+export function SRGBToLinear(c: number): number;
+
 /**
  * Represents a color. See also {@link ColorUtils}.
  *

@@ -1,5 +1,4 @@
 import mailchimp = require('@mailchimp/mailchimp_marketing');
-import { Status } from 'mailchimp__mailchimp_marketing';
 
 // void;
 mailchimp.setConfig({
@@ -10,7 +9,7 @@ mailchimp.setConfig({
 
 const setListMemberBody = {
     email_address: 'test',
-    status_if_new: Status.subscribed,
+    status_if_new: 'subscribed' as const,
 };
 
 const addListMemberBody = {

@@ -8061,6 +8061,18 @@ declare namespace chrome {
         function restart(): void;
 
         /**
+         * Restart the ChromeOS device when the app runs in kiosk mode after the
+         * given seconds. If called again before the time ends, the reboot will
+         * be delayed. If called with a value of -1, the reboot will be
+         * cancelled. It's a no-op in non-kiosk mode. It's only allowed to be
+         * called repeatedly by the first extension to invoke this API.
+         * @since Chrome 53.
+         * @param seconds
+         * @param callback
+         */
+        function restartAfterDelay(seconds: number, callback?: () => void): void;
+
+        /**
          * Sends a single message to event listeners within your app or a different app. Similar to runtime.connect but only sends a single message, with an optional response.
          * If sending to your extension, the runtime.onMessage event will be fired in each page, or runtime.onMessageExternal, if a different extension.
          * Note that extensions cannot send messages to content scripts using this method.

@@ -32,7 +32,7 @@ class CustomPlugin implements Plugin {
     hooks: Plugin.Hooks;
     variableResolvers: Plugin.VariableResolvers;
 
-    constructor(serverless: Serverless, options: Serverless.Options) {
+    constructor(serverless: Serverless, options: Serverless.Options, logging: Plugin.Logging) {
         this.hooks = {
             'command:start': () => {},
         };
@@ -268,7 +268,8 @@ const awsServerless: Aws.Serverless = {
                     issuerUrl: 'testissuerUrl',
                     audience: ['testaudience']
                 }
-            }
+            },
+            useProviderTags: true
         },
         usagePlan: {
             quota: {
@@ -553,7 +554,8 @@ const awsServerless: Aws.Serverless = {
                         arn: 'testarn',
                         batchSize: 1,
                         maximumRetryAttempts: 1,
-                        enabled: true
+                        enabled: true,
+                        functionResponseType: 'ReportBatchItemFailures'
                     }
                 }, {
                     activemq: {

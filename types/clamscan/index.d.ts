@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-import { Transform } from 'stream';
+import { Readable, Transform } from 'stream';
 
 declare namespace NodeClam {
     interface Options {
@@ -203,13 +203,13 @@ declare class NodeClam {
      *
      * @see {@link https://github.com/kylefarris/clamscan#scanstreamstreamcallback}
      */
-    scanStream(stream: ReadableStream): Promise<
+    scanStream(stream: Readable): Promise<
         NodeClam.Response<{
             file: string;
             isInfected: boolean;
         }>
     >;
-    scanStream(stream: ReadableStream, cb?: (err: NodeClam.NodeClamError | null, isInfected: boolean) => void): void;
+    scanStream(stream: Readable, cb?: (err: NodeClam.NodeClamError | null, isInfected: boolean) => void): void;
 }
 
 export = NodeClam;

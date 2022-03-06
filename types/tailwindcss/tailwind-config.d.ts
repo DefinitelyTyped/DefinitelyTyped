@@ -197,12 +197,16 @@ export interface TailwindAnimationConfig {
     };
 }
 
-export type TailwindFontConfig = [
-    string,
-    {
-        lineHeight: string;
-    },
-];
+export type TailwindFontConfig =
+    | string
+    | [string, string]
+    | [
+          string,
+          {
+              lineHeight?: string;
+              letterSpacing?: string;
+          },
+      ];
 
 export type TailwindValidLayers = 'base' | 'components' | 'utilities' | 'screens';
 
@@ -504,13 +508,18 @@ export type TailwindVariants = Partial<{
 export interface TailwindConfig {
     theme: TailwindTheme;
     variants?: TailwindVariants;
-    corePlugins?: TailwindCorePlugin[];
+    // https://tailwindcss.com/docs/presets#core-plugins
+    corePlugins?:
+        | TailwindCorePlugin[]
+        | {
+              [corePlugin in TailwindCorePlugin]?: boolean;
+          };
     plugins?: TailwindPlugin[];
     purge?: string[] | TailwindPurgeConfig;
     // Not documented yet.
     content?: string[] | { files: string[]; extract: any; transform: any };
     presets?: any[];
-    darkMode: false | 'media' | 'class';
+    darkMode?: false | 'media' | 'class';
     variantOrder?: TailwindVariant[];
     prefix?: string;
     important?: boolean | string;

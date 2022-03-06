@@ -1307,6 +1307,11 @@ chrome.runtime.getPackageDirectoryEntry((pentry) => {
 });
 
 chrome.runtime.reload();
+chrome.runtime.restart();
+chrome.runtime.restartAfterDelay(10);
+chrome.runtime.restartAfterDelay(10, () => {
+    console.log('This is a callback!');
+});
 chrome.runtime.requestUpdateCheck((status, details) => {
     if (status === chrome.runtime.RequestUpdateCheckStatus.THROTTLED) {
         if (details !== undefined) {

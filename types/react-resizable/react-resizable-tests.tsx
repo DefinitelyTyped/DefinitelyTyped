@@ -9,7 +9,7 @@ const resizeCallback = (
     console.log(data.node);
 };
 
-class TestResizableComponent extends React.Component {
+class TestResizableComponent extends React.Component<{ children?: React.ReactNode }> {
     render() {
         return (
             <Resizable
@@ -32,7 +32,7 @@ class TestResizableComponent extends React.Component {
     }
 }
 
-class TestResizableBoxComponent extends React.Component {
+class TestResizableBoxComponent extends React.Component<{ children?: React.ReactNode }> {
     render() {
         return (
             <ResizableBox

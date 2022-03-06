@@ -51,7 +51,10 @@ export interface MarkerParams {
     label?: string | undefined;
     /** Background color for marker. */
     color?: string | undefined;
+    /** Position (default: "bottom"). */
     position?: "top" | "bottom" | undefined;
     /** An HTML element to display instead of the default marker image. */
     markerElement?: HTMLElement | undefined;
+    /** Set marker as draggable (default: false). */
+    draggable?: boolean | undefined;
 }

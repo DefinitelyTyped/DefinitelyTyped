@@ -353,6 +353,17 @@ braintree.client.create(
             },
         );
 
+        // Check that apple pay createPaymentRequest fields are optional
+        braintree.applePay.create({ client: clientInstance }, (createErr, applePayInstance) => {
+            const request = {
+                total: { label: 'Your Label', amount: '10.00' },
+            };
+
+            const paymentRequest = applePayInstance.createPaymentRequest(request);
+            console.log(paymentRequest);
+            // { total: { }, countryCode: 'US', currencyCode: 'USD', merchantCapabilities: [ ], supportedNetworks: [ ] }
+        });
+
         braintree.applePay.create({ client: clientInstance }, (createErr, applePayInstance) => {
             const request = {
                 countryCode: 'US',
@@ -740,46 +751,52 @@ braintree.client.create(
         });
 
         // Local Payment
-        braintree.localPayment.create({
-            client: clientInstance
-        }, (err, localPaymentInstance) => {
-            localPaymentInstance
-                .startPayment({
-                    amount: 11.00,
-                    currencyCode: 'EUR',
-                    paymentType: 'sofort',
-                    onPaymentStart: (data, next) => {
-                        if (data.paymentId) {
-                            // Implementation
+        braintree.localPayment.create(
+            {
+                client: clientInstance,
+            },
+            (err, localPaymentInstance) => {
+                localPaymentInstance
+                    .startPayment({
+                        amount: 11.0,
+                        currencyCode: 'EUR',
+                        paymentType: 'sofort',
+                        onPaymentStart: (data, next) => {
+                            if (data.paymentId) {
+                                // Implementation
+                            }
+                            next();
+                        },
+                    })
+                    .then((payload: braintree.LocalPaymentTokenizePayload) => {
+                        console.log(payload.nonce);
+                    })
+                    .catch((error: braintree.BraintreeError) => {
+                        console.error('Error!', error);
+                    });
+
+                localPaymentInstance.tokenize(
+                    {
+                        btLpPayerId: '1234',
+                        btLpPaymentId: '1234',
+                        btLpToken: '1234',
+                    },
+                    (error, data) => {
+                        if (error) {
+                            console.error('Tokenize Error!', error);
+                            return;
                         }
-                        next();
-                    }
-                })
-                .then((payload: braintree.LocalPaymentTokenizePayload) => {
-                    console.log(payload.nonce);
-                })
-                .catch((error: braintree.BraintreeError) => {
-                    console.error('Error!', error);
+
+                        // Implementation
+                        console.log(data.nonce);
+                    },
+                );
+
+                localPaymentInstance.teardown(err => {
+                    // Implementation
                 });
-
-            localPaymentInstance.tokenize({
-                btLpPayerId: '1234',
-                btLpPaymentId: '1234',
-                btLpToken: '1234'
-            }, (error, data) => {
-                if (error) {
-                    console.error('Tokenize Error!', error);
-                    return;
-                }
-
-                // Implementation
-                console.log(data.nonce);
-            });
-
-            localPaymentInstance.teardown(err => {
-                // Implementation
-            });
-        });
+            },
+        );
     },
 );
 

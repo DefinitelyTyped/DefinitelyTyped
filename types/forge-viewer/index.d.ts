@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Forge Viewer 7.59
+// Type definitions for non-npm package Forge Viewer 7.61
 // Project: https://forge.autodesk.com/en/docs/viewer/v7/developers_guide/overview/
 // Definitions by: Autodesk Forge Partner Development <https://github.com/Autodesk-Forge>
 //                 Alan Smith <https://github.com/alansmithnbs>
@@ -2886,7 +2886,8 @@ declare namespace Autodesk {
         datavizDotOverlay: any;
         deviceDepthOcclusion: boolean;
         hasViewables: boolean;
-        surfaceShading: DataVisualization.Core.SurfaceShading;
+        model: Viewing.Model;
+        surfaceShading: { [key: number]: any; };
         streamLineBuilder: DataVisualization.Core.StreamLineBuilder;
 
         constructor(viewer: Viewing.Viewer3D, options?: {
@@ -2910,16 +2911,22 @@ declare namespace Autodesk {
             scale?: number | undefined,
             url?: string | undefined
           }): void;
-        registerSurfaceShadingColors(sensorType: string, colors: number[], alpha?: number): void;
+        registerSurfaceShadingColors(sensorType: string, colors: number[], options?: {
+            alpha?: number;
+            model?: Viewing.Model;
+        }): void;
         removeAllViewables(): void;
-        removeSurfaceShading(): void;
+        removeSurfaceShading(model?: Viewing.Model): void;
         renderSurfaceShading(nodeIds: string|string[],
           sensorType: string,
           valueCallback: (device: DataVisualization.Core.SurfaceShadingPoint, sensorType: string) => number,
-          heatmapConfig?: {
-            confidence?: number | undefined;
-            powerParameter?: number | undefined;
-            alpha?: number | undefined;
+          options?: {
+            heatmapConfig?: {
+              confidence?: number | undefined;
+              powerParameter?: number | undefined;
+              alpha?: number | undefined;
+            };
+            model?: Viewing.Model;
           }): void;
         setupSurfaceShading(model: Viewing.Model, shadingData: DataVisualization.Core.SurfaceShadingData,
           options?: {
@@ -2934,10 +2941,13 @@ declare namespace Autodesk {
         showTextures(): void;
         updateSurfaceShading(valueCallback: (device: DataVisualization.Core.SurfaceShadingPoint,
           sensorType: string) => number,
-          heatmapConfig?: {
-            confidence?: number | undefined;
-            powerParameter?: number | undefined;
-            alpha?: number | undefined;
+          options?: {
+            heatmapConfig?: {
+              confidence?: number | undefined;
+              powerParameter?: number | undefined;
+              alpha?: number | undefined;
+            };
+            model?: Viewing.Model;
           }): void;
       }
 

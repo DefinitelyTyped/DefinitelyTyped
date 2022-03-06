@@ -1,4 +1,8 @@
 import {
+    injectSelectionPostFixer,
+    mergeIntersectingRanges,
+} from '@ckeditor/ckeditor5-engine/src/model/utils/selection-post-fixer';
+import {
     ClickObserver,
     Conversion,
     DataController,
@@ -42,6 +46,7 @@ import UpcastHelpers, {
     convertText,
     convertToModelFragment,
 } from '@ckeditor/ckeditor5-engine/src/conversion/upcasthelpers';
+import Batch from '@ckeditor/ckeditor5-engine/src/model/batch';
 import DocumentFragment from '@ckeditor/ckeditor5-engine/src/model/documentfragment';
 import { Item } from '@ckeditor/ckeditor5-engine/src/model/item';
 import MarkerCollection, { Marker } from '@ckeditor/ckeditor5-engine/src/model/markercollection';
@@ -53,6 +58,7 @@ import Selection from '@ckeditor/ckeditor5-engine/src/model/selection';
 import Text from '@ckeditor/ckeditor5-engine/src/model/text';
 import TextProxy from '@ckeditor/ckeditor5-engine/src/model/textproxy';
 import Writer from '@ckeditor/ckeditor5-engine/src/model/writer';
+import { getBoxSidesValues } from '@ckeditor/ckeditor5-engine/src/styles/utils';
 import AttributeElement from '@ckeditor/ckeditor5-engine/src/view/attributeelement';
 import ContainerElement, { getFillerOffset } from '@ckeditor/ckeditor5-engine/src/view/containerelement';
 import Document from '@ckeditor/ckeditor5-engine/src/view/document';
@@ -78,6 +84,7 @@ import View from '@ckeditor/ckeditor5-engine/src/view/view';
 import { EmitterMixin } from '@ckeditor/ckeditor5-utils';
 
 let str = '';
+const stylesProcessor = new StylesProcessor();
 let viewDocumentFragment = new ViewDocumentFragment();
 let pattern: MatcherPattern = { name: /^p/ };
 
@@ -170,6 +177,8 @@ model.schema.addAttributeCheck(context => {
         return true;
     }
 });
+model.createBatch();
+model.createBatch({ isUndo: true });
 
 const view: View = new View(new StylesProcessor());
 view.change(writer => {
@@ -177,8 +186,9 @@ view.change(writer => {
 });
 
 const viewElement = new DowncastWriter(new ViewDocument(new StylesProcessor())).createEmptyElement('div');
+// $ExpectType boolean
+viewElement.shouldRenderUnsafeAttribute('');
 
-let stylesProcessor = new StylesProcessor();
 let viewDocument = new ViewDocument(stylesProcessor);
 // $ExpectType boolean
 viewDocument.isSelecting;
@@ -186,8 +196,10 @@ viewDocument.isSelecting;
 viewDocument.isSelecting = true;
 let bool: boolean = viewDocument.isReadOnly;
 num = viewDocument.roots.length;
-let rootEditableElement: RootEditableElement = viewDocument.roots.get('main')!;
-rootEditableElement = viewDocument.getRoot()!;
+// $ExpectType (RootEditableElement & { id: string; }) | null
+viewDocument.roots.get('main');
+// $ExpectType RootEditableElement | null
+viewDocument.getRoot();
 
 enablePlaceholder({
     view,
@@ -214,7 +226,8 @@ editingcontroller.downcastDispatcher.on('insert:$element', () => {});
 
 const datacontroller: DataController = new DataController(model, stylesProcessor);
 model = datacontroller.model;
-stylesProcessor = datacontroller.stylesProcessor;
+// $ExpectType StylesProcessor
+datacontroller.stylesProcessor;
 // $ExpectType DocumentFragment
 datacontroller.parse(str);
 // $ExpectType DocumentFragment
@@ -306,7 +319,8 @@ downcastHelper = downcastHelper.add(dispatcher => {
         'insert:myElem',
         insertElement((modelItem, { writer }) => {
             modelItem; // $ExpectType Element
-            const text = writer.createText('myText');
+            // ExpectType ViewText
+            writer.createText('myText');
             return writer.createAttributeElement('myElem', { myAttr: 'my-' + modelItem.getAttribute('myAttr') });
         }),
     );
@@ -458,8 +472,10 @@ const result = documentSelection.getRanges().next();
 if (!result.done) {
     range = result.value;
 }
-let modelPosition: ModelPosition = documentSelection.anchor!;
-modelPosition = documentSelection.focus!;
+// $ExpectType Position | null
+documentSelection.anchor;
+// $ExpectType Position | null
+documentSelection.focus;
 bool = documentSelection.isBackward;
 bool = documentSelection.hasOwnRange;
 bool = documentSelection.isCollapsed;
@@ -481,8 +497,10 @@ bool = range.isCollapsed;
 range = range.clone();
 bool = range.isIntersecting(range);
 bool = range.isEqual(range);
-let treeWalker: TreeWalker = range.getWalker();
-treeWalker = range.getWalker({ singleCharacters: true });
+// $ExpectType TreeWalker
+range.getWalker();
+// $ExpectType TreeWalker
+range.getWalker({ singleCharacters: true });
 const result3 = range.getItems({ startPosition: position }).next();
 range.getItems();
 if (!result3.done) {
@@ -516,11 +534,11 @@ livePosition = new LivePosition(model.document.createRoot(), [0]);
 livePosition = LivePosition.fromPosition(position);
 position = livePosition.toPosition();
 
-model = new Model();
 model.change((writer: Writer) => {
     console.log(writer);
 });
-model.enqueueChange('transparent', (writer: Writer) => {
+model.enqueueChange(new Batch(), () => {});
+model.enqueueChange(new Batch({ isUndoable: true, isUndo: false }), (writer: Writer) => {
     console.log(writer);
 });
 model.enqueueChange((writer: Writer) => {
@@ -532,12 +550,16 @@ model.deleteContent(model.document.selection);
 model.modifySelection(model.document.selection);
 model.modifySelection(model.document.selection, { direction: 'backward' });
 model.on('getSelectedContent', () => {});
-let modelDocumentFragment = new DocumentFragment();
-modelDocumentFragment = model.getSelectedContent(model.document.selection);
+new DocumentFragment();
+// $ExpectType DocumentFragment
+model.getSelectedContent(model.document.selection);
 bool = model.hasContent(range);
-modelPosition = model.createPositionFromPath(model.document.getRoot()!, [0]);
-modelPosition = model.createPositionAfter(model.document.getRoot()!.getChild(0));
-modelPosition = model.createPositionBefore(model.document.getRoot()!.getChild(0));
+// $ExpectType Position
+model.createPositionFromPath(model.document.getRoot()!, [0]);
+// $ExpectType Position
+model.createPositionAfter(model.document.getRoot()!.getChild(0));
+// $ExpectType Position
+model.createPositionBefore(model.document.getRoot()!.getChild(0));
 range = model.createRangeIn(model.document.getRoot()!.getChild(0) as Element);
 range = model.createRangeOn(model.document.getRoot()!.getChild(0));
 // $ExpectType Selection
@@ -545,7 +567,7 @@ model.createSelection();
 // $ExpectType Batch
 model.createBatch();
 // $ExpectType Batch
-model.createBatch('transparent');
+model.createBatch({ isUndo: false });
 operation = model.createOperationFromJSON({
     __className: 'NoOperation',
     baseVersion: 0,
@@ -553,10 +575,10 @@ operation = model.createOperationFromJSON({
 model.destroy();
 model.listenTo(Object.create(EmitterMixin), 'event', () => {});
 
-treeWalker = new TreeWalker({
+new TreeWalker({
     startPosition: position,
 });
-treeWalker = new TreeWalker({
+new TreeWalker({
     startPosition: position,
     boundaries: range,
     direction: 'forward',
@@ -583,8 +605,13 @@ num = element.getChildStartOffset(node);
 num = element.offsetToIndex(num);
 
 let domConverter = new DomConverter(viewDocument);
+domConverter.setDomElementAttribute(document.body, 'foo', 'bar');
+domConverter.setDomElementAttribute(document.body, 'foo', 'bar', viewElement);
+domConverter.removeDomElementAttribute(document.body, 'foo');
+// $ExpectError
+domConverter.isComment;
 // $ExpectType boolean
-domConverter.shouldRenderAttribute('', '');
+domConverter.shouldRenderAttribute('', '', '');
 // $ExpectError
 domConverter.shouldRenderAttribute('', 5);
 domConverter.setContentOf(document.createElement('div'), '');
@@ -597,7 +624,7 @@ blockFillerMode = domConverter.blockFillerMode;
 domConverter.bindElements(document.createElement('div'), viewEditableElement);
 domConverter.unbindDomElement(document.createElement('div'));
 domConverter.focus(viewEditableElement);
-// $ExpectType DocumentFragment | Node | null
+// $ExpectType Node | DocumentFragment | null
 domConverter.domToView(document.createElement('div'), { skipComments: true });
 bool = domConverter.isElement(document.createElement('div'));
 
@@ -623,6 +650,15 @@ new Mapper().on('foo', () => {});
 const downcastWriter = new DowncastWriter(new Document(new StylesProcessor()));
 downcastWriter.createPositionAt(downcastWriter.createEmptyElement('div'), 'after');
 downcastWriter.createPositionAt(new Position(downcastWriter.createEmptyElement('div'), 5));
+downcastWriter.createAttributeElement('fo');
+downcastWriter.createAttributeElement('fo', { foo: 'bar' });
+downcastWriter.createAttributeElement('fo', { foo: 'bar' }, { renderUnsafeAttributes: ['foo', 'bar'] });
+downcastWriter.createEmptyElement('fo');
+downcastWriter.createEmptyElement('fo', { foo: 'bar' });
+downcastWriter.createEmptyElement('fo', { foo: 'bar' }, { renderUnsafeAttributes: ['foo', 'bar'] });
+downcastWriter.createContainerElement('fo');
+downcastWriter.createContainerElement('fo', { foo: 'bar' });
+downcastWriter.createContainerElement('fo', { foo: 'bar' }, { renderUnsafeAttributes: ['foo', 'bar'] });
 
 type ModelIsTypes =
     | DocumentFragment
@@ -832,11 +868,11 @@ if (
 {
     const obj = viewObj as ViewElement;
     if (obj.is('element', 'p') || obj.is('element', 'div')) {
-        // $ExpectType (Element & { name: "p"; }) | (Element & { name: "div"; })
+        // $ExpectType (EmptyElement & { name: "p"; }) | (EmptyElement & { name: "div"; })
         obj;
     }
     if (obj.is('view:element', 'p') || obj.is('view:element', 'div')) {
-        // $ExpectType (Element & { name: "p"; }) | (Element & { name: "div"; })
+        // $ExpectType (EmptyElement & { name: "p"; }) | (EmptyElement & { name: "div"; })
         obj;
     }
     if (obj.is('element', 'p')) {
@@ -1246,7 +1282,42 @@ new MarkerCollection().has(
     new Marker('', new LiveRange(new ModelPosition(model.document.createRoot(), [0])), true, true),
 );
 
-const myRawElement = downcastWriter.createRawElement('div');
-myRawElement.render = (domElement, domConverter) => {
+// $ExpectError
+downcastWriter.createRawElement();
+// prettier-ignore
+downcastWriter.createRawElement('div').render = function(domElement: HTMLElement, domConverter: DomConverter) {
     domConverter.setContentOf(domElement, '<b>This is the raw content of myRawElement.</b>');
+    // $ExpectType DowncastWriter
+    this;
 };
+// prettier-ignore
+downcastWriter.createRawElement('div', { id: 'foo' }, function(domElement, domConverter) {
+    domConverter.setContentOf(domElement, '<b>This is the raw content of myRawElement.</b>');
+    // $ExpectType DowncastWriter
+    this;
+});
+
+stylesProcessor.setReducer('margin', margin => {
+    return [['margin', `${margin.top} ${margin.right} ${margin.bottom} ${margin.left}`]];
+});
+
+// $ExpectType string | undefined
+getBoxSidesValues().top;
+// $ExpectType undefined
+getBoxSidesValues('').top;
+
+class MyOperation extends Operation {
+    toJSON() {
+        return { __className: '', baseVersion: 0 };
+    }
+}
+new Batch().addOperation(new MyOperation(1));
+
+injectSelectionPostFixer(model);
+// $ExpectType Range[]
+mergeIntersectingRanges([range]);
+
+class MyViewNode extends ViewNode {}
+// $ExpectError
+new DomConverter(viewDocument).viewToDom(new MyViewNode());
+new DomConverter(viewDocument).viewToDom(new MyViewNode(), window.document);

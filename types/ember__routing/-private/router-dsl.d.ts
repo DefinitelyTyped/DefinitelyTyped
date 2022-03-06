@@ -12,7 +12,7 @@ export default class RouterDSL {
             as?: string | undefined;
             path?: string | undefined;
             resetNamespace?: boolean | undefined;
-            engineInfo?: any;
+            engineInfo?: unknown;
         },
     ): void;
 }
