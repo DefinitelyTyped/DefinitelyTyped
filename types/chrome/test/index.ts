@@ -1258,10 +1258,45 @@ function testEnterpriseDeviceAttributes() {
   chrome.enterprise.deviceAttributes.getDeviceHostname((hostName) => {});
 }
 
+// https://developer.chrome.com/docs/extensions/reference/browsingData
 function testBrowsingData() {
     chrome.browsingData.removeServiceWorkers(); // $ExpectError
     chrome.browsingData.removeServiceWorkers({});
     chrome.browsingData.removeServiceWorkers({}, () => {});
+    chrome.browsingData.settings((result) => {})
+    chrome.browsingData.removePluginData({}, () => {})
+    chrome.browsingData.removeServiceWorkers({}, () => {})
+    chrome.browsingData.removeFormData({}, () => {})
+    chrome.browsingData.removeFileSystems({}, () => {})
+    chrome.browsingData.remove({}, {}, () => {})
+    chrome.browsingData.removePasswords({}, () => {})
+    chrome.browsingData.removeCookies({}, () => {})
+    chrome.browsingData.removeWebSQL({}, () => {})
+    chrome.browsingData.removeAppcache({}, () => {})
+    chrome.browsingData.removeCacheStorage({}, () => {})
+    chrome.browsingData.removeDownloads({}, () => {})
+    chrome.browsingData.removeCache({}, () => {})
+    chrome.browsingData.removeHistory({}, () => {})
+    chrome.browsingData.removeIndexedDB({}, () => {})
+}
+
+// https://developer.chrome.com/docs/extensions/reference/browsingData
+async function testBrowsingDataForPromise() {
+    await chrome.browsingData.settings()
+    await chrome.browsingData.removePluginData({})
+    await chrome.browsingData.removeServiceWorkers({})
+    await chrome.browsingData.removeFormData({})
+    await chrome.browsingData.removeFileSystems({})
+    await chrome.browsingData.remove({}, {})
+    await chrome.browsingData.removePasswords({})
+    await chrome.browsingData.removeCookies({})
+    await chrome.browsingData.removeWebSQL({})
+    await chrome.browsingData.removeAppcache({})
+    await chrome.browsingData.removeCacheStorage({})
+    await chrome.browsingData.removeDownloads({})
+    await chrome.browsingData.removeCache({})
+    await chrome.browsingData.removeHistory({})
+    await chrome.browsingData.removeIndexedDB({})
 }
 
 function testPageCapture() {
