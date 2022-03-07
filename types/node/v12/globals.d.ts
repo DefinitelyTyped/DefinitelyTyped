@@ -529,6 +529,7 @@ declare class Buffer extends Uint8Array {
     readInt32LE(offset?: number): number;
     readInt32BE(offset?: number): number;
     readFloatLE(offset?: number): number;
+    readFloatBE(offset?: number): number;
     readDoubleLE(offset?: number): number;
     readDoubleBE(offset?: number): number;
     reverse(): this;
