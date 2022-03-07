@@ -6,9 +6,12 @@ import Writer from '@ckeditor/ckeditor5-engine/src/model/writer';
 import Document from '@ckeditor/ckeditor5-engine/src/view/document';
 import { AutoLink, Link, LinkEditing, LinkImage, LinkImageUI, LinkUI } from '@ckeditor/ckeditor5-link';
 import LinkCommand from '@ckeditor/ckeditor5-link/src/linkcommand';
+import LinkActionsView from '@ckeditor/ckeditor5-link/src/ui/linkactionsview';
+import LinkFormView from '@ckeditor/ckeditor5-link/src/ui/linkformview';
 import UnlinkCommand from '@ckeditor/ckeditor5-link/src/unlinkcommand';
 import * as utils from '@ckeditor/ckeditor5-link/src/utils';
-import { View } from '@ckeditor/ckeditor5-ui';
+import ManualDecorator from '@ckeditor/ckeditor5-link/src/utils/manualdecorator';
+import { Locale } from '@ckeditor/ckeditor5-utils';
 
 class MyEditor extends Editor {}
 const editor = new MyEditor();
@@ -19,11 +22,14 @@ Link.requires.map(Plugin => new Plugin(editor).init());
 LinkUI.requires.map(Plugin => new Plugin(editor));
 new LinkUI(editor).init();
 new LinkUI(editor).destroy();
-let view: View = new LinkUI(editor).formview;
-view = new LinkUI(editor).actionsView;
+// $ExpectType LinkFormView
+new LinkUI(editor).formview;
+// $ExpectType LinkActionsView
+new LinkUI(editor).actionsView;
 
 new AutoLink(editor).init();
 new AutoLink(editor).afterInit();
+AutoLink.requires.map(Plugin => new Plugin(editor));
 
 new LinkImage(editor);
 LinkImage.requires.map(Plugin => new Plugin(editor).init());
@@ -64,6 +70,28 @@ utils.isLinkableElement(new Writer().createElement('div'), new Schema());
 utils.isEmail('') === ''.startsWith('');
 
 utils.addLinkProtocolIfApplicable('', '') === ''.startsWith('');
+
+new LinkActionsView().destroy();
+new LinkFormView(new Locale(), new LinkCommand(editor)).destroy();
+
+utils.openLink('');
+// $ExpectError
+utils.openLink();
+
+new ManualDecorator({
+    id: '',
+    label: '',
+    attributes: { foo: 'bar' },
+});
+
+new ManualDecorator({
+    id: '',
+    label: '',
+    attributes: { foo: 'bar' },
+    defaultValue: true,
+    classes: 'foo',
+    styles: { bg: 'red' },
+});
 
 // $ExpectType AutoLink
 editor.plugins.get('AutoLink');
