@@ -84,7 +84,7 @@ e.setToNull();
 str = e.toString();
 e.translate(n, n);
 
-g.apply({});
+g.apply({filter: Geometry => {}});
 g = g.buffer(n, n, n);
 g.checkNotGeometryCollection(g);
 g = g.clone();
