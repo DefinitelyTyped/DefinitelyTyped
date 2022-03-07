@@ -155,7 +155,7 @@ declare namespace MailChimpTransactional {
          * The reason for the rejection if the recipient status is "rejected"
          * Possible values: "hard-bounce", "soft-bounce", "spam", "unsub", "custom", "invalid-sender", "invalid", "test-mode-limit", "unsigned", or "rule".
          */
-        reject_reason?: string;
+        reject_reason?: SendRejectReason;
 
         /**
          * The message's unique id
