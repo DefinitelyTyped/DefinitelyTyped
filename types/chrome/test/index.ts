@@ -1299,6 +1299,12 @@ async function testBrowsingDataForPromise() {
     await chrome.browsingData.removeIndexedDB({})
 }
 
+// https://developer.chrome.com/docs/extensions/reference/commands
+async function testCommands() {
+    await chrome.commands.getAll()
+    chrome.commands.getAll((commands) => {})
+}
+
 function testPageCapture() {
   chrome.pageCapture.saveAsMHTML({ tabId: 0 }, (data: Blob | undefined) => {});
 }
