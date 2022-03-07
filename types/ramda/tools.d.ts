@@ -355,4 +355,30 @@ export type ToTupleOfFunction<R, Tuple extends any[]> =
         ? [(arg: R) => X, ...ToTupleOfFunction<R, Xs>]
         : never;
 
+type Is<T extends U, U> = T;
+
+export type DeepRecord<Ks extends ReadonlyArray<string | number | symbol>, V> =
+    Ks extends []
+    ? V
+    : Ks extends [Is<infer First, string | number | symbol>, ...Is<infer Rest, ReadonlyArray<string | number | symbol>>]
+        ? First extends number ? Array<DeepRecord<Rest, V>> : Record<First, DeepRecord<Rest, V>>
+        : never;
+
+export type DeepOmit<T, Ks extends ReadonlyArray<string | number | symbol>> =
+    Ks extends [infer Key]
+    ? Key extends keyof T ? Omit<T, Key> : never
+    : Ks extends [infer First, ...Is<infer Rest, ReadonlyArray<string | number | symbol>>]
+        ? First extends keyof T ? Omit<T, First> & Record<First, DeepOmit<T[First], Rest>> : never
+        : never;
+
+// from https://github.com/millsp/ts-toolbelt/blob/319e55123b9571d49f34eca3e5926e41ca73e0f3/sources/Function/Narrow.ts
+type NarrowHelper<T> =
+| (T extends [] ? [] : never)
+| (T extends string | number | bigint | boolean ? T : never)
+| ({[K in keyof T]: T[K] extends (... args: any[]) => unknown ? T[K] : NarrowHelper<T[K]>});
+
+type Try<A1, A2, Catch> = A1 extends A2 ? A1 : Catch;
+
+export type Narrow<T> = Try<T, [], NarrowHelper<T>>;
+
 export {};

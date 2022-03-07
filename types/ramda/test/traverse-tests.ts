@@ -7,4 +7,6 @@ import * as R from 'ramda';
   R.traverse(of, fn, list);
   R.traverse(of, fn)(list);
   R.traverse<number, number>(of)(fn, list);
+  // $ExpectType number[][]
+  R.traverse(of)(fn, list);
 };

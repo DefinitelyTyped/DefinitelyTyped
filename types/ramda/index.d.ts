@@ -41,6 +41,8 @@ import {
     AtLeastOneFunctionsFlowFromRightToLeft,
     AssocPartialOne,
     CondPair,
+    DeepRecord,
+    DeepOmit,
     Dictionary,
     Evolvable,
     Evolve,
@@ -52,6 +54,7 @@ import {
     Lens,
     Merge,
     MergeAll,
+    Narrow,
     ObjectHavingSome,
     ObjPred,
     Ord,
@@ -159,7 +162,7 @@ export function aperture<N extends number>(n: N): <T>(list: readonly T[]) => Arr
  * Returns a new list containing the contents of the given list, followed by the given element.
  */
 export function append<T>(el: T, list: readonly T[]): T[];
-export function append<T>(el: T): <T>(list: readonly T[]) => T[];
+export function append<T>(el: T): (list: readonly T[]) => T[];
 
 /**
  * Applies function fn to the argument list args. This is useful for creating a fixed-arity function from
@@ -268,6 +271,14 @@ export function clamp<T>(min: T): (max: T) => (value: T) => T;
  */
 export function clone<T>(value: T): T;
 export function clone<T>(value: readonly T[]): T[];
+
+/**
+ * Splits a list into sub-lists, based on the result of calling a key-returning function on each element,
+ * and grouping the results according to values returned.
+ * See also groupBy, partition.
+ */
+export function collectBy<T, K extends string | number | symbol>(fn: (a: T) => K, list: readonly T[]): T[][];
+export function collectBy<T, K extends string | number | symbol>(fn: (a: T) => K): (list: readonly T[]) => T[][];
 
 /**
  * Makes a comparator function out of a function that reports whether the first element is less than the second.
@@ -1389,6 +1400,32 @@ export function minBy<T>(keyFn: (a: T) => Ord, a: T): (b: T) => T;
 export function minBy<T>(keyFn: (a: T) => Ord): _.F.Curry<(a: T, b: T) => T>;
 
 /**
+ * Creates a copy of the passed object by applying an fn function to the given prop property.
+ * The function will not be invoked, and the object will not change
+ * if its corresponding property does not exist in the object.
+ * All non-primitive properties are copied to the new object by reference.
+ */
+export function modify<T extends Record<K, V>, K extends string | number | symbol, F extends (a: V) => any, V>(prop: K, fn: F, object: T): Omit<T, K> & Record<K, ReturnType<F>>;
+export function modify<K extends string | number | symbol, F extends (a: V) => any, V>(prop: K, fn: F): <T extends Record<K, V>>(object: T) => Omit<T, K> & Record<K, ReturnType<F>>;
+export function modify<K extends string | number | symbol>(prop: K): <T extends Record<K, V>, F extends (a: V) => any, V>(fn: F, object: T) => Omit<T, K> & Record<K, ReturnType<F>>;
+
+/**
+ * Creates a shallow clone of the passed object by applying an fn function to the value at the given path.
+ * The function will not be invoked, and the object will not change
+ * if its corresponding path does not exist in the object.
+ * All non-primitive properties are copied to the new object by reference.
+ */
+export function modifyPath<T extends DeepRecord<Ks, V>, Ks extends ReadonlyArray<string | number | symbol>, F extends (a: V) => any, V>(
+    path: Narrow<Ks>, fn: F, object: T
+): DeepOmit<T, Ks> & DeepRecord<Ks, ReturnType<F>>;
+export function modifyPath<Ks extends ReadonlyArray<string | number | symbol>, F extends (a: V) => any, V>(
+    path: Narrow<Ks>, fn: F
+): <T extends DeepRecord<Ks, V>>(object: T) => DeepOmit<T, Ks> & DeepRecord<Ks, ReturnType<F>>;
+export function modifyPath<Ks extends ReadonlyArray<string | number | symbol>>(
+    path: Narrow<Ks>
+): <T extends DeepRecord<Ks, V>, F extends (a: V) => any, V>(fn: F, object: T) => DeepOmit<T, Ks> & DeepRecord<Ks, ReturnType<F>>;
+
+/**
  * Divides the second parameter by the first and returns the remainder.
  * The flipped version (`moduloBy`) may be more useful curried.
  * Note that this functions preserves the JavaScript-style behavior for
@@ -1488,6 +1525,16 @@ export function omit<T, K extends string>(names: readonly K[], obj: T): Omit<T, 
 export function omit<K extends string>(names: readonly K[]): <T>(obj: T) => Omit<T, K>;
 
 /**
+ * Takes a binary function `f`, a unary function `g`, and two values.
+ * Applies `g` to each value, then applies the result of each to `f`.
+ * Also known as the P combinator.
+ */
+export function on<A, B, C>(f: (a: A, b: A) => B, g: (a: C) => A, a: C, b: C): B;
+export function on<A, B, C>(f: (a: A, b: A) => B, g: (a: C) => A, a: C): (b: C) => B;
+export function on<A, B, C>(f: (a: A, b: A) => B, g: (a: C) => A): (a: C, b: C) => B;
+export function on<A, B>(f: (a: A, b: A) => B): <C>(g: (a: C) => A, a: C, b: C) => B;
+
+/**
  * Accepts a function fn and returns a function that guards invocation of fn such that fn can only ever be
  * called once, no matter how many times the returned function is invoked. The first value calculated is
  * returned in subsequent invocations.
@@ -1537,6 +1584,15 @@ export function partial<V0, V1, V2, V3, T>(fn: (x0: V0, x1: V1, x2: V2, x3: V3) 
 export function partial<V0, V1, V2, V3, T>(fn: (x0: V0, x1: V1, x2: V2, x3: V3) => T, args: [V0]): (x1: V1, x2: V2, x3: V3) => T;
 
 export function partial<T>(fn: (...a: readonly any[]) => T, args: readonly any[]): (...a: readonly any[]) => T;
+
+/**
+ * Takes a function `f` and an object, and returns a function `g`.
+ * When applied, `g` returns the result of applying `f` to the object
+ * provided initially merged deeply (right) with the object provided as an argument to `g`.
+ * See also partial, partialRight, curry, mergeDeepRight.
+ */
+export function partialObject<T extends P1, P1, R>(f: (a: T) => R, props: P1): (a: Omit<T, keyof P1>) => R;
+export function partialObject<T, R>(f: (a: T) => R): <P1>(props: P1) => (a: Omit<T, keyof P1>) => R;
 
 /**
  * Takes a function `f` and a list of arguments, and returns a function `g`.
@@ -1755,6 +1811,16 @@ export function project<T, U>(props: readonly string[], objs: readonly T[]): U[]
 export function project<T, U>(props: readonly string[]): (objs: readonly T[]) => U[];
 
 /**
+ * Takes two functions as pre- and post- processors respectively for a third function, i.e. `promap(f, g, h)(x) === g(h(f(x)))`.
+ * Dispatches to the `promap` method of the third argument, if present, according to the FantasyLand Profunctor spec.
+ * Acts as a transducer if a transformer is given in profunctor position.
+ * See also transduce.
+ */
+export function promap<A, B, C, D>(f: (a: A) => B, g: (a: C) => D, profunctor: (a: B) => C): (a: A) => D;
+export function promap<A, B, C, D>(f: (a: A) => B, g: (a: C) => D): (profunctor: (a: B) => C) => (a: A) => D;
+export function promap<A, B>(f: (a: A) => B): <C, D>(g: (a: C) => D, profunctor: (a: B) => C) => (a: A) => D;
+
+/**
  * Returns a function that when supplied an object returns the indicated property of that object, if it exists.
  */
 export function prop<T>(__: Placeholder, obj: T): <P extends keyof T>(p: P) => T[P];
@@ -1928,6 +1994,17 @@ export function scan<T, TResult>(fn: (acc: TResult, elem: T) => any, acc: TResul
 export function scan<T, TResult>(fn: (acc: TResult, elem: T) => any): (acc: TResult, list: readonly T[]) => TResult[];
 
 /**
+ * Transforms a Traversable of Applicative into an Applicative of Traversable.
+ * Dispatches to the sequence method of the second argument, if present.
+ * See also traverse.
+ */
+export function sequence<A>(of: (a: A) => A[], traversable: A[][]): A[][];
+export function sequence<A>(of: (a: A) => A[]): (traversable: A[][]) => A[][];
+
+export function sequence<A, FA, TFA, FTA>(of: (a: A) => FA, traversable: TFA): FTA;
+export function sequence<A, FA>(of: (a: A) => FA): <TFA, FTA>(traversable: TFA) => FTA;
+
+/**
  * Returns the result of "setting" the portion of the given data structure focused by the given lens to the
  * given value.
  */
@@ -2005,6 +2082,12 @@ export function splitEvery(a: number): {
  */
 export function splitWhen<T, U>(pred: (val: T) => boolean, list: readonly U[]): U[][];
 export function splitWhen<T>(pred: (val: T) => boolean): <U>(list: readonly U[]) => U[][];
+
+/**
+ * Splits an array into slices on every occurrence of a value.
+ */
+export function splitWhenever<A>(pred: (a: A) => boolean, list: A[]): A[][];
+export function splitWhenever<A>(pred: (a: A) => boolean): (list: A[]) => A[][];
 
 /**
  * Checks if a string starts with the provided substring, or a list starts with the provided sublist.
@@ -2289,6 +2372,13 @@ export function until<T, U>(pred: (val: T) => boolean, fn: (val: T) => U, init: 
 export function until<T, U>(pred: (val: T) => boolean, fn: (val: T) => U): (init: U) => U;
 
 /**
+ * Deconstructs an array field from the input documents to output a document for each element.
+ * Each output document is the input document with the value of the array field replaced by the element.
+ */
+export function unwind<K extends string | number | symbol, T extends Record<K, any[]>>(key: K, object: T): Array<Omit<T, K> & Record<K, T[K][number]>>;
+export function unwind<K extends string | number | symbol>(key: K): <T extends Record<K, any[]>>(object: T) => Array<Omit<T, K> & Record<K, T[K][number]>>;
+
+/**
  * Returns a new copy of the array with the element at the provided index replaced with the given value.
  */
 export function update<T>(index: number, value: T, list: readonly T[]): T[];
@@ -2406,6 +2496,16 @@ export function where<T, U>(spec: T, testObj: U): boolean;
 export function where<T>(spec: T): <U>(testObj: U) => boolean;
 export function where<ObjFunc2, U>(spec: ObjFunc2, testObj: U): boolean;
 export function where<ObjFunc2>(spec: ObjFunc2): <U>(testObj: U) => boolean;
+
+/**
+ * Takes a spec object and a test object; each of the spec's own properties must be a predicate function.
+ * Each predicate is applied to the value of the corresponding property of the test object.
+ * `whereAny` returns true if at least one of the predicates return true, false otherwise.
+ * `whereAny` is well suited to declaratively expressing constraints for other functions such as `filter` and `find`.
+ * See also propSatisfies, where.
+ */
+export function whereAny<S extends Record<K, (arg: any) => boolean>, K extends string>(spec: S, testObj: { [K in keyof S]: Parameters<S[K]>[0]; }): boolean;
+export function whereAny<S extends Record<K, (arg: any) => boolean>, K extends string>(spec: S): (testObj: { [K in keyof S]: Parameters<S[K]>[0]; }) => boolean;
 
 /**
  * Takes a spec object and a test object; returns true if the test satisfies the spec,
