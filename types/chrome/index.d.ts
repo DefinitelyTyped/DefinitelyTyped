@@ -1048,7 +1048,7 @@ declare namespace chrome.browsingData {
      * Reports which types of data are currently selected in the 'Clear browsing data' settings UI. Note: some of the data types included in this API are not available in the settings UI, and some UI settings control more than one data type listed here.
      * @return The `settings` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
      */
-     export function settings(): Promise<SettingsResult>;
+    export function settings(): Promise<SettingsResult>;
     /**
      * Since Chrome 26.
      * Reports which types of data are currently selected in the 'Clear browsing data' settings UI. Note: some of the data types included in this API are not available in the settings UI, and some UI settings control more than one data type listed here.
@@ -1270,7 +1270,7 @@ declare namespace chrome.commands {
      * Returns all the registered extension commands for this extension and their shortcut (if active).
      * @return The `getAll` method provides its result via callback or returned as a `Promise` (MV3 only).
      */
-     export function getAll(): Promise<Command[]>;
+    export function getAll(): Promise<Command[]>;
     /**
      * Returns all the registered extension commands for this extension and their shortcut (if active).
      * @param callback Called to return the registered commands.
@@ -4456,7 +4456,7 @@ declare namespace chrome.i18n {
      * @return The `getAcceptLanguages` method provides its result via callback or returned as a `Promise` (MV3 only).
      * @since MV3
      */
-     export function getAcceptLanguages(): Promise<string[]>;
+    export function getAcceptLanguages(): Promise<string[]>;
     /**
      * Gets the accept-languages of the browser. This is different from the locale used by the browser; to get the locale, use i18n.getUILanguage.
      * @param callback The callback parameter should be a function that looks like this:
@@ -4481,7 +4481,7 @@ declare namespace chrome.i18n {
      * @return The `detectLanguage` method provides its result via callback or returned as a `Promise` (MV3 only).
      * @since MV3
      */
-     export function detectLanguage(text: string): Promise<LanguageDetectionResult>;
+    export function detectLanguage(text: string): Promise<LanguageDetectionResult>;
     /** Detects the language of the provided text using CLD.
      * @param text User input string to be translated.
      * @param callback The callback parameter should be a function that looks like this: function(object result) {...};
