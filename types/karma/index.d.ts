@@ -105,6 +105,10 @@ export interface Config {
     LOG_WARN: string;
     LOG_INFO: string;
     LOG_DEBUG: string;
+    /**
+     * Custom CLI parameters are added as properties to this object before it is passed to karma.conf.js
+     */
+    [extraCliParam: string]: unknown;
 }
 
 export interface ConfigFile {
