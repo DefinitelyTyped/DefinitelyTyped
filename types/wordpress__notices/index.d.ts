@@ -79,5 +79,5 @@ export interface Options {
     /**
      *  Called when the notice is dismissed.
      */
-    onDismiss?(): void;
+    onDismiss(): void;
 }
