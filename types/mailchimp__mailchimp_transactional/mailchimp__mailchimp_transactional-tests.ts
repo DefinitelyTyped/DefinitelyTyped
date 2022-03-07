@@ -1,7 +1,7 @@
-import initMailchimp = require('@mailchimp/mailchimp_transactional');
+import instance = require('@mailchimp/mailchimp_transactional');
 
 // ApiClient
-const mailchimp = initMailchimp('my_api_key');
+const mailchimp = instance('my_api_key');
 
 // void
 mailchimp.setDefaultOutputFormat('json');

@@ -2,7 +2,6 @@
 // Project: https://github.com/mailchimp/mailchimp-transactional-node
 // Definitions by: Pieter Scheffers <https://github.com/PieterScheffers>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.5
 
 declare namespace MailChimpTransactional {
     type OutputFormat = 'json' | 'xml' | 'php' | 'yaml';
@@ -173,5 +172,5 @@ declare namespace MailChimpTransactional {
     }
 }
 
-declare function initMailchimp(apiKey: string): MailChimpTransactional.ApiClient;
-export = initMailchimp;
+declare function instance(apiKey: string): MailChimpTransactional.ApiClient;
+export = instance;
