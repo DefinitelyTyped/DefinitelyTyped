@@ -1114,7 +1114,7 @@ declare module "../index" {
          * @param value The value to check.
          * @return Returns true if value is a plain object, else false.
          */
-        isPlainObject(value?: any): boolean;
+        isPlainObject(value?: any): value is Record<string, unknown>;
     }
     interface LoDashImplicitWrapper<TValue> {
         /**
