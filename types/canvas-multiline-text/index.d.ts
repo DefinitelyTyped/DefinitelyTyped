@@ -4,6 +4,8 @@
 //                 Kiara <https://github.com/DragonCat4012>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+import { CanvasRenderingContext2D as NodeCanvasRenderingContext2D } from 'canvas';
+
 interface Options {
     rect?: {
         x: number;
@@ -12,12 +14,17 @@ interface Options {
         height: number;
     };
     font?: string;
+    stroke?: boolean;
     verbose?: boolean;
     lineHeight?: number;
     minFontSize?: number;
     maxFontSize?: number;
 }
 
-declare function drawMultilineText(ctx: CanvasRenderingContext2D, text: string, opts?: Options): number;
+declare function drawMultilineText(
+    ctx: CanvasRenderingContext2D | NodeCanvasRenderingContext2D,
+    text: string,
+    opts?: Options,
+): number;
 
 export = drawMultilineText;

@@ -1,0 +1,7 @@
+{
+  "private": true,
+  "version": "1.0.3",
+  "dependencies": {
+    "canvas": "^2.9.0"
+  }
+}
