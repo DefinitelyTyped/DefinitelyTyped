@@ -1268,6 +1268,11 @@ declare namespace chrome.commands {
 
     /**
      * Returns all the registered extension commands for this extension and their shortcut (if active).
+     * @return The `getAll` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+     export function getAll(): Promise<Command[]>;
+    /**
+     * Returns all the registered extension commands for this extension and their shortcut (if active).
      * @param callback Called to return the registered commands.
      * If you specify the callback parameter, it should be a function that looks like this:
      * function(array of Command commands) {...};
