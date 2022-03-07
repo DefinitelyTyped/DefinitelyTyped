@@ -3010,10 +3010,21 @@ declare namespace chrome.downloads {
 
     /**
      * Find DownloadItem. Set query to the empty object to get all DownloadItem. To get a specific DownloadItem, set only the id field. To page through a large number of items, set orderBy: ['-startTime'], set limit to the number of items per page, and set startedAfter to the startTime of the last item from the last page.
+     * @return The `search` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function search(query: DownloadQuery): Promise<DownloadItem[]>;
+    /**
+     * Find DownloadItem. Set query to the empty object to get all DownloadItem. To get a specific DownloadItem, set only the id field. To page through a large number of items, set orderBy: ['-startTime'], set limit to the number of items per page, and set startedAfter to the startTime of the last item from the last page.
      * @param callback The callback parameter should be a function that looks like this:
      * function(array of DownloadItem results) {...};
      */
     export function search(query: DownloadQuery, callback: (results: DownloadItem[]) => void): void;
+    /**
+     * Pause the download. If the request was successful the download is in a paused state. Otherwise runtime.lastError contains an error message. The request will fail if the download is not active.
+     * @param downloadId The id of the download to pause.
+     * @return The `pause` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function pause(downloadId: number): Promise<void>;
     /**
      * Pause the download. If the request was successful the download is in a paused state. Otherwise runtime.lastError contains an error message. The request will fail if the download is not active.
      * @param downloadId The id of the download to pause.
@@ -3022,6 +3033,12 @@ declare namespace chrome.downloads {
      * function() {...};
      */
     export function pause(downloadId: number, callback?: () => void): void;
+    /**
+     * Retrieve an icon for the specified download. For new downloads, file icons are available after the onCreated event has been received. The image returned by this function while a download is in progress may be different from the image returned after the download is complete. Icon retrieval is done by querying the underlying operating system or toolkit depending on the platform. The icon that is returned will therefore depend on a number of factors including state of the download, platform, registered file types and visual theme. If a file icon cannot be determined, runtime.lastError will contain an error message.
+     * @param downloadId The identifier for the download.
+     * @return The `getFileIcon` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function getFileIcon(downloadId: number, options?: GetFileIconOptions): Promise<string>;
     /**
      * Retrieve an icon for the specified download. For new downloads, file icons are available after the onCreated event has been received. The image returned by this function while a download is in progress may be different from the image returned after the download is complete. Icon retrieval is done by querying the underlying operating system or toolkit depending on the platform. The icon that is returned will therefore depend on a number of factors including state of the download, platform, registered file types and visual theme. If a file icon cannot be determined, runtime.lastError will contain an error message.
      * @param downloadId The identifier for the download.
@@ -3045,6 +3062,12 @@ declare namespace chrome.downloads {
     /**
      * Resume a paused download. If the request was successful the download is in progress and unpaused. Otherwise runtime.lastError contains an error message. The request will fail if the download is not active.
      * @param downloadId The id of the download to resume.
+     * @return The `resume` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function resume(downloadId: number): Promise<void>;
+    /**
+     * Resume a paused download. If the request was successful the download is in progress and unpaused. Otherwise runtime.lastError contains an error message. The request will fail if the download is not active.
+     * @param downloadId The id of the download to resume.
      * @param callback  Called when the resume request is completed.
      * If you specify the callback parameter, it should be a function that looks like this:
      * function() {...};
@@ -3053,11 +3076,23 @@ declare namespace chrome.downloads {
     /**
      * Cancel a download. When callback is run, the download is cancelled, completed, interrupted or doesn't exist anymore.
      * @param downloadId The id of the download to cancel.
+     * @return The `cancel` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function cancel(downloadId: number): Promise<void>;
+    /**
+     * Cancel a download. When callback is run, the download is cancelled, completed, interrupted or doesn't exist anymore.
+     * @param downloadId The id of the download to cancel.
      * @param callback Called when the cancel request is completed.
      * If you specify the callback parameter, it should be a function that looks like this:
      * function() {...};
      */
     export function cancel(downloadId: number, callback?: () => void): void;
+    /**
+     * Download a URL. If the URL uses the HTTP[S] protocol, then the request will include all cookies currently set for its hostname. If both filename and saveAs are specified, then the Save As dialog will be displayed, pre-populated with the specified filename. If the download started successfully, callback will be called with the new DownloadItem's downloadId. If there was an error starting the download, then callback will be called with downloadId=undefined and runtime.lastError will contain a descriptive string. The error strings are not guaranteed to remain backwards compatible between releases. Extensions must not parse it.
+     * @param options What to download and how.
+     * @return The `download` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function download(options: DownloadOptions): Promise<number>;
     /**
      * Download a URL. If the URL uses the HTTP[S] protocol, then the request will include all cookies currently set for its hostname. If both filename and saveAs are specified, then the Save As dialog will be displayed, pre-populated with the specified filename. If the download started successfully, callback will be called with the new DownloadItem's downloadId. If there was an error starting the download, then callback will be called with downloadId=undefined and runtime.lastError will contain a descriptive string. The error strings are not guaranteed to remain backwards compatible between releases. Extensions must not parse it.
      * @param options What to download and how.
@@ -3080,16 +3115,32 @@ declare namespace chrome.downloads {
     export function showDefaultFolder(): void;
     /**
      * Erase matching DownloadItem from history without deleting the downloaded file. An onErased event will fire for each DownloadItem that matches query, then callback will be called.
+     * @return The `erase` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function erase(query: DownloadQuery): Promise<number[]>;
+    /**
+     * Erase matching DownloadItem from history without deleting the downloaded file. An onErased event will fire for each DownloadItem that matches query, then callback will be called.
      * @param callback If you specify the callback parameter, it should be a function that looks like this:
      * function(array of integer erasedIds) {...};
      */
     export function erase(query: DownloadQuery, callback: (erasedIds: number[]) => void): void;
     /**
      * Remove the downloaded file if it exists and the DownloadItem is complete; otherwise return an error through runtime.lastError.
+     * @return The `removeFile` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function removeFile(downloadId: number): Promise<void>;
+    /**
+     * Remove the downloaded file if it exists and the DownloadItem is complete; otherwise return an error through runtime.lastError.
      * @param callback If you specify the callback parameter, it should be a function that looks like this:
      * function() {...};
      */
     export function removeFile(downloadId: number, callback?: () => void): void;
+    /**
+     * Prompt the user to accept a dangerous download. Can only be called from a visible context (tab, window, or page/browser action popup). Does not automatically accept dangerous downloads. If the download is accepted, then an onChanged event will fire, otherwise nothing will happen. When all the data is fetched into a temporary file and either the download is not dangerous or the danger has been accepted, then the temporary file is renamed to the target filename, the |state| changes to 'complete', and onChanged fires.
+     * @param downloadId The identifier for the DownloadItem.
+     * @return The `acceptDanger` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function acceptDanger(downloadId: number): Promise<void>;
     /**
      * Prompt the user to accept a dangerous download. Can only be called from a visible context (tab, window, or page/browser action popup). Does not automatically accept dangerous downloads. If the download is accepted, then an onChanged event will fire, otherwise nothing will happen. When all the data is fetched into a temporary file and either the download is not dangerous or the danger has been accepted, then the temporary file is renamed to the target filename, the |state| changes to 'complete', and onChanged fires.
      * @param downloadId The identifier for the DownloadItem.

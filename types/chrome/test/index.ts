@@ -1330,3 +1330,36 @@ async function testI18nForPromise() {
 function testPageCapture() {
   chrome.pageCapture.saveAsMHTML({ tabId: 0 }, (data: Blob | undefined) => {});
 }
+
+// https://developer.chrome.com/docs/extensions/reference/downloads
+function testDownloads() {
+    chrome.downloads.search({}, (results) => {})
+    chrome.downloads.pause(1, () => {})
+    chrome.downloads.getFileIcon(1, (iconURL) => {})
+    chrome.downloads.getFileIcon(1, {}, (iconURL) => {})
+    chrome.downloads.resume(1, () => {})
+    chrome.downloads.cancel(1, () => {})
+    chrome.downloads.download({ url: 'https://example.com' }, (downloadId) => {})
+    chrome.downloads.open(1)
+    chrome.downloads.show(1)
+    chrome.downloads.showDefaultFolder()
+    chrome.downloads.erase({}, (erasedIds) => {})
+    chrome.downloads.removeFile(1, () => {})
+    chrome.downloads.acceptDanger(1, () => {})
+    chrome.downloads.drag(1)
+    chrome.downloads.setShelfEnabled(true)
+}
+
+// https://developer.chrome.com/docs/extensions/reference/downloads
+async function testDownloadsForPromise() {
+    await chrome.downloads.search({})
+    await chrome.downloads.pause(1)
+    await chrome.downloads.getFileIcon(1)
+    await chrome.downloads.getFileIcon(1, {})
+    await chrome.downloads.resume(1)
+    await chrome.downloads.cancel(1)
+    await chrome.downloads.download({ url: 'https://example.com' })
+    await chrome.downloads.erase({})
+    await chrome.downloads.removeFile(1)
+    await chrome.downloads.acceptDanger(1)
+}
