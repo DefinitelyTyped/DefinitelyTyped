@@ -632,6 +632,14 @@ function testDebugger() {
     });
 }
 
+// https://developer.chrome.com/extensions/debugger
+async function testDebuggerForPromise() {
+    await chrome.debugger.attach({ tabId: 123 }, '1.23');
+    await chrome.debugger.detach({ tabId: 123 });
+    await chrome.debugger.sendCommand({ targetId: 'abc' }, 'Debugger.Cmd', { param1: 'x' });
+    await chrome.debugger.getTargets();
+}
+
 // https://developer.chrome.com/extensions/declarativeContent
 function testDeclarativeContent() {
     const activeIcon: ImageData = new ImageData(32, 32);
