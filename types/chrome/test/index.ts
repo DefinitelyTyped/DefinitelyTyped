@@ -1313,6 +1313,20 @@ async function testCommands() {
     chrome.commands.getAll((commands) => {})
 }
 
+// https://developer.chrome.com/docs/extensions/reference/i18n
+function testI18n() {
+    chrome.i18n.getAcceptLanguages((languages) => {});
+    chrome.i18n.getMessage("dummy-id", "Hello World!");
+    chrome.i18n.getUILanguage();
+    chrome.i18n.detectLanguage("dummy-id", (result) => {});
+}
+
+// https://developer.chrome.com/docs/extensions/reference/i18n
+async function testI18nForPromise() {
+    await chrome.i18n.getAcceptLanguages();
+    await chrome.i18n.detectLanguage("dummy-id");
+}
+
 function testPageCapture() {
   chrome.pageCapture.saveAsMHTML({ tabId: 0 }, (data: Blob | undefined) => {});
 }
