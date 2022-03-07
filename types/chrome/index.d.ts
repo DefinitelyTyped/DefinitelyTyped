@@ -1035,7 +1035,7 @@ declare namespace chrome.browsingData {
         serviceWorkers?: boolean | undefined;
     }
 
-    export interface SettingsCallback {
+    export interface SettingsResult {
         options: RemovalOptions;
         /** All of the types will be present in the result, with values of true if they are both selected to be removed and permitted to be removed, otherwise false. */
         dataToRemove: DataTypeSet;
@@ -1046,10 +1046,24 @@ declare namespace chrome.browsingData {
     /**
      * Since Chrome 26.
      * Reports which types of data are currently selected in the 'Clear browsing data' settings UI. Note: some of the data types included in this API are not available in the settings UI, and some UI settings control more than one data type listed here.
+     * @return The `settings` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+     export function settings(): Promise<SettingsResult>;
+    /**
+     * Since Chrome 26.
+     * Reports which types of data are currently selected in the 'Clear browsing data' settings UI. Note: some of the data types included in this API are not available in the settings UI, and some UI settings control more than one data type listed here.
      * @param callback The callback parameter should be a function that looks like this:
      * function(object result) {...};
      */
-    export function settings(callback: (result: SettingsCallback) => void): void;
+    export function settings(callback: (result: SettingsResult) => void): void;
+    /**
+     * @deprecated Deprecated since Chrome 88.
+     * Support for Flash has been removed. This function has no effect.
+     *
+     * Clears plugins' data.
+     * @return The `removePluginData` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function removePluginData(options: RemovalOptions): Promise<void>;
     /**
      * @deprecated Deprecated since Chrome 88.
      * Support for Flash has been removed. This function has no effect.
@@ -1063,6 +1077,12 @@ declare namespace chrome.browsingData {
     /**
      * Since Chrome 72.
      * Clears websites' service workers.
+     * @return The `removeServiceWorkers` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function removeServiceWorkers(options: RemovalOptions): Promise<void>;
+    /**
+     * Since Chrome 72.
+     * Clears websites' service workers.
      * @param callback Called when the browser's service workers have been cleared.
      * If you specify the callback parameter, it should be a function that looks like this:
      * function() {...};
@@ -1070,11 +1090,21 @@ declare namespace chrome.browsingData {
     export function removeServiceWorkers(options: RemovalOptions, callback?: () => void): void;
     /**
      * Clears the browser's stored form data (autofill).
+     * @return The `removeFormData` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function removeFormData(options: RemovalOptions): Promise<void>;
+    /**
+     * Clears the browser's stored form data (autofill).
      * @param callback Called when the browser's form data has been cleared.
      * If you specify the callback parameter, it should be a function that looks like this:
      * function() {...};
      */
     export function removeFormData(options: RemovalOptions, callback?: () => void): void;
+    /**
+     * Clears websites' file system data.
+     * @return The `removeFileSystems` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function removeFileSystems(options: RemovalOptions): Promise<void>;
     /**
      * Clears websites' file system data.
      * @param callback Called when websites' file systems have been cleared.
@@ -1085,11 +1115,22 @@ declare namespace chrome.browsingData {
     /**
      * Clears various types of browsing data stored in a user's profile.
      * @param dataToRemove The set of data types to remove.
+     * @return The `remove` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function remove(options: RemovalOptions, dataToRemove: DataTypeSet): Promise<void>;
+    /**
+     * Clears various types of browsing data stored in a user's profile.
+     * @param dataToRemove The set of data types to remove.
      * @param callback Called when deletion has completed.
      * If you specify the callback parameter, it should be a function that looks like this:
      * function() {...};
      */
     export function remove(options: RemovalOptions, dataToRemove: DataTypeSet, callback?: () => void): void;
+    /**
+     * Clears the browser's stored passwords.
+     * @return The `removePasswords` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function removePasswords(options: RemovalOptions): Promise<void>;
     /**
      * Clears the browser's stored passwords.
      * @param callback Called when the browser's passwords have been cleared.
@@ -1099,11 +1140,21 @@ declare namespace chrome.browsingData {
     export function removePasswords(options: RemovalOptions, callback?: () => void): void;
     /**
      * Clears the browser's cookies and server-bound certificates modified within a particular timeframe.
+     * @return The `removeCookies` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function removeCookies(options: RemovalOptions, callback?: () => void): Promise<void>;
+    /**
+     * Clears the browser's cookies and server-bound certificates modified within a particular timeframe.
      * @param callback Called when the browser's cookies and server-bound certificates have been cleared.
      * If you specify the callback parameter, it should be a function that looks like this:
      * function() {...};
      */
     export function removeCookies(options: RemovalOptions, callback?: () => void): void;
+    /**
+     * Clears websites' WebSQL data.
+     * @return The `removeWebSQL` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function removeWebSQL(options: RemovalOptions): Promise<void>;
     /**
      * Clears websites' WebSQL data.
      * @param callback Called when websites' WebSQL databases have been cleared.
@@ -1113,11 +1164,31 @@ declare namespace chrome.browsingData {
     export function removeWebSQL(options: RemovalOptions, callback?: () => void): void;
     /**
      * Clears websites' appcache data.
+     * @return The `removeAppcache` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function removeAppcache(options: RemovalOptions): Promise<void>;
+    /**
+     * Clears websites' appcache data.
      * @param callback Called when websites' appcache data has been cleared.
      * If you specify the callback parameter, it should be a function that looks like this:
      * function() {...};
      */
     export function removeAppcache(options: RemovalOptions, callback?: () => void): void;
+    /** Clears websites' cache storage data.
+     * @return The `removeCacheStorage` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function removeCacheStorage(options: RemovalOptions): Promise<void>
+    /** Clears websites' cache storage data.
+     * @param callback Called when websites' appcache data has been cleared.
+     * If you specify the callback parameter, it should be a function that looks like this:
+     * function() {...};
+     */
+    export function removeCacheStorage(options: RemovalOptions, callback?: () => void): void
+    /**
+     * Clears the browser's list of downloaded files (not the downloaded files themselves).
+     * @return The `removeDownloads` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function removeDownloads(options: RemovalOptions): Promise<void>
     /**
      * Clears the browser's list of downloaded files (not the downloaded files themselves).
      * @param callback Called when the browser's list of downloaded files has been cleared.
@@ -1127,11 +1198,21 @@ declare namespace chrome.browsingData {
     export function removeDownloads(options: RemovalOptions, callback?: () => void): void;
     /**
      * Clears websites' local storage data.
+     * @return The `removeLocalStorage` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function removeLocalStorage(options: RemovalOptions): Promise<void>;
+    /**
+     * Clears websites' local storage data.
      * @param callback Called when websites' local storage has been cleared.
      * If you specify the callback parameter, it should be a function that looks like this:
      * function() {...};
      */
     export function removeLocalStorage(options: RemovalOptions, callback?: () => void): void;
+    /**
+     * Clears the browser's cache.
+     * @return The `removeCache` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function removeCache(options: RemovalOptions): Promise<void>;
     /**
      * Clears the browser's cache.
      * @param callback Called when the browser's cache has been cleared.
@@ -1141,11 +1222,21 @@ declare namespace chrome.browsingData {
     export function removeCache(options: RemovalOptions, callback?: () => void): void;
     /**
      * Clears the browser's history.
+     * @return The `removeHistory` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function removeHistory(options: RemovalOptions): Promise<void>;
+    /**
+     * Clears the browser's history.
      * @param callback Called when the browser's history has cleared.
      * If you specify the callback parameter, it should be a function that looks like this:
      * function() {...};
      */
     export function removeHistory(options: RemovalOptions, callback?: () => void): void;
+    /**
+     * Clears websites' IndexedDB data.
+     * @return The `removeIndexedDB` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function removeIndexedDB(options: RemovalOptions): Promise<void>;
     /**
      * Clears websites' IndexedDB data.
      * @param callback Called when websites' IndexedDB data has been cleared.
