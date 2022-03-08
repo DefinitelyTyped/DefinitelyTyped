@@ -5,6 +5,7 @@
 //                 Dylan Hackworth <https://github.com/dylhack>
 //                 Sankarsan Kampa <https://github.com/k3rn31p4nic>
 //                 Brian Dashore <https://github.com/bdashore3>
+//                 HanchaiN <https://github.com/HanchaiN>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { EventEmitter } from 'events';
