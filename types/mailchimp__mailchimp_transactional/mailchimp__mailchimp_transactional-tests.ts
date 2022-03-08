@@ -14,3 +14,5 @@ mailchimp.messages.send({
         ],
     },
 });
+
+export default mailchimp;
