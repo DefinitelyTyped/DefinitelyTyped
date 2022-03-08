@@ -12,6 +12,8 @@ import { EventEmitter, Listener } from 'events';
 
 export function register(id: string): boolean;
 
+type eventNames = 'ready' | 'connected' | 'disconnected' | string;
+
 export class Client extends EventEmitter {
     constructor(options: RPCClientOptions)
 
@@ -72,9 +74,9 @@ export class Client extends EventEmitter {
 
     destroy(): Promise<void>;
 
-    on(event: 'ready' | 'connected', listener: Listener): this;
-    once(event: 'ready' | 'connected', listener: Listener): this;
-    off(event: 'ready' | 'connected', listener: Listener): this;
+    on(event: eventNames, listener: Listener): this;
+    once(event: eventNames, listener: Listener): this;
+    off(event: eventNames, listener: Listener): this;
 }
 
 export interface RPCClientOptions {
