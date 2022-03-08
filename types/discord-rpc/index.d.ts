@@ -14,6 +14,45 @@ export function register(id: string): boolean;
 
 type eventNames = 'ready' | 'connected' | 'disconnected' | string;
 
+type RPCEvents = 'CURRENT_USER_UPDATE' |
+'GUILD_STATUS' |
+'GUILD_CREATE' |
+'CHANNEL_CREATE' |
+'RELATIONSHIP_UPDATE' |
+'VOICE_CHANNEL_SELECT' |
+'VOICE_STATE_CREATE' |
+'VOICE_STATE_DELETE' |
+'VOICE_STATE_UPDATE' |
+'VOICE_SETTINGS_UPDATE' |
+'VOICE_SETTINGS_UPDATE_2' |
+'VOICE_CONNECTION_STATUS' |
+'SPEAKING_START' |
+'SPEAKING_STOP' |
+'GAME_JOIN' |
+'GAME_SPECTATE' |
+'ACTIVITY_JOIN' |
+'ACTIVITY_JOIN_REQUEST' |
+'ACTIVITY_SPECTATE' |
+'ACTIVITY_INVITE' |
+'NOTIFICATION_CREATE' |
+'MESSAGE_CREATE' |
+'MESSAGE_UPDATE' |
+'MESSAGE_DELETE' |
+'LOBBY_DELETE' |
+'LOBBY_UPDATE' |
+'LOBBY_MEMBER_CONNECT' |
+'LOBBY_MEMBER_DISCONNECT' |
+'LOBBY_MEMBER_UPDATE' |
+'LOBBY_MESSAGE' |
+'CAPTURE_SHORTCUT_CHANGE' |
+'OVERLAY' |
+'OVERLAY_UPDATE' |
+'ENTITLEMENT_CREATE' |
+'ENTITLEMENT_DELETE' |
+'USER_ACHIEVEMENT_UPDATE' |
+'READY' |
+'ERROR';
+
 export class Client extends EventEmitter {
     constructor(options: RPCClientOptions)
 
@@ -69,8 +108,8 @@ export class Client extends EventEmitter {
     disconnectFromLobby(lobby: { id: string } | string): Promise<any>;
     updateLobbyMember(lobby: { id: string } | string, user: { id: string } | string, metadata: any): Promise<any>;
 
-    subscribe(event: string, callback: (data: any) => void): Promise<Subscription>;
-    subscribe(event: string, args: any, callback: (data: any) => void): Promise<Subscription>;
+    subscribe(event: RPCEvents, callback: (data: any) => void): Promise<Subscription>;
+    subscribe(event: RPCEvents, args: any, callback: (data: any) => void): Promise<Subscription>;
 
     destroy(): Promise<void>;
 
