@@ -14,6 +14,10 @@ import * as R from 'ramda';
   // $ExpectType Omit<{ name: string; addresses: { zipCode: number; }[]; }, "addresses"> & Record<"addresses", Omit<{ zipCode: number; }[], 0> & Record<0, Omit<{ zipCode: number; }, "zipCode">>> & Record<"addresses", Record<"zipCode", string>[]>
   R.modifyPath(['addresses', 0, 'zipCode'], (a) => a + '1', person3); // => {name: 'James', addresses: [{ zipCode: '902161' }]}
   // $ExpectType { name: string; addresses: { zipCode: number; }[]; }
+  R.modifyPath(['addresses', 0, 'zipCode'], (a: number) => a + 1)(person3); // => {name: 'James', addresses: [{ zipCode: 90217 }]}
+  // $ExpectType Omit<{ name: string; addresses: { zipCode: number; }[]; }, "addresses"> & Record<"addresses", Omit<{ zipCode: number; }[], 0> & Record<0, Omit<{ zipCode: number; }, "zipCode">>> & Record<"addresses", Record<"zipCode", string>[]>
+  R.modifyPath(['addresses', 0, 'zipCode'], (a: number) => a + '1')(person3); // => {name: 'James', addresses: [{ zipCode: '902161' }]}
+  // $ExpectType { name: string; addresses: { zipCode: number; }[]; }
   R.modifyPath(['addresses', 0, 'zipCode'])((a) => a + 1, person3); // => {name: 'James', addresses: [{ zipCode: 90217 }]}
   // $ExpectType Omit<{ name: string; addresses: { zipCode: number; }[]; }, "addresses"> & Record<"addresses", Omit<{ zipCode: number; }[], 0> & Record<0, Omit<{ zipCode: number; }, "zipCode">>> & Record<"addresses", Record<"zipCode", string>[]>
   R.modifyPath(['addresses', 0, 'zipCode'])((a) => a + '1', person3); // => {name: 'James', addresses: [{ zipCode: '902161' }]}

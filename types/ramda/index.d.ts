@@ -1414,6 +1414,7 @@ export function modify<K extends string | number | symbol>(prop: K): {
     <T extends Record<K, any>, R>(fn: (a: T[K]) => T[K], object: T): T;
     <T extends Record<K, any>, R>(fn: (a: T[K]) => R, object: T): Omit<T, K> & Record<K, R>;
 };
+export function modify<K extends string | number | symbol, V>(prop: K, fn: (a: V) => V): <T extends Record<K, V>>(object: T) => T;
 export function modify<K extends string | number | symbol, V, R>(prop: K, fn: (a: V) => R): <T extends Record<K, V>>(object: T) => Omit<T, K> & Record<K, R>;
 export function modify<K extends string | number | symbol>(prop: K): <T extends Record<K, any>>(fn: (a: T[K]) => T[K], object: T) => T;
 export function modify<K extends string | number | symbol>(prop: K): <T extends Record<K, any>, R>(fn: (a: T[K]) => R, object: T) => Omit<T, K> & Record<K, R>;
@@ -1437,6 +1438,9 @@ export function modifyPath<Ks extends Array<string | number | symbol>>(prop: Nar
     <T extends DeepRecord<Ks, any>, R>(fn: (a: DeepGet<T, Ks>) => DeepGet<T, Ks>, object: T): T;
     <T extends DeepRecord<Ks, any>, R>(fn: (a: DeepGet<T, Ks>) => R, object: T): DeepOmit<T, Ks> & DeepRecord<Ks, R>;
 };
+export function modifyPath<Ks extends ReadonlyArray<string | number | symbol>, V>(
+    prop: Narrow<Ks>, fn: (a: V) => V
+): <T extends DeepRecord<Ks, V>>(object: T) => T;
 export function modifyPath<Ks extends ReadonlyArray<string | number | symbol>, V, R>(
     prop: Narrow<Ks>, fn: (a: V) => R
 ): <T extends DeepRecord<Ks, V>>(object: T) => DeepOmit<T, Ks> & DeepRecord<Ks, R>;
