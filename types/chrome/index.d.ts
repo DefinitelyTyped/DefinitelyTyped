@@ -4139,7 +4139,13 @@ declare namespace chrome.fontSettings {
 
     export interface FontDetails {
         /** The generic font family for the font. */
-        genericFamily: string;
+        genericFamily:
+            | 'cursive'
+            | 'fantasy'
+            | 'fixed'
+            | 'sansserif'
+            | 'serif'
+            | 'standard';
         /** Optional. The script for the font. If omitted, the global script font setting is affected.  */
         script?: string | undefined;
     }
@@ -4189,16 +4195,32 @@ declare namespace chrome.fontSettings {
 
     /**
      * Sets the default font size.
+     * @return The `setDefaultFontSize` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function setDefaultFontSize(details: DefaultFontSizeDetails): Promise<void>
+    /**
+     * Sets the default font size.
      * @param callback If you specify the callback parameter, it should be a function that looks like this:
      * function() {...};
      */
     export function setDefaultFontSize(details: DefaultFontSizeDetails, callback?: Function): void;
     /**
      * Gets the font for a given script and generic font family.
+     * @return The `getFont` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function getFont(details: FontDetails): Promise<FontDetailsResult>
+    /**
+     * Gets the font for a given script and generic font family.
      * @param callback If you specify the callback parameter, it should be a function that looks like this:
      * function(object details) {...};
      */
     export function getFont(details: FontDetails, callback?: (details: FontDetailsResult) => void): void;
+    /**
+     * Gets the default font size.
+     * @param details This parameter is currently unused.
+     * @return The `getDefaultFontSize` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function getDefaultFontSize(details?: Object): Promise<FontSizeDetails>;
     /**
      * Gets the default font size.
      * @param details This parameter is currently unused.
@@ -4209,16 +4231,33 @@ declare namespace chrome.fontSettings {
     /**
      * Gets the minimum font size.
      * @param details This parameter is currently unused.
+     * @return The `getMinimumFontSize` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function getMinimumFontSize(details?: object): Promise<FontSizeDetails>;
+    /**
+     * Gets the minimum font size.
+     * @param details This parameter is currently unused.
      * @param callback If you specify the callback parameter, it should be a function that looks like this:
      * function(object details) {...};
      */
-    export function getMinimumFontSize(details?: FontSizeDetails, callback?: (options: FontSizeDetails) => void): void;
+    export function getMinimumFontSize(details?: object, callback?: (options: FontSizeDetails) => void): void;
+    /**
+     * Sets the minimum font size.
+     * @return The `setMinimumFontSize` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function setMinimumFontSize(details: SetFontSizeDetails): Promise<void>;
     /**
      * Sets the minimum font size.
      * @param callback If you specify the callback parameter, it should be a function that looks like this:
      * function() {...};
      */
     export function setMinimumFontSize(details: SetFontSizeDetails, callback?: Function): void;
+    /**
+     * Gets the default size for fixed width fonts.
+     * @param details This parameter is currently unused.
+     * @return The `getDefaultFixedFontSize` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function getDefaultFixedFontSize(details?: Object): Promise<FontSizeDetails>;
     /**
      * Gets the default size for fixed width fonts.
      * @param details This parameter is currently unused.
@@ -4229,10 +4268,21 @@ declare namespace chrome.fontSettings {
     /**
      * Clears the default font size set by this extension, if any.
      * @param details This parameter is currently unused.
+     * @return The `clearDefaultFontSize` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function clearDefaultFontSize(details?: Object): Promise<void>;
+    /**
+     * Clears the default font size set by this extension, if any.
+     * @param details This parameter is currently unused.
      * @param callback If you specify the callback parameter, it should be a function that looks like this:
      * function() {...};
      */
     export function clearDefaultFontSize(details?: Object, callback?: Function): void;
+    /**
+     * Sets the default size for fixed width fonts.
+     * @return The `setDefaultFixedFontSize` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function setDefaultFixedFontSize(details: SetFontSizeDetails): Promise<void>;
     /**
      * Sets the default size for fixed width fonts.
      * @param callback If you specify the callback parameter, it should be a function that looks like this:
@@ -4241,10 +4291,20 @@ declare namespace chrome.fontSettings {
     export function setDefaultFixedFontSize(details: SetFontSizeDetails, callback?: Function): void;
     /**
      * Clears the font set by this extension, if any.
+     * @return The `clearFont` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function clearFont(details: FontDetails): Promise<void>;
+    /**
+     * Clears the font set by this extension, if any.
      * @param callback If you specify the callback parameter, it should be a function that looks like this:
      * function() {...};
      */
     export function clearFont(details: FontDetails, callback?: Function): void;
+    /**
+     * Sets the font for a given script and generic font family.
+     * @return The `setFont` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function setFont(details: SetFontDetails): Promise<void>;
     /**
      * Sets the font for a given script and generic font family.
      * @param callback If you specify the callback parameter, it should be a function that looks like this:
@@ -4254,16 +4314,33 @@ declare namespace chrome.fontSettings {
     /**
      * Clears the minimum font size set by this extension, if any.
      * @param details This parameter is currently unused.
+     * @return The `clearMinimumFontSize` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function clearMinimumFontSize(details?: Object): Promise<void>;
+    /**
+     * Clears the minimum font size set by this extension, if any.
+     * @param details This parameter is currently unused.
      * @param callback If you specify the callback parameter, it should be a function that looks like this:
      * function() {...};
      */
     export function clearMinimumFontSize(details?: Object, callback?: Function): void;
     /**
      * Gets a list of fonts on the system.
+     * @return The `getFontList` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function getFontList(): Promise<FontName[]>;
+    /**
+     * Gets a list of fonts on the system.
      * @param callback The callback parameter should be a function that looks like this:
      * function(array of FontName results) {...};
      */
-    export function getFontList(callback: (results: FontName[]) => void): void;
+    export function getFontList(callback?: (results: FontName[]) => void): void;
+    /**
+     * Clears the default fixed font size set by this extension, if any.
+     * @param details This parameter is currently unused.
+     * @return The `clearDefaultFixedFontSize` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function clearDefaultFixedFontSize(details: Object): Promise<void>;
     /**
      * Clears the default fixed font size set by this extension, if any.
      * @param details This parameter is currently unused.

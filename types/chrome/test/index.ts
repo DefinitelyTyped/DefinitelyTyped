@@ -1380,3 +1380,39 @@ async function testExtensionForPromise() {
     await chrome.extension.isAllowedFileSchemeAccess()
     await chrome.extension.isAllowedIncognitoAccess()
 }
+
+// https://developer.chrome.com/docs/extensions/reference/fontSettings
+function testFontSettings() {
+    chrome.fontSettings.setDefaultFontSize({ pixelSize: 1 }, () => {})
+    chrome.fontSettings.getFont({}, (details) => {}) // $ExpectError
+    chrome.fontSettings.getFont({ genericFamily: '' }, (details) => {}) // $ExpectError
+    chrome.fontSettings.getFont({ genericFamily: 'cursive' }, (details) => {})
+    chrome.fontSettings.getDefaultFontSize({}, (options) => {})
+    chrome.fontSettings.getMinimumFontSize({}, (options) => {})
+    chrome.fontSettings.setMinimumFontSize({ pixelSize: 1 }, () => {})
+    chrome.fontSettings.getDefaultFixedFontSize({}, (details) => {})
+    chrome.fontSettings.clearDefaultFontSize({}, () => {})
+    chrome.fontSettings.setDefaultFixedFontSize({ pixelSize: 1 }, () => {})
+    chrome.fontSettings.clearFont({ genericFamily: 'cursive' }, () => {})
+    chrome.fontSettings.setFont({ genericFamily: 'cursive', fontId: '' }, () => {})
+    chrome.fontSettings.clearMinimumFontSize({}, () => {})
+    chrome.fontSettings.getFontList((results) => {})
+    chrome.fontSettings.clearDefaultFixedFontSize({}, () => {})
+}
+
+// https://developer.chrome.com/docs/extensions/reference/fontSettings
+async function testFontSettingsForPromise() {
+    await chrome.fontSettings.setDefaultFontSize({ pixelSize: 1 })
+    await chrome.fontSettings.getFont({ genericFamily: 'cursive' })
+    await chrome.fontSettings.getDefaultFontSize({})
+    await chrome.fontSettings.getMinimumFontSize({})
+    await chrome.fontSettings.setMinimumFontSize({ pixelSize: 1 })
+    await chrome.fontSettings.getDefaultFixedFontSize({})
+    await chrome.fontSettings.clearDefaultFontSize({})
+    await chrome.fontSettings.setDefaultFixedFontSize({ pixelSize: 1 })
+    await chrome.fontSettings.clearFont({ genericFamily: 'cursive' })
+    await chrome.fontSettings.setFont({ genericFamily: 'cursive', fontId: '' })
+    await chrome.fontSettings.clearMinimumFontSize({})
+    await chrome.fontSettings.getFontList()
+    await chrome.fontSettings.clearDefaultFixedFontSize({})
+}
