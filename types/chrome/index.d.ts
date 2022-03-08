@@ -3561,11 +3561,23 @@ declare namespace chrome.extension {
     /**
      * Retrieves the state of the extension's access to the 'file://' scheme (as determined by the user-controlled 'Allow access to File URLs' checkbox.
      * Since Chrome 12.
+     * @return The `isAllowedFileSchemeAccess` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function isAllowedFileSchemeAccess(): Promise<boolean>;
+    /**
+     * Retrieves the state of the extension's access to the 'file://' scheme (as determined by the user-controlled 'Allow access to File URLs' checkbox.
+     * Since Chrome 12.
      * @param callback The callback parameter should be a function that looks like this:
      * function(boolean isAllowedAccess) {...};
      * Parameter isAllowedAccess: True if the extension can access the 'file://' scheme, false otherwise.
      */
     export function isAllowedFileSchemeAccess(callback: (isAllowedAccess: boolean) => void): void;
+    /**
+     * Retrieves the state of the extension's access to Incognito-mode (as determined by the user-controlled 'Allowed in Incognito' checkbox.
+     * Since Chrome 12.
+     * @return The `isAllowedIncognitoAccess` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function isAllowedIncognitoAccess(): Promise<boolean>;
     /**
      * Retrieves the state of the extension's access to Incognito-mode (as determined by the user-controlled 'Allowed in Incognito' checkbox.
      * Since Chrome 12.

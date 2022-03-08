@@ -1363,3 +1363,20 @@ async function testDownloadsForPromise() {
     await chrome.downloads.removeFile(1)
     await chrome.downloads.acceptDanger(1)
 }
+
+// https://developer.chrome.com/docs/extensions/reference/extension
+function testExtension() {
+    chrome.extension.getBackgroundPage()
+    chrome.extension.getURL('/')
+    chrome.extension.setUpdateUrlData('')
+    chrome.extension.getViews({})
+    chrome.extension.isAllowedFileSchemeAccess((isAllowedAccess) => {})
+    chrome.extension.isAllowedIncognitoAccess((isAllowedAccess) => {})
+    chrome.extension.getExtensionTabs(1)
+}
+
+// https://developer.chrome.com/docs/extensions/reference/extension
+async function testExtensionForPromise() {
+    await chrome.extension.isAllowedFileSchemeAccess()
+    await chrome.extension.isAllowedIncognitoAccess()
+}
