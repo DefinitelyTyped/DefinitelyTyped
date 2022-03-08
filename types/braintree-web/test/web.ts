@@ -423,6 +423,43 @@ braintree.client.create(
             };
         });
 
+        braintree.applePay.create({ client: clientInstance }).then(applePayInstance => {
+            const request = {
+                countryCode: 'US',
+                currencyCode: 'USD',
+                supportedNetworks: ['visa', 'masterCard'],
+                merchantCapabilities: ['supports3DS'],
+                total: { label: 'Your Label', amount: '10.00' },
+            };
+
+            const session = new braintree.ApplePaySession(1, request);
+
+            session.onvalidatemerchant = event => {
+                applePayInstance
+                    .performValidation({ validationURL: event.validationURL })
+                    .then(merchantSession => {
+                        session.completeMerchantValidation(merchantSession);
+                    })
+                    .catch(error => {
+                        console.error(error);
+                        session.abort();
+                        return;
+                    });
+            };
+
+            session.onpaymentauthorized = event => {
+                applePayInstance
+                    .tokenize({ token: event.payment.token })
+                    .then(payload => {
+                        console.log(payload.nonce);
+                        session.completePayment(braintree.ApplePaySession.STATUS_SUCCESS);
+                    })
+                    .catch(error => {
+                        session.completePayment(braintree.ApplePaySession.STATUS_FAILURE);
+                    });
+            };
+        });
+
         braintree.paypal.create(
             {
                 client: clientInstance,
