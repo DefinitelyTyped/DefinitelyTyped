@@ -43,6 +43,7 @@ import {
     CondPair,
     DeepRecord,
     DeepOmit,
+    DeepGet,
     Dictionary,
     Evolvable,
     Evolve,
@@ -1405,10 +1406,17 @@ export function minBy<T>(keyFn: (a: T) => Ord): _.F.Curry<(a: T, b: T) => T>;
  * if its corresponding property does not exist in the object.
  * All non-primitive properties are copied to the new object by reference.
  */
+export function modify<T extends Record<K, any>, K extends string | number | symbol>(prop: K, fn: (a: T[K]) => T[K], object: T): T;
 export function modify<T extends Record<K, any>, K extends string | number | symbol, R>(prop: K, fn: (a: T[K]) => R, object: T): Omit<T, K> & Record<K, R>;
-export function modify<K extends string | number | symbol>(prop: K): <V, R>(fn: (a: V) => R) => <T extends Record<K, V>>(object: T) => Omit<T, K> & Record<K, R>;
+export function modify<K extends string | number | symbol>(prop: K): {
+    <V>(fn: (a: V) => V): <T extends Record<K, V>>(object: T) => T;
+    <V, R>(fn: (a: V) => R): <T extends Record<K, V>>(object: T) => Omit<T, K> & Record<K, R>;
+    <T extends Record<K, any>, R>(fn: (a: T[K]) => T[K], object: T): T;
+    <T extends Record<K, any>, R>(fn: (a: T[K]) => R, object: T): Omit<T, K> & Record<K, R>;
+};
 export function modify<K extends string | number | symbol, V, R>(prop: K, fn: (a: V) => R): <T extends Record<K, V>>(object: T) => Omit<T, K> & Record<K, R>;
-export function modify<K extends string | number | symbol>(prop: K): <T extends Record<K, V>, V, R>(fn: (a: V) => R, object: T) => Omit<T, K> & Record<K, R>;
+export function modify<K extends string | number | symbol>(prop: K): <T extends Record<K, any>>(fn: (a: T[K]) => T[K], object: T) => T;
+export function modify<K extends string | number | symbol>(prop: K): <T extends Record<K, any>, R>(fn: (a: T[K]) => R, object: T) => Omit<T, K> & Record<K, R>;
 
 /**
  * Creates a shallow clone of the passed object by applying an fn function to the value at the given path.
@@ -1416,15 +1424,28 @@ export function modify<K extends string | number | symbol>(prop: K): <T extends 
  * if its corresponding path does not exist in the object.
  * All non-primitive properties are copied to the new object by reference.
  */
-export function modifyPath<T extends DeepRecord<Ks, V>, Ks extends ReadonlyArray<string | number | symbol>, F extends (a: V) => any, V>(
-    path: Narrow<Ks>, fn: F, object: T
-): DeepOmit<T, Ks> & DeepRecord<Ks, ReturnType<F>>;
-export function modifyPath<Ks extends ReadonlyArray<string | number | symbol>, F extends (a: V) => any, V>(
-    path: Narrow<Ks>, fn: F
-): <T extends DeepRecord<Ks, V>>(object: T) => DeepOmit<T, Ks> & DeepRecord<Ks, ReturnType<F>>;
+
+export function modifyPath<T extends DeepRecord<Ks, any>, Ks extends ReadonlyArray<string | number | symbol>>(
+    prop: Narrow<Ks>, fn: (a: DeepGet<T, Ks>) => DeepGet<T, Ks>, object: T
+): T;
+export function modifyPath<T extends DeepRecord<Ks, any>, Ks extends ReadonlyArray<string | number | symbol>, R>(
+    prop: Narrow<Ks>, fn: (a: DeepGet<T, Ks>) => R, object: T
+): DeepOmit<T, Ks> & DeepRecord<Ks, R>;
+export function modifyPath<Ks extends Array<string | number | symbol>>(prop: Narrow<Ks>): {
+    <V>(fn: (a: V) => V): <T extends DeepRecord<Ks, V>>(object: T) => T;
+    <V, R>(fn: (a: V) => R): <T extends DeepRecord<Ks, V>>(object: T) => DeepOmit<T, Ks> & DeepRecord<Ks, R>;
+    <T extends DeepRecord<Ks, any>, R>(fn: (a: DeepGet<T, Ks>) => DeepGet<T, Ks>, object: T): T;
+    <T extends DeepRecord<Ks, any>, R>(fn: (a: DeepGet<T, Ks>) => R, object: T): DeepOmit<T, Ks> & DeepRecord<Ks, R>;
+};
+export function modifyPath<Ks extends ReadonlyArray<string | number | symbol>, V, R>(
+    prop: Narrow<Ks>, fn: (a: V) => R
+): <T extends DeepRecord<Ks, V>>(object: T) => DeepOmit<T, Ks> & DeepRecord<Ks, R>;
 export function modifyPath<Ks extends ReadonlyArray<string | number | symbol>>(
-    path: Narrow<Ks>
-): <T extends DeepRecord<Ks, V>, F extends (a: V) => any, V>(fn: F, object: T) => DeepOmit<T, Ks> & DeepRecord<Ks, ReturnType<F>>;
+    prop: Narrow<Ks>
+): <T extends DeepRecord<Ks, any>>(fn: (a: DeepGet<T, Ks>) => DeepGet<T, Ks>, object: T) => T;
+export function modifyPath<Ks extends ReadonlyArray<string | number | symbol>>(
+    prop: Narrow<Ks>
+): <T extends DeepRecord<Ks, any>, R>(fn: (a: DeepGet<T, Ks>) => R, object: T) => DeepOmit<T, Ks> & DeepRecord<Ks, R>;
 
 /**
  * Divides the second parameter by the first and returns the remainder.

@@ -364,6 +364,13 @@ export type DeepRecord<Ks extends ReadonlyArray<string | number | symbol>, V> =
         ? First extends number ? Array<DeepRecord<Rest, V>> : Record<First, DeepRecord<Rest, V>>
         : never;
 
+export type DeepGet<T, Ks extends ReadonlyArray<string | number | symbol>> =
+    Ks extends []
+    ? T
+    : Ks extends [Is<infer First, string | number | symbol>, ...Is<infer Rest, ReadonlyArray<string | number | symbol>>]
+        ? First extends keyof T ? DeepGet<T[First], Rest> : never
+        : never;
+
 export type DeepOmit<T, Ks extends ReadonlyArray<string | number | symbol>> =
     Ks extends [infer Key]
     ? Key extends keyof T ? Omit<T, Key> : never
