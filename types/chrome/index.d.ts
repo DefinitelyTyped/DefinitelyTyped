@@ -4522,10 +4522,20 @@ declare namespace chrome.history {
 
     /**
      * Searches the history for the last visit time of each page matching the query.
+     * @return The `search` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function search(query: HistoryQuery): Promise<HistoryItem[]>;
+    /**
+     * Searches the history for the last visit time of each page matching the query.
      * @param callback The callback parameter should be a function that looks like this:
      * function(array of HistoryItem results) {...};
      */
-    export function search(query: HistoryQuery, callback: (results: HistoryItem[]) => void): void;
+    export function search(query: HistoryQuery, callback?: (results: HistoryItem[]) => void): void;
+    /**
+     * Adds a URL to the history at the current time with a transition type of "link".
+     * @return The `addUrl` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function addUrl(details: Url): Promise<void>;
     /**
      * Adds a URL to the history at the current time with a transition type of "link".
      * @param callback If you specify the callback parameter, it should be a function that looks like this:
@@ -4534,10 +4544,20 @@ declare namespace chrome.history {
     export function addUrl(details: Url, callback?: () => void): void;
     /**
      * Removes all items within the specified date range from the history. Pages will not be removed from the history unless all visits fall within the range.
+     * @return The `deleteRange` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function deleteRange(range: Range): Promise<void>;
+    /**
+     * Removes all items within the specified date range from the history. Pages will not be removed from the history unless all visits fall within the range.
      * @param callback The callback parameter should be a function that looks like this:
      * function() {...};
      */
-    export function deleteRange(range: Range, callback: () => void): void;
+    export function deleteRange(range: Range, callback?: () => void): void;
+    /**
+     * Deletes all items from the history.
+     * @return The `deleteAll` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function deleteAll(): Promise<void>;
     /**
      * Deletes all items from the history.
      * @param callback The callback parameter should be a function that looks like this:
@@ -4546,10 +4566,20 @@ declare namespace chrome.history {
     export function deleteAll(callback: () => void): void;
     /**
      * Retrieves information about visits to a URL.
+     * @return The `getVisits` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function getVisits(details: Url): Promise<VisitItem[]>;
+    /**
+     * Retrieves information about visits to a URL.
      * @param callback The callback parameter should be a function that looks like this:
      * function(array of VisitItem results) {...};
      */
     export function getVisits(details: Url, callback: (results: VisitItem[]) => void): void;
+    /**
+     * Removes all occurrences of the given URL from the history.
+     * @return The `deleteUrl` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function deleteUrl(details: Url): Promise<void>;
     /**
      * Removes all occurrences of the given URL from the history.
      * @param callback If you specify the callback parameter, it should be a function that looks like this:

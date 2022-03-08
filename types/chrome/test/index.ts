@@ -1416,3 +1416,26 @@ async function testFontSettingsForPromise() {
     await chrome.fontSettings.getFontList()
     await chrome.fontSettings.clearDefaultFixedFontSize({})
 }
+
+// https://developer.chrome.com/docs/extensions/reference/history
+function testHistory() {
+    chrome.history.search({}, (results) => {}) // $ExpectError
+    chrome.history.search({ text: ''}, (results) => {})
+    chrome.history.addUrl({}, () => {}) // $ExpectError
+    chrome.history.addUrl({ url: 'https://example.com'}, () => {})
+    chrome.history.deleteRange({}, () => {}) // $ExpectError
+    chrome.history.deleteRange({ startTime: 1646172000000, endTime: 1646258400000}, () => {})
+    chrome.history.deleteAll(() => {})
+    chrome.history.deleteUrl({ url: 'https://example.com'}, () => {})
+    chrome.history.getVisits({ url: 'https://example.com'}, () => {})
+}
+
+// https://developer.chrome.com/docs/extensions/reference/history
+async function testHistoryForPromise() {
+    await chrome.history.search({ text: ''})
+    await chrome.history.addUrl({ url: 'https://example.com'})
+    await chrome.history.deleteRange({ startTime: 1646172000000, endTime: 1646258400000})
+    await chrome.history.deleteAll()
+    await chrome.history.deleteUrl({ url: 'https://example.com'})
+    await chrome.history.getVisits({ url: 'https://example.com'})
+}
