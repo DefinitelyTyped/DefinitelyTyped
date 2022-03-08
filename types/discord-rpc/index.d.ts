@@ -56,49 +56,38 @@ type RPCEvents = 'CURRENT_USER_UPDATE' |
 export class Client extends EventEmitter {
     constructor(options: RPCClientOptions)
 
-    application: {
-        description: string
-        icon: string
-        id: string
-        rpc_origins: string[]
-        name: string
-    };
+    application?: ClientApplication;
 
-    user: {
-        username: string
-        discriminator: string
-        id: string
-        avatar: string
-    };
+    user?: User;
 
     connect(clientId: string): Promise<Client>;
     login(options?: RPCLoginOptions): Promise<this>;
 
-    getGuild(id: string, timeout?: number): Promise<Guild>;
+    getGuild(id: Snowflake, timeout?: number): Promise<Guild>;
     getGuilds(timeout?: number): Promise<Guild[]>;
 
-    getChannel(id: string, timeout?: number): Promise<Channel>;
-    getChannels(id?: string, timeout?: number): Promise<Channel[]>;
+    getChannel(id: Snowflake, timeout?: number): Promise<Channel>;
+    getChannels(id?: Snowflake, timeout?: number): Promise<Channel[]>;
 
     setCertifiedDevices(devices: CertifiedDevice[]): Promise<null>;
 
-    setUserVoiceSettings(id: string, settings: UserVoiceSettings): Promise<any>;
+    setUserVoiceSettings(id: Snowflake, settings: UserVoiceSettings): Promise<any>;
 
-    selectVoiceChannel(id: string, options?: { timeout?: number | undefined, force?: boolean | undefined }): Promise<Channel>;
-    selectTextChannel(id: string, options?: { timeout: number, force: boolean }): Promise<Channel>;
+    selectVoiceChannel(id: Snowflake, options?: { timeout?: number | undefined, force?: boolean | undefined }): Promise<Channel>;
+    selectTextChannel(id: Snowflake, options?: { timeout?: number }): Promise<Channel>;
 
     getVoiceSettings(): Promise<VoiceSettings>;
     setVoiceSettings(args: VoiceSettings): Promise<any>;
 
-    captureShortcut(callback: (shortcut: Array<{ type: number, code: number, name: string }>, stop: () => void) => void): Promise<() => void>;
+    captureShortcut(callback: (key: Array<{ type: number, code: number, name: string }>, stop: () => void) => void): Promise<() => void>;
 
     setActivity(args?: Presence, pid?: number): Promise<any>;
     clearActivity(pid?: number): Promise<any>;
 
-    sendJoinInvite(user: { id: string } | string): Promise<any>;
+    sendJoinInvite(user: User | User['id']): Promise<any>;
 
-    sendJoinRequest(user: { id: string } | string): Promise<any>;
-    closeJoinRequest(user: { id: string } | string): Promise<any>;
+    sendJoinRequest(user: User | User['id']): Promise<any>;
+    closeJoinRequest(user: User | User['id']): Promise<any>;
 
     createLobby(type: string, capacity: number, metadata: any): Promise<any>;
     updateLobby(lobby: { id: string } | string, options?: { type: string, owner: { id: string } | string, capacity: number, metadata: any }): Promise<any>;
@@ -118,7 +107,26 @@ export class Client extends EventEmitter {
     off(event: eventNames, listener: Listener): this;
 }
 
-export interface RPCClientOptions {
+export interface ClientApplication {
+    description: string
+    icon: string
+    id: string
+    rpc_origins: string[]
+    name: string
+}
+
+export interface User {
+    username?: string
+    discriminator?: string
+    id: string
+    avatar?: string
+}
+
+export type Snowflake = string;
+
+export interface ClientOptions {}
+
+export interface RPCClientOptions extends  ClientOptions  {
     transport: 'ipc' | 'websocket';
 }
 
@@ -186,19 +194,19 @@ export interface Channel {
 }
 
 export interface CertifiedDevice {
-    type: 'audioinput' | 'audiooutput' | 'videoinput';
+    type: 'AUDIO_INPUT' | 'AUDIO_OUTPUT' | 'VIDEO_INPUT';
     uuid: string;
     vendor: { name: string, url: string };
     model: { name: string, url: string };
     related: string[];
-    echoCancellation?: boolean | undefined;
-    noiseSuppression?: boolean | undefined;
-    automaticGainControl?: boolean | undefined;
-    hardwareMute?: boolean | undefined;
+    echoCancellation: boolean;
+    noiseSuppression: boolean;
+    automaticGainControl: boolean;
+    hardwareMute: boolean;
 }
 
 export interface UserVoiceSettings {
-    id: string;
+    id: Snowflake;
     pan?: { left: number, right: number } | undefined;
     volume?: number | undefined;
     mute?: boolean | undefined;
