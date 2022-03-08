@@ -1,6 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "@nightwatch/react": "^0.1.3"
-    }
-}
