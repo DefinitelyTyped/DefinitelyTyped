@@ -8,7 +8,7 @@
 //                 HanchaiN <https://github.com/HanchaiN>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { EventEmitter } from 'events';
+import { EventEmitter, Listener } from 'events';
 
 export function register(id: string): boolean;
 
@@ -72,9 +72,9 @@ export class Client extends EventEmitter {
 
     destroy(): Promise<void>;
 
-    on(event: 'ready' | 'connected', listener: () => void): this;
-    once(event: 'ready' | 'connected', listener: () => void): this;
-    off(event: 'ready' | 'connected', listener: () => void): this;
+    on(event: 'ready' | 'connected', listener: Listener): this;
+    once(event: 'ready' | 'connected', listener: Listener): this;
+    off(event: 'ready' | 'connected', listener: Listener): this;
 }
 
 export interface RPCClientOptions {
