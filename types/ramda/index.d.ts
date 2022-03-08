@@ -1405,9 +1405,10 @@ export function minBy<T>(keyFn: (a: T) => Ord): _.F.Curry<(a: T, b: T) => T>;
  * if its corresponding property does not exist in the object.
  * All non-primitive properties are copied to the new object by reference.
  */
-export function modify<T extends Record<K, V>, K extends string | number | symbol, F extends (a: V) => any, V>(prop: K, fn: F, object: T): Omit<T, K> & Record<K, ReturnType<F>>;
-export function modify<K extends string | number | symbol, F extends (a: V) => any, V>(prop: K, fn: F): <T extends Record<K, V>>(object: T) => Omit<T, K> & Record<K, ReturnType<F>>;
-export function modify<K extends string | number | symbol>(prop: K): <T extends Record<K, V>, F extends (a: V) => any, V>(fn: F, object: T) => Omit<T, K> & Record<K, ReturnType<F>>;
+export function modify<T extends Record<K, any>, K extends string | number | symbol, R>(prop: K, fn: (a: T[K]) => R, object: T): Omit<T, K> & Record<K, R>;
+export function modify<K extends string | number | symbol>(prop: K): <V, R>(fn: (a: V) => R) => <T extends Record<K, V>>(object: T) => Omit<T, K> & Record<K, R>;
+export function modify<K extends string | number | symbol, V, R>(prop: K, fn: (a: V) => R): <T extends Record<K, V>>(object: T) => Omit<T, K> & Record<K, R>;
+export function modify<K extends string | number | symbol>(prop: K): <T extends Record<K, V>, V, R>(fn: (a: V) => R, object: T) => Omit<T, K> & Record<K, R>;
 
 /**
  * Creates a shallow clone of the passed object by applying an fn function to the value at the given path.
