@@ -3,7 +3,7 @@
 // Definitions by: Pieter Scheffers <https://github.com/PieterScheffers>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare namespace MailChimpTransactional {
+declare namespace Mailchimp {
     type OutputFormat = 'json' | 'xml' | 'php' | 'yaml';
 
     type SendingStatus = 'sent' | 'queued' | 'scheduled' | 'rejected' | 'invalid';
@@ -172,5 +172,5 @@ declare namespace MailChimpTransactional {
     }
 }
 
-declare function instance(apiKey: string): MailChimpTransactional.ApiClient;
-export = instance;
+declare function Mailchimp(apiKey: string): Mailchimp.ApiClient;
+export = Mailchimp;
