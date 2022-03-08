@@ -12,9 +12,9 @@ import { EventEmitter, Listener } from 'events';
 
 export function register(id: string): boolean;
 
-type eventNames = 'ready' | 'connected' | 'disconnected' | string;
+export type eventNames = 'ready' | 'connected' | 'disconnected' | string;
 
-type RPCEvents =
+export type RPCEvents =
     | 'CURRENT_USER_UPDATE'
     | 'GUILD_STATUS'
     | 'GUILD_CREATE'
@@ -133,7 +133,7 @@ export class Client extends BaseClient {
      */
     selectVoiceChannel(
         id: Snowflake,
-        options?: { 
+        options?: {
             /**
              * Timeout for the command
              */
@@ -150,12 +150,15 @@ export class Client extends BaseClient {
      * @param id ID of the voice channel
      * @param options Options
      */
-    selectTextChannel(id: Snowflake, options?: { 
-        /**
-         * Timeout for the command
-         */
-        timeout?: number 
-    }): Promise<Channel>;
+    selectTextChannel(
+        id: Snowflake,
+        options?: {
+            /**
+             * Timeout for the command
+             */
+            timeout?: number;
+        },
+    ): Promise<Channel>;
 
     /**
      * Get current voice settings
@@ -255,7 +258,9 @@ export interface User {
 
 export type Snowflake = string;
 
-export interface ClientOptions {}
+export interface ClientOptions {
+    [option: string]: any;
+}
 
 export interface RPCClientOptions extends ClientOptions {
     /**
