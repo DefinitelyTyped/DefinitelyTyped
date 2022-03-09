@@ -31,7 +31,7 @@ declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
  *      .then( ... )
  *      .catch( ... );
  *
- * See {@link module:core/editor/editorconfig~EditorConfig all editor options}.
+ * @see {@link module:core/editor/editorconfig~EditorConfig all editor options}.
  */
 export interface MinimapConfig {
     /**
