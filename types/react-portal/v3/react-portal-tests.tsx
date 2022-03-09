@@ -32,7 +32,7 @@ export default class App extends React.Component {
   }
 }
 
-export class PseudoModal extends React.Component<{ closePortal?(): void }> {
+export class PseudoModal extends React.Component<{ children?: React.ReactNode; closePortal?(): void }> {
   render() {
     return (
       <div>

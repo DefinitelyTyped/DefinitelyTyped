@@ -27,7 +27,7 @@ Macro.add("thing", {
                 // do something
             }
         }));
-        $(this.output).append(element);
+        $(element).appendTo(this.output);
     }
 });
 

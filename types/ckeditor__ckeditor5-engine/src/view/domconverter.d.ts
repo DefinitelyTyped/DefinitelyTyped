@@ -154,7 +154,7 @@ export default class DomConverter {
      */
     viewToDom(
         viewNode: ViewNode | ViewDocumentFragment,
-        domDocument?: Document,
+        domDocument: Document,
         options?: { bind?: boolean | undefined; withChildren?: boolean | undefined },
     ): Node | DocumentFragment;
     /**

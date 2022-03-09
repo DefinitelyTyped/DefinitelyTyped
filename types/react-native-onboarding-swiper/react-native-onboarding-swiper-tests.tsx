@@ -131,6 +131,7 @@ export default App;
 
 // mock Button component
 const Button: React.FC<{
+    children?: React.ReactNode;
     title: string | JSX.Element;
     buttonStyle: StyleProp<ViewStyle>;
     containerViewStyle: StyleProp<ViewStyle>;

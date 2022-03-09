@@ -149,7 +149,7 @@ ImageCaptionUtils.getCaptionFromImageModelElement(modelElement);
 new ImageInsertFormRowView();
 new ImageInsertFormRowView(new Locale());
 
-new ImageInsertPanelView(new Locale());
+new ImageInsertPanelView(new Locale()).destroy();
 
 ImageInsertUtils.prepareIntegrations(editor).foo.setTemplate;
 ImageInsertUtils.createLabeledInputView(new Locale()).setTemplate;
@@ -165,7 +165,8 @@ new ImageStyleCommand(editor, [{ icon: '', name: '', className: '', title: '' }]
 
 new ImageTextAlternativeCommand(editor).execute({ newValue: '' });
 
-new TextAlternativeFormView(new Locale()).setTemplate;
+new TextAlternativeFormView(new Locale()).setTemplate({ tag: 'p' });
+new TextAlternativeFormView(new Locale()).destroy();
 
 new UploadImageCommand(editor);
 
