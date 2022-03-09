@@ -15,6 +15,7 @@
     },
     "files": [
         "test/domexception.index.test.ts",
+        "test/domexception.webidl2js.test.ts",
         "index.d.ts"
     ]
 }
