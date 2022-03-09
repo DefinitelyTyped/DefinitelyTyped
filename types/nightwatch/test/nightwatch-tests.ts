@@ -164,8 +164,6 @@ const iFrame = {
 interface GooglePage
     extends EnhancedPageObject<typeof googlePage.commands[0], typeof googlePage.elements, { menu: MenuSection }> {}
 
-// interface iFramePage extends EnhancedPageObject<typeof iFrame>.commands[0], typeof iFrame.elements> {};
-
 interface iFramePage extends EnhancedPageObject<typeof iFrame.commands[0], typeof iFrame.elements> {}
 
 declare module 'nightwatch' {
