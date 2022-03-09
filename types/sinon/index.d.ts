@@ -790,6 +790,7 @@ declare namespace Sinon {
         now: number | Date;
         toFake: string[];
         shouldAdvanceTime: boolean;
+        shouldClearNativeTimers: boolean;
     }
 
     interface SinonFakeUploadProgress {
