@@ -145,12 +145,33 @@ const googlePage = {
 
 // export = googlePage;
 
+const iFrame = {
+    elements: {
+        iframe: '#mce_0_ifr',
+        textbox: 'body#tinymce p',
+    },
+    commands: [
+        {
+            url(this: EnhancedPageObject) {
+                return `${this.api.launch_url}/iframe`;
+            },
+        },
+    ],
+};
+
+// export = iFrame
+
 interface GooglePage
     extends EnhancedPageObject<typeof googlePage.commands[0], typeof googlePage.elements, { menu: MenuSection }> {}
+
+// interface iFramePage extends EnhancedPageObject<typeof iFrame>.commands[0], typeof iFrame.elements> {};
+
+interface iFramePage extends EnhancedPageObject<typeof iFrame.commands[0], typeof iFrame.elements> {}
 
 declare module 'nightwatch' {
     interface NightwatchCustomPageObjects {
         google(): GooglePage;
+        IFrame(): iFramePage;
     }
 }
 
@@ -189,6 +210,17 @@ const testPage = {
             .assert.visible('@searchBar')
             .setValue('@searchBar', 'nightwatch')
             .click('@submit');
+
+        browser.end();
+    },
+
+    'Test iFrame on page': async () => {
+        const iFrame = browser.page.IFrame();
+        iFrame.navigate();
+        const frame = await browser.findElement(iFrame.elements.iframe);
+        console.log(frame.getId());
+        browser.frame(frame);
+        iFrame.expect.element('@textbox').text.to.equal('Your content goes here.');
 
         browser.end();
     },
