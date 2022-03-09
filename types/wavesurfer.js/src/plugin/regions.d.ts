@@ -117,6 +117,8 @@ export interface RegionParams {
     handleStyle?: HandleStyle | undefined;
     preventContextMenu?: boolean | undefined;
     showTooltip?: boolean | undefined;
+    attributes?: Attributes | undefined;
+    data?: Datas | undefined;
 }
 
 export interface RegionUpdatedEventParams {
