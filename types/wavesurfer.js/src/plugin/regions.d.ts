@@ -106,7 +106,7 @@ export class Region extends Observer {
 }
 
 export interface RegionParams {
-    id: string;
+    id?: string | undefined;
     start?: number | undefined;
     end?: number | undefined;
     loop?: boolean | undefined;
