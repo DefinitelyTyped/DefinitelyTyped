@@ -13,16 +13,20 @@ export interface LinkDecoratorDefinition {
 }
 
 export interface LinkDecoratorAutomaticDefinition extends LinkDecoratorDefinition {
-    attributes: Record<string, string>;
+    attributes?: Record<string, string>;
     callback(url: string): boolean;
     mode: 'automatic';
+    classes?: string | string[];
+    styles?: Record<string, string>;
 }
 
 export interface LinkDecoratorManualDefinition extends LinkDecoratorDefinition {
-    attributes: Record<string, string>;
+    attributes?: Record<string, string>;
     defaultValue?: boolean | undefined;
     label: string;
     mode: 'manual';
+    styles?: Record<string, string>;
+    classes?: string | string[];
 }
 
 export interface LinkConfig {

@@ -2,18 +2,18 @@ import { Emitter, EmitterMixinDelegateChain } from '@ckeditor/ckeditor5-utils/sr
 import EventInfo from '@ckeditor/ckeditor5-utils/src/eventinfo';
 import { PriorityString } from '@ckeditor/ckeditor5-utils/src/priorities';
 import Context from './context';
-import ContextPlugin from './contextplugin';
+import ContextPlugin, { ContextPluginInterface } from './contextplugin';
 import Editor from './editor/editor';
 import Plugin, { PluginInterface, LoadedPlugins } from './plugin';
 
 // tslint:disable-next-line:no-empty-interface
 export interface Plugins {}
 
+// prettier-ignore
 /**
  * Manages a list of CKEditor plugins, including loading, resolving dependencies and initialization.
  */
-export default class PluginCollection
-    implements Emitter, Iterable<[typeof Plugin, Plugin] | [typeof ContextPlugin, ContextPlugin]> {
+export default class PluginCollection implements Emitter, Iterable<[typeof Plugin, Plugin] | [typeof ContextPlugin, ContextPlugin]> {
     /**
      * Creates an instance of the plugin collection class.
      * Allows loading and initializing plugins and their dependencies.
@@ -22,7 +22,7 @@ export default class PluginCollection
     constructor(
         context: Editor | Context,
         availablePlugins?: Array<typeof Plugin | typeof ContextPlugin>,
-        contextPlugins?: Iterable<[typeof Plugin, Plugin] | [typeof ContextPlugin, ContextPlugin]>,
+        contextPlugins?: Array<[typeof Plugin, Plugin] | [typeof ContextPlugin, ContextPlugin]>,
     );
     /* Iterable interface.
      *
@@ -46,7 +46,7 @@ export default class PluginCollection
      * to check if a plugin is available.
      */
     get<T extends Plugin>(key: PluginInterface<T>): T;
-    get<T extends ContextPlugin>(key: PluginInterface<T>): T;
+    get<T extends ContextPlugin>(key: ContextPluginInterface<T>): T;
     get<T extends keyof Plugins>(key: T): Plugins[T];
     get(key: string): Plugin | ContextPlugin;
     /**
@@ -60,14 +60,14 @@ export default class PluginCollection
      *      // ...
      *    }
      */
-    has(key: PluginInterface | string): boolean;
+    has(key: PluginInterface | ContextPluginInterface | string): boolean;
     /**
      * Initializes a set of plugins and adds them to the collection.
      */
     init(
-        plugins: Array<(() => Plugin) | string>,
-        pluginsToRemove: Array<(() => Plugin) | string>,
-        pluginsSubstitutions: Array<() => Plugin>,
+        plugins: Array<((() => Plugin) | (() => ContextPlugin)) | string>,
+        pluginsToRemove: Array<((() => Plugin) | (() => ContextPlugin)) | string>,
+        pluginsSubstitutions: Array<(() => Plugin) | (() => ContextPlugin)>,
     ): Promise<LoadedPlugins>;
     /**
      * Destroys all loaded plugins.

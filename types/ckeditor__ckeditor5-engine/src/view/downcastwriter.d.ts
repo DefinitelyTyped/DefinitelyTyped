@@ -2,6 +2,7 @@ import AttributeElement from './attributeelement';
 import ContainerElement from './containerelement';
 import Document from './document';
 import DocumentFragment from './documentfragment';
+import DomConverter from './domconverter';
 import EditableElement from './editableelement';
 import Element from './element';
 import EmptyElement from './emptyelement';
@@ -15,10 +16,26 @@ import Text from './text';
 import UIElement from './uielement';
 import View from './view';
 
+/**
+ * View downcast writer.
+ *
+ * It provides a set of methods used to manipulate view nodes.
+ *
+ * Do not create an instance of this writer manually. To modify a view structure, use
+ * the {@link module:engine/view/view~View#change `View#change()`} block.
+ *
+ * The `DowncastWriter` is designed to work with semantic views which are the views that were/are being downcasted from the model.
+ * To work with ordinary views (e.g. parsed from a pasted content) use the
+ * {@link module:engine/view/upcastwriter~UpcastWriter upcast writer}.
+ *
+ * Read more about changing the view in the {@glink framework/guides/architecture/editing-engine#changing-the-view Changing the view}
+ * section of the {@glink framework/guides/architecture/editing-engine Editing engine architecture} guide.
+ */
 export default class DowncastWriter {
+    constructor(document: Document);
+
     readonly document: Document;
 
-    constructor(document: Document);
     addClass(className: string | string[], element: Element): void;
     breakAttributes(positionOrRange: Position | Range): Position | Range;
     breakContainer(position: Position): Position;
@@ -58,10 +75,29 @@ export default class DowncastWriter {
     createRange(start: Position, end?: Position): Range;
     createRangeIn(element: Element): Range;
     createRangeOn(item: Item): Range;
+    /**
+     * Creates a new {@link module:engine/view/rawelement~RawElement}.
+     *
+     *    writer.createRawElement( 'span', { id: 'foo-1234' }, function( domElement ) {
+     *      domElement.innerHTML = '<b>This is the raw content of the raw element.</b>';
+     *    } );
+     *
+     * Raw elements work as data containers ("wrappers", "sandboxes") but their children are not managed or
+     * even recognized by the editor. This encapsulation allows integrations to maintain custom DOM structures
+     * in the editor content without, for instance, worrying about compatibility with other editor features.
+     * Raw elements are a perfect tool for integration with external frameworks and data sources.
+     *
+     * Unlike {@link #createUIElement UI elements}, raw elements act like "real" editor content (similar to
+     * {@link module:engine/view/containerelement~ContainerElement} or {@link module:engine/view/emptyelement~EmptyElement}),
+     * and they are considered by the editor selection.
+     *
+     * You should not use raw elements to render the UI in the editor content. Check out {@link #createUIElement `#createUIElement()`}
+     * instead.
+     */
     createRawElement(
-        name?: string,
+        name: string,
         attributes?: Record<string, string>,
-        renderFunction?: (domElement: HTMLElement) => void,
+        renderFunction?: (this: DowncastWriter, domElement: HTMLElement, domConverter: DomConverter) => void,
         options?: {
             renderUnsafeAttributes?: string[] | undefined;
             isAllowedInsideAttributeElement?: boolean | undefined;
@@ -76,7 +112,7 @@ export default class DowncastWriter {
     createUIElement(
         name: string,
         attributes?: Record<string, string>,
-        renderFunction?: (domElement: HTMLElement) => void,
+        renderFunction?: (this: DowncastWriter, domElement: HTMLElement) => void,
         options?: { isAllowedInsideAttributeElement?: boolean | undefined },
     ): UIElement;
     insert(

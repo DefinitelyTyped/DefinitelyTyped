@@ -188,10 +188,7 @@ export interface CardResponse {
 }
 
 // https://developer.paypal.com/docs/api/orders/v2/#definition-checkout_payment_intent
-export enum CheckoutPaymentIntent {
-    CAPTURE = 'CAPTURE',
-    AUTHORIZE = 'AUTHORIZE',
-}
+export type CheckoutPaymentIntent = 'CAPTURE' | 'AUTHORIZE';
 
 // https://developer.paypal.com/docs/api/orders/v2/#definition-confirm_order_request
 export interface ConfirmOrderRequest {

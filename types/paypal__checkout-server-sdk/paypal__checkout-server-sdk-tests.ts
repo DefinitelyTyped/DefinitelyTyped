@@ -24,7 +24,7 @@ const ordersPatchRequest = new paypal.orders.OrdersPatchRequest('orderId'); // $
 const ordersValidateRequest = new paypal.orders.OrdersValidateRequest('orderId'); // $ExpectType OrdersValidateRequest
 
 ordersCreateRequest.requestBody({
-    intent: paypal.orders.CheckoutPaymentIntent.CAPTURE,
+    intent: 'CAPTURE',
     purchase_units: [
         {
             amount: {

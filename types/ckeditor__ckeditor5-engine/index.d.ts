@@ -1,4 +1,4 @@
-// Type definitions for @ckeditor/ckeditor5-engine 31.0
+// Type definitions for @ckeditor/ckeditor5-engine 32.0
 // Project: https://github.com/ckeditor/ckeditor5/tree/master/packages/ckeditor5-engine
 // Definitions by: Federico Panico <https://github.com/fedemp>
 //                 denisname <https://github.com/denisname>

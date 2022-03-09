@@ -7,7 +7,7 @@
 /// <reference types="node" />
 
 export class ApiClient {
-    constructor(opts: { basePath: string; oAuthBasePath: string });
+    constructor(opts?: { basePath: string; oAuthBasePath: string });
 
     addDefaultHeader(header: string, value: string): void;
 

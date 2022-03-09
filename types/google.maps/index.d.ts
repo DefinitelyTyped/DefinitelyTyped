@@ -2717,6 +2717,10 @@ declare namespace google.maps {
    */
   interface InfoWindowOptions {
     /**
+     * AriaLabel to assign to the InfoWindow.
+     */
+    ariaLabel?: string|null;
+    /**
      * Content to display in the InfoWindow. This can be an HTML element, a
      * plain-text string, or a string containing HTML. The InfoWindow will be
      * sized according to the content. To set an explicit size for the content,
