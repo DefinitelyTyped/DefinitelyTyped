@@ -3,6 +3,8 @@
 // Definitions by: Muhun Kim <https://github.com/x86chi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="jquery" />
+
 declare function textFit(
     els: HTMLElement | HTMLElement[] | NodeListOf<Element> | HTMLCollection | JQuery,
     options?: textFit.TextFitOption,
