@@ -134,5 +134,5 @@ export interface Attributes {
 }
 
 export interface Datas {
-    [dataName: string]: string;
+    [dataName: string]: unknown;
 }
