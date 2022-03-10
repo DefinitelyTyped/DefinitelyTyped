@@ -3,7 +3,7 @@
 // Definitions by: Grayson-code <https://github.com/Grayson-code>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export interface IData {
+export interface Data {
   /**
    * Server Description , May not exist
    */
@@ -85,7 +85,6 @@ export interface IData {
   favicon?: string;
 }
 
-
   /**
    * Returns basic info about the server, asynchronously.
    * The hostname is the hostname of the server you want to ping,
@@ -100,7 +99,7 @@ export interface IData {
      *  The Port of the server , most servers default to 25565
      */
     port: number
-  ): Promise<IData>;
+  ): Promise<Data>;
   /**
    * Returns basic info about the server
    * The hostname is the hostname of the server you want to ping,
@@ -115,6 +114,6 @@ export interface IData {
      *  The Port of the server , most servers default to 25565
      */
     port: number
-  ): IData;
+  ): Data;
 
 export as namespace minecraftpinger;
