@@ -3,7 +3,7 @@
 // Definitions by: Grayson-code <https://github.com/Grayson-code>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export interface pingPromiseInterface {
+export interface IData {
   /**
    * Server Description , May not exist
    */
@@ -85,16 +85,7 @@ export interface pingPromiseInterface {
   favicon?: string;
 }
 
-export interface iCheckSrvRecord {
-    /**
-     * Hostname of the server
-     */
-    hostname: string;
-    /**
-     * The port
-     */
-    port: number;
-  }
+
   /**
    * Returns basic info about the server, asynchronously.
    * The hostname is the hostname of the server you want to ping,
@@ -109,7 +100,7 @@ export interface iCheckSrvRecord {
      *  The Port of the server , most servers default to 25565
      */
     port: number
-  ): Promise<pingPromiseInterface>;
+  ): Promise<IData>;
   /**
    * Returns basic info about the server
    * The hostname is the hostname of the server you want to ping,
@@ -124,12 +115,6 @@ export interface iCheckSrvRecord {
      *  The Port of the server , most servers default to 25565
      */
     port: number
-  ): pingPromiseInterface;
-  /**
-   * Checks The Service Record
-   *
-   * The URL or hostname is the hostname , eg: https://example.com
-   */
-  export function checkSrvRecord(hostname: string): Promise<iCheckSrvRecord>;
+  ): IData;
 
 export as namespace minecraftpinger;
