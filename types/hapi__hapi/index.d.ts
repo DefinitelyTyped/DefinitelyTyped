@@ -20,6 +20,8 @@
 
 /// <reference types='node' />
 
+/* tslint:disable:no-unnecessary-generics no-empty-interface */
+
 import { Boom } from '@hapi/boom';
 import * as http from 'http';
 import * as https from 'https';
@@ -30,7 +32,7 @@ import * as zlib from 'zlib';
 
 import { MimosOptions } from '@hapi/mimos';
 import { SealOptions, SealOptionsSub } from '@hapi/iron';
-import { ValidationOptions, SchemaMap, Schema, Root } from 'joi';
+import { ValidationOptions, SchemaMap, ObjectSchema, Schema, Root } from 'joi';
 import Podium = require('@hapi/podium');
 import { PolicyOptionVariants, EnginePrototypeOrObject, PolicyOptions, EnginePrototype, Policy, ClientApi, ClientOptions } from '@hapi/catbox';
 
@@ -60,7 +62,6 @@ export type Dependencies = string | string[] | {
  * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverregistrations)
  */
 
-/* tslint:disable-next-line:no-empty-interface */
 export interface PluginsListRegistered {
 }
 
@@ -89,11 +90,9 @@ export interface PluginRegistered {
     options: object;
 }
 
-/* tslint:disable-next-line:no-empty-interface */
 export interface PluginsStates {
 }
 
-/* tslint:disable-next-line:no-empty-interface */
 export interface PluginSpecificConfiguration {
 }
 
@@ -184,7 +183,10 @@ export interface AppCredentials {
 /**
  * User-extensible type for request.auth credentials.
  */
-export interface AuthCredentials {
+export interface AuthCredentials<
+    AuthUser extends object = UserCredentials,
+    AuthApp extends object = AppCredentials,
+> {
     /**
      * The application scopes to be granted.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsauthaccessscope)
@@ -193,14 +195,12 @@ export interface AuthCredentials {
     /**
      * If set, will only work with routes that set `access.entity` to `user`.
      */
-    user?: UserCredentials | undefined;
+    user?: MergeType<UserCredentials, AuthUser> | undefined;
 
     /**
      * If set, will only work with routes that set `access.entity` to `app`.
      */
-    app?: AppCredentials | undefined;
-
-    [key: string]: unknown;
+    app?: MergeType<AppCredentials, AuthApp> | undefined;
 }
 
 export interface AuthArtifacts {
@@ -221,11 +221,16 @@ export type AuthMode = 'required' | 'optional' | 'try';
  * * strategy - the name of the strategy used.
  * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-requestauth)
  */
-export interface RequestAuth {
+export interface RequestAuth<
+    AuthUser extends object = UserCredentials,
+    AuthApp extends object = AppCredentials,
+    CredentialsExtra extends object = Record<string, unknown>,
+    ArtifactsExtra = Record<string, unknown>
+> {
     /** an artifact object received from the authentication strategy and used in authentication-related actions. */
-    artifacts: AuthArtifacts;
+    artifacts: ArtifactsExtra;
     /** the credential object received during the authentication process. The presence of an object does not mean successful authentication. */
-    credentials: AuthCredentials;
+    credentials: MergeType<CredentialsExtra, AuthCredentials<AuthUser, AuthApp>>;
     /** the authentication error is failed and mode set to 'try'. */
     error: Error;
     /** true if the request has been successfully authenticated, otherwise false. */
@@ -393,22 +398,59 @@ export interface RequestLog {
     data: string | object;
     channel: string;
 }
-
 export interface RequestQuery {
     [key: string]: any;
 }
+export interface InternalRequestDefaults {
+    Payload: stream.Readable | Buffer | string | object;
+    Query: RequestQuery;
+    Params: Util.Dictionary<any>;
+    Pres: Util.Dictionary<any>;
+    Headers: Util.Dictionary<any>;
+    RequestApp: RequestApplicationState;
+
+    AuthUser: UserCredentials;
+    AuthApp: AppCredentials;
+    AuthApi: ServerAuthSchemeObjectApi;
+    AuthCredentialsExtra: Record<string, unknown>;
+    AuthArtifactsExtra: Record<string, unknown>;
+
+    Rules: RouteRules;
+    Bind: object | null;
+}
+
+/**
+ * Default request references. Used to give typing to requests,
+ * route handlers, lifecycle methods, auth credentials, etc.
+ * This can be overwritten to whatever is suitable and universal
+ * in your specific app, but whatever references you pass to
+ * server route generic, or lifecycle methods will take precedence
+ * over these.
+ */
+export interface ReqRefDefaults extends InternalRequestDefaults {}
+
+/**
+ * Route request overrides
+ */
+export type ReqRef = Partial<Record<keyof ReqRefDefaults, unknown>>;
+
+/**
+ * Utilities for merging request refs and other things
+ */
+export type MergeType<T extends object, U extends object> = Omit<T, keyof U> & U;
+export type MergeRefs<T extends ReqRef> = MergeType<ReqRefDefaults, T>;
 
 /**
  * The request object is created internally for each incoming request. It is not the same object received from the node
  * HTTP server callback (which is available via [request.raw.req](https://github.com/hapijs/hapi/blob/master/API.md#request.raw)). The request properties change throughout
  * the request [lifecycle](https://github.com/hapijs/hapi/blob/master/API.md#request-lifecycle).
  */
-export interface Request extends Podium {
+export interface Request<Refs extends ReqRef = ReqRefDefaults> extends Podium {
     /**
      * Application-specific state. Provides a safe place to store application data without potential conflicts with the framework. Should not be used by plugins which should use plugins[name].
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-requestapp)
      */
-    app: RequestApplicationState;
+    app: MergeRefs<Refs>['RequestApp'];
 
     /**
      * Authentication information:
@@ -422,7 +464,12 @@ export interface Request extends Podium {
      * * strategy - the name of the strategy used.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-requestauth)
      */
-    readonly auth: RequestAuth;
+    readonly auth: RequestAuth<
+        MergeRefs<Refs>['AuthUser'],
+        MergeRefs<Refs>['AuthApp'],
+        MergeRefs<Refs>['AuthCredentialsExtra'],
+        MergeRefs<Refs>['AuthArtifactsExtra']
+    >;
 
     /**
      * Access: read only and the public podium interface.
@@ -438,7 +485,7 @@ export interface Request extends Podium {
      * The raw request headers (references request.raw.req.headers).
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-requestheaders)
      */
-    readonly headers: Util.Dictionary<string>;
+    readonly headers: MergeRefs<Refs>['Headers'];
 
     /**
      * Request information:
@@ -483,12 +530,12 @@ export interface Request extends Podium {
     /**
      * An object where each key is a path parameter name with matching value as described in [Path parameters](https://github.com/hapijs/hapi/blob/master/API.md#path-parameters).
      */
-    readonly params: Util.Dictionary<any>;
+    readonly params: MergeRefs<Refs>['Params'];
 
     /**
      * An array containing all the path params values in the order they appeared in the path.
      */
-    readonly paramsArray: string[];
+    readonly paramsArray: keyof MergeRefs<Refs>['Params'] | string[];
 
     /**
      * The request URI's pathname component.
@@ -499,7 +546,7 @@ export interface Request extends Podium {
      * The request payload based on the route payload.output and payload.parse settings.
      * TODO check this typing and add references / links.
      */
-    readonly payload: stream.Readable | Buffer | string | object;
+    readonly payload: MergeRefs<Refs>['Payload'];
 
     /**
      * Plugin-specific state. Provides a place to store and pass request-level plugin data. The plugins is an object where each key is a plugin name and the value is the state.
@@ -510,7 +557,7 @@ export interface Request extends Podium {
      * An object where each key is the name assigned by a route pre-handler methods function. The values are the raw values provided to the continuation function as argument. For the wrapped response
      * object, use responses.
      */
-    readonly pre: Util.Dictionary<any>;
+    readonly pre: MergeRefs<Refs>['Pres'];
 
     /**
      * Access: read / write (see limitations below).
@@ -528,7 +575,7 @@ export interface Request extends Podium {
     /**
      * By default the object outputted from node's URL parse() method.
      */
-    readonly query: RequestQuery;
+    readonly query: MergeRefs<Refs>['Query'];
 
     /**
      * An object containing the Node HTTP server objects. Direct interaction with these raw objects is not recommended.
@@ -579,7 +626,7 @@ export interface Request extends Podium {
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-requestgenerateresponsesource-options)
      */
     /* tslint:disable-next-line:max-line-length */
-    generateResponse(source: string | object | null, options?: { variety?: string | undefined; prepare?: ((response: ResponseObject) => Promise<ResponseObject>) | undefined; marshal?: ((response: ResponseObject) => Promise<ResponseValue>) | undefined; close?: ((response: ResponseObject) => void) | undefined; }): ResponseObject;
+    generateResponse(source: string | object | null, options?: { variety?: string | undefined; prepare?: ((response: ResponseObject) => Promise<ResponseObject>) | undefined; marshal?: ((response: ResponseObject) => Promise<ResponseValue>) | undefined; close?: ((response: ResponseObject) => void | undefined); }): ResponseObject;
 
     /**
      * Logs request-specific events. When called, the server emits a 'request' event which can be used by other listeners or plugins. The arguments are:
@@ -978,15 +1025,26 @@ export interface ResponseSettings {
 
 export type ResponseValue = string | object;
 
-export interface AuthenticationData {
-    credentials: AuthCredentials;
-    artifacts?: AuthArtifacts | undefined;
+export interface AuthenticationData<
+
+    AuthUser extends object = UserCredentials,
+    AuthApp extends object = AppCredentials,
+    CredentialsExtra extends object = Record<string, unknown>,
+    ArtifactsExtra = AuthArtifacts
+> {
+    credentials: MergeType<CredentialsExtra, AuthCredentials<AuthUser, AuthApp>>;
+    artifacts?: ArtifactsExtra | undefined;
 }
 
-export interface Auth {
+export interface Auth<
+    AuthUser extends object = UserCredentials,
+    AuthApp extends object = AppCredentials,
+    CredentialsExtra extends object = Record<string, unknown>,
+    ArtifactsExtra = AuthArtifacts
+> {
     readonly isAuth: true;
     readonly error?: Error | null | undefined;
-    readonly data?: AuthenticationData | undefined;
+    readonly data?: AuthenticationData<AuthUser, AuthApp, CredentialsExtra, ArtifactsExtra> | undefined;
 }
 
 /**
@@ -996,7 +1054,7 @@ export interface Auth {
  * document the h notation is used. It is named in the spirit of the RethinkDB r method, with h for hapi.
  * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#response-toolkit)
  */
-export interface ResponseToolkit {
+export interface ResponseToolkit<Refs extends ReqRef = ReqRefDefaults> {
     /**
      * A response symbol. When returned by a lifecycle method, the request lifecycle skips to the finalizing step
      * without further interaction with the node response stream. It is the developer's responsibility to write
@@ -1032,7 +1090,7 @@ export interface ResponseToolkit {
      * The [request] object. This is a duplication of the request lifecycle method argument used by
      * [toolkit decorations](https://github.com/hapijs/hapi/blob/master/API.md#server.decorate()) to access the current request.
      */
-    readonly request: Readonly<Request>;
+    readonly request: Readonly<Request<Refs>>;
 
     /**
      * Used by the [authentication] method to pass back valid credentials where:
@@ -1041,7 +1099,26 @@ export interface ResponseToolkit {
      * * artifacts - (optional) authentication artifacts object specific to the authentication scheme.
      * @return Return value: an internal authentication object.
      */
-    authenticated(data: AuthenticationData): Auth;
+    authenticated <
+        AuthUser extends object = MergeRefs<Refs>['AuthUser'],
+        AuthApp  extends object = MergeRefs<Refs>['AuthApp'],
+        CredentialsExtra extends object = MergeRefs<Refs>['AuthCredentialsExtra'],
+        ArtifactsExtra = MergeRefs<Refs>['AuthArtifactsExtra']
+    >(
+        data: (
+            AuthenticationData<
+                AuthUser,
+                AuthApp,
+                CredentialsExtra,
+                ArtifactsExtra
+            >
+        )
+    ): Auth<
+        AuthUser,
+        AuthApp,
+        CredentialsExtra,
+        ArtifactsExtra
+    >;
 
     /**
      * Sets the response 'ETag' and 'Last-Modified' headers and checks for any conditional request headers to decide if
@@ -1100,7 +1177,27 @@ export interface ResponseToolkit {
      * There is no difference between throwing the error or passing it with the h.unauthenticated() method is no credentials are passed, but it might still be helpful for code clarity.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-hunauthenticatederror-data)
      */
-    unauthenticated(error: Error, data?: AuthenticationData): Auth;
+    unauthenticated <
+        AuthUser extends object = MergeRefs<Refs>['AuthUser'],
+        AuthApp extends object = MergeRefs<Refs>['AuthApp'],
+        CredentialsExtra extends object = MergeRefs<Refs>['AuthCredentialsExtra'],
+        ArtifactsExtra = MergeRefs<Refs>['AuthArtifactsExtra']
+    >(
+        error: Error,
+        data?: (
+            AuthenticationData<
+                AuthUser,
+                AuthApp,
+                CredentialsExtra,
+                ArtifactsExtra
+            >
+        )
+    ): Auth<
+        AuthUser,
+        AuthApp,
+        CredentialsExtra,
+        ArtifactsExtra
+    >;
 
     /**
      * Clears a response cookie using the same arguments as
@@ -1121,6 +1218,25 @@ export interface ResponseToolkit {
  +                                                                           +
  +                                                                           +
  + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + */
+
+/**
+ * Overrides for `InternalRouteOptionType`. Extend this to have
+ * typings for route.options.auth['strategy' || 'scope']
+ *
+ * @example
+ *
+ * interface RoutOptionTypes {
+ *      Strategy: 'jwt' | 'basic' | 'myCustom'
+ *      Scope: 'user' | 'admin' | 'manager-users'
+ * }
+ */
+export interface RouteOptionTypes {
+}
+
+export interface InternalRouteOptionType {
+    Strategy: string;
+    Scope: RouteOptionsAccessScope;
+}
 
 export type RouteOptionsAccessScope = false | string | string[];
 
@@ -1159,7 +1275,7 @@ export interface RouteOptionsAccess {
      * properties on the request object (query, params, payload, and credentials) to populate a dynamic scope by using the '{' and '}' characters around the property name, such as 'user-{params.id}'.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsauthaccessscope)
      */
-    scope?: RouteOptionsAccessScope | undefined;
+    scope?: MergeType<InternalRouteOptionType, RouteOptionTypes>['Scope'] | undefined;
 
     /**
      * @default 'any'.
@@ -1198,14 +1314,14 @@ export interface RouteOptionsAccess {
      * An array of string strategy names in the order they should be attempted. Cannot be used together with strategy.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsauthstrategies)
      */
-    strategies?: string[] | undefined;
+    strategies?: Array<MergeType<InternalRouteOptionType, RouteOptionTypes>['Strategy']> | undefined;
 
     /**
      * @default the default strategy set via server.auth.default().
      * A string strategy names. Cannot be used together with strategies.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsauthstrategy)
      */
-    strategy?: string | undefined;
+    strategy?: MergeType<InternalRouteOptionType, RouteOptionTypes>['Strategy'] | undefined;
 }
 
 /**
@@ -1422,12 +1538,12 @@ export interface RouteOptionsPayload {
 /**
  * For context [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionspre)
  */
-export type RouteOptionsPreArray = RouteOptionsPreAllOptions[];
+export type RouteOptionsPreArray<Refs extends ReqRef = ReqRefDefaults> = Array<RouteOptionsPreAllOptions<Refs>>;
 
 /**
  * For context [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionspre)
  */
-export type RouteOptionsPreAllOptions = RouteOptionsPreObject | RouteOptionsPreObject[] | Lifecycle.Method;
+export type RouteOptionsPreAllOptions<Refs extends ReqRef = ReqRefDefaults> = RouteOptionsPreObject<Refs> | Array<RouteOptionsPreObject<Refs>> | Lifecycle.Method<Refs>;
 
 /**
  * An object with:
@@ -1436,15 +1552,15 @@ export type RouteOptionsPreAllOptions = RouteOptionsPreObject | RouteOptionsPreO
  * * failAction - A failAction value which determine what to do when a pre-handler method throws an error. If assign is specified and the failAction setting is not 'error', the error will be assigned.
  * For context [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionspre)
  */
-export interface RouteOptionsPreObject {
+export interface RouteOptionsPreObject<Refs extends ReqRef = ReqRefDefaults> {
     /**
      * a lifecycle method.
      */
-    method: Lifecycle.Method;
+    method: Lifecycle.Method<Refs>;
     /**
      * key name used to assign the response of the method to in request.pre and request.preResponses.
      */
-    assign?: string | undefined;
+    assign?: keyof Refs['Pres'] | undefined;
     /**
      * A failAction value which determine what to do when a pre-handler method throws an error. If assign is specified and the failAction setting is not 'error', the error will be assigned.
      */
@@ -1733,11 +1849,10 @@ export type RouteCompressionEncoderSettings = object;
 /**
  * Empty interface to allow for user-defined augmentations.
  */
-/* tslint:disable-next-line:no-empty-interface */
-export interface RouteOptionsApp {
-}
 
-export interface CommonRouteProperties {
+export interface RouteOptionsApp {}
+
+export interface CommonRouteProperties<Refs extends ReqRef = ReqRefDefaults> {
     /**
      * Application-specific route configuration state. Should not be used by plugins which should use options.plugins[name] instead.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsapp)
@@ -1749,7 +1864,7 @@ export interface CommonRouteProperties {
      * An object passed back to the provided handler (via this) when called. Ignored if the method is an arrow function.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsbind)
      */
-    bind?: object | null | undefined;
+    bind?: MergeRefs<Refs>['Bind'] | undefined;
 
     /**
      * @default { privacy: 'default', statuses: [200], otherwise: 'no-cache' }.
@@ -1828,7 +1943,7 @@ export interface CommonRouteProperties {
      * generator. Note: handlers using a fat arrow style function cannot be bound to any bind property. Instead, the bound context is available under h.context.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionshandler)
      */
-    handler?: Lifecycle.Method | object | undefined;
+    handler?: Lifecycle.Method<Refs> | object | undefined;
 
     /**
      * @default none.
@@ -1915,7 +2030,7 @@ export interface CommonRouteProperties {
      * lifecycle methods.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionspre)
      */
-    pre?: RouteOptionsPreArray | undefined;
+    pre?: RouteOptionsPreArray<Refs> | undefined;
 
     /**
      * Processing rules for the outgoing response.
@@ -2001,7 +2116,7 @@ export interface RouteSettings extends CommonRouteProperties {
  * Each route can be customized to change the default behavior of the request lifecycle.
  * For context [See docs](https://github.com/hapijs/hapi/blob/master/API.md#route-options)
  */
-export interface RouteOptions extends CommonRouteProperties {
+export interface RouteOptions<Refs extends ReqRef = ReqRefDefaults> extends CommonRouteProperties<Refs> {
     /**
      * Route authentication configuration. Value can be:
      * false to disable authentication if a default strategy is set.
@@ -2034,21 +2149,23 @@ export type ServerAuthSchemeOptions = object;
  * @param server - a reference to the server object the scheme is added to.
  * @param options - (optional) the scheme options argument passed to server.auth.strategy() when instantiation a strategy.
  */
-export type ServerAuthScheme = (server: Server, options?: ServerAuthSchemeOptions) => ServerAuthSchemeObject;
+export type ServerAuthScheme<
+    Options extends ServerAuthSchemeOptions = ServerAuthSchemeOptions,
+    Refs extends ReqRef = ReqRefDefaults
+> = (server: Server, options?: Options) => ServerAuthSchemeObject<Refs>;
 
-/* tslint:disable-next-line:no-empty-interface */
-export interface ServerAuthSchemeObjectApi {
-}
+export interface ServerAuthSchemeObjectApi {}
 
 /**
  * The scheme method must return an object with the following
  * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#authentication-scheme)
  */
-export interface ServerAuthSchemeObject {
+
+export interface ServerAuthSchemeObject<Refs extends ReqRef = ReqRefDefaults> {
     /**
      * optional object which is exposed via the [server.auth.api](https://github.com/hapijs/hapi/blob/master/API.md#server.auth.api) object.
      */
-    api?: ServerAuthSchemeObjectApi | undefined;
+    api?: MergeRefs<Refs>['AuthApi'] | undefined;
 
     /**
      * A lifecycle method function called for each incoming request configured with the authentication scheme. The
@@ -2059,7 +2176,7 @@ export interface ServerAuthSchemeObject {
      * @param h the ResponseToolkit
      * @return the Lifecycle.ReturnValue
      */
-    authenticate(request: Request, h: ResponseToolkit): Lifecycle.ReturnValue;
+    authenticate(request: Request<Refs>, h: ResponseToolkit<Refs>): Lifecycle.ReturnValue<Refs>;
 
     /**
      * A lifecycle method to authenticate the request payload.
@@ -2070,7 +2187,7 @@ export interface ServerAuthSchemeObject {
      * @param h the ResponseToolkit
      * @return the Lifecycle.ReturnValue
      */
-    payload?(request: Request, h: ResponseToolkit): Lifecycle.ReturnValue;
+    payload?(request: Request<Refs>, h: ResponseToolkit<Refs>): Lifecycle.ReturnValue<Refs>;
 
     /**
      * A lifecycle method to decorate the response with authentication headers before the response headers or payload is written.
@@ -2078,7 +2195,7 @@ export interface ServerAuthSchemeObject {
      * @param h the ResponseToolkit
      * @return the Lifecycle.ReturnValue
      */
-    response?(request: Request, h: ResponseToolkit): Lifecycle.ReturnValue;
+    response?(request: Request<Refs>, h: ResponseToolkit<Refs>): Lifecycle.ReturnValue<Refs>;
 
     /**
      * a method used to verify the authentication credentials provided
@@ -2087,7 +2204,14 @@ export interface ServerAuthSchemeObject {
      * revoked). Note that the method does not have access to the original request, only to the
      * credentials and artifacts produced by the `authenticate()` method.
      */
-    verify?(auth: RequestAuth): Promise<void>;
+    verify?(
+        auth: RequestAuth<
+            MergeRefs<Refs>['AuthUser'],
+            MergeRefs<Refs>['AuthApp'],
+            MergeRefs<Refs>['AuthCredentialsExtra'],
+            MergeRefs<Refs>['AuthArtifactsExtra']
+        >
+    ): Promise<void>;
 
     /**
      * An object with the following keys:
@@ -2105,7 +2229,7 @@ export interface ServerAuthSchemeObject {
  * An authentication configuration object using the same format as the route auth handler options.
  * For reference [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverauthdefaultoptions)
  */
-/* tslint:disable-next-line:no-empty-interface */
+
 export interface ServerAuthConfig extends RouteOptionsAccess {
 }
 
@@ -2154,7 +2278,11 @@ export interface ServerAuth {
      * @return void.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverauthschemename-scheme)
      */
-    scheme(name: string, scheme: ServerAuthScheme): void;
+
+    scheme <
+        Refs extends ReqRef = ReqRefDefaults,
+        Options extends object = {}
+    >(name: string, scheme: ServerAuthScheme<Options, Refs>): void;
 
     /**
      * Registers an authentication strategy where:
@@ -2164,7 +2292,11 @@ export interface ServerAuth {
      * @return Return value: none.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverauthstrategyname-scheme-options)
      */
-    strategy(name: string, scheme: string, options?: object): void;
+    strategy(
+        name: MergeType<InternalRouteOptionType, RouteOptionTypes>['Strategy'],
+        scheme: string,
+        options?: object
+    ): void;
 
     /**
      * Tests a request against an authentication strategy where:
@@ -2188,7 +2320,7 @@ export interface ServerAuth {
      * are still valid (e.g. have not been revoked or expired). It does not include verifying scope,
      * entity, or other route properties.
      */
-    verify(request: Request): Promise<void>;
+    verify <Refs = ReqRefDefaults>(request: Request<Refs>): Promise<void>;
 }
 
 export type CachePolicyOptions<T> = PolicyOptionVariants<T> & {
@@ -2307,7 +2439,7 @@ export interface ServerEventCriteria<T> {
      * * * tags - a tag string or array of tag strings.
      * * * all - if true, all tags must be present for the event update to match the subscription. Defaults to false (at least one matching tag).
      */
-    filter?: string | string[] | {tags: string | string[], all?: boolean | undefined} | undefined;
+    filter?: string | string[] | { tags: string | string[]  | undefined, all?: boolean  | undefined } | undefined;
     /**
      * if true, and the data object passed to server.event.emit() is an array, the listener method is called with each array element passed as a separate argument. This should only be used
      * when the emitted data structure is known and predictable. Defaults to the event registration option (which defaults to false).
@@ -2526,8 +2658,8 @@ export interface ServerExtEventsObject {
     options?: ServerExtOptions | undefined;
 }
 
-export interface RouteExtObject {
-    method: Lifecycle.Method;
+export interface RouteExtObject<Refs extends ReqRef = ReqRefDefaults> {
+    method: Lifecycle.Method<Refs>;
     options?: ServerExtOptions | undefined;
 }
 
@@ -2740,12 +2872,12 @@ export interface ServerInjectOptions extends Shot.RequestOptions {
  * For context [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-await-serverinjectoptions)
  * For context [Shot module](https://github.com/hapijs/shot)
  */
-export interface ServerInjectResponse extends Shot.ResponseObject {
+export interface ServerInjectResponse<Result = object> extends Shot.ResponseObject {
     /**
      * the raw handler response (e.g. when not a stream or a view) before it is serialized for transmission. If not available, the value is set to payload. Useful for inspection and reuse of the
      * internal objects returned (instead of parsing the response string).
      */
-    result: object | undefined;
+    result: Result | undefined;
     /**
      * the request object.
      */
@@ -2863,7 +2995,7 @@ export interface ServerOptionsCompression {
 /**
  * Empty interface to allow for custom augmentation.
  */
-/* tslint:disable-next-line:no-empty-interface */
+
 export interface ServerOptionsApp {
 }
 
@@ -3045,7 +3177,7 @@ export interface ServerOptions {
         isHttpOnly?: boolean | undefined,
         isSameSite?: SameSitePolicy | undefined,
         encoding?: 'none' | 'base64' | 'base64json' | 'form' | 'iron' | undefined
-    } | undefined;
+    };
 
     /**
      * @default none.
@@ -3166,25 +3298,35 @@ export interface ServerRegisterPluginObject<T> extends ServerRegisterOptions {
     options?: T | undefined;
 }
 
-export interface ServerRegisterPluginObjectArray<T, U, V, W, X, Y, Z> extends Array<ServerRegisterPluginObject<T>
-                                                                                    | ServerRegisterPluginObject<U>
-                                                                                    | ServerRegisterPluginObject<V>
-                                                                                    | ServerRegisterPluginObject<W>
-                                                                                    | ServerRegisterPluginObject<X>
-                                                                                    | ServerRegisterPluginObject<Y>
-                                                                                    | ServerRegisterPluginObject<Z>
-                                                                                    | undefined> {
-    0: ServerRegisterPluginObject<T>;
-    1?: ServerRegisterPluginObject<U> | undefined;
-    2?: ServerRegisterPluginObject<V> | undefined;
-    3?: ServerRegisterPluginObject<W> | undefined;
-    4?: ServerRegisterPluginObject<X> | undefined;
-    5?: ServerRegisterPluginObject<Y> | undefined;
-    6?: ServerRegisterPluginObject<Z> | undefined;
+export type ServerRegisterPluginObjectArray<T, U, V, W, X, Y, Z> = Array<
+    ServerRegisterPluginObject<T> |
+    ServerRegisterPluginObject<U> |
+    ServerRegisterPluginObject<V> |
+    ServerRegisterPluginObject<W> |
+    ServerRegisterPluginObject<X> |
+    ServerRegisterPluginObject<Y> |
+    ServerRegisterPluginObject<Z>
+>;
+
+export interface HandlerDecorations {}
+
+export interface RouteRules {}
+
+export interface RulesInfo {
+    method: string;
+    path: string;
+    vhost: string;
 }
 
-/* tslint:disable-next-line:no-empty-interface */
-export interface HandlerDecorations {
+export interface RulesOptions<Refs extends ReqRef = ReqRefDefaults> {
+    validate: {
+        schema?: ObjectSchema<MergeRefs<Refs>['Rules']> | Record<keyof MergeRefs<Refs>['Rules'], Schema>;
+        options?: ValidationOptions;
+    };
+}
+
+export interface RulesProcessor<Refs extends ReqRef = ReqRefDefaults> {
+    (rules: MergeRefs<Refs>['Rules'] | null, info: RulesInfo): Partial<RouteOptions<Refs>> | null;
 }
 
 /**
@@ -3202,7 +3344,7 @@ export interface HandlerDecorations {
  * * rules - route custom rules object. The object is passed to each rules processor registered with server.rules(). Cannot be used if route.options.rules is defined.
  * For context [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverrouteroute)
  */
-export interface ServerRoute {
+export interface ServerRoute<Refs extends ReqRef = ReqRefDefaults> {
     /**
      * (required) the absolute path used to match incoming requests (must begin with '/'). Incoming requests are compared to the configured paths based on the server's router configuration. The path
      * can include named parameters enclosed in {} which will be matched against literal values in the request as described in Path parameters. For context [See
@@ -3226,18 +3368,18 @@ export interface ServerRoute {
     /**
      * (required when handler is not set) the route handler function called to generate the response after successful authentication and validation.
      */
-    handler?: Lifecycle.Method | HandlerDecorations | undefined;
+    handler?: Lifecycle.Method<Refs> | HandlerDecorations | undefined;
 
     /**
      * additional route options. The options value can be an object or a function that returns an object using the signature function(server) where server is the server the route is being added to
      * and this is bound to the current realm's bind option.
      */
-    options?: RouteOptions | ((server: Server) => RouteOptions) | undefined;
+    options?: RouteOptions<Refs> | ((server: Server) => RouteOptions<Refs>) | undefined;
 
     /**
      * route custom rules object. The object is passed to each rules processor registered with server.rules(). Cannot be used if route.options.rules is defined.
      */
-    rules?: object | undefined;
+    rules?: Refs['Rules'] | undefined;
 }
 
 /**
@@ -3388,7 +3530,7 @@ export type DecorationMethod<T> = (this: T, ...args: any[]) => any;
 /**
  * An empty interface to allow typings of custom plugin properties.
  */
-/* tslint:disable-next-line:no-empty-interface */
+
 export interface PluginProperties {
 }
 
@@ -3783,7 +3925,7 @@ export class Server {
      * * request - the request object.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-await-serverinjectoptions)
      */
-    inject(options: string | ServerInjectOptions): Promise<ServerInjectResponse>;
+    inject <Result = object>(options: string | ServerInjectOptions): Promise<ServerInjectResponse<Result>>;
 
     /**
      * Logs server events that cannot be associated with a specific request. When called the server emits a 'log' event which can be used by other listeners or plugins to record the information or
@@ -3903,7 +4045,9 @@ export class Server {
      * Note that the options object is deeply cloned (with the exception of bind which is shallowly copied) and cannot contain any values that are unsafe to perform deep copy on.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverrouteroute)
      */
-    route(route: ServerRoute | ServerRoute[]): void;
+
+    // tslint:disable-next-line:no-unnecessary-generics
+    route <Refs extends ReqRef = ReqRefDefaults>(route: ServerRoute<Refs> | Array<ServerRoute<Refs>>): void;
 
     /**
      * Defines a route rules processor for converting route rules object into route configuration where:
@@ -3924,7 +4068,10 @@ export class Server {
      * @return void
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverrulesprocessor-options)
      */
-    rules(processor: (rules: object, info: {method: string, path: string, vhost?: string | undefined}) => object, options?: {validate: object}): void; // TODO needs implementation
+    rules <Refs extends ReqRef = ReqRefDefaults>(
+        processor: RulesProcessor<Refs>,
+        options?: RulesOptions<Refs>
+    ): void;
 
     /**
      * Starts the server by listening for incoming requests on the configured port (unless the connection was configured with autoListen set to false).
@@ -3992,21 +4139,21 @@ export function server(opts?: ServerOptions): Server;
 /**
  *  User-extensible type for application specific state (`server.app`).
  */
- /* tslint:disable-next-line:no-empty-interface */
+
 export interface ServerApplicationState {
 }
 
 /**
  *  User-extensible type for application specific state on requests (`request.app`).
  */
- /* tslint:disable-next-line:no-empty-interface */
+
  export interface RequestApplicationState {
 }
 
 /**
  *  User-extensible type for application specific state on responses (`response.app`).
  */
- /* tslint:disable-next-line:no-empty-interface */
+
  export interface ResponseApplicationState {
 }
 
@@ -4048,7 +4195,15 @@ export namespace Lifecycle {
      * * h - the response toolkit the handler must call to set a response and return control back to the framework.
      * * err - an error object availble only when the method is used as a failAction value.
      */
-    type Method = (request: Request, h: ResponseToolkit, err?: Error) => ReturnValue;
+    type Method<
+        Refs extends ReqRef = ReqRefDefaults,
+        R extends ReturnValue<any> = ReturnValue<Refs>
+    > = (
+            this: MergeRefs<Refs>['Bind'],
+            request: Request<Refs>,
+            h: ResponseToolkit<Refs>,
+            err?: Error
+        ) => R;
 
     /**
      * Each lifecycle method must return a value or a promise that resolves into a value. If a lifecycle method returns
@@ -4064,15 +4219,20 @@ export namespace Lifecycle {
      * - a promise object that resolve to any of the above values
      * For more info please [See docs](https://github.com/hapijs/hapi/blob/master/API.md#lifecycle-methods)
      */
-    type ReturnValue = ReturnValueTypes | (Promise<ReturnValueTypes>);
-    type ReturnValueTypes =
+    type ReturnValue<Refs extends ReqRef = ReqRefDefaults> = ReturnValueTypes<Refs> | (Promise<ReturnValueTypes<Refs>>);
+    type ReturnValueTypes<Refs extends ReqRef = ReqRefDefaults> =
         (null | string | number | boolean) |
         (Buffer) |
         (Error | Boom) |
         (stream.Stream) |
         (object | object[]) |
         symbol |
-        Auth |
+        Auth<
+            MergeRefs<Refs>['AuthUser'],
+            MergeRefs<Refs>['AuthApp'],
+            MergeRefs<Refs>['AuthCredentialsExtra'],
+            MergeRefs<Refs>['AuthArtifactsExtra']
+        > |
         ResponseObject;
 
     /**
