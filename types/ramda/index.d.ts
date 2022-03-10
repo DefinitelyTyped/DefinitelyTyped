@@ -89,15 +89,15 @@ export function add(a: number): (b: number) => number;
  */
 export function addIndex<T, U>(
     fn: (f: (item: T) => U, list: readonly T[]) => U[],
-): _.F.Curry<(a: (item: T, idx: number, list?: T[]) => U, b: readonly T[]) => U[]>;
+): _.F.Curry<(a: (item: T, idx: number, list: T[]) => U, b: readonly T[]) => U[]>;
 /* Special case for forEach */
 export function addIndex<T>(
     fn: (f: (item: T) => void, list: readonly T[]) => T[],
-): _.F.Curry<(a: (item: T, idx: number, list?: T[]) => void, b: readonly T[]) => T[]>;
+): _.F.Curry<(a: (item: T, idx: number, list: T[]) => void, b: readonly T[]) => T[]>;
 /* Special case for reduce */
 export function addIndex<T, U>(
     fn: (f: (acc: U, item: T) => U, aci: U, list: readonly T[]) => U,
-): _.F.Curry<(a: (acc: U, item: T, idx: number, list?: T[]) => U, b: U, c: readonly T[]) => U>;
+): _.F.Curry<(a: (acc: U, item: T, idx: number, list: T[]) => U, b: U, c: readonly T[]) => U>;
 
 /**
  * Applies a function to the value at the given index of an array, returning a new copy of the array with the
@@ -518,7 +518,6 @@ export function contains<T>(a: T): (list: readonly T[]) => boolean;
  * function is applied to those same arguments. The results of each branching function
  * are passed as arguments to the converging function to produce the return value.
  */
-// tslint:disable:max-line-length
 export function converge<
     TArgs extends any[],
     TResult,
@@ -531,7 +530,7 @@ export function converge<
     R7,
     RestFunctions extends Array<(...args: TArgs) => any>,
 >(
-    converging: (...args: readonly [R1, R2, R3, R4, R5, R6, R7, ...ReturnTypesOfFns<RestFunctions>]) => TResult,
+    converging: (...args: [R1, R2, R3, R4, R5, R6, R7, ...ReturnTypesOfFns<RestFunctions>]) => TResult,
     branches: [
         (...args: TArgs) => R1,
         (...args: TArgs) => R2,
@@ -544,7 +543,7 @@ export function converge<
     ],
 ): (...args: TArgs) => TResult;
 export function converge<TArgs extends any[], TResult, R1, R2, R3, R4, R5, R6, R7>(
-    converging: (...args: readonly [R1, R2, R3, R4, R5, R6, R7] & { length: 7 }) => TResult,
+    converging: (...args: [R1, R2, R3, R4, R5, R6, R7] & { length: 7 }) => TResult,
     branches: [
         (...args: TArgs) => R1,
         (...args: TArgs) => R2,
@@ -556,7 +555,7 @@ export function converge<TArgs extends any[], TResult, R1, R2, R3, R4, R5, R6, R
     ],
 ): (...args: TArgs) => TResult;
 export function converge<TArgs extends any[], TResult, R1, R2, R3, R4, R5, R6>(
-    converging: (...args: readonly [R1, R2, R3, R4, R5, R6] & { length: 6 }) => TResult,
+    converging: (...args: [R1, R2, R3, R4, R5, R6] & { length: 6 }) => TResult,
     branches: [
         (...args: TArgs) => R1,
         (...args: TArgs) => R2,
@@ -567,7 +566,7 @@ export function converge<TArgs extends any[], TResult, R1, R2, R3, R4, R5, R6>(
     ],
 ): (...args: TArgs) => TResult;
 export function converge<TArgs extends any[], TResult, R1, R2, R3, R4, R5>(
-    converging: (...args: readonly [R1, R2, R3, R4, R5] & { length: 5 }) => TResult,
+    converging: (...args: [R1, R2, R3, R4, R5] & { length: 5 }) => TResult,
     branches: [
         (...args: TArgs) => R1,
         (...args: TArgs) => R2,
@@ -577,22 +576,21 @@ export function converge<TArgs extends any[], TResult, R1, R2, R3, R4, R5>(
     ],
 ): (...args: TArgs) => TResult;
 export function converge<TArgs extends any[], TResult, R1, R2, R3, R4>(
-    converging: (...args: readonly [R1, R2, R3, R4] & { length: 4 }) => TResult,
+    converging: (...args: [R1, R2, R3, R4] & { length: 4 }) => TResult,
     branches: [(...args: TArgs) => R1, (...args: TArgs) => R2, (...args: TArgs) => R3, (...args: TArgs) => R4],
 ): (...args: TArgs) => TResult;
 export function converge<TArgs extends any[], TResult, R1, R2, R3>(
-    converging: (...args: readonly [R1, R2, R3] & { length: 3 }) => TResult,
+    converging: (...args: [R1, R2, R3] & { length: 3 }) => TResult,
     branches: [(...args: TArgs) => R1, (...args: TArgs) => R2, (...args: TArgs) => R3],
 ): (...args: TArgs) => TResult;
 export function converge<TArgs extends any[], TResult, R1, R2>(
-    converging: (...args: readonly [R1, R2] & { length: 2 }) => TResult,
+    converging: (...args: [R1, R2] & { length: 2 }) => TResult,
     branches: [(...args: TArgs) => R1, (...args: TArgs) => R2],
 ): (...args: TArgs) => TResult;
 export function converge<TArgs extends any[], TResult, R1>(
-    converging: (...args: readonly [R1] & { length: 1 }) => TResult,
+    converging: (...args: [R1] & { length: 1 }) => TResult,
     branches: [(...args: TArgs) => R1],
 ): (...args: TArgs) => TResult;
-// tslint:enable:max-line-length
 
 /**
  * Returns the number of items in a given `list` matching the predicate `f`
@@ -768,7 +766,12 @@ export function endsWith<T>(subList: readonly T[]): (list: readonly T[]) => bool
  */
 export function eqBy<T, U = T>(fn: (a: T) => U, a: T, b: T): boolean;
 export function eqBy<T, U = T>(fn: (a: T) => U, a: T): (b: T) => boolean;
-export function eqBy<T, U = T>(fn: (a: T) => U): _.F.Curry<(a: T, b: T) => boolean>;
+export function eqBy<T, U = T>(
+    fn: (a: T) => U,
+): {
+    (a: T, b: T): boolean;
+    (a: T): (b: T) => boolean;
+};
 
 /**
  * Reports whether two functions have the same value for the specified property.
@@ -2422,6 +2425,7 @@ export function take(n: number): {
     (xs: string): string;
     <T>(xs: readonly T[]): T[];
 };
+export function take<T>(n: number): (xs: readonly T[]) => T[];
 
 /**
  * Returns a new list containing the last n elements of the given list. If n > list.length,
@@ -2430,8 +2434,8 @@ export function take(n: number): {
 export function takeLast<T>(n: number, xs: readonly T[]): T[];
 export function takeLast(n: number, xs: string): string;
 export function takeLast(n: number): {
-    <T>(xs: readonly T[]): T[];
     (xs: string): string;
+    <T>(xs: readonly T[]): T[];
 };
 
 /**
@@ -2535,19 +2539,19 @@ export function transduce<T, U>(
     fn: (acc: readonly U[], val: U) => U[],
     acc: readonly T[],
     list: readonly T[],
-): U;
+): U[];
 export function transduce<T, U>(
     xf: (arg: readonly T[]) => T[],
-): (fn: (acc: readonly U[], val: U) => U[], acc: readonly T[], list: readonly T[]) => U;
+): (fn: (acc: readonly U[], val: U) => U[], acc: readonly T[], list: readonly T[]) => U[];
 export function transduce<T, U>(
     xf: (arg: readonly T[]) => T[],
     fn: (acc: readonly U[], val: U) => U[],
-): (acc: readonly T[], list: readonly T[]) => U;
+): (acc: readonly T[], list: readonly T[]) => U[];
 export function transduce<T, U>(
     xf: (arg: readonly T[]) => T[],
     fn: (acc: readonly U[], val: U) => U[],
     acc: readonly T[],
-): (list: readonly T[]) => U;
+): (list: readonly T[]) => U[];
 
 /**
  * Transposes the rows and columns of a 2D list. When passed a list of n lists of length x, returns a list of x lists of length n.
@@ -2809,7 +2813,9 @@ export function view<S, A>(lens: Lens<S, A>, obj: S): A;
  * will return the result of calling the whenTrueFn function with the same argument. If the predicate is not satisfied,
  * the argument is returned as is.
  */
+export function when<T, U extends T, V>(pred: (a: T) => a is U, whenTrueFn: (a: U) => V, a: T): T | V;
 export function when<T, U>(pred: (a: T) => boolean, whenTrueFn: (a: T) => U, a: T): T | U;
+export function when<T, U extends T, V>(pred: (a: T) => a is U, whenTrueFn: (a: U) => V): (a: T) => T | V;
 export function when<T, U>(pred: (a: T) => boolean, whenTrueFn: (a: T) => U): (a: T) => T | U;
 
 /**
