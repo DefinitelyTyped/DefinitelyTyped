@@ -3,6 +3,7 @@ import {
     AccordionItem,
     AspectRatio,
     Button,
+    Checkbox,
     CodeSnippet,
     CodeSnippetType,
     Column,
@@ -696,24 +697,10 @@ const dropdownItemCanBeElement = (
 
 // Popover
 {
-    const popoverContentDivRef = React.useRef<HTMLDivElement | null>(null);
+    const popoverContentRef = React.useRef<HTMLSpanElement | null>(null);
     const popoverT1 = (
         <Popover open align="bottom" caret>
-            <PopoverContent ref={popoverContentDivRef}>Content</PopoverContent>
-        </Popover>
-    );
-
-    const popoverContentFieldSetRef = React.useRef<HTMLFieldSetElement | null>(null);
-    const popoverIntrinsicT1 = (
-        <Popover open={false}>
-            <PopoverContent as="fieldset" disabled form="test" ref={popoverContentFieldSetRef}>Content</PopoverContent>
-        </Popover>
-    );
-
-    const popoverContentCustomRef = React.useRef<{ someFn: () => void } | null>(null);
-    const popoverCustomComponentT1 = (
-        <Popover open>
-            <PopoverContent as={TestComp2} someProp={2} ref={popoverContentCustomRef}>Content</PopoverContent>
+            <PopoverContent ref={popoverContentRef} onClick={(evt) => {}}>Content</PopoverContent>
         </Popover>
     );
 }
@@ -1190,4 +1177,16 @@ const dataTableSkeletonBasic = (
             Test
         </Dialog>
     );
+}
+
+//
+// Checkbox
+//
+{
+    const inputRef = React.createRef<HTMLInputElement>();
+    <Checkbox
+        id=""
+        labelText=""
+        ref={inputRef}
+    />;
 }

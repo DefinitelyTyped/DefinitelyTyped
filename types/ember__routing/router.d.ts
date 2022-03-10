@@ -18,23 +18,15 @@ export default class Router extends EmberObject.extend(Evented) {
     /**
      * The `location` property determines the type of URL's that your
      * application will use.
+     *
+     * @note the `'auto'` location is [deprecated](https://deprecations.emberjs.com/v4.x/#toc_deprecate-auto-location).
      */
-    location: string;
+    location: 'history' | 'hash' | 'none' | 'auto';
     /**
      * Represents the URL of the root of the application, often '/'. This prefix is
      * assumed on all routes defined on this router.
      */
     rootURL: string;
-    /**
-     * Handles updating the paths and notifying any listeners of the URL
-     * change.
-     */
-    didTransition(): any;
-    /**
-     * Handles notifying any listeners of an impending URL
-     * change.
-     */
-    willTransition(): any;
     /**
      * Transition the application into another route. The route may
      * be either a single route or route path:

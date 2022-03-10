@@ -106,3 +106,23 @@ export abstract class SetStateTestForExtendsState<P, S extends { baseProp: strin
 //            this.setState({ baseProp: 'foobar' });
 //        }
 // }
+
+function reactNodeTests() {
+    function *createChildren() {
+        yield <div key="one">one</div>;
+        yield <div key="two">two</div>;
+    }
+
+    <div>{Object.freeze([<div key="one">one</div>, <div key="two">two</div>])}</div>;
+    <div>{new Set([<div key="one">one</div>, <div key="two">two</div>])}</div>;
+    // TODO: This warns at runtime so we should probably reject it as well
+    <div>
+        {
+            new Map([
+                ['one', <div key="one">one</div>],
+                ['two', <div key="two">two</div>],
+            ])
+        }
+    </div>;
+    <div>{createChildren()}</div>;
+}

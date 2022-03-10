@@ -2,6 +2,7 @@ import * as http from 'http';
 import * as stream from 'stream';
 import * as url from 'url';
 import * as net from 'net';
+import * as dns from 'dns';
 
 // http Server
 {
@@ -124,6 +125,12 @@ import * as net from 'net';
 
     // method
     const method: string = req.method;
+
+    // maxHeadersCount
+    const maxHeadersCount: number = req.maxHeadersCount;
+
+    // reusedSocket
+    const reusedSocket: boolean = req.reusedSocket;
 }
 
 {
@@ -424,4 +431,10 @@ import * as net from 'net';
       _socket = socket;
       _head = head;
     });
+}
+
+{
+  http.request({ lookup: undefined });
+  http.request({ lookup: dns.lookup });
+  http.request({ lookup: (hostname, options, cb) => { cb(null, '', 1); } });
 }

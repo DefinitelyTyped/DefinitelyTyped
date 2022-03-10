@@ -98,6 +98,8 @@ Pet.findOneAndUpdateDeleted({ age: 10 }, { name: 'Fluffy' });
 Pet.findOneAndUpdateWithDeleted({ age: 10 }, { name: 'Fluffy' });
 Pet.updateDeleted({ age: 10 }, { name: 'Fluffy' });
 Pet.updateWithDeleted({ age: 10 }, { name: 'Fluffy' });
+Pet.updateOneDeleted({ age: 10 }, { name: 'Fluffy' });
+Pet.updateOneWithDeleted({ age: 10 }, { name: 'Fluffy' });
 Pet.updateManyDeleted({ age: 10 }, { name: 'Fluffy' });
 Pet.updateManyWithDeleted({ age: 10 }, { name: 'Fluffy' });
 Pet.aggregateDeleted([{ $match: { age: 10 } }]);

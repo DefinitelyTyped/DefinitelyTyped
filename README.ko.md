@@ -51,33 +51,16 @@ npm 의 "foo" 패키지에 대응되는 자료형 패키지는 "@types/foo" 입�
 이 경우 주로 `package.json` 파일의 `"types"` 나 `"typings"` 필드(Field)를 통해 제공되지만,
 `/// <reference path="" />` 같은 주석을 사용하여 패키지 안의 ".d.ts" 파일들을 직접 가져와야 할 수도 있습니다.
 
-#### 이전 버전 TypeScript (3.6 또는 그 이전)
+#### 이전 버전 TypeScript (3.7 또는 그 이전)
 
 Definitely Typed는 2년이 지나지 않은 TypeScript 버전만을 대상으로 패키지를 테스트합니다.
-현재 버전 3.7 및 그 이상만을 테스트하고 있습니다.
-TypeScript 2.0에서 3.6 버전을 사용하는 경우, 그래도 `@types` 패키지를 한번 설치해 보셔도 무방합니다. 최신 TypeScript 기능을 사용하는 패키지는 그리 많지 않으니까요.
+현재 버전 3.8 및 그 이상만을 테스트하고 있습니다.
+TypeScript 2.0에서 3.7 버전을 사용하는 경우, 그래도 `@types` 패키지를 한번 설치해 보셔도 무방합니다. 최신 TypeScript 기능을 사용하는 패키지는 그리 많지 않으니까요.
 그러나 작동 여부를 보장하지는 못합니다.
 지원 기간은 다음과 같습니다:
 
-버전 | 출시일 | 지원 종료
--- | -- | --
-2.8 | 2018년 3월 | 2020년 3월
-2.9 | 2018년 5월 | 2020년 5월
-3.0 | 2018년 7월 | 2020년 7월
-3.1 | 2018년 9월 | 2020년 9월
-3.2 | 2018년 11월 | 2020년 11월
-3.3 | 2019년 1월 | 2021년 1월
-3.4 | 2019년 3월 | 2021년 3월
-3.5 | 2019년 5월 | 2021년 5월
-3.6 | 2019년 8월 | 2021년 8월
-3.7 | 2019년 11월 | 2021년 11월
-3.8 | 2020년 2월 | 2022년 2월
-3.9 | 2020년 5월 | 2022년 5월
-4.0 | 2020년 8월 | 2022년 8월
-4.1 | 2020년 11월 | 2022년 11월
-4.2 | 2021년 2월 | 2023년 2월
-4.3 | 2021년 5월 | 2023년 5월
-4.4 | 2021년 8월 | 2023년 8월
+<img src="docs/support-window.svg#gh-light-mode-only" style="width:100%">
+<img src="docs/support-window.svg#gh-dark-mode-only" style="width:100%">
 
 `@types` 패키지 안에는 패키지가 확실하게 지원하는 TypeScript 버전이 태그로 쓰여 있으므로, 2년 지원 기간이 지난 오래된 패키지도 보통 찾아보실 수 있습니다.
 예를 들어, `npm dist-tags @types/react` 명령어를 입력하면 TypeScript 2.5는 react@16.0용 타입을, TypeScript 2.6 및 2.7은 react@16.4용 타입을 사용할 수 있는 것을 확인하실 수 있습니다:
@@ -264,7 +247,7 @@ f("one");
 
 #### Linter: `tslint.json`
 
-The linter configuration file, `tslint.json` should contain `{ "extends": "dtslint/dt.json" }`, and no additional rules.
+The linter configuration file, `tslint.json` should contain `{ "extends": "@definitelytyped/dtslint/dt.json" }`, and no additional rules.
 
 If for some reason some rule needs to be disabled, [disable it for that specific line](https://palantir.github.io/tslint/usage/rule-flags/#comment-flags-in-source-code:~:text=%2F%2F%20tslint%3Adisable%2Dnext%2Dline%3Arule1%20rule2%20rule3...%20%2D%20Disables%20the%20listed%20rules%20for%20the%20next%20line) using `// tslint:disable-next-line:[ruleName]` — not for the whole package, so that disabling can be reviewed. (There are some legacy lint configs that have additional contents, but these should not happen in new work.)
 
@@ -382,7 +365,7 @@ npm 패키지의 경우, `node -p 'require("foo")'` 가 원하는 값이라면 `
 1. `tsconfig.json` 와 `tslint.json` 에 포함된 상대경로들을 수정해주어야 합니다.
 2. 경로 대응 규칙(Path mapping rule)을 추가하여 테스트가 올바른 버전을 검사하도록 해야합니다.
 
-예를 들어, [history 패키지의 2 버전의 `tsconfig.json`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/history/v2/tsconfig.json) 파일은 다음과 같이 생겼습니다.
+예를 들어, [history 패키지의 2 버전의 `tsconfig.json`](https://github.com/%44efinitelyTyped/DefinitelyTyped/blob/1253faabf5e0d2c5470db6ea87795d7f96fef7e2/types/history/v2/tsconfig.json) 파일은 다음과 같이 생겼습니다.
 
 ```json
 {

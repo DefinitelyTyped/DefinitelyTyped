@@ -51,6 +51,11 @@ const firehoseHandler: FirehoseTransformationHandler = async (event, context, ca
                 recordId: event.records[0].recordId,
                 result: 'Ok' as FirehoseRecordTransformationStatus,
                 data: 'eyJmb28iOiJiYXIifQ==',
+                metadata: {
+                    partitionKeys: {
+                        testPart: 'test1'
+                    }
+                }
             },
         ],
     };

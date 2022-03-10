@@ -2,6 +2,7 @@ import * as http from 'node:http';
 import * as stream from 'node:stream';
 import * as url from 'node:url';
 import * as net from 'node:net';
+import * as dns from 'node:dns';
 
 // http Server
 {
@@ -72,7 +73,7 @@ import * as net from 'node:net';
     res.addTrailers({ 'x-foo': 'bar' });
 
     // writeHead
-    res.writeHead(200, 'OK\r\nContent-Type: text/html\r\n').end();
+    res.writeHead(200, 'OK\r\nContent-Type: text/html\r\n').end().end();
     res.writeHead(200, { 'Transfer-Encoding': 'chunked' });
     res.writeHead(200, ['Transfer-Encoding', 'chunked']);
     res.writeHead(200);
@@ -90,7 +91,7 @@ import * as net from 'node:net';
     // end
     res.end("end msg");
     // without msg
-    res.end();
+    res.end().end();
 
     // flush
     res.flushHeaders();
@@ -115,7 +116,7 @@ import * as net from 'node:net';
     const chunk = Buffer.alloc(16390, 'Й');
     req.write(chunk);
     req.write('a');
-    req.end();
+    req.end().end();
 
     // abort
     req.abort();
@@ -138,6 +139,12 @@ import * as net from 'node:net';
 
     // method
     const method: string = req.method;
+
+    // maxHeadersCount
+    const maxHeadersCount: number = req.maxHeadersCount;
+
+    // reusedSocket
+    const reusedSocket: boolean = req.reusedSocket;
 
     const rawHeaderNames: string[] = req.getRawHeaderNames();
 }
@@ -209,12 +216,12 @@ import * as net from 'node:net';
 // http request options
 {
     const requestOpts: http.RequestOptions = {
-        abort: new AbortSignal(),
+        signal: new AbortSignal(),
         timeout: 30000
     };
 
     const clientArgs: http.ClientRequestArgs = {
-        abort: new AbortSignal(),
+        signal: new AbortSignal(),
         timeout: 30000
     };
 }
@@ -446,4 +453,10 @@ import * as net from 'node:net';
       _socket = socket;
       _head = head;
     });
+}
+
+{
+  http.request({ lookup: undefined });
+  http.request({ lookup: dns.lookup });
+  http.request({ lookup: (hostname, options, cb) => { cb(null, '', 1); } });
 }

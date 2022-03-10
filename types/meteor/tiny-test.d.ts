@@ -30,7 +30,7 @@ declare module 'meteor/tiny-test' {
         _stringEqual(actual: string, expected: string, msg?: string): void;
     }
 
-    module Tinytest {
+    namespace Tinytest {
         function add(description: string, func: (test: ITinytestAssertions) => void): void;
 
         function addAsync(description: string, func: (test: ITinytestAssertions) => void): void;

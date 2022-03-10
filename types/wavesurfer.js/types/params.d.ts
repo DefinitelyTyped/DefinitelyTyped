@@ -52,6 +52,8 @@ export interface WaveSurferParams {
     forceDecode?: boolean | undefined;
     /** The height of the waveform. Measured in pixels (default: 128). */
     height?: number | undefined;
+    /** Whether to hide the mouse cursor when one would normally be shown by default (default: false). */
+    hideCursor?: boolean | undefined;
     /** Whether to hide the horizontal scrollbar when one would normally be shown (default: false). */
     hideScrollbar?: boolean | undefined;
     /** If true, ignores device silence mode. */

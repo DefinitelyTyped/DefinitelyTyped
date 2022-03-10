@@ -46,14 +46,27 @@ console.log(natural.DiceCoefficient('thing', 'thing'));
 console.log(natural.DiceCoefficient('not', 'same'));
 
 // Stemmers
+// Carry stemmers
+console.log(natural.CarryStemmerFr.stem('jugaría'));
+
+// Lancaster stemmers
+console.log(natural.LancasterStemmer.stem('words'));
+
+// Porter stemmers
 console.log(natural.PorterStemmer.stem('words')); // stem a single word
-console.log(natural.PorterStemmerRu.stem('падший'));
 console.log(natural.PorterStemmerEs.stem('jugaría'));
 console.log(natural.PorterStemmerFa.stem('jugaría'));
 console.log(natural.PorterStemmerFr.stem('jugaría'));
 console.log(natural.PorterStemmerIt.stem('jugaría'));
+console.log(natural.PorterStemmerNl.stem('tulp'));
 console.log(natural.PorterStemmerNo.stem('jugaría'));
 console.log(natural.PorterStemmerPt.stem('jugaría'));
+console.log(natural.PorterStemmerRu.stem('падший'));
+console.log(natural.PorterStemmerSv.stem('Riksdag'));
+
+// Other stemmers
+console.log(natural.StemmerId.stem('mie'));
+console.log(natural.StemmerJa.stem('言葉'));
 
 // Classifiers
 var classifier = new natural.BayesClassifier();

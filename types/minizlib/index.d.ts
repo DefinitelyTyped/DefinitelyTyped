@@ -28,8 +28,8 @@ declare class ZlibBase extends MiniPass {
     reset(): void;
     flush(flushFlag?: number): void;
 
-    end(chunk: any, cb?: () => void): void;
-    end(chunk?: any, encoding?: string | null, cb?: () => void): void;
+    end(chunk: any, cb?: () => void): this;
+    end(chunk?: any, encoding?: string | null, cb?: () => void): this;
 
     write(chunk: any, cb?: () => void): boolean;
     write(chunk?: any, encoding?: string | null, cb?: () => void): boolean;

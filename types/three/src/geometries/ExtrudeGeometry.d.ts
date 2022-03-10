@@ -57,7 +57,7 @@ export interface UVGenerator {
 }
 
 export class ExtrudeGeometry extends BufferGeometry {
-    constructor(shapes: Shape | Shape[], options?: ExtrudeGeometryOptions);
+    constructor(shapes?: Shape | Shape[], options?: ExtrudeGeometryOptions);
 
     /**
      * @default 'ExtrudeGeometry'

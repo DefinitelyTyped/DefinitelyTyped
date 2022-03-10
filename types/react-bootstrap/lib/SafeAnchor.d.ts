@@ -6,7 +6,7 @@ declare namespace SafeAnchor {
         onClick?: React.MouseEventHandler<{}> | undefined;
         disabled?: boolean | undefined;
         role?: string | undefined;
-        componentClass?: React.ReactType | undefined;
+        componentClass?: React.ElementType | undefined;
     }
 }
 declare class SafeAnchor extends React.Component<SafeAnchor.SafeAnchorProps> { }

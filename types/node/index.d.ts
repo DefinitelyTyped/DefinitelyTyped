@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Node.js 16.10
+// Type definitions for non-npm package Node.js 17.0
 // Project: https://nodejs.org/
 // Definitions by: Microsoft TypeScript <https://github.com/Microsoft>
 //                 DefinitelyTyped <https://github.com/DefinitelyTyped>
@@ -30,11 +30,9 @@
 //                 Thanik Bhongbhibhat <https://github.com/bhongy>
 //                 Marcin Kopacz <https://github.com/chyzwar>
 //                 Trivikram Kamat <https://github.com/trivikr>
-//                 Minh Son Nguyen <https://github.com/nguymin4>
 //                 Junxiao Shi <https://github.com/yoursunny>
 //                 Ilia Baryshnikov <https://github.com/qwelias>
 //                 ExE Boss <https://github.com/ExE-Boss>
-//                 Surasak Chaisurin <https://github.com/Ryan-Willpower>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 //                 Anna Henningsen <https://github.com/addaleax>
 //                 Victor Perin <https://github.com/victorperin>

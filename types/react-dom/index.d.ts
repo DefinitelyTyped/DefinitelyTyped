@@ -22,7 +22,7 @@ export as namespace ReactDOM;
 
 import {
     ReactInstance, Component, ComponentState,
-    ReactElement, SFCElement, CElement,
+    ReactElement, FunctionComponentElement, CElement,
     DOMAttributes, DOMElement, ReactNode, ReactPortal
 } from 'react';
 
@@ -77,7 +77,7 @@ export interface Renderer {
     ): Element;
 
     (
-        element: SFCElement<any> | Array<SFCElement<any>>,
+        element: FunctionComponentElement<any> | Array<FunctionComponentElement<any>>,
         container: Container| null,
         callback?: () => void
     ): void;

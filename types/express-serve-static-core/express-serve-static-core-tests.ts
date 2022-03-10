@@ -1,6 +1,13 @@
 import * as express from 'express-serve-static-core';
 
-const app: express.Application = {} as any;
+const app: express.Application<{
+    aKey: 'aValue'
+}> = {} as any;
+
+// App.locals can be extended
+app.locals.aKey; // $ExpectType "aValue"
+app.locals.bKey; // $ExpectError
+
 app.listen(3000);
 app.listen(3000, () => {
     // no-op error callback
@@ -192,6 +199,15 @@ app.route('/').post<never, { foo: string }, { bar: number }>((req, res) => {
 
     res.json({ baz: 'fail' }); // $ExpectError
     req.body.baz; // $ExpectError
+});
+
+// Cookies
+app.get('/clearcookie', (req, res) => {
+    res.clearCookie('auth'); // $ExpectType Response<any, Record<string, any>, number>
+    res.clearCookie('auth', {
+        path: '', // $ExpectType string
+        foo: '',  // $ExpectError
+    });
 });
 
 app.engine('ntl', (_filePath, _options, callback) => {

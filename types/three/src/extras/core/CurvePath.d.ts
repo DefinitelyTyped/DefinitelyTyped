@@ -21,6 +21,6 @@ export class CurvePath<T extends Vector> extends Curve<T> {
 
     add(curve: Curve<T>): void;
     closePath(): void;
-    getPoint(t: number): T;
+    getPoint(t: number, optionalTarget?: T): T;
     getCurveLengths(): number[];
 }

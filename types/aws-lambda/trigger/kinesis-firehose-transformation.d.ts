@@ -34,11 +34,16 @@ export interface FirehoseRecordMetadata {
 
 export type FirehoseRecordTransformationStatus = 'Ok' | 'Dropped' | 'ProcessingFailed';
 
+export interface FirehoseTransformationMetadata {
+    partitionKeys: { [name: string]: string };
+}
+
 export interface FirehoseTransformationResultRecord {
     recordId: string;
     result: FirehoseRecordTransformationStatus;
     /** Encode in Base64 */
     data: string;
+    metadata?: FirehoseTransformationMetadata;
 }
 
 export interface FirehoseTransformationResult {

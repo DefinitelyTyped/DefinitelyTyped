@@ -143,7 +143,7 @@ declare module 'fs' {
     }
 
     export class ReadStream extends stream.Readable {
-        close(): void;
+        close(callback?: (err?: NodeJS.ErrnoException | null) => void): void;
         bytesRead: number;
         path: string | Buffer;
         pending: boolean;
@@ -211,7 +211,7 @@ declare module 'fs' {
     }
 
     export class WriteStream extends stream.Writable {
-        close(): void;
+        close(callback?: (err?: NodeJS.ErrnoException | null) => void): void;
         bytesWritten: number;
         path: string | Buffer;
         pending: boolean;
@@ -2241,13 +2241,13 @@ declare module 'fs' {
         bufferSize?: number | undefined;
     }
 
-    export function opendirSync(path: string, options?: OpenDirOptions): Dir;
+    export function opendirSync(path: PathLike, options?: OpenDirOptions): Dir;
 
-    export function opendir(path: string, cb: (err: NodeJS.ErrnoException | null, dir: Dir) => void): void;
-    export function opendir(path: string, options: OpenDirOptions, cb: (err: NodeJS.ErrnoException | null, dir: Dir) => void): void;
+    export function opendir(path: PathLike, cb: (err: NodeJS.ErrnoException | null, dir: Dir) => void): void;
+    export function opendir(path: PathLike, options: OpenDirOptions, cb: (err: NodeJS.ErrnoException | null, dir: Dir) => void): void;
 
     export namespace opendir {
-        function __promisify__(path: string, options?: OpenDirOptions): Promise<Dir>;
+        function __promisify__(path: PathLike, options?: OpenDirOptions): Promise<Dir>;
     }
 
     export interface BigIntStats extends StatsBase<bigint> {
@@ -2267,4 +2267,7 @@ declare module 'fs' {
     export interface StatOptions {
         bigint?: boolean | undefined;
     }
+}
+declare module 'node:fs' {
+    export * from 'fs';
 }

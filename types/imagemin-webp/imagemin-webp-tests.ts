@@ -1,5 +1,5 @@
-import imagemin = require('imagemin');
-import imageminWebp = require('imagemin-webp');
+import imagemin from 'imagemin';
+import imageminWebp from 'imagemin-webp';
 
 imagemin(['*.webp'], {
     plugins: [
@@ -33,3 +33,10 @@ imagemin(['*.webp'], {
 });
 
 imageminWebp(); // $ExpectType Plugin
+
+(async () => {
+    await imagemin(['images/*.{jpg,png}'], {
+        destination: 'build/images',
+        plugins: [imageminWebp({ quality: 50 })],
+    });
+})();

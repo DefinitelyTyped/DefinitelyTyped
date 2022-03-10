@@ -21,7 +21,7 @@ declare namespace Router {
     type ParseQueryString = (queryString: QueryString) => Query;
     type StringifyQuery = (queryObject: Query) => QueryString;
 
-    type Component = React.ReactType;
+    type Component = React.ElementType;
     type RouteComponent = Component;
 
     type EnterHook = (nextState: RouterState, replace: RedirectFunction, callback?: Function) => void;
@@ -55,7 +55,9 @@ declare namespace Router {
         components: RouteComponent[];
     }
 
-    interface RouterProps extends React.Props<Router> {
+    interface RouterProps {
+        children?: React.ReactNode;
+        ref?: React.LegacyRef<Router> | undefined;
         history?: History | undefined;
         routes?: RouteConfig | undefined; // alias for children
         createElement?: ((component: RouteComponent, props: Object) => any) | undefined;
@@ -64,7 +66,7 @@ declare namespace Router {
         parseQueryString?: ParseQueryString | undefined;
         stringifyQuery?: StringifyQuery | undefined;
         basename?: string | undefined;
-        render?: ((renderProps: React.Props<{}>) => RouterContext) | undefined;
+        render?: ((renderProps: { children?: React.ReactNode; ref?: React.LegacyRef<{}> | undefined; }) => RouterContext) | undefined;
     }
 
     interface PlainRoute {

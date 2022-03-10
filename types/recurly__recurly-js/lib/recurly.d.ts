@@ -1,5 +1,6 @@
 import { Risk } from './3d-secure';
 import { Adyen } from './adyen';
+import { BankRedirect } from './bank-redirect';
 import { ApplePay } from './apple-pay';
 import { BankAccount } from './bank-account';
 import { Configure } from './configure';
@@ -15,6 +16,13 @@ export type RecurlyEvent = 'change' | 'field:submit' | 'error';
 
 export interface Recurly extends Emitter<RecurlyEvent> {
   Adyen: Adyen;
+
+  /**
+   * Use Recurly.js to process Adyen Redirect Payments.
+   *
+   * @see {@link https://developers.recurly.com/reference/recurly-js/index.html#adyen-token|BankRedirect}
+   */
+  BankRedirect: BankRedirect;
 
   /**
    * Use Recurly.js to process Apple Pay transactions.

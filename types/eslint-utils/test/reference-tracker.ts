@@ -15,14 +15,20 @@ new utils.ReferenceTracker(scope, { mode: Math.random() ? 'legacy' : 'strict' })
 
 const referenceTracker = new utils.ReferenceTracker(scope);
 
-// $ExpectType IterableIterator<TrackedReferences>
+// $ExpectType IterableIterator<TrackedReferences<unknown>>
 referenceTracker.iterateCjsReferences(traceMap);
 
-// $ExpectType IterableIterator<TrackedReferences>
+// $ExpectType IterableIterator<TrackedReferences<unknown>>
 referenceTracker.iterateEsmReferences(traceMap);
 
-// $ExpectType IterableIterator<TrackedReferences>
+// $ExpectType IterableIterator<TrackedReferences<unknown>>
 referenceTracker.iterateGlobalReferences(traceMap);
+
+// $ExpectType IterableIterator<TrackedReferences<{ type: string; }>>
+referenceTracker.iterateCjsReferences({ test: { [utils.ReferenceTracker.READ]: { type: 'string' } } });
+
+// $ExpectType IterableIterator<TrackedReferences<{ type: string; } | { type: number; }>>
+referenceTracker.iterateGlobalReferences({ test: { [utils.ReferenceTracker.READ]: { type: 'string' }, [utils.ReferenceTracker.CALL]: { type: 6 } } });
 
 function *getTrackedReferences() {
     const { info, node, path, type } = yield referenceTracker.iterateCjsReferences(traceMap);

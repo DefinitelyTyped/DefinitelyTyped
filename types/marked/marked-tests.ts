@@ -1,4 +1,4 @@
-import * as marked from 'marked';
+import { marked } from 'marked';
 
 const tokenizer = new marked.Tokenizer();
 
@@ -37,7 +37,7 @@ let options: marked.MarkedOptions = {
     },
 };
 
-options.highlight = (code: string, lang: string, callback: (error: any | undefined, code?: string) => void) => {
+options.highlight = (code: string, lang: string, callback: (error: any, code?: string) => void) => {
     callback(new Error());
     callback(null, '');
 };
@@ -88,6 +88,29 @@ renderer.hr = () => {
 renderer.checkbox = checked => {
     return checked ? 'CHECKED' : 'UNCHECKED';
 };
+
+class ExtendedRenderer extends marked.Renderer {
+    code = (code: string, language: string | undefined, isEscaped: boolean): string => super.code(code, language, isEscaped);
+    blockquote = (quote: string): string => super.blockquote(quote);
+    html = (html: string): string => super.html(html);
+    heading = (text: string, level: 1 | 2 | 3 | 4 | 5 | 6, raw: string, slugger: Slugger): string => super.heading(text, level, raw, slugger);
+    hr = (): string => super.hr();
+    list = (body: string, ordered: boolean, start: number): string => super.list(body, ordered, start);
+    listitem = (text: string, task: boolean, checked: boolean): string => super.listitem(text, task, checked);
+    checkbox = (checked: boolean): string => super.checkbox(checked);
+    paragraph = (text: string): string => super.paragraph(text);
+    table = (header: string, body: string): string => super.table(header, body);
+    tablerow = (content: string): string => super.tablerow(content);
+    tablecell = (content: string, flags: { header: boolean; align: 'center' | 'left' | 'right' | null; }): string => super.tablecell(content, flags);
+    strong = (text: string): string => super.strong(text);
+    em = (text: string): string => super.em(text);
+    codespan = (code: string): string => super.codespan(code);
+    br = (): string => super.br();
+    del = (text: string): string => super.del(text);
+    link = (href: string, title: string, text: string): string => super.link(href, title, text);
+    image = (href: string, title: string, text: string): string => super.image(href, title, text);
+}
+
 const rendererOptions: marked.MarkedOptions = renderer.options;
 
 const textRenderer = new marked.TextRenderer();
@@ -123,6 +146,12 @@ marked.use({
 
             return false;
         },
+        listitem(text, task, checked) {
+            if (task)
+                return `<li class="task-list-item ${checked ? "checked" : ""}">${text}</li>\n`;
+            else
+                return `<li>${text}</li>\n`;
+        }
     },
     tokenizer: {
         codespan(src) {
@@ -247,3 +276,20 @@ const listAndListItemText: marked.Tokens.List = {
         },
     ],
 };
+
+// other exports
+
+// tslint:disable-next-line:no-duplicate-imports
+import { Lexer, Parser, Tokenizer, Renderer, TextRenderer, Slugger } from 'marked';
+
+const lexer2 = new Lexer();
+const tokens4 = lexer2.lex("# test");
+const parser2 = new Parser();
+console.log(parser2.parse(tokens4));
+
+const slugger2 = new Slugger();
+console.log(slugger2.slug('Test Slug'));
+
+marked.use({renderer: new Renderer()});
+marked.use({renderer: new TextRenderer()});
+marked.use({tokenizer: new Tokenizer()});

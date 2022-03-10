@@ -1,4 +1,4 @@
-// Type definitions for autocannon 4.1
+// Type definitions for autocannon 7.6
 // Project: https://github.com/mcollina/autocannon#readme
 // Definitions by: Jeremy Bensimon <https://github.com/jeremyben>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -164,6 +164,11 @@ declare namespace autocannon {
          * @default false
          */
         excludeErrorStats?: boolean | undefined;
+
+        /**
+         * The number of worker threads to use to fire requests.
+         */
+        workers?: number | undefined;
     }
 
     interface Request {
@@ -203,7 +208,8 @@ declare namespace autocannon {
             | 'UNBIND'
             | 'UNLINK'
             | 'UNLOCK'
-            | 'UNSUBSCRIBE' | undefined;
+            | 'UNSUBSCRIBE'
+            | undefined;
         path?: string | undefined;
     }
 

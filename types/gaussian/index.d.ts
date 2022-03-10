@@ -1,4 +1,4 @@
-// Type definitions for gaussian 1.1
+// Type definitions for gaussian 1.2
 // Project: https://github.com/errcw/gaussian
 // Definitions by: Scott Cooper <https://github.com/scttcper>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -40,30 +40,30 @@ declare namespace gaussian {
          * returns the product distribution of this and the given
          * distribution; equivalent to scale(d) when d is a constant
          */
-        mul(x: number | Gaussian): number;
+        mul(x: number | Gaussian): Gaussian;
         /**
          * returns the quotient distribution of this and the given
          * distribution; equivalent to scale(1/d) when d is a constant
          */
-        div(x: number | Gaussian): number;
+        div(x: number | Gaussian): Gaussian;
         /**
          * returns the result of adding this and the given
          * distribution's means and variances
          */
-        add(x: Gaussian): number;
+        add(x: Gaussian): Gaussian;
         /**
          * returns the result of subtracting this and the given
          * distribution's means and variances
          */
-        sub(x: Gaussian): number;
+        sub(x: Gaussian): Gaussian;
         /**
          * returns the result of scaling this distribution by the
          * given constant
          */
-        scale(x: number): number;
+        scale(x: number): Gaussian;
         /**
          * generates given number of samples of the distribution
          */
-        random(x: number): number[];
+        random(x: number, randFn?: () => number): number[];
     }
 }

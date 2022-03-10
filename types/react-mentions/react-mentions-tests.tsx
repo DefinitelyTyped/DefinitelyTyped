@@ -32,7 +32,7 @@ interface TestProps {
     regex: RegExp;
 }
 
-export const TestSimple: React.SFC<TestProps> = props => {
+export const TestSimple: React.FC<TestProps> = props => {
     const inputEl = React.createRef<HTMLTextAreaElement>();
 
     function handleClick() {
@@ -57,7 +57,7 @@ export const TestSimple: React.SFC<TestProps> = props => {
     );
 };
 
-export const TestMultipleTrigger: React.SFC<TestProps> = props => {
+export const TestMultipleTrigger: React.FC<TestProps> = props => {
     return (
         <MentionsInput value={props.value} onChange={props.onChange} placeholder={"Mention people using '@'"}>
             <Mention

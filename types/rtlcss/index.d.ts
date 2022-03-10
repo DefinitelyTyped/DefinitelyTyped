@@ -1,7 +1,6 @@
 // Type definitions for rtlcss 3.1
 // Project: https://github.com/MohammadYounes/rtlcss
-// Definitions by: Adam Zerella <https://github.com/adamzerella>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
+// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.6
 

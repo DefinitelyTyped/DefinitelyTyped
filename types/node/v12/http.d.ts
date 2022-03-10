@@ -1,7 +1,7 @@
 declare module 'http' {
     import * as stream from 'stream';
     import { URL } from 'url';
-    import { Socket, Server as NetServer } from 'net';
+    import { Socket, Server as NetServer, LookupFunction } from 'net';
 
     // incoming headers will never contain number
     interface IncomingHttpHeaders {
@@ -90,6 +90,7 @@ declare module 'http' {
         setHost?: boolean | undefined;
         // https://github.com/nodejs/node/blob/master/lib/_http_client.js#L278
         createConnection?: ((options: ClientRequestArgs, oncreate: (err: Error, socket: Socket) => void) => Socket) | undefined;
+        lookup?: LookupFunction | undefined;
     }
 
     interface ServerOptions {
@@ -246,6 +247,8 @@ declare module 'http' {
         aborted: boolean;
         host: string;
         protocol: string;
+        reusedSocket: boolean;
+        maxHeadersCount: number;
 
         constructor(url: string | URL | ClientRequestArgs, cb?: (res: IncomingMessage) => void);
 
@@ -369,7 +372,7 @@ declare module 'http' {
          */
         statusMessage?: string | undefined;
         socket: Socket;
-        destroy(error?: Error): void;
+        destroy(error?: Error): this;
     }
 
     interface AgentOptions {

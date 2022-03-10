@@ -71,12 +71,12 @@ declare namespace DropdownList {
          * This component is used to render the selected value of the DropdownList. The default
          * component renders the text of the selected item (specified by textfield)
          */
-        valueComponent?: React.ReactType | undefined;
+        valueComponent?: React.ElementType | undefined;
         /**
          * This component is used to render each possible item in the DropdownList. The default
          * component renders the text of the selected item (specified by textfield)
          */
-        itemComponent?: React.ReactType | string | undefined;
+        itemComponent?: React.ElementType | string | undefined;
         /**
          * Determines how to group the DropdownList. Providing a string will group the data array by
          * that property. You can also provide a function which should return the group value.
@@ -86,7 +86,7 @@ declare namespace DropdownList {
          * This component is used to render each option group, when groupBy is specified. By default
          * the groupBy value will be used.
          */
-        groupComponent?: React.ReactType | undefined;
+        groupComponent?: React.ElementType | undefined;
         /**
          * Text to display when the value is empty.
          */
@@ -158,7 +158,7 @@ declare namespace DropdownList {
          * object to localize widget text and increase accessibility.
          */
         messages?: DropdownListMessages | undefined;
-        listComponent?: React.ReactType | string | undefined;
+        listComponent?: React.ElementType | string | undefined;
         /**
          * An object of props that is passed directly to the underlying List component.
          */

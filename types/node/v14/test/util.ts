@@ -1,6 +1,6 @@
-import * as util from 'util';
-import assert = require('assert');
-import { readFile } from 'fs';
+import * as util from 'node:util';
+import assert = require('node:assert');
+import { access, readFile } from 'node:fs';
 
 {
     // Old and new util.inspect APIs
@@ -322,4 +322,18 @@ function testUtilTypes(
     if (util.types.isWeakSet(object)) {
         object; // $ExpectType WeakSet<any>
     }
+}
+
+{
+    const logger: util.DebugLogger = util.debuglog('section');
+    logger.enabled; // $ExpectType boolean
+    util.debuglog('section', (fn: util.DebugLoggerFunction) => { });
+    util.debug('section', (fn: util.DebugLoggerFunction) => { });
+}
+
+{
+    access('file/that/does/not/exist', (err) => {
+        const name = util.getSystemErrorName(err!.errno!);
+        console.error(name);
+    });
 }

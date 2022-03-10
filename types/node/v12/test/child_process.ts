@@ -9,6 +9,7 @@ import { Writable, Readable, Pipe } from 'stream';
     childProcess.exec("echo test");
     childProcess.exec("echo test", { windowsHide: true });
     childProcess.spawn("echo");
+    childProcess.spawn("echo", { serialization: 'json' });
     childProcess.spawn("echo", { windowsHide: true });
     childProcess.spawn("echo", ["test"], { windowsHide: true });
     childProcess.spawn("echo", ["test"], { windowsHide: true, argv0: "echo-test" });
@@ -43,6 +44,7 @@ import { Writable, Readable, Pipe } from 'stream';
 {
     const forked = childProcess.fork('./', ['asd'] as ReadonlyArray<string>, {
         windowsVerbatimArguments: true,
+        serialization: 'advanced',
         silent: false,
         stdio: "inherit",
         execPath: '',

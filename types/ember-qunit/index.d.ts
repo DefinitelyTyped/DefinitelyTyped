@@ -1,58 +1,25 @@
-// Type definitions for ember-qunit 3.4
+// Type definitions for ember-qunit 5.0
 // Project: https://github.com/emberjs/ember-qunit#readme
-// Definitions by: Derek Wickern <https://github.com/dwickern>
-//                 Mike North <https://github.com/mike-north>
-//                 Steve Calvert <https://github.com/scalvert>
-//                 Dan Freeman <https://github.com/dfreeman>
+// Definitions by: Dan Freeman <https://github.com/dfreeman>
 //                 Chris Krycho <https://github.com/chriskrycho>
 //                 James C. Davis <https://github.com/jamescdavis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
+// Minimum TypeScript Version: 4.4
 
-/// <reference types="qunit" />
-
-import Ember from 'ember';
-import { ModuleCallbacks, TestContext } from 'ember-test-helpers';
-
-interface QUnitModuleCallbacks extends ModuleCallbacks, Hooks {
-    beforeSetup?(assert: Assert): void;
-    setup?(assert: Assert): void;
-    teardown?(assert: Assert): void;
-    afterTeardown?(assert: Assert): void;
-    needs?: string[] | undefined;
-}
-
-/**
- * @param fullName The full name of the unit, ie controller:application, route:index.
- * @param description The description of the module
- */
-export function moduleFor(fullName: string, description: string, callbacks?: QUnitModuleCallbacks): void;
-export function moduleFor(fullName: string, callbacks?: QUnitModuleCallbacks): void;
-
-/**
- * @param fullName the short name of the component that you'd use in a template, ie x-foo, ic-tabs, etc.
- * @param description The description of the module
- */
-export function moduleForComponent(fullName: string, description: string, callbacks?: QUnitModuleCallbacks): void;
-export function moduleForComponent(fullName: string, callbacks?: QUnitModuleCallbacks): void;
-
-/**
- * @param fullName the short name of the model you'd use in store operations ie user, assignmentGroup, etc.
- * @param description The description of the module
- */
-export function moduleForModel(fullName: string, description: string, callbacks?: QUnitModuleCallbacks): void;
-export function moduleForModel(fullName: string, callbacks?: QUnitModuleCallbacks): void;
+import EmberTestAdapter from '@ember/test/adapter';
+import EmberResolver from 'ember-resolver';
+import { TestContext } from '@ember/test-helpers';
 
 /**
  * Sets a Resolver globally which will be used to look up objects from each test's container.
  */
-export function setResolver(resolver: Ember.Resolver): void;
+export function setResolver(resolver: EmberResolver): void;
 
 interface SetupTestOptions {
     /**
      * The resolver to use when instantiating container-managed entities in the test.
      */
-    resolver?: Ember.Resolver | undefined;
+    resolver?: EmberResolver | undefined;
 }
 
 /**
@@ -105,7 +72,7 @@ export function setupRenderingTest(hooks: NestedHooks, options?: SetupTestOption
  */
 export function setupTest(hooks: NestedHooks, options?: SetupTestOptions): void;
 
-export class QUnitAdapter extends Ember.Test.Adapter {}
+export class QUnitAdapter extends EmberTestAdapter {}
 
 export { module, test, skip, only, todo } from 'qunit';
 
@@ -152,27 +119,39 @@ interface QUnitStartOptions {
 export function start(options?: QUnitStartOptions): void;
 
 declare global {
+    // NOTE: disables `no-unnecessary-generics` inline because, unfortunately,
+    // the design of Ember's test tooling (and indeed *QUnit's* test system)
+    // requires that we allow users to update the type of the context of the
+    // test. This is indeed strictly *wrong*! However, changing it will require
+    // changing how Ember handles testing. See [the PR][pr] for further details.
+    //
+    // [pr]: https://github.com/DefinitelyTyped/DefinitelyTyped/pull/56494
+
     interface NestedHooks {
         /**
          * Runs after the last test. If additional tests are defined after the
          * module's queue has emptied, it will not run this hook again.
          */
-        after(fn: (this: TestContext, assert: Assert) => void | Promise<void>): void;
+        // tslint:disable-next-line no-unnecessary-generics
+        after<TC extends TestContext>(fn: (this: TC, assert: Assert) => void | Promise<void>): void;
 
         /**
          * Runs after each test.
          */
-        afterEach(fn: (this: TestContext, assert: Assert) => void | Promise<void>): void;
+        // tslint:disable-next-line no-unnecessary-generics
+        afterEach<TC extends TestContext>(fn: (this: TC, assert: Assert) => void | Promise<void>): void;
 
         /**
          * Runs before the first test.
          */
-        before(fn: (this: TestContext, assert: Assert) => void | Promise<void>): void;
+        // tslint:disable-next-line no-unnecessary-generics
+        before<TC extends TestContext>(fn: (this: TC, assert: Assert) => void | Promise<void>): void;
 
         /**
          * Runs before each test.
          */
-        beforeEach(fn: (this: TestContext, assert: Assert) => void | Promise<void>): void;
+        // tslint:disable-next-line no-unnecessary-generics
+        beforeEach<TC extends TestContext>(fn: (this: TC, assert: Assert) => void | Promise<void>): void;
     }
 
     interface QUnit {
@@ -191,7 +170,8 @@ declare global {
          * @param name Title of unit being tested
          * @param callback Function to close over assertions
          */
-        test(name: string, callback: (this: TestContext, assert: Assert) => void | Promise<void>): void;
+        // tslint:disable-next-line no-unnecessary-generics
+        test<TC extends TestContext>(name: string, callback: (this: TC, assert: Assert) => void | Promise<void>): void;
 
         /**
          * Adds a test to exclusively run, preventing all other tests from running.
@@ -209,7 +189,8 @@ declare global {
          * @param name Title of unit being tested
          * @param callback Function to close over assertions
          */
-        only(name: string, callback: (this: TestContext, assert: Assert) => void | Promise<void>): void;
+        // tslint:disable-next-line no-unnecessary-generics
+        only<TC extends TestContext>(name: string, callback: (this: TC, assert: Assert) => void | Promise<void>): void;
 
         /**
          * Use this method to test a unit of code which is still under development (in a “todo” state).
@@ -221,7 +202,8 @@ declare global {
          * @param name Title of unit being tested
          * @param callback Function to close over assertions
          */
-        todo(name: string, callback: (this: TestContext, assert: Assert) => void | Promise<void>): void;
+        // tslint:disable-next-line no-unnecessary-generics
+        todo<TC extends TestContext>(name: string, callback: (this: TC, assert: Assert) => void | Promise<void>): void;
 
         /**
          * Adds a test like object to be skipped.
@@ -236,6 +218,7 @@ declare global {
          * @param name Title of unit being tested
          * @param callback Function to close over assertions
          */
-        skip(name: string, callback?: (this: TestContext, assert: Assert) => void | Promise<void>): void;
+        // tslint:disable-next-line no-unnecessary-generics
+        skip<TC extends TestContext>(name: string, callback?: (this: TC, assert: Assert) => void | Promise<void>): void;
     }
 }

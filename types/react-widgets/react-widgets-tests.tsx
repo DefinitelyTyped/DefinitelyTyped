@@ -31,7 +31,7 @@ function listComponent(props: { value: string }) {
     return <span>{props.value}</span>;
 }
 
-class Test extends React.Component<React.Props<{}>> {
+class Test extends React.Component {
     render() {
         return (
             <div>

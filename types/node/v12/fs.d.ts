@@ -131,7 +131,7 @@ declare module 'fs' {
     }
 
     class ReadStream extends stream.Readable {
-        close(): void;
+        close(callback?: (err?: NodeJS.ErrnoException | null) => void): void;
         bytesRead: number;
         path: string | Buffer;
 
@@ -162,7 +162,7 @@ declare module 'fs' {
     }
 
     class WriteStream extends stream.Writable {
-        close(): void;
+        close(callback?: (err?: NodeJS.ErrnoException | null) => void): void;
         bytesWritten: number;
         path: string | Buffer;
 
@@ -2008,13 +2008,13 @@ declare module 'fs' {
         encoding?: BufferEncoding | undefined;
     }
 
-    function opendirSync(path: string, options?: OpenDirOptions): Dir;
+    function opendirSync(path: PathLike, options?: OpenDirOptions): Dir;
 
-    function opendir(path: string, cb: (err: NodeJS.ErrnoException | null, dir: Dir) => void): void;
-    function opendir(path: string, options: OpenDirOptions, cb: (err: NodeJS.ErrnoException | null, dir: Dir) => void): void;
+    function opendir(path: PathLike, cb: (err: NodeJS.ErrnoException | null, dir: Dir) => void): void;
+    function opendir(path: PathLike, options: OpenDirOptions, cb: (err: NodeJS.ErrnoException | null, dir: Dir) => void): void;
 
     namespace opendir {
-        function __promisify__(path: string, options?: OpenDirOptions): Promise<Dir>;
+        function __promisify__(path: PathLike, options?: OpenDirOptions): Promise<Dir>;
     }
 
     namespace promises {
@@ -2535,7 +2535,7 @@ declare module 'fs' {
          */
         function readFile(path: PathLike | FileHandle, options?: { encoding?: string | null | undefined, flag?: string | number | undefined } | string | null): Promise<string | Buffer>;
 
-        function opendir(path: string, options?: OpenDirOptions): Promise<Dir>;
+        function opendir(path: PathLike, options?: OpenDirOptions): Promise<Dir>;
     }
 
     interface BigIntStats extends StatsBase<bigint> {

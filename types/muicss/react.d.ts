@@ -122,6 +122,7 @@ export interface SelectProps extends DivProps {
 }
 
 export interface TabProps {
+    children?: React.ReactNode;
     value?: any;
     label?: React.ReactNode | undefined;
     onActive?: ((tab: Tab) => void) | undefined;

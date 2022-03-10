@@ -67,6 +67,12 @@ const ledgerRejectResponse: indy.LedgerRejectResponse = {
     reason: "client request invalid: UnauthorizedClientRequest('The action is forbidden',)",
     identifier: 'TL1EaPFCZ8Si5aUrqScBDt',
 };
+const ledgerReqnackResponse: indy.LedgerReqnackResponse = {
+    op: 'REQNACK',
+    reqId: 1615465027340221000,
+    reason: "client request invalid: UnauthorizedClientRequest('The action is forbidden',)",
+    identifier: 'TL1EaPFCZ8Si5aUrqScBDt',
+};
 const ledgerWriteReply: indy.LedgerWriteReplyResponse = {
     result: {
         auditPath: [
@@ -170,6 +176,7 @@ indy.signRequest(10, 'myDid', ledgerRequest);
 indy.signAndSubmitRequest(10, 10, 'myDid', ledgerRequest);
 indy.submitRequest(10, ledgerRequest);
 indy.parseGetNymResponse(ledgerRejectResponse);
+indy.parseGetNymResponse(ledgerReqnackResponse);
 indy.buildNymRequest('myDid', 'targetDid', 'verKey', 'alias', 'TRUSTEE');
 indy.buildGetSchemaRequest('myDid', 'a');
 indy.parseGetSchemaResponse(ledgerWriteReply);
@@ -212,8 +219,10 @@ indy.closeWalletSearch(10);
 indy.createPoolLedgerConfig('not_a_real_pool', {
     genesis_txn: '/not/a/real/file.txn',
 });
+indy.deletePoolLedgerConfig('not_a_real_pool');
 indy.setProtocolVersion(1);
 indy.openPoolLedger('name', { timeout: 1000 });
+indy.closePoolLedger(10);
 indy.proverCreateMasterSecret(10, 'masterSecretName');
 indy.proverCreateCredentialReq(10, 'proverDid', credOffer, credDef, 'master_secret');
 indy.issuerCreateCredentialOffer(10, 'credDefId');
@@ -235,7 +244,7 @@ indy.proverStoreCredential(
     {},
     {
         cred_def_id: 'cred_def_id',
-        rev_reg_def_id: 'rev_reg_def_id',
+        rev_reg_id: 'rev_reg_id',
         schema_id: 'schema_id',
         signature: 'signature',
         signature_correctness_proof: 'signature_correctness_proof',
@@ -246,6 +255,7 @@ indy.proverStoreCredential(
 );
 indy.proverGetCredential(10, 'outCredId');
 indy.generateNonce();
+indy.buildGetAttribRequest(null, 'did', 'endpoint', null, null);
 indy.proverGetCredentialsForProofReq(10, proofReq);
 indy.proverSearchCredentialsForProofReq(10, proofReq, {});
 indy.proverFetchCredentialsForProofReq(10, 'attr1_referent', 100);
@@ -254,7 +264,7 @@ indy.verifierVerifyProof(
     proofReq,
     {
         proof: 'proof',
-        identifiers: [{ schema_id: 'shcema_id'}],
+        identifiers: [{ schema_id: 'schema_id', cred_def_id: "cred_def_id"}],
         requested_proof: {
             requested_predicates: {},
             revealed_attr_groups: {},
@@ -284,18 +294,31 @@ indy.proverCreateProof(
 
 indy.createRevocationState(
     10,
-    {},
+    {
+        id: '',
+        revocDefType: 'CL_ACCUM',
+        tag: '',
+        credDefId: '',
+        value: {
+            issuanceType: 'ISSUANCE_BY_DEFAULT',
+            maxCredNum: 0,
+            tailsHash: '',
+            tailsLocation: '',
+            publicKeys: [],
+        },
+        ver: '',
+    },
     {
         value: {
             prevAccum: 'prevAccum',
             accum: 'accum',
             issued: [],
-            revoked: []
+            revoked: [],
         },
-        ver: 'ver'
+        ver: 'ver',
     },
     new Date().getDate(),
-    'credRevId'
+    'credRevId',
 );
 
 // TODO

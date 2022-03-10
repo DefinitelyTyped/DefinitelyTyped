@@ -19,4 +19,7 @@ const mondayServer = mondaySdk({ token: '123' });
 
 mondayServer.setToken('123'); // $ExpectType void
 mondayServer.api('test'); // $ExpectType Promise<any>
+mondayServer.api('test', { token: 'test' }); // $ExpectType Promise<any>
+mondayServer.api('test', { variables: { variable1: 'test' } }); // $ExpectType Promise<any>
+mondayServer.api('test', { token: 'test', variables: { variable1: 'test' } }); // $ExpectType Promise<any>
 mondayServer.oauthToken('test', 'test', 'test'); // $ExpectType Promise<any>

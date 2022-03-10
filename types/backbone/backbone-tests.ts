@@ -360,6 +360,7 @@ function test_collection() {
 //////////
 
 Backbone.history.start();
+Backbone.history.start({hashChange: false});
 Backbone.History.started;
 Backbone.history.loadUrl();
 Backbone.history.loadUrl('12345');
@@ -576,6 +577,15 @@ class SVGView extends Backbone.View<Backbone.Model, SVGGraphicsElement> {
         }
         this.matrix = this.el.getCTM();
     }
+}
+
+function testViewWithoutModel() {
+    const view = new Backbone.View<undefined>();
+    view.model.id; // $ExpectError
+    const view2 = new Backbone.View<Backbone.Model>({
+        model: new Backbone.Model()
+    });
+    view2.model.id; // $ExpectType string | number
 }
 
 interface TypedModelAttributes {

@@ -160,6 +160,14 @@ videojs('example_video_1', playerOptions).ready(function playerReady() {
 
     this.requestFullscreen();
 
+    this.requestPictureInPicture().then(pipWindow => {
+        // $ExpectType PictureInPictureWindow
+        pipWindow;
+    });
+
+    // $ExpectType Promise<void>
+    this.exitPictureInPicture();
+
     const networkState: videojs.NetworkState = this.networkState();
 
     const responsive: boolean = this.responsive();
@@ -182,6 +190,8 @@ videojs('example_video_1', playerOptions).ready(function playerReady() {
 
     // $ExpectType CanPlayTypeResult
     this.canPlayType('video/mp4');
+
+    testTracks(this);
 });
 
 function testEvents(player: videojs.Player) {
@@ -220,6 +230,23 @@ function testComponents(player: videojs.Player) {
     myWindow.myFunction();
     myWindow.isDisposed(); // $ExpectType boolean
     myWindow.dispose(); // $ExpectType void
+
+	const MyOtherWindow = videojs.extend(videojs.getComponent("ModalDialog"), {
+        myFunction() {
+            this.player().play();
+        },
+        myOtherFunction(arg: string) {
+            console.log(arg);
+            return arg;
+        },
+    });
+
+    const myOtherWindow = new MyOtherWindow(player, {});
+    myOtherWindow.controlText("My text");
+    myOtherWindow.open();
+    myOtherWindow.close();
+    myOtherWindow.myFunction(); // $ExpectType void
+    myOtherWindow.myOtherFunction("test"); // $ExpectType string
 }
 
 function testPlugin(player: videojs.Player, options: {}) {
@@ -303,4 +330,12 @@ function testTech() {
     );
     // $ExpectType CanPlayTypeResult
     videojs.Tech.canPlayType('video/mp4');
+}
+
+function testTracks(player: VideoJsPlayer) {
+    // $ExpectType AudioTrackList
+    player.audioTracks();
+
+    // $ExpectType TextTrackList
+    player.textTracks();
 }

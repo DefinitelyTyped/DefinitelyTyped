@@ -2582,6 +2582,8 @@ declare namespace d3 {
             tickFormat(): (t: any , index : number) => string;
             tickFormat(format: (t: any , index : number) => string): Axis;
             tickFormat(format: string): Axis;
+
+            tickSubdivide(...args: any[]): Axis;
         }
 
         export function brush(): Brush<any, number, number>;
@@ -3129,6 +3131,7 @@ declare namespace d3 {
             value(accessor: (datum: T, index: number) => number): Pie<T>;
 
             sort(): (a: T, b: T) => number;
+            sort(comparator: null): Pie<T>;
             sort(comparator: (a: T, b: T) => number): Pie<T>;
 
             startAngle(): number | ((data: T[], index: number) => number);

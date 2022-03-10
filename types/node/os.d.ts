@@ -5,7 +5,7 @@
  * ```js
  * const os = require('os');
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/os.js)
+ * @see [source](https://github.com/nodejs/node/blob/v17.0.0/lib/os.js)
  */
 declare module 'os' {
     interface CpuInfo {

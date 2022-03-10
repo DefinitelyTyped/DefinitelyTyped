@@ -263,7 +263,12 @@ export class Store<Q_RDF extends RDF.BaseQuad = RDF.Quad, Q_N3 extends BaseQuad 
     getGraphs(subject: OTerm, predicate: OTerm, object: OTerm): Array<Q_N3['graph']>;
     forGraphs(callback: (result: Q_N3['graph']) => void, subject: OTerm, predicate: OTerm, object: OTerm): void;
     createBlankNode(suggestedName?: string): BlankNode;
+    extractLists(options?: extractListOptions): Record<string, RDF.Term[]>;
     [Symbol.iterator](): Iterator<OutQuad>;
+}
+export interface extractListOptions {
+    remove?: boolean;
+    ignoreErrors?: boolean;
 }
 
 export interface StoreOptions {

@@ -72,6 +72,7 @@ auth0.webAuth.authorize({
     scope: 'openid',
     language: 'en',
     prompt: 'login',
+    organization: 'orgId',
 });
 
 auth0.webAuth.authorize({

@@ -1,15 +1,11 @@
 {
-    "extends": "dtslint/dt.json",
+    "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "array-type": false,
         "comment-format": false,
-        "no-duplicate-variable": false,
-        "no-var-keyword": false,
         "object-literal-shorthand": false,
-        "only-arrow-functions": false,
         "prefer-const": false,
         "prefer-template": false,
-        "semicolon": false,
         "unified-signatures": false
     }
 }

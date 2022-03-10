@@ -39,16 +39,58 @@ import React = require('./next');
 export {};
 
 declare module '.' {
+    export type SuspenseListRevealOrder = 'forwards' | 'backwards' | 'together';
+    export type SuspenseListTailMode = 'collapsed' | 'hidden';
+
+    export interface SuspenseListCommonProps {
+        /**
+         * Note that SuspenseList require more than one child;
+         * it is a runtime warning to provide only a single child.
+         *
+         * It does, however, allow those children to be wrapped inside a single
+         * level of `<React.Fragment>`.
+         */
+        children: ReactElement | Iterable<ReactElement>;
+    }
+
+    interface DirectionalSuspenseListProps extends SuspenseListCommonProps {
+        /**
+         * Defines the order in which the `SuspenseList` children should be revealed.
+         */
+        revealOrder: 'forwards' | 'backwards';
+        /**
+         * Dictates how unloaded items in a SuspenseList is shown.
+         *
+         * - By default, `SuspenseList` will show all fallbacks in the list.
+         * - `collapsed` shows only the next fallback in the list.
+         * - `hidden` doesn’t show any unloaded items.
+         */
+        tail?: SuspenseListTailMode | undefined;
+    }
+
+    interface NonDirectionalSuspenseListProps extends SuspenseListCommonProps {
+        /**
+         * Defines the order in which the `SuspenseList` children should be revealed.
+         */
+        revealOrder?: Exclude<SuspenseListRevealOrder, DirectionalSuspenseListProps['revealOrder']> | undefined;
+        /**
+         * The tail property is invalid when not using the `forwards` or `backwards` reveal orders.
+         */
+        tail?: never | undefined;
+    }
+
+    export type SuspenseListProps = DirectionalSuspenseListProps | NonDirectionalSuspenseListProps;
+
     /**
-     * @param subscribe
-     * @param getSnapshot
+     * `SuspenseList` helps coordinate many components that can suspend by orchestrating the order
+     * in which these components are revealed to the user.
      *
-     * @see https://github.com/reactwg/react-18/discussions/86
+     * When multiple components need to fetch data, this data may arrive in an unpredictable order.
+     * However, if you wrap these items in a `SuspenseList`, React will not show an item in the list
+     * until previous items have been displayed (this behavior is adjustable).
+     *
+     * @see https://reactjs.org/docs/concurrent-mode-reference.html#suspenselist
+     * @see https://reactjs.org/docs/concurrent-mode-patterns.html#suspenselist
      */
-    // keep in sync with `useSyncExternalStore` from `use-sync-external-store`
-    export function unstable_useSyncExternalStore<Snapshot>(
-        subscribe: (onStoreChange: () => void) => () => void,
-        getSnapshot: () => Snapshot,
-        getServerSnapshot?: () => Snapshot,
-    ): Snapshot;
+    export const SuspenseList: ExoticComponent<SuspenseListProps>;
 }

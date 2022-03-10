@@ -118,7 +118,7 @@ interface MDXProviderComponents {
     /**
      * Any other components we wish to define
      */
-    [key: string]: ReactNode;
+    [key: string]: ComponentType<any> | undefined;
 }
 
 type MDXProviderComponentsProp = MDXProviderComponents | ((components: MDXProviderComponents) => MDXProviderComponents);

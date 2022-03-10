@@ -330,25 +330,25 @@ export interface ComponentDecoratorProps {
 }
 
 export interface ComponentProps {
-    TableComponent: React.ReactType;
-    TheadComponent: React.ReactType;
-    TbodyComponent: React.ReactType;
-    TrGroupComponent: React.ReactType;
-    TrComponent: React.ReactType;
-    ThComponent: React.ReactType;
-    TdComponent: React.ReactType;
-    TfootComponent: React.ReactType;
-    ExpanderComponent: React.ReactType;
-    AggregatedComponent: React.ReactType;
-    PivotValueComponent: React.ReactType;
-    PivotComponent: React.ReactType;
-    FilterComponent: React.ReactType;
-    PaginationComponent: React.ReactType;
-    PreviousComponent: React.ReactType;
-    NextComponent: React.ReactType;
-    LoadingComponent: React.ReactType;
-    NoDataComponent: React.ReactType;
-    ResizerComponent: React.ReactType;
+    TableComponent: React.ElementType;
+    TheadComponent: React.ElementType;
+    TbodyComponent: React.ElementType;
+    TrGroupComponent: React.ElementType;
+    TrComponent: React.ElementType;
+    ThComponent: React.ElementType;
+    TdComponent: React.ElementType;
+    TfootComponent: React.ElementType;
+    ExpanderComponent: React.ElementType;
+    AggregatedComponent: React.ElementType;
+    PivotValueComponent: React.ElementType;
+    PivotComponent: React.ElementType;
+    FilterComponent: React.ElementType;
+    PaginationComponent: React.ElementType;
+    PreviousComponent: React.ElementType;
+    NextComponent: React.ElementType;
+    LoadingComponent: React.ElementType;
+    NoDataComponent: React.ElementType;
+    ResizerComponent: React.ElementType;
 }
 
 export interface TextProps {

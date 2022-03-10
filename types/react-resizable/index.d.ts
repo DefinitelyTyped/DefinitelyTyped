@@ -34,6 +34,7 @@ export interface ResizeCallbackData {
 }
 
 export interface ResizableProps {
+    children?: React.ReactNode;
     className?: string | undefined;
     width: number;
     height: number;

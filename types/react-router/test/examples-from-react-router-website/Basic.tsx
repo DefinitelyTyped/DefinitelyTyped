@@ -36,7 +36,7 @@ const About = () => (
   </div>
 );
 
-const Topics: React.SFC<RouteComponentProps> = ({ match }) => (
+const Topics: React.FC<RouteComponentProps> = ({ match }) => (
   <div>
     <h2>Topics</h2>
     <ul>
@@ -64,7 +64,7 @@ const Topics: React.SFC<RouteComponentProps> = ({ match }) => (
   </div>
 );
 
-const Topic: React.SFC<RouteComponentProps<{topicId: string}>> = ({ match }) => (
+const Topic: React.FC<RouteComponentProps<{topicId: string}>> = ({ match }) => (
   <div>
     <h3>{match.params.topicId}</h3>
   </div>

@@ -1,6 +1,6 @@
 import StreamClient = require('sparql-http-client');
 import Endpoint = require('sparql-http-client/Endpoint');
-import BaseClient = require('sparql-http-client/BaseClient');
+import SimpleClient = require('sparql-http-client/SimpleClient');
 import ParsingClient = require('sparql-http-client/ParsingClient');
 import RawQuery = require('sparql-http-client/RawQuery');
 import { Client } from 'sparql-http-client';
@@ -149,11 +149,22 @@ async function parsingClient() {
     });
 }
 
-async function testBaseClient_RawQuery() {
+async function simpleClient() {
     // construct
-    const client: Client<RawQuery, TestQuad> = new BaseClient<RawQuery, TestQuad>({
-        endpoint,
-        Query: RawQuery,
+    // minimal options
+    let client: Client<RawQuery, TestQuad> = new SimpleClient({
+        endpointUrl,
+    });
+    // full options
+    client = new SimpleClient({
+        endpointUrl,
+        factory,
+        fetch,
+        headers,
+        password,
+        user,
+        storeUrl,
+        updateUrl,
     });
 
     // query.ask

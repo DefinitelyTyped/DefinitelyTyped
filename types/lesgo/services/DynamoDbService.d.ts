@@ -1,90 +1,81 @@
-import {
-    DocumentClient,
-    TableName,
-    KeyExpression,
-    ExpressionAttributeValueMap,
-    ProjectionExpression,
-    ItemList,
-    Integer,
-    PutItemInputAttributeMap,
-    RegionName,
-    UpdateExpression,
-    Key,
-} from "aws-sdk/clients/dynamodb";
+import { DocumentClient } from 'aws-sdk/clients/dynamodb';
 
 export interface DynamoDbParams {
-    region: RegionName;
+    region: DocumentClient.RegionName;
 }
 
 export default class DynamoDb {
-    protected client: DocumentClient;
+    client: DocumentClient;
 
     constructor(params?: DynamoDbParams);
 
     connect(opts: DynamoDbParams): void;
 
     query(
-        tableName: TableName,
-        keyConditionExpression: KeyExpression,
-        expressionAttributeValues: ExpressionAttributeValueMap,
-        projectionExpression: ProjectionExpression,
-    ): Promise<ItemList>;
+        tableName: DocumentClient.TableName,
+        keyConditionExpression: DocumentClient.KeyExpression,
+        expressionAttributeValues: DocumentClient.ExpressionAttributeValueMap,
+        projectionExpression: DocumentClient.ProjectionExpression,
+    ): Promise<DocumentClient.ItemList>;
 
     queryCount(
-        tableName: TableName,
-        keyConditionExpression: KeyExpression,
-        expressionAttributeValues: ExpressionAttributeValueMap,
-    ): Promise<Integer>;
+        tableName: DocumentClient.TableName,
+        keyConditionExpression: DocumentClient.KeyExpression,
+        expressionAttributeValues: DocumentClient.ExpressionAttributeValueMap,
+    ): Promise<DocumentClient.Integer>;
 
-    put(tableName: TableName, item: PutItemInputAttributeMap): Promise<DocumentClient.PutItemOutput>;
+    put(
+        tableName: DocumentClient.TableName,
+        item: DocumentClient.PutItemInputAttributeMap,
+    ): Promise<DocumentClient.PutItemOutput>;
 
     update(
-        tableName: TableName,
-        key: Key,
-        updateExpression: UpdateExpression,
-        expressionAttributeValues: ExpressionAttributeValueMap,
+        tableName: DocumentClient.TableName,
+        key: DocumentClient.Key,
+        updateExpression: DocumentClient.UpdateExpression,
+        expressionAttributeValues: DocumentClient.ExpressionAttributeValueMap,
     ): Promise<DocumentClient.UpdateItemOutput>;
 
     protected prepareQueryPayload(
-        tableName: TableName,
-        keyConditionExpression: KeyExpression,
-        expressionAttributeValues: ExpressionAttributeValueMap,
-        projectionExpression: ProjectionExpression,
+        tableName: DocumentClient.TableName,
+        keyConditionExpression: DocumentClient.KeyExpression,
+        expressionAttributeValues: DocumentClient.ExpressionAttributeValueMap,
+        projectionExpression: DocumentClient.ProjectionExpression,
     ): {
-        TableName: TableName;
-        KeyConditionExpression: KeyExpression;
-        ProjectionExpression: ProjectionExpression;
-        ExpressionAttributeValues: ExpressionAttributeValueMap;
+        TableName: DocumentClient.TableName;
+        KeyConditionExpression: DocumentClient.KeyExpression;
+        ProjectionExpression: DocumentClient.ProjectionExpression;
+        ExpressionAttributeValues: DocumentClient.ExpressionAttributeValueMap;
     };
 
     protected prepareQueryCountPayload(
-        tableName: TableName,
-        keyConditionExpression: KeyExpression,
-        expressionAttributeValues: ExpressionAttributeValueMap,
+        tableName: DocumentClient.TableName,
+        keyConditionExpression: DocumentClient.KeyExpression,
+        expressionAttributeValues: DocumentClient.ExpressionAttributeValueMap,
     ): {
-        TableName: TableName;
-        KeyConditionExpression: KeyExpression;
-        ExpressionAttributeValues: ExpressionAttributeValueMap;
-        Select: "COUNT";
+        TableName: DocumentClient.TableName;
+        KeyConditionExpression: DocumentClient.KeyExpression;
+        ExpressionAttributeValues: DocumentClient.ExpressionAttributeValueMap;
+        Select: 'COUNT';
     };
 
     protected preparePutPayload(
-        tableName: TableName,
-        item: PutItemInputAttributeMap,
+        tableName: DocumentClient.TableName,
+        item: DocumentClient.PutItemInputAttributeMap,
     ): {
-        TableName: TableName;
-        Item: PutItemInputAttributeMap;
+        TableName: DocumentClient.TableName;
+        Item: DocumentClient.PutItemInputAttributeMap;
     };
 
     protected prepareUpdatePayload(
-        tableName: TableName,
-        key: Key,
-        updateExpression: UpdateExpression,
-        expressionAttributeValues: ExpressionAttributeValueMap,
+        tableName: DocumentClient.TableName,
+        key: DocumentClient.Key,
+        updateExpression: DocumentClient.UpdateExpression,
+        expressionAttributeValues: DocumentClient.ExpressionAttributeValueMap,
     ): {
-        TableName: TableName;
-        Key: Key;
-        UpdateExpression: UpdateExpression;
-        ExpressionAttributeValues: ExpressionAttributeValueMap;
+        TableName: DocumentClient.TableName;
+        Key: DocumentClient.Key;
+        UpdateExpression: DocumentClient.UpdateExpression;
+        ExpressionAttributeValues: DocumentClient.ExpressionAttributeValueMap;
     };
 }

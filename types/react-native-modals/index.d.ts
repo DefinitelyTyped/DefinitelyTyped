@@ -25,6 +25,7 @@ export interface DragEvent {
 }
 
 export interface ModalContentProps {
+    children?: React.ReactNode;
     style?: StyleProp<ViewStyle> | undefined;
 }
 
@@ -40,6 +41,7 @@ export interface BackdropProps {
 
 export interface ModalFooterProps {
     bordered?: boolean | undefined;
+    children?: React.ReactNode;
     style?: StyleProp<ViewStyle> | undefined;
 }
 
@@ -63,6 +65,7 @@ export interface ModalTitleProps {
 }
 
 export interface ModalProps {
+    children?: React.ReactNode;
     visible: boolean;
     width?: number | undefined;
     height?: number | undefined;

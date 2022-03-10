@@ -227,7 +227,18 @@ dav.debug.enabled = true;
 
     const xhr = new dav.transport.OAuth2(credentials);
 
-    const req = { method: 'GET' };
+    const query = `<c:calendar-query xmlns:c="urn:ietf:params:xml:ns:caldav"
+      xmlns:cs="http://calendarserver.org/ns/"
+      xmlns:ca="http://apple.com/ns/ical/"
+      xmlns:d="DAV:">
+        <d:prop>
+          <c:calendar-data />
+        </d:prop>
+      </c:calendar-query>`;
+
+    const req = dav.request.collectionQuery(query, {
+        depth: '1',
+      });
 
     credentials.accessToken = 'EXPIRED';
     credentials.refreshToken = '1/oPHTPFgECWFPrs7KgHdis24u6Xl4E4EnRrkkiwLfzdk';

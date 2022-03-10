@@ -1,4 +1,4 @@
-// Type definitions for node-ipc 9.1
+// Type definitions for node-ipc 9.2
 // Project: http://riaevangelist.github.io/node-ipc/
 // Definitions by: Arvitaly <https://github.com/arvitaly>, gjurgens <https://github.com/gjurgens>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -143,10 +143,10 @@ declare namespace NodeIPC {
          */
         serveNet(host: string, port: number, callback?: () => void): void;
         /**
-         * This is where socket connection refrences will be stored when connecting to them as a client via the ipc.connectTo
+         * This is where socket connection references will be stored when connecting to them as a client via the ipc.connectTo
          * or iupc.connectToNet. They will be stored based on the ID used to create them, eg : ipc.of.mySocket
          */
-        of: any;
+        of: Record<string, Client>;
         /**
          * This is a refrence to the server created by ipc.serve or ipc.serveNet
          */
@@ -233,6 +233,16 @@ declare namespace NodeIPC {
          * The default port on which TCP, TLS, or UDP sockets should connect
          */
         networkPort: number;
+        /**
+         * Default: false
+         * Makes the pipe readable for all users including windows services
+         */
+        readableAll: boolean;
+        /**
+         * Default: false
+         * Makes the pipe writable for all users including windows services
+         */
+        writableAll: boolean;
         /**
          * Default: 'utf8'
          * the default encoding for data sent on sockets. Mostly used if rawBuffer is set to true.

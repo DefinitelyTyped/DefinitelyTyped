@@ -15,6 +15,7 @@ declare const POSIX_CHARS: {
     STAR: string;
     START_ANCHOR: string;
 };
+
 /**
  * Windows glob regex
  */
@@ -30,11 +31,8 @@ declare const WINDOWS_CHARS: {
     QMARK_NO_DOT: string;
     START_ANCHOR: string;
     END_ANCHOR: string;
-    DOT_LITERAL: string;
-    PLUS_LITERAL: string;
-    QMARK_LITERAL: string;
-    ONE_CHAR: string;
-};
+} & typeof POSIX_CHARS;
+
 /**
  * POSIX Bracket Regex
  */

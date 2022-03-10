@@ -7,9 +7,9 @@ import UpcastDispatcher from "./upcastdispatcher";
 import UpcastHelpers from "./upcasthelpers";
 
 export interface ConverterDefinition {
-    converterPriority: PriorityString;
+    converterPriority?: PriorityString;
     model: any;
-    upcastAlso: MatcherPattern | MatcherPattern[];
+    upcastAlso?: MatcherPattern | MatcherPattern[];
     view: ElementDefinition | Record<string, any>;
 }
 
@@ -28,5 +28,5 @@ export default class Conversion {
     elementToElement(definition: ConverterDefinition): void;
     for(groupName: 'dataDowncast' | 'editingDowncast' | 'downcast'): DowncastHelpers;
     for(groupName: 'upcast'): UpcastHelpers;
-    for(groupName: string): DowncastHelpers | UpcastHelpers;
+    for(groupName: 'upcast' | 'downcast' | 'dataDowncast' | 'editingDowncast'): UpcastHelpers | DowncastHelpers;
 }

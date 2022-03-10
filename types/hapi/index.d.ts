@@ -1482,7 +1482,7 @@ export interface RouteOptionsResponse {
 
     /**
      * Default value: none.
-     * [joi](http://github.com/hapijs/joi) options object pass to the validation function. Useful to set global options such as stripUnknown or abortEarly (the complete list is available here). If a
+     * [joi](https://github.com/hapijs/joi) options object pass to the validation function. Useful to set global options such as stripUnknown or abortEarly (the complete list is available here). If a
      * custom validation function is defined via schema or status then options can an arbitrary object that will be passed to this function as the second argument.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsresponseoptions)
      */

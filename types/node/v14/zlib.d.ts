@@ -359,3 +359,6 @@ declare module 'zlib' {
     /** @deprecated */
     const Z_DEFLATED: number;
 }
+declare module 'node:zlib' {
+    export * from 'zlib';
+}

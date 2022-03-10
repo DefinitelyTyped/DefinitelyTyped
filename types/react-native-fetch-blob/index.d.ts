@@ -382,8 +382,22 @@ export interface FS {
 
     slice(src: string, dest: string, start: number, end: number): Promise<void>;
     asset(path: string): string;
-    df(): Promise<{ free: number, total: number }>;
+    df(): Promise<RNFetchBlobDf>;
 }
+
+export interface RNFetchBlobDfIOS {
+    free?: number;
+    total?: number;
+}
+
+export interface RNFetchBlobDfAndroid {
+    external_free?: string;
+    external_total?: string;
+    internal_free?: string;
+    internal_total?: string;
+}
+
+export type RNFetchBlobDf = RNFetchBlobDfIOS & RNFetchBlobDfAndroid;
 
 export interface Dirs {
     DocumentDir: string;

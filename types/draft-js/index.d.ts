@@ -12,7 +12,6 @@
 //                 Claudio Procida <https://github.com/claudiopro>
 //                 Kevin Hawkinson <https://github.com/khawkinson>
 //                 Munif Tanjim <https://github.com/MunifTanjim>
-//                 Ben Salili-James <https://github.com/benhjames>
 //                 Peter Dekkers <https://github.com/PeterDekkers>
 //                 Ankit Ranjan <https://github.com/ankitr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -54,6 +53,10 @@ declare namespace Draft {
              * state of the editor. See `DraftEditorProps` for details.
              */
             class DraftEditor extends React.Component<DraftEditorProps, {}> {
+                editor: HTMLElement | null | undefined;
+                editorContainer: HTMLElement | null | undefined;
+                getEditorKey(): string;
+
                 /** Force focus back onto the editor node. */
                 focus(): void;
                 /** Remove focus from the editor node. */
@@ -1121,6 +1124,7 @@ import EditorProps = Draft.Component.Base.DraftEditorProps;
 import EditorBlock = Draft.Component.Components.DraftEditorBlock;
 import EditorState = Draft.Model.ImmutableData.EditorState;
 import EditorChangeType = Draft.Model.ImmutableData.EditorChangeType;
+import EditorCommand = Draft.Component.Base.EditorCommand;
 
 import DraftDecoratorType = Draft.Model.Decorators.DraftDecoratorType;
 import DraftDecorator = Draft.Model.Decorators.DraftDecorator;
@@ -1170,12 +1174,16 @@ import DraftHandleValue = Draft.Model.Constants.DraftHandleValue;
 import DraftInsertionType = Draft.Model.Constants.DraftInsertionType;
 import DraftStyleMap = Draft.Component.Base.DraftStyleMap;
 
+import DraftModel = Draft.Model;
+import DraftComponent = Draft.Component;
+
 export {
     Editor,
     EditorProps,
     EditorBlock,
     EditorState,
     EditorChangeType,
+    EditorCommand,
     DraftDecoratorType,
     DraftDecorator,
     CompositeDecorator,
@@ -1217,4 +1225,6 @@ export {
     DraftHandleValue,
     DraftInsertionType,
     DraftStyleMap,
+    DraftModel,
+    DraftComponent
 };

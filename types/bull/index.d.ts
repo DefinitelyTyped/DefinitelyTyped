@@ -53,9 +53,10 @@ declare namespace Bull {
 
   interface QueueOptions {
     /**
-     * Options passed directly to the `ioredis` constructor
+     * Options passed into the `ioredis` constructor's `options` parameter.
+     * `connectionName` is overwritten with `Queue.clientName()`. other properties are copied
      */
-    redis?: Redis.RedisOptions | string | undefined;
+    redis?: Redis.RedisOptions | undefined;
 
     /**
      * When specified, the `Queue` will use this function to create new `ioredis` client connections.
@@ -234,7 +235,7 @@ declare namespace Bull {
      * it atomic. If your queue does have a very large quantity of jobs, you may want to
      * avoid using this method.
      */
-    getState(): Promise<JobStatus>;
+    getState(): Promise<JobStatus | 'stuck'>;
 
     /**
      * Update a specific job's data. Promise resolves when the job has been updated.
@@ -420,15 +421,17 @@ declare namespace Bull {
      * A boolean which, if true, removes the job when it successfully completes.
      * When a number, it specifies the amount of jobs to keep.
      * Default behavior is to keep the job in the completed set.
+     * See KeepJobsOptions if using that interface instead.
      */
-    removeOnComplete?: boolean | number | undefined;
+    removeOnComplete?: boolean | number | KeepJobsOptions |undefined;
 
     /**
      * A boolean which, if true, removes the job when it fails after all attempts.
      * When a number, it specifies the amount of jobs to keep.
      * Default behavior is to keep the job in the failed set.
+     * See KeepJobsOptions if using that interface instead.
      */
-    removeOnFail?: boolean | number | undefined;
+    removeOnFail?: boolean | number | KeepJobsOptions | undefined;
 
     /**
      * Limits the amount of stack trace lines that will be recorded in the stacktrace.
@@ -439,6 +442,22 @@ declare namespace Bull {
      * Prevents JSON data from being parsed.
      */
     preventParsingData?: boolean | undefined;
+  }
+
+  /**
+   * Specify which jobs to keep after finishing processing this job.
+   * If both age and count are specified, then the jobs kept will be the ones that satisfies both properties.
+   */
+  interface KeepJobsOptions {
+    /**
+     * Maximum age in *seconds* for job to be kept.
+     */
+    age?: number | undefined;
+
+    /**
+     * Maximum count of jobs to be kept.
+     */
+    count?: number | undefined;
   }
 
   interface JobCounts {
@@ -590,8 +609,9 @@ declare namespace Bull {
      * Adds an array of jobs to the queue.
      * If the queue is empty the jobs will be executed directly,
      * otherwise they will be placed in the queue and executed as soon as possible.
+     * 'repeat' option is not supported in addBulk https://github.com/OptimalBits/bull/issues/1731
      */
-    addBulk(jobs: Array<{name?: string | undefined, data: T, opts?: JobOptions | undefined}>): Promise<Array<Job<T>>>;
+     addBulk(jobs: Array<{name?: string | undefined, data: T, opts?: Omit<JobOptions, "repeat"> | undefined}>): Promise<Array<Job<T>>>;
 
     /**
      * Returns a promise that resolves when the queue is paused.

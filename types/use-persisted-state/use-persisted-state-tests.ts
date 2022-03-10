@@ -43,3 +43,15 @@ createPersistedState(undefined);       // $ExpectError
 createPersistedState('myKey', { });                               // $ExpectError
 createPersistedState('myKey', { getItem: localStorage.getItem }); // $ExpectError
 createPersistedState('myKey', { setItem: localStorage.setItem }); // $ExpectError
+
+/**
+ * createPersistedState takes an optional type parameter, which carries through
+ * to the returned hook
+ *
+ * (based on the README example)
+ */
+const useCounterState = createPersistedState<number>('count');
+const initialCount = 1;
+const [count, setCount] = useCounterState(initialCount);
+count; // $ExpectType number
+setCount; // $ExpectType Dispatch<SetStateAction<number>>

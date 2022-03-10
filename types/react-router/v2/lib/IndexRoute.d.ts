@@ -7,7 +7,9 @@ type self = self.IndexRoute;
 export default self;
 
 declare namespace self {
-    interface IndexRouteProps extends React.Props<IndexRoute> {
+    interface IndexRouteProps {
+        children?: React.ReactNode;
+        ref?: React.LegacyRef<IndexRoute> | undefined;
         component?: Router.RouteComponent | undefined;
         components?: Router.RouteComponents | undefined;
         getComponent?: ((location: H.Location, cb: (error: any, component?: Router.RouteComponent) => void) => void) | undefined;

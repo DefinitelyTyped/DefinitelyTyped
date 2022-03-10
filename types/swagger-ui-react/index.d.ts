@@ -1,7 +1,6 @@
-// Type definitions for swagger-ui-react 3.35
+// Type definitions for swagger-ui-react 4.1
 // Project: https://github.com/swagger-api/swagger-ui#readme
 // Definitions by: viki.green <https://github.com/VictoriaGreen93>
-//                 Mendes <https://github.com/fernando-msj>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -19,18 +18,29 @@ type PluginGenerator = (system: System) => object;
 
 type Plugin = object | PluginGenerator;
 
+type Preset = () => unknown;
+
 export interface SwaggerUIProps {
     spec?: object | string | undefined;
     url?: string | undefined;
+    layout?: string | undefined;
     onComplete?: ((system: System) => void) | undefined;
     requestInterceptor?: ((req: Request) => Request | Promise<Request>) | undefined;
     responseInterceptor?: ((res: Response) => Response | Promise<Response>) | undefined;
     docExpansion?: 'list' | 'full' | 'none' | undefined;
     defaultModelExpandDepth?: number | undefined;
+    defaultModelsExpandDepth?: number | undefined;
     plugins?: Plugin[] | undefined;
     supportedSubmitMethods?: string[] | undefined;
     deepLinking?: boolean | undefined;
     showMutatedRequest?: boolean | undefined;
+    showExtensions?: boolean | undefined;
+    presets?: Preset[] | undefined;
+    filter?: string | boolean | undefined;
+    requestSnippetsEnabled?: boolean | undefined;
+    requestSnippets?: object | undefined;
+    displayOperationId?: boolean | undefined;
+    tryItOutEnabled?: boolean | undefined;
 }
 
 declare class SwaggerUI extends React.PureComponent<SwaggerUIProps> {}

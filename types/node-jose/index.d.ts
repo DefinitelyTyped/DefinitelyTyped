@@ -204,9 +204,9 @@ export namespace JWK {
         /**
          * To retrieve a key from a keystore
          */
-        get(kid: string, filter?: KeyStoreGetFilter): RawKey;
-        get(options: KeyStoreGetOptions): RawKey;
-        all(options?: Partial<KeyStoreGetOptions>): RawKey[];
+        get(kid: string, filter?: KeyStoreGetFilter): Key;
+        get(options: KeyStoreGetOptions): Key;
+        all(options?: Partial<KeyStoreGetOptions>): Key[];
         add(key: RawKey): Promise<Key>;
         /**
          * @param key

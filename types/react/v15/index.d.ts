@@ -72,7 +72,11 @@ declare namespace React {
     // React Elements
     // ----------------------------------------------------------------------
 
-    type ReactType = string | ComponentType<any>;
+    type ElementType<P = any> = string | ComponentType<P>;
+    /**
+     * @deprecated Please use `ElementType`
+     */
+    type ReactType<P = any> = ElementType<P>;
     type ComponentType<P = {}> = ComponentClass<P> | StatelessComponent<P>;
 
     type Key = string | number;
@@ -636,7 +640,9 @@ declare namespace React {
         // Keyboard Events
         onKeyDown?: KeyboardEventHandler<T> | undefined;
         onKeyDownCapture?: KeyboardEventHandler<T> | undefined;
+        /** @deprecated */
         onKeyPress?: KeyboardEventHandler<T> | undefined;
+        /** @deprecated */
         onKeyPressCapture?: KeyboardEventHandler<T> | undefined;
         onKeyUp?: KeyboardEventHandler<T> | undefined;
         onKeyUpCapture?: KeyboardEventHandler<T> | undefined;
@@ -2944,6 +2950,7 @@ declare namespace React {
         href?: string | undefined;
         hrefLang?: string | undefined;
         integrity?: string | undefined;
+        imageSrcSet?: string | undefined;
         media?: string | undefined;
         rel?: string | undefined;
         sizes?: string | undefined;
@@ -3235,6 +3242,7 @@ declare namespace React {
         fontVariant?: number | string | undefined;
         fontWeight?: number | string | undefined;
         format?: number | string | undefined;
+        fr?: number | string | undefined;
         from?: number | string | undefined;
         fx?: number | string | undefined;
         fy?: number | string | undefined;

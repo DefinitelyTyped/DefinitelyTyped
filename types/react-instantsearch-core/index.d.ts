@@ -12,6 +12,7 @@ import { SearchParameters } from 'algoliasearch-helper';
 
 // Core
 export interface InstantSearchProps {
+  children?: React.ReactNode;
   searchClient: any;
   indexName: string;
   createURL?: ((...args: any[]) => any) | undefined;
@@ -32,6 +33,7 @@ export interface InstantSearchProps {
 export class InstantSearch extends React.Component<InstantSearchProps> {}
 
 export interface IndexProps {
+  children?: React.ReactNode;
   indexName: string;
   indexId?: string | undefined;
 }
@@ -692,6 +694,7 @@ export interface SearchResults<TDoc = BasicDoc> {
   facets: any[];
   aroundLatLng?: string | undefined;
   automaticRadius?: string | undefined;
+  queryID?: string;
 }
 
 /**
@@ -768,6 +771,14 @@ export function connectHitInsights(
     hitComponent: React.ComponentType<any>,
 ) => React.ComponentType<Omit<ConnectHitInsightsProvided, { insights: WrappedInsightsClient }>>;
 export function connectVoiceSearch(Composed: React.ComponentType<any>): React.ComponentClass<any>;
+
+export interface DynamicWidgetsProps  {
+    children: React.ReactNode;
+    attributesToRender: string[];
+    fallbackComponent?: React.ComponentType<{ attribute: string }>;
+}
+
+export class DynamicWidgets extends React.Component<DynamicWidgetsProps> {}
 
 // Turn off automatic exports - so we don't export internal types like Omit<>
 export {};

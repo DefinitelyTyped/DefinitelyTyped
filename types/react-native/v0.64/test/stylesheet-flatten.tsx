@@ -10,7 +10,7 @@ export function App(props: Props) {
 
     return (
         <View style={[styles.container, props.style]}>
-            <Text>{backgroundColor}</Text>
+            <Text>{String(backgroundColor)}</Text>
         </View>
     );
 }

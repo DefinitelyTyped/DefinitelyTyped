@@ -2,6 +2,7 @@ import * as React from "react";
 
 export interface MessageStripProps {
     buttonProps?: any;
+    children?: React.ReactNode;
     className?: string | undefined;
     disableStyles?: boolean | undefined;
     dismissible?: boolean | undefined;

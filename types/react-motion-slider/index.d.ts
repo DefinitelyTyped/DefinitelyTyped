@@ -9,6 +9,7 @@ declare module "react-motion-slider" {
     import { OpaqueConfig } from "react-motion";
 
     export interface SliderProps {
+        children?: React.ReactNode;
         /**
          * Move to a slide by its key.
          */

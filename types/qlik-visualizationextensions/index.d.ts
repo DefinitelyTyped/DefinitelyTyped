@@ -2234,7 +2234,7 @@ declare namespace VariableAPI {
 
 declare namespace VisualizationAPI {
     type VisualizationType = "barchart" | "combochart" | "gauge" | "kpi" | "linechart" | "piechart" | "pivot-table" |
-        "scatterplot" | "table" | "treemap" | "extension";
+        "scatterplot" | "table" | "treemap" | "extension" | "listbox";
 
     interface IVisualization {
         /**
@@ -2252,6 +2252,7 @@ declare namespace VisualizationAPI {
          *       # table
          *       # treemap
          *       # extension
+         *       # listbox
          * @param [cols] - Optional. Column definitions, dimensions and measures.
          *       Each entry can be of the following structures:
          *       # String

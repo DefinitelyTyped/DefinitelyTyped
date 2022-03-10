@@ -35,6 +35,7 @@ export type OrderFunction = (series: Series<any, any>) => number[];
 
 export interface ChartProps<T> {
     data: T[];
+    children?: React.ReactNode;
     style?: StyleProp<ViewStyle> | undefined;
     animate?: boolean | undefined;
     animationDuration?: number | undefined;
@@ -128,18 +129,26 @@ export class StackedAreaChart<T> extends React.PureComponent<StackedAreaChartPro
     static extractDataPoints<T>(data: T[], keys: ReadonlyArray<keyof T>, order?: OrderFunction, offset?: OffsetFunction): number[];
 }
 
+// Bar Chart
+
+export interface BarChartProps<T> extends ChartProps<T> {
+    spacingInner?: number | undefined;
+    spacingOuter?: number | undefined;
+    horizontal?: boolean | undefined;
+}
+
+export class BarChart<T> extends React.PureComponent<BarChartProps<T>> {
+}
+
 // Stacked Bar Chart
 
-export interface StackedBarChartProps<T> extends ChartProps<T> {
+export interface StackedBarChartProps<T> extends BarChartProps<T> {
     keys: ReadonlyArray<keyof T>;
     colors: string[];
     offset?: OffsetFunction | undefined;
     order?: OrderFunction | undefined;
     strokeColor?: string | undefined;
-    horizontal?: boolean | undefined;
     renderGradient?: ((props: { id: string }) => React.Component<LinearGradientProps | RadialGradientProps>) | undefined;
-    spacingInner?: number | undefined;
-    spacingOuter?: number | undefined;
     showGrid?: boolean | undefined;
     extras?: any[] | undefined;
     extra?: (() => {}) | undefined;
@@ -147,16 +156,6 @@ export interface StackedBarChartProps<T> extends ChartProps<T> {
 
 export class StackedBarChart<T> extends React.PureComponent<StackedBarChartProps<T>> {
     static extractDataPoints<T>(data: T, keys: ReadonlyArray<keyof T>, order?: OrderFunction, offset?: OffsetFunction): number[];
-}
-
-// Bar Chart
-
-export interface BarChartProps<T> extends ChartProps<T> {
-    spacingInner?: number | undefined;
-    spacingOuter?: number | undefined;
-}
-
-export class BarChart<T> extends React.PureComponent<BarChartProps<T>> {
 }
 
 // Axis
@@ -260,7 +259,7 @@ export interface GridProps<T> {
     y?: ((t: T) => number) | undefined;
 }
 
-// Export as Component despite it's SFC.
+// Export as Component despite it's FC.
 export class Grid<T> extends React.Component<GridProps<T>> {
     static Direction: {
         VERTICAL: 'VERTICAL',

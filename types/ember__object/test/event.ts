@@ -28,6 +28,8 @@ function testEvented() {
 
     const person = Person.create();
 
+    person.on('potato', 'greet');
+
     const target = {
         hi() {
             console.log('Hello!');
@@ -64,15 +66,27 @@ function testObserver() {
 }
 
 function testListener() {
+    function willDestroyListener() {}
+
     EmberObject.extend({
         init() {
             addListener(this, 'willDestroy', this, 'willDestroyListener');
             addListener(this, 'willDestroy', this, 'willDestroyListener', true);
-            addListener(this, 'willDestroy', this, this.willDestroyListener);
-            addListener(this, 'willDestroy', this, this.willDestroyListener, true);
+            addListener(this, 'willDestroy', this, willDestroyListener);
+            addListener(this, 'willDestroy', this, willDestroyListener, true);
             removeListener(this, 'willDestroy', this, 'willDestroyListener');
-            removeListener(this, 'willDestroy', this, this.willDestroyListener);
+            removeListener(this, 'willDestroy', this, willDestroyListener);
+
+            addListener(this, 'willDestroy', 'willDestroyListener');
+            addListener(this, 'willDestroy', 'willDestroyListener', true);
+            addListener(this, 'willDestroy', willDestroyListener);
+            addListener(this, 'willDestroy', willDestroyListener, true);
+            removeListener(this, 'willDestroy', 'willDestroyListener');
+            removeListener(this, 'willDestroy', willDestroyListener);
         },
-        willDestroyListener() {},
+
+        willDestroyListener() {
+            willDestroyListener();
+        },
     });
 }

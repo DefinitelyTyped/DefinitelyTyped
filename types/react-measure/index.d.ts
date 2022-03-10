@@ -54,7 +54,7 @@ export interface MeasureProps {
     margin?: boolean | undefined;
     innerRef?: React.Ref<Element> | undefined;
     onResize?(contentRect: ContentRect): void;
-    children?: React.SFC<MeasuredComponentProps> | undefined;
+    children?: React.FC<MeasuredComponentProps> | undefined;
 }
 
 export function withContentRect(types: ReadonlyArray<MeasurementType> | MeasurementType):

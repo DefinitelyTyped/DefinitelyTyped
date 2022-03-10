@@ -29,31 +29,14 @@ Si aún no puedes encontrarlo, comprueba si el paquete ya [incluye](https://www.
 Esto es provisto usualmente en el campo `"types"` o `"typings"` en el `package.json`,
 o solo busca por cualquier archivo ".d.ts" en el paquete e inclúyelo manualmente con un `/// <reference path="" />`.
 
-#### Versiones más viejas de TypeScript (3.6 y anteriores)
+#### Versiones más viejas de TypeScript (3.7 y anteriores)
 
 Definitely Typed solamente prueba paquetes en versiones de TypeScript que son menores a 2 años.
-Actualmente, las versiones 3.7 y posteriores están siendo probadas. Si estas usando TypeScript 2.0 a 3.6, puedes intentar instalando paquetes `@types` &mdash; la mayoría de los paquetes no usan los beneficios de Typescript más nuevos. No hay garantía de que funcionen.
+Actualmente, las versiones 3.8 y posteriores están siendo probadas. Si estas usando TypeScript 2.0 a 3.7, puedes intentar instalando paquetes `@types` &mdash; la mayoría de los paquetes no usan los beneficios de Typescript más nuevos. No hay garantía de que funcionen.
 Versiones soportadas:
 
-Versión | Liberado | Fin de soporte
--- | -- | --
-2.8 | Marzo 2018 | Marzo 2020
-2.9 | Mayo 2018 | Mayo 2020
-3.0 | Julio 2018 | Julio 2020
-3.1 | Septiembre 2018 | Septiembre 2020
-3.2 | Noviembre 2018 | Noviembre 2020
-3.3 | Enero 2019 | Enero 2020
-3.4 | Marzo 2019 | Marzo 2021
-3.5 | Mayo 2019 | Mayo 2021
-3.6 | Agosto 2019 | Agosto 2021
-3.7 | Noviembre 2019 | Noviembre 2021
-3.8 | Febrero 2020 | Febrero 2022
-3.9 | Mayo 2020 | Mayo 2022
-4.0 | Agosto 2020 | Agosto 2022
-4.1 | Noviembre 2020  | Noviembre 2022
-4.2 | Febrero 2021  | Febrero 2023
-4.3 | Mayo 2021 | Mayo 2023
-4.4 | Agosto 2021 | Agosto 2023
+<img src="docs/support-window.svg#gh-light-mode-only" style="width:100%">
+<img src="docs/support-window.svg#gh-dark-mode-only" style="width:100%">
 
 Los paquetes `@types` tienen etiquetas para las versiones de Typescript que explícitamente soportan, usualmente puedes obtener versiones más viejas de los paquetes anteriores a 2 años.
 Por ejemplo, si ejecutas `npm dist-tags @types/react`, observaras que Typescript 2.5 puede usar types para react@16.0, a su vez, Typescript 2.6 y 2.7 pueden usar types para react@16.4.
@@ -238,7 +221,7 @@ Para más detalles, vea el [dtslint](https://github.com/Microsoft/dtslint#write-
 
 #### Linter: `tslint.json`
 
-The linter configuration file, `tslint.json` should contain `{ "extends": "dtslint/dt.json" }`, and no additional rules.
+The linter configuration file, `tslint.json` should contain `{ "extends": "@definitelytyped/dtslint/dt.json" }`, and no additional rules.
 
 If for some reason some rule needs to be disabled, [disable it for that specific line](https://palantir.github.io/tslint/usage/rule-flags/#comment-flags-in-source-code:~:text=%2F%2F%20tslint%3Adisable%2Dnext%2Dline%3Arule1%20rule2%20rule3...%20%2D%20Disables%20the%20listed%20rules%20for%20the%20next%20line) using `// tslint:disable-next-line:[ruleName]` — not for the whole package, so that disabling can be reviewed. (There are some legacy lint configs that have additional contents, but these should not happen in new work.)
 
@@ -355,7 +338,7 @@ Si planeas continuar actualizando la versión anterior del paquete, puedes crear
 1. Actualiza las rutas relativas en `tsconfig.json` al igual que `tslint.json`.
 2. Añadir reglas de mapeo de rutas para asegurarte de que la prueba se está ejecutando contra la versión prevista.
 
-Por ejemplo [history v2 `tsconfig.json`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/history/v2/tsconfig.json) se ve así:
+Por ejemplo [history v2 `tsconfig.json`](https://github.com/%44efinitelyTyped/DefinitelyTyped/blob/1253faabf5e0d2c5470db6ea87795d7f96fef7e2/types/history/v2/tsconfig.json) se ve así:
 
 ```json
 {

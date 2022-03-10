@@ -253,6 +253,11 @@ export class Vector3 implements Vector {
     setFromMatrix3Column(matrix: Matrix3, index: number): this;
 
     /**
+     * Sets this vector's {@link x}, {@link y} and {@link z} components from the x, y, and z components of the specified {@link Euler Euler Angle}.
+     */
+    setFromEuler(e: Euler): this;
+
+    /**
      * Checks for strict equality of this vector and v.
      */
     equals(v: Vector3): boolean;
@@ -287,4 +292,6 @@ export class Vector3 implements Vector {
      * Sets this vector's x, y and z from Math.random
      */
     random(): this;
+
+    randomDirection(): this;
 }

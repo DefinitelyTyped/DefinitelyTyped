@@ -80,6 +80,17 @@ declare namespace AnalyticsNode {
       integrations?: Integrations | undefined;
     }, callback?: (err: Error) => void): Analytics;
 
+    /* The screen method lets you record whenever a user sees a screen,
+       the mobile equivalent of page, in your mobile app, along with
+       any properties about the screen. */
+    screen(message: Identity & {
+      name?: string | undefined;
+      properties?: any;
+      timestamp?: Date | undefined;
+      context?: any;
+      integrations?: Integrations | undefined;
+    }, callback?: (err: Error) => void): Analytics;
+
     /* alias is how you associate one identity with another. */
     alias(message: Identity & {
       previousId: string | number;

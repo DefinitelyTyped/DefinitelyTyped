@@ -136,7 +136,7 @@ export interface ValidationProps<T extends object> {
 
 export class Validation<T extends object> extends React.Component<ValidationProps<T>> {}
 
-export interface FormValidationProps<T extends object> extends FormProps<T>, ValidationProps<T> {
+export interface FormValidationProps<T extends object> extends Omit<FormProps<T>, 'children'>, ValidationProps<T> {
     children: (context: ValidationContext<T>) => React.ReactNode;
 }
 
@@ -148,6 +148,7 @@ export type CustomValidatorFunction<T extends object> = (
 ) => (value: T[keyof T]) => string | null;
 
 export interface ValidatorsProviderProps<T extends object> {
+    children?: React.ReactNode;
     validators: Record<string, CustomValidatorFunction<T>>;
 }
 

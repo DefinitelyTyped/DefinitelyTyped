@@ -174,6 +174,8 @@ semver.subset('1.x', '1.x'); // $ExpectType boolean
 semver.subset(new Range('1.2.3'), new Range('1.2.3')); // $ExpectType boolean
 semver.subset('^1.2.3-pre.0', '1.x', { includePrerelease: true }); // $ExpectType boolean
 semver.subset('', ''); // $ExpectType boolean
+semver.toComparators('1.x'); // $ExpectType string[][]
+semver.toComparators(new Range('1.2.3')); // $ExpectType string[][]
 
 // Coercion
 sem = semver.coerce(str);
