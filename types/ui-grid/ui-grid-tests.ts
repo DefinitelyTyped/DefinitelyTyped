@@ -123,6 +123,8 @@ gridApi.core.handleWindowResize();
 gridApi.core.queueGridRefresh();
 gridApi.core.queueRefresh();
 gridApi.core.registerColumnsProcessor(colProcessor, 100);
+gridApi.core.getRowsByKey(true, "id", 42);
+gridApi.core.findRowByKey(true, 10, "42");
 
 var gridOptions: uiGrid.IGridOptionsOf<IMyEntity> = {
     data: [{name: 'Bob', age: 100}],
@@ -162,12 +164,14 @@ gridApi.selection.getSelectAllState();
 gridApi.selection.selectAllRows();
 gridApi.selection.selectAllVisibleRows();
 gridApi.selection.selectRow(row);
+gridApi.selection.selectRowByKey(true, "id", 42);
 gridApi.selection.selectRowByVisibleIndex(5);
 gridApi.selection.setModifierKeysToMultiSelect(true);
 gridApi.selection.setMultiSelect(true);
 gridApi.selection.toggleRowSelection(row);
 gridApi.selection.unSelectRow(row);
 gridApi.selection.unSelectRowByVisibleIndex(5);
+gridApi.selection.unSelectRowByKey(true, 10, "42");
 
 gridApi.expandable.on.rowExpandedStateChanged(null, (row) => {
     if (row.isExpanded) {
