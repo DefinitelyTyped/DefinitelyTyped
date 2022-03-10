@@ -150,29 +150,19 @@ export class MjmlAccordion extends React.Component<MjmlAccordionProps & PaddingP
 export interface MjmlAccordionElementProps {
     children?: React.ReactNode;
     border?: string | undefined;
-    backgroundColor?: React.CSSProperties['backgroundColor'] | undefined;
     fontFamily?: string | undefined;
     iconAlign?: string | undefined;
-    iconHeight?: string | undefined;
-    iconPosition?: 'left' | 'right' | undefined;
-    iconUnwrappedAlt?: string | undefined;
-    iconUnwrappedUrl?: string | undefined;
-    iconWidth?: string | undefined;
     iconWrappedAlt?: string | undefined;
     iconWrappedUrl?: string | undefined;
+    iconUnwrappedAlt?: string | undefined;
+    iconUnwrappedUrl?: string | undefined;
+    iconPosition?: 'left' | 'right' | undefined;
+    iconHeight?: string | undefined;
+    iconWidth?: string | undefined;
+    backgroundColor?: React.CSSProperties['backgroundColor'] | undefined;
 }
 
 export class MjmlAccordionElement extends React.Component<MjmlAccordionElementProps & ClassNameProps> { }
-
-export interface MjmlAccordionTitleProps {
-    children?: React.ReactNode;
-    backgroundColor?: React.CSSProperties['backgroundColor'] | undefined;
-    color?: React.CSSProperties['color'] | undefined;
-    fontFamily?: string | undefined;
-    fontSize?: string | number | undefined;
-}
-
-export class MjmlAccordionTitle extends React.Component<MjmlAccordionTitleProps & PaddingProps & ClassNameProps> { }
 
 export interface MjmlAccordionTextProps {
     children?: React.ReactNode;
@@ -186,6 +176,16 @@ export interface MjmlAccordionTextProps {
 }
 
 export class MjmlAccordionText extends React.Component<MjmlAccordionTextProps & PaddingProps & ClassNameProps> { }
+
+export interface MjmlAccordionTitleProps {
+    children?: React.ReactNode;
+    backgroundColor?: React.CSSProperties['backgroundColor'] | undefined;
+    color?: React.CSSProperties['color'] | undefined;
+    fontFamily?: string | undefined;
+    fontSize?: string | number | undefined;
+}
+
+export class MjmlAccordionTitle extends React.Component<MjmlAccordionTitleProps & PaddingProps & ClassNameProps> { }
 
 // mj-button
 export interface MjmlButtonProps {
