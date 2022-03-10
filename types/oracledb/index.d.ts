@@ -2603,8 +2603,8 @@ declare namespace OracleDB {
          *
          * @param numRows The number of rows to fetch
          */
-        getRows(numRows: number): Promise<T[]>;
-        getRows(numRows: number, callback: (error: DBError, rows: T[]) => void): void;
+        getRows(numRows?: number): Promise<T[]>;
+        getRows(numRows?: number, callback: (error: DBError, rows: T[]) => void): void;
 
         /**
          * This synchronous method converts a ResultSet into a stream.
