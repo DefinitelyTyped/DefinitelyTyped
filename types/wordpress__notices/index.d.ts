@@ -19,7 +19,7 @@ export interface Notice {
     status: Status;
     content: string;
     isDismissible: boolean;
-    actions: readonly WPNoticeAction[];
+    actions: readonly Action[];
 }
 
 export interface BaseAction {
@@ -32,13 +32,13 @@ export interface URLAction extends BaseAction {
     url: string;
 }
 
-export type WPNoticeAction = ButtonAction | URLAction;
+export type Action = ButtonAction | URLAction;
 
 export interface Options {
     /**
      * User actions to be presented with notice.
      */
-    actions: readonly WPNoticeAction[];
+    actions: readonly Action[];
     /**
      * Context under which to group notice.
      * @defaultValue `'global'`
