@@ -2594,7 +2594,7 @@ declare namespace OracleDB {
 
         /**
          * This call fetches numRows rows of the ResultSet as an object or an array of column values,
-         * depending on the value of outFormat.
+         * depending on the value of outFormat. If no argument is passed, or numRows is zero, then all rows are fetched. 
          *
          * At the end of fetching, the ResultSet should be freed by calling close().
          *
@@ -2604,7 +2604,8 @@ declare namespace OracleDB {
          * @param numRows The number of rows to fetch
          */
         getRows(numRows?: number): Promise<T[]>;
-        getRows(numRows?: number, callback: (error: DBError, rows: T[]) => void): void;
+        getRows(callback: (error: DBError, rows: T[]) => void): void;
+        getRows(numRows: number, callback: (error: DBError, rows: T[]) => void): void;
 
         /**
          * This synchronous method converts a ResultSet into a stream.
