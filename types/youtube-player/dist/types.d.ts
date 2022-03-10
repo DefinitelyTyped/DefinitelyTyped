@@ -50,8 +50,8 @@ export interface YouTubePlayer {
     destroy(): void;
     getAvailablePlaybackRates(): ReadonlyArray<number>;
     getAvailableQualityLevels(): ReadonlyArray<string>;
-    getCurrentTime(): number;
-    getDuration(): number;
+    getCurrentTime(): Promise<number>;
+    getDuration(): Promise<number>;
     getIframe(): HTMLIFrameElement;
     getOption(module: string, option: string): any;
     getOptions(): string[];
