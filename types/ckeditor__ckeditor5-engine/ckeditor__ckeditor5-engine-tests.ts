@@ -659,6 +659,16 @@ downcastWriter.createEmptyElement('fo', { foo: 'bar' }, { renderUnsafeAttributes
 downcastWriter.createContainerElement('fo');
 downcastWriter.createContainerElement('fo', { foo: 'bar' });
 downcastWriter.createContainerElement('fo', { foo: 'bar' }, { renderUnsafeAttributes: ['foo', 'bar'] });
+downcastWriter.createContainerElement('fo', { foo: 'bar' }, [
+    downcastWriter.createEmptyElement('img'),
+    downcastWriter.createContainerElement('caption'),
+]);
+downcastWriter.createContainerElement(
+    'fo',
+    { foo: 'bar' },
+    [downcastWriter.createEmptyElement('img'), downcastWriter.createContainerElement('caption')],
+    { renderUnsafeAttributes: ['foo', 'bar'] },
+);
 
 type ModelIsTypes =
     | DocumentFragment

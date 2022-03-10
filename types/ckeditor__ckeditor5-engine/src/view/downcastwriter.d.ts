@@ -49,6 +49,15 @@ export default class DowncastWriter {
     createContainerElement(
         name: string,
         attributes?: Record<string, string>,
+        children?: Element[],
+        options?: {
+            isAllowedInsideAttributeElement?: boolean | undefined;
+            renderUnsafeAttributes?: string[] | undefined;
+        },
+    ): ContainerElement;
+    createContainerElement(
+        name: string,
+        attributes?: Record<string, string>,
         options?: {
             isAllowedInsideAttributeElement?: boolean | undefined;
             renderUnsafeAttributes?: string[] | undefined;
