@@ -152,8 +152,8 @@ export interface MjmlAccordionElementProps {
     border?: string | undefined;
     fontFamily?: string | undefined;
     iconAlign?: string | undefined;
-    iconWrappedAlt?: string | undefined;
     iconWrappedUrl?: string | undefined;
+    iconWrappedAlt?: string | undefined;
     iconUnwrappedAlt?: string | undefined;
     iconUnwrappedUrl?: string | undefined;
     iconPosition?: 'left' | 'right' | undefined;
@@ -166,10 +166,10 @@ export class MjmlAccordionElement extends React.Component<MjmlAccordionElementPr
 
 export interface MjmlAccordionTextProps {
     children?: React.ReactNode;
-    backgroundColor?: React.CSSProperties['backgroundColor'] | undefined;
     color?: React.CSSProperties['color'] | undefined;
     fontFamily?: string | undefined;
     fontSize?: string | number | undefined;
+    backgroundColor?: React.CSSProperties['backgroundColor'] | undefined;
     fontWeight?: string | number | undefined;
     letterSpacing?: string | number | undefined;
     lineHeight?: string | number | undefined;
@@ -179,8 +179,8 @@ export class MjmlAccordionText extends React.Component<MjmlAccordionTextProps & 
 
 export interface MjmlAccordionTitleProps {
     children?: React.ReactNode;
-    backgroundColor?: React.CSSProperties['backgroundColor'] | undefined;
     color?: React.CSSProperties['color'] | undefined;
+    backgroundColor?: React.CSSProperties['backgroundColor'] | undefined;
     fontFamily?: string | undefined;
     fontSize?: string | number | undefined;
 }
