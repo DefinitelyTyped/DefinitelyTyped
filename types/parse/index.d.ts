@@ -832,6 +832,13 @@ declare global {
                 sort?: { [key: string]: 1 | -1 } | undefined;
                 // Sample documentation: https://docs.mongodb.com/v3.2/reference/operator/aggregation/sample/
                 sample?: { size: number } | undefined;
+                count?: string | undefined;
+                // Lookup documentation: https://docs.mongodb.com/manual/reference/operator/aggregation/lookup/#pipe._S_lookup
+                lookup?: { [key: string]: any } | undefined;
+                // Graph Lookup documentation: https://docs.mongodb.com/manual/reference/operator/aggregation/graphLookup/#pipe._S_graphLookup
+                graphLookup?: { [key: string]: any } | undefined;
+                // Facet documentation: https://docs.mongodb.com/manual/reference/operator/aggregation/facet/#pipe._S_facet
+                facet?: { [key: string]: any } | undefined;
             }
 
             // According to https://parseplatform.org/Parse-SDK-JS/api/2.1.0/Parse.Query.html#fullText
