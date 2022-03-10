@@ -42,7 +42,7 @@ interface PwdStrengthOptions {
 interface PwdStrengthReturn {
     success: boolean;
     key: string;
-    message: string;
+    message: Array<string> | string;
     color: string;
 }
 
