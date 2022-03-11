@@ -5,6 +5,8 @@
 // TypeScript Version: 3.8
 
 /**
+ * The global namespace the [Google Publisher Tag](https://developers.google.com/publisher-tag) uses for its API.
+ *
  * The [Google Publisher Tag (GPT)](https://developers.google.com/publisher-tag) is an ad tagging library for Google Ad Manager which is used to dynamically build ad requests.
  * It takes key details from you (such as ad unit code, ad size, and custom targeting), builds the request, and displays the ad on web pages.
  *
@@ -40,6 +42,9 @@ declare namespace googletag {
              * Anchor format where slot sticks to the bottom of the viewport.
              */
             BOTTOM_ANCHOR = 3,
+            /**
+             * Rewarded format.
+             */
             REWARDED = 4,
             /**
              * Web interstitial creative format.
@@ -47,7 +52,13 @@ declare namespace googletag {
             INTERSTITIAL = 5,
         }
     }
+    /**
+     * A valid size configuration for a slot, which can be one or multiple sizes.
+     */
     type GeneralSize = SingleSize | MultiSize;
+    /**
+     * A list of single valid sizes.
+     */
     type MultiSize = SingleSize[];
     /**
      * Named sizes that a slot can have.
@@ -59,12 +70,21 @@ declare namespace googletag {
      * Note that both 'fluid' and ['fluid'] are acceptable forms to declare a slot size as fluid.
      */
     type NamedSize = 'fluid' | ['fluid'];
+    /**
+     * A single valid size for a slot.
+     */
     type SingleSize = SingleSizeArray | NamedSize;
     /**
      * Array of two numbers representing [width, height].
      */
     type SingleSizeArray = [number, number];
+    /**
+     * A mapping of viewport size to ad sizes. Used for responsive ads.
+     */
     type SizeMapping = [SingleSizeArray, GeneralSize];
+    /**
+     * A list of size mappings.
+     */
     type SizeMappingArray = SizeMapping[];
     /**
      * Flag indicating that GPT API is loaded and ready to be called.
@@ -100,7 +120,7 @@ declare namespace googletag {
      * });
      * ```
      */
-    let cmd: CommandArray | Array<() => void>;
+    let cmd: CommandArray | Array<(this: typeof globalThis) => void>;
     /**
      * Flag indicating that {@link PubAdsService} is enabled, loaded and fully operational.
      * This property will be simply `undefined` until {@link googletag.enableServices()} is called and {@link PubAdsService} is loaded and initialized.
@@ -225,7 +245,7 @@ declare namespace googletag {
      * @param divOrSlot Either the ID of the div element containing the ad slot or the div element, or the slot object.
      * If a div element is provided, it must have an 'id' attribute which matches the ID passed into {@link googletag.defineSlot()}.
      */
-    function display(divOrSlot: string | Element | Slot): void;
+    function display(divOrSlot: string | Slot | Element): void;
     /**
      * Enables all GPT services that have been defined for ad slots on the page.
      */
@@ -357,10 +377,12 @@ declare namespace googletag {
          * });
          * ```
          *
-         * @param ...f A JavaScript function to be executed..
+         * @param ...f A JavaScript function to be executed.
+         * The runtime binding will always be [globalThis](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/globalThis).
+         * Consider passing an arrow function to retain the this value of the enclosing lexical context.
          * @returns The number of commands processed so far. This is compatible with {@link Array.push}'s return value (the current length of the array).
          */
-        push(...f: Array<() => void>): number;
+        push(...f: Array<(this: typeof globalThis) => void>): number;
     }
     /**
      * Companion Ads service.
@@ -991,6 +1013,19 @@ declare namespace googletag {
         lineItemId: number | null;
     }
     /**
+     * An object representing the reward associated with a [rewarded ad](https://support.google.com/admanager/answer/9116812).
+     */
+    interface RewardedPayload {
+        /**
+         * The number of items included in the reward.
+         */
+        amount: number;
+        /**
+         * The type of item included in the reward (for example, "coin").
+         */
+        type: string;
+    }
+    /**
      * Configuration object for [SafeFrame](https://support.google.com/admanager/answer/6023110) containers.
      */
     interface SafeFrameConfig {
@@ -1012,7 +1047,7 @@ declare namespace googletag {
          *
          * Note: this feature is enabled by default. See the [Use unique SafeFrame domains](https://support.google.com/admanager/answer/9999596) article for more information.
          *
-         * @deprecated It is no longer be possible to disable this feature. Setting `useUniqueDomain` has no effect.
+         * @deprecated It is no longer possible to disable this feature. Setting `useUniqueDomain` has no effect.
          */
         useUniqueDomain?: boolean | null | undefined;
     }
@@ -1023,6 +1058,9 @@ declare namespace googletag {
         /**
          * Registers a listener that allows you to set up and call a JavaScript function when a specific GPT event happens on the page. The following events are supported:
          * - {@link googletag.events.ImpressionViewableEvent}
+         * - {@link googletag.events.RewardedSlotClosedEvent}
+         * - {@link googletag.events.RewardedSlotGrantedEvent}
+         * - {@link googletag.events.RewardedSlotReadyEvent}
          * - {@link googletag.events.SlotOnloadEvent}
          * - {@link googletag.events.SlotRenderEndedEvent}
          * - {@link googletag.events.SlotRequestedEvent}
@@ -1058,6 +1096,18 @@ declare namespace googletag {
         addEventListener(
             eventType: 'impressionViewable',
             listener: (event: events.ImpressionViewableEvent) => void,
+        ): Service;
+        addEventListener(
+            eventType: 'rewardedSlotClosed',
+            listener: (event: events.RewardedSlotClosedEvent) => void,
+        ): Service;
+        addEventListener(
+            eventType: 'rewardedSlotGranted',
+            listener: (event: events.RewardedSlotGrantedEvent) => void,
+        ): Service;
+        addEventListener(
+            eventType: 'rewardedSlotReady',
+            listener: (event: events.RewardedSlotReadyEvent) => void,
         ): Service;
         addEventListener(eventType: 'slotOnload', listener: (event: events.SlotOnloadEvent) => void): Service;
         addEventListener(eventType: 'slotRenderEnded', listener: (event: events.SlotRenderEndedEvent) => void): Service;
@@ -1113,6 +1163,18 @@ declare namespace googletag {
         removeEventListener(
             eventType: 'impressionViewable',
             listener: (event: events.ImpressionViewableEvent) => void,
+        ): boolean;
+        removeEventListener(
+            eventType: 'rewardedSlotClosed',
+            listener: (event: events.RewardedSlotClosedEvent) => void,
+        ): boolean;
+        removeEventListener(
+            eventType: 'rewardedSlotGranted',
+            listener: (event: events.RewardedSlotGrantedEvent) => void,
+        ): boolean;
+        removeEventListener(
+            eventType: 'rewardedSlotReady',
+            listener: (event: events.RewardedSlotReadyEvent) => void,
         ): boolean;
         removeEventListener(eventType: 'slotOnload', listener: (event: events.SlotOnloadEvent) => void): boolean;
         removeEventListener(
@@ -1617,6 +1679,90 @@ declare namespace googletag {
          */
         // tslint:disable-next-line:no-empty-interface
         interface ImpressionViewableEvent extends Event {}
+        /**
+         * This event is fired when a rewarded ad slot is closed by the user.
+         * It may fire either before or after a reward has been granted.
+         * To determine whether a reward has been granted, use {@link RewardedSlotGrantedEvent} instead.
+         *
+         * **Example**
+         * ```
+         * // This listener is called when the user closes a rewarded ad slot.
+         * var targetSlot = ...;
+         * googletag.pubads().addEventListener('rewardedSlotClosed',
+         *     function(event) {
+         *       var slot = event.slot;
+         *       console.log('Rewarded ad slot', slot.getSlotElementId(),
+         *                   'has been closed.');
+         *       if (slot === targetSlot) {
+         *         // Slot specific logic.
+         *       }
+         *     }
+         * );
+         * ```
+         */
+        // tslint:disable-next-line:no-empty-interface
+        interface RewardedSlotClosedEvent extends Event {}
+        /**
+         * This event is fired when a reward is granted for viewing a [rewarded ad](https://support.google.com/admanager/answer/9116812).
+         * If the ad is closed before the criteria for granting a reward is met, this event will not fire.
+         *
+         * **Example**
+         * ```
+         * // This listener is called whenever a reward is granted for a rewarded ad.
+         * var targetSlot = ...;
+         * googletag.pubads().addEventListener('rewardedSlotGranted',
+         *     function(event) {
+         *       var slot = event.slot;
+         *       console.group(
+         *           'Reward granted for slot', slot.getSlotElementId(), '.');
+         *       // Log details of the reward.
+         *       console.log('Reward type:', event.payload.type);
+         *       console.log('Reward amount:', event.payload.amount);
+         *       console.groupEnd();
+         *       if (slot === targetSlot) {
+         *         // Slot specific logic.
+         *       }
+         *     }
+         * );
+         * ```
+         */
+        interface RewardedSlotGrantedEvent extends Event {
+            /**
+             * An object containing information about the reward that was granted.
+             */
+            payload: null | RewardedPayload;
+        }
+        /**
+         * This event is fired when a [rewarded ad](https://support.google.com/admanager/answer/9116812) is ready to be displayed.
+         * The publisher is responsible for presenting the user an option to view the ad before displaying it.
+         *
+         * **Example**
+         * ```
+         * // This listener is called when a rewarded ad slot becomes ready to be
+         * // displayed.
+         * var targetSlot = ...;
+         * googletag.pubads().addEventListener('rewardedSlotReady',
+         *     function(event) {
+         *       var slot = event.slot;
+         *       console.log('Rewarded ad slot', slot.getSlotElementId(),
+         *                   'is ready to be displayed.');
+         *       if(<!--User consents to viewing the ad.-->) {
+         *         // Display the ad.
+         *         event.makeRewardedVisible();
+         *       }
+         *       if (slot === targetSlot) {
+         *         // Slot specific logic.
+         *       }
+         *     }
+         * );
+         * ```
+         */
+        interface RewardedSlotReadyEvent extends Event {
+            /**
+             * Displays the rewarded ad. This method should not be called until the user has consented to view the ad.
+             */
+            makeRewardedVisible(): void;
+        }
         /**
          * This event is fired when the creative's iframe fires its load event. When rendering rich media ads in sync rendering mode, no iframe is used so no `SlotOnloadEvent` will be fired.
          *

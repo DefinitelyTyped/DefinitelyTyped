@@ -693,3 +693,47 @@ googletag
     .set('adsense_url_color', '#000000')
     .set('adsense_ui_features', 'rc:10')
     .set('page_url', 'www.mysite.com');
+
+// Explicitly binds provided functions to globalThis.
+googletag.cmd.push(function test() {
+    console.log(this.googletag.pubadsReady);
+});
+
+// Rewarded ads for web have launched.
+targetSlot = (
+    googletag.defineOutOfPageSlot('/1234567/sports', googletag.enums.OutOfPageFormat.REWARDED) as googletag.Slot
+).addService(googletag.pubads());
+// This listener is called when the user closes a rewarded ad slot.
+function rewardedSlotClosed(event: googletag.events.Event) {
+    const slot = event.slot;
+    console.log('Rewarded ad slot', slot.getSlotElementId(), 'has been closed.');
+    if (slot === targetSlot) {
+        // Slot specific logic.
+        googletag.pubads().removeEventListener('rewardedSlotClosed', rewardedSlotClosed);
+    }
+}
+googletag.pubads().addEventListener('rewardedSlotGranted', rewardedSlotClosed);
+// This listener is called whenever a reward is granted for a rewarded ad.
+function rewardedSlotGranted(event: googletag.events.RewardedSlotGrantedEvent) {
+    const slot = event.slot;
+    console.group('Reward granted for slot', slot.getSlotElementId(), '.');
+    // Log details of the reward.
+    console.log('Reward type:', event.payload?.type);
+    console.log('Reward amount:', event.payload?.amount);
+    console.groupEnd();
+    if (slot === targetSlot) {
+        // Slot specific logic.
+        googletag.pubads().removeEventListener('rewardedSlotGranted', rewardedSlotGranted);
+    }
+}
+googletag.pubads().addEventListener('rewardedSlotGranted', rewardedSlotGranted);
+// This listener is called when a rewarded ad slot becomes ready to be displayed.
+googletag.pubads().addEventListener('rewardedSlotReady', event => {
+    const slot = event.slot;
+    console.log('Rewarded ad slot', slot.getSlotElementId(), 'is ready to be displayed.');
+    // Display the ad.
+    event.makeRewardedVisible();
+    if (slot === targetSlot) {
+        // Slot specific logic.
+    }
+});
