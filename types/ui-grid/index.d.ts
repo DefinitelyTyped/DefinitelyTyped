@@ -3039,11 +3039,11 @@ declare namespace uiGrid {
             * unselects the GridRows who have an key that is equal to comparator
             * so for Example if isInEntity == false then it does this check: row[key] === comparator
             * if isInEntity == true then it does this check: row.entity[key] === comparator
-            * @param {boolean} isInEntity if true then key is in entity else it's directly in row
-            * @param {string | number} key the key to look for
-            * @param {any} comparator the value that key should have
-            * @param {Event} evt [optional] object if raised from an event
-            * @param {array} lookInRows [optional] the rows to look in - if not provided then looks in grid.rows
+            * @param isInEntity if true then key is in entity else it's directly in row
+            * @param key the key to look for
+            * @param comparator the value that key should have
+            * @param evt object if raised from an event
+            * @param lookInRows the rows to look in - if not provided then looks in grid.rows
             */
             unSelectRowByKey(isInEntity: boolean, key: string | number, comparator: any, evt?: ng.IAngularEvent, lookInRows?: Array<uiGrid.IGridRowOf<TEntity>>): void
 
