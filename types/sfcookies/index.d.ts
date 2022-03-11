@@ -16,7 +16,7 @@ export function bake_cookie(name: string, value: string, date?: Date): void;
  * @param name Name of the cookie.
  * @returns cookie value or empty array if nothing.
  */
-export function read_cookie(name: string): string | [];
+export function read_cookie(name: string): string | unknown[];
 
 /**
  * Delete an cookie.
