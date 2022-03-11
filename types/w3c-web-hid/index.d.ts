@@ -154,6 +154,8 @@ declare class HIDDevice extends EventTarget {
     open(): Promise<void>;
 
     close(): Promise<void>;
+    
+    forget(): Promise<void>;
 
     sendReport(reportId: number, data: BufferSource): Promise<void>;
 
