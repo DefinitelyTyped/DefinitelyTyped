@@ -196,11 +196,11 @@ declare namespace uiGrid {
          * returns the first GridRow who has an key that is equal to comparator
          * so for Example if isInEntity == false then it does this check: row[key] === comparator
          * if isInEntity == true then it does this check: row.entity[key] === comparator
-         * @param {boolean} isInEntity if true then key is in entity else it's directly in row
-         * @param {(string|number)} key the key to look for
-         * @param {any} comparator the value that key should have
-         * @param {array} lookInRows [optional] the rows to look in - if not provided then looks in grid.rows
-         */        
+         * @param isInEntity if true then key is in entity else it's directly in row
+         * @param key the key to look for
+         * @param comparator the value that key should have
+         * @param lookInRows the rows to look in - if not provided then looks in grid.rows
+         */
         findRowByKey(isInEntity: boolean, key: string | number, comparator: any, rows?: Array<IGridRowOf<TEntity>>): IGridRowOf<TEntity>;
         /**
          * sets isScrollingHorizontally to true and sets it to false in a debounced function
