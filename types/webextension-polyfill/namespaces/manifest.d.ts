@@ -678,7 +678,7 @@ export namespace Manifest {
          * - `none`
          * - Any localhost source, (`http://localhost`, `http://127.0.0.1`, or any port on those domains)
          * Optional.
-         */        
+         */
         sandbox?: string;
     }
 
