@@ -11,6 +11,7 @@ declare namespace Intercom_ {
     interface IntercomSettings {
         // Messenger attributes
         app_id?: string | undefined;
+        api_base?: string | undefined;
         alignment?: string | undefined;
         custom_launcher_selector?: string | undefined;
         hide_default_launcher?: boolean | undefined;
