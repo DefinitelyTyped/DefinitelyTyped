@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "nhs-number-validator.ts"
+        "nhs-number-validator-tests.ts"
     ]
 }
