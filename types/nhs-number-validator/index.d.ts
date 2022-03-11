@@ -3,4 +3,4 @@
 // Definitions by: Josh Dando <https://github.com/Joshswooft>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export function validate(nhsNumber: any): boolean;
+export function validate(nhsNumber: string | number): boolean;
