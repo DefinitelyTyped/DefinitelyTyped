@@ -1394,7 +1394,9 @@ declare namespace React {
         // Keyboard Events
         onKeyDown?: KeyboardEventHandler<T> | undefined;
         onKeyDownCapture?: KeyboardEventHandler<T> | undefined;
+        /** @deprecated */
         onKeyPress?: KeyboardEventHandler<T> | undefined;
+        /** @deprecated */
         onKeyPressCapture?: KeyboardEventHandler<T> | undefined;
         onKeyUp?: KeyboardEventHandler<T> | undefined;
         onKeyUpCapture?: KeyboardEventHandler<T> | undefined;

@@ -374,3 +374,21 @@ declare module 'ws' {
         }
     });
 }
+
+{
+    const ws = new WebSocket('ws://www.host.com/path');
+
+    if (ws.isPaused) {
+        ws.resume();
+    } else {
+        ws.pause();
+    }
+
+    // $ExpectError
+    ws.isPaused = true;
+
+    ws.onopen = null;
+    ws.onerror = null;
+    ws.onclose = null;
+    ws.onmessage = null;
+}

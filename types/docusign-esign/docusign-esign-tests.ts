@@ -22,6 +22,10 @@ const apiClient = () => {
     return new docusign.ApiClient({ basePath, oAuthBasePath });
 };
 
+const apiClientWithOutConstructorParams = () => {
+    return new docusign.ApiClient();
+};
+
 const getEnvelope = async (
     envelopeId: string,
     options: { advancedUpdate?: string | undefined; include?: string | undefined },
@@ -29,6 +33,19 @@ const getEnvelope = async (
     const params = await getDsRequestParams();
     const client = await getClient(params.token);
     const envelopesApi = new docusign.EnvelopesApi(client);
+
+    const results = await envelopesApi.getEnvelope(params.accountId, envelopeId, options);
+    return results;
+};
+
+const getEnvelopeWithStoredConfiguredClient = async (
+    envelopeId: string,
+    options: { advancedUpdate?: string | undefined; include?: string | undefined },
+) => {
+    const params = await getDsRequestParams();
+    const client = await getClient(params.token);
+    docusign.Configuration.default.setDefaultApiClient(client);
+    const envelopesApi = new docusign.EnvelopesApi();
 
     const results = await envelopesApi.getEnvelope(params.accountId, envelopeId, options);
     return results;

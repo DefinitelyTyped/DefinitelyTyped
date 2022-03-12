@@ -8,7 +8,7 @@
 // Imported from: https://github.com/soywiz/typescript-node-definitions/nconf.d.ts
 
 
-export declare var version: number;
+export declare var version: string;
 export declare var stores: any;
 export declare var sources: any[];
 

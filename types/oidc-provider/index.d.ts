@@ -2131,4 +2131,7 @@ export namespace errors {
     class WebMessageUriMismatch extends OIDCProviderError {
         constructor(description?: string, detail?: string);
     }
+    class CustomOIDCProviderError extends OIDCProviderError {
+        constructor(message: string, description?: string);
+    }
 }
