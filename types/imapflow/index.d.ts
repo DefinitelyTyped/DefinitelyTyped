@@ -36,7 +36,7 @@ export class ImapFlow extends EventEmitter {
     download(
         range: SequenceString,
         part?: string,
-        options?: { uid?: boolean; maxBytes?: number },
+        options?: { uid?: boolean; maxBytes?: number, chunkSize?: number },
     ): Promise<DownloadObject>;
 
     getMailboxLock(path: string, options?: null | { readonly?: boolean }): Promise<MailboxLockObject>;
