@@ -2,6 +2,7 @@
 // Project: https://imapflow.com/
 // Definitions by: Jeffrey Ratton <https://github.com/jeffreyratton98>
 //                 Martin Badin <https://github.com/martin-badin>
+//                 Northern Star <https://github.com/Grayson-code>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
