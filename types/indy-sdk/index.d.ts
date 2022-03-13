@@ -304,6 +304,7 @@ export interface WalletStorageConfig {
 
 export interface WalletCredentials {
     key: string;
+    rekey?: string;
     storage_credentials?:
         | {
               [key: string]: unknown;
