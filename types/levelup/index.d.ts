@@ -167,6 +167,5 @@ export interface LevelUpChain<K = any, V = any> {
     write(): Promise<this>;
 }
 
-
 declare const levelup: LevelUpConstructor;
 export default levelup;
