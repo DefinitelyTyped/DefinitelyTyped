@@ -128,6 +128,16 @@ export interface LevelUp<DB = AbstractLevelDOWN, Iterator = AbstractIterator<any
     on(event: 'open' | 'ready' | 'closed' | 'opening' | 'closing', cb: () => void): this;
 }
 
+export interface Errors {
+    LevelUPError: typeof LevelUPError;
+    InitializationError: typeof InitializationError;
+    OpenError: typeof OpenError;
+    ReadError: typeof ReadError;
+    WriteError: typeof WriteError;
+    NotFoundError: typeof NotFoundError;
+    EncodingError: typeof EncodingError;
+}
+
 interface LevelUpConstructor {
     <DB extends AbstractLevelDOWN = AbstractLevelDOWN>(
         db: DB,
@@ -147,15 +157,7 @@ interface LevelUpConstructor {
         db: DB,
         cb?: ErrorCallback): LevelUp<DB>;
 
-    errors: {
-        LevelUPError: typeof LevelUPError;
-        InitializationError: typeof InitializationError;
-        OpenError: typeof OpenError;
-        ReadError: typeof ReadError;
-        WriteError: typeof WriteError;
-        NotFoundError: typeof NotFoundError;
-        EncodingError: typeof EncodingError;
-    };
+    errors: Errors;
 }
 
 export interface LevelUpChain<K = any, V = any> {
