@@ -8,6 +8,10 @@
                     [
                         "NeedsExportEquals",
                         false
+                    ],
+                    [
+                        "NoDefaultExport",
+                        false
                     ]
                 ],
                 "mode": "code"
