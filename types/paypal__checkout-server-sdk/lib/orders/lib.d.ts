@@ -520,15 +520,15 @@ export interface PaymentSourceResponse {
 
 // https://developer.paypal.com/docs/api/orders/v2/#definition-order_application_context
 export interface OrderApplicationContext {
-    brand_name: string;
-    locale: string;
-    landing_page: LandingPage;
-    shipping_preference: ShippingPreference;
-    user_action: UserAction;
-    payment_method: PaymentMethod;
-    return_url: string;
-    cancel_url: string;
-    stored_payment_source: StoredPaymentSource;
+    brand_name?: string;
+    locale?: string;
+    landing_page?: LandingPage;
+    shipping_preference?: ShippingPreference;
+    user_action?: UserAction;
+    payment_method?: PaymentMethod;
+    return_url?: string;
+    cancel_url?: string;
+    stored_payment_source?: StoredPaymentSource;
 }
 
 export enum LandingPage {
