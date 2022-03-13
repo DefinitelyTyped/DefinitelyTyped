@@ -11,7 +11,7 @@
 // TypeScript Version: 2.8
 
 // NOTE: Users of the upcoming React 18 release should add a reference
-// to 'react-dom/next' in their project. See next.d.ts's top comment
+// to 'react-dom/client' in their project. See client.d.ts's top comment
 // for reference and documentation on how exactly to do it.
 
 // NOTE: Users of the `experimental` builds of React should add a reference
