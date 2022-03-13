@@ -14,11 +14,11 @@
 import { EventEmitter } from 'events';
 import * as processors from './lib/processors';
 
-export function parseString(str: convertableToString, callback: (err: Error, result: any) => void): void;
+export function parseString(str: convertableToString, callback: (err: Error | null, result: any) => void): void;
 export function parseString(
     str: convertableToString,
     options: ParserOptions,
-    callback: (err: Error, result: any) => void,
+    callback: (err: Error | null, result: any) => void,
 ): void;
 export function parseStringPromise(str: convertableToString, options?: ParserOptions): Promise<any>;
 
@@ -46,49 +46,49 @@ export class Builder {
 
 export class Parser extends EventEmitter {
     constructor(options?: ParserOptions);
-    parseString(str: convertableToString, cb?: Function): void;
+    parseString(str: convertableToString, cb?: (error: Error | null, result: any) => void): void;
     parseStringPromise(str: convertableToString): Promise<any>;
     reset(): void;
 }
 
 export interface ParserOptions {
-    attrkey?: string | undefined;
-    charkey?: string | undefined;
-    explicitCharkey?: boolean | undefined;
-    trim?: boolean | undefined;
-    normalizeTags?: boolean | undefined;
-    normalize?: boolean | undefined;
-    explicitRoot?: boolean | undefined;
-    emptyTag?: any;
-    explicitArray?: boolean | undefined;
-    ignoreAttrs?: boolean | undefined;
-    mergeAttrs?: boolean | undefined;
-    validator?: Function | undefined;
-    xmlns?: boolean | undefined;
-    explicitChildren?: boolean | undefined;
-    childkey?: string | undefined;
-    preserveChildrenOrder?: boolean | undefined;
-    charsAsChildren?: boolean | undefined;
-    includeWhiteChars?: boolean | undefined;
-    async?: boolean | undefined;
-    strict?: boolean | undefined;
-    attrNameProcessors?: Array<(name: string) => any> | undefined;
-    attrValueProcessors?: Array<(value: string, name: string) => any> | undefined;
-    tagNameProcessors?: Array<(name: string) => any> | undefined;
-    valueProcessors?: Array<(value: string, name: string) => any> | undefined;
-    chunkSize?: number | undefined;
+    attrkey?: string;
+    charkey?: string;
+    explicitCharkey?: boolean;
+    trim?: boolean;
+    normalizeTags?: boolean;
+    normalize?: boolean;
+    explicitRoot?: boolean;
+    emptyTag?: (() => any) | string;
+    explicitArray?: boolean;
+    ignoreAttrs?: boolean;
+    mergeAttrs?: boolean;
+    validator?: Function;
+    xmlns?: boolean;
+    explicitChildren?: boolean;
+    childkey?: string;
+    preserveChildrenOrder?: boolean;
+    charsAsChildren?: boolean;
+    includeWhiteChars?: boolean;
+    async?: boolean;
+    strict?: boolean;
+    attrNameProcessors?: Array<(name: string) => any>;
+    attrValueProcessors?: Array<(value: string, name: string) => any>;
+    tagNameProcessors?: Array<(name: string) => any>;
+    valueProcessors?: Array<(value: string, name: string) => any>;
+    chunkSize?: number;
 }
 
 export interface BuilderOptions {
-    attrkey?: string | undefined;
-    charkey?: string | undefined;
-    rootName?: string | undefined;
-    renderOpts?: RenderOptions | undefined;
-    xmldec?: XmlDeclarationAttributes | undefined;
+    attrkey?: string;
+    charkey?: string;
+    rootName?: string;
+    renderOpts?: RenderOptions;
+    xmldec?: XmlDeclarationAttributes;
     doctype?: any;
-    headless?: boolean | undefined;
-    allowSurrogateChars?: boolean | undefined;
-    cdata?: boolean | undefined;
+    headless?: boolean;
+    allowSurrogateChars?: boolean;
+    cdata?: boolean;
 }
 
 export type Options = Omit<ParserOptions, "preserveChildrenOrder" | "chunkSize">;
