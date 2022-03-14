@@ -53,14 +53,14 @@ player.loadVideoById('doesNotExist');
 player.playVideo();
 player.pauseVideo();
 player.setSize(320, 200);
-(async () => {
+((async (): Promise<void> => {
     if (await player.isMuted()) {
         player.unMute();
     } else {
         player.mute();
     }
-})()
-(async () => player.setVolume((await player.getVolume()) / 2))();
+}) as () => Promise<void>)()
+((async (): Promise<void> => player.setVolume((await player.getVolume()) / 2)) as () => Promise<void>)();
 
 player.on('stateChange', (event: CustomEvent<void> & {data: number}) => {
     switch (event.data) {
