@@ -1457,6 +1457,7 @@ export interface NightwatchComponentTestingCommands {
 // tslint:disable-next-line
 export interface NightwatchElement extends WebElement {}
 
+export type NightwatchTest = (browser?: NightwatchBrowser) => void;
 export interface NightwatchTestFunctions {
     before?: NightwatchTestHook | undefined;
     after?: NightwatchTestHook | undefined;
