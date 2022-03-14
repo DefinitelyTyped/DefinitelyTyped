@@ -77,7 +77,7 @@ interface usePaymentInputsOptions {
     cardNumber: string,
     cardType: CardType,
     errorMessages: ErrorMessages,
-  }) => void;
+  }) => string;
   /**
    * Set custom cvc validator function
    */
@@ -85,14 +85,14 @@ interface usePaymentInputsOptions {
     cvc: string,
     cardType: CardType,
     errorMessages: ErrorMessages
-  }) => void;
+  }) => string;
   /**
    * Set expiry validator function
    */
   expiryValidator?: (props: {
     expiryDate: { month: string, year: string },
     errorMessages: ErrorMessages
-  }) => void;
+  }) => string;
 }
 
 interface usePaymentInputsData {
@@ -285,6 +285,29 @@ interface PaymentInputsWrapperProps {
 }
 
 export function usePaymentInputs(options?: usePaymentInputsOptions): usePaymentInputsData;
+
+export function getCardNumberError(
+  cardNumber: string,
+  cardNumberValidator: (props: { cardNumber: string, cardType: CardType, errorMessages: ErrorMessages }) => string,
+  { errorMessages }: { errorMessages: ErrorMessages }
+): string;
+
+export function getExpiryDateError(
+  expiryDate: string,
+  expiryValidator: (props: { expiryDate: { month: string, year: string }, errorMessages: ErrorMessages }) => string,
+  { errorMessages }: { errorMessages: ErrorMessages }
+): string;
+
+export function getCVCError(
+  cvc: string,
+  cvcValidator: (props: { cvc: string, cardType: CardType, errorMessages: ErrorMessages }) => string,
+  { errorMessages }: { errorMessages: ErrorMessages }
+): string;
+
+export function getZIPError(
+  zip: string,
+  { errorMessages }: { errorMessages: ErrorMessages }
+): string;
 
 export const PaymentInputsContainer: React.FC<usePaymentInputsOptions>;
 
