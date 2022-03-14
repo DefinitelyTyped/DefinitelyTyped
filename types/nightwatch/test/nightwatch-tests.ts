@@ -6,6 +6,13 @@ import {
     NightwatchAssertion,
     NightwatchBrowser,
     NightwatchTests,
+    describe,
+    it,
+    before,
+    after,
+    xit,
+    xdescribe,
+    test,
 } from 'nightwatch';
 
 //
@@ -63,6 +70,43 @@ const testGeneral: NightwatchTests = {
         browser.click('input[name=btnK]').pause(1000).assert.containsText('#main', 'Night Watch').end();
     },
 };
+
+describe('Ecosia', () => {
+    before(browser => browser.url('https://www.ecosia.org/'));
+
+    it('Demo test ecosia.org', () => {
+        browser
+            .waitForElementVisible('body')
+            .assert.titleContains('Ecosia')
+            .assert.titleContains('Ecosia')
+            .assert.visible('input[type=search]')
+            .setValue('input[type=search]', 'nightwatch')
+            .assert.visible('button[type=submit]')
+            .click('button[type=submit]');
+    });
+
+    xit('this test will be skipped', () => {
+        browser.waitForElementVisible('body');
+    });
+
+    after(browser => browser.end());
+});
+
+xdescribe('whole describle block will be skipped', () => {
+    test('ecosia', () => {
+        browser.url('https://ecosia.org').end();
+    });
+});
+
+describe('Async Ecosia', () => {
+    before(browser => browser.url('https://www.ecosia.org/'));
+
+    it('Demo test ecosia.org', async () => {
+        browser.waitForElementVisible('body');
+    });
+
+    after(browser => browser.end());
+});
 
 //
 // ./pages/google.ts
