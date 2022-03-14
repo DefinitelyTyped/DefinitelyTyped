@@ -19,7 +19,7 @@ InlineEditor.create('', { placeholder: 'foo' }).then(editor => {
         editor,
         new InlineEditorUIView(new Locale(), new View(new StylesProcessor())),
     );
-// $ExpectError
+    // $ExpectError
     inlineEditorUI.init(document.createElement('div'));
     inlineEditorUI.init();
     new InlineEditorUIView(new Locale(), new View(new StylesProcessor()), document.createElement('div'), {
@@ -50,6 +50,10 @@ class MyPlugin extends Plugin {
     const elem: HTMLElement = editor.sourceElement!;
     const ui: InlineEditorUI = editor.ui;
     const uiView: InlineEditorUIView = editor.ui.view;
+    // $ExpectType number
+    uiView.viewportTopOffset;
+    // $ExpectError
+    uiView.viewportTopOffset = 4;
 
     editor = await InlineEditor.create(htmlElement, {
         toolbar: {

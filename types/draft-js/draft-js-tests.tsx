@@ -45,7 +45,7 @@ type SyntheticKeyboardEvent = React.KeyboardEvent<{}>;
 
 const HANDLE_REGEX = /\@[\w]+/g;
 
-class HandleSpan extends React.Component {
+class HandleSpan extends React.Component<{ children?: React.ReactNode }> {
   render() {
     return <span>{this.props.children}</span>
   }

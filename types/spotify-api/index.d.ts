@@ -778,7 +778,7 @@ declare namespace SpotifyApi {
      * PUT /v1/users/{user_id}/playlists/{playlist_id}/tracks
      * https://developer.spotify.com/web-api/replace-playlists-tracks/
      */
-    interface ReplacePlaylistTracksResponse extends VoidResponse {}
+    interface ReplacePlaylistTracksResponse extends PlaylistSnapshotResponse {}
 
     /**
      * Upload a Custom Playlist Cover Image

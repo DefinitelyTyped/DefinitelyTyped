@@ -38,7 +38,7 @@ declare namespace bodyParser {
         /**
          * requested encoding. Default is utf-8 by co-body
          */
-        encode?: string | undefined;
+        encoding?: string | undefined;
 
         /**
          * limit of the urlencoded body. If the body ends up being larger than this limit

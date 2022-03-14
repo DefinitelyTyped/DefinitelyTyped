@@ -63,7 +63,7 @@ new ColorTableView(new Locale(), {
     removeButtonLabel: '',
     documentColorsLabel: '',
     documentColorsCount: 0,
-});
+}).destroy();
 
 new ColorUI(editor, { commandName: '', icon: '', componentName: '', dropdownLabel: '' }).init();
 
