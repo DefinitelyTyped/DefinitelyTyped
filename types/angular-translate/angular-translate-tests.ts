@@ -25,7 +25,7 @@ app.config(($translateProvider: angular.translate.ITranslateProvider) => {
         BUTTON_LANG_DE: 'deutsch'
     });
     $translateProvider.preferredLanguage('en');
-
+    $translateProvider.allowNamespaces(true);
     $translateProvider.useLoader('customLoader');
     $translateProvider.forceAsyncReload(true);
 });
