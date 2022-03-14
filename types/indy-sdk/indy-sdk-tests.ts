@@ -24,6 +24,17 @@ const revRegDef: indy.RevocRegDef = {
     ver: '2',
 };
 
+const indyCredentialInfo: indy.IndyCredentialInfo = {
+    referent: 'referent',
+    attrs: {
+        key: 'value'
+    },
+    schema_id: 'schema_id',
+    cred_def_id: 'cred_def_id',
+    rev_reg_id: 12,
+    cred_rev_id: '12408120'
+};
+
 const walletConfig: indy.WalletConfig = { id: 'wallet' };
 const walletCredentials: indy.WalletCredentials = { key: 'key' };
 const importExportConfig: indy.WalletExportImportConfig = {

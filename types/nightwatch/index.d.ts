@@ -13,7 +13,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.5
 
-import { WebElement, By } from 'selenium-webdriver';
+import { WebElement, WebElementPromise, By } from 'selenium-webdriver';
+
+export * from './globals';
 
 export interface ChromePerfLoggingPrefs {
     /**
@@ -205,6 +207,17 @@ export interface NightwatchDesiredCapabilities {
 
 export interface NightwatchScreenshotOptions {
     enabled?: boolean | undefined;
+    filename_format: ({
+        testSuite,
+        testCase,
+        isError,
+        dateObject,
+    }?: {
+        testSuite?: string;
+        testCase?: string;
+        isError?: boolean;
+        dateObject?: Date;
+    }) => string;
     on_failure?: boolean | undefined;
     on_error?: boolean | undefined;
     path?: string | undefined;
@@ -655,7 +668,7 @@ export interface NightwatchSeleniumOptions {
      * (https://code.google.com/p/selenium/wiki/InternetExplorerDriver) and specify it's location here. Also don't forget to specify "internet explorer" as the browser
      * name in the desiredCapabilities object.
      */
-    cli_args: any;
+    cli_args: {};
 
     /**
      * Time to wait (in ms) before starting to check the Webdriver server is up and running
@@ -836,7 +849,7 @@ export interface Expect extends NightwatchLanguageChains, NightwatchBrowser {
     /**
      * Returns the DOM Element
      */
-    element(property: string): this;
+    element(property: any): this;
 
     /**
      * These methods will perform assertions on the specified target on the current element.
@@ -1436,8 +1449,8 @@ export interface NightwatchBrowser
 
 export interface NightwatchComponentTestingCommands {
     importScript(scriptPath: string, options: { scriptType: string; componentTyp: string }, callback: () => void): this;
-    mountReactComponent(componentPath: string, props: string | (() => void), callback: () => void): this;
-    mountVueComponent(componentPath: string, options: any, callback: () => void): this;
+    mountReactComponent(componentPath: string, props?: string | (() => void), callback?: () => void): this;
+    mountVueComponent(componentPath: string, options?: any, callback?: () => void): this;
     launchComponentRenderer(): this;
 }
 
@@ -1538,12 +1551,27 @@ export interface CreateClientParams {
 
 export interface Nightwatch {
     cli(callback: any): this;
-    client(settings: NightwatchOptions, reporter: null, argv: any): this;
-    createClient({}: CreateClientParams): this;
-    cliRunner(callback: (argv: any) => void): this;
+    client(settings: NightwatchOptions, reporter?: any, argv?: {}): this;
+    createClient({
+        headless,
+        silent,
+        output,
+        useAsync,
+        env,
+        timeout,
+        parallel,
+        reporter,
+        browserName,
+        globals,
+        devtools,
+        debug,
+        enable_global_apis,
+        config,
+    }: CreateClientParams): this;
+    cliRunner(argv?: {}): this;
     initClient(opts: any): this;
-    runner(argv: any, done: () => {}, settings: any): this;
-    runTests(testSource: string | string[], settings: any): this;
+    runner(argv?: {}, done?: () => void, settings?: {}): this;
+    runTests(testSource: string | string[], settings?: any, ...args: any[]): any;
     api: NightwatchAPI;
     assert: NightwatchAssertions;
     expect: Expect;
@@ -3364,7 +3392,7 @@ export interface ElementCommands {
             this: NightwatchAPI,
             result: NightwatchCallbackResult<{ value: WebElement; status: number; WebdriverElementId: WebElement }>,
         ) => void,
-    ): this;
+    ): WebElementPromise;
     findElement(
         using: LocateStrategy,
         selector: string | ElementProperties,
@@ -3372,7 +3400,7 @@ export interface ElementCommands {
             this: NightwatchAPI,
             result: NightwatchCallbackResult<{ value: WebElement; status: number; WebdriverElementId: WebElement }>,
         ) => void,
-    ): this;
+    ): WebElementPromise;
 
     /**
      * Search for multiple elements on the page, starting from the document root. The located elements will be returned as web element JSON objects (with an added .getId() convenience method).
@@ -3398,7 +3426,7 @@ export interface ElementCommands {
                 WebdriverElementId: WebElement;
             }>,
         ) => void,
-    ): this;
+    ): WebElement[];
     findElements(
         using: LocateStrategy,
         selector: string | ElementProperties,
@@ -3410,7 +3438,7 @@ export interface ElementCommands {
                 WebdriverElementId: WebElement;
             }>,
         ) => void,
-    ): this;
+    ): WebElement[];
 
     /**
      * Retrieve the value of a specified DOM property for the given element.

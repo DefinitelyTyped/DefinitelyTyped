@@ -277,7 +277,7 @@ declare global {
         orientation(): SpatialOrientation;
         orientation(x: number, y?: number, z?: number, xUp?: number, yUp?: number, zUp?: number): this;
     }
-    const Howler: typeof HowlerGlobal;
+    const Howler: HowlerGlobal;
 }
 
-export const Howler: typeof HowlerGlobal;
+export const Howler: HowlerGlobal;

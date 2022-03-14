@@ -1,4 +1,7 @@
-import { Howl } from 'howler';
+import { Howl, Howler } from 'howler';
+
+// Set global volume
+Howler.volume(0.8);
 
 const sound1 = new Howl({
     src: ['sound.mp3'],

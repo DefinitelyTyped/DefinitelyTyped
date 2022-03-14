@@ -1,4 +1,4 @@
-// Type definitions for @ckeditor/ckeditor5-image 31.0
+// Type definitions for @ckeditor/ckeditor5-image 32.0
 // Project: https://ckeditor.com/docs/ckeditor5/latest/api/image.html
 // Definitions by: Federico Panico <https://github.com/fedemp>
 //                 Ben Demboski <https://github.com/bendemboski>
