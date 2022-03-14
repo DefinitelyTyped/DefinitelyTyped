@@ -545,6 +545,7 @@ declare namespace React {
         contextTypes?: ValidationMap<any> | undefined;
         defaultProps?: Partial<P> | undefined;
         displayName?: string | undefined;
+        testID?: string | undefined;
     }
 
     type VFC<P = {}> = VoidFunctionComponent<P>;
