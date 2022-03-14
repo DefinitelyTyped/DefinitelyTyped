@@ -317,7 +317,10 @@ declare namespace _ {
     }
     type LodashConcat1x1<T> = (values: lodash.Many<T>) => T[];
     type LodashConcat1x2<T> = (array: lodash.Many<T>) => T[];
-    type LodashCond = <T, R>(pairs: Array<lodash.CondPair<T, R>>) => (Target: T) => R;
+    interface LodashCond {
+        <R>(pairs: Array<lodash.CondPairNullary<R>>): () => R;
+        <T, R>(pairs: Array<lodash.CondPairUnary<T, R>>): (Target: T) => R;
+    }
     interface LodashConformsTo {
         <T>(source: lodash.ConformsPredicateObject<T>): LodashConformsTo1x1<T>;
         <T>(source: lodash.__, object: T): LodashConformsTo1x2<T>;

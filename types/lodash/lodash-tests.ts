@@ -6688,6 +6688,14 @@ fp.now(); // $ExpectType number
 
     _.cond([[pairPred1, pairRes1], [pairPred2, pairRes2]])("hello"); // $ExpectType number
     fp.cond([[pairPred1, pairRes1], [pairPred2, pairRes2]])("hello"); // $ExpectType number
+
+    const nullaryPred1 = () => true;
+    const nullaryPred2 = () => false;
+    const nullaryRes1 = () => 1;
+    const nullaryRes2 = () => 2;
+
+    _.cond([[nullaryPred1, nullaryRes1], [nullaryPred2, nullaryRes2]])(); // $ExpectType number
+    fp.cond([[nullaryPred1, nullaryRes1], [nullaryPred2, nullaryRes2]])(); // $ExpectType number
 }
 
 // _.constant
