@@ -64,6 +64,8 @@ async function foo() {
 
     const images = await docker5.listImages();
     for (const image of images) {
+        const imageSharedSize: number = image.SharedSize;
+        const imageContainers: number = image.Containers;
         const foo = await docker5.getImage(image.Id);
         const inspect = await foo.inspect();
         await foo.remove();
