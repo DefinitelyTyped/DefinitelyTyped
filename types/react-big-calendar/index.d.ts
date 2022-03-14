@@ -16,7 +16,6 @@
 //                 Jan Michalak <https://github.com/michalak111>
 //                 Tom Price <https://github.com/tomtom5152>
 //                 Daniele Carrucciu <https://github.com/catruzz>
-//                 Chris Vandenberg <https://github.com/altruisticsoftware>
 //                 Chris Frewin <https://github.com/princefishthrower>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
