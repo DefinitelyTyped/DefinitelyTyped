@@ -9261,8 +9261,17 @@ declare namespace chrome {
             temperatures?: double[] | undefined;
         }
 
-        /** Queries basic CPU information of the system. */
+        /**
+         * Queries basic CPU information of the system.
+         * @param callback takes in an argument with CpuInfo
+         */
         function getInfo(callback: (info: CpuInfo) => void): void;
+
+        /**
+         * Queries basic CPU information of the system.
+         * @returns Promise<CpuInfo> only if callback is not specified
+         */
+        function getInfo(): Promise<CpuInfo>;
     }
 
     ////////////////////

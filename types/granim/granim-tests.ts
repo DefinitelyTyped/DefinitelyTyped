@@ -181,3 +181,28 @@ granimInstance = new Granim({
         },
     },
 });
+
+// Use both Basic and Complex gradients in the same state
+
+granimInstance = new Granim({
+    element: '#canvas-interactive',
+    name: 'interactive-gradient',
+    elToSetClassOn: '.canvas-interactive-wrapper',
+    direction: 'diagonal',
+    isPausedWhenNotInView: true,
+    stateTransitionSpeed: 500,
+    states: {
+        'default-state': {
+            gradients: [
+                ['hsl(333, 56%,89%)', '#181818', 'rgba(25,63, 48, .75)'],
+                [
+                    { color: 'hsla(236, 12%, 44%, .23)', pos: 0.1 },
+                    { color: 'rgb(255, 0,25)', pos: 0.2 },
+                    { color: '#ff0080', pos: 0.3 },
+                ],
+            ],
+            transitionSpeed: 1000,
+            loop: true,
+        },
+    },
+});
