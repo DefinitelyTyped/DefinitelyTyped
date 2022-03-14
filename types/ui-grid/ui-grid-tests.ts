@@ -123,8 +123,6 @@ gridApi.core.handleWindowResize();
 gridApi.core.queueGridRefresh();
 gridApi.core.queueRefresh();
 gridApi.core.registerColumnsProcessor(colProcessor, 100);
-gridApi.core.getRowsByKey(true, "id", 42);
-gridApi.core.findRowByKey(true, 10, "42");
 
 var gridOptions: uiGrid.IGridOptionsOf<IMyEntity> = {
     data: [{name: 'Bob', age: 100}],
@@ -153,6 +151,12 @@ var columnDefToScrollTo: uiGrid.IColumnDef;
 anotherGridInstance.scrollTo();
 anotherGridInstance.scrollTo(rowEntityToScrollTo);
 anotherGridInstance.scrollTo(rowEntityToScrollTo, columnDefToScrollTo);
+
+anotherGridInstance.getRow(rowEntityToScrollTo);
+anotherGridInstance.getRowsByKey(true, "id", 42);
+anotherGridInstance.getRowsByKey(true, 123, {});
+anotherGridInstance.findRowByKey(true, 10, "42");
+anotherGridInstance.findRowByKey(true, "test", true);
 
 var selectedRowEntities: Array<IMyEntity> = gridApi.selection.getSelectedRows();
 var selectedGridRows: Array<uiGrid.IGridRow> = gridApi.selection.getSelectedGridRows();
