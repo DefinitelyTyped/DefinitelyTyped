@@ -1,10 +1,10 @@
 // Type definitions for pg-cursor 2.5
 // Project: https://github.com/brianc/node-postgres#readme
-// Definitions by: Tiogshi Laj <https://github.com/Tiogshi>
+// Definitions by: Tiogshi Laj <https://github.com/Tiogshi>, Edited by Elias Fauser <https://github.com/elias-fauser>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 
-import * as pg from "pg";
+import { Connection, CustomTypesConfig, QueryResult } from "pg";
 
 interface CursorQueryConfig {
     /**
@@ -16,15 +16,15 @@ interface CursorQueryConfig {
     /**
      * Custom type parsers for just this query result.
      */
-    types?: pg.CustomTypesConfig;
+    types?: CustomTypesConfig;
 }
 
-type ResultCallback<RowType> = (err: Error | undefined, rows: RowType[], result: pg.QueryResult) => void;
+type ResultCallback<RowType> = (err: Error | undefined, rows: RowType[], result: QueryResult) => void;
 
 declare class Cursor<Row = any> {
     constructor(query: string, values?: any[], config?: CursorQueryConfig);
 
-    submit: (connection: pg.Connection) => void;
+    submit: (connection: Connection) => void;
 
     read: (maxRows: number, callback: ResultCallback<Row>) => void;
     close: (callback: (err: Error) => void) => void;
