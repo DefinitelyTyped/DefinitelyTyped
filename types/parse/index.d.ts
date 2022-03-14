@@ -823,23 +823,47 @@ declare global {
 
             // According to http://docs.parseplatform.org/rest/guide/#aggregate-queries
             interface AggregationOptions {
-                group?: { objectId?: string | undefined; [key: string]: any } | undefined;
-                match?: { [key: string]: any } | undefined;
-                project?: { [key: string]: any } | undefined;
+                group?: (Record<string, any> & { objectId?: string }) | undefined;
+                match?: Record<string, any> | undefined;
+                project?: Record<string, any> | undefined;
                 limit?: number | undefined;
                 skip?: number | undefined;
                 // Sort documentation https://docs.mongodb.com/v3.2/reference/operator/aggregation/sort/#pipe._S_sort
-                sort?: { [key: string]: 1 | -1 } | undefined;
+                sort?: Record<string, 1 | -1> | undefined;
                 // Sample documentation: https://docs.mongodb.com/v3.2/reference/operator/aggregation/sample/
                 sample?: { size: number } | undefined;
                 // Count documentation: https://docs.mongodb.com/manual/reference/operator/aggregation/count/
                 count?: string | undefined;
                 // Lookup documentation: https://docs.mongodb.com/manual/reference/operator/aggregation/lookup/
-                lookup?: { [key: string]: any } | undefined;
+                lookup?:
+                    | {
+                          from: string;
+                          localField: string;
+                          foreignField: string;
+                          as: string;
+                      }
+                    | {
+                          from: string;
+                          let?: Record<string, any>;
+                          pipeline: Record<string, any>;
+                          as: string;
+                      }
+                    | undefined;
                 // Graph Lookup documentation: https://docs.mongodb.com/manual/reference/operator/aggregation/graphLookup/
-                graphLookup?: { [key: string]: any } | undefined;
+                graphLookup?:
+                    | {
+                          from: string;
+                          startWith?: string;
+                          connectFromField: string;
+                          connectToField: string;
+                          as: string;
+                          maxDepth?: number;
+                          depthField?: string;
+                          restrictSearchWithMatch?: Record<string, any>;
+                      }
+                    | undefined;
                 // Facet documentation: https://docs.mongodb.com/manual/reference/operator/aggregation/facet/
-                facet?: { [key: string]: any } | undefined;
+                facet?: Record<string, Array<Record<string, any>>> | undefined;
             }
 
             // According to https://parseplatform.org/Parse-SDK-JS/api/2.1.0/Parse.Query.html#fullText
