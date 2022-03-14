@@ -31,6 +31,8 @@ declare module 'react-syntax-highlighter' {
     export { default as PrismAsync } from 'react-syntax-highlighter/dist/esm/prism-async';
     export { default as PrismLight } from 'react-syntax-highlighter/dist/esm/prism-light';
     export { default as Prism } from 'react-syntax-highlighter/dist/esm/prism';
+    export { default as createElement } from './create-element';
+    
 }
 
 // esm start
