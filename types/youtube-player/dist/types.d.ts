@@ -85,14 +85,14 @@ export interface YouTubePlayer {
         suggestedQuality?: string | undefined,
     }): void;
     getPlaylist(): ReadonlyArray<string>;
-    getPlaylistIndex(): number;
+    getPlaylistIndex(): Promise<number>;
     getPlaybackQuality(): string;
     getPlaybackRate(): number;
-    getPlayerState(): PlayerState;
+    getPlayerState(): Promise<PlayerState>;
     getVideoEmbedCode(): string;
     getVideoLoadedFraction(): number;
-    getVideoUrl(): string;
-    getVolume(): number;
+    getVideoUrl(): Promise<string>;
+    getVolume(): Promise<number>;
     cueVideoById(videoId: string, startSeconds?: number, suggestedQuality?: string): void;
     cueVideoById(video: {
         videoId: string,
