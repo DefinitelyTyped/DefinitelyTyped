@@ -113,17 +113,17 @@ declare namespace deku {
 
 interface Model {
     props?: any,
-    children?: any[],
-    path?: string,
-    dispatch?: Dispatch,
+    children?: any[] | undefined,
+    path?: string | undefined,
+    dispatch?: Dispatch | undefined,
     context?: any
 }
 
 interface Component {
     render: (model: Model) => deku.VirtualElement;
-    onCreate?: (model: Model) => any;
-    onUpdate?: (model: Model) => any;
-    onRemove?: (model: Model) => any;
+    onCreate?: ((model: Model) => any) | undefined;
+    onUpdate?: ((model: Model) => any) | undefined;
+    onRemove?: ((model: Model) => any) | undefined;
 }
 
 /**

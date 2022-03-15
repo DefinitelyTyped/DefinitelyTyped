@@ -13,7 +13,8 @@ saxStream({
     lowercase: true,
     xmlns: true,
     trackPosition: true,
-    strictEntities: true
+    strictEntities: true,
+    noscript: true
 });
 
 // $ExpectError

@@ -4,15 +4,15 @@ import { Size } from '../size';
 import TileGrid from './TileGrid';
 
 export interface Options {
-    extent?: Extent;
-    origin?: Coordinate;
-    origins?: Coordinate[];
+    extent?: Extent | undefined;
+    origin?: Coordinate | undefined;
+    origins?: Coordinate[] | undefined;
     resolutions: number[];
     matrixIds: string[];
-    sizes?: Size[];
-    tileSize?: number | Size;
-    tileSizes?: Size[];
-    widths?: number[];
+    sizes?: Size[] | undefined;
+    tileSize?: number | Size | undefined;
+    tileSizes?: Size[] | undefined;
+    widths?: number[] | undefined;
 }
 export default class WMTSTileGrid extends TileGrid {
     constructor(options: Options);

@@ -137,11 +137,11 @@ interface Date {
     /**
     * Formats a date by using the invariant (culture-independent) culture.
     */
-    format(format: string): string;
+    format?(format: string): string;
     /**
     * Formats a date by using the current culture. This function is static and can be invoked without creating an instance of the object.
     */
-    localeFormat(format: string): string;
+    localeFormat?(format: string): string;
 }
 
 interface DateConstructor {

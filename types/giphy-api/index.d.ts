@@ -9,7 +9,7 @@ type Format = "html" | "json";
 
 interface BaseOptions {
     rating: Rating;
-    fmt?: Format;
+    fmt?: Format | undefined;
 }
 
 interface TranslateOptions extends BaseOptions {
@@ -21,7 +21,7 @@ interface RandomOptions extends BaseOptions {
 }
 
 interface TrendingOptions extends BaseOptions {
-    limit?: number;
+    limit?: number | undefined;
 }
 
 interface BaseImage {
@@ -45,15 +45,15 @@ declare function giphyApi(apiKeyOrOptions?: string | giphyApi.GiphyOptions): gip
 
 declare namespace giphyApi {
     interface GiphyOptions {
-        https?: boolean;
-        timeout?: number;
-        apiKey?: string;
+        https?: boolean | undefined;
+        timeout?: number | undefined;
+        apiKey?: string | undefined;
     }
 
     interface SearchOptions extends BaseOptions {
         q: string;
-        limit?: number;
-        offset?: number;
+        limit?: number | undefined;
+        offset?: number | undefined;
     }
 
     interface Giphy {
@@ -165,7 +165,7 @@ declare namespace giphyApi {
             username: string;
             display_name: string;
             twitter: string;
-        };
+        } | undefined;
         source_tld: string;
         source_post_url: string;
         update_datetime: string;

@@ -57,9 +57,9 @@ declare namespace OAuth2Server {
      */
     class Request {
         body?: any;
-        headers?: { [key: string]: string; };
-        method?: string;
-        query?: { [key: string]: string; };
+        headers?: { [key: string]: string; } | undefined;
+        method?: string | undefined;
+        query?: { [key: string]: string; } | undefined;
 
         /**
          * Instantiates Request using the supplied options.
@@ -85,8 +85,8 @@ declare namespace OAuth2Server {
      */
     class Response {
         body?: any;
-        headers?: { [key: string]: string; };
-        status?: number;
+        headers?: { [key: string]: string; } | undefined;
+        status?: number | undefined;
 
         /**
          * Instantiates Response using the supplied options.
@@ -174,71 +174,71 @@ declare namespace OAuth2Server {
         /**
          * The scope(s) to authenticate.
          */
-        scope?: string | string[];
+        scope?: string | string[] | undefined;
 
         /**
          * Set the X-Accepted-OAuth-Scopes HTTP header on response objects.
          */
-        addAcceptedScopesHeader?: boolean;
+        addAcceptedScopesHeader?: boolean | undefined;
 
         /**
          * Set the X-OAuth-Scopes HTTP header on response objects.
          */
-        addAuthorizedScopesHeader?: boolean;
+        addAuthorizedScopesHeader?: boolean | undefined;
 
         /**
          * Allow clients to pass bearer tokens in the query string of a request.
          */
-        allowBearerTokensInQueryString?: boolean;
+        allowBearerTokensInQueryString?: boolean | undefined;
     }
 
     interface AuthorizeOptions {
         /**
          * The authenticate handler
          */
-        authenticateHandler?: {};
+        authenticateHandler?: {} | undefined;
 
         /**
          * Allow clients to specify an empty state
          */
-        allowEmptyState?: boolean;
+        allowEmptyState?: boolean | undefined;
 
         /**
          * Lifetime of generated authorization codes in seconds (default = 5 minutes).
          */
-        authorizationCodeLifetime?: number;
+        authorizationCodeLifetime?: number | undefined;
     }
 
     interface TokenOptions {
         /**
          * Lifetime of generated access tokens in seconds (default = 1 hour)
          */
-        accessTokenLifetime?: number;
+        accessTokenLifetime?: number | undefined;
 
         /**
          * Lifetime of generated refresh tokens in seconds (default = 2 weeks)
          */
-        refreshTokenLifetime?: number;
+        refreshTokenLifetime?: number | undefined;
 
         /**
          * Allow extended attributes to be set on the returned token
          */
-        allowExtendedTokenAttributes?: boolean;
+        allowExtendedTokenAttributes?: boolean | undefined;
 
         /**
          * Require a client secret. Defaults to true for all grant types.
          */
-        requireClientAuthentication?: {};
+        requireClientAuthentication?: {} | undefined;
 
         /**
          * Always revoke the used refresh token and issue a new one for the refresh_token grant.
          */
-        alwaysIssueNewRefreshToken?: boolean;
+        alwaysIssueNewRefreshToken?: boolean | undefined;
 
         /**
          * Additional supported grant types.
          */
-        extendedGrantTypes?: { [key: string]: typeof AbstractGrantType };
+        extendedGrantTypes?: { [key: string]: typeof AbstractGrantType } | undefined;
     }
 
     /**
@@ -396,10 +396,10 @@ declare namespace OAuth2Server {
      */
     interface Client {
         id: string;
-        redirectUris?: string | string[];
+        redirectUris?: string | string[] | undefined;
         grants: string | string[];
-        accessTokenLifetime?: number;
-        refreshTokenLifetime?: number;
+        accessTokenLifetime?: number | undefined;
+        refreshTokenLifetime?: number | undefined;
         [key: string]: any;
     }
 
@@ -410,7 +410,7 @@ declare namespace OAuth2Server {
         authorizationCode: string;
         expiresAt: Date;
         redirectUri: string;
-        scope?: string | string[];
+        scope?: string | string[] | undefined;
         client: Client;
         user: User;
         [key: string]: any;
@@ -421,10 +421,10 @@ declare namespace OAuth2Server {
      */
     interface Token {
         accessToken: string;
-        accessTokenExpiresAt?: Date;
-        refreshToken?: string;
-        refreshTokenExpiresAt?: Date;
-        scope?: string | string[];
+        accessTokenExpiresAt?: Date | undefined;
+        refreshToken?: string | undefined;
+        refreshTokenExpiresAt?: Date | undefined;
+        scope?: string | string[] | undefined;
         client: Client;
         user: User;
         [key: string]: any;
@@ -435,8 +435,8 @@ declare namespace OAuth2Server {
      */
     interface RefreshToken {
         refreshToken: string;
-        refreshTokenExpiresAt?: Date;
-        scope?: string | string[];
+        refreshTokenExpiresAt?: Date | undefined;
+        scope?: string | string[] | undefined;
         client: Client;
         user: User;
         [key: string]: any;

@@ -1,39 +1,40 @@
 import * as React from 'react';
 import {
-  InstantSearch,
-  Index,
-  createConnector,
-  SearchResults,
-  connectStateResults,
-  SearchBoxProvided,
-  connectSearchBox,
-  connectRefinementList,
-  CurrentRefinementsProvided,
-  connectCurrentRefinements,
-  RefinementListProvided,
-  Refinement,
-  connectHighlight,
-  connectHits,
-  HighlightProvided,
-  HighlightProps,
-  AutocompleteProvided,
-  connectAutoComplete,
-  Hit,
-  TranslatableProvided,
-  translatable,
-  ConnectorProvided,
-  StateResultsProvided,
-  ConnectorSearchResults,
-  BasicDoc,
-  AllSearchResults,
-  connectStats,
-    StatsProvided,
+    AllSearchResults,
+    AutocompleteProvided,
+    BasicDoc,
+    connectAutoComplete,
+    connectCurrentRefinements,
+    connectHighlight,
     connectHitInsights,
-    InsightsClient,
     ConnectHitInsightsProvided,
+    connectHits,
+    ConnectorProvided,
+    ConnectorSearchResults,
+    connectRefinementList,
+    connectSearchBox,
+    connectStateResults,
+    connectStats,
+    createConnector,
+    CurrentRefinementsProvided,
+    DynamicWidgets,
+    HighlightProps,
+    HighlightProvided,
+    Hit,
+    Index,
+    InsightsClient,
+    InstantSearch,
+    Refinement,
+    RefinementListProvided,
+    SearchBoxProvided,
+    SearchResults,
+    StateResultsProvided,
+    StatsProvided,
+    translatable,
+    TranslatableProvided,
 } from 'react-instantsearch-core';
 
-import { Hits } from 'react-instantsearch-dom';
+import { Hits, RefinementList } from 'react-instantsearch-dom';
 
 () => {
   <Index indexName={'test'} indexId="id">
@@ -55,6 +56,7 @@ import { Hits } from 'react-instantsearch-dom';
       return {
         query,
         page,
+        refine: (value: string) => this.refine(value),
       };
     },
 
@@ -442,16 +444,16 @@ import { Hits } from 'react-instantsearch-dom';
 () => {
   type Props = SearchBoxProvided &
     TranslatableProvided & {
-      className?: string;
-      showLoadingIndicator?: boolean;
+      className?: string | undefined;
+      showLoadingIndicator?: boolean | undefined;
 
-      submit?: JSX.Element;
-      reset?: JSX.Element;
-      loadingIndicator?: JSX.Element;
+      submit?: JSX.Element | undefined;
+      reset?: JSX.Element | undefined;
+      loadingIndicator?: JSX.Element | undefined;
 
-      onSubmit?: (event: React.SyntheticEvent<HTMLFormElement>) => any;
-      onReset?: (event: React.SyntheticEvent<HTMLFormElement>) => any;
-      onChange?: (event: React.SyntheticEvent<HTMLInputElement>) => any;
+      onSubmit?: ((event: React.SyntheticEvent<HTMLFormElement>) => any) | undefined;
+      onReset?: ((event: React.SyntheticEvent<HTMLFormElement>) => any) | undefined;
+      onChange?: ((event: React.SyntheticEvent<HTMLInputElement>) => any) | undefined;
     };
   interface State {
     query: string | null;
@@ -626,6 +628,7 @@ import { Hits } from 'react-instantsearch-dom';
         isSearchStalled: searchResults.isSearchStalled,
         error: searchResults.error,
         searchingForFacetValues: searchResults.searchingForFacetValues,
+        queryID: results?.queryID,
         props,
       };
     },
@@ -660,4 +663,8 @@ import { Hits } from 'react-instantsearch-dom';
     const HitWithInsights = connectHitInsights(() => {})(HitComponent);
 
     <Hits hitComponent={HitWithInsights} />;
+};
+
+() => {
+    <DynamicWidgets fallbackComponent={RefinementList} attributesToRender={['']}><RefinementList attribute="brand"/></DynamicWidgets>;
 };

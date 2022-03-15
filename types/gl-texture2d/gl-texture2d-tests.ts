@@ -84,5 +84,5 @@ texture.handle;
 // $ExpectType number
 texture.format;
 
-// $expectType number
+// $ExpectType number
 texture.type;

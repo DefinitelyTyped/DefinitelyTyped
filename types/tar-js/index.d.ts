@@ -1,5 +1,5 @@
 // Type definitions for tar-js 0.3
-// Project: http://github.com/beatgammit/tar-js
+// Project: https://github.com/beatgammit/tar-js
 // Definitions by: Narazaka <https://github.com/Narazaka>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -14,12 +14,12 @@ declare class Tar {
 
 declare namespace Tar {
     interface TarOptions {
-        mode?: number;
-        mtime?: number;
-        uid?: number;
-        gid?: number;
-        owner?: string;
-        group?: string;
+        mode?: number | undefined;
+        mtime?: number | undefined;
+        uid?: number | undefined;
+        gid?: number | undefined;
+        owner?: string | undefined;
+        group?: string | undefined;
     }
 }
 

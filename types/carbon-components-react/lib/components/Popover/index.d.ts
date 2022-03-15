@@ -1,5 +1,11 @@
-import * as React from "react";
-import { ReactAttr, ReactDivAttr, JSXIntrinsicElementProps, FCReturn } from "../../../typings/shared";
+import * as React from 'react';
+import {
+    ReactAttr,
+    JSXIntrinsicElementProps,
+    FCReturn,
+    ForwardRefProps,
+    ReactComponentConstructor,
+} from '../../../typings/shared';
 
 /*
  * Popover
@@ -7,34 +13,35 @@ import { ReactAttr, ReactDivAttr, JSXIntrinsicElementProps, FCReturn } from "../
 
 interface PopoverBaseIsolatedProps {
     // props not given to the component specified by "as"
-    caret?: boolean;
+    caret?: boolean | undefined;
     align?:
-        | "top"
-        | "top-left"
-        | "top-right"
-        | "bottom"
-        | "bottom-left"
-        | "bottom-right"
-        | "left"
-        | "left-bottom"
-        | "left-top"
-        | "right"
-        | "right-bottom"
-        | "right-top";
-    highConstrast?: boolean;
-    light?: boolean;
+        | 'top'
+        | 'top-left'
+        | 'top-right'
+        | 'bottom'
+        | 'bottom-left'
+        | 'bottom-right'
+        | 'left'
+        | 'left-bottom'
+        | 'left-top'
+        | 'right'
+        | 'right-bottom'
+        | 'right-top'
+        | undefined;
+    dropShadow?: boolean | undefined;
+    highContrast?: boolean | undefined;
+    light?: boolean | undefined;
     open: boolean;
-    relative?: boolean;
 }
-type SafePopoverProps<P> = Omit<P, "as" | keyof PopoverBaseIsolatedProps>;
+type SafePopoverProps<P> = Omit<P, 'as' | keyof PopoverBaseIsolatedProps>;
 
 interface PopoverBaseProps extends PopoverBaseIsolatedProps {
-    children?: React.ReactNode;
-    className?: string;
+    children?: React.ReactNode | undefined;
+    className?: string | undefined;
 }
 
 export type PopoverDefaultProps = PopoverBaseProps &
-    ReactDivAttr & {
+    ReactAttr<HTMLSpanElement> & {
         as?: undefined;
     };
 
@@ -44,47 +51,28 @@ export type PopoverIntrinsicProps<K extends keyof JSX.IntrinsicElements> = Popov
     };
 
 export type PopoverCustomComponentProps<
-    C extends React.JSXElementConstructor<any>
-> = C extends React.JSXElementConstructor<infer P>
+    C extends ReactComponentConstructor<never>
+> = C extends ReactComponentConstructor<infer P>
     ? PopoverBaseProps &
           SafePopoverProps<P> & {
               as: C;
           }
     : never;
 
-declare function Popover(props: PopoverDefaultProps): FCReturn;
-declare function Popover<T extends keyof JSX.IntrinsicElements>(props: PopoverIntrinsicProps<T>): FCReturn;
-declare function Popover<T extends React.JSXElementConstructor<any>>(props: PopoverCustomComponentProps<T>): FCReturn;
+declare function Popover(props: ForwardRefProps<HTMLSpanElement, PopoverDefaultProps>): FCReturn;
+declare function Popover<T extends keyof JSX.IntrinsicElements, R = HTMLElement>(
+    props: ForwardRefProps<R, PopoverIntrinsicProps<T>>,
+): FCReturn;
+declare function Popover<T extends ReactComponentConstructor<never>, R = unknown>(
+    props: ForwardRefProps<R, PopoverCustomComponentProps<T>>,
+): FCReturn;
 
 /*
  * PopoverContent
  */
 
-export type PopoverContentDefaultProps = ReactAttr & {
-    as?: undefined;
-};
+export interface PopoverContentProps extends ReactAttr<HTMLSpanElement> { }
 
-type SafePopoverContentProps<P> = Omit<P, "as">;
-export type PopoverContentIntrinsicProps<K extends keyof JSX.IntrinsicElements> = SafePopoverContentProps<
-    JSXIntrinsicElementProps<K>
-> & {
-    as: K;
-};
-
-export type PopoverContentCustomComponentProps<
-    C extends React.JSXElementConstructor<any>
-> = C extends React.JSXElementConstructor<infer P>
-    ? SafePopoverContentProps<P> & {
-          as: C;
-      }
-    : never;
-
-declare function PopoverContent(props: PopoverContentDefaultProps): FCReturn;
-declare function PopoverContent<T extends keyof JSX.IntrinsicElements>(
-    props: PopoverContentIntrinsicProps<T>,
-): FCReturn;
-declare function PopoverContent<T extends React.JSXElementConstructor<any>>(
-    props: PopoverContentCustomComponentProps<T>,
-): FCReturn;
+declare function PopoverContent(props: ForwardRefProps<HTMLSpanElement, PopoverContentProps>): FCReturn;
 
 export { Popover, PopoverContent };

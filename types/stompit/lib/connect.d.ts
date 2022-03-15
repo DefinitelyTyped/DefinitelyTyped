@@ -13,26 +13,26 @@ export = connect;
 
 declare namespace connect {
     interface ConnectHeaders {
-        "accept-version"?: string;
-        "heart-beat"?: string;
-        host?: string;
-        login?: string;
-        passcode?: string;
+        "accept-version"?: string | undefined;
+        "heart-beat"?: string | undefined;
+        host?: string | undefined;
+        login?: string | undefined;
+        passcode?: string | undefined;
     }
 
     interface BaseConnectOptions extends SocketOptions {
-        connectHeaders?: ConnectHeaders;
-        ssl?: boolean;
+        connectHeaders?: ConnectHeaders | undefined;
+        ssl?: boolean | undefined;
         // This connectionListener type comes from @types/node
-        connect?: (options: ConnectOptions, connectionListener?: () => void) => Socket;
+        connect?: ((options: ConnectOptions, connectionListener?: () => void) => Socket) | undefined;
     }
 
     interface NetTcpConnectOptions extends BaseConnectOptions, TcpNetConnectOpts {
-        ssl?: false;
+        ssl?: false | undefined;
     }
 
     interface NetIpcConnectOptions extends BaseConnectOptions, IpcNetConnectOpts {
-        ssl?: false;
+        ssl?: false | undefined;
     }
 
     interface SslConnectOptions extends BaseConnectOptions, TlsConnectionOptions {

@@ -9,23 +9,23 @@ export as namespace wanakana;
 export type IMEModes = true | false | 'toHiragana' | 'toKatakana';
 
 export interface WanakanaOptions {
-    useObsoleteKana?: boolean;
-    passRomaji?: boolean;
-    upcaseKatakana?: boolean;
-    IMEMode?: IMEModes;
-    romanization?: 'hepburn';
-    customKanaMapping?: Record<string, string>;
-    customRomajiMapping?: Record<string, string>;
+    useObsoleteKana?: boolean | undefined;
+    passRomaji?: boolean | undefined;
+    upcaseKatakana?: boolean | undefined;
+    IMEMode?: IMEModes | undefined;
+    romanization?: 'hepburn' | undefined;
+    customKanaMapping?: Record<string, string> | undefined;
+    customRomajiMapping?: Record<string, string> | undefined;
 }
 
 export interface StripOkuriganaOptions {
-    leading?: boolean;
-    matchKanji?: string;
+    leading?: boolean | undefined;
+    matchKanji?: string | undefined;
 }
 
 export interface TokenizeOptions {
-    compact?: boolean;
-    detailed?: boolean;
+    compact?: boolean | undefined;
+    detailed?: boolean | undefined;
 }
 
 export const VERSION: string;
@@ -40,7 +40,7 @@ export function isKana(input: string): boolean;
 export function isHiragana(input: string): boolean;
 export function isKatakana(input: string): boolean;
 export function isKanji(input: string): boolean;
-export function isMixed(input: string, options?: { passKanji?: boolean }): boolean;
+export function isMixed(input: string, options?: { passKanji?: boolean | undefined }): boolean;
 export function isRomaji(input: string): boolean;
 
 export function toKana(input: string, options?: WanakanaOptions): string;

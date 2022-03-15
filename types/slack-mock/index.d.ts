@@ -30,8 +30,8 @@ declare namespace SlackMock {
     }
 
     interface ConfigOptions {
-        rtmPort?: number;
-        logLevel?: string;
+        rtmPort?: number | undefined;
+        logLevel?: string | undefined;
     }
 
     // Events
@@ -64,10 +64,10 @@ declare namespace SlackMock {
     }
 
     interface IncomingWebhookOptions<T> {
-        url?: IncomingWebhookUrl;
-        statusCode ?: number;
-        body ?: T;
-        headers ?: IncomingWebhookHttpHeaders;
+        url?: IncomingWebhookUrl | undefined;
+        statusCode ?: number | undefined;
+        body ?: T | undefined;
+        headers ?: IncomingWebhookHttpHeaders | undefined;
     }
 
     interface IncomingWebhookCall<T> {
@@ -89,10 +89,10 @@ declare namespace SlackMock {
     }
 
     interface InteractiveButtonOptions<T> {
-        url?: InteractiveButtonUrl;
-        statusCode ?: number;
-        body ?: T;
-        headers ?: InteractiveButtonHttpHeaders;
+        url?: InteractiveButtonUrl | undefined;
+        statusCode ?: number | undefined;
+        body ?: T | undefined;
+        headers ?: InteractiveButtonHttpHeaders | undefined;
     }
 
     interface InteractiveButtonCall<T> {
@@ -156,10 +156,10 @@ declare namespace SlackMock {
     }
 
     interface SlashCommandOptions<T> {
-        url?: SlashCommandUrl;
-        statusCode ?: number;
-        body ?: T;
-        headers ?: SlashCommandHttpHeaders;
+        url?: SlashCommandUrl | undefined;
+        statusCode ?: number | undefined;
+        body ?: T | undefined;
+        headers ?: SlashCommandHttpHeaders | undefined;
     }
 
     interface SlashCommandCall<T> {
@@ -187,10 +187,10 @@ declare namespace SlackMock {
     }
 
     interface WebOptions<T> {
-        url?: WebUrl;
-        statusCode ?: number;
-        body ?: T;
-        headers ?: WebHttpHeaders;
+        url?: WebUrl | undefined;
+        statusCode ?: number | undefined;
+        body ?: T | undefined;
+        headers ?: WebHttpHeaders | undefined;
     }
 
     interface WebCall<T> {

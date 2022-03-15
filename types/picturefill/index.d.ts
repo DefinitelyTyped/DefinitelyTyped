@@ -7,7 +7,7 @@ declare namespace Picturefill {
   type ElementNullable = Element | null;
 
   interface EvaluateArg {
-    reevaluate?: boolean;
+    reevaluate?: boolean | undefined;
     elements: NodeList | ElementNullable[];
   }
 }

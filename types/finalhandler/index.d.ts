@@ -13,8 +13,8 @@ declare function finalhandler(req: IncomingMessage, res: ServerResponse,
 
 declare namespace finalhandler {
     interface Options {
-        env?: string;
-        onerror?: (err: any, req: IncomingMessage, res: ServerResponse) => void;
+        env?: string | undefined;
+        onerror?: ((err: any, req: IncomingMessage, res: ServerResponse) => void) | undefined;
     }
 }
 

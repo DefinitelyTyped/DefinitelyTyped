@@ -1,26 +1,28 @@
 // Type definitions for koa-json-error 3.1
 // Project: https://github.com/koajs/json-error
 // Definitions by: Mudkip <https://github.com/mudkipme>
-// Definitions: https://github.com/mudkipme/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 import * as Koa from "koa";
+
+type JSONError = Error & { status: number };
 
 interface JSONErrorOptions {
     /**
      * Perform some task before calling `options.format`. Must be a function with the original err as its only argument.
      */
-    preFormat?(err: Error): any;
+    preFormat?(err: JSONError): any;
 
     /**
      * Runs inmediatly after `options.preFormat`. It receives two arguments: the original `err` and the output of     `options.preFormat`. It should `return` a newly formatted error.
      */
-    format?(err: Error, obj: any): any;
+    format?(err: JSONError, obj: any): any;
 
     /**
      * Runs inmediatly after `options.format`. It receives two arguments: the original `err` and the output of   `options.format`.   It should `return` a newly formatted error.
      */
-    postFormat?(err: Error, obj: any): any;
+    postFormat?(err: JSONError, obj: any): any;
 }
 
 /**

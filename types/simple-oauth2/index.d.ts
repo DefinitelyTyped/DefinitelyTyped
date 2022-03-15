@@ -15,38 +15,38 @@ export interface ModuleOptions<ClientIdName extends string = "client_id"> {
         /** Service registered client secret. Required. */
         secret: string;
         /** Parameter name used to send the client secret. Default to client_secret. */
-        secretParamName?: string;
+        secretParamName?: string | undefined;
         /** Parameter name used to send the client id. Default to client_id. */
-        idParamName?: ClientIdName;
+        idParamName?: ClientIdName | undefined;
     };
     auth: {
         /** String used to set the host to request the tokens to. Required. */
         tokenHost: string;
         /** String path to request an access token. Default to /oauth/token. */
-        tokenPath?: string;
+        tokenPath?: string | undefined;
         /** String path to revoke an access token. Default to /oauth/revoke. */
-        revokePath?: string;
+        revokePath?: string | undefined;
         /** String used to set the host to request an "authorization code". Default to the value set on auth.tokenHost. */
-        authorizeHost?: string;
+        authorizeHost?: string | undefined;
         /** String path to request an authorization code. Default to /oauth/authorize. */
-        authorizePath?: string;
+        authorizePath?: string | undefined;
     };
     /**
      * Used to set global options to the internal http library (wreck).
      * All options except baseUrl are allowed
      * Defaults to header.Accept = "application/json"
      */
-    http?: {};
+    http?: {} | undefined;
     options?: {
         /** Format of data sent in the request body. Defaults to form. */
-        bodyFormat?: "json" | "form";
+        bodyFormat?: "json" | "form" | undefined;
         /**
          * Indicates the method used to send the client.id/client.secret authorization params at the token request.
          * If set to body, the bodyFormat option will be used to format the credentials.
          * Defaults to header
          */
-        authorizationMethod?: "header" | "body";
-    };
+        authorizationMethod?: "header" | "body" | undefined;
+    } | undefined;
 }
 
 export type TokenType = "access_token" | "refresh_token";
@@ -80,31 +80,31 @@ export interface AccessToken {
 }
 
 export interface WreckHttpOptions {
-    baseUrl?: string;
-    socketPath?: string;
+    baseUrl?: string | undefined;
+    socketPath?: string | undefined;
     payload?: any;
-    headers?: { [key: string]: any };
-    redirects?: number;
-    redirect303?: boolean;
-    beforeRedirect?: (
+    headers?: { [key: string]: any } | undefined;
+    redirects?: number | undefined;
+    redirect303?: boolean | undefined;
+    beforeRedirect?: ((
         redirectMethod: string,
         statusCode: number,
         location: string,
         resHeaders: { [key: string]: any },
         redirectOptions: any,
         next: () => {},
-    ) => void;
-    redirected?: (statusCode: number, location: string, req: any) => void;
-    timeout?: number;
-    maxBytes?: number;
-    rejectUnauthorized?: boolean;
+    ) => void) | undefined;
+    redirected?: ((statusCode: number, location: string, req: any) => void) | undefined;
+    timeout?: number | undefined;
+    maxBytes?: number | undefined;
+    rejectUnauthorized?: boolean | undefined;
     downstreamRes?: any;
     agent?: any;
-    secureProtocol?: string;
-    ciphers?: string;
-    events?: boolean;
-    json?: true | "strict" | "force";
-    gunzip?: boolean | "force";
+    secureProtocol?: string | undefined;
+    ciphers?: string | undefined;
+    events?: boolean | undefined;
+    json?: true | "strict" | "force" | undefined;
+    gunzip?: boolean | "force" | undefined;
 }
 
 /**
@@ -131,9 +131,9 @@ export class AuthorizationCode<ClientIdName extends string = "client_id"> {
             /** A string that represents the Client-ID */
             [key in ClientIdName]?: string;
         } & {
-            redirect_uri?: string;
-            scope?: string | string[];
-            state?: string;
+            redirect_uri?: string | undefined;
+            scope?: string | string[] | undefined;
+            state?: string | undefined;
         },
     ): string;
 
@@ -161,7 +161,7 @@ export interface AuthorizationTokenConfig {
     /** String representing the registered application URI where the user is redirected after authentication */
     redirect_uri: string;
     /** String or array of strings representing the application privileges */
-    scope?: string | string[];
+    scope?: string | string[] | undefined;
 }
 
 /**
@@ -236,7 +236,7 @@ export class ClientCredentials<ClientIdName extends string = "client_id"> {
 
 export interface ClientCredentialTokenConfig {
     /** A string that represents the application privileges */
-    scope?: string | string[];
+    scope?: string | string[] | undefined;
 
     [key: string]: any;
 }

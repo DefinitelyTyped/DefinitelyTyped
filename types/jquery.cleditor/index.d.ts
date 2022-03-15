@@ -36,32 +36,32 @@ interface CLEditor {
 }
 
 interface JQueryCLEditorOptions {
-    width?: number;
-    height?: number;
-    controls?: string;
-    colors?: string;
-    fonts?: string;
-    sizes?: string;
-    styles?: string[][];
-    useCSS?: boolean;
-    docType?: string;
-    docCSSFile?: string;
-    bodyStyle?: string;
+    width?: number | undefined;
+    height?: number | undefined;
+    controls?: string | undefined;
+    colors?: string | undefined;
+    fonts?: string | undefined;
+    sizes?: string | undefined;
+    styles?: string[][] | undefined;
+    useCSS?: boolean | undefined;
+    docType?: string | undefined;
+    docCSSFile?: string | undefined;
+    bodyStyle?: string | undefined;
 }
 
 interface JQueryCLEditorButtonDefinition {
     name: string;
     title: string;
     css?: any;
-    image?: string;
-    stripIndex?: number;
-    command?: string;
-    popupName?: string;
-    popupContent?: string;
-    getEnabled?: (data: JQueryCLEditorButtonDefinitionEventData) => boolean;
-    getPressed?: (data: JQueryCLEditorButtonDefinitionEventData) => boolean;
-    buttonClick?: (event: Event, data: JQueryCLEditorButtonDefinitionEventData) => boolean;
-    popupClick?: (event: Event, data: JQueryCLEditorButtonDefinitionEventData) => boolean;
+    image?: string | undefined;
+    stripIndex?: number | undefined;
+    command?: string | undefined;
+    popupName?: string | undefined;
+    popupContent?: string | undefined;
+    getEnabled?: ((data: JQueryCLEditorButtonDefinitionEventData) => boolean) | undefined;
+    getPressed?: ((data: JQueryCLEditorButtonDefinitionEventData) => boolean) | undefined;
+    buttonClick?: ((event: Event, data: JQueryCLEditorButtonDefinitionEventData) => boolean) | undefined;
+    popupClick?: ((event: Event, data: JQueryCLEditorButtonDefinitionEventData) => boolean) | undefined;
 }
 
 interface JQueryCLEditorButtonDefinitionEventData {

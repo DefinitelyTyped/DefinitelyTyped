@@ -13,25 +13,25 @@ export interface UUIDOptions {
      * Node id as Array of 6 bytes (per 4.1.6).
      * Default: Randomly generated ID. See note 1.
      */
-    node?: any[];
+    node?: any[] | undefined;
 
     /**
      * (Number between 0 - 0x3fff) RFC clock sequence.
      * Default: An internally maintained clockseq is used.
      */
-    clockseq?: number;
+    clockseq?: number | undefined;
 
     /**
      * (Number | Date) Time in milliseconds since unix Epoch.
      * Default: The current time is used.
      */
-    msecs?: number|Date;
+    msecs?: number|Date | undefined;
 
     /**
      * (Number between 0-9999) additional time, in 100-nanosecond units. Ignored if msecs is unspecified.
      * Default: internal uuid counter is used, as per 4.2.1.2.
      */
-    nsecs?: number;
+    nsecs?: number | undefined;
 }
 
 export interface UUID {

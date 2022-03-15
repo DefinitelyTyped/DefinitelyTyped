@@ -7,7 +7,7 @@ class Wrapper extends React.Component {
     }
 }
 
-function FunctionWrapper(props: { children?: React.ReactNode }) {
+function FunctionWrapper(props: { children?: React.ReactNode | undefined }) {
     return <div>{props.children}</div>;
 }
 

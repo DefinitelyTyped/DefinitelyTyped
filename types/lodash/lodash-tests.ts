@@ -23,6 +23,7 @@ const dictionaryIterator = (value: AbcObject, key: string, collection: _.Diction
 const numericDictionaryIterator = (value: AbcObject, key: string, collection: _.NumericDictionary<AbcObject>) => true;
 const valueIterator = (value: AbcObject) => true;
 const stringIterator = (value: string) => "";
+const nullableString: string | null = anything;
 
 // Wrapped array shortcut methods
 _([1, 2, 3, 4]).pop(); // $ExpectType number | undefined
@@ -2543,6 +2544,7 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
     _.chain(dictionary).groupBy(valueIterator); // $ExpectType ObjectChain<Dictionary<AbcObject[]>>
     _.chain(dictionary).groupBy(""); // $ExpectType ObjectChain<Dictionary<AbcObject[]>>
     _.chain(dictionary).groupBy({ a: 42 }); // $ExpectType ObjectChain<Dictionary<AbcObject[]>>
+    _.chain(nullableString).groupBy(); // $ExpectType ObjectChain<Dictionary<string[]>>
 
     fp.groupBy(valueIterator, list); // $ExpectType Dictionary<AbcObject[]>
     fp.groupBy(valueIterator)(list); // $ExpectType Dictionary<AbcObject[]>
@@ -5721,21 +5723,27 @@ fp.now(); // $ExpectType number
     const obj: AbcObject | null | undefined = anything;
     const dictionary: _.Dictionary<boolean> | null | undefined = anything;
     const numericDictionary: _.NumericDictionary<boolean> | null | undefined = anything;
+    const stringRecord: Record<string, string> = anything;
     const predicate = (element: string | number | boolean, key: string) => true;
     const predicate2 = (element: boolean, key: string) => true;
+    const predicate3 = (element: string, key: string) => true;
 
     _.pickBy(obj, predicate); // $ExpectType Partial<AbcObject>
     _.pickBy(dictionary, predicate2); // $ExpectType Dictionary<boolean>
     _.pickBy(numericDictionary, predicate2); // $ExpectType NumericDictionary<boolean>
+    _.pickBy(stringRecord, predicate3); // $ExpectType Dictionary<string>
     _(obj).pickBy(predicate); // $ExpectType Object<Partial<AbcObject>>
-    _(dictionary).pickBy(predicate2); // $ExpectType Object<Partial<Dictionary<boolean>>>
-    _(numericDictionary).pickBy(predicate2); // $ExpectType Object<Partial<NumericDictionary<boolean>>>
+    _(dictionary).pickBy(predicate2); // $ExpectType Object<Dictionary<boolean>>
+    _(numericDictionary).pickBy(predicate2); // $ExpectType Object<NumericDictionary<boolean>>
+    _(stringRecord).pickBy(predicate3); // $ExpectType Object<Dictionary<string>>
     _.chain(obj).pickBy(predicate); // $ExpectType ObjectChain<Partial<AbcObject>>
-    _.chain(dictionary).pickBy(predicate2); // $ExpectType ObjectChain<Partial<Dictionary<boolean>>>
-    _.chain(numericDictionary).pickBy(predicate2); // $ExpectType ObjectChain<Partial<NumericDictionary<boolean>>>
+    _.chain(dictionary).pickBy(predicate2); // $ExpectType ObjectChain<Dictionary<boolean>>
+    _.chain(numericDictionary).pickBy(predicate2); // $ExpectType ObjectChain<NumericDictionary<boolean>>
+    _.chain(stringRecord).pickBy(predicate3); // $ExpectType ObjectChain<Dictionary<string>>
     fp.pickBy(predicate, obj); // $ExpectType Partial<AbcObject>
     fp.pickBy(predicate2)(dictionary); // $ExpectType Dictionary<boolean>
     fp.pickBy(predicate2)(numericDictionary); // $ExpectType NumericDictionary<boolean>
+    fp.pickBy(predicate3)(stringRecord); // $ExpectType Dictionary<string>
 
     const mixedDictionary: _.Dictionary<string | number> | null | undefined = anything;
 
@@ -6186,6 +6194,8 @@ fp.now(); // $ExpectType number
     _.concat(1, 2); // $ExpectType number[]
     _.concat(1, [1]); // $ExpectType number[]
     _.concat(1, [1], numberROA); // $ExpectType number[]
+    _.concat(...[1, 2]); // $ExpectType number[]
+    _.concat(...[[1], [2]]); // $ExpectType number[]
 
     _(1).concat(2); // $ExpectType Collection<number>
     _(1).concat([1]); // $ExpectType Collection<number>
@@ -6678,6 +6688,14 @@ fp.now(); // $ExpectType number
 
     _.cond([[pairPred1, pairRes1], [pairPred2, pairRes2]])("hello"); // $ExpectType number
     fp.cond([[pairPred1, pairRes1], [pairPred2, pairRes2]])("hello"); // $ExpectType number
+
+    const nullaryPred1 = () => true;
+    const nullaryPred2 = () => false;
+    const nullaryRes1 = () => 1;
+    const nullaryRes2 = () => 2;
+
+    _.cond([[nullaryPred1, nullaryRes1], [nullaryPred2, nullaryRes2]])(); // $ExpectType number
+    fp.cond([[nullaryPred1, nullaryRes1], [nullaryPred2, nullaryRes2]])(); // $ExpectType number
 }
 
 // _.constant
@@ -6841,7 +6859,7 @@ fp.now(); // $ExpectType number
 {
     const source: _.Dictionary<(...args: any[]) => any> = {};
     const dest: AbcObject = anything;
-    const options: {chain?: boolean} = {};
+    const options: {chain?: boolean | undefined} = {};
 
     _.mixin(source); // $ExpectType LoDashStatic
     _.mixin(source, options); // $ExpectType LoDashStatic

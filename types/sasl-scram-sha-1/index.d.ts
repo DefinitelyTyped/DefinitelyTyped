@@ -26,16 +26,16 @@ declare class ScramSha1Mechanism implements Mechanism {
 
 declare namespace ScramSha1Mechanism {
     interface Options {
-        genNonce?: () => number;
+        genNonce?: (() => number) | undefined;
     }
 
     interface Credentials {
-        authzid?: string;
-        username?: string;
-        password?: string;
-        salt?: string;
-        saltedPassword?: string;
-        clientKey?: string;
-        serverKey?: string;
+        authzid?: string | undefined;
+        username?: string | undefined;
+        password?: string | undefined;
+        salt?: string | undefined;
+        saltedPassword?: string | undefined;
+        clientKey?: string | undefined;
+        serverKey?: string | undefined;
     }
 }

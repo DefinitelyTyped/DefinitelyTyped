@@ -17,10 +17,10 @@ export interface CustomRequest {
 }
 
 export interface ParseRequestOptions {
-    host?: string;
-    hostHeaderName?: string;
-    name?: string;
-    port?: number;
+    host?: string | undefined;
+    hostHeaderName?: string | undefined;
+    name?: string | undefined;
+    port?: number | undefined;
 }
 
 export const version: string;

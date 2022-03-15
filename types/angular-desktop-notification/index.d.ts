@@ -22,7 +22,7 @@ declare module 'angular' {
              * This is an experimental technology
              * Ref: https://developer.mozilla.org/en-US/docs/Web/API/Notification/badge
              */
-            badge?: string;
+            badge?: string | undefined;
 
             /**
              * The data read-only property of the Notification interface returns a structured clone of the notification's data,
@@ -40,7 +40,7 @@ declare module 'angular' {
              * Note: This feature is available in Web Workers.
              * Ref: https://developer.mozilla.org/en-US/docs/Web/API/Notification/image
              */
-            image?: string;
+            image?: string | undefined;
 
             /**
              * The renotify read-only property of the Notification interface specifies whether the user should be notified after a
@@ -49,7 +49,7 @@ declare module 'angular' {
              * Note: This property is not currently supported in any browser.
              * Ref: https://developer.mozilla.org/en-US/docs/Web/API/Notification/renotify
              */
-            renotify?: boolean;
+            renotify?: boolean | undefined;
 
             /**
              * The requireInteraction read-only property of the Notification interface returns a Boolean indicating that a notification
@@ -60,7 +60,7 @@ declare module 'angular' {
              * Note: This feature is available in Web Workers.
              * Ref: https://developer.mozilla.org/en-US/docs/Web/API/Notification/requireInteraction
              */
-            requireInteraction?: boolean;
+            requireInteraction?: boolean | undefined;
 
             /**
              * The silent read-only property of the Notification interface specifies whether the notification should be silent, i.e. no
@@ -70,7 +70,7 @@ declare module 'angular' {
              * Note: This feature is available in Web Workers.
              * Ref: https://developer.mozilla.org/en-US/docs/Web/API/Notification/silent
              */
-            silent?: boolean;
+            silent?: boolean | undefined;
 
             /**
              * The timestamp read-only property of the Notification interface returns a DOMTimeStamp, as specified in the timestamp option of the
@@ -83,7 +83,7 @@ declare module 'angular' {
              * Note: This feature is available in Web Workers
              * Ref: https://developer.mozilla.org/en-US/docs/Web/API/Notification/timestamp
              */
-            timestamp?: number;
+            timestamp?: number | undefined;
 
             /**
              * The title read-only property of the Notification interface indicates the title of the notification, as specified in the title parameter
@@ -92,7 +92,7 @@ declare module 'angular' {
              * Note: This feature is available in Web Workers.
              * Ref: https://developer.mozilla.org/en-US/docs/Web/API/Notification/title
              */
-            title?: string;
+            title?: string | undefined;
 
             /**
              * The vibrate read-only property of the Notification interface specifies a a vibration pattern for the device's vibration hardware to emit
@@ -110,7 +110,7 @@ declare module 'angular' {
              * The default behavior is to move the focus to the viewport of the notification's related browsing context.
              * If you don't want that behaviour, call preventDefault() on the event object.
              */
-            onClick?: (event: MouseEvent) => void;
+            onClick?: ((event: MouseEvent) => void) | undefined;
 
             /**
              * The onerror property of the Notification interface specifies an event listener to receive error events.
@@ -119,14 +119,14 @@ declare module 'angular' {
              * A function which serves as the event handler for the error event. When an error occurs, the specified function will be called.
              * If null, no error handler is in effect.
              */
-            onError?: EventListener;
+            onError?: EventListener | undefined;
         }
 
         // tslint:disable-next-line interface-name
         interface IDesktopNotificationOptions {
-            autoClose?: boolean;
-            duration?: number;
-            showOnPageHidden?: boolean;
+            autoClose?: boolean | undefined;
+            duration?: number | undefined;
+            showOnPageHidden?: boolean | undefined;
         }
 
         // tslint:disable-next-line interface-name

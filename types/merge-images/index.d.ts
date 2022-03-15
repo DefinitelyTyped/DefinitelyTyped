@@ -26,7 +26,7 @@ declare function mergeImages(sources: mergeImages.ImageSource[], options?: merge
 declare namespace mergeImages {
     type Image = string | Buffer;
 
-    type ImageSource = Image | { src: Image; x?: number; y?: number; opacity?: number };
+    type ImageSource = Image | { src: Image; x?: number | undefined; y?: number | undefined; opacity?: number | undefined };
 
     interface Options {
         /**
@@ -34,14 +34,14 @@ declare namespace mergeImages {
          *
          * @default 'image/png'
          */
-        format?: string;
+        format?: string | undefined;
 
         /**
          * A number between `0` and `1` indicating image quality if the requested format is `'image/jpeg'` or `'image/webp'`.
          *
          * @default 0.92
          */
-        quality?: number;
+        quality?: number | undefined;
 
         /**
          * The width in pixels the rendered image should be. Defaults to the width of the widest source image.
@@ -55,7 +55,7 @@ declare namespace mergeImages {
          *   .then(b64 => ...);
          *   // data:image/png;base64,iVBORw0KGgoAA...
          */
-        width?: number;
+        width?: number | undefined;
 
         /**
          * The height in pixels the rendered image should be. Defaults to the height of the tallest source image.
@@ -69,7 +69,7 @@ declare namespace mergeImages {
          *   .then(b64 => ...);
          *   // data:image/png;base64,iVBORw0KGgoAA...
          */
-        height?: number;
+        height?: number | undefined;
 
         /**
          * `Canvas` implementation to be used to allow usage outside of the browser. e.g Node.js with [node-canvas](https://github.com/Automattic/node-canvas).
@@ -114,6 +114,6 @@ declare namespace mergeImages {
          *
          * @default undefined
          */
-        crossOrigin?: "anonymous" | "use-credentials" | "";
+        crossOrigin?: "anonymous" | "use-credentials" | "" | undefined;
     }
 }

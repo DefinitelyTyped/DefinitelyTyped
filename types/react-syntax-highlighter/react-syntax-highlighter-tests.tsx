@@ -18,6 +18,8 @@ function hljsHighlighter(): JSX.Element {
     }
 }
 `;
+    SyntaxHighlighter.supportedLanguages; // $ExpectType string[]
+
     return (
         <SyntaxHighlighter language="javascript" style={docco}>
             {codeString}
@@ -56,6 +58,7 @@ function prismHighlighter(): JSX.Element {
     }
 }
 `;
+    PrismSyntaxHighlighter.supportedLanguages; // $ExpectType string[]
     return (
         <PrismSyntaxHighlighter language="javascript" style={atomDark}>
             {codeString}

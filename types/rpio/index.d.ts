@@ -1,4 +1,4 @@
-// Type definitions for node-rpio 2.4
+// Type definitions for node-rpio 2.4.1
 // Project: https://github.com/jperkin/node-rpio
 // Definitions by: Dominik Palo <https://github.com/DominikPalo>
 //                 Hannes Früchtenicht <https://github.com/Pencl>
@@ -248,16 +248,18 @@ interface Rpio {
      * 
      * @param buffer - holds the read bits
      * @param length - number of bits to read, defaults to buffer.length
+     * @returns a status code
      */
-    i2cRead(buffer: Buffer, length?: number): void;
+    i2cRead(buffer: Buffer, length?: number): RPIO.I2cStatusCode;
 
     /**
      * Write to the i²c slave.
      * 
      * @param buffer - bits to write
      * @param length - number of bits in buffer to transfer, default = buffer.length
+     * @returns a status code
      */
-    i2cWrite(buffer: Buffer, length?: number): void;
+    i2cWrite(buffer: Buffer, length?: number): RPIO.I2cStatusCode;
 
     /*
      * Read bytes from a register into a buffer after issuing a repeated start,
@@ -267,8 +269,9 @@ interface Rpio {
      * @param register - register to read
      * @param buffer - store for read bits
      * @param length - the max number of bits to read, default = buffer.length
+     * @returns a status code
      */
-    i2cReadRegisterRestart(register: number, buffer: Buffer, length?: number): void;
+    i2cReadRegisterRestart(register: number, buffer: Buffer, length?: number): RPIO.I2cStatusCode;
 
     /*
      * Write cmdlen commands from cmdbuf to device before issuing a repeated
@@ -277,8 +280,9 @@ interface Rpio {
      * @param cmdLen
      * @param rbuf
      * @param rlen
+     * @returns a status code
      */
-    i2cWriteReadRestart(cmdbuf: Buffer, cmdlen: number, rbuf: Buffer, rlen: number): void;
+    i2cWriteReadRestart(cmdbuf: Buffer, cmdlen: number, rbuf: Buffer, rlen: number): RPIO.I2cStatusCode;
 
     /**
      * Set the baud rate.
@@ -503,7 +507,7 @@ declare namespace RPIO {
          * true: use /dev/gpiomem for non-root but GPIO-only access
          * false: use /dev/mem for full access but requires root
          */
-        gpiomem?: boolean;
+        gpiomem?: boolean | undefined;
 
         /**
          * There are two naming schemes when referring to GPIO pins:
@@ -518,19 +522,19 @@ declare namespace RPIO {
          * gpio: use the Broadcom GPIOxx naming
          * physical: use the physical P01-P40 header layout
          */
-        mapping?: "gpio" | "physical";
+        mapping?: "gpio" | "physical" | undefined;
         
         /**
          * Mock mode is a dry-run environment where everything except pin access is performed. This is useful for testing scripts, and can also be used on systems which do not support GPIO at all.
          * If rpio is executed on unsupported hardware it will automatically start up in mock mode, and a warn event is emitted. By default the warn event is handled by a simple logger to stdout, but this can be overridden by the user creating their own warn handler.
          * The user can also explicitly request mock mode, where the argument is the type of hardware they wish to emulate.
          */
-        mock?: "raspi-b-r1" | "raspi-a" | "raspi-b" | "raspi-a+" | "raspi-b+" | "raspi-2" | "raspi-3" | "raspi-zero" | "raspi-zero-w";
+        mock?: "raspi-b-r1" | "raspi-a" | "raspi-b" | "raspi-a+" | "raspi-b+" | "raspi-2" | "raspi-3" | "raspi-zero" | "raspi-zero-w" | undefined;
    
         /**
          * Rpio automatically unmaps and clears all memory maps when the node process exits.
          */
-        close_on_exit?: boolean;
+        close_on_exit?: boolean | undefined;
     }
 
     /**
@@ -541,5 +545,15 @@ declare namespace RPIO {
          * @param pin: The pin which triggered the callback.
          */
         (pin: number): void;
+    }
+
+    /**
+     * Return codes for I2C read and write operations.
+     */
+    enum I2cStatusCode {
+      OK   	     = 0x00,      /*!< Success */
+      ERROR_NACK = 0x01,      /*!< Received a NACK */
+      ERROR_CLKT = 0x02,      /*!< Received Clock Stretch Timeout */
+      ERROR_DATA = 0x04       /*!< Not all data is sent / received */
     }
 }

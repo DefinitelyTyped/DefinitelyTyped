@@ -19,7 +19,8 @@ function test_fetchUrlWithOptions() {
         method: "POST",
         redirect: "manual",
         size: 100,
-        timeout: 5000
+        timeout: 5000,
+        agent: false,
     };
     handlePromise(
         fetch("http://www.andlabs.net/html5/uCOR.php", requestOptions)
@@ -56,13 +57,13 @@ function test_fetchUrlWithRequestObject() {
             aborted: false,
 
             addEventListener: (type: "abort", listener: ((event: any) => any), options?: boolean | {
-                capture?: boolean,
-                once?: boolean,
-                passive?: boolean
+                capture?: boolean | undefined,
+                once?: boolean | undefined,
+                passive?: boolean | undefined
             }) => undefined,
 
             removeEventListener: (type: "abort", listener: ((event: any) => any), options?: boolean | {
-                capture?: boolean
+                capture?: boolean | undefined
             }) => undefined,
 
             dispatchEvent: (event: any) => false,
@@ -75,7 +76,7 @@ function test_fetchUrlWithRequestObject() {
     );
     const timeout: number = request.timeout;
     const size: number = request.size;
-    const agent: Agent | ((parsedUrl: URL) => Agent) | undefined = request.agent;
+    const agent: Agent | ((parsedUrl: URL) => boolean | Agent | undefined) | boolean | undefined = request.agent;
     const protocol: string = request.protocol;
 
     handlePromise(fetch(request));
@@ -108,13 +109,13 @@ function test_fetchUrlObjectWithRequestObject() {
             aborted: false,
 
             addEventListener: (type: "abort", listener: ((event: any) => any), options?: boolean | {
-                capture?: boolean,
-                once?: boolean,
-                passive?: boolean
+                capture?: boolean | undefined,
+                once?: boolean | undefined,
+                passive?: boolean | undefined
             }) => undefined,
 
             removeEventListener: (type: "abort", listener: ((event: any) => any), options?: boolean | {
-                capture?: boolean
+                capture?: boolean | undefined
             }) => undefined,
 
             dispatchEvent: (event: any) => false,
@@ -127,7 +128,7 @@ function test_fetchUrlObjectWithRequestObject() {
     );
     const timeout: number = request.timeout;
     const size: number = request.size;
-    const agent: Agent | ((parsedUrl: URL) => Agent) | undefined = request.agent;
+    const agent: Agent | ((parsedUrl: URL) => boolean | Agent | undefined) | boolean | undefined = request.agent;
     const protocol: string = request.protocol;
 
     handlePromise(fetch(request));
@@ -169,7 +170,7 @@ function test_headers() {
     [...headers]; // $ExpectType [string, string][]
     [...headers.entries()]; // $ExpectType [string, string][]
     [...headers.keys()]; // $ExpectType string[]
-    [...headers.values()]; // $ExpectType [string][]
+    [...headers.values()]; // $ExpectType string[]
 }
 
 function test_isRedirect() {

@@ -1290,19 +1290,19 @@ interface appFrameworkCollection {
 }
 
 interface appFrameworkAjaxSettings {
-    type?: string;
-    beforeSend?: (xhr: XMLHttpRequest, settings: appFrameworkAjaxSettings) => boolean;
-    success?: (data: any, status: string, xhr: XMLHttpRequest) => void;
-    error?: (xhr: XMLHttpRequest, errorType: string, error: Error) => void;
-    complete?: (xhr: XMLHttpRequest, status: string) => void;
-    timeout?: number;
-    url?: string;
-    contentType?: string;
+    type?: string | undefined;
+    beforeSend?: ((xhr: XMLHttpRequest, settings: appFrameworkAjaxSettings) => boolean) | undefined;
+    success?: ((data: any, status: string, xhr: XMLHttpRequest) => void) | undefined;
+    error?: ((xhr: XMLHttpRequest, errorType: string, error: Error) => void) | undefined;
+    complete?: ((xhr: XMLHttpRequest, status: string) => void) | undefined;
+    timeout?: number | undefined;
+    url?: string | undefined;
+    contentType?: string | undefined;
     headers?: any;
-    dataType?: string;
+    dataType?: string | undefined;
     data?: any;
     context?: any;
-    crossDomain?: boolean;
+    crossDomain?: boolean | undefined;
 }
 
 interface appFrameworkCssMatrix {

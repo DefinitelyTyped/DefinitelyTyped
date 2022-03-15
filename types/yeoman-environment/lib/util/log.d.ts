@@ -34,22 +34,22 @@ declare namespace createLogger {
         /**
          * A set of categories and assigned `chalk`-formats.
          */
-        colors?: ColorMap<TCategories>;
+        colors?: ColorMap<TCategories> | undefined;
 
         /**
          * The console to write log-messages to.
          */
-        console?: Console;
+        console?: Console | undefined;
 
         /**
          * The stream to write other messages to.
          */
-        stderr?: WriteStream;
+        stderr?: WriteStream | undefined;
 
         /**
          * The stream to write other messages to.
          */
-        stdout?: WriteStream;
+        stdout?: WriteStream | undefined;
     }
 
     /**

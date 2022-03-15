@@ -156,14 +156,14 @@ declare namespace morgan {
          * When set to true, defaults to 1000 ms.
          * @deprecated
          */
-        buffer?: boolean;
+        buffer?: boolean | undefined;
 
         /***
          * Write log line on request instead of response. This means that a
          * requests will be logged even if the server crashes, but data from the
          * response cannot be logged (like the response code).
          */
-        immediate?: boolean;
+        immediate?: boolean | undefined;
 
         /***
          * Function to determine if logging is skipped, defaults to false. This
@@ -175,7 +175,7 @@ declare namespace morgan {
          * Output stream for writing log lines, defaults to process.stdout.
          * @param str
          */
-        stream?: StreamOptions;
+        stream?: StreamOptions | undefined;
     }
 }
 

@@ -21,36 +21,36 @@ import * as globStream from 'glob-stream';
 
 export interface SrcOptions extends globStream.Options {
     /** Prevents stream from emitting an error when file not found. */
-    allowEmpty?: boolean;
+    allowEmpty?: boolean | undefined;
 
     /** Specifies the working directory the folder is relative to */
-    cwd?: string;
+    cwd?: string | undefined;
 
     /**
      * Specifies the folder relative to the cwd
      * This is used to determine the file names when saving in .dest()
      * Default: where the glob begins
      */
-    base?: string;
+    base?: string | undefined;
 
     /**
      * Setting this to false will make file.contents a paused stream
      * If true it will buffer the file contents
      * Default: true
      */
-    buffer?: boolean;
+    buffer?: boolean | undefined;
 
     /**
      * The mode the directory should be created with.
      * Default: the process mode
      */
-    dirMode?: number;
+    dirMode?: number | undefined;
 
     /**
      * Whether or not you want globs to match on dot files or not
      * (e.g., `.gitignore`).
      */
-    dot?: boolean;
+    dot?: boolean | undefined;
 
     /**
      * Whether or not to recursively resolve symlinks to their targets.
@@ -58,54 +58,54 @@ export interface SrcOptions extends globStream.Options {
      * equal the original symlink's target path.
      * Default: true
      */
-    followSymlinks?: boolean;
+    followSymlinks?: boolean | undefined;
 
     /**
      * Setting this to false will ignore the contents of the file and disable
      * writing to disk to speed up operations
      * Default: true
      */
-    read?: boolean;
+    read?: boolean | undefined;
 
     /**
      * Whether or not the symlink should be relative or absolute.
      * Default: false
      */
-    relative?: boolean;
+    relative?: boolean | undefined;
 
     /** Only find files that have been modified since the time specified */
-    since?: Date | number;
+    since?: Date | number | undefined;
 
     /**
      * Causes the BOM to be stripped on UTF-8 encoded files. Set to `false`
      * if you need the BOM for some reason.
      */
-    stripBOM?: boolean;
+    stripBOM?: boolean | undefined;
 
     /**
      * Setting this to true will create a duplex stream, one that passes
      * through items and emits globbed files.
      * Default: false
      */
-    passthrough?: boolean;
+    passthrough?: boolean | undefined;
 
     /**
      * Setting this to true will enable sourcemaps.
      * Default: false
      */
-    sourcemaps?: boolean;
+    sourcemaps?: boolean | undefined;
 
     /**
      * Whether or not to recursively resolve symlinks to their targets. Setting to false to
      * preserve them as symlinks and make file.symlink equal the original symlink's target path.
      * Default: false
      */
-    resolveSymlinks?: boolean;
+    resolveSymlinks?: boolean | undefined;
     /**
      * Causes the BOM to be removed on UTF-8 encoded files. Set to false if you need the BOM for some reason.
      * Default: true
      */
-    removeBOM?: boolean;
+    removeBOM?: boolean | undefined;
 }
 
 export interface DestOptions {
@@ -113,35 +113,35 @@ export interface DestOptions {
      * Specify the working directory the folder is relative to
      * Default is process.cwd()
      */
-    cwd?: string;
+    cwd?: string | undefined;
 
     /**
      * Specify the mode the files should be created with
      * Default is the mode of the input file (file.stat.mode)
      * or the process mode if the input file has no mode property
      */
-    mode?: number | string;
+    mode?: number | string | undefined;
 
     /** Specify the mode the directory should be created with. Default is the process mode */
-    dirMode?: number | string;
+    dirMode?: number | string | undefined;
 
     /** Specify if existing files with the same path should be overwritten or not. Default is true, to always overwrite existing files */
-    overwrite?: boolean;
+    overwrite?: boolean | undefined;
 
     /**
      * Enables sourcemap support on files passed through the stream. Will write inline soucemaps if
      * specified as true. Specifying a string path will write external sourcemaps at the given path.
      */
-    sourcemaps?: true | string;
+    sourcemaps?: true | string | undefined;
 
     /**
      * When creating a symlink, whether or not the created symlink should be relative. If false,
      * the symlink will be absolute. Note: This option will be ignored if a junction is being created.
      */
-    relativeSymlinks?: boolean;
+    relativeSymlinks?: boolean | undefined;
 
     /* When creating a symlink, whether or not a directory symlink should be created as a junction. */
-    useJunctions?: boolean;
+    useJunctions?: boolean | undefined;
 }
 
 /**
@@ -186,16 +186,16 @@ export function symlink(folder: string, opts?: {
      * Specify the working directory the folder is relative to
      * Default is process.cwd()
      */
-    cwd?: string;
+    cwd?: string | undefined;
 
     /** Specify the mode the directory should be created with. Default is the process mode */
-    mode?: number | string;
+    mode?: number | string | undefined;
 
     /**
      * Specify the mode the directory should be created with
      * Default is the process mode
      */
-    dirMode?: number
+    dirMode?: number | undefined
 }): NodeJS.ReadWriteStream;
 
 /**
@@ -209,11 +209,11 @@ export function symlink(getFolderPath: (File: File) => string, opts?: {
      * Specify the working directory the folder is relative to
      * Default is process.cwd()
      */
-    cwd?: string;
+    cwd?: string | undefined;
 
     /**
      * Specify the mode the directory should be created with
      * Default is the process mode
      */
-    dirMode?: number
+    dirMode?: number | undefined
 }): NodeJS.ReadWriteStream;

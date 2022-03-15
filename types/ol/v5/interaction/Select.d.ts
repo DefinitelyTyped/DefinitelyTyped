@@ -12,17 +12,17 @@ import Interaction from './Interaction';
 
 export type FilterFunction = (p0: FeatureLike, p1: Layer) => boolean;
 export interface Options {
-    addCondition?: Condition;
-    condition?: Condition;
-    layers?: Layer[] | ((p0: Layer) => boolean);
-    style?: StyleLike;
-    removeCondition?: Condition;
-    toggleCondition?: Condition;
-    multi?: boolean;
-    features?: Collection<Feature>;
-    filter?: FilterFunction;
-    wrapX?: boolean;
-    hitTolerance?: number;
+    addCondition?: Condition | undefined;
+    condition?: Condition | undefined;
+    layers?: Layer[] | ((p0: Layer) => boolean) | undefined;
+    style?: StyleLike | undefined;
+    removeCondition?: Condition | undefined;
+    toggleCondition?: Condition | undefined;
+    multi?: boolean | undefined;
+    features?: Collection<Feature> | undefined;
+    filter?: FilterFunction | undefined;
+    wrapX?: boolean | undefined;
+    hitTolerance?: number | undefined;
 }
 export enum SelectEventType {
     SELECT = 'select',

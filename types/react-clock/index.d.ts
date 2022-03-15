@@ -9,102 +9,102 @@ export interface ClockProps<T = ClockValue> {
     /**
      * Class name(s) that will be added along with "react-clock" to the main React-Clock <time> element.
      */
-    className?: string | string[];
+    className?: string | string[] | undefined;
     /**
      * Hour hand length, in %.
      * @default 50
      */
-    hourHandLength?: number;
+    hourHandLength?: number | undefined;
     /**
      * The length of the part of an hour hand on the opposite side the hand is pointing to, in %.
      * @default 10
      */
-    hourHandOppositeLength?: number;
+    hourHandOppositeLength?: number | undefined;
     /**
      * Hour hand width, in pixels.
      * @default 4
      */
-    hourHandWidth?: number;
+    hourHandWidth?: number | undefined;
     /**
      * Hour marks length, in %.
      * @default 10
      */
-    hourMarksLength?: number;
+    hourMarksLength?: number | undefined;
     /**
      * Hour marks width, in pixels.
      * @default 3
      */
-    hourMarksWidth?: number;
+    hourMarksWidth?: number | undefined;
     /**
      * Minute hand length, in %.
      * @default 70
      */
-    minuteHandLength?: number;
+    minuteHandLength?: number | undefined;
     /**
      * The length of the part of a minute hand on the opposite side the hand is pointing to, in %.
      * @default 10
      */
-    minuteHandOppositeLength?: number;
+    minuteHandOppositeLength?: number | undefined;
     /**
      * Minute hand width, in pixels.
      * @default 2
      */
-    minuteHandWidth?: number;
+    minuteHandWidth?: number | undefined;
     /**
      * Minute marks length, in %.
      * @default 6
      */
-    minuteMarksLength?: number;
+    minuteMarksLength?: number | undefined;
     /**
      * Minute marks width, in pixels.
      * @default 1
      */
-    minuteMarksWidth?: number;
+    minuteMarksWidth?: number | undefined;
     /**
      * Whether hour marks shall be rendered.
      * @default true
      */
-    renderHourMarks?: boolean;
+    renderHourMarks?: boolean | undefined;
     /**
      * Whether minute hand shall be rendered.
      * @default true
      */
-    renderMinuteHand?: boolean;
+    renderMinuteHand?: boolean | undefined;
     /**
      * Whether minute marks shall be rendered.
      * @default true
      */
-    renderMinuteMarks?: boolean;
+    renderMinuteMarks?: boolean | undefined;
     /**
      * Whether numbers shall be rendered.
      * @default false
      */
-    renderNumbers?: boolean;
+    renderNumbers?: boolean | undefined;
     /**
      * Whether second hand shall be rendered.
      * @default true
      */
-    renderSecondHand?: boolean;
+    renderSecondHand?: boolean | undefined;
     /**
      * Second hand length, in %.
      * @default 90
      */
-    secondHandLength?: number;
+    secondHandLength?: number | undefined;
     /**
      * The length of the part of a second hand on the opposite side the hand is pointing to, in %.
      * @default 10
      */
-    secondHandOppositeLength?: number;
+    secondHandOppositeLength?: number | undefined;
     /**
      * Second hand width, in pixels.
      * @default 1
      */
-    secondHandWidth?: number;
+    secondHandWidth?: number | undefined;
     /**
      * Clock size, in pixels.
      * @default 150
      */
-    size?: number;
+    size?: number | undefined;
     /**
      * Clock value. Must be provided.
      */

@@ -64,24 +64,24 @@ export declare module HelloSign {
     }
 
     export interface Options {
-        allowCancel?: boolean;
-        clientId?: string;
-        container?: HTMLElement;
-        debug?: boolean;
-        hideHeader?: boolean;
-        locale?: Locales[keyof Locales];
-        redirectTo?: string;
-        requestingEmail?: string;
-        skipDomainVerification?: boolean;
-        testMode?: boolean;
-        timeout?: number;
-        whiteLabeling?: object;
+        allowCancel?: boolean | undefined;
+        clientId?: string | undefined;
+        container?: HTMLElement | undefined;
+        debug?: boolean | undefined;
+        hideHeader?: boolean | undefined;
+        locale?: Locales[keyof Locales] | undefined;
+        redirectTo?: string | undefined;
+        requestingEmail?: string | undefined;
+        skipDomainVerification?: boolean | undefined;
+        testMode?: boolean | undefined;
+        timeout?: number | undefined;
+        whiteLabeling?: object | undefined;
     }
 
     interface Singature {
         signer_name: string;
         signer_email_address: string;
-        order?: number;
+        order?: number | undefined;
     }
 
     interface SendEventPayload {
@@ -105,7 +105,7 @@ export declare module HelloSign {
 
     interface SignerRole {
         name: string;
-        order?: number;
+        order?: number | undefined;
     }
 
     interface CreateTemplateEventPyload {
@@ -125,7 +125,7 @@ export declare module HelloSign {
 
     interface MessageEventPayload {
         type: Messages;
-        payload?: object;
+        payload?: object | undefined;
     }
 
     interface OpenEventPayload {
@@ -191,7 +191,7 @@ export declare module HelloSign {
         once(name: Events['SEND'], cb: (data: SendEventPayload) => void): void;
         once(name: Events['SIGN'], cb: (data: SignEventPayload) => void): void;
 
-        off(name: Events['CLOSE'] | Events['CLOSE'] | Events['CREATE_TEMPLATE'] | Events['DECLINE'] |
+        off(name: Events['CLOSE'] | Events['CANCEL'] | Events['CREATE_TEMPLATE'] | Events['DECLINE'] |
               Events['ERROR'] | Events['FINISH'] | Events['MESSAGE'] | Events['OPEN'] | Events['READY'] |
               Events['REASSIGN'] | Events['SEND'] | Events['SIGN'],
             cb?: CB): void;

@@ -59,21 +59,21 @@ interface Historyjs {
 
 interface HistoryState {
     data?: any;
-    title?: string;
+    title?: string | undefined;
     url: string;
-    hashedUrl?: string;
-    cleanUrl?: string;
+    hashedUrl?: string | undefined;
+    cleanUrl?: string | undefined;
 }
 
 interface HistoryOptions {
-    hashChangeInterval?: number;
-    safariPollInterval?: number;
-    doubleCheckInterval?: number;
-    disableSuid?: boolean;
-    storeInterval?: number;
-    busyDelay?: number;
-    debug?: boolean;
-    initialTitle?: string;
-    html4Mode?: boolean;
-    delayInit?: number;
+    hashChangeInterval?: number | undefined;
+    safariPollInterval?: number | undefined;
+    doubleCheckInterval?: number | undefined;
+    disableSuid?: boolean | undefined;
+    storeInterval?: number | undefined;
+    busyDelay?: number | undefined;
+    debug?: boolean | undefined;
+    initialTitle?: string | undefined;
+    html4Mode?: boolean | undefined;
+    delayInit?: number | undefined;
 }

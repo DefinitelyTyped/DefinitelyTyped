@@ -11,8 +11,8 @@ declare namespace TinyJsonHttp {
     /**
      * Set to true the response body is returned as a buffer
      */
-    buffer?: boolean;
-    timeout?: number;
+    buffer?: boolean | undefined;
+    timeout?: number | undefined;
   }
 
   interface Result {

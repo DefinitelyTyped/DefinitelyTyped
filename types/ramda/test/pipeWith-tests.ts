@@ -7,7 +7,7 @@ import * as R from 'ramda';
   }
 
   const db = {
-    getUserById(userName: string): Promise<User> {
+    getUserById(userId: string): Promise<User> {
       return Promise.resolve({
         name: 'Jon',
         followers: ['Samwell', 'Edd', 'Grenn'],
@@ -18,8 +18,19 @@ import * as R from 'ramda';
     },
   };
 
-  const followersForUser: (userName: string) => Promise<string[]> = R.pipeWith(
-    (f: (value: any) => any, res: any) => res.then(f),
+  // $ExpectType (userId: string) => Promise<string[]>
+  const followersForUser = R.pipeWith(
+    (f: (value: any) => any, res: Promise<unknown>) => res.then(f),
     [db.getUserById, db.getFollowers],
   );
+
+  // $ExpectType (userId: string) => Promise<User>
+  const getUser = R.pipeWith(
+    (f: (value: any) => any, res: Promise<unknown>) => res.then(f),
+    [db.getUserById],
+  );
+
+  // Should pipe at least on function.
+  // $ExpectError
+  R.pipeWith((f: (value: any) => any, res: Promise<unknown>) => res.then(f), []);
 };

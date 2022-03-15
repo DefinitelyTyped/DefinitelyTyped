@@ -1,9 +1,9 @@
 import { Bone, Euler, Matrix4, Object3D, Quaternion, SkinnedMesh, Vector3 } from '../../../src/Three';
 
 export interface MMDPhysicsParameter {
-    unitStep?: number;
-    maxStepNum?: number;
-    gravity?: Vector3;
+    unitStep?: number | undefined;
+    maxStepNum?: number | undefined;
+    gravity?: Vector3 | undefined;
 }
 
 export class MMDPhysics {

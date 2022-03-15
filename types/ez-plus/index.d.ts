@@ -10,199 +10,199 @@ export interface Options {
     /**
      * Activate responsivenes
      */
-    responsive?: boolean;
+    responsive?: boolean | undefined;
 
     /**
      * Activate zoom on mouse scroll
      */
-    scrollZoom?: boolean;
+    scrollZoom?: boolean | undefined;
 
     /**
      * Activate simultaneous crossfade of images on gallery change
      */
-    imageCrossfade?: boolean;
+    imageCrossfade?: boolean | undefined;
 
     /**
      * Activate spinner icon or url
      */
-    loadingIcon?: boolean | string;
+    loadingIcon?: boolean | string | undefined;
 
     /**
      * Activate easing
      */
-    easing?: boolean;
-    easingType?: string;
-    easingDuration?: number;
+    easing?: boolean | undefined;
+    easingType?: string | undefined;
+    easingDuration?: number | undefined;
 
     /**
      * Used when zoomType set to lens
      */
-    lensSize?: number;
+    lensSize?: number | undefined;
 
     /**
      * Width of the zoomWindow
      */
-    zoomWindowWidth?: number;
+    zoomWindowWidth?: number | undefined;
 
     /**
      * Height of the zoomWindow
      */
-    zoomWindowHeight?: number;
+    zoomWindowHeight?: number | undefined;
 
     /**
      * x-axis offset of the zoom window
      */
-    zoomWindowOffsetX?: number;
+    zoomWindowOffsetX?: number | undefined;
 
     /**
      * y-axis offset of the zoom window
      */
-    zoomWindowOffsetY?: number;
-    zoomWindowPosition?: number | string;
+    zoomWindowOffsetY?: number | undefined;
+    zoomWindowPosition?: number | string | undefined;
 
     /**
      * Speed of Lens fadeIn
      */
-    lensFadeIn?: number;
+    lensFadeIn?: number | undefined;
 
     /**
      * Speed of Lens fadeOut
      */
-    lensFadeOut?: number;
+    lensFadeOut?: number | undefined;
 
     /**
      * Speed of Window fadeIn
      */
-    zoomWindowFadeIn?: number;
+    zoomWindowFadeIn?: number | undefined;
 
     /**
      * Speed of Window fadeOut
      */
-    zoomWindowFadeOut?: number;
+    zoomWindowFadeOut?: number | undefined;
 
     /**
      * Speed of Tint fadeIn
      */
-    zoomTintFadeIn?: number;
+    zoomTintFadeIn?: number | undefined;
 
     /**
      * Speed of Tint fadeOut
      */
-    zoomTintFadeOut?: number;
+    zoomTintFadeOut?: number | undefined;
 
     /**
      * Border Size of the ZoomBox
      */
-    borderSize?: number;
+    borderSize?: number | undefined;
 
     /**
      * Enable Lens
      */
-    zoomLens?: boolean;
+    zoomLens?: boolean | undefined;
 
     /**
      * Border Colour
      */
-    borderColour?: string;
+    borderColour?: string | undefined;
 
     /**
      * Width in pixels of the lens border
      */
-    lensBorder?: number;
+    lensBorder?: number | undefined;
 
     /**
      * Type of lens
      */
-    lensShape?: 'square' | 'round';
+    lensShape?: 'square' | 'round' | undefined;
 
     /**
      * Type of zoom
      */
-    zoomType?: 'lens' | 'window' | 'inner';
-    containLensZoom?: boolean;
+    zoomType?: 'lens' | 'window' | 'inner' | undefined;
+    containLensZoom?: boolean | undefined;
 
     /**
      * Colour of the lens background
      */
-    lensColour?: string;
+    lensColour?: string | undefined;
 
     /**
      * Opacity of lens
      */
-    lensOpacity?: number;
-    lenszoom?: boolean;
+    lensOpacity?: number | undefined;
+    lenszoom?: boolean | undefined;
 
     /**
      * Enable a tint overlay
      */
-    tint?: boolean;
+    tint?: boolean | undefined;
 
     /**
      * Colour of the tin
      */
-    tintColour?: string;
+    tintColour?: string | undefined;
 
     /**
      * Opacity of the tint
      */
-    tintOpacity?: number;
+    tintOpacity?: number | undefined;
 
     /**
      * This assigns a set of gallery links to the zoom image
      */
-    gallery?: string;
+    gallery?: string | undefined;
 
     /**
      * Type of cursor
      */
-    cursor?: 'default' | 'cursor' | 'crosshair';
-    container?: string;
+    cursor?: 'default' | 'cursor' | 'crosshair' | undefined;
+    container?: string | undefined;
 
     /**
      * Attribute to plugin use for zoom
      */
-    attrImageZoomSrc?: string;
+    attrImageZoomSrc?: string | undefined;
 
     /**
      * In pixels the dimensions you want to constrain on
      */
-    constrainSize?: number | false;
-    constrainType?: 'width' | 'height';
-    debug?: boolean;
-    easingAmount?: number;
-    enabled?: boolean;
-    galleryActiveClass?: string;
-    gallerySelector?: string | false;
-    galleryItem?: string;
-    galleryEvent?: string;
-    mantainZoomAspectRatio?: boolean;
-    maxZoomLevel?: number | false;
-    minZoomLevel?: number;
-    preloading?: 0 | 1;
-    respond?: any[];
+    constrainSize?: number | false | undefined;
+    constrainType?: 'width' | 'height' | undefined;
+    debug?: boolean | undefined;
+    easingAmount?: number | undefined;
+    enabled?: boolean | undefined;
+    galleryActiveClass?: string | undefined;
+    gallerySelector?: string | false | undefined;
+    galleryItem?: string | undefined;
+    galleryEvent?: string | undefined;
+    mantainZoomAspectRatio?: boolean | undefined;
+    maxZoomLevel?: number | false | undefined;
+    minZoomLevel?: number | undefined;
+    preloading?: 0 | 1 | undefined;
+    respond?: any[] | undefined;
 
     /**
      * Steps of the scrollzoom
      */
-    scrollZoomIncrement?: number;
-    touchEnabled?: boolean;
-    zoomActivation?: 'click' | 'hover';
+    scrollZoomIncrement?: number | undefined;
+    touchEnabled?: boolean | undefined;
+    zoomActivation?: 'click' | 'hover' | undefined;
 
     /**
      * Zoom container parent selector
      */
-    zoomContainerAppendTo?: string;
+    zoomContainerAppendTo?: string | undefined;
 
     /**
      * Identifier for the zoom container
      */
-    zoomId?: number;
+    zoomId?: number | undefined;
 
     /**
      * Zoom level of image
      */
-    zoomLevel?: number;
-    zIndex?: number;
+    zoomLevel?: number | undefined;
+    zIndex?: number | undefined;
 }
 declare global {
     interface JQuery {

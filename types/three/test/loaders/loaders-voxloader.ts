@@ -1,8 +1,8 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-import { VOXLoader, VOXDataTexture3D } from 'three/examples/jsm/loaders/VOXLoader';
+import { VOXLoader, VOXData3DTexture } from 'three/examples/jsm/loaders/VOXLoader';
 
-import { WEBGL } from 'three/examples/jsm/WebGL';
+import WEBGL from 'three/examples/jsm/capabilities/WebGL';
 
 if (!WEBGL.isWebGL2Available()) {
     document.body.appendChild(WEBGL.getWebGL2ErrorMessage());
@@ -150,7 +150,7 @@ function init() {
             const material = new THREE.RawShaderMaterial({
                 glslVersion: THREE.GLSL3,
                 uniforms: {
-                    map: { value: new VOXDataTexture3D(chunk) },
+                    map: { value: new VOXData3DTexture(chunk) },
                     cameraPos: { value: new THREE.Vector3() },
                 },
                 vertexShader,

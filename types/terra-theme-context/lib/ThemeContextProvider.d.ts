@@ -9,9 +9,9 @@ export interface ThemeContextProviderProps {
    * An object containing the name and className of the selected theme.
    */
   theme?: {
-    name?: string;
-    className?: string;
-  };
+    name?: string | undefined;
+    className?: string | undefined;
+  } | undefined;
 }
 
 declare const ThemeContextProvider: React.FC<ThemeContextProviderProps>;

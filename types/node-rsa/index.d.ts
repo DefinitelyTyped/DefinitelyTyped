@@ -227,17 +227,17 @@ declare namespace NodeRSA {
         /**
          * Working environment. (auto detects by default)
          */
-        environment?: 'browser' | 'node';
+        environment?: 'browser' | 'node' | undefined;
 
         /**
          * Padding scheme for encrypt/decrypt. Default is 'pkcs1_oaep'.
          */
-        encryptionScheme?: EncryptionScheme | AdvancedEncryptionScheme;
+        encryptionScheme?: EncryptionScheme | AdvancedEncryptionScheme | undefined;
 
         /**
          * scheme used for signing and verifying.. Default 'pkcs1-sha256', or, if chosen pss: 'pss-sha1'.
          */
-        signingScheme?: SigningScheme | SigningSchemeHash | AdvancedSigningScheme;
+        signingScheme?: SigningScheme | SigningSchemeHash | AdvancedSigningScheme | undefined;
     }
 }
 

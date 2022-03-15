@@ -159,6 +159,11 @@ export class Quaternion {
     ): number[];
 
     /**
+     * @deprecated Use qm.slerpQuaternions( qa, qb, t ) instead..
+     */
+    static slerp(qa: Quaternion, qb: Quaternion, qm: Quaternion, t: number): number;
+
+    /**
      * @deprecated Use {@link Vector#applyQuaternion vector.applyQuaternion( quaternion )} instead.
      */
     multiplyVector3(v: any): any;
@@ -167,4 +172,6 @@ export class Quaternion {
      * @deprecated Use {@link Quaternion#invert .invert()} instead.
      */
     inverse(): Quaternion;
+
+    random(): Quaternion;
 }

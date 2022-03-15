@@ -1,5 +1,5 @@
-import { start, Recoverable } from 'node:repl';
-import { Context } from 'node:vm';
+import { start, Recoverable } from 'repl';
+import { Context } from 'vm';
 
 {
     let server = start();

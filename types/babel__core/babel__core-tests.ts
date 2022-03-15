@@ -13,6 +13,9 @@ const options: babel.TransformOptions = {
         sourceRoot: '',
         sourcesContent: ['foo'],
     },
+    browserslistEnv: 'last 1 chrome version',
+    browserslistConfigFile: false,
+    cloneInputAst: false,
 };
 
 babel.transform('code();', options, (err, result) => {
@@ -146,6 +149,8 @@ if (partialConfig) {
 
 function withPluginPass(state: babel.PluginPass) {
     state.file.hub.addHelper('something');
+    if (!state.get('jsxDetected')) return;
+    state.set('jsxDetected', true);
 }
 
 const plugin: babel.PluginObj = {

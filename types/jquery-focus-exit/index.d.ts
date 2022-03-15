@@ -7,7 +7,7 @@
 /// <reference types="jquery" />
 
 export interface FocusElements {
-    lostFocus?: HTMLElement;
+    lostFocus?: HTMLElement | undefined;
     gainedFocus: HTMLElement;
 }
 

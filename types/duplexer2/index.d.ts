@@ -11,7 +11,7 @@
 import { DuplexOptions } from 'stream';
 
 interface Duplexer2Options extends DuplexOptions {
-  bubbleErrors?: boolean;
+  bubbleErrors?: boolean | undefined;
 }
 
 declare function duplexer2(options: Duplexer2Options, writable: NodeJS.WritableStream, readable: NodeJS.ReadableStream): NodeJS.ReadWriteStream;

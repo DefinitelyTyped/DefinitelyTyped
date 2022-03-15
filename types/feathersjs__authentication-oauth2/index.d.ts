@@ -26,45 +26,45 @@ export interface FeathersAuthenticationOAuth2Options<VerifierType = typeof Verif
     /**
      * The route to register the callback handler, defaults to `${path}/callback`
      */
-    callbackPath?: string;
+    callbackPath?: string | undefined;
     /**
      * The callback url. Defaults to @feathersjs/common's makeUrl + callbackPath
      */
-    callbackURL?: string;
+    callbackURL?: string | undefined;
     successRedirect: string;
     failureRedirect: string;
     /**
      * Express middleware for handling the oauth callback. Defaults to the built in middleware. todo: needs a proper type
      */
-    handler?: RequestHandler;
+    handler?: RequestHandler | undefined;
     /**
      * Express middleware for handling the oauth error callback. Defaults to the built in middleware. todo: needs a proper type
      */
-    errorHandler?: RequestHandler;
+    errorHandler?: RequestHandler | undefined;
     /**
      * The response formatter. Defaults the the built in feathers-rest formatter, which returns JSON. todo: needs a proper type
      */
-    formatter?: RequestHandler;
+    formatter?: RequestHandler | undefined;
     /**
      * A Verifier class. Defaults to the built-in one but can be a custom one. See below for details.
      */
-    Verifier?: VerifierType;
+    Verifier?: VerifierType | undefined;
     // todo: some of these options are actually @feathersjs/authentication options,
     /**
      * The field to look up the entity by when logging in with the provider. Defaults to '<provider>Id' (ie. 'facebookId').
      * This can also be set on app.get('auth') or app.get('authentication')
      */
-    idField?: string;
+    idField?: string | undefined;
     /**
      * The route to register the middleware on. Defaults to `/auth/${name}`
      * This can also be set on app.get('auth') or app.get('authentication')
      */
-    path?: string;
+    path?: string | undefined;
     /**
      * the entity that you are looking up.
      * This can also be set on app.get('auth') or app.get('authentication')
      */
-    entity?: string;
+    entity?: string | undefined;
     /**
      * the service to look up the entity
      * This can also be set on app.get('auth') or app.get('authentication')
@@ -84,7 +84,7 @@ export interface FeathersAuthenticationOAuth2Options<VerifierType = typeof Verif
      * Oauth flag to tell @feathersjs/authentication that this is an oauth authentication
      * Set by feathersOAuth2 to pass into @feathersjs/authentication
      */
-    __oath?: boolean;
+    __oath?: boolean | undefined;
 }
 
 interface FeathersAuthenticationOAuth2Data<T extends Profile = Profile> {

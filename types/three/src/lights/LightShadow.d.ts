@@ -3,7 +3,7 @@ import { Light } from './../lights/Light';
 import { Vector2 } from './../math/Vector2';
 import { Vector4 } from './../math/Vector4';
 import { Matrix4 } from './../math/Matrix4';
-import { RenderTarget } from '../renderers/webgl/WebGLRenderLists';
+import { WebGLRenderTarget } from '../renderers/WebGLRenderTarget';
 
 export class LightShadow {
     constructor(camera: Camera);
@@ -26,6 +26,11 @@ export class LightShadow {
     radius: number;
 
     /**
+     * @default 8
+     */
+    blurSamples: number;
+
+    /**
      * @default new THREE.Vector2( 512, 512 )
      */
     mapSize: Vector2;
@@ -33,12 +38,12 @@ export class LightShadow {
     /**
      * @default null
      */
-    map: RenderTarget;
+    map: WebGLRenderTarget;
 
     /**
      * @default null
      */
-    mapPass: RenderTarget;
+    mapPass: WebGLRenderTarget;
 
     /**
      * @default new THREE.Matrix4()
@@ -62,4 +67,5 @@ export class LightShadow {
     updateMatrices(light: Light, viewportIndex?: number): void;
     getViewport(viewportIndex: number): Vector4;
     getFrameExtents(): Vector2;
+    dispose(): void;
 }

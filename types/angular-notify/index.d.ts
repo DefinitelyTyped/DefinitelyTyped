@@ -1,6 +1,6 @@
 // Type definitions for angular-notify 2.5.0
 // Project: https://github.com/cgross/angular-notify
-// Definitions by: Suwato <https://github.com/Suwato/DefinitelyTyped>
+// Definitions by: Suwato <https://github.com/Suwato>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -33,33 +33,33 @@ declare module 'angular' {
                 /**
                  * Optional. A custom template for the UI of the message.
                  */
-                templateUrl?: string;
+                templateUrl?: string | undefined;
 
                 /**
                  * Optional. A list of custom CSS classes to apply to the message element.
                  */
-                classes?: string;
+                classes?: string | undefined;
 
                 /**
                  * Optional. A string containing any valid Angular HTML which will be shown instead of the regular message text.
                  * The string must contain one root element like all valid Angular HTML templates (so wrap everything in a <span>).
                  */
-                messageTemplate?: string;
+                messageTemplate?: string | undefined;
 
                 /**
                  * Optional. A valid Angular scope object. The scope of the template will be created by calling $new() on this scope.
                  */
-                $scope?: ng.IScope;
+                $scope?: ng.IScope | undefined;
 
                 /**
                  * Optional. Currently center and right are the only acceptable values.
                  */
-                position?: string;
+                position?: string | undefined;
 
                 /**
                  * Optional. The duration (in milliseconds) of the message. A duration of 0 will prevent the message from closing automatically.
                  */
-                duration?: number;
+                duration?: number | undefined;
 
                 /**
                  * Optional. Element that contains each notification. Defaults to document.body.
@@ -77,27 +77,27 @@ declare module 'angular' {
                 /**
                  * The default duration (in milliseconds) of each message. A duration of 0 will prevent messages from closing automatically.
                  */
-                duration?: number;
+                duration?: number | undefined;
 
                 /**
                  * The Y pixel value where messages will be shown.
                  */
-                startTop?: number;
+                startTop?: number | undefined;
 
                 /**
                  * The number of pixels that should be reserved between messages vertically.
                  */
-                verticalSpacing?: number;
+                verticalSpacing?: number | undefined;
 
                 /**
                  * The default message template.
                  */
-                templateUrl?: string;
+                templateUrl?: string | undefined;
 
                 /**
                  * The default position of each message. Currently only center and right are the supported values.
                  */
-                position?: string;
+                position?: string | undefined;
 
                 /**
                  * The default element that contains each notification. Defaults to document.body.
@@ -107,7 +107,7 @@ declare module 'angular' {
                 /**
                  * The maximum number of total notifications that can be visible at one time. Older notifications will be closed when the maximum is reached.
                  */
-                maximumOpen?: number;
+                maximumOpen?: number | undefined;
             }): void;
 
             /**

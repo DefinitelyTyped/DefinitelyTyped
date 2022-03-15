@@ -31,12 +31,12 @@ export type CollectionCellRendererParams = {
 };
 export type CollectionCellRenderer = (params: CollectionCellRendererParams) => React.ReactNode;
 export type CollectionProps = {
-    'aria-label'?: string;
+    'aria-label'?: string | undefined;
     /**
      * Outer height of Collection is set to "auto". This property should only be
      * used in conjunction with the WindowScroller HOC.
      */
-    autoHeight?: boolean;
+    autoHeight?: boolean | undefined;
     /**
      * Number of cells in Collection.
      */
@@ -49,7 +49,7 @@ export type CollectionProps = {
      *   cellRenderer: Function
      * }): Array<PropTypes.node>
      */
-    cellGroupRenderer?: CollectionCellGroupRenderer;
+    cellGroupRenderer?: CollectionCellGroupRenderer | undefined;
     /**
      * Responsible for rendering a cell given an row and column index.
      * Should implement the following interface: ({ index: number, key: string, style: object }): PropTypes.element
@@ -63,28 +63,28 @@ export type CollectionProps = {
     /**
      * Optional custom CSS class name to attach to root Collection element.
      */
-    className?: string;
+    className?: string | undefined;
     height: number;
-    horizontalOverscanSize?: number;
+    horizontalOverscanSize?: number | undefined;
     /**
      * Optional custom id to attach to root Collection element.
      */
-    id?: string;
-    noContentRenderer?: () => JSX.Element;
+    id?: string | undefined;
+    noContentRenderer?: (() => JSX.Element) | undefined;
     /**
      * Callback invoked whenever the scroll offset changes within the inner
      * scrollable region: ({ clientHeight, clientWidth, scrollHeight, scrollLeft, scrollTop, scrollWidth }): void
      */
-    onScroll?: (params: ScrollParams) => any;
+    onScroll?: ((params: ScrollParams) => any) | undefined;
     /**
      * Callback invoked with information about the section of the Collection
      * that was just rendered: ({ indices: Array<number> }): void
      */
-    onSectionRendered?: (params: SectionRenderedParams) => any;
+    onSectionRendered?: ((params: SectionRenderedParams) => any) | undefined;
     /**
      * Horizontal offset
      */
-    scrollLeft?: number;
+    scrollLeft?: number | undefined;
     /**
      * Controls the alignment of scrolled-to-cells. The default ("auto") scrolls
      * the least amount possible to ensure that the specified cell is fully
@@ -92,21 +92,21 @@ export type CollectionProps = {
      * Collection and "end" to align them bottom/right. Use "center" to align
      * specified cell in the middle of container.
      */
-    scrollToAlignment?: Alignment;
-    scrollToCell?: number;
+    scrollToAlignment?: Alignment | undefined;
+    scrollToCell?: number | undefined;
     /**
      * Vertical Offset
      */
-    scrollTop?: number;
+    scrollTop?: number | undefined;
     /**
      * Optionally override the size of the sections a Collection's cells are split into.
      */
-    sectionSize?: number;
+    sectionSize?: number | undefined;
     /**
      * Optional custom inline style to attach to root Collection element.
      */
-    style?: React.CSSProperties;
-    verticalOverscanSize?: number;
+    style?: React.CSSProperties | undefined;
+    verticalOverscanSize?: number | undefined;
     /**
      * Width of Collection; this property determines the number of visible
      * (vs virtualized) columns.

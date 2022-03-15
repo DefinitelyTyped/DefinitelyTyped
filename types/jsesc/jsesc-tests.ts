@@ -1,64 +1,34 @@
+import jsesc = require("jsesc");
 
-import jsesc = require('jsesc');
-import Opts = jsesc.Opts;
-
-// ---- ---- ---- ---- ---- ---- ----
-
-var num: number;
-var str: string;
-var obj: object;
-var bool: boolean;
-var opts: Opts;
-var quotes: 'single' | 'double' | 'backtick';
-var numbers: 'binary' | 'octal' | 'decimal' | 'hexadecimal';
+jsesc.version; // $ExpectType string
 
 // ---- ---- ---- ---- ---- ---- ----
 
-str = jsesc.version;
+jsesc("", { quotes: "single" }); // $ExpectType string
+jsesc("", { quotes: "double" }); // $ExpectType string
+jsesc("", { quotes: "backtick" }); // $ExpectType string
+jsesc("", { quotes: "foo" }); // $ExpectError
+jsesc("", { numbers: "binary" }); // $ExpectType string
+jsesc("", { numbers: "octal" }); // $ExpectType string
+jsesc("", { numbers: "decimal" }); // $ExpectType string
+jsesc("", { numbers: "hexadecimal" }); // $ExpectType string
+jsesc("", { numbers: "foo" }); // $ExpectError
+jsesc("", { wrap: true }); // $ExpectType string
+jsesc("", { es6: true }); // $ExpectType string
+jsesc("", { escapeEverything: true }); // $ExpectType string
+jsesc("", { minimal: true }); // $ExpectType string
+jsesc("", { isScriptContext: true }); // $ExpectType string
+jsesc("", { compact: false }); // $ExpectType string
+jsesc("", { indent: "  " }); // $ExpectType string
+jsesc("", { indentLevel: 2 }); // $ExpectType string
+jsesc("", { json: false }); // $ExpectType string
+jsesc("", { lowercaseHex: true }); // $ExpectType string
 
 // ---- ---- ---- ---- ---- ---- ----
 
-opts = {
-    quotes: quotes
-};
-opts = {
-    numbers: numbers
-}
-opts = {
-    wrap: bool
-};
-opts = {
-    es6: bool
-};
-opts = {
-    escapeEverything: bool
-};
-opts = {
-    minimal: bool
-};
-opts = {
-    isScriptContext: bool
-};
-opts = {
-    compact: bool
-};
-opts = {
-    indent: str
-};
-opts = {
-    indentLevel: num
-};
-opts = {
-    json: bool
-};
-opts = {
-    lowercaseHex: bool
-};
-// ---- ---- ---- ---- ---- ---- ----
-
-str = jsesc(str);
-str = jsesc(str, opts);
-str = jsesc(num);
-str = jsesc(num, opts);
-str = jsesc(obj);
-str = jsesc(obj, opts);
+jsesc(""); // $ExpectType string
+jsesc("", { quotes: "single" }); // $ExpectType string
+jsesc(1); // $ExpectType string
+jsesc(1, { quotes: "single" }); // $ExpectType string
+jsesc({}); // $ExpectType string
+jsesc({}, { quotes: "single" }); // $ExpectType string

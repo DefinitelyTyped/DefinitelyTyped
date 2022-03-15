@@ -17,18 +17,18 @@ declare namespace imageminGifsicle {
          * Reduce the number of distinct colors in each output GIF to num or less.
          * Num must be between 2 and 256.
          */
-        colors?: number;
+        colors?: number | undefined;
         /**
          * Interlace gif for progressive rendering.
          * @default false
          */
-        interlaced?: boolean;
+        interlaced?: boolean | undefined;
         /**
          * Select an optimization level between 1 and 3.
          * @see {@link https://github.com/imagemin/imagemin-gifsicle#optimizationlevel}
          * @default 1
          */
-        optimizationLevel?: number;
+        optimizationLevel?: number | undefined;
     }
 }
 

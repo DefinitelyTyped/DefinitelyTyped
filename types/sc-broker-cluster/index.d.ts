@@ -2,6 +2,7 @@
 // Project: https://github.com/SocketCluster/sc-broker-cluster
 // Definitions by: Daniel Rose <https://github.com/DanielRose>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 3.7
 
 import { CodecEngine, AGServerOptions } from 'socketcluster-server/server';
 import { SpliceOptions, QueryOptions } from 'sc-broker';
@@ -94,16 +95,16 @@ export class SCExchange extends AbstractDataClient {
 
 export interface SCBrokerClusterServerOptions {
     brokers: string[];
-    debug?: boolean;
-    inspect?: boolean;
-    instanceId?: string;
-    secretKey?: string;
-    expiryAccuracy?: number;
+    debug?: boolean | undefined;
+    inspect?: boolean | undefined;
+    instanceId?: string | undefined;
+    secretKey?: string | undefined;
+    expiryAccuracy?: number | undefined;
     downgradeToUser: number | string;
-    appBrokerControllerPath?: string;
-    processTermTimeout?: number;
-    ipcAckTimeout?: number;
-    brokerOptions?: AGServerOptions;
+    appBrokerControllerPath?: string | undefined;
+    processTermTimeout?: number | undefined;
+    ipcAckTimeout?: number | undefined;
+    brokerOptions?: AGServerOptions | undefined;
 }
 
 export class Server extends EventEmitter {
@@ -141,8 +142,8 @@ export type BrokerMessageListener = (
 
 export interface SCBrokerClusterClientOptions {
     brokers: string[];
-    secretKey?: string;
-    pubSubBatchDuration?: number;
+    secretKey?: string | undefined;
+    pubSubBatchDuration?: number | undefined;
     connectRetryErrorThreshold: number;
 }
 

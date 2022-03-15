@@ -1,7 +1,7 @@
 // Type definitions for node-pdftk 2.1
 // Project: https://github.com/jjwilly16/node-pdftk#readme
 // Definitions by: Andrea Ascari <https://github.com/ascariandrea>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped/types/node-pdftk
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.0
 
 /// <reference types="node" />
@@ -277,10 +277,10 @@ export class PDFTK {
 }
 
 export interface ConfigureOptions {
-    bin: string;
-    Promise: PromiseConstructor;
-    ignoreWarnings: true;
-    tempDir: string;
+    bin?: string;
+    Promise?: PromiseConstructor;
+    ignoreWarnings?: true;
+    tempDir?: string;
 }
 
 export function input(file: string | Buffer | Buffer[] | Partial<Record<Letter, string | Buffer>>): PDFTK;

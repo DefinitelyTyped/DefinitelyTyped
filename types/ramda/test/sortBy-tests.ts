@@ -1,12 +1,14 @@
 import * as R from 'ramda';
 
+interface Person {
+  name: string;
+  age: number;
+}
+
 () => {
-  const sortByAgeDescending = R.sortBy(
-    R.compose<{}, number, number>(
-      R.negate,
-      R.prop('age'),
-    ),
-  );
+  // $ExpectType (list: readonly Person[]) => Person[]
+  const sortByAgeDescending = R.sortBy<Person>(({ age }) => -age);
+
   const alice = {
     name: 'ALICE',
     age: 101,
@@ -24,12 +26,8 @@ import * as R from 'ramda';
 };
 
 () => {
-  const sortByNameCaseInsensitive = R.sortBy(
-    R.compose<Record<'name', string>, string, string>(
-      R.toLower,
-      R.prop('name'),
-    ),
-  );
+  // $ExpectType (list: readonly Person[]) => Person[]
+  const sortByNameCaseInsensitive = R.sortBy<Person>(({ name }) => name.toLowerCase());
   const alice = {
     name: 'ALICE',
     age: 101,

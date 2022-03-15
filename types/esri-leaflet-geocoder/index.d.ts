@@ -24,16 +24,16 @@ declare module 'leaflet' {
         function geosearch(options?: GeosearchObject): Geosearch;
 
         interface GeosearchObject {
-            position?: ControlPosition;
-            zoomToResult?: boolean;
-            useMapBounds?: boolean | number;
-            collapseAfterResult?: boolean;
-            expanded?: boolean;
-            allowMultipleResults?: boolean;
-            providers?: GeosearchProvider[];
-            placeholder?: string;
-            title?: string;
-            searchBounds?: LatLngBoundsExpression | null;
+            position?: ControlPosition | undefined;
+            zoomToResult?: boolean | undefined;
+            useMapBounds?: boolean | number | undefined;
+            collapseAfterResult?: boolean | undefined;
+            expanded?: boolean | undefined;
+            allowMultipleResults?: boolean | undefined;
+            providers?: GeosearchProvider[] | undefined;
+            placeholder?: string | undefined;
+            title?: string | undefined;
+            searchBounds?: LatLngBoundsExpression | null | undefined;
         }
 
         class GeocodeService extends Service {
@@ -46,7 +46,7 @@ declare module 'leaflet' {
         function geocodeService(options?: GeocodeServiceOptions): GeocodeService;
 
         interface GeocodeServiceOptions extends ServiceOptions {
-            supportsSuggest?: boolean;
+            supportsSuggest?: boolean | undefined;
         }
 
         class Geocode extends Task {
@@ -95,10 +95,10 @@ declare module 'leaflet' {
         type GeosearchCallback = (error: any | undefined, results: any) => void;
 
         interface BaseProviderOptions {
-            label?: string;
-            maxResults?: number;
-            attribution?: string;
-            token?: string | null;
+            label?: string | undefined;
+            maxResults?: number | undefined;
+            attribution?: string | undefined;
+            token?: string | null | undefined;
         }
 
         class ArcgisOnlineProvider extends GeocodeService implements GeosearchProvider {
@@ -110,9 +110,9 @@ declare module 'leaflet' {
         function arcgisOnlineProvider(options?: ArcgisOnlineProviderOptions): ArcgisOnlineProvider;
 
         interface ArcgisOnlineProviderOptions extends BaseProviderOptions {
-            countries?: string | string[];
-            categories?: string | string[];
-            forStorage?: boolean;
+            countries?: string | string[] | undefined;
+            categories?: string | string[] | undefined;
+            forStorage?: boolean | undefined;
         }
 
         class GeocodeServiceProvider extends GeocodeService implements GeosearchProvider {
@@ -137,8 +137,8 @@ declare module 'leaflet' {
 
         interface FeatureLayerProviderOptions extends BaseProviderOptions {
             url: string;
-            searchFields?: string | string[];
-            bufferRadius?: number;
+            searchFields?: string | string[] | undefined;
+            bufferRadius?: number | undefined;
             formatSuggestion?(featureInformation: any): string;
         }
 
@@ -159,11 +159,11 @@ declare module 'leaflet' {
         }
 
         interface ResultObject {
-            text?: string;
-            bounds?: LatLngBoundsExpression;
-            latlng?: LatLngExpression;
+            text?: string | undefined;
+            bounds?: LatLngBoundsExpression | undefined;
+            latlng?: LatLngExpression | undefined;
             properties?: any;
-            geojson?: GeoJSON;
+            geojson?: GeoJSON | undefined;
             [key: string]: any;
         }
 

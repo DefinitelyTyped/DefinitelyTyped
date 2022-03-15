@@ -19,6 +19,10 @@ require(['./someModule', './otherModule'], (someModule: SomeModule, otherModule:
 
 });
 
+async function testChunkLoad(): Promise<void> {
+    const module = await __webpack_chunk_load__("./someModule");
+}
+
 // check if HMR is enabled
 if(module.hot) {
     // accept update of dependency without a callback
@@ -28,6 +32,17 @@ if(module.hot) {
     module.hot.accept("./handler.js", function() {
         //...
     });
+
+    // accept update of dependency with an error handler
+    module.hot.accept(
+        "./handler.js",
+        function() {
+            //...
+        },
+        function(err: Error) {
+            // ...
+        }
+    );
 }
 
 module.exports = null;

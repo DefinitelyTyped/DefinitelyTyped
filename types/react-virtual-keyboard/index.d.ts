@@ -14,13 +14,13 @@ export interface ReactKeyboardOptions extends KeyboardOptions {
 export type kbEvents = (event?: string | Event, keyboard?: Element, el?: Element) => void;
 
 export interface KeyboardProps {
-    name?: string;
-    value?: string;
-    options?: ReactKeyboardOptions;
-    onAccepted?: kbEvents;
-    onChange?: kbEvents;
-    callbackParent?: kbEvents;
-    placeholder?: string;
+    name?: string | undefined;
+    value?: string | undefined;
+    options?: ReactKeyboardOptions | undefined;
+    onAccepted?: kbEvents | undefined;
+    onChange?: kbEvents | undefined;
+    callbackParent?: kbEvents | undefined;
+    placeholder?: string | undefined;
 }
 
 export interface KeyboardState {

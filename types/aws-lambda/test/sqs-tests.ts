@@ -13,6 +13,18 @@ const handler: SQSHandler = async (event, context, callback) => {
     callback(new Error());
 };
 
+const handlerWithResponse: SQSHandler = (event, context, callback) => {
+    callback(
+        null,
+        {
+            batchItemFailures: [
+                {
+                    itemIdentifier: event.Records[0].messageId
+                }
+            ]
+        });
+};
+
 // See https://docs.aws.amazon.com/lambda/latest/dg/eventsources.html#eventsources-sqs
 const event: SQSEvent = {
     Records: [
@@ -33,6 +45,11 @@ const event: SQSEvent = {
                     binaryValue: 'base64Str',
                     stringListValues: [],
                     binaryListValues: [],
+                    dataType: 'Number',
+                },
+                testAttr2: {
+                    stringValue: '100',
+                    binaryValue: 'base64Str',
                     dataType: 'Number',
                 },
             },

@@ -18,6 +18,7 @@
         "jsx": "preserve"
     },
     "files": [
-        "index.d.ts"
+        "index.d.ts",
+        "test/hooks.tsx"
     ]
 }

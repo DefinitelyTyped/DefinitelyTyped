@@ -28,72 +28,72 @@ declare namespace devServer {
     }
 
     interface HistoryOptions {
-        index?: string;
-        rewrites?: RewritesObject;
-        verbose?: boolean;
-        htmlAcceptHeaders?: string[];
-        disableDotRule?: boolean;
+        index?: string | undefined;
+        rewrites?: RewritesObject | undefined;
+        verbose?: boolean | undefined;
+        htmlAcceptHeaders?: string[] | undefined;
+        disableDotRule?: boolean | undefined;
     }
 
     interface TransportMode {
-        client?: string | PathFunction;
-        server?: string | PathFunction;
+        client?: string | PathFunction | undefined;
+        server?: string | PathFunction | undefined;
     }
 
     interface WatchOptions {
-        aggregateTimeout?: number;
-        ignored?: RegExp;
-        poll?: boolean | number;
+        aggregateTimeout?: number | undefined;
+        ignored?: RegExp | undefined;
+        poll?: boolean | number | undefined;
     }
 
     interface Options {
-        after?: StartMiddlewareFunction;
-        allowedHosts?: string[];
-        before?: StartMiddlewareFunction;
-        bonjour?: boolean;
-        clientLogLevel?: 'silent' | 'trace' | 'debug' | 'info' | 'warn' | 'error' | 'none' | 'warning';
-        compress?: boolean;
-        contentBase?: boolean | string | string [] | number;
-        disableHostCheck?: boolean;
-        filename?: string;
-        headers?: object;
-        historyApiFallback?: boolean | HistoryOptions;
-        host?: string;
-        hot?: boolean;
-        hotOnly?: boolean;
-        http2?: boolean;
-        https?: boolean | object;
-        index?: string;
-        injectClient?: boolean | InjectClientFunction;
-        injectHot?: boolean | InjectClientFunction;
-        inline?: boolean;
-        lazy?: boolean;
-        liveReload?: boolean;
-        mimeTypes?: { string: string[] };
-        noInfo?: boolean;
-        open?: boolean | string;
-        openPage?: string;
-        overlay?: boolean | { errors?: boolean, warnings?: boolean };
-        pfx?: string;
-        pfxPassphrase?: string;
-        port?: number;
-        proxy?: object | ProxyType[];
-        public?: string;
-        publicPath?: string;
-        quiet?: boolean;
-        serveIndex?: boolean;
-        setup?: InjectClientFunction;
-        socket?: string;
-        socketHost?: string;
-        socketPath?: string;
-        socketPort?: number | string;
-        staticOptions?: SetHeadersFunction;
-        stats?: 'none' | 'errors-only' | 'minimal' | 'normal' | 'verbose' | object;
-        transportMode?: 'sockjs' | 'ws' | TransportMode;
-        useLocalIp?: boolean;
-        watchContentBase?: boolean;
-        watchOptions?: WatchOptions;
-        writeToDisk?: boolean | WriteToDiskFunction;
+        after?: StartMiddlewareFunction | undefined;
+        allowedHosts?: string[] | undefined;
+        before?: StartMiddlewareFunction | undefined;
+        bonjour?: boolean | undefined;
+        clientLogLevel?: 'silent' | 'trace' | 'debug' | 'info' | 'warn' | 'error' | 'none' | 'warning' | undefined;
+        compress?: boolean | undefined;
+        contentBase?: boolean | string | string [] | number | undefined;
+        disableHostCheck?: boolean | undefined;
+        filename?: string | undefined;
+        headers?: object | undefined;
+        historyApiFallback?: boolean | HistoryOptions | undefined;
+        host?: string | undefined;
+        hot?: boolean | undefined;
+        hotOnly?: boolean | undefined;
+        http2?: boolean | undefined;
+        https?: boolean | object | undefined;
+        index?: string | undefined;
+        injectClient?: boolean | InjectClientFunction | undefined;
+        injectHot?: boolean | InjectClientFunction | undefined;
+        inline?: boolean | undefined;
+        lazy?: boolean | undefined;
+        liveReload?: boolean | undefined;
+        mimeTypes?: { string: string[] } | undefined;
+        noInfo?: boolean | undefined;
+        open?: boolean | string | undefined;
+        openPage?: string | undefined;
+        overlay?: boolean | { errors?: boolean | undefined, warnings?: boolean | undefined } | undefined;
+        pfx?: string | undefined;
+        pfxPassphrase?: string | undefined;
+        port?: number | undefined;
+        proxy?: object | ProxyType[] | undefined;
+        public?: string | undefined;
+        publicPath?: string | undefined;
+        quiet?: boolean | undefined;
+        serveIndex?: boolean | undefined;
+        setup?: InjectClientFunction | undefined;
+        socket?: string | undefined;
+        socketHost?: string | undefined;
+        socketPath?: string | undefined;
+        socketPort?: number | string | undefined;
+        staticOptions?: SetHeadersFunction | undefined;
+        stats?: 'none' | 'errors-only' | 'minimal' | 'normal' | 'verbose' | object | undefined;
+        transportMode?: 'sockjs' | 'ws' | TransportMode | undefined;
+        useLocalIp?: boolean | undefined;
+        watchContentBase?: boolean | undefined;
+        watchOptions?: WatchOptions | undefined;
+        writeToDisk?: boolean | WriteToDiskFunction | undefined;
     }
 }
 

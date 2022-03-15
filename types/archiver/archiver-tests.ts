@@ -14,6 +14,7 @@ const options: Archiver.ArchiverOptions = {
     comment: 'test',
     forceLocalTime: true,
     forceZip64: true,
+    namePrependSlash: true,
     store: true,
     zlib: {},
     gzip: true,
@@ -67,7 +68,7 @@ archiver.setModule(() => {});
 archiver.pointer();
 archiver.use(() => {});
 
-archiver.finalize();
+archiver.finalize(); // $ExpectType Promise<void>
 
 archiver.symlink('./path', './target');
 
@@ -86,4 +87,4 @@ archiver.on('warning', fakeHandler);
 archiver.on('data', (chunk: Buffer) => console.log(chunk));
 
 Archiver.isRegisteredFormat('zip'); // $ExpectType boolean
-archiver.symlink("directory/directory", "../../directory", 493); // $ExpectType Archiver
+archiver.symlink('directory/directory', '../../directory', 493); // $ExpectType Archiver

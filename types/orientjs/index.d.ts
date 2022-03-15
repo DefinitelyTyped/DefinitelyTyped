@@ -65,10 +65,10 @@ declare namespace orientjs {
 
     namespace Migration {
         interface MigrationManagerConfig {
-            name?: string;
-            db?: ODB;
-            dir?: string;
-            className?: string;
+            name?: string | undefined;
+            db?: ODB | undefined;
+            dir?: string | undefined;
+            className?: string | undefined;
         }
         class Manager extends MigrationManager {
             constructor(config: MigrationManagerConfig);
@@ -178,8 +178,8 @@ declare namespace orientjs {
     }
 
     class ORID extends String {
-        cluster?: number;
-        position?: number;
+        cluster?: number | undefined;
+        position?: number | undefined;
 
         valueOf(): string;
         isValid?(input?: string | ORID | any): boolean;
@@ -219,57 +219,57 @@ declare namespace orientjs {
         name: string;
         type: PropertyType;
         default?: any;
-        ifnotexist?: boolean;
-        unsafe?: boolean;
-        mandatory?: boolean;
-        readonly?: boolean;
-        notNull?: boolean;
-        collate?: string;
-        linkedClass?: string;
-        linkedType?: string;
-        regexp?: RegExp | string;
-        min?: number;
-        max?: number;
+        ifnotexist?: boolean | undefined;
+        unsafe?: boolean | undefined;
+        mandatory?: boolean | undefined;
+        readonly?: boolean | undefined;
+        notNull?: boolean | undefined;
+        collate?: string | undefined;
+        linkedClass?: string | undefined;
+        linkedType?: string | undefined;
+        regexp?: RegExp | string | undefined;
+        min?: number | undefined;
+        max?: number | undefined;
         custom?: {
-            fields?: CustomField[]
-        };
+            fields?: CustomField[] | undefined
+        } | undefined;
     }
 
     interface PropertyUpdateConfig {
         name: string;
         type: PropertyType;
         default?: any;
-        mandatory?: boolean;
-        readonly?: boolean;
-        notNull?: boolean;
-        collate?: string;
-        linkedClass?: string;
-        linkedType?: string;
-        regexp?: RegExp | string;
-        min?: number;
-        max?: number;
+        mandatory?: boolean | undefined;
+        readonly?: boolean | undefined;
+        notNull?: boolean | undefined;
+        collate?: string | undefined;
+        linkedClass?: string | undefined;
+        linkedType?: string | undefined;
+        regexp?: RegExp | string | undefined;
+        min?: number | undefined;
+        max?: number | undefined;
         custom?: {
-            fields?: CustomField[]
-        };
+            fields?: CustomField[] | undefined
+        } | undefined;
     }
 
     class OClassProperty {
-        class?: OClass;
-        name?: string;
-        originalName?: string;
-        type?: PropertyType;
-        mandatory?: boolean;
-        readonly?: boolean;
-        notNull?: boolean;
-        collate?: string;
-        linkedClass?: string;
-        linkedType?: PropertyType;
-        regexp?: RegExp | string;
-        min?: number;
-        max?: number;
+        class?: OClass | undefined;
+        name?: string | undefined;
+        originalName?: string | undefined;
+        type?: PropertyType | undefined;
+        mandatory?: boolean | undefined;
+        readonly?: boolean | undefined;
+        notNull?: boolean | undefined;
+        collate?: string | undefined;
+        linkedClass?: string | undefined;
+        linkedType?: PropertyType | undefined;
+        regexp?: RegExp | string | undefined;
+        min?: number | undefined;
+        max?: number | undefined;
         custom?: {
-            fields?: CustomField[]
-        };
+            fields?: CustomField[] | undefined
+        } | undefined;
 
         reload(): Promise<OClassProperty>;
         list(): Promise<OClassProperty[]>;
@@ -298,8 +298,8 @@ declare namespace orientjs {
          */
         update(config: PropertyUpdateConfig, reload?: boolean): Promise<OClassProperty>;
         drop(name: string, config?: {
-            ifexist?: boolean,
-            force?: boolean
+            ifexist?: boolean | undefined,
+            force?: boolean | undefined
         }): Promise<OClass>;
         alter(name: string, setting?: any): Promise<OClass>;
         rename(oldName: string, newName?: string): Promise<OClassProperty>;
@@ -310,13 +310,13 @@ declare namespace orientjs {
      * @param config The configuration for the class
      */
     class OClass {
-        db?: ODB;
-        name?: string;
-        shortName?: string;
+        db?: ODB | undefined;
+        name?: string | undefined;
+        shortName?: string | undefined;
         defaultClusterId?: any;
-        superClass?: string;
-        originalName?: string;
-        clusterIds?: number[];
+        superClass?: string | undefined;
+        originalName?: string | undefined;
+        clusterIds?: number[] | undefined;
         /**
          * Configure the class instance.
          * @param  config The configuration object.
@@ -378,8 +378,8 @@ declare namespace orientjs {
          * @promise {Db}         The database instance.
          */
         drop(name: string, config?: {
-            ifexist?: boolean,
-            force?: boolean
+            ifexist?: boolean | undefined,
+            force?: boolean | undefined
         }): Promise<ODB>;
         /**
          * Get a class by name.
@@ -400,8 +400,8 @@ declare namespace orientjs {
     }
 
     class OCluster {
-        name?: string;
-        location?: string;
+        name?: string | undefined;
+        location?: string | undefined;
         list(refresh?: boolean): Promise<any[]>;
         create(name: string, location?: string): Promise<OCluster> & Promise<any>;
         get(nameOrId: string, refresh?: boolean): Promise<OCluster> & Promise<any>;
@@ -418,13 +418,13 @@ declare namespace orientjs {
      * @param config The configuration for the sequence
      */
     class OSequence {
-        db?: ODB;
-        name?: string;
-        type?: string;
-        value?: number;
-        incr?: number;
-        start?: number;
-        cache?: number;
+        db?: ODB | undefined;
+        name?: string | undefined;
+        type?: string | undefined;
+        value?: number | undefined;
+        incr?: number | undefined;
+        start?: number | undefined;
+        cache?: number | undefined;
         /**
          * Configure the sequence instance.
          * @param  config The configuration object.
@@ -500,11 +500,11 @@ declare namespace orientjs {
     type ODocument = ORecord;
     type BinaryRecord = ORecord & Buffer;
     class ORecord extends Object {
-        '@rid'?: ORID;
-        '@type'?: 'd' | 'b';
-        '@class'?: string;
-        '@version'?: Version;
-        rid?: ORID;
+        '@rid'?: ORID | undefined;
+        '@type'?: 'd' | 'b' | undefined;
+        '@class'?: string | undefined;
+        '@version'?: Version | undefined;
+        rid?: ORID | undefined;
         /**
          * Insert the given record into the database.
          *
@@ -584,13 +584,13 @@ declare namespace orientjs {
     }
     interface IndexConfig {
         name: string;
-        class?: string;
-        ifnotexist?: boolean;
-        properties?: string[];
+        class?: string | undefined;
+        ifnotexist?: boolean | undefined;
+        properties?: string[] | undefined;
         type: "UNIQUE" | "NOTUNIQUE" | "FULLTEXT" | "DICTIONARY" | "UNIQUE_HASH_INDEX" | "NOTUNIQUE_HASH_INDEX" | "FULLTEXT_HASH_INDEX" | "DICTIONARY_HASH_INDEX" | "SPATIAL";
-        keyType?: string;
+        keyType?: string | undefined;
         metadata?: any;
-        engine?: "LUCENE" | "COLA" | string;
+        engine?: "LUCENE" | "COLA" | string | undefined;
     }
 
     interface OIndexEntry {
@@ -687,17 +687,17 @@ declare namespace orientjs {
     }
 
     interface DbConnectionConfig {
-        useToken?: boolean;
-        name?: string;
-        username?: string;
-        password?: string;
-        sessionId?: number;
-        forcePrepare?: boolean;
-        server?: OServer;
-        type?: string;
-        storage?: string;
+        useToken?: boolean | undefined;
+        name?: string | undefined;
+        username?: string | undefined;
+        password?: string | undefined;
+        sessionId?: number | undefined;
+        forcePrepare?: boolean | undefined;
+        server?: OServer | undefined;
+        type?: string | undefined;
+        storage?: string | undefined;
         token?: any;
-        transformers?: Array<((item: ORecord) => any)>;
+        transformers?: Array<((item: ORecord) => any)> | undefined;
     }
 
     interface ORawExpression {
@@ -727,12 +727,12 @@ declare namespace orientjs {
 
     interface QueryOptions {
         params?: any;
-        mode?: "s" | "a" | "l";
+        mode?: "s" | "a" | "l" | undefined;
         fetchPlan?: any;
-        limit?: number;
+        limit?: number | undefined;
         token?: any;
-        class?: string;
-        language?: "SQL" | "Javascript";
+        class?: string | undefined;
+        language?: "SQL" | "Javascript" | undefined;
     }
 
     class ODB extends events.EventEmitter {
@@ -1074,16 +1074,16 @@ declare namespace orientjs {
     class ODatabase extends ODB {
         constructor(config?: {
             host: string,
-            port?: number,
-            username?: string,
-            password?: string,
+            port?: number | undefined,
+            username?: string | undefined,
+            password?: string | undefined,
             name: string
         });
     }
 
     interface BasePoolConfig {
-        max?: number;
-        min?: number;
+        max?: number | undefined;
+        min?: number | undefined;
     }
 
     class BasePool<T> extends events.EventEmitter {
@@ -1113,8 +1113,8 @@ declare namespace orientjs {
         storage: "plocal" | "memory";
         username: string;
         password: string;
-        pushNotification?: boolean;
-        currentSession?: ODatabaseSession | null;
+        pushNotification?: boolean | undefined;
+        currentSession?: ODatabaseSession | null | undefined;
         sessions: ODatabaseSessionPool;
 
         open(): Promise<ODatabaseSession>;
@@ -1150,15 +1150,15 @@ declare namespace orientjs {
 
     interface ODatabaseSessionOptions {
         name: string;
-        username?: string;
-        password?: string;
+        username?: string | undefined;
+        password?: string | undefined;
     }
 
     interface ODatabaseSessionPoolOptions {
         name: string;
-        username?: string;
-        password?: string;
-        pool?: { max?: number, min?: number };
+        username?: string | undefined;
+        password?: string | undefined;
+        pool?: { max?: number | undefined, min?: number | undefined } | undefined;
     }
     class ODatabaseSession extends ODatabase {
         constructor(client?: OrientDBClient, options?: ODatabaseSessionOptions);
@@ -1186,7 +1186,7 @@ declare namespace orientjs {
          * @param   {Object|Array} [options.params]   Batch parameters
          * @return           The results of the batch script
          */
-        batch<R>(batch: string, options?: { pageSize?: number, params?: any }): OResult<R>;
+        batch<R>(batch: string, options?: { pageSize?: number | undefined, params?: any }): OResult<R>;
 
         /**
          * Commit the transaction.
@@ -1203,7 +1203,7 @@ declare namespace orientjs {
          * @param   {Object|Array} [options.params]   Command parameters
          * @return            The results of the command
          */
-        command<R>(command: string, options?: { pageSize?: number, params?: any }): OResult<R>;
+        command<R>(command: string, options?: { pageSize?: number | undefined, params?: any }): OResult<R>;
 
         /**
          * Execute an SQL query against the database and retreive the results
@@ -1213,7 +1213,7 @@ declare namespace orientjs {
          * @param   {Object|Array} [options.params]   Query parameters
          * @returns                         The results of the query
          */
-        query<R>(query: string, options?: { pageSize?: number, params?: any }): OResult<R>;
+        query<R>(query: string, options?: { pageSize?: number | undefined, params?: any }): OResult<R>;
 
         /**
          * Execute a custom language script against the database and retreive the results
@@ -1225,7 +1225,7 @@ declare namespace orientjs {
          * @param   {Object|Array} [options.params]   Script parameters
          * @return                          The results of the script
          */
-        execute<R>(language: string, script: string, options?: { pageSize?: number, params?: any }): OResult<R>;
+        execute<R>(language: string, script: string, options?: { pageSize?: number | undefined, params?: any }): OResult<R>;
 
         /**
          * Execute an SQL Live query against the database and retreive the results
@@ -1271,17 +1271,17 @@ declare namespace orientjs {
         unsubscribe(): Promise<any>;
     }
     interface OServerConfig {
-        host?: string;
-        port?: number;
+        host?: string | undefined;
+        port?: number | undefined;
     }
     interface OrientDBClientConfig {
-        host?: string;
-        port?: number;
+        host?: string | undefined;
+        port?: number | undefined;
 
-        servers?: OServerConfig[];
-        pool?: { max?: number, min?: number; };
+        servers?: OServerConfig[] | undefined;
+        pool?: { max?: number | undefined, min?: number | undefined; } | undefined;
 
-        subscribePool?: { max?: number; };
+        subscribePool?: { max?: number | undefined; } | undefined;
 
         logger?: any;
     }
@@ -1292,17 +1292,17 @@ declare namespace orientjs {
     }
 
     interface DatabaseOptions {
-        username?: string;
-        password?: string;
+        username?: string | undefined;
+        password?: string | undefined;
         name: string;
-        type?: "graph" | "document";
-        storage?: "plocal" | "memory";
+        type?: "graph" | "document" | undefined;
+        storage?: "plocal" | "memory" | undefined;
     }
 
     interface DropDatabaseOptions {
-        username?: string;
-        password?: string;
-        options?: DatabaseOptions;
+        username?: string | undefined;
+        password?: string | undefined;
+        options?: DatabaseOptions | undefined;
     }
 
     class OrientDBClient extends events.EventEmitter {
@@ -1325,20 +1325,20 @@ declare namespace orientjs {
     }
 
     interface ServerConfig {
-        useToken?: boolean;
+        useToken?: boolean | undefined;
         host: string;
-        port?: number;
-        username?: string;
-        password?: string;
-        servers?: ServerConfig[];
+        port?: number | undefined;
+        username?: string | undefined;
+        password?: string | undefined;
+        servers?: ServerConfig[] | undefined;
     }
 
     interface DbConfig {
         name: string;
-        type?: string;
-        storage?: string;
-        username?: string;
-        password?: string;
+        type?: string | undefined;
+        storage?: string | undefined;
+        username?: string | undefined;
+        password?: string | undefined;
     }
 }
 

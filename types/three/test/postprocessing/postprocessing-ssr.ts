@@ -150,7 +150,6 @@ function init() {
         camera,
         width: innerWidth,
         height: innerHeight,
-        encoding: THREE.sRGBEncoding,
         isPerspectiveCamera,
         groundReflector: params.groundReflector ? groundReflector : null,
         selects: params.groundReflector ? selects : null,
@@ -163,7 +162,7 @@ function init() {
     groundReflector.maxDistance = ssrPass.maxDistance;
     ssrPass.opacity = 1;
     groundReflector.opacity = ssrPass.opacity;
-    ssrPass.surfDist = 0.0015;
+    ssrPass.thickness = 0.0015;
 }
 
 function onWindowResize() {

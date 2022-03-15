@@ -18,23 +18,23 @@ declare namespace AMap {
              * 默认值：1
              * 取值范围：1-100，超过取值范围按默认，超出实际页数按最大值返回
              */
-            pageIndex?: number;
+            pageIndex?: number | undefined;
             /**
              * 单页显示结果条数
              * 默认值：20
              * 取值范围：1-100，超过取值范围按默认
              */
-            pageSize?: number;
+            pageSize?: number | undefined;
             /**
              * 公交线路所在城市
              * 默认值：“全国”
              * 可选值：cityname（中文或中文全拼）、citycode、adcode
              */
-            city?: string;
+            city?: string | undefined;
             /**
              * 此项仅公交路线查询时有效，默认值：base，返回公交路线基本信息，当取值为：all，返回公交路线基本信息+详细信息
              */
-            extensions?: 'base' | 'all';
+            extensions?: 'base' | 'all' | undefined;
         }
         interface LineInfoBase {
             /**
@@ -119,11 +119,11 @@ declare namespace AMap {
             /**
              * 查无此公交站时，返回的建议关键字列表
              */
-            keywordList?: any[];
+            keywordList?: any[] | undefined;
             /**
              * 查该城市无此公交站时，返回的建议城市列表
              */
-            cityList?: any[];
+            cityList?: any[] | undefined;
         }
         type SearchStatus = 'complete' | 'error' | 'no_data';
     }

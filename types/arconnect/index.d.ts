@@ -27,7 +27,7 @@ declare global {
         options: {
           algorithm: string;
           hash: string;
-          salt?: string;
+          salt?: string | undefined;
         }
       ): Promise<Uint8Array>;
       decrypt(
@@ -35,7 +35,7 @@ declare global {
         options: {
           algorithm: string;
           hash: string;
-          salt?: string;
+          salt?: string | undefined;
         }
       ): Promise<string>;
     };

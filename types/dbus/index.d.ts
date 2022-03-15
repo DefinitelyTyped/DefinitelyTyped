@@ -62,7 +62,7 @@ declare namespace DBus {
         addProperty(name: string, opts: {
             type: string,
             getter: (cb: (val: string) => void) => void,
-            setter?: (value: any, done: () => void) => void
+            setter?: ((value: any, done: () => void) => void) | undefined
         }): void;
         addSignal(name: string, opts: { types: string[] }): void;
         emitSignal(name: string, ...values: any[]): void;

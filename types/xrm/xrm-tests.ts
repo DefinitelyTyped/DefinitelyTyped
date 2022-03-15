@@ -1,7 +1,7 @@
 /// Demonstrate usage in the browser's window object
 
 window.Xrm.Utility.alertDialog("message", () => { });
-parent.Xrm.Page.context.getOrgLcid();
+parent && parent.Xrm.Page && parent.Xrm.Page.context && parent.Xrm.Page.context.getOrgLcid();
 
 /// Demonstrate clientglobalcontext.d.ts
 
@@ -81,6 +81,7 @@ Xrm.Page.ui.controls.forEach((control: Xrm.Page.StandardControl) => { control.se
 
 Xrm.Page.ui.tabs.forEach((tab) => {
     tab.setVisible(true);
+    tab.setFocus();
 
     tab.sections.forEach((section) => {
         section.setVisible(true);
@@ -335,3 +336,128 @@ const gridControlGetSetVisible = (context: Xrm.Events.EventContext) => {
     // setVisible
     gridControl.setVisible(!visibility);
 };
+
+async function ribbonCommand(commandProperties: Xrm.CommandProperties, primaryEntity: Xrm.EntityReference) {
+    if (commandProperties.SourceControlId === "AddExistingRecordFromSubGridAssociated") {
+        await Promise.resolve(Xrm.Navigation.openAlertDialog({
+            title: `${commandProperties.CommandValueId}`,
+            text: `Thanks for clicking on ${primaryEntity.Name} of type ${primaryEntity.TypeName} and id ${primaryEntity.Id}`,
+        }));
+    }
+}
+
+// Demonstrate App
+Xrm.App.addGlobalNotification({
+    type: 2,
+    level: 2, // error
+    message: "Test error notification",
+    showCloseButton: true,
+    action: {
+        actionLabel: "Learn more",
+        eventHandler() {
+              Xrm.Navigation.openUrl("https://docs.microsoft.com/powerapps/");
+              // perform other operations as required on clicking
+        }
+    }
+}).then(
+    function success(result) {
+        result; // $ExpectType string
+
+        console.log("Notification created with ID: " + result);
+
+        // Wait for 5 seconds and then clear the notification
+        window.setTimeout(() => {
+            Xrm.App.clearGlobalNotification(result);
+        }, 5000);
+    },
+    error => {
+        console.log(error.message);
+        // handle error conditions
+    }
+);
+Xrm.App.sidePanes.state = 1;
+Xrm.App.sidePanes.createPane({
+    title: "Reservation: Ammar Peterson",
+    imageSrc: "WebResources/sample_reservation_icon",
+    hideHeader: true,
+    canClose: true,
+    width: 600
+}).then(pane => {
+    pane.navigate({
+        pageType: "entitylist",
+        entityName: "sample_reservation",
+    });
+});
+Xrm.App.sidePanes.getAllPanes();
+Xrm.App.sidePanes.getPane("panelId");
+Xrm.App.sidePanes.getSelectedPane();
+
+// Demonstrate GetSettings
+const settingValue = Xrm.Utility.getGlobalContext().getCurrentAppSetting("SettingsName");
+
+function onLoadSetupEvents(eventContext: Xrm.Events.EventContext) {
+    const formContext = eventContext.getFormContext();
+    // Demonstrate Knowledge base handler events
+    const kbSearchControl: Xrm.Controls.KbSearchControl = formContext.getControl("<name>");
+    const kbHandler = () => { alert("hit handler"); };
+
+    kbSearchControl.addOnPostSearch(kbHandler);
+    kbSearchControl.removeOnPostSearch(kbHandler);
+
+    kbSearchControl.addOnResultOpened(kbHandler);
+    kbSearchControl.removeOnResultOpened(kbHandler);
+
+    kbSearchControl.addOnSelection(kbHandler);
+    kbSearchControl.removeOnSelection(kbHandler);
+
+    const numKbResults = kbSearchControl.getTotalResultCount();
+    const searchResult = kbSearchControl.getSelectedResults();
+
+    let ret = kbSearchControl.openSearchResult(1);
+    ret = kbSearchControl.openSearchResult(1, XrmEnum.OpenSearchResultMode.Inline);
+    ret = kbSearchControl.openSearchResult(1, XrmEnum.OpenSearchResultMode.Popup);
+
+    const searchText = kbSearchControl.getSearchQuery();
+    kbSearchControl.setSearchQuery("pot of gold");
+}
+
+// Demonstrate htmlAttributeEncode/htmlEncode/htmlDecode
+let html = Xrm.Encoding.htmlAttributeEncode("<&>");
+html = Xrm.Encoding.htmlEncode("<&>");
+const xml = Xrm.Encoding.htmlDecode("&lt;&amp;&gt;");
+
+// Demonstrate Navigating to a specific dashboard
+Xrm.Navigation.navigateTo({
+    pageType: "dashboard",
+    dashboardId: "84fd907e-8bfe-11ec-a8a3-0242ac120002"
+}).then(
+    success => { console.log("Dashboard opened"); },
+    error => { console.log(error.message); }
+);
+
+// Demonstrate Navigating to the default dashboard
+Xrm.Navigation.navigateTo({ pageType: "dashboard" });
+let dashboard;
+Xrm.Navigation.navigateTo({ pageType: "dashboard", dashboardId: dashboard });
+
+// Demonstrate formContext.ui.footerSection methods
+function onChangeFormField(executionContext: Xrm.Events.EventContext): void {
+    const formContext = executionContext.getFormContext();
+    const footerSection = formContext.ui.footerSection;
+
+    const visible = footerSection.getVisible();
+    footerSection.setVisible(true);
+}
+
+// Demonstrate formContext.ui.headerSection methods
+function onChangeHeaderField(executionContext: Xrm.Events.EventContext): void {
+    const formContext = executionContext.getFormContext();
+    const headerSection = formContext.ui.headerSection;
+
+    const bodyVisible = headerSection.getBodyVisible();
+    const commandBarVisible = headerSection.getCommandBarVisible();
+    const getTabNavigatorVisible = headerSection.getTabNavigatorVisible();
+    headerSection.setBodyVisible(true);
+    headerSection.setCommandBarVisible(true);
+    headerSection.setTabNavigatorVisible(true);
+}

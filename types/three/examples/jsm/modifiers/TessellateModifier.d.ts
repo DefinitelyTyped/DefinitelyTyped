@@ -5,5 +5,5 @@ export class TessellateModifier {
     maxEdgeLength: number;
     maxIterations: number;
 
-    modify(geometry: BufferGeometry): BufferGeometry;
+    modify<TGeometry extends BufferGeometry>(geometry: TGeometry): TGeometry;
 }

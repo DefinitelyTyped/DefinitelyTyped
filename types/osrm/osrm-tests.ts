@@ -11,6 +11,33 @@ OSRM.version;
 // Load Data
 const osrm = new OSRM('network.osrm');
 
+const osrmWithPathOptions = new OSRM({
+    path: 'network.osrm',
+    algorithm: 'MLD',
+    max_locations_trip: 1,
+    max_locations_viaroute: 2,
+    max_locations_distance_table: 3,
+    max_locations_map_matching: 4,
+    max_results_nearest: 5,
+    max_alternatives: 6,
+});
+
+const osrmWithPathOptionsAndCoreCH = new OSRM({
+    path: 'network.osrm',
+    algorithm: 'CoreCH',
+});
+
+const osrmWithSharedMemoryConstructorOptions = new OSRM({
+    algorithm: 'CH',
+    max_locations_trip: 1,
+    max_locations_viaroute: 2,
+    max_locations_distance_table: 3,
+    max_locations_map_matching: 4,
+    max_results_nearest: 5,
+    max_alternatives: 6,
+    shared_memory: true,
+});
+
 // Fixtures
 const coordinates = [[13.39, 52.54], [13.39, 52.54], [13.39, 52.54]];
 const timestamps = [1424684612, 1424684616, 1424684620];
@@ -38,6 +65,13 @@ osrm.table({coordinates}, (err, response) => {
 // Table Distances
 osrm.table({coordinates, annotations: ['distance']}, (err, response) => {
   console.log(response.distances); // array of arrays, matrix in row-major order
+  console.log(response.sources); // array of Waypoint objects
+  console.log(response.destinations); // array of Waypoint objects
+});
+
+// Table Durations
+osrm.table({coordinates, annotations: ['duration'], scale_factor: 1 / 60}, (err, response) => {
+  console.log(response.durations); // array of arrays, matrix in row-major order (in minutes)
   console.log(response.sources); // array of Waypoint objects
   console.log(response.destinations); // array of Waypoint objects
 });

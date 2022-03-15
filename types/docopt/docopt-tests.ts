@@ -7,3 +7,4 @@ Usage:
   quick_example.coffee -h | --help | --version
 `;
 docopt(doc, { version: '0.1.1rc' });
+docopt(doc)

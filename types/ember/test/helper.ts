@@ -1,17 +1,17 @@
 import Ember from 'ember';
 
-const FormatCurrencyHelper = Ember.Helper.helper((params, hash: { currency: string }) => {
+const FormatCurrencyHelper = Ember.Helper.helper((params: [number], hash: { currency: string }) => {
     const cents = params[0];
     const currency = hash.currency;
     return `${currency}${cents * 0.01}`;
 });
 
 class User extends Ember.Object {
-    email: string;
+    declare email: string;
 }
 
 class SessionService extends Ember.Service {
-    currentUser: User;
+    declare currentUser: User;
 }
 
 declare module '@ember/service' {

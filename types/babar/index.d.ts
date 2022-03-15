@@ -6,17 +6,17 @@
 type color = 'yellow' | 'cyan' | 'white' | 'magenta' | 'green' | 'red' | 'grey' | 'blue';
 
 interface Options {
-    caption?: string;
-    color?: color | 'ascii';
-    grid?: color;
-    width?: number;
-    height?: number;
-    xFractions?: number;
-    yFractions?: number;
-    minX?: number;
-    maxX?: number;
-    minY?: number;
-    maxY?: number;
+    caption?: string | undefined;
+    color?: color | 'ascii' | undefined;
+    grid?: color | undefined;
+    width?: number | undefined;
+    height?: number | undefined;
+    xFractions?: number | undefined;
+    yFractions?: number | undefined;
+    minX?: number | undefined;
+    maxX?: number | undefined;
+    minY?: number | undefined;
+    maxY?: number | undefined;
 }
 declare function babar(points: ReadonlyArray<[number, number]>, options?: Options): string;
 

@@ -64,6 +64,8 @@ async function foo() {
 
     const images = await docker5.listImages();
     for (const image of images) {
+        const imageSharedSize: number = image.SharedSize;
+        const imageContainers: number = image.Containers;
         const foo = await docker5.getImage(image.Id);
         const inspect = await foo.inspect();
         await foo.remove();
@@ -111,6 +113,16 @@ container.remove((err, data) => {
     // NOOP
 });
 
+container.remove({v: true, force: false, link: true}, (err, data) => {
+    // NOOP
+});
+
+const abortController = new AbortController();
+container.wait({
+    condition: 'next-exit',
+    abortSignal: abortController.signal
+});
+
 docker.listContainers((err, containers) => {
     containers.forEach(container => {
         docker.getContainer(container.Id).stop((err, data) => {
@@ -123,6 +135,10 @@ docker.listContainers().then(containers => {
     return containers.map(container => docker.getContainer(container.Id));
 });
 
+docker.listImages({ all: true, filters: '{"dangling":["true"]}', digests: true}).then(images => {
+    return images.map(image => docker.getImage(image.Id));
+});
+
 docker.buildImage('archive.tar', { t: 'imageName' }, (err, response) => {
     // NOOP
 });
@@ -131,7 +147,27 @@ docker.buildImage({ context: '.', src: ['Dockerfile', 'test.sh'] }, { t: 'imageN
     // NOOP
 });
 
+docker.buildImage(
+    'archive.tar',
+    {
+        registryconfig: {
+            'https://index.docker.io/v1/': {
+                username: 'user',
+                password: 'pass'
+            }
+        }
+    },
+    (err, response) => {
+        /* NOOP*/
+    });
+
 docker.createContainer({ Tty: true }, (err, container) => {
+    container.start((err, data) => {
+        // NOOP
+    });
+});
+
+docker.createContainer({ HostConfig: { Init: true } }, (err, container) => {
     container.start((err, data) => {
         // NOOP
     });
@@ -189,6 +225,11 @@ docker.createService({
         }]
     }
 }, (err, response) => { /* NOOP */ });
+
+const image = docker.getImage('imageName');
+image.remove({force: true, noprune: false}, (err, response) => {
+    // NOOP;
+});
 
 const plugin = docker.getPlugin('pluginName', 'remoteName');
 plugin.configure((err, response) => {

@@ -909,9 +909,9 @@ const lists = (
                 <List.Text>List Item 3</List.Text>
                 <List.Text secondary>secondary</List.Text>
             </List.Item>
-            <List.Item>
+            <List.Byline>
                 <List.Text>List Item 4</List.Text>
-            </List.Item>
+            </List.Byline>
             <List.Footer>List Footer</List.Footer>
         </List>
     </div>
@@ -1655,11 +1655,9 @@ const selects = (
         <Select placeholder='Select' options={[
             {text: "List Item 1", key: "1"},
             {text: "List Item 2", key: "2"}
-        ]} selectedKey={"2"}>
-        </Select>
+        ]} selectedKey={"2"} />
 
-        <Select compact validationState={{state: 'warning', text: 'Validated'}}>
-        </Select>
+        <Select compact validationState={{state: 'warning', text: 'Validated'}} />
     </div>
 );
 

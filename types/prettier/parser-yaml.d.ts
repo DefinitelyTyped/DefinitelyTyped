@@ -1,4 +1,8 @@
 import { Parser } from './';
 
-declare const parser: { parsers: { [parserName: string]: Parser } };
+declare const parser: {
+    parsers: {
+        yaml: Parser;
+    };
+};
 export = parser;

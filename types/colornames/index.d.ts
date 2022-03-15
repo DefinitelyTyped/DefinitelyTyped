@@ -16,12 +16,12 @@ interface Color {
     /**
      * Gets a value indicating whether the color is a valid `CSS`-color.
      */
-    css?: boolean;
+    css?: boolean | undefined;
 
     /**
      * Gets a value indicating whether the color is a valid `VGA`-color.
      */
-    vga?: boolean;
+    vga?: boolean | undefined;
 
     /**
      * Gets the name of the color.

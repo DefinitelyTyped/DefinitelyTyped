@@ -220,7 +220,8 @@ declare module "../index" {
          */
         conformsTo(source: ConformsPredicateObject<TValue>): PrimitiveChain<boolean>;
     }
-    type CondPair<T, R> = [(val: T) => boolean, (val: T) => R];
+    type CondPairNullary<R> = [() => boolean, () => R];
+    type CondPairUnary<T, R> = [(val: T) => boolean, (val: T) => R];
     interface LoDashStatic {
         /**
          * Performs a [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
@@ -948,7 +949,7 @@ declare module "../index" {
          * Checks if value is a native function.
          * @param value The value to check.
          *
-         * @retrun Returns true if value is a native function, else false.
+         * @return Returns true if value is a native function, else false.
          */
         isNative(value: any): value is (...args: any[]) => any;
     }

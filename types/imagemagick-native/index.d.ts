@@ -24,48 +24,48 @@ declare function quantumDepth(): number;
 declare function version(): string;
 
 export interface IStreamConvertOptions {
-    srcFormat?: string;
-    quality?: number;
-    trim?: boolean;
-    trimFuzz?: number;
-    width?: number;
-    height?: number;
-    density?: number;
-    resizeStyle?: string;
-    gravity?: string;
-    format?: string;
-    filter?: string;
-    blur?: number;
-    strip?: boolean;
-    rotate?: number;
-    flip?: boolean;
-    debug?: boolean;
-    ignoreWarnings?: boolean;
+    srcFormat?: string | undefined;
+    quality?: number | undefined;
+    trim?: boolean | undefined;
+    trimFuzz?: number | undefined;
+    width?: number | undefined;
+    height?: number | undefined;
+    density?: number | undefined;
+    resizeStyle?: string | undefined;
+    gravity?: string | undefined;
+    format?: string | undefined;
+    filter?: string | undefined;
+    blur?: number | undefined;
+    strip?: boolean | undefined;
+    rotate?: number | undefined;
+    flip?: boolean | undefined;
+    debug?: boolean | undefined;
+    ignoreWarnings?: boolean | undefined;
 }
 export interface IConvertOptions {
     srcData: Buffer;
-    srcFormat?: string;
-    quality?: number;
-    trim?: boolean;
-    trimFuzz?: number;
-    width?: number;
-    height?: number;
-    density?: number;
-    resizeStyle?: string;
-    gravity?: string;
-    format?: string;
-    filter?: string;
-    blur?: number;
-    strip?: boolean;
-    rotate?: number;
-    flip?: boolean;
-    debug?: boolean;
-    ignoreWarnings?: boolean;
+    srcFormat?: string | undefined;
+    quality?: number | undefined;
+    trim?: boolean | undefined;
+    trimFuzz?: number | undefined;
+    width?: number | undefined;
+    height?: number | undefined;
+    density?: number | undefined;
+    resizeStyle?: string | undefined;
+    gravity?: string | undefined;
+    format?: string | undefined;
+    filter?: string | undefined;
+    blur?: number | undefined;
+    strip?: boolean | undefined;
+    rotate?: number | undefined;
+    flip?: boolean | undefined;
+    debug?: boolean | undefined;
+    ignoreWarnings?: boolean | undefined;
 }
 export interface IIdentifyOptions {
     srcData: Buffer;
-    debug?: boolean;
-    ignoreWarnings?: boolean;
+    debug?: boolean | undefined;
+    ignoreWarnings?: boolean | undefined;
 }
 export interface IIdentifyResult {
     format: string;
@@ -83,8 +83,8 @@ export interface IIdentifyResult {
 export interface IQuantizeColorsOptions {
     srcData: Buffer;
     colors: number;
-    debug?: boolean;
-    ignoreWarnings?: boolean;
+    debug?: boolean | undefined;
+    ignoreWarnings?: boolean | undefined;
 }
 export interface IQuantizeColorsItem {
     r: number;
@@ -95,9 +95,9 @@ export interface IQuantizeColorsItem {
 export interface ICompositeOptions {
     srcData: Buffer;
     compositeData: Buffer;
-    gravity?: string;
-    debug?: boolean;
-    ignoreWarnings?: boolean;
+    gravity?: string | undefined;
+    debug?: boolean | undefined;
+    ignoreWarnings?: boolean | undefined;
 }
 export interface IConstPixelsOptions {
     srcData: Buffer;

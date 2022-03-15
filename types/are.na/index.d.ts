@@ -34,7 +34,7 @@ interface CustomRequestHandler {
     method: string;
     url: string;
     data?: any;
-    options?: Params;
+    options?: Params | undefined;
 }
 
 /**
@@ -55,10 +55,10 @@ declare class Arena {
      * @param requestHandler - Custom request handler
      */
     constructor(config?: {
-        accessToken?: string;
-        baseURL?: string;
-        authToken?: string;
-        requestHandler?: CustomRequestHandler;
+        accessToken?: string | undefined;
+        baseURL?: string | undefined;
+        authToken?: string | undefined;
+        requestHandler?: CustomRequestHandler | undefined;
     });
 
     /**
@@ -143,7 +143,7 @@ declare class Arena {
          * If title is not set, an error will occur.
          * If status is not set, it will default to "public".
          */
-        update(params: { title?: string; status?: Arena.ChannelStatus }): Promise<Arena.Channel>;
+        update(params: { title?: string | undefined; status?: Arena.ChannelStatus | undefined }): Promise<Arena.Channel>;
         /**
          * Add collaborators to a channel. Pass userIds as an Array or multiple arguments.
          */
@@ -195,7 +195,7 @@ declare class Arena {
          * Update a block. Pass an object with one or more of content,
          * title or description fields to update those fields.
          */
-        update(params: { content?: any; title?: string; description?: string }): Promise<void>;
+        update(params: { content?: any; title?: string | undefined; description?: string | undefined }): Promise<void>;
     };
 
     /**
@@ -252,9 +252,9 @@ declare class Arena {
         all(
             params?: Params,
         ): Promise<{
-            channels?: Arena.Channel[];
-            blocks?: Arena.Block[];
-            users?: Arena.User[];
+            channels?: Arena.Channel[] | undefined;
+            blocks?: Arena.Block[] | undefined;
+            users?: Arena.User[] | undefined;
         }>;
         /**
          * Search for users.
@@ -296,19 +296,19 @@ declare namespace Arena {
      * Representation of a block's source
      */
     interface Source {
-        provider?: { name?: string; url?: string };
-        title?: string;
-        url?: string;
+        provider?: { name?: string | undefined; url?: string | undefined } | undefined;
+        title?: string | undefined;
+        url?: string | undefined;
     }
 
     /**
      * Representation of a channel the block appears in
      */
     interface Connection extends Partial<Channel> {
-        id?: number;
-        title?: string;
-        added_to_at?: Timestamp;
-        updated_at?: Timestamp;
+        id?: number | undefined;
+        title?: string | undefined;
+        added_to_at?: Timestamp | undefined;
+        updated_at?: Timestamp | undefined;
     }
 
     interface Image {
@@ -466,7 +466,7 @@ declare namespace Arena {
         /**
          * An array of User representations of each of the channels the block appears in
          */
-        connections?: Connection[];
+        connections?: Connection[] | undefined;
     }
 
     /**
@@ -665,15 +665,15 @@ declare namespace Arena {
         /**
          * Currently this will be equivalent to "full_name"
          */
-        username?: string;
+        username?: string | undefined;
         /**
          * Will always be "User"
          */
-        class?: string;
+        class?: string | undefined;
         /**
          * The initials of a user. Derived from the user's first and last name
          */
-        initials?: string;
+        initials?: string | undefined;
     }
 
     interface Search {

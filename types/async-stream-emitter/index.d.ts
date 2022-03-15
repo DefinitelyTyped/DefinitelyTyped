@@ -1,6 +1,7 @@
-// Type definitions for async-stream-emitter 3.0
+// Type definitions for async-stream-emitter 4.0
 // Project: https://github.com/SocketCluster/async-stream-emitter
 // Definitions by: Daniel Rose <https://github.com/DanielRose>
+//                 Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import ConsumableStream = require('consumable-stream');

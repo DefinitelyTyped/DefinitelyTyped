@@ -37,15 +37,15 @@ export interface SMTPServerAuthentication {
     /**
      * the username of the user
      */
-    username?: string;
+    username?: string | undefined;
     /**
      * the password if LOGIN or PLAIN was used
      */
-    password?: string;
+    password?: string | undefined;
     /**
      *  the OAuth2 bearer access token if 'XOAUTH2' was used as the authentication method
      */
-    accessToken?: string;
+    accessToken?: string | undefined;
     /**
      * a function for validating CRAM-MD5 challenge responses.
      * Takes the password of the user as an argument and returns true if the response matches the password
@@ -64,7 +64,7 @@ export interface SMTPServerAuthenticationResponse {
      * an object to return if XOAUTH2 authentication failed (do not set the error object in this case).
      * This value is serialized to JSON and base64 encoded automatically, so you can just return the object
      */
-    data?: object;
+    data?: object | undefined;
 }
 
 export interface SMTPServerSession {
@@ -116,7 +116,7 @@ export interface SMTPServerSession {
     /*
     * Optional parameter that is added to the session object if provided to the onAuth callback
     */
-    user?: string;
+    user?: string | undefined;
 }
 
 export interface SMTPServerDataStream extends PassThrough {
@@ -152,24 +152,24 @@ export interface SMTPServerOptions extends tls.TlsOptions {
      * If secure is true, additional tls options for tls.
      * createServer can be added directly onto this options object.
      */
-    secure?: boolean;
+    secure?: boolean | undefined;
     /** indicate an TLS server where TLS is handled upstream */
-    secured?: boolean;
+    secured?: boolean | undefined;
     /**
      * optional hostname of the server,
      * used for identifying to the client (defaults to os.hostname())
      */
-    name?: string;
+    name?: string | undefined;
     /**
      * optional greeting message.
      * This message is appended to the default ESMTP response.
      */
-    banner?: string;
+    banner?: string | undefined;
     /**
      * optional maximum allowed message size in bytes
      * ([see details](https://github.com/andris9/smtp-server#using-size-extension))
      */
-    size?: number;
+    size?: number | undefined;
     /**
      * optional array of allowed authentication methods, defaults to ['PLAIN', 'LOGIN'].
      * Only the methods listed in this array are allowed,
@@ -178,92 +178,92 @@ export interface SMTPServerOptions extends tls.TlsOptions {
      * Authentication is only allowed in secure mode
      * (either the server is started with secure: true option or STARTTLS command is used)
      */
-    authMethods?: string[];
+    authMethods?: string[] | undefined;
     /**
      * allow authentication, but do not require it
      */
-    authOptional?: boolean;
+    authOptional?: boolean | undefined;
     /**
      * optional array of disabled commands (see all supported commands here).
      * For example if you want to disable authentication,
      * use ['AUTH'] as this value.
      * If you want to allow authentication in clear text, set it to ['STARTTLS'].
      */
-    disabledCommands?: string[]; // TODO: ('AUTH' | 'STARTTLS' | 'XCLIENT' | 'XFORWARD')[];
+    disabledCommands?: string[] | undefined; // TODO: ('AUTH' | 'STARTTLS' | 'XCLIENT' | 'XFORWARD')[];
     /**
      * optional boolean, if set to true then allow using STARTTLS
      * but do not advertise or require it. It only makes sense
      * when creating integration test servers for testing the scenario
      * where you want to try STARTTLS even when it is not advertised
      */
-    hideSTARTTLS?: boolean;
+    hideSTARTTLS?: boolean | undefined;
     /**
      * optional boolean, if set to true then does not show PIPELINING in feature list
      */
-    hidePIPELINING?: boolean;
+    hidePIPELINING?: boolean | undefined;
     /**
      * optional boolean, if set to true then does not show 8BITMIME in features list
      */
-    hide8BITMIME?: boolean;
+    hide8BITMIME?: boolean | undefined;
     /**
      * optional boolean, if set to true then does not show SMTPUTF8 in features list
      */
-    hideSMTPUTF8?: boolean;
+    hideSMTPUTF8?: boolean | undefined;
     /**
      * optional boolean, if set to true allows authentication even if connection is not secured first
      */
-    allowInsecureAuth?: boolean;
+    allowInsecureAuth?: boolean | undefined;
     /**
      * optional boolean, if set to true then does not try to reverse resolve client hostname
      */
-    disableReverseLookup?: boolean;
+    disableReverseLookup?: boolean | undefined;
     /**
      * optional Map or an object of TLS options for SNI where servername is the key. Overrided by SNICallback.
      */
-    sniOptions?: { [servername: string]: tls.TlsOptions } | Map<string, tls.TlsOptions>;
+    sniOptions?: { [servername: string]: tls.TlsOptions } | Map<string, tls.TlsOptions> | undefined;
     /**
      * optional boolean, if set to true then upgrade sockets to TLS immediately after connection is established. Works with secure: true
      */
-    needsUpgrade?: boolean;
+    needsUpgrade?: boolean | undefined;
     /**
      * optional bunyan compatible logger instance.
      * If set to true then logs to console.
      * If value is not set or is false then nothing is logged
      */
-    logger?: shared.Logger | boolean;
+    logger?: shared.Logger | boolean | undefined;
     /**
      * sets the maximum number of concurrently connected clients, defaults to Infinity
      */
-    maxClients?: number;
+    maxClients?: number | undefined;
     /**
      * boolean, if set to true expects to be behind a proxy that emits a
      * [PROXY](http://www.haproxy.org/download/1.5/doc/proxy-protocol.txt) header (version 1 only)
      */
-    useProxy?: boolean;
+    useProxy?: boolean | undefined;
     /**
      * boolean, if set to true, enables usage of
      * [XCLIENT](http://www.postfix.org/XCLIENT_README.html) extension to override connection properties.
      * See session.xClient (Map object) for the details provided by the client
      */
-    useXClient?: boolean;
+    useXClient?: boolean | undefined;
     /**
      * boolean, if set to true, enables usage of [XFORWARD](http://www.postfix.org/XFORWARD_README.html) extension.
      * See session.xForward (Map object) for the details provided by the client
      */
-    useXForward?: boolean;
+    useXForward?: boolean | undefined;
     /**
      * boolean, if set to true use LMTP protocol instead of SMTP
      */
-    lmtp?: boolean;
+    lmtp?: boolean | undefined;
     /**
      * How many milliseconds of inactivity to allow before disconnecting the client (defaults to 1 minute)
      */
-    socketTimeout?: ms;
+    socketTimeout?: ms | undefined;
     /**
      * How many millisceonds to wait before disconnecting pending
      * connections once `server.close()` has been called (defaults to 30 seconds)
      */
-    closeTimeout?: ms;
+    closeTimeout?: ms | undefined;
     /**
      * The callback to handle authentications ([see details](https://github.com/andris9/smtp-server#handling-authentication))
      */

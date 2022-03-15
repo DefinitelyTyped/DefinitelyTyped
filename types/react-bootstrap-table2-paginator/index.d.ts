@@ -9,7 +9,7 @@
 import { PaginationOptions, BootstrapTableProps } from 'react-bootstrap-table-next';
 
 export interface PaginationCtxOptions {
-    options?: PaginationOptions;
+    options?: PaginationOptions | undefined;
 }
 
 /**
@@ -20,15 +20,15 @@ declare function paginationFactory(options: PaginationOptions): PaginationCtxOpt
 export default paginationFactory;
 
 interface PaginationChildProps extends PaginationOptions {
-    tableId?: string;
-    bootstrap4?: boolean;
+    tableId?: string | undefined;
+    bootstrap4?: boolean | undefined;
 }
 
 /**
  * Pagination context provider
  */
 export function PaginationProvider(props: {
-    pagination?: PaginationCtxOptions;
+    pagination?: PaginationCtxOptions | undefined;
     children: (childProps: {
         paginationProps: PaginationChildProps;
         paginationTableProps: BootstrapTableProps;
@@ -39,11 +39,11 @@ export const PaginationTotalStandalone: React.FC<PaginationChildProps>;
 export const PaginationListStandalone: React.FC<PaginationChildProps>;
 
 export interface SizePerPageDropdownStandaloneProps extends PaginationChildProps {
-    open?: boolean;
-    hidden?: boolean;
-    btnContextual?: boolean;
-    variation?: 'dropdown' | 'dropup';
-    className?: string;
+    open?: boolean | undefined;
+    hidden?: boolean | undefined;
+    btnContextual?: boolean | undefined;
+    variation?: 'dropdown' | 'dropup' | undefined;
+    className?: string | undefined;
 }
 
 export const SizePerPageDropdownStandalone: React.FC<SizePerPageDropdownStandaloneProps>;

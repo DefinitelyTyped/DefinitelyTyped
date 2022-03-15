@@ -21,27 +21,27 @@ interface SparklineOptions<TEntry> {
     /**
      * By setting this callback function, you'll enable the interactive mode (unless you set options.interactive to false).
      */
-    onmousemove?: (event: MouseEvent, datapoint: SparklineDatapoint<TEntry>) => void;
+    onmousemove?: ((event: MouseEvent, datapoint: SparklineDatapoint<TEntry>) => void) | undefined;
 
     /**
      * This callback function is called every time the mouse leaves the SVG area. You can use it to hide things like tooltips.
      */
-    onmouseout?: (event: MouseEvent) => void;
+    onmouseout?: ((event: MouseEvent) => void) | undefined;
 
     /**
      * Set the spot radius. The default is 2.
      */
-    spotRadius?: number;
+    spotRadius?: number | undefined;
 
     /**
      * Set the cursor width. The default is 2.
      */
-    cursorwidth?: number;
+    cursorwidth?: number | undefined;
 
     /**
      * When true, this enables the interactive mode. You don't have to set this option if you're providing a onmousemove callback.
      */
-    interactive?: boolean;
+    interactive?: boolean | undefined;
 }
 
 type SparklineNativeOptions<TEntry> = SparklineOptions<TEntry> | Partial<SparklineOptionsFetch<TEntry>>;

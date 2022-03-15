@@ -17,9 +17,9 @@ export class DataTexture extends Texture {
      * @param [encoding=THREE.LinearEncoding]
      */
     constructor(
-        data: BufferSource,
-        width: number,
-        height: number,
+        data?: BufferSource | null,
+        width?: number,
+        height?: number,
         format?: PixelFormat,
         type?: TextureDataType,
         mapping?: Mapping,
@@ -31,7 +31,8 @@ export class DataTexture extends Texture {
         encoding?: TextureEncoding,
     );
 
-    image: ImageData;
+    get image(): ImageData;
+    set image(value: ImageData);
 
     /**
      * @default false

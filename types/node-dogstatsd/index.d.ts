@@ -10,7 +10,7 @@ declare module "node-dogstatsd" {
   import * as dgram from 'dgram';
 
   export interface StatsDOptions {
-    global_tags?: string[];
+    global_tags?: string[] | undefined;
   }
 
   export interface StatsDClient {

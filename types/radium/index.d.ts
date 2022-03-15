@@ -33,7 +33,7 @@ declare namespace Radium {
          * Use to scope styles in the component to a particular element. A good use case might be to generate a unique
          * ID for a component to scope any styles to the particular component that owns the <Style> component instance.
          */
-        scopeSelector?: string;
+        scopeSelector?: string | undefined;
     }
 
     /**
@@ -46,7 +46,7 @@ declare namespace Radium {
      * StyleRoot component properties
      */
     export interface StyleRootProps extends React.HTMLProps<StyleRoot> {
-         radiumConfig?: RadiumConfig
+         radiumConfig?: RadiumConfig | undefined
     }
     /**
      * <StyleRoot />
@@ -62,16 +62,16 @@ declare namespace Radium {
          * Allow to replace matchMedia function that Radium uses. The default one is window.matchMedia
          * @param mediaQuery
          */
-        matchMedia?: (mediaQuery: string) => MediaQueryList;
+        matchMedia?: ((mediaQuery: string) => MediaQueryList) | undefined;
         /**
          * Set the user agent passed to inline-style-prefixer to perform prefixing on style objects.
          * Mainly used during server rendering
          */
-        userAgent?: string;
+        userAgent?: string | undefined;
         /**
          * List of plugins
          */
-        plugins?: Array<any>;
+        plugins?: Array<any> | undefined;
     }
 
     /**

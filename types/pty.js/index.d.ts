@@ -9,13 +9,13 @@
 
 /** Options that can be used when creating a new pseudo-terminal. */
 interface TerminalOptions {
-    name?: string;
-    cols?: number;
-    rows?: number;
-    cwd?: string;
+    name?: string | undefined;
+    cols?: number | undefined;
+    rows?: number | undefined;
+    cwd?: string | undefined;
     env?: any;
-    uid?: number;
-    gid?: number;
+    uid?: number | undefined;
+    gid?: number | undefined;
 }
 
 import net = require('net');
@@ -75,7 +75,7 @@ export declare class Terminal {
 
     // NodeJS Stream interface
 
-    pipe<T extends NodeJS.WritableStream>(destination: T, options?: { end?: boolean; }): T;
+    pipe<T extends NodeJS.WritableStream>(destination: T, options?: { end?: boolean | undefined; }): T;
 
     // NodeJS EventEmitter interface
 
@@ -102,7 +102,7 @@ export declare function spawn(file?: string, args?: string[], opt?: TerminalOpti
 * Creates a new pseudo-terminal.
 * This function is not available on Windows, use [[fork]] there instead.
 */
-export declare function open(opt?: { cols?: number; rows?: number }): Terminal;
+export declare function open(opt?: { cols?: number | undefined; rows?: number | undefined }): Terminal;
 
 // Internal stuff that probably isn't very useful but is exported by pty.js
 export declare module native {

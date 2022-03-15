@@ -10,6 +10,9 @@ n1.set("style", "filled");
 // Add node (ID: World)
 g.addNode("World");
 
+const g_h: graphviz.Node = g.getNode("Hello");
+g_h.set("shape", "star");
+
 // Add edge between the two nodes
 const e: graphviz.Edge = g.addEdge(n1, "World");
 e.set("color", "red");

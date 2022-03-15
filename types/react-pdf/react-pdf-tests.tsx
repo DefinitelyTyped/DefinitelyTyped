@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Document, Page, pdfjs, PDFPageProxy } from 'react-pdf';
-import { PDFDocumentProxy } from 'pdfjs-dist';
+import { PDFDocumentProxy } from 'pdfjs-dist/types/src/display/api';
 
 // Test special entry points
 import { Document as DocumentEsmWebpack, Page as PageEsmWebpack } from 'react-pdf/dist/esm/entry.webpack';

@@ -8,13 +8,13 @@
 import { Plugin } from 'webpack';
 
 export interface Options {
-    patterns?: string[];
+    patterns?: string[] | undefined;
     failOnUnused: boolean;
     globOptions?: {
-        ignore?: string | string[];
-    };
-    ignore?: string | string[];
-    cwd?: string;
+        ignore?: string | string[] | undefined;
+    } | undefined;
+    ignore?: string | string[] | undefined;
+    cwd?: string | undefined;
 }
 
 export class UnusedFilesWebpackPlugin extends Plugin {

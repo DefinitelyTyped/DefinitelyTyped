@@ -20,8 +20,8 @@ declare namespace Datepicker {
     }
 
     interface Lang {
-        days?: string[];
-        months?: string[];
+        days?: string[] | undefined;
+        months?: string[] | undefined;
         yearFormat: string;
         monthFormat: string;
         monthBeforeYear: boolean;
@@ -48,45 +48,45 @@ declare namespace Datepicker {
 }
 
 declare const Datepicker: Component<any, any, any, {
-    type?: 'date'|'datetime'|'year'|'month'|'time'|'week';
-    range?: boolean;
-    format?: string;
-    valueType?: Datepicker.ValueType;
-    lang?: string | Datepicker.Lang;
-    clearable?: boolean;
-    confirm?: boolean;
-    editable?: boolean;
-    disabled?: boolean;
-    placeholder?: string;
-    appendToBody?: boolean;
-    defaultValue?: Date;
-    popupStyle?: (() => {});
-    shortcuts?: Datepicker.Shortcuts[];
-    timePickerOptions?: Datepicker.TimePickerOptions;
-    minuteStep?: number;
-    inputClass?: string;
-    inputAttr?: (() => {});
-    confirmText?: string;
-    rangeSeparator?: string;
-    disabledDate?: ((date: Date) => boolean);
-    disabledTime?: ((date: Date) => boolean);
-    inline?: boolean;
-    open?: boolean
-    popupClass?: string;
-    titleFormat?: string;
-    partialUpdate?: boolean;
-    showWeekNumber?: boolean
-    hourStep?: number;
-    secondStep?: number;
-    hourOptions?: number[];
-    minuteOptions?: number[];
-    secondOptions?: number[];
-    showHour?: boolean;
-    showMinute?: boolean;
-    showSecond?: boolean;
-    use12h?: boolean;
-    showTimeHeader?: boolean;
-    timeTitleFormat?: string;
+    type?: 'date'|'datetime'|'year'|'month'|'time'|'week' | undefined;
+    range?: boolean | undefined;
+    format?: string | undefined;
+    valueType?: Datepicker.ValueType | undefined;
+    lang?: string | Datepicker.Lang | undefined;
+    clearable?: boolean | undefined;
+    confirm?: boolean | undefined;
+    editable?: boolean | undefined;
+    disabled?: boolean | undefined;
+    placeholder?: string | undefined;
+    appendToBody?: boolean | undefined;
+    defaultValue?: Date | undefined;
+    popupStyle?: (() => {}) | undefined;
+    shortcuts?: Datepicker.Shortcuts[] | undefined;
+    timePickerOptions?: Datepicker.TimePickerOptions | undefined;
+    minuteStep?: number | undefined;
+    inputClass?: string | undefined;
+    inputAttr?: (() => {}) | undefined;
+    confirmText?: string | undefined;
+    rangeSeparator?: string | undefined;
+    disabledDate?: ((date: Date) => boolean) | undefined;
+    disabledTime?: ((date: Date) => boolean) | undefined;
+    inline?: boolean | undefined;
+    open?: boolean | undefined
+    popupClass?: string | undefined;
+    titleFormat?: string | undefined;
+    partialUpdate?: boolean | undefined;
+    showWeekNumber?: boolean | undefined
+    hourStep?: number | undefined;
+    secondStep?: number | undefined;
+    hourOptions?: number[] | undefined;
+    minuteOptions?: number[] | undefined;
+    secondOptions?: number[] | undefined;
+    showHour?: boolean | undefined;
+    showMinute?: boolean | undefined;
+    showSecond?: boolean | undefined;
+    use12h?: boolean | undefined;
+    showTimeHeader?: boolean | undefined;
+    timeTitleFormat?: string | undefined;
 }>;
 
 export default Datepicker;

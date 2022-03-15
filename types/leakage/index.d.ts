@@ -6,8 +6,8 @@
 export class MemoryLeakError extends Error {}
 
 export interface IterateOptions {
-    iterations?: number;
-    gcollections?: number;
+    iterations?: number | undefined;
+    gcollections?: number | undefined;
 }
 
 export function iterate(iteratorFn: () => void, options?: IterateOptions): Result;

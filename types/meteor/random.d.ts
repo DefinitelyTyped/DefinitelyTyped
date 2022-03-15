@@ -1,5 +1,5 @@
-declare module "meteor/random" {
-    module Random {
+declare module 'meteor/random' {
+    namespace Random {
         function id(numberOfChars?: number): string;
 
         function secret(numberOfChars?: number): string;

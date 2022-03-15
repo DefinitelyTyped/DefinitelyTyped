@@ -3,5 +3,5 @@ export interface CapturePartialPaymentPayload {
     id: number;
 
     /** New amount. */
-    transaction_amount?: number;
+    transaction_amount?: number | undefined;
   }

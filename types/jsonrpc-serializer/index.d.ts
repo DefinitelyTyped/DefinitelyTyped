@@ -18,11 +18,11 @@ export interface DeserializeObject {
 }
 
 export interface PayloadObject {
-    id?: string | number;
-    method?: string;
+    id?: string | number | undefined;
+    method?: string | undefined;
     params?: any;
     result?: any;
-    error?: SerializerError;
+    error?: SerializerError | undefined;
 }
 
 export interface RequestPayloadObject extends PayloadObject {
@@ -50,7 +50,7 @@ export interface SerializerError extends Error {
     name: string;
     code: number;
     message: string;
-    data?: any[];
+    data?: any[] | undefined;
 }
 
 export function request(id: string | number, method: string, params?: any): string;
@@ -89,7 +89,7 @@ export namespace err {
         name: string | ErrorName;
         code: number | ErrorCode;
         message: string;
-        data?: any[];
+        data?: any[] | undefined;
 
         constructor(msg: string, ...args: any[]);
         serialize(): string;

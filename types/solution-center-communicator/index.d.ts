@@ -24,37 +24,37 @@ declare namespace ScCommunicator {
     /**
      * In case that the domain is localhost, a port can be also specified
      */
-    PORT?: string;
+    PORT?: string | undefined;
 
     /**
      * URL where to reach the user management service API
      */
-    USER_SERVICE?: string;
+    USER_SERVICE?: string | undefined;
 
     /**
      * URL where to reach the token management service API
      */
-    TOKEN_SERVICE?: string;
+    TOKEN_SERVICE?: string | undefined;
 
     /**
      * URL where to reach the merchant management service API
      */
-    MERCHANT_SERVICE?: string;
+    MERCHANT_SERVICE?: string | undefined;
 
     /**
      * URL where to reach the GoodData service API
      */
-    GOODDATA_SERVICE?: string;
+    GOODDATA_SERVICE?: string | undefined;
 
     /**
      * URL where to reach the module service API
      */
-    MODULE_SERVICE?: string;
+    MODULE_SERVICE?: string | undefined;
 
     /**
      * URL where to reach the new user service API
      */
-    USER_SERVICE_NEW?: string;
+    USER_SERVICE_NEW?: string | undefined;
   }
 
   interface Environments {

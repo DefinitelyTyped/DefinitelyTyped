@@ -19,11 +19,11 @@ declare class FrameBuffer {
 }
 
 interface FrameBufferOptions {
-    preferFloat?: boolean;
-    float?: boolean;
-    color?: number;
-    depth?: boolean;
-    stencil?: boolean;
+    preferFloat?: boolean | undefined;
+    float?: boolean | undefined;
+    color?: number | undefined;
+    depth?: boolean | undefined;
+    stencil?: boolean | undefined;
 }
 
  declare function glFBO(

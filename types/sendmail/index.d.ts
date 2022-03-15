@@ -7,55 +7,55 @@
 declare namespace sendMailFactory {
     interface Options {
         logger?: {
-            debug?: () => void;
-            info?: () => void;
-            warn?: () => void;
-            error?: () => void;
-        };
-        silent?: boolean;
+            debug?: (() => void) | undefined;
+            info?: (() => void) | undefined;
+            warn?: (() => void) | undefined;
+            error?: (() => void) | undefined;
+        } | undefined;
+        silent?: boolean | undefined;
         /** Default: False */
         dkim?:
             | boolean
             | {
                   privateKey: string;
                   keySelector: string;
-              };
+              } | undefined;
         /** Default: False */
-        devPort?: number | boolean;
+        devPort?: number | boolean | undefined;
         /** Default: localhost */
-        devHost?: string;
+        devHost?: string | undefined;
         /** Default: 25 */
-        smtpPort?: number;
+        smtpPort?: number | undefined;
         /** Default: -1 - extra smtp host after resolveMX */
-        smtpHost?: string | number;
+        smtpHost?: string | number | undefined;
     }
 
     interface MailInput {
         from: string;
-        sender?: string;
+        sender?: string | undefined;
         to: string;
-        cc?: string;
-        bcc?: string;
-        replyTo?: string;
-        inReplyTo?: string;
-        returnTo?: string;
+        cc?: string | undefined;
+        bcc?: string | undefined;
+        replyTo?: string | undefined;
+        inReplyTo?: string | undefined;
+        returnTo?: string | undefined;
         subject: string;
-        type?: string;
-        charset?: string;
-        encoding?: string;
-        id?: string;
-        headers?: object;
-        content?: string;
-        text?: string;
-        html?: string;
+        type?: string | undefined;
+        charset?: string | undefined;
+        encoding?: string | undefined;
+        id?: string | undefined;
+        headers?: object | undefined;
+        content?: string | undefined;
+        text?: string | undefined;
+        html?: string | undefined;
         attachments?: Array<{
-            type?: string;
-            filename?: string;
+            type?: string | undefined;
+            filename?: string | undefined;
             content?: any;
-            path?: string;
-            contentType?: string;
-            encoding?: string;
-        }>;
+            path?: string | undefined;
+            contentType?: string | undefined;
+            encoding?: string | undefined;
+        }> | undefined;
     }
 }
 

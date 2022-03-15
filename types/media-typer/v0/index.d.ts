@@ -9,5 +9,5 @@ export function format(mediaTypeDescriptor: MediaType): string;
 export interface MediaType {
     type: string;
     subtype: string;
-    suffix?: string;
+    suffix?: string | undefined;
 }

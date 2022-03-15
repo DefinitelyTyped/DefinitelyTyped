@@ -9,23 +9,23 @@ import express = require('express');
 import { Strategy as PassportStrategy } from 'passport-strategy';
 
 interface StrategyOptions {
-    tokenFields?: string[];
-    headerFields?: string[];
-    session?: boolean;
-    passReqToCallback?: false;
-    params?: boolean;
-    optional?: boolean;
-    caseInsensitive?: boolean;
+    tokenFields?: string[] | undefined;
+    headerFields?: string[] | undefined;
+    session?: boolean | undefined;
+    passReqToCallback?: false | undefined;
+    params?: boolean | undefined;
+    optional?: boolean | undefined;
+    caseInsensitive?: boolean | undefined;
 }
 
 interface StrategyOptionsWithRequest {
-    tokenFields?: string[];
-    headerFields?: string[];
-    session?: boolean;
+    tokenFields?: string[] | undefined;
+    headerFields?: string[] | undefined;
+    session?: boolean | undefined;
     passReqToCallback: true;
-    params?: boolean;
-    optional?: boolean;
-    caseInsensitive?: boolean;
+    params?: boolean | undefined;
+    optional?: boolean | undefined;
+    caseInsensitive?: boolean | undefined;
 }
 
 interface VerifyOptions {

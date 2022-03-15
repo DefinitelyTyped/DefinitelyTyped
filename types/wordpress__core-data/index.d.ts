@@ -18,8 +18,8 @@ export interface Autosave extends Schema.PostRevision<'edit'> {
 
 export interface Entity {
     baseURL: string;
-    key?: string;
+    key?: string | undefined;
     kind: string;
     name: string;
-    plural?: string;
+    plural?: string | undefined;
 }

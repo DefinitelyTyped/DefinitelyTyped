@@ -23,7 +23,7 @@ declare namespace LinkifyIt {
 
     interface FullRule {
         validate: string | RegExp | Validate;
-        normalize?: (match: Match) => void;
+        normalize?: ((match: Match) => void) | undefined;
     }
 
     type Rule = string | FullRule;
@@ -33,9 +33,9 @@ declare namespace LinkifyIt {
     }
 
     interface Options {
-        fuzzyLink?: boolean;
-        fuzzyIP?: boolean;
-        fuzzyEmail?: boolean;
+        fuzzyLink?: boolean | undefined;
+        fuzzyIP?: boolean | undefined;
+        fuzzyEmail?: boolean | undefined;
     }
 
     interface Match {

@@ -71,10 +71,10 @@ export class XmlCommentNode {
 }
 
 export interface XmlOptions {
-    compressed?: boolean;
-    html?: boolean;
-    preserveWhitespace?: boolean;
-    trimmed?: boolean;
+    compressed?: boolean | undefined;
+    html?: boolean | undefined;
+    preserveWhitespace?: boolean | undefined;
+    trimmed?: boolean | undefined;
 }
 
 export interface XmlTag {

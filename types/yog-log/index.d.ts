@@ -24,24 +24,24 @@ type LevelName = LEVELS[LevelInt];
 type LogReturn = undefined | false;
 
 interface LogConfig {
-    LogIdName?: string;
+    LogIdName?: string | undefined;
     // 模板文件地址，可以不填
-    data_path?: string;
+    data_path?: string | undefined;
     // 用户只需要填写log_path配置
-    log_path?: string;
+    log_path?: string | undefined;
 
-    debug?: 0 | 1;
-    intLevel?: 16;
-    auto_rotate?: 0 | 1;
-    use_sub_dir?: 0 | 1;
-    IS_ODP?: boolean;
-    IS_OMP?: 0 | 1;
+    debug?: 0 | 1 | undefined;
+    intLevel?: 16 | undefined;
+    auto_rotate?: 0 | 1 | undefined;
+    use_sub_dir?: 0 | 1 | undefined;
+    IS_ODP?: boolean | undefined;
+    IS_OMP?: 0 | 1 | undefined;
 
-    access_log_path?: string;
-    access_error_log_path?: string;
+    access_log_path?: string | undefined;
+    access_error_log_path?: string | undefined;
 
-    access?: string;
-    format_wf?: string;
+    access?: string | undefined;
+    format_wf?: string | undefined;
 }
 
 interface WriteLogConfig {

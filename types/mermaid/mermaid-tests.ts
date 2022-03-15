@@ -13,7 +13,15 @@ mermaid.initialize(config);
 // mermaidAPI usage
 
 const { mermaidAPI } = mermaid;
-mermaidAPI.initialize({});
+mermaidAPI.initialize({
+    startOnLoad: true,
+    deterministicIds: true,
+    secure: ["startOnLoad", "theme"],
+    maxTextSize: 20,
+    fontFamily: "verdana",
+    theme: "default",
+    themeCSS: ""
+});
 
 const element = document.querySelector("#graphDiv")!;
 

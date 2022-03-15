@@ -1,4 +1,4 @@
-// Type definitions for gulp-help
+// Type definitions for gulp-help 1.6
 // Project: https://github.com/chmontgomery/gulp-help
 // Definitions by: Qubo <https://github.com/tkQubo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -78,34 +78,38 @@ declare namespace gulpHelp {
         /**
          * List of aliases for this task
          */
-        aliases?: string[];
+        aliases?: string[] | undefined;
         /**
          * Object documenting options which can be passed to your task
          */
-        options?: { [key: string]: string };
+        options?: { [key: string]: string } | undefined;
     }
 
     interface GulpHelpOptions {
         /**
          * Modifies the default help message
          */
-        description?: string;
+        description?: string | undefined;
         /**
          * Adds aliases to the default help task
          */
-        aliases?: string[];
+        aliases?: string[] | undefined;
         /**
          * Hide all tasks with no help message defined. Useful when including 3rd party tasks
          */
-        hideEmpty?: boolean;
+        hideEmpty?: boolean | undefined;
         /**
          * Hide all task dependencies
          */
-        hideDepsMessage?: boolean;
+        hideDepsMessage?: boolean | undefined;
         /**
          * A function to run after the default help task runs
          */
-        afterPrintCallback?: Function;
+        afterPrintCallback?: Function | undefined;
+        /**
+         * Object documenting options which can be passed to your task
+         */
+        options?: { [key: string]: string } | undefined;
     }
 
 }

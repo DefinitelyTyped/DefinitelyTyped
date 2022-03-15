@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare function httpBuildQuery(
-    queryData: { [param: string]: string | number },
+    queryData: { [param: string]: string | number | null },
     numericPrefix?: string,
     argSeparator?: string,
     tempKey?: string,

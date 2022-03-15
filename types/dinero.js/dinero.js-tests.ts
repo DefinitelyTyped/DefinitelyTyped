@@ -60,6 +60,7 @@ dinero = dinero.multiply(2.00125, 'HALF_UP');
 dinero = dinero.divide(2);
 dinero = dinero.divide(2, 'HALF_UP');
 dinero = dinero.percentage(50);
+dinero = dinero.percentage(50, 'HALF_UP');
 dineroArr = dinero.allocate([50, 50]);
 dinero.convert('EUR').then(d => (dinero = d));
 dinero.convert('XBT', {
@@ -87,6 +88,7 @@ string = dinero.toFormat('0,0 dollar', 'HALF_EVEN');
 number = dinero.toUnit();
 number = dinero.toRoundedUnit(1);
 number = dinero.toRoundedUnit(1, 'HALF_EVEN');
+number = dinero.toRoundedUnit(1, 'DOWN');
 dineroObject = dinero.toObject();
 dineroObject = dinero.toJSON();
 dineroArr = Dinero.normalizePrecision([

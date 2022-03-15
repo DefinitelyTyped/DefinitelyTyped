@@ -1,5 +1,5 @@
 var canvas = document.getElementById('canvas');
-var renderer = new Vex.Flow.Renderer(canvas, Vex.Flow.Renderer.Backends.CANVAS);
+var renderer = new Vex.Flow.Renderer(canvas, Vex.Flow.Renderer.Backends.SVG);
 var ctx = renderer.getContext();
 
 // Add a treble clef and time signature
@@ -53,7 +53,9 @@ var formatter = new Vex.Flow.Formatter({softmaxFactor: null, maxIterations: 2})
 stave.draw();
 
 // Render voices
+ctx.openGroup("voice", "voice1");
 voice1.draw(ctx, stave);
+ctx.closeGroup();
 voice2.draw(ctx, stave);
 
 // Render beam

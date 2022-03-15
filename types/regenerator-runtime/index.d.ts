@@ -33,10 +33,10 @@ export interface CompletionRecord {
 
 export interface TryEntry {
     readonly tryLoc: number;
-    readonly catchLoc?: number;
-    readonly finallyLoc?: number;
-    readonly afterLoc?: ContextLocation;
-    completion?: CompletionRecord;
+    readonly catchLoc?: number | undefined;
+    readonly finallyLoc?: number | undefined;
+    readonly afterLoc?: ContextLocation | undefined;
+    completion?: CompletionRecord | undefined;
 }
 
 export interface DelegatedIterator {

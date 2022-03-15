@@ -1,24 +1,24 @@
 import * as React from "react";
 
 export type TileProps = {
-    className?: string;
-    isDouble?: boolean;
-    size?: "s";
-    onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+    className?: string | undefined;
+    isDouble?: boolean | undefined;
+    size?: "s" | undefined;
+    onClick?: ((event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void) | undefined;
 } & { [x: string]: any };
 
 export type TileContentProps = {
-    className?: string;
-    twoColumns?: boolean,
+    className?: string | undefined;
+    twoColumns?: boolean | undefined,
 } & { [x: string]: any };
 
 export type TileFooterProps = {
-    className?: string;
+    className?: string | undefined;
 } & { [x: string]: any };
 
 export type TileHeaderProps = {
-    className?: string;
-    subtitle?: string;
+    className?: string | undefined;
+    subtitle?: string | undefined;
 } & { [x: string]: any };
 
 declare const Tile: React.FC<TileProps> & {

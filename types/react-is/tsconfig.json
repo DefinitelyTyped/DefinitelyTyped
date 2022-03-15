@@ -20,6 +20,7 @@
     },
     "files": [
         "index.d.ts",
-        "react-is-tests.tsx"
+        "test/react-is-tests.tsx",
+        "test/next-tests.tsx"
     ]
 }

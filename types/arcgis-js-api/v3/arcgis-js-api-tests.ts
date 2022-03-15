@@ -20,7 +20,7 @@ class MapController {
   }
 }
 
-import WFSLayer = require("esri/layers/WFSLayer");
+import IdentityManager = require("esri/IdentityManager");
 
-const wfsLayer = new WFSLayer({ url: "https://esri.com" });
-wfsLayer.fromJson({}, () => {});
+const esriId: IdentityManager = IdentityManager as any;
+esriId.enablePostMessageAuth();

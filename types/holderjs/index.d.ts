@@ -9,4 +9,4 @@ export interface Options {
     images: HTMLElement | null;
 }
 
-export function run(options: Options): void;
+export function run(options?: Options): void;

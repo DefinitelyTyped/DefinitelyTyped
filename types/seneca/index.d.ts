@@ -17,104 +17,104 @@ declare module "seneca" {
 
         interface Options {
             [plugin_name: string]: any;
-            tag?: string;
+            tag?: string | undefined;
             // Standard length of identifiers for actions.
-            idlen?: number;
+            idlen?: number | undefined;
             // Standard timeout for actions.
-            timeout?: number;   // milliseconds
+            timeout?: number | undefined;   // milliseconds
             // Register (true) default plugins. Set false to not register when
             // using custom versions.
             default_plugins?: {
-                basic?:       boolean;
-                'mem-store'?: boolean;
-                transport?:   boolean;
-                web?:         boolean;
-            };
+                basic?:       boolean | undefined;
+                'mem-store'?: boolean | undefined;
+                transport?:   boolean | undefined;
+                web?:         boolean | undefined;
+            } | undefined;
             // Settings for network REPL.
             repl?: {
-                port?: number;
-                host?: string;
-            };
+                port?: number | undefined;
+                host?: string | undefined;
+            } | undefined;
             // Debug settings.
             debug?: {
                 // Throw (some) errors from seneca.act.
-                fragile?:    boolean;
+                fragile?:    boolean | undefined;
                 // Fatal errors ... aren't fatal. Not for production!
-                undead?:     boolean;
+                undead?:     boolean | undefined;
                 // Print debug info to console
                 print?: {
                     // Print options. Best used via --seneca.print.options.
-                    options?: boolean;
-                };
+                    options?: boolean | undefined;
+                } | undefined;
                 // Trace action caller and place in args.caller$.
-                act_caller?: boolean;
+                act_caller?: boolean | undefined;
                 // Shorten all identifiers to 2 characters.
-                short_logs?: boolean;
+                short_logs?: boolean | undefined;
                 // Record and log callpoints (calling code locations).
-                callpoint?: boolean;
-            };
+                callpoint?: boolean | undefined;
+            } | undefined;
             // Enforce strict behaviours. Relax when backwards compatibility needed.
             strict?: {
                 // Action result must be a plain object.
-                result?: boolean;
+                result?: boolean | undefined;
                 // Delegate fixedargs override action args.
-                fixedargs?: boolean;
+                fixedargs?: boolean | undefined;
                 // Adding a pattern overrides existing pattern only if matches exactly.
-                add?: boolean;
-            };
+                add?: boolean | undefined;
+            } | undefined;
             // Action cache. Makes inbound messages idempotent.
             actcache?: {
-                active?: boolean;
-                size?:   number;
-            };
+                active?: boolean | undefined;
+                size?:   number | undefined;
+            } | undefined;
             // Action executor tracing. See gate-executor module.
             trace?: {
-                act?: boolean;
-                stack?: boolean;
-                unknown?: string;
-            },
+                act?: boolean | undefined;
+                stack?: boolean | undefined;
+                unknown?: string | undefined;
+            } | undefined,
             // Action statistics settings. See rolling-stats module.
             stats?: {
-                size?: number;
-                interval?: number;
-                running?: boolean;
-            };
+                size?: number | undefined;
+                interval?: number | undefined;
+                running?: boolean | undefined;
+            } | undefined;
             // Wait time for plugins to close gracefully.
-            deathdelay?: number;
+            deathdelay?: number | undefined;
             // Default seneca-admin settings.
             // TODO: move to seneca-admin!
             admin?: {
-                local?: boolean;
-                prefix?: string;
-            };
+                local?: boolean | undefined;
+                prefix?: string | undefined;
+            } | undefined;
             // Plugin settings
             plugin?: any;
             // Internal settings.
             internal?: {
                 // Close instance on these signals, if true.
                 close_signals?: {
-                    SIGHUP?: boolean;
-                    SIGTERM?: boolean;
-                    SIGINT?: boolean;
-                    SIGBREAK?: boolean;
-                };
-                actrouter?: UnknownType;
-                clientrouter?: UnknownType;
-                subrouter?: UnknownType;
-            };
+                    SIGHUP?: boolean | undefined;
+                    SIGTERM?: boolean | undefined;
+                    SIGINT?: boolean | undefined;
+                    SIGBREAK?: boolean | undefined;
+                } | undefined;
+                actrouter?: UnknownType | undefined;
+                clientrouter?: UnknownType | undefined;
+                subrouter?: UnknownType | undefined;
+            } | undefined;
             // Log status at periodic intervals.
             status?: {
-                interval?: number;
+                interval?: number | undefined;
                 // By default, does not run.
-                running?: boolean;
-            },
+                running?: boolean | undefined;
+            } | undefined,
             // zig module settings for seneca.start() chaining.
             zig?: any;
             log?: LogSpec | {
-                level?: LogLevel;
-                short?: boolean;
-            };
-            errhandler?: GlobalErrorHandler;
+                level?: LogLevel | undefined;
+                short?: boolean | undefined;
+            } | undefined;
+            errhandler?: GlobalErrorHandler | undefined;
         }
 
         interface MinimalPattern {
@@ -166,7 +166,7 @@ declare module "seneca" {
 
         interface EntityDataWithQuery {
             [entityKey: string]: any;
-            id?: string;
+            id?: string | undefined;
             sort$?: any;
         }
 

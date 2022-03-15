@@ -133,7 +133,7 @@ declare namespace regenerate {
          * This simplifies the output, but it can only be used in case you’re certain
          * the strings it will be used on don’t contain any astral symbols.
          */
-        readonly bmpOnly?: boolean;
+        readonly bmpOnly?: boolean | undefined;
 
         /**
          * When `hasUnicodeFlag` is set to `true`, the output makes use
@@ -145,6 +145,6 @@ declare namespace regenerate {
          *
          * @see https://mathiasbynens.be/notes/es6-unicode-regex
          */
-        readonly hasUnicodeFlag?: boolean;
+        readonly hasUnicodeFlag?: boolean | undefined;
     }
 }

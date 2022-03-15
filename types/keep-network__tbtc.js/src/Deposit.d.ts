@@ -67,9 +67,9 @@ export default class Deposit implements DepositBaseClass {
     bitcoinAddress: Promise<string>;
     receivedFundingConfirmationEmitter: EventEmitter;
     constructor(factory: DepositFactory, depositContract: Contract, keepContract: Contract);
-    _fundingTransaction?: Promise<BitcoinTransaction>;
+    _fundingTransaction?: Promise<BitcoinTransaction> | undefined;
     get fundingTransaction(): Promise<BitcoinTransaction>;
-    _fundingConfirmations?: Promise<FundingConfirmations>;
+    _fundingConfirmations?: Promise<FundingConfirmations> | undefined;
     get fundingConfirmations(): Promise<FundingConfirmations>;
     getLotSizeSatoshis(): Promise<BN>;
     getLotSizeTBTC(): Promise<BN>;
@@ -92,7 +92,7 @@ export default class Deposit implements DepositBaseClass {
     getCurrentRedemption(): Promise<Redemption | null>;
     requestRedemption(redeemerAddress: string): Promise<Redemption>;
     getLatestRedemptionDetails(): Promise<RedemptionDetails | null>;
-    autoSubmittingState?: AutoSubmitState;
+    autoSubmittingState?: AutoSubmitState | undefined;
     autoSubmit(): AutoSubmitState;
     autoMint(): AutoSubmitState;
     findOrWaitForPublicKeyPoint(): Promise<KeyPoint>;

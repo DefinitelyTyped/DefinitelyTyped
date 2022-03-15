@@ -83,9 +83,9 @@ interface HubProxy {
 }
 
 interface HubConnectionSettings {
-    queryString?: string;
-    logging?: boolean;
-    useDefaultPath?: boolean;
+    queryString?: string | undefined;
+    logging?: boolean | undefined;
+    useDefaultPath?: boolean | undefined;
 }
 
 interface HubConnection extends SignalR {
@@ -103,8 +103,8 @@ interface SignalRfn {
 interface ConnectionSettings {
     transport?: any;
     callback?: any;
-    waitForPageLoad?: boolean;
-    jsonp?: boolean;
+    waitForPageLoad?: boolean | undefined;
+    jsonp?: boolean | undefined;
 }
 
 interface JQueryStatic {

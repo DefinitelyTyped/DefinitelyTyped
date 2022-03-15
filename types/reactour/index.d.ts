@@ -28,55 +28,55 @@ export interface ReactourStep {
     /**
      * Action that can be executed on target element of the step
      */
-    action?: (domNode: any) => void;
+    action?: ((domNode: any) => void) | undefined;
 
     /**
      * Position of step content
      */
-    position?: ReactourStepPosition | [number, number];
+    position?: ReactourStepPosition | [number, number] | undefined;
 
     /**
      * DOM selector to find the target element
      */
-    selector?: string;
+    selector?: string | undefined;
 
     /**
      * Disable interaction for this specific step.
      * Could be enabled passing `true`
      * when `disableInteraction` prop is present in Tour
      */
-    stepInteraction?: boolean;
+    stepInteraction?: boolean | undefined;
 
     /**
      * Additional styles
      */
-    style?: React.CSSProperties;
+    style?: React.CSSProperties | undefined;
 
     /**
      * Text read to screen reader software for this step's navigation dot
      */
-    navDotAriaLabel?: string;
+    navDotAriaLabel?: string | undefined;
 
     /**
      * Observe direct children DOM mutations of this node
      * If a child is added: the highlighted region is redrawn focused on it
      * If a child is removed: the highlighted region is redrawn focused on the step selector
      */
-    observe?: string;
+    observe?: string | undefined;
 
     /**
      * Array of selectors, each selected node will be included (by union)
      * in the highlighted region of the mask. You don't need to add the
      * step selector here as the default highlighted region is focused on it
      */
-    highlightedSelectors?: string[];
+    highlightedSelectors?: string[] | undefined;
 
     /**
      * Array of selectors, each selected node DOM addition/removal will triggered a rerender
      * of the mask shape. Useful in combinaison with highlightedSelectors when highlighted
      * region of mask should be redrawn after a user action
      */
-    mutationObservables?: string[];
+    mutationObservables?: string[] | undefined;
 
     /**
      * Array of selectors, each selected node resize will triggered a rerender of the mask shape.
@@ -84,16 +84,16 @@ export interface ReactourStep {
      * be redrawn after a user action. You should also add the selector in mutationObservables
      * if you want to track DOM addition/removal too
      */
-    resizeObservables?: string[];
+    resizeObservables?: string[] | undefined;
 }
 
 export interface ReactourAccessibilityOptions {
     // attribute to associate the dialog with a title for screen readers
-    ariaLabelledBy?: string;
+    ariaLabelledBy?: string | undefined;
     // aria-label attribute for the close button
-    closeButtonAriaLabel?: string;
+    closeButtonAriaLabel?: string | undefined;
     // Show/Hide Navigation Dots for screen reader software
-    showNavigationScreenReaders?: boolean;
+    showNavigationScreenReaders?: boolean | undefined;
 }
 
 export interface CustomHelperProps {
@@ -124,187 +124,187 @@ export interface ReactourProps {
      * Change `--reactour-accent` _(defaults to accentColor on IE)_ css custom prop to apply color in _Helper_, number, dots, etc
      * @default #007aff
      */
-    accentColor?: string;
+    accentColor?: string | undefined;
 
     /**
      * Customize _Badge_ content using `current` and `total` steps values
      */
-    badgeContent?: (current: number, total: number) => React.ReactNode;
+    badgeContent?: ((current: number, total: number) => React.ReactNode) | undefined;
 
     /**
      * Content to be rendered inside the _Helper_
      */
-    children?: React.ReactNode;
+    children?: React.ReactNode | undefined;
 
     /**
      * Custom class name to add to the _Helper_
      */
-    className?: string;
+    className?: string | undefined;
 
     /**
      * Close the _Tour_ by clicking the _Mask_
      * @default true
      */
-    closeWithMask?: boolean;
+    closeWithMask?: boolean | undefined;
 
     /**
      * Disable interactivity with _Dots_ navigation in _Helper_
      */
-    disableDotsNavigation?: boolean;
+    disableDotsNavigation?: boolean | undefined;
 
     /**
      * Disable the ability to click or intercat in any way with the _Highlighted_ element
      */
-    disableInteraction?: boolean;
+    disableInteraction?: boolean | undefined;
 
     /**
      * Disable all keyboard navigation (next and prev step) when true, disable only selected keys when array
      */
-    disableKeyboardNavigation?: boolean | Array<'esc' | 'right' | 'left'>;
+    disableKeyboardNavigation?: boolean | Array<'esc' | 'right' | 'left'> | undefined;
 
     /**
      * Function triggered each time current step change
      */
-    getCurrentStep?: (currentStep: number) => void;
+    getCurrentStep?: ((currentStep: number) => void) | undefined;
 
     /**
      * Programmatically change current step after the first render, when the value changes
      */
-    goToStep?: number;
+    goToStep?: number | undefined;
 
     /**
      * Custom class name to add to the element which is the overlay for the target element when `disableInteraction`
      */
-    highlightedMaskClassName?: string;
+    highlightedMaskClassName?: string | undefined;
 
     /**
      * Tolerance in pixels to add when calculating if an element is outside viewport to scroll into view
      */
-    inViewThreshold?: number;
+    inViewThreshold?: number | undefined;
 
     /**
      * Change Next button in last step into a custom button to close the Tour
      */
-    lastStepNextButton?: React.ReactNode;
+    lastStepNextButton?: React.ReactNode | undefined;
 
     /**
      * Custom class name to add to the _Mask_
      */
-    maskClassName?: string;
+    maskClassName?: string | undefined;
 
     /**
      * Extra Space between in pixels between _Highlighted_ element and _Mask_
      */
-    maskSpace?: number;
+    maskSpace?: number | undefined;
 
     /**
      * Renders as next button navigation
      */
-    nextButton?: React.ReactNode;
+    nextButton?: React.ReactNode | undefined;
 
     /**
      * Overrides default `nextStep` internal function
      */
-    nextStep?: () => void;
+    nextStep?: (() => void) | undefined;
 
     /**
      * Do something after _Tour_ is opened
      */
-    onAfterOpen?: (target: HTMLDivElement) => void;
+    onAfterOpen?: ((target: HTMLDivElement) => void) | undefined;
 
     /**
      * Do something before _Tour_ is closed
      */
-    onBeforeClose?: (target: HTMLDivElement) => void;
+    onBeforeClose?: ((target: HTMLDivElement) => void) | undefined;
 
     /**
      * Renders as prev button navigation
      */
-    prevButton?: React.ReactNode;
+    prevButton?: React.ReactNode | undefined;
 
     /**
      * Overrides default `prevStep` internal function
      */
-    prevStep?: () => void;
+    prevStep?: (() => void) | undefined;
 
     /**
      * Beautify _Helper_ and _Mask_ with `border-radius` (in px)
      * @default 0
      */
-    rounded?: number;
+    rounded?: number | undefined;
 
     /**
      * Smooth scroll duration when positioning the target element (in ms)
      * @default 1
      */
-    scrollDuration?: number;
+    scrollDuration?: number | undefined;
 
     /**
      * Offset when positioning the target element after scroll to it, by default it's a calculation to the center of the viewport
      */
-    scrollOffset?: number;
+    scrollOffset?: number | undefined;
 
     /**
      * Show/Hide _Helper_ Navigation buttons
      * @default true
      */
-    showButtons?: boolean;
+    showButtons?: boolean | undefined;
 
     /**
      * Show/Hide _Helper_ Close button
      * @default true
      */
-    showCloseButton?: boolean;
+    showCloseButton?: boolean | undefined;
 
     /**
      * Show/Hide _Helper_ Navigation Dots
      * @default true
      */
-    showNavigation?: boolean;
+    showNavigation?: boolean | undefined;
 
     /**
      * Show/Hide number when hovers on each Navigation Dot
      * @default true
      */
-    showNavigationNumber?: boolean;
+    showNavigationNumber?: boolean | undefined;
 
     /**
      * Show/Hide _Helper_ Number Badge
      * @default true
      */
-    showNumber?: boolean;
+    showNumber?: boolean | undefined;
 
     /**
      * Starting step when _Tour_ is open the first time
      */
-    startAt?: number;
+    startAt?: number | undefined;
 
     /**
      * Value to listen if a forced update is needed
      */
-    update?: string;
+    update?: string | undefined;
 
     /**
      * Delay time when forcing update. Useful when there are known animation/transitions
      * @default 1
      */
-    updateDelay?: number;
+    updateDelay?: number | undefined;
 
     /**
      * Disable FocusLock component
      * @default false
      */
-    disableFocusLock?: boolean;
+    disableFocusLock?: boolean | undefined;
 
     /**
      * Configure accessibility related accessibility options
      */
-    accessibilityOptions?: ReactourAccessibilityOptions;
+    accessibilityOptions?: ReactourAccessibilityOptions | undefined;
 
     /**
      * CustomHelper component
      */
-    CustomHelper?: ({ ...props }: CustomHelperProps) => React.ReactElement;
+    CustomHelper?: (({ ...props }: CustomHelperProps) => React.ReactElement) | undefined;
 }
 
 export interface ReactourState {
@@ -321,9 +321,9 @@ export interface ReactourState {
     inDOM: boolean;
     observer: MutationObserver | null;
     focusUnlocked: boolean;
-    helperWidth?: number;
-    helperHeight?: number;
-    helperPosition?: ReactourStepPosition;
+    helperWidth?: number | undefined;
+    helperHeight?: number | undefined;
+    helperPosition?: ReactourStepPosition | undefined;
 }
 
 declare class Tour extends React.Component<ReactourProps, ReactourState> {}
@@ -335,21 +335,21 @@ export default Tour;
 
 export interface ArrowProps {
     onClick: React.MouseEventHandler<HTMLButtonElement>;
-    className?: string;
-    disabled?: boolean;
-    inverted?: boolean;
-    label?: React.ReactNode;
+    className?: string | undefined;
+    disabled?: boolean | undefined;
+    inverted?: boolean | undefined;
+    label?: React.ReactNode | undefined;
 }
 export function Arrow(props: ArrowProps): React.ReactElement;
 
 export interface BadgeProps extends React.ComponentPropsWithRef<'span'> {
-    accentColor?: string;
+    accentColor?: string | undefined;
 }
 export const Badge: React.FC<BadgeProps>;
 
 export interface CloseProps {
     onClick: React.MouseEventHandler<HTMLButtonElement>;
-    className?: string;
+    className?: string | undefined;
 }
 export function Close(props: CloseProps): React.ReactElement;
 
@@ -357,11 +357,11 @@ export interface ControlsProps extends React.ComponentPropsWithRef<'div'> {}
 export const Controls: React.FC<ControlsProps>;
 
 export interface DotProps extends React.ComponentPropsWithRef<'button'> {
-    disabled?: boolean;
-    current?: number;
-    index?: number;
-    showNumber?: boolean;
-    accentColor?: string;
+    disabled?: boolean | undefined;
+    current?: number | undefined;
+    index?: number | undefined;
+    showNumber?: boolean | undefined;
+    accentColor?: string | undefined;
 }
 export const Dot: React.FC<DotProps>;
 

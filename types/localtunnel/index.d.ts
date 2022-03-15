@@ -37,14 +37,14 @@ declare namespace localtunnel {
     ) => void;
 
     interface TunnelConfig {
-        subdomain?: string;
-        host?: string;
-        local_host?: string;
-        local_https?: boolean;
-        local_cert?: string;
-        local_key?: string;
-        local_ca?: string;
-        allow_invalid_cert?: boolean;
+        subdomain?: string | undefined;
+        host?: string | undefined;
+        local_host?: string | undefined;
+        local_https?: boolean | undefined;
+        local_cert?: string | undefined;
+        local_key?: string | undefined;
+        local_ca?: string | undefined;
+        allow_invalid_cert?: boolean | undefined;
     }
 
     interface Tunnel extends EventEmitter {

@@ -16,16 +16,17 @@ import { toStringXY } from 'ol/coordinate';
 import { EventsKey } from 'ol/events';
 import { applyTransform } from 'ol/extent';
 import { GeoJSON, MVT } from 'ol/format';
+import { WriteTransactionOptions } from 'ol/format/WFS';
 import GeometryType from 'ol/geom/GeometryType';
 import { Draw, Modify, Select, defaults as defaultInteractions } from 'ol/interaction';
 import { Tile as TileLayer, Vector as VectorLayer, VectorTile as VectorTileLayer } from 'ol/layer';
 import { fromLonLat, get as getProjection, getTransform } from 'ol/proj';
 import { register } from 'ol/proj/proj4';
 import { OSM, Vector as VectorSource, VectorTile as VectorTileSource } from 'ol/source';
+import { Options as XYZOptions } from 'ol/source/XYZ';
 import { Circle, Fill, Stroke, Style } from 'ol/style';
 import { StyleFunction } from 'ol/style/Style';
 import proj4 = require('proj4');
-
 /**
  * ==================================================
  * # Styles
@@ -376,12 +377,12 @@ setTimeout(() => {
  */
 
 interface CustomControlOptions extends ControlOptions {
-    name?: string;
+    name?: string | undefined;
 }
 
 class CustomControl extends Control {
     name: string;
-    mapViewport?: HTMLElement;
+    mapViewport?: HTMLElement | undefined;
     private readonly _boundListener: (e: MouseEvent) => void;
     private readonly _eventKeys: EventsKey[];
 
@@ -452,3 +453,30 @@ const arr = Array(10)
     .map((_, i) => i);
 
 stableSort(arr, (a: number, b: number) => (a < b ? 1 : a > b ? -1 : 0));
+
+/**
+ * ==================================================
+ * # ol/format/WFS.WriteTransactionOptions optional nativeElements
+ * ==================================================
+ */
+
+const writeTrxOpts: WriteTransactionOptions = {
+    featureNS: 'namespace',
+    featurePrefix: '',
+    featureType: 'layer',
+};
+
+/**
+ * ==================================================
+ * # Nullable property
+ * ==================================================
+ */
+
+vectorLayer.on('postrender', evt => {
+    // RenderEvent context should be nullable
+    if (evt.context) evt.context.restore();
+});
+
+const xyzOpts: XYZOptions = {
+    crossOrigin: null,
+};

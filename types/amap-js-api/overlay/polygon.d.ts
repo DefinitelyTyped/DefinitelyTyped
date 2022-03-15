@@ -5,15 +5,15 @@ declare namespace AMap {
             /**
              * 多边形轮廓线的节点坐标数组
              */
-            path?: LocationValue[] | LocationValue[][];
+            path?: LocationValue[] | LocationValue[][] | undefined;
             /**
              * 多边形填充颜色
              */
-            fillColor?: string;
+            fillColor?: string | undefined;
             /**
              * 边形填充透明度
              */
-            fillOpacity?: number;
+            fillOpacity?: number | undefined;
         }
 
         interface GetOptionsResult<ExtraData = any> extends ShapeOverlay.GetOptionsResult<ExtraData> {

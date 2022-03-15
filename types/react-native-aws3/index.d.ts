@@ -25,12 +25,12 @@ export interface Options {
      * The Access Control List of this object
      * @default "public-read"
      */
-    acl?: string;
+    acl?: string | undefined;
 
     /**
      * Prefix, or path to the file on S3, i.e. uploads/ (note the trailing slash)
      */
-    keyPrefix?: string;
+    keyPrefix?: string | undefined;
 
     /**
      * Your S3 bucket
@@ -56,19 +56,19 @@ export interface Options {
      * HTTP response status if successful
      * @default 201
      */
-    successActionStatus?: number;
+    successActionStatus?: number | undefined;
 
     /**
      * AWS S3 url
      * @default "s3.amazonaws.com"
      */
-    awsUrl?: string;
+    awsUrl?: string | undefined;
 
     /**
      * Devices time offset from world clock in milliseconds
      * @default 0
      */
-    timeDelta?: number;
+    timeDelta?: number | undefined;
 }
 
 export interface Progress {

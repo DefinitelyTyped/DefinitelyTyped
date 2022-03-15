@@ -16,13 +16,13 @@ declare namespace ParcelBundler {
        *
        * @default "./ssl/c.crt"
        */
-      cert?: string;
+      cert?: string | undefined;
       /**
        * Path to custom key
        *
        * @default "./ssl/k.key"
        */
-      key?: string;
+      key?: string | undefined;
     }
 
     interface ParcelOptions {
@@ -31,59 +31,59 @@ declare namespace ParcelBundler {
          *
          * @default "./dist"
          */
-        outDir?: string;
+        outDir?: string | undefined;
         /**
          * The name of the outputFile
          *
          * @default "index.html"
          */
-        outFile?: string;
+        outFile?: string | undefined;
         /**
          * The url to server on
          *
          * @default "./"
          */
-        publicUrl?: string;
+        publicUrl?: string | undefined;
         /**
          * Whether to watch the files and rebuild them on change
          *
          * @default process.env.NODE_ENV !== 'production'
          */
-        watch?: boolean;
+        watch?: boolean | undefined;
         /**
          * Enabled or disables caching
          *
          * @default true
          */
-        cache?: boolean;
+        cache?: boolean | undefined;
         /**
          * The directory cache gets put in
          *
          * @default ".cache"
          */
-        cacheDir?: string;
+        cacheDir?: string | undefined;
         /**
          * Disable content hash from being included on the filename
          *
          * @default false
          */
-        contentHash?: boolean;
+        contentHash?: boolean | undefined;
         /**
          * Minify files
          *
          * @default process.env.NODE_ENV === 'production'
          */
-        minify?: boolean;
+        minify?: boolean | undefined;
         /**
          * Turn on experimental scope hoisting/tree shaking flag, for smaller production bundles
          *
          * @default false
          */
-        scopeHoist?: boolean;
+        scopeHoist?: boolean | undefined;
         /**
          * @default "browser"
          */
-        target?: "browser" | "node" | "electron";
+        target?: "browser" | "node" | "electron" | undefined;
         /**
          * Define a custom {key, cert} pair
          *
@@ -92,13 +92,13 @@ declare namespace ParcelBundler {
         https?:
             | true
             | false
-            | HttpsOptions;
+            | HttpsOptions | undefined;
         /**
          * 3 = log everything, 2 = log warnings & errors, 1 = log errors
          *
          * @default 3
          */
-        logLevel?: 3 | 2 | 1;
+        logLevel?: 3 | 2 | 1 | undefined;
         /**
          * The port the HMR socket runs on
          *
@@ -106,7 +106,7 @@ declare namespace ParcelBundler {
          *
          * @default 0
          */
-        hmrPort?: 0 | number;
+        hmrPort?: 0 | number | undefined;
         /**
          * Enable or disable sourcemaps
          *
@@ -114,13 +114,13 @@ declare namespace ParcelBundler {
          *
          * @default true
          */
-        sourceMaps?: boolean;
+        sourceMaps?: boolean | undefined;
         /**
          * A hostname for hot module reload
          *
          * @default ""
          */
-        hmrHostname?: string;
+        hmrHostname?: string | undefined;
         /**
          * Prints a detailed report of the bundles, assets, filesizes and times
          *
@@ -128,12 +128,12 @@ declare namespace ParcelBundler {
          *
          * @default false
          */
-        detailedReport?: boolean;
+        detailedReport?: boolean | undefined;
 
         /**
          * Expose modules as UMD under this name, disabled by default
          */
-        global?: string;
+        global?: string | undefined;
 
         /**
          * By default, package.json dependencies are not included when using 'node' or 'electron' with the 'target' option.
@@ -142,21 +142,21 @@ declare namespace ParcelBundler {
          *
          * @default false
          */
-        bundleNodeModules?: true | false;
+        bundleNodeModules?: true | false | undefined;
 
         /**
          * Enable or disable HMR while watching
          *
          * @default false
          */
-        hmr?: true | false;
+        hmr?: true | false | undefined;
 
         /**
          * Enable or disable auto install of missing dependencies found during bundling
          *
          * @default true
          */
-        autoInstall?: boolean;
+        autoInstall?: boolean | undefined;
     }
 
     type ParcelAsset = any;

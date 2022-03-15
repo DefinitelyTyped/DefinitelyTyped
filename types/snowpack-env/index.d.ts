@@ -46,6 +46,6 @@ interface ImportMeta {
         readonly SNOWPACK_PUBLIC_API_URL: string;
         readonly MODE: string;
         readonly NODE_ENV: string;
-        readonly SSR?: boolean;
+        readonly SSR?: boolean | undefined;
     };
 }

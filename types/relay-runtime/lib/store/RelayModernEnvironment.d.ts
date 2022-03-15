@@ -23,19 +23,19 @@ import { Disposable } from '../util/RelayRuntimeTypes';
 import { RelayObservable } from '../network/RelayObservable';
 
 export interface EnvironmentConfig {
-    readonly configName?: string;
-    readonly handlerProvider?: HandlerProvider | null;
-    readonly treatMissingFieldsAsNull?: boolean;
-    readonly log?: LogFunction | null;
-    readonly operationLoader?: OperationLoader | null;
+    readonly configName?: string | undefined;
+    readonly handlerProvider?: HandlerProvider | null | undefined;
+    readonly treatMissingFieldsAsNull?: boolean | undefined;
+    readonly log?: LogFunction | null | undefined;
+    readonly operationLoader?: OperationLoader | null | undefined;
     readonly network: Network;
-    readonly scheduler?: TaskScheduler | null;
+    readonly scheduler?: TaskScheduler | null | undefined;
     readonly store: Store;
-    readonly missingFieldHandlers?: ReadonlyArray<MissingFieldHandler> | null;
-    readonly operationTracker?: OperationTracker | null;
-    readonly options?: unknown;
-    readonly isServer?: boolean;
-    readonly requiredFieldLogger?: RequiredFieldLogger | null;
+    readonly missingFieldHandlers?: ReadonlyArray<MissingFieldHandler> | null | undefined;
+    readonly operationTracker?: OperationTracker | null | undefined;
+    readonly options?: unknown | undefined;
+    readonly isServer?: boolean | undefined;
+    readonly requiredFieldLogger?: RequiredFieldLogger | null | undefined;
 }
 
 export default class RelayModernEnvironment implements Environment {
@@ -60,7 +60,7 @@ export default class RelayModernEnvironment implements Environment {
     isServer(): boolean;
     execute(data: {
         operation: OperationDescriptor;
-        updater?: SelectorStoreUpdater | null;
+        updater?: SelectorStoreUpdater | null | undefined;
     }): RelayObservable<GraphQLResponse>;
     executeMutation({
         operation,
@@ -70,10 +70,10 @@ export default class RelayModernEnvironment implements Environment {
         uploadables,
     }: {
         operation: OperationDescriptor;
-        optimisticUpdater?: SelectorStoreUpdater | null;
-        optimisticResponse?: { [key: string]: any } | null;
-        updater?: SelectorStoreUpdater | null;
-        uploadables?: UploadableMap | null;
+        optimisticUpdater?: SelectorStoreUpdater | null | undefined;
+        optimisticResponse?: { [key: string]: any } | null | undefined;
+        updater?: SelectorStoreUpdater | null | undefined;
+        uploadables?: UploadableMap | null | undefined;
     }): RelayObservable<GraphQLResponse>;
     executeWithSource({
         operation,

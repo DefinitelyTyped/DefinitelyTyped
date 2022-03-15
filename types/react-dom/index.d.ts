@@ -6,8 +6,13 @@
 //                 MartynasZilinskas <https://github.com/MartynasZilinskas>
 //                 Josh Rutherford <https://github.com/theruther4d>
 //                 Jessica Franco <https://github.com/Jessidhia>
+//                 Sebastian Silbermann <https://github.com/eps1lon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
+
+// NOTE: Users of the upcoming React 18 release should add a reference
+// to 'react-dom/next' in their project. See next.d.ts's top comment
+// for reference and documentation on how exactly to do it.
 
 // NOTE: Users of the `experimental` builds of React should add a reference
 // to 'react-dom/experimental' in their project. See experimental.d.ts's top comment
@@ -17,7 +22,7 @@ export as namespace ReactDOM;
 
 import {
     ReactInstance, Component, ComponentState,
-    ReactElement, SFCElement, CElement,
+    ReactElement, FunctionComponentElement, CElement,
     DOMAttributes, DOMElement, ReactNode, ReactPortal
 } from 'react';
 
@@ -53,49 +58,51 @@ export function unstable_renderSubtreeIntoContainer<P>(
     container: Element,
     callback?: (component?: Component<P, ComponentState> | Element) => any): Component<P, ComponentState> | Element | void;
 
+export type Container = Element | Document | DocumentFragment;
+
 export interface Renderer {
     // Deprecated(render): The return value is deprecated.
     // In future releases the render function's return type will be void.
 
     <T extends Element>(
         element: DOMElement<DOMAttributes<T>, T>,
-        container: Element | DocumentFragment | null,
+        container: Container| null,
         callback?: () => void
     ): T;
 
     (
         element: Array<DOMElement<DOMAttributes<any>, any>>,
-        container: Element | DocumentFragment | null,
+        container: Container| null,
         callback?: () => void
     ): Element;
 
     (
-        element: SFCElement<any> | Array<SFCElement<any>>,
-        container: Element | DocumentFragment | null,
+        element: FunctionComponentElement<any> | Array<FunctionComponentElement<any>>,
+        container: Container| null,
         callback?: () => void
     ): void;
 
     <P, T extends Component<P, ComponentState>>(
         element: CElement<P, T>,
-        container: Element | DocumentFragment | null,
+        container: Container| null,
         callback?: () => void
     ): T;
 
     (
         element: Array<CElement<any, Component<any, ComponentState>>>,
-        container: Element | DocumentFragment | null,
+        container: Container| null,
         callback?: () => void
     ): Component<any, ComponentState>;
 
     <P>(
         element: ReactElement<P>,
-        container: Element | DocumentFragment | null,
+        container: Container| null,
         callback?: () => void
     ): Component<P, ComponentState> | Element | void;
 
     (
         element: ReactElement[],
-        container: Element | DocumentFragment | null,
+        container: Container| null,
         callback?: () => void
     ): Component<any, ComponentState> | Element | void;
 }

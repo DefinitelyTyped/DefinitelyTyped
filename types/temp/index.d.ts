@@ -19,9 +19,9 @@ declare namespace temp {
   }
 
   interface AffixOptions {
-    prefix?: string;
-    suffix?: string;
-    dir?: string;
+    prefix?: string | undefined;
+    suffix?: string | undefined;
+    dir?: string | undefined;
   }
 
   let dir: string;

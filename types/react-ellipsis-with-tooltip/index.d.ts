@@ -20,10 +20,10 @@ export interface EllipsisWithTooltipProps {
         | 'bottom-start'
         | 'left-end'
         | 'left'
-        | 'left-start';
-    style?: React.CSSProperties;
-    delayShow?: number;
-    delayHide?: number;
+        | 'left-start' | undefined;
+    style?: React.CSSProperties | undefined;
+    delayShow?: number | undefined;
+    delayHide?: number | undefined;
     children: React.ReactNode;
 }
 

@@ -34,10 +34,10 @@ declare namespace mongodbQueue {
     type ArrayPayload = Array<string | Record<string, unknown>>;
 
     interface QueueOptions {
-        deadQueue?: Queue;
-        delay?: number;
-        maxRetries?: number;
-        visibility?: number;
+        deadQueue?: Queue | undefined;
+        delay?: number | undefined;
+        maxRetries?: number | undefined;
+        visibility?: number | undefined;
     }
 
     interface QueueMessage {

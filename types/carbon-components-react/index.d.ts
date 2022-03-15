@@ -1,4 +1,4 @@
-// Type definitions for carbon-components-react 7.31
+// Type definitions for carbon-components-react 7.49
 // Project: https://github.com/carbon-design-system/carbon/tree/master/packages/react
 // Definitions by: Kyle Albert <https://github.com/kalbert312>
 //                 Sebastien Gregoire <https://github.com/sgregoire>
@@ -7,6 +7,15 @@
 // TypeScript Version: 3.5
 
 export as namespace CarbonReact;
+
+//
+// A note about 'next' components: This types package does not guarantee coverage of next components for
+// carbon v11 mainly due to the complexity of carbon determining which component to use based on React context
+// at runtime. Sometimes next props interfaces will conflict with the 'classic' variant. Additionally, next
+// components may have dependencies on other next components. Because the component variant is determined
+// at runtime, the components would need to be casted to the 'next' variant but for certain components
+// like Button that have multiple overloads this becomes tricky.
+//
 
 // This group is primarily for type exports but will cover non-default exports as well.
 export * from "./lib/components/Accordion";
@@ -21,12 +30,6 @@ export * from "./lib/components/CodeSnippet";
 export * from "./lib/components/ComboBox";
 export * from "./lib/components/ComposedModal";
 export * from "./lib/components/ContentSwitcher";
-export * from "./lib/components/ContextMenu/ContextMenu";
-export * from "./lib/components/ContextMenu/ContextMenuDivider";
-export * from "./lib/components/ContextMenu/ContextMenuGroup";
-export * from "./lib/components/ContextMenu/ContextMenuItem";
-export * from "./lib/components/ContextMenu/ContextMenuRadioGroup";
-export * from "./lib/components/ContextMenu/ContextMenuSelectableItem";
 export * from "./lib/components/ContextMenu/useContextMenu";
 export * from "./lib/components/Copy";
 export * from "./lib/components/CopyButton";
@@ -37,7 +40,9 @@ export * from "./lib/components/DatePicker";
 export * from "./lib/components/DatePickerInput";
 export * from "./lib/components/Dropdown";
 export * from "./lib/components/ErrorBoundary";
+export * from "./lib/components/ExpandableSearch";
 export * from "./lib/components/FileUploader";
+export * from "./lib/components/FilterableMultiSelect";
 export * from "./lib/components/FluidForm/FluidForm"; // context is not exported from index
 export * from "./lib/components/Form";
 export * from "./lib/components/FormGroup";
@@ -51,6 +56,12 @@ export * from "./lib/components/Link";
 export * from "./lib/components/ListBox";
 export * from "./lib/components/ListItem";
 export * from "./lib/components/Loading";
+export * from "./lib/components/Menu/Menu";
+export * from "./lib/components/Menu/MenuDivider";
+export * from "./lib/components/Menu/MenuGroup";
+export * from "./lib/components/Menu/MenuItem";
+export * from "./lib/components/Menu/MenuRadioGroup";
+export * from "./lib/components/Menu/MenuSelectableItem";
 export * from "./lib/components/Modal";
 export * from "./lib/components/ModalWrapper";
 export * from "./lib/components/MultiSelect";
@@ -63,7 +74,9 @@ export * from "./lib/components/Pagination";
 export * from "./lib/components/PaginationNav";
 export * from "./lib/components/Pagination/experimental/Pagination";
 export * from "./lib/components/Pagination/experimental/PageSelector";
+export * from "./lib/components/PasswordInput";
 export * from "./lib/components/PrimaryButton";
+export * from "./lib/components/ProgressBar";
 export * from "./lib/components/ProgressIndicator";
 export * from "./lib/components/RadioButton";
 export * from "./lib/components/RadioButtonGroup";
@@ -115,12 +128,6 @@ export { default as ComposedModal } from "./lib/components/ComposedModal";
 export { ModalHeader, ModalBody, ModalFooter } from "./lib/components/ComposedModal";
 export { default as ContentSwitcher } from "./lib/components/ContentSwitcher";
 export {
-    default as unstable_ContextMenu,
-    ContextMenuDivider as unstable_ContextMenuDivider,
-    ContextMenuGroup as unstable_ContextMenuGroup,
-    ContextMenuItem as unstable_ContextMenuItem,
-    ContextMenuRadioGroup as unstable_ContextMenuRadioGroup,
-    ContextMenuSelectableItem as unstable_ContextMenuSelectableItem,
     useContextMenu as unstable_useContextMenu,
 } from "./lib/components/ContextMenu";
 export { default as Copy } from "./lib/components/Copy";
@@ -153,6 +160,12 @@ export { default as DatePicker } from "./lib/components/DatePicker";
 export { default as DatePickerInput } from "./lib/components/DatePickerInput";
 export { default as Dropdown } from "./lib/components/Dropdown";
 export { ErrorBoundary, ErrorBoundaryContext } from "./lib/components/ErrorBoundary";
+export { default as ExpandableSearch } from "./lib/components/ExpandableSearch";
+export {
+    FeatureFlags as unstable_FeatureFlags,
+    useFeatureFlag as unstable_useFeatureFlag,
+    useFeatureFlags as unstable_useFeatureFlags
+} from "./lib/components/FeatureFlags";
 export {
     default as FileUploader,
     Filename,
@@ -160,6 +173,7 @@ export {
     FileUploaderDropContainer,
     FileUploaderItem,
 } from "./lib/components/FileUploader";
+export { default as FilterableMultiSelect } from "./lib/components/FilterableMultiSelect";
 export { default as FluidForm } from "./lib/components/FluidForm";
 export { default as Form } from "./lib/components/Form";
 export { default as FormGroup } from "./lib/components/FormGroup";
@@ -179,6 +193,14 @@ export { default as InlineLoading } from "./lib/components/InlineLoading";
 export { default as Link } from "./lib/components/Link";
 export { default as ListItem } from "./lib/components/ListItem";
 export { default as Loading } from "./lib/components/Loading";
+export {
+    default as unstable_Menu,
+    MenuDivider as unstable_MenuDivider,
+    MenuGroup as unstable_MenuGroup,
+    MenuItem as unstable_MenuItem,
+    MenuRadioGroup as unstable_MenuRadioGroup,
+    MenuSelectableItem as unstable_MenuSelectableItem,
+} from "./lib/components/Menu";
 export { default as Modal } from "./lib/components/Modal";
 export { default as ModalWrapper } from "./lib/components/ModalWrapper";
 export { default as MultiSelect } from "./lib/components/MultiSelect";
@@ -199,6 +221,7 @@ export { default as PaginationNav } from "./lib/components/PaginationNav";
 export { PageSelector as unstable_PageSelector } from "./lib/components/Pagination/experimental";
 export { Pagination as unstable_Pagination } from "./lib/components/Pagination/experimental";
 export { default as PrimaryButton } from "./lib/components/PrimaryButton";
+export { default as unstable_ProgressBar } from "./lib/components/ProgressBar";
 export { ProgressIndicator, ProgressStep } from "./lib/components/ProgressIndicator";
 export { default as RadioButton } from "./lib/components/RadioButton";
 export { default as RadioButtonGroup } from "./lib/components/RadioButtonGroup";
@@ -264,7 +287,6 @@ export { default as RadioButtonSkeleton } from "./lib/components/RadioButton/Rad
 export { default as SearchSkeleton } from "./lib/components/Search/Search.Skeleton";
 export { default as SelectSkeleton } from "./lib/components/Select/Select.Skeleton";
 export { default as SliderSkeleton } from "./lib/components/Slider/Slider.Skeleton";
-export { default as StructuredListSkeleton } from "./lib/components/StructuredList/StructuredList.Skeleton";
 export { default as TabsSkeleton } from "./lib/components/Tabs/Tabs.Skeleton";
 export { default as TagSkeleton } from "./lib/components/Tag/Tag.Skeleton";
 export { default as TextAreaSkeleton } from "./lib/components/TextArea/TextArea.Skeleton";

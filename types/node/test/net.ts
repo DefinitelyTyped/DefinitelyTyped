@@ -1,12 +1,15 @@
 import * as net from 'node:net';
 import { LookupOneOptions } from 'node:dns';
+import { Socket } from 'node:dgram';
 
 {
+    const abort = new AbortController();
     const connectOpts: net.NetConnectOpts = {
         allowHalfOpen: true,
         family: 4,
         host: "localhost",
         port: 443,
+        signal: abort.signal,
         timeout: 10E3
     };
     const socket: net.Socket = net.createConnection(connectOpts, (): void => {
@@ -24,6 +27,7 @@ import { LookupOneOptions } from 'node:dns';
 
     server.listen({
         ipv6Only: true,
+        signal: new AbortSignal(),
     });
 
     // close callback parameter can be either nothing (undefined) or an error
@@ -114,6 +118,7 @@ import { LookupOneOptions } from 'node:dns';
 
         str = host;
     });
+    _socket = _socket.addListener("ready", () => { });
     _socket = _socket.addListener("timeout", () => { });
 
     /// emit
@@ -125,6 +130,7 @@ import { LookupOneOptions } from 'node:dns';
     bool = _socket.emit("error", error);
     bool = _socket.emit("lookup", error, str, str, str);
     bool = _socket.emit("lookup", error, str, num, str);
+    bool = _socket.emit("ready");
     bool = _socket.emit("timeout");
 
     /// on
@@ -151,6 +157,7 @@ import { LookupOneOptions } from 'node:dns';
 
         str = host;
     });
+    _socket = _socket.on("ready", () => { });
     _socket = _socket.on("timeout", () => { });
 
     /// once
@@ -177,6 +184,7 @@ import { LookupOneOptions } from 'node:dns';
 
         str = host;
     });
+    _socket = _socket.once("ready", () => { });
     _socket = _socket.once("timeout", () => { });
 
     /// prependListener
@@ -203,6 +211,7 @@ import { LookupOneOptions } from 'node:dns';
 
         str = host;
     });
+    _socket = _socket.prependListener("ready", () => { });
     _socket = _socket.prependListener("timeout", () => { });
 
     /// prependOnceListener
@@ -229,11 +238,12 @@ import { LookupOneOptions } from 'node:dns';
 
         str = host;
     });
+    _socket = _socket.prependOnceListener("ready", () => { });
     _socket = _socket.prependOnceListener("timeout", () => { });
 
     bool = _socket.connecting;
     bool = _socket.destroyed;
-    _socket.destroy();
+    _socket.destroy().destroy();
 }
 
 {
@@ -295,4 +305,26 @@ import { LookupOneOptions } from 'node:dns';
         error = err;
     });
     _server = _server.prependOnceListener("listening", () => { });
+}
+
+{
+    const sockAddr: net.SocketAddress = new net.SocketAddress({
+        address: '123.123.123.123',
+        family: 'ipv4',
+        flowlabel: 0,
+        port: 123,
+    });
+    sockAddr.address; // $ExpectType string
+    sockAddr.family; // $ExpectType IPVersion
+    sockAddr.flowlabel; // $ExpectType number
+    sockAddr.port; // $ExpectType number
+
+    const bl = new net.BlockList();
+    bl.addAddress('127.0.0.1', 'ipv4');
+    bl.addAddress(sockAddr);
+    bl.addRange('127.0.0.1', '127.0.0.255', 'ipv4');
+    bl.addRange(sockAddr, sockAddr);
+    bl.addSubnet('127.0.0.1', 26, 'ipv4');
+    bl.addSubnet(sockAddr, 12);
+    const res: boolean = bl.check('127.0.0.1', 'ipv4') || bl.check(sockAddr);
 }

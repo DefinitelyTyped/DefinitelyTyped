@@ -179,10 +179,10 @@ interface Sod {
     url: string;
     key: string;
     loaded: boolean;
-    depkeys?: string[];
+    depkeys?: string[] | undefined;
     state: Sods;
-    qfn?: any[];
-    reset?: boolean;
+    qfn?: any[] | undefined;
+    reset?: boolean | undefined;
 }
 
 declare var _v_dictSod: { [address: string]: Sod };
@@ -591,29 +591,29 @@ declare namespace SP {
 
     interface RequestInfo {
         url: string;
-        method?: string;
-        headers?: { [key: string]: string; };
+        method?: string | undefined;
+        headers?: { [key: string]: string; } | undefined;
         /** Can be string or bytearray depending on binaryStringRequestBody field */
-        body?: string | Uint8Array;
-        binaryStringRequestBody?: boolean;
+        body?: string | Uint8Array | undefined;
+        binaryStringRequestBody?: boolean | undefined;
 
         /** Currently need fix to get ginary response. Details: http:// techmikael.blogspot.ru/2013/07/how-to-copy-files-between-sites-using.html */
-        binaryStringResponseBody?: boolean;
-        timeout?: number;
+        binaryStringResponseBody?: boolean | undefined;
+        timeout?: number | undefined;
         success?(response: ResponseInfo): void;
         error?(response: ResponseInfo, error: RequestExecutorErrors, statusText: string): void;
         state?: any;
     }
 
     interface ResponseInfo {
-        statusCode?: number;
-        statusText?: string;
+        statusCode?: number | undefined;
+        statusText?: string | undefined;
         responseAvailable: boolean;
-        allResponseHeaders?: string;
-        headers?: { [key: string]: string; };
-        contentType?: string;
+        allResponseHeaders?: string | undefined;
+        headers?: { [key: string]: string; } | undefined;
+        contentType?: string | undefined;
         /** Can be string or bytearray depending on request.binaryStringResponseBody field */
-        body?: string | Uint8Array;
+        body?: string | Uint8Array | undefined;
         state?: any;
     }
 
@@ -1200,7 +1200,7 @@ declare namespace SPClientTemplates {
         FormUniqueId: string;
         ListData: ListData_InForm;
         ListSchema: ListSchema_InForm;
-        CSRCustomLayout?: boolean;
+        CSRCustomLayout?: boolean | undefined;
     }
 
     interface FieldSchema_InView_LookupField extends FieldSchema_InView {
@@ -1454,15 +1454,15 @@ declare namespace SPClientTemplates {
     type RenderCallback = (ctx: RenderContext) => void;
 
     interface RenderContext {
-        BaseViewID?: number;
-        ControlMode?: ClientControlMode;
-        CurrentCultureName?: string;
-        CurrentLanguage?: number;
+        BaseViewID?: number | undefined;
+        ControlMode?: ClientControlMode | undefined;
+        CurrentCultureName?: string | undefined;
+        CurrentLanguage?: number | undefined;
         CurrentSelectedItems?: any;
-        CurrentUICultureName?: string;
-        ListTemplateType?: number;
-        OnPostRender?: RenderCallback | RenderCallback[];
-        OnPreRender?: RenderCallback | RenderCallback[];
+        CurrentUICultureName?: string | undefined;
+        ListTemplateType?: number | undefined;
+        OnPostRender?: RenderCallback | RenderCallback[] | undefined;
+        OnPreRender?: RenderCallback | RenderCallback[] | undefined;
         onRefreshFailed?: any;
         RenderBody?(renderContext: RenderContext): string;
         RenderFieldByName?(renderContext: RenderContext, fieldName: string): string;
@@ -1472,8 +1472,8 @@ declare namespace SPClientTemplates {
         RenderHeader?(renderContext: RenderContext): string;
         RenderItems?(renderContext: RenderContext): string;
         RenderView?(renderContext: RenderContext): string;
-        SiteClientTag?: string;
-        Templates?: Templates;
+        SiteClientTag?: string | undefined;
+        Templates?: Templates | undefined;
     }
 
     /** Must return null in order to fall back to a more common template or to a system default template */
@@ -1496,13 +1496,13 @@ declare namespace SPClientTemplates {
 
     interface FieldTemplateOverrides {
         /** Defines templates for rendering the field on a display form. */
-        DisplayForm?: FieldInFormCallback;
+        DisplayForm?: FieldInFormCallback | undefined;
         /** Defines templates for rendering the field on an edit form. */
-        EditForm?: FieldInFormCallback;
+        EditForm?: FieldInFormCallback | undefined;
         /** Defines templates for rendering the field on a new form. */
-        NewForm?: FieldInFormCallback;
+        NewForm?: FieldInFormCallback | undefined;
         /** Defines templates for rendering the field on a list view. */
-        View?: FieldInViewCallback;
+        View?: FieldInViewCallback | undefined;
     }
 
     interface FieldTemplates {
@@ -1510,20 +1510,20 @@ declare namespace SPClientTemplates {
     }
 
     interface Templates {
-        View?: RenderCallback | string; // TODO: determine appropriate context type and purpose of this template
-        Body?: RenderCallback | string; // TODO: determine appropriate context type and purpose of this template
+        View?: RenderCallback | string | undefined; // TODO: determine appropriate context type and purpose of this template
+        Body?: RenderCallback | string | undefined; // TODO: determine appropriate context type and purpose of this template
         /** Defines templates for rendering groups (aggregations). */
-        Group?: GroupCallback | string;
+        Group?: GroupCallback | string | undefined;
         /** Defines templates for list items rendering. */
-        Item?: ItemCallback | string;
+        Item?: ItemCallback | string | undefined;
         /** Defines template for rendering list view header.
             Can be either string or SingleTemplateCallback */
-        Header?: SingleTemplateCallback | string;
+        Header?: SingleTemplateCallback | string | undefined;
         /** Defines template for rendering list view footer.
             Can be either string or SingleTemplateCallback */
-        Footer?: SingleTemplateCallback | string;
+        Footer?: SingleTemplateCallback | string | undefined;
         /** Defines templates for fields rendering. The field is specified by it's internal name. */
-        Fields?: FieldTemplates;
+        Fields?: FieldTemplates | undefined;
     }
 
     interface FieldTemplateMap {
@@ -1531,40 +1531,40 @@ declare namespace SPClientTemplates {
     }
 
     interface TemplateOverrides {
-        View?: RenderCallback | string; // TODO: determine appropriate context type and purpose of this template
-        Body?: RenderCallback | string; // TODO: determine appropriate context type and purpose of this template
+        View?: RenderCallback | string | undefined; // TODO: determine appropriate context type and purpose of this template
+        Body?: RenderCallback | string | undefined; // TODO: determine appropriate context type and purpose of this template
         /** Defines templates for rendering groups (aggregations). */
-        Group?: GroupCallback | string;
+        Group?: GroupCallback | string | undefined;
         /** Defines templates for list items rendering. */
-        Item?: ItemCallback | string;
+        Item?: ItemCallback | string | undefined;
         /** Defines template for rendering list view header.
             Can be either string or SingleTemplateCallback */
-        Header?: SingleTemplateCallback | string;
+        Header?: SingleTemplateCallback | string | undefined;
         /** Defines template for rendering list view footer.
             Can be either string or SingleTemplateCallback */
-        Footer?: SingleTemplateCallback | string;
+        Footer?: SingleTemplateCallback | string | undefined;
         /** Defines templates for fields rendering. The field is specified by it's internal name. */
-        Fields?: FieldTemplateMap;
+        Fields?: FieldTemplateMap | undefined;
     }
     interface TemplateOverridesOptions {
         /** Template overrides */
-        Templates?: TemplateOverrides;
+        Templates?: TemplateOverrides | undefined;
 
         /** Callbacks called before rendering starts. Can be function (ctx: RenderContext) => void or array of functions.*/
-        OnPreRender?: RenderCallback | RenderCallback[];
+        OnPreRender?: RenderCallback | RenderCallback[] | undefined;
 
         /** Callbacks called after rendered html inserted into DOM. Can be function (ctx: RenderContext) => void or array of functions.*/
-        OnPostRender?: RenderCallback | RenderCallback[];
+        OnPostRender?: RenderCallback | RenderCallback[] | undefined;
 
         /** View style (SPView.StyleID) for which the templates should be applied.
             If not defined, the templates will be applied only to default view style. */
-        ViewStyle?: number;
+        ViewStyle?: number | undefined;
         /** List template type (SPList.BaseTemplate) for which the template should be applied.
             If not defined, the templates will be applied to all lists. */
-        ListTemplateType?: number;
+        ListTemplateType?: number | undefined;
         /** Base view ID (SPView.BaseViewID) for which the template should be applied.
             If not defined, the templates will be applied to all views. */
-        BaseViewID?: number | string;
+        BaseViewID?: number | string | undefined;
     }
     class TemplateManager {
         static RegisterTemplateOverrides(renderCtx: TemplateOverridesOptions): void;
@@ -7347,33 +7347,33 @@ declare namespace SP {
         /** Options for dialog creation */
         interface IDialogOptions {
             /** Text displayed in the title bar of the dialog box. If not defined, it will default to the title of the page defined by url property. */
-            title?: string;
+            title?: string | undefined;
             /** X coordinate of the dialog box. */
-            x?: number;
+            x?: number | undefined;
             /** Y coordinate of the dialog box. */
-            y?: number;
+            y?: number | undefined;
             /** The dialog will be maximized when shown. */
-            showMaximized?: boolean;
+            showMaximized?: boolean | undefined;
             /** url of the page which is shown in the modal dialog. You should use either html or url attribute, but not both. */
-            url?: string;
+            url?: string | undefined;
             /** specifies if close button should be shown on the dialog */
-            showClose?: boolean;
+            showClose?: boolean | undefined;
             /** specifies if maximize button should be shown on the dialog */
-            allowMaximize?: boolean;
+            allowMaximize?: boolean | undefined;
             /** callback that is called after dialog is closed */
-            dialogReturnValueCallback?: DialogReturnValueCallback;
+            dialogReturnValueCallback?: DialogReturnValueCallback | undefined;
             /** automatically determine size of the dialog based on its contents. */
-            autoSize?: boolean;
+            autoSize?: boolean | undefined;
             /** minimum width of the dialog when using autoSize option */
-            autoSizeStartWidth?: number;
+            autoSizeStartWidth?: number | undefined;
             /** include padding for adding a scrollbar */
-            includeScrollBarPadding?: boolean;
+            includeScrollBarPadding?: boolean | undefined;
             /** width of the dialog. if not specified, will be determined automatically based on the contents of the dialog */
-            width?: number;
+            width?: number | undefined;
             /** height of the dialog. if not specified, will be determined automatically based on the contents of the dialog */
-            height?: number;
+            height?: number | undefined;
             /** html element which will be used as contents of the dialog. You should use either html or url attribute, but not both. */
-            html?: HTMLElement;
+            html?: HTMLElement | undefined;
             /** custom arguments to be passed to the dialog */
             args?: any;
         }
@@ -7575,24 +7575,24 @@ declare namespace SP {
     namespace UI {
         namespace Controls {
             interface INavigationOptions {
-                assetId?: string;
-                siteTitle?: string;
-                siteUrl?: string;
-                appTitle?: string;
-                appTitleIconUrl?: string;
-                rightToLeft?: boolean;
-                appStartPage?: string;
-                appIconUrl?: string;
-                appHelpPageUrl?: string;
-                appHelpPageOnClick?: string;
-                settingsLinks?: ISettingsLink[];
-                language?: string;
-                clientTag?: string;
-                appWebUrl?: string;
-                onCssLoaded?: string;
+                assetId?: string | undefined;
+                siteTitle?: string | undefined;
+                siteUrl?: string | undefined;
+                appTitle?: string | undefined;
+                appTitleIconUrl?: string | undefined;
+                rightToLeft?: boolean | undefined;
+                appStartPage?: string | undefined;
+                appIconUrl?: string | undefined;
+                appHelpPageUrl?: string | undefined;
+                appHelpPageOnClick?: string | undefined;
+                settingsLinks?: ISettingsLink[] | undefined;
+                language?: string | undefined;
+                clientTag?: string | undefined;
+                appWebUrl?: string | undefined;
+                onCssLoaded?: string | undefined;
 
-                bottomHeaderVisible?: boolean;
-                topHeaderVisible?: boolean;
+                bottomHeaderVisible?: boolean | undefined;
+                topHeaderVisible?: boolean | undefined;
             }
 
             class NavigationOptions implements INavigationOptions { }
@@ -9456,10 +9456,10 @@ declare class SPClientAutoFill {
 
 interface ISPClientAutoFillData {
     AutoFillKey?: any;
-    AutoFillDisplayText?: string;
-    AutoFillSubDisplayText?: string;
-    AutoFillTitleText?: string;
-    AutoFillMenuOptionType?: number;
+    AutoFillDisplayText?: string | undefined;
+    AutoFillSubDisplayText?: string | undefined;
+    AutoFillTitleText?: string | undefined;
+    AutoFillMenuOptionType?: number | undefined;
 }
 
 declare class SPClientPeoplePicker {
@@ -9589,41 +9589,41 @@ declare class SPClientPeoplePicker {
 }
 
 interface ISPClientPeoplePickerSchema {
-    TopLevelElementId?: string;
-    EditorElementId?: string;
-    AutoFillElementId?: string;
-    ResolvedListElementId?: string;
-    InitialHelpTextElementId?: string;
-    WaitImageId?: string;
-    HiddenInputId?: string;
+    TopLevelElementId?: string | undefined;
+    EditorElementId?: string | undefined;
+    AutoFillElementId?: string | undefined;
+    ResolvedListElementId?: string | undefined;
+    InitialHelpTextElementId?: string | undefined;
+    WaitImageId?: string | undefined;
+    HiddenInputId?: string | undefined;
 
-    AllowMultipleValues?: boolean;
-    Required?: boolean;
-    AutoFillEnabled?: boolean;
-    ForceClaims?: boolean;
-    AllowEmailAddresses?: boolean;
-    AllUrlZones?: boolean;
-    UseLocalSuggestionCache?: boolean;
-    UserNoQueryPermission?: boolean;
+    AllowMultipleValues?: boolean | undefined;
+    Required?: boolean | undefined;
+    AutoFillEnabled?: boolean | undefined;
+    ForceClaims?: boolean | undefined;
+    AllowEmailAddresses?: boolean | undefined;
+    AllUrlZones?: boolean | undefined;
+    UseLocalSuggestionCache?: boolean | undefined;
+    UserNoQueryPermission?: boolean | undefined;
 
-    VisibleSuggestions?: number;
-    MaximumEntitySuggestions?: number;
+    VisibleSuggestions?: number | undefined;
+    MaximumEntitySuggestions?: number | undefined;
 
-    ErrorMessage?: string;
-    InitialHelpText?: string;
+    ErrorMessage?: string | undefined;
+    InitialHelpText?: string | undefined;
 
-    InitialSuggestions?: ISPClientPeoplePickerEntity[];
+    InitialSuggestions?: ISPClientPeoplePickerEntity[] | undefined;
 
-    UrlZone?: SP.UrlZone;
-    WebApplicationID?: SP.Guid;
-    SharePointGroupID?: number;
+    UrlZone?: SP.UrlZone | undefined;
+    WebApplicationID?: SP.Guid | undefined;
+    SharePointGroupID?: number | undefined;
 
     /** Specify User, DL, SecGroup or SPGroup*/
-    PrincipalAccountType?: string;
+    PrincipalAccountType?: string | undefined;
 
-    EnabledClaimProvider?: string;
-    ResolvePrincipalSource?: SP.Utilities.PrincipalSource;
-    SearchPrincipalSource?: SP.Utilities.PrincipalSource;
+    EnabledClaimProvider?: string | undefined;
+    ResolvePrincipalSource?: SP.Utilities.PrincipalSource | undefined;
+    SearchPrincipalSource?: SP.Utilities.PrincipalSource | undefined;
 
     OnUserResolvedClientScript?(pickerElementId: string, users: ISPClientPeoplePickerEntity[]): void;
     OnValueChangedClientScript?(pickerElementId: string, users: ISPClientPeoplePickerEntity[]): void;
@@ -9631,7 +9631,7 @@ interface ISPClientPeoplePickerSchema {
     /** Number or '100%'*/
     Width?: any;
 
-    Rows?: number;
+    Rows?: number | undefined;
 }
 
 declare class SPClientPeoplePickerMRU {
@@ -9646,21 +9646,21 @@ declare class SPClientPeoplePickerMRU {
 }
 
 interface ISPClientPeoplePickerEntity {
-    Key?: string;
-    Description?: string;
-    DisplayText?: string;
-    EntityType?: string;
-    ProviderDisplayName?: string;
-    ProviderName?: string;
-    IsResolved?: boolean;
+    Key?: string | undefined;
+    Description?: string | undefined;
+    DisplayText?: string | undefined;
+    EntityType?: string | undefined;
+    ProviderDisplayName?: string | undefined;
+    ProviderName?: string | undefined;
+    IsResolved?: boolean | undefined;
     EntityData?: {
         Title: string;
         MobilePhone: string;
         Department: string;
         Email: string;
-    };
+    } | undefined;
     MultipleMatches: ISPClientPeoplePickerEntity[];
-    DomainText?: string;
+    DomainText?: string | undefined;
     [key: string]: any;
 }
 
@@ -9984,7 +9984,7 @@ declare namespace SP {
 
         interface IValue {
             data?: any;
-            localized?: string;
+            localized?: string | undefined;
         }
         enum SelectionTypeFlags {
             MultipleCellRanges,
@@ -11082,8 +11082,8 @@ declare namespace SP {
         }
 
         interface IEditControl {
-            SupportedWriteMode?: SP.JsGrid.EditActorWriteType;
-            SupportedReadMode?: SP.JsGrid.EditActorReadType;
+            SupportedWriteMode?: SP.JsGrid.EditActorWriteType | undefined;
+            SupportedReadMode?: SP.JsGrid.EditActorReadType | undefined;
             GetCellContext?(): IEditControlCellContext;
             GetOriginalValue?(): IValue;
             SetValue?(value: IValue): void;
@@ -11117,24 +11117,24 @@ declare namespace SP {
             UnlocalizedTable: any[];
             ViewInfo: any[];
 
-            MultiValueSeparator?: string;
-            LookupTableInfo?: ILookupTableInfo[];
-            PivotedColumns?: ColumnInfo[];
-            PaneLayout?: PaneLayout;
+            MultiValueSeparator?: string | undefined;
+            LookupTableInfo?: ILookupTableInfo[] | undefined;
+            PivotedColumns?: ColumnInfo[] | undefined;
+            PaneLayout?: PaneLayout | undefined;
             GanttInfo?: any;
-            AutoFilterableColumns?: boolean;
+            AutoFilterableColumns?: boolean | undefined;
             AutoFilterState?: any;
-            SortState?: any[];
+            SortState?: any[] | undefined;
             HierarchyState?: any;
-            TopRecord?: number;
-            RecordCount?: number;
+            TopRecord?: number | undefined;
+            RecordCount?: number | undefined;
             AdditionalParams?: any;
             CellStyles?: any;
-            GroupingGridRowStyleIds?: any[];
+            GroupingGridRowStyleIds?: any[] | undefined;
             UnfilteredHierarchy?: any;
             AutoFilterEntries?: any;
 
-            ViewDepKeys?: any[];
+            ViewDepKeys?: any[] | undefined;
         }
 
         interface IColumnInfo {
@@ -11143,7 +11143,7 @@ declare namespace SP {
             /** Column image URL.
                 If not null, the column header cell will show the image instead of title text.
                 If the title is defined at the same time as the imgSrc, the title will be shown as a tooltip. */
-            imgSrc?: string;
+            imgSrc?: string | undefined;
             /** Column identifier */
             columnKey: string;
             /** Column identifier */
@@ -11153,48 +11153,48 @@ declare namespace SP {
             /** Width of the column */
             width: number;
             /** true by default */
-            isVisible?: boolean;
+            isVisible?: boolean | undefined;
             /** true by default */
-            isHidable?: boolean;
+            isHidable?: boolean | undefined;
             /** true by default */
-            isResizable?: boolean;
+            isResizable?: boolean | undefined;
             /** true by default */
-            isSortable?: boolean;
+            isSortable?: boolean | undefined;
             /** true by default */
-            isAutoFilterable?: boolean;
+            isAutoFilterable?: boolean | undefined;
             /** false by default */
-            isFooter?: boolean;
+            isFooter?: boolean | undefined;
         }
 
         interface IGridMetadata {
             KeyColumnName: string;
-            IsGanttEnabled?: boolean;
-            IsHierarchyEnabled?: boolean;
-            IsSorted?: boolean;
-            GroupingLevel?: number;
-            GroupingPrefix?: string;
-            RecordKeyHash?: string;
+            IsGanttEnabled?: boolean | undefined;
+            IsHierarchyEnabled?: boolean | undefined;
+            IsSorted?: boolean | undefined;
+            GroupingLevel?: number | undefined;
+            GroupingPrefix?: string | undefined;
+            RecordKeyHash?: string | undefined;
             RecordKeyOrderChanged?: any;
-            GridOperationalConstantsFieldKeyMap?: { [index: number]: string };
+            GridOperationalConstantsFieldKeyMap?: { [index: number]: string } | undefined;
         }
 
         interface IFieldInfo {
             fieldKey: string;
             propertyTypeId: string;
-            editMode?: EditMode;
-            hasDataValue?: boolean;
-            hasLocalizedValue?: boolean;
-            multiValue?: boolean;
-            textDirection?: TextDirection;
-            dateOnly?: boolean;
+            editMode?: EditMode | undefined;
+            hasDataValue?: boolean | undefined;
+            hasLocalizedValue?: boolean | undefined;
+            multiValue?: boolean | undefined;
+            textDirection?: TextDirection | undefined;
+            dateOnly?: boolean | undefined;
             defaultCellStyleId?: any;
         }
 
         interface ILookupTableInfo {
             id: string;
-            showImage?: boolean;
-            showText?: boolean;
-            limitToList?: boolean;
+            showImage?: boolean | undefined;
+            showText?: boolean | undefined;
+            limitToList?: boolean | undefined;
             lookup: ILookupInfo[];
         }
 

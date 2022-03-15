@@ -22,6 +22,7 @@ const index = elasticlunr<TestDocument>(ctx => {
     ctx.setRef('id');
     ctx.saveDocument(true);
 });
+index.index['field']!.toJSON();
 
 const testDoc: TestDocument = { id: '1', field: 'ok' };
 

@@ -15,7 +15,7 @@ interface IOptions {
      * Uses md5 instead of storing the whole file contents.
      * @default false
      */
-    optimizeMemory?: boolean;
+    optimizeMemory?: boolean | undefined;
 }
 
 interface IGulpCached {

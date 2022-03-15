@@ -8,9 +8,10 @@
 export = AnalyticsNode.Analytics;
 
 declare namespace AnalyticsNode {
-  type Identity =
-    | { userId: string | number }
-    | { userId?: string | number; anonymousId: string | number };
+  interface Identity {
+    userId?: string | number;
+    anonymousId?: string | number;
+  }
 
   type Message = Identity & {
     type: string;
@@ -25,8 +26,8 @@ declare namespace AnalyticsNode {
       nodeVersion: string;
       [key: string]: any;
     };
-    timestamp?: Date;
-    messageId?: string;
+    timestamp?: Date | undefined;
+    messageId?: string | undefined;
   };
 
   interface Data {
@@ -43,46 +44,57 @@ declare namespace AnalyticsNode {
 
   class Analytics {
     constructor(writeKey: string, opts?: {
-      flushAt?: number,
-      flushInterval?: number,
-      host?: string,
-      enable?: boolean,
-      timeout?: number | string,
+      flushAt?: number | undefined,
+      flushInterval?: number | undefined,
+      host?: string | undefined,
+      enable?: boolean | undefined,
+      timeout?: number | string | undefined,
     });
 
     /* The identify method lets you tie a user to their actions and record
        traits about them. */
     identify(message: Identity & {
       traits?: any;
-      timestamp?: Date;
+      timestamp?: Date | undefined;
       context?: any;
-      integrations?: Integrations;
+      integrations?: Integrations | undefined;
     }, callback?: (err: Error) => void): Analytics;
 
     /* The track method lets you record the actions your users perform. */
     track(message: Identity & {
       event: string;
       properties?: any;
-      timestamp?: Date;
+      timestamp?: Date | undefined;
       context?: any;
-      integrations?: Integrations;
+      integrations?: Integrations | undefined;
     }, callback?: (err: Error) => void): Analytics;
 
     /* The page method lets you record page views on your website, along with
        optional extra information about the page being viewed. */
     page(message: Identity & {
-      category?: string;
-      name?: string;
+      category?: string | undefined;
+      name?: string | undefined;
       properties?: any;
-      timestamp?: Date;
+      timestamp?: Date | undefined;
       context?: any;
-      integrations?: Integrations;
+      integrations?: Integrations | undefined;
+    }, callback?: (err: Error) => void): Analytics;
+
+    /* The screen method lets you record whenever a user sees a screen,
+       the mobile equivalent of page, in your mobile app, along with
+       any properties about the screen. */
+    screen(message: Identity & {
+      name?: string | undefined;
+      properties?: any;
+      timestamp?: Date | undefined;
+      context?: any;
+      integrations?: Integrations | undefined;
     }, callback?: (err: Error) => void): Analytics;
 
     /* alias is how you associate one identity with another. */
     alias(message: Identity & {
       previousId: string | number;
-      integrations?: Integrations;
+      integrations?: Integrations | undefined;
     }, callback?: (err: Error) => void): Analytics;
 
     /* Group calls can be used to associate individual users with shared
@@ -91,8 +103,8 @@ declare namespace AnalyticsNode {
       groupId: string | number;
       traits?: any;
       context?: any;
-      timestamp?: Date;
-      integrations?: Integrations;
+      timestamp?: Date | undefined;
+      integrations?: Integrations | undefined;
     }, callback?: (err: Error) => void): Analytics;
 
     /* Flush batched calls to make sure nothing is left in the queue */

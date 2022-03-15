@@ -14,6 +14,7 @@ const credentialsFunc = (): Hawk.server.Credentials => {
 
 Http.createServer(async (req, res) => {
     const { credentials, artifacts } = await Hawk.server.authenticate(req, credentialsFunc);
+    await Hawk.server.authenticateBewit(req, credentialsFunc);
     const payload = `Hello ${credentials.user} ${artifacts.ext}`;
     const status = 200;
 

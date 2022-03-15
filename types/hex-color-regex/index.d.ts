@@ -11,7 +11,7 @@ declare function hexColorRegex(opts?: hexColorRegex.Options): RegExp;
 
 declare namespace hexColorRegex {
     interface Options {
-        strict?: boolean;
+        strict?: boolean | undefined;
     }
 }
 

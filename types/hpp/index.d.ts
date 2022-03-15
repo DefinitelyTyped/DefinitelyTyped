@@ -8,10 +8,10 @@ import * as express from 'express';
 
 declare namespace hpp {
     interface Options {
-        checkBody?: boolean;
-        checkBodyOnlyForContentType?: string;
-        checkQuery?: boolean;
-        whitelist?: string | string[];
+        checkBody?: boolean | undefined;
+        checkBodyOnlyForContentType?: string | undefined;
+        checkQuery?: boolean | undefined;
+        whitelist?: string | string[] | undefined;
     }
 }
 

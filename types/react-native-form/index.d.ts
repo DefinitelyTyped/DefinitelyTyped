@@ -14,7 +14,7 @@ export interface FormProps extends ViewProps {
             controlled: boolean;
             valueProp: string;
         }
-    };
+    } | undefined;
     ref: string;
 }
 

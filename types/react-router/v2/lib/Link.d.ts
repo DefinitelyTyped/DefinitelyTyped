@@ -8,9 +8,9 @@ export default Link;
 
 declare namespace Link {
     interface LinkProps extends React.LinkHTMLAttributes<Link> {
-        activeStyle?: React.CSSProperties;
-        activeClassName?: string;
-        onlyActiveOnIndex?: boolean;
+        activeStyle?: React.CSSProperties | undefined;
+        activeClassName?: string | undefined;
+        onlyActiveOnIndex?: boolean | undefined;
         to: Router.RoutePattern | Router.LocationDescriptor | ((...args: any[]) => Router.LocationDescriptor);
     }
 

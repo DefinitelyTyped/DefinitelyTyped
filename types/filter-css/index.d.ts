@@ -27,30 +27,30 @@ declare namespace api {
          * Whether to match CSS selectors.
          * @default true
          */
-        matchSelectors?: boolean;
+        matchSelectors?: boolean | undefined;
 
         /**
          * Whether to match [AST Node types]{@link https://github.com/reworkcss/css#types} like `font-face`.
          * @default true
          */
-        matchTypes?: boolean;
+        matchTypes?: boolean | undefined;
 
         /**
          * Whether to match CSS properties like `background-image`.
          * @default true
          */
-        matchDeclarationProperties?: boolean;
+        matchDeclarationProperties?: boolean | undefined;
 
         /**
          * Whether to match CSS values like `url(...)`.
          * @default true
          */
-        matchDeclarationValues?: boolean;
+        matchDeclarationValues?: boolean | undefined;
 
         /**
          * Whether to match media queries like `min-device-pixel-ratio: 2`.
          * @default true
          */
-        matchMedia?: boolean;
+        matchMedia?: boolean | undefined;
     }
 }

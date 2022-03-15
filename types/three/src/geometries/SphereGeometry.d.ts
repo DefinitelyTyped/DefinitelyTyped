@@ -34,6 +34,8 @@ export class SphereGeometry extends BufferGeometry {
         thetaStart: number;
         thetaLength: number;
     };
+
+    static fromJSON(data: any): SphereGeometry;
 }
 
 export { SphereGeometry as SphereBufferGeometry };

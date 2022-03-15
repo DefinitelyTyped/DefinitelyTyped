@@ -17,15 +17,15 @@ interface CordovaPluginEmailComposer {
 
 interface ICordovaPluginEmailComposerOpenOptions {
     /** An configured email account is required to send emails */
-    to?:string[];
-    body?:string;
-    cc?:string[];
-    bcc?:string[];
+    to?:string[] | undefined;
+    body?:string | undefined;
+    cc?:string[] | undefined;
+    bcc?:string[] | undefined;
     /** Attachments can be either base64 encoded datas, files from the the device storage or assets from within the www folder */
-    attachments?:any[];
-    subject?:string;
+    attachments?:any[] | undefined;
+    subject?:string | undefined;
     /** The default value for isHTML is true */
-    isHtml?:boolean;
+    isHtml?:boolean | undefined;
 }
 
 interface CordovaPlugins {

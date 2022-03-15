@@ -13,6 +13,7 @@ autocannon({
     excludeErrorStats: true,
     body: 'ok',
     headers: { 'accept-language': 'en-US' },
+    workers: 4,
     setupClient: client => {
         client.setHeaders({ 'content-type': 'application/json' });
         client.setBody(Buffer.from('ok'));

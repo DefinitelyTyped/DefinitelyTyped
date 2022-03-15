@@ -1,15 +1,21 @@
-// Type definitions for jaeger-client 3.15
+// Type definitions for jaeger-client 3.18
 // Project: https://github.com/jaegertracing/jaeger-client-node#readme
 // Definitions by: jgeth <https://github.com/jgeth>
 //                 tsachis <https://github.com/tsachi>
 //                 MiLk <https://github.com/MiLk>
+//                 doochik <https://github.com/doochik>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
+// This extracts the core definitions from express to prevent a circular dependency between express and serve-static
+/// <reference types="node" />
+
 // opentracing requires typescript version ^2.1
+import { SocketOptions, SocketType } from "dgram";
 import * as opentracing from "opentracing";
 import * as prometheus from "prom-client";
 
+export { opentracing };
 // Counter tracks the number of times an event has occurred
 export interface Counter {
     // Adds the given value to the counter.
@@ -41,22 +47,23 @@ export interface Reporter {
 }
 
 export interface ReporterConfig {
-    logSpans?: boolean;
-    agentHost?: string;
-    agentPort?: number;
-    collectorEndpoint?: string;
-    username?: string;
-    password?: string;
-    flushIntervalMs?: number;
+    logSpans?: boolean | undefined;
+    agentHost?: string | undefined;
+    agentPort?: number | undefined;
+    agentSocketType?: SocketType | SocketOptions | undefined;
+    collectorEndpoint?: string | undefined;
+    username?: string | undefined;
+    password?: string | undefined;
+    flushIntervalMs?: number | undefined;
 }
 
 export interface SamplerConfig {
     type: string;
     param: number;
-    hostPort?: string;
-    host?: string;
-    port?: number;
-    refreshIntervalMs?: number;
+    hostPort?: string | undefined;
+    host?: string | undefined;
+    port?: number | undefined;
+    refreshIntervalMs?: number | undefined;
 }
 
 // Timer tracks how long an operation took and also computes percentiles.
@@ -66,19 +73,21 @@ export interface Timer {
 }
 
 export interface TracingConfig {
-    serviceName?: string;
-    disable?: boolean;
-    sampler?: SamplerConfig;
-    reporter?: ReporterConfig;
-    traceId128bit?: boolean;
-    shareRpcSpan?: boolean;
+    serviceName?: string | undefined;
+    disable?: boolean | undefined;
+    sampler?: SamplerConfig | undefined;
+    reporter?: ReporterConfig | undefined;
+    traceId128bit?: boolean | undefined;
+    shareRpcSpan?: boolean | undefined;
 }
 
 export interface TracingOptions {
-    reporter?: Reporter;
-    metrics?: PrometheusMetricsFactory;
-    logger?: Logger;
+    reporter?: Reporter | undefined;
+    metrics?: PrometheusMetricsFactory | undefined;
+    logger?: Logger | undefined;
     tags?: any;
+    traceId128bit?: boolean | undefined;
+    contextKey?: string;
 }
 
 export interface Injector {
@@ -106,16 +115,16 @@ export function initTracerFromEnv(
 ): JaegerTracer;
 
 export class PrometheusMetricsFactory {
-    constructor(client: typeof prometheus, serviceName: string);
+    constructor(client: typeof prometheus, serviceName?: string);
     createCounter(name: string, tags: {}): Counter;
     createGauge(name: string, tags: {}): Gauge;
 }
 
 export interface TextMapCodecOptions {
-    urlEncoding?: boolean;
-    contextKey?: string;
-    baggagePrefix?: string;
-    metrics?: MetricsFactory;
+    urlEncoding?: boolean | undefined;
+    contextKey?: string | undefined;
+    baggagePrefix?: string | undefined;
+    metrics?: MetricsFactory | undefined;
 }
 
 export class TextMapCodec implements Injector, Extractor {
@@ -125,9 +134,9 @@ export class TextMapCodec implements Injector, Extractor {
 }
 
 export interface ZipkinB3TextMapCodecOptions {
-    urlEncoding?: boolean;
-    baggagePrefix?: string;
-    metrics?: MetricsFactory;
+    urlEncoding?: boolean | undefined;
+    baggagePrefix?: string | undefined;
+    metrics?: MetricsFactory | undefined;
 }
 
 export class ZipkinB3TextMapCodec implements Injector, Extractor {

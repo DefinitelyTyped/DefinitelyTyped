@@ -7,27 +7,27 @@
 declare namespace trianglify {
     interface Options {
         /** Width of pattern */
-        width?: number;
+        width?: number | undefined;
         /** Height of pattern */
-        height?: number;
+        height?: number | undefined;
         /** Size of the cells used to generate a randomized grid */
-        cell_size?: number;
+        cell_size?: number | undefined;
         /** how much to randomize the grid */
-        variance?: number;
+        variance?: number | undefined;
         /** Seed for the RNG */
-        seed?: number | string | null;
+        seed?: number | string | null | undefined;
         /** X color stops */
-        x_colors?: false | string | string[];
+        x_colors?: false | string | string[] | undefined;
         /** Y color stops */
-        y_colors?: false | string | string[];
+        y_colors?: false | string | string[] | undefined;
         /** Color space used for gradient construction & interpolation */
-        color_space?: string;
+        color_space?: string | undefined;
         /** Color function f(x, y) that returns a color specification that is consumable by chroma-js */
-        color_function?: ((x: number, y: number) => string) | null;
+        color_function?: ((x: number, y: number) => string) | null | undefined;
         /** Width of stroke. Defaults to 1.51 to fix an issue with canvas antialiasing. */
-        stroke_width?: number;
+        stroke_width?: number | undefined;
         /** An array of [x,y] coordinates to trianglulate. Defaults to undefined, and points are generated. */
-        points?: number[];
+        points?: number[] | undefined;
     }
 
     interface SVGOptions {

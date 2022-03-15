@@ -10,9 +10,9 @@ export function defineHold(config?: HoldConfig): HoldableConfig;
 
 export interface HoldConfig {
     /** @default 250 */
-    updateEvery?: number;
+    updateEvery?: number | undefined;
     /** @default 1000 */
-    holdFor?: number;
+    holdFor?: number | undefined;
 }
 
 /** @see defineHold */
@@ -23,7 +23,7 @@ export interface HoldableConfig {
 
 export interface HoldableProps {
     /** @see defineHold */
-    config?: HoldableConfig;
+    config?: HoldableConfig | undefined;
     onHoldProgress?(): void;
     onHoldComplete?(): void;
     onMouseDown?(): void;
@@ -34,12 +34,12 @@ export class Holdable extends React.Component<HoldableProps> {
 }
 
 export interface DraggableStyle {
-    translateX?: number;
-    translateY?: number;
-    top?: number;
-    left?: number;
-    right?: number;
-    bottom?: number;
+    translateX?: number | undefined;
+    translateY?: number | undefined;
+    top?: number | undefined;
+    left?: number | undefined;
+    right?: number | undefined;
+    bottom?: number | undefined;
 }
 
 export interface DraggableCallbackArgument extends DraggableStyle {
@@ -66,7 +66,7 @@ export function defineSwipe(config?: SwipeConfig): SwipeableConfig;
 
 export interface SwipeConfig {
     /** @default 100 */
-    swipeDistance?: number;
+    swipeDistance?: number | undefined;
 }
 
 /** @see defineSwipe */
@@ -79,7 +79,7 @@ export interface SwipeableConfig {
 
 export interface SwipeableProps {
     /** @see defineSwipe */
-    config?: SwipeableConfig;
+    config?: SwipeableConfig | undefined;
     onSwipeLeft?(): void;
     onSwipeRight?(): void;
     onSwipeUp?(): void;

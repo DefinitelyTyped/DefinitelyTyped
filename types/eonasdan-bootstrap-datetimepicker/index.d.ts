@@ -1,7 +1,7 @@
 // Type definitions for Bootstrap v3 Datepicker v4.17.37
 // Project: http://eonasdan.github.io/bootstrap-datetimepicker
 // Definitions by: Markus Peloso <https://github.com/ToastHawaii>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 /// <reference types="jquery"/>
@@ -18,47 +18,47 @@ export interface Icons {
     /**
      * Default: "glyphicon glyphicon-chevron-right"
      */
-    time?: string;
+    time?: string | undefined;
 
     /**
      * Default: "glyphicon glyphicon-calendar"
      */
-    date?: string;
+    date?: string | undefined;
 
     /**
      * Default: "glyphicon glyphicon-chevron-up"
      */
-    up?: string;
+    up?: string | undefined;
 
     /**
      * Default: "glyphicon glyphicon-time"
      */
-    down?: string;
+    down?: string | undefined;
 
     /**
      * Default: "glyphicon glyphicon-screenshot"
      */
-    previous?: string;
+    previous?: string | undefined;
 
     /**
      * Default: "glyphicon glyphicon-chevron-left"
      */
-    next?: string;
+    next?: string | undefined;
 
     /**
      * Default: "glyphicon glyphicon-chevron-down"
      */
-    today?: string;
+    today?: string | undefined;
 
     /**
      * Default: "glyphicon glyphicon-trash"
      */
-    clear?: string;
+    clear?: string | undefined;
 
     /**
      * Default: "glyphicon glyphicon-remove"
      */
-    close?: string;
+    close?: string | undefined;
 }
 
 export declare const enum DayOfWeek {
@@ -76,24 +76,24 @@ export type ViewMode = "days" | "months" | "years" | "decades";
 export type ToolbarPlacement = "default" | "top" | "bottom";
 
 export interface WidgetPositioning {
-    horizontal?: "auto" | "left" | "right";
-    vertical?: "auto" | "top" | "bottom";
+    horizontal?: "auto" | "left" | "right" | undefined;
+    vertical?: "auto" | "top" | "bottom" | undefined;
 }
 
 export interface KeyBinds {
-    up?: (widget: JQuery | boolean) => any;
-    down?: (widget: JQuery | boolean) => any;
-    "control up"?: (widget: JQuery | boolean) => any;
-    "control down"?: (widget: JQuery | boolean) => any;
-    left?: (widget: JQuery | boolean) => any;
-    right?: (widget: JQuery | boolean) => any;
-    pageUp?: (widget: JQuery | boolean) => any;
-    pageDown?: (widget: JQuery | boolean) => any;
-    enter?: () => any;
-    escape?: () => any;
-    "control space"?: (widget: JQuery) => any;
-    t?: () => any;
-    delete?: () => any;
+    up?: ((widget: JQuery | boolean) => any) | undefined;
+    down?: ((widget: JQuery | boolean) => any) | undefined;
+    "control up"?: ((widget: JQuery | boolean) => any) | undefined;
+    "control down"?: ((widget: JQuery | boolean) => any) | undefined;
+    left?: ((widget: JQuery | boolean) => any) | undefined;
+    right?: ((widget: JQuery | boolean) => any) | undefined;
+    pageUp?: ((widget: JQuery | boolean) => any) | undefined;
+    pageDown?: ((widget: JQuery | boolean) => any) | undefined;
+    enter?: (() => any) | undefined;
+    escape?: (() => any) | undefined;
+    "control space"?: ((widget: JQuery) => any) | undefined;
+    t?: (() => any) | undefined;
+    delete?: (() => any) | undefined;
 }
 
 export type FromTo = [moment.Moment, moment.Moment];
@@ -102,127 +102,127 @@ export interface Tooltips {
     /**
      * Default: "Go to today"
      */
-    today?: string;
+    today?: string | undefined;
 
     /**
      * Default: "Clear selection"
      */
-    clear?: string;
+    clear?: string | undefined;
 
     /**
      * Default: "Close the picker"
      */
-    close?: string;
+    close?: string | undefined;
 
     /**
      * Default: "Select Month"
      */
-    selectMonth?: string;
+    selectMonth?: string | undefined;
 
     /**
      * Default: "Previous Month"
      */
-    prevMonth?: string;
+    prevMonth?: string | undefined;
 
     /**
      * Default: "Next Month"
      */
-    nextMonth?: string;
+    nextMonth?: string | undefined;
 
     /**
      * Default: "Select Year"
      */
-    selectYear?: string;
+    selectYear?: string | undefined;
 
     /**
      * Default: "Previous Year"
      */
-    prevYear?: string;
+    prevYear?: string | undefined;
 
     /**
      * Default: "Next Year"
      */
-    nextYear?: string;
+    nextYear?: string | undefined;
 
     /**
      * Default: "Select Decade"
      */
-    selectDecade?: string;
+    selectDecade?: string | undefined;
 
     /**
      * Default: "Previous Decade"
      */
-    prevDecade?: string;
+    prevDecade?: string | undefined;
 
     /**
      * Default: "Next Decade"
      */
-    nextDecade?: string;
+    nextDecade?: string | undefined;
 
     /**
      * Default: "Previous Century"
      */
-    prevCentury?: string;
+    prevCentury?: string | undefined;
 
     /**
      * Default: "Next Century"
      */
-    nextCentury?: string;
+    nextCentury?: string | undefined;
 
     /**
      * Default: "Pick Hour"
      */
-    pickHour?: string;
+    pickHour?: string | undefined;
 
     /**
      * Default: "Increment Hour"
      */
-    incrementHour?: string;
+    incrementHour?: string | undefined;
 
     /**
      * Default: "Decrement Hour"
      */
-    decrementHour?: string;
+    decrementHour?: string | undefined;
 
     /**
      * Default: "Pick Minute"
      */
-    pickMinute?: string;
+    pickMinute?: string | undefined;
 
     /**
      * Default: "Increment Minute"
      */
-    incrementMinute?: string;
+    incrementMinute?: string | undefined;
 
     /**
      * Default: "Decrement Minute"
      */
-    decrementMinute?: string;
+    decrementMinute?: string | undefined;
 
     /**
      * Default: "Pick Second"
      */
-    pickSecond?: string;
+    pickSecond?: string | undefined;
 
     /**
      * Default: "Increment Second"
      */
-    incrementSecond?: string;
+    incrementSecond?: string | undefined;
 
     /**
      * Default: "Decrement Second"
      */
-    decrementSecond?: string;
+    decrementSecond?: string | undefined;
 
     /**
      * Default:  "Toggle Period"
      */
-    togglePeriod?: string;
+    togglePeriod?: string | undefined;
 
     /**
      * Default: "Select Time"
      */
-    selectTime?: string;
+    selectTime?: string | undefined;
 }
 
 export type ParseInputDateFunction = (inputDate: string) => moment.Moment;
@@ -231,70 +231,70 @@ export interface OptionsBase {
     /**
      * Default: "Etc/UTC"
      */
-    timeZone?: string;
+    timeZone?: string | undefined;
 
     /**
      * See momentjs' docs for valid formats. Format also dictates what components are shown, e.g. MM/dd/YYYY will not display the time picker.
      * Default: false
      */
-    format?: string | boolean;
+    format?: string | boolean | undefined;
 
     /**
      * Changes the heading of the datepicker when in "days" view.
      * Default: "MMMM YYYY"
      */
-    dayViewHeaderFormat?: string;
+    dayViewHeaderFormat?: string | undefined;
 
     /**
      * Allows for several input formats to be valid.
      * Default: false
      */
-    extraFormats?: string[] | boolean;
+    extraFormats?: string[] | boolean | undefined;
 
     /**
      * Number of minutes the up/down arrow's will move the minutes value in the time picker.
      * Default: 1
      */
-    stepping?: number;
+    stepping?: number | undefined;
 
     /**
      * Prevents date/time selections before this date.
      * minDate will override defaultDate and useCurrent if either of these settings are the same day since both options are invalid according to the rules you've selected.
      * Default: false
      */
-    minDate?: DateComparable | boolean;
+    minDate?: DateComparable | boolean | undefined;
 
     /**
      * Prevents date/time selections after this date.
      * maxDate will override defaultDate and useCurrent if either of these settings are the same day since both options are invalid according to the rules you've selected.
      * Default: false
      */
-    maxDate?: DateComparable | boolean;
+    maxDate?: DateComparable | boolean | undefined;
 
     /**
      * On show, will set the picker to the current date/time
      * Default: true
      */
-    useCurrent?: boolean | UseCurrent;
+    useCurrent?: boolean | UseCurrent | undefined;
 
     /**
      * Using a Bootstraps collapse to switch between date/time pickers.
      * Default: true
      */
-    collapse?: boolean;
+    collapse?: boolean | undefined;
 
     /**
      * See momentjs for valid locales.
      * You must include moment-with-locales.js or a local js file.
      * Default: moment.locale()
      */
-    locale?: string;
+    locale?: string | undefined;
 
     /**
      * Sets the picker default date/time. Overrides useCurrent
      * Default: false
      */
-    defaultDate?: DateComparable | boolean;
+    defaultDate?: DateComparable | boolean | undefined;
 
     /**
      * Change the default icons for the pickers functions
@@ -310,66 +310,66 @@ export interface OptionsBase {
      *              close: "glyphicon glyphicon-remove"
      *          }
      */
-    icons?: Icons;
+    icons?: Icons | undefined;
 
     /**
      * Defines if moment should use strict date parsing when considering a date to be valid
      * Default: false
      */
-    useStrict?: boolean;
+    useStrict?: boolean | undefined;
 
     /**
      * Shows the picker side by side when using the time and date together.
      * Default: false
      */
-    sideBySide?: boolean;
+    sideBySide?: boolean | undefined;
 
     /**
      * Accepts: array of numbers from 0-6
      * Disables the section of days of the week, e.g. weekends.
      * Default: false
      */
-    daysOfWeekDisabled?: DayOfWeek[] | boolean;
+    daysOfWeekDisabled?: DayOfWeek[] | boolean | undefined;
 
     /**
      * Shows the week of the year to the left of first day of the week.
      * Default: false
      */
-    calendarWeeks?: boolean;
+    calendarWeeks?: boolean | undefined;
 
     /**
      * The default view to display when the picker is shown.
      * Note: To limit the picker to selecting, for instance the year and month, use format: MM/YYYY
      * Default: "days"
      */
-    viewMode?: ViewMode;
+    viewMode?: ViewMode | undefined;
 
     /**
      * Changes the placement of the icon toolbar.
      * Default: "default"
      */
-    toolbarPlacement?: ToolbarPlacement;
+    toolbarPlacement?: ToolbarPlacement | undefined;
 
     /**
      * Show the "Today" button in the icon toolbar.
      * Clicking the "Today" button will set the calendar view and set the date to now.
      * Default: false
      */
-    showTodayButton?: boolean;
+    showTodayButton?: boolean | undefined;
 
     /**
      * Show the "Clear" button in the icon toolbar.
      * Clicking the "Clear" button will set the calendar to null.
      * Default: false
      */
-    showClear?: boolean;
+    showClear?: boolean | undefined;
 
     /**
      * Show the "Close" button in the icon toolbar.
      * Clicking the "Close" button will call hide()
      * Default: false
      */
-    showClose?: boolean;
+    showClose?: boolean | undefined;
 
     /**
      * Accepts: object with the all or one of the parameters above
@@ -380,36 +380,36 @@ export interface OptionsBase {
      *              vertical: 'auto'
      *          }
      */
-    widgetPositioning?: WidgetPositioning;
+    widgetPositioning?: WidgetPositioning | undefined;
 
     /**
      * On picker show, places the widget at the identifier (string) or jQuery object if the element has css position: "relative"
      * Default: null
      */
-    widgetParent?: string | JQuery;
+    widgetParent?: string | JQuery | undefined;
 
     /**
      * Will cause the date picker to stay open after selecting a date if no time components are being used.
      * Default: false
      */
-    keepOpen?: boolean;
+    keepOpen?: boolean | undefined;
 
     /**
      * Will display the picker inline without the need of a input field. This will also hide borders and shadows.
      * Default: false
      */
-    inline?: boolean;
+    inline?: boolean | undefined;
 
     /**
      * Default: ".datepickerinput"
      */
-    datepickerInput?: string;
+    datepickerInput?: string | undefined;
 
     /**
      * Will cause the date picker to not revert or overwrite invalid dates.
      * Default: false
      */
-    keepInvalid?: boolean;
+    keepInvalid?: boolean | undefined;
 
     /**
      * Allows for custom events to fire on keyboard press.
@@ -491,19 +491,19 @@ export interface OptionsBase {
      *          }
      *       }
      */
-    keyBinds?: KeyBinds;
+    keyBinds?: KeyBinds | undefined;
 
     /**
      * Will cause the date picker to stay open after a blur event.
      * Default: false
      */
-    debug?: boolean;
+    debug?: boolean | undefined;
 
     /**
      * Allow date picker show event to fire even when the associated input element has the readonly="readonly" property.
      * Default: false
      */
-    ignoreReadonly?: boolean;
+    ignoreReadonly?: boolean | undefined;
 
     /**
      * Disables time selection between the given moments.
@@ -511,25 +511,25 @@ export interface OptionsBase {
      * [[moment({ h: 0 }), moment({ h: 8 })], [moment({ h: 18 }), moment({ h: 24 })]]
      * Default: false
      */
-    disabledTimeIntervals?: boolean | FromTo[];
+    disabledTimeIntervals?: boolean | FromTo[] | undefined;
 
     /**
     * If true, the picker will show on textbox focus and icon click when used in a button group
     * Default: false
     */
-    allowInputToggle?: boolean;
+    allowInputToggle?: boolean | undefined;
 
     /**
      * If false, the textbox will not be given focus when the picker is shown
      * Default: true
      */
-    focusOnShow?: boolean;
+    focusOnShow?: boolean | undefined;
 
     /**
      * This will change the viewDate without changing or setting the selected date.
      * Default: false
      */
-    viewDate?: DateComparable | boolean;
+    viewDate?: DateComparable | boolean | undefined;
 
     /**
      * This will change the tooltips over each icon to a custom string
@@ -550,14 +550,14 @@ export interface OptionsBase {
      *              nextCentury: "Next Century"
      *          }
      */
-    tooltips?: Tooltips;
+    tooltips?: Tooltips | undefined;
 
     /**
      * Allows custom input formatting.
      * For example:
      * The user can enter "yesterday" or "30 days ago".
      */
-    parseInputDate?: ParseInputDateFunction;
+    parseInputDate?: ParseInputDateFunction | undefined;
 }
 
 export type IndexedDates = { [/** Dates as "YYYY-MM-DD keys */ date: string]: boolean };
@@ -572,7 +572,7 @@ export interface GetOptions extends OptionsBase {
      * disabledDates = ["2010-10-10"]; -> disabledDated will be { "2010-01-01": true }
      * Default: false
      */
-    disabledDates?: IndexedDates | boolean;
+    disabledDates?: IndexedDates | boolean | undefined;
 
     /**
      * Enables selection of dates NOT in the array, e.g. holidays
@@ -581,7 +581,7 @@ export interface GetOptions extends OptionsBase {
      * enabledDates = ["2010-10-10"]; -> enabledDated will be { "2010-01-01": true }
      * Default: false
      */
-    enabledDates?: IndexedDates | boolean;
+    enabledDates?: IndexedDates | boolean | undefined;
 
     /**
      * Will allow or disallow hour selections (much like disabledTimeIntervals) but will affect all days.
@@ -590,7 +590,7 @@ export interface GetOptions extends OptionsBase {
      * enabledHours = [0, 1]; -> enabledHours will be { "0": true, "1": true }
      * Default: false
      */
-    enabledHours?: IndexedHours | boolean;
+    enabledHours?: IndexedHours | boolean | undefined;
 
     /**
      * Will allow or disallow hour selections (much like disabledTimeIntervals) but will affect all days.
@@ -599,7 +599,7 @@ export interface GetOptions extends OptionsBase {
      * disabledHours = [0, 1]; -> disabledHours will be { "0": true, "1": true }
      * Default: false
      */
-    disabledHours?: IndexedHours | boolean;
+    disabledHours?: IndexedHours | boolean | undefined;
 }
 
 export interface SetOptions extends OptionsBase {
@@ -610,7 +610,7 @@ export interface SetOptions extends OptionsBase {
      * disabledDates = ["2010-10-10"]; -> disabledDated will be { "2010-01-01": true }
      * Default: false
      */
-    disabledDates?: DateComparable[] | boolean;
+    disabledDates?: DateComparable[] | boolean | undefined;
 
     /**
      * Enables selection of dates NOT in the array, e.g. holidays
@@ -619,7 +619,7 @@ export interface SetOptions extends OptionsBase {
      * enabledDates = ["2010-10-10"]; -> enabledDated will be { "2010-01-01": true }
      * Default: false
      */
-    enabledDates?: DateComparable[] | boolean;
+    enabledDates?: DateComparable[] | boolean | undefined;
 
     /**
      * Will allow or disallow hour selections (much like disabledTimeIntervals) but will affect all days.
@@ -628,7 +628,7 @@ export interface SetOptions extends OptionsBase {
      * enabledHours = [0, 1]; -> enabledHours will be { "0": true, "1": true }
      * Default: false
      */
-    enabledHours?: number[] | boolean;
+    enabledHours?: number[] | boolean | undefined;
 
     /**
      * Will allow or disallow hour selections (much like disabledTimeIntervals) but will affect all days.
@@ -637,7 +637,7 @@ export interface SetOptions extends OptionsBase {
      * disabledHours = [0, 1]; -> disabledHours will be { "0": true, "1": true }
      * Default: false
      */
-    disabledHours?: number[] | boolean;
+    disabledHours?: number[] | boolean | undefined;
 }
 
 export interface Datetimepicker {

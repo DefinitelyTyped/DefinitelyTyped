@@ -12,10 +12,10 @@ export const Parser: {
 };
 
 export interface ParserOptions {
-    prefixes?: { [prefix: string]: string };
-    baseIRI?: string;
-    factory?: RdfJs.DataFactory;
-    sparqlStar?: boolean;
+    prefixes?: { [prefix: string]: string } | undefined;
+    baseIRI?: string | undefined;
+    factory?: RdfJs.DataFactory | undefined;
+    sparqlStar?: boolean | undefined;
 }
 
 export const Generator: {
@@ -23,11 +23,11 @@ export const Generator: {
 };
 
 export interface GeneratorOptions {
-    allPrefixes?: boolean;
-    prefixes?: { [prefix: string]: string };
-    indent?: string;
-    newline?: string;
-    sparqlStar?: boolean;
+    allPrefixes?: boolean | undefined;
+    prefixes?: { [prefix: string]: string } | undefined;
+    indent?: string | undefined;
+    newline?: string | undefined;
+    sparqlStar?: boolean | undefined;
 }
 
 export interface SparqlParser {
@@ -59,26 +59,26 @@ export type Query = SelectQuery | ConstructQuery | AskQuery | DescribeQuery;
 
 export interface BaseQuery {
     type: 'query';
-    base?: string;
+    base?: string | undefined;
     prefixes: { [prefix: string]: string; };
-    where?: Pattern[];
-    values?: ValuePatternRow[];
+    where?: Pattern[] | undefined;
+    values?: ValuePatternRow[] | undefined;
 }
 
 export interface SelectQuery extends BaseQuery {
     queryType: 'SELECT';
     variables: Variable[] | [Wildcard];
-    distinct?: boolean;
+    distinct?: boolean | undefined;
     from?: {
         default: IriTerm[];
         named: IriTerm[];
-    };
-    reduced?: boolean;
-    group?: Grouping[];
-    having?: Expression[];
-    order?: Ordering[];
-    limit?: number;
-    offset?: number;
+    } | undefined;
+    reduced?: boolean | undefined;
+    group?: Grouping[] | undefined;
+    having?: Expression[] | undefined;
+    order?: Ordering[] | undefined;
+    limit?: number | undefined;
+    offset?: number | undefined;
 }
 
 export interface Grouping {
@@ -87,12 +87,12 @@ export interface Grouping {
 
 export interface Ordering {
     expression: Expression;
-    descending?: boolean;
+    descending?: boolean | undefined;
 }
 
 export interface ConstructQuery extends BaseQuery {
     queryType: 'CONSTRUCT';
-    template?: Triple[];
+    template?: Triple[] | undefined;
 }
 
 export interface AskQuery extends BaseQuery {
@@ -114,10 +114,10 @@ export type UpdateOperation = InsertDeleteOperation | ManagementOperation;
 
 export interface InsertDeleteOperation {
     updateType: 'insert' | 'delete' | 'deletewhere' | 'insertdelete';
-    graph?: IriTerm;
-    insert?: Quads[];
-    delete?: Quads[];
-    where?: Pattern[];
+    graph?: IriTerm | undefined;
+    insert?: Quads[] | undefined;
+    delete?: Quads[] | undefined;
+    where?: Pattern[] | undefined;
 }
 
 export type Quads = BgpPattern | GraphQuads;
@@ -156,13 +156,13 @@ export interface ClearDropOperation {
 
 export interface GraphOrDefault {
     type: 'graph';
-    name?: IriTerm;
-    default?: boolean;
+    name?: IriTerm | undefined;
+    default?: boolean | undefined;
 }
 
 export interface GraphReference extends GraphOrDefault {
-    named?: boolean;
-    all?: boolean;
+    named?: boolean | undefined;
+    all?: boolean | undefined;
 }
 
 /**
@@ -286,7 +286,7 @@ export interface Tuple extends Array<Expression> {}
 
 export interface BaseExpression {
     type: string;
-    distinct?: boolean;
+    distinct?: boolean | undefined;
 }
 
 export interface OperationExpression extends BaseExpression {
@@ -305,5 +305,5 @@ export interface AggregateExpression extends BaseExpression {
     type: 'aggregate';
     expression: Expression;
     aggregation: string;
-    separator?: string;
+    separator?: string | undefined;
 }

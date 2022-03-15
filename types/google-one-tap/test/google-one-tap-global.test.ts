@@ -3,6 +3,7 @@ const callback = (_: google.CredentialResponse): void => {};
 const idConfiguration: google.IdConfiguration = {
     client_id: 'test',
     auto_select: false,
+    login_uri: 'https://test.com',
     callback,
     native_callback: () => {},
     cancel_on_tap_outside: false,
@@ -10,6 +11,9 @@ const idConfiguration: google.IdConfiguration = {
     nonce: '',
     context: '',
     state_cookie_domain: '',
+    allowed_parent_origin: ['test1', 'test2'],
+    intermediate_iframe_close_callback: () => {},
+    ux_mode: 'popup'
 };
 
 google.accounts.id.initialize(idConfiguration);
@@ -46,3 +50,14 @@ google.accounts.id.prompt(promptMomentNotification => {
         | 'flow_restarted' = promptMomentNotification.getDismissedReason();
     const getMomentType: 'display' | 'skipped' | 'dismissed' = promptMomentNotification.getMomentType();
 });
+
+const buttonOptions: google.GsiButtonConfiguration = {
+    type: 'icon',
+    shape: 'rectangular',
+    theme: 'outline',
+    size: 'large',
+    text: 'continue_with',
+};
+
+const button: HTMLElement = new HTMLDivElement();
+google.accounts.id.renderButton(button, buttonOptions, () => {});

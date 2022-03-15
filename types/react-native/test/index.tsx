@@ -15,6 +15,7 @@ import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import {
     AccessibilityInfo,
+    ActionSheetIOS,
     AsyncStorage,
     Alert,
     AppState,
@@ -63,8 +64,6 @@ import {
     NativeScrollEvent,
     NativeSyntheticEvent,
     PermissionsAndroid,
-    Picker,
-    PickerIOS,
     Platform,
     PlatformColor,
     Pressable,
@@ -87,6 +86,7 @@ import {
     StyleSheet,
     Switch,
     SwitchIOS,
+    SwitchChangeEvent,
     Systrace,
     TabBarIOS,
     Text,
@@ -485,6 +485,7 @@ export class PressableTest extends React.Component<{}> {
                         borderless: true,
                         color: 'green',
                         radius: 20,
+                        foreground: true,
                     }}
                     onPress={this.onPressButton}
                     style={{ backgroundColor: 'blue' }}
@@ -515,6 +516,38 @@ appState = 'background';
 appState = 'inactive';
 appState = 'unknown';
 appState = 'extension';
+
+const AppStateExample = () => {
+    const appState = React.useRef(AppState.currentState);
+    const [appStateVisible, setAppStateVisible] = React.useState(appState.current);
+    const appStateIsAvailable = AppState.isAvailable;
+
+    React.useEffect(() => {
+      const subscription = AppState.addEventListener("change", nextAppState => {
+        if (
+          appState.current.match(/inactive|background/) &&
+          nextAppState === "active"
+        ) {
+          console.log("App has come to the foreground!");
+        }
+
+        appState.current = nextAppState;
+        setAppStateVisible(appState.current);
+        console.log("AppState", appState.current);
+      });
+
+      return () => {
+        subscription.remove();
+      };
+    }, []);
+
+    return (
+      <View style={styles.container}>
+        <Text>Current state is: {appStateVisible}</Text>
+        <Text>Available: {appStateIsAvailable}</Text>
+      </View>
+    );
+  };
 
 // ViewPagerAndroid
 export class ViewPagerAndroidTest {
@@ -573,9 +606,9 @@ export class FlatListTest extends React.Component<FlatListProps<number>, {}> {
                 renderItem={this._renderItem}
                 ItemSeparatorComponent={this._renderSeparator}
                 ListFooterComponent={null}
-                ListFooterComponentStyle={{ padding: 8 }}
+                ListFooterComponentStyle={[{ padding: 8 }, [{ backgroundColor: 'transparent' }]]}
                 ListHeaderComponent={null}
-                ListHeaderComponentStyle={{ padding: 8 }}
+                ListHeaderComponentStyle={[{ padding: 8 }, [{ backgroundColor: 'transparent' }]]}
                 CellRendererComponent={this._cellRenderer}
                 fadingEdgeLength={200}
             />
@@ -635,6 +668,10 @@ export class SectionListTest extends React.Component<SectionListProps<string>, {
                     )}
                     CellRendererComponent={cellRenderer}
                     maxToRenderPerBatch={5}
+                    ListFooterComponent={null}
+                    ListFooterComponentStyle={[{ padding: 8 }, [{ backgroundColor: 'transparent' }]]}
+                    ListHeaderComponent={null}
+                    ListHeaderComponentStyle={[{ padding: 8 }, [{ backgroundColor: 'transparent' }]]}
                 />
             </React.Fragment>
         );
@@ -708,6 +745,70 @@ export class SectionListTypedSectionTest extends React.Component<SectionListProp
                     CellRendererComponent={cellRenderer}
                     maxToRenderPerBatch={5}
                 />
+
+                <SectionList
+                    ref={this.myList}
+                    sections={sections}
+                    renderSectionHeader={({ section }) => {
+                        section; // $ExpectType SectionListData<string, SectionT>
+
+                        return section.displayTitle ? (
+                            <View>
+                                <Text>{section.title}</Text>
+                            </View>
+                        ) : null;
+                    }}
+                    renderItem={info => {
+                        info; // $ExpectType SectionListRenderItemInfo<string, SectionT>
+
+                        return (
+                            <View>
+                                <Text>
+                                    {info.section.displayTitle ? <Text>{`${info.section.title} - `}</Text> : null}
+                                    <Text>{info.item}</Text>
+                                </Text>
+                            </View>
+                        );
+                    }}
+                    CellRendererComponent={cellRenderer}
+                    maxToRenderPerBatch={5}
+                    ListFooterComponent={null}
+                    ListFooterComponentStyle={null}
+                    ListHeaderComponent={null}
+                    ListHeaderComponentStyle={null}
+                />
+
+                <SectionList
+                    ref={this.myList}
+                    sections={sections}
+                    renderSectionHeader={({ section }) => {
+                        section; // $ExpectType SectionListData<string, SectionT>
+
+                        return section.displayTitle ? (
+                            <View>
+                                <Text>{section.title}</Text>
+                            </View>
+                        ) : null;
+                    }}
+                    renderItem={info => {
+                        info; // $ExpectType SectionListRenderItemInfo<string, SectionT>
+
+                        return (
+                            <View>
+                                <Text>
+                                    {info.section.displayTitle ? <Text>{`${info.section.title} - `}</Text> : null}
+                                    <Text>{info.item}</Text>
+                                </Text>
+                            </View>
+                        );
+                    }}
+                    CellRendererComponent={cellRenderer}
+                    maxToRenderPerBatch={5}
+                    ListFooterComponent={null}
+                    ListFooterComponentStyle={undefined}
+                    ListHeaderComponent={null}
+                    ListHeaderComponentStyle={undefined}
+                />
             </React.Fragment>
         );
     }
@@ -734,6 +835,10 @@ LogBox.install();
 LogBox.uninstall();
 
 class ScrollerListComponentTest extends React.Component<{}, { dataSource: ListViewDataSource }> {
+    _stickyHeaderComponent = ({ children }: any) => {
+        return <View>{children}</View>;
+    };
+
     eventHandler = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
         console.log(event);
     };
@@ -787,6 +892,8 @@ class ScrollerListComponentTest extends React.Component<{}, { dataSource: ListVi
                             onScrollToTop={() => {}}
                             scrollToOverflowEnabled={true}
                             fadingEdgeLength={200}
+                            StickyHeaderComponent={this._stickyHeaderComponent}
+                            stickyHeaderHiddenOnScroll={true}
                         />
                     );
                 }}
@@ -918,6 +1025,8 @@ deviceEventEmitterStatic.addListener('keyboardWillShow', data => true, {});
 const androidEventEmitter = new NativeEventEmitter();
 const sub1 = androidEventEmitter.addListener('event', (event: object) => event);
 const sub2 = androidEventEmitter.addListener('event', (event: object) => event, {});
+androidEventEmitter.listenerCount('event'); // $ExpectType number
+sub2.remove();
 androidEventEmitter.removeAllListeners('event');
 androidEventEmitter.removeSubscription(sub1);
 
@@ -927,10 +1036,12 @@ const nativeModule: NativeModule = {
     removeListeners(count: number) {},
 };
 const iosEventEmitter = new NativeEventEmitter(nativeModule);
-const sub3 = androidEventEmitter.addListener('event', (event: object) => event);
-const sub4 = androidEventEmitter.addListener('event', (event: object) => event, {});
-androidEventEmitter.removeAllListeners('event');
-androidEventEmitter.removeSubscription(sub3);
+const sub3 = iosEventEmitter.addListener('event', (event: object) => event);
+const sub4 = iosEventEmitter.addListener('event', (event: object) => event, {});
+iosEventEmitter.listenerCount('event');
+sub4.remove();
+iosEventEmitter.removeAllListeners('event');
+iosEventEmitter.removeSubscription(sub3);
 
 class CustomEventEmitter extends NativeEventEmitter {}
 
@@ -1003,7 +1114,7 @@ class TextInputTest extends React.Component<{}, { username: string }> {
                 <TextInput
                     ref={input => (this.username = input)}
                     textContentType="username"
-                    autoCompleteType="username"
+                    autoComplete="username"
                     value={this.state.username}
                     onChangeText={this.handleUsernameChange}
                 />
@@ -1192,10 +1303,6 @@ class AccessibilityTest extends React.Component {
     }
 }
 
-const AccessibilityInfoFetchTest = AccessibilityInfo.fetch().then(isEnabled => {
-    console.log(isEnabled);
-});
-
 AccessibilityInfo.isBoldTextEnabled().then(isEnabled =>
     console.log(`AccessibilityInfo.isBoldTextEnabled => ${isEnabled}`),
 );
@@ -1213,6 +1320,9 @@ AccessibilityInfo.isReduceTransparencyEnabled().then(isEnabled =>
 );
 AccessibilityInfo.isScreenReaderEnabled().then(isEnabled =>
     console.log(`AccessibilityInfo.isScreenReaderEnabled => ${isEnabled}`),
+);
+AccessibilityInfo.getRecommendedTimeoutMillis(5000).then(timeoutMiles =>
+    console.log(`AccessibilityInfo.getRecommendedTimeoutMillis => ${timeoutMiles}`)
 );
 
 AccessibilityInfo.addEventListener('announcementFinished', ({ announcement, success }) =>
@@ -1233,9 +1343,10 @@ AccessibilityInfo.addEventListener('reduceMotionChanged', isEnabled =>
 AccessibilityInfo.addEventListener('reduceTransparencyChanged', isEnabled =>
     console.log(`AccessibilityInfo.isReduceTransparencyEnabled => ${isEnabled}`),
 );
-AccessibilityInfo.addEventListener('screenReaderChanged', isEnabled =>
-    console.log(`AccessibilityInfo.isScreenReaderEnabled => ${isEnabled}`),
-);
+const screenReaderChangedListener = (isEnabled: boolean): void => console.log(`AccessibilityInfo.isScreenReaderEnabled => ${isEnabled}`);
+AccessibilityInfo.addEventListener('screenReaderChanged', screenReaderChangedListener,
+).remove();
+AccessibilityInfo.removeEventListener('screenReaderChanged', screenReaderChangedListener);
 
 const KeyboardAvoidingViewTest = () => <KeyboardAvoidingView enabled />;
 
@@ -1265,13 +1376,6 @@ const DatePickerAndroidTest = () => {
         }
     });
 };
-
-const PickerTest = () => (
-    <Picker mode="dropdown" selectedValue="v1" onValueChange={(val: string) => {}}>
-        <Picker.Item label="Item1" value="v1" />
-        <Picker.Item label="Item2" value="v2" />
-    </Picker>
-);
 
 const NativeBridgedComponent = requireNativeComponent<{ nativeProp: string }>('NativeBridgedComponent'); // $ExpectType HostComponent<{ nativeProp: string; }>
 
@@ -1303,8 +1407,27 @@ class BridgedComponentTest extends React.Component {
 }
 
 const SwitchColorTest = () => <Switch trackColor={{ true: 'pink', false: 'red' }} />;
+const SwitchColorOptionalTrueTest = () => <Switch trackColor={{ false: 'red' }} />;
+const SwitchColorOptionalFalseTest = () => <Switch trackColor={{ true: 'pink' }} />;
+const SwitchColorNullTest = () => <Switch trackColor={{ true: 'pink', false: null }} />;
 
 const SwitchThumbColorTest = () => <Switch thumbColor={'red'} />;
+
+const SwitchOnChangeWithoutParamsTest = () => <Switch onChange={() => console.log('test')} />;
+const SwitchOnChangeUndefinedTest = () => <Switch onChange={undefined} />;
+const SwitchOnChangeNullTest = () => <Switch onChange={null} />;
+const SwitchOnChangePromiseTest = () => <Switch onChange={(event) => {
+  const e: SwitchChangeEvent = event;
+  return new Promise(() => e.value);
+}} />;
+
+const SwitchOnValueChangeWithoutParamsTest = () => <Switch onValueChange={() => console.log('test')} />;
+const SwitchOnValueChangeUndefinedTest = () => <Switch onValueChange={undefined} />;
+const SwitchOnValueChangeNullTest = () => <Switch onValueChange={null} />;
+const SwitchOnValueChangePromiseTest = () => <Switch onValueChange={(value) => {
+  const v: boolean = value;
+  return new Promise(() => v)
+}} />;
 
 const NativeIDTest = () => (
     <ScrollView nativeID={'nativeID'}>
@@ -1374,26 +1497,36 @@ const PermissionsAndroidTest = () => {
         }
     });
 
-    PermissionsAndroid.requestMultiple(['android.permission.CAMERA', 'android.permission.ACCESS_FINE_LOCATION']).then(
-        results => {
-            switch (results['android.permission.CAMERA']) {
-                case 'granted':
-                    break;
-                case 'denied':
-                    break;
-                case 'never_ask_again':
-                    break;
-            }
-            switch (results['android.permission.ACCESS_FINE_LOCATION']) {
-                case 'granted':
-                    break;
-                case 'denied':
-                    break;
-                case 'never_ask_again':
-                    break;
-            }
-        },
-    );
+    PermissionsAndroid.requestMultiple([
+        'android.permission.CAMERA',
+        'android.permission.ACCESS_FINE_LOCATION',
+        'android.permission.ACCESS_BACKGROUND_LOCATION',
+    ]).then(results => {
+        switch (results['android.permission.CAMERA']) {
+            case 'granted':
+                break;
+            case 'denied':
+                break;
+            case 'never_ask_again':
+                break;
+        }
+        switch (results['android.permission.ACCESS_FINE_LOCATION']) {
+            case 'granted':
+                break;
+            case 'denied':
+                break;
+            case 'never_ask_again':
+                break;
+        }
+        switch (results['android.permission.ACCESS_BACKGROUND_LOCATION']) {
+            case 'granted':
+                break;
+            case 'denied':
+                break;
+            case 'never_ask_again':
+                break;
+        }
+    });
 };
 
 // Platform
@@ -1513,6 +1646,34 @@ StyleSheet.create({
     },
 });
 
+function someColorString(): ColorValue {
+    return '#000000';
+}
+
+function somePlatformColor(): ColorValue {
+    return PlatformColor('test');
+}
+
+const colors = {
+    color: someColorString(),
+    backgroundColor: somePlatformColor(),
+};
+
+StyleSheet.create({
+    labelCell: {
+        color: colors.color,
+        backgroundColor: colors.backgroundColor,
+    },
+});
+
+const OpaqueTest3 = () => (
+    <View
+        style={{
+            backgroundColor: colors.backgroundColor,
+        }}
+    />
+);
+
 // ProgressBarAndroid
 const ProgressBarAndroidTest = () => {
     <ProgressBarAndroid animating color="white" styleAttr="Horizontal" progress={0.42} />;
@@ -1550,7 +1711,7 @@ const DarkMode = () => {
     const color = useColorScheme();
     const isDarkMode = Appearance.getColorScheme() === 'dark';
 
-    Appearance.addChangeListener(({ colorScheme }) => {
+    const subscription = Appearance.addChangeListener(({ colorScheme }) => {
         console.log(colorScheme);
     });
 
@@ -1560,6 +1721,10 @@ const DarkMode = () => {
 
     React.useEffect(() => {
         console.log('-color', color);
+
+        return () => {
+            subscription.remove();
+        };
     }, [color]);
 
     return <Text>Is dark mode enabled? {isDarkMode}</Text>;
@@ -1721,10 +1886,35 @@ const I18nManagerTest = () => {
 };
 
 // LayoutAnimations
-LayoutAnimation.configureNext(LayoutAnimation.create(
-    123,
-    LayoutAnimation.Types.easeIn,
-    LayoutAnimation.Properties.opacity,
-));
+LayoutAnimation.configureNext(
+    LayoutAnimation.create(123, LayoutAnimation.Types.easeIn, LayoutAnimation.Properties.opacity),
+);
 
 LayoutAnimation.configureNext(LayoutAnimation.create(123, 'easeIn', 'opacity'));
+
+// ActionSheetIOS
+const ActionSheetIOSTest = () => {
+    // test destructiveButtonIndex undefined
+    ActionSheetIOS.showActionSheetWithOptions({
+        options: ['foo'],
+        destructiveButtonIndex: undefined,
+    }, () => undefined);
+
+    // test destructiveButtonIndex null
+    ActionSheetIOS.showActionSheetWithOptions({
+        options: ['foo'],
+        destructiveButtonIndex: null,
+    }, () => undefined);
+
+    // test destructiveButtonIndex single number
+    ActionSheetIOS.showActionSheetWithOptions({
+        options: ['foo'],
+        destructiveButtonIndex: 0,
+    }, () => undefined);
+
+    // test destructiveButtonIndex number array
+    ActionSheetIOS.showActionSheetWithOptions({
+        options: ['foo', 'bar'],
+        destructiveButtonIndex: [0, 1],
+    }, () => undefined);
+}

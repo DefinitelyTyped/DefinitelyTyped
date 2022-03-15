@@ -20,3 +20,5 @@ dotenv.config({
     purge_dotenv: true,
     silent: false,
 });
+
+dotenv.load('/path', { silent: true });

@@ -3,7 +3,7 @@
 // Definitions by: Artemis Kearney <https://github.com/artemiswkearney>
 //                 Nicusor Chiciuc <https://github.com/nicu-chiciuc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.7
+// Minimum TypeScript Version: 4.1
 
 // Inspiration taken from https://github.com/nicu-chiciuc/typed-meteor-methods,
 // which was based on https://github.com/meteor-typings/validated-method/blob/master/main.d.ts by Dave Allen
@@ -65,12 +65,12 @@ declare module 'meteor/mdg:validated-method' {
         name: TName & string;
         validate: ((arg: Argument<TRun> extends NoArguments ? any : Argument<TRun>) => any) | null;
         applyOptions?: {
-            noRetry?: boolean;
-            returnStubValue?: boolean;
-            throwStubExceptions?: boolean;
-            onResultReceived?: (result: any) => void;
+            noRetry?: boolean | undefined;
+            returnStubValue?: boolean | undefined;
+            throwStubExceptions?: boolean | undefined;
+            onResultReceived?: ((result: any) => void) | undefined;
             [key: string]: any;
-        };
+        } | undefined;
         run: TRun;
     }
 
@@ -88,7 +88,7 @@ declare module 'meteor/mdg:validated-method' {
             ? TRunAlias extends TRun
                 ? ReadonlyArray<Mixin<TName, TRunAlias>>
                 : never
-            : never;
+            : never | undefined;
     }
 
     type Return<TFunc> = TFunc extends (...args: any[]) => infer TReturn ? TReturn : never;

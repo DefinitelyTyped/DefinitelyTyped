@@ -1,16 +1,16 @@
 import { Oid } from './oid';
 import { TreeEntry } from './tree-entry';
 import { Repository } from './repository';
-import { Object } from './object';
 import { Treebuilder } from './tree-builder';
 import { DiffFile } from './diff-file';
 import { TreeUpdate } from './tree-update';
 import { Diff } from './diff';
+import { DiffOptions } from './diff-options';
 
 export namespace Tree {
     const enum WALK_MODE {
         WALK_PRE = 0,
-        WALK_POST = 1
+        WALK_POST = 1,
     }
 }
 
@@ -43,7 +43,7 @@ export class Tree {
     /**
      * Diff two trees with options
      */
-    diffWithOptions(tree: Tree, options?: Object, callback?: Function): Promise<Diff>;
+    diffWithOptions(tree: Tree | null, options?: DiffOptions, callback?: Function): Promise<Diff>;
     /**
      * Get an entry at the ith position.
      */

@@ -10,273 +10,273 @@
 declare namespace Foundation {
     // http://foundation.zurb.com/docs/components/abide.html#optional-javascript-configuration
     interface AbidePatterns {
-        alpha? : RegExp;
-        alpha_numeric? : RegExp;
-        integer? : RegExp;
-        number? : RegExp;
-        card? : RegExp;
-        cvv? : RegExp;
-        email? : RegExp;
-        url? : RegExp;
-        domain? : RegExp;
-        datetime? : RegExp;
-        date? : RegExp;
-        time? : RegExp;
-        dateISO? : RegExp;
-        month_day_year? : RegExp;
-        color? : RegExp;
+        alpha? : RegExp | undefined;
+        alpha_numeric? : RegExp | undefined;
+        integer? : RegExp | undefined;
+        number? : RegExp | undefined;
+        card? : RegExp | undefined;
+        cvv? : RegExp | undefined;
+        email? : RegExp | undefined;
+        url? : RegExp | undefined;
+        domain? : RegExp | undefined;
+        datetime? : RegExp | undefined;
+        date? : RegExp | undefined;
+        time? : RegExp | undefined;
+        dateISO? : RegExp | undefined;
+        month_day_year? : RegExp | undefined;
+        color? : RegExp | undefined;
     }
 
     interface AbideOptions {
-        live_validate? : boolean;
-        validate_on_blur? : boolean;
-        focus_on_invalid? : boolean;
-        error_labels? : boolean;
-        timeout? : number;
-        patterns? : AbidePatterns;
-        validators? : Object;
+        live_validate? : boolean | undefined;
+        validate_on_blur? : boolean | undefined;
+        focus_on_invalid? : boolean | undefined;
+        error_labels? : boolean | undefined;
+        timeout? : number | undefined;
+        patterns? : AbidePatterns | undefined;
+        validators? : Object | undefined;
     }
 
     // http://foundation.zurb.com/docs/components/accordion.html#optional-javascript-configuration
     interface AccordionOptions {
-        content_class? : string;
-        active_class? : string;
-        multi_expand? : boolean;
-        toggleable? : boolean;
-        callback? : () => any;
+        content_class? : string | undefined;
+        active_class? : string | undefined;
+        multi_expand? : boolean | undefined;
+        toggleable? : boolean | undefined;
+        callback? : (() => any) | undefined;
     }
 
     // http://foundation.zurb.com/docs/components/alert_boxes.html
     interface AlertOptions {
-        callback? : () => any;
+        callback? : (() => any) | undefined;
     }
 
     // http://foundation.zurb.com/docs/components/clearing.html#optional-javascript-configuration
     interface ClearingOptions {
-        templates? : Object;
-        close_selectors? : string;
-        open_selectors? : string;
-        skip_selector? : string;
-        touch_label? : string;
-        init? : boolean;
-        locked? : boolean;
+        templates? : Object | undefined;
+        close_selectors? : string | undefined;
+        open_selectors? : string | undefined;
+        skip_selector? : string | undefined;
+        touch_label? : string | undefined;
+        init? : boolean | undefined;
+        locked? : boolean | undefined;
     }
 
     // http://foundation.zurb.com/docs/components/dropdown.html#optional-javascript-configuration
     interface DropdownOptions {
-        active_class? : string;
-        disabled_class? : string;
-        mega_class? : string;
-        align? : string;
-        is_hover? : boolean;
-        hover_timeout? : number;
-        opened? : () => any;
-        closed? : () => any;
+        active_class? : string | undefined;
+        disabled_class? : string | undefined;
+        mega_class? : string | undefined;
+        align? : string | undefined;
+        is_hover? : boolean | undefined;
+        hover_timeout? : number | undefined;
+        opened? : (() => any) | undefined;
+        closed? : (() => any) | undefined;
     }
 
     // http://foundation.zurb.com/docs/components/equalizer.html#optional-javascript-configuration
     interface EqualizerOptions {
-        use_tallest? : boolean;
-        equalize_on_stack? : boolean;
+        use_tallest? : boolean | undefined;
+        equalize_on_stack? : boolean | undefined;
     }
 
     // http://foundation.zurb.com/docs/components/interchange.html#custom-named-queries
     interface InterchangeOptions {
-        load_attr? : string;
-        named_queries? : Object;
-        directives? : Object;
+        load_attr? : string | undefined;
+        named_queries? : Object | undefined;
+        directives? : Object | undefined;
     }
 
     // http://foundation.zurb.com/docs/components/joyride.html#optional-javascript-configuration
     interface JoyrideOptions {
-        expose? : boolean;
-        modal? : boolean;
-        keyboard? : boolean;
-        tip_location? : string;
-        nub_position? : string;
-        scroll_speed? : number;
-        scroll_animation? : string;
-        timer? : number;
-        start_timer_on_click? : boolean;
-        start_offset? : number;
-        next_button? : boolean;
-        prev_button? : boolean;
-        tip_animation? : string;
-        pause_after? : number[];
-        exposed? : string[];
-        tip_animation_fade_speed? : number;
-        cookie_monster? : boolean;
-        cookie_name? : string;
-        cookie_domain? : boolean;
-        cookie_expires? : number;
-        tip_container? : string;
+        expose? : boolean | undefined;
+        modal? : boolean | undefined;
+        keyboard? : boolean | undefined;
+        tip_location? : string | undefined;
+        nub_position? : string | undefined;
+        scroll_speed? : number | undefined;
+        scroll_animation? : string | undefined;
+        timer? : number | undefined;
+        start_timer_on_click? : boolean | undefined;
+        start_offset? : number | undefined;
+        next_button? : boolean | undefined;
+        prev_button? : boolean | undefined;
+        tip_animation? : string | undefined;
+        pause_after? : number[] | undefined;
+        exposed? : string[] | undefined;
+        tip_animation_fade_speed? : number | undefined;
+        cookie_monster? : boolean | undefined;
+        cookie_name? : string | undefined;
+        cookie_domain? : boolean | undefined;
+        cookie_expires? : number | undefined;
+        tip_container? : string | undefined;
         tip_location_patterns? : {
-            top? : string[];
-            bottom? : string[];
-            left? : string[];
-            right? : string[];
-        };
-        post_ride_callback? : () => void;
-        post_step_callback? : () => void;
-        pre_step_callback? : () => void;
-        pre_ride_callback? : () => void;
-        post_expose_callback? : () => void;
+            top? : string[] | undefined;
+            bottom? : string[] | undefined;
+            left? : string[] | undefined;
+            right? : string[] | undefined;
+        } | undefined;
+        post_ride_callback? : (() => void) | undefined;
+        post_step_callback? : (() => void) | undefined;
+        pre_step_callback? : (() => void) | undefined;
+        pre_ride_callback? : (() => void) | undefined;
+        post_expose_callback? : (() => void) | undefined;
         template? : {
-            link? : string;
-            timer? : string;
-            tip? : string;
-            wrapper? : string;
-            button?: string;
-            prev_button?: string;
-            modal? : string;
-            expose? : string;
-            expose_cover? : string;
-        };
-        expose_add_class? : string;
+            link? : string | undefined;
+            timer? : string | undefined;
+            tip? : string | undefined;
+            wrapper? : string | undefined;
+            button?: string | undefined;
+            prev_button?: string | undefined;
+            modal? : string | undefined;
+            expose? : string | undefined;
+            expose_cover? : string | undefined;
+        } | undefined;
+        expose_add_class? : string | undefined;
     }
 
     // http://foundation.zurb.com/docs/components/magellan.html#js
     interface MagellanOptions {
-        active_class? : string;
-        threshold? : number;
-        destination_threshold? : number;
-        throttle_delay? : number;
-        fixed_top? : number;
-        offset_by_height? : boolean;
-        duration? : number;
-        easing? : string;
+        active_class? : string | undefined;
+        threshold? : number | undefined;
+        destination_threshold? : number | undefined;
+        throttle_delay? : number | undefined;
+        fixed_top? : number | undefined;
+        offset_by_height? : boolean | undefined;
+        duration? : number | undefined;
+        easing? : string | undefined;
     }
 
     // http://foundation.zurb.com/docs/components/offcanvas.html#optional-javascript-configuration
     interface OffCanvasOptions {
-        open_method? : string;
-        close_on_click? : boolean;
+        open_method? : string | undefined;
+        close_on_click? : boolean | undefined;
     }
 
     // http://foundation.zurb.com/docs/components/orbit.html#advanced
     interface OrbitOptions {
-        animation? : string;
-        timer_speed? : number;
-        pause_on_hover? : boolean;
-        resume_on_mouseout? : boolean;
-        next_on_click? : boolean;
-        animation_speed? : number;
-        stack_on_small? : boolean;
-        navigation_arrows? : boolean;
-        slide_number? : boolean;
-        slide_number_text? : string;
-        container_class? : string;
-        stack_on_small_class? : string;
-        next_class? : string;
-        prev_class? : string;
-        timer_container_class? : string;
-        timer_paused_class? : string;
-        timer_progress_class? : string;
-        slides_container_class? : string;
-        preloader_class? : string;
-        slide_selector? : string;
-        bullets_container_class? : string;
-        bullets_active_class? : string;
-        slide_number_class? : string;
-        caption_class? : string;
-        active_slide_class? : string;
-        orbit_transition_class? : string;
-        bullets? : boolean;
-        circular? : boolean;
-        timer? : boolean;
-        variable_height? : boolean;
-        swipe? : boolean;
-        before_slide_change? : () => any;
-        after_slide_change? : () => any;
+        animation? : string | undefined;
+        timer_speed? : number | undefined;
+        pause_on_hover? : boolean | undefined;
+        resume_on_mouseout? : boolean | undefined;
+        next_on_click? : boolean | undefined;
+        animation_speed? : number | undefined;
+        stack_on_small? : boolean | undefined;
+        navigation_arrows? : boolean | undefined;
+        slide_number? : boolean | undefined;
+        slide_number_text? : string | undefined;
+        container_class? : string | undefined;
+        stack_on_small_class? : string | undefined;
+        next_class? : string | undefined;
+        prev_class? : string | undefined;
+        timer_container_class? : string | undefined;
+        timer_paused_class? : string | undefined;
+        timer_progress_class? : string | undefined;
+        slides_container_class? : string | undefined;
+        preloader_class? : string | undefined;
+        slide_selector? : string | undefined;
+        bullets_container_class? : string | undefined;
+        bullets_active_class? : string | undefined;
+        slide_number_class? : string | undefined;
+        caption_class? : string | undefined;
+        active_slide_class? : string | undefined;
+        orbit_transition_class? : string | undefined;
+        bullets? : boolean | undefined;
+        circular? : boolean | undefined;
+        timer? : boolean | undefined;
+        variable_height? : boolean | undefined;
+        swipe? : boolean | undefined;
+        before_slide_change? : (() => any) | undefined;
+        after_slide_change? : (() => any) | undefined;
     }
 
     // http://foundation.zurb.com/docs/components/reveal.html
     interface RevealCSSOptions {
-        opacity? : number;
-        visibility? : string;
-        display? : string;
+        opacity? : number | undefined;
+        visibility? : string | undefined;
+        display? : string | undefined;
     }
 
     interface RevealOptions {
-        animation? : string;
-        animation_speed? : number;
-        close_on_background_click? : boolean;
-        dismiss_modal_class? : string;
-        multiple_opened? : boolean;
-        bg_class? : string;
-        root_element? : string;
-        on_ajax_error? : () => any;
-        open? : () => any;
-        opened? : () => any;
-        close? : () => any;
-        closed? : () => any;
-        bg? : JQuery;
+        animation? : string | undefined;
+        animation_speed? : number | undefined;
+        close_on_background_click? : boolean | undefined;
+        dismiss_modal_class? : string | undefined;
+        multiple_opened? : boolean | undefined;
+        bg_class? : string | undefined;
+        root_element? : string | undefined;
+        on_ajax_error? : (() => any) | undefined;
+        open? : (() => any) | undefined;
+        opened? : (() => any) | undefined;
+        close? : (() => any) | undefined;
+        closed? : (() => any) | undefined;
+        bg? : JQuery | undefined;
         css? : {
-            open? : RevealCSSOptions;
-            close? : RevealCSSOptions;
-        };
+            open? : RevealCSSOptions | undefined;
+            close? : RevealCSSOptions | undefined;
+        } | undefined;
     }
 
     // http://foundation.zurb.com/docs/components/range_slider.html
     interface SliderOptions {
-        start? : number;
-        end? : number;
-        step? : number;
-        precision? : number;
-        initial? : number;
-        vertical? : boolean;
-        trigger_input_change? : boolean;
-        on_change? : () => any;
+        start? : number | undefined;
+        end? : number | undefined;
+        step? : number | undefined;
+        precision? : number | undefined;
+        initial? : number | undefined;
+        vertical? : boolean | undefined;
+        trigger_input_change? : boolean | undefined;
+        on_change? : (() => any) | undefined;
     }
 
     // http://foundation.zurb.com/docs/components/tabs.html
     interface TabOptions {
-        active_class? : string;
-        callback? : () => any;
-        deep_linking? : boolean;
-        scroll_to_content? : boolean;
-        is_hover? : boolean;
+        active_class? : string | undefined;
+        callback? : (() => any) | undefined;
+        deep_linking? : boolean | undefined;
+        scroll_to_content? : boolean | undefined;
+        is_hover? : boolean | undefined;
     }
 
     interface TooltipOptions {
-        additional_inheritable_classes? : string[];
-        tooltip_class? : string;
-        append_to? : string;
-        touch_close_text? : string;
-        disable_for_touch? : boolean;
-        hover_delay? : number;
-        show_on? : string;
-        tip_template? : (selector : string, content : string) => string;
+        additional_inheritable_classes? : string[] | undefined;
+        tooltip_class? : string | undefined;
+        append_to? : string | undefined;
+        touch_close_text? : string | undefined;
+        disable_for_touch? : boolean | undefined;
+        hover_delay? : number | undefined;
+        show_on? : string | undefined;
+        tip_template? : ((selector : string, content : string) => string) | undefined;
     }
 
     interface TopbarOptions {
-        index? : number;
-        sticky_class? : string;
-        custom_back_text? : boolean;
-        back_text? : string;
-        is_hover? : boolean;
-        mobile_show_parent_link? : boolean;
-        scrolltop? : boolean;
-        sticky_on? : string;
+        index? : number | undefined;
+        sticky_class? : string | undefined;
+        custom_back_text? : boolean | undefined;
+        back_text? : string | undefined;
+        is_hover? : boolean | undefined;
+        mobile_show_parent_link? : boolean | undefined;
+        scrolltop? : boolean | undefined;
+        sticky_on? : string | undefined;
     }
 
     interface Options {
-        abide? : AbideOptions;
-        accordion? : AccordionOptions;
-        alert? : AlertOptions;
-        clearing? : ClearingOptions;
-        dropdown? : DropdownOptions;
-        equalizer? : EqualizerOptions;
-        interchange? : InterchangeOptions;
-        joyride? : JoyrideOptions;
-        magellan? : MagellanOptions;
-        offcanvas? : OffCanvasOptions;
-        orbit? : OrbitOptions;
-        reveal? : RevealOptions;
-        slider? : SliderOptions;
-        tab? : TabOptions;
-        tooltip? : TooltipOptions;
-        topbar? : TopbarOptions;
+        abide? : AbideOptions | undefined;
+        accordion? : AccordionOptions | undefined;
+        alert? : AlertOptions | undefined;
+        clearing? : ClearingOptions | undefined;
+        dropdown? : DropdownOptions | undefined;
+        equalizer? : EqualizerOptions | undefined;
+        interchange? : InterchangeOptions | undefined;
+        joyride? : JoyrideOptions | undefined;
+        magellan? : MagellanOptions | undefined;
+        offcanvas? : OffCanvasOptions | undefined;
+        orbit? : OrbitOptions | undefined;
+        reveal? : RevealOptions | undefined;
+        slider? : SliderOptions | undefined;
+        tab? : TabOptions | undefined;
+        tooltip? : TooltipOptions | undefined;
+        topbar? : TopbarOptions | undefined;
     }
 
     interface FoundationStatic {

@@ -34,9 +34,9 @@ export function config(config: hapi.RouteAdditionalConfigurationOptions): (targe
 
 export function validate(config: hapi.RouteValidationConfigurationObject): (target: any, key: any, descriptor: any) => any;
 interface ICacheConfig {
-    privacy?: string;
-    expiresIn?: number;
-    expiresAt?: number;
+    privacy?: string | undefined;
+    expiresIn?: number | undefined;
+    expiresAt?: number | undefined;
 }
 export function cache(cacheConfig: ICacheConfig): (target: any, key: any, descriptor: any) => any;
 export function pre(pre: {

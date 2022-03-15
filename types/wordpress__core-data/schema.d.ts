@@ -23,7 +23,7 @@ export namespace Schema {
     type TaxonomyKind = 'category' | 'link_category' | 'nav_menu' | 'post_format' | 'post_tag';
 
     interface BaseResponse {
-        _embedded?: Record<string, any[]>;
+        _embedded?: Record<string, any[]> | undefined;
         _links: Record<
             string,
             Array<{
@@ -199,8 +199,8 @@ export namespace Schema {
                     width: number;
                 }
             >;
-            file?: string;
-            height?: number;
+            file?: string | undefined;
+            height?: number | undefined;
             image_meta?: {
                 aperture: string;
                 camera: string;
@@ -214,8 +214,8 @@ export namespace Schema {
                 orientation: string;
                 shutter_speed: string;
                 title: string;
-            };
-            width?: number;
+            } | undefined;
+            width?: number | undefined;
         };
         meta: any[];
         mime_type: string;
@@ -309,17 +309,17 @@ export namespace Schema {
         rest_base: string;
         slug: string;
         supports: {
-            author?: true;
-            comments?: true;
-            'custom-fields'?: true;
-            editor?: true;
-            excerpt?: true;
-            'page-attributes'?: true;
-            'post-formats'?: true;
-            revisions?: true;
-            thumbnail?: true;
-            title?: true;
-            trackbacks?: true;
+            author?: true | undefined;
+            comments?: true | undefined;
+            'custom-fields'?: true | undefined;
+            editor?: true | undefined;
+            excerpt?: true | undefined;
+            'page-attributes'?: true | undefined;
+            'post-formats'?: true | undefined;
+            revisions?: true | undefined;
+            thumbnail?: true | undefined;
+            title?: true | undefined;
+            trackbacks?: true | undefined;
         };
         taxonomies: TaxonomyKind[];
         viewable: boolean;

@@ -30,13 +30,13 @@ type ScriptMatchingPattern =
 type ScriptMatchingPatternPre =
     | ScriptMatchingPatternBase
     | ScriptMatchingPatternHash & {
-          chunks?: "initial" | "async" | "all";
+          chunks?: "initial" | "async" | "all" | undefined;
       };
 
 interface Custom {
     test: ScriptMatchingPattern;
     attribute: string;
-    value?: string;
+    value?: string | undefined;
 }
 
 declare namespace ScriptExtHtmlWebpackPlugin {
@@ -44,38 +44,38 @@ declare namespace ScriptExtHtmlWebpackPlugin {
         /**
          * scripts that should be inlined in the html (default: `[]`)
          */
-        inline?: ScriptMatchingPattern;
+        inline?: ScriptMatchingPattern | undefined;
         /**
          * script names that should have no attribute (default: `[]`)
          */
-        sync?: ScriptMatchingPattern;
+        sync?: ScriptMatchingPattern | undefined;
         /**
          * script names that should have an async attribute (default: `[]`)
          */
-        async?: ScriptMatchingPattern;
+        async?: ScriptMatchingPattern | undefined;
         /**
          * script names that should have a defer attribute (default: `[]`)
          */
-        defer?: ScriptMatchingPattern;
+        defer?: ScriptMatchingPattern | undefined;
         /**
          * the default attribute to set - 'sync' actually results in no attribute (default: 'sync')
          */
-        defaultAttribute?: "sync" | "async" | "defer";
+        defaultAttribute?: "sync" | "async" | "defer" | undefined;
         /**
          * script names that should have a type="module" attribute (default: `[]`)
          */
-        module?: ScriptMatchingPattern;
+        module?: ScriptMatchingPattern | undefined;
         /**
          * scripts that should have accompanying preload resource hints (default: `[]`)
          */
-        preload?: ScriptMatchingPatternPre;
+        preload?: ScriptMatchingPatternPre | undefined;
         /**
          * scripts that should have accompanying prefetch resource hints (default: `[]`)
          */
-        prefetch?: ScriptMatchingPatternPre;
+        prefetch?: ScriptMatchingPatternPre | undefined;
         /**
          * scripts that should have a custom attribute(s) added, the attribute(s), and the value(s)
          */
-        custom?: Custom | Custom[];
+        custom?: Custom | Custom[] | undefined;
     }
 }

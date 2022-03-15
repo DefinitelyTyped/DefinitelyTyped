@@ -147,7 +147,6 @@ function init() {
         camera,
         width: innerWidth,
         height: innerHeight,
-        encoding: THREE.sRGBEncoding,
         selects,
     });
 

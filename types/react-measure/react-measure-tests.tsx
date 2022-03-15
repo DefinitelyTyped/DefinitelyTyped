@@ -67,7 +67,7 @@ interface Props {
     a: string;
 }
 
-const TestFunctionalComponentWithProps: React.SFC<Props & MeasuredComponentProps> = ({a, contentRect, measureRef}) => {
+const TestFunctionalComponentWithProps: React.FC<Props & MeasuredComponentProps> = ({a, contentRect, measureRef}) => {
     return (
         <div ref={measureRef}>{a}</div>
     );

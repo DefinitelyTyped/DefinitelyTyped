@@ -29,6 +29,7 @@ zipcodes.distance(zipA.zip, zipB.zip); // $ExpectType number | null
 
 zipcodes.radius(zipA.zip, 1, true); // $ExpectType ZipCode[] | string[]
 zipcodes.radius(zipA.zip, 1, false); // $ExpectType ZipCode[] | string[]
+zipcodes.radius(95014, 50); // $ExpectType ZipCode[] | string[]
 
 zipcodes.toMiles(3); // $ExpectType number
 

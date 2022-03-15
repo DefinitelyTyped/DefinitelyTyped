@@ -11,6 +11,8 @@ export class IcosahedronGeometry extends PolyhedronGeometry {
      * @default 'IcosahedronGeometry'
      */
     type: string;
+
+    static fromJSON(data: any): IcosahedronGeometry;
 }
 
 export { IcosahedronGeometry as IcosahedronBufferGeometry };

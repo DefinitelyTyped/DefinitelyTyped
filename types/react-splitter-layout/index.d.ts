@@ -17,14 +17,14 @@ export interface SplitterLayoutProps {
      * You can use this to customize layout style.
      * Refers to the original stylesheet to see what you can customize.
      */
-    customClassName?: string;
+    customClassName?: string | undefined;
 
     /**
      * Determine whether the layout should be a horizontal split or a vertical split.
      *
      * @default false
      */
-    vertical?: boolean;
+    vertical?: boolean | undefined;
 
     /**
      * Determine whether the width of each pane should be calculated in percentage or by pixels.
@@ -32,7 +32,7 @@ export interface SplitterLayoutProps {
      *
      * @default false
      */
-    percentage?: boolean;
+    percentage?: boolean | undefined;
 
     /**
      * Index of the primary pane.
@@ -46,7 +46,7 @@ export interface SplitterLayoutProps {
      *
      * @default 0
      */
-    primaryIndex?: TPrimaryIndex;
+    primaryIndex?: TPrimaryIndex | undefined;
 
     /**
      * Minimal size of primary pane.
@@ -55,12 +55,12 @@ export interface SplitterLayoutProps {
      *
      * @default 0
      */
-    primaryMinSize?: number;
+    primaryMinSize?: number | undefined;
 
     /**
      * Minimal size of secondary pane.
      */
-    secondaryMinSize?: number;
+    secondaryMinSize?: number | undefined;
 
     /**
      * Initial size of secondary pane when page loads.
@@ -69,21 +69,21 @@ export interface SplitterLayoutProps {
      *
      * @default undefined
      */
-    secondaryInitialSize?: number;
+    secondaryInitialSize?: number | undefined;
 
     /**
      * Called when dragging is started.
      *
      * No parameter will be passed to event handlers.
      */
-    onDragStart?: () => void;
+    onDragStart?: (() => void) | undefined;
 
     /**
      * Called when dragging finishes.
      *
      * No parameter will be passed to event handlers.
      */
-    onDragEnd?: () => void;
+    onDragEnd?: (() => void) | undefined;
 
     /**
      * Called when the size of secondary pane is changed.
@@ -93,7 +93,7 @@ export interface SplitterLayoutProps {
      * When percentage is set to false, the value is in pixel size.
      * When percentage is set to true, the value is in percentage.
      */
-    onSecondaryPaneSizeChange?: (value: number) => void;
+    onSecondaryPaneSizeChange?: ((value: number) => void) | undefined;
 
     /**
      * Placeholder of the panel(s) inside the splitter

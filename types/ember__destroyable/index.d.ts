@@ -1,11 +1,10 @@
-// Type definitions for non-npm package @ember/destroyable 3.22
+// Type definitions for non-npm package @ember/destroyable 4.0
 // Project: https://api.emberjs.com/ember/3.22/modules/@ember%2Fdestroyable
-// Definitions by: Mike North <https://github.com/mike-north>
-//                 Chris Krycho <https://github.com/chriskrycho>
+// Definitions by: Chris Krycho <https://github.com/chriskrycho>
 //                 Dan Freeman <https://github.com/dfreeman>
 //                 James C. Davis <https://github.com/jamescdavis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
+// Minimum TypeScript Version: 4.4
 
 export function associateDestroyableChild<T extends object>(parent: object, child: T): T;
 

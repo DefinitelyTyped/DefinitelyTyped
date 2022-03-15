@@ -8,14 +8,14 @@
 
 import Koa = require("koa");
 
-declare function mount<StateT = any, CustomT = {}>(
-  app: Koa.Middleware<StateT, CustomT> | Koa<StateT, CustomT>
-): Koa.Middleware<StateT, CustomT>;
+declare function mount<StateT = Koa.DefaultState, ContextT = Koa.DefaultContext>(
+  app: Koa.Middleware<StateT, ContextT> | Koa<StateT, ContextT>
+): Koa.Middleware<StateT, ContextT>;
 
-declare function mount<StateT = any, CustomT = {}>(
+declare function mount<StateT = Koa.DefaultState, ContextT = Koa.DefaultContext>(
   prefix: string,
-  app: Koa.Middleware<StateT, CustomT> | Koa<StateT, CustomT>
-): Koa.Middleware<StateT, CustomT>;
+  app: Koa.Middleware<StateT, ContextT> | Koa<StateT, ContextT>
+): Koa.Middleware<StateT, ContextT>;
 
 declare namespace mount { }
 

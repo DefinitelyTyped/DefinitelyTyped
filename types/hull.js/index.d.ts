@@ -1,6 +1,6 @@
 // Type definitions for hull.js 1.0
 // Project: https://github.com/AndriiHeonia/hull
-// Definitions by: Adam Zerella <https://github.com/adamzerella>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
@@ -10,10 +10,6 @@
  * @param concavity
  * @param format Points format
  */
-declare function hull(
-    pointSet: number[][] | object[],
-    concavity?: number,
-    format?: string[]
-): number[];
+declare function hull(pointSet: number[][] | object[], concavity?: number, format?: string[]): number[][] | object[];
 
 export = hull;

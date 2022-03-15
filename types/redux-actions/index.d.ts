@@ -19,7 +19,7 @@ export interface BaseAction {
 
 export interface Action<Payload> extends BaseAction {
     payload: Payload;
-    error?: boolean;
+    error?: boolean | undefined;
 }
 
 export interface ActionMeta<Payload, Meta> extends Action<Payload> {
@@ -162,8 +162,8 @@ export function handleAction<State, Payload, Meta>(
 ): ReduxCompatibleReducerMeta<State, Payload, Meta>;
 
 export interface Options {
-    prefix?: string;
-    namespace?: string;
+    prefix?: string | undefined;
+    namespace?: string | undefined;
 }
 
 export function handleActions<StateAndPayload>(

@@ -24,6 +24,9 @@ import { createRef, MouseEvent as ReactMouseEvent } from 'react';
 <C.Animate type="appear" options={{ origin: 'top left' }}>
     {({ className }) => <h1 className={className}>Hello World</h1>}
 </C.Animate>;
+<C.Animate type="loading">
+    {({ className }) => <h1 className={className}>Hello World</h1>}
+</C.Animate>;
 
 //
 // autocomplete
@@ -97,7 +100,11 @@ let record: Value = {
     Anchor Button
 </C.Button>;
 
-<C.Button autoFocus isDestructive isLarge isSecondary>
+<C.Button autoFocus isDestructive isSecondary>
+    Deprecated Button
+</C.Button>;
+
+<C.Button autoFocus isDestructive variant='primary'>
     Button Button
 </C.Button>;
 
@@ -118,20 +125,16 @@ const buttonGroupRef = createRef<HTMLDivElement>();
 // card
 //
 <C.Card>I'm a card!</C.Card>;
-<C.Card isElevated isBorderless className="card" size="large">
+<C.Card elevation={4} isBorderless className="card" size="large">
     I'm a card with props!
 </C.Card>;
 <C.Card onClick={(e: ReactMouseEvent<HTMLDivElement, MouseEvent>) => {}} />;
 
-// These components can be rendered as other components:
-<C.Card as={C.HorizontalRule} />;
 // Card renders a `div` by default:
 <C.Card onClick={(e: ReactMouseEvent<HTMLDivElement, MouseEvent>) => {}} />;
 // `div` doesn't support autoFocus:
 // $ExpectError
 <C.Card autoFocus />;
-// With `as="button"`, a `button` element is rendered and `button` props are accepted:
-<C.Card as="button" autoFocus onClick={(e: ReactMouseEvent<HTMLButtonElement, MouseEvent>) => {}} />;
 
 <C.CardBody isShady size="extraSmall">
     Hello world!
@@ -176,8 +179,8 @@ const buttonGroupRef = createRef<HTMLDivElement>();
         { name: 'green', color: '#00ff00' },
         { name: 'blue', color: '#0000ff' },
     ]}
-    value={{ name: 'red', color: '#ff0000' }}
-    onChange={color => color && console.log(color.name)}
+    value={'#ff0000'}
+    onChange={color => color && console.log(color)}
 />;
 
 <C.ColorPalette
@@ -188,8 +191,8 @@ const buttonGroupRef = createRef<HTMLDivElement>();
         { name: 'green', color: '#00ff00' },
         { name: 'blue', color: '#0000ff' },
     ]}
-    value={{ name: 'red', color: '#ff0000' }}
-    onChange={color => color && console.log(color.name)}
+    value={'#ff0000'}
+    onChange={color => color && console.log(color)}
 />;
 
 //
@@ -197,6 +200,23 @@ const buttonGroupRef = createRef<HTMLDivElement>();
 //
 <C.ColorPicker color="#ff0000" onChangeComplete={color => console.log(color.hex)} oldHue={3} />;
 <C.ColorPicker onChangeComplete={color => console.log(color.hex)} disableAlpha />;
+
+//
+// combobox-control
+//
+<C.ComboboxControl
+    label={'Region'}
+    value={'UK'}
+    onChange={value => {
+        console.log(value);
+    }}
+    options={[
+        {
+            label: 'test',
+            value: 'test',
+        },
+    ]}
+/>;
 
 //
 // custom-select-control
@@ -277,7 +297,7 @@ const buttonGroupRef = createRef<HTMLDivElement>();
     )}
 </C.DropdownMenu>;
 <C.DropdownMenu
-    icon="move"
+    icon={<span>icon</span>}
     label="Select a direction"
     controls={[
         {
@@ -312,7 +332,7 @@ const buttonGroupRef = createRef<HTMLDivElement>();
 // flex
 //
 <C.Flex
-    isReversed
+    direction='column'
     gap={3}
     align='bottom'
     justify='left'
@@ -402,6 +422,23 @@ const buttonGroupRef = createRef<HTMLDivElement>();
 />;
 
 //
+// guide
+//
+<C.Guide
+    finishButtonText="Finish"
+    contentLabel="Guide title"
+    onFinish={ () => {
+        console.log('finished');
+    } }
+    pages={ [
+        {
+            content: <h1>My Page</h1>,
+            image: <h1>My Page Image</h1>,
+        }
+    ] }
+/>;
+
+//
 // icon
 //
 <C.Icon />;
@@ -446,7 +483,7 @@ const kbshortcuts = {
 // menu-group, menu-item
 //
 <C.MenuGroup>
-    <C.MenuItem icon="yes" isSelected={true} onClick={() => console.log('clicked')} isLarge>
+    <C.MenuItem icon="yes" isSelected={true} onClick={() => console.log('clicked')} isSmall>
         Toggle
     </C.MenuItem>
 </C.MenuGroup>;
@@ -659,6 +696,26 @@ const kbshortcuts = {
         topLeft: false,
     }}
 />;
+<C.ResizableBox
+    showHandle
+    className="testing"
+    size={{
+        height: 100,
+        width: 100,
+    }}
+    minHeight="50"
+    minWidth={50}
+    enable={{
+        top: false,
+        right: true,
+        bottom: true,
+        left: false,
+        topRight: false,
+        bottomRight: true,
+        bottomLeft: false,
+        topLeft: false,
+    }}
+><div>hello</div></C.ResizableBox>;
 
 //
 // responsive-wrapper
@@ -787,6 +844,11 @@ const kbshortcuts = {
 />;
 
 //
+// tip
+//
+<C.Tip>Hello</C.Tip>;
+
+//
 // toggle-control
 //
 <C.ToggleControl label="Controlled" checked={true} onChange={isChecked => console.log(isChecked)} />;
@@ -863,6 +925,25 @@ const kbshortcuts = {
     subscript="hi"
     title="Toolbar Button"
     onClick={() => console.log('clicked')}
+/>;
+<C.ToolbarButton icon={ <span>click</span> } label="Paragraph" />;
+<C.ToolbarButton>Text</C.ToolbarButton>;
+
+//
+// toolbar-group
+//
+<C.ToolbarGroup
+    isCollapsed
+    icon={ undefined }
+    label="More rich text controls"
+    controls={ [
+        { icon: <div>icon</div>, title: 'Inline code' },
+        { icon: <div>icon</div>, title: 'Inline image' },
+        {
+            icon: <div>icon</div>,
+            title: 'Strikethrough',
+        },
+    ] }
 />;
 
 //
@@ -976,6 +1057,12 @@ const MySlotFillProvider = () => {
         ) : null
     }
 </C.Slot>;
+
+//
+// visually-hidden
+//
+<C.VisuallyHidden>Hello</C.VisuallyHidden>;
+<C.VisuallyHidden as="span" className="test-class">Hello</C.VisuallyHidden>;
 
 //
 // higher-order/navigate-regions

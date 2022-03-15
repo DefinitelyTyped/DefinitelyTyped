@@ -27,7 +27,7 @@ interface FiberConstructor {
      * See "Garbage Collection" for more information on responsible use of
      * `Fiber.current`.
      */
-    readonly current?: Fiber;
+    readonly current?: Fiber | undefined;
 
     /**
      * `Fiber.yield()` will halt execution of the current fiber and return control

@@ -9,6 +9,7 @@ const slowerWithOptions = slowDown({
     maxDelayMs: 20000,
     skipFailedRequests: false,
     skipSuccessfulRequests: true,
+    headers: true,
 });
 
 const slowerWithCallbacks = slowDown({

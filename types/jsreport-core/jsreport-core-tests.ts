@@ -25,3 +25,7 @@ jsreport.init().then(() => {
 }).catch((e) => {
     console.log(e);
 });
+
+const store = jsreport.documentStore;
+store.registerEntitySet('UserType', { test: { type: 'Edm.String', key: true }});
+store.init();

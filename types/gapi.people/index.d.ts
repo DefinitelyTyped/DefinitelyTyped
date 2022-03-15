@@ -8,283 +8,273 @@
 /// <reference types="gapi" />
 
 declare namespace gapi.client.people {
-  export namespace people {
+    export namespace people {
+        interface GetParameters {
+            resourceName: string;
+            personFields: string;
+        }
 
-    interface GetParameters {
-      resourceName: string;
-      personFields: string;
+        function get(parameters: GetParameters): HttpRequest<Person>;
+
+        interface GetBatchGetParameters {
+            resourcesName?: string | undefined;
+            personFields: string;
+        }
+
+        function getBatchGet(parameters: GetBatchGetParameters): HttpRequest<BatchGetResponse>;
+
+        interface BatchGetResponse {
+            responses: PersonResponse[];
+        }
+
+        interface PersonResponse {
+            httpStatusCode: number;
+            person: Person;
+            requestedResourceName: string;
+        }
+
+        function searchContacts(parameters: SearchContactsParameters): HttpRequest<SearchContactsResponse>;
+
+        namespace connections {
+            function list(parameters: ListParameters): HttpRequest<Response>;
+
+            type SortOrder = 'LAST_MODIFIED_ASCENDING' | 'FIRST_NAME_ASCENDING' | 'LAST_NAME_ASCENDING';
+
+            interface ListParameters {
+                resourceName: string;
+                pageToken?: string | undefined;
+                pageSize?: number | undefined;
+                sortOrder?: SortOrder | undefined;
+                syncToken?: string | undefined;
+                personFields: string;
+            }
+
+            interface Response {
+                connections?: Person[] | undefined;
+                nextPageToken?: string | undefined;
+                nextSyncToken?: string | undefined;
+            }
+        }
     }
 
-    function get(parameters: GetParameters): HttpRequest<Person>;
+    export namespace otherContacts {
+        function list(parameters: ListParameters): HttpRequest<ListResponse>;
 
-    interface GetBatchGetParameters {
-      resourcesName?: string;
-      personFields: string;
+        interface ListParameters {
+            pageToken?: string | undefined;
+            pageSize?: number | undefined;
+            requestSyncToken?: boolean | undefined;
+            syncToken?: string | undefined;
+            readMask: string;
+        }
+
+        interface ListResponse {
+            otherContacts?: Person[] | undefined;
+            nextPageToken?: string | undefined;
+            nextSyncToken?: string | undefined;
+        }
+
+        function search(parameters: SearchContactsParameters): HttpRequest<SearchContactsResponse>;
     }
 
-    function getBatchGet(parameters: GetBatchGetParameters): HttpRequest<BatchGetResponse>;
-
-    interface BatchGetResponse {
-      responses: PersonResponse[];
+    interface SearchContactsParameters {
+        query: string;
+        pageSize?: number | undefined;
+        readMask: string;
     }
 
-    interface PersonResponse {
-      httpStatusCode: number;
-      person: Person;
-      requestedResourceName: string;
+    interface SearchContactsResponse {
+        results?: SearchContactsResult[] | undefined;
     }
 
-    function searchContacts(parameters: SearchContactsParameters): HttpRequest<SearchContactsResponse>;
+    interface SearchContactsResult {
+        person: Person;
+    }
 
-    namespace connections {
-      function list(parameters: ListParameters): HttpRequest<Response>;
+    type SourceType =
+        | 'SOURCE_TYPE_UNSPECIFIED'
+        | 'ACCOUNT'
+        | 'PROFILE'
+        | 'DOMAIN_PROFILE'
+        | 'CONTACT'
+        | 'OTHER_CONTACT'
+        | 'DOMAIN_CONTACT';
 
-      type SortOrder = 'LAST_MODIFIED_ASCENDING' | 'FIRST_NAME_ASCENDING' | 'LAST_NAME_ASCENDING';
-
-      interface ListParameters {
+    interface Source {
+        type: SourceType;
+        id: string;
+        etag: string;
         resourceName: string;
-        pageToken?: string;
-        pageSize?: number;
-        sortOrder?: SortOrder;
-        syncToken?: string;
-        personFields: string;
-      }
-
-      interface Response {
-        connections: Person[];
-        nextPageToken: string;
-        nextSyncToken: string;
-      }
-    }
-  }
-
-  export namespace otherContacts {
-    function list(parameters: ListParameters): HttpRequest<ListResponse>;
-
-    interface ListParameters {
-      pageToken?: string;
-      pageSize?: number;
-      requestSyncToken?: boolean;
-      syncToken?: string;
-      readMask: string;
     }
 
-    interface ListResponse {
-      otherContacts: Person[],
-      nextPageToken?: string,
-      nextSyncToken: string,
+    type ObjectType = 'OBJECT_TYPE_UNSPECIFIED' | 'PERSON' | 'PAGE';
+
+    interface PersonMetadata {
+        sources: Source[];
+        previousResourceNames: string[];
+        linkedPeopleResourceNames: string[];
+        deleted: boolean;
+        objectType: ObjectType;
     }
 
-    function search(parameters: SearchContactsParameters): HttpRequest<SearchContactsResponse>;
-  }
+    interface FieldMetadata {
+        primary: boolean;
+        verified: boolean;
+        source: Source;
+    }
 
-  interface SearchContactsParameters {
-    query: string;
-    pageSize?: number;
-    readMask: string;
-  }
+    interface Locale {
+        metadata: FieldMetadata;
+        value: string;
+    }
 
-  interface SearchContactsResponse {
-    results?: SearchContactsResult[],
-  }
+    interface Name {
+        metadata: FieldMetadata;
+        displayName: string;
+        displayNameLastFirst: string;
+        familyName: string;
+        givenName: string;
+        middleName: string;
+        honorificPrefix: string;
+        honorificSuffix: string;
+        phoneticFullName: string;
+        phoneticFamilyName: string;
+        phoneticGivenName: string;
+        phoneticMiddleName: string;
+        phoneticHonorificPrefix: string;
+        phoneticHonorificSuffix: string;
+    }
 
-  interface SearchContactsResult {
-    person: Person,
-  }
+    type NicknameType = 'DEFAULT' | 'MAIDEN_NAME' | 'INITIALS' | 'GPLUS' | 'OTHER_NAME';
 
-  type SourceType = 'SOURCE_TYPE_UNSPECIFIED' | 'ACCOUNT' | 'PROFILE' | 'DOMAIN_PROFILE' | 'CONTACT';
+    interface Nickname {
+        metadata: FieldMetadata;
+        value: string;
+        type: NicknameType;
+    }
 
-  interface Source {
-    type: SourceType;
-    id: string;
-    etag: string;
-    resourceName: string;
-  }
+    interface CoverPhoto {
+        metadata: FieldMetadata;
+        url: string;
+        default: boolean;
+    }
 
-  type ObjectType = 'OBJECT_TYPE_UNSPECIFIED' | 'PERSON' | 'PAGE';
+    interface Photo {
+        metadata: FieldMetadata;
+        url: string;
+        default: boolean;
+    }
 
-  interface PersonMetadata {
-    sources: Source[];
-    previousResourceNames: string[];
-    linkedPeopleResourceNames: string[];
-    deleted: boolean;
-    objectType: ObjectType;
-  }
+    interface Gender {}
 
-  interface FieldMetadata {
-    primary: boolean;
-    verified: boolean;
-    source: Source;
-  }
+    interface AgeRange {}
 
-  interface Locale {
-    metadata: FieldMetadata;
-    value: string;
-  }
+    interface Birthday {
+        metadata: FieldMetadata;
+        date: Date;
+        text: string;
+    }
 
-  interface Name {
-    metadata: FieldMetadata;
-    displayName: string;
-    displayNameLastFirst: string;
-    familyName: string;
-    givenName: string;
-    middleName: string;
-    honorificPrefix: string;
-    honorificSuffix: string;
-    phoneticFullName: string;
-    phoneticFamilyName: string;
-    phoneticGivenName: string;
-    phoneticMiddleName: string;
-    phoneticHonorificPrefix: string;
-    phoneticHonorificSuffix: string;
-  }
+    interface Date {
+        day: number;
+        month: number;
+        year: number;
+    }
 
-  type NicknameType = 'DEFAULT' | 'MAIDEN_NAME' | 'INITIALS' | 'GPLUS' | 'OTHER_NAME';
+    interface Event {}
 
-  interface Nickname {
-    metadata: FieldMetadata;
-    value: string;
-    type: NicknameType;
-  }
+    interface Address {
+        metadata: FieldMetadata;
+        formattedValue: string;
+        type: string;
+        formattedType: string;
+        poBox: string;
+        streetAddress: string;
+        extendedAddress: string;
+        city: string;
+        region: string;
+        postalCode: string;
+        country: string;
+        countryCode: string;
+    }
 
-  interface CoverPhoto {
-    metadata: FieldMetadata;
-    url: string;
-    default: boolean;
-  }
+    interface Residence {
+        metadata: FieldMetadata;
+        value: string;
+        current: boolean;
+    }
 
-  interface Photo {
-    metadata: FieldMetadata;
-    url: string;
-    default: boolean;
-  }
+    interface EmailAddress {
+        metadata: FieldMetadata;
+        value: string;
+        type: string;
+        formattedType: string;
+        displayName: string;
+    }
 
-  interface Gender {
-  }
+    interface PhoneNumber {
+        metadata: FieldMetadata;
+        value: string;
+        canonicalForm: string;
+        type: string;
+        formattedType: string;
+    }
 
-  interface AgeRange {
-  }
+    interface ImClient {}
 
-  interface Birthday {
-    metadata: FieldMetadata;
-    date: Date;
-    text: string;
-  }
+    interface Tagline {}
 
-  interface Date {
-    day: number;
-    month: number;
-    year: number;
-  }
+    interface Biography {}
 
-  interface Event {
-  }
+    interface Url {}
 
-  interface Address {
-    metadata: FieldMetadata;
-    formattedValue: string;
-    type: string;
-    formattedType: string;
-    poBox: string;
-    streetAddress: string;
-    extendedAddress: string;
-    city: string;
-    region: string;
-    postalCode: string;
-    country: string;
-    countryCode: string;
-  }
+    interface Organization {}
 
-  interface Residence {
-    metadata: FieldMetadata;
-    value: string;
-    current: boolean;
-  }
+    interface Occupation {}
 
-  interface EmailAddress {
-    metadata: FieldMetadata;
-    value: string;
-    type: string;
-    formattedType: string;
-    displayName: string;
-  }
+    interface Interest {}
 
-  interface PhoneNumber {
-    metadata: FieldMetadata;
-    value: string;
-    canonicalForm: string;
-    type: string;
-    formattedType: string;
-  }
+    interface Skill {}
 
-  interface ImClient {
-  }
+    interface BraggingRights {}
 
-  interface Tagline {
-  }
+    interface Relation {}
 
-  interface Biography {
-  }
+    interface RelationshipInterest {}
 
-  interface Url {
-  }
+    interface RelationshipStatus {}
 
-  interface Organization {
-  }
+    interface Membership {}
 
-  interface Occupation {
-  }
-
-  interface Interest {
-  }
-
-  interface Skill {
-  }
-
-  interface BraggingRights {
-  }
-
-  interface Relation {
-  }
-
-  interface RelationshipInterest {
-  }
-
-  interface RelationshipStatus {
-  }
-
-  interface Membership {
-  }
-
-  interface Person {
-    resourceName: string;
-    etag: string;
-    metadata: PersonMetadata;
-    locales: Locale[];
-    names: Name[];
-    nicknames?: Nickname[];
-    coverPhotos: CoverPhoto[];
-    photos?: Photo[];
-    genders?: Gender[];
-    ageRange?: AgeRange;
-    birthdays?: Birthday[];
-    events?: Event[];
-    addresses?: Address[];
-    residences?: Residence[];
-    emailAddresses?: EmailAddress[];
-    phoneNumbers?: PhoneNumber[];
-    imClients?: ImClient[];
-    taglines?: Tagline[];
-    biographies?: Biography[];
-    urls?: Url[];
-    organizations?: Organization[];
-    occupations?: Occupation[];
-    interests?: Interest[];
-    skills?: Skill[];
-    BraggingRights?: BraggingRights[];
-    relations?: Relation[];
-    relationshipInterests?: RelationshipInterest[];
-    relationshipStatuses?: RelationshipStatus[];
-    memberships?: Membership[];
-  }
+    interface Person {
+        resourceName: string;
+        etag: string;
+        metadata: PersonMetadata;
+        locales: Locale[];
+        names: Name[];
+        nicknames?: Nickname[] | undefined;
+        coverPhotos: CoverPhoto[];
+        photos?: Photo[] | undefined;
+        genders?: Gender[] | undefined;
+        ageRange?: AgeRange | undefined;
+        birthdays?: Birthday[] | undefined;
+        events?: Event[] | undefined;
+        addresses?: Address[] | undefined;
+        residences?: Residence[] | undefined;
+        emailAddresses?: EmailAddress[] | undefined;
+        phoneNumbers?: PhoneNumber[] | undefined;
+        imClients?: ImClient[] | undefined;
+        taglines?: Tagline[] | undefined;
+        biographies?: Biography[] | undefined;
+        urls?: Url[] | undefined;
+        organizations?: Organization[] | undefined;
+        occupations?: Occupation[] | undefined;
+        interests?: Interest[] | undefined;
+        skills?: Skill[] | undefined;
+        BraggingRights?: BraggingRights[] | undefined;
+        relations?: Relation[] | undefined;
+        relationshipInterests?: RelationshipInterest[] | undefined;
+        relationshipStatuses?: RelationshipStatus[] | undefined;
+        memberships?: Membership[] | undefined;
+    }
 }

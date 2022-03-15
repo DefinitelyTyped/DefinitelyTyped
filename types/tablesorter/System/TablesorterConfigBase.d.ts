@@ -7,10 +7,10 @@ export interface TablesorterConfigBase {
     /**
      * The date-format for dates inside the table.
      */
-    dateFormat?: string;
+    dateFormat?: string | undefined;
 
     /**
      * The order which will be applied when clicking on the heading the first time.
      */
-    sortInitialOrder?: SortOrder;
+    sortInitialOrder?: SortOrder | undefined;
 }

@@ -310,7 +310,12 @@ declare namespace Yoga {
         setMaxHeightPercent(maxHeight: number): void;
         setMaxWidth(maxWidth: number | string): void;
         setMaxWidthPercent(maxWidth: number): void;
-        setMeasureFunc(measureFunc: (width: number, widthMeasureMode: YogaMeasureMode, height: number, heightMeasureMode: YogaMeasureMode) => { width?: number; height?: number } | null): void;
+        setMeasureFunc(
+            measureFunc: (width: number, widthMeasureMode: YogaMeasureMode, height: number, heightMeasureMode: YogaMeasureMode) => {
+                width?: number | undefined;
+                height?: number | undefined
+            } | null
+        ): void;
         setMinHeight(minHeight: number | string): void;
         setMinHeightPercent(minHeight: number): void;
         setMinWidth(minWidth: number | string): void;

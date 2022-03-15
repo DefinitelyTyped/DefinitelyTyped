@@ -11,24 +11,24 @@ type Property = 'read' | 'write' | 'indicate' | 'notify' | 'writeWithoutResponse
 
 interface CharacteristicOptions {
     uuid: string;
-    properties?: ReadonlyArray<Property> | null;
-    secure?: ReadonlyArray<Property> | null;
-    value?: Buffer | null;
-    descriptors?: ReadonlyArray<Descriptor> | null;
-    onIndicate?: (() => void) | null;
-    onNotify?: (() => void) | null;
+    properties?: ReadonlyArray<Property> | null | undefined;
+    secure?: ReadonlyArray<Property> | null | undefined;
+    value?: Buffer | null | undefined;
+    descriptors?: ReadonlyArray<Descriptor> | null | undefined;
+    onIndicate?: (() => void) | null | undefined;
+    onNotify?: (() => void) | null | undefined;
     onReadRequest?: ((
         offset: number,
         callback: (result: number, data?: Buffer) => void
-    ) => void) | null;
-    onSubscribe?: ((maxValueSize: number, updateValueCallback: any) => void) | null;
-    onUnsubscribe?: (() => void) | null;
+    ) => void) | null | undefined;
+    onSubscribe?: ((maxValueSize: number, updateValueCallback: any) => void) | null | undefined;
+    onUnsubscribe?: (() => void) | null | undefined;
     onWriteRequest?: ((
         data: Buffer,
         offset: number,
         withoutResponse: boolean,
         callback: (result: number) => void
-    ) => void) | null;
+    ) => void) | null | undefined;
 }
 
 declare class Characteristic {
@@ -77,7 +77,7 @@ declare class Characteristic {
 
 interface DescriptorOptions {
     uuid: string;
-    value?: Buffer | string | null;
+    value?: Buffer | string | null | undefined;
 }
 
 declare class Descriptor {
@@ -91,7 +91,7 @@ declare class Descriptor {
 
 interface PrimaryServiceOptions {
     uuid: string;
-    characteristics?: ReadonlyArray<Characteristic> | null;
+    characteristics?: ReadonlyArray<Characteristic> | null | undefined;
 }
 
 declare class PrimaryService {

@@ -539,9 +539,9 @@ export namespace Strophe {
     }
 
     interface ConnectionOptions {
-        keepalive?: boolean;
-        protocol?: string;
-        sync?: boolean;
+        keepalive?: boolean | undefined;
+        protocol?: string | undefined;
+        sync?: boolean | undefined;
     }
 
     /** Class: Strophe.Connection
@@ -849,6 +849,24 @@ export namespace Strophe {
          */
         flush(): void;
 
+        /** Function: sendPresence
+         *  Helper function to send presence stanzas.  The main benefit is for
+         *  sending presence stanzas for which you expect a responding presence
+         *  stanza with the same id (for example when leaving a chat room).
+         *
+         *  Parameters:
+         *    (XMLElement) elem - The stanza to send.
+         *    (Function) callback - The callback function for a successful request.
+         *    (Function) errback - The callback function for a failed or timed
+         *      out request.  On timeout, the stanza will be null.
+         *    (Integer) timeout - The time specified in milliseconds for a
+         *      timeout to occur.
+         *
+         *  Returns:
+         *    The id used to send the presence.
+        */
+        sendPresence(elem: Element | Builder, callback?: (stanza: Element) => any, errback?: (stanza: Element) => any, timeout?: number): string;
+
         /** Function: sendIQ
          *  Helper function to send IQ stanzas.
          *
@@ -941,13 +959,14 @@ export namespace Strophe {
          *    A reference to the handler that can be used to remove it.
          */
         addHandler(
-           handler: (stanza: Element) => any,
-           ns: string, name: string,
-                   type: string,
-                   id: string,
-                   from: string,
-                   options?: { matchBare: boolean }
-                  ): any;
+            handler: (stanza: Element) => any,
+            ns?: string,
+            name?: string,
+            type?: string,
+            id?: string,
+            from?: string,
+            options?: { matchBare: boolean }
+        ): any;
 
         /** Function: deleteHandler
          *  Delete a stanza handler for a connection.

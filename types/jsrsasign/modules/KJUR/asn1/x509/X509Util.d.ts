@@ -76,7 +76,7 @@ declare namespace jsrsasign.KJUR.asn1.x509 {
             subject: StringParam;
             sbjpubkey: string;
             sighex: string;
-            ext?: Extension[];
+            ext?: Extension[] | undefined;
             cakey: [string, string];
         }): string;
     }

@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { CompiledRoutine } from 'cwise-parser';
-import * as ndarray from 'ndarray';
+import { CompiledRoutine } from "cwise-parser";
+import { NdArray } from "ndarray";
 
 declare namespace cwise_compiler {
     interface BlockIndice {
@@ -15,7 +15,7 @@ declare namespace cwise_compiler {
         offset: number[];
         array: number;
     }
-    type ArgType = 'array' | 'offset' | 'shape' | 'scalar' | 'index' | BlockIndice | OffsetArg;
+    type ArgType = "array" | "offset" | "shape" | "scalar" | "index" | BlockIndice | OffsetArg;
     interface UserArgs {
         args: ArgType[];
         pre: CompiledRoutine;
@@ -24,7 +24,7 @@ declare namespace cwise_compiler {
         debug: boolean;
         funcName: string;
         blockSize: number;
-        printCode?: boolean;
+        printCode?: boolean | undefined;
     }
     interface Procedure {
         argTypes: ArgType[];
@@ -41,10 +41,12 @@ declare namespace cwise_compiler {
         body: CompiledRoutine;
         post: CompiledRoutine;
         debug: boolean;
-        blockSize?: number;
+        blockSize?: number | undefined;
     }
 }
 
-declare function cwise_compiler(user_args: cwise_compiler.UserArgs): (a: ndarray, b: ndarray, ...args: ndarray[]) => ndarray;
+declare function cwise_compiler(
+    user_args: cwise_compiler.UserArgs,
+): (a: NdArray, b: NdArray, ...args: NdArray[]) => NdArray;
 
 export = cwise_compiler;

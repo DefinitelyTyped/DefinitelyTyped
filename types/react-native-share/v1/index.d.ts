@@ -20,8 +20,8 @@ import Sheet from './Sheet.d';
 export default Share;
 
 export interface OpenReturn {
-    app?: string;
-    dismissedAction?: boolean;
+    app?: string | undefined;
+    dismissedAction?: boolean | undefined;
 }
 
 export interface ShareSingleReturn {
@@ -29,27 +29,27 @@ export interface ShareSingleReturn {
 }
 
 export interface Options {
-    url?: string;
-    urls?: string[];
-    type?: string;
-    message?: string;
-    title?: string;
-    subject?: string;
-    filename?: string;
-    excludedActivityTypes?: string;
-    failOnCancel?: boolean;
-    showAppsToView?: boolean;
+    url?: string | undefined;
+    urls?: string[] | undefined;
+    type?: string | undefined;
+    message?: string | undefined;
+    title?: string | undefined;
+    subject?: string | undefined;
+    filename?: string | undefined;
+    excludedActivityTypes?: string | undefined;
+    failOnCancel?: boolean | undefined;
+    showAppsToView?: boolean | undefined;
 }
 export interface MultipleOptions {
-    url?: string;
+    url?: string | undefined;
     urls: string[];
-    type?: string;
-    message?: string;
-    title?: string;
-    subject?: string;
-    excludedActivityTypes?: string;
-    failOnCancel?: boolean;
-    showAppsToView?: boolean;
+    type?: string | undefined;
+    message?: string | undefined;
+    title?: string | undefined;
+    subject?: string | undefined;
+    excludedActivityTypes?: string | undefined;
+    failOnCancel?: boolean | undefined;
+    showAppsToView?: boolean | undefined;
 }
 
 export type SupportedSocialApps =
@@ -65,8 +65,8 @@ export interface ShareSheetProps {
     visible: boolean;
     onCancel: () => void;
     children: ReactNode;
-    style?: StyleProp<ViewProps>;
-    overlayStyle?: StyleProp<ViewProps>;
+    style?: StyleProp<ViewProps> | undefined;
+    overlayStyle?: StyleProp<ViewProps> | undefined;
 }
 
 export { Overlay, Button, Sheet };

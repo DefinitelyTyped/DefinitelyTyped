@@ -12,7 +12,7 @@ export { default as BlockFormatControls } from './block-format-controls';
 export { default as BlockIcon } from './block-icon';
 export { default as BlockNavigationDropdown } from './block-navigation/dropdown';
 export { default as BlockVerticalAlignmentToolbar } from './block-vertical-alignment-toolbar';
-export { default as ButtonBlockerAppender } from './button-block-appender';
+export { default as ButtonBlockAppender } from './button-block-appender';
 export { default as ColorPalette } from './color-palette';
 export { default as ContrastChecker } from './contrast-checker';
 export { default as InnerBlocks } from './inner-blocks';
@@ -56,3 +56,8 @@ export { default as WritingFlow } from './writing-flow';
  * State Related Components
  */
 export { default as BlockEditorProvider } from './provider';
+
+/*
+ * Hooks
+ */
+export { useBlockProps } from './use-block-props';

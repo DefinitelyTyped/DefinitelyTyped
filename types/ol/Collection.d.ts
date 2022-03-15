@@ -4,7 +4,7 @@ import BaseEvent from './events/Event';
 import BaseObject, { ObjectEvent } from './Object';
 
 export interface Options {
-    unique?: boolean;
+    unique?: boolean | undefined;
 }
 export default class Collection<T> extends BaseObject {
     constructor(opt_array?: T[], opt_options?: Options);

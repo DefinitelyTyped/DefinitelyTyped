@@ -32,7 +32,7 @@ declare namespace echarts {
              * "pie"
              * @see https://echarts.apache.org/en/option.html#series-pie.type
              */
-            type?: string;
+            type?: string | undefined;
 
             /**
              * Component ID, not specified by default.
@@ -42,7 +42,7 @@ declare namespace echarts {
              *
              * @see https://echarts.apache.org/en/option.html#series-pie.id
              */
-            id?: string;
+            id?: string | undefined;
 
             /**
              * Series name used for displaying in
@@ -54,7 +54,7 @@ declare namespace echarts {
              *
              * @see https://echarts.apache.org/en/option.html#series-pie.name
              */
-            name?: string;
+            name?: string | undefined;
 
             /**
              * Whether to enable highlighting chart when
@@ -66,7 +66,7 @@ declare namespace echarts {
              * "true"
              * @see https://echarts.apache.org/en/option.html#series-pie.legendHoverLink
              */
-            legendHoverLink?: boolean;
+            legendHoverLink?: boolean | undefined;
 
             /**
              * Whether to enable the zoom animation effects when hovering sectors.
@@ -76,7 +76,7 @@ declare namespace echarts {
              * "true"
              * @see https://echarts.apache.org/en/option.html#series-pie.hoverAnimation
              */
-            hoverAnimation?: boolean;
+            hoverAnimation?: boolean | undefined;
 
             /**
              * The offset distance of hovered sector.
@@ -86,7 +86,7 @@ declare namespace echarts {
              * 10
              * @see https://echarts.apache.org/en/option.html#series-pie.hoverOffset
              */
-            hoverOffset?: number;
+            hoverOffset?: number | undefined;
 
             /**
              * Selected mode of pie.
@@ -99,7 +99,7 @@ declare namespace echarts {
              *
              * @see https://echarts.apache.org/en/option.html#series-pie.selectedMode
              */
-            selectedMode?: boolean | string;
+            selectedMode?: boolean | string | undefined;
 
             /**
              * The offset distance of selected sector.
@@ -109,7 +109,7 @@ declare namespace echarts {
              * 10
              * @see https://echarts.apache.org/en/option.html#series-pie.selectedOffset
              */
-            selectedOffset?: number;
+            selectedOffset?: number | undefined;
 
             /**
              * Whether the layout of sectors of pie chart is clockwise.
@@ -119,7 +119,7 @@ declare namespace echarts {
              * "true"
              * @see https://echarts.apache.org/en/option.html#series-pie.clockwise
              */
-            clockwise?: boolean;
+            clockwise?: boolean | undefined;
 
             /**
              * The start angle, which range is \[0, 360\].
@@ -129,7 +129,7 @@ declare namespace echarts {
              * 90
              * @see https://echarts.apache.org/en/option.html#series-pie.startAngle
              */
-            startAngle?: number;
+            startAngle?: number | undefined;
 
             /**
              * The minimum angle of sector (0 ~ 360).
@@ -139,14 +139,14 @@ declare namespace echarts {
              *
              * @see https://echarts.apache.org/en/option.html#series-pie.minAngle
              */
-            minAngle?: number;
+            minAngle?: number | undefined;
 
             /**
              * If a sector is less than this angle (0 ~ 360), label and labelLine will not be displayed.
              *
              * @see https://echarts.apache.org/en/option.html#series-pie.minShowLabelAngle
              */
-            minShowLabelAngle?: number;
+            minShowLabelAngle?: number | undefined;
 
             /**
              * Whether to show as Nightingale chart, which distinguishs data
@@ -160,7 +160,7 @@ declare namespace echarts {
              *
              * @see https://echarts.apache.org/en/option.html#series-pie.roseType
              */
-            roseType?: boolean | string;
+            roseType?: boolean | string | undefined;
 
             /**
              * Whether to enable the strategy to avoid labels overlap.
@@ -172,7 +172,7 @@ declare namespace echarts {
              * "true"
              * @see https://echarts.apache.org/en/option.html#series-pie.avoidLabelOverlap
              */
-            avoidLabelOverlap?: boolean;
+            avoidLabelOverlap?: boolean | undefined;
 
             /**
              * Whether to show sector when all data are zero.
@@ -182,7 +182,7 @@ declare namespace echarts {
              * "true"
              * @see https://echarts.apache.org/en/option.html#series-pie.stillShowZeroSum
              */
-            stillShowZeroSum?: boolean;
+            stillShowZeroSum?: boolean | undefined;
 
             /**
              * The mouse style when mouse hovers on an element, the same as
@@ -193,7 +193,7 @@ declare namespace echarts {
              * "pointer"
              * @see https://echarts.apache.org/en/option.html#series-pie.cursor
              */
-            cursor?: string;
+            cursor?: string | undefined;
 
             /**
              * Text label of pie chart, to explain some data information about
@@ -216,7 +216,7 @@ declare namespace echarts {
                 /**
                  * @see https://echarts.apache.org/en/option.html#series-pie.label.show
                  */
-                show?: boolean;
+                show?: boolean | undefined;
 
                 /**
                  * The position of label.
@@ -246,7 +246,7 @@ declare namespace echarts {
                  * "outside"
                  * @see https://echarts.apache.org/en/option.html#series-pie.label.position
                  */
-                position?: string;
+                position?: string | undefined;
 
                 /**
                  * Data label formatter, which supports string template and
@@ -290,7 +290,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-pie.label.formatter
                  */
-                formatter?: Function | string;
+                formatter?: Function | string | undefined;
 
                 /**
                  * text color.
@@ -300,7 +300,7 @@ declare namespace echarts {
                  * ""#fff""
                  * @see https://echarts.apache.org/en/option.html#series-pie.label.color
                  */
-                color?: string;
+                color?: string | undefined;
 
                 /**
                  * font style
@@ -316,7 +316,7 @@ declare namespace echarts {
                  * "normal"
                  * @see https://echarts.apache.org/en/option.html#series-pie.label.fontStyle
                  */
-                fontStyle?: string;
+                fontStyle?: string | undefined;
 
                 /**
                  * font thick weight
@@ -334,7 +334,7 @@ declare namespace echarts {
                  * "normal"
                  * @see https://echarts.apache.org/en/option.html#series-pie.label.fontWeight
                  */
-                fontWeight?: string | number;
+                fontWeight?: string | number | undefined;
 
                 /**
                  * font family
@@ -346,7 +346,7 @@ declare namespace echarts {
                  * "sans-serif"
                  * @see https://echarts.apache.org/en/option.html#series-pie.label.fontFamily
                  */
-                fontFamily?: string;
+                fontFamily?: string | undefined;
 
                 /**
                  * font size
@@ -356,7 +356,7 @@ declare namespace echarts {
                  * 12
                  * @see https://echarts.apache.org/en/option.html#series-pie.label.fontSize
                  */
-                fontSize?: number;
+                fontSize?: number | undefined;
 
                 /**
                  * Horizontal alignment of text, automatic by default.
@@ -375,7 +375,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-pie.label.align
                  */
-                align?: string;
+                align?: string | undefined;
 
                 /**
                  * Vertical alignment of text, automatic by default.
@@ -394,7 +394,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-pie.label.verticalAlign
                  */
-                verticalAlign?: string;
+                verticalAlign?: string | undefined;
 
                 /**
                  * Line height of the text fregment.
@@ -407,7 +407,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-pie.label.lineHeight
                  */
-                lineHeight?: number;
+                lineHeight?: number | undefined;
 
                 /**
                  * Background color of the text fregment.
@@ -426,7 +426,7 @@ declare namespace echarts {
                  * "transparent"
                  * @see https://echarts.apache.org/en/option.html#series-pie.label.backgroundColor
                  */
-                backgroundColor?: object | string;
+                backgroundColor?: object | string | undefined;
 
                 /**
                  * Border color of the text fregment.
@@ -436,7 +436,7 @@ declare namespace echarts {
                  * "transparent"
                  * @see https://echarts.apache.org/en/option.html#series-pie.label.borderColor
                  */
-                borderColor?: string;
+                borderColor?: string | undefined;
 
                 /**
                  * Border width of the text fregment.
@@ -444,7 +444,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-pie.label.borderWidth
                  */
-                borderWidth?: number;
+                borderWidth?: number | undefined;
 
                 /**
                  * Border radius of the text fregment.
@@ -452,7 +452,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-pie.label.borderRadius
                  */
-                borderRadius?: number;
+                borderRadius?: number | undefined;
 
                 /**
                  * Padding of the text fregment, for example:
@@ -468,7 +468,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-pie.label.padding
                  */
-                padding?: any[] | number;
+                padding?: any[] | number | undefined;
 
                 /**
                  * Shadow color of the text block.
@@ -478,7 +478,7 @@ declare namespace echarts {
                  * "transparent"
                  * @see https://echarts.apache.org/en/option.html#series-pie.label.shadowColor
                  */
-                shadowColor?: string;
+                shadowColor?: string | undefined;
 
                 /**
                  * Show blur of the text block.
@@ -486,7 +486,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-pie.label.shadowBlur
                  */
-                shadowBlur?: number;
+                shadowBlur?: number | undefined;
 
                 /**
                  * Shadow X offset of the text block.
@@ -494,7 +494,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-pie.label.shadowOffsetX
                  */
-                shadowOffsetX?: number;
+                shadowOffsetX?: number | undefined;
 
                 /**
                  * Shadow Y offset of the text block.
@@ -502,7 +502,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-pie.label.shadowOffsetY
                  */
-                shadowOffsetY?: number;
+                shadowOffsetY?: number | undefined;
 
                 /**
                  * Width of the text block.
@@ -526,7 +526,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-pie.label.width
                  */
-                width?: number | string;
+                width?: number | string | undefined;
 
                 /**
                  * Height of the text block.
@@ -542,7 +542,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-pie.label.height
                  */
-                height?: number | string;
+                height?: number | string | undefined;
 
                 /**
                  * Storke color of the text.
@@ -552,7 +552,7 @@ declare namespace echarts {
                  * "transparent"
                  * @see https://echarts.apache.org/en/option.html#series-pie.label.textBorderColor
                  */
-                textBorderColor?: string;
+                textBorderColor?: string | undefined;
 
                 /**
                  * Storke line width of the text.
@@ -560,7 +560,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-pie.label.textBorderWidth
                  */
-                textBorderWidth?: number;
+                textBorderWidth?: number | undefined;
 
                 /**
                  * Shadow color of the text itself.
@@ -570,7 +570,7 @@ declare namespace echarts {
                  * "transparent"
                  * @see https://echarts.apache.org/en/option.html#series-pie.label.textShadowColor
                  */
-                textShadowColor?: string;
+                textShadowColor?: string | undefined;
 
                 /**
                  * Shadow blue of the text itself.
@@ -578,7 +578,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-pie.label.textShadowBlur
                  */
-                textShadowBlur?: number;
+                textShadowBlur?: number | undefined;
 
                 /**
                  * Shadow X offset of the text itself.
@@ -586,7 +586,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-pie.label.textShadowOffsetX
                  */
-                textShadowOffsetX?: number;
+                textShadowOffsetX?: number | undefined;
 
                 /**
                  * Shadow Y offset of the text itself.
@@ -594,7 +594,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-pie.label.textShadowOffsetY
                  */
-                textShadowOffsetY?: number;
+                textShadowOffsetY?: number | undefined;
 
                 /**
                  * "Rich text styles" can be defined in this `rich` property.
@@ -622,7 +622,7 @@ declare namespace echarts {
                          * ""#fff""
                          * @see https://echarts.apache.org/en/option.html#series-pie.label.rich.%3Cuser%20defined%20style%20name%3E.color
                          */
-                        color?: string;
+                        color?: string | undefined;
 
                         /**
                          * font style
@@ -638,7 +638,7 @@ declare namespace echarts {
                          * "normal"
                          * @see https://echarts.apache.org/en/option.html#series-pie.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
                          */
-                        fontStyle?: string;
+                        fontStyle?: string | undefined;
 
                         /**
                          * font thick weight
@@ -656,7 +656,7 @@ declare namespace echarts {
                          * "normal"
                          * @see https://echarts.apache.org/en/option.html#series-pie.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                          */
-                        fontWeight?: string | number;
+                        fontWeight?: string | number | undefined;
 
                         /**
                          * font family
@@ -668,7 +668,7 @@ declare namespace echarts {
                          * "sans-serif"
                          * @see https://echarts.apache.org/en/option.html#series-pie.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
                          */
-                        fontFamily?: string;
+                        fontFamily?: string | undefined;
 
                         /**
                          * font size
@@ -678,7 +678,7 @@ declare namespace echarts {
                          * 12
                          * @see https://echarts.apache.org/en/option.html#series-pie.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
                          */
-                        fontSize?: number;
+                        fontSize?: number | undefined;
 
                         /**
                          * Horizontal alignment of text, automatic by default.
@@ -697,7 +697,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.label.rich.%3Cuser%20defined%20style%20name%3E.align
                          */
-                        align?: string;
+                        align?: string | undefined;
 
                         /**
                          * Vertical alignment of text, automatic by default.
@@ -716,7 +716,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                          */
-                        verticalAlign?: string;
+                        verticalAlign?: string | undefined;
 
                         /**
                          * Line height of the text fregment.
@@ -729,7 +729,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                          */
-                        lineHeight?: number;
+                        lineHeight?: number | undefined;
 
                         /**
                          * Background color of the text fregment.
@@ -748,7 +748,7 @@ declare namespace echarts {
                          * "transparent"
                          * @see https://echarts.apache.org/en/option.html#series-pie.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
                          */
-                        backgroundColor?: object | string;
+                        backgroundColor?: object | string | undefined;
 
                         /**
                          * Border color of the text fregment.
@@ -758,7 +758,7 @@ declare namespace echarts {
                          * "transparent"
                          * @see https://echarts.apache.org/en/option.html#series-pie.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
                          */
-                        borderColor?: string;
+                        borderColor?: string | undefined;
 
                         /**
                          * Border width of the text fregment.
@@ -766,7 +766,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                          */
-                        borderWidth?: number;
+                        borderWidth?: number | undefined;
 
                         /**
                          * Border radius of the text fregment.
@@ -774,7 +774,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                          */
-                        borderRadius?: number;
+                        borderRadius?: number | undefined;
 
                         /**
                          * Padding of the text fregment, for example:
@@ -791,7 +791,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.label.rich.%3Cuser%20defined%20style%20name%3E.padding
                          */
-                        padding?: any[] | number;
+                        padding?: any[] | number | undefined;
 
                         /**
                          * Shadow color of the text block.
@@ -801,7 +801,7 @@ declare namespace echarts {
                          * "transparent"
                          * @see https://echarts.apache.org/en/option.html#series-pie.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
                          */
-                        shadowColor?: string;
+                        shadowColor?: string | undefined;
 
                         /**
                          * Show blur of the text block.
@@ -809,7 +809,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                          */
-                        shadowBlur?: number;
+                        shadowBlur?: number | undefined;
 
                         /**
                          * Shadow X offset of the text block.
@@ -817,7 +817,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                          */
-                        shadowOffsetX?: number;
+                        shadowOffsetX?: number | undefined;
 
                         /**
                          * Shadow Y offset of the text block.
@@ -825,7 +825,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                          */
-                        shadowOffsetY?: number;
+                        shadowOffsetY?: number | undefined;
 
                         /**
                          * Width of the text block.
@@ -852,7 +852,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.label.rich.%3Cuser%20defined%20style%20name%3E.width
                          */
-                        width?: number | string;
+                        width?: number | string | undefined;
 
                         /**
                          * Height of the text block.
@@ -869,7 +869,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.label.rich.%3Cuser%20defined%20style%20name%3E.height
                          */
-                        height?: number | string;
+                        height?: number | string | undefined;
 
                         /**
                          * Storke color of the text.
@@ -879,7 +879,7 @@ declare namespace echarts {
                          * "transparent"
                          * @see https://echarts.apache.org/en/option.html#series-pie.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
                          */
-                        textBorderColor?: string;
+                        textBorderColor?: string | undefined;
 
                         /**
                          * Storke line width of the text.
@@ -887,7 +887,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                          */
-                        textBorderWidth?: number;
+                        textBorderWidth?: number | undefined;
 
                         /**
                          * Shadow color of the text itself.
@@ -897,7 +897,7 @@ declare namespace echarts {
                          * "transparent"
                          * @see https://echarts.apache.org/en/option.html#series-pie.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
                          */
-                        textShadowColor?: string;
+                        textShadowColor?: string | undefined;
 
                         /**
                          * Shadow blue of the text itself.
@@ -905,7 +905,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                          */
-                        textShadowBlur?: number;
+                        textShadowBlur?: number | undefined;
 
                         /**
                          * Shadow X offset of the text itself.
@@ -913,7 +913,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                          */
-                        textShadowOffsetX?: number;
+                        textShadowOffsetX?: number | undefined;
 
                         /**
                          * Shadow Y offset of the text itself.
@@ -921,10 +921,10 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                          */
-                        textShadowOffsetY?: number;
+                        textShadowOffsetY?: number | undefined;
                     };
-                };
-            };
+                } | undefined;
+            } | undefined;
 
             /**
              * The style of visual guide line. Will show when
@@ -949,7 +949,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-pie.labelLine.show
                  */
-                show?: boolean;
+                show?: boolean | undefined;
 
                 /**
                  * The length of the first segment of visual guide line.
@@ -957,7 +957,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-pie.labelLine.length
                  */
-                length?: number;
+                length?: number | undefined;
 
                 /**
                  * The length of the second segment of visual guide line.
@@ -965,7 +965,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-pie.labelLine.length2
                  */
-                length2?: number;
+                length2?: number | undefined;
 
                 /**
                  * Whether to smooth the visual guide line.
@@ -975,7 +975,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-pie.labelLine.smooth
                  */
-                smooth?: boolean | number;
+                smooth?: boolean | number | undefined;
 
                 /**
                  * @see https://echarts.apache.org/en/option.html#series-pie.labelLine.lineStyle
@@ -999,7 +999,7 @@ declare namespace echarts {
                      * "#000"
                      * @see https://echarts.apache.org/en/option.html#series-pie.labelLine.lineStyle.color
                      */
-                    color?: EChartOption.Color;
+                    color?: EChartOption.Color | undefined;
 
                     /**
                      * line width.
@@ -1007,7 +1007,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.labelLine.lineStyle.width
                      */
-                    width?: number;
+                    width?: number | undefined;
 
                     /**
                      * line type.
@@ -1023,7 +1023,7 @@ declare namespace echarts {
                      * "solid"
                      * @see https://echarts.apache.org/en/option.html#series-pie.labelLine.lineStyle.type
                      */
-                    type?: string;
+                    type?: string | undefined;
 
                     /**
                      * Size of shadow blur.
@@ -1037,7 +1037,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.labelLine.lineStyle.shadowBlur
                      */
-                    shadowBlur?: number;
+                    shadowBlur?: number | undefined;
 
                     /**
                      * Shadow color. Support same format as `color`.
@@ -1045,7 +1045,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.labelLine.lineStyle.shadowColor
                      */
-                    shadowColor?: EChartOption.Color;
+                    shadowColor?: EChartOption.Color | undefined;
 
                     /**
                      * Offset distance on the horizontal direction of shadow.
@@ -1053,7 +1053,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.labelLine.lineStyle.shadowOffsetX
                      */
-                    shadowOffsetX?: number;
+                    shadowOffsetX?: number | undefined;
 
                     /**
                      * Offset distance on the vertical direction of shadow.
@@ -1061,7 +1061,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.labelLine.lineStyle.shadowOffsetY
                      */
-                    shadowOffsetY?: number;
+                    shadowOffsetY?: number | undefined;
 
                     /**
                      * Opacity of the component.
@@ -1071,8 +1071,8 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.labelLine.lineStyle.opacity
                      */
-                    opacity?: number;
-                };
+                    opacity?: number | undefined;
+                } | undefined;
 
                 /**
                  * The style of visual guide line in emphasis status.
@@ -1087,7 +1087,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.labelLine.emphasis.show
                      */
-                    show?: boolean;
+                    show?: boolean | undefined;
 
                     /**
                      * @see https://echarts.apache.org/en/option.html#series-pie.labelLine.emphasis.lineStyle
@@ -1112,7 +1112,7 @@ declare namespace echarts {
                          * "#000"
                          * @see https://echarts.apache.org/en/option.html#series-pie.labelLine.emphasis.lineStyle.color
                          */
-                        color?: EChartOption.Color;
+                        color?: EChartOption.Color | undefined;
 
                         /**
                          * line width.
@@ -1120,7 +1120,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.labelLine.emphasis.lineStyle.width
                          */
-                        width?: number;
+                        width?: number | undefined;
 
                         /**
                          * line type.
@@ -1136,7 +1136,7 @@ declare namespace echarts {
                          * "solid"
                          * @see https://echarts.apache.org/en/option.html#series-pie.labelLine.emphasis.lineStyle.type
                          */
-                        type?: string;
+                        type?: string | undefined;
 
                         /**
                          * Size of shadow blur.
@@ -1150,7 +1150,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.labelLine.emphasis.lineStyle.shadowBlur
                          */
-                        shadowBlur?: number;
+                        shadowBlur?: number | undefined;
 
                         /**
                          * Shadow color. Support same format as `color`.
@@ -1158,7 +1158,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.labelLine.emphasis.lineStyle.shadowColor
                          */
-                        shadowColor?: EChartOption.Color;
+                        shadowColor?: EChartOption.Color | undefined;
 
                         /**
                          * Offset distance on the horizontal direction of shadow.
@@ -1166,7 +1166,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.labelLine.emphasis.lineStyle.shadowOffsetX
                          */
-                        shadowOffsetX?: number;
+                        shadowOffsetX?: number | undefined;
 
                         /**
                          * Offset distance on the vertical direction of shadow.
@@ -1174,7 +1174,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.labelLine.emphasis.lineStyle.shadowOffsetY
                          */
-                        shadowOffsetY?: number;
+                        shadowOffsetY?: number | undefined;
 
                         /**
                          * Opacity of the component.
@@ -1184,10 +1184,10 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.labelLine.emphasis.lineStyle.opacity
                          */
-                        opacity?: number;
-                    };
-                };
-            };
+                        opacity?: number | undefined;
+                    } | undefined;
+                } | undefined;
+            } | undefined;
 
             /**
              * Graphic style of , `emphasis` is the style when it is highlighted,
@@ -1231,7 +1231,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-pie.itemStyle.color
                  */
-                color?: EChartOption.Color | Function;
+                color?: EChartOption.Color | Function | undefined;
 
                 /**
                  * border color, whose format is similar to that of `color`.
@@ -1241,7 +1241,7 @@ declare namespace echarts {
                  * "#000"
                  * @see https://echarts.apache.org/en/option.html#series-pie.itemStyle.borderColor
                  */
-                borderColor?: EChartOption.Color;
+                borderColor?: EChartOption.Color | undefined;
 
                 /**
                  * border width. No border when it is set to be 0.
@@ -1249,7 +1249,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-pie.itemStyle.borderWidth
                  */
-                borderWidth?: number;
+                borderWidth?: number | undefined;
 
                 /**
                  * Border type, which can be `'solid'`, `'dashed'`, or `'dotted'`.
@@ -1260,7 +1260,7 @@ declare namespace echarts {
                  * "solid"
                  * @see https://echarts.apache.org/en/option.html#series-pie.itemStyle.borderType
                  */
-                borderType?: string;
+                borderType?: string | undefined;
 
                 /**
                  * Size of shadow blur.
@@ -1274,7 +1274,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-pie.itemStyle.shadowBlur
                  */
-                shadowBlur?: number;
+                shadowBlur?: number | undefined;
 
                 /**
                  * Shadow color. Support same format as `color`.
@@ -1282,7 +1282,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-pie.itemStyle.shadowColor
                  */
-                shadowColor?: EChartOption.Color;
+                shadowColor?: EChartOption.Color | undefined;
 
                 /**
                  * Offset distance on the horizontal direction of shadow.
@@ -1290,7 +1290,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-pie.itemStyle.shadowOffsetX
                  */
-                shadowOffsetX?: number;
+                shadowOffsetX?: number | undefined;
 
                 /**
                  * Offset distance on the vertical direction of shadow.
@@ -1298,7 +1298,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-pie.itemStyle.shadowOffsetY
                  */
-                shadowOffsetY?: number;
+                shadowOffsetY?: number | undefined;
 
                 /**
                  * Opacity of the component.
@@ -1308,8 +1308,8 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-pie.itemStyle.opacity
                  */
-                opacity?: number;
-            };
+                opacity?: number | undefined;
+            } | undefined;
 
             /**
              * @see https://echarts.apache.org/en/option.html#series-pie.emphasis
@@ -1322,7 +1322,7 @@ declare namespace echarts {
                     /**
                      * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.show
                      */
-                    show?: boolean;
+                    show?: boolean | undefined;
 
                     /**
                      * Data label formatter, which supports string template
@@ -1367,7 +1367,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.formatter
                      */
-                    formatter?: Function | string;
+                    formatter?: Function | string | undefined;
 
                     /**
                      * text color.
@@ -1377,7 +1377,7 @@ declare namespace echarts {
                      * ""#fff""
                      * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.color
                      */
-                    color?: string;
+                    color?: string | undefined;
 
                     /**
                      * font style
@@ -1393,7 +1393,7 @@ declare namespace echarts {
                      * "normal"
                      * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.fontStyle
                      */
-                    fontStyle?: string;
+                    fontStyle?: string | undefined;
 
                     /**
                      * font thick weight
@@ -1411,7 +1411,7 @@ declare namespace echarts {
                      * "normal"
                      * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.fontWeight
                      */
-                    fontWeight?: string | number;
+                    fontWeight?: string | number | undefined;
 
                     /**
                      * font family
@@ -1423,7 +1423,7 @@ declare namespace echarts {
                      * "sans-serif"
                      * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.fontFamily
                      */
-                    fontFamily?: string;
+                    fontFamily?: string | undefined;
 
                     /**
                      * font size
@@ -1433,7 +1433,7 @@ declare namespace echarts {
                      * 12
                      * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.fontSize
                      */
-                    fontSize?: number;
+                    fontSize?: number | undefined;
 
                     /**
                      * Horizontal alignment of text, automatic by default.
@@ -1452,7 +1452,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.align
                      */
-                    align?: string;
+                    align?: string | undefined;
 
                     /**
                      * Vertical alignment of text, automatic by default.
@@ -1471,7 +1471,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.verticalAlign
                      */
-                    verticalAlign?: string;
+                    verticalAlign?: string | undefined;
 
                     /**
                      * Line height of the text fregment.
@@ -1484,7 +1484,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.lineHeight
                      */
-                    lineHeight?: number;
+                    lineHeight?: number | undefined;
 
                     /**
                      * Background color of the text fregment.
@@ -1503,7 +1503,7 @@ declare namespace echarts {
                      * "transparent"
                      * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.backgroundColor
                      */
-                    backgroundColor?: object | string;
+                    backgroundColor?: object | string | undefined;
 
                     /**
                      * Border color of the text fregment.
@@ -1513,7 +1513,7 @@ declare namespace echarts {
                      * "transparent"
                      * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.borderColor
                      */
-                    borderColor?: string;
+                    borderColor?: string | undefined;
 
                     /**
                      * Border width of the text fregment.
@@ -1521,7 +1521,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.borderWidth
                      */
-                    borderWidth?: number;
+                    borderWidth?: number | undefined;
 
                     /**
                      * Border radius of the text fregment.
@@ -1529,7 +1529,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.borderRadius
                      */
-                    borderRadius?: number;
+                    borderRadius?: number | undefined;
 
                     /**
                      * Padding of the text fregment, for example:
@@ -1545,7 +1545,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.padding
                      */
-                    padding?: any[] | number;
+                    padding?: any[] | number | undefined;
 
                     /**
                      * Shadow color of the text block.
@@ -1555,7 +1555,7 @@ declare namespace echarts {
                      * "transparent"
                      * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.shadowColor
                      */
-                    shadowColor?: string;
+                    shadowColor?: string | undefined;
 
                     /**
                      * Show blur of the text block.
@@ -1563,7 +1563,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.shadowBlur
                      */
-                    shadowBlur?: number;
+                    shadowBlur?: number | undefined;
 
                     /**
                      * Shadow X offset of the text block.
@@ -1571,7 +1571,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.shadowOffsetX
                      */
-                    shadowOffsetX?: number;
+                    shadowOffsetX?: number | undefined;
 
                     /**
                      * Shadow Y offset of the text block.
@@ -1579,7 +1579,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.shadowOffsetY
                      */
-                    shadowOffsetY?: number;
+                    shadowOffsetY?: number | undefined;
 
                     /**
                      * Width of the text block.
@@ -1604,7 +1604,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.width
                      */
-                    width?: number | string;
+                    width?: number | string | undefined;
 
                     /**
                      * Height of the text block.
@@ -1620,7 +1620,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.height
                      */
-                    height?: number | string;
+                    height?: number | string | undefined;
 
                     /**
                      * Storke color of the text.
@@ -1630,7 +1630,7 @@ declare namespace echarts {
                      * "transparent"
                      * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.textBorderColor
                      */
-                    textBorderColor?: string;
+                    textBorderColor?: string | undefined;
 
                     /**
                      * Storke line width of the text.
@@ -1638,7 +1638,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.textBorderWidth
                      */
-                    textBorderWidth?: number;
+                    textBorderWidth?: number | undefined;
 
                     /**
                      * Shadow color of the text itself.
@@ -1648,7 +1648,7 @@ declare namespace echarts {
                      * "transparent"
                      * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.textShadowColor
                      */
-                    textShadowColor?: string;
+                    textShadowColor?: string | undefined;
 
                     /**
                      * Shadow blue of the text itself.
@@ -1656,7 +1656,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.textShadowBlur
                      */
-                    textShadowBlur?: number;
+                    textShadowBlur?: number | undefined;
 
                     /**
                      * Shadow X offset of the text itself.
@@ -1664,7 +1664,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.textShadowOffsetX
                      */
-                    textShadowOffsetX?: number;
+                    textShadowOffsetX?: number | undefined;
 
                     /**
                      * Shadow Y offset of the text itself.
@@ -1672,7 +1672,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.textShadowOffsetY
                      */
-                    textShadowOffsetY?: number;
+                    textShadowOffsetY?: number | undefined;
 
                     /**
                      * "Rich text styles" can be defined in this `rich` property.
@@ -1700,7 +1700,7 @@ declare namespace echarts {
                              * ""#fff""
                              * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.color
                              */
-                            color?: string;
+                            color?: string | undefined;
 
                             /**
                              * font style
@@ -1716,7 +1716,7 @@ declare namespace echarts {
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
                              */
-                            fontStyle?: string;
+                            fontStyle?: string | undefined;
 
                             /**
                              * font thick weight
@@ -1734,7 +1734,7 @@ declare namespace echarts {
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                              */
-                            fontWeight?: string | number;
+                            fontWeight?: string | number | undefined;
 
                             /**
                              * font family
@@ -1746,7 +1746,7 @@ declare namespace echarts {
                              * "sans-serif"
                              * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
                              */
-                            fontFamily?: string;
+                            fontFamily?: string | undefined;
 
                             /**
                              * font size
@@ -1756,7 +1756,7 @@ declare namespace echarts {
                              * 12
                              * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
                              */
-                            fontSize?: number;
+                            fontSize?: number | undefined;
 
                             /**
                              * Horizontal alignment of text, automatic by default.
@@ -1775,7 +1775,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.align
                              */
-                            align?: string;
+                            align?: string | undefined;
 
                             /**
                              * Vertical alignment of text, automatic by default.
@@ -1794,7 +1794,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                              */
-                            verticalAlign?: string;
+                            verticalAlign?: string | undefined;
 
                             /**
                              * Line height of the text fregment.
@@ -1807,7 +1807,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                              */
-                            lineHeight?: number;
+                            lineHeight?: number | undefined;
 
                             /**
                              * Background color of the text fregment.
@@ -1827,7 +1827,7 @@ declare namespace echarts {
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
                              */
-                            backgroundColor?: object | string;
+                            backgroundColor?: object | string | undefined;
 
                             /**
                              * Border color of the text fregment.
@@ -1837,7 +1837,7 @@ declare namespace echarts {
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
                              */
-                            borderColor?: string;
+                            borderColor?: string | undefined;
 
                             /**
                              * Border width of the text fregment.
@@ -1845,7 +1845,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                              */
-                            borderWidth?: number;
+                            borderWidth?: number | undefined;
 
                             /**
                              * Border radius of the text fregment.
@@ -1853,7 +1853,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                              */
-                            borderRadius?: number;
+                            borderRadius?: number | undefined;
 
                             /**
                              * Padding of the text fregment, for example:
@@ -1871,7 +1871,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.padding
                              */
-                            padding?: any[] | number;
+                            padding?: any[] | number | undefined;
 
                             /**
                              * Shadow color of the text block.
@@ -1881,7 +1881,7 @@ declare namespace echarts {
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
                              */
-                            shadowColor?: string;
+                            shadowColor?: string | undefined;
 
                             /**
                              * Show blur of the text block.
@@ -1889,7 +1889,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                              */
-                            shadowBlur?: number;
+                            shadowBlur?: number | undefined;
 
                             /**
                              * Shadow X offset of the text block.
@@ -1897,7 +1897,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                              */
-                            shadowOffsetX?: number;
+                            shadowOffsetX?: number | undefined;
 
                             /**
                              * Shadow Y offset of the text block.
@@ -1905,7 +1905,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                              */
-                            shadowOffsetY?: number;
+                            shadowOffsetY?: number | undefined;
 
                             /**
                              * Width of the text block.
@@ -1932,7 +1932,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.width
                              */
-                            width?: number | string;
+                            width?: number | string | undefined;
 
                             /**
                              * Height of the text block.
@@ -1949,7 +1949,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.height
                              */
-                            height?: number | string;
+                            height?: number | string | undefined;
 
                             /**
                              * Storke color of the text.
@@ -1959,7 +1959,7 @@ declare namespace echarts {
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
                              */
-                            textBorderColor?: string;
+                            textBorderColor?: string | undefined;
 
                             /**
                              * Storke line width of the text.
@@ -1967,7 +1967,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                              */
-                            textBorderWidth?: number;
+                            textBorderWidth?: number | undefined;
 
                             /**
                              * Shadow color of the text itself.
@@ -1977,7 +1977,7 @@ declare namespace echarts {
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
                              */
-                            textShadowColor?: string;
+                            textShadowColor?: string | undefined;
 
                             /**
                              * Shadow blue of the text itself.
@@ -1985,7 +1985,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                              */
-                            textShadowBlur?: number;
+                            textShadowBlur?: number | undefined;
 
                             /**
                              * Shadow X offset of the text itself.
@@ -1993,7 +1993,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                              */
-                            textShadowOffsetX?: number;
+                            textShadowOffsetX?: number | undefined;
 
                             /**
                              * Shadow Y offset of the text itself.
@@ -2001,10 +2001,10 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                              */
-                            textShadowOffsetY?: number;
+                            textShadowOffsetY?: number | undefined;
                         };
-                    };
-                };
+                    } | undefined;
+                } | undefined;
 
                 /**
                  * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.itemStyle
@@ -2026,7 +2026,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.itemStyle.color
                      */
-                    color?: EChartOption.Color;
+                    color?: EChartOption.Color | undefined;
 
                     /**
                      * border color, whose format is similar to that of `color`.
@@ -2036,7 +2036,7 @@ declare namespace echarts {
                      * "#000"
                      * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.itemStyle.borderColor
                      */
-                    borderColor?: EChartOption.Color;
+                    borderColor?: EChartOption.Color | undefined;
 
                     /**
                      * border width. No border when it is set to be 0.
@@ -2044,7 +2044,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.itemStyle.borderWidth
                      */
-                    borderWidth?: number;
+                    borderWidth?: number | undefined;
 
                     /**
                      * Border type, which can be `'solid'`, `'dashed'`, or `'dotted'`.
@@ -2055,7 +2055,7 @@ declare namespace echarts {
                      * "solid"
                      * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.itemStyle.borderType
                      */
-                    borderType?: string;
+                    borderType?: string | undefined;
 
                     /**
                      * Size of shadow blur.
@@ -2069,7 +2069,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.itemStyle.shadowBlur
                      */
-                    shadowBlur?: number;
+                    shadowBlur?: number | undefined;
 
                     /**
                      * Shadow color. Support same format as `color`.
@@ -2077,7 +2077,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.itemStyle.shadowColor
                      */
-                    shadowColor?: EChartOption.Color;
+                    shadowColor?: EChartOption.Color | undefined;
 
                     /**
                      * Offset distance on the horizontal direction of shadow.
@@ -2085,7 +2085,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.itemStyle.shadowOffsetX
                      */
-                    shadowOffsetX?: number;
+                    shadowOffsetX?: number | undefined;
 
                     /**
                      * Offset distance on the vertical direction of shadow.
@@ -2093,7 +2093,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.itemStyle.shadowOffsetY
                      */
-                    shadowOffsetY?: number;
+                    shadowOffsetY?: number | undefined;
 
                     /**
                      * Opacity of the component.
@@ -2103,9 +2103,9 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.itemStyle.opacity
                      */
-                    opacity?: number;
-                };
-            };
+                    opacity?: number | undefined;
+                } | undefined;
+            } | undefined;
 
             /**
              * `zlevel` value of all graghical elements in .
@@ -2124,7 +2124,7 @@ declare namespace echarts {
              *
              * @see https://echarts.apache.org/en/option.html#series-pie.zlevel
              */
-            zlevel?: number;
+            zlevel?: number | undefined;
 
             /**
              * `z` value of all graghical elements in , which controls order
@@ -2140,7 +2140,7 @@ declare namespace echarts {
              * 2
              * @see https://echarts.apache.org/en/option.html#series-pie.z
              */
-            z?: number;
+            z?: number | undefined;
 
             /**
              * Center position of Pie chart, the first of which is the horizontal
@@ -2159,7 +2159,7 @@ declare namespace echarts {
              * ['50%', '50%']
              * @see https://echarts.apache.org/en/option.html#series-pie.center
              */
-            center?: any[];
+            center?: any[] | undefined;
 
             /**
              * Radius of Pie chart. Value can be:
@@ -2180,7 +2180,7 @@ declare namespace echarts {
              * [0, '75%']
              * @see https://echarts.apache.org/en/option.html#series-pie.radius
              */
-            radius?: any[] | number | string;
+            radius?: any[] | number | string | undefined;
 
             /**
              * When
@@ -2203,7 +2203,7 @@ declare namespace echarts {
              * "column"
              * @see https://echarts.apache.org/en/option.html#series-pie.seriesLayoutBy
              */
-            seriesLayoutBy?: string;
+            seriesLayoutBy?: string | undefined;
 
             /**
              * If
@@ -2216,7 +2216,7 @@ declare namespace echarts {
              *
              * @see https://echarts.apache.org/en/option.html#series-pie.datasetIndex
              */
-            datasetIndex?: number;
+            datasetIndex?: number | undefined;
 
             /**
              * Data array of series, which can be a single data value, like:
@@ -2253,7 +2253,7 @@ declare namespace echarts {
              *
              * @see https://echarts.apache.org/en/option.html#series-pie.data
              */
-            data?: number[] | number[][] | SeriesPie.DataObject[];
+            data?: number[] | number[][] | SeriesPie.DataObject[] | undefined;
 
             /**
              * Mark point in a chart.
@@ -2303,7 +2303,7 @@ declare namespace echarts {
                  * "pin"
                  * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.symbol
                  */
-                symbol?: string;
+                symbol?: string | undefined;
 
                 /**
                  * symbol size.
@@ -2330,7 +2330,7 @@ declare namespace echarts {
                  * 50
                  * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.symbolSize
                  */
-                symbolSize?: any[] | Function | number;
+                symbolSize?: any[] | Function | number | undefined;
 
                 /**
                  * Rotate degree of symbol.
@@ -2341,7 +2341,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.symbolRotate
                  */
-                symbolRotate?: number;
+                symbolRotate?: number | undefined;
 
                 /**
                  * Whether to keep aspect for symbols in the form of `path://`.
@@ -2349,7 +2349,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.symbolKeepAspect
                  */
-                symbolKeepAspect?: boolean;
+                symbolKeepAspect?: boolean | undefined;
 
                 /**
                  * Offset of symbol relative to original position.
@@ -2372,7 +2372,7 @@ declare namespace echarts {
                  * [0, 0]
                  * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.symbolOffset
                  */
-                symbolOffset?: any[];
+                symbolOffset?: any[] | undefined;
 
                 /**
                  * Whether to ignore mouse events.
@@ -2382,7 +2382,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.silent
                  */
-                silent?: boolean;
+                silent?: boolean | undefined;
 
                 /**
                  * Label of mark point.
@@ -2397,7 +2397,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.show
                      */
-                    show?: boolean;
+                    show?: boolean | undefined;
 
                     /**
                      * Label position.
@@ -2436,7 +2436,7 @@ declare namespace echarts {
                      * "inside"
                      * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.position
                      */
-                    position?: any[] | string;
+                    position?: any[] | string | undefined;
 
                     /**
                      * Distance to the host graphic element.
@@ -2451,7 +2451,7 @@ declare namespace echarts {
                      * 5
                      * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.distance
                      */
-                    distance?: number;
+                    distance?: number | undefined;
 
                     /**
                      * Rotate label, from -90 degree to 90, positive value represents
@@ -2464,7 +2464,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.rotate
                      */
-                    rotate?: number;
+                    rotate?: number | undefined;
 
                     /**
                      * Whether to move text slightly.
@@ -2474,7 +2474,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.offset
                      */
-                    offset?: any[];
+                    offset?: any[] | undefined;
 
                     /**
                      * Data label formatter, which supports string template
@@ -2518,7 +2518,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.formatter
                      */
-                    formatter?: Function | string;
+                    formatter?: Function | string | undefined;
 
                     /**
                      * text color.
@@ -2531,7 +2531,7 @@ declare namespace echarts {
                      * ""#fff""
                      * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.color
                      */
-                    color?: string;
+                    color?: string | undefined;
 
                     /**
                      * font style
@@ -2547,7 +2547,7 @@ declare namespace echarts {
                      * "normal"
                      * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.fontStyle
                      */
-                    fontStyle?: string;
+                    fontStyle?: string | undefined;
 
                     /**
                      * font thick weight
@@ -2565,7 +2565,7 @@ declare namespace echarts {
                      * "normal"
                      * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.fontWeight
                      */
-                    fontWeight?: string | number;
+                    fontWeight?: string | number | undefined;
 
                     /**
                      * font family
@@ -2577,7 +2577,7 @@ declare namespace echarts {
                      * "sans-serif"
                      * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.fontFamily
                      */
-                    fontFamily?: string;
+                    fontFamily?: string | undefined;
 
                     /**
                      * font size
@@ -2587,7 +2587,7 @@ declare namespace echarts {
                      * 12
                      * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.fontSize
                      */
-                    fontSize?: number;
+                    fontSize?: number | undefined;
 
                     /**
                      * Horizontal alignment of text, automatic by default.
@@ -2606,7 +2606,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.align
                      */
-                    align?: string;
+                    align?: string | undefined;
 
                     /**
                      * Vertical alignment of text, automatic by default.
@@ -2625,7 +2625,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.verticalAlign
                      */
-                    verticalAlign?: string;
+                    verticalAlign?: string | undefined;
 
                     /**
                      * Line height of the text fregment.
@@ -2638,7 +2638,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.lineHeight
                      */
-                    lineHeight?: number;
+                    lineHeight?: number | undefined;
 
                     /**
                      * Background color of the text fregment.
@@ -2660,7 +2660,7 @@ declare namespace echarts {
                      * "transparent"
                      * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.backgroundColor
                      */
-                    backgroundColor?: object | string;
+                    backgroundColor?: object | string | undefined;
 
                     /**
                      * Border color of the text fregment.
@@ -2673,7 +2673,7 @@ declare namespace echarts {
                      * "transparent"
                      * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.borderColor
                      */
-                    borderColor?: string;
+                    borderColor?: string | undefined;
 
                     /**
                      * Border width of the text fregment.
@@ -2681,7 +2681,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.borderWidth
                      */
-                    borderWidth?: number;
+                    borderWidth?: number | undefined;
 
                     /**
                      * Border radius of the text fregment.
@@ -2689,7 +2689,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.borderRadius
                      */
-                    borderRadius?: number;
+                    borderRadius?: number | undefined;
 
                     /**
                      * Padding of the text fregment, for example:
@@ -2705,7 +2705,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.padding
                      */
-                    padding?: any[] | number;
+                    padding?: any[] | number | undefined;
 
                     /**
                      * Shadow color of the text block.
@@ -2715,7 +2715,7 @@ declare namespace echarts {
                      * "transparent"
                      * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.shadowColor
                      */
-                    shadowColor?: string;
+                    shadowColor?: string | undefined;
 
                     /**
                      * Show blur of the text block.
@@ -2723,7 +2723,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.shadowBlur
                      */
-                    shadowBlur?: number;
+                    shadowBlur?: number | undefined;
 
                     /**
                      * Shadow X offset of the text block.
@@ -2731,7 +2731,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.shadowOffsetX
                      */
-                    shadowOffsetX?: number;
+                    shadowOffsetX?: number | undefined;
 
                     /**
                      * Shadow Y offset of the text block.
@@ -2739,7 +2739,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.shadowOffsetY
                      */
-                    shadowOffsetY?: number;
+                    shadowOffsetY?: number | undefined;
 
                     /**
                      * Width of the text block.
@@ -2764,7 +2764,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.width
                      */
-                    width?: number | string;
+                    width?: number | string | undefined;
 
                     /**
                      * Height of the text block.
@@ -2780,7 +2780,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.height
                      */
-                    height?: number | string;
+                    height?: number | string | undefined;
 
                     /**
                      * Storke color of the text.
@@ -2793,7 +2793,7 @@ declare namespace echarts {
                      * "transparent"
                      * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.textBorderColor
                      */
-                    textBorderColor?: string;
+                    textBorderColor?: string | undefined;
 
                     /**
                      * Storke line width of the text.
@@ -2801,7 +2801,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.textBorderWidth
                      */
-                    textBorderWidth?: number;
+                    textBorderWidth?: number | undefined;
 
                     /**
                      * Shadow color of the text itself.
@@ -2811,7 +2811,7 @@ declare namespace echarts {
                      * "transparent"
                      * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.textShadowColor
                      */
-                    textShadowColor?: string;
+                    textShadowColor?: string | undefined;
 
                     /**
                      * Shadow blue of the text itself.
@@ -2819,7 +2819,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.textShadowBlur
                      */
-                    textShadowBlur?: number;
+                    textShadowBlur?: number | undefined;
 
                     /**
                      * Shadow X offset of the text itself.
@@ -2827,7 +2827,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.textShadowOffsetX
                      */
-                    textShadowOffsetX?: number;
+                    textShadowOffsetX?: number | undefined;
 
                     /**
                      * Shadow Y offset of the text itself.
@@ -2835,7 +2835,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.textShadowOffsetY
                      */
-                    textShadowOffsetY?: number;
+                    textShadowOffsetY?: number | undefined;
 
                     /**
                      * "Rich text styles" can be defined in this `rich` property.
@@ -2866,7 +2866,7 @@ declare namespace echarts {
                              * ""#fff""
                              * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.color
                              */
-                            color?: string;
+                            color?: string | undefined;
 
                             /**
                              * font style
@@ -2882,7 +2882,7 @@ declare namespace echarts {
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
                              */
-                            fontStyle?: string;
+                            fontStyle?: string | undefined;
 
                             /**
                              * font thick weight
@@ -2900,7 +2900,7 @@ declare namespace echarts {
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                              */
-                            fontWeight?: string | number;
+                            fontWeight?: string | number | undefined;
 
                             /**
                              * font family
@@ -2912,7 +2912,7 @@ declare namespace echarts {
                              * "sans-serif"
                              * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
                              */
-                            fontFamily?: string;
+                            fontFamily?: string | undefined;
 
                             /**
                              * font size
@@ -2922,7 +2922,7 @@ declare namespace echarts {
                              * 12
                              * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
                              */
-                            fontSize?: number;
+                            fontSize?: number | undefined;
 
                             /**
                              * Horizontal alignment of text, automatic by default.
@@ -2941,7 +2941,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.align
                              */
-                            align?: string;
+                            align?: string | undefined;
 
                             /**
                              * Vertical alignment of text, automatic by default.
@@ -2960,7 +2960,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                              */
-                            verticalAlign?: string;
+                            verticalAlign?: string | undefined;
 
                             /**
                              * Line height of the text fregment.
@@ -2973,7 +2973,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                              */
-                            lineHeight?: number;
+                            lineHeight?: number | undefined;
 
                             /**
                              * Background color of the text fregment.
@@ -2996,7 +2996,7 @@ declare namespace echarts {
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
                              */
-                            backgroundColor?: object | string;
+                            backgroundColor?: object | string | undefined;
 
                             /**
                              * Border color of the text fregment.
@@ -3009,7 +3009,7 @@ declare namespace echarts {
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
                              */
-                            borderColor?: string;
+                            borderColor?: string | undefined;
 
                             /**
                              * Border width of the text fregment.
@@ -3017,7 +3017,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                              */
-                            borderWidth?: number;
+                            borderWidth?: number | undefined;
 
                             /**
                              * Border radius of the text fregment.
@@ -3025,7 +3025,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                              */
-                            borderRadius?: number;
+                            borderRadius?: number | undefined;
 
                             /**
                              * Padding of the text fregment, for example:
@@ -3043,7 +3043,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.padding
                              */
-                            padding?: any[] | number;
+                            padding?: any[] | number | undefined;
 
                             /**
                              * Shadow color of the text block.
@@ -3053,7 +3053,7 @@ declare namespace echarts {
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
                              */
-                            shadowColor?: string;
+                            shadowColor?: string | undefined;
 
                             /**
                              * Show blur of the text block.
@@ -3061,7 +3061,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                              */
-                            shadowBlur?: number;
+                            shadowBlur?: number | undefined;
 
                             /**
                              * Shadow X offset of the text block.
@@ -3069,7 +3069,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                              */
-                            shadowOffsetX?: number;
+                            shadowOffsetX?: number | undefined;
 
                             /**
                              * Shadow Y offset of the text block.
@@ -3077,7 +3077,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                              */
-                            shadowOffsetY?: number;
+                            shadowOffsetY?: number | undefined;
 
                             /**
                              * Width of the text block.
@@ -3104,7 +3104,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.width
                              */
-                            width?: number | string;
+                            width?: number | string | undefined;
 
                             /**
                              * Height of the text block.
@@ -3121,7 +3121,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.height
                              */
-                            height?: number | string;
+                            height?: number | string | undefined;
 
                             /**
                              * Storke color of the text.
@@ -3134,7 +3134,7 @@ declare namespace echarts {
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
                              */
-                            textBorderColor?: string;
+                            textBorderColor?: string | undefined;
 
                             /**
                              * Storke line width of the text.
@@ -3142,7 +3142,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                              */
-                            textBorderWidth?: number;
+                            textBorderWidth?: number | undefined;
 
                             /**
                              * Shadow color of the text itself.
@@ -3152,7 +3152,7 @@ declare namespace echarts {
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
                              */
-                            textShadowColor?: string;
+                            textShadowColor?: string | undefined;
 
                             /**
                              * Shadow blue of the text itself.
@@ -3160,7 +3160,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                              */
-                            textShadowBlur?: number;
+                            textShadowBlur?: number | undefined;
 
                             /**
                              * Shadow X offset of the text itself.
@@ -3168,7 +3168,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                              */
-                            textShadowOffsetX?: number;
+                            textShadowOffsetX?: number | undefined;
 
                             /**
                              * Shadow Y offset of the text itself.
@@ -3176,9 +3176,9 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                              */
-                            textShadowOffsetY?: number;
+                            textShadowOffsetY?: number | undefined;
                         };
-                    };
+                    } | undefined;
 
                     /**
                      * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis
@@ -3190,7 +3190,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.show
                          */
-                        show?: boolean;
+                        show?: boolean | undefined;
 
                         /**
                          * Label position.
@@ -3227,7 +3227,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.position
                          */
-                        position?: any[] | string;
+                        position?: any[] | string | undefined;
 
                         /**
                          * Distance to the host graphic element.
@@ -3242,7 +3242,7 @@ declare namespace echarts {
                          * 5
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.distance
                          */
-                        distance?: number;
+                        distance?: number | undefined;
 
                         /**
                          * Rotate label, from -90 degree to 90, positive value
@@ -3255,7 +3255,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.rotate
                          */
-                        rotate?: number;
+                        rotate?: number | undefined;
 
                         /**
                          * Whether to move text slightly.
@@ -3265,7 +3265,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.offset
                          */
-                        offset?: any[];
+                        offset?: any[] | undefined;
 
                         /**
                          * Data label formatter, which supports string template
@@ -3311,7 +3311,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.formatter
                          */
-                        formatter?: Function | string;
+                        formatter?: Function | string | undefined;
 
                         /**
                          * text color.
@@ -3324,7 +3324,7 @@ declare namespace echarts {
                          * ""#fff""
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.color
                          */
-                        color?: string;
+                        color?: string | undefined;
 
                         /**
                          * font style
@@ -3340,7 +3340,7 @@ declare namespace echarts {
                          * "normal"
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.fontStyle
                          */
-                        fontStyle?: string;
+                        fontStyle?: string | undefined;
 
                         /**
                          * font thick weight
@@ -3358,7 +3358,7 @@ declare namespace echarts {
                          * "normal"
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.fontWeight
                          */
-                        fontWeight?: string | number;
+                        fontWeight?: string | number | undefined;
 
                         /**
                          * font family
@@ -3370,7 +3370,7 @@ declare namespace echarts {
                          * "sans-serif"
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.fontFamily
                          */
-                        fontFamily?: string;
+                        fontFamily?: string | undefined;
 
                         /**
                          * font size
@@ -3380,7 +3380,7 @@ declare namespace echarts {
                          * 12
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.fontSize
                          */
-                        fontSize?: number;
+                        fontSize?: number | undefined;
 
                         /**
                          * Horizontal alignment of text, automatic by default.
@@ -3399,7 +3399,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.align
                          */
-                        align?: string;
+                        align?: string | undefined;
 
                         /**
                          * Vertical alignment of text, automatic by default.
@@ -3418,7 +3418,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.verticalAlign
                          */
-                        verticalAlign?: string;
+                        verticalAlign?: string | undefined;
 
                         /**
                          * Line height of the text fregment.
@@ -3431,7 +3431,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.lineHeight
                          */
-                        lineHeight?: number;
+                        lineHeight?: number | undefined;
 
                         /**
                          * Background color of the text fregment.
@@ -3453,7 +3453,7 @@ declare namespace echarts {
                          * "transparent"
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.backgroundColor
                          */
-                        backgroundColor?: object | string;
+                        backgroundColor?: object | string | undefined;
 
                         /**
                          * Border color of the text fregment.
@@ -3466,7 +3466,7 @@ declare namespace echarts {
                          * "transparent"
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.borderColor
                          */
-                        borderColor?: string;
+                        borderColor?: string | undefined;
 
                         /**
                          * Border width of the text fregment.
@@ -3474,7 +3474,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.borderWidth
                          */
-                        borderWidth?: number;
+                        borderWidth?: number | undefined;
 
                         /**
                          * Border radius of the text fregment.
@@ -3482,7 +3482,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.borderRadius
                          */
-                        borderRadius?: number;
+                        borderRadius?: number | undefined;
 
                         /**
                          * Padding of the text fregment, for example:
@@ -3499,7 +3499,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.padding
                          */
-                        padding?: any[] | number;
+                        padding?: any[] | number | undefined;
 
                         /**
                          * Shadow color of the text block.
@@ -3509,7 +3509,7 @@ declare namespace echarts {
                          * "transparent"
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.shadowColor
                          */
-                        shadowColor?: string;
+                        shadowColor?: string | undefined;
 
                         /**
                          * Show blur of the text block.
@@ -3517,7 +3517,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.shadowBlur
                          */
-                        shadowBlur?: number;
+                        shadowBlur?: number | undefined;
 
                         /**
                          * Shadow X offset of the text block.
@@ -3525,7 +3525,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.shadowOffsetX
                          */
-                        shadowOffsetX?: number;
+                        shadowOffsetX?: number | undefined;
 
                         /**
                          * Shadow Y offset of the text block.
@@ -3533,7 +3533,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.shadowOffsetY
                          */
-                        shadowOffsetY?: number;
+                        shadowOffsetY?: number | undefined;
 
                         /**
                          * Width of the text block.
@@ -3560,7 +3560,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.width
                          */
-                        width?: number | string;
+                        width?: number | string | undefined;
 
                         /**
                          * Height of the text block.
@@ -3577,7 +3577,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.height
                          */
-                        height?: number | string;
+                        height?: number | string | undefined;
 
                         /**
                          * Storke color of the text.
@@ -3590,7 +3590,7 @@ declare namespace echarts {
                          * "transparent"
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.textBorderColor
                          */
-                        textBorderColor?: string;
+                        textBorderColor?: string | undefined;
 
                         /**
                          * Storke line width of the text.
@@ -3598,7 +3598,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.textBorderWidth
                          */
-                        textBorderWidth?: number;
+                        textBorderWidth?: number | undefined;
 
                         /**
                          * Shadow color of the text itself.
@@ -3608,7 +3608,7 @@ declare namespace echarts {
                          * "transparent"
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.textShadowColor
                          */
-                        textShadowColor?: string;
+                        textShadowColor?: string | undefined;
 
                         /**
                          * Shadow blue of the text itself.
@@ -3616,7 +3616,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.textShadowBlur
                          */
-                        textShadowBlur?: number;
+                        textShadowBlur?: number | undefined;
 
                         /**
                          * Shadow X offset of the text itself.
@@ -3624,7 +3624,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.textShadowOffsetX
                          */
-                        textShadowOffsetX?: number;
+                        textShadowOffsetX?: number | undefined;
 
                         /**
                          * Shadow Y offset of the text itself.
@@ -3632,7 +3632,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.textShadowOffsetY
                          */
-                        textShadowOffsetY?: number;
+                        textShadowOffsetY?: number | undefined;
 
                         /**
                          * "Rich text styles" can be defined in this `rich`
@@ -3663,7 +3663,7 @@ declare namespace echarts {
                                  * ""#fff""
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.color
                                  */
-                                color?: string;
+                                color?: string | undefined;
 
                                 /**
                                  * font style
@@ -3679,7 +3679,7 @@ declare namespace echarts {
                                  * "normal"
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
                                  */
-                                fontStyle?: string;
+                                fontStyle?: string | undefined;
 
                                 /**
                                  * font thick weight
@@ -3697,7 +3697,7 @@ declare namespace echarts {
                                  * "normal"
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                  */
-                                fontWeight?: string | number;
+                                fontWeight?: string | number | undefined;
 
                                 /**
                                  * font family
@@ -3709,7 +3709,7 @@ declare namespace echarts {
                                  * "sans-serif"
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
                                  */
-                                fontFamily?: string;
+                                fontFamily?: string | undefined;
 
                                 /**
                                  * font size
@@ -3719,7 +3719,7 @@ declare namespace echarts {
                                  * 12
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontSize
                                  */
-                                fontSize?: number;
+                                fontSize?: number | undefined;
 
                                 /**
                                  * Horizontal alignment of text, automatic by
@@ -3740,7 +3740,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.align
                                  */
-                                align?: string;
+                                align?: string | undefined;
 
                                 /**
                                  * Vertical alignment of text, automatic by
@@ -3761,7 +3761,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                                  */
-                                verticalAlign?: string;
+                                verticalAlign?: string | undefined;
 
                                 /**
                                  * Line height of the text fregment.
@@ -3775,7 +3775,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                                  */
-                                lineHeight?: number;
+                                lineHeight?: number | undefined;
 
                                 /**
                                  * Background color of the text fregment.
@@ -3799,7 +3799,7 @@ declare namespace echarts {
                                  * "transparent"
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
                                  */
-                                backgroundColor?: object | string;
+                                backgroundColor?: object | string | undefined;
 
                                 /**
                                  * Border color of the text fregment.
@@ -3812,7 +3812,7 @@ declare namespace echarts {
                                  * "transparent"
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderColor
                                  */
-                                borderColor?: string;
+                                borderColor?: string | undefined;
 
                                 /**
                                  * Border width of the text fregment.
@@ -3820,7 +3820,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                                  */
-                                borderWidth?: number;
+                                borderWidth?: number | undefined;
 
                                 /**
                                  * Border radius of the text fregment.
@@ -3828,7 +3828,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                                  */
-                                borderRadius?: number;
+                                borderRadius?: number | undefined;
 
                                 /**
                                  * Padding of the text fregment, for example:
@@ -3847,7 +3847,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.padding
                                  */
-                                padding?: any[] | number;
+                                padding?: any[] | number | undefined;
 
                                 /**
                                  * Shadow color of the text block.
@@ -3857,7 +3857,7 @@ declare namespace echarts {
                                  * "transparent"
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
                                  */
-                                shadowColor?: string;
+                                shadowColor?: string | undefined;
 
                                 /**
                                  * Show blur of the text block.
@@ -3865,7 +3865,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                                  */
-                                shadowBlur?: number;
+                                shadowBlur?: number | undefined;
 
                                 /**
                                  * Shadow X offset of the text block.
@@ -3873,7 +3873,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                                  */
-                                shadowOffsetX?: number;
+                                shadowOffsetX?: number | undefined;
 
                                 /**
                                  * Shadow Y offset of the text block.
@@ -3881,7 +3881,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                                  */
-                                shadowOffsetY?: number;
+                                shadowOffsetY?: number | undefined;
 
                                 /**
                                  * Width of the text block.
@@ -3912,7 +3912,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.width
                                  */
-                                width?: number | string;
+                                width?: number | string | undefined;
 
                                 /**
                                  * Height of the text block.
@@ -3930,7 +3930,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.height
                                  */
-                                height?: number | string;
+                                height?: number | string | undefined;
 
                                 /**
                                  * Storke color of the text.
@@ -3943,7 +3943,7 @@ declare namespace echarts {
                                  * "transparent"
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
                                  */
-                                textBorderColor?: string;
+                                textBorderColor?: string | undefined;
 
                                 /**
                                  * Storke line width of the text.
@@ -3951,7 +3951,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                                  */
-                                textBorderWidth?: number;
+                                textBorderWidth?: number | undefined;
 
                                 /**
                                  * Shadow color of the text itself.
@@ -3961,7 +3961,7 @@ declare namespace echarts {
                                  * "transparent"
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
                                  */
-                                textShadowColor?: string;
+                                textShadowColor?: string | undefined;
 
                                 /**
                                  * Shadow blue of the text itself.
@@ -3969,7 +3969,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                                  */
-                                textShadowBlur?: number;
+                                textShadowBlur?: number | undefined;
 
                                 /**
                                  * Shadow X offset of the text itself.
@@ -3977,7 +3977,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                                  */
-                                textShadowOffsetX?: number;
+                                textShadowOffsetX?: number | undefined;
 
                                 /**
                                  * Shadow Y offset of the text itself.
@@ -3985,11 +3985,11 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                                  */
-                                textShadowOffsetY?: number;
+                                textShadowOffsetY?: number | undefined;
                             };
-                        };
-                    };
-                };
+                        } | undefined;
+                    } | undefined;
+                } | undefined;
 
                 /**
                  * Mark point style.
@@ -4014,7 +4014,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.itemStyle.color
                      */
-                    color?: EChartOption.Color;
+                    color?: EChartOption.Color | undefined;
 
                     /**
                      * border color, whose format is similar to that of `color`.
@@ -4024,7 +4024,7 @@ declare namespace echarts {
                      * "#000"
                      * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.itemStyle.borderColor
                      */
-                    borderColor?: EChartOption.Color;
+                    borderColor?: EChartOption.Color | undefined;
 
                     /**
                      * border width. No border when it is set to be 0.
@@ -4032,7 +4032,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.itemStyle.borderWidth
                      */
-                    borderWidth?: number;
+                    borderWidth?: number | undefined;
 
                     /**
                      * Border type, which can be `'solid'`, `'dashed'`, or `'dotted'`.
@@ -4043,7 +4043,7 @@ declare namespace echarts {
                      * "solid"
                      * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.itemStyle.borderType
                      */
-                    borderType?: string;
+                    borderType?: string | undefined;
 
                     /**
                      * Size of shadow blur.
@@ -4057,7 +4057,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.itemStyle.shadowBlur
                      */
-                    shadowBlur?: number;
+                    shadowBlur?: number | undefined;
 
                     /**
                      * Shadow color. Support same format as `color`.
@@ -4065,7 +4065,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.itemStyle.shadowColor
                      */
-                    shadowColor?: EChartOption.Color;
+                    shadowColor?: EChartOption.Color | undefined;
 
                     /**
                      * Offset distance on the horizontal direction of shadow.
@@ -4073,7 +4073,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.itemStyle.shadowOffsetX
                      */
-                    shadowOffsetX?: number;
+                    shadowOffsetX?: number | undefined;
 
                     /**
                      * Offset distance on the vertical direction of shadow.
@@ -4081,7 +4081,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.itemStyle.shadowOffsetY
                      */
-                    shadowOffsetY?: number;
+                    shadowOffsetY?: number | undefined;
 
                     /**
                      * Opacity of the component.
@@ -4091,7 +4091,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.itemStyle.opacity
                      */
-                    opacity?: number;
+                    opacity?: number | undefined;
 
                     /**
                      * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.itemStyle.emphasis
@@ -4114,7 +4114,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.itemStyle.emphasis.color
                          */
-                        color?: EChartOption.Color;
+                        color?: EChartOption.Color | undefined;
 
                         /**
                          * border color, whose format is similar to that of
@@ -4125,7 +4125,7 @@ declare namespace echarts {
                          * "#000"
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.itemStyle.emphasis.borderColor
                          */
-                        borderColor?: EChartOption.Color;
+                        borderColor?: EChartOption.Color | undefined;
 
                         /**
                          * border width. No border when it is set to be 0.
@@ -4133,7 +4133,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.itemStyle.emphasis.borderWidth
                          */
-                        borderWidth?: number;
+                        borderWidth?: number | undefined;
 
                         /**
                          * Border type, which can be `'solid'`, `'dashed'`,
@@ -4144,7 +4144,7 @@ declare namespace echarts {
                          * "solid"
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.itemStyle.emphasis.borderType
                          */
-                        borderType?: string;
+                        borderType?: string | undefined;
 
                         /**
                          * Size of shadow blur.
@@ -4158,7 +4158,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.itemStyle.emphasis.shadowBlur
                          */
-                        shadowBlur?: number;
+                        shadowBlur?: number | undefined;
 
                         /**
                          * Shadow color. Support same format as `color`.
@@ -4166,7 +4166,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.itemStyle.emphasis.shadowColor
                          */
-                        shadowColor?: EChartOption.Color;
+                        shadowColor?: EChartOption.Color | undefined;
 
                         /**
                          * Offset distance on the horizontal direction of shadow.
@@ -4174,7 +4174,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.itemStyle.emphasis.shadowOffsetX
                          */
-                        shadowOffsetX?: number;
+                        shadowOffsetX?: number | undefined;
 
                         /**
                          * Offset distance on the vertical direction of shadow.
@@ -4182,7 +4182,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.itemStyle.emphasis.shadowOffsetY
                          */
-                        shadowOffsetY?: number;
+                        shadowOffsetY?: number | undefined;
 
                         /**
                          * Opacity of the component.
@@ -4192,9 +4192,9 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.itemStyle.emphasis.opacity
                          */
-                        opacity?: number;
-                    };
-                };
+                        opacity?: number | undefined;
+                    } | undefined;
+                } | undefined;
 
                 /**
                  * Data array for mark points, each of which is an object.
@@ -4225,7 +4225,7 @@ declare namespace echarts {
                      * ''
                      * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.name
                      */
-                    name?: string;
+                    name?: string | undefined;
 
                     /**
                      * X position according to container, in pixel.
@@ -4233,7 +4233,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.x
                      */
-                    x?: number;
+                    x?: number | undefined;
 
                     /**
                      * Y position according to container, in pixel.
@@ -4241,7 +4241,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.y
                      */
-                    y?: number;
+                    y?: number | undefined;
 
                     /**
                      * Label value, which can be ignored.
@@ -4249,7 +4249,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.value
                      */
-                    value?: number;
+                    value?: number | undefined;
 
                     /**
                      * Symbol of .
@@ -4290,7 +4290,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.symbol
                      */
-                    symbol?: string;
+                    symbol?: string | undefined;
 
                     /**
                      * symbol size.
@@ -4302,7 +4302,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.symbolSize
                      */
-                    symbolSize?: any[] | number;
+                    symbolSize?: any[] | number | undefined;
 
                     /**
                      * Rotate degree of symbol.
@@ -4313,7 +4313,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.symbolRotate
                      */
-                    symbolRotate?: number;
+                    symbolRotate?: number | undefined;
 
                     /**
                      * Whether to keep aspect for symbols in the form of `path://`.
@@ -4321,7 +4321,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.symbolKeepAspect
                      */
-                    symbolKeepAspect?: boolean;
+                    symbolKeepAspect?: boolean | undefined;
 
                     /**
                      * Offset of symbol relative to original position.
@@ -4344,7 +4344,7 @@ declare namespace echarts {
                      * [0, 0]
                      * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.symbolOffset
                      */
-                    symbolOffset?: any[];
+                    symbolOffset?: any[] | undefined;
 
                     /**
                      * Mark point style.
@@ -4370,7 +4370,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.itemStyle.color
                          */
-                        color?: EChartOption.Color;
+                        color?: EChartOption.Color | undefined;
 
                         /**
                          * border color, whose format is similar to that of
@@ -4381,7 +4381,7 @@ declare namespace echarts {
                          * "#000"
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.itemStyle.borderColor
                          */
-                        borderColor?: EChartOption.Color;
+                        borderColor?: EChartOption.Color | undefined;
 
                         /**
                          * border width. No border when it is set to be 0.
@@ -4389,7 +4389,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.itemStyle.borderWidth
                          */
-                        borderWidth?: number;
+                        borderWidth?: number | undefined;
 
                         /**
                          * Border type, which can be `'solid'`, `'dashed'`,
@@ -4400,7 +4400,7 @@ declare namespace echarts {
                          * "solid"
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.itemStyle.borderType
                          */
-                        borderType?: string;
+                        borderType?: string | undefined;
 
                         /**
                          * Size of shadow blur.
@@ -4414,7 +4414,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.itemStyle.shadowBlur
                          */
-                        shadowBlur?: number;
+                        shadowBlur?: number | undefined;
 
                         /**
                          * Shadow color. Support same format as `color`.
@@ -4422,7 +4422,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.itemStyle.shadowColor
                          */
-                        shadowColor?: EChartOption.Color;
+                        shadowColor?: EChartOption.Color | undefined;
 
                         /**
                          * Offset distance on the horizontal direction of shadow.
@@ -4430,7 +4430,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.itemStyle.shadowOffsetX
                          */
-                        shadowOffsetX?: number;
+                        shadowOffsetX?: number | undefined;
 
                         /**
                          * Offset distance on the vertical direction of shadow.
@@ -4438,7 +4438,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.itemStyle.shadowOffsetY
                          */
-                        shadowOffsetY?: number;
+                        shadowOffsetY?: number | undefined;
 
                         /**
                          * Opacity of the component.
@@ -4448,7 +4448,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.itemStyle.opacity
                          */
-                        opacity?: number;
+                        opacity?: number | undefined;
 
                         /**
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.itemStyle.emphasis
@@ -4471,7 +4471,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.itemStyle.emphasis.color
                              */
-                            color?: EChartOption.Color;
+                            color?: EChartOption.Color | undefined;
 
                             /**
                              * border color, whose format is similar to that
@@ -4482,7 +4482,7 @@ declare namespace echarts {
                              * "#000"
                              * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.itemStyle.emphasis.borderColor
                              */
-                            borderColor?: EChartOption.Color;
+                            borderColor?: EChartOption.Color | undefined;
 
                             /**
                              * border width.
@@ -4491,7 +4491,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.itemStyle.emphasis.borderWidth
                              */
-                            borderWidth?: number;
+                            borderWidth?: number | undefined;
 
                             /**
                              * Border type, which can be `'solid'`, `'dashed'`,
@@ -4502,7 +4502,7 @@ declare namespace echarts {
                              * "solid"
                              * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.itemStyle.emphasis.borderType
                              */
-                            borderType?: string;
+                            borderType?: string | undefined;
 
                             /**
                              * Size of shadow blur.
@@ -4516,7 +4516,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.itemStyle.emphasis.shadowBlur
                              */
-                            shadowBlur?: number;
+                            shadowBlur?: number | undefined;
 
                             /**
                              * Shadow color. Support same format as `color`.
@@ -4524,7 +4524,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.itemStyle.emphasis.shadowColor
                              */
-                            shadowColor?: EChartOption.Color;
+                            shadowColor?: EChartOption.Color | undefined;
 
                             /**
                              * Offset distance on the horizontal direction of
@@ -4533,7 +4533,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.itemStyle.emphasis.shadowOffsetX
                              */
-                            shadowOffsetX?: number;
+                            shadowOffsetX?: number | undefined;
 
                             /**
                              * Offset distance on the vertical direction of
@@ -4542,7 +4542,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.itemStyle.emphasis.shadowOffsetY
                              */
-                            shadowOffsetY?: number;
+                            shadowOffsetY?: number | undefined;
 
                             /**
                              * Opacity of the component.
@@ -4552,9 +4552,9 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.itemStyle.emphasis.opacity
                              */
-                            opacity?: number;
-                        };
-                    };
+                            opacity?: number | undefined;
+                        } | undefined;
+                    } | undefined;
 
                     /**
                      * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label
@@ -4566,7 +4566,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.show
                          */
-                        show?: boolean;
+                        show?: boolean | undefined;
 
                         /**
                          * Label position.
@@ -4603,7 +4603,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.position
                          */
-                        position?: any[] | string;
+                        position?: any[] | string | undefined;
 
                         /**
                          * Distance to the host graphic element.
@@ -4618,7 +4618,7 @@ declare namespace echarts {
                          * 5
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.distance
                          */
-                        distance?: number;
+                        distance?: number | undefined;
 
                         /**
                          * Rotate label, from -90 degree to 90, positive value
@@ -4631,7 +4631,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.rotate
                          */
-                        rotate?: number;
+                        rotate?: number | undefined;
 
                         /**
                          * Whether to move text slightly.
@@ -4641,7 +4641,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.offset
                          */
-                        offset?: any[];
+                        offset?: any[] | undefined;
 
                         /**
                          * text color.
@@ -4654,7 +4654,7 @@ declare namespace echarts {
                          * ""#fff""
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.color
                          */
-                        color?: string;
+                        color?: string | undefined;
 
                         /**
                          * font style
@@ -4670,7 +4670,7 @@ declare namespace echarts {
                          * "normal"
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.fontStyle
                          */
-                        fontStyle?: string;
+                        fontStyle?: string | undefined;
 
                         /**
                          * font thick weight
@@ -4688,7 +4688,7 @@ declare namespace echarts {
                          * "normal"
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.fontWeight
                          */
-                        fontWeight?: string | number;
+                        fontWeight?: string | number | undefined;
 
                         /**
                          * font family
@@ -4700,7 +4700,7 @@ declare namespace echarts {
                          * "sans-serif"
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.fontFamily
                          */
-                        fontFamily?: string;
+                        fontFamily?: string | undefined;
 
                         /**
                          * font size
@@ -4710,7 +4710,7 @@ declare namespace echarts {
                          * 12
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.fontSize
                          */
-                        fontSize?: number;
+                        fontSize?: number | undefined;
 
                         /**
                          * Horizontal alignment of text, automatic by default.
@@ -4729,7 +4729,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.align
                          */
-                        align?: string;
+                        align?: string | undefined;
 
                         /**
                          * Vertical alignment of text, automatic by default.
@@ -4748,7 +4748,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.verticalAlign
                          */
-                        verticalAlign?: string;
+                        verticalAlign?: string | undefined;
 
                         /**
                          * Line height of the text fregment.
@@ -4761,7 +4761,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.lineHeight
                          */
-                        lineHeight?: number;
+                        lineHeight?: number | undefined;
 
                         /**
                          * Background color of the text fregment.
@@ -4783,7 +4783,7 @@ declare namespace echarts {
                          * "transparent"
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.backgroundColor
                          */
-                        backgroundColor?: object | string;
+                        backgroundColor?: object | string | undefined;
 
                         /**
                          * Border color of the text fregment.
@@ -4796,7 +4796,7 @@ declare namespace echarts {
                          * "transparent"
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.borderColor
                          */
-                        borderColor?: string;
+                        borderColor?: string | undefined;
 
                         /**
                          * Border width of the text fregment.
@@ -4804,7 +4804,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.borderWidth
                          */
-                        borderWidth?: number;
+                        borderWidth?: number | undefined;
 
                         /**
                          * Border radius of the text fregment.
@@ -4812,7 +4812,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.borderRadius
                          */
-                        borderRadius?: number;
+                        borderRadius?: number | undefined;
 
                         /**
                          * Padding of the text fregment, for example:
@@ -4829,7 +4829,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.padding
                          */
-                        padding?: any[] | number;
+                        padding?: any[] | number | undefined;
 
                         /**
                          * Shadow color of the text block.
@@ -4839,7 +4839,7 @@ declare namespace echarts {
                          * "transparent"
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.shadowColor
                          */
-                        shadowColor?: string;
+                        shadowColor?: string | undefined;
 
                         /**
                          * Show blur of the text block.
@@ -4847,7 +4847,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.shadowBlur
                          */
-                        shadowBlur?: number;
+                        shadowBlur?: number | undefined;
 
                         /**
                          * Shadow X offset of the text block.
@@ -4855,7 +4855,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.shadowOffsetX
                          */
-                        shadowOffsetX?: number;
+                        shadowOffsetX?: number | undefined;
 
                         /**
                          * Shadow Y offset of the text block.
@@ -4863,7 +4863,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.shadowOffsetY
                          */
-                        shadowOffsetY?: number;
+                        shadowOffsetY?: number | undefined;
 
                         /**
                          * Width of the text block.
@@ -4890,7 +4890,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.width
                          */
-                        width?: number | string;
+                        width?: number | string | undefined;
 
                         /**
                          * Height of the text block.
@@ -4907,7 +4907,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.height
                          */
-                        height?: number | string;
+                        height?: number | string | undefined;
 
                         /**
                          * Storke color of the text.
@@ -4920,7 +4920,7 @@ declare namespace echarts {
                          * "transparent"
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.textBorderColor
                          */
-                        textBorderColor?: string;
+                        textBorderColor?: string | undefined;
 
                         /**
                          * Storke line width of the text.
@@ -4928,7 +4928,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.textBorderWidth
                          */
-                        textBorderWidth?: number;
+                        textBorderWidth?: number | undefined;
 
                         /**
                          * Shadow color of the text itself.
@@ -4938,7 +4938,7 @@ declare namespace echarts {
                          * "transparent"
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.textShadowColor
                          */
-                        textShadowColor?: string;
+                        textShadowColor?: string | undefined;
 
                         /**
                          * Shadow blue of the text itself.
@@ -4946,7 +4946,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.textShadowBlur
                          */
-                        textShadowBlur?: number;
+                        textShadowBlur?: number | undefined;
 
                         /**
                          * Shadow X offset of the text itself.
@@ -4954,7 +4954,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.textShadowOffsetX
                          */
-                        textShadowOffsetX?: number;
+                        textShadowOffsetX?: number | undefined;
 
                         /**
                          * Shadow Y offset of the text itself.
@@ -4962,7 +4962,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.textShadowOffsetY
                          */
-                        textShadowOffsetY?: number;
+                        textShadowOffsetY?: number | undefined;
 
                         /**
                          * "Rich text styles" can be defined in this `rich`
@@ -4993,7 +4993,7 @@ declare namespace echarts {
                                  * ""#fff""
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.color
                                  */
-                                color?: string;
+                                color?: string | undefined;
 
                                 /**
                                  * font style
@@ -5009,7 +5009,7 @@ declare namespace echarts {
                                  * "normal"
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
                                  */
-                                fontStyle?: string;
+                                fontStyle?: string | undefined;
 
                                 /**
                                  * font thick weight
@@ -5027,7 +5027,7 @@ declare namespace echarts {
                                  * "normal"
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                  */
-                                fontWeight?: string | number;
+                                fontWeight?: string | number | undefined;
 
                                 /**
                                  * font family
@@ -5039,7 +5039,7 @@ declare namespace echarts {
                                  * "sans-serif"
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
                                  */
-                                fontFamily?: string;
+                                fontFamily?: string | undefined;
 
                                 /**
                                  * font size
@@ -5049,7 +5049,7 @@ declare namespace echarts {
                                  * 12
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
                                  */
-                                fontSize?: number;
+                                fontSize?: number | undefined;
 
                                 /**
                                  * Horizontal alignment of text, automatic by
@@ -5070,7 +5070,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.align
                                  */
-                                align?: string;
+                                align?: string | undefined;
 
                                 /**
                                  * Vertical alignment of text, automatic by
@@ -5091,7 +5091,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                                  */
-                                verticalAlign?: string;
+                                verticalAlign?: string | undefined;
 
                                 /**
                                  * Line height of the text fregment.
@@ -5105,7 +5105,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                                  */
-                                lineHeight?: number;
+                                lineHeight?: number | undefined;
 
                                 /**
                                  * Background color of the text fregment.
@@ -5129,7 +5129,7 @@ declare namespace echarts {
                                  * "transparent"
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
                                  */
-                                backgroundColor?: object | string;
+                                backgroundColor?: object | string | undefined;
 
                                 /**
                                  * Border color of the text fregment.
@@ -5142,7 +5142,7 @@ declare namespace echarts {
                                  * "transparent"
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
                                  */
-                                borderColor?: string;
+                                borderColor?: string | undefined;
 
                                 /**
                                  * Border width of the text fregment.
@@ -5150,7 +5150,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                                  */
-                                borderWidth?: number;
+                                borderWidth?: number | undefined;
 
                                 /**
                                  * Border radius of the text fregment.
@@ -5158,7 +5158,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                                  */
-                                borderRadius?: number;
+                                borderRadius?: number | undefined;
 
                                 /**
                                  * Padding of the text fregment, for example:
@@ -5177,7 +5177,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.padding
                                  */
-                                padding?: any[] | number;
+                                padding?: any[] | number | undefined;
 
                                 /**
                                  * Shadow color of the text block.
@@ -5187,7 +5187,7 @@ declare namespace echarts {
                                  * "transparent"
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
                                  */
-                                shadowColor?: string;
+                                shadowColor?: string | undefined;
 
                                 /**
                                  * Show blur of the text block.
@@ -5195,7 +5195,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                                  */
-                                shadowBlur?: number;
+                                shadowBlur?: number | undefined;
 
                                 /**
                                  * Shadow X offset of the text block.
@@ -5203,7 +5203,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                                  */
-                                shadowOffsetX?: number;
+                                shadowOffsetX?: number | undefined;
 
                                 /**
                                  * Shadow Y offset of the text block.
@@ -5211,7 +5211,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                                  */
-                                shadowOffsetY?: number;
+                                shadowOffsetY?: number | undefined;
 
                                 /**
                                  * Width of the text block.
@@ -5242,7 +5242,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.width
                                  */
-                                width?: number | string;
+                                width?: number | string | undefined;
 
                                 /**
                                  * Height of the text block.
@@ -5260,7 +5260,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.height
                                  */
-                                height?: number | string;
+                                height?: number | string | undefined;
 
                                 /**
                                  * Storke color of the text.
@@ -5273,7 +5273,7 @@ declare namespace echarts {
                                  * "transparent"
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
                                  */
-                                textBorderColor?: string;
+                                textBorderColor?: string | undefined;
 
                                 /**
                                  * Storke line width of the text.
@@ -5281,7 +5281,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                                  */
-                                textBorderWidth?: number;
+                                textBorderWidth?: number | undefined;
 
                                 /**
                                  * Shadow color of the text itself.
@@ -5291,7 +5291,7 @@ declare namespace echarts {
                                  * "transparent"
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
                                  */
-                                textShadowColor?: string;
+                                textShadowColor?: string | undefined;
 
                                 /**
                                  * Shadow blue of the text itself.
@@ -5299,7 +5299,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                                  */
-                                textShadowBlur?: number;
+                                textShadowBlur?: number | undefined;
 
                                 /**
                                  * Shadow X offset of the text itself.
@@ -5307,7 +5307,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                                  */
-                                textShadowOffsetX?: number;
+                                textShadowOffsetX?: number | undefined;
 
                                 /**
                                  * Shadow Y offset of the text itself.
@@ -5315,9 +5315,9 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                                  */
-                                textShadowOffsetY?: number;
+                                textShadowOffsetY?: number | undefined;
                             };
-                        };
+                        } | undefined;
 
                         /**
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis
@@ -5329,7 +5329,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.show
                              */
-                            show?: boolean;
+                            show?: boolean | undefined;
 
                             /**
                              * Label position.
@@ -5366,7 +5366,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.position
                              */
-                            position?: any[] | string;
+                            position?: any[] | string | undefined;
 
                             /**
                              * Distance to the host graphic element.
@@ -5381,7 +5381,7 @@ declare namespace echarts {
                              * 5
                              * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.distance
                              */
-                            distance?: number;
+                            distance?: number | undefined;
 
                             /**
                              * Rotate label, from -90 degree to 90, positive
@@ -5394,7 +5394,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.rotate
                              */
-                            rotate?: number;
+                            rotate?: number | undefined;
 
                             /**
                              * Whether to move text slightly.
@@ -5404,7 +5404,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.offset
                              */
-                            offset?: any[];
+                            offset?: any[] | undefined;
 
                             /**
                              * text color.
@@ -5417,7 +5417,7 @@ declare namespace echarts {
                              * ""#fff""
                              * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.color
                              */
-                            color?: string;
+                            color?: string | undefined;
 
                             /**
                              * font style
@@ -5433,7 +5433,7 @@ declare namespace echarts {
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.fontStyle
                              */
-                            fontStyle?: string;
+                            fontStyle?: string | undefined;
 
                             /**
                              * font thick weight
@@ -5451,7 +5451,7 @@ declare namespace echarts {
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.fontWeight
                              */
-                            fontWeight?: string | number;
+                            fontWeight?: string | number | undefined;
 
                             /**
                              * font family
@@ -5463,7 +5463,7 @@ declare namespace echarts {
                              * "sans-serif"
                              * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.fontFamily
                              */
-                            fontFamily?: string;
+                            fontFamily?: string | undefined;
 
                             /**
                              * font size
@@ -5473,7 +5473,7 @@ declare namespace echarts {
                              * 12
                              * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.fontSize
                              */
-                            fontSize?: number;
+                            fontSize?: number | undefined;
 
                             /**
                              * Horizontal alignment of text, automatic by default.
@@ -5492,7 +5492,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.align
                              */
-                            align?: string;
+                            align?: string | undefined;
 
                             /**
                              * Vertical alignment of text, automatic by default.
@@ -5511,7 +5511,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.verticalAlign
                              */
-                            verticalAlign?: string;
+                            verticalAlign?: string | undefined;
 
                             /**
                              * Line height of the text fregment.
@@ -5524,7 +5524,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.lineHeight
                              */
-                            lineHeight?: number;
+                            lineHeight?: number | undefined;
 
                             /**
                              * Background color of the text fregment.
@@ -5547,7 +5547,7 @@ declare namespace echarts {
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.backgroundColor
                              */
-                            backgroundColor?: object | string;
+                            backgroundColor?: object | string | undefined;
 
                             /**
                              * Border color of the text fregment.
@@ -5560,7 +5560,7 @@ declare namespace echarts {
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.borderColor
                              */
-                            borderColor?: string;
+                            borderColor?: string | undefined;
 
                             /**
                              * Border width of the text fregment.
@@ -5568,7 +5568,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.borderWidth
                              */
-                            borderWidth?: number;
+                            borderWidth?: number | undefined;
 
                             /**
                              * Border radius of the text fregment.
@@ -5576,7 +5576,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.borderRadius
                              */
-                            borderRadius?: number;
+                            borderRadius?: number | undefined;
 
                             /**
                              * Padding of the text fregment, for example:
@@ -5594,7 +5594,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.padding
                              */
-                            padding?: any[] | number;
+                            padding?: any[] | number | undefined;
 
                             /**
                              * Shadow color of the text block.
@@ -5604,7 +5604,7 @@ declare namespace echarts {
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.shadowColor
                              */
-                            shadowColor?: string;
+                            shadowColor?: string | undefined;
 
                             /**
                              * Show blur of the text block.
@@ -5612,7 +5612,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.shadowBlur
                              */
-                            shadowBlur?: number;
+                            shadowBlur?: number | undefined;
 
                             /**
                              * Shadow X offset of the text block.
@@ -5620,7 +5620,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.shadowOffsetX
                              */
-                            shadowOffsetX?: number;
+                            shadowOffsetX?: number | undefined;
 
                             /**
                              * Shadow Y offset of the text block.
@@ -5628,7 +5628,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.shadowOffsetY
                              */
-                            shadowOffsetY?: number;
+                            shadowOffsetY?: number | undefined;
 
                             /**
                              * Width of the text block.
@@ -5655,7 +5655,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.width
                              */
-                            width?: number | string;
+                            width?: number | string | undefined;
 
                             /**
                              * Height of the text block.
@@ -5672,7 +5672,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.height
                              */
-                            height?: number | string;
+                            height?: number | string | undefined;
 
                             /**
                              * Storke color of the text.
@@ -5685,7 +5685,7 @@ declare namespace echarts {
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.textBorderColor
                              */
-                            textBorderColor?: string;
+                            textBorderColor?: string | undefined;
 
                             /**
                              * Storke line width of the text.
@@ -5693,7 +5693,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.textBorderWidth
                              */
-                            textBorderWidth?: number;
+                            textBorderWidth?: number | undefined;
 
                             /**
                              * Shadow color of the text itself.
@@ -5703,7 +5703,7 @@ declare namespace echarts {
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.textShadowColor
                              */
-                            textShadowColor?: string;
+                            textShadowColor?: string | undefined;
 
                             /**
                              * Shadow blue of the text itself.
@@ -5711,7 +5711,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.textShadowBlur
                              */
-                            textShadowBlur?: number;
+                            textShadowBlur?: number | undefined;
 
                             /**
                              * Shadow X offset of the text itself.
@@ -5719,7 +5719,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.textShadowOffsetX
                              */
-                            textShadowOffsetX?: number;
+                            textShadowOffsetX?: number | undefined;
 
                             /**
                              * Shadow Y offset of the text itself.
@@ -5727,7 +5727,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.textShadowOffsetY
                              */
-                            textShadowOffsetY?: number;
+                            textShadowOffsetY?: number | undefined;
 
                             /**
                              * "Rich text styles" can be defined in this `rich`
@@ -5758,7 +5758,7 @@ declare namespace echarts {
                                      * ""#fff""
                                      * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.color
                                      */
-                                    color?: string;
+                                    color?: string | undefined;
 
                                     /**
                                      * font style
@@ -5774,7 +5774,7 @@ declare namespace echarts {
                                      * "normal"
                                      * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
                                      */
-                                    fontStyle?: string;
+                                    fontStyle?: string | undefined;
 
                                     /**
                                      * font thick weight
@@ -5792,7 +5792,7 @@ declare namespace echarts {
                                      * "normal"
                                      * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                      */
-                                    fontWeight?: string | number;
+                                    fontWeight?: string | number | undefined;
 
                                     /**
                                      * font family
@@ -5805,7 +5805,7 @@ declare namespace echarts {
                                      * "sans-serif"
                                      * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
                                      */
-                                    fontFamily?: string;
+                                    fontFamily?: string | undefined;
 
                                     /**
                                      * font size
@@ -5815,7 +5815,7 @@ declare namespace echarts {
                                      * 12
                                      * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontSize
                                      */
-                                    fontSize?: number;
+                                    fontSize?: number | undefined;
 
                                     /**
                                      * Horizontal alignment of text, automatic
@@ -5836,7 +5836,7 @@ declare namespace echarts {
                                      *
                                      * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.align
                                      */
-                                    align?: string;
+                                    align?: string | undefined;
 
                                     /**
                                      * Vertical alignment of text, automatic
@@ -5857,7 +5857,7 @@ declare namespace echarts {
                                      *
                                      * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                                      */
-                                    verticalAlign?: string;
+                                    verticalAlign?: string | undefined;
 
                                     /**
                                      * Line height of the text fregment.
@@ -5871,7 +5871,7 @@ declare namespace echarts {
                                      *
                                      * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                                      */
-                                    lineHeight?: number;
+                                    lineHeight?: number | undefined;
 
                                     /**
                                      * Background color of the text fregment.
@@ -5895,7 +5895,7 @@ declare namespace echarts {
                                      * "transparent"
                                      * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
                                      */
-                                    backgroundColor?: object | string;
+                                    backgroundColor?: object | string | undefined;
 
                                     /**
                                      * Border color of the text fregment.
@@ -5908,7 +5908,7 @@ declare namespace echarts {
                                      * "transparent"
                                      * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderColor
                                      */
-                                    borderColor?: string;
+                                    borderColor?: string | undefined;
 
                                     /**
                                      * Border width of the text fregment.
@@ -5916,7 +5916,7 @@ declare namespace echarts {
                                      *
                                      * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                                      */
-                                    borderWidth?: number;
+                                    borderWidth?: number | undefined;
 
                                     /**
                                      * Border radius of the text fregment.
@@ -5924,7 +5924,7 @@ declare namespace echarts {
                                      *
                                      * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                                      */
-                                    borderRadius?: number;
+                                    borderRadius?: number | undefined;
 
                                     /**
                                      * Padding of the text fregment, for example:
@@ -5943,7 +5943,7 @@ declare namespace echarts {
                                      *
                                      * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.padding
                                      */
-                                    padding?: any[] | number;
+                                    padding?: any[] | number | undefined;
 
                                     /**
                                      * Shadow color of the text block.
@@ -5953,7 +5953,7 @@ declare namespace echarts {
                                      * "transparent"
                                      * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
                                      */
-                                    shadowColor?: string;
+                                    shadowColor?: string | undefined;
 
                                     /**
                                      * Show blur of the text block.
@@ -5961,7 +5961,7 @@ declare namespace echarts {
                                      *
                                      * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                                      */
-                                    shadowBlur?: number;
+                                    shadowBlur?: number | undefined;
 
                                     /**
                                      * Shadow X offset of the text block.
@@ -5969,7 +5969,7 @@ declare namespace echarts {
                                      *
                                      * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                                      */
-                                    shadowOffsetX?: number;
+                                    shadowOffsetX?: number | undefined;
 
                                     /**
                                      * Shadow Y offset of the text block.
@@ -5977,7 +5977,7 @@ declare namespace echarts {
                                      *
                                      * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                                      */
-                                    shadowOffsetY?: number;
+                                    shadowOffsetY?: number | undefined;
 
                                     /**
                                      * Width of the text block.
@@ -6008,7 +6008,7 @@ declare namespace echarts {
                                      *
                                      * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.width
                                      */
-                                    width?: number | string;
+                                    width?: number | string | undefined;
 
                                     /**
                                      * Height of the text block.
@@ -6026,7 +6026,7 @@ declare namespace echarts {
                                      *
                                      * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.height
                                      */
-                                    height?: number | string;
+                                    height?: number | string | undefined;
 
                                     /**
                                      * Storke color of the text.
@@ -6039,7 +6039,7 @@ declare namespace echarts {
                                      * "transparent"
                                      * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
                                      */
-                                    textBorderColor?: string;
+                                    textBorderColor?: string | undefined;
 
                                     /**
                                      * Storke line width of the text.
@@ -6047,7 +6047,7 @@ declare namespace echarts {
                                      *
                                      * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                                      */
-                                    textBorderWidth?: number;
+                                    textBorderWidth?: number | undefined;
 
                                     /**
                                      * Shadow color of the text itself.
@@ -6057,7 +6057,7 @@ declare namespace echarts {
                                      * "transparent"
                                      * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
                                      */
-                                    textShadowColor?: string;
+                                    textShadowColor?: string | undefined;
 
                                     /**
                                      * Shadow blue of the text itself.
@@ -6065,7 +6065,7 @@ declare namespace echarts {
                                      *
                                      * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                                      */
-                                    textShadowBlur?: number;
+                                    textShadowBlur?: number | undefined;
 
                                     /**
                                      * Shadow X offset of the text itself.
@@ -6073,7 +6073,7 @@ declare namespace echarts {
                                      *
                                      * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                                      */
-                                    textShadowOffsetX?: number;
+                                    textShadowOffsetX?: number | undefined;
 
                                     /**
                                      * Shadow Y offset of the text itself.
@@ -6081,12 +6081,12 @@ declare namespace echarts {
                                      *
                                      * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                                      */
-                                    textShadowOffsetY?: number;
+                                    textShadowOffsetY?: number | undefined;
                                 };
-                            };
-                        };
-                    };
-                };
+                            } | undefined;
+                        } | undefined;
+                    } | undefined;
+                } | undefined;
 
                 /**
                  * Whether to enable animation.
@@ -6096,7 +6096,7 @@ declare namespace echarts {
                  * "true"
                  * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.animation
                  */
-                animation?: boolean;
+                animation?: boolean | undefined;
 
                 /**
                  * Whether to set graphic number threshold to animation.
@@ -6108,7 +6108,7 @@ declare namespace echarts {
                  * 2000
                  * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.animationThreshold
                  */
-                animationThreshold?: number;
+                animationThreshold?: number | undefined;
 
                 /**
                  * Duration of the first animation, which supports callback
@@ -6121,7 +6121,7 @@ declare namespace echarts {
                  * 1000
                  * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.animationDuration
                  */
-                animationDuration?: Function | number;
+                animationDuration?: Function | number | undefined;
 
                 /**
                  * Easing method used for the first animation.
@@ -6134,7 +6134,7 @@ declare namespace echarts {
                  * "cubicOut"
                  * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.animationEasing
                  */
-                animationEasing?: string;
+                animationEasing?: string | undefined;
 
                 /**
                  * Delay before updating the first animation, which supports
@@ -6152,7 +6152,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.animationDelay
                  */
-                animationDelay?: Function | number;
+                animationDelay?: Function | number | undefined;
 
                 /**
                  * Time for animation to complete, which supports callback function
@@ -6165,7 +6165,7 @@ declare namespace echarts {
                  * 300
                  * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.animationDurationUpdate
                  */
-                animationDurationUpdate?: Function | number;
+                animationDurationUpdate?: Function | number | undefined;
 
                 /**
                  * Easing method used for animation.
@@ -6175,7 +6175,7 @@ declare namespace echarts {
                  * "cubicOut"
                  * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.animationEasingUpdate
                  */
-                animationEasingUpdate?: string;
+                animationEasingUpdate?: string | undefined;
 
                 /**
                  * Delay before updating animation, which supports callback
@@ -6194,8 +6194,8 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.animationDelayUpdate
                  */
-                animationDelayUpdate?: Function | number;
-            };
+                animationDelayUpdate?: Function | number | undefined;
+            } | undefined;
 
             /**
              * Use a line in the chart to illustrate.
@@ -6212,7 +6212,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-pie.markLine.silent
                  */
-                silent?: boolean;
+                silent?: boolean | undefined;
 
                 /**
                  * Symbol type at the two ends of the mark line.
@@ -6224,7 +6224,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-pie.markLine.symbol
                  */
-                symbol?: any[] | string;
+                symbol?: any[] | string | undefined;
 
                 /**
                  * Symbol size at the two ends of the mark line.
@@ -6236,7 +6236,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-pie.markLine.symbolSize
                  */
-                symbolSize?: any[] | number;
+                symbolSize?: any[] | number | undefined;
 
                 /**
                  * Precison of marking line value, which is useful when displaying
@@ -6247,7 +6247,7 @@ declare namespace echarts {
                  * 2
                  * @see https://echarts.apache.org/en/option.html#series-pie.markLine.precision
                  */
-                precision?: number;
+                precision?: number | undefined;
 
                 /**
                  * Mark line text.
@@ -6264,7 +6264,7 @@ declare namespace echarts {
                      * "true"
                      * @see https://echarts.apache.org/en/option.html#series-pie.markLine.label.show
                      */
-                    show?: boolean;
+                    show?: boolean | undefined;
 
                     /**
                      * Positions of labels can be:
@@ -6278,7 +6278,7 @@ declare namespace echarts {
                      * "end"
                      * @see https://echarts.apache.org/en/option.html#series-pie.markLine.label.position
                      */
-                    position?: string;
+                    position?: string | undefined;
 
                     /**
                      * Data label formatter, which supports string template
@@ -6323,7 +6323,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.markLine.label.formatter
                      */
-                    formatter?: Function | string;
+                    formatter?: Function | string | undefined;
 
                     /**
                      * @see https://echarts.apache.org/en/option.html#series-pie.markLine.label.emphasis
@@ -6337,7 +6337,7 @@ declare namespace echarts {
                          * "true"
                          * @see https://echarts.apache.org/en/option.html#series-pie.markLine.label.emphasis.show
                          */
-                        show?: boolean;
+                        show?: boolean | undefined;
 
                         /**
                          * Positions of labels can be:
@@ -6351,7 +6351,7 @@ declare namespace echarts {
                          * "end"
                          * @see https://echarts.apache.org/en/option.html#series-pie.markLine.label.emphasis.position
                          */
-                        position?: string;
+                        position?: string | undefined;
 
                         /**
                          * Data label formatter, which supports string template
@@ -6398,9 +6398,9 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markLine.label.emphasis.formatter
                          */
-                        formatter?: Function | string;
-                    };
-                };
+                        formatter?: Function | string | undefined;
+                    } | undefined;
+                } | undefined;
 
                 /**
                  * Mark line style.
@@ -6427,7 +6427,7 @@ declare namespace echarts {
                      * "#000"
                      * @see https://echarts.apache.org/en/option.html#series-pie.markLine.lineStyle.color
                      */
-                    color?: EChartOption.Color;
+                    color?: EChartOption.Color | undefined;
 
                     /**
                      * line width.
@@ -6435,7 +6435,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.markLine.lineStyle.width
                      */
-                    width?: number;
+                    width?: number | undefined;
 
                     /**
                      * line type.
@@ -6451,7 +6451,7 @@ declare namespace echarts {
                      * "solid"
                      * @see https://echarts.apache.org/en/option.html#series-pie.markLine.lineStyle.type
                      */
-                    type?: string;
+                    type?: string | undefined;
 
                     /**
                      * Size of shadow blur.
@@ -6465,7 +6465,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.markLine.lineStyle.shadowBlur
                      */
-                    shadowBlur?: number;
+                    shadowBlur?: number | undefined;
 
                     /**
                      * Shadow color. Support same format as `color`.
@@ -6473,7 +6473,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.markLine.lineStyle.shadowColor
                      */
-                    shadowColor?: EChartOption.Color;
+                    shadowColor?: EChartOption.Color | undefined;
 
                     /**
                      * Offset distance on the horizontal direction of shadow.
@@ -6481,7 +6481,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.markLine.lineStyle.shadowOffsetX
                      */
-                    shadowOffsetX?: number;
+                    shadowOffsetX?: number | undefined;
 
                     /**
                      * Offset distance on the vertical direction of shadow.
@@ -6489,7 +6489,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.markLine.lineStyle.shadowOffsetY
                      */
-                    shadowOffsetY?: number;
+                    shadowOffsetY?: number | undefined;
 
                     /**
                      * Opacity of the component.
@@ -6499,7 +6499,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.markLine.lineStyle.opacity
                      */
-                    opacity?: number;
+                    opacity?: number | undefined;
 
                     /**
                      * Edge curvature, which supports value from 0 to 1.
@@ -6508,7 +6508,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.markLine.lineStyle.curveness
                      */
-                    curveness?: number;
+                    curveness?: number | undefined;
 
                     /**
                      * @see https://echarts.apache.org/en/option.html#series-pie.markLine.lineStyle.emphasis
@@ -6533,7 +6533,7 @@ declare namespace echarts {
                          * "#000"
                          * @see https://echarts.apache.org/en/option.html#series-pie.markLine.lineStyle.emphasis.color
                          */
-                        color?: EChartOption.Color;
+                        color?: EChartOption.Color | undefined;
 
                         /**
                          * line width.
@@ -6541,7 +6541,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markLine.lineStyle.emphasis.width
                          */
-                        width?: number;
+                        width?: number | undefined;
 
                         /**
                          * line type.
@@ -6557,7 +6557,7 @@ declare namespace echarts {
                          * "solid"
                          * @see https://echarts.apache.org/en/option.html#series-pie.markLine.lineStyle.emphasis.type
                          */
-                        type?: string;
+                        type?: string | undefined;
 
                         /**
                          * Size of shadow blur.
@@ -6571,7 +6571,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markLine.lineStyle.emphasis.shadowBlur
                          */
-                        shadowBlur?: number;
+                        shadowBlur?: number | undefined;
 
                         /**
                          * Shadow color. Support same format as `color`.
@@ -6579,7 +6579,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markLine.lineStyle.emphasis.shadowColor
                          */
-                        shadowColor?: EChartOption.Color;
+                        shadowColor?: EChartOption.Color | undefined;
 
                         /**
                          * Offset distance on the horizontal direction of shadow.
@@ -6587,7 +6587,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markLine.lineStyle.emphasis.shadowOffsetX
                          */
-                        shadowOffsetX?: number;
+                        shadowOffsetX?: number | undefined;
 
                         /**
                          * Offset distance on the vertical direction of shadow.
@@ -6595,7 +6595,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markLine.lineStyle.emphasis.shadowOffsetY
                          */
-                        shadowOffsetY?: number;
+                        shadowOffsetY?: number | undefined;
 
                         /**
                          * Opacity of the component.
@@ -6605,9 +6605,9 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markLine.lineStyle.emphasis.opacity
                          */
-                        opacity?: number;
-                    };
-                };
+                        opacity?: number | undefined;
+                    } | undefined;
+                } | undefined;
 
                 /**
                  * Data array of marking line.
@@ -6645,7 +6645,7 @@ declare namespace echarts {
                          *
                          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.data.0.name
                          */
-                        name?: string;
+                        name?: string | undefined;
 
                         /**
                          * X position according to container, in pixel.
@@ -6653,7 +6653,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.0.x
                          */
-                        x?: number;
+                        x?: number | undefined;
 
                         /**
                          * Y position according to container, in pixel.
@@ -6661,7 +6661,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.0.y
                          */
-                        y?: number;
+                        y?: number | undefined;
 
                         /**
                          * Label value, which can be ignored.
@@ -6669,7 +6669,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.0.value
                          */
-                        value?: number;
+                        value?: number | undefined;
 
                         /**
                          * Symbol of starting point.
@@ -6712,7 +6712,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.0.symbol
                          */
-                        symbol?: string;
+                        symbol?: string | undefined;
 
                         /**
                          * starting point symbol size.
@@ -6724,7 +6724,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.0.symbolSize
                          */
-                        symbolSize?: any[] | number;
+                        symbolSize?: any[] | number | undefined;
 
                         /**
                          * Rotate degree of starting point symbol.
@@ -6735,7 +6735,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.0.symbolRotate
                          */
-                        symbolRotate?: number;
+                        symbolRotate?: number | undefined;
 
                         /**
                          * Whether to keep aspect for symbols in the form of
@@ -6744,7 +6744,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.0.symbolKeepAspect
                          */
-                        symbolKeepAspect?: boolean;
+                        symbolKeepAspect?: boolean | undefined;
 
                         /**
                          * Offset of starting point symbol relative to original
@@ -6768,7 +6768,7 @@ declare namespace echarts {
                          * [0, 0]
                          * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.0.symbolOffset
                          */
-                        symbolOffset?: any[];
+                        symbolOffset?: any[] | undefined;
 
                         /**
                          * Line style of this data item, which will be merged
@@ -6797,7 +6797,7 @@ declare namespace echarts {
                              * "#000"
                              * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.0.lineStyle.color
                              */
-                            color?: EChartOption.Color;
+                            color?: EChartOption.Color | undefined;
 
                             /**
                              * line width.
@@ -6805,7 +6805,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.0.lineStyle.width
                              */
-                            width?: number;
+                            width?: number | undefined;
 
                             /**
                              * line type.
@@ -6821,7 +6821,7 @@ declare namespace echarts {
                              * "solid"
                              * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.0.lineStyle.type
                              */
-                            type?: string;
+                            type?: string | undefined;
 
                             /**
                              * Size of shadow blur.
@@ -6835,7 +6835,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.0.lineStyle.shadowBlur
                              */
-                            shadowBlur?: number;
+                            shadowBlur?: number | undefined;
 
                             /**
                              * Shadow color. Support same format as `color`.
@@ -6843,7 +6843,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.0.lineStyle.shadowColor
                              */
-                            shadowColor?: EChartOption.Color;
+                            shadowColor?: EChartOption.Color | undefined;
 
                             /**
                              * Offset distance on the horizontal direction of
@@ -6852,7 +6852,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.0.lineStyle.shadowOffsetX
                              */
-                            shadowOffsetX?: number;
+                            shadowOffsetX?: number | undefined;
 
                             /**
                              * Offset distance on the vertical direction of
@@ -6861,7 +6861,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.0.lineStyle.shadowOffsetY
                              */
-                            shadowOffsetY?: number;
+                            shadowOffsetY?: number | undefined;
 
                             /**
                              * Opacity of the component.
@@ -6871,7 +6871,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.0.lineStyle.opacity
                              */
-                            opacity?: number;
+                            opacity?: number | undefined;
 
                             /**
                              * Edge curvature, which supports value from 0 to
@@ -6881,7 +6881,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.0.lineStyle.curveness
                              */
-                            curveness?: number;
+                            curveness?: number | undefined;
 
                             /**
                              * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.0.lineStyle.emphasis
@@ -6906,7 +6906,7 @@ declare namespace echarts {
                                  * "#000"
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.0.lineStyle.emphasis.color
                                  */
-                                color?: EChartOption.Color;
+                                color?: EChartOption.Color | undefined;
 
                                 /**
                                  * line width.
@@ -6914,7 +6914,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.0.lineStyle.emphasis.width
                                  */
-                                width?: number;
+                                width?: number | undefined;
 
                                 /**
                                  * line type.
@@ -6930,7 +6930,7 @@ declare namespace echarts {
                                  * "solid"
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.0.lineStyle.emphasis.type
                                  */
-                                type?: string;
+                                type?: string | undefined;
 
                                 /**
                                  * Size of shadow blur.
@@ -6945,7 +6945,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.0.lineStyle.emphasis.shadowBlur
                                  */
-                                shadowBlur?: number;
+                                shadowBlur?: number | undefined;
 
                                 /**
                                  * Shadow color.
@@ -6954,7 +6954,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.0.lineStyle.emphasis.shadowColor
                                  */
-                                shadowColor?: EChartOption.Color;
+                                shadowColor?: EChartOption.Color | undefined;
 
                                 /**
                                  * Offset distance on the horizontal direction
@@ -6963,7 +6963,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.0.lineStyle.emphasis.shadowOffsetX
                                  */
-                                shadowOffsetX?: number;
+                                shadowOffsetX?: number | undefined;
 
                                 /**
                                  * Offset distance on the vertical direction
@@ -6972,7 +6972,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.0.lineStyle.emphasis.shadowOffsetY
                                  */
-                                shadowOffsetY?: number;
+                                shadowOffsetY?: number | undefined;
 
                                 /**
                                  * Opacity of the component.
@@ -6982,7 +6982,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.0.lineStyle.emphasis.opacity
                                  */
-                                opacity?: number;
+                                opacity?: number | undefined;
 
                                 /**
                                  * Edge curvature, which supports value from
@@ -6992,9 +6992,9 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.0.lineStyle.emphasis.curveness
                                  */
-                                curveness?: number;
-                            };
-                        };
+                                curveness?: number | undefined;
+                            } | undefined;
+                        } | undefined;
 
                         /**
                          * Label of this data item, which will be merged with
@@ -7012,7 +7012,7 @@ declare namespace echarts {
                              * "true"
                              * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.0.label.show
                              */
-                            show?: boolean;
+                            show?: boolean | undefined;
 
                             /**
                              * Positions of labels can be:
@@ -7026,7 +7026,7 @@ declare namespace echarts {
                              * "end"
                              * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.0.label.position
                              */
-                            position?: string;
+                            position?: string | undefined;
 
                             /**
                              * Data label formatter, which supports string template
@@ -7073,7 +7073,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.0.label.formatter
                              */
-                            formatter?: Function | string;
+                            formatter?: Function | string | undefined;
 
                             /**
                              * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.0.label.emphasis
@@ -7087,7 +7087,7 @@ declare namespace echarts {
                                  * "true"
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.0.label.emphasis.show
                                  */
-                                show?: boolean;
+                                show?: boolean | undefined;
 
                                 /**
                                  * Positions of labels can be:
@@ -7101,7 +7101,7 @@ declare namespace echarts {
                                  * "end"
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.0.label.emphasis.position
                                  */
-                                position?: string;
+                                position?: string | undefined;
 
                                 /**
                                  * Data label formatter, which supports string
@@ -7148,10 +7148,10 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.0.label.emphasis.formatter
                                  */
-                                formatter?: Function | string;
-                            };
-                        };
-                    };
+                                formatter?: Function | string | undefined;
+                            } | undefined;
+                        } | undefined;
+                    } | undefined;
 
                     /**
                      * Data of the ending point.
@@ -7166,7 +7166,7 @@ declare namespace echarts {
                          *
                          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markLine.data.1.name
                          */
-                        name?: string;
+                        name?: string | undefined;
 
                         /**
                          * X position according to container, in pixel.
@@ -7174,7 +7174,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.1.x
                          */
-                        x?: number;
+                        x?: number | undefined;
 
                         /**
                          * Y position according to container, in pixel.
@@ -7182,7 +7182,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.1.y
                          */
-                        y?: number;
+                        y?: number | undefined;
 
                         /**
                          * Label value, which can be ignored.
@@ -7190,7 +7190,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.1.value
                          */
-                        value?: number;
+                        value?: number | undefined;
 
                         /**
                          * Symbol of ending point.
@@ -7233,7 +7233,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.1.symbol
                          */
-                        symbol?: string;
+                        symbol?: string | undefined;
 
                         /**
                          * ending point symbol size.
@@ -7245,7 +7245,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.1.symbolSize
                          */
-                        symbolSize?: any[] | number;
+                        symbolSize?: any[] | number | undefined;
 
                         /**
                          * Rotate degree of ending point symbol.
@@ -7256,7 +7256,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.1.symbolRotate
                          */
-                        symbolRotate?: number;
+                        symbolRotate?: number | undefined;
 
                         /**
                          * Whether to keep aspect for symbols in the form of
@@ -7265,7 +7265,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.1.symbolKeepAspect
                          */
-                        symbolKeepAspect?: boolean;
+                        symbolKeepAspect?: boolean | undefined;
 
                         /**
                          * Offset of ending point symbol relative to original
@@ -7289,7 +7289,7 @@ declare namespace echarts {
                          * [0, 0]
                          * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.1.symbolOffset
                          */
-                        symbolOffset?: any[];
+                        symbolOffset?: any[] | undefined;
 
                         /**
                          * Line style of this data item, which will be merged
@@ -7318,7 +7318,7 @@ declare namespace echarts {
                              * "#000"
                              * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.1.lineStyle.color
                              */
-                            color?: EChartOption.Color;
+                            color?: EChartOption.Color | undefined;
 
                             /**
                              * line width.
@@ -7326,7 +7326,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.1.lineStyle.width
                              */
-                            width?: number;
+                            width?: number | undefined;
 
                             /**
                              * line type.
@@ -7342,7 +7342,7 @@ declare namespace echarts {
                              * "solid"
                              * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.1.lineStyle.type
                              */
-                            type?: string;
+                            type?: string | undefined;
 
                             /**
                              * Size of shadow blur.
@@ -7356,7 +7356,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.1.lineStyle.shadowBlur
                              */
-                            shadowBlur?: number;
+                            shadowBlur?: number | undefined;
 
                             /**
                              * Shadow color. Support same format as `color`.
@@ -7364,7 +7364,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.1.lineStyle.shadowColor
                              */
-                            shadowColor?: EChartOption.Color;
+                            shadowColor?: EChartOption.Color | undefined;
 
                             /**
                              * Offset distance on the horizontal direction of
@@ -7373,7 +7373,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.1.lineStyle.shadowOffsetX
                              */
-                            shadowOffsetX?: number;
+                            shadowOffsetX?: number | undefined;
 
                             /**
                              * Offset distance on the vertical direction of
@@ -7382,7 +7382,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.1.lineStyle.shadowOffsetY
                              */
-                            shadowOffsetY?: number;
+                            shadowOffsetY?: number | undefined;
 
                             /**
                              * Opacity of the component.
@@ -7392,7 +7392,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.1.lineStyle.opacity
                              */
-                            opacity?: number;
+                            opacity?: number | undefined;
 
                             /**
                              * Edge curvature, which supports value from 0 to
@@ -7402,7 +7402,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.1.lineStyle.curveness
                              */
-                            curveness?: number;
+                            curveness?: number | undefined;
 
                             /**
                              * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.1.lineStyle.emphasis
@@ -7427,7 +7427,7 @@ declare namespace echarts {
                                  * "#000"
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.1.lineStyle.emphasis.color
                                  */
-                                color?: EChartOption.Color;
+                                color?: EChartOption.Color | undefined;
 
                                 /**
                                  * line width.
@@ -7435,7 +7435,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.1.lineStyle.emphasis.width
                                  */
-                                width?: number;
+                                width?: number | undefined;
 
                                 /**
                                  * line type.
@@ -7451,7 +7451,7 @@ declare namespace echarts {
                                  * "solid"
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.1.lineStyle.emphasis.type
                                  */
-                                type?: string;
+                                type?: string | undefined;
 
                                 /**
                                  * Size of shadow blur.
@@ -7466,7 +7466,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.1.lineStyle.emphasis.shadowBlur
                                  */
-                                shadowBlur?: number;
+                                shadowBlur?: number | undefined;
 
                                 /**
                                  * Shadow color.
@@ -7475,7 +7475,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.1.lineStyle.emphasis.shadowColor
                                  */
-                                shadowColor?: EChartOption.Color;
+                                shadowColor?: EChartOption.Color | undefined;
 
                                 /**
                                  * Offset distance on the horizontal direction
@@ -7484,7 +7484,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.1.lineStyle.emphasis.shadowOffsetX
                                  */
-                                shadowOffsetX?: number;
+                                shadowOffsetX?: number | undefined;
 
                                 /**
                                  * Offset distance on the vertical direction
@@ -7493,7 +7493,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.1.lineStyle.emphasis.shadowOffsetY
                                  */
-                                shadowOffsetY?: number;
+                                shadowOffsetY?: number | undefined;
 
                                 /**
                                  * Opacity of the component.
@@ -7503,7 +7503,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.1.lineStyle.emphasis.opacity
                                  */
-                                opacity?: number;
+                                opacity?: number | undefined;
 
                                 /**
                                  * Edge curvature, which supports value from
@@ -7513,9 +7513,9 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.1.lineStyle.emphasis.curveness
                                  */
-                                curveness?: number;
-                            };
-                        };
+                                curveness?: number | undefined;
+                            } | undefined;
+                        } | undefined;
 
                         /**
                          * Label of this data item, which will be merged with
@@ -7533,7 +7533,7 @@ declare namespace echarts {
                              * "true"
                              * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.1.label.show
                              */
-                            show?: boolean;
+                            show?: boolean | undefined;
 
                             /**
                              * Positions of labels can be:
@@ -7547,7 +7547,7 @@ declare namespace echarts {
                              * "end"
                              * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.1.label.position
                              */
-                            position?: string;
+                            position?: string | undefined;
 
                             /**
                              * Data label formatter, which supports string template
@@ -7594,7 +7594,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.1.label.formatter
                              */
-                            formatter?: Function | string;
+                            formatter?: Function | string | undefined;
 
                             /**
                              * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.1.label.emphasis
@@ -7608,7 +7608,7 @@ declare namespace echarts {
                                  * "true"
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.1.label.emphasis.show
                                  */
-                                show?: boolean;
+                                show?: boolean | undefined;
 
                                 /**
                                  * Positions of labels can be:
@@ -7622,7 +7622,7 @@ declare namespace echarts {
                                  * "end"
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.1.label.emphasis.position
                                  */
-                                position?: string;
+                                position?: string | undefined;
 
                                 /**
                                  * Data label formatter, which supports string
@@ -7669,11 +7669,11 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.1.label.emphasis.formatter
                                  */
-                                formatter?: Function | string;
-                            };
-                        };
-                    };
-                };
+                                formatter?: Function | string | undefined;
+                            } | undefined;
+                        } | undefined;
+                    } | undefined;
+                } | undefined;
 
                 /**
                  * Whether to enable animation.
@@ -7683,7 +7683,7 @@ declare namespace echarts {
                  * "true"
                  * @see https://echarts.apache.org/en/option.html#series-pie.markLine.animation
                  */
-                animation?: boolean;
+                animation?: boolean | undefined;
 
                 /**
                  * Whether to set graphic number threshold to animation.
@@ -7695,7 +7695,7 @@ declare namespace echarts {
                  * 2000
                  * @see https://echarts.apache.org/en/option.html#series-pie.markLine.animationThreshold
                  */
-                animationThreshold?: number;
+                animationThreshold?: number | undefined;
 
                 /**
                  * Duration of the first animation, which supports callback
@@ -7708,7 +7708,7 @@ declare namespace echarts {
                  * 1000
                  * @see https://echarts.apache.org/en/option.html#series-pie.markLine.animationDuration
                  */
-                animationDuration?: Function | number;
+                animationDuration?: Function | number | undefined;
 
                 /**
                  * Easing method used for the first animation.
@@ -7721,7 +7721,7 @@ declare namespace echarts {
                  * "cubicOut"
                  * @see https://echarts.apache.org/en/option.html#series-pie.markLine.animationEasing
                  */
-                animationEasing?: string;
+                animationEasing?: string | undefined;
 
                 /**
                  * Delay before updating the first animation, which supports
@@ -7739,7 +7739,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-pie.markLine.animationDelay
                  */
-                animationDelay?: Function | number;
+                animationDelay?: Function | number | undefined;
 
                 /**
                  * Time for animation to complete, which supports callback function
@@ -7752,7 +7752,7 @@ declare namespace echarts {
                  * 300
                  * @see https://echarts.apache.org/en/option.html#series-pie.markLine.animationDurationUpdate
                  */
-                animationDurationUpdate?: Function | number;
+                animationDurationUpdate?: Function | number | undefined;
 
                 /**
                  * Easing method used for animation.
@@ -7762,7 +7762,7 @@ declare namespace echarts {
                  * "cubicOut"
                  * @see https://echarts.apache.org/en/option.html#series-pie.markLine.animationEasingUpdate
                  */
-                animationEasingUpdate?: string;
+                animationEasingUpdate?: string | undefined;
 
                 /**
                  * Delay before updating animation, which supports callback
@@ -7779,8 +7779,8 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-pie.markLine.animationDelayUpdate
                  */
-                animationDelayUpdate?: Function | number;
-            };
+                animationDelayUpdate?: Function | number | undefined;
+            } | undefined;
 
             /**
              * Used to mark an area in chart.
@@ -7798,7 +7798,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.silent
                  */
-                silent?: boolean;
+                silent?: boolean | undefined;
 
                 /**
                  * Label in mark area.
@@ -7813,7 +7813,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.show
                      */
-                    show?: boolean;
+                    show?: boolean | undefined;
 
                     /**
                      * Label position.
@@ -7850,7 +7850,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.position
                      */
-                    position?: any[] | string;
+                    position?: any[] | string | undefined;
 
                     /**
                      * Distance to the host graphic element.
@@ -7865,7 +7865,7 @@ declare namespace echarts {
                      * 5
                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.distance
                      */
-                    distance?: number;
+                    distance?: number | undefined;
 
                     /**
                      * Rotate label, from -90 degree to 90, positive value represents
@@ -7878,7 +7878,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.rotate
                      */
-                    rotate?: number;
+                    rotate?: number | undefined;
 
                     /**
                      * Whether to move text slightly.
@@ -7888,7 +7888,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.offset
                      */
-                    offset?: any[];
+                    offset?: any[] | undefined;
 
                     /**
                      * text color.
@@ -7901,7 +7901,7 @@ declare namespace echarts {
                      * ""#fff""
                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.color
                      */
-                    color?: string;
+                    color?: string | undefined;
 
                     /**
                      * font style
@@ -7917,7 +7917,7 @@ declare namespace echarts {
                      * "normal"
                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.fontStyle
                      */
-                    fontStyle?: string;
+                    fontStyle?: string | undefined;
 
                     /**
                      * font thick weight
@@ -7935,7 +7935,7 @@ declare namespace echarts {
                      * "normal"
                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.fontWeight
                      */
-                    fontWeight?: string | number;
+                    fontWeight?: string | number | undefined;
 
                     /**
                      * font family
@@ -7947,7 +7947,7 @@ declare namespace echarts {
                      * "sans-serif"
                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.fontFamily
                      */
-                    fontFamily?: string;
+                    fontFamily?: string | undefined;
 
                     /**
                      * font size
@@ -7957,7 +7957,7 @@ declare namespace echarts {
                      * 12
                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.fontSize
                      */
-                    fontSize?: number;
+                    fontSize?: number | undefined;
 
                     /**
                      * Horizontal alignment of text, automatic by default.
@@ -7976,7 +7976,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.align
                      */
-                    align?: string;
+                    align?: string | undefined;
 
                     /**
                      * Vertical alignment of text, automatic by default.
@@ -7995,7 +7995,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.verticalAlign
                      */
-                    verticalAlign?: string;
+                    verticalAlign?: string | undefined;
 
                     /**
                      * Line height of the text fregment.
@@ -8008,7 +8008,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.lineHeight
                      */
-                    lineHeight?: number;
+                    lineHeight?: number | undefined;
 
                     /**
                      * Background color of the text fregment.
@@ -8030,7 +8030,7 @@ declare namespace echarts {
                      * "transparent"
                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.backgroundColor
                      */
-                    backgroundColor?: object | string;
+                    backgroundColor?: object | string | undefined;
 
                     /**
                      * Border color of the text fregment.
@@ -8043,7 +8043,7 @@ declare namespace echarts {
                      * "transparent"
                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.borderColor
                      */
-                    borderColor?: string;
+                    borderColor?: string | undefined;
 
                     /**
                      * Border width of the text fregment.
@@ -8051,7 +8051,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.borderWidth
                      */
-                    borderWidth?: number;
+                    borderWidth?: number | undefined;
 
                     /**
                      * Border radius of the text fregment.
@@ -8059,7 +8059,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.borderRadius
                      */
-                    borderRadius?: number;
+                    borderRadius?: number | undefined;
 
                     /**
                      * Padding of the text fregment, for example:
@@ -8075,7 +8075,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.padding
                      */
-                    padding?: any[] | number;
+                    padding?: any[] | number | undefined;
 
                     /**
                      * Shadow color of the text block.
@@ -8085,7 +8085,7 @@ declare namespace echarts {
                      * "transparent"
                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.shadowColor
                      */
-                    shadowColor?: string;
+                    shadowColor?: string | undefined;
 
                     /**
                      * Show blur of the text block.
@@ -8093,7 +8093,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.shadowBlur
                      */
-                    shadowBlur?: number;
+                    shadowBlur?: number | undefined;
 
                     /**
                      * Shadow X offset of the text block.
@@ -8101,7 +8101,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.shadowOffsetX
                      */
-                    shadowOffsetX?: number;
+                    shadowOffsetX?: number | undefined;
 
                     /**
                      * Shadow Y offset of the text block.
@@ -8109,7 +8109,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.shadowOffsetY
                      */
-                    shadowOffsetY?: number;
+                    shadowOffsetY?: number | undefined;
 
                     /**
                      * Width of the text block.
@@ -8134,7 +8134,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.width
                      */
-                    width?: number | string;
+                    width?: number | string | undefined;
 
                     /**
                      * Height of the text block.
@@ -8150,7 +8150,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.height
                      */
-                    height?: number | string;
+                    height?: number | string | undefined;
 
                     /**
                      * Storke color of the text.
@@ -8163,7 +8163,7 @@ declare namespace echarts {
                      * "transparent"
                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.textBorderColor
                      */
-                    textBorderColor?: string;
+                    textBorderColor?: string | undefined;
 
                     /**
                      * Storke line width of the text.
@@ -8171,7 +8171,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.textBorderWidth
                      */
-                    textBorderWidth?: number;
+                    textBorderWidth?: number | undefined;
 
                     /**
                      * Shadow color of the text itself.
@@ -8181,7 +8181,7 @@ declare namespace echarts {
                      * "transparent"
                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.textShadowColor
                      */
-                    textShadowColor?: string;
+                    textShadowColor?: string | undefined;
 
                     /**
                      * Shadow blue of the text itself.
@@ -8189,7 +8189,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.textShadowBlur
                      */
-                    textShadowBlur?: number;
+                    textShadowBlur?: number | undefined;
 
                     /**
                      * Shadow X offset of the text itself.
@@ -8197,7 +8197,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.textShadowOffsetX
                      */
-                    textShadowOffsetX?: number;
+                    textShadowOffsetX?: number | undefined;
 
                     /**
                      * Shadow Y offset of the text itself.
@@ -8205,7 +8205,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.textShadowOffsetY
                      */
-                    textShadowOffsetY?: number;
+                    textShadowOffsetY?: number | undefined;
 
                     /**
                      * "Rich text styles" can be defined in this `rich` property.
@@ -8236,7 +8236,7 @@ declare namespace echarts {
                              * ""#fff""
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.color
                              */
-                            color?: string;
+                            color?: string | undefined;
 
                             /**
                              * font style
@@ -8252,7 +8252,7 @@ declare namespace echarts {
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
                              */
-                            fontStyle?: string;
+                            fontStyle?: string | undefined;
 
                             /**
                              * font thick weight
@@ -8270,7 +8270,7 @@ declare namespace echarts {
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                              */
-                            fontWeight?: string | number;
+                            fontWeight?: string | number | undefined;
 
                             /**
                              * font family
@@ -8282,7 +8282,7 @@ declare namespace echarts {
                              * "sans-serif"
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
                              */
-                            fontFamily?: string;
+                            fontFamily?: string | undefined;
 
                             /**
                              * font size
@@ -8292,7 +8292,7 @@ declare namespace echarts {
                              * 12
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
                              */
-                            fontSize?: number;
+                            fontSize?: number | undefined;
 
                             /**
                              * Horizontal alignment of text, automatic by default.
@@ -8311,7 +8311,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.align
                              */
-                            align?: string;
+                            align?: string | undefined;
 
                             /**
                              * Vertical alignment of text, automatic by default.
@@ -8330,7 +8330,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                              */
-                            verticalAlign?: string;
+                            verticalAlign?: string | undefined;
 
                             /**
                              * Line height of the text fregment.
@@ -8343,7 +8343,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                              */
-                            lineHeight?: number;
+                            lineHeight?: number | undefined;
 
                             /**
                              * Background color of the text fregment.
@@ -8366,7 +8366,7 @@ declare namespace echarts {
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
                              */
-                            backgroundColor?: object | string;
+                            backgroundColor?: object | string | undefined;
 
                             /**
                              * Border color of the text fregment.
@@ -8379,7 +8379,7 @@ declare namespace echarts {
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
                              */
-                            borderColor?: string;
+                            borderColor?: string | undefined;
 
                             /**
                              * Border width of the text fregment.
@@ -8387,7 +8387,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                              */
-                            borderWidth?: number;
+                            borderWidth?: number | undefined;
 
                             /**
                              * Border radius of the text fregment.
@@ -8395,7 +8395,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                              */
-                            borderRadius?: number;
+                            borderRadius?: number | undefined;
 
                             /**
                              * Padding of the text fregment, for example:
@@ -8413,7 +8413,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.padding
                              */
-                            padding?: any[] | number;
+                            padding?: any[] | number | undefined;
 
                             /**
                              * Shadow color of the text block.
@@ -8423,7 +8423,7 @@ declare namespace echarts {
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
                              */
-                            shadowColor?: string;
+                            shadowColor?: string | undefined;
 
                             /**
                              * Show blur of the text block.
@@ -8431,7 +8431,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                              */
-                            shadowBlur?: number;
+                            shadowBlur?: number | undefined;
 
                             /**
                              * Shadow X offset of the text block.
@@ -8439,7 +8439,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                              */
-                            shadowOffsetX?: number;
+                            shadowOffsetX?: number | undefined;
 
                             /**
                              * Shadow Y offset of the text block.
@@ -8447,7 +8447,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                              */
-                            shadowOffsetY?: number;
+                            shadowOffsetY?: number | undefined;
 
                             /**
                              * Width of the text block.
@@ -8474,7 +8474,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.width
                              */
-                            width?: number | string;
+                            width?: number | string | undefined;
 
                             /**
                              * Height of the text block.
@@ -8491,7 +8491,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.height
                              */
-                            height?: number | string;
+                            height?: number | string | undefined;
 
                             /**
                              * Storke color of the text.
@@ -8504,7 +8504,7 @@ declare namespace echarts {
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
                              */
-                            textBorderColor?: string;
+                            textBorderColor?: string | undefined;
 
                             /**
                              * Storke line width of the text.
@@ -8512,7 +8512,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                              */
-                            textBorderWidth?: number;
+                            textBorderWidth?: number | undefined;
 
                             /**
                              * Shadow color of the text itself.
@@ -8522,7 +8522,7 @@ declare namespace echarts {
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
                              */
-                            textShadowColor?: string;
+                            textShadowColor?: string | undefined;
 
                             /**
                              * Shadow blue of the text itself.
@@ -8530,7 +8530,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                              */
-                            textShadowBlur?: number;
+                            textShadowBlur?: number | undefined;
 
                             /**
                              * Shadow X offset of the text itself.
@@ -8538,7 +8538,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                              */
-                            textShadowOffsetX?: number;
+                            textShadowOffsetX?: number | undefined;
 
                             /**
                              * Shadow Y offset of the text itself.
@@ -8546,9 +8546,9 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                              */
-                            textShadowOffsetY?: number;
+                            textShadowOffsetY?: number | undefined;
                         };
-                    };
+                    } | undefined;
 
                     /**
                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis
@@ -8560,7 +8560,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.show
                          */
-                        show?: boolean;
+                        show?: boolean | undefined;
 
                         /**
                          * Label position.
@@ -8597,7 +8597,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.position
                          */
-                        position?: any[] | string;
+                        position?: any[] | string | undefined;
 
                         /**
                          * Distance to the host graphic element.
@@ -8612,7 +8612,7 @@ declare namespace echarts {
                          * 5
                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.distance
                          */
-                        distance?: number;
+                        distance?: number | undefined;
 
                         /**
                          * Rotate label, from -90 degree to 90, positive value
@@ -8625,7 +8625,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.rotate
                          */
-                        rotate?: number;
+                        rotate?: number | undefined;
 
                         /**
                          * Whether to move text slightly.
@@ -8635,7 +8635,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.offset
                          */
-                        offset?: any[];
+                        offset?: any[] | undefined;
 
                         /**
                          * text color.
@@ -8648,7 +8648,7 @@ declare namespace echarts {
                          * ""#fff""
                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.color
                          */
-                        color?: string;
+                        color?: string | undefined;
 
                         /**
                          * font style
@@ -8664,7 +8664,7 @@ declare namespace echarts {
                          * "normal"
                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.fontStyle
                          */
-                        fontStyle?: string;
+                        fontStyle?: string | undefined;
 
                         /**
                          * font thick weight
@@ -8682,7 +8682,7 @@ declare namespace echarts {
                          * "normal"
                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.fontWeight
                          */
-                        fontWeight?: string | number;
+                        fontWeight?: string | number | undefined;
 
                         /**
                          * font family
@@ -8694,7 +8694,7 @@ declare namespace echarts {
                          * "sans-serif"
                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.fontFamily
                          */
-                        fontFamily?: string;
+                        fontFamily?: string | undefined;
 
                         /**
                          * font size
@@ -8704,7 +8704,7 @@ declare namespace echarts {
                          * 12
                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.fontSize
                          */
-                        fontSize?: number;
+                        fontSize?: number | undefined;
 
                         /**
                          * Horizontal alignment of text, automatic by default.
@@ -8723,7 +8723,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.align
                          */
-                        align?: string;
+                        align?: string | undefined;
 
                         /**
                          * Vertical alignment of text, automatic by default.
@@ -8742,7 +8742,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.verticalAlign
                          */
-                        verticalAlign?: string;
+                        verticalAlign?: string | undefined;
 
                         /**
                          * Line height of the text fregment.
@@ -8755,7 +8755,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.lineHeight
                          */
-                        lineHeight?: number;
+                        lineHeight?: number | undefined;
 
                         /**
                          * Background color of the text fregment.
@@ -8777,7 +8777,7 @@ declare namespace echarts {
                          * "transparent"
                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.backgroundColor
                          */
-                        backgroundColor?: object | string;
+                        backgroundColor?: object | string | undefined;
 
                         /**
                          * Border color of the text fregment.
@@ -8790,7 +8790,7 @@ declare namespace echarts {
                          * "transparent"
                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.borderColor
                          */
-                        borderColor?: string;
+                        borderColor?: string | undefined;
 
                         /**
                          * Border width of the text fregment.
@@ -8798,7 +8798,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.borderWidth
                          */
-                        borderWidth?: number;
+                        borderWidth?: number | undefined;
 
                         /**
                          * Border radius of the text fregment.
@@ -8806,7 +8806,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.borderRadius
                          */
-                        borderRadius?: number;
+                        borderRadius?: number | undefined;
 
                         /**
                          * Padding of the text fregment, for example:
@@ -8823,7 +8823,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.padding
                          */
-                        padding?: any[] | number;
+                        padding?: any[] | number | undefined;
 
                         /**
                          * Shadow color of the text block.
@@ -8833,7 +8833,7 @@ declare namespace echarts {
                          * "transparent"
                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.shadowColor
                          */
-                        shadowColor?: string;
+                        shadowColor?: string | undefined;
 
                         /**
                          * Show blur of the text block.
@@ -8841,7 +8841,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.shadowBlur
                          */
-                        shadowBlur?: number;
+                        shadowBlur?: number | undefined;
 
                         /**
                          * Shadow X offset of the text block.
@@ -8849,7 +8849,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.shadowOffsetX
                          */
-                        shadowOffsetX?: number;
+                        shadowOffsetX?: number | undefined;
 
                         /**
                          * Shadow Y offset of the text block.
@@ -8857,7 +8857,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.shadowOffsetY
                          */
-                        shadowOffsetY?: number;
+                        shadowOffsetY?: number | undefined;
 
                         /**
                          * Width of the text block.
@@ -8884,7 +8884,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.width
                          */
-                        width?: number | string;
+                        width?: number | string | undefined;
 
                         /**
                          * Height of the text block.
@@ -8901,7 +8901,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.height
                          */
-                        height?: number | string;
+                        height?: number | string | undefined;
 
                         /**
                          * Storke color of the text.
@@ -8914,7 +8914,7 @@ declare namespace echarts {
                          * "transparent"
                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.textBorderColor
                          */
-                        textBorderColor?: string;
+                        textBorderColor?: string | undefined;
 
                         /**
                          * Storke line width of the text.
@@ -8922,7 +8922,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.textBorderWidth
                          */
-                        textBorderWidth?: number;
+                        textBorderWidth?: number | undefined;
 
                         /**
                          * Shadow color of the text itself.
@@ -8932,7 +8932,7 @@ declare namespace echarts {
                          * "transparent"
                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.textShadowColor
                          */
-                        textShadowColor?: string;
+                        textShadowColor?: string | undefined;
 
                         /**
                          * Shadow blue of the text itself.
@@ -8940,7 +8940,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.textShadowBlur
                          */
-                        textShadowBlur?: number;
+                        textShadowBlur?: number | undefined;
 
                         /**
                          * Shadow X offset of the text itself.
@@ -8948,7 +8948,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.textShadowOffsetX
                          */
-                        textShadowOffsetX?: number;
+                        textShadowOffsetX?: number | undefined;
 
                         /**
                          * Shadow Y offset of the text itself.
@@ -8956,7 +8956,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.textShadowOffsetY
                          */
-                        textShadowOffsetY?: number;
+                        textShadowOffsetY?: number | undefined;
 
                         /**
                          * "Rich text styles" can be defined in this `rich`
@@ -8987,7 +8987,7 @@ declare namespace echarts {
                                  * ""#fff""
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.color
                                  */
-                                color?: string;
+                                color?: string | undefined;
 
                                 /**
                                  * font style
@@ -9003,7 +9003,7 @@ declare namespace echarts {
                                  * "normal"
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
                                  */
-                                fontStyle?: string;
+                                fontStyle?: string | undefined;
 
                                 /**
                                  * font thick weight
@@ -9021,7 +9021,7 @@ declare namespace echarts {
                                  * "normal"
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                  */
-                                fontWeight?: string | number;
+                                fontWeight?: string | number | undefined;
 
                                 /**
                                  * font family
@@ -9033,7 +9033,7 @@ declare namespace echarts {
                                  * "sans-serif"
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
                                  */
-                                fontFamily?: string;
+                                fontFamily?: string | undefined;
 
                                 /**
                                  * font size
@@ -9043,7 +9043,7 @@ declare namespace echarts {
                                  * 12
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontSize
                                  */
-                                fontSize?: number;
+                                fontSize?: number | undefined;
 
                                 /**
                                  * Horizontal alignment of text, automatic by
@@ -9064,7 +9064,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.align
                                  */
-                                align?: string;
+                                align?: string | undefined;
 
                                 /**
                                  * Vertical alignment of text, automatic by
@@ -9085,7 +9085,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                                  */
-                                verticalAlign?: string;
+                                verticalAlign?: string | undefined;
 
                                 /**
                                  * Line height of the text fregment.
@@ -9099,7 +9099,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                                  */
-                                lineHeight?: number;
+                                lineHeight?: number | undefined;
 
                                 /**
                                  * Background color of the text fregment.
@@ -9123,7 +9123,7 @@ declare namespace echarts {
                                  * "transparent"
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
                                  */
-                                backgroundColor?: object | string;
+                                backgroundColor?: object | string | undefined;
 
                                 /**
                                  * Border color of the text fregment.
@@ -9136,7 +9136,7 @@ declare namespace echarts {
                                  * "transparent"
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderColor
                                  */
-                                borderColor?: string;
+                                borderColor?: string | undefined;
 
                                 /**
                                  * Border width of the text fregment.
@@ -9144,7 +9144,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                                  */
-                                borderWidth?: number;
+                                borderWidth?: number | undefined;
 
                                 /**
                                  * Border radius of the text fregment.
@@ -9152,7 +9152,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                                  */
-                                borderRadius?: number;
+                                borderRadius?: number | undefined;
 
                                 /**
                                  * Padding of the text fregment, for example:
@@ -9171,7 +9171,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.padding
                                  */
-                                padding?: any[] | number;
+                                padding?: any[] | number | undefined;
 
                                 /**
                                  * Shadow color of the text block.
@@ -9181,7 +9181,7 @@ declare namespace echarts {
                                  * "transparent"
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
                                  */
-                                shadowColor?: string;
+                                shadowColor?: string | undefined;
 
                                 /**
                                  * Show blur of the text block.
@@ -9189,7 +9189,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                                  */
-                                shadowBlur?: number;
+                                shadowBlur?: number | undefined;
 
                                 /**
                                  * Shadow X offset of the text block.
@@ -9197,7 +9197,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                                  */
-                                shadowOffsetX?: number;
+                                shadowOffsetX?: number | undefined;
 
                                 /**
                                  * Shadow Y offset of the text block.
@@ -9205,7 +9205,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                                  */
-                                shadowOffsetY?: number;
+                                shadowOffsetY?: number | undefined;
 
                                 /**
                                  * Width of the text block.
@@ -9236,7 +9236,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.width
                                  */
-                                width?: number | string;
+                                width?: number | string | undefined;
 
                                 /**
                                  * Height of the text block.
@@ -9254,7 +9254,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.height
                                  */
-                                height?: number | string;
+                                height?: number | string | undefined;
 
                                 /**
                                  * Storke color of the text.
@@ -9267,7 +9267,7 @@ declare namespace echarts {
                                  * "transparent"
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
                                  */
-                                textBorderColor?: string;
+                                textBorderColor?: string | undefined;
 
                                 /**
                                  * Storke line width of the text.
@@ -9275,7 +9275,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                                  */
-                                textBorderWidth?: number;
+                                textBorderWidth?: number | undefined;
 
                                 /**
                                  * Shadow color of the text itself.
@@ -9285,7 +9285,7 @@ declare namespace echarts {
                                  * "transparent"
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
                                  */
-                                textShadowColor?: string;
+                                textShadowColor?: string | undefined;
 
                                 /**
                                  * Shadow blue of the text itself.
@@ -9293,7 +9293,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                                  */
-                                textShadowBlur?: number;
+                                textShadowBlur?: number | undefined;
 
                                 /**
                                  * Shadow X offset of the text itself.
@@ -9301,7 +9301,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                                  */
-                                textShadowOffsetX?: number;
+                                textShadowOffsetX?: number | undefined;
 
                                 /**
                                  * Shadow Y offset of the text itself.
@@ -9309,11 +9309,11 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                                  */
-                                textShadowOffsetY?: number;
+                                textShadowOffsetY?: number | undefined;
                             };
-                        };
-                    };
-                };
+                        } | undefined;
+                    } | undefined;
+                } | undefined;
 
                 /**
                  * Style of the mark area.
@@ -9338,7 +9338,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.itemStyle.color
                      */
-                    color?: EChartOption.Color;
+                    color?: EChartOption.Color | undefined;
 
                     /**
                      * border color, whose format is similar to that of `color`.
@@ -9348,7 +9348,7 @@ declare namespace echarts {
                      * "#000"
                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.itemStyle.borderColor
                      */
-                    borderColor?: EChartOption.Color;
+                    borderColor?: EChartOption.Color | undefined;
 
                     /**
                      * border width. No border when it is set to be 0.
@@ -9356,7 +9356,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.itemStyle.borderWidth
                      */
-                    borderWidth?: number;
+                    borderWidth?: number | undefined;
 
                     /**
                      * Border type, which can be `'solid'`, `'dashed'`, or `'dotted'`.
@@ -9367,7 +9367,7 @@ declare namespace echarts {
                      * "solid"
                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.itemStyle.borderType
                      */
-                    borderType?: string;
+                    borderType?: string | undefined;
 
                     /**
                      * Size of shadow blur.
@@ -9381,7 +9381,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.itemStyle.shadowBlur
                      */
-                    shadowBlur?: number;
+                    shadowBlur?: number | undefined;
 
                     /**
                      * Shadow color. Support same format as `color`.
@@ -9389,7 +9389,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.itemStyle.shadowColor
                      */
-                    shadowColor?: EChartOption.Color;
+                    shadowColor?: EChartOption.Color | undefined;
 
                     /**
                      * Offset distance on the horizontal direction of shadow.
@@ -9397,7 +9397,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.itemStyle.shadowOffsetX
                      */
-                    shadowOffsetX?: number;
+                    shadowOffsetX?: number | undefined;
 
                     /**
                      * Offset distance on the vertical direction of shadow.
@@ -9405,7 +9405,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.itemStyle.shadowOffsetY
                      */
-                    shadowOffsetY?: number;
+                    shadowOffsetY?: number | undefined;
 
                     /**
                      * Opacity of the component.
@@ -9415,7 +9415,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.itemStyle.opacity
                      */
-                    opacity?: number;
+                    opacity?: number | undefined;
 
                     /**
                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.itemStyle.emphasis
@@ -9438,7 +9438,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.itemStyle.emphasis.color
                          */
-                        color?: EChartOption.Color;
+                        color?: EChartOption.Color | undefined;
 
                         /**
                          * border color, whose format is similar to that of
@@ -9449,7 +9449,7 @@ declare namespace echarts {
                          * "#000"
                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.itemStyle.emphasis.borderColor
                          */
-                        borderColor?: EChartOption.Color;
+                        borderColor?: EChartOption.Color | undefined;
 
                         /**
                          * border width. No border when it is set to be 0.
@@ -9457,7 +9457,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.itemStyle.emphasis.borderWidth
                          */
-                        borderWidth?: number;
+                        borderWidth?: number | undefined;
 
                         /**
                          * Border type, which can be `'solid'`, `'dashed'`,
@@ -9468,7 +9468,7 @@ declare namespace echarts {
                          * "solid"
                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.itemStyle.emphasis.borderType
                          */
-                        borderType?: string;
+                        borderType?: string | undefined;
 
                         /**
                          * Size of shadow blur.
@@ -9482,7 +9482,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.itemStyle.emphasis.shadowBlur
                          */
-                        shadowBlur?: number;
+                        shadowBlur?: number | undefined;
 
                         /**
                          * Shadow color. Support same format as `color`.
@@ -9490,7 +9490,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.itemStyle.emphasis.shadowColor
                          */
-                        shadowColor?: EChartOption.Color;
+                        shadowColor?: EChartOption.Color | undefined;
 
                         /**
                          * Offset distance on the horizontal direction of shadow.
@@ -9498,7 +9498,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.itemStyle.emphasis.shadowOffsetX
                          */
-                        shadowOffsetX?: number;
+                        shadowOffsetX?: number | undefined;
 
                         /**
                          * Offset distance on the vertical direction of shadow.
@@ -9506,7 +9506,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.itemStyle.emphasis.shadowOffsetY
                          */
-                        shadowOffsetY?: number;
+                        shadowOffsetY?: number | undefined;
 
                         /**
                          * Opacity of the component.
@@ -9516,9 +9516,9 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.itemStyle.emphasis.opacity
                          */
-                        opacity?: number;
-                    };
-                };
+                        opacity?: number | undefined;
+                    } | undefined;
+                } | undefined;
 
                 /**
                  * The scope of the area is defined by `data`, which is an array
@@ -9557,7 +9557,7 @@ declare namespace echarts {
                          *
                          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.0.name
                          */
-                        name?: string;
+                        name?: string | undefined;
 
                         /**
                          * x value on screen coordinate system, can be pixel
@@ -9566,7 +9566,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.x
                          */
-                        x?: number;
+                        x?: number | undefined;
 
                         /**
                          * y value on screen coordinate system, can be pixel
@@ -9575,7 +9575,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.y
                          */
-                        y?: number;
+                        y?: number | undefined;
 
                         /**
                          * value of the item, not necessary.
@@ -9583,7 +9583,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.value
                          */
-                        value?: number;
+                        value?: number | undefined;
 
                         /**
                          * Style of the item.
@@ -9611,7 +9611,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.itemStyle.color
                              */
-                            color?: EChartOption.Color;
+                            color?: EChartOption.Color | undefined;
 
                             /**
                              * border color, whose format is similar to that
@@ -9622,7 +9622,7 @@ declare namespace echarts {
                              * "#000"
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.itemStyle.borderColor
                              */
-                            borderColor?: EChartOption.Color;
+                            borderColor?: EChartOption.Color | undefined;
 
                             /**
                              * border width.
@@ -9631,7 +9631,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.itemStyle.borderWidth
                              */
-                            borderWidth?: number;
+                            borderWidth?: number | undefined;
 
                             /**
                              * Border type, which can be `'solid'`, `'dashed'`,
@@ -9642,7 +9642,7 @@ declare namespace echarts {
                              * "solid"
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.itemStyle.borderType
                              */
-                            borderType?: string;
+                            borderType?: string | undefined;
 
                             /**
                              * Size of shadow blur.
@@ -9656,7 +9656,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.itemStyle.shadowBlur
                              */
-                            shadowBlur?: number;
+                            shadowBlur?: number | undefined;
 
                             /**
                              * Shadow color. Support same format as `color`.
@@ -9664,7 +9664,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.itemStyle.shadowColor
                              */
-                            shadowColor?: EChartOption.Color;
+                            shadowColor?: EChartOption.Color | undefined;
 
                             /**
                              * Offset distance on the horizontal direction of
@@ -9673,7 +9673,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.itemStyle.shadowOffsetX
                              */
-                            shadowOffsetX?: number;
+                            shadowOffsetX?: number | undefined;
 
                             /**
                              * Offset distance on the vertical direction of
@@ -9682,7 +9682,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.itemStyle.shadowOffsetY
                              */
-                            shadowOffsetY?: number;
+                            shadowOffsetY?: number | undefined;
 
                             /**
                              * Opacity of the component.
@@ -9692,7 +9692,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.itemStyle.opacity
                              */
-                            opacity?: number;
+                            opacity?: number | undefined;
 
                             /**
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.itemStyle.emphasis
@@ -9715,7 +9715,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.itemStyle.emphasis.color
                                  */
-                                color?: EChartOption.Color;
+                                color?: EChartOption.Color | undefined;
 
                                 /**
                                  * border color, whose format is similar to
@@ -9726,7 +9726,7 @@ declare namespace echarts {
                                  * "#000"
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.itemStyle.emphasis.borderColor
                                  */
-                                borderColor?: EChartOption.Color;
+                                borderColor?: EChartOption.Color | undefined;
 
                                 /**
                                  * border width.
@@ -9735,7 +9735,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.itemStyle.emphasis.borderWidth
                                  */
-                                borderWidth?: number;
+                                borderWidth?: number | undefined;
 
                                 /**
                                  * Border type, which can be `'solid'`, `'dashed'`,
@@ -9746,7 +9746,7 @@ declare namespace echarts {
                                  * "solid"
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.itemStyle.emphasis.borderType
                                  */
-                                borderType?: string;
+                                borderType?: string | undefined;
 
                                 /**
                                  * Size of shadow blur.
@@ -9761,7 +9761,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.itemStyle.emphasis.shadowBlur
                                  */
-                                shadowBlur?: number;
+                                shadowBlur?: number | undefined;
 
                                 /**
                                  * Shadow color.
@@ -9770,7 +9770,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.itemStyle.emphasis.shadowColor
                                  */
-                                shadowColor?: EChartOption.Color;
+                                shadowColor?: EChartOption.Color | undefined;
 
                                 /**
                                  * Offset distance on the horizontal direction
@@ -9779,7 +9779,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.itemStyle.emphasis.shadowOffsetX
                                  */
-                                shadowOffsetX?: number;
+                                shadowOffsetX?: number | undefined;
 
                                 /**
                                  * Offset distance on the vertical direction
@@ -9788,7 +9788,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.itemStyle.emphasis.shadowOffsetY
                                  */
-                                shadowOffsetY?: number;
+                                shadowOffsetY?: number | undefined;
 
                                 /**
                                  * Opacity of the component.
@@ -9798,9 +9798,9 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.itemStyle.emphasis.opacity
                                  */
-                                opacity?: number;
-                            };
-                        };
+                                opacity?: number | undefined;
+                            } | undefined;
+                        } | undefined;
 
                         /**
                          * Label style of the item.
@@ -9817,7 +9817,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.show
                              */
-                            show?: boolean;
+                            show?: boolean | undefined;
 
                             /**
                              * Label position.
@@ -9854,7 +9854,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.position
                              */
-                            position?: any[] | string;
+                            position?: any[] | string | undefined;
 
                             /**
                              * Distance to the host graphic element.
@@ -9869,7 +9869,7 @@ declare namespace echarts {
                              * 5
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.distance
                              */
-                            distance?: number;
+                            distance?: number | undefined;
 
                             /**
                              * Rotate label, from -90 degree to 90, positive
@@ -9882,7 +9882,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.rotate
                              */
-                            rotate?: number;
+                            rotate?: number | undefined;
 
                             /**
                              * Whether to move text slightly.
@@ -9892,7 +9892,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.offset
                              */
-                            offset?: any[];
+                            offset?: any[] | undefined;
 
                             /**
                              * text color.
@@ -9905,7 +9905,7 @@ declare namespace echarts {
                              * ""#fff""
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.color
                              */
-                            color?: string;
+                            color?: string | undefined;
 
                             /**
                              * font style
@@ -9921,7 +9921,7 @@ declare namespace echarts {
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.fontStyle
                              */
-                            fontStyle?: string;
+                            fontStyle?: string | undefined;
 
                             /**
                              * font thick weight
@@ -9939,7 +9939,7 @@ declare namespace echarts {
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.fontWeight
                              */
-                            fontWeight?: string | number;
+                            fontWeight?: string | number | undefined;
 
                             /**
                              * font family
@@ -9951,7 +9951,7 @@ declare namespace echarts {
                              * "sans-serif"
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.fontFamily
                              */
-                            fontFamily?: string;
+                            fontFamily?: string | undefined;
 
                             /**
                              * font size
@@ -9961,7 +9961,7 @@ declare namespace echarts {
                              * 12
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.fontSize
                              */
-                            fontSize?: number;
+                            fontSize?: number | undefined;
 
                             /**
                              * Horizontal alignment of text, automatic by default.
@@ -9980,7 +9980,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.align
                              */
-                            align?: string;
+                            align?: string | undefined;
 
                             /**
                              * Vertical alignment of text, automatic by default.
@@ -9999,7 +9999,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.verticalAlign
                              */
-                            verticalAlign?: string;
+                            verticalAlign?: string | undefined;
 
                             /**
                              * Line height of the text fregment.
@@ -10012,7 +10012,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.lineHeight
                              */
-                            lineHeight?: number;
+                            lineHeight?: number | undefined;
 
                             /**
                              * Background color of the text fregment.
@@ -10035,7 +10035,7 @@ declare namespace echarts {
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.backgroundColor
                              */
-                            backgroundColor?: object | string;
+                            backgroundColor?: object | string | undefined;
 
                             /**
                              * Border color of the text fregment.
@@ -10048,7 +10048,7 @@ declare namespace echarts {
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.borderColor
                              */
-                            borderColor?: string;
+                            borderColor?: string | undefined;
 
                             /**
                              * Border width of the text fregment.
@@ -10056,7 +10056,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.borderWidth
                              */
-                            borderWidth?: number;
+                            borderWidth?: number | undefined;
 
                             /**
                              * Border radius of the text fregment.
@@ -10064,7 +10064,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.borderRadius
                              */
-                            borderRadius?: number;
+                            borderRadius?: number | undefined;
 
                             /**
                              * Padding of the text fregment, for example:
@@ -10082,7 +10082,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.padding
                              */
-                            padding?: any[] | number;
+                            padding?: any[] | number | undefined;
 
                             /**
                              * Shadow color of the text block.
@@ -10092,7 +10092,7 @@ declare namespace echarts {
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.shadowColor
                              */
-                            shadowColor?: string;
+                            shadowColor?: string | undefined;
 
                             /**
                              * Show blur of the text block.
@@ -10100,7 +10100,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.shadowBlur
                              */
-                            shadowBlur?: number;
+                            shadowBlur?: number | undefined;
 
                             /**
                              * Shadow X offset of the text block.
@@ -10108,7 +10108,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.shadowOffsetX
                              */
-                            shadowOffsetX?: number;
+                            shadowOffsetX?: number | undefined;
 
                             /**
                              * Shadow Y offset of the text block.
@@ -10116,7 +10116,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.shadowOffsetY
                              */
-                            shadowOffsetY?: number;
+                            shadowOffsetY?: number | undefined;
 
                             /**
                              * Width of the text block.
@@ -10143,7 +10143,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.width
                              */
-                            width?: number | string;
+                            width?: number | string | undefined;
 
                             /**
                              * Height of the text block.
@@ -10160,7 +10160,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.height
                              */
-                            height?: number | string;
+                            height?: number | string | undefined;
 
                             /**
                              * Storke color of the text.
@@ -10173,7 +10173,7 @@ declare namespace echarts {
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.textBorderColor
                              */
-                            textBorderColor?: string;
+                            textBorderColor?: string | undefined;
 
                             /**
                              * Storke line width of the text.
@@ -10181,7 +10181,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.textBorderWidth
                              */
-                            textBorderWidth?: number;
+                            textBorderWidth?: number | undefined;
 
                             /**
                              * Shadow color of the text itself.
@@ -10191,7 +10191,7 @@ declare namespace echarts {
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.textShadowColor
                              */
-                            textShadowColor?: string;
+                            textShadowColor?: string | undefined;
 
                             /**
                              * Shadow blue of the text itself.
@@ -10199,7 +10199,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.textShadowBlur
                              */
-                            textShadowBlur?: number;
+                            textShadowBlur?: number | undefined;
 
                             /**
                              * Shadow X offset of the text itself.
@@ -10207,7 +10207,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.textShadowOffsetX
                              */
-                            textShadowOffsetX?: number;
+                            textShadowOffsetX?: number | undefined;
 
                             /**
                              * Shadow Y offset of the text itself.
@@ -10215,7 +10215,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.textShadowOffsetY
                              */
-                            textShadowOffsetY?: number;
+                            textShadowOffsetY?: number | undefined;
 
                             /**
                              * "Rich text styles" can be defined in this `rich`
@@ -10246,7 +10246,7 @@ declare namespace echarts {
                                      * ""#fff""
                                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.color
                                      */
-                                    color?: string;
+                                    color?: string | undefined;
 
                                     /**
                                      * font style
@@ -10262,7 +10262,7 @@ declare namespace echarts {
                                      * "normal"
                                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
                                      */
-                                    fontStyle?: string;
+                                    fontStyle?: string | undefined;
 
                                     /**
                                      * font thick weight
@@ -10280,7 +10280,7 @@ declare namespace echarts {
                                      * "normal"
                                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                      */
-                                    fontWeight?: string | number;
+                                    fontWeight?: string | number | undefined;
 
                                     /**
                                      * font family
@@ -10293,7 +10293,7 @@ declare namespace echarts {
                                      * "sans-serif"
                                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
                                      */
-                                    fontFamily?: string;
+                                    fontFamily?: string | undefined;
 
                                     /**
                                      * font size
@@ -10303,7 +10303,7 @@ declare namespace echarts {
                                      * 12
                                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
                                      */
-                                    fontSize?: number;
+                                    fontSize?: number | undefined;
 
                                     /**
                                      * Horizontal alignment of text, automatic
@@ -10324,7 +10324,7 @@ declare namespace echarts {
                                      *
                                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.align
                                      */
-                                    align?: string;
+                                    align?: string | undefined;
 
                                     /**
                                      * Vertical alignment of text, automatic
@@ -10345,7 +10345,7 @@ declare namespace echarts {
                                      *
                                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                                      */
-                                    verticalAlign?: string;
+                                    verticalAlign?: string | undefined;
 
                                     /**
                                      * Line height of the text fregment.
@@ -10359,7 +10359,7 @@ declare namespace echarts {
                                      *
                                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                                      */
-                                    lineHeight?: number;
+                                    lineHeight?: number | undefined;
 
                                     /**
                                      * Background color of the text fregment.
@@ -10383,7 +10383,7 @@ declare namespace echarts {
                                      * "transparent"
                                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
                                      */
-                                    backgroundColor?: object | string;
+                                    backgroundColor?: object | string | undefined;
 
                                     /**
                                      * Border color of the text fregment.
@@ -10396,7 +10396,7 @@ declare namespace echarts {
                                      * "transparent"
                                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
                                      */
-                                    borderColor?: string;
+                                    borderColor?: string | undefined;
 
                                     /**
                                      * Border width of the text fregment.
@@ -10404,7 +10404,7 @@ declare namespace echarts {
                                      *
                                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                                      */
-                                    borderWidth?: number;
+                                    borderWidth?: number | undefined;
 
                                     /**
                                      * Border radius of the text fregment.
@@ -10412,7 +10412,7 @@ declare namespace echarts {
                                      *
                                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                                      */
-                                    borderRadius?: number;
+                                    borderRadius?: number | undefined;
 
                                     /**
                                      * Padding of the text fregment, for example:
@@ -10431,7 +10431,7 @@ declare namespace echarts {
                                      *
                                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.padding
                                      */
-                                    padding?: any[] | number;
+                                    padding?: any[] | number | undefined;
 
                                     /**
                                      * Shadow color of the text block.
@@ -10441,7 +10441,7 @@ declare namespace echarts {
                                      * "transparent"
                                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
                                      */
-                                    shadowColor?: string;
+                                    shadowColor?: string | undefined;
 
                                     /**
                                      * Show blur of the text block.
@@ -10449,7 +10449,7 @@ declare namespace echarts {
                                      *
                                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                                      */
-                                    shadowBlur?: number;
+                                    shadowBlur?: number | undefined;
 
                                     /**
                                      * Shadow X offset of the text block.
@@ -10457,7 +10457,7 @@ declare namespace echarts {
                                      *
                                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                                      */
-                                    shadowOffsetX?: number;
+                                    shadowOffsetX?: number | undefined;
 
                                     /**
                                      * Shadow Y offset of the text block.
@@ -10465,7 +10465,7 @@ declare namespace echarts {
                                      *
                                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                                      */
-                                    shadowOffsetY?: number;
+                                    shadowOffsetY?: number | undefined;
 
                                     /**
                                      * Width of the text block.
@@ -10496,7 +10496,7 @@ declare namespace echarts {
                                      *
                                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.width
                                      */
-                                    width?: number | string;
+                                    width?: number | string | undefined;
 
                                     /**
                                      * Height of the text block.
@@ -10514,7 +10514,7 @@ declare namespace echarts {
                                      *
                                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.height
                                      */
-                                    height?: number | string;
+                                    height?: number | string | undefined;
 
                                     /**
                                      * Storke color of the text.
@@ -10527,7 +10527,7 @@ declare namespace echarts {
                                      * "transparent"
                                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
                                      */
-                                    textBorderColor?: string;
+                                    textBorderColor?: string | undefined;
 
                                     /**
                                      * Storke line width of the text.
@@ -10535,7 +10535,7 @@ declare namespace echarts {
                                      *
                                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                                      */
-                                    textBorderWidth?: number;
+                                    textBorderWidth?: number | undefined;
 
                                     /**
                                      * Shadow color of the text itself.
@@ -10545,7 +10545,7 @@ declare namespace echarts {
                                      * "transparent"
                                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
                                      */
-                                    textShadowColor?: string;
+                                    textShadowColor?: string | undefined;
 
                                     /**
                                      * Shadow blue of the text itself.
@@ -10553,7 +10553,7 @@ declare namespace echarts {
                                      *
                                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                                      */
-                                    textShadowBlur?: number;
+                                    textShadowBlur?: number | undefined;
 
                                     /**
                                      * Shadow X offset of the text itself.
@@ -10561,7 +10561,7 @@ declare namespace echarts {
                                      *
                                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                                      */
-                                    textShadowOffsetX?: number;
+                                    textShadowOffsetX?: number | undefined;
 
                                     /**
                                      * Shadow Y offset of the text itself.
@@ -10569,9 +10569,9 @@ declare namespace echarts {
                                      *
                                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                                      */
-                                    textShadowOffsetY?: number;
+                                    textShadowOffsetY?: number | undefined;
                                 };
-                            };
+                            } | undefined;
 
                             /**
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis
@@ -10583,7 +10583,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.show
                                  */
-                                show?: boolean;
+                                show?: boolean | undefined;
 
                                 /**
                                  * Label position.
@@ -10621,7 +10621,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.position
                                  */
-                                position?: any[] | string;
+                                position?: any[] | string | undefined;
 
                                 /**
                                  * Distance to the host graphic element.
@@ -10637,7 +10637,7 @@ declare namespace echarts {
                                  * 5
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.distance
                                  */
-                                distance?: number;
+                                distance?: number | undefined;
 
                                 /**
                                  * Rotate label, from -90 degree to 90, positive
@@ -10650,7 +10650,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.rotate
                                  */
-                                rotate?: number;
+                                rotate?: number | undefined;
 
                                 /**
                                  * Whether to move text slightly.
@@ -10660,7 +10660,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.offset
                                  */
-                                offset?: any[];
+                                offset?: any[] | undefined;
 
                                 /**
                                  * text color.
@@ -10673,7 +10673,7 @@ declare namespace echarts {
                                  * ""#fff""
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.color
                                  */
-                                color?: string;
+                                color?: string | undefined;
 
                                 /**
                                  * font style
@@ -10689,7 +10689,7 @@ declare namespace echarts {
                                  * "normal"
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.fontStyle
                                  */
-                                fontStyle?: string;
+                                fontStyle?: string | undefined;
 
                                 /**
                                  * font thick weight
@@ -10707,7 +10707,7 @@ declare namespace echarts {
                                  * "normal"
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.fontWeight
                                  */
-                                fontWeight?: string | number;
+                                fontWeight?: string | number | undefined;
 
                                 /**
                                  * font family
@@ -10719,7 +10719,7 @@ declare namespace echarts {
                                  * "sans-serif"
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.fontFamily
                                  */
-                                fontFamily?: string;
+                                fontFamily?: string | undefined;
 
                                 /**
                                  * font size
@@ -10729,7 +10729,7 @@ declare namespace echarts {
                                  * 12
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.fontSize
                                  */
-                                fontSize?: number;
+                                fontSize?: number | undefined;
 
                                 /**
                                  * Horizontal alignment of text, automatic by
@@ -10750,7 +10750,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.align
                                  */
-                                align?: string;
+                                align?: string | undefined;
 
                                 /**
                                  * Vertical alignment of text, automatic by
@@ -10771,7 +10771,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.verticalAlign
                                  */
-                                verticalAlign?: string;
+                                verticalAlign?: string | undefined;
 
                                 /**
                                  * Line height of the text fregment.
@@ -10785,7 +10785,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.lineHeight
                                  */
-                                lineHeight?: number;
+                                lineHeight?: number | undefined;
 
                                 /**
                                  * Background color of the text fregment.
@@ -10809,7 +10809,7 @@ declare namespace echarts {
                                  * "transparent"
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.backgroundColor
                                  */
-                                backgroundColor?: object | string;
+                                backgroundColor?: object | string | undefined;
 
                                 /**
                                  * Border color of the text fregment.
@@ -10822,7 +10822,7 @@ declare namespace echarts {
                                  * "transparent"
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.borderColor
                                  */
-                                borderColor?: string;
+                                borderColor?: string | undefined;
 
                                 /**
                                  * Border width of the text fregment.
@@ -10830,7 +10830,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.borderWidth
                                  */
-                                borderWidth?: number;
+                                borderWidth?: number | undefined;
 
                                 /**
                                  * Border radius of the text fregment.
@@ -10838,7 +10838,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.borderRadius
                                  */
-                                borderRadius?: number;
+                                borderRadius?: number | undefined;
 
                                 /**
                                  * Padding of the text fregment, for example:
@@ -10857,7 +10857,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.padding
                                  */
-                                padding?: any[] | number;
+                                padding?: any[] | number | undefined;
 
                                 /**
                                  * Shadow color of the text block.
@@ -10867,7 +10867,7 @@ declare namespace echarts {
                                  * "transparent"
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.shadowColor
                                  */
-                                shadowColor?: string;
+                                shadowColor?: string | undefined;
 
                                 /**
                                  * Show blur of the text block.
@@ -10875,7 +10875,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.shadowBlur
                                  */
-                                shadowBlur?: number;
+                                shadowBlur?: number | undefined;
 
                                 /**
                                  * Shadow X offset of the text block.
@@ -10883,7 +10883,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.shadowOffsetX
                                  */
-                                shadowOffsetX?: number;
+                                shadowOffsetX?: number | undefined;
 
                                 /**
                                  * Shadow Y offset of the text block.
@@ -10891,7 +10891,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.shadowOffsetY
                                  */
-                                shadowOffsetY?: number;
+                                shadowOffsetY?: number | undefined;
 
                                 /**
                                  * Width of the text block.
@@ -10922,7 +10922,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.width
                                  */
-                                width?: number | string;
+                                width?: number | string | undefined;
 
                                 /**
                                  * Height of the text block.
@@ -10940,7 +10940,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.height
                                  */
-                                height?: number | string;
+                                height?: number | string | undefined;
 
                                 /**
                                  * Storke color of the text.
@@ -10953,7 +10953,7 @@ declare namespace echarts {
                                  * "transparent"
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.textBorderColor
                                  */
-                                textBorderColor?: string;
+                                textBorderColor?: string | undefined;
 
                                 /**
                                  * Storke line width of the text.
@@ -10961,7 +10961,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.textBorderWidth
                                  */
-                                textBorderWidth?: number;
+                                textBorderWidth?: number | undefined;
 
                                 /**
                                  * Shadow color of the text itself.
@@ -10971,7 +10971,7 @@ declare namespace echarts {
                                  * "transparent"
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.textShadowColor
                                  */
-                                textShadowColor?: string;
+                                textShadowColor?: string | undefined;
 
                                 /**
                                  * Shadow blue of the text itself.
@@ -10979,7 +10979,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.textShadowBlur
                                  */
-                                textShadowBlur?: number;
+                                textShadowBlur?: number | undefined;
 
                                 /**
                                  * Shadow X offset of the text itself.
@@ -10987,7 +10987,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.textShadowOffsetX
                                  */
-                                textShadowOffsetX?: number;
+                                textShadowOffsetX?: number | undefined;
 
                                 /**
                                  * Shadow Y offset of the text itself.
@@ -10995,7 +10995,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.textShadowOffsetY
                                  */
-                                textShadowOffsetY?: number;
+                                textShadowOffsetY?: number | undefined;
 
                                 /**
                                  * "Rich text styles" can be defined in this
@@ -11027,7 +11027,7 @@ declare namespace echarts {
                                          * ""#fff""
                                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.color
                                          */
-                                        color?: string;
+                                        color?: string | undefined;
 
                                         /**
                                          * font style
@@ -11043,7 +11043,7 @@ declare namespace echarts {
                                          * "normal"
                                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
                                          */
-                                        fontStyle?: string;
+                                        fontStyle?: string | undefined;
 
                                         /**
                                          * font thick weight
@@ -11061,7 +11061,7 @@ declare namespace echarts {
                                          * "normal"
                                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                          */
-                                        fontWeight?: string | number;
+                                        fontWeight?: string | number | undefined;
 
                                         /**
                                          * font family
@@ -11074,7 +11074,7 @@ declare namespace echarts {
                                          * "sans-serif"
                                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
                                          */
-                                        fontFamily?: string;
+                                        fontFamily?: string | undefined;
 
                                         /**
                                          * font size
@@ -11084,7 +11084,7 @@ declare namespace echarts {
                                          * 12
                                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontSize
                                          */
-                                        fontSize?: number;
+                                        fontSize?: number | undefined;
 
                                         /**
                                          * Horizontal alignment of text, automatic
@@ -11105,7 +11105,7 @@ declare namespace echarts {
                                          *
                                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.align
                                          */
-                                        align?: string;
+                                        align?: string | undefined;
 
                                         /**
                                          * Vertical alignment of text, automatic
@@ -11126,7 +11126,7 @@ declare namespace echarts {
                                          *
                                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                                          */
-                                        verticalAlign?: string;
+                                        verticalAlign?: string | undefined;
 
                                         /**
                                          * Line height of the text fregment.
@@ -11140,7 +11140,7 @@ declare namespace echarts {
                                          *
                                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                                          */
-                                        lineHeight?: number;
+                                        lineHeight?: number | undefined;
 
                                         /**
                                          * Background color of the text fregment.
@@ -11165,7 +11165,7 @@ declare namespace echarts {
                                          * "transparent"
                                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
                                          */
-                                        backgroundColor?: object | string;
+                                        backgroundColor?: object | string | undefined;
 
                                         /**
                                          * Border color of the text fregment.
@@ -11179,7 +11179,7 @@ declare namespace echarts {
                                          * "transparent"
                                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderColor
                                          */
-                                        borderColor?: string;
+                                        borderColor?: string | undefined;
 
                                         /**
                                          * Border width of the text fregment.
@@ -11187,7 +11187,7 @@ declare namespace echarts {
                                          *
                                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                                          */
-                                        borderWidth?: number;
+                                        borderWidth?: number | undefined;
 
                                         /**
                                          * Border radius of the text fregment.
@@ -11195,7 +11195,7 @@ declare namespace echarts {
                                          *
                                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                                          */
-                                        borderRadius?: number;
+                                        borderRadius?: number | undefined;
 
                                         /**
                                          * Padding of the text fregment, for
@@ -11216,7 +11216,7 @@ declare namespace echarts {
                                          *
                                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.padding
                                          */
-                                        padding?: any[] | number;
+                                        padding?: any[] | number | undefined;
 
                                         /**
                                          * Shadow color of the text block.
@@ -11226,7 +11226,7 @@ declare namespace echarts {
                                          * "transparent"
                                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
                                          */
-                                        shadowColor?: string;
+                                        shadowColor?: string | undefined;
 
                                         /**
                                          * Show blur of the text block.
@@ -11234,7 +11234,7 @@ declare namespace echarts {
                                          *
                                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                                          */
-                                        shadowBlur?: number;
+                                        shadowBlur?: number | undefined;
 
                                         /**
                                          * Shadow X offset of the text block.
@@ -11242,7 +11242,7 @@ declare namespace echarts {
                                          *
                                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                                          */
-                                        shadowOffsetX?: number;
+                                        shadowOffsetX?: number | undefined;
 
                                         /**
                                          * Shadow Y offset of the text block.
@@ -11250,7 +11250,7 @@ declare namespace echarts {
                                          *
                                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                                          */
-                                        shadowOffsetY?: number;
+                                        shadowOffsetY?: number | undefined;
 
                                         /**
                                          * Width of the text block.
@@ -11282,7 +11282,7 @@ declare namespace echarts {
                                          *
                                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.width
                                          */
-                                        width?: number | string;
+                                        width?: number | string | undefined;
 
                                         /**
                                          * Height of the text block.
@@ -11301,7 +11301,7 @@ declare namespace echarts {
                                          *
                                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.height
                                          */
-                                        height?: number | string;
+                                        height?: number | string | undefined;
 
                                         /**
                                          * Storke color of the text.
@@ -11315,7 +11315,7 @@ declare namespace echarts {
                                          * "transparent"
                                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
                                          */
-                                        textBorderColor?: string;
+                                        textBorderColor?: string | undefined;
 
                                         /**
                                          * Storke line width of the text.
@@ -11323,7 +11323,7 @@ declare namespace echarts {
                                          *
                                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                                          */
-                                        textBorderWidth?: number;
+                                        textBorderWidth?: number | undefined;
 
                                         /**
                                          * Shadow color of the text itself.
@@ -11333,7 +11333,7 @@ declare namespace echarts {
                                          * "transparent"
                                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
                                          */
-                                        textShadowColor?: string;
+                                        textShadowColor?: string | undefined;
 
                                         /**
                                          * Shadow blue of the text itself.
@@ -11341,7 +11341,7 @@ declare namespace echarts {
                                          *
                                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                                          */
-                                        textShadowBlur?: number;
+                                        textShadowBlur?: number | undefined;
 
                                         /**
                                          * Shadow X offset of the text itself.
@@ -11349,7 +11349,7 @@ declare namespace echarts {
                                          *
                                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                                          */
-                                        textShadowOffsetX?: number;
+                                        textShadowOffsetX?: number | undefined;
 
                                         /**
                                          * Shadow Y offset of the text itself.
@@ -11357,12 +11357,12 @@ declare namespace echarts {
                                          *
                                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                                          */
-                                        textShadowOffsetY?: number;
+                                        textShadowOffsetY?: number | undefined;
                                     };
-                                };
-                            };
-                        };
-                    };
+                                } | undefined;
+                            } | undefined;
+                        } | undefined;
+                    } | undefined;
 
                     /**
                      * Specify the right-bottom point.
@@ -11377,7 +11377,7 @@ declare namespace echarts {
                          *
                          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.markArea.data.1.name
                          */
-                        name?: string;
+                        name?: string | undefined;
 
                         /**
                          * x value on screen coordinate system, can be pixel
@@ -11386,7 +11386,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.x
                          */
-                        x?: number;
+                        x?: number | undefined;
 
                         /**
                          * y value on screen coordinate system, can be pixel
@@ -11395,7 +11395,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.y
                          */
-                        y?: number;
+                        y?: number | undefined;
 
                         /**
                          * value of the item, not necessary.
@@ -11403,7 +11403,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.value
                          */
-                        value?: number;
+                        value?: number | undefined;
 
                         /**
                          * Style of the item.
@@ -11431,7 +11431,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.itemStyle.color
                              */
-                            color?: EChartOption.Color;
+                            color?: EChartOption.Color | undefined;
 
                             /**
                              * border color, whose format is similar to that
@@ -11442,7 +11442,7 @@ declare namespace echarts {
                              * "#000"
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.itemStyle.borderColor
                              */
-                            borderColor?: EChartOption.Color;
+                            borderColor?: EChartOption.Color | undefined;
 
                             /**
                              * border width.
@@ -11451,7 +11451,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.itemStyle.borderWidth
                              */
-                            borderWidth?: number;
+                            borderWidth?: number | undefined;
 
                             /**
                              * Border type, which can be `'solid'`, `'dashed'`,
@@ -11462,7 +11462,7 @@ declare namespace echarts {
                              * "solid"
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.itemStyle.borderType
                              */
-                            borderType?: string;
+                            borderType?: string | undefined;
 
                             /**
                              * Size of shadow blur.
@@ -11476,7 +11476,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.itemStyle.shadowBlur
                              */
-                            shadowBlur?: number;
+                            shadowBlur?: number | undefined;
 
                             /**
                              * Shadow color. Support same format as `color`.
@@ -11484,7 +11484,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.itemStyle.shadowColor
                              */
-                            shadowColor?: EChartOption.Color;
+                            shadowColor?: EChartOption.Color | undefined;
 
                             /**
                              * Offset distance on the horizontal direction of
@@ -11493,7 +11493,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.itemStyle.shadowOffsetX
                              */
-                            shadowOffsetX?: number;
+                            shadowOffsetX?: number | undefined;
 
                             /**
                              * Offset distance on the vertical direction of
@@ -11502,7 +11502,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.itemStyle.shadowOffsetY
                              */
-                            shadowOffsetY?: number;
+                            shadowOffsetY?: number | undefined;
 
                             /**
                              * Opacity of the component.
@@ -11512,7 +11512,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.itemStyle.opacity
                              */
-                            opacity?: number;
+                            opacity?: number | undefined;
 
                             /**
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.itemStyle.emphasis
@@ -11535,7 +11535,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.itemStyle.emphasis.color
                                  */
-                                color?: EChartOption.Color;
+                                color?: EChartOption.Color | undefined;
 
                                 /**
                                  * border color, whose format is similar to
@@ -11546,7 +11546,7 @@ declare namespace echarts {
                                  * "#000"
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.itemStyle.emphasis.borderColor
                                  */
-                                borderColor?: EChartOption.Color;
+                                borderColor?: EChartOption.Color | undefined;
 
                                 /**
                                  * border width.
@@ -11555,7 +11555,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.itemStyle.emphasis.borderWidth
                                  */
-                                borderWidth?: number;
+                                borderWidth?: number | undefined;
 
                                 /**
                                  * Border type, which can be `'solid'`, `'dashed'`,
@@ -11566,7 +11566,7 @@ declare namespace echarts {
                                  * "solid"
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.itemStyle.emphasis.borderType
                                  */
-                                borderType?: string;
+                                borderType?: string | undefined;
 
                                 /**
                                  * Size of shadow blur.
@@ -11581,7 +11581,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.itemStyle.emphasis.shadowBlur
                                  */
-                                shadowBlur?: number;
+                                shadowBlur?: number | undefined;
 
                                 /**
                                  * Shadow color.
@@ -11590,7 +11590,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.itemStyle.emphasis.shadowColor
                                  */
-                                shadowColor?: EChartOption.Color;
+                                shadowColor?: EChartOption.Color | undefined;
 
                                 /**
                                  * Offset distance on the horizontal direction
@@ -11599,7 +11599,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.itemStyle.emphasis.shadowOffsetX
                                  */
-                                shadowOffsetX?: number;
+                                shadowOffsetX?: number | undefined;
 
                                 /**
                                  * Offset distance on the vertical direction
@@ -11608,7 +11608,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.itemStyle.emphasis.shadowOffsetY
                                  */
-                                shadowOffsetY?: number;
+                                shadowOffsetY?: number | undefined;
 
                                 /**
                                  * Opacity of the component.
@@ -11618,9 +11618,9 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.itemStyle.emphasis.opacity
                                  */
-                                opacity?: number;
-                            };
-                        };
+                                opacity?: number | undefined;
+                            } | undefined;
+                        } | undefined;
 
                         /**
                          * Label style of the item.
@@ -11637,7 +11637,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.show
                              */
-                            show?: boolean;
+                            show?: boolean | undefined;
 
                             /**
                              * Label position.
@@ -11674,7 +11674,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.position
                              */
-                            position?: any[] | string;
+                            position?: any[] | string | undefined;
 
                             /**
                              * Distance to the host graphic element.
@@ -11689,7 +11689,7 @@ declare namespace echarts {
                              * 5
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.distance
                              */
-                            distance?: number;
+                            distance?: number | undefined;
 
                             /**
                              * Rotate label, from -90 degree to 90, positive
@@ -11702,7 +11702,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.rotate
                              */
-                            rotate?: number;
+                            rotate?: number | undefined;
 
                             /**
                              * Whether to move text slightly.
@@ -11712,7 +11712,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.offset
                              */
-                            offset?: any[];
+                            offset?: any[] | undefined;
 
                             /**
                              * text color.
@@ -11725,7 +11725,7 @@ declare namespace echarts {
                              * ""#fff""
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.color
                              */
-                            color?: string;
+                            color?: string | undefined;
 
                             /**
                              * font style
@@ -11741,7 +11741,7 @@ declare namespace echarts {
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.fontStyle
                              */
-                            fontStyle?: string;
+                            fontStyle?: string | undefined;
 
                             /**
                              * font thick weight
@@ -11759,7 +11759,7 @@ declare namespace echarts {
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.fontWeight
                              */
-                            fontWeight?: string | number;
+                            fontWeight?: string | number | undefined;
 
                             /**
                              * font family
@@ -11771,7 +11771,7 @@ declare namespace echarts {
                              * "sans-serif"
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.fontFamily
                              */
-                            fontFamily?: string;
+                            fontFamily?: string | undefined;
 
                             /**
                              * font size
@@ -11781,7 +11781,7 @@ declare namespace echarts {
                              * 12
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.fontSize
                              */
-                            fontSize?: number;
+                            fontSize?: number | undefined;
 
                             /**
                              * Horizontal alignment of text, automatic by default.
@@ -11800,7 +11800,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.align
                              */
-                            align?: string;
+                            align?: string | undefined;
 
                             /**
                              * Vertical alignment of text, automatic by default.
@@ -11819,7 +11819,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.verticalAlign
                              */
-                            verticalAlign?: string;
+                            verticalAlign?: string | undefined;
 
                             /**
                              * Line height of the text fregment.
@@ -11832,7 +11832,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.lineHeight
                              */
-                            lineHeight?: number;
+                            lineHeight?: number | undefined;
 
                             /**
                              * Background color of the text fregment.
@@ -11855,7 +11855,7 @@ declare namespace echarts {
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.backgroundColor
                              */
-                            backgroundColor?: object | string;
+                            backgroundColor?: object | string | undefined;
 
                             /**
                              * Border color of the text fregment.
@@ -11868,7 +11868,7 @@ declare namespace echarts {
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.borderColor
                              */
-                            borderColor?: string;
+                            borderColor?: string | undefined;
 
                             /**
                              * Border width of the text fregment.
@@ -11876,7 +11876,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.borderWidth
                              */
-                            borderWidth?: number;
+                            borderWidth?: number | undefined;
 
                             /**
                              * Border radius of the text fregment.
@@ -11884,7 +11884,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.borderRadius
                              */
-                            borderRadius?: number;
+                            borderRadius?: number | undefined;
 
                             /**
                              * Padding of the text fregment, for example:
@@ -11902,7 +11902,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.padding
                              */
-                            padding?: any[] | number;
+                            padding?: any[] | number | undefined;
 
                             /**
                              * Shadow color of the text block.
@@ -11912,7 +11912,7 @@ declare namespace echarts {
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.shadowColor
                              */
-                            shadowColor?: string;
+                            shadowColor?: string | undefined;
 
                             /**
                              * Show blur of the text block.
@@ -11920,7 +11920,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.shadowBlur
                              */
-                            shadowBlur?: number;
+                            shadowBlur?: number | undefined;
 
                             /**
                              * Shadow X offset of the text block.
@@ -11928,7 +11928,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.shadowOffsetX
                              */
-                            shadowOffsetX?: number;
+                            shadowOffsetX?: number | undefined;
 
                             /**
                              * Shadow Y offset of the text block.
@@ -11936,7 +11936,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.shadowOffsetY
                              */
-                            shadowOffsetY?: number;
+                            shadowOffsetY?: number | undefined;
 
                             /**
                              * Width of the text block.
@@ -11963,7 +11963,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.width
                              */
-                            width?: number | string;
+                            width?: number | string | undefined;
 
                             /**
                              * Height of the text block.
@@ -11980,7 +11980,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.height
                              */
-                            height?: number | string;
+                            height?: number | string | undefined;
 
                             /**
                              * Storke color of the text.
@@ -11993,7 +11993,7 @@ declare namespace echarts {
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.textBorderColor
                              */
-                            textBorderColor?: string;
+                            textBorderColor?: string | undefined;
 
                             /**
                              * Storke line width of the text.
@@ -12001,7 +12001,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.textBorderWidth
                              */
-                            textBorderWidth?: number;
+                            textBorderWidth?: number | undefined;
 
                             /**
                              * Shadow color of the text itself.
@@ -12011,7 +12011,7 @@ declare namespace echarts {
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.textShadowColor
                              */
-                            textShadowColor?: string;
+                            textShadowColor?: string | undefined;
 
                             /**
                              * Shadow blue of the text itself.
@@ -12019,7 +12019,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.textShadowBlur
                              */
-                            textShadowBlur?: number;
+                            textShadowBlur?: number | undefined;
 
                             /**
                              * Shadow X offset of the text itself.
@@ -12027,7 +12027,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.textShadowOffsetX
                              */
-                            textShadowOffsetX?: number;
+                            textShadowOffsetX?: number | undefined;
 
                             /**
                              * Shadow Y offset of the text itself.
@@ -12035,7 +12035,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.textShadowOffsetY
                              */
-                            textShadowOffsetY?: number;
+                            textShadowOffsetY?: number | undefined;
 
                             /**
                              * "Rich text styles" can be defined in this `rich`
@@ -12066,7 +12066,7 @@ declare namespace echarts {
                                      * ""#fff""
                                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.color
                                      */
-                                    color?: string;
+                                    color?: string | undefined;
 
                                     /**
                                      * font style
@@ -12082,7 +12082,7 @@ declare namespace echarts {
                                      * "normal"
                                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
                                      */
-                                    fontStyle?: string;
+                                    fontStyle?: string | undefined;
 
                                     /**
                                      * font thick weight
@@ -12100,7 +12100,7 @@ declare namespace echarts {
                                      * "normal"
                                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                      */
-                                    fontWeight?: string | number;
+                                    fontWeight?: string | number | undefined;
 
                                     /**
                                      * font family
@@ -12113,7 +12113,7 @@ declare namespace echarts {
                                      * "sans-serif"
                                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
                                      */
-                                    fontFamily?: string;
+                                    fontFamily?: string | undefined;
 
                                     /**
                                      * font size
@@ -12123,7 +12123,7 @@ declare namespace echarts {
                                      * 12
                                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
                                      */
-                                    fontSize?: number;
+                                    fontSize?: number | undefined;
 
                                     /**
                                      * Horizontal alignment of text, automatic
@@ -12144,7 +12144,7 @@ declare namespace echarts {
                                      *
                                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.align
                                      */
-                                    align?: string;
+                                    align?: string | undefined;
 
                                     /**
                                      * Vertical alignment of text, automatic
@@ -12165,7 +12165,7 @@ declare namespace echarts {
                                      *
                                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                                      */
-                                    verticalAlign?: string;
+                                    verticalAlign?: string | undefined;
 
                                     /**
                                      * Line height of the text fregment.
@@ -12179,7 +12179,7 @@ declare namespace echarts {
                                      *
                                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                                      */
-                                    lineHeight?: number;
+                                    lineHeight?: number | undefined;
 
                                     /**
                                      * Background color of the text fregment.
@@ -12203,7 +12203,7 @@ declare namespace echarts {
                                      * "transparent"
                                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
                                      */
-                                    backgroundColor?: object | string;
+                                    backgroundColor?: object | string | undefined;
 
                                     /**
                                      * Border color of the text fregment.
@@ -12216,7 +12216,7 @@ declare namespace echarts {
                                      * "transparent"
                                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
                                      */
-                                    borderColor?: string;
+                                    borderColor?: string | undefined;
 
                                     /**
                                      * Border width of the text fregment.
@@ -12224,7 +12224,7 @@ declare namespace echarts {
                                      *
                                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                                      */
-                                    borderWidth?: number;
+                                    borderWidth?: number | undefined;
 
                                     /**
                                      * Border radius of the text fregment.
@@ -12232,7 +12232,7 @@ declare namespace echarts {
                                      *
                                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                                      */
-                                    borderRadius?: number;
+                                    borderRadius?: number | undefined;
 
                                     /**
                                      * Padding of the text fregment, for example:
@@ -12251,7 +12251,7 @@ declare namespace echarts {
                                      *
                                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.padding
                                      */
-                                    padding?: any[] | number;
+                                    padding?: any[] | number | undefined;
 
                                     /**
                                      * Shadow color of the text block.
@@ -12261,7 +12261,7 @@ declare namespace echarts {
                                      * "transparent"
                                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
                                      */
-                                    shadowColor?: string;
+                                    shadowColor?: string | undefined;
 
                                     /**
                                      * Show blur of the text block.
@@ -12269,7 +12269,7 @@ declare namespace echarts {
                                      *
                                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                                      */
-                                    shadowBlur?: number;
+                                    shadowBlur?: number | undefined;
 
                                     /**
                                      * Shadow X offset of the text block.
@@ -12277,7 +12277,7 @@ declare namespace echarts {
                                      *
                                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                                      */
-                                    shadowOffsetX?: number;
+                                    shadowOffsetX?: number | undefined;
 
                                     /**
                                      * Shadow Y offset of the text block.
@@ -12285,7 +12285,7 @@ declare namespace echarts {
                                      *
                                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                                      */
-                                    shadowOffsetY?: number;
+                                    shadowOffsetY?: number | undefined;
 
                                     /**
                                      * Width of the text block.
@@ -12316,7 +12316,7 @@ declare namespace echarts {
                                      *
                                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.width
                                      */
-                                    width?: number | string;
+                                    width?: number | string | undefined;
 
                                     /**
                                      * Height of the text block.
@@ -12334,7 +12334,7 @@ declare namespace echarts {
                                      *
                                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.height
                                      */
-                                    height?: number | string;
+                                    height?: number | string | undefined;
 
                                     /**
                                      * Storke color of the text.
@@ -12347,7 +12347,7 @@ declare namespace echarts {
                                      * "transparent"
                                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
                                      */
-                                    textBorderColor?: string;
+                                    textBorderColor?: string | undefined;
 
                                     /**
                                      * Storke line width of the text.
@@ -12355,7 +12355,7 @@ declare namespace echarts {
                                      *
                                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                                      */
-                                    textBorderWidth?: number;
+                                    textBorderWidth?: number | undefined;
 
                                     /**
                                      * Shadow color of the text itself.
@@ -12365,7 +12365,7 @@ declare namespace echarts {
                                      * "transparent"
                                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
                                      */
-                                    textShadowColor?: string;
+                                    textShadowColor?: string | undefined;
 
                                     /**
                                      * Shadow blue of the text itself.
@@ -12373,7 +12373,7 @@ declare namespace echarts {
                                      *
                                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                                      */
-                                    textShadowBlur?: number;
+                                    textShadowBlur?: number | undefined;
 
                                     /**
                                      * Shadow X offset of the text itself.
@@ -12381,7 +12381,7 @@ declare namespace echarts {
                                      *
                                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                                      */
-                                    textShadowOffsetX?: number;
+                                    textShadowOffsetX?: number | undefined;
 
                                     /**
                                      * Shadow Y offset of the text itself.
@@ -12389,9 +12389,9 @@ declare namespace echarts {
                                      *
                                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                                      */
-                                    textShadowOffsetY?: number;
+                                    textShadowOffsetY?: number | undefined;
                                 };
-                            };
+                            } | undefined;
 
                             /**
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis
@@ -12403,7 +12403,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.show
                                  */
-                                show?: boolean;
+                                show?: boolean | undefined;
 
                                 /**
                                  * Label position.
@@ -12441,7 +12441,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.position
                                  */
-                                position?: any[] | string;
+                                position?: any[] | string | undefined;
 
                                 /**
                                  * Distance to the host graphic element.
@@ -12457,7 +12457,7 @@ declare namespace echarts {
                                  * 5
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.distance
                                  */
-                                distance?: number;
+                                distance?: number | undefined;
 
                                 /**
                                  * Rotate label, from -90 degree to 90, positive
@@ -12470,7 +12470,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.rotate
                                  */
-                                rotate?: number;
+                                rotate?: number | undefined;
 
                                 /**
                                  * Whether to move text slightly.
@@ -12480,7 +12480,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.offset
                                  */
-                                offset?: any[];
+                                offset?: any[] | undefined;
 
                                 /**
                                  * text color.
@@ -12493,7 +12493,7 @@ declare namespace echarts {
                                  * ""#fff""
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.color
                                  */
-                                color?: string;
+                                color?: string | undefined;
 
                                 /**
                                  * font style
@@ -12509,7 +12509,7 @@ declare namespace echarts {
                                  * "normal"
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.fontStyle
                                  */
-                                fontStyle?: string;
+                                fontStyle?: string | undefined;
 
                                 /**
                                  * font thick weight
@@ -12527,7 +12527,7 @@ declare namespace echarts {
                                  * "normal"
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.fontWeight
                                  */
-                                fontWeight?: string | number;
+                                fontWeight?: string | number | undefined;
 
                                 /**
                                  * font family
@@ -12539,7 +12539,7 @@ declare namespace echarts {
                                  * "sans-serif"
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.fontFamily
                                  */
-                                fontFamily?: string;
+                                fontFamily?: string | undefined;
 
                                 /**
                                  * font size
@@ -12549,7 +12549,7 @@ declare namespace echarts {
                                  * 12
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.fontSize
                                  */
-                                fontSize?: number;
+                                fontSize?: number | undefined;
 
                                 /**
                                  * Horizontal alignment of text, automatic by
@@ -12570,7 +12570,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.align
                                  */
-                                align?: string;
+                                align?: string | undefined;
 
                                 /**
                                  * Vertical alignment of text, automatic by
@@ -12591,7 +12591,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.verticalAlign
                                  */
-                                verticalAlign?: string;
+                                verticalAlign?: string | undefined;
 
                                 /**
                                  * Line height of the text fregment.
@@ -12605,7 +12605,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.lineHeight
                                  */
-                                lineHeight?: number;
+                                lineHeight?: number | undefined;
 
                                 /**
                                  * Background color of the text fregment.
@@ -12629,7 +12629,7 @@ declare namespace echarts {
                                  * "transparent"
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.backgroundColor
                                  */
-                                backgroundColor?: object | string;
+                                backgroundColor?: object | string | undefined;
 
                                 /**
                                  * Border color of the text fregment.
@@ -12642,7 +12642,7 @@ declare namespace echarts {
                                  * "transparent"
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.borderColor
                                  */
-                                borderColor?: string;
+                                borderColor?: string | undefined;
 
                                 /**
                                  * Border width of the text fregment.
@@ -12650,7 +12650,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.borderWidth
                                  */
-                                borderWidth?: number;
+                                borderWidth?: number | undefined;
 
                                 /**
                                  * Border radius of the text fregment.
@@ -12658,7 +12658,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.borderRadius
                                  */
-                                borderRadius?: number;
+                                borderRadius?: number | undefined;
 
                                 /**
                                  * Padding of the text fregment, for example:
@@ -12677,7 +12677,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.padding
                                  */
-                                padding?: any[] | number;
+                                padding?: any[] | number | undefined;
 
                                 /**
                                  * Shadow color of the text block.
@@ -12687,7 +12687,7 @@ declare namespace echarts {
                                  * "transparent"
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.shadowColor
                                  */
-                                shadowColor?: string;
+                                shadowColor?: string | undefined;
 
                                 /**
                                  * Show blur of the text block.
@@ -12695,7 +12695,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.shadowBlur
                                  */
-                                shadowBlur?: number;
+                                shadowBlur?: number | undefined;
 
                                 /**
                                  * Shadow X offset of the text block.
@@ -12703,7 +12703,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.shadowOffsetX
                                  */
-                                shadowOffsetX?: number;
+                                shadowOffsetX?: number | undefined;
 
                                 /**
                                  * Shadow Y offset of the text block.
@@ -12711,7 +12711,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.shadowOffsetY
                                  */
-                                shadowOffsetY?: number;
+                                shadowOffsetY?: number | undefined;
 
                                 /**
                                  * Width of the text block.
@@ -12742,7 +12742,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.width
                                  */
-                                width?: number | string;
+                                width?: number | string | undefined;
 
                                 /**
                                  * Height of the text block.
@@ -12760,7 +12760,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.height
                                  */
-                                height?: number | string;
+                                height?: number | string | undefined;
 
                                 /**
                                  * Storke color of the text.
@@ -12773,7 +12773,7 @@ declare namespace echarts {
                                  * "transparent"
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.textBorderColor
                                  */
-                                textBorderColor?: string;
+                                textBorderColor?: string | undefined;
 
                                 /**
                                  * Storke line width of the text.
@@ -12781,7 +12781,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.textBorderWidth
                                  */
-                                textBorderWidth?: number;
+                                textBorderWidth?: number | undefined;
 
                                 /**
                                  * Shadow color of the text itself.
@@ -12791,7 +12791,7 @@ declare namespace echarts {
                                  * "transparent"
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.textShadowColor
                                  */
-                                textShadowColor?: string;
+                                textShadowColor?: string | undefined;
 
                                 /**
                                  * Shadow blue of the text itself.
@@ -12799,7 +12799,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.textShadowBlur
                                  */
-                                textShadowBlur?: number;
+                                textShadowBlur?: number | undefined;
 
                                 /**
                                  * Shadow X offset of the text itself.
@@ -12807,7 +12807,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.textShadowOffsetX
                                  */
-                                textShadowOffsetX?: number;
+                                textShadowOffsetX?: number | undefined;
 
                                 /**
                                  * Shadow Y offset of the text itself.
@@ -12815,7 +12815,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.textShadowOffsetY
                                  */
-                                textShadowOffsetY?: number;
+                                textShadowOffsetY?: number | undefined;
 
                                 /**
                                  * "Rich text styles" can be defined in this
@@ -12847,7 +12847,7 @@ declare namespace echarts {
                                          * ""#fff""
                                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.color
                                          */
-                                        color?: string;
+                                        color?: string | undefined;
 
                                         /**
                                          * font style
@@ -12863,7 +12863,7 @@ declare namespace echarts {
                                          * "normal"
                                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
                                          */
-                                        fontStyle?: string;
+                                        fontStyle?: string | undefined;
 
                                         /**
                                          * font thick weight
@@ -12881,7 +12881,7 @@ declare namespace echarts {
                                          * "normal"
                                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                          */
-                                        fontWeight?: string | number;
+                                        fontWeight?: string | number | undefined;
 
                                         /**
                                          * font family
@@ -12894,7 +12894,7 @@ declare namespace echarts {
                                          * "sans-serif"
                                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
                                          */
-                                        fontFamily?: string;
+                                        fontFamily?: string | undefined;
 
                                         /**
                                          * font size
@@ -12904,7 +12904,7 @@ declare namespace echarts {
                                          * 12
                                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontSize
                                          */
-                                        fontSize?: number;
+                                        fontSize?: number | undefined;
 
                                         /**
                                          * Horizontal alignment of text, automatic
@@ -12925,7 +12925,7 @@ declare namespace echarts {
                                          *
                                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.align
                                          */
-                                        align?: string;
+                                        align?: string | undefined;
 
                                         /**
                                          * Vertical alignment of text, automatic
@@ -12946,7 +12946,7 @@ declare namespace echarts {
                                          *
                                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                                          */
-                                        verticalAlign?: string;
+                                        verticalAlign?: string | undefined;
 
                                         /**
                                          * Line height of the text fregment.
@@ -12960,7 +12960,7 @@ declare namespace echarts {
                                          *
                                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                                          */
-                                        lineHeight?: number;
+                                        lineHeight?: number | undefined;
 
                                         /**
                                          * Background color of the text fregment.
@@ -12985,7 +12985,7 @@ declare namespace echarts {
                                          * "transparent"
                                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
                                          */
-                                        backgroundColor?: object | string;
+                                        backgroundColor?: object | string | undefined;
 
                                         /**
                                          * Border color of the text fregment.
@@ -12999,7 +12999,7 @@ declare namespace echarts {
                                          * "transparent"
                                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderColor
                                          */
-                                        borderColor?: string;
+                                        borderColor?: string | undefined;
 
                                         /**
                                          * Border width of the text fregment.
@@ -13007,7 +13007,7 @@ declare namespace echarts {
                                          *
                                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                                          */
-                                        borderWidth?: number;
+                                        borderWidth?: number | undefined;
 
                                         /**
                                          * Border radius of the text fregment.
@@ -13015,7 +13015,7 @@ declare namespace echarts {
                                          *
                                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                                          */
-                                        borderRadius?: number;
+                                        borderRadius?: number | undefined;
 
                                         /**
                                          * Padding of the text fregment, for
@@ -13036,7 +13036,7 @@ declare namespace echarts {
                                          *
                                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.padding
                                          */
-                                        padding?: any[] | number;
+                                        padding?: any[] | number | undefined;
 
                                         /**
                                          * Shadow color of the text block.
@@ -13046,7 +13046,7 @@ declare namespace echarts {
                                          * "transparent"
                                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
                                          */
-                                        shadowColor?: string;
+                                        shadowColor?: string | undefined;
 
                                         /**
                                          * Show blur of the text block.
@@ -13054,7 +13054,7 @@ declare namespace echarts {
                                          *
                                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                                          */
-                                        shadowBlur?: number;
+                                        shadowBlur?: number | undefined;
 
                                         /**
                                          * Shadow X offset of the text block.
@@ -13062,7 +13062,7 @@ declare namespace echarts {
                                          *
                                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                                          */
-                                        shadowOffsetX?: number;
+                                        shadowOffsetX?: number | undefined;
 
                                         /**
                                          * Shadow Y offset of the text block.
@@ -13070,7 +13070,7 @@ declare namespace echarts {
                                          *
                                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                                          */
-                                        shadowOffsetY?: number;
+                                        shadowOffsetY?: number | undefined;
 
                                         /**
                                          * Width of the text block.
@@ -13102,7 +13102,7 @@ declare namespace echarts {
                                          *
                                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.width
                                          */
-                                        width?: number | string;
+                                        width?: number | string | undefined;
 
                                         /**
                                          * Height of the text block.
@@ -13121,7 +13121,7 @@ declare namespace echarts {
                                          *
                                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.height
                                          */
-                                        height?: number | string;
+                                        height?: number | string | undefined;
 
                                         /**
                                          * Storke color of the text.
@@ -13135,7 +13135,7 @@ declare namespace echarts {
                                          * "transparent"
                                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
                                          */
-                                        textBorderColor?: string;
+                                        textBorderColor?: string | undefined;
 
                                         /**
                                          * Storke line width of the text.
@@ -13143,7 +13143,7 @@ declare namespace echarts {
                                          *
                                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                                          */
-                                        textBorderWidth?: number;
+                                        textBorderWidth?: number | undefined;
 
                                         /**
                                          * Shadow color of the text itself.
@@ -13153,7 +13153,7 @@ declare namespace echarts {
                                          * "transparent"
                                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
                                          */
-                                        textShadowColor?: string;
+                                        textShadowColor?: string | undefined;
 
                                         /**
                                          * Shadow blue of the text itself.
@@ -13161,7 +13161,7 @@ declare namespace echarts {
                                          *
                                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                                          */
-                                        textShadowBlur?: number;
+                                        textShadowBlur?: number | undefined;
 
                                         /**
                                          * Shadow X offset of the text itself.
@@ -13169,7 +13169,7 @@ declare namespace echarts {
                                          *
                                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                                          */
-                                        textShadowOffsetX?: number;
+                                        textShadowOffsetX?: number | undefined;
 
                                         /**
                                          * Shadow Y offset of the text itself.
@@ -13177,13 +13177,13 @@ declare namespace echarts {
                                          *
                                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                                          */
-                                        textShadowOffsetY?: number;
+                                        textShadowOffsetY?: number | undefined;
                                     };
-                                };
-                            };
-                        };
-                    };
-                };
+                                } | undefined;
+                            } | undefined;
+                        } | undefined;
+                    } | undefined;
+                } | undefined;
 
                 /**
                  * Whether to enable animation.
@@ -13193,7 +13193,7 @@ declare namespace echarts {
                  * "true"
                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.animation
                  */
-                animation?: boolean;
+                animation?: boolean | undefined;
 
                 /**
                  * Whether to set graphic number threshold to animation.
@@ -13205,7 +13205,7 @@ declare namespace echarts {
                  * 2000
                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.animationThreshold
                  */
-                animationThreshold?: number;
+                animationThreshold?: number | undefined;
 
                 /**
                  * Duration of the first animation, which supports callback
@@ -13218,7 +13218,7 @@ declare namespace echarts {
                  * 1000
                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.animationDuration
                  */
-                animationDuration?: Function | number;
+                animationDuration?: Function | number | undefined;
 
                 /**
                  * Easing method used for the first animation.
@@ -13231,7 +13231,7 @@ declare namespace echarts {
                  * "cubicOut"
                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.animationEasing
                  */
-                animationEasing?: string;
+                animationEasing?: string | undefined;
 
                 /**
                  * Delay before updating the first animation, which supports
@@ -13249,7 +13249,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.animationDelay
                  */
-                animationDelay?: Function | number;
+                animationDelay?: Function | number | undefined;
 
                 /**
                  * Time for animation to complete, which supports callback function
@@ -13262,7 +13262,7 @@ declare namespace echarts {
                  * 300
                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.animationDurationUpdate
                  */
-                animationDurationUpdate?: Function | number;
+                animationDurationUpdate?: Function | number | undefined;
 
                 /**
                  * Easing method used for animation.
@@ -13272,7 +13272,7 @@ declare namespace echarts {
                  * "cubicOut"
                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.animationEasingUpdate
                  */
-                animationEasingUpdate?: string;
+                animationEasingUpdate?: string | undefined;
 
                 /**
                  * Delay before updating animation, which supports callback
@@ -13289,8 +13289,8 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.animationDelayUpdate
                  */
-                animationDelayUpdate?: Function | number;
-            };
+                animationDelayUpdate?: Function | number | undefined;
+            } | undefined;
 
             /**
              * Whether to ignore mouse events.
@@ -13300,7 +13300,7 @@ declare namespace echarts {
              *
              * @see https://echarts.apache.org/en/option.html#series-pie.silent
              */
-            silent?: boolean;
+            silent?: boolean | undefined;
 
             /**
              * Initial animation type.
@@ -13315,7 +13315,7 @@ declare namespace echarts {
              * "expansion"
              * @see https://echarts.apache.org/en/option.html#series-pie.animationType
              */
-            animationType?: string;
+            animationType?: string | undefined;
 
             /**
              * Whether to enable animation.
@@ -13325,7 +13325,7 @@ declare namespace echarts {
              * "true"
              * @see https://echarts.apache.org/en/option.html#series-pie.animation
              */
-            animation?: boolean;
+            animation?: boolean | undefined;
 
             /**
              * Whether to set graphic number threshold to animation.
@@ -13337,7 +13337,7 @@ declare namespace echarts {
              * 2000
              * @see https://echarts.apache.org/en/option.html#series-pie.animationThreshold
              */
-            animationThreshold?: number;
+            animationThreshold?: number | undefined;
 
             /**
              * Duration of the first animation, which supports callback function
@@ -13350,7 +13350,7 @@ declare namespace echarts {
              * 1000
              * @see https://echarts.apache.org/en/option.html#series-pie.animationDuration
              */
-            animationDuration?: Function | number;
+            animationDuration?: Function | number | undefined;
 
             /**
              * Easing method used for the first animation.
@@ -13363,7 +13363,7 @@ declare namespace echarts {
              * "cubicOut"
              * @see https://echarts.apache.org/en/option.html#series-pie.animationEasing
              */
-            animationEasing?: string;
+            animationEasing?: string | undefined;
 
             /**
              * Delay before updating the first animation, which supports callback
@@ -13380,7 +13380,7 @@ declare namespace echarts {
              *
              * @see https://echarts.apache.org/en/option.html#series-pie.animationDelay
              */
-            animationDelay?: Function | number;
+            animationDelay?: Function | number | undefined;
 
             /**
              * Time for animation to complete, which supports callback function
@@ -13393,7 +13393,7 @@ declare namespace echarts {
              * 300
              * @see https://echarts.apache.org/en/option.html#series-pie.animationDurationUpdate
              */
-            animationDurationUpdate?: Function | number;
+            animationDurationUpdate?: Function | number | undefined;
 
             /**
              * Easing method used for animation.
@@ -13403,7 +13403,7 @@ declare namespace echarts {
              * "cubicOut"
              * @see https://echarts.apache.org/en/option.html#series-pie.animationEasingUpdate
              */
-            animationEasingUpdate?: string;
+            animationEasingUpdate?: string | undefined;
 
             /**
              * Delay before updating animation, which supports callback function
@@ -13420,7 +13420,7 @@ declare namespace echarts {
              *
              * @see https://echarts.apache.org/en/option.html#series-pie.animationDelayUpdate
              */
-            animationDelayUpdate?: Function | number;
+            animationDelayUpdate?: Function | number | undefined;
 
             /**
              * tooltip settings in this series.
@@ -13428,7 +13428,7 @@ declare namespace echarts {
              *
              * @see https://echarts.apache.org/en/option.html#series-pie.tooltip
              */
-            tooltip?: BaseTooltip;
+            tooltip?: BaseTooltip | undefined;
         }
 
         namespace SeriesPie {
@@ -13439,7 +13439,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-pie.data.name
                  */
-                name?: string;
+                name?: string | undefined;
 
                 /**
                  * Data value.
@@ -13447,7 +13447,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-pie.data.value
                  */
-                value?: number;
+                value?: number | undefined;
 
                 /**
                  * Whether the data item is selected.
@@ -13455,7 +13455,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-pie.data.selected
                  */
-                selected?: boolean;
+                selected?: boolean | undefined;
 
                 /**
                  * The label configuration of a single sector.
@@ -13467,7 +13467,7 @@ declare namespace echarts {
                     /**
                      * @see https://echarts.apache.org/en/option.html#series-pie.data.label.show
                      */
-                    show?: boolean;
+                    show?: boolean | undefined;
 
                     /**
                      * The position of label.
@@ -13497,7 +13497,7 @@ declare namespace echarts {
                      * "outside"
                      * @see https://echarts.apache.org/en/option.html#series-pie.data.label.position
                      */
-                    position?: string;
+                    position?: string | undefined;
 
                     /**
                      * text color.
@@ -13507,7 +13507,7 @@ declare namespace echarts {
                      * ""#fff""
                      * @see https://echarts.apache.org/en/option.html#series-pie.data.label.color
                      */
-                    color?: string;
+                    color?: string | undefined;
 
                     /**
                      * font style
@@ -13523,7 +13523,7 @@ declare namespace echarts {
                      * "normal"
                      * @see https://echarts.apache.org/en/option.html#series-pie.data.label.fontStyle
                      */
-                    fontStyle?: string;
+                    fontStyle?: string | undefined;
 
                     /**
                      * font thick weight
@@ -13541,7 +13541,7 @@ declare namespace echarts {
                      * "normal"
                      * @see https://echarts.apache.org/en/option.html#series-pie.data.label.fontWeight
                      */
-                    fontWeight?: string | number;
+                    fontWeight?: string | number | undefined;
 
                     /**
                      * font family
@@ -13553,7 +13553,7 @@ declare namespace echarts {
                      * "sans-serif"
                      * @see https://echarts.apache.org/en/option.html#series-pie.data.label.fontFamily
                      */
-                    fontFamily?: string;
+                    fontFamily?: string | undefined;
 
                     /**
                      * font size
@@ -13563,7 +13563,7 @@ declare namespace echarts {
                      * 12
                      * @see https://echarts.apache.org/en/option.html#series-pie.data.label.fontSize
                      */
-                    fontSize?: number;
+                    fontSize?: number | undefined;
 
                     /**
                      * Horizontal alignment of text, automatic by default.
@@ -13582,7 +13582,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.data.label.align
                      */
-                    align?: string;
+                    align?: string | undefined;
 
                     /**
                      * Vertical alignment of text, automatic by default.
@@ -13601,7 +13601,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.data.label.verticalAlign
                      */
-                    verticalAlign?: string;
+                    verticalAlign?: string | undefined;
 
                     /**
                      * Line height of the text fregment.
@@ -13614,7 +13614,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.data.label.lineHeight
                      */
-                    lineHeight?: number;
+                    lineHeight?: number | undefined;
 
                     /**
                      * Background color of the text fregment.
@@ -13633,7 +13633,7 @@ declare namespace echarts {
                      * "transparent"
                      * @see https://echarts.apache.org/en/option.html#series-pie.data.label.backgroundColor
                      */
-                    backgroundColor?: object | string;
+                    backgroundColor?: object | string | undefined;
 
                     /**
                      * Border color of the text fregment.
@@ -13643,7 +13643,7 @@ declare namespace echarts {
                      * "transparent"
                      * @see https://echarts.apache.org/en/option.html#series-pie.data.label.borderColor
                      */
-                    borderColor?: string;
+                    borderColor?: string | undefined;
 
                     /**
                      * Border width of the text fregment.
@@ -13651,7 +13651,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.data.label.borderWidth
                      */
-                    borderWidth?: number;
+                    borderWidth?: number | undefined;
 
                     /**
                      * Border radius of the text fregment.
@@ -13659,7 +13659,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.data.label.borderRadius
                      */
-                    borderRadius?: number;
+                    borderRadius?: number | undefined;
 
                     /**
                      * Padding of the text fregment, for example:
@@ -13675,7 +13675,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.data.label.padding
                      */
-                    padding?: any[] | number;
+                    padding?: any[] | number | undefined;
 
                     /**
                      * Shadow color of the text block.
@@ -13685,7 +13685,7 @@ declare namespace echarts {
                      * "transparent"
                      * @see https://echarts.apache.org/en/option.html#series-pie.data.label.shadowColor
                      */
-                    shadowColor?: string;
+                    shadowColor?: string | undefined;
 
                     /**
                      * Show blur of the text block.
@@ -13693,7 +13693,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.data.label.shadowBlur
                      */
-                    shadowBlur?: number;
+                    shadowBlur?: number | undefined;
 
                     /**
                      * Shadow X offset of the text block.
@@ -13701,7 +13701,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.data.label.shadowOffsetX
                      */
-                    shadowOffsetX?: number;
+                    shadowOffsetX?: number | undefined;
 
                     /**
                      * Shadow Y offset of the text block.
@@ -13709,7 +13709,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.data.label.shadowOffsetY
                      */
-                    shadowOffsetY?: number;
+                    shadowOffsetY?: number | undefined;
 
                     /**
                      * Width of the text block.
@@ -13734,7 +13734,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.data.label.width
                      */
-                    width?: number | string;
+                    width?: number | string | undefined;
 
                     /**
                      * Height of the text block.
@@ -13750,7 +13750,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.data.label.height
                      */
-                    height?: number | string;
+                    height?: number | string | undefined;
 
                     /**
                      * Storke color of the text.
@@ -13760,7 +13760,7 @@ declare namespace echarts {
                      * "transparent"
                      * @see https://echarts.apache.org/en/option.html#series-pie.data.label.textBorderColor
                      */
-                    textBorderColor?: string;
+                    textBorderColor?: string | undefined;
 
                     /**
                      * Storke line width of the text.
@@ -13768,7 +13768,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.data.label.textBorderWidth
                      */
-                    textBorderWidth?: number;
+                    textBorderWidth?: number | undefined;
 
                     /**
                      * Shadow color of the text itself.
@@ -13778,7 +13778,7 @@ declare namespace echarts {
                      * "transparent"
                      * @see https://echarts.apache.org/en/option.html#series-pie.data.label.textShadowColor
                      */
-                    textShadowColor?: string;
+                    textShadowColor?: string | undefined;
 
                     /**
                      * Shadow blue of the text itself.
@@ -13786,7 +13786,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.data.label.textShadowBlur
                      */
-                    textShadowBlur?: number;
+                    textShadowBlur?: number | undefined;
 
                     /**
                      * Shadow X offset of the text itself.
@@ -13794,7 +13794,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.data.label.textShadowOffsetX
                      */
-                    textShadowOffsetX?: number;
+                    textShadowOffsetX?: number | undefined;
 
                     /**
                      * Shadow Y offset of the text itself.
@@ -13802,7 +13802,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.data.label.textShadowOffsetY
                      */
-                    textShadowOffsetY?: number;
+                    textShadowOffsetY?: number | undefined;
 
                     /**
                      * "Rich text styles" can be defined in this `rich` property.
@@ -13830,7 +13830,7 @@ declare namespace echarts {
                              * ""#fff""
                              * @see https://echarts.apache.org/en/option.html#series-pie.data.label.rich.%3Cuser%20defined%20style%20name%3E.color
                              */
-                            color?: string;
+                            color?: string | undefined;
 
                             /**
                              * font style
@@ -13846,7 +13846,7 @@ declare namespace echarts {
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-pie.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
                              */
-                            fontStyle?: string;
+                            fontStyle?: string | undefined;
 
                             /**
                              * font thick weight
@@ -13864,7 +13864,7 @@ declare namespace echarts {
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-pie.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                              */
-                            fontWeight?: string | number;
+                            fontWeight?: string | number | undefined;
 
                             /**
                              * font family
@@ -13876,7 +13876,7 @@ declare namespace echarts {
                              * "sans-serif"
                              * @see https://echarts.apache.org/en/option.html#series-pie.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
                              */
-                            fontFamily?: string;
+                            fontFamily?: string | undefined;
 
                             /**
                              * font size
@@ -13886,7 +13886,7 @@ declare namespace echarts {
                              * 12
                              * @see https://echarts.apache.org/en/option.html#series-pie.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
                              */
-                            fontSize?: number;
+                            fontSize?: number | undefined;
 
                             /**
                              * Horizontal alignment of text, automatic by default.
@@ -13905,7 +13905,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.data.label.rich.%3Cuser%20defined%20style%20name%3E.align
                              */
-                            align?: string;
+                            align?: string | undefined;
 
                             /**
                              * Vertical alignment of text, automatic by default.
@@ -13924,7 +13924,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.data.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                              */
-                            verticalAlign?: string;
+                            verticalAlign?: string | undefined;
 
                             /**
                              * Line height of the text fregment.
@@ -13937,7 +13937,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.data.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                              */
-                            lineHeight?: number;
+                            lineHeight?: number | undefined;
 
                             /**
                              * Background color of the text fregment.
@@ -13957,7 +13957,7 @@ declare namespace echarts {
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-pie.data.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
                              */
-                            backgroundColor?: object | string;
+                            backgroundColor?: object | string | undefined;
 
                             /**
                              * Border color of the text fregment.
@@ -13967,7 +13967,7 @@ declare namespace echarts {
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-pie.data.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
                              */
-                            borderColor?: string;
+                            borderColor?: string | undefined;
 
                             /**
                              * Border width of the text fregment.
@@ -13975,7 +13975,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.data.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                              */
-                            borderWidth?: number;
+                            borderWidth?: number | undefined;
 
                             /**
                              * Border radius of the text fregment.
@@ -13983,7 +13983,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.data.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                              */
-                            borderRadius?: number;
+                            borderRadius?: number | undefined;
 
                             /**
                              * Padding of the text fregment, for example:
@@ -14001,7 +14001,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.data.label.rich.%3Cuser%20defined%20style%20name%3E.padding
                              */
-                            padding?: any[] | number;
+                            padding?: any[] | number | undefined;
 
                             /**
                              * Shadow color of the text block.
@@ -14011,7 +14011,7 @@ declare namespace echarts {
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-pie.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
                              */
-                            shadowColor?: string;
+                            shadowColor?: string | undefined;
 
                             /**
                              * Show blur of the text block.
@@ -14019,7 +14019,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                              */
-                            shadowBlur?: number;
+                            shadowBlur?: number | undefined;
 
                             /**
                              * Shadow X offset of the text block.
@@ -14027,7 +14027,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                              */
-                            shadowOffsetX?: number;
+                            shadowOffsetX?: number | undefined;
 
                             /**
                              * Shadow Y offset of the text block.
@@ -14035,7 +14035,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                              */
-                            shadowOffsetY?: number;
+                            shadowOffsetY?: number | undefined;
 
                             /**
                              * Width of the text block.
@@ -14062,7 +14062,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.data.label.rich.%3Cuser%20defined%20style%20name%3E.width
                              */
-                            width?: number | string;
+                            width?: number | string | undefined;
 
                             /**
                              * Height of the text block.
@@ -14079,7 +14079,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.data.label.rich.%3Cuser%20defined%20style%20name%3E.height
                              */
-                            height?: number | string;
+                            height?: number | string | undefined;
 
                             /**
                              * Storke color of the text.
@@ -14089,7 +14089,7 @@ declare namespace echarts {
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-pie.data.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
                              */
-                            textBorderColor?: string;
+                            textBorderColor?: string | undefined;
 
                             /**
                              * Storke line width of the text.
@@ -14097,7 +14097,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.data.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                              */
-                            textBorderWidth?: number;
+                            textBorderWidth?: number | undefined;
 
                             /**
                              * Shadow color of the text itself.
@@ -14107,7 +14107,7 @@ declare namespace echarts {
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-pie.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
                              */
-                            textShadowColor?: string;
+                            textShadowColor?: string | undefined;
 
                             /**
                              * Shadow blue of the text itself.
@@ -14115,7 +14115,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                              */
-                            textShadowBlur?: number;
+                            textShadowBlur?: number | undefined;
 
                             /**
                              * Shadow X offset of the text itself.
@@ -14123,7 +14123,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                              */
-                            textShadowOffsetX?: number;
+                            textShadowOffsetX?: number | undefined;
 
                             /**
                              * Shadow Y offset of the text itself.
@@ -14131,10 +14131,10 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                              */
-                            textShadowOffsetY?: number;
+                            textShadowOffsetY?: number | undefined;
                         };
-                    };
-                };
+                    } | undefined;
+                } | undefined;
 
                 /**
                  * The style of visual guide line.
@@ -14149,7 +14149,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.data.labelLine.show
                      */
-                    show?: boolean;
+                    show?: boolean | undefined;
 
                     /**
                      * The length of the first segment of visual guide line.
@@ -14157,7 +14157,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.data.labelLine.length
                      */
-                    length?: number;
+                    length?: number | undefined;
 
                     /**
                      * The length of the second segment of visual guide line.
@@ -14165,7 +14165,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.data.labelLine.length2
                      */
-                    length2?: number;
+                    length2?: number | undefined;
 
                     /**
                      * Whether to smooth the visual guide line.
@@ -14175,7 +14175,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.data.labelLine.smooth
                      */
-                    smooth?: boolean | number;
+                    smooth?: boolean | number | undefined;
 
                     /**
                      * @see https://echarts.apache.org/en/option.html#series-pie.data.labelLine.lineStyle
@@ -14200,7 +14200,7 @@ declare namespace echarts {
                          * "#000"
                          * @see https://echarts.apache.org/en/option.html#series-pie.data.labelLine.lineStyle.color
                          */
-                        color?: EChartOption.Color;
+                        color?: EChartOption.Color | undefined;
 
                         /**
                          * line width.
@@ -14208,7 +14208,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.data.labelLine.lineStyle.width
                          */
-                        width?: number;
+                        width?: number | undefined;
 
                         /**
                          * line type.
@@ -14224,7 +14224,7 @@ declare namespace echarts {
                          * "solid"
                          * @see https://echarts.apache.org/en/option.html#series-pie.data.labelLine.lineStyle.type
                          */
-                        type?: string;
+                        type?: string | undefined;
 
                         /**
                          * Size of shadow blur.
@@ -14238,7 +14238,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.data.labelLine.lineStyle.shadowBlur
                          */
-                        shadowBlur?: number;
+                        shadowBlur?: number | undefined;
 
                         /**
                          * Shadow color. Support same format as `color`.
@@ -14246,7 +14246,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.data.labelLine.lineStyle.shadowColor
                          */
-                        shadowColor?: EChartOption.Color;
+                        shadowColor?: EChartOption.Color | undefined;
 
                         /**
                          * Offset distance on the horizontal direction of shadow.
@@ -14254,7 +14254,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.data.labelLine.lineStyle.shadowOffsetX
                          */
-                        shadowOffsetX?: number;
+                        shadowOffsetX?: number | undefined;
 
                         /**
                          * Offset distance on the vertical direction of shadow.
@@ -14262,7 +14262,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.data.labelLine.lineStyle.shadowOffsetY
                          */
-                        shadowOffsetY?: number;
+                        shadowOffsetY?: number | undefined;
 
                         /**
                          * Opacity of the component.
@@ -14272,8 +14272,8 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.data.labelLine.lineStyle.opacity
                          */
-                        opacity?: number;
-                    };
+                        opacity?: number | undefined;
+                    } | undefined;
 
                     /**
                      * The style of visual guide line in emphasis status.
@@ -14289,7 +14289,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.data.labelLine.emphasis.show
                          */
-                        show?: boolean;
+                        show?: boolean | undefined;
 
                         /**
                          * @see https://echarts.apache.org/en/option.html#series-pie.data.labelLine.emphasis.lineStyle
@@ -14314,7 +14314,7 @@ declare namespace echarts {
                              * "#000"
                              * @see https://echarts.apache.org/en/option.html#series-pie.data.labelLine.emphasis.lineStyle.color
                              */
-                            color?: EChartOption.Color;
+                            color?: EChartOption.Color | undefined;
 
                             /**
                              * line width.
@@ -14322,7 +14322,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.data.labelLine.emphasis.lineStyle.width
                              */
-                            width?: number;
+                            width?: number | undefined;
 
                             /**
                              * line type.
@@ -14338,7 +14338,7 @@ declare namespace echarts {
                              * "solid"
                              * @see https://echarts.apache.org/en/option.html#series-pie.data.labelLine.emphasis.lineStyle.type
                              */
-                            type?: string;
+                            type?: string | undefined;
 
                             /**
                              * Size of shadow blur.
@@ -14352,7 +14352,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.data.labelLine.emphasis.lineStyle.shadowBlur
                              */
-                            shadowBlur?: number;
+                            shadowBlur?: number | undefined;
 
                             /**
                              * Shadow color. Support same format as `color`.
@@ -14360,7 +14360,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.data.labelLine.emphasis.lineStyle.shadowColor
                              */
-                            shadowColor?: EChartOption.Color;
+                            shadowColor?: EChartOption.Color | undefined;
 
                             /**
                              * Offset distance on the horizontal direction of
@@ -14369,7 +14369,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.data.labelLine.emphasis.lineStyle.shadowOffsetX
                              */
-                            shadowOffsetX?: number;
+                            shadowOffsetX?: number | undefined;
 
                             /**
                              * Offset distance on the vertical direction of
@@ -14378,7 +14378,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.data.labelLine.emphasis.lineStyle.shadowOffsetY
                              */
-                            shadowOffsetY?: number;
+                            shadowOffsetY?: number | undefined;
 
                             /**
                              * Opacity of the component.
@@ -14388,10 +14388,10 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-pie.data.labelLine.emphasis.lineStyle.opacity
                              */
-                            opacity?: number;
-                        };
-                    };
-                };
+                            opacity?: number | undefined;
+                        } | undefined;
+                    } | undefined;
+                } | undefined;
 
                 /**
                  * Graphic style of , `emphasis` is the style when it is highlighted,
@@ -14417,7 +14417,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.data.itemStyle.color
                      */
-                    color?: EChartOption.Color;
+                    color?: EChartOption.Color | undefined;
 
                     /**
                      * border color, whose format is similar to that of `color`.
@@ -14427,7 +14427,7 @@ declare namespace echarts {
                      * "#000"
                      * @see https://echarts.apache.org/en/option.html#series-pie.data.itemStyle.borderColor
                      */
-                    borderColor?: EChartOption.Color;
+                    borderColor?: EChartOption.Color | undefined;
 
                     /**
                      * border width. No border when it is set to be 0.
@@ -14435,7 +14435,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.data.itemStyle.borderWidth
                      */
-                    borderWidth?: number;
+                    borderWidth?: number | undefined;
 
                     /**
                      * Border type, which can be `'solid'`, `'dashed'`, or `'dotted'`.
@@ -14446,7 +14446,7 @@ declare namespace echarts {
                      * "solid"
                      * @see https://echarts.apache.org/en/option.html#series-pie.data.itemStyle.borderType
                      */
-                    borderType?: string;
+                    borderType?: string | undefined;
 
                     /**
                      * Size of shadow blur.
@@ -14460,7 +14460,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.data.itemStyle.shadowBlur
                      */
-                    shadowBlur?: number;
+                    shadowBlur?: number | undefined;
 
                     /**
                      * Shadow color. Support same format as `color`.
@@ -14468,7 +14468,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.data.itemStyle.shadowColor
                      */
-                    shadowColor?: EChartOption.Color;
+                    shadowColor?: EChartOption.Color | undefined;
 
                     /**
                      * Offset distance on the horizontal direction of shadow.
@@ -14476,7 +14476,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.data.itemStyle.shadowOffsetX
                      */
-                    shadowOffsetX?: number;
+                    shadowOffsetX?: number | undefined;
 
                     /**
                      * Offset distance on the vertical direction of shadow.
@@ -14484,7 +14484,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.data.itemStyle.shadowOffsetY
                      */
-                    shadowOffsetY?: number;
+                    shadowOffsetY?: number | undefined;
 
                     /**
                      * Opacity of the component.
@@ -14494,8 +14494,8 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-pie.data.itemStyle.opacity
                      */
-                    opacity?: number;
-                };
+                    opacity?: number | undefined;
+                } | undefined;
 
                 /**
                  * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis
@@ -14508,7 +14508,7 @@ declare namespace echarts {
                         /**
                          * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.show
                          */
-                        show?: boolean;
+                        show?: boolean | undefined;
 
                         /**
                          * text color.
@@ -14518,7 +14518,7 @@ declare namespace echarts {
                          * ""#fff""
                          * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.color
                          */
-                        color?: string;
+                        color?: string | undefined;
 
                         /**
                          * font style
@@ -14534,7 +14534,7 @@ declare namespace echarts {
                          * "normal"
                          * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.fontStyle
                          */
-                        fontStyle?: string;
+                        fontStyle?: string | undefined;
 
                         /**
                          * font thick weight
@@ -14552,7 +14552,7 @@ declare namespace echarts {
                          * "normal"
                          * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.fontWeight
                          */
-                        fontWeight?: string | number;
+                        fontWeight?: string | number | undefined;
 
                         /**
                          * font family
@@ -14564,7 +14564,7 @@ declare namespace echarts {
                          * "sans-serif"
                          * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.fontFamily
                          */
-                        fontFamily?: string;
+                        fontFamily?: string | undefined;
 
                         /**
                          * font size
@@ -14574,7 +14574,7 @@ declare namespace echarts {
                          * 12
                          * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.fontSize
                          */
-                        fontSize?: number;
+                        fontSize?: number | undefined;
 
                         /**
                          * Horizontal alignment of text, automatic by default.
@@ -14593,7 +14593,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.align
                          */
-                        align?: string;
+                        align?: string | undefined;
 
                         /**
                          * Vertical alignment of text, automatic by default.
@@ -14612,7 +14612,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.verticalAlign
                          */
-                        verticalAlign?: string;
+                        verticalAlign?: string | undefined;
 
                         /**
                          * Line height of the text fregment.
@@ -14625,7 +14625,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.lineHeight
                          */
-                        lineHeight?: number;
+                        lineHeight?: number | undefined;
 
                         /**
                          * Background color of the text fregment.
@@ -14644,7 +14644,7 @@ declare namespace echarts {
                          * "transparent"
                          * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.backgroundColor
                          */
-                        backgroundColor?: object | string;
+                        backgroundColor?: object | string | undefined;
 
                         /**
                          * Border color of the text fregment.
@@ -14654,7 +14654,7 @@ declare namespace echarts {
                          * "transparent"
                          * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.borderColor
                          */
-                        borderColor?: string;
+                        borderColor?: string | undefined;
 
                         /**
                          * Border width of the text fregment.
@@ -14662,7 +14662,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.borderWidth
                          */
-                        borderWidth?: number;
+                        borderWidth?: number | undefined;
 
                         /**
                          * Border radius of the text fregment.
@@ -14670,7 +14670,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.borderRadius
                          */
-                        borderRadius?: number;
+                        borderRadius?: number | undefined;
 
                         /**
                          * Padding of the text fregment, for example:
@@ -14687,7 +14687,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.padding
                          */
-                        padding?: any[] | number;
+                        padding?: any[] | number | undefined;
 
                         /**
                          * Shadow color of the text block.
@@ -14697,7 +14697,7 @@ declare namespace echarts {
                          * "transparent"
                          * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.shadowColor
                          */
-                        shadowColor?: string;
+                        shadowColor?: string | undefined;
 
                         /**
                          * Show blur of the text block.
@@ -14705,7 +14705,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.shadowBlur
                          */
-                        shadowBlur?: number;
+                        shadowBlur?: number | undefined;
 
                         /**
                          * Shadow X offset of the text block.
@@ -14713,7 +14713,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.shadowOffsetX
                          */
-                        shadowOffsetX?: number;
+                        shadowOffsetX?: number | undefined;
 
                         /**
                          * Shadow Y offset of the text block.
@@ -14721,7 +14721,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.shadowOffsetY
                          */
-                        shadowOffsetY?: number;
+                        shadowOffsetY?: number | undefined;
 
                         /**
                          * Width of the text block.
@@ -14748,7 +14748,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.width
                          */
-                        width?: number | string;
+                        width?: number | string | undefined;
 
                         /**
                          * Height of the text block.
@@ -14765,7 +14765,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.height
                          */
-                        height?: number | string;
+                        height?: number | string | undefined;
 
                         /**
                          * Storke color of the text.
@@ -14775,7 +14775,7 @@ declare namespace echarts {
                          * "transparent"
                          * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.textBorderColor
                          */
-                        textBorderColor?: string;
+                        textBorderColor?: string | undefined;
 
                         /**
                          * Storke line width of the text.
@@ -14783,7 +14783,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.textBorderWidth
                          */
-                        textBorderWidth?: number;
+                        textBorderWidth?: number | undefined;
 
                         /**
                          * Shadow color of the text itself.
@@ -14793,7 +14793,7 @@ declare namespace echarts {
                          * "transparent"
                          * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.textShadowColor
                          */
-                        textShadowColor?: string;
+                        textShadowColor?: string | undefined;
 
                         /**
                          * Shadow blue of the text itself.
@@ -14801,7 +14801,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.textShadowBlur
                          */
-                        textShadowBlur?: number;
+                        textShadowBlur?: number | undefined;
 
                         /**
                          * Shadow X offset of the text itself.
@@ -14809,7 +14809,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.textShadowOffsetX
                          */
-                        textShadowOffsetX?: number;
+                        textShadowOffsetX?: number | undefined;
 
                         /**
                          * Shadow Y offset of the text itself.
@@ -14817,7 +14817,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.textShadowOffsetY
                          */
-                        textShadowOffsetY?: number;
+                        textShadowOffsetY?: number | undefined;
 
                         /**
                          * "Rich text styles" can be defined in this `rich`
@@ -14845,7 +14845,7 @@ declare namespace echarts {
                                  * ""#fff""
                                  * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.color
                                  */
-                                color?: string;
+                                color?: string | undefined;
 
                                 /**
                                  * font style
@@ -14861,7 +14861,7 @@ declare namespace echarts {
                                  * "normal"
                                  * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
                                  */
-                                fontStyle?: string;
+                                fontStyle?: string | undefined;
 
                                 /**
                                  * font thick weight
@@ -14879,7 +14879,7 @@ declare namespace echarts {
                                  * "normal"
                                  * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                  */
-                                fontWeight?: string | number;
+                                fontWeight?: string | number | undefined;
 
                                 /**
                                  * font family
@@ -14891,7 +14891,7 @@ declare namespace echarts {
                                  * "sans-serif"
                                  * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
                                  */
-                                fontFamily?: string;
+                                fontFamily?: string | undefined;
 
                                 /**
                                  * font size
@@ -14901,7 +14901,7 @@ declare namespace echarts {
                                  * 12
                                  * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
                                  */
-                                fontSize?: number;
+                                fontSize?: number | undefined;
 
                                 /**
                                  * Horizontal alignment of text, automatic by
@@ -14922,7 +14922,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.align
                                  */
-                                align?: string;
+                                align?: string | undefined;
 
                                 /**
                                  * Vertical alignment of text, automatic by
@@ -14943,7 +14943,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                                  */
-                                verticalAlign?: string;
+                                verticalAlign?: string | undefined;
 
                                 /**
                                  * Line height of the text fregment.
@@ -14957,7 +14957,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                                  */
-                                lineHeight?: number;
+                                lineHeight?: number | undefined;
 
                                 /**
                                  * Background color of the text fregment.
@@ -14978,7 +14978,7 @@ declare namespace echarts {
                                  * "transparent"
                                  * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
                                  */
-                                backgroundColor?: object | string;
+                                backgroundColor?: object | string | undefined;
 
                                 /**
                                  * Border color of the text fregment.
@@ -14988,7 +14988,7 @@ declare namespace echarts {
                                  * "transparent"
                                  * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
                                  */
-                                borderColor?: string;
+                                borderColor?: string | undefined;
 
                                 /**
                                  * Border width of the text fregment.
@@ -14996,7 +14996,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                                  */
-                                borderWidth?: number;
+                                borderWidth?: number | undefined;
 
                                 /**
                                  * Border radius of the text fregment.
@@ -15004,7 +15004,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                                  */
-                                borderRadius?: number;
+                                borderRadius?: number | undefined;
 
                                 /**
                                  * Padding of the text fregment, for example:
@@ -15023,7 +15023,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.padding
                                  */
-                                padding?: any[] | number;
+                                padding?: any[] | number | undefined;
 
                                 /**
                                  * Shadow color of the text block.
@@ -15033,7 +15033,7 @@ declare namespace echarts {
                                  * "transparent"
                                  * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
                                  */
-                                shadowColor?: string;
+                                shadowColor?: string | undefined;
 
                                 /**
                                  * Show blur of the text block.
@@ -15041,7 +15041,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                                  */
-                                shadowBlur?: number;
+                                shadowBlur?: number | undefined;
 
                                 /**
                                  * Shadow X offset of the text block.
@@ -15049,7 +15049,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                                  */
-                                shadowOffsetX?: number;
+                                shadowOffsetX?: number | undefined;
 
                                 /**
                                  * Shadow Y offset of the text block.
@@ -15057,7 +15057,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                                  */
-                                shadowOffsetY?: number;
+                                shadowOffsetY?: number | undefined;
 
                                 /**
                                  * Width of the text block.
@@ -15088,7 +15088,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.width
                                  */
-                                width?: number | string;
+                                width?: number | string | undefined;
 
                                 /**
                                  * Height of the text block.
@@ -15106,7 +15106,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.height
                                  */
-                                height?: number | string;
+                                height?: number | string | undefined;
 
                                 /**
                                  * Storke color of the text.
@@ -15116,7 +15116,7 @@ declare namespace echarts {
                                  * "transparent"
                                  * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
                                  */
-                                textBorderColor?: string;
+                                textBorderColor?: string | undefined;
 
                                 /**
                                  * Storke line width of the text.
@@ -15124,7 +15124,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                                  */
-                                textBorderWidth?: number;
+                                textBorderWidth?: number | undefined;
 
                                 /**
                                  * Shadow color of the text itself.
@@ -15134,7 +15134,7 @@ declare namespace echarts {
                                  * "transparent"
                                  * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
                                  */
-                                textShadowColor?: string;
+                                textShadowColor?: string | undefined;
 
                                 /**
                                  * Shadow blue of the text itself.
@@ -15142,7 +15142,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                                  */
-                                textShadowBlur?: number;
+                                textShadowBlur?: number | undefined;
 
                                 /**
                                  * Shadow X offset of the text itself.
@@ -15150,7 +15150,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                                  */
-                                textShadowOffsetX?: number;
+                                textShadowOffsetX?: number | undefined;
 
                                 /**
                                  * Shadow Y offset of the text itself.
@@ -15158,10 +15158,10 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                                  */
-                                textShadowOffsetY?: number;
+                                textShadowOffsetY?: number | undefined;
                             };
-                        };
-                    };
+                        } | undefined;
+                    } | undefined;
 
                     /**
                      * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.itemStyle
@@ -15184,7 +15184,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.itemStyle.color
                          */
-                        color?: EChartOption.Color;
+                        color?: EChartOption.Color | undefined;
 
                         /**
                          * border color, whose format is similar to that of
@@ -15195,7 +15195,7 @@ declare namespace echarts {
                          * "#000"
                          * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.itemStyle.borderColor
                          */
-                        borderColor?: EChartOption.Color;
+                        borderColor?: EChartOption.Color | undefined;
 
                         /**
                          * border width. No border when it is set to be 0.
@@ -15203,7 +15203,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.itemStyle.borderWidth
                          */
-                        borderWidth?: number;
+                        borderWidth?: number | undefined;
 
                         /**
                          * Border type, which can be `'solid'`, `'dashed'`,
@@ -15214,7 +15214,7 @@ declare namespace echarts {
                          * "solid"
                          * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.itemStyle.borderType
                          */
-                        borderType?: string;
+                        borderType?: string | undefined;
 
                         /**
                          * Size of shadow blur.
@@ -15228,7 +15228,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.itemStyle.shadowBlur
                          */
-                        shadowBlur?: number;
+                        shadowBlur?: number | undefined;
 
                         /**
                          * Shadow color. Support same format as `color`.
@@ -15236,7 +15236,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.itemStyle.shadowColor
                          */
-                        shadowColor?: EChartOption.Color;
+                        shadowColor?: EChartOption.Color | undefined;
 
                         /**
                          * Offset distance on the horizontal direction of shadow.
@@ -15244,7 +15244,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.itemStyle.shadowOffsetX
                          */
-                        shadowOffsetX?: number;
+                        shadowOffsetX?: number | undefined;
 
                         /**
                          * Offset distance on the vertical direction of shadow.
@@ -15252,7 +15252,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.itemStyle.shadowOffsetY
                          */
-                        shadowOffsetY?: number;
+                        shadowOffsetY?: number | undefined;
 
                         /**
                          * Opacity of the component.
@@ -15262,9 +15262,9 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.itemStyle.opacity
                          */
-                        opacity?: number;
-                    };
-                };
+                        opacity?: number | undefined;
+                    } | undefined;
+                } | undefined;
 
                 /**
                  * tooltip settings in this series data.
@@ -15272,7 +15272,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-pie.data.tooltip
                  */
-                tooltip?: BaseTooltip;
+                tooltip?: BaseTooltip | undefined;
             }
         }
     }

@@ -9,18 +9,18 @@ export interface DomToImage {
   toPng(node: Node, options?: Options): Promise<string>;
   toJpeg(node: Node, options?: Options): Promise<string>;
   toBlob(node: Node, options?: Options): Promise<Blob>;
-  toPixelData(node: Node, options?: Options): Promise<string>;
+  toPixelData(node: Node, options?: Options): Promise<Uint8ClampedArray>;
 }
 
 export interface Options {
-  filter?: (node: Node) => boolean;
-  bgcolor?: string;
-  width?: number;
-  height?: number;
-  style?: {};
-  quality?: number;
-  imagePlaceholder?: string;
-  cacheBust?: boolean;
+  filter?: ((node: Node) => boolean) | undefined;
+  bgcolor?: string | undefined;
+  width?: number | undefined;
+  height?: number | undefined;
+  style?: {} | undefined;
+  quality?: number | undefined;
+  imagePlaceholder?: string | undefined;
+  cacheBust?: boolean | undefined;
 }
 
 export const DomToImage: DomToImage;

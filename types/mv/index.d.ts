@@ -14,15 +14,15 @@ declare namespace mv {
         /**
          * @default false
          */
-        mkdirp?: boolean;
+        mkdirp?: boolean | undefined;
         /**
          * @default false
          */
-        clobber?: boolean;
+        clobber?: boolean | undefined;
         /**
          * @default 16
          */
-        limit?: number;
+        limit?: number | undefined;
     }
 }
 

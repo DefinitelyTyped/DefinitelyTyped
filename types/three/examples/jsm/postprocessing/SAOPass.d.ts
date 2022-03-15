@@ -9,6 +9,7 @@ import {
     Vector2,
     WebGLRenderer,
     WebGLRenderTarget,
+    ColorRepresentation,
 } from '../../../src/Three';
 
 import { Pass } from './Pass';
@@ -65,14 +66,14 @@ export class SAOPass extends Pass {
         renderer: WebGLRenderer,
         passMaterial: Material,
         renderTarget: WebGLRenderTarget,
-        clearColor?: Color | string | number,
+        clearColor?: ColorRepresentation,
         clearAlpha?: number,
     ): void;
     renderOverride(
         renderer: WebGLRenderer,
         overrideMaterial: Material,
         renderTarget: WebGLRenderTarget,
-        clearColor?: Color | string | number,
+        clearColor?: ColorRepresentation,
         clearAlpha?: number,
     ): void;
 }

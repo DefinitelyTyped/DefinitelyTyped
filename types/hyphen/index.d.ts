@@ -23,31 +23,31 @@ declare namespace hyphen {
          * If true the factory returns an asynchronous hyphenation function.
          * @default false
          */
-        async?: boolean;
+        async?: boolean | undefined;
 
         /**
          * A boolean indicating, if the hyphenation function should output debug info to the console.
          * @default false
          */
-        debug?: boolean;
+        debug?: boolean | undefined;
 
         /**
          * The value of the hyphen character that is inserted into the text.
          * @default \u00AD
          */
-        hyphenChar?: string;
+        hyphenChar?: string | undefined;
 
         /**
          * If true the hyphenation function is going to ignore HTML tags in the text.
          * @default false
          */
-        html?: boolean;
+        html?: boolean | undefined;
 
         /**
          * The minimum length for a word to get hyphenated. Can't be less than 5.
          * @default 5
          */
-        minWordLength?: number;
+        minWordLength?: number | undefined;
     }
 
     /**
@@ -58,19 +58,19 @@ declare namespace hyphen {
          * A boolean indicating, if the hyphenation function should output debug info to the console.
          * @default false
          */
-        debug?: boolean;
+        debug?: boolean | undefined;
 
         /**
          * The value of the hyphen character that is inserted into the text.
          * @default \u00AD
          */
-        hyphenChar?: string;
+        hyphenChar?: string | undefined;
 
         /**
          * The minimum length for a word to get hyphenated.
          * @default 5
          */
-        minWordLength?: number;
+        minWordLength?: number | undefined;
     }
 
     /**

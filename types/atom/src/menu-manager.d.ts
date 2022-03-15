@@ -14,8 +14,8 @@ export interface MenuOptions {
     label: string;
 
     /** An array of sub menus. */
-    submenu?: ReadonlyArray<MenuOptions>;
+    submenu?: ReadonlyArray<MenuOptions> | undefined;
 
     /** The command to trigger when the item is clicked. */
-    command?: string;
+    command?: string | undefined;
 }

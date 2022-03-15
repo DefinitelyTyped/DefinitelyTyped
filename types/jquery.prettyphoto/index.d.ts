@@ -15,16 +15,16 @@ declare namespace scaron_prettyPhoto {
         * the attribute tag to use for prettyPhoto hooks.  For HTML5, use "data-rel" or similar.
         * @default 'rel'
         */
-        hook?: string;
+        hook?: string | undefined;
 
         /**
         * fast/slow/normal
         * @default 'fast'
         */
-        animation_speed?: string;
+        animation_speed?: string | undefined;
 
 
-        ajaxcallback?: () => void;
+        ajaxcallback?: (() => void) | undefined;
 
         /**
         * false OR interval time in ms
@@ -36,172 +36,172 @@ declare namespace scaron_prettyPhoto {
         * true/false
         * @default false
         */
-        autoplay_slideshow?: boolean;
+        autoplay_slideshow?: boolean | undefined;
 
         /**
         * Value between 0 and 1
         * @default 0.80
         */
-        opacity?: number;
+        opacity?: number | undefined;
 
         /**
         * true/false
         * @default true
         */
-        show_title?: boolean;
+        show_title?: boolean | undefined;
 
         /**
         * Resize the photos bigger than viewport. true/false
         * @default true
         */
-        allow_resize?: boolean;
+        allow_resize?: boolean | undefined;
 
         /**
         * Allow the user to expand a resized image. true/false
         * @default true
         */
-        allow_expand?: boolean;
+        allow_expand?: boolean | undefined;
 
         /**
         * Pixels
         * @default 500
         */
-        default_width?: number;
+        default_width?: number | undefined;
 
         /**
         * Pixels
         * @default 344
         */
-        default_height?: number;
+        default_height?: number | undefined;
 
         /**
         * The separator for the gallery counter 1 "of" 2
         * @default '/'
         */
-        counter_separator_label?: string;
+        counter_separator_label?: string | undefined;
 
         /**
         * light_rounded / dark_rounded / light_square / dark_square / facebook
         * @default 'pp_default'
         */
-        theme?: string;
+        theme?: string | undefined;
 
         /**
         * The padding on each side of the picture
         * @default 20
         */
-        horizontal_padding?: number;
+        horizontal_padding?: number | undefined;
 
         /**
         * Hides all the flash object on a page, set to TRUE if flash appears over prettyPhoto
         * @default false
         */
-        hideflash?: boolean;
+        hideflash?: boolean | undefined;
 
         /**
         * Set the flash wmode attribute
         * @default 'opaque'
         */
-        wmode?: string;
+        wmode?: string | undefined;
 
         /**
         * Automatically start videos: True/False
         * @default true
         */
-        autoplay?: boolean;
+        autoplay?: boolean | undefined;
 
         /**
         * If set to true, only the close button will close the window
         * @default false
         */
-        modal?: boolean;
+        modal?: boolean | undefined;
 
         /**
         * Allow prettyPhoto to update the url to enable deeplinking.
         * @default true
         */
-        deeplinking?: boolean;
+        deeplinking?: boolean | undefined;
 
         /**
         * If set to true, a gallery will overlay the fullscreen image on mouse over
         * @default true
         */
-        overlay_gallery?: boolean;
+        overlay_gallery?: boolean | undefined;
 
         /**
         * Maximum number of pictures in the overlay gallery
         * @default 30
         */
-        overlay_gallery_max?: number;
+        overlay_gallery_max?: number | undefined;
 
         /**
         * Set to false if you open forms inside prettyPhoto
         * @default true
         */
-        keyboard_shortcuts?: boolean;
+        keyboard_shortcuts?: boolean | undefined;
 
         /**
         * Called everytime an item is shown/changed
         * @default function () { }
         */
-        changepicturecallback?: () => void;
+        changepicturecallback?: (() => void) | undefined;
 
         /**
         * Called when prettyPhoto is closed
         * @default function () { }
         */
-        callback?: () => void;
+        callback?: (() => void) | undefined;
 
         /**
         * @default true
         */
-        ie6_fallback?: boolean;
+        ie6_fallback?: boolean | undefined;
 
         /**
         * Markup for pretty photo
         * @default omitted for brevity
         */
-        markup?: string;
+        markup?: string | undefined;
 
         /**
         * Markup for pretty photo gallery
         * @default omitted for brevity
         */
-        gallery_markup?: string;
+        gallery_markup?: string | undefined;
 
         /**
         * Markup for image
         * @default '<img id="fullResImage" src="{path}" />'
         */
-        image_markup?: string;
+        image_markup?: string | undefined;
 
         /**
         * Markup for flash
         * @default '<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="{width}" height="{height}"><param name="wmode" value="{wmode}" /><param name="allowfullscreen" value="true" /><param name="allowscriptaccess" value="always" /><param name="movie" value="{path}" /><embed src="{path}" type="application/x-shockwave-flash" allowfullscreen="true" allowscriptaccess="always" width="{width}" height="{height}" wmode="{wmode}"></embed></object>'
         */
-        flash_markup?: string;
+        flash_markup?: string | undefined;
 
         /**
         * Markup for quicktime
         * @default '<object classid="clsid:02BF25D5-8C17-4B23-BC80-D3488ABDDC6B" codebase="http://www.apple.com/qtactivex/qtplugin.cab" height="{height}" width="{width}"><param name="src" value="{path}"><param name="autoplay" value="{autoplay}"><param name="type" value="video/quicktime"><embed src="{path}" height="{height}" width="{width}" autoplay="{autoplay}" type="video/quicktime" pluginspage="http://www.apple.com/quicktime/download/"></embed></object>'
         */
-        quicktime_markup?: string;
+        quicktime_markup?: string | undefined;
 
         /**
         * Markup for iframe
         * @default '<iframe src ="{path}" width="{width}" height="{height}" frameborder="no"></iframe>'
         */
-        iframe_markup?: string;
+        iframe_markup?: string | undefined;
 
         /**
         * @default '<div class="pp_inline">{content}</div>'
         */
-        inline_markup?: string;
+        inline_markup?: string | undefined;
 
         /**
         * @default ''
         */
-        custom_markup?: string;
+        custom_markup?: string | undefined;
 
         /**
         * Markup for social tools, set to html or false to disable

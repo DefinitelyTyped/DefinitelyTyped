@@ -30,7 +30,7 @@ export interface Config {
      */
     onDidChange<T extends keyof ConfigValues>(
         keyPath: T,
-        callback: (values: { newValue: ConfigValues[T]; oldValue?: ConfigValues[T] }) => void,
+        callback: (values: { newValue: ConfigValues[T]; oldValue?: ConfigValues[T] | undefined }) => void,
     ): Disposable;
     /**
      *  Add a listener for changes to a given key path. If keyPath is not specified, your
@@ -39,7 +39,7 @@ export interface Config {
     onDidChange<T extends keyof ConfigValues>(
         keyPath: T,
         options: { scope: string[] | ScopeDescriptor },
-        callback: (values: { newValue: ConfigValues[T]; oldValue?: ConfigValues[T] }) => void,
+        callback: (values: { newValue: ConfigValues[T]; oldValue?: ConfigValues[T] | undefined }) => void,
     ): Disposable;
 
     // Managing Settings
@@ -47,9 +47,9 @@ export interface Config {
     get<T extends keyof ConfigValues>(
         keyPath: T,
         options?: {
-            sources?: string[];
-            excludeSources?: string[];
-            scope?: string[] | ScopeDescriptor;
+            sources?: string[] | undefined;
+            excludeSources?: string[] | undefined;
+            scope?: string[] | ScopeDescriptor | undefined;
         },
     ): ConfigValues[T];
 
@@ -60,11 +60,11 @@ export interface Config {
     set<T extends keyof ConfigValues>(
         keyPath: T,
         value: ConfigValues[T],
-        options?: { scopeSelector?: string; source?: string },
+        options?: { scopeSelector?: string | undefined; source?: string | undefined },
     ): void;
 
     /** Restore the setting at keyPath to its default value. */
-    unset(keyPath: string, options?: { scopeSelector?: string; source?: string }): void;
+    unset(keyPath: string, options?: { scopeSelector?: string | undefined; source?: string | undefined }): void;
 
     /**
      *  Get all of the values for the given key-path, along with their associated
@@ -72,7 +72,7 @@ export interface Config {
      */
     getAll<T extends keyof ConfigValues>(
         keyPath: T,
-        options?: { sources?: string[]; excludeSources?: string[]; scope?: ScopeDescriptor },
+        options?: { sources?: string[] | undefined; excludeSources?: string[] | undefined; scope?: ScopeDescriptor | undefined },
     ): Array<{ scopeDescriptor: ScopeDescriptor; value: ConfigValues[T] }>;
 
     /**

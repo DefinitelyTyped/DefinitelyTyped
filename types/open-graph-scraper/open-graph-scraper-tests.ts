@@ -7,24 +7,24 @@ const options: openGraphScraper.Options = {
 };
 
 openGraphScraper(options, (error, results, response) => {
-    error; // $expectType boolean
-    results; // $expectType SuccessResult | ErrorResult
-    response; // $expectType PassThrough
+    error; // $ExpectType boolean
+    results; // $ExpectType SuccessResult | ErrorResult
+    response; // $ExpectType PassThrough
 });
 
 openGraphScraper(options).then(data => {
     if (!data.error) {
         const { error, result, response } = data;
-        error; // $expectType false
-        result; // $expectType SuccessResult
-        response; // $expectType PassThrough
-        result.ogUrl; // $expectType string | undefined
-        result.modifiedTime; // $expectType string | undefined
-        result.customValue; // $expectType string | undefined
+        error; // $ExpectType false
+        result; // $ExpectType OpenGraphProperties & { ogImage?: OpenGraphImage | OpenGraphImage[] | undefined; success: true; }
+        response; // $ExpectType PassThrough
+        result.ogUrl; // $ExpectType string | undefined
+        result.modifiedTime; // $ExpectType string | undefined
+        result.customValue; // $ExpectType string | undefined
     } else {
         const { error, result } = data;
-        error; // $expectType true
-        result; // $expectType ErrorResult
-        result.errorDetails; // $expectType Error
+        error; // $ExpectType true
+        result; // $ExpectType { error: string; errorDetails: Error; success: false; }
+        result.errorDetails; // $ExpectType Error
     }
 });

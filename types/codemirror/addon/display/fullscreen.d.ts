@@ -1,10 +1,6 @@
-// Type definitions for codemirror
-// Project: https://github.com/codemirror/CodeMirror
-// Definitions by: ficristo <https://github.com/ficristo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-import * as CodeMirror from 'codemirror';
+import '../../';
 
-declare module 'codemirror' {
+declare module '../../' {
     interface EditorConfiguration {
         /**
          * When set to true, will make the editor full-screen (as in, taking up the whole browser window).
@@ -12,6 +8,6 @@ declare module 'codemirror' {
          * @see {@link https://codemirror.net/doc/manual.html#addon_fullscreen}
          * @default false
          */
-        fullScreen?: boolean;
+        fullScreen?: boolean | undefined;
     }
 }

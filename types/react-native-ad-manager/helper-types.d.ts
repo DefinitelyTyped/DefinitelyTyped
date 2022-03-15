@@ -23,33 +23,33 @@ export interface BannerProps extends ViewProps {
         | 'fullBanner'
         | 'leaderboard'
         | 'smartBannerPortrait'
-        | 'smartBannerLandscape';
+        | 'smartBannerLandscape' | undefined;
 
     /**
      * Optional array specifying all valid sizes that are appropriate for this slot.
      */
-    validAdSizes?: string[];
+    validAdSizes?: string[] | undefined;
 
     /**
      * DFP ad unit ID
      */
-    adUnitID?: string;
+    adUnitID?: string | undefined;
 
     /**
      * Array of test devices. Use Banner.simulatorId for the simulator
      */
-    testDevices?: string[];
+    testDevices?: string[] | undefined;
     /**
      * The ad manager targeting
      */
-    targeting?: Targeting;
-    onSizeChange?: (event: { type: string; width: number; height: number }) => void;
-    onAppEvent?: (event: { name: string; info: string }) => void;
-    onAdLoaded?: (event: AdLoadedEvent) => void;
-    onAdFailedToLoad?: (error: any) => void;
-    onAdOpened?: () => void;
-    onAdLeftApplication?: () => void;
-    onAdClosed?: () => void;
+    targeting?: Targeting | undefined;
+    onSizeChange?: ((event: { type: string; width: number; height: number }) => void) | undefined;
+    onAppEvent?: ((event: { name: string; info: string }) => void) | undefined;
+    onAdLoaded?: ((event: AdLoadedEvent) => void) | undefined;
+    onAdFailedToLoad?: ((error: any) => void) | undefined;
+    onAdOpened?: (() => void) | undefined;
+    onAdLeftApplication?: (() => void) | undefined;
+    onAdClosed?: (() => void) | undefined;
 }
 
 export interface AdLoadedEvent {

@@ -1,5 +1,5 @@
-declare namespace _default {
-    const window: Window & typeof globalThis;
-    const document: Document;
-}
+declare const _default: {
+    window: typeof window;
+    document: typeof document;
+};
 export default _default;

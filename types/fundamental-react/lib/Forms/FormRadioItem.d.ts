@@ -1,19 +1,19 @@
 import * as React from "react";
 
 export type FormRadioItemProps = {
-    checked?: boolean;
-    className?: string;
-    compact?: boolean;
-    defaultChecked?: boolean;
-    disabled?: boolean;
-    disableStyles?: boolean;
-    id?: string;
-    inline?: boolean;
+    checked?: boolean | undefined;
+    className?: string | undefined;
+    compact?: boolean | undefined;
+    defaultChecked?: boolean | undefined;
+    disabled?: boolean | undefined;
+    disableStyles?: boolean | undefined;
+    id?: string | undefined;
+    inline?: boolean | undefined;
     inputProps?: any;
     labelProps?: any;
-    name?: string;
+    name?: string | undefined;
     state?: any;
-    value?: string;
+    value?: string | undefined;
 } & { [x: string]: any };
 
 declare const FormRadioItem: React.FunctionComponent<FormRadioItemProps>;

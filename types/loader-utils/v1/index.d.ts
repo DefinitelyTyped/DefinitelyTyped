@@ -10,9 +10,9 @@
 import { loader } from 'webpack';
 
 export interface InterpolateOption {
-    context?: string;
-    content?: string | Buffer;
-    regExp?: string | RegExp;
+    context?: string | undefined;
+    content?: string | Buffer | undefined;
+    regExp?: string | RegExp | undefined;
 }
 export interface OptionObject {
     [key: string]: any;

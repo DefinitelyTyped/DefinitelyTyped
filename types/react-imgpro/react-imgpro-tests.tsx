@@ -15,11 +15,7 @@ class Test extends React.Component<any> {
                 storage={true}
                 scale={false}
                 onProcessFinish={() => console.log("onProcessFinish")}
-            >
-                <div className="one"/>
-                <div className="two"/>
-                <div className="three"/>
-            </ProcessImage>
+            />
         );
     }
 }

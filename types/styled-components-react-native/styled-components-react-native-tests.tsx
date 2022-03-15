@@ -41,7 +41,7 @@ interface MyTheme {
 
 interface ButtonProps {
     name: string;
-    primary?: boolean;
+    primary?: boolean | undefined;
     theme: MyTheme;
 }
 

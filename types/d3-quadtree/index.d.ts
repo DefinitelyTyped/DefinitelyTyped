@@ -1,4 +1,4 @@
-// Type definitions for D3JS d3-quadtree module 2.0
+// Type definitions for D3JS d3-quadtree module 3.0
 // Project: https://github.com/d3/d3-quadtree/, https://d3js.org/d3-quadtree
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>
 //                 Alex Ford <https://github.com/gustavderdrache>
@@ -6,9 +6,8 @@
 //                 denisname <https://github.com/denisname>
 //                 Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
 
-// Last module patch version validated against: 2.0.0
+// Last module patch version validated against: 3.0.1
 
 /**
  * Leaf node of the quadtree.
@@ -22,7 +21,7 @@ export interface QuadtreeLeaf<T> {
     /**
      * The next datum in this leaf, if any.
      */
-    next?: QuadtreeLeaf<T>;
+    next?: QuadtreeLeaf<T> | undefined;
 
     /**
      * The length property may be used to distinguish leaf nodes from internal nodes: it is undefined for leaf nodes, and 4 for internal nodes.
@@ -186,24 +185,12 @@ export interface Quadtree<T> {
 
 /**
  * Creates a new, empty quadtree with an empty extent and the default x- and y-accessors.
- *
- * The generic refers to the data type. If omitted, the default setting assumes that,
- * the data used with the quadtree are two-element arrays.
- * The first element corresponds to the x-dimension, the second to the y-dimension.
- * When using another type, The x- and y-accessors must be specified.
+ * If data is specified, adds the specified array of data to the quadtree.
  */
-export function quadtree<T = [number, number]>(): Quadtree<T>;
+export function quadtree<T = [number, number]>(data?: T[]): Quadtree<T>;
 /**
- * Creates a new quadtree with the specified array of data.
- * If `x` and `y` are also specified, sets the x- and y- accessors to the specified functions before adding the specified array of data to the quadtree, otherwise use the default x- and y-accessors.
- *
- * The generic refers to the data type. If omitted, the default setting assumes that,
- * the data used with the quadtree are two-element arrays.
- * The first element corresponds to the x-dimension, the second to the y-dimension.
- * When using another type, The x- and y-accessors must be specified.
- *
- * @param data The specified array of data to add.
- * @param x The x-coordinate accessor.
- * @param y The y-coordinate accessor.
+ * Creates a new, empty quadtree with an empty extent and the default x- and y-accessors.
+ * Adds the specified array of data to the quadtree.
+ * Sets the x- and y- accessors to the specified functions before adding the specified array of data to the quadtree.
  */
-export function quadtree<T = [number, number]>(data: T[], x?: (d: T) => number, y?: (d: T) => number): Quadtree<T>;
+export function quadtree<T = [number, number]>(data: T[], x: (d: T) => number, y: (d: T) => number): Quadtree<T>;

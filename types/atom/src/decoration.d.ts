@@ -55,44 +55,44 @@ export interface SharedDecorationOptions {
      *  This CSS class will be applied to the decorated line number, line, highlight,
      *  or overlay.
      */
-    class?: string;
+    class?: string | undefined;
 
     /**
      *  An Object containing CSS style properties to apply to the relevant DOM
      *  node. Currently this only works with a type of cursor or text.
      */
-    style?: object;
+    style?: object | undefined;
 
     /**
      *  An HTMLElement or a model Object with a corresponding view registered. Only
      *  applicable to the gutter, overlay and block types.
      */
-    item?: object;
+    item?: object | undefined;
 
     /**
      *  If true, the decoration will only be applied to the head of the DisplayMarker.
      *  Only applicable to the line and line-number types.
      */
-    onlyHead?: boolean;
+    onlyHead?: boolean | undefined;
 
     /**
      *  If true, the decoration will only be applied if the associated DisplayMarker
      *  is empty. Only applicable to the gutter, line, and line-number types.
      */
-    onlyEmpty?: boolean;
+    onlyEmpty?: boolean | undefined;
 
     /**
      *  If true, the decoration will only be applied if the associated DisplayMarker
      *  is non-empty. Only applicable to the gutter, line, and line-number types.
      */
-    onlyNonEmpty?: boolean;
+    onlyNonEmpty?: boolean | undefined;
 
     /**
      *  If false, the decoration will be applied to the last row of a non-empty
      *  range, even if it ends at column 0. Defaults to true. Only applicable
      *  to the gutter, line, and line-number decoration types.
      */
-    omitEmptyLastRow?: boolean;
+    omitEmptyLastRow?: boolean | undefined;
 
     /**
      *  Only applicable to decorations of type overlay and block. Controls where the
@@ -100,32 +100,32 @@ export interface SharedDecorationOptions {
      *  'head' (the default) or 'tail' for overlay decorations, and 'before' (the default)
      *  or 'after' for block decorations.
      */
-    position?: 'head' | 'tail' | 'before' | 'after';
+    position?: 'head' | 'tail' | 'before' | 'after' | undefined;
 
     /**
      *  Only applicable to decorations of type block. Controls where the view is
      *  positioned relative to other block decorations at the same screen row.
      *  If unspecified, block decorations render oldest to newest.
      */
-    order?: number;
+    order?: number | undefined;
 
     /**
      *  Only applicable to decorations of type overlay. Determines whether the decoration
      *  adjusts its horizontal or vertical position to remain fully visible when it would
      *  otherwise overflow the editor. Defaults to true.
      */
-    avoidOverflow?: boolean;
+    avoidOverflow?: boolean | undefined;
 }
 
 export interface DecorationLayerOptions extends SharedDecorationOptions {
     /** One of several supported decoration types. */
-    type?: 'line' | 'line-number' | 'text' | 'highlight' | 'block' | 'cursor';
+    type?: 'line' | 'line-number' | 'text' | 'highlight' | 'block' | 'cursor' | undefined;
 }
 
 export interface DecorationOptions extends SharedDecorationOptions {
     /** One of several supported decoration types. */
-    type?: 'line' | 'line-number' | 'text' | 'highlight' | 'overlay' | 'gutter' | 'block' | 'cursor';
+    type?: 'line' | 'line-number' | 'text' | 'highlight' | 'overlay' | 'gutter' | 'block' | 'cursor' | undefined;
 
     /** The name of the gutter we're decorating, if type is "gutter". */
-    gutterName?: string;
+    gutterName?: string | undefined;
 }

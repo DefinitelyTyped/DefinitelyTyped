@@ -70,16 +70,16 @@ import { ComponentType, ElementType, ReactNode } from 'react';
 
 type TypenameOnlyPointer = Readonly<{ __typename: string }>;
 export type MatchPointer = Readonly<{
-    __fragmentPropName?: string | null;
-    __module_component?: unknown;
+    __fragmentPropName?: string | null | undefined;
+    __module_component?: unknown | undefined;
     ' $fragmentRefs': unknown;
 }>;
 
 export type MatchContainerProps<TProps = {}, TFallback = ReactNode> = Readonly<{
-    fallback?: TFallback | null;
+    fallback?: TFallback | null | undefined;
     loader: (module: unknown) => ComponentType<TProps>;
-    match?: MatchPointer | TypenameOnlyPointer | null;
-    props?: TProps;
+    match?: MatchPointer | TypenameOnlyPointer | null | undefined;
+    props?: TProps | undefined;
 }>;
 
 export function MatchContainer<TProps = {}, TFallback = ReactNode>(

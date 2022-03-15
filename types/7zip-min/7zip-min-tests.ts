@@ -1,25 +1,18 @@
 import _7z = require('7zip-min');
 
-_7z.pack("index.d.ts", "archive.7z", (err: any) => { });
-_7z.unpack("archive.7z", "./", (err: any) => { });
-_7z.unpack("archive.7z", (err: any) => { });
-
-_7z.list("archive.7z", (err: any, result: _7z.Result[]) => {
+// $ExpectType void
+_7z.pack('index.d.ts', 'archive.7z', err => {});
+// $ExpectType void
+_7z.unpack('archive.7z', './', err => {});
+// $ExpectType void
+_7z.unpack('archive.7z', err => {});
+// $ExpectType void
+_7z.list('archive.7z', (err, result) => {
     if (err) {
         return;
     }
 
     for (const item of result) {
-        // attr:'A'
-        // block:''
-        // compressed:'0'
-        // crc:''
-        // date:'2021-03-20'
-        // encrypted:'-'
-        // method:''
-        // name:'index.js'
-        // size:'0'
-        // time:'12:07:46'
         item.attr; // $ExpectType string
         item.block; // $ExpectType string
         item.compressed; // $ExpectType string

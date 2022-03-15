@@ -29,26 +29,26 @@ declare namespace Client {
 
     interface ClientOptions {
         ws?: any;
-        timeout?: number | boolean;
+        timeout?: number | boolean | undefined;
     }
 
     interface ClientConnectOptions {
         auth?: any;
-        delay?: number;
-        maxDelay?: number;
-        retries?: number;
-        timeout?: number;
+        delay?: number | undefined;
+        maxDelay?: number | undefined;
+        retries?: number | undefined;
+        timeout?: number | undefined;
     }
 
     interface ClientRequestOptions {
         path: string;
-        method?: string;
-        headers?: Object;
+        method?: string | undefined;
+        headers?: Object | undefined;
         payload?: any;
     }
 
     interface ClientSubscribeFlags {
-        revoked?: boolean;
+        revoked?: boolean | undefined;
     }
 }
 

@@ -1,6 +1,7 @@
-// Type definitions for js-to-java 2.4
+// Type definitions for js-to-java 2.7
 // Project: https://github.com/node-modules/js-to-java
 // Definitions by: skyitachi <https://github.com/skyitachi>
+//                 zhaoleipeng <https://github.com/zhaoleipeng>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface Currency {
@@ -14,8 +15,7 @@ declare namespace java {
   function Boolean(value: boolean): object;
   function boolean(value: boolean): object;
 
-  // Note: enum is keyword
-  // function enum(className: string, value: string): object;
+  function Enum(className: string, value: string): object;
 
   function Integer(value: number): object;
   function int(value: number): object;
@@ -52,6 +52,7 @@ declare namespace java {
   namespace array {
     function Boolean(value: boolean[]): object;
     function boolean(value: boolean[]): object;
+    function Enum(value: boolean[]): object;
 
     function Integer(value: number[]): object;
     function int(value: number[]): object;

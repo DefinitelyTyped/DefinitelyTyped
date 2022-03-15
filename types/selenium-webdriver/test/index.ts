@@ -379,6 +379,8 @@ function TestWebDriverWindow() {
     locationPromise = window.getPosition();
     sizePromise = window.getSize();
     voidPromise = window.maximize();
+    voidPromise = window.minimize();
+    voidPromise = window.fullsceen();
     voidPromise = window.setPosition(12, 34);
     voidPromise = window.setSize(12, 34);
 }
@@ -458,6 +460,8 @@ function TestWebDriver() {
     booleanPromise = driver.wait(booleanPromise, 123);
     booleanPromise = driver.wait(booleanPromise, 123, 'Message');
     webElementPromise = driver.wait(webElementCondition);
+    webElementPromise = driver.wait(webElementCondition, 50, "Message");
+    webElementPromise = driver.wait(webElementCondition, 50, "Message", 10);
     voidPromise = driver.wait(webElementCondition).click();
 
     driver = webdriver.WebDriver.createSession(executor, webdriver.Capabilities.chrome());
@@ -522,6 +526,11 @@ function TestWebElementPromise() {
     elementPromise.then((element: webdriver.WebElement) => {});
     elementPromise.then((element: webdriver.WebElement) => {}, (error: any) => {});
     elementPromise.then((element: webdriver.WebElement) => 'foo', (error: any) => 'bar').then((result: string) => {});
+}
+
+function testCondition() {
+    const conditionString = new webdriver.Condition<string>('message', () => Math.random() > 0.5 ? 'foo' : null);
+    const conditionStringPromise = new webdriver.Condition<string>('message', async () => Math.random() > 0.5 ? 'foo' : null);
 }
 
 declare let stringPromise: Promise<string>;

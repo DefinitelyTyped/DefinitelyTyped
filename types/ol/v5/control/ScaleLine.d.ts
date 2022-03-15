@@ -5,11 +5,11 @@ import { ObjectEvent } from '../Object';
 import Control from './Control';
 
 export interface Options {
-    className?: string;
-    minWidth?: number;
-    render?: (p0: MapEvent) => void;
-    target?: HTMLElement | string;
-    units?: Units | string;
+    className?: string | undefined;
+    minWidth?: number | undefined;
+    render?: ((p0: MapEvent) => void) | undefined;
+    target?: HTMLElement | string | undefined;
+    units?: Units | string | undefined;
 }
 export enum Units {
     DEGREES = 'degrees',

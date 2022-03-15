@@ -72,12 +72,12 @@ export interface CodeBuildStateEventDetail {
         environment: {
             image: string;
             'privileged-mode': boolean;
-            'image-pull-credentials-type'?: CodeBuildEnvironmentPullCredentialsType;
+            'image-pull-credentials-type'?: CodeBuildEnvironmentPullCredentialsType | undefined;
             'compute-type': CodeBuildEnvironmentComputeType;
             type: CodeBuildEnvironmentType;
             'environment-variables': Array<{
                 name: string;
-                type?: CodeBuildEnvironmentVariableType;
+                type?: CodeBuildEnvironmentVariableType | undefined;
                 value: string;
             }>;
         };
@@ -88,12 +88,12 @@ export interface CodeBuildStateEventDetail {
             'deep-link': string;
         };
         phases: Array<{
-            'phase-context'?: string[]; // Not available for COMPLETED phase-type
+            'phase-context'?: string[] | undefined; // Not available for COMPLETED phase-type
             'start-time': string;
-            'end-time'?: string; // Not available for COMPLETED phase-type
-            'duration-in-seconds'?: number; // Not available for COMPLETED phase-type
+            'end-time'?: string | undefined; // Not available for COMPLETED phase-type
+            'duration-in-seconds'?: number | undefined; // Not available for COMPLETED phase-type
             'phase-type': CodeBuildPhaseType;
-            'phase-status'?: CodeBuildPhaseStatusType; // Not available for COMPLETED phase-type
+            'phase-status'?: CodeBuildPhaseStatusType | undefined; // Not available for COMPLETED phase-type
         }>;
         'queued-timeout-in-minutes': number;
     };

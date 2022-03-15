@@ -68,10 +68,10 @@ declare namespace simpleDiff {
         | MoveItemEvent;
 
     interface Options {
-        idProp?: string;
+        idProp?: string | undefined;
         idProps?: {
             [path: string]: string;
-        };
+        } | undefined;
         comparators?: Array<[
             unknown,
             (
@@ -79,19 +79,19 @@ declare namespace simpleDiff {
                 newValue: unknown,
                 options: { oldPath: Path; newPath: Path }
             ) => boolean
-        ]>;
-        ignore?: (
+        ]> | undefined;
+        ignore?: ((
             oldValue: unknown,
             newValue: unknown,
             options: { oldPath: Path; newPath: Path }
-        ) => boolean;
-        callback?: (event: Event) => void;
-        addEvent?: string;
-        changeEvent?: string;
-        removeEvent?: string;
-        addItemEvent?: string;
-        removeItemEvent?: string;
-        moveItemEvent?: string;
+        ) => boolean) | undefined;
+        callback?: ((event: Event) => void) | undefined;
+        addEvent?: string | undefined;
+        changeEvent?: string | undefined;
+        removeEvent?: string | undefined;
+        addItemEvent?: string | undefined;
+        removeItemEvent?: string | undefined;
+        moveItemEvent?: string | undefined;
     }
 }
 

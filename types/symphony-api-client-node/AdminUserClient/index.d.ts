@@ -1,21 +1,21 @@
 export interface AdminUserAttributes {
     emailAddress: string;
-    firstName?: string;
-    lastName?: string;
+    firstName?: string | undefined;
+    lastName?: string | undefined;
     userName: string;
-    displayName?: string;
-    companyName?: string;
-    department?: string;
-    division?: string;
-    title?: string;
-    twoFactorAuthPhone?: string;
-    workPhoneNumber?: string;
-    mobilePhoneNumber?: string;
-    accountType?: string;
-    location?: string;
-    jobFunction?: string;
-    assetClasses?: string[];
-    industries?: string[];
+    displayName?: string | undefined;
+    companyName?: string | undefined;
+    department?: string | undefined;
+    division?: string | undefined;
+    title?: string | undefined;
+    twoFactorAuthPhone?: string | undefined;
+    workPhoneNumber?: string | undefined;
+    mobilePhoneNumber?: string | undefined;
+    accountType?: string | undefined;
+    location?: string | undefined;
+    jobFunction?: string | undefined;
+    assetClasses?: string[] | undefined;
+    industries?: string[] | undefined;
 }
 
 export interface AdminUserSystemInfo {
@@ -24,8 +24,8 @@ export interface AdminUserSystemInfo {
     createdDate: number;
     createdBy: string;
     lastUpdatedDate: number;
-    lastLoginDate?: number;
-    deactivatedDate?: number;
+    lastLoginDate?: number | undefined;
+    deactivatedDate?: number | undefined;
 }
 
 export interface AdminUserInfo {

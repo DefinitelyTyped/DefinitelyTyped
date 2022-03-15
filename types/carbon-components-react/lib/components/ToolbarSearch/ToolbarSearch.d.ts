@@ -10,9 +10,9 @@ interface InheritedProps extends
  * @deprecated
  */
 export interface ToolbarSearchProps extends InheritedProps {
-    labelId?: ReactAttr['id'];
-    labelText?: React.ReactNode;
-    placeHolderText?: string;
+    labelId?: ReactAttr['id'] | undefined;
+    labelText?: React.ReactNode | undefined;
+    placeHolderText?: string | undefined;
 }
 
 /**

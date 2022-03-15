@@ -42,23 +42,23 @@ declare module "camo" {
         /**
          * Default value
          */
-        default?: Type;
+        default?: Type | undefined;
         /**
          * Min value (only with Number)
          */
-        min?: number;
+        min?: number | undefined;
         /**
          * Max value (only with Number)
          */
-        max?: number;
+        max?: number | undefined;
         /**
          * Posible options
          */
-        choices?: Type[];
+        choices?: Type[] | undefined;
         /**
          * RegEx to match value
          */
-        match?: RegExp;
+        match?: RegExp | undefined;
         /**
          * Validation function.
          *
@@ -69,11 +69,11 @@ declare module "camo" {
         /**
          * Unique value (like ids)
          */
-        unique?: boolean;
+        unique?: boolean | undefined;
         /**
          * Required field
          */
-        required?: boolean;
+        required?: boolean | undefined;
     }
 
     /**
@@ -92,7 +92,7 @@ declare module "camo" {
         /**
          * Document id
          */
-        _id?: string;
+        _id?: string | undefined;
     }
 
     /**
@@ -102,7 +102,7 @@ declare module "camo" {
         /**
          * Return a new document if one is not found with the given query.
          */
-        upsert?: boolean;
+        upsert?: boolean | undefined;
     }
 
     /**
@@ -113,7 +113,7 @@ declare module "camo" {
          * Find all or no references.
          * Pass an array of field names to only populate the specified references.
          */
-        populate?: boolean | string[];
+        populate?: boolean | string[] | undefined;
     }
 
     /**
@@ -124,19 +124,19 @@ declare module "camo" {
          * Find all or no references.
          * Pass an array of field names to only populate the specified references.
          */
-        populate?: boolean | string[];
+        populate?: boolean | string[] | undefined;
         /**
          * Sort the documents by the given field(s).
          */
-        sort?: TypeOrArrayOfType<string>;
+        sort?: TypeOrArrayOfType<string> | undefined;
         /**
          * Limits the number of documents returned.
          */
-        limit?: number;
+        limit?: number | undefined;
         /**
          * Skips the given number of documents and returns the rest.
          */
-        skip?: number;
+        skip?: number | undefined;
     }
 
     /**

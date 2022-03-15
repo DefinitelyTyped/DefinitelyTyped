@@ -6,6 +6,7 @@ declare var functionAst: ESTree.Function;
 declare var statement: ESTree.Statement;
 declare var emptyStatement: ESTree.EmptyStatement;
 declare var blockStatement: ESTree.BlockStatement;
+declare var staticBlock: ESTree.StaticBlock;
 declare var expressionStatement: ESTree.ExpressionStatement;
 declare var directive: ESTree.Directive;
 declare var ifStatement: ESTree.IfStatement;
@@ -32,6 +33,7 @@ declare var thisExpression: ESTree.ThisExpression;
 declare var arrayExpression: ESTree.ArrayExpression;
 declare var objectExpression: ESTree.ObjectExpression;
 declare var property: ESTree.Property | ESTree.SpreadElement;
+declare var propertyDefinition: ESTree.PropertyDefinition;
 declare var functionExpression: ESTree.FunctionExpression;
 declare var sequenceExpression: ESTree.SequenceExpression;
 declare var unaryExpression: ESTree.UnaryExpression;
@@ -49,6 +51,7 @@ declare var pattern: ESTree.Pattern;
 declare var switchCase: ESTree.SwitchCase;
 declare var catchClause: ESTree.CatchClause;
 declare var identifier: ESTree.Identifier;
+declare var privateIdentifier: ESTree.PrivateIdentifier;
 declare var literal: ESTree.Literal;
 declare var simpleLiteral: ESTree.SimpleLiteral;
 declare var regExpLiteral: ESTree.RegExpLiteral;
@@ -97,6 +100,7 @@ declare var variableDeclaratorOrPattern: ESTree.VariableDeclaration | ESTree.Pat
 declare var literalOrIdentifier: ESTree.Literal | ESTree.Identifier;
 declare var blockStatementOrExpression: ESTree.BlockStatement | ESTree.Expression;
 declare var identifierOrExpression: ESTree.Identifier | ESTree.Expression;
+declare var privateIdentifierOrExpression: ESTree.PrivateIdentifier | ESTree.Expression;
 declare var any: any;
 declare var string: string;
 declare var boolean: boolean;
@@ -119,6 +123,11 @@ number = program!.range![0];
 var blockStatement: ESTree.BlockStatement;
 string = blockStatement.type;
 statement = blockStatement.body[0];
+
+// StaticBlock
+var staticBlock: ESTree.StaticBlock;
+string = staticBlock.type;
+statement = staticBlock.body[0];
 
 // ExpressionStatement
 var expressionStatement: ESTree.ExpressionStatement;
@@ -187,9 +196,9 @@ var propertyOrSpread: ESTree.Property | ESTree.SpreadElement
 
 string = property.type;
 if (property.type === 'Property') {
-  expression = property.key;
-  expressionOrPattern = property.value;
-  string = property.kind;
+    privateIdentifierOrExpression = property.key;
+    expressionOrPattern = property.value;
+    string = property.kind;
 }
 
 // FunctionExpression
@@ -235,7 +244,7 @@ expressionOrSpread = callExpression.arguments[0];
 // MemberExpression
 var memberExpression: ESTree.MemberExpression;
 expressionOrSuper = memberExpression.object;
-identifierOrExpression = memberExpression.property;
+privateIdentifierOrExpression = memberExpression.property;
 boolean = memberExpression.computed;
 
 // ChainExpression
@@ -244,7 +253,7 @@ var memberExpressionOrCallExpression = chainExpression.expression;
 boolean = memberExpressionOrCallExpression.optional;
 if (memberExpressionOrCallExpression.type === 'MemberExpression') {
   expressionOrSuper = memberExpressionOrCallExpression.object;
-  identifierOrExpression = memberExpressionOrCallExpression.property;
+  privateIdentifierOrExpression = memberExpressionOrCallExpression.property;
   boolean = memberExpressionOrCallExpression.computed;
 } else {
   expressionOrSuper = memberExpressionOrCallExpression.callee;
@@ -301,6 +310,9 @@ expression = awaitExpression.argument;
 switch (node.type) {
   case 'Identifier':
     identifier = node;
+    break;
+  case 'PrivateIdentifier':
+    privateIdentifier = node;
     break;
   case 'Literal':
     literal = node;
@@ -492,6 +504,12 @@ switch (node.type) {
   case 'MethodDefinition':
     methodDefinition = node
     break;
+  case 'PropertyDefinition':
+    propertyDefinition = node
+    break;
+  case 'StaticBlock':
+    staticBlock = node
+    break;
 
   // narrowing of ModuleDeclaration
   case 'ImportDeclaration':
@@ -533,6 +551,9 @@ switch (statement.type) {
     break;
   case 'BlockStatement':
     blockStatement = statement;
+    break;
+  case 'StaticBlock':
+    staticBlock = statement;
     break;
   case 'EmptyStatement':
     emptyStatement = statement;

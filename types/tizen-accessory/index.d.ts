@@ -20,9 +20,9 @@ interface SAAgent {
 
     requestServiceConnection(peerAgent: SAPeerAgent): void;
     setServiceConnectionListener(callback: {
-        onrequest?: (peerAgent: SAPeerAgent) => void;
-        onconnect?: (socket: SASocket) => void;
-        onerror?: (errorCode: string, peerAgent: SAPeerAgent) => void;
+        onrequest?: ((peerAgent: SAPeerAgent) => void) | undefined;
+        onconnect?: ((socket: SASocket) => void) | undefined;
+        onerror?: ((errorCode: string, peerAgent: SAPeerAgent) => void) | undefined;
     }): void;
     authenticatePeerAgent(
         peerAgent: SAPeerAgent,
@@ -34,8 +34,8 @@ interface SAAgent {
     findPeerAgents(): void;
     setPeerAgentFindListener(callback: {
         onpeeragentfound: (peerAgent: SAPeerAgent) => void;
-        onpeeragentupdated?: (peerAgent: SAPeerAgent, status: 'AVAILABLE' | 'UNAVAILABLE') => void;
-        onerror?: (errorCode: string) => void;
+        onpeeragentupdated?: ((peerAgent: SAPeerAgent, status: 'AVAILABLE' | 'UNAVAILABLE') => void) | undefined;
+        onerror?: ((errorCode: string) => void) | undefined;
     }): void;
     getSAFileTransfer(): SAFileTransfer;
     getSAMessage(): SAMessage;
@@ -80,15 +80,15 @@ interface SAFileTransfer {
 
     sendFile(peerAgent: SAPeerAgent, filePath: string): number;
     setFileSendListener(callback: {
-        onprogress?: (id: string, progress: number) => void;
-        oncomplete?: (id: string, localPath: string) => void;
-        onerror?: (errorCode: string, id: string) => void;
+        onprogress?: ((id: string, progress: number) => void) | undefined;
+        oncomplete?: ((id: string, localPath: string) => void) | undefined;
+        onerror?: ((errorCode: string, id: string) => void) | undefined;
     }): void;
     setFileReceiveListener(callback: {
-        onreceive?: (id: string, fileName: string) => void;
-        onprogress?: (id: string, progress: number) => void;
-        oncomplete?: (id: string, localPath: string) => void;
-        onerror?: (errorCode: string, id: string) => void;
+        onreceive?: ((id: string, fileName: string) => void) | undefined;
+        onprogress?: ((id: string, progress: number) => void) | undefined;
+        oncomplete?: ((id: string, localPath: string) => void) | undefined;
+        onerror?: ((errorCode: string, id: string) => void) | undefined;
     }): void;
     receiveFile(id: string, localPath: string): void;
     cancelFile(id: string): void;
@@ -100,16 +100,16 @@ interface SAMessage {
         peerAgent: SAPeerAgent,
         data: string,
         callback: {
-            onsent?: (peerAgent: SAPeerAgent, id: string) => void;
-            onerror?: (errorCode: string, peerAgent: SAPeerAgent, id: string) => void;
+            onsent?: ((peerAgent: SAPeerAgent, id: string) => void) | undefined;
+            onerror?: ((errorCode: string, peerAgent: SAPeerAgent, id: string) => void) | undefined;
         },
     ): void;
     sendSecureData(
         peerAgent: SAPeerAgent,
         data: string,
         callback: {
-            onsent?: (peerAgent: SAPeerAgent, id: string) => void;
-            onerror?: (errorCode: string, peerAgent: SAPeerAgent, id: string) => void;
+            onsent?: ((peerAgent: SAPeerAgent, id: string) => void) | undefined;
+            onerror?: ((errorCode: string, peerAgent: SAPeerAgent, id: string) => void) | undefined;
         },
     ): void;
     setMessageReceiveListener(receiveDataCallback: (peerAgent: SAPeerAgent, data: string) => void): void;

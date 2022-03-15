@@ -13,20 +13,20 @@ declare module '@keystonejs/app-admin-ui' {
     import { BaseAuthStrategy, BaseApp, Keystone } from '@keystonejs/keystone';
 
     interface AdminUIOptions<ListNames extends string = string, UserType extends {} = any> {
-        name?: string;
-        adminPath?: string;
-        apiPath?: string;
-        graphiqlPath?: string;
-        authStrategy?: BaseAuthStrategy | null;
-        hooks?: string;
-        enableDefaultRoute?: boolean;
-        schemaName?: string;
-        isAccessAllowed?: (opts: {
+        name?: string | undefined;
+        adminPath?: string | undefined;
+        apiPath?: string | undefined;
+        graphiqlPath?: string | undefined;
+        authStrategy?: BaseAuthStrategy | null | undefined;
+        hooks?: string | undefined;
+        enableDefaultRoute?: boolean | undefined;
+        schemaName?: string | undefined;
+        isAccessAllowed?: ((opts: {
             authentication: { item: UserType; listKey: ListNames };
-        }) => boolean;
+        }) => boolean) | undefined;
         adminMeta?: any;
-        defaultPageSize?: number;
-        maximumPageSize?: number;
+        defaultPageSize?: number | undefined;
+        maximumPageSize?: number | undefined;
     }
 
     interface PrepareMiddlewareOptions {

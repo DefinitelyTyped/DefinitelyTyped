@@ -23,14 +23,14 @@ declare namespace LRU {
          * function to all values in the cache. Not setting this is kind of silly,
          * since that's the whole purpose of this lib, but it defaults to `Infinity`.
          */
-        max?: number;
+        max?: number | undefined;
 
         /**
          * Maximum age in ms. Items are not pro-actively pruned out as they age,
          * but if you try to get an item that is too old, it'll drop it and return
          * undefined instead of giving it to you.
          */
-        maxAge?: number;
+        maxAge?: number | undefined;
 
         /**
          * Function that is used to calculate the length of stored items.
@@ -60,7 +60,7 @@ declare namespace LRU {
          * return `undefined` when you try to get a stale entry,
          * as if it had already been deleted.
          */
-        stale?: boolean;
+        stale?: boolean | undefined;
 
         /**
          * By default, if you set a `dispose()` method, then it'll be called whenever
@@ -68,7 +68,7 @@ declare namespace LRU {
          * `dispose()` will only be called when a key falls out of the cache,
          * not when it is overwritten.
          */
-        noDisposeOnSet?: boolean;
+        noDisposeOnSet?: boolean | undefined;
     }
 
     interface Cache<K, V> {

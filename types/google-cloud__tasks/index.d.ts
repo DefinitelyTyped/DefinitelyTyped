@@ -14,12 +14,12 @@ import {
 } from "google-gax";
 
 export interface CloudTasksConfig extends GoogleAuthOptions {
-  key?: string;
-  autoRetry?: boolean;
-  maxRetries?: number;
-  libName?: string;
-  libVersion?: string;
-  promise?: PromiseConstructor;
+  key?: string | undefined;
+  autoRetry?: boolean | undefined;
+  maxRetries?: number | undefined;
+  libName?: string | undefined;
+  libVersion?: string | undefined;
+  promise?: PromiseConstructor | undefined;
 }
 
 export interface AppEngineHttpQueue {
@@ -27,11 +27,11 @@ export interface AppEngineHttpQueue {
 }
 
 export interface AppEngineHttpRequest {
-  appEngineRouting?: AppEngineRouting;
+  appEngineRouting?: AppEngineRouting | undefined;
   body: string;
   headers?: {
     [key: string]: string;
-  };
+  } | undefined;
   httpMethod: string;
   relativeUri: string;
 }
@@ -57,7 +57,7 @@ export interface Binding {
 }
 
 export interface CreateTaskRequest {
-  responseView?: View;
+  responseView?: View | undefined;
   parent: string;
   task: Partial<Task>;
 }
@@ -71,16 +71,16 @@ export interface Expr {
 
 export interface ListLocationsResponse {
   locations: Location[];
-  nextPageToken?: string;
+  nextPageToken?: string | undefined;
 }
 
 export interface ListQueuesResponse {
-  nextPageToken?: string;
+  nextPageToken?: string | undefined;
   queues: Queue[];
 }
 
 export interface ListTasksResponse {
-  nextPageToken?: string;
+  nextPageToken?: string | undefined;
   tasks: Task[];
 }
 
@@ -124,7 +124,7 @@ export interface RetryConfig {
 }
 
 export interface RunTaskRequest {
-  responseView?: View;
+  responseView?: View | undefined;
 }
 
 export interface SetIamPolicyRequest {
@@ -173,11 +173,11 @@ export interface Task {
 }
 
 export interface TestIamPermissionsRequest {
-  permissions?: string[];
+  permissions?: string[] | undefined;
 }
 
 export interface TestIamPermissionsResponse {
-  permissions?: string[];
+  permissions?: string[] | undefined;
 }
 
 export interface PromiseLike<T> extends Promise<T> {
@@ -255,13 +255,13 @@ export interface ListRequestObject extends ParentRequest {
    * Sample filter "state: PAUSED".
    * Note that using filters might cause fewer queues than the requested page_size to be returned.
    */
-  filter?: string;
+  filter?: string | undefined;
 
   /**
    * The maximum number of resources contained in the underlying API response. If page streaming is performed per-resource,
    * this parameter does not affect the return value. If page streaming is performed per-page, this determines the maximum number of resources in a page.
    */
-  pageSize?: number;
+  pageSize?: number | undefined;
 }
 
 export interface NamedRequest {

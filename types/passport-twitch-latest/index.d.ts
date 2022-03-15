@@ -81,9 +81,9 @@ export interface TwitchProfile {
 }
 
 export interface AuthenticateOptions extends passport.AuthenticateOptions {
-    forceVerify?: boolean;
+    forceVerify?: boolean | undefined;
 }
 
 export interface AuthenticateRet {
-    force_verify?: boolean;
+    force_verify?: boolean | undefined;
 }

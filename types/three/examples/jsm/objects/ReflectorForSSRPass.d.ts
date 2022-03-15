@@ -22,12 +22,12 @@ export interface ReflectorShader {
 }
 
 export interface ReflectorOptions {
-    clipBias?: number;
-    textureWidth?: number;
-    textureHeight?: number;
-    color?: number;
-    useDepthTexture?: boolean;
-    shader?: ReflectorShader;
+    clipBias?: number | undefined;
+    textureWidth?: number | undefined;
+    textureHeight?: number | undefined;
+    color?: number | undefined;
+    useDepthTexture?: boolean | undefined;
+    shader?: ReflectorShader | undefined;
 }
 
 export class Reflector<TGeometry extends BufferGeometry = BufferGeometry> extends Mesh<TGeometry> {

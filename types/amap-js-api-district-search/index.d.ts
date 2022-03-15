@@ -17,15 +17,15 @@ declare namespace AMap {
             /**
              * 关键字对应的行政区级别或商圈
              */
-            level?: Level;
+            level?: Level | undefined;
             /**
              * 是否显示商圈
              */
-            showbiz?: boolean;
+            showbiz?: boolean | undefined;
             /**
              * 是否返回行政区边界坐标点
              */
-            extensions?: 'base' | 'all';
+            extensions?: 'base' | 'all' | undefined;
             /**
              * 显示下级行政区级数
              * 0：不返回下级行政区
@@ -33,7 +33,7 @@ declare namespace AMap {
              * 2：返回下两级行政区
              * 3：返回下三级行政区
              */
-            subdistrict?: 0 | 1 | 2 | 3;
+            subdistrict?: 0 | 1 | 2 | 3 | undefined;
         }
         interface District {
             /**
@@ -59,11 +59,11 @@ declare namespace AMap {
             /**
              * 边界坐标集合
              */
-            boundaries?: LngLat[][];
+            boundaries?: LngLat[][] | undefined;
             /**
              * 下级行政区信息列表
              */
-            districtList?: District[];
+            districtList?: District[] | undefined;
         }
         interface SearchResult {
             /**

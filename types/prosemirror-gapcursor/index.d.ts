@@ -35,6 +35,6 @@ declare module "prosemirror-model" {
          * property to your node specs — if it's true, gap cursor are allowed
          * everywhere in that node, if it's false they are never allowed.
          */
-        allowGapCursor?: boolean;
+        allowGapCursor?: boolean | undefined;
     }
 }

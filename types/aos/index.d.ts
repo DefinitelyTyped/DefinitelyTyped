@@ -66,66 +66,66 @@ declare namespace Aos {
         /**
          * Class applied on animation
          */
-        animatedClassName?: string;
+        animatedClassName?: string | undefined;
         /**
          * Accepts following values: 'phone', 'tablet', 'mobile', boolean, expression or function
          */
-        disable?: "phone" | "tablet" | "mobile" | boolean | (() => boolean);
+        disable?: "phone" | "tablet" | "mobile" | boolean | (() => boolean) | undefined;
         /**
          * Class applied after initialization
          */
-        initClassName?: string;
+        initClassName?: string | undefined;
         /**
          * Name of the event dispatched on the document, that AOS should initialize on
          */
-        startEvent?: string;
+        startEvent?: string | undefined;
         /**
          * If true, will add content of `data-aos` as classes on scroll
          */
-        useClassNames?: boolean;
+        useClassNames?: boolean | undefined;
         /**
          * Disables automatic mutations' detections
          */
-        disableMutationObserver?: boolean;
+        disableMutationObserver?: boolean | undefined;
         /**
          * The delay on debounce used while resizing window
          */
-        debounceDelay?: number;
+        debounceDelay?: number | undefined;
         /**
          * The delay on throttle used while scrolling the page
          */
-        throttleDelay?: number;
+        throttleDelay?: number | undefined;
         // #endregion
 
         // #region Settings that can be overridden on per-element basis, by `data-aos-*` attributes
         /**
          * Defines which position of the element regarding to window should trigger the animation
          */
-        anchorPlacement?: anchorPlacementOptions;
+        anchorPlacement?: anchorPlacementOptions | undefined;
         /**
          * Values from 0 to 3000, with step 50ms
          */
-        delay?: number;
+        delay?: number | undefined;
         /**
          * Values from 0 to 3000, with step 50ms
          */
-        duration?: number;
+        duration?: number | undefined;
         /**
          * Default easing for AOS animations
          */
-        easing?: easingOptions;
+        easing?: easingOptions | undefined;
         /**
          * Whether elements should animate out while scrolling past them
          */
-        mirror?: boolean;
+        mirror?: boolean | undefined;
         /**
          * Offset (in px) from the original trigger point
          */
-        offset?: number;
+        offset?: number | undefined;
         /**
          * Whether animation should happen only once - while scrolling down
          */
-        once?: boolean;
+        once?: boolean | undefined;
         // #endregion
     }
 

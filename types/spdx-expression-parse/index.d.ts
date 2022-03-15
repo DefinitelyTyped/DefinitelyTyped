@@ -14,7 +14,7 @@ declare namespace parse {
 
     interface LicenseInfo {
         license: string;
-        plus?: true;
+        plus?: true | undefined;
     }
 
     interface ConjuctionInfo {

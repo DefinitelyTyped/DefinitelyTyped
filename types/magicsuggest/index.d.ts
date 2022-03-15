@@ -1,7 +1,7 @@
 // Type definitions for MagicSuggest 2.1.4
 // Project: http://nicolasbize.com/magicsuggest
 // Definitions by: Leonardo Chaia <https://github.com/leonardochaia>
-// Definitions: https://github.com/leonardochaia/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 /// <reference types="jquery" />
@@ -19,43 +19,43 @@ declare namespace MagicSuggest {
          * Restricts or allows the user to validate typed entries.
          * Defaults to true.
          */
-        allowFreeEntries?: boolean;
+        allowFreeEntries?: boolean | undefined;
 
         /**
          * Restricts or allows the user to add the same entry more than once
          * Defaults to false.
          */
-        allowDuplicates?: boolean;
+        allowDuplicates?: boolean | undefined;
 
         /**
          * Additional config object passed to each $.ajax call
          */
-        ajaxConfig?: JQueryAjaxSettings;
+        ajaxConfig?: JQueryAjaxSettings | undefined;
 
         /**
          * If a single suggestion comes out, it is preselected.
          */
-        autoSelect?: boolean;
+        autoSelect?: boolean | undefined;
 
         /**
          * Auto select the first matching item with multiple items shown
          */
-        selectFirst?: boolean;
+        selectFirst?: boolean | undefined;
 
         /**
          * Allow customization of query parameter
          */
-        queryParam?: string;
+        queryParam?: string | undefined;
 
         /**
          * A function triggered just before the ajax request is sent, similar to jQuery
          */
-        beforeSend?: () => void;
+        beforeSend?: (() => void) | undefined;
 
         /**
          * A custom CSS class to apply to the field's underlying element.
          */
-        cls?: string;
+        cls?: string | undefined;
 
         /**
          * JSON Data source used to populate the combo box. 3 options are available here:
@@ -86,63 +86,63 @@ declare namespace MagicSuggest {
         /**
          * Additional parameters to the ajax call
          */
-        dataUrlParams?: Object;
+        dataUrlParams?: Object | undefined;
 
         /**
          * Start the component in a disabled state.
          */
-        disabled?: boolean;
+        disabled?: boolean | undefined;
 
         /**
          * Name of JSON object property that defines the disabled behaviour
          */
-        disabledField?: string;
+        disabledField?: string | undefined;
 
         /**
          * Name of JSON object property displayed in the combo list
          */
-        displayField?: string;
+        displayField?: string | undefined;
 
         /**
          * Set to false if you only want mouse interaction. In that case the combo will
          * automatically expand on focus.
          */
-        editable?: boolean;
+        editable?: boolean | undefined;
 
         /**
          * Set starting state for combo.
          */
-        expanded?: boolean;
+        expanded?: boolean | undefined;
 
         /**
          * Automatically expands combo on focus.
          */
-        expandOnFocus?: boolean;
+        expandOnFocus?: boolean | undefined;
 
         /**
          * JSON property by which the list should be grouped
          */
-        groupBy?: string;
+        groupBy?: string | undefined;
 
         /**
          * Set to true to hide the trigger on the right
          */
-        hideTrigger?: boolean;
+        hideTrigger?: boolean | undefined;
 
         /**
          * Set to true to highlight search input within displayed suggestions
          */
-        highlight?: boolean;
+        highlight?: boolean | undefined;
 
         /**
          * A custom ID for this component
          */
-        id?: string;
+        id?: string | undefined;
 
         /**
          * A class that is added to the info message appearing on the top-right part of the component
          */
-        infoMsgCls?: string;
+        infoMsgCls?: string | undefined;
 
         /**
          * Additional parameters passed out to the INPUT tag. Enables usage of AngularJS's custom tags for ex.
@@ -152,181 +152,181 @@ declare namespace MagicSuggest {
         /**
          * The class that is applied to show that the field is invalid
          */
-        invalidCls?: string;
+        invalidCls?: string | undefined;
 
         /**
          * Set to true to filter data results according to case. Useless if the data is fetched remotely
          */
-        matchCase?: boolean;
+        matchCase?: boolean | undefined;
 
         /**
          * Once expanded, the combo's height will take as much room as the # of available results.
          *    In case there are too many results displayed, this will fix the drop down height.
          */
-        maxDropHeight?: number;
+        maxDropHeight?: number | undefined;
 
         /**
          * Defines how long the user free entry can be. Set to null for no limit.
          */
-        maxEntryLength?: number;
+        maxEntryLength?: number | undefined;
 
         /**
          * A function that defines the helper text when the max entry length has been surpassed.
          */
-        maxEntryRenderer?: (v?: number) => void;
+        maxEntryRenderer?: ((v?: number) => void) | undefined;
 
         /**
          * The maximum number of results displayed in the combo drop down at once.
          */
-        maxSuggestions?: number;
+        maxSuggestions?: number | undefined;
 
         /**
          * The maximum number of items the user can select if multiple selection is allowed.
          *    Set to null to remove the limit.
          */
-        maxSelection?: number;
+        maxSelection?: number | undefined;
 
         /**
          * A function that defines the helper text when the max selection amount has been reached. The function has a single
          *    parameter which is the number of selected elements.
          */
-        maxSelectionRenderer?: (v: number) => void;
+        maxSelectionRenderer?: ((v: number) => void) | undefined;
 
         /**
          * The method used by the ajax request.
          */
-        method?: string;
+        method?: string | undefined;
 
         /**
          * The minimum number of characters the user must type before the combo expands and offers suggestions.
          */
-        minChars?: number;
+        minChars?: number | undefined;
 
         /**
          * A function that defines the helper text when not enough letters are set. The function has a single
          *    parameter which is the difference between the required amount of letters and the current one.
          */
-        minCharsRenderer?: (v: number) => void;
+        minCharsRenderer?: ((v: number) => void) | undefined;
 
         /**
          * Whether or not sorting / filtering should be done remotely or locally.
          * Use either 'local' or 'remote'
          */
-        mode?: string;
+        mode?: string | undefined;
 
         /**
          * The name used as a form element.
          */
-        name?: string;
+        name?: string | undefined;
 
         /**
          * The text displayed when there are no suggestions.
          */
-        noSuggestionText?: string;
+        noSuggestionText?: string | undefined;
 
         /**
          * The default placeholder text when nothing has been entered
          */
-        placeholder?: string;
+        placeholder?: string | undefined;
 
         /**
          * A function used to define how the items will be presented in the combo
          */
-        renderer?: (item: any) => void;
+        renderer?: ((item: any) => void) | undefined;
 
         /**
          * Whether or not this field should be required
          */
-        required?: boolean;
+        required?: boolean | undefined;
 
         /**
          * Set to true to render selection as a delimited string
          */
-        resultAsString?: boolean;
+        resultAsString?: boolean | undefined;
 
         /**
          * Text delimiter to use in a delimited string.
          */
-        resultAsStringDelimiter?: string;
+        resultAsStringDelimiter?: string | undefined;
 
         /**
          * Name of JSON object property that represents the list of suggested objects
          */
-        resultsField?: string;
+        resultsField?: string | undefined;
 
         /**
          * A custom CSS class to add to a selected item
          */
-        selectionCls?: string;
+        selectionCls?: string | undefined;
 
         /**
          * An optional element replacement in which the selection is rendered
          */
-        selectionContainer?: JQuery;
+        selectionContainer?: JQuery | undefined;
 
         /**
          * Where the selected items will be displayed. Only 'right', 'bottom' and 'inner' are valid values
          */
-        selectionPosition?: string;
+        selectionPosition?: string | undefined;
 
         /**
          * A function used to define how the items will be presented in the tag list
          */
-        selectionRenderer?: (item: any) => void;
+        selectionRenderer?: ((item: any) => void) | undefined;
 
         /**
          * Set to true to stack the selectioned items when positioned on the bottom
          *    Requires the selectionPosition to be set to 'bottom'
          */
-        selectionStacked?: boolean;
+        selectionStacked?: boolean | undefined;
 
         /**
          * Direction used for sorting. Only 'asc' and 'desc' are valid values
          */
-        sortDir?: string;
+        sortDir?: string | undefined;
 
         /**
          * name of JSON object property for local result sorting.
          *    Leave null if you do not wish the results to be ordered or if they are already ordered remotely.
          */
-        sortOrder?: string;
+        sortOrder?: string | undefined;
 
         /**
          * If set to boolean; suggestions will have to start by user input (and not simply contain it as a substring)
          */
-        strictSuggest?: boolean;
+        strictSuggest?: boolean | undefined;
 
         /**
          * Custom style added to the component container.
          */
-        style?: string;
+        style?: string | undefined;
 
         /**
          * If set to boolean; the combo will expand / collapse when clicked upon
          */
-        toggleOnClick?: boolean;
+        toggleOnClick?: boolean | undefined;
 
 
         /**
          * Amount (in ms) between keyboard registers.
          */
-        typeDelay?: number;
+        typeDelay?: number | undefined;
 
         /**
          * If set to boolean; tab won't blur the component but will be registered as the ENTER key
          */
-        useTabKey?: boolean;
+        useTabKey?: boolean | undefined;
 
         /**
          * If set to boolean; using comma will validate the user's choice
          */
-        useCommaKey?: boolean;
+        useCommaKey?: boolean | undefined;
 
 
         /**
          * Determines whether or not the results will be displayed with a zebra table style
          */
-        useZebraStyle?: boolean;
+        useZebraStyle?: boolean | undefined;
 
         /**
          * initial value for the field
@@ -336,7 +336,7 @@ declare namespace MagicSuggest {
         /**
          * name of JSON object property that represents its underlying value
          */
-        valueField?: string;
+        valueField?: string | undefined;
 
         /**
          * regular expression to validate the values against

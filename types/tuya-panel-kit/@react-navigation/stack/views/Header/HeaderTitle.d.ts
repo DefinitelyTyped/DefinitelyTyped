@@ -2,9 +2,9 @@
 import { Animated, TextProps, StyleProp, TextStyle } from 'react-native';
 // tslint:disable-next-line strict-export-declare-modifiers
 declare type Props = Omit<TextProps, 'style'> & {
-    tintColor?: string;
-    children?: string;
-    style?: Animated.WithAnimatedValue<StyleProp<TextStyle>>;
+    tintColor?: string | undefined;
+    children?: string | undefined;
+    style?: Animated.WithAnimatedValue<StyleProp<TextStyle>> | undefined;
 };
 export default function HeaderTitle({ tintColor, style, ...rest }: Props): JSX.Element;
 export {};

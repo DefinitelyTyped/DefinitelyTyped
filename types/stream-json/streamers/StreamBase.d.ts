@@ -11,7 +11,7 @@ declare namespace StreamBase {
     type ObjectFilterFunction = (asm: Assembler) => boolean | undefined;
 
     interface StreamOptions extends TransformOptions {
-        objectFilter?: ObjectFilterFunction;
-        includeUndecided?: boolean;
+        objectFilter?: ObjectFilterFunction | undefined;
+        includeUndecided?: boolean | undefined;
     }
 }

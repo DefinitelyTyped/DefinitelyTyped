@@ -89,14 +89,15 @@ declare namespace elasticlunr {
 
     type FieldSearchConfig<T extends {}> = {
         [K in keyof T]?: {
-            bool?: Bool;
-            boost?: number;
+            bool?: Bool | undefined;
+            boost?: number | undefined;
         };
     };
 
     interface SearchConfig<T> {
-        fields?: FieldSearchConfig<T>;
-        expand?: boolean;
+        fields?: FieldSearchConfig<T> | undefined;
+        expand?: boolean | undefined;
+        bool?: Bool;
     }
 
     interface SerialisedInvertedIndex {
@@ -130,7 +131,7 @@ declare namespace elasticlunr {
 
         eventEmitter: EventEmitter;
 
-        index: { [K in keyof T]?: InvertedIndexNode };
+        index: { [K in keyof T]?: InvertedIndex };
 
         pipeline: Pipeline;
 
@@ -181,37 +182,37 @@ declare namespace elasticlunr {
     }
 
     interface InvertedIndexCharNode {
-        a?: InvertedIndexNode;
-        b?: InvertedIndexNode;
-        c?: InvertedIndexNode;
-        d?: InvertedIndexNode;
-        e?: InvertedIndexNode;
-        f?: InvertedIndexNode;
-        g?: InvertedIndexNode;
-        h?: InvertedIndexNode;
-        i?: InvertedIndexNode;
-        j?: InvertedIndexNode;
-        k?: InvertedIndexNode;
-        l?: InvertedIndexNode;
-        m?: InvertedIndexNode;
-        n?: InvertedIndexNode;
-        o?: InvertedIndexNode;
-        p?: InvertedIndexNode;
-        q?: InvertedIndexNode;
-        r?: InvertedIndexNode;
-        s?: InvertedIndexNode;
-        t?: InvertedIndexNode;
-        u?: InvertedIndexNode;
-        v?: InvertedIndexNode;
-        w?: InvertedIndexNode;
-        x?: InvertedIndexNode;
-        y?: InvertedIndexNode;
-        z?: InvertedIndexNode;
+        a?: InvertedIndexNode | undefined;
+        b?: InvertedIndexNode | undefined;
+        c?: InvertedIndexNode | undefined;
+        d?: InvertedIndexNode | undefined;
+        e?: InvertedIndexNode | undefined;
+        f?: InvertedIndexNode | undefined;
+        g?: InvertedIndexNode | undefined;
+        h?: InvertedIndexNode | undefined;
+        i?: InvertedIndexNode | undefined;
+        j?: InvertedIndexNode | undefined;
+        k?: InvertedIndexNode | undefined;
+        l?: InvertedIndexNode | undefined;
+        m?: InvertedIndexNode | undefined;
+        n?: InvertedIndexNode | undefined;
+        o?: InvertedIndexNode | undefined;
+        p?: InvertedIndexNode | undefined;
+        q?: InvertedIndexNode | undefined;
+        r?: InvertedIndexNode | undefined;
+        s?: InvertedIndexNode | undefined;
+        t?: InvertedIndexNode | undefined;
+        u?: InvertedIndexNode | undefined;
+        v?: InvertedIndexNode | undefined;
+        w?: InvertedIndexNode | undefined;
+        x?: InvertedIndexNode | undefined;
+        y?: InvertedIndexNode | undefined;
+        z?: InvertedIndexNode | undefined;
     }
 
     interface InvertedIndexDocs {
         [key: string]: {
-            tf?: number;
+            tf?: number | undefined;
         };
     }
 

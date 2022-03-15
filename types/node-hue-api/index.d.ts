@@ -603,7 +603,7 @@
             serial: string,
             udn: string
         },
-        icons?: IBridgeIcon[]
+        icons?: IBridgeIcon[] | undefined
     }
 
     export type BackupStatus = "idle" | "startmigration" | "fileready_disabled" | "prepare_restore" | "restoring";
@@ -647,7 +647,7 @@
             communication: string
         },
         factorynew: boolean,
-        replacesbridgeid?: string,
+        replacesbridgeid?: string | undefined,
         backup: {
             status: BackupStatus,
             errorcode: number
@@ -707,7 +707,7 @@
         id: string,
         name: string,
         type: LightGroupType,
-        class?: RoomType,
+        class?: RoomType | undefined,
         action?: {
             on: boolean,
             bri: number,
@@ -717,26 +717,26 @@
             ct: number,
             effect: LightEffect,
             colormode: ColorMode
-        },
-        lights?: string[]
+        } | undefined,
+        lights?: string[] | undefined
 
     }
 
     export interface ILight {
-        id?: string,
+        id?: string | undefined,
         manufacturername: string,
         uniqueid: string,
         state: {
-            rgb?: number[],
+            rgb?: number[] | undefined,
             on: boolean,
             bri: number,
-            hue?: number,
-            sat?: number,
-            xy?: [number, number],
-            ct?: number,
+            hue?: number | undefined,
+            sat?: number | undefined,
+            xy?: [number, number] | undefined,
+            ct?: number | undefined,
             alert: LightAlert,
-            effect?: LightEffect,
-            colormode?: ColorMode,
+            effect?: LightEffect | undefined,
+            colormode?: ColorMode | undefined,
             reachable: boolean
         },
         type: string,
@@ -752,7 +752,7 @@
             "6": string,
             "7": string,
             "8": string
-        }
+        } | undefined
     }
 
     export interface ILightsApiResponse {
@@ -762,9 +762,9 @@
     //State and config depend on sensor type
     //TODO: definitions for different sensor types
     export interface ISensor {
-        id?: string,
+        id?: string | undefined,
         manufacturername: string,
-        uniqueid?: string,
+        uniqueid?: string | undefined,
         state: {
             [key: string]: number | string;
             lastupdated: string;

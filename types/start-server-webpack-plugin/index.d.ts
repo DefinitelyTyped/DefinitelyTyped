@@ -18,26 +18,26 @@ declare namespace StartServerWebpackPlugin {
          * Name of the server to start (built asset from webpack).
          * If not provided, the plugin will tell you the available names.
          */
-        name?: string;
+        name?: string | undefined;
         /**
          * Arguments for node.
          * Default: `[]`.
          */
-        nodeArgs?: string[];
+        nodeArgs?: string[] | undefined;
         /**
          * Arguments for the script.
          * Default: `[]`.
          */
-        args?: string[];
+        args?: string[] | undefined;
         /**
          * Signal to send for HMR.
          * Default: 'false'.
          */
-        signal?: false | true | 'SIGUSR2';
+        signal?: false | true | 'SIGUSR2' | undefined;
         /**
          * Allow typing 'rs' to restart the server.
          * Default: 'true' if in 'development' mode, 'false' otherwise.
          */
-        keyboard?: boolean;
+        keyboard?: boolean | undefined;
     }
 }

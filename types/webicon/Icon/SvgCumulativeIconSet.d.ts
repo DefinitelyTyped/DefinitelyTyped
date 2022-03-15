@@ -12,5 +12,5 @@ export interface SvgCumulativeIconSet extends SvgIcon {
     /**
      * The number of miliseconds to wait before downloading the icons.
      */
-    waitDuration?: number;
+    waitDuration?: number | undefined;
 }

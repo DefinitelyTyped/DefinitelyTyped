@@ -7,9 +7,9 @@
 import * as React from "react";
 
 export interface IconBaseProps extends React.SVGProps<React.ReactSVGElement> {
-    size?: string | number;
+    size?: string | number | undefined;
     style?: any;
-    color?: string;
+    color?: string | undefined;
 }
 
 export default class IconBaseClass extends React.Component<IconBaseProps> {}

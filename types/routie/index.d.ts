@@ -19,7 +19,7 @@ declare namespace routie {
     }
 
     interface RouteOptions {
-        silent?: boolean;
+        silent?: boolean | undefined;
     }
 }
 

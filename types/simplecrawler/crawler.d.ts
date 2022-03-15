@@ -12,17 +12,17 @@ type HTTPMethods = 'GET' | 'POST' | 'HEAD' | 'PUT' | 'DELETE' | 'CONNECT' | 'OPT
 interface RequestOptions {
     method: HTTPMethods;
     host: string;
-    port?: number;
+    port?: number | undefined;
     agent: HTTPAgent | HTTPSAgent;
     headers: {
         Accept: string;
         'User-Agent': string;
         Host: string;
-        'Accept-Encoding'?: string;
-        Referer?: string;
-        cookie?: string;
-        Authorization?: string;
-        'Proxy-Authorization'?: string;
+        'Accept-Encoding'?: string | undefined;
+        Referer?: string | undefined;
+        cookie?: string | undefined;
+        Authorization?: string | undefined;
+        'Proxy-Authorization'?: string | undefined;
         [key: string]: any;
     };
 }
@@ -44,15 +44,15 @@ declare class Crawler extends EventEmitter {
     scanSubdomains: boolean;
     ignoreWWWDomain: boolean;
     stripWWWDomain: boolean;
-    cache?: Cache;
+    cache?: Cache | undefined;
     useProxy: boolean;
     proxyHostname: string;
     proxyPort: number;
-    proxyUser?: string;
-    proxyPass?: string;
+    proxyUser?: string | undefined;
+    proxyPass?: string | undefined;
     needsAuth: boolean;
-    authUser?: string;
-    authPass?: string;
+    authUser?: string | undefined;
+    authPass?: string | undefined;
     acceptCookies: boolean;
     cookies: CookieJar;
     customHeaders: object;

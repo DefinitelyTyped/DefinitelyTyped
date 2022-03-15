@@ -2,13 +2,12 @@
 // Project: https://github.com/i-rocky/country-list-js
 // Definitions by: Digory Doolittle <https://github.com/digorydoo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.1
 
 export interface Province {
     name: string;
     alias: string[] | null;
-    region?: string;
-    short?: string;
+    region?: string | undefined;
+    short?: string | undefined;
 }
 
 export interface CountryCode {
@@ -38,11 +37,11 @@ export interface CountriesMap {
 }
 
 export interface Cache {
-    capital?: CountriesMap;
-    currency?: CountriesMap;
-    iso3?: CountriesMap;
-    name?: CountriesMap;
-    province?: CountriesMap;
+    capital?: CountriesMap | undefined;
+    currency?: CountriesMap | undefined;
+    iso3?: CountriesMap | undefined;
+    name?: CountriesMap | undefined;
+    province?: CountriesMap | undefined;
 }
 
 export type CountryRecordMember =

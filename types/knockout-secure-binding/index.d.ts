@@ -1,16 +1,16 @@
 // Type definitions for knockout-secure-binding
 // Project: https://github.com/brianmhunt/knockout-secure-binding
-// Definitions by: Pine Mizune <https://github.com/pine613>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 /// <reference types="knockout" />
 
 interface KnockoutSecureBindingOptions {
-    attribute?: string;
+    attribute?: string | undefined;
     globals?: any;
-    bindings?: KnockoutBindingHandlers;
-    noVirtualElements?: boolean;
+    bindings?: KnockoutBindingHandlers | undefined;
+    noVirtualElements?: boolean | undefined;
 }
 
 interface KnockoutSecureBindingProvider extends KnockoutBindingProvider {

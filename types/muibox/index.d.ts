@@ -16,25 +16,25 @@ export interface Dialog {
 }
 
 export interface DialogButtonOptions {
-    text?: string;
-    color?: string;
-    variant?: string;
-    startIcon?: ReactNode;
-    endIcon?: ReactNode;
+    text?: string | undefined;
+    color?: string | undefined;
+    variant?: string | undefined;
+    startIcon?: ReactNode | undefined;
+    endIcon?: ReactNode | undefined;
 }
 
 export interface AlertOptions {
-    title?: string;
-    message?: string | ReactNode;
-    ok?: DialogButtonOptions;
+    title?: string | undefined;
+    message?: string | ReactNode | undefined;
+    ok?: DialogButtonOptions | undefined;
 }
 
 export interface ConfirmOptions extends AlertOptions {
-    cancel?: DialogButtonOptions;
+    cancel?: DialogButtonOptions | undefined;
 }
 
 export interface PromptOptions extends ConfirmOptions {
-    required?: boolean;
-    defaultValue?: string | number;
-    placeholder?: string;
+    required?: boolean | undefined;
+    defaultValue?: string | number | undefined;
+    placeholder?: string | undefined;
 }

@@ -3,7 +3,7 @@ import { SelectCallback } from 'react-bootstrap';
 
 declare namespace PaginationPrev {
     export interface PaginationPrevProps extends React.HTMLProps<PaginationPrev> {
-        disabled?: boolean;
+        disabled?: boolean | undefined;
     }
 }
 declare class PaginationPrev extends React.Component<PaginationPrev.PaginationPrevProps> { }

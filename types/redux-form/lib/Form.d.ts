@@ -2,7 +2,7 @@ import { Component, FormHTMLAttributes, FormEvent, FormEventHandler } from "reac
 import { FormErrors, FormSubmitHandler, Omit } from "../index";
 
 interface FormSubmitProp<FormData = {}, P = {}, ErrorType = string> {
-    onSubmit?: FormSubmitHandler<FormData, P, ErrorType>;
+    onSubmit?: FormSubmitHandler<FormData, P, ErrorType> | undefined;
 }
 
 export type FormProps<FormData, P, ErrorType = string> = Omit<FormHTMLAttributes<HTMLFormElement>, "onSubmit"> & FormSubmitProp<FormData, P, ErrorType>;

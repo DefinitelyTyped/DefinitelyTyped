@@ -10,7 +10,8 @@ import * as R from 'ramda';
     }
   };
 
-  const getStateCode: (input: any) => any[] = R.composeWith(R.chain, [
+  // $ExpectType (obj: any) => string[]
+  const getStateCode = R.composeWith(R.chain, [
     R.compose(
       val => [val],
       R.toUpper,
@@ -27,13 +28,16 @@ import * as R from 'ramda';
   const toString = (input: any): string[] => [`${input}`];
   const split = (input: string): string[] => input.split('');
 
-  const composed: (num: number) => string[] = R.composeWith(R.chain, [
+  // $ExpectType (num: number) => string[]
+  R.composeWith(R.chain, [
     split,
     toString,
     onlyOverNine,
     nextThree,
   ]);
-  const composed2: (num: number) => string[] = R.composeWith(R.chain)([
+
+  // $ExpectType (num: number) => string[]
+  R.composeWith(R.chain)([
     split,
     toString,
     onlyOverNine,
@@ -44,5 +48,12 @@ import * as R from 'ramda';
 () => {
   const composeWhileNotNil = R.composeWith((f, res) => R.isNil(res) ? res : f(res));
 
-  composeWhileNotNil([R.inc, R.prop('age')])({age: 1}); // => 2
+  // $ExpectType (args_0: { age: number; }) => number
+  const incAgeIfNotNil = composeWhileNotNil([({ age }: { age: number }) => age]);
+
+  incAgeIfNotNil({age: 1}); // => 2
+
+  // Should pipe at least on function.
+  // $ExpectError
+  composeWhileNotNil([]);
 };

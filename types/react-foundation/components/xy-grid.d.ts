@@ -8,10 +8,10 @@ import { FlexboxPropTypes } from '../utils';
  * @param {Object} props
  * @returns {Object}
  */
-export declare const GridContainer: React.StatelessComponent<GridContainerProps>;
+export declare const GridContainer: React.FunctionComponent<GridContainerProps>;
 export interface GridContainerProps extends FlexboxPropTypes, React.HTMLAttributes<HTMLDivElement> {
-    fluid?: boolean;
-    full?: boolean;
+    fluid?: boolean | undefined;
+    full?: boolean | undefined;
 }
 /**
  * Grid component.
@@ -19,17 +19,17 @@ export interface GridContainerProps extends FlexboxPropTypes, React.HTMLAttribut
  * @param {Object} props
  * @returns {Object}
  */
-export declare const Grid: React.StatelessComponent<GridProps>;
+export declare const Grid: React.FunctionComponent<GridProps>;
 export interface GridProps extends FlexboxPropTypes, React.HTMLAttributes<HTMLDivElement> {
-    vertical?: boolean;
-    gutters?: GutterTypes;
-    upOnSmall?: number;
-    upOnMedium?: number;
-    upOnLarge?: number;
-    collapseOnSmall?: GutterTypes;
-    collapseOnMedium?: GutterTypes;
-    collapseOnLarge?: GutterTypes;
-    gridFrame?: ExtendedBreakpoints;
+    vertical?: boolean | undefined;
+    gutters?: GutterTypes | undefined;
+    upOnSmall?: number | undefined;
+    upOnMedium?: number | undefined;
+    upOnLarge?: number | undefined;
+    collapseOnSmall?: GutterTypes | undefined;
+    collapseOnMedium?: GutterTypes | undefined;
+    collapseOnLarge?: GutterTypes | undefined;
+    gridFrame?: ExtendedBreakpoints | undefined;
 }
 /**
  * Cell component.
@@ -37,14 +37,14 @@ export interface GridProps extends FlexboxPropTypes, React.HTMLAttributes<HTMLDi
  * @param {Object} props
  * @returns {Object}
  */
-export declare const Cell: React.StatelessComponent<CellProps>;
+export declare const Cell: React.FunctionComponent<CellProps>;
 export interface CellProps extends FlexboxPropTypes, React.HTMLAttributes<HTMLDivElement> {
-    small?: number;
-    medium?: number;
-    large?: number;
-    auto?: ExtendedBreakpoints;
-    shrink?: ExtendedBreakpoints;
-    offsetOnSmall?: number;
-    offsetOnMedium?: number;
-    offsetOnLarge?: number;
+    small?: number | undefined;
+    medium?: number | undefined;
+    large?: number | undefined;
+    auto?: ExtendedBreakpoints | undefined;
+    shrink?: ExtendedBreakpoints | undefined;
+    offsetOnSmall?: number | undefined;
+    offsetOnMedium?: number | undefined;
+    offsetOnLarge?: number | undefined;
 }

@@ -39,11 +39,11 @@ declare namespace VError {
     }
 
     interface Options {
-        cause?: Error | null;
-        name?: string;
-        strict?: boolean;
+        cause?: Error | null | undefined;
+        name?: string | undefined;
+        strict?: boolean | undefined;
         constructorOpt?(...args: any[]): void;
-        info?: Info;
+        info?: Info | undefined;
     }
 
     /*

@@ -86,3 +86,5 @@ rgbaCol.getRgbColor(); // $ExpectType string
 const rgbaCol2 = new ss.rgbaColor(32, 213, 28, 0.6);
 const rgbaCol3 = new ss.rgbaColor(78, 99, 255, 0.9);
 const conGrad = new ss.ConicalGradient([1, 2, 3], [rgbaCol, rgbaCol2, rgbaCol3]); // $ExpectType ConicalGradient
+
+const sect = ss.Section(10, 15, "rgba(123, 56, 32, 0.2)"); // $ExpectType Section

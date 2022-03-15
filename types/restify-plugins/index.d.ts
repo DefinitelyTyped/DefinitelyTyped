@@ -59,7 +59,7 @@ export interface AuditLoggerOptions {
   /**
    * Restify server. If passed in, causes server to emit 'auditlog' event after audit logs are flushed
    */
-  server?: Server;
+  server?: Server | undefined;
 
   /**
    * Ringbuffer which is written to if passed in
@@ -69,9 +69,9 @@ export interface AuditLoggerOptions {
   /**
    * When true, prints audit logs. default true.
    */
-  printLog?: boolean;
+  printLog?: boolean | undefined;
 
-  body?: boolean;
+  body?: boolean | undefined;
 }
 
 /**
@@ -100,26 +100,26 @@ export interface BodyParserOptions {
   /**
    * The maximum size in bytes allowed in the HTTP body. Useful for limiting clients from hogging server memory.
    */
-  maxBodySize?: number;
+  maxBodySize?: number | undefined;
 
   /**
    * If req.params should be filled with parsed parameters from HTTP body.
    */
-  mapParams?: boolean;
+  mapParams?: boolean | undefined;
 
   /**
    * If req.params should be filled with the contents of files sent through a multipart request.
    * Formidable is used internally for parsing, and a file is denoted as a multipart part with the filename option set in its Content-Disposition.
    * This will only be performed if mapParams is true.
    */
-  mapFiles?: boolean;
+  mapFiles?: boolean | undefined;
 
   /**
    * If an entry in req.params should be overwritten by the value in the body if the names are the same.
    * For instance, if you have the route /:someval, and someone posts an x-www-form-urlencoded Content-Type with the body someval=happy to /sad,
    * the value will be happy if overrideParams is true, sad otherwise.
    */
-  overrideParams?: boolean;
+  overrideParams?: boolean | undefined;
 
   /**
    * A callback to handle any multipart part which is not a file.
@@ -138,31 +138,31 @@ export interface BodyParserOptions {
   /**
    * If you want the uploaded files to include the extensions of the original files (multipart uploads only). Does nothing if multipartFileHandler is defined.
    */
-  keepExtensions?: boolean;
+  keepExtensions?: boolean | undefined;
 
   /**
    * Where uploaded files are intermediately stored during transfer before the contents is mapped into req.params. Does nothing if multipartFileHandler is defined.
    */
-  uploadDir?: string;
+  uploadDir?: string | undefined;
 
   /**
    * If you want to support html5 multiple attribute in upload fields.
    */
-  multiples?: boolean;
+  multiples?: boolean | undefined;
 
   /**
    * If you want checksums calculated for incoming files, set this to either sha1 or md5.
    */
-  hash?: string;
+  hash?: string | undefined;
 
   /**
    * Set to true if you want to end the request with a UnsupportedMediaTypeError when none of the supported content types was given.
    */
-  rejectUnknown?: boolean;
+  rejectUnknown?: boolean | undefined;
 
   reviver?: any;
 
-  maxFieldsSize?: number;
+  maxFieldsSize?: number | undefined;
 }
 
 /**
@@ -173,11 +173,11 @@ export function bodyParser(options?: BodyParserOptions): RequestHandler[];
 /**
  * Reads the body of the request.
  */
-export function bodyReader(options?: {maxBodySize?: number}): RequestHandler;
+export function bodyReader(options?: {maxBodySize?: number | undefined}): RequestHandler;
 
 export interface UrlEncodedBodyParser {
-  mapParams?: boolean;
-  overrideParams?: boolean;
+  mapParams?: boolean | undefined;
+  overrideParams?: boolean | undefined;
 }
 
 /**
@@ -191,7 +191,7 @@ export function urlEncodedBodyParser(options?: UrlEncodedBodyParser): RequestHan
 /**
  * Parses JSON POST bodies
  */
-export function jsonBodyParser(options?: {mapParams?: boolean, reviver?: any, overrideParams?: boolean}): RequestHandler[];
+export function jsonBodyParser(options?: {mapParams?: boolean | undefined, reviver?: any, overrideParams?: boolean | undefined}): RequestHandler[];
 
 /**
  * Parses JSONP callback
@@ -199,16 +199,16 @@ export function jsonBodyParser(options?: {mapParams?: boolean, reviver?: any, ov
 export function jsonp(): RequestHandler;
 
 export interface MultipartBodyParser {
-  overrideParams?: boolean;
-  multiples?: boolean;
-  keepExtensions?: boolean;
-  uploadDir?: string;
-  maxFieldsSize?: number;
-  hash?: string;
+  overrideParams?: boolean | undefined;
+  multiples?: boolean | undefined;
+  keepExtensions?: boolean | undefined;
+  uploadDir?: string | undefined;
+  maxFieldsSize?: number | undefined;
+  hash?: string | undefined;
   multipartFileHandler?: any;
   multipartHandler?: any;
-  mapParams?: boolean;
-  mapFiles?: boolean;
+  mapParams?: boolean | undefined;
+  mapFiles?: boolean | undefined;
 }
 
 /**
@@ -220,48 +220,48 @@ export interface QueryParserOptions {
   /**
    * Default `false`. Copies parsed query parameters into `req.params`.
    */
-  mapParams?: boolean;
+  mapParams?: boolean | undefined;
 
   /**
    * Default `false`. Only applies when if mapParams true. When true, will stomp on req.params field when existing value is found.
    */
-  overrideParams?: boolean;
+  overrideParams?: boolean | undefined;
 
   /**
    *  Default false. Transform `?foo.bar=baz` to a nested object: `{foo: {bar: 'baz'}}`.
    */
-  allowDots?: boolean;
+  allowDots?: boolean | undefined;
 
   /**
    * Default 20. Only transform `?a[$index]=b` to an array if `$index` is less than `arrayLimit`.
    */
-  arrayLimit?: number;
+  arrayLimit?: number | undefined;
 
   /**
    * Default 5. The depth limit for parsing nested objects, e.g. `?a[b][c][d][e][f][g][h][i]=j`.
    */
-  depth?: number;
+  depth?: number | undefined;
 
   /**
    * Default 1000. Maximum number of query params parsed. Additional params are silently dropped.
    */
-  parameterLimit?: number;
+  parameterLimit?: number | undefined;
 
   /**
    * Default true. Whether to parse `?a[]=b&a[1]=c` to an array, e.g. `{a: ['b', 'c']}`.
    */
-  parseArrays?: boolean;
+  parseArrays?: boolean | undefined;
 
   /**
    * Default false. Whether `req.query` is a "plain" object -- does not inherit from `Object`.
    * This can be used to allow query params whose names collide with Object methods, e.g. `?hasOwnProperty=blah`.
    */
-  plainObjects?: boolean;
+  plainObjects?: boolean | undefined;
 
   /**
    * Default false. If true, `?a&b=` results in `{a: null, b: ''}`. Otherwise, `{a: '', b: ''}`.
    */
-  strictNullHandling?: boolean;
+  strictNullHandling?: boolean | undefined;
 }
 
 /**
@@ -298,15 +298,15 @@ export function dateParser(delta?: number): RequestHandler;
 export function gzipResponse(options?: any): RequestHandler;
 
 export interface ServeStatic {
-  appendRequestPath?: boolean;
-  directory?: string;
-  maxAge?: number;
+  appendRequestPath?: boolean | undefined;
+  directory?: string | undefined;
+  maxAge?: number | undefined;
   match?: any;
-  charSet?: string;
-  file?: string;
-  etag?: string;
+  charSet?: string | undefined;
+  file?: string | undefined;
+  etag?: string | undefined;
   default?: any;
-  gzip?: boolean;
+  gzip?: boolean | undefined;
 }
 
 /**
@@ -315,13 +315,13 @@ export interface ServeStatic {
 export function serveStatic(options?: ServeStatic): RequestHandler;
 
 export interface ThrottleOptions {
-  burst?: number;
-  rate?: number;
-  ip?: boolean;
-  username?: boolean;
-  xff?: boolean;
+  burst?: number | undefined;
+  rate?: number | undefined;
+  ip?: boolean | undefined;
+  username?: boolean | undefined;
+  xff?: boolean | undefined;
   tokensTable?: any;
-  maxKeys?: number;
+  maxKeys?: number | undefined;
   overrides?: any; // any
 }
 
@@ -407,17 +407,17 @@ export interface RequestExpiryOptions {
   /**
    * Header name of the absolute time for request expiration
    */
-  absoluteHeader?: string;
+  absoluteHeader?: string | undefined;
 
   /**
    * Header name for the start time of the request
    */
-  startHeader?: string;
+  startHeader?: string | undefined;
 
   /**
    * The header name for the time in milliseconds that should ellapse before the request is considered expired.
    */
-  timeoutHeader?: string;
+  timeoutHeader?: string | undefined;
 }
 
 /**

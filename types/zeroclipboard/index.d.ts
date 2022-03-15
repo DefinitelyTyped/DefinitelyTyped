@@ -170,7 +170,7 @@ declare namespace ZC {
   }
 
   interface ZeroClipboardEvent {
-    client?: ZeroClipboardClient;
+    client?: ZeroClipboardClient | undefined;
     type: string;
     target: HTMLElement;
     relatedTarget: HTMLElement;
@@ -209,15 +209,15 @@ declare namespace ZC {
   interface ZeroClipboardErrorEvent extends ZeroClipboardEvent {
     name: string;
     message: string;
-    minimumVersion?: string;
-    version?: string;
-    jsVersion?: string;
-    swfVersion?: string;
-    property?: string;
-    configuredValue?: string;
-    actualValue?: string;
-    data?: Dictionary<string>;
-    errors?: any[];
+    minimumVersion?: string | undefined;
+    version?: string | undefined;
+    jsVersion?: string | undefined;
+    swfVersion?: string | undefined;
+    property?: string | undefined;
+    configuredValue?: string | undefined;
+    actualValue?: string | undefined;
+    data?: Dictionary<string> | undefined;
+    errors?: any[] | undefined;
   }
 
   interface ZeroClipboardCommon {
@@ -318,12 +318,12 @@ declare namespace ZC {
      * @param {EventListener<ZeroClipboardErrorEvent>} listenerObj
      */
     on(listenerObj: {
-      ready?: EventListenerOrEventListenerObject<ZeroClipboardReadyEvent>;
-      beforecopy?: EventListenerOrEventListenerObject<ZeroClipboardBeforeCopyEvent>;
-      copy?: EventListenerOrEventListenerObject<ZeroClipboardCopyEvent>;
-      aftercopy?: EventListenerOrEventListenerObject<ZeroClipboardAfterCopyEvent>;
-      destroy?: EventListenerOrEventListenerObject<ZeroClipboardDestroyEvent>;
-      error?: EventListenerOrEventListenerObject<ZeroClipboardErrorEvent>;
+      ready?: EventListenerOrEventListenerObject<ZeroClipboardReadyEvent> | undefined;
+      beforecopy?: EventListenerOrEventListenerObject<ZeroClipboardBeforeCopyEvent> | undefined;
+      copy?: EventListenerOrEventListenerObject<ZeroClipboardCopyEvent> | undefined;
+      aftercopy?: EventListenerOrEventListenerObject<ZeroClipboardAfterCopyEvent> | undefined;
+      destroy?: EventListenerOrEventListenerObject<ZeroClipboardDestroyEvent> | undefined;
+      error?: EventListenerOrEventListenerObject<ZeroClipboardErrorEvent> | undefined;
     }): void;
     /**
      * Remove a listener function/object for an eventType.
@@ -342,12 +342,12 @@ declare namespace ZC {
      * @param {EventListener<ZeroClipboardErrorEvent>} listenerObj
      */
     off(listenerObj: {
-      ready?: EventListenerOrEventListenerObject<ZeroClipboardReadyEvent>;
-      beforecopy?: EventListenerOrEventListenerObject<ZeroClipboardBeforeCopyEvent>;
-      copy?: EventListenerOrEventListenerObject<ZeroClipboardCopyEvent>;
-      aftercopy?: EventListenerOrEventListenerObject<ZeroClipboardAfterCopyEvent>;
-      destroy?: EventListenerOrEventListenerObject<ZeroClipboardDestroyEvent>;
-      error?: EventListenerOrEventListenerObject<ZeroClipboardErrorEvent>;
+      ready?: EventListenerOrEventListenerObject<ZeroClipboardReadyEvent> | undefined;
+      beforecopy?: EventListenerOrEventListenerObject<ZeroClipboardBeforeCopyEvent> | undefined;
+      copy?: EventListenerOrEventListenerObject<ZeroClipboardCopyEvent> | undefined;
+      aftercopy?: EventListenerOrEventListenerObject<ZeroClipboardAfterCopyEvent> | undefined;
+      destroy?: EventListenerOrEventListenerObject<ZeroClipboardDestroyEvent> | undefined;
+      error?: EventListenerOrEventListenerObject<ZeroClipboardErrorEvent> | undefined;
     }): void;
     /**
      * Remove a set of eventType to listener function/object mappings.
@@ -399,12 +399,12 @@ declare namespace ZC {
      * @return {Object}
      */
     handlers(): {
-      ready?: EventListenerOrEventListenerObject<ZeroClipboardReadyEvent>[];
-      beforecopy?: EventListenerOrEventListenerObject<ZeroClipboardBeforeCopyEvent>[];
-      copy?: EventListenerOrEventListenerObject<ZeroClipboardCopyEvent>[];
-      aftercopy?: EventListenerOrEventListenerObject<ZeroClipboardAfterCopyEvent>[];
-      destroy?: EventListenerOrEventListenerObject<ZeroClipboardDestroyEvent>[];
-      error?: EventListenerOrEventListenerObject<ZeroClipboardErrorEvent>[];
+      ready?: EventListenerOrEventListenerObject<ZeroClipboardReadyEvent>[] | undefined;
+      beforecopy?: EventListenerOrEventListenerObject<ZeroClipboardBeforeCopyEvent>[] | undefined;
+      copy?: EventListenerOrEventListenerObject<ZeroClipboardCopyEvent>[] | undefined;
+      aftercopy?: EventListenerOrEventListenerObject<ZeroClipboardAfterCopyEvent>[] | undefined;
+      destroy?: EventListenerOrEventListenerObject<ZeroClipboardDestroyEvent>[] | undefined;
+      error?: EventListenerOrEventListenerObject<ZeroClipboardErrorEvent>[] | undefined;
     };
   }
 
@@ -413,91 +413,91 @@ declare namespace ZC {
      * SWF URL, relative to the page. Default value will be "ZeroClipboard.swf" under the same path as the ZeroClipboard JS file.
      * @type {string}
      */
-    swfPath?: string;
+    swfPath?: string | undefined;
     /**
      * SWF inbound scripting policy: page domains that the SWF should trust. (single string, or array of strings)
      * @type {SingleOrList<string>}
      */
-    trustedDomains?: string[];
+    trustedDomains?: string[] | undefined;
     /**
      * Include a "noCache" query parameter on requests for the SWF.
      * @type {boolean}
      */
-    cacheBust?: boolean;
+    cacheBust?: boolean | undefined;
     /**
      * Enable use of the fancy "Desktop" clipboard, even on Linux where it is known to suck.
      * @type {boolean}
      */
-    forceEnhancedClipboard?: boolean;
+    forceEnhancedClipboard?: boolean | undefined;
     /**
      * How many milliseconds to wait for the Flash SWF to load and respond before assuming that
      * Flash is deactivated (e.g. click-to-play) in the user's browser. If you don't care about
      * how long it takes to load the SWF, you can set this to `null`.
      * @type {number}
      */
-    flashLoadTimeout?: number;
+    flashLoadTimeout?: number | undefined;
     /**
      * Setting this to `false` would allow users to handle calling `ZeroClipboard.focus(...);`
      * themselves instead of relying on our per-element `mouseover` handler.
      * @type {boolean}
      */
-    autoActivate?: boolean;
+    autoActivate?: boolean | undefined;
     /**
      * Bubble synthetic events in JavaScript after they are received by the Flash object.
      * @type {boolean}
      */
-    bubbleEvents?: boolean;
+    bubbleEvents?: boolean | undefined;
     /**
      * Ensure OS-compliant line endings, i.e. "\r\n" on Windows, "\n" elsewhere
      * @type {boolean}
      */
-    fixLineEndings?: boolean;
+    fixLineEndings?: boolean | undefined;
     /**
      * Sets the ID of the `div` encapsulating the Flash object.
      * Value is validated against the [HTML4 spec for `ID` tokens][valid_ids].
      * @type {string}
      */
-    containerId?: string;
+    containerId?: string | undefined;
     /**
      * Sets the class of the `div` encapsulating the Flash object.
      * @type {string}
      */
-    containerClass?: string;
+    containerClass?: string | undefined;
     /**
      * Sets the ID and name of the Flash `object` element.
      * Value is validated against the [HTML4 spec for `ID` and `Name` tokens][valid_ids].
      * @type {string}
      */
-    swfObjectId?: string;
+    swfObjectId?: string | undefined;
     /**
      * The class used to indicate that a clipped element is being hovered over.
      * @type {string}
      */
-    hoverClass?: string;
+    hoverClass?: string | undefined;
     /**
      * The class used to indicate that a clipped element is active (is being clicked).
      * @type {string}
      */
-    activeClass?: string;
+    activeClass?: string | undefined;
     /**
      * Forcibly set the hand cursor ("pointer") for all clipped elements.
      * IMPORTANT: This configuration value CAN be modified while a SWF is actively embedded.
      * @type {boolean}
      */
-    forceHandCursor?: boolean;
+    forceHandCursor?: boolean | undefined;
     /**
      * Sets the title of the `div` encapsulating the Flash object.
      * IMPORTANT: This configuration value CAN be modified while a SWF is actively embedded.
      * @type {string}
      */
-    title?: string;
+    title?: string | undefined;
     /**
      * The z-index used by the Flash object.
      * Max value (32-bit): 2147483647.
      * IMPORTANT: This configuration value CAN be modified while a SWF is actively embedded.
      * @type {number}
      */
-    zIndex?: number;
+    zIndex?: number | undefined;
   }
 }
 

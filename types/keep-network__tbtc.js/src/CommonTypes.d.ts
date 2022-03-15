@@ -29,26 +29,26 @@ export type StateMutabilityType = 'pure' | 'view' | 'nonpayable' | 'payable';
 export interface AbiInput {
     name: string;
     type: string;
-    indexed?: boolean;
-    components?: AbiInput[];
-    internalType?: string;
+    indexed?: boolean | undefined;
+    components?: AbiInput[] | undefined;
+    internalType?: string | undefined;
 }
 export interface AbiOutput {
     name: string;
     type: string;
-    components?: AbiOutput[];
-    internalType?: string;
+    components?: AbiOutput[] | undefined;
+    internalType?: string | undefined;
 }
 export interface AbiItem {
-    anonymous?: boolean;
-    constant?: boolean;
-    inputs?: AbiInput[];
-    name?: string;
-    outputs?: AbiOutput[];
-    payable?: boolean;
-    stateMutability?: StateMutabilityType;
+    anonymous?: boolean | undefined;
+    constant?: boolean | undefined;
+    inputs?: AbiInput[] | undefined;
+    name?: string | undefined;
+    outputs?: AbiOutput[] | undefined;
+    payable?: boolean | undefined;
+    stateMutability?: StateMutabilityType | undefined;
     type: AbiType;
-    gas?: number;
+    gas?: number | undefined;
 }
 
 export class Contract {

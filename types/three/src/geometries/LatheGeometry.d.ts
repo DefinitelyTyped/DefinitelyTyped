@@ -8,7 +8,7 @@ export class LatheGeometry extends BufferGeometry {
      * @param [phiStart=0]
      * @param [phiLength=Math.PI * 2]
      */
-    constructor(points: Vector2[], segments?: number, phiStart?: number, phiLength?: number);
+    constructor(points?: Vector2[], segments?: number, phiStart?: number, phiLength?: number);
 
     /**
      * @default 'LatheGeometry'
@@ -21,6 +21,8 @@ export class LatheGeometry extends BufferGeometry {
         phiStart: number;
         phiLength: number;
     };
+
+    static fromJSON(data: any): LatheGeometry;
 }
 
 export { LatheGeometry as LatheBufferGeometry };

@@ -3,7 +3,7 @@
 // Definitions by: Ika <https://github.com/ikatyang>
 //                 Manuel Thalmann <https://github.com/manuth>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.3
+// TypeScript Version: 4.2
 
 import { EventEmitter } from 'events';
 import Generator = require('yeoman-generator');
@@ -147,18 +147,18 @@ export interface RunContextSettings {
      * Automatically run this generator in a tmp dir
      * @default true
      */
-    tmpdir?: boolean;
+    tmpdir?: boolean | undefined;
 
     /**
      * File path to the generator (only used if Generator is a constructor)
      */
-    resolved?: string;
+    resolved?: string | undefined;
 
     /**
      * Namespace (only used if Generator is a constructor)
      * @default 'gen:test'
      */
-    namespace?: string;
+    namespace?: string | undefined;
 }
 
 /**

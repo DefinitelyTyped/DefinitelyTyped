@@ -1,7 +1,6 @@
 // Type definitions for node-notifier 8.0
 // Project: https://github.com/mikaelbr/node-notifier
 // Definitions by: Qubo <https://github.com/tkQubo>
-//                 Lorenzo Rapetti <https://github.com/loryman>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -29,20 +28,20 @@ declare namespace nodeNotifier {
     }
 
     interface Notification {
-        title?: string;
-        message?: string;
+        title?: string | undefined;
+        message?: string | undefined;
         /** Absolute path (not balloons) */
-        icon?: string;
+        icon?: string | undefined;
         /** Wait with callback until user action is taken on notification */
-        wait?: boolean;
+        wait?: boolean | undefined;
     }
 
     interface NotificationMetadata {
-        activationType?: string;
-        activationAt?: string;
-        deliveredAt?: string;
-        activationValue?: string;
-        activationValueIndex?: string;
+        activationType?: string | undefined;
+        activationAt?: string | undefined;
+        deliveredAt?: string | undefined;
+        activationValue?: string | undefined;
+        activationValueIndex?: string | undefined;
     }
 
     interface NotificationCallback {
@@ -50,8 +49,8 @@ declare namespace nodeNotifier {
     }
 
     interface Option {
-        withFallback?: boolean;
-        customPath?: string;
+        withFallback?: boolean | undefined;
+        customPath?: string | undefined;
     }
 }
 

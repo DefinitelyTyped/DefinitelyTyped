@@ -85,601 +85,601 @@ declare namespace GoogleAppsScript {
     }
     namespace Schema {
       interface BigQueryModelTraining {
-        currentIteration?: number;
-        expectedTotalIterations?: string;
+        currentIteration?: number | undefined;
+        expectedTotalIterations?: string | undefined;
       }
       interface BigtableColumn {
-        encoding?: string;
-        fieldName?: string;
-        onlyReadLatest?: boolean;
-        qualifierEncoded?: string;
-        qualifierString?: string;
-        type?: string;
+        encoding?: string | undefined;
+        fieldName?: string | undefined;
+        onlyReadLatest?: boolean | undefined;
+        qualifierEncoded?: string | undefined;
+        qualifierString?: string | undefined;
+        type?: string | undefined;
       }
       interface BigtableColumnFamily {
-        columns?: BigQuery.Schema.BigtableColumn[];
-        encoding?: string;
-        familyId?: string;
-        onlyReadLatest?: boolean;
-        type?: string;
+        columns?: BigQuery.Schema.BigtableColumn[] | undefined;
+        encoding?: string | undefined;
+        familyId?: string | undefined;
+        onlyReadLatest?: boolean | undefined;
+        type?: string | undefined;
       }
       interface BigtableOptions {
-        columnFamilies?: BigQuery.Schema.BigtableColumnFamily[];
-        ignoreUnspecifiedColumnFamilies?: boolean;
-        readRowkeyAsString?: boolean;
+        columnFamilies?: BigQuery.Schema.BigtableColumnFamily[] | undefined;
+        ignoreUnspecifiedColumnFamilies?: boolean | undefined;
+        readRowkeyAsString?: boolean | undefined;
       }
       interface BqmlIterationResult {
-        durationMs?: string;
-        evalLoss?: number;
-        index?: number;
-        learnRate?: number;
-        trainingLoss?: number;
+        durationMs?: string | undefined;
+        evalLoss?: number | undefined;
+        index?: number | undefined;
+        learnRate?: number | undefined;
+        trainingLoss?: number | undefined;
       }
       interface BqmlTrainingRun {
-        iterationResults?: BigQuery.Schema.BqmlIterationResult[];
-        startTime?: string;
-        state?: string;
-        trainingOptions?: BigQuery.Schema.BqmlTrainingRunTrainingOptions;
+        iterationResults?: BigQuery.Schema.BqmlIterationResult[] | undefined;
+        startTime?: string | undefined;
+        state?: string | undefined;
+        trainingOptions?: BigQuery.Schema.BqmlTrainingRunTrainingOptions | undefined;
       }
       interface BqmlTrainingRunTrainingOptions {
-        earlyStop?: boolean;
-        l1Reg?: number;
-        l2Reg?: number;
-        learnRate?: number;
-        learnRateStrategy?: string;
-        lineSearchInitLearnRate?: number;
-        maxIteration?: string;
-        minRelProgress?: number;
-        warmStart?: boolean;
+        earlyStop?: boolean | undefined;
+        l1Reg?: number | undefined;
+        l2Reg?: number | undefined;
+        learnRate?: number | undefined;
+        learnRateStrategy?: string | undefined;
+        lineSearchInitLearnRate?: number | undefined;
+        maxIteration?: string | undefined;
+        minRelProgress?: number | undefined;
+        warmStart?: boolean | undefined;
       }
       interface Clustering {
-        fields?: string[];
+        fields?: string[] | undefined;
       }
       interface CsvOptions {
-        allowJaggedRows?: boolean;
-        allowQuotedNewlines?: boolean;
-        encoding?: string;
-        fieldDelimiter?: string;
-        quote?: string;
-        skipLeadingRows?: string;
+        allowJaggedRows?: boolean | undefined;
+        allowQuotedNewlines?: boolean | undefined;
+        encoding?: string | undefined;
+        fieldDelimiter?: string | undefined;
+        quote?: string | undefined;
+        skipLeadingRows?: string | undefined;
       }
       interface Dataset {
-        access?: BigQuery.Schema.DatasetAccess[];
-        creationTime?: string;
-        datasetReference?: BigQuery.Schema.DatasetReference;
-        defaultPartitionExpirationMs?: string;
-        defaultTableExpirationMs?: string;
-        description?: string;
-        etag?: string;
-        friendlyName?: string;
-        id?: string;
-        kind?: string;
-        labels?: object;
-        lastModifiedTime?: string;
-        location?: string;
-        selfLink?: string;
+        access?: BigQuery.Schema.DatasetAccess[] | undefined;
+        creationTime?: string | undefined;
+        datasetReference?: BigQuery.Schema.DatasetReference | undefined;
+        defaultPartitionExpirationMs?: string | undefined;
+        defaultTableExpirationMs?: string | undefined;
+        description?: string | undefined;
+        etag?: string | undefined;
+        friendlyName?: string | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        labels?: object | undefined;
+        lastModifiedTime?: string | undefined;
+        location?: string | undefined;
+        selfLink?: string | undefined;
       }
       interface DatasetAccess {
-        domain?: string;
-        groupByEmail?: string;
-        iamMember?: string;
-        role?: string;
-        specialGroup?: string;
-        userByEmail?: string;
-        view?: BigQuery.Schema.TableReference;
+        domain?: string | undefined;
+        groupByEmail?: string | undefined;
+        iamMember?: string | undefined;
+        role?: string | undefined;
+        specialGroup?: string | undefined;
+        userByEmail?: string | undefined;
+        view?: BigQuery.Schema.TableReference | undefined;
       }
       interface DatasetList {
-        datasets?: BigQuery.Schema.DatasetListDatasets[];
-        etag?: string;
-        kind?: string;
-        nextPageToken?: string;
+        datasets?: BigQuery.Schema.DatasetListDatasets[] | undefined;
+        etag?: string | undefined;
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
       }
       interface DatasetListDatasets {
-        datasetReference?: BigQuery.Schema.DatasetReference;
-        friendlyName?: string;
-        id?: string;
-        kind?: string;
-        labels?: object;
-        location?: string;
+        datasetReference?: BigQuery.Schema.DatasetReference | undefined;
+        friendlyName?: string | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        labels?: object | undefined;
+        location?: string | undefined;
       }
       interface DatasetReference {
-        datasetId?: string;
-        projectId?: string;
+        datasetId?: string | undefined;
+        projectId?: string | undefined;
       }
       interface DestinationTableProperties {
-        description?: string;
-        friendlyName?: string;
-        labels?: object;
+        description?: string | undefined;
+        friendlyName?: string | undefined;
+        labels?: object | undefined;
       }
       interface EncryptionConfiguration {
-        kmsKeyName?: string;
+        kmsKeyName?: string | undefined;
       }
       interface ErrorProto {
-        debugInfo?: string;
-        location?: string;
-        message?: string;
-        reason?: string;
+        debugInfo?: string | undefined;
+        location?: string | undefined;
+        message?: string | undefined;
+        reason?: string | undefined;
       }
       interface ExplainQueryStage {
-        completedParallelInputs?: string;
-        computeMsAvg?: string;
-        computeMsMax?: string;
-        computeRatioAvg?: number;
-        computeRatioMax?: number;
-        endMs?: string;
-        id?: string;
-        inputStages?: string[];
-        name?: string;
-        parallelInputs?: string;
-        readMsAvg?: string;
-        readMsMax?: string;
-        readRatioAvg?: number;
-        readRatioMax?: number;
-        recordsRead?: string;
-        recordsWritten?: string;
-        shuffleOutputBytes?: string;
-        shuffleOutputBytesSpilled?: string;
-        startMs?: string;
-        status?: string;
-        steps?: BigQuery.Schema.ExplainQueryStep[];
-        waitMsAvg?: string;
-        waitMsMax?: string;
-        waitRatioAvg?: number;
-        waitRatioMax?: number;
-        writeMsAvg?: string;
-        writeMsMax?: string;
-        writeRatioAvg?: number;
-        writeRatioMax?: number;
+        completedParallelInputs?: string | undefined;
+        computeMsAvg?: string | undefined;
+        computeMsMax?: string | undefined;
+        computeRatioAvg?: number | undefined;
+        computeRatioMax?: number | undefined;
+        endMs?: string | undefined;
+        id?: string | undefined;
+        inputStages?: string[] | undefined;
+        name?: string | undefined;
+        parallelInputs?: string | undefined;
+        readMsAvg?: string | undefined;
+        readMsMax?: string | undefined;
+        readRatioAvg?: number | undefined;
+        readRatioMax?: number | undefined;
+        recordsRead?: string | undefined;
+        recordsWritten?: string | undefined;
+        shuffleOutputBytes?: string | undefined;
+        shuffleOutputBytesSpilled?: string | undefined;
+        startMs?: string | undefined;
+        status?: string | undefined;
+        steps?: BigQuery.Schema.ExplainQueryStep[] | undefined;
+        waitMsAvg?: string | undefined;
+        waitMsMax?: string | undefined;
+        waitRatioAvg?: number | undefined;
+        waitRatioMax?: number | undefined;
+        writeMsAvg?: string | undefined;
+        writeMsMax?: string | undefined;
+        writeRatioAvg?: number | undefined;
+        writeRatioMax?: number | undefined;
       }
       interface ExplainQueryStep {
-        kind?: string;
-        substeps?: string[];
+        kind?: string | undefined;
+        substeps?: string[] | undefined;
       }
       interface ExternalDataConfiguration {
-        autodetect?: boolean;
-        bigtableOptions?: BigQuery.Schema.BigtableOptions;
-        compression?: string;
-        csvOptions?: BigQuery.Schema.CsvOptions;
-        googleSheetsOptions?: BigQuery.Schema.GoogleSheetsOptions;
-        hivePartitioningMode?: string;
-        ignoreUnknownValues?: boolean;
-        maxBadRecords?: number;
-        schema?: BigQuery.Schema.TableSchema;
-        sourceFormat?: string;
-        sourceUris?: string[];
+        autodetect?: boolean | undefined;
+        bigtableOptions?: BigQuery.Schema.BigtableOptions | undefined;
+        compression?: string | undefined;
+        csvOptions?: BigQuery.Schema.CsvOptions | undefined;
+        googleSheetsOptions?: BigQuery.Schema.GoogleSheetsOptions | undefined;
+        hivePartitioningMode?: string | undefined;
+        ignoreUnknownValues?: boolean | undefined;
+        maxBadRecords?: number | undefined;
+        schema?: BigQuery.Schema.TableSchema | undefined;
+        sourceFormat?: string | undefined;
+        sourceUris?: string[] | undefined;
       }
       interface GetQueryResultsResponse {
-        cacheHit?: boolean;
-        errors?: BigQuery.Schema.ErrorProto[];
-        etag?: string;
-        jobComplete?: boolean;
-        jobReference?: BigQuery.Schema.JobReference;
-        kind?: string;
-        numDmlAffectedRows?: string;
-        pageToken?: string;
-        rows?: BigQuery.Schema.TableRow[];
-        schema?: BigQuery.Schema.TableSchema;
-        totalBytesProcessed?: string;
-        totalRows?: string;
+        cacheHit?: boolean | undefined;
+        errors?: BigQuery.Schema.ErrorProto[] | undefined;
+        etag?: string | undefined;
+        jobComplete?: boolean | undefined;
+        jobReference?: BigQuery.Schema.JobReference | undefined;
+        kind?: string | undefined;
+        numDmlAffectedRows?: string | undefined;
+        pageToken?: string | undefined;
+        rows?: BigQuery.Schema.TableRow[] | undefined;
+        schema?: BigQuery.Schema.TableSchema | undefined;
+        totalBytesProcessed?: string | undefined;
+        totalRows?: string | undefined;
       }
       interface GetServiceAccountResponse {
-        email?: string;
-        kind?: string;
+        email?: string | undefined;
+        kind?: string | undefined;
       }
       interface GoogleSheetsOptions {
-        range?: string;
-        skipLeadingRows?: string;
+        range?: string | undefined;
+        skipLeadingRows?: string | undefined;
       }
       interface Job {
-        configuration?: BigQuery.Schema.JobConfiguration;
-        etag?: string;
-        id?: string;
-        jobReference?: BigQuery.Schema.JobReference;
-        kind?: string;
-        selfLink?: string;
-        statistics?: BigQuery.Schema.JobStatistics;
-        status?: BigQuery.Schema.JobStatus;
-        user_email?: string;
+        configuration?: BigQuery.Schema.JobConfiguration | undefined;
+        etag?: string | undefined;
+        id?: string | undefined;
+        jobReference?: BigQuery.Schema.JobReference | undefined;
+        kind?: string | undefined;
+        selfLink?: string | undefined;
+        statistics?: BigQuery.Schema.JobStatistics | undefined;
+        status?: BigQuery.Schema.JobStatus | undefined;
+        user_email?: string | undefined;
       }
       interface JobCancelResponse {
-        job?: BigQuery.Schema.Job;
-        kind?: string;
+        job?: BigQuery.Schema.Job | undefined;
+        kind?: string | undefined;
       }
       interface JobConfiguration {
-        copy?: BigQuery.Schema.JobConfigurationTableCopy;
-        dryRun?: boolean;
-        extract?: BigQuery.Schema.JobConfigurationExtract;
-        jobTimeoutMs?: string;
-        jobType?: string;
-        labels?: object;
-        load?: BigQuery.Schema.JobConfigurationLoad;
-        query?: BigQuery.Schema.JobConfigurationQuery;
+        copy?: BigQuery.Schema.JobConfigurationTableCopy | undefined;
+        dryRun?: boolean | undefined;
+        extract?: BigQuery.Schema.JobConfigurationExtract | undefined;
+        jobTimeoutMs?: string | undefined;
+        jobType?: string | undefined;
+        labels?: object | undefined;
+        load?: BigQuery.Schema.JobConfigurationLoad | undefined;
+        query?: BigQuery.Schema.JobConfigurationQuery | undefined;
       }
       interface JobConfigurationExtract {
-        compression?: string;
-        destinationFormat?: string;
-        destinationUri?: string;
-        destinationUris?: string[];
-        fieldDelimiter?: string;
-        printHeader?: boolean;
-        sourceTable?: BigQuery.Schema.TableReference;
+        compression?: string | undefined;
+        destinationFormat?: string | undefined;
+        destinationUri?: string | undefined;
+        destinationUris?: string[] | undefined;
+        fieldDelimiter?: string | undefined;
+        printHeader?: boolean | undefined;
+        sourceTable?: BigQuery.Schema.TableReference | undefined;
       }
       interface JobConfigurationLoad {
-        allowJaggedRows?: boolean;
-        allowQuotedNewlines?: boolean;
-        autodetect?: boolean;
-        clustering?: BigQuery.Schema.Clustering;
-        createDisposition?: string;
-        destinationEncryptionConfiguration?: BigQuery.Schema.EncryptionConfiguration;
-        destinationTable?: BigQuery.Schema.TableReference;
-        destinationTableProperties?: BigQuery.Schema.DestinationTableProperties;
-        encoding?: string;
-        fieldDelimiter?: string;
-        hivePartitioningMode?: string;
-        ignoreUnknownValues?: boolean;
-        maxBadRecords?: number;
-        nullMarker?: string;
-        projectionFields?: string[];
-        quote?: string;
-        rangePartitioning?: BigQuery.Schema.RangePartitioning;
-        schema?: BigQuery.Schema.TableSchema;
-        schemaInline?: string;
-        schemaInlineFormat?: string;
-        schemaUpdateOptions?: string[];
-        skipLeadingRows?: number;
-        sourceFormat?: string;
-        sourceUris?: string[];
-        timePartitioning?: BigQuery.Schema.TimePartitioning;
-        useAvroLogicalTypes?: boolean;
-        writeDisposition?: string;
+        allowJaggedRows?: boolean | undefined;
+        allowQuotedNewlines?: boolean | undefined;
+        autodetect?: boolean | undefined;
+        clustering?: BigQuery.Schema.Clustering | undefined;
+        createDisposition?: string | undefined;
+        destinationEncryptionConfiguration?: BigQuery.Schema.EncryptionConfiguration | undefined;
+        destinationTable?: BigQuery.Schema.TableReference | undefined;
+        destinationTableProperties?: BigQuery.Schema.DestinationTableProperties | undefined;
+        encoding?: string | undefined;
+        fieldDelimiter?: string | undefined;
+        hivePartitioningMode?: string | undefined;
+        ignoreUnknownValues?: boolean | undefined;
+        maxBadRecords?: number | undefined;
+        nullMarker?: string | undefined;
+        projectionFields?: string[] | undefined;
+        quote?: string | undefined;
+        rangePartitioning?: BigQuery.Schema.RangePartitioning | undefined;
+        schema?: BigQuery.Schema.TableSchema | undefined;
+        schemaInline?: string | undefined;
+        schemaInlineFormat?: string | undefined;
+        schemaUpdateOptions?: string[] | undefined;
+        skipLeadingRows?: number | undefined;
+        sourceFormat?: string | undefined;
+        sourceUris?: string[] | undefined;
+        timePartitioning?: BigQuery.Schema.TimePartitioning | undefined;
+        useAvroLogicalTypes?: boolean | undefined;
+        writeDisposition?: string | undefined;
       }
       interface JobConfigurationQuery {
-        allowLargeResults?: boolean;
-        clustering?: BigQuery.Schema.Clustering;
-        createDisposition?: string;
-        defaultDataset?: BigQuery.Schema.DatasetReference;
-        destinationEncryptionConfiguration?: BigQuery.Schema.EncryptionConfiguration;
-        destinationTable?: BigQuery.Schema.TableReference;
-        flattenResults?: boolean;
-        maximumBillingTier?: number;
-        maximumBytesBilled?: string;
-        parameterMode?: string;
-        preserveNulls?: boolean;
-        priority?: string;
-        query?: string;
-        queryParameters?: BigQuery.Schema.QueryParameter[];
-        rangePartitioning?: BigQuery.Schema.RangePartitioning;
-        schemaUpdateOptions?: string[];
-        tableDefinitions?: object;
-        timePartitioning?: BigQuery.Schema.TimePartitioning;
-        useLegacySql?: boolean;
-        useQueryCache?: boolean;
-        userDefinedFunctionResources?: BigQuery.Schema.UserDefinedFunctionResource[];
-        writeDisposition?: string;
+        allowLargeResults?: boolean | undefined;
+        clustering?: BigQuery.Schema.Clustering | undefined;
+        createDisposition?: string | undefined;
+        defaultDataset?: BigQuery.Schema.DatasetReference | undefined;
+        destinationEncryptionConfiguration?: BigQuery.Schema.EncryptionConfiguration | undefined;
+        destinationTable?: BigQuery.Schema.TableReference | undefined;
+        flattenResults?: boolean | undefined;
+        maximumBillingTier?: number | undefined;
+        maximumBytesBilled?: string | undefined;
+        parameterMode?: string | undefined;
+        preserveNulls?: boolean | undefined;
+        priority?: string | undefined;
+        query?: string | undefined;
+        queryParameters?: BigQuery.Schema.QueryParameter[] | undefined;
+        rangePartitioning?: BigQuery.Schema.RangePartitioning | undefined;
+        schemaUpdateOptions?: string[] | undefined;
+        tableDefinitions?: object | undefined;
+        timePartitioning?: BigQuery.Schema.TimePartitioning | undefined;
+        useLegacySql?: boolean | undefined;
+        useQueryCache?: boolean | undefined;
+        userDefinedFunctionResources?: BigQuery.Schema.UserDefinedFunctionResource[] | undefined;
+        writeDisposition?: string | undefined;
       }
       interface JobConfigurationTableCopy {
-        createDisposition?: string;
-        destinationEncryptionConfiguration?: BigQuery.Schema.EncryptionConfiguration;
-        destinationTable?: BigQuery.Schema.TableReference;
-        sourceTable?: BigQuery.Schema.TableReference;
-        sourceTables?: BigQuery.Schema.TableReference[];
-        writeDisposition?: string;
+        createDisposition?: string | undefined;
+        destinationEncryptionConfiguration?: BigQuery.Schema.EncryptionConfiguration | undefined;
+        destinationTable?: BigQuery.Schema.TableReference | undefined;
+        sourceTable?: BigQuery.Schema.TableReference | undefined;
+        sourceTables?: BigQuery.Schema.TableReference[] | undefined;
+        writeDisposition?: string | undefined;
       }
       interface JobList {
-        etag?: string;
-        jobs?: BigQuery.Schema.JobListJobs[];
-        kind?: string;
-        nextPageToken?: string;
+        etag?: string | undefined;
+        jobs?: BigQuery.Schema.JobListJobs[] | undefined;
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
       }
       interface JobListJobs {
-        configuration?: BigQuery.Schema.JobConfiguration;
-        errorResult?: BigQuery.Schema.ErrorProto;
-        id?: string;
-        jobReference?: BigQuery.Schema.JobReference;
-        kind?: string;
-        state?: string;
-        statistics?: BigQuery.Schema.JobStatistics;
-        status?: BigQuery.Schema.JobStatus;
-        user_email?: string;
+        configuration?: BigQuery.Schema.JobConfiguration | undefined;
+        errorResult?: BigQuery.Schema.ErrorProto | undefined;
+        id?: string | undefined;
+        jobReference?: BigQuery.Schema.JobReference | undefined;
+        kind?: string | undefined;
+        state?: string | undefined;
+        statistics?: BigQuery.Schema.JobStatistics | undefined;
+        status?: BigQuery.Schema.JobStatus | undefined;
+        user_email?: string | undefined;
       }
       interface JobReference {
-        jobId?: string;
-        location?: string;
-        projectId?: string;
+        jobId?: string | undefined;
+        location?: string | undefined;
+        projectId?: string | undefined;
       }
       interface JobStatistics {
-        completionRatio?: number;
-        creationTime?: string;
-        endTime?: string;
-        extract?: BigQuery.Schema.JobStatistics4;
-        load?: BigQuery.Schema.JobStatistics3;
-        numChildJobs?: string;
-        parentJobId?: string;
-        query?: BigQuery.Schema.JobStatistics2;
-        quotaDeferments?: string[];
-        reservationUsage?: BigQuery.Schema.JobStatisticsReservationUsage[];
-        startTime?: string;
-        totalBytesProcessed?: string;
-        totalSlotMs?: string;
+        completionRatio?: number | undefined;
+        creationTime?: string | undefined;
+        endTime?: string | undefined;
+        extract?: BigQuery.Schema.JobStatistics4 | undefined;
+        load?: BigQuery.Schema.JobStatistics3 | undefined;
+        numChildJobs?: string | undefined;
+        parentJobId?: string | undefined;
+        query?: BigQuery.Schema.JobStatistics2 | undefined;
+        quotaDeferments?: string[] | undefined;
+        reservationUsage?: BigQuery.Schema.JobStatisticsReservationUsage[] | undefined;
+        startTime?: string | undefined;
+        totalBytesProcessed?: string | undefined;
+        totalSlotMs?: string | undefined;
       }
       interface JobStatistics2 {
-        billingTier?: number;
-        cacheHit?: boolean;
-        ddlOperationPerformed?: string;
-        ddlTargetRoutine?: BigQuery.Schema.RoutineReference;
-        ddlTargetTable?: BigQuery.Schema.TableReference;
-        estimatedBytesProcessed?: string;
-        modelTraining?: BigQuery.Schema.BigQueryModelTraining;
-        modelTrainingCurrentIteration?: number;
-        modelTrainingExpectedTotalIteration?: string;
-        numDmlAffectedRows?: string;
-        queryPlan?: BigQuery.Schema.ExplainQueryStage[];
-        referencedTables?: BigQuery.Schema.TableReference[];
-        reservationUsage?: BigQuery.Schema.JobStatistics2ReservationUsage[];
-        schema?: BigQuery.Schema.TableSchema;
-        statementType?: string;
-        timeline?: BigQuery.Schema.QueryTimelineSample[];
-        totalBytesBilled?: string;
-        totalBytesProcessed?: string;
-        totalBytesProcessedAccuracy?: string;
-        totalPartitionsProcessed?: string;
-        totalSlotMs?: string;
-        undeclaredQueryParameters?: BigQuery.Schema.QueryParameter[];
+        billingTier?: number | undefined;
+        cacheHit?: boolean | undefined;
+        ddlOperationPerformed?: string | undefined;
+        ddlTargetRoutine?: BigQuery.Schema.RoutineReference | undefined;
+        ddlTargetTable?: BigQuery.Schema.TableReference | undefined;
+        estimatedBytesProcessed?: string | undefined;
+        modelTraining?: BigQuery.Schema.BigQueryModelTraining | undefined;
+        modelTrainingCurrentIteration?: number | undefined;
+        modelTrainingExpectedTotalIteration?: string | undefined;
+        numDmlAffectedRows?: string | undefined;
+        queryPlan?: BigQuery.Schema.ExplainQueryStage[] | undefined;
+        referencedTables?: BigQuery.Schema.TableReference[] | undefined;
+        reservationUsage?: BigQuery.Schema.JobStatistics2ReservationUsage[] | undefined;
+        schema?: BigQuery.Schema.TableSchema | undefined;
+        statementType?: string | undefined;
+        timeline?: BigQuery.Schema.QueryTimelineSample[] | undefined;
+        totalBytesBilled?: string | undefined;
+        totalBytesProcessed?: string | undefined;
+        totalBytesProcessedAccuracy?: string | undefined;
+        totalPartitionsProcessed?: string | undefined;
+        totalSlotMs?: string | undefined;
+        undeclaredQueryParameters?: BigQuery.Schema.QueryParameter[] | undefined;
       }
       interface JobStatistics2ReservationUsage {
-        name?: string;
-        slotMs?: string;
+        name?: string | undefined;
+        slotMs?: string | undefined;
       }
       interface JobStatistics3 {
-        badRecords?: string;
-        inputFileBytes?: string;
-        inputFiles?: string;
-        outputBytes?: string;
-        outputRows?: string;
+        badRecords?: string | undefined;
+        inputFileBytes?: string | undefined;
+        inputFiles?: string | undefined;
+        outputBytes?: string | undefined;
+        outputRows?: string | undefined;
       }
       interface JobStatistics4 {
-        destinationUriFileCounts?: string[];
-        inputBytes?: string;
+        destinationUriFileCounts?: string[] | undefined;
+        inputBytes?: string | undefined;
       }
       interface JobStatisticsReservationUsage {
-        name?: string;
-        slotMs?: string;
+        name?: string | undefined;
+        slotMs?: string | undefined;
       }
       interface JobStatus {
-        errorResult?: BigQuery.Schema.ErrorProto;
-        errors?: BigQuery.Schema.ErrorProto[];
-        state?: string;
+        errorResult?: BigQuery.Schema.ErrorProto | undefined;
+        errors?: BigQuery.Schema.ErrorProto[] | undefined;
+        state?: string | undefined;
       }
       interface MaterializedViewDefinition {
-        lastRefreshTime?: string;
-        query?: string;
+        lastRefreshTime?: string | undefined;
+        query?: string | undefined;
       }
       interface ModelDefinition {
-        modelOptions?: BigQuery.Schema.ModelDefinitionModelOptions;
-        trainingRuns?: BigQuery.Schema.BqmlTrainingRun[];
+        modelOptions?: BigQuery.Schema.ModelDefinitionModelOptions | undefined;
+        trainingRuns?: BigQuery.Schema.BqmlTrainingRun[] | undefined;
       }
       interface ModelDefinitionModelOptions {
-        labels?: string[];
-        lossType?: string;
-        modelType?: string;
+        labels?: string[] | undefined;
+        lossType?: string | undefined;
+        modelType?: string | undefined;
       }
       interface ProjectList {
-        etag?: string;
-        kind?: string;
-        nextPageToken?: string;
-        projects?: BigQuery.Schema.ProjectListProjects[];
-        totalItems?: number;
+        etag?: string | undefined;
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
+        projects?: BigQuery.Schema.ProjectListProjects[] | undefined;
+        totalItems?: number | undefined;
       }
       interface ProjectListProjects {
-        friendlyName?: string;
-        id?: string;
-        kind?: string;
-        numericId?: string;
-        projectReference?: BigQuery.Schema.ProjectReference;
+        friendlyName?: string | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        numericId?: string | undefined;
+        projectReference?: BigQuery.Schema.ProjectReference | undefined;
       }
       interface ProjectReference {
-        projectId?: string;
+        projectId?: string | undefined;
       }
       interface QueryParameter {
-        name?: string;
-        parameterType?: BigQuery.Schema.QueryParameterType;
-        parameterValue?: BigQuery.Schema.QueryParameterValue;
+        name?: string | undefined;
+        parameterType?: BigQuery.Schema.QueryParameterType | undefined;
+        parameterValue?: BigQuery.Schema.QueryParameterValue | undefined;
       }
       interface QueryParameterType {
-        arrayType?: BigQuery.Schema.QueryParameterType;
-        structTypes?: BigQuery.Schema.QueryParameterTypeStructTypes[];
-        type?: string;
+        arrayType?: BigQuery.Schema.QueryParameterType | undefined;
+        structTypes?: BigQuery.Schema.QueryParameterTypeStructTypes[] | undefined;
+        type?: string | undefined;
       }
       interface QueryParameterTypeStructTypes {
-        description?: string;
-        name?: string;
-        type?: BigQuery.Schema.QueryParameterType;
+        description?: string | undefined;
+        name?: string | undefined;
+        type?: BigQuery.Schema.QueryParameterType | undefined;
       }
       interface QueryParameterValue {
-        arrayValues?: BigQuery.Schema.QueryParameterValue[];
-        structValues?: object;
-        value?: string;
+        arrayValues?: BigQuery.Schema.QueryParameterValue[] | undefined;
+        structValues?: object | undefined;
+        value?: string | undefined;
       }
       interface QueryRequest {
-        defaultDataset?: BigQuery.Schema.DatasetReference;
-        dryRun?: boolean;
-        kind?: string;
-        location?: string;
-        maxResults?: number;
-        parameterMode?: string;
-        preserveNulls?: boolean;
-        query?: string;
-        queryParameters?: BigQuery.Schema.QueryParameter[];
-        timeoutMs?: number;
-        useLegacySql?: boolean;
-        useQueryCache?: boolean;
+        defaultDataset?: BigQuery.Schema.DatasetReference | undefined;
+        dryRun?: boolean | undefined;
+        kind?: string | undefined;
+        location?: string | undefined;
+        maxResults?: number | undefined;
+        parameterMode?: string | undefined;
+        preserveNulls?: boolean | undefined;
+        query?: string | undefined;
+        queryParameters?: BigQuery.Schema.QueryParameter[] | undefined;
+        timeoutMs?: number | undefined;
+        useLegacySql?: boolean | undefined;
+        useQueryCache?: boolean | undefined;
       }
       interface QueryResponse {
-        cacheHit?: boolean;
-        errors?: BigQuery.Schema.ErrorProto[];
-        jobComplete?: boolean;
-        jobReference?: BigQuery.Schema.JobReference;
-        kind?: string;
-        numDmlAffectedRows?: string;
-        pageToken?: string;
-        rows?: BigQuery.Schema.TableRow[];
-        schema?: BigQuery.Schema.TableSchema;
-        totalBytesProcessed?: string;
-        totalRows?: string;
+        cacheHit?: boolean | undefined;
+        errors?: BigQuery.Schema.ErrorProto[] | undefined;
+        jobComplete?: boolean | undefined;
+        jobReference?: BigQuery.Schema.JobReference | undefined;
+        kind?: string | undefined;
+        numDmlAffectedRows?: string | undefined;
+        pageToken?: string | undefined;
+        rows?: BigQuery.Schema.TableRow[] | undefined;
+        schema?: BigQuery.Schema.TableSchema | undefined;
+        totalBytesProcessed?: string | undefined;
+        totalRows?: string | undefined;
       }
       interface QueryTimelineSample {
-        activeUnits?: string;
-        completedUnits?: string;
-        elapsedMs?: string;
-        pendingUnits?: string;
-        totalSlotMs?: string;
+        activeUnits?: string | undefined;
+        completedUnits?: string | undefined;
+        elapsedMs?: string | undefined;
+        pendingUnits?: string | undefined;
+        totalSlotMs?: string | undefined;
       }
       interface RangePartitioning {
-        field?: string;
-        range?: BigQuery.Schema.RangePartitioningRange;
+        field?: string | undefined;
+        range?: BigQuery.Schema.RangePartitioningRange | undefined;
       }
       interface RangePartitioningRange {
-        end?: string;
-        interval?: string;
-        start?: string;
+        end?: string | undefined;
+        interval?: string | undefined;
+        start?: string | undefined;
       }
       interface RoutineReference {
-        datasetId?: string;
-        projectId?: string;
-        routineId?: string;
+        datasetId?: string | undefined;
+        projectId?: string | undefined;
+        routineId?: string | undefined;
       }
       interface Streamingbuffer {
-        estimatedBytes?: string;
-        estimatedRows?: string;
-        oldestEntryTime?: string;
+        estimatedBytes?: string | undefined;
+        estimatedRows?: string | undefined;
+        oldestEntryTime?: string | undefined;
       }
       interface Table {
-        clustering?: BigQuery.Schema.Clustering;
-        creationTime?: string;
-        description?: string;
-        encryptionConfiguration?: BigQuery.Schema.EncryptionConfiguration;
-        etag?: string;
-        expirationTime?: string;
-        externalDataConfiguration?: BigQuery.Schema.ExternalDataConfiguration;
-        friendlyName?: string;
-        id?: string;
-        kind?: string;
-        labels?: object;
-        lastModifiedTime?: string;
-        location?: string;
-        materializedView?: BigQuery.Schema.MaterializedViewDefinition;
-        model?: BigQuery.Schema.ModelDefinition;
-        numBytes?: string;
-        numLongTermBytes?: string;
-        numPhysicalBytes?: string;
-        numRows?: string;
-        rangePartitioning?: BigQuery.Schema.RangePartitioning;
-        requirePartitionFilter?: boolean;
-        schema?: BigQuery.Schema.TableSchema;
-        selfLink?: string;
-        streamingBuffer?: BigQuery.Schema.Streamingbuffer;
-        tableReference?: BigQuery.Schema.TableReference;
-        timePartitioning?: BigQuery.Schema.TimePartitioning;
-        type?: string;
-        view?: BigQuery.Schema.ViewDefinition;
+        clustering?: BigQuery.Schema.Clustering | undefined;
+        creationTime?: string | undefined;
+        description?: string | undefined;
+        encryptionConfiguration?: BigQuery.Schema.EncryptionConfiguration | undefined;
+        etag?: string | undefined;
+        expirationTime?: string | undefined;
+        externalDataConfiguration?: BigQuery.Schema.ExternalDataConfiguration | undefined;
+        friendlyName?: string | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        labels?: object | undefined;
+        lastModifiedTime?: string | undefined;
+        location?: string | undefined;
+        materializedView?: BigQuery.Schema.MaterializedViewDefinition | undefined;
+        model?: BigQuery.Schema.ModelDefinition | undefined;
+        numBytes?: string | undefined;
+        numLongTermBytes?: string | undefined;
+        numPhysicalBytes?: string | undefined;
+        numRows?: string | undefined;
+        rangePartitioning?: BigQuery.Schema.RangePartitioning | undefined;
+        requirePartitionFilter?: boolean | undefined;
+        schema?: BigQuery.Schema.TableSchema | undefined;
+        selfLink?: string | undefined;
+        streamingBuffer?: BigQuery.Schema.Streamingbuffer | undefined;
+        tableReference?: BigQuery.Schema.TableReference | undefined;
+        timePartitioning?: BigQuery.Schema.TimePartitioning | undefined;
+        type?: string | undefined;
+        view?: BigQuery.Schema.ViewDefinition | undefined;
       }
       interface TableCell {
-        v?: object;
+        v?: object | undefined;
       }
       interface TableDataInsertAllRequest {
-        ignoreUnknownValues?: boolean;
-        kind?: string;
-        rows?: BigQuery.Schema.TableDataInsertAllRequestRows[];
-        skipInvalidRows?: boolean;
-        templateSuffix?: string;
+        ignoreUnknownValues?: boolean | undefined;
+        kind?: string | undefined;
+        rows?: BigQuery.Schema.TableDataInsertAllRequestRows[] | undefined;
+        skipInvalidRows?: boolean | undefined;
+        templateSuffix?: string | undefined;
       }
       interface TableDataInsertAllRequestRows {
-        insertId?: string;
-        json?: object;
+        insertId?: string | undefined;
+        json?: object | undefined;
       }
       interface TableDataInsertAllResponse {
-        insertErrors?: BigQuery.Schema.TableDataInsertAllResponseInsertErrors[];
-        kind?: string;
+        insertErrors?: BigQuery.Schema.TableDataInsertAllResponseInsertErrors[] | undefined;
+        kind?: string | undefined;
       }
       interface TableDataInsertAllResponseInsertErrors {
-        errors?: BigQuery.Schema.ErrorProto[];
-        index?: number;
+        errors?: BigQuery.Schema.ErrorProto[] | undefined;
+        index?: number | undefined;
       }
       interface TableDataList {
-        etag?: string;
-        kind?: string;
-        pageToken?: string;
-        rows?: BigQuery.Schema.TableRow[];
-        totalRows?: string;
+        etag?: string | undefined;
+        kind?: string | undefined;
+        pageToken?: string | undefined;
+        rows?: BigQuery.Schema.TableRow[] | undefined;
+        totalRows?: string | undefined;
       }
       interface TableFieldSchema {
-        categories?: BigQuery.Schema.TableFieldSchemaCategories;
-        description?: string;
-        fields?: BigQuery.Schema.TableFieldSchema[];
-        mode?: string;
-        name?: string;
-        type?: string;
+        categories?: BigQuery.Schema.TableFieldSchemaCategories | undefined;
+        description?: string | undefined;
+        fields?: BigQuery.Schema.TableFieldSchema[] | undefined;
+        mode?: string | undefined;
+        name?: string | undefined;
+        type?: string | undefined;
       }
       interface TableFieldSchemaCategories {
-        names?: string[];
+        names?: string[] | undefined;
       }
       interface TableList {
-        etag?: string;
-        kind?: string;
-        nextPageToken?: string;
-        tables?: BigQuery.Schema.TableListTables[];
-        totalItems?: number;
+        etag?: string | undefined;
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
+        tables?: BigQuery.Schema.TableListTables[] | undefined;
+        totalItems?: number | undefined;
       }
       interface TableListTables {
-        clustering?: BigQuery.Schema.Clustering;
-        creationTime?: string;
-        expirationTime?: string;
-        friendlyName?: string;
-        id?: string;
-        kind?: string;
-        labels?: object;
-        tableReference?: BigQuery.Schema.TableReference;
-        timePartitioning?: BigQuery.Schema.TimePartitioning;
-        type?: string;
-        view?: BigQuery.Schema.TableListTablesView;
+        clustering?: BigQuery.Schema.Clustering | undefined;
+        creationTime?: string | undefined;
+        expirationTime?: string | undefined;
+        friendlyName?: string | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        labels?: object | undefined;
+        tableReference?: BigQuery.Schema.TableReference | undefined;
+        timePartitioning?: BigQuery.Schema.TimePartitioning | undefined;
+        type?: string | undefined;
+        view?: BigQuery.Schema.TableListTablesView | undefined;
       }
       interface TableListTablesView {
-        useLegacySql?: boolean;
+        useLegacySql?: boolean | undefined;
       }
       interface TableReference {
-        datasetId?: string;
-        projectId?: string;
-        tableId?: string;
+        datasetId?: string | undefined;
+        projectId?: string | undefined;
+        tableId?: string | undefined;
       }
       interface TableRow {
-        f?: BigQuery.Schema.TableCell[];
+        f?: BigQuery.Schema.TableCell[] | undefined;
       }
       interface TableSchema {
-        fields?: BigQuery.Schema.TableFieldSchema[];
+        fields?: BigQuery.Schema.TableFieldSchema[] | undefined;
       }
       interface TimePartitioning {
-        expirationMs?: string;
-        field?: string;
-        requirePartitionFilter?: boolean;
-        type?: string;
+        expirationMs?: string | undefined;
+        field?: string | undefined;
+        requirePartitionFilter?: boolean | undefined;
+        type?: string | undefined;
       }
       interface UserDefinedFunctionResource {
-        inlineCode?: string;
-        resourceUri?: string;
+        inlineCode?: string | undefined;
+        resourceUri?: string | undefined;
       }
       interface ViewDefinition {
-        query?: string;
-        useLegacySql?: boolean;
-        userDefinedFunctionResources?: BigQuery.Schema.UserDefinedFunctionResource[];
+        query?: string | undefined;
+        useLegacySql?: boolean | undefined;
+        userDefinedFunctionResources?: BigQuery.Schema.UserDefinedFunctionResource[] | undefined;
       }
     }
   }
   interface Bigquery {
-    Datasets?: BigQuery.Collection.DatasetsCollection;
-    Jobs?: BigQuery.Collection.JobsCollection;
-    Projects?: BigQuery.Collection.ProjectsCollection;
-    Tabledata?: BigQuery.Collection.TabledataCollection;
-    Tables?: BigQuery.Collection.TablesCollection;
+    Datasets?: BigQuery.Collection.DatasetsCollection | undefined;
+    Jobs?: BigQuery.Collection.JobsCollection | undefined;
+    Projects?: BigQuery.Collection.ProjectsCollection | undefined;
+    Tabledata?: BigQuery.Collection.TabledataCollection | undefined;
+    Tables?: BigQuery.Collection.TablesCollection | undefined;
     // Create a new instance of BigQueryModelTraining
     newBigQueryModelTraining(): BigQuery.Schema.BigQueryModelTraining;
     // Create a new instance of BigtableColumn

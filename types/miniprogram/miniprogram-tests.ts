@@ -112,11 +112,15 @@ my.prompt({
     message: '',
 });
 
-my.showLoading();
+my.showLoading({
+    content: '',
+});
 
 my.hideLoading();
 
-my.showToast();
+my.showToast({
+    content: '',
+});
 
 my.hideToast();
 
@@ -366,7 +370,7 @@ my.getLocation({
     fail(res) {
         res.error;
         res.errorMessage;
-    }
+    },
 });
 
 my.request({ url: '' });
@@ -574,4 +578,16 @@ my.signContract({
             content: JSON.stringify(res),
         });
     },
+});
+
+my.onMemoryWarning(arg => arg.level);
+
+my.offMemoryWarning();
+
+my.offMemoryWarning(arg => arg.level);
+
+my.hideBackHome();
+
+my.showActionSheet({
+    items: ['item 1', 'item 2'],
 });
