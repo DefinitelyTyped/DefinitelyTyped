@@ -19,6 +19,7 @@
 //                 Levi Bostian <https://github.com/levibostian>
 //                 Todd Dukart <https://github.com/tdukart>
 //                 Mix <https://github.com/mnixry>
+//                 Johnny Santos <https://github.com/johnnyasantoss>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -78,7 +79,20 @@ declare namespace Bull {
     /**
      * Configure metrics
      */
-    metrics?: MetricsOptions;
+    metrics?: MetricsOptions | undefined;
+  }
+  
+  declare module 'utils' {
+    declare const MetricsTime: {
+      ONE_MINUTE: number,
+      FIVE_MINUTES: number,
+      FIFTEEN_MINUTES: number,
+      THIRTY_MINUTES: number,
+      ONE_HOUR: number,
+      ONE_WEEK: number,
+      TWO_WEEKS: number,
+      ONE_MONTH: number
+    };
   }
 
   interface MetricsOptions {
