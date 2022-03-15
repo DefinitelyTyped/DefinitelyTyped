@@ -346,7 +346,7 @@ npm パッケージは数分で更新されます。もし1時間以上かかっ
 
 #### 型定義をリクエストしたいです。
 
-現在リクエストされている型定義は[こちら](https://github.com/DefinitelyTyped/DefinitelyTyped/labels/Definition%3ARequest)です。
+現在リクエストされている型定義は[こちら](https://github.com/DefinitelyTyped/DefinitelyTyped/discussions/categories/request-a-new-types-package)です。
 
 #### DOM に対する型定義はどうすればよいですか？
 
