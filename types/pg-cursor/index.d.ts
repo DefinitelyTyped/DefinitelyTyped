@@ -6,27 +6,25 @@
 
 import { Connection, CustomTypesConfig, QueryResult } from "pg";
 
-interface CursorQueryConfig {
-    /**
-     * By default rows come out as a Record<string,any>.
-     * Pass the string 'array' here to receive each row as an array of values.
-     */
-    rowMode?: "array";
-
-    /**
-     * Custom type parsers for just this query result.
-     */
-    types?: CustomTypesConfig;
+declare namespace Cursor {
+    interface CursorQueryConfig {
+        /**
+         * By default rows come out as a Record<string,any>.
+         * Pass the string 'array' here to receive each row as an array of values.
+         */
+        rowMode?: "array";
+        /**
+         * Custom type parsers for just this query result.
+         */
+        types?: CustomTypesConfig;
+    }
+    type ResultCallback<RowType> = (err: Error | undefined, rows: RowType[], result: QueryResult) => void;
 }
 
-type ResultCallback<RowType> = (err: Error | undefined, rows: RowType[], result: QueryResult) => void;
-
 declare class Cursor<Row = any> {
-    constructor(query: string, values?: any[], config?: CursorQueryConfig);
-
+    constructor(query: string, values?: any[], config?: Cursor.CursorQueryConfig);
     submit: (connection: Connection) => void;
-
-    read: (maxRows: number, callback: ResultCallback<Row>) => void;
+    read: (maxRows: number, callback: Cursor.ResultCallback<Row>) => void;
     close: (callback: (err: Error) => void) => void;
 }
 

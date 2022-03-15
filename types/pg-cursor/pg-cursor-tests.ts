@@ -1,5 +1,6 @@
 import { types, Client, CustomTypesConfig } from "pg";
-import {Cursor, CursorQueryConfig, ResultCallback} from "pg-cursor";
+import { CursorQueryConfig, ResultCallback } from "pg-cursor";
+import Cursor = require("pg-cursor");
 
 // https://github.com/brianc/node-pg-types
 // tslint:disable-next-line no-unnecessary-callback-wrapper
@@ -24,7 +25,7 @@ const ssl: boolean = client.ssl;
 const cursorConfig: CursorQueryConfig = {
     rowMode: undefined,
     types: undefined,
-} 
+};
 
 const cursor = new Cursor<string>("SELECT $1::text as name", ["brianc"]);
 const handle = client.query(cursor);
@@ -34,7 +35,7 @@ const handleFn: ResultCallback<string> = (err: Error | undefined, rows: string[]
     if (rows.length === 0) return;
     console.log(rows);
     handle.read(100, handleFn);
-}
+};
 
 handle.read(100, handleFn);
 
