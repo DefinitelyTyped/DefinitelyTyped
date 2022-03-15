@@ -417,6 +417,17 @@ const ForwardingRefComponentPropTypes: React.WeakValidationMap<ForwardingRefComp
 ForwardingRefComponent.propTypes = ForwardingRefComponentPropTypes;
 
 // render function tests
+
+// infer props with children to propagate it to forwarded component
+const ForwardRefRenderFunctionWithChildren = React.forwardRef((props: React.PropsWithChildren<ForwardingRefComponentProps>, ref: React.ForwardedRef<RefComponent>) => {
+    return React.createElement(RefComponent, { ref });
+});
+React.createElement(ForwardRefRenderFunctionWithChildren, {
+    children: 'Anything',
+    hello: 'there',
+    foo: 0,
+});
+
 // need the explicit type declaration for typescript < 3.1
 const ForwardRefRenderFunctionWithPropTypes: { (): null, propTypes?: {} | undefined } = () => null;
 // Warning: forwardRef render functions do not support propTypes or defaultProps
