@@ -137,7 +137,7 @@ export { RelayNetwork as Network } from './lib/network/RelayNetwork';
 export { RelayObservable as Observable } from './lib/network/RelayObservable';
 import QueryResponseCache from './lib/network/RelayQueryResponseCache';
 export { QueryResponseCache };
-export { RelayRecordSource as RecordSource } from './lib/store/RelayRecordSource';
+export { default as RecordSource } from './lib/store/RelayRecordSource';
 export { RelayModernRecord as Record } from './lib/store/RelayModernRecord';
 export { default as Store } from './lib/store/RelayModernStore';
 
