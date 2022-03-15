@@ -617,9 +617,10 @@ function Argv$locale() {
 function Argv$middleware() {
     const mwFunc1 = (argv: Arguments) => console.log(`I'm a middleware function`, argv);
     const mwFunc2 = (argv: Arguments) => console.log(`I'm another middleware function`, argv);
+    const mwFunc3 = async (argv: Arguments) => console.log(`I'm another middleware function`, argv);
 
     const argv = yargs
-        .middleware([mwFunc1, mwFunc2])
+        .middleware([mwFunc1, mwFunc2, mwFunc3])
         .middleware((argv) => {
             if (process.env.HOME) argv.home = process.env.HOME;
         }, true)
