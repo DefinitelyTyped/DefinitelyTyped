@@ -5,7 +5,7 @@ import * as R from 'ramda';
     count?: number;
   }
 
-  // $ExpectType (obj: unknown) => { count: number; } | (Record<"count", number> & Omit<unknown, "count">)
+  // $ExpectType (a: unknown) => { count: number; } | (Record<"count", number> & Omit<unknown, "count">)
   const incCount = R.ifElse(
     R.has('count'),
     (obj: Required<ObjWithCount>) => ({ ...obj, count: obj.count + 1 }),
@@ -37,15 +37,15 @@ import * as R from 'ramda';
       (a: string | boolean): a is string => true,
       (a) => a.length,
       a => a ? 1 : 0
-  )
+  );
 
-  getLengthIfString('foo') // => 3
-  getLengthIfString(true) // => 1
+  getLengthIfString('foo'); // => 3
+  getLengthIfString(true); // => 1
 
   const lengthIfString = R.ifElse(
     (a: string | boolean): a is string => true,
     (a) => a.length,
     a => a ? 1 : 0,
     'foo'
-  ) // => 3
+  ); // => 3
 };
