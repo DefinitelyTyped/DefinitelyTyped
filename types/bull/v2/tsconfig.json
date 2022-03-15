@@ -26,6 +26,6 @@
     },
     "files": [
         "index.d.ts",
-        "bull-tests.tsx"
+        "bull-tests.ts"
     ]
 }

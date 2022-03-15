@@ -9,6 +9,8 @@ const videoQueue = new Queue('video transcoding', 'redis://127.0.0.1:6379');
 const audioQueue = new Queue('audio transcoding', {
     redis: { port: 6379, host: '127.0.0.1' }, // Specify Redis connection using object
     settings: {},
+    // with metrics from the last two weeks
+    metrics: { maxDataPoints: Queue.utils.MetricsTime.TWO_WEEKS },
 });
 const imageQueue: Queue.Queue<{ image: string }> = new Queue('image transcoding');
 const rateLimitedQueue = new Queue('api calls', { limiter: { max: 1, duration: 500, groupKey: "apiKey", bounceBack: true } });
@@ -108,9 +110,9 @@ videoQueue.addBulk([
     { name: 'frame1', data: { video: 'http://example.com/video1.mov' }, opts: { attempts: 6 } },
     { data: { audio: 'http://example.com/video1.mov' } },
     {
-      opts: {
-        repeat: { cron: "00 06 * * 1", tz: "America/New_York" } // $ExpectError
-      }
+        opts: {
+            repeat: { cron: "00 06 * * 1", tz: "America/New_York" } // $ExpectError
+        }
     }
 ]);
 imageQueue.add({ image: 'http://example.com/image1.tiff' }, { removeOnComplete: { age: 60 * 60 * 24 }, removeOnFail: { age: 60 * 60 * 24, count: 10 } });
