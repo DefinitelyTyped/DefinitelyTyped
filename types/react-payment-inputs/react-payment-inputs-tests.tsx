@@ -1,8 +1,8 @@
-import React, { FC } from "react";
+import * as React from "react";
 import { usePaymentInputs, PaymentInputsWrapper } from "react-payment-inputs";
 import { images } from 'react-payment-inputs/images';
 
-const App: FC = () => {
+const App: React.FC = () => {
   const {
     wrapperProps,
     getCardImageProps,

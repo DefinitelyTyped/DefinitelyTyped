@@ -1,6 +1,6 @@
 import React = require("react");
 
-interface CardImages {
+export interface CardImages {
   amex: React.ReactElement;
   dinersclub: React.ReactElement;
   discover: React.ReactElement;
@@ -13,5 +13,3 @@ interface CardImages {
 }
 
 export const images: CardImages;
-
-export {};

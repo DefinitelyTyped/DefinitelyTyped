@@ -3,7 +3,7 @@
 // Definitions by: Timothy Odei Yirenkyi <https://github.com/tyirenkyi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import React = require("react");
+import * as React from "react";
 
 interface ErroredInputs {
   cardNumber: string;
