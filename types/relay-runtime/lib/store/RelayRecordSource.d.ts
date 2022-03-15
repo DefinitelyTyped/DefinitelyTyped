@@ -2,7 +2,7 @@ import { MutableRecordSource, RecordMap, Record } from './RelayStoreTypes';
 import { DataID } from '../util/RelayRuntimeTypes';
 import { RecordState } from './RelayRecordState';
 
-export class RelayRecordSource implements MutableRecordSource {
+export default class RelayRecordSource implements MutableRecordSource {
     constructor(records?: RecordMap);
 
     static create(records?: RecordMap): MutableRecordSource;
