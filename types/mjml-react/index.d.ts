@@ -143,6 +143,12 @@ export interface MjmlAccordionProps {
     iconWidth?: string | undefined;
     iconWrappedAlt?: string | undefined;
     iconWrappedUrl?: string | undefined;
+
+    /**
+     * @deprecated backgroundColor doesn't exist on the mj-accordion element.
+     * It is included for backwards compatibility with an erroneous version of the mjml-react types.
+     */
+    backgroundColor?: React.CSSProperties['backgroundColor'] | undefined;
 }
 
 export class MjmlAccordion extends React.Component<MjmlAccordionProps & PaddingProps & ClassNameProps> { }
