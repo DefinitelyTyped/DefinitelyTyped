@@ -8,19 +8,24 @@ import JasmineClass from "jasmine";
     });
 
     jasmineClass.addSpecFile("file");
+    jasmineClass.addSpecFiles(["dir/**/*.js"]);
     jasmineClass.addMatchingSpecFiles(["dir/**/*.js"]);
 
     jasmineClass.addHelperFile("file");
+    jasmineClass.addHelperFiles(["dir/**/*.js"]);
     jasmineClass.addMatchingHelperFiles(["dir/**/*.js"]);
 
     jasmineClass.env.configure({
         random: true,
+        Promise,
         failSpecWithNoExpectations: true,
         hideDisabled: true,
         seed: "4321",
         specFilter: spec => spec.name.startsWith("it"),
         stopOnSpecFailure: true,
         stopSpecOnExpectationFailure: true,
+        failFast: true,
+        oneFailurePerSpec: true,
         autoCleanClosures: false,
     });
 
@@ -42,8 +47,12 @@ import JasmineClass from "jasmine";
 
     jasmineClass.env.allowRespy(true);
 
+    jasmineClass.onComplete((passed: boolean) => {
+        console.log(passed ? "passed" : "failed");
+    });
+
     jasmineClass.clearReporters();
-    jasmineClass.addReporter({ jasmineDone: () => console.log("done") });
+    jasmineClass.addReporter(jasmineClass.completionReporter);
 
     jasmineClass.configureDefaultReporter({
         print: (...args) => {
@@ -1250,6 +1259,11 @@ describe("jasmine.any", () => {
 });
 
 describe("DiffBuilder", () => {
+    it("can be passed to matchersUtil.equals", () => {
+        const differ = jasmine.DiffBuilder();
+        jasmine.matchersUtil.equals(1, 1, undefined, differ);
+    });
+
     it("records the actual and expected objects", () => {
         const diffBuilder = jasmine.DiffBuilder();
         diffBuilder.setRoots({ x: "actual" }, { x: "expected" });
@@ -1778,7 +1792,7 @@ describe("custom object formatter", () => {
 
 // test based on http://jasmine.github.io/2.2/custom_matcher.html
 const customMatchers: jasmine.CustomMatcherFactories = {
-    toBeGoofy: (util: jasmine.MatchersUtil) => {
+    toBeGoofy: (util: jasmine.MatchersUtil, customEqualityTesters: jasmine.CustomEqualityTester[]) => {
         return {
             compare: (actual: any, expected: any): jasmine.CustomMatcherResult => {
                 if (expected === undefined) {
@@ -1786,7 +1800,7 @@ const customMatchers: jasmine.CustomMatcherFactories = {
                 }
                 const result: jasmine.CustomMatcherResult = { pass: false };
 
-                result.pass = util.equals(actual.hyuk, "gawrsh" + expected);
+                result.pass = util.equals(actual.hyuk, "gawrsh" + expected, customEqualityTesters);
 
                 result.message = result.pass
                     ? `Expected ${util.pp(actual)} not to be quite so goofy`
@@ -1796,7 +1810,7 @@ const customMatchers: jasmine.CustomMatcherFactories = {
             },
         };
     },
-    toBeWithinRange: (util: jasmine.MatchersUtil) => {
+    toBeWithinRange: (util: jasmine.MatchersUtil, customEqualityTesters: jasmine.CustomEqualityTester[]) => {
         return {
             compare: (actual: any, floor: number, ceiling: number): jasmine.CustomMatcherResult => {
                 const pass = actual >= floor && actual <= ceiling;
@@ -1855,13 +1869,7 @@ describe("Custom matcher: 'toBeGoofy'", () => {
     });
 
     it("can use the custom negativeCompare method", () => {
-        const matchersUtil = {
-            pp: () => '',
-            buildFailureMessage: () => '',
-            equals: () => false,
-            contains: () => false,
-        };
-        const matcher = customMatchers["toBeWithinRange"](matchersUtil);
+        const matcher = customMatchers["toBeWithinRange"](jasmine.matchersUtil, []);
         const result = matcher.negativeCompare!(1, 2, 3);
 
         expect(result.pass).toBe(false);
@@ -1876,14 +1884,8 @@ describe("Custom matcher: 'toBeGoofy'", () => {
 
     it("has a proper message on failure", () => {
         const actual = { hyuk: "this is fun" };
-        const matchersUtil = {
-            pp: () => '',
-            buildFailureMessage: () => '',
-            equals: () => false,
-            contains: () => false,
-        };
 
-        const matcher = customMatchers["toBeGoofy"](matchersUtil);
+        const matcher = customMatchers["toBeGoofy"](jasmine.matchersUtil, []);
         const result = matcher.compare(actual, null);
 
         expect(result.pass).toBe(false);
@@ -2178,6 +2180,9 @@ describe("Randomize Tests", () => {
                 seed: 1234,
             });
         }).not.toThrow();
+        const env = jasmine.getEnv();
+        const seed1 = env.seed(42); // $ExpectType string | number
+        const seed2 = env.seed('42'); // $ExpectType string | number
     });
 });
 
@@ -2397,24 +2402,6 @@ describe("Jasmine constructor", () => {
     });
 });
 
-describe("Debug logging", function() {
-    beforeAll(function() {
-        jasmine.getEnv().addReporter({
-            specDone(result) {
-                if (result.debugLogs) {
-                    for (const entry of result.debugLogs) {
-                        console.log(entry.message, entry.timestamp);
-                    }
-                }
-            },
-        });
-    });
-
-    it('can log', function() {
-        jasmine.debugLog('test');
-    });
-});
-
 (() => {
     // from boot.js
     const env = jasmine.getEnv();
@@ -2423,11 +2410,9 @@ describe("Debug logging", function() {
     env.addReporter(htmlReporter);
 
     const specFilter = new jasmine.HtmlSpecFilter();
-    env.configure({
-        specFilter: spec => {
-            return specFilter.matches(spec.getFullName());
-        }
-    });
+    env.specFilter = spec => {
+        return specFilter.matches(spec.getFullName());
+    };
 
     env.setSpecProperty("name", "value");
     env.setSuiteProperty("other-name", null);
