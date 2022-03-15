@@ -681,10 +681,9 @@ slots = googletag.companionAds().getSlots();
 map = googletag.companionAds().getSlotIdMap();
 
 // DEMO 64
-googletag
-    .pubads()
+const attributes = new Map<googletag.adsense.AttributeName, string>()
     .set('adsense_channel_ids', '271828183+314159265')
-    .set('adsense_ad_format', 'text_image')
+    .set('adsense_ad_types', 'text_image')
     .set('adsense_background_color', '#000000')
     .set('adsense_border_color', '#000000')
     .set('adsense_link_color', '#000000')
@@ -693,6 +692,10 @@ googletag
     .set('adsense_url_color', '#000000')
     .set('adsense_ui_features', 'rc:10')
     .set('page_url', 'www.mysite.com');
+attributes.forEach((value, key) => {
+    googletag.pubads().set(key, value);
+});
+googletag.pubads().set('adsense_ad_format', '250x250_as');
 
 // Explicitly binds provided functions to globalThis.
 googletag.cmd.push(function test() {
@@ -736,4 +739,22 @@ googletag.pubads().addEventListener('rewardedSlotReady', event => {
     if (slot === targetSlot) {
         // Slot specific logic.
     }
+});
+
+// Event Types
+const types: googletag.events.EventType[] = [
+    'impressionViewable',
+    'rewardedSlotClosed',
+    'rewardedSlotGranted',
+    'rewardedSlotReady',
+    'slotRequested',
+    'slotResponseReceived',
+    'slotRenderEnded',
+    'slotOnload',
+    'slotVisibilityChanged',
+];
+types.forEach(type => {
+    googletag.pubads().addEventListener(type, event => {
+        console.log(event);
+    });
 });

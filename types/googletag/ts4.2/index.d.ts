@@ -21,32 +21,6 @@
  */
 declare namespace googletag {
     /**
-     * This is the namespace that GPT uses for `enum types`.
-     */
-    namespace enums {
-        /**
-         * Out of page formats supported by GPT.
-         */
-        enum OutOfPageFormat {
-            /**
-             * Anchor format where slot sticks to the top of the viewport.
-             */
-            TOP_ANCHOR = 2,
-            /**
-             * Anchor format where slot sticks to the bottom of the viewport.
-             */
-            BOTTOM_ANCHOR = 3,
-            /**
-             * Rewarded format.
-             */
-            REWARDED = 4,
-            /**
-             * Web interstitial creative format.
-             */
-            INTERSTITIAL = 5,
-        }
-    }
-    /**
      * A valid size configuration for a slot, which can be one or multiple sizes.
      */
     type GeneralSize = SingleSize | MultiSize;
@@ -289,73 +263,6 @@ declare namespace googletag {
      * @returns A new builder.
      */
     function sizeMapping(): SizeMappingBuilder;
-    /**
-     * [AdSense Attributes](https://developers.google.com/publisher-tag/adsense_attributes) that can be set with the `googletag.PubAdsService.set()` or `googletag.Slot.set()` methods.
-     * These AdSense attributes are typically set when creating or editing ad slots in DFP.
-     * These methods allow the publisher to override these server-side settings on a per-request basis.
-     *
-     * **Example**
-     * ```
-     * googletag.pubads()
-     *          .set('adsense_channel_ids', '271828183+314159265')
-     *          .set('adsense_ad_format', 'text_image')
-     *          .set('adsense_background_color', '#000000')
-     *          .set('adsense_border_color', '#000000')
-     *          .set('adsense_link_color', '#000000')
-     *          .set('adsense_test_mode', 'on')
-     *          .set('adsense_text_color', '#000000')
-     *          .set('adsense_url_color', '#000000')
-     *          .set('adsense_ui_features', 'rc:10')
-     *          .set('page_url', 'www.mysite.com');
-     * ```
-     */
-    interface AdSenseAttributes {
-        /**
-         * **google_ad_channel** valid AdSense channel IDs, separated by '+'
-         */
-        adsense_channel_ids: string;
-        /**
-         * **google_ad_type** text, image, text_image
-         */
-        adsense_ad_types: string;
-        /**
-         * **google_ad_format** 468x60_as, 234x60_as, 125x125_as, 120x600_as, 160x600_as, 180x150_as, 120x240_as, 200x200_as, 250x250_as, 300x250_as, 336x280_as, 728x90_as
-         */
-        adsense_ad_format: string;
-        /**
-         * **google_color_bg** hexadecimal colors
-         */
-        adsense_background_color: string;
-        /**
-         * **google_color_border** hexadecimal colors
-         */
-        adsense_border_color: string;
-        /**
-         * **google_color_link** hexadecimal colors
-         */
-        adsense_link_color: string;
-        /**
-         * Set `on` to indicate the tag is used for testing and should not be included in counting or billing.
-         * Omit this setting for production, non-test traffic.
-         */
-        adsense_test_mode: string;
-        /**
-         * **google_color_text** hexadecimal colors
-         */
-        adsense_text_color: string;
-        /**
-         * **google_color_url** hexadecimal colors
-         */
-        adsense_url_color: string;
-        /**
-         * **google_ui_features** `rc:10` for very rounded corners, `rc:6` for slightly rounded corners, `rc:0` for square corners (default)
-         */
-        adsense_ui_features: string;
-        /**
-         * valid URLs
-         */
-        page_url: string;
-    }
     /**
      * The command array accepts a sequence of functions and invokes them in order. It is intended to replace a standard array that is used to enqueue functions to be invoked once GPT is loaded.
      */
@@ -631,7 +538,7 @@ declare namespace googletag {
          * @param key Name of the attribute to look for.
          * @returns Current value for the attribute key, or `null` if the key is not present.
          */
-        get(key: keyof AdSenseAttributes): string | null;
+        get(key: adsense.AttributeName): string | null;
         /**
          * Returns the attribute keys that have been set on this service.
          *
@@ -750,7 +657,7 @@ declare namespace googletag {
          * @param value Attribute value.
          * @returns The service object on which the method was called.
          */
-        set(key: keyof AdSenseAttributes, value: string): PubAdsService;
+        set(key: adsense.AttributeName, value: string): PubAdsService;
         /**
          * Sets a page-level ad category exclusion for the given label name.
          *
@@ -1087,14 +994,7 @@ declare namespace googletag {
          * @param listener Function that takes a single event object argument.
          * @returns The service object on which the method was called.
          */
-        addEventListener(
-            eventType: 'impressionViewable',
-            listener: (event: events.ImpressionViewableEvent) => void,
-        ): Service;
-        addEventListener(
-            eventType: 'rewardedSlotClosed',
-            listener: (event: events.RewardedSlotClosedEvent) => void,
-        ): Service;
+        addEventListener(eventType: events.EventType, listener: (event: events.Event) => void): Service;
         addEventListener(
             eventType: 'rewardedSlotGranted',
             listener: (event: events.RewardedSlotGrantedEvent) => void,
@@ -1103,13 +1003,7 @@ declare namespace googletag {
             eventType: 'rewardedSlotReady',
             listener: (event: events.RewardedSlotReadyEvent) => void,
         ): Service;
-        addEventListener(eventType: 'slotOnload', listener: (event: events.SlotOnloadEvent) => void): Service;
         addEventListener(eventType: 'slotRenderEnded', listener: (event: events.SlotRenderEndedEvent) => void): Service;
-        addEventListener(eventType: 'slotRequested', listener: (event: events.SlotRequestedEvent) => void): Service;
-        addEventListener(
-            eventType: 'slotResponseReceived',
-            listener: (event: events.SlotResponseReceived) => void,
-        ): Service;
         addEventListener(
             eventType: 'slotVisibilityChanged',
             listener: (event: events.SlotVisibilityChangedEvent) => void,
@@ -1154,14 +1048,7 @@ declare namespace googletag {
          * @param listener Function that takes a single event object argument.
          * @returns Whether existing event listener was removed.
          */
-        removeEventListener(
-            eventType: 'impressionViewable',
-            listener: (event: events.ImpressionViewableEvent) => void,
-        ): boolean;
-        removeEventListener(
-            eventType: 'rewardedSlotClosed',
-            listener: (event: events.RewardedSlotClosedEvent) => void,
-        ): boolean;
+        removeEventListener(eventType: events.EventType, listener: (event: events.Event) => void): boolean;
         removeEventListener(
             eventType: 'rewardedSlotGranted',
             listener: (event: events.RewardedSlotGrantedEvent) => void,
@@ -1170,15 +1057,9 @@ declare namespace googletag {
             eventType: 'rewardedSlotReady',
             listener: (event: events.RewardedSlotReadyEvent) => void,
         ): boolean;
-        removeEventListener(eventType: 'slotOnload', listener: (event: events.SlotOnloadEvent) => void): boolean;
         removeEventListener(
             eventType: 'slotRenderEnded',
             listener: (event: events.SlotRenderEndedEvent) => void,
-        ): boolean;
-        removeEventListener(eventType: 'slotRequested', listener: (event: events.SlotRequestedEvent) => void): boolean;
-        removeEventListener(
-            eventType: 'slotResponseReceived',
-            listener: (event: events.SlotResponseReceived) => void,
         ): boolean;
         removeEventListener(
             eventType: 'slotVisibilityChanged',
@@ -1186,8 +1067,10 @@ declare namespace googletag {
         ): boolean;
     }
     interface Size {
-        getWidth(): number;
+        height: number;
+        width: number;
         getHeight(): number;
+        getWidth(): number;
     }
     /**
      * Builder for size mapping specification objects.
@@ -1317,7 +1200,7 @@ declare namespace googletag {
         defineSizeMapping(sizeMapping: SizeMappingArray): Slot;
         /**
          * Returns the value for the AdSense attribute associated with the given key for this slot.
-         * To see service-level attributes inherited by this slot, use `PubAdsService.get()`.
+         * To see service-level attributes inherited by this slot, use `googletag.pubads().get()`.
          *
          * **Example**
          * ```
@@ -1331,7 +1214,7 @@ declare namespace googletag {
          * @param key Name of the attribute to look for.
          * @returns Current value for the attribute key, or `null` if the key is not present.
          */
-        get(key: keyof AdSenseAttributes): string | null;
+        get(key: adsense.AttributeName): string | null;
         /**
          * Returns the full path of the ad unit, with the network code and ad unit path.
          *
@@ -1348,7 +1231,7 @@ declare namespace googletag {
         getAdUnitPath(): string;
         /**
          * Returns the list of attribute keys set on this slot.
-         * To see the keys of service-level attributes inherited by this slot, use `PubAdsService.getAttributeKeys()`.
+         * To see the keys of service-level attributes inherited by this slot, use `googletag.pubads().getAttributeKeys()`.
          *
          * **Example**
          * ```
@@ -1403,7 +1286,7 @@ declare namespace googletag {
          */
         getResponseInformation(): ResponseInformation | null;
         getServices(): Service[];
-        getSizes(): Size[] | ['fluid'];
+        getSizes(): Array<Size | 'fluid'>;
         /**
          * Returns the ID of the slot `div` provided when the slot was defined.
          *
@@ -1474,7 +1357,7 @@ declare namespace googletag {
          * @param value Attribute value.
          * @returns The slot object on which the method was called.
          */
-        set(key: keyof AdSenseAttributes, value: string): Slot;
+        set(key: adsense.AttributeName, value: string): Slot;
         /**
          * Sets a slot-level ad category exclusion label on this slot.
          *
@@ -1636,9 +1519,82 @@ declare namespace googletag {
         getName(): string;
     }
     /**
+     * This is the namespace that GPT uses for `Adsense`.
+     */
+    namespace adsense {
+        /**
+         * Attribute name for all [AdSense Attributes](https://developers.google.com/publisher-tag/adsense_attributes).
+         *
+         * | Attribute name           | Legacy attribute    | Example             | Allowed values                                                                                             |
+         * | :----------------------- | :------------------ | :------------------ | :--------------------------------------------------------------------------------------------------------- |
+         * | adsense_channel_ids      | google_ad_channel   | 271828183+314159265 | valid AdSense channel IDs, separated by `+`                                                                |
+         * | adsense_ad_types         | google_ad_type      | text_image          | text, image, text_image                                                                                    |
+         * | adsense_ad_format        | google_ad_format    | 250x250_as          | 160x600_as, 300x250_as, 336x280_as, 728x90_as, ...                                                         |
+         * | adsense_background_color | google_color_bg     | #000000             | hexadecimal colors                                                                                         |
+         * | adsense_border_color     | google_color_border | #000000             | hexadecimal colors                                                                                         |
+         * | adsense_link_color       | google_color_link   | #000000             | hexadecimal colors                                                                                         |
+         * | adsense_test_mode        | N/A                 | on                  | on                                                                                                         |
+         * | adsense_text_color       | google_color_text   | #000000             | hexadecimal colors                                                                                         |
+         * | adsense_url_color        | google_color_url    | #000000             | hexadecimal colors                                                                                         |
+         * | adsense_ui_features      | google_ui_features  | rc:10               | `rc:10` for very rounded corners, `rc:6` for slightly rounded corners, `rc:0` for square corners (default) |
+         * | page_url                 | N/A                 | www.mysite.com      | valid URLs                                                                                                 |
+         */
+        type AttributeName =
+            | 'adsense_channel_ids'
+            | 'adsense_ad_types'
+            | 'adsense_ad_format'
+            | 'adsense_background_color'
+            | 'adsense_border_color'
+            | 'adsense_link_color'
+            | 'adsense_test_mode'
+            | 'adsense_text_color'
+            | 'adsense_url_color'
+            | 'adsense_ui_features'
+            | 'page_url';
+    }
+    /**
+     * This is the namespace that GPT uses for `enum types`.
+     */
+    namespace enums {
+        /**
+         * Out of page formats supported by GPT.
+         */
+        enum OutOfPageFormat {
+            /**
+             * Anchor format where slot sticks to the bottom of the viewport.
+             */
+            BOTTOM_ANCHOR,
+            /**
+             * Web interstitial creative format.
+             */
+            INTERSTITIAL,
+            /**
+             * Rewarded format.
+             */
+            REWARDED,
+            /**
+             * Anchor format where slot sticks to the top of the viewport.
+             */
+            TOP_ANCHOR,
+        }
+    }
+    /**
      * This is the namespace that GPT uses for `Events`. Your code can react to these events using `Service.addEventListener`.
      */
     namespace events {
+        /**
+         * Event type for all GPT events.
+         */
+        type EventType =
+            | 'impressionViewable'
+            | 'rewardedSlotClosed'
+            | 'rewardedSlotGranted'
+            | 'rewardedSlotReady'
+            | 'slotRequested'
+            | 'slotResponseReceived'
+            | 'slotRenderEnded'
+            | 'slotOnload'
+            | 'slotVisibilityChanged';
         /**
          * Base Interface for all GPT events. All GPT events below will have the following fields.
          */
