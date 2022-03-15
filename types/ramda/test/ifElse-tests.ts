@@ -24,4 +24,14 @@ import * as R from 'ramda';
 
   addWhenEquals(1, 2); // => ''
   addWhenEquals(1, 1); // => 2
+
+  // $ExpectType (a: string | boolean) => number
+  const getLengthIfString = R.ifElse(
+      (a: string | boolean): a is string => true,
+      (a) => a.length,
+      a => a ? 1 : 0
+  )
+
+  getLengthIfString('foo') // => 3
+  getLengthIfString(true) // => 1
 };
