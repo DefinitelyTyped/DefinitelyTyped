@@ -67,13 +67,25 @@ declare namespace Bull {
     /**
      * Prefix to use for all redis keys
      */
-    prefix?: string | undefined;
+    prefix?: string | undefined = 'bull';
 
     settings?: AdvancedSettings | undefined;
 
     limiter?: RateLimiter | undefined;
 
     defaultJobOptions?: JobOptions | undefined;
+
+    /**
+     * Configure metrics
+     */
+    metrics?: MetricsOptions;
+  }
+
+  interface MetricsOptions {
+    /**
+     * Max number of data points to collect, granularity is fixed at one minute.
+     */
+    maxDataPoints?: number;
   }
 
   interface AdvancedSettings {
