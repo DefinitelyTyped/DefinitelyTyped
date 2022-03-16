@@ -116,6 +116,7 @@ export interface AlertTemplateProps extends Omit<AlertInstance, 'id'> {
 }
 
 export interface AlertProviderProps extends AlertOptions {
+    children?: ReactNode;
     /**
      * The alert template to be used.
      */
