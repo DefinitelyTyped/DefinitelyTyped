@@ -60,6 +60,7 @@
         "test/renderers/renderers-renderTarget-multiple.ts",
         "test/renderers/renderers-renderTarget-texture2DArray.ts",
         "test/renderers/webxr/webxr-vr-cube.ts",
+        "test/renderers/webgl/utils.ts",
         "test/shadowmap/shadowmap-csm.ts",
         "test/shadowmap/shadowmap-progressive.ts",
         "test/shadowmap/shadowmap-vsm.ts",
