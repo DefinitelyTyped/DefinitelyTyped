@@ -2247,7 +2247,6 @@ declare module 'fs' {
          */
         position?: ReadPosition | null | undefined;
     }
-    // tslint:disable-next-line:no-unnecessary-generics
     export interface ReadAsyncOptions<TBuffer extends NodeJS.ArrayBufferView> extends ReadSyncOptions {
         buffer?: TBuffer;
     }
