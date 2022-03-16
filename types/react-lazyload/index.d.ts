@@ -21,6 +21,7 @@ export interface LazyLoadProps {
     scrollContainer?: string | Element | undefined;
     unmountIfInvisible?: boolean | undefined;
     preventLoading?: boolean | undefined;
+    className?: string | undefined;
     classNamePrefix?: string | undefined;
     style?: CSSProperties | undefined;
 }
