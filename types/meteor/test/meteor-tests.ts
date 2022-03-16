@@ -132,6 +132,8 @@ namespace MeteorTests {
         //  self.added("counts", roomId, {count: count});
         self.ready();
 
+        self.unblock();
+
         self.onStop(function () {
             handle.stop();
         });
