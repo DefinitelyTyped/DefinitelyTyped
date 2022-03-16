@@ -1,4 +1,4 @@
-// Type definitions for busboy 1.3
+// Type definitions for busboy 1.5
 // Project: https://github.com/mscdex/busboy
 // Definitions by: Jacob Baskin <https://github.com/jacobbaskin>
 //                 BendingBender <https://github.com/BendingBender>
@@ -88,6 +88,14 @@ declare namespace busboy {
          * @default 'utf8'
          */
         defCharset?: string | undefined;
+
+        /**
+         * For multipart forms, the default character set to use for values of part header parameters (e.g. filename)
+         * that are not extended parameters (that contain an explicit charset
+         *
+         * @default 'latin1'
+         */
+        defParamCharset?: string | undefined;
 
         /**
          * If paths in filenames from file parts in a 'multipart/form-data' request shall be preserved.
