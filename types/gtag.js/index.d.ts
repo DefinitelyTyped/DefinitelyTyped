@@ -15,7 +15,7 @@ declare namespace Gtag {
       eventName: EventNames | string,
       eventParams?: ControlParams | EventParams | CustomParams,
     ): void;
-    (command: 'get', targetId: string, fieldName: FieldNames | string, callback?: (field: string) => any): void;
+    (command: 'get', targetId: string, fieldName: FieldNames | string, callback?: (field: string | CustomParams | undefined) => any): void;
     (command: 'consent', consentArg: ConsentArg | string, consentParams: ConsentParams): void;
   }
 
