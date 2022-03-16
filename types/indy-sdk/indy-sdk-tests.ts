@@ -354,8 +354,6 @@ indy.createRevocationState(
 // indy.generateWalletKey({})
 // indy.exportWallet(handle, exportConfig)
 // indy.importWallet(walletConfig, walletCredentials, exportConfig)
-// indy.import { id } from '../apicache/index.d';
-//listPools()
 // indy.refreshPoolLedger(-1)
 // indy.deletePoolLedgerConfig(pool.name)
 // indy.closePoolLedger(poolH)
