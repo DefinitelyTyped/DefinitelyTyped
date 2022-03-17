@@ -47,7 +47,7 @@ declare module 'readline/promises' {
         removeAllListeners(eventName?: keyof InterfaceEvents): this;
         listeners<K extends keyof InterfaceEvents>(eventName: K): Array<InterfaceEvents[K]>;
         rawListeners<K extends keyof InterfaceEvents>(eventName: K): Array<InterfaceEvents[K]>;
-        eventNames(): (keyof InterfaceEvents)[];
+        eventNames(): Array<keyof InterfaceEvents>;
         listenerCount(eventName: keyof InterfaceEvents): number;
         prependListener<K extends keyof InterfaceEvents>(eventName: K, listener: InterfaceEvents[K]): this;
         prependOnceListener<K extends keyof InterfaceEvents>(eventName: K, listener: InterfaceEvents[K]): this;
