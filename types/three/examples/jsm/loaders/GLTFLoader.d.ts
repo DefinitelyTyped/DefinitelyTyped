@@ -77,7 +77,7 @@ export interface GLTFReference {
     meshes?: number;
 }
 
-export class GLTFParser {
+class GLTFParser {
     json: any;
 
     options: {
