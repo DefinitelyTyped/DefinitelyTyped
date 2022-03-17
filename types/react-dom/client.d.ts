@@ -34,7 +34,7 @@ export interface Root {
 export function createRoot(container: Element | DocumentFragment, options?: RootOptions): Root;
 
 export function hydrateRoot(
-    container: Element | Document | DocumentFragment,
+    container: Element | Document,
     initialChildren: React.ReactChild | Iterable<React.ReactNode>,
     options?: HydrationOptions,
 ): Root;
