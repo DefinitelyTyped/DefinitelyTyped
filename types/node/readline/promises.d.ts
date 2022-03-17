@@ -31,7 +31,7 @@ declare module 'readline/promises' {
         getPrompt(): string;
         setPrompt(prompt: string): void;
         prompt(preserveCursor?: boolean): void;
-        question(query: string, options?: Abortable): Promise<string>;
+        question(query: string, options?: { signal: AbortSignal }): Promise<string>;
         pause(): this;
         resume(): this;
         close(): void;
