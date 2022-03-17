@@ -38,18 +38,18 @@ declare global {
     interface WindowEventHandlersEventMap {
         /**
          * Fired when `history.pushState` is called
-         * @event pushstate
+         * @event window#pushstate
          */
         pushstate: HistoryEvent;
         /**
          * Fired when `history.replaceState` is called
-         * @event replacestate
+         * @event window#replacestate
          */
         replacestate: HistoryEvent;
         /**
          * Fired when `history.pushState` or `history.replaceState` is called,
          * or when the browser's back/forward buttons are pressed
-         * @event changestate
+         * @event window#changestate
          */
         changestate: HistoryEvent;
     }
