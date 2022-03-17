@@ -3,6 +3,7 @@ import historyEvents = require('history-events');
 
 if (historyEvents.isHistorySupported()) {
     const handler = (ev: HistoryEvent) => {
+        console.log(ev, 'fired');
         console.log('Event Name:', ev.eventName);
         console.log('State:', ev.state);
     };
@@ -11,9 +12,9 @@ if (historyEvents.isHistorySupported()) {
     window.addEventListener('replacestate', handler);
     window.addEventListener('changestate', handler);
 
-    window.onpushstate = handler;
-    window.onreplacestate = handler;
-    window.onchangestate = handler;
+    window.onpushstate = () => console.log('pushstate fired');
+    window.onreplacestate = () => console.log('replacestate fired');
+    window.onchangestate = () => console.log('changestate fired');
 
     historyEvents.triggerEvent(window, 'pushstate', { foo: 'bar' });
     historyEvents.addEventListener(window, 'changestate', console.log);

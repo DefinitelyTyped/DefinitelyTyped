@@ -56,23 +56,23 @@ declare global {
 
     interface Window {
         /**
-         * Called when `history.pushState` is called **only if window.dispatchEvent does not exist**
-         * @param ev The history event
+         * Called when `history.pushState` is called **only if window.dispatchEvent does not exist**.
+         * No event is passed to this function
          * @listens window#pushstate
          */
-        onpushstate?(ev: HistoryEvent): void;
+        onpushstate?(): void;
         /**
-         * Called when `history.replaceState` is called **only if window.dispatchEvent does not exist**
-         * @param ev The history event
+         * Called when `history.replaceState` is called **only if window.dispatchEvent does not exist**.
+         * No event is passed to this function
          * @listens window#replacestate
          */
-        onreplacestate?(ev: HistoryEvent): void;
+        onreplacestate?(): void;
         /**
          * Called when either `history.pushState` or `history.replaceState` is called
-         * or when the browser's back/forward buttons are pressed **only if window.dispatchEvent does not exist**
-         * @param ev The history event
+         * or when the browser's back/forward buttons are pressed **only if window.dispatchEvent does not exist**.
+         * No event is passed to this function
          * @listens window#changestate
          */
-        onchangestate?(ev: HistoryEvent): void;
+        onchangestate?(): void;
     }
 }
