@@ -1,11 +1,13 @@
-// Type definitions for Apple TV ATVLegacyContentKit for TV Experience 7.7 (8153)
+// Type definitions for Apple TV ATVLegacyContentKit for TV Experience 7.7
 // Definitions by: Shea Smith <https://github.com/SheaSmith>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// The rule of thumb is that everything within the atv namespace is accessible by vanilla JavaScript running on the device. Everything else is a utility class which eases development, or in some cases (especially in the StoreKit stuff) are identitical to the classes the Apple TV uses internally.
+// The rule of thumb is that everything within the atv namespace is accessible by vanilla JavaScript running on the device. Everything else is a utility class which eases development, or in some
+// cases (especially in the StoreKit stuff) are identitical to the classes the Apple TV uses internally.
 
 /**
  * Values representing the state of a transaction.
- * 
+ *
  * See https://developer.apple.com/documentation/storekit/skpaymenttransactionstate for more information.
  */
 declare enum SKPaymentTransactionState {
@@ -15,24 +17,24 @@ declare enum SKPaymentTransactionState {
     Purchasing = 0,
 
     /**
-     * A successfully processed transaction. 
+     * A successfully processed transaction.
      */
     Purchased = 1,
 
     /**
-     * A failed transaction. 
+     * A failed transaction.
      */
     Failed = 2,
 
     /**
-     * A transaction that restores content previously purchased by the user. 
+     * A transaction that restores content previously purchased by the user.
      */
     Restored = 3,
 
     /**
-     * A transaction that is in the queue, but its final status is pending external action such as Ask to Buy. 
+     * A transaction that is in the queue, but its final status is pending external action such as Ask to Buy.
      */
-    Deferred = 4
+    Deferred = 4,
 }
 
 declare namespace atv {
@@ -45,7 +47,7 @@ declare namespace atv {
      * This hasn't been extensively tested, but it likely returns a Base64 encoded string with a StoreKit receipt.
      * @returns Likely a StoreKit reciept, Base64 encoded.
      */
-    function appStoreReceipt(): any | null;
+    function appStoreReceipt(): any;
 
     /**
      * Stops a repeating function from running any more times.
@@ -138,12 +140,12 @@ declare namespace atv {
         /**
          * Which video format the user prefers, set via iTunes settings. This can either be SD (Standard Definition), or HD (either 720p, or 1080p).
          */
-        const preferredVideoFormat: "HD" | "SD";
+        const preferredVideoFormat: 'HD' | 'SD';
 
         /**
          * Which video format the user prefers for previews, set via iTunes settings. This can either be SD (Standard Definition), or HD.
          */
-        const preferredVideoPreviewFormat: "HD" | "SD";
+        const preferredVideoPreviewFormat: 'HD' | 'SD';
 
         /**
          * The frame of the current screen.
@@ -208,7 +210,7 @@ declare namespace atv {
         /**
          * Serialize the document to an XML string.
          */
-        serializeToString(): String;
+        serializeToString(): string;
     }
 
     /**
@@ -340,7 +342,7 @@ declare namespace atv {
          * @param items The list of media browser items to show.
          * @param initialSelectionIndex The index of what the initial image to be displayed should be.
          */
-        show(items: (MediaBrowserPhoto | MediaBrowserVideo)[], initialSelectionIndex?: number): void;
+        show(items: Array<(MediaBrowserPhoto | MediaBrowserVideo)>, initialSelectionIndex?: number): void;
 
         /**
          * Update the metadata of the asset.
@@ -377,7 +379,8 @@ declare namespace atv {
         onLikeSelection?: (photoId: string, metadata: MediaBrowserMetadata) => void;
 
         /**
-         * The type of this media browser. Default allows switching between fullscreen and comments modes by pressing select. Comments screen only sets the media browser to only have fullscreen and fullscreen only does the same but for fullscreen.
+         * The type of this media browser. Default allows switching between fullscreen and comments modes by pressing select. Comments screen only sets the media browser to only have fullscreen
+         * and fullscreen only does the same but for fullscreen.
          */
         type: 'commentsScreenOnly' | 'default' | 'fullScreenOnly';
     }
@@ -400,10 +403,10 @@ declare namespace atv {
 
     class View {
         /**
-        * The frame for this view. This defines the width, height and position of the view.
-        * 
-        * This doesn't apply for the root view in a scriptView.
-        */
+         * The frame for this view. This defines the width, height and position of the view.
+         *
+         * This doesn't apply for the root view in a scriptView.
+         */
         frame: ATVFrame;
 
         /**
@@ -413,7 +416,7 @@ declare namespace atv {
 
         /**
          * Child views of this view. They are displayed on top of the view, in the order specified (e.g. the first being the lowest).
-         * 
+         *
          * The frame for these children views is set as (0, 0) as being at the bottom corner of the parent frame.
          */
         subviews: View[];
@@ -439,7 +442,7 @@ declare namespace atv {
 
     /**
      * Load and swap (i.e. remove the original page from the controller stack and replace it with this one) the page based on a plist.
-     * 
+     *
      * See https://github.com/SheaSmith/atv.js/wiki/Plist-findings for more information.
      * @param plist The plist to replace the page with.
      */
@@ -447,18 +450,23 @@ declare namespace atv {
 
     /**
      * Load and swap (i.e. remove the original page from the controller stack and replace it with this one) the page based on a URL pointing to an XML template.
-     * 
+     *
      * See the XML documentation for more information.
      * @param url The URL of the XML template.
      * @param method The method to use to access the URL.
      * @param headers The headers to include with the request.
      * @param body The body to send with the request (if applicable).
      */
-    function loadAndSwapURL(url: string, method?: string, headers?: { [key: string]: string }, body?: { [key: string]: string } | string): void;
+    function loadAndSwapURL(
+        url: string,
+        method?: string,
+        headers?: { [key: string]: string },
+        body?: { [key: string]: string } | string,
+    ): void;
 
     /**
      * Load and swap (i.e. remove the original page from the controller stack and replace it with this one) the page based on a parsed XML template, or node.
-     * 
+     *
      * See the XML documentation for more information.
      * @param xml The parent node, containing the XML tree to replace the current page with.
      * @param callback A callback called when the page has been swapped, and if it was successful.
@@ -467,7 +475,7 @@ declare namespace atv {
 
     /**
      * Load the specified plist onto the controller stack and view it.
-     * 
+     *
      * See https://github.com/SheaSmith/atv.js/wiki/Plist-findings for more information.
      * @param plist The plist to display.
      */
@@ -475,18 +483,23 @@ declare namespace atv {
 
     /**
      * Load a page based on a URL pointing to an XML template.
-     * 
+     *
      * See the XML documentation for more information.
      * @param url The URL of the XML template.
      * @param method The method to use to access the URL.
      * @param headers The headers to include with the request.
      * @param body The body to send with the request (if applicable).
      */
-    function loadURL(url: string, method?: string, headers?: { [key: string]: string }, body?: { [key: string]: string } | string): void;
+    function loadURL(
+        url: string,
+        method?: string,
+        headers?: { [key: string]: string },
+        body?: { [key: string]: string } | string,
+    ): void;
 
     /**
      * Load a page based on a parsed XML template / Node.
-     * 
+     *
      * See the XML documentation for more information.
      * @param xml The parent node, containing the XML tree to replace the current page with.
      * @param callback A callback called when the page has been swapped, and if it was successful.
@@ -541,92 +554,97 @@ declare namespace atv {
     /**
      * Called whenever a page is loaded. Page identifier is the ID of the first element in the body.
      */
-    var onPageLoad: ((pageIdentifier: string) => void) | null;
+    let onPageLoad: ((pageIdentifier: string) => void) | null;
 
     /**
      * Called whenever a page is unloaded. Page identifier is the ID of the first element in the body.
-     * 
-     * If you've got this in an application level JS (i.e. the one defined in bag.plist) and in a page level JS (i.e. the one defined in the head of the page), then this will be called in both of them.
+     *
+     * If you've got this in an application level JS (i.e. the one defined in bag.plist) and in a page level JS (i.e. the one defined in the head of the page), then this will be called in both of
+     * them.
      */
-    var onPageUnload: ((pageIdentifier: string) => void) | null;
+    let onPageUnload: ((pageIdentifier: string) => void) | null;
 
     /**
      * Called whenever a new page is pushed on top of this page. Page identifier is the ID of the first element in the body.
-     * 
-     * If you've got this in an application level JS (i.e. the one defined in bag.plist) and in a page level JS (i.e. the one defined in the head of the page), then this will be called in both of them.
+     *
+     * If you've got this in an application level JS (i.e. the one defined in bag.plist) and in a page level JS (i.e. the one defined in the head of the page), then this will be called in both of
+     * them.
      */
-    var onPageBuried: ((pageIdentifier: string) => void) | null;
+    let onPageBuried: ((pageIdentifier: string) => void) | null;
 
     /**
      * Called whenever a page that was previously open is brought on top of the stack again. Page identifier is the ID of the first element in the body.
-     * 
-     * If you've got this in an application level JS (i.e. the one defined in bag.plist) and in a page level JS (i.e. the one defined in the head of the page), then this will be called in both of them.
+     *
+     * If you've got this in an application level JS (i.e. the one defined in bag.plist) and in a page level JS (i.e. the one defined in the head of the page), then this will be called in both of
+     * them.
      */
-    var onPageExhumed: ((pageIdentifier: string) => void) | null;
+    let onPageExhumed: ((pageIdentifier: string) => void) | null;
 
     /**
      * Called when the app is opened. If doesJavaScriptLoadRoot is true then it is reponsible for loading the initial page.
      */
-    var onAppEntry: (() => void) | null;
+    let onAppEntry: (() => void) | null;
 
     /**
      * Called when the app is exited. This isn't called when the app is closed by the user, rather the app is exited when another app (including this one) is opened.
      */
-    var onAppExit: (() => void) | null;
+    let onAppExit: (() => void) | null;
 
     /**
      * Called whenever the Apple TV requests some screensavers from the app. It is likely that this needs to be accompanied with the appropriate items in bag.plist.
      * This simply returns a list of available screensavers for this app. This is done via a callback function (atv.setScreensaverPhotosCollection).
      */
-    var onScreensaverPhotosSelectionEntry: (() => void) | null;
+    let onScreensaverPhotosSelectionEntry: (() => void) | null;
 
     /**
      * The user has finished selecting a screensaver.
      */
-    var onScreensaverPhotosSelectionExit: (() => void) | null;
+    let onScreensaverPhotosSelectionExit: (() => void) | null;
 
     /**
-     * This is called every time the Apple TV wants screensavers. 
+     * This is called every time the Apple TV wants screensavers.
      */
-    var onExecuteQuery: ((query: ATVScreenSaverQuery, callback: ATVScreenSaverCallback) => void) | null;
+    let onExecuteQuery: ((query: ATVScreenSaverQuery, callback: ATVScreenSaverCallback) => void) | null;
 
     /**
      * Called when the user is logged out. This can be used to remove any user specific data from local or session storage.
      */
-    var onLogout: (() => void) | null;
+    let onLogout: (() => void) | null;
 
     /**
-     * Get the ITMS link for iTunes Store content. Usually this seems to be in feed-resources, which is then piped into localStorage, so this method would typically return the ITMS URL from localStorage.
+     * Get the ITMS link for iTunes Store content. Usually this seems to be in feed-resources, which is then piped into localStorage, so this method would typically return the ITMS URL from
+     * localStorage.
      */
-    var getItmsLink: (() => string | null) | null;
+    let getItmsLink: (() => string | null) | null;
 
     /**
      * The callback called when a login attempt needs to happen.
-     * 
+     *
      * This can happen in three situations
      * 1. The user actively tries to login either by signing out and then back in, or on first login.
      * 2. The server returns a 401, so the app tries to silently login again.
      * 3. The stored credentials are invalid and a silent login fails, so the user needs to sign in again.
-     * 
+     *
      * Do not save the username or password. The Apple TV will do this for you.
-     * 
+     *
      * This method should not block. You must notify the Apple TV of *all* results with the callback, or else the login will hang for the user.
      */
-    var onAuthenticate: ((username: string, password: string, callback: ATVAuthenticationCallback) => void) | null;
+    let onAuthenticate: ((username: string, password: string, callback: ATVAuthenticationCallback) => void) | null;
 
     /**
-     * A callback that seems to be related to an unreleased Universal Search feature. This only appears in PBS applications, but is listed in strings files for ATVLegacyContentKit, so seems legitimate.
-     * 
+     * A callback that seems to be related to an unreleased Universal Search feature. This only appears in PBS applications, but is listed in strings files for ATVLegacyContentKit, so seems
+     * legitimate.
+     *
      * Alternatively, it's a method to allow legacy applications to integrate with the Apple TV 4 search, but it's hard to tell.
-     * 
+     *
      * Essentially, it is for apps to open a page when linked with a normal URL.
      */
-    var onOpenURL: ((options: ATVDeepLinkOptions) => void) | null;
+    let onOpenURL: ((options: ATVDeepLinkOptions) => void) | null;
 
     /**
      * The callback called whenever the Apple TV is about to send a request.
      */
-    var onGenerateRequest: ((request: ATVHttpRequest) => void) | null;
+    let onGenerateRequest: ((request: ATVHttpRequest) => void) | null;
 
     /**
      * Parses a Plist into an object. Essentially turning the 'dict' section into a JSON object.
@@ -695,8 +713,8 @@ declare namespace atv {
      */
     namespace player {
         /**
-          * The different states that the player can have.
-          */
+         * The different states that the player can have.
+         */
         enum states {
             /**
              * The player is currently fast forwarding.
@@ -726,7 +744,7 @@ declare namespace atv {
             /**
              * The player is currently stopped.
              */
-            Stopped = 'Stopped'
+            Stopped = 'Stopped',
         }
 
         /**
@@ -761,103 +779,104 @@ declare namespace atv {
             /**
              * A skip forward has been requested.
              */
-            SkipFwd = 'SkipFwd'
+            SkipFwd = 'SkipFwd',
         }
 
         /**
          * Called before the playback starts.
          */
-        var willStartPlaying: (() => void) | null;
+        let willStartPlaying: (() => void) | null;
 
         /**
          * Called when the asset being played changes (e.g. if a song in a playlist ends and the next one begins).
          */
-        var currentAssetChanged: (() => void) | null;
+        let currentAssetChanged: (() => void) | null;
 
         /**
          * Called when the player asks for a new asset (e.g. the next one to be played).
          */
-        var loadMoreAssets: ((callback: ATVLoadMoreAssetsCallback) => void) | null;
+        let loadMoreAssets: ((callback: ATVLoadMoreAssetsCallback) => void) | null;
 
         /**
          * Called when the player starts buffering. The playhead location is how much of the video has been played in seconds.
          */
-        var onStartBuffering: ((playheadLocation: number) => void) | null;
+        let onStartBuffering: ((playheadLocation: number) => void) | null;
 
         /**
          * Called when there is enough of the asset buffered to continue playing it.
          */
-        var onBufferSufficientToPlay: (() => void) | null;
+        let onBufferSufficientToPlay: (() => void) | null;
 
         /**
          * Called when there is an error with the player. The error is a debug message and should not be shown to the user.
          */
-        var onPlaybackError: ((error: string) => void) | null;
+        let onPlaybackError: ((error: string) => void) | null;
 
         /**
          * Called when there is quality of service report available. Seems to only be logs.
          */
-        var onQualityOfServiceReport: ((report: ATVQualityOfServiceReport) => void) | null;
+        let onQualityOfServiceReport: ((report: ATVQualityOfServiceReport) => void) | null;
 
         /**
          * Called when the state of the player changes. The state is the new state of the player and the playhead location is how much of the asset has been viewed in seconds.
          */
-        var playerStateChanged: ((state: atv.player.states, playheadLocation: number) => void) | null;
+        let playerStateChanged: ((state: states, playheadLocation: number) => void) | null;
 
         /**
-         * Called when the player is seeking to a specific time in seconds. This method should return the time the player should seek to. If you want to use the one set by the user, just return the time supplied.
+         * Called when the player is seeking to a specific time in seconds. This method should return the time the player should seek to. If you want to use the one set by the user, just return
+         * the time supplied.
          */
-        var playerWillSeekToTime: ((time: number) => number) | null;
+        let playerWillSeekToTime: ((time: number) => number) | null;
 
         /**
          * Whether the player should handle an event. The event parameter describes what event is being requested and the playhead location is how much of the asset has been viewed in seconds.
          */
-        var playerShouldHandleEvent: ((event: atv.player.events, playheadLocation: number) => boolean) | null;
+        let playerShouldHandleEvent: ((event: events, playheadLocation: number) => boolean) | null;
 
         /**
          * The current date has changed. This basically just reports the passage of time every second or so.
          */
-        var playerDateDidChange: ((date: Date) => void) | null;
+        let playerDateDidChange: ((date: Date) => void) | null;
 
         /**
          * The playhead location has changed. This either happens when it has been specifically moved by the user (e.g. skipping, fast forward or rewinding) or regularly as the asset is played.
          */
-        var playerTimeDidChange: ((playheadLocation: number) => void) | null;
+        let playerTimeDidChange: ((playheadLocation: number) => void) | null;
 
         /**
          * Called when the player has been stopped.
          */
-        var didStopPlaying: (() => void) | null;
+        let didStopPlaying: (() => void) | null;
 
         /**
          * The video controls (e.g. the progress bar) are going to be displayed. Animation duration is the length of the animation to fade in the controls.
          */
-        var onTransportControlsDisplayed: ((animationDuration: number) => void) | null;
+        let onTransportControlsDisplayed: ((animationDuration: number) => void) | null;
 
         /**
          * The video controls (e.g. the progress bar) are going to be hidden. Animation duration is the length of the animation to fade out the controls.
          */
-        var onTransportControlsHidden: ((animationDuration: number) => void) | null;
+        let onTransportControlsHidden: ((animationDuration: number) => void) | null;
 
         /**
          * The user has selected an audio track. The language is the short string associated with the language choice (e.g. en).
          */
-        var didSelectAudioTrack: ((language: string) => void) | null;
+        let didSelectAudioTrack: ((language: string) => void) | null;
 
         /**
          * The user has selected a subtitle track. The subtitle parameter is an object describing their chosen subtitle.
          */
-        var didSelectSubtitleTrack: ((subtitle: ATVSubtitle) => void) | null;
+        let didSelectSubtitleTrack: ((subtitle: ATVSubtitle) => void) | null;
 
         /**
          * The ID3 metadata for this video has changed.
          */
-        var onTimedMetdataChanged: ((metadata: AVMetadataItem) => void) | null;
+        let onTimedMetdataChanged: ((metadata: AVMetadataItem) => void) | null;
 
         /**
          * The player has asked for related content to be loaded. If there is already an item queued, it is supplied as the upNextAsset parameter.
          */
-        var loadRelatedContent: ((upNextAsset: Element, callback: ATVLoadMoreAssetsCallback) => void) | null;
+        let loadRelatedContent: ((upNextAsset: Element, callback: ATVLoadMoreAssetsCallback) => void) | null;
 
         /**
          * The currently playing asset.
@@ -871,21 +890,24 @@ declare namespace atv {
         function changeToAsset(newAsset: Element): void;
 
         /**
-         * Convert from gross time to net time. Essentially the gross time is the total time watched of the clip, including interstitials, but net time is the time watched minus any time taken by the interstitials.
+         * Convert from gross time to net time. Essentially the gross time is the total time watched of the clip, including interstitials, but net time is the time watched minus any time taken by
+         * the interstitials.
          * @param grossTime The gross time you want to convert.
          */
         function convertGrossToNetTime(grossTime: number): number;
 
         /**
-         * Convert from net time to gross time.  Essentially the gross time is the total time watched of the clip, including interstitials, but net time is the time watched minus any time taken by the interstitials.
+         * Convert from net time to gross time.  Essentially the gross time is the total time watched of the clip, including interstitials, but net time is the time watched minus any time taken by
+         * the interstitials.
          * @param netTime The net time you want to convert.
          */
         function convertNetToGrossTime(netTime: number): number;
 
         /**
          * Get information about the current item playing.
-         * 
-         * This appears to be a special property solely used by the Apple TV+ app. Some properties can be used for quick access to things that might otherwise need queried out, but in general most of the child items are specific to that app.
+         *
+         * This appears to be a special property solely used by the Apple TV+ app. Some properties can be used for quick access to things that might otherwise need queried out, but in general most
+         * of the child items are specific to that app.
          */
         const currentItem: ATVPlayerItem | null;
 
@@ -901,13 +923,14 @@ declare namespace atv {
 
         /**
          * A list of the event groups. The elements list contains a list of elements parsed from the supplied event groups files, so all elements will be of type eventGroup.
-         * 
-         * These display on the player as a series of lines. Additionally, the first part of the transport controls, usually where the time watched appears will display the event group title (if supplied). Skipping between events will show the information about the event as a popup.
+         *
+         * These display on the player as a series of lines. Additionally, the first part of the transport controls, usually where the time watched appears will display the event group title (if
+         * supplied). Skipping between events will show the information about the event as a popup.
          */
         const eventGroups: Element[] | null;
 
         /**
-         * A list of the interstitials. These are similar to event groups in how they are defined, but essentially, they display as 
+         * A list of the interstitials. These are similar to event groups in how they are defined, but essentially, they display as
          */
         const interstitials: Element[] | null;
 
@@ -972,7 +995,7 @@ declare namespace atv {
 
         /**
          * Load the specified plist onto the controller stack and replace the proxy document.
-         * 
+         *
          * See https://github.com/SheaSmith/atv.js/wiki/Plist-findings for more information.
          * @param plist The plist to display.
          */
@@ -980,18 +1003,23 @@ declare namespace atv {
 
         /**
          * Load a page based on a URL pointing to an XML template and replace the proxy document..
-         * 
+         *
          * See the XML documentation for more information.
          * @param url The URL of the XML template.
          * @param method The method to use to access the URL.
          * @param headers The headers to include with the request.
          * @param body The body to send with the request (if applicable).
          */
-        loadURL(url: string, method?: string, headers?: { [key: string]: string }, body?: { [key: string]: string } | string): void;
+        loadURL(
+            url: string,
+            method?: string,
+            headers?: { [key: string]: string },
+            body?: { [key: string]: string } | string,
+        ): void;
 
         /**
          * Load a page based on a parsed XML template / Node and replace the proxy document..
-         * 
+         *
          * See the XML documentation for more information.
          * @param xml The parent node, containing the XML tree to replace the current page with.
          * @param callback A callback called when the page has been swapped, and if it was successful.
@@ -1014,7 +1042,8 @@ declare namespace atv {
         title: string;
 
         /**
-         * Whether the user has set the rating previously or not. Basically this changes the stars from white (false) to gold (true) initially. They are always set to gold when the user adjusts them.
+         * Whether the user has set the rating previously or not. Basically this changes the stars from white (false) to gold (true) initially. They are always set to gold when the user adjusts
+         * them.
          */
         hasUserSetRating: boolean;
 
@@ -1077,8 +1106,8 @@ declare namespace atv {
     function showMoreInfo(): void;
 
     /**
-     * An object that can retrieve localized information from the App Store about a specified list of products. 
-     * 
+     * An object that can retrieve localized information from the App Store about a specified list of products.
+     *
      * See https://developer.apple.com/documentation/storekit/skproductsrequest for more information.
      */
     class SKProductsRequest {
@@ -1094,8 +1123,8 @@ declare namespace atv {
         onProductsRequestDidReceiveResponse?: (response: SKProductsResponse) => void;
 
         /**
-        * Sends the request to the Apple App Store.
-        */
+         * Sends the request to the Apple App Store.
+         */
         start(): void;
 
         /**
@@ -1116,7 +1145,7 @@ declare namespace atv {
 
     /**
      * A queue of payment transactions to be processed by the App Store.
-     * 
+     *
      * See https://developer.apple.com/documentation/storekit/skpaymentqueue for more information.
      */
     namespace SKDefaultPaymentQueue {
@@ -1181,55 +1210,55 @@ declare namespace atv {
 
     /**
      * Error code indicating that an unknown or unexpected error occurred.
-     * 
+     *
      * See https://developer.apple.com/documentation/storekit/skerror/code/unknown for more information.
      */
     const SKErrorUnknown = 0;
 
     /**
      * Error code indicating that the client is not allowed to perform the attempted action.
-     * 
+     *
      * See https://developer.apple.com/documentation/storekit/skerror/code/clientinvalid for more information.
      */
     const SKErrorClientInvalid = 1;
 
     /**
      * Error code indicating that the user canceled a payment request.
-     * 
+     *
      * See https://developer.apple.com/documentation/storekit/skerror/code/paymentcancelled for more information.
      */
     const SKErrorPaymentCancelled = 2;
 
     /**
      * Error code indicating that one of the payment parameters wasn’t recognized by the App Store.
-     * 
+     *
      * See https://developer.apple.com/documentation/storekit/skerror/code/paymentinvalid for more information.
      */
     const SKErrorPaymentInvalid = 3;
 
     /**
      * Error code indicating that the user is not allowed to authorize payments.
-     * 
+     *
      * See https://developer.apple.com/documentation/storekit/skerror/code/paymentnotallowed for more information.
      */
     const SKErrorPaymentNotAllowed = 4;
 
     /**
      * Error code indicating that the requested product is not available in the store.
-     * 
+     *
      * See https://developer.apple.com/documentation/storekit/skerror/code/paymentnotallowed for more information.
      */
     const SKErrorStoreProductNotAvailable = 5;
 
     /**
      * A request to refresh the receipt, which represents the user's transactions with your app.
-     * 
+     *
      * See https://developer.apple.com/documentation/storekit/skreceiptrefreshrequest for more information.
      */
     class SKReceiptRefreshRequest {
         /**
-        * Sends the request to the Apple App Store.
-        */
+         * Sends the request to the Apple App Store.
+         */
         start(): void;
 
         /**
@@ -1250,7 +1279,7 @@ declare namespace atv {
          * Initializes a receipt refresh request with optional properties.
          * @param receiptProperties The properties of the receipt.
          */
-        constructor(receiptProperties: { [key: string]: any })
+        constructor(receiptProperties: { [key: string]: any });
     }
 
     /**
@@ -1259,21 +1288,21 @@ declare namespace atv {
 
     /**
      * A key whose value indicates whether the receipt is expired.
-     * 
+     *
      * See https://developer.apple.com/documentation/storekit/skreceiptpropertyisexpired?language=objc for more information.
      */
     const SKReceiptPropertyIsExpired = 'expired';
 
     /**
      * A key whose value indicates whether the receipt has been revoked.
-     * 
+     *
      * See https://developer.apple.com/documentation/storekit/skreceiptpropertyisrevoked?language=objc for more information.
      */
     const SKReceiptPropertyIsRevoked = 'revoked';
 
     /**
      * A key whose value indicates whether the receipt is a Volume Purchase Plan receipt.
-     * 
+     *
      * See https://developer.apple.com/documentation/storekit/skreceiptpropertyisvolumepurchase?language=objc for more information.
      */
     const SKReceiptPropertyIsVolumePurchase = 'vpp';
@@ -1364,9 +1393,9 @@ declare namespace atv {
     function uuid(): string;
 }
 
-declare var document: atv.Document;
-declare var controller: ATVController;
-declare var console: Console;
+declare const document: atv.Document;
+declare const controller: ATVController;
+declare const console: Console;
 
 /**
  * A controller on a scriptView page.
@@ -1387,7 +1416,7 @@ declare interface ATVJSConfig {
     /**
      * Any other arbitary property is allowed here.
      */
-    [x: string | number | symbol]: unknown;
+    [x: string]: unknown;
 }
 
 declare interface ATVFrame {
@@ -1417,7 +1446,8 @@ declare interface ATVFrame {
  */
 declare interface MediaBrowserItem {
     /**
-     * What type of item is being displayed. Either photo or video. They're functionally identitical except the video option has a different name for the assets array, and shows a video play button as an overlay.
+     * What type of item is being displayed. Either photo or video. They're functionally identitical except the video option has a different name for the assets array, and shows a video play
+     * button as an overlay.
      */
     readonly type: 'photo' | 'video';
 
@@ -1435,7 +1465,6 @@ declare interface MediaBrowserItem {
      * Any badges that need attached. This is limited to a comments badge only.
      */
     badges?: MediaBrowserBadge[];
-
 }
 
 /**
@@ -1532,7 +1561,7 @@ declare interface MediaBrowserComment {
 
 /**
  * The colour class for specifying the colours of programmatic views.
- * 
+ *
  * This appears to be loosely based on CGColor, but without the ability to use different colour spaces.
  */
 declare interface ATVColor {
@@ -1559,9 +1588,10 @@ declare interface ATVColor {
 
 /**
  * An animation for programmatic views. This seems to be confined to CABasicAnimation from Core Animation, so expect the same behavior as that.
- * 
- * It's pretty hard to test all of this stuff (as there isn't any validation), so I've mostly copied the same structure as CABasicAnimation. However, some properties may be unsupported, but they will not cause an error, rather they will silently fail.
- * 
+ *
+ * It's pretty hard to test all of this stuff (as there isn't any validation), so I've mostly copied the same structure as CABasicAnimation. However, some properties may be unsupported, but they
+ * will not cause an error, rather they will silently fail.
+ *
  * I've also attributed situations where I've borrowed the documentation from Apple's website.
  */
 declare interface ATVAnimation {
@@ -1571,134 +1601,134 @@ declare interface ATVAnimation {
     readonly type: 'BasicAnimation';
 
     /**
-     * Tells the delegate the animation has started. 
-     * 
+     * Tells the delegate the animation has started.
+     *
      * See https://developer.apple.com/documentation/quartzcore/caanimationdelegate/2097265-animationdidstart for more information.
      */
     animationDidStart?: () => void;
 
     /**
-     * Tells the delegate the animation has ended. 
-     * 
+     * Tells the delegate the animation has ended.
+     *
      * See https://developer.apple.com/documentation/quartzcore/caanimationdelegate/2097259-animationdidstop for more information.
      */
     animationDidStop?: (finished: boolean) => void;
 
     /**
      * Determines if the value specified by the animation is added to the current render tree value to produce the new render tree value.
-     * 
+     *
      * See https://developer.apple.com/documentation/quartzcore/capropertyanimation/1412493-additive?language=objc for more information.
      */
     additive?: boolean;
 
     /**
      * Determines if the receiver plays in the reverse upon completion.
-     * 
+     *
      * See https://developer.apple.com/documentation/quartzcore/camediatiming/1427645-autoreverses?language=objc for more information.
      */
     autoreverses?: boolean;
 
     /**
      * Specifies the begin time of the receiver in relation to its parent object, if applicable.
-     * 
+     *
      * See https://developer.apple.com/documentation/quartzcore/camediatiming/1427654-begintime?language=objc for more information.
      */
     beginTime?: number;
 
     /**
      * Defines the value the receiver uses to perform relative interpolation.
-     * 
+     *
      * See https://developer.apple.com/documentation/quartzcore/cabasicanimation/1412445-byvalue?language=objc for more information.
      */
     byValue?: number | number[] | ATVColor;
 
     /**
      * Determines if the value of the property is the value at the end of the previous repeat cycle, plus the value of the current repeat cycle.
-     * 
+     *
      * See https://developer.apple.com/documentation/quartzcore/capropertyanimation/1412538-cumulative?language=objc for more information.
      */
     cumulative?: boolean;
 
     /**
      * Specifies the basic duration of the animation, in seconds.
-     * 
+     *
      * See https://developer.apple.com/documentation/quartzcore/camediatiming/1427652-duration?language=objc for more information.
      */
     duration?: number;
 
     /**
      * The duration for transitioning into the animation’s effect as it begins.
-     * 
+     *
      * See https://developer.apple.com/documentation/quartzcore/caanimation/1523370-fadeinduration?language=objc for more information.
      */
     fadeInDuration?: number;
 
     /**
      * The duration for transitioning out of the animation’s effect as it ends.
-     * 
+     *
      * See https://developer.apple.com/documentation/quartzcore/caanimation/1522959-fadeoutduration?language=objc for more information.
      */
     fadeOutDuration?: number;
 
     /**
      * Determines if the receiver’s presentation is frozen or removed once its active duration has completed.
-     * 
+     *
      * See https://developer.apple.com/documentation/quartzcore/camediatiming/fill_modes for more information.
      */
     fillMode?: 'removed' | 'forwards' | 'backwards' | 'both';
 
     /**
      * Defines the value the receiver uses to start interpolation.
-     * 
+     *
      * See https://developer.apple.com/documentation/quartzcore/cabasicanimation/1412519-fromvalue?language=objc for more information.
      */
     fromValue?: number | number[] | ATVColor;
 
     /**
      * Specifies the key path the receiver animates.
-     * 
+     *
      * See https://developer.apple.com/documentation/quartzcore/capropertyanimation/1412496-keypath?language=objc for more information.
      */
     keyPath?: string;
 
     /**
      * Determines if the animation is removed from the target layer’s animations upon completion.
-     * 
+     *
      * See https://developer.apple.com/documentation/quartzcore/caanimation/1412458-removedoncompletion?language=objc for more information.
      */
     removedOnCompletion?: boolean;
 
     /**
      * Determines the number of times the animation will repeat.
-     * 
+     *
      * See https://developer.apple.com/documentation/quartzcore/camediatiming/1427666-repeatcount?language=objc for more information.
      */
     repeatCount?: number;
 
     /**
      * Determines how many seconds the animation will repeat for.
-     * 
+     *
      * See https://developer.apple.com/documentation/quartzcore/camediatiming/1427643-repeatduration?language=objc for more information.
      */
-    repeatDuration?: number
+    repeatDuration?: number;
 
     /**
-     * Specifies how time is mapped to receiver’s time space from the parent time space. 
-     * 
+     * Specifies how time is mapped to receiver’s time space from the parent time space.
+     *
      * See https://developer.apple.com/documentation/quartzcore/camediatiming/1427647-speed?language=objc for more information.
      */
     speed?: number;
 
     /**
      * Specifies an additional time offset in active local time.
-     * 
+     *
      * See https://developer.apple.com/documentation/quartzcore/camediatiming/1427650-timeoffset?language=objc for more information.
      */
     timeOffset?: number;
 
     /**
      * Defines the value the receiver uses to end interpolation.
-     * 
+     *
      * See https://developer.apple.com/documentation/quartzcore/cabasicanimation/1412523-tovalue?language=objc for more information.
      */
     toValue?: number | number[] | ATVColor;
@@ -1717,7 +1747,7 @@ declare interface ATVStorage {
      * Get a value from the storage.
      * @param key The key for the value you want to find.
      */
-    getItem(key: string): any | null;
+    getItem(key: string): any;
 
     /**
      * Set a value for a particular key.
@@ -1735,7 +1765,7 @@ declare interface ATVStorage {
     /**
      * Any other arbitary property is allowed here.
      */
-    [x: string | number | symbol]: unknown;
+    [x: string]: unknown;
 }
 
 /**
@@ -2003,7 +2033,7 @@ declare enum XMLHttpRequestState {
     /**
      * The response is downloaded.
      */
-    DONE
+    DONE,
 }
 
 /**
@@ -2075,9 +2105,9 @@ declare interface ATVSubtitle {
 
 /**
  * Timed metadata object. This basically seems to be the AVMetadataItem from AVFoundation.
- * 
+ *
  * This definitions leaves out some properties and may also have inaccurate types as it is not trivial to test.
- * 
+ *
  * See https://developer.apple.com/documentation/avfoundation/avmetadataitem for more information.
  */
 declare interface AVMetadataItem {
@@ -2113,19 +2143,20 @@ declare interface ATVPlayerItem {
     duration: number;
 
     /**
-     * A list of advisory information about the item. This is basically detailed information about why the rating was accorded (e.g. specifying if the show has violance, sex scenes, bad language, etc.).
-     * 
+     * A list of advisory information about the item. This is basically detailed information about why the rating was accorded (e.g. specifying if the show has violance, sex scenes, bad language,
+     * etc.).
+     *
      * The formats for these are dependant on the country, so may vary. This is written from a New Zealand perspective and their rating systems.
-     * 
+     *
      * Again, this is very dependant on TV+ specific stuff, so isn't likely to be useful elsewhere.
      */
     advisoryInfo?: ATVPlayerAdvisoryInfo[];
 
     /**
      * Information about the content rating of the item.
-     * 
+     *
      * The formats for this are dependant on the country, so may vary. This is written from a New Zealand perspective and their rating systems.
-     * 
+     *
      * Again, this is very dependant on TV+ specific stuff, so isn't likely to be useful elsewhere.
      */
     ratingsInfo: ATVPlayerRatingInfo;
@@ -2168,48 +2199,51 @@ declare interface ATVPlayerMetricsData {
 
 /**
  * Advisory information about the item. This is basically detailed information about why the rating was accorded (e.g. specifying if the show has violance, sex scenes, bad language, etc.).
- * 
+ *
  * The formats for these are dependant on the country, so may vary. This is written from a New Zealand perspective and their rating systems.
- * 
+ *
  * Again, this class is very dependant on TV+ specific stuff, so isn't likely to be useful elsewhere.
  */
 declare interface ATVPlayerAdvisoryInfo {
     /**
-     * A human readable description of the advisory (e.g. Use of bad language). This is obtained from com.apple.hls.advisory-info.x.value in the session data of the HLS file, where 'x' is the index of the advisory.
+     * A human readable description of the advisory (e.g. Use of bad language). This is obtained from com.apple.hls.advisory-info.x.value in the session data of the HLS file, where 'x' is the
+     * index of the advisory.
      */
     ratingDescription: string;
 
     /**
-     * A code that belongs to that specific advisory (e.g. L for bad language). This is obtained from com.apple.hls.advisory-info.x.key in the session data of the HLS file, where 'x' is the index of the advisory.
+     * A code that belongs to that specific advisory (e.g. L for bad language). This is obtained from com.apple.hls.advisory-info.x.key in the session data of the HLS file, where 'x' is the index
+     * of the advisory.
      */
     ratingName: string;
 }
 
 /**
  * Information about the content rating of the item.
- * 
+ *
  * The formats for these are dependant on the country, so may vary. This is written from a New Zealand perspective and their rating systems.
- * 
+ *
  * Again, this class is very dependant on TV+ specific stuff, so isn't likely to be useful elsewhere.
  */
 declare interface ATVPlayerRatingInfo {
     /**
-     * The URL for retrieving an image for the particular rating. This is generally localised to the particular location (e.g. NZ ones will be coloured circles, but the US ones will be the standard TV/MPAA icons).
-     * 
+     * The URL for retrieving an image for the particular rating. This is generally localised to the particular location (e.g. NZ ones will be coloured circles, but the US ones will be the
+     * standard TV/MPAA icons).
+     *
      * This is obtained from the com.apple.hls.rating-image in the session data of the HLS file.
      */
     ratingImageURL?: string;
 
     /**
      * The tag for this particular rating. Basically just seems to be an internal code (e.g. NZ_TV_M for the NZ TV rating of M).
-     * 
+     *
      * This is obtained from the com.apple.hls.rating-tag in the session data of the HLS file.
      */
     ratingTag?: string;
 
     /**
      * Whether a rating overlay should be shown.
-     * 
+     *
      * This is likely obtained from the com.apple.hls.display-ratings-overlay in the session data of the HLS file.
      */
     shouldShowRatingOverlay?: boolean;
@@ -2241,15 +2275,16 @@ declare interface ATVSecureKeyDelivery {
 
     /**
      * Fetch the asset ID. Usually, the asset ID is parsed from the URI parameter.
-     * 
-     * The 'uri' parameter is a string containing the secure key delivery URI. This is the URI that is contained within the m3u8 in the EXT-X-KEY tag. The URI will begin with "skd://". Usually the asset ID is parsed directly from this (e.g. by removing the skd:// bit).
+     *
+     * The 'uri' parameter is a string containing the secure key delivery URI. This is the URI that is contained within the m3u8 in the EXT-X-KEY tag. The URI will begin with "skd://". Usually
+     * the asset ID is parsed directly from this (e.g. by removing the skd:// bit).
      * The callback parameter allows you to return the asset ID and indicate whether it is Base64 encoded or not, or to return an error.
      */
     fetchAssetID?: (uri: string, callback: ATVSecureKeyFetchAssetCallback) => void;
 
     /**
      * Fetch the FairPlay certificate. The certificate must be in the DER format. These are generally shared across an app, so can be cached if desired.
-     * 
+     *
      * The 'uri' parameter is a string containing the secure key delivery URI. This is the URI that is contained within the m3u8 in the EXT-X-KEY tag. The URI will begin with "skd://".
      * The callback parameter allows you to return the certificate. This must be base64 encoded (e.g. by using XMLHttpRequest.responseDataAsBase64).
      */
@@ -2257,9 +2292,11 @@ declare interface ATVSecureKeyDelivery {
 
     /**
      * Fetch the FairPlay keys for this particular asset. These are usually unique to each media item.
-     * 
+     *
      * The 'uri' parameter is a string containing the secure key delivery URI. This is the URI that is contained within the m3u8 in the EXT-X-KEY tag. The URI will begin with "skd://.
-     * The 'requestData' parameter is a base64 encoded string of the request data that FairPlay needs to send to the server to decrypt the content. This (generally) can't be decoded before sending, as the XMLHttpRequest will send an empty body. See https://github.com/SheaSmith/atv.js/issues/2 for more information.
+     * The 'requestData' parameter is a base64 encoded string of the request data that FairPlay needs to send to the server to decrypt the content. This (generally) can't be decoded before sending,
+     * as the XMLHttpRequest will send an empty body. See https://github.com/SheaSmith/atv.js/issues/2 for more information.
+     *
      * The callback parameter allows you to return the keys. This must be base64 encoded (e.g. by using XMLHttpRequest.responseDataAsBase64).
      */
     fetchKey?: (uri: string, requestData: string, callback: ATVSecureKeyGenericCallback) => void;
@@ -2302,7 +2339,7 @@ declare interface ATVSecureKeyGenericCallback {
 
 /**
  * Information about a product previously registered in App Store Connect.
- * 
+ *
  * See https://developer.apple.com/documentation/storekit/skproduct for more information. Please note, some fields do not apply to the Apple TV and as such, have been removed.
  */
 declare interface SKProduct {
@@ -2339,7 +2376,7 @@ declare interface SKProduct {
 
 /**
  * Information about the users locale.
- * 
+ *
  * See https://developer.apple.com/documentation/foundation/nslocale for more information.
  */
 declare interface TVLJSNSLocale {
@@ -2351,7 +2388,7 @@ declare interface TVLJSNSLocale {
 
 /**
  * An App Store response to a request for information about a list of products.
- * 
+ *
  * See https://developer.apple.com/documentation/storekit/skproductsresponse for more information.
  */
 declare interface SKProductsResponse {
@@ -2368,7 +2405,7 @@ declare interface SKProductsResponse {
 
 /**
  * A request to the App Store to process payment for additional functionality offered by your app.
- * 
+ *
  * See https://developer.apple.com/documentation/storekit/skpayment for more information.
  */
 declare interface SKPayment {
@@ -2390,7 +2427,7 @@ declare interface SKPayment {
 
 /**
  * A set of methods that process transactions, unlock purchased functionality, and continue promoted in-app purchases.
- * 
+ *
  * See https://developer.apple.com/documentation/storekit/skpaymenttransactionobserver for more information.
  */
 declare interface SKPaymentTransactionObserver {
@@ -2417,7 +2454,7 @@ declare interface SKPaymentTransactionObserver {
 
 /**
  * An object in the payment queue.
- * 
+ *
  * See https://developer.apple.com/documentation/storekit/skpaymenttransaction for more information.
  */
 declare interface SKPaymentTransaction {
@@ -2486,13 +2523,13 @@ declare interface ATVJSSlideShow {
      * @param initialSelection The initial index to use.
      * @param photos The photos to display.
      */
-    run(initialSelection: number, photos: (MediaBrowserPhoto | MediaBrowserVideo)[]): void;
+    run(initialSelection: number, photos: Array<MediaBrowserPhoto | MediaBrowserVideo>): void;
 
     /**
      * Show the settings for the slideshow.
      * @param photos The photos that would be displayed.
      */
-    showSettings(photos: (MediaBrowserPhoto | MediaBrowserVideo)[]): void;
+    showSettings(photos: Array<MediaBrowserPhoto | MediaBrowserVideo>): void;
 
     /**
      * Called when the user exists the slideshow. Last photo ID was the ID of the last photo displayed.
@@ -2502,7 +2539,7 @@ declare interface ATVJSSlideShow {
 
 /**
  * A string with formatting and styling.
- * 
+ *
  * See https://developer.apple.com/documentation/foundation/attributedstring for more information.
  */
 declare interface AttributedString {
@@ -2530,93 +2567,93 @@ declare interface AttributeContainer {
     /**
      * The way the text should break.
      */
-    breakMode?: ('clip' | 'word-wrap' | 'truncate-head' | 'truncate-tail' | 'truncate-middle');
+    breakMode?: 'clip' | 'word-wrap' | 'truncate-head' | 'truncate-tail' | 'truncate-middle';
 
     /**
      * The weight of the text.
      */
-    weight?: ('normal' | 'light' | 'heavy');
+    weight?: 'normal' | 'light' | 'heavy';
 
     /**
      * The alignment of the text.
      */
-    alignment?: ('left' | 'right' | 'center' | 'justify');
+    alignment?: 'left' | 'right' | 'center' | 'justify';
 }
 
 /**
  * Provides access to the browser's debugging console.
- * 
+ *
  * Source: https://developer.mozilla.org/en-US/docs/Web/API/console
  */
 declare interface Console {
     /**
-    * `console.assert()` writes a message if `value` is [falsy](https://developer.mozilla.org/en-US/docs/Glossary/Falsy) or omitted. It only
-    * writes a message and does not otherwise affect execution. The output always
-    * starts with `"Assertion failed"`. If provided, `message` is formatted using `util.format()`.
-    *
-    * If `value` is [truthy](https://developer.mozilla.org/en-US/docs/Glossary/Truthy), nothing happens.
-    *
-    * ```js
-    * console.assert(true, 'does nothing');
-    *
-    * console.assert(false, 'Whoops %s work', 'didn\'t');
-    * // Assertion failed: Whoops didn't work
-    *
-    * console.assert();
-    * // Assertion failed
-    * ```
-    * @since v0.1.101
-    * @param value The value tested for being truthy.
-    * @param message All arguments besides `value` are used as error message.
-    */
+     * `console.assert()` writes a message if `value` is [falsy](https://developer.mozilla.org/en-US/docs/Glossary/Falsy) or omitted. It only
+     * writes a message and does not otherwise affect execution. The output always
+     * starts with `"Assertion failed"`. If provided, `message` is formatted using `util.format()`.
+     *
+     * If `value` is [truthy](https://developer.mozilla.org/en-US/docs/Glossary/Truthy), nothing happens.
+     *
+     * ```js
+     * console.assert(true, 'does nothing');
+     *
+     * console.assert(false, 'Whoops %s work', 'didn\'t');
+     * // Assertion failed: Whoops didn't work
+     *
+     * console.assert();
+     * // Assertion failed
+     * ```
+     * @since v0.1.101
+     * @param value The value tested for being truthy.
+     * @param message All arguments besides `value` are used as error message.
+     */
     assert(value: any, message?: string, ...optionalParams: any[]): void;
 
     /**
-    * When `stdout` is a TTY, calling `console.clear()` will attempt to clear the
-    * TTY. When `stdout` is not a TTY, this method does nothing.
-    *
-    * The specific operation of `console.clear()` can vary across operating systems
-    * and terminal types. For most Linux operating systems, `console.clear()`operates similarly to the `clear` shell command. On Windows, `console.clear()`will clear only the output in the
-    * current terminal viewport for the Node.js
-    * binary.
-    * @since v8.3.0
-    */
+     * When `stdout` is a TTY, calling `console.clear()` will attempt to clear the
+     * TTY. When `stdout` is not a TTY, this method does nothing.
+     *
+     * The specific operation of `console.clear()` can vary across operating systems
+     * and terminal types. For most Linux operating systems, `console.clear()`operates similarly to the `clear` shell command. On Windows, `console.clear()`will clear only the output in the
+     * current terminal viewport for the Node.js
+     * binary.
+     * @since v8.3.0
+     */
     clear(): void;
 
     /**
-    * Maintains an internal counter specific to `label` and outputs to `stdout` the
-    * number of times `console.count()` has been called with the given `label`.
-    *
-    * ```js
-    * > console.count()
-    * default: 1
-    * undefined
-    * > console.count('default')
-    * default: 2
-    * undefined
-    * > console.count('abc')
-    * abc: 1
-    * undefined
-    * > console.count('xyz')
-    * xyz: 1
-    * undefined
-    * > console.count('abc')
-    * abc: 2
-    * undefined
-    * > console.count()
-    * default: 3
-    * undefined
-    * >
-    * ```
-    * @since v8.3.0
-    * @param label The display label for the counter.
-    */
+     * Maintains an internal counter specific to `label` and outputs to `stdout` the
+     * number of times `console.count()` has been called with the given `label`.
+     *
+     * ```js
+     * > console.count()
+     * default: 1
+     * undefined
+     * > console.count('default')
+     * default: 2
+     * undefined
+     * > console.count('abc')
+     * abc: 1
+     * undefined
+     * > console.count('xyz')
+     * xyz: 1
+     * undefined
+     * > console.count('abc')
+     * abc: 2
+     * undefined
+     * > console.count()
+     * default: 3
+     * undefined
+     * >
+     * ```
+     * @since v8.3.0
+     * @param label The display label for the counter.
+     */
     count(label?: string): void;
 
     /**
-    * The `console.debug()` function is an alias for {@link log}.
-    * @since v8.0.0
-    */
+     * The `console.debug()` function is an alias for {@link log}.
+     * @since v8.0.0
+     */
     debug(message?: any, ...optionalParams: any[]): void;
     /**
      * Prints to `stderr` the string `'Trace: '`, followed by the `util.format()` formatted message and stack trace to the current position in the code.
@@ -2777,34 +2814,6 @@ declare interface Console {
      * @since v0.1.104
      */
     timeEnd(label?: string): void;
-
-    /**
-    * Prints to `stderr` the string `'Trace: '`, followed by the `util.format()` formatted message and stack trace to the current position in the code.
-    *
-    * ```js
-    * console.trace('Show me');
-    * // Prints: (stack trace will vary based on where trace is called)
-    * //  Trace: Show me
-    * //    at repl:2:9
-    * //    at REPLServer.defaultEval (repl.js:248:27)
-    * //    at bound (domain.js:287:14)
-    * //    at REPLServer.runBound [as eval] (domain.js:300:12)
-    * //    at REPLServer.<anonymous> (repl.js:412:12)
-    * //    at emitOne (events.js:82:20)
-    * //    at REPLServer.emit (events.js:169:7)
-    * //    at REPLServer.Interface._onLine (readline.js:210:10)
-    * //    at REPLServer.Interface._line (readline.js:549:8)
-    * //    at REPLServer.Interface._ttyWrite (readline.js:826:14)
-    * ```
-    * @since v0.1.104
-    */
-    trace(message?: any, ...optionalParams: any[]): void;
-
-    /**
-     * The `console.warn()` function is an alias for {@link error}.
-     * @since v0.1.100
-     */
-    warn(message?: any, ...optionalParams: any[]): void;
 }
 
 /**
@@ -2812,9 +2821,9 @@ declare interface Console {
  */
 declare interface ATVNowPlaying {
     /**
-    * Get the element containing the currently playing asset.
-    * @param callback The callback containing the element as an argument.
-    */
+     * Get the element containing the currently playing asset.
+     * @param callback The callback containing the element as an argument.
+     */
     currentAsset(callback: (element: atv.Element) => void): void;
 
     /**
