@@ -11,6 +11,7 @@
  *
  * See https://developer.apple.com/documentation/storekit/skpaymenttransactionstate for more information.
  */
+// tslint:disable-next-line:strict-export-declare-modifiers
 declare enum SKPaymentTransactionState {
     /**
      * A transaction that is being processed by the App Store.
@@ -38,6 +39,7 @@ declare enum SKPaymentTransactionState {
     Deferred = 4,
 }
 
+// tslint:disable-next-line:strict-export-declare-modifiers
 declare namespace atv {
     /**
      * Dumps the current controller stack to the syslog.
@@ -1394,13 +1396,17 @@ declare namespace atv {
     function uuid(): string;
 }
 
+// tslint:disable-next-line:strict-export-declare-modifiers
 declare const document: atv.Document;
+// tslint:disable-next-line:strict-export-declare-modifiers
 declare const controller: ATVController;
+// tslint:disable-next-line:strict-export-declare-modifiers
 declare const console: Console;
 
 /**
  * A controller on a scriptView page.
  */
+// tslint:disable-next-line:strict-export-declare-modifiers
 declare interface ATVController {
     view: atv.View;
 }
@@ -1408,6 +1414,7 @@ declare interface ATVController {
 /**
  * A wrapper object that is used to explain the only recognised property of the configuration.
  */
+// tslint:disable-next-line:strict-export-declare-modifiers
 declare interface ATVJSConfig {
     /**
      * Whether atv.onAppEntry loads the first page, or if the first page is loaded based on the root plist (and likely modified by atv.onGenerateRequest)
@@ -1420,6 +1427,7 @@ declare interface ATVJSConfig {
     [x: string]: unknown;
 }
 
+// tslint:disable-next-line:strict-export-declare-modifiers
 declare interface ATVFrame {
     /**
      * The x coordinate of this screen.
@@ -1445,6 +1453,7 @@ declare interface ATVFrame {
 /**
  * The generic interface for media browser items. Use MediaBrowserPhoto or MediaBrowserVideo for the specific implementations.
  */
+// tslint:disable-next-line:strict-export-declare-modifiers
 declare interface MediaBrowserItem {
     /**
      * What type of item is being displayed. Either photo or video. They're functionally identitical except the video option has a different name for the assets array, and shows a video play
@@ -1471,6 +1480,7 @@ declare interface MediaBrowserItem {
 /**
  * A photo to be displayed in the media browser.
  */
+// tslint:disable-next-line:strict-export-declare-modifiers
 declare interface MediaBrowserPhoto extends MediaBrowserItem {
     /**
      * A list of assets for this photo (i.e. the images themselves). It's unclear why multiple of these are allowed, but it could be so that you can have multiple sizes and it picks the best one.
@@ -1478,6 +1488,7 @@ declare interface MediaBrowserPhoto extends MediaBrowserItem {
     assets: MediaBrowserAsset[];
 }
 
+// tslint:disable-next-line:strict-export-declare-modifiers
 declare interface MediaBrowserVideo extends MediaBrowserItem {
     /**
      * A list of assets for this video. This should be snapshots of part of the video (i.e. like a thumbnail).
@@ -1488,6 +1499,7 @@ declare interface MediaBrowserVideo extends MediaBrowserItem {
 /**
  * An asset to be displayed in the media browser. This is always an image, but can represent a photo or a thumbnail of a video.
  */
+// tslint:disable-next-line:strict-export-declare-modifiers
 declare interface MediaBrowserAsset {
     /**
      * The name of the asset.
@@ -1513,6 +1525,7 @@ declare interface MediaBrowserAsset {
 /**
  * A badge to be added to the photo in the comments view.
  */
+// tslint:disable-next-line:strict-export-declare-modifiers
 declare interface MediaBrowserBadge {
     /**
      * The type of the badge. This can only be a comments badge.
@@ -1528,6 +1541,7 @@ declare interface MediaBrowserBadge {
 /**
  * The metadata associated with an asset.
  */
+// tslint:disable-next-line:strict-export-declare-modifiers
 declare interface MediaBrowserMetadata {
     /**
      * Whether the photo should be parked as liked or not.
@@ -1548,6 +1562,7 @@ declare interface MediaBrowserMetadata {
 /**
  * A comment on an asset.
  */
+// tslint:disable-next-line:strict-export-declare-modifiers
 declare interface MediaBrowserComment {
     /**
      * The main body text of the comment
@@ -1565,6 +1580,7 @@ declare interface MediaBrowserComment {
  *
  * This appears to be loosely based on CGColor, but without the ability to use different colour spaces.
  */
+// tslint:disable-next-line:strict-export-declare-modifiers
 declare interface ATVColor {
     /**
      * The brightness of the red component. On a scale of 0 (being no red at all) to 1 (to having 100% red brightness).
@@ -1595,6 +1611,7 @@ declare interface ATVColor {
  *
  * I've also attributed situations where I've borrowed the documentation from Apple's website.
  */
+// tslint:disable-next-line:strict-export-declare-modifiers
 declare interface ATVAnimation {
     /**
      * The type of the animation. It seems this can only be BasicAnimation which seems to basically be CABasicAnimation.
@@ -1738,6 +1755,7 @@ declare interface ATVAnimation {
 /**
  * The type used to define the local and session storage objects.
  */
+// tslint:disable-next-line:strict-export-declare-modifiers
 declare interface ATVStorage {
     /**
      * Deletes all items from the storage object.
@@ -1772,6 +1790,7 @@ declare interface ATVStorage {
 /**
  * The query supplied when querying screensaver images.
  */
+// tslint:disable-next-line:strict-export-declare-modifiers
 declare interface ATVScreenSaverQuery {
     /**
      * The filter supplied. There are always two of these. See the ATVScreenSaverFilter type for more information.
@@ -1792,6 +1811,7 @@ declare interface ATVScreenSaverQuery {
 /**
  * The filters supplied for the screensaver.
  */
+// tslint:disable-next-line:strict-export-declare-modifiers
 declare interface ATVScreenSaverFilter {
     /**
      * The value to match.
@@ -1812,6 +1832,7 @@ declare interface ATVScreenSaverFilter {
 /**
  * A screensaver photo.
  */
+// tslint:disable-next-line:strict-export-declare-modifiers
 declare interface ATVScreenSaverPhoto {
     /**
      * The type of this screensaver entry. This is always photo.
@@ -1832,6 +1853,7 @@ declare interface ATVScreenSaverPhoto {
 /**
  * An individual screensaver asset.
  */
+// tslint:disable-next-line:strict-export-declare-modifiers
 declare interface ATVScreenSaverPhotoAsset {
     /**
      * The width of the photo.
@@ -1852,6 +1874,7 @@ declare interface ATVScreenSaverPhotoAsset {
 /**
  * A callback for when the app is ready to return the results of a screensaver query.
  */
+// tslint:disable-next-line:strict-export-declare-modifiers
 declare interface ATVScreenSaverCallback {
     /**
      * The photos were successfully queried. Return them to the ATV.
@@ -1869,6 +1892,7 @@ declare interface ATVScreenSaverCallback {
 /**
  * A object describing the available screensaver collection to the Apple TV.
  */
+// tslint:disable-next-line:strict-export-declare-modifiers
 declare interface ATVScreenSaverCollection {
     /**
      * The ID of the screensaver collection. This is passed back on the query.
@@ -1889,6 +1913,7 @@ declare interface ATVScreenSaverCollection {
 /**
  * The callback used when the app has finished a login request.
  */
+// tslint:disable-next-line:strict-export-declare-modifiers
 declare interface ATVAuthenticationCallback {
     /**
      * The authentication was successful.
@@ -1905,6 +1930,7 @@ declare interface ATVAuthenticationCallback {
 /**
  * The options supplied with onOpenURL. We only know about one parameter, but there is definitely more.
  */
+// tslint:disable-next-line:strict-export-declare-modifiers
 declare interface ATVDeepLinkOptions {
     /**
      * The URL to show the page for.
@@ -1916,6 +1942,7 @@ declare interface ATVDeepLinkOptions {
 /**
  * Extend the normal XMLHttpRequest, since you can access the URL directly.
  */
+// tslint:disable-next-line:strict-export-declare-modifiers
 declare class XMLHttpRequest {
     /**
      * Aborts the request if it has already been sent.
@@ -1993,6 +2020,7 @@ declare class XMLHttpRequest {
 /**
  * The request recieved in onGenerateRequest.
  */
+// tslint:disable-next-line:strict-export-declare-modifiers
 declare interface ATVHttpRequest {
     /**
      * The URL of the request.
@@ -2010,6 +2038,7 @@ declare interface ATVHttpRequest {
 /**
  * The possible values of the XHR ready state.
  */
+// tslint:disable-next-line:strict-export-declare-modifiers
 declare enum XMLHttpRequestState {
     /**
      * The client has been created, but not opened.
@@ -2040,6 +2069,7 @@ declare enum XMLHttpRequestState {
 /**
  * The callback used when the player asks for more assets.
  */
+// tslint:disable-next-line:strict-export-declare-modifiers
 declare interface ATVLoadMoreAssetsCallback {
     /**
      * The new asset was successfully retrieved.
@@ -2057,6 +2087,7 @@ declare interface ATVLoadMoreAssetsCallback {
 /**
  * A collection of logs provided during QoS callbacks.
  */
+// tslint:disable-next-line:strict-export-declare-modifiers
 declare interface ATVQualityOfServiceReport {
     /**
      * The log showing what assets were accessed and when
@@ -2072,6 +2103,7 @@ declare interface ATVQualityOfServiceReport {
 /**
  * Information about the subtitles returned by the callback.
  */
+// tslint:disable-next-line:strict-export-declare-modifiers
 declare interface ATVSubtitle {
     /**
      * The language code for this subtitle, in the BCP 47 format. For example, 'en' for English.
@@ -2111,6 +2143,7 @@ declare interface ATVSubtitle {
  *
  * See https://developer.apple.com/documentation/avfoundation/avmetadataitem for more information.
  */
+// tslint:disable-next-line:strict-export-declare-modifiers
 declare interface AVMetadataItem {
     value: any;
     extraAttributes: any;
@@ -2127,6 +2160,7 @@ declare interface AVMetadataItem {
 /**
  * Information about the current item in the player. These seem to be entirely designed for, and used by Apple TV+, so have little relevance to other applications.
  */
+// tslint:disable-next-line:strict-export-declare-modifiers
 declare interface ATVPlayerItem {
     /**
      * How much of the asset has been played.
@@ -2166,6 +2200,7 @@ declare interface ATVPlayerItem {
 /**
  * Data for metrics reports most likely.
  */
+// tslint:disable-next-line:strict-export-declare-modifiers
 declare interface ATVPlayerMetricsData {
     /**
      * The length of the item. This is likely obtained from the session data ID com.apple.hls.feature.duration.
@@ -2205,6 +2240,7 @@ declare interface ATVPlayerMetricsData {
  *
  * Again, this class is very dependant on TV+ specific stuff, so isn't likely to be useful elsewhere.
  */
+// tslint:disable-next-line:strict-export-declare-modifiers
 declare interface ATVPlayerAdvisoryInfo {
     /**
      * A human readable description of the advisory (e.g. Use of bad language). This is obtained from com.apple.hls.advisory-info.x.value in the session data of the HLS file, where 'x' is the
@@ -2226,6 +2262,7 @@ declare interface ATVPlayerAdvisoryInfo {
  *
  * Again, this class is very dependant on TV+ specific stuff, so isn't likely to be useful elsewhere.
  */
+// tslint:disable-next-line:strict-export-declare-modifiers
 declare interface ATVPlayerRatingInfo {
     /**
      * The URL for retrieving an image for the particular rating. This is generally localised to the particular location (e.g. NZ ones will be coloured circles, but the US ones will be the
@@ -2253,6 +2290,7 @@ declare interface ATVPlayerRatingInfo {
 /**
  * The credentials saved by the app.
  */
+// tslint:disable-next-line:strict-export-declare-modifiers
 declare interface ATVSavedCredentials {
     /**
      * The username saved by the last successful login.
@@ -2268,6 +2306,7 @@ declare interface ATVSavedCredentials {
 /**
  * The callbacks for dealing with FairPlay DRM.
  */
+// tslint:disable-next-line:strict-export-declare-modifiers
 declare interface ATVSecureKeyDelivery {
     /**
      * Called when the player wants to cancel all FairPlay related requests.
@@ -2306,6 +2345,7 @@ declare interface ATVSecureKeyDelivery {
 /**
  * The callback for the fetch assets request.
  */
+// tslint:disable-next-line:strict-export-declare-modifiers
 declare interface ATVSecureKeyFetchAssetCallback {
     /**
      * The asset ID was successfully extracted, so return it.
@@ -2324,6 +2364,7 @@ declare interface ATVSecureKeyFetchAssetCallback {
 /**
  * The callback for the get keys and certificate requests.
  */
+// tslint:disable-next-line:strict-export-declare-modifiers
 declare interface ATVSecureKeyGenericCallback {
     /**
      * The asset ID was successfully retrieved, so return it.
@@ -2343,6 +2384,7 @@ declare interface ATVSecureKeyGenericCallback {
  *
  * See https://developer.apple.com/documentation/storekit/skproduct for more information. Please note, some fields do not apply to the Apple TV and as such, have been removed.
  */
+// tslint:disable-next-line:strict-export-declare-modifiers
 declare interface SKProduct {
     /**
      * The price of the product, including currency symbols.
@@ -2380,6 +2422,7 @@ declare interface SKProduct {
  *
  * See https://developer.apple.com/documentation/foundation/nslocale for more information.
  */
+// tslint:disable-next-line:strict-export-declare-modifiers
 declare interface TVLJSNSLocale {
     /**
      * The identifier for the locale.
@@ -2392,6 +2435,7 @@ declare interface TVLJSNSLocale {
  *
  * See https://developer.apple.com/documentation/storekit/skproductsresponse for more information.
  */
+// tslint:disable-next-line:strict-export-declare-modifiers
 declare interface SKProductsResponse {
     /**
      * A list of products, one product for each valid product identifier provided in the original request.
@@ -2409,6 +2453,7 @@ declare interface SKProductsResponse {
  *
  * See https://developer.apple.com/documentation/storekit/skpayment for more information.
  */
+// tslint:disable-next-line:strict-export-declare-modifiers
 declare interface SKPayment {
     /**
      * The product to purchase.
@@ -2431,6 +2476,7 @@ declare interface SKPayment {
  *
  * See https://developer.apple.com/documentation/storekit/skpaymenttransactionobserver for more information.
  */
+// tslint:disable-next-line:strict-export-declare-modifiers
 declare interface SKPaymentTransactionObserver {
     /**
      * Tells an observer that one or more transactions have been updated.
@@ -2458,6 +2504,7 @@ declare interface SKPaymentTransactionObserver {
  *
  * See https://developer.apple.com/documentation/storekit/skpaymenttransaction for more information.
  */
+// tslint:disable-next-line:strict-export-declare-modifiers
 declare interface SKPaymentTransaction {
     /**
      * The payment for the transaction.
@@ -2493,6 +2540,7 @@ declare interface SKPaymentTransaction {
 /**
  * Information about the error.
  */
+// tslint:disable-next-line:strict-export-declare-modifiers
 declare interface SKError {
     /**
      * A unique error code.
@@ -2518,6 +2566,7 @@ declare interface SKError {
 /**
  * A slideshow for photos and video.
  */
+// tslint:disable-next-line:strict-export-declare-modifiers
 declare interface ATVJSSlideShow {
     /**
      * Start the slideshow.
@@ -2543,6 +2592,7 @@ declare interface ATVJSSlideShow {
  *
  * See https://developer.apple.com/documentation/foundation/attributedstring for more information.
  */
+// tslint:disable-next-line:strict-export-declare-modifiers
 declare interface AttributedString {
     /**
      * The string to display.
@@ -2554,6 +2604,7 @@ declare interface AttributedString {
      */
     attributes: AttributeContainer;
 }
+// tslint:disable-next-line:strict-export-declare-modifiers
 declare interface AttributeContainer {
     /**
      * The colour of the text.
@@ -2586,6 +2637,7 @@ declare interface AttributeContainer {
  *
  * Source: https://developer.mozilla.org/en-US/docs/Web/API/console
  */
+// tslint:disable-next-line:strict-export-declare-modifiers
 declare interface Console {
     /**
      * `console.assert()` writes a message if `value` is [falsy](https://developer.mozilla.org/en-US/docs/Glossary/Falsy) or omitted. It only
@@ -2820,6 +2872,7 @@ declare interface Console {
 /**
  * Functions to do with the currently playing item.
  */
+// tslint:disable-next-line:strict-export-declare-modifiers
 declare interface ATVNowPlaying {
     /**
      * Get the element containing the currently playing asset.
