@@ -88,7 +88,7 @@ function fullScreenMediaBrowser() {
     const mediaBrowser = new atv.FullScreenMediaBrowser();
     mediaBrowser.type = 'commentsScreenOnly';
 
-    mediaBrowser.onLoadMetadata = function (photoId) {
+    mediaBrowser.onLoadMetadata = (photoId) => {
         // Do nothing
         console.log('on load metadata ' + photoId);
         mediaBrowser.updateMetadata(photoId, {
@@ -98,15 +98,15 @@ function fullScreenMediaBrowser() {
         });
     };
 
-    mediaBrowser.onItemSelection = function (photoId) {
+    mediaBrowser.onItemSelection = (photoId) => {
         console.log('item selected ' + photoId);
     };
 
-    mediaBrowser.onMarkCommentsAsViewed = function (photoID) {
+    mediaBrowser.onMarkCommentsAsViewed = (photoID) => {
         console.log('mark comments viewed ' + photoID);
     };
 
-    mediaBrowser.onLikeSelection = function (photoId, metadata) {
+    mediaBrowser.onLikeSelection = (photoId, metadata) => {
         console.log('on like selection ' + photoId);
         metadata['liked'] = !metadata['liked'];
         metadata['likeStatus'] = metadata['liked'] ? 'you like this.' : 'like';
@@ -225,7 +225,7 @@ atv.onPageExhumed = p => console.log(p);
 atv.onAppEntry = () => console.log('app entry');
 atv.onAppExit = () => console.log('app exit');
 
-atv.onScreensaverPhotosSelectionEntry = function () {
+atv.onScreensaverPhotosSelectionEntry = () => {
     atv.setScreensaverPhotosCollection({
         id: 'sample', // The name sent to the server to load more images
         name: 'Sample 2', // The name shown to users on in the screensaver settings menu
@@ -488,7 +488,7 @@ function storeFront() {
     atv.SKDefaultPaymentQueue.addPayment(payment);
     console.log(atv.SKDefaultPaymentQueue.canMakePayments);
     atv.SKDefaultPaymentQueue.finishTransaction({
-        payment: payment,
+        payment,
         transactionDate: new Date(),
         transactionIdentifier: '',
         transactionReceipt: {},

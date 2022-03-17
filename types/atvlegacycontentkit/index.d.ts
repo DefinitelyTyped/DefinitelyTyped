@@ -1,4 +1,5 @@
 // Type definitions for Apple TV ATVLegacyContentKit for TV Experience 7.7
+// Project: n/a (there is no publically available website for the SDK)
 // Definitions by: Shea Smith <https://github.com/SheaSmith>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
