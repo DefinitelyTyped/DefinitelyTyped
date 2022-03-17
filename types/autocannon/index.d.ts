@@ -471,6 +471,11 @@ declare namespace autocannon {
      * Track the progress of your autocannon.
      */
     function track(instance: Instance, options?: TrackingOptions): void;
+    
+    /**
+     * Return string to print the result tables to the terminal, programmatically.
+     */
+    function printResult(result: autocannon.Result, options?: TrackingOptions): string;
 }
 
 /**
