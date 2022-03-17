@@ -1,6 +1,7 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "strict-export-declare-modifiers": false
+        "strict-export-declare-modifiers": false,
+        "npm-naming": false
     }
 }
