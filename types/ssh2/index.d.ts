@@ -16,7 +16,7 @@ import * as events from "events";
 import * as net from "net";
 
 import {
-    utils,
+    utils as streamsUtils,
     Algorithms,
     Header,
     Prompt,
@@ -36,7 +36,34 @@ import {
 export import SFTP_STATUS_CODE = SFTPStream.STATUS_CODE;
 export import SFTP_OPEN_MODE = SFTPStream.OPEN_MODE;
 
-export { utils };
+export namespace utils {
+    let parseKey: typeof streamsUtils['parseKey'];
+    namespace sftp {
+        const OPEN_MODE: {
+            READ: 0x00000001;
+            WRITE: 0x00000002;
+            APPEND: 0x00000004;
+            CREAT: 0x00000008;
+            TRUNC: 0x00000010;
+            EXCL: 0x00000020;
+        };
+
+        const STATUS_CODE: {
+            OK: 0;
+            EOF: 1;
+            NO_SUCH_FILE: 2;
+            PERMISSION_DENIED: 3;
+            FAILURE: 4;
+            BAD_MESSAGE: 5;
+            NO_CONNECTION: 6;
+            CONNECTION_LOST: 7;
+            OP_UNSUPPORTED: 8;
+        };
+
+        function stringToFlags(str: string): number | null;
+        function flagsToString(flags: number): string | null;
+    }
+}
 
 export interface Channel extends stream.Duplex {
     /** If `true` only sends `EOF` when `end()` is called. */
