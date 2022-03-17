@@ -44,11 +44,11 @@ declare module 'readline/promises' {
         emit<K extends keyof InterfaceEvents>(event: K, ...args: Parameters<InterfaceEvents[K]>): boolean;
         addListener<K extends keyof InterfaceEvents>(eventName: K, listener: InterfaceEvents[K]): this;
         removeListener<K extends keyof InterfaceEvents>(eventName: K, listener: InterfaceEvents[K]): this;
-        removeAllListeners<K extends keyof InterfaceEvents>(eventName?: K): this;
+        removeAllListeners(eventName?: keyof InterfaceEvents): this;
         listeners<K extends keyof InterfaceEvents>(eventName: K): Array<InterfaceEvents[K]>;
         rawListeners<K extends keyof InterfaceEvents>(eventName: K): Array<InterfaceEvents[K]>;
         eventNames(): (keyof InterfaceEvents)[];
-        listenerCount<K extends keyof InterfaceEvents>(eventName: K): number;
+        listenerCount(eventName: keyof InterfaceEvents): number;
         prependListener<K extends keyof InterfaceEvents>(eventName: K, listener: InterfaceEvents[K]): this;
         prependOnceListener<K extends keyof InterfaceEvents>(eventName: K, listener: InterfaceEvents[K]): this;
     }
