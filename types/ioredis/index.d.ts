@@ -1785,8 +1785,8 @@ declare namespace IORedis {
         getset(key: KeyType, value: ValueType, callback?: Callback<string>): Pipeline;
 
         mset(...args: ValueType[]): Pipeline;
-        msetBuffer(...args: ValueType[]): Pipeline;
         mset(data: object | Map<string, any>, callback?: Callback<string>): Pipeline;
+        msetBuffer(...args: ValueType[]): Pipeline;
 
         msetnx(...args: ValueType[]): Pipeline;
         msetnx(data: object | Map<string, any>, callback?: Callback<BooleanResponse>): Pipeline;
