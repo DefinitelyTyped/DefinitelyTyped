@@ -1930,7 +1930,7 @@ declare namespace IORedis {
 
         xack(key: KeyType, group: string, ...ids: string[]): Pipeline;
 
-        xadd(key: KeyType, id: string, ...args: string[]): Pipeline;
+        xadd(key: KeyType, id: string, ...args: ValueType[]): Pipeline;
 
         xclaim(
             key: KeyType,
