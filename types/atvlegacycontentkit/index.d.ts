@@ -2885,3 +2885,37 @@ declare interface ATVNowPlaying {
      */
     showNowPlaying(): void;
 }
+
+/**
+ * The event type used for onNavigate and onRefresh.
+ */
+// tslint:disable-next-line:strict-export-declare-modifiers
+declare interface ATVNavigateEvent {
+    /**
+     * The ID of the navigation item to navigate to.
+     */
+    navigationItemId: string;
+
+    /**
+     * The loading of the page to navigate to was successful, so load it.
+     * @param document The document to load.
+     */
+    success(document: atv.Document): void;
+
+    /**
+     * Loading the page failed, so show an error message to the user.
+     * @param errorMessage The error message to show to the user.
+     */
+    failure(errorMessage: string): void;
+}
+
+/**
+ * The event type used for onVolatileReload.
+ */
+// tslint:disable-next-line:strict-export-declare-modifiers
+declare interface ATVVolatileReloadEvent {
+    /**
+     * Cancel the reload. Otherwise a blank screen with be displayed until the page is loaded.
+     */
+    cancel(): void;
+}
