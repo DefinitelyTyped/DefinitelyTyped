@@ -1,6 +1,3 @@
-import { Duration, DurationLike, DurationUnits } from "./duration";
-import { Interval } from "./interval";
-import { Zone } from "./zone";
 import {
     CalendarSystem,
     DateTimeFormatOptions,
@@ -10,6 +7,9 @@ import {
     ToISOTimeDurationOptions,
     ZoneOptions,
 } from '../index';
+import { Zone } from "./zone";
+import { Duration, DurationLike, DurationUnits } from "./duration";
+import { Interval } from "./interval";
 
 export type DateTimeUnit = 'year' | 'quarter' | 'month' | 'week' | 'day' | 'hour' | 'minute' | 'second' | 'millisecond';
 export type ToRelativeUnit = 'years' | 'quarters' | 'months' | 'weeks' | 'days' | 'hours' | 'minutes' | 'seconds';
