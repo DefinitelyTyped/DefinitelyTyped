@@ -1,7 +1,6 @@
 // Type definitions for Resemble.js v4.1.0
 // Project: https://github.com/rsmbl/Resemble.js
-// Definitions by: Tim Perry <https://github.com/pimterry>
-//                 GreenYun <https://github.com/Greenyun>
+// Definitions by: GreenYun <https://github.com/Greenyun>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="compareImages.d.ts" />
