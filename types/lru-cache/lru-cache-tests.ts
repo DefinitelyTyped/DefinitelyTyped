@@ -39,6 +39,8 @@ new LRUCache<string, Foo>({
     },
 });
 new LRUCache<string, Foo>({ max: num }); // $ExpectType LRUCache<string, Foo>
+new LRUCache<string, Foo>({ ttl: 1 }); // $ExpectType LRUCache<string, Foo>
+new LRUCache<string, Foo>({ maxSize: 1000 }); // $ExpectType LRUCache<string, Foo>
 new LRUCache<string, Foo>(); // $ExpectError
 
 new LRUCache<string, Foo>({
@@ -143,7 +145,7 @@ cache.rvalues(); // $ExpectType Generator<Foo, any, unknown>
 cache.entries(); // $ExpectType Generator<[string, Foo], any, unknown>
 cache.rentries(); // $ExpectType Generator<[string, Foo], any, unknown>
 
-cache.fetchMethod; // $ExpectType Fetcher<string, Foo>
+cache.fetchMethod; // $ExpectType Fetcher<string, Foo> | null
 cache.fetch('someKey'); // $ExpectType Promise<Foo | undefined>
 cache.fetch(42); // $ExpectError
 cache.getRemainingTTL('test'); // $ExpectType number

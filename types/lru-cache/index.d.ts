@@ -232,13 +232,15 @@ declare namespace LRUCache {
         stale?: boolean;
     }
 
-    interface Options<K, V> extends DeprecatedOptions<K, V> {
+    interface LimitedByCount {
         /**
          * The number of most recently used items to keep.
          * Note that we may store fewer items than this if maxSize is hit.
          */
         max: number;
+    }
 
+    interface LimitedBySize<K, V> {
         /**
          * If you wish to track item size, you must provide a maxSize
          * note that we still will only keep up to max *actual items*,
@@ -248,7 +250,7 @@ declare namespace LRUCache {
          * Note also that size tracking can negatively impact performance,
          * though for most cases, only minimally.
          */
-        maxSize?: number;
+        maxSize: number;
 
         /**
          * Function to calculate size of items.  Useful if storing strings or
@@ -257,47 +259,9 @@ declare namespace LRUCache {
          * the cache, though they will cause faster turnover in the storage.
          */
         sizeCalculation?: SizeCalculator<K, V>;
+    }
 
-        /**
-         * Function that is called on items when they are dropped from the cache.
-         * This can be handy if you want to close file descriptors or do other
-         * cleanup tasks when items are no longer accessible. Called with `key, value`.
-         * It's called before actually removing the item from the internal cache,
-         * so if you want to immediately put it back in, you'll have to do that in
-         * a `nextTick` or `setTimeout` callback or it won't do anything.
-         */
-        dispose?: Disposer<K, V>;
-
-        /**
-         * The same as dispose, but called *after* the entry is completely removed
-         * and the cache is once again in a clean state
-         * It is safe to add an item right back into the cache at this point.
-         * However, note that it is *very* easy to inadvertently create infinite
-         * recursion this way.
-         * @since 7.3.0
-         */
-        disposeAfter?: Disposer<K, V>;
-
-        /**
-         * Set to true to suppress calling the dispose() function if the entry
-         * key is still accessible within the cache.
-         * This may be overridden by passing an options object to cache.set().
-         *
-         * @default false
-         */
-        noDisposeOnSet?: boolean;
-
-        /**
-         * Boolean flag to tell the cache to not update the TTL when
-         * setting a new value for an existing key (ie, when updating a value rather
-         * than inserting a new value).  Note that the TTL value is _always_ set
-         * (if provided) when adding a new entry into the cache.
-         *
-         * @default false
-         * @since 7.4.0
-         */
-        noUpdateTTL?: boolean;
-
+    interface LimitedByTTL {
         /**
          * Max time to live for items before they are considered stale.
          * Note that stale items are NOT preemptively removed by default,
@@ -310,7 +274,18 @@ declare namespace LRUCache {
          *
          * Must be a positive integer in ms, defaults to 0, which means "no TTL"
          */
-        ttl?: number;
+        ttl: number;
+
+        /**
+         * Boolean flag to tell the cache to not update the TTL when
+         * setting a new value for an existing key (ie, when updating a value rather
+         * than inserting a new value).  Note that the TTL value is _always_ set
+         * (if provided) when adding a new entry into the cache.
+         *
+         * @default false
+         * @since 7.4.0
+         */
+        noUpdateTTL?: boolean;
 
         /**
          * Minimum amount of time in ms in which to check for staleness.
@@ -358,6 +333,38 @@ declare namespace LRUCache {
          * @default false
          */
         updateAgeOnGet?: boolean;
+    }
+    type SafetyBounds<K, V> = LimitedByCount | LimitedBySize<K, V> | LimitedByTTL;
+
+    interface SharedOptions<K, V> {
+        /**
+         * Function that is called on items when they are dropped from the cache.
+         * This can be handy if you want to close file descriptors or do other
+         * cleanup tasks when items are no longer accessible. Called with `key, value`.
+         * It's called before actually removing the item from the internal cache,
+         * so if you want to immediately put it back in, you'll have to do that in
+         * a `nextTick` or `setTimeout` callback or it won't do anything.
+         */
+        dispose?: Disposer<K, V>;
+
+        /**
+         * The same as dispose, but called *after* the entry is completely removed
+         * and the cache is once again in a clean state
+         * It is safe to add an item right back into the cache at this point.
+         * However, note that it is *very* easy to inadvertently create infinite
+         * recursion this way.
+         * @since 7.3.0
+         */
+        disposeAfter?: Disposer<K, V>;
+
+        /**
+         * Set to true to suppress calling the dispose() function if the entry
+         * key is still accessible within the cache.
+         * This may be overridden by passing an options object to cache.set().
+         *
+         * @default false
+         */
+        noDisposeOnSet?: boolean;
 
         /**
          * Since 7.6.0
@@ -370,6 +377,8 @@ declare namespace LRUCache {
          */
         fetchMethod?: Fetcher<K, V> | null;
     }
+
+    type Options<K, V> = SharedOptions<K, V> & DeprecatedOptions<K, V> & SafetyBounds<K, V>;
 
     interface SetOptions<K, V> {
         /**
