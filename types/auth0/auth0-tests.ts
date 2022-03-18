@@ -883,9 +883,9 @@ management.getGrants(
 );
 
 // Logs
-management.getLog({ id: 'cd_0000000000000001'}).then(log => console.log(log))
-management.getLog({ id: 'cd_0000000000000001'}, (log) => console.log(log))
-management.getLogs().then(logs => console.log(logs))
+management.getLog({ id: 'cd_0000000000000001'}).then(log => console.log(log));
+management.getLog({ id: 'cd_0000000000000001'}, (log) => console.log(log));
+management.getLogs().then(logs => console.log(logs));
 management.getLogs({
     fields: 'audience',
     from: 'cd_0000000000000001',
@@ -896,8 +896,8 @@ management.getLogs({
     q: '?!?',
     sort: 'audience',
     take: 42
-}).then(logs => console.log(logs))
-management.getLogs((logs) => console.log(logs))
+}).then(logs => console.log(logs));
+management.getLogs((logs) => console.log(logs));
 management.getLogs({
     fields: 'audience',
     from: 'cd_0000000000000001',
@@ -909,7 +909,7 @@ management.getLogs({
     sort: 'audience',
     take: 42
 },
-logs => console.log(logs))
+logs => console.log(logs));
 
 const authentication = new auth0.AuthenticationClient({
     domain: 'auth0.com',

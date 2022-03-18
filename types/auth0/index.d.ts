@@ -1308,8 +1308,7 @@ export interface VerifyEmail {
     } | undefined;
 }
 
-export interface LogEvent
-{
+export interface LogEvent {
     /** API audience the event applies to. */
     audience: string;
     /** ID of the client (application). */
@@ -1323,7 +1322,7 @@ export interface LogEvent
     /** Date when the event occurred in ISO 8601 format. */
     date: string;
     /** Description of this event. */
-    description: string
+    description: string;
     /** Additional useful details about this event (structure is dependent upon event type). */
     details: unknown;
     /** Hostname the event applies to. */
@@ -1350,7 +1349,7 @@ export interface LogEvent
         longitude: string;
         /** Time zone name as found in the IANA tz database. https://www.iana.org/time-zones */
         time_zone: string;
-    }
+    };
     /** Unique ID of the event. */
     log_id: string;
     /** Scope permissions applied to the event. */
