@@ -1476,9 +1476,9 @@ export type LogEventTypeCode =
     | "ublkdu"
     | "w";
 
-export interface LogsQuery<F extends keyof LogEvent = keyof LogEvent> {
+export interface LogsQuery {
     /** A comma separated list of fields to include or exclude */
-    fields?: F;
+    fields?: string;
     /** For checkpoint pagination, log event Id from which to start selection from. */
     from?: string;
     /** true if the fields specified are to be included in the result, false otherwise. */
