@@ -41,6 +41,10 @@ const importExportConfig: indy.WalletExportImportConfig = {
     key: 'export_key',
     path: 'some-path',
 };
+const rekeyWalletCredentials: indy.OpenWalletCredentials = {
+    key: 'old_key',
+    rekey: 'new_key'
+};
 const credDef: indy.CredDef = {
     id: 'id',
     schemaId: 'schemaId',
@@ -168,6 +172,7 @@ const ledgerReadReply: indy.LedgerReadReplyResponse = {
 
 indy.createWallet(walletConfig, walletCredentials);
 indy.openWallet(walletConfig, walletCredentials);
+indy.openWallet(walletConfig, rekeyWalletCredentials);
 indy.exportWallet(10, importExportConfig);
 indy.importWallet(walletConfig, walletCredentials, importExportConfig);
 indy.createKey(1, { seed: 'seed' });
@@ -349,7 +354,6 @@ indy.createRevocationState(
 // indy.generateWalletKey({})
 // indy.exportWallet(handle, exportConfig)
 // indy.importWallet(walletConfig, walletCredentials, exportConfig)
-// indy.listPools()
 // indy.refreshPoolLedger(-1)
 // indy.deletePoolLedgerConfig(pool.name)
 // indy.closePoolLedger(poolH)

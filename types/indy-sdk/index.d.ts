@@ -306,14 +306,15 @@ export interface WalletStorageConfig {
 export interface WalletCredentials {
     key: string;
     storage_credentials?:
-        | {
-              [key: string]: unknown;
-          }
-        | undefined;
+    | {
+        [key: string]: unknown;
+    }
+    | undefined;
     key_derivation_method?: KeyDerivationMethod | undefined;
 }
 
 export interface OpenWalletCredentials extends WalletCredentials {
+    rekey?: string;
     rekey_derivation_method?: KeyDerivationMethod | undefined;
 }
 
@@ -653,10 +654,10 @@ export interface WalletRecord {
     type?: string | undefined;
     value?: string | undefined;
     tags?:
-        | {
-              [key: string]: string | undefined;
-          }
-        | undefined;
+    | {
+        [key: string]: string | undefined;
+    }
+    | undefined;
 }
 
 export interface WalletRecordSearch {
