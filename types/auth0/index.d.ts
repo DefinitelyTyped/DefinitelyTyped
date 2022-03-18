@@ -1494,7 +1494,7 @@ export interface LogsQuery<F extends keyof LogEvent = keyof LogEvent> {
     /** The field to use for sorting. */
     sort?: string;
     /** When using the `from` parameter, the number of entries to retrieve. Default 50, max 100. */
-    take?: string;
+    take?: number;
 }
 
 export class OrganizationsManager {
