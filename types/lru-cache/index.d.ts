@@ -1,4 +1,4 @@
-// Type definitions for lru-cache 7.5
+// Type definitions for lru-cache 7.6
 // Project: https://github.com/isaacs/node-lru-cache
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
 //                 BendingBender <https://github.com/BendingBender>
@@ -29,6 +29,7 @@ declare class LRUCache<K, V> implements Iterable<[K, V]> {
     public readonly ttlAutopurge: boolean;
     public readonly allowStale: boolean;
     public readonly updateAgeOnGet: boolean;
+    public readonly fetchMethod: LRUCache.Fetcher<K, V> | null;
 
     /**
      * The total number of items held in the cache at the current moment.
@@ -110,7 +111,7 @@ declare class LRUCache<K, V> implements Iterable<[K, V]> {
      * Return a generator yielding the keys in the cache,
      * in order from least recently used to most recently used.
      */
-    rkeys(): Generator<K>;
+    public rkeys(): Generator<K>;
 
     /**
      * Return a generator yielding the values in the cache,
@@ -122,7 +123,7 @@ declare class LRUCache<K, V> implements Iterable<[K, V]> {
      * Return a generator yielding the values in the cache,
      * in order from least recently used to most recently used.
      */
-    rvalues(): Generator<V>;
+    public rvalues(): Generator<V>;
 
     /**
      * Return a generator yielding `[key, value]` pairs,
@@ -134,7 +135,7 @@ declare class LRUCache<K, V> implements Iterable<[K, V]> {
      * Return a generator yielding `[key, value]` pairs,
      * in order from least recently used to most recently used.
      */
-    rentries(): Generator<[K, V]>;
+    public rentries(): Generator<[K, V]>;
 
     public [Symbol.iterator](): Iterator<[K, V]>;
 
@@ -177,14 +178,24 @@ declare class LRUCache<K, V> implements Iterable<[K, V]> {
      * @deprecated since 7.0 use purgeStale() instead
      */
     public prune(): boolean;
+
+    /**
+     * since: 7.6.0
+     */
+    public fetch<ExpectedValue = V>(key: K, options?: LRUCache.FetchOptions): Promise<ExpectedValue | undefined>;
+    /**
+     * since: 7.6.0
+     */
+    public getRemainingTTL(key: K): number;
 }
 
 declare namespace LRUCache {
-    type DisposeReason = "evict" | "set" | "delete";
+    type DisposeReason = 'evict' | 'set' | 'delete';
 
     type SizeCalculator<K, V> = (value: V, key: K) => number;
 
     type Disposer<K, V> = (value: V, key: K, reason: DisposeReason) => void;
+    type Fetcher<K, V> = (key: K, staleKey?: K, options?: FetcherOptions<K, V>) => Promise<V>;
 
     interface DeprecatedOptions<K, V> {
         /**
@@ -347,6 +358,17 @@ declare namespace LRUCache {
          * @default false
          */
         updateAgeOnGet?: boolean;
+
+        /**
+         * Since 7.6.0
+         * `fetchMethod` Function that is used to make background asynchronous
+         *   fetches.  Called with `fetchMethod(key, staleValue)`.  May return a
+         *   Promise.
+         *
+         *     If `fetchMethod` is not provided, then `cache.fetch(key)` is equivalent
+         *     to `Promise.resolve(cache.get(key))`.
+         */
+        fetchMethod?: Fetcher<K, V> | null;
     }
 
     interface SetOptions<K, V> {
@@ -367,6 +389,15 @@ declare namespace LRUCache {
 
     interface PeekOptions {
         allowStale?: boolean;
+    }
+    interface FetchOptions {
+        allowStale?: boolean;
+        updateAgeOnGet?: boolean;
+    }
+
+    interface FetcherOptions<K, V> {
+        signal?: AbortSignal;
+        options?: SetOptions<K, V> & GetOptions;
     }
 
     interface Entry<V> {

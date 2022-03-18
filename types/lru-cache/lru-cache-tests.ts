@@ -143,6 +143,11 @@ cache.rvalues(); // $ExpectType Generator<Foo, any, unknown>
 cache.entries(); // $ExpectType Generator<[string, Foo], any, unknown>
 cache.rentries(); // $ExpectType Generator<[string, Foo], any, unknown>
 
+cache.fetchMethod; // $ExpectType Fetcher<string, Foo>
+cache.fetch('someKey'); // $ExpectType Promise<Foo | undefined>
+cache.fetch(42); // $ExpectError
+cache.getRemainingTTL('test'); // $ExpectType number
+
 const dump = cache.dump();
 dump; // $ExpectType [string, Entry<Foo>][]
 cache.load(dump);
