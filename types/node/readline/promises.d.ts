@@ -3,15 +3,8 @@
  * @since v17.0.0
  */
 declare module 'readline/promises' {
-    import { Abortable, EventEmitter } from "events";
-    import { CursorPos, Completer, AsyncCompleter, ReadLineOptions, Direction } from "readline";
-    interface Key {
-        sequence?: string | undefined;
-        name?: string | undefined;
-        ctrl?: boolean | undefined;
-        meta?: boolean | undefined;
-        shift?: boolean | undefined;
-    }
+    import { EventEmitter } from "events";
+    import { CursorPos, ReadLineOptions, Direction, CompleterResult, Key } from "readline";
     interface InterfaceEvents {
         close: () => void;
         line: (input: string) => void;
@@ -22,11 +15,12 @@ declare module 'readline/promises' {
         SIGINT: () => void;
         SIGTSTP: () => void;
     }
+    type Completer = (line: string) => CompleterResult | Promise<CompleterResult>;
     class Interface extends EventEmitter {
         readonly terminal: boolean;
         readonly line: string;
         readonly cursor: number;
-        protected constructor(input: NodeJS.ReadableStream, output?: NodeJS.WritableStream, completer?: Completer | AsyncCompleter, terminal?: boolean);
+        protected constructor(input: NodeJS.ReadableStream, output?: NodeJS.WritableStream, completer?: Completer, terminal?: boolean);
         protected constructor(options: ReadLineOptions);
         getPrompt(): string;
         setPrompt(prompt: string): void;
@@ -54,11 +48,11 @@ declare module 'readline/promises' {
     }
     type ReadLine = Interface;
 
-    function createInterface(input: NodeJS.ReadableStream, output?: NodeJS.WritableStream, completer?: Completer | AsyncCompleter, terminal?: boolean): Interface;
+    function createInterface(input: NodeJS.ReadableStream, output?: NodeJS.WritableStream, completer?: Completer, terminal?: boolean): Interface;
     function createInterface(options: ReadLineOptions): Interface;
 
     class Readline {
-        constructor(stream: NodeJS.WritableStream, options: { autoCommit: boolean });
+        constructor(stream: NodeJS.WritableStream, options?: { autoCommit?: boolean });
         clearLine(direction: Direction): this;
         clearScreenDown(): this;
         commit(): Promise<void>;

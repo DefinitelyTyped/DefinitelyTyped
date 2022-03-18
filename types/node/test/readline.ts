@@ -1,6 +1,7 @@
 import * as readline from 'node:readline';
 import * as stream from 'node:stream';
 import * as fs from 'node:fs';
+import * as readlinePromises from 'node:readline/promises';
 
 const rl: readline.ReadLine = readline.createInterface(new stream.Readable());
 
@@ -243,4 +244,155 @@ const rl: readline.ReadLine = readline.createInterface(new stream.Readable());
         input: process.stdin,
     });
     const pos: readline.CursorPos = rl.getCursorPos();
+}
+
+const rlPromise: readlinePromises.ReadLine = readlinePromises.createInterface(new stream.Readable());
+const rlPromiseClass = new readlinePromises.Readline(new stream.Writable());
+
+{
+    const options: readline.ReadLineOptions = {
+        input: new fs.ReadStream()
+    }
+    const input: NodeJS.ReadableStream = new stream.Readable();
+    const output: NodeJS.WritableStream = new stream.Writable();
+    const completer: readline.Completer = str => [['asd'], 'asd'];
+    const terminal: boolean = false;
+
+    let result: readlinePromises.ReadLine;
+
+    result = readlinePromises.createInterface(options);
+    result = readlinePromises.createInterface(input);
+    result = readlinePromises.createInterface(input, output);
+    result = readlinePromises.createInterface(input, output, completer);
+    result = readlinePromises.createInterface(input, output, completer, terminal);
+    result = readlinePromises.createInterface({
+        input,
+        completer(str: string): readline.CompleterResult {
+            return [['test'], 'test'];
+        }
+    });
+    result = readlinePromises.createInterface({
+        input,
+        async completer(str: string): Promise<readline.CompleterResult> {
+            return [['test'], 'test'];
+        }
+    });
+    result = readlinePromises.createInterface({
+        input,
+        tabSize: 4
+    });
+}
+
+{
+    rlPromise.setPrompt("prompt");
+}
+
+{
+    rlPromise.prompt();
+    rlPromise.prompt(true);
+}
+
+{
+    rlPromise.getPrompt(); // $ExpectType string
+}
+
+{
+    (async () => {
+        await rlPromise.question("query"); // $ExpectType string
+        await rlPromise.question("query", { signal: new AbortSignal() }); // $ExpectType string
+    });
+}
+
+{
+    let result: readlinePromises.ReadLine;
+
+    result = rlPromise.pause();
+}
+
+{
+    let result: readlinePromises.ReadLine;
+
+    result = rlPromise.resume();
+}
+
+{
+    const data: string | Buffer = "asd";
+    const key: readline.Key = {};
+
+    rlPromise.write(data);
+    rlPromise.write(data, key);
+}
+
+{
+    const data: string | Buffer = "test";
+    rlPromise.line; // $ExpectType string
+    rlPromise.cursor; // $ExpectType number
+
+    rlPromise.write(data);
+
+    rlPromise.line; // $ExpectType string
+    rlPromise.cursor; // $ExpectType number
+}
+
+{
+    const data: undefined | null | string | Buffer = null;
+    const key: readline.Key = { ctrl: true, name: 'u' };
+
+    rlPromise.line; // $ExpectType string
+    rlPromise.cursor; // $ExpectType number
+
+    rlPromise.write(data, key);
+
+    rlPromise.line; // $ExpectType string
+    rlPromise.cursor; // $ExpectType number
+}
+
+{
+    const strm: NodeJS.WritableStream = new stream.Writable();
+    let result: readlinePromises.Readline;
+
+    result = new readlinePromises.Readline(strm);
+    result = new readlinePromises.Readline(strm, {});
+    result = new readlinePromises.Readline(strm, { autoCommit: undefined });
+    result = new readlinePromises.Readline(strm, { autoCommit: true });
+    result = new readlinePromises.Readline(strm, { autoCommit: false });
+}
+
+{
+    let result: readlinePromises.Readline;
+
+    result = rlPromiseClass.clearLine(-1);
+    result = rlPromiseClass.clearLine(0);
+    result = rlPromiseClass.clearLine(1);
+}
+
+{
+    let result: readlinePromises.Readline;
+
+    result = rlPromiseClass.clearScreenDown();
+}
+
+{
+    (async () => {
+        await rlPromiseClass.commit();
+    });
+}
+
+{
+    let result: readlinePromises.Readline;
+
+    result = rlPromiseClass.cursorTo(0, 0);
+    result = rlPromiseClass.cursorTo(0);
+}
+
+{
+    let result: readlinePromises.Readline;
+
+    result = rlPromiseClass.moveCursor(0, 0);
+}
+
+{
+    let result: readlinePromises.Readline;
+
+    result = rlPromiseClass.rollback();
 }
