@@ -339,3 +339,17 @@ function testTracks(player: VideoJsPlayer) {
     // $ExpectType TextTrackList
     player.textTracks();
 }
+
+function testGetDescendants(player: VideoJsPlayer) {
+    // $ExpectType Component | undefined
+    player.getDescendant('string');
+
+    // $ExpectType Component | undefined
+    player.getDescendant('multiple', 'strings');
+
+    // $ExpectType Component | undefined
+    player.getDescendant(['string', 'in', 'array']);
+
+    // $ExpectType Component | undefined
+    player.getDescendant(['string', 'in', 'array'], 'and', 'strings');
+}

@@ -1596,6 +1596,21 @@ declare namespace videojs {
         getChild(name: string): Component | undefined;
 
         /**
+         * Returns the descendant `Component` following the givent
+         * descendant `names`. For instance ['foo', 'bar', 'baz'] would
+         * try to get 'foo' on the current component, 'bar' on the 'foo'
+         * component and 'baz' on the 'bar' component and return undefined
+         * if any of those don't exist.
+         *
+         * @param names
+         *        The name of the child `Component` to get.
+         *
+         * @return The descendant `Component` following the given descendant
+         *         `names` or undefined.
+         */
+        getDescendant(...names: Array<(string|string[])>): Component|undefined;
+
+        /**
          * Returns the child `Component` with the given `id`.
          *
          * @param id
