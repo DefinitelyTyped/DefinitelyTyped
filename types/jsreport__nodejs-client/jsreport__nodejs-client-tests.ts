@@ -1,12 +1,11 @@
 import JsReport = require('jsreport');
-import Client = require('@jsreport/nodejs-client');
+import client = require('@jsreport/nodejs-client');
 
 (async () => {
     const jsreport = JsReport();
     await jsreport.init();
 
-    const client = Client('http://localhost:5488');
-    await client.render({
+    await client('http://localhost:5488').render({
         template: {
             recipe: 'html',
             engine: 'none',
