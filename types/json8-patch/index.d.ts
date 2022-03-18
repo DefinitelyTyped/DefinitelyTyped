@@ -60,16 +60,16 @@ export type JsonPatchOperation = AddOperation | RemoveOperation | ReplaceOperati
  */
 export type JsonPatch = JsonPatchOperation[];
 
-export interface ApplyResult<T> {
-    doc: T;
+export interface ApplyResult {
+    doc: unknown;
 }
 
-export interface ApplyResultWithRevert<T> extends ApplyResult<T> {
+export interface ApplyResultWithRevert extends ApplyResult {
     revert: JsonPatch;
 }
 
-export type PatchResult<T> = ApplyResult<T>;
-export type PatchResultWithRevert<T> = ApplyResultWithRevert<T>;
+export type PatchResult = ApplyResult;
+export type PatchResultWithRevert = ApplyResultWithRevert;
 
 /**
  * The operation is atomic, if any of the patch operation fails, the document will be restored to its original state and an error will be thrown.
@@ -78,7 +78,7 @@ export type PatchResultWithRevert<T> = ApplyResultWithRevert<T>;
  * @param options With `{reversible: false}` it will not return an additional value in the form of a `revert` property.
  * @returns An object with a doc property because per specification a patch can replace the original root document.
  */
-export function apply<T>(doc: T, patch: JsonPatch, options?: { reversible: false }): ApplyResult<T>;
+export function apply(doc: any, patch: JsonPatch, options?: { reversible: false }): ApplyResult;
 /**
  * The operation is atomic, if any of the patch operation fails, the document will be restored to its original state and an error will be thrown.
  * @param doc The document to apply the patch operation to
@@ -86,15 +86,15 @@ export function apply<T>(doc: T, patch: JsonPatch, options?: { reversible: false
  * @param options With `{reversible: true}` it will return an additional value in the form of a `revert` property.
  * @returns An object with a doc property because per specification a patch can replace the original root document.
  */
-export function apply<T>(doc: T, patch: JsonPatch, options?: { reversible: true }): ApplyResultWithRevert<T>;
+export function apply(doc: any, patch: JsonPatch, options?: { reversible: true }): ApplyResultWithRevert;
 /**
  * Alias for the `apply()` method.
  */
-export function patch<T>(doc: T, patch: JsonPatch, options?: { reversible: false }): PatchResult<T>;
+export function patch(doc: any, patch: JsonPatch, options?: { reversible: false }): PatchResult;
 /**
  * Alias for the `apply()` method.
  */
-export function patch<T>(doc: T, patch: JsonPatch, options?: { reversible: true }): PatchResultWithRevert<T>;
+export function patch(doc: any, patch: JsonPatch, options?: { reversible: true }): PatchResultWithRevert;
 /**
  * ```javascript
  * ooPatch.diff(true, false);
@@ -127,7 +127,7 @@ export function diff(doc1: unknown, doc2: unknown): JsonPatch;
  *
  * See also the `buildRevertPatch()` function which offers more flexibility.
  */
-export function revert<T>(doc: T, revertPatch: JsonPatch): ApplyResult<T>;
+export function revert(doc: any, revertPatch: JsonPatch): ApplyResult;
 /**
  * This method only check for JSON Patch semantic.
  *
@@ -161,15 +161,15 @@ export function valid(patch: JsonPatch): boolean;
  */
 export function buildRevertPatch(revert: JsonPatch): JsonPatch;
 
-export interface OperationResult<T> {
+export interface OperationResult {
     /**
      * The patched document
      */
-    doc: T;
+    doc: unknown;
     /**
      * The previous/replaced value if any
      */
-    previous?: T;
+    previous?: any;
     idx?: number;
 }
 
@@ -179,7 +179,7 @@ export interface OperationResult<T> {
  * @param path JSON Pointer string or tokens path
  * @param value The value to add
  */
-export function add<T>(doc: T, path: string | string[], value: unknown): OperationResult<T>;
+export function add(doc: any, path: string | string[], value: unknown): OperationResult;
 /**
  * Copy the value at the specified JSON Pointer location to another location.
  *
@@ -187,7 +187,7 @@ export function add<T>(doc: T, path: string | string[], value: unknown): Operati
  * @param path JSON Pointer string or tokens path
  * @param dest JSON Pointer string destination of the value
  */
-export function copy<T>(doc: T, path: string | string[], dest: string): OperationResult<T>;
+export function copy(doc: any, path: string | string[], dest: string): OperationResult;
 /**
  * Moves the value at the specified JSON Pointer location to another location.
  *
@@ -195,14 +195,14 @@ export function copy<T>(doc: T, path: string | string[], dest: string): Operatio
  * @param path JSON Pointer string or tokens path
  * @param dest JSON Pointer string destination of the value
  */
-export function move<T>(doc: T, path: string | string[], dest: string): OperationResult<T>;
+export function move(doc: any, path: string | string[], dest: string): OperationResult;
 /**
  * Removes the value at the JSON Pointer location.
  *
  * @param doc JSON document to search into
  * @param path JSON Pointer string or tokens patch
  */
-export function remove<T>(doc: T, path: string | string[]): OperationResult<T>;
+export function remove(doc: any, path: string | string[]): OperationResult;
 /**
  * Replaces the value at the JSON Pointer location
  *
@@ -210,7 +210,7 @@ export function remove<T>(doc: T, path: string | string[]): OperationResult<T>;
  * @param path JSON Pointer string or tokens patch
  * @param value JSON object to replace with
  */
-export function replace<T>(doc: T, path: string | string[], value: unknown): OperationResult<T>;
+export function replace(doc: any, path: string | string[], value: unknown): OperationResult;
 /**
  * Tests that the value at the specified JSON Pointer location is equal to the specified value.
  *
@@ -218,7 +218,7 @@ export function replace<T>(doc: T, path: string | string[], value: unknown): Ope
  * @param path JSON Pointer string or tokens patch
  * @param value The value to compare with
  */
-export function test<T>(doc: T, path: string | string[], value: unknown): OperationResult<T>;
+export function test(doc: any, path: string | string[], value: unknown): OperationResult;
 /**
  * Get the value at the JSON Pointer location.
  *
