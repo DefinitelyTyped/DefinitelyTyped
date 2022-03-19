@@ -1,8 +1,4 @@
 import {
-    injectSelectionPostFixer,
-    mergeIntersectingRanges,
-} from '@ckeditor/ckeditor5-engine/src/model/utils/selection-post-fixer';
-import {
     ClickObserver,
     Conversion,
     DataController,
@@ -27,7 +23,7 @@ import {
     StylesProcessor,
     transformSets,
     TreeWalker,
-    ViewDocument,
+    ViewDocument
 } from '@ckeditor/ckeditor5-engine';
 import DowncastDispatcher from '@ckeditor/ckeditor5-engine/src/conversion/downcastdispatcher';
 import DowncastHelpers, {
@@ -38,13 +34,13 @@ import DowncastHelpers, {
     insertText,
     insertUIElement,
     remove,
-    wrap,
+    wrap
 } from '@ckeditor/ckeditor5-engine/src/conversion/downcasthelpers';
 import Mapper from '@ckeditor/ckeditor5-engine/src/conversion/mapper';
 import UpcastDispatcher from '@ckeditor/ckeditor5-engine/src/conversion/upcastdispatcher';
 import UpcastHelpers, {
     convertText,
-    convertToModelFragment,
+    convertToModelFragment
 } from '@ckeditor/ckeditor5-engine/src/conversion/upcasthelpers';
 import Batch from '@ckeditor/ckeditor5-engine/src/model/batch';
 import DocumentFragment from '@ckeditor/ckeditor5-engine/src/model/documentfragment';
@@ -57,6 +53,10 @@ import RootElement from '@ckeditor/ckeditor5-engine/src/model/rootelement';
 import Selection from '@ckeditor/ckeditor5-engine/src/model/selection';
 import Text from '@ckeditor/ckeditor5-engine/src/model/text';
 import TextProxy from '@ckeditor/ckeditor5-engine/src/model/textproxy';
+import {
+    injectSelectionPostFixer,
+    mergeIntersectingRanges
+} from '@ckeditor/ckeditor5-engine/src/model/utils/selection-post-fixer';
 import Writer from '@ckeditor/ckeditor5-engine/src/model/writer';
 import { getBoxSidesValues } from '@ckeditor/ckeditor5-engine/src/styles/utils';
 import AttributeElement from '@ckeditor/ckeditor5-engine/src/view/attributeelement';
@@ -425,6 +425,33 @@ downcastHelper.markerToElement({
     model: 'foo',
     view: 'bar',
     converterPriority: 'low',
+});
+conversion.for('downcast').elementToElement({
+    model: 'paragraph',
+    view: 'p',
+});
+
+conversion.for('downcast').elementToElement({
+    model: 'paragraph',
+    view: 'div',
+    converterPriority: 'high',
+});
+
+conversion.for('downcast').elementToElement({
+    model: 'fancyParagraph',
+    view: {
+        name: 'p',
+        classes: 'fancy',
+    },
+});
+
+conversion.for('downcast').elementToElement({
+    model: 'heading',
+    view: (modelElement, conversionApi) => {
+        const { writer } = conversionApi;
+
+        return writer.createContainerElement('h' + modelElement.getAttribute('level'));
+    },
 });
 
 const dataProcessor = new HtmlDataProcessor(viewDocument);
