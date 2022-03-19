@@ -1843,7 +1843,7 @@ declare namespace mapkit {
         autocomplete(
             query: string,
             callback: SearchDelegate | AutocompleteSearchCallback,
-            options?: SearchOptions,
+            options?: SearchAutocompleteOptions,
         ): void;
         /**
          * Cancels a search request using its request ID.
