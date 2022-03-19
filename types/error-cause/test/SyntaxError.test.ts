@@ -7,8 +7,8 @@ new SyntaxError('reason');
 // $ExpectType SyntaxError
 new SyntaxError('reason', {});
 // $ExpectType SyntaxError
-new SyntaxError('reason', { cause: null });
+new SyntaxError('reason', { cause: undefined });
 // $ExpectType SyntaxError
-new SyntaxError('reason', { cause: 'stupidity' });
+new SyntaxError('reason', { cause: new Error() });
 // $ExpectType SyntaxError
 new SyntaxError('reason', { cause: new SyntaxError() });

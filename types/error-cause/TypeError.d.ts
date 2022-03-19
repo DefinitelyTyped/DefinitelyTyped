@@ -1,9 +1,9 @@
 import BaseTypeError from './base/TypeError';
 
 declare class TypeError extends BaseTypeError {
-    constructor(reason?: string, options?: { cause?: unknown });
+    constructor(reason?: string, options?: { cause?: Error | undefined });
 
-    cause: unknown;
+    cause: Error | undefined;
 }
 
 export default TypeError;

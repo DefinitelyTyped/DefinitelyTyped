@@ -7,8 +7,6 @@ new Error('reason');
 // $ExpectType Error
 new Error('reason', {});
 // $ExpectType Error
-new Error('reason', { cause: null });
-// $ExpectType Error
-new Error('reason', { cause: 'stupidity' });
+new Error('reason', { cause: undefined });
 // $ExpectType Error
 new Error('reason', { cause: new Error() });

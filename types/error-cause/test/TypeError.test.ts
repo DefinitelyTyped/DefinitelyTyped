@@ -7,8 +7,6 @@ new TypeError('reason');
 // $ExpectType TypeError
 new TypeError('reason', {});
 // $ExpectType TypeError
-new TypeError('reason', { cause: null });
-// $ExpectType TypeError
-new TypeError('reason', { cause: 'stupidity' });
+new TypeError('reason', { cause: undefined });
 // $ExpectType TypeError
 new TypeError('reason', { cause: new TypeError() });

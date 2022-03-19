@@ -1,7 +1,7 @@
 interface Error {
-    cause: unknown;
+    cause: Error | undefined;
 }
 
 interface ErrorConstructor {
-    new (reason: string, options?: { cause?: unknown }): Error;
+    new (reason: string, options?: { cause?: Error | undefined }): Error;
 }

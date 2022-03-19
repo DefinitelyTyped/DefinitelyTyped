@@ -1,7 +1,5 @@
 import 'error-cause/auto';
 
-declare const Ø: any;
-
 // $ExpectType Error
 new Error();
 // $ExpectType Error
@@ -9,8 +7,6 @@ new Error('reason');
 // $ExpectType Error
 new Error('reason', {});
 // $ExpectType Error
-new Error('reason', { cause: null });
+new Error('reason', { cause: undefined });
 // $ExpectType Error
-new Error('reason', { cause: 'stupidity' });
-// $ExpectType Error
-new Error('reason', { cause: Ø as Error });
+new Error('reason', { cause: new Error() });

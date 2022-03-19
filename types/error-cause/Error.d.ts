@@ -1,9 +1,9 @@
-import BaseError from './base/Error';
+import BaseError, { ErrorType } from './base/Error';
 
 declare class Error extends BaseError {
-    constructor(reason?: string, options?: { cause?: unknown });
+    constructor(reason?: string, options?: { cause?: ErrorType | undefined });
 
-    cause: unknown;
+    cause: ErrorType | undefined;
 }
 
 export default Error;

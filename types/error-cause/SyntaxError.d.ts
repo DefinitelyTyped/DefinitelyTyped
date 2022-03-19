@@ -1,9 +1,9 @@
 import BaseSyntaxError from './base/SyntaxError';
 
 declare class SyntaxError extends BaseSyntaxError {
-    constructor(reason?: string, options?: { cause?: unknown });
+    constructor(reason?: string, options?: { cause?: Error | undefined });
 
-    cause: unknown;
+    cause: Error | undefined;
 }
 
 export default SyntaxError;
