@@ -466,7 +466,6 @@ declare namespace autocannon {
          */
         progressBarString?: string | undefined;
     }
-    
     interface PrintResultOptions {
         /**
          * The stream to output to.
