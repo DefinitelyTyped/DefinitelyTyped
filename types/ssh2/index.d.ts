@@ -39,8 +39,8 @@ export import SFTP_OPEN_MODE = SFTPStream.OPEN_MODE;
 export namespace utils {
     let parseKey: typeof streamsUtils['parseKey'];
     namespace sftp {
-        export import STATUS_CODE = SFTPStream.STATUS_CODE
-        export import OPEN_MODE = SFTPStream.OPEN_MODE
+        const STATUS_CODE: typeof SFTP_STATUS_CODE
+        const OPEN_MODE: typeof SFTPStream.OPEN_MODE
 
         function stringToFlags(str: string): number | null;
         function flagsToString(flags: number): string | null;

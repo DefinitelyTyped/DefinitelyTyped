@@ -330,7 +330,7 @@ var buffersEqual = require('buffer-equal-constant-time'),
 var pubKey = utils.parseKey(fs.readFileSync('user.pub')) as ssh2_streams.ParsedKey;
 var pubKeySSH = Buffer.from(pubKey.getPublicSSH());
 
-var flags = utils.sftp.OPEN_MODE.TRUNC | utils.sftp.OPEN_MODE.TRUNC
+var flags = utils.sftp.OPEN_MODE.READ | utils.sftp.OPEN_MODE.WRITE
 var flagsString = utils.sftp.flagsToString(flags)
 utils.sftp.stringToFlags(flagsString!)
 
