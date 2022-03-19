@@ -137,7 +137,7 @@ const maxCameraDistance: number = newCameraZoomRange.maxCameraDistance;
 const search = new mapkit.Search({ limitToCountries: 'us,mx' });
 
 // Check that autocomplete accepts SearchAutocompleteOptions
-const number = search.autocomplete('Apple', (error, data) => {}, {
+search.autocomplete('Apple', (error, data) => {}, {
     limitToCountries: 'us,mx'
 });
 
