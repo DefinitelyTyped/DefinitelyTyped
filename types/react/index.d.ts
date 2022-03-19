@@ -88,7 +88,7 @@ declare namespace React {
     interface RefObject<T> {
         readonly current: T | null;
     }
-    type RefCallback<T> = { bivarianceHack(instance: T | null): void }["bivarianceHack"];
+    type RefCallback<T> = (instance: T | null) => void;
     type Ref<T> = RefCallback<T> | RefObject<T> | null;
     type LegacyRef<T> = string | Ref<T>;
     /**

@@ -548,7 +548,7 @@ select('core/block-editor').getAdjacentBlockClientId('foo', 1);
 
 {
   const blockProps = be.useBlockProps({ ref: useRef("test") });
-  // $ExpectType (instance: unknown) => void
+  // $ExpectType RefCallback<unknown>
   blockProps.ref;
 }
 
