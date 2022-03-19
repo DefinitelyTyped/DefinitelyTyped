@@ -279,8 +279,8 @@ export interface NetAmountBreakdown {
 
 // https://developer.paypal.com/docs/api/payments/v2/#definition-payee
 export interface Payee {
-    email_address: string;
-    merchant_id: string;
+    email_address?: string;
+    merchant_id?: string;
 }
 
 // https://developer.paypal.com/docs/api/payments/v2/#definition-payee_base
