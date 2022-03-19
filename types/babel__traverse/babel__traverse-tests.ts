@@ -359,3 +359,11 @@ const path: NodePath<t.ExportDefaultDeclaration | t.ExportNamedDeclaration> = ne
 if (path.isExportNamedDeclaration()) {
     path.type; // $ExpectType "ExportNamedDeclaration"
 }
+
+const nullPath: NodePath<t.Identifier | undefined> = new NodePath<t.Identifier | undefined>(null as any, {} as any);
+
+nullPath.type; // $ExpectType "Identifier" | undefined
+
+if (nullPath.hasNode()) {
+    nullPath.type; // $ExpectType "Identifier"
+}
