@@ -13,6 +13,7 @@
             "../../"
         ],
         "paths": {
+            "react": ["react/v15"],
             "react-alert": ["react-alert/v2"]
         },
         "types": [],

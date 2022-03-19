@@ -116,7 +116,9 @@ export interface AlertTemplateProps extends Omit<AlertInstance, 'id'> {
 }
 
 export interface AlertProviderProps extends AlertOptions {
+    // See: https://github.com/DefinitelyTyped/DefinitelyTyped/pull/59306.
     children?: ReactNode;
+
     /**
      * The alert template to be used.
      */
