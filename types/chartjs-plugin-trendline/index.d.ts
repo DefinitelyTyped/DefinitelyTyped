@@ -7,17 +7,20 @@ import * as Chart from 'chart.js';
 
 declare module 'chart.js' {
     interface ChartPluginsOptions {
-        trendlineLinear?: TrendlineLinearOptions;
+        trendlineLinear?: TrendlineLinearPlugin.TrendlineLinearOptions;
     }
 }
 
-export interface TrendlineLinearOptions {
-    style: string;
-    lineStyle: 'dotted' | 'solid';
-    width: number;
-    projection?: boolean;
+declare namespace TrendlineLinearPlugin {
+    interface TrendlineLinearOptions {
+        style: string;
+        lineStyle: 'dotted' | 'solid';
+        width: number;
+        projection?: boolean;
+    }
 }
 
 declare const TrendlineLinearPlugin: Chart.PluginServiceGlobalRegistration & Chart.PluginServiceRegistrationOptions;
 
-export default TrendlineLinearPlugin;
+export = TrendlineLinearPlugin;
+export as namespace TrendlineLinearPlugin;
