@@ -2388,8 +2388,15 @@ export function view<S, A>(lens: Lens<S, A>, obj: S): A;
  * will return the result of calling the whenTrueFn function with the same argument. If the predicate is not satisfied,
  * the argument is returned as is.
  */
-export function when<T, U>(pred: (a: T) => boolean, whenTrueFn: (a: T) => U, a: T): T | U;
-export function when<T, U>(pred: (a: T) => boolean, whenTrueFn: (a: T) => U): (a: T) => T | U;
+export function when<Arg1, R,  Arg2 = Arg1, A = Arg1 & Arg2>(
+    pred: (a: Arg1) => boolean,
+    whenTrueFn: (a: Arg2) => R,
+    a: A
+): A | R;
+export function when<Arg1, R,  Arg2 = Arg1, A = Arg1 & Arg2>(
+    pred: (a: Arg1) => boolean,
+    whenTrueFn: (a: Arg2) => R,
+): (a: A) => A | R;
 
 /**
  * Takes a spec object and a test object and returns true if the test satisfies the spec.
