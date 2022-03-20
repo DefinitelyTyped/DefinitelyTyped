@@ -110,6 +110,23 @@ function line_count() {
         .argv;
 }
 
+// ts4.2+ types only
+function camelCase() {
+    const args: Arguments<{ someOpt: number }> = yargs
+    .usage('Usage: $0 options')
+    .describe('some-opt', 'Some option')
+    .default('some-opt', 2)
+    .parseSync();
+
+    yargs
+    .command(
+        'my-command',
+        'a command',
+        { 'some-opt-in-command': { describe: 'Some option', default: 2 } },
+        (args: Arguments<{ someOptInCommand: number }>) => {}
+    );
+}
+
 // Below are tests for individual methods.
 // Not all methods are covered yet, and neither are all possible invocations of methods.
 
@@ -559,6 +576,20 @@ function Argv$version() {
         .version(false);
 }
 
+function Argv$showVersion() {
+    const argv1 = yargs
+        .showVersion();
+
+    const argv2 = yargs
+        .showVersion('error');
+
+    const argv3 = yargs
+        .showVersion('log');
+
+    const argv4 = yargs
+        .showVersion(s => console.log(`Thar be a version! ${s}`));
+}
+
 function Argv$wrap() {
     const argv1 = yargs
         .wrap(null);
@@ -586,9 +617,10 @@ function Argv$locale() {
 function Argv$middleware() {
     const mwFunc1 = (argv: Arguments) => console.log(`I'm a middleware function`, argv);
     const mwFunc2 = (argv: Arguments) => console.log(`I'm another middleware function`, argv);
+    const mwFunc3 = async (argv: Arguments) => console.log(`I'm another middleware function`, argv);
 
     const argv = yargs
-        .middleware([mwFunc1, mwFunc2])
+        .middleware([mwFunc1, mwFunc2, mwFunc3])
         .middleware((argv) => {
             if (process.env.HOME) argv.home = process.env.HOME;
         }, true)

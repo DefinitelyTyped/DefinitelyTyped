@@ -5,3 +5,18 @@ import * as R from 'ramda';
   R.find(R.propEq('a', 2))(xs); // => {a: 2}
   R.find(R.propEq('a', 4))(xs); // => undefined
 };
+
+() => {
+  const findNumber = R.find(R.is(Number));
+
+  const unknownArray: unknown[] = [];
+  let number: number | undefined;
+  let string: string | undefined;
+
+  number = R.find(R.is(Number), unknownArray);
+  number = findNumber(unknownArray);
+  // $ExpectError
+  string = R.find(R.is(Number), unknownArray);
+  // $ExpectError
+  string = findNumber(unknownArray);
+};

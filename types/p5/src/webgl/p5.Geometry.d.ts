@@ -15,6 +15,12 @@ declare module '../../index' {
          *   instantiation.
          */
         constructor(detailX?: number, detailY?: number, callback?: (...args: any[]) => any);
+
+        /**
+         *   computes faces for geometry objects based on the
+         *   vertices.
+         *   @chainable
+         */
         computeFaces(): Geometry;
 
         /**

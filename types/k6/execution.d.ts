@@ -60,6 +60,22 @@ declare namespace execution {
     };
 
     /**
+     * Control the test execution.
+     */
+    const test: {
+        /**
+         * Aborts the test run with the exit code 108.
+         * https://k6.io/docs/javascript-api/k6-execution/#test
+         * @param input - Aborted message.
+         * @example
+         * import exec from "k6/execution";
+         * exec.test.abort();
+         * exec.test.abort('this is the reason');
+         */
+        abort(input?: string): void;
+    };
+
+    /**
      * Information about the current virtual user.
      */
     const vu: {
@@ -79,6 +95,11 @@ declare namespace execution {
          * 	The globally unique (across the whole test run) identifier of the VU.
          */
         idInTest: number;
+
+        /**
+         * 	Hash to set or get VU tags.
+         */
+        tags: Record<string, number | string | boolean>;
     };
 }
 

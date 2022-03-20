@@ -3,11 +3,9 @@ import * as ReactDOM from "react-dom";
 import * as ReactDOMServer from "react-dom/server";
 import createFragment = require("react-addons-create-fragment");
 import * as LinkedStateMixin from "react-addons-linked-state-mixin";
-import * as Perf from "react-addons-perf";
 import * as PureRenderMixin from "react-addons-pure-render-mixin";
 import shallowCompare = require("react-addons-shallow-compare");
 import * as TestUtils from "react-addons-test-utils";
-import TransitionGroup = require("react-addons-transition-group");
 import update = require("react-addons-update");
 
 // NOTE: forward declarations for tests
@@ -568,34 +566,6 @@ React.createClass({
 });
 
 //
-// Perf addon
-// --------------------------------------------------------------------------
-Perf.start();
-Perf.stop();
-const measurements = Perf.getLastMeasurements();
-Perf.printInclusive(measurements);
-Perf.printExclusive(measurements);
-Perf.printWasted(measurements);
-Perf.printOperations(measurements);
-Perf.printInclusive();
-Perf.printExclusive();
-Perf.printWasted();
-Perf.printOperations();
-
-console.log(Perf.getExclusive());
-console.log(Perf.getInclusive());
-console.log(Perf.getWasted());
-console.log(Perf.getOperations());
-console.log(Perf.getExclusive(measurements));
-console.log(Perf.getInclusive(measurements));
-console.log(Perf.getWasted(measurements));
-console.log(Perf.getOperations(measurements));
-
-// Renamed to printOperations().  Please use it instead.
-Perf.printDOM(measurements);
-Perf.printDOM();
-
-//
 // PureRenderMixin addon
 // --------------------------------------------------------------------------
 React.createClass({
@@ -640,11 +610,6 @@ if (TestUtils.isDOMComponent(container)) {
 } else if (TestUtils.isCompositeComponent(new ModernComponent())) {
     new ModernComponent().props;
 }
-
-//
-// TransitionGroup addon
-// --------------------------------------------------------------------------
-React.createFactory(TransitionGroup)({ component: "div" });
 
 //
 // update addon

@@ -124,10 +124,12 @@ const products: Products.ProductCollection = {
                                 formatted_with_symbol: '$0.00',
                                 formatted_with_code: '0.00 USD',
                             },
-                            assets: [],
+                            assets: [
+                                'ast_bO6J5ag49wEjpK',
+                            ],
                             meta: null,
-                            created: null,
-                            updated: null,
+                            created: 1594413988,
+                            updated: 1605921891,
                         },
                     ],
                 },
@@ -173,6 +175,25 @@ const products: Products.ProductCollection = {
                 created_at: 1594413988,
                 updated_at: 1605921891,
             },
+            attributes: [
+                {
+                    id: 'attr_mL1vOoZW5Ra8Ze',
+                    meta: [],
+                    name: 'Weight',
+                    value: '2grams',
+                },
+                {
+                    id: 'attr_YgnZO5kg57MNqG',
+                    meta: [],
+                    name: 'Product template',
+                    value: [
+                        {
+                            label: 'Generic Template',
+                            value: 'genericTemplate',
+                        }
+                    ],
+                },
+            ],
             related_products: [],
         },
     ],
@@ -210,8 +231,8 @@ const variants: Products.VariantCollection = {
     ],
     meta: {
         pagination: {
-            total: 2,
-            count: 2,
+            total: 1,
+            count: 1,
             per_page: 100,
             current_page: 1,
             total_pages: 1,

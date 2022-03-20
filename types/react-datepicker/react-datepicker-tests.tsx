@@ -5,6 +5,7 @@ import DatePicker, {
     setDefaultLocale,
     getDefaultLocale,
     ReactDatePickerProps,
+    ReactDatePickerCustomHeaderProps,
 } from 'react-datepicker';
 import enUS from 'date-fns/locale/en-US';
 import { Modifier } from 'react-popper';
@@ -80,7 +81,9 @@ const topLogger: Modifier<'topLogger'> = {
     minTime={new Date()}
     monthsShown={1}
     name=""
+    nextMonthAriaLabel=""
     nextMonthButtonLabel=""
+    nextYearAriaLabel=""
     nextYearButtonLabel=""
     onBlur={event => null}
     onCalendarClose={() => null}
@@ -123,10 +126,17 @@ const topLogger: Modifier<'topLogger'> = {
     popperPlacement="bottom-start"
     popperProps={{}}
     preventOpenOnFocus
+    previousMonthAriaLabel=""
     previousMonthButtonLabel=""
+    previousYearAriaLabel=""
     previousYearButtonLabel=""
     readOnly
-    ref={handleRef}
+    ref={instance => {
+        if (instance !== null) {
+            // $ExpectType ReactDatePicker<"offset" | "preventOverflow", true>
+            instance;
+        }
+    }}
     renderCustomHeader={({
         monthDate,
         date,
@@ -195,7 +205,7 @@ const topLogger: Modifier<'topLogger'> = {
 
 <DatePicker formatWeekDay={() => <div />} onChange={() => null} />;
 
-function handleRef(ref: DatePicker) {
+function handleRef(ref: DatePicker | null) {
     if (ref) {
         ref.setBlur();
         ref.setFocus();
@@ -219,5 +229,27 @@ const props: ReactDatePickerProps = {
 <DatePicker<'topLogger'>
     onChange={() => {}}
     popperModifiers={[{ name: 'arrow', options: { padding: 5 } }, topLogger]}
-    ref={handleRef}
+    ref={(instance: DatePicker<'topLogger'> | null) => {}}
 />;
+
+const DatePickerCustomHeader = ({
+    monthDate,
+    date,
+    changeYear,
+    changeMonth,
+    customHeaderCount,
+    decreaseMonth,
+    increaseMonth,
+    decreaseYear,
+    increaseYear,
+    prevMonthButtonDisabled,
+    nextMonthButtonDisabled,
+    prevYearButtonDisabled,
+    nextYearButtonDisabled,
+}: ReactDatePickerCustomHeaderProps) => <div></div>;
+
+<DatePicker onChange={() => {}} renderCustomHeader={props => <DatePickerCustomHeader {...props} />} />;
+
+<DatePicker selectsRange onChange={([start]) => start?.getHours()} />;
+
+<DatePicker onChange={date => date?.toISOString()} />;

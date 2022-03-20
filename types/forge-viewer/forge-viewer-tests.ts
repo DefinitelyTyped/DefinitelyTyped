@@ -16,7 +16,10 @@ Autodesk.Viewing.Initializer(options, async () => {
         console.error('Failed to create a Viewer: WebGL not supported.');
         return;
     }
-
+    if (!viewer.running) {
+        console.error('Failed to run a Viewer');
+        return;
+    }
     const documentId = 'urn:dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6bXktYnVja2V0L215LWF3ZXNvbWUtZm9yZ2UtZmlsZS5ydnQ';
     const doc = await loadDocument(documentId);
 
@@ -30,6 +33,7 @@ Autodesk.Viewing.Initializer(options, async () => {
     bufferReaderTest(model);
     callbackTests(viewer);
     cameraTests(viewer);
+    extensionTests(viewer);
     formattingTests();
     fragListTests(model);
     instanceTreeTests(model);
@@ -37,12 +41,14 @@ Autodesk.Viewing.Initializer(options, async () => {
     modelStructurePanelTests(viewer);
     preferencesTests(viewer);
     showHideTests(viewer);
+    worldUpTests(viewer);
     await bulkPropertiesTests(model);
     await compGeomTests(viewer);
     await dataVizTests(viewer);
     await dataVizPlanarTests(viewer);
     await edit2DTests(viewer);
     await measureTests(viewer);
+    await multipageTests(viewer);
     await pixelCompareTests(viewer);
     await propertyTests(viewer);
     await propertyDbTests(model);
@@ -111,6 +117,8 @@ function cameraTests(viewer: Autodesk.Viewing.GuiViewer3D): void {
     const up = new THREE.Vector3(0, 0, 1);
 
     viewer.navigation.setCameraUpVector(up);
+
+    viewer.toolController.recordHomeView();
 }
 
 async function bulkPropertiesTests(model: Autodesk.Viewing.Model): Promise<void> {
@@ -134,7 +142,7 @@ async function bulkPropertiesTests(model: Autodesk.Viewing.Model): Promise<void>
 }
 
 async function compGeomTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void> {
-    await viewer.loadExtension('Autodesk.DataVisualization');
+    await viewer.loadExtension('Autodesk.CompGeom');
     const pln = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0);
 
     Autodesk.Extensions.CompGeom.makePlaneBasis(pln);
@@ -169,7 +177,9 @@ async function dataVizTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void>
     heatmapData.addChild(level);
     heatmapData.initialize(viewer.model);
     await ext.setupSurfaceShading(viewer.model, heatmapData);
-    ext.registerSurfaceShadingColors('temperature', [ 0xff0000, 0x0000ff ]);
+    ext.registerSurfaceShadingColors('temperature', [ 0xff0000, 0x0000ff ], {
+        alpha: 0.7
+    });
 
     const getSensorValue = (device: any, sensorType: any) => {
         const value = Math.random();
@@ -197,7 +207,9 @@ async function dataVizPlanarTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise
     await ext.setupSurfaceShading(viewer.model, heatmapData, {
         type: 'PlanarHeatmap'
     });
-    ext.registerSurfaceShadingColors('temperature', [ 0xff0000, 0x0000ff ]);
+    ext.registerSurfaceShadingColors('temperature', [ 0xff0000, 0x0000ff ], {
+        alpha: 0.7
+    });
 
     const getSensorValue = (device: any, sensorType: any) => {
         const value = Math.random();
@@ -410,19 +422,6 @@ async function edit2DTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void> 
     const resXor = Autodesk.Edit2D.BooleanOps.apply(rectOne, rectTwo, Autodesk.Edit2D.BooleanOps.Operator.Xor);
 }
 
-async function extensionTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void> {
-    const ext = await viewer.loadExtension('Autodesk.Measure');
-
-    // $ExpectType string
-    ext.getName();
-    const modes = ext.getModes();
-
-    modes.forEach((m) => {
-        // $ExpectType boolean
-        ext.isActive(m);
-    });
-}
-
 function fragListTests(model: Autodesk.Viewing.Model): void {
     const fragId = 1; // hard coded value for testing
     const fragList = model.getFragmentList();
@@ -436,6 +435,14 @@ function fragListTests(model: Autodesk.Viewing.Model): void {
     fragList.getAnimTransform(fragId, s, r, t);
 }
 
+function extensionTests(viewer: Autodesk.Viewing.GuiViewer3D): void {
+    const extensions = viewer.getLoadedExtensions();
+
+    for (const ext in extensions) {
+        console.debug(ext);
+    }
+}
+
 function formattingTests(): void {
     // $ExpectType string
     Autodesk.Viewing.Private.formatValueWithUnits(10, Autodesk.Viewing.Private.ModelUnits.CENTIMETER, 3, 2);
@@ -444,12 +451,35 @@ function formattingTests(): void {
 async function measureTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void> {
     const ext = await viewer.loadExtension('Autodesk.Measure') as Autodesk.Extensions.Measure.MeasureExtension;
 
+    // $ExpectType string
+    ext.getName();
+    const modes = ext.getModes();
+
+    modes.forEach((m) => {
+        // $ExpectType boolean
+        ext.isActive(m);
+    });
     ext.sharedMeasureConfig.units = 'in';
     ext.calibrateByScale('in', 0.0254);
     const m = ext.getMeasurementList();
 
     ext.deleteMeasurements();
     ext.setMeasurements(m);
+}
+
+async function multipageTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void> {
+    const ext = await viewer.loadExtension('Autodesk.Multipage') as Autodesk.Viewing.Extensions.Multipage.MultipageExtension;
+
+    // $ExpectType any[]
+    ext.getAllPages();
+    // $ExpectType string
+    ext.focusFirstPage();
+    // $ExpectType number
+    ext.getCurrentPageIndex();
+    // $ExpectType string
+    ext.focusLastPage();
+    // $ExpectType number
+    ext.getCurrentPageIndex();
 }
 
 async function searchTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<number[]> {
@@ -480,6 +510,7 @@ async function streamLineTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<vo
         }
     });
 
+    streamLine.advance({ x: 10.0, y: 10.0, z: 10.0 });
     builder.destroyStreamLine(streamLine);
 }
 
@@ -494,6 +525,13 @@ async function visualClustersTests(viewer: Autodesk.Viewing.GuiViewer3D): Promis
 
     await ext.setLayoutActive(true);
     ext.reset();
+}
+
+function worldUpTests(viewer: Autodesk.Viewing.GuiViewer3D): void {
+    const expectedUp = new THREE.Vector3(0, 0, 1);
+
+    viewer.navigation.setWorldUpVector(expectedUp, true, true);
+    const actualUp = viewer.navigation.getWorldUpVector();
 }
 
 function loadDocument(urn: string): Promise<Autodesk.Viewing.Document> {

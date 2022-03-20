@@ -6,7 +6,7 @@ import { utcYear } from "d3-time";
 import { utcFormat } from "d3-time-format";
 import { JSDOM } from "jsdom";
 import serialize from "w3c-xmlserializer";
-import data from "../docs/support-window.json";
+import data from "../docs/support-window.json" assert { type: "json" };
 
 const width = 640;
 const height = 250;
@@ -33,9 +33,7 @@ const x = scaleTime()
         // of additional, unsupported versions?
         new Date(
           Number(d.releaseDate) +
-            ((d.endDate as unknown as number) -
-              (d.releaseDate as unknown as number)) /
-              4
+            ((d.endDate as never) - (d.releaseDate as never)) / 4
         )
     )!,
     max(supported, (d) => d.endDate)!,
@@ -47,25 +45,34 @@ const y = scaleBand()
   .range([margin.top, height - margin.bottom])
   .padding(0.2);
 
+// https://github.com/d3/d3/wiki#supported-environments
 const dom = new JSDOM();
 const svg = select(dom.window.document.body)
   .append("svg")
-  // @ts-expect-error
+  .attr("id", "gh-dark-mode-only")
   .attr("viewBox", [0, 0, width, height])
   .attr("font-family", "sans-serif");
+// White axes in dark mode.
+svg.append("style").text(`
+  #gh-dark-mode-only:target {
+    color: #ffffff;
+  }
+`);
 const axes = svg
   .append("g")
   .attr("stroke-dasharray", 2)
   .attr("stroke-opacity", 0.5)
   .attr("stroke-width", 0.5);
-const xAxis = axes.append("g").attr("transform", `translate(0,${margin.top})`);
-axisTop(x)
+const gx = axes.append("g").attr("transform", `translate(0,${margin.top})`);
+const xAxis = axisTop(x)
   .ticks(5)
-  .tickSize(margin.top - height - margin.bottom)(xAxis);
-xAxis.selectAll(".domain").remove();
-const yAxis = axes.append("g");
-axisLeft(y).tickSize(margin.left - width - margin.right)(yAxis);
-yAxis.selectAll(".domain").remove();
+  .tickSize(margin.top - height - margin.bottom);
+xAxis(gx);
+gx.selectAll(".domain").remove();
+const gy = axes.append("g");
+const yAxis = axisLeft(y).tickSize(margin.left - width - margin.right);
+yAxis(gy);
+gy.selectAll(".domain").remove();
 svg
   .append("g")
   .attr("shape-rendering", "crispEdges")
@@ -76,10 +83,10 @@ svg
   .attr("y", (d) => y(d.version)!)
   .attr("width", (d) => x(d.endDate) - x(d.releaseDate))
   .attr("height", y.bandwidth())
-  .attr("fill", (d, i) => (i % 2 === 0 ? "#3178C6" : "#235A97"));
+  .attr("fill", (d, i) => (i % 2 === 0 ? "#3178c6" : "#235a97"));
 const texts = svg
   .append("g")
-  .attr("fill", "#FFFFFF")
+  .attr("fill", "#ffffff")
   .attr("text-anchor", "middle")
   .attr("transform", `translate(0,${y.bandwidth() / 2})`);
 texts
@@ -96,7 +103,7 @@ texts
         "-"
       )}.html`
   )
-  .attr("fill", "#FFFFFF")
+  .attr("fill", "#ffffff")
   .append("text")
   .attr("x", (d) => x(d.releaseDate) + (x(d.endDate) - x(d.releaseDate)) / 2)
   .attr("y", (d) => y(d.version)!)
@@ -104,7 +111,7 @@ texts
   .text((d) => d.version);
 texts
   .append("g")
-  .attr("font-size", "0.8em")
+  .attr("font-size", "smaller")
   .selectAll("text")
   .data(supported)
   .join("text")
@@ -114,7 +121,7 @@ texts
   .text((d) => formatDate(d.releaseDate));
 texts
   .append("g")
-  .attr("font-size", "0.8em")
+  .attr("font-size", "smaller")
   .selectAll("text")
   .data(supported)
   .join("text")

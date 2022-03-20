@@ -5,7 +5,6 @@
 //                 Bernd Hacker <https://github.com/denyo>
 //                 Dzmitry Shyndzin <https://github.com/dmitryshindin>
 //                 Tim Niemueller <https://github.com/timn>
-//                 Nate Mara <https://github.com/natemara>
 //                 Ian Sanders <https://github.com/iansan5653>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
@@ -1634,6 +1633,8 @@ export interface ChartAPI {
         }): void;
         hide(): void;
     };
+
+    element: HTMLElement;
 
     internal: ChartInternal;
 }

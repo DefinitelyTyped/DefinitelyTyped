@@ -121,7 +121,6 @@ class Example extends React.Component {
                     <Input placeholder="@mxstbr" type="text" />
                     <TomatoButton name="demo" />
                 </Wrapper>
-                ;
             </ThemeProvider>
         );
     }

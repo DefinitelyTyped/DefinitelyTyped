@@ -17,3 +17,5 @@ app.use(middleware.unless({ path: { url: "/index", methods: [ "GET", "POST" ] } 
 app.use(middleware.unless({ path: [ "/index", "/home", /home/i, { url: "/main", methods: [ "GET" ] }, { url: /home/i } ] }));
 app.use(middleware.unless({ path: [ "/index", "/home", /home/i, { url: "/main", method: "GET" }, { url: /home/i } ] }));
 app.use(middleware.unless({ path: [ "/index", "/home", /home/i, { url: "/main", method: [ "GET" ] }, { url: /home/i } ] }));
+
+app.use(unless(middleware, { method: "OPTIONS" }));

@@ -1,26 +1,18 @@
-// For Library Version: 1.95.0
-
-declare module "sap/ui/mdc/library" {
-  /**
-   * Enumeration of the `multiSelectMode>/code> in ListBase`.
-   */
-  export enum MultiSelectMode {
-    /**
-     * Renders the `clearAll` icon.
-     */
-    ClearAll = "ClearAll",
-    /**
-     * Renders the `selectAll` checkbox (default behavior).
-     */
-    Default = "Default",
-  }
-}
+// For Library Version: 1.99.0
 
 declare namespace sap {
   interface IUI5DefineDependencyNames {
+    "sap/ui/mdc/ActionToolbar": undefined;
+
+    "sap/ui/mdc/actiontoolbar/ActionToolbarAction": undefined;
+
     "sap/ui/mdc/Chart": undefined;
 
-    "sap/ui/mdc/chartNew/ChartSelectionDetailsNew": undefined;
+    "sap/ui/mdc/chart/ChartSelectionDetails": undefined;
+
+    "sap/ui/mdc/chart/Item": undefined;
+
+    "sap/ui/mdc/chart/SelectionDetailsActions": undefined;
 
     "sap/ui/mdc/condition/Condition": undefined;
 
@@ -36,7 +28,13 @@ declare namespace sap {
 
     "sap/ui/mdc/condition/Operator": undefined;
 
+    "sap/ui/mdc/condition/OperatorDynamicDateOption": undefined;
+
     "sap/ui/mdc/condition/RangeOperator": undefined;
+
+    "sap/ui/mdc/Control": undefined;
+
+    "sap/ui/mdc/Element": undefined;
 
     "sap/ui/mdc/enum/ActionToolbarActionAlignment": undefined;
 
@@ -72,6 +70,8 @@ declare namespace sap {
 
     "sap/ui/mdc/field/DefineConditionPanel": undefined;
 
+    "sap/ui/mdc/field/DynamicDateRangeConditionsType": undefined;
+
     "sap/ui/mdc/field/FieldBase": undefined;
 
     "sap/ui/mdc/field/FieldBaseDelegate": undefined;
@@ -79,6 +79,8 @@ declare namespace sap {
     "sap/ui/mdc/field/FieldHelpBase": undefined;
 
     "sap/ui/mdc/field/FieldHelpBaseDelegate": undefined;
+
+    "sap/ui/mdc/field/FieldInfoBase": undefined;
 
     "sap/ui/mdc/field/FieldInput": undefined;
 
@@ -107,6 +109,10 @@ declare namespace sap {
     "sap/ui/mdc/field/MultiValueFieldItem": undefined;
 
     "sap/ui/mdc/field/OutParameter": undefined;
+
+    "sap/ui/mdc/field/TokenDisplay": undefined;
+
+    "sap/ui/mdc/field/TokenizerDisplay": undefined;
 
     "sap/ui/mdc/field/ValueHelpPanel": undefined;
 
@@ -140,21 +146,15 @@ declare namespace sap {
 
     "sap/ui/mdc/odata/v4/FieldValueHelpDelegate": undefined;
 
-    "sap/ui/mdc/p13n/AdaptationProvider": undefined;
+    "sap/ui/mdc/odata/v4/TableDelegate": undefined;
 
-    "sap/ui/mdc/p13n/DefaultProviderRegistry": undefined;
+    "sap/ui/mdc/p13n/AdaptationProvider": undefined;
 
     "sap/ui/mdc/p13n/Engine": undefined;
 
     "sap/ui/mdc/p13n/modification/ModificationHandler": undefined;
 
-    "sap/ui/mdc/p13n/panels/GroupPanel": undefined;
-
-    "sap/ui/mdc/p13n/panels/QueryPanel": undefined;
-
-    "sap/ui/mdc/p13n/panels/SortQueryPanel": undefined;
-
-    "sap/ui/mdc/p13n/panels/Wrapper": undefined;
+    "sap/ui/mdc/p13n/modules/DefaultProviderRegistry": undefined;
 
     "sap/ui/mdc/p13n/StateUtil": undefined;
 
@@ -162,11 +162,31 @@ declare namespace sap {
 
     "sap/ui/mdc/p13n/UIManager": undefined;
 
+    "sap/ui/mdc/Table": undefined;
+
+    "sap/ui/mdc/table/Column": undefined;
+
+    "sap/ui/mdc/table/CreationRow": undefined;
+
+    "sap/ui/mdc/table/GridTableType": undefined;
+
+    "sap/ui/mdc/table/PropertyHelper": undefined;
+
+    "sap/ui/mdc/table/ResponsiveTableType": undefined;
+
+    "sap/ui/mdc/table/RowSettings": undefined;
+
+    "sap/ui/mdc/table/TableTypeBase": undefined;
+
+    "sap/ui/mdc/TableDelegate": undefined;
+
     "sap/ui/mdc/util/DateUtil": undefined;
 
     "sap/ui/mdc/util/FilterUtil": undefined;
 
     "sap/ui/mdc/util/PromiseCache": undefined;
+
+    "sap/ui/mdc/util/PropertyHelper": undefined;
 
     "sap/ui/mdc/util/TypeUtil": undefined;
 
@@ -175,5 +195,27 @@ declare namespace sap {
     "sap/ui/mdc/valuehelp/base/Container": undefined;
 
     "sap/ui/mdc/valuehelp/base/Content": undefined;
+
+    "sap/ui/mdc/valuehelp/base/DialogTab": undefined;
+
+    "sap/ui/mdc/valuehelp/base/FilterableListContent": undefined;
+
+    "sap/ui/mdc/valuehelp/base/ListContent": undefined;
+
+    "sap/ui/mdc/valuehelp/content/Bool": undefined;
+
+    "sap/ui/mdc/valuehelp/content/Conditions": undefined;
+
+    "sap/ui/mdc/valuehelp/content/FixedList": undefined;
+
+    "sap/ui/mdc/valuehelp/content/MDCTable": undefined;
+
+    "sap/ui/mdc/valuehelp/content/MTable": undefined;
+
+    "sap/ui/mdc/valuehelp/Dialog": undefined;
+
+    "sap/ui/mdc/valuehelp/Popover": undefined;
+
+    "sap/ui/mdc/ValueHelpDelegate": undefined;
   }
 }

@@ -163,6 +163,16 @@ declare namespace OSS {
         owner?: OwnerType;
     }
 
+    interface BucketPolicy {
+        Version: string;
+        Statement: Array<{
+            Action: string[];
+            Effect: 'Allow' | 'Deny';
+            Principal: string[];
+            Resource: string[];
+        }>;
+    }
+
     interface NormalSuccessResponse {
         /** response status */
         status: number;
@@ -175,7 +185,11 @@ declare namespace OSS {
         rt: number;
     }
 
-    interface UserMeta {
+    /**
+     * @see x-oss-meta-* in https://help.aliyun.com/document_detail/31978.html for Aliyun user
+     * @see x-oss-meta-* in https://www.alibabacloud.com/help/en/doc-detail/31978.html for AlibabaCloud user
+     */
+    interface UserMeta extends Record<string, string | number> {
         uid: number;
         pid: number;
     }
@@ -241,6 +255,7 @@ declare namespace OSS {
         /** the remote addr */
         RemoteAddr: string;
     }
+
     // parameters type
     interface ListBucketsQueryType {
         /** search buckets using prefix key */
@@ -615,6 +630,18 @@ declare namespace OSS {
         /** the operation timeout */
         timeout?: number | undefined;
     }
+
+    interface GetBucketPolicyResult {
+        policy: BucketPolicy | null;
+        status: number;
+        res: NormalSuccessResponse;
+    }
+
+    interface PostObjectParams {
+        policy: string;
+        OSSAccessKeyId: string;
+        Signature: string;
+    }
 }
 
 // cluster
@@ -915,6 +942,35 @@ declare class OSS {
      */
     deleteBucketCORS(name: string): Promise<OSS.NormalSuccessResponse>;
 
+    // policy operations
+    /**
+     * Adds or modify policy for a bucket.
+     */
+    putBucketPolicy(
+        name: string,
+        policy: OSS.BucketPolicy,
+        options?: OSS.RequestOptions
+    ): Promise<{
+        status: number,
+        res: OSS.NormalSuccessResponse,
+    }>;
+
+    /**
+     * Obtains the policy for a bucket.
+     */
+    getBucketPolicy(name: string, options?: OSS.RequestOptions): Promise<OSS.GetBucketPolicyResult>;
+
+    /**
+     * Deletes the policy added for a bucket.
+     */
+    deleteBucketPolicy(
+        name: string,
+        options?: OSS.RequestOptions
+    ): Promise<{
+        status: number,
+        res: OSS.NormalSuccessResponse,
+    }>;
+
     /********************************************************** Object operations ********************************************/
     /**
      * List objects in the bucket.
@@ -1085,6 +1141,16 @@ declare class OSS {
         uploadId: string,
         options?: OSS.RequestOptions,
     ): Promise<OSS.NormalSuccessResponse>;
+
+    /**
+     * get postObject params.
+     */
+    calculatePostSignature(
+        /**
+         * policy config object or JSON string
+         */
+        policy: object | string
+    ): OSS.PostObjectParams;
 
     /************************************************ RTMP Operations *************************************************************/
     /**

@@ -1,6 +1,6 @@
 // Type definitions for math-expression-evaluator 1.2
 // Project: https://github.com/bugwheels94/math-expression-evaluator
-// Definitions by:  Adam Zerella <https://github.com/adamzerella>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface Token {

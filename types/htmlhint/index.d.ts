@@ -1,33 +1,30 @@
-// Type definitions for HTMLHint 0.9
+// Type definitions for HTMLHint 1.1
 // Project: https://github.com/yaniswang/HTMLHint
 // Definitions by: Alan Agius <https://github.com/alan-agius4/>
+//                 Martin Badin <https://github.com/martin-badin/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export interface LintResult {
-    evidence: string;
-    line: number;
-    col: number;
-    message: string;
-    rule: Rule;
-}
+import HTMLParser from './htmlparser';
+import Reporter from './reporter';
+import * as HTMLRules from './rules';
+import { Hint, Rule, Ruleset } from './types';
+
+export as namespace HTMLHint;
 
 export interface FormatOptions {
-    indent?: number | undefined;
-    colors?: boolean | undefined;
+    colors?: boolean;
+    indent?: number;
 }
 
-export interface Rule {
-    id: string;
-    description: string;
-    link: string;
+declare class HTMLHintCore {
+    rules: { [id: string]: Rule };
+    readonly defaultRuleset: Ruleset;
+
+    addRule(rule: Rule): void;
+    verify(html: string, ruleset?: Ruleset): Hint[];
+    format(arrMessages: Hint[], options?: FormatOptions): string[];
 }
 
-export interface RuleSet {
-    [id: string]: boolean | string;
-}
+export const HTMLHint: HTMLHintCore;
 
-export namespace HTMLHint {
-    function addRule(rule: Rule): void;
-    function verify(fileContent: string, ruleSet?: RuleSet): LintResult[];
-    function format(arrMessages: LintResult[], options?: FormatOptions): string[];
-}
+export { HTMLRules, Reporter, HTMLParser };

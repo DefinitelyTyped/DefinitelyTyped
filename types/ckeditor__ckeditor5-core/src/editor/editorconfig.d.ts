@@ -18,6 +18,7 @@ import { TextPartLanguageOption } from '@ckeditor/ckeditor5-language/src/textpar
 import { LinkConfig } from '@ckeditor/ckeditor5-link/src/link';
 import { MediaEmbedConfig } from '@ckeditor/ckeditor5-media-embed/src/mediaembed';
 import { MentionConfig } from '@ckeditor/ckeditor5-mention/src/mention';
+import { MinimapConfig } from '@ckeditor/ckeditor5-minimap/src/minimap';
 import { PaginationConfig } from '@ckeditor/ckeditor5-pagination/src/pagination';
 import { RealTimeCollaborationConfig } from '@ckeditor/ckeditor5-real-time-collaboration/src/realtimecollaborativeediting';
 import { RestrictedEditingModeConfig } from '@ckeditor/ckeditor5-restricted-editing/src/restrictededitingmode';
@@ -61,6 +62,7 @@ export interface EditorConfig {
     link?: LinkConfig | undefined;
     mediaEmbed?: MediaEmbedConfig | undefined;
     mention?: MentionConfig | undefined;
+    minimap?: MinimapConfig | undefined;
     pagination?: PaginationConfig | undefined;
     placeholder?: string | undefined;
     plugins?: Array<string | PluginInterface> | undefined;
@@ -74,13 +76,22 @@ export interface EditorConfig {
         | string[]
         | {
               items?: string[] | undefined;
-              viewportTopOffset?: number | undefined;
               shouldNotGroupWhenFull?: boolean | undefined;
               removeItems?: string[] | undefined;
           }
         | undefined;
     trackChanges?: TrackChangesConfig | undefined;
     typing?: TypingConfig | undefined;
+    ui?:
+        | {
+              viewportTopOffset?: {
+                  top: number;
+                  right: number;
+                  bottom: number;
+                  left: number;
+              };
+          }
+        | undefined;
     wordCount?: WordCountConfig | undefined;
 }
 

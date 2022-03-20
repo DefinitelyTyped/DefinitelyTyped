@@ -1,7 +1,6 @@
 // Type definitions for yeoman-generator 5.2
 // Project: https://github.com/yeoman/generator, http://yeoman.io
-// Definitions by: Kentaro Okuno <https://github.com/armorik83>
-//                 Jay Anslow <https://github.com/janslow>
+// Definitions by: Jay Anslow <https://github.com/janslow>
 //                 Ika <https://github.com/ikatyang>
 //                 Joshua Cherry <https://github.com/tasadar2>
 //                 Arthur Corenzan <https://github.com/haggen>
@@ -181,7 +180,7 @@ declare namespace Generator {
         /**
          * The type of the option.
          */
-        type: typeof Boolean | typeof String | typeof Number;
+        type: typeof Boolean | typeof String | typeof Number | ((opt: string) => any);
 
         /**
          * The option name alias (example `-h` and --help`).

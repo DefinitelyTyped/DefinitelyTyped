@@ -1,17 +1,16 @@
-import { Emitter, EmitterMixinDelegateChain } from "@ckeditor/ckeditor5-utils/src/emittermixin";
-import EventInfo from "@ckeditor/ckeditor5-utils/src/eventinfo";
-import { PriorityString } from "@ckeditor/ckeditor5-utils/src/priorities";
-import Element from "../model/element";
-import ViewText from "../view/text";
-import ViewElement from "../view/element";
-import ViewDocumentFragment from "../view/documentfragment";
-import Node from "../model/node";
-import Position from "../model/position";
-import Range from "../model/range";
-import Schema, { SchemaContextDefinition } from "../model/schema";
-import Writer from "../model/writer";
-import { Item } from "../model/item";
-import ViewConsumable from "./viewconsumable";
+import { Emitter, EmitterMixinDelegateChain } from '@ckeditor/ckeditor5-utils/src/emittermixin';
+import EventInfo from '@ckeditor/ckeditor5-utils/src/eventinfo';
+import { PriorityString } from '@ckeditor/ckeditor5-utils/src/priorities';
+import Element from '../model/element';
+import Node from '../model/node';
+import Position from '../model/position';
+import Range from '../model/range';
+import Schema, { SchemaContextDefinition } from '../model/schema';
+import Writer from '../model/writer';
+import ViewDocumentFragment from '../view/documentfragment';
+import ViewElement from '../view/element';
+import ViewText from '../view/text';
+import ViewConsumable from './viewconsumable';
 
 export type ViewItem = ViewElement | ViewText | ViewDocumentFragment;
 
@@ -61,10 +60,10 @@ export interface UpcastEventDataTypes {
 
 export type UpcastEventArgs<K extends string = string> = K extends keyof UpcastEventDataTypes
     ? [UpcastEventDataTypes[K], UpcastConversionApi]
-    : K extends "viewCleanup"
+    : K extends 'viewCleanup'
     ? [ViewDocumentFragment | ViewElement]
     : K extends `element:${infer N}`
-    ? [UpcastConversionData<ViewElement & { name: N; }>, UpcastConversionApi]
+    ? [UpcastConversionData<ViewElement & { name: N }>, UpcastConversionApi]
     : K extends `${infer NS}:${string}`
     ? NS extends keyof UpcastEventDataTypes
         ? [UpcastEventDataTypes[NS], UpcastConversionApi]
@@ -76,29 +75,29 @@ export type UpcastDispatcherCallback<N extends string, S extends Emitter = Emitt
     ...args: UpcastEventArgs<N>
 ) => void;
 
-export default class UpcastDispatcher {
+export default class UpcastDispatcher implements Emitter {
     constructor(conversionApi?: Partial<UpcastConversionApi>);
     conversionApi: UpcastConversionApi;
     convert(viewItem: ViewItem, writer: Writer, context?: SchemaContextDefinition): ViewDocumentFragment;
 
     on<N extends string>(
         event: N,
-        callback: UpcastDispatcherCallback<N>,
+        callback: UpcastDispatcherCallback<N, this>,
         options?: { priority?: number | PriorityString | undefined },
     ): void;
     once<N extends string>(
         event: N,
-        callback: UpcastDispatcherCallback<N>,
+        callback: UpcastDispatcherCallback<N, this>,
         options?: { priority?: number | PriorityString | undefined },
     ): void;
-    off<N extends string>(event: N, callback?: UpcastDispatcherCallback<N>): void;
+    off<N extends string>(event: N, callback?: UpcastDispatcherCallback<N, this>): void;
     listenTo<S extends Emitter, N extends string>(
         emitter: S,
         event: N,
         callback: UpcastDispatcherCallback<N, S>,
         options?: { priority?: number | PriorityString | undefined },
     ): void;
-    stopListening<S extends Emitter, N extends string>(
+    stopListening<N extends string, S extends Emitter>(
         emitter?: S,
         event?: N,
         callback?: UpcastDispatcherCallback<N, S>,

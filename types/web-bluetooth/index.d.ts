@@ -1,7 +1,7 @@
 // Type definitions for Web Bluetooth
 // Project: https://webbluetoothcg.github.io/web-bluetooth/
 // Definitions by: Uri Shaked <https://github.com/urish>
-//                    Xavier Lozinguez <http://github.com/xlozinguez>
+//                    Xavier Lozinguez <https://github.com/xlozinguez>
 //                    Rob Moran <https://github.com/thegecko>
 //                    David Bjerremose <https://github.com/DaBs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -146,6 +146,7 @@ interface BluetoothDevice extends EventTarget, BluetoothDeviceEventHandlers, Cha
     readonly name?: string | undefined;
     readonly gatt?: BluetoothRemoteGATTServer | undefined;
     readonly uuids?: string[] | undefined;
+    forget(): Promise<void>;
     watchAdvertisements(): Promise<void>;
     unwatchAdvertisements(): void;
     readonly watchingAdvertisements: boolean;

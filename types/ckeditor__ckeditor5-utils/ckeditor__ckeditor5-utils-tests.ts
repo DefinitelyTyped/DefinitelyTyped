@@ -26,7 +26,7 @@ import { scrollAncestorsToShowTarget, scrollViewportToShowTarget } from '@ckedit
 import setDataInElement from '@ckeditor/ckeditor5-utils/src/dom/setdatainelement';
 import toUnit from '@ckeditor/ckeditor5-utils/src/dom/tounit';
 import ElementReplacer from '@ckeditor/ckeditor5-utils/src/elementreplacer';
-import EmitterMixin, { Emitter } from '@ckeditor/ckeditor5-utils/src/emittermixin';
+import EmitterMixin, { Emitter, EmitterMixinDelegateChain } from '@ckeditor/ckeditor5-utils/src/emittermixin';
 import env from '@ckeditor/ckeditor5-utils/src/env';
 import EventInfo from '@ckeditor/ckeditor5-utils/src/eventinfo';
 import fastDiff from '@ckeditor/ckeditor5-utils/src/fastdiff';
@@ -41,7 +41,7 @@ import mix from '@ckeditor/ckeditor5-utils/src/mix';
 import nth from '@ckeditor/ckeditor5-utils/src/nth';
 import objectToMap from '@ckeditor/ckeditor5-utils/src/objecttomap';
 import { BindChain, Observable } from '@ckeditor/ckeditor5-utils/src/observablemixin';
-import priorities from '@ckeditor/ckeditor5-utils/src/priorities';
+import priorities, { PriorityString } from '@ckeditor/ckeditor5-utils/src/priorities';
 import spy from '@ckeditor/ckeditor5-utils/src/spy';
 import toArray from '@ckeditor/ckeditor5-utils/src/toarray';
 import toMap from '@ckeditor/ckeditor5-utils/src/tomap';
@@ -52,14 +52,15 @@ import {
     isHighSurrogateHalf,
     isInsideCombinedSymbol,
     isInsideSurrogatePair,
-    isLowSurrogateHalf
+    isLowSurrogateHalf,
 } from '@ckeditor/ckeditor5-utils/src/unicode';
 import version from '@ckeditor/ckeditor5-utils/src/version';
+import isComment from '@ckeditor/ckeditor5-utils/src/dom/iscomment';
+import isVisible from '@ckeditor/ckeditor5-utils/src/dom/isvisible';
 
 declare const document: Document;
 declare let emitter: Emitter;
 declare let htmlElement: HTMLElement;
-declare let map: Map<string, number>;
 declare let rect: Rect;
 declare let str: string;
 
@@ -119,10 +120,10 @@ getOptimalPosition({
     element: htmlElement,
     target: () => htmlElement,
     positions: [
-        (targetRect, elementRect) => ({
-            top: targetRect.top,
-            left: targetRect.left + elementRect.width,
-            name: 'right',
+        targetRect => ({
+            top: targetRect.bottom,
+            left: targetRect.left,
+            name: 'mySouthEastPosition',
         }),
     ],
 });
@@ -346,7 +347,7 @@ new Config({ bar: 10 });
 // $ExpectType Config<{ bar?: undefined; } | { bar: number; }>
 new Config({}, { bar: 10 });
 // $ExpectType number | undefined
-new Config({}, { bar: 10 }).get("bar");
+new Config({}, { bar: 10 }).get('bar');
 
 new Config().define({
     resize: {
@@ -587,7 +588,8 @@ new Locale({ uiLanguage: 'en', contentLanguage: 'en' }).t('', false);
 
 // utils/mapsequal ============================================================
 
-mapsEqual(map, map);
+// $ExpectType boolean
+mapsEqual(new Map([['foo', 1]]), new Map([['bar', true]]));
 
 // utils/mix ==================================================================
 
@@ -648,7 +650,7 @@ objectToMap({ foo: 1, bar: 2 }).get('foo');
 // utils/observablemixin ======================================================
 
 class Car implements Observable {
-    set(option: Record<string, string>): void;
+    set(option: Record<string, unknown>): void;
     set(name: string, value: unknown): void;
     set(_name: any, _value?: any): void {
         throw new Error('Method not implemented.');
@@ -662,32 +664,75 @@ class Car implements Observable {
     decorate(_methodName: string): void {
         throw new Error('Method not implemented.');
     }
+    on<K extends string>(
+        _event: K,
+        _callback: (this: this, info: EventInfo<this, K>, ...args: any[]) => void,
+        _options?: { priority?: number | PriorityString | undefined },
+    ): void {
+        throw new Error('Method not implemented.');
+    }
+    once<K extends string>(
+        _event: K,
+        _callback: (this: this, info: EventInfo<this, K>, ...args: any[]) => void,
+        _options?: { priority?: number | PriorityString | undefined },
+    ): void {
+        throw new Error('Method not implemented.');
+    }
+    off<K extends string>(_event: K, _callback?: (this: this, info: EventInfo<this, K>, ...args: any[]) => void): void {
+        throw new Error('Method not implemented.');
+    }
+    listenTo<P extends string, E extends Emitter>(
+        _emitter: E,
+        _event: P,
+        _callback: (this: this, info: EventInfo<E, P>, ...args: any[]) => void,
+        _options?: { priority?: number | PriorityString | undefined },
+    ): void {
+        throw new Error('Method not implemented.');
+    }
+    stopListening<E extends Emitter, P extends string>(
+        _emitter?: E,
+        _event?: P,
+        _callback?: (this: this, info: EventInfo<E, P>, ...args: any[]) => void,
+    ): void {
+        throw new Error('Method not implemented.');
+    }
+    fire(_eventOrInfo: string | EventInfo, ..._args: any[]): unknown {
+        throw new Error('Method not implemented.');
+    }
+    delegate(..._events: string[]): EmitterMixinDelegateChain {
+        throw new Error('Method not implemented.');
+    }
+    stopDelegating(_event?: string, _emitter?: Emitter): void {
+        throw new Error('Method not implemented.');
+    }
     color: string;
     used: boolean;
+    accelerate(): void {}
 }
+
 const bettle = new Car();
 const ranger = new Car();
 
 bettle.bind('color', 'year').to(ranger);
 bettle.bind('color').to(ranger, 'color');
-// $ExpectError
+// @ts-expect-error
 bettle.bind('color').to(ranger, 'foo');
-// $ExpectError
+// @ts-expect-error
 bettle.bind('color', 'year').to(ranger, 'color', ranger, 'used');
 bettle.bind('color', 'year').to(ranger, 'color', ranger, 'used', (color: string, used: boolean) => {
     console.log(color, used);
 });
 bettle.bind('custom').to(ranger, 'color', ranger, 'used', (...args: Array<string | boolean>) => args.join('/'));
-// $ExpectError
+// @ts-expect-error
 bettle.bind('custom').to(ranger, 'color', ranger, 'used', (...args: number[]) => args.join('/'));
 
 bettle.bind('color').toMany([ranger, ranger], 'color', (color1: string, color2: string) => {
     console.log(color1, color2);
 });
-// $ExpectError
+// @ts-expect-error
 bettle.bind('color').toMany([ranger, ranger], 'year', () => {});
-
-bettle.decorate('method');
+bettle.decorate('color');
+bettle.decorate('accelerate');
 
 bettle.set('color', 'red');
 bettle.set('seats', undefined);
@@ -700,7 +745,6 @@ bettle.unbind('color');
 bettle.unbind('color', 'year');
 
 // utils/priorities ===========================================================
-
 // $ExpectType number
 priorities.get(2);
 // $ExpectType number
@@ -828,9 +872,9 @@ toArray(5 as const);
 
 // utils/version
 
-// $ExpectType "28.0.0"
+// $ExpectType "32.0.0"
 window.CKEDITOR_VERSION;
-// $ExpectType "28.0.0"
+// $ExpectType "32.0.0"
 version;
 
 // utils/areconnectedthroughproperties
@@ -838,3 +882,15 @@ version;
 areConnectedThroughProperties([], []);
 // $ExpectType boolean
 areConnectedThroughProperties({}, {});
+
+// utils/dom/iscomment
+// $ExpectType boolean
+isComment('');
+
+// utils/dom/isvisible
+// $ExpectType boolean
+isVisible(document.documentElement);
+// $ExpectType boolean
+isVisible(null);
+// $ExpectType boolean
+isVisible();

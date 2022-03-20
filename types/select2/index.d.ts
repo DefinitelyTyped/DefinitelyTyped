@@ -163,7 +163,7 @@ export interface AjaxOptions<Result = DataFormat | GroupedDataFormat, RemoteResu
     delay?: number | undefined;
     url?: string | ((params: QueryOptions) => string) | undefined;
     data?: ((params: QueryOptions) => PlainObject | string) | undefined;
-    transport?: ((settings: JQueryAjaxSettings, success?: (data: RemoteResult) => undefined, failure?: () => undefined) => void) | undefined;
+    transport?: ((settings: JQueryAjaxSettings, success: (data: RemoteResult) => undefined, failure: () => undefined) => void) | undefined;
     processResults?: ((data: RemoteResult, params: QueryOptions) => ProcessedResult<Result>) | undefined;
 }
 

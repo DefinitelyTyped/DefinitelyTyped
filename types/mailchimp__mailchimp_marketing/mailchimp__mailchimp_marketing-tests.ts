@@ -1,5 +1,4 @@
 import mailchimp = require('@mailchimp/mailchimp_marketing');
-import { Status } from 'mailchimp__mailchimp_marketing';
 
 // void;
 mailchimp.setConfig({
@@ -10,7 +9,7 @@ mailchimp.setConfig({
 
 const setListMemberBody = {
     email_address: 'test',
-    status_if_new: Status.subscribed,
+    status_if_new: 'subscribed' as const,
 };
 
 const addListMemberBody = {
@@ -19,6 +18,19 @@ const addListMemberBody = {
 
 const updateListMemberBody = {
     email_address: 'test',
+};
+
+const updateListMemberTagsBody = {
+    tags: [
+        {
+            name: 'test',
+            status: 'active',
+        },
+        {
+            name: 'test2',
+            status: 'inactive',
+        },
+    ],
 };
 
 // Promise<void>
@@ -35,3 +47,6 @@ mailchimp.lists.updateListMember('test', 'test', updateListMemberBody);
 
 // Promise<void>
 mailchimp.lists.deleteListMemberPermanent('test', 'test');
+
+// Promise<void>
+mailchimp.lists.updateListMemberTags('test', 'test', updateListMemberTagsBody);

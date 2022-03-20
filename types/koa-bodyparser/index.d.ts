@@ -1,7 +1,6 @@
 // Type definitions for koa-bodyparser 4.3
 // Project: https://github.com/koajs/body-parser
 // Definitions by: Jerry Chin <https://github.com/hellopao>
-//                 Anup Kishore <https://github.com/anup-2s>
 //                 Hiroshi Ioka <https://github.com/hirochachacha>
 //                 Alexi Maschas <https://github.com/amaschas>
 //                 Pirasis Leelatanon <https://github.com/1pete>
@@ -39,7 +38,7 @@ declare namespace bodyParser {
         /**
          * requested encoding. Default is utf-8 by co-body
          */
-        encode?: string | undefined;
+        encoding?: string | undefined;
 
         /**
          * limit of the urlencoded body. If the body ends up being larger than this limit

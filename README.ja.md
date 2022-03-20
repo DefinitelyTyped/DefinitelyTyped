@@ -47,15 +47,16 @@ npm install --save-dev @types/node
 大抵は `package.json` の `"types"` フィールドや `"typings"`  フィールドに指定されています。
 もしくは、パッケージ内の各 ".d.ts" ファイルを確認し、 `/// <reference path="" />` を使って手動でインクルードしてください。
 
-#### 古いバージョンの TypeScript （3.6 以前）
+#### 古いバージョンの TypeScript （3.y 以前）
 
 Definitely Typed では、リリースから2年以内のバージョンの TypeScript 上でのみパッケージのテストを実施しています。
-現時点ではバージョン 3.7 以上でテストされています。
-TypeScript 2.0 ～ 3.6 を使用している場合、引き続き `@types` パッケージをインストールすることは可能です &mdash; これは TypeScript の最新機能を使用しているパッケージがそんなに多くないためです。
+現時点ではバージョン 3.8 以上でテストされています。
+TypeScript 2.0 ～ 3.7 を使用している場合、引き続き `@types` パッケージをインストールすることは可能です &mdash; これは TypeScript の最新機能を使用しているパッケージがそんなに多くないためです。
 ただし、正常に動作する保証もありません。
 サポート期間については下記のとおりです。
 
-<img src="docs/support-window.svg" style="width:100%">
+<img src="docs/support-window.svg#gh-light-mode-only" style="width:100%">
+<img src="docs/support-window.svg#gh-dark-mode-only" style="width:100%">
 
 `@types` パッケージには、サポートする TypeScript のバージョンを明示的に指定するタグがあるため、多くの場合はサポート期間外のバージョン用のパッケージでも入手できます。
 たとえば、 `npm dist-tags @types/react` を実行すると、 TypeScript 2.5 なら react@16.0 の、 TypeScript 2.6 や 2.7 なら react@16.4 の型定義がそれぞれ利用できることが確認できます。
@@ -345,7 +346,7 @@ npm パッケージは数分で更新されます。もし1時間以上かかっ
 
 #### 型定義をリクエストしたいです。
 
-現在リクエストされている型定義は[こちら](https://github.com/DefinitelyTyped/DefinitelyTyped/labels/Definition%3ARequest)です。
+現在リクエストされている型定義は[こちら](https://github.com/DefinitelyTyped/DefinitelyTyped/discussions/categories/request-a-new-types-package)です。
 
 #### DOM に対する型定義はどうすればよいですか？
 
@@ -477,7 +478,7 @@ Definitely Typed の各パッケージは npm に公開される際にバージ�
 
 たとえば、 [`history`](https://github.com/ReactTraining/history/) ライブラリはバージョン `2.x` から `3.x` の間で破壊的な変更を行いました。
 多くのユーザーがなお古いバージョン `2.x` 系を使用していたので、バージョン `3.x` 系の型定義に更新したかったメンテナーは `v2` フォルダーを作成し、そこに古いバージョン用の型定義を含めるようにしました。
-下記は、執筆時点<small>（訳注: 英語版執筆当時）</small>の [history モジュールの v2 の `tsconfig.json`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/1253faabf5e0d2c5470db6ea87795d7f96fef7e2/types/history/v2/tsconfig.json) の大まかな内容です:
+下記は、執筆時点<small>（訳注: 英語版執筆当時）</small>の [history モジュールの v2 の `tsconfig.json`](https://github.com/%44efinitelyTyped/DefinitelyTyped/blob/1253faabf5e0d2c5470db6ea87795d7f96fef7e2/types/history/v2/tsconfig.json) の大まかな内容です:
 
 ```json
 {

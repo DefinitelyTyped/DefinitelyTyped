@@ -12,8 +12,8 @@
 // the source.
 
 // The declarations in webcodecs.generated.d.ts have been generated using the code in
-// https://github.com/dogben/TypeScript-WebCodecs-generator. See
-// https://github.com/dogben/TypeScript-WebCodecs-generator/blob/master/README.md for more detail.
+// https://github.com/yume-chan/webcodecs-lib-generator. See
+// https://github.com/yume-chan/webcodecs-lib-generator/blob/main/README.md for more detail.
 /// <reference path="./webcodecs.generated.d.ts" />
 
 // The following declarations are copied from

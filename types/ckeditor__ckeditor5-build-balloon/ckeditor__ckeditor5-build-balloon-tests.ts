@@ -1,11 +1,17 @@
 import BuildBalloon from '@ckeditor/ckeditor5-build-balloon';
-import { Editor } from '@ckeditor/ckeditor5-core';
+import { Context, Editor } from '@ckeditor/ckeditor5-core';
 
 class MyEditor extends Editor {}
 const editor = new MyEditor();
 
 BuildBalloon.create('', BuildBalloon.defaultConfig);
-BuildBalloon.builtinPlugins.forEach(Plugin => new Plugin(editor));
+BuildBalloon.builtinPlugins.forEach(Plugin => {
+    if (Plugin.isContextPlugin) {
+        new Plugin(new Context());
+    } else {
+        new Plugin(editor);
+    }
+});
 
 const el = document.querySelector('#editor');
 if (el instanceof HTMLElement) {

@@ -28,6 +28,7 @@ declare class JMuxer {
     constructor(options: JMuxer.Options);
     feed(data: JMuxer.Feeder): void;
     createStream(): Duplex;
+    reset(): void;
     destroy(): void;
 }
 export = JMuxer;

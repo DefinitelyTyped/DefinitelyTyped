@@ -1,7 +1,6 @@
 // Type definitions for es6-promisify 6.0
 // Project: https://github.com/digitaldesignlabs/es6-promisify#readme
-// Definitions by: Harry Shipton <https://github.com/harryshipton>
-//                 Brian Schlenker <https://github.com/bschlenk>
+// Definitions by: Brian Schlenker <https://github.com/bschlenk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // If the issue at https://github.com/Microsoft/TypeScript/issues/1360 is fixed,

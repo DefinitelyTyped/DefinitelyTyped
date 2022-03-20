@@ -9,7 +9,7 @@
  * The `querystring` API is considered Legacy. While it is still maintained,
  * new code should use the `URLSearchParams` API instead.
  * @deprecated Legacy
- * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/querystring.js)
+ * @see [source](https://github.com/nodejs/node/blob/v17.0.0/lib/querystring.js)
  */
 declare module 'querystring' {
     interface StringifyOptions {

@@ -27,6 +27,16 @@ declare module WebApp {
     var connectApp: connect.Server;
     function suppressConnectErrors(): void;
     function onListening(callback: Function): void;
+
+    type RuntimeConfigHookCallback = (options: {
+        arch: 'web.browser' | 'web.browser.legacy' | 'web.cordova';
+        request: http.IncomingMessage;
+        encodedCurrentConfig: string;
+        updated: boolean;
+    }) => string | undefined | null | false;
+    function addRuntimeConfigHook(callback: RuntimeConfigHookCallback): void;
+    function decodeRuntimeConfig(rtimeConfigString: string): unknown;
+    function encodeRuntimeConfig(rtimeConfig: unknown): string;
 }
 declare module WebAppInternals {
     var NpmModules: {

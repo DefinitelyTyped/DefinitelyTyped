@@ -88,7 +88,7 @@ declare namespace React {
     interface RefObject<T> {
         readonly current: T | null;
     }
-    type RefCallback<T> = { bivarianceHack(instance: T | null): void }["bivarianceHack"];
+    type RefCallback<T> = (instance: T | null) => void;
     type Ref<T> = RefCallback<T> | RefObject<T> | null;
     type LegacyRef<T> = string | Ref<T>;
     /**
@@ -395,9 +395,12 @@ declare namespace React {
     interface SuspenseProps {
         children?: ReactNode | undefined;
 
+        // TODO(react18): `fallback?: ReactNode;`
         /** A fallback react tree to show when a Suspense child (like React.lazy) suspends */
         fallback: NonNullable<ReactNode>|null;
     }
+
+    // TODO(react18): Updated JSDoc to reflect that Suspense works on the server.
     /**
      * This feature is not yet available for server-side rendering.
      * Suspense support will be added in a later release.
@@ -836,7 +839,7 @@ declare namespace React {
                 ? JSX.IntrinsicElements[T]
                 : {};
     type ComponentPropsWithRef<T extends ElementType> =
-        T extends ComponentClass<infer P>
+        T extends (new (props: infer P) => Component<any, any>)
             ? PropsWithoutRef<P> & RefAttributes<InstanceType<T>>
             : PropsWithRef<ComponentProps<T>>;
     type ComponentPropsWithoutRef<T extends ElementType> =
@@ -1109,18 +1112,6 @@ declare namespace React {
     function useCallback<T extends (...args: any[]) => any>(callback: T, deps: DependencyList): T;
     /**
      * `useMemo` will only recompute the memoized value when one of the `deps` has changed.
-     *
-     * Usage note: if calling `useMemo` with a referentially stable function, also give it as the input in
-     * the second argument.
-     *
-     * ```ts
-     * function expensive () { ... }
-     *
-     * function Component () {
-     *   const expensiveResult = useMemo(expensive, [expensive])
-     *   return ...
-     * }
-     * ```
      *
      * @version 16.8.0
      * @see https://reactjs.org/docs/hooks-reference.html#usememo
@@ -1403,7 +1394,9 @@ declare namespace React {
         // Keyboard Events
         onKeyDown?: KeyboardEventHandler<T> | undefined;
         onKeyDownCapture?: KeyboardEventHandler<T> | undefined;
+        /** @deprecated */
         onKeyPress?: KeyboardEventHandler<T> | undefined;
+        /** @deprecated */
         onKeyPressCapture?: KeyboardEventHandler<T> | undefined;
         onKeyUp?: KeyboardEventHandler<T> | undefined;
         onKeyUpCapture?: KeyboardEventHandler<T> | undefined;

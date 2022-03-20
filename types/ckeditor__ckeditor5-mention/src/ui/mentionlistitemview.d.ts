@@ -1,7 +1,7 @@
-import { ListItemView } from '@ckeditor/ckeditor5-ui';
+import { ButtonView, ListItemView } from '@ckeditor/ckeditor5-ui';
+import DomWrapperView from './domwrapperview';
 
-export default class MentionListItemView extends ListItemView<MentionListItemView> {
-    isOn: boolean;
+export default class MentionListItemView extends ListItemView<ButtonView | DomWrapperView> {
     highlight(): void;
     removeHighlight(): void;
 }

@@ -1,17 +1,29 @@
 import * as Constants from "./Constants";
-import Layers from "./collections/Layers";
-import HistoryStates from "./collections/HistoryStates";
-import HistoryState from "./HistoryState";
+import { Layers } from "./collections/Layers";
+import { Guides } from "./collections/Guides";
+import { HistoryStates } from "./collections/HistoryStates";
+import { Channels } from "./collections/Channels";
+import { Channel } from "./Channel";
+import { HistoryState } from "./HistoryState";
 import { Bounds } from "./objects/Bounds";
+import { BitmapConversionOptions, IndexedConversionOptions } from "./objects/ConversionOptions";
 import { JPEGSaveOptions, GIFSaveOptions, PNGSaveOptions, BMPSaveOptions, PhotoshopSaveOptions } from "./Objects";
 import { LayerCreateOptions, GroupLayerCreateOptions } from "./objects/CreateOptions";
-import Layer from "./Layer";
+import { Layer } from "./Layer";
+import { ExecutionContext } from "./CoreModules";
 /** @ignore */
 export declare function validateDocument(d: Document): void;
 /**
  * @ignore
  */
 export declare function PSDocument(id: number): Document;
+/**
+ * Execution Context with the Document injected for modal execution within Document.suspendHistory
+ * @ignore
+ */
+export interface SuspendHistoryContext extends ExecutionContext {
+    document: Document;
+}
 /**
  * Represents a single Photoshop document that is currently open
  * You can access instances of documents using one of these methods:
@@ -28,12 +40,20 @@ export declare function PSDocument(id: number): Document;
  * const newDocument = await app.open('/project.psd')
  * ```
  */
-export default class Document {
+export declare class Document {
+    /**
+     * The class name of the referenced Document object
+     */
+    get typename(): string;
     /**
      * The internal ID of this document, valid as long as this document is open
      * Can be used for batchPlay calls to refer to this document, used internally
      */
     get id(): number;
+    /**
+     * True if the document has been saved since the last change.
+     */
+    get saved(): boolean;
     /**
      * The selected layers in the document
      */
@@ -42,6 +62,41 @@ export default class Document {
      * The artboards in the document
      */
     get artboards(): Layers;
+    /**
+     * The name of the document
+     */
+    get name(): string;
+    /**
+     * A histogram containing the number of pixels at each color
+     * intensity level for the composite channel. The array contains 256
+     * members.
+     *
+     * Valid only when [[mode]] = `DocumentMode.{RGB,CMYK,INDEXEDCOLOR}`
+     */
+    get histogram(): number[];
+    /**
+     * The state of Quick Mask mode. If true, the app is in Quick Mask mode.
+     */
+    get quickMaskMode(): boolean;
+    set quickMaskMode(qmMode: boolean);
+    get guides(): Guides;
+    /**
+     * The color profile. To change it, please use [[Document.changeMode]]
+     */
+    get mode(): Constants.DocumentMode;
+    /**
+     * The bits per color channel.
+     */
+    get bitsPerChannel(): Constants.BitsPerChannelType;
+    set bitsPerChannel(bitDepth: Constants.BitsPerChannelType);
+    /**
+     * This document is in the Adobe Creative Cloud.
+     */
+    get cloudDocument(): boolean;
+    /**
+     * Local directory for this cloud document.
+     */
+    get cloudWorkAreaDirectory(): string;
     /**
      * All the layers in the document at the top level
      */
@@ -93,6 +148,18 @@ export default class Document {
     get pixelAspectRatio(): number;
     set pixelAspectRatio(newValue: number);
     /**
+     * Name of the color profile.
+     *
+     * Valid only when [[colorProfileType]] is `CUSTOM` or `WORKING`, returns "None" otherwise
+     */
+    get colorProfileName(): string;
+    set colorProfileName(profile: string);
+    /**
+     * Whether the document uses the working color profile, a custom profile, or no profile.
+     */
+    get colorProfileType(): Constants.ColorProfileType;
+    set colorProfileType(type: Constants.ColorProfileType);
+    /**
      * @ignore
      */
     constructor(id: number);
@@ -106,22 +173,74 @@ export default class Document {
      * @async
      */
     close(saveDialogOptions?: Constants.SaveOptions): Promise<void>;
+    /**
+     * Close the document, reverting all unsaved changes.
+     */
     closeWithoutSaving(): void;
     /**
      * Crops the document to given bounds
+     *
      * @async
      */
-    crop(bounds: Bounds, angle?: number): Promise<void>;
+    crop(bounds: Bounds, angle?: number, width?: number, height?: number): Promise<void>;
     /**
      * Flatten all layers in the document
      * @async
      */
     flatten(): Promise<void>;
     /**
-     * Flattens all visible layers in the document
+     * Creates a duplicate of the document, making the duplicate active.
+     *
+     * The optional parameter `name` provides the name for the duplicated document.
+     *
+     * The optional parameter `mergeLayersOnly` indicates whether to only duplicate merged layers.
+     */
+    duplicate(name?: string, mergeLayersOnly?: boolean): Promise<Document>;
+    /**
+     * Merges all visible layers in the document into a single layer.
      * @async
      */
     mergeVisibleLayers(): Promise<void>;
+    /**
+     * Splits the document channels into separate, single-channel
+     * documents.
+     * @async
+     */
+    splitChannels(): Promise<Document[]>;
+    /**
+     * Expands the document to show clipped sections.
+     * @async
+     */
+    revealAll(): Promise<void>;
+    /**
+     * Rasterizes all layers.
+     * @async
+     */
+    rasterizeAllLayers(): Promise<void>;
+    /**
+     * Changes the color profile of the document
+     * @async
+     */
+    changeMode(mode: Constants.ChangeMode, options?: BitmapConversionOptions | IndexedConversionOptions): Promise<void>;
+    /**
+     * Changes the color profile.
+     *
+     * `destinationProfile` must be either a string that names the color mode,
+     * or one of these below, meaning of the working color spaces or Lab color.
+     *
+     * `"Working RGB", "Working CMYK", "Working Gray", "Lab Color"`
+     *
+     * @async
+     */
+    convertProfile(destinationProfile: string, intent: Constants.Intent, blackPointCompensation?: boolean, dither?: boolean): Promise<void>;
+    /**
+     * Applies trapping to a CMYK document.
+     *
+     * Valid only when [[Document.mode]] is `Constants.DocumentMode.CMYK`
+     *
+     * @async
+     */
+    trap(width: number): Promise<void>;
     /**
      * Changes the size of the canvas, but does not change image size
      * To change the image size, see [[resizeImage]]
@@ -150,17 +269,39 @@ export default class Document {
      * @param height Numeric value of new height in pixels
      * @param resolution Image resolution in pixels per inch (ppi)
      * @param resampleMethod Method used during image interpolation.
+     * @param amount Numeric value that controls the amount of noise value when using preserve details 0..100
      *
      * @async
      */
-    resizeImage(width: number, height: number, resolution?: number, resampleMethod?: Constants.ResampleMethod): Promise<void>;
+    resizeImage(width?: number, height?: number, resolution?: number, resampleMethod?: Constants.ResampleMethod, amount?: number): Promise<void>;
     /**
-     * Rotates the image clockwise in given angle, expanding canvas if necessary
+     * Trims the transparent area around the image on the specified sides of the canvas
+     * base on trimType
+     *
+     * @param trimType
+     * @param top
+     * @param left
+     * @param bottom
+     * @param right
+     *
+     * @async
+     */
+    trim(trimType: Constants.TrimType, top?: boolean, left?: boolean, bottom?: boolean, right?: boolean): Promise<void>;
+    /**
+     * Rotates the image clockwise in given angle, expanding canvas if necessary. (Previously rotateCanvas)
      * @param angle
      *
      * @async
      */
     rotate(angles: number): Promise<void>;
+    /**
+     * Pastes the contents of the clipboard into the document. If the optional argument is
+     * set to true and a selection is active, the contents are pasted into the selection.
+     * @param intoSelection
+     *
+     * @async
+     */
+    paste(intoSelection?: boolean): Promise<Layer | null>;
     /**
      * Performs a save of the document. The user will be presented with
      * a Save dialog if the file has yet to be saved on disk.
@@ -279,7 +420,7 @@ export default class Document {
      */
     createLayer(options?: LayerCreateOptions): Promise<Layer | null>;
     /**
-     * Create a layer group. See @CreateOptions
+     * Create a layer group. See [[GroupLayerCreateOptions]]
      * ```javascript
      * const myEmptyGroup = await doc.createLayerGroup()
      * const myGroup = await doc.createLayerGroup({ name: "myLayer", opacity: 80, mode: "colorDodge" })
@@ -297,4 +438,39 @@ export default class Document {
      * @async
      */
     groupLayers(layers: Layer[]): Promise<Layer | null>;
+    /**
+     * Creates a single history state encapsulating everything that is done
+     * in the callback, only for this document. All changes to the document should
+     * be done in this callback.
+     *
+     * Note: If you make changes to any other document, those changes will
+     * not be suspended in the same history state.
+     *
+     * The callback is passed in a SuspendHistoryContext object,
+     * which contains the current document in a variable `document`.
+     *
+     * For more info and advanced context, see [`core.executeAsModal`](../media/executeAsModal)
+     * API, for which this API is a simple wrapper for.
+     *
+     * ```javascript
+     *    require("photoshop").app.activeDocument.suspendHistory(async (context) => {
+     *        // context.document is the `app.activeDocument`
+     *        context.document.activeLayers[0].name = "Changed name";
+     *    });
+     * ```
+     */
+    suspendHistory(callback: (e: SuspendHistoryContext) => void, historyStateName: string): Promise<any>;
+    /**
+     * All channels in the document.
+     */
+    get channels(): Channels;
+    /**
+     * Composite channels in the document.
+     */
+    get compositeChannels(): Channel[];
+    /**
+     * Currently active channels of the document
+     */
+    get activeChannels(): Channel[];
+    set activeChannels(channels: Channel[]);
 }

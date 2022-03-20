@@ -38,14 +38,13 @@ declare module '../../index' {
          *   colorMode(). The default mode is RGB values from 0
          *   to 255 and, therefore, the function call
          *   color(255, 204, 0) will return a bright yellow
-         *   color.  Note that if only one value is provided to
+         *   color. Note that if only one value is provided to
          *   color(), it will be interpreted as a grayscale
          *   value. Add a second value, and it will be used for
          *   alpha transparency. When three values are
          *   specified, they are interpreted as either RGB or
          *   HSB values. Adding a fourth value applies alpha
          *   transparency.
-         *
          *
          *   If a single string argument is provided, RGB, RGBA
          *   and Hex CSS color strings and all named color
@@ -67,14 +66,13 @@ declare module '../../index' {
          *   colorMode(). The default mode is RGB values from 0
          *   to 255 and, therefore, the function call
          *   color(255, 204, 0) will return a bright yellow
-         *   color.  Note that if only one value is provided to
+         *   color. Note that if only one value is provided to
          *   color(), it will be interpreted as a grayscale
          *   value. Add a second value, and it will be used for
          *   alpha transparency. When three values are
          *   specified, they are interpreted as either RGB or
          *   HSB values. Adding a fourth value applies alpha
          *   transparency.
-         *
          *
          *   If a single string argument is provided, RGB, RGBA
          *   and Hex CSS color strings and all named color
@@ -99,14 +97,13 @@ declare module '../../index' {
          *   colorMode(). The default mode is RGB values from 0
          *   to 255 and, therefore, the function call
          *   color(255, 204, 0) will return a bright yellow
-         *   color.  Note that if only one value is provided to
+         *   color. Note that if only one value is provided to
          *   color(), it will be interpreted as a grayscale
          *   value. Add a second value, and it will be used for
          *   alpha transparency. When three values are
          *   specified, they are interpreted as either RGB or
          *   HSB values. Adding a fourth value applies alpha
          *   transparency.
-         *
          *
          *   If a single string argument is provided, RGB, RGBA
          *   and Hex CSS color strings and all named color
@@ -124,14 +121,13 @@ declare module '../../index' {
          *   colorMode(). The default mode is RGB values from 0
          *   to 255 and, therefore, the function call
          *   color(255, 204, 0) will return a bright yellow
-         *   color.  Note that if only one value is provided to
+         *   color. Note that if only one value is provided to
          *   color(), it will be interpreted as a grayscale
          *   value. Add a second value, and it will be used for
          *   alpha transparency. When three values are
          *   specified, they are interpreted as either RGB or
          *   HSB values. Adding a fourth value applies alpha
          *   transparency.
-         *
          *
          *   If a single string argument is provided, RGB, RGBA
          *   and Hex CSS color strings and all named color
@@ -150,14 +146,13 @@ declare module '../../index' {
          *   colorMode(). The default mode is RGB values from 0
          *   to 255 and, therefore, the function call
          *   color(255, 204, 0) will return a bright yellow
-         *   color.  Note that if only one value is provided to
+         *   color. Note that if only one value is provided to
          *   color(), it will be interpreted as a grayscale
          *   value. Add a second value, and it will be used for
          *   alpha transparency. When three values are
          *   specified, they are interpreted as either RGB or
          *   HSB values. Adding a fourth value applies alpha
          *   transparency.
-         *
          *
          *   If a single string argument is provided, RGB, RGBA
          *   and Hex CSS color strings and all named color
@@ -195,16 +190,16 @@ declare module '../../index' {
         /**
          *   Blends two colors to find a third color somewhere
          *   between them. The amt parameter is the amount to
-         *   interpolate between the two values where 0.0 equal
-         *   to the first color, 0.1 is very near the first
-         *   color, 0.5 is halfway in between, etc. An amount
-         *   below 0 will be treated as 0. Likewise, amounts
-         *   above 1 will be capped at 1. This is different
-         *   from the behavior of lerp(), but necessary because
-         *   otherwise numbers outside the range will produce
-         *   strange and unexpected colors.  The way that
-         *   colours are interpolated depends on the current
-         *   color mode.
+         *   interpolate between the two values where 0.0 is
+         *   equal to the first color, 0.1 is very near the
+         *   first color, 0.5 is halfway in between, etc. An
+         *   amount below 0 will be treated as 0. Likewise,
+         *   amounts above 1 will be capped at 1. This is
+         *   different from the behavior of lerp(), but
+         *   necessary because otherwise numbers outside the
+         *   range will produce strange and unexpected colors.
+         *   The way that colors are interpolated depends on
+         *   the current color mode.
          *   @param c1 interpolate from this color
          *   @param c2 interpolate to this color
          *   @param amt number between 0 and 1

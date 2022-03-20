@@ -1,4 +1,4 @@
-// Type definitions for Kendo UI Professional v2021.3.914
+// Type definitions for Kendo UI Professional v2022.1.301
 // Project: http://www.telerik.com/kendo-ui
 // Definitions by: Telerik <https://github.com/telerik>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -1005,6 +1005,76 @@ declare namespace kendo.data {
         schemaLevels(): JQueryPromise<any>;
         schemaMeasures(): JQueryPromise<any>;
     }
+
+    class PivotDataSourceV2 extends Observable {
+
+
+        options: PivotDataSourceV2Options;
+
+
+        constructor(options?: PivotDataSourceV2Options);
+
+
+        axes(): any;
+        catalog(): string;
+        catalog(name: string): void;
+        columns(): any;
+        columns(val: any): void;
+        cube(): string;
+        cube(name: string): void;
+        discover(options: string): any;
+        measures(): any;
+        measures(val: any): void;
+        measuresAxis(): string;
+        rows(): any;
+        rows(val: any): void;
+        schemaCatalogs(): any;
+        schemaCubes(): any;
+        schemaDimensions(): any;
+        schemaHierarchies(dimensionName: string): any;
+        schemaLevels(hierarchyName: string): any;
+        schemaMeasures(): any;
+
+    }
+
+    interface PivotDataSourceV2Column {
+        expand?: boolean;
+        name?: string;
+    }
+
+    interface PivotDataSourceV2Measure {
+        values?: any;
+        axis?: string;
+    }
+
+    interface PivotDataSourceV2Row {
+        expand?: boolean;
+        name?: string;
+    }
+
+    interface PivotDataSourceV2TransportConnection {
+        catalog?: string;
+        cube?: string;
+    }
+
+    interface PivotDataSourceV2Transport {
+        discover?: any|string|Function;
+        connection?: PivotDataSourceV2TransportConnection;
+    }
+
+    interface PivotDataSourceV2Options {
+        name?: string | undefined;
+        columns?: PivotDataSourceV2Column[] | undefined;
+        measures?: PivotDataSourceV2Measure[] | undefined;
+        rows?: PivotDataSourceV2Row[] | undefined;
+        transport?: PivotDataSourceV2Transport | undefined;
+    }
+    interface PivotDataSourceV2Event {
+        sender: PivotDataSourceV2;
+        preventDefault: Function;
+        isDefaultPrevented(): boolean;
+    }
+
 
     interface DataSourceTransport {
         create?: string | DataSourceTransportCreate | ((options: DataSourceTransportOptions) => void) | undefined;
@@ -2215,6 +2285,7 @@ declare namespace kendo.ui {
         delay?: number | undefined;
         enable?: boolean | undefined;
         enforceMinLength?: boolean | undefined;
+        fillMode?: string | undefined;
         filter?: string | undefined;
         fixedGroupTemplate?: string|Function | undefined;
         footerTemplate?: string|Function | undefined;
@@ -2226,6 +2297,8 @@ declare namespace kendo.ui {
         noDataTemplate?: string|Function|boolean | undefined;
         placeholder?: string | undefined;
         popup?: any;
+        rounded?: string | undefined;
+        size?: string | undefined;
         separator?: string|any | undefined;
         suggest?: boolean | undefined;
         headerTemplate?: string|Function | undefined;
@@ -2265,6 +2338,33 @@ declare namespace kendo.ui {
     interface AutoCompleteSelectEvent extends AutoCompleteEvent {
         dataItem?: any;
         item?: JQuery | undefined;
+    }
+
+    class Avatar extends kendo.ui.Widget {
+        static fn: Avatar;
+
+        options: AvatarOptions;
+        element: JQuery;
+        wrapper: JQuery;
+
+        static extend(proto: Object): Avatar;
+
+        constructor(element: Element, options?: AvatarOptions);
+    }
+
+    interface AvatarOptions {
+        name?: string | undefined;
+        alt?: string | undefined;
+        border?: boolean | undefined;
+        className?: string | undefined;
+        fillMode?: string | undefined;
+        icon?: string | undefined;
+        image?: string | undefined;
+        rounded?: string | undefined;
+        size?: string | undefined;
+        style?: any | undefined;
+        text?: string | undefined;
+        type?: string | undefined;
     }
 
     class Badge extends kendo.ui.Widget {
@@ -2470,13 +2570,35 @@ declare namespace kendo.ui {
 
     interface ButtonOptions {
         name?: string | undefined;
+        badge?: ButtonBadge | undefined;
         enable?: boolean | undefined;
+        fillMode?: string | undefined;
         icon?: string | undefined;
         iconClass?: string | undefined;
         imageUrl?: string | undefined;
+        rounded?: string | undefined;
+        shape?: string | undefined;
+        size?: string | undefined;
         spriteCssClass?: string | undefined;
+        themeColor?: string | undefined;
         click?(e: ButtonClickEvent): void;
     }
+
+    interface ButtonBadge {
+        align?: string | undefined;
+        cutoutBorder?: boolean | undefined;
+        fill?: string | undefined;
+        icon?: string | undefined;
+        max?: number | undefined;
+        position?: string | undefined;
+        shape?: string | undefined;
+        size?: string | undefined;
+        template?: string | Function | undefined;
+        text?: string | number | undefined;
+        themeColor?: string | undefined;
+        visible?: boolean | undefined;
+    }
+
     interface ButtonEvent {
         sender: Button;
         preventDefault: Function;
@@ -2575,7 +2697,8 @@ declare namespace kendo.ui {
         navigateToFuture(): void;
         navigateToPast(): void;
         navigateUp(): void;
-        selectDates(): void;
+        selectDates(): any;
+        selectDates(dates: any): void;
         value(): Date;
         value(value: Date): void;
         value(value: string): void;
@@ -2652,19 +2775,19 @@ declare namespace kendo.ui {
     }
 
     interface CaptchaOptions {
-        name?: string;
-        audioButton?: boolean;
+        name?: string | undefined;
+        audioButton?: boolean | undefined;
         audioHandler?: string|Function|any;
-        captcha?: string;
-        captchaId?: string;
-        dataCaptchaField?: string;
-        dataCaptchaIdField?: string;
+        captcha?: string | undefined;
+        captchaId?: string | undefined;
+        dataCaptchaField?: string | undefined;
+        dataCaptchaIdField?: string | undefined;
         handler?: string|Function|any;
-        messages?: CaptchaMessages;
-        resetButton?: boolean;
-        validateOnBlur?: boolean;
+        messages?: CaptchaMessages | undefined;
+        resetButton?: boolean | undefined;
+        validateOnBlur?: boolean | undefined;
         validationHandler?: string|Function|any;
-        volumeControl?: boolean;
+        volumeControl?: boolean | undefined;
         change?(e: CaptchaChangeEvent): void;
         requestEnd?(e: CaptchaRequestEndEvent): void;
         requestStart?(e: CaptchaRequestStartEvent): void;
@@ -2721,6 +2844,7 @@ declare namespace kendo.ui {
     }
 
     interface ChatMessages {
+        messageListLabel?: string | undefined;
         placeholder?: string | undefined;
         sendButton?: string | undefined;
         toggleButton?: string | undefined;
@@ -2799,6 +2923,45 @@ declare namespace kendo.ui {
     interface ChatTypingStartEvent extends ChatEvent {
     }
 
+    class CheckBox extends kendo.ui.Widget {
+        static fn: CheckBox;
+
+        options: CheckBoxOptions;
+        element: JQuery;
+        wrapper: JQuery;
+
+        static extend(proto: Object): CheckBox;
+
+        constructor(element: Element, options?: CheckBoxOptions);
+
+        check(): boolean;
+        check(check: boolean): void;
+        toggle(): void;
+        destroy(): void;
+        enable(enable: boolean): void;
+    }
+
+    interface CheckBoxOptions {
+        name?: string | undefined;
+        checked?: boolean | undefined;
+        enabled?: boolean | undefined;
+        encoded?: boolean | undefined;
+        label?: string | undefined;
+        rounded?: string | undefined;
+        size?: string | undefined;
+        value?: string | undefined;
+        change?(e: CheckBoxChangeEvent): void;
+    }
+    interface CheckBoxEvent {
+        sender: CheckBox;
+        preventDefault: Function;
+        isDefaultPrevented(): boolean;
+    }
+
+    interface CheckBoxChangeEvent extends CheckBoxEvent {
+        checked?: any;
+    }
+
     class CheckBoxGroup extends kendo.ui.Widget {
 
         static fn: CheckBoxGroup;
@@ -2837,6 +3000,8 @@ declare namespace kendo.ui {
         name?: string | undefined;
         enabled?: boolean | undefined;
         inputName?: string | undefined;
+        inputRounded?: string | undefined;
+        inputSize?: string | undefined;
         items?: CheckBoxGroupItem[] | undefined;
         labelPosition?: string | undefined;
         layout?: string | undefined;
@@ -2861,6 +3026,116 @@ declare namespace kendo.ui {
 
     interface CheckBoxGroupSelectEvent extends CheckBoxGroupEvent {
         target?: JQuery | undefined;
+    }
+
+    class CircularProgressBar extends kendo.ui.Widget {
+
+        static fn: CircularProgressBar;
+
+        options: CircularProgressBarOptions;
+
+
+        element: JQuery;
+        wrapper: JQuery;
+
+        static extend(proto: Object): CircularProgressBar;
+
+        constructor(element: Element, options?: CircularProgressBarOptions);
+
+
+        redraw(): void;
+        resize(): void;
+        setOptions(options: any): void;
+        value(): number;
+        value(value: number): void;
+    }
+
+    interface CircularProgressBarColor {
+        color?: string;
+        from?: number | undefined;
+        to?: number;
+    }
+
+    interface CircularProgressBarOptions {
+        name?: string | undefined;
+        ariaRole?: boolean | undefined;
+        label?: string | undefined;
+        labelId?: string | undefined;
+        centerTemplate?: string|Function | undefined;
+        color?: string | undefined;
+        colors?: CircularProgressBarColor[] | undefined;
+        opacity?: number | undefined;
+        theme?: string | undefined;
+        transitions?: boolean | undefined;
+        indeterminate?: boolean | undefined;
+        pointerWidth?: number | undefined;
+        value?: number | undefined;
+    }
+    interface CircularProgressBarEvent {
+        sender: CircularProgressBar;
+        preventDefault: Function;
+        isDefaultPrevented(): boolean;
+    }
+
+    class ColorGradient extends kendo.ui.Widget {
+
+        static fn: ColorGradient;
+
+        options: ColorGradientOptions;
+
+
+        element: JQuery;
+        wrapper: JQuery;
+
+        static extend(proto: Object): ColorGradient;
+
+        constructor(element: Element, options?: ColorGradientOptions);
+
+
+        focus(): void;
+        value(): string;
+        value(color?: string): void;
+        color(): kendo.Color;
+        color(color?: kendo.Color): void;
+        enable(enable?: boolean): void;
+
+    }
+
+    interface ColorGradientContrastTool {
+        backgroundColor?: string|kendo.Color;
+    }
+
+    interface ColorGradientMessages {
+        contrastRatio?: string | undefined;
+        fail?: string | undefined;
+        pass?: string;
+        gradient?: string | undefined;
+        palette?: string | undefined;
+        toggleFormat?: string | undefined;
+        red?: string | undefined;
+        green?: string | undefined;
+        blue?: string | undefined;
+        hex?: string | undefined;
+    }
+
+    interface ColorGradientOptions {
+        name?: string | undefined;
+        opacity?: boolean | undefined;
+        contrastTool?: boolean | ColorGradientContrastTool | undefined;
+        format?: string | undefined;
+        formats?: any | undefined;
+        value?: string|kendo.Color | undefined;
+        messages?: ColorGradientMessages | undefined;
+        change?(e: ColorGradientChangeEvent): void;
+    }
+    interface ColorGradientEvent {
+        sender: ColorGradient;
+        preventDefault: Function;
+        isDefaultPrevented(): boolean;
+    }
+
+    interface ColorGradientChangeEvent extends ColorGradientEvent {
+        value?: string | undefined;
     }
 
     class ColorPalette extends kendo.ui.Widget {
@@ -2929,32 +3204,57 @@ declare namespace kendo.ui {
         color(): kendo.Color;
         color(color?: kendo.Color): void;
         enable(enable?: boolean): void;
+        setBackgroundColor(color: string): void;
+        setBackgroundColor(color: kendo.Color): void;
 
+    }
+
+    interface ColorPickerContrastTool {
+        backgroundColor?: string|kendo.Color;
     }
 
     interface ColorPickerMessages {
-        apply?: string | undefined;
-        cancel?: string | undefined;
-        previewInput?: string | undefined;
+        apply?: string;
+        cancel?: string;
+        clearColor?: string;
+        previewInput?: string;
+        contrastRatio?: string;
+        fail?: string;
+        pass?: string;
+        gradient?: string;
+        palette?: string;
+        toggleFormat?: string;
+        red?: string;
+        green?: string;
+        blue?: string;
+        hex?: string;
     }
 
     interface ColorPickerTileSize {
-        width?: number | undefined;
-        height?: number | undefined;
+        width?: number;
+        height?: number;
     }
 
     interface ColorPickerOptions {
         name?: string | undefined;
         buttons?: boolean | undefined;
+        contrastTool?: boolean | ColorPickerContrastTool | undefined;
         clearButton?: boolean | undefined;
         columns?: number | undefined;
+        format?: string | undefined;
+        formats?: any;
         tileSize?: ColorPickerTileSize | undefined;
         messages?: ColorPickerMessages | undefined;
-        palette?: string|any | undefined;
+        palette?: string|any;
         opacity?: boolean | undefined;
         preview?: boolean | undefined;
         toolIcon?: string | undefined;
-        value?: string | undefined;
+        value?: string|kendo.Color | undefined;
+        view?: string | undefined;
+        views?: any;
+        fillMode?: string | undefined;
+        rounded?: string | undefined;
+        size?: string | undefined;
         change?(e: ColorPickerChangeEvent): void;
         select?(e: ColorPickerSelectEvent): void;
         open?(e: ColorPickerEvent): void;
@@ -2967,11 +3267,11 @@ declare namespace kendo.ui {
     }
 
     interface ColorPickerChangeEvent extends ColorPickerEvent {
-        value?: string | undefined;
+        value?: string;
     }
 
     interface ColorPickerSelectEvent extends ColorPickerEvent {
-        value?: string | undefined;
+        value?: string;
     }
 
 
@@ -3060,6 +3360,7 @@ declare namespace kendo.ui {
         delay?: number | undefined;
         enable?: boolean | undefined;
         enforceMinLength?: boolean | undefined;
+        fillMode?: string | undefined;
         filter?: string | undefined;
         fixedGroupTemplate?: string|Function | undefined;
         footerTemplate?: string|Function | undefined;
@@ -3072,6 +3373,8 @@ declare namespace kendo.ui {
         noDataTemplate?: string|Function|boolean | undefined;
         placeholder?: string | undefined;
         popup?: ComboBoxPopup | undefined;
+        rounded?: string | undefined;
+        size?: string | undefined;
         suggest?: boolean | undefined;
         syncValueAndText?: boolean | undefined;
         headerTemplate?: string|Function | undefined;
@@ -3325,11 +3628,14 @@ declare namespace kendo.ui {
 
     interface DateInputOptions {
         name?: string | undefined;
+        fillMode?: string | undefined;
         format?: string | undefined;
         max?: Date | undefined;
         min?: Date | undefined;
         value?: Date | undefined;
         messages?: DateInputMessages | undefined;
+        rounded?: string | undefined;
+        size?: string | undefined;
         change?(e: DateInputChangeEvent): void;
     }
     interface DateInputEvent {
@@ -3396,22 +3702,31 @@ declare namespace kendo.ui {
         empty?: string | undefined;
     }
 
+    interface DatePickerMessages {
+        weekColumnHeader?: string;
+    }
+
     interface DatePickerOptions {
         name?: string | undefined;
         animation?: boolean | DatePickerAnimation | undefined;
         ARIATemplate?: string | undefined;
+        componentType?: string | undefined;
         culture?: string | undefined;
         dateInput?: boolean | undefined;
         dates?: any;
         depth?: string | undefined;
         disableDates?: any|Function | undefined;
         footer?: boolean|string|Function | undefined;
+        fillMode?: string | undefined;
         format?: string | undefined;
         max?: Date | undefined;
+        messages?: DatePickerMessages | undefined;
         min?: Date | undefined;
         month?: DatePickerMonth | undefined;
         weekNumber?: boolean | undefined;
         parseFormats?: any;
+        rounded?: string | undefined;
+        size?: string | undefined;
         start?: string | undefined;
         value?: Date | undefined;
         change?(e: DatePickerChangeEvent): void;
@@ -3488,6 +3803,7 @@ declare namespace kendo.ui {
         dates?: any;
         depth?: string | undefined;
         disableDates?: any|Function | undefined;
+        fillMode?: string | undefined;
         footer?: string|Function | undefined;
         format?: string | undefined;
         max?: Date | undefined;
@@ -3497,6 +3813,8 @@ declare namespace kendo.ui {
         labels?: boolean | undefined;
         weekNumber?: boolean | undefined;
         range?: DateRangePickerRange | undefined;
+        rounded?: string | undefined;
+        size?: string | undefined;
         start?: string | undefined;
         change?(e: DateRangePickerChangeEvent): void;
         close?(e: DateRangePickerCloseEvent): void;
@@ -3572,6 +3890,10 @@ declare namespace kendo.ui {
         empty?: string | undefined;
     }
 
+    interface DateTimePickerMessages {
+        weekColumnHeader?: string;
+    }
+
     interface DateTimePickerOptions {
         name?: string | undefined;
         animation?: boolean | DateTimePickerAnimation | undefined;
@@ -3581,14 +3903,18 @@ declare namespace kendo.ui {
         dates?: any;
         depth?: string | undefined;
         disableDates?: any|Function | undefined;
+        fillMode?: string | undefined;
         footer?: boolean|string|Function | undefined;
         format?: string | undefined;
         interval?: number | undefined;
         max?: Date | undefined;
+        messages?: DateTimePickerMessages | undefined;
         min?: Date | undefined;
         month?: DateTimePickerMonth | undefined;
         weekNumber?: boolean | undefined;
         parseFormats?: any;
+        rounded?: string | undefined;
+        size?: string | undefined;
         start?: string | undefined;
         timeFormat?: string | undefined;
         value?: Date | undefined;
@@ -3838,6 +4164,7 @@ declare namespace kendo.ui {
         delay?: number | undefined;
         enable?: boolean | undefined;
         enforceMinLength?: boolean | undefined;
+        fillMode?: string | undefined;
         filter?: string | undefined;
         fixedGroupTemplate?: string|Function | undefined;
         footerTemplate?: string|Function | undefined;
@@ -3851,6 +4178,8 @@ declare namespace kendo.ui {
         popup?: DropDownListPopup | undefined;
         optionLabel?: string|any | undefined;
         optionLabelTemplate?: string|Function | undefined;
+        rounded?: string | undefined;
+        size?: string | undefined;
         headerTemplate?: string|Function | undefined;
         template?: string|Function | undefined;
         valueTemplate?: string|Function | undefined;
@@ -3987,6 +4316,8 @@ declare namespace kendo.ui {
         enable?: boolean | undefined;
         enforceMinLength?: boolean | undefined;
         filter?: string | undefined;
+        filterLabel?: string | undefined;
+        fillMode?: string | undefined;
         footerTemplate?: string|Function | undefined;
         height?: string|number | undefined;
         ignoreCase?: boolean | undefined;
@@ -3996,6 +4327,7 @@ declare namespace kendo.ui {
         noDataTemplate?: string|Function|boolean | undefined;
         placeholder?: string | undefined;
         popup?: DropDownTreePopup | undefined;
+        rounded?: string | undefined;
         headerTemplate?: string|Function | undefined;
         valueTemplate?: string|Function | undefined;
         tagMode?: string | undefined;
@@ -4003,6 +4335,7 @@ declare namespace kendo.ui {
         text?: string | undefined;
         value?: string|any | undefined;
         valuePrimitive?: boolean | undefined;
+        size?: string | undefined;
         change?(e: DropDownTreeChangeEvent): void;
         close?(e: DropDownTreeCloseEvent): void;
         dataBound?(e: DropDownTreeDataBoundEvent): void;
@@ -4346,6 +4679,8 @@ declare namespace kendo.ui {
         wrapText?: string | undefined;
         copyFormat?: string | undefined;
         applyFormat?: string | undefined;
+        undo?: string | undefined;
+        redo?: string | undefined;
     }
 
     interface EditorPasteCleanup {
@@ -4653,6 +4988,7 @@ declare namespace kendo.ui {
         dateModifiedField?: string | undefined;
         dateCreatedField?: string | undefined;
         items?: string | undefined;
+        listViewLabel?: string | undefined;
     }
 
     interface FileManagerMessages {
@@ -4967,16 +5303,34 @@ declare namespace kendo.ui {
 
     }
 
+    interface FlatColorPickerContrastTool {
+        backgroundColor?: string|kendo.Color;
+    }
+
     interface FlatColorPickerMessages {
         apply?: string | undefined;
         cancel?: string | undefined;
+        contrastRatio?: string | undefined;
+        clearColor?: string;
+        fail?: string | undefined;
+        pass?: string | undefined;
+        gradient?: string | undefined;
+        palette?: string | undefined;
+        toggleFormat?: string | undefined;
+        red?: string | undefined;
+        green?: string | undefined;
+        blue?: string | undefined;
+        hex?: string | undefined;
     }
 
     interface FlatColorPickerOptions {
         name?: string | undefined;
         opacity?: boolean | undefined;
         buttons?: boolean | undefined;
-        value?: string | undefined;
+        contrastTool?: boolean | FlatColorPickerContrastTool | undefined;
+        format?: string | undefined;
+        formats?: any | undefined;
+        value?: string|kendo.Color | undefined;
         preview?: boolean | undefined;
         autoupdate?: boolean | undefined;
         messages?: FlatColorPickerMessages | undefined;
@@ -5021,45 +5375,17 @@ declare namespace kendo.ui {
         y?: number | undefined;
     }
 
-    enum FloatingActionButtonPositionMode {
-        fixed,
-        absolute,
-    }
-
-    enum FloatingActionButtonShape {
-        rounded,
-        pill,
-        circle
-    }
-
-    enum FloatingActionButtonSize {
-        small,
-        medium,
-        large
-    }
-
-    enum FloatingActionButtonThemeColor {
-        primary,
-        secondary,
-        tertiary,
-        info,
-        success,
-        warning,
-        error,
-        dark,
-        light,
-        inverse
-    }
-
     interface FloatingActionButtonOptions {
         icon?: string | undefined;
         text?: string | undefined;
-        themeColor?: string | FloatingActionButtonThemeColor | undefined;
-        size?: string | FloatingActionButtonSize | undefined;
-        shape?: string | FloatingActionButtonShape | undefined;
+        themeColor?: string | undefined;
+        size?: string  | undefined;
+        rounded?: string  | undefined;
+        fillMode?: string  | undefined;
+        shape?: string | undefined;
         align?: string | undefined;
         alignOffset?: FloatingActionButtonAlignOffset | undefined;
-        positionMode?: string | FloatingActionButtonPositionMode | undefined
+        positionMode?: string | undefined
         visible?: boolean | undefined;
         enabled?: boolean | undefined;
         items?: FloatingActionButtonItem[] | undefined;
@@ -5165,6 +5491,8 @@ declare namespace kendo.ui {
         editorOptions?: any;
         label?: string | FormItemLabel | undefined;
         validation?: any;
+        layout?: string | "grid" | undefined;
+        grid?: FormGridOptions | undefined;
         items?: FormItem[] | undefined;
     }
 
@@ -5356,6 +5684,7 @@ declare namespace kendo.ui {
         editor?: GanttMessagesEditor | undefined;
         plannedTasks?: GanttMessagesPlannedTasks | undefined;
         save?: string | undefined;
+        selectView?: string | undefined;
         views?: GanttMessagesViews | undefined;
     }
 
@@ -5603,6 +5932,7 @@ declare namespace kendo.ui {
         autoFitColumn(column: number): void;
         autoFitColumn(column: string): void;
         autoFitColumn(column: any): void;
+        autoFitColumns(columns?: GridColumn[]): void;
         cancelChanges(): void;
         cancelRow(): void;
         cellIndex(cell: string): number;
@@ -5647,7 +5977,7 @@ declare namespace kendo.ui {
         saveAsExcel(): void;
         saveAsPDF(): JQueryPromise<any>;
         saveChanges(): void;
-        saveRow(): void;
+        saveRow(): any;
         select(): JQuery;
         select(rows: string): void;
         select(rows: Element): void;
@@ -5998,8 +6328,13 @@ declare namespace kendo.ui {
         endless?: boolean | undefined;
     }
 
+    interface GridSearchField {
+        name?: string | undefined;
+        operator?: string | undefined;
+    }
+
     interface GridSearch {
-        fields?: any;
+        fields?: GridSearchField[] | undefined;
     }
 
     interface GridSortable {
@@ -6027,6 +6362,7 @@ declare namespace kendo.ui {
         dataSource?: any|any|kendo.data.DataSource | undefined;
         detailTemplate?: string|Function | undefined;
         editable?: boolean | "inline" | "incell" | "popup" | GridEditable | undefined;
+        encodeTitles?: boolean | undefined;
         excel?: GridExcel | undefined;
         filterable?: boolean | GridFilterable | undefined;
         groupable?: boolean | GridGroupable | undefined;
@@ -6685,10 +7021,13 @@ declare namespace kendo.ui {
         name?: string | undefined;
         clearPromptChar?: boolean | undefined;
         culture?: string | undefined;
+        fillMode?: string | undefined;
         label?: string | Function | MaskedTextBoxLabel | undefined;
         mask?: string | undefined;
         promptChar?: string | undefined;
+        rounded?: string | undefined;
         rules?: any;
+        size?: string | undefined;
         unmaskOnPost?: boolean | undefined;
         value?: string | undefined;
         change?(e: MaskedTextBoxChangeEvent): void;
@@ -6983,6 +7322,7 @@ declare namespace kendo.ui {
         dropDownWidth?: string|number | undefined;
         enable?: boolean | undefined;
         enforceMinLength?: boolean | undefined;
+        fillMode?: string | undefined;
         filter?: string | undefined;
         filterFields?: any;
         fixedGroupTemplate?: string|Function | undefined;
@@ -6996,6 +7336,8 @@ declare namespace kendo.ui {
         noDataTemplate?: string|Function|boolean | undefined;
         placeholder?: string | undefined;
         popup?: MultiColumnComboBoxPopup | undefined;
+        rounded?: string | undefined;
+        size?: string | undefined;
         suggest?: boolean | undefined;
         syncValueAndText?: boolean | undefined;
         headerTemplate?: string|Function | undefined;
@@ -7122,6 +7464,7 @@ declare namespace kendo.ui {
         downArrow?: boolean | undefined;
         enable?: boolean | undefined;
         enforceMinLength?: boolean | undefined;
+        fillMode?: string | undefined;
         filter?: string | undefined;
         fixedGroupTemplate?: string|Function | undefined;
         footerTemplate?: string|Function | undefined;
@@ -7141,6 +7484,8 @@ declare namespace kendo.ui {
         value?: any;
         valuePrimitive?: boolean | undefined;
         virtual?: boolean | MultiSelectVirtual | undefined;
+        rounded?: string | undefined;
+        size?: string | undefined;
         change?(e: MultiSelectChangeEvent): void;
         close?(e: MultiSelectCloseEvent): void;
         dataBound?(e: MultiSelectDataBoundEvent): void;
@@ -7393,6 +7738,7 @@ declare namespace kendo.ui {
         decimals?: number | undefined;
         downArrowText?: string | undefined;
         factor?: number | undefined;
+        fillMode?: string | undefined;
         format?: string | undefined;
         label?: string | Function | NumericTextBoxLabel | undefined;
         max?: number | undefined;
@@ -7400,6 +7746,9 @@ declare namespace kendo.ui {
         placeholder?: string | undefined;
         restrictDecimals?: boolean | undefined;
         round?: boolean | undefined;
+        rounded?: string | undefined;
+        selectOnFocus?: boolean | undefined;
+        size?: string | undefined;
         spinners?: boolean | undefined;
         step?: number | undefined;
         upArrowText?: string | undefined;
@@ -7494,16 +7843,17 @@ declare namespace kendo.ui {
     }
 
     interface OrgChartOptions {
-        name?: string;
-        cardsColors?: any;
-        dataSource?: any|kendo.data.OrgChartDataSource;
-        editable?: boolean | OrgChartEditable;
-        groupField?: string;
-        groupHeaderTemplate?: string|Function;
-        messages?: OrgChartMessages;
-        template?: string|Function;
+        name?: string | undefined;
+        cardsColors?: any | undefined;
+        dataSource?: any|kendo.data.OrgChartDataSource | undefined;
+        editable?: boolean | OrgChartEditable | undefined;
+        groupField?: string | undefined;
+        groupHeaderTemplate?: string|Function | undefined;
+        messages?: OrgChartMessages | undefined;
+        template?: string|Function | undefined;
         cancel?(e: OrgChartCancelEvent): void;
         change?(e: OrgChartChangeEvent): void;
+        create?(e: OrgChartCreateEvent): void;
         collapse?(e: OrgChartCollapseEvent): void;
         dataBinding?(e: OrgChartDataBindingEvent): void;
         dataBound?(e: OrgChartDataBoundEvent): void;
@@ -8037,6 +8387,133 @@ declare namespace kendo.ui {
         isDefaultPrevented(): boolean;
     }
 
+    class PivotConfiguratorButton extends kendo.ui.Widget {
+
+        static fn: PivotConfiguratorButton;
+
+        options: PivotConfiguratorButtonOptions;
+
+
+        element: JQuery;
+        wrapper: JQuery;
+
+        static extend(proto: Object): PivotConfiguratorButton;
+
+        constructor(element: Element, options?: PivotConfiguratorButtonOptions);
+
+
+        toggle(): void;
+
+    }
+
+    interface PivotConfiguratorButtonOptions {
+        name?: string | undefined;
+        configurator?: string | undefined;
+        text?: string | undefined;
+    }
+    interface PivotConfiguratorButtonEvent {
+        sender: PivotConfiguratorButton;
+        preventDefault: Function;
+        isDefaultPrevented(): boolean;
+    }
+
+    class PivotConfiguratorV2 extends kendo.ui.Widget {
+
+        static fn: PivotConfiguratorV2;
+
+        options: PivotConfiguratorV2Options;
+
+        dataSource: kendo.data.DataSource;
+
+        element: JQuery;
+        wrapper: JQuery;
+
+        static extend(proto: Object): PivotConfiguratorV2;
+
+        constructor(element: Element, options?: PivotConfiguratorV2Options);
+
+
+        destroy(): void;
+        refresh(): void;
+        setDataSource(dataSource: kendo.data.PivotDataSourceV2): void;
+
+    }
+
+    interface PivotConfiguratorV2MessagesFieldMenuOperators {
+        contains?: string;
+        doesnotcontain?: string;
+        startswith?: string;
+        endswith?: string;
+        eq?: string;
+        neq?: string;
+    }
+
+    interface PivotConfiguratorV2MessagesFieldMenu {
+        apply?: string;
+        sortAscending?: string;
+        sortDescending?: string;
+        filterFields?: string;
+        filter?: string;
+        include?: string;
+        clear?: string;
+        reset?: string;
+        operators?: PivotConfiguratorV2MessagesFieldMenuOperators;
+    }
+
+    interface PivotConfiguratorV2Messages {
+        applyButtonText?: string;
+        cancelButtonText?: string;
+        measures?: string;
+        columns?: string;
+        rows?: string;
+        title?: string;
+        fieldMenu?: PivotConfiguratorV2MessagesFieldMenu;
+    }
+
+    interface PivotConfiguratorV2Options {
+        name?: string | undefined;
+        dataSource?: any|kendo.data.PivotDataSourceV2;
+        filterable?: boolean | undefined;
+        sortable?: boolean|any;
+        height?: number|string | undefined;
+        messages?: PivotConfiguratorV2Messages | undefined;
+        orientation?: string | undefined;
+    }
+    interface PivotConfiguratorV2Event {
+        sender: PivotConfiguratorV2;
+        preventDefault: Function;
+        isDefaultPrevented(): boolean;
+    }
+
+
+    class PivotContainer extends kendo.ui.Widget {
+
+        static fn: PivotContainer;
+
+        options: PivotContainerOptions;
+
+
+        element: JQuery;
+        wrapper: JQuery;
+
+        static extend(proto: Object): PivotContainer;
+
+        constructor(element: Element, options?: PivotContainerOptions);
+
+
+
+    }
+
+    interface PivotContainerOptions {
+        name?: string | undefined;
+        configuratorPosition?: string | undefined;
+    }
+    interface PivotContainerEvent {
+        sender: PivotContainer;
+        preventDefault: Function;
+        isDefaultPrevented(): boolean;
+    }
+
 
     class PivotGrid extends kendo.ui.Widget {
 
@@ -8184,6 +8661,102 @@ declare namespace kendo.ui {
 
     interface PivotGridPdfExportEvent extends PivotGridEvent {
         promise?: JQueryPromise<any> | undefined;
+    }
+
+    class PivotGridV2 extends kendo.ui.Widget {
+
+        static fn: PivotGridV2;
+
+        options: PivotGridV2Options;
+
+        dataSource: kendo.data.DataSource;
+
+        element: JQuery;
+        wrapper: JQuery;
+
+        static extend(proto: Object): PivotGridV2;
+
+        constructor(element: Element, options?: PivotGridV2Options);
+
+
+        cellInfo(columnIndex: number, rowIndex: number): any;
+        cellInfoByElement(cell: string): any;
+        cellInfoByElement(cell: Element): any;
+        cellInfoByElement(cell: JQuery): any;
+        destroy(): void;
+        refresh(): void;
+        setDataSource(dataSource: kendo.data.PivotDataSourceV2): void;
+        saveAsPDF(): JQueryPromise<any>;
+
+    }
+
+    interface PivotGridV2PdfMargin {
+        bottom?: number|string;
+        left?: number|string;
+        right?: number|string;
+        top?: number|string;
+    }
+
+    interface PivotGridV2Pdf {
+        author?: string;
+        autoPrint?: boolean;
+        avoidLinks?: boolean|string;
+        creator?: string;
+        date?: Date;
+        fileName?: string;
+        forceProxy?: boolean;
+        jpegQuality?: number;
+        keepPNG?: boolean;
+        keywords?: string;
+        landscape?: boolean;
+        margin?: PivotGridV2PdfMargin;
+        paperSize?: string|any;
+        proxyURL?: string;
+        proxyTarget?: string;
+        subject?: string;
+        title?: string;
+    }
+
+    interface PivotGridV2Options {
+        name?: string | undefined;
+        dataSource?: any|kendo.data.PivotDataSourceV2;
+        autoBind?: boolean | undefined;
+        pdf?: PivotGridV2Pdf | undefined;
+        columnWidth?: number | undefined;
+        height?: number|string | undefined;
+        columnHeaderTemplate?: string|Function | undefined;
+        dataCellTemplate?: string|Function | undefined;
+        rowHeaderTemplate?: string|Function | undefined;
+        dataBinding?(e: PivotGridV2DataBindingEvent): void;
+        dataBound?(e: PivotGridV2DataBoundEvent): void;
+        expandMember?(e: PivotGridV2ExpandMemberEvent): void;
+        collapseMember?(e: PivotGridV2CollapseMemberEvent): void;
+        pdfExport?(e: PivotGridV2PdfExportEvent): void;
+    }
+    interface PivotGridV2Event {
+        sender: PivotGridV2;
+        preventDefault: Function;
+        isDefaultPrevented(): boolean;
+    }
+
+    interface PivotGridV2DataBindingEvent extends PivotGridV2Event {
+    }
+
+    interface PivotGridV2DataBoundEvent extends PivotGridV2Event {
+    }
+
+    interface PivotGridV2ExpandMemberEvent extends PivotGridV2Event {
+        axis?: string;
+        path?: string;
+    }
+
+    interface PivotGridV2CollapseMemberEvent extends PivotGridV2Event {
+        axis?: string;
+        path?: string;
+    }
+
+    interface PivotGridV2PdfExportEvent extends PivotGridV2Event {
+        promise?: JQueryPromise<any>;
     }
 
     class Popover extends kendo.ui.Widget {
@@ -8419,6 +8992,43 @@ declare namespace kendo.ui {
         isDefaultPrevented(): boolean;
     }
 
+    class RadioButton extends kendo.ui.Widget {
+        static fn: RadioButton;
+
+        options: RadioButtonOptions;
+        element: JQuery;
+        wrapper: JQuery;
+
+        static extend(proto: Object): RadioButton;
+
+        constructor(element: Element, options?: RadioButtonOptions);
+
+        check(): boolean;
+        check(check: boolean): void;
+        toggle(): void;
+        destroy(): void;
+        enable(enable: boolean): void;
+    }
+
+    interface RadioButtonOptions {
+        name?: string | undefined;
+        checked?: boolean | undefined;
+        enabled?: boolean | undefined;
+        encoded?: boolean | undefined;
+        label?: string | undefined;
+        size?: string | undefined;
+        change?(e: RadioButtonChangeEvent): void;
+    }
+    interface RadioButtonEvent {
+        sender: RadioButton;
+        preventDefault: Function;
+        isDefaultPrevented(): boolean;
+    }
+
+    interface RadioButtonChangeEvent extends RadioButtonEvent {
+        checked?: any;
+    }
+
     class RadioGroup extends kendo.ui.Widget {
 
         static fn: RadioGroup;
@@ -8459,6 +9069,7 @@ declare namespace kendo.ui {
         labelPosition?: string | undefined;
         layout?: string | undefined;
         inputName?: string | undefined;
+        inputSize?: string | undefined;
         value?: string | undefined;
         change?(e: RadioGroupChangeEvent): void;
         focus?(e: RadioGroupFocusEvent): void;
@@ -8849,7 +9460,9 @@ declare namespace kendo.ui {
         next?: string | undefined;
         pdf?: string | undefined;
         previous?: string | undefined;
+        refresh?: string | undefined;
         save?: string | undefined;
+        selectView?: string | undefined;
         showFullDay?: string | undefined;
         showWorkDay?: string | undefined;
         time?: string | undefined;
@@ -9122,6 +9735,7 @@ declare namespace kendo.ui {
     interface ScrollViewMessages {
         nextButtonLabel?: string | undefined;
         previousButtonLabel?: string | undefined;
+        pagerLabel?: string | undefined;
     }
 
     interface ScrollViewPageable {
@@ -9882,6 +10496,9 @@ declare namespace kendo.ui {
         readonly?: boolean | undefined;
         width?: number|string | undefined;
         messages?: SwitchMessages | undefined;
+        size?: string | undefined;
+        trackRounded?: string | undefined;
+        thumbRounded?: string | undefined;
         change?(e: SwitchChangeEvent): void;
     }
 
@@ -10513,6 +11130,11 @@ declare namespace kendo.ui {
         resizable?: string | undefined;
         rows?: number | undefined;
         value?: string | undefined;
+        fillMode?: string | undefined;
+        rounded?: string | undefined;
+        size?: string | undefined;
+        overflow?: string | undefined;
+        resize?: string | undefined;
         change?(e: TextAreaChangeEvent): void;
     }
     interface TextAreaEvent {
@@ -10560,6 +11182,9 @@ declare namespace kendo.ui {
         placeholder?: string | undefined;
         readonly?: boolean | undefined;
         value?: string | undefined;
+        fillMode?: string | undefined;
+        rounded?: string | undefined;
+        size?: string | undefined;
         change?(e: TextBoxChangeEvent): void;
     }
     interface TextBoxEvent {
@@ -10626,11 +11251,14 @@ declare namespace kendo.ui {
         culture?: string | undefined;
         dateInput?: boolean | undefined;
         dates?: any;
+        fillMode?: string | undefined;
         format?: string | undefined;
         interval?: number | undefined;
         max?: Date | undefined;
         min?: Date | undefined;
         parseFormats?: any;
+        rounded?: string | undefined;
+        size?: string | undefined;
         value?: Date | undefined;
         change?(e: TimePickerChangeEvent): void;
         close?(e: TimePickerCloseEvent): void;
@@ -11678,6 +12306,7 @@ declare namespace kendo.ui {
         loadOnDemand?: boolean | undefined;
         messages?: TreeViewMessages | undefined;
         template?: string|Function | undefined;
+        size?: string | undefined;
         change?(e: TreeViewEvent): void;
         check?(e: TreeViewCheckEvent): void;
         collapse?(e: TreeViewCollapseEvent): void;
@@ -13814,6 +14443,7 @@ declare namespace kendo.dataviz.ui {
         margin?: number | ChartCategoryAxisItemLabelsMargin | undefined;
         mirror?: boolean | undefined;
         padding?: number | ChartCategoryAxisItemLabelsPadding | undefined;
+        position?: string | undefined;
         rotation?: string | number | ChartCategoryAxisItemLabelsRotation | undefined;
         skip?: number | undefined;
         step?: number | undefined;
@@ -17543,6 +18173,10 @@ declare namespace kendo.dataviz.ui {
         tooltip?: MapMarkerTooltip | undefined;
     }
 
+    interface MapMessages {
+        tileTitle?: string | undefined;
+    }
+
     interface MapOptions {
         name?: string | undefined;
         center?: any|kendo.dataviz.map.Location | undefined;
@@ -17554,6 +18188,7 @@ declare namespace kendo.dataviz.ui {
         minZoom?: number | undefined;
         maxZoom?: number | undefined;
         minSize?: number | undefined;
+        messages?: MapMessages | undefined;
         pannable?: boolean | undefined;
         wraparound?: boolean | undefined;
         zoom?: number | undefined;
@@ -21061,7 +21696,7 @@ declare namespace kendo.dataviz {
         slot(from: Date, to?: number, limit?: boolean): kendo.geometry.Rect;
         slot(from: Date, to?: Date, limit?: boolean): kendo.geometry.Rect;
         value(point: kendo.geometry.Point): void;
-        valueRange(): void;
+        valueRange(): any;
 
     }
 
@@ -21891,7 +22526,7 @@ declare namespace kendo.dataviz.diagram {
         position(point: kendo.dataviz.diagram.Point): void;
         clone(): kendo.dataviz.diagram.Shape;
         select(value: boolean): void;
-        connections(type: string): void;
+        connections(type?: string): any;
         getConnector(): void;
         getPosition(side: string): void;
         redraw(options: any): void;
@@ -24635,183 +25270,199 @@ interface JQuery {
 
     kendoActionSheet(): JQuery;
     kendoActionSheet(options: kendo.ui.ActionSheetOptions): JQuery;
-    data(key: "kendoActionSheet"): kendo.ui.ActionSheet;
+    data(key: "kendoActionSheet"): kendo.ui.ActionSheet | undefined;
 
     kendoAlert(): JQuery;
     kendoAlert(options: kendo.ui.AlertOptions): JQuery;
-    data(key: "kendoAlert"): kendo.ui.Alert;
+    data(key: "kendoAlert"): kendo.ui.Alert | undefined;
 
     kendoAppBar(): JQuery;
     kendoAppBar(options: kendo.ui.AppBarOptions): JQuery;
-    data(key: "kendoAppBar"): kendo.ui.AppBar;
+    data(key: "kendoAppBar"): kendo.ui.AppBar | undefined;
 
     kendoArcGauge(): JQuery;
     kendoArcGauge(options: kendo.dataviz.ui.ArcGaugeOptions): JQuery;
-    data(key: "kendoArcGauge"): kendo.dataviz.ui.ArcGauge;
+    data(key: "kendoArcGauge"): kendo.dataviz.ui.ArcGauge | undefined;
 
     kendoAutoComplete(): JQuery;
     kendoAutoComplete(options: kendo.ui.AutoCompleteOptions): JQuery;
-    data(key: "kendoAutoComplete"): kendo.ui.AutoComplete;
+    data(key: "kendoAutoComplete"): kendo.ui.AutoComplete | undefined;
+
+    kendoAvatar(): JQuery;
+    kendoAvatar(options: kendo.ui.AvatarOptions): JQuery;
+    data(key: "kendoAvatar"): kendo.ui.Avatar;
 
     kendoBadge(): JQuery;
     kendoBadge(options: kendo.ui.BadgeOptions): JQuery;
-    data(key: "kendoBadge"): kendo.ui.Badge;
+    data(key: "kendoBadge"): kendo.ui.Badge | undefined;
 
     kendoBarcode(): JQuery;
     kendoBarcode(options: kendo.dataviz.ui.BarcodeOptions): JQuery;
-    data(key: "kendoBarcode"): kendo.dataviz.ui.Barcode;
+    data(key: "kendoBarcode"): kendo.dataviz.ui.Barcode | undefined;
 
     kendoBottomNavigation(): JQuery;
     kendoBottomNavigation(options: kendo.ui.BottomNavigationOptions): JQuery;
-    data(key: "kendoBottomNavigation"): kendo.ui.BottomNavigation;
+    data(key: "kendoBottomNavigation"): kendo.ui.BottomNavigation | undefined;
 
     kendoButton(): JQuery;
     kendoButton(options: kendo.ui.ButtonOptions): JQuery;
-    data(key: "kendoButton"): kendo.ui.Button;
+    data(key: "kendoButton"): kendo.ui.Button | undefined;
 
     kendoButtonGroup(): JQuery;
     kendoButtonGroup(options: kendo.ui.ButtonGroupOptions): JQuery;
-    data(key: "kendoButtonGroup"): kendo.ui.ButtonGroup;
+    data(key: "kendoButtonGroup"): kendo.ui.ButtonGroup | undefined;
 
     kendoCalendar(): JQuery;
     kendoCalendar(options: kendo.ui.CalendarOptions): JQuery;
-    data(key: "kendoCalendar"): kendo.ui.Calendar;
+    data(key: "kendoCalendar"): kendo.ui.Calendar | undefined;
 
     kendoCaptcha(): JQuery;
     kendoCaptcha(options: kendo.ui.CaptchaOptions): JQuery;
-    data(key: "kendoCaptcha"): kendo.ui.Captcha;
+    data(key: "kendoCaptcha"): kendo.ui.Captcha | undefined;
 
     kendoChart(): JQuery;
     kendoChart(options: kendo.dataviz.ui.ChartOptions): JQuery;
-    data(key: "kendoChart"): kendo.dataviz.ui.Chart;
+    data(key: "kendoChart"): kendo.dataviz.ui.Chart | undefined;
 
     kendoChat(): JQuery;
     kendoChat(options: kendo.ui.ChatOptions): JQuery;
-    data(key: "kendoChat"): kendo.ui.Chat;
+    data(key: "kendoChat"): kendo.ui.Chat | undefined;
+
+    kendoCheckBox(): JQuery;
+    kendoCheckBox(options: kendo.ui.CheckBoxOptions): JQuery;
+    data(key: "kendoCheckBox"): kendo.ui.CheckBox;
 
     kendoCheckBoxGroup(): JQuery;
     kendoCheckBoxGroup(options: kendo.ui.CheckBoxGroupOptions): JQuery;
-    data(key: "kendoCheckBoxGroup"): kendo.ui.CheckBoxGroup;
+    data(key: "kendoCheckBoxGroup"): kendo.ui.CheckBoxGroup | undefined;
 
     kendoCircularGauge(): JQuery;
     kendoCircularGauge(options: kendo.dataviz.ui.CircularGaugeOptions): JQuery;
-    data(key: "kendoCircularGauge"): kendo.dataviz.ui.CircularGauge;
+    data(key: "kendoCircularGauge"): kendo.dataviz.ui.CircularGauge | undefined;
+
+    kendoCircularProgressBar(): JQuery;
+    kendoCircularProgressBar(options: kendo.ui.CircularProgressBarOptions): JQuery;
+    data(key: "kendoCircularProgressBar"): kendo.ui.CircularProgressBarOptions | undefined;
+
+    kendoColorGradient(): JQuery;
+    kendoColorGradient(options: kendo.ui.ColorGradientOptions): JQuery;
+    data(key: "kendoColorGradient"): kendo.ui.ColorGradient | undefined;
 
     kendoColorPalette(): JQuery;
     kendoColorPalette(options: kendo.ui.ColorPaletteOptions): JQuery;
-    data(key: "kendoColorPalette"): kendo.ui.ColorPalette;
+    data(key: "kendoColorPalette"): kendo.ui.ColorPalette | undefined;
 
     kendoColorPicker(): JQuery;
     kendoColorPicker(options: kendo.ui.ColorPickerOptions): JQuery;
-    data(key: "kendoColorPicker"): kendo.ui.ColorPicker;
+    data(key: "kendoColorPicker"): kendo.ui.ColorPicker | undefined;
 
     kendoComboBox(): JQuery;
     kendoComboBox(options: kendo.ui.ComboBoxOptions): JQuery;
-    data(key: "kendoComboBox"): kendo.ui.ComboBox;
+    data(key: "kendoComboBox"): kendo.ui.ComboBox | undefined;
 
     kendoConfirm(): JQuery;
     kendoConfirm(options: kendo.ui.ConfirmOptions): JQuery;
-    data(key: "kendoConfirm"): kendo.ui.Confirm;
+    data(key: "kendoConfirm"): kendo.ui.Confirm | undefined;
 
     kendoContextMenu(): JQuery;
     kendoContextMenu(options: kendo.ui.ContextMenuOptions): JQuery;
-    data(key: "kendoContextMenu"): kendo.ui.ContextMenu;
+    data(key: "kendoContextMenu"): kendo.ui.ContextMenu | undefined;
 
     kendoDateInput(): JQuery;
     kendoDateInput(options: kendo.ui.DateInputOptions): JQuery;
-    data(key: "kendoDateInput"): kendo.ui.DateInput;
+    data(key: "kendoDateInput"): kendo.ui.DateInput | undefined;
 
     kendoDatePicker(): JQuery;
     kendoDatePicker(options: kendo.ui.DatePickerOptions): JQuery;
-    data(key: "kendoDatePicker"): kendo.ui.DatePicker;
+    data(key: "kendoDatePicker"): kendo.ui.DatePicker | undefined;
 
     kendoDateRangePicker(): JQuery;
     kendoDateRangePicker(options: kendo.ui.DateRangePickerOptions): JQuery;
-    data(key: "kendoDateRangePicker"): kendo.ui.DateRangePicker;
+    data(key: "kendoDateRangePicker"): kendo.ui.DateRangePicker | undefined;
 
     kendoDateTimePicker(): JQuery;
     kendoDateTimePicker(options: kendo.ui.DateTimePickerOptions): JQuery;
-    data(key: "kendoDateTimePicker"): kendo.ui.DateTimePicker;
+    data(key: "kendoDateTimePicker"): kendo.ui.DateTimePicker | undefined;
 
     kendoDiagram(): JQuery;
     kendoDiagram(options: kendo.dataviz.ui.DiagramOptions): JQuery;
-    data(key: "kendoDiagram"): kendo.dataviz.ui.Diagram;
+    data(key: "kendoDiagram"): kendo.dataviz.ui.Diagram | undefined;
 
     kendoDialog(): JQuery;
     kendoDialog(options: kendo.ui.DialogOptions): JQuery;
-    data(key: "kendoDialog"): kendo.ui.Dialog;
+    data(key: "kendoDialog"): kendo.ui.Dialog | undefined;
 
     kendoDrawer(): JQuery;
     kendoDrawer(options: kendo.ui.DrawerOptions): JQuery;
-    data(key: "kendoDrawer"): kendo.ui.Drawer;
+    data(key: "kendoDrawer"): kendo.ui.Drawer | undefined;
 
     kendoDraggable(): JQuery;
     kendoDraggable(options: kendo.ui.DraggableOptions): JQuery;
-    data(key: "kendoDraggable"): kendo.ui.Draggable;
+    data(key: "kendoDraggable"): kendo.ui.Draggable | undefined;
 
     kendoDropDownList(): JQuery;
     kendoDropDownList(options: kendo.ui.DropDownListOptions): JQuery;
-    data(key: "kendoDropDownList"): kendo.ui.DropDownList;
+    data(key: "kendoDropDownList"): kendo.ui.DropDownList | undefined;
 
     kendoDropDownTree(): JQuery;
     kendoDropDownTree(options: kendo.ui.DropDownTreeOptions): JQuery;
-    data(key: "kendoDropDownTree"): kendo.ui.DropDownTree;
+    data(key: "kendoDropDownTree"): kendo.ui.DropDownTree | undefined;
 
     kendoDropTarget(): JQuery;
     kendoDropTarget(options: kendo.ui.DropTargetOptions): JQuery;
-    data(key: "kendoDropTarget"): kendo.ui.DropTarget;
+    data(key: "kendoDropTarget"): kendo.ui.DropTarget | undefined;
 
     kendoDropTargetArea(): JQuery;
     kendoDropTargetArea(options: kendo.ui.DropTargetAreaOptions): JQuery;
-    data(key: "kendoDropTargetArea"): kendo.ui.DropTargetArea;
+    data(key: "kendoDropTargetArea"): kendo.ui.DropTargetArea | undefined;
 
     kendoEditor(): JQuery;
     kendoEditor(options: kendo.ui.EditorOptions): JQuery;
-    data(key: "kendoEditor"): kendo.ui.Editor;
+    data(key: "kendoEditor"): kendo.ui.Editor | undefined;
 
     kendoExpansionPanel(): JQuery;
     kendoExpansionPanel(options: kendo.ui.ExpansionPanelOptions): JQuery;
-    data(key: "kendoExpansionPanel"): kendo.ui.ExpansionPanel;
+    data(key: "kendoExpansionPanel"): kendo.ui.ExpansionPanel | undefined;
 
     kendoFilter(): JQuery;
     kendoFilter(options: kendo.ui.FilterOptions): JQuery;
-    data(key: "kendoFilter"): kendo.ui.Filter;
+    data(key: "kendoFilter"): kendo.ui.Filter | undefined;
 
     kendoFilterMenu(): JQuery;
     kendoFilterMenu(options: kendo.ui.FilterMenuOptions): JQuery;
-    data(key: "kendoFilterMenu"): kendo.ui.FilterMenu;
+    data(key: "kendoFilterMenu"): kendo.ui.FilterMenu | undefined;
 
     kendoFlatColorPicker(): JQuery;
     kendoFlatColorPicker(options: kendo.ui.FlatColorPickerOptions): JQuery;
-    data(key: "kendoFlatColorPicker"): kendo.ui.FlatColorPicker;
+    data(key: "kendoFlatColorPicker"): kendo.ui.FlatColorPicker | undefined;
 
     kendoFloatingActionButton(): JQuery;
     kendoFloatingActionButton(options: kendo.ui.FloatingActionButtonOptions): JQuery;
-    data(key: "kendoFloatingActionButton"): kendo.ui.FloatingActionButton;
+    data(key: "kendoFloatingActionButton"): kendo.ui.FloatingActionButton | undefined;
 
     kendoForm(): JQuery;
     kendoForm(options: kendo.ui.FormOptions): JQuery;
-    data(key: "kendoForm"): kendo.ui.Form;
+    data(key: "kendoForm"): kendo.ui.Form | undefined;
 
     kendoGantt(): JQuery;
     kendoGantt(options: kendo.ui.GanttOptions): JQuery;
-    data(key: "kendoGantt"): kendo.ui.Gantt;
+    data(key: "kendoGantt"): kendo.ui.Gantt | undefined;
 
     kendoGrid(): JQuery;
     kendoGrid(options: kendo.ui.GridOptions): JQuery;
-    data(key: "kendoGrid"): kendo.ui.Grid;
+    data(key: "kendoGrid"): kendo.ui.Grid | undefined;
 
     kendoImageEditor(): JQuery;
     kendoImageEditor(options: kendo.ui.ImageEditorOptions): JQuery;
-    data(key: "kendoImageEditor"): kendo.ui.ImageEditor;
+    data(key: "kendoImageEditor"): kendo.ui.ImageEditor | undefined;
 
     kendoLinearGauge(): JQuery;
     kendoLinearGauge(options: kendo.dataviz.ui.LinearGaugeOptions): JQuery;
-    data(key: "kendoLinearGauge"): kendo.dataviz.ui.LinearGauge;
+    data(key: "kendoLinearGauge"): kendo.dataviz.ui.LinearGauge | undefined;
 
     kendoListBox(): JQuery;
     kendoListBox(options: kendo.ui.ListBoxOptions): JQuery;
-    data(key: "kendoListBox"): kendo.ui.ListBox;
+    data(key: "kendoListBox"): kendo.ui.ListBox | undefined;
 
     kendoListView(): JQuery;
     kendoListView(options: kendo.ui.ListViewOptions): JQuery;
@@ -24819,123 +25470,123 @@ interface JQuery {
 
     kendoLoader(): JQuery;
     kendoLoader(options: kendo.ui.LoaderOptions): JQuery;
-    data(key: "kendoLoader"): kendo.ui.Loader;
+    data(key: "kendoLoader"): kendo.ui.Loader | undefined;
 
     kendoMap(): JQuery;
     kendoMap(options: kendo.dataviz.ui.MapOptions): JQuery;
-    data(key: "kendoMap"): kendo.dataviz.ui.Map;
+    data(key: "kendoMap"): kendo.dataviz.ui.Map | undefined;
 
     kendoMaskedTextBox(): JQuery;
     kendoMaskedTextBox(options: kendo.ui.MaskedTextBoxOptions): JQuery;
-    data(key: "kendoMaskedTextBox"): kendo.ui.MaskedTextBox;
+    data(key: "kendoMaskedTextBox"): kendo.ui.MaskedTextBox | undefined;
 
     kendoMediaPlayer(): JQuery;
     kendoMediaPlayer(options: kendo.ui.MediaPlayerOptions): JQuery;
-    data(key: "kendoMediaPlayer"): kendo.ui.MediaPlayer;
+    data(key: "kendoMediaPlayer"): kendo.ui.MediaPlayer | undefined;
 
     kendoMenu(): JQuery;
     kendoMenu(options: kendo.ui.MenuOptions): JQuery;
-    data(key: "kendoMenu"): kendo.ui.Menu;
+    data(key: "kendoMenu"): kendo.ui.Menu | undefined;
 
     kendoMobileActionSheet(): JQuery;
     kendoMobileActionSheet(options: kendo.mobile.ui.ActionSheetOptions): JQuery;
-    data(key: "kendoMobileActionSheet"): kendo.mobile.ui.ActionSheet;
+    data(key: "kendoMobileActionSheet"): kendo.mobile.ui.ActionSheet | undefined;
 
     kendoMobileBackButton(): JQuery;
     kendoMobileBackButton(options: kendo.mobile.ui.BackButtonOptions): JQuery;
-    data(key: "kendoMobileBackButton"): kendo.mobile.ui.BackButton;
+    data(key: "kendoMobileBackButton"): kendo.mobile.ui.BackButton | undefined;
 
     kendoMobileButton(): JQuery;
     kendoMobileButton(options: kendo.mobile.ui.ButtonOptions): JQuery;
-    data(key: "kendoMobileButton"): kendo.mobile.ui.Button;
+    data(key: "kendoMobileButton"): kendo.mobile.ui.Button | undefined;
 
     kendoMobileButtonGroup(): JQuery;
     kendoMobileButtonGroup(options: kendo.mobile.ui.ButtonGroupOptions): JQuery;
-    data(key: "kendoMobileButtonGroup"): kendo.mobile.ui.ButtonGroup;
+    data(key: "kendoMobileButtonGroup"): kendo.mobile.ui.ButtonGroup | undefined;
 
     kendoMobileCollapsible(): JQuery;
     kendoMobileCollapsible(options: kendo.mobile.ui.CollapsibleOptions): JQuery;
-    data(key: "kendoMobileCollapsible"): kendo.mobile.ui.Collapsible;
+    data(key: "kendoMobileCollapsible"): kendo.mobile.ui.Collapsible | undefined;
 
     kendoMobileDetailButton(): JQuery;
     kendoMobileDetailButton(options: kendo.mobile.ui.DetailButtonOptions): JQuery;
-    data(key: "kendoMobileDetailButton"): kendo.mobile.ui.DetailButton;
+    data(key: "kendoMobileDetailButton"): kendo.mobile.ui.DetailButton | undefined;
 
     kendoMobileDrawer(): JQuery;
     kendoMobileDrawer(options: kendo.mobile.ui.DrawerOptions): JQuery;
-    data(key: "kendoMobileDrawer"): kendo.mobile.ui.Drawer;
+    data(key: "kendoMobileDrawer"): kendo.mobile.ui.Drawer | undefined;
 
     kendoMobileLayout(): JQuery;
     kendoMobileLayout(options: kendo.mobile.ui.LayoutOptions): JQuery;
-    data(key: "kendoMobileLayout"): kendo.mobile.ui.Layout;
+    data(key: "kendoMobileLayout"): kendo.mobile.ui.Layout | undefined;
 
     kendoMobileListView(): JQuery;
     kendoMobileListView(options: kendo.mobile.ui.ListViewOptions): JQuery;
-    data(key: "kendoMobileListView"): kendo.mobile.ui.ListView;
+    data(key: "kendoMobileListView"): kendo.mobile.ui.ListView | undefined;
 
     kendoMobileLoader(): JQuery;
     kendoMobileLoader(options: kendo.mobile.ui.LoaderOptions): JQuery;
-    data(key: "kendoMobileLoader"): kendo.mobile.ui.Loader;
+    data(key: "kendoMobileLoader"): kendo.mobile.ui.Loader | undefined;
 
     kendoMobileModalView(): JQuery;
     kendoMobileModalView(options: kendo.mobile.ui.ModalViewOptions): JQuery;
-    data(key: "kendoMobileModalView"): kendo.mobile.ui.ModalView;
+    data(key: "kendoMobileModalView"): kendo.mobile.ui.ModalView | undefined;
 
     kendoMobileNavBar(): JQuery;
     kendoMobileNavBar(options: kendo.mobile.ui.NavBarOptions): JQuery;
-    data(key: "kendoMobileNavBar"): kendo.mobile.ui.NavBar;
+    data(key: "kendoMobileNavBar"): kendo.mobile.ui.NavBar | undefined;
 
     kendoMobilePane(): JQuery;
     kendoMobilePane(options: kendo.mobile.ui.PaneOptions): JQuery;
-    data(key: "kendoMobilePane"): kendo.mobile.ui.Pane;
+    data(key: "kendoMobilePane"): kendo.mobile.ui.Pane | undefined;
 
     kendoMobilePopOver(): JQuery;
     kendoMobilePopOver(options: kendo.mobile.ui.PopOverOptions): JQuery;
-    data(key: "kendoMobilePopOver"): kendo.mobile.ui.PopOver;
+    data(key: "kendoMobilePopOver"): kendo.mobile.ui.PopOver | undefined;
 
     kendoMobileScrollView(): JQuery;
     kendoMobileScrollView(options: kendo.mobile.ui.ScrollViewOptions): JQuery;
-    data(key: "kendoMobileScrollView"): kendo.mobile.ui.ScrollView;
+    data(key: "kendoMobileScrollView"): kendo.mobile.ui.ScrollView | undefined;
 
     kendoMobileScroller(): JQuery;
     kendoMobileScroller(options: kendo.mobile.ui.ScrollerOptions): JQuery;
-    data(key: "kendoMobileScroller"): kendo.mobile.ui.Scroller;
+    data(key: "kendoMobileScroller"): kendo.mobile.ui.Scroller | undefined;
 
     kendoMobileSplitView(): JQuery;
     kendoMobileSplitView(options: kendo.mobile.ui.SplitViewOptions): JQuery;
-    data(key: "kendoMobileSplitView"): kendo.mobile.ui.SplitView;
+    data(key: "kendoMobileSplitView"): kendo.mobile.ui.SplitView | undefined;
 
     kendoMobileSwitch(): JQuery;
     kendoMobileSwitch(options: kendo.mobile.ui.SwitchOptions): JQuery;
-    data(key: "kendoMobileSwitch"): kendo.mobile.ui.Switch;
+    data(key: "kendoMobileSwitch"): kendo.mobile.ui.Switch | undefined;
 
     kendoMobileTabStrip(): JQuery;
     kendoMobileTabStrip(options: kendo.mobile.ui.TabStripOptions): JQuery;
-    data(key: "kendoMobileTabStrip"): kendo.mobile.ui.TabStrip;
+    data(key: "kendoMobileTabStrip"): kendo.mobile.ui.TabStrip | undefined;
 
     kendoMobileView(): JQuery;
     kendoMobileView(options: kendo.mobile.ui.ViewOptions): JQuery;
-    data(key: "kendoMobileView"): kendo.mobile.ui.View;
+    data(key: "kendoMobileView"): kendo.mobile.ui.View | undefined;
 
     kendoMultiColumnComboBox(): JQuery;
     kendoMultiColumnComboBox(options: kendo.ui.MultiColumnComboBoxOptions): JQuery;
-    data(key: "kendoMultiColumnComboBox"): kendo.ui.MultiColumnComboBox;
+    data(key: "kendoMultiColumnComboBox"): kendo.ui.MultiColumnComboBox | undefined;
 
     kendoMultiSelect(): JQuery;
     kendoMultiSelect(options: kendo.ui.MultiSelectOptions): JQuery;
-    data(key: "kendoMultiSelect"): kendo.ui.MultiSelect;
+    data(key: "kendoMultiSelect"): kendo.ui.MultiSelect | undefined;
 
     kendoMultiViewCalendar(): JQuery;
     kendoMultiViewCalendar(options: kendo.ui.MultiViewCalendarOptions): JQuery;
-    data(key: "kendoMultiViewCalendar"): kendo.ui.MultiViewCalendar;
+    data(key: "kendoMultiViewCalendar"): kendo.ui.MultiViewCalendar | undefined;
 
     kendoNotification(): JQuery;
     kendoNotification(options: kendo.ui.NotificationOptions): JQuery;
-    data(key: "kendoNotification"): kendo.ui.Notification;
+    data(key: "kendoNotification"): kendo.ui.Notification | undefined;
 
     kendoNumericTextBox(): JQuery;
     kendoNumericTextBox(options: kendo.ui.NumericTextBoxOptions): JQuery;
-    data(key: "kendoNumericTextBox"): kendo.ui.NumericTextBox;
+    data(key: "kendoNumericTextBox"): kendo.ui.NumericTextBox | undefined;
 
     kendoOrgChart(): JQuery;
     kendoOrgChart(options: kendo.ui.OrgChartOptions): JQuery;
@@ -24943,170 +25594,190 @@ interface JQuery {
 
     kendoPDFViewer(): JQuery;
     kendoPDFViewer(options: kendo.ui.PDFViewerOptions): JQuery;
-    data(key: "kendoPDFViewer"): kendo.ui.PDFViewer;
+    data(key: "kendoPDFViewer"): kendo.ui.PDFViewer | undefined;
 
     kendoPager(): JQuery;
     kendoPager(options: kendo.ui.PagerOptions): JQuery;
-    data(key: "kendoPager"): kendo.ui.Pager;
+    data(key: "kendoPager"): kendo.ui.Pager | undefined;
 
     kendoPanelBar(): JQuery;
     kendoPanelBar(options: kendo.ui.PanelBarOptions): JQuery;
-    data(key: "kendoPanelBar"): kendo.ui.PanelBar;
+    data(key: "kendoPanelBar"): kendo.ui.PanelBar | undefined;
 
     kendoPivotConfigurator(): JQuery;
     kendoPivotConfigurator(options: kendo.ui.PivotConfiguratorOptions): JQuery;
-    data(key: "kendoPivotConfigurator"): kendo.ui.PivotConfigurator;
+    data(key: "kendoPivotConfigurator"): kendo.ui.PivotConfigurator | undefined;
+
+    kendoPivotConfiguratorButton(): JQuery;
+    kendoPivotConfiguratorButton(options: kendo.ui.PivotConfiguratorButtonOptions): JQuery;
+    data(key: "kendoPivotConfiguratorButton"): kendo.ui.PivotConfiguratorButton | undefined;
+
+    kendoPivotConfiguratorV2(): JQuery;
+    kendoPivotConfiguratorV2(options: kendo.ui.PivotConfiguratorV2Options): JQuery;
+    data(key: "kendoPivotConfiguratorV2"): kendo.ui.PivotConfiguratorV2 | undefined;
+
+    kendoPivotContainer(): JQuery;
+    kendoPivotContainer(options: kendo.ui.PivotContainerOptions): JQuery;
+    data(key: "kendoPivotContainer"): kendo.ui.PivotContainer | undefined;
 
     kendoPivotGrid(): JQuery;
     kendoPivotGrid(options: kendo.ui.PivotGridOptions): JQuery;
-    data(key: "kendoPivotGrid"): kendo.ui.PivotGrid;
+    data(key: "kendoPivotGrid"): kendo.ui.PivotGrid | undefined;
+
+    kendoPivotGridV2(): JQuery;
+    kendoPivotGridV2(options: kendo.ui.PivotGridV2Options): JQuery;
+    data(key: "kendoPivotGridV2"): kendo.ui.PivotGridV2 | undefined;
 
     kendoPopover(): JQuery;
     kendoPopover(options: kendo.ui.PopoverOptions): JQuery;
-    data(key: "kendoPopover"): kendo.ui.Popover;
+    data(key: "kendoPopover"): kendo.ui.Popover | undefined;
 
     kendoPopup(): JQuery;
     kendoPopup(options: kendo.ui.PopupOptions): JQuery;
-    data(key: "kendoPopup"): kendo.ui.Popup;
+    data(key: "kendoPopup"): kendo.ui.Popup | undefined;
 
     kendoProgressBar(): JQuery;
     kendoProgressBar(options: kendo.ui.ProgressBarOptions): JQuery;
-    data(key: "kendoProgressBar"): kendo.ui.ProgressBar;
+    data(key: "kendoProgressBar"): kendo.ui.ProgressBar | undefined;
 
     kendoPrompt(): JQuery;
     kendoPrompt(options: kendo.ui.PromptOptions): JQuery;
-    data(key: "kendoPrompt"): kendo.ui.Prompt;
+    data(key: "kendoPrompt"): kendo.ui.Prompt | undefined;
 
     kendoQRCode(): JQuery;
     kendoQRCode(options: kendo.dataviz.ui.QRCodeOptions): JQuery;
-    data(key: "kendoQRCode"): kendo.dataviz.ui.QRCode;
+    data(key: "kendoQRCode"): kendo.dataviz.ui.QRCode | undefined;
 
     kendoRadialGauge(): JQuery;
     kendoRadialGauge(options: kendo.dataviz.ui.RadialGaugeOptions): JQuery;
-    data(key: "kendoRadialGauge"): kendo.dataviz.ui.RadialGauge;
+    data(key: "kendoRadialGauge"): kendo.dataviz.ui.RadialGauge | undefined;
+
+    kendoRadioButton(): JQuery;
+    kendoRadioButton(options: kendo.ui.RadioButtonOptions): JQuery;
+    data(key: "kendoRadioButton"): kendo.ui.RadioButton;
 
     kendoRadioGroup(): JQuery;
     kendoRadioGroup(options: kendo.ui.RadioGroupOptions): JQuery;
-    data(key: "kendoRadioGroup"): kendo.ui.RadioGroup;
+    data(key: "kendoRadioGroup"): kendo.ui.RadioGroup | undefined;
 
     kendoRangeSlider(): JQuery;
     kendoRangeSlider(options: kendo.ui.RangeSliderOptions): JQuery;
-    data(key: "kendoRangeSlider"): kendo.ui.RangeSlider;
+    data(key: "kendoRangeSlider"): kendo.ui.RangeSlider | undefined;
 
     kendoRating(): JQuery;
     kendoRating(options: kendo.ui.RatingOptions): JQuery;
-    data(key: "kendoRating"): kendo.ui.Rating;
+    data(key: "kendoRating"): kendo.ui.Rating | undefined;
 
     kendoResponsivePanel(): JQuery;
     kendoResponsivePanel(options: kendo.ui.ResponsivePanelOptions): JQuery;
-    data(key: "kendoResponsivePanel"): kendo.ui.ResponsivePanel;
+    data(key: "kendoResponsivePanel"): kendo.ui.ResponsivePanel | undefined;
 
     kendoScheduler(): JQuery;
     kendoScheduler(options: kendo.ui.SchedulerOptions): JQuery;
-    data(key: "kendoScheduler"): kendo.ui.Scheduler;
+    data(key: "kendoScheduler"): kendo.ui.Scheduler | undefined;
 
     kendoScrollView(): JQuery;
     kendoScrollView(options: kendo.ui.ScrollViewOptions): JQuery;
-    data(key: "kendoScrollView"): kendo.ui.ScrollView;
+    data(key: "kendoScrollView"): kendo.ui.ScrollView | undefined;
 
     kendoSkeletonContainer(): JQuery;
     kendoSkeletonContainer(options: kendo.ui.SkeletonContainerOptions): JQuery;
-    data(key: "kendoSkeletonContainer"): kendo.ui.SkeletonContainer;
+    data(key: "kendoSkeletonContainer"): kendo.ui.SkeletonContainer | undefined;
 
     kendoSlider(): JQuery;
     kendoSlider(options: kendo.ui.SliderOptions): JQuery;
-    data(key: "kendoSlider"): kendo.ui.Slider;
+    data(key: "kendoSlider"): kendo.ui.Slider | undefined;
 
     kendoSortable(): JQuery;
     kendoSortable(options: kendo.ui.SortableOptions): JQuery;
-    data(key: "kendoSortable"): kendo.ui.Sortable;
+    data(key: "kendoSortable"): kendo.ui.Sortable | undefined;
 
     kendoSparkline(): JQuery;
     kendoSparkline(options: kendo.dataviz.ui.SparklineOptions): JQuery;
-    data(key: "kendoSparkline"): kendo.dataviz.ui.Sparkline;
+    data(key: "kendoSparkline"): kendo.dataviz.ui.Sparkline | undefined;
 
     kendoSplitter(): JQuery;
     kendoSplitter(options: kendo.ui.SplitterOptions): JQuery;
-    data(key: "kendoSplitter"): kendo.ui.Splitter;
+    data(key: "kendoSplitter"): kendo.ui.Splitter | undefined;
 
     kendoSpreadsheet(): JQuery;
     kendoSpreadsheet(options: kendo.ui.SpreadsheetOptions): JQuery;
-    data(key: "kendoSpreadsheet"): kendo.ui.Spreadsheet;
+    data(key: "kendoSpreadsheet"): kendo.ui.Spreadsheet | undefined;
 
     kendoStockChart(): JQuery;
     kendoStockChart(options: kendo.dataviz.ui.StockChartOptions): JQuery;
-    data(key: "kendoStockChart"): kendo.dataviz.ui.StockChart;
+    data(key: "kendoStockChart"): kendo.dataviz.ui.StockChart | undefined;
 
     kendoSwitch(): JQuery;
     kendoSwitch(options: kendo.ui.SwitchOptions): JQuery;
-    data(key: "kendoSwitch"): kendo.ui.Switch;
+    data(key: "kendoSwitch"): kendo.ui.Switch | undefined;
 
     kendoStepper(): JQuery;
     kendoStepper(options: kendo.ui.StepperOptions): JQuery;
-    data(key: "kendoStepper"): kendo.ui.Stepper;
+    data(key: "kendoStepper"): kendo.ui.Stepper | undefined;
 
     kendoTabStrip(): JQuery;
     kendoTabStrip(options: kendo.ui.TabStripOptions): JQuery;
-    data(key: "kendoTabStrip"): kendo.ui.TabStrip;
+    data(key: "kendoTabStrip"): kendo.ui.TabStrip | undefined;
 
     kendoTextArea(): JQuery;
     kendoTextArea(options: kendo.ui.TextAreaOptions): JQuery;
-    data(key: "kendoTextArea"): kendo.ui.TextArea;
+    data(key: "kendoTextArea"): kendo.ui.TextArea | undefined;
 
     kendoTextBox(): JQuery;
     kendoTextBox(options: kendo.ui.TextBoxOptions): JQuery;
-    data(key: "kendoTextBox"): kendo.ui.TextBox;
+    data(key: "kendoTextBox"): kendo.ui.TextBox | undefined;
 
     kendoTileLayout(): JQuery;
     kendoTileLayout(options: kendo.ui.TileLayoutOptions): JQuery;
-    data(key: "kendoTileLayout"): kendo.ui.TileLayout;
+    data(key: "kendoTileLayout"): kendo.ui.TileLayout | undefined;
 
     kendoTimePicker(): JQuery;
     kendoTimePicker(options: kendo.ui.TimePickerOptions): JQuery;
-    data(key: "kendoTimePicker"): kendo.ui.TimePicker;
+    data(key: "kendoTimePicker"): kendo.ui.TimePicker | undefined;
 
     kendoTimeline(): JQuery;
     kendoTimeline(options: kendo.ui.TimelineOptions): JQuery;
-    data(key: "kendoTimeline"): kendo.ui.Timeline;
+    data(key: "kendoTimeline"): kendo.ui.Timeline | undefined;
 
     kendoToolBar(): JQuery;
     kendoToolBar(options: kendo.ui.ToolBarOptions): JQuery;
-    data(key: "kendoToolBar"): kendo.ui.ToolBar;
+    data(key: "kendoToolBar"): kendo.ui.ToolBar | undefined;
 
     kendoTooltip(): JQuery;
     kendoTooltip(options: kendo.ui.TooltipOptions): JQuery;
-    data(key: "kendoTooltip"): kendo.ui.Tooltip;
+    data(key: "kendoTooltip"): kendo.ui.Tooltip | undefined;
 
     kendoTouch(): JQuery;
     kendoTouch(options: kendo.ui.TouchOptions): JQuery;
-    data(key: "kendoTouch"): kendo.ui.Touch;
+    data(key: "kendoTouch"): kendo.ui.Touch | undefined;
 
     kendoTreeList(): JQuery;
     kendoTreeList(options: kendo.ui.TreeListOptions): JQuery;
-    data(key: "kendoTreeList"): kendo.ui.TreeList;
+    data(key: "kendoTreeList"): kendo.ui.TreeList | undefined;
 
     kendoTreeMap(): JQuery;
     kendoTreeMap(options: kendo.dataviz.ui.TreeMapOptions): JQuery;
-    data(key: "kendoTreeMap"): kendo.dataviz.ui.TreeMap;
+    data(key: "kendoTreeMap"): kendo.dataviz.ui.TreeMap | undefined;
 
     kendoTreeView(): JQuery;
     kendoTreeView(options: kendo.ui.TreeViewOptions): JQuery;
-    data(key: "kendoTreeView"): kendo.ui.TreeView;
+    data(key: "kendoTreeView"): kendo.ui.TreeView | undefined;
 
     kendoUpload(): JQuery;
     kendoUpload(options: kendo.ui.UploadOptions): JQuery;
-    data(key: "kendoUpload"): kendo.ui.Upload;
+    data(key: "kendoUpload"): kendo.ui.Upload | undefined;
 
     kendoValidator(): JQuery;
     kendoValidator(options: kendo.ui.ValidatorOptions): JQuery;
-    data(key: "kendoValidator"): kendo.ui.Validator;
+    data(key: "kendoValidator"): kendo.ui.Validator | undefined;
 
     kendoWindow(): JQuery;
     kendoWindow(options: kendo.ui.WindowOptions): JQuery;
-    data(key: "kendoWindow"): kendo.ui.Window;
+    data(key: "kendoWindow"): kendo.ui.Window | undefined;
 
     kendoWizard(): JQuery;
     kendoWizard(options: kendo.ui.WizardOptions): JQuery;
-    data(key: "kendoWizard"): kendo.ui.Wizard;
+    data(key: "kendoWizard"): kendo.ui.Wizard | undefined;
 
 }

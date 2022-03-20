@@ -1,6 +1,6 @@
 // Type definitions for non-npm package bmapgl-browser
 // Project: http://lbsyun.baidu.com/index.php?title=jspopularGL
-// Definitions by: Junior2ran <http://github.com/Junior2ran>
+// Definitions by: Junior2ran <https://github.com/Junior2ran>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.1
 

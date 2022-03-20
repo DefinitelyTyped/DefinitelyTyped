@@ -103,11 +103,17 @@ imageQueue.process((job, done) => {
 
 videoQueue.add({ video: 'http://example.com/video1.mov' });
 audioQueue.add({ audio: 'http://example.com/audio1.mp3' });
-imageQueue.add({ image: 'http://example.com/image1.tiff' });
+imageQueue.add({ image: 'http://example.com/image1.tiff' }, { repeat: { cron: "00 06 * * 1", tz: "America/New_York" } });
 videoQueue.addBulk([
     { name: 'frame1', data: { video: 'http://example.com/video1.mov' }, opts: { attempts: 6 } },
     { data: { audio: 'http://example.com/video1.mov' } },
+    {
+      opts: {
+        repeat: { cron: "00 06 * * 1", tz: "America/New_York" } // $ExpectError
+      }
+    }
 ]);
+imageQueue.add({ image: 'http://example.com/image1.tiff' }, { removeOnComplete: { age: 60 * 60 * 24 }, removeOnFail: { age: 60 * 60 * 24, count: 10 } });
 
 //////////////////////////////////////////////////////////////////////////////////
 //
@@ -281,6 +287,13 @@ myQueue.obliterate().then(() => {
 });
 myQueue.obliterate({ force: true }).then(() => {
     console.log('queue obliterated');
+});
+
+myQueue.add({ foo: 'bar' }).then(job => {
+    job.getState().then(state => {
+        // state could equal 'stuck'
+        state === 'stuck';
+    });
 });
 
 // Close queues
