@@ -200,10 +200,13 @@ const CheckUseReducedMotion = () => {
 </Flex>;
 <Heading />;
 <Icon accessibilityLabel="icon" />;
-<IconButton accessibilityLabel="icon" tooltip={{
-    text: "foo",
-    idealDirection: "down"
-}}/>;
+<IconButton
+    accessibilityLabel="icon"
+    tooltip={{
+        text: 'foo',
+        idealDirection: 'down',
+    }}
+/>;
 <Image alt="image" color="#ffff" naturalHeight={1} naturalWidth={1} src="http" />;
 <Label htmlFor="id" />;
 <Layer>
@@ -229,7 +232,7 @@ const CheckUseReducedMotion = () => {
     expandedIndex={1}
     onExpandedChange={index => {}}
 ></Module.Expandable>;
-<NumberField id="number" onChange={({ value }) => value} step={1}/>;
+<NumberField id="number" onChange={({ value }) => value} step={1} />;
 <OnLinkNavigationProvider
     onNavigation={() => {
         return undefined;
