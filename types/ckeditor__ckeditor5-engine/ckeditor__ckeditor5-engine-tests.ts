@@ -1348,3 +1348,6 @@ class MyViewNode extends ViewNode {}
 // $ExpectError
 new DomConverter(viewDocument).viewToDom(new MyViewNode());
 new DomConverter(viewDocument).viewToDom(new MyViewNode(), window.document);
+
+// $ExpectType string | number | boolean | undefined
+new Element('div').getAttribute("");
