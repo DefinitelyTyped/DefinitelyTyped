@@ -34,7 +34,11 @@ export default class Model implements Observable {
     createRangeIn(element: Element): Range;
     createRangeOn(item: Item): Range;
     createSelection(
-        selectable?: Selectable,
+        selectable?: Selectable | Selectable[],
+        options?: { backward?: boolean | undefined },
+    ): Selection;
+    createSelection(
+        selectable?: Selectable | Selectable[],
         placeOrOffset?: number | 'before' | 'end' | 'after' | 'on' | 'in',
         options?: { backward?: boolean | undefined },
     ): Selection;

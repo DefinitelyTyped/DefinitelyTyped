@@ -16,8 +16,7 @@ export default class Document implements BubblingEmitter, Observable {
     readonly stylesProcessor: StylesProcessor;
     get isReadOnly(): boolean;
     protected set isReadOnly(value: boolean);
-    get isFocused(): boolean;
-    protected set isFocused(value: boolean);
+    isFocused: boolean;
     get isSelecting(): boolean;
     protected set isSelecting(value: boolean);
     get isComposing(): boolean;
