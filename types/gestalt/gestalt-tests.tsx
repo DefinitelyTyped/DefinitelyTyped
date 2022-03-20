@@ -200,7 +200,10 @@ const CheckUseReducedMotion = () => {
 </Flex>;
 <Heading />;
 <Icon accessibilityLabel="icon" />;
-<IconButton accessibilityLabel="icon" />;
+<IconButton accessibilityLabel="icon" tooltip={{
+    text: "foo",
+    idealDirection: "down"
+}}/>;
 <Image alt="image" color="#ffff" naturalHeight={1} naturalWidth={1} src="http" />;
 <Label htmlFor="id" />;
 <Layer>
@@ -234,7 +237,13 @@ const CheckUseReducedMotion = () => {
 />;
 <PageHeader title="Home" />;
 <Pog />;
-<Popover onDismiss={() => {}} anchor={React.useRef<HTMLAnchorElement>().current!} />;
+<Popover
+    onDismiss={() => {}}
+    anchor={React.useRef<HTMLAnchorElement>().current!}
+    onKeyDown={({ event }) => {
+        event.preventDefault();
+    }}
+/>;
 
 <Pulsar />;
 <RadioButton id="id" onChange={() => {}} />;

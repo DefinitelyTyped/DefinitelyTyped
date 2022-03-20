@@ -39,6 +39,11 @@ export type OnNavigationType = (args: OnNavigationArgs) => EventHandlerType | nu
 export type UnsignedUpTo12 = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
 export type SignedUpTo12 = -12 | -11 | -10 | -9 | -8 | -7 | -6 | -5 | -4 | -3 | -2 | -1 | UnsignedUpTo12;
 
+export interface BadgeObject {
+    text: string;
+    type?: 'info' | 'error' | 'warning' | 'success' | 'neutral' | 'darkWash' | 'lightWash' | undefined;
+}
+
 /**
  * ActivationCard Props Interface
  * https://gestalt.netlify.app/ActivationCard
@@ -533,11 +538,6 @@ export interface DropdownProps {
      */
     idealDirection?: FourDirections | undefined;
     zIndex?: Indexable | undefined;
-}
-
-export interface BadgeObject {
-    text: string,
-    type?: 'info' | 'error' | 'warning' | 'success' | 'neutral' | 'darkWash' | 'lightWash' | undefined
 }
 
 export interface DropdownItemProps {
@@ -1723,7 +1723,7 @@ export interface TextFieldProps {
  */
 export interface ToastProps {
     button?: React.ReactNode | undefined;
-    text?: string | React.ElementType | undefined;
+    text?: string | React.ReactNode | undefined;
     thumbnail?: React.ReactNode | undefined;
     thumbnailShape?: 'circle' | 'rectangle' | 'square' | undefined;
     variant?: 'default' | 'error' | undefined;
