@@ -16,7 +16,7 @@ const client = new MapiClient(config);
 
 const directionsService: DirectionsService = Directions(client);
 
-const mapiRequest = directionsService.getDirections({
+const mapiRequest: MapiRequest = directionsService.getDirections({
     profile: 'walking',
     waypoints: [
         {
@@ -29,13 +29,13 @@ const mapiRequest = directionsService.getDirections({
     exclude: [],
 });
 
-mapiRequest.send().then((response) => {
+mapiRequest.send().then((response: MapiResponse) => {
     const body = response.body;
     const routes = body.routes;
     const polyline = routes[0].geometry;
 });
 
-const mapiRequestGeoJSON = directionsService.getDirections({
+const mapiRequestGeoJSON: MapiRequest = directionsService.getDirections({
     profile: 'walking',
     geometries: "geojson",
     waypoints: [
@@ -49,7 +49,7 @@ const mapiRequestGeoJSON = directionsService.getDirections({
     exclude: [],
 });
 
-mapiRequestGeoJSON.send().then((response) => {
+mapiRequestGeoJSON.send().then((response: MapiResponse) => {
     const body = response.body;
     const routes = body.routes;
     const coordinates = routes[0].geometry.coordinates;

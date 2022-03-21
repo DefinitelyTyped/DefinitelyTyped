@@ -808,7 +808,6 @@ declare module '@mapbox/mapbox-sdk/services/directions' {
 declare module '@mapbox/mapbox-sdk/services/geocoding' {
     import { LngLatLike } from 'mapbox-gl';
     import { MapiRequest, Coordinates } from '@mapbox/mapbox-sdk/lib/classes/mapi-request';
-    import { MapiResponse } from '@mapbox/mapbox-sdk/lib/classes/mapi-response';
     import MapiClient, { SdkConfig } from '@mapbox/mapbox-sdk/lib/classes/mapi-client';
 
     /*********************************************************************************************************************
@@ -818,8 +817,8 @@ declare module '@mapbox/mapbox-sdk/services/geocoding' {
     export default function Geocoding(config: SdkConfig | MapiClient): GeocodeService;
 
     interface GeocodeService {
-        forwardGeocode(request: GeocodeRequest): MapiRequest;
-        reverseGeocode(request: GeocodeRequest): MapiRequest;
+        forwardGeocode(request: GeocodeRequest): MapiRequest<GeocodeResponse>;
+        reverseGeocode(request: GeocodeRequest): MapiRequest<GeocodeResponse>;
     }
 
     type BoundingBox = [number, number, number, number];
@@ -887,7 +886,7 @@ declare module '@mapbox/mapbox-sdk/services/geocoding' {
         /**
          * "Feature Collection" , a GeoJSON type from the GeoJSON specification.
          */
-        type: string;
+        type: "FeatureCollection";
         /**
          * An array of space and punctuation-separated strings from the original query.
          */
@@ -909,9 +908,9 @@ declare module '@mapbox/mapbox-sdk/services/geocoding' {
          */
         id: string;
         /**
-         * "Feature" , a GeoJSON type from the GeoJSON specification.
+         * "Feature", a GeoJSON type from the GeoJSON specification.
          */
-        type: string;
+        type: "Feature";
         /**
          * An array of feature types describing the feature. Options are  country ,  region ,  postcode ,  district ,  place , locality ,  neighborhood ,
          * address ,  poi , and  poi.landmark . Most features have only one type, but if the feature has multiple types,
@@ -981,7 +980,7 @@ declare module '@mapbox/mapbox-sdk/services/geocoding' {
         /**
          * Point, a GeoJSON type from the GeoJSON specification .
          */
-        type: string;
+        type: "Point";
         /**
          * An array in the format [ longitude,latitude ] at the center of the specified  bbox .
          */
@@ -1022,7 +1021,6 @@ declare module '@mapbox/mapbox-sdk/services/geocoding' {
 }
 
 declare module '@mapbox/mapbox-sdk/services/map-matching' {
-    import { LngLatLike } from 'mapbox-gl';
     import {
         DirectionsAnnotation,
         DirectionsGeometry,
@@ -1043,7 +1041,7 @@ declare module '@mapbox/mapbox-sdk/services/map-matching' {
     export default function MapMatching(config: SdkConfig | MapiClient): MapMatchingService;
 
     interface MapMatchingService {
-        getMatch(request: MapMatchingRequest): MapiRequest;
+        getMatch(request: MapMatchingRequest): MapiRequest<MapMatchingResponse>;
     }
 
     interface MapMatchingRequest {
@@ -1174,7 +1172,7 @@ declare module '@mapbox/mapbox-sdk/services/matrix' {
          * Get a duration and/or distance matrix showing travel times and distances between coordinates.
          * @param request
          */
-        getMatrix(request: MatrixRequest): MapiRequest;
+        getMatrix(request: MatrixRequest): MapiRequest<MatrixResponse>;
     }
 
     interface MatrixRequest {
@@ -1202,7 +1200,6 @@ declare module '@mapbox/mapbox-sdk/services/matrix' {
 declare module '@mapbox/mapbox-sdk/services/optimization' {
     import { Waypoint } from '@mapbox/mapbox-sdk/services/directions';
     import { MapiRequest, MapboxProfile, DirectionsApproach } from '@mapbox/mapbox-sdk/lib/classes/mapi-request';
-    import { MapiResponse } from '@mapbox/mapbox-sdk/lib/classes/mapi-response';
     import MapiClient, { SdkConfig } from '@mapbox/mapbox-sdk/lib/classes/mapi-client';
 
     /*********************************************************************************************************************
@@ -1651,7 +1648,6 @@ declare module '@mapbox/mapbox-sdk/services/tilesets' {
 
 declare module '@mapbox/mapbox-sdk/services/tokens' {
     import { MapiRequest } from '@mapbox/mapbox-sdk/lib/classes/mapi-request';
-    import { MapiResponse } from '@mapbox/mapbox-sdk/lib/classes/mapi-response';
     import MapiClient, { SdkConfig } from '@mapbox/mapbox-sdk/lib/classes/mapi-client';
 
     /*********************************************************************************************************************
