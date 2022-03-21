@@ -5,7 +5,6 @@
 //                 chachan <https://github.com/chachan>
 //                 techieshark <https://github.com/techieshark>
 //                 Robin Heinemann <https://github.com/rroohhh>
-//                 Jonas Strassel <https://github.com/boredland>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
