@@ -23,5 +23,5 @@
     "files": [
         "index.d.ts",
         "wojtekmaj__react-daterange-picker-tests.tsx"
-    ],
+    ]
 }
