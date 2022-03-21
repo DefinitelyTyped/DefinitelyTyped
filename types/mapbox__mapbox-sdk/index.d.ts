@@ -5,13 +5,14 @@
 //                 chachan <https://github.com/chachan>
 //                 techieshark <https://github.com/techieshark>
 //                 Robin Heinemann <https://github.com/rroohhh>
+//                 Jonas Strassel <https://github.com/boredland>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
 /// <reference types="node" />
 
 declare module '@mapbox/mapbox-sdk/lib/classes/mapi-client' {
-    import { MapiRequest, MapiRequestOptions, DirectionsApproach } from '@mapbox/mapbox-sdk/lib/classes/mapi-request';
+    import { MapiRequest, MapiRequestOptions } from '@mapbox/mapbox-sdk/lib/classes/mapi-request';
     export default class MapiClient {
         constructor(config: SdkConfig);
         accessToken: string;
@@ -30,9 +31,9 @@ declare module '@mapbox/mapbox-sdk/lib/classes/mapi-request' {
     import MapiClient from '@mapbox/mapbox-sdk/lib/classes/mapi-client';
     import { MapiError } from '@mapbox/mapbox-sdk/lib/classes/mapi-error';
 
-    interface EventEmitter {
-        response: MapiResponse;
-        error: MapiError;
+    interface EventEmitter<T> {
+        response: MapiResponse<T>;
+        error: MapiError<T>;
         downloadProgress: ProgressEvent;
         uploadProgress: ProgressEvent;
     }
@@ -80,11 +81,11 @@ declare module '@mapbox/mapbox-sdk/lib/classes/mapi-request' {
         sendFileAs: 'data' | 'form';
     }
 
-    type MapiRequest = MapiRequestOptions & {
+    type MapiRequest<T = any> = MapiRequestOptions & {
         /**
          * An event emitter.
          */
-        emitter: EventEmitter;
+        emitter: EventEmitter<T>;
         /**
          * This request's MapiClient.
          */
@@ -92,11 +93,11 @@ declare module '@mapbox/mapbox-sdk/lib/classes/mapi-request' {
         /**
          * If this request has been sent and received a response, the response is available on this property.
          */
-        response?: MapiResponse | undefined;
+        response?: MapiResponse<T> | undefined;
         /**
          * If this request has been sent and received an error in response, the error is available on this property.
          */
-        error?: MapiError | Error | undefined;
+        error?: MapiError<T> | Error | undefined;
         /**
          * If the request has been aborted (via abort), this property will be true.
          */
@@ -108,15 +109,15 @@ declare module '@mapbox/mapbox-sdk/lib/classes/mapi-request' {
          */
         sent: boolean;
         url(accessToken?: string): string;
-        send(): Promise<MapiResponse>;
+        send(): Promise<MapiResponse<T>>;
         abort(): void;
-        eachPage(callback: PageCallbackFunction): void;
-        clone(): MapiRequest;
+        eachPage(callback: PageCallbackFunction<T>): void;
+        clone(): MapiRequest<T>;
     };
 
-    interface PageCallbackFunction {
-        error: MapiError;
-        response: MapiResponse;
+    interface PageCallbackFunction<T> {
+        error: MapiError<T>;
+        response: MapiResponse<T>;
         next: () => void;
     }
 
@@ -130,11 +131,11 @@ declare module '@mapbox/mapbox-sdk/lib/classes/mapi-request' {
 declare module '@mapbox/mapbox-sdk/lib/classes/mapi-response' {
     import { MapiRequest } from '@mapbox/mapbox-sdk/lib/classes/mapi-request';
 
-    interface MapiResponse {
+    interface MapiResponse<T = any> {
         /**
          * The response body, parsed as JSON.
          */
-        body: any;
+        body: T;
         /**
          * The raw response body.
          */
@@ -154,20 +155,20 @@ declare module '@mapbox/mapbox-sdk/lib/classes/mapi-response' {
         /**
          * The response's originating MapiRequest.
          */
-        request: MapiRequest;
+        request: MapiRequest<T>;
         hasNextPage(): boolean;
-        nextPage(): MapiRequest | null;
+        nextPage(): MapiRequest<T> | null;
     }
 }
 
 declare module '@mapbox/mapbox-sdk/lib/classes/mapi-error' {
     import { MapiRequest } from '@mapbox/mapbox-sdk/lib/classes/mapi-request';
 
-    interface MapiError {
+    interface MapiError<T = any> {
         /**
          * The errored request.
          */
-        request: MapiRequest;
+        request: MapiRequest<T>;
         /**
          * The type of error. Usually this is 'HttpError'.
          * If the request was aborted, so the error was not sent from the server, the type will be 'RequestAbortedError'.
@@ -180,7 +181,7 @@ declare module '@mapbox/mapbox-sdk/lib/classes/mapi-error' {
         /**
          * If the server sent a response body, this property exposes that response, parsed as JSON if possible.
          */
-        body?: any;
+        body?: T;
         /**
          * Whatever message could be derived from the call site and HTTP response.
          */
@@ -312,7 +313,8 @@ declare module '@mapbox/mapbox-sdk/services/directions' {
     export default function Directions(config: SdkConfig | MapiClient): DirectionsService;
 
     interface DirectionsService {
-        getDirections(request: DirectionsRequest): MapiRequest;
+        getDirections(request: DirectionsRequest | DirectionsRequest<'polyline' | 'polyline6'>): MapiRequest<DirectionsResponse>;
+        getDirections(request: DirectionsRequest<'geojson'>): MapiRequest<DirectionsResponse<GeoJSON.MultiLineString | GeoJSON.LineString>>;
     }
 
     type DirectionsAnnotation = 'duration' | 'distance' | 'speed' | 'congestion';
@@ -350,8 +352,10 @@ declare module '@mapbox/mapbox-sdk/services/directions' {
         | 'notification'
         | 'exit roundabout'
         | 'exit rotary';
+    type Polyline = string;
+    type RouteGeometry = GeoJSON.LineString | GeoJSON.MultiLineString | Polyline;
 
-    interface CommonDirectionsRequest {
+    interface CommonDirectionsRequest<T extends DirectionsGeometry = 'polyline'> {
         waypoints: DirectionsWaypoint[];
         /**
          * Whether to try to return alternative routes. An alternative is classified as a route that is significantly
@@ -382,7 +386,7 @@ declare module '@mapbox/mapbox-sdk/services/directions' {
          * Format of the returned geometry. Allowed values are:  geojson (as LineString ),
          * polyline with precision 5,  polyline6 (a polyline with precision 6). The default value is  polyline .
          */
-        geometries?: DirectionsGeometry | undefined;
+        geometries?: T;
         /**
          * Language of returned turn-by-turn text instructions. See supported languages . The default is  en for English.
          */
@@ -426,7 +430,7 @@ declare module '@mapbox/mapbox-sdk/services/directions' {
               exclude?: Array<'ferry' | 'toll' | 'motorway'> | undefined;
           };
 
-    type DirectionsRequest = CommonDirectionsRequest & DirectionsProfileExclusion;
+    type DirectionsRequest<T extends DirectionsGeometry = "polyline"> = CommonDirectionsRequest<T> & DirectionsProfileExclusion;
 
     interface Waypoint {
         /**
@@ -464,11 +468,11 @@ declare module '@mapbox/mapbox-sdk/services/directions' {
         waypointName?: string | undefined;
     };
 
-    interface DirectionsResponse {
+    interface DirectionsResponse<T extends RouteGeometry = Polyline> {
         /**
          * Array of Route objects ordered by descending recommendation rank. May contain at most two routes.
          */
-        routes: Route[];
+        routes: Array<Route<T>>;
         /**
          * Array of Waypoint objects. Each waypoints is an input coordinate snapped to the road and path network.
          * The waypoints appear in the array in the order of the input coordinates.
@@ -482,13 +486,13 @@ declare module '@mapbox/mapbox-sdk/services/directions' {
         uuid: string;
     }
 
-    interface Route {
+    interface Route<T extends RouteGeometry> {
         /**
          * Depending on the geometries parameter this is a GeoJSON LineString or a Polyline string.
          * Depending on the overview parameter this is the complete route geometry (full), a simplified geometry
          * to the zoom level at which the route can be displayed in full (simplified), or is not included (false)
          */
-        geometry: GeoJSON.LineString | GeoJSON.MultiLineString;
+        geometry: T;
         /**
          * Array of RouteLeg objects.
          */
