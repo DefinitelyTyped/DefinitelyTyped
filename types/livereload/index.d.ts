@@ -3,7 +3,7 @@
 // Definitions by: Hector Osuna <https://github.com/FanGoH/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Server as WebSocketServer } from 'ws';
+import { Server as WebSocketServer, WebSocket } from 'ws';
 import { Server as httpServer } from 'http';
 import { Server as httpsServer, ServerOptions } from 'https';
 import { EventEmitter } from 'events';
@@ -44,7 +44,7 @@ interface CreateServerConfig extends ServerConfig {
 }
 
 /** Live Reload Server object, provides main functionality */
-declare class LiveReloadServer extends EventEmitter {
+export class LiveReloadServer extends EventEmitter {
     config: ServerConfig;
     watcher: FSWatcher;
     server: WebSocketServer;
