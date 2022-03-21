@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
         "paths": {
-            "@wojtekmaj/*": ["wojtekmaj__*"],
+            "@wojtekmaj/*": ["wojtekmaj__*"]
         },
         "module": "commonjs",
         "lib": [
