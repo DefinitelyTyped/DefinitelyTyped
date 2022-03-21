@@ -1,5 +1,5 @@
 // Type definitions for chartjs-plugin-trendline 1.0
-// Project: https://github.com/Makanz/chartjs-plugin-trendline (Does not have to be to GitHub, but prefer linking to a source code repository rather than to a project website.)
+// Project: https://github.com/Makanz/chartjs-plugin-trendline
 // Definitions by: Ferotiq <https://github.com/Ferotiq>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
