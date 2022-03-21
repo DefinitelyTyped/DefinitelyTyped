@@ -6,12 +6,6 @@ src/model/operation/nooperation.d.ts
 src/model/operation/renameoperation.d.ts
 src/model/operation/rootattributeoperation.d.ts
 src/model/operation/splitoperation.d.ts
-src/model/utils/deletecontent.d.ts
-src/model/utils/getselectedcontent.d.ts
-src/model/utils/insertcontent.d.ts
-src/model/utils/modifyselection.d.ts
-src/view/observer/arrowkeysobserver.d.ts
-src/view/observer/bubblingeventinfo.d.ts
 src/view/observer/fakeselectionobserver.d.ts
 src/view/observer/focusobserver.d.ts
 src/view/observer/inputobserver.d.ts
