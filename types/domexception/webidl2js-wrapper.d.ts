@@ -1,6 +1,6 @@
 import { Options as WebIDLConversionOptions } from 'webidl-conversions';
 import { implementation as DOMExceptionImpl } from './lib/DOMException-impl';
-import { DOMException } from "./lib/DOMException";
+import DOMException = require('./index');
 
 /**
  * Checks whether `obj` is a `DOMException` object with an implementation
