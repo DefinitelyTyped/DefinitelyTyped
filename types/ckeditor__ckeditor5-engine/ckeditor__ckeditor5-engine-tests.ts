@@ -23,7 +23,7 @@ import {
     StylesProcessor,
     transformSets,
     TreeWalker,
-    ViewDocument
+    ViewDocument,
 } from '@ckeditor/ckeditor5-engine';
 import DowncastDispatcher from '@ckeditor/ckeditor5-engine/src/conversion/downcastdispatcher';
 import DowncastHelpers, {
@@ -34,13 +34,13 @@ import DowncastHelpers, {
     insertText,
     insertUIElement,
     remove,
-    wrap
+    wrap,
 } from '@ckeditor/ckeditor5-engine/src/conversion/downcasthelpers';
 import Mapper from '@ckeditor/ckeditor5-engine/src/conversion/mapper';
 import UpcastDispatcher from '@ckeditor/ckeditor5-engine/src/conversion/upcastdispatcher';
 import UpcastHelpers, {
     convertText,
-    convertToModelFragment
+    convertToModelFragment,
 } from '@ckeditor/ckeditor5-engine/src/conversion/upcasthelpers';
 import Batch from '@ckeditor/ckeditor5-engine/src/model/batch';
 import DocumentFragment from '@ckeditor/ckeditor5-engine/src/model/documentfragment';
@@ -55,7 +55,7 @@ import Text from '@ckeditor/ckeditor5-engine/src/model/text';
 import TextProxy from '@ckeditor/ckeditor5-engine/src/model/textproxy';
 import {
     injectSelectionPostFixer,
-    mergeIntersectingRanges
+    mergeIntersectingRanges,
 } from '@ckeditor/ckeditor5-engine/src/model/utils/selection-post-fixer';
 import Writer from '@ckeditor/ckeditor5-engine/src/model/writer';
 import { getBoxSidesValues } from '@ckeditor/ckeditor5-engine/src/styles/utils';
@@ -82,6 +82,7 @@ import ViewTextProxy from '@ckeditor/ckeditor5-engine/src/view/textproxy';
 import UIElement from '@ckeditor/ckeditor5-engine/src/view/uielement';
 import View from '@ckeditor/ckeditor5-engine/src/view/view';
 import { EmitterMixin } from '@ckeditor/ckeditor5-utils';
+import History from '@ckeditor/ckeditor5-engine/src/model/history';
 
 let str = '';
 const stylesProcessor = new StylesProcessor();
@@ -1350,4 +1351,21 @@ new DomConverter(viewDocument).viewToDom(new MyViewNode());
 new DomConverter(viewDocument).viewToDom(new MyViewNode(), window.document);
 
 // $ExpectType string | number | boolean | undefined
-new Element('div').getAttribute("");
+new Element('div').getAttribute('');
+
+// $ExpectType void
+new History().addOperation(operation);
+// $ExpectType Operation[]
+new History().getOperations();
+// $ExpectType Operation[]
+new History().getOperations(0, 1);
+// $ExpectType Operation | undefined
+new History().getOperation(4);
+// $ExpectType void
+new History().setOperationAsUndone(new History().getOperations(0, 1)[0], new History().getOperations(0, 1)[1]);
+// $ExpectType boolean
+new History().isUndoingOperation(new History().getOperations(0, 1)[0]);
+// $ExpectType boolean
+new History().isUndoneOperation(new History().getOperations(0, 1)[0]);
+// $ExpectType Operation | undefined
+new History().getUndoneOperation(new History().getOperations(0, 1)[0]);

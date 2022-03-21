@@ -1,5 +1,4 @@
 src/dataprocessor/xmldataprocessor.d.ts
-src/model/history.d.ts
 src/model/operation/attributeoperation.d.ts
 src/model/operation/detachoperation.d.ts
 src/model/operation/mergeoperation.d.ts
