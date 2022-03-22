@@ -1,5 +1,5 @@
 // Type definitions for black-engine 0.5
-// Project: https://github.com/MassiveHeights/Black (Does not have to be to GitHub, but prefer linking to a source code repository rather than to a project website.)
+// Project: https://github.com/MassiveHeights/Black
 // Definitions by: David Dunnings <https://github.com/Dunnings>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.3
