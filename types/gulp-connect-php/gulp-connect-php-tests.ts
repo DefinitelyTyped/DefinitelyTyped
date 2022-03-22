@@ -1,8 +1,9 @@
 import connect = require('gulp-connect-php');
 
+// No arguments passsed
+connect.server();
 // Empty options and no callback
 connect.server({});
-
 // Empty options and callback
 connect.server({}, err => {
     if (err) throw err;
