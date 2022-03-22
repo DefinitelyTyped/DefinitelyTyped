@@ -130,6 +130,10 @@ declare namespace Sortable {
          */
         item: HTMLElement;
         /**
+         * dragged elements
+         */
+        items: HTMLElement[];
+        /**
          * new index within parent
          */
         newIndex: number | undefined;
@@ -491,6 +495,18 @@ declare namespace Sortable {
          * @param state a class's state.
          */
         toggleClass(element: HTMLElement, name: string, state: boolean): void;
+
+        /**
+         * Selects the provided multi-drag item
+         * @param element The element to be selected
+         */
+        select(element: HTMLElement): void;
+
+        /**
+         * Deselects the provided multi-drag item
+         * @param element The element to be deselected
+         */
+        deselect(element: HTMLElement): void;
     }
 
     interface DOMRect {
