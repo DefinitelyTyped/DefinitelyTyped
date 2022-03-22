@@ -19,9 +19,9 @@ export class Stage extends GameObject {
     get centerX(): number;
     get centerY(): number;
     getBounds(space?: any, includeChildren?: boolean, outRect?: any): any;
-    override onGetLocalBounds(outRect?: any): any;
-    override set localTransformation(arg: Matrix);
-    override get localTransformation(): Matrix;
+    onGetLocalBounds(outRect?: any): any;
+    set localTransformation(arg: Matrix);
+    get localTransformation(): Matrix;
 }
 import { Matrix } from '../geom/Matrix';
 import { GameObject } from '../core/GameObject';

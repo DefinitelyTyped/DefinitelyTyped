@@ -5,7 +5,7 @@ export class VectorCurveScatter extends VectorScatterBase {
     private mCache;
     set points(arg: number[]);
     get points(): number[];
-    override getValueAt(t: number): Vector;
+    getValueAt(t: number): Vector;
 }
 import { VectorScatterBase } from './VectorScatterBase';
 import { Vector } from '../geom/Vector';

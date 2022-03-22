@@ -4,7 +4,7 @@ export class FloatScatter extends FloatScatterBase {
     min: number;
     max: number;
     ease: (arg0: number) => number;
-    override getValueAt(t: number): number;
+    getValueAt(t: number): number;
     value: number;
 }
 import { FloatScatterBase } from './FloatScatterBase';

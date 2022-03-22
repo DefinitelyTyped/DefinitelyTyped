@@ -2,7 +2,6 @@
 // Project: https://github.com/MassiveHeights/Black
 // Definitions by: David Dunnings <https://github.com/Dunnings>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.3
 export { Debug } from './core/Debug';
 export { MathEx } from './math/MathEx';
 export { Perlin } from './math/Perlin';

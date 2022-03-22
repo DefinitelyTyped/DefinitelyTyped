@@ -5,7 +5,7 @@ export class FloatCurveScatter extends FloatScatterBase {
     private mCache;
     set points(arg: number[]);
     get points(): number[];
-    override getValueAt(t: number): number;
+    getValueAt(t: number): number;
     value: number;
 }
 import { FloatScatterBase } from './FloatScatterBase';
