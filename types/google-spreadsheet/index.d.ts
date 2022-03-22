@@ -857,6 +857,18 @@ export class GoogleSpreadsheetWorksheet implements WorksheetBasicProperties {
 
     /**
      * @description
+     * insert into worksheet "dimension properties"
+     *
+     * @param columnsOrRows which dimension to update
+     *
+     * @param bounds start index and end index of the dimension to be added
+     *
+     * @param inheritFromBefore to inherit properties from the previous dimension
+     */
+    insertDimension(columnsOrRows: WorksheetDimension, bounds: WorksheetDimensionBounds, inheritFromBefore?: boolean): Promise<void>;
+
+    /**
+     * @description
      * clear all data/cells in the worksheet
      */
     clear(): Promise<void>;
