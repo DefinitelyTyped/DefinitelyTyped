@@ -5,10 +5,8 @@
 //                 Jessica Franco <https://github.com/Jessidhia>
 //                 Jason Killian <https://github.com/jkillian>
 //                 Sebastian Silbermann <https://github.com/eps1lon>
-//                 David Ruisinger <https://github.com/flavordaaave>
 //                 Matthew Wagerfield <https://github.com/wagerfield>
 //                 Yuki Ito <https://github.com/Lazyuki>
-//                 Maciej Goszczycki <https://github.com/mgoszcz2>
 //                 Aaron Reisman <https://github.com/lifeiscontent>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -56,17 +54,14 @@ type Defaultize<P, D> = P extends any
 
 type ReactDefaultizedProps<C, P> = C extends { defaultProps: infer D } ? Defaultize<P, D> : P;
 
-type MakeAttrsOptional<C extends string | React.ComponentType<any>, O extends object, A extends keyof any> = OmitU<
-    ReactDefaultizedProps<
-        C,
-        React.ComponentPropsWithRef<C extends IntrinsicElementsKeys | React.ComponentType<any> ? C : never>
-    > &
-        O,
-    A
-> &
-    Partial<
-        PickU<React.ComponentPropsWithRef<C extends IntrinsicElementsKeys | React.ComponentType<any> ? C : never> & O, A>
-    >;
+type MakeAttrsOptional<
+    C extends string | React.ComponentType<any>,
+    O extends object,
+    A extends keyof P,
+    P = React.ComponentPropsWithRef<C extends IntrinsicElementsKeys | React.ComponentType<any> ? C : never>,
+> =
+    // Distribute unions early to avoid quadratic expansion
+    P extends any ? OmitU<ReactDefaultizedProps<C, P> & O, A> & Partial<PickU<P & O, A>> : never;
 
 export type StyledComponentProps<
     // The Component from whose props are derived
@@ -344,7 +339,7 @@ export type BaseWithThemeFnInterface<T extends object> = <C extends React.Compon
     // this check is roundabout because the extends clause above would
     // not allow any component that accepts _more_ than theme as a prop
     component: React.ComponentProps<C> extends { theme?: T | undefined } ? C : never,
-) => React.ForwardRefExoticComponent<WithOptionalTheme<React.ComponentPropsWithRef<C>, T>>;
+) => React.ForwardRefExoticComponent<WithOptionalTheme<JSX.LibraryManagedAttributes<C, React.ComponentPropsWithRef<C>>, T>>;
 export type WithThemeFnInterface<T extends object> = BaseWithThemeFnInterface<AnyIfEmpty<T>>;
 export const withTheme: WithThemeFnInterface<DefaultTheme>;
 

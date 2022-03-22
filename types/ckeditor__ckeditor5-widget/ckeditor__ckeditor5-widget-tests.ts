@@ -4,14 +4,11 @@ import Schema from '@ckeditor/ckeditor5-engine/src/model/schema';
 import Selection from '@ckeditor/ckeditor5-engine/src/model/selection';
 import Document from '@ckeditor/ckeditor5-engine/src/view/document';
 import ViewElement from '@ckeditor/ckeditor5-engine/src/view/element';
-import Position from '@ckeditor/ckeditor5-engine/src/view/position';
 import View from '@ckeditor/ckeditor5-engine/src/view/view';
-import { Rect } from '@ckeditor/ckeditor5-utils';
 import Resizer from '@ckeditor/ckeditor5-widget/src/widgetresize/resizer';
 import SizeView from '@ckeditor/ckeditor5-widget/src/widgetresize/sizeview';
 import {
     findOptimalInsertionRange,
-    centeredBalloonPositionForLongWidgets,
     checkSelectionOnObject,
     getLabel,
     isWidget,
@@ -23,6 +20,7 @@ import {
     WidgetToolbarRepository,
     WidgetTypeAround,
 } from '@ckeditor/ckeditor5-widget/';
+import HighlightStack from '@ckeditor/ckeditor5-widget/src/highlightstack';
 
 class MyEditor extends Editor {}
 const editor = new MyEditor();
@@ -76,11 +74,7 @@ WidgetTypeAround.requires.length === 2;
 WidgetTypeAround.requires.map(Plugin => new Plugin(editor).init());
 
 isWidget(containerElement) === bool;
-const position: Position = centeredBalloonPositionForLongWidgets(
-    new Rect(document.createElement('div')),
-    new Rect(document.createElement('div')),
-)!;
-position.is('foo');
+// $ExpectType boolean
 findOptimalInsertionRange(new Selection(null), new Model()).containsRange(
     findOptimalInsertionRange(new Selection(null), new Model()),
 );
@@ -96,6 +90,15 @@ toWidget(containerElement, new DowncastWriter(new Document(new StylesProcessor()
 
 new SizeView().render();
 new SizeView().isRendered === bool;
+
+new HighlightStack().add(
+    {
+        classes: '',
+        attributes: { foo: true },
+    },
+    new DowncastWriter(new Document(new StylesProcessor())),
+);
+new HighlightStack().remove('', new DowncastWriter(new Document(new StylesProcessor())));
 
 // $ExpectType Widget
 editor.plugins.get('Widget');

@@ -7,6 +7,10 @@ PDFTK.configure({
     tempDir: './pdftk',
 });
 
+PDFTK.configure({
+    bin: '/usr/local/bin/pdftk',
+});
+
 [
     {
         input: 'string',

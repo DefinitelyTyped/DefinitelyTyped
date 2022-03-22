@@ -12,6 +12,8 @@ import * as conversionUtils from '@ckeditor/ckeditor5-html-support/src/conversio
 import * as converters from '@ckeditor/ckeditor5-html-support/src/converters';
 import HtmlComment from '@ckeditor/ckeditor5-html-support/src/htmlcomment';
 import CodeBlockHtmlSupport from '@ckeditor/ckeditor5-html-support/src/integrations/codeblock';
+import ScriptElementSupport from '@ckeditor/ckeditor5-html-support/src/integrations/script';
+import StyleElementSupport from "@ckeditor/ckeditor5-html-support/src/integrations/style";
 import TableElementSupport from '@ckeditor/ckeditor5-html-support/src/integrations/table';
 import schemas from '@ckeditor/ckeditor5-html-support/src/schemadefinitions';
 
@@ -82,6 +84,12 @@ CodeBlockHtmlSupport.requires.forEach(Plugin => new Plugin(editor));
 new TableElementSupport(editor).init();
 TableElementSupport.requires.forEach(Plugin => new Plugin(editor));
 
+new ScriptElementSupport(editor).init();
+ScriptElementSupport.requires.forEach(Plugin => new Plugin(editor));
+
+new StyleElementSupport(editor).init();
+StyleElementSupport.requires.forEach(Plugin => new Plugin(editor));
+
 schemas.block.concat([]);
 schemas.inline.concat([]).lastIndexOf(schemas.inline[0]) === 0;
 
@@ -99,6 +107,12 @@ editor.plugins.get('GeneralHtmlSupport');
 
 // $ExpectType TableElementSupport
 editor.plugins.get('TableElementSupport');
+
+// $ExpectType ScriptElementSupport
+editor.plugins.get('ScriptElementSupport');
+
+// $ExpectType StyleElementSupport
+editor.plugins.get('StyleElementSupport');
 
 const position = new Position(new Element('div'), [4]);
 // $ExpectType boolean

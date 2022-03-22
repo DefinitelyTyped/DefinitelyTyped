@@ -87,5 +87,6 @@ export * from "./trigger/sns";
 export * from "./trigger/sqs";
 export * from './trigger/msk';
 export * from "./trigger/secretsmanager";
+export * from "./trigger/s3-event-notification";
 
 export as namespace AWSLambda;

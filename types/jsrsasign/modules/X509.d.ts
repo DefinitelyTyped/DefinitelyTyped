@@ -1,4 +1,6 @@
 declare namespace jsrsasign {
+    type IdentityArray = Array<[{ type: string; value: string; ds: string }]>;
+
     interface X509Extension {
         oid: string;
         critical: boolean;
@@ -6,8 +8,26 @@ declare namespace jsrsasign {
     }
 
     interface IdentityResponse {
-        array: Array<[{ type: string; value: string; ds: string }]>;
+        array: IdentityArray;
         str: string;
+    }
+
+    interface CertificateTBSParams {
+        version?: number; // this can be omitted, the default is 3.
+        serial: Hex | { int: number } | { bigint: number } | number; // DERInteger parameter
+        issuer: { array: IdentityArray } | { str: string } | { array: IdentityArray, str: string }; // X500Name parameter
+        sigalg?: string;
+        notbefore: string; // string, passed to Time
+        notafter: string; // string, passed to Time
+        subject: { array: IdentityArray } | { str: string } | { array: IdentityArray, str: string }; // X500Name parameter
+        sbjpubkey: RSAKey
+            | ECCPrivateKey
+            | KJUR.crypto.ECDSA
+            | KJUR.crypto.DSA
+            | KJUR.jws.JWS.JsonWebKey
+            | { n: string; e: string }
+            | string; // KEYUTIL.getKey pubkey parameter
+        ext: Array<{ extname: string, [x: string]: any }>;
     }
 
     interface Hex {

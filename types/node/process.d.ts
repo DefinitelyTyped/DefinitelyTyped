@@ -146,7 +146,7 @@ declare module 'process' {
                 /**
                  * If true, a diagnostic report is generated when the process
                  * receives the signal specified by process.report.signal.
-                 * @defaul false
+                 * @default false
                  */
                 reportOnSignal: boolean;
                 /**
@@ -1405,7 +1405,7 @@ declare module 'process' {
                 emit(event: 'unhandledRejection', reason: unknown, promise: Promise<unknown>): boolean;
                 emit(event: 'warning', warning: Error): boolean;
                 emit(event: 'message', message: unknown, sendHandle: unknown): this;
-                emit(event: Signals, signal: Signals): boolean;
+                emit(event: Signals, signal?: Signals): boolean;
                 emit(event: 'multipleResolves', type: MultipleResolveType, promise: Promise<unknown>, value: unknown): this;
                 emit(event: 'worker', listener: WorkerListener): this;
                 on(event: 'beforeExit', listener: BeforeExitListener): this;

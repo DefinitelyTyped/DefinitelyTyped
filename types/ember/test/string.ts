@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import { SafeString } from '@ember/template/-private/handlebars';
 
-const { dasherize, camelize, capitalize, classify, decamelize, htmlSafe, loc, underscore, w } = Ember.String;
+const { dasherize, camelize, capitalize, classify, decamelize, htmlSafe, underscore, w } = Ember.String;
 
 dasherize(); // $ExpectError
 dasherize('blue man group'); // $ExpectType string
@@ -30,11 +30,6 @@ classify('', ''); // $ExpectError
 capitalize(); // $ExpectError
 capitalize('blue man group'); // $ExpectType string
 capitalize('', ''); // $ExpectError
-
-loc(); // $ExpectError
-loc('_Hello World'); // $ExpectType string
-// TODO - fix this case upstream in @types/ember https://github.com/typed-ember/ember-cli-typescript/issues/281
-loc('_Hello %@ %@', ['John', 'Smith']); // $ExpectType string
 
 const handlebarsSafeString: SafeString = Ember.String.htmlSafe('lorem ipsum...');
 Ember.String.htmlSafe('lorem ipsum...'); // $ExpectType SafeString

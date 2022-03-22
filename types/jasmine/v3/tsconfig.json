@@ -1,0 +1,28 @@
+{
+    "files": [
+        "index.d.ts",
+        "jasmine-tests.ts"
+    ],
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "esModuleInterop": true,
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": false,
+        "baseUrl": "../../",
+        "paths": {
+            "jasmine": [
+                "jasmine/v3"
+            ]
+        },
+        "typeRoots": ["../../"],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    }
+}

@@ -1,8 +1,5 @@
 import Ember from 'ember';
 
-// $
-Ember.$; // $ExpectType JQueryStatic
-
 const top = (<T>(x?: T): T => x!)();
 type Top = typeof top;
 declare function expectTypeNativeArrayTop(x: Ember.NativeArray<Top>): void;
@@ -10,13 +7,13 @@ declare function expectTypeNativeArrayTop(x: Ember.NativeArray<Top>): void;
 expectTypeNativeArrayTop(Ember.A());
 Ember.A([1, 2]); // $ExpectType NativeArray<number>
 // addListener
-Ember.addListener({ a: 'foo' }, 'a', {}, () => {});
-Ember.addListener({ a: 'foo' }, 'a', null, () => {});
+Ember.addListener({ a: 'foo' }, 'event', {}, () => {});
+Ember.addListener({ a: 'foo' }, 'event', {}, 'a');
+Ember.addListener({ a: 'foo' }, 'event', {}, 'b'); // $ExpectError
+Ember.addListener({ a: 'foo' }, 'event', null, () => {});
 // addObserver
 Ember.addObserver({ a: 'foo' }, 'a', null, () => {});
 Ember.addObserver({ a: 'foo' }, 'a', {}, () => {});
-// aliasMethod
-Ember.aliasMethod('init');
 // assert
 Ember.assert('2+2 should always be 4', 2 + 2 === 4);
 // assign
@@ -30,11 +27,6 @@ Ember.cacheFor({ a: 123 }, 'a'); // $ExpectType number | undefined
 Ember.cacheFor({ a: 123 }, 'x'); // $ExpectError
 // compare
 Ember.compare('31', '114'); // $ExpectType number
-// copy
-Ember.copy({ a: 12 }, true).a; // $ExpectType number
-Ember.copy({ a: 12 }); // $ExpectType any
-Ember.copy({ a: 12 }).a; // $ExpectType any
-Ember.copy({ a: 12 }).b; // $ExpectType any
 // debug
 Ember.debug('some info for developers');
 // deprecate
@@ -55,9 +47,6 @@ Ember.getProperties({ z: 23 }, 'z', 'z').z; // $ExpectType number
 Ember.getProperties({ z: 23 }, 'z', 'a').z; // $ExpectError
 Ember.getProperties({ z: 23 }, ['z', 'z']).z; // $ExpectType number
 Ember.getProperties({ z: 23 }, ['z', 'a']).z; // $ExpectError
-// getWithDefault
-Ember.getWithDefault({ z: 23 }, 'z', 43); // $ExpectType number
-Ember.getWithDefault({ a: undefined as number | undefined, z: 23 }, 'a', 99); // $ExpectType number | undefined
 
 // guidFor
 Ember.guidFor({}); // $ExpectType string
@@ -80,8 +69,6 @@ Ember.isNone([]); // $ExpectType boolean
 // isPresent
 Ember.isPresent(''); // $ExpectType boolean
 Ember.isPresent([]); // $ExpectType boolean
-// merge
-Ember.merge({ a: 12 }, { b: 34 }).a; // $ExpectType number
 // observer
 const o2 = Ember.Object.extend({
     name: 'foo',
@@ -96,8 +83,9 @@ const o3 = Ember.Object.extend({
     nameWatcher2: Ember.on('destroy', () => {}),
 });
 // removeListener
-Ember.addListener(o2, 'create', () => {});
-Ember.addListener({}, 'create', () => {}); // $ExpectError
+Ember.removeListener(o2, 'create', null, () => {});
+Ember.removeListener(o2, 'create', null, 'create');
+Ember.removeListener({}, 'create', null, 'blah'); // $ExpectError
 // removeObserver
 Ember.removeObserver(o2, 'create', () => {});
 Ember.removeObserver({}, 'create', () => {}); // $ExpectError
@@ -113,16 +101,14 @@ Ember.set(o2.create(), 'nam', 'bar'); // $ExpectError
 Ember.setOwner(o2.create(), {});
 // setProperties
 Ember.setProperties(o2.create(), { name: 'bar' }).name; // $ExpectType string
-// tryInvoke
-Ember.tryInvoke(o2, 'init');
-Ember.tryInvoke(o2, 'init', [441]);
 // trySet
 Ember.trySet(o2, 'nam', ''); // $ExpectType any
 // typeOf
 Ember.typeOf(''); // $ExpectType "string"
 Ember.typeOf(Ember.A()); // $ExpectType "array"
 // warn
-Ember.warn('be caseful!');
+Ember.warn('be caseful!'); // $ExpectError
+Ember.warn('be caseful!', { id: 'some-warning' });
 // VERSION
 Ember.VERSION; // $ExpectType string
 
@@ -147,9 +133,6 @@ const a1: Ember.Array<string> = [];
 const a2: Ember.Array<string> = {}; // $ExpectError
 // Ember.ArrayProxy
 new Ember.ArrayProxy<number>([3, 3, 2]); // $ExpectType ArrayProxy<number>
-// Ember.Checkbox
-const cb = new Ember.Checkbox(); // $ExpectType Checkbox
-cb.tagName; // $ExpectType string
 // Ember.Component
 const C1 = Ember.Component.extend({ classNames: ['foo'] });
 class C2 extends Ember.Component {
@@ -181,10 +164,6 @@ const da = new Ember.DataAdapter(); // $ExpectType DataAdapter
 // Ember.Debug
 Ember.Debug.registerDeprecationHandler(() => {});
 Ember.Debug.registerWarnHandler(() => {});
-// Ember.DefaultResolver
-const dr = new Ember.DefaultResolver();
-dr.resolve('route:index');
-dr.resolve(); // $ExpectError
 // Ember.Engine
 const e1 = new Ember.Engine();
 e1.register('data:foo', {}, { instantiate: false });
@@ -209,8 +188,6 @@ const h1 = Ember.Helper.extend({
 });
 // Ember.HistoryLocation
 const hil = new Ember.HistoryLocation(); // $ExpectType HistoryLocation
-// Ember.LinkComponent
-Ember.LinkComponent.create(); // $ExpectType LinkComponent
 // Ember.Mixin
 Ember.Object.extend(Ember.Mixin.create({ foo: 'bar' }), {
     baz() {
@@ -220,9 +197,11 @@ Ember.Object.extend(Ember.Mixin.create({ foo: 'bar' }), {
 // Ember.MutableArray
 const ma1: Ember.MutableArray<string> = ['money', 'in', 'the', 'bananna', 'stand'];
 ma1.addObject('!'); // $ExpectType string
-ma1.filterBy(''); // $ExpectType NativeArray<string>
+ma1.filterBy(''); // $ExpectError
 ma1.firstObject; // $ExpectType string | undefined
 ma1.lastObject; // $ExpectType string | undefined
+const ma2: Ember.MutableArray<{ name: string }> = [{ name: 'chris' }, { name: 'dan' }, { name: 'james' }];
+ma2.filterBy('name', 'chris'); // $ExpectType NativeArray<{ name: string; }>
 // Ember.MutableEnumerable
 const me1: Ember.MutableEnumerable<string | null | undefined> = ['foo', undefined, null];
 me1.compact(); // $ExpectType NativeArray<string>
@@ -243,7 +222,7 @@ Ember.Object.extend(Ember.Observable, {});
 // Ember.PromiseProxyMixin
 Ember.Object.extend(Ember.PromiseProxyMixin, {
     foo() {
-        this.reason; // $ExpectType any
+        this.reason; // $ExpectType unknown
         this.isPending; // $ExpectType boolean
     },
 });
@@ -259,10 +238,6 @@ Ember.Test;
 new Ember.Test.Adapter();
 // Ember.Test.QUnitAdapter
 new Ember.Test.QUnitAdapter();
-// Ember.TextArea
-new Ember.TextArea();
-// Ember.TextField
-new Ember.TextField();
 // Ember.Helper
 // helper
 Ember.Helper.helper(([a, b]: [number, number]) => a + b);

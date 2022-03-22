@@ -17,7 +17,7 @@ import * as t from '@babel/types';
 export { ParserOptions, GeneratorOptions, t as types, template, traverse, NodePath, Visitor };
 
 export type Node = t.Node;
-export type ParseResult = t.File | t.Program;
+export type ParseResult = ReturnType<typeof import('@babel/parser').parse>;
 export const version: string;
 export const DEFAULT_EXTENSIONS: ['.js', '.jsx', '.es6', '.es', '.mjs'];
 

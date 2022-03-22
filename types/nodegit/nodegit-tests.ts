@@ -104,7 +104,7 @@ repo.getHeadCommit().then(async commit => {
     }
 });
 
-repo.getRemoteNames().then((remoteNames) => {
+repo.getRemoteNames().then(remoteNames => {
     const names: string[] = remoteNames;
 });
 
@@ -146,11 +146,11 @@ revwalk.fastWalk(100).then(oids => {
         oid; // $ExpectType Oid
 
         const sha = oid.tostrS();
-        sha;  // $ExpectType string
+        sha; // $ExpectType string
     }
 });
 
-Git.Remote.create(repo, 'test-repository', 'https://github.com/test-repository/test-repository').then((remote) => {
+Git.Remote.create(repo, 'test-repository', 'https://github.com/test-repository/test-repository').then(remote => {
     remote.connect(Git.Enums.DIRECTION.FETCH, {});
     remote.defaultBranch(); // $ExpectType Promise<string>
 });
@@ -164,3 +164,15 @@ Git.Worktree.openFromRepository(repo).then(worktree => {
     worktree.name(); // $ExpectType string
     worktree.path(); // $ExpectType string
 });
+
+Git.Refspec.parse('+refs/heads/*:refs/remotes/origin/*', 0).then(refspec => {
+    refspec.direction(); // $ExpectType number
+    refspec.dst(); // $ExpectType string
+    refspec.dstMatches('+refs/heads/*'); // $ExpectType number
+    refspec.force(); // $ExpectType number
+    refspec.src(); // $ExpectType string
+    refspec.srcMatches('refs/remotes/origin/*'); // $ExpectType number
+    refspec.string(); // $ExpectType string
+});
+
+repo.cleanup();

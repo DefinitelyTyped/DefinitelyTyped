@@ -7,7 +7,8 @@ var config: tedious.ConnectionConfig = {
         instanceName: "someinstance",
         cryptoCredentialsDetails: {
             minVersion: "TLSv1"
-        }
+        },
+        useColumnNames: true
     },
     authentication: {
         type: "default",
@@ -36,7 +37,7 @@ connection.transaction((error: Error, done: (error?: Error) => void): void => {}
 
 var request = new tedious.Request("SELECT * FROM foo", (error: Error, rowCount: number): void => {
 });
-request.on("row", (row: tedious.ColumnValue[]): void => {
+request.on("row", (row: Record<string, tedious.ColumnValue>): void => {
 });
 connection.execSql(request);
 

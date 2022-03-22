@@ -1,11 +1,11 @@
-import { defer, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import inquirer = require('../..');
 import UI = require('./baseUI');
 
 /**
  * Represents the prompt ui.
  */
-declare class PromptUI extends UI {
+declare class PromptUI<T extends inquirer.Answers = inquirer.Answers> extends UI {
     /**
      * Gets or sets the prompts of the ui.
      */
@@ -14,12 +14,12 @@ declare class PromptUI extends UI {
     /**
      * Gets or sets the answers provided by the user.
      */
-    answers: inquirer.Answers;
+    answers: T;
 
     /**
      * Gets or sets the event-flow of the process.
      */
-    process: Observable<inquirer.Answers>;
+    process: Observable<inquirer.QuestionAnswer<T>>;
 
     /**
      * Initializes a new instance of the `PromptUI` class.
@@ -41,12 +41,12 @@ declare class PromptUI extends UI {
      * @returns
      * The answers provided by the user.
      */
-    run(questions: Array<inquirer.DistinctQuestion<inquirer.Answers>>): Promise<inquirer.Answers>;
+    run(questions: Array<inquirer.DistinctQuestion<T>>): Promise<T>;
 
     /**
      * Finishes the process.
      */
-    protected onCompletion(): inquirer.Answers;
+    protected onCompletion(): T;
 
     /**
      * Processes a question.
@@ -58,7 +58,7 @@ declare class PromptUI extends UI {
      * The answer to the question.
      */
     protected processQuestion(
-        question: inquirer.DistinctQuestion<inquirer.Answers>,
+        question: inquirer.DistinctQuestion<T>,
     ): Observable<inquirer.ui.FetchedAnswer>;
 
     /**
@@ -71,7 +71,7 @@ declare class PromptUI extends UI {
      * The answer to the question.
      */
     protected fetchAnswer(
-        question: inquirer.ui.FetchedQuestion<inquirer.Answers>,
+        question: inquirer.ui.FetchedQuestion<T>,
     ): Observable<inquirer.ui.FetchedAnswer>;
 
     /**
@@ -84,8 +84,8 @@ declare class PromptUI extends UI {
      * The processed question.
      */
     protected setDefaultType(
-        question: inquirer.DistinctQuestion<inquirer.Answers>,
-    ): Observable<inquirer.DistinctQuestion<inquirer.Answers>>;
+        question: inquirer.DistinctQuestion<T>,
+    ): Observable<inquirer.DistinctQuestion<T>>;
 
     /**
      * Filters the question if it is runnable.
@@ -97,8 +97,8 @@ declare class PromptUI extends UI {
      * Either the event-flow of the question if it is runnable or an empty event-flow.
      */
     protected filterIfRunnable(
-        question: inquirer.DistinctQuestion<inquirer.Answers>,
-    ): Observable<inquirer.DistinctQuestion<inquirer.Answers>>;
+        question: inquirer.DistinctQuestion<T>,
+    ): Observable<inquirer.DistinctQuestion<T>>;
 }
 
 export = PromptUI;

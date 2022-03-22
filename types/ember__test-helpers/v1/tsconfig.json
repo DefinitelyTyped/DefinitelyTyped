@@ -17,9 +17,20 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
+            "@ember/application": ["ember__application/v3"],
+            "@ember/application/*": ["ember__application/v3/*"],
+            "@ember/controller": ["ember__controller/v3"],
+            "@ember/controller/*": ["ember__controller/v3/*"],
+            "@ember/engine": ["ember__engine/v3"],
+            "@ember/engine/*": ["ember__engine/v3/*"],
+            "@ember/object": ["ember__object/v3"],
+            "@ember/object/*": ["ember__object/v3/*"],
+            "@ember/routing": ["ember__routing/v3"],
+            "@ember/routing/*": ["ember__routing/v3/*"],
+            "@ember/service": ["ember__service/v3"],
+            "@ember/error": ["ember__error/v3"],
             "@ember/test-helpers": ["ember__test-helpers/v1"],
-            "@ember/test-helpers/*": ["ember__test-helpers/v1/*"],
-            "@ember/*": ["ember__*"]
+            "@ember/test-helpers/*": ["ember__test-helpers/v1/*"]
         }
     },
     "files": [

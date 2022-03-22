@@ -3,7 +3,7 @@
 // Definitions by: Artemis Kearney <https://github.com/artemiswkearney>
 //                 Nicusor Chiciuc <https://github.com/nicu-chiciuc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.7
+// Minimum TypeScript Version: 4.1
 
 // Inspiration taken from https://github.com/nicu-chiciuc/typed-meteor-methods,
 // which was based on https://github.com/meteor-typings/validated-method/blob/master/main.d.ts by Dave Allen

@@ -21,7 +21,7 @@ import { RelayOperationTracker } from './RelayOperationTracker';
 import { RecordState } from './RelayRecordState';
 import { InvalidationState } from './RelayModernStore';
 
-export type FragmentReference = unknown;
+export type FragmentType = unknown;
 export type OperationTracker = RelayOperationTracker;
 
 /*
@@ -733,7 +733,7 @@ export interface FragmentPointer {
 export interface ModuleImportPointer {
     readonly __fragmentPropName: string | null | undefined;
     readonly __module_component: unknown;
-    readonly $fragmentRefs: unknown;
+    readonly $fragmentSpreads: unknown;
 }
 
 /**

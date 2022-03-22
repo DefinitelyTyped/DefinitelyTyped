@@ -410,7 +410,7 @@ export class StylesProcessor {
      *      ]
      *    } );
      */
-    setReducer(name: string, callback: (notation: any) => [property: string, value: string]): void;
+    setReducer(name: string, callback: (notation: any) => Array<[property: string, value: string]>): void;
     /**
      * Defines a style shorthand relation to other style notations.
      *

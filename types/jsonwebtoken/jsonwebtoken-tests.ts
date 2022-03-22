@@ -14,6 +14,7 @@ interface TestObject {
     foo: string;
 }
 
+const testBoolean = true as boolean;
 const testObject = { foo: "bar" };
 
 /**
@@ -142,54 +143,70 @@ jwt.verify(token, cert, { ignoreExpiration: true }, (err, decoded) => {
     // if ignoreExpration == false and token is expired, err == expired token
 });
 
-cert = fs.readFileSync("public.pem"); // get public key
-jwt.verify(token, cert, (_err, payload) => {
-    if (payload) {
-        // $ExpectType JwtPayload
-        payload;
+jwt.verify(token, cert, (_err, decoded) => {
+    if (decoded) {
+        // $ExpectType string | JwtPayload
+        decoded;
     }
 });
 
-cert = fs.readFileSync("public.pem"); // get public key
-jwt.verify(token, cert, {}, (_err, payload) => {
-    if (payload) {
-        // $ExpectType JwtPayload
-        payload;
+jwt.verify(token, cert, {}, (_err, decoded) => {
+    if (decoded) {
+        // $ExpectType string | JwtPayload
+        decoded;
     }
 });
 
-cert = fs.readFileSync("public.pem"); // get public key
-jwt.verify(token, cert, { complete: true }, (_err, payload) => {
-    if (payload) {
+jwt.verify(token, cert, { complete: true }, (_err, decoded) => {
+    if (decoded) {
         // $ExpectType Jwt
-        payload;
+        decoded;
+        // $ExpectType string | JwtPayload
+        decoded.payload;
     }
 });
 
-cert = fs.readFileSync("public.pem"); // get public key
-const verified = jwt.verify(token, cert);
+jwt.verify(token, cert, { complete: false }, (_err, decoded) => {
+    if (decoded) {
+        // $ExpectType string | JwtPayload
+        decoded;
+    }
+});
 
-if (typeof verified !== 'string') {
-    // $ExpectType JwtPayload
-    verified;
-}
+jwt.verify(token, cert, { maxAge: 3600 }, (_err, decoded) => {
+    if (decoded) {
+        // $ExpectType string | JwtPayload
+        decoded;
+    }
+});
 
-cert = fs.readFileSync("public.pem"); // get public key
-const verified2 = jwt.verify(token, cert, { complete: true });
+jwt.verify(token, cert, { complete: testBoolean }, (_err, decoded) => {
+    if (decoded) {
+        // $ExpectType string | Jwt | JwtPayload
+        decoded;
+    }
+});
 
-if (typeof verified2 !== 'string') {
-    // $ExpectType Jwt
-    verified2;
-}
+// $ExpectType string | JwtPayload
+jwt.verify(token, cert);
 
-// This tests creates a token with iat as now, verifies with maxAge=now()+3600sec
-cert = fs.readFileSync("public.pem"); // get public key
-const verified3 = jwt.verify(token, cert, {maxAge: 3600});
+// $ExpectType string | JwtPayload
+jwt.verify(token, cert, {});
 
-if (typeof verified3 !== 'string') {
-    // $ExpectType JwtPayload
-    verified3;
-}
+// $ExpectType Jwt
+jwt.verify(token, cert, { complete: true });
+
+// $ExpectType string | JwtPayload
+jwt.verify(token, cert, { complete: true }).payload;
+
+// $ExpectType string | JwtPayload
+jwt.verify(token, cert, { complete: false });
+
+// $ExpectType string | JwtPayload
+jwt.verify(token, cert, { maxAge: 3600 });
+
+// $ExpectType string | Jwt | JwtPayload
+jwt.verify(token, cert, { complete: testBoolean });
 
 /**
  * jwt.decode

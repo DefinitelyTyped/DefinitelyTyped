@@ -2519,6 +2519,8 @@ const tailwindConfig = resolveConfig(config);
 
 tailwindCss(tailwindConfig);
 
+tailwindCss();
+
 tailwindConfig.theme.height;
 
 // @ts-expect-error `colors` is possibly undefined
@@ -2576,13 +2578,13 @@ defaultTheme.darkMode;
 // @ts-expect-error `colors` is possibly undefined
 defaultTheme.colors.blue[800];
 
-// $ExpectType TailwindPlugin[] | undefined
+// $ExpectType TailwindPlugin<any>[] | undefined
 tailwindConfig.plugins;
 
 // $ExpectType any[] | undefined
 tailwindConfig.presets;
 
-// $ExpectType false | "media" | "class"
+// $ExpectType false | "media" | "class" | undefined
 tailwindConfig.darkMode;
 
 tailwindConfig.darkMode = false;
@@ -2609,13 +2611,15 @@ tailwindConfig.prefix = 'tw-';
 // @ts-expect-error value should be string
 tailwindConfig.prefix = 1000;
 
-// $ExpectType boolean | undefined
+// $ExpectType string | boolean | undefined
 tailwindConfig.important;
 
 tailwindConfig.important = false;
 
-// @ts-expect-error should be boolean
-tailwindConfig.important = 'false';
+tailwindConfig.important = 'selector';
+
+// @ts-expect-error should be boolean or string
+tailwindConfig.important = 0;
 
 // $ExpectType string | undefined
 tailwindConfig.separator;

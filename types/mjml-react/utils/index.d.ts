@@ -6,3 +6,6 @@ export function addQueryParams(url: string, params: { [key: string]: any }): str
 
 export type TextAlignment = 'left' | 'right' | 'center' | 'justify' | 'inherit';
 export function getTextAlign(value: string, fallback?: TextAlignment): TextAlignment;
+
+export function renderToJson(whatToRender: React.ReactNode): object;
+export function renderToJson2(whatToRender: React.ReactNode): object;

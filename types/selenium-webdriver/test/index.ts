@@ -460,6 +460,8 @@ function TestWebDriver() {
     booleanPromise = driver.wait(booleanPromise, 123);
     booleanPromise = driver.wait(booleanPromise, 123, 'Message');
     webElementPromise = driver.wait(webElementCondition);
+    webElementPromise = driver.wait(webElementCondition, 50, "Message");
+    webElementPromise = driver.wait(webElementCondition, 50, "Message", 10);
     voidPromise = driver.wait(webElementCondition).click();
 
     driver = webdriver.WebDriver.createSession(executor, webdriver.Capabilities.chrome());

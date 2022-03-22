@@ -32,7 +32,7 @@ declare module '../../index' {
         /**
          *   The deviceTurned() function is called when the
          *   device rotates by more than 90 degrees
-         *   continuously.  The axis that triggers the
+         *   continuously. The axis that triggers the
          *   deviceTurned() method is stored in the turnAxis
          *   variable. The deviceTurned() method can be locked
          *   to trigger on any axis: X, Y or Z by comparing the
@@ -106,31 +106,36 @@ declare module '../../index' {
 
         /**
          *   The system variable rotationX always contains the
-         *   rotation of the device along the x axis. Value is
-         *   represented as 0 to +/-180 degrees.  Note: The
-         *   order the rotations are called is important, ie.
-         *   if used together, it must be called in the order
-         *   Z-X-Y or there might be unexpected behaviour.
+         *   rotation of the device along the x axis. If the
+         *   sketch  angleMode() is set to DEGREES, the value
+         *   will be -180 to 180. If it is set to RADIANS, the
+         *   value will be -PI to PI. Note: The order the
+         *   rotations are called is important, ie. if used
+         *   together, it must be called in the order Z-X-Y or
+         *   there might be unexpected behaviour.
          */
         rotationX: number;
 
         /**
          *   The system variable rotationY always contains the
-         *   rotation of the device along the y axis. Value is
-         *   represented as 0 to +/-90 degrees.  Note: The
-         *   order the rotations are called is important, ie.
-         *   if used together, it must be called in the order
-         *   Z-X-Y or there might be unexpected behaviour.
+         *   rotation of the device along the y axis. If the
+         *   sketch  angleMode() is set to DEGREES, the value
+         *   will be -90 to 90. If it is set to RADIANS, the
+         *   value will be -PI/2 to PI/2. Note: The order the
+         *   rotations are called is important, ie. if used
+         *   together, it must be called in the order Z-X-Y or
+         *   there might be unexpected behaviour.
          */
         rotationY: number;
 
         /**
          *   The system variable rotationZ always contains the
-         *   rotation of the device along the z axis. Value is
-         *   represented as 0 to 359 degrees.  Unlike rotationX
-         *   and rotationY, this variable is available for
-         *   devices with a built-in compass only.
-         *
+         *   rotation of the device along the z axis. If the
+         *   sketch  angleMode() is set to DEGREES, the value
+         *   will be 0 to 360. If it is set to RADIANS, the
+         *   value will be 0 to 2*PI. Unlike rotationX and
+         *   rotationY, this variable is available for devices
+         *   with a built-in compass only.
          *
          *   Note: The order the rotations are called is
          *   important, ie. if used together, it must be called
@@ -142,30 +147,36 @@ declare module '../../index' {
         /**
          *   The system variable pRotationX always contains the
          *   rotation of the device along the x axis in the
-         *   frame previous to the current frame. Value is
-         *   represented as 0 to +/-180 degrees.  pRotationX
-         *   can also be used with rotationX to determine the
-         *   rotate direction of the device along the X-axis.
+         *   frame previous to the current frame. If the sketch
+         *   angleMode() is set to DEGREES, the value will be
+         *   -180 to 180. If it is set to RADIANS, the value
+         *   will be -PI to PI. pRotationX can also be used
+         *   with rotationX to determine the rotate direction
+         *   of the device along the X-axis.
          */
         pRotationX: number;
 
         /**
          *   The system variable pRotationY always contains the
          *   rotation of the device along the y axis in the
-         *   frame previous to the current frame. Value is
-         *   represented as 0 to +/-90 degrees.  pRotationY can
-         *   also be used with rotationY to determine the
-         *   rotate direction of the device along the Y-axis.
+         *   frame previous to the current frame. If the sketch
+         *   angleMode() is set to DEGREES, the value will be
+         *   -90 to 90. If it is set to RADIANS, the value will
+         *   be -PI/2 to PI/2. pRotationY can also be used with
+         *   rotationY to determine the rotate direction of the
+         *   device along the Y-axis.
          */
         pRotationY: number;
 
         /**
          *   The system variable pRotationZ always contains the
          *   rotation of the device along the z axis in the
-         *   frame previous to the current frame. Value is
-         *   represented as 0 to 359 degrees.  pRotationZ can
-         *   also be used with rotationZ to determine the
-         *   rotate direction of the device along the Z-axis.
+         *   frame previous to the current frame. If the sketch
+         *   angleMode() is set to DEGREES, the value will be 0
+         *   to 360. If it is set to RADIANS, the value will be
+         *   0 to 2*PI. pRotationZ can also be used with
+         *   rotationZ to determine the rotate direction of the
+         *   device along the Z-axis.
          */
         pRotationZ: number;
 

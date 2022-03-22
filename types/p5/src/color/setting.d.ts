@@ -12,12 +12,13 @@ declare module '../../index' {
          *   window at the beginning of each frame, but it can
          *   be used inside setup() to set the background on
          *   the first frame of animation or if the background
-         *   need only be set once.  The color is either
+         *   need only be set once. The color is either
          *   specified in terms of the RGB, HSB, or HSL color
          *   depending on the current colorMode. (The default
          *   color space is RGB, with each value in the range
          *   from 0 to 255). The alpha range by default is also
          *   0 to 255.
+         *
          *
          *
          *   If a single string argument is provided, RGB, RGBA
@@ -26,10 +27,8 @@ declare module '../../index' {
          *   number value as a second argument is not
          *   supported, the RGBA form should be used.
          *
-         *
          *   A p5.Color object can also be provided to set the
          *   background color.
-         *
          *
          *   A p5.Image can also be provided to set the
          *   background image.
@@ -47,12 +46,13 @@ declare module '../../index' {
          *   window at the beginning of each frame, but it can
          *   be used inside setup() to set the background on
          *   the first frame of animation or if the background
-         *   need only be set once.  The color is either
+         *   need only be set once. The color is either
          *   specified in terms of the RGB, HSB, or HSL color
          *   depending on the current colorMode. (The default
          *   color space is RGB, with each value in the range
          *   from 0 to 255). The alpha range by default is also
          *   0 to 255.
+         *
          *
          *
          *   If a single string argument is provided, RGB, RGBA
@@ -61,10 +61,8 @@ declare module '../../index' {
          *   number value as a second argument is not
          *   supported, the RGBA form should be used.
          *
-         *
          *   A p5.Color object can also be provided to set the
          *   background color.
-         *
          *
          *   A p5.Image can also be provided to set the
          *   background image.
@@ -85,12 +83,13 @@ declare module '../../index' {
          *   window at the beginning of each frame, but it can
          *   be used inside setup() to set the background on
          *   the first frame of animation or if the background
-         *   need only be set once.  The color is either
+         *   need only be set once. The color is either
          *   specified in terms of the RGB, HSB, or HSL color
          *   depending on the current colorMode. (The default
          *   color space is RGB, with each value in the range
          *   from 0 to 255). The alpha range by default is also
          *   0 to 255.
+         *
          *
          *
          *   If a single string argument is provided, RGB, RGBA
@@ -99,10 +98,8 @@ declare module '../../index' {
          *   number value as a second argument is not
          *   supported, the RGBA form should be used.
          *
-         *
          *   A p5.Color object can also be provided to set the
          *   background color.
-         *
          *
          *   A p5.Image can also be provided to set the
          *   background image.
@@ -122,12 +119,13 @@ declare module '../../index' {
          *   window at the beginning of each frame, but it can
          *   be used inside setup() to set the background on
          *   the first frame of animation or if the background
-         *   need only be set once.  The color is either
+         *   need only be set once. The color is either
          *   specified in terms of the RGB, HSB, or HSL color
          *   depending on the current colorMode. (The default
          *   color space is RGB, with each value in the range
          *   from 0 to 255). The alpha range by default is also
          *   0 to 255.
+         *
          *
          *
          *   If a single string argument is provided, RGB, RGBA
@@ -136,10 +134,8 @@ declare module '../../index' {
          *   number value as a second argument is not
          *   supported, the RGBA form should be used.
          *
-         *
          *   A p5.Color object can also be provided to set the
          *   background color.
-         *
          *
          *   A p5.Image can also be provided to set the
          *   background image.
@@ -163,12 +159,13 @@ declare module '../../index' {
          *   window at the beginning of each frame, but it can
          *   be used inside setup() to set the background on
          *   the first frame of animation or if the background
-         *   need only be set once.  The color is either
+         *   need only be set once. The color is either
          *   specified in terms of the RGB, HSB, or HSL color
          *   depending on the current colorMode. (The default
          *   color space is RGB, with each value in the range
          *   from 0 to 255). The alpha range by default is also
          *   0 to 255.
+         *
          *
          *
          *   If a single string argument is provided, RGB, RGBA
@@ -177,10 +174,8 @@ declare module '../../index' {
          *   number value as a second argument is not
          *   supported, the RGBA form should be used.
          *
-         *
          *   A p5.Color object can also be provided to set the
          *   background color.
-         *
          *
          *   A p5.Image can also be provided to set the
          *   background image.
@@ -198,12 +193,13 @@ declare module '../../index' {
          *   window at the beginning of each frame, but it can
          *   be used inside setup() to set the background on
          *   the first frame of animation or if the background
-         *   need only be set once.  The color is either
+         *   need only be set once. The color is either
          *   specified in terms of the RGB, HSB, or HSL color
          *   depending on the current colorMode. (The default
          *   color space is RGB, with each value in the range
          *   from 0 to 255). The alpha range by default is also
          *   0 to 255.
+         *
          *
          *
          *   If a single string argument is provided, RGB, RGBA
@@ -212,10 +208,8 @@ declare module '../../index' {
          *   number value as a second argument is not
          *   supported, the RGBA form should be used.
          *
-         *
          *   A p5.Color object can also be provided to set the
          *   background color.
-         *
          *
          *   A p5.Image can also be provided to set the
          *   background image.
@@ -236,10 +230,20 @@ declare module '../../index' {
          *   pixels in additional graphics areas created with
          *   createGraphics() can be entirely or partially
          *   transparent. This function clears everything to
-         *   make all of the pixels 100% transparent.
+         *   make all of the pixels 100% transparent. Note: In
+         *   WebGL mode, this function can be passed normalized
+         *   RGBA color values in order to clear the screen to
+         *   a specific color. In addition to color, it will
+         *   also clear the depth buffer. If you are not using
+         *   the webGL renderer these color values will have no
+         *   effect.
+         *   @param r normalized red val.
+         *   @param g normalized green val.
+         *   @param b normalized blue val.
+         *   @param a normalized alpha val.
          *   @chainable
          */
-        clear(): p5;
+        clear(r: number, g: number, b: number, a: number): p5;
 
         /**
          *   colorMode() changes the way p5.js interprets color
@@ -250,9 +254,9 @@ declare module '../../index' {
          *   colorMode(RGB, 255). Setting colorMode(HSB) lets
          *   you use the HSB system instead. By default, this
          *   is colorMode(HSB, 360, 100, 100, 1). You can also
-         *   use HSL.  Note: existing color objects remember
-         *   the mode that they were created in, so you can
-         *   change modes as you like without affecting their
+         *   use HSL. Note: existing color objects remember the
+         *   mode that they were created in, so you can change
+         *   modes as you like without affecting their
          *   appearance.
          *   @param mode either RGB, HSB or HSL, corresponding
          *   to Red/Green/Blue and Hue/Saturation/Brightness
@@ -271,9 +275,9 @@ declare module '../../index' {
          *   colorMode(RGB, 255). Setting colorMode(HSB) lets
          *   you use the HSB system instead. By default, this
          *   is colorMode(HSB, 360, 100, 100, 1). You can also
-         *   use HSL.  Note: existing color objects remember
-         *   the mode that they were created in, so you can
-         *   change modes as you like without affecting their
+         *   use HSL. Note: existing color objects remember the
+         *   mode that they were created in, so you can change
+         *   modes as you like without affecting their
          *   appearance.
          *   @param mode either RGB, HSB or HSL, corresponding
          *   to Red/Green/Blue and Hue/Saturation/Brightness
@@ -298,13 +302,12 @@ declare module '../../index' {
          *   terms of the RGB or HSB color depending on the
          *   current colorMode(). (The default color space is
          *   RGB, with each value in the range from 0 to 255).
-         *   The alpha range by default is also 0 to 255.  If a
+         *   The alpha range by default is also 0 to 255. If a
          *   single string argument is provided, RGB, RGBA and
          *   Hex CSS color strings and all named color strings
          *   are supported. In this case, an alpha number value
          *   as a second argument is not supported, the RGBA
          *   form should be used.
-         *
          *
          *   A p5 Color object can also be provided to set the
          *   fill color.
@@ -326,13 +329,12 @@ declare module '../../index' {
          *   terms of the RGB or HSB color depending on the
          *   current colorMode(). (The default color space is
          *   RGB, with each value in the range from 0 to 255).
-         *   The alpha range by default is also 0 to 255.  If a
+         *   The alpha range by default is also 0 to 255. If a
          *   single string argument is provided, RGB, RGBA and
          *   Hex CSS color strings and all named color strings
          *   are supported. In this case, an alpha number value
          *   as a second argument is not supported, the RGBA
          *   form should be used.
-         *
          *
          *   A p5 Color object can also be provided to set the
          *   fill color.
@@ -349,13 +351,12 @@ declare module '../../index' {
          *   terms of the RGB or HSB color depending on the
          *   current colorMode(). (The default color space is
          *   RGB, with each value in the range from 0 to 255).
-         *   The alpha range by default is also 0 to 255.  If a
+         *   The alpha range by default is also 0 to 255. If a
          *   single string argument is provided, RGB, RGBA and
          *   Hex CSS color strings and all named color strings
          *   are supported. In this case, an alpha number value
          *   as a second argument is not supported, the RGBA
          *   form should be used.
-         *
          *
          *   A p5 Color object can also be provided to set the
          *   fill color.
@@ -372,13 +373,12 @@ declare module '../../index' {
          *   terms of the RGB or HSB color depending on the
          *   current colorMode(). (The default color space is
          *   RGB, with each value in the range from 0 to 255).
-         *   The alpha range by default is also 0 to 255.  If a
+         *   The alpha range by default is also 0 to 255. If a
          *   single string argument is provided, RGB, RGBA and
          *   Hex CSS color strings and all named color strings
          *   are supported. In this case, an alpha number value
          *   as a second argument is not supported, the RGBA
          *   form should be used.
-         *
          *
          *   A p5 Color object can also be provided to set the
          *   fill color.
@@ -396,13 +396,12 @@ declare module '../../index' {
          *   terms of the RGB or HSB color depending on the
          *   current colorMode(). (The default color space is
          *   RGB, with each value in the range from 0 to 255).
-         *   The alpha range by default is also 0 to 255.  If a
+         *   The alpha range by default is also 0 to 255. If a
          *   single string argument is provided, RGB, RGBA and
          *   Hex CSS color strings and all named color strings
          *   are supported. In this case, an alpha number value
          *   as a second argument is not supported, the RGBA
          *   form should be used.
-         *
          *
          *   A p5 Color object can also be provided to set the
          *   fill color.
@@ -433,13 +432,12 @@ declare module '../../index' {
          *   terms of the RGB or HSB color depending on the
          *   current colorMode() (the default color space is
          *   RGB, with each value in the range from 0 to 255).
-         *   The alpha range by default is also 0 to 255.  If a
+         *   The alpha range by default is also 0 to 255. If a
          *   single string argument is provided, RGB, RGBA and
          *   Hex CSS color strings and all named color strings
          *   are supported. In this case, an alpha number value
          *   as a second argument is not supported, the RGBA
          *   form should be used.
-         *
          *
          *   A p5 Color object can also be provided to set the
          *   stroke color.
@@ -459,13 +457,12 @@ declare module '../../index' {
          *   terms of the RGB or HSB color depending on the
          *   current colorMode() (the default color space is
          *   RGB, with each value in the range from 0 to 255).
-         *   The alpha range by default is also 0 to 255.  If a
+         *   The alpha range by default is also 0 to 255. If a
          *   single string argument is provided, RGB, RGBA and
          *   Hex CSS color strings and all named color strings
          *   are supported. In this case, an alpha number value
          *   as a second argument is not supported, the RGBA
          *   form should be used.
-         *
          *
          *   A p5 Color object can also be provided to set the
          *   stroke color.
@@ -480,13 +477,12 @@ declare module '../../index' {
          *   terms of the RGB or HSB color depending on the
          *   current colorMode() (the default color space is
          *   RGB, with each value in the range from 0 to 255).
-         *   The alpha range by default is also 0 to 255.  If a
+         *   The alpha range by default is also 0 to 255. If a
          *   single string argument is provided, RGB, RGBA and
          *   Hex CSS color strings and all named color strings
          *   are supported. In this case, an alpha number value
          *   as a second argument is not supported, the RGBA
          *   form should be used.
-         *
          *
          *   A p5 Color object can also be provided to set the
          *   stroke color.
@@ -501,13 +497,12 @@ declare module '../../index' {
          *   terms of the RGB or HSB color depending on the
          *   current colorMode() (the default color space is
          *   RGB, with each value in the range from 0 to 255).
-         *   The alpha range by default is also 0 to 255.  If a
+         *   The alpha range by default is also 0 to 255. If a
          *   single string argument is provided, RGB, RGBA and
          *   Hex CSS color strings and all named color strings
          *   are supported. In this case, an alpha number value
          *   as a second argument is not supported, the RGBA
          *   form should be used.
-         *
          *
          *   A p5 Color object can also be provided to set the
          *   stroke color.
@@ -523,13 +518,12 @@ declare module '../../index' {
          *   terms of the RGB or HSB color depending on the
          *   current colorMode() (the default color space is
          *   RGB, with each value in the range from 0 to 255).
-         *   The alpha range by default is also 0 to 255.  If a
+         *   The alpha range by default is also 0 to 255. If a
          *   single string argument is provided, RGB, RGBA and
          *   Hex CSS color strings and all named color strings
          *   are supported. In this case, an alpha number value
          *   as a second argument is not supported, the RGBA
          *   form should be used.
-         *
          *
          *   A p5 Color object can also be provided to set the
          *   stroke color.
@@ -539,29 +533,30 @@ declare module '../../index' {
         stroke(color: Color): p5;
 
         /**
-         * All drawing that follows <a href="#/p5/erase">erase()</a> will subtract from
-         * the canvas.Erased areas will reveal the web page underneath the canvas.Erasing
-         * can be canceled with <a href="#/p5/noErase">noErase()</a>.
-         *
-         * Drawing done with <a href="#/p5/image">image()</a> and <a href="#/p5/background">
-         * background()</a> in between <a href="#/p5/erase">erase()</a> and
-         * <a href="#/p5/noErase">noErase()</a> will not erase the canvas but works as usual.
-         *
-         * @param [strengthFill] A number (0-255) for the strength of erasing for a shape's fill.
-         *                                 This will default to 255 when no argument is given, which
-         *                                 is full strength.
-         * @param [strengthStroke] A number (0-255) for the strength of erasing for a shape's stroke.
-         *                                  This will default to 255 when no argument is given, which
-         *                                  is full strength.
+         *   All drawing that follows erase() will subtract
+         *   from the canvas.Erased areas will reveal the web
+         *   page underneath the canvas.Erasing can be canceled
+         *   with noErase(). Drawing done with image() and
+         *   background() in between erase() and noErase() will
+         *   not erase the canvas but works as usual.
+         *   @param [strengthFill] A number (0-255) for the
+         *   strength of erasing for a shape's fill. This will
+         *   default to 255 when no argument is given, which is
+         *   full strength.
+         *   @param [strengthStroke] A number (0-255) for the
+         *   strength of erasing for a shape's stroke. This
+         *   will default to 255 when no argument is given,
+         *   which is full strength.
+         *   @chainable
          */
-        erase(strengthFill?: number, strengthStroke?: number): void;
+        erase(strengthFill?: number, strengthStroke?: number): p5;
 
         /**
-         * Ends erasing that was started with <a href="#/p5/erase">erase()</a>.
-         * The <a href="#/p5/fill">fill()</a>, <a href="#/p5/stroke">stroke()</a>, and
-         * <a href="#/p5/blendMode">blendMode()</a> settings will return to what they were
-         * prior to calling <a href="#/p5/erase">erase()</a>.
+         *   Ends erasing that was started with erase(). The
+         *   fill(), stroke(), and blendMode() settings will
+         *   return to what they were prior to calling erase().
+         *   @chainable
          */
-        noErase(): void;
+        noErase(): p5;
     }
 }

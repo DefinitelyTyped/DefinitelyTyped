@@ -9,7 +9,8 @@ import * as React from 'react';
 declare class googleMapReact extends React.Component<googleMapReact.Props> {}
 
 declare namespace googleMapReact {
-    type BootstrapURLKeys = ({ key: string } | { client: string; v: string }) & {
+    type BootstrapURLKeys = ({ key: string } | { client: string }) & {
+        version?: string | undefined;
         language?: string | undefined;
         region?: string | undefined;
         libraries?: string[] | string | undefined;
@@ -38,6 +39,7 @@ declare namespace googleMapReact {
         gestureHandling?: string | undefined;
         heading?: number | undefined;
         keyboardShortcuts?: boolean | undefined;
+        mapId?: string | undefined;
         mapTypeControl?: boolean | undefined;
         mapTypeControlOptions?: any;
         mapTypeId?: string | undefined;

@@ -271,11 +271,15 @@ b.fill('a').fill('b');
     a.writeBigInt64BE(123n);
     a.writeBigInt64LE(123n);
     a.writeBigUInt64BE(123n);
+    a.writeBigUint64BE(123n);
     a.writeBigUInt64LE(123n);
+    a.writeBigUint64LE(123n);
     let b: bigint = a.readBigInt64BE(123);
     b = a.readBigInt64LE(123);
     b = a.readBigUInt64LE(123);
+    b = a.readBigUint64LE(123);
     b = a.readBigUInt64BE(123);
+    b = a.readBigUint64BE(123);
 }
 
 async () => {
@@ -340,12 +344,16 @@ const buff = Buffer.from("Hello World!");
 
 buff.readInt8();
 buff.readInt8(0);
+buff.readUint8();
 buff.readUInt8();
 buff.readUInt8(0);
+buff.readUint16BE();
 buff.readUInt16BE();
 buff.readUInt16BE(0);
+buff.readUint32LE();
 buff.readUInt32LE();
 buff.readUInt32LE(0);
+buff.readUint32BE();
 buff.readUInt32BE();
 buff.readUInt32BE(0);
 buff.readInt8();
@@ -369,12 +377,16 @@ buff.readDoubleBE(0);
 
 buff.writeInt8(0xab);
 buff.writeInt8(0xab, 0);
+buff.writeUint8(0xab);
 buff.writeUInt8(0xab);
 buff.writeUInt8(0xab, 0);
+buff.writeUint16LE(0xabcd);
 buff.writeUInt16LE(0xabcd);
 buff.writeUInt16LE(0xabcd, 0);
+buff.writeUint16BE(0xabcd);
 buff.writeUInt16BE(0xabcd);
 buff.writeUInt16BE(0xabcd, 0);
+buff.writeUint32LE(0xabcd);
 buff.writeUInt32LE(0xabcd);
 buff.writeUInt32LE(0xabcd, 0);
 buff.writeUInt32BE(0xabcd);
@@ -400,4 +412,12 @@ buff.writeDoubleBE(123.123, 0);
     // The 'as any' is to make sure the Global DOM Blob does not clash with the
     //  local "Blob" which comes with node.
     resolveObjectURL(URL.createObjectURL(new Blob(['']) as any)); // $ExpectType Blob | undefined
+}
+
+{
+    Buffer.compare(buff, buff); // $ExpectType 0 | 1 | -1
+}
+
+{
+    buff.compare(buff); // $ExpectType 0 | 1 | -1
 }

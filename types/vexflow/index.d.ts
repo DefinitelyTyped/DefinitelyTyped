@@ -1,4 +1,4 @@
-// Type definitions for VexFlow v3.0.9
+// Type definitions for VexFlow v3.0.9, compatible with v1.2.93
 // Project: http://vexflow.com
 // Definitions by: Roman Quiring <https://github.com/rquiring>
 //                 Sebastian Haas <https://github.com/sebastianhaas>
@@ -30,6 +30,10 @@ declare namespace Vex {
 
     class RERR {
         constructor(code: string, message: string);
+    }
+
+    interface GroupAttributes {
+        pointerBBox: boolean;
     }
 
     /**
@@ -71,7 +75,7 @@ declare namespace Vex {
         fillText(text: string, x: number, y: number): IRenderContext;
         save(): IRenderContext;
         restore(): IRenderContext;
-        openGroup(): Node | undefined;
+        openGroup(cls?: string, id?: string, attrs?: GroupAttributes): Node | undefined;
         closeGroup(): void;
 
         /**
@@ -479,7 +483,7 @@ declare namespace Vex {
             fillText(text: string, x: number, y: number): void;
             save(): void;
             restore(): void;
-            openGroup(): undefined;
+            openGroup(cls?: string, id?: string, attrs?: GroupAttributes): undefined;
             closeGroup(): void;
         }
 
@@ -1069,7 +1073,7 @@ declare namespace Vex {
             fillText(text: string, x: number, y: number): RaphaelContext;
             save(): RaphaelContext;
             restore(): RaphaelContext;
-            openGroup(): undefined;
+            openGroup(cls?: string, id?: string, attrs?: GroupAttributes): undefined;
             closeGroup(): void;
         }
 
@@ -1765,7 +1769,7 @@ declare namespace Vex {
             fillText(text: string, x: number, y: number): SVGContext;
             save(): SVGContext;
             restore(): SVGContext;
-            openGroup(): Node;
+            openGroup(cls?: string, id?: string, attrs?: GroupAttributes): Node;
             closeGroup(): void;
         }
 
