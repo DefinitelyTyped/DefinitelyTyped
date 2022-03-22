@@ -1,0 +1,55 @@
+export class Rectangle {
+    static fromPoints(points: Vector[]): Rectangle;
+    static fromPointsXY(points: number[]): Rectangle;
+    constructor(x?: number, y?: number, w?: number, h?: number);
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+    set(x: number, y: number, w: number, h: number): Rectangle;
+    copyFrom(rect: Rectangle): Rectangle;
+    copyTo(rect: Rectangle): Rectangle;
+    set left(arg: number);
+    get left(): number;
+    set right(arg: number);
+    get right(): number;
+    set top(arg: number);
+    get top(): number;
+    set bottom(arg: number);
+    get bottom(): number;
+    set topLeft(arg: Vector);
+    get topLeft(): Vector;
+    set topRight(arg: Vector);
+    get topRight(): Vector;
+    set bottomRight(arg: Vector);
+    get bottomRight(): Vector;
+    set bottomLeft(arg: Vector);
+    get bottomLeft(): Vector;
+    size(outVector?: Vector): Vector;
+    zero(): Rectangle;
+    equals(rect: Rectangle, epsilon?: number): boolean;
+    containsXY(x: number, y: number): boolean;
+    contains(rect: Rectangle): boolean;
+    intersects(rect: Rectangle): boolean;
+    intersection(toIntersect: Rectangle, outRect?: Rectangle): Rectangle;
+    union(toUnion: Rectangle): Rectangle;
+    get volume(): number;
+    expand(x: number, y: number, width: number, height: number): Rectangle;
+    expandXY(x: number, y: number): Rectangle;
+    inflate(x?: number, y?: number): Rectangle;
+    clone(): Rectangle;
+    get perimeter(): number;
+    center(outVector?: Vector): Vector;
+    scale(x: number, y: number): Rectangle;
+    get isEmpty(): boolean;
+    get lines(): Line[];
+    get random(): Vector;
+    toString(digits?: number): string;
+}
+export namespace Rectangle {
+    const __cache: Rectangle;
+    const pool: ObjectPool;
+}
+import { Vector } from './Vector';
+import { Line } from './Line';
+import { ObjectPool } from '../utils/ObjectPool';
