@@ -1,5 +1,5 @@
 // Type definitions for @lerna/project 4.0
-// Project: https://github.com/lerna/lerna/tree/main/core/project
+// Project: https://github.com/lerna/lerna/tree/main/utils/query-graph
 // Definitions by: DonMahallem <https://github.com/donmahallem>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
