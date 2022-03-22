@@ -15,4 +15,5 @@ import * as R from 'ramda';
     11,
     [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
   );
+  const res3 = R.aperture(1000, R.repeat(1, 1001));
 };

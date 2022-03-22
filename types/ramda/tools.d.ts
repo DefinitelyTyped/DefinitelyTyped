@@ -331,11 +331,25 @@ export type Take<N extends number, Tuple extends any[], ReturnTuple extends any[
         : never;
 
 /**
- * define an n-length tuple type
+ * Define an n-length tuple type.
+ *
+ * Implemented by growing exponentially (powers of 2) towards the target length to avoid
+ * problems with recursion depth ("Type instantiation is excessively deep").
+ *
+ * <created by @vzhou842>
  */
-
- export type Tuple<T, N extends number> = N extends N ? number extends N ? T[] : _TupleOf<T, N, []> : never;
-type _TupleOf<T, N extends number, R extends unknown[]> = R['length'] extends N ? R : _TupleOf<T, N, [T, ...R]>;
+type Shift<A extends any[]> = ((...args: A) => void) extends (...args: [A[0], ...infer R]) => void ? R : never;
+type GrowExpReverse<A extends any[], N extends number, P extends any[][]> = A['length'] extends N
+    ? A
+    : [...A, ...P[0]][N] extends undefined
+    ? GrowExpReverse<[...A, ...P[0]], N, P>
+    : GrowExpReverse<A, N, Shift<P>>;
+type GrowExp<A extends any[], N extends number, P extends any[][]> = A['length'] extends N
+    ? A
+    : [...A, ...A][N] extends undefined
+    ? GrowExp<[...A, ...A], N, [A, ...P]>
+    : GrowExpReverse<A, N, P>;
+export type Tuple<T, N extends number> = N extends 0 ? [] : N extends 1 ? [T] : GrowExp<[T, T], N, [[T]]>;
 
 /**
  * map Tuple of ordinary type to Tuple of array type
