@@ -1,4 +1,4 @@
-// Type definitions for google-spreadsheet 3.1
+// Type definitions for google-spreadsheet 3.2
 // Project: https://github.com/theoephraim/node-google-spreadsheet
 // Definitions by: the-vampiire <https://github.com/the-vampiire>
 //                 Federico Grandi <https://github.com/EndBug>
