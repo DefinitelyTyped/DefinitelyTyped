@@ -2,7 +2,6 @@
 // Project: https://github.com/micahblu/gulp-connect-php
 // Definitions by: Adam Thompson-Sharpe <https://github.com/MysteryBlokHed>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-/// <reference types="node" />
 
 declare namespace PhpDevelopmentServerConnection {
     interface Options {

@@ -29,10 +29,7 @@ connect.server({
         if (type === connect.OPTIONS_PHP_CLI_ARR) {
             collection.push('--abc');
         } else if (type === connect.OPTIONS_SPAWN_OBJ) {
-            collection.env = {
-                ...process.env,
-                CUSTOM_ENV_VAR: 'abc',
-            };
+            collection.env = { CUSTOM_ENV_VAR: 'abc' };
         }
         return collection;
     },
@@ -50,16 +47,17 @@ connect.server({
 
 // Killing server
 connect.closeServer(result => {
-    console.log('Kill result:', result);
+    result; // $ExpectType boolean | undefined
 });
 
 // Instance of class
 const connectInstance = new connect();
 connectInstance.server({}, err => {
+    err; // $ExpectType Error | undefined
     if (err) throw err;
-    console.log('Port:', connectInstance.port);
+    connectInstance.port; // $ExpectType number
     connectInstance.closeServer(result => {
-        console.log('Kill result:', result);
+        result; // $ExpectType boolean | undefined
     });
 });
 
@@ -75,10 +73,11 @@ connect.compat.server(
         },
     },
     err => {
+        err; // $ExpectType Error | undefined
         if (err) throw err;
-        console.log('Port:', connect.compat.port);
+        connect.compat.port; // $ExpectType number
         connect.compat.closeServer(result => {
-            console.log('Kill result:', result);
+            result; // $ExpectType boolean | undefined
         });
     },
 );
