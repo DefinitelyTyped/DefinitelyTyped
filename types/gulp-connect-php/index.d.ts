@@ -66,13 +66,13 @@ declare namespace PhpDevelopmentServerConnection {
      * @param options Options
      * @param callback Called when the sever is connected. May be passed an error
      */
-    let server: typeof PhpDevelopmentServerConnection.prototype.server;
+    let server: PhpDevelopmentServerConnection['server'];
 
     /**
      * Close/Shutdown the PHP development server
      * @param callback Optional callback, passed the return of `ChildProcess.kill(...)` or nothing if not started
      */
-    let closeServer: typeof PhpDevelopmentServerConnection.prototype.closeServer;
+    let closeServer: PhpDevelopmentServerConnection['closeServer'];
 
     let OPTIONS_SPAWN_OBJ: 'spawn';
     let OPTIONS_PHP_CLI_ARR: 'php_args';
