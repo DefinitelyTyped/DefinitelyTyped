@@ -420,7 +420,7 @@ imgProps.loading = 'nonsense';
 // $ExpectError
 imgProps.decoding = 'nonsense';
 type ImgPropsWithRef = React.ComponentPropsWithRef<'img'>;
-// $ExpectType RefCallback<HTMLImageElement> | RefObject<HTMLImageElement> | null | undefined
+// $ExpectType ((instance: HTMLImageElement | null) => void) | RefObject<HTMLImageElement> | null | undefined
 type ImgPropsWithRefRef = ImgPropsWithRef['ref'];
 type ImgPropsWithoutRef = React.ComponentPropsWithoutRef<'img'>;
 // $ExpectType false
