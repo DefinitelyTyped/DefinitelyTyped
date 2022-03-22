@@ -237,6 +237,7 @@ import { LookupOneOptions } from 'dns';
     bool = _socket.connecting;
     bool = _socket.destroyed;
     _socket.destroy();
+    _socket.readyState; // $ExpectType SocketReadyState
 }
 
 {
