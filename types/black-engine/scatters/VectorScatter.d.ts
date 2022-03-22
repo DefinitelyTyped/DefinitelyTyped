@@ -6,7 +6,7 @@ export class VectorScatter extends VectorScatterBase {
     maxX: number;
     maxY: number;
     ease: (arg0: Vector) => Vector;
-    getValueAt(t: number): Vector;
+    override getValueAt(t: number): Vector;
 }
 import { VectorScatterBase } from './VectorScatterBase';
 import { Vector } from '../geom/Vector';
