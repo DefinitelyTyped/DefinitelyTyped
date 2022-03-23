@@ -28,7 +28,7 @@ declare module 'opentok' {
       hasVideo: boolean;
       outputMode: OutputMode;
       resolution?: '640x480' | '1280x720' | undefined;
-      streamMode?: 'auto' | 'manual' | undefined; 
+      streamMode?: 'auto' | 'manual' | undefined;
       streams?: Stream[] | undefined;
       url: string;
     }
@@ -128,7 +128,7 @@ declare module 'opentok' {
       outputs: BroadcastOutputOptions;
       maxDuration?: number | undefined;
       resolution?: '640x480' | '1280x720' | undefined;
-      streamMode: 'auto' | 'manual' | undefined;
+      streamMode?: 'auto' | 'manual' | undefined;
       layout: BroadcastLayout;
     }
 
