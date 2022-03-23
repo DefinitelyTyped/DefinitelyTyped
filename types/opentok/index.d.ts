@@ -18,7 +18,8 @@ declare module 'opentok' {
       duration: string;
       id: string;
       name: string;
-      partnerId: string;
+      partnerId?: string;
+      projectId?: string;
       reason: string;
       sessionId: string;
       size: number;
@@ -27,6 +28,8 @@ declare module 'opentok' {
       hasVideo: boolean;
       outputMode: OutputMode;
       resolution?: '640x480' | '1280x720' | undefined;
+      streamMode?: 'auto' | 'manual' | undefined; 
+      streams?: Stream[] | undefined;
       url: string;
     }
 
@@ -58,6 +61,12 @@ declare module 'opentok' {
       mediaMode?: MediaMode | undefined;
       archiveMode?: ArchiveMode | undefined;
       location?: string | undefined;
+    }
+
+    export interface Stream {
+      streamId: string;
+      hasAudio: boolean;
+      hasVideo: boolean;
     }
 
     export interface Session {
@@ -119,6 +128,7 @@ declare module 'opentok' {
       outputs: BroadcastOutputOptions;
       maxDuration?: number | undefined;
       resolution?: '640x480' | '1280x720' | undefined;
+      streamMode: 'auto' | 'manual' | undefined;
       layout: BroadcastLayout;
     }
 
@@ -171,7 +181,7 @@ declare module 'opentok' {
       id: string;
       name: string;
       layoutClassList: string[];
-      videoType: 'camera' | 'screen';
+      videoType: 'camera' | 'screen' | 'custom';
     }
   }
 
