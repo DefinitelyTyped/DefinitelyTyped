@@ -23,3 +23,8 @@ export function getExitCode(result: execa.ExecaError): number;
 export function spawn(command: string, args: string[], opts?: execa.Options): ExecutionResult;
 
 export function spawnStreaming(command: string, args: string[], opts?: execa.Options, prefix?: string): ExecutionResult;
+
+export interface ExecOpts {
+    cwd: string;
+    maxBuffer?: number;
+}
