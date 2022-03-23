@@ -1,0 +1,27 @@
+{
+    "compilerOptions": {
+        "paths": {
+            "*": ["*"]
+        },
+        "module": "commonjs",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "jsx": "react"
+    },
+    "files": [
+        "index.d.ts",
+        "react-native-telnet-client-tests.ts"
+    ]
+}
