@@ -1,4 +1,9 @@
 import {
+    addBackgroundRules,
+    addBorderRules,
+    addMarginRules,
+    addPaddingRules,
+    ClickObserver,
     Conversion,
     DataController,
     disablePlaceholder,
@@ -8,9 +13,21 @@ import {
     EditingController,
     Element,
     enablePlaceholder,
+    getBoxSidesShorthandValue,
+    getBoxSidesValueReducer,
+    getPositionShorthandNormalizer,
+    getShorthandValues,
     hidePlaceholder,
     HtmlDataProcessor,
     InsertOperation,
+    isAttachment,
+    isColor,
+    isLength,
+    isLineStyle,
+    isPercentage,
+    isPosition,
+    isRepeat,
+    isURL,
     LivePosition,
     LiveRange,
     MarkerOperation,
@@ -1585,3 +1602,53 @@ new DomEventData(view, new DragEvent(''));
 new DomEventData(view, new DragEvent(''), { dataTransfer: null });
 // $ExpectError
 new DomEventData(view, new KeyboardEvent(''), { button: 1 });
+
+// $ExpectType void
+addBackgroundRules(new StylesProcessor());
+// $ExpectType void
+addBorderRules(new StylesProcessor());
+// $ExpectType void
+addMarginRules(new StylesProcessor());
+// $ExpectType void
+addPaddingRules(new StylesProcessor());
+
+// $ExpectType boolean
+isColor('');
+// $ExpectType boolean
+isLineStyle('');
+// $ExpectType boolean
+isLength('');
+// $ExpectType boolean
+isPercentage('');
+// $ExpectType boolean
+isRepeat('');
+// $ExpectType boolean
+isPosition('');
+// $ExpectType boolean
+isAttachment('');
+// $ExpectType boolean
+isURL('');
+
+// $ExpectType void
+stylesProcessor.setReducer('padding', getBoxSidesValueReducer('padding'));
+stylesProcessor.setReducer('foo', getBoxSidesValueReducer('foo'));
+stylesProcessor.setReducer('margin', margin => {
+    return [['margin', `${margin.top} ${margin.right} ${margin.bottom} ${margin.left}`]];
+});
+
+// $ExpectType string
+getBoxSidesShorthandValue({ top: '', right: '', bottom: '', left: '' });
+
+// $ExpectType void
+stylesProcessor.setNormalizer('foo', value => ({
+    path: 'foo',
+    value: { top: value, right: value, bottom: value, left: value },
+}));
+stylesProcessor.setNormalizer('foo-top', value => ({
+    path: 'foo.top',
+    value,
+}));
+stylesProcessor.setNormalizer('margin', getPositionShorthandNormalizer('margin'));
+
+// $ExpectType string[]
+getShorthandValues('');
