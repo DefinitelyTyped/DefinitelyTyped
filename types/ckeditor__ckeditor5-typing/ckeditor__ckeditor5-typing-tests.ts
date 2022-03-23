@@ -1,6 +1,5 @@
 import { Editor } from '@ckeditor/ckeditor5-core';
 import { Element, Model, Range, StylesProcessor } from '@ckeditor/ckeditor5-engine';
-import Batch from '@ckeditor/ckeditor5-engine/src/model/batch';
 import Position from '@ckeditor/ckeditor5-engine/src/model/position';
 import { KeyEventData } from '@ckeditor/ckeditor5-engine/src/view/observer/keyobserver';
 import View from '@ckeditor/ckeditor5-engine/src/view/view';
@@ -96,4 +95,4 @@ editor.commands.get('InputCommand');
 editor.commands.get('DeleteCommand');
 
 // $ExpectType boolean
-isNonTypingKeystroke(new KeyEventData(new View(new StylesProcessor()), new Event("foo")));
+isNonTypingKeystroke(new KeyEventData(new View(new StylesProcessor()), new KeyboardEvent("foo")));

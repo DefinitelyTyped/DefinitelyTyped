@@ -1,5 +1,4 @@
 import {
-    ClickObserver,
     Conversion,
     DataController,
     disablePlaceholder,
@@ -79,8 +78,14 @@ import EmptyElement from '@ckeditor/ckeditor5-engine/src/view/emptyelement';
 import { getDataWithoutFiller, isInlineFiller, startsWithFiller } from '@ckeditor/ckeditor5-engine/src/view/filler';
 import Matcher, { MatcherPattern } from '@ckeditor/ckeditor5-engine/src/view/matcher';
 import ViewNode from '@ckeditor/ckeditor5-engine/src/view/node';
-import ArrowKeyObserver from '@ckeditor/ckeditor5-engine/src/view/observer/arrowkeysobserver';
+import ArrowKeysObserver from '@ckeditor/ckeditor5-engine/src/view/observer/arrowkeysobserver';
 import BubblingEventInfo from '@ckeditor/ckeditor5-engine/src/view/observer/bubblingeventinfo';
+import DomEventData from '@ckeditor/ckeditor5-engine/src/view/observer/domeventdata';
+import FakeSelectionObserver from '@ckeditor/ckeditor5-engine/src/view/observer/fakeselectionobserver';
+import FocusObserver from '@ckeditor/ckeditor5-engine/src/view/observer/focusobserver';
+import MouseObserver from '@ckeditor/ckeditor5-engine/src/view/observer/mouseobserver';
+import MutationObserver from '@ckeditor/ckeditor5-engine/src/view/observer/mutationobserver';
+import SelectionObserver from '@ckeditor/ckeditor5-engine/src/view/observer/selectionobserver';
 import Position from '@ckeditor/ckeditor5-engine/src/view/position';
 import ViewRange from '@ckeditor/ckeditor5-engine/src/view/range';
 import RawElement from '@ckeditor/ckeditor5-engine/src/view/rawelement';
@@ -92,6 +97,10 @@ import UIElement from '@ckeditor/ckeditor5-engine/src/view/uielement';
 import View from '@ckeditor/ckeditor5-engine/src/view/view';
 import { EmitterMixin } from '@ckeditor/ckeditor5-utils';
 import History from '@ckeditor/ckeditor5-engine/src/model/history';
+import KeyObserver from '@ckeditor/ckeditor5-engine/src/view/observer/keyobserver';
+import ClickObserver from '@ckeditor/ckeditor5-engine/src/view/observer/clickobserver';
+import InputObserver from '@ckeditor/ckeditor5-engine/src/view/observer/inputobserver';
+import DomEventObserver from '@ckeditor/ckeditor5-engine/src/view/observer/domeventobserver';
 
 let str = '';
 const stylesProcessor = new StylesProcessor();
@@ -202,7 +211,6 @@ viewElement.shouldRenderUnsafeAttribute('');
 let viewDocument = new ViewDocument(stylesProcessor);
 // $ExpectType boolean
 viewDocument.isSelecting;
-// $ExpectError
 viewDocument.isSelecting = true;
 let bool: boolean = viewDocument.isReadOnly;
 num = viewDocument.roots.length;
@@ -1455,9 +1463,127 @@ new BubblingEventInfo(viewDocument, '', new ViewRange(viewPosition));
 new BubblingEventInfo(viewDocument, '', new ViewRange(viewPosition)).startRange;
 // $ExpectType "none" | "capturing" | "atTarget" | "bubbling"
 new BubblingEventInfo(viewDocument, '', new ViewRange(viewPosition)).eventPhase;
-// $ExpectType Document | Node
+// $ExpectType Document | Node | null
 new BubblingEventInfo(viewDocument, '', new ViewRange(viewPosition)).currentTarget;
 
-new ArrowKeyObserver(view).observe();
-
 viewDocument.isFocused = true;
+
+new Mapper().on('foo', () => {});
+// $ExpectType void
+new Mapper().bindElements(new Element('div'), new ViewElement(viewDocument, 'div'));
+// $ExpectType void
+new Mapper().unbindViewElement(new ViewElement(viewDocument, 'div'));
+// $ExpectType void
+new Mapper().unbindModelElement(new Element('div'));
+// $ExpectType void
+new Mapper().bindElementToMarker(new ViewElement(viewDocument, 'div'), 'div');
+// $ExpectType void
+new Mapper().unbindElementFromMarkerName(new ViewElement(viewDocument, 'div'), 'div');
+// $ExpectType string[]
+new Mapper().flushUnboundMarkerNames();
+// $ExpectType number
+new Mapper().getModelLength(new ViewElement(viewDocument, 'div'));
+// $ExpectType void
+new Mapper().clearBindings();
+// $ExpectType Element | undefined
+new Mapper().toModelElement(new ViewElement(viewDocument, 'div'));
+// $ExpectType Element | undefined
+new Mapper().toViewElement(new Element('div'));
+// $ExpectType Range
+new Mapper().toModelRange(new ViewRange(new Position(new ViewElement(viewDocument, 'div'), 5)));
+// $ExpectType Range
+new Mapper().toViewRange(new Range(position));
+// $ExpectType Position
+new Mapper().toModelPosition(new Position(new ViewElement(viewDocument, 'div'), 5));
+// $ExpectType Position
+new Mapper().toViewPosition(new Mapper().toModelPosition(new Position(new ViewElement(viewDocument, 'div'), 5)));
+// $ExpectType Set<Element> | null
+new Mapper().markerNameToElements('');
+// $ExpectType void
+new Mapper().registerViewToModelLength('', (el: ViewElement) => el.childCount);
+// $ExpectType Element
+new Mapper().findMappedViewAncestor(
+    new Mapper().toViewPosition(new Mapper().toModelPosition(new Position(new ViewElement(viewDocument, 'div'), 5))),
+);
+// $ExpectType Position
+new Mapper().findPositionIn(viewElement, 5);
+
+new DomEventData(view, new DragEvent('dragstart'));
+new DomEventData(view, new DragEvent('dragstart'), { dataTransfer: new DataTransfer() });
+
+// $ExpectType MutationObserver
+view.getObserver(MutationObserver);
+new MutationObserver(view).flush();
+
+// $ExpectType ArrowKeysObserver
+view.getObserver(ArrowKeysObserver);
+new ArrowKeysObserver(view).observe();
+
+// $ExpectType FakeSelectionObserver
+view.getObserver(FakeSelectionObserver);
+new FakeSelectionObserver(view).destroy();
+
+// $ExpectType SelectionObserver
+view.getObserver(SelectionObserver);
+new SelectionObserver(view).destroy();
+new SelectionObserver(view).observe(document.body);
+
+// $ExpectType MouseObserver
+view.getObserver(MouseObserver);
+new MouseObserver(view).destroy();
+new MouseObserver(view).observe(document.body);
+new MouseObserver(view).onDomEvent(new MouseEvent(''));
+// $ExpectError
+new MouseObserver(view).onDomEvent(new KeyboardEvent(''));
+
+// $ExpectType FocusObserver
+view.getObserver(FocusObserver);
+new FocusObserver(view).destroy();
+new FocusObserver(view).observe(document.body);
+new FocusObserver(view).onDomEvent(new FocusEvent(''));
+// $ExpectError
+new FocusObserver(view).onDomEvent(new KeyboardEvent(''));
+
+// $ExpectType KeyObserver
+view.getObserver(KeyObserver);
+new KeyObserver(view).destroy();
+new KeyObserver(view).observe(document.body);
+new KeyObserver(view).onDomEvent(new KeyboardEvent(''));
+// $ExpectError
+new KeyObserver(view).onDomEvent(new FocusEvent(''));
+
+// $ExpectType ClickObserver
+view.getObserver(ClickObserver);
+new ClickObserver(view).destroy();
+new ClickObserver(view).observe(document.body);
+new ClickObserver(view).onDomEvent(new MouseEvent(''));
+// $ExpectError
+new ClickObserver(view).onDomEvent(new FocusEvent(''));
+
+// $ExpectType InputObserver
+view.getObserver(InputObserver);
+new InputObserver(view).destroy();
+new InputObserver(view).observe(document.body);
+new InputObserver(view).onDomEvent(new InputEvent(''));
+// $ExpectError
+new InputObserver(view).onDomEvent(new FocusEvent(''));
+
+class MyClickObserver extends DomEventObserver {
+    readonly domEventType: 'click';
+
+    onDomEvent(domEvent: MouseEvent) {
+        this.fire('click', domEvent, { button: 1 });
+        // $ExpectError
+        this.fire('click', domEvent, { button: true });
+    }
+
+    expectError(domEvent: KeyboardEvent) {
+        // $ExpectError
+        this.fire('click', domEvent);
+    }
+}
+
+new DomEventData(view, new DragEvent(''));
+new DomEventData(view, new DragEvent(''), { dataTransfer: null });
+// $ExpectError
+new DomEventData(view, new KeyboardEvent(''), { button: 1 });

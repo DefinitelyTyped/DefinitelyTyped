@@ -2650,6 +2650,13 @@ declare namespace google.maps {
      * Closes this InfoWindow by removing it from the DOM structure.
      */
     close(): void;
+    /**
+     * Sets focus on this <code>InfoWindow</code>. You may wish to consider
+     * using this method along with a <code>visible</code> event to make sure
+     * that <code>InfoWindow</code> is visible before setting focus on it. An
+     * <code>InfoWindow</code> that is not visible cannot be focused.
+     */
+    focus(): void;
     getContent(): string|Element|null|Text|undefined;
     getPosition(): google.maps.LatLng|null|undefined;
     getZIndex(): number;
