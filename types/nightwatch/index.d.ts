@@ -10,6 +10,8 @@
 //                 Ravi Sawlani <https://github.com/gravityvi>
 //                 Binayak Ghosh <https://github.com/swrdfish>
 //                 Harshit Agrawal <https://github.com/harshit-bs>
+//                 David Mello <https://github.com/literallyMello>
+//                 Luke Bickell <https://github.com/lukebickell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.5
 
