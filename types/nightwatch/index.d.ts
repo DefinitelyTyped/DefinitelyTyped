@@ -1406,8 +1406,8 @@ export interface NightwatchKeys {
 export type NightwatchPage = {
     [name: string]: () => EnhancedPageObject<any, any, any>;
 } & {
-    [name: string]: NightwatchPage
-}
+    [name: string]: NightwatchPage;
+};
 
 export interface NightwatchAPI extends SharedCommands, WebDriverProtocol, NightwatchCustomCommands {
     baseURL: string;
