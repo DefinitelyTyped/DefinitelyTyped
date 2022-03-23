@@ -339,7 +339,7 @@ export interface FakeTimerInstallOpts {
     now?: number | Date | undefined;
 
     /**
-     * An array with names of methods/properties to fake. By default, `@sinonjs/fake-timers` does not replace `nextTick()` and `queueMicrotask()`.
+     * An array with names of global methods and APIs to fake. By default, `@sinonjs/fake-timers` does not replace `nextTick()` and `queueMicrotask()`.
      * For instance, `FakeTimers.install({ toFake: ['setTimeout', 'nextTick'] })` will fake only `setTimeout()` and `nextTick()`
      */
     toFake?: FakeMethod[] | undefined;
