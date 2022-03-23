@@ -394,6 +394,9 @@ declare module "../index" {
          */
         flush(): ReturnType<T> | undefined;
     }
+    interface DebouncedFuncLeading<T extends (...args: any[]) => any> extends DebouncedFunc<T> {
+      (...args: Parameters<T>): ReturnType<T>;
+    }
     interface LoDashStatic {
         /**
          * Creates a debounced function that delays invoking func until after wait milliseconds have elapsed since
@@ -415,12 +418,17 @@ declare module "../index" {
          * @param options.trailing Specify invoking on the trailing edge of the timeout.
          * @return Returns the new debounced function.
          */
+        debounce<T extends (...args: any) => any>(func: T, wait?: number, options?: { leading: true } & DebounceSettings): DebouncedFuncLeading<T>;
         debounce<T extends (...args: any) => any>(func: T, wait?: number, options?: DebounceSettings): DebouncedFunc<T>;
     }
     interface Function<T extends (...args: any) => any> {
         /**
          * @see _.debounce
          */
+        debounce(
+            wait?: number,
+            options?: { leading: true } & DebounceSettings
+        ): T extends (...args: any[]) => any ? Function<DebouncedFuncLeading<T>> : never;
         debounce(
             wait?: number,
             options?: DebounceSettings
@@ -430,6 +438,10 @@ declare module "../index" {
         /**
          * @see _.debounce
          */
+        debounce(
+            wait?: number,
+            options?: { leading: true } & DebounceSettings
+        ): T extends (...args: any[]) => any ? FunctionChain<DebouncedFuncLeading<T>> : never;
         debounce(
             wait?: number,
             options?: DebounceSettings
