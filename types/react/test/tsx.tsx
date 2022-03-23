@@ -346,9 +346,14 @@ const htmlElementFnRef = (instance: HTMLElement | null) => {};
 const htmlElementRef = React.createRef<HTMLElement>();
 <div ref={htmlElementFnRef} />;
 <div ref={htmlElementRef} />;
-const unsoundDivFnRef = (instance: HTMLDivElement) => {};
-// `instance` is nullable
-<div ref={unsoundDivFnRef} />; // $ExpectError
+// `current` is nullable
+const unsoundDivFnRef = (current: HTMLDivElement) => {};
+declare const unsoundDivObjectRef: { current: HTMLDivElement };
+// `current` is nullable but type-checks
+// this is consistent with ref objects
+// If this ever not type-checks, `<div ref={unsoundDivObjectRef}` should also fail type-checking
+<div ref={unsoundDivFnRef} />;
+<div ref={unsoundDivObjectRef} />;
 
 const newContextRef = React.createRef<NewContext>();
 <NewContext ref={newContextRef}/>;
@@ -415,7 +420,7 @@ imgProps.loading = 'nonsense';
 // $ExpectError
 imgProps.decoding = 'nonsense';
 type ImgPropsWithRef = React.ComponentPropsWithRef<'img'>;
-// $ExpectType RefCallback<HTMLImageElement> | RefObject<HTMLImageElement> | null | undefined
+// $ExpectType ((instance: HTMLImageElement | null) => void) | RefObject<HTMLImageElement> | null | undefined
 type ImgPropsWithRefRef = ImgPropsWithRef['ref'];
 type ImgPropsWithoutRef = React.ComponentPropsWithoutRef<'img'>;
 // $ExpectType false
