@@ -63,7 +63,7 @@ export class GameObject extends MessageDispatcher {
     removeComponentAt(index: number): Component | null;
     removeComponent(instance: Component): Component | null;
     removeAllComponents(): GameObject;
-    getComponent(typeName: () => void): Component | null;
+    getComponent(typeName: typeof Component): Component | null;
     get numComponents(): number;
     getComponentAt(index: number): Component | null;
     set localTransformation(arg: Matrix);
