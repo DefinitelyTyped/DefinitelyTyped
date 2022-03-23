@@ -71,6 +71,8 @@ declare module 'opentok' {
       auth?: { [key: string]: string } | undefined;
       secure: boolean;
       from: string;
+      video?: boolean;
+      observeForceMute?: boolean;
     }
 
     export type Role = 'subscriber' | 'publisher' | 'moderator';
