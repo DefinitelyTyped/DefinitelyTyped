@@ -1,0 +1,31 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@lerna/*": [
+                "lerna__*"
+            ],
+            "execa": [
+                "execa"
+            ]
+        }
+    },
+    "files": [
+        "index.d.ts",
+        "lerna__child-process-tests.ts"
+    ]
+}
