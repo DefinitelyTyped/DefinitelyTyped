@@ -1,7 +1,7 @@
 import { Chart } from 'chart.js';
-import { TrendlineLinearOptions } from 'chartjs-plugin-trendline';
+import TrendlineLinearPlugin = require('chartjs-plugin-trendline');
 
-const defaults: TrendlineLinearOptions = {
+const defaults: TrendlineLinearPlugin.TrendlineLinearOptions = {
     style: 'rgba(255,105,180,0.8)',
     lineStyle: 'solid',
     width: 2,
