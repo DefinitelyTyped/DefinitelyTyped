@@ -2539,24 +2539,24 @@ export function toUpper(str: string): string;
  * list, successively calling the transformed iterator function and passing it an accumulator value and the
  * current value from the array, and then passing the result to the next call.
  */
-export function transduce<T, U>(
+export function transduce<T, R>(
     xf: (arg: readonly T[]) => T[],
-    fn: (acc: readonly U[], val: U) => U[],
+    fn: (acc: R, val: T) => R,
     acc: readonly T[],
     list: readonly T[],
-): U[];
-export function transduce<T, U>(
+): R;
+export function transduce<T, R>(
     xf: (arg: readonly T[]) => T[],
-): (fn: (acc: readonly U[], val: U) => U[], acc: readonly T[], list: readonly T[]) => U[];
-export function transduce<T, U>(
+): (fn: (acc: R, val: T) => R, acc: readonly T[], list: readonly T[]) => R;
+export function transduce<T, R>(
     xf: (arg: readonly T[]) => T[],
-    fn: (acc: readonly U[], val: U) => U[],
-): (acc: readonly T[], list: readonly T[]) => U[];
-export function transduce<T, U>(
+    fn: (acc: R, val: T) => R,
+): (acc: readonly T[], list: readonly T[]) => R;
+export function transduce<T, R>(
     xf: (arg: readonly T[]) => T[],
-    fn: (acc: readonly U[], val: U) => U[],
+    fn: (acc: R, val: T) => R,
     acc: readonly T[],
-): (list: readonly T[]) => U[];
+): (list: readonly T[]) => R;
 
 /**
  * Transposes the rows and columns of a 2D list. When passed a list of n lists of length x, returns a list of x lists of length n.
