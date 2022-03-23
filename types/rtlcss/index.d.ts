@@ -2,9 +2,8 @@
 // Project: https://github.com/MohammadYounes/rtlcss
 // Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.6
 
-import { PluginCreator } from 'postcss';
+import { PluginCreator, Postcss, Root } from 'postcss';
 import Processor from 'postcss/lib/processor';
 
 declare namespace rtlcss {
@@ -66,11 +65,18 @@ declare namespace rtlcss {
         /**
          * The function to be called before processing the CSS.
          */
-        pre: () => void;
+        pre?: Hook | undefined;
         /**
          * The function to be called after processing the CSS.
          */
-        post: () => void;
+        post?: Hook | undefined;
+    }
+
+    /**
+     * Hooks provides you with the ability to manipulate the css before/after it is processed,
+     */
+    interface Hook {
+        (root: Root, postcss: Postcss): void;
     }
 
     interface ExportedAPI {
