@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { Package } from '@lerna/package';
-import { QueryGraph } from '@lerna/query-graph';
+import { QueryGraphConfig } from '@lerna/query-graph';
 
-export type TopologicalConfig = QueryGraph & { concurrency: number };
+export type TopologicalConfig = QueryGraphConfig & { concurrency: number };
 export function runTopologically<T>(
     packages: Package[],
     runner: (pkg: Package) => Promise<T>,
