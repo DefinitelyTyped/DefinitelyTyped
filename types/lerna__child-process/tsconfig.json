@@ -18,9 +18,6 @@
         "paths": {
             "@lerna/*": [
                 "lerna__*"
-            ],
-            "execa": [
-                "execa"
             ]
         }
     },
