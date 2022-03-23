@@ -341,11 +341,11 @@ interface ImportMeta {
     /**
      * `import.meta.url` is the `file:` url of the current file (similar to `__filename` but as file url)
      */
-     url: string;
+    url: string;
     /**
      * `import.meta.webpack` is the webpack major version as number
      */
-     webpack: number;
+    webpack: number;
     /**
      * `import.meta.webpackHot` is an alias for` module.hot` which is also available in strict ESM
      */
