@@ -1,6 +1,6 @@
 {
     "private": true,
     "dependencies": {
-        "chart.js": "^3.0.0"
+        "chart.js": "^3.7.1"
     }
 }
