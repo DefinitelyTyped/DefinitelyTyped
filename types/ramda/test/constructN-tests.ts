@@ -6,7 +6,7 @@ import * as R from 'ramda';
         this.colors = colors;
     }
 
-    Circle.prototype.area = function () {
+    Circle.prototype.area = function area() {
         return Math.PI * Math.pow(this.r, 2);
     };
 
