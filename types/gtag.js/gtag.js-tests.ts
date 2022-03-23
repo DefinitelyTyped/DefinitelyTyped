@@ -1,6 +1,10 @@
 gtag('config', 'GA-TRACKING_ID');
 gtag('config', 'GA-TRACKING_ID', { send_page_view: true });
 gtag('config', 'GA-TRACKING_ID', { send_page_view: false });
+gtag('config', 'GA-TRACKING_ID', {
+  page_title : 'homepage',
+  page_path: '/home',
+});
 
 gtag('event', 'login', {
   method: 'Google',
@@ -20,7 +24,9 @@ gtag('set', {
 gtag('set', 'developer_id', true);
 gtag('set', 'page_path', '/new_page.html');
 
-gtag('get', 'GA-TRACKING_ID', 'client_id', _clientId => {});
+gtag('get', 'GA-TRACKING_ID', 'client_id', (
+  clientId // $ExpectType string | CustomParams | undefined
+) => {});
 
 gtag('consent', 'default', {
   ad_storage: 'denied',

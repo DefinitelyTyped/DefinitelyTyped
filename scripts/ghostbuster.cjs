@@ -95,8 +95,8 @@ async function fetchGhosts(users) {
             ${userArray.slice(startIndex, endIndex).map((user, i) => `u${i}: user(login: "${user}") { id }`).join("\n")}
         }`;
         const result = await tryGQL(() => octokit.graphql(query));
-        for (const k in result.data) {
-            if (result.data[k] === null) {
+        for (const k in result) {
+            if (result[k] === null) {
                 ghosts.push(userArray[startIndex + parseInt(k.substring(1), 10)]);
             }
         }
@@ -108,8 +108,8 @@ async function fetchGhosts(users) {
             ${ghosts.map((user, i) => `o${i}: organization(login: "${user}") { id }`).join("\n")}
         }`;
         const result = await tryGQL(() => octokit.graphql(query));
-        if (result.data) {
-            return new Set(ghosts.filter(g => result.data[`o${ghosts.indexOf(g)}`] === null));
+        if (result) {
+            return new Set(ghosts.filter(g => result[`o${ghosts.indexOf(g)}`] === null));
         }
     }
 
@@ -122,10 +122,11 @@ async function fetchGhosts(users) {
 async function tryGQL(fn) {
     try {
         const result = await fn();
+        if (result.data) return result.data;
         return result;
     } catch (resultWithErrors) {
         if (resultWithErrors.data) {
-            return resultWithErrors;
+            return resultWithErrors.data;
         }
         throw resultWithErrors;
     }

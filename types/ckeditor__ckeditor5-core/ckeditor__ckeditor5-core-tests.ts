@@ -125,6 +125,8 @@ command.execute({}, { foo: 5 });
 command.editor;
 // $ExpectType boolean
 command.isEnabled;
+// $ExpectError
+command.isEnabled = false;
 
 comm = new Command(editor);
 
@@ -134,13 +136,32 @@ command.execute();
 
 command.refresh();
 
-command.value = 'foo';
+// $ExpectType unknown
+command.value;
+// $ExpectError
+command.value = false;
 delete command.value;
 
-command.isEnabled = false;
-command.isEnabled = true;
 // $ExpectError
 delete command.isEnabled;
+
+// $ExpectType boolean
+command.affectsData;
+
+class MyCommand extends Command {
+    get value(): boolean {
+        return this.value;
+    }
+    protected set value(val: boolean) {
+        this.value = val;
+    }
+    refresh() {
+        this.value = false;
+    }
+}
+
+// $ExpectType boolean
+new MyCommand(editor).value;
 
 /**
  * Context
@@ -209,6 +230,9 @@ MC.registerChildCommand(comm);
 /* EditorUI */
 new EditorUI(editor).componentFactory.editor === editor;
 new EditorUI(editor).componentFactory.add('', locale => new View(locale));
+new EditorUI(editor).set('foo', true);
+// $ExpectType { top: number; right: number; bottom: number; left: number; }
+new EditorUI(editor).viewportOffset;
 
 /** Pending Actions */
 // $ExpectType boolean

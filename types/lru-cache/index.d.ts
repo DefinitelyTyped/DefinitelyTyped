@@ -1,4 +1,4 @@
-// Type definitions for lru-cache 7.4
+// Type definitions for lru-cache 7.5
 // Project: https://github.com/isaacs/node-lru-cache
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
 //                 BendingBender <https://github.com/BendingBender>
@@ -6,7 +6,7 @@
 // TypeScript Version: 2.3
 
 declare class LRUCache<K, V> implements Iterable<[K, V]> {
-    constructor(options?: LRUCache.Options<K, V>);
+    constructor(options: LRUCache.Options<K, V>);
 
     /**
      * Return total length of objects in cache taking into account `length` options function.
@@ -100,19 +100,40 @@ declare class LRUCache<K, V> implements Iterable<[K, V]> {
     rforEach<T = this>(callbackFn: (this: T, value: V, key: K, cache: this) => void, thisArg?: T): void;
 
     /**
-     * Return a generator yielding the keys in the cache.
+     * Return a generator yielding the keys in the cache,
+     * in order from most recently used to least recently used.
      */
     keys(): Generator<K>;
 
     /**
-     * Return a generator yielding [key, value] pairs.
+     * Return a generator yielding the keys in the cache,
+     * in order from least recently used to most recently used.
+     */
+    rkeys(): Generator<K>;
+
+    /**
+     * Return a generator yielding the values in the cache,
+     * in order from most recently used to least recently used.
      */
     values(): Generator<V>;
 
     /**
-     * Return an array of the entries in the cache.
+     * Return a generator yielding the values in the cache,
+     * in order from least recently used to most recently used.
+     */
+    rvalues(): Generator<V>;
+
+    /**
+     * Return a generator yielding `[key, value]` pairs,
+     * in order from most recently used to least recently used.
      */
     entries(): Generator<[K, V]>;
+
+    /**
+     * Return a generator yielding `[key, value]` pairs,
+     * in order from least recently used to most recently used.
+     */
+    rentries(): Generator<[K, V]>;
 
     [Symbol.iterator](): Iterator<[K, V]>;
 

@@ -31,8 +31,13 @@ ordersCreateRequest.requestBody({
                 currency_code: 'USD',
                 value: '100.00',
             },
+            payee: { email_address: 'sendMoreMoney@me.com' },
         },
     ],
+    application_context: {
+        shipping_preference: 'NO_SHIPPING',
+        user_action: 'CONTINUE',
+    },
 });
 
 async () => {

@@ -1,9 +1,4 @@
 import {
-    injectSelectionPostFixer,
-    mergeIntersectingRanges,
-} from '@ckeditor/ckeditor5-engine/src/model/utils/selection-post-fixer';
-import {
-    ClickObserver,
     Conversion,
     DataController,
     disablePlaceholder,
@@ -43,10 +38,12 @@ import DowncastHelpers, {
 import Mapper from '@ckeditor/ckeditor5-engine/src/conversion/mapper';
 import UpcastDispatcher from '@ckeditor/ckeditor5-engine/src/conversion/upcastdispatcher';
 import UpcastHelpers, {
+    convertSelectionChange,
     convertText,
     convertToModelFragment,
 } from '@ckeditor/ckeditor5-engine/src/conversion/upcasthelpers';
 import Batch from '@ckeditor/ckeditor5-engine/src/model/batch';
+import ModelDocument from '@ckeditor/ckeditor5-engine/src/model/document';
 import DocumentFragment from '@ckeditor/ckeditor5-engine/src/model/documentfragment';
 import { Item } from '@ckeditor/ckeditor5-engine/src/model/item';
 import MarkerCollection, { Marker } from '@ckeditor/ckeditor5-engine/src/model/markercollection';
@@ -57,6 +54,15 @@ import RootElement from '@ckeditor/ckeditor5-engine/src/model/rootelement';
 import Selection from '@ckeditor/ckeditor5-engine/src/model/selection';
 import Text from '@ckeditor/ckeditor5-engine/src/model/text';
 import TextProxy from '@ckeditor/ckeditor5-engine/src/model/textproxy';
+import { TreeWalkerValue } from '@ckeditor/ckeditor5-engine/src/model/treewalker';
+import deleteContent from '@ckeditor/ckeditor5-engine/src/model/utils/deletecontent';
+import getSelectedContent from '@ckeditor/ckeditor5-engine/src/model/utils/getselectedcontent';
+import insertContent from '@ckeditor/ckeditor5-engine/src/model/utils/insertcontent';
+import modifySelection from '@ckeditor/ckeditor5-engine/src/model/utils/modifyselection';
+import {
+    injectSelectionPostFixer,
+    mergeIntersectingRanges,
+} from '@ckeditor/ckeditor5-engine/src/model/utils/selection-post-fixer';
 import Writer from '@ckeditor/ckeditor5-engine/src/model/writer';
 import { getBoxSidesValues } from '@ckeditor/ckeditor5-engine/src/styles/utils';
 import AttributeElement from '@ckeditor/ckeditor5-engine/src/view/attributeelement';
@@ -72,6 +78,14 @@ import EmptyElement from '@ckeditor/ckeditor5-engine/src/view/emptyelement';
 import { getDataWithoutFiller, isInlineFiller, startsWithFiller } from '@ckeditor/ckeditor5-engine/src/view/filler';
 import Matcher, { MatcherPattern } from '@ckeditor/ckeditor5-engine/src/view/matcher';
 import ViewNode from '@ckeditor/ckeditor5-engine/src/view/node';
+import ArrowKeysObserver from '@ckeditor/ckeditor5-engine/src/view/observer/arrowkeysobserver';
+import BubblingEventInfo from '@ckeditor/ckeditor5-engine/src/view/observer/bubblingeventinfo';
+import DomEventData from '@ckeditor/ckeditor5-engine/src/view/observer/domeventdata';
+import FakeSelectionObserver from '@ckeditor/ckeditor5-engine/src/view/observer/fakeselectionobserver';
+import FocusObserver from '@ckeditor/ckeditor5-engine/src/view/observer/focusobserver';
+import MouseObserver from '@ckeditor/ckeditor5-engine/src/view/observer/mouseobserver';
+import MutationObserver from '@ckeditor/ckeditor5-engine/src/view/observer/mutationobserver';
+import SelectionObserver from '@ckeditor/ckeditor5-engine/src/view/observer/selectionobserver';
 import Position from '@ckeditor/ckeditor5-engine/src/view/position';
 import ViewRange from '@ckeditor/ckeditor5-engine/src/view/range';
 import RawElement from '@ckeditor/ckeditor5-engine/src/view/rawelement';
@@ -82,6 +96,11 @@ import ViewTextProxy from '@ckeditor/ckeditor5-engine/src/view/textproxy';
 import UIElement from '@ckeditor/ckeditor5-engine/src/view/uielement';
 import View from '@ckeditor/ckeditor5-engine/src/view/view';
 import { EmitterMixin } from '@ckeditor/ckeditor5-utils';
+import History from '@ckeditor/ckeditor5-engine/src/model/history';
+import KeyObserver from '@ckeditor/ckeditor5-engine/src/view/observer/keyobserver';
+import ClickObserver from '@ckeditor/ckeditor5-engine/src/view/observer/clickobserver';
+import InputObserver from '@ckeditor/ckeditor5-engine/src/view/observer/inputobserver';
+import DomEventObserver from '@ckeditor/ckeditor5-engine/src/view/observer/domeventobserver';
 
 let str = '';
 const stylesProcessor = new StylesProcessor();
@@ -192,7 +211,6 @@ viewElement.shouldRenderUnsafeAttribute('');
 let viewDocument = new ViewDocument(stylesProcessor);
 // $ExpectType boolean
 viewDocument.isSelecting;
-// $ExpectError
 viewDocument.isSelecting = true;
 let bool: boolean = viewDocument.isReadOnly;
 num = viewDocument.roots.length;
@@ -426,9 +444,36 @@ downcastHelper.markerToElement({
     view: 'bar',
     converterPriority: 'low',
 });
+conversion.for('downcast').elementToElement({
+    model: 'paragraph',
+    view: 'p',
+});
+
+conversion.for('downcast').elementToElement({
+    model: 'paragraph',
+    view: 'div',
+    converterPriority: 'high',
+});
+
+conversion.for('downcast').elementToElement({
+    model: 'fancyParagraph',
+    view: {
+        name: 'p',
+        classes: 'fancy',
+    },
+});
+
+conversion.for('downcast').elementToElement({
+    model: 'heading',
+    view: (modelElement, conversionApi) => {
+        const { writer } = conversionApi;
+
+        return writer.createContainerElement('h' + modelElement.getAttribute('level'));
+    },
+});
 
 const dataProcessor = new HtmlDataProcessor(viewDocument);
-viewDocumentFragment = dataProcessor.toView('') as ViewDocumentFragment;
+viewDocumentFragment = dataProcessor.toView('');
 str = dataProcessor.toData(viewDocumentFragment);
 dataProcessor.registerRawContentMatcher({ name: 'div', classes: 'raw' });
 
@@ -562,8 +607,6 @@ model.createPositionAfter(model.document.getRoot()!.getChild(0));
 model.createPositionBefore(model.document.getRoot()!.getChild(0));
 range = model.createRangeIn(model.document.getRoot()!.getChild(0) as Element);
 range = model.createRangeOn(model.document.getRoot()!.getChild(0));
-// $ExpectType Selection
-model.createSelection();
 // $ExpectType Batch
 model.createBatch();
 // $ExpectType Batch
@@ -586,6 +629,20 @@ new TreeWalker({
     shallow: false,
     singleCharacters: false,
 });
+// $ExpectType { done: false; value: TreeWalkerValue; } | { done: true; value: undefined; }
+new TreeWalker({
+    startPosition: position,
+}).next();
+// $ExpectType void
+new TreeWalker({
+    startPosition: position,
+}).skip((value: TreeWalkerValue) => !!value.length);
+// $ExpectType TreeWalkerValue[]
+Array.from(
+    new TreeWalker({
+        startPosition: position,
+    }),
+);
 
 element = new Writer().createElement('div');
 element = new Writer().createElement('div', { foo: 'bar' });
@@ -624,7 +681,7 @@ blockFillerMode = domConverter.blockFillerMode;
 domConverter.bindElements(document.createElement('div'), viewEditableElement);
 domConverter.unbindDomElement(document.createElement('div'));
 domConverter.focus(viewEditableElement);
-// $ExpectType Node | DocumentFragment | null
+// $ExpectType Node | null
 domConverter.domToView(document.createElement('div'), { skipComments: true });
 bool = domConverter.isElement(document.createElement('div'));
 
@@ -1321,3 +1378,212 @@ class MyViewNode extends ViewNode {}
 // $ExpectError
 new DomConverter(viewDocument).viewToDom(new MyViewNode());
 new DomConverter(viewDocument).viewToDom(new MyViewNode(), window.document);
+
+// $ExpectType string | number | boolean | undefined
+new Element('div').getAttribute('');
+
+// $ExpectType void
+new History().addOperation(operation);
+// $ExpectType Operation[]
+new History().getOperations();
+// $ExpectType Operation[]
+new History().getOperations(0, 1);
+// $ExpectType Operation | undefined
+new History().getOperation(4);
+// $ExpectType void
+new History().setOperationAsUndone(new History().getOperations(0, 1)[0], new History().getOperations(0, 1)[1]);
+// $ExpectType boolean
+new History().isUndoingOperation(new History().getOperations(0, 1)[0]);
+// $ExpectType boolean
+new History().isUndoneOperation(new History().getOperations(0, 1)[0]);
+// $ExpectType Operation | undefined
+new History().getUndoneOperation(new History().getOperations(0, 1)[0]);
+
+new DowncastDispatcher({}).convertSelection(new Selection(), new MarkerCollection(), downcastWriter);
+new DowncastDispatcher({}).convertSelection(model.document.selection, new MarkerCollection(), downcastWriter);
+
+convertSelectionChange(new Model(), new Mapper());
+
+new Model().createSelection();
+new Model().createSelection(range);
+new Model().createSelection([range]);
+new Model().createSelection(new Model().createSelection());
+new Model().createSelection(model.document.selection);
+new Model().createSelection(position);
+new Model().createSelection(element);
+new Model().createSelection(element, 5);
+new Model().createSelection(element, 'on');
+new Model().createSelection(range, { backward: true });
+new Model().createSelection(range, 5, { backward: true });
+
+new Selection().isEqual(new Selection());
+new Selection().isEqual(model.document.selection);
+
+new RootEditableElement(new ViewDocument(new StylesProcessor()), '').rootName = '';
+
+new DomConverter(viewDocument).blockFillerMode = 'markedNbsp';
+
+// $ExpectType string | number | boolean | undefined
+new Element('div').getAttribute('');
+
+// $ExpectType void
+deleteContent(model, new Selection());
+// $ExpectType void
+deleteContent(model, new Selection(), { leaveUnmerged: true });
+// $ExpectType void
+deleteContent(model, new Selection(), { doNotAutoparagraph: true, leaveUnmerged: true });
+// $ExpectType void
+deleteContent(model, new Selection(), { doNotResetEntireContent: true, doNotAutoparagraph: true, leaveUnmerged: true });
+// $ExpectType Range
+insertContent(model, new DocumentFragment(), new Selection());
+// $ExpectType Range
+insertContent(model, new Element('div'), new Selection());
+// $ExpectType Range
+insertContent(model, new Element('div'));
+// $ExpectType Range
+insertContent(model, new Element('div'), range);
+// $ExpectType Range
+insertContent(model, new Element('div'), range, 0);
+// $ExpectType Range
+insertContent(model, new Element('div'), range, 'on');
+// $ExpectType DocumentFragment
+getSelectedContent(model, new Selection());
+// $ExpectType DocumentFragment
+getSelectedContent(model, new DocumentSelection(new ModelDocument()));
+// $ExpectType void
+modifySelection(model, model.document.selection);
+// $ExpectType void
+modifySelection(model, model.document.selection, { direction: 'backward' });
+
+new Writer().createPositionAt(new DocumentFragment());
+
+const viewPosition = new Position(downcastWriter.createEmptyElement('div'), 5);
+new BubblingEventInfo(viewDocument, '', new ViewRange(viewPosition));
+// $ExpectType Range
+new BubblingEventInfo(viewDocument, '', new ViewRange(viewPosition)).startRange;
+// $ExpectType "none" | "capturing" | "atTarget" | "bubbling"
+new BubblingEventInfo(viewDocument, '', new ViewRange(viewPosition)).eventPhase;
+// $ExpectType Document | Node | null
+new BubblingEventInfo(viewDocument, '', new ViewRange(viewPosition)).currentTarget;
+
+viewDocument.isFocused = true;
+
+new Mapper().on('foo', () => {});
+// $ExpectType void
+new Mapper().bindElements(new Element('div'), new ViewElement(viewDocument, 'div'));
+// $ExpectType void
+new Mapper().unbindViewElement(new ViewElement(viewDocument, 'div'));
+// $ExpectType void
+new Mapper().unbindModelElement(new Element('div'));
+// $ExpectType void
+new Mapper().bindElementToMarker(new ViewElement(viewDocument, 'div'), 'div');
+// $ExpectType void
+new Mapper().unbindElementFromMarkerName(new ViewElement(viewDocument, 'div'), 'div');
+// $ExpectType string[]
+new Mapper().flushUnboundMarkerNames();
+// $ExpectType number
+new Mapper().getModelLength(new ViewElement(viewDocument, 'div'));
+// $ExpectType void
+new Mapper().clearBindings();
+// $ExpectType Element | undefined
+new Mapper().toModelElement(new ViewElement(viewDocument, 'div'));
+// $ExpectType Element | undefined
+new Mapper().toViewElement(new Element('div'));
+// $ExpectType Range
+new Mapper().toModelRange(new ViewRange(new Position(new ViewElement(viewDocument, 'div'), 5)));
+// $ExpectType Range
+new Mapper().toViewRange(new Range(position));
+// $ExpectType Position
+new Mapper().toModelPosition(new Position(new ViewElement(viewDocument, 'div'), 5));
+// $ExpectType Position
+new Mapper().toViewPosition(new Mapper().toModelPosition(new Position(new ViewElement(viewDocument, 'div'), 5)));
+// $ExpectType Set<Element> | null
+new Mapper().markerNameToElements('');
+// $ExpectType void
+new Mapper().registerViewToModelLength('', (el: ViewElement) => el.childCount);
+// $ExpectType Element
+new Mapper().findMappedViewAncestor(
+    new Mapper().toViewPosition(new Mapper().toModelPosition(new Position(new ViewElement(viewDocument, 'div'), 5))),
+);
+// $ExpectType Position
+new Mapper().findPositionIn(viewElement, 5);
+
+new DomEventData(view, new DragEvent('dragstart'));
+new DomEventData(view, new DragEvent('dragstart'), { dataTransfer: new DataTransfer() });
+
+// $ExpectType MutationObserver
+view.getObserver(MutationObserver);
+new MutationObserver(view).flush();
+
+// $ExpectType ArrowKeysObserver
+view.getObserver(ArrowKeysObserver);
+new ArrowKeysObserver(view).observe();
+
+// $ExpectType FakeSelectionObserver
+view.getObserver(FakeSelectionObserver);
+new FakeSelectionObserver(view).destroy();
+
+// $ExpectType SelectionObserver
+view.getObserver(SelectionObserver);
+new SelectionObserver(view).destroy();
+new SelectionObserver(view).observe(document.body);
+
+// $ExpectType MouseObserver
+view.getObserver(MouseObserver);
+new MouseObserver(view).destroy();
+new MouseObserver(view).observe(document.body);
+new MouseObserver(view).onDomEvent(new MouseEvent(''));
+// $ExpectError
+new MouseObserver(view).onDomEvent(new KeyboardEvent(''));
+
+// $ExpectType FocusObserver
+view.getObserver(FocusObserver);
+new FocusObserver(view).destroy();
+new FocusObserver(view).observe(document.body);
+new FocusObserver(view).onDomEvent(new FocusEvent(''));
+// $ExpectError
+new FocusObserver(view).onDomEvent(new KeyboardEvent(''));
+
+// $ExpectType KeyObserver
+view.getObserver(KeyObserver);
+new KeyObserver(view).destroy();
+new KeyObserver(view).observe(document.body);
+new KeyObserver(view).onDomEvent(new KeyboardEvent(''));
+// $ExpectError
+new KeyObserver(view).onDomEvent(new FocusEvent(''));
+
+// $ExpectType ClickObserver
+view.getObserver(ClickObserver);
+new ClickObserver(view).destroy();
+new ClickObserver(view).observe(document.body);
+new ClickObserver(view).onDomEvent(new MouseEvent(''));
+// $ExpectError
+new ClickObserver(view).onDomEvent(new FocusEvent(''));
+
+// $ExpectType InputObserver
+view.getObserver(InputObserver);
+new InputObserver(view).destroy();
+new InputObserver(view).observe(document.body);
+new InputObserver(view).onDomEvent(new InputEvent(''));
+// $ExpectError
+new InputObserver(view).onDomEvent(new FocusEvent(''));
+
+class MyClickObserver extends DomEventObserver {
+    readonly domEventType: 'click';
+
+    onDomEvent(domEvent: MouseEvent) {
+        this.fire('click', domEvent, { button: 1 });
+        // $ExpectError
+        this.fire('click', domEvent, { button: true });
+    }
+
+    expectError(domEvent: KeyboardEvent) {
+        // $ExpectError
+        this.fire('click', domEvent);
+    }
+}
+
+new DomEventData(view, new DragEvent(''));
+new DomEventData(view, new DragEvent(''), { dataTransfer: null });
+// $ExpectError
+new DomEventData(view, new KeyboardEvent(''), { button: 1 });

@@ -137,6 +137,9 @@ export const toMarkdown = (content: ProsemirrorNode) =>
                 escape: false,
             },
         },
+        {
+            escapeExtraCharacters: /[\|]!/g,
+        },
     ).serialize(content);
 
 type Side = -1 | 1;

@@ -1,4 +1,4 @@
-// For Library Version: 1.99.0
+// For Library Version: 1.100.0
 
 declare module "sap/ui/integration/library" {
   import { URI } from "sap/ui/core/library";
@@ -39,6 +39,12 @@ declare module "sap/ui/integration/library" {
      */
     DateChange = "DateChange",
     /**
+     * @EXPERIMENTAL (since 1.100)
+     *
+     * Used for hiding the appeared details about the card.
+     */
+    HideCard = "HideCard",
+    /**
      * @EXPERIMENTAL (since 1.87)
      *
      * Month selection. Available only for Calendar cards.
@@ -48,6 +54,12 @@ declare module "sap/ui/integration/library" {
      * Used for navigation actions
      */
     Navigation = "Navigation",
+    /**
+     * @EXPERIMENTAL (since 1.100)
+     *
+     * Used for showing more details about the card.
+     */
+    ShowCard = "ShowCard",
     /**
      * Used for submit actions
      */
@@ -3129,6 +3141,8 @@ declare namespace sap {
 
     "sap/ui/integration/designtime/baseEditor/propertyEditor/numberEditor/NumberEditor": undefined;
 
+    "sap/ui/integration/designtime/baseEditor/propertyEditor/objectArrayEditor/ObjectArrayEditor": undefined;
+
     "sap/ui/integration/designtime/baseEditor/propertyEditor/PropertyEditorFactory": undefined;
 
     "sap/ui/integration/designtime/baseEditor/propertyEditor/selectEditor/SelectEditor": undefined;
@@ -3197,11 +3211,15 @@ declare namespace sap {
 
     "sap/ui/integration/editor/fields/IntegerField": undefined;
 
-    "sap/ui/integration/editor/fields/ListField": undefined;
-
     "sap/ui/integration/editor/fields/NumberField": undefined;
 
+    "sap/ui/integration/editor/fields/ObjectField": undefined;
+
+    "sap/ui/integration/editor/fields/ObjectListField": undefined;
+
     "sap/ui/integration/editor/fields/StringField": undefined;
+
+    "sap/ui/integration/editor/fields/StringListField": undefined;
 
     "sap/ui/integration/editor/fields/viz/ColorSelect": undefined;
 

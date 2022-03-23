@@ -6,6 +6,7 @@ const bb = busboy({
     highWaterMark: 1000,
     fileHwm: 1000,
     defCharset: 'utf8',
+    defParamCharset: 'latin1',
     preservePath: true,
     limits: {
         fieldNameSize: 200,

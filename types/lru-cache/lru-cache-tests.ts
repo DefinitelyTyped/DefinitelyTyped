@@ -10,7 +10,7 @@ const foo = {
     foo() {},
 };
 
-const cache = new LRUCache<string, Foo>();
+const cache = new LRUCache<string, Foo>({ max: 10 });
 cache; // $ExpectType LRUCache<string, Foo>
 
 // $ExpectType LRUCache<string, Foo>
@@ -39,7 +39,7 @@ new LRUCache<string, Foo>({
     },
 });
 new LRUCache<string, Foo>({ max: num }); // $ExpectType LRUCache<string, Foo>
-new LRUCache<string, Foo>(); // $ExpectType LRUCache<string, Foo>
+new LRUCache<string, Foo>(); // $ExpectError
 // $ExpectType LRUCache<string, Foo>
 new LRUCache<string, Foo>({
     max: num,
@@ -137,7 +137,11 @@ cache.rforEach(function(value, key, cache) {
 }, foo);
 
 cache.keys(); // $ExpectType Generator<string, any, unknown>
+cache.rkeys(); // $ExpectType Generator<string, any, unknown>
 cache.values(); // $ExpectType Generator<Foo, any, unknown>
+cache.rvalues(); // $ExpectType Generator<Foo, any, unknown>
+cache.entries(); // $ExpectType Generator<[string, Foo], any, unknown>
+cache.rentries(); // $ExpectType Generator<[string, Foo], any, unknown>
 
 const dump = cache.dump();
 dump; // $ExpectType [string, Entry<Foo>][]

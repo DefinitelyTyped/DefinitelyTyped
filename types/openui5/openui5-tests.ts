@@ -21,6 +21,7 @@ import Target from "sap/ui/core/routing/Target";
 import MessagePage from "sap/m/MessagePage";
 import { TitleLevel } from "sap/ui/core/library";
 import DateTimePicker from "sap/m/DateTimePicker";
+import DateFormatTimezoneDisplay from "sap/ui/core/format/DateFormatTimezoneDisplay";
 
 /*
  * REMARK: the type definition files are automatically generated and this generation is tested,
@@ -144,3 +145,5 @@ messagePage.setTitleLevel(TitleLevel.H1);
 const odataV4ListBinding = new ODataV4ListBinding();
 const odataV4ListBindingCount = odataV4ListBinding.getCount();
 const context = odataV4ListBinding.getKeepAliveContext("x");
+
+const showTimeZone = DateFormatTimezoneDisplay.Show;

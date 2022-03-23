@@ -27,12 +27,12 @@ const revRegDef: indy.RevocRegDef = {
 const indyCredentialInfo: indy.IndyCredentialInfo = {
     referent: 'referent',
     attrs: {
-        key: 'value'
+        key: 'value',
     },
     schema_id: 'schema_id',
     cred_def_id: 'cred_def_id',
     rev_reg_id: 12,
-    cred_rev_id: '12408120'
+    cred_rev_id: '12408120',
 };
 
 const walletConfig: indy.WalletConfig = { id: 'wallet' };
@@ -40,6 +40,10 @@ const walletCredentials: indy.WalletCredentials = { key: 'key' };
 const importExportConfig: indy.WalletExportImportConfig = {
     key: 'export_key',
     path: 'some-path',
+};
+const rekeyWalletCredentials: indy.OpenWalletCredentials = {
+    key: 'old_key',
+    rekey: 'new_key'
 };
 const credDef: indy.CredDef = {
     id: 'id',
@@ -168,6 +172,7 @@ const ledgerReadReply: indy.LedgerReadReplyResponse = {
 
 indy.createWallet(walletConfig, walletCredentials);
 indy.openWallet(walletConfig, walletCredentials);
+indy.openWallet(walletConfig, rekeyWalletCredentials);
 indy.exportWallet(10, importExportConfig);
 indy.importWallet(walletConfig, walletCredentials, importExportConfig);
 indy.createKey(1, { seed: 'seed' });
@@ -265,6 +270,7 @@ indy.proverStoreCredential(
     null,
 );
 indy.proverGetCredential(10, 'outCredId');
+indy.proverDeleteCredential(10, 'credId');
 indy.generateNonce();
 indy.buildGetAttribRequest(null, 'did', 'endpoint', null, null);
 indy.proverGetCredentialsForProofReq(10, proofReq);
@@ -275,7 +281,7 @@ indy.verifierVerifyProof(
     proofReq,
     {
         proof: 'proof',
-        identifiers: [{ schema_id: 'schema_id', cred_def_id: "cred_def_id"}],
+        identifiers: [{ schema_id: 'schema_id', cred_def_id: 'cred_def_id' }],
         requested_proof: {
             requested_predicates: {},
             revealed_attr_groups: {},
@@ -341,7 +347,6 @@ indy.createRevocationState(
 // indy.issuerRotateCredentialDefStart(wh, credDefId, null)
 // indy.issuerRotateCredentialDefApply()
 // indy.toUnqualified(qualified))
-// indy.proverDeleteCredential(wh, outCredId)
 // indy.proverSearchCredentials(wh, { schema_id: schemaId })
 // indy.proverFetchCredentials(sh, totalCount)
 // indy.proverCloseCredentialsSearch(sh)
@@ -349,7 +354,6 @@ indy.createRevocationState(
 // indy.generateWalletKey({})
 // indy.exportWallet(handle, exportConfig)
 // indy.importWallet(walletConfig, walletCredentials, exportConfig)
-// indy.listPools()
 // indy.refreshPoolLedger(-1)
 // indy.deletePoolLedgerConfig(pool.name)
 // indy.closePoolLedger(poolH)
