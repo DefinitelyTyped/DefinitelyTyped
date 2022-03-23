@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Prompt } from 'react-router';
 
-const PromptTest: React.FC = ({ children }) => {
+const PromptTest: React.FC = () => {
   return (
     <Prompt
       message={(location, action) => {
