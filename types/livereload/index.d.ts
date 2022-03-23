@@ -9,7 +9,7 @@ import { Server as httpsServer, ServerOptions } from 'https';
 import { EventEmitter } from 'events';
 import { FSWatcher } from 'fs';
 
-interface ServerConfig {
+export interface ServerConfig {
     /** Protocol Version defaults to "7" */
     version?: string | undefined;
     /** Sets server port number: Defaults to 35729 */
@@ -37,7 +37,7 @@ interface ServerConfig {
 }
 
 /** Create Server Parameters */
-interface CreateServerConfig extends ServerConfig {
+export interface CreateServerConfig extends ServerConfig {
     https?: ServerOptions | undefined;
     server?: httpServer | httpsServer | undefined;
     noListen?: boolean | undefined;
