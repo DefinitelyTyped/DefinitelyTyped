@@ -222,6 +222,10 @@ const testPage = {
 
         browser.end();
     },
+
+    'Test nested page objects': () => {
+        const google = browser.page.subfolder1.subfolder2.subfolder3.google();
+    },
 };
 
 //
