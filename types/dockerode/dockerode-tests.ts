@@ -179,6 +179,18 @@ docker.createNetwork({Name: 'networkName'},  (err, network) => {
     });
 });
 
+docker.createVolume();
+
+docker.createVolume({Name: 'volumeName'});
+
+docker.createVolume({Name: 'volumeName', Driver: 'local', DriverOpts: {device: '/dev/sda1'}, Labels: {'com.example.some-label': 'some-value'}});
+
+docker.createVolume({Name: 'volumeName'}, (err, volume) => {
+    volume.remove((err, data) => {
+        // NOOP
+    });
+});
+
 docker.createNetwork({Name: 'networkName'}).then((network) => {
     network.remove().then((response) => {
         // NOOP
