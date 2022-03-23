@@ -894,9 +894,7 @@ export function identity<T>(a: T): T;
  */
 // tslint:disable:max-line-length
 export function ifElse<T, TFiltered extends T, TOnTrueResult, TOnFalseResult>(pred: (a: T) => a is TFiltered, onTrue: (a: TFiltered) => TOnTrueResult, onFalse: (a: T) => TOnFalseResult): (a: T) => TOnTrueResult | TOnFalseResult;
-export function ifElse<T, TFiltered extends T, TOnTrueResult, TOnFalseResult>(pred: (a: T) => a is TFiltered, onTrue: (a: TFiltered) => TOnTrueResult, onFalse: (a: T) => TOnFalseResult, a: T): TOnTrueResult | TOnFalseResult;
 export function ifElse<TArgs extends any[], TOnTrueResult, TOnFalseResult>(fn: (...args: TArgs) => boolean, onTrue: (...args: TArgs) => TOnTrueResult, onFalse: (...args: TArgs) => TOnFalseResult): (...args: TArgs) => TOnTrueResult | TOnFalseResult;
-export function ifElse<TArgs extends any[], TOnTrueResult, TOnFalseResult>(fn: (...args: TArgs) => boolean, onTrue: (...args: TArgs) => TOnTrueResult, onFalse: (...args: TArgs) => TOnFalseResult, ...args: TArgs): TOnTrueResult | TOnFalseResult;
 /// tslint:enable:max-line-length
 
 /**

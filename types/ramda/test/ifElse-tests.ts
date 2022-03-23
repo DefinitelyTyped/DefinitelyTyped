@@ -22,13 +22,6 @@ import * as R from 'ramda';
     R.always(''),
   );
 
-  R.ifElse(
-    (a: number, b: number) => a === b,
-    (a: number, b: number) => a + b,
-    R.always(1),
-    2, 2
-  ); // => 4
-
   addWhenEquals(1, 2); // => ''
   addWhenEquals(1, 1); // => 2
 
@@ -41,11 +34,4 @@ import * as R from 'ramda';
 
   getLengthIfString('foo'); // => 3
   getLengthIfString(true); // => 1
-
-  const lengthIfString = R.ifElse(
-    (a: string | boolean): a is string => true,
-    (a) => a.length,
-    a => a ? 1 : 0,
-    'foo'
-  ); // => 3
 };
