@@ -8,6 +8,7 @@
         "target": "es5",
         "noImplicitAny": true,
         "noImplicitThis": true,
+        "esModuleInterop": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
         "baseUrl": "../",
