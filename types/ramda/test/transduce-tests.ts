@@ -12,7 +12,17 @@ import * as R from 'ramda';
     // $ExpectType number[]
     R.transduce(transducer, fn)([], numbers); // => [2, 3]
     // $ExpectType number[]
-    R.transduce<number, number[]>(transducer)(fn, [], numbers); // => [2, 3]
+    R.transduce<number, number, number[]>(transducer)(fn, [], numbers); // => [2, 3]
+    // $ExpectError
+    R.transduce(transducer, fn, [], ['1']);
+    // $ExpectType number
+    R.transduce(transducer, (acc, n: number) => acc + n, 0, [1, 2, 3]);
+    // $ExpectError
+    R.transduce(transducer, (acc: number, n: number) => acc + n, 0, ['1']);
+    // $ExpectError
+    R.transduce(transducer, (acc: string, n: number) => acc + n, 0, [1, 2, 3]);
+    // $ExpectError
+    R.transduce(transducer, (acc: number, n: string) => acc + Number(n), 0, [1, 2, 3]);
 
     // $ExpectType (a: string) => string
     R.compose((a: string) => a + '', R.take(2) as (a: string) => string);
