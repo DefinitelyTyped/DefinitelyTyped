@@ -25,13 +25,27 @@ import * as R from 'ramda';
     addWhenEquals(1, 2); // => ''
     addWhenEquals(1, 1); // => 2
 
-    // $ExpectType (a: string | boolean) => number
-    const getLengthIfString = R.ifElse(
-        (a: string | boolean): a is string => true,
-        (a) => a.length,
-        a => a ? 1 : 0
+    // $ExpectType (a: string | number) => number
+    const getLengthIfStringElseDouble = R.ifElse(
+        (a: string | number): a is string => true,
+        a => a.length,
+        a => a * 2,
     );
 
-    getLengthIfString('foo'); // => 3
-    getLengthIfString(true); // => 1
+    getLengthIfStringElseDouble('foo'); // => 3
+    getLengthIfStringElseDouble(3); // => 6
+
+    /**
+     * This is to make sure, that the typeguard doesn't make things worse
+     * for the else clause. We are not smarter in a case like this in
+     * the else clause, but a least we still get the original type,
+     * while still having a working typeguard for the else clause
+     * for simple union types.
+     */
+    // $ExpectType (a: { foo?: string | undefined; bar: string | number; }) => [string, string] | [string | undefined, string | number]
+    R.ifElse(
+        (a: { foo?: string; bar: number | string }): a is { foo: string; bar: string } => true,
+        (a): [string, string] => [a.foo, a.bar],
+        (a): [string | undefined, string | number] => [a.foo, a.bar],
+    );
 };

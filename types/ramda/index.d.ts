@@ -955,7 +955,7 @@ export function identity<T>(a: T): T;
 export function ifElse<T, TFiltered extends T, TOnTrueResult, TOnFalseResult>(
     pred: (a: T) => a is TFiltered,
     onTrue: (a: TFiltered) => TOnTrueResult,
-    onFalse: (a: T) => TOnFalseResult,
+    onFalse: (a: Exclude<T, TFiltered>) => TOnFalseResult,
 ): (a: T) => TOnTrueResult | TOnFalseResult;
 export function ifElse<TArgs extends any[], TOnTrueResult, TOnFalseResult>(
     fn: (...args: TArgs) => boolean,
