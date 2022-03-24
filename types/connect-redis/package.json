@@ -1,6 +1,6 @@
 {
     "private": true,
     "dependencies": {
-        "@types/redis": "^2.8.0"
+        "redis": "^4.0.4"
     }
 }
