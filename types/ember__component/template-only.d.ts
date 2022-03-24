@@ -37,4 +37,10 @@ export interface TemplateOnlyComponent<S = unknown> extends Opaque<S> {
  */
 export type TOC<S> = TemplateOnlyComponent<S>;
 
+// The generic here is for a *signature: a way to hang information for tools
+// like Glint which can provide typey checking for component templates using
+// information supplied via this generic. While it may appear useless on this
+// class definition and extension, it is used by external tools and should not
+// be removed.
+// tslint:disable-next-line:no-unnecessary-generics
 export default function templateOnly<S>(moduleName?: string): TemplateOnlyComponent<S>;
