@@ -15,4 +15,12 @@ mailchimp.messages.send({
     },
 });
 
+mailchimp.messages.send({
+    message: {
+        to: [
+            { email: 'johndoe@example.com', type: 'to' },
+        ],
+    },
+});
+
 export default mailchimp;
