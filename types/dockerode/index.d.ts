@@ -466,7 +466,7 @@ declare namespace Dockerode {
         Driver: string;
         Mountpoint: string;
         CreatedAt?: string | undefined;
-        Status?: string;
+Status?: { [key: string]: string } | undefined;
         Labels: { [label: string]: string };
         Scope: string;
         Options: { [key: string]: string } | undefined;
