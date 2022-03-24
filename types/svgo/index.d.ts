@@ -146,13 +146,13 @@ export type ConvertPathDataPlugin = DefaultPlugin<
         /** @default true */
         applyTransformsStroked?: boolean | undefined;
         makeArcs?:
-            | {
-                  /** @default 2.5 */
-                  threshold?: number | undefined;
-                  /** @default 0.5 */
-                  tolerance?: number | undefined;
-              }
-            | undefined;
+        | {
+            /** @default 2.5 */
+            threshold?: number | undefined;
+            /** @default 0.5 */
+            tolerance?: number | undefined;
+        }
+        | undefined;
         /** @default true */
         straightCurves?: boolean | undefined;
         /** @default true */
@@ -314,6 +314,7 @@ export type PluginsPlugin = DefaultPlugin<'plugins'>;
 export type PrefixIdsPlugin = DefaultPlugin<
     'prefixIds',
     {
+        prefix?: boolean | string | ((node: any, info: any) => string),
         /** @default '__' */
         delim?: string | undefined;
         /** @default true */
