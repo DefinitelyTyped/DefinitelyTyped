@@ -80,19 +80,8 @@ export type StyledComponentProps<
         ? WithOptionalTheme<
               MakeAttrsOptional<C, O, A> & MakeAttrsOptional<FAsC, O, A>,
               T
-          > &
-              WithChildrenIfReactComponentClass<C>
+          >
         : never;
-
-// Because of React typing quirks, when getting props from a React.ComponentClass,
-// we need to manually add a `children` field.
-// See https://github.com/DefinitelyTyped/DefinitelyTyped/pull/31945
-// and https://github.com/DefinitelyTyped/DefinitelyTyped/pull/32843
-type WithChildrenIfReactComponentClass<C extends string | React.ComponentType<any>> = C extends React.ComponentClass<
-    any
->
-    ? { children?: React.ReactNode | undefined }
-    : {};
 
 type StyledComponentPropsWithAs<
     C extends string | React.ComponentType<any>,
