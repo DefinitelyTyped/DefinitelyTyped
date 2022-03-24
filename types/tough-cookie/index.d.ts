@@ -138,7 +138,7 @@ export namespace Cookie {
     interface Properties {
         key?: string | undefined;
         value?: string | undefined;
-        expires?: Date | undefined;
+        expires?: Date | 'Infinity' | undefined;
         maxAge?: number | 'Infinity' | '-Infinity' | undefined;
         domain?: string | undefined;
         path?: string | undefined;
