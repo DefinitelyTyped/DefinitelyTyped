@@ -137,10 +137,10 @@ declare namespace React {
         key?: Key | null | undefined;
     }
     interface RefAttributes<T> extends Attributes {
-        ref?: Ref<T> | undefined;
+        ref?: Ref<T | null>;
     }
     interface ClassAttributes<T> extends Attributes {
-        ref?: LegacyRef<T> | undefined;
+        ref?: LegacyRef<T | null>;
     }
 
     interface ReactElement<P = any, T extends string | JSXElementConstructor<any> = string | JSXElementConstructor<any>> {

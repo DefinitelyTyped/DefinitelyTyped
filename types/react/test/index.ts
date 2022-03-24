@@ -459,14 +459,14 @@ const ForwardingRefComponent2 = React.forwardRef<HTMLElement>((props, ref) => {
 const MemoizedForwardingRefComponent = React.memo(ForwardingRefComponent);
 const LazyComponent = React.lazy(() => Promise.resolve({ default: RefComponent }));
 
-type ClassComponentAsRef = React.ElementRef<typeof RefComponent>; // $ExpectType RefComponent
+type ClassComponentAsRef = React.ElementRef<typeof RefComponent>; // $ExpectType RefComponent | null
 type FunctionComponentWithoutPropsAsRef = React.ElementRef<typeof RefCarryingComponent>; // $ExpectType never
 type FunctionComponentWithPropsAsRef = React.ElementRef<typeof FunctionComponent>; // $ExpectType never
-type HTMLIntrinsicAsRef = React.ElementRef<'div'>; // $ExpectType HTMLDivElement
-type SVGIntrinsicAsRef = React.ElementRef<'svg'>; // $ExpectType SVGSVGElement
-type ForwardingRefComponentAsRef = React.ElementRef<typeof ForwardingRefComponent>; // $ExpectType RefComponent
-type MemoizedForwardingRefComponentAsRef = React.ElementRef<typeof MemoizedForwardingRefComponent>; // $ExpectType RefComponent
-type LazyComponentAsRef = React.ElementRef<typeof LazyComponent>; // $ExpectType RefComponent
+type HTMLIntrinsicAsRef = React.ElementRef<'div'>; // $ExpectType HTMLDivElement | null
+type SVGIntrinsicAsRef = React.ElementRef<'svg'>; // $ExpectType SVGSVGElement | null
+type ForwardingRefComponentAsRef = React.ElementRef<typeof ForwardingRefComponent>; // $ExpectType RefComponent | null
+type MemoizedForwardingRefComponentAsRef = React.ElementRef<typeof MemoizedForwardingRefComponent>; // $ExpectType RefComponent | null
+type LazyComponentAsRef = React.ElementRef<typeof LazyComponent>; // $ExpectType RefComponent | null
 
 //
 // Attributes

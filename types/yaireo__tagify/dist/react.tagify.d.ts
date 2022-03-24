@@ -26,7 +26,7 @@ import {
     TagifySettings,
 } from '@yaireo/tagify';
 
-import { MutableRefObject, ReactElement } from 'react';
+import { RefObject, ReactElement } from 'react';
 
 declare namespace Tags {
     /**
@@ -352,7 +352,7 @@ declare namespace Tags {
          * value after the initial render is not supported.
          * @default undefined
          */
-        tagifyRef?: MutableRefObject<Tagify<T> | undefined> | undefined;
+        tagifyRef?: RefObject<Tagify<T> | null>;
 
         /**
          * Same as `defaultValue`. Initial value, i.e. the initial tags that are
