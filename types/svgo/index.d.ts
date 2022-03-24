@@ -314,7 +314,7 @@ export type PluginsPlugin = DefaultPlugin<'plugins'>;
 export type PrefixIdsPlugin = DefaultPlugin<
     'prefixIds',
     {
-        prefix?: boolean | string | ((node: any, info: any) => string),
+        prefix?: boolean | string | ((node: any, info: any) => string) | undefined;
         /** @default '__' */
         delim?: string | undefined;
         /** @default true */
