@@ -449,8 +449,8 @@ export function composeWith<TArgs extends any[], TResult>(
 export function composeWith(
     transformer: (fn: (...args: any[]) => any, intermediatResult: any) => any,
 ): <TArgs extends any[], TResult>(
-        fns: AtLeastOneFunctionsFlowFromRightToLeft<TArgs, TResult>,
-    ) => (...args: TArgs) => TResult;
+    fns: AtLeastOneFunctionsFlowFromRightToLeft<TArgs, TResult>,
+) => (...args: TArgs) => TResult;
 // tslint:enable:max-line-length
 
 /**
@@ -486,7 +486,7 @@ export function cond<T extends any[], R>(pairs: Array<CondPair<T, R>>): (...args
 /**
  * Wraps a constructor function inside a curried function that can be called with the same arguments and returns the same type.
  */
-export function construct<A extends any[], T>(constructor: { new(...a: A): T } | ((...a: A) => T)): (...a: A) => T;
+export function construct<A extends any[], T>(constructor: { new (...a: A): T } | ((...a: A) => T)): (...a: A) => T;
 
 /**
  * Wraps a constructor function inside a curried function that can be called with the same arguments and returns the same type.
@@ -494,7 +494,7 @@ export function construct<A extends any[], T>(constructor: { new(...a: A): T } |
  */
 export function constructN<A extends any[], T>(
     n: number,
-    constructor: { new(...a: A): T } | ((...a: A) => T),
+    constructor: { new (...a: A): T } | ((...a: A) => T),
 ): (...a: Partial<A>) => T;
 
 /**
@@ -530,18 +530,18 @@ export function converge<
     R6,
     R7,
     RestFunctions extends Array<(...args: TArgs) => any>,
-    >(
-        converging: (...args: readonly [R1, R2, R3, R4, R5, R6, R7, ...ReturnTypesOfFns<RestFunctions>]) => TResult,
-        branches: [
-            (...args: TArgs) => R1,
-            (...args: TArgs) => R2,
-            (...args: TArgs) => R3,
-            (...args: TArgs) => R4,
-            (...args: TArgs) => R5,
-            (...args: TArgs) => R6,
-            (...args: TArgs) => R7,
-            ...RestFunctions,
-        ],
+>(
+    converging: (...args: readonly [R1, R2, R3, R4, R5, R6, R7, ...ReturnTypesOfFns<RestFunctions>]) => TResult,
+    branches: [
+        (...args: TArgs) => R1,
+        (...args: TArgs) => R2,
+        (...args: TArgs) => R3,
+        (...args: TArgs) => R4,
+        (...args: TArgs) => R5,
+        (...args: TArgs) => R6,
+        (...args: TArgs) => R7,
+        ...RestFunctions
+    ],
 ): (...args: TArgs) => TResult;
 export function converge<TArgs extends any[], TResult, R1, R2, R3, R4, R5, R6, R7>(
     converging: (...args: readonly [R1, R2, R3, R4, R5, R6, R7] & { length: 7 }) => TResult,
@@ -627,8 +627,8 @@ export function curryN<N extends number, F extends (...args: any) => any>(
 export function curryN<N extends number>(
     length: N,
 ): <F extends (...args: any) => any>(
-        fn: F,
-    ) => _.F.Curry<(...a: _.T.Take<Parameters<F>, _.N.NumberOf<N>>) => ReturnType<F>>;
+    fn: F,
+) => _.F.Curry<(...a: _.T.Take<Parameters<F>, _.N.NumberOf<N>>) => ReturnType<F>>;
 
 /**
  * Decrements its argument.
@@ -952,10 +952,16 @@ export function identity<T>(a: T): T;
  * Creates a function that will process either the onTrue or the onFalse function depending upon the result
  * of the condition predicate.
  */
-// tslint:disable:max-line-length
-export function ifElse<T, TFiltered extends T, TOnTrueResult, TOnFalseResult>(pred: (a: T) => a is TFiltered, onTrue: (a: TFiltered) => TOnTrueResult, onFalse: (a: T) => TOnFalseResult): (a: T) => TOnTrueResult | TOnFalseResult;
-export function ifElse<TArgs extends any[], TOnTrueResult, TOnFalseResult>(fn: (...args: TArgs) => boolean, onTrue: (...args: TArgs) => TOnTrueResult, onFalse: (...args: TArgs) => TOnFalseResult): (...args: TArgs) => TOnTrueResult | TOnFalseResult;
-/// tslint:enable:max-line-length
+export function ifElse<T, TFiltered extends T, TOnTrueResult, TOnFalseResult>(
+    pred: (a: T) => a is TFiltered,
+    onTrue: (a: TFiltered) => TOnTrueResult,
+    onFalse: (a: T) => TOnFalseResult,
+): (a: T) => TOnTrueResult | TOnFalseResult;
+export function ifElse<TArgs extends any[], TOnTrueResult, TOnFalseResult>(
+    fn: (...args: TArgs) => boolean,
+    onTrue: (...args: TArgs) => TOnTrueResult,
+    onFalse: (...args: TArgs) => TOnFalseResult,
+): (...args: TArgs) => TOnTrueResult | TOnFalseResult;
 
 /**
  * Increments its argument.
@@ -1188,14 +1194,14 @@ export function lensPath<
     K0 extends keyof S = keyof S,
     K1 extends keyof S[K0] = keyof S[K0],
     K2 extends keyof S[K0][K1] = keyof S[K0][K1],
-    >(path: [K0, K1, K2]): Lens<S, S[K0][K1][K2]>;
+>(path: [K0, K1, K2]): Lens<S, S[K0][K1][K2]>;
 export function lensPath<
     S,
     K0 extends keyof S = keyof S,
     K1 extends keyof S[K0] = keyof S[K0],
     K2 extends keyof S[K0][K1] = keyof S[K0][K1],
     K3 extends keyof S[K0][K1][K2] = keyof S[K0][K1][K2],
-    >(path: [K0, K1, K2, K3]): Lens<S, S[K0][K1][K2][K3]>;
+>(path: [K0, K1, K2, K3]): Lens<S, S[K0][K1][K2][K3]>;
 export function lensPath<
     S,
     K0 extends keyof S = keyof S,
@@ -1203,7 +1209,7 @@ export function lensPath<
     K2 extends keyof S[K0][K1] = keyof S[K0][K1],
     K3 extends keyof S[K0][K1][K2] = keyof S[K0][K1][K2],
     K4 extends keyof S[K0][K1][K2][K3] = keyof S[K0][K1][K2][K3],
-    >(path: [K0, K1, K2, K3, K4]): Lens<S, S[K0][K1][K2][K3][K4]>;
+>(path: [K0, K1, K2, K3, K4]): Lens<S, S[K0][K1][K2][K3][K4]>;
 export function lensPath<
     S,
     K0 extends keyof S = keyof S,
@@ -1212,7 +1218,7 @@ export function lensPath<
     K3 extends keyof S[K0][K1][K2] = keyof S[K0][K1][K2],
     K4 extends keyof S[K0][K1][K2][K3] = keyof S[K0][K1][K2][K3],
     K5 extends keyof S[K0][K1][K2][K3][K4] = keyof S[K0][K1][K2][K3][K4],
-    >(path: [K0, K1, K2, K3, K4, K5]): Lens<S, S[K0][K1][K2][K3][K4][K5]>;
+>(path: [K0, K1, K2, K3, K4, K5]): Lens<S, S[K0][K1][K2][K3][K4][K5]>;
 
 export function lensPath<S = any, A = any>(path: Path): Lens<S, A>;
 
@@ -2715,18 +2721,18 @@ export function useWith<
     TResult,
     RestFunctions extends Array<(...args: any[]) => any>,
     TArgs extends [TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, ...InputTypesOfFns<RestFunctions>],
-    >(
-        fn: (...args: [TR1, TR2, TR3, TR4, TR5, TR6, TR7, ...ReturnTypesOfFns<RestFunctions>]) => TResult,
-        transformers: [
-            (arg: TArg1) => TR1,
-            (arg: TArg2) => TR2,
-            (arg: TArg3) => TR3,
-            (arg: TArg4) => TR4,
-            (arg: TArg5) => TR5,
-            (arg: TArg6) => TR6,
-            (arg: TArg7) => TR7,
-            ...RestFunctions,
-        ],
+>(
+    fn: (...args: [TR1, TR2, TR3, TR4, TR5, TR6, TR7, ...ReturnTypesOfFns<RestFunctions>]) => TResult,
+    transformers: [
+        (arg: TArg1) => TR1,
+        (arg: TArg2) => TR2,
+        (arg: TArg3) => TR3,
+        (arg: TArg4) => TR4,
+        (arg: TArg5) => TR5,
+        (arg: TArg6) => TR6,
+        (arg: TArg7) => TR7,
+        ...RestFunctions
+    ],
 ): (...args: TArgs) => TResult;
 export function useWith<TArg1, TR1, TArg2, TR2, TArg3, TR3, TArg4, TR4, TArg5, TR5, TArg6, TR6, TArg7, TR7, TResult>(
     fn: (...args: [TR1, TR2, TR3, TR4, TR5, TR6, TR7] & { length: 7 }) => TResult,
