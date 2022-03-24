@@ -18,11 +18,11 @@
             "react": [
                 "react/v16"
             ],
-            "react/*": [
-                "react/v16/*"
-            ],
             "react-native": [
                 "react-native/v0.65"
+            ],
+            "react-native/*": [
+                "react-native/v0.65/*"
             ]
         },
         "types": [],
