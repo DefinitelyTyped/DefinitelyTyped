@@ -6,3 +6,6 @@ lib/components/ListBox/next/index.d.ts
 lib/components/ListBox/next/ListBoxSelection.d.ts
 lib/components/ListBox/next/ListBoxTrigger.d.ts
 lib/components/Portal/index.d.ts
+es/components/ListBox/next/index.d.ts
+es/components/ListBox/next/ListBoxSelection.d.ts
+es/components/ListBox/next/ListBoxTrigger.d.ts
