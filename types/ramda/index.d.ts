@@ -114,7 +114,24 @@ export function all<T>(fn: (a: T) => boolean, list: readonly T[]): boolean;
 export function all<T>(fn: (a: T) => boolean): (list: readonly T[]) => boolean;
 
 /**
- * Given a list of predicates, returns a new predicate that will be true exactly when all of them are.
+ * Takes a list of predicates and returns a predicate that returns true for a
+ * given list of arguments if every one of the provided predicates is satisfied
+ * by those arguments.
+ *
+ * The function returned is a curried function whose arity matches that of the
+ * highest-arity predicate.
+ *
+ * See also {@link anyPass}.
+ *
+ * @example
+ * ```typescript
+ * const isQueen = R.propEq('rank', 'Q');
+ * const isSpade = R.propEq('suit', '♠︎');
+ * const isQueenOfSpades = R.allPass([isQueen, isSpade]);
+ *
+ * isQueenOfSpades({rank: 'Q', suit: '♣︎'}); //=> false
+ * isQueenOfSpades({rank: 'Q', suit: '♠︎'}); //=> true
+ * ```
  */
 export function allPass<F extends Pred>(preds: readonly F[]): F;
 
