@@ -5,7 +5,7 @@
 
 type DeepResolved<T> =
   T extends PromiseLike<infer R>
-    ? R
+    ? DeepResolved<R>
     : T extends object
       ? {
         [K in keyof T]: DeepResolved<T[K]>
