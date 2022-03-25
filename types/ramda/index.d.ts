@@ -769,10 +769,10 @@ export function endsWith<T>(subList: readonly T[]): (list: readonly T[]) => bool
  * Takes a function and two values in its domain and returns true if the values map to the same value in the
  * codomain; false otherwise.
  */
-export function eqBy<T, U = T>(fn: (a: T) => U, a: T, b: T): boolean;
-export function eqBy<T, U = T>(fn: (a: T) => U, a: T): (b: T) => boolean;
-export function eqBy<T, U = T>(
-    fn: (a: T) => U,
+export function eqBy<T>(fn: (a: T) => unknown, a: T, b: T): boolean;
+export function eqBy<T>(fn: (a: T) => unknown, a: T): (b: T) => boolean;
+export function eqBy<T>(
+    fn: (a: T) => unknown,
 ): {
     (a: T, b: T): boolean;
     (a: T): (b: T) => boolean;
