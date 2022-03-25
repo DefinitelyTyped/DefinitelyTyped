@@ -30,6 +30,9 @@ const cursorConfig: CursorQueryConfig = {
 const cursor = new Cursor<string>("SELECT $1::text as name", ["brianc"]);
 const handle = client.query(cursor);
 
+// Implements event emitter
+cursor.on('something', () => {});
+
 const handleFn: ResultCallback<string> = (err: Error | undefined, rows: string[]) => {
     if (err) throw err;
     if (rows.length === 0) return;

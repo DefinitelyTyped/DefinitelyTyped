@@ -4,6 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 
+import EventEmitter = require("events");
 import { Connection, CustomTypesConfig, QueryResult } from "pg";
 
 declare namespace Cursor {
@@ -21,7 +22,7 @@ declare namespace Cursor {
     type ResultCallback<RowType> = (err: Error | undefined, rows: RowType[], result: QueryResult) => void;
 }
 
-declare class Cursor<Row = any> {
+declare class Cursor<Row = any> extends EventEmitter {
     constructor(query: string, values?: any[], config?: Cursor.CursorQueryConfig);
     submit: (connection: Connection) => void;
     read: (maxRows: number, callback: Cursor.ResultCallback<Row>) => void;
