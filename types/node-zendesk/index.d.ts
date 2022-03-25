@@ -1106,7 +1106,7 @@ export namespace Users {
          * Types of custom fields that can be created
          * @default 'text'
          */
-        type UserFieldType = "text" | "textarea" | "checkbox" | "date" | "integer" | "decimal" | "regexp" | "tagger";
+        type UserFieldType = "text" | "textarea" | "checkbox" | "date" | "integer" | "decimal" | "regexp" | "tagger" | "dropdown";
 
         /**
          * Represents 'user_field'

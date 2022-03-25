@@ -252,3 +252,28 @@ client.userfields.create(
     },
     zendeskCallback,
 );
+client.userfields.create(
+    {
+        type: "dropdown",
+        title: "Customer type",
+        description: "This field describes the customer type this user has",
+        position: 0,
+        active: true,
+        key: "customer_type",
+        custom_field_options: [
+            {
+                id: 1,
+                name: "New",
+                raw_name: "New",
+                value: "new"
+            },
+            {
+                id: 2,
+                name: "Existing",
+                raw_name: "Existing",
+                value: "existing"
+            }
+        ]
+    },
+    zendeskCallback,
+);
