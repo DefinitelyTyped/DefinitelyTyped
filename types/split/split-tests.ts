@@ -8,6 +8,8 @@ testStream.pipe = function<T extends NodeJS.WritableStream>(dest: T) {
     return dest;
 };
 
-testStream.pipe(split(/(\r?\n)/, null, {maxLength: 20})).on("data", function(line: Buffer) {
+testStream.pipe(
+    split(/(\r?\n)/, null, {maxLength: 20, trailing: false})
+).on("data", function(line: Buffer) {
     console.log("Line: " + line.toString('ascii') + "\r\n");
 });
