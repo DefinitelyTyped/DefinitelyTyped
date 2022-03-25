@@ -85,7 +85,7 @@ const promise = myPlugin.init?.();
 promise != null && promise.then(() => {});
 myPlugin.myMethod();
 myPlugin.isEnabled = true;
-myPlugin.destroy?.();
+myPlugin.destroy();
 // $ExpectType Editor | EditorWithUI
 myPlugin.editor;
 const myUIEditor = new MyPlugin(new MyUIEditor('')).editor;

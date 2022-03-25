@@ -1,4 +1,9 @@
 import {
+    addBackgroundRules,
+    addBorderRules,
+    addMarginRules,
+    addPaddingRules,
+    ClickObserver,
     Conversion,
     DataController,
     disablePlaceholder,
@@ -8,9 +13,21 @@ import {
     EditingController,
     Element,
     enablePlaceholder,
+    getBoxSidesShorthandValue,
+    getBoxSidesValueReducer,
+    getPositionShorthandNormalizer,
+    getShorthandValues,
     hidePlaceholder,
     HtmlDataProcessor,
     InsertOperation,
+    isAttachment,
+    isColor,
+    isLength,
+    isLineStyle,
+    isPercentage,
+    isPosition,
+    isRepeat,
+    isURL,
     LivePosition,
     LiveRange,
     MarkerOperation,
@@ -45,6 +62,7 @@ import UpcastHelpers, {
 import Batch from '@ckeditor/ckeditor5-engine/src/model/batch';
 import ModelDocument from '@ckeditor/ckeditor5-engine/src/model/document';
 import DocumentFragment from '@ckeditor/ckeditor5-engine/src/model/documentfragment';
+import History from '@ckeditor/ckeditor5-engine/src/model/history';
 import { Item } from '@ckeditor/ckeditor5-engine/src/model/item';
 import MarkerCollection, { Marker } from '@ckeditor/ckeditor5-engine/src/model/markercollection';
 import Node from '@ckeditor/ckeditor5-engine/src/model/node';
@@ -80,9 +98,13 @@ import Matcher, { MatcherPattern } from '@ckeditor/ckeditor5-engine/src/view/mat
 import ViewNode from '@ckeditor/ckeditor5-engine/src/view/node';
 import ArrowKeysObserver from '@ckeditor/ckeditor5-engine/src/view/observer/arrowkeysobserver';
 import BubblingEventInfo from '@ckeditor/ckeditor5-engine/src/view/observer/bubblingeventinfo';
+import ClickObserver from '@ckeditor/ckeditor5-engine/src/view/observer/clickobserver';
 import DomEventData from '@ckeditor/ckeditor5-engine/src/view/observer/domeventdata';
+import DomEventObserver from '@ckeditor/ckeditor5-engine/src/view/observer/domeventobserver';
 import FakeSelectionObserver from '@ckeditor/ckeditor5-engine/src/view/observer/fakeselectionobserver';
 import FocusObserver from '@ckeditor/ckeditor5-engine/src/view/observer/focusobserver';
+import InputObserver from '@ckeditor/ckeditor5-engine/src/view/observer/inputobserver';
+import KeyObserver from '@ckeditor/ckeditor5-engine/src/view/observer/keyobserver';
 import MouseObserver from '@ckeditor/ckeditor5-engine/src/view/observer/mouseobserver';
 import MutationObserver from '@ckeditor/ckeditor5-engine/src/view/observer/mutationobserver';
 import SelectionObserver from '@ckeditor/ckeditor5-engine/src/view/observer/selectionobserver';
@@ -96,11 +118,6 @@ import ViewTextProxy from '@ckeditor/ckeditor5-engine/src/view/textproxy';
 import UIElement from '@ckeditor/ckeditor5-engine/src/view/uielement';
 import View from '@ckeditor/ckeditor5-engine/src/view/view';
 import { EmitterMixin } from '@ckeditor/ckeditor5-utils';
-import History from '@ckeditor/ckeditor5-engine/src/model/history';
-import KeyObserver from '@ckeditor/ckeditor5-engine/src/view/observer/keyobserver';
-import ClickObserver from '@ckeditor/ckeditor5-engine/src/view/observer/clickobserver';
-import InputObserver from '@ckeditor/ckeditor5-engine/src/view/observer/inputobserver';
-import DomEventObserver from '@ckeditor/ckeditor5-engine/src/view/observer/domeventobserver';
 
 let str = '';
 const stylesProcessor = new StylesProcessor();
@@ -701,8 +718,6 @@ const clickObserver = new ClickObserver(view);
 view.addObserver(ClickObserver);
 clickObserver.domEventType === 'click';
 clickObserver.onDomEvent(new MouseEvent('foo'));
-
-new Mapper().on('foo', () => {});
 
 const downcastWriter = new DowncastWriter(new Document(new StylesProcessor()));
 downcastWriter.createPositionAt(downcastWriter.createEmptyElement('div'), 'after');
@@ -1487,7 +1502,7 @@ new Mapper().getModelLength(new ViewElement(viewDocument, 'div'));
 new Mapper().clearBindings();
 // $ExpectType Element | undefined
 new Mapper().toModelElement(new ViewElement(viewDocument, 'div'));
-// $ExpectType Element | undefined
+// $ExpectType Element
 new Mapper().toViewElement(new Element('div'));
 // $ExpectType Range
 new Mapper().toModelRange(new ViewRange(new Position(new ViewElement(viewDocument, 'div'), 5)));
@@ -1587,3 +1602,53 @@ new DomEventData(view, new DragEvent(''));
 new DomEventData(view, new DragEvent(''), { dataTransfer: null });
 // $ExpectError
 new DomEventData(view, new KeyboardEvent(''), { button: 1 });
+
+// $ExpectType void
+addBackgroundRules(new StylesProcessor());
+// $ExpectType void
+addBorderRules(new StylesProcessor());
+// $ExpectType void
+addMarginRules(new StylesProcessor());
+// $ExpectType void
+addPaddingRules(new StylesProcessor());
+
+// $ExpectType boolean
+isColor('');
+// $ExpectType boolean
+isLineStyle('');
+// $ExpectType boolean
+isLength('');
+// $ExpectType boolean
+isPercentage('');
+// $ExpectType boolean
+isRepeat('');
+// $ExpectType boolean
+isPosition('');
+// $ExpectType boolean
+isAttachment('');
+// $ExpectType boolean
+isURL('');
+
+// $ExpectType void
+stylesProcessor.setReducer('padding', getBoxSidesValueReducer('padding'));
+stylesProcessor.setReducer('foo', getBoxSidesValueReducer('foo'));
+stylesProcessor.setReducer('margin', margin => {
+    return [['margin', `${margin.top} ${margin.right} ${margin.bottom} ${margin.left}`]];
+});
+
+// $ExpectType string
+getBoxSidesShorthandValue({ top: '', right: '', bottom: '', left: '' });
+
+// $ExpectType void
+stylesProcessor.setNormalizer('foo', value => ({
+    path: 'foo',
+    value: { top: value, right: value, bottom: value, left: value },
+}));
+stylesProcessor.setNormalizer('foo-top', value => ({
+    path: 'foo.top',
+    value,
+}));
+stylesProcessor.setNormalizer('margin', getPositionShorthandNormalizer('margin'));
+
+// $ExpectType string[]
+getShorthandValues('');
