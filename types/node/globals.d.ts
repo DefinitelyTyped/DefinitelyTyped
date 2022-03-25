@@ -105,7 +105,10 @@ interface BigUint64Array extends RelativeIndexable<bigint> {}
  *
  * Creates a deep clone of an object.
  */
-declare function structuredClone<T>(value: T, transfer?: { transfer: any[] }): T;
+declare function structuredClone<T>(
+    value: T,
+    transfer?: { transfer: ReadonlyArray<import('worker_threads').TransferListItem> },
+): T;
 
 /*----------------------------------------------*
 *                                               *
