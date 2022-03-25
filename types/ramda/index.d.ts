@@ -59,6 +59,7 @@ import {
     Path,
     Placeholder,
     Pred,
+    PredTypeguard,
     Reduced,
     ReturnTypesOfFns,
     ValueOfRecord,
@@ -953,7 +954,7 @@ export function identity<T>(a: T): T;
  * of the condition predicate.
  */
 export function ifElse<T, TFiltered extends T, TOnTrueResult, TOnFalseResult>(
-    pred: (a: T) => a is TFiltered,
+    pred: PredTypeguard<T, TFiltered>,
     onTrue: (a: TFiltered) => TOnTrueResult,
     onFalse: (a: Exclude<T, TFiltered>) => TOnFalseResult,
 ): (a: T) => TOnTrueResult | TOnFalseResult;
