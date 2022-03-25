@@ -264,7 +264,7 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
   ): jQuery;
 }
 
-// For Library Version: 1.99.0
+// For Library Version: 1.100.0
 
 declare module "sap/base/assert" {
   /**
@@ -693,7 +693,7 @@ declare module "sap/base/Log" {
       /**
        * The default log level
        */
-      iLogLevel?: Level
+      iDefaultLogLevel?: Level
     ): object;
     /**
      * Creates a new info-level entry in the log with the given message, details and calling component.
@@ -3241,6 +3241,54 @@ declare module "sap/ui/performance/Measurement" {
      */
     aCategories?: string | string[];
   };
+}
+
+declare module "sap/ui/performance/trace/FESRHelper" {
+  import UI5Element from "sap/ui/core/Element";
+
+  /**
+   * @SINCE 1.100
+   *
+   * FESRHelper API Provides helper functionality for FESR and consumers of FESR
+   */
+  interface FESRHelper {
+    /**
+     * @SINCE 1.100
+     *
+     * Get semantic stepname for an event of a given element used for FESR.
+     */
+    getSemanticStepname(
+      /**
+       * The element conatining the semantic stepname
+       */
+      oElement: UI5Element,
+      /**
+       * The event ID of the semantic stepname
+       */
+      sEventId: string
+    ): string;
+    /**
+     * @SINCE 1.100
+     *
+     * Add semantic stepname for an event of a given element used for FESR.
+     */
+    setSemanticStepname(
+      /**
+       * The element the semantic stepname should be applied to
+       */
+      oElement: UI5Element,
+      /**
+       * The event ID the semantic stepname is valid for
+       */
+      sEventId: string,
+      /**
+       * The semantic stepname
+       */
+      sStepname: string
+    ): void;
+  }
+  const FESRHelper: FESRHelper;
+  export default FESRHelper;
 }
 
 declare module "sap/ui/performance/trace/Interaction" {
@@ -8438,8 +8486,10 @@ declare module "sap/ui/core/library" {
    * Collision behavior: horizontal/vertical.
    *
    * Defines how the position of an element should be adjusted in case it overflows the window in some direction.
-   * For both directions this can be "flip", "fit" or "none". If only one behavior is provided it is applied
-   * to both directions. Examples: "flip", "fit none".
+   * For both directions this can be "flip", "fit", "flipfit" or "none". If only one behavior is provided
+   * it is applied to both directions.
+   *
+   * Examples: "flip", "fit none", "flipfit fit"
    */
   export type Collision = string;
 
@@ -9365,6 +9415,25 @@ declare module "sap/ui/core/library" {
        * Drop on the control or between the controls.
        */
       OnOrBetween = "OnOrBetween",
+    }
+    /**
+     * @SINCE 1.100.0
+     *
+     * Drop positions relative to a dropped element.
+     */
+    enum RelativeDropPosition {
+      /**
+       * Drop after the control.
+       */
+      After = "After",
+      /**
+       * Drop before the control.
+       */
+      Before = "Before",
+      /**
+       * Drop on the control.
+       */
+      On = "On",
     }
   }
 
@@ -11295,7 +11364,7 @@ declare module "sap/ui/core/ComponentMetadata" {
       /**
        * Static info to construct the metadata from
        */
-      oStaticInfo: object
+      oClassInfo: object
     );
 
     /**
@@ -12052,7 +12121,9 @@ declare module "sap/ui/core/Configuration" {
      * To replace the CLDR currency digits completely ` { "DEFAULT": {"digits": 2}, "ADP": {"digits": 0}, ...
      * "XPF": {"digits": 0} } `
      *
-     * Note: To unset the custom currencies: call with `undefined`
+     * Note: To unset the custom currencies: call with `undefined` Custom currencies must not only consist of
+     * digits but contain at least one non-digit character, e.g. "a", so that the measure part can be distinguished
+     * from the number part.
      */
     setCustomCurrencies(
       /**
@@ -13181,6 +13252,28 @@ declare module "sap/ui/core/Core" {
        */
       oListener?: object
     ): void;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:formatError formatError} event of `sap.ui.core.Core`.
+     *
+     * When called, the context of the listener (its `this`) will be bound to `oListener` if specified, otherwise
+     * it will be bound to a dummy event provider object.
+     *
+     * Please note that this event is a bubbling event and may already be canceled before reaching the core.
+     */
+    attachFormatError(
+      /**
+       * An object that will be passed to the handler along with the event object when the event is fired
+       */
+      oData: object,
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: Function,
+      /**
+       * Context object to call the event handler with. Defaults to a dummy event provider object
+       */
+      oListener?: object
+    ): this;
     /**
      * Attaches event handler `fnFunction` to the {@link #event:formatError formatError} event of `sap.ui.core.Core`.
      *
@@ -15840,6 +15933,8 @@ declare module "sap/ui/core/dnd/DragAndDrop" {
 
   import DropInfo from "sap/ui/core/dnd/DropInfo";
 
+  import { dnd } from "sap/ui/core/library";
+
   /**
    * When a user requests to drag some controls that can be dragged, a drag session is started. The drag session
    * can be used to transfer data between applications or between dragged and dropped controls. Please see
@@ -15887,7 +15982,9 @@ declare module "sap/ui/core/dnd/DragAndDrop" {
     /**
      * Returns the calculated position of the drop action relative to the valid dropped control.
      */
-    getDropPosition(): string;
+    getDropPosition():
+      | dnd.RelativeDropPosition
+      | keyof typeof dnd.RelativeDropPosition;
     /**
      * Returns the drop indicator.
      */
@@ -17831,6 +17928,8 @@ declare module "sap/ui/core/format/DateFormat" {
 
   import Locale from "sap/ui/core/Locale";
 
+  import DateFormatTimezoneDisplay from "sap/ui/core/format/DateFormatTimezoneDisplay";
+
   /**
    * The DateFormat is a static class for formatting and parsing single date and time values or date and time
    * intervals according to a set of format options.
@@ -18001,6 +18100,7 @@ declare module "sap/ui/core/format/DateFormat" {
     ): DateFormat;
     /**
      * @SINCE 1.99.0
+     * @EXPERIMENTAL (since 1.99.0)
      *
      * Get a datetimeWithTimezone instance of the DateFormat, which can be used for formatting.
      */
@@ -18027,7 +18127,9 @@ declare module "sap/ui/core/format/DateFormat" {
          * 	 - "Only": display only timezone  It is ignored for formatting when an options pattern or a format
          * 			are supplied.
          */
-        showTimezone?: /* was: sap.ui.core.format.DateFormatTimezoneDisplay */ any;
+        showTimezone?:
+          | DateFormatTimezoneDisplay
+          | keyof typeof DateFormatTimezoneDisplay;
         /**
          * Can be either 'short, 'medium', 'long' or 'full'. For datetime you can also define mixed styles, separated
          * with a slash, where the first part is the date style and the second part is the time style (e.g. "medium/short").
@@ -18151,6 +18253,9 @@ declare module "sap/ui/core/format/DateFormat" {
      *
      * Uses the timezone from {@link sap.ui.core.Configuration#getTimezone}, which falls back to the browser's
      * local timezone to convert the given date.
+     *
+     * When using instances from getDateTimeWithTimezoneInstance, please see the corresponding documentation:
+     * {@link sap.ui.core.format.DateFormat.getDateTimeWithTimezoneInstance#format}.
      */
     format(
       /**
@@ -18167,6 +18272,9 @@ declare module "sap/ui/core/format/DateFormat" {
      *
      * Uses the timezone from {@link sap.ui.core.Configuration#getTimezone}, which falls back to the browser's
      * local timezone to convert the given date.
+     *
+     * When using instances from getDateTimeWithTimezoneInstance, please see the corresponding documentation:
+     * {@link sap.ui.core.format.DateFormat.getDateTimeWithTimezoneInstance#parse}.
      */
     parse(
       /**
@@ -18174,7 +18282,7 @@ declare module "sap/ui/core/format/DateFormat" {
        */
       sValue: string,
       /**
-       * whether to use UTC, if no timezone is contained
+       * whether to use UTC
        */
       bUTC: boolean,
       /**
@@ -18207,8 +18315,9 @@ declare module "sap/ui/core/format/DateFormat" {
        */
       oJSDate: Date,
       /**
-       * The IANA timezone ID in which the date will be calculated and formatted e.g. "America/New_York". If omitted,
-       * the timezone will be taken from {@link sap.ui.core.Configuration#getTimezone}.
+       * The IANA timezone ID in which the date will be calculated and formatted e.g. "America/New_York". If the
+       * parameter is omitted, `null` or an empty string, the timezone will be taken from {@link sap.ui.core.Configuration#getTimezone}.
+       * For an invalid IANA timezone ID, an empty string will be returned.
        */
       sTimezone?: string
     ): string;
@@ -18225,8 +18334,9 @@ declare module "sap/ui/core/format/DateFormat" {
        */
       sValue: string,
       /**
-       * The IANA timezone ID which should be used to convert the date e.g. "America/New_York". If omitted, the
-       * timezone will be taken from {@link sap.ui.core.Configuration#getTimezone}.
+       * The IANA timezone ID which should be used to convert the date e.g. "America/New_York". If the parameter
+       * is omitted, `null` or an empty string, the timezone will be taken from {@link sap.ui.core.Configuration#getTimezone}.
+       * For an invalid IANA timezone ID, `null` will be returned.
        */
       sTimezone?: string,
       /**
@@ -18237,6 +18347,29 @@ declare module "sap/ui/core/format/DateFormat" {
       bStrict?: boolean
     ): any[];
   }
+}
+
+declare module "sap/ui/core/format/DateFormatTimezoneDisplay" {
+  /**
+   * @SINCE 1.99.0
+   *
+   * Configuration options for the `showTimezone` format option of `DateFormat#getDateTimeWithTimezoneInstance`.
+   */
+  enum DateFormatTimezoneDisplay {
+    /**
+     * Do not add the IANA timezone ID to the format output.
+     */
+    Hide = "Hide",
+    /**
+     * Only output the IANA timezone ID.
+     */
+    Only = "Only",
+    /**
+     * Add the IANA timezone ID to the format output.
+     */
+    Show = "Show",
+  }
+  export default DateFormatTimezoneDisplay;
 }
 
 declare module "sap/ui/core/format/FileSizeFormat" {
@@ -18466,26 +18599,106 @@ declare module "sap/ui/core/format/NumberFormat" {
        */
       oFormatOptions?: {
         /**
-         * defines minimal number of non-decimal digits
+         * defines whether the currency is shown as a code in currency format. The currency symbol is displayed
+         * when this option is set to `false` and a symbol has been defined for the given currency code.
          */
-        minIntegerDigits?: int;
+        currencyCode?: boolean;
         /**
-         * defines maximum number of non-decimal digits. If the number exceeds this maximum, e.g. 1e+120, "?" characters
-         * are shown instead of digits.
+         * can be set either to 'standard' (the default value) or to 'accounting' for an accounting-specific currency
+         * display
          */
-        maxIntegerDigits?: int;
+        currencyContext?: string;
         /**
-         * defines minimal number of decimal digits
+         * defines a set of custom currencies exclusive to this NumberFormat instance. Custom currencies must not
+         * only consist of digits. If custom currencies are defined on the instance, no other currencies can be
+         * formatted and parsed by this instance. Globally available custom currencies can be added via the global
+         * configuration. See the above examples. See also {@link sap.ui.core.Configuration.FormatSettings#setCustomCurrencies}
+         * and {@link sap.ui.core.Configuration.FormatSettings#addCustomCurrencies}.
          */
-        minFractionDigits?: int;
-        /**
-         * defines maximum number of decimal digits
-         */
-        maxFractionDigits?: int;
+        customCurrencies?: Record<string, object>;
         /**
          * defines the number of decimal digits
          */
         decimals?: int;
+        /**
+         * defines the character used as decimal separator. Note: `decimalSeparator` must always be different from
+         * `groupingSeparator`.
+         */
+        decimalSeparator?: string;
+        /**
+         * @since 1.30.0 defines what an empty string is parsed as, and what is formatted as an empty string. The
+         * allowed values are "" (empty string), NaN, `null`, or 0. The 'format' and 'parse' functions are done
+         * in a symmetric way. For example, when this parameter is set to NaN, an empty string is parsed as [NaN,
+         * undefined], and NaN is formatted as an empty string.
+         */
+        emptyString?: number;
+        /**
+         * defines the grouping base size in digits if it is different from the grouping size (e.g. Indian grouping)
+         */
+        groupingBaseSize?: int;
+        /**
+         * defines whether grouping is enabled (show the grouping separators)
+         */
+        groupingEnabled?: boolean;
+        /**
+         * defines the character used as grouping separator. Note: `groupingSeparator` must always be different
+         * from `decimalSeparator`.
+         */
+        groupingSeparator?: string;
+        /**
+         * defines the grouping size in digits; the default is `3`. It must be a positive number.
+         */
+        groupingSize?: int;
+        /**
+         * defines the maximum number of decimal digits
+         */
+        maxFractionDigits?: int;
+        /**
+         * defines the maximum number of non-decimal digits. If the number exceeds this maximum, e.g. 1e+120, "?"
+         * characters are shown instead of digits.
+         */
+        maxIntegerDigits?: int;
+        /**
+         * defines the minimal number of decimal digits
+         */
+        minFractionDigits?: int;
+        /**
+         * defines the minimal number of non-decimal digits
+         */
+        minIntegerDigits?: int;
+        /**
+         * defines the used minus symbol
+         */
+        minusSign?: string;
+        /**
+         * @since 1.28.2 defines whether to output the string from the parse function in order to keep the precision
+         * for big numbers. Numbers in scientific notation are parsed back to standard notation. For example, "5e-3"
+         * is parsed to "0.005".
+         */
+        parseAsString?: boolean;
+        /**
+         * CLDR number pattern which is used to format the number
+         */
+        pattern?: string;
+        /**
+         * defines the used plus symbol
+         */
+        plusSign?: string;
+        /**
+         * Whether {@link #format} preserves decimal digits except trailing zeros in case there are more decimals
+         * than the `maxFractionDigits` format option allows. If decimals are not preserved, the formatted number
+         * is rounded to `maxFractionDigits`.
+         */
+        preserveDecimals?: boolean;
+        /**
+         * specifies a rounding behavior for discarding the digits after the maximum fraction digits defined by
+         * maxFractionDigits. Rounding will only be applied if the passed value is of type `number`. This can be
+         * assigned
+         * 	 - by value in {@link sap.ui.core.format.NumberFormat.RoundingMode RoundingMode},
+         * 	 - via a function that is used for rounding the number and takes two parameters: the number itself,
+         * 			and the number of decimal digits that should be reserved.
+         */
+        roundingMode?: RoundingMode | keyof typeof RoundingMode;
         /**
          * defines the number of decimal in the shortened format string. If this isn't specified, the 'decimals'
          * options is used
@@ -18503,79 +18716,6 @@ declare module "sap/ui/core/format/NumberFormat" {
          */
         shortRefNumber?: int;
         /**
-         * @since 1.40 specifies whether the scale factor is shown in the formatted number. This option takes effect
-         * only when the 'style' options is set to either 'short' or 'long'.
-         */
-        showScale?: boolean;
-        /**
-         * CLDR number pattern which is used to format the number
-         */
-        pattern?: string;
-        /**
-         * defines whether grouping is enabled (show the grouping separators)
-         */
-        groupingEnabled?: boolean;
-        /**
-         * defines the character used as grouping separator. Note: `groupingSeparator` must always be different
-         * from `decimalSeparator`.
-         */
-        groupingSeparator?: string;
-        /**
-         * defines the grouping size in digits, the default is three
-         */
-        groupingSize?: int;
-        /**
-         * defines the grouping base size in digits, in case it is different from the grouping size (e.g. indian
-         * grouping)
-         */
-        groupingBaseSize?: int;
-        /**
-         * defines the character used as decimal separator. Note: `decimalSeparator` must always be different from
-         * `groupingSeparator`.
-         */
-        decimalSeparator?: string;
-        /**
-         * defines the used plus symbol
-         */
-        plusSign?: string;
-        /**
-         * defines the used minus symbol
-         */
-        minusSign?: string;
-        /**
-         * @since 1.28.2 defines whether to output string from parse function in order to keep the precision for
-         * big numbers. Numbers in scientific notation are parsed back to the standard notation. For example "5e-3"
-         * is parsed to "0.005".
-         */
-        parseAsString?: boolean;
-        /**
-         * Whether {@link #format} preserves decimal digits except trailing zeros in case there are more decimals
-         * than the `maxFractionDigits` format option allows. If decimals are not preserved, the formatted number
-         * is rounded to `maxFractionDigits`.
-         */
-        preserveDecimals?: boolean;
-        /**
-         * defines the style of format. Valid values are 'short, 'long' or 'standard' (based on CLDR decimalFormat).
-         * Numbers are formatted into compact forms when it's set to 'short' or 'long'. When this option is set,
-         * the default value of option 'precision' is set to 2. This can be changed by setting either min/maxFractionDigits,
-         * decimals, shortDecimals or precision option.
-         */
-        style?: string;
-        /**
-         * specifies a rounding behavior for discarding the digits after the maximum fraction digits defined by
-         * maxFractionDigits. Rounding will only be applied, if the passed value if of type number. This can be
-         * assigned by value in {@link sap.ui.core.format.NumberFormat.RoundingMode RoundingMode} or a function
-         * which will be used for rounding the number. The function is called with two parameters: the number and
-         * how many decimal digits should be reserved.
-         */
-        roundingMode?: RoundingMode | keyof typeof RoundingMode;
-        /**
-         * Overrides the global configuration value {@link sap.ui.core.Configuration.FormatSettings#getTrailingCurrencyCode}
-         * whose default value is `true</>. This is ignored if oFormatOptions.currencyCode` is set to `false`
-         * or if `oFormatOptions.pattern` is supplied
-         */
-        trailingCurrencyCode?: boolean;
-        /**
          * defines whether the currency code/symbol is shown in the formatted string, e.g. true: "1.00 EUR", false:
          * "1.00" for locale "en" If both `showMeasure` and `showNumber` are false, an empty string is returned
          */
@@ -18587,29 +18727,23 @@ declare module "sap/ui/core/format/NumberFormat" {
          */
         showNumber?: boolean;
         /**
-         * defines whether the currency is shown as code in currency format. The currency symbol is displayed when
-         * this is set to false and there is a symbol defined for the given currency code.
+         * @since 1.40 specifies whether the scale factor is shown in the formatted number. This option takes effect
+         * only when the 'style' options is set to either 'short' or 'long'.
          */
-        currencyCode?: boolean;
+        showScale?: boolean;
         /**
-         * It can be set either with 'standard' (the default value) or with 'accounting' for an accounting specific
-         * currency display
+         * defines the style of format. Valid values are 'short, 'long' or 'standard' (based on CLDR decimalFormat).
+         * When set to 'short' or 'long', numbers are formatted into compact forms. When this option is set, the
+         * default value of the 'precision' option is set to 2. This can be changed by setting either min/maxFractionDigits,
+         * decimals, shortDecimals, or the 'precision' option itself.
          */
-        currencyContext?: string;
+        style?: string;
         /**
-         * @since 1.30.0 defines what empty string is parsed as and what is formatted as empty string. The allowed
-         * values are "" (empty string), NaN, null or 0. The 'format' and 'parse' are done in a symmetric way. For
-         * example when this parameter is set to NaN, empty string is parsed as [NaN, undefined] and NaN is formatted
-         * as empty string.
+         * overrides the global configuration value {@link sap.ui.core.Configuration.FormatSettings#getTrailingCurrencyCode},
+         * which has a default value of `true</>. This is ignored if oFormatOptions.currencyCode` is set to
+         * `false`, or if `oFormatOptions.pattern` is supplied.
          */
-        emptyString?: number;
-        /**
-         * defines a set of custom currencies exclusive to this NumberFormat instance. If custom currencies are
-         * defined on the instance, no other currencies can be formatted and parsed by this instance. Globally available
-         * custom currencies can be added via the global configuration. See the above examples. See also {@link
-         * sap.ui.core.Configuration.FormatSettings#setCustomCurrencies} and {@link sap.ui.core.Configuration.FormatSettings#addCustomCurrencies}.
-         */
-        customCurrencies?: Record<string, object>;
+        trailingCurrencyCode?: boolean;
       },
       /**
        * Locale to get the formatter for
@@ -18624,6 +18758,19 @@ declare module "sap/ui/core/format/NumberFormat" {
      *
      *  This instance has HALF_AWAY_FROM_ZERO set as default rounding mode. Please set the roundingMode property
      * in oFormatOptions to change the default value.
+     *
+     * The following example shows how grouping is done:
+     * ```javascript
+     *
+     * var oFormat = NumberFormat.getFloatInstance({
+     *     "groupingEnabled": true,  // grouping is enabled
+     *     "groupingSeparator": '.', // grouping separator is '.'
+     *     "groupingSize": 3,        // the amount of digits to be grouped (here: thousand)
+     *     "decimalSeparator": ","   // the decimal separator must be different from the grouping separator
+     * });
+     *
+     * oFormat.format(1234.56); // "1.234,56"
+     * ```
      */
     static getFloatInstance(
       /**
@@ -18632,26 +18779,92 @@ declare module "sap/ui/core/format/NumberFormat" {
        */
       oFormatOptions?: {
         /**
-         * defines minimal number of non-decimal digits
-         */
-        minIntegerDigits?: int;
-        /**
-         * defines maximum number of non-decimal digits. If the number exceeds this maximum, e.g. 1e+120, "?" characters
-         * are shown instead of digits.
-         */
-        maxIntegerDigits?: int;
-        /**
-         * defines minimal number of decimal digits
-         */
-        minFractionDigits?: int;
-        /**
-         * defines maximum number of decimal digits
-         */
-        maxFractionDigits?: int;
-        /**
          * defines the number of decimal digits
          */
         decimals?: int;
+        /**
+         * defines the character used as decimal separator. Note: `decimalSeparator` must always be different from
+         * `groupingSeparator`.
+         */
+        decimalSeparator?: string;
+        /**
+         * @since 1.30.0 defines what an empty string is parsed as, and what is formatted as an empty string. The
+         * allowed values are "" (empty string), NaN, `null`, or 0. The 'format' and 'parse' functions are done
+         * in a symmetric way. For example, when this parameter is set to NaN, an empty string is parsed as NaN,
+         * and NaN is formatted as an empty string.
+         */
+        emptyString?: number;
+        /**
+         * defines the grouping base size in digits if it is different from the grouping size (e.g. Indian grouping)
+         */
+        groupingBaseSize?: int;
+        /**
+         * defines whether grouping is enabled (show the grouping separators)
+         */
+        groupingEnabled?: boolean;
+        /**
+         * defines the character used as grouping separator. Note: `groupingSeparator` must always be different
+         * from `decimalSeparator`.
+         */
+        groupingSeparator?: string;
+        /**
+         * defines the grouping size in digits; the default is `3`. It must be a positive number.
+         */
+        groupingSize?: int;
+        /**
+         * defines the maximum number of decimal digits
+         */
+        maxFractionDigits?: int;
+        /**
+         * defines the maximum number of non-decimal digits. If the number exceeds this maximum, e.g. 1e+120, "?"
+         * characters are shown instead of digits.
+         */
+        maxIntegerDigits?: int;
+        /**
+         * defines the minimal number of decimal digits
+         */
+        minFractionDigits?: int;
+        /**
+         * defines the minimal number of non-decimal digits
+         */
+        minIntegerDigits?: int;
+        /**
+         * defines the used minus symbol
+         */
+        minusSign?: string;
+        /**
+         * @since 1.28.2 defines whether to output the string from the parse function in order to keep the precision
+         * for big numbers. Numbers in scientific notation are parsed back to standard notation. For example, "5e-3"
+         * is parsed to "0.005".
+         */
+        parseAsString?: boolean;
+        /**
+         * CLDR number pattern which is used to format the number
+         */
+        pattern?: string;
+        /**
+         * defines the used plus symbol
+         */
+        plusSign?: string;
+        /**
+         * defines the numerical precision; the number of decimals is calculated dependent on the integer digits
+         */
+        precision?: int;
+        /**
+         * Whether {@link #format} preserves decimal digits except trailing zeros in case there are more decimals
+         * than the `maxFractionDigits` format option allows. If decimals are not preserved, the formatted number
+         * is rounded to `maxFractionDigits`.
+         */
+        preserveDecimals?: boolean;
+        /**
+         * specifies a rounding behavior for discarding the digits after the maximum fraction digits defined by
+         * maxFractionDigits. Rounding will only be applied if the passed value is of type `number`. This can be
+         * assigned
+         * 	 - by value in {@link sap.ui.core.format.NumberFormat.RoundingMode RoundingMode},
+         * 	 - via a function that is used for rounding the number and takes two parameters: the number itself,
+         * 			and the number of decimal digits that should be reserved.
+         */
+        roundingMode?: RoundingMode | keyof typeof RoundingMode;
         /**
          * defines the number of decimal in the shortened format string. If this isn't specified, the 'decimals'
          * options is used
@@ -18674,78 +18887,12 @@ declare module "sap/ui/core/format/NumberFormat" {
          */
         showScale?: boolean;
         /**
-         * defines the number precision, number of decimals is calculated dependent on the integer digits
-         */
-        precision?: int;
-        /**
-         * CLDR number pattern which is used to format the number
-         */
-        pattern?: string;
-        /**
-         * defines whether grouping is enabled (show the grouping separators)
-         */
-        groupingEnabled?: boolean;
-        /**
-         * defines the character used as grouping separator. Note: `groupingSeparator` must always be different
-         * from `decimalSeparator`.
-         */
-        groupingSeparator?: string;
-        /**
-         * defines the grouping size in digits, the default is three
-         */
-        groupingSize?: int;
-        /**
-         * defines the grouping base size in digits, in case it is different from the grouping size (e.g. indian
-         * grouping)
-         */
-        groupingBaseSize?: int;
-        /**
-         * defines the character used as decimal separator. Note: `decimalSeparator` must always be different from
-         * `groupingSeparator`.
-         */
-        decimalSeparator?: string;
-        /**
-         * defines the used plus symbol
-         */
-        plusSign?: string;
-        /**
-         * defines the used minus symbol
-         */
-        minusSign?: string;
-        /**
-         * @since 1.28.2 defines whether to output string from parse function in order to keep the precision for
-         * big numbers. Numbers in scientific notation are parsed back to the standard notation. For example "5e-3"
-         * is parsed to "0.005".
-         */
-        parseAsString?: boolean;
-        /**
-         * Whether {@link #format} preserves decimal digits except trailing zeros in case there are more decimals
-         * than the `maxFractionDigits` format option allows. If decimals are not preserved, the formatted number
-         * is rounded to `maxFractionDigits`.
-         */
-        preserveDecimals?: boolean;
-        /**
          * defines the style of format. Valid values are 'short, 'long' or 'standard' (based on CLDR decimalFormat).
-         * Numbers are formatted into compact forms when it's set to 'short' or 'long'. When this option is set,
-         * the default value of option 'precision' is set to 2. This can be changed by setting either min/maxFractionDigits,
-         * decimals, shortDecimals or precision option.
+         * When set to 'short' or 'long', numbers are formatted into compact forms. When this option is set, the
+         * default value of the 'precision' option is set to 2. This can be changed by setting either min/maxFractionDigits,
+         * decimals, shortDecimals, or the 'precision' option itself.
          */
         style?: string;
-        /**
-         * specifies a rounding behavior for discarding the digits after the maximum fraction digits defined by
-         * maxFractionDigits. Rounding will only be applied, if the passed value if of type number. This can be
-         * assigned by value in {@link sap.ui.core.format.NumberFormat.RoundingMode RoundingMode} or a function
-         * which will be used for rounding the number. The function is called with two parameters: the number and
-         * how many decimal digits should be reserved.
-         */
-        roundingMode?: RoundingMode | keyof typeof RoundingMode;
-        /**
-         * @since 1.30.0 defines what empty string is parsed as and what is formatted as empty string. The allowed
-         * values are "" (empty string), NaN, null or 0. The 'format' and 'parse' are done in a symmetric way. For
-         * example when this parameter is set to NaN, empty string is parsed as NaN and NaN is formatted as empty
-         * string.
-         */
-        emptyString?: number;
       },
       /**
        * Locale to get the formatter for
@@ -18760,6 +18907,18 @@ declare module "sap/ui/core/format/NumberFormat" {
      *
      *  This instance has TOWARDS_ZERO set as default rounding mode. Please set the roundingMode property
      * in oFormatOptions to change the default value.
+     *
+     * The following example shows how grouping is done:
+     * ```javascript
+     *
+     * var oFormat = NumberFormat.getIntegerInstance({
+     *     "groupingEnabled": true,  // grouping is enabled
+     *     "groupingSeparator": '.', // grouping separator is '.'
+     *     "groupingSize": 3         // the amount of digits to be grouped (here: thousand)
+     * });
+     *
+     * oFormat.format(1234); // "1.234"
+     * ```
      */
     static getIntegerInstance(
       /**
@@ -18768,26 +18927,92 @@ declare module "sap/ui/core/format/NumberFormat" {
        */
       oFormatOptions?: {
         /**
-         * defines minimal number of non-decimal digits
-         */
-        minIntegerDigits?: int;
-        /**
-         * defines maximum number of non-decimal digits. If the number exceeds this maximum, e.g. 1e+120, "?" characters
-         * are shown instead of digits.
-         */
-        maxIntegerDigits?: int;
-        /**
-         * defines minimal number of decimal digits
-         */
-        minFractionDigits?: int;
-        /**
-         * defines maximum number of decimal digits
-         */
-        maxFractionDigits?: int;
-        /**
          * defines the number of decimal digits
          */
         decimals?: int;
+        /**
+         * defines the character used as decimal separator. Note: `decimalSeparator` must always be different from
+         * `groupingSeparator`.
+         */
+        decimalSeparator?: string;
+        /**
+         * @since 1.30.0 defines what an empty string is parsed as, and what is formatted as an empty string. The
+         * allowed values are only NaN, null or 0. The 'format' and 'parse' functions are done in a symmetric way.
+         * For example, when this parameter is set to NaN, an empty string is parsed as NaN, and NaN is formatted
+         * as an empty string.
+         */
+        emptyString?: number;
+        /**
+         * defines the grouping base size in digits if it is different from the grouping size (e.g. Indian grouping)
+         */
+        groupingBaseSize?: int;
+        /**
+         * defines whether grouping is enabled (show the grouping separators)
+         */
+        groupingEnabled?: boolean;
+        /**
+         * defines the character used as grouping separator. Note: `groupingSeparator` must always be different
+         * from `decimalSeparator`.
+         */
+        groupingSeparator?: string;
+        /**
+         * defines the grouping size in digits; the default is `3`. It must be a positive number.
+         */
+        groupingSize?: int;
+        /**
+         * defines the maximum number of decimal digits
+         */
+        maxFractionDigits?: int;
+        /**
+         * defines the maximum number of non-decimal digits. If the number exceeds this maximum, e.g. 1e+120, "?"
+         * characters are shown instead of digits.
+         */
+        maxIntegerDigits?: int;
+        /**
+         * defines the minimal number of decimal digits
+         */
+        minFractionDigits?: int;
+        /**
+         * defines the minimal number of non-decimal digits
+         */
+        minIntegerDigits?: int;
+        /**
+         * defines the used minus symbol
+         */
+        minusSign?: string;
+        /**
+         * @since 1.28.2 defines whether to output the string from the parse function in order to keep the precision
+         * for big numbers. Numbers in scientific notation are parsed back to standard notation. For example, "5e+3"
+         * is parsed to "5000".
+         */
+        parseAsString?: boolean;
+        /**
+         * CLDR number pattern which is used to format the number
+         */
+        pattern?: string;
+        /**
+         * defines the used plus symbol
+         */
+        plusSign?: string;
+        /**
+         * defines the numerical precision; the number of decimals is calculated dependent on the integer digits
+         */
+        precision?: int;
+        /**
+         * Whether {@link #format} preserves decimal digits except trailing zeros in case there are more decimals
+         * than the `maxFractionDigits` format option allows. If decimals are not preserved, the formatted number
+         * is rounded to `maxFractionDigits`.
+         */
+        preserveDecimals?: boolean;
+        /**
+         * specifies a rounding behavior for discarding the digits after the maximum fraction digits defined by
+         * maxFractionDigits. Rounding will only be applied if the passed value is of type `number`. This can be
+         * assigned
+         * 	 - by value in {@link sap.ui.core.format.NumberFormat.RoundingMode RoundingMode},
+         * 	 - via a function that is used for rounding the number and takes two parameters: the number itself,
+         * 			and the number of decimal digits that should be reserved.
+         */
+        roundingMode?: RoundingMode | keyof typeof RoundingMode;
         /**
          * defines the number of decimal in the shortened format string. If this isn't specified, the 'decimals'
          * options is used
@@ -18810,77 +19035,12 @@ declare module "sap/ui/core/format/NumberFormat" {
          */
         showScale?: boolean;
         /**
-         * defines the number precision, number of decimals is calculated dependent on the integer digits
-         */
-        precision?: int;
-        /**
-         * CLDR number pattern which is used to format the number
-         */
-        pattern?: string;
-        /**
-         * defines whether grouping is enabled (show the grouping separators)
-         */
-        groupingEnabled?: boolean;
-        /**
-         * defines the character used as grouping separator. Note: `groupingSeparator` must always be different
-         * from `decimalSeparator`.
-         */
-        groupingSeparator?: string;
-        /**
-         * defines the grouping size in digits, the default is three
-         */
-        groupingSize?: int;
-        /**
-         * defines the grouping base size in digits, in case it is different from the grouping size (e.g. indian
-         * grouping)
-         */
-        groupingBaseSize?: int;
-        /**
-         * defines the character used as decimal separator. Note: `decimalSeparator` must always be different from
-         * `groupingSeparator`.
-         */
-        decimalSeparator?: string;
-        /**
-         * defines the used plus symbol
-         */
-        plusSign?: string;
-        /**
-         * defines the used minus symbol
-         */
-        minusSign?: string;
-        /**
-         * @since 1.28.2 defines whether to output string from parse function in order to keep the precision for
-         * big numbers. Numbers in scientific notation are parsed back to the standard notation. For example "5e+3"
-         * is parsed to "5000".
-         */
-        parseAsString?: boolean;
-        /**
-         * Whether {@link #format} preserves decimal digits except trailing zeros in case there are more decimals
-         * than the `maxFractionDigits` format option allows. If decimals are not preserved, the formatted number
-         * is rounded to `maxFractionDigits`.
-         */
-        preserveDecimals?: boolean;
-        /**
          * defines the style of format. Valid values are 'short, 'long' or 'standard' (based on CLDR decimalFormat).
-         * Numbers are formatted into compact forms when it's set to 'short' or 'long'. When this option is set,
-         * the default value of option 'precision' is set to 2. This can be changed by setting either min/maxFractionDigits,
-         * decimals, shortDecimals or precision option.
+         * When set to 'short' or 'long', numbers are formatted into compact forms. When this option is set, the
+         * default value of the 'precision' option is set to 2. This can be changed by setting either min/maxFractionDigits,
+         * decimals, shortDecimals, or the 'precision' option itself.
          */
         style?: string;
-        /**
-         * specifies a rounding behavior for discarding the digits after the maximum fraction digits defined by
-         * maxFractionDigits. Rounding will only be applied, if the passed value if of type number. This can be
-         * assigned by value in {@link sap.ui.core.format.NumberFormat.RoundingMode RoundingMode} or a function
-         * which will be used for rounding the number. The function is called with two parameters: the number and
-         * how many decimal digits should be reserved.
-         */
-        roundingMode?: RoundingMode | keyof typeof RoundingMode;
-        /**
-         * @since 1.30.0 defines what empty string is parsed as and what is formatted as empty string. The allowed
-         * values are only NaN, null or 0. The 'format' and 'parse' are done in a symmetric way. For example when
-         * this parameter is set to NaN, empty string is parsed as NaN and NaN is formatted as empty string.
-         */
-        emptyString?: number;
       },
       /**
        * Locale to get the formatter for
@@ -18907,26 +19067,96 @@ declare module "sap/ui/core/format/NumberFormat" {
        */
       oFormatOptions?: {
         /**
-         * defines minimal number of non-decimal digits
-         */
-        minIntegerDigits?: int;
-        /**
-         * defines maximum number of non-decimal digits. If the number exceeds this maximum, e.g. 1e+120, "?" characters
-         * are shown instead of digits.
-         */
-        maxIntegerDigits?: int;
-        /**
-         * defines minimal number of decimal digits
-         */
-        minFractionDigits?: int;
-        /**
-         * defines maximum number of decimal digits
-         */
-        maxFractionDigits?: int;
-        /**
          * defines the number of decimal digits
          */
         decimals?: int;
+        /**
+         * defines the character used as decimal separator. Note: `decimalSeparator` must always be different from
+         * `groupingSeparator`.
+         */
+        decimalSeparator?: string;
+        /**
+         * @since 1.30.0 defines what an empty string is parsed as, and what is formatted as an empty string. The
+         * allowed values are "" (empty string), NaN, `null`, or 0. The 'format' and 'parse' functions are done
+         * in a symmetric way. For example, when this parameter is set to NaN, an empty string is parsed as NaN,
+         * and NaN is formatted as an empty string.
+         */
+        emptyString?: number;
+        /**
+         * defines the grouping base size in digits if it is different from the grouping size (e.g. Indian grouping)
+         */
+        groupingBaseSize?: int;
+        /**
+         * defines whether grouping is enabled (show the grouping separators)
+         */
+        groupingEnabled?: boolean;
+        /**
+         * defines the character used as grouping separator. Note: `groupingSeparator` must always be different
+         * from `decimalSeparator`.
+         */
+        groupingSeparator?: string;
+        /**
+         * defines the grouping size in digits; the default is `3`. It must be a positive number.
+         */
+        groupingSize?: int;
+        /**
+         * defines the maximum number of decimal digits
+         */
+        maxFractionDigits?: int;
+        /**
+         * defines the maximum number of non-decimal digits. If the number exceeds this maximum, e.g. 1e+120, "?"
+         * characters are shown instead of digits.
+         */
+        maxIntegerDigits?: int;
+        /**
+         * defines the minimal number of decimal digits
+         */
+        minFractionDigits?: int;
+        /**
+         * defines the minimal number of non-decimal digits
+         */
+        minIntegerDigits?: int;
+        /**
+         * defines the used minus symbol
+         */
+        minusSign?: string;
+        /**
+         * @since 1.28.2 defines whether to output the string from the parse function in order to keep the precision
+         * for big numbers. Numbers in scientific notation are parsed back to standard notation. For example, "5e-3"
+         * is parsed to "0.005".
+         */
+        parseAsString?: boolean;
+        /**
+         * CLDR number pattern which is used to format the number
+         */
+        pattern?: string;
+        /**
+         * defines the used percent symbol
+         */
+        percentSign?: string;
+        /**
+         * defines the used plus symbol
+         */
+        plusSign?: string;
+        /**
+         * defines the numerical precision; the number of decimals is calculated dependent on the integer digits
+         */
+        precision?: int;
+        /**
+         * Whether {@link #format} preserves decimal digits except trailing zeros in case there are more decimals
+         * than the `maxFractionDigits` format option allows. If decimals are not preserved, the formatted number
+         * is rounded to `maxFractionDigits`.
+         */
+        preserveDecimals?: boolean;
+        /**
+         * specifies a rounding behavior for discarding the digits after the maximum fraction digits defined by
+         * maxFractionDigits. Rounding will only be applied if the passed value is of type `number`. This can be
+         * assigned
+         * 	 - by value in {@link sap.ui.core.format.NumberFormat.RoundingMode RoundingMode},
+         * 	 - via a function that is used for rounding the number and takes two parameters: the number itself,
+         * 			and the number of decimal digits that should be reserved.
+         */
+        roundingMode?: RoundingMode | keyof typeof RoundingMode;
         /**
          * defines the number of decimal in the shortened format string. If this isn't specified, the 'decimals'
          * options is used
@@ -18949,82 +19179,12 @@ declare module "sap/ui/core/format/NumberFormat" {
          */
         showScale?: boolean;
         /**
-         * defines the number precision, number of decimals is calculated dependent on the integer digits
-         */
-        precision?: int;
-        /**
-         * CLDR number pattern which is used to format the number
-         */
-        pattern?: string;
-        /**
-         * defines whether grouping is enabled (show the grouping separators)
-         */
-        groupingEnabled?: boolean;
-        /**
-         * defines the character used as grouping separator. Note: `groupingSeparator` must always be different
-         * from `decimalSeparator`.
-         */
-        groupingSeparator?: string;
-        /**
-         * defines the grouping size in digits, the default is three
-         */
-        groupingSize?: int;
-        /**
-         * defines the grouping base size in digits, in case it is different from the grouping size (e.g. indian
-         * grouping)
-         */
-        groupingBaseSize?: int;
-        /**
-         * defines the character used as decimal separator. Note: `decimalSeparator` must always be different from
-         * `groupingSeparator`.
-         */
-        decimalSeparator?: string;
-        /**
-         * defines the used plus symbol
-         */
-        plusSign?: string;
-        /**
-         * defines the used minus symbol
-         */
-        minusSign?: string;
-        /**
-         * defines the used percent symbol
-         */
-        percentSign?: string;
-        /**
-         * @since 1.28.2 defines whether to output string from parse function in order to keep the precision for
-         * big numbers. Numbers in scientific notation are parsed back to the standard notation. For example "5e-3"
-         * is parsed to "0.005".
-         */
-        parseAsString?: boolean;
-        /**
-         * Whether {@link #format} preserves decimal digits except trailing zeros in case there are more decimals
-         * than the `maxFractionDigits` format option allows. If decimals are not preserved, the formatted number
-         * is rounded to `maxFractionDigits`.
-         */
-        preserveDecimals?: boolean;
-        /**
          * defines the style of format. Valid values are 'short, 'long' or 'standard' (based on CLDR decimalFormat).
-         * Numbers are formatted into compact forms when it's set to 'short' or 'long'. When this option is set,
-         * the default value of option 'precision' is set to 2. This can be changed by setting either min/maxFractionDigits,
-         * decimals, shortDecimals or precision option.
+         * When set to 'short' or 'long', numbers are formatted into compact forms. When this option is set, the
+         * default value of the 'precision' option is set to 2. This can be changed by setting either min/maxFractionDigits,
+         * decimals, shortDecimals, or the 'precision' option itself.
          */
         style?: string;
-        /**
-         * specifies a rounding behavior for discarding the digits after the maximum fraction digits defined by
-         * maxFractionDigits. Rounding will only be applied, if the passed value if of type number. This can be
-         * assigned by value in {@link sap.ui.core.format.NumberFormat.RoundingMode RoundingMode} or a function
-         * which will be used for rounding the number. The function is called with two parameters: the number and
-         * how many decimal digits should be reserved.
-         */
-        roundingMode?: RoundingMode | keyof typeof RoundingMode;
-        /**
-         * @since 1.30.0 defines what empty string is parsed as and what is formatted as empty string. The allowed
-         * values are "" (empty string), NaN, null or 0. The 'format' and 'parse' are done in a symmetric way. For
-         * example when this parameter is set to NaN, empty string is parsed as NaN and NaN is formatted as empty
-         * string.
-         */
-        emptyString?: number;
       },
       /**
        * Locale to get the formatter for
@@ -19047,55 +19207,35 @@ declare module "sap/ui/core/format/NumberFormat" {
        */
       oFormatOptions?: {
         /**
-         * defines minimal number of non-decimal digits
+         * defines the allowed units for formatting and parsing, e.g. ["size-meter", "volume-liter", ...]
          */
-        minIntegerDigits?: int;
+        allowedUnits?: any[];
         /**
-         * defines maximum number of non-decimal digits. If the number exceeds this maximum, e.g. 1e+120, "?" characters
-         * are shown instead of digits.
+         * defines a set of custom units, e.g. {"electric-inductance": { "displayName": "henry", "unitPattern-count-one":
+         * "{0} H", "unitPattern-count-other": "{0} H", "perUnitPattern": "{0}/H", "decimals": 2, "precision": 4
+         * }}
          */
-        maxIntegerDigits?: int;
-        /**
-         * defines minimal number of decimal digits
-         */
-        minFractionDigits?: int;
-        /**
-         * defines maximum number of decimal digits
-         */
-        maxFractionDigits?: int;
+        customUnits?: Record<string, object>;
         /**
          * defines the number of decimal digits
          */
         decimals?: int;
         /**
-         * defines the number of decimal in the shortened format string. If this isn't specified, the 'decimals'
-         * options is used
+         * defines the character used as decimal separator. Note: `decimalSeparator` must always be different from
+         * `groupingSeparator`.
          */
-        shortDecimals?: int;
+        decimalSeparator?: string;
         /**
-         * only use short number formatting for values above this limit
+         * @since 1.30.0 defines what an empty string is parsed as, and what is formatted as an empty string. The
+         * allowed values are "" (empty string), NaN, `null`, or 0. The 'format' and 'parse' functions are done
+         * in a symmetric way. For example, when this parameter is set to NaN, an empty string is parsed as [NaN,
+         * undefined], and NaN is formatted as an empty string.
          */
-        shortLimit?: int;
+        emptyString?: number;
         /**
-         * @since 1.40 specifies a number from which the scale factor for 'short' or 'long' style format is generated.
-         * The generated scale factor is used for all numbers which are formatted with this format instance. This
-         * option has effect only when the option 'style' is set to 'short' or 'long'. This option is by default
-         * set with `undefined` which means the scale factor is selected automatically for each number being formatted.
+         * defines the grouping base size in digits if it is different from the grouping size (e.g. Indian grouping)
          */
-        shortRefNumber?: int;
-        /**
-         * @since 1.40 specifies whether the scale factor is shown in the formatted number. This option takes effect
-         * only when the 'style' options is set to either 'short' or 'long'.
-         */
-        showScale?: boolean;
-        /**
-         * defines the number precision, number of decimals is calculated dependent on the integer digits
-         */
-        precision?: int;
-        /**
-         * CLDR number pattern which is used to format the number
-         */
-        pattern?: string;
+        groupingBaseSize?: int;
         /**
          * defines whether grouping is enabled (show the grouping separators)
          */
@@ -19106,43 +19246,48 @@ declare module "sap/ui/core/format/NumberFormat" {
          */
         groupingSeparator?: string;
         /**
-         * defines the grouping size in digits, the default is three
+         * defines the grouping size in digits; the default is `3`. It must be a positive number.
          */
         groupingSize?: int;
         /**
-         * defines the grouping base size in digits, in case it is different from the grouping size (e.g. indian
-         * grouping)
+         * defines the maximum number of decimal digits
          */
-        groupingBaseSize?: int;
+        maxFractionDigits?: int;
         /**
-         * defines the character used as decimal separator. Note: `decimalSeparator` must always be different from
-         * `groupingSeparator`.
+         * defines the maximum number of non-decimal digits. If the number exceeds this maximum, e.g. 1e+120, "?"
+         * characters are shown instead of digits.
          */
-        decimalSeparator?: string;
+        maxIntegerDigits?: int;
         /**
-         * defines a set of custom units, e.g. {"electric-inductance": { "displayName": "henry", "unitPattern-count-one":
-         * "{0} H", "unitPattern-count-other": "{0} H", "perUnitPattern": "{0}/H", "decimals": 2, "precision": 4
-         * }}
+         * defines the minimal number of decimal digits
          */
-        customUnits?: Record<string, object>;
+        minFractionDigits?: int;
         /**
-         * defines the allowed units for formatting and parsing, e.g. ["size-meter", "volume-liter", ...]
+         * defines the minimal number of non-decimal digits
          */
-        allowedUnits?: any[];
-        /**
-         * defines the used plus symbol
-         */
-        plusSign?: string;
+        minIntegerDigits?: int;
         /**
          * defines the used minus symbol
          */
         minusSign?: string;
         /**
-         * @since 1.28.2 defines whether to output string from parse function in order to keep the precision for
-         * big numbers. Numbers in scientific notation are parsed back to the standard notation. For example "5e-3"
+         * @since 1.28.2 defines whether to output the string from the parse function in order to keep the precision
+         * for big numbers. Numbers in scientific notation are parsed back to standard notation. For example, "5e-3"
          * is parsed to "0.005".
          */
         parseAsString?: boolean;
+        /**
+         * CLDR number pattern which is used to format the number
+         */
+        pattern?: string;
+        /**
+         * defines the used plus symbol
+         */
+        plusSign?: string;
+        /**
+         * defines the numerical precision; the number of decimals is calculated dependent on the integer digits
+         */
+        precision?: int;
         /**
          * Whether {@link #format} preserves decimal digits except trailing zeros in case there are more decimals
          * than the `maxFractionDigits` format option allows. If decimals are not preserved, the formatted number
@@ -19150,20 +19295,30 @@ declare module "sap/ui/core/format/NumberFormat" {
          */
         preserveDecimals?: boolean;
         /**
-         * defines the style of format. Valid values are 'short, 'long' or 'standard' (based on CLDR decimalFormat).
-         * Numbers are formatted into compact forms when it's set to 'short' or 'long'. When this option is set,
-         * the default value of option 'precision' is set to 2. This can be changed by setting either min/maxFractionDigits,
-         * decimals, shortDecimals or precision option.
-         */
-        style?: string;
-        /**
          * specifies a rounding behavior for discarding the digits after the maximum fraction digits defined by
-         * maxFractionDigits. Rounding will only be applied, if the passed value if of type number. This can be
-         * assigned by value in {@link sap.ui.core.format.NumberFormat.RoundingMode RoundingMode} or a function
-         * which will be used for rounding the number. The function is called with two parameters: the number and
-         * how many decimal digits should be reserved.
+         * maxFractionDigits. Rounding will only be applied if the passed value is of type `number`. This can be
+         * assigned
+         * 	 - by value in {@link sap.ui.core.format.NumberFormat.RoundingMode RoundingMode},
+         * 	 - via a function that is used for rounding the number and takes two parameters: the number itself,
+         * 			and the number of decimal digits that should be reserved.
          */
         roundingMode?: RoundingMode | keyof typeof RoundingMode;
+        /**
+         * defines the number of decimals in the shortened format string. If this option isn't specified, the 'decimals'
+         * option is used instead.
+         */
+        shortDecimals?: int;
+        /**
+         * only use short number formatting for values above this limit
+         */
+        shortLimit?: int;
+        /**
+         * @since 1.40 specifies a number from which the scale factor for the 'short' or 'long' style format is
+         * generated. The generated scale factor is used for all numbers which are formatted with this format instance.
+         * This option has effect only when the option 'style' is set to 'short' or 'long'. This option is by default
+         * set with `undefined` which means the scale factor is selected automatically for each number being formatted.
+         */
+        shortRefNumber?: int;
         /**
          * defines whether the unit of measure is shown in the formatted string, e.g. for input 1 and "duration-day"
          * true: "1 day", false: "1". If both `showMeasure` and `showNumber` are false, an empty string is returned
@@ -19178,12 +19333,17 @@ declare module "sap/ui/core/format/NumberFormat" {
          */
         showNumber?: boolean;
         /**
-         * @since 1.30.0 defines what empty string is parsed as and what is formatted as empty string. The allowed
-         * values are "" (empty string), NaN, null or 0. The 'format' and 'parse' are done in a symmetric way. For
-         * example when this parameter is set to NaN, empty string is parsed as [NaN, undefined] and NaN is formatted
-         * as empty string.
+         * @since 1.40 specifies whether the scale factor is shown in the formatted number. This option takes effect
+         * only when the 'style' options is set to either 'short' or 'long'.
          */
-        emptyString?: number;
+        showScale?: boolean;
+        /**
+         * defines the style of format. Valid values are 'short, 'long' or 'standard' (based on CLDR decimalFormat).
+         * When set to 'short' or 'long', numbers are formatted into compact forms. When this option is set, the
+         * default value of the 'precision' option is set to 2. This can be changed by setting either min/maxFractionDigits,
+         * decimals, shortDecimals, or the 'precision' option itself.
+         */
+        style?: string;
       },
       /**
        * Locale to get the formatter for
@@ -19203,6 +19363,19 @@ declare module "sap/ui/core/format/NumberFormat" {
        */
       sMeasure?: string
     ): string;
+    /**
+     * @SINCE 1.100
+     *
+     * Returns the scaling factor which is calculated based on the format options and the current locale being
+     * used.
+     *
+     * This function only returns a meaningful scaling factor when the 'style' formatting option is set to 'short'
+     * or 'long', and the 'shortRefNumber' option for calculating the scale factor is set.
+     *
+     * Consider using this function when the 'showScale' option is set to `false`, which causes the scale factor
+     * not to appear in every formatted number but in a shared place.
+     */
+    getScale(): string | undefined;
     /**
      * Parse a string which is formatted according to the given format options.
      */
@@ -20162,8 +20335,10 @@ declare module "sap/ui/core/Icon" {
    * Icon uses embedded font instead of pixel image. Comparing to image, Icon is easily scalable, color can
    * be altered live and various effects can be added using css.
    *
-   * A set of built in Icons is available and they can be fetched by calling sap.ui.core.IconPool.getIconURI
-   * and set this value to the src property on the Icon.
+   * A set of built in Icons is available in the Icon
+   * Explorer.
+   *
+   * For further information, see {@link topic:21ea0ea94614480d9a910b2e93431291 Icon and Icon Pool}.
    */
   export default class Icon extends Control implements IFormContent {
     __implements__sap_ui_core_IFormContent: boolean;
@@ -20412,9 +20587,17 @@ declare module "sap/ui/core/Icon" {
     /**
      * Gets current value of property {@link #getSrc src}.
      *
-     * This property should be set by the return value of calling sap.ui.core.IconPool.getIconURI with an Icon
-     * name parameter and an optional collection parameter which is required when using application extended
-     * Icons. A list of standard FontIcon is available here.
+     * This property can be set by following options:
+     *
+     * **Option 1:**
+     *  The value has to be matched by following pattern `sap-icon://collection-name/icon-name` where `collection-name`
+     * and `icon-name` have to be replaced by the desired values. In case the default UI5 icons are used the
+     * `collection-name` can be omited.
+     *  Example: `sap-icon://accept`
+     *
+     * **Option 2:** The value is determined by using {@link sap.ui.core.IconPool.getIconURI} with an Icon name
+     * parameter and an optional collection parameter which is required when using application extended Icons.
+     *  Example: `IconPool.getIconURI("accept")`
      */
     getSrc(): URI;
     /**
@@ -20627,9 +20810,17 @@ declare module "sap/ui/core/Icon" {
     /**
      * Sets a new value for property {@link #getSrc src}.
      *
-     * This property should be set by the return value of calling sap.ui.core.IconPool.getIconURI with an Icon
-     * name parameter and an optional collection parameter which is required when using application extended
-     * Icons. A list of standard FontIcon is available here.
+     * This property can be set by following options:
+     *
+     * **Option 1:**
+     *  The value has to be matched by following pattern `sap-icon://collection-name/icon-name` where `collection-name`
+     * and `icon-name` have to be replaced by the desired values. In case the default UI5 icons are used the
+     * `collection-name` can be omited.
+     *  Example: `sap-icon://accept`
+     *
+     * **Option 2:** The value is determined by using {@link sap.ui.core.IconPool.getIconURI} with an Icon name
+     * parameter and an optional collection parameter which is required when using application extended Icons.
+     *  Example: `IconPool.getIconURI("accept")`
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      */
@@ -20674,9 +20865,17 @@ declare module "sap/ui/core/Icon" {
 
   export interface $IconSettings extends $ControlSettings {
     /**
-     * This property should be set by the return value of calling sap.ui.core.IconPool.getIconURI with an Icon
-     * name parameter and an optional collection parameter which is required when using application extended
-     * Icons. A list of standard FontIcon is available here.
+     * This property can be set by following options:
+     *
+     * **Option 1:**
+     *  The value has to be matched by following pattern `sap-icon://collection-name/icon-name` where `collection-name`
+     * and `icon-name` have to be replaced by the desired values. In case the default UI5 icons are used the
+     * `collection-name` can be omited.
+     *  Example: `sap-icon://accept`
+     *
+     * **Option 2:** The value is determined by using {@link sap.ui.core.IconPool.getIconURI} with an Icon name
+     * parameter and an optional collection parameter which is required when using application extended Icons.
+     *  Example: `IconPool.getIconURI("accept")`
      */
     src?: URI | PropertyBindingInfo;
 
@@ -25990,6 +26189,13 @@ declare module "sap/ui/core/mvc/XMLView" {
    *  On root level, you can only define content for the default aggregation, e.g. without adding the `<content>`
    * tag. If you want to specify content for another aggregation of a view like `dependents`, place it in
    * a child control's dependents aggregation or add it by using {@link sap.ui.core.mvc.XMLView#addDependent}.
+   *
+   * **Note:**
+   *  The XML view offers special handling for context binding and style classes. You can specify them via
+   * the `binding` and `class` attributes on a control's XML node. Please be aware that these attributes are
+   * not properties of the respective controls and thus are not supported by a control's constructor. For
+   * more information, see {@link topic:91f05e8b6f4d1014b6dd926db0e91070 Context Binding (Element Binding)}
+   * and {@link topic:b564935324f449209354c7e2f9903f22 Using CSS Style Sheets in XML Views}.
    */
   export default class XMLView extends View {
     /**
@@ -26268,7 +26474,7 @@ declare module "sap/ui/core/Popup" {
 
   import ManagedObjectMetadata from "sap/ui/base/ManagedObjectMetadata";
 
-  import { OpenState } from "sap/ui/core/library";
+  import { OpenState, Collision } from "sap/ui/core/library";
 
   /**
    * Popup Class is a helper class for controls that want themselves or parts of themselves or even other
@@ -26729,7 +26935,7 @@ declare module "sap/ui/core/Popup" {
      * Opens the popup's content at the position either specified here or beforehand via {@link #setPosition}.
      * Content must be capable of being positioned via "position:absolute;" All parameters are optional (open()
      * may be called without any parameters). iDuration may just be omitted, but if any of "at", "of", "offset",
-     * "collision" is given, also the preceding positioning parameters ("my", at",...) must be given.
+     * "collision" is given, also the preceding positional parameters ("my", at",...) must be given.
      *
      * If the Popup's OpenState is different from "CLOSED" (i.e. if the Popup is already open, opening or closing),
      * the call is ignored.
@@ -26761,7 +26967,7 @@ declare module "sap/ui/core/Popup" {
        * defines how the position of an element should be adjusted in case it overflows the within area in some
        * direction.
        */
-      collision?: string,
+      collision?: Collision,
       /**
        * defines the area the popup should be placed in. This affects the collision detection.
        */
@@ -26769,7 +26975,7 @@ declare module "sap/ui/core/Popup" {
       /**
        * defines whether the popup should follow the dock reference when the reference changes its position.
        */
-      followOf?: boolean
+      followOf?: boolean | Function | null
     ): void;
     /**
      * Sets the animation functions to use for opening and closing the Popup. Any null value will be ignored
@@ -26911,9 +27117,9 @@ declare module "sap/ui/core/Popup" {
       offset?: string,
       /**
        * defines how the position of an element should be adjusted in case it overflows the within area in some
-       * direction. The valid values that refer to jQuery-UI's position parameters are "flip", "fit" and "none".
+       * direction.
        */
-      collision?: string,
+      collision?: Collision,
       /**
        * defines the area the popup should be placed in. This affects the collision detection.
        */
@@ -37593,19 +37799,56 @@ declare module "sap/ui/model/analytics/AnalyticalBinding" {
      */
     getNodeContexts(
       /**
-       * specifying the aggregation level for which contexts shall be fetched. Supported parameters are:
-       *
-       * 	 - oContext: parent context identifying the requested group of child contexts
-       * 	 - level: level number for oContext, because it might occur at multiple levels; context with group ID
-       * 			`"/"` has level 0
-       * 	 - numberOfExpandedLevels: number of child levels that shall be fetched automatically
-       * 	 - startIndex: index of first child entry to return from the parent context (zero-based)
-       * 	 - length: number of entries to return; counting begins at the given start index
-       * 	 - threshold: number of additional entries that shall be locally available in the binding for subsequent
-       * 			accesses to child entries of the given parent context.
+       * Parent context identifying the requested group of child contexts
        */
-      mParameters: object
-    ): any[];
+      oContext: Context,
+      /**
+       * Parameters, specifying the aggregation level for which contexts shall be fetched or (legacy signature
+       * variant) index of first child entry to return from the parent context (zero-based)
+       */
+      mParameters:
+        | {
+            /**
+             * Level number for oContext, because it might occur at multiple levels; context with group ID `"/"` has
+             * level 0
+             */
+            level: int;
+            /**
+             * Number of child levels that shall be fetched automatically
+             */
+            numberOfExpandedLevels?: int;
+            /**
+             * Index of first child entry to return from the parent context (zero-based)
+             */
+            startIndex?: int;
+            /**
+             * Number of entries to return; counting begins at the given start index
+             */
+            length?: int;
+            /**
+             * Number of additional entries that shall be locally available in the binding for subsequent accesses to
+             * child entries of the given parent context
+             */
+            threshold?: int;
+          }
+        | int,
+      /**
+       * Same meaning as `mParameters.length`, legacy signature variant only
+       */
+      iLength?: int,
+      /**
+       * Same meaning as `mParameters.threshold`, legacy signature variant only
+       */
+      iThreshold?: int,
+      /**
+       * Same meaning as `mParameters.level`, legacy signature variant only
+       */
+      iLevel?: int,
+      /**
+       * Same meaning as `mParameters.numberOfExpandedLevels`, legacy signature variant only
+       */
+      iNumberOfExpandedLevels?: int
+    ): Context[];
     /**
      * Gets the metadata of a property with a given name.
      */
@@ -41060,6 +41303,18 @@ declare module "sap/ui/model/CompositeType" {
       aCurrentValues?: any[]
     ): any[] | any;
     /**
+     * @SINCE 1.100.0
+     *
+     * Processes the types of the parts of this composite type. A concrete composite type may override this
+     * method if it needs to derive information from the types of the parts.
+     */
+    processPartTypes(
+      /**
+       * Types of the composite binding's parts
+       */
+      aPartTypes: SimpleType[]
+    ): void;
+    /**
      * Validates whether the given raw values meet the defined constraints. This method does nothing if no constraints
      * are defined.
      */
@@ -42059,24 +42314,24 @@ declare module "sap/ui/model/json/JSONModel" {
       bMerge?: boolean
     ): void;
     /**
-     * Sets a new value for the given property `sPropertyName` in the model. If the model value changed all
-     * interested parties are informed.
+     * Sets `oValue` as new value for the property defined by the given `sPath` and `oContext`. Once the new
+     * model value has been set, all interested parties are informed.
      */
     setProperty(
       /**
-       * path of the property to set
+       * The path of the property to set
        */
       sPath: string,
       /**
-       * value to set the property to
+       * The new value to be set for this property
        */
       oValue: any,
       /**
-       * the context which will be used to set the property
+       * The context used to set the property
        */
-      oContext?: object,
+      oContext?: Context,
       /**
-       * whether to update other bindings dependent on this property asynchronously
+       * Whether to update other bindings dependent on this property asynchronously
        */
       bAsyncUpdate?: boolean
     ): boolean;
@@ -47339,16 +47594,20 @@ declare module "sap/ui/model/odata/type/DateTimeWithTimezone" {
    *
    * This class represents the `DateTimeWithTimezone` composite type which has the parts timestamp and time
    * zone. The type formats the timestamp part using the time zone part. For this, the timestamp part has
-   * to be provided in the UTC time zone.
+   * to be provided in the UTC time zone. When using this type with the {@link sap.ui.model.odata.v2.ODataModel},
+   * you need to set the parameter `useUndefinedIfUnresolved` for both parts.
    */
   export default class DateTimeWithTimezone extends CompositeType {
     /**
      * Constructor for a `DateTimeWithTimezone` composite type.
+     * See:
+     * 	{sap.ui.model.odata.v2.ODataModel#bindProperty}
      */
     constructor(
       /**
        * Format options. For a list of all available options, see {@link sap.ui.core.format.DateFormat.getDateTimeWithTimezoneInstance
-       * DateFormat}. Format options are immutable, that is, they can only be set once on construction.
+       * DateFormat}. The `strictParsing` format option is set to `true` by default and can be overwritten. Format
+       * options are immutable, that is, they can only be set once on construction.
        */
       oFormatOptions?: object,
       /**
@@ -49339,7 +49598,9 @@ declare module "sap/ui/model/odata/v2/Context" {
      * @SINCE 1.98.0
      *
      * Returns whether this context is inactive. An inactive context will only be sent to the server after the
-     * first property update. From then on it behaves like any other created context.
+     * first property update. From then on it behaves like any other created context. The result of this function
+     * can also be accessed via the "@$ui5.context.isInactive" instance annotation at the entity, see {@link
+     * sap.ui.model.odata.v2.ODataModel#getProperty} for details.
      * See:
      * 	sap.ui.model.odata.v2.ODataListBinding#create
      * 	sap.ui.model.odata.v2.ODataModel#createEntry
@@ -49350,7 +49611,9 @@ declare module "sap/ui/model/odata/v2/Context" {
      *
      * For a context created using {@link sap.ui.model.odata.v2.ODataModel#createEntry} or {@link sap.ui.model.odata.v2.ODataListBinding#create},
      * the method returns `true` if the context is transient or `false` if the context is not transient. A transient
-     * context represents an entity created on the client which has not been persisted in the back end.
+     * context represents an entity created on the client which has not been persisted in the back end. The
+     * result of this function can also be accessed via the "@$ui5.context.isTransient" instance annotation
+     * at the entity, see {@link sap.ui.model.odata.v2.ODataModel#getProperty} for details.
      */
     isTransient(): boolean;
   }
@@ -51122,7 +51385,8 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
     /**
      * Creates a new property binding for this model.
      * See:
-     * 	sap.ui.model.Model.prototype.bindProperty
+     * 	sap.ui.model.Model#bindProperty
+     * 	#getProperty
      */
     bindProperty(
       /**
@@ -51142,13 +51406,18 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
          * Whether this binding does not propagate model messages to the control; supported since 1.82.0. Some composite
          * types like {@link sap.ui.model.type.Currency} automatically ignore model messages for some of their parts
          * depending on their format options; setting this parameter to `true` or `false` overrules the automatism
-         * of the type.
+         * of the type
          *
          * For example, a binding for a currency code is used in a composite binding for rendering the proper number
          * of decimals, but the currency code is not displayed in the attached control. In that case, messages for
-         * the currency code shall not be displayed at that control, only messages for the amount.
+         * the currency code shall not be displayed at that control, only messages for the amount
          */
         ignoreMessages?: boolean;
+        /**
+         * Whether the value of the created property binding is `undefined` if it is unresolved; if not set, its
+         * value is `null`. Supported since 1.100.0
+         */
+        useUndefinedIfUnresolved?: boolean;
       }
     ): PropertyBinding;
     /**
@@ -52185,11 +52454,13 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
      */
     getPendingChanges(): Record<string, object>;
     /**
-     * Returns the value for the property with the given `sPath`.
+     * Returns the value for the property with the given `sPath`. Since 1.100, a path starting with "@$ui5."
+     * which represents an instance annotation is supported. The following instance annotations are allowed;
+     * they return information on the given oContext, which must be set and be an {@link sap.ui.model.odata.v2.Context}:
      *
-     * If the path points to a navigation property which has been loaded via `$expand` then the `bIncludeExpandEntries`
-     * parameter determines if the navigation property should be included in the returned value or not. Please
-     * note that this currently works for 1..1 navigation properties only.
+     * 	 - `@$ui5.context.isInactive`: The return value of {@link sap.ui.model.odata.v2.Context#isInactive}
+     *
+     * 	 - `@$ui5.context.isTransient`: The return value of {@link sap.ui.model.odata.v2.Context#isTransient}
      */
     getProperty(
       /**
@@ -52201,11 +52472,9 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
        */
       oContext?: object,
       /**
-       * @deprecated Please use {@link #getObject} function with select/expand parameters instead. This parameter
-       * should be set when a URI or custom parameter with a `$expand` system query option was used to retrieve
-       * associated entries embedded/inline. If true then the `getProperty` function returns a desired property
-       * value/entry and includes the associated expand entries (if any). Note: A copy and not a reference of
-       * the entry will be returned.
+       * Deprecated, use {@link #getObject} function with 'select' and 'expand' parameters instead. Whether entities
+       * for navigation properties of this property which have been read via `$expand` are part of the return
+       * value.
        */
       bIncludeExpandEntries?: boolean
     ): any;
@@ -54094,8 +54363,10 @@ declare module "sap/ui/model/odata/v4/Context" {
        */
       fnOnBeforeDestroy?: Function,
       /**
-       * Whether to request messages for this entity. Only used if `bKeepAlive` is `true`. The binding keeps requesting
-       * messages until it is destroyed. Supported since 1.92.0
+       * Whether to request messages for this entity. Only used if `bKeepAlive` is `true`. Determines the messages
+       * property from the annotation "com.sap.vocabularies.Common.v1.Messages" at the entity type. If found,
+       * the binding keeps requesting messages until it is destroyed. Otherwise an error is logged in the console
+       * and no messages are requested. Supported since 1.92.0
        */
       bRequestMessages?: boolean
     ): void;
@@ -54340,10 +54611,10 @@ declare module "sap/ui/model/odata/v4/ODataContextBinding" {
      * entity type, you can bind properties as usual, for example `<Text text="{street}"/>`.
      *
      * Since 1.98.0, a single-valued navigation property can be treated like a function if
-     * 	 it has the same type as the operation binding's parent context,  that parent context is in the
-     * collection (has an index, see {@link sap.ui.model.odata.v4.Context#getIndex}) of a list binding for a
-     * top-level entity set,  there is a navigation property binding which points to that same entity set,
-     *  no operation parameters have been set,  the `bReplaceWithRVC` parameter is used.
+     * 	 it has the same type as the operation binding's parent context,  that parent context is in a list
+     * binding for a top-level entity set,  there is a navigation property binding which points to that
+     * same entity set,  no operation parameters have been set,  the `bReplaceWithRVC` parameter is
+     * used.
      */
     execute(
       /**
@@ -54439,12 +54710,12 @@ declare module "sap/ui/model/odata/v4/ODataContextBinding" {
     hasPendingChanges(
       /**
        * Whether to ignore changes which will not be lost by APIs like {@link sap.ui.model.odata.v4.ODataListBinding#changeParameters
-       * changeParameters}, {@link sap.ui.model.odata.v4.ODataListBinding#filter filter}, {@link sap.ui.model.odata.v4.ODataListBinding#sort
-       * sort}, or {@link sap.ui.model.odata.v4.ODataListBinding#suspend suspend} because they relate to a {@link
-       * sap.ui.model.odata.v4.Context#setKeepAlive kept-alive} context of this binding. Since 1.98.0, {@link
-       * sap.ui.model.odata.v4.Context#isTransient transient} contexts of a {@link #getRootBinding root binding}
-       * are treated as kept-alive by this flag. Since 1.99.0, the same happens for bindings using the `$$ownRequest`
-       * parameter (see {@link sap.ui.model.odata.v4.ODataModel#bindList}).
+       * changeParameters}, {@link sap.ui.model.odata.v4.ODataListBinding#filter filter}, {@link sap.ui.model.odata.v4.ODataListBinding#refresh
+       * refresh} (since 1.100.0), {@link sap.ui.model.odata.v4.ODataListBinding#sort sort}, or {@link sap.ui.model.odata.v4.ODataListBinding#suspend
+       * suspend} because they relate to a {@link sap.ui.model.odata.v4.Context#setKeepAlive kept-alive} context
+       * of this binding (since 1.97.0). Since 1.98.0, {@link sap.ui.model.odata.v4.Context#isTransient transient}
+       * contexts of a {@link #getRootBinding root binding} are treated as kept-alive by this flag. Since 1.99.0,
+       * the same happens for bindings using the `$$ownRequest` parameter (see {@link sap.ui.model.odata.v4.ODataModel#bindList}).
        */
       bIgnoreKeptAlive?: boolean
     ): boolean;
@@ -54475,10 +54746,10 @@ declare module "sap/ui/model/odata/v4/ODataContextBinding" {
      * determines the binding's data; it is **independent** of the order of calls to {@link sap.ui.model.odata.v4.ODataModel#submitBatch}
      * with the given group ID.
      *
-     * If there are pending changes, an error is thrown. Use {@link #hasPendingChanges} to check if there are
-     * pending changes. If there are changes, call {@link sap.ui.model.odata.v4.ODataModel#submitBatch} to submit
-     * the changes or {@link sap.ui.model.odata.v4.ODataModel#resetChanges} to reset the changes before calling
-     * {@link #refresh}.
+     * If there are pending changes that cannot be ignored, an error is thrown. Use {@link #hasPendingChanges}
+     * to check if there are such pending changes. If there are, call {@link sap.ui.model.odata.v4.ODataModel#submitBatch}
+     * to submit the changes or {@link sap.ui.model.odata.v4.ODataModel#resetChanges} to reset the changes before
+     * calling {@link #refresh}.
      *
      * Use {@link #requestRefresh} if you want to wait for the refresh.
      * See:
@@ -55077,7 +55348,8 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
      * @SINCE 1.99.0
      *
      * Calls {@link sap.ui.model.odata.v4.Context#setKeepAlive} at the context for the given path and returns
-     * it.
+     * it. Since 1.100.0 the function always returns such a context. If none exists yet, it is created without
+     * data and a request for its entity is sent.
      * See:
      * 	sap.ui.model.odata.v4.Model#getKeepAliveContext
      */
@@ -55089,7 +55361,12 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
       /**
        * Whether to request messages for the context's entity
        */
-      bRequestMessages?: boolean
+      bRequestMessages?: boolean,
+      /**
+       * The group ID used for read requests for the context's entity or its properties. If not given, the binding's
+       * {@link #getGroupId group ID} is used. Supported since 1.100.0
+       */
+      sGroupId?: string
     ): Context | undefined;
     /**
      * @SINCE 1.37.0
@@ -55148,12 +55425,12 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
     hasPendingChanges(
       /**
        * Whether to ignore changes which will not be lost by APIs like {@link sap.ui.model.odata.v4.ODataListBinding#changeParameters
-       * changeParameters}, {@link sap.ui.model.odata.v4.ODataListBinding#filter filter}, {@link sap.ui.model.odata.v4.ODataListBinding#sort
-       * sort}, or {@link sap.ui.model.odata.v4.ODataListBinding#suspend suspend} because they relate to a {@link
-       * sap.ui.model.odata.v4.Context#setKeepAlive kept-alive} context of this binding. Since 1.98.0, {@link
-       * sap.ui.model.odata.v4.Context#isTransient transient} contexts of a {@link #getRootBinding root binding}
-       * are treated as kept-alive by this flag. Since 1.99.0, the same happens for bindings using the `$$ownRequest`
-       * parameter (see {@link sap.ui.model.odata.v4.ODataModel#bindList}).
+       * changeParameters}, {@link sap.ui.model.odata.v4.ODataListBinding#filter filter}, {@link sap.ui.model.odata.v4.ODataListBinding#refresh
+       * refresh} (since 1.100.0), {@link sap.ui.model.odata.v4.ODataListBinding#sort sort}, or {@link sap.ui.model.odata.v4.ODataListBinding#suspend
+       * suspend} because they relate to a {@link sap.ui.model.odata.v4.Context#setKeepAlive kept-alive} context
+       * of this binding (since 1.97.0). Since 1.98.0, {@link sap.ui.model.odata.v4.Context#isTransient transient}
+       * contexts of a {@link #getRootBinding root binding} are treated as kept-alive by this flag. Since 1.99.0,
+       * the same happens for bindings using the `$$ownRequest` parameter (see {@link sap.ui.model.odata.v4.ODataModel#bindList}).
        */
       bIgnoreKeptAlive?: boolean
     ): boolean;
@@ -55201,10 +55478,10 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
      * determines the binding's data; it is **independent** of the order of calls to {@link sap.ui.model.odata.v4.ODataModel#submitBatch}
      * with the given group ID.
      *
-     * If there are pending changes, an error is thrown. Use {@link #hasPendingChanges} to check if there are
-     * pending changes. If there are changes, call {@link sap.ui.model.odata.v4.ODataModel#submitBatch} to submit
-     * the changes or {@link sap.ui.model.odata.v4.ODataModel#resetChanges} to reset the changes before calling
-     * {@link #refresh}.
+     * If there are pending changes that cannot be ignored, an error is thrown. Use {@link #hasPendingChanges}
+     * to check if there are such pending changes. If there are, call {@link sap.ui.model.odata.v4.ODataModel#submitBatch}
+     * to submit the changes or {@link sap.ui.model.odata.v4.ODataModel#resetChanges} to reset the changes before
+     * calling {@link #refresh}.
      *
      * Use {@link #requestRefresh} if you want to wait for the refresh.
      * See:
@@ -56472,7 +56749,8 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
         $$canonicalPath?: boolean;
         /**
          * Whether this binding is considered for a match when {@link #getKeepAliveContext} is called; only the
-         * value `true` is allowed. Supported since 1.99.0
+         * value `true` is allowed. Must not be combined with `$apply`, `$$aggregation`, `$$canonicalPath`, or `$$sharedRequest`.
+         * If the binding is relative, `$$ownRequest` must be set as well. Supported since 1.99.0
          */
         $$getKeepAliveContext?: boolean;
         /**
@@ -56736,10 +57014,19 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
      * @SINCE 1.99.0
      *
      * Returns a context with the given path belonging to a matching list binding that has been marked with
-     * `$$getKeepAliveContext` (see {@link #bindList}). If such a context exists, it is returned and kept alive
-     * (see {@link sap.ui.model.odata.v4.Context#setKeepAlive}).
-     * See:
-     * 	sap.ui.model.odata.v4.ODataListBinding#getKeepAliveContext
+     * `$$getKeepAliveContext` (see {@link #bindList}). If such a matching binding can be found, a context is
+     * returned and kept alive (see {@link sap.ui.model.odata.v4.ODataListBinding#getKeepAliveContext}). Since
+     * 1.100.0 a temporary binding is used if no such binding could be found. If such a binding is created or
+     * resolved later, the context and its data are transferred to it, and the temporary binding is destroyed
+     * again.
+     *
+     * A `$$getKeepAliveContext` binding matches if its resolved binding path is the collection path of the
+     * context. If the context is created using a temporary binding and the parameters of the `$$getKeepAliveContext`
+     * binding differ from the given `mParameters` (except `$$groupId` which is especially used for the context),
+     * that binding later runs into an error when trying to read data.
+     *
+     * **Note**: The context received by this function may change its {@link sap.ui.model.odata.v4.Context#getBinding
+     * binding} during its lifetime.
      */
     getKeepAliveContext(
       /**
@@ -56749,7 +57036,27 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
       /**
        * Whether to request messages for the context's entity
        */
-      bRequestMessages?: boolean
+      bRequestMessages?: boolean,
+      /**
+       * Parameters for the context or the temporary binding; supported since 1.100.0. All custom query options
+       * and the following binding-specific parameters for a list binding may be given (see {@link #bindList}
+       * for details).
+       */
+      mParameters?: {
+        /**
+         * The group ID used for read requests for the context's entity or its properties. If not given, the model's
+         * {@link #getGroupId group ID} is used
+         */
+        $$groupId?: string;
+        /**
+         * Whether implicit loading of side effects via PATCH requests is switched off
+         */
+        $$patchWithoutSideEffects?: boolean;
+        /**
+         * The group ID to be used for **update** requests triggered by the context's binding
+         */
+        $$updateGroupId?: string;
+      }
     ): Context | undefined;
     /**
      * @SINCE 1.85.0
@@ -57047,12 +57354,12 @@ declare module "sap/ui/model/odata/v4/ODataPropertyBinding" {
     hasPendingChanges(
       /**
        * Whether to ignore changes which will not be lost by APIs like {@link sap.ui.model.odata.v4.ODataListBinding#changeParameters
-       * changeParameters}, {@link sap.ui.model.odata.v4.ODataListBinding#filter filter}, {@link sap.ui.model.odata.v4.ODataListBinding#sort
-       * sort}, or {@link sap.ui.model.odata.v4.ODataListBinding#suspend suspend} because they relate to a {@link
-       * sap.ui.model.odata.v4.Context#setKeepAlive kept-alive} context of this binding. Since 1.98.0, {@link
-       * sap.ui.model.odata.v4.Context#isTransient transient} contexts of a {@link #getRootBinding root binding}
-       * are treated as kept-alive by this flag. Since 1.99.0, the same happens for bindings using the `$$ownRequest`
-       * parameter (see {@link sap.ui.model.odata.v4.ODataModel#bindList}).
+       * changeParameters}, {@link sap.ui.model.odata.v4.ODataListBinding#filter filter}, {@link sap.ui.model.odata.v4.ODataListBinding#refresh
+       * refresh} (since 1.100.0), {@link sap.ui.model.odata.v4.ODataListBinding#sort sort}, or {@link sap.ui.model.odata.v4.ODataListBinding#suspend
+       * suspend} because they relate to a {@link sap.ui.model.odata.v4.Context#setKeepAlive kept-alive} context
+       * of this binding (since 1.97.0). Since 1.98.0, {@link sap.ui.model.odata.v4.Context#isTransient transient}
+       * contexts of a {@link #getRootBinding root binding} are treated as kept-alive by this flag. Since 1.99.0,
+       * the same happens for bindings using the `$$ownRequest` parameter (see {@link sap.ui.model.odata.v4.ODataModel#bindList}).
        */
       bIgnoreKeptAlive?: boolean
     ): boolean;
@@ -57074,10 +57381,10 @@ declare module "sap/ui/model/odata/v4/ODataPropertyBinding" {
      * determines the binding's data; it is **independent** of the order of calls to {@link sap.ui.model.odata.v4.ODataModel#submitBatch}
      * with the given group ID.
      *
-     * If there are pending changes, an error is thrown. Use {@link #hasPendingChanges} to check if there are
-     * pending changes. If there are changes, call {@link sap.ui.model.odata.v4.ODataModel#submitBatch} to submit
-     * the changes or {@link sap.ui.model.odata.v4.ODataModel#resetChanges} to reset the changes before calling
-     * {@link #refresh}.
+     * If there are pending changes that cannot be ignored, an error is thrown. Use {@link #hasPendingChanges}
+     * to check if there are such pending changes. If there are, call {@link sap.ui.model.odata.v4.ODataModel#submitBatch}
+     * to submit the changes or {@link sap.ui.model.odata.v4.ODataModel#resetChanges} to reset the changes before
+     * calling {@link #refresh}.
      *
      * Use {@link #requestRefresh} if you want to wait for the refresh.
      * See:
@@ -64013,7 +64320,7 @@ declare module "sap/ui/test/OpaBuilder" {
       /**
        * the type of the target control(s)
        */
-      vControlType?: string,
+      sControlType?: string,
       /**
        * if true, only popover and dialogs are searched for
        */
@@ -64269,9 +64576,9 @@ declare module "sap/ui/test/OpaBuilder" {
        */
       sAggregationName: string,
       /**
-       * iNumber length to check against
+       * length to check against
        */
-      int?: undefined
+      iNumber: int
     ): this;
     /**
      * Adds a matcher to aggregation items checking for certain properties. At least one item must match the
@@ -64369,7 +64676,7 @@ declare module "sap/ui/test/OpaBuilder" {
       /**
        * the type of the target control(s)
        */
-      vControlType: string
+      sControlType: string
     ): this;
     /**
      * Defines whether target control is part of a popover or dialog (sets `searchOpenDialogs` property).
@@ -69057,6 +69364,8 @@ declare namespace sap {
 
     "sap/ui/core/format/DateFormat": undefined;
 
+    "sap/ui/core/format/DateFormatTimezoneDisplay": undefined;
+
     "sap/ui/core/format/FileSizeFormat": undefined;
 
     "sap/ui/core/format/ListFormat": undefined;
@@ -69581,6 +69890,8 @@ declare namespace sap {
 
     "sap/ui/performance/trace/FESR": undefined;
 
+    "sap/ui/performance/trace/FESRHelper": undefined;
+
     "sap/ui/performance/trace/initTraces": undefined;
 
     "sap/ui/performance/trace/Interaction": undefined;
@@ -69600,6 +69911,10 @@ declare namespace sap {
     "sap/ui/test/actions/Press": undefined;
 
     "sap/ui/test/actions/Scroll": undefined;
+
+    "sap/ui/test/generic/GenericTestCollection": undefined;
+
+    "sap/ui/test/generic/Utils": undefined;
 
     "sap/ui/test/gherkin/dataTableUtils": undefined;
 

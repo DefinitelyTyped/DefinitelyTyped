@@ -8,12 +8,40 @@ import Model from '../model/model';
 import { StylesProcessor } from '../view/stylesmap';
 import View from '../view/view';
 
+/**
+ * Controller for the editing pipeline. The editing pipeline controls {@link ~EditingController#model model} rendering,
+ * including selection handling. It also creates the {@link ~EditingController#view view} which builds a
+ * browser-independent virtualization over the DOM elements. The editing controller also attaches default converters.
+ */
 export default class EditingController implements Observable {
+    /**
+     * Creates an editing controller instance.
+     */
     constructor(model: Model, stylesProcessor: StylesProcessor);
-    readonly downcastDispatcher: DowncastDispatcher;
-    readonly mapper: Mapper;
+    /**
+     * Editor model.
+     */
     readonly model: Model;
+
+    /**
+     * Editing view controller.
+     */
     readonly view: View;
+
+    /**
+     * Mapper which describes the model-view binding.
+     */
+    readonly mapper: Mapper;
+
+    /**
+     * Downcast dispatcher that converts changes from the model to {@link #view the editing view}.
+     */
+    readonly downcastDispatcher: DowncastDispatcher;
+
+    /**
+     * Removes all event listeners attached to the `EditingController`. Destroys all objects created
+     * by `EditingController` that need to be destroyed.
+     */
     destroy(): void;
 
     set(option: Record<string, unknown>): void;

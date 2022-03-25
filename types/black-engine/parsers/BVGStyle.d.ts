@@ -1,0 +1,31 @@
+export class BVGStyle {
+    private L;
+    private l;
+    private w;
+    private F;
+    private f;
+    private r;
+    private c;
+    private j;
+    private m;
+    private a;
+    private d;
+    needsFill: boolean;
+    needsStroke: boolean;
+    fillColor: number;
+    fillAlpha: number;
+    lineColor: number;
+    lineAlpha: number;
+    lineWidth: number;
+    lineCap: CapsStyle;
+    lineJoin: JointStyle;
+    miterLimit: number;
+    fillRule: FillRule;
+    lineDash: number[];
+    merge(style: BVGStyle): void;
+    compute(): void;
+    clone(): BVGStyle;
+}
+import { CapsStyle } from '../display/CapsStyle';
+import { JointStyle } from '../display/JointStyle';
+import { FillRule } from '../display/FillRule';

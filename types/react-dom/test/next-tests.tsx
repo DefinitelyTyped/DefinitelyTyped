@@ -3,23 +3,17 @@ import React = require('react');
 import ReactDOMClient = require('react-dom/client');
 
 function createRoot() {
-    const root = ReactDOMClient.createRoot(document);
+    const root = ReactDOMClient.createRoot(document.documentElement);
 
     root.render(<div>initial render</div>);
+
+    // only makes sense for `hydrateRoot`
+    // $ExpectError
+    ReactDOMClient.createRoot(document);
 }
 
 function hydrateRoot() {
-    const legacyHydrateable = ReactDOMClient.createRoot(document, {
-        identifierPrefix: 'legacy-app',
-    });
-
     const hydrateable = ReactDOMClient.hydrateRoot(document, <div>initial render</div>, {
-        onHydrated: () => {
-            console.log('hydrated');
-        },
-        onDeleted: () => {
-            console.log('deleted');
-        },
         identifierPrefix: 'react-18-app',
         onRecoverableError: error => {
             console.error(error);
@@ -29,11 +23,6 @@ function hydrateRoot() {
     ReactDOMClient.hydrateRoot(document, {
         // Forgot `initialChildren`
         // $ExpectError
-        onHydrated: () => {
-            console.log('hydrated');
-        },
-        onDeleted: () => {
-            console.log('deleted');
-        },
+        identifierPrefix: 'react-18-app',
     });
 }

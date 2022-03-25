@@ -13,6 +13,9 @@ import Range from './range';
 import Selection, { Selectable } from './selection';
 import { StylesProcessor } from './stylesmap';
 
+// tslint:disable-next-line:no-empty-interface
+export interface Observers {}
+
 export default class View implements Observable {
     readonly document: Document;
     readonly domConverter: DomConverter;
@@ -21,7 +24,7 @@ export default class View implements Observable {
     readonly isRenderingInProgress: boolean;
 
     constructor(stylesProcessor: StylesProcessor);
-    addObserver(ObserverClass: typeof Observer): Observer;
+    addObserver<T extends Observer>(key: new (view: View) => T): T;
     attachDomRoot(domRoot: Element, name?: string): void;
     change(callback: (writer: DowncastWriter) => void): View;
     createPositionAfter(item: Item): Position;
@@ -43,7 +46,8 @@ export default class View implements Observable {
     focus(): void;
     forceRender(): void;
     getDomRoot(name?: string): Element;
-    getObserver(ObserverClass: typeof Observer): Observer | undefined;
+    getObserver<T extends Observer>(key: new (view: View) => T): T;
+
     scrollToTheSelection(): void;
 
     set(option: Record<string, unknown>): void;

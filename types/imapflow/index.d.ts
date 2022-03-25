@@ -57,7 +57,7 @@ export class ImapFlow extends EventEmitter {
 
     mailboxCreate(path: string | any[]): Promise<MailboxCreateResponse>;
 
-    maiboxDelete(path: string | any[]): Promise<MailboxDeleteResponse>;
+    mailboxDelete(path: string | any[]): Promise<MailboxDeleteResponse>;
 
     mailboxOpen(path: string | any[], options?: { readOnly?: boolean }): Promise<MailboxObject>;
 

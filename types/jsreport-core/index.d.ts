@@ -27,6 +27,10 @@ declare namespace JsReport {
         /** recipe used for printing previously assembled document */
         recipe: Recipe | string;
         pathToEngine?: string | undefined;
+        unoconv?: {
+            format?: string | undefined;
+            enabled?: boolean | undefined;
+        };
     }
 
     interface Template extends TemplateBase {
