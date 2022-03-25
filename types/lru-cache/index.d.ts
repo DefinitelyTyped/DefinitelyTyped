@@ -4,6 +4,8 @@
 //                 BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference lib="DOM" />
+// tslint:disable:member-access
 declare class LRUCache<K, V> implements Iterable<[K, V]> {
     constructor(options: LRUCache.Options<K, V>);
 
@@ -54,12 +56,14 @@ declare class LRUCache<K, V> implements Iterable<[K, V]> {
      * as in `cache.set(key, undefined)`. Use `cache.has()` to determine
      * whether a key is present in the cache at all.
      */
+    // tslint:disable-next-line:no-unnecessary-generics
     public get<T = V>(key: K, options?: LRUCache.GetOptions): T | undefined;
 
     /**
      * Like `get()` but doesn't update recency or delete stale items.
      * Returns `undefined` if the item is stale, unless `allowStale` is set either on the cache or in the options object.
      */
+    // tslint:disable-next-line:no-unnecessary-generics
     public peek<T = V>(key: K, options?: LRUCache.PeekOptions): T | undefined;
 
     /**
@@ -88,6 +92,7 @@ declare class LRUCache<K, V> implements Iterable<[K, V]> {
      * Find a value for which the supplied fn method returns a truthy value, similar to Array.find().
      * fn is called as fn(value, key, cache).
      */
+    // tslint:disable-next-line:no-unnecessary-generics
     public find<T = V>(callbackFn: (value: V, key: K, cache: this) => boolean | undefined | void, options?: LRUCache.GetOptions): T;
 
     /**
@@ -182,6 +187,7 @@ declare class LRUCache<K, V> implements Iterable<[K, V]> {
     /**
      * since: 7.6.0
      */
+    // tslint:disable-next-line:no-unnecessary-generics
     public fetch<ExpectedValue = V>(key: K, options?: LRUCache.FetchOptions): Promise<ExpectedValue | undefined>;
     /**
      * since: 7.6.0
