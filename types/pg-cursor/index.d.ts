@@ -25,8 +25,17 @@ declare namespace Cursor {
 declare class Cursor<Row = any> extends EventEmitter {
     constructor(query: string, values?: any[], config?: Cursor.CursorQueryConfig);
     submit: (connection: Connection) => void;
-    read: (maxRows: number, callback: Cursor.ResultCallback<Row>) => void;
-    close: (callback: (err: Error) => void) => void;
+    read (maxRows: number) : Promise<void>;
+    read (maxRows: number, callback: Cursor.ResultCallback<Row>) : undefined;
+    read (maxRows: number, callback?: Cursor.ResultCallback<Row>) : Promise<void> | undefined;
+    close () : Promise<void>;
+    close (callback: (err: Error) => void) : undefined;
+    close (callback?: (err: Error) => void) : Promise<void> | undefined;
+
+    /**
+     * @deprecated Cursor.end is deprecated. Call end on the client itself to end a connection to the database.
+     */
+    end(callback: () => void): void;
 }
 
 export = Cursor;

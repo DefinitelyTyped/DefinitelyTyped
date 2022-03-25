@@ -33,6 +33,9 @@ const handle = client.query(cursor);
 // Implements event emitter
 cursor.on('something', () => {});
 
+// Has deprecated functions - marked correctly as deprecated
+cursor.end(() => {});
+
 const handleFn: ResultCallback<string> = (err: Error | undefined, rows: string[]) => {
     if (err) throw err;
     if (rows.length === 0) return;
@@ -40,10 +43,26 @@ const handleFn: ResultCallback<string> = (err: Error | undefined, rows: string[]
     handle.read(100, handleFn);
 };
 
+// Returns undefined synchronously
 handle.read(100, handleFn);
+
+// Returns promise when no callback
+handle.read(100).then(() => {
+    // Finished
+});
 
 const customTypes: CustomTypesConfig = {
     getTypeParser: () => () => "aCustomTypeParser!",
 };
 
 client.query(new Cursor("SELECT $1::text", ["brianc"], { types: customTypes }));
+
+// Closes synchronously
+handle.close((err) => {
+    // err as Error
+});
+
+// Closes as promise when no callback
+handle.close().then(() => {
+    // Finished
+});
