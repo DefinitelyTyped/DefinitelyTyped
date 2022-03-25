@@ -67,6 +67,7 @@ import UIShellLink from 'carbon-components-react/lib/components/UIShell/Link';
 import { Popover, PopoverContent } from 'carbon-components-react/lib/components/Popover';
 import { LayoutDirection } from "carbon-components-react/lib/components/Layout";
 import { Text } from "carbon-components-react/lib/components/Text";
+import ListBox from "carbon-components-react/es/components/ListBox"
 
 // test components for "as" props
 interface TestCompProps {
@@ -1189,4 +1190,11 @@ const dataTableSkeletonBasic = (
         labelText=""
         ref={inputRef}
     />;
+}
+
+//
+// ListBox
+//
+{
+    const listBox = <ListBox></ListBox>
 }
