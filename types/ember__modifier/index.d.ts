@@ -20,3 +20,10 @@ export interface OnModifier extends Opaque<'modifier:on'> {}
  * @see https://api.emberjs.com/ember/4.1/classes/Ember.Templates.helpers/methods/on?anchor=on
  */
 export const on: OnModifier;
+
+export function setModifierManager(
+  factory: (owner: unknown) => unknown,
+  obj: object
+): void;
+
+export function capabilities(version: string): unknown;
