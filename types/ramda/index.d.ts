@@ -540,7 +540,7 @@ export function converge<
         (...args: TArgs) => R5,
         (...args: TArgs) => R6,
         (...args: TArgs) => R7,
-        ...RestFunctions,
+        ...RestFunctions
     ],
 ): (...args: TArgs) => TResult;
 export function converge<TArgs extends any[], TResult, R1, R2, R3, R4, R5, R6, R7>(
@@ -952,13 +952,16 @@ export function identity<T>(a: T): T;
  * Creates a function that will process either the onTrue or the onFalse function depending upon the result
  * of the condition predicate.
  */
-// tslint:disable:max-line-length
+export function ifElse<T, TFiltered extends T, TOnTrueResult, TOnFalseResult>(
+    pred: (a: T) => a is TFiltered,
+    onTrue: (a: TFiltered) => TOnTrueResult,
+    onFalse: (a: Exclude<T, TFiltered>) => TOnFalseResult,
+): (a: T) => TOnTrueResult | TOnFalseResult;
 export function ifElse<TArgs extends any[], TOnTrueResult, TOnFalseResult>(
     fn: (...args: TArgs) => boolean,
     onTrue: (...args: TArgs) => TOnTrueResult,
     onFalse: (...args: TArgs) => TOnFalseResult,
 ): (...args: TArgs) => TOnTrueResult | TOnFalseResult;
-// tslint:enable:max-line-length
 
 /**
  * Increments its argument.
@@ -2728,7 +2731,7 @@ export function useWith<
         (arg: TArg5) => TR5,
         (arg: TArg6) => TR6,
         (arg: TArg7) => TR7,
-        ...RestFunctions,
+        ...RestFunctions
     ],
 ): (...args: TArgs) => TResult;
 export function useWith<TArg1, TR1, TArg2, TR2, TArg3, TR3, TArg4, TR4, TArg5, TR5, TArg6, TR6, TArg7, TR7, TResult>(
