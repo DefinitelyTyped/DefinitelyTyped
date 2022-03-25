@@ -81,7 +81,7 @@ export default class Plugin implements Observable {
      *
      * **Note:** This method is optional. A plugin instance does not need to have it defined.
      */
-    destroy?(): void;
+    destroy(): void;
     /**
      * A flag which defines if a plugin is allowed or not allowed to be used directly by a {@link module:core/context~Context}.
      */
