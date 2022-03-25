@@ -952,6 +952,19 @@ export function identity<T>(a: T): T;
 /**
  * Creates a function that will process either the onTrue or the onFalse function depending upon the result
  * of the condition predicate.
+ *
+ * See also {@link unless}, {@link when}, {@link cond}.
+ *
+ * @example
+ * ```typescript
+ * const incCount = R.ifElse(
+ *   R.has('count'),
+ *   R.over(R.lensProp('count'), R.inc),
+ *   R.assoc('count', 1)
+ * );
+ * incCount({ count: 1 }); //=> { count: 2 }
+ * incCount({});           //=> { count: 1 }
+ * ```
  */
 export function ifElse<T, TFiltered extends T, TOnTrueResult, TOnFalseResult>(
     pred: PredTypeguard<T, TFiltered>,
