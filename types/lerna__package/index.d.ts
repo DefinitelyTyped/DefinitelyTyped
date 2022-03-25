@@ -3,8 +3,8 @@
 // Definitions by: DonMahallem <https://github.com/donmahallem>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import type { resolve } from "npm-package-arg";
-export type ResolveResult = ReturnType<typeof resolve>;
+import type { Result } from 'npm-package-arg';
+
 /**
  * Partial package.json representation
  */
@@ -36,7 +36,7 @@ export class Package {
     name: string;
     get location(): string;
     get private(): boolean;
-    get resolved(): ResolveResult;
+    get resolved(): Result;
     get rootPath(): string;
     get scripts(): RawManifest['scripts'];
     get bin(): RawManifest['scripts'];
@@ -70,5 +70,5 @@ export class Package {
     /**
      * Mutate local dependency spec according to type
      */
-    updateLocalDependency(resolved: ResolveResult, depVersion: string, savePrefix: string): void;
+    updateLocalDependency(resolved: Result, depVersion: string, savePrefix: string): void;
 }
