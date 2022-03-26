@@ -14,4 +14,5 @@ export default class MediaFormView extends View {
     url: string;
     isValid(): boolean;
     resetFormStatus(): void;
+    destroy(): void;
 }

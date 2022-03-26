@@ -6,7 +6,6 @@
 //                 Sebastian Silbermann <https://github.com/eps1lon>
 //                 Paul Potsides <https://github.com/strongpauly>
 //                 janb87 <https://github.com/janb87>
-//                 Daniel Thorne <https://github.com/ldthorne>
 //                 Panagiotis Rikarnto Siavelis <https://github.com/siavelis>
 //                 Lucas Silva Souza <https://github.com/lksilva>
 //                 Siarhey Belofost <https://github.com/SergeyBelofost>
@@ -16,7 +15,6 @@
 //                 Jan Michalak <https://github.com/michalak111>
 //                 Tom Price <https://github.com/tomtom5152>
 //                 Daniele Carrucciu <https://github.com/catruzz>
-//                 Chris Vandenberg <https://github.com/altruisticsoftware>
 //                 Chris Frewin <https://github.com/princefishthrower>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8

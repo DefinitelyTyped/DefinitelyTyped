@@ -9,6 +9,7 @@
 //                 Cameron Diver <https://github.com/CameronDiver>
 //                 Pascal Sthamer <https://github.com/p4sca1>
 //                 Stuart Thomson <https://github.com/stuartthomson>
+//                 Luis Rueda <https://github.com/userlerueda>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -347,7 +348,9 @@ declare namespace Dockerode {
         Created: number;
         Size: number;
         VirtualSize: number;
+        SharedSize: number;
         Labels: { [label: string]: string };
+        Containers: number;
     }
 
     interface ContainerInfo {

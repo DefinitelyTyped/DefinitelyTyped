@@ -2,7 +2,7 @@
 // Project: https://github.com/ioBroker/ioBroker, http://iobroker.net
 // Definitions by: AlCalzone <https://github.com/AlCalzone>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.1
+// TypeScript Version: 4.5
 
 // Note: This is not the definition for the package `iobroker`,
 // which is just an installer, not a library.
@@ -349,8 +349,8 @@ declare global {
             host: string;
             /** instance number of this adapter instance */
             instance: number;
-            /** Namespace of adapter objects: "<name>.<instance>" */
-            readonly namespace: string;
+            /** Namespace of adapter objects: `<name>.<instance>` */
+            readonly namespace: `${string}.${number}`;
             /** native part of the adapter settings */
             config: AdapterConfig;
             /** common part of the adapter settings */
@@ -385,6 +385,12 @@ declare global {
 
             /** Can be used to test for forbidden chars in object IDs */
             readonly FORBIDDEN_CHARS: RegExp;
+
+            /**
+             * Whether the adapter should warn if states are set without an corresponding existing object.
+             * Defaults to the value passed to the constructor via the option {@link AdapterOptions.strictObjectChecks}.
+             */
+            performStrictObjectChecks: boolean;
 
             /* ===============================
                Functions defined in adapter.js
@@ -770,18 +776,18 @@ declare global {
              * @param options (optional) Some internal options.
              * @param callback Is called when the operation has finished (successfully or not)
              */
-            getObjectView(
-                design: string,
-                search: string,
+             getObjectView<Design extends string = string, Search extends string = string>(
+                design: Design,
+                search: Search,
                 params: GetObjectViewParams | null | undefined,
-                callback: GetObjectViewCallback,
+                callback: GetObjectViewCallback<InferGetObjectViewItemType<Design, Search>>,
             ): void;
-            getObjectView(
-                design: string,
-                search: string,
+            getObjectView<Design extends string = string, Search extends string = string>(
+                design: Design,
+                search: Search,
                 params: GetObjectViewParams | null | undefined,
                 options: unknown,
-                callback: GetObjectViewCallback,
+                callback: GetObjectViewCallback<InferGetObjectViewItemType<Design, Search>>,
             ): void;
             /**
              * Query a predefined object view (similar to SQL stored procedures) and return the results
@@ -792,12 +798,12 @@ declare global {
              * @param params Parameters to additionally filter out objects from the return list. Null to include all objects
              * @param options (optional) Some internal options.
              */
-            getObjectViewAsync(
-                design: string,
-                search: string,
+            getObjectViewAsync<Design extends string = string, Search extends string = string>(
+                design: Design,
+                search: Search,
                 params: GetObjectViewParams | null | undefined,
                 options?: unknown,
-            ): GetObjectViewPromise;
+            ): GetObjectViewPromise<InferGetObjectViewItemType<Design, Search>>;
 
             /**
              * Returns a list of objects with id between params.startkey and params.endkey
@@ -1854,16 +1860,16 @@ declare global {
 
         type GetConfigKeysCallback = (err?: Error | null, list?: string[]) => void;
 
-        interface GetObjectViewItem {
+        interface GetObjectViewItem<T> {
             /** The ID of this object */
             id: string;
             /** A copy of the object from the DB */
-            value: ioBroker.Object | null;
+            value: T | null;
         }
-        type GetObjectViewCallback = (err?: Error | null, result?: { rows: GetObjectViewItem[] }) => void;
-        type GetObjectViewPromise = Promise<NonNullCallbackReturnTypeOf<GetObjectViewCallback>>;
+        type GetObjectViewCallback<T> = (err?: Error | null, result?: { rows: Array<GetObjectViewItem<T>> }) => void;
+        type GetObjectViewPromise<T> = Promise<NonNullCallbackReturnTypeOf<GetObjectViewCallback<T>>>;
 
-        interface GetObjectListItem extends GetObjectViewItem {
+        interface GetObjectListItem extends GetObjectViewItem<ioBroker.Object> {
             /** A copy of the object */
             value: ioBroker.Object;
             /** The same as @link{value} */

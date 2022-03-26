@@ -314,3 +314,81 @@ function f() {
         }
     });
 }
+
+declare module 'ws' {
+    interface WebSocket {
+        id?: string;
+    }
+
+    interface Server {
+        getWebSocketId(): string;
+    }
+}
+
+{
+    const server = new wslib.WebSocketServer();
+
+    server.on('connection', (ws) => {
+        // $ExpectType string | undefined
+        ws.id;
+
+        ws.id = server.getWebSocketId();
+    });
+}
+
+{
+    const ws = new WebSocket("ws://www.host.com/path", {
+        generateMask: (mask) => {},
+        skipUTF8Validation: true,
+    });
+}
+
+{
+    class CustomWebSocket extends WebSocket.WebSocket {
+        foo(): 'foo' {
+            return 'foo';
+        }
+    }
+    const server = new http.Server();
+    const webSocketServer = new WebSocket.WebSocketServer<CustomWebSocket>({WebSocket: CustomWebSocket, noServer: true});
+    webSocketServer.on('connection', (ws) => {
+        // $ExpectType CustomWebSocket
+        ws;
+        // $ExpectType "foo"
+        ws.foo();
+    });
+    Array.from(webSocketServer.clients).forEach((ws) => {
+        // $ExpectType CustomWebSocket
+        ws;
+        // $ExpectType "foo"
+        ws.foo();
+    });
+    server.on('upgrade', (request, socket, head) => {
+        if (request.url === '/path') {
+            webSocketServer.handleUpgrade(request, socket, head, (ws) => {
+                // $ExpectType CustomWebSocket
+                ws;
+                // $ExpectType "foo"
+                ws.foo();
+            });
+        }
+    });
+}
+
+{
+    const ws = new WebSocket('ws://www.host.com/path');
+
+    if (ws.isPaused) {
+        ws.resume();
+    } else {
+        ws.pause();
+    }
+
+    // $ExpectError
+    ws.isPaused = true;
+
+    ws.onopen = null;
+    ws.onerror = null;
+    ws.onclose = null;
+    ws.onmessage = null;
+}

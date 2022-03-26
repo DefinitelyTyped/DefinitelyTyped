@@ -6,8 +6,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.4
 
-/// <reference types="jquery" />
-
 import CoreView from '@ember/component/-private/core-view';
 import ClassNamesSupport from '@ember/component/-private/class-names-support';
 import ViewMixin from '@ember/component/-private/view-mixin';

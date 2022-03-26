@@ -1286,80 +1286,80 @@ expectType<mapboxgl.Map>(
 
 // Layer events
 expectType<mapboxgl.Map>(
-    map.on('click', 'text', ev => {
+    map.on('click', eitherType('text', ['text1', 'text2']), ev => {
         expectType<mapboxgl.MapLayerMouseEvent>(ev);
         expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
     }),
 );
 expectType<mapboxgl.Map>(
-    map.on('dblclick', 'text', ev => {
+    map.on('dblclick', eitherType('text', ['text1', 'text2']), ev => {
         expectType<mapboxgl.MapLayerMouseEvent>(ev);
         expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
     }),
 );
 expectType<mapboxgl.Map>(
-    map.on('mousedown', 'text', ev => {
+    map.on('mousedown', eitherType('text', ['text1', 'text2']), ev => {
         expectType<mapboxgl.MapLayerMouseEvent>(ev);
         expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
     }),
 );
 expectType<mapboxgl.Map>(
-    map.on('mouseup', 'text', ev => {
+    map.on('mouseup', eitherType('text', ['text1', 'text2']), ev => {
         expectType<mapboxgl.MapLayerMouseEvent>(ev);
         expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
     }),
 );
 expectType<mapboxgl.Map>(
-    map.on('mousemove', 'text', ev => {
+    map.on('mousemove', eitherType('text', ['text1', 'text2']), ev => {
         expectType<mapboxgl.MapLayerMouseEvent>(ev);
         expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
     }),
 );
 expectType<mapboxgl.Map>(
-    map.on('mouseenter', 'text', ev => {
+    map.on('mouseenter', eitherType('text', ['text1', 'text2']), ev => {
         expectType<mapboxgl.MapLayerMouseEvent>(ev);
         expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
     }),
 );
 expectType<mapboxgl.Map>(
-    map.on('mouseleave', 'text', ev => {
+    map.on('mouseleave', eitherType('text', ['text1', 'text2']), ev => {
         expectType<mapboxgl.MapLayerMouseEvent>(ev);
         expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
     }),
 );
 expectType<mapboxgl.Map>(
-    map.on('mouseover', 'text', ev => {
+    map.on('mouseover', eitherType('text', ['text1', 'text2']), ev => {
         expectType<mapboxgl.MapLayerMouseEvent>(ev);
         expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
     }),
 );
 expectType<mapboxgl.Map>(
-    map.on('mouseout', 'text', ev => {
+    map.on('mouseout', eitherType('text', ['text1', 'text2']), ev => {
         expectType<mapboxgl.MapLayerMouseEvent>(ev);
         expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
     }),
 );
 expectType<mapboxgl.Map>(
-    map.on('contextmenu', 'text', ev => {
+    map.on('contextmenu', eitherType('text', ['text1', 'text2']), ev => {
         expectType<mapboxgl.MapLayerMouseEvent>(ev);
         expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
     }),
 );
 
 expectType<mapboxgl.Map>(
-    map.on('touchstart', 'text', ev => {
+    map.on('touchstart', eitherType('text', ['text1', 'text2']), ev => {
         expectType<mapboxgl.MapLayerTouchEvent>(ev);
         expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
     }),
 );
 expectType<mapboxgl.Map>(
-    map.on('touchend', 'text', ev => {
+    map.on('touchend', eitherType('text', ['text1', 'text2']), ev => {
         expectType<mapboxgl.MapLayerTouchEvent>(ev);
         expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
     }),
 );
 expectType<mapboxgl.Map>(
-    map.on('touchcancel', 'text', ev => {
+    map.on('touchcancel', eitherType('text', ['text1', 'text2']), ev => {
         expectType<mapboxgl.MapLayerTouchEvent>(ev);
         expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
     }),

@@ -1,4 +1,4 @@
-// Type definitions for better-sqlite3 7.4
+// Type definitions for better-sqlite3 7.5
 // Project: https://github.com/JoshuaWise/better-sqlite3
 // Definitions by: Ben Davies <https://github.com/Morfent>
 //                 Mathew Rumsey <https://github.com/matrumz>
@@ -20,6 +20,7 @@ declare namespace BetterSqlite3 {
         database: Database;
         source: string;
         reader: boolean;
+        busy: boolean;
 
         run(...params: BindParameters): Database.RunResult;
         get(...params: BindParameters): any;
@@ -109,6 +110,7 @@ declare namespace Database {
         fileMustExist?: boolean | undefined;
         timeout?: number | undefined;
         verbose?: ((message?: any, ...additionalArgs: any[]) => void) | undefined;
+        nativeBinding?: string | undefined;
     }
 
     interface SerializeOptions {
@@ -123,6 +125,7 @@ declare namespace Database {
         varargs?: boolean | undefined;
         deterministic?: boolean | undefined;
         safeIntegers?: boolean | undefined;
+        directOnly?: boolean | undefined;
     }
 
     interface AggregateOptions extends RegistrationOptions {

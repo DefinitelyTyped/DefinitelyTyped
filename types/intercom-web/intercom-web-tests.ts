@@ -9,6 +9,7 @@ intercomSettings = {
     user_id: '123',
     created_at: 1234567890,
     app_id: 'YOUR_APP_ID',
+    api_base: 'https://api-iam.eu.intercom.io',
     custom_launcher_selector: '#Intercom',
     avatar: {
         type: 'avatar',

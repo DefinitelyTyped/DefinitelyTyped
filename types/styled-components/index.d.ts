@@ -7,7 +7,6 @@
 //                 Sebastian Silbermann <https://github.com/eps1lon>
 //                 Matthew Wagerfield <https://github.com/wagerfield>
 //                 Yuki Ito <https://github.com/Lazyuki>
-//                 Maciej Goszczycki <https://github.com/mgoszcz2>
 //                 Aaron Reisman <https://github.com/lifeiscontent>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -340,7 +339,7 @@ export type BaseWithThemeFnInterface<T extends object> = <C extends React.Compon
     // this check is roundabout because the extends clause above would
     // not allow any component that accepts _more_ than theme as a prop
     component: React.ComponentProps<C> extends { theme?: T | undefined } ? C : never,
-) => React.ForwardRefExoticComponent<WithOptionalTheme<React.ComponentPropsWithRef<C>, T>>;
+) => React.ForwardRefExoticComponent<WithOptionalTheme<JSX.LibraryManagedAttributes<C, React.ComponentPropsWithRef<C>>, T>>;
 export type WithThemeFnInterface<T extends object> = BaseWithThemeFnInterface<AnyIfEmpty<T>>;
 export const withTheme: WithThemeFnInterface<DefaultTheme>;
 

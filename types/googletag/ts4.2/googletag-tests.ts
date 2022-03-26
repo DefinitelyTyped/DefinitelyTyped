@@ -245,6 +245,7 @@ let pageConfig: googletag.SafeFrameConfig = {
     sandbox: true,
     useUniqueDomain: true,
 };
+pageConfig.useUniqueDomain = false;
 
 let slotConfig: googletag.SafeFrameConfig = { allowOverlayExpansion: false };
 
@@ -667,3 +668,14 @@ googletag.cmd.push(
         console.log(`successfully pushed ${n > 1 ? n + ' arguments' : 'one argument'}`);
     }),
 );
+
+// DEMO 63
+googletag.pubads().getName() === 'publisher_ads';
+googletag.content().getName() === 'content';
+googletag.companionAds().getName() === 'companion_ads';
+
+let slots: googletag.Slot[] = googletag.content().getSlots();
+let map: Record<string, googletag.Slot> = googletag.content().getSlotIdMap();
+
+slots = googletag.companionAds().getSlots();
+map = googletag.companionAds().getSlotIdMap();

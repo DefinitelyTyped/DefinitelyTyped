@@ -1,11 +1,11 @@
 import { Editor, Plugin } from '@ckeditor/ckeditor5-core';
 import { InlineEditor } from '@ckeditor/ckeditor5-editor-inline';
-import InlineEditorUIView from '@ckeditor/ckeditor5-editor-inline/src/inlineeditoruiview';
 import InlineEditorUI from '@ckeditor/ckeditor5-editor-inline/src/inlineeditorui';
-import { Locale } from '@ckeditor/ckeditor5-utils';
-import View from '@ckeditor/ckeditor5-engine/src/view/view';
+import InlineEditorUIView from '@ckeditor/ckeditor5-editor-inline/src/inlineeditoruiview';
 import { HtmlDataProcessor, StylesProcessor } from '@ckeditor/ckeditor5-engine';
+import View from '@ckeditor/ckeditor5-engine/src/view/view';
 import { ToolbarView } from '@ckeditor/ckeditor5-ui';
+import { Locale } from '@ckeditor/ckeditor5-utils';
 
 InlineEditor.create('', { placeholder: 'foo' }).then(editor => {
     editor.commands.get('');
@@ -19,7 +19,7 @@ InlineEditor.create('', { placeholder: 'foo' }).then(editor => {
         editor,
         new InlineEditorUIView(new Locale(), new View(new StylesProcessor())),
     );
-// $ExpectError
+    // $ExpectError
     inlineEditorUI.init(document.createElement('div'));
     inlineEditorUI.init();
     new InlineEditorUIView(new Locale(), new View(new StylesProcessor()), document.createElement('div'), {
@@ -27,7 +27,7 @@ InlineEditor.create('', { placeholder: 'foo' }).then(editor => {
     });
 });
 
-let htmlElement: HTMLElement = document.createElement('div');
+const htmlElement: HTMLElement = document.createElement('div');
 // $ExpectError
 new InlineEditor();
 
@@ -47,15 +47,19 @@ class MyPlugin extends Plugin {
     editor.setData();
     const processor: HtmlDataProcessor = editor.data.processor;
     editor.updateSourceElement();
-    const elem: HTMLElement = editor.sourceElement!;
+    // $ExpectType HTMLElement | undefined
+    editor.sourceElement;
     const ui: InlineEditorUI = editor.ui;
     const uiView: InlineEditorUIView = editor.ui.view;
+    // $ExpectType number
+    uiView.viewportTopOffset;
+    // $ExpectError
+    uiView.viewportTopOffset = 4;
 
     editor = await InlineEditor.create(htmlElement, {
         toolbar: {
             items: [],
             removeItems: [],
-            viewportTopOffset: 0,
             shouldNotGroupWhenFull: true,
         },
     });
@@ -71,7 +75,8 @@ class MyPlugin extends Plugin {
 
     bool = uiView.isRendered;
 
-    htmlElement = ui.getEditableElement()!;
+    // $ExpectType HTMLElement | undefined
+    ui.getEditableElement();
 
     uiView.render();
     const toolbarView: ToolbarView = uiView.toolbar;

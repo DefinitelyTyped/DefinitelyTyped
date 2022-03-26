@@ -302,9 +302,7 @@ be.withFontSizes('fontSize')(() => <h1>Hello World</h1>);
             label: 'Background Color',
         },
     ]}
->
-    Hello World
-</be.PanelColorSettings>;
+/>;
 
 //
 // plain-text
@@ -550,8 +548,8 @@ select('core/block-editor').getAdjacentBlockClientId('foo', 1);
 
 {
   const blockProps = be.useBlockProps({ ref: useRef("test") });
-  // $ExpectType (instance: unknown) => void
-  blockProps.ref;
+
+  blockProps.ref((current: unknown) => {});
 }
 
 // $ExpectType Record<string, unknown>

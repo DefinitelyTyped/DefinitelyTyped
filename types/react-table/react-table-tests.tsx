@@ -63,6 +63,7 @@ import {
     UseSortByOptions,
     UseSortByState,
     useTable,
+    defaultOrderByFn,
 } from 'react-table';
 
 // test heavily based up https://github.com/tannerlinsley/react-table/blob/master/examples/kitchen-sink-controlled/src/App.js
@@ -390,7 +391,8 @@ function Table({ columns, data, updateMyData, skipPageReset = false }: Table<Dat
             // Do not reset hidden columns when columns change. Allows
             // for creating columns during render.
             autoResetHiddenColumns: false,
-            autoResetResize: false
+            autoResetResize: false,
+            orderByFn: defaultOrderByFn,
         },
         useGroupBy,
         useFilters,

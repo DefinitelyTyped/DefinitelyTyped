@@ -1,18 +1,54 @@
-// For Library Version: 1.98.0
+// For Library Version: 1.100.0
 
-declare module "sap/ui/mdc/library" {
+declare module "sap/ui/mdc/filterbar/vh/FilterContainer" {
+  import Metadata from "sap/ui/base/Metadata";
+
   /**
-   * Enumeration of the `multiSelectMode>/code> in ListBase`.
+   * @SINCE 1.84.0
+   *
+   * The FilterContainer is a IFilterContainer implementation for `AlignedFlowLayout`
    */
-  export enum MultiSelectMode {
+  export default class FilterContainer
+    /* was: sap.ui.mdc.filterbar.IFilterContainer */ extends Object {
     /**
-     * Renders the `clearAll` icon.
+     * Constructor for a new filterBar/vh/FilterContainer.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
      */
-    ClearAll = "ClearAll",
+    constructor(
+      /**
+       * ID for the new control, generated automatically if no ID is given
+       */
+      sId?: string
+    );
+
     /**
-     * Renders the `selectAll` checkbox (default behavior).
+     * Creates a new subclass of class sap.ui.mdc.filterbar.vh.FilterContainer with name `sClassName` and enriches
+     * it with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.mdc.filterbar.IFilterContainer.extend}.
      */
-    Default = "Default",
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, FilterContainer>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.mdc.filterbar.vh.FilterContainer.
+     */
+    static getMetadata(): Metadata;
   }
 }
 
@@ -126,6 +162,10 @@ declare namespace sap {
 
     "sap/ui/mdc/field/OutParameter": undefined;
 
+    "sap/ui/mdc/field/TokenDisplay": undefined;
+
+    "sap/ui/mdc/field/TokenizerDisplay": undefined;
+
     "sap/ui/mdc/field/ValueHelpPanel": undefined;
 
     "sap/ui/mdc/FilterBar": undefined;
@@ -133,6 +173,10 @@ declare namespace sap {
     "sap/ui/mdc/filterbar/FilterBarBase": undefined;
 
     "sap/ui/mdc/filterbar/vh/CollectiveSearchSelect": undefined;
+
+    "sap/ui/mdc/filterbar/vh/FilterBar": undefined;
+
+    "sap/ui/mdc/filterbar/vh/FilterContainer": undefined;
 
     "sap/ui/mdc/FilterBarDelegate": undefined;
 
@@ -151,6 +195,8 @@ declare namespace sap {
     "sap/ui/mdc/mixin/FilterIntegrationMixin": undefined;
 
     "sap/ui/mdc/mixin/PromiseMixin": undefined;
+
+    "sap/ui/mdc/mixin/PropertyHelperMixin": undefined;
 
     "sap/ui/mdc/MultiValueField": undefined;
 
@@ -185,6 +231,8 @@ declare namespace sap {
     "sap/ui/mdc/table/PropertyHelper": undefined;
 
     "sap/ui/mdc/table/ResponsiveTableType": undefined;
+
+    "sap/ui/mdc/table/RowActionItem": undefined;
 
     "sap/ui/mdc/table/RowSettings": undefined;
 

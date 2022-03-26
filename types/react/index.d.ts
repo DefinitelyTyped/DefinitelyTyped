@@ -88,6 +88,7 @@ declare namespace React {
     interface RefObject<T> {
         readonly current: T | null;
     }
+    // Bivariance hack for consistent unsoundness with RefObject
     type RefCallback<T> = { bivarianceHack(instance: T | null): void }["bivarianceHack"];
     type Ref<T> = RefCallback<T> | RefObject<T> | null;
     type LegacyRef<T> = string | Ref<T>;
@@ -1394,7 +1395,9 @@ declare namespace React {
         // Keyboard Events
         onKeyDown?: KeyboardEventHandler<T> | undefined;
         onKeyDownCapture?: KeyboardEventHandler<T> | undefined;
+        /** @deprecated */
         onKeyPress?: KeyboardEventHandler<T> | undefined;
+        /** @deprecated */
         onKeyPressCapture?: KeyboardEventHandler<T> | undefined;
         onKeyUp?: KeyboardEventHandler<T> | undefined;
         onKeyUpCapture?: KeyboardEventHandler<T> | undefined;

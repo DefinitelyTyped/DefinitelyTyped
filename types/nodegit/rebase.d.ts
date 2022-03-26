@@ -14,7 +14,13 @@ export interface RebaseOptions {
 }
 
 export class Rebase {
-    static init(repo: Repository, branch: AnnotatedCommit, upstream: AnnotatedCommit, onto: AnnotatedCommit, opts?: RebaseOptions): Promise<Rebase>;
+    static init(
+        repo: Repository,
+        branch: AnnotatedCommit,
+        upstream: AnnotatedCommit,
+        onto: AnnotatedCommit,
+        opts?: RebaseOptions,
+    ): Promise<Rebase>;
     static initOptions(opts: RebaseOptions, version: number): number;
     static open(repo: Repository, opts?: RebaseOptions): Promise<Rebase>;
 

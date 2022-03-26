@@ -1,4 +1,4 @@
-import { A, O, T } from "ts-toolbelt";
+import { A, O, T } from 'ts-toolbelt';
 
 // ///////////////////////////////////////////////////////////////////////////////////////
 // TOOLS /////////////////////////////////////////////////////////////////////////////////
@@ -42,20 +42,21 @@ export interface ArrayLike {
  * <needs description>
  * @param K
  */
-export type AssocPartialOne<K extends keyof any> =
-    (<T>(val: T) => <U>(obj: U) => Record<K, T> & Omit<U, K>)
-    & (<T, U>(val: T, obj: U) => Record<K, T> & Omit<U, K>);
+export type AssocPartialOne<K extends keyof any> = (<T>(val: T) => <U>(obj: U) => Record<K, T> & Omit<U, K>) &
+    (<T, U>(val: T, obj: U) => Record<K, T> & Omit<U, K>);
 
 /**
  * Array of functions to compose/pipe with.
  */
 
 export type AtLeastOneFunctionsFlow<TArgs extends any[], TResult> =
-    [(...args: TArgs) => any, ...Array<(args: any) => any>, (...args: any[]) => TResult] | [(...args: TArgs) => TResult];
+    | [(...args: TArgs) => any, ...Array<(args: any) => any>, (...args: any[]) => TResult]
+    | [(...args: TArgs) => TResult];
 export type AtLeastOneFunctionsFlowFromRightToLeft<TArgs extends any[], TResult> =
-    [(...args: any) => TResult, ...Array<(args: any) => any>, (...args: TArgs) => any] | [(...args: TArgs) => TResult];
+    | [(...args: any) => TResult, ...Array<(args: any) => any>, (...args: TArgs) => any]
+    | [(...args: TArgs) => TResult];
 
-    // ---------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------
 // C
 
 /**
@@ -99,21 +100,14 @@ export type Evolvable<E extends Evolver> = {
  * @param E
  */
 export type Evolve<O extends Evolvable<E>, E extends Evolver> = {
-    [P in keyof O]: P extends keyof E
-                    ? EvolveValue<O[P], E[P]>
-                    : O[P];
+    [P in keyof O]: P extends keyof E ? EvolveValue<O[P], E[P]> : O[P];
 };
 
 /**
  * <needs description>
  * @param A
  */
-type Evolved<A> =
-    A extends (value: infer V) => any
-    ? V
-    : A extends Evolver
-      ? Evolvable<A>
-      : never;
+type Evolved<A> = A extends (value: infer V) => any ? V : A extends Evolver ? Evolvable<A> : never;
 
 /**
  * A set of transformation to run as part of an evolve
@@ -129,11 +123,10 @@ export type Evolver<T extends Evolvable<any> = any> = {
  * @param O
  * @param E
  */
-type EvolveNestedValue<O, E extends Evolver> =
-    O extends object
+type EvolveNestedValue<O, E extends Evolver> = O extends object
     ? O extends Evolvable<E>
-      ? Evolve<O, E>
-      : never
+        ? Evolve<O, E>
+        : never
     : never;
 
 /**
@@ -141,12 +134,11 @@ type EvolveNestedValue<O, E extends Evolver> =
  * @param V
  * @param E
  */
-type EvolveValue<V, E> =
-    E extends (value: V) => any
+type EvolveValue<V, E> = E extends (value: V) => any
     ? ReturnType<E>
     : E extends Evolver
-      ? EvolveNestedValue<V, E>
-      : never;
+    ? EvolveNestedValue<V, E>
+    : never;
 
 // ---------------------------------------------------------------------------------------
 // F
@@ -166,8 +158,8 @@ export interface Find {
  * @param A
  */
 export type Functor<A> =
-  | { ['fantasy-land/map']: <B>(fn: (a: A) => B) => Functor<B>; [key: string]: any }
-  | { map: <B>(fn: (a: A) => B) => Functor<B>; [key: string]: any };
+    | { ['fantasy-land/map']: <B>(fn: (a: A) => B) => Functor<B>; [key: string]: any }
+    | { map: <B>(fn: (a: A) => B) => Functor<B>; [key: string]: any };
 
 // ---------------------------------------------------------------------------------------
 // K
@@ -187,9 +179,7 @@ export type KeyValuePair<K, V> = [K, V];
  * @param S
  * @param A
  */
-export type Lens<S, A> = (
-    functorFactory: (a: A) => Functor<A>
-) => (s: S) => Functor<S>;
+export type Lens<S, A> = (functorFactory: (a: A) => Functor<A>) => (s: S) => Functor<S>;
 
 // ---------------------------------------------------------------------------------------
 // M
@@ -209,8 +199,12 @@ export type Lens<S, A> = (
  *
  * <created by @pirix-gh>
  */
-export type Merge<O1 extends object, O2 extends object, Depth extends 'flat' | 'deep'> =
-    O.MergeUp<T.ObjectOf<O1>, T.ObjectOf<O2>, Depth, 1>;
+export type Merge<O1 extends object, O2 extends object, Depth extends 'flat' | 'deep'> = O.MergeUp<
+    T.ObjectOf<O1>,
+    T.ObjectOf<O2>,
+    Depth,
+    1
+>;
 
 /**
  * Merge multiple objects `Os` with each other
@@ -221,11 +215,10 @@ export type Merge<O1 extends object, O2 extends object, Depth extends 'flat' | '
  *
  * <created by @pirix-gh>
  */
-export type MergeAll<Os extends readonly object[]> =
-    O.AssignUp<{}, Os, 'flat', 1> extends infer M
-    ? {} extends M    // nothing merged => bcs no `as const`
-      ? T.UnionOf<Os> // so we output the approximate types
-      : M             // otherwise, we can get accurate types
+export type MergeAll<Os extends readonly object[]> = O.AssignUp<{}, Os, 'flat', 1> extends infer M
+    ? {} extends M // nothing merged => bcs no `as const`
+        ? T.UnionOf<Os> // so we output the approximate types
+        : M // otherwise, we can get accurate types
     : never;
 
 // ---------------------------------------------------------------------------------------
@@ -261,9 +254,11 @@ export type Ordering = LT | EQ | GT;
  */
 // Implementation taken from
 // https://github.com/piotrwitek/utility-types/blob/df2502ef504c4ba8bd9de81a45baef112b7921d0/src/mapped-types.ts#L351-L362
-export type ObjectHavingSome<Key extends string> = A.Clean<{
-    [K in Key]: { [P in K]: unknown }
-}[Key]>;
+export type ObjectHavingSome<Key extends string> = A.Clean<
+    {
+        [K in Key]: { [P in K]: unknown };
+    }[Key]
+>;
 
 // ---------------------------------------------------------------------------------------
 // P
@@ -271,12 +266,12 @@ export type ObjectHavingSome<Key extends string> = A.Clean<{
 /**
  * <needs description>
  */
-export type Path = Array<(number | string)>;
+export type Path = Array<number | string>;
 
 /**
  * <needs description>
  */
-export type Placeholder = A.x & {'@@functional/placeholder': true};
+export type Placeholder = A.x & { '@@functional/placeholder': true };
 
 /**
  * <needs description>
@@ -296,8 +291,20 @@ export interface Reduced<A> {
 }
 
 type Fn = (...args: any) => any;
-export type ReturnTypesOfFns<A extends ReadonlyArray<Fn>> = A extends [infer H, ...infer R] ? H extends Fn ? R extends Fn[] ? [ReturnType<H>, ...ReturnTypesOfFns<R>] : [] : [] : [];
-export type InputTypesOfFns<A extends ReadonlyArray<Fn>> = A extends [infer H, ...infer R] ? H extends Fn ? R extends Fn[] ? [Parameters<H>[0], ...InputTypesOfFns<R>] : [] : [] : [];
+export type ReturnTypesOfFns<A extends ReadonlyArray<Fn>> = A extends [infer H, ...infer R]
+    ? H extends Fn
+        ? R extends Fn[]
+            ? [ReturnType<H>, ...ReturnTypesOfFns<R>]
+            : []
+        : []
+    : [];
+export type InputTypesOfFns<A extends ReadonlyArray<Fn>> = A extends [infer H, ...infer R]
+    ? H extends Fn
+        ? R extends Fn[]
+            ? [Parameters<H>[0], ...InputTypesOfFns<R>]
+            : []
+        : []
+    : [];
 // ---------------------------------------------------------------------------------------
 // S
 
@@ -308,10 +315,7 @@ export type InputTypesOfFns<A extends ReadonlyArray<Fn>> = A extends [infer H, .
  * <needs description>
  * @param R
  */
-export type ValueOfRecord<R> =
-    R extends Record<any, infer T>
-    ? T
-    : never;
+export type ValueOfRecord<R> = R extends Record<any, infer T> ? T : never;
 
 /**
  * If `T` is a union, `T[keyof T]` (cf. `map` and `values` in `index.d.ts`) contains the types of object values that are common across the union (i.e., an intersection).
@@ -324,35 +328,37 @@ export type ValueOfUnion<T> = T extends infer U ? U[keyof U] : never;
  * Take first N types of an Tuple
  */
 
-export type Take<N extends number, Tuple extends any[], ReturnTuple extends any[] = []> = ReturnTuple['length'] extends N
+export type Take<
+    N extends number,
+    Tuple extends any[],
+    ReturnTuple extends any[] = [],
+> = ReturnTuple['length'] extends N
     ? ReturnTuple
     : Tuple extends [infer X, ...infer Xs]
-        ? Take<N, Xs, [...ReturnTuple, X]>
-        : never;
+    ? Take<N, Xs, [...ReturnTuple, X]>
+    : never;
 
 /**
  * define an n-length tuple type
  */
 
- export type Tuple<T, N extends number> = N extends N ? number extends N ? T[] : _TupleOf<T, N, []> : never;
+export type Tuple<T, N extends number> = N extends N ? (number extends N ? T[] : _TupleOf<T, N, []>) : never;
 type _TupleOf<T, N extends number, R extends unknown[]> = R['length'] extends N ? R : _TupleOf<T, N, [T, ...R]>;
 
 /**
  * map Tuple of ordinary type to Tuple of array type
  * [string, number] -> [string[], number[]]
  */
-export type ToTupleOfArray<Tuple extends any[]> =
-    Tuple extends []
+export type ToTupleOfArray<Tuple extends any[]> = Tuple extends []
     ? []
     : Tuple extends [infer X, ...infer Xs]
-        ? [X[], ...ToTupleOfArray<Xs>]
-        : never;
+    ? [X[], ...ToTupleOfArray<Xs>]
+    : never;
 
-export type ToTupleOfFunction<R, Tuple extends any[]> =
-    Tuple extends []
+export type ToTupleOfFunction<R, Tuple extends any[]> = Tuple extends []
     ? []
     : Tuple extends [infer X, ...infer Xs]
-        ? [(arg: R) => X, ...ToTupleOfFunction<R, Xs>]
-        : never;
+    ? [(arg: R) => X, ...ToTupleOfFunction<R, Xs>]
+    : never;
 
 export {};

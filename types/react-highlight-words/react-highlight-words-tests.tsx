@@ -6,7 +6,7 @@ const findChunks = ({
     textToHighlight
 }: FindChunks) => [];
 
-const CustomHighlight: React.FC = ({children}) => (<span>{children}</span>);
+const CustomHighlight: React.FC<{ children?: React.ReactNode; }> = ({children}) => (<span>{children}</span>);
 
 class HighlighterTest extends React.Component {
     render() {

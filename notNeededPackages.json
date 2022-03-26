@@ -664,6 +664,10 @@
             "libraryName": "cordova-plugin-battery-status",
             "asOfVersion": "1.2.3"
         },
+        "cordova-plugin-ble-central": {
+            "libraryName": "cordova-plugin-ble-central",
+            "asOfVersion": "1.4.2"
+        },
         "cordova-plugin-camera": {
             "libraryName": "cordova-plugin-camera",
             "asOfVersion": "2.4.0"
@@ -803,6 +807,10 @@
         "css-minimizer-webpack-plugin": {
             "libraryName": "css-minimizer-webpack-plugin",
             "asOfVersion": "3.2.0"
+        },
+        "cssnano": {
+            "libraryName": "cssnano",
+            "asOfVersion": "5.1.0"
         },
         "csv-parse": {
             "libraryName": "csv-parse",
@@ -3068,10 +3076,6 @@
         "node-downloader-helper": {
             "libraryName": "node-downloader-helper",
             "asOfVersion": "1.0.16"
-        },
-        "node-fetch": {
-            "libraryName": "node-fetch",
-            "asOfVersion": "3.0.0"
         },
         "node-json-db": {
             "libraryName": "node-json-db",
