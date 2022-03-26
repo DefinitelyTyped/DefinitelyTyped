@@ -951,16 +951,17 @@ async () => {
     const options: auth0.PasswordlessOptions = {};
     options.forwardedFor = '{YOUR_IP}';
 
-    let token: auth0.SignInToken;
-    token = await authentication.passwordless.signIn(signInUserData);
-    token = await authentication.passwordless.signIn(signInUserData, options);
+    // $ExpectType SignInToken
+    await authentication.passwordless.signIn(signInUserData);
+    // $ExpectType SignInToken
+    await authentication.passwordless.signIn(signInUserData, options);
     authentication.passwordless.signIn(signInUserData, (err, data) => {
         err; // $ExpectType Error
-        token = data;
+        data; // $ExpectType SignInToken
     });
     authentication.passwordless.signIn(signInUserData, options, (err, data) => {
         err; // $ExpectType Error
-        token = data;
+        data; // $ExpectType SignInToken
     });
 
     await authentication.passwordless.sendEmail(emailUserData);
