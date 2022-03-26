@@ -2,6 +2,7 @@
 // Project: https://github.com/jonschlinkert/resolve-value#readme
 // Definitions by: Rajas Paranjpe <https://github.com/ChocolateLoverRaj>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 4.1
 
 type DeepResolved<T> =
   T extends PromiseLike<infer R>
