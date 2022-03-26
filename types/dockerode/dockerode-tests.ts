@@ -231,6 +231,14 @@ image.remove({force: true, noprune: false}, (err, response) => {
     // NOOP;
 });
 
+image.distribution({}, (err, response) => {
+    // NOOP;
+});
+
+image.distribution((err, response) => {
+    // NOOP;
+});
+
 const plugin = docker.getPlugin('pluginName', 'remoteName');
 plugin.configure((err, response) => {
     // NOOP;
