@@ -1996,9 +1996,16 @@ describe("better typed spys", () => {
             const getSpy = spyOnProperty(obj, "prop");
             getSpy.and.returnValue("spy");
             getSpy.and.returnValue(123); // $ExpectError
+            getSpy.and.callFake(function() {
+                this.otherProp; // $ExpectType number
+                return "spy";
+            });
             const setSpy = spyOnProperty(obj, "prop", "set");
             setSpy.calls.first().args; // $ExpectType [string] || [value: string]
             setSpy.calls.first().returnValue; // $ExpectType void
+            setSpy.and.callFake(function(value: string) {
+                this.otherProp; // $ExpectType number
+            });
         });
     });
     describe("createSpyObj", () => {
