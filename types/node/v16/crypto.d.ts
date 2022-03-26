@@ -1089,7 +1089,7 @@ declare module 'crypto' {
          */
         update(data: NodeJS.ArrayBufferView): Buffer;
         update(data: string, inputEncoding: Encoding): Buffer;
-        update(data: NodeJS.ArrayBufferView, inputEncoding: undefined, outputEncoding: Encoding): string;
+        update(data: NodeJS.ArrayBufferView, inputEncoding: Encoding | undefined, outputEncoding: Encoding): string;
         update(data: string, inputEncoding: Encoding | undefined, outputEncoding: Encoding): string;
         /**
          * Once the `decipher.final()` method has been called, the `Decipher` object can
