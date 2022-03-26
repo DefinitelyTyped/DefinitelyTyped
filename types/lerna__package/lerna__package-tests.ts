@@ -1,4 +1,5 @@
 import { Package, RawManifest } from '@lerna/package';
+import { resolve } from 'npm-package-arg';
 
 const testRawManifest: RawManifest = {
     name: 'package',
@@ -28,3 +29,6 @@ testPackage
 testPackage.set('unknown', 1245);
 const package2: Promise<Package> = testPackage.serialize();
 const package3: Promise<Package> = testPackage.refresh();
+
+let testResult = resolve('a', 'b');
+testPackage.updateLocalDependency(testResult, '1.2.4', 'v');
