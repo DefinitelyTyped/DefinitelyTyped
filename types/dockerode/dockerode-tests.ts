@@ -179,6 +179,12 @@ docker.createContainer({ HostConfig: { DnsSearch: ['example.com'], CpuCount: 2, 
     });
 });
 
+docker.createContainer({ Healthcheck: { Test: ["CMD", "true"], Interval: 10, Timeout: 10, Retries: 3, StartPeriod: 10 } }, (err, container) => {
+    container.start((err, data) => {
+        // NOOP
+    });
+});
+
 docker.createNetwork({Name: 'networkName'},  (err, network) => {
     network.remove((err, data) => {
         // NOOP

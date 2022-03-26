@@ -1050,6 +1050,7 @@ declare namespace Dockerode {
         ExposedPorts?: { [port: string]: {} } | undefined;
         StopSignal?: string | undefined;
         StopTimeout?: number | undefined;
+        Healthcheck?: HealthConfig | undefined;
         HostConfig?: HostConfig | undefined;
         NetworkingConfig?: {
             EndpointsConfig?: EndpointsConfig | undefined;
