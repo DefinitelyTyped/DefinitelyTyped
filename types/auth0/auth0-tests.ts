@@ -347,7 +347,6 @@ management.assignPermissionsToUser(
 );
 
 // Using different client settings.
-
 const retryableManagementClient = new auth0.ManagementClient({
     clientId: '',
     clientSecret: '',
@@ -683,6 +682,7 @@ management
     )
     .then(() => console.log('It worked'))
     .catch(err => console.log('Something went wrong ' + err));
+
 management.removePermissionsFromRole(
     { id: 'role_id' },
     {
@@ -706,6 +706,7 @@ management
     )
     .then(() => console.log('It worked'))
     .catch(err => console.log('Something went wrong ' + err));
+
 management.addPermissionsInRole(
     { id: 'role_id' },
     {
@@ -1586,3 +1587,7 @@ management.organizations.removeMemberRoles(
 management.organizations
     .removeMemberRoles({ id: 'organization_id', user_id: 'user_id' }, { roles: ['role_id'] })
     .then(() => {});
+
+// Device Credentials
+management.getDeviceCredentials({ user_id: 'user_id' }).then((deviceCredentials) => { console.log(deviceCredentials); });
+management.getDeviceCredentials({ user_id: 'user_id' }, (err, deviceCredentials) => { console.log(deviceCredentials); });
