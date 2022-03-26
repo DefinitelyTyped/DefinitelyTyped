@@ -11,6 +11,7 @@ mailchimp.messages.send({
     message: {
         to: [
             { name: 'John Doe', email: 'johndoe@example.com', type: 'to' },
+            { email: 'johndoe@example.com', type: 'to' },
         ],
     },
 });
