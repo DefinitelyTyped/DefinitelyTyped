@@ -1,6 +1,6 @@
 {
     "name": "@scriptsqd/types-zoomist",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "description": "TypeScript definitions for ZoomistJS",
     "main": "",
     "types": "index.d.ts"

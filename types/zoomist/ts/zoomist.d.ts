@@ -13,29 +13,32 @@ declare class Zoomist {
     url: any;
     data: {};
     ratio: number;
-    __events__: {
-        ready: any;
-        zoom: any;
-        wheel: any;
-        dragStart: any;
-        drag: any;
-        dragEnd: any;
-        pinchStart: any;
-        pinch: any;
-        pinchEnd: any;
-        slideStart: any;
-        slide: any;
-        slideEnd: any;
-        resize: any;
-        reset: any;
-        destroy: any;
-        update: any;
-    };
     mount(): void;
     wrapper: HTMLDivElement;
     image: HTMLImageElement;
     mounted: boolean;
     render(): void;
+
+    /* Methods */
+    getContainerData(): { width: number; height: number; aspectRatio: number };
+    getImageData(): {
+        width: number;
+        height: number;
+        aspectRatio: number;
+        top: number;
+        left: number;
+        naturalWidth: number;
+        naturalHeight: number;
+    };
+    getSliderValue(): number;
+    getSliderValue(): number;
+    zoom(ratio: number): void;
+    zoomTo(ratio: number): void;
+    slideTo(value: number, isOnlySlide: boolean): void;
+    on(event: string, handler: Function): void;
+
+    reset(): void;
+    update(): void;
     destroy(): void;
 }
 
