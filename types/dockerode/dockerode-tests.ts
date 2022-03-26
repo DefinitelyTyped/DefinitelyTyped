@@ -173,6 +173,12 @@ docker.createContainer({ HostConfig: { Init: true } }, (err, container) => {
     });
 });
 
+docker.createContainer({ HostConfig: { DnsSearch: ['example.com'], CpuCount: 2, CpuPercent: 50, CpuRealtimePeriod: 0, CpuRealtimeRuntime: 0 } }, (err, container) => {
+    container.start((err, data) => {
+        // NOOP
+    });
+});
+
 docker.createNetwork({Name: 'networkName'},  (err, network) => {
     network.remove((err, data) => {
         // NOOP
