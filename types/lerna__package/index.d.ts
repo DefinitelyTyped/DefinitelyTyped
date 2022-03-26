@@ -20,7 +20,7 @@ export type RawManifest = {
     peerDependencies?: Record<string, string>;
     publishConfig?: Record<string, string>;
     workspaces?: string[] | { packages: string[] };
-} & { [key: string]: any; };
+} & { [key: string]: any };
 /**
  * Lerna's internal representation of a local package, with
  * many values resolved directly from the original JSON.
@@ -52,8 +52,8 @@ export class Package {
     get devDependencies(): RawManifest['devDependencies'];
     get optionalDependencies(): RawManifest['optionalDependencies'];
     get peerDependencies(): RawManifest['peerDependencies'];
-    get<K extends (keyof RawManifest) | string>(key: K): RawManifest[K];
-    set<K extends (keyof RawManifest) | string>(key: K, val: RawManifest[K]): this;
+    get<K extends keyof RawManifest | string>(key: K): RawManifest[K];
+    set<K extends keyof RawManifest | string>(key: K, val: RawManifest[K]): this;
     /**
      * Provide shallow copy for munging elsewhere
      */
