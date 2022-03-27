@@ -828,7 +828,7 @@ export interface UseSortByState<D extends object> {
 }
 
 export type UseSortByColumnOptions<D extends object> = Partial<{
-    defaultCanSort: boolean;
+    canSort: boolean;
     disableSortBy: boolean;
     sortDescFirst: boolean;
     sortInverted: boolean;
