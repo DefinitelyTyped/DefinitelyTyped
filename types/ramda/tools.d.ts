@@ -72,6 +72,12 @@ export interface CharList extends String {
 
 export type CondPair<T extends any[], R> = [(...val: T) => boolean, (...val: T) => R];
 
+/**
+ * R.cond's [predicate, transform] pair in a typeguarded version
+ */
+
+export type CondPairTypeguard<T, TFiltered extends T, R> = [(value: T) => value is TFiltered, (value: TFiltered) => R];
+
 // ---------------------------------------------------------------------------------------
 // D
 
