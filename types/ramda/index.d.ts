@@ -333,9 +333,22 @@ export function bind<F extends (...args: readonly any[]) => any, T>(
 ): (thisObj: T) => (...args: Parameters<F>) => ReturnType<F>;
 
 /**
- * A function wrapping calls to the two functions in an && operation, returning the result of the first function
- * if it is false-y and the result of the second function otherwise. Note that this is short-circuited, meaning
- * that the second function will not be invoked if the first returns a false-y value.
+ * A function which calls the two provided functions and returns the `&&` of the
+ * results. It returns the result of the first function if it is false-y and
+ * the result of the second function otherwise. Note that this is
+ * short-circuited, meaning that the second function will not be invoked if the
+ * first returns a false-y value.
+ *
+ * See also {@link either}, {@link and}.
+ *
+ * @example
+ * ```typescript
+ * const gt10 = R.gt(R.__, 10)
+ * const lt20 = R.lt(R.__, 20)
+ * const f = R.both(gt10, lt20);
+ * f(15); //=> true
+ * f(30); //=> false
+ * ```
  */
 export function both<T extends Pred>(pred1: T, pred2: T): T;
 export function both<T extends Pred>(pred1: T): (pred2: T) => T;
