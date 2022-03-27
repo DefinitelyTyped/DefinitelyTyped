@@ -1316,7 +1316,7 @@ export interface GetDeviceCredentialsParams {
     fields?: string;
     include_fields?: boolean;
     client_id?: string;
-    type?: `public_key` | `refresh_token` | `rotating_refresh_token`;
+    type?: 'public_key' | 'refresh_token' | 'rotating_refresh_token';
 }
 
 export interface DeviceCredentials {
