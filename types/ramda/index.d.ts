@@ -192,7 +192,25 @@ export function any<T>(fn: (a: T) => boolean, list: readonly T[]): boolean;
 export function any<T>(fn: (a: T) => boolean): (list: readonly T[]) => boolean;
 
 /**
- * Given a list of predicates returns a new predicate that will be true exactly when any one of them is.
+ * Takes a list of predicates and returns a predicate that returns true for a
+ * given list of arguments if at least one of the provided predicates is
+ * satisfied by those arguments.
+ *
+ * The function returned is a curried function whose arity matches that of the
+ * highest-arity predicate.
+ *
+ * See also {@link allPass}.
+ *
+ * @example
+ * ```typescript
+ * const isClub = R.propEq('suit', '♣');
+ * const isSpade = R.propEq('suit', '♠');
+ * const isBlackCard = R.anyPass([isClub, isSpade]);
+ *
+ * isBlackCard({rank: '10', suit: '♣'}); //=> true
+ * isBlackCard({rank: 'Q', suit: '♠'}); //=> true
+ * isBlackCard({rank: 'Q', suit: '♦'}); //=> false
+ * ```
  */
 export function anyPass<F extends Pred>(preds: readonly F[]): F;
 
@@ -589,7 +607,7 @@ export function converge<
         (...args: TArgs) => R5,
         (...args: TArgs) => R6,
         (...args: TArgs) => R7,
-        ...RestFunctions
+        ...RestFunctions,
     ],
 ): (...args: TArgs) => TResult;
 export function converge<TArgs extends any[], TResult, R1, R2, R3, R4, R5, R6, R7>(
@@ -2793,7 +2811,7 @@ export function useWith<
         (arg: TArg5) => TR5,
         (arg: TArg6) => TR6,
         (arg: TArg7) => TR7,
-        ...RestFunctions
+        ...RestFunctions,
     ],
 ): (...args: TArgs) => TResult;
 export function useWith<TArg1, TR1, TArg2, TR2, TArg3, TR3, TArg4, TR4, TArg5, TR5, TArg6, TR6, TArg7, TR7, TResult>(
