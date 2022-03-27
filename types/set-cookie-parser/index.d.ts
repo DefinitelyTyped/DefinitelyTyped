@@ -69,11 +69,6 @@ declare namespace parse {
          * the current domain.
          */
         domain?: string;
-        
-        /**
-         * Specifies the value for the {@link https://datatracker.ietf.org/doc/html/rfc6265#section-5.2.4|`Path` `Set-Cookie` attribute}.
-         */
-        path?: string;
 
         /**
          * Specifies the `Date` object to be the value for the {@link https://tools.ietf.org/html/rfc6265#section-5.2.1|`Expires` `Set-Cookie` attribute}. By default,
