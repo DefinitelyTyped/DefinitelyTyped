@@ -605,10 +605,30 @@ export function concat(s1: string, s2: string): string;
 export function concat(s1: string): (s2: string) => string;
 
 /**
- * Returns a function, fn, which encapsulates if/else-if/else logic. R.cond takes a list of [predicate, transform] pairs.
- * All of the arguments to fn are applied to each of the predicates in turn until one returns a "truthy" value, at which
- * point fn returns the result of applying its arguments to the corresponding transformer. If none of the predicates
- * matches, fn returns undefined.
+ * Returns a function, `fn`, which encapsulates `if/else, if/else, ...` logic.
+ * `R.cond` takes a list of [predicate, transformer] pairs. All of the arguments
+ * to `fn` are applied to each of the predicates in turn until one returns a
+ * "truthy" value, at which point `fn` returns the result of applying its
+ * arguments to the corresponding transformer. If none of the predicates
+ * matches, `fn` returns undefined.
+ *
+ * **Please note:** This is not a direct substitute for a `switch` statement.
+ * Remember that both elements of every pair passed to `cond` are *functions*,
+ * and `cond` returns a function.
+ *
+ * See also {@link ifElse}, {@link unless}, {@link when}.
+ *
+ * @example
+ * ```typescript
+ * const fn = R.cond([
+ *   [R.equals(0),   R.always('water freezes at 0°C')],
+ *   [R.equals(100), R.always('water boils at 100°C')],
+ *   [R.T,           temp => 'nothing special happens at ' + temp + '°C']
+ * ]);
+ * fn(0); //=> 'water freezes at 0°C'
+ * fn(50); //=> 'nothing special happens at 50°C'
+ * fn(100); //=> 'water boils at 100°C'
+ * ```
  */
 export function cond<T extends any[], R>(pairs: Array<CondPair<T, R>>): (...args: T) => R;
 
