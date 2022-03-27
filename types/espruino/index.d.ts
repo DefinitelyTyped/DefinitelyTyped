@@ -1663,11 +1663,11 @@ declare namespace NRF {
    */
   function setAdvertising(data: {
     [uuid in BLE_UUID]: number[] | Uint8Array;
-  } | Array<number | string>, options: {
+  } | Array<number | string>, options?: {
     /**
      * The name of the device
      */
-    name: string,
+    name?: string,
     /**
      * Include full name, or nothing
      */
@@ -1783,7 +1783,7 @@ declare namespace NRF {
         },
         onWrite?: (event: any) => void;
       } };
-  }, options: {
+  }, options?: {
     hid?: Uint8Array,
     /**
      * Present a UART service that provides serial port-like access to the REPL.
