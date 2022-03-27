@@ -399,11 +399,22 @@ export function clone<T>(value: readonly T[]): T[];
 export function comparator<T>(pred: (a: T, b: T) => boolean): (x: T, y: T) => Ordering;
 
 /**
- * Takes a function f and returns a function g such that:
- * - applying g to zero or more arguments will give true if applying the same arguments to f gives
- *   a logical false value; and
- * - applying g to zero or more arguments will give false if applying the same arguments to f gives
- *   a logical true value.
+ * Takes a function `f` and returns a function `g` such that if called with the
+ * same arguments when `f` returns a "truthy" value, `g` returns `false` and
+ * when `f` returns a "falsy" value `g` returns `true`.
+ *
+ * `R.complement` may be applied to any functor
+ *
+ * See also {@link not}.
+ *
+ * @example
+ * ```typescript
+ * const isNotNil = R.complement(R.isNil);
+ * R.isNil(null); //=> true
+ * isNotNil(null); //=> false
+ * R.isNil(7); //=> false
+ * isNotNil(7); //=> true
+ * ```
  */
 export function complement<TArgs extends any[]>(pred: (...args: TArgs) => unknown): (...args: TArgs) => boolean;
 
