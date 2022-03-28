@@ -1312,6 +1312,27 @@ export interface VerifyEmail {
     } | undefined;
 }
 
+export interface GetDeviceCredentialsParams {
+    user_id: string;
+    page?: number;
+    per_page?: number;
+    include_totals?: boolean;
+    fields?: string;
+    include_fields?: boolean;
+    client_id?: string;
+    type?: 'public_key' | 'refresh_token' | 'rotating_refresh_token';
+}
+
+export interface DeviceCredential {
+    id?: string;
+    device_name?: string;
+    device_id?: string;
+    type?: string;
+    user_id?: string;
+    client_id?: string;
+    last_used?: string;
+}
+
 export class OrganizationsManager {
     create(data: CreateOrganization): Promise<Organization>;
     create(data: CreateOrganization, cb: (err: Error, organization: Organization) => void): void;
@@ -1447,6 +1468,7 @@ export class OrganizationsManager {
         cb: (err: Error) => void,
     ): void;
 }
+
 export class ManagementClient<A = AppMetadata, U = UserMetadata> {
     organizations: OrganizationsManager;
 
@@ -1510,8 +1532,8 @@ export class ManagementClient<A = AppMetadata, U = UserMetadata> {
     deleteClientGrant(params: ObjectWithId, cb: (err: Error) => void): void;
 
     // Device Keys
-    getDeviceCredentials(): Promise<User<A, U>>;
-    getDeviceCredentials(cb: (err: Error, data: any) => void): void;
+    getDeviceCredentials(params: GetDeviceCredentialsParams): Promise<DeviceCredential[]>;
+    getDeviceCredentials(params: GetDeviceCredentialsParams, cb: (err: Error, data: DeviceCredential[]) => void): void;
 
     createDevicePublicKey(data: Data): Promise<User<A, U>>;
     createDevicePublicKey(data: Data, cb: (err: Error, data: any) => void): void;
