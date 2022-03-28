@@ -38,8 +38,8 @@ export type DispatcherMap = Record<string, <T = void>(...args: readonly any[]) =
  */
 export type Subscriber = (callback: () => void) => () => void;
 
-export function dispatch(key: string): DispatcherMap;
-export function select(key: string): SelectorMap;
+export function dispatch(storeNameOrDescriptor: string|StoreDescriptor): DispatcherMap;
+export function select(storeNameOrDescriptor: string|StoreDescriptor): SelectorMap;
 
 export const subscribe: Subscriber;
 
@@ -95,7 +95,20 @@ export interface Store<S, A extends Action = Action> {
     dispatch(action: A): A;
 }
 
-export function registerGenericStore(key: string, config: GenericStoreConfig): void;
+export interface StoreDescriptor {
+    name: string;
+    instantiate: (registry: DataRegistry) => GenericStoreConfig;
+}
+
+export function register(store: StoreDescriptor): void;
+export function createReduxStore<T = {}>(key: string, options: StoreConfig<T>): StoreDescriptor;
+/**
+ * @deprecated
+ */
+export function registerGenericStore(name: string, config: GenericStoreConfig): void;
+/**
+ * @deprecated
+ */
 export function registerStore<T = {}>(key: string, config: StoreConfig<T>): Store<T>;
 
 //
