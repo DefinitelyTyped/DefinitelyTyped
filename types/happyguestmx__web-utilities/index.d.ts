@@ -3,10 +3,10 @@
 // Definitions by: HappyGuest <https://github.com/HappyGuest>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// tslint:disable-next-line:no-single-declare-module
+/// <reference types="node"/>
+import * as AWS from 'aws-sdk';
+import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
 declare module '@happyguestmx/web-utilities' {
-    import * as AWS from 'aws-sdk';
-    import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
 
     // shared
     interface QueryOutput {

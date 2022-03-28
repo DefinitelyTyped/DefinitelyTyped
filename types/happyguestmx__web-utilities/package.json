@@ -1,7 +1,6 @@
 {
     "private": true,
     "dependencies": {
-        "aws-sdk": "^2.1089.0",
-        "@types/node": "^17.0.23"
+        "aws-sdk": "^2.1089.0"
     }
 }
