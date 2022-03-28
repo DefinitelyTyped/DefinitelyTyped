@@ -16,6 +16,7 @@ export { Action, combineReducers };
 //
 // Core functionality
 //
+export type ResolveSelectorMap = Record<string, <T = unknown>(...args: readonly any[]) => Promise<T>>;
 export type SelectorMap = Record<string, <T = unknown>(...args: readonly any[]) => T>;
 export type DispatcherMap = Record<string, <T = void>(...args: readonly any[]) => T>;
 
@@ -40,6 +41,7 @@ export type Subscriber = (callback: () => void) => () => void;
 
 export function dispatch(storeNameOrDescriptor: string|StoreDescriptor): DispatcherMap;
 export function select(storeNameOrDescriptor: string|StoreDescriptor): SelectorMap;
+export function resolveSelect(storeNameOrDescriptor: string|StoreDescriptor): ResolveSelectorMap;
 
 export const subscribe: Subscriber;
 
