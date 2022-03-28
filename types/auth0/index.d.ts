@@ -1330,6 +1330,7 @@ export interface DeviceCredentials {
     type?: string;
     user_id?: string;
     client_id?: string;
+    last_used?: string;
 }
 
 export class OrganizationsManager {
