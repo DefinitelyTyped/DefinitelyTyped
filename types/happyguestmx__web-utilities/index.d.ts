@@ -1,18 +1,20 @@
-// Type definitions for @happyguestmx/web-utilities x.x
+// Type definitions for @happyguestmx/web-utilities 3.17
 // Project: https://github.com/HappyGuest/happyguestmx-web-utilities
 // Definitions by: HappyGuest <https://github.com/HappyGuest>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/*~ If this module is a UMD module that exposes a global variable 'myLib' when
- *~ loaded outside a module loader environment, declare that global here.
- *~ Otherwise, delete this declaration.
- */
 export as namespace WebUtilities;
-import * as AWS from 'aws-sdk'
-import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda'
+import * as AWS from 'aws-sdk';
+import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
+
+// shared
+export interface QueryOutput {
+    Items: any[];
+    Count: number;
+}
 
 // activityLogHandler
-export interface ILogEntry {
+export interface LogEntry {
     type: string;
     current: object;
     updated: object;
@@ -20,44 +22,44 @@ export interface ILogEntry {
     hotel_uuid: string | null | undefined;
     category: string | null | undefined;
     item: string | null | undefined;
-    user_uuid: string;
+    user_uuid: string | null | undefined;
     sourceIp: string;
 }
-export interface IActivityLogHandler {
-    logEntry: (params: ILogEntry) => Promise<AWS.DynamoDB.DocumentClient.PutItemOutput>;
+export interface ActivityLogHandler {
+    logEntry: (params: LogEntry) => Promise<AWS.DynamoDB.DocumentClient.PutItemOutput>;
 }
 
 // assetsHandler
-export interface IStoreImageRequestPath {
+export interface StoreImageRequestPath {
     public: string;
     bucket: string;
 }
-export interface IStoreGalleryRequestPath extends IStoreImageRequestPath { }
-export interface IStoreImageRequest {
+export type StoreGalleryRequestPath = StoreImageRequestPath;
+export interface StoreImageRequest {
     image: string;
     format: string;
     key: string;
-    path: IStoreImageRequestPath;
+    path: StoreImageRequestPath;
 }
-export interface IStoreGalleryRequest {
+export interface StoreGalleryRequest {
     photo_gallery: string[];
     format: string;
-    path: IStoreGalleryRequestPath;
+    path: StoreGalleryRequestPath;
 }
-export interface IAmazonS3UriOutput {
+export interface AmazonS3UriOutput {
     region: string;
     bucket: string;
     key: string;
 }
-export interface IAssetsHandler {
+export interface AssetsHandler {
     getImage: (url: string, format: string) => Promise<string>;
-    storeImage: (request: IStoreImageRequest) => Promise<AWS.S3.PutObjectOutput>;
-    storeGallery: (request: IStoreGalleryRequest) => Promise<string[]>;
-    amazonS3Uri: (url: string) => Promise<IAmazonS3UriOutput>;
+    storeImage: (request: StoreImageRequest) => Promise<AWS.S3.PutObjectOutput>;
+    storeGallery: (request: StoreGalleryRequest) => Promise<string[]>;
+    amazonS3Uri: (url: string) => Promise<AmazonS3UriOutput>;
 }
 
 // common
-export interface ICommon {
+export interface Common {
     uuidRegex: string;
     emailRegex: string;
     urlReGex: string;
@@ -72,42 +74,31 @@ export interface ICommon {
 }
 
 // errorsHandler
-export interface IFormErrorFields {
+export interface FormErrorFields {
     label: string;
     name: string;
     error: any;
 }
-export interface IFormError {
-    fields: { [key: string]: IFormErrorFields };
+export interface FormError {
+    fields: { [key: string]: { fields: FormErrorFields } };
 }
-export interface IFormErrorHandlerOutput {
+export interface FormErrorHandlerOutput {
     message: string;
     code: string;
     statusCode: number;
-    full_error_message: string
+    full_error_message: string;
 }
-export interface IErrorsHandler {
-    caolanFormErrorHandler: (form: IFormError) => IFormErrorHandlerOutput;
+export interface ErrorsHandler {
+    caolanFormErrorHandler: (form: FormError) => FormErrorHandlerOutput;
 }
 
 // paramsHandler
-export interface ILogEntry {
-    type: string;
-    current: object;
-    updated: object;
-    company_uuid: string;
-    hotel_uuid: string | null | undefined;
-    category: string | null | undefined;
-    item: string | null | undefined;
-    user_uuid: string;
-    sourceIp: string;
-}
-export interface IParamsHandler {
+export interface ParamsHandler {
     requestHandler: (event: APIGatewayProxyEvent) => Promise<APIGatewayProxyResult>;
 }
 
 // response
-export interface IResponse {
+export interface Response {
     success: (body: object) => APIGatewayProxyResult;
     badRequest: (body: object) => APIGatewayProxyResult;
     notFound: (body: object) => APIGatewayProxyResult;
@@ -115,58 +106,49 @@ export interface IResponse {
 }
 
 // fsp
-interface IFspPaginOutput {
-    start: number,
-    end: number
+export interface FspPaginOutput {
+    start: number;
+    end: number;
 }
-interface IFspPaginationOutput {
-    items: [],
-    total: number,
-    pageTop: number,
-    page: number,
-    indexBegin: number,
-    indexEnd: number
+export interface FspPaginationOutput {
+    items: any[];
+    total: number;
+    pageTop: number;
+    page: number;
+    indexBegin: number;
+    indexEnd: number;
 }
-interface IFspQuery {
-    queryString: string,
-    orderBy: string,
-    sortType: 'asc' | 'desc',
-    size: number,
-    page: number
+export interface FspQuery {
+    queryString: string;
+    orderBy: string;
+    sortType: 'asc' | 'desc';
+    size: number;
+    page: number;
 }
-interface FSP {
-    filter: boolean,
-    should_sort: boolean,
-    data: any[],
-    filterColums: any[],
-    Filter:(term: string | string[]) => boolean,
-    Sort:(orderBy: string, sortType: 'asc' | 'desc') => any[],
-    Pagin:(page: number, size: number) => IFspPaginOutput,
-    FSP:(query: IFspQuery) => IFspPaginationOutput,
+export interface FSP {
+    filter: boolean;
+    should_sort: boolean;
+    data: any[];
+    filterColums: any[];
+    Filter: (term: string | string[]) => boolean;
+    Sort: (orderBy: string, sortType: 'asc' | 'desc') => any[];
+    Pagin: (page: number, size: number) => FspPaginOutput;
+    FSP: (query: FspQuery) => FspPaginationOutput;
 }
-interface FSPConstructor {
+export interface FSPConstructor {
     new(fullData: any[], filterColums: any[], filter: boolean, sort: boolean): FSP;
 }
 
-// ddbHelper #
-export interface IRecursiveQueryOutput {
-    type: string;
-    current: object;
-    updated: object;
-    company_uuid: string;
-    hotel_uuid: string | null | undefined;
-    category: string | null | undefined;
-    item: string | null | undefined;
-    user_uuid: string;
-    sourceIp: string;
+// ddbHelper
+export interface DdbHelper {
+    recursiveQuery: (
+        params: AWS.DynamoDB.DocumentClient.QueryInput | AWS.DynamoDB.DocumentClient.ScanInput,
+        method: 'query' | 'scan',
+        xray?: boolean
+    ) => Promise<QueryOutput>;
 }
-// #
-export interface IDdbHelper {
-    recursiveQuery: (params: object, method: 'query' | 'scan', xray?: boolean) => Promise<IQueryOutput>;
-}
-
-// userHandler #
-export interface IQueryUserOutput {
+// userHandler
+export interface User {
     company_uuid: string;
     name: string;
     email: string;
@@ -182,39 +164,39 @@ export interface IQueryUserOutput {
     notifications: string;
     updated_at: string;
 }
-export interface IQueryOutput {
-    Items: any[];
-    Count: number
+export interface CognitoAttributes {
+    Name: string;
+    Value: any;
 }
-export interface IUserHandler {
+export interface UserHandler {
     getUserFromJWT: (AccessToken: string) => Promise<AWS.CognitoIdentityServiceProvider.GetUserResponse>;
     getCognitoUser: (AccessToken: string) => Promise<AWS.CognitoIdentityServiceProvider.GetUserResponse>;
-    findUserInDB: (sub: string) => Promise<IQueryOutput>;
-    findUserInConciergeUsers: (sub: string) => Promise<IQueryOutput>;
-    findUserInAdminUsers: (sub: string) => Promise<IQueryOutput>;
-    findUserInCoStaffUsers: (sub: string) => Promise<IQueryOutput>;
-    findUserInStaffUsers: (sub: string) => Promise<IQueryOutput>;
-    permissionsValidate: (sub: string) => Promise<IQueryOutput>;
-    cognitoAttributesToJson: (sub: { Name: string, Value: any }[]) => Promise<object>;
-    findUserByEmail: (email: string) => Promise<object>;
-    findAdminUserByEmail: (email: string) => Promise<IQueryUserOutput>;
-    findCoStaffUserByEmail: (email: string) => Promise<IQueryOutput>;
-    findStaffUserByEmail: (email: string) => Promise<IQueryOutput>;
-    findUserByEmployeeNumber: (employee_number: string) => Promise<IQueryOutput>;
-    findConciergeByEmplNumber: (employee_number: string) => Promise<IQueryOutput>;
-    findCoStaffUserByEmplNumber: (employee_number: string) => Promise<IQueryOutput>;
+    findUserInDB: (sub: string) => Promise<any>;
+    findUserInConciergeUsers: (sub: string) => Promise<QueryOutput>;
+    findUserInAdminUsers: (sub: string) => Promise<QueryOutput>;
+    findUserInCoStaffUsers: (sub: string) => Promise<QueryOutput>;
+    findUserInStaffUsers: (sub: string) => Promise<QueryOutput>;
+    permissionsValidate: (user: User, level: string, company_uuid?: string, hotel_uuid?: string) => Promise<string>;
+    cognitoAttributesToJson: (sub: CognitoAttributes[]) => Promise<object>;
+    findUserByEmail: (email: string) => Promise<any>;
+    findAdminUserByEmail: (email: string) => Promise<any>;
+    findCoStaffUserByEmail: (email: string) => Promise<QueryOutput>;
+    findStaffUserByEmail: (email: string) => Promise<QueryOutput>;
+    findUserByEmployeeNumber: (employee_number: string) => Promise<any>;
+    findConciergeByEmplNumber: (employee_number: string) => Promise<QueryOutput>;
+    findCoStaffUserByEmplNumber: (employee_number: string) => Promise<QueryOutput>;
 }
 
 /*************************************
- *              EXPORTS
+                EXPORTS
 *************************************/
-export const activityLogHandler: IActivityLogHandler
-export const assetsHandler: IAssetsHandler
-export const common: ICommon;
-export const errorsHandler: IErrorsHandler
-export const paramsHandler: IParamsHandler
-export const response: IResponse
-export const fsp: { FSP: FSPConstructor }
-export const ddbHelper: IDdbHelper;
-export class WithDataError extends Error {}
-export const userHandler: IUserHandler;
+export const activityLogHandler: ActivityLogHandler;
+export const assetsHandler: AssetsHandler;
+export const common: Common;
+export const errorsHandler: ErrorsHandler;
+export const paramsHandler: ParamsHandler;
+export const response: Response;
+export const fsp: { FSP: FSPConstructor };
+export const ddbHelper: DdbHelper;
+export class WithDataError extends Error { }
+export const userHandler: UserHandler;
