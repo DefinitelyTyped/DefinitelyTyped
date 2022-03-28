@@ -1,4 +1,3 @@
-/// <reference types="react" />
 import { DefaultNavigatorOptions, StackRouterOptions, StackNavigationState } from '../../native';
 import type { StackNavigationConfig, StackNavigationOptions, StackNavigationEventMap } from '../types';
 // tslint:disable-next-line strict-export-declare-modifiers
