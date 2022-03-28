@@ -59,6 +59,7 @@ import {
     Path,
     Placeholder,
     Pred,
+    PredTypeguard,
     Reduced,
     ReturnTypesOfFns,
     ValueOfRecord,
@@ -67,6 +68,7 @@ import {
     ToTupleOfArray,
     ToTupleOfFunction,
     Tuple,
+    CondPairTypeguard,
 } from './tools';
 
 export * from './tools';
@@ -113,8 +115,56 @@ export function all<T>(fn: (a: T) => boolean, list: readonly T[]): boolean;
 export function all<T>(fn: (a: T) => boolean): (list: readonly T[]) => boolean;
 
 /**
- * Given a list of predicates, returns a new predicate that will be true exactly when all of them are.
+ * Takes a list of predicates and returns a predicate that returns true for a
+ * given list of arguments if every one of the provided predicates is satisfied
+ * by those arguments.
+ *
+ * The function returned is a curried function whose arity matches that of the
+ * highest-arity predicate.
+ *
+ * See also {@link anyPass}.
+ *
+ * @example
+ * ```typescript
+ * const isQueen = R.propEq('rank', 'Q');
+ * const isSpade = R.propEq('suit', '♠︎');
+ * const isQueenOfSpades = R.allPass([isQueen, isSpade]);
+ *
+ * isQueenOfSpades({rank: 'Q', suit: '♣︎'}); //=> false
+ * isQueenOfSpades({rank: 'Q', suit: '♠︎'}); //=> true
+ * ```
  */
+export function allPass<T, TF1 extends T, TF2 extends T>(
+    preds: [PredTypeguard<T, TF1>, PredTypeguard<T, TF2>],
+): (a: T) => a is TF1 & TF2;
+export function allPass<T, TF1 extends T, TF2 extends T, TF3 extends T>(
+    preds: [PredTypeguard<T, TF1>, PredTypeguard<T, TF2>, PredTypeguard<T, TF3>],
+): (a: T) => a is TF1 & TF2 & TF3;
+export function allPass<T, TF1 extends T, TF2 extends T, TF3 extends T>(
+    preds: [PredTypeguard<T, TF1>, PredTypeguard<T, TF2>, PredTypeguard<T, TF3>],
+): (a: T) => a is TF1 & TF2 & TF3;
+export function allPass<T, TF1 extends T, TF2 extends T, TF3 extends T, TF4 extends T>(
+    preds: [PredTypeguard<T, TF1>, PredTypeguard<T, TF2>, PredTypeguard<T, TF3>, PredTypeguard<T, TF4>],
+): (a: T) => a is TF1 & TF2 & TF3 & TF4;
+export function allPass<T, TF1 extends T, TF2 extends T, TF3 extends T, TF4 extends T, TF5 extends T>(
+    preds: [
+        PredTypeguard<T, TF1>,
+        PredTypeguard<T, TF2>,
+        PredTypeguard<T, TF3>,
+        PredTypeguard<T, TF4>,
+        PredTypeguard<T, TF5>,
+    ],
+): PredTypeguard<T, TF1 & TF2 & TF3 & TF4 & TF5>;
+export function allPass<T, TF1 extends T, TF2 extends T, TF3 extends T, TF4 extends T, TF5 extends T, TF6 extends T>(
+    preds: [
+        PredTypeguard<T, TF1>,
+        PredTypeguard<T, TF2>,
+        PredTypeguard<T, TF3>,
+        PredTypeguard<T, TF4>,
+        PredTypeguard<T, TF5>,
+        PredTypeguard<T, TF6>,
+    ],
+): PredTypeguard<T, TF1 & TF2 & TF3 & TF4 & TF5 & TF6>;
 export function allPass<F extends Pred>(preds: readonly F[]): F;
 
 /**
@@ -143,8 +193,57 @@ export function any<T>(fn: (a: T) => boolean, list: readonly T[]): boolean;
 export function any<T>(fn: (a: T) => boolean): (list: readonly T[]) => boolean;
 
 /**
- * Given a list of predicates returns a new predicate that will be true exactly when any one of them is.
+ * Takes a list of predicates and returns a predicate that returns true for a
+ * given list of arguments if at least one of the provided predicates is
+ * satisfied by those arguments.
+ *
+ * The function returned is a curried function whose arity matches that of the
+ * highest-arity predicate.
+ *
+ * See also {@link allPass}.
+ *
+ * @example
+ * ```typescript
+ * const isClub = R.propEq('suit', '♣');
+ * const isSpade = R.propEq('suit', '♠');
+ * const isBlackCard = R.anyPass([isClub, isSpade]);
+ *
+ * isBlackCard({rank: '10', suit: '♣'}); //=> true
+ * isBlackCard({rank: 'Q', suit: '♠'}); //=> true
+ * isBlackCard({rank: 'Q', suit: '♦'}); //=> false
+ * ```
  */
+export function anyPass<T, TF1 extends T, TF2 extends T>(
+    preds: [PredTypeguard<T, TF1>, PredTypeguard<T, TF2>],
+): (a: T) => a is TF1 | TF2;
+export function anyPass<T, TF1 extends T, TF2 extends T, TF3 extends T>(
+    preds: [PredTypeguard<T, TF1>, PredTypeguard<T, TF2>, PredTypeguard<T, TF3>],
+): (a: T) => a is TF1 | TF2 | TF3;
+export function anyPass<T, TF1 extends T, TF2 extends T, TF3 extends T>(
+    preds: [PredTypeguard<T, TF1>, PredTypeguard<T, TF2>, PredTypeguard<T, TF3>],
+): (a: T) => a is TF1 | TF2 | TF3;
+export function anyPass<T, TF1 extends T, TF2 extends T, TF3 extends T, TF4 extends T>(
+    preds: [PredTypeguard<T, TF1>, PredTypeguard<T, TF2>, PredTypeguard<T, TF3>, PredTypeguard<T, TF4>],
+): (a: T) => a is TF1 | TF2 | TF3 | TF4;
+export function anyPass<T, TF1 extends T, TF2 extends T, TF3 extends T, TF4 extends T, TF5 extends T>(
+    preds: [
+        PredTypeguard<T, TF1>,
+        PredTypeguard<T, TF2>,
+        PredTypeguard<T, TF3>,
+        PredTypeguard<T, TF4>,
+        PredTypeguard<T, TF5>,
+    ],
+): PredTypeguard<T, TF1 | TF2 | TF3 | TF4 | TF5>;
+export function anyPass<T, TF1 extends T, TF2 extends T, TF3 extends T, TF4 extends T, TF5 extends T, TF6 extends T>(
+    preds: [
+        PredTypeguard<T, TF1>,
+        PredTypeguard<T, TF2>,
+        PredTypeguard<T, TF3>,
+        PredTypeguard<T, TF4>,
+        PredTypeguard<T, TF5>,
+        PredTypeguard<T, TF6>,
+    ],
+): PredTypeguard<T, TF1 | TF2 | TF3 | TF4 | TF5 | TF6>;
 export function anyPass<F extends Pred>(preds: readonly F[]): F;
 
 /**
@@ -235,10 +334,27 @@ export function bind<F extends (...args: readonly any[]) => any, T>(
 ): (thisObj: T) => (...args: Parameters<F>) => ReturnType<F>;
 
 /**
- * A function wrapping calls to the two functions in an && operation, returning the result of the first function
- * if it is false-y and the result of the second function otherwise. Note that this is short-circuited, meaning
- * that the second function will not be invoked if the first returns a false-y value.
+ * A function which calls the two provided functions and returns the `&&` of the
+ * results. It returns the result of the first function if it is false-y and
+ * the result of the second function otherwise. Note that this is
+ * short-circuited, meaning that the second function will not be invoked if the
+ * first returns a false-y value.
+ *
+ * See also {@link either}, {@link and}.
+ *
+ * @example
+ * ```typescript
+ * const gt10 = R.gt(R.__, 10)
+ * const lt20 = R.lt(R.__, 20)
+ * const f = R.both(gt10, lt20);
+ * f(15); //=> true
+ * f(30); //=> false
+ * ```
  */
+export function both<T, TF1 extends T, TF2 extends T>(
+    pred1: PredTypeguard<T, TF1>,
+    pred2: PredTypeguard<T, TF2>,
+): (a: T) => a is TF1 & TF2;
 export function both<T extends Pred>(pred1: T, pred2: T): T;
 export function both<T extends Pred>(pred1: T): (pred2: T) => T;
 
@@ -284,12 +400,26 @@ export function clone<T>(value: readonly T[]): T[];
 export function comparator<T>(pred: (a: T, b: T) => boolean): (x: T, y: T) => Ordering;
 
 /**
- * Takes a function f and returns a function g such that:
- * - applying g to zero or more arguments will give true if applying the same arguments to f gives
- *   a logical false value; and
- * - applying g to zero or more arguments will give false if applying the same arguments to f gives
- *   a logical true value.
+ * Takes a function `f` and returns a function `g` such that if called with the
+ * same arguments when `f` returns a "truthy" value, `g` returns `false` and
+ * when `f` returns a "falsy" value `g` returns `true`.
+ *
+ * `R.complement` may be applied to any functor
+ *
+ * See also {@link not}.
+ *
+ * @example
+ * ```typescript
+ * const isNotNil = R.complement(R.isNil);
+ * R.isNil(null); //=> true
+ * isNotNil(null); //=> false
+ * R.isNil(7); //=> false
+ * isNotNil(7); //=> true
+ * ```
  */
+export function complement<T, TFiltered extends T>(
+    pred: (value: T) => value is TFiltered,
+): (value: T) => value is Exclude<T, TFiltered>;
 export function complement<TArgs extends any[]>(pred: (...args: TArgs) => unknown): (...args: TArgs) => boolean;
 
 /**
@@ -476,11 +606,164 @@ export function concat(s1: string, s2: string): string;
 export function concat(s1: string): (s2: string) => string;
 
 /**
- * Returns a function, fn, which encapsulates if/else-if/else logic. R.cond takes a list of [predicate, transform] pairs.
- * All of the arguments to fn are applied to each of the predicates in turn until one returns a "truthy" value, at which
- * point fn returns the result of applying its arguments to the corresponding transformer. If none of the predicates
- * matches, fn returns undefined.
+ * Returns a function, `fn`, which encapsulates `if/else, if/else, ...` logic.
+ * `R.cond` takes a list of [predicate, transformer] pairs. All of the arguments
+ * to `fn` are applied to each of the predicates in turn until one returns a
+ * "truthy" value, at which point `fn` returns the result of applying its
+ * arguments to the corresponding transformer. If none of the predicates
+ * matches, `fn` returns undefined.
+ *
+ * **Please note:** This is not a direct substitute for a `switch` statement.
+ * Remember that both elements of every pair passed to `cond` are *functions*,
+ * and `cond` returns a function.
+ *
+ * **Please note:** When using this function with a typeguard as predicate,
+ * **all** predicates in all pairs must be typeguards.
+ *
+ * See also {@link ifElse}, {@link unless}, {@link when}.
+ *
+ * @example
+ * ```typescript
+ * const fn = R.cond([
+ *   [R.equals(0),   R.always('water freezes at 0°C')],
+ *   [R.equals(100), R.always('water boils at 100°C')],
+ *   [R.T,           temp => 'nothing special happens at ' + temp + '°C']
+ * ]);
+ * fn(0); //=> 'water freezes at 0°C'
+ * fn(50); //=> 'nothing special happens at 50°C'
+ * fn(100); //=> 'water boils at 100°C'
+ * ```
  */
+export function cond<T, TF1 extends T, R>(pairs: [CondPairTypeguard<T, TF1, R>]): (value: T) => R;
+export function cond<T, TF1 extends T, TF2 extends T, R>(
+    pairs: [CondPairTypeguard<T, TF1, R>, CondPairTypeguard<T, TF2, R>],
+): (value: T) => R;
+export function cond<T, TF1 extends T, TF2 extends T, TF3 extends T, R>(
+    pairs: [CondPairTypeguard<T, TF1, R>, CondPairTypeguard<T, TF2, R>, CondPairTypeguard<T, TF3, R>],
+): (value: T) => R;
+export function cond<T, TF1 extends T, TF2 extends T, TF3 extends T, TF4 extends T, R>(
+    pairs: [
+        CondPairTypeguard<T, TF1, R>,
+        CondPairTypeguard<T, TF2, R>,
+        CondPairTypeguard<T, TF3, R>,
+        CondPairTypeguard<T, TF4, R>,
+    ],
+): (value: T) => R;
+export function cond<T, TF1 extends T, TF2 extends T, TF3 extends T, TF4 extends T, TF5 extends T, R>(
+    pairs: [
+        CondPairTypeguard<T, TF1, R>,
+        CondPairTypeguard<T, TF2, R>,
+        CondPairTypeguard<T, TF3, R>,
+        CondPairTypeguard<T, TF4, R>,
+        CondPairTypeguard<T, TF5, R>,
+    ],
+): (value: T) => R;
+export function cond<T, TF1 extends T, TF2 extends T, TF3 extends T, TF4 extends T, TF5 extends T, TF6 extends T, R>(
+    pairs: [
+        CondPairTypeguard<T, TF1, R>,
+        CondPairTypeguard<T, TF2, R>,
+        CondPairTypeguard<T, TF3, R>,
+        CondPairTypeguard<T, TF4, R>,
+        CondPairTypeguard<T, TF5, R>,
+        CondPairTypeguard<T, TF6, R>,
+    ],
+): (value: T) => R;
+export function cond<
+    T,
+    TF1 extends T,
+    TF2 extends T,
+    TF3 extends T,
+    TF4 extends T,
+    TF5 extends T,
+    TF6 extends T,
+    TF7 extends T,
+    R,
+>(
+    pairs: [
+        CondPairTypeguard<T, TF1, R>,
+        CondPairTypeguard<T, TF2, R>,
+        CondPairTypeguard<T, TF3, R>,
+        CondPairTypeguard<T, TF4, R>,
+        CondPairTypeguard<T, TF5, R>,
+        CondPairTypeguard<T, TF6, R>,
+        CondPairTypeguard<T, TF7, R>,
+    ],
+): (value: T) => R;
+export function cond<
+    T,
+    TF1 extends T,
+    TF2 extends T,
+    TF3 extends T,
+    TF4 extends T,
+    TF5 extends T,
+    TF6 extends T,
+    TF7 extends T,
+    TF8 extends T,
+    R,
+>(
+    pairs: [
+        CondPairTypeguard<T, TF1, R>,
+        CondPairTypeguard<T, TF2, R>,
+        CondPairTypeguard<T, TF3, R>,
+        CondPairTypeguard<T, TF4, R>,
+        CondPairTypeguard<T, TF5, R>,
+        CondPairTypeguard<T, TF6, R>,
+        CondPairTypeguard<T, TF7, R>,
+        CondPairTypeguard<T, TF8, R>,
+    ],
+): (value: T) => R;
+export function cond<
+    T,
+    TF1 extends T,
+    TF2 extends T,
+    TF3 extends T,
+    TF4 extends T,
+    TF5 extends T,
+    TF6 extends T,
+    TF7 extends T,
+    TF8 extends T,
+    TF9 extends T,
+    R,
+>(
+    pairs: [
+        CondPairTypeguard<T, TF1, R>,
+        CondPairTypeguard<T, TF2, R>,
+        CondPairTypeguard<T, TF3, R>,
+        CondPairTypeguard<T, TF4, R>,
+        CondPairTypeguard<T, TF5, R>,
+        CondPairTypeguard<T, TF6, R>,
+        CondPairTypeguard<T, TF7, R>,
+        CondPairTypeguard<T, TF8, R>,
+        CondPairTypeguard<T, TF9, R>,
+    ],
+): (value: T) => R;
+export function cond<
+    T,
+    TF1 extends T,
+    TF2 extends T,
+    TF3 extends T,
+    TF4 extends T,
+    TF5 extends T,
+    TF6 extends T,
+    TF7 extends T,
+    TF8 extends T,
+    TF9 extends T,
+    TF10 extends T,
+    R,
+>(
+    pairs: [
+        CondPairTypeguard<T, TF1, R>,
+        CondPairTypeguard<T, TF2, R>,
+        CondPairTypeguard<T, TF3, R>,
+        CondPairTypeguard<T, TF4, R>,
+        CondPairTypeguard<T, TF5, R>,
+        CondPairTypeguard<T, TF6, R>,
+        CondPairTypeguard<T, TF7, R>,
+        CondPairTypeguard<T, TF8, R>,
+        CondPairTypeguard<T, TF9, R>,
+        CondPairTypeguard<T, TF10, R>,
+    ],
+): (value: T) => R;
 export function cond<T extends any[], R>(pairs: Array<CondPair<T, R>>): (...args: T) => R;
 
 /**
@@ -540,7 +823,7 @@ export function converge<
         (...args: TArgs) => R5,
         (...args: TArgs) => R6,
         (...args: TArgs) => R7,
-        ...RestFunctions
+        ...RestFunctions,
     ],
 ): (...args: TArgs) => TResult;
 export function converge<TArgs extends any[], TResult, R1, R2, R3, R4, R5, R6, R7>(
@@ -951,14 +1234,27 @@ export function identity<T>(a: T): T;
 /**
  * Creates a function that will process either the onTrue or the onFalse function depending upon the result
  * of the condition predicate.
+ *
+ * See also {@link unless}, {@link when}, {@link cond}.
+ *
+ * @example
+ * ```typescript
+ * const incCount = R.ifElse(
+ *   R.has('count'),
+ *   R.over(R.lensProp('count'), R.inc),
+ *   R.assoc('count', 1)
+ * );
+ * incCount({ count: 1 }); //=> { count: 2 }
+ * incCount({});           //=> { count: 1 }
+ * ```
  */
-export function ifElse<T, TFiltered extends T, TOnTrueResult, TOnFalseResult>(
-    pred: (a: T) => a is TFiltered,
-    onTrue: (a: TFiltered) => TOnTrueResult,
-    onFalse: (a: Exclude<T, TFiltered>) => TOnFalseResult,
+export function ifElse<T, TF extends T, TOnTrueResult, TOnFalseResult>(
+    pred: PredTypeguard<T, TF>,
+    onTrue: (a: TF) => TOnTrueResult,
+    onFalse: (a: Exclude<T, TF>) => TOnFalseResult,
 ): (a: T) => TOnTrueResult | TOnFalseResult;
 export function ifElse<TArgs extends any[], TOnTrueResult, TOnFalseResult>(
-    fn: (...args: TArgs) => boolean,
+    fn: Pred<TArgs>,
     onTrue: (...args: TArgs) => TOnTrueResult,
     onFalse: (...args: TArgs) => TOnFalseResult,
 ): (...args: TArgs) => TOnTrueResult | TOnFalseResult;
@@ -2731,7 +3027,7 @@ export function useWith<
         (arg: TArg5) => TR5,
         (arg: TArg6) => TR6,
         (arg: TArg7) => TR7,
-        ...RestFunctions
+        ...RestFunctions,
     ],
 ): (...args: TArgs) => TResult;
 export function useWith<TArg1, TR1, TArg2, TR2, TArg3, TR3, TArg4, TR4, TArg5, TR5, TArg6, TR6, TArg7, TR7, TResult>(

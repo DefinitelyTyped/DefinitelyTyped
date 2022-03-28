@@ -98,7 +98,6 @@ import Matcher, { MatcherPattern } from '@ckeditor/ckeditor5-engine/src/view/mat
 import ViewNode from '@ckeditor/ckeditor5-engine/src/view/node';
 import ArrowKeysObserver from '@ckeditor/ckeditor5-engine/src/view/observer/arrowkeysobserver';
 import BubblingEventInfo from '@ckeditor/ckeditor5-engine/src/view/observer/bubblingeventinfo';
-import ClickObserver from '@ckeditor/ckeditor5-engine/src/view/observer/clickobserver';
 import DomEventData from '@ckeditor/ckeditor5-engine/src/view/observer/domeventdata';
 import DomEventObserver from '@ckeditor/ckeditor5-engine/src/view/observer/domeventobserver';
 import FakeSelectionObserver from '@ckeditor/ckeditor5-engine/src/view/observer/fakeselectionobserver';
@@ -340,7 +339,7 @@ downcastHelper = downcastHelper.add(dispatcher => {
         evt.name; // $ExpectType "insert:paragraph"
         data; // $ExpectType { item: Element & { name: "paragraph"; }; range: Range; }
         schema; // $ExpectType Schema
-        writer; // $ExpectType DowncastWriter
+        writer; // $ExpectType DowncastWriter<Document>
         dispatcher; // $ExpectType DowncastDispatcher<{}>
         mapper; // $ExpectType Mapper
         consumable; // ExpectType ModelConsumable
@@ -1359,13 +1358,13 @@ downcastWriter.createRawElement();
 // prettier-ignore
 downcastWriter.createRawElement('div').render = function(domElement: HTMLElement, domConverter: DomConverter) {
     domConverter.setContentOf(domElement, '<b>This is the raw content of myRawElement.</b>');
-    // $ExpectType DowncastWriter
+    // $ExpectType DowncastWriter<Document>
     this;
 };
 // prettier-ignore
 downcastWriter.createRawElement('div', { id: 'foo' }, function(domElement, domConverter) {
     domConverter.setContentOf(domElement, '<b>This is the raw content of myRawElement.</b>');
-    // $ExpectType DowncastWriter
+    // $ExpectType DowncastWriter<Document>
     this;
 });
 
@@ -1652,3 +1651,19 @@ stylesProcessor.setNormalizer('margin', getPositionShorthandNormalizer('margin')
 
 // $ExpectType string[]
 getShorthandValues('');
+
+const myUIElement = downcastWriter.createUIElement('span');
+myUIElement.render = function render(domDocument, domConverter) {
+    const domElement = this.toDomElement(domDocument);
+
+    domConverter.setContentOf(domElement, '<b>this is ui element</b>');
+
+    return domElement;
+};
+
+downcastWriter.createUIElement('span', null, function callback(domDocument) {
+    const domElement = this.toDomElement(domDocument);
+    domElement.innerHTML = '<b>this is ui element</b>';
+
+    return domElement;
+});

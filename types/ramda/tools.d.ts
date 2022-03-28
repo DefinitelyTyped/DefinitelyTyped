@@ -72,6 +72,12 @@ export interface CharList extends String {
 
 export type CondPair<T extends any[], R> = [(...val: T) => boolean, (...val: T) => R];
 
+/**
+ * R.cond's [predicate, transform] pair in a typeguarded version
+ */
+
+export type CondPairTypeguard<T, TFiltered extends T, R> = [(value: T) => value is TFiltered, (value: TFiltered) => R];
+
 // ---------------------------------------------------------------------------------------
 // D
 
@@ -274,9 +280,27 @@ export type Path = Array<number | string>;
 export type Placeholder = A.x & { '@@functional/placeholder': true };
 
 /**
- * <needs description>
+ * Takes a lists of arguments and returns either `true` or `false`.
+ *
+ * Classical predicates only take one argument, but since ramda
+ * supports multiple arguments, we also use them like that.
+ *
+ * Note that these predicates, don't represent typeguards,
+ * meaning when this type is used, we can't get type narrowing.
+ *
+ * @see {@link PredTypeguard} for the typeguard version of this.
  */
 export type Pred<T extends any[] = any[]> = (...a: T) => boolean;
+
+/**
+ * Takes an argument and returns either `true` or `false`.
+ *
+ * This is usually used as an overload before {@link Pred}.
+ * If you would this type alone, the function would **required**
+ * to be a typeguard, meaning a simple function just returning
+ * a `boolean` wouldn't satisfy this constrain.
+ */
+export type PredTypeguard<T, TTypeguarded extends T> = (a: T) => a is TTypeguarded;
 
 // ---------------------------------------------------------------------------------------
 // R
