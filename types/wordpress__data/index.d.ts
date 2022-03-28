@@ -1,9 +1,9 @@
-// Type definitions for @wordpress/data 4.6
+// Type definitions for @wordpress/data 6.0
 // Project: https://github.com/WordPress/gutenberg/tree/master/packages/data/README.md
 // Definitions by: Derek Sifford <https://github.com/dsifford>
 //                 Jon Surrell <https://github.com/sirreal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.6
+// TypeScript Version: 4.6
 
 import { ComponentType, Consumer, Provider } from 'react';
 import { AnyAction as Action, combineReducers, Reducer } from 'redux';
