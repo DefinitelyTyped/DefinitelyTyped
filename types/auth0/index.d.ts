@@ -1003,11 +1003,15 @@ export interface SocialSignInOptions {
     connection: string;
 }
 
+/**
+ * @see {https://auth0.com/docs/authenticate/passwordless/implement-login/embedded-login/relevant-api-endpoints#post-oauth-token}
+ */
 export interface SignInToken {
     access_token: string;
-    id_token?: string | undefined;
-    token_type?: string | undefined;
-    expiry: number;
+    refresh_token?: string | undefined;
+    id_token: string;
+    token_type: string;
+    expires_in: number;
 }
 
 export interface RequestSMSCodeOptions extends RequestSMSOptions {
