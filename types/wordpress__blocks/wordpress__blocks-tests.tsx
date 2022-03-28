@@ -261,7 +261,7 @@ blocks.getBlockSupport('core/paragraph', 'inserter', 1234);
 // $ExpectType { foo: string; }
 blocks.getBlockSupport('core/paragraph', 'inserter', { foo: 'bar' });
 
-// $ExpectType Block<any> | undefined
+// $ExpectType Block<{}> | undefined
 blocks.getBlockType('core/paragraph');
 
 // $ExpectType Block<any>[]
