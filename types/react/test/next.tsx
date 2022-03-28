@@ -36,6 +36,7 @@ function useExperimentalHooks() {
     // $ExpectType boolean
     const deferredToggle = React.useDeferredValue(toggle);
 
+    // TODO: avoid explicit type parameter
     const [func] = React.useState<() => number>(() => () => 0);
 
     // $ExpectType () => number
