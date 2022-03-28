@@ -8,6 +8,13 @@ import EventEmitter = require('events');
 import { RequestOptions } from 'http';
 import WebSocket = require('ws');
 
+import LiveTwoStepAnswer = require('./src/assets/LiveTwoStepAnswer');
+import LiveClientHandshake = require('./src/assets/LiveClientHandshake');
+import LiveJoinPacket = require('./src/assets/LiveJoinPacket');
+import LiveJoinTeamPacket = require('./src/assets/LiveJoinTeamPacket');
+import LiveLeavePacket = require('./src/assets/LiveLeavePacket');
+import LiveBaseMessage = require('./src/assets/LiveBaseMessage');
+
 declare namespace Kahoot {
     interface KahootOptions {
         /**
@@ -71,6 +78,12 @@ declare namespace Kahoot {
         successful: boolean;
     }
 
+    type QuizVideo = { startTime: number; endTime: number; service: string; fullUrl: string };
+
+    interface QuizInfo extends QuizStart {
+        currentQuestion: QuestionReady;
+    }
+
     interface JoinResponse {
         twoFactorAuth: boolean;
         namerator: boolean;
@@ -111,7 +124,7 @@ declare namespace Kahoot {
     }
 
     interface QuestionReady {
-        video: { startTime: number; endTime: number; service: string; fullUrl: string };
+        video: QuizVideo;
         gameBlockIndex: number;
         layout: string;
         type: string;
@@ -197,6 +210,59 @@ declare class Kahoot extends EventEmitter {
      */
     answerTwoFactorAuth(steps: [number, number, number, number]): Promise<Kahoot.LiveEventTimetrack>;
 
+    cid: number;
+
+    classes: {
+        LiveTwoStepAnswer: typeof LiveTwoStepAnswer;
+        LiveClientHandshake: typeof LiveClientHandshake;
+        LiveJoinPacket: typeof LiveJoinPacket;
+        LiveJoinTeamPacket: typeof LiveJoinTeamPacket;
+        LiveLeavePacket: typeof LiveLeavePacket;
+    };
+
+    connected?: boolean;
+
+    data?: { totalScore: number; streak: number; rank: number };
+
+    defaults: Required<Kahoot.KahootOptions>;
+
+    /** @todo add type */
+    disconnectReason?: unknown;
+
+    /** The game's pin */
+    gameid: number;
+
+    handlers: Record<
+        | 'feedback'
+        | 'gameReset'
+        | 'quizStart'
+        | 'quizEnd'
+        | 'podium'
+        | 'timeOver'
+        | 'QuestionReady'
+        | 'questionStart'
+        | 'questionEnd'
+        | 'nameAccept'
+        | 'teamAccept'
+        | 'teamTalk'
+        | 'PingChecker'
+        | 'timetrack'
+        | 'Disconnect'
+        | 'JoinFinish',
+        (message: LiveBaseMessage) => void
+    >;
+
+    lastEvent: undefined;
+    messageId: number;
+    /** Player name */
+    name: string;
+    quiz?: Kahoot.QuizInfo;
+    settings: Kahoot.JoinResponse;
+    socket: WebSocket;
+    userAgent: string;
+    waiting: {};
+
+    // Events
     on(eventName: 'Joined', listener: (ev: Kahoot.JoinResponse) => void): this;
     on(eventName: 'NameAccept', listener: (ev: Kahoot.NameAccept) => void): this;
     on(eventName: 'TeamAccept', listener: (ev: Kahoot.TeamAccept) => void): this;
