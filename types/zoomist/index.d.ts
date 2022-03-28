@@ -5,6 +5,8 @@
 
 // Minimum TypeScript Version: 4.1
 
+export as namespace Zoomist;
+
 export = Zoomist;
 declare class Zoomist {
     constructor(element: Element, options?: ZoomistOptions);
