@@ -3,7 +3,7 @@
 // Definitions by: Derek Sifford <https://github.com/dsifford>
 //                 Jon Surrell <https://github.com/sirreal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.6
+// TypeScript Version: 3.6
 
 import { ComponentType, Consumer, Provider } from 'react';
 import { AnyAction as Action, combineReducers, Reducer } from 'redux';
