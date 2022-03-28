@@ -1590,5 +1590,9 @@ management.organizations
     .then(() => {});
 
 // Device Credentials
-management.getDeviceCredentials({ user_id: 'user_id' }).then((deviceCredentials) => { console.log(deviceCredentials); });
-management.getDeviceCredentials({ user_id: 'user_id' }, (err, deviceCredentials) => { console.log(deviceCredentials); });
+management.getDeviceCredentials({ user_id: 'user_id' }).then(deviceCredentials => {
+    deviceCredentials; // $ExpectType DeviceCredential[]
+});
+management.getDeviceCredentials({ user_id: 'user_id' }, (err, deviceCredentials) => {
+    deviceCredentials; // $ExpectType DeviceCredential[]
+});
