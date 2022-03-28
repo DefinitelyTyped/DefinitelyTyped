@@ -1,0 +1,207 @@
+// Type definitions for kahoot.js-updated 2.4
+// Project: https://github.com/theusaf/kahoot.js-updated
+// Definitions by: Adam Thompson-Sharpe <https://github.com/MysteryBlokHed>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+/// <reference types="node" />
+
+import EventEmitter = require('events');
+import { RequestOptions } from 'http';
+import WebSocket = require('ws');
+
+declare namespace Kahoot {
+    interface KahootOptions {
+        /**
+         * Options used in Challenge quizzes
+         */
+        options?:
+            | {
+                  options: {
+                      ChallengeAutoContinue: boolean;
+                      ChallengeGetFullScore: boolean;
+                      ChallengeAlwaysCorrect: boolean;
+                      ChallengeUseStreakBonus: boolean;
+                      ChallengeWaitForInput: boolean;
+                      ChallengeScore: number | null;
+                  };
+              }
+            | undefined;
+        /**
+         * Modules to load or not to load. All are enabled by default
+         */
+        modules?:
+            | {
+                  extraData?: boolean | undefined;
+                  feedback?: boolean | undefined;
+                  gameReset?: boolean | undefined;
+                  quizStart?: boolean | undefined;
+                  quizEnd?: boolean | undefined;
+                  podium?: boolean | undefined;
+                  timeOver?: boolean | undefined;
+                  reconnect?: boolean | undefined;
+                  questionReady?: boolean | undefined;
+                  questionStart?: boolean | undefined;
+                  questionEnd?: boolean | undefined;
+                  nameAccept?: boolean | undefined;
+                  teamAccept?: boolean | undefined;
+                  teamTalk?: boolean | undefined;
+                  backup?: boolean | undefined;
+                  answer?: boolean | undefined;
+              }
+            | undefined;
+
+        proxy?: ((options: RequestOptions) => void | RequestOptions) | undefined;
+        wsproxy?: (url: string) => WsProxyReturn;
+    }
+
+    /** Returned by wsproxy on KahootOptions */
+    interface WsProxyReturn {
+        address: string;
+        protocols?: string[] | undefined;
+        options?: WebSocket.ClientOptions | undefined;
+    }
+
+    interface LiveEventTimetrack {
+        id: string;
+        channel: string;
+        ext: {
+            /** Unix timestamp when the server received the message */
+            timetrack: number;
+        };
+        /** Whether the request was successful */
+        successful: boolean;
+    }
+
+    interface JoinResponse {
+        twoFactorAuth: boolean;
+        namerator: boolean;
+        participantId: boolean;
+        smartPractice: boolean;
+        collaborations: boolean;
+        liveGameId: string;
+        /** JavaScript code to evaluate and reply back to Kahoot with */
+        challenge: string;
+    }
+
+    type GameBlockType = string;
+    type GameBlockLayout = string;
+
+    interface NameAccept {
+        playerName: string;
+        activeTheme: { isRTL: boolean };
+    }
+
+    interface TeamAccept {
+        memberNames: string[];
+    }
+
+    interface TeamTalk {
+        questionIndex: number;
+        gameBlockType: GameBlockType;
+        gameBlockLayout: GameBlockLayout;
+        duration: number;
+        teamTalkDuration: number;
+    }
+
+    interface QuizStart {
+        quizQuestionAnswers: number[];
+        gameBlockCount: number;
+        shouldRemoveSeasonalTheme: boolean;
+        kahootLangIsRTL: boolean;
+        questionCount: number;
+    }
+
+    interface QuestionReady {
+        video: { startTime: number; endTime: number; service: string; fullUrl: string };
+        gameBlockIndex: number;
+        layout: string;
+        type: string;
+        timeRemaining: number;
+        timeAvailable: number;
+        numberOfAnswersAllowed: number;
+        currentQuestionAnswerCount: number;
+        numberOfChoices: number;
+        questionRestricted: boolean;
+        getReadyTimeAvailable: number;
+        getReadyTimeRemaining: number;
+        questionIndex: number;
+        timeLeft: number;
+        gameBlockLayout: GameBlockLayout;
+        gameBlockType: GameBlockType;
+        index: number;
+    }
+
+    interface QuestionStart extends QuestionReady {
+        /** @todo update type */
+        answer(): Promise<unknown>;
+    }
+
+    interface TimeOver {
+        questionNumber: number;
+    }
+
+    /** All events that can be emitted */
+    type Events = '';
+}
+
+/** The main Kahoot class */
+declare class Kahoot extends EventEmitter {
+    /**
+     * @param options Default options to configure the client
+     */
+    constructor(options?: Kahoot.KahootOptions);
+
+    /**
+     * Create a new constructor for Kahoot with the provided options as the defaults
+     * @param options Default options to configure the client
+     * @returns A new Kahoot constructor defaulting to the provided options
+     */
+    static defaults(options?: Kahoot.KahootOptions): typeof this;
+
+    /**
+     * Creates a new client and joins the game with it
+     * @param pin The game pin
+     * @param name The player name to join with
+     * @param team The team member names. If set to false, team members will not be automatically added
+     * @fires Kahoot#Joined
+     * @returns The client and the return of the join call
+     */
+    static join(
+        pin: string | number,
+        name: string,
+        team?: string[] | false,
+    ): { client: Kahoot; event: ReturnType<Kahoot['join']> };
+
+    /**
+     * Join a game
+     * @param pin The game pin
+     * @param name The player name to join with
+     * @param team The team member names. If set to false, team members will not be automatically added
+     * @fires Kahoot#Joined
+     * @fires Kahoot#TwoFactorReset
+     */
+    join(pin: string | number, name: string, team?: string[] | false): Promise<Kahoot.JoinResponse>;
+
+    /**
+     *
+     * @param team The team member names. If set to false, team members will not be automatically added
+     * @param emit Whether to emit the Join and TwoFactorReset events
+     * @fires Kahoot#Joined
+     * @fires Kahoot#TwoFactorReset
+     */
+    joinTeam(team: string[] | false, emit?: boolean): Promise<Kahoot.LiveEventTimetrack>;
+
+    /**
+     * Answer the 2FA question
+     * @param steps A list of four numbers
+     * Each number represents one of the four colors in the 2FA code (red, blue, yellow, green)
+     */
+    answerTwoFactorAuth(steps: [number, number, number, number]): Promise<Kahoot.LiveEventTimetrack>;
+
+    on(eventName: 'Joined', listener: (ev: Kahoot.JoinResponse) => void): this;
+    on(eventName: 'NameAccept', listener: (ev: Kahoot.NameAccept) => void): this;
+    on(eventName: 'TeamAccept', listener: (ev: Kahoot.TeamAccept) => void): this;
+    on(eventName: 'QuestionReady', listener: (ev: Kahoot.QuestionReady) => void): this;
+    on(eventName: 'TimeOver', listener: (ev: Kahoot.TimeOver) => void): this;
+}
+
+export = Kahoot;
