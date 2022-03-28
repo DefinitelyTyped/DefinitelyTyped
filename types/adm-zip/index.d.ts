@@ -364,7 +364,7 @@ declare namespace AdmZip {
         extraLen: number;
     }
 
-    export enum Constants {
+    enum Constants {
         /* The local file header */
         LOCHDR = 30, // LOC header size
         LOCSIG = 0x04034b50, // "PK\003\004"
