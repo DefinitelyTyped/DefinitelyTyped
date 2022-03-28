@@ -8,9 +8,10 @@
         "strictNullChecks": true,
         "baseUrl": "../",
         "typeRoots": ["../"],
-        "types": ["jquery"],
+        "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true
     },
     "files": ["index.d.ts", "zoomist-tests.ts"]
 }

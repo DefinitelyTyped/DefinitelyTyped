@@ -1,6 +1,6 @@
 // need to provide tests? 👀
 
-import Zoomist from './ts/zoomist';
+import Zoomist from 'zoomist';
 
 function checkCreateZoomist() {
     const container = document.createElement('div');
@@ -9,6 +9,7 @@ function checkCreateZoomist() {
 
     document.body.appendChild(container);
 
+    // $ExpectType Zoomist
     const zoomist = new Zoomist(container, {
         src: 'zoomist-custom-src',
         fill: 'cover',
@@ -41,52 +42,67 @@ function checkEventsFromZoomistConfig() {
 
     const zoomist = new Zoomist(container, {
         on: {
+            // $ExpectType () => void
             ready: () => console.log('ready'),
-            zoom: value => {
-                console.log('zoom val:', value);
+            // $ExpectType (r: number) => void
+            zoom: (r: number) => {
+                console.log('zoom val:', r);
             },
-            wheel: e => {
+            // $ExpectType (e: Event) => void
+            wheel: (e: Event) => {
                 console.log('event type:', e.type);
             },
-            dragStart: (t, e) => {
+            // $ExpectType (t: {}, e: Event) => void
+            dragStart: (t: {}, e: Event) => {
                 console.log('transform:', t);
                 console.log('event type:', e.type);
             },
-            drag: (t, e) => {
+            // $ExpectType (t: {}, e: Event) => void
+            drag: (t: {}, e: Event) => {
                 console.log('transform:', t);
                 console.log('event type:', e.type);
             },
-            dragEnd: (t, e) => {
+            // $ExpectType (t: {}, e: Event) => void
+            dragEnd: (t: {}, e: Event) => {
                 console.log('transform:', t);
                 console.log('event type:', e.type);
             },
-            slideStart: (v, e) => {
+            // $ExpectType (v: number, e: Event) => void
+            slideStart: (v: number, e: Event) => {
                 console.log('value:', v);
                 console.log('event type:', e.type);
             },
-            slide: (v, e) => {
+            // $ExpectType (v: number, e: Event) => void
+            slide: (v: number, e: Event) => {
                 console.log('value:', v);
                 console.log('event type:', e.type);
             },
-            slideEnd: (v, e) => {
+            // $ExpectType (v: number, e: Event) => void
+            slideEnd: (v: number, e: Event) => {
                 console.log('value:', v);
                 console.log('event type:', e.type);
             },
-            pinchStart: e => {
+            // $ExpectType (e: Event) => void
+            pinchStart: (e: Event) => {
                 console.log('event type:', e.type);
             },
-            pinch: e => {
+            // $ExpectType (e: Event) => void
+            pinch: (e: Event) => {
                 console.log('event type:', e.type);
             },
-            pinchEnd: e => {
+            // $ExpectType (e: Event) => void
+            pinchEnd: (e: Event) => {
                 console.log('event type:', e.type);
             },
+            // $ExpectType () => void
             resize: () => {
                 console.log('resize!');
             },
+            // $ExpectType () => void
             destroy: () => {
                 console.log('destroy!');
             },
+            // $ExpectType () => void
             update: () => {
                 console.log('update!');
             },
@@ -103,62 +119,84 @@ function checkEventsFromZoomistOn() {
 
     const zoomist = new Zoomist(container, {});
 
-    zoomist.on('ready', function () {
+    // $ExpectType void
+    zoomist.on('ready', () => {
         console.log('ready!');
     });
-    zoomist.on('zoom', function (ratio: number) {
+
+    // $ExpectType void
+    zoomist.on('zoom', (ratio: number) => {
         console.log('ratio:', ratio);
     });
-    zoomist.on('wheel', function (event: Event) {
+
+    // $ExpectType void
+    zoomist.on('wheel', (event: Event) => {
         console.log('event type:', event.type);
     });
 
-    zoomist.on('dragStart', function (t: { x: number; y: number }, e: Event) {
-        console.log('transform:', t);
-        console.log('event type:', e.type);
-    });
-    zoomist.on('drag', function (t: { x: number; y: number }, e: Event) {
-        console.log('transform:', t);
-        console.log('event type:', e.type);
-    });
-    zoomist.on('dragEnd', function (t: { x: number; y: number }, e: Event) {
+    // $ExpectType void
+    zoomist.on('dragStart', (t: { x: number; y: number }, e: Event) => {
         console.log('transform:', t);
         console.log('event type:', e.type);
     });
 
-    zoomist.on('slideStart', function (v: number, e: Event) {
-        console.log('value:', v);
+    // $ExpectType void
+    zoomist.on('drag', (t: { x: number; y: number }, e: Event) => {
+        console.log('transform:', t);
         console.log('event type:', e.type);
     });
-    zoomist.on('slide', function (v: number, e: Event) {
-        console.log('value:', v);
+
+    // $ExpectType void
+    zoomist.on('dragEnd', (t: { x: number; y: number }, e: Event) => {
+        console.log('transform:', t);
         console.log('event type:', e.type);
     });
-    zoomist.on('slideEnd', function (v: number, e: Event) {
+
+    // $ExpectType void
+    zoomist.on('slideStart', (v: number, e: Event) => {
         console.log('value:', v);
         console.log('event type:', e.type);
     });
 
-    zoomist.on('pinchStart', function (e: Event) {
-        console.log('event type:', e.type);
-    });
-    zoomist.on('pinch', function (e: Event) {
-        console.log('event type:', e.type);
-    });
-    zoomist.on('pinchEnd', function (e: Event) {
+    // $ExpectType void
+    zoomist.on('slide', (v: number, e: Event) => {
+        console.log('value:', v);
         console.log('event type:', e.type);
     });
 
-    zoomist.on('resize', function () {
+    // $ExpectType void
+    zoomist.on('slideEnd', (v: number, e: Event) => {
+        console.log('value:', v);
+        console.log('event type:', e.type);
+    });
+
+    // $ExpectType void
+    zoomist.on('pinchStart', (e: Event) => {
+        console.log('event type:', e.type);
+    });
+    // $ExpectType void
+    zoomist.on('pinch', (e: Event) => {
+        console.log('event type:', e.type);
+    });
+    // $ExpectType void
+    zoomist.on('pinchEnd', (e: Event) => {
+        console.log('event type:', e.type);
+    });
+
+    // $ExpectType void
+    zoomist.on('resize', () => {
         console.log('resize!');
     });
-    zoomist.on('reset', function () {
+    // $ExpectType void
+    zoomist.on('reset', () => {
         console.log('reset!');
     });
-    zoomist.on('destroy', function () {
+    // $ExpectType void
+    zoomist.on('destroy', () => {
         console.log('destroy!');
     });
-    zoomist.on('update', function () {
+    // $ExpectType void
+    zoomist.on('update', () => {
         console.log('update!');
     });
 }
