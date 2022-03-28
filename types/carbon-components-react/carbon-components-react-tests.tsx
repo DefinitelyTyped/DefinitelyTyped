@@ -67,7 +67,7 @@ import UIShellLink from 'carbon-components-react/lib/components/UIShell/Link';
 import { Popover, PopoverContent } from 'carbon-components-react/lib/components/Popover';
 import { LayoutDirection } from 'carbon-components-react/lib/components/Layout';
 import { Text } from 'carbon-components-react/lib/components/Text';
-import ComboBox from './lib/components/ComboBox';
+import ComboBox from 'carbon-components-react/lib/components/ComboBox';
 
 // test components for "as" props
 interface TestCompProps {
@@ -856,8 +856,8 @@ const SliderHasOnChange = <Slider max={0} min={10} value={5} onChange={newValue 
 {
     const TextT1 = <Text dir="ltr">Text</Text>;
 
-    // $ExpectError
     const TextT2 = (
+        // $ExpectError
         <Text dir="auto" unknownProp={3}>
             Text
         </Text>
@@ -875,8 +875,8 @@ const SliderHasOnChange = <Slider max={0} min={10} value={5} onChange={newValue 
         </Text>
     );
 
-    // $ExpectError
     const TextCustomCompT2 = (
+        // $ExpectError
         <Text as={TestComp2} dir="rtl" someProp={5} unknownProp={false}>
             Text
         </Text>
@@ -1256,5 +1256,5 @@ const dataTableSkeletonBasic = <DataTableSkeleton />;
 // ComboBox
 //
 {
-    <ComboBox items={['item 1', 'item 2', 'item 3']} />;
+    <ComboBox id="cbId" items={['item 1', 'item 2', 'item 3']} />;
 }

@@ -2,7 +2,7 @@ import { ReactDivAttr, FCProps, FCReturn } from '../../../typings/shared';
 import { CopyProps } from '../Copy';
 
 interface SharedProps {
-    children?: React.ReactNode | undefined; //TODO PropTypes.node
+    children?: React.ReactNode | undefined;
     copyText?: string | undefined;
     copyLabel?: string | undefined;
     copyButtonDescription?: string | undefined;
