@@ -2,9 +2,6 @@
     "private": true,
     "dependencies": {
         "aws-sdk": "^2.1089.0",
-        "deep-equal": "^1.0.1",
-        "joi": "^14.3.1",
-        "uuid": "^3.3.2",
         "@types/aws-lambda": "^8.10.93"
     }
 }
