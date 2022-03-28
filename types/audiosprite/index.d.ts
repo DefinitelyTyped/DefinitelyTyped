@@ -33,6 +33,7 @@ declare namespace audiosprite {
         channels?: Channels | undefined;
         rawparts?: string | undefined;
         logger?: Logger | undefined;
+        ignorerounding?: boolean | undefined;
     }
 
     interface Logger {
