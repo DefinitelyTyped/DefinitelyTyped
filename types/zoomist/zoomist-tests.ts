@@ -1,6 +1,6 @@
 // need to provide tests? 👀
 
-import Zoomist from 'zoomist';
+import Zoomist = require('zoomist');
 
 function checkCreateZoomist() {
     const container = document.createElement('div');
