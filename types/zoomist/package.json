@@ -1,7 +1,0 @@
-{
-    "name": "@types/zoomist",
-    "version": "0.1.1",
-    "description": "TypeScript definitions for ZoomistJS",
-    "main": "",
-    "types": "index.d.ts"
-}
