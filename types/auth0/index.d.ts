@@ -1323,7 +1323,7 @@ export interface GetDeviceCredentialsParams {
     type?: 'public_key' | 'refresh_token' | 'rotating_refresh_token';
 }
 
-export interface DeviceCredentials {
+export interface DeviceCredential {
     id?: string;
     device_name?: string;
     device_id?: string;
@@ -1532,8 +1532,8 @@ export class ManagementClient<A = AppMetadata, U = UserMetadata> {
     deleteClientGrant(params: ObjectWithId, cb: (err: Error) => void): void;
 
     // Device Keys
-    getDeviceCredentials(params: GetDeviceCredentialsParams): Promise<DeviceCredentials>;
-    getDeviceCredentials(params: GetDeviceCredentialsParams, cb: (err: Error, data: DeviceCredentials) => void): void;
+    getDeviceCredentials(params: GetDeviceCredentialsParams): Promise<DeviceCredential[]>;
+    getDeviceCredentials(params: GetDeviceCredentialsParams, cb: (err: Error, data: DeviceCredential[]) => void): void;
 
     createDevicePublicKey(data: Data): Promise<User<A, U>>;
     createDevicePublicKey(data: Data, cb: (err: Error, data: any) => void): void;
