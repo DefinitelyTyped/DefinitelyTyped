@@ -5,6 +5,18 @@ lucene.parse(1); // $ExpectError
 
 lucene.toString(ast); // $ExpectType string
 
+if ('right' in ast) {
+    ast; // $ExpectType BinaryAST
+    ast.left; // $ExpectType AST | Node || LeftOnlyAST | BinaryAST | NodeTerm | NodeRangedTerm
+    ast.operator; // $ExpectType Operator
+    ast.right; // $ExpectType AST | Node || LeftOnlyAST | BinaryAST | NodeTerm | NodeRangedTerm
+} else {
+    ast; // $ExpectType LeftOnlyAST
+    ast.left; // $ExpectType AST | Node || LeftOnlyAST | BinaryAST | NodeTerm | NodeRangedTerm
+    ast.operator; // $ExpectError
+    ast.right; // $ExpectError
+}
+
 lucene.phrase.escape(''); // $ExpectType string
 lucene.phrase.escape(1); // $ExpectError
 

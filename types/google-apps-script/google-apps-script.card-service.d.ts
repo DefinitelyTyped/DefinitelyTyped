@@ -3,6 +3,7 @@
 // Definitions by: PopGoesTheWza <https://github.com/PopGoesTheWza>
 //                 motemen <https://github.com/motemen/>
 //                 Safal Pillai <https://github.com/malienist>
+//                 Oleg Valter <https://github.com/Oaphi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="google-apps-script.types.d.ts" />
@@ -247,9 +248,14 @@ declare namespace GoogleAppsScript {
      *     }
      */
     interface CardService {
+      BorderType: typeof BorderType;
       ComposedEmailType: typeof ComposedEmailType;
       ContentType: typeof ContentType;
+      DisplayStyle: typeof DisplayStyle;
+      GridItemLayout: typeof GridItemLayout;
+      HorizontalAlignment: typeof HorizontalAlignment;
       Icon: typeof Icon;
+      ImageCropType: typeof ImageCropType;
       ImageStyle: typeof ImageStyle;
       LoadIndicator: typeof LoadIndicator;
       OnClose: typeof OnClose;
@@ -262,6 +268,10 @@ declare namespace GoogleAppsScript {
       newActionResponseBuilder(): ActionResponseBuilder;
       newAuthorizationAction(): AuthorizationAction;
       newAuthorizationException(): AuthorizationException;
+      /**
+       * Creates a new BorderStyle.
+       */
+      newBorderStyle(): BorderStyle;
       newButtonSet(): ButtonSet;
       newCalendarEventActionResponseBuilder(): CalendarEventActionResponseBuilder;
       newCardAction(): CardAction;
@@ -272,11 +282,32 @@ declare namespace GoogleAppsScript {
       newDatePicker(): DatePicker;
       newDateTimePicker(): DateTimePicker;
       newDecoratedText(): DecoratedText;
+      newDivider(): Divider;
       newDriveItemsSelectedActionResponseBuilder(): DriveItemsSelectedActionResponseBuilder;
+      /**
+       * Creates a new EditorFileScopeActionResponseBuilder.
+       */
+      newEditorFileScopeActionResponseBuilder(): EditorFileScopeActionResponseBuilder;
       newFixedFooter(): FixedFooter;
       newIconImage(): IconImage;
+      /**
+       * Creates a new Grid
+       */
+      newGrid(): Grid;
+      /**
+       * Creates a new GridItem.
+       */
+      newGridItem(): GridItem;
       newImage(): Image;
       newImageButton(): ImageButton;
+      /**
+       * Creates a new ImageComponent.
+       */
+      newImageComponent(): ImageComponent;
+      /**
+       * Creates a new ImageCropStyle.
+       */
+      newImageCropStyle(): ImageCropStyle;
       newKeyValue(): KeyValue;
       newNavigation(): Navigation;
       newNotification(): Notification;
@@ -288,6 +319,7 @@ declare namespace GoogleAppsScript {
       newTextButton(): TextButton;
       newTextInput(): TextInput;
       newTextParagraph(): TextParagraph;
+      newTimePicker(): TimePicker;
       newUniversalActionResponseBuilder(): UniversalActionResponseBuilder;
       newUpdateDraftActionResponseBuilder(): UpdateDraftActionResponseBuilder;
       newUpdateDraftBccRecipientsAction(): UpdateDraftBccRecipientsAction;
@@ -379,10 +411,6 @@ declare namespace GoogleAppsScript {
       setOnClickOpenLinkAction(action: Action): ImageButton;
       setOpenLink(openLink: OpenLink): ImageButton;
     }
-    /**
-     * An enum that represents the crop styles applied to image components.
-     */
-    enum ImageCropType { SQUARE, CIRCLE, RECTANGLE_CUSTOM, RECTANGLE_4_3 }
     /**
      * An enum that defines an image cropping style.
      */
@@ -668,6 +696,25 @@ declare namespace GoogleAppsScript {
       printJson(): string;
     }
     /**
+     * An input field that allows users to input a time.
+     *
+     *     // A time picker with default value of 3:30 PM.
+     *     var dateTimePicker = CardService.newTimePicker()
+     *         .setTitle("Enter the time.")
+     *         .setFieldName("time_field")
+     *         .setHours(15)
+     *         .setMinutes(30)
+     *         .setOnChangeAction(CardService.newAction()
+     *             .setFunctionName("handleTimeChange"));
+     */
+    interface TimePicker {
+      setFieldName(fieldName: string): TimePicker;
+      setHours(hours: number): TimePicker;
+      setMinutes(hours: number): TimePicker;
+      setOnChangeAction(action: Action): TimePicker;
+      setTitle(title: string): TimePicker;
+    }
+    /**
      * A builder for the UniversalActionResponse objects.
      */
     interface UniversalActionResponseBuilder {
@@ -833,6 +880,187 @@ declare namespace GoogleAppsScript {
     }
 
     /**
+     * A horizontal divider.
+     */
+    // tslint:disable-next-line:no-empty-interface
+    interface Divider {
+    }
+
+    /**
+     * An enum that represents the border types that can be applied to widgets.
+     */
+    enum BorderType {
+      /** No border style. */
+      NO_BORDER,
+      /** Stroke border style. */
+      STROKE,
+    }
+
+    /**
+     * An enum that defines the image and text style of a GridItem.
+     */
+    enum GridItemLayout {
+      /** The title and subtitle are shown below the grid item's image. */
+      TEXT_BELOW,
+      /** The title and subtitle are shown above the grid item's image. */
+      TEXT_ABOVE,
+    }
+
+    /**
+     * An enum that specifies the horizontal alignment of a widget.
+     */
+    enum HorizontalAlignment {
+      /** Align the widget to the start of the sentence side. */
+      START,
+      /** Align the widget to the center. */
+      CENTER,
+      /** Align the widget to the end of the sentence side. */
+      END,
+    }
+
+    /**
+     * An enum that represents the crop styles applied to image components.
+     * If you want to apply a crop style to an IconImage, you can only use SQUARE or CIRCLE.
+     */
+    enum ImageCropType {
+      /** Square shape crop style. */
+      SQUARE,
+      /** Circle shape crop style. */
+      CIRCLE,
+      /** Rectangle shape crop style with custom ratio. */
+      RECTANGLE_CUSTOM,
+      /** Rectangle shape crop style with 4:3 ratio. */
+      RECTANGLE_4_3,
+    }
+
+    /**
+     * A class that represents a complete border style that can be applied to widgets.
+     */
+    interface BorderStyle {
+      /**
+       * Sets the corner radius of the border, for example 8.
+       */
+      setCornerRadius(radius: number): BorderStyle;
+      /**
+       * The color in #RGB format to be applied to the border.
+       */
+      setStrokeColor(color: string): BorderStyle;
+      /**
+       * Sets the type of the border.
+       */
+      setType(type: BorderType): BorderStyle;
+    }
+
+    /**
+     * A class that represents a crop style that can be applied to image components.
+     */
+    interface ImageCropStyle {
+      /**
+       * Sets the aspect ratio to use if the crop type is RECTANGLE_CUSTOM. The ratio must be a positive value.
+       */
+      setAspectRatio(ratio: number): ImageCropStyle;
+      /**
+       * Sets the crop type for the image.
+       */
+      setImageCropType(type: ImageCropType): ImageCropStyle;
+    }
+
+    /**
+     * An image component that can be added to grid items.
+     */
+    interface ImageComponent {
+      /**
+       * Sets the alternative text of the image.
+       */
+      setAltText(altText: string): ImageComponent;
+      /**
+       * Sets the border style applied to the image.
+       */
+      setBorderStyle(borderStyle: BorderStyle): ImageComponent;
+      /**
+       * Sets the crop style for the image.
+       */
+      setCropStyle(imageCropStyle: ImageCropStyle): ImageComponent;
+      /**
+       * Sets the URL of the image.
+       */
+      setImageUrl(url: string): ImageComponent;
+    }
+
+    /**
+     * The items users interact with within a grid widget.
+     */
+    interface GridItem {
+      /**
+       * Sets the identifier for the grid item. When a user clicks this grid item,
+       * this ID is returned in the parent grid's on_click call back parameters.
+       */
+      setIdentifier(id: string): GridItem;
+      /**
+       * Sets the image for this grid item.
+       */
+      setImage(image: ImageComponent): GridItem;
+      /**
+       * Sets the layout of text and image for the grid item. Default is TEXT_BELOW
+       */
+      setLayout(layout: GridItemLayout): GridItem;
+      /**
+       * Sets the subtitle of the grid item.
+       */
+      setSubtitle(subtitle: string): GridItem;
+      /**
+       * Sets the horizontal alignment of the grid item. Default is START.
+       */
+      setTextAlignment(alignment: HorizontalAlignment): GridItem;
+      /**
+       * Sets the title text of the grid item.
+       */
+      setTitle(title: string): GridItem;
+    }
+
+    /**
+     * An organized grid to display a collection of grid items.
+     */
+    interface Grid {
+      /**
+       * Adds a new grid item to the grid.
+       */
+      addItem(gridItem: GridItem): Grid;
+      /**
+       * Sets an authorization action that opens a URL to the authorization flow when the object is clicked.
+       */
+      setAuthorizationAction(action: AuthorizationAction): Grid;
+      /**
+       * Sets the border style applied to each grid item.
+       */
+      setBorderStyle(borderStyle: BorderStyle): Grid;
+      /**
+       * Sets an action that composes a draft email when the object is clicked.
+       */
+      setComposeAction(action: Action, composedEmailType: ComposedEmailType): Grid;
+      /**
+       * The number of columns to display in the grid.
+       */
+      setNumColumns(numColumns: number): Grid;
+      /**
+       * Sets an action that executes when the object is clicked.
+       */
+      setOnClickAction(action: Action): Grid;
+      /**
+       * Sets an action that opens a URL in a tab when the object is clicked.
+       */
+      setOnClickOpenLinkAction(action: Action): Grid;
+      /**
+       * Sets a URL to be opened when the object is clicked.
+       */
+      setOpenLink(openLink: OpenLink): Grid;
+      /**
+       * Sets the title text of the grid.
+       */
+      setTitle(title: string): Grid;
+    }
+
+    /**
      * A builder for DriveItemsSelectedActionResponse objects.
      */
     interface DriveItemsSelectedActionResponseBuilder {
@@ -845,6 +1073,29 @@ declare namespace GoogleAppsScript {
      */
     interface DriveItemsSelectedActionResponse {
       printJson(): string;
+    }
+
+    /**
+     * Makes changes to an Editor, such as Google Docs, Sheets, or Slides in reaction to an action taken in the UI.
+     */
+    interface EditorFileScopeActionResponse {
+        /**
+         * Prints the JSON representation of this object.
+         */
+        printJson(): string;
+    }
+    /**
+     * A builder for EditorFileScopeActionResponse objects.
+     */
+    interface EditorFileScopeActionResponseBuilder {
+        /**
+         * Builds the current Editor action response.
+         */
+        build(): EditorFileScopeActionResponse;
+        /**
+         * Requests the drive.file scope for the current active Editor document.
+         */
+        requestFileScopeForActiveDocument(): EditorFileScopeActionResponseBuilder;
     }
 
     /**

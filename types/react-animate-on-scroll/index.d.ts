@@ -18,6 +18,14 @@ export interface ScrollAnimationProps {
     style?: object | undefined;
     scrollableParentSelector?: string | undefined;
     className?: string | undefined;
+    animatePreScroll?: boolean | undefined;
+    afterAnimatedOut?: (visibile: VisibleType) => {} | undefined;
+    afterAnimatedIn?: (visibile: VisibleType) => {} | undefined;
+}
+
+export interface VisibleType {
+    inViewport: boolean;
+    onScreen: boolean;
 }
 
 export default class ScrollAnimation extends React.Component<ScrollAnimationProps> {

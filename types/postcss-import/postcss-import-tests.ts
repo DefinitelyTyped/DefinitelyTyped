@@ -1,7 +1,8 @@
-import postcss = require('postcss');
+import postcss from 'postcss';
 import atImport = require('postcss-import');
 
 postcss().use(atImport());
+postcss().use(atImport({ filter: path => path !== 'ignore.css' }));
 postcss().use(atImport({ root: '' }));
 postcss().use(atImport({ path: '' }));
 postcss().use(atImport({ path: [''] }));

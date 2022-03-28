@@ -43,7 +43,7 @@ declare namespace Cloudflare {
     }
 
     interface DnsRecordWithPriority {
-        type: Exclude<RecordTypes, 'MX' | 'SRV' | 'URI'>;
+        type: Extract<RecordTypes, 'MX' | 'URI'>;
         name: string;
         content: string;
         ttl: number;

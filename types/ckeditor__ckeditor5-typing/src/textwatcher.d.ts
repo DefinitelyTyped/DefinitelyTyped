@@ -6,15 +6,16 @@ import { PriorityString } from '@ckeditor/ckeditor5-utils/src/priorities';
 import { TextTransformationDescription } from './texttransformation';
 
 export default class TextWatcher implements Observable {
-    readonly hasMatch: boolean;
-    isEnabled: boolean;
-    readonly model: Model;
-    testCallback: (str: string) => boolean | { normalizedTransformation: TextTransformationDescription };
-
     constructor(
         model: Model,
         testCallback: (str: string) => boolean | { normalizedTransformation: TextTransformationDescription },
     );
+    readonly model: Model;
+    get hasMatch(): boolean;
+    protected set hasMatch(value: boolean);
+    get isEnabled(): boolean;
+    protected set isEnabled(value: boolean);
+    testCallback: (str: string) => boolean | { normalizedTransformation: TextTransformationDescription };
 
     set(option: Record<string, unknown>): void;
     set(name: string, value: unknown): void;

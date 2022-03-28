@@ -1,7 +1,10 @@
-import * as React from "react";
-import { CleaveOptions } from "../options";
+import Cleave = require('../');
+import * as React from 'react';
+import { CleaveOptions } from '../options';
 
-export type InitHandler = (owner: React.ReactInstance) => void;
+export type ReactInstanceWithCleave = React.ReactInstance & Omit<Cleave, 'destroy'>;
+
+export type InitHandler = (owner: ReactInstanceWithCleave) => void;
 
 export interface ChangeEvent<T> extends React.ChangeEvent<T> {
     target: { rawValue: string } & EventTarget & T;

@@ -93,8 +93,18 @@ import { CopyOptions, cpSync, cp } from 'fs';
 }
 
 {
+    // 6-param version using no default options:
     fs.read(1, new DataView(new ArrayBuffer(1)), 0, 1, 0, (err: NodeJS.ErrnoException | null, bytesRead: number, buffer: DataView) => { });
     fs.read(1, Buffer.from('test'), 1, 2, 123n, () => { });
+    // 3-param version using no default options:
+    fs.read(1, {buffer: new DataView(new ArrayBuffer(1)), offset: 0, length: 1, position: 0}, (err: NodeJS.ErrnoException | null, bytesRead: number, buffer: DataView) => { });
+    fs.read(1, {buffer: Buffer.from('test'), offset: 1, length: 2, position: 123n}, () => { });
+    // 3-param version using some default options:
+    fs.read(1, {length: 1, position: 0}, (err: NodeJS.ErrnoException | null, bytesRead: number, buffer: NodeJS.ArrayBufferView) => { });
+    fs.read(1, {buffer: Buffer.from('test'), position: 123n}, () => { });
+    // 2-param version using all-default options:
+    fs.read(1, (err: NodeJS.ErrnoException | null, bytesRead: number, buffer: NodeJS.ArrayBufferView) => { });
+    fs.read(1, () => { });
 }
 
 {
@@ -191,6 +201,20 @@ async function testPromisify() {
         signal: new AbortSignal(),
     }, (event, filename) => {
         console.log(event, filename);
+    });
+}
+
+{
+    fs.watchFile('/tmp/foo-', (current, previous) => {
+        console.log(current, previous);
+    });
+
+    fs.watchFile('/tmp/foo-', {
+        persistent: true,
+        bigint: true,
+        interval: 1000,
+    }, (current, previous) => {
+        console.log(current, previous);
     });
 }
 
@@ -426,6 +450,9 @@ async () => {
         length: 3,
     })).buffer; // $ExpectType Uint32Array
 
+    await handle.read(new Uint32Array(), 1, 2, 3);
+    await handle.read(Buffer.from('hurr'));
+
     await handle.write('hurr', 0, 'utf-8');
     await handle.write(Buffer.from('hurr'), 0, 42, 10);
 };
@@ -455,6 +482,14 @@ async () => {
     await writeFileAsync('test',  async function *() { yield 'yeet'; }());
     await writeFileAsync('test', process.stdin);
 };
+
+{
+    fs.createReadStream('path').close();
+    fs.createReadStream('path').close((err?: NodeJS.ErrnoException | null) => {});
+
+    fs.createWriteStream('path').close();
+    fs.createWriteStream('path').close((err?: NodeJS.ErrnoException | null) => {});
+}
 
 {
     fs.readvSync(123, [Buffer.from('wut')] as ReadonlyArray<NodeJS.ArrayBufferView>);

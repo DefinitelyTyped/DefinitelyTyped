@@ -11,7 +11,8 @@ on:
   # https://docs.github.com/en/actions/managing-workflow-runs/manually-running-a-workflow
   workflow_dispatch:
 jobs:
-  build:
+  support-window:
+    if: github.repository == 'DefinitelyTyped/DefinitelyTyped'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -38,5 +39,9 @@ jobs:
       - run: git add docs/support-window.json docs/support-window.svg
       - run: git config user.name .github/workflows/support-window.yml
       - run: git config user.email bot@typescriptlang.org
-      - run: git diff --quiet --cached || git commit --message "[README] 🤖 Update support window diagram"
+      - run: |
+          git diff --quiet --cached ||
+          git commit \
+            --message "[README] 🤖 Update support window diagram" \
+            --message "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID" \
       - run: git push

@@ -1,8 +1,6 @@
 // Type definitions for auth0 2.34
 // Project: https://github.com/auth0/node-auth0
-// Definitions by: Seth Westphal <https://github.com/westy92>
-//                 Ian Howe <https://github.com/ianhowe76>
-//                 Alex Bjørlig <https://github.com/dauledk>
+// Definitions by: Ian Howe <https://github.com/ianhowe76>
 //                 Dan Rumney <https://github.com/dancrumb>
 //                 Peter <https://github.com/pwrnrd>
 //                 Anthony Messerschmidt <https://github.com/CatGuardian>
@@ -455,6 +453,7 @@ export type Strategy =
     | 'guardian'
     | 'instagram'
     | 'ip'
+    | 'line'
     | 'linkedin'
     | 'miicard'
     | 'oauth1'
@@ -634,9 +633,19 @@ export interface RequestSMSOptions {
     phone_number: string;
 }
 
-export interface VerifyOptions {
+export interface VerifySMSOptions {
+    username: string;
+    otp: string;
+}
+
+export interface VerifySMSOptionsDeprecated {
     username: string;
     password: string;
+}
+
+export interface VerifyEmailOptions {
+    email: string;
+    otp: string;
 }
 
 export interface DelegationTokenOptions {
@@ -654,8 +663,9 @@ export interface ResetPasswordOptions {
 }
 
 export interface ResetPasswordEmailOptions {
-    email: string;
+    client_id?: string | undefined;
     connection: string;
+    email: string;
 }
 
 export interface ClientCredentialsGrantOptions {
@@ -746,6 +756,7 @@ export type UnlinkAccountsParamsProvider =
     | 'guardian'
     | 'instagram'
     | 'ip'
+    | 'line'
     | 'linkedin'
     | 'miicard'
     | 'oauth1'
@@ -976,6 +987,7 @@ export interface SignInOptions {
     username: string;
     otp: string;
     realm?: 'email' | 'sms';
+    audience?: string | undefined;
     /**
      * @deprecated
      */
@@ -991,11 +1003,15 @@ export interface SocialSignInOptions {
     connection: string;
 }
 
+/**
+ * @see {https://auth0.com/docs/authenticate/passwordless/implement-login/embedded-login/relevant-api-endpoints#post-oauth-token}
+ */
 export interface SignInToken {
     access_token: string;
-    id_token?: string | undefined;
-    token_type?: string | undefined;
-    expiry: number;
+    refresh_token?: string | undefined;
+    id_token: string;
+    token_type: string;
+    expires_in: number;
 }
 
 export interface RequestSMSCodeOptions extends RequestSMSOptions {
@@ -1121,11 +1137,11 @@ export class AuthenticationClient {
     requestSMSCode(data: RequestSMSOptions): Promise<any>;
     requestSMSCode(data: RequestSMSOptions, cb: (err: Error, message: string) => void): void;
 
-    verifyEmailCode(data: VerifyOptions): Promise<any>;
-    verifyEmailCode(data: VerifyOptions, cb: (err: Error, message: string) => void): void;
+    verifyEmailCode(data: VerifyEmailOptions): Promise<any>;
+    verifyEmailCode(data: VerifyEmailOptions, cb: (err: Error, message: string) => void): void;
 
-    verifySMSCode(data: VerifyOptions): Promise<any>;
-    verifySMSCode(data: VerifyOptions, cb: (err: Error, message: string) => void): void;
+    verifySMSCode(data: VerifySMSOptions | VerifySMSOptionsDeprecated): Promise<any>;
+    verifySMSCode(data: VerifySMSOptions | VerifySMSOptionsDeprecated, cb: (err: Error, message: string) => void): void;
 
     getDelegationToken(data: DelegationTokenOptions): Promise<any>;
     getDelegationToken(data: DelegationTokenOptions, cb: (err: Error, message: string) => void): void;
@@ -1258,6 +1274,10 @@ export interface OrganizationInvitation {
     roles?: string[] | undefined;
 }
 
+export interface OrganizationInvitationsPaged extends Omit<Page, 'length'> {
+    invitations: OrganizationInvitation[];
+}
+
 export interface CreateOrganizationInvitation {
     inviter: {
         name: string;
@@ -1366,11 +1386,22 @@ export class OrganizationsManager {
     removeMembers(params: ObjectWithId, data: RemoveOrganizationMembers, cb: (err: Error) => void): void;
 
     getInvitations(
-        params: ObjectWithId & PagingOptions & { fields?: string; include_fields?: boolean; sort?: string },
+        params: ObjectWithId &
+            PagingOptions & { fields?: string; include_fields?: boolean; sort?: string; include_totals?: false },
     ): Promise<OrganizationInvitation[]>;
     getInvitations(
-        params: ObjectWithId & PagingOptions & { fields?: string; include_fields?: boolean; sort?: string },
+        params: ObjectWithId &
+            PagingOptions & { fields?: string; include_fields?: boolean; sort?: string; include_totals: true },
+    ): Promise<OrganizationInvitationsPaged>;
+    getInvitations(
+        params: ObjectWithId &
+            PagingOptions & { fields?: string; include_fields?: boolean; sort?: string; include_totals?: false },
         cb: (err: Error, invitations: OrganizationInvitation[]) => void,
+    ): void;
+    getInvitations(
+        params: ObjectWithId &
+            PagingOptions & { fields?: string; include_fields?: boolean; sort?: string; include_totals: true },
+        cb: (err: Error, pagedInvitations: OrganizationInvitationsPaged) => void,
     ): void;
 
     getInvitation(

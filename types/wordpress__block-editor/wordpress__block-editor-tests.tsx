@@ -1,6 +1,8 @@
 import { BlockInstance } from '@wordpress/blocks';
 import * as be from '@wordpress/block-editor';
+import * as UseBlockProps from '@wordpress/block-editor/components/use-block-props';
 import { dispatch, select } from '@wordpress/data';
+import { useRef } from 'react';
 
 declare const BLOCK_INSTANCE: BlockInstance;
 
@@ -300,9 +302,7 @@ be.withFontSizes('fontSize')(() => <h1>Hello World</h1>);
             label: 'Background Color',
         },
     ]}
->
-    Hello World
-</be.PanelColorSettings>;
+/>;
 
 //
 // plain-text
@@ -534,3 +534,26 @@ select('core/block-editor').getAdjacentBlockClientId();
 select('core/block-editor').getAdjacentBlockClientId('foo');
 select('core/block-editor').getAdjacentBlockClientId('foo', -1);
 select('core/block-editor').getAdjacentBlockClientId('foo', 1);
+
+{
+  const blockProps: UseBlockProps.Merged & UseBlockProps.Reserved = be.useBlockProps();
+  blockProps;
+}
+
+{
+  const blockProps = be.useBlockProps({ foo: "bar" });
+  // $ExpectType string
+  blockProps.foo;
+}
+
+{
+  const blockProps = be.useBlockProps({ ref: useRef("test") });
+
+  blockProps.ref((current: unknown) => {});
+}
+
+// $ExpectType Record<string, unknown>
+be.useBlockProps.save();
+
+// $ExpectType Record<string, unknown>
+be.useBlockProps.save({ foo: "bar" });

@@ -38,7 +38,6 @@ export class Euler {
     equals(euler: Euler): boolean;
     fromArray(xyzo: any[]): Euler;
     toArray(array?: number[], offset?: number): number[];
-    toVector3(optionalResult?: Vector3): Vector3;
     _onChange(callback: () => void): this;
 
     static RotationOrders: string[];

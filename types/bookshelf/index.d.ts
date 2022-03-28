@@ -2,7 +2,7 @@
 // Project: http://bookshelfjs.org/
 // Definitions by: Andrew Schurman <https://github.com/arcticwaters>
 //                 Vesa Poikajärvi <https://github.com/vesse>
-//                 Ian Serpa <http://github.com/ianldgs>
+//                 Ian Serpa <https://github.com/ianldgs>
 //                 Ryan Williams <https://github.com/RyWilliams>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.6

@@ -1,4 +1,4 @@
-// Type definitions for event-stream v3.3.2
+// Type definitions for event-stream v4.0
 // Project: https://github.com/dominictarr/event-stream
 // Definitions by: David Gardiner <https://github.com/flcdrg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -7,7 +7,7 @@
 
 import * as stream from 'stream';
 
-interface MapStream extends stream.Stream {
+export interface MapStream extends stream.Stream {
     writable: boolean;
     readable: boolean;
 
@@ -17,6 +17,11 @@ interface MapStream extends stream.Stream {
     resume: () => void;
     write: any;
 }
+
+/**
+ * Create a stream from a series of MapStreams
+ */
+export declare function pipeline(...streams: MapStream[]):  MapStream;
 
 /**
  * Create a through stream from an asynchronous function
@@ -30,6 +35,12 @@ export declare function map(asyncFunction: Function):  MapStream;
  * @param syncFunction
  */
 export declare function mapSync(syncFunction: Function):  MapStream;
+
+/**
+ * Filter elements of the stream.
+ * @param syncFunction
+ */
+export declare function filterSync(syncFunction: (value: any) => boolean):  MapStream;
 
 /**
  * Break up a stream and reassemble it so that each line is a chunk. matcher may be a String, or a RegExp

@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 
-import { WEBGL } from 'three/examples/jsm/WebGL';
+import WEBGL from 'three/examples/jsm/capabilities/WebGL';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 let camera: THREE.PerspectiveCamera;

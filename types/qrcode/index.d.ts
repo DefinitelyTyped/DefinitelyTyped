@@ -1,5 +1,5 @@
 // Type definitions for qrcode 1.4
-// Project: http://github.com/soldair/node-qrcode
+// Project: https://github.com/soldair/node-qrcode
 // Definitions by: York Yao <https://github.com/plantain-00>
 //                 Michael Nahkies <https://github.com/mnahkies>
 //                 Rémi Sormain <https://github.com/Marchelune>

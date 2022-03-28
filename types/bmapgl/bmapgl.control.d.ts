@@ -1,6 +1,6 @@
 // Type definitions for BaiduMap JsAPI GL v1.0
 // Project: http://lbsyun.baidu.com/index.php?title=jspopularGL
-// Definitions by: Junior2ran <http://github.com/Junior2ran>
+// Definitions by: Junior2ran <https://github.com/Junior2ran>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /* *****************************************************************************

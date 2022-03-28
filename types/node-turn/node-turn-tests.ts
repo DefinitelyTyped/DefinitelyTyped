@@ -1,11 +1,11 @@
-import Turn = require('node-turn');
+import TurnServer = require('node-turn');
 
-const server1 = new Turn({});
+const server1 = new TurnServer();
 
 server1.start();
 server1.stop();
 
-const server2 = new Turn({
+const server2 = new TurnServer({
     listeningPort: 8085,
     minPort: 49152,
     maxPort: 65535,
@@ -24,3 +24,16 @@ server2.addUser('test2', 'abc');
 server2.removeUser('test1');
 server2.removeUser('test2');
 server2.stop();
+
+class MyTurnServer extends TurnServer {
+    constructor() {
+        super();
+
+        void this.software;
+    }
+}
+
+const server3 = new MyTurnServer();
+
+void server3.listeningPort;
+void server3.staticCredentials;

@@ -49,15 +49,16 @@ Se você mesmo assim não consegue achar o pacote, verifique se ele [inclui](htt
 Isso normalmente é informado nos campos `"types"` ou `"typings"` no `package.json`,
 ou apenas procure por qualquer arquivo ".d.ts" no pacote e manualmente inclua-os com `/// <reference path="" />`.
 
-#### Versões antigas do TypeScript (3.6 e anteriores)
+#### Versões antigas do TypeScript (3.7 e anteriores)
 
 O Definitely Typed testa apenas pacotes em versões do TypeScript que tenham sido lançadas a menos de 2 anos.
-Atualmente, as versões 3.7 e acima são testadas.
-Se você está usando as versões 2.0 a 3.6 do TypeScript, você ainda pode tentar instalar os pacotes `@types` &mdash; a maioria dos pacotes não usam as novas funcionalidades chiques do TypeScript.
+Atualmente, as versões 3.8 e acima são testadas.
+Se você está usando as versões 2.0 a 3.7 do TypeScript, você ainda pode tentar instalar os pacotes `@types` &mdash; a maioria dos pacotes não usam as novas funcionalidades chiques do TypeScript.
 Mas não tem nenhuma garantia de que elas funcionarão.
 Esta é a tabela de duração de suporte das versões.
 
-<img src="docs/support-window.svg" style="width:100%">
+<img src="docs/support-window.svg#gh-light-mode-only" style="width:100%">
+<img src="docs/support-window.svg#gh-dark-mode-only" style="width:100%">
 
 Pacotes `@types` têm tags para versões do TypeScript que elas explicitamente suportam, então normalmente você pode usar versões mais antigas dos pacotes que precedem o período de 2 anos.
 Por exemplo, se você executar o comando `npm dist-tags @types/react`, você verá que o TypeScript 2.5 pode usar os tipos para o react@16.0, enquanto o TypeScript 2.6 e 2.7 podem usar os tipos para o react@16.4:
@@ -246,7 +247,7 @@ Para mais detalhes, veja o arquivo readme do [dtslint](https://github.com/Micros
 
 #### Linter: `tslint.json`
 
-The linter configuration file, `tslint.json` should contain `{ "extends": "dtslint/dt.json" }`, and no additional rules.
+The linter configuration file, `tslint.json` should contain `{ "extends": "@definitelytyped/dtslint/dt.json" }`, and no additional rules.
 
 If for some reason some rule needs to be disabled, [disable it for that specific line](https://palantir.github.io/tslint/usage/rule-flags/#comment-flags-in-source-code:~:text=%2F%2F%20tslint%3Adisable%2Dnext%2Dline%3Arule1%20rule2%20rule3...%20%2D%20Disables%20the%20listed%20rules%20for%20the%20next%20line) using `// tslint:disable-next-line:[ruleName]` — not for the whole package, so that disabling can be reviewed. (There are some legacy lint configs that have additional contents, but these should not happen in new work.)
 
@@ -349,7 +350,7 @@ Então eles estão errados, e nós não notamos ainda. Você pode ajudar enviand
 
 #### Posso requisitar uma definição?
 
-Aqui estão as [definições requisitadas atualmente](https://github.com/DefinitelyTyped/DefinitelyTyped/labels/Definition%3ARequest).
+Aqui estão as [definições requisitadas atualmente](https://github.com/DefinitelyTyped/DefinitelyTyped/discussions/categories/request-a-new-types-package).
 
 #### Mas e as definições de tipo para a DOM?
 
@@ -474,7 +475,7 @@ Porque o diretório-raíz deve sempre conter as declarações de tipo para as ú
 
 Por exemplo, a biblioteca [`history`](https://github.com/ReactTraining/history/) introduziu mudanças drásticas entre a versão `2.x` e `3.x`.
 Mas porque muitos usuários ainda consumiam a antiga versão `2.x`, o mantenedor que queria atualizar as declarações de tipo dessa biblioteca para a versão `3.x` adidionou uma pasta `v2` dentro do repositório "history" que contém declarações de tipo para a versão anterior.
-No tempo de escrita, a [history v2 `tsconfig.json`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/1253faabf5e0d2c5470db6ea87795d7f96fef7e2/types/history/v2/tsconfig.json) está assim:
+No tempo de escrita, a [history v2 `tsconfig.json`](https://github.com/%44efinitelyTyped/DefinitelyTyped/blob/1253faabf5e0d2c5470db6ea87795d7f96fef7e2/types/history/v2/tsconfig.json) está assim:
 
 ```json
 {

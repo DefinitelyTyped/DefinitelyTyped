@@ -81,5 +81,5 @@ $('.alert').popover('hide'); // $ExpectType void
 $('.alert').popover('toggle'); // $ExpectType void
 $('.alert').popover('enable'); // $ExpectType void
 $('.alert').popover('disable'); // $ExpectType void
-$('.alert').popover('toggleEnable'); // $ExpectType void
+$('.alert').popover('toggleEnabled'); // $ExpectType void
 $('.alert').popover('update'); // $ExpectType void

@@ -4,13 +4,12 @@
 //                  Shenghan Gao <https://github.com/wy193777>
 //                  Yuri Pereira Constante <https://github.com/ypconstante>
 //                  Jan-Niclas Struewer <https://github.com/janniclas>
-//                  Cerberuser <https://github.com/cerberuser>
 //                  Andrej Kirejeŭ <https://github.com/gsbelarus>
 //                  Peter Ferrarotto <https://github.com/peterjferrarotto>
 //                  Xavier Ho <https://github.com/spaxe>
-//                  Jongsu Liam Kim <https://github.com/appleparan>
 //                  Fredrik Sandström <https://github.com/Veckodag>
 //                  Jan Zak <https://github.com/zakjan>
+//                  Johan Svensson <https://github.com/jsve>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 //
 // Translation from Objects in help to Typescript interface.
@@ -71,7 +70,8 @@ export = cytoscape;
 export as namespace cytoscape;
 
 declare function cytoscape(options?: cytoscape.CytoscapeOptions): cytoscape.Core;
-declare function cytoscape(extensionName: string, foo: string, bar: any): cytoscape.Core;
+declare function cytoscape(type: string, name: string): unknown;
+declare function cytoscape(type: string, name: string, registrant: any): void;
 
 declare namespace cytoscape {
     interface Position {
@@ -4418,6 +4418,18 @@ declare namespace cytoscape {
              * Note that edges are under nodes despite "z-index", except when necessary for compound nodes.
              */
             'z-index': PropertyValue<SingularType, number>;
+            /**
+             * May be bottom, orphan, auto (default), or top. The first drawn is bottom, the second is orphan,
+             * which is the same depth as the root of the compound graph, followed by the default of auto
+             * which draws in depth order from root to leaves of the compound graph. The last drawn is top.
+             * It does not usually make sense to set this value for non-compound graphs.
+             */
+            'z-compound-depth': PropertyValue<SingularType, 'auto' | 'top' | 'bottom' | 'orphan'>;
+            /**
+             * May be auto (default) or manual. The auto setting draws edges under nodes,
+             * whereas manual ignores this convention and draws solely based on the z-index value.
+             */
+            'z-index-compare': PropertyValue<SingularType, 'auto' | 'manual'>;
         }
 
         /** https://developer.mozilla.org/en-US/docs/Web/CSS/font-style */
@@ -5489,7 +5501,7 @@ declare namespace cytoscape {
      *  export = ext;
      * }
      */
-    type Ext = (cytoscape: (options?: CytoscapeOptions) => Core) => void;
+    type Ext = (cy: typeof cytoscape) => void;
     /**
      * Register imported extension into cytoscape
      * @param module Entry point for the extension, got by module = require('cy-ext')

@@ -1,6 +1,7 @@
-// Type definitions for splunk-logging 0.9
+// Type definitions for splunk-logging 0.11
 // Project: http://dev.splunk.com
 // Definitions by: Alex Brick <https://github.com/bricka>
+//                 Borui Gu <https://github.com/BoruiGu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -41,7 +42,7 @@ export class Logger {
     error: (error: Error, context: SendContext) => void;
     eventFormatter: EventFormatter;
     requestOptions: RequestOptions;
-    readonly serializedEventQueue: any[];
+    readonly serializedContextQueue: any[];
 
     constructor(config: Config);
 

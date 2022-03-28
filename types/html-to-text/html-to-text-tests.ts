@@ -50,6 +50,7 @@ const htmlOptions: HtmlToTextOptions = {
     tags: {
         a: {
             options: {
+                linkBrackets: ['===> ', ' <==='],
                 hideLinkHrefIfSameAsText: true,
             },
         },

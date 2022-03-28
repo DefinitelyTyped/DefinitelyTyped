@@ -18,6 +18,10 @@ import FileUploader from "sap/ui/unified/FileUploader";
 import FileUploaderParameter from "sap/ui/unified/FileUploaderParameter";
 import ODataV4ListBinding from "sap/ui/model/odata/v4/ODataListBinding";
 import Target from "sap/ui/core/routing/Target";
+import MessagePage from "sap/m/MessagePage";
+import { TitleLevel } from "sap/ui/core/library";
+import DateTimePicker from "sap/m/DateTimePicker";
+import DateFormatTimezoneDisplay from "sap/ui/core/format/DateFormatTimezoneDisplay";
 
 /*
  * REMARK: the type definition files are automatically generated and this generation is tested,
@@ -29,19 +33,13 @@ Core.attachInit(() => {
     new Text({
         text: "Hello World"
     }).placeAt("content");
-});
 
-Core.attachInit(() => {
     new XMLView({
         viewName: "sap.ui.demo.wt.App"
     }).placeAt("content");
 });
 
 class Ctrl extends Controller {
-    constructor(private readonly JSONModel: JSONModel) {
-        super(undefined);
-    }
-
     onShowHello(): void {
         // show a native JavaScript alert
         alert("Hello World");
@@ -63,18 +61,7 @@ class Ctrl extends Controller {
     }
 }
 
-sap.ui.define([
-    "sap/ui/core/mvc/Controller"
-], (Controller: Controller, JSONModel: JSONModel) => {
-    "use strict";
-
-    return new Ctrl(JSONModel);
-});
-
 export class BaseController extends Controller {
-    constructor() {
-        super(undefined);
-    }
     getRouter() {
         return (<UIComponent> this.getOwnerComponent()).getRouter();
     }
@@ -118,7 +105,7 @@ const oUploadDialog = new Dialog(undefined);
 oUploadDialog.setTitle("Upload photo");
 const oDataV2Model = Core.getModel(undefined) as ODataModel;
 oDataV2Model.refreshSecurityToken();
-oDataV2Model.bindList("/", null, [], [], {createdEntitiesKey: "test"});
+oDataV2Model.bindList("/", undefined, [], [], {createdEntitiesKey: "test"});
 // prepare the FileUploader control
 const oFileUploader = new FileUploader({
     headerParameters: [
@@ -144,9 +131,19 @@ const oTriggerButton = new Button({
         oFileUploader.upload();
     }
 });
+
+const dateTimePicker = new DateTimePicker({showCurrentTimeButton: true});
+dateTimePicker.setShowCurrentTimeButton(!dateTimePicker.getShowCurrentTimeButton());
 oUploadDialog.addContent(oFileUploader);
 oUploadDialog.addContent(oTriggerButton);
+oUploadDialog.addContent(dateTimePicker);
 oUploadDialog.open();
+
+const messagePage: MessagePage = new MessagePage();
+messagePage.setTitleLevel(TitleLevel.H1);
 
 const odataV4ListBinding = new ODataV4ListBinding();
 const odataV4ListBindingCount = odataV4ListBinding.getCount();
+const context = odataV4ListBinding.getKeepAliveContext("x");
+
+const showTimeZone = DateFormatTimezoneDisplay.Show;

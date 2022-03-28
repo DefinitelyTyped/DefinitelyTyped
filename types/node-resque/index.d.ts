@@ -1,5 +1,5 @@
 // Type definitions for node-resque 5.5
-// Project: http://github.com/taskrabbit/node-resque
+// Project: https://github.com/taskrabbit/node-resque
 // Definitions by: Gordey Doronin <https://github.com/gordey4doronin>, Pete Nykänen <https://github.com/petetnt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1

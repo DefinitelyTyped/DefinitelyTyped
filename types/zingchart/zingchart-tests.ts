@@ -20,6 +20,7 @@ zingchart.render({
             },
             labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
             lineColor: 'red',
+            offsetStart: '10%',
         },
         scaleY: {
             autoFit: true,
@@ -46,6 +47,22 @@ zingchart.render({
         zoom: {
             shared: true,
         }
+    }],
+    labels: [{
+        alpha: 0.5,
+        text: 'testing',
+    }],
+    scaleX: {
+        step: '3hour',
+        transform: {
+            type: 'date',
+        },
+    },
+    series: [{
+        borderRadius: 3,
+        legendMarker: {
+            lineStyle: 'dotted',
+        },
     }],
     zoom: {},
     zoomSnap: true,

@@ -9,6 +9,7 @@
 //                 Cameron Diver <https://github.com/CameronDiver>
 //                 Pascal Sthamer <https://github.com/p4sca1>
 //                 Stuart Thomson <https://github.com/stuartthomson>
+//                 Luis Rueda <https://github.com/userlerueda>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -86,7 +87,7 @@ declare namespace Dockerode {
         wait(callback: Callback<any>): void;
         wait(options?: ContainerWaitOptions): Promise<any>;
 
-        remove(options: {}, callback: Callback<any>): void;
+        remove(options: ContainerRemoveOptions, callback: Callback<any>): void;
         remove(callback: Callback<any>): void;
         remove(options?: {}): Promise<any>;
 
@@ -146,9 +147,13 @@ declare namespace Dockerode {
         tag(callback: Callback<any>): void;
         tag(options?: {}): Promise<any>;
 
-        remove(options: {}, callback: Callback<ImageRemoveInfo>): void;
+        remove(options: ImageRemoveOptions, callback: Callback<ImageRemoveInfo>): void;
         remove(callback: Callback<ImageRemoveInfo>): void;
         remove(options?: {}): Promise<any>;
+
+        distribution(options: ImageDistributionOptions, callback: Callback<ImageDistributionInfo>): void;
+        distribution(callback: Callback<ImageDistributionInfo>): void;
+        distribution(options?: ImageDistributionOptions): Promise<ImageDistributionInfo>;
     }
 
     class Volume {
@@ -342,12 +347,14 @@ declare namespace Dockerode {
     interface ImageInfo {
         Id: string;
         ParentId: string;
-        RepoTags: string[];
+        RepoTags: string[] | undefined;
         RepoDigests?: string[] | undefined;
         Created: number;
         Size: number;
         VirtualSize: number;
+        SharedSize: number;
         Labels: { [label: string]: string };
+        Containers: number;
     }
 
     interface ContainerInfo {
@@ -844,6 +851,11 @@ declare namespace Dockerode {
         outputs?: string | undefined;
     }
 
+    interface ImageDistributionOptions {
+        authconfig?: AuthConfig | undefined;
+        abortSignal?: AbortSignal;
+    }
+
     interface ImagePushOptions {
         tag?: string | undefined;
         authconfig?: AuthConfig | undefined;
@@ -1039,6 +1051,12 @@ declare namespace Dockerode {
             EndpointsConfig?: EndpointsConfig | undefined;
         } | undefined;
         abortSignal?: AbortSignal;
+    }
+
+    interface ContainerRemoveOptions {
+        v?: boolean | undefined;
+        force?: boolean | undefined;
+        link?: boolean | undefined;
     }
 
     interface KeyObject {
@@ -1588,9 +1606,39 @@ declare namespace Dockerode {
         GID: number;
     }
 
+    interface ListImagesOptions {
+        all?: boolean | undefined;
+        filters?: string | undefined;
+        digests?: boolean | undefined;
+    }
+
+    interface ImageDistributionPlatformInfo {
+        architecture: string;
+        os: string;
+        'os.version': string;
+        'os.features': string[];
+        variant: string;
+    }
+
+    interface ImageDistributionDescriptorInfo {
+        mediaType: string;
+        digest: string;
+        size: number;
+    }
+
+    interface ImageDistributionInfo {
+        Descriptor: ImageDistributionDescriptorInfo;
+        Platforms: ImageDistributionPlatformInfo[];
+    }
+
     interface ImageRemoveInfo {
         Untagged: string;
         Deleted: string;
+    }
+
+    interface ImageRemoveOptions {
+        force?: boolean | undefined;
+        noprune?: boolean | undefined;
     }
 
     interface PruneImagesInfo {
@@ -1728,9 +1776,9 @@ declare class Dockerode {
     listContainers(callback: Callback<Dockerode.ContainerInfo[]>): void;
     listContainers(options?: {}): Promise<Dockerode.ContainerInfo[]>;
 
-    listImages(options: {}, callback: Callback<Dockerode.ImageInfo[]>): void;
+    listImages(options: Dockerode.ListImagesOptions, callback: Callback<Dockerode.ImageInfo[]>): void;
     listImages(callback: Callback<Dockerode.ImageInfo[]>): void;
-    listImages(options?: {}): Promise<Dockerode.ImageInfo[]>;
+    listImages(options?: Dockerode.ListImagesOptions): Promise<Dockerode.ImageInfo[]>;
 
     listServices(options: Dockerode.ServiceListOptions, callback: Callback<Dockerode.Service[]>): void;
     listServices(callback: Callback<Dockerode.Service[]>): void;

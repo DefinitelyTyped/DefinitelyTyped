@@ -85,6 +85,9 @@ Pet.restore({ age: 10 }).exec((err, result) => {});
 // $ExpectType boolean | undefined
 type deletedType = PetDocument["deleted"];
 
+// $ExpectType Date | undefined
+type deletedAtType = PetDocument["deletedAt"];
+
 // Additional Methods for overrides
 Pet.countDeleted({ age: 10 });
 Pet.countWithDeleted({ age: 10 });

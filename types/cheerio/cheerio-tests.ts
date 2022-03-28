@@ -321,6 +321,7 @@ $el.text('text');
 $el.wrap($('<div class="red-fruit"></div>')).html();
 
 // .css
+$el.css();
 $el.css('width');
 $el.css(['width', 'height']);
 $el.css('width', '50px');

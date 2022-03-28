@@ -5883,11 +5883,23 @@ function JQuery() {
         }
 
         function children() {
-            // $ExpectType JQuery<HTMLElement>
+            // $ExpectType JQuery<HTMLSpanElement>
             $('p').children('span');
+
+            // $ExpectType JQuery<HTMLDivElement>
+            $('p').children('div');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').children('.class-name');
 
             // $ExpectType JQuery<HTMLElement>
             $('p').children();
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').children();
+
+            // $ExpectType JQuery<HTMLElement>
+            $<HTMLDivElement>('p').children();
         }
 
         function siblings() {

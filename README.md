@@ -53,13 +53,14 @@ or just look for any ".d.ts" files in the package and manually include them with
 Definitely Typed only tests packages on versions of TypeScript that are less than 2 years old.
 
 <details>
-<summary>Currently versions 3.7 and above are tested...</summary>
+<summary>Currently versions 3.8 and above are tested...</summary>
 
-If you're using TypeScript 2.0 to 3.6, you can still try installing `@types` packages &mdash; the majority of packages don't use fancy new TypeScript features.
+If you're using TypeScript 2.0 to 3.7, you can still try installing `@types` packages &mdash; the majority of packages don't use fancy new TypeScript features.
 But there's no guarantee that they'll work.
 Here is the support window:
 
-<img src="docs/support-window.svg" style="width:100%">
+<img src="docs/support-window.svg#gh-light-mode-only" style="width:100%">
+<img src="docs/support-window.svg#gh-dark-mode-only" style="width:100%">
 
 `@types` packages have tags for versions of TypeScript that they explicitly support, so you can usually get older versions of packages that predate the 2-year window.
 For example, if you run `npm dist-tags @types/react`, you'll see that TypeScript 2.5 can use types for react@16.0, whereas TypeScript 2.6 and 2.7 can use types for react@16.4:
@@ -86,14 +87,14 @@ You may need to add manual [references](https://www.typescriptlang.org/docs/hand
 
 ## How can I contribute?
 
-Definitely Typed only works because of contributions by users like you! 
+Definitely Typed only works because of contributions by users like you!
 
 ### Testing
 
 Before you share your improvement with the world, use the types yourself by creating a `typename.d.ts` file in your project and filling out its exports:
 
 ```ts
-declare module "libname" { 
+declare module "libname" {
   // Types inside here
   export function helloWorldMessage(): string
 }
@@ -277,11 +278,11 @@ f(1);
 f("one");
 ```
 
-For more details, see [dtslint](https://github.com/Microsoft/dtslint#write-tests) readme.
+For more details, see [dtslint](https://github.com/Microsoft/DefinitelyTyped-tools/tree/master/packages/dtslint#write-tests) readme.
 
 #### Linter: `tslint.json`
 
-The linter configuration file, `tslint.json` should contain `{ "extends": "dtslint/dt.json" }`, and no additional rules.
+The linter configuration file, `tslint.json` should contain `{ "extends": "@definitelytyped/dtslint/dt.json" }`, and no additional rules.
 
 If for some reason some rule needs to be disabled, [disable it for that specific line](https://palantir.github.io/tslint/usage/rule-flags/#comment-flags-in-source-code:~:text=%2F%2F%20tslint%3Adisable%2Dnext%2Dline%3Arule1%20rule2%20rule3...%20%2D%20Disables%20the%20listed%20rules%20for%20the%20next%20line) using `// tslint:disable-next-line:[ruleName]` — not for the whole package, so that disabling can be reviewed. (There are some legacy lint configs that have additional contents, but these should not happen in new work.)
 
@@ -398,8 +399,8 @@ PRs that have been approved by an author listed in the definition's header are u
 
 #### I'd like to submit a change to a very popular project, why are they treated differently?
 
-For changes to very popular modules, e.g. Node/Express/Jest which have many millions of downloads each per week on npm, the requirements for contributions are a bit higher. 
-Changes to these projects can have massive ecosystem effects, and so we treat changes to the with a lot of care.
+For changes to very popular modules, e.g. Node/Express/Jest which have many millions of downloads each per week on npm, the requirements for contributions are a bit higher.
+Changes to these projects can have massive ecosystem effects, and so we treat changes to them with a lot of care.
 These modules require both a sign-off from a DT maintainer, and enthusiastic support from the module owners. The bar for passing this can be quite high, and often PRs can go stale because it doesn't have a champion.
 If you're finding that no-one is committing, try to make your PR have a smaller focus.
 
@@ -422,7 +423,7 @@ No. We've explored trying to make DT's code-formatting consistent before but rea
 
 #### Can I request a definition?
 
-Here are the [currently requested definitions](https://github.com/DefinitelyTyped/DefinitelyTyped/labels/Definition%3ARequest).
+Here are the [currently requested definitions](https://github.com/DefinitelyTyped/DefinitelyTyped/discussions/categories/request-a-new-types-package).
 
 #### What about type definitions for the DOM?
 
@@ -554,7 +555,7 @@ Because the root folder should always contain the type declarations for the late
 
 For example, the [`history`](https://github.com/ReactTraining/history/) library introduced breaking changes between version `2.x` and `3.x`.
 Because many users still consumed the older `2.x` version, a maintainer who wanted to update the type declarations for this library to `3.x` added a `v2` folder inside the history repository that contains type declarations for the older version.
-At the time of writing, the [history v2 `tsconfig.json`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/1253faabf5e0d2c5470db6ea87795d7f96fef7e2/types/history/v2/tsconfig.json) looks roughly like:
+At the time of writing, the [history v2 `tsconfig.json`](https://github.com/%44efinitelyTyped/DefinitelyTyped/blob/1253faabf5e0d2c5470db6ea87795d7f96fef7e2/types/history/v2/tsconfig.json) looks roughly like:
 
 ```json
 {
