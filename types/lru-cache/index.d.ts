@@ -2,6 +2,7 @@
 // Project: https://github.com/isaacs/node-lru-cache
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
 //                 BendingBender <https://github.com/BendingBender>
+//                 isaacs <https://github.com/isaacs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference lib="DOM" />
