@@ -76,13 +76,6 @@ declare namespace Kahoot {
         successful: boolean;
     }
 
-    interface Nemesis {
-        name: string;
-        isGhost: boolean;
-        rank: number;
-        totalScore: number;
-    }
-
     interface QuizVideo {
         startTime: number;
         endTime: number;
@@ -193,7 +186,12 @@ declare namespace Kahoot {
         correctChoices: number[];
         totalScore: number;
         rank: number;
-        nemesis: Nemesis;
+        nemesis: {
+            name: string;
+            isGhost: boolean;
+            rank: number;
+            totalScore: number;
+        };
         pointsdata: {
             questionPoints: number;
             totalPointsWithBonuses: number;
