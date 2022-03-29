@@ -137,7 +137,7 @@ chess.header("White", "Morphy", "Black", "Anderssen", "Date", "1858-??-??");
 // $ExpectType string
 chess.ascii();
 
-// $ExpectType "w" | "b"
+// $ExpectType "w" | "b" || "b" | "w"
 chess.turn();
 
 // --- move --- \\
@@ -201,7 +201,7 @@ chess.history({ verbose: false });
 // $ExpectType Move[]
 chess.history({ verbose: true });
 
-// $ExpectType ({ type: PieceType; color: "w" | "b"; } | null)[][]
+// $ExpectType ({ type: PieceType; color: "w" | "b"; } | null)[][] || ({ type: PieceType; color: "b" | "w"; } | null)[][]
 chess.board();
 
 // --- comments --- \\

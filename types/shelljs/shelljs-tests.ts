@@ -104,7 +104,7 @@ let pid = asyncVersion3.pid;
 
 declare let isAsync: boolean;
 
-// $ExpectType ShellString | ChildProcess
+// $ExpectType ShellString | ChildProcess || ChildProcess | ShellString
 const unknownUntilRuntime = shell.exec('node --version', { async: isAsync });
 
 shell.exec('node --version', { silent: true }, (code, stdout, stderr) => {

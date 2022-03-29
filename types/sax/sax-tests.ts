@@ -62,12 +62,12 @@ import fs = require("fs");
     });
 
     saxStream.on("opentag", tag => {
-        // $ExpectType Tag | QualifiedTag
+        // $ExpectType Tag | QualifiedTag || QualifiedTag | Tag
         tag;
     });
 
     saxStream.on("opentagstart", tag => {
-        // $ExpectType Tag | QualifiedTag
+        // $ExpectType Tag | QualifiedTag || QualifiedTag | Tag
         tag;
     });
 
