@@ -18,6 +18,12 @@ import * as R from 'ramda';
     // $ExpectType (a: number | undefined) => number | undefined
     const addOneIfNotNil = R.when<undefined | number, number, number>(notNull, R.add(1));
 
+    // $ExpectType (a: number | null) => string | null
+    const StringifyIfNotNil = R.when(
+        (a: null | number): a is number => true,
+        a => a.toString(0),
+    );
+
     // $ExpectType number | undefined
     const nil = addOneIfNotNil(undefined);
     // $ExpectType number | undefined
