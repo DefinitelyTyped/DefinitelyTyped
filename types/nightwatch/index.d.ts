@@ -1625,7 +1625,7 @@ export interface EnhancedElementInstance<T> {
     selector: string;
 }
 
-export type EnhancedSectionInstance<Commands = {}, Elements = {}, Sections = {}> = EnhancedPageObject<
+export type EnhancedSectionInstance<Commands = {}, Elements = {}, Sections extends EnhancedPageObjectSections  = {}> = EnhancedPageObject<
     Commands,
     Elements,
     Sections
