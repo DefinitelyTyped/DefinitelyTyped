@@ -8,14 +8,14 @@ import * as R from 'ramda';
     // $ExpectType (a: unknown) => { count: number; } | (Record<"count", number> & Omit<unknown, "count">)
     const incCount = R.ifElse(
         R.has('count'),
-        (obj: Required<ObjWithCount>) => ({ ...obj, count: obj.count + 1 }),
+        obj => ({ ...obj, count: (obj as Required<ObjWithCount>).count + 1 }),
         R.assoc('count', 1),
     );
     incCount({}); // => { count: 1 }
 
     incCount({ count: 1 }); // => { count: 2 }
 
-    // $ExpectType (...args: unknown[]) => string | number
+    // $ExpectType (a: number, b: number) => string | number
     const addWhenEquals = R.ifElse(
         (a: any, b: any) => a === b,
         (a: number, b: number) => a + b,
