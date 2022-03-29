@@ -7,7 +7,7 @@ declare class LiveClientHandshake extends LiveBaseMessage {
         message: {
             l: number;
             o: number;
-            get tc(): number;
+            readonly tc: number;
         },
         client: Kahoot,
     );

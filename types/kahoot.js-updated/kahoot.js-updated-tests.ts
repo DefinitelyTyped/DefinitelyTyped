@@ -1,13 +1,20 @@
 import Kahoot = require('kahoot.js-updated');
 
 // No options
-const kahoot = new Kahoot();
+new Kahoot();
 
-kahoot.on('Joined', ev => {});
+// With Kahoot.join
+const { client: joinClient, event: joinEvent } = Kahoot.join(1234567, 'foo');
+joinClient; // $ExpectType Kahoot
+joinEvent; // $ExpectType Promise<JoinResponse>
+joinEvent.then(ev => {
+    ev; // $ExpectType JoinResponse
+    console.log('Join Event:', ev);
+});
 
 // Defaults method
-const DefaultKahoot = Kahoot.defaults({});
-const defaultKahoot = new DefaultKahoot();
+const DefaultKahoot = Kahoot.defaults({}); // $ExpectType typeof Kahoot
+new DefaultKahoot(); // $ExpectType Kahoot
 
 // All events
 kahoot.on('Disconnect', ev => console.log('Event: Disconnect', ev));

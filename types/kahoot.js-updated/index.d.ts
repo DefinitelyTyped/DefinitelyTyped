@@ -78,7 +78,12 @@ declare namespace Kahoot {
         successful: boolean;
     }
 
-    type QuizVideo = { startTime: number; endTime: number; service: string; fullUrl: string };
+    interface QuizVideo {
+        startTime: number;
+        endTime: number;
+        service: string;
+        fullUrl: string;
+    }
 
     interface QuizInfo extends QuizStart {
         currentQuestion: QuestionReady;
@@ -168,7 +173,7 @@ declare class Kahoot extends EventEmitter {
      * @param options Default options to configure the client
      * @returns A new Kahoot constructor defaulting to the provided options
      */
-    static defaults(options?: Kahoot.KahootOptions): typeof this;
+    static defaults(options?: Kahoot.KahootOptions): typeof Kahoot;
 
     /**
      * Creates a new client and joins the game with it
