@@ -55,7 +55,7 @@ declare namespace Kahoot {
             | undefined;
 
         proxy?: ((options: RequestOptions) => void | RequestOptions) | undefined;
-        wsproxy?: (url: string) => WsProxyReturn;
+        wsproxy?: ((url: string) => WsProxyReturn) | undefined;
     }
 
     /** Returned by wsproxy on KahootOptions */
@@ -299,16 +299,16 @@ declare class Kahoot extends EventEmitter {
         LiveLeavePacket: typeof LiveLeavePacket;
     };
 
-    connected?: boolean;
+    connected?: boolean | undefined;
 
-    data?: { totalScore: number; streak: number; rank: number };
+    data?: { totalScore: number; streak: number; rank: number } | undefined;
 
     defaults: Required<Kahoot.KahootOptions>;
 
-    disconnectReason?: string;
+    disconnectReason?: string | undefined;
 
     /** The game's pin */
-    gameid?: number;
+    gameid?: number | undefined;
 
     handlers: Record<
         | 'feedback'
@@ -334,8 +334,8 @@ declare class Kahoot extends EventEmitter {
     messageId: number;
     /** Player name */
     name: string;
-    quiz?: Kahoot.QuizInfo;
-    settings: Kahoot.JoinResponse;
+    quiz?: Kahoot.QuizInfo | undefined;
+    settings?: Kahoot.JoinResponse | undefined;
     socket: WebSocket;
     userAgent: string;
     waiting: {};
