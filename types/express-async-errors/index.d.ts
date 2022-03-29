@@ -3,5 +3,4 @@
 // Definitions by: Stephen Melvin <https://github.com/sbmelvin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare const _: object;
-export = _;
+export {};
