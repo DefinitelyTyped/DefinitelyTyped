@@ -8,7 +8,7 @@ import Separator = require('./separator');
  * @template T
  * The type of the answers.
  */
-type DistinctChoice<T> = AllChoiceMap<T>[keyof AllChoiceMap<T>];
+type DistinctChoice<T extends Answers> = AllChoiceMap<T>[keyof AllChoiceMap<T>];
 
 /**
  * Represents a valid real choice for the `Choices` class.
