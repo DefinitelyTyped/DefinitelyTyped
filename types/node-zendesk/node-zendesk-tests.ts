@@ -148,7 +148,7 @@ client.tickets.exportAudit(123).then(zendeskCallback);
 client.tickets.addTags(123, ["foo", "bar"], zendeskCallback);
 client.tickets.addTags(123, ["foo", "bar"]).then(zendeskCallback);
 
-/** Ticket Fields **/
+/** Ticket Fields */
 client.ticketfields.create(
     {
         type: "subject",
@@ -265,5 +265,3 @@ client.userfields.create(
     },
     zendeskCallback,
 );
-
-
