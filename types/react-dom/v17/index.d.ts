@@ -10,14 +10,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-// NOTE: Users of the upcoming React 18 release should add a reference
-// to 'react-dom/next' in their project. See next.d.ts's top comment
-// for reference and documentation on how exactly to do it.
-
-// NOTE: Users of the `experimental` builds of React should add a reference
-// to 'react-dom/experimental' in their project. See experimental.d.ts's top comment
-// for reference and documentation on how exactly to do it.
-
 export as namespace ReactDOM;
 
 import {

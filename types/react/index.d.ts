@@ -1,4 +1,4 @@
-// Type definitions for React 17.0
+// Type definitions for React 18.0
 // Project: http://facebook.github.io/react/
 // Definitions by: Asana <https://asana.com>
 //                 AssureSign <http://www.assuresign.com>
@@ -28,10 +28,6 @@
 //                 Priyanshu Rav <https://github.com/priyanshurav>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
-
-// NOTE: Users of the upcoming React 18 release should add a reference
-// to 'react/next' in their project. See next.d.ts's top comment
-// for reference and documentation on how exactly to do it.
 
 // NOTE: Users of the `experimental` builds of React should add a reference
 // to 'react/experimental' in their project. See experimental.d.ts's top comment
