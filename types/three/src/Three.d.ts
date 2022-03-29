@@ -209,6 +209,7 @@ export * from './renderers/webgl/WebGLUniforms';
 export * from './renderers/webxr/WebXR';
 export * from './renderers/webxr/WebXRController';
 export * from './renderers/webxr/WebXRManager';
+export { WebGLUtils } from './renderers/webgl/WebGLUtils.js';
 /**
  * Scenes
  */

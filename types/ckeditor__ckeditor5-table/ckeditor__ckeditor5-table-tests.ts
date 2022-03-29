@@ -275,7 +275,7 @@ const api: DowncastConversionApi = {
     schema: new Schema(),
     writer: new DowncastWriter(new Document(new StylesProcessor())),
 };
-// $ExpectType Element | ContainerElement
+// $ExpectType ContainerElement | Element || Element | ContainerElement
 downcastTable(new TableUtils(editor), { asWidget: true })(new Element('div'), api);
 downcastRow()(new Element('div'), api);
 downcastCell()(new Element('div'), api);

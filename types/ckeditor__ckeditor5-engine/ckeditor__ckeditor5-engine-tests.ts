@@ -98,7 +98,6 @@ import Matcher, { MatcherPattern } from '@ckeditor/ckeditor5-engine/src/view/mat
 import ViewNode from '@ckeditor/ckeditor5-engine/src/view/node';
 import ArrowKeysObserver from '@ckeditor/ckeditor5-engine/src/view/observer/arrowkeysobserver';
 import BubblingEventInfo from '@ckeditor/ckeditor5-engine/src/view/observer/bubblingeventinfo';
-import ClickObserver from '@ckeditor/ckeditor5-engine/src/view/observer/clickobserver';
 import DomEventData from '@ckeditor/ckeditor5-engine/src/view/observer/domeventdata';
 import DomEventObserver from '@ckeditor/ckeditor5-engine/src/view/observer/domeventobserver';
 import FakeSelectionObserver from '@ckeditor/ckeditor5-engine/src/view/observer/fakeselectionobserver';
@@ -340,7 +339,7 @@ downcastHelper = downcastHelper.add(dispatcher => {
         evt.name; // $ExpectType "insert:paragraph"
         data; // $ExpectType { item: Element & { name: "paragraph"; }; range: Range; }
         schema; // $ExpectType Schema
-        writer; // $ExpectType DowncastWriter
+        writer; // $ExpectType DowncastWriter<Document>
         dispatcher; // $ExpectType DowncastDispatcher<{}>
         mapper; // $ExpectType Mapper
         consumable; // ExpectType ModelConsumable
@@ -367,7 +366,7 @@ downcastHelper = downcastHelper.add(dispatcher => {
     dispatcher.on('insert:$text', insertText());
     dispatcher.on('insert', (evt, data, conversionApi) => {
         evt.name; // $ExpectType "insert"
-        data; // $ExpectType { item: TextProxy | Element; range: Range; }
+        data; // $ExpectType { item: TextProxy | Element; range: Range; } || { item: Element | TextProxy; range: Range; }
         conversionApi; // $ExpectType DowncastConversionApi<{}>
     });
     dispatcher.on('attribute:bold', (evt, data, conversionApi) => {
@@ -940,11 +939,11 @@ if (
 {
     const obj = viewObj as ViewElement;
     if (obj.is('element', 'p') || obj.is('element', 'div')) {
-        // $ExpectType (EmptyElement & { name: "p"; }) | (EmptyElement & { name: "div"; })
+        // $ExpectType (Element & { name: "div"; }) | (Element & { name: "p"; }) || (EmptyElement & { name: "p"; }) | (EmptyElement & { name: "div"; })
         obj;
     }
     if (obj.is('view:element', 'p') || obj.is('view:element', 'div')) {
-        // $ExpectType (EmptyElement & { name: "p"; }) | (EmptyElement & { name: "div"; })
+        // $ExpectType (Element & { name: "div"; }) | (Element & { name: "p"; }) || (EmptyElement & { name: "p"; }) | (EmptyElement & { name: "div"; })
         obj;
     }
     if (obj.is('element', 'p')) {
@@ -973,11 +972,11 @@ if (
 {
     const obj = viewObj as ContainerElement;
     if (obj.is('containerElement', 'p') || obj.is('containerElement', 'div')) {
-        // $ExpectType (ContainerElement & { name: "p"; }) | (ContainerElement & { name: "div"; })
+        // $ExpectType (ContainerElement & { name: "div"; }) | (ContainerElement & { name: "p"; }) || (ContainerElement & { name: "p"; }) | (ContainerElement & { name: "div"; })
         obj;
     }
     if (obj.is('view:containerElement', 'p') || obj.is('view:containerElement', 'div')) {
-        // $ExpectType (ContainerElement & { name: "p"; }) | (ContainerElement & { name: "div"; })
+        // $ExpectType (ContainerElement & { name: "div"; }) | (ContainerElement & { name: "p"; }) || (ContainerElement & { name: "p"; }) | (ContainerElement & { name: "div"; })
         obj;
     }
     if (obj.is('containerElement', 'p')) {
@@ -1005,11 +1004,11 @@ if (
 {
     const obj = viewObj as EditableElement;
     if (obj.is('editableElement', 'p') || obj.is('editableElement', 'div')) {
-        // $ExpectType (EditableElement & { name: "p"; }) | (EditableElement & { name: "div"; })
+        // $ExpectType (EditableElement & { name: "div"; }) | (EditableElement & { name: "p"; }) || (EditableElement & { name: "p"; }) | (EditableElement & { name: "div"; })
         obj;
     }
     if (obj.is('view:editableElement', 'p') || obj.is('view:editableElement', 'div')) {
-        // $ExpectType (EditableElement & { name: "p"; }) | (EditableElement & { name: "div"; })
+        // $ExpectType (EditableElement & { name: "div"; }) | (EditableElement & { name: "p"; }) || (EditableElement & { name: "p"; }) | (EditableElement & { name: "div"; })
         obj;
     }
     if (obj.is('editableElement', 'p')) {
@@ -1037,11 +1036,11 @@ if (
 {
     const obj = viewObj as RootEditableElement;
     if (obj.is('rootEditableElement', 'p') || obj.is('rootEditableElement', 'div')) {
-        // $ExpectType (RootEditableElement & { name: "p"; }) | (RootEditableElement & { name: "div"; })
+        // $ExpectType (RootEditableElement & { name: "div"; }) | (RootEditableElement & { name: "p"; }) || (RootEditableElement & { name: "p"; }) | (RootEditableElement & { name: "div"; })
         obj;
     }
     if (obj.is('view:rootEditableElement', 'p') || obj.is('view:rootEditableElement', 'div')) {
-        // $ExpectType (RootEditableElement & { name: "p"; }) | (RootEditableElement & { name: "div"; })
+        // $ExpectType (RootEditableElement & { name: "div"; }) | (RootEditableElement & { name: "p"; }) || (RootEditableElement & { name: "p"; }) | (RootEditableElement & { name: "div"; })
         obj;
     }
     if (obj.is('rootEditableElement', 'p')) {
@@ -1068,11 +1067,11 @@ if (
 {
     const obj = viewObj as RawElement;
     if (obj.is('rawElement', 'p') || obj.is('rawElement', 'div')) {
-        // $ExpectType (RawElement & { name: "p"; }) | (RawElement & { name: "div"; })
+        // $ExpectType (RawElement & { name: "div"; }) | (RawElement & { name: "p"; }) || (RawElement & { name: "p"; }) | (RawElement & { name: "div"; })
         obj;
     }
     if (obj.is('view:rawElement', 'p') || obj.is('view:rawElement', 'div')) {
-        // $ExpectType (RawElement & { name: "p"; }) | (RawElement & { name: "div"; })
+        // $ExpectType (RawElement & { name: "div"; }) | (RawElement & { name: "p"; }) || (RawElement & { name: "p"; }) | (RawElement & { name: "div"; })
         obj;
     }
     if (obj.is('rawElement', 'p')) {
@@ -1100,11 +1099,11 @@ if (
 {
     const obj = viewObj as AttributeElement;
     if (obj.is('attributeElement', 'p') || obj.is('attributeElement', 'div')) {
-        // $ExpectType (AttributeElement & { name: "p"; }) | (AttributeElement & { name: "div"; })
+        // $ExpectType (AttributeElement & { name: "div"; }) | (AttributeElement & { name: "p"; }) || (AttributeElement & { name: "p"; }) | (AttributeElement & { name: "div"; })
         obj;
     }
     if (obj.is('view:attributeElement', 'p') || obj.is('view:attributeElement', 'div')) {
-        // $ExpectType (AttributeElement & { name: "p"; }) | (AttributeElement & { name: "div"; })
+        // $ExpectType (AttributeElement & { name: "div"; }) | (AttributeElement & { name: "p"; }) || (AttributeElement & { name: "p"; }) | (AttributeElement & { name: "div"; })
         obj;
     }
     if (obj.is('attributeElement', 'p')) {
@@ -1132,11 +1131,11 @@ if (
 {
     const obj = viewObj as UIElement;
     if (obj.is('uiElement', 'p') || obj.is('uiElement', 'div')) {
-        // $ExpectType (UIElement & { name: "p"; }) | (UIElement & { name: "div"; })
+        // $ExpectType (UIElement & { name: "div"; }) | (UIElement & { name: "p"; }) || (UIElement & { name: "p"; }) | (UIElement & { name: "div"; })
         obj;
     }
     if (obj.is('view:uiElement', 'p') || obj.is('view:uiElement', 'div')) {
-        // $ExpectType (UIElement & { name: "p"; }) | (UIElement & { name: "div"; })
+        // $ExpectType (UIElement & { name: "div"; }) | (UIElement & { name: "p"; }) || (UIElement & { name: "p"; }) | (UIElement & { name: "div"; })
         obj;
     }
     if (obj.is('uiElement', 'p')) {
@@ -1359,13 +1358,13 @@ downcastWriter.createRawElement();
 // prettier-ignore
 downcastWriter.createRawElement('div').render = function(domElement: HTMLElement, domConverter: DomConverter) {
     domConverter.setContentOf(domElement, '<b>This is the raw content of myRawElement.</b>');
-    // $ExpectType DowncastWriter
+    // $ExpectType DowncastWriter<Document>
     this;
 };
 // prettier-ignore
 downcastWriter.createRawElement('div', { id: 'foo' }, function(domElement, domConverter) {
     domConverter.setContentOf(domElement, '<b>This is the raw content of myRawElement.</b>');
-    // $ExpectType DowncastWriter
+    // $ExpectType DowncastWriter<Document>
     this;
 });
 
@@ -1652,3 +1651,19 @@ stylesProcessor.setNormalizer('margin', getPositionShorthandNormalizer('margin')
 
 // $ExpectType string[]
 getShorthandValues('');
+
+const myUIElement = downcastWriter.createUIElement('span');
+myUIElement.render = function render(domDocument, domConverter) {
+    const domElement = this.toDomElement(domDocument);
+
+    domConverter.setContentOf(domElement, '<b>this is ui element</b>');
+
+    return domElement;
+};
+
+downcastWriter.createUIElement('span', null, function callback(domDocument) {
+    const domElement = this.toDomElement(domDocument);
+    domElement.innerHTML = '<b>this is ui element</b>';
+
+    return domElement;
+});
