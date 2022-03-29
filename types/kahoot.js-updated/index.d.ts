@@ -227,6 +227,31 @@ declare namespace Kahoot {
         } & Record<string, any>;
         state: number;
     }
+
+    /** Map of events to their argument */
+    interface EventsMap {
+        Joined: Kahoot.JoinResponse;
+        Disconnect: string;
+        GameReset: undefined;
+        NameAccept: Kahoot.NameAccept;
+        TeamAccept: Kahoot.TeamAccept;
+        TeamTalk: Kahoot.TeamTalk;
+        QuizStart: Kahoot.QuizStart;
+        QuizEnd: Kahoot.QuizEnd;
+        Podium: Kahoot.Podium;
+        QuestionStart: Kahoot.QuestionStart;
+        QuestionReady: Kahoot.QuestionReady;
+        QuestionEnd: Kahoot.QuestionEnd;
+        TimeOver: Kahoot.TimeOver;
+        Feedback: {};
+        RecoveryData: Kahoot.RecoveryData;
+        TwoFactorCorrect: undefined;
+        TwoFactorReset: undefined;
+        TwoFactorWrong: undefined;
+    }
+
+    /** All event names */
+    type Events = keyof EventsMap;
 }
 
 /** The main Kahoot class */
@@ -341,22 +366,8 @@ declare class Kahoot extends EventEmitter {
     waiting: {};
 
     // Events
-    on(eventName: 'Joined', listener: (ev: Kahoot.JoinResponse) => void): this;
-    on(eventName: 'Disconnect', listener: (ev: string) => void): this;
-    on(eventName: 'GameReset', listener: (ev: undefined) => void): this;
-    on(eventName: 'NameAccept', listener: (ev: Kahoot.NameAccept) => void): this;
-    on(eventName: 'TeamAccept', listener: (ev: Kahoot.TeamAccept) => void): this;
-    on(eventName: 'TeamTalk', listener: (ev: Kahoot.TeamTalk) => void): this;
-    on(eventName: 'QuizStart', listener: (ev: Kahoot.QuizStart) => void): this;
-    on(eventName: 'QuizEnd', listener: (ev: Kahoot.QuizEnd) => void): this;
-    on(eventName: 'Podium', listener: (ev: Kahoot.Podium) => void): this;
-    on(eventName: 'QuestionStart', listener: (ev: Kahoot.QuestionStart) => void): this;
-    on(eventName: 'QuestionReady', listener: (ev: Kahoot.QuestionReady) => void): this;
-    on(eventName: 'QuestionEnd', listener: (ev: Kahoot.QuestionEnd) => void): this;
-    on(eventName: 'TimeOver', listener: (ev: Kahoot.TimeOver) => void): this;
-    on(eventName: 'Feedback', listener: (ev: {}) => void): this;
-    on(eventName: 'RecoveryData', listener: (ev: Kahoot.RecoveryData) => void): this;
-    on(eventName: 'TwoFactorCorrect' | 'TwoFactorReset' | 'TwoFactorWrong', listener: () => void): this;
+    on<E extends Kahoot.Events>(eventName: E, listener: (ev: Kahoot.EventsMap[E]) => void): this;
+    addListener<E extends Kahoot.Events>(eventName: E, listener: (ev: Kahoot.EventsMap[E]) => void): this;
 }
 
 export = Kahoot;
