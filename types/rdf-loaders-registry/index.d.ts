@@ -12,7 +12,7 @@ declare namespace LoaderRegistry {
         loaderRegistry: LoaderRegistry;
     };
 
-    interface Loader<T, TOptions = {}> {
+    interface Loader<T, TOptions extends Record<string, any> = {}> {
         (node: GraphPointer, options: LoadOptions<TOptions>): T | Promise<T>;
     }
 
