@@ -228,21 +228,21 @@ declare namespace Kahoot {
 
     /** Map of events to their argument */
     interface EventsMap {
-        Joined: Kahoot.JoinResponse;
+        Joined: JoinResponse;
         Disconnect: string;
         GameReset: undefined;
-        NameAccept: Kahoot.NameAccept;
-        TeamAccept: Kahoot.TeamAccept;
-        TeamTalk: Kahoot.TeamTalk;
-        QuizStart: Kahoot.QuizStart;
-        QuizEnd: Kahoot.QuizEnd;
-        Podium: Kahoot.Podium;
-        QuestionStart: Kahoot.QuestionStart;
-        QuestionReady: Kahoot.QuestionReady;
-        QuestionEnd: Kahoot.QuestionEnd;
-        TimeOver: Kahoot.TimeOver;
+        NameAccept: NameAccept;
+        TeamAccept: TeamAccept;
+        TeamTalk: TeamTalk;
+        QuizStart: QuizStart;
+        QuizEnd: QuizEnd;
+        Podium: Podium;
+        QuestionStart: QuestionStart;
+        QuestionReady: QuestionReady;
+        QuestionEnd: QuestionEnd;
+        TimeOver: TimeOver;
         Feedback: {};
-        RecoveryData: Kahoot.RecoveryData;
+        RecoveryData: RecoveryData;
         TwoFactorCorrect: undefined;
         TwoFactorReset: undefined;
         TwoFactorWrong: undefined;
