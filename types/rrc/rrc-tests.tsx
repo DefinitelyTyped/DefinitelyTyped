@@ -62,7 +62,7 @@ class Layout extends React.Component<LayoutProps> {
 const WrappedLayout = wrapSwitch(Layout);
 
 interface Params {
-    page: number;
+    page: string;
 }
 
 class RouteFour extends React.Component<RouteComponentProps> {
