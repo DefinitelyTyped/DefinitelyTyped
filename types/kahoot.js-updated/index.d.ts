@@ -208,7 +208,7 @@ declare class Kahoot extends EventEmitter {
 
     /**
      * Answer the 2FA question
-     * @param steps A list of four numbers
+     * @param steps A list of four numbers.
      * Each number represents one of the four colors in the 2FA code (red, blue, yellow, green)
      */
     answerTwoFactorAuth(steps: [number, number, number, number]): Promise<Kahoot.LiveEventTimetrack>;

@@ -11,14 +11,18 @@ new Kahoot({
     wsproxy: url => ({ address: url }),
 });
 
+// Async API
+(async () => {
+    const kahootAsync = new Kahoot();
+    await kahootAsync.join(1234567, 'foo'); // $ExpectType JoinResponse
+    await kahootAsync.answerTwoFactorAuth([1, 2, 3, 4]); // $ExpectType LiveEventTimetrack
+    await kahootAsync.joinTeam(['foo', 'bar', 'baz']); // $ExpectType LiveEventTimetrack
+})();
+
 // With Kahoot.join
 const { client: joinClient, event: joinEvent } = Kahoot.join(1234567, 'foo');
 joinClient; // $ExpectType Kahoot
 joinEvent; // $ExpectType Promise<JoinResponse>
-joinEvent.then(ev => {
-    ev; // $ExpectType JoinResponse
-    console.log('Join Event:', ev);
-});
 
 // Defaults method
 const DefaultKahoot = Kahoot.defaults({}); // $ExpectType typeof Kahoot
