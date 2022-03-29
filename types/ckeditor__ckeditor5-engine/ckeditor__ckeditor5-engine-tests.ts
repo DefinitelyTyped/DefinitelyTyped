@@ -366,7 +366,7 @@ downcastHelper = downcastHelper.add(dispatcher => {
     dispatcher.on('insert:$text', insertText());
     dispatcher.on('insert', (evt, data, conversionApi) => {
         evt.name; // $ExpectType "insert"
-        data; // $ExpectType { item: TextProxy | Element; range: Range; }
+        data; // $ExpectType { item: TextProxy | Element; range: Range; } || { item: Element | TextProxy; range: Range; }
         conversionApi; // $ExpectType DowncastConversionApi<{}>
     });
     dispatcher.on('attribute:bold', (evt, data, conversionApi) => {
@@ -939,11 +939,11 @@ if (
 {
     const obj = viewObj as ViewElement;
     if (obj.is('element', 'p') || obj.is('element', 'div')) {
-        // $ExpectType (EmptyElement & { name: "p"; }) | (EmptyElement & { name: "div"; })
+        // $ExpectType (Element & { name: "div"; }) | (Element & { name: "p"; }) || (EmptyElement & { name: "p"; }) | (EmptyElement & { name: "div"; })
         obj;
     }
     if (obj.is('view:element', 'p') || obj.is('view:element', 'div')) {
-        // $ExpectType (EmptyElement & { name: "p"; }) | (EmptyElement & { name: "div"; })
+        // $ExpectType (Element & { name: "div"; }) | (Element & { name: "p"; }) || (EmptyElement & { name: "p"; }) | (EmptyElement & { name: "div"; })
         obj;
     }
     if (obj.is('element', 'p')) {
@@ -972,11 +972,11 @@ if (
 {
     const obj = viewObj as ContainerElement;
     if (obj.is('containerElement', 'p') || obj.is('containerElement', 'div')) {
-        // $ExpectType (ContainerElement & { name: "p"; }) | (ContainerElement & { name: "div"; })
+        // $ExpectType (ContainerElement & { name: "div"; }) | (ContainerElement & { name: "p"; }) || (ContainerElement & { name: "p"; }) | (ContainerElement & { name: "div"; })
         obj;
     }
     if (obj.is('view:containerElement', 'p') || obj.is('view:containerElement', 'div')) {
-        // $ExpectType (ContainerElement & { name: "p"; }) | (ContainerElement & { name: "div"; })
+        // $ExpectType (ContainerElement & { name: "div"; }) | (ContainerElement & { name: "p"; }) || (ContainerElement & { name: "p"; }) | (ContainerElement & { name: "div"; })
         obj;
     }
     if (obj.is('containerElement', 'p')) {
@@ -1004,11 +1004,11 @@ if (
 {
     const obj = viewObj as EditableElement;
     if (obj.is('editableElement', 'p') || obj.is('editableElement', 'div')) {
-        // $ExpectType (EditableElement & { name: "p"; }) | (EditableElement & { name: "div"; })
+        // $ExpectType (EditableElement & { name: "div"; }) | (EditableElement & { name: "p"; }) || (EditableElement & { name: "p"; }) | (EditableElement & { name: "div"; })
         obj;
     }
     if (obj.is('view:editableElement', 'p') || obj.is('view:editableElement', 'div')) {
-        // $ExpectType (EditableElement & { name: "p"; }) | (EditableElement & { name: "div"; })
+        // $ExpectType (EditableElement & { name: "div"; }) | (EditableElement & { name: "p"; }) || (EditableElement & { name: "p"; }) | (EditableElement & { name: "div"; })
         obj;
     }
     if (obj.is('editableElement', 'p')) {
@@ -1036,11 +1036,11 @@ if (
 {
     const obj = viewObj as RootEditableElement;
     if (obj.is('rootEditableElement', 'p') || obj.is('rootEditableElement', 'div')) {
-        // $ExpectType (RootEditableElement & { name: "p"; }) | (RootEditableElement & { name: "div"; })
+        // $ExpectType (RootEditableElement & { name: "div"; }) | (RootEditableElement & { name: "p"; }) || (RootEditableElement & { name: "p"; }) | (RootEditableElement & { name: "div"; })
         obj;
     }
     if (obj.is('view:rootEditableElement', 'p') || obj.is('view:rootEditableElement', 'div')) {
-        // $ExpectType (RootEditableElement & { name: "p"; }) | (RootEditableElement & { name: "div"; })
+        // $ExpectType (RootEditableElement & { name: "div"; }) | (RootEditableElement & { name: "p"; }) || (RootEditableElement & { name: "p"; }) | (RootEditableElement & { name: "div"; })
         obj;
     }
     if (obj.is('rootEditableElement', 'p')) {
@@ -1067,11 +1067,11 @@ if (
 {
     const obj = viewObj as RawElement;
     if (obj.is('rawElement', 'p') || obj.is('rawElement', 'div')) {
-        // $ExpectType (RawElement & { name: "p"; }) | (RawElement & { name: "div"; })
+        // $ExpectType (RawElement & { name: "div"; }) | (RawElement & { name: "p"; }) || (RawElement & { name: "p"; }) | (RawElement & { name: "div"; })
         obj;
     }
     if (obj.is('view:rawElement', 'p') || obj.is('view:rawElement', 'div')) {
-        // $ExpectType (RawElement & { name: "p"; }) | (RawElement & { name: "div"; })
+        // $ExpectType (RawElement & { name: "div"; }) | (RawElement & { name: "p"; }) || (RawElement & { name: "p"; }) | (RawElement & { name: "div"; })
         obj;
     }
     if (obj.is('rawElement', 'p')) {
@@ -1099,11 +1099,11 @@ if (
 {
     const obj = viewObj as AttributeElement;
     if (obj.is('attributeElement', 'p') || obj.is('attributeElement', 'div')) {
-        // $ExpectType (AttributeElement & { name: "p"; }) | (AttributeElement & { name: "div"; })
+        // $ExpectType (AttributeElement & { name: "div"; }) | (AttributeElement & { name: "p"; }) || (AttributeElement & { name: "p"; }) | (AttributeElement & { name: "div"; })
         obj;
     }
     if (obj.is('view:attributeElement', 'p') || obj.is('view:attributeElement', 'div')) {
-        // $ExpectType (AttributeElement & { name: "p"; }) | (AttributeElement & { name: "div"; })
+        // $ExpectType (AttributeElement & { name: "div"; }) | (AttributeElement & { name: "p"; }) || (AttributeElement & { name: "p"; }) | (AttributeElement & { name: "div"; })
         obj;
     }
     if (obj.is('attributeElement', 'p')) {
@@ -1131,11 +1131,11 @@ if (
 {
     const obj = viewObj as UIElement;
     if (obj.is('uiElement', 'p') || obj.is('uiElement', 'div')) {
-        // $ExpectType (UIElement & { name: "p"; }) | (UIElement & { name: "div"; })
+        // $ExpectType (UIElement & { name: "div"; }) | (UIElement & { name: "p"; }) || (UIElement & { name: "p"; }) | (UIElement & { name: "div"; })
         obj;
     }
     if (obj.is('view:uiElement', 'p') || obj.is('view:uiElement', 'div')) {
-        // $ExpectType (UIElement & { name: "p"; }) | (UIElement & { name: "div"; })
+        // $ExpectType (UIElement & { name: "div"; }) | (UIElement & { name: "p"; }) || (UIElement & { name: "p"; }) | (UIElement & { name: "div"; })
         obj;
     }
     if (obj.is('uiElement', 'p')) {

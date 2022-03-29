@@ -11,7 +11,7 @@ type commonPropsType0 = CommonReactLinesEllipsisProps['maxLine'];
 type commonPropsType1 = CommonReactLinesEllipsisProps['ellipsis'];
 // $ExpectType boolean | undefined
 type commonPropsType2 = CommonReactLinesEllipsisProps['trimRight'];
-// $ExpectType "letters" | "words" | undefined
+// $ExpectType "letters" | "words" | undefined || "words" | "letters" | undefined
 type commonPropsType3 = CommonReactLinesEllipsisProps['basedOn'];
 // $ExpectType number | undefined
 type commonPropsType4 = CommonReactLinesEllipsisProps['winWidth'];

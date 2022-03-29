@@ -35,29 +35,25 @@ import * as R from 'ramda';
     const fn = R.converge(multiply, [add, subtract]);
 
     // $ExpectError
-    const fnWrong = R.converge(concat, [add, subtract]);
+    R.converge(concat, [add, subtract]);
 
     // $ExpectError
-    const fnWrongV2 = R.converge(multiply, [add, subtract, add]);
+    R.converge(multiply, [add, subtract, add]);
 
     // $ExpectError
-    const fnWrongV3 = R.converge(concat, []);
+    R.converge(concat, []);
 
     // $ExpectError
-    const fnWrongV4 = R.converge(() => {}, []);
+    R.converge(() => {}, []);
 
     // $ExpectType number
-    const x = fn(1, 2);
+    fn(1, 2);
 
     // $ExpectError
     fn('1', 2);
 
     // $ExpectError
     fn(1, 2, 3);
-
-    function add3(a: number, b: number, c: number) {
-        return a + b + c;
-    }
 
     function add10(
         a: number,
