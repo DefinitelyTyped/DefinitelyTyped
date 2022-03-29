@@ -213,8 +213,20 @@ declare namespace Kahoot {
         questionNumber: number;
     }
 
-    /** All events that can be emitted */
-    type Events = '';
+    /**
+     * @todo Add better types.
+     * This event doesn't seem to get fired any more so hard to tell exact types
+     */
+    interface RecoveryData {
+        data: {
+            defaultQuizData: {
+                quizQuestionAnswers: number[];
+            } & Record<string, any>;
+            getReady?: unknown;
+            revealAnswer?: QuestionEnd | undefined;
+        } & Record<string, any>;
+        state: number;
+    }
 }
 
 /** The main Kahoot class */
@@ -343,6 +355,10 @@ declare class Kahoot extends EventEmitter {
     on(eventName: 'QuestionEnd', listener: (ev: Kahoot.QuestionEnd) => void): this;
     on(eventName: 'TimeOver', listener: (ev: Kahoot.TimeOver) => void): this;
     on(eventName: 'Feedback', listener: (ev: {}) => void): this;
+    on(eventName: 'RecoveryData', listener: (ev: Kahoot.RecoveryData) => void): this;
+    on(eventName: 'TwoFactorCorrect', listener: () => void): this;
+    on(eventName: 'TwoFactorReset', listener: () => void): this;
+    on(eventName: 'TwoFactorWrong', listener: () => void): this;
 }
 
 export = Kahoot;
