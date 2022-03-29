@@ -346,9 +346,14 @@ function test_collection() {
     one = books.sample();
     models = books.sample(3);
     models = books.select((value: Book, index: number, list: Book[]) => true);
-    oneOrMany = books.where({name: 'Mike'});
-    oneOrMany = books.where({name: 'Mike'}, false);
-    oneOrMany = books.where({name: 'Mike'}, true);
+    oneOrMany = books.where({name: 'Mike'}); // $ExpectType Book | Book[]
+    oneOrMany = books.where({name: 'Mike'}, undefined); // $ExpectType Book | Book[]
+    oneOrMany = books.where({name: 'Mike'}, false); // $ExpectType Book[]
+    oneOrMany = books.where({name: 'Mike'}, true); // $ExpectType Book
+    oneOrMany = books.where({name: 'Mike'}, 1); // $ExpectError
+    oneOrMany = books.where({name: 'Mike'}, null); // $ExpectError
+    oneOrMany = books.where({name: 'Mike'}, {}); // $ExpectError
+    oneOrMany = books.where({name: 'Mike'}, () => {}); // $ExpectError
     one = books.findWhere({name: 'Mike'});
     models = books.shuffle();
     num = books.size();
