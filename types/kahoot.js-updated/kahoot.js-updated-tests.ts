@@ -37,10 +37,18 @@ new DefaultKahoot(); // $ExpectType Kahoot
     console.log('CID:', kahoot.cid);
     console.log('Classes:', kahoot.classes);
     console.log('Connected:', kahoot.connected);
+    console.log('Defaults:', kahoot.defaults);
+    console.log('Disconnect Reason:', kahoot.disconnectReason);
     console.log('Handlers:', kahoot.handlers);
     console.log('Data:', kahoot.data);
+    console.log('Last Event:', kahoot.lastEvent);
+    console.log('Message ID:', kahoot.messageId);
     console.log('PIN:', kahoot.gameid);
     console.log('Quiz Info:', kahoot.quiz);
+    console.log('Settings:', kahoot.settings);
+    console.log('Socket:', kahoot.socket);
+    console.log('User Agent:', kahoot.userAgent);
+    console.log('Waiting:', kahoot.waiting);
 })();
 
 // All events
