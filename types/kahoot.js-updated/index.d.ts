@@ -308,7 +308,7 @@ declare class Kahoot extends EventEmitter {
     disconnectReason?: string;
 
     /** The game's pin */
-    gameid: number;
+    gameid?: number;
 
     handlers: Record<
         | 'feedback'
@@ -356,9 +356,7 @@ declare class Kahoot extends EventEmitter {
     on(eventName: 'TimeOver', listener: (ev: Kahoot.TimeOver) => void): this;
     on(eventName: 'Feedback', listener: (ev: {}) => void): this;
     on(eventName: 'RecoveryData', listener: (ev: Kahoot.RecoveryData) => void): this;
-    on(eventName: 'TwoFactorCorrect', listener: () => void): this;
-    on(eventName: 'TwoFactorReset', listener: () => void): this;
-    on(eventName: 'TwoFactorWrong', listener: () => void): this;
+    on(eventName: 'TwoFactorCorrect' | 'TwoFactorReset' | 'TwoFactorWrong', listener: () => void): this;
 }
 
 export = Kahoot;
