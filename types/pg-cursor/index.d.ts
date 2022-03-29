@@ -1,6 +1,6 @@
 // Type definitions for pg-cursor 2.5
 // Project: https://github.com/brianc/node-postgres#readme
-// Definitions by: Tiogshi Laj <https://github.com/Tiogshi>, Edited by Elias Fauser <https://github.com/elias-fauser>
+// Definitions by: Tiogshi Laj <https://github.com/Tiogshi>, Elias Fauser <https://github.com/elias-fauser>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 
