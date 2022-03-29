@@ -53,7 +53,7 @@ declare class TerminalAdapter {
      *
      * @param questions The questions to prompt.
      */
-    prompt<T>(questions: TerminalAdapter.Questions<T>): Promise<T>;
+    prompt<T extends Answers>(questions: TerminalAdapter.Questions<T>): Promise<T>;
 
     /**
      * Prompts the user for one or more questions.
@@ -61,7 +61,7 @@ declare class TerminalAdapter {
      * @param questions The questions to prompt.
      * @param cb Deprecated: The callback for handling the result.
      */
-    prompt<TAnswers, TResult>(
+    prompt<TAnswers extends Answers, TResult>(
         questions: TerminalAdapter.Questions<TAnswers>,
         answers?: TAnswers,
         cb?: (res: TAnswers) => TResult
