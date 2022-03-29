@@ -3058,6 +3058,8 @@ type MergePropTypes<P, T> =
                 & Pick<P, Exclude<keyof P, keyof T>>
         : never;
 
+type InexactPartial<T> = { [K in keyof T]?: T[K] | undefined };
+
 // Any prop that has a default prop becomes optional, but its type is unchanged
 // Undeclared default props are augmented into the resulting allowable attributes
 // If declared props have indexed properties, ignore default props entirely as keyof gets widened
@@ -3065,8 +3067,8 @@ type MergePropTypes<P, T> =
 type Defaultize<P, D> = P extends any
     ? string extends keyof P ? P :
         & Pick<P, Exclude<keyof P, keyof D>>
-        & Partial<Pick<P, Extract<keyof P, keyof D>>>
-        & Partial<Pick<D, Exclude<keyof D, keyof P>>>
+        & InexactPartial<Pick<P, Extract<keyof P, keyof D>>>
+        & InexactPartial<Pick<D, Exclude<keyof D, keyof P>>>
     : never;
 
 type ReactManagedAttributes<C, P> = C extends { propTypes: infer T; defaultProps: infer D; }
