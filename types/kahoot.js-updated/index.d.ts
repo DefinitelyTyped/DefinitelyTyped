@@ -368,6 +368,9 @@ declare class Kahoot extends EventEmitter {
     // Events
     on<E extends Kahoot.Events>(eventName: E, listener: (ev: Kahoot.EventsMap[E]) => void): this;
     addListener<E extends Kahoot.Events>(eventName: E, listener: (ev: Kahoot.EventsMap[E]) => void): this;
+    prependListener<E extends Kahoot.Events>(eventName: E, listener: (ev: Kahoot.EventsMap[E]) => void): this;
+    prependOnceListener<E extends Kahoot.Events>(eventName: E, listener: (ev: Kahoot.EventsMap[E]) => void): this;
+    removeListener<E extends Kahoot.Events>(eventName: E, listener: (ev: Kahoot.EventsMap[E]) => void): this;
 }
 
 export = Kahoot;
