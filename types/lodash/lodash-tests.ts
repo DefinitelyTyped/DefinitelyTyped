@@ -3393,6 +3393,11 @@ fp.now(); // $ExpectType number
 {
     const func = (n: number, s: string): boolean => true;
     const options: _.DebounceSettings = {
+        leading: false,
+        maxWait: 100,
+        trailing: false,
+    };
+    const optionsWithLeading: _.DebounceSettingsLeading = {
         leading: true,
         maxWait: 100,
         trailing: false,
@@ -3403,9 +3408,16 @@ fp.now(); // $ExpectType number
     result.flush(); // $ExpectType boolean | undefined
     _.debounce(func, 42); // $ExpectType DebouncedFunc<(n: number, s: string) => boolean>
     _.debounce(func, 42, options); // $ExpectType DebouncedFunc<(n: number, s: string) => boolean>
+    _.debounce(func, 42, optionsWithLeading); // $ExpectType DebouncedFuncLeading<(n: number, s: string) => boolean>
 
+    _(func).debounce(); // $ExpectType Function<DebouncedFunc<(n: number, s: string) => boolean>>
+    _(func).debounce(42); // $ExpectType Function<DebouncedFunc<(n: number, s: string) => boolean>>
     _(func).debounce(42, options); // $ExpectType Function<DebouncedFunc<(n: number, s: string) => boolean>>
+    _(func).debounce(42, optionsWithLeading); // $ExpectType Function<DebouncedFuncLeading<(n: number, s: string) => boolean>>
+    _.chain(func).debounce(); // $ExpectType FunctionChain<DebouncedFunc<(n: number, s: string) => boolean>>
+    _.chain(func).debounce(42); // $ExpectType FunctionChain<DebouncedFunc<(n: number, s: string) => boolean>>
     _.chain(func).debounce(42, options); // $ExpectType FunctionChain<DebouncedFunc<(n: number, s: string) => boolean>>
+    _.chain(func).debounce(42, optionsWithLeading); // $ExpectType FunctionChain<DebouncedFuncLeading<(n: number, s: string) => boolean>>
     fp.debounce(42, func); // $ExpectType DebouncedFunc<(n: number, s: string) => boolean>
     fp.debounce(42)(func); // $ExpectType DebouncedFunc<(n: number, s: string) => boolean>
 }
