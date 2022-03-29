@@ -133,6 +133,28 @@ declare namespace Kahoot {
         questionCount: number;
     }
 
+    interface QuizEnd {
+        rank: number;
+        cid: number;
+        correctCount: number;
+        incorrectCount: number;
+        isKicked: boolean;
+        isGhost: boolean;
+        unansweredCount: number;
+        playerCount: number;
+        startTime: number;
+        quizId: string;
+        name: string;
+        totalScore: number;
+        hostId: string;
+        challengeId: null;
+        isOnlyNonPointGameBlockKahoot: boolean;
+    }
+
+    interface Podium {
+        podiumMedalType?: 'gold' | 'silver' | 'bronze' | null | undefined;
+    }
+
     interface QuestionReady {
         video: QuizVideo;
         gameBlockIndex: number;
@@ -312,6 +334,9 @@ declare class Kahoot extends EventEmitter {
     on(eventName: 'GameReset', listener: (ev: undefined) => void): this;
     on(eventName: 'NameAccept', listener: (ev: Kahoot.NameAccept) => void): this;
     on(eventName: 'TeamAccept', listener: (ev: Kahoot.TeamAccept) => void): this;
+    on(eventName: 'QuizStart', listener: (ev: Kahoot.QuizStart) => void): this;
+    on(eventName: 'QuizEnd', listener: (ev: Kahoot.QuizEnd) => void): this;
+    on(eventName: 'Podium', listener: (ev: Kahoot.Podium) => void): this;
     on(eventName: 'QuestionStart', listener: (ev: Kahoot.QuestionStart) => void): this;
     on(eventName: 'QuestionReady', listener: (ev: Kahoot.QuestionReady) => void): this;
     on(eventName: 'QuestionEnd', listener: (ev: Kahoot.QuestionEnd) => void): this;
