@@ -28,7 +28,7 @@ declare global {
      * Generics are needed for inference within Patcher interface to work
      */
     // tslint:disable-next-line no-unnecessary-generics unified-signatures
-    function registerPatcher<L = {}, S = {}>(patcher: Patcher<S, L>): void;
+    function registerPatcher<L = {}, S extends {} = {}>(patcher: Patcher<S, L>): void;
 
     /**
      * @see FileHelpers
@@ -276,7 +276,7 @@ export interface Patcher<S extends {}, L extends {}> {
  *
  * @see Patcher
  */
-export type LegacyPatcher<S extends {}, L> = Patcher<S, L> &
+export type LegacyPatcher<S extends {}, L extends {}> = Patcher<S, L> &
     (
         | {
               /**
