@@ -285,7 +285,6 @@ const LazyRefForwarding = React.lazy(async () => ({ default: Memoized4 }));
 </React.Suspense>;
 
 <React.Suspense fallback={null}/>;
-// $ExpectError
 <React.Suspense/>;
 
 // unstable API should not be part of the typings
