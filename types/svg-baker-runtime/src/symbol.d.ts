@@ -1,7 +1,7 @@
 export default class SpriteSymbol {
-    id: string;
-    viewBox: string;
-    content: string;
+    public id: string;
+    public viewBox: string;
+    public content: string;
 
     constructor(cfg: {
         id: string;

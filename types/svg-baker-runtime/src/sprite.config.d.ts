@@ -1,4 +1,4 @@
-export default interface SpriteConfig {
+export interface SpriteConfig {
     attrs?: {
         /**
          * @default 'http://www.w3.org/2000/svg'
@@ -18,3 +18,8 @@ export default interface SpriteConfig {
         'aria-hidden'?: string;
     };
 }
+
+
+declare const config: SpriteConfig;
+
+export default config;

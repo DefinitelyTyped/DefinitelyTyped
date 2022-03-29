@@ -1,4 +1,4 @@
-export default interface BrowserSpriteConfig {
+export interface BrowserSpriteConfig {
     /**
      * Should following options be automatically configured:
      * - `syncUrlsWithBaseTag`
@@ -58,3 +58,7 @@ export default interface BrowserSpriteConfig {
      */
     moveGradientsOutsideSymbol?: boolean;
 }
+
+declare const config: BrowserSpriteConfig;
+
+export default config;

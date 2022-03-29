@@ -1,11 +1,11 @@
 import SpriteSymbol from './symbol';
-import SpriteConfig from './sprite.config';
+import { SpriteConfig } from './sprite.config';
 
 export default class Sprite {
     config: SpriteConfig;
     symbols: SpriteSymbol[];
 
-    constructor(config: SpriteConfig);
+    constructor(config?: SpriteConfig);
 
     /**
      * Add new symbol. If symbol with the same id exists it will be replaced.
