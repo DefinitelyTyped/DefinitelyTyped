@@ -1,5 +1,5 @@
 import { Change } from "diff";
-import { QuestionCollection, PromptModule } from "inquirer";
+import { QuestionCollection, PromptModule, Answers } from "inquirer";
 import { Logger } from "./util/log";
 
 declare namespace TerminalAdapter {
@@ -16,7 +16,7 @@ declare namespace TerminalAdapter {
     /**
      * Represents a set of questions.
      */
-    type Questions<T> = QuestionCollection<T>;
+    type Questions<T extends Answers> = QuestionCollection<T>;
 }
 
 /**
