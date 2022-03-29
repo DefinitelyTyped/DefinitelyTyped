@@ -383,7 +383,7 @@ declare namespace Backbone {
         shift(options?: Silenceable): TModel;
         sort(options?: Silenceable): this;
         unshift(model: TModel, options?: AddOptions): TModel;
-        where(properties: any): TModel[];
+        where<F extends boolean>(properties: any, first?: F): F extends true ? TModel : TModel[];
         findWhere(properties: any): TModel;
         modelId(attrs: any): any;
 

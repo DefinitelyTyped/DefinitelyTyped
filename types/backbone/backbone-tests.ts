@@ -274,6 +274,7 @@ function test_collection() {
 
     let one: Book;
     let models: Book[];
+    let oneOrMany: Book[] | Book;
     let bool: boolean;
     let numDict: _.Dictionary<number>;
     let modelDict: _.Dictionary<Book>;
@@ -345,6 +346,10 @@ function test_collection() {
     one = books.sample();
     models = books.sample(3);
     models = books.select((value: Book, index: number, list: Book[]) => true);
+    oneOrMany = books.where({name: 'Mike'});
+    oneOrMany = books.where({name: 'Mike'}, false);
+    oneOrMany = books.where({name: 'Mike'}, true);
+    one = books.findWhere({name: 'Mike'});
     models = books.shuffle();
     num = books.size();
     bool = books.some((value: Book, index: number, list: Book[]) => true);
