@@ -1,4 +1,4 @@
-// Type definitions for @wordpress/notices 3.3
+// Type definitions for @wordpress/notices 3.5
 // Project: https://github.com/WordPress/gutenberg/tree/master/packages/notices/README.md
 // Definitions by: Derek Sifford <https://github.com/dsifford>
 //                Chi-Hsuan Huang <https://github.com/chihsuan>
