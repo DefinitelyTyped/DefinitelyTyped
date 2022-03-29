@@ -1,2 +1,2 @@
 import expressAsyncErrors = require('express-async-errors');
-expressAsyncErrors; // $ExpectType object
+expressAsyncErrors; // $ExpectType ObjectConstructor
