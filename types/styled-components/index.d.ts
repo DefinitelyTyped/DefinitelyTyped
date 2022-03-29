@@ -8,6 +8,7 @@
 //                 Matthew Wagerfield <https://github.com/wagerfield>
 //                 Yuki Ito <https://github.com/Lazyuki>
 //                 Aaron Reisman <https://github.com/lifeiscontent>
+//                 Thomaz Capra <https://github.com/thomazcapra>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // forward declarations
