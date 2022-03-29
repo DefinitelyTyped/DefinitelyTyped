@@ -13,13 +13,47 @@ declare module '@wordpress/data' {
 }
 
 export type Status = 'error' | 'info' | 'success' | 'warning';
+export type WPNoticeType = 'snackbar' | 'default';
 
-export interface Notice {
+export interface WPNotice {
+    /**
+     * Unique identifier of notice.
+     */
     id: string;
+    /**
+     * Status of notice, one of `success`, `info`, `error`, or `warning`. Defaults to `info`.
+     */
     status: Status;
+    /**
+     * Notice message.
+     */
     content: string;
+    /**
+     * Audibly announced message text used by assistive technologies.
+     */
+    spokenMessage: string;
+    /**
+     * Notice message as raw HTML. Intended to serve primarily for compatibility of server-rendered notices, and SHOULD
+     * NOT be used for notices. It is subject to removal without notice.
+     */
+    __unstableHTML: string;
+    /**
+     * Whether the notice can be dismissed by user. Defaults to `true`
+     */
     isDismissible: boolean;
-    actions: readonly Action[];
+    /**
+     * Type of notice, one of `default`, or `snackbar`. Defaults to `default`.
+     * @defaultValue `'global'`
+     */
+    type: WPNoticeType;
+    /**
+     * Whether the notice content should be announced to screen readers. Defaults to `true`.
+     */
+    speak: boolean;
+    /**
+     * User actions to present with notice.
+     */
+    actions: readonly WPNoticeAction[];
 }
 
 export interface BaseAction {
@@ -32,13 +66,13 @@ export interface URLAction extends BaseAction {
     url: string;
 }
 
-export type Action = ButtonAction | URLAction;
+export type WPNoticeAction = ButtonAction | URLAction;
 
 export interface Options {
     /**
      * User actions to be presented with notice.
      */
-    actions: readonly Action[];
+    actions: readonly WPNoticeAction[];
     /**
      * Context under which to group notice.
      * @defaultValue `'global'`
@@ -62,7 +96,7 @@ export interface Options {
      * The type of notice.
      * @defaultValue `'default'`
      */
-    type: 'default' | 'snackbar';
+    type: WPNoticeType;
     /**
      *  An icon displayed with the notice.
      * @defaultValue `null`

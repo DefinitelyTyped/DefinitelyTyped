@@ -38,8 +38,8 @@ dispatch('core/notices').createSuccessNotice('hello world', { isDismissible: fal
 dispatch('core/notices').createWarningNotice('hello world');
 dispatch('core/notices').createWarningNotice('hello world', undefined);
 
-// $ExpectType Notice[]
+// $ExpectType WPNotice[]
 select('core/notices').getNotices();
 
-// $ExpectType Notice[]
+// $ExpectType WPNotice[]
 select('core/notices').getNotices('foo');

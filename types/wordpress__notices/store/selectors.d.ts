@@ -1,8 +1,8 @@
-import { Notice } from '../';
+import { WPNotice } from '../';
 
 /**
  * Returns all notices as an array, optionally for a given context.
  *
  * @param [context='global'] - Optional grouping context.
  */
-export function getNotices(context?: string): Notice[];
+export function getNotices(context?: string): WPNotice[];
