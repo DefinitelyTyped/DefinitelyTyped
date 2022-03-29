@@ -334,6 +334,7 @@ declare class Kahoot extends EventEmitter {
     on(eventName: 'GameReset', listener: (ev: undefined) => void): this;
     on(eventName: 'NameAccept', listener: (ev: Kahoot.NameAccept) => void): this;
     on(eventName: 'TeamAccept', listener: (ev: Kahoot.TeamAccept) => void): this;
+    on(eventName: 'TeamTalk', listener: (ev: Kahoot.TeamTalk) => void): this;
     on(eventName: 'QuizStart', listener: (ev: Kahoot.QuizStart) => void): this;
     on(eventName: 'QuizEnd', listener: (ev: Kahoot.QuizEnd) => void): this;
     on(eventName: 'Podium', listener: (ev: Kahoot.Podium) => void): this;
