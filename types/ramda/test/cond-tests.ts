@@ -29,7 +29,15 @@ import * as R from 'ramda';
     g(1, '');
 
     R.cond([
-        [(a: string | number): a is number => true, a => a * 2],
-        [(a: string | number): a is string => true, a => a.length],
+        [(a: string | number | boolean): a is number => true, a => a * 2],
+        [(a: string | boolean): a is string => true, a => a.length],
+        [(a: boolean): a is boolean => true, a => (a ? 1 : 0)],
+    ]);
+
+    R.cond([
+        [(a: string | number | boolean): a is number => true, a => a * 2],
+        [(a: string | boolean): a is string => true, a => a.length],
+        // Make sure overloads match, even when function argument is broader then expected
+        [(a: boolean | number | number[]): a is boolean => true, a => (a ? 1 : 0)],
     ]);
 };
