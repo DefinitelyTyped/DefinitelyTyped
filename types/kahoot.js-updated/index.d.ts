@@ -358,7 +358,7 @@ declare class Kahoot extends EventEmitter {
     lastEvent: undefined;
     messageId: number;
     /** Player name */
-    name: string;
+    name?: string | undefined;
     quiz?: Kahoot.QuizInfo | undefined;
     settings?: Kahoot.JoinResponse | undefined;
     socket: WebSocket;

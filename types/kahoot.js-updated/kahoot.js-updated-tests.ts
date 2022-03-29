@@ -29,7 +29,19 @@ joinEvent; // $ExpectType Promise<JoinResponse>
 const DefaultKahoot = Kahoot.defaults({}); // $ExpectType typeof Kahoot
 new DefaultKahoot(); // $ExpectType Kahoot
 
-const kahoot = new Kahoot();
+// Test properties on instances
+(async () => {
+    const kahoot = new Kahoot();
+    await kahoot.join(1234567, 'foo');
+    console.log('Name:', kahoot.name);
+    console.log('CID:', kahoot.cid);
+    console.log('Classes:', kahoot.classes);
+    console.log('Connected:', kahoot.connected);
+    console.log('Handlers:', kahoot.handlers);
+    console.log('Data:', kahoot.data);
+    console.log('PIN:', kahoot.gameid);
+    console.log('Quiz Info:', kahoot.quiz);
+})();
 
 // All events
 const kahootEvents = new Kahoot();
