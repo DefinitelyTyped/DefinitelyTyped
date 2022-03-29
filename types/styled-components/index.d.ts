@@ -116,11 +116,11 @@ export type InterpolationFunction<P> = (props: P) => Interpolation<P>;
 
 type Attrs<P, A extends Partial<P>, T> = ((props: ThemedStyledProps<P, T>) => A) | A;
 
-export type ThemedGlobalStyledClassProps<P, T> = WithOptionalTheme<P, T> & {
+export type ThemedGlobalStyledClassProps<P extends { theme?: T | undefined }, T> = WithOptionalTheme<P, T> & {
     suppressMultiMountWarning?: boolean | undefined;
 };
 
-export interface GlobalStyleComponent<P, T> extends React.ComponentClass<ThemedGlobalStyledClassProps<P, T>> {}
+export interface GlobalStyleComponent<P extends { theme?: T | undefined }, T> extends React.ComponentClass<ThemedGlobalStyledClassProps<P, T>> {}
 
 // remove the call signature from StyledComponent so Interpolation can still infer InterpolationFunction
 type StyledComponentInterpolation =
