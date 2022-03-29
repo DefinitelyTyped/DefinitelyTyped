@@ -814,9 +814,9 @@ export namespace Tickets {
          * Represents 'ticket_fields'
          */
         interface TicketField {
-            readonly id?: number | undefined;
-            readonly url?: string | undefined;
             readonly type: string | undefined;
+            readonly title: string | undefined;
+            id?: number | undefined;
             active?: true;
             agent_description?: string | undefined;
             collapsed_for_agents?: boolean | undefined;
@@ -832,10 +832,10 @@ export namespace Tickets {
             required?: boolean | undefined;
             required_in_portal?: boolean | undefined;
             tag?: string | undefined;
-            title: string | undefined;
             title_in_portal?: string | undefined;
             updated_at?: Date | undefined;
             visible_in_portal?: boolean | undefined;
+            url?: string | undefined;
         }
         interface CreateTicketField extends TicketField {
             key: string;
