@@ -1641,7 +1641,7 @@ export interface EnhancedPageObjectSections {
 export type EnhancedPageObject<
     Commands = {},
     Elements = {},
-    Sections extends EnhancedPageObjectSections = {},
+    Sections = {},
 > = Nightwatch &
     SharedCommands &
     NightwatchCustomCommands &
