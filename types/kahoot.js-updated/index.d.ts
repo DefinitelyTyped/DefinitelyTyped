@@ -22,14 +22,12 @@ declare namespace Kahoot {
          */
         options?:
             | {
-                  options: {
-                      ChallengeAutoContinue: boolean;
-                      ChallengeGetFullScore: boolean;
-                      ChallengeAlwaysCorrect: boolean;
-                      ChallengeUseStreakBonus: boolean;
-                      ChallengeWaitForInput: boolean;
-                      ChallengeScore: number | null;
-                  };
+                  ChallengeAutoContinue?: boolean | undefined;
+                  ChallengeGetFullScore?: boolean | undefined;
+                  ChallengeAlwaysCorrect?: boolean | undefined;
+                  ChallengeUseStreakBonus?: boolean | undefined;
+                  ChallengeWaitForInput?: boolean | undefined;
+                  ChallengeScore?: number | null | undefined;
               }
             | undefined;
         /**
