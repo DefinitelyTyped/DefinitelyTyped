@@ -1,6 +1,4 @@
 {
     "private": true,
-    "dependencies": {
-        "aws-sdk": "^2.1089.0"
-    }
+    "dependencies": {}
 }

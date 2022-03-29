@@ -3,11 +3,8 @@
 // Definitions by: HappyGuest <https://github.com/HappyGuest>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="node"/>
-import * as AWS from 'aws-sdk';
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
 declare module '@happyguestmx/web-utilities' {
-
     // shared
     interface QueryOutput {
         Items: any[];
@@ -26,8 +23,16 @@ declare module '@happyguestmx/web-utilities' {
         user_uuid: string | null | undefined;
         sourceIp: string;
     }
+    interface PutItemOutput {
+        Attributes?: { [key: string]: any };
+        ConsumedCapacity?: {};
+        ItemCollectionMetrics?: {
+            ItemCollectionKey?: { [key: string]: any };
+            SizeEstimateRangeGB?: number[];
+        };
+    }
     interface ActivityLogHandler {
-        logEntry: (params: LogEntry) => Promise<AWS.DynamoDB.DocumentClient.PutItemOutput>;
+        logEntry: (params: LogEntry) => Promise<PutItemOutput>;
     }
 
     // assetsHandler
@@ -52,9 +57,25 @@ declare module '@happyguestmx/web-utilities' {
         bucket: string;
         key: string;
     }
+    interface PutObjectOutput {
+        Expiration?: string;
+        ETag?: string;
+        ChecksumCRC32?: string;
+        ChecksumCRC32C?: string;
+        ChecksumSHA1?: string;
+        ChecksumSHA256?: string;
+        ServerSideEncryption?: string;
+        VersionId?: string;
+        SSECustomerAlgorithm?: string;
+        SSECustomerKeyMD5?: string;
+        SSEKMSKeyId?: string;
+        SSEKMSEncryptionContext?: string;
+        BucketKeyEnabled?: boolean;
+        RequestCharged?: string;
+    }
     interface AssetsHandler {
         getImage: (url: string, format: string) => Promise<string>;
-        storeImage: (request: StoreImageRequest) => Promise<AWS.S3.PutObjectOutput>;
+        storeImage: (request: StoreImageRequest) => Promise<PutObjectOutput>;
         storeGallery: (request: StoreGalleryRequest) => Promise<string[]>;
         amazonS3Uri: (url: string) => Promise<AmazonS3UriOutput>;
     }
@@ -141,9 +162,86 @@ declare module '@happyguestmx/web-utilities' {
     }
 
     // ddbHelper
+    type ComparisonOperator =
+        | 'EQ'
+        | 'NE'
+        | 'IN'
+        | 'LE'
+        | 'LT'
+        | 'GE'
+        | 'GT'
+        | 'BETWEEN'
+        | 'NOT_NULL'
+        | 'NULL'
+        | 'CONTAINS'
+        | 'NOT_CONTAINS'
+        | 'BEGINS_WITH'
+        | string;
+    interface QueryInput {
+        TableName: string;
+        IndexName?: string;
+        Select?: string;
+        AttributesToGet?: string[];
+        Limit?: number;
+        ConsistentRead?: boolean;
+        KeyConditions?: {
+            [key: string]: {
+                AttributeValueList?: any[];
+                ComparisonOperator: ComparisonOperator;
+            };
+        };
+        QueryFilter?: {
+            [key: string]: {
+                AttributeValueList?: any[];
+                ComparisonOperator: ComparisonOperator;
+            };
+        };
+        ConditionalOperator?: 'AND' | 'OR' | string;
+        ScanIndexForward?: boolean;
+        ExclusiveStartKey?: { [key: string]: any };
+        ReturnConsumedCapacity?: 'INDEXES' | 'TOTAL' | 'NONE' | string;
+        ProjectionExpression?: string;
+        FilterExpression?: string;
+        KeyConditionExpression?: string;
+        ExpressionAttributeNames?: {
+            [key: string]: string;
+        };
+        ExpressionAttributeValues?: {
+            [key: string]: any;
+        };
+    }
+    interface ScanInput {
+        TableName: string;
+        IndexName?: string;
+        AttributesToGet?: string[];
+        Limit?: number;
+        Select?: string;
+        ScanFilter?: {
+            [key: string]: {
+                AttributeValueList?: any[];
+                ComparisonOperator: ComparisonOperator;
+            };
+        };
+        ConditionalOperator?: string;
+        ExclusiveStartKey?: {
+            [key: string]: any;
+        };
+        ReturnConsumedCapacity?: string;
+        TotalSegments?: number;
+        Segment?: number;
+        ProjectionExpression?: string;
+        FilterExpression?: string;
+        ExpressionAttributeNames?: {
+            [key: string]: string;
+        };
+        ExpressionAttributeValues?: {
+            [key: string]: any;
+        };
+        ConsistentRead?: boolean;
+    }
     interface DdbHelper {
         recursiveQuery: (
-            params: AWS.DynamoDB.DocumentClient.QueryInput | AWS.DynamoDB.DocumentClient.ScanInput,
+            params: QueryInput | ScanInput,
             method: 'query' | 'scan',
             xray?: boolean,
         ) => Promise<QueryOutput>;
@@ -165,20 +263,31 @@ declare module '@happyguestmx/web-utilities' {
         notifications: string;
         updated_at: string;
     }
-    interface CognitoAttributes {
+    interface AttributeType {
         Name: string;
         Value: any;
     }
+    interface MFAOptionType {
+        DeliveryMedium?: string;
+        AttributeName?: string;
+    }
+    interface GetUserResponse {
+        Username: string;
+        UserAttributes: AttributeType[];
+        MFAOptions?: MFAOptionType[];
+        PreferredMfaSetting?: string;
+        UserMFASettingList?: string[];
+    }
     interface UserHandler {
-        getUserFromJWT: (AccessToken: string) => Promise<AWS.CognitoIdentityServiceProvider.GetUserResponse>;
-        getCognitoUser: (AccessToken: string) => Promise<AWS.CognitoIdentityServiceProvider.GetUserResponse>;
+        getUserFromJWT: (AccessToken: string) => Promise<GetUserResponse>;
+        getCognitoUser: (AccessToken: string) => Promise<GetUserResponse>;
         findUserInDB: (sub: string) => Promise<any>;
         findUserInConciergeUsers: (sub: string) => Promise<QueryOutput>;
         findUserInAdminUsers: (sub: string) => Promise<QueryOutput>;
         findUserInCoStaffUsers: (sub: string) => Promise<QueryOutput>;
         findUserInStaffUsers: (sub: string) => Promise<QueryOutput>;
         permissionsValidate: (user: User, level: string, company_uuid?: string, hotel_uuid?: string) => Promise<string>;
-        cognitoAttributesToJson: (sub: CognitoAttributes[]) => Promise<{}>;
+        cognitoAttributesToJson: (sub: AttributeType[]) => Promise<{}>;
         findUserByEmail: (email: string) => Promise<any>;
         findAdminUserByEmail: (email: string) => Promise<any>;
         findCoStaffUserByEmail: (email: string) => Promise<QueryOutput>;
