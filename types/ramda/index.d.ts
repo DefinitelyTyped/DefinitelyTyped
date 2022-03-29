@@ -1061,6 +1061,13 @@ export function dropWhile<T>(fn: (a: T) => boolean): (list: readonly T[]) => T[]
  * function if it is truth-y and the result of the second function otherwise. Note that this is
  * short-circuited, meaning that the second function will not be invoked if the first returns a truth-y value.
  */
+export function either<T, TF1 extends T, TF2 extends Exclude<T, TF1>>(
+    pred1: PredTypeguard<T, TF1>,
+    pred2: PredTypeguard<Exclude<T, TF1>, TF2>,
+): (a: T) => a is TF1 | TF2;
+export function either<T, TF1 extends T>(
+    pred1: PredTypeguard<T, TF1>,
+): <TF2 extends Exclude<T, TF1>>(pred2: PredTypeguard<Exclude<T, TF1>, TF2>) => (a: T) => a is TF1 | TF2;
 export function either<T extends Pred>(pred1: T, pred2: T): T;
 export function either<T extends Pred>(pred1: T): (pred2: T) => T;
 
