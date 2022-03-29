@@ -76,6 +76,13 @@ declare namespace Kahoot {
         successful: boolean;
     }
 
+    interface Nemesis {
+        name: string;
+        isGhost: boolean;
+        rank: number;
+        totalScore: number;
+    }
+
     interface QuizVideo {
         startTime: number;
         endTime: number;
@@ -147,8 +154,37 @@ declare namespace Kahoot {
     }
 
     interface QuestionStart extends QuestionReady {
-        /** @todo update type */
-        answer(): Promise<unknown>;
+        /** @inheritdoc */
+        answer: Kahoot['answer'];
+    }
+
+    interface QuestionEnd {
+        choice: number;
+        /** @todo add types */
+        type: unknown;
+        isCorrect: boolean;
+        text: string;
+        receivedTime: number;
+        /** @todo add types */
+        pointsQuestion: unknown;
+        points: number;
+        correctChoices: number[];
+        totalScore: number;
+        rank: number;
+        nemesis: Nemesis;
+        pointsdata: {
+            questionPoints: number;
+            totalPointsWithBonuses: number;
+            totalPointsWithoutBonuses: number;
+            answerStreakPoints: {
+                streakLevel: number;
+                streakBonus: number;
+                totalStreakPoints: number;
+                previousStreakLevel: number;
+                previousStreakBonus: number;
+            };
+        };
+        lastGameBlockIndex: number;
     }
 
     interface TimeOver {
@@ -213,6 +249,12 @@ declare class Kahoot extends EventEmitter {
      */
     answerTwoFactorAuth(steps: [number, number, number, number]): Promise<Kahoot.LiveEventTimetrack>;
 
+    /**
+     * Answer a question
+     * @param choice The index of the choice
+     */
+    answer(choice: number): Promise<Kahoot.LiveEventTimetrack>;
+
     cid: number;
 
     classes: {
@@ -229,8 +271,7 @@ declare class Kahoot extends EventEmitter {
 
     defaults: Required<Kahoot.KahootOptions>;
 
-    /** @todo add type */
-    disconnectReason?: unknown;
+    disconnectReason?: string;
 
     /** The game's pin */
     gameid: number;
@@ -267,10 +308,15 @@ declare class Kahoot extends EventEmitter {
 
     // Events
     on(eventName: 'Joined', listener: (ev: Kahoot.JoinResponse) => void): this;
+    on(eventName: 'Disconnect', listener: (ev: string) => void): this;
+    on(eventName: 'GameReset', listener: (ev: undefined) => void): this;
     on(eventName: 'NameAccept', listener: (ev: Kahoot.NameAccept) => void): this;
     on(eventName: 'TeamAccept', listener: (ev: Kahoot.TeamAccept) => void): this;
+    on(eventName: 'QuestionStart', listener: (ev: Kahoot.QuestionStart) => void): this;
     on(eventName: 'QuestionReady', listener: (ev: Kahoot.QuestionReady) => void): this;
+    on(eventName: 'QuestionEnd', listener: (ev: Kahoot.QuestionEnd) => void): this;
     on(eventName: 'TimeOver', listener: (ev: Kahoot.TimeOver) => void): this;
+    on(eventName: 'Feedback', listener: (ev: {}) => void): this;
 }
 
 export = Kahoot;
