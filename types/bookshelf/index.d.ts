@@ -373,7 +373,7 @@ declare namespace Bookshelf {
     interface SerializeOptions {
         shallow?: boolean | undefined;
         omitPivot?: boolean | undefined;
-        hidden?: string[];
+        hidden?: string[] | undefined;
         /** @default true */
         visibility?: boolean | undefined;
     }
