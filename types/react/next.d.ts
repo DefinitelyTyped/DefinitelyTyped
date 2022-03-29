@@ -33,15 +33,6 @@ declare const UNDEFINED_VOID_ONLY: unique symbol;
 type VoidOrUndefinedOnly = void | { [UNDEFINED_VOID_ONLY]: never };
 
 declare module '.' {
-    export interface SuspenseProps {
-        /**
-         * The presence of this prop indicates that the content is computationally expensive to render.
-         * In other words, the tree is CPU bound and not I/O bound (e.g. due to fetching data).
-         * @see {@link https://github.com/facebook/react/pull/19936}
-         */
-        unstable_expectedLoadTime?: number | undefined;
-    }
-
     // must be synchronous
     export type TransitionFunction = () => VoidOrUndefinedOnly;
     // strange definition to allow vscode to show documentation on the invocation
