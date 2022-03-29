@@ -48,4 +48,13 @@ import * as R from 'ramda';
         (a): [string, string] => [a.foo, a.bar],
         (a): [string | undefined, string | number] => [a.foo, a.bar],
     );
+
+    R.ifElse(
+        R.both(
+            (value: { foo: string } | { fuz: string } | { bar: number }): value is { foo: string } => true,
+            (value: { foo: string } | { fuz: string } | { bar: number }): value is { fuz: string } => true,
+        ),
+        value => value.foo + value.fuz,
+        value => value,
+    );
 };
