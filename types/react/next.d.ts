@@ -99,33 +99,6 @@ declare module '.' {
     export function useId(): string;
 
     /**
-     * this should be an internal type
-     */
-    interface MutableSource<T> {
-        _source: T;
-    }
-
-    export type MutableSourceSubscribe<T> = (source: T, callback: () => void) => () => void;
-
-    /**
-     * @param source A source could be anything as long as they can be subscribed to and have a "version".
-     * @param getVersion A function returns a value which will change whenever part of the source changes.
-     */
-    export function unstable_createMutableSource<T>(source: T, getVersion: () => any): MutableSource<T>;
-
-    /**
-     * useMutableSource() enables React components to safely and efficiently read from a mutable external source in Concurrent Mode.
-     * The API will detect mutations that occur during a render to avoid tearing
-     * and it will automatically schedule updates when the source is mutated.
-     * @param MutableSource
-     * @param getSnapshot
-     * @param subscribe
-     *
-     * @see https://github.com/reactjs/rfcs/blob/master/text/0147-use-mutable-source.md
-     */
-    export function unstable_useMutableSource<T, TResult extends unknown>(MutableSource: MutableSource<T>, getSnapshot: (source: T) => TResult, subscribe: MutableSourceSubscribe<T>): TResult;
-
-    /**
      * @param effect Imperative function that can return a cleanup function
      * @param deps If present, effect will only activate if the values in the list change.
      *
