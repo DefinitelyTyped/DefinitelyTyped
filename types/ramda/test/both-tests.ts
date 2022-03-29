@@ -33,9 +33,16 @@ import * as R from 'ramda';
     const isFoo = (x: any): x is { foo: number } => true;
     const isBar = (x: any): x is { bar: string } => true;
     const isFooBar = R.both(isFoo, isBar);
+    const isFooBar2 = R.both(isFoo)(isBar);
 
     const foobar: any = {};
     if (isFooBar(foobar)) {
+        // $ExpectType number
+        foobar.foo;
+        // $ExpectType string
+        foobar.bar;
+    }
+    if (isFooBar2(foobar)) {
         // $ExpectType number
         foobar.foo;
         // $ExpectType string
