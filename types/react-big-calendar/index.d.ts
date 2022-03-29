@@ -18,6 +18,7 @@
 //                 Daniele Carrucciu <https://github.com/catruzz>
 //                 Chris Vandenberg <https://github.com/altruisticsoftware>
 //                 Chris Frewin <https://github.com/princefishthrower>
+//                 decimoseptimo <https://github.com/decimoseptimo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 import { Validator } from 'prop-types';
