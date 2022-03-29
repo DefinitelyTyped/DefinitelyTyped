@@ -1596,3 +1596,6 @@ management.getDeviceCredentials({ user_id: 'user_id' }).then(deviceCredentials =
 management.getDeviceCredentials({ user_id: 'user_id' }, (err, deviceCredentials) => {
     deviceCredentials; // $ExpectType DeviceCredential[]
 });
+
+management.deleteDeviceCredential({ id: 'id' }).then(() => {});
+management.deleteDeviceCredential({ id: 'id' }, err => {});
