@@ -1,4 +1,6 @@
 import AdmZip = require('adm-zip');
+import util = require('adm-zip/util');
+const { Constants } = util;
 
 // reading archives
 const zip = new AdmZip('./my_file.zip');
@@ -27,6 +29,8 @@ zip.extractAllToAsync(/*target path*/ '/home/me/zipcontent/', /*overwrite*/ true
 
 // creating archives
 new AdmZip();
+// creating archives with options
+new AdmZip(undefined, { method: Constants.DEFLATED });
 
 // add file directly
 zip.addFile('test.txt', new Buffer('inner content of the file'), 'entry comment goes here');
