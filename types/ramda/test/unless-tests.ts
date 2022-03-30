@@ -2,7 +2,7 @@ import * as R from 'ramda';
 
 () => {
     // coerceArray :: (a|[a]) -> [a]
-    const coerceArray = R.unless(R.is(Array), R.of);
+    const coerceArray = R.unless<number | number[], number[], number[]>(R.is(Array), R.of);
     const a: number[] = coerceArray([1, 2, 3]); // => [1, 2, 3]
     const b: number[] = coerceArray(1); // => [1]
 
@@ -17,4 +17,10 @@ import * as R from 'ramda';
 
     // $ExpectType string | number
     const abnormal = bodyTemperature(38); // => 'abnormal: 38'
+
+    // $ExpectType (a: number | null) => string | null
+    const StringifyIfNotNil = R.unless(
+        (a: null | number): a is null => true,
+        a => a.toString(0),
+    );
 };

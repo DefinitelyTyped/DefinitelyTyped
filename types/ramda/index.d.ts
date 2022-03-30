@@ -3013,6 +3013,15 @@ export function uniqWith<T, U>(pred: (x: T, y: T) => boolean): (list: readonly T
  * the function will return the result of calling the whenFalseFn function with the same argument. If the
  * predicate is satisfied, the argument is returned as is.
  */
+export function unless<T, TFiltered extends T, U>(
+    pred: (a: T) => a is TFiltered,
+    whenFalseFn: (a: Exclude<T, TFiltered>) => U,
+    a: T,
+): TFiltered | U;
+export function unless<T, TFiltered extends T, U>(
+    pred: (a: T) => a is TFiltered,
+    whenFalseFn: (a: Exclude<T, TFiltered>) => U,
+): (a: T) => TFiltered | U;
 export function unless<T, U>(pred: (a: T) => boolean, whenFalseFn: (a: T) => U, a: T): T | U;
 export function unless<T, U>(pred: (a: T) => boolean, whenFalseFn: (a: T) => U): (a: T) => T | U;
 
