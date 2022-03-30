@@ -91,7 +91,6 @@ function MyMDXPage(props: MDXModule) {
 }
 
 const MyComponentAlias: MDXContent = MyMDXComponent;
-const MyComponentAliasAlias: typeof MyMDXComponent = MyComponentAlias;
 
 // Tests — All mdx file exports.
 
@@ -119,32 +118,32 @@ const MyComponentAliasAlias: typeof MyMDXComponent = MyComponentAlias;
             return <div />;
         },
         nested: {
-            components: (props) => {
+            components: props => {
                 // $ExpectType any
                 props;
                 return <div />;
             },
             very: {
-                deeply: (props) => {
+                deeply: props => {
                     // $ExpectType any
                     props;
                     return <div />;
                 },
                 to: {
-                    infinity: (props) => {
+                    infinity: props => {
                         // $ExpectType any
                         props;
                         return <div />;
                     },
                     and: {
-                        beyond: (props) => {
+                        beyond: props => {
                             // $ExpectType any
                             props;
                             return <div />;
                         },
                         span: 'div',
-                    }
-                }
+                    },
+                },
             },
         },
         // $ExpectError
@@ -177,32 +176,32 @@ const MyComponentAliasAlias: typeof MyMDXComponent = MyComponentAlias;
             return <div />;
         },
         nested: {
-            components: (props) => {
+            components: props => {
                 // $ExpectType any
                 props;
                 return <div />;
             },
             very: {
-                deeply: (props) => {
+                deeply: props => {
                     // $ExpectType any
                     props;
                     return <div />;
                 },
                 to: {
-                    infinity: (props) => {
+                    infinity: props => {
                         // $ExpectType any
                         props;
                         return <div />;
                     },
                     and: {
-                        beyond: (props) => {
+                        beyond: props => {
                             // $ExpectType any
                             props;
                             return <div />;
                         },
                         span: 'div',
-                    }
-                }
+                    },
+                },
             },
         },
         // $ExpectError
@@ -236,32 +235,32 @@ const MyComponentAliasAlias: typeof MyMDXComponent = MyComponentAlias;
             return <div />;
         },
         nested: {
-            components: (props) => {
+            components: props => {
                 // $ExpectType any
                 props;
                 return <div />;
             },
             very: {
-                deeply: (props) => {
+                deeply: props => {
                     // $ExpectType any
                     props;
                     return <div />;
                 },
                 to: {
-                    infinity: (props) => {
+                    infinity: props => {
                         // $ExpectType any
                         props;
                         return <div />;
                     },
                     and: {
-                        beyond: (props) => {
+                        beyond: props => {
                             // $ExpectType any
                             props;
                             return <div />;
                         },
                         span: 'div',
-                    }
-                }
+                    },
+                },
             },
         },
         // $ExpectError
@@ -295,32 +294,32 @@ const MyComponentAliasAlias: typeof MyMDXComponent = MyComponentAlias;
             return <div />;
         },
         nested: {
-            components: (props) => {
+            components: props => {
                 // $ExpectType any
                 props;
                 return <div />;
             },
             very: {
-                deeply: (props) => {
+                deeply: props => {
                     // $ExpectType any
                     props;
                     return <div />;
                 },
                 to: {
-                    infinity: (props) => {
+                    infinity: props => {
                         // $ExpectType any
                         props;
                         return <div />;
                     },
                     and: {
-                        beyond: (props) => {
+                        beyond: props => {
                             // $ExpectType any
                             props;
                             return <div />;
                         },
                         span: 'div',
-                    }
-                }
+                    },
+                },
             },
         },
         // $ExpectError
@@ -354,32 +353,32 @@ const MyComponentAliasAlias: typeof MyMDXComponent = MyComponentAlias;
             return <div />;
         },
         nested: {
-            components: (props) => {
+            components: props => {
                 // $ExpectType any
                 props;
                 return <div />;
             },
             very: {
-                deeply: (props) => {
+                deeply: props => {
                     // $ExpectType any
                     props;
                     return <div />;
                 },
                 to: {
-                    infinity: (props) => {
+                    infinity: props => {
                         // $ExpectType any
                         props;
                         return <div />;
                     },
                     and: {
-                        beyond: (props) => {
+                        beyond: props => {
                             // $ExpectType any
                             props;
                             return <div />;
                         },
                         span: 'div',
-                    }
-                }
+                    },
+                },
             },
         },
         // $ExpectError
@@ -413,32 +412,32 @@ const MyComponentAliasAlias: typeof MyMDXComponent = MyComponentAlias;
             return <div />;
         },
         nested: {
-            components: (props) => {
+            components: props => {
                 // $ExpectType any
                 props;
                 return <div />;
             },
             very: {
-                deeply: (props) => {
+                deeply: props => {
                     // $ExpectType any
                     props;
                     return <div />;
                 },
                 to: {
-                    infinity: (props) => {
+                    infinity: props => {
                         // $ExpectType any
                         props;
                         return <div />;
                     },
                     and: {
-                        beyond: (props) => {
+                        beyond: props => {
                             // $ExpectType any
                             props;
                             return <div />;
                         },
                         span: 'div',
-                    }
-                }
+                    },
+                },
             },
         },
         // $ExpectError
@@ -472,32 +471,32 @@ const MyComponentAliasAlias: typeof MyMDXComponent = MyComponentAlias;
             return <div />;
         },
         nested: {
-            components: (props) => {
+            components: props => {
                 // $ExpectType any
                 props;
                 return <div />;
             },
             very: {
-                deeply: (props) => {
+                deeply: props => {
                     // $ExpectType any
                     props;
                     return <div />;
                 },
                 to: {
-                    infinity: (props) => {
+                    infinity: props => {
                         // $ExpectType any
                         props;
                         return <div />;
                     },
                     and: {
-                        beyond: (props) => {
+                        beyond: props => {
                             // $ExpectType any
                             props;
                             return <div />;
                         },
                         span: 'div',
-                    }
-                }
+                    },
+                },
             },
         },
         // $ExpectError
@@ -531,32 +530,32 @@ const MyComponentAliasAlias: typeof MyMDXComponent = MyComponentAlias;
             return <div />;
         },
         nested: {
-            components: (props) => {
+            components: props => {
                 // $ExpectType any
                 props;
                 return <div />;
             },
             very: {
-                deeply: (props) => {
+                deeply: props => {
                     // $ExpectType any
                     props;
                     return <div />;
                 },
                 to: {
-                    infinity: (props) => {
+                    infinity: props => {
                         // $ExpectType any
                         props;
                         return <div />;
                     },
                     and: {
-                        beyond: (props) => {
+                        beyond: props => {
                             // $ExpectType any
                             props;
                             return <div />;
                         },
                         span: 'div',
-                    }
-                }
+                    },
+                },
             },
         },
         // $ExpectError
