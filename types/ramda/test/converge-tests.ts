@@ -16,7 +16,9 @@ import * as R from 'ramda';
 
     // $ExpectType string
     const indented = format({ indent: 2, value: 'foo\nbar\nbaz\n' }); // => '  foo\n  bar\n  baz\n'
+};
 
+() => {
     const add = (a: number, b: number) => a + b;
     const multiply = (a: number, b: number) => a * b;
     const subtract = (a: number, b: number) => a - b;
@@ -33,8 +35,20 @@ import * as R from 'ramda';
     // $ExpectType Curry<(a: number, b: number) => number>
     const fn = R.converge(multiply, [add, subtract]);
 
+    // $ExpectType number
+    fn(1, 2);
+
+    // $ExpectError
+    fn('1', 2);
+
+    // $ExpectError
+    fn(1, 2, 3);
+
     // $ExpectError
     const fnMismatchedTypes = R.converge(concat, [add, subtract]);
+
+    // $ExpectError
+    R.converge(multiply, [add, subtract, add]);
 
     // $ExpectError
     const fnWrongNumberOfBranchesV1 = R.converge(concat, []);
@@ -45,6 +59,9 @@ import * as R from 'ramda';
     // because fifth function in branches has arity of 3 result function also must have largest arity
     // $ExpectType Curry<(a: number, b: number, c: number) => number>
     const fn10 = R.converge(add10, [add, add, add, add, add3, add, add, add, add, add]);
+
+    // $ExpectType number
+    fn10(1, 2, 3);
 
     const args1 = (a1: number | string) => 1;
     const args2 = (a1: number | bigint, a2: { q: string }) => 2;
@@ -90,7 +107,4 @@ import * as R from 'ramda';
 
     // $ExpectType number
     const average = getAverage([1, 3, 0, 4]); // => 2
-
-    // $ExpectType Curry<(a: number, b: number) => <U>(b: U) => number | U>
-    const withGenericMultiLevelTypeInference = R.converge((...args) => R.or(...args), [add] as const);
 };
