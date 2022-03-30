@@ -7,8 +7,8 @@ import * as R from 'ramda';
     const b: number[] = coerceArray(1); // => [1]
 
     // $ExpectType (a: number) => string | number
-    const bodyTemperature = R.unless<number, string>(
-        temperatureC => R.clamp(36.5, 37.5, temperatureC) === temperatureC,
+    const bodyTemperature = R.unless(
+        (temperatureC: number) => R.clamp(36.5, 37.5, temperatureC) === temperatureC,
         t => `abnormal: ${t}`,
     );
 
