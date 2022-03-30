@@ -39,3 +39,12 @@ const message = new bitcore.Message('sign this message');
 const signedMessageSig = message.sign(privateKey);
 
 message.verify(privateKey.toAddress(), signedMessageSig);
+
+const address = new bitcore.Address('15vkcKf7gB23wLAnZLmbVuMiiVDc1Nm4a2', 'livenet');
+const addressBuffer = address.toBuffer();
+bitcore.Address.fromBuffer(addressBuffer);
+const addressObject = address.toObject();
+bitcore.Address.fromObject(addressObject);
+bitcore.Address.fromPublicKey(publicKey, 'livenet');
+bitcore.Address.isValid('15vkcKf7gB23wLAnZLmbVuMiiVDc1Nm4a2', 'livenet');
+bitcore.Address.isValid('15vkcKf7gB23wLAnZLmbVuMiiVDc1Nm4a2', 'livenet', 'p2pkh');

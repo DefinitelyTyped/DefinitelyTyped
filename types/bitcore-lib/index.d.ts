@@ -1,4 +1,4 @@
-// Type definitions for bitcore-lib 0.15
+// Type definitions for bitcore-lib 8.25
 // Project: https://github.com/bitpay/bitcore-lib
 // Definitions by: Lautaro Dragan <https://github.com/lautarodragan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -292,7 +292,33 @@ export class Address {
     readonly network: Networks.Network;
     readonly type: string;
 
-    constructor(data: Buffer | Uint8Array | string | object, network?: Networks.Network, type?: string);
+    constructor(data: Buffer | Uint8Array | string | object, network?: string | Networks.Network, type?: string, multisigType?: string);
+
+    static createMultisig(publicKeys: PublicKey[], threshold: number, network: string | Networks.Network, nestedWitness?: boolean, type?: string): Address;
+    static payingTo(script: Script, network: string | Networks.Network): Address;
+
+    static fromPublicKey(data: PublicKey, network: string | Networks.Network): Address;
+    static fromPublicKeyHash(hash: Buffer, network: string | Networks.Network): Address;
+    static fromScriptHash(hash: Buffer, network: string | Networks.Network): Address;
+    static fromScript(script: Script, network: string | Networks.Network): Address;
+    static fromBuffer(buffer: Buffer, network?: string | Networks.Network, type?: string): Address;
+    static fromString(str: string, network?: string | Networks.Network, type?: string): Address;
+    static fromObject(obj: object): Address;
+
+    static getValidationError(data: string, network?: string | Networks.Network, type?: string): null | Error;
+
+    toBuffer(): Buffer;
+    toObject(): object;
+    toString(): string;
+
+    static isValid(data: string, network?: string | Networks.Network, type?: string): boolean;
+    isPayToPublicKeyHash(): boolean;
+    isPayToScriptHash(): boolean;
+    isPayToWitnessPublicKeyHash(): boolean;
+    isPayToWitnessScriptHash(): boolean;
+    isPayToTaproot(): boolean;
+
+    inspect(): string;
 }
 
 export class Unit {
