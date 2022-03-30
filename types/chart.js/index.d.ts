@@ -770,6 +770,7 @@ declare namespace Chart {
         gridLines?: GridLineOptions | undefined;
         scaleLabel?: ScaleTitleOptions | undefined;
         time?: TimeScale | undefined;
+        adapters?: DateAdapterOptions | undefined;
         offset?: boolean | undefined;
         beforeUpdate?(scale?: any): void;
         beforeSetDimension?(scale?: any): void;
@@ -820,7 +821,6 @@ declare namespace Chart {
     }
 
     interface TimeScale extends ChartScales {
-        adapters?: DateAdapterOptions | undefined;
         displayFormats?: TimeDisplayFormat | undefined;
         isoWeekday?: boolean | undefined;
         max?: string | undefined;
