@@ -13,7 +13,6 @@ export class Uniform {
      * @deprecated Use {@link Object3D#onBeforeRender object.onBeforeRender()} instead.
      */
     dynamic: boolean;
-    onUpdateCallback: () => void;
 
     /**
      * @deprecated Use {@link Object3D#onBeforeRender object.onBeforeRender()} instead.

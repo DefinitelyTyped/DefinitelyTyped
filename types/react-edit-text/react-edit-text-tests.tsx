@@ -13,6 +13,8 @@ const formatDisplayTextTest = (value: string) => {
     return '$' + value;
 };
 
+const TestEditButton = <div>Edit</div>;
+
 <EditText />;
 <EditText id="firstName" />;
 <EditText name="firstName" />;
@@ -27,6 +29,11 @@ const formatDisplayTextTest = (value: string) => {
 <EditText style={{ margin: 0 }} />;
 <EditText readonly />;
 <EditText type="number" value="100" formatDisplayText={formatDisplayTextTest} />;
+<EditText showEditButton />;
+<EditText showEditButton editButtonContent="Edit" />;
+<EditText showEditButton editButtonContent={<i className="editIcon" />} />;
+<EditText showEditButton editButtonProps={{ style: { marginTop: 10, padding: 0 }, id: 'test', className: 'test' }} />;
+<EditText showEditButton editButtonContent={TestEditButton} editButtonProps={{ autoFocus: true }} />;
 
 <EditTextarea />;
 <EditTextarea id="desc" />;

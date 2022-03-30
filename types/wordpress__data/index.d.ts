@@ -148,7 +148,7 @@ export const plugins: {
     }>;
 };
 
-export function use<T>(plugin: Plugin<T>, options: T): DataRegistry;
+export function use<T extends Record<string, any>>(plugin: Plugin<T>, options: T): DataRegistry;
 
 //
 // Factory functions

@@ -24,3 +24,6 @@ client.logout();
 
 // $Expect Promise<ListResponse[]>
 client.list();
+
+// $Expect Promise<MailboxDeleteResponse>
+client.mailboxDelete('INBOX.example');

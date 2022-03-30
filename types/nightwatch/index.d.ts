@@ -10,6 +10,8 @@
 //                 Ravi Sawlani <https://github.com/gravityvi>
 //                 Binayak Ghosh <https://github.com/swrdfish>
 //                 Harshit Agrawal <https://github.com/harshit-bs>
+//                 David Mello <https://github.com/literallyMello>
+//                 Luke Bickell <https://github.com/lukebickell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.5
 
@@ -543,6 +545,7 @@ export interface NightwatchOptions {
 }
 
 export interface NightwatchGlobals {
+    [key: string]: any;
     /**
      * this controls whether to abort the test execution when an assertion failed and skip the rest
      * it's being used in waitFor commands and expect assertions
@@ -1401,15 +1404,19 @@ export interface NightwatchKeys {
     COMMAND: string;
 }
 
+export type NightwatchPage = {
+    [name: string]: () => EnhancedPageObject<any, any, any>;
+} & {
+    [name: string]: NightwatchPage;
+};
+
 export interface NightwatchAPI extends SharedCommands, WebDriverProtocol, NightwatchCustomCommands {
     baseURL: string;
     assert: NightwatchAssertions;
     expect: Expect;
     verify: NightwatchAssertions;
 
-    page: {
-        [name: string]: () => EnhancedPageObject<any, any, any>;
-    } & NightwatchCustomPageObjects;
+    page: NightwatchPage & NightwatchCustomPageObjects;
 
     /**
      * SessionId of the session used by the Nightwatch api.
@@ -1689,7 +1696,7 @@ export interface EnhancedElementInstance<T> {
     selector: string;
 }
 
-export type EnhancedSectionInstance<Commands = {}, Elements = {}, Sections = {}> = EnhancedPageObject<
+export type EnhancedSectionInstance<Commands = {}, Elements = {}, Sections extends EnhancedPageObjectSections  = {}> = EnhancedPageObject<
     Commands,
     Elements,
     Sections

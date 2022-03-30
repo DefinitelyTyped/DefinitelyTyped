@@ -520,15 +520,15 @@ export interface PaymentSourceResponse {
 
 // https://developer.paypal.com/docs/api/orders/v2/#definition-order_application_context
 export interface OrderApplicationContext {
-    brand_name: string;
-    locale: string;
-    landing_page: LandingPage;
-    shipping_preference: ShippingPreference;
-    user_action: UserAction;
-    payment_method: PaymentMethod;
-    return_url: string;
-    cancel_url: string;
-    stored_payment_source: StoredPaymentSource;
+    brand_name?: string;
+    locale?: string;
+    landing_page?: LandingPage;
+    shipping_preference?: ShippingPreference;
+    user_action?: UserAction;
+    payment_method?: PaymentMethod;
+    return_url?: string;
+    cancel_url?: string;
+    stored_payment_source?: StoredPaymentSource;
 }
 
 export enum LandingPage {
@@ -537,16 +537,9 @@ export enum LandingPage {
     NO_PREFERENCE = 'NO_PREFERENCE',
 }
 
-export enum ShippingPreference {
-    GET_FROM_FILE = 'GET_FROM_FILE',
-    NO_SHIPPING = 'NO_SHIPPING',
-    SET_PROVIDED_ADDRESS = 'SET_PROVIDED_ADDRESS',
-}
+export type ShippingPreference = 'GET_FROM_FILE' | 'NO_SHIPPING' | 'SET_PROVIDED_ADDRESS';
 
-export enum UserAction {
-    CONTINUE = 'CONTINUE',
-    PAY_NOW = 'PAY_NOW',
-}
+export type UserAction = 'CONTINUE' | 'PAY_NOW';
 
 // https://developer.paypal.com/docs/api/orders/v2/#definition-payment_method
 export interface PaymentMethod {

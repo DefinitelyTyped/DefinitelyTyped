@@ -19,7 +19,8 @@ mermaidAPI.initialize({
     secure: ["startOnLoad", "theme"],
     maxTextSize: 20,
     fontFamily: "verdana",
-    theme: "default",
+    securityLevel: mermaidAPI.SecurityLevel.Loose,
+    theme: mermaidAPI.Theme.Default,
     themeCSS: ""
 });
 

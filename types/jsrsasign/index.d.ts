@@ -1,4 +1,4 @@
-// Type definitions for jsrsasign 9.0
+// Type definitions for jsrsasign 10.2
 // Project: https://github.com/kjur/jsrsasign
 // Definitions by: Florian Imdahl <https://github.com/ffflorian>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
