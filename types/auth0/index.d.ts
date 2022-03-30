@@ -1538,8 +1538,8 @@ export class ManagementClient<A = AppMetadata, U = UserMetadata> {
     createDevicePublicKey(data: Data): Promise<User<A, U>>;
     createDevicePublicKey(data: Data, cb: (err: Error, data: any) => void): void;
 
-    deleteDeviceCredential(params: ClientParams): Promise<User<A, U>>;
-    deleteDeviceCredential(params: ClientParams, cb: (err: Error, data: any) => void): void;
+    deleteDeviceCredential(params: ObjectWithId): Promise<void>;
+    deleteDeviceCredential(params: ObjectWithId, cb: (err: Error) => void): void;
 
     // Roles
     getRoles(): Promise<Role[]>;
