@@ -8,7 +8,7 @@
 /// <reference types="node" />
 
 export namespace crypto {
-    class BN { }
+    class BN {}
 
     namespace ECDSA {
         function sign(message: Buffer, key: PrivateKey): Signature;
@@ -292,9 +292,20 @@ export class Address {
     readonly network: Networks.Network;
     readonly type: string;
 
-    constructor(data: Buffer | Uint8Array | string | object, network?: string | Networks.Network, type?: string, multisigType?: string);
+    constructor(
+        data: Buffer | Uint8Array | string | object,
+        network?: string | Networks.Network,
+        type?: string,
+        multisigType?: string,
+    );
 
-    static createMultisig(publicKeys: PublicKey[], threshold: number, network: string | Networks.Network, nestedWitness?: boolean, type?: string): Address;
+    static createMultisig(
+        publicKeys: PublicKey[],
+        threshold: number,
+        network: string | Networks.Network,
+        nestedWitness?: boolean,
+        type?: string,
+    ): Address;
     static payingTo(script: Script, network: string | Networks.Network): Address;
 
     static fromPublicKey(data: PublicKey, network: string | Networks.Network): Address;
