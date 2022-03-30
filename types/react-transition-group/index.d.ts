@@ -5,6 +5,7 @@
 //                 Masafumi Koba <https://github.com/ybiquitous>
 //                 tu4mo <https://github.com/tu4mo>
 //                 Ben Grynhaus <https://github.com/bengry>
+//                 Giuseppe Montuoro <https://github.com/goldmont>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
