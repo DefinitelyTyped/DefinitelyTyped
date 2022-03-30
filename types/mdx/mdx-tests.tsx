@@ -69,6 +69,10 @@ class CustomImageComponent {
     }
 }
 
+type FunctionComponent<P = {}> = (props: P) => JSX.Element | null; // simplistic FC type, mimicking React.FC
+
+const CustomVideoComponent: FunctionComponent<VideoProps> = () => <div>Dummy video component</div>;
+
 // Tests — The `mdx` imports.
 
 function MyMDXPage(props: MDXModule) {
@@ -166,8 +170,7 @@ const MyComponentAliasAlias: typeof MyMDXComponent = MyComponentAlias;
             return <div {...props} />;
         },
         img: CustomImageComponent,
-        // $ExpectError
-        video: CustomImageComponent,
+        video: CustomVideoComponent,
         wrapper(props) {
             // $ExpectType any
             props;
