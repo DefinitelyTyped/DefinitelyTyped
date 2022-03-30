@@ -60,8 +60,8 @@ function tests_simple() {
         picker.ranges; // $ExpectType { [name: string]: [DateOrString, DateOrString]; }
         picker.showCustomRangeLabel; // $ExpectType boolean
         picker.alwaysShowCalendars; // $ExpectType boolean
-        picker.opens; // $ExpectType "left" | "right" | "center"
-        picker.drops; // $ExpectType "down" | "up"
+        picker.opens; // $ExpectType "left" | "right" | "center" || "center" | "left" | "right"
+        picker.drops; // $ExpectType "down" | "up" || "up" | "down"
         picker.buttonClasses; // $ExpectType string[]
         picker.applyButtonClasses; // $ExpectType string
         picker.cancelButtonClasses; // $ExpectType string

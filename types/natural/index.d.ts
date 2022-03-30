@@ -155,6 +155,7 @@ interface BayesClassifierCallback {
     (err: any, classifier: any): void;
 }
 declare class BayesClassifier {
+    constructor(stem?: Stemmer);
     events: events.EventEmitter;
     addDocument(text: string, stem: string): void;
     addDocument(text: string[], stem: string): void;

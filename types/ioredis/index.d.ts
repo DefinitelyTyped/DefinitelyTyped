@@ -312,6 +312,7 @@ declare namespace IORedis {
         decr(key: KeyType): Promise<number>;
 
         mget: OverloadedListCommand<KeyType, Array<string | null>>;
+        mgetBuffer: OverloadedListCommand<KeyType, Array<Buffer | null>>;
 
         rpush: OverloadedKeyCommand<ValueType, number>;
         rpushBuffer: OverloadedKeyCommand<Buffer, number>;
@@ -1058,6 +1059,7 @@ declare namespace IORedis {
         getset(key: KeyType, value: ValueType): Promise<string | null>;
 
         mset: OverloadedHashCommand<ValueType, Ok>;
+        msetBuffer: OverloadedHashCommand<ValueType, Ok>;
         msetnx: OverloadedHashCommand<ValueType, BooleanResponse>;
 
         memory(argument: 'USAGE', key: KeyType, callback?: Callback<number>): Promise<number>;
@@ -1403,6 +1405,8 @@ declare namespace IORedis {
         decr(key: KeyType, callback?: Callback<number>): Pipeline;
 
         mget(...keys: KeyType[]): Pipeline;
+
+        mgetBuffer(...keys: KeyType[]): Pipeline;
 
         rpush(key: KeyType, ...values: ValueType[]): Pipeline;
 
@@ -1782,6 +1786,7 @@ declare namespace IORedis {
 
         mset(...args: ValueType[]): Pipeline;
         mset(data: object | Map<string, any>, callback?: Callback<string>): Pipeline;
+        msetBuffer(...args: ValueType[]): Pipeline;
 
         msetnx(...args: ValueType[]): Pipeline;
         msetnx(data: object | Map<string, any>, callback?: Callback<BooleanResponse>): Pipeline;

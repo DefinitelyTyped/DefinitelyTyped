@@ -24,7 +24,7 @@ declare namespace Mailchimp {
 
     interface Recipient {
         email: string;
-        name: string;
+        name?: string;
         type: RecipientType;
     }
 

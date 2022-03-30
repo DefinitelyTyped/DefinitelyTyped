@@ -548,8 +548,8 @@ select('core/block-editor').getAdjacentBlockClientId('foo', 1);
 
 {
   const blockProps = be.useBlockProps({ ref: useRef("test") });
-  // $ExpectType (instance: unknown) => void
-  blockProps.ref;
+
+  blockProps.ref((current: unknown) => {});
 }
 
 // $ExpectType Record<string, unknown>
