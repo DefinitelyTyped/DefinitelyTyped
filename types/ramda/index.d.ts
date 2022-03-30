@@ -1436,6 +1436,8 @@ export function invoker(arity: number, method: string): (...a: readonly any[]) =
  * See if an object (`val`) is an instance of the supplied constructor.
  * This function will check up the inheritance chain, if any.
  */
+export function is<T>(ctor: ArrayConstructor, val: any): val is T[];
+export function is(ctor: ArrayConstructor): <T>(val: any) => val is T[];
 export function is<C extends (...args: any[]) => any>(ctor: C, val: any): val is ReturnType<C>;
 export function is<C extends new (...args: any[]) => any>(ctor: C, val: any): val is InstanceType<C>;
 export function is<C extends (...args: any[]) => any>(ctor: C): (val: any) => val is ReturnType<C>;
