@@ -94,7 +94,7 @@ declare namespace elasticlunr {
         };
     };
 
-    interface SearchConfig<T> {
+    interface SearchConfig<T extends {}> {
         fields?: FieldSearchConfig<T> | undefined;
         expand?: boolean | undefined;
         bool?: Bool;
@@ -124,7 +124,7 @@ declare namespace elasticlunr {
         index: { [K in keyof T]?: InvertedIndexNode };
     }
 
-    class Index<T> {
+    class Index<T extends {}> {
         constructor();
 
         documentStore: DocumentStore<T>;
@@ -173,7 +173,7 @@ declare namespace elasticlunr {
 
         use(plugin: (...args: any[]) => any, ...args: any[]): void;
 
-        static load<T>(serialisedData: SerialisedIndexData<T>): Index<T>;
+        static load<T extends {}>(serialisedData: SerialisedIndexData<T>): Index<T>;
     }
 
     interface TokenInfo {
