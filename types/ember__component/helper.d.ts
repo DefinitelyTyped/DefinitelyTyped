@@ -1,8 +1,29 @@
 import EmberObject from '@ember/object';
 import { Opaque } from 'ember/-private/type-utils';
 
+// --- Type utilities for signatures --- //
+// Type-only "symbol" to use with `EmptyObject` below, so that it is *not*
+// equivalent to an empty interface.
+declare const Empty: unique symbol;
+
+/**
+ * This provides us a way to have a "fallback" which represents an empty object,
+ * without the downsides of how TS treats `{}`. Specifically: this will
+ * correctly leverage "excess property checking" so that, given a component
+ * which has no named args, if someone invokes it with any named args, they will
+ * get a type error.
+ *
+ * @internal This is exported so declaration emit works (if it were not emitted,
+ *   declarations which fall back to it would not work). It is *not* intended for
+ *   public usage, and the specific mechanics it uses may change at any time.
+ *   The location of this export *is* part of the public API, because moving it
+ *   will break existing declarations, but is not legal for end users to import
+ *   themselves, so ***DO NOT RELY ON IT***.
+ */
+export type EmptyObject = { [Empty]?: true };
+
 type DefaultPositional = unknown[];
-type DefaultNamed = Record<string, unknown>;
+type DefaultNamed = EmptyObject;
 type DefaultReturn = unknown;
 
 /**
@@ -16,16 +37,49 @@ export interface HelperSignature {
     Return?: unknown;
 }
 
-type GetWithFallback<T, K, Fallback> = K extends keyof T ? T[K] : Fallback;
-type ArgsFor<S> = GetWithFallback<S, 'Args', never>;
+type GetOrElse<Obj, K, Fallback> = K extends keyof Obj ? Obj[K] : Fallback;
 
-type PositionalArgs<S> = GetWithFallback<
-    ArgsFor<S>,
-    'Positional',
-    GetWithFallback<S, 'PositionalArgs', DefaultPositional>
->;
-type NamedArgs<S> = GetWithFallback<ArgsFor<S>, 'Named', GetWithFallback<S, 'NamedArgs', DefaultNamed>>;
-type Return<S> = GetWithFallback<S, 'Return', unknown>;
+/** Given a signature `S`, get back the `Args` type. */
+type ArgsFor<S> = 'Args' extends keyof S
+    ? {
+          Named: GetOrElse<S['Args'], 'Named', DefaultNamed>;
+          Positional: GetOrElse<S['Args'], 'Positional', []>;
+      }
+    : { Named: DefaultNamed; Positional: [] };
+
+type LegacyArgsFor<T> = {
+    Named: GetOrElse<T, 'NamedArgs', DefaultNamed>;
+    Positional: GetOrElse<T, 'PositionalArgs', DefaultPositional>;
+};
+
+/**
+ * Given any allowed shorthand form of a signature, desugars it to its full
+ * expanded type.
+ *
+ * @internal This is only exported so we can avoid duplicating it in
+ *   [Glint](https://github.com/typed-ember/glint) or other such tooling. It is
+ *   *not* intended for public usage, and the specific mechanics it uses may
+ *   change at any time. Although the signature produced by is part of Glimmer's
+ *   public API the existence and mechanics of this specific symbol are *not*,
+ *   so ***DO NOT RELY ON IT***.
+ */
+// This is similar but not identical to the `ExpandSignature` type used in the
+// Glimmer Component API: it uses the same basic mechanics, but does not have
+// an identical signature because we had not yet normalized the `Signature` when
+// we designed the first pass of this. In the future, we will be able to make
+// all `ExpandSignature` types fully general to work with *any* invokable. But
+// "future" here probably means Ember v5. :sobbing:
+export type ExpandSignature<T> = {
+    Args: keyof T extends 'Args' | 'Return' // Is this a `Signature`?
+        ? ArgsFor<T> // Then use `Signature` args
+        : LegacyArgsFor<T>; // Otherwise fall back to classic `Args`.
+    Return: 'Return' extends keyof T ? T['Return'] : unknown;
+};
+
+type NamedArgs<S> = ExpandSignature<S>['Args']['Named'];
+type PositionalArgs<S> = ExpandSignature<S>['Args']['Positional'];
+
+type Return<S> = GetOrElse<S, 'Return', unknown>;
 
 /**
  * Ember Helpers are functions that can compute values, and are used in templates.
@@ -37,7 +91,7 @@ export default class Helper<S = unknown> extends EmberObject {
      * The `helper` method create pure-function helpers without instances. For
      * example:
      */
-    static helper<P extends NonNullable<DefaultPositional>, N extends NonNullable<object>, R extends DefaultReturn>(
+    static helper<P extends DefaultPositional, N = EmptyObject, R = unknown>(
         helper: (positional: P, named: N) => R,
     ): Helper<{ Args: { Positional: P; Named: N }; Return: R }>;
     /**
@@ -89,11 +143,7 @@ export interface FunctionBasedHelper<S> extends Opaque<S> {}
  */
 // This overload allows users to write types directly on the callback passed to
 // the `helper` function and infer the resulting type correctly.
-export function helper<
-    P extends NonNullable<DefaultPositional>,
-    N extends NonNullable<DefaultNamed>,
-    R extends NonNullable<DefaultReturn>,
->(
+export function helper<P extends DefaultPositional, N = EmptyObject, R = unknown>(
     helperFn: (positional: P, named: N) => R,
 ): FunctionBasedHelper<{
     Args: {

@@ -65,13 +65,13 @@ class BadReturnForm extends Helper<DemoSig> {
     }
 }
 
-// $ExpectType FunctionBasedHelper<{ Args: { Positional: [number, number]; Named: DefaultNamed; }; Return: number; }>
+// $ExpectType FunctionBasedHelper<{ Args: { Positional: [number, number]; Named: EmptyObject; }; Return: number; }>
 const inferenceOnPositional = helper(function add([a, b]: [number, number]) {
     return a + b;
 });
 
 const coolHelper = helper(([], named) => {
-    // $ExpectType DefaultNamed
+    // $ExpectType EmptyObject
     named;
 });
 
