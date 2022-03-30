@@ -53,6 +53,7 @@ R.map((n: number) => n.toString(), ['1', '2', '3']);
 Please, use prettier before committing changes to format code as described [here](https://github.com/DefinitelyTyped/DefinitelyTyped#common-mistakes).
 
 For example:
+
 ```bash
-npm run prettier -- --write ./path/to/changed/files/name.ts
+ npm run prettier -- --write ./types/ramda/**/*.ts
 ```

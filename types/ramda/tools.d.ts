@@ -275,11 +275,6 @@ export type ObjectHavingSome<Key extends string> = A.Clean<
 export type Path = Array<number | string>;
 
 /**
- * <needs description>
- */
-export type Placeholder = A.x & { '@@functional/placeholder': true };
-
-/**
  * Takes a lists of arguments and returns either `true` or `false`.
  *
  * Classical predicates only take one argument, but since ramda

@@ -17,17 +17,6 @@ import * as R from 'ramda';
     const y1: number = R.curry(addFourNumbers)(1)(2)(3)(4);
     const y2: number = R.curry(addFourNumbers)(1, 2)(3, 4);
     const y3: number = R.curry(addFourNumbers)(1, 2, 3)(4);
-    const y4: number = R.curry(addTenFixedNumbers)(R.__, 1, 2)(0)(3)(R.__, R.__)(R.__, 5)(4)(6, 7)(R.__)(8, R.__, R.__)(
-        9,
-        10,
-    );
-    const y5: number = R.curry(addTenFixedNumbers)(R.__, 1, R.__)(R.__, 2)(0, 3)(R.__, 5)(4, R.__)(R.__)(
-        6,
-        R.__,
-        8,
-        9,
-        10,
-    )(7);
 
     function addTwoNumbers(a: number, b: number) {
         return a + b;

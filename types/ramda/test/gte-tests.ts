@@ -9,8 +9,3 @@ import * as R from 'ramda';
     R.gte('z', 'a'); // => true
     R.gte('c', 'c'); // => true
 };
-
-() => {
-    R.gte(R.__, 6)(2); // false
-    R.gte(R.__)(6, 2); // false
-};

@@ -16,7 +16,4 @@ import * as R from 'ramda';
 
     R.curryN(3)(addFourNumbers)(1)(2)(3); // $ExpectType number
     R.curryN(3, addFourNumbers)(1)(2)(3); // $ExpectType number
-
-    R.curryN(3)(addFourNumbers)(R.__, 1, 2)(3); // $ExpectType number
-    R.curryN(3, addFourNumbers)(R.__, 1, 2)(3); // $ExpectType number
 };

@@ -6,8 +6,6 @@ import * as R from 'ramda';
     let result: [1, 2, 3, 4, 5, 6];
     result = R.concat(a1, a2);
     result = R.concat(a1)(a2);
-    result = R.concat(R.__)(a1, a2);
-    result = R.concat(R.__, a2)(a1);
 };
 
 () => {
@@ -16,6 +14,4 @@ import * as R from 'ramda';
     let result: 'ABCDEF';
     result = R.concat(s1, s2);
     result = R.concat(s1)(s2);
-    result = R.concat(R.__)(s1, s2);
-    result = R.concat(R.__, s2)(s1);
 };

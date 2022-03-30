@@ -8,8 +8,3 @@ import * as R from 'ramda';
     R.gt('a', 'z'); // => false
     R.gt('z', 'a'); // => true
 };
-
-() => {
-    R.gt(R.__, 2)(10); // true
-    R.gt(R.__)(2, 10); // true
-};

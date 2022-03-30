@@ -7,11 +7,6 @@ import * as R from 'ramda';
     const a3: boolean = hasName({}); // => false
 };
 
-() => {
-    R.has(R.__, { x: 0, y: 0 })('x'); // true;
-    R.has(R.__)({ x: 0, y: 0 }, 'x'); // true;
-};
-
 // R.has() can be used as a type guard
 () => {
     const foo: unknown = {};
@@ -19,7 +14,6 @@ import * as R from 'ramda';
     () => {
         if (R.has('name', foo)) console.log(foo.name);
         if (R.has('name')(foo)) console.log(foo.name);
-        if (R.has(R.__)(foo, 'name')) console.log(foo.name);
     };
 
     () => {
@@ -41,11 +35,7 @@ import * as R from 'ramda';
 () => {
     R.has(4, {}); // $ExpectError
     R.has(4); // $ExpectError
-    R.has(R.__, {})(4); // $ExpectError
-    R.has(R.__)({}, 4); // $ExpectError
 
     R.has(null, {}); // $ExpectError
     R.has(null); // $ExpectError
-    R.has(R.__, {})(null); // $ExpectError
-    R.has(R.__)({}, null); // $ExpectError
 };

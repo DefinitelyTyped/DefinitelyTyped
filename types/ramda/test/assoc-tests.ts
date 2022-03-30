@@ -9,8 +9,6 @@ import * as R from 'ramda';
     const a: ABC = R.assoc('c', 3, { a: 1, b: 2 }); // => {a: 1, b: 2, c: 3}
     const b: ABC = R.assoc('c')(3, { a: 1, b: 2 }); // => {a: 1, b: 2, c: 3}
     const c: ABC = R.assoc('c', 3)({ a: 1, b: 2 }); // => {a: 1, b: 2, c: 3}
-    const d: ABC = R.assoc(R.__, 3, { a: 1, b: 2 })('c'); // => {a: 1, b: 2, c: 3}
-    const e: ABC = R.assoc('c', R.__, { a: 1, b: 2 })(3); // => {a: 1, b: 2, c: 3}
 
     // $ExpectType Record<"c", string> & Omit<{ a: number; b: number; c: number; }, "c">
     R.assoc('c', 'test', { a: 1, b: 2, c: 3 }); // => {a: 1, b: 2, c: "test"}

@@ -57,7 +57,6 @@ import {
     Ord,
     Ordering,
     Path,
-    Placeholder,
     Pred,
     PredTypeguard,
     Reduced,
@@ -72,12 +71,6 @@ import {
 } from './tools';
 
 export * from './tools';
-
-/**
- * Placeholder. When used with functions like curry, or op, the second argument is applied to the second
- * position, and it returns a function waiting for its first argument.
- */
-export const __: Placeholder;
 
 /**
  * Adds two numbers. Equivalent to a + b but curried.
@@ -304,8 +297,6 @@ export function ascend<T>(fn: (obj: T) => Ord): (a: T, b: T) => Ordering;
 /**
  * Makes a shallow clone of an object, setting or overriding the specified property with the given value.
  */
-export function assoc<T, U>(__: Placeholder, val: T, obj: U): <K extends string>(prop: K) => Record<K, T> & Omit<U, K>;
-export function assoc<U, K extends string>(prop: K, __: Placeholder, obj: U): <T>(val: T) => Record<K, T> & Omit<U, K>;
 export function assoc<T, U, K extends string>(prop: K, val: T, obj: U): Record<K, T> & Omit<U, K>;
 export function assoc<T, K extends string>(prop: K, val: T): <U>(obj: U) => Record<K, T> & Omit<U, K>;
 export function assoc<K extends string>(prop: K): AssocPartialOne<K>;
@@ -314,8 +305,6 @@ export function assoc<K extends string>(prop: K): AssocPartialOne<K>;
  * Makes a shallow clone of an object, setting or overriding the nodes required to create the given path, and
  * placing the specific value at the tail end of that path.
  */
-export function assocPath<T, U>(__: Placeholder, val: T, obj: U): (path: Path) => U;
-export function assocPath<T, U>(path: Path, __: Placeholder, obj: U): (val: T) => U;
 export function assocPath<T, U>(path: Path, val: T, obj: U): U;
 export function assocPath<T, U>(path: Path, val: T): (obj: U) => U;
 export function assocPath<T, U>(path: Path): _.F.Curry<(a: T, b: U) => U>;
@@ -591,18 +580,6 @@ export function composeWith(
 /**
  * Returns the result of concatenating the given lists or strings.
  */
-export function concat(
-    placeholder: Placeholder,
-): (<L1 extends any[], L2 extends any[]>(list1: L1, list2: L2) => [...L1, ...L2]) &
-    (<S1 extends string, S2 extends string>(s1: S1, s2: S2) => `${S1}${S2}`);
-export function concat<L2 extends any[]>(
-    placeholder: Placeholder,
-    list2: L2,
-): <L1 extends any[]>(list1: L1) => [...L1, ...L2];
-export function concat<S2 extends string>(
-    placeholder: Placeholder,
-    s2: S2,
-): <S1 extends string>(s1: S1) => `${S1}${S2}`;
 export function concat<L1 extends any[]>(list1: L1): <L2 extends any[]>(list2: L2) => [...L1, ...L2];
 export function concat<S1 extends string>(s1: S1): <S2 extends string>(s2: S2) => `${S1}${S2}`;
 export function concat<L1 extends any[], L2 extends any[]>(list1: L1, list2: L2): [...L1, ...L2];
@@ -786,21 +763,6 @@ export function constructN<A extends any[], T>(
 ): (...a: Partial<A>) => T;
 
 /**
- * Returns `true` if the specified item is somewhere in the list, `false` otherwise.
- * Equivalent to `indexOf(a)(list) > -1`. Uses strict (`===`) equality checking.
- *
- * @deprecated since 0.26 in favor of includes
- */
-export function contains(__: Placeholder, list: string): (a: string) => boolean;
-export function contains<T>(__: Placeholder, list: readonly T[]): (a: T) => boolean;
-export function contains(__: Placeholder): (list: string, a: string) => boolean;
-export function contains<T>(__: Placeholder): (list: readonly T[], a: T) => boolean;
-export function contains(a: string, list: string): boolean;
-export function contains<T>(a: T, list: readonly T[]): boolean;
-export function contains(a: string): (list: string) => boolean;
-export function contains<T>(a: T): (list: readonly T[]) => boolean;
-
-/**
  * Accepts a converging function and a list of branching functions and returns a new
  * function. When invoked, this new function is applied to some arguments, each branching
  * function is applied to those same arguments. The results of each branching function
@@ -827,7 +789,7 @@ export function converge<
         (...args: TArgs) => R5,
         (...args: TArgs) => R6,
         (...args: TArgs) => R7,
-        ...RestFunctions,
+        ...RestFunctions
     ],
 ): (...args: TArgs) => TResult;
 export function converge<TArgs extends any[], TResult, R1, R2, R3, R4, R5, R6, R7>(
@@ -973,8 +935,6 @@ export function dissocPath<T>(path: Path): (obj: any) => T;
 /**
  * Divides two numbers. Equivalent to a / b.
  */
-export function divide(__: Placeholder, b: number): (a: number) => number;
-export function divide(__: Placeholder): (b: number, a: number) => number;
 export function divide(a: number, b: number): number;
 export function divide(a: number): (b: number) => number;
 
@@ -1054,9 +1014,7 @@ export function endsWith<T>(subList: readonly T[]): (list: readonly T[]) => bool
  */
 export function eqBy<T>(fn: (a: T) => unknown, a: T, b: T): boolean;
 export function eqBy<T>(fn: (a: T) => unknown, a: T): (b: T) => boolean;
-export function eqBy<T>(
-    fn: (a: T) => unknown,
-): {
+export function eqBy<T>(fn: (a: T) => unknown): {
     (a: T, b: T): boolean;
     (a: T): (b: T) => boolean;
 };
@@ -1072,7 +1030,6 @@ export function eqProps<T>(prop: string, obj1: T): <U>(obj2: U) => boolean;
  * Returns true if its arguments are equivalent, false otherwise. Dispatches to an equals method if present.
  * Handles cyclical data structures.
  */
-export function equals<T>(__: Placeholder, b: T): (a: T) => boolean;
 export function equals<T>(a: T, b: T): boolean;
 export function equals<T>(a: T): (b: T) => boolean;
 
@@ -1183,8 +1140,6 @@ export function groupWith<T>(fn: (x: T, y: T) => boolean, list: string): string[
 /**
  * Returns true if the first parameter is greater than the second.
  */
-export function gt(__: Placeholder, b: number): (a: number) => boolean;
-export function gt(__: Placeholder): (b: number, a: number) => boolean;
 export function gt(a: number, b: number): boolean;
 export function gt(a: string, b: string): boolean;
 export function gt(a: number): (b: number) => boolean;
@@ -1192,8 +1147,6 @@ export function gt(a: number): (b: number) => boolean;
 /**
  * Returns true if the first parameter is greater than or equal to the second.
  */
-export function gte(__: Placeholder, b: number): (a: number) => boolean;
-export function gte(__: Placeholder): (b: number, a: number) => boolean;
 export function gte(a: number, b: number): boolean;
 export function gte(a: string, b: string): boolean;
 export function gte(a: number): (b: number) => boolean;
@@ -1201,8 +1154,6 @@ export function gte(a: number): (b: number) => boolean;
 /**
  * Returns whether or not an object has an own property with the specified name.
  */
-export function has(__: Placeholder, obj: unknown): (s: string) => boolean;
-export function has(__: Placeholder): <P extends string>(obj: unknown, s: P) => obj is ObjectHavingSome<P>;
 export function has<P extends string>(s: P, obj: unknown): obj is ObjectHavingSome<P>;
 export function has<P extends string>(s: P): (obj: unknown) => obj is ObjectHavingSome<P>;
 
@@ -1277,10 +1228,6 @@ export function inc(n: number): number;
  * Given a string, this function checks for the string in another string or list and returns
  * a boolean.
  */
-export function includes(__: Placeholder, list: readonly string[] | string): (s: string) => boolean;
-export function includes<T>(__: Placeholder, list: readonly T[]): (target: T) => boolean;
-export function includes(__: Placeholder): (list: readonly string[] | string, s: string) => boolean;
-export function includes<T>(__: Placeholder): (list: readonly T[], target: T) => boolean;
 export function includes(s: string, list: readonly string[] | string): boolean;
 export function includes(s: string): (list: readonly string[] | string) => boolean;
 export function includes<T>(target: T, list: readonly T[]): boolean;
@@ -1557,8 +1504,6 @@ export function liftN<N extends number, F extends (...args: readonly any[]) => a
 /**
  * Returns true if the first parameter is less than the second.
  */
-export function lt(__: Placeholder, b: number): (a: number) => boolean;
-export function lt(__: Placeholder): (b: number, a: number) => boolean;
 export function lt(a: number, b: number): boolean;
 export function lt(a: string, b: string): boolean;
 export function lt(a: number): (b: number) => boolean;
@@ -1566,8 +1511,6 @@ export function lt(a: number): (b: number) => boolean;
 /**
  * Returns true if the first parameter is less than or equal to the second.
  */
-export function lte(__: Placeholder, b: number): (a: number) => boolean;
-export function lte(__: Placeholder): (b: number, a: number) => boolean;
 export function lte(a: number, b: number): boolean;
 export function lte(a: string, b: string): boolean;
 export function lte(a: number): (b: number) => boolean;
@@ -1660,8 +1603,6 @@ export function match(regexp: RegExp): (str: string) => string[];
  * mathMod(-17, 5) is 3. mathMod requires Integer arguments, and returns NaN
  * when the modulus is zero or negative.
  */
-export function mathMod(__: Placeholder, b: number): (a: number) => number;
-export function mathMod(__: Placeholder): (b: number, a: number) => number;
 export function mathMod(a: number, b: number): number;
 export function mathMod(a: number): (b: number) => number;
 
@@ -1697,18 +1638,6 @@ export function memoizeWith<T extends (...args: readonly any[]) => any>(
     keyFn: (...v: Parameters<T>) => string,
     fn: T,
 ): T;
-
-/**
- * Create a new object with the own properties of a
- * merged with the own properties of object b.
- * This function will *not* mutate passed-in objects.
- *
- * @deprecated since 0.26 in favor of mergeRight
- */
-export function merge<O2 extends object>(__: Placeholder, b: O2): <O1 extends object>(a: O1) => Merge<O2, O1, 'flat'>;
-export function merge(__: Placeholder): <O1 extends object, O2 extends object>(b: O2, a: O1) => Merge<O2, O1, 'flat'>;
-export function merge<O1 extends object, O2 extends object>(a: O1, b: O2): Merge<O2, O1, 'flat'>;
-export function merge<O1 extends object>(a: O1): <O2 extends object>(b: O2) => Merge<O2, O1, 'flat'>;
 
 /**
  * Merges a list of objects together into one object.
@@ -1807,8 +1736,6 @@ export function minBy<T>(keyFn: (a: T) => Ord): _.F.Curry<(a: T, b: T) => T>;
  * Note that this functions preserves the JavaScript-style behavior for
  * modulo. For mathematical modulo see `mathMod`
  */
-export function modulo(__: Placeholder, b: number): (a: number) => number;
-export function modulo(__: Placeholder): (b: number, a: number) => number;
 export function modulo(a: number, b: number): number;
 export function modulo(a: number): (b: number) => number;
 
@@ -2321,7 +2248,6 @@ export function project<T, U>(props: readonly string[]): (objs: readonly T[]) =>
 /**
  * Returns a function that when supplied an object returns the indicated property of that object, if it exists.
  */
-export function prop<T>(__: Placeholder, obj: T): <P extends keyof T>(p: P) => T[P];
 export function prop<P extends keyof T, T>(p: P, obj: T): T[P];
 export function prop<P extends string>(p: P): <T>(obj: Record<P, T>) => T;
 export function prop<P extends string, T>(p: P): (obj: Record<P, T>) => T;
@@ -2378,8 +2304,6 @@ export function propIs<C extends new (...args: any[]) => any>(
  * If the given, non-null object has an own property with the specified name, returns the value of that property.
  * Otherwise returns the provided default value.
  */
-export function propOr<T, U>(val: T, __: Placeholder, obj: U): <V>(p: string) => V;
-export function propOr<U>(__: Placeholder, p: string, obj: U): <T, V>(val: T) => V;
 export function propOr<T, U, V>(val: T, p: string, obj: U): V;
 export function propOr<T>(val: T, p: string): <U, V>(obj: U) => V;
 export function propOr<T>(val: T): <U, V>(p: string, obj: U) => V;
@@ -2676,8 +2600,6 @@ export function startsWith<T>(subList: readonly T[]): (list: readonly T[]) => bo
 /**
  * Subtracts two numbers. Equivalent to `a - b` but curried.
  */
-export function subtract(__: Placeholder, b: number): (a: number) => number;
-export function subtract(__: Placeholder): (b: number, a: number) => number;
 export function subtract(a: number, b: number): number;
 export function subtract(a: number): (b: number) => number;
 
@@ -3036,7 +2958,7 @@ export function useWith<
         (arg: TArg5) => TR5,
         (arg: TArg6) => TR6,
         (arg: TArg7) => TR7,
-        ...RestFunctions,
+        ...RestFunctions
     ],
 ): (...args: TArgs) => TResult;
 export function useWith<TArg1, TR1, TArg2, TR2, TArg3, TR3, TArg4, TR4, TArg5, TR5, TArg6, TR6, TArg7, TR7, TResult>(

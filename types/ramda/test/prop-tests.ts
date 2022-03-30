@@ -14,8 +14,6 @@ import * as R from 'ramda';
     const strVal: string = R.prop('str', obj); // => 'string'
     const numVal: number = R.prop('num', obj); // => 5
 
-    const strValPl: string = R.prop(R.__, obj)('str'); // => 'string'
-
     const strValCur: string = R.prop('str')(obj); // => 'string'
     const numValCur: number = R.prop('num')(obj); // => 5
 };
