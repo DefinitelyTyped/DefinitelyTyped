@@ -159,3 +159,4 @@ socket.onerror = e => console.log(e.message);
 const formData = new FormData();
 formData.append('file', { fileName: 'example' });
 console.log(formData.getParts());
+console.log(formData.getAll())
