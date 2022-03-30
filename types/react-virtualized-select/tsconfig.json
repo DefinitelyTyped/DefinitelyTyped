@@ -6,7 +6,7 @@
             "dom"
         ],
         "paths": {
-            "react": ["react/v16"]
+            "react": ["react/v17"]
         },
         "jsx": "react",
         "noImplicitAny": true,
