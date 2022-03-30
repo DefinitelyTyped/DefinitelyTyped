@@ -67,6 +67,10 @@ declare namespace React {
             [K in keyof JSX.IntrinsicElements]: P extends JSX.IntrinsicElements[K] ? K : never
         }[keyof JSX.IntrinsicElements] |
         ComponentType<P>;
+    /**
+     * @deprecated Please use `ElementType`
+     */
+    type ReactType<P = any> = ElementType<P>;
     type ComponentType<P = {}> = ComponentClass<P> | FunctionComponent<P>;
 
     type JSXElementConstructor<P> =
@@ -142,6 +146,11 @@ declare namespace React {
         T extends keyof JSX.IntrinsicElements | JSXElementConstructor<any>,
         P = Pick<ComponentProps<T>, Exclude<keyof ComponentProps<T>, 'key' | 'ref'>>
     > extends ReactElement<P, Exclude<T, number>> { }
+
+    /**
+     * @deprecated Please use `FunctionComponentElement`
+     */
+    type SFCElement<P> = FunctionComponentElement<P>;
 
     interface FunctionComponentElement<P> extends ReactElement<P, FunctionComponent<P>> {
         ref?: ('ref' extends keyof P ? P extends { ref?: infer R | undefined } ? R : never : never) | undefined;
@@ -220,7 +229,7 @@ declare namespace React {
      * @deprecated Use either `ReactNode[]` if you need an array or `Iterable<ReactNode>` if its passed to a host component.
      */
     interface ReactNodeArray extends ReadonlyArray<ReactNode> {}
-    type ReactFragment = Iterable<ReactNode>;
+    type ReactFragment = {} | Iterable<ReactNode>;
     type ReactNode = ReactChild | ReactFragment | ReactPortal | boolean | null | undefined;
 
     //
@@ -459,7 +468,8 @@ declare namespace React {
          *
          * @see https://reactjs.org/docs/context.html
          */
-        context: unknown;
+        // TODO (TypeScript 3.0): unknown
+        context: any;
 
         constructor(props: Readonly<P> | P);
         /**
@@ -479,7 +489,12 @@ declare namespace React {
         forceUpdate(callback?: () => void): void;
         render(): ReactNode;
 
-        readonly props: Readonly<P>;
+        // React.Props<T> is now deprecated, which means that the `children`
+        // property is not available on `P` by default, even though you can
+        // always pass children as variadic arguments to `createElement`.
+        // In the future, if we can define its call signature conditionally
+        // on the existence of `children` in `P`, then we should remove this.
+        readonly props: Readonly<P> & Readonly<{ children?: ReactNode | undefined }>;
         state: Readonly<S>;
         /**
          * @deprecated
@@ -506,10 +521,26 @@ declare namespace React {
     // Class Interfaces
     // ----------------------------------------------------------------------
 
+    /**
+     * @deprecated as of recent React versions, function components can no
+     * longer be considered 'stateless'. Please use `FunctionComponent` instead.
+     *
+     * @see [React Hooks](https://reactjs.org/docs/hooks-intro.html)
+     */
+    type SFC<P = {}> = FunctionComponent<P>;
+
+    /**
+     * @deprecated as of recent React versions, function components can no
+     * longer be considered 'stateless'. Please use `FunctionComponent` instead.
+     *
+     * @see [React Hooks](https://reactjs.org/docs/hooks-intro.html)
+     */
+    type StatelessComponent<P = {}> = FunctionComponent<P>;
+
     type FC<P = {}> = FunctionComponent<P>;
 
     interface FunctionComponent<P = {}> {
-        (props: P, context?: any): ReactElement<any, any> | null;
+        (props: PropsWithChildren<P>, context?: any): ReactElement<any, any> | null;
         propTypes?: WeakValidationMap<P> | undefined;
         contextTypes?: ValidationMap<any> | undefined;
         defaultProps?: Partial<P> | undefined;
@@ -529,7 +560,7 @@ declare namespace React {
     type ForwardedRef<T> = ((instance: T | null) => void) | MutableRefObject<T | null> | null;
 
     interface ForwardRefRenderFunction<T, P = {}> {
-        (props: P, ref: ForwardedRef<T>): ReactElement | null;
+        (props: PropsWithChildren<P>, ref: ForwardedRef<T>): ReactElement | null;
         displayName?: string | undefined;
         // explicit rejected with `never` required due to
         // https://github.com/microsoft/TypeScript/issues/36826
@@ -542,6 +573,12 @@ declare namespace React {
          */
         propTypes?: never | undefined;
     }
+
+    /**
+     * @deprecated Use ForwardRefRenderFunction. forwardRef doesn't accept a
+     *             "real" component.
+     */
+    interface RefForwardingComponent <T, P = {}> extends ForwardRefRenderFunction<T, P> {}
 
     interface ComponentClass<P = {}, S = ComponentState> extends StaticLifecycle<P, S> {
         new (props: P, context?: any): Component<P, S>;
@@ -817,7 +854,7 @@ declare namespace React {
 
     function memo<P extends object>(
         Component: FunctionComponent<P>,
-        propsAreEqual?: (prevProps: Readonly<P>, nextProps: Readonly<P>) => boolean
+        propsAreEqual?: (prevProps: Readonly<PropsWithChildren<P>>, nextProps: Readonly<PropsWithChildren<P>>) => boolean
     ): NamedExoticComponent<P>;
     function memo<T extends ComponentType<any>>(
         Component: T,
@@ -856,7 +893,8 @@ declare namespace React {
     // The identity check is done with the SameValue algorithm (Object.is), which is stricter than ===
     type ReducerStateWithoutAction<R extends ReducerWithoutAction<any>> =
         R extends ReducerWithoutAction<infer S> ? S : never;
-    type DependencyList = ReadonlyArray<unknown>;
+    // TODO (TypeScript 3.0): ReadonlyArray<unknown>
+    type DependencyList = ReadonlyArray<any>;
 
     // NOTE: callbacks are _only_ allowed to return either void, or a destructor.
     type EffectCallback = () => (void | Destructor);
@@ -1063,10 +1101,8 @@ declare namespace React {
      * @version 16.8.0
      * @see https://reactjs.org/docs/hooks-reference.html#usecallback
      */
-    // A specific function type would not trigger implicit any.
-    // See https://github.com/DefinitelyTyped/DefinitelyTyped/issues/52873#issuecomment-845806435 for a comparison between `Function` and more specific types.
-    // tslint:disable-next-line ban-types
-    function useCallback<T extends Function>(callback: T, deps: DependencyList): T;
+    // TODO (TypeScript 3.0): <T extends (...args: never[]) => unknown>
+    function useCallback<T extends (...args: any[]) => any>(callback: T, deps: DependencyList): T;
     /**
      * `useMemo` will only recompute the memoized value when one of the `deps` has changed.
      *
@@ -1271,6 +1307,26 @@ declare namespace React {
     //
     // Props / DOM Attributes
     // ----------------------------------------------------------------------
+
+    /**
+     * @deprecated. This was used to allow clients to pass `ref` and `key`
+     * to `createElement`, which is no longer necessary due to intersection
+     * types. If you need to declare a props object before passing it to
+     * `createElement` or a factory, use `ClassAttributes<T>`:
+     *
+     * ```ts
+     * var b: Button | null;
+     * var props: ButtonProps & ClassAttributes<Button> = {
+     *     ref: b => button = b, // ok!
+     *     label: "I'm a Button"
+     * };
+     * ```
+     */
+    interface Props<T> {
+        children?: ReactNode | undefined;
+        key?: Key | undefined;
+        ref?: LegacyRef<T> | undefined;
+    }
 
     interface HTMLProps<T> extends AllHTMLAttributes<T>, ClassAttributes<T> {
     }
