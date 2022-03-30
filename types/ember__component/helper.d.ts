@@ -20,7 +20,9 @@ declare const Empty: unique symbol;
  *   will break existing declarations, but is not legal for end users to import
  *   themselves, so ***DO NOT RELY ON IT***.
  */
-export type EmptyObject = { [Empty]?: true };
+export interface EmptyObject {
+    [Empty]?: true;
+}
 
 type DefaultPositional = unknown[];
 type DefaultNamed = EmptyObject;
@@ -47,10 +49,10 @@ type ArgsFor<S> = 'Args' extends keyof S
       }
     : { Named: DefaultNamed; Positional: [] };
 
-type LegacyArgsFor<T> = {
+interface LegacyArgsFor<T> {
     Named: GetOrElse<T, 'NamedArgs', DefaultNamed>;
     Positional: GetOrElse<T, 'PositionalArgs', DefaultPositional>;
-};
+}
 
 /**
  * Given any allowed shorthand form of a signature, desugars it to its full
@@ -69,12 +71,12 @@ type LegacyArgsFor<T> = {
 // we designed the first pass of this. In the future, we will be able to make
 // all `ExpandSignature` types fully general to work with *any* invokable. But
 // "future" here probably means Ember v5. :sobbing:
-export type ExpandSignature<T> = {
+export interface ExpandSignature<T> {
     Args: keyof T extends 'Args' | 'Return' // Is this a `Signature`?
         ? ArgsFor<T> // Then use `Signature` args
         : LegacyArgsFor<T>; // Otherwise fall back to classic `Args`.
     Return: 'Return' extends keyof T ? T['Return'] : unknown;
-};
+}
 
 type NamedArgs<S> = ExpandSignature<S>['Args']['Named'];
 type PositionalArgs<S> = ExpandSignature<S>['Args']['Positional'];
