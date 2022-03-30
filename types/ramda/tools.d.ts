@@ -1,4 +1,4 @@
-import { A, O, T } from 'ts-toolbelt';
+import { A, M, O, T } from 'ts-toolbelt';
 
 // ///////////////////////////////////////////////////////////////////////////////////////
 // TOOLS /////////////////////////////////////////////////////////////////////////////////
@@ -187,6 +187,174 @@ export type KeyValuePair<K, V> = [K, V];
  */
 export type Lens<S, A> = (functorFactory: (a: A) => Functor<A>) => (s: S) => Functor<S>;
 
+/*
+ * Returns true if T1 array length less than or equal to length of array T2, else returns false
+ *
+ * @param T1 - first readonly array
+ * @param T2 - second readonly array
+ *
+ * <created by @valerii15298>
+ * */
+type arr1LessThanOrEqual<
+    T1 extends ReadonlyArray<any>,
+    T2 extends ReadonlyArray<any>,
+> = T1['length'] extends T2['length']
+    ? true
+    : T2['length'] extends 0
+    ? false
+    : T2 extends readonly [infer First, ...infer Rest]
+    ? arr1LessThanOrEqual<T1, Rest>
+    : never;
+
+/*
+ * Return true if types T1 and T2 can intersect, e.g. both are primitives or both are objects.
+ * Taking into account branded types too.
+ *
+ * @param T1 - first readonly array
+ * @param T2 - second readonly array
+ *
+ * <created by @valerii15298>
+ * */
+type Intersectable<T1, T2> = [T1] extends [T2]
+    ? true
+    : [T2] extends [T1]
+    ? true
+    : [T1] extends [object]
+    ? [T2] extends [object]
+        ? true
+        : false
+    : [T1] extends [M.Primitive]
+    ? [T2] extends [M.Primitive]
+        ? true
+        : false
+    : false;
+
+/*
+ * Check if type `T` is `any`
+ *
+ * @param T
+ *
+ * <created by @valerii15298>
+ * */
+type IsAny<T> = 0 extends 1 & T ? true : false;
+
+/*
+ * Intersection when produced result can be usable type.
+ * For example type `{a: any} & number` will not be reduced to `never`
+ *  but `Intersection<{a: any}, number>` will be `never`
+ * If one of type is any, another type will be returned.
+ *
+ * @param T1
+ * @param T2
+ *
+ * <created by @valerii15298>
+ * */
+type Intersection<T1, T2> = Intersectable<T1, T2> extends true
+    ? IsAny<T1> extends true
+        ? T2
+        : IsAny<T2> extends true
+        ? T1
+        : T1 & T2
+    : never;
+
+/*
+ * Merge second array with first one,
+ * resulting array will have the same length as array T1,
+ * every item in new array will be item from first array(T1) by corresponding index
+ * intersected with item from second array(also with the same index) if such exist
+ *
+ * examples:
+ *   `mergeArrWithLeft<[1, number, number, string], [number, 2, 7]>` => `[1, 2, 7, string]`
+ *   `mergeArrWithLeft<[1, string], [number, "exact text", number, any]>` => `[1, "exact text"]`
+ *
+ * @param T1
+ * @param T2
+ *
+ * <created by @valerii15298>
+ * */
+type mergeArrWithLeft<T1 extends ReadonlyArray<any>, T2 extends ReadonlyArray<any>> = readonly [
+    ...{
+        readonly [Index in keyof T1]: Index extends keyof T2 ? Intersection<T1[Index], T2[Index]> : T1[Index];
+    },
+];
+
+/*
+ * The same as mergeArrWithLeft but will merge smaller array to larger one,
+ * so that data will not be lost and maximum length array will be returned
+ *
+ * example: mergeArrays<[1, number], [number, 2, string]>
+ *   will result to => [1, 2, string]
+ *
+ * @param T1
+ * @param T2
+ *
+ * <created by @valerii15298>
+ * */
+type mergeArrays<T1 extends ReadonlyArray<any>, T2 extends ReadonlyArray<any>> = arr1LessThanOrEqual<
+    T1,
+    T2
+> extends true
+    ? mergeArrWithLeft<T2, T1>
+    : mergeArrWithLeft<T1, T2>;
+
+/*
+ * Given array of functions will return new array which will be constructed
+ * merging all functions parameters array using mergeArrays generic.
+ *
+ * If provided array is not array of functions, return type will be empty array([])
+ *
+ * @param T - array of functions
+ *
+ * <created by @valerii15298>
+ * */
+export type LargestArgumentsList<T extends ReadonlyArray<any>> = T extends readonly [
+    (...args: infer Args) => any,
+    ...infer Rest,
+]
+    ? mergeArrays<LargestArgumentsList<Rest>, Args>
+    : readonly [];
+
+/*
+ * Checks if type is never
+ *
+ * Returns true if type is never, else returns false
+ *
+ * @param T - type to check
+ *
+ * <created by @valerii15298>
+ * */
+type IsNever<T> = [T] extends [never] ? true : false;
+
+/*
+ * Checks if array of types is contains never type
+ *
+ * Returns true if array contains never type, else returns false
+ *
+ * @param T - array of types to check
+ *
+ * <created by @valerii15298>
+ * */
+type HasNever<T extends readonly any[]> = T extends readonly [infer First, ...infer Rest]
+    ? IsNever<First> extends true
+        ? true
+        : HasNever<Rest>
+    : false;
+
+/*
+ * Checks if corresponding types of arguments in functions overlap(have at least one type in common, except never)
+ *
+ * Returns `unknown` if arguments types overlap, else returns `ErrorMsg`
+ *
+ * @param T - type to check
+ *
+ * <created by @valerii15298>
+ * */
+export type IfFunctionsArgumentsDoNotOverlap<T extends ReadonlyArray<Fn>, ErrorMsg extends string> = HasNever<
+    LargestArgumentsList<T>
+> extends true
+    ? ErrorMsg
+    : unknown;
+
 // ---------------------------------------------------------------------------------------
 // M
 
@@ -314,14 +482,12 @@ export interface Reduced<A> {
     '@@transducer/reduced': true;
 }
 
-type Fn = (...args: any) => any;
-export type ReturnTypesOfFns<A extends ReadonlyArray<Fn>> = A extends [infer H, ...infer R]
-    ? H extends Fn
-        ? R extends Fn[]
-            ? [ReturnType<H>, ...ReturnTypesOfFns<R>]
-            : []
-        : []
-    : [];
+export type Fn = (...args: any[]) => any;
+export type ReturnTypesOfFns<A extends ReadonlyArray<Fn>> = A extends readonly [(...args: any[]) => infer H, ...infer R]
+    ? R extends readonly Fn[]
+        ? readonly [H, ...ReturnTypesOfFns<R>]
+        : readonly []
+    : readonly [];
 export type InputTypesOfFns<A extends ReadonlyArray<Fn>> = A extends [infer H, ...infer R]
     ? H extends Fn
         ? R extends Fn[]
