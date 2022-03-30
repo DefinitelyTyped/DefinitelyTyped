@@ -13,7 +13,8 @@ const Container: React.FunctionComponent<ContainerProps> = (props: ContainerProp
 };
 
 const Test: React.FunctionComponent = () => {
-    const nodeRef = React.useRef<HTMLDivElement>(null);
+
+    const nodeRef = React.useRef<HTMLDivElement | null>(null);
 
     function handleEnter(node: HTMLElement, isAppearing: boolean) {}
     function handleEnterNoNode(isAppearing: boolean) {}

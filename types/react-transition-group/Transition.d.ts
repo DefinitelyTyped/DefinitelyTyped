@@ -129,7 +129,7 @@ interface BaseTransitionProps<RefElement extends undefined | HTMLElement> {
      * When changing `key` prop of `Transition` in a `TransitionGroup` a new `nodeRef` need to be provided to `Transition` with changed `key`
      * prop (@see https://github.com/reactjs/react-transition-group/blob/master/test/Transition-test.js).
      */
-    nodeRef?: React.Ref<RefElement> | undefined;
+    nodeRef?: React.LegacyRef<RefElement> | undefined;
 
     [prop: string]: any;
 }
