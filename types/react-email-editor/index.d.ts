@@ -49,7 +49,7 @@ export interface ConditionalMergeTag {
 export type MergeTag = SimpleMergeTag | ConditionalMergeTag | GroupedMergeTag;
 
 export interface DesignTagConfig {
-    readonly delimeter: [string, string];
+    readonly delimiter: [string, string];
 }
 
 export interface DisplayCondition {

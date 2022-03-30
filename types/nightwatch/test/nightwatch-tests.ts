@@ -62,6 +62,12 @@ const testGeneral: NightwatchTests = {
     'step two: click input': () => {
         browser.click('input[name=btnK]').pause(1000).assert.containsText('#main', 'Night Watch').end();
     },
+
+    'test user defined globals': () => {
+        browser
+        .url(`http://${browser.globals.username}:${browser.globals.password}@example.com`)
+        .end();
+    }
 };
 
 //
@@ -221,6 +227,10 @@ const testPage = {
         iFrame.expect.element('@textbox').text.to.equal('Your content goes here.');
 
         browser.end();
+    },
+
+    'Test nested page objects': () => {
+        const google = browser.page.subfolder1.subfolder2.subfolder3.google();
     },
 };
 

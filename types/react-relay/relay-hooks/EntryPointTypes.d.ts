@@ -114,7 +114,7 @@ interface InternalEntryPointRepresentation<
      * a bag of extra props that you may define in `entrypoint` file and they will be passed to the EntryPointComponent
      * as `extraProps`
      */
-    TExtraProps
+    TExtraProps extends {} | null
 > extends Readonly<{
         root: JSResourceReference<
             EntryPointComponent<TPreloadedQueries, TPreloadedEntryPoints, TRuntimeProps, TExtraProps>
