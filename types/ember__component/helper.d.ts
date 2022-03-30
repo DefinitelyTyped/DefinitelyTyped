@@ -26,7 +26,6 @@ export interface EmptyObject {
 
 type DefaultPositional = unknown[];
 type DefaultNamed = EmptyObject;
-type DefaultReturn = unknown;
 
 /**
  * The public shape of a helper.
