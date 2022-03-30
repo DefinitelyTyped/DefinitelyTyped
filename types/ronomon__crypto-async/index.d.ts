@@ -1,4 +1,4 @@
-// Type definitions for @ronomon/crypto-async 5.0.1
+// Type definitions for @ronomon/crypto-async 5.0
 // Project: https://github.com/ronomon/crypto-async
 // Definitions by: BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
