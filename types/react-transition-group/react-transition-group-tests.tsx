@@ -13,7 +13,6 @@ const Container: React.FunctionComponent<ContainerProps> = (props: ContainerProp
 };
 
 const Test: React.FunctionComponent = () => {
-
     const nodeRef = React.useRef<HTMLDivElement | null>(null);
 
     function handleEnter(node: HTMLElement, isAppearing: boolean) {}
@@ -128,6 +127,7 @@ const Test: React.FunctionComponent = () => {
                 className="animated-list"
                 childFactory={(child: React.ReactElement) => child}
             >
+
                 <Transition
                     in
                     mountOnEnter
@@ -217,6 +217,7 @@ const Test: React.FunctionComponent = () => {
                 <CSSTransition timeout={500} nodeRef={nodeRef} onEnter={handleEnterNoNode}>
                     <div ref={nodeRef}>{'test'}</div>
                 </CSSTransition>
+
             </TransitionGroup>
         </>
     );
