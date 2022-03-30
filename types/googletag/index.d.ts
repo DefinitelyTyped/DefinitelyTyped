@@ -108,12 +108,6 @@ declare namespace googletag {
      */
     function companionAds(): CompanionAdsService;
     /**
-     * Returns a reference to the {@link ContentService}.
-     * @deprecated This method will be removed after March 29, 2022. See also {@link ContentService}.
-     * @returns The content service.
-     */
-    function content(): ContentService;
-    /**
      * Constructs an out-of-page (interstitial) ad slot with the given ad unit path.
      *
      * For custom out-of-page ads, `div` is the ID of the div element that will contain the ad.
@@ -308,42 +302,6 @@ declare namespace googletag {
         setRefreshUnfilledSlots(value: boolean): void;
     }
     /**
-     * The content service. This service is used to set the content of a slot manually.
-     * @deprecated This service will be unavailable after March 29, 2022. Use the browser's built-in DOM APIs to directly add content to div elements instead. See also {@link googletag.content()}.
-     */
-    interface ContentService extends Service {
-        getName(): 'content';
-        /**
-         * Fills a slot with the given content. If services are not yet enabled, stores the content and fills it in when services are enabled.
-         *
-         * **Example**
-         * ```
-         * var slot = googletag.defineSlot('/1234567/sports', [728, 90], 'div-1')
-         *                     .addService(googletag.content());
-         * googletag.enableServices();
-         * var content = '<a href="www.mydestinationsite.com">' +
-         *               '<img src="www.mysite.com/img.png">' +
-         *               '</img></a>';
-         * googletag.content().setContent(slot, content);
-         * ```
-         *
-         * @param slot The slot to be filled.
-         * @param content The HTML content for the slot.
-         */
-        setContent(slot: Slot, content: string): void;
-    }
-    interface PassbackSlot {
-        display(): void;
-        get(key: string): string;
-        set(key: string, value: string): PassbackSlot;
-        setClickUrl(url: string): PassbackSlot;
-        setForceSafeFrame(forceSafeFrame: boolean): PassbackSlot;
-        setTagForChildDirectedTreatment(value: number): PassbackSlot;
-        setTagForUnderAgeOfConsent(value: number): PassbackSlot;
-        setTargeting(key: string, value: string | string[]): PassbackSlot;
-        updateTargetingFromMap(map: Record<string, string | string[]>): PassbackSlot;
-    }
-    /**
      * Configuration object for privacy settings.
      */
     interface PrivacySettingsConfig {
@@ -438,16 +396,6 @@ declare namespace googletag {
          */
         collapseEmptyDivs(collapseBeforeAdFetch?: boolean): boolean;
         /**
-         * @deprecated The legacy {@link definePassback()} and {@link defineOutOfPagePassback()} GPT library methods are deprecated and will be removed in a future update.
-         * See [passback docs](https://developers.google.com/publisher-tag/guides/passback-tags#construct_passback_tags) for how to correctly create a passback.
-         */
-        defineOutOfPagePassback(adUnitPath: string): PassbackSlot;
-        /**
-         * @deprecated The legacy {@link definePassback()} and {@link defineOutOfPagePassback()} GPT library methods are deprecated and will be removed in a future update.
-         * See [passback docs](https://developers.google.com/publisher-tag/guides/passback-tags#construct_passback_tags) for how to correctly create a passback.
-         */
-        definePassback(adUnitPath: string, size: GeneralSize): PassbackSlot;
-        /**
          * Disables requests for ads on page load, but allows ads to be requested with a {@link refresh googletag.pubads().refresh()} call.
          * This should be set prior to enabling the service.
          * Async mode must be used; otherwise it will be impossible to request ads using `refresh`.
@@ -521,10 +469,6 @@ declare namespace googletag {
          * @returns Returns `true` if single request mode was enabled and `false` if it is impossible to enable single request mode because the method was called after the service was enabled.
          */
         enableSingleRequest(): boolean;
-        /**
-         * @deprecated GPT synchronous rendering is no longer supported, ads will be requested and rendered asynchronously.
-         */
-        enableSyncRendering(): boolean;
         /**
          * Signals to GPT that video ads will be present on the page.
          * This enables competitive exclusion constraints on display and video ads.
@@ -604,10 +548,6 @@ declare namespace googletag {
          * Whether or not enable single request mode for fetching multiple ads at the same time.
          */
         isSRA(): boolean;
-        /**
-         * @deprecated Deprecated and ignored.
-         */
-        markAsAmp(): void;
         /**
          * Fetches and displays new ads for specific or all slots on the page.
          * Works only in asynchronous rendering mode.
@@ -693,24 +633,6 @@ declare namespace googletag {
          * @param centerAds `true` to center ads, `false` to left-align them.
          */
         setCentering(centerAds: boolean): void;
-        /**
-         * Sets options for ignoring Google Ad Manager cookies on the current page.
-         *
-         * @deprecated This setting is not recommended. See [Limited ads](https://support.google.com/admanager/answer/9882911) for current best practice.
-         *
-         * **Example**
-         * ```
-         * // Ignores Google Ad Manager cookies.
-         * googletag.pubads().setCookieOptions(1);
-         * ```
-         *
-         * @param options The cookie options to set. Possible values are:
-         * - **0:** Enables Google Ad Manager cookies on ad requests on the page. This option is set by default.
-         * - **1:** Ignores Google Ad Manager cookies on subsequent ad requests and prevents cookies from being created on the page.
-         * Note that cookies will not be ignored on certain pingbacks and that this option will disable features that rely on cookies, such as dynamic allocation.
-         * @returns The service object on which the method was called.
-         */
-        setCookieOptions(options: number): PubAdsService;
         /**
          * Configures whether all ads on the page should be forced to be rendered using a SafeFrame container.
          * For more details, please see the article on [rendering creatives using SafeFrame](https://support.google.com/admanager/answer/6023110).
@@ -869,30 +791,6 @@ declare namespace googletag {
          * @param videoCmsId The video CMS ID.
          */
         setVideoContent(videoContentId: string, videoCmsId: string): void;
-        /**
-         * Changes the correlator that is sent with ad requests, effectively starting a new page view.
-         * The correlator is the same for all the ad requests coming from one page view, and unique across page views.
-         * Only applies to async mode.
-         *
-         * @deprecated See the Google Ad Manager help page on "Creative selection for multiple ad slots" for more information: https://support.google.com/admanager/answer/183281.
-         *
-         * **Note**: this has no effect on GPT's [long-lived pageview](https://support.google.com/admanager/answer/183281),
-         * which automatically reflects the ads actually on the page and has no expiration time.
-         *
-         * **Example**
-         * ```
-         * // Assume that the correlator is currently 12345. All ad requests made
-         * // by this page will currently use that value.
-         * // Replace the current correlator with a new correlator.
-         * googletag.pubads().updateCorrelator();
-         * // The correlator will now be a new randomly selected value, different
-         * // from 12345. All subsequent ad requests made by this page will use
-         * // the new value.
-         * ```
-         *
-         * @returns The service object on which the function was called.
-         */
-        updateCorrelator(): PubAdsService;
     }
     /**
      * Public interface for ResponseInformation.
@@ -949,14 +847,6 @@ declare namespace googletag {
          * The only valid value is `true` (cannot be forced to `false`). Note that the sandbox attribute disables plugins (e.g. Flash).
          */
         sandbox?: boolean | undefined;
-        /**
-         * Whether SafeFrame should use randomized subdomains for Reservation creatives. Pass in null to clear the stored value.
-         *
-         * Note: this feature is enabled by default. See the [Use unique SafeFrame domains](https://support.google.com/admanager/answer/9999596) article for more information.
-         *
-         * @deprecated It is no longer possible to disable this feature. Setting `useUniqueDomain` has no effect.
-         */
-        useUniqueDomain?: boolean | null | undefined;
     }
     /**
      * Base service class that contains methods common for all services.
@@ -1273,15 +1163,7 @@ declare namespace googletag {
         getContentUrl(): string;
         getDivStartsCollapsed(): boolean | null;
         getEscapedQemQueryId(): string;
-        /**
-         * @deprecated The getFirstLook method of {@link googletag.Slot} is deprecated. Please update your code to no longer call this method.
-         */
-        getFirstLook(): number;
         getHtml(): string;
-        /**
-         * @deprecated getName on {@link googletag.Slot} is deprecated and will be removed. Use {@link getAdUnitPath} instead.
-         */
-        getName(): string;
         /**
          * Whether or not constructs an out-of-page ad slot with {@link defineOutOfPageSlot}.
          */
