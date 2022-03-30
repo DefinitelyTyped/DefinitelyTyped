@@ -1593,6 +1593,10 @@
             "libraryName": "getopts",
             "asOfVersion": "2.1.0"
         },
+        "git-parse": {
+            "libraryName": "git-parse",
+            "asOfVersion": "2.1.1"
+        },
         "git-remote-origin-url": {
             "libraryName": "git-remote-origin-url",
             "asOfVersion": "3.0.0"
