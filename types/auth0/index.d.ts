@@ -1314,62 +1314,62 @@ export interface VerifyEmail {
 
 export interface LogEvent {
     /** API audience the event applies to. */
-    audience: string;
+    audience?: string;
     /** ID of the client (application). */
-    client_id: string;
+    client_id?: string;
     /** Name of the client (application). */
-    client_name: string;
+    client_name?: string;
     /** Name of the connection the event relates to. */
-    connection: string;
+    connection?: string;
     /** ID of the connection the event relates to. */
-    connection_id: string;
+    connection_id?: string;
     /** Date when the event occurred in ISO 8601 format. */
-    date: string;
+    date?: string;
     /** Description of this event. */
-    description: string;
+    description?: string;
     /** Additional useful details about this event (structure is dependent upon event type). */
-    details: unknown;
+    details?: unknown;
     /** Hostname the event applies to. */
-    hostname: string;
+    hostname?: string;
     /** IP address of the log event source. */
-    ip: string;
+    ip?: string;
     /** Whether the client was a mobile device (true) or desktop/laptop/server (false). */
-    isMobile: boolean;
+    isMobile?: boolean;
     /** Information about the location that triggered this event based on the ip. */
-    location_info: {
+    location_info?: {
         /** Full city name in English. */
-        city_name: string;
+        city_name?: string;
         /** Continent the country is located within. Can be AF (Africa), AN (Antarctica), AS (Asia), EU (Europe), NA (North America), OC (Oceania) or SA (South America). */
-        continent_code: string;
+        continent_code?: string;
         /** Two-letter Alpha-2 ISO 3166-1 country code. */
         country_code?: string;
         /** Three-letter Alpha-3 ISO 3166-1 country code. */
         country_code3?: string;
         /** Full country name in English. */
-        country_name: string;
+        country_name?: string;
         /** Global latitude (horizontal) position. */
-        latitude: string;
+        latitude?: string;
         /** Global longitude (vertical) position. */
-        longitude: string;
-        /** Time zone name as found in the IANA tz database. https://www.iana.org/time-zones */
-        time_zone: string;
+        longitude?: string;
+        /** Time zone name as found in the IANA tz database. https?://www.iana.org/time-zones */
+        time_zone?: string;
     };
     /** Unique ID of the event. */
-    log_id: string;
+    log_id?: string;
     /** Scope permissions applied to the event. */
-    scope: string;
+    scope?: string;
     /** Name of the strategy involved in the event. */
-    strategy: string;
+    strategy?: string;
     /** Type of strategy involved in the event. */
-    strategy_type: string;
+    strategy_type?: string;
     /** Type of event. */
-    type: LogEventTypeCode;
+    type?: LogEventTypeCode;
     /** ID of the user involved in the event. */
-    user_id: string;
+    user_id?: string;
     /** User agent string from the client device that caused the event. */
-    user_agent: string;
+    user_agent?: string;
     /** Name of the user involved in the event. */
-    user_name: string;
+    user_name?: string;
 }
 
 /** https://auth0.com/docs/deploy-monitor/logs/log-event-type-codes */
@@ -1956,12 +1956,12 @@ export class ManagementClient<A = AppMetadata, U = UserMetadata> {
     createEmailVerificationTicket(data: EmailVerificationTicketOptions, cb?: (err: Error, data: any) => void): void;
 
     // Logs
-    getLog(params: ObjectWithId): Promise<Partial<LogEvent>>;
-    getLog(params: ObjectWithId, cb?: (err: Error, data: Partial<LogEvent>) => void): void;
+    getLog(params: ObjectWithId): Promise<LogEvent>;
+    getLog(params: ObjectWithId, cb?: (err: Error, data: LogEvent) => void): void;
 
-    getLogs(query?: LogsQuery): Promise<Array<Partial<LogEvent>>>;
-    getLogs(cb?: (err: Error, data: Array<Partial<LogEvent>>) => void): void;
-    getLogs(query?: LogsQuery, cb?: (err: Error, data: Array<Partial<LogEvent>>) => void): void;
+    getLogs(query?: LogsQuery): Promise<Array<LogEvent>>;
+    getLogs(cb?: (err: Error, data: Array<LogEvent>) => void): void;
+    getLogs(query?: LogsQuery, cb?: (err: Error, data: Array<LogEvent>) => void): void;
 
     // Resource Server
     createResourceServer(data: CreateResourceServer): Promise<ResourceServer>;
