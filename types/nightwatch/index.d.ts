@@ -545,6 +545,7 @@ export interface NightwatchOptions {
 }
 
 export interface NightwatchGlobals {
+    [key: string]: any;
     /**
      * this controls whether to abort the test execution when an assertion failed and skip the rest
      * it's being used in waitFor commands and expect assertions

@@ -2723,7 +2723,7 @@ declare module 'azdata' {
         /**
          * @deprecated Use withProps instead
          */
-        withProperties<U>(properties: U): ComponentBuilder<TComponent, TPropertyBag>;
+        withProperties(properties: any): ComponentBuilder<TComponent, TPropertyBag>;
         /**
          * Sets the initial set of properties for the component being created
          * @param properties The properties to apply to the component
