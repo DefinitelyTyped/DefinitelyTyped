@@ -26,7 +26,6 @@
 //                 Philippe Mills <https://github.com/Philippe-mills>
 //                 Saul Mirone <https://github.com/Saul-Mirone>
 //                 Nicholai Nissen <https://github.com/Nicholaiii>
-//                 Mike Deverell <https://github.com/devrelm>
 //                 Jorge Santana <https://github.com/LORDBABUINO>
 //                 Mikael Couzic <https://github.com/couzic>
 //                 Nikita Balikhin <https://github.com/NEWESTERS>
