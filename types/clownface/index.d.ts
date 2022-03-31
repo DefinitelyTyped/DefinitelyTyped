@@ -1,4 +1,4 @@
-// Type definitions for clownface 1.2
+// Type definitions for clownface 1.5
 // Project: https://github.com/rdf-ext/clownface
 // Definitions by: tpluscode <https://github.com/tpluscode>
 //                 BenjaminHofstetter <https://github.com/BenjaminHofstetter>
