@@ -14,8 +14,10 @@ import * as R from 'ramda';
     const res2: number[][] = R.aperture(11, [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]);
 
     const anyArr: any[] = [1, "2"];
-    const aperturedAny = R.aperture(2, anyArr); // $ExpectType [] | [any, any][]
+    // $ExpectType [] | [any, any][]
+    const aperturedAny = R.aperture(2, anyArr);
 
     const undefArr: undefined[] = [undefined, undefined, undefined];
-    const aperturedUndefined = R.aperture(3, undefArr); // $ExpectType [] | [undefined, undefined, undefined][]
+    // $ExpectType [] | [undefined, undefined, undefined][]
+    const aperturedUndefined = R.aperture(3, undefArr);
 };
