@@ -71,7 +71,8 @@ import {
     CondPairTypeguard,
     Fn,
     IfFunctionsArgumentsDoNotOverlap,
-    LargestArgumentsList, mergeArrWithLeft,
+    LargestArgumentsList,
+    mergeArrWithLeft,
 } from './tools';
 
 export * from './tools';
@@ -777,7 +778,9 @@ export function cond<T extends any[], R>(pairs: Array<CondPair<T, R>>): (...args
 /**
  * Wraps a constructor function inside a curried function that can be called with the same arguments and returns the same type.
  */
-export function construct<A extends any[], T>(constructor: { new (...a: A): T } | ((...a: A) => T)): _.F.Curry<(...a: A) => T>;
+export function construct<A extends any[], T>(
+    constructor: { new (...a: A): T } | ((...a: A) => T),
+): _.F.Curry<(...a: A) => T>;
 
 /**
  * Wraps a constructor function inside a curried function that can be called with the same arguments and returns the same type.
