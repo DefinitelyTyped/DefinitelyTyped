@@ -69,6 +69,9 @@ import {
     ToTupleOfFunction,
     Tuple,
     CondPairTypeguard,
+    Fn,
+    IfFunctionsArgumentsDoNotOverlap,
+    LargestArgumentsList,
 } from './tools';
 
 export * from './tools';
@@ -807,78 +810,28 @@ export function contains<T>(a: T): (list: readonly T[]) => boolean;
  * are passed as arguments to the converging function to produce the return value.
  */
 export function converge<
-    TArgs extends any[],
     TResult,
-    R1,
-    R2,
-    R3,
-    R4,
-    R5,
-    R6,
-    R7,
-    RestFunctions extends Array<(...args: TArgs) => any>,
+    FunctionsList extends ReadonlyArray<Fn> &
+        IfFunctionsArgumentsDoNotOverlap<_Fns, 'Functions arguments types must overlap'>,
+    _Fns extends ReadonlyArray<Fn> = FunctionsList,
 >(
-    converging: (...args: [R1, R2, R3, R4, R5, R6, R7, ...ReturnTypesOfFns<RestFunctions>]) => TResult,
-    branches: [
-        (...args: TArgs) => R1,
-        (...args: TArgs) => R2,
-        (...args: TArgs) => R3,
-        (...args: TArgs) => R4,
-        (...args: TArgs) => R5,
-        (...args: TArgs) => R6,
-        (...args: TArgs) => R7,
-        ...RestFunctions,
-    ],
-): (...args: TArgs) => TResult;
-export function converge<TArgs extends any[], TResult, R1, R2, R3, R4, R5, R6, R7>(
-    converging: (...args: [R1, R2, R3, R4, R5, R6, R7] & { length: 7 }) => TResult,
-    branches: [
-        (...args: TArgs) => R1,
-        (...args: TArgs) => R2,
-        (...args: TArgs) => R3,
-        (...args: TArgs) => R4,
-        (...args: TArgs) => R5,
-        (...args: TArgs) => R6,
-        (...args: TArgs) => R7,
-    ],
-): (...args: TArgs) => TResult;
-export function converge<TArgs extends any[], TResult, R1, R2, R3, R4, R5, R6>(
-    converging: (...args: [R1, R2, R3, R4, R5, R6] & { length: 6 }) => TResult,
-    branches: [
-        (...args: TArgs) => R1,
-        (...args: TArgs) => R2,
-        (...args: TArgs) => R3,
-        (...args: TArgs) => R4,
-        (...args: TArgs) => R5,
-        (...args: TArgs) => R6,
-    ],
-): (...args: TArgs) => TResult;
-export function converge<TArgs extends any[], TResult, R1, R2, R3, R4, R5>(
-    converging: (...args: [R1, R2, R3, R4, R5] & { length: 5 }) => TResult,
-    branches: [
-        (...args: TArgs) => R1,
-        (...args: TArgs) => R2,
-        (...args: TArgs) => R3,
-        (...args: TArgs) => R4,
-        (...args: TArgs) => R5,
-    ],
-): (...args: TArgs) => TResult;
-export function converge<TArgs extends any[], TResult, R1, R2, R3, R4>(
-    converging: (...args: [R1, R2, R3, R4] & { length: 4 }) => TResult,
-    branches: [(...args: TArgs) => R1, (...args: TArgs) => R2, (...args: TArgs) => R3, (...args: TArgs) => R4],
-): (...args: TArgs) => TResult;
-export function converge<TArgs extends any[], TResult, R1, R2, R3>(
-    converging: (...args: [R1, R2, R3] & { length: 3 }) => TResult,
-    branches: [(...args: TArgs) => R1, (...args: TArgs) => R2, (...args: TArgs) => R3],
-): (...args: TArgs) => TResult;
-export function converge<TArgs extends any[], TResult, R1, R2>(
-    converging: (...args: [R1, R2] & { length: 2 }) => TResult,
-    branches: [(...args: TArgs) => R1, (...args: TArgs) => R2],
-): (...args: TArgs) => TResult;
-export function converge<TArgs extends any[], TResult, R1>(
-    converging: (...args: [R1] & { length: 1 }) => TResult,
-    branches: [(...args: TArgs) => R1],
-): (...args: TArgs) => TResult;
+    converging: (...args: ReturnTypesOfFns<FunctionsList>) => TResult,
+    branches: FunctionsList,
+): _.F.Curry<(...args: LargestArgumentsList<FunctionsList>) => TResult>;
+export function converge<
+    CArgs extends ReadonlyArray<any>,
+    TResult,
+    FunctionsList extends readonly [
+        ...{
+            [Index in keyof CArgs]: (...args: ReadonlyArray<any>) => CArgs[Index];
+        },
+    ] &
+        IfFunctionsArgumentsDoNotOverlap<_Fns, 'Functions arguments types must overlap'>,
+    _Fns extends ReadonlyArray<Fn> = FunctionsList,
+>(
+    converging: (...args: CArgs) => TResult,
+    branches: FunctionsList,
+): _.F.Curry<(...args: LargestArgumentsList<FunctionsList>) => TResult>;
 
 /**
  * Returns the number of items in a given `list` matching the predicate `f`
@@ -1054,9 +1007,7 @@ export function endsWith<T>(subList: readonly T[]): (list: readonly T[]) => bool
  */
 export function eqBy<T>(fn: (a: T) => unknown, a: T, b: T): boolean;
 export function eqBy<T>(fn: (a: T) => unknown, a: T): (b: T) => boolean;
-export function eqBy<T>(
-    fn: (a: T) => unknown,
-): {
+export function eqBy<T>(fn: (a: T) => unknown): {
     (a: T, b: T): boolean;
     (a: T): (b: T) => boolean;
 };
