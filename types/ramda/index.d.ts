@@ -71,6 +71,7 @@ import {
     Fn,
     IfFunctionsArgumentsDoNotOverlap,
     LargestArgumentsList,
+    mergeArrWithLeft,
 } from './tools';
 
 export * from './tools';
@@ -776,16 +777,18 @@ export function cond<T extends any[], R>(pairs: Array<CondPair<T, R>>): (...args
 /**
  * Wraps a constructor function inside a curried function that can be called with the same arguments and returns the same type.
  */
-export function construct<A extends any[], T>(constructor: { new (...a: A): T } | ((...a: A) => T)): (...a: A) => T;
+export function construct<A extends any[], T>(
+    constructor: { new (...a: A): T } | ((...a: A) => T),
+): _.F.Curry<(...a: A) => T>;
 
 /**
  * Wraps a constructor function inside a curried function that can be called with the same arguments and returns the same type.
  * The arity of the function returned is specified to allow using variadic constructor functions.
  */
-export function constructN<A extends any[], T>(
-    n: number,
+export function constructN<A extends any[], T, N extends number>(
+    n: N,
     constructor: { new (...a: A): T } | ((...a: A) => T),
-): (...a: Partial<A>) => T;
+): _.F.Curry<(...a: mergeArrWithLeft<Tuple<any, N>, A>) => T>;
 
 /**
  * Returns `true` if the specified item is somewhere in the list, `false` otherwise.
