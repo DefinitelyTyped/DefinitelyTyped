@@ -22,6 +22,9 @@ AP.confluence.syncPropertyFromServer('propertyKey', property => console.log(prop
 AP.context.getToken(token => console.log(token)); // $ExpectType void
 AP.context.getContext(context => console.log(context)); // $ExpectType void
 
+AP.context.getToken(); // $ExpectType Promise<string>
+AP.context.getContext(); // $ExpectType Promise<any>
+
 AP.cookie.save('name', 'value', 10); // $ExpectType void
 AP.cookie.read('name', value => console.log(value)); // $ExpectType void
 AP.cookie.erase('name'); // $ExpectType void
