@@ -1782,7 +1782,7 @@ declare namespace jsts {
              * @see #buffer(double, int)
              * @see BufferOp
              */
-            buffer(distance: number, quadrantSegments: number, endCapStyle: number): Geometry;
+            buffer(distance: number, quadrantSegments: number, endCapStyle: number): Polygon | MultiPolygon;
 
             /**
              * Computes the smallest convex <code>Polygon</code> that contains all the
@@ -2305,6 +2305,22 @@ declare namespace jsts {
              * @return {number} The number of interior rings.
              */
             getNumInteriorRing(): number;
+        }
+
+        /**
+         * Models a collection of Polygons.
+         * As per the OGC SFS specification, the Polygons in a MultiPolygon
+         * may not overlap, and may only touch at single points. This allows 
+         * the topological point-set semantics to be well-defined.
+         */
+        export class MultiPolygon extends GeometryCollection {
+            /**
+             * polygons - the Polygons for this MultiPolygon, or null or an empty 
+             * array to create the empty geometry. Elements may be empty Polygons,
+             * but not nulls. The polygons must conform to the assertions specified
+             * in the OpenGIS Simple Features Specification for SQL.
+             */
+            constructor(polygons: null | Array<Polygon>, factory: GeometryFactory);
         }
 
         namespace util {
