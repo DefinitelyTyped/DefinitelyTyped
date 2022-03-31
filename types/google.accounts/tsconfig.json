@@ -19,6 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "google.accounts.global.ts"
+        "google.accounts-tests.ts"
     ]
 }
