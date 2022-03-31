@@ -1194,7 +1194,7 @@ export interface ElementProperties {
      * @example
      * 'css selector'
      */
-    locateStrategy?: string;
+    locateStrategy?: LocateStrategy;
 
     /**
      * used to target a specific element in a query that results in multiple elements returned. Normally,
@@ -4693,15 +4693,6 @@ export interface WebDriverProtocolMobileRelated {
 }
 
 /**
- * Typed DOM element locator for PageElements collection for PageObjectModel
- * allowing specification of enumerated locate strategy and selector string.
- */
-export type ElementLocator = {
-    locateStrategy?: LocateStrategy;
-    selector: string;
-};
-
-/**
  * Map of DOM element locators as shorthand string selectors based on
  * global selector setting or ElementLocator
  *
@@ -4714,7 +4705,7 @@ export type ElementLocator = {
  *  }
  * }
  */
-export type PageElements = { [key: string]: string | ElementLocator };
+export type PageElements = { [key: string]: string | ElementProperties };
 
 /**
  * Type for defining page object models allowing for optional type-safe
@@ -4724,6 +4715,6 @@ export type PageObjectModel = {
     url?: string | ((...args: any) => string);
     elements?: PageElements;
     sections?: EnhancedPageObjectSections;
-    commands?: {} | {}[];
-    props?: {};
+    commands?: any;
+    props?: any;
 };
