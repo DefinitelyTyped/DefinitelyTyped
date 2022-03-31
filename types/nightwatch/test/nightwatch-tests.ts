@@ -276,7 +276,7 @@ function localStorageValueCommand(this: NightwatchAPI, key: string, callback?: (
 
     this.execute(
         // tslint:disable-next-line:only-arrow-functions
-        function (key) {
+        function(key) {
             return window.localStorage.getItem(key);
         },
         [key], // arguments array to be passed
@@ -352,7 +352,7 @@ function text(this: NightwatchAssertion<string>, selector: string, expectedText:
 
     this.value = result => result;
 
-    this.command = function (callback) {
+    this.command = function(callback) {
         this.api.element('css selector', selector, elementResult => {
             if (elementResult.status) {
                 callback(null);

@@ -4705,16 +4705,18 @@ export interface WebDriverProtocolMobileRelated {
  *  }
  * }
  */
-export type PageElements = { [key: string]: string | ElementProperties };
+export interface PageElements {
+    [key: string]: string | ElementProperties;
+}
 
 /**
  * Type for defining page object models allowing for optional type-safe
  * inclusion of url, elements, sections, commands, and props properties.
  */
-export type PageObjectModel = {
+export interface PageObjectModel {
     url?: string | ((...args: any) => string);
     elements?: PageElements;
     sections?: EnhancedPageObjectSections;
     commands?: any;
     props?: any;
-};
+}
