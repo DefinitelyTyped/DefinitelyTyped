@@ -1626,11 +1626,11 @@ export interface EnhancedElementInstance<T> {
     selector: string;
 }
 
-export type EnhancedSectionInstance<Commands = {}, Elements = {}, Sections extends EnhancedPageObjectSections  = {}> = EnhancedPageObject<
-    Commands,
-    Elements,
-    Sections
->;
+export type EnhancedSectionInstance<
+    Commands = {},
+    Elements = {},
+    Sections extends EnhancedPageObjectSections = {},
+> = EnhancedPageObject<Commands, Elements, Sections>;
 
 export interface EnhancedPageObjectSections {
     [name: string]: EnhancedSectionInstance<any, any, any>;
@@ -4691,3 +4691,39 @@ export interface WebDriverProtocolMobileRelated {
      */
     setContext(context: string, callback?: () => void): this;
 }
+
+/**
+ * Typed DOM element locator for PageElements collection for PageObjectModel
+ * allowing specification of enumerated locate strategy and selector string.
+ */
+export type ElementLocator = {
+    locateStrategy?: LocateStrategy;
+    selector: string;
+};
+
+/**
+ * Map of DOM element locators as shorthand string selectors based on
+ * global selector setting or ElementLocator
+ *
+ * @example
+ * const elements: PageElements {
+ * header: "h1",
+ * banner: {
+ *  locateStrategy: "css selector",
+ *  selector: "#bannerId"
+ *  }
+ * }
+ */
+export type PageElements = { [key: string]: string | ElementLocator };
+
+/**
+ * Type for defining page object models allowing for optional type-safe
+ * inclusion of url, elements, sections, commands, and props properties.
+ */
+export type PageObjectModel = {
+    url?: string | ((...args: any) => string);
+    elements?: PageElements;
+    sections?: EnhancedPageObjectSections;
+    commands?: {} | {}[];
+    props?: {};
+};

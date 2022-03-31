@@ -4,8 +4,8 @@ import {
     EnhancedSectionInstance,
     NightwatchAPI,
     NightwatchAssertion,
-    NightwatchBrowser,
     NightwatchTests,
+    PageObjectModel,
 } from 'nightwatch';
 
 //
@@ -64,10 +64,8 @@ const testGeneral: NightwatchTests = {
     },
 
     'test user defined globals': () => {
-        browser
-        .url(`http://${browser.globals.username}:${browser.globals.password}@example.com`)
-        .end();
-    }
+        browser.url(`http://${browser.globals.username}:${browser.globals.password}@example.com`).end();
+    },
 };
 
 //
@@ -125,7 +123,7 @@ interface MenuSection
         { apps: AppsSection }
     > {}
 
-const googlePage = {
+const googlePage: PageObjectModel = {
     commands: [
         {
             submit(this: GooglePage) {
@@ -151,7 +149,7 @@ const googlePage = {
 
 // export = googlePage;
 
-const iFrame = {
+const iFrame: PageObjectModel = {
     elements: {
         iframe: '#mce_0_ifr',
         textbox: 'body#tinymce p',
@@ -278,7 +276,7 @@ function localStorageValueCommand(this: NightwatchAPI, key: string, callback?: (
 
     this.execute(
         // tslint:disable-next-line:only-arrow-functions
-        function(key) {
+        function (key) {
             return window.localStorage.getItem(key);
         },
         [key], // arguments array to be passed
@@ -354,7 +352,7 @@ function text(this: NightwatchAssertion<string>, selector: string, expectedText:
 
     this.value = result => result;
 
-    this.command = function(callback) {
+    this.command = function (callback) {
         this.api.element('css selector', selector, elementResult => {
             if (elementResult.status) {
                 callback(null);
