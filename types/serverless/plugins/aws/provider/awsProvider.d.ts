@@ -457,6 +457,7 @@ declare namespace Aws {
         startingPosition?: number | string | undefined;
         enabled?: boolean | undefined;
         type?: 'dynamodb' | 'kinesis' | undefined;
+        filterPatterns?: object[] | undefined;
     }
 
     interface Msk {

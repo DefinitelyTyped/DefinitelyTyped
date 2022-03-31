@@ -578,7 +578,12 @@ const awsServerless: Aws.Serverless = {
                         arn: 'testarn',
                         batchSize: 1,
                         startingPosition: 1,
-                        enabled: true
+                        enabled: true,
+                        filterPatterns: [
+                            {
+                                partitionKey: [ '1' ]
+                            }
+                        ]
                     }
                 }, {
                     msk: {
