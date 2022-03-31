@@ -156,6 +156,11 @@ declare module 'net' {
          */
         setTimeout(timeout: number, callback?: () => void): this;
         /**
+         * The socket timeout in milliseconds as set by socket.setTimeout(). It is undefined if a timeout has not been set.
+         * @since v10.7.0
+         */
+        readonly timeout: number | undefined;
+        /**
          * Enable/disable the use of Nagle's algorithm.
          *
          * When a TCP connection is created, it will have Nagle's algorithm enabled.
