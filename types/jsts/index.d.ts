@@ -548,6 +548,16 @@ declare namespace jsts {
             constructor(c: Coordinate);
 
             /**
+             * @constructor
+             */
+             constructor();
+
+            /**
+             * @constructor
+             */
+             constructor(x: number, y: number, z: number);
+
+            /**
              * Gets or sets the x value.
              */
             x: number;
