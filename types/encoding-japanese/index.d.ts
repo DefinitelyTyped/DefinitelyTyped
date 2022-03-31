@@ -40,6 +40,7 @@ export interface ConvertStringOptions {
     to: Encoding;
     from?: Encoding | undefined;
     type: 'string';
+    fallback?: 'html-entity' | 'html-entity-hex';
     bom?: boolean | string | undefined;
 }
 
@@ -47,6 +48,7 @@ export interface ConvertArrayBufferOptions {
     to: Encoding;
     from?: Encoding | undefined;
     type: 'arraybuffer';
+    fallback?: 'html-entity' | 'html-entity-hex';
     bom?: boolean | string | undefined;
 }
 
@@ -54,12 +56,14 @@ export interface ConvertArrayOptions {
     to: Encoding;
     from?: Encoding | undefined;
     type: 'array';
+    fallback?: 'html-entity' | 'html-entity-hex';
     bom?: boolean | string | undefined;
 }
 
 export interface ConvertUnknownOptions {
     to: Encoding;
     from?: Encoding | undefined;
+    fallback?: 'html-entity' | 'html-entity-hex';
     bom?: boolean | string | undefined;
 }
 
