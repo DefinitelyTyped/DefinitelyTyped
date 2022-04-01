@@ -24,4 +24,4 @@ declare namespace Sensor {
     }
 }
 
-export = Sensor;
+export { Sensor };
