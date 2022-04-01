@@ -42,19 +42,19 @@ import {
     ToolbarView,
     TooltipView,
     View,
-    ViewCollection,
+    ViewCollection
 } from '@ckeditor/ckeditor5-ui';
 import preventDefault from '@ckeditor/ckeditor5-ui/src/bindings/preventdefault';
 import DropdownPanelView from '@ckeditor/ckeditor5-ui/src/dropdown/dropdownpanelview';
 import DropdownView from '@ckeditor/ckeditor5-ui/src/dropdown/dropdownview';
 import IframeView from '@ckeditor/ckeditor5-ui/src/iframe/iframeview';
-import LabeledInputView from '@ckeditor/ckeditor5-ui/src/labeledinput/labeledinputview';
-import ListSeparatorView from '@ckeditor/ckeditor5-ui/src/list/listseparatorview';
-import ToolbarLineBreakView from '@ckeditor/ckeditor5-ui/src/toolbar/toolbarlinebreakview';
-import { DomEmitterMixin, EmitterMixin, FocusTracker, KeystrokeHandler, Locale } from '@ckeditor/ckeditor5-utils';
 import InputView from '@ckeditor/ckeditor5-ui/src/input/inputview';
 import InputNumberView from '@ckeditor/ckeditor5-ui/src/inputnumber/inputnumberview';
 import { createLabeledInputNumber } from '@ckeditor/ckeditor5-ui/src/labeledfield/utils';
+import LabeledInputView from '@ckeditor/ckeditor5-ui/src/labeledinput/labeledinputview';
+import ListSeparatorView from '@ckeditor/ckeditor5-ui/src/list/listseparatorview';
+import ToolbarLineBreakView from '@ckeditor/ckeditor5-ui/src/toolbar/toolbarlinebreakview';
+import { DomEmitterMixin, FocusTracker, KeystrokeHandler, Locale } from '@ckeditor/ckeditor5-utils';
 
 let num = 0;
 let str = '';
@@ -116,6 +116,11 @@ view.destroy();
 
 htmlelement = view.element!;
 view.element === null;
+
+// $ExpectType void | undefined
+view.disableCssTransitions?.();
+// $ExpectType void | undefined
+view.enableCssTransitions?.();
 
 /**
  * ViewCollection
@@ -233,7 +238,7 @@ str = tooltip.text;
  * clickOutsideHandler
  */
 clickOutsideHandler({
-    emitter: Object.create(EmitterMixin),
+    emitter: new View(),
     activator: () => false,
     contextElements: [document.createElement('div')],
     callback: () => {},
