@@ -1502,9 +1502,9 @@ export class DescribeInstance {
     endSessionOnFail(): boolean;
     skipTestcasesOnFail(): boolean;
     disabled(): boolean;
-    desiredCapabilities(): any;
+    desiredCapabilities(): NightwatchDesiredCapabilities;
     page(): any;
-    globals(): any;
+    globals(): NightwatchGlobals;
     settings(): NightwatchOptions;
     argv(): any;
     timeout(value: number): void;
