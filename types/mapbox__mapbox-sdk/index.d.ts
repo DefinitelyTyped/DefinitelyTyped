@@ -1312,7 +1312,10 @@ declare module '@mapbox/mapbox-sdk/services/static' {
         padding?: string | undefined;
         overlays?: Array<CustomMarkerOverlay | SimpleMarkerOverlay | PathOverlay | GeoJsonOverlay> | undefined;
         highRes?: boolean | undefined;
-        insertOverlayBeforeLayer?: string | undefined;
+        before_layer?: string | undefined;
+        addlayer?: Object | undefined;
+        setfilter?: Array<any> | undefined;
+        layer_id?: string | undefined;
         attribution?: boolean | undefined;
         logo?: boolean | undefined;
     }
