@@ -1496,8 +1496,8 @@ export class DescribeInstance {
     '[instance]': any;
     '[attributes]': {};
     '[client]': NightwatchClient;
-    name(): any;
-    tags(): any;
+    name(): string;
+    tags(): string | string[];
     unitTest(): boolean;
     endSessionOnFail(): boolean;
     skipTestcasesOnFail(): boolean;
