@@ -2,7 +2,7 @@ import * as pirSensor from 'pi-pir-sensor';
 
 // With default loop of 1500
 const sensorConfiguration = new pirSensor.SensorConfiguration(12);
-const sensor: pirSensor.PirSensor = new pirSensor.PirSensor(sensorConfiguration);
+const sensor: pirSensor.Sensor = new pirSensor.Sensor(sensorConfiguration);
 
 sensor.on('movement',  ()=> {
     // who's there?

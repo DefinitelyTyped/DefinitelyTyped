@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
-export class PirSensor {
+export class Sensor {
     lastMovement: Date;
 
     constructor(sensorConfiguration: SensorConfiguration);
