@@ -1464,8 +1464,7 @@ export interface NightwatchComponentTestingCommands {
 // tslint:disable-next-line
 export interface NightwatchElement extends WebElement {}
 
-export type NightwatchTest = (browser: NightwatchBrowser) => void;
-
+export type NightwatchTest = (browser?: NightwatchBrowser) => void;
 export interface NightwatchTestFunctions {
     before?: NightwatchTestHook | undefined;
     after?: NightwatchTestHook | undefined;
@@ -1493,6 +1492,77 @@ export function element(locator: string | ElementProperties | By | WebElement, o
 
 export type NightwatchTests = NightwatchTestFunctions | NightwatchTestHooks;
 
+export class DescribeInstance {
+    '[instance]': any;
+    '[attributes]': {};
+    '[client]': NightwatchClient;
+    name(): string;
+    tags(): string | string[];
+    unitTest(): boolean;
+    endSessionOnFail(): boolean;
+    skipTestcasesOnFail(): boolean;
+    disabled(): boolean;
+    desiredCapabilities(): NightwatchDesiredCapabilities;
+    page(): any;
+    globals(): NightwatchGlobals;
+    settings(): NightwatchOptions;
+    argv(): any;
+    timeout(value: number): void;
+    waitForTimeout(value: number): number | void;
+    waitForRetryInterval(value: number): number | void;
+    retryInterval(value: number): void;
+    retries(n: any): void;
+    suiteRetries(n: any): void;
+    define(name: any, value: any): any;
+}
+
+interface SuiteFunction {
+    (title: string, fn?: (this: DescribeInstance) => void): this;
+    only: ExclusiveSuiteFunction;
+    skip: PendingSuiteFunction;
+}
+
+interface ExclusiveSuiteFunction {
+    (title: string, fn?: (this: DescribeInstance) => void): this;
+}
+
+interface PendingSuiteFunction {
+    (title: string, fn: (this: DescribeInstance) => void): this | void;
+}
+
+interface ExclusiveTestFunction {
+    (fn: NormalFunc | AsyncFunc): this;
+    (title: string, fn?: NormalFunc | AsyncFunc): this;
+}
+
+interface PendingTestFunction {
+    (fn: NormalFunc | AsyncFunc): this;
+    (title: string, fn?: NormalFunc | AsyncFunc): this;
+}
+
+type NormalFunc = (this: DescribeInstance) => any;
+type AsyncFunc = (this: DescribeInstance) => PromiseLike<any>;
+interface TestFunction {
+    (fn: NormalFunc | AsyncFunc): this;
+    (title: string, fn?: NormalFunc | AsyncFunc): this;
+    only: ExclusiveTestFunction;
+    skip: PendingTestFunction;
+    retries(n: number): void;
+}
+
+export const describe: SuiteFunction;
+export const xdescribe: PendingSuiteFunction;
+export const context: SuiteFunction;
+export const xcontext: PendingSuiteFunction;
+export const test: TestFunction;
+export const it: TestFunction;
+export const xit: PendingTestFunction;
+export const specify: TestFunction;
+export const xspecify: PendingTestFunction;
+export const before: GlobalNightwatchTestHook;
+export const after: GlobalNightwatchTestHook;
+export const beforeEach: GlobalNightwatchTestHookEach;
+export const afterEach: GlobalNightwatchTestHookEach;
 /**
  * Performs an assertion
  *
