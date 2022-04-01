@@ -650,9 +650,7 @@ objectToMap({ foo: 1, bar: 2 }).get('foo');
 // utils/observablemixin ======================================================
 
 class Car implements Observable {
-    set(option: Record<string, unknown>): void;
-    set(name: string, value: unknown): void;
-    set(_name: any, _value?: any): void {
+    set(...args: [option: Record<string, unknown>] | [name: string, value: unknown] | [name: string]): void {
         throw new Error('Method not implemented.');
     }
     bind(..._bindProperties: string[]): BindChain {
@@ -739,6 +737,7 @@ bettle.set('seats', undefined);
 bettle.set({
     color: 'red',
 });
+bettle.set('color');
 
 bettle.unbind();
 bettle.unbind('color');
