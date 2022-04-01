@@ -408,6 +408,24 @@ export type ObjPred<T = unknown> = (value: any, key: unknown extends T ? string 
  */
 export type Ord = number | string | boolean | Date;
 
+/*
+ * Type of which can be used as a key in object
+ *
+ * <created by @valerii15298>
+ * */
+export type ObjectKeyType = string | symbol | number;
+
+/**
+ * Returns value types of object by specified key type P, if P does not satisfy keyof O,
+ * then all possible values of O are returned.
+ * `null` and `undefined` are excluded from the result.
+ *
+ * @param P - key type
+ * @param O - object to get types of values from
+ *
+ */
+export type PO<P, O> = NonNullable<O[[P] extends [keyof O] ? P : keyof O]>;
+
 /**
  * Represents two value's order
  */

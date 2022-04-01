@@ -72,6 +72,8 @@ import {
     IfFunctionsArgumentsDoNotOverlap,
     LargestArgumentsList,
     mergeArrWithLeft,
+    ObjectKeyType,
+    PO,
 } from './tools';
 
 export * from './tools';
@@ -2331,11 +2333,60 @@ export function propIs<C extends new (...args: any[]) => any>(
  * If the given, non-null object has an own property with the specified name, returns the value of that property.
  * Otherwise returns the provided default value.
  */
-export function propOr<T, U>(val: T, __: Placeholder, obj: U): <V>(p: string) => V;
-export function propOr<U>(__: Placeholder, p: string, obj: U): <T, V>(val: T) => V;
-export function propOr<T, U, V>(val: T, p: string, obj: U): V;
-export function propOr<T>(val: T, p: string): <U, V>(obj: U) => V;
-export function propOr<T>(val: T): <U, V>(p: string, obj: U) => V;
+export function propOr<O extends object>(
+    defaultValue: Placeholder,
+    propName: Placeholder,
+    obj: O,
+): <D, P extends [D] extends [Placeholder] ? ObjectKeyType : ObjectKeyType | undefined>(
+    defaultValue: D,
+    propName?: P,
+) => [D] extends [Placeholder]
+    ? <D>(defaultValue: D) => D | PO<P, O>
+    : [P] extends [ObjectKeyType]
+    ? D | PO<P, O>
+    : <P extends ObjectKeyType>(propName: P) => D | PO<P, O>;
+export function propOr<P extends ObjectKeyType, O extends object>(
+    defaultValue: Placeholder,
+    propName: P,
+    obj: O,
+): <D>(defaultValue: D) => D | PO<P, O>;
+export function propOr<D, O extends object>(
+    defaultValue: D,
+    propName: Placeholder,
+    obj: O,
+): <P extends ObjectKeyType>(propName: P) => D | PO<P, O>;
+export function propOr<D, P extends ObjectKeyType, O extends object>(
+    defaultValue: D,
+    propName: P,
+    obj: O,
+): D | PO<P, O>;
+
+export function propOr<P extends ObjectKeyType>(
+    defaultValue: Placeholder,
+    propName: P,
+): <D, O extends D extends Placeholder ? object : object | undefined>(
+    defaultValue: D,
+    obj?: O,
+) => [D] extends [Placeholder]
+    ? <D>(defaultValue: D) => D | PO<P, O>
+    : [O] extends [object]
+    ? D | PO<P, O>
+    : <O extends object>(obj: O) => D | PO<P, O>;
+export function propOr<D, P extends ObjectKeyType>(
+    defaultValue: D,
+    propName: P,
+): <O extends object>(obj: O) => D | PO<P, O>;
+
+export function propOr<D>(
+    defaultValue: D,
+): <P extends ObjectKeyType | Placeholder, O extends P extends Placeholder ? object : object | undefined>(
+    propName: P,
+    obj?: O,
+) => [P] extends [Placeholder]
+    ? <P extends ObjectKeyType>(propName: P) => D | PO<P, O>
+    : [O] extends [object]
+    ? D | PO<P, O>
+    : <O extends object>(obj: O) => D | PO<P, O>;
 
 /**
  * Returns the value at the specified property.
