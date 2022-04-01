@@ -1,6 +1,6 @@
 import * as pirSensor from 'pi-pir-sensor';
 
-//With default loop of 1500
+// With default loop of 1500
 const sensorConfiguration = new pirSensor.SensorConfiguration(12);
 const sensor: pirSensor.PirSensor = new pirSensor.PirSensor(sensorConfiguration);
 
@@ -11,8 +11,8 @@ sensor.on('movement',  ()=> {
 sensor.start();
 sensor.stop();
 
-//With loop value 2000
+// With loop value 2000
 const sensorConfigurationWithPir = new pirSensor.SensorConfiguration(12, 2000);
 
-//Get the last movement
+// Get the last movement
 const lastMovement = sensor.lastMovement;
