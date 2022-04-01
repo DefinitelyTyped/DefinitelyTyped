@@ -16,7 +16,7 @@ import Plugin = require('./classes/Plugin');
 import PluginManager = require('./classes/PluginManager');
 import Utils = require('./classes/Utils');
 import YamlParser = require('./classes/YamlParser');
-import AwsProvider, { Event } from './plugins/aws/provider/awsProvider';
+import AwsProvider = require('./plugins/aws/provider/awsProvider');
 
 declare namespace Serverless {
     interface Options {
@@ -41,7 +41,7 @@ declare namespace Serverless {
         timeout?: number | undefined;
         memorySize?: number | undefined;
         environment?: { [name: string]: string } | undefined;
-        events: Event[];
+        events: AwsProvider.Event[];
         tags?: { [key: string]: string } | undefined;
     }
 
