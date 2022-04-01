@@ -5,6 +5,8 @@
 
 /// <reference types="node" />
 
+declare function Sensor(configuration: Sensor.SensorConfiguration): void;
+
 declare namespace Sensor {
     class Sensor {
         lastMovement: Date;
