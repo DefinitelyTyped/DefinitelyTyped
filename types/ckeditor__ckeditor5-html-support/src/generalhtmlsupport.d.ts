@@ -7,6 +7,7 @@ import HeadingElementSupport from './integrations/heading';
 import ImageElementSupport from './integrations/image';
 import MediaEmbedElementSupport from './integrations/mediaembed';
 import ScriptElementSupport from './integrations/script';
+import StyleElementSupport from './integrations/style';
 import TableElementSupport from './integrations/table';
 
 /**
@@ -27,6 +28,7 @@ export default class GeneralHtmlSupport extends Plugin {
         typeof MediaEmbedElementSupport,
         typeof ScriptElementSupport,
         typeof TableElementSupport,
+        typeof StyleElementSupport,
     ];
 }
 

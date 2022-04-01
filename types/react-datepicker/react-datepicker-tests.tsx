@@ -131,7 +131,12 @@ const topLogger: Modifier<'topLogger'> = {
     previousYearAriaLabel=""
     previousYearButtonLabel=""
     readOnly
-    ref={handleRef}
+    ref={instance => {
+        if (instance !== null) {
+            // $ExpectType ReactDatePicker<"offset" | "preventOverflow", true>
+            instance;
+        }
+    }}
     renderCustomHeader={({
         monthDate,
         date,
@@ -200,7 +205,7 @@ const topLogger: Modifier<'topLogger'> = {
 
 <DatePicker formatWeekDay={() => <div />} onChange={() => null} />;
 
-function handleRef(ref: DatePicker) {
+function handleRef(ref: DatePicker | null) {
     if (ref) {
         ref.setBlur();
         ref.setFocus();
@@ -224,7 +229,7 @@ const props: ReactDatePickerProps = {
 <DatePicker<'topLogger'>
     onChange={() => {}}
     popperModifiers={[{ name: 'arrow', options: { padding: 5 } }, topLogger]}
-    ref={handleRef}
+    ref={(instance: DatePicker<'topLogger'> | null) => {}}
 />;
 
 const DatePickerCustomHeader = ({

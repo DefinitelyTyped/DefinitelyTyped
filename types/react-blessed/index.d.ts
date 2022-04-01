@@ -176,7 +176,7 @@ type LayoutProps<T> = T extends LayoutElement ? Partial<Blessed.Widgets.LayoutOp
 // 'blessed' doesn't exist in a DOM so it probably doesn't make sense to allow any property
 type FilterOptions<T extends Record<any, any>> = Partial<Omit<KnownKeys<T>, "style" | "children">>;
 
-type ModifiedBlessedOptions<T> = FilterOptions<T> & { children?: React.ReactNode; style?: ElementStyle } & EventProps;
+type ModifiedBlessedOptions<T extends Record<any, any>> = FilterOptions<T> & { children?: React.ReactNode; style?: ElementStyle } & EventProps;
 
 /* REACT-BLESSED JSX ********************************************************/
 

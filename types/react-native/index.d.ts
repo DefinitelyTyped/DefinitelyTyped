@@ -3647,18 +3647,6 @@ interface ImagePropsAndroid {
      * @platform android
      */
     fadeDuration?: number | undefined;
-
-    /**
-     * Required if loading images via 'uri' from drawable folder on Android.
-     * Explanation: https://medium.com/@adamjacobb/react-native-performance-images-adf5843e120
-     */
-    width?: number | undefined;
-
-    /**
-     * Required if loading images via 'uri' from drawable folder on Android
-     * Explanation: https://medium.com/@adamjacobb/react-native-performance-images-adf5843e120
-     */
-    height?: number | undefined;
 }
 
 /**

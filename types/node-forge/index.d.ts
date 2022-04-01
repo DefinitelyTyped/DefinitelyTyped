@@ -782,7 +782,7 @@ declare module "node-forge" {
         function pkcs12FromAsn1(obj: any, password?: string): Pkcs12Pfx;
 
         function toPkcs12Asn1(
-            key: pki.PrivateKey,
+            key: pki.PrivateKey | null,
             cert: pki.Certificate | pki.Certificate[],
             password: string | null,
             options?: {

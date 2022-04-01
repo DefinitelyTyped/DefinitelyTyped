@@ -93,8 +93,18 @@ import { CopyOptions, cpSync, cp } from 'fs';
 }
 
 {
+    // 6-param version using no default options:
     fs.read(1, new DataView(new ArrayBuffer(1)), 0, 1, 0, (err: NodeJS.ErrnoException | null, bytesRead: number, buffer: DataView) => { });
     fs.read(1, Buffer.from('test'), 1, 2, 123n, () => { });
+    // 3-param version using no default options:
+    fs.read(1, {buffer: new DataView(new ArrayBuffer(1)), offset: 0, length: 1, position: 0}, (err: NodeJS.ErrnoException | null, bytesRead: number, buffer: DataView) => { });
+    fs.read(1, {buffer: Buffer.from('test'), offset: 1, length: 2, position: 123n}, () => { });
+    // 3-param version using some default options:
+    fs.read(1, {length: 1, position: 0}, (err: NodeJS.ErrnoException | null, bytesRead: number, buffer: NodeJS.ArrayBufferView) => { });
+    fs.read(1, {buffer: Buffer.from('test'), position: 123n}, () => { });
+    // 2-param version using all-default options:
+    fs.read(1, (err: NodeJS.ErrnoException | null, bytesRead: number, buffer: NodeJS.ArrayBufferView) => { });
+    fs.read(1, () => { });
 }
 
 {

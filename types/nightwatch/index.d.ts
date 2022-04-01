@@ -10,10 +10,14 @@
 //                 Ravi Sawlani <https://github.com/gravityvi>
 //                 Binayak Ghosh <https://github.com/swrdfish>
 //                 Harshit Agrawal <https://github.com/harshit-bs>
+//                 David Mello <https://github.com/literallyMello>
+//                 Luke Bickell <https://github.com/lukebickell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.5
 
-import { WebElement, By } from 'selenium-webdriver';
+import { WebElement, WebElementPromise, By } from 'selenium-webdriver';
+
+export * from './globals';
 
 export interface ChromePerfLoggingPrefs {
     /**
@@ -205,6 +209,17 @@ export interface NightwatchDesiredCapabilities {
 
 export interface NightwatchScreenshotOptions {
     enabled?: boolean | undefined;
+    filename_format: ({
+        testSuite,
+        testCase,
+        isError,
+        dateObject,
+    }?: {
+        testSuite?: string;
+        testCase?: string;
+        isError?: boolean;
+        dateObject?: Date;
+    }) => string;
     on_failure?: boolean | undefined;
     on_error?: boolean | undefined;
     path?: string | undefined;
@@ -530,6 +545,7 @@ export interface NightwatchOptions {
 }
 
 export interface NightwatchGlobals {
+    [key: string]: any;
     /**
      * this controls whether to abort the test execution when an assertion failed and skip the rest
      * it's being used in waitFor commands and expect assertions
@@ -655,7 +671,7 @@ export interface NightwatchSeleniumOptions {
      * (https://code.google.com/p/selenium/wiki/InternetExplorerDriver) and specify it's location here. Also don't forget to specify "internet explorer" as the browser
      * name in the desiredCapabilities object.
      */
-    cli_args: any;
+    cli_args: {};
 
     /**
      * Time to wait (in ms) before starting to check the Webdriver server is up and running
@@ -836,7 +852,7 @@ export interface Expect extends NightwatchLanguageChains, NightwatchBrowser {
     /**
      * Returns the DOM Element
      */
-    element(property: string): this;
+    element(property: any): this;
 
     /**
      * These methods will perform assertions on the specified target on the current element.
@@ -1178,7 +1194,7 @@ export interface ElementProperties {
      * @example
      * 'css selector'
      */
-    locateStrategy?: string;
+    locateStrategy?: LocateStrategy;
 
     /**
      * used to target a specific element in a query that results in multiple elements returned. Normally,
@@ -1388,15 +1404,19 @@ export interface NightwatchKeys {
     COMMAND: string;
 }
 
+export type NightwatchPage = {
+    [name: string]: () => EnhancedPageObject<any, any, any>;
+} & {
+    [name: string]: NightwatchPage;
+};
+
 export interface NightwatchAPI extends SharedCommands, WebDriverProtocol, NightwatchCustomCommands {
     baseURL: string;
     assert: NightwatchAssertions;
     expect: Expect;
     verify: NightwatchAssertions;
 
-    page: {
-        [name: string]: () => EnhancedPageObject<any, any, any>;
-    } & NightwatchCustomPageObjects;
+    page: NightwatchPage & NightwatchCustomPageObjects;
 
     /**
      * SessionId of the session used by the Nightwatch api.
@@ -1436,16 +1456,15 @@ export interface NightwatchBrowser
 
 export interface NightwatchComponentTestingCommands {
     importScript(scriptPath: string, options: { scriptType: string; componentTyp: string }, callback: () => void): this;
-    mountReactComponent(componentPath: string, props: string | (() => void), callback: () => void): this;
-    mountVueComponent(componentPath: string, options: any, callback: () => void): this;
+    mountReactComponent(componentPath: string, props?: string | (() => void), callback?: () => void): this;
+    mountVueComponent(componentPath: string, options?: any, callback?: () => void): this;
     launchComponentRenderer(): this;
 }
 
 // tslint:disable-next-line
 export interface NightwatchElement extends WebElement {}
 
-export type NightwatchTest = (browser: NightwatchBrowser) => void;
-
+export type NightwatchTest = (browser?: NightwatchBrowser) => void;
 export interface NightwatchTestFunctions {
     before?: NightwatchTestHook | undefined;
     after?: NightwatchTestHook | undefined;
@@ -1473,6 +1492,77 @@ export function element(locator: string | ElementProperties | By | WebElement, o
 
 export type NightwatchTests = NightwatchTestFunctions | NightwatchTestHooks;
 
+export class DescribeInstance {
+    '[instance]': any;
+    '[attributes]': {};
+    '[client]': NightwatchClient;
+    name(): string;
+    tags(): string | string[];
+    unitTest(): boolean;
+    endSessionOnFail(): boolean;
+    skipTestcasesOnFail(): boolean;
+    disabled(): boolean;
+    desiredCapabilities(): NightwatchDesiredCapabilities;
+    page(): any;
+    globals(): NightwatchGlobals;
+    settings(): NightwatchOptions;
+    argv(): any;
+    timeout(value: number): void;
+    waitForTimeout(value: number): number | void;
+    waitForRetryInterval(value: number): number | void;
+    retryInterval(value: number): void;
+    retries(n: any): void;
+    suiteRetries(n: any): void;
+    define(name: any, value: any): any;
+}
+
+interface SuiteFunction {
+    (title: string, fn?: (this: DescribeInstance) => void): this;
+    only: ExclusiveSuiteFunction;
+    skip: PendingSuiteFunction;
+}
+
+interface ExclusiveSuiteFunction {
+    (title: string, fn?: (this: DescribeInstance) => void): this;
+}
+
+interface PendingSuiteFunction {
+    (title: string, fn: (this: DescribeInstance) => void): this | void;
+}
+
+interface ExclusiveTestFunction {
+    (fn: NormalFunc | AsyncFunc): this;
+    (title: string, fn?: NormalFunc | AsyncFunc): this;
+}
+
+interface PendingTestFunction {
+    (fn: NormalFunc | AsyncFunc): this;
+    (title: string, fn?: NormalFunc | AsyncFunc): this;
+}
+
+type NormalFunc = (this: DescribeInstance) => any;
+type AsyncFunc = (this: DescribeInstance) => PromiseLike<any>;
+interface TestFunction {
+    (fn: NormalFunc | AsyncFunc): this;
+    (title: string, fn?: NormalFunc | AsyncFunc): this;
+    only: ExclusiveTestFunction;
+    skip: PendingTestFunction;
+    retries(n: number): void;
+}
+
+export const describe: SuiteFunction;
+export const xdescribe: PendingSuiteFunction;
+export const context: SuiteFunction;
+export const xcontext: PendingSuiteFunction;
+export const test: TestFunction;
+export const it: TestFunction;
+export const xit: PendingTestFunction;
+export const specify: TestFunction;
+export const xspecify: PendingTestFunction;
+export const before: GlobalNightwatchTestHook;
+export const after: GlobalNightwatchTestHook;
+export const beforeEach: GlobalNightwatchTestHookEach;
+export const afterEach: GlobalNightwatchTestHookEach;
 /**
  * Performs an assertion
  *
@@ -1538,12 +1628,27 @@ export interface CreateClientParams {
 
 export interface Nightwatch {
     cli(callback: any): this;
-    client(settings: NightwatchOptions, reporter: null, argv: any): this;
-    createClient({}: CreateClientParams): this;
-    cliRunner(callback: (argv: any) => void): this;
+    client(settings: NightwatchOptions, reporter?: any, argv?: {}): this;
+    createClient({
+        headless,
+        silent,
+        output,
+        useAsync,
+        env,
+        timeout,
+        parallel,
+        reporter,
+        browserName,
+        globals,
+        devtools,
+        debug,
+        enable_global_apis,
+        config,
+    }: CreateClientParams): this;
+    cliRunner(argv?: {}): this;
     initClient(opts: any): this;
-    runner(argv: any, done: () => {}, settings: any): this;
-    runTests(testSource: string | string[], settings: any): this;
+    runner(argv?: {}, done?: () => void, settings?: {}): this;
+    runTests(testSource: string | string[], settings?: any, ...args: any[]): any;
     api: NightwatchAPI;
     assert: NightwatchAssertions;
     expect: Expect;
@@ -1591,11 +1696,11 @@ export interface EnhancedElementInstance<T> {
     selector: string;
 }
 
-export type EnhancedSectionInstance<Commands = {}, Elements = {}, Sections = {}> = EnhancedPageObject<
-    Commands,
-    Elements,
-    Sections
->;
+export type EnhancedSectionInstance<
+    Commands = {},
+    Elements = {},
+    Sections extends EnhancedPageObjectSections = {},
+> = EnhancedPageObject<Commands, Elements, Sections>;
 
 export interface EnhancedPageObjectSections {
     [name: string]: EnhancedSectionInstance<any, any, any>;
@@ -3364,7 +3469,7 @@ export interface ElementCommands {
             this: NightwatchAPI,
             result: NightwatchCallbackResult<{ value: WebElement; status: number; WebdriverElementId: WebElement }>,
         ) => void,
-    ): this;
+    ): WebElementPromise;
     findElement(
         using: LocateStrategy,
         selector: string | ElementProperties,
@@ -3372,7 +3477,7 @@ export interface ElementCommands {
             this: NightwatchAPI,
             result: NightwatchCallbackResult<{ value: WebElement; status: number; WebdriverElementId: WebElement }>,
         ) => void,
-    ): this;
+    ): WebElementPromise;
 
     /**
      * Search for multiple elements on the page, starting from the document root. The located elements will be returned as web element JSON objects (with an added .getId() convenience method).
@@ -3398,7 +3503,7 @@ export interface ElementCommands {
                 WebdriverElementId: WebElement;
             }>,
         ) => void,
-    ): this;
+    ): WebElement[];
     findElements(
         using: LocateStrategy,
         selector: string | ElementProperties,
@@ -3410,7 +3515,7 @@ export interface ElementCommands {
                 WebdriverElementId: WebElement;
             }>,
         ) => void,
-    ): this;
+    ): WebElement[];
 
     /**
      * Retrieve the value of a specified DOM property for the given element.
@@ -4655,4 +4760,33 @@ export interface WebDriverProtocolMobileRelated {
      * browser.setContext(context);
      */
     setContext(context: string, callback?: () => void): this;
+}
+
+/**
+ * Map of DOM element locators as shorthand string selectors based on
+ * global selector setting or ElementLocator
+ *
+ * @example
+ * const elements: PageElements {
+ * header: "h1",
+ * banner: {
+ *  locateStrategy: "css selector",
+ *  selector: "#bannerId"
+ *  }
+ * }
+ */
+export interface PageElements {
+    [key: string]: string | ElementProperties;
+}
+
+/**
+ * Type for defining page object models allowing for optional type-safe
+ * inclusion of url, elements, sections, commands, and props properties.
+ */
+export interface PageObjectModel {
+    url?: string | ((...args: any) => string);
+    elements?: PageElements;
+    sections?: EnhancedPageObjectSections;
+    commands?: any;
+    props?: any;
 }

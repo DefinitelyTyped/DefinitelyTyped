@@ -4,8 +4,15 @@ import {
     EnhancedSectionInstance,
     NightwatchAPI,
     NightwatchAssertion,
-    NightwatchBrowser,
     NightwatchTests,
+    describe,
+    it,
+    before,
+    after,
+    xit,
+    xdescribe,
+    test,
+    PageObjectModel,
 } from 'nightwatch';
 
 //
@@ -13,7 +20,7 @@ import {
 //
 
 const testGeneral: NightwatchTests = {
-    'Demo test Google 1': (browser: NightwatchBrowser) => {
+    'Demo test Google 1': () => {
         browser.url('https://google.com').pause(1000);
 
         // expect element <body> to be present in 1000ms
@@ -36,7 +43,7 @@ const testGeneral: NightwatchTests = {
         browser.end();
     },
 
-    'Demo test Google 2': (browser: NightwatchBrowser) => {
+    'Demo test Google 2': () => {
         browser
             .url('https://www.google.com')
             .waitForElementVisible('body')
@@ -51,7 +58,7 @@ const testGeneral: NightwatchTests = {
             .end();
     },
 
-    'step one: navigate to google': (browser: NightwatchBrowser) => {
+    'step one: navigate to google': () => {
         browser
             .url('https://www.google.com')
             .waitForElementVisible('body', 1000)
@@ -59,10 +66,51 @@ const testGeneral: NightwatchTests = {
             .waitForElementVisible('input[name=btnK]', 1000);
     },
 
-    'step two: click input': (browser: NightwatchBrowser) => {
+    'step two: click input': () => {
         browser.click('input[name=btnK]').pause(1000).assert.containsText('#main', 'Night Watch').end();
     },
+
+    'test user defined globals': () => {
+        browser.url(`http://${browser.globals.username}:${browser.globals.password}@example.com`).end();
+    },
 };
+
+describe('Ecosia', () => {
+    before(browser => browser.url('https://www.ecosia.org/'));
+
+    it('Demo test ecosia.org', () => {
+        browser
+            .waitForElementVisible('body')
+            .assert.titleContains('Ecosia')
+            .assert.titleContains('Ecosia')
+            .assert.visible('input[type=search]')
+            .setValue('input[type=search]', 'nightwatch')
+            .assert.visible('button[type=submit]')
+            .click('button[type=submit]');
+    });
+
+    xit('this test will be skipped', () => {
+        browser.waitForElementVisible('body');
+    });
+
+    after(browser => browser.end());
+});
+
+xdescribe('whole describle block will be skipped', () => {
+    test('ecosia', () => {
+        browser.url('https://ecosia.org').end();
+    });
+});
+
+describe('Async Ecosia', () => {
+    before(browser => browser.url('https://www.ecosia.org/'));
+
+    it('Demo test ecosia.org', async () => {
+        browser.waitForElementVisible('body');
+    });
+
+    after(browser => browser.end());
+});
 
 //
 // ./pages/google.ts
@@ -119,7 +167,7 @@ interface MenuSection
         { apps: AppsSection }
     > {}
 
-const googlePage = {
+const googlePage: PageObjectModel = {
     commands: [
         {
             submit(this: GooglePage) {
@@ -145,24 +193,43 @@ const googlePage = {
 
 // export = googlePage;
 
+const iFrame: PageObjectModel = {
+    elements: {
+        iframe: '#mce_0_ifr',
+        textbox: 'body#tinymce p',
+    },
+    commands: [
+        {
+            url(this: EnhancedPageObject) {
+                return `${this.api.launch_url}/iframe`;
+            },
+        },
+    ],
+};
+
+// export = iFrame
+
 interface GooglePage
     extends EnhancedPageObject<typeof googlePage.commands[0], typeof googlePage.elements, { menu: MenuSection }> {}
+
+interface iFramePage extends EnhancedPageObject<typeof iFrame.commands[0], typeof iFrame.elements> {}
 
 declare module 'nightwatch' {
     interface NightwatchCustomPageObjects {
         google(): GooglePage;
+        IFrame(): iFramePage;
     }
 }
 
 const testPage = {
-    'Test commands': (browser: NightwatchBrowser) => {
+    'Test commands': () => {
         const google = browser.page.google();
         google.setValue('@searchBar', 'nightwatch').submit();
 
         browser.end();
     },
 
-    'Test sections': (browser: NightwatchBrowser) => {
+    'Test sections': () => {
         const google = browser.page.google();
 
         const menuSection = google.section.menu;
@@ -180,7 +247,7 @@ const testPage = {
         browser.end();
     },
 
-    'Test assertions on page': (browser: NightwatchBrowser) => {
+    'Test assertions on page': () => {
         const google = browser.page.google();
 
         google
@@ -192,6 +259,21 @@ const testPage = {
 
         browser.end();
     },
+
+    'Test iFrame on page': async () => {
+        const iFrame = browser.page.IFrame();
+        iFrame.navigate();
+        const frame = await browser.findElement(iFrame.elements.iframe);
+        console.log(frame.getId());
+        browser.frame(frame);
+        iFrame.expect.element('@textbox').text.to.equal('Your content goes here.');
+
+        browser.end();
+    },
+
+    'Test nested page objects': () => {
+        const google = browser.page.subfolder1.subfolder2.subfolder3.google();
+    },
 };
 
 //
@@ -199,7 +281,7 @@ const testPage = {
 //
 
 const testSpecificCommands: NightwatchTests = {
-    executeAsync: (browser: NightwatchBrowser) => {
+    executeAsync: () => {
         browser.executeAsync(
             done => {
                 setTimeout(() => {
@@ -264,7 +346,7 @@ declare module 'nightwatch' {
 // module.exports.command = resizeCommand;
 
 const testCustomCommandFunction = {
-    'Test command function': (browser: NightwatchBrowser) => {
+    'Test command function': () => {
         browser.localStorageValue('my-key', result => {
             console.log(result);
         });
@@ -296,7 +378,7 @@ declare module 'nightwatch' {
 // module.exports = ConsoleLog;
 
 const testCustomCommandClass = {
-    'Test command class': (browser: NightwatchBrowser) => {
+    'Test command class': () => {
         browser.consoleLog('Hello world!');
     },
 };
@@ -341,7 +423,7 @@ declare module 'nightwatch' {
 }
 
 const testCustomAssertion = {
-    'Test custom assertion': (browser: NightwatchBrowser) => {
+    'Test custom assertion': () => {
         browser.assert.text('#checkme', 'Exactly match text');
     },
 };

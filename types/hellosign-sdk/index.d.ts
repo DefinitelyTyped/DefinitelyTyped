@@ -155,8 +155,15 @@ declare namespace HelloSign {
         custom_fields?:
             | Array<{
                   name: string;
-                  type: 'text' | 'checkbox';
+                  type: 'text';
                   value: string;
+                  required: boolean;
+                  api_id: string;
+                  editor: string;
+              } | {
+                  name: string;
+                  type: 'checkbox';
+                  value: boolean;
                   required: boolean;
                   api_id: string;
                   editor: string;
@@ -225,7 +232,7 @@ declare namespace HelloSign {
         custom_fields?:
             | Array<{
                   name: string;
-                  value: string;
+                  value: string | boolean;
                   editor?: string | undefined;
                   required?: boolean | undefined;
               }>
@@ -531,7 +538,7 @@ declare namespace HelloSign {
         custom_fields?:
             | Array<{
                   name: string;
-                  value: string;
+                  value: string | boolean;
                   editor?: string | undefined;
                   required?: boolean | undefined;
               }>

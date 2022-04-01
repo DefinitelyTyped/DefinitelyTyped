@@ -453,6 +453,7 @@ export type Strategy =
     | 'guardian'
     | 'instagram'
     | 'ip'
+    | 'line'
     | 'linkedin'
     | 'miicard'
     | 'oauth1'
@@ -755,6 +756,7 @@ export type UnlinkAccountsParamsProvider =
     | 'guardian'
     | 'instagram'
     | 'ip'
+    | 'line'
     | 'linkedin'
     | 'miicard'
     | 'oauth1'
@@ -1001,11 +1003,15 @@ export interface SocialSignInOptions {
     connection: string;
 }
 
+/**
+ * @see {https://auth0.com/docs/authenticate/passwordless/implement-login/embedded-login/relevant-api-endpoints#post-oauth-token}
+ */
 export interface SignInToken {
     access_token: string;
-    id_token?: string | undefined;
-    token_type?: string | undefined;
-    expiry: number;
+    refresh_token?: string | undefined;
+    id_token: string;
+    token_type: string;
+    expires_in: number;
 }
 
 export interface RequestSMSCodeOptions extends RequestSMSOptions {
@@ -1306,6 +1312,27 @@ export interface VerifyEmail {
     } | undefined;
 }
 
+export interface GetDeviceCredentialsParams {
+    user_id: string;
+    page?: number;
+    per_page?: number;
+    include_totals?: boolean;
+    fields?: string;
+    include_fields?: boolean;
+    client_id?: string;
+    type?: 'public_key' | 'refresh_token' | 'rotating_refresh_token';
+}
+
+export interface DeviceCredential {
+    id?: string;
+    device_name?: string;
+    device_id?: string;
+    type?: string;
+    user_id?: string;
+    client_id?: string;
+    last_used?: string;
+}
+
 export class OrganizationsManager {
     create(data: CreateOrganization): Promise<Organization>;
     create(data: CreateOrganization, cb: (err: Error, organization: Organization) => void): void;
@@ -1441,6 +1468,7 @@ export class OrganizationsManager {
         cb: (err: Error) => void,
     ): void;
 }
+
 export class ManagementClient<A = AppMetadata, U = UserMetadata> {
     organizations: OrganizationsManager;
 
@@ -1504,14 +1532,14 @@ export class ManagementClient<A = AppMetadata, U = UserMetadata> {
     deleteClientGrant(params: ObjectWithId, cb: (err: Error) => void): void;
 
     // Device Keys
-    getDeviceCredentials(): Promise<User<A, U>>;
-    getDeviceCredentials(cb: (err: Error, data: any) => void): void;
+    getDeviceCredentials(params: GetDeviceCredentialsParams): Promise<DeviceCredential[]>;
+    getDeviceCredentials(params: GetDeviceCredentialsParams, cb: (err: Error, data: DeviceCredential[]) => void): void;
 
     createDevicePublicKey(data: Data): Promise<User<A, U>>;
     createDevicePublicKey(data: Data, cb: (err: Error, data: any) => void): void;
 
-    deleteDeviceCredential(params: ClientParams): Promise<User<A, U>>;
-    deleteDeviceCredential(params: ClientParams, cb: (err: Error, data: any) => void): void;
+    deleteDeviceCredential(params: ObjectWithId): Promise<void>;
+    deleteDeviceCredential(params: ObjectWithId, cb: (err: Error) => void): void;
 
     // Roles
     getRoles(): Promise<Role[]>;

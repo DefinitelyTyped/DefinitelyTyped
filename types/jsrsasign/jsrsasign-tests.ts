@@ -1,6 +1,6 @@
 import { KJUR, KEYUTIL, b64toBA, b64tohex, RSAKey, X509 } from 'jsrsasign';
 
-const ec = new KJUR.crypto.ECDSA({ curve: 'secp256r1' });
+const ec = new KJUR.crypto.ECDSA({ curve: 'secp256r1', pub: '1a2b3c', prv: '1a2b3c' });
 ec.generateKeyPairHex();
 ec.getPublicKeyXYHex();
 ec.parseSigHex('30...');
