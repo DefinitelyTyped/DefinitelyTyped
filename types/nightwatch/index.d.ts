@@ -1194,7 +1194,7 @@ export interface ElementProperties {
      * @example
      * 'css selector'
      */
-    locateStrategy?: string;
+    locateStrategy?: LocateStrategy;
 
     /**
      * used to target a specific element in a query that results in multiple elements returned. Normally,
@@ -1626,11 +1626,11 @@ export interface EnhancedElementInstance<T> {
     selector: string;
 }
 
-export type EnhancedSectionInstance<Commands = {}, Elements = {}, Sections extends EnhancedPageObjectSections  = {}> = EnhancedPageObject<
-    Commands,
-    Elements,
-    Sections
->;
+export type EnhancedSectionInstance<
+    Commands = {},
+    Elements = {},
+    Sections extends EnhancedPageObjectSections = {},
+> = EnhancedPageObject<Commands, Elements, Sections>;
 
 export interface EnhancedPageObjectSections {
     [name: string]: EnhancedSectionInstance<any, any, any>;
@@ -4690,4 +4690,33 @@ export interface WebDriverProtocolMobileRelated {
      * browser.setContext(context);
      */
     setContext(context: string, callback?: () => void): this;
+}
+
+/**
+ * Map of DOM element locators as shorthand string selectors based on
+ * global selector setting or ElementLocator
+ *
+ * @example
+ * const elements: PageElements {
+ * header: "h1",
+ * banner: {
+ *  locateStrategy: "css selector",
+ *  selector: "#bannerId"
+ *  }
+ * }
+ */
+export interface PageElements {
+    [key: string]: string | ElementProperties;
+}
+
+/**
+ * Type for defining page object models allowing for optional type-safe
+ * inclusion of url, elements, sections, commands, and props properties.
+ */
+export interface PageObjectModel {
+    url?: string | ((...args: any) => string);
+    elements?: PageElements;
+    sections?: EnhancedPageObjectSections;
+    commands?: any;
+    props?: any;
 }
