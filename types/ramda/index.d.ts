@@ -2360,7 +2360,6 @@ export function propOr<D, P extends ObjectKeyType, O extends object>(
     propName: P,
     obj: O,
 ): D | PO<P, O>;
-
 export function propOr<P extends ObjectKeyType>(
     defaultValue: Placeholder,
     propName: P,
@@ -2376,7 +2375,6 @@ export function propOr<D, P extends ObjectKeyType>(
     defaultValue: D,
     propName: P,
 ): <O extends object>(obj: O) => D | PO<P, O>;
-
 export function propOr<D>(
     defaultValue: D,
 ): <P extends ObjectKeyType | Placeholder, O extends P extends Placeholder ? object : object | undefined>(
