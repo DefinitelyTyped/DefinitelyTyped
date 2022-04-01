@@ -6,7 +6,7 @@
 /// <reference types="node" />
 
 declare namespace Sensor {
-    export class Sensor {
+    class Sensor {
         lastMovement: Date;
 
         constructor(sensorConfiguration: SensorConfiguration);
@@ -18,7 +18,7 @@ declare namespace Sensor {
         on(event: string, callback: () => void): void;
     }
 
-    export interface SensorConfiguration {
+    interface SensorConfiguration {
         pin: number;
         loop?: number;
     }
