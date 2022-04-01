@@ -4,7 +4,6 @@ import {
     EnhancedSectionInstance,
     NightwatchAPI,
     NightwatchAssertion,
-    NightwatchBrowser,
     NightwatchTests,
     describe,
     it,
@@ -13,6 +12,7 @@ import {
     xit,
     xdescribe,
     test,
+    PageObjectModel,
 } from 'nightwatch';
 
 //
@@ -71,10 +71,8 @@ const testGeneral: NightwatchTests = {
     },
 
     'test user defined globals': () => {
-        browser
-        .url(`http://${browser.globals.username}:${browser.globals.password}@example.com`)
-        .end();
-    }
+        browser.url(`http://${browser.globals.username}:${browser.globals.password}@example.com`).end();
+    },
 };
 
 describe('Ecosia', () => {
@@ -169,7 +167,7 @@ interface MenuSection
         { apps: AppsSection }
     > {}
 
-const googlePage = {
+const googlePage: PageObjectModel = {
     commands: [
         {
             submit(this: GooglePage) {
@@ -195,7 +193,7 @@ const googlePage = {
 
 // export = googlePage;
 
-const iFrame = {
+const iFrame: PageObjectModel = {
     elements: {
         iframe: '#mce_0_ifr',
         textbox: 'body#tinymce p',

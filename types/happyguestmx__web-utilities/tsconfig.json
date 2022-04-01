@@ -2,24 +2,25 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6",
-            "dom"
+            "es6"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": true,
         "strictFunctionTypes": true,
+        "strictNullChecks": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@happyguestmx/*": ["happyguestmx__*"]
+        }
     },
     "files": [
         "index.d.ts",
-        "test/twemoji-tests.common-js.ts",
-        "test/twemoji-tests.global.ts"
+        "happyguestmx__web-utilities-tests.ts"
     ]
 }
