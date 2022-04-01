@@ -5187,6 +5187,10 @@
             "libraryName": "@tweenjs/tween.js",
             "asOfVersion": "18.6.1"
         },
+        "twemoji": {
+            "libraryName": "twemoji",
+            "asOfVersion": "13.1.1"
+        },
         "twilio": {
             "libraryName": "twilio",
             "asOfVersion": "3.19.2"

@@ -242,12 +242,14 @@ declare namespace AP {
          * @param callback the callback that handles the response
          */
         function getToken(callback: (token: string) => void): void;
+        function getToken(): Promise<string>;
 
         /**
          * Retrieves the current user context containing details such as space key, issue id, etc.
          * @param callback the callback that handles the response
          */
         function getContext(callback: (context: any) => void): void;
+        function getContext(): Promise<any>;
     }
 
     /**
