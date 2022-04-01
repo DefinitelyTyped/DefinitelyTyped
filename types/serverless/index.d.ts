@@ -16,8 +16,7 @@ import Plugin = require('./classes/Plugin');
 import PluginManager = require('./classes/PluginManager');
 import Utils = require('./classes/Utils');
 import YamlParser = require('./classes/YamlParser');
-import AwsProvider = require('./plugins/aws/provider/awsProvider');
-import ApiGatewayValidate = require('./plugins/aws/package/compile/events/apiGateway/lib/validate');
+import AwsProvider, { Event } from './plugins/aws/provider/awsProvider';
 
 declare namespace Serverless {
     interface Options {
@@ -60,9 +59,6 @@ declare namespace Serverless {
     interface FunctionDefinitionImage extends FunctionDefinition {
         image: string;
     }
-
-    // Other events than ApiGatewayEvent are available
-    type Event = ApiGatewayValidate.ApiGatewayEvent | object;
 
     interface Package {
         /** @deprecated use `patterns` instead */
