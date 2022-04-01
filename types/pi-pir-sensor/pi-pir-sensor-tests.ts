@@ -14,4 +14,5 @@ sensor.stop();
 //With loop value 2000
 const sensorConfigurationWithPir = new pirSensor.SensorConfiguration(12, 2000);
 
+//Get the last movement
 const lastMovement = sensor.lastMovement;
