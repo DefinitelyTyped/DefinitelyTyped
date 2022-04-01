@@ -4,19 +4,25 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
-export class Sensor {
-    lastMovement: Date;
 
-    constructor(sensorConfiguration: SensorConfiguration);
+export = Sensor;
+export as namespace Sensor;
 
-    start(): void;
+declare namespace Sensor {
+    class Sensor {
+        lastMovement: Date;
 
-    stop(): void;
+        constructor(sensorConfiguration: SensorConfiguration);
 
-    on(event: string, callback: () => void): void;
-}
+        start(): void;
 
-export interface SensorConfiguration {
-    pin: number;
-    loop?: number;
+        stop(): void;
+
+        on(event: string, callback: () => void): void;
+    }
+
+    interface SensorConfiguration {
+        pin: number;
+        loop?: number;
+    }
 }
