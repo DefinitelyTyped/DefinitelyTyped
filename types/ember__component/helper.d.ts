@@ -82,11 +82,19 @@ type PositionalArgs<S> = ExpandSignature<S>['Args']['Positional'];
 
 type Return<S> = GetOrElse<S, 'Return', unknown>;
 
+interface DefaultSignature {
+    Args: {
+        Named: Record<string, unknown>;
+        Positional: unknown[];
+    };
+    Return: unknown;
+}
+
 /**
  * Ember Helpers are functions that can compute values, and are used in templates.
  * For example, this code calls a helper named `format-currency`:
  */
-export default class Helper<S = unknown> extends EmberObject {
+export default class Helper<S = DefaultSignature> extends EmberObject {
     /**
      * In many cases, the ceremony of a full `Ember.Helper` class is not required.
      * The `helper` method create pure-function helpers without instances. For
