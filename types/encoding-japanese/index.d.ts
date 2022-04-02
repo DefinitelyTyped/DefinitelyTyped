@@ -98,6 +98,7 @@ export function toHankakuSpace(data: string): string;
 export function toZenkakuSpace(data: ReadonlyArray<number>): number[];
 export function toZenkakuSpace(data: string): string;
 
+export const version: string;
 export const orders: string[];
 
 export {};
