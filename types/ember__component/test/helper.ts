@@ -71,6 +71,20 @@ class NoSignature extends Helper {
     }
 }
 
+class NoSignatureBadPositional extends Helper {
+    // $ExpectError
+    compute(i18nizer: (s: string) => string, { name, age }: { name: string; age: number }): string {
+        return i18nizer(`${name} is ${age} years old`);
+    }
+}
+
+class NoSignatureBadNamed extends Helper {
+    // $ExpectError
+    compute([i18nizer]: [i18nizer: (s: string) => string], [name, age]: [string, number]): string {
+        return i18nizer(`${name} is ${age} years old`);
+    }
+}
+
 // $ExpectType FunctionBasedHelper<{ Args: { Positional: [number, number]; Named: EmptyObject; }; Return: number; }>
 const inferenceOnPositional = helper(function add([a, b]: [number, number]) {
     return a + b;
