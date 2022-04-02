@@ -8,7 +8,8 @@ export default class SpriteSymbol {
         viewBox: string;
         content: string;
     });
-    stringify: () => string;
-    toString: () => string;
-    destroy: () => void;
+
+    public stringify: () => string;
+    public toString: () => string;
+    public destroy: () => void;
 }

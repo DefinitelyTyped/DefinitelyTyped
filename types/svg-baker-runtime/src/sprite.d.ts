@@ -2,8 +2,8 @@ import SpriteSymbol from './symbol';
 import { SpriteConfig } from './sprite.config';
 
 export default class Sprite {
-    config: SpriteConfig;
-    symbols: SpriteSymbol[];
+    protected config: SpriteConfig;
+    protected symbols: SpriteSymbol[];
 
     constructor(config?: SpriteConfig);
 
@@ -11,16 +11,16 @@ export default class Sprite {
      * Add new symbol. If symbol with the same id exists it will be replaced.
      * @return `true` - symbol was added, `false` - replaced
      */
-    add(symbol: SpriteSymbol): boolean;
+    public add(symbol: SpriteSymbol): boolean;
 
     /**
      * Remove symbol & destroy it
      * @return `true` - symbol was found & successfully destroyed, `false` - otherwise
      */
-    remove: (id: string) => boolean;
-    find: (id: string) => SpriteSymbol | null;
-    has: (id: string) => boolean;
-    stringify: () => string;
-    toString: () => string;
-    destroy: () => void;
+    public remove: (id: string) => boolean;
+    public find: (id: string) => SpriteSymbol | null;
+    public has: (id: string) => boolean;
+    public stringify: () => string;
+    public toString: () => string;
+    public destroy: () => void;
 }

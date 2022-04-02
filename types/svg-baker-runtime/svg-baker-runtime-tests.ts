@@ -1,16 +1,8 @@
 import Sprite from 'svg-baker-runtime';
 import SpriteSymbol from 'svg-baker-runtime/src/browser-symbol';
 
-function domReady(fn: () => any) {
-    if (document.readyState !== 'loading') {
-        fn();
-    } else {
-        document.addEventListener('DOMContentLoaded', fn);
-    }
-}
-
 const sprite = new Sprite();
-domReady(() => sprite.mount('#my-custom-mounting-target'));
+sprite.mount('#my-custom-mounting-target');
 
 const symbolConfig = {
     id: 'image-with-urls',
@@ -29,8 +21,6 @@ sprite.add(symbol);
 // mount
 const node = sprite.mount();
 const isMounted = sprite.isMounted;
-
-const isMounToExisted = typeof sprite.config.mountTo === 'string';
 
 sprite.updateUrls('test.url1', 'test.url2');
 

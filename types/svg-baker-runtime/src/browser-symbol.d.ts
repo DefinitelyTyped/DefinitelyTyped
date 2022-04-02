@@ -1,11 +1,12 @@
 import SpriteSymbol from './symbol';
 
 export default class BrowserSpriteSymbol extends SpriteSymbol {
-    static createFromExistingNode(node: Element): BrowserSpriteSymbol;
+    public static createFromExistingNode(node: Element): BrowserSpriteSymbol;
 
-    isMounted: boolean;
+    public isMounted: boolean;
 
-    mount: (target: Element | string) => Element;
-    render: () => Element;
-    unmount: () => void;
+    public mount: (target: Element | string) => Element;
+    public render: () => Element;
+    public unmount: () => void;
+    public override destroy: () => void;
 }
