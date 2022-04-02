@@ -8,5 +8,9 @@ export default class BrowserSpriteSymbol extends SpriteSymbol {
     public mount: (target: Element | string) => Element;
     public render: () => Element;
     public unmount: () => void;
-    public override destroy: () => void;
+
+    /**
+     * override
+     */
+    public destroy: () => void;
 }

@@ -19,7 +19,6 @@ export interface SpriteConfig {
     };
 }
 
-
 declare const config: SpriteConfig;
 
 export default config;

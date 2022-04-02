@@ -7,17 +7,21 @@ import { BrowserSpriteConfig } from './browser-sprite.config';
 export default class BrowserSprite extends Sprite {
     constructor(cfg?: SpriteConfig & BrowserSpriteConfig);
 
-    protected override config: SpriteConfig & BrowserSpriteConfig;
+    /**
+     * override
+     */
+    protected config: SpriteConfig & BrowserSpriteConfig;
     public node: Element | null;
     public isMounted: boolean;
 
     /**
+     * override
      * Add new symbol. If symbol with the same id exists it will be replaced.
      * If sprite already mounted - `symbol.mount(sprite.node)` will be called.
      * @fires Events#SYMBOL_MOUNT
      * @return `true` - symbol was added, `false` - replaced
      */
-    public override add(symbol: BrowserSpriteSymbol): boolean;
+    public add(symbol: BrowserSpriteSymbol): boolean;
 
     /**
      * Attach to existing DOM node
