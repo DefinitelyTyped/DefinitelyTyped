@@ -39,13 +39,6 @@ export interface ArrayLike {
 }
 
 /**
- * <needs description>
- * @param K
- */
-export type AssocPartialOne<K extends keyof any> = (<T>(val: T) => <U>(obj: U) => Record<K, T> & Omit<U, K>) &
-    (<T, U>(val: T, obj: U) => Record<K, T> & Omit<U, K>);
-
-/**
  * Array of functions to compose/pipe with.
  */
 
@@ -84,6 +77,8 @@ export type CondPairTypeguard<T, TFiltered extends T, R> = [(value: T) => value 
 /**
  * <needs description>
  * @param A
+ * @deprecated Use `Record<string, A>` (`Readonly<Record<string, A>>` in parameter lists) instead.
+ * (Avoid completely in `extends` clauses in generics, since those get narrowed)
  */
 export interface Dictionary<A> {
     [index: string]: A;
@@ -151,6 +146,8 @@ type EvolveValue<V, E> = E extends (value: V) => any
 
 /**
  * <needs description>
+ *
+ * @deprecated Use `typeof R.find` instead
  */
 export interface Find {
     <T, P extends T>(pred: (val: T) => val is P, list: readonly T[]): P | undefined;
@@ -174,6 +171,7 @@ export type Functor<A> =
  * <needs description>
  * @param K
  * @param V
+ * @deprecated Use `[K, V]` instead
  */
 export type KeyValuePair<K, V> = [K, V];
 
@@ -400,6 +398,8 @@ export type MergeAll<Os extends readonly object[]> = O.AssignUp<{}, Os, 'flat', 
 
 /**
  * Predicate for an object containing the key.
+ *
+ * @deprecated Use `<T>(value: unknown, key: keyof T) => boolean` instead.
  */
 export type ObjPred<T = unknown> = (value: any, key: unknown extends T ? string : keyof T) => boolean;
 
@@ -419,6 +419,8 @@ export type Ordering = LT | EQ | GT;
 
 /**
  * An object with at least one of its properties beeing of type `Key`.
+ *
+ * @deprecated Use `Record<Key, unknown>` instead
  *
  * @example
  * ```
@@ -457,6 +459,8 @@ export type Placeholder = A.x & { '@@functional/placeholder': true };
  * meaning when this type is used, we can't get type narrowing.
  *
  * @see {@link PredTypeguard} for the typeguard version of this.
+ *
+ * @deprecated Use `<T>()`
  */
 export type Pred<T extends any[] = any[]> = (...a: T) => boolean;
 
@@ -495,8 +499,6 @@ export type InputTypesOfFns<A extends ReadonlyArray<Fn>> = A extends [infer H, .
             : []
         : []
     : [];
-// ---------------------------------------------------------------------------------------
-// S
 
 // ---------------------------------------------------------------------------------------
 // V
@@ -504,20 +506,27 @@ export type InputTypesOfFns<A extends ReadonlyArray<Fn>> = A extends [infer H, .
 /**
  * <needs description>
  * @param R
+ * @deprecated Use `R[keyof R]` instead
  */
 export type ValueOfRecord<R> = R extends Record<any, infer T> ? T : never;
 
 /**
  * If `T` is a union, `T[keyof T]` (cf. `map` and `values` in `index.d.ts`) contains the types of object values that are common across the union (i.e., an intersection).
  * Because we want to include the types of all values, including those that occur in some, but not all members of the union, we first define `ValueOfUnion`.
+ *
+ * `T extends T` is a hack to handle each union member separately.
+ *
  * @see https://stackoverflow.com/a/60085683
  */
-export type ValueOfUnion<T> = T extends infer U ? U[keyof U] : never;
+export type ValueOfUnion<T> = T extends T ? T[keyof T] : never;
 
 /**
- * Take first N types of an Tuple
+ * Take first `N` types of a Tuple
+ *
+ * @param N Length of the tuple
+ * @param Tuple The tuple
+ * @param ReturnTuple The accumulator
  */
-
 export type Take<
     N extends number,
     Tuple extends any[],
@@ -529,26 +538,23 @@ export type Take<
     : never;
 
 /**
- * define an n-length tuple type
+ * A tuple of length `N`.
+ *
+ * @param N Length of the tuple
  */
-
 export type Tuple<T, N extends number> = N extends N ? (number extends N ? T[] : _TupleOf<T, N, []>) : never;
 type _TupleOf<T, N extends number, R extends unknown[]> = R['length'] extends N ? R : _TupleOf<T, N, [T, ...R]>;
 
 /**
- * map Tuple of ordinary type to Tuple of array type
+ * Map tuple of ordinary type to tuple of array type
  * [string, number] -> [string[], number[]]
  */
-export type ToTupleOfArray<Tuple extends any[]> = Tuple extends []
-    ? []
-    : Tuple extends [infer X, ...infer Xs]
-    ? [X[], ...ToTupleOfArray<Xs>]
-    : never;
+export type ToTupleOfArray<Tuple extends any[]> = [...{ [K in keyof Tuple]: Array<Tuple[K]>; }];
 
-export type ToTupleOfFunction<R, Tuple extends any[]> = Tuple extends []
-    ? []
-    : Tuple extends [infer X, ...infer Xs]
-    ? [(arg: R) => X, ...ToTupleOfFunction<R, Xs>]
-    : never;
+/**
+ * Map tuple of ordinary type to tuple of function type
+ * [string, number] -> [(arg: R) => string, (arg: R) => number]
+ */
+export type ToTupleOfFunction<R, Tuple extends any[]> = [...{ [K in keyof Tuple]: (arg: R) => Tuple[K]; }];
 
 export {};

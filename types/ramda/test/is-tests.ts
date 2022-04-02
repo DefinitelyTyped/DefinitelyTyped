@@ -1,21 +1,37 @@
 import * as R from 'ramda';
 
 () => {
+    // $ExpectType boolean
     R.is(Object, {}); // => true
+    // $ExpectType boolean
     R.is(Object)({}); // => true
+    // $ExpectType boolean
     R.is(Number, 1); // => true
+    // $ExpectType boolean
     R.is(Number)(1); // => true
+    // $ExpectType boolean
     R.is(Object, 1); // => false
+    // $ExpectType boolean
     R.is(Object)(1); // => false
+    // $ExpectType boolean
     R.is(String, 's'); // => true
+    // $ExpectType boolean
     R.is(String)('s'); // => true
+    // $ExpectType boolean
     R.is(String, new String('')); // => true
+    // $ExpectType boolean
     R.is(String)(new String('')); // => true
+    // $ExpectType boolean
     R.is(Object, new String('')); // => true
+    // $ExpectType boolean
     R.is(Object)(new String('')); // => true
+    // $ExpectType boolean
     R.is(Object, 's'); // => false
+    // $ExpectType boolean
     R.is(Object)('s'); // => false
+    // $ExpectType boolean
     R.is(Number, {}); // => false
+    // $ExpectType boolean
     R.is(Number)({}); // => false
 };
 
@@ -23,17 +39,18 @@ import * as R from 'ramda';
     const stringOrNumber = 'string' as string | number;
 
     if (R.is(Number, stringOrNumber)) {
-        const number: number = stringOrNumber;
+        // $ExpectType number
+        stringOrNumber;
     }
 
     if (R.is(String)(stringOrNumber)) {
-        const string: string = stringOrNumber;
+        // $ExpectType string
+        stringOrNumber;
     }
 };
 
 () => {
     // test classes that take parameters
-    // tslint:disable-next-line:no-unnecessary-class
     class Foo {
         constructor(arg: string) {}
     }
@@ -41,10 +58,12 @@ import * as R from 'ramda';
     const unknownObject: unknown = {};
 
     if (R.is(Foo, unknownObject)) {
-        const foo: Foo = unknownObject;
+        // $ExpectType Foo
+        unknownObject;
     }
 
     if (R.is(Foo)(unknownObject)) {
-        const foo: Foo = unknownObject;
+        // $ExpectType Foo
+        unknownObject;
     }
 };

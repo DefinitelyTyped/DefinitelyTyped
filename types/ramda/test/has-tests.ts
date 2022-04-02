@@ -26,12 +26,12 @@ import * as R from 'ramda';
         const key = 'name';
 
         if (R.has(key as 'name' | 'weight', foo)) {
-            // $ExpectType { name: unknown; } | { weight: unknown; }
+            // $ExpectType Record<"name" | "weight", unknown>
             const bar = foo;
         }
 
         if (R.has(key as string, foo)) {
-            // $ExpectType { [x: string]: unknown; }
+            // $ExpectType Record<string, unknown>
             const bar = foo;
         }
     };
@@ -39,13 +39,21 @@ import * as R from 'ramda';
 
 // The key argument needs to be compatible to string
 () => {
-    R.has(4, {}); // $ExpectError
-    R.has(4); // $ExpectError
-    R.has(R.__, {})(4); // $ExpectError
-    R.has(R.__)({}, 4); // $ExpectError
+    // $ExpectError
+    R.has(4, {});
+    // $ExpectError
+    R.has(4);
+    // $ExpectError
+    R.has(R.__, {})(4);
+    // $ExpectError
+    R.has(R.__)({}, 4);
 
-    R.has(null, {}); // $ExpectError
-    R.has(null); // $ExpectError
-    R.has(R.__, {})(null); // $ExpectError
-    R.has(R.__)({}, null); // $ExpectError
+    // $ExpectError
+    R.has(null, {});
+    // $ExpectError
+    R.has(null);
+    // $ExpectError
+    R.has(R.__, {})(null);
+    // $ExpectError
+    R.has(R.__)({}, null);
 };

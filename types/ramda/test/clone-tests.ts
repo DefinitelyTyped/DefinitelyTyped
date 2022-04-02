@@ -3,15 +3,23 @@ import * as R from 'ramda';
 () => {
     const obj1 = [{}, {}, {}];
     const obj2 = [{ a: 1 }, { a: 2 }, { a: 3 }];
-    const a1: any[] = R.clone(obj1);
-    const a2: Array<{ a: number }> = R.clone(obj2);
-    const a3: any = R.clone({});
-    const a4: number = R.clone(10);
-    const a5: string = R.clone('foo');
-    const a6: number = R.clone(Date.now());
+    // $ExpectType {}[]
+    R.clone(obj1);
+    // $ExpectType { a: number; }[]
+    R.clone(obj2);
+    // $ExpectType {}
+    R.clone({});
+    // $ExpectType 10
+    R.clone(10);
+    // $ExpectType "foo"
+    R.clone('foo');
+    // $ExpectType number
+    R.clone(Date.now());
 };
 
 (() => {
+    // $ExpectType {}[]
     R.clone([{}, {}, {}]);
+    // $ExpectType number[]
     R.clone([1, 2, 3]);
 })();

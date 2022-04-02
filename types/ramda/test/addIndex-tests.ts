@@ -32,6 +32,7 @@ class Rectangle {
     // $ExpectType number[]
     filterIndexed(lastTwo, [8, 6, 7, 5, 3, 0, 9]); // => [0, 9]
     const lastTwoFn = filterIndexed(lastTwo);
+    // $ExpectType number[]
     lastTwoFn([8, 6, 7, 5, 3, 0, 9]);
 };
 

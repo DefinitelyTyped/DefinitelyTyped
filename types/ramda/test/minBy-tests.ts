@@ -1,8 +1,7 @@
 import * as R from 'ramda';
-import { Ord } from 'ramda/tools';
 
 () => {
-    function cmp(obj: { x: Ord }) {
+    function cmp<T extends R.Ord>(obj: { x: T; }) {
         return obj.x;
     }
 
@@ -13,9 +12,15 @@ import { Ord } from 'ramda/tools';
     const e = { x: 'z' };
     const f = { x: new Date(0) };
     const g = { x: new Date(60 * 1000) };
+    // $ExpectType { x: number; }
     R.minBy(cmp, a, b); // => {x: 1}
-    R.minBy(cmp)(a, b); // => {x: 1}
-    R.minBy(cmp)(a)(c);
+    // $ExpectType { x: number; }
+    R.minBy(cmp, a, b); // => {x: 1}
+    R.minBy<{ x: number; }>(cmp)(a, c);
+    // $ExpectType { x: string; }
     R.minBy(cmp, d, e);
-    R.minBy(cmp)(f)(g);
+    // $ExpectType { x: Date; }
+    R.minBy<{ x: Date; }>(cmp)(f)(g);
+    // $ExpectError
+    R.minBy(cmp, a, g);
 };

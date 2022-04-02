@@ -1,5 +1,4 @@
 import * as R from 'ramda';
-import { Dictionary } from 'ramda/tools';
 
 () => {
     function isEven(n: number) {
@@ -7,20 +6,27 @@ import { Dictionary } from 'ramda/tools';
     }
 
     const filterEven = R.filter(isEven);
-    const objA: Dictionary<number> = filterEven({ a: 0, b: 1 }); // => { a: 0 }
-    const listA: number[] = filterEven([0, 1]); // => [0]
+    // $ExpectType Record<string, 0 | 1>
+    filterEven({ a: 0, b: 1 }); // => { a: 0 }
+    // $ExpectType (0 | 1)[]
+    filterEven([0, 1]); // => [0]
 };
 
 () => {
     const compact = R.filter(Boolean);
-    const objA: Dictionary<number> = compact({ a: 0, b: 1 }); // => { b: 1 }
-    const listA: number[] = compact([0, 1]); // => [1]
+    // $ExpectType Record<string, number>
+    compact({ a: 0, b: 1 }); // => { b: 1 }
+    // $ExpectType number[]
+    compact([0, 1]); // => [1]
 
     const omitEmptyString = R.filter((val: string) => val !== '');
-    const objB: Dictionary<string> = omitEmptyString({ a: '', b: 'foo' }); // => { b: 'foo' }
-    const listB: string[] = omitEmptyString(['', 'foo']); // => ['foo']
+    // $ExpectType Record<string, "" | "foo">
+    omitEmptyString({ a: '', b: 'foo' }); // => { b: 'foo' }
+    // $ExpectType ("" | "foo")[]
+    omitEmptyString(['', 'foo']); // => ['foo']
 
-    const objC = omitEmptyString({ some: 42 }); // $ExpectError
+    // $ExpectError
+    omitEmptyString({ some: 42 });
 };
 
 () => {
@@ -29,6 +35,7 @@ import { Dictionary } from 'ramda/tools';
     const user3 = { name: 'Bob' };
     const users = [user1, user2, user3];
     const isFamous = R.pathEq(['address', 'zipCode'], 90210);
+    // NOTE: the typings are bad here
     R.filter(isFamous, users); // => [ user1 ]
 };
 
@@ -36,6 +43,7 @@ import { Dictionary } from 'ramda/tools';
     const coll = [{ type: 'BUY' }, { type: 'SELL' }, { type: 'BUY' }];
     const typeIs = R.propEq('type');
     const isBuy = typeIs('BUY');
+    // $ExpectType { type: string; }[]
     R.filter(isBuy, coll); // [{ type: 'BUY' }, { type: 'BUY' }]
 };
 
@@ -46,7 +54,9 @@ import { Dictionary } from 'ramda/tools';
         { x: 8, y: 3 },
         { x: 10, y: 4 },
     ];
+    // $ExpectType { x: number; y: number; }[]
     R.filter(R.where({ x: 10 }), xs); // ==> [{x: 10, y: 2}, {x: 10, y: 4}]
+    // $ExpectType { x: number; y: number; }[]
     R.filter(R.where({ x: 10 }))(xs); // ==> [{x: 10, y: 2}, {x: 10, y: 4}]
 };
 
@@ -63,24 +73,14 @@ import { Dictionary } from 'ramda/tools';
     const filterNumbers = R.filter(R.is(Number));
 
     const unknownArray: unknown[] = [];
-    let numberArray: number[];
-    let stringArray: string[];
+    // $ExpectType number[]
+    R.filter(R.is(Number), unknownArray);
+    // $ExpectType number[]
+    filterNumbers(unknownArray);
 
-    numberArray = R.filter(R.is(Number), unknownArray);
-    numberArray = filterNumbers(unknownArray);
-    // $ExpectError
-    stringArray = R.filter(R.is(Number), unknownArray);
-    // $ExpectError
-    stringArray = filterNumbers(unknownArray);
-
-    const unknownDictionary: Dictionary<unknown> = {};
-    let numberDictionary: Dictionary<number>;
-    let stringDictionary: Dictionary<string>;
-
-    numberDictionary = R.filter(R.is(Number), unknownDictionary);
-    numberDictionary = filterNumbers(unknownDictionary);
-    // $ExpectError
-    stringDictionary = R.filter(R.is(Number), unknownDictionary);
-    // $ExpectError
-    stringDictionary = filterNumbers(unknownDictionary);
+    const unknownDictionary: Record<string, unknown> = {};
+    // $ExpectType Record<string, number>
+    R.filter(R.is(Number), unknownDictionary);
+    // $ExpectType Record<string, number>
+    filterNumbers(unknownDictionary);
 };

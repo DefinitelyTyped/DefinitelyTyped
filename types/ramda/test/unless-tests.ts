@@ -3,8 +3,10 @@ import * as R from 'ramda';
 () => {
     // coerceArray :: (a|[a]) -> [a]
     const coerceArray = R.unless(R.is(Array), R.of);
-    const a: number[] = coerceArray([1, 2, 3]); // => [1, 2, 3]
-    const b: number[] = coerceArray(1); // => [1]
+    // $ExpectType number[]
+    coerceArray([1, 2, 3]); // => [1, 2, 3]
+    // $ExpectType number[]
+    coerceArray(1); // => [1]
 
     // $ExpectType (a: number) => string | number
     const bodyTemperature = R.unless<number, string>(
@@ -13,8 +15,8 @@ import * as R from 'ramda';
     );
 
     // $ExpectType string | number
-    const normal = bodyTemperature(37); // => 37
+    bodyTemperature(37); // => 37
 
     // $ExpectType string | number
-    const abnormal = bodyTemperature(38); // => 'abnormal: 38'
+    bodyTemperature(38); // => 'abnormal: 38'
 };

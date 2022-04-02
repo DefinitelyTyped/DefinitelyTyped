@@ -8,6 +8,7 @@ import * as R from 'ramda';
     takesThreeArgs.length; // => 3
     takesThreeArgs(1, 2, 3); // => [1, 2, 3]
 
+    // $ExpectType (head: number, head: number) => number[]
     const takesTwoArgs = R.binary(takesThreeArgs);
     takesTwoArgs.length; // => 2
     // Only 2 arguments are passed to the wrapped function
@@ -26,7 +27,10 @@ import * as R from 'ramda';
         return [a, b, c];
     }
 
-    R.binary(takesOneArg); // $ExpectType (head: number, head: undefined) => number[]
-    R.binary(takesTwoArgs); // $ExpectType (head: number, head: number) => number[]
-    R.binary(takesThreeArgs); // $ExpectType (head: number, head: number) => number[]
+    // $ExpectType (head: number, head: undefined) => number[]
+    R.binary(takesOneArg);
+    // $ExpectType (head: number, head: number) => number[]
+    R.binary(takesTwoArgs);
+    // $ExpectType (head: number, head: number) => number[]
+    R.binary(takesThreeArgs);
 };

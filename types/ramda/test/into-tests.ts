@@ -4,9 +4,11 @@ import * as R from 'ramda';
     const numbers = [1, 2, 3, 4];
     const transducer = R.compose(R.map(R.add(1)), R.take(2));
 
+    // $ExpectType number[]
     R.into([], transducer, numbers); // => [2, 3]
 
     const intoArray = R.into([]);
+    // $ExpectType number[]
     intoArray(transducer, numbers); // => [2, 3]
 };
 
@@ -27,7 +29,9 @@ import * as R from 'ramda';
     );
 
     function test(): B[] {
-        return R.into<A, B>([], AsToBs, As);
+        // $ExpectType B[]
+        const result = R.into<A, B>([], AsToBs, As);
+        return result;
     }
     test(); // => [{ b: 1 }, { b: 2 }]
 };

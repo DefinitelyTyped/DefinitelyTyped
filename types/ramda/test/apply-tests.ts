@@ -6,7 +6,9 @@ import * as R from 'ramda';
     // $ExpectType (args: number[]) => number
     R.apply(Math.max);
 
+    // $ExpectType number
     R.apply(Math.max, nums); // => 42
+    // $ExpectType number
     R.apply(Math.max)(nums); // => 42
 
     const repeat = (value: string, n: number): string[] => Array(n).fill(value);

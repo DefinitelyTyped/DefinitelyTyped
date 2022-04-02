@@ -14,4 +14,6 @@ import * as R from 'ramda';
     R.add('foo', 'bar');
     // $ExpectError
     R.add('foo')('bar');
+    // $ExpectError
+    R.add(1)('bar');
 };

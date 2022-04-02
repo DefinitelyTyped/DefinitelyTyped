@@ -14,13 +14,14 @@ import * as R from 'ramda';
         return value.length === length;
     }
 
+    // $ExpectType (value: string, length: number) => boolean
     const isLengthNotEqual = R.complement(isLengthEqual);
 
     // $ExpectError
     isLengthNotEqual('FOO', 'BAR');
     isLengthNotEqual('BAZ', 4); // => true
 
-    // $ExpectType (value: any) => value is any
+    // $ExpectType (value: unknown) => value is unknown
     R.complement(R.isNil);
 
     const isStringAndNotNumber = (value: string | number): value is string => true;

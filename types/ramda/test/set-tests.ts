@@ -12,7 +12,7 @@ interface Point {
 };
 
 () => {
-    const xLens = R.lens<Point, number>(R.prop('x'), R.assoc('x'));
+    const xLens = R.lens<Point, number>(R.prop('x'), R.assoc<Point, 'x'>('x'));
     // $ExpectType { x: number; y: number; }
     R.set(xLens, 4, { x: 1, y: 2 }); // => {x: 4, y: 2}
     // $ExpectType (a: number, obj: Point) => Point

@@ -10,5 +10,6 @@ import * as R from 'ramda';
         { name: 'Bib', age: 15 },
         { name: 'Cari', age: 16 },
     ];
+    // $ExpectType { name: string; age: number; }[]
     R.sort(cmp, people);
 };

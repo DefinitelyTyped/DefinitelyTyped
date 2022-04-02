@@ -1,10 +1,30 @@
 import * as R from 'ramda';
 
 () => {
+    const double = (x: number) => x * 2;
+
+    // $ExpectType number[]
+    R.map(double, [1, 2, 3]); // => [2, 4, 6]
+    // $ExpectType Record<"x" | "y" | "z", number>
+    R.map(double, {x: 1, y: 2, z: 3}); // => {x: 2, y: 4, z: 6}
+    const a: Record<string, number> = {};
+    // $ExpectType Record<string, number>
+    R.map(double, a); // => {x: 2, y: 4, z: 6}
+    // $ExpectType number[]
+    R.map(double)([1, 2, 3]); // => [2, 4, 6]
+    // $ExpectType Record<"x" | "y" | "z", number>
+    R.map(double)({x: 1, y: 2, z: 3}); // => {x: 2, y: 4, z: 6}
+    // $ExpectType Record<string, number>
+    R.map(double)(a); // => {x: 2, y: 4, z: 6}
+};
+
+() => {
     // Flatten all arrays in the list but leave other values alone.
     const flattenArrays = R.map(R.ifElse(Array.isArray, R.flatten, R.identity));
 
+    // $ExpectType unknown[]
     flattenArrays([[0], [[10], [8]], 1234, {}]); // => [[0], [10, 8], 1234, {}]
+    // $ExpectType unknown[]
     flattenArrays([[[10], 123], [8, [10]], 'hello']); // => [[10, 123], [8, 10], "hello"]
 };
 
@@ -22,6 +42,7 @@ import * as R from 'ramda';
             return chars.map(char => fn(char.charCodeAt(0)));
         },
     };
+    // $ExpectType Functor<number>
     R.map((x: number) => x - 1, numberFunctor); // => "Hello World"
 };
 
@@ -41,10 +62,14 @@ import * as R from 'ramda';
         c: string;
     }
 
+    // $ExpectType A
     R.map<A, A>(R.inc, { a: 1, b: 2 });
+    // $ExpectType B
     R.map<A, B>(R.toString, { a: 1, b: 2 });
 
+    // $ExpectType A
     R.map<A, A>(R.inc)({ a: 1, b: 2 });
+    // $ExpectType B
     R.map<A, B>(R.toString)({ a: 1, b: 2 });
 
     type KeyOfUnion<T> = T extends infer U ? keyof U : never;

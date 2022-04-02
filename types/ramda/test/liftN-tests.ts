@@ -7,7 +7,7 @@ import * as R from 'ramda';
     const lifted2ArityAdd = R.liftN(2, add);
 
     // $ExpectType number[]
-    const numbers = lifted2ArityAdd([10, 20, 30], [40, 50]);
+    lifted2ArityAdd([10, 20, 30], [40, 50]);
 
     // $ExpectType (arg: number) => number
     const readerFunctor = lifted2ArityAdd(R.inc, R.dec);

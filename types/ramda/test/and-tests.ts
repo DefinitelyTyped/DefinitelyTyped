@@ -1,8 +1,12 @@
 import * as R from 'ramda';
 
 () => {
-    const x0: boolean = R.and(false, true); // => false
-    const x1: number | unknown[] = R.and(0, []); // => 0
-    const x2: number | unknown[] = R.and(0)([]); // => 0
-    const x3: string | null = R.and(null, ''); // => null
+    // $ExpectType boolean
+    R.and(false, true); // => false
+    // $ExpectType 0 | never[]
+    R.and(0, []); // => 0
+    // $ExpectType number | never[]
+    R.and(0)([]); // => 0
+    // $ExpectType "" | null
+    R.and(null, ''); // => null
 };

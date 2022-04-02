@@ -5,7 +5,9 @@ import * as R from 'ramda';
         return n % 2 === 1;
     }
 
+    // $ExpectType number[]
     R.reject(isOdd, [1, 2, 3, 4]); // => [2, 4]
+    // $ExpectType Record<string, number>
     R.reject(isOdd, { a: 0, b: 1 }); // => { a: 0 }
 };
 
@@ -14,8 +16,10 @@ import * as R from 'ramda';
         return n % 2 === 0;
     }
     const rejectEven = R.reject(isEven);
-    const objB: R.Dictionary<number> = rejectEven({ a: 0, b: 1 }); // => { b: 1 }
-    const listB: number[] = rejectEven([0, 1]); // => [1]
+    // $ExpectType Record<string, 0 | 1>
+    rejectEven({ a: 0, b: 1 }); // => { b: 1 }
+    // $ExpectType (0 | 1)[]
+    rejectEven([0, 1]); // => [1]
 };
 
 () => {
@@ -23,7 +27,9 @@ import * as R from 'ramda';
         return n % 2 === 1;
     }
 
+    // $ExpectType number[]
     R.reject(isOdd, [1, 2, 3, 4]); // => [2, 4]
+    // $ExpectType (2 | 1 | 4 | 3)[] || (2 | 1 | 3 | 4)[] || (2 | 3 | 1 | 4)[]
     R.reject(isOdd)([1, 2, 3, 4]); // => [2, 4]
 };
 
@@ -40,24 +46,14 @@ import * as R from 'ramda';
     const rejectNumbers = R.reject(R.is(Number));
 
     const unknownArray: Array<string | number> = [];
-    let numberArray: number[];
-    let stringArray: string[];
+    // $ExpectType string[]
+    R.reject(R.is(Number), unknownArray);
+    // $ExpectType string[]
+    rejectNumbers(unknownArray);
 
-    // $ExpectError
-    numberArray = R.reject(R.is(Number), unknownArray);
-    // $ExpectError
-    numberArray = rejectNumbers(unknownArray);
-    stringArray = R.reject(R.is(Number), unknownArray);
-    stringArray = rejectNumbers(unknownArray);
-
-    const unknownDictionary: R.Dictionary<string | number> = {};
-    let numberDictionary: R.Dictionary<number>;
-    let stringDictionary: R.Dictionary<string>;
-
-    // $ExpectError
-    numberDictionary = R.reject(R.is(Number), unknownDictionary);
-    // $ExpectError
-    numberDictionary = rejectNumbers(unknownDictionary);
-    stringDictionary = R.reject(R.is(Number), unknownDictionary);
-    stringDictionary = rejectNumbers(unknownDictionary);
+    const unknownDictionary: Record<string, string | number> = {};
+    // $ExpectType Record<string, string>
+    R.reject(R.is(Number), unknownDictionary);
+    // $ExpectType Record<string, string>
+    rejectNumbers(unknownDictionary);
 };

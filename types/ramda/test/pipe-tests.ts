@@ -41,19 +41,23 @@ function shout(x: number): string {
         return n % 2 === 0;
     }
 
-    const a: R.Dictionary<number> = R.pipe(R.filter(isEven))({
+    // $ExpectType Record<string, number>
+    R.pipe(R.filter(isEven))({
         a: 0,
         b: 1,
     }); // => { a: 0 }
 
-    const b: number[] = R.pipe(R.filter(isEven))([0, 1]); // => [0]
+    // $ExpectType number[]
+    R.pipe(R.filter(isEven))([0, 1]); // => [0]
 
-    const c: R.Dictionary<number> = R.pipe(R.reject(isEven))({
+    // $ExpectType Record<string, number>
+    R.pipe(R.reject(isEven))({
         a: 0,
         b: 1,
     }); // => { b: 1 }
 
-    const d: number[] = R.pipe(R.reject(isEven))([0, 1]); // => [1]
+    // $ExpectType number[]
+    R.pipe(R.reject(isEven))([0, 1]); // => [1]
 };
 
 () => {
@@ -95,7 +99,8 @@ function shout(x: number): string {
         { id: 'xyz', title: 'A' },
         { id: 'abc', title: 'B' },
     ];
-    const titlesIndexedByTitles: { [k: string]: string } = R.pipe(
+    // $ExpectType { [x: string]: string; }
+    R.pipe(
         R.map((x: Book) => x.title),
         R.indexBy(x => x),
     )(list);
@@ -108,19 +113,21 @@ function shout(x: number): string {
         lastName: string;
     }
     const makeQuery = (email: string) => ({ query: { email } });
-    const fetchMember = (query: any) => Promise.resolve({ id: 1, firstName: 'Jon', lastName: 'Snow' });
+    const fetchMember = (query: unknown): Promise<Person> => Promise.resolve({ id: 1, firstName: 'Jon', lastName: 'Snow' });
     const getTitleAsync = (person: Person) =>
         person.firstName === 'Jon' && person.lastName === 'Snow'
             ? Promise.resolve('King in the North')
             : Promise.reject('Unknown');
 
-    const getMemberName: (email: string) => Promise<{ firstName: string; lastName: string }> = R.pipe(
+    // $ExpectType (email: string) => Promise<Pick<Person, "firstName" | "lastName">>
+    R.pipe(
         makeQuery,
         fetchMember,
         R.andThen(R.pick(['firstName', 'lastName'])),
     );
 
-    const getMemberTitle: (email: string) => Promise<string> = R.pipe(makeQuery, fetchMember, R.andThen(getTitleAsync));
+    // $ExpectType (email: string) => Promise<string>
+    R.pipe(makeQuery, fetchMember, R.andThen(getTitleAsync));
 };
 
 () => {
@@ -132,13 +139,15 @@ function shout(x: number): string {
     const useDefault = (): Person => ({ firstName: 'Bob', lastName: 'Loblaw' });
     const loadAlternative = (): Promise<Person> => Promise.resolve({ firstName: 'Saul', lastName: 'Goodman' });
 
-    const recoverFromFailure: (id: string) => Promise<{ firstName: string; lastName: string }> = R.pipe(
+    // $ExpectType (id: string) => Promise<Pick<Person, "firstName" | "lastName">>
+    R.pipe(
         failedFetch,
         R.otherwise(useDefault),
         R.andThen(R.pick(['firstName', 'lastName'])),
     );
 
-    const recoverFromFailureByAlternative: (id: string) => Promise<Person> = R.pipe(
+    // $ExpectType (id: string) => Promise<Person>
+    R.pipe(
         failedFetch,
         R.otherwise(useDefault),
         R.andThen(loadAlternative),
@@ -159,23 +168,33 @@ function shout(x: number): string {
     // $ExpectType (x: number, y: number) => number
     const f5 = R.pipe(Math.pow, R.negate, R.inc, R.inc, R.inc);
     // $ExpectType (x: number, y: number) => number
-    const f6 = R.pipe(Math.pow, R.negate, R.inc, R.inc, R.inc, R.inc);
+    R.pipe(Math.pow, R.negate, R.inc, R.inc, R.inc, R.inc);
     // $ExpectType (x: number, y: number) => number
-    const f7 = R.pipe(Math.pow, R.negate, R.inc, R.inc, R.inc, R.inc, R.inc);
+    R.pipe(Math.pow, R.negate, R.inc, R.inc, R.inc, R.inc, R.inc);
     // $ExpectType (x: number, y: number) => number
-    const f8 = R.pipe(Math.pow, R.negate, R.inc, R.inc, R.inc, R.inc, R.inc, R.inc);
+    R.pipe(Math.pow, R.negate, R.inc, R.inc, R.inc, R.inc, R.inc, R.inc);
     // $ExpectType (x: number, y: number) => number
-    const f9 = R.pipe(Math.pow, R.negate, R.inc, R.inc, R.inc, R.inc, R.inc, R.inc, R.inc);
+    R.pipe(Math.pow, R.negate, R.inc, R.inc, R.inc, R.inc, R.inc, R.inc, R.inc);
     // $ExpectType (x: number, y: number) => number
-    const f10 = R.pipe(Math.pow, R.negate, R.inc, R.inc, R.inc, R.inc, R.inc, R.inc, R.inc, R.inc);
-    const x1: number = f1(3, 4);
-    const x2: number = f2(3, 4);
-    const x3: number = f3(3, 4);
-    const x4: number = f4(3, 4);
-    const x5: number = f5(3, 4);
-    const x6: number = f1(3, 4);
-    const x7: number = f2(3, 4);
-    const x8: number = f3(3, 4);
-    const x9: number = f4(3, 4);
-    const x10: number = f5(3, 4);
+    R.pipe(Math.pow, R.negate, R.inc, R.inc, R.inc, R.inc, R.inc, R.inc, R.inc, R.inc);
+    // $ExpectType number
+    f1(3, 4);
+    // $ExpectType number
+    f2(3, 4);
+    // $ExpectType number
+    f3(3, 4);
+    // $ExpectType number
+    f4(3, 4);
+    // $ExpectType number
+    f5(3, 4);
+    // $ExpectType number
+    f1(3, 4);
+    // $ExpectType number
+    f2(3, 4);
+    // $ExpectType number
+    f3(3, 4);
+    // $ExpectType number
+    f4(3, 4);
+    // $ExpectType number
+    f5(3, 4);
 };

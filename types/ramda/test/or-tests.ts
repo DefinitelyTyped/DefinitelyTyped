@@ -1,8 +1,34 @@
 import * as R from 'ramda';
 
 () => {
-    const x0: boolean = R.or(false, true); // => false
-    const x1: number | any[] = R.or(0, []); // => []
-    const x2: number | any[] = R.or(0)([]); // => []
-    const x3: string | null = R.or(null, ''); // => ''
+    // $ExpectType true
+    R.or(true, true); // => true
+    // $ExpectType true
+    R.or(true, false); // => true
+    // $ExpectType true
+    R.or(false, true); // => true
+    // $ExpectType false
+    R.or(false, false); // => false
+    // $ExpectType true
+    R.or(true)(true); // => true
+    // $ExpectType true
+    R.or(true)(false); // => true
+    // $ExpectType true
+    R.or(false)(true); // => true
+    // $ExpectType false
+    R.or(false)(false); // => false
+    // $ExpectType never[]
+    R.or(0, []); // => []
+    // $ExpectType never[]
+    R.or(0)([]); // => []
+    // $ExpectType ""
+    R.or(null, ''); // => ''
+    // $ExpectType ""
+    R.or(null)(''); // => ''
+    let s = '';
+    let n = 0;
+    // $ExpectType string | number
+    R.or(s, n);
+    // $ExpectType string | number
+    R.or(s)(n);
 };

@@ -54,5 +54,5 @@ import * as R from 'ramda';
     // $ExpectType (r: Score) => Score
     const calculateAndAssocTotalToScore = R.chain<number, Score, Score>(assocTotalToScore, calculateTotal);
     // $ExpectType Score
-    const scoreWithTotal = calculateAndAssocTotalToScore(score); // => { maths: 90, physics: 80, chemistry: 70, total: 240 }
+    calculateAndAssocTotalToScore(score); // => { maths: 90, physics: 80, chemistry: 70, total: 240 }
 };
