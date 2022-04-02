@@ -65,6 +65,12 @@ class BadReturnForm extends Helper<DemoSig> {
     }
 }
 
+class NoSignature extends Helper {
+    compute([i18nizer]: [i18nizer: (s: string) => string], { name, age }: { name: string; age: number }): string {
+        return i18nizer(`${name} is ${age} years old`);
+    }
+}
+
 // $ExpectType FunctionBasedHelper<{ Args: { Positional: [number, number]; Named: EmptyObject; }; Return: number; }>
 const inferenceOnPositional = helper(function add([a, b]: [number, number]) {
     return a + b;
