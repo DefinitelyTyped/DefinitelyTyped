@@ -41,7 +41,7 @@ const sjisArray4 = Encoding.convert('🐙', {
     to: 'SJIS', // to_encoding
     from: 'UTF8', // from_encoding
     type: 'string',
-    fallback: 'html-entity-hex'
+    fallback: 'html-entity',
 });
 sjisArray4; // $ExpectType string
 // fallback: '&#128025;'
@@ -117,28 +117,7 @@ if (isSJIS) {
 }
 
 const sjisArray5 = [
-    130,
-    177,
-    130,
-    241,
-    130,
-    201,
-    130,
-    191,
-    130,
-    205,
-    129,
-    65,
-    130,
-    217,
-    130,
-    176,
-    129,
-    153,
-    130,
-    210,
-    130,
-    230,
+    130, 177, 130, 241, 130, 201, 130, 191, 130, 205, 129, 65, 130, 217, 130, 176, 129, 153, 130, 210, 130, 230,
 ];
 
 const encoded = Encoding.urlEncode(sjisArray5); // $ExpectType string
