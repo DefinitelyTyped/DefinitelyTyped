@@ -4104,6 +4104,8 @@ declare module 'fs' {
         }>;
     }
 
+    // TODO: Add AbortSignal support
+    // tslint:disable-next-line:no-empty-interface
     interface Abortable {}
 
     /**
