@@ -810,14 +810,14 @@ declare global {
          * const transpiler = new Bun.Transpiler();
          * transpiler.transformSync(`
          *   const App = () => <div>Hello World</div>;
-         *   default App;
+         *   export default App;
          * `);
          * // This outputs:
          * const output = `
          * const App = () => jsx("div", {
          *   children: "Hello World"
          * }, undefined, false, undefined, this);
-         * default App;
+         * export default App;
          * `
          * ```
          *
@@ -1338,7 +1338,7 @@ declare global {
     // declare function createImageBitmap(image: ImageBitmapSource, options?: ImageBitmapOptions): Promise<ImageBitmap>;
     // declare function createImageBitmap(image: ImageBitmapSource, sx: number, sy: number, sw: number, sh: number, options?: ImageBitmapOptions): Promise<ImageBitmap>;
     /**
-     * Send an HTTP(s) request
+     * Send a HTTP(s) request
      *
      * @param url URL string
      * @param init A structured value that contains settings for the fetch() request.
@@ -1350,7 +1350,7 @@ declare global {
     function fetch(url: string, init?: RequestInit): Promise<Response>;
 
     /**
-     * Send an HTTP(s) request
+     * Send a HTTP(s) request
      *
      * @param request Request object
      * @param init A structured value that contains settings for the fetch() request.
