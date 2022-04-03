@@ -9,9 +9,6 @@
         "baseUrl": "../",
         "typeRoots": ["../"],
         "types": [],
-        "paths": {
-            "node:fs": ["./bun/fs.d.ts"]
-        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
