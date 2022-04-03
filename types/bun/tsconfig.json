@@ -12,7 +12,6 @@
         "paths": {
             "node:fs": ["./bun/fs.d.ts"]
         },
-        "esModuleInterop": true,
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
