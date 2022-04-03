@@ -1,0 +1,16 @@
+{
+    "extends": "@definitelytyped/dtslint/dt.json",
+    "rules": {
+        // We use this feature to provide different explanations for different function signatures
+        "unified-signatures": false,
+
+        // Necessary for node:fs
+        "no-self-import": false,
+
+        // We use it to mark a TODO
+        "no-empty-interface": false,
+
+        // We don't export anything from "bun"
+        "npm-naming": [true, { "mode": "code", "errors": [["NeedsExportEquals", false]] }]
+    }
+}

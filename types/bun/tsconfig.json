@@ -1,0 +1,20 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": ["ESNext"],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "baseUrl": "../",
+        "typeRoots": ["../"],
+        "types": [],
+        "paths": {
+            "node:fs": ["./bun/fs.d.ts"]
+        },
+        "esModuleInterop": true,
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": ["index.d.ts", "bun-tests.ts", "path.d.ts", "fs.d.ts"]
+}
