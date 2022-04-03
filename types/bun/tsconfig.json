@@ -15,5 +15,5 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
-    "files": ["index.d.ts", "bun-tests.ts", "path.d.ts", "fs.d.ts"]
+    "files": ["index.d.ts"]
 }
