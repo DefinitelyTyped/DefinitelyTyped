@@ -251,6 +251,7 @@ declare global {
          *
          * On failure, throws a `ResolveError`
          */
+        // tslint:disable-next-line:unified-signatures
         resolve(moduleId: string, parent: string): Promise<string>;
     }
 
@@ -1029,6 +1030,7 @@ declare global {
          * @param input - `Response` object
          * @returns A promise that resolves with the number of bytes written.
          */
+        // tslint:disable-next-line:unified-signatures
         function write(destinationPath: string, input: Response): Promise<number>;
 
         /**
@@ -1050,6 +1052,7 @@ declare global {
          * @param input The file to copy from.
          * @returns A promise that resolves with the number of bytes written.
          */
+        // tslint:disable-next-line:unified-signatures
         function write(destination: FileBlob, input: FileBlob): Promise<number>;
 
         /**
@@ -1071,6 +1074,7 @@ declare global {
          * @param input The file to copy from.
          * @returns A promise that resolves with the number of bytes written.
          */
+        // tslint:disable-next-line:unified-signatures
         function write(destinationPath: string, input: FileBlob): Promise<number>;
 
         /**
@@ -1083,6 +1087,7 @@ declare global {
          * @param input The data to copy into `destination`.
          * @returns A promise that resolves with the number of bytes written.
          */
+        // tslint:disable-next-line:unified-signatures
         function write(destination: FileBlob | string, input: Blob | TypedArray | string | BlobPart[]): Promise<number>;
 
         /**
@@ -1092,6 +1097,7 @@ declare global {
          *
          * For now, use the sync version. There is zero performance benefit to using this async version. It exists for future-proofing.
          */
+        // tslint:disable-next-line:unified-signatures
         function resolve(moduleId: string, parent: string): Promise<string>;
 
         /**
@@ -1099,6 +1105,7 @@ declare global {
          *
          * On failure, throws a `ResolveError`
          */
+        // tslint:disable-next-line:unified-signatures
         function resolveSync(moduleId: string, parent: string): string;
 
         /**
@@ -1126,6 +1133,7 @@ declare global {
          * @param path The path to the file (lazily loaded)
          *
          */
+        // tslint:disable-next-line:unified-signatures
         function file(path: string, options?: BlobPropertyBag): FileBlob;
 
         /**
@@ -1144,6 +1152,7 @@ declare global {
          *
          * @param path The path to the file as a byte buffer (the buffer is copied)
          */
+        // tslint:disable-next-line:unified-signatures
         function file(path: ArrayBufferLike | Uint8Array, options?: BlobPropertyBag): FileBlob;
 
         /**
@@ -1160,6 +1169,7 @@ declare global {
          *
          * @param fileDescriptor The file descriptor of the file
          */
+        // tslint:disable-next-line:unified-signatures
         function file(fileDescriptor: number, options?: BlobPropertyBag): FileBlob;
 
         /**
@@ -1230,6 +1240,7 @@ declare global {
              * **The input buffer must not be garbage collected**. That means you will need to hold on to it for the duration of the string's lifetime.
              *
              */
+            // tslint:disable-next-line:unified-signatures
             arrayBufferToString(buffer: Uint16Array): string;
 
             /** Mock bun's segfault handler. You probably don't want to use this */
@@ -1348,6 +1359,7 @@ declare global {
      *
      *
      */
+    // tslint:disable-next-line:unified-signatures
     function fetch(request: Request, init?: RequestInit): Promise<Response>;
 
     function queueMicrotask(callback: VoidFunction): void;
@@ -2643,7 +2655,9 @@ declare module 'fs' {
         ): Promise<BigIntStats>;
         function __promisify__(path: PathLike, options?: StatOptions): Promise<Stats | BigIntStats>;
     }
+    // tslint:disable-next-line:unified-signatures
     interface StatSyncFn extends Function {
+        // tslint:disable-next-line:unified-signatures
         (path: PathLike, options?: undefined): Stats;
         (
             path: PathLike,
@@ -2659,8 +2673,10 @@ declare module 'fs' {
                 throwIfNoEntry: false;
             },
         ): BigIntStats | undefined;
+        // tslint:disable-next-line:unified-signatures
         (
             path: PathLike,
+            // tslint:disable-next-line:unified-signatures
             options?: StatSyncOptions & {
                 bigint?: false | undefined;
             },
@@ -2909,6 +2925,7 @@ declare module 'fs' {
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
+    // tslint:disable-next-line:unified-signatures
     function readlink(
         path: PathLike,
         options: BufferEncodingOption,
@@ -2919,15 +2936,18 @@ declare module 'fs' {
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
+    // tslint:disable-next-line:unified-signatures
     function readlink(
         path: PathLike,
         options: EncodingOption,
+        // tslint:disable-next-line:unified-signatures
         callback: (err: SystemError | null, linkString: string | Buffer) => void,
     ): void;
     /**
      * Asynchronous readlink(2) - read value of a symbolic link.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
+    // tslint:disable-next-line:unified-signatures
     function readlink(path: PathLike, callback: (err: SystemError | null, linkString: string) => void): void;
     namespace readlink {
         /**
@@ -3009,6 +3029,7 @@ declare module 'fs' {
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
+    // tslint:disable-next-line:unified-signatures
     function realpath(
         path: PathLike,
         options: BufferEncodingOption,
@@ -3019,15 +3040,18 @@ declare module 'fs' {
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
+    // tslint:disable-next-line:unified-signatures
     function realpath(
         path: PathLike,
         options: EncodingOption,
+        // tslint:disable-next-line:unified-signatures
         callback: (err: SystemError | null, resolvedPath: string | Buffer) => void,
     ): void;
     /**
      * Asynchronous realpath(3) - return the canonicalized absolute pathname.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
+    // tslint:disable-next-line:unified-signatures
     function realpath(path: PathLike, callback: (err: SystemError | null, resolvedPath: string) => void): void;
     namespace realpath {
         /**
@@ -3068,16 +3092,19 @@ declare module 'fs' {
         function native(
             path: PathLike,
             options: EncodingOption,
+            // tslint:disable-next-line:unified-signatures
             callback: (err: SystemError | null, resolvedPath: string) => void,
         ): void;
         function native(
             path: PathLike,
             options: BufferEncodingOption,
+            // tslint:disable-next-line:unified-signatures
             callback: (err: SystemError | null, resolvedPath: Buffer) => void,
         ): void;
         function native(
             path: PathLike,
             options: EncodingOption,
+            // tslint:disable-next-line:unified-signatures
             callback: (err: SystemError | null, resolvedPath: string | Buffer) => void,
         ): void;
         function native(path: PathLike, callback: (err: SystemError | null, resolvedPath: string) => void): void;
@@ -3303,6 +3330,7 @@ declare module 'fs' {
      */
     function mkdir(
         path: PathLike,
+        // tslint:disable-next-line:unified-signatures
         options: Mode | MakeDirectoryOptions | null | undefined,
         callback: (err: SystemError | null, path?: string) => void,
     ): void;
@@ -3469,12 +3497,14 @@ declare module 'fs' {
     function mkdtemp(
         prefix: string,
         options: EncodingOption,
+        // tslint:disable-next-line:unified-signatures
         callback: (err: SystemError | null, folder: string | Buffer) => void,
     ): void;
     /**
      * Asynchronously creates a unique temporary directory.
      * Generates six random characters to be appended behind a required prefix to create a unique temporary directory.
      */
+    // tslint:disable-next-line:unified-signatures
     function mkdtemp(prefix: string, callback: (err: SystemError | null, folder: string) => void): void;
     namespace mkdtemp {
         /**
