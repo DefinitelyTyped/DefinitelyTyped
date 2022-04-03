@@ -458,6 +458,29 @@ declare namespace Dockerode {
     }
     /* tslint:enable:interface-name */
 
+    interface VolumeCreateOptions {
+        Name?: string | undefined;
+        Driver?: string | undefined;
+        DriverOpts?: { [key: string]: string } | undefined;
+        Labels?: { [label: string]: string } | undefined;
+    }
+
+    interface VolumeCreateResponse {
+        Name: string;
+        Driver: string;
+        Mountpoint: string;
+        CreatedAt?: string | undefined;
+        Status?: { [key: string]: string } | undefined;
+        Labels: { [label: string]: string };
+        Scope: string;
+        Options: { [key: string]: string };
+        // Field is sometimes present, and sometimes null
+        UsageData?: {
+            Size: number;
+            RefCount: number;
+        } | null | undefined;
+    }
+
     interface VolumeInspectInfo {
         Name: string;
         Driver: string;
@@ -1835,8 +1858,9 @@ declare class Dockerode {
     createPlugin(options: {}, callback: Callback<any>): void;
     createPlugin(options: {}): Promise<any>;
 
-    createVolume(options: {}, callback: Callback<any>): void;
-    createVolume(options: {}): Promise<any>;
+    createVolume(options: Dockerode.VolumeCreateOptions, callback: Callback<Dockerode.Volume>): void;
+    createVolume(callback: Callback<Dockerode.Volume>): void;
+    createVolume(options?: Dockerode.VolumeCreateOptions): Promise<Dockerode.VolumeCreateResponse>;
 
     createService(options: Dockerode.CreateServiceOptions, callback: Callback<Dockerode.ServiceCreateResponse>): void;
     createService(options: Dockerode.CreateServiceOptions): Promise<Dockerode.ServiceCreateResponse>;
