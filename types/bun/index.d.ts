@@ -114,7 +114,7 @@ declare global {
      *
      * Bun leverages a native implementation powered by [lol-html](https://github.com/cloudflare/lol-html).
      *
-     * HTMLRewriter can be used to transform HTML in a letiety of ways, including:
+     * HTMLRewriter can be used to transform HTML in a variety of ways, including:
      * * Rewriting URLs
      * * Adding meta tags
      * * Removing elements
