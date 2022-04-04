@@ -24,3 +24,11 @@ Smooch.updateConversation('conversation-id', { lastUpdatedAt: null, iconUrl: nul
 // We should still not be able to provide the wrong type for one of updateConversation's options
 // $ExpectError
 Smooch.updateConversation('conversation-id', { lastUpdatedAt: 'may', iconUrl: 42 });
+
+// updateUser should allow custom data to be submitted via the metadata property
+Smooch.updateUser({ metadata: { myCustomProperty: 21 } });
+// updateUser should also allow custom data to be submitted via the properties property
+Smooch.updateUser({ properties: { myCustomProperty: 21 } });
+// But updateUser should NOT allow custom data to be added outside of the metadata property
+// $ExpectError
+Smooch.updateUser({ anIncorrectProperty: 21 });

@@ -8,4 +8,5 @@ export default class LinkActionsView extends View {
     previewButtonView: View;
     unlinkButtonView: ButtonView;
     focus(): void;
+    destroy(): void;
 }

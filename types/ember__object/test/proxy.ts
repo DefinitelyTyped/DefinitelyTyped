@@ -35,8 +35,8 @@ book.getTitle(); // $ExpectType string | undefined
 book.getProperties('title', 'unknownProperty'); // $ExpectError
 book.getProperties('title', 'subtitle'); // $ExpectType Pick<Partial<UnwrapComputedPropertyGetters<Book>>, "title" | "subtitle">
 book.getPropertiesTitleSubtitle(); // $ExpectType Pick<Partial<UnwrapComputedPropertyGetters<Book>>, "title" | "subtitle">
-
-book.getProperties(['subtitle', 'chapters']); // $ExpectType Pick<Partial<UnwrapComputedPropertyGetters<Book>>, "subtitle" | "chapters">
+// tslint:disable-next-line
+book.getProperties(['subtitle', 'chapters']); // $ExpectType Pick<Partial<UnwrapComputedPropertyGetters<Book>>, "subtitle" | "chapters"> || Pick<Partial<UnwrapComputedPropertyGetters<Book>>, "chapters" | "subtitle">
 book.getProperties(['title', 'unknownProperty']); // $ExpectError
 
 book.get('baz'); // $ExpectError

@@ -16,6 +16,7 @@ import * as React from 'react';
 import {
     ART,
     AccessibilityInfo,
+    ActionSheetIOS,
     AsyncStorage,
     Alert,
     AppState,
@@ -1778,3 +1779,30 @@ const I18nManagerTest = () => {
 
     console.log(isRTL, isRtlFlag, doLeftAndRightSwapInRTL, doLeftAndRightSwapInRtlFlag);
 };
+
+// ActionSheetIOS
+const ActionSheetIOSTest = () => {
+    // test destructiveButtonIndex undefined
+    ActionSheetIOS.showActionSheetWithOptions({
+        options: ['foo'],
+        destructiveButtonIndex: undefined,
+    }, () => undefined);
+
+    // test destructiveButtonIndex null
+    ActionSheetIOS.showActionSheetWithOptions({
+        options: ['foo'],
+        destructiveButtonIndex: null,
+    }, () => undefined);
+
+    // test destructiveButtonIndex single number
+    ActionSheetIOS.showActionSheetWithOptions({
+        options: ['foo'],
+        destructiveButtonIndex: 0,
+    }, () => undefined);
+
+    // test destructiveButtonIndex number array
+    ActionSheetIOS.showActionSheetWithOptions({
+        options: ['foo', 'bar'],
+        destructiveButtonIndex: [0, 1],
+    }, () => undefined);
+}

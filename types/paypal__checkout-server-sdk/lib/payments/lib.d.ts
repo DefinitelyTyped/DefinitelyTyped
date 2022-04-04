@@ -132,7 +132,7 @@ export interface CaptureRequest {
     final_capture: boolean;
     invoice_id: string;
     note_to_payer: string;
-    payment_instruction: PaymentInstruction;
+    payment_instruction?: PaymentInstruction;
     soft_descriptor: string;
 }
 
@@ -279,8 +279,8 @@ export interface NetAmountBreakdown {
 
 // https://developer.paypal.com/docs/api/payments/v2/#definition-payee
 export interface Payee {
-    email_address: string;
-    merchant_id: string;
+    email_address?: string;
+    merchant_id?: string;
 }
 
 // https://developer.paypal.com/docs/api/payments/v2/#definition-payee_base

@@ -40,6 +40,7 @@ interface HTMLButtonElement extends HTMLElement { }
 interface HTMLCanvasElement extends HTMLElement { }
 interface HTMLDataElement extends HTMLElement { }
 interface HTMLDataListElement extends HTMLElement { }
+interface HTMLDetailsElement extends HTMLElement { }
 interface HTMLDialogElement extends HTMLElement { }
 interface HTMLDivElement extends HTMLElement { }
 interface HTMLDListElement extends HTMLElement { }
@@ -60,10 +61,12 @@ interface HTMLLIElement extends HTMLElement { }
 interface HTMLLinkElement extends HTMLElement { }
 interface HTMLMapElement extends HTMLElement { }
 interface HTMLMetaElement extends HTMLElement { }
+interface HTMLMeterElement extends HTMLElement { }
 interface HTMLObjectElement extends HTMLElement { }
 interface HTMLOListElement extends HTMLElement { }
 interface HTMLOptGroupElement extends HTMLElement { }
 interface HTMLOptionElement extends HTMLElement { }
+interface HTMLOutputElement extends HTMLElement { }
 interface HTMLParagraphElement extends HTMLElement { }
 interface HTMLParamElement extends HTMLElement { }
 interface HTMLPreElement extends HTMLElement { }
@@ -83,6 +86,7 @@ interface HTMLTableRowElement extends HTMLElement { }
 interface HTMLTableSectionElement extends HTMLElement { }
 interface HTMLTemplateElement extends HTMLElement { }
 interface HTMLTextAreaElement extends HTMLElement { }
+interface HTMLTimeElement extends HTMLElement { }
 interface HTMLTitleElement extends HTMLElement { }
 interface HTMLTrackElement extends HTMLElement { }
 interface HTMLUListElement extends HTMLElement { }

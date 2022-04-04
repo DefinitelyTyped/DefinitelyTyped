@@ -120,7 +120,7 @@ class App extends React.Component {
               current_user_name: 'John Doe',
             },
             designTagsConfig: {
-              delimeter: ['[[', ']]'],
+              delimiter: ['[[', ']]'],
             },
             tools: TOOLS_CONFIG,
             blocks: [],
@@ -166,7 +166,7 @@ class App extends React.Component {
             },
           }}
           projectId={1}
-          onLoad={this.handleLoad}
+          onReady={this.handleLoad}
         />
         <button onClick={this.handleClick}>save all</button>
       </>

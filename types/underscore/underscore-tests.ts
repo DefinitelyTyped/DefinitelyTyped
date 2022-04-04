@@ -246,7 +246,7 @@ explicitDictionaryLiteralItem; // $ExpectType StringRecord
     const collectionFunctionIteratee: _.Iteratee<_.Dictionary<StringRecord> | StringRecord[], string> = (element, key, collection) => {
         element; // $ExpectType StringRecord
         key; // $ExpectType string | number
-        collection; // $ExpectType StringRecord[] | Dictionary<StringRecord>
+        collection; // $ExpectType StringRecord[] | Dictionary<StringRecord> || Dictionary<StringRecord> | StringRecord[]
         return element.a;
     };
     collectionFunctionIteratee(recordDictionary['a'], 'a', recordDictionary); // $ExpectType string

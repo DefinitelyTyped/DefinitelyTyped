@@ -20,6 +20,19 @@ const updateListMemberBody = {
     email_address: 'test',
 };
 
+const updateListMemberTagsBody = {
+    tags: [
+        {
+            name: 'test',
+            status: 'active',
+        },
+        {
+            name: 'test2',
+            status: 'inactive',
+        },
+    ],
+};
+
 // Promise<void>
 mailchimp.lists.setListMember('test', 'test', setListMemberBody);
 
@@ -34,3 +47,6 @@ mailchimp.lists.updateListMember('test', 'test', updateListMemberBody);
 
 // Promise<void>
 mailchimp.lists.deleteListMemberPermanent('test', 'test');
+
+// Promise<void>
+mailchimp.lists.updateListMemberTags('test', 'test', updateListMemberTagsBody);

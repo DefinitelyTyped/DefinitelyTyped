@@ -1,4 +1,4 @@
-// For Library Version: 1.98.0
+// For Library Version: 1.100.0
 
 declare module "sap/ui/table/library" {
   import TreeAutoExpandMode1 from "sap/ui/model/TreeAutoExpandMode";
@@ -1164,11 +1164,7 @@ declare module "sap/ui/table/Column" {
 
   import Menu from "sap/ui/unified/Menu";
 
-  import {
-    IColumnHeaderMenu,
-    HorizontalAlign,
-    CSSSize,
-  } from "sap/ui/core/library";
+  import { HorizontalAlign, CSSSize } from "sap/ui/core/library";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -1366,13 +1362,6 @@ declare module "sap/ui/table/Column" {
      * Default value is `false`.
      */
     getAutoResizable(): boolean;
-    /**
-     * @SINCE 1.98.0
-     *
-     * Returns the `sap.ui.core.IColumnHeaderMenu<\code>, which is the current target of the association columnHeaderMenu`,
-     * or null.
-     */
-    getColumnHeaderMenu(): IColumnHeaderMenu;
     /**
      * Gets current value of property {@link #getDefaultFilterOperator defaultFilterOperator}.
      *
@@ -5436,7 +5425,7 @@ declare module "sap/ui/table/Table" {
         /**
          * binding context of the row which has been clicked so that selection has been changed
          */
-        rowContext?: object;
+        rowContext?: Context;
         /**
          * array of row indices which selection has been changed (either selected or deselected)
          */

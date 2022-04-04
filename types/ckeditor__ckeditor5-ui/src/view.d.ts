@@ -347,6 +347,9 @@ export default class View implements DomEmitter, Observable {
      */
     destroy(): void;
 
+    enableCssTransitions?(): void;
+    disableCssTransitions?(): void;
+
     set(option: Record<string, unknown>): void;
     set(name: string, value: unknown): void;
     bind(...bindProperties: string[]): BindChain;

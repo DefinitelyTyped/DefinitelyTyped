@@ -4,7 +4,7 @@ import { createReadStream, createWriteStream } from 'fs';
 
 // Test samples taken from the official documentation
 
-const input: Buffer = new Buffer(0);
+const input: Buffer = Buffer.alloc(0);
 const readableStream: NodeJS.ReadableStream = createReadStream(input);
 const writableStream: NodeJS.WritableStream = createWriteStream(input);
 
@@ -75,6 +75,8 @@ readableStream.pipe(transformer).pipe(writableStream);
 
 console.log(sharp.format);
 console.log(sharp.versions);
+console.log(sharp.vendor.current);
+console.log(sharp.vendor.installed.join(', '));
 
 sharp.queue.on('change', (queueLength: number) => {
     console.log(`Queue contains ${queueLength} task(s)`);
@@ -154,6 +156,16 @@ sharp('input.tiff')
         // output_files contains 512x512 tiles grouped by zoom level
     });
 
+sharp('input.tiff')
+    .png()
+    .tile({
+        size: 512,
+        center: true,
+        layout: 'iiif3',
+        id: 'https://my.image.host/iiif',
+    })
+    .toFile('output');
+
 sharp(input)
     .resize(200, 300, {
         fit: 'contain',
@@ -218,6 +230,22 @@ sharp(input)
     .then((object: { data: Buffer; info: sharp.OutputInfo }) => {
         // Resolve with an object containing data Buffer and an OutputInfo object
         // when resolveWithObject is true
+    });
+
+sharp(input)
+    .resize(640, 480, { withoutEnlargement: true })
+    .toFormat('jpeg')
+    .toBuffer()
+    .then((outputBuffer: Buffer) => {
+        // outputBuffer contains JPEG image data no larger than the input
+    });
+
+sharp(input)
+    .resize(640, 480, { withoutReduction: true })
+    .toFormat('jpeg')
+    .toBuffer()
+    .then((outputBuffer: Buffer) => {
+        // outputBuffer contains JPEG image data no smaller than the input
     });
 
 // Output to tif
@@ -323,7 +351,8 @@ sharp(input)
 sharp(input)
     .gif()
     .gif({})
-    .gif({ pageHeight: 5, loop: 0, delay: [], force: true })
+    .gif({ loop: 0, delay: [], force: true })
+    .gif({ delay: 30 })
     .toBuffer({ resolveWithObject: true })
     .then(({ data, info }) => {
         console.log(data);
@@ -371,6 +400,29 @@ sharp('input.jpg').clahe({ width: 10, height: 10 }).toFile('output.jpg');
 
 sharp('input.jpg').clahe({ width: 10, height: 10, maxSlope: 5 }).toFile('outfile.jpg');
 
+// Support `unlimited` input option
+sharp('input.png', { unlimited: true }).resize(320, 240).toFile('outfile.png');
+
+// Support `subifd` input option for tiffs
+sharp('input.tiff', { subifd: 3 }).resize(320, 240).toFile('outfile.png');
+
+// Support creating with noise
+sharp({
+    create: {
+        background: 'red',
+        channels: 4,
+        height: 100,
+        width: 100,
+        noise: {
+            type: 'gaussian',
+            mean: 128,
+            sigma: 30,
+        },
+    },
+})
+    .png()
+    .toFile('output.png');
+
 sharp(new Uint8Array(input.buffer)).toFile('output.jpg');
 
 // Support for negate options
@@ -411,3 +463,28 @@ sharp(input)
 
 // Support for specifying a timeout
 sharp('someImage.png').timeout({ seconds: 30 }).resize(300, 300).toBuffer();
+
+// Support for `effort` in different formats
+sharp('input.tiff').png({ effort: 9 }).toFile('out.png');
+sharp('input.tiff').webp({ effort: 9 }).toFile('out.webp');
+sharp('input.tiff').avif({ effort: 9 }).toFile('out.avif');
+sharp('input.tiff').heif({ effort: 9 }).toFile('out.heif');
+sharp('input.tiff').gif({ effort: 9 }).toFile('out.gif');
+
+// Support for `colors`/`colours` for gif output
+sharp('input.gif').gif({ colors: 16 }).toFile('out.gif');
+sharp('input.gif').gif({ colours: 16 }).toFile('out.gif');
+
+// Support for `dither` for gif/png output
+sharp('input.gif').gif({ dither: 0.5 }).toFile('out.gif');
+sharp('input.gif').png({ dither: 0.5 }).toFile('out.png');
+
+// Support for `resolutionUnit` for tiff output
+sharp('input.tiff').tiff({ resolutionUnit: 'cm' }).toFile('out.tiff');
+
+// Support for `jp2` output with different options
+sharp('input.tiff').jp2().toFile('out.jp2');
+sharp('input.tiff').jp2({ quality: 50 }).toFile('out.jp2');
+sharp('input.tiff').jp2({ lossless: true }).toFile('out.jp2');
+sharp('input.tiff').jp2({ tileWidth: 128, tileHeight: 128 }).toFile('out.jp2');
+sharp('input.tiff').jp2({ chromaSubsampling: '4:2:0' }).toFile('out.jp2');

@@ -808,6 +808,10 @@
             "libraryName": "css-minimizer-webpack-plugin",
             "asOfVersion": "3.2.0"
         },
+        "cssnano": {
+            "libraryName": "cssnano",
+            "asOfVersion": "5.1.0"
+        },
         "csv-parse": {
             "libraryName": "csv-parse",
             "asOfVersion": "1.2.2"
@@ -1588,6 +1592,10 @@
         "getopts": {
             "libraryName": "getopts",
             "asOfVersion": "2.1.0"
+        },
+        "git-parse": {
+            "libraryName": "git-parse",
+            "asOfVersion": "2.1.1"
         },
         "git-remote-origin-url": {
             "libraryName": "git-remote-origin-url",
@@ -5178,6 +5186,10 @@
         "tween.js": {
             "libraryName": "@tweenjs/tween.js",
             "asOfVersion": "18.6.1"
+        },
+        "twemoji": {
+            "libraryName": "twemoji",
+            "asOfVersion": "13.1.1"
         },
         "twilio": {
             "libraryName": "twilio",

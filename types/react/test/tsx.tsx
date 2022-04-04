@@ -342,6 +342,19 @@ const divRef = React.createRef<HTMLDivElement>();
 <ForwardRef2 ref={divRef}/>;
 <ForwardRef2 ref='string'/>; // $ExpectError
 
+const htmlElementFnRef = (instance: HTMLElement | null) => {};
+const htmlElementRef = React.createRef<HTMLElement>();
+<div ref={htmlElementFnRef} />;
+<div ref={htmlElementRef} />;
+// `current` is nullable
+const unsoundDivFnRef = (current: HTMLDivElement) => {};
+declare const unsoundDivObjectRef: { current: HTMLDivElement };
+// `current` is nullable but type-checks
+// this is consistent with ref objects
+// If this ever not type-checks, `<div ref={unsoundDivObjectRef}` should also fail type-checking
+<div ref={unsoundDivFnRef} />;
+<div ref={unsoundDivObjectRef} />;
+
 const newContextRef = React.createRef<NewContext>();
 <NewContext ref={newContextRef}/>;
 <NewContext ref='string'/>;
