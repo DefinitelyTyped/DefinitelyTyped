@@ -230,8 +230,8 @@ declare module 'opentok' {
     ): void;
     public listStreams(sessionId: string, callback: (error: Error | null, streams?: OpenTok.Stream[]) => void): void;
     public patchArchive(
-      archiveId: string, 
-      options: OpenTok.PatchStream, 
+      archiveId: string,
+      options: OpenTok.PatchStream,
       callback: (error: Error | null) => void
     ): void;
     public playDTMF(
