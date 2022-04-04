@@ -14,10 +14,10 @@ export interface RenderProps {
 }
 
 interface ReactFacebookLoginRenderProps extends ReactFacebookLoginProps {
-    render: (renderProps: RenderProps) => React.ReactChild;
+    render?: (renderProps: RenderProps) => React.ReactChild;
 }
 
-export default class FacebookLoginRenderProps extends React.Component<
+export default class FacebookLoginRender extends React.Component<
     ReactFacebookLoginRenderProps,
     ReactFacebookLoginState
 > {}
