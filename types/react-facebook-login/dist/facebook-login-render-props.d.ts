@@ -1,0 +1,23 @@
+// Type definitions for react-facebook-login 4.1
+// Specific use case when adding custom render component
+// https://www.npmjs.com/package/react-facebook-login#facebook-button-without-styling
+// Definitions by: Hafiz Temuri <https://github.com/temurih>
+
+import * as React from "react";
+import {ReactFacebookLoginProps, ReactFacebookLoginState} from 'react-facebook-login';
+
+export interface RenderProps {
+    onClick: () => void;
+    isDisabled: boolean;
+    isProcessing: boolean;
+    isSdkLoaded: boolean;
+}
+
+interface ReactFacebookLoginRenderProps extends ReactFacebookLoginProps {
+    render: (renderProps: RenderProps) => React.ReactChild;
+}
+
+export default class FacebookLoginRenderProps extends React.Component<
+    ReactFacebookLoginRenderProps,
+    ReactFacebookLoginState
+> {}
