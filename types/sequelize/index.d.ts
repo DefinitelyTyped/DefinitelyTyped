@@ -3292,7 +3292,7 @@ declare namespace sequelize {
         /**
          * Load further nested related models
          */
-        include?: Array<Model<any, any> | IncludeOptions> | undefined;
+        include?: Array<Model<any, any> | IncludeOptions> | Model<any, any> | IncludeOptions | undefined;
 
         /**
          * If true, only non-deleted records will be returned. If false, both deleted and non-deleted records will
@@ -3355,7 +3355,7 @@ declare namespace sequelize {
          * If your association are set up with an `as` (eg. `X.hasMany(Y, { as: 'Z }`, you need to specify Z in
          * the as attribute when eager loading Y).
          */
-        include?: Array<Model<any, any> | IncludeOptions> | undefined;
+        include?: Array<Model<any, any> | IncludeOptions> | Model<any, any> | IncludeOptions | undefined;
 
         /**
          * Specifies an ordering. If a string is provided, it will be escaped. Using an array, you can provide
@@ -3436,7 +3436,7 @@ declare namespace sequelize {
         /**
          * Include options. See `find` for details
          */
-        include?: Array<Model<any, any> | IncludeOptions> | undefined;
+        include?: Array<Model<any, any> | IncludeOptions> | Model<any, any> | IncludeOptions | undefined;
 
         /**
          * Apply column on which COUNT() should be applied
