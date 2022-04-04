@@ -2,7 +2,6 @@
 // Project: https://developers.google.com/maps/
 // Definitions by: Justin Poehnelt <https://github.com/jpoehnelt>
 //                 Alex Muramoto <https://github.com/amuramoto>
-//                 Chris Arriola <https://github.com/arriolac>
 //                 Angela Yu <https://github.com/wangela>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
