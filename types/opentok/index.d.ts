@@ -73,8 +73,8 @@ declare module 'opentok' {
     export interface PatchStream {
       addStream?: string;
       removeStream?: string;
-      hasAudio: boolean;
-      hasVideo: boolean;
+      hasAudio?: boolean | undefined;
+      hasVideo?: boolean | undefined;
     }
 
     export interface Session {
