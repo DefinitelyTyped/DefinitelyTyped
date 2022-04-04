@@ -35,6 +35,10 @@ url2.set('slashes', true);
 url2.set('query', 'bar=foo');
 url2.set('query', {queryParameterName: 'queryParameterValue'});
 
+const url5 = new URL('https://github.com/foo/bar?baz=true', true);
+url5.set('query', {queryParameterName: 'queryParameterValue'});
+url5.query.queryParameterName;
+
 URL.extractProtocol('https://github.com/foo/bar');
 URL.location('https://github.com/foo/bar');
 URL.trimLeft('   https://github.com/foo/bar');

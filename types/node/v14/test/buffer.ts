@@ -148,13 +148,17 @@ let a: Buffer | number;
 a = new Buffer(10);
 if (Buffer.isBuffer(a)) {
     a.writeUInt8(3, 4);
+    a.writeUint8(3, 4);
 }
 
 // write* methods return offsets.
 const b = new Buffer(16);
 let result: number = b.writeUInt32LE(0, 0);
+result = b.writeUint32LE(0, 0);
 result = b.writeUInt16LE(0, 4);
+result = b.writeUint16LE(0, 4);
 result = b.writeUInt8(0, 6);
+result = b.writeUint8(0, 6);
 result = b.writeInt8(0, 7);
 result = b.writeDoubleLE(0, 8);
 result = b.write('asd');

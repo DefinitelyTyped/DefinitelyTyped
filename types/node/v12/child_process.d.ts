@@ -120,6 +120,16 @@ declare module 'child_process' {
 
     type StdioOptions = "pipe" | "ignore" | "inherit" | Array<("pipe" | "ipc" | "ignore" | "inherit" | Stream | number | null | undefined)>;
 
+    type SerializationType = 'json' | 'advanced';
+
+    interface MessagingOptions {
+        /**
+         * Specify the kind of serialization used for sending messages between processes.
+         * @default 'json'
+         */
+        serialization?: SerializationType | undefined;
+    }
+
     interface ProcessEnvOptions {
         uid?: number | undefined;
         gid?: number | undefined;
@@ -138,7 +148,7 @@ declare module 'child_process' {
         timeout?: number | undefined;
     }
 
-    interface SpawnOptions extends CommonOptions {
+    interface SpawnOptions extends CommonOptions, MessagingOptions {
         argv0?: string | undefined;
         stdio?: StdioOptions | undefined;
         detached?: boolean | undefined;
@@ -408,7 +418,7 @@ declare module 'child_process' {
         ): PromiseWithChild<{ stdout: string | Buffer, stderr: string | Buffer }>;
     }
 
-    interface ForkOptions extends ProcessEnvOptions {
+    interface ForkOptions extends ProcessEnvOptions, MessagingOptions {
         execPath?: string | undefined;
         execArgv?: string[] | undefined;
         silent?: boolean | undefined;

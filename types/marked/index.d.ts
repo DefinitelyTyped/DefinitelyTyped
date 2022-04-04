@@ -11,6 +11,7 @@
 //                 Tony Brix <https://github.com/UziTech>
 //                 Anatolii Titov <https://github.com/Toliak>
 //                 Jean-Francois Cere <https://github.com/jfcere>
+//                 Mykhaylo Stolyarchuk <https://github.com/MykSto>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
@@ -127,34 +128,34 @@ export namespace marked {
     class Tokenizer<T = never> {
         constructor(options?: MarkedOptions);
         options: MarkedOptions;
-        space(this: TokenizerThis, src: string): Tokens.Space | T;
-        code(this: TokenizerThis, src: string): Tokens.Code | T;
-        fences(this: TokenizerThis, src: string): Tokens.Code | T;
-        heading(this: TokenizerThis, src: string): Tokens.Heading | T;
-        hr(this: TokenizerThis, src: string): Tokens.Hr | T;
-        blockquote(this: TokenizerThis, src: string): Tokens.Blockquote | T;
-        list(this: TokenizerThis, src: string): Tokens.List | T;
-        html(this: TokenizerThis, src: string): Tokens.HTML | T;
-        def(this: TokenizerThis, src: string): Tokens.Def | T;
-        table(this: TokenizerThis, src: string): Tokens.Table | T;
-        lheading(this: TokenizerThis, src: string): Tokens.Heading | T;
-        paragraph(this: TokenizerThis, src: string): Tokens.Paragraph | T;
-        text(this: TokenizerThis, src: string): Tokens.Text | T;
-        escape(this: TokenizerThis, src: string): Tokens.Escape | T;
-        tag(this: TokenizerThis, src: string): Tokens.Tag | T;
-        link(this: TokenizerThis, src: string): Tokens.Image | Tokens.Link | T;
+        space(this: Tokenizer & TokenizerThis, src: string): Tokens.Space | T;
+        code(this: Tokenizer & TokenizerThis, src: string): Tokens.Code | T;
+        fences(this: Tokenizer & TokenizerThis, src: string): Tokens.Code | T;
+        heading(this: Tokenizer & TokenizerThis, src: string): Tokens.Heading | T;
+        hr(this: Tokenizer & TokenizerThis, src: string): Tokens.Hr | T;
+        blockquote(this: Tokenizer & TokenizerThis, src: string): Tokens.Blockquote | T;
+        list(this: Tokenizer & TokenizerThis, src: string): Tokens.List | T;
+        html(this: Tokenizer & TokenizerThis, src: string): Tokens.HTML | T;
+        def(this: Tokenizer & TokenizerThis, src: string): Tokens.Def | T;
+        table(this: Tokenizer & TokenizerThis, src: string): Tokens.Table | T;
+        lheading(this: Tokenizer & TokenizerThis, src: string): Tokens.Heading | T;
+        paragraph(this: Tokenizer & TokenizerThis, src: string): Tokens.Paragraph | T;
+        text(this: Tokenizer & TokenizerThis, src: string): Tokens.Text | T;
+        escape(this: Tokenizer & TokenizerThis, src: string): Tokens.Escape | T;
+        tag(this: Tokenizer & TokenizerThis, src: string): Tokens.Tag | T;
+        link(this: Tokenizer & TokenizerThis, src: string): Tokens.Image | Tokens.Link | T;
         reflink(
-            this: TokenizerThis,
+            this: Tokenizer & TokenizerThis,
             src: string,
             links: Tokens.Link[] | Tokens.Image[],
         ): Tokens.Link | Tokens.Image | Tokens.Text | T;
-        emStrong(this: TokenizerThis, src: string, maskedSrc: string, prevChar: string): Tokens.Em | Tokens.Strong | T;
-        codespan(this: TokenizerThis, src: string): Tokens.Codespan | T;
-        br(this: TokenizerThis, src: string): Tokens.Br | T;
-        del(this: TokenizerThis, src: string): Tokens.Del | T;
-        autolink(this: TokenizerThis, src: string, mangle: (cap: string) => string): Tokens.Link | T;
-        url(this: TokenizerThis, src: string, mangle: (cap: string) => string): Tokens.Link | T;
-        inlineText(this: TokenizerThis, src: string, smartypants: (cap: string) => string): Tokens.Text | T;
+        emStrong(this: Tokenizer & TokenizerThis, src: string, maskedSrc: string, prevChar: string): Tokens.Em | Tokens.Strong | T;
+        codespan(this: Tokenizer & TokenizerThis, src: string): Tokens.Codespan | T;
+        br(this: Tokenizer & TokenizerThis, src: string): Tokens.Br | T;
+        del(this: Tokenizer & TokenizerThis, src: string): Tokens.Del | T;
+        autolink(this: Tokenizer & TokenizerThis, src: string, mangle: (cap: string) => string): Tokens.Link | T;
+        url(this: Tokenizer & TokenizerThis, src: string, mangle: (cap: string) => string): Tokens.Link | T;
+        inlineText(this: Tokenizer & TokenizerThis, src: string, smartypants: (cap: string) => string): Tokens.Text | T;
     }
 
     type TokenizerObject = Partial<Omit<Tokenizer<false>, 'constructor' | 'options'>>;

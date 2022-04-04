@@ -10,7 +10,7 @@ export class Dashboard {
 
     delete(callback?: Callback<object>): Promise<any>;
 
-    components(componentIds: () => any | string[] | string, callback?: Callback<object>): Promise<any>;
+    components(componentIds: string[] | string | Callback<object>, callback?: Callback<object>): Promise<any>;
 
     status(callback?: Callback<object>): Promise<any>;
 
@@ -38,13 +38,13 @@ export class Report {
 
     explain(callback?: Callback<ExplainInfo>): Promise<ExplainInfo>;
 
-    run(options: () => any | object, callback?: Callback<ReportResult>): Promise<ReportResult>;
+    run(options: object | Callback<ReportResult>, callback?: Callback<ReportResult>): Promise<ReportResult>;
 
-    exec(options: () => any | object, callback?: Callback<ReportResult>): Promise<ReportResult>;
+    exec(options: object | Callback<ReportResult>, callback?: Callback<ReportResult>): Promise<ReportResult>;
 
-    execute(options: () => any | object, callback?: Callback<ReportResult>): Promise<ReportResult>;
+    execute(options: object | Callback<ReportResult>, callback?: Callback<ReportResult>): Promise<ReportResult>;
 
-    executeAsync(options: () => any | object, callback?: Callback<ReportInstanceAttrs>): Promise<ReportInstanceAttrs>;
+    executeAsync(options: object | Callback<ReportInstanceAttrs>, callback?: Callback<ReportInstanceAttrs>): Promise<ReportInstanceAttrs>;
 
     instance(id: string): ReportInstance;
 

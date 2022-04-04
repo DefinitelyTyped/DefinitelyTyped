@@ -51,7 +51,7 @@ export interface CategoryOption<T> {
     /**
      * The category child options.
      */
-    options: Array<Option<T>>;
+    options: ReadonlyArray<Option<T>> | Array<Option<T>>;
 }
 
 /**
@@ -66,11 +66,11 @@ export interface Filter<T> {
     /**
      * Available options.
      */
-    available: T[];
+    available: readonly T[] | T[];
     /**
      * Selected options.
      */
-    selected: T[];
+    selected: readonly T[] | T[];
 }
 
 /**
@@ -80,11 +80,11 @@ export interface CommonProperties<T> {
     /**
      * Available options.
      */
-    options: Array<Option<T>>;
+    options: ReadonlyArray<Option<T>> | Array<Option<T>>;
     /**
      * Selected options.
      */
-    selected?: T[];
+    selected?: readonly T[] | T[];
     /**
      * A React function `ref` to the "selected" list box.
      */
@@ -105,7 +105,7 @@ export interface CommonProperties<T> {
      * A subset of the `options` array to optionally filter the available list
      * box.
      */
-    available?: T[];
+    available?: readonly T[] | T[];
     /**
      * A React function `ref` to the "available" list box.
      *

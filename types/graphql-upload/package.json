@@ -1,6 +1,6 @@
 {
   "private": true,
   "dependencies": {
-    "graphql": "^16.2.0"
+    "graphql": "0.13.1 - 16"
   }
 }

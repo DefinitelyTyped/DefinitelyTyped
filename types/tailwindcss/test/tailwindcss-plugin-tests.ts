@@ -30,5 +30,40 @@ const tailwindConfig: TailwindConfig = {
                 { values: theme('gap') },
             );
         }),
+        plugin.withOptions(options => {
+            return ({ addComponents }) => {
+                const className = options.className ?? 'markdown';
+
+                addComponents({
+                    [`.${className}`]: {
+                        // ...
+                    },
+                });
+            };
+        })({ className: 'wsiwyg' }),
+        plugin.withOptions(options => {
+            return ({ addComponents }) => {
+                const className = options.className ?? 'markdown';
+
+                addComponents({
+                    [`.${className}`]: {
+                        // ...
+                    },
+                });
+            };
+        }),
+        plugin.withOptions(options => {
+            return ({ addComponents }) => {
+                const className = options.className ?? 'markdown';
+
+                addComponents([
+                    {
+                        [`.${className}`]: {
+                            // ...
+                        },
+                    },
+                ]);
+            };
+        }),
     ],
 };

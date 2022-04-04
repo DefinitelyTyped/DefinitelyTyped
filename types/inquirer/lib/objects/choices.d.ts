@@ -8,7 +8,7 @@ import Separator = require('./separator');
  * @template T
  * The type of the answers.
  */
-type DistinctChoice<T> = AllChoiceMap<T>[keyof AllChoiceMap<T>];
+type DistinctChoice<T extends Answers> = AllChoiceMap<T>[keyof AllChoiceMap<T>];
 
 /**
  * Represents a valid real choice for the `Choices` class.
@@ -16,7 +16,7 @@ type DistinctChoice<T> = AllChoiceMap<T>[keyof AllChoiceMap<T>];
  * @template T
  * The type of the answers.
  */
-type RealChoice<T> = Exclude<DistinctChoice<T>, { type: Separator['type'] }>;
+type RealChoice<T extends Answers> = Exclude<DistinctChoice<T>, { type: Separator['type'] }>;
 
 /**
  * Represents a property-name of any choice-type.
@@ -24,7 +24,7 @@ type RealChoice<T> = Exclude<DistinctChoice<T>, { type: Separator['type'] }>;
  * @template T
  * The type of the answers.
  */
-type ChoiceProperty<T> = KeyUnion<UnionToIntersection<RealChoice<T>>>;
+type ChoiceProperty<T extends Answers> = KeyUnion<UnionToIntersection<RealChoice<T>>>;
 
 /**
  * A collection of multiple `Choice`-objects.

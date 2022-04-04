@@ -180,7 +180,7 @@ declare namespace Generator {
         /**
          * The type of the option.
          */
-        type: typeof Boolean | typeof String | typeof Number;
+        type: typeof Boolean | typeof String | typeof Number | ((opt: string) => any);
 
         /**
          * The option name alias (example `-h` and --help`).
@@ -570,7 +570,7 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
     /**
      * Prompt user to answer questions.
      */
-    prompt<T>(questions: Generator.Questions<T>): Promise<T>;
+    prompt<T extends InquirerAnswers>(questions: Generator.Questions<T>): Promise<T>;
 
     /**
      * Queues the basic tasks of the generator.
@@ -628,7 +628,7 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      * @param questions
      * The questions to register.
      */
-    registerConfigPrompts<TAnswers>(
+    registerConfigPrompts<TAnswers extends InquirerAnswers>(
         questions:
             | Generator.QuestionRegistrationOptions<TAnswers>
             | Array<Generator.QuestionRegistrationOptions<TAnswers>>,

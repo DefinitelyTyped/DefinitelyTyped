@@ -36,6 +36,7 @@ es/construct.d.ts
 es/constructN.d.ts
 es/contains.d.ts
 es/converge.d.ts
+es/count.d.ts
 es/countBy.d.ts
 es/curry.d.ts
 es/curryN.d.ts
@@ -290,6 +291,7 @@ src/construct.d.ts
 src/constructN.d.ts
 src/contains.d.ts
 src/converge.d.ts
+src/count.d.ts
 src/countBy.d.ts
 src/curry.d.ts
 src/curryN.d.ts

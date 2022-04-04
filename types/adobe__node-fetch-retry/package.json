@@ -1,6 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "@types/node-fetch": "^2.5.12"
-    }
-}

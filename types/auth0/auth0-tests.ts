@@ -145,6 +145,7 @@ management
     });
 
 auth.requestChangePasswordEmail({
+    client_id: 'client_id',
     connection: 'My-Connection',
     email: 'hi@me.co',
 })
@@ -346,7 +347,6 @@ management.assignPermissionsToUser(
 );
 
 // Using different client settings.
-
 const retryableManagementClient = new auth0.ManagementClient({
     clientId: '',
     clientSecret: '',
@@ -682,6 +682,7 @@ management
     )
     .then(() => console.log('It worked'))
     .catch(err => console.log('Something went wrong ' + err));
+
 management.removePermissionsFromRole(
     { id: 'role_id' },
     {
@@ -705,6 +706,7 @@ management
     )
     .then(() => console.log('It worked'))
     .catch(err => console.log('Something went wrong ' + err));
+
 management.addPermissionsInRole(
     { id: 'role_id' },
     {
@@ -950,16 +952,17 @@ async () => {
     const options: auth0.PasswordlessOptions = {};
     options.forwardedFor = '{YOUR_IP}';
 
-    let token: auth0.SignInToken;
-    token = await authentication.passwordless.signIn(signInUserData);
-    token = await authentication.passwordless.signIn(signInUserData, options);
+    // $ExpectType SignInToken
+    await authentication.passwordless.signIn(signInUserData);
+    // $ExpectType SignInToken
+    await authentication.passwordless.signIn(signInUserData, options);
     authentication.passwordless.signIn(signInUserData, (err, data) => {
         err; // $ExpectType Error
-        token = data;
+        data; // $ExpectType SignInToken
     });
     authentication.passwordless.signIn(signInUserData, options, (err, data) => {
         err; // $ExpectType Error
-        token = data;
+        data; // $ExpectType SignInToken
     });
 
     await authentication.passwordless.sendEmail(emailUserData);
@@ -1585,3 +1588,14 @@ management.organizations.removeMemberRoles(
 management.organizations
     .removeMemberRoles({ id: 'organization_id', user_id: 'user_id' }, { roles: ['role_id'] })
     .then(() => {});
+
+// Device Credentials
+management.getDeviceCredentials({ user_id: 'user_id' }).then(deviceCredentials => {
+    deviceCredentials; // $ExpectType DeviceCredential[]
+});
+management.getDeviceCredentials({ user_id: 'user_id' }, (err, deviceCredentials) => {
+    deviceCredentials; // $ExpectType DeviceCredential[]
+});
+
+management.deleteDeviceCredential({ id: 'id' }).then(() => {});
+management.deleteDeviceCredential({ id: 'id' }, err => {});

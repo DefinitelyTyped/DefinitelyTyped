@@ -220,7 +220,7 @@ function testUtilTypes(
         object; // $ExpectType Boolean
     }
     if (util.types.isBoxedPrimitive(object)) {
-        object; // $ExpectType String | Number | Boolean | BigInt | Symbol
+        object; // $ExpectType String | Number | Boolean | BigInt | Symbol || String | Number | Boolean | Symbol | BigInt
     }
     if (util.types.isDataView(object)) {
         object; // $ExpectType DataView

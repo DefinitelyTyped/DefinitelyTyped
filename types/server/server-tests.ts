@@ -69,6 +69,7 @@ server(
         favicon: 'public/logo.png',
         parser: { body: { limit: '1mb' } },
         security: {
+            csrf: false,
             dnsPrefetchControl: { allow: true },
         },
         session: {

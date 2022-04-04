@@ -7,7 +7,7 @@
 
 import type { TailwindConfig } from './tailwind-config';
 
-declare function tailwindcss(config: TailwindConfig): {
+declare function tailwindcss(config?: TailwindConfig | string): {
     postcssPlugin: 'tailwindcss';
     plugins: string[];
 };

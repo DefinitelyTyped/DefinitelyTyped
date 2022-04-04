@@ -3,7 +3,7 @@ import { Scene, Camera, ColorRepresentation, ShaderMaterial, WebGLRenderTarget }
 import { Pass } from './Pass';
 
 export class SSAARenderPass extends Pass {
-    constructor(scene: Scene, camera: Camera, clearColor: ColorRepresentation, clearAlpha: number);
+    constructor(scene: Scene, camera: Camera, clearColor?: ColorRepresentation, clearAlpha?: number);
     scene: Scene;
     camera: Camera;
     sampleLevel: number;
