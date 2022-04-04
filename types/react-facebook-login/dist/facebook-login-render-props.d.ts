@@ -3,7 +3,7 @@
 // Definitions by: Hafiz Temuri <https://github.com/temurih>
 
 import * as React from "react";
-import {ReactFacebookLoginProps, ReactFacebookLoginState} from 'react-facebook-login';
+import { ReactFacebookLoginProps, ReactFacebookLoginState } from '..';
 
 export interface RenderProps {
     onClick: () => void;
@@ -12,7 +12,7 @@ export interface RenderProps {
     isSdkLoaded: boolean;
 }
 
-interface ReactFacebookLoginRenderProps extends ReactFacebookLoginProps {
+export interface ReactFacebookLoginRenderProps extends ReactFacebookLoginProps {
     render?: (renderProps: RenderProps) => React.ReactChild;
 }
 
