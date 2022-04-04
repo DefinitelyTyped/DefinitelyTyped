@@ -1208,7 +1208,8 @@ import { promisify } from 'node:util';
     };
 
     cert.checkEmail('test@test.com'); // $ExpectType string | undefined
-    cert.checkEmail('test@test.com', { subject: checkOpts.subject }); // $ExpectType string | undefined
+    cert.checkEmail('test@test.com', checkOpts); // $ExpectType string | undefined
+    cert.checkEmail('test@test.com', { subject: 'always' }); // $ExpectType string | undefined
     cert.checkHost('test.com'); // $ExpectType string | undefined
     cert.checkHost('test.com', checkOpts); // $ExpectType string | undefined
     cert.checkIP('1.1.1.1'); // $ExpectType string | undefined
