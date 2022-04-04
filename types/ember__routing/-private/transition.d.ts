@@ -40,7 +40,7 @@ export default interface Transition<T = unknown> extends Partial<Promise<T>> {
      * @param label optional string for labeling the promise. Useful for tooling.
      */
     catch<TResult = never>(
-        onRejected?: (reason: any) => TResult | PromiseLike<TResult>,
+        onRejected?: (reason: unknown) => TResult | PromiseLike<TResult>,
         label?: string,
     ): Promise<TResult | T>;
     /**
@@ -90,7 +90,7 @@ export default interface Transition<T = unknown> extends Partial<Promise<T>> {
      */
     then<TResult1 = T, TResult2 = never>(
         onfulfilled?: (value: T) => TResult1 | PromiseLike<TResult1>,
-        onrejected?: (reason: any) => TResult2 | PromiseLike<TResult2>,
+        onrejected?: (reason: unknown) => TResult2 | PromiseLike<TResult2>,
         label?: string,
     ): Promise<TResult1 | TResult2>;
     /**

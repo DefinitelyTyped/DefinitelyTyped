@@ -7,6 +7,7 @@ declare var $: (arg?: any) => JQuery;
 {
     URI();
     URI('http://user:pass@example.org:80/foo/bar.html?foo=bar&bar=baz#frag');
+    URI('/foo.html', 'https://example.org');
     URI({
         protocol: 'http',
         username: 'user',
@@ -21,6 +22,7 @@ declare var $: (arg?: any) => JQuery;
 
     new URI();
     new URI('http://user:pass@example.org:80/foo/bar.html?foo=bar&bar=baz#frag');
+    new URI('/foo.html', 'https://example.org');
     new URI({
         protocol: 'http',
         username: 'user',
@@ -268,4 +270,12 @@ declare var $: (arg?: any) => JQuery;
     u.search(() => {
         // Return nothing
     });
+
+    /*
+    Tests for ReadonlyURI
+    */
+    const readonlyUri: URI.ReadonlyURI = uri;
+    let mutableUri: URI = readonlyUri.clone();
+    // $ExpectError
+    mutableUri = readonlyUri;
 }

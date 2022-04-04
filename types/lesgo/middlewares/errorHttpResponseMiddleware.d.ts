@@ -1,15 +1,22 @@
-import { MiddlewareFunction } from "middy";
-import { HttpGatewayEvent } from "./normalizeHttpRequestMiddleware";
-import { MiddlewareOptions } from "./successHttpResponseMiddleware";
+import middy from '@middy/core';
+import { HttpGatewayEvent } from './normalizeHttpRequestMiddleware';
+import { HttpMiddlewareOptions } from './httpMiddleware';
 
-export interface ErrorHttpResponse {
-    headers: Record<string, string | null>;
-    statusCode: number;
-    body: string;
+export interface ErrorHttpMiddlewareOptions extends HttpMiddlewareOptions {
+    logger?: (message: any) => void;
+    error?: Error;
 }
 
 export interface ErrorHttpMiddleware {
-    onError: MiddlewareFunction<HttpGatewayEvent, ErrorHttpResponse>;
+    onError: middy.MiddlewareFunction<HttpGatewayEvent, any>;
 }
 
-export default function errorHttpResponseMiddleware(opts?: MiddlewareOptions): ErrorHttpMiddleware;
+export function errorHttpResponseAfterHandler(
+    handler: middy.HandlerLambda<HttpGatewayEvent>,
+    next: middy.NextFunction,
+    opts?: ErrorHttpMiddlewareOptions,
+): void;
+
+export function errorHttpResponseHandler(opts?: ErrorHttpMiddlewareOptions): any;
+
+export default function errorHttpResponseMiddleware(opts?: ErrorHttpMiddlewareOptions): ErrorHttpMiddleware;

@@ -1,19 +1,20 @@
 import * as React from 'react';
 import {
-  InstantSearch,
-  Hits,
-  Highlight,
-  SearchBox,
-  RefinementList,
-  CurrentRefinements,
   ClearRefinements,
-  Pagination,
-  Menu,
   Configure,
-  Index,
-  SortBy,
+  CurrentRefinements,
+  DynamicWidgets,
+  Highlight,
+  Hits,
   HitsPerPage,
+  Index,
+  InstantSearch,
+  Menu,
   MenuSelect,
+  Pagination,
+  RefinementList,
+  SearchBox,
+  SortBy,
 } from 'react-instantsearch/dom';
 import { Hit, connectRefinementList, connectMenu, InstantSearchProps } from 'react-instantsearch-core';
 
@@ -332,4 +333,8 @@ const test = () => {
       seeAllOption: 'See all',
     }}
   />;
+};
+
+() => {
+    <DynamicWidgets fallbackComponent={RefinementList} className="test" attributesToRender={['']}><RefinementList attribute="brand"/></DynamicWidgets>;
 };

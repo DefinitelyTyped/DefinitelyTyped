@@ -1,4 +1,4 @@
-// Type definitions for non-npm package frida-gum 17.2
+// Type definitions for non-npm package frida-gum 18.0
 // Project: https://github.com/frida/frida
 // Definitions by: Ole André Vadla Ravnås <https://github.com/oleavr>
 //                 Francesco Tamagni <https://github.com/mrmacete>
@@ -4511,6 +4511,13 @@ declare namespace Java {
     function array(type: string, elements: any[]): any[];
 
     /**
+     * Generates a backtrace for the current thread.
+     *
+     * @param options Options to customize the stack-walking.
+     */
+    function backtrace(options?: BacktraceOptions): Backtrace;
+
+    /**
      * Determines whether the caller is running on the main thread.
      */
     function isMainThread(): boolean;
@@ -4608,7 +4615,7 @@ declare namespace Java {
         methods: [string, ...string[]];
     }
 
-    interface ChooseCallbacks {
+    interface ChooseCallbacks<T extends Members<T> = {}> {
         /**
          * Called with each live instance found with a ready-to-use `instance`
          * just as if you would have called `Java.cast()` with a raw handle to
@@ -4616,12 +4623,64 @@ declare namespace Java {
          *
          * May return `EnumerateAction.Stop` to stop the enumeration early.
          */
-        onMatch: (instance: Wrapper) => void | EnumerateAction;
+        onMatch: (instance: Wrapper<T>) => void | EnumerateAction;
 
         /**
          * Called when all instances have been enumerated.
          */
         onComplete: () => void;
+    }
+
+    /**
+     * Options that may be passed to `Java.backtrace()`.
+     */
+    interface BacktraceOptions {
+        /**
+         * Limit how many frames up the stack to walk. Defaults to 16.
+         */
+        limit?: number;
+    }
+
+    /**
+     * Backtrace returned by `Java.backtrace()`.
+     */
+    interface Backtrace {
+        /**
+         * ID that can be used for deduplicating identical backtraces.
+         */
+        id: string;
+
+        /**
+         * Stack frames.
+         */
+        frames: Frame[];
+    }
+
+    interface Frame {
+        /**
+         * Signature, e.g. `"Landroid/os/Looper;,loopOnce,(Landroid/os/Looper;JI)Z"`.
+         */
+        signature: string;
+
+        /**
+         * Class name that method belongs to, e.g. `"android.os.Looper"`.
+         */
+        className: string;
+
+        /**
+         * Method name, e.g. `"loopOnce"`.
+         */
+        methodName: string;
+
+        /**
+         * Source file name, e.g. `"Looper.java"`.
+         */
+        fileName: string;
+
+        /**
+         * Source line number, e.g. `201`.
+         */
+        lineNumber: number;
     }
 
     type Members<T> = Record<keyof T, MethodDispatcher | Field>;

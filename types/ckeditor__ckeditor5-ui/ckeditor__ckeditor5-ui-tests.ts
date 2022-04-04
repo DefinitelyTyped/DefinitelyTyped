@@ -42,16 +42,19 @@ import {
     ToolbarView,
     TooltipView,
     View,
-    ViewCollection,
+    ViewCollection
 } from '@ckeditor/ckeditor5-ui';
 import preventDefault from '@ckeditor/ckeditor5-ui/src/bindings/preventdefault';
 import DropdownPanelView from '@ckeditor/ckeditor5-ui/src/dropdown/dropdownpanelview';
 import DropdownView from '@ckeditor/ckeditor5-ui/src/dropdown/dropdownview';
 import IframeView from '@ckeditor/ckeditor5-ui/src/iframe/iframeview';
+import InputView from '@ckeditor/ckeditor5-ui/src/input/inputview';
+import InputNumberView from '@ckeditor/ckeditor5-ui/src/inputnumber/inputnumberview';
+import { createLabeledInputNumber } from '@ckeditor/ckeditor5-ui/src/labeledfield/utils';
 import LabeledInputView from '@ckeditor/ckeditor5-ui/src/labeledinput/labeledinputview';
 import ListSeparatorView from '@ckeditor/ckeditor5-ui/src/list/listseparatorview';
 import ToolbarLineBreakView from '@ckeditor/ckeditor5-ui/src/toolbar/toolbarlinebreakview';
-import { DomEmitterMixin, EmitterMixin, FocusTracker, KeystrokeHandler, Locale } from '@ckeditor/ckeditor5-utils';
+import { DomEmitterMixin, FocusTracker, KeystrokeHandler, Locale } from '@ckeditor/ckeditor5-utils';
 
 let num = 0;
 let str = '';
@@ -113,6 +116,11 @@ view.destroy();
 
 htmlelement = view.element!;
 view.element === null;
+
+// $ExpectType void | undefined
+view.disableCssTransitions?.();
+// $ExpectType void | undefined
+view.enableCssTransitions?.();
 
 /**
  * ViewCollection
@@ -199,6 +207,7 @@ model.a = num;
  */
 const listView = new ListView(locale);
 listView.focus();
+listView.destroy();
 let focusTracker: FocusTracker = listView.focusTracker;
 // $ExpectError
 listView.focusTracker as ListView;
@@ -229,7 +238,7 @@ str = tooltip.text;
  * clickOutsideHandler
  */
 clickOutsideHandler({
-    emitter: Object.create(EmitterMixin),
+    emitter: new View(),
     activator: () => false,
     contextElements: [document.createElement('div')],
     callback: () => {},
@@ -286,7 +295,7 @@ const colorDefinition = {
 const [colorDefinition1] = getLocalizedColorOptions(locale, [colorDefinition]);
 const [colorDefinition2] = normalizeColorOptions([colorDefinition1]);
 
-new ColorGridView(locale);
+new ColorGridView(locale).destroy();
 new ColorGridView(locale, { colorDefinitions: [colorDefinition1, colorDefinition2] });
 
 new ColorTileView(locale);
@@ -303,6 +312,7 @@ view = dropdownbuttonview.arrowView;
 const splitbuttonview = new SplitButtonView(locale);
 view = splitbuttonview.arrowView;
 view = splitbuttonview.actionView;
+splitbuttonview.destroy();
 
 /**
  * Dropdown
@@ -356,7 +366,7 @@ str = iconview.viewBox;
 /**
  * InputTextView
  */
-let inputtextview = new InputTextView();
+let inputtextview = new InputTextView(locale);
 inputtextview.focus();
 inputtextview.focusTracker;
 
@@ -413,7 +423,8 @@ contextualballon.showStack('foo');
 const stickypanelview = new StickyPanelView();
 viewCollection = stickypanelview.content;
 num = stickypanelview.limiterBottomOffset;
-htmlelement = stickypanelview.limiterElement;
+// $ExpectType HTMLElement | null
+stickypanelview.limiterElement;
 
 /**
  * ToolipView
@@ -508,6 +519,39 @@ new ListSeparatorView().element!.tagName.startsWith('foo');
  */
 new ToolbarLineBreakView().render();
 new ToolbarLineBreakView().element!.tagName.startsWith('foo');
+
+/**
+ * InputView
+ */
+new InputView(locale).destroy();
+// $ExpectType string
+new InputView(locale).id;
+// $ExpectType string
+new InputView(locale).placeholder;
+// $ExpectError
+new InputView(locale).placeholder = "";
+new InputView(locale).destroy();
+new InputView(locale).focus();
+
+/**
+ * InputNumberView
+ */
+new InputNumberView(locale).destroy();
+// $ExpectType string
+new InputNumberView(locale).id;
+// $ExpectType string
+new InputNumberView(locale).placeholder;
+// $ExpectError
+new InputNumberView(locale).placeholder = "";
+new InputNumberView(locale).destroy();
+new InputNumberView(locale).focus();
+// $ExpectType number | undefined
+new InputNumberView(locale).min;
+// $ExpectType number | undefined
+new InputNumberView(locale).step;
+
+// $ExpectType InputNumberView
+createLabeledInputNumber(labeledfieldview, "", "");
 
 // $ExpectType BalloonToolbar
 editor.plugins.get('BalloonToolbar');

@@ -1,4 +1,4 @@
-import { Tabulator, Renderer, Module, DataTreeModule } from 'tabulator-tables';
+import { Tabulator, Renderer, Module, DataTreeModule, TabulatorFull } from 'tabulator-tables';
 
 // tslint:disable:no-object-literal-type-assertion
 // tslint:disable:whitespace
@@ -34,7 +34,7 @@ table.setFilter([
 table
     .setPageToRow(12)
     .then(() => {
-        // run code after table has been successfuly updated
+        // run code after table has been successfully updated
     })
     .catch(error => {
         // handle error loading data
@@ -140,7 +140,7 @@ colDef.editor = 'number';
 colDef.editor = (cell, onRendered, success, cancel, editorParams) => {
     // cell - the cell component for the editable cell
     // onRendered - function to call when the editor has been rendered
-    // success - function to call to pass the successfuly updated value to Tabulator
+    // success - function to call to pass the successfully updated value to Tabulator
     // cancel - function to call to abort the edit and return to a normal cell
     // editorParams - params object passed into the editorParams column definition property
 
@@ -221,7 +221,7 @@ colDef.editorParams = {
             ],
         },
         {
-            // ungrouped option
+            // Un-grouped option
             label: 'Other',
             value: 'other',
         },
@@ -294,7 +294,7 @@ colDef.editorParams = {
             ],
         },
         {
-            // ungrouped option
+            // Un-grouped option
             label: 'Other',
             value: 'other',
         },
@@ -911,6 +911,7 @@ row.getElement();
 row.getTable();
 row.getCells();
 row.getCell(column);
+row.isTreeExpanded();
 
 let calcComponent = {} as Tabulator.CalculationComponent;
 calcComponent.getData();
@@ -1015,6 +1016,7 @@ table.off('dataProcessed');
 table.off('dataProcessed', dataProcessedEvent);
 table.on('cellClick', () => {});
 table = Tabulator.findTable('#example-table')[0];
+table = TabulatorFull.findTable('#example-table')[0];
 
 Tabulator.bindModules([Renderer]);
 cell.navigateDown();
@@ -1029,3 +1031,11 @@ class CustomModule extends Module {
 
 CustomModule.moduleName = 'custom';
 Tabulator.registerModule([CustomModule, DataTreeModule]);
+
+const sortHandler = {} as (sorters: Tabulator.SorterFromTable[]) => void;
+table = new Tabulator('#test', {
+    dataSorting: sortHandler,
+    dataSorted: sortHandler,
+});
+table.on('dataSorting', ([sorter]) => sorter.field);
+table.on('dataSorted', ([sorter]) => sorter.field);

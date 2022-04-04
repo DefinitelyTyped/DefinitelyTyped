@@ -15,7 +15,7 @@ const clusterOptions: OSS.ClusterOptions = {
 
 const clusterClient = new OSS.ClusterClient(clusterOptions);
 
-clusterClient.deleteMulti(["cluster"], { quiet: true });
+clusterClient.deleteMulti(["cluster"], {quiet: true});
 
 const imageOptions: OSS.ImageClientOptions = {
     imageHost: 'xxxx',
@@ -31,7 +31,7 @@ const sts = new OSS.STS({
     accessKeySecret: 'access secret',
 });
 sts.assumeRole('roleArn', undefined, 3600, 'session name').then(token => {
-    const { credentials } = token;
+    const {credentials} = token;
     const stsClient = new OSS({
         accessKeyId: credentials.AccessKeyId,
         accessKeySecret: credentials.AccessKeySecret,
@@ -40,12 +40,18 @@ sts.assumeRole('roleArn', undefined, 3600, 'session name').then(token => {
         region: 'oss-cn-hangzhou',
         refreshSTSTokenInterval: 3000,
         refreshSTSToken: async () => {
-           const { credentials: cred } = await sts.assumeRole('roleArn', undefined, 3600, 'session name');
-           return {
-               accessKeyId: cred.AccessKeyId,
-               accessKeySecret: cred.AccessKeySecret,
-               stsToken: cred.SecurityToken
-           };
+            const {credentials: cred} = await sts.assumeRole('roleArn', undefined, 3600, 'session name');
+            return {
+                accessKeyId: cred.AccessKeyId,
+                accessKeySecret: cred.AccessKeySecret,
+                stsToken: cred.SecurityToken
+            };
         }
     });
 });
+
+const userMeta: OSS.UserMeta = {
+    uid: 0,
+    pid: 0,
+    anything: 'anything',
+};

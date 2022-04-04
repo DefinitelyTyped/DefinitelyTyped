@@ -13,7 +13,7 @@ export default class ReplaceAllCommand extends Command {
     /**
      * The replace command is always enabled.
      */
-    readonly isEnabled: true;
+    get isEnabled(): true;
     /**
      * Replaces all the occurrences of `textToReplace` with a given `newText` string.
      *

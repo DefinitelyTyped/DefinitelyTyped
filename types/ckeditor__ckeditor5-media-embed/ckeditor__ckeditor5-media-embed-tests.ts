@@ -28,6 +28,7 @@ MediaEmbedUI.requires.map(Plugin => new Plugin(editor).init());
 new MediaEmbedUI(editor).init();
 
 AutoMediaEmbed.requires.map(Plugin => new Plugin(editor));
+AutoMediaEmbed.requires.length === 3;
 new AutoMediaEmbed(editor).init();
 
 new MediaEmbedEditing(editor).init();
@@ -57,6 +58,7 @@ new View([() => ''], new Locale()).url.startsWith('');
 new View([() => ''], new Locale()).isValid() === !0;
 new View([() => ''], new Locale()).resetFormStatus();
 new View([() => ''], new Locale()).urlInputView.render();
+new View([() => ''], new Locale()).destroy();
 
 utils.insertMedia(new Model(), '', new Range(new Position(Element.fromJSON({ name: 'div' }), [4])));
 const emptyElement = new DowncastWriter(new Document(new StylesProcessor())).createEmptyElement('foo');

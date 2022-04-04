@@ -42,11 +42,11 @@ declare module 'fs/promises' {
         mode?: Mode | undefined;
         flag?: OpenMode | undefined;
     }
-    interface FileReadResult<T extends ArrayBufferView> {
+    interface FileReadResult<T extends NodeJS.ArrayBufferView> {
         bytesRead: number;
         buffer: T;
     }
-    interface FileReadOptions<T extends ArrayBufferView = Buffer> {
+    interface FileReadOptions<T extends NodeJS.ArrayBufferView = Buffer> {
         /**
          * @default `Buffer.alloc(0xffff)`
          */
@@ -207,8 +207,8 @@ declare module 'fs/promises' {
          * integer, the current file position will remain unchanged.
          * @return Fulfills upon success with an object with two properties:
          */
-        read<T extends ArrayBufferView>(buffer: T, offset?: number | null, length?: number | null, position?: number | null): Promise<FileReadResult<T>>;
-        read<T extends ArrayBufferView = Buffer>(options?: FileReadOptions<T>): Promise<FileReadResult<T>>;
+        read<T extends NodeJS.ArrayBufferView>(buffer: T, offset?: number | null, length?: number | null, position?: number | null): Promise<FileReadResult<T>>;
+        read<T extends NodeJS.ArrayBufferView = Buffer>(options?: FileReadOptions<T>): Promise<FileReadResult<T>>;
         /**
          * Asynchronously reads the entire contents of a file.
          *
@@ -1043,7 +1043,7 @@ declare module 'fs/promises' {
      * disappears in the directory.
      *
      * All the `caveats` for `fs.watch()` also apply to `fsPromises.watch()`.
-     * @since v15.9.0
+     * @since v15.9.0, v14.18.0
      * @return of objects with the properties:
      */
     function watch(

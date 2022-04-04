@@ -31,6 +31,7 @@ export interface DateTimePickerProps {
     locale?: string;
     maxDate?: Date;
     maxDetail?: 'hour' | 'minute' | 'second';
+    minDate?: Date;
     minDetail?: 'month' | 'year' | 'decade' | 'century';
     minuteAriaLabel?: string;
     minutePlaceholder?: string;

@@ -264,4 +264,9 @@ Java.perform(() => {
             });
         });
     });
+
+    // $ExpectType Backtrace
+    Java.backtrace();
+    // $ExpectType Backtrace
+    Java.backtrace({ limit: 42 });
 });

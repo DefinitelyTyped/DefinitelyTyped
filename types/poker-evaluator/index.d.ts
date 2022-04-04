@@ -1,5 +1,5 @@
 // Type definitions for poker-evaluator 0.3
-// Project: http://github.com/chenosaurus/poker-evaluator
+// Project: https://github.com/chenosaurus/poker-evaluator
 // Definitions by: Rory McGuinness <https://github.com/rorymcgit>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 

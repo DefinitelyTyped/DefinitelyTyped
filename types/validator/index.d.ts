@@ -4,7 +4,6 @@
 //                 Ilya Mochalov <https://github.com/chrootsu>
 //                 Ayman Nedjmeddine <https://github.com/IOAyman>
 //                 Louay Alakkad <https://github.com/louy>
-//                 Kacper Polak <https://github.com/kacepe>
 //                 Bonggyun Lee <https://github.com/deptno>
 //                 Naoto Yokoyama <https://github.com/builtinnya>
 //                 Philipp Katz <https://github.com/qqilihq>
@@ -20,6 +19,7 @@ import * as _isFQDN from './lib/isFQDN';
 import * as _isIBAN from './lib/isIBAN';
 import * as _isISO4217 from './lib/isISO4217';
 import * as _isURL from './lib/isURL';
+import * as _isTaxID from './lib/isTaxID';
 
 declare namespace validator {
     const version: string;
@@ -1070,6 +1070,8 @@ declare namespace validator {
 
     const isURL: typeof _isURL.default;
     type IsURLOptions = _isURL.IsURLOptions;
+
+    const isTaxID: typeof _isTaxID.default;
 
     /**
      * Check if the string is uppercase.

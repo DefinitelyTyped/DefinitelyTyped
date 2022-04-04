@@ -1,4 +1,4 @@
-// For Library Version: 1.96.0
+// For Library Version: 1.100.0
 
 declare module "sap/tnt/library" {
   export interface IToolHeader {
@@ -18,6 +18,10 @@ declare module "sap/f/library" {
   import AvatarType1 from "sap/m/AvatarType";
 
   import Control from "sap/ui/core/Control";
+
+  import IllustratedMessageSize1 from "sap/m/IllustratedMessageSize";
+
+  import IllustratedMessageType1 from "sap/m/IllustratedMessageType";
 
   /**
    * @SINCE 1.69
@@ -169,90 +173,25 @@ declare module "sap/f/library" {
   }
 
   /**
-   * @EXPERIMENTAL (since 1.88)
+   * @SINCE 1.88
+   * @deprecated (since 1.98) - Use the {@link sap.m.IllustratedMessageSize} instead.
    *
    * Available `Illustration` sizes for the {@link sap.f.IllustratedMessage} control.
+   *
+   * This is an alias for {@link sap.m.IllustratedMessageSize} and only kept for compatibility reasons.
    */
-  export enum IllustratedMessageSize {
-    /**
-     * Automatically decides the `Illustration` size (`Base`, `Spot`, `Dialog`, or `Scene`) depending on the
-     * `IllustratedMessage` container width.
-     *
-     * **Note:** `Auto` is the only option where the illustration size is changed according to the available
-     * container width. If any other `IllustratedMessageSize` is chosen, it remains until changed by the app
-     * developer.
-     */
-    Auto = "Auto",
-    /**
-     * Base `Illustration` size (XS breakpoint). Suitable for cards (two columns).
-     *
-     * **Note:** When `Base` is in use, no illustration is displayed.
-     */
-    Base = "Base",
-    /**
-     * Dialog `Illustration` size (M breakpoint). Suitable for dialogs.
-     */
-    Dialog = "Dialog",
-    /**
-     * Scene `Illustration` size (L breakpoint). Suitable for a `Page` or a table.
-     */
-    Scene = "Scene",
-    /**
-     * Spot `Illustration` size (S breakpoint). Suitable for cards (four columns).
-     */
-    Spot = "Spot",
-  }
+  export type IllustratedMessageSize = IllustratedMessageSize1;
+
   /**
-   * @EXPERIMENTAL (since 1.88)
+   * @SINCE 1.88
+   * @deprecated (since 1.98) - Use the {@link sap.m.IllustratedMessageType} instead.
    *
    * Available `Illustration` types for the {@link sap.f.IllustratedMessage} control.
+   *
+   * This is an alias for {@link sap.m.IllustratedMessageType} and only kept for compatibility reasons.
    */
-  export enum IllustratedMessageType {
-    /**
-     * "Before Search" illustration type.
-     */
-    BeforeSearch = "sapIllus-BeforeSearch",
-    /**
-     * "No Activities" illustration type.
-     */
-    NoActivities = "sapIllus-NoActivities",
-    /**
-     * "No Data" illustration type.
-     */
-    NoData = "sapIllus-NoData",
-    /**
-     * "No Entries" illustration type.
-     */
-    NoEntries = "sapIllus-NoEntries",
-    /**
-     * "No Email" illustration type.
-     */
-    NoMail = "sapIllus-NoMail",
-    /**
-     * "No Notifications" illustration type.
-     */
-    NoNotifications = "sapIllus-NoNotifications",
-    /**
-     * "No Saved Items" illustration type.
-     */
-    NoSavedItems = "sapIllus-NoSavedItems",
-    /**
-     * "No Search Results" illustration type.
-     */
-    NoSearchResults = "sapIllus-NoSearchResults",
-    /**
-     * "No Tasks" illustration type.
-     */
-    NoTasks = "sapIllus-NoTasks",
-    /**
-     * "Unable To Load" illustration type.
-     */
-    UnableToLoad = "sapIllus-UnableToLoad",
-    /**
-     * "Unable To Upload" illustration type.
-     */
-    UnableToUpload = "sapIllus-UnableToUpload",
-  }
+  export type IllustratedMessageType = IllustratedMessageType1;
+
   /**
    * @SINCE 1.63
    * @EXPERIMENTAL (since 1.63)
@@ -7550,72 +7489,14 @@ declare module "sap/f/FlexibleColumnLayoutSemanticHelper" {
       oSettings?: object
     ): FlexibleColumnLayoutSemanticHelper;
     /**
-     * Returns an object, describing the current state of the control and the expected action buttons for each
+     * Returns an object describing the current state of the control and the expected action buttons for each
      * column.
-     *
-     * The returned object has the following structure:
-     * 	 - layout - the value of the `layout` property
-     * 	 - maxColumnsCount - the maximum number of columns that can be displayed at once based on the control
-     * 			width. See {@link sap.f.FlexibleColumnLayout#getMaxColumnsCount}
-     * 	 - columnsSizes - an object with fields `beginColumn, midColumn, endColumn`, representing the relative
-     * 			percentage sizes of the three columns as integers
-     * 	 - columnsVisibility - an object with fields `beginColumn, midColumn, endColumn`, representing the visibility
-     * 			of the three columns
-     * 	 - isFullScreen - `true` if only one column is visible at the moment, `false` otherwise **Note:** This
-     * 			may be due to small screen size (phone) or due to a layout, for which a single column takes up the whole
-     * 			width
-     * 	 - isLogicallyFullScreen - `true` if the current `layout` is one of the following: `sap.f.LayoutType.OneColumn,
-     * 			sap.f.LayoutType.MidColumnFullScreen, sap.f.LayoutType.EndColumnFullScreen`, `false` otherwise **Note:**
-     * 			While `isFullScreen` can be `true` for any layout, due to small screen size, `isLogicallyFullScreen`
-     * 			will only be `true` for the layout values, listed above.
-     * 	 - actionButtonsInfo - an object with fields `midColumn, endColumn`, each containing an object, telling
-     * 			whether action buttons should be shown in the `mid` and `end` columns, and what value of the `layout`
-     * 			property should be set upon clicking these buttons. Each of these objects has the following fields: `closeColumn,
-     * 			fullScreen, exitFullScreen`. If `null`, then the respective action button should not be shown, otherwise
-     * 			provides the value of `layout` property for the action button.
      *
      * **Note:** This method relies on the internal `FlexibleColumnLayout` reference to be rendered in the DOM
      * tree. For convenience, use methods {@link sap.f.FlexibleColumnLayoutSemanticHelper#isDOMReady} and {@link
      * sap.f.FlexibleColumnLayoutSemanticHelper#whenDOMReady}.
-     *
-     * Example value:
-     *
-     *
-     * ```javascript
-     *
-     *
-     *  {
-     * 	   "layout":"ThreeColumnsMidExpanded",
-     * 	   "maxColumnsCount":3,
-     * 	   "columnsSizes":{
-     * 		  "beginColumn":25,
-     * 		  "midColumn":50,
-     * 		  "endColumn":25
-     * 	   },
-     * 	   "columnsVisibility":{
-     * 		  "beginColumn":true,
-     * 		  "midColumn":true,
-     * 		  "endColumn":true
-     * 	   },
-     * 	   "isFullScreen":false,
-     * 	   "isLogicallyFullScreen":false,
-     * 	   "actionButtonsInfo":{
-     * 		  "midColumn":{
-     * 			 "fullScreen":null,
-     * 			 "exitFullScreen":null,
-     * 			 "closeColumn":null
-     * 		  },
-     * 		  "endColumn":{
-     * 			 "fullScreen":"EndColumnFullScreen",
-     * 			 "exitFullScreen":null,
-     * 			 "closeColumn":"TwoColumnsBeginExpanded"
-     * 		  }
-     * 	   }
-     * 	}
-     *
-     *  ```
      */
-    getCurrentUIState(): object;
+    getCurrentUIState(): UIState;
     /**
      * Returns the default layout types for the different numbers of columns.
      *
@@ -7631,8 +7512,6 @@ declare module "sap/f/FlexibleColumnLayoutSemanticHelper" {
     /**
      * Returns an object, describing the state that the control will have after navigating to a different view
      * level.
-     *
-     * About the format of return value, see: {@link sap.f.FlexibleColumnLayoutSemanticHelper#getCurrentUIState}
      */
     getNextUIState(
       /**
@@ -7640,7 +7519,7 @@ declare module "sap/f/FlexibleColumnLayoutSemanticHelper" {
        * 3 and above - subsequent views
        */
       iNextLevel: int
-    ): object;
+    ): UIState;
     /**
      * @SINCE 1.72
      *
@@ -7669,6 +7548,155 @@ declare module "sap/f/FlexibleColumnLayoutSemanticHelper" {
      */
     whenReady(): Promise<any>;
   }
+  /**
+   * The configuration of the navigation actions in the columns.
+   */
+  export type ColumnsNavigationActions = {
+    /**
+     * Configuration of the navigation actions of the mid column.
+     */
+    midColumn?: NavigationActionsTargets;
+    /**
+     * Configuration of the navigation actions of the end column.
+     */
+    endColumn?: NavigationActionsTargets;
+  };
+
+  /**
+   * Represents the relative percentage sizes of all columns as integers.
+   */
+  export type ColumnsSizes = {
+    /**
+     * The relative percentage width of the begin column as integer.
+     */
+    beginColumn?: number;
+    /**
+     * The relative percentage width of the mid column as integer.
+     */
+    midColumn?: number;
+    /**
+     * The relative percentage width of the end column as integer.
+     */
+    endColumn?: number;
+  };
+
+  /**
+   * Represents the visibility of the columns.
+   */
+  export type ColumnsVisibility = {
+    /**
+     * The visibility of the begin column.
+     */
+    beginColumn?: boolean;
+    /**
+     * The visibility of the mid column.
+     */
+    midColumn?: boolean;
+    /**
+     * The visibility of the end column.
+     */
+    endColumn?: boolean;
+  };
+
+  /**
+   * Configures the target layouts of the navigation acion buttons in a column.
+   */
+  export type NavigationActionsTargets = {
+    /**
+     * The target {@link sap.f.FlexibleColumnLayout#getLayout layout} when the `fullscreen` navigation action
+     * button is pressed. If null, then the respective action button should not be shown.
+     */
+    fullScreen?: string | null;
+    /**
+     * The target {@link sap.f.FlexibleColumnLayout#getLayout layout} when the `exitFullScreen` navigation action
+     * button is pressed. If null, then the respective action button should not be shown.
+     */
+    exitFullScreen?: string | null;
+    /**
+     * The target {@link sap.f.FlexibleColumnLayout#getLayout layout} when the `closeColumn` navigation action
+     * button is pressed. If null, then the respective action button should not be shown.
+     */
+    closeColumn?: string | null;
+  };
+
+  /**
+   * Configuration of the state of the `FlexibleColumnLayout` control and the expected action buttons for
+   * each column.
+   *
+   * Example value:
+   *
+   *
+   * ```javascript
+   *
+   *
+   *  {
+   * 	   "layout":"ThreeColumnsMidExpanded",
+   * 	   "maxColumnsCount":3,
+   * 	   "columnsSizes":{
+   * 		  "beginColumn":25,
+   * 		  "midColumn":50,
+   * 		  "endColumn":25
+   * 	   },
+   * 	   "columnsVisibility":{
+   * 		  "beginColumn":true,
+   * 		  "midColumn":true,
+   * 		  "endColumn":true
+   * 	   },
+   * 	   "isFullScreen":false,
+   * 	   "isLogicallyFullScreen":false,
+   * 	   "actionButtonsInfo":{
+   * 		  "midColumn":{
+   * 			 "fullScreen":null,
+   * 			 "exitFullScreen":null,
+   * 			 "closeColumn":null
+   * 		  },
+   * 		  "endColumn":{
+   * 			 "fullScreen":"EndColumnFullScreen",
+   * 			 "exitFullScreen":null,
+   * 			 "closeColumn":"TwoColumnsBeginExpanded"
+   * 		  }
+   * 	   }
+   * 	}
+   *
+   *  ```
+   */
+  export type UIState = {
+    /**
+     * The value of the {@link sap.f.FlexibleColumnLayout#getLayout layout} property.
+     */
+    layout?: string;
+    /**
+     * The maximum number of columns that can be displayed at once based on the control width. See {@link sap.f.FlexibleColumnLayout#getMaxColumnsCount}
+     */
+    maxColumnsCount?: number;
+    /**
+     * Represents the relative percentage sizes of all columns as integers.
+     */
+    columnsSizes?: ColumnsSizes;
+    /**
+     * Represents the visibility of the columns.
+     */
+    columnsVisibility?: ColumnsVisibility;
+    /**
+     * The value is `true` if only one column is visible at the moment, `false` otherwise.
+     *
+     * **Note:** This may be due to small screen size (phone) or due to a layout, for which a single column
+     * takes up the whole width.
+     */
+    isFullScreen?: boolean;
+    /**
+     * The value is `true` if the current `layout` is one of the following: `sap.f.LayoutType.OneColumn, sap.f.LayoutType.MidColumnFullScreen,
+     * sap.f.LayoutType.EndColumnFullScreen`, `false` otherwise.
+     *
+     * **Note:** While `isFullScreen` can be `true` for any layout, due to small screen size, `isLogicallyFullScreen`
+     * will only be `true` for the layout values, listed above.
+     */
+    isLogicallyFullScreen?: boolean;
+    /**
+     * The configuration of the navigation actions in the columns.
+     */
+    actionButtonsInfo?: ColumnsNavigationActions;
+  };
 }
 
 declare module "sap/f/GridContainer" {
@@ -9489,22 +9517,16 @@ declare module "sap/f/GridListItem" {
 }
 
 declare module "sap/f/IllustratedMessage" {
-  import { default as Control, $ControlSettings } from "sap/ui/core/Control";
-
-  import Button from "sap/m/Button";
-
-  import { IllustratedMessageSize } from "sap/f/library";
+  import {
+    default as IllustratedMessage1,
+    $IllustratedMessageSettings as $IllustratedMessageSettings1,
+  } from "sap/m/IllustratedMessage";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
-  import {
-    PropertyBindingInfo,
-    AggregationBindingInfo,
-  } from "sap/ui/base/ManagedObject";
-
   /**
    * @SINCE 1.88
-   * @EXPERIMENTAL (since 1.88)
+   * @deprecated (since 1.98) - Use the {@link sap.m.IllustratedMessage} instead.
    *
    * A combination of message and illustration to represent an empty or a success state.
    *
@@ -9533,13 +9555,16 @@ declare module "sap/f/IllustratedMessage" {
    * and the available space of its parent container. Some of the structural elements are displayed differently
    * or are omitted in the different breakpoint sizes (XS, S, M, L).
    */
-  export default class IllustratedMessage extends Control {
+  export default class IllustratedMessage extends IllustratedMessage1 {
     /**
      * Constructor for a new `IllustratedMessage`.
      *
      * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.IllustratedMessage#constructor
+     * sap.m.IllustratedMessage} can be used.
      */
     constructor(
       /**
@@ -9553,6 +9578,9 @@ declare module "sap/f/IllustratedMessage" {
      * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.IllustratedMessage#constructor
+     * sap.m.IllustratedMessage} can be used.
      */
     constructor(
       /**
@@ -9569,7 +9597,7 @@ declare module "sap/f/IllustratedMessage" {
      * Creates a new subclass of class sap.f.IllustratedMessage with name `sClassName` and enriches it with
      * the information contained in `oClassInfo`.
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.m.IllustratedMessage.extend}.
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -9590,329 +9618,39 @@ declare module "sap/f/IllustratedMessage" {
      * Returns a metadata object for class sap.f.IllustratedMessage.
      */
     static getMetadata(): ElementMetadata;
-    /**
-     * @SINCE 1.88
-     *
-     * Adds some additionalContent to the aggregation {@link #getAdditionalContent additionalContent}.
-     */
-    addAdditionalContent(
-      /**
-       * The additionalContent to add; if empty, nothing is inserted
-       */
-      oAdditionalContent: Button
-    ): this;
-    /**
-     * @SINCE 1.88
-     *
-     * Destroys all the additionalContent in the aggregation {@link #getAdditionalContent additionalContent}.
-     */
-    destroyAdditionalContent(): this;
-    /**
-     * @SINCE 1.88
-     *
-     * Gets content of aggregation {@link #getAdditionalContent additionalContent}.
-     *
-     * Defines the controls placed below the description as additional content.
-     *
-     * **Note:** Not displayed when `illustrationSize` is set to `Base`.
-     */
-    getAdditionalContent(): Button[];
-    /**
-     * @SINCE 1.88
-     *
-     * Gets current value of property {@link #getDescription description}.
-     *
-     * Defines the description displayed below the title.
-     *
-     * If there is no initial input from the app developer and the default illustration set is being used, a
-     * default description for the current illustration type is going to be displayed. The default description
-     * is stored in the `sap.f` resource bundle.
-     *
-     * Default value is `empty string`.
-     */
-    getDescription(): string;
-    /**
-     * @SINCE 1.88
-     *
-     * Gets current value of property {@link #getEnableFormattedText enableFormattedText}.
-     *
-     * Defines whether the value set in the `description` property is displayed as formatted text in HTML format.
-     *
-     * For details regarding supported HTML tags, see {@link sap.m.FormattedText}.
-     *
-     * Default value is `false`.
-     */
-    getEnableFormattedText(): boolean;
-    /**
-     * @SINCE 1.88
-     *
-     * Gets current value of property {@link #getIllustrationSize illustrationSize}.
-     *
-     * Determines which illustration breakpoint variant is used.
-     *
-     * As `IllustratedMessage` adapts itself around the `Illustration`, the other elements of the control are
-     * displayed differently on the different breakpoints/illustration sizes.
-     *
-     * Default value is `Auto`.
-     */
-    getIllustrationSize():
-      | IllustratedMessageSize
-      | keyof typeof IllustratedMessageSize;
-    /**
-     * @SINCE 1.88
-     *
-     * Gets current value of property {@link #getIllustrationType illustrationType}.
-     *
-     * Determines which illustration type is displayed.
-     *
-     * **Note:** The {@link sap.f.IllustratedMessageType} enumeration contains a default illustration set. If
-     * you want to use another illustration set, you have to register it in the {@link sap.f.IllustrationPool}.
-     *
-     * Example input for the `illustrationType` property is `sapIllus-UnableToLoad`. The logic behind this format
-     * is as follows:
-     * 	 - First is the the illustration set - sapIllus
-     * 	 - Second is the illustration type - UnableToLoad
-     *
-     * Default value is `IllustratedMessageType.NoSearchResults`.
-     */
-    getIllustrationType(): string;
-    /**
-     * @SINCE 1.88
-     *
-     * Gets current value of property {@link #getTitle title}.
-     *
-     * Defines the title that is displayed below the illustration.
-     *
-     * If there is no initial input from the app developer and the default illustration set is being used, a
-     * default title is displayed corresponding to the current `illustrationType`.
-     *
-     * Default value is `empty string`.
-     */
-    getTitle(): string;
-    /**
-     * @SINCE 1.88
-     *
-     * Checks for the provided `sap.m.Button` in the aggregation {@link #getAdditionalContent additionalContent}.
-     * and returns its index if found or -1 otherwise.
-     */
-    indexOfAdditionalContent(
-      /**
-       * The additionalContent whose index is looked for
-       */
-      oAdditionalContent: Button
-    ): int;
-    /**
-     * @SINCE 1.88
-     *
-     * Inserts a additionalContent into the aggregation {@link #getAdditionalContent additionalContent}.
-     */
-    insertAdditionalContent(
-      /**
-       * The additionalContent to insert; if empty, nothing is inserted
-       */
-      oAdditionalContent: Button,
-      /**
-       * The `0`-based index the additionalContent should be inserted at; for a negative value of `iIndex`, the
-       * additionalContent is inserted at position 0; for a value greater than the current size of the aggregation,
-       * the additionalContent is inserted at the last position
-       */
-      iIndex: int
-    ): this;
-    /**
-     * @SINCE 1.88
-     *
-     * Removes a additionalContent from the aggregation {@link #getAdditionalContent additionalContent}.
-     */
-    removeAdditionalContent(
-      /**
-       * The additionalContent to remove or its index or id
-       */
-      vAdditionalContent: int | string | Button
-    ): Button;
-    /**
-     * @SINCE 1.88
-     *
-     * Removes all the controls from the aggregation {@link #getAdditionalContent additionalContent}.
-     *
-     * Additionally, it unregisters them from the hosting UIArea.
-     */
-    removeAllAdditionalContent(): Button[];
-    /**
-     * @SINCE 1.88
-     *
-     * Sets a new value for property {@link #getDescription description}.
-     *
-     * Defines the description displayed below the title.
-     *
-     * If there is no initial input from the app developer and the default illustration set is being used, a
-     * default description for the current illustration type is going to be displayed. The default description
-     * is stored in the `sap.f` resource bundle.
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * Default value is `empty string`.
-     */
-    setDescription(
-      /**
-       * New value for property `description`
-       */
-      sDescription?: string
-    ): this;
-    /**
-     * @SINCE 1.88
-     *
-     * Sets a new value for property {@link #getEnableFormattedText enableFormattedText}.
-     *
-     * Defines whether the value set in the `description` property is displayed as formatted text in HTML format.
-     *
-     * For details regarding supported HTML tags, see {@link sap.m.FormattedText}.
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * Default value is `false`.
-     */
-    setEnableFormattedText(
-      /**
-       * New value for property `enableFormattedText`
-       */
-      bEnableFormattedText?: boolean
-    ): this;
-    /**
-     * @SINCE 1.88
-     *
-     * Sets a new value for property {@link #getIllustrationSize illustrationSize}.
-     *
-     * Determines which illustration breakpoint variant is used.
-     *
-     * As `IllustratedMessage` adapts itself around the `Illustration`, the other elements of the control are
-     * displayed differently on the different breakpoints/illustration sizes.
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * Default value is `Auto`.
-     */
-    setIllustrationSize(
-      /**
-       * New value for property `illustrationSize`
-       */
-      sIllustrationSize?:
-        | IllustratedMessageSize
-        | keyof typeof IllustratedMessageSize
-    ): this;
-    /**
-     * @SINCE 1.88
-     *
-     * Sets a new value for property {@link #getTitle title}.
-     *
-     * Defines the title that is displayed below the illustration.
-     *
-     * If there is no initial input from the app developer and the default illustration set is being used, a
-     * default title is displayed corresponding to the current `illustrationType`.
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * Default value is `empty string`.
-     */
-    setTitle(
-      /**
-       * New value for property `title`
-       */
-      sTitle?: string
-    ): this;
   }
 
-  export interface $IllustratedMessageSettings extends $ControlSettings {
-    /**
-     * @SINCE 1.88
-     *
-     * Defines the description displayed below the title.
-     *
-     * If there is no initial input from the app developer and the default illustration set is being used, a
-     * default description for the current illustration type is going to be displayed. The default description
-     * is stored in the `sap.f` resource bundle.
-     */
-    description?: string | PropertyBindingInfo;
-
-    /**
-     * @SINCE 1.88
-     *
-     * Defines whether the value set in the `description` property is displayed as formatted text in HTML format.
-     *
-     * For details regarding supported HTML tags, see {@link sap.m.FormattedText}.
-     */
-    enableFormattedText?: boolean | PropertyBindingInfo;
-
-    /**
-     * @SINCE 1.88
-     *
-     * Determines which illustration breakpoint variant is used.
-     *
-     * As `IllustratedMessage` adapts itself around the `Illustration`, the other elements of the control are
-     * displayed differently on the different breakpoints/illustration sizes.
-     */
-    illustrationSize?:
-      | (IllustratedMessageSize | keyof typeof IllustratedMessageSize)
-      | PropertyBindingInfo;
-
-    /**
-     * @SINCE 1.88
-     *
-     * Determines which illustration type is displayed.
-     *
-     * **Note:** The {@link sap.f.IllustratedMessageType} enumeration contains a default illustration set. If
-     * you want to use another illustration set, you have to register it in the {@link sap.f.IllustrationPool}.
-     *
-     * Example input for the `illustrationType` property is `sapIllus-UnableToLoad`. The logic behind this format
-     * is as follows:
-     * 	 - First is the the illustration set - sapIllus
-     * 	 - Second is the illustration type - UnableToLoad
-     */
-    illustrationType?: string | PropertyBindingInfo;
-
-    /**
-     * @SINCE 1.88
-     *
-     * Defines the title that is displayed below the illustration.
-     *
-     * If there is no initial input from the app developer and the default illustration set is being used, a
-     * default title is displayed corresponding to the current `illustrationType`.
-     */
-    title?: string | PropertyBindingInfo;
-
-    /**
-     * @SINCE 1.88
-     *
-     * Defines the controls placed below the description as additional content.
-     *
-     * **Note:** Not displayed when `illustrationSize` is set to `Base`.
-     */
-    additionalContent?: Button[] | Button | AggregationBindingInfo;
-  }
+  export interface $IllustratedMessageSettings
+    extends $IllustratedMessageSettings1 {}
 }
 
 declare module "sap/f/Illustration" {
-  import { default as Control, $ControlSettings } from "sap/ui/core/Control";
+  import {
+    default as Illustration1,
+    $IllustrationSettings as $IllustrationSettings1,
+  } from "sap/m/Illustration";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
-  import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
-
   /**
    * @SINCE 1.88
-   * @EXPERIMENTAL (since 1.88)
+   * @deprecated (since 1.98) - Use the {@link sap.m.Illustration} instead.
    *
    * A simple control which uses a Symbol ID to visualize an SVG which has already been loaded in the {@link
    * sap.f.IllustrationPool}.
    *
    * To build a Symbol ID, all of the `Illustration` properties must be populated with data.
    */
-  export default class Illustration extends Control {
+  export default class Illustration extends Illustration1 {
     /**
      * Constructor for a new `Illustration`.
      *
      * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.Illustration#constructor
+     * sap.m.Illustration} can be used.
      */
     constructor(
       /**
@@ -9926,6 +9664,9 @@ declare module "sap/f/Illustration" {
      * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.Illustration#constructor
+     * sap.m.Illustration} can be used.
      */
     constructor(
       /**
@@ -9942,7 +9683,7 @@ declare module "sap/f/Illustration" {
      * Creates a new subclass of class sap.f.Illustration with name `sClassName` and enriches it with the information
      * contained in `oClassInfo`.
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.m.Illustration.extend}.
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -9963,167 +9704,33 @@ declare module "sap/f/Illustration" {
      * Returns a metadata object for class sap.f.Illustration.
      */
     static getMetadata(): ElementMetadata;
-    /**
-     * @SINCE 1.88
-     *
-     * Gets current value of property {@link #getMedia media}.
-     *
-     * Defines which media/breakpoint should be used when building the Symbol ID.
-     */
-    getMedia(): string;
-    /**
-     * @SINCE 1.88
-     *
-     * Gets current value of property {@link #getSet set}.
-     *
-     * Defines which illustration set should be used when building the Symbol ID.
-     */
-    getSet(): string;
-    /**
-     * @SINCE 1.88
-     *
-     * Gets current value of property {@link #getType type}.
-     *
-     * Defines which illustration type should be used when building the Symbol ID.
-     */
-    getType(): string;
-    /**
-     * @SINCE 1.88
-     *
-     * Sets a new value for property {@link #getMedia media}.
-     *
-     * Defines which media/breakpoint should be used when building the Symbol ID.
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     */
-    setMedia(
-      /**
-       * New value for property `media`
-       */
-      sMedia?: string
-    ): this;
-    /**
-     * @SINCE 1.88
-     *
-     * Sets a new value for property {@link #getSet set}.
-     *
-     * Defines which illustration set should be used when building the Symbol ID.
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     */
-    setSet(
-      /**
-       * New value for property `set`
-       */
-      sSet?: string
-    ): this;
-    /**
-     * @SINCE 1.88
-     *
-     * Sets a new value for property {@link #getType type}.
-     *
-     * Defines which illustration type should be used when building the Symbol ID.
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     */
-    setType(
-      /**
-       * New value for property `type`
-       */
-      sType?: string
-    ): this;
   }
 
-  export interface $IllustrationSettings extends $ControlSettings {
-    /**
-     * @SINCE 1.88
-     *
-     * Defines which illustration set should be used when building the Symbol ID.
-     */
-    set?: string | PropertyBindingInfo;
-
-    /**
-     * @SINCE 1.88
-     *
-     * Defines which media/breakpoint should be used when building the Symbol ID.
-     */
-    media?: string | PropertyBindingInfo;
-
-    /**
-     * @SINCE 1.88
-     *
-     * Defines which illustration type should be used when building the Symbol ID.
-     */
-    type?: string | PropertyBindingInfo;
-  }
+  export interface $IllustrationSettings extends $IllustrationSettings1 {}
 }
 
 declare module "sap/f/IllustrationPool" {
   /**
-   * @EXPERIMENTAL (since 1.88)
+   * @SINCE 1.88
+   * @deprecated (since 1.98) - Use the {@link sap.m.IllustrationPool} instead.
    *
    * `IllustrationPool` loads the illustration assets (SVGs) via XMLHttpRequest requests.
    *
    * The successfully loaded data is kept in the DOM (div with ID `sap-illustration-pool`) in the `sap-ui-static`
    * DOM element.
    *
-   * To load a given asset, register its illustration set through the {@link sap.f.IllustrationPool.registerIllustrationSet
+   * To load a given asset, register its illustration set through the {@link sap.m.IllustrationPool#sap.m.IllustrationPool.registerIllustrationSet
    * registerIllustrationSet} API of `IllustrationPool`. The exception being the `sapIllus`, which is the
    * default illustration set that is registered by default.
    *
    * The default behavior of `IllustrationPool` is to load/require an asset only when it's needed by using
-   * the {@link sap.f.IllustrationPool.loadAsset} API. When registering the new illustration set, you are
-   * given the option to load all of its assets.
+   * the {@link sap.m.IllustrationPool#sap.m.IllustrationPool.loadAsset loadAsset} API. When registering the
+   * new illustration set, you are given the option to load all of its assets.
    *
    * If some of the assets are not loaded initially, you can load the rest of them on a later state with the
-   * {@link sap.f.IllustrationPool.loadRestOfTheAssets} API.
+   * {@link sap.m.IllustrationPool#sap.m.IllustrationPool.loadRestOfTheAssets loadRestOfTheAssets} API.
    */
-  interface IllustrationPool {
-    /**
-     * Loads an SVG asset depending on the input asset ID.
-     */
-    loadAsset(
-      /**
-       * The string ID of the asset being loaded
-       */
-      sAssetId: string,
-      /**
-       * the ID of the Illustration instance which is requiring the asset
-       */
-      sInstanceId: string
-    ): void;
-    /**
-     * Loads the rest of the SVG assets for a given illustration set.
-     */
-    loadRestOfTheAssets(
-      /**
-       * The illustration set, the rest of the assets should be loaded for
-       */
-      sIllustrationSet: string
-    ): void;
-    /**
-     * Registers an illustration set, which is needed before loading any of its assets.
-     */
-    registerIllustrationSet(
-      /**
-       * object containing the name and the path of the Illustration Set
-       */
-      oConfig: {
-        /**
-         * Name of the Illustration Set
-         */
-        setFamily: string;
-        /**
-         * URL Path of the Illustration Set
-         */
-        setURI: string;
-      },
-      /**
-       * whether or not all of the assets for the Illustration Set should be loaded once the metadata is loaded
-       */
-      bLoadAllResources: boolean
-    ): void;
-  }
+  interface IllustrationPool {}
   const IllustrationPool: IllustrationPool;
   export default IllustrationPool;
 }
@@ -10595,7 +10202,7 @@ declare module "sap/f/routing/Router" {
    * The `sap.f.routing.Router` class is intended to be used with `{@link sap.f.FlexibleColumnLayout}` as
    * a root control.
    *
-   * The difference to the `{@link sap.ui.core.routing.Router}` are the `viewLevel`, `transition`, and `transitionParameters`
+   * The difference to the `{@link sap.ui.core.routing.Router}` are the `level`, `transition`, and `transitionParameters`
    * properties that you can specify in every Route or Target created by this router.
    *
    * The difference to the `{@link sap.m.routing.Router}` is the additional `layout` property that can be
@@ -10747,7 +10354,7 @@ declare module "sap/f/routing/Targets" {
    *
    * The `sap.f` extension of `Targets` also handles the triggering of page navigation when the target control
    * is an `{@link sap.f.FlexibleColumnLayout}`. Other controls are also allowed, but the extra parameters
-   * `viewLevel`, `transition`, and `transitionParameters` are ignored and it behaves as `{@link sap.ui.core.routing.Targets}`.
+   * `level`, `transition`, and `transitionParameters` are ignored and it behaves as `{@link sap.ui.core.routing.Targets}`.
    *
    * When a target is displayed, dialogs are being closed. To change this, use `{@link #getTargetHandler}`
    * and {@link sap.f.routing.TargetHandler#setCloseDialogs}.
@@ -10758,7 +10365,7 @@ declare module "sap/f/routing/Targets" {
      */
     constructor(oOptions: {
       /**
-       * The views instance will create the views of all the targets defined, so if 2 targets have the same viewName,
+       * the views instance will create the views of all the targets defined, so if 2 targets have the same name,
        * the same instance of the view will be displayed.
        */
       views: Views;
@@ -10845,13 +10452,15 @@ declare module "sap/f/routing/Targets" {
          * {
          *     targets: {
          *         welcome: {
-         *             viewName: "Welcome",
+         *             type: "View",
+         *             name: "Welcome",
          *             viewType: "XML",
          *             ....
          *             // Other target parameters
          *         },
          *         goodbye: {
-         *             viewName: "Bye",
+         *             type: "View",
+         *             name: "Bye",
          *             viewType: "JS",
          *             ....
          *             // Other target parameters
@@ -10867,8 +10476,14 @@ declare module "sap/f/routing/Targets" {
          */
         anyName: {
           /**
-           * The name of a view that will be created. To place the view into a Control use the `controlAggregation`
-           * and `controlId`. Views are only created once per `viewName`.
+           * Defines whether the target creates an instance of 'View' or 'Component'.
+           */
+          type: string;
+          /**
+           * Defines the name of the View or Component that will be created. For type 'Component', use option `usage`
+           * instead if an owner component exists. To place the view or component into a Control, use the options
+           * `controlAggregation` and `controlId`. Instance of View or Component will only be created once per `name`
+           * or `usage` combined with `id`.
            * ```javascript
            *
            *
@@ -10876,14 +10491,16 @@ declare module "sap/f/routing/Targets" {
            *     targets: {
            *         // If display("masterWelcome") is called, the master view will be placed in the 'MasterPages' of a control with the id splitContainter
            *         masterWelcome: {
-           *             viewName: "Welcome",
+           *             type: "View",
+           *             name: "Welcome",
            *             controlId: "splitContainer",
            *             controlAggregation: "masterPages"
            *         },
            *         // If display("detailWelcome") is called after the masterWelcome, the view will be removed from the master pages and added to the detail pages, since the same instance is used. Also the controls inside of the view will have the same state.
            *         detailWelcome: {
            *             // same view here, that's why the same instance is used
-           *             viewName: "Welcome",
+           *             type: "View",
+           *             name: "Welcome",
            *             controlId: "splitContainer",
            *             controlAggregation: "detailPages"
            *         }
@@ -10893,28 +10510,28 @@ declare module "sap/f/routing/Targets" {
            * ```
            *
            *
-           * If you want to have a second instance of the welcome view you can use the following:
+           * If you want to have a second instance of the welcome view you can assign the targets with different ids:
            *
            *
            * ```javascript
            *
            *
-           * // Some code you execute before you display the target named 'detailWelcome':
-           * var oView = sap.ui.view(({ viewName : "Welcome", type : sap.ui.core.mvc.ViewType.XML});
-           * oTargets.getViews().setView("WelcomeWithAlias", oView)
-           *
            * {
            *     targets: {
-           *         // If display("masterWelcome") is called, the master viewName will be placed in the 'MasterPages' of a control with the id splitContainter
+           *         // If display("masterWelcome") is called, the "masterWelcome" view will be placed in the 'MasterPages' of a control with the id splitContainter
            *         masterWelcome: {
-           *             viewName: "Welcome",
+           *             type: "View",
+           *             name: "Welcome",
+           *             id: "masterWelcome",
            *             controlId: "splitContainer",
            *             controlAggregation: "masterPages"
            *         },
-           *         // If display("detailWelcome") is called after the masterWelcome, a second instance with an own controller instance will be added in the detail pages.
+           *         // If display("detailWelcome") is called after the "masterWelcome", a second instance with an own controller instance will be added in the detail pages.
            *         detailWelcome: {
-           *             // same viewName here, that's why the same instance is used
-           *             viewName: "WelcomeWithAlias",
+           *             type: "View",
+           *             name: "Welcome",
+           *             // another instance will be created because a different id is used
+           *             id: "detailWelcome",
            *             controlId: "splitContainer",
            *             controlAggregation: "detailPages"
            *         }
@@ -10923,7 +10540,12 @@ declare module "sap/f/routing/Targets" {
            *
            * ```
            */
-          viewName: string;
+          name?: string;
+          /**
+           * Defines the 'usage' name for 'Component' target which refers to the '/sap.ui5/componentUsages' entry
+           * in the owner component's manifest.
+           */
+          usage?: string;
           /**
            * The type of the view that is going to be created. These are the supported types: {@link sap.ui.core.mvc.ViewType}.
            * You always have to provide a viewType except if `oOptions.config.viewType` is set or when using {@link
@@ -10931,17 +10553,17 @@ declare module "sap/f/routing/Targets" {
            */
           viewType?: string;
           /**
-           * A prefix that is prepended in front of the `viewName`.
+           * A prefix that is prepended in front of the `name`.
            *
-           * **Example:** `viewName` is set to "myView" and `viewPath` is set to "myApp" - the created viewName will
-           * be "myApp.myView".
+           * **Example:** `name` is set to "myView" and `path` is set to "myApp" - the created view's name will be
+           * "myApp.myView".
            */
-          viewPath?: string;
+          path?: string;
           /**
-           * The ID of the created view. This is is prefixed with the ID of the component set to the views instance
-           * provided in `oOptions.views`. For details, see `{@link sap.ui.core.routing.Views#getView}`.
+           * The ID of the created view or component. This is is prefixed with the ID of the component set to the
+           * views instance provided in `oOptions.views`. For details, see `{@link sap.ui.core.routing.Views#getView}`.
            */
-          viewId?: string;
+          id?: string;
           /**
            * The ID of the parent of the `controlId`.
            *
@@ -11030,11 +10652,13 @@ declare module "sap/f/routing/Targets" {
            *             // a reference to the app control in the rootView created by our UIComponent
            *             controlId: 'myApp',
            *             // An app has a pages aggregation where the views need to be put into
-           *             controlAggregation: 'pages'
+           *             controlAggregation: 'pages',
+           *             // all targets have type "View"
+           *             type: "View"
            *         },
            *         targets: {
            *             detail: {
-           *                 viewName: 'Detail'
+           *                 name: 'Detail'
            *             },
            *             secondTabContent: {
            *                 // A reference to the detail target defined above
@@ -11044,7 +10668,7 @@ declare module "sap/f/routing/Targets" {
            *                 // An IconTabFilter has an aggregation called content so we need to overwrite the pages set in the config as default.
            *                 controlAggregation: 'content',
            *                 // A view containing the content
-           *                 viewName: 'SecondTabContent'
+           *                 name: 'SecondTabContent'
            *             }
            *         }
            *     });
@@ -11061,11 +10685,11 @@ declare module "sap/f/routing/Targets" {
           /**
            * If you are having an application that has a logical order of views (eg: a create account process, first
            * provide user data, then review and confirm them). You always want to show a backwards transition if a
-           * navigation from the confirm to the userData page takes place. Therefore you may use the viewLevel. The
-           * viewLevel has to be an integer. The user data page should have a lower number than the confirm page.
-           * These levels should represent the user process of your application and they do not have to match the
-           * container structure of your Targets. If the user navigates between views with the same viewLevel, a forward
-           * transition is taken. If you pass a direction into the display function, the viewLevel will be ignored.
+           * navigation from the confirm to the userData page takes place. Therefore you may use the `level`. The
+           * `level` has to be an integer. The user data page should have a lower number than the confirm page. These
+           * levels should represent the user process of your application and they do not have to match the container
+           * structure of your Targets. If the user navigates between targets with the same `level`, a forward transition
+           * is taken. If you pass a direction into the display function, the `level` will be ignored.
            *
            * **Example:**
            *
@@ -11076,15 +10700,15 @@ declare module "sap/f/routing/Targets" {
            *     {
            *         targets: {
            *             startPage: {
-           *                 viewLevel: 0
+           *                 level: 0
            *                 // more properties
            *             },
            *             userData: {
-           *                 viewLevel: 1
+           *                 level: 1
            *                 // more properties
            *             },
            *             confirmRegistration: {
-           *                 viewLevel: 2
+           *                 level: 2
            *                 // more properties
            *             },
            *             settings: {
@@ -11097,14 +10721,14 @@ declare module "sap/f/routing/Targets" {
            *
            *
            * Currently the 'userData' target is displayed.
-           * 	 -  If we navigate to 'startPage' the navContainer will show a backwards navigation, since the viewLevel
+           * 	 -  If we navigate to 'startPage' the navContainer will show a backwards navigation, since the `level`
            * 			is lower.
-           * 	 -  If we navigate to 'userData' the navContainer will show a forwards navigation, since the viewLevel
+           * 	 -  If we navigate to 'userData' the navContainer will show a forwards navigation, since the `level`
            * 			is higher.
-           * 	 -  If we navigate to 'settings' the navContainer will show a forwards navigation, since the viewLevel
+           * 	 -  If we navigate to 'settings' the navContainer will show a forwards navigation, since the `level`
            * 			is not defined and cannot be compared.
            */
-          viewLevel?: int;
+          level?: int;
           /**
            * Defines which transition of the {@link sap.m.NavContainer} is applied when navigating. If it is not defined,
            * the `NavContainer` take its default transition.

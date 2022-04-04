@@ -8,9 +8,15 @@ interface Lock {
   readonly name: string;
 }
 
+interface LockInfo {
+    clientId?: string;
+    mode?: 'exclusive' | 'shared';
+    name?: string;
+}
+
 interface LockManagerSnapshot {
-  held: Lock[];
-  pending: Lock[];
+  held?: LockInfo[] | undefined;
+  pending?: LockInfo[] | undefined;
 }
 
 interface LockManagerRequestOptions {

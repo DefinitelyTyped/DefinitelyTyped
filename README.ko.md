@@ -247,7 +247,7 @@ f("one");
 
 #### Linter: `tslint.json`
 
-The linter configuration file, `tslint.json` should contain `{ "extends": "dtslint/dt.json" }`, and no additional rules.
+The linter configuration file, `tslint.json` should contain `{ "extends": "@definitelytyped/dtslint/dt.json" }`, and no additional rules.
 
 If for some reason some rule needs to be disabled, [disable it for that specific line](https://palantir.github.io/tslint/usage/rule-flags/#comment-flags-in-source-code:~:text=%2F%2F%20tslint%3Adisable%2Dnext%2Dline%3Arule1%20rule2%20rule3...%20%2D%20Disables%20the%20listed%20rules%20for%20the%20next%20line) using `// tslint:disable-next-line:[ruleName]` — not for the whole package, so that disabling can be reviewed. (There are some legacy lint configs that have additional contents, but these should not happen in new work.)
 
@@ -334,7 +334,7 @@ npm 의 패키지들은 수시간 안에 갱신될 겁니다. 만약 24 시간�
 
 #### 자료형 정의(Type definition)을 요청할 수 있나요?
 
-이미 요청된 자료형 정의(Type definition)들을 [여기서](https://github.com/DefinitelyTyped/DefinitelyTyped/labels/Definition%3ARequest) 보실 수 있습니다.
+이미 요청된 자료형 정의(Type definition)들을 [여기서](https://github.com/DefinitelyTyped/DefinitelyTyped/discussions/categories/request-a-new-types-package) 보실 수 있습니다.
 
 #### DOM 을 위한 자료형 정의(Type definitions)는요?
 
@@ -365,7 +365,7 @@ npm 패키지의 경우, `node -p 'require("foo")'` 가 원하는 값이라면 `
 1. `tsconfig.json` 와 `tslint.json` 에 포함된 상대경로들을 수정해주어야 합니다.
 2. 경로 대응 규칙(Path mapping rule)을 추가하여 테스트가 올바른 버전을 검사하도록 해야합니다.
 
-예를 들어, [history 패키지의 2 버전의 `tsconfig.json`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/history/v2/tsconfig.json) 파일은 다음과 같이 생겼습니다.
+예를 들어, [history 패키지의 2 버전의 `tsconfig.json`](https://github.com/%44efinitelyTyped/DefinitelyTyped/blob/1253faabf5e0d2c5470db6ea87795d7f96fef7e2/types/history/v2/tsconfig.json) 파일은 다음과 같이 생겼습니다.
 
 ```json
 {

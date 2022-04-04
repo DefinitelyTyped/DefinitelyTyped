@@ -22,6 +22,7 @@ export interface Intersection<TIntersected extends Object3D = Object3D> {
     faceIndex?: number | undefined;
     object: TIntersected;
     uv?: Vector2 | undefined;
+    uv2?: Vector2 | undefined;
     instanceId?: number | undefined;
 }
 
@@ -94,7 +95,7 @@ export class Raycaster {
     /**
      * Checks all intersection between the ray and the object with or without the descendants. Intersections are returned sorted by distance, closest first.
      * @param object The object to check for intersection with the ray.
-     * @param recursive If true, it also checks all descendants. Otherwise it only checks intersecton with the object. Default is false.
+     * @param recursive If true, it also checks all descendants. Otherwise it only checks intersecton with the object. Default is true.
      * @param optionalTarget (optional) target to set the result. Otherwise a new Array is instantiated. If set, you must clear this array prior to each call (i.e., array.length = 0;).
      */
     intersectObject<TIntersected extends Object3D>(
@@ -108,7 +109,7 @@ export class Raycaster {
      * Intersections are returned sorted by distance, closest first.
      * Intersections are of the same form as those returned by .intersectObject.
      * @param objects The objects to check for intersection with the ray.
-     * @param recursive If true, it also checks all descendants of the objects. Otherwise it only checks intersecton with the objects. Default is false.
+     * @param recursive If true, it also checks all descendants of the objects. Otherwise it only checks intersecton with the objects. Default is true.
      * @param optionalTarget (optional) target to set the result. Otherwise a new Array is instantiated. If set, you must clear this array prior to each call (i.e., array.length = 0;).
      */
     intersectObjects<TIntersected extends Object3D>(

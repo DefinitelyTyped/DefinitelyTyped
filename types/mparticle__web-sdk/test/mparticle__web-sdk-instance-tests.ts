@@ -131,6 +131,8 @@ instance.getVersion();
 instance.init('apiKey', config);
 instance.init('apiKey', config, 'instance');
 
+instance.isInitialized();
+
 instance.logBaseEvent({
     data: {},
     name: 'baseEventName',
@@ -212,6 +214,8 @@ instance.reset();
 instance.setAppName('appName');
 
 instance.setAppVersion('1.0.0');
+
+instance.setDeviceId('foo-uuid-v4');
 
 instance.setIntegrationAttribute(123, { key: 'value' });
 

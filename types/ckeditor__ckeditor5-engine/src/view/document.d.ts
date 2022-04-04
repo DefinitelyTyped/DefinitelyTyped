@@ -16,10 +16,8 @@ export default class Document implements BubblingEmitter, Observable {
     readonly stylesProcessor: StylesProcessor;
     get isReadOnly(): boolean;
     protected set isReadOnly(value: boolean);
-    get isFocused(): boolean;
-    protected set isFocused(value: boolean);
-    get isSelecting(): boolean;
-    protected set isSelecting(value: boolean);
+    isFocused: boolean;
+    isSelecting: boolean;
     get isComposing(): boolean;
     protected set isComposing(value: boolean);
     /**
@@ -86,12 +84,12 @@ export default class Document implements BubblingEmitter, Observable {
     on<K extends string>(
         event: K,
         callback: (this: this, info: EventInfo<this, K>, ...args: any[]) => void,
-        options?: { priority?: number | PriorityString | undefined },
+        options?: { priority?: number | PriorityString | undefined; context?: string | undefined },
     ): void;
     once<K extends string>(
         event: K,
         callback: (this: this, info: EventInfo<this, K>, ...args: any[]) => void,
-        options?: { priority?: number | PriorityString | undefined },
+        options?: { priority?: number | PriorityString | undefined; context?: string | undefined },
     ): void;
     off<K extends string>(event: K, callback?: (this: this, info: EventInfo<this, K>, ...args: any[]) => void): void;
     listenTo<P extends string, E extends Emitter>(

@@ -293,3 +293,9 @@ tap.test("autoend", t => {
     t.autoend(false);
     t.end();
 });
+
+tap.test("mocha", t => {
+    tap.mocha.it('should work', () => {});
+    tap.mocha.it.skip('should work', () => {});
+    tap.mocha.it.todo('should work', () => {});
+});

@@ -1,7 +1,6 @@
 // Type definitions for window-size 1.1.1
 // Project: https://github.com/jonschlinkert/window-size
-// Definitions by: Pouya Kary <https://github.com/pmkary>,
-//                 Juer Whang <https://github.com/juergenie>
+// Definitions by: Juer Whang <https://github.com/juergenie>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />

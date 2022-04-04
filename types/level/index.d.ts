@@ -7,11 +7,11 @@ import { AbstractOptions, ErrorCallback } from "abstract-leveldown";
 
 import EncodingDown from "encoding-down";
 
-import { LevelUp, errors } from "levelup";
+import levelup = require("levelup");
 
 declare namespace Level {
-    interface LevelDB<K = any, V = any> extends LevelUp<EncodingDown<K, V>> {
-        errors: typeof errors;
+    interface LevelDB<K = any, V = any> extends levelup.LevelUp<EncodingDown<K, V>> {
+        errors: typeof levelup.errors;
     }
     interface Constructor {
         (location: string, options?: AbstractOptions, callback?: ErrorCallback): LevelDB;

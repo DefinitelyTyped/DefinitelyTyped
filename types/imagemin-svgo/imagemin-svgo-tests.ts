@@ -9,7 +9,8 @@ imagemin(['*.svg'], {
             floatPrecision: 2,
             plugins: [
                 {
-                    removeViewBox: false,
+                    name: 'removeViewBox',
+                    active: true,
                 },
             ],
             multipass: false,

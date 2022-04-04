@@ -57,7 +57,7 @@ import * as dns from 'node:dns';
     const res: http.ServerResponse = new http.ServerResponse(incoming);
 
     // test headers
-    res.setHeader('Content-Type', 'text/plain');
+    res.setHeader('Content-Type', 'text/plain').setHeader('Access-Control-Allow-Origin', '*');
     const bool: boolean = res.hasHeader('Content-Type');
     const headers: string[] = res.getHeaderNames();
 
@@ -135,6 +135,12 @@ import * as dns from 'node:dns';
 
     // method
     const method: string = req.method;
+
+    // maxHeadersCount
+    const maxHeadersCount: number = req.maxHeadersCount;
+
+    // reusedSocket
+    const reusedSocket: boolean = req.reusedSocket;
 }
 
 {

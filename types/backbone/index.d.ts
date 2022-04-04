@@ -41,6 +41,7 @@ declare namespace Backbone {
     interface HistoryOptions extends Silenceable {
         pushState?: boolean | undefined;
         root?: string | undefined;
+        hashChange?: boolean | undefined;
     }
 
     interface NavigateOptions {

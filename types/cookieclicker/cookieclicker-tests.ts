@@ -110,6 +110,7 @@ No clicking achievements may be obtained in this mode.
 <div class="line"></div>
 Reaching 1 quadrillion cookies in this mode unlocks a special heavenly upgrade.`,
     icon: [12, 0],
+    dname: loc('Trigger finger'),
 };
 
 const selector: Game.SelectorSwitchChoice = { name: 'Example choice', icon: [10, 0] };
@@ -181,3 +182,24 @@ if (gainedBuff.time === gainedBuff.maxTime && gainedBuff.arg1) console.log(gaine
 gainedBuff.type === buffType;
 
 console.log(SimpleBeautify(1e6));
+
+console.log(loc('%1 types', LBeautify(10)));
+
+AddLanguage('TS', 'TypeScript', { Game: '{PseudoNull:0}', '': { 'plural-forms': '', language: 'unused' } });
+
+if (App) {
+    App.gotAchiev(Game.Achievements['Wake and bake'].id);
+    App.modsPopup();
+}
+
+alert(Game.Upgrades['Reinforced index finger'].dname);
+
+Game.ToggleFullscreen();
+
+Game.RuinTheFun();
+
+Game.registerMod('typemod', {
+    init() {
+        console.log(this.dir);
+    },
+});

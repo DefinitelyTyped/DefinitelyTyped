@@ -1,7 +1,6 @@
 // Type definitions for Mapbox GL JS 2.6
 // Project: https://github.com/mapbox/mapbox-gl-js
 // Definitions by: Dominik Bruderer <https://github.com/dobrud>
-//                 Patrick Reames <https://github.com/patrickr>
 //                 Karl-Aksel Puulmann <https://github.com/macobo>
 //                 Dmytro Gokun <https://github.com/dmytro-gokun>
 //                 Liam Clarke <https://github.com/LiamAttClarke>
@@ -555,7 +554,7 @@ declare namespace mapboxgl {
 
         on<T extends keyof MapLayerEventType>(
             type: T,
-            layer: string,
+            layer: string | ReadonlyArray<string>,
             listener: (ev: MapLayerEventType[T] & EventData) => void,
         ): this;
         on<T extends keyof MapEventType>(type: T, listener: (ev: MapEventType[T] & EventData) => void): this;
@@ -2425,7 +2424,7 @@ declare namespace mapboxgl {
         'text-pitch-alignment'?: 'map' | 'viewport' | 'auto' | undefined;
         'text-rotation-alignment'?: 'map' | 'viewport' | 'auto' | undefined;
         'text-field'?: string | StyleFunction | Expression | undefined;
-        'text-font'?: string | string[] | Expression | undefined;
+        'text-font'?: string[] | Expression | undefined;
         'text-size'?: number | StyleFunction | Expression | undefined;
         'text-max-width'?: number | StyleFunction | Expression | undefined;
         'text-line-height'?: number | Expression | undefined;

@@ -31,6 +31,7 @@ function Test1() {
                 locale={'en-US'}
                 maxDate={new Date()}
                 maxDetail={'second'}
+                minDate={new Date()}
                 minDetail={'month'}
                 minuteAriaLabel={'Minute ARIA Label'}
                 minutePlaceholder={'Minute Placeholder'}

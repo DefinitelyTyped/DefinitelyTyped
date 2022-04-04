@@ -1,12 +1,5 @@
 import { Passage, PassageBase } from "./passage";
-import { SaveObject } from "./save";
-
-export interface SaveDetails {
-    /**
-     * A string representing how the save operation came about—i.e., what caused it.
-     */
-    type: 'autosave' | 'disk' | 'serialize' | 'slot';
-}
+import { SaveDetails, SaveObject } from "./save";
 
 type SaveObjectHander = (save: SaveObject, details: SaveDetails) => void;
 type DescriptionHandler = (this: Passage) => string | null;
@@ -46,7 +39,7 @@ export interface ConfigAPI {
          * Sets the maximum number of states (moments) to which the history is allowed to grow. Should the history exceed the limit,
          * states will be dropped from the past (oldest first). A setting of 0 means that there is no limit to how large the history
          * may grow, though doing so is not recommended.
-         * @default 100
+         * @default 40
          * @since 2.0.0
          * @example
          * // No history limit (you should never do this!)
@@ -335,6 +328,7 @@ export interface ConfigAPI {
          * @see SaveObject
          * @default undefined
          * @since 2.0.0
+         * @deprecated since 2.36.0 in favor of the Save Events API.
          * @example
          * Config.saves.onLoad = function (save) {
          * // code
@@ -350,6 +344,7 @@ export interface ConfigAPI {
          * @default undefined
          * @since 2.0.0
          * @since 2.33.0: Added save operation details object parameter to the callback function.
+         * @deprecated since 2.36.0 in favor of the Save Events API.
          * @example
          * Config.saves.onSave = function (save) {
          * // code

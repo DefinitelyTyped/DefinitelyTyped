@@ -8,10 +8,11 @@ import * as React from 'react';
 const center = { lat: 0, lng: 0 };
 
 const key: BootstrapURLKeys = { key: 'my-google-maps-key', libraries: "places" };
-const client: BootstrapURLKeys = { client: 'my-client-identifier', v: '3.28' , language: 'en', libraries: "places", region: "PR", id: 'custom-id' };
+const client: BootstrapURLKeys = { client: 'my-client-identifier', version: '3.28' , language: 'en', libraries: "places", region: "PR", id: 'custom-id' };
 const options: MapOptions = {
     zoomControl: false,
     gestureHandling: 'cooperative',
+    mapId: '123456789',
     styles: [
         {
             featureType: "administrative",

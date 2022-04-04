@@ -64,6 +64,8 @@ export class GLTFLoader extends Loader {
         onLoad: (gltf: GLTF) => void,
         onError?: (event: ErrorEvent) => void,
     ): void;
+
+    parseAsync(data: ArrayBuffer | string, path: string): Promise<void>;
 }
 
 export type GLTFReferenceType = 'materials' | 'nodes' | 'textures' | 'meshes';
@@ -99,15 +101,8 @@ export class GLTFParser {
     loadBufferView: (bufferViewIndex: number) => Promise<ArrayBuffer>;
     loadAccessor: (accessorIndex: number) => Promise<BufferAttribute | InterleavedBufferAttribute>;
     loadTexture: (textureIndex: number) => Promise<Texture>;
-    loadTextureImage: (
-        textureIndex: number,
-        /**
-         * GLTF.Image
-         * See: https://github.com/KhronosGroup/glTF/blob/master/specification/2.0/schema/image.schema.json
-         */
-        source: { [key: string]: any },
-        loader: Loader,
-    ) => Promise<Texture>;
+    loadTextureImage: (textureIndex: number, sourceIndex: number, loader: Loader) => Promise<Texture>;
+    loadImageSource: (sourceIndex: number, loader: Loader) => Promise<Texture>;
     assignTexture: (
         materialParams: { [key: string]: any },
         mapName: string,
