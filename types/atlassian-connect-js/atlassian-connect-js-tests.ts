@@ -22,6 +22,9 @@ AP.confluence.syncPropertyFromServer('propertyKey', property => console.log(prop
 AP.context.getToken(token => console.log(token)); // $ExpectType void
 AP.context.getContext(context => console.log(context)); // $ExpectType void
 
+AP.context.getToken(); // $ExpectType Promise<string>
+AP.context.getContext(); // $ExpectType Promise<any>
+
 AP.cookie.save('name', 'value', 10); // $ExpectType void
 AP.cookie.read('name', value => console.log(value)); // $ExpectType void
 AP.cookie.erase('name'); // $ExpectType void
@@ -58,13 +61,14 @@ AP.events.on('name', data => console.log(data)); // $ExpectType void
 AP.events.onPublic('n', () => null, filter); // $ExpectType void
 AP.events.once('name', data => console.log(data)); // $ExpectType void
 AP.events.oncePublic('name', data => console.log(data), filter); // $ExpectType void
-AP.events.onAny(data => console.log(data)); // $ExpectType void
-AP.events.onAnyPublic(data => console.log(data), filter); // $ExpectType void
+AP.events.onAny((name, data) => console.log(name, data)); // $ExpectType void
+AP.events.onAnyPublic((name, data) => console.log(name, data), filter); // $ExpectType void
 AP.events.off('name', data => console.log(data)); // $ExpectType void
 AP.events.offPublic('name', data => console.log(data)); // $ExpectType void
 AP.events.offAll('name'); // $ExpectType void
 AP.events.offAllPublic('name'); // $ExpectType void
-AP.events.offAnyPublic(data => console.log(data)); // $ExpectType void
+AP.events.offAny((name, data) => console.log(name, data)); // $ExpectType void
+AP.events.offAnyPublic((name, data) => console.log(name, data)); // $ExpectType void
 AP.events.emit('name', ['data']); // $ExpectType void
 AP.events.emitPublic('name', ['data']); // $ExpectType void
 

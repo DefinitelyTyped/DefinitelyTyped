@@ -631,12 +631,12 @@ function* getGenerator() {
     yield 22;
     yield 33;
 }
-// $ExpectType 11 | 22 | 33 | null
-nth(2, getGenerator());
+// $ExpectType 11 | 22 | 33 | null || 11 | 33 | 22 | null
+nth(2, Array.from(getGenerator()));
 // $ExpectType null
 nth(2, []);
 // $ExpectType number | null
-nth(2, [5]);
+nth(2, [5, 5, 6]);
 // $ExpectType 5 | null
 nth(2, [5] as const);
 

@@ -27,7 +27,7 @@ SafariViewController.show(
     { url: 'foo' },
     res => {
         res; // $ExpectType SafariViewControllerShowResult
-        res.event; // $ExpectType "opened" | "loaded" | "closed"
+        res.event; // $ExpectType "opened" | "loaded" | "closed" || "loaded" | "closed" | "opened"
     },
     err => {
         err; // $ExpectType unknown

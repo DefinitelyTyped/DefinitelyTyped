@@ -4,6 +4,16 @@ const css = 'body { direction:ltr; }';
 
 // $ExpectType string
 rtlcss.process(css);
+rtlcss.process(css, {}, [], {
+    pre: (root, postcss) => {
+        root; // $ExpectType Root
+        postcss; // $ExpectType Postcss
+    },
+    post: (root, postcss) => {
+        root; // $ExpectType Root
+        postcss; // $ExpectType Postcss
+    },
+});
 
 const config = {
     autoRename: false,

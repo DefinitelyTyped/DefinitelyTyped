@@ -481,3 +481,10 @@ sharp('input.gif').png({ dither: 0.5 }).toFile('out.png');
 
 // Support for `resolutionUnit` for tiff output
 sharp('input.tiff').tiff({ resolutionUnit: 'cm' }).toFile('out.tiff');
+
+// Support for `jp2` output with different options
+sharp('input.tiff').jp2().toFile('out.jp2');
+sharp('input.tiff').jp2({ quality: 50 }).toFile('out.jp2');
+sharp('input.tiff').jp2({ lossless: true }).toFile('out.jp2');
+sharp('input.tiff').jp2({ tileWidth: 128, tileHeight: 128 }).toFile('out.jp2');
+sharp('input.tiff').jp2({ chromaSubsampling: '4:2:0' }).toFile('out.jp2');

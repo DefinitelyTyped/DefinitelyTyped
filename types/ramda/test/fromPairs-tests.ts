@@ -14,7 +14,11 @@ import * as R from 'ramda';
         [2, 'b'],
     ]); // => { '1': 'a', '2': 'b' }
 
-    // $ExpectType { [index: string]: 2 | 3 | 1; }
+    /**
+     * Typescript implementation of union order is not guaranteed and can
+     * change. Therefor using `||` here, which is a feature of $ExpectType
+     */
+    // $ExpectType { [index: string]: 2 | 3 | 1; } || { [index: string]: 2 | 1 | 3; }
     R.fromPairs([
         ['a', 1],
         ['b', 2],

@@ -380,6 +380,7 @@ declare namespace PDFKit {
         margin?: number | undefined;
         margins?: { top: number; left: number; bottom: number; right: number } | undefined;
         layout?: 'portrait' | 'landscape' | undefined;
+        font?: string | undefined;
 
         bufferPages?: boolean | undefined;
         tagged?: boolean;
