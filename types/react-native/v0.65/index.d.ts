@@ -43,6 +43,7 @@
 //                 Pedro Hernández <https://github.com/phvillegas>
 //                 Brett Lindsay <https://github.com/bdlindsay>
 //                 Sebastian Silbermann <https://github.com/eps1lon>
+//                 Daniel Reichhart <https://github.com/reichhartd>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -540,6 +541,11 @@ export interface PressableProps extends AccessibilityProps, Omit<ViewProps, 'chi
      * the component is currently pressed and returns view styles.
      */
     style?: StyleProp<ViewStyle> | ((state: PressableStateCallbackType) => StyleProp<ViewStyle>) | undefined;
+
+    /**
+     * Duration (in milliseconds) to wait after press down before calling onPressIn.
+     */
+    unstable_pressDelay?: number
 }
 
 // TODO use React.AbstractComponent when available
