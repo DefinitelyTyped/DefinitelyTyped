@@ -1,9 +1,9 @@
-import * as _ from './index';
+import * as _ from 'fake-lodash-pure-js';
 
-// $ExpectType number
+// $ExpectType number | undefined
 _.head<number>([1, 2]);
 
-// $ExpectType number
+// $ExpectType number | undefined
 _.tail<number>([1, 2]);
 
 // $ExpectType boolean
