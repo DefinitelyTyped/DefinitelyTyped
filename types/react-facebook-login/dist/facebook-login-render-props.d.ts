@@ -1,4 +1,3 @@
-// Type definitions for react-facebook-login 4.1
 // Specific use case when adding custom render component
 // https://www.npmjs.com/package/react-facebook-login#facebook-button-without-styling
 // Definitions by: Hafiz Temuri <https://github.com/temurih>
