@@ -444,7 +444,7 @@ export class PressableTest extends React.Component<{}> {
     render() {
         return (
             <>
-                <Pressable ref={this.myRef} onPress={this.onPressButton} style={{ backgroundColor: 'blue' }}>
+                <Pressable ref={this.myRef} onPress={this.onPressButton} style={{ backgroundColor: 'blue' }} unstable_pressDelay={100}>
                     <View style={{ width: 150, height: 100, backgroundColor: 'red' }}>
                         <Text style={{ margin: 30 }}>Button</Text>
                     </View>

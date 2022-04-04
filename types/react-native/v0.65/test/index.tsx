@@ -4,6 +4,7 @@ The content of index.io.js could be something like
     'use strict';
 
     import { AppRegistry } from 'react-native'
+    import { AppRegistry } from 'react-native'
     import Welcome from './gen/Welcome'
 
     AppRegistry.registerComponent('MopNative', () => Welcome);
@@ -446,7 +447,7 @@ export class PressableTest extends React.Component<{}> {
     render() {
         return (
             <>
-                <Pressable ref={this.myRef} onPress={this.onPressButton} style={{ backgroundColor: 'blue' }}>
+                <Pressable ref={this.myRef} onPress={this.onPressButton} style={{ backgroundColor: 'blue' }} unstable_pressDelay={100}>
                     <View style={{ width: 150, height: 100, backgroundColor: 'red' }}>
                         <Text style={{ margin: 30 }}>Button</Text>
                     </View>
