@@ -70,6 +70,13 @@ declare module 'opentok' {
       hasVideo: boolean;
     }
 
+    export interface PatchStream {
+      addStream?: string;
+      removeStream?: string;
+      hasAudio: boolean;
+      hasVideo: boolean;
+    }
+
     export interface Session {
       sessionId: string;
     }
@@ -222,6 +229,11 @@ declare module 'opentok' {
       callback: (error: Error | null, broadcasts?: OpenTok.Broadcast[]) => void,
     ): void;
     public listStreams(sessionId: string, callback: (error: Error | null, streams?: OpenTok.Stream[]) => void): void;
+    public patchArchive(
+      archiveId: string, 
+      options: OpenTok.PatchStream, 
+      callback: (error: Error | null, archive?: OpenTok.Archive) => void
+    ): void;
     public playDTMF(
       sessionId: string,
       connectionId: string,
