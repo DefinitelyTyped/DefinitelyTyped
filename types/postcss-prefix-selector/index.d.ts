@@ -3,8 +3,6 @@
 // Definitions by: robertmaier <https://github.com/robertmaier>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped/types/postcss-prefix-selector
 
-import type { Root } from 'postcss';
-
 interface Options {
     prefix?: string;
     exclude?: ReadonlyArray<string | RegExp>;
@@ -13,6 +11,6 @@ interface Options {
     transform?: (prefix: Readonly<string>, selector: Readonly<string>, prefixedSelector?: Readonly<string>, file?: Readonly<string>) => string;
 }
 
-declare function postcssPrefixSelector(options: Readonly<Options>): (root: Root) => string | undefined;
+declare function postcssPrefixSelector(options: Readonly<Options>): (root: any) => string | undefined;
 
 export = postcssPrefixSelector;
