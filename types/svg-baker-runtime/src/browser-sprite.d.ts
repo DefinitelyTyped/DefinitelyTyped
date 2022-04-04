@@ -11,8 +11,8 @@ export default class BrowserSprite extends Sprite {
      * override
      */
     protected config: SpriteConfig & BrowserSpriteConfig;
-    public node: Element | null;
-    public isMounted: boolean;
+    node: Element | null;
+    isMounted: boolean;
 
     /**
      * override
@@ -21,30 +21,30 @@ export default class BrowserSprite extends Sprite {
      * @fires Events#SYMBOL_MOUNT
      * @return `true` - symbol was added, `false` - replaced
      */
-    public add(symbol: BrowserSpriteSymbol): boolean;
+    add(symbol: BrowserSpriteSymbol): boolean;
 
     /**
      * Attach to existing DOM node
      * @return attached DOM Element. null if node to attach not found.
      */
-    public attach(target: string | Element): Element | null;
+    attach(target: string | Element): Element | null;
 
     /**
      * @fires Events#MOUNT
      * @return rendered sprite node. null if mount node not found.
      */
-    public mount(target?: string, prepend?: boolean): Element | null;
+    mount(target?: string, prepend?: boolean): Element | null;
 
-    public render(): Element;
+    render(): Element;
 
     /**
      * Detach sprite from the DOM
      */
-    public unmount(): void;
+    unmount(): void;
 
     /**
      * Update URLs in sprite and usage elements
      * @return `true` - URLs was updated, `false` - sprite is not mounted
      */
-    public updateUrls(oldUrl: string, newUrl: string): boolean;
+    updateUrls(oldUrl: string, newUrl: string): boolean;
 }
