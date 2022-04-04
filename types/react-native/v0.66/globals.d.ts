@@ -10,9 +10,17 @@
 declare function clearInterval(handle: number): void;
 declare function clearTimeout(handle: number): void;
 declare function setInterval(handler: () => void, timeout: number): number;
-declare function setInterval<Args extends any[]>(handler: (...args: Args) => void, timeout?: number, ...args: Args): number;
+declare function setInterval<Args extends any[]>(
+    handler: (...args: Args) => void,
+    timeout?: number,
+    ...args: Args
+): number;
 declare function setTimeout(handler: () => void, timeout: number): number;
-declare function setTimeout<Args extends any[]>(handler: (...args: Args) => void, timeout?: number, ...args: Args): number;
+declare function setTimeout<Args extends any[]>(
+    handler: (...args: Args) => void,
+    timeout?: number,
+    ...args: Args
+): number;
 declare function clearImmediate(handle: number): void;
 declare function setImmediate(handler: () => void): number;
 declare function setImmediate<Args extends any[]>(handler: (...args: Args) => void, ...args: Args): number;
@@ -52,15 +60,17 @@ declare var Blob: {
     new (blobParts?: Array<Blob | string>, options?: BlobOptions): Blob;
 };
 
-type FormDataPart = {
-    string: string;
-    headers: { [name: string]: string };
-} | {
-    uri: string
-    headers: { [name: string]: string }
-    name?: string
-    type?: string
-}
+type FormDataPart =
+    | {
+          string: string;
+          headers: { [name: string]: string };
+      }
+    | {
+          uri: string;
+          headers: { [name: string]: string };
+          name?: string;
+          type?: string;
+      };
 
 declare class FormData {
     append(name: string, value: any): void;

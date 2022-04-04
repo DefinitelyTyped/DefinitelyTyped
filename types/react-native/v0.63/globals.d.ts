@@ -10,9 +10,17 @@
 declare function clearInterval(handle: number): void;
 declare function clearTimeout(handle: number): void;
 declare function setInterval(handler: () => void, timeout: number): number;
-declare function setInterval<Args extends any[]>(handler: (...args: Args) => void, timeout?: number, ...args: Args): number;
+declare function setInterval<Args extends any[]>(
+    handler: (...args: Args) => void,
+    timeout?: number,
+    ...args: Args
+): number;
 declare function setTimeout(handler: () => void, timeout: number): number;
-declare function setTimeout<Args extends any[]>(handler: (...args: Args) => void, timeout?: number, ...args: Args): number;
+declare function setTimeout<Args extends any[]>(
+    handler: (...args: Args) => void,
+    timeout?: number,
+    ...args: Args
+): number;
 declare function clearImmediate(handle: number): void;
 declare function setImmediate(handler: () => void): number;
 declare function setImmediate<Args extends any[]>(handler: (...args: Args) => void, ...args: Args): number;

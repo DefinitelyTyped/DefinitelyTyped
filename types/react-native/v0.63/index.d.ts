@@ -6014,9 +6014,7 @@ export interface InteractionManagerStatic {
      * Schedule a function to run after all interactions have completed.
      * Returns a cancellable
      */
-    runAfterInteractions(
-        task?: (() => any) | SimpleTask | PromiseTask,
-    ): {
+    runAfterInteractions(task?: (() => any) | SimpleTask | PromiseTask): {
         then: (onfulfilled?: () => any, onrejected?: () => any) => Promise<any>;
         done: (...args: any[]) => any;
         cancel: () => void;
@@ -8409,9 +8407,7 @@ export interface UIManagerStatic {
         success: (item: string, index: number | undefined) => void,
     ): void;
 
-    getViewManagerConfig: (
-        name: string,
-    ) => {
+    getViewManagerConfig: (name: string) => {
         Commands: { [key: string]: number };
     };
 
@@ -8449,7 +8445,7 @@ export interface SwitchPropsIOS extends ViewProps {
 }
 
 export interface SwitchChangeEvent extends React.SyntheticEvent {
-    value: boolean
+    value: boolean;
 }
 
 export interface SwitchProps extends SwitchPropsIOS {
@@ -8463,7 +8459,7 @@ export interface SwitchProps extends SwitchPropsIOS {
      *
      * Color when false and color when true
      */
-     trackColor?: { false?: ColorValue | null; true?: ColorValue | null };
+    trackColor?: { false?: ColorValue | null; true?: ColorValue | null };
 
     /**
      * If true the user won't be able to toggle the switch.

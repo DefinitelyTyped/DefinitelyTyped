@@ -10,9 +10,17 @@
 declare function clearInterval(handle: number): void;
 declare function clearTimeout(handle: number): void;
 declare function setInterval(handler: () => void, timeout: number): number;
-declare function setInterval<Args extends any[]>(handler: (...args: Args) => void, timeout?: number, ...args: Args): number;
+declare function setInterval<Args extends any[]>(
+    handler: (...args: Args) => void,
+    timeout?: number,
+    ...args: Args
+): number;
 declare function setTimeout(handler: () => void, timeout: number): number;
-declare function setTimeout<Args extends any[]>(handler: (...args: Args) => void, timeout?: number, ...args: Args): number;
+declare function setTimeout<Args extends any[]>(
+    handler: (...args: Args) => void,
+    timeout?: number,
+    ...args: Args
+): number;
 declare function clearImmediate(handle: number): void;
 declare function setImmediate(handler: () => void): number;
 declare function setImmediate<Args extends any[]>(handler: (...args: Args) => void, ...args: Args): number;
@@ -346,9 +354,9 @@ type WebsocketOpenEventListener = (event: 'open', handler: () => void) => void;
 type WebsocketCloseEventListener = (event: 'close', handler: (e: WebSocketCloseEvent) => void) => void;
 
 type WebsocketEventListener = WebsocketMessageEventListener &
-  WebsocketErrorEventListener &
-  WebsocketOpenEventListener &
-  WebsocketCloseEventListener;
+    WebsocketErrorEventListener &
+    WebsocketOpenEventListener &
+    WebsocketCloseEventListener;
 
 interface WebSocket extends EventTarget {
     readonly readyState: number;
@@ -398,15 +406,27 @@ declare class AbortSignal implements EventTarget {
 
     onabort: (event: AbortEvent) => void;
 
-    addEventListener: (type: "abort", listener: ((this: AbortSignal, event: any) => any), options?: boolean | {
-        capture?: boolean,
-        once?: boolean,
-        passive?: boolean
-    }) => void;
+    addEventListener: (
+        type: 'abort',
+        listener: (this: AbortSignal, event: any) => any,
+        options?:
+            | boolean
+            | {
+                  capture?: boolean;
+                  once?: boolean;
+                  passive?: boolean;
+              },
+    ) => void;
 
-    removeEventListener: (type: "abort", listener: ((this: AbortSignal, event: any) => any), options?: boolean | {
-        capture?: boolean
-    }) => void;
+    removeEventListener: (
+        type: 'abort',
+        listener: (this: AbortSignal, event: any) => any,
+        options?:
+            | boolean
+            | {
+                  capture?: boolean;
+              },
+    ) => void;
 }
 
 declare class AbortController {
