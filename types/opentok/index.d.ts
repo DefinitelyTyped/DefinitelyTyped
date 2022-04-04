@@ -40,6 +40,7 @@ declare module 'opentok' {
       outputMode?: OutputMode | undefined;
       layout?: ArchiveLayoutOptions | undefined;
       resolution?: string | undefined;
+      streamMode?: 'auto' | 'manual' | undefined;
     }
 
     export type ArchiveLayoutOptions = PredefinedArchiveLayoutOptions | CustomArchiveLayoutOptions;
