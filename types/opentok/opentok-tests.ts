@@ -64,9 +64,19 @@ const archivePredefinedLayoutOptions: OpenTok.ArchiveOptions = {
   },
 };
 
+const patchStream: OpenTok.PatchStream = {
+  addStream: 'streamId',
+  hasAudio: false,
+  hasVideo: true
+}
+
 client.startArchive('SESSION_ID', archiveOptions, (err: Error, archive: OpenTok.Archive) => {
   if (err) return console.log(err);
   console.log(archive.id);
+});
+
+client.patchArchive('ARCHIVE_ID', patchStream, (err: Error) => {
+  if (err) return console.log(err);
 });
 
 client.stopArchive('ARCHIVE_ID', (err: Error, archive: OpenTok.Archive) => {

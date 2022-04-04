@@ -232,7 +232,7 @@ declare module 'opentok' {
     public patchArchive(
       archiveId: string, 
       options: OpenTok.PatchStream, 
-      callback: (error: Error | null, archive?: OpenTok.Archive) => void
+      callback: (error: Error | null) => void
     ): void;
     public playDTMF(
       sessionId: string,
