@@ -348,6 +348,14 @@ declare global {
 
     class Blob implements BlobInterface {
         /**
+         * Create a new [Blob](https://developer.mozilla.org/en-US/docs/Web/API/Blob)
+         *
+         * @param `parts` - An array of strings, numbers, TypedArray, or [Blob](https://developer.mozilla.org/en-US/docs/Web/API/Blob) objects
+         * @param `options` - An object containing properties to be added to the [Blob](https://developer.mozilla.org/en-US/docs/Web/API/Blob)
+         */
+        constructor(parts?: BlobPart[] | Blob | FileBlob, options?: BlobPropertyBag);
+
+        /**
          * Create a new view **without 🚫 copying** the underlying data.
          *
          * Similar to [`TypedArray.subarray`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray/subarray)
@@ -377,6 +385,9 @@ declare global {
          *
          */
         json(): Promise<JSON>;
+
+        type: string;
+        size: number;
     }
 
     interface ResponseInit {
