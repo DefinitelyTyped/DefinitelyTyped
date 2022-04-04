@@ -1,5 +1,10 @@
 import * as _ from './index';
 
-_.head([]); // $ExpectType undefined
-_.tail([]); // $ExpectType undefined
-_.isArray([]); // $ExpectType boolean
+// $ExpectType number
+_.head<number>([1, 2]);
+
+// $ExpectType number
+_.tail<number>([1, 2]);
+
+// $ExpectType boolean
+_.isArray([]);
