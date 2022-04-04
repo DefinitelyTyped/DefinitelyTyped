@@ -344,6 +344,7 @@ declare global {
     };
 
     type HeadersInit = Array<[string, string]> | Record<string, string> | Headers;
+    type ResponseType = 'basic' | 'cors' | 'default' | 'error' | 'opaque' | 'opaqueredirect';
 
     class Blob implements BlobInterface {
         /**
@@ -378,6 +379,15 @@ declare global {
         json(): Promise<JSON>;
     }
 
+    interface ResponseInit {
+        headers?: HeadersInit;
+        /** @default 200 */
+        status?: number;
+
+        /** @default "OK" */
+        statusText?: string;
+    }
+
     /**
      * Represents an HTTP [Response](https://developer.mozilla.org/en-US/docs/Web/API/Response)
      *
@@ -395,14 +405,54 @@ declare global {
      * ```
      */
     class Response implements BlobInterface {
-        constructor(
-            body: BlobPart | BlobPart[] | Blob | FileBlob,
-            options?: {
-                headers?: HeadersInit;
-                /** @default 200 */
-                status?: number;
-            },
-        );
+        constructor(body: BlobPart | BlobPart[] | Blob | FileBlob, options?: ResponseInit);
+
+        /**
+         * Create a new {@link Response} with a JSON body
+         *
+         * @param body - The body of the response
+         * @param options - options to pass to the response
+         *
+         * @example
+         *
+         * ```ts
+         * const response = Response.json({hi: "there"});
+         * console.assert(
+         *   await response.text(),
+         *   `{"hi":"there"}`
+         * );
+         * ```
+         * -------
+         *
+         * This is syntactic sugar for:
+         * ```js
+         *  new Response(JSON.stringify(body), {headers: { "Content-Type": "application/json" }})
+         * ```
+         * @link https://github.com/whatwg/fetch/issues/1389
+         */
+        static json(body?: any, options?: ResponseInit): Response;
+        /**
+         * Create a new {@link Response} that redirects to url
+         *
+         * @param url - the URL to redirect to
+         * @param status - the HTTP status code to use for the redirect
+         */
+        // tslint:disable-next-line:unified-signatures
+        static redirect(url: string, status?: number): Response;
+
+        /**
+         * Create a new {@link Response} that redirects to url
+         *
+         * @param url - the URL to redirect to
+         * @param options - options to pass to the response
+         */
+        // tslint:disable-next-line:unified-signatures
+        static redirect(url: string, options?: ResponseInit): Response;
+
+        /**
+         * Create a new {@link Response} that has a network error
+         */
+        static error(): Response;
 
         /**
          * HTTP [Headers](https://developer.mozilla.org/en-US/docs/Web/API/Headers) sent with the response.
@@ -415,12 +465,12 @@ declare global {
          * headers.get("Set-Cookie");
          * ```
          */
-        headers: Headers;
+        readonly headers: Headers;
 
         /**
          * Has the body of the response already been consumed?
          */
-        bodyUsed: boolean;
+        readonly bodyUsed: boolean;
 
         /**
          * Read the data from the Response as a string. It will be decoded from UTF-8.
@@ -452,6 +502,25 @@ declare global {
          * @returns Promise<Blob> - The body of the response as a {@link Blob}.
          */
         blob(): Promise<Blob>;
+
+        readonly ok: boolean;
+        readonly redirected: boolean;
+        /**
+         * HTTP status code
+         *
+         * @example
+         * 200
+         *
+         * 0 for network errors
+         */
+        readonly status: number;
+        readonly statusText: string;
+        readonly type: ResponseType;
+        /** HTTP url as a string */
+        readonly url: string;
+
+        /** Copy the Response object into a new Response, including the body */
+        clone(): Response;
     }
 
     type RequestCache = 'default' | 'force-cache' | 'no-cache' | 'no-store' | 'only-if-cached' | 'reload';
@@ -591,6 +660,16 @@ declare global {
         headers: Headers;
 
         /**
+         * The URL (as a string) corresponding to the HTTP request
+         * @example
+         * ```ts
+         * const request = new Request("https://remix.run/");
+         * request.url; // "https://remix.run/"
+         * ```
+         */
+        readonly url: string;
+
+        /**
          * Consume the [`Request`](https://developer.mozilla.org/en-US/docs/Web/API/Request) body as a string. It will be decoded from UTF-8.
          *
          * When the body is valid latin1, this operation is zero copy.
@@ -618,6 +697,66 @@ declare global {
          *
          */
         blob(): Promise<Blob>;
+
+        /**
+         * Returns the cache mode associated with request, which is a string indicating how the request will interact with the browser's cache when fetching.
+         */
+        readonly cache: RequestCache;
+        /**
+         * Returns the credentials mode associated with request, which is a string indicating whether credentials will be sent with the request always, never, or only when sent to a same-origin URL.
+         */
+        readonly credentials: RequestCredentials;
+        /**
+         * Returns the kind of resource requested by request, e.g., "document" or "script".
+         *
+         * In Bun, this always returns "navigate".
+         */
+        readonly destination: RequestDestination;
+        /**
+         * Returns request's subresource integrity metadata, which is a cryptographic hash of the resource being fetched. Its value consists of multiple hashes separated by whitespace. [SRI]
+         *
+         * This does nothing in Bun right now.
+         */
+        readonly integrity: string;
+        /**
+         * Returns a boolean indicating whether or not request can outlive the global in which it was created.
+         *
+         * In Bun, this always returns false.
+         */
+        readonly keepalive: boolean;
+        /**
+         * Returns request's HTTP method, which is "GET" by default.
+         */
+        readonly method: string;
+        /**
+         * Returns the mode associated with request, which is a string indicating whether the request will use CORS, or will be restricted to same-origin URLs.
+         */
+        readonly mode: RequestMode;
+        /**
+         * Returns the redirect mode associated with request, which is a string indicating how redirects for the request will be handled during fetching. A request will follow redirects by default.
+         */
+        readonly redirect: RequestRedirect;
+        /**
+         * Returns the referrer of request. Its value can be a same-origin URL
+         * if explicitly set in init, the empty string to indicate no referrer,
+         * and "about:client" when defaulting to the global's default. This is
+         * used during fetching to determine the value of the `Referer` header
+         * of the request being made.
+         */
+        readonly referrer: string;
+        /**
+         * Returns the referrer policy associated with request. This is used during fetching to compute the value of the request's referrer.
+         */
+        readonly referrerPolicy: ReferrerPolicy;
+        /**
+         * Returns the signal associated with request, which is an AbortSignal object indicating whether or not request has been aborted, and its abort event handler.
+         *
+         * Note: this is **not implemented yet**. The cake is a lie.
+         */
+        readonly signal: AbortSignal;
+
+        /** Copy the Request object into a new Request, including the body */
+        clone(): Request;
     }
 
     interface Crypto {
