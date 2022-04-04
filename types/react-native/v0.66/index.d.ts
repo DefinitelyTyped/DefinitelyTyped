@@ -41,7 +41,6 @@
 //                 Pedro Hernández <https://github.com/phvillegas>
 //                 Sebastian Silbermann <https://github.com/eps1lon>
 //                 Zihan Chen <https://github.com/ZihanChen-MSFT>
-//                 Daniel Reichhart <https://github.com/reichhartd>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
