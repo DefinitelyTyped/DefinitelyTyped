@@ -1,9 +1,9 @@
 import * as R from 'ramda';
 
 () => {
-    // $ExpectType true
+    // $ExpectType boolean
     R.isNil(null);
-    // $ExpectType true
+    // $ExpectType boolean
     R.isNil(undefined);
     const l = [1, 2, 3];
     // $ExpectType boolean

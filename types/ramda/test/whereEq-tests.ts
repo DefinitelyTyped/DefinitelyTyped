@@ -2,10 +2,14 @@ import * as R from 'ramda';
 
 () => {
     // pred :: Object -> Boolean
+    // $ExpectType <U extends { a: number; b: number; }>(obj: U) => boolean
     const pred = R.whereEq({ a: 1, b: 2 });
+    // $ExpectError
     pred({ a: 1 }); // => false
     pred({ a: 1, b: 2 }); // => true
-    pred({ a: 1, b: 2, c: 3 }); // => true
+    const a = { a: 1, b: 2, c: 3 };
+    pred(a); // => true
     pred({ a: 1, b: 1 }); // => false
+    // $ExpectType boolean
     R.whereEq({ a: 'one' }, { a: 'one' }); // => true
 };

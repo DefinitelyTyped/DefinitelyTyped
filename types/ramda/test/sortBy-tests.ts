@@ -6,7 +6,7 @@ interface Person {
 }
 
 () => {
-    // $ExpectType (list: readonly Person[]) => Person[]
+    // $ExpectType <U extends Person>(list: readonly U[]) => U[]
     const sortByAgeDescending = R.sortBy<Person>(({ age }) => -age);
 
     const alice = {
@@ -26,7 +26,7 @@ interface Person {
 };
 
 () => {
-    // $ExpectType (list: readonly Person[]) => Person[]
+    // $ExpectType <U extends Person>(list: readonly U[]) => U[]
     const sortByNameCaseInsensitive = R.sortBy<Person>(({ name }) => name.toLowerCase());
     const alice = {
         name: 'ALICE',
@@ -52,6 +52,6 @@ interface Person {
 
     const result = f([{ value: 1 }, { value: 2 }]);
 
-    // $ExpectType Obj[]
+    // $ExpectType { value: number; }[]
     result;
 };

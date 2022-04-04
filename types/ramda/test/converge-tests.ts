@@ -44,16 +44,16 @@ import * as R from 'ramda';
     const fn = R.converge(multiply, [add, subtract]);
 
     // $ExpectError
-    const fnMismatchedTypes = R.converge(concat, [add, subtract]);
+    R.converge(concat, [add, subtract]);
 
     // $ExpectError
     R.converge(multiply, [add, subtract, add]);
 
     // $ExpectError
-    const fnWrongNumberOfBranchesV1 = R.converge(concat, []);
+    R.converge(concat, []);
 
     // $Expect Curry<() => void>
-    const emptyFunction = R.converge(() => {}, []);
+    R.converge(() => {}, []);
 
     // $ExpectType number
     fn(1, 2);
@@ -114,48 +114,48 @@ import * as R from 'ramda';
     // $ExpectType number
     fn10WithAdd3(1, 2, 3);
 
-    const args1 = (a1: number | string) => 1;
-    const args2 = (a1: number | bigint, a2: { q: string }) => 2;
-    const args3 = (a1: number | symbol, a2: { w: number }, a3: number) => 3;
+    const args1 = (_a1: number | string) => 1;
+    const args2 = (_a1: number | bigint, _a2: { q: string }) => 2;
+    const args3 = (_a1: number | symbol, _a2: { w: number }, _a3: number) => 3;
 
     // resulted function must accept types of parameters that will satisfy every function in branches, so intersection must be used
-    // $ExpectType Curry<(a1: number, a2: { w: number; } & { q: string; }, a3: number) => number>
+    // $ExpectType Curry<(_a1: number, _a2: { w: number; } & { q: string; }, _a3: number) => number>
     const intersectionOfArguments = R.converge(add3, [args1, args2, args3]);
 
     // $ExpectType number
-    const resultNumber = intersectionOfArguments(1, { q: 'text', w: 22 }, 11);
+    intersectionOfArguments(1, { q: 'text', w: 22 }, 11);
 
     // $ExpectError
-    const errorArguments = intersectionOfArguments(1, { q: 'text' }, 11);
+    intersectionOfArguments(1, { q: 'text' }, 11);
 
     const argsIncompatible = (a1: string) => 1;
 
     // types: `string`, `number | symbol`, and `number | bigint` - do not have common type
     // $ExpectError
-    const intersectionOfArgumentsIncompatible = R.converge(add3, [argsIncompatible, args2, args3]);
+    R.converge(add3, [argsIncompatible, args2, args3]);
 
-    const addGeneric = <T>(a: T, b: T): T => b;
+    const addGeneric = <T>(_a: T, b: T): T => b;
 
     // need to use const if converging function is generic
     // $ExpectType Curry<(a: number, b: number) => number>
-    const withGeneric0 = R.converge(addGeneric, [multiply, subtract] as const);
+    R.converge(addGeneric, [multiply, subtract] as const);
 
     // unable to infer types correctly because generic `R.or` has overloads with different number of arguments
-    // $ExpectType Curry<(a: number, b: number) => <U>(b: U) => unknown>
-    const withGenericWrongInferred = R.converge(R.or, [add, subtract] as const);
+    // $ExpectType Curry<(a: number, b: number) => (b: unknown) => unknown>
+    R.converge(R.or, [add, subtract] as const);
 
     // need to use wrapper `(...args) => convergingFunction(...args)` if converging function
     // is generic that has overloads with different number of arguments
     // $ExpectType Curry<(a: number, b: number, c: number) => number>
-    const withGeneric1 = R.converge((...args) => R.or(...args), [add, add3] as const);
+    R.converge((...args) => R.or(...args), [add, add3] as const);
 
     // or explicitly set type for converging function arguments
     // $ExpectType Curry<(a: number, b: number) => number>
-    const withGeneric2 = R.converge((...args: [number, number]) => R.or(...args), [add, subtract]);
+    R.converge((...args: [number, number]) => R.or(...args), [add, subtract]);
 
     // $ExpectType Curry<(list: readonly number[] & ArrayLike<unknown>) => number>
     const getAverage = R.converge((...args) => R.divide(...args), [R.sum, R.length] as const);
 
     // $ExpectType number
-    const average = getAverage([1, 3, 0, 4]); // => 2
+    getAverage([1, 3, 0, 4]); // => 2
 };

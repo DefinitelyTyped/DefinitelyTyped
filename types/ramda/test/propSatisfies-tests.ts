@@ -1,27 +1,45 @@
 import * as R from 'ramda';
 
 () => {
-    const a: boolean = R.propSatisfies((x: number) => x > 0, 'x', { x: 1, y: 2 }); // => true
-    const b: boolean = R.propSatisfies((x: number) => x > 0, 'x')({ x: 1, y: 2 }); // => true
-    const c: boolean = R.propSatisfies((x: number) => x > 0)('x')({ x: 1, y: 2 }); // => true
+    const obj = { x: 1, y: 2 };
+    // $ExpectType boolean
+    R.propSatisfies((x: number) => x > 0, 'x', obj); // => true
+    // $ExpectType boolean
+    R.propSatisfies((x: number) => x > 0, 'x')(obj); // => true
+    // $ExpectType boolean
+    R.propSatisfies((x: number) => x > 0)('x')(obj); // => true
 };
 
 () => {
-    const obj = {};
+    const obj: { x: unknown } = { x: 'x' };
 
     if (R.propSatisfies(R.is(Number), 'x', obj)) {
-        const number: number = obj.x;
+        // $ExpectType number
+        obj.x;
     }
 
     if (R.propSatisfies(R.is(Number), 'x')(obj)) {
-        const number: number = obj.x;
+        // $ExpectType number
+        obj.x;
     }
 
     if (R.propSatisfies(R.is(Number))('x', obj)) {
-        const number: number = obj.x;
+        // $ExpectType number
+        obj.x;
     }
 
     if (R.propSatisfies(R.is(Number))('x')(obj)) {
-        const number: number = obj.x;
+        // $ExpectType number
+        obj.x;
     }
+
+    const unk: unknown = 'unk';
+    // $ExpectError
+    R.propSatisfies(R.is(Number), 'x', unk);
+    // $ExpectError
+    R.propSatisfies(R.is(Number), 'x')(unk);
+    // $ExpectError
+    R.propSatisfies(R.is(Number))('x', unk);
+    // $ExpectError
+    R.propSatisfies(R.is(Number))('x')(unk);
 };

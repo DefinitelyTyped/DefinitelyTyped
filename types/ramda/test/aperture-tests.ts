@@ -20,9 +20,9 @@ import * as R from 'ramda';
 
     const anyArr: any[] = [1, "2"];
     // $ExpectType [] | [any, any][]
-    const aperturedAny = R.aperture(2, anyArr);
+    R.aperture(2, anyArr);
 
     const undefArr: undefined[] = [undefined, undefined, undefined];
     // $ExpectType [] | [undefined, undefined, undefined][]
-    const aperturedUndefined = R.aperture(3, undefArr);
+    R.aperture(3, undefArr);
 };

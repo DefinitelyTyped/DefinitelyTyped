@@ -20,7 +20,7 @@ import * as R from 'ramda';
 
 () => {
     // Flatten all arrays in the list but leave other values alone.
-    const flattenArrays = R.map(R.ifElse(Array.isArray, R.flatten, R.identity));
+    const flattenArrays = R.map(R.ifElse<unknown, unknown[], unknown>(Array.isArray, R.flatten, R.identity));
 
     // $ExpectType unknown[]
     flattenArrays([[0], [[10], [8]], 1234, {}]); // => [[0], [10, 8], 1234, {}]
@@ -72,7 +72,7 @@ import * as R from 'ramda';
     // $ExpectType B
     R.map<A, B>(R.toString)({ a: 1, b: 2 });
 
-    type KeyOfUnion<T> = T extends infer U ? keyof U : never;
+    type KeyOfUnion<T> = T extends T ? keyof T : never;
 
     /**
      * Typescript implementation of union order is not guaranteed and can
@@ -80,10 +80,8 @@ import * as R from 'ramda';
      */
     // $ExpectType Record<"c" | "a" | "b", void> || Record<"a" | "b" | "c", void>
     R.map<A | C, Record<KeyOfUnion<A | C>, void>>(
-        // $ExpectType (value: string | number) => void
-        value => {
-            value;
-        },
+        // $ExpectType (_value: string | number) => void
+        _value => {},
         { a: 1, b: 2 },
     );
 };

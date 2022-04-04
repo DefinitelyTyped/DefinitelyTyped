@@ -19,7 +19,11 @@ import * as R from 'ramda';
     // $ExpectType Partial<{ 1: { color: string; }; 2: { color: string; bgcolor: string; }; }>
     R.pickBy(containsBackground, colors); // => {2: {color: 'black', bgcolor: 'yellow'}}
 
-    type Style = { color?: string; bgcolor?: string; };
+    interface Style {
+        color?: string;
+        bgcolor?: string;
+    }
+
     const colors2: Record<number, Style> = colors;
     // $ExpectType Partial<Record<number, Style>>
     R.pickBy(containsBackground, colors2); // => {2: {color: 'black', bgcolor: 'yellow'}}

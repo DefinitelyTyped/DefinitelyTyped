@@ -13,20 +13,17 @@ import * as R from 'ramda';
         return x + y + z;
     }
 
-    // $ExpectType (args_0: number, args_1: number) => number
-    const squareThenAdd = R.useWith(add, [square, square]);
-
+    // $ExpectType Curry<(args_0: number, args_1: number) => number>
+    R.useWith(add, [square, square]);
     // $ExpectError
-    const addNothing = R.useWith(add, []);
-
+    R.useWith(add, []);
     // $ExpectError
-    const fnIncorrectArity = R.useWith(add, [square, square, square]);
-
+    R.useWith(add, [square, square, square]);
     // $ExpectError
-    const fnIncorrectType = R.useWith(add, [square, R.toString]);
+    R.useWith(add, [square, R.toString]);
 
-    // $ExpectType (args_0: number, args_1: number, args_2: number) => number
-    const squareThenAdd3 = R.useWith(add3, [square, square, square]);
+    // $ExpectType Curry<(args_0: number, args_1: number, args_2: number) => number>
+    R.useWith(add3, [square, square, square]);
 
     function add11(
         a: number,
@@ -44,19 +41,9 @@ import * as R from 'ramda';
         return a + b + c + d + e + f + g + h + i + j + k;
     }
 
-    const squareThenAdd11: (
-        args_0: number,
-        args_1: number,
-        args_2: number,
-        args_3: number,
-        args_4: number,
-        args_5: number,
-        args_6: number,
-        args_7: number,
-        args_8: number,
-        args_9: number,
-        args_10: number,
-    ) => number = R.useWith(add11, [
+    // tslint:disable:max-line-length
+    // $ExpectType Curry<(args_0: number, args_1: number, args_2: number, args_3: number, args_4: number, args_5: number, args_6: number, args_7: number, args_8: number, args_9: number, args_10: number) => number>
+    R.useWith(add11, [
         square,
         square,
         square,
@@ -69,4 +56,5 @@ import * as R from 'ramda';
         square,
         square,
     ]);
+    // tslint:enable:max-line-length
 };

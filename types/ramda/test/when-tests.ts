@@ -19,7 +19,7 @@ import * as R from 'ramda';
     const addOneIfNotNil = R.when<undefined | number, number, number>(notNull, R.add(1));
 
     // $ExpectType number | undefined
-    const nil = addOneIfNotNil(undefined);
+    addOneIfNotNil(undefined);
     // $ExpectType number | undefined
-    const two = addOneIfNotNil(1);
+    addOneIfNotNil(1);
 };

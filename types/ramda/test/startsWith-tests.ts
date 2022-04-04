@@ -1,7 +1,7 @@
 import * as R from 'ramda';
 
 () => {
-    // $ExpectType (str: string) => boolean
+    // $ExpectType (string: string) => boolean
     const startsWithStringC = R.startsWith('a');
     // $ExpectType boolean
     startsWithStringC('abc'); // => true

@@ -1,20 +1,18 @@
 import * as R from 'ramda';
 
 () => {
-    // $ExpectType 7 | 3
+    // $ExpectType 7 | 3 || 3 | 7
     R.max(7, 3); // => 7
     // $ExpectType "a" | "z"
     R.max('a', 'z'); // => 'z'
-    let a = 'a';
     // $ExpectType string
-    R.max(a, 'z'); // => 'z'
-    let n = 7;
+    R.max(String('a'), 'z'); // => 'z'
     // $ExpectType number
-    R.max(n, 3); // => 7
+    R.max(Number(7), 3); // => 7
     // $ExpectType number
-    R.max(n)(3); // => 7
+    R.max(Number(7))(3); // => 7
     // $ExpectType number
-    R.max<number>(n)(3); // => 7
+    R.max<number>(Number(7))(3); // => 7
     // $ExpectType Date
     R.max(new Date(), new Date());
     // $ExpectError

@@ -1,20 +1,18 @@
 import * as R from 'ramda';
 
 () => {
-    // $ExpectType 9 | 3
+    // $ExpectType 9 | 3 || 3 | 9
     R.min(9, 3); // => 3
     // $ExpectType "a" | "z"
     R.min('a', 'z'); // => 'a'
-    let a = 'a';
     // $ExpectType string
-    R.min(a, 'z'); // => 'a'
-    let n = 9;
+    R.min(String('a'), 'z'); // => 'a'
     // $ExpectType number
-    R.min(n, 3); // => 3
+    R.min(Number(9), 3); // => 3
     // $ExpectType number
-    R.min(n)(3); // => 3
+    R.min(Number(9))(3); // => 3
     // $ExpectType number
-    R.min<number>(n)(3); // => 3
+    R.min<number>(Number(9))(3); // => 3
     // $ExpectType Date
     R.min(new Date(), new Date());
     // $ExpectError

@@ -3,9 +3,9 @@ import * as R from 'ramda';
 () => {
     // coerceArray :: (a|[a]) -> [a]
     const coerceArray = R.unless(R.is(Array), R.of);
-    // $ExpectType number[]
+    // $ExpectType number[] | [number]
     coerceArray([1, 2, 3]); // => [1, 2, 3]
-    // $ExpectType number[]
+    // $ExpectType number[] | [number]
     coerceArray(1); // => [1]
 
     // $ExpectType (a: number) => string | number

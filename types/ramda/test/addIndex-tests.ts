@@ -12,7 +12,7 @@ class Rectangle {
 }
 
 () => {
-    const filterIndexed = R.addIndex<number>(R.filter);
+    const filterIndexed = R.addIndex<number, [item: number], boolean, number[]>(R.filter);
 
     function lastTwo(_val: number, idx: number, list: number[]) {
         return list.length - idx <= 2;
@@ -113,4 +113,18 @@ class Rectangle {
         'r',
     ]);
     // => ['0-f,1-o,2-o,3-b,4-a,5-r']
+};
+
+() => {
+    function slidingWindowThing(f: (a: number, b: number, c: number) => string, list: readonly number[]): string[] {
+        let result: string[] = [];
+        for (let i = 0; i < list.length - 3; i++) {
+            result.push(f(list[i], list[i + 1], list[i + 2]));
+        }
+        return result;
+    }
+    // $ExpectType Curry<(a: (a: number, b: number, c: number, idx: number, list: number[]) => number, b: readonly number[]) => number[]>
+    R.addIndex(slidingWindowThing);
+    // $ExpectType Curry<(a: (d: number, e: number, f: number, idx: number, list: number[]) => number, b: readonly number[]) => number[]>
+    R.addIndex<number, [d: number, e: number, f: number], string, string[]>(slidingWindowThing);
 };

@@ -19,7 +19,8 @@ import * as R from 'ramda';
             }
         };
 
-    const getStateCode: (input: string) => string[] = R.pipeK(
+    // $ExpectType (x: string) => string[]
+    const getStateCode = R.pipeK(
         parseJson,
         get('user'),
         get('address'),

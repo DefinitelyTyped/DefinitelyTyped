@@ -7,10 +7,10 @@ import * as R from 'ramda';
      */
     // $ExpectType ("c" | "a" | "b")[] || ("a" | "b" | "c")[]
     R.keys({ a: 1, b: 2, c: 3 });
-    // $ExpectType []
+    // $ExpectError
     R.keys(1);
     // $ExpectType (keyof never[])[] || (number | keyof never[])[]
     R.keys([]); // List of array members
-    // $ExpectType []
+    // $ExpectError
     R.keys('foo');
 };

@@ -1,16 +1,16 @@
 import * as R from 'ramda';
 
 () => {
-    // $ExpectType "TEST"
+    // $ExpectType string
     R.toUpper('TesT');
-    const s: string = 'TesT';
+    const s = (() => {}).toString();
     // $ExpectType string
     R.toUpper(s);
     // $ExpectError
     R.toUpper(['a']);
     // $ExpectError
     R.toUpper(1);
-    // $ExpectType "TEST"
+    // $ExpectType string
     R.toUpper('TesT' as 'TesT' | 'test');
     // $ExpectType string
     R.toUpper('TesT' as 'TesT' | string);

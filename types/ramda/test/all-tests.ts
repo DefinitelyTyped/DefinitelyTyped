@@ -5,7 +5,7 @@ import * as R from 'ramda';
     const lessThan3 = R.flip(R.lt)(3);
 
     // $ExpectType (list: readonly number[]) => boolean
-    const allLessThan2 = R.all(lessThan2);
+    R.all(lessThan2);
 
     // $ExpectType boolean
     R.all(lessThan2)([1, 2]); // => false

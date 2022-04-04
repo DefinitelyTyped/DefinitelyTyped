@@ -8,5 +8,7 @@ class F {
 
 () => {
     const f = new F();
-    const a = R.valuesIn(f); // => ['X', 'Y']
+    // $ExpectType string[]
+    R.valuesIn(f); // => ['X', 'Y']
+    // TODO: more tests
 };
