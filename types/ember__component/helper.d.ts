@@ -53,6 +53,19 @@ interface LegacyArgsFor<T> {
     Positional: GetOrElse<T, 'PositionalArgs', DefaultPositional>;
 }
 
+// This type allows us to present a slightly-less-obtuse error message
+// when attempting to resolve the signature of a helper that doesn't have
+// one declared from within a tool like Glint.
+declare const BadType: unique symbol;
+interface BadType<Message> {
+    [BadType]: Message;
+}
+
+interface MissingSignatureArgs {
+    Named: BadType<'This helper is missing a signature'>;
+    Positional: unknown[];
+}
+
 /**
  * Given any allowed shorthand form of a signature, desugars it to its full
  * expanded type.
@@ -71,14 +84,20 @@ interface LegacyArgsFor<T> {
 // all `ExpandSignature` types fully general to work with *any* invokable. But
 // "future" here probably means Ember v5. :sobbing:
 export interface ExpandSignature<T> {
-    Args: keyof T extends 'Args' | 'Return' // Is this a `Signature`?
+    Args: unknown extends T // Is this the default (i.e. unspecified) signature?
+        ? MissingSignatureArgs // Then return our special "missing signature" type
+        : keyof T extends 'Args' | 'Return' // Is this a `Signature`?
         ? ArgsFor<T> // Then use `Signature` args
         : LegacyArgsFor<T>; // Otherwise fall back to classic `Args`.
     Return: 'Return' extends keyof T ? T['Return'] : unknown;
 }
 
-type NamedArgs<S> = ExpandSignature<S>['Args']['Named'];
-type PositionalArgs<S> = ExpandSignature<S>['Args']['Positional'];
+// The `unknown extends S` checks on both of these are here to preserve backward
+// compatibility with the existing non-`Signature` definition. When migrating
+// into Ember or otherwise making a breaking change, we can drop the "default"
+// in favor of just using `ExpandSignature`.
+type NamedArgs<S> = unknown extends S ? Record<string, unknown> : ExpandSignature<S>['Args']['Named'];
+type PositionalArgs<S> = unknown extends S ? unknown[] : ExpandSignature<S>['Args']['Positional'];
 
 type Return<S> = GetOrElse<S, 'Return', unknown>;
 
