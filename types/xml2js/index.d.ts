@@ -98,4 +98,8 @@ export interface convertableToString {
     toString(): string;
 }
 
+export class ValidationError extends Error {
+    constructor(message: string);
+}
+
 export { processors };

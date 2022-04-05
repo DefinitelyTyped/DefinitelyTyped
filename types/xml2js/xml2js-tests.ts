@@ -103,3 +103,9 @@ fs.readFile(__dirname + '/foo.xml', (err, data) => {
         console.log('Done parseStringPromise');
     });
 });
+
+xml2js.parseString('<root>Hello xml2js!</root>', {
+    validator: (xpath: string, previousValue: any, newValue: any) => {
+        throw new xml2js.ValidationError('validation error');
+    }
+}, (err: Error | null, result: any) => { });
