@@ -2,7 +2,6 @@
 // Project: https://github.com/gxless/fake-lodash-pure-js
 // Definitions by: Xiang Gao <https://github.com/gxless>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
 
 export function head<T>(array: T[]): T | undefined;
 export function tail<T>(array: T[]): T | undefined;
