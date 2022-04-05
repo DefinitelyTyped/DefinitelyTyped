@@ -723,7 +723,7 @@ declare namespace Dockerode {
         CapDrop?: any;
         Dns?: any[] | undefined;
         DnsOptions?: any[] | undefined;
-        DnsSearch?: any[] | undefined;
+        DnsSearch?: string[] | undefined;
         ExtraHosts?: any;
         GroupAdd?: string[] | undefined;
         IpcMode?: string | undefined;
@@ -771,6 +771,10 @@ declare namespace Dockerode {
         Init?: boolean | undefined;
         PidsLimit?: number | undefined;
         Ulimits?: any;
+        CpuCount?: number | undefined;
+        CpuPercent?: number | undefined;
+        CpuRealtimePeriod?: number | undefined;
+        CpuRealtimeRuntime?: number | undefined;
     }
 
     interface ImageInspectInfo {
@@ -1069,6 +1073,7 @@ declare namespace Dockerode {
         ExposedPorts?: { [port: string]: {} } | undefined;
         StopSignal?: string | undefined;
         StopTimeout?: number | undefined;
+        Healthcheck?: HealthConfig | undefined;
         HostConfig?: HostConfig | undefined;
         NetworkingConfig?: {
             EndpointsConfig?: EndpointsConfig | undefined;
