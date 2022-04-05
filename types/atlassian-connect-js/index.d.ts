@@ -5,47 +5,65 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace AP {
-    interface RequestOptions {
+    type RequestOptions = {
         /**
          * The HTTP method name.
          */
-        type: 'GET' | 'HEAD' | 'POST' | 'PUT' | 'DELETE' | 'CONNECT' | 'OPTIONS' | 'PATCH';
+        type?: 'GET' | 'HEAD' | 'POST' | 'PUT' | 'DELETE' | 'CONNECT' | 'OPTIONS' | 'PATCH';
 
         /**
          * If the request should be cached.
          */
-        cache: boolean;
+        cache?: boolean;
 
         /**
          * The body of the request; required if type is 'POST' or 'PUT'. Optionally, for 'GET' this will append the object as key=value pairs to the end of the URL query string.
          */
-        data: string | object;
+        data?: string | object;
 
         /**
          * The content-type string value of the entity body, above; required when data is supplied.
          */
-        contentType: string;
+        contentType?: string;
 
         /**
          * An object containing headers to set; supported headers are: 'Accept', 'If-Match' and 'If-None-Match'.
          */
-        headers: { Accept: string; 'If-Match': string; 'If-None-Match': string };
-
-        /**
-         * An optional callback function executed on a 200 success status code.
-         */
-        success: (response: string) => void;
+        headers?: { Accept: string; 'If-Match': string; 'If-None-Match': string };
 
         /**
          * An optional callback function executed when a HTTP status error code is returned.
          */
-        error: (xhr: XMLHttpRequest, statusText: string, errorThrown: any) => void;
+        error?: (xhr: XMLHttpRequest, statusText: string, errorThrown: any) => void;
 
         /**
          * If this is set to true, the developer acknowledges that the API endpoint which is being called may be in beta state, and thus may also have a shorter deprecation cycle than stable APIs.
          */
-        experimental: boolean;
-    }
+        experimental?: boolean;
+    } & (
+        | {
+              /**
+               * An optional callback function executed on a 200 success status code.
+               */
+              success?: (response: string) => void;
+
+              /**
+               * If this is set to true, the developer is specifying a request for an attachment consisting of binary data (e.g. an image) and the format of the response will be set to "arraybuffer".
+               */
+              binaryAttachment?: false;
+          }
+        | {
+              /**
+               * An optional callback function executed on a 200 success status code.
+               */
+              success?: (response: ArrayBuffer) => void;
+
+              /**
+               * If this is set to true, the developer is specifying a request for an attachment consisting of binary data (e.g. an image) and the format of the response will be set to "arraybuffer".
+               */
+              binaryAttachment: true;
+          }
+    );
 
     function defineGlobal(module: object): void;
     function defineModule(name: string, module: object): void;
@@ -92,15 +110,50 @@ declare namespace AP {
      * @param url Either the URI to request or an options object (as below) containing at least a 'url' property; This value should be relative to the context path of the host application.
      * @param options The options of the request.
      */
-    function request(url: string, options?: Partial<RequestOptions>): Promise<{ body: string; xhr: XMLHttpRequest }>;
+    function request(
+        url: string,
+        options?: {
+            /**
+             * If this is set to true, the developer is specifying a request for an attachment consisting of binary data (e.g. an image) and the format of the response will be set to "arraybuffer".
+             */
+            binaryAttachment?: false;
+        } & RequestOptions,
+    ): Promise<{ body: string; xhr: XMLHttpRequest }>;
     function request(
         options: {
             /**
              * The url to request from the host application, relative to the host's context path
              */
             url: string;
-        } & Partial<RequestOptions>,
+
+            /**
+             * If this is set to true, the developer is specifying a request for an attachment consisting of binary data (e.g. an image) and the format of the response will be set to "arraybuffer".
+             */
+            binaryAttachment?: false;
+        } & RequestOptions,
     ): Promise<{ body: string; xhr: XMLHttpRequest }>;
+    function request(
+        url: string,
+        options: {
+            /**
+             * If this is set to true, the developer is specifying a request for an attachment consisting of binary data (e.g. an image) and the format of the response will be set to "arraybuffer".
+             */
+            binaryAttachment: true;
+        } & RequestOptions,
+    ): Promise<{ body: ArrayBuffer; xhr: XMLHttpRequest }>;
+    function request(
+        options: {
+            /**
+             * The url to request from the host application, relative to the host's context path
+             */
+            url: string;
+
+            /**
+             * If this is set to true, the developer is specifying a request for an attachment consisting of binary data (e.g. an image) and the format of the response will be set to "arraybuffer".
+             */
+            binaryAttachment: true;
+        } & RequestOptions,
+    ): Promise<{ body: ArrayBuffer; xhr: XMLHttpRequest }>;
 
     /**
      * A Confluence specific JavaScript module which provides functions to interact with the macro editor.
