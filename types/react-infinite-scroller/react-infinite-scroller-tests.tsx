@@ -58,7 +58,7 @@ class Test4 extends React.Component {
         return (
             <div ref={this.inputRef}>
                 <InfiniteScroll
-                  element={Test4Component}
+                  element={<Test4Component />}
                   loadMore={(page) => {}}
                 >
                     <span>Test 4</span>
