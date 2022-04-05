@@ -31,9 +31,9 @@ export interface PostalResult {
     value: string;
 }
 
-export function expand_address(address: string): string[];
+declare function expand_address(address: string): string[];
 
-export function parse_address(address: string): PostalResult[];
+declare function parse_address(address: string): PostalResult[];
 
 export const expand: {
     expand_address: typeof expand_address;
@@ -43,9 +43,4 @@ export const parser: {
     parse_address: typeof parse_address;
 };
 
-export const postal: {
-    expand: typeof expand;
-    parser: typeof parser;
-};
-
-export as namespace postal;
+export { };
