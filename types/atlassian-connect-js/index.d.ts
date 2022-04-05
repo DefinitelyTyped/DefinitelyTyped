@@ -1078,6 +1078,9 @@ declare namespace AP {
              */
             | 'site';
 
+        type CustomDataBasicValue = string | number | boolean | null | undefined;
+        type CustomDataValue = CustomDataBasicValue | CustomDataBasicValue[];
+
         interface NavigatorContext {
             /**
              * Identifies a piece of content. Required for the `contentView` target.
@@ -1142,8 +1145,10 @@ declare namespace AP {
             /**
              * Contains parameters that will be added as query parameters to the product url with "ac." prepended.
              * Used only in `addonModule` target. See Add-on specific context parameters for more info.
+             * @example Passing { foo: 'bar' } here causes your iframe to be called with "...?ac.foo=bar"
+             * @see {@link https://developer.atlassian.com/cloud/confluence/context-parameters#apps}
              */
-            customData: string;
+            customData: Record<string, CustomDataValue>;
 
             /**
              * Identifies a version of a piece of content in Confluence. This parameter is optional, and only applies to the `contentView` target, allowing navigation to a specific version.

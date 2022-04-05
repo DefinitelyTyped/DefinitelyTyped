@@ -98,6 +98,8 @@ AP.jira.isNativeApp(isNative => console.log(isNative)); // $ExpectType void
 AP.navigator.getLocation(location => console.log(location)); // $ExpectType void
 AP.navigator.go('contentview', {}); // $ExpectType void
 AP.navigator.go('issue', {}); // $ExpectType void
+AP.navigator.go('addonModule', { addonKey: 'my-addon-key', moduleKey: 'my-module-key', customData: { foo: 'bar', answer: 42, valid: true, undef: undefined, nil: null }}); // $ExpectType void
+AP.navigator.go('addonModule', { addonKey: 'my-addon-key', moduleKey: 'my-module-key', customData: { arr: ['bar', 42, false, null, undefined] }}); // $ExpectType void
 AP.navigator.reload(); // $ExpectType void
 
 AP.user.getUser(user => console.log(user.id, user.key, user.fullName)); // $ExpectType void
