@@ -2,6 +2,6 @@
     "private": true,
     "dependencies": {
         "@types/redis": "^2.8.0",
-        "mongodb": "^4.4.1"
+        "mongodb": "^4.5.0"
     }
 }
