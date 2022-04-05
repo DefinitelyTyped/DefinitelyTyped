@@ -9,4 +9,4 @@ import { Transform } from 'stream';
 
 export function parse(): Transform;
 export function serialize(): Transform;
-export function stringify(): Transform; // alias of serialize
+export { serialize as stringify };
