@@ -1,5 +1,4 @@
 import * as moment from 'moment';
-import * as EonasdanBootstrapDatetimepicker from 'eonasdan-bootstrap-datetimepicker';
 
 // Minimum Setup
 $("#datetimepicker1").datetimepicker();
@@ -59,7 +58,7 @@ $("#datetimepicker10").datetimepicker({
 
 // Disabled Days of the Week
 $("#datetimepicker11").datetimepicker({
-    daysOfWeekDisabled: [0, 6, EonasdanBootstrapDatetimepicker.DayOfWeek.Thursday]
+    daysOfWeekDisabled: [0, 6, 4]
 });
 
 // Inline
