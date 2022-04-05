@@ -3,4 +3,4 @@
 // Definitions by: Adam Jones <https://github.com/domdomegg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export * from 'reach__router';
+export * from '@reach/router';
