@@ -65,7 +65,6 @@ const archivePredefinedLayoutOptions: OpenTok.ArchiveOptions = {
 };
 
 const patchStream: OpenTok.PatchStream = {
-  addStream: 'streamId',
   hasAudio: false,
   hasVideo: true
 }
@@ -75,7 +74,19 @@ client.startArchive('SESSION_ID', archiveOptions, (err: Error, archive: OpenTok.
   console.log(archive.id);
 });
 
-client.patchArchive('ARCHIVE_ID', patchStream, (err: Error) => {
+client.addArchiveStream('ARCHIVE_ID', 'STREAM_ID', patchStream, (err: Error) => {
+  if (err) return console.log(err);
+});
+
+client.removeArchiveStream('ARCHIVE_ID', 'STREAM_ID', patchStream, (err: Error) => {
+  if (err) return console.log(err);
+});
+
+client.addBroadcastStream('ARCHIVE_ID', 'STREAM_ID', patchStream, (err: Error) => {
+  if (err) return console.log(err);
+});
+
+client.removeBroadcastStream('ARCHIVE_ID', 'STREAM_ID', patchStream, (err: Error) => {
   if (err) return console.log(err);
 });
 
