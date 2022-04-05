@@ -1,4 +1,4 @@
-// Type definitions for non-npm package microsoft-graph 2.17
+// Type definitions for non-npm package microsoft-graph 2.18
 // Project: https://github.com/microsoftgraph/msgraph-typescript-typings
 // Definitions by: Microsoft Graph Team <https://github.com/microsoftgraph>
 //                 Michael Mainer <https://github.com/MIchaelMainer>
@@ -391,7 +391,8 @@ export type ConditionalAccessDevicePlatform =
     | "windowsPhone"
     | "macOS"
     | "all"
-    | "unknownFutureValue";
+    | "unknownFutureValue"
+    | "linux";
 export type ConditionalAccessGrantControl =
     | "block"
     | "mfa"
@@ -460,6 +461,22 @@ export type AccessPackageRequestType =
     | "onBehalfAdd"
     | "unknownFutureValue";
 export type AccessPackageSubjectType = "notSpecified" | "user" | "servicePrincipal" | "unknownFutureValue";
+export type AccessReviewExpirationBehavior =
+    | "keepAccess"
+    | "removeAccess"
+    | "acceptAccessRecommendation"
+    | "unknownFutureValue";
+export type AllowedTargetScope =
+    | "notSpecified"
+    | "specificDirectoryUsers"
+    | "specificConnectedOrganizationUsers"
+    | "specificDirectoryServicePrincipals"
+    | "allMemberUsers"
+    | "allDirectoryUsers"
+    | "allDirectoryServicePrincipals"
+    | "allConfiguredConnectedOrganizationUsers"
+    | "allExternalUsers"
+    | "unknownFutureValue";
 export type ExpirationPatternType = "notSpecified" | "noExpiration" | "afterDateTime" | "afterDuration";
 export type ConnectedOrganizationState = "configured" | "proposed" | "unknownFutureValue";
 export type ComplianceStatus =
@@ -2924,6 +2941,7 @@ export interface User extends DirectoryObject {
     activities?: NullableOption<UserActivity[]>;
     onlineMeetings?: NullableOption<OnlineMeeting[]>;
     presence?: NullableOption<Presence>;
+    // The authentication methods that are supported for the user.
     authentication?: NullableOption<Authentication>;
     chats?: NullableOption<Chat[]>;
     // The Microsoft Teams teams that the user is a member of. Read-only. Nullable.
@@ -3003,7 +3021,7 @@ export interface OAuth2PermissionGrant extends Entity {
     /**
      * A space-separated list of the claim values for delegated permissions which should be included in access tokens for the
      * resource application (the API). For example, openid User.Read GroupMember.Read.All. Each claim value should match the
-     * value field of one of the delegated permissions defined by the API, listed in the publishedPermissionScopes property of
+     * value field of one of the delegated permissions defined by the API, listed in the oauth2PermissionScopes property of
      * the resource service principal.
      */
     scope?: NullableOption<string>;
@@ -3519,7 +3537,7 @@ export interface AgreementAcceptance extends Entity {
      * midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z.
      */
     recordedDateTime?: NullableOption<string>;
-    // The state of the agreement acceptance. Possible values are: accepted, declined.
+    // The state of the agreement acceptance. Possible values are: accepted, declined. Supports $filter (eq).
     state?: NullableOption<AgreementAcceptanceState>;
     // Display name of the user when the acceptance was recorded.
     userDisplayName?: NullableOption<string>;
@@ -3885,9 +3903,13 @@ export interface Presence extends Entity {
     availability?: NullableOption<string>;
 }
 export interface Authentication extends Entity {
+    // Represents the FIDO2 security keys registered to a user for authentication.
     fido2Methods?: NullableOption<Fido2AuthenticationMethod[]>;
+    // Represents all authentication methods registered to a user.
     methods?: NullableOption<AuthenticationMethod[]>;
+    // The details of the Microsoft Authenticator app registered to a user for authentication.
     microsoftAuthenticatorMethods?: NullableOption<MicrosoftAuthenticatorAuthenticationMethod[]>;
+    // Represents the Windows Hello for Business authentication method registered to a user for authentication.
     windowsHelloForBusinessMethods?: NullableOption<WindowsHelloForBusinessAuthenticationMethod[]>;
 }
 export interface Chat extends Entity {
@@ -5526,6 +5548,8 @@ export interface ColumnDefinition extends Entity {
     readOnly?: NullableOption<boolean>;
     // Specifies whether the column value isn't optional.
     required?: NullableOption<boolean>;
+    // ContentType from which this column is inherited from. Present only in contentTypes columns response. Read-only.
+    sourceContentType?: NullableOption<ContentTypeInfo>;
     // This column stores taxonomy terms.
     term?: NullableOption<TermColumn>;
     // This column stores text values.
@@ -6474,7 +6498,7 @@ export interface UnifiedRoleDefinition extends Entity {
 export interface RoleManagement {
     // Read-only. Nullable.
     directory?: NullableOption<RbacApplication>;
-    // Container for all entitlement management resources in Azure AD identity governance.
+    // Container for roles and assignments for entitlement management resources.
     entitlementManagement?: NullableOption<RbacApplication>;
 }
 export interface SubscribedSku extends Entity {
@@ -6938,8 +6962,9 @@ export interface EducationSubmissionResource extends Entity {
     resource?: NullableOption<EducationResource>;
 }
 export interface DriveItem extends BaseItem {
-    // Audio metadata, if the item is an audio file. Read-only. Only on OneDrive Personal.
+    // Audio metadata, if the item is an audio file. Read-only. Read-only. Only on OneDrive Personal.
     audio?: NullableOption<Audio>;
+    // Bundle metadata, if the item is a bundle. Read-only.
     bundle?: NullableOption<Bundle>;
     // The content stream, if the item represents a file.
     content?: NullableOption<any>;
@@ -8403,9 +8428,11 @@ export interface ApprovalStage extends Entity {
     status?: NullableOption<string>;
 }
 export interface EntitlementManagement extends Entity {
+    // Approval stages for assignment requests.
     accessPackageAssignmentApprovals?: NullableOption<Approval[]>;
     // Represents access package objects.
     accessPackages?: NullableOption<AccessPackage[]>;
+    assignmentPolicies?: NullableOption<AccessPackageAssignmentPolicy[]>;
     // Represents access package assignment requests created by or on behalf of a user.
     assignmentRequests?: NullableOption<AccessPackageAssignmentRequest[]>;
     // Represents the grant of an access package to a subject (user or group).
@@ -8434,7 +8461,35 @@ export interface AccessPackage extends Entity {
      * midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z. Read-only.
      */
     modifiedDateTime?: NullableOption<string>;
+    assignmentPolicies?: NullableOption<AccessPackageAssignmentPolicy[]>;
     // Read-only. Nullable.
+    catalog?: NullableOption<AccessPackageCatalog>;
+}
+export interface AccessPackageAssignmentPolicy extends Entity {
+    allowedTargetScope?: NullableOption<AllowedTargetScope>;
+    /**
+     * The Timestamp type represents date and time information using ISO 8601 format and is always in UTC time. For example,
+     * midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z
+     */
+    createdDateTime?: NullableOption<string>;
+    // The description of the policy.
+    description?: NullableOption<string>;
+    // The display name of the policy. Supports $filter (eq).
+    displayName?: NullableOption<string>;
+    expiration?: NullableOption<ExpirationPattern>;
+    /**
+     * The Timestamp type represents date and time information using ISO 8601 format and is always in UTC time. For example,
+     * midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z
+     */
+    modifiedDateTime?: NullableOption<string>;
+    // Who must approve requests for access package in this policy.
+    requestApprovalSettings?: NullableOption<AccessPackageAssignmentApprovalSettings>;
+    // Who can request this access package from this policy.
+    requestorSettings?: NullableOption<AccessPackageAssignmentRequestorSettings>;
+    reviewSettings?: NullableOption<AccessPackageAssignmentReviewSettings>;
+    specificAllowedTargets?: NullableOption<SubjectSet[]>;
+    // The access package with this policy. Read-only. Nullable. Supports $expand.
+    accessPackage?: NullableOption<AccessPackage>;
     catalog?: NullableOption<AccessPackageCatalog>;
 }
 export interface AccessPackageAssignmentRequest extends Entity {
@@ -8499,6 +8554,7 @@ export interface AccessPackageAssignment extends Entity {
     status?: NullableOption<string>;
     // Read-only. Nullable. Supports $filter (eq) on the id property and $expand query parameters.
     accessPackage?: NullableOption<AccessPackage>;
+    assignmentPolicy?: NullableOption<AccessPackageAssignmentPolicy>;
     // The subject of the access package assignment. Read-only. Nullable. Supports $expand. Supports $filter (eq) on objectId.
     target?: NullableOption<AccessPackageSubject>;
 }
@@ -8594,28 +8650,31 @@ export interface TermsOfUseContainer extends Entity {
 export interface Agreement extends Entity {
     /**
      * Display name of the agreement. The display name is used for internal tracking of the agreement but is not shown to end
-     * users who view the agreement.
+     * users who view the agreement. Supports $filter (eq).
      */
     displayName?: NullableOption<string>;
     /**
      * Indicates whether end users are required to accept this agreement on every device that they access it from. The end
-     * user is required to register their device in Azure AD, if they haven't already done so.
+     * user is required to register their device in Azure AD, if they haven't already done so. Supports $filter (eq).
      */
     isPerDeviceAcceptanceRequired?: NullableOption<boolean>;
-    // Indicates whether the user has to expand the agreement before accepting.
+    // Indicates whether the user has to expand the agreement before accepting. Supports $filter (eq).
     isViewingBeforeAcceptanceRequired?: NullableOption<boolean>;
-    // Expiration schedule and frequency of agreement for all users.
+    // Expiration schedule and frequency of agreement for all users. Supports $filter (eq).
     termsExpiration?: NullableOption<TermsExpiration>;
     /**
      * The duration after which the user must re-accept the terms of use. The value is represented in ISO 8601 format for
-     * durations.
+     * durations. Supports $filter (eq).
      */
     userReacceptRequiredFrequency?: NullableOption<string>;
     // Read-only. Information about acceptances of this agreement.
     acceptances?: NullableOption<AgreementAcceptance[]>;
     // Default PDF linked to this agreement.
     file?: NullableOption<AgreementFile>;
-    // PDFs linked to this agreement. This property is in the process of being deprecated. Use the file property instead.
+    /**
+     * PDFs linked to this agreement. This property is in the process of being deprecated. Use the file property instead.
+     * Supports $expand.
+     */
     files?: NullableOption<AgreementFileLocalization[]>;
 }
 export interface AgreementFileProperties extends Entity {
@@ -14927,7 +14986,7 @@ export interface BookingCustomerInformation extends BookingCustomerInformationBa
     customQuestionAnswers?: NullableOption<BookingQuestionAnswer[]>;
     // The SMTP address of the bookingCustomer who is booking the appointment
     emailAddress?: NullableOption<string>;
-    // Represents location information for the bookingCustomer who is booking the appointment.
+    // Represents location information for the bookingCustomer who is booking the appointment.
     location?: NullableOption<Location>;
     // The customer's name.
     name?: NullableOption<string>;
@@ -15494,14 +15553,29 @@ export interface ResourceAccess {
     type?: NullableOption<string>;
 }
 export interface SelfSignedCertificate {
+    // Custom key identifier.
     customKeyIdentifier?: NullableOption<number>;
+    // The friendly name for the key.
     displayName?: NullableOption<string>;
+    /**
+     * The date and time at which the credential expires. The Timestamp type represents date and time information using ISO
+     * 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z.
+     */
     endDateTime?: NullableOption<string>;
+    // The value for the key credential. Should be a base-64 encoded value.
     key?: NullableOption<number>;
+    // The unique identifier (GUID) for the key.
     keyId?: NullableOption<string>;
+    /**
+     * The date and time at which the credential becomes valid. The Timestamp type represents date and time information using
+     * ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z.
+     */
     startDateTime?: NullableOption<string>;
+    // The thumbprint value for the key.
     thumbprint?: NullableOption<string>;
+    // The type of key credential. 'AsymmetricX509Cert'.
     type?: NullableOption<string>;
+    // A string that describes the purpose for which the key can be used. For example, 'Verify'.
     usage?: NullableOption<string>;
 }
 export interface ServicePlanInfo {
@@ -16792,7 +16866,7 @@ export interface DocumentSet {
     defaultContents?: NullableOption<DocumentSetContent[]>;
     // Specifies whether to push welcome page changes to inherited content types.
     propagateWelcomePageChanges?: NullableOption<boolean>;
-    // Add the name of the document set to each file name.
+    // Indicates whether to add the name of the document set to each file name.
     shouldPrefixNameToFile?: NullableOption<boolean>;
     // Welcome page absolute URL.
     welcomePageUrl?: NullableOption<string>;
@@ -17177,6 +17251,7 @@ export interface ServicePrincipalIdentity extends Identity {
     appId?: NullableOption<string>;
 }
 export interface AgreementFileData {
+    // Data that represents the terms of use PDF document. Read-only.
     data?: NullableOption<number>;
 }
 export interface TermsExpiration {
@@ -17217,9 +17292,20 @@ export interface ConditionalAccessApplications {
     // User actions to include. Supported values are urn:user:registersecurityinfo and urn:user:registerdevice
     includeUserActions?: string[];
 }
+export interface ConditionalAccessClientApplications {
+    // Service principal IDs excluded from the policy scope.
+    excludeServicePrincipals?: string[];
+    // Service principal IDs included in the policy scope, or ServicePrincipalsInMyTenant.
+    includeServicePrincipals?: string[];
+}
 export interface ConditionalAccessConditionSet {
     // Applications and user actions included in and excluded from the policy. Required.
     applications?: NullableOption<ConditionalAccessApplications>;
+    /**
+     * Client applications (service principals and workload identities) included in and excluded from the policy. Either users
+     * or clientApplications is required.
+     */
+    clientApplications?: NullableOption<ConditionalAccessClientApplications>;
     /**
      * Client application types included in the policy. Possible values are: all, browser, mobileAppsAndDesktopClients,
      * exchangeActiveSync, easSupported, other. Required.
@@ -17242,7 +17328,7 @@ export interface ConditionalAccessConditionSet {
      */
     userRiskLevels?: RiskLevel[];
     // Users, groups, and roles included in and excluded from the policy. Required.
-    users?: ConditionalAccessUsers;
+    users?: NullableOption<ConditionalAccessUsers>;
 }
 export interface ConditionalAccessDevices {
     /**
@@ -17258,9 +17344,9 @@ export interface ConditionalAccessLocations {
     includeLocations?: string[];
 }
 export interface ConditionalAccessPlatforms {
-    // Possible values are: android, iOS, windows, windowsPhone, macOS, all, unknownFutureValue.
+    // Possible values are: android, iOS, windows, windowsPhone, macOS, linux, all, unknownFutureValue.
     excludePlatforms?: ConditionalAccessDevicePlatform[];
-    // Possible values are: android, iOS, windows, windowsPhone, macOS, all, unknownFutureValue.
+    // Possible values are: android, iOS, windows, windowsPhone, macOS, linux, all, unknownFutureValue.
     includePlatforms?: ConditionalAccessDevicePlatform[];
 }
 export interface ConditionalAccessUsers {
@@ -17353,6 +17439,33 @@ export interface RiskUserActivity {
     // The type of risk event detected.
     riskEventTypes?: NullableOption<string[]>;
 }
+export interface AccessPackageApprovalStage {
+    durationBeforeAutomaticDenial?: NullableOption<string>;
+    durationBeforeEscalation?: NullableOption<string>;
+    escalationApprovers?: NullableOption<SubjectSet[]>;
+    fallbackEscalationApprovers?: NullableOption<SubjectSet[]>;
+    fallbackPrimaryApprovers?: NullableOption<SubjectSet[]>;
+    isApproverJustificationRequired?: NullableOption<boolean>;
+    isEscalationEnabled?: NullableOption<boolean>;
+    primaryApprovers?: NullableOption<SubjectSet[]>;
+}
+// tslint:disable-next-line: no-empty-interface
+export interface SubjectSet {}
+export interface AccessPackageAssignmentApprovalSettings {
+    isApprovalRequiredForAdd?: NullableOption<boolean>;
+    isApprovalRequiredForUpdate?: NullableOption<boolean>;
+    stages?: NullableOption<AccessPackageApprovalStage[]>;
+}
+export interface AccessPackageAssignmentRequestorSettings {
+    allowCustomAssignmentSchedule?: NullableOption<boolean>;
+    enableOnBehalfRequestorsToAddAccess?: NullableOption<boolean>;
+    enableOnBehalfRequestorsToRemoveAccess?: NullableOption<boolean>;
+    enableOnBehalfRequestorsToUpdateAccess?: NullableOption<boolean>;
+    enableTargetsToSelfAddAccess?: NullableOption<boolean>;
+    enableTargetsToSelfRemoveAccess?: NullableOption<boolean>;
+    enableTargetsToSelfUpdateAccess?: NullableOption<boolean>;
+    onBehalfRequestors?: NullableOption<SubjectSet[]>;
+}
 export interface AccessPackageAssignmentRequestRequirements {
     // Indicates whether the requestor is allowed to set a custom schedule.
     allowCustomAssignmentSchedule?: NullableOption<boolean>;
@@ -17383,8 +17496,16 @@ export interface EntitlementManagementSchedule {
      */
     startDateTime?: NullableOption<string>;
 }
-// tslint:disable-next-line: no-empty-interface
-export interface SubjectSet {}
+export interface AccessPackageAssignmentReviewSettings {
+    expirationBehavior?: NullableOption<AccessReviewExpirationBehavior>;
+    fallbackReviewers?: NullableOption<SubjectSet[]>;
+    isEnabled?: NullableOption<boolean>;
+    isRecommendationEnabled?: NullableOption<boolean>;
+    isReviewerJustificationRequired?: NullableOption<boolean>;
+    isSelfReview?: NullableOption<boolean>;
+    primaryReviewers?: NullableOption<SubjectSet[]>;
+    schedule?: NullableOption<EntitlementManagementSchedule>;
+}
 export interface ConnectedOrganizationMembers extends SubjectSet {
     // The ID of the connected organization in entitlement management.
     connectedOrganizationId?: NullableOption<string>;
@@ -17442,6 +17563,11 @@ export interface SingleUser extends SubjectSet {
     description?: NullableOption<string>;
     // The ID of the user in Azure AD.
     userId?: NullableOption<string>;
+}
+// tslint:disable-next-line: no-empty-interface
+export interface TargetApplicationOwners extends SubjectSet {}
+export interface TargetManager extends SubjectSet {
+    managerLevel?: NullableOption<number>;
 }
 // tslint:disable-next-line: interface-name no-empty-interface
 export interface IdentitySource {}
@@ -21394,7 +21520,10 @@ export namespace ExternalConnectors {
         authorizedAppIds?: NullableOption<string[]>;
     }
     interface ExternalItemContent {
-        // The type of content in the value property. Possible values are: text, html, unknownFutureValue.
+        /**
+         * The type of content in the value property. Possible values are: text, html, unknownFutureValue. These are the content
+         * types that the indexer supports, and not the file extension types allowed.
+         */
         type?: ExternalItemContentType;
         // The content for the externalItem. Required.
         value?: NullableOption<string>;
