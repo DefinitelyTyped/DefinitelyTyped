@@ -272,7 +272,10 @@ declare namespace AP {
          *    alert(result.error);    // if unsuccessful, the reason for the failure
          * });
          */
-        function setContentProperty(contentProperty: ContentProperty, callback: (result: {property: ContentProperty} | {error: string}) => void): void;
+        function setContentProperty(
+            contentProperty: ContentProperty,
+            callback: (result: { property: ContentProperty } | { error: string }) => void,
+        ): void;
 
         /**
          * Raise contentProperty.update event for the Content Property with the given key on the current Content. It also provide content property to the callback like getContentProperty does.
@@ -1055,37 +1058,37 @@ declare namespace AP {
             /**
              * A specific dashboard in Jira. Takes a `dashboardId` to identify the dashboard.
              */
-            'dashboard' |
+            | 'dashboard'
 
             /**
              * A specific Issue in Jira. Takes an `issueKey` to identify the issue.
              */
-            'issue' |
+            | 'issue'
 
             /**
              * The module page within a specific add-on. Takes an `addonKey` and a `moduleKey` to identify the correct module.
              */
-            'addonModule' |
+            | 'addonModule'
 
             /**
              * The profile page for a Jira User. Takes a `username` or `userAccountId` to identify the user.
              */
-            'userProfile' |
+            | 'userProfile'
 
             /**
              * The admin details of a specific Jira Project. Takes a `projectKey` to identify the project. Only accessible to administrators.
              */
-            'projectAdminSummary' |
+            | 'projectAdminSummary'
 
             /**
              * The admin panel definted by a connect addon. Takes an `addonKey`, `adminPageKey`, `projectKey` and `projectId`. Only accessible to administrators.
              */
-            'projectAdminTabPanel' |
+            | 'projectAdminTabPanel'
 
             /**
              * A specific location contained within the site. Takes either a `relativeUrl` or `absoluteUrl` to identify the path.
              */
-            'site';
+            | 'site';
 
         type NavigatorTargetConfluence =
             /**
