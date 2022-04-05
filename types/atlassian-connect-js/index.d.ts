@@ -825,6 +825,8 @@ declare namespace AP {
         /**
          * Gets the selected text on the page.
          * @param callback method to be executed with the selected text.
+         * @deprecated This method has been deprecated by Atlassian for security reasons and will always return an empty string as of 2022-07-11.
+         * @see {@link https://community.developer.atlassian.com/t/deprecation-of-connect-js-getselectedtext-api-for-security-reasons/54968}
          */
         function getSelectedText(callback: (selection: string) => void): void;
     }
