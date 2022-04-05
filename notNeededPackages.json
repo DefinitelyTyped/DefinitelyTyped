@@ -1253,13 +1253,13 @@
             "libraryName": "expo",
             "asOfVersion": "33.0.0"
         },
-        "expo__vector-icons": {
-            "libraryName": "@expo/vector-icons",
-            "asOfVersion": "10.0.0"
-        },
         "expo-localization": {
             "libraryName": "expo-localization",
             "asOfVersion": "3.0.0"
+        },
+        "expo__vector-icons": {
+            "libraryName": "@expo/vector-icons",
+            "asOfVersion": "10.0.0"
         },
         "expr-eval": {
             "libraryName": "expr-eval",
@@ -1625,10 +1625,6 @@
             "libraryName": "globby",
             "asOfVersion": "9.1.0"
         },
-        "google__markerclustererplus": {
-            "libraryName": "@google/markerclustererplus",
-            "asOfVersion": "3.0.3"
-        },
         "google-cloud__pubsub": {
             "libraryName": "@google-cloud/pubsub",
             "asOfVersion": "0.26.0"
@@ -1644,6 +1640,10 @@
         "google-maps-react": {
             "libraryName": "google-maps-react",
             "asOfVersion": "2.0.5"
+        },
+        "google__markerclustererplus": {
+            "libraryName": "@google/markerclustererplus",
+            "asOfVersion": "3.0.3"
         },
         "graphene-pk11": {
             "libraryName": "graphene-pk11",
@@ -1713,6 +1713,14 @@
             "libraryName": "handsontable",
             "asOfVersion": "0.35.0"
         },
+        "hapi-auth-jwt2": {
+            "libraryName": "hapi-auth-jwt2",
+            "asOfVersion": "8.6.1"
+        },
+        "hapi-pino": {
+            "libraryName": "hapi-pino",
+            "asOfVersion": "9.1.0"
+        },
         "hapi__accept": {
             "libraryName": "@hapi/accept",
             "asOfVersion": "5.0.0"
@@ -1752,10 +1760,6 @@
         "hapi__wreck": {
             "libraryName": "@hapi/wreck",
             "asOfVersion": "17.0.0"
-        },
-        "hapi-auth-jwt2": {
-            "libraryName": "hapi-auth-jwt2",
-            "asOfVersion": "8.6.1"
         },
         "hard-rejection": {
             "libraryName": "hard-rejection",
@@ -2693,6 +2697,10 @@
             "libraryName": "matcher",
             "asOfVersion": "2.0.0"
         },
+        "material-components-web": {
+            "libraryName": "material-components-web",
+            "asOfVersion": "1.0.0"
+        },
         "material__animation": {
             "libraryName": "@material/animation",
             "asOfVersion": "1.0.0"
@@ -2799,10 +2807,6 @@
         },
         "material__top-app-bar": {
             "libraryName": "@material/top-app-bar",
-            "asOfVersion": "1.0.0"
-        },
-        "material-components-web": {
-            "libraryName": "material-components-web",
             "asOfVersion": "1.0.0"
         },
         "mathjs": {
