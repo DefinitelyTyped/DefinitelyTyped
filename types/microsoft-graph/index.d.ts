@@ -1,4 +1,4 @@
-// Type definitions for non-npm package microsoft-graph 2.16
+// Type definitions for non-npm package microsoft-graph 2.17
 // Project: https://github.com/microsoftgraph/msgraph-typescript-typings
 // Definitions by: Microsoft Graph Team <https://github.com/microsoftgraph>
 //                 Michael Mainer <https://github.com/MIchaelMainer>
@@ -2473,6 +2473,7 @@ export interface Invitation extends Entity {
     invitedUser?: NullableOption<User>;
 }
 export interface DirectoryObject extends Entity {
+    // Date and time when this object was deleted. Always null when the object hasn't been deleted.
     deletedDateTime?: NullableOption<string>;
 }
 export interface User extends DirectoryObject {
@@ -2941,7 +2942,7 @@ export interface AppRoleAssignment extends DirectoryObject {
      */
     appRoleId?: string;
     /**
-     * The time when the app role assignment was created.The Timestamp type represents date and time information using ISO
+     * The time when the app role assignment was created. The Timestamp type represents date and time information using ISO
      * 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z. Read-only.
      */
     createdDateTime?: NullableOption<string>;
@@ -2950,9 +2951,9 @@ export interface AppRoleAssignment extends DirectoryObject {
      * $filter (eq and startswith).
      */
     principalDisplayName?: NullableOption<string>;
-    // The unique identifier (id) for the user, group or service principal being granted the app role. Required on create.
+    // The unique identifier (id) for the user, group, or service principal being granted the app role. Required on create.
     principalId?: NullableOption<string>;
-    // The type of the assigned principal. This can either be User, Group or ServicePrincipal. Read-only.
+    // The type of the assigned principal. This can either be User, Group, or ServicePrincipal. Read-only.
     principalType?: NullableOption<string>;
     // The display name of the resource app's service principal to which the assignment is made.
     resourceDisplayName?: NullableOption<string>;
@@ -3913,6 +3914,7 @@ export interface Chat extends Entity {
     members?: NullableOption<ConversationMember[]>;
     // A collection of all the messages in the chat. Nullable.
     messages?: NullableOption<ChatMessage[]>;
+    // A collection of all the tabs in the chat. Nullable.
     tabs?: NullableOption<TeamsTab[]>;
 }
 export interface Team extends Entity {
@@ -4241,6 +4243,11 @@ export interface ServicePrincipal extends DirectoryObject {
      * authorization codes and access tokens are sent to for the associated application. Not nullable.
      */
     replyUrls?: string[];
+    /**
+     * The resource-specific application permissions exposed by this application. Currently, resource-specific permissions are
+     * only supported for Teams apps accessing to specific chats and teams using Microsoft Graph. Read-only.
+     */
+    resourceSpecificApplicationPermissions?: ResourceSpecificPermission[];
     // The collection for settings related to saml single sign-on.
     samlSingleSignOnSettings?: NullableOption<SamlSingleSignOnSettings>;
     /**
@@ -4697,7 +4704,11 @@ export interface BookingAppointment extends Entity {
     isLocationOnline?: boolean;
     // The URL of the online meeting for the appointment.
     joinWebUrl?: NullableOption<string>;
-    // The maximum number of customers allowed in an appointment.
+    /**
+     * The maximum number of customers allowed in an appointment. If maximumAttendeesCount of the service is greater than 1,
+     * pass valid customer IDs while creating or updating an appointment. To create a customer, use the Create bookingCustomer
+     * operation.
+     */
     maximumAttendeesCount?: number;
     /**
      * If true indicates that the bookingCustomer for this appointment does not wish to receive a confirmation for this
@@ -4832,7 +4843,11 @@ export interface BookingService extends Entity {
     isHiddenFromCustomers?: boolean;
     // True indicates that the appointments for the service will be held online. Default value is false.
     isLocationOnline?: boolean;
-    // The maximum number of customers allowed in a service.
+    /**
+     * The maximum number of customers allowed in a service. If maximumAttendeesCount of the service is greater than 1, pass
+     * valid customer IDs while creating or updating an appointment. To create a customer, use the Create bookingCustomer
+     * operation.
+     */
     maximumAttendeesCount?: number;
     // Additional information about this service.
     notes?: NullableOption<string>;
@@ -5244,7 +5259,7 @@ export interface Group extends DirectoryObject {
     owners?: NullableOption<DirectoryObject[]>;
     // The permission that has been granted for a group to a specific application. Supports $expand.
     permissionGrants?: NullableOption<ResourceSpecificPermissionGrant[]>;
-    // Read-only. Nullable.
+    // Settings that can govern this group's behavior, like whether members can invite guest users to the group. Nullable.
     settings?: NullableOption<GroupSetting[]>;
     transitiveMemberOf?: NullableOption<DirectoryObject[]>;
     transitiveMembers?: NullableOption<DirectoryObject[]>;
@@ -5376,9 +5391,15 @@ export interface ResourceSpecificPermissionGrant extends DirectoryObject {
 export interface GroupSetting extends Entity {
     // Display name of this group of settings, which comes from the associated template.
     displayName?: NullableOption<string>;
-    // Unique identifier for the template used to create this group of settings. Read-only.
+    /**
+     * Unique identifier for the tenant-level groupSettingTemplates object that's been customized for this group-level
+     * settings object. Read-only.
+     */
     templateId?: NullableOption<string>;
-    // Collection of name value pairs. Must contain and set all the settings defined in the template.
+    /**
+     * Collection of name-value pairs corresponding to the name and defaultValue properties in the referenced
+     * groupSettingTemplates object.
+     */
     values?: SettingValue[];
 }
 export interface Conversation extends Entity {
@@ -6114,7 +6135,10 @@ export interface DomainDnsUnavailableRecord extends DomainDnsRecord {
 export interface GroupSettingTemplate extends DirectoryObject {
     // Description of the template.
     description?: NullableOption<string>;
-    // Display name of the template.
+    /**
+     * Display name of the template. The template named Group.Unified can be used to configure tenant-wide Microsoft 365 group
+     * settings, while the template named Group.Unified.Guest can be used to configure group-specific settings.
+     */
     displayName?: NullableOption<string>;
     /**
      * Collection of settingTemplateValues that list the set of available settings, defaults and types that make up this
@@ -7030,7 +7054,7 @@ export interface ListItem extends BaseItem {
     versions?: NullableOption<ListItemVersion[]>;
 }
 export interface Subscription extends Entity {
-    // Identifier of the application used to create the subscription. Read-only.
+    // Optional. Identifier of the application used to create the subscription. Read-only.
     applicationId?: NullableOption<string>;
     /**
      * Required. Indicates the type of change in the subscribed resource that will raise a change notification. The supported
@@ -7047,13 +7071,14 @@ export interface Subscription extends Entity {
      */
     clientState?: NullableOption<string>;
     /**
-     * Identifier of the user or service principal that created the subscription. If the app used delegated permissions to
-     * create the subscription, this field contains the id of the signed-in user the app called on behalf of. If the app used
-     * application permissions, this field contains the id of the service principal corresponding to the app. Read-only.
+     * Optional. Identifier of the user or service principal that created the subscription. If the app used delegated
+     * permissions to create the subscription, this field contains the id of the signed-in user the app called on behalf of.
+     * If the app used application permissions, this field contains the id of the service principal corresponding to the app.
+     * Read-only.
      */
     creatorId?: NullableOption<string>;
     /**
-     * A base64-encoded representation of a certificate with a public key used to encrypt resource data in change
+     * Optional. A base64-encoded representation of a certificate with a public key used to encrypt resource data in change
      * notifications. Optional but required when includeResourceData is true.
      */
     encryptionCertificate?: NullableOption<string>;
@@ -7068,7 +7093,7 @@ export interface Subscription extends Entity {
     // Optional. When set to true, change notifications include resource data (such as content of a chat message).
     includeResourceData?: NullableOption<boolean>;
     /**
-     * Specifies the latest version of Transport Layer Security (TLS) that the notification endpoint, specified by
+     * Optional. Specifies the latest version of Transport Layer Security (TLS) that the notification endpoint, specified by
      * notificationUrl, supports. The possible values are: v1_0, v1_1, v1_2, v1_3. For subscribers whose notification endpoint
      * supports a version lower than the currently recommended version (TLS 1.2), specifying this property by a set timeline
      * allows them to temporarily use their deprecated version of TLS before completing their upgrade to TLS 1.2. For these
@@ -7083,11 +7108,11 @@ export interface Subscription extends Entity {
      */
     lifecycleNotificationUrl?: NullableOption<string>;
     /**
-     * OData query options for specifying value for the targeting resource. Clients receive notifications when resource
-     * reaches the state matching the query options provided here. With this new property in the subscription creation payload
-     * along with all existing properties, Webhooks will deliver notifications whenever a resource reaches the desired state
-     * mentioned in the notificationQueryOptions property. For example, when the print job is completed or when a print job
-     * resource isFetchable property value becomes true etc.
+     * Optional. OData query options for specifying value for the targeting resource. Clients receive notifications when
+     * resource reaches the state matching the query options provided here. With this new property in the subscription
+     * creation payload along with all existing properties, Webhooks will deliver notifications whenever a resource reaches
+     * the desired state mentioned in the notificationQueryOptions property. For example, when the print job is completed or
+     * when a print job resource isFetchable property value becomes true etc.
      */
     notificationQueryOptions?: NullableOption<string>;
     /**
@@ -7095,6 +7120,10 @@ export interface Subscription extends Entity {
      * protocol.
      */
     notificationUrl?: string;
+    /**
+     * Optional. The app ID that the subscription service can use to generate the validation token. This allows the client to
+     * validate the authenticity of the notification received.
+     */
     notificationUrlAppId?: NullableOption<string>;
     /**
      * Required. Specifies the resource that will be monitored for changes. Do not include the base URL
@@ -8668,14 +8697,21 @@ export interface IdentityProtectionRoot {
     riskyUsers?: NullableOption<RiskyUser[]>;
 }
 export interface RiskDetection extends Entity {
-    // Indicates the activity type the detected risk is linked to. . Possible values are: signin, user, unknownFutureValue.
+    // Indicates the activity type the detected risk is linked to. Possible values are: signin, user, unknownFutureValue.
     activity?: NullableOption<ActivityType>;
     /**
      * Date and time that the risky activity occurred. The DateTimeOffset type represents date and time information using ISO
      * 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is look like this: 2014-01-01T00:00:00Z
      */
     activityDateTime?: NullableOption<string>;
-    // Additional information associated with the risk detection in JSON format.
+    /**
+     * Additional information associated with the risk detection in JSON format. For example,
+     * '[{/'Key/':/'userAgent/',/'Value/':/'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)
+     * Chrome/68.0.3440.106 Safari/537.36/'}]'. Possible keys in the additionalInfo JSON string are: userAgent, alertUrl,
+     * relatedEventTimeInUtc, relatedUserAgent, deviceInformation, relatedLocation, requestId, correlationId,
+     * lastActivityTimeInUtc, malwareName, clientLocation, clientIp, riskReasons. For more information about riskReasons and
+     * possible values, see riskReasons values.
+     */
     additionalInfo?: NullableOption<string>;
     /**
      * Correlation ID of the sign-in associated with the risk detection. This property is null if the risk detection is not
@@ -8684,7 +8720,7 @@ export interface RiskDetection extends Entity {
     correlationId?: NullableOption<string>;
     /**
      * Date and time that the risk was detected. The DateTimeOffset type represents date and time information using ISO 8601
-     * format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is look like this: 2014-01-01T00:00:00Z
+     * format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 looks like this: 2014-01-01T00:00:00Z
      */
     detectedDateTime?: NullableOption<string>;
     /**
@@ -8717,10 +8753,10 @@ export interface RiskDetection extends Entity {
     /**
      * The type of risk event detected. The possible values are unlikelyTravel, anonymizedIPAddress, maliciousIPAddress,
      * unfamiliarFeatures, malwareInfectedIPAddress, suspiciousIPAddress, leakedCredentials, investigationsThreatIntelligence,
-     * generic,adminConfirmedUserCompromised, mcasImpossibleTravel, mcasSuspiciousInboxManipulationRules,
-     * investigationsThreatIntelligenceSigninLinked, maliciousIPAddressValidCredentialsBlockedIP, and unknownFutureValue. If
-     * the risk detection is a premium detection, will show generic. For more information about each value, see riskEventType
-     * values.
+     * generic,adminConfirmedUserCompromised, passwordSpray, impossibleTravel, newCountry, anomalousToken,
+     * tokenIssuerAnomaly,suspiciousBrowser, riskyIPAddress, mcasSuspiciousInboxManipulationRules, suspiciousInboxForwarding,
+     * and unknownFutureValue. If the risk detection is a premium detection, will show generic. For more information about
+     * each value, see riskEventType values.
      */
     riskEventType?: NullableOption<string>;
     // Level of the detected risk. Possible values are: low, medium, high, hidden, none, unknownFutureValue.
@@ -13035,7 +13071,7 @@ export interface PlannerProgressTaskBoardTaskFormat extends Entity {
 export interface PlannerTaskDetails extends Entity {
     // The collection of checklist items on the task.
     checklist?: NullableOption<PlannerChecklistItems>;
-    // Description of the task
+    // Description of the task.
     description?: NullableOption<string>;
     /**
      * This sets the type of preview that shows up on the task. The possible values are: automatic, noPreview, checklist,
@@ -13775,7 +13811,12 @@ export interface WindowsHelloForBusinessAuthenticationMethod extends Authenticat
     displayName?: NullableOption<string>;
     // Key strength of this Windows Hello for Business key. Possible values are: normal, weak, unknown.
     keyStrength?: NullableOption<AuthenticationMethodKeyStrength>;
-    // The registered device on which this Windows Hello for Business key resides.
+    /**
+     * The registered device on which this Windows Hello for Business key resides. Supports $expand. When you get a user's
+     * Windows Hello for Business registration information, this property is returned only on a single GET and when you
+     * specify ?$expand. For example, GET
+     * /users/admin@contoso.com/authentication/windowsHelloForBusinessMethods/_jpuR-TGZtk6aQCLF3BQjA2?$expand=device.
+     */
     device?: NullableOption<Device>;
 }
 export interface AadUserConversationMember extends ConversationMember {
@@ -14384,9 +14425,12 @@ export interface AssignedPlan {
      * detailed description of each value.
      */
     capabilityStatus?: NullableOption<string>;
-    // The name of the service; for example, 'Exchange'.
+    // The name of the service; for example, exchange.
     service?: NullableOption<string>;
-    // A GUID that identifies the service plan.
+    /**
+     * A GUID that identifies the service plan. For a complete list of GUIDs and their equivalent friendly service names, see
+     * Product names and service plan identifiers for licensing.
+     */
     servicePlanId?: NullableOption<string>;
 }
 export interface EmployeeOrgData {
@@ -14810,6 +14854,18 @@ export interface PermissionScope {
      * Allowed characters are : ! # $ % &amp; ' ( ) * + , - . / : ; = ? @ [ ] ^ + _ { } ~, as well as characters in the ranges
      * 0-9, A-Z and a-z. Any other character, including the space character, are not allowed. May not begin with ..
      */
+    value?: NullableOption<string>;
+}
+export interface ResourceSpecificPermission {
+    // Describes the level of access that the resource-specific permission represents.
+    description?: NullableOption<string>;
+    // The display name for the resource-specific permission.
+    displayName?: NullableOption<string>;
+    // The unique identifier for the resource-specific application permission.
+    id?: string;
+    // Indicates whether the permission is enabled.
+    isEnabled?: boolean;
+    // The value of the permission.
     value?: NullableOption<string>;
 }
 export interface SamlSingleSignOnSettings {
@@ -15296,6 +15352,7 @@ export interface AlternativeSecurityId {
 export interface PreAuthorizedApplication {
     // The unique identifier for the application.
     appId?: NullableOption<string>;
+    // The unique identifier for the oauth2PermissionScopes the application requires.
     delegatedPermissionIds?: string[];
 }
 export interface CertificateAuthority {
@@ -19587,10 +19644,15 @@ export interface RegistryKeyState {
     valueType?: NullableOption<RegistryValueType>;
 }
 export interface SecureScoreControlStateUpdate {
+    // Assigns the control to the user who will take the action.
     assignedTo?: NullableOption<string>;
+    // Provides optional comment about the control.
     comment?: NullableOption<string>;
+    // State of the control, which can be modified via a PATCH command (for example, ignored, thirdParty).
     state?: NullableOption<string>;
+    // ID of the user who updated tenant state.
     updatedBy?: NullableOption<string>;
+    // Time at which the control state was updated.
     updatedDateTime?: NullableOption<string>;
 }
 export interface SecurityResource {
@@ -20010,18 +20072,18 @@ export interface ChangeNotification {
     id?: NullableOption<string>;
     /**
      * The type of lifecycle notification if the current notification is a lifecycle notification. Optional. Supported values
-     * are missed, subscriptionRemoved, reauthorizationRequired.
+     * are missed, subscriptionRemoved, reauthorizationRequired. Optional.
      */
     lifecycleEvent?: NullableOption<LifecycleEventType>;
     // The URI of the resource that emitted the change notification relative to https://graph.microsoft.com. Required.
     resource?: string;
-    // The content of this property depends on the type of resource being subscribed to. Required.
+    // The content of this property depends on the type of resource being subscribed to. Optional.
     resourceData?: NullableOption<ResourceData>;
     // The expiration time for the subscription. Required.
     subscriptionExpirationDateTime?: string;
-    // The unique identifier of the subscription that generated the notification.
+    // The unique identifier of the subscription that generated the notification.Required.
     subscriptionId?: string;
-    // The unique identifier of the tenant from which the change notification originated.
+    // The unique identifier of the tenant from which the change notification originated. Required.
     tenantId?: string;
 }
 export interface ChangeNotificationEncryptedContent {
