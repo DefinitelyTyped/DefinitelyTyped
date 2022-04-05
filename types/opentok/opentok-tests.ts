@@ -82,14 +82,6 @@ client.removeArchiveStream('ARCHIVE_ID', 'STREAM_ID', patchStream, (err: Error) 
   if (err) return console.log(err);
 });
 
-client.addBroadcastStream('ARCHIVE_ID', 'STREAM_ID', patchStream, (err: Error) => {
-  if (err) return console.log(err);
-});
-
-client.removeBroadcastStream('ARCHIVE_ID', 'STREAM_ID', patchStream, (err: Error) => {
-  if (err) return console.log(err);
-});
-
 client.stopArchive('ARCHIVE_ID', (err: Error, archive: OpenTok.Archive) => {
   if (err) return console.log(err);
   console.log('Stopped archive:' + archive.id);
@@ -103,6 +95,14 @@ client.getArchive('ARCHIVE_ID', (err: Error, archive: OpenTok.Archive) => {
 client.getBroadcast('BROADCAST_ID', (err: Error, broadcast: OpenTok.Broadcast) => {
   if (err) return console.log(err);
   console.log(broadcast);
+});
+
+client.addBroadcastStream('BROADCAST_ID', 'STREAM_ID', patchStream, (err: Error) => {
+  if (err) return console.log(err);
+});
+
+client.removeBroadcastStream('BROADCAST_ID', 'STREAM_ID', patchStream, (err: Error) => {
+  if (err) return console.log(err);
 });
 
 client.getStream('SESSION_ID', 'STREAM_ID', (err: Error, stream: OpenTok.Stream) => {
