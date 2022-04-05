@@ -121,6 +121,7 @@ const broadcastOptions: OpenTok.BroadcastOptions = {
   layout: {
     type: 'bestFit',
   },
+  streamMode: 'auto'
 };
 
 client.startBroadcast('SESSION_ID', broadcastOptions, (err: Error, broadcast: OpenTok.Broadcast) => {

@@ -660,7 +660,7 @@ declare namespace AP {
          * Listener arguments begin with the event name, followed by any arguments passed to `events.emit`, followed by an object describing the complete event information.
          * @param listener A listener callback to subscribe for any event name
          */
-        function onAny(listener: (data: object) => void): void;
+        function onAny(listener: (name: string, data: object) => void): void;
 
         /**
          * Adds a listener for all occurrences of any event, regardless of name.
@@ -671,7 +671,7 @@ declare namespace AP {
          * @param listener A listener callback to subscribe for any event name
          * @param filter A filter function to filter the events. Callback will always be called when a matching event occurs if the filter is unspecified
          */
-        function onAnyPublic(listener: (data: object) => void, filter: (toCompare: any) => boolean): void;
+        function onAnyPublic(listener: (name: string, data: object) => void, filter: (toCompare: any) => boolean): void;
 
         /**
          * Removes a particular listener for an event.
@@ -703,13 +703,13 @@ declare namespace AP {
          * Removes an `any` event listener.
          * @param listener A listener callback to unsubscribe from any event name
          */
-        function offAny(listener: (data: object) => void): void;
+        function offAny(listener: (name: string, data: object) => void): void;
 
         /**
          * Removes an `anyPublic` event listener.
          * @param listener A listener callback to unsubscribe from any event name
          */
-        function offAnyPublic(listener: (data: object) => void): void;
+        function offAnyPublic(listener: (name: string, data: object) => void): void;
 
         /**
          * Emits an event on this bus, firing listeners by name as well as all 'any' listeners.
