@@ -1,4 +1,4 @@
-import Helper, { helper } from '@ember/component/helper';
+import Helper, { ExpandSignature, helper } from '@ember/component/helper';
 
 class DeprecatedSignatureForm extends Helper<{
     PositionalArgs: [offset: Date];
@@ -32,7 +32,24 @@ interface DemoSig {
     Return: string;
 }
 
+function testMissingSignature({ Args, Return }: ExpandSignature<unknown>) {
+    // $ExpectType BadType<"This helper is missing a signature">
+    Args.Named;
+
+    // $ExpectType unknown[]
+    Args.Positional;
+
+    // $ExpectType unknown
+    Return;
+}
+
 class SignatureForm extends Helper<DemoSig> {
+    compute([i18nizer]: [i18nizer: (s: string) => string], { name, age }: { name: string; age: number }): string {
+        return i18nizer(`${name} is ${age} years old`);
+    }
+}
+
+class NoSignatureForm extends Helper {
     compute([i18nizer]: [i18nizer: (s: string) => string], { name, age }: { name: string; age: number }): string {
         return i18nizer(`${name} is ${age} years old`);
     }
