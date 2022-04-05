@@ -1,4 +1,4 @@
-// Type definitions for non-npm package microsoft-graph 2.15
+// Type definitions for non-npm package microsoft-graph 2.16
 // Project: https://github.com/microsoftgraph/msgraph-typescript-typings
 // Definitions by: Microsoft Graph Team <https://github.com/microsoftgraph>
 //                 Michael Mainer <https://github.com/MIchaelMainer>
@@ -325,6 +325,7 @@ export type ResponseType = "none" | "organizer" | "tentativelyAccepted" | "accep
 export type SelectionLikelihoodInfo = "notSpecified" | "high";
 export type Sensitivity = "normal" | "personal" | "private" | "confidential";
 export type TimeZoneStandard = "windows" | "iana";
+export type UserPurpose = "user" | "linked" | "shared" | "room" | "equipment" | "others" | "unknownFutureValue";
 export type WebsiteType = "other" | "home" | "work" | "blog" | "profile";
 export type WeekIndex = "first" | "second" | "third" | "fourth" | "last";
 export type ColumnTypes =
@@ -5805,9 +5806,9 @@ export interface AdministrativeUnit extends DirectoryObject {
      */
     displayName?: NullableOption<string>;
     /**
-     * Controls whether the administrative unit and its members are hidden or public. Can be set to HiddenMembership or
-     * Public. If not set, default behavior is Public. When set to HiddenMembership, only members of the administrative unit
-     * can list other members of the administrative unit.
+     * Controls whether the administrative unit and its members are hidden or public. Can be set to HiddenMembership. If not
+     * set (value is null), the default behavior is public. When set to HiddenMembership, only members of the administrative
+     * unit can list other members of the administrative unit.
      */
     visibility?: NullableOption<string>;
     // Users and groups that are members of this administrative unit. Supports $expand.
@@ -8408,6 +8409,11 @@ export interface AccessPackage extends Entity {
     catalog?: NullableOption<AccessPackageCatalog>;
 }
 export interface AccessPackageAssignmentRequest extends Entity {
+    /**
+     * The date of the end of processing, either successful or failure, of a request. The Timestamp type represents date and
+     * time information using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is
+     * 2014-01-01T00:00:00Z. Read-only.
+     */
     completedDateTime?: NullableOption<string>;
     /**
      * The Timestamp type represents date and time information using ISO 8601 format and is always in UTC time. For example,
@@ -8713,7 +8719,8 @@ export interface RiskDetection extends Entity {
      * unfamiliarFeatures, malwareInfectedIPAddress, suspiciousIPAddress, leakedCredentials, investigationsThreatIntelligence,
      * generic,adminConfirmedUserCompromised, mcasImpossibleTravel, mcasSuspiciousInboxManipulationRules,
      * investigationsThreatIntelligenceSigninLinked, maliciousIPAddressValidCredentialsBlockedIP, and unknownFutureValue. If
-     * the risk detection is a premium detection, will show generic
+     * the risk detection is a premium detection, will show generic. For more information about each value, see riskEventType
+     * values.
      */
     riskEventType?: NullableOption<string>;
     // Level of the detected risk. Possible values are: low, medium, high, hidden, none, unknownFutureValue.
@@ -14533,6 +14540,11 @@ export interface MailboxSettings {
     timeFormat?: NullableOption<string>;
     // The default time zone for the user's mailbox.
     timeZone?: NullableOption<string>;
+    /**
+     * The purpose of the mailbox. Used to differentiate a mailbox for a single user from a shared mailbox and equipment
+     * mailbox in Exchange Online. Read only.
+     */
+    userPurpose?: NullableOption<UserPurpose>;
     // The days of the week and hours in a specific time zone that the user works.
     workingHours?: NullableOption<WorkingHours>;
 }
@@ -14595,7 +14607,7 @@ export interface AppRole {
     // Display name for the permission that appears in the app role assignment and consent experiences.
     displayName?: NullableOption<string>;
     /**
-     * Unique role identifier inside the appRoles collection. When creating a new app role, a new Guid identifier must be
+     * Unique role identifier inside the appRoles collection. When creating a new app role, a new GUID identifier must be
      * provided.
      */
     id?: string;
@@ -18540,20 +18552,20 @@ export interface BucketAggregationDefinition {
 export interface AlterationResponse {
     // Defines the original user query string.
     originalQueryString?: NullableOption<string>;
-    // Defines the details of alteration information for the spelling correction.
+    // Defines the details of the alteration information for the spelling correction.
     queryAlteration?: NullableOption<SearchAlteration>;
-    // Defines the type of the spelling correction. Possible values are suggestion, modification.
+    // Defines the type of the spelling correction. Possible values are: suggestion, modification.
     queryAlterationType?: NullableOption<SearchAlterationType>;
 }
 export interface SearchAlteration {
     /**
-     * Defines the altered highlighted query string with spelling correction. The annotation around the corrected segment is
-     * (/ue000, /ue001)
+     * Defines the altered highlighted query string with spelling correction. The annotation around the corrected segment is:
+     * /ue000, /ue001.
      */
     alteredHighlightedQueryString?: NullableOption<string>;
     // Defines the altered query string with spelling correction.
     alteredQueryString?: NullableOption<string>;
-    // Represents changed segments with respect to original query.
+    // Represents changed segments related to an original user query.
     alteredQueryTokens?: NullableOption<AlteredQueryToken[]>;
 }
 export interface AlteredQueryToken {
@@ -18590,7 +18602,7 @@ export interface ResultTemplateOption {
     /**
      * Indicates whether search display layouts are enabled. If enabled, the user will get the result template to render the
      * search results content in the resultTemplates property of the response. The result template is based on Adaptive Cards.
-     * This property is optional.
+     * Optional.
      */
     enableResultTemplate?: NullableOption<boolean>;
 }
@@ -18617,15 +18629,15 @@ export interface SearchBucket {
 }
 export interface SearchAlterationOptions {
     /**
-     * Indicates whether spelling modifications are enabled. If enabled, user will get the search results for corrected query
-     * when there are no results for the original query with typos and get the spelling modification information in
-     * queryAlterationResponse property of the response. Optional.
+     * Indicates whether spelling modifications are enabled. If enabled, the user will get the search results for the
+     * corrected query in case of no results for the original query with typos. The response will also include the spelling
+     * modification information in the queryAlterationResponse property. Optional.
      */
     enableModification?: NullableOption<boolean>;
     /**
-     * Indicates whether spelling suggestions are enabled. If enabled, user will get the search results for original search
-     * query and suggesting spelling correction in queryAlterationResponse property of the response for typos in query.
-     * Optional.
+     * Indicates whether spelling suggestions are enabled. If enabled, the user will get the search results for the original
+     * search query and suggestions for spelling correction in the queryAlterationResponse property of the response for the
+     * typos in the query. Optional.
      */
     enableSuggestion?: NullableOption<boolean>;
 }
@@ -18637,8 +18649,8 @@ export interface SearchHit {
     // The rank or the order of the result.
     rank?: NullableOption<number>;
     /**
-     * ID of the result template for rendering the search result. This ID must map to a display layout in the resultTemplates
-     * dictionary, included in the searchresponse as well.
+     * ID of the result template used to render the search result. This ID must map to a display layout in the resultTemplates
+     * dictionary that is also included in the searchResponse.
      */
     resultTemplateId?: NullableOption<string>;
     // A summary of the result, if a summary is available.
@@ -18734,7 +18746,7 @@ export interface SortProperty {
 export interface SearchResponse {
     // A collection of search results.
     hitsContainers?: NullableOption<SearchHitsContainer[]>;
-    // Provides details of query alteration response for spelling correction.
+    // Provides information related to spelling corrections in the alteration response.
     queryAlterationResponse?: NullableOption<AlterationResponse>;
     /**
      * A dictionary of resultTemplateIds and associated values, which include the name and JSON schema of the result
