@@ -63,6 +63,12 @@ items.search({
     filters: { anAggregation: ['abc'] },
 });
 
+// Aggregation 'bar' was never defined
+// $ExpectError
+items.aggregation({ name: 'bar' });
+
+items.aggregation({ name: 'anAggregation' });
+
 itemsjs<typeof myitems[number]>([]).reindex(myitems);
 
 const myItemsIds = myitems.map((v, i) => ({ id: i, ...v }));
