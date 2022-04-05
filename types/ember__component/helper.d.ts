@@ -92,6 +92,10 @@ export interface ExpandSignature<T> {
     Return: 'Return' extends keyof T ? T['Return'] : unknown;
 }
 
+// The `unknown extends S` checks on both of these are here to preserve backward
+// compatibility with the existing non-`Signature` definition. When migrating
+// into Ember or otherwise making a breaking change, we can drop the "default"
+// in favor of just using `ExpandSignature`.
 type NamedArgs<S> = unknown extends S ? Record<string, unknown> : ExpandSignature<S>['Args']['Named'];
 type PositionalArgs<S> = unknown extends S ? unknown[] : ExpandSignature<S>['Args']['Positional'];
 
