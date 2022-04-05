@@ -9,7 +9,7 @@ import * as R from 'ramda';
         return x % 2 === 0;
     }
 
-    // $ExpectType (a: number) => boolean
+    // $ExpectType (value: number) => boolean
     const f = R.anyPass([gt10, even]);
 
     // $ExpectType boolean
@@ -22,14 +22,14 @@ import * as R from 'ramda';
     const isFooAndBar = (a: {}): a is { foo: number; bar: string } => true;
     const isFooAndBuz = (a: {}): a is { foo: number; buz: string } => true;
 
-    // $ExpectType (a: {}) => a is { foo: number; bar: string; } | { foo: number; buz: string; }
+    // $ExpectType (value: {}) => value is { foo: number; bar: string; } | { foo: number; buz: string; }
     const fIsFoo = R.anyPass([isFooAndBar, isFooAndBuz]);
 
     const is1or2 = (x: number): x is 1 | 2 => true;
     const is2or3 = (x: number): x is 2 | 3 => true;
     const is3 = (x: number): x is 3 => true;
 
-    // $ExpectType (a: number) => a is 1 | 2 | 3 || (a: number) => a is 2 | 1 | 3 || (a: number) => a is 2 | 3 | 1
+    // $ExpectType (value: number) => value is 1 | 2 | 3 || (value: number) => value is 2 | 1 | 3 || (value: number) => value is 2 | 3 | 1
     R.anyPass([is1or2, is2or3, is3]);
 
     const isFoo = (x: any): x is { foo: number; fuz: boolean } => true;

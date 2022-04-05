@@ -71,6 +71,66 @@ export type CondPair<T extends any[], R> = [(...val: T) => boolean, (...val: T) 
 
 export type CondPairTypeguard<T, TFiltered extends T, R> = [(value: T) => value is TFiltered, (value: TFiltered) => R];
 
+/**
+ * Represents an arbitrary fully curried function (a function that takes one parameter per call)
+ * @param N The number of function parameters
+ *
+ * @note This does not support `N <= 0`
+ *
+ * <created by @somebody1234>
+ */
+export type CurriedFunction<
+    N,
+    Fn extends (_: any) => unknown = (_: any) => unknown,
+    Acc extends never[] = [never],
+> = Acc['length'] extends N ? Fn : CurriedFunction<N, (_: any) => Fn, [never, ...Acc]>;
+
+/**
+ * Represents a fully-curried function (a function that takes one parameter per call)
+ * with the specified argument and return types.
+ *
+ * Its intended use is as a constraint so it explicitly disallows arrays (which may be passed during inference)
+ * @param Args The arguments of the function
+ * @param R The return type of the function
+ *
+ * <created by @somebody1234>
+ */
+export type Curried<Args extends unknown[], R> = number extends Args['length']
+    ? never
+    : Args extends [unknown, ...infer Tail]
+    ? Args extends [...infer Head, ...Tail]
+        ? (...args: Head) => Curried<Tail, R>
+        : never
+    : R;
+
+type CurryN2_<Args extends unknown[], R, N extends unknown[]> = <
+    Args2 extends Extract<Exclude<PrefixesOf<Args>, []>, TupleUpTo<unknown, N['length']>>,
+>(
+    ...args: Args2
+) => Args extends [...Tuple<unknown, Args2['length']>, ...infer Rest]
+    ? N extends [...Tuple<unknown, Args2['length']>, ...infer Diff]
+        ? Diff['length'] extends 0
+            ? Rest['length'] extends 0
+                ? R
+                : (...args: Rest) => R
+            : CurryN2<Rest, R, Diff['length']>
+        : never
+    : never;
+
+/**
+ * Represents a curried function (taking any number of parameters per call)
+ * with the specified argument and return types and number of parameters to curry.
+ *
+ * @param Args The arguments of the function
+ * @param R The return type of the function
+ * @param N The number of parameters to curry. Any further parameters will not be curried.
+ *
+ * @note Handles optional parameters thanks to `PrefixesOf` supporting them too.
+ *
+ * <created by @somebody1234>
+ */
+export type CurryN2<Args extends unknown[], R, N extends number> = CurryN2_<Args, R, Tuple<unknown, N>>;
+
 // ---------------------------------------------------------------------------------------
 // D
 
@@ -262,25 +322,25 @@ type Intersection<T1, T2> = Intersectable<T1, T2> extends true
  * intersected with item from second array(also with the same index) if such exist
  *
  * examples:
- *   `mergeArrWithLeft<[1, number, number, string], [number, 2, 7]>` => `[1, 2, 7, string]`
- *   `mergeArrWithLeft<[1, string], [number, "exact text", number, any]>` => `[1, "exact text"]`
+ *   `MergeArrWithLeft<[1, number, number, string], [number, 2, 7]>` => `[1, 2, 7, string]`
+ *   `MergeArrWithLeft<[1, string], [number, "exact text", number, any]>` => `[1, "exact text"]`
  *
  * @param T1
  * @param T2
  *
  * <created by @valerii15298>
  * */
-export type mergeArrWithLeft<T1 extends ReadonlyArray<any>, T2 extends ReadonlyArray<any>> = readonly [
+export type MergeArrWithLeft<T1 extends ReadonlyArray<any>, T2 extends ReadonlyArray<any>> = readonly [
     ...{
         readonly [Index in keyof T1]: Index extends keyof T2 ? Intersection<T1[Index], T2[Index]> : T1[Index];
-    },
+    }
 ];
 
 /*
- * The same as mergeArrWithLeft but will merge smaller array to larger one,
+ * The same as MergeArrWithLeft but will merge smaller array to larger one,
  * so that data will not be lost and maximum length array will be returned
  *
- * example: mergeArrays<[1, number], [number, 2, string]>
+ * example: MergeArrays<[1, number], [number, 2, string]>
  *   will result to => [1, 2, string]
  *
  * @param T1
@@ -288,16 +348,16 @@ export type mergeArrWithLeft<T1 extends ReadonlyArray<any>, T2 extends ReadonlyA
  *
  * <created by @valerii15298>
  * */
-type mergeArrays<T1 extends ReadonlyArray<any>, T2 extends ReadonlyArray<any>> = arr1LessThanOrEqual<
+type MergeArrays<T1 extends ReadonlyArray<any>, T2 extends ReadonlyArray<any>> = arr1LessThanOrEqual<
     T1,
     T2
 > extends true
-    ? mergeArrWithLeft<T2, T1>
-    : mergeArrWithLeft<T1, T2>;
+    ? MergeArrWithLeft<T2, T1>
+    : MergeArrWithLeft<T1, T2>;
 
 /*
  * Given array of functions will return new array which will be constructed
- * merging all functions parameters array using mergeArrays generic.
+ * merging all functions parameters array using MergeArrays generic.
  *
  * If provided array is not array of functions, return type will be empty array([])
  *
@@ -307,9 +367,9 @@ type mergeArrays<T1 extends ReadonlyArray<any>, T2 extends ReadonlyArray<any>> =
  * */
 export type LargestArgumentsList<T extends ReadonlyArray<any>> = T extends readonly [
     (...args: infer Args) => any,
-    ...infer Rest,
+    ...infer Rest
 ]
-    ? mergeArrays<LargestArgumentsList<Rest>, Args>
+    ? MergeArrays<LargestArgumentsList<Rest>, Args>
     : readonly [];
 
 /*
@@ -471,8 +531,27 @@ export type Pred<T extends any[] = any[]> = (...a: T) => boolean;
  * If you would this type alone, the function would **required**
  * to be a typeguard, meaning a simple function just returning
  * a `boolean` wouldn't satisfy this constrain.
+ *
+ * @deprecated Use `(a: T) => a is R` instead
  */
 export type PredTypeguard<T, TTypeguarded extends T> = (a: T) => a is TTypeguarded;
+
+/**
+ * Returns a union of all prefixes of a tuple.
+ *
+ * @param T The tuple.
+ *
+ * @note Handles optional elements (`[a: 1, b?: 2]`) too.
+ *
+ * <created by @somebody1234>
+ */
+type PrefixesOf<T extends unknown[]> = number extends T['length']
+    ? T
+    : T extends []
+    ? T
+    : T extends [...infer Prefix, unknown?]
+    ? PrefixesOf<Prefix> | T
+    : never;
 
 // ---------------------------------------------------------------------------------------
 // R
@@ -486,6 +565,9 @@ export interface Reduced<A> {
     '@@transducer/reduced': true;
 }
 
+/**
+ * @deprecated Use `(...args: any[]) => unknown`
+ */
 export type Fn = (...args: any[]) => any;
 export type ReturnTypesOfFns<A extends ReadonlyArray<Fn>> = A extends readonly [(...args: any[]) => infer H, ...infer R]
     ? R extends readonly Fn[]
@@ -501,24 +583,7 @@ export type InputTypesOfFns<A extends ReadonlyArray<Fn>> = A extends [infer H, .
     : [];
 
 // ---------------------------------------------------------------------------------------
-// V
-
-/**
- * <needs description>
- * @param R
- * @deprecated Use `R[keyof R]` instead
- */
-export type ValueOfRecord<R> = R extends Record<any, infer T> ? T : never;
-
-/**
- * If `T` is a union, `T[keyof T]` (cf. `map` and `values` in `index.d.ts`) contains the types of object values that are common across the union (i.e., an intersection).
- * Because we want to include the types of all values, including those that occur in some, but not all members of the union, we first define `ValueOfUnion`.
- *
- * `T extends T` is a hack to handle each union member separately.
- *
- * @see https://stackoverflow.com/a/60085683
- */
-export type ValueOfUnion<T> = T extends T ? T[keyof T] : never;
+// T
 
 /**
  * Take first `N` types of a Tuple
@@ -546,15 +611,81 @@ export type Tuple<T, N extends number> = N extends N ? (number extends N ? T[] :
 type _TupleOf<T, N extends number, R extends unknown[]> = R['length'] extends N ? R : _TupleOf<T, N, [T, ...R]>;
 
 /**
+ * A tuple of length between `0` and `N`.
+ * @param N Length of the tuple
+ *
+ * <created by @somebody1234>
+ */
+export type TupleUpTo<T, N extends number, Acc extends T[] = []> = N extends N
+    ? number extends N
+        ? T[]
+        : _TupleUpTo<T, N, Acc>
+    : never;
+type _TupleUpTo<T, N extends number, R extends T[]> = R['length'] extends N ? R : R | _TupleUpTo<T, N, [T, ...R]>;
+
+/**
+ * A tuple of length between `0` and `N`.
+ * @param N Length of the tuple
+ *
+ * <created by @somebody1234>
+ */
+export type TuplePad<T extends unknown[], N extends number, Pad = unknown> = N extends N
+    ? number extends N
+        ? T[]
+        : _TuplePad<T, N, Pad>
+    : never;
+type _TuplePad<T extends unknown[], N extends number, Pad> = T['length'] extends N
+    ? T
+    : _TuplePad<[...tuple: T, _: Pad], N, Pad>;
+
+/**
  * Map tuple of ordinary type to tuple of array type
  * [string, number] -> [string[], number[]]
  */
-export type ToTupleOfArray<Tuple extends any[]> = [...{ [K in keyof Tuple]: Array<Tuple[K]>; }];
+export type ToTupleOfArray<Tuple extends any[]> = [...{ [K in keyof Tuple]: Array<Tuple[K]> }];
 
 /**
  * Map tuple of ordinary type to tuple of function type
  * [string, number] -> [(arg: R) => string, (arg: R) => number]
  */
-export type ToTupleOfFunction<R, Tuple extends any[]> = [...{ [K in keyof Tuple]: (arg: R) => Tuple[K]; }];
+export type ToTupleOfFunction<R, Tuple extends any[]> = [...{ [K in keyof Tuple]: (value: R) => Tuple[K] }];
+
+// ---------------------------------------------------------------------------------------
+// U
+
+/**
+ * Converts a fully curried function (a function that takes one parameter per call)
+ * into a normal function
+ *
+ * @param F The fully curried function
+ * @param N The number of arguments
+ *
+ * <created by @somebody1234>
+ */
+export type Uncurry<F, N extends number, Args extends unknown[] = []> = Args['length'] extends N
+    ? (...args: Args) => F
+    : F extends (_: any) => unknown
+    ? Uncurry<ReturnType<F>, N, [...Args, ...Parameters<F>]>
+    : never;
+
+// ---------------------------------------------------------------------------------------
+// V
+
+/**
+ * <needs description>
+ * @param R
+ * @deprecated Use `R[keyof R]` instead
+ */
+export type ValueOfRecord<R> = R extends Record<any, infer T> ? T : never;
+
+/**
+ * If `T` is a union, `T[keyof T]` (cf. `map` and `values` in `index.d.ts`) contains the types of object values that are common across the union (i.e., an intersection).
+ * Because we want to include the types of all values, including those that occur in some, but not all members of the union, we first define `ValueOfUnion`.
+ *
+ * `T extends T` is a hack to handle each union member separately.
+ *
+ * @see https://stackoverflow.com/a/60085683
+ */
+export type ValueOfUnion<T> = T extends T ? T[keyof T] : never;
 
 export {};

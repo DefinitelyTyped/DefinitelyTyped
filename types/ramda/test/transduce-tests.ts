@@ -1,5 +1,12 @@
 import * as R from 'ramda';
 
+const getKeys = <K extends string>(key: K) => R.map(R.prop(key));
+
+
+
+
+const results = getKeys('a');
+
 () => {
     const numbers = [1, 2, 3, 4];
     // $ExpectType (list: readonly number[]) => number[]

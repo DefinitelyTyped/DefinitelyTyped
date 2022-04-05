@@ -2,15 +2,15 @@ import * as R from 'ramda';
 
 () => {
     // $ExpectType number
-    R.dec(42); // => 41
+    R.inc(42); // => 41
     // $ExpectError
-    R.dec('');
+    R.inc('');
     // $ExpectError
-    R.dec(null);
+    R.inc(null);
     // $ExpectError
-    R.dec(undefined);
+    R.inc(undefined);
     // $ExpectError
-    R.dec(0, 1);
+    R.inc(0, 1);
     // $ExpectError
-    R.dec();
+    R.inc();
 };

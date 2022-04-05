@@ -39,6 +39,9 @@ import {
     AtLeastOneFunctionsFlow,
     AtLeastOneFunctionsFlowFromRightToLeft,
     CondPair,
+    Curried,
+    CurriedFunction,
+    CurryN2,
     Evolvable,
     Evolve,
     Evolver,
@@ -51,20 +54,19 @@ import {
     Ordering,
     Path,
     Placeholder,
-    Pred,
-    PredTypeguard,
     Reduced,
     ReturnTypesOfFns,
     ValueOfUnion,
-    Take,
     ToTupleOfArray,
     ToTupleOfFunction,
     Tuple,
     CondPairTypeguard,
-    Fn,
     IfFunctionsArgumentsDoNotOverlap,
     LargestArgumentsList,
-    mergeArrWithLeft,
+    MergeArrWithLeft,
+    TupleUpTo,
+    TuplePad,
+    Uncurry,
 } from './tools';
 
 export * from './tools';
@@ -199,37 +201,42 @@ export function all<T>(fn: (a: T) => boolean): (list: readonly T[]) => boolean;
  * ```
  */
 export function allPass<T, TF1 extends T, TF2 extends T>(
-    preds: [PredTypeguard<T, TF1>, PredTypeguard<T, TF2>],
-): (a: T) => a is TF1 & TF2;
+    preds: [(value: T) => value is TF1, (value: T) => value is TF2],
+): (value: T) => value is TF1 & TF2;
 export function allPass<T, TF1 extends T, TF2 extends T, TF3 extends T>(
-    preds: [PredTypeguard<T, TF1>, PredTypeguard<T, TF2>, PredTypeguard<T, TF3>],
-): (a: T) => a is TF1 & TF2 & TF3;
+    preds: [(value: T) => value is TF1, (value: T) => value is TF2, (value: T) => value is TF3],
+): (value: T) => value is TF1 & TF2 & TF3;
 export function allPass<T, TF1 extends T, TF2 extends T, TF3 extends T>(
-    preds: [PredTypeguard<T, TF1>, PredTypeguard<T, TF2>, PredTypeguard<T, TF3>],
-): (a: T) => a is TF1 & TF2 & TF3;
+    preds: [(value: T) => value is TF1, (value: T) => value is TF2, (value: T) => value is TF3],
+): (value: T) => value is TF1 & TF2 & TF3;
 export function allPass<T, TF1 extends T, TF2 extends T, TF3 extends T, TF4 extends T>(
-    preds: [PredTypeguard<T, TF1>, PredTypeguard<T, TF2>, PredTypeguard<T, TF3>, PredTypeguard<T, TF4>],
-): (a: T) => a is TF1 & TF2 & TF3 & TF4;
+    preds: [
+        (value: T) => value is TF1,
+        (value: T) => value is TF2,
+        (value: T) => value is TF3,
+        (value: T) => value is TF4,
+    ],
+): (value: T) => value is TF1 & TF2 & TF3 & TF4;
 export function allPass<T, TF1 extends T, TF2 extends T, TF3 extends T, TF4 extends T, TF5 extends T>(
     preds: [
-        PredTypeguard<T, TF1>,
-        PredTypeguard<T, TF2>,
-        PredTypeguard<T, TF3>,
-        PredTypeguard<T, TF4>,
-        PredTypeguard<T, TF5>,
+        (value: T) => value is TF1,
+        (value: T) => value is TF2,
+        (value: T) => value is TF3,
+        (value: T) => value is TF4,
+        (value: T) => value is TF5,
     ],
-): PredTypeguard<T, TF1 & TF2 & TF3 & TF4 & TF5>;
+): (value: T) => value is TF1 & TF2 & TF3 & TF4 & TF5;
 export function allPass<T, TF1 extends T, TF2 extends T, TF3 extends T, TF4 extends T, TF5 extends T, TF6 extends T>(
     preds: [
-        PredTypeguard<T, TF1>,
-        PredTypeguard<T, TF2>,
-        PredTypeguard<T, TF3>,
-        PredTypeguard<T, TF4>,
-        PredTypeguard<T, TF5>,
-        PredTypeguard<T, TF6>,
+        (value: T) => value is TF1,
+        (value: T) => value is TF2,
+        (value: T) => value is TF3,
+        (value: T) => value is TF4,
+        (value: T) => value is TF5,
+        (value: T) => value is TF6,
     ],
-): PredTypeguard<T, TF1 & TF2 & TF3 & TF4 & TF5 & TF6>;
-export function allPass<F extends Pred>(preds: readonly F[]): F;
+): (value: T) => value is TF1 & TF2 & TF3 & TF4 & TF5 & TF6;
+export function allPass<T>(preds: ReadonlyArray<(value: T) => boolean>): (value: T) => boolean;
 
 /**
  * Returns a function that always returns the given value.
@@ -333,38 +340,44 @@ export function any<T>(fn: (a: T) => boolean): (list: readonly T[]) => boolean;
  * ```
  */
 export function anyPass<T, TF1 extends T, TF2 extends T>(
-    preds: [PredTypeguard<T, TF1>, PredTypeguard<T, TF2>],
-): (a: T) => a is TF1 | TF2;
+    preds: [(value: T) => value is TF1, (value: T) => value is TF2],
+): (value: T) => value is TF1 | TF2;
 export function anyPass<T, TF1 extends T, TF2 extends T, TF3 extends T>(
-    preds: [PredTypeguard<T, TF1>, PredTypeguard<T, TF2>, PredTypeguard<T, TF3>],
-): (a: T) => a is TF1 | TF2 | TF3;
+    preds: [(value: T) => value is TF1, (value: T) => value is TF2, (value: T) => value is TF3],
+): (value: T) => value is TF1 | TF2 | TF3;
 export function anyPass<T, TF1 extends T, TF2 extends T, TF3 extends T>(
-    preds: [PredTypeguard<T, TF1>, PredTypeguard<T, TF2>, PredTypeguard<T, TF3>],
-): (a: T) => a is TF1 | TF2 | TF3;
+    preds: [(value: T) => value is TF1, (value: T) => value is TF2, (value: T) => value is TF3],
+): (value: T) => value is TF1 | TF2 | TF3;
 export function anyPass<T, TF1 extends T, TF2 extends T, TF3 extends T, TF4 extends T>(
-    preds: [PredTypeguard<T, TF1>, PredTypeguard<T, TF2>, PredTypeguard<T, TF3>, PredTypeguard<T, TF4>],
-): (a: T) => a is TF1 | TF2 | TF3 | TF4;
+    preds: [
+        (value: T) => value is TF1,
+        (value: T) => value is TF2,
+        (value: T) => value is TF3,
+        (value: T) => value is TF4,
+    ],
+): (value: T) => value is TF1 | TF2 | TF3 | TF4;
 export function anyPass<T, TF1 extends T, TF2 extends T, TF3 extends T, TF4 extends T, TF5 extends T>(
     preds: [
-        PredTypeguard<T, TF1>,
-        PredTypeguard<T, TF2>,
-        PredTypeguard<T, TF3>,
-        PredTypeguard<T, TF4>,
-        PredTypeguard<T, TF5>,
+        (value: T) => value is TF1,
+        (value: T) => value is TF2,
+        (value: T) => value is TF3,
+        (value: T) => value is TF4,
+        (value: T) => value is TF5,
     ],
-): PredTypeguard<T, TF1 | TF2 | TF3 | TF4 | TF5>;
+): (value: T) => value is TF1 | TF2 | TF3 | TF4 | TF5;
 export function anyPass<T, TF1 extends T, TF2 extends T, TF3 extends T, TF4 extends T, TF5 extends T, TF6 extends T>(
     preds: [
-        PredTypeguard<T, TF1>,
-        PredTypeguard<T, TF2>,
-        PredTypeguard<T, TF3>,
-        PredTypeguard<T, TF4>,
-        PredTypeguard<T, TF5>,
-        PredTypeguard<T, TF6>,
+        (value: T) => value is TF1,
+        (value: T) => value is TF2,
+        (value: T) => value is TF3,
+        (value: T) => value is TF4,
+        (value: T) => value is TF5,
+        (value: T) => value is TF6,
     ],
-): PredTypeguard<T, TF1 | TF2 | TF3 | TF4 | TF5 | TF6>;
-export function anyPass<T, U extends T = T>(preds: ReadonlyArray<(a: T) => a is U>): (a: T) => a is U;
-export function anyPass<T>(preds: ReadonlyArray<(a: T) => boolean>): (a: T) => boolean;
+): (value: T) => value is TF1 | TF2 | TF3 | TF4 | TF5 | TF6;
+// TODO: test this overload. if this works fine add a similar one but using `U2I` for allPass???
+export function anyPass<T, U extends T = T>(preds: ReadonlyArray<(value: T) => value is U>): (value: T) => value is U;
+export function anyPass<T>(preds: ReadonlyArray<(value: T) => boolean>): (value: T) => boolean;
 
 /**
  * `ap` applies a list of functions to a list of values.
@@ -382,8 +395,8 @@ export function anyPass<T>(preds: ReadonlyArray<(a: T) => boolean>): (a: T) => b
  * R.ap((s, s2) => R.concat(s, s2), R.toUpper)('Ramda') //=> 'RamdaRAMDA'
  * ```
  */
-export function ap<T, U>(fns: Array<(a: T) => U>, vs: readonly T[]): U[];
-export function ap<T, U>(fns: Array<(a: T) => U>): (vs: readonly T[]) => U[];
+export function ap<T, U>(fns: ReadonlyArray<(a: T) => U>, vs: readonly T[]): U[];
+export function ap<T, U>(fns: ReadonlyArray<(a: T) => U>): (vs: readonly T[]) => U[];
 export function ap<R, A, B>(fn: (r: R, a: A) => B, fn1: (r: R) => A): (r: R) => B;
 
 /**
@@ -563,7 +576,9 @@ export function assocPath<T>(path: Path): {
  * takesTwoArgs(1, 2, 3); //=> [1, 2, undefined]
  * ```
  */
-export function binary<T extends (...arg: any) => any>(fn: T): (...arg: _.T.Take<Parameters<T>, '2'>) => ReturnType<T>;
+export function binary<Args extends [] | [unknown] | [unknown, unknown], R>(
+    fn: (...args: Args) => R,
+): (...args: TuplePad<Args, 2>) => R;
 
 /**
  * Creates a function that is bound to a context.
@@ -1167,7 +1182,7 @@ export function construct<A extends any[], T>(
 export function constructN<A extends any[], T, N extends number>(
     n: N,
     constructor: { new (...a: A): T } | ((...a: A) => T),
-): _.F.Curry<(...a: mergeArrWithLeft<Tuple<any, N>, A>) => T>;
+): _.F.Curry<(...a: MergeArrWithLeft<Tuple<any, N>, A>) => T>;
 
 /**
  * Returns `true` if the specified item is somewhere in the list, `false` otherwise.
@@ -1196,9 +1211,9 @@ export function contains<T>(a: T): (list: readonly T[]) => boolean;
  */
 export function converge<
     TResult,
-    FunctionsList extends ReadonlyArray<Fn> &
+    FunctionsList extends ReadonlyArray<(...args: any[]) => unknown> &
         IfFunctionsArgumentsDoNotOverlap<_Fns, 'Functions arguments types must overlap'>,
-    _Fns extends ReadonlyArray<Fn> = FunctionsList,
+    _Fns extends ReadonlyArray<(...args: any[]) => unknown> = FunctionsList,
 >(
     converging: (...args: ReturnTypesOfFns<FunctionsList>) => TResult,
     branches: FunctionsList,
@@ -1212,7 +1227,7 @@ export function converge<
         }
     ] &
         IfFunctionsArgumentsDoNotOverlap<_Fns, 'Functions arguments types must overlap'>,
-    _Fns extends ReadonlyArray<Fn> = FunctionsList,
+    _Fns extends ReadonlyArray<(...args: any[]) => unknown> = FunctionsList,
 >(
     converging: (...args: CArgs) => TResult,
     branches: FunctionsList,
@@ -1289,7 +1304,7 @@ export function countBy<T>(fn: (a: T) => string | number): (list: readonly T[]) 
  * g(4); //=> 10
  * ```
  */
-export function curry<F extends (...args: any) => any>(f: F): _.F.Curry<F>;
+export function curry<F extends (...args: any[]) => unknown>(f: F): _.F.Curry<F>;
 
 /**
  * Returns a curried equivalent of the provided function, with the specified arity.
@@ -1327,15 +1342,13 @@ export function curry<F extends (...args: any) => any>(f: F): _.F.Curry<F>;
  * g(4); //=> 10
  * ```
  */
-export function curryN<N extends number, F extends (...args: any) => any>(
+export function curryN<N extends number, Args extends [...Tuple<unknown, N>, ...unknown[]], R>(
     length: N,
-    fn: F,
-): _.F.Curry<(...a: _.T.Take<Parameters<F>, _.N.NumberOf<N>>) => ReturnType<F>>;
+    fn: (...args: Args) => R,
+): CurryN2<Args, R, N>;
 export function curryN<N extends number>(
     length: N,
-): <F extends (...args: any) => any>(
-    fn: F,
-) => _.F.Curry<(...a: _.T.Take<Parameters<F>, _.N.NumberOf<N>>) => ReturnType<F>>;
+): <Args extends [...Tuple<unknown, N>, ...unknown[]], R>(fn: (...args: Args) => R) => CurryN2<Args, R, N>;
 
 /**
  * Decrements its argument.
@@ -1785,21 +1798,24 @@ export function filter<T, U extends T>(
     pred: (val: T) => val is U,
 ): {
     <V extends T>(list: readonly V[]): U[];
-    <V extends T>(collection: Readonly<Record<string, V>>): Record<string, U>;
+    <V extends T>(collection: Record<string, V>): Record<string, U>;
 };
 export function filter<T>(pred: (value: T) => boolean): {
     <U extends T>(list: readonly U[]): U[];
-    <U extends T>(collection: Readonly<Record<string, U>>): Record<string, U>;
-    <C extends T[] | Record<string, T>>(collection: Readonly<C>): C;
+    // TODO: more K extends string
+    <K extends string, U extends T>(collection: Record<K, U>): Record<K, U>;
+    <U extends T>(collection: Record<string, U>): Record<string, U>;
+    // TODO: remove readonly?
+    <C extends readonly T[] | Record<string, T>>(collection: C): C;
 };
 export function filter<T, U extends T>(
     pred: (val: T) => val is U,
     collection: Readonly<Record<string, T>>,
 ): Record<string, U>;
 export function filter<T, U extends T>(pred: (val: T) => val is U, list: readonly T[]): U[];
-export function filter<T>(pred: (value: T) => boolean, collection: Readonly<Record<string, T>>): Record<string, T>;
+export function filter<T>(pred: (value: T) => boolean, collection: Record<string, T>): Record<string, T>;
 export function filter<T>(pred: (value: T) => boolean, collection: readonly T[]): T[];
-export function filter<T, C extends T[] | Record<string, T>>(pred: (val: T) => boolean, collection: Readonly<C>): C;
+export function filter<T, C extends readonly T[] | Record<string, T>>(pred: (val: T) => boolean, collection: C): C;
 
 /**
  * Returns the first element of the list which matches the predicate,
@@ -1890,7 +1906,7 @@ export function findLastIndex<T>(fn: (a: T) => boolean): (list: readonly T[]) =>
  * //=> [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
  * ```
  */
-export function flatten<T extends readonly any[]>(list: T): _.T.Flatten<T>;
+export function flatten<T extends readonly unknown[]>(list: T): _.T.Flatten<T>;
 
 /**
  * Flips the order of the first two arguments to the given function.
@@ -1905,7 +1921,7 @@ export function flatten<T extends readonly any[]>(list: T): _.T.Flatten<T>;
  * ```
  */
 export function flip<T, U, R>(fn: (arg0: T, arg1: U) => R): (arg1: U, arg0?: T) => R;
-export function flip<F extends (...args: any) => any, P extends _.F.Parameters<F>>(
+export function flip<F extends (...args: any[]) => unknown, P extends _.F.Parameters<F>>(
     fn: F,
 ): _.F.Curry<(...args: _.T.Merge<[P[1], P[0]], P>) => _.F.Return<F>>;
 
@@ -2580,18 +2596,18 @@ export function join(x: string): (xs: readonly unknown[]) => string;
  * getRange(3, 4, 9, -3); //=> [-3, 9]
  * ```
  */
-export function juxt<A extends any[], R1>(fns: [(...a: A) => R1]): (...a: A) => [R1];
-export function juxt<A extends any[], R1, R2>(fns: [(...a: A) => R1, (...a: A) => R2]): (...a: A) => [R1, R2];
+export function juxt<A extends any[], R1>(fns: readonly [(...a: A) => R1]): (...a: A) => [R1];
+export function juxt<A extends any[], R1, R2>(fns: readonly [(...a: A) => R1, (...a: A) => R2]): (...a: A) => [R1, R2];
 export function juxt<A extends any[], R1, R2, R3>(
-    fns: [(...a: A) => R1, (...a: A) => R2, (...a: A) => R3],
+    fns: readonly [(...a: A) => R1, (...a: A) => R2, (...a: A) => R3],
 ): (...a: A) => [R1, R2, R3];
 export function juxt<A extends any[], R1, R2, R3, R4>(
-    fns: [(...a: A) => R1, (...a: A) => R2, (...a: A) => R3, (...a: A) => R4],
+    fns: readonly [(...a: A) => R1, (...a: A) => R2, (...a: A) => R3, (...a: A) => R4],
 ): (...a: A) => [R1, R2, R3, R4];
 export function juxt<A extends any[], R1, R2, R3, R4, R5>(
-    fns: [(...a: A) => R1, (...a: A) => R2, (...a: A) => R3, (...a: A) => R4, (...a: A) => R5],
+    fns: readonly [(...a: A) => R1, (...a: A) => R2, (...a: A) => R3, (...a: A) => R4, (...a: A) => R5],
 ): (...a: A) => [R1, R2, R3, R4, R5];
-export function juxt<A extends any[], U>(fns: Array<(...args: A) => U>): (...args: A) => U[];
+export function juxt<A extends any[], U>(fns: ReadonlyArray<(...args: A) => U>): (...args: A) => U[];
 
 /**
  * Returns a list containing the names of all the enumerable own properties of the supplied object.
@@ -2803,11 +2819,11 @@ export function lensProp<T, K extends keyof T = keyof T>(prop: K): Lens<T, T[K]>
  * madd5([10, 20], [1], [2, 3], [4], [100, 200]); //=> [117, 217, 118, 218, 127, 227, 128, 228]
  * ```
  */
-export function lift<F extends (...args: any[]) => unknown>(
-    fn: F,
+export function lift<Args extends unknown[], R>(
+    fn: (...args: Args) => R,
 ): {
-    (...args: ToTupleOfArray<Parameters<F>>): Array<ReturnType<F>>;
-    <R>(...args: ToTupleOfFunction<R, Parameters<F>>): (arg: R) => ReturnType<F>;
+    (...args: ToTupleOfArray<Args>): R[];
+    <R2>(...args: ToTupleOfFunction<R2, Args>): (value: R2) => R;
 };
 
 /**
@@ -2823,12 +2839,12 @@ export function lift<F extends (...args: any[]) => unknown>(
  * madd3([1,2,3], [1,2,3], [1]); //=> [3, 4, 5, 4, 5, 6, 5, 6, 7]
  * ```
  */
-export function liftN<N extends number, F extends (...args: any[]) => unknown>(
+export function liftN<N extends number, Args extends Tuple<unknown, N>, R>(
     n: N,
-    fn: F,
+    fn: (...args: Args) => R,
 ): {
-    (...args: Take<N, ToTupleOfArray<Parameters<F>>>): Array<ReturnType<F>>;
-    <R>(...args: Take<N, ToTupleOfFunction<R, Parameters<F>>>): (arg: R) => ReturnType<F>;
+    (...args: ToTupleOfArray<Args>): R[];
+    <R2>(...args: ToTupleOfFunction<R2, Args>): (value: R2) => R;
 };
 
 /**
@@ -2897,21 +2913,29 @@ export function lte(a: number): (b: number) => boolean;
  * ```
  */
 export function map<T, U>(fn: (x: T) => U, list: readonly T[]): U[];
-export function map<K extends string, T, U>(fn: (x: T) => U, collection: Readonly<Record<K, T>>): Record<K, U>;
-export function map<T, U>(fn: (x: T) => U, collection: Readonly<Record<string, T>>): Record<string, U>;
-export function map<T, U, C extends T[] | Record<string, T>>(fn: (x: T) => U, collection: Readonly<C>): C extends unknown[] ? U[] : Record<keyof C, U>;
+export function map<K extends string, T, U>(fn: (x: T) => U, collection: Record<K, T>): Record<K, U>;
+export function map<T, U>(fn: (x: T) => U, collection: Record<string, T>): Record<string, U>;
+// TODO: Readonly<C>?
+export function map<T, U, C extends readonly T[] | Record<string, T>>(
+    fn: (x: T) => U,
+    collection: C,
+): C extends readonly unknown[] ? U[] : Record<keyof C, U>;
+// TODO: what is this for?
+export function map<T, U>(fn: (x: T[keyof T & keyof U] | ValueOfUnion<T>) => U[keyof T & keyof U], list: T): U;
+export function map<T, U>(fn: (x: T[keyof T & keyof U] | ValueOfUnion<T>) => U[keyof T & keyof U]): (list: T) => U;
+export function map<T, U>(fn: (x: T) => U, functor: Functor<T>): Functor<U>; // used in functors
 export function map<T, U>(
     fn: (x: T) => U,
 ): {
     (list: readonly T[]): U[];
     <K extends string>(collection: Readonly<Record<K, T>>): Record<K, U>;
-    <C extends T[] | Record<string, T>>(collection: Readonly<C>): C extends unknown[] ? U[] : Record<keyof C, U>;
+    (functor: Functor<T>): Functor<U>; // used in functors
+    <C extends readonly T[] | Record<string, T> | Functor<T>>(collection: C): C extends readonly unknown[]
+        ? U[]
+        : T extends Record<string, T>
+        ? Record<keyof C, U>
+        : Functor<U>;
 };
-// TODO: what is this for?
-export function map<T, U>(fn: (x: T[keyof T & keyof U] | ValueOfUnion<T>) => U[keyof T & keyof U], list: T): U;
-export function map<T, U>(fn: (x: T[keyof T & keyof U] | ValueOfUnion<T>) => U[keyof T & keyof U]): (list: T) => U;
-export function map<T, U>(fn: (x: T) => U, obj: Functor<T>): Functor<U>; // used in functors
-export function map<T, U>(fn: (x: T) => U): (obj: Functor<T>) => Functor<U>; // used in functors
 
 /**
  * The `mapAccum` function behaves like a combination of map and reduce;
@@ -3218,9 +3242,9 @@ export function mergeDeepRight<O1 extends object>(a: O1): <O2 extends object>(o2
  * //=> { a: true, b: true, c: { values: [10, 20, 15, 35] }}
  * ```
  */
-export function mergeDeepWith<T1, T2>(fn: (x: any, z: any) => any, a: T1, b: T2): any;
-export function mergeDeepWith<T1, T2>(fn: (x: any, z: any) => any, a: T1): (b: T2) => any;
-export function mergeDeepWith<T1, T2>(fn: (x: any, z: any) => any): (a: T1, b: T2) => any;
+export function mergeDeepWith<T1, T2>(fn: (x: any, z: any) => unknown, a: T1, b: T2): any;
+export function mergeDeepWith<T1, T2>(fn: (x: any, z: any) => unknown, a: T1): (b: T2) => any;
+export function mergeDeepWith<T1, T2>(fn: (x: any, z: any) => unknown): (a: T1, b: T2) => any;
 
 /**
  * Creates a new object with the own properties of the two provided objects. If a key exists in both objects:
@@ -3240,16 +3264,16 @@ export function mergeDeepWith<T1, T2>(fn: (x: any, z: any) => any): (a: T1, b: T
  * //=> { a: true, b: true, c: { thing: 'bar', values: [10, 20, 15, 35] }}
  * ```
  */
-export function mergeDeepWithKey<T1, T2>(fn: (k: string, x: any, z: any) => any, a: T1, b: T2): any;
-export function mergeDeepWithKey<T1>(fn: (k: string, x: any, z: any) => any, a: T1): <T2>(b: T2) => any;
-export function mergeDeepWithKey<T1, T2>(fn: (k: string, x: any, z: any) => any, a: T1): (b: T2) => any;
-export function mergeDeepWithKey(fn: (k: string, x: any, z: any) => any): {
+export function mergeDeepWithKey<T1, T2>(fn: (k: string, x: any, z: any) => unknown, a: T1, b: T2): any;
+export function mergeDeepWithKey<T1>(fn: (k: string, x: any, z: any) => unknown, a: T1): <T2>(b: T2) => any;
+export function mergeDeepWithKey<T1, T2>(fn: (k: string, x: any, z: any) => unknown, a: T1): (b: T2) => any;
+export function mergeDeepWithKey(fn: (k: string, x: any, z: any) => unknown): {
     <T1, T2>(a: T1, b: T2): any;
     <T1>(a: T1): <T2>(b: T2) => any;
     <T1, T2>(a: T1): (b: T2) => any;
 };
 export function mergeDeepWithKey<T1, T2>(
-    fn: (k: string, x: any, z: any) => any,
+    fn: (k: string, x: any, z: any) => unknown,
 ): {
     (a: T1, b: T2): any;
     (a: T1): (b: T2) => any;
@@ -3311,15 +3335,15 @@ export function mergeRight<O1 extends object>(a: O1): <O2 extends object>(b: O2)
  * //=> { a: true, b: true, values: [10, 20, 15, 35] }
  * ```
  */
-export function mergeWith<U, V>(fn: (x: any, z: any) => any, a: U, b: V): any;
-export function mergeWith<U>(fn: (x: any, z: any) => any, a: U): <V>(b: V) => any;
-export function mergeWith(fn: (x: any, z: any) => any): {
+export function mergeWith<U, V>(fn: (x: any, z: any) => unknown, a: U, b: V): any;
+export function mergeWith<U>(fn: (x: any, z: any) => unknown, a: U): <V>(b: V) => any;
+export function mergeWith(fn: (x: any, z: any) => unknown): {
     <U, V>(a: U, b: V): any;
     <U>(a: U): <V>(b: V) => any;
     <U, V>(a: U): (b: V) => any;
 };
 export function mergeWith<U, V>(
-    fn: (x: any, z: any) => any,
+    fn: (x: any, z: any) => unknown,
 ): {
     (a: U): (b: V) => any;
     (a: U, b: V): any;
@@ -3344,16 +3368,16 @@ export function mergeWith<U, V>(
  * //=> { a: true, b: true, thing: 'bar', values: [10, 20, 15, 35] }
  * ```
  */
-export function mergeWithKey<U, V>(fn: (str: string, x: any, z: any) => any, a: U, b: V): any;
-export function mergeWithKey<U>(fn: (str: string, x: any, z: any) => any, a: U): <V>(b: V) => any;
-export function mergeWithKey<U, V>(fn: (str: string, x: any, z: any) => any, a: U): (b: V) => any;
-export function mergeWithKey(fn: (str: string, x: any, z: any) => any): {
+export function mergeWithKey<U, V>(fn: (str: string, x: any, z: any) => unknown, a: U, b: V): any;
+export function mergeWithKey<U>(fn: (str: string, x: any, z: any) => unknown, a: U): <V>(b: V) => any;
+export function mergeWithKey<U, V>(fn: (str: string, x: any, z: any) => unknown, a: U): (b: V) => any;
+export function mergeWithKey(fn: (str: string, x: any, z: any) => unknown): {
     <U, V>(a: U, b: V): any;
     <U>(a: U): <V>(b: V) => any;
     <U, V>(a: U): (b: V) => any;
 };
 export function mergeWithKey<U, V>(
-    fn: (str: string, x: any, z: any) => any,
+    fn: (str: string, x: any, z: any) => unknown,
 ): {
     (a: U, b: V): any;
     (a: U): (b: V) => any;
@@ -3473,13 +3497,13 @@ export function multiply(a: number): (b: number) => number;
  * takesOneArg(1); //=> [1, undefined]
  * ```
  */
-export function nAry<N extends number, T extends (...arg: any) => any>(
+export function nAry<N extends number, Args extends TupleUpTo<unknown, N>, R>(
     n: N,
-    fn: T,
-): (...arg: _.T.Take<Parameters<T>, _.N.NumberOf<N>>) => ReturnType<T>;
+    fn: (...args: Args) => R,
+): (...args: TuplePad<Args, N>) => R;
 export function nAry<N extends number>(
     n: N,
-): <T extends (...arg: any) => any>(fn: T) => (...arg: _.T.Take<Parameters<T>, _.N.NumberOf<N>>) => ReturnType<T>;
+): <Args extends TupleUpTo<unknown, N>, R>(fn: (...args: Args) => R) => (...args: TuplePad<Args, N>) => R;
 
 /**
  * Negates its argument.
@@ -3510,7 +3534,7 @@ export function negate(n: number): number;
  * ```
  */
 export function none<T>(fn: (a: T) => boolean, list: readonly T[]): boolean;
-export function none<T>(fn: (a: T) => boolean): <U extends T>(list: readonly U[]) => boolean;
+export function none<T>(fn: (a: T) => boolean): (list: readonly T[]) => boolean;
 
 /**
  * A function that returns the `!` of its argument.
@@ -3815,12 +3839,12 @@ export function partialRight<Supplied extends unknown[], Rest extends unknown[],
 export function partition<T>(fn: (a: T) => boolean, list: readonly T[]): [T[], T[]];
 export function partition<R extends Record<string, unknown>>(
     fn: (a: R[keyof R]) => boolean,
-    list: Readonly<R>,
+    list: R,
 ): [Partial<R>, Partial<R>];
 export function partition<T>(fn: (a: T) => boolean): <U extends T>(list: readonly U[]) => [U[], U[]];
 export function partition<T>(
     fn: (a: T) => boolean,
-): <R extends Record<string, unknown>>(list: Readonly<R>) => [Partial<R>, Partial<R>];
+): <R extends Record<string, unknown>>(list: R) => [Partial<R>, Partial<R>];
 
 /**
  * Retrieve the value at a given path.
@@ -3985,7 +4009,7 @@ export function pipe<TArgs extends any[], R1, R2, R3, R4, R5, R6, R7, R>(
         f5: (a: R4) => R5,
         f6: (a: R5) => R6,
         f7: (a: R6) => R7,
-        ...func: Array<(a: any) => any>,
+        ...func: Array<(a: any) => unknown>,
         fnLast: (a: any) => R,
     ]
 ): (...args: TArgs) => R; // fallback overload if number of piped functions greater than 7
@@ -4203,11 +4227,11 @@ export function pipeP<V0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
  * ```
  */
 export function pipeWith<TArgs extends any[], R>(
-    transformer: (fn: (...args: any[]) => unknown, intermediatResult: any) => any,
+    transformer: (fn: (...args: any[]) => unknown, intermediateResult: any) => unknown,
     fns: AtLeastOneFunctionsFlow<TArgs, R>,
 ): (...args: TArgs) => R;
 export function pipeWith(
-    transformer: (fn: (...args: any[]) => unknown, intermediatResult: any) => any,
+    transformer: (fn: (...args: any[]) => unknown, intermediateResult: any) => unknown,
 ): <TArgs extends any[], R>(fns: AtLeastOneFunctionsFlow<TArgs, R>) => (...args: TArgs) => R;
 
 /**
@@ -4227,15 +4251,15 @@ export function pipeWith(
  * R.pluck('val', {a: {val: 3}, b: {val: 5}}); //=> {a: 3, b: 5}
  * ```
  */
-export function pluck<T, K extends keyof T>(p: K, list: readonly T[] | Readonly<Record<string, T>>): Array<T[K]>;
-export function pluck<T>(p: number, list: T[][] | Readonly<Record<string, T[]>>): T[];
+export function pluck<T, K extends keyof T>(p: K, list: readonly T[] | Record<string, T>): Array<T[K]>;
+export function pluck<T>(p: number, list: T[][] | Record<string, T[]>): T[];
 // We don't use `<T extends Record<K, unknown>>` since allowing object literals is a mistake
 export function pluck<K extends string>(
     p: K,
-): <T>(list: ReadonlyArray<Readonly<Record<K, T>>> | Readonly<Record<string, Readonly<Record<K, T>>>>) => T[];
-export function pluck<T, K extends keyof T>(p: K): (list: readonly T[] | Readonly<Record<string, T>>) => Array<T[K]>;
-export function pluck(p: number): <T>(list: T[][] | Readonly<Record<string, T[]>>) => T[];
-export function pluck<T>(p: number): (list: T[][] | Readonly<Record<string, T[]>>) => T[];
+): <T>(list: ReadonlyArray<Record<K, T>> | Record<string, Record<K, T>>) => T[];
+export function pluck<T, K extends keyof T>(p: K): (list: readonly T[] | Record<string, T>) => Array<T[K]>;
+export function pluck(p: number): <T>(list: T[][] | Record<string, T[]>) => T[];
+export function pluck<T>(p: number): (list: T[][] | Record<string, T[]>) => T[];
 
 /**
  * Returns a new list with the given element at the front,
@@ -4249,7 +4273,7 @@ export function pluck<T>(p: number): (list: T[][] | Readonly<Record<string, T[]>
  * ```
  */
 export function prepend<T>(el: T, list: readonly T[]): T[];
-export function prepend<T>(el: T): <U extends T>(list: readonly U[]) => U[];
+export function prepend<T>(el: T): (list: readonly T[]) => T[];
 
 /**
  * Multiplies together all the elements of a list.
@@ -4298,6 +4322,7 @@ export function project<K extends PropertyKey>(
  * R.compose(R.inc, R.prop<'x', number>('x'))({ x: 3 }) //=> 4
  * ```
  */
+// TODO: check order
 // A `<T, K>` version of this overload would basically reduce the possibilities to one key so it is unnecessary
 export function prop<T>(__: Placeholder, obj: T): <K extends keyof T>(p: K) => T[K];
 export function prop<T, K extends keyof T>(p: K, obj: T): T[K];
@@ -4681,23 +4706,24 @@ export function reduceWhile<T, R>(
 export function reject<T, U extends T>(
     pred: (val: T) => val is U,
 ): {
-    <V extends T>(dict: Readonly<Record<string, V>>): Record<string, Exclude<V, U>>;
+    <V extends T>(dict: Record<string, V>): Record<string, Exclude<V, U>>;
     <V extends T>(list: readonly V[]): Array<Exclude<V, U>>;
 };
 export function reject<T>(pred: (value: T) => boolean): {
-    <U extends T>(collection: Readonly<Record<string, U>>): Record<string, U>;
+    <U extends T>(collection: Record<string, U>): Record<string, U>;
     <U extends T>(collection: readonly U[]): U[];
+    // TODO: remove readonly
     <C extends T[] | Record<string, T>>(collection: Readonly<C>): C;
 };
 export function reject<T, U extends T, V extends T>(
     pred: (val: T) => val is U,
-    dict: Readonly<Record<string, V>>,
+    dict: Record<string, V>,
 ): Record<string, Exclude<V, U>>;
 export function reject<T, U extends T, V extends T>(
     pred: (val: T) => val is U,
     list: readonly V[],
 ): Array<Exclude<V, U>>;
-export function reject<T>(pred: (value: T) => boolean, collection: Readonly<Record<string, T>>): Record<string, T>;
+export function reject<T>(pred: (value: T) => boolean, collection: Record<string, T>): Record<string, T>;
 export function reject<T>(pred: (value: T) => boolean, collection: readonly T[]): T[];
 export function reject<T, C extends T[] | Record<string, T>>(pred: (val: T) => boolean, collection: Readonly<C>): C;
 
@@ -4848,6 +4874,7 @@ export function set<S, A>(
 interface Slice2 {
     (string: string): string;
     <T>(list: readonly T[]): T[];
+    // TODO: somehow remove readonly?
     // TODO: fails on `R.pipe(R.slice(2, 5));`
     <T extends string | unknown[]>(list: Readonly<T>): T;
 }
@@ -4951,8 +4978,8 @@ export function sortBy<T>(fn: (a: T) => Ord): <U extends T>(list: readonly U[]) 
  * ageNameSort(people); //=> [alice, clara, bob]
  * ```
  */
-export function sortWith<T>(fns: Array<(a: T, b: T) => number>, list: readonly T[]): T[];
-export function sortWith<T>(fns: Array<(a: T, b: T) => number>): <U extends T>(list: readonly U[]) => U[];
+export function sortWith<T>(fns: ReadonlyArray<(a: T, b: T) => number>, list: readonly T[]): T[];
+export function sortWith<T>(fns: ReadonlyArray<(a: T, b: T) => number>): <U extends T>(list: readonly U[]) => U[];
 
 /**
  * Splits a string into an array of strings based on the given separator.
@@ -5327,7 +5354,7 @@ export function toPairs<T extends unknown[]>(
 export function toPairs<T extends object>(
     obj: T,
 ): Array<{ [key in keyof T & (string | number)]: [`${key}`, T[key]] }[keyof T & (string | number)]>;
-export function toPairsIn<S>(obj: Readonly<Record<string | number, S>>): Array<[string, S]>;
+export function toPairsIn<S>(obj: Record<string | number, S>): Array<[string, S]>;
 // Unlike `R.keys` and `R.values`, `R.toPairs` does not check that `obj` is an object
 
 /**
@@ -5359,7 +5386,7 @@ export function toPairsIn<T extends unknown[]>(
 export function toPairsIn<T extends object>(
     obj: T,
 ): Array<{ [key in keyof T & string]: [key, T[key]] }[keyof T & string]>;
-export function toPairsIn<S>(obj: Readonly<Record<string | number, S>>): Array<[string, S]>;
+export function toPairsIn<S>(obj: Record<string | number, S>): Array<[string, S]>;
 
 /**
  * Returns the string representation of the given value.
@@ -5533,11 +5560,13 @@ export function trim(str: string): string;
  * ```
  */
 // TODO: make sure inference works correctly in both co- and contravariant positions
+// `() => RE` is supposed to be `(...args: Parameters<F>) => RE`
+// but there are issues wtih function unions
 // Overload for inference
 export function tryCatch<F extends (...args: any[]) => unknown, RE, E>(
     tryer: F,
     catcher: (error: E, ...args: Parameters<F>) => RE,
-): F | ((...args: Parameters<F>) => RE);
+): F | (() => RE);
 // Overload for specfying params
 export function tryCatch<Args extends unknown[], R, RE = R, E = unknown>(
     tryer: (...args: Args) => R,
@@ -5546,7 +5575,7 @@ export function tryCatch<Args extends unknown[], R, RE = R, E = unknown>(
 // Overload for inference
 export function tryCatch<F extends (...args: any[]) => unknown>(
     tryer: F,
-): <RE, E>(catcher: (error: E, ...args: Parameters<F>) => RE) => F | ((...args: Parameters<F>) => RE);
+): <RE, E>(catcher: (error: E, ...args: Parameters<F>) => RE) => F | (() => RE);
 // Overload for specfying params
 export function tryCatch<Args extends unknown[], R>(
     tryer: (...args: Args) => R,
@@ -5657,7 +5686,7 @@ export function unapply<T>(fn: (args: any[]) => T): (...args: unknown[]) => T;
  * takesOneArg(1); //=> [1, undefined]
  * ```
  */
-export function unary<T, R>(fn: (a: T, ...args: any[]) => R): (a: T) => R;
+export function unary<Args extends [] | [unknown], R>(fn: (...args: Args) => R): (...args: TuplePad<Args, 1>) => R;
 
 /**
  * Returns a function of arity n from a (manually) curried function.
@@ -5669,11 +5698,15 @@ export function unary<T, R>(fn: (a: T, ...args: any[]) => R): (a: T) => R;
  * ```typescript
  * const addFour = (a: number) => (b: number) => (c: number) => (d: number) => a + b + c + d;
  *
- * const uncurriedAddFour = R.uncurryN(4, addFour);
+ * const uncurriedAddFour = R.uncurryN<number>(4, addFour);
  * uncurriedAddFour(1, 2, 3, 4); //=> 10
  * ```
  */
-export function uncurryN<T>(len: number, fn: (a: any) => any): (...a: readonly any[]) => T;
+
+// Overload for inference
+export function uncurryN<N extends number, F extends CurriedFunction<N>>(len: N, fn: F): Uncurry<F, N>;
+// Overload for specifying args
+export function uncurryN<Args extends unknown[], R>(len: Args['length'], fn: Curried<Args, R>): (...args: Args) => R;
 
 /**
  * Builds a list from a seed value.
@@ -6057,11 +6090,16 @@ export function when<T, U>(pred: (a: T) => boolean, whenTrueFn: (a: T) => U): (a
  * pred({a: 'foo', b: 'xxx', x: 11, y: 20}); //=> false
  * ```
  */
-export function where<T>(spec: { [K in keyof T]?: T[K] | ((val: T[K], obj: T) => boolean); }, testObj: T): boolean;
+export function where<T>(spec: { [K in keyof T]?: T[K] | ((val: T[K], obj: T) => boolean) }, testObj: T): boolean;
 // Dummy parameter so this overload is *never* considered when manually specifying types
-export function where<T, _ extends 'inferred'>(spec: Partial<Record<keyof T, T[keyof T] | ((val: T[keyof T], obj: T) => boolean)>>, testObj: T): boolean;
-export function where<T>(spec: { [K in keyof T]?: T[K] | ((val: T[K], obj: T) => boolean); }): (testObj: T) => boolean;
-export function where<T, _ extends 'inferred'>(spec: Partial<Record<keyof T, T[keyof T] | ((val: T[keyof T], obj: T) => boolean)>>): (testObj: T) => boolean;
+export function where<T, _ extends 'inferred'>(
+    spec: Partial<Record<keyof T, T[keyof T] | ((val: T[keyof T], obj: T) => boolean)>>,
+    testObj: T,
+): boolean;
+export function where<T>(spec: { [K in keyof T]?: T[K] | ((val: T[K], obj: T) => boolean) }): (testObj: T) => boolean;
+export function where<T, _ extends 'inferred'>(
+    spec: Partial<Record<keyof T, T[keyof T] | ((val: T[keyof T], obj: T) => boolean)>>,
+): (testObj: T) => boolean;
 
 /**
  * Takes a spec object and a test object; returns `true` if the test satisfies the spec, `false` otherwise.

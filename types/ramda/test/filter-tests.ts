@@ -6,7 +6,7 @@ import * as R from 'ramda';
     }
 
     const filterEven = R.filter(isEven);
-    // $ExpectType Record<string, 0 | 1>
+    // $ExpectType Record<"a" | "b", 0 | 1>
     filterEven({ a: 0, b: 1 }); // => { a: 0 }
     // $ExpectType (0 | 1)[]
     filterEven([0, 1]); // => [0]
@@ -14,13 +14,13 @@ import * as R from 'ramda';
 
 () => {
     const compact = R.filter(Boolean);
-    // $ExpectType Record<string, number>
+    // $ExpectType Record<"a" | "b", number>
     compact({ a: 0, b: 1 }); // => { b: 1 }
     // $ExpectType number[]
     compact([0, 1]); // => [1]
 
     const omitEmptyString = R.filter((val: string) => val !== '');
-    // $ExpectType Record<string, "" | "foo">
+    // $ExpectType Record<"a" | "b", "" | "foo">
     omitEmptyString({ a: '', b: 'foo' }); // => { b: 'foo' }
     // $ExpectType ("" | "foo")[]
     omitEmptyString(['', 'foo']); // => ['foo']

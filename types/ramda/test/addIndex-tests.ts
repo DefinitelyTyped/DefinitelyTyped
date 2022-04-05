@@ -117,14 +117,14 @@ class Rectangle {
 
 () => {
     function slidingWindowThing(f: (a: number, b: number, c: number) => string, list: readonly number[]): string[] {
-        let result: string[] = [];
+        const result: string[] = [];
         for (let i = 0; i < list.length - 3; i++) {
             result.push(f(list[i], list[i + 1], list[i + 2]));
         }
         return result;
     }
-    // $ExpectType Curry<(a: (a: number, b: number, c: number, idx: number, list: number[]) => number, b: readonly number[]) => number[]>
+    // $ExpectType Curry<(a: (a: number, b: number, c: number, idx: number, list: number[]) => string, b: readonly number[]) => string[]>
     R.addIndex(slidingWindowThing);
-    // $ExpectType Curry<(a: (d: number, e: number, f: number, idx: number, list: number[]) => number, b: readonly number[]) => number[]>
+    // $ExpectType Curry<(a: (d: number, e: number, f: number, idx: number, list: number[]) => string, b: readonly number[]) => string[]>
     R.addIndex<number, [d: number, e: number, f: number], string, string[]>(slidingWindowThing);
 };
