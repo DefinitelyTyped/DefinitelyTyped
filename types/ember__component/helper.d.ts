@@ -114,6 +114,16 @@ export default class Helper<S = unknown> extends EmberObject {
 // tslint:disable-next-line:no-unnecessary-generics
 export default interface Helper<S> extends Opaque<S> {}
 
+// This type exists to provide a non-user-constructible, non-subclassable
+// type representing the conceptual "instance type" of a function helper.
+// The abstract field of type `never` presents subclassing in userspace of
+// the value returned from `helper()`. By extending `Helper<S>`, any
+// augmentations of the `Helper` type performed by tools like Glint will
+// also apply to function-based helpers as well.
+export abstract class FunctionBasedHelperInstance<S> extends Helper<S> {
+    protected abstract __concrete__: never;
+}
+
 /**
  * The type of a function-based helper.
  *
@@ -121,13 +131,11 @@ export default interface Helper<S> extends Opaque<S> {}
  *   returned by the `helper` function can be named (and indeed can be exported
  *   like `export default helper(...)` safely).
  */
-// The generic here is for a *signature: a way to hang information for tools
-// like Glint which can provide typey checking for component templates using
-// information supplied via this generic. While it may appear useless on this
-// class definition and extension, it is used by external tools and should not
-// be removed.
-// tslint:disable-next-line:no-unnecessary-generics
-export interface FunctionBasedHelper<S> extends Opaque<S> {}
+// Making `FunctionBasedHelper` a bare constructor type allows for type
+// parameters to be preserved when `helper()` is passed a generic function.
+// By making it `abstract` and impossible to subclass (see above), we prevent
+// users from attempting to instantiate a return value from `helper()`.
+export type FunctionBasedHelper<S> = abstract new () => FunctionBasedHelperInstance<S>;
 
 /**
  * In many cases, the ceremony of a full `Helper` class is not required.

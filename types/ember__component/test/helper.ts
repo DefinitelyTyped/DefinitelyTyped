@@ -98,3 +98,14 @@ const badNamedArgsSig = helper<DemoSig>(([i18nizer], { name, age, potato }) => i
 
 // $ExpectError
 const badReturnSig = helper<DemoSig>(([i18nizer], { name, age }) => Boolean(i18nizer(`${name} is ${age} years old`)));
+
+const greet = helper(([name]: [string]) => `Hello, ${name}`);
+
+// $ExpectError
+new greet();
+
+// $ExpectError
+class Subgreet extends greet {}
+
+// $ExpectType abstract new <T>() => FunctionBasedHelperInstance<{ Args: { Positional: [T]; Named: EmptyObject; }; Return: [T, T]; }>
+const pair = helper(<T>([item]: [T]): [T, T] => [item, item]);
