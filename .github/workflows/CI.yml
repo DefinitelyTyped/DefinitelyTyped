@@ -23,7 +23,22 @@ jobs:
       - run: npm install
 
       # Run tests
-      - run: npm run test-all
+      - uses: actions/checkout@v2
+        with:
+          repository: microsoft/DefinitelyTyped-tools
+          path: DefinitelyTyped-tools
+      - run: |
+          curl https://patch-diff.githubusercontent.com/raw/microsoft/DefinitelyTyped-tools/pull/428.patch |
+          patch --strip 1
+        working-directory: DefinitelyTyped-tools
+      - run: yarn install
+        working-directory: DefinitelyTyped-tools
+      - run: yarn build
+        working-directory: DefinitelyTyped-tools
+      - run: npm link
+        working-directory: DefinitelyTyped-tools/packages/dtslint
+      - run: npm link @definitelytyped/dtslint
+      - run: node DefinitelyTyped-tools/packages/dtslint-runner/dist/index.js --path .
 
       - name: "Run Danger"
         env:
