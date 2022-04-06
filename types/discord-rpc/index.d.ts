@@ -10,7 +10,7 @@
 
 import { EventEmitter } from 'events';
 
-type Listener = (...args: any[]) => void;
+export type Listener = (...args: any[]) => void;
 
 export function register(id: string): boolean;
 
