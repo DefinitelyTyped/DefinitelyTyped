@@ -12,11 +12,13 @@ declare namespace itemsjs {
         selected: boolean;
     }
 
+    type Buckets<I extends {}> = Array<Bucket<I>>;
+
     interface SearchAggregation<I extends {}, A extends string> {
         name: A;
         title: string;
         position: number;
-        buckets: Array<Bucket<I>>;
+        buckets: Buckets<I>;
     }
 
     interface Pagination {
@@ -25,22 +27,39 @@ declare namespace itemsjs {
         total: number;
     }
 
+    interface SearchOptions<I extends {}, S extends string, A extends string> {
+        query?: string | undefined;
+        page?: number | undefined;
+        per_page?: number | undefined;
+        /** The name of a sort defined in the configuration's sortings, or a new custom one */
+        sort?: S | Sorting<I> | undefined;
+        filters?: Partial<Record<A, string[]>> | undefined;
+        /** A custom function to filter values */
+        filter?: ((item: I) => boolean) | undefined;
+        /** A custom function to filter values before `filter` and `filters` are considered */
+        prefilter?: ((item: I) => boolean) | undefined;
+        isExactSearch?: boolean | undefined;
+        removeStopWordFilter?: boolean | undefined;
+    }
+
+    interface AggregationOptions<A extends string> {
+        name: A;
+        page?: number | undefined;
+        per_page?: number | undefined;
+        query?: string | undefined;
+        conjunction?: boolean | undefined;
+    }
+
+    interface SimilarOptions<I extends {}> {
+        field: keyof I & string;
+        minimum?: number | undefined;
+        page?: number | undefined;
+        per_page?: number | undefined;
+    }
+
     interface itemsjs<I extends {}, S extends string, A extends string> {
         /** Search items */
-        search(options?: {
-            query?: string | undefined;
-            page?: number | undefined;
-            per_page?: number | undefined;
-            /** The name of a sort defined in the configuration's sortings, or a new custom one */
-            sort?: S | Sorting<I> | undefined;
-            filters?: Partial<Record<A, string[]>> | undefined;
-            /** A custom function to filter values */
-            filter?: ((item: I) => boolean) | undefined;
-            /** A custom function to filter values before `filter` and `filters` are considered */
-            prefilter?: ((item: I) => boolean) | undefined;
-            isExactSearch?: boolean | undefined;
-            removeStopWordFilter?: boolean | undefined;
-        }): {
+        search(options?: SearchOptions<I, S, A>): {
             data: {
                 items: I[];
                 allFilteredItems: null;
@@ -56,14 +75,8 @@ declare namespace itemsjs {
         };
 
         /** Get data for aggregation */
-        aggregation(options: {
-            name: A;
-            page?: number | undefined;
-            per_page?: number | undefined;
-            query?: string | undefined;
-            conjunction?: boolean | undefined;
-        }): {
-            data: { buckets: Array<Bucket<I>> };
+        aggregation(options: AggregationOptions<A>): {
+            data: { buckets: Buckets<I> };
             pagination: Pagination;
         };
 
@@ -73,12 +86,7 @@ declare namespace itemsjs {
          */
         similar(
             id: I extends { id: infer ID } ? ID : unknown,
-            options: {
-                field: keyof I & string;
-                minimum?: number | undefined;
-                page?: number | undefined;
-                per_page?: number | undefined;
-            },
+            options: SimilarOptions<I>,
         ): {
             data: { items: Array<I & { _id: number; intersection_length: number }> };
             pagination: Pagination;
@@ -110,7 +118,7 @@ declare namespace itemsjs {
     interface Configuration<I extends {}, S extends string, A extends string> {
         sortings?: Record<S, Sorting<I>> | undefined;
         aggregations?: Record<A, Aggregation> | undefined;
-        searchableFields?: Array<keyof I>;
+        searchableFields?: Array<keyof I> | undefined;
         /** @default false */
         isExactSearch?: boolean | undefined;
     }
