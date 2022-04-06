@@ -3,6 +3,10 @@
 // Definitions by: BenLorantfy <https://github.com/BenLorantfy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+interface Element { }
+interface Node { }
+interface NodeListOf<TNode = Node> { }
+
 interface MoneyOptions {
     // Decimal precision -> "90"
     precision?: number | undefined;
