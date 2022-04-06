@@ -1,6 +1,7 @@
 {
     "private": true,
     "dependencies": {
+        "@types/hapi": "^16",
         "joi": "^17.3.0"
     }
 }

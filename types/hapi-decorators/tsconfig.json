@@ -15,17 +15,6 @@
             "../"
         ],
         "types": [],
-        "paths": {
-            "boom": [
-                "boom/v4"
-            ],
-            "catbox": [
-                "catbox/v7"
-            ],
-            "hapi": [
-                "hapi/v16"
-            ]
-        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
