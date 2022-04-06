@@ -8,7 +8,7 @@
 //                 HanchaiN <https://github.com/HanchaiN>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { EventEmitter, Listener } from 'events';
+import { EventEmitter } from 'events';
 
 export function register(id: string): boolean;
 
@@ -236,9 +236,9 @@ export class Client extends BaseClient {
      */
     destroy(): Promise<void>;
 
-    on(event: eventNames, listener: Listener): this;
-    once(event: eventNames, listener: Listener): this;
-    off(event: eventNames, listener: Listener): this;
+    on(event: eventNames, listener: () => void): this;
+    once(event: eventNames, listener: () => void): this;
+    off(event: eventNames, listener: () => void): this;
 }
 
 export interface ClientApplication {
