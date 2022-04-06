@@ -34,8 +34,10 @@ interface OAuthOptions {
 }
 
 interface GetResponse {
-    value: any;
-    version: any;
+    data: {
+        value: any;
+        version: any;
+    };
 }
 
 interface SetResponse {
