@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@types/acorn": "*"
+  },
+  "private": true
+}
