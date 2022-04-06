@@ -3219,7 +3219,7 @@
         },
         "orbit-ui__react-components": {
             "libraryName": "@orbit-ui/react-components",
-            "asOfVersion": "21.0.0"
+            "asOfVersion": "18.1.2"
         },
         "os-locale": {
             "libraryName": "os-locale",
