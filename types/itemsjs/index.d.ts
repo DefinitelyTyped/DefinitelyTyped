@@ -29,7 +29,9 @@ declare namespace itemsjs {
 
     interface SearchOptions<I extends {}, S extends string, A extends string> {
         query?: string | undefined;
+        /** @default 1 */
         page?: number | undefined;
+        /** @default 12 */
         per_page?: number | undefined;
         /** The name of a sort defined in the configuration's sortings, or a new custom one */
         sort?: S | Sorting<I> | undefined;
@@ -38,13 +40,16 @@ declare namespace itemsjs {
         filter?: ((item: I) => boolean) | undefined;
         /** A custom function to filter values before `filter` and `filters` are considered */
         prefilter?: ((item: I) => boolean) | undefined;
+        /** @default false */
         isExactSearch?: boolean | undefined;
         removeStopWordFilter?: boolean | undefined;
     }
 
     interface AggregationOptions<A extends string> {
         name: A;
+        /** @default 1 */
         page?: number | undefined;
+        /** @default 10 */
         per_page?: number | undefined;
         query?: string | undefined;
         conjunction?: boolean | undefined;
@@ -52,8 +57,11 @@ declare namespace itemsjs {
 
     interface SimilarOptions<I extends {}> {
         field: keyof I & string;
+        /** @default 0 */
         minimum?: number | undefined;
+        /** @default 1 */
         page?: number | undefined;
+        /** @default 10 */
         per_page?: number | undefined;
     }
 
@@ -110,6 +118,7 @@ declare namespace itemsjs {
         size?: number | undefined;
         /** @default 'count' */
         sort?: 'term' | 'count' | undefined;
+        /** @default 'asc' */
         order?: Order | undefined;
         /** @default false */
         show_facet_stats?: boolean | undefined;
