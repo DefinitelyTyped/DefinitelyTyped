@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
+import * as ReactDOMClient from 'react-dom/client';
 import * as ReactDOMServer from 'react-dom/server';
-import * as ReactDOMNodeStream from 'react-dom/node-stream';
 import * as ReactTestUtils from 'react-dom/test-utils';
 
 declare function describe(desc: string, f: () => void): void;
@@ -88,16 +88,6 @@ describe('ReactDOMServer', () => {
 
     it('renderToStaticMarkup', () => {
         const content: string = ReactDOMServer.renderToStaticMarkup(React.createElement('div'));
-    });
-});
-
-describe('ReactDOMNodeStream', () => {
-    it('renderToStream', () => {
-        const content: any = ReactDOMNodeStream.renderToStream(React.createElement('div'));
-    });
-
-    it('renderToStaticStream', () => {
-        const content: any = ReactDOMNodeStream.renderToStaticStream(React.createElement('div'));
     });
 });
 
@@ -237,3 +227,28 @@ describe('React dom test utils', () => {
         });
     });
 });
+
+function createRoot() {
+    const root = ReactDOMClient.createRoot(document.documentElement);
+
+    root.render(<div>initial render</div>);
+
+    // only makes sense for `hydrateRoot`
+    // $ExpectError
+    ReactDOMClient.createRoot(document);
+}
+
+function hydrateRoot() {
+    const hydrateable = ReactDOMClient.hydrateRoot(document, <div>initial render</div>, {
+        identifierPrefix: 'react-18-app',
+        onRecoverableError: error => {
+            console.error(error);
+        },
+    });
+    hydrateable.render(<div>render update</div>);
+    ReactDOMClient.hydrateRoot(document, {
+        // Forgot `initialChildren`
+        // $ExpectError
+        identifierPrefix: 'react-18-app',
+    });
+}

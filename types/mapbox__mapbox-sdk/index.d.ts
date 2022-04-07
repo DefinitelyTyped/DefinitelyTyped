@@ -1279,7 +1279,7 @@ declare module '@mapbox/mapbox-sdk/services/optimization' {
 }
 
 declare module '@mapbox/mapbox-sdk/services/static' {
-    import { LngLatLike, LngLatBoundsLike } from 'mapbox-gl';
+    import { LngLatLike, LngLatBoundsLike, AnyLayer } from 'mapbox-gl';
     import { MapiRequest } from '@mapbox/mapbox-sdk/lib/classes/mapi-request';
     import MapiClient, { SdkConfig } from '@mapbox/mapbox-sdk/lib/classes/mapi-client';
 
@@ -1312,7 +1312,10 @@ declare module '@mapbox/mapbox-sdk/services/static' {
         padding?: string | undefined;
         overlays?: Array<CustomMarkerOverlay | SimpleMarkerOverlay | PathOverlay | GeoJsonOverlay> | undefined;
         highRes?: boolean | undefined;
-        insertOverlayBeforeLayer?: string | undefined;
+        before_layer?: string | undefined;
+        addlayer?: AnyLayer | undefined;
+        setfilter?: any[] | undefined;
+        layer_id?: string | undefined;
         attribution?: boolean | undefined;
         logo?: boolean | undefined;
     }
