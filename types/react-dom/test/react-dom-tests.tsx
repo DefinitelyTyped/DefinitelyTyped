@@ -268,14 +268,11 @@ function pipeableStreamDocumentedExample() {
     const res = {} as Response;
     const stream = ReactDOMServer.renderToPipeableStream(<App />, {
         onShellReady() {
-            // The content above all Suspense boundaries is ready.
-            // If something errored before we started streaming, we set the error code appropriately.
             res.statusCode = didError ? 500 : 200;
             res.setHeader('Content-type', 'text/html');
             stream.pipe(res);
         },
         onShellError(error) {
-            // Something errored before we could complete the shell so we emit an alternative shell.
             res.statusCode = 500;
             res.send('<!doctype html><p>Loading...</p><script src="clientrender.js"></script>');
         },
@@ -307,11 +304,7 @@ async function readableStreamDocumentedExample() {
             },
         );
 
-        // This is to wait for all Suspense boundaries to be ready. You can uncomment
-        // this line if you want to buffer the entire HTML instead of streaming it.
-        // You can use this for crawlers or static generation:
-
-        // await stream.allReady;
+        await stream.allReady;
 
         return new Response(stream, {
             status: didError ? 500 : 200,
