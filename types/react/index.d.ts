@@ -63,6 +63,16 @@ export = React;
 export as namespace React;
 
 declare namespace React {
+    /**
+     * The properties listed in this interface will be considered as component props for every component type.
+     * This interface is only meant for module augmentation.
+     *
+     * For example, with React 18 React.FunctionComponent and React.Component no longer have implicit children.
+     * To restore that behavior you can augment `ComponentTypeBaseProps` with `children`:
+     * @link https://www.typescriptlang.org/play?#code/JYWwDg9gTgLgBAKjgQwM5wEoFNkGN4BmUEIcA5FDvmQFA0AmWuANspXCBPQK7NbmU8MMnADeNOJLhYAHpFhxgAOxhYoBPPwDCJSEqwqAKgE8wWAEJosABWJh04qU7i4AFsGb1KSgPwAuTCoYADpsIQA5LiwAbgkpAF8aRJpcCCVUeB1wNIMYALD8YIAxLTgAXjgAClE3Dy8DeIBKcoA+MTjJShhuKCU4AB56YAA3FoBJcGZgXGB4Ws9vAEIxefqleP6AeiHRpKA
+     */
+    interface ComponentTypeBaseProps {}
+
     //
     // React Elements
     // ----------------------------------------------------------------------
@@ -478,7 +488,7 @@ declare namespace React {
         forceUpdate(callback?: () => void): void;
         render(): ReactNode;
 
-        readonly props: Readonly<P>;
+        readonly props: Readonly<P & ComponentTypeBaseProps>;
         state: Readonly<S>;
         /**
          * @deprecated
@@ -508,7 +518,7 @@ declare namespace React {
     type FC<P = {}> = FunctionComponent<P>;
 
     interface FunctionComponent<P = {}> {
-        (props: P, context?: any): ReactElement<any, any> | null;
+        (props: P & ComponentTypeBaseProps, context?: any): ReactElement<any, any> | null;
         propTypes?: WeakValidationMap<P> | undefined;
         contextTypes?: ValidationMap<any> | undefined;
         defaultProps?: Partial<P> | undefined;
@@ -528,7 +538,7 @@ declare namespace React {
     type ForwardedRef<T> = ((instance: T | null) => void) | MutableRefObject<T | null> | null;
 
     interface ForwardRefRenderFunction<T, P = {}> {
-        (props: P, ref: ForwardedRef<T>): ReactElement | null;
+        (props: P & ComponentTypeBaseProps, ref: ForwardedRef<T>): ReactElement | null;
         displayName?: string | undefined;
         // explicit rejected with `never` required due to
         // https://github.com/microsoft/TypeScript/issues/36826
@@ -816,7 +826,7 @@ declare namespace React {
 
     function memo<P extends object>(
         Component: FunctionComponent<P>,
-        propsAreEqual?: (prevProps: Readonly<P>, nextProps: Readonly<P>) => boolean
+        propsAreEqual?: (prevProps: Readonly<P & ComponentTypeBaseProps>, nextProps: Readonly<P & ComponentTypeBaseProps>) => boolean
     ): NamedExoticComponent<P>;
     function memo<T extends ComponentType<any>>(
         Component: T,
