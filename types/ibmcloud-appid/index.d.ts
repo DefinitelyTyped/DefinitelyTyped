@@ -21,14 +21,17 @@ export interface SelfServiceOptions {
     iamTokenUrl?: string;
 }
 
-// tslint:disable-next-line:no-unnecessary-class
-export class APIStrategy {
-    constructor(options: StrategyOptions);
+export class Strategy {
     authenticate: () => void;
 }
 
 // tslint:disable-next-line:no-unnecessary-class
-export class WebAppStrategy {
+export class APIStrategy extends Strategy {
+    constructor(options: StrategyOptions);
+}
+
+// tslint:disable-next-line:no-unnecessary-class
+export class WebAppStrategy extends Strategy {
     constructor(options: StrategyOptions);
 }
 
