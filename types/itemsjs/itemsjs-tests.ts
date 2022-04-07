@@ -21,6 +21,10 @@ const items = itemsjs(myitems, {
             field: 'name',
             order: 'asc',
         },
+        bar: {
+            field: 'anumber',
+            order: 'desc',
+        },
     },
     aggregations: {
         anAggregation: {
@@ -34,9 +38,11 @@ items.search({ query: 'abc' });
 
 items.search({ query: 'abc', sort: 'foo' });
 
-// Sort 'bar' was never defined
-// $ExpectError
 items.search({ query: 'abc', sort: 'bar' });
+
+// Sort 'baz' was never defined
+// $ExpectError
+items.search({ query: 'abc', sort: 'baz' });
 
 items.search({
     query: 'abc',
