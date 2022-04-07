@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Google Publisher Tag (DoubleClick GPT) 1.2
+// Type definitions for non-npm package Google Publisher Tag (DoubleClick GPT 20220315) 2.0
 // Project: https://developers.google.com/publisher-tag
 // Definitions by: Wei Wang <https://github.com/atwwei>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
