@@ -1,8 +1,7 @@
-/// <reference lib="esnext"/>
 // Script to remove a package from DefinitelyTyped and add it to notNeededPackages.json
 
-const fs = require('node:fs');
-const path = require('node:path');
+import * as fs from 'node:fs';
+import * as path from 'node:path';
 
 const typingsPackageName = process.argv[2];
 const asOfVersion = process.argv[3];

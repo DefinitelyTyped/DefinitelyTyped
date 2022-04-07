@@ -1,5 +1,5 @@
-const { Octokit } = require('@octokit/rest');
-const { paginateRest } = require('@octokit/plugin-paginate-rest');
+import { Octokit } from '@octokit/rest';
+import { paginateRest } from '@octokit/plugin-paginate-rest';
 
 const CustomOctokit = Octokit.plugin(paginateRest);
 const octokit = new CustomOctokit({ auth: process.env.GITHUB_API_TOKEN });
