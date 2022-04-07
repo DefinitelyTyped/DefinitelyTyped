@@ -111,6 +111,7 @@ declare namespace itemsjs {
         /** @default 'count' */
         sort?: 'term' | 'count' | undefined;
         order?: Order | undefined;
+        /** @default false */
         show_facet_stats?: boolean | undefined;
     }
 
