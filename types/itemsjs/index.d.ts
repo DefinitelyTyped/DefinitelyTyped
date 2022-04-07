@@ -38,8 +38,6 @@ declare namespace itemsjs {
         filters?: Partial<Record<A, string[]>> | undefined;
         /** A custom function to filter values */
         filter?: ((item: I) => boolean) | undefined;
-        /** A custom function to filter values before `filter` and `filters` are considered */
-        prefilter?: ((item: I) => boolean) | undefined;
         /** @default false */
         isExactSearch?: boolean | undefined;
         /** @default false */
