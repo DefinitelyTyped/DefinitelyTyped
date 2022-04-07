@@ -24,8 +24,8 @@
  * Either the import or the reference only needs to appear once, anywhere in the project.
  */
 
-// See https://github.com/facebook/react/blob/master/packages/react-dom/src/client/ReactDOM.js to see how the exports are declared,
-// and https://github.com/facebook/react/blob/master/packages/shared/ReactFeatureFlags.js to verify which APIs are
+// See https://github.com/facebook/react/blob/main/packages/react-dom/src/client/ReactDOM.js to see how the exports are declared,
+// and https://github.com/facebook/react/blob/main/packages/shared/ReactFeatureFlags.js to verify which APIs are
 // flagged experimental or not. Experimental APIs will be tagged with `__EXPERIMENTAL__`.
 
 import React = require('react');
@@ -33,13 +33,4 @@ import ReactDOM = require('./next');
 
 export {};
 
-declare module '.' {
-    function unstable_flushControlled(callback: () => void): void;
-
-    // enableSelectiveHydration feature
-
-    /**
-     * @see https://github.com/facebook/react/commit/3a2b5f148d450c69aab67f055fc441d294c23518
-     */
-    function unstable_scheduleHydration(target: Element | Document | DocumentFragment | Comment): void;
-}
+declare module '.' {}

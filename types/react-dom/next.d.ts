@@ -23,7 +23,7 @@
  * Either the import or the reference only needs to appear once, anywhere in the project.
  */
 
-// See https://github.com/facebook/react/blob/master/packages/react-dom/src/client/ReactDOM.js to see how the exports are declared,
+// See https://github.com/facebook/react/blob/main/packages/react-dom/src/client/ReactDOM.js to see how the exports are declared,
 
 import React = require('react');
 import ReactDOM = require('.');
