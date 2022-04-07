@@ -66,6 +66,8 @@ declare namespace React {
     /**
      * The properties listed in this interface will be considered as component props for every component type.
      * This interface is only meant for module augmentation.
+     * We encourage to only use module augmentation here if you're migrating an existing React 17 codebase.
+     * There good reasons to not have implicit children: https://solverfox.dev/writing/no-implicit-children
      *
      * For example, with React 18 React.FunctionComponent and React.Component no longer have implicit children.
      * To restore that behavior you can augment `ComponentTypeBaseProps` with `children`:
