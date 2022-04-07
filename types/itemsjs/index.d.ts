@@ -131,8 +131,6 @@ declare namespace itemsjs {
         aggregations?: Record<A, Aggregation> | undefined;
         /** @default [] */
         searchableFields?: Array<keyof I> | undefined;
-        /** @default false */
-        isExactSearch?: boolean | undefined;
         /** @default true */
         native_search_enabled?: boolean | undefined;
     }
