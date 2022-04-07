@@ -265,7 +265,7 @@ function pipeableStreamDocumentedExample() {
     }
 
     let didError = false;
-    const res = {} as Response;
+    const res: Response = {} as any;
     const stream = ReactDOMServer.renderToPipeableStream(<App />, {
         onShellReady() {
             res.statusCode = didError ? 500 : 200;
@@ -288,10 +288,10 @@ function pipeableStreamDocumentedExample() {
  * source: https://reactjs.org/docs/react-dom-server.html#rendertoreadablestream
  */
 async function readableStreamDocumentedExample() {
-    let controller = new AbortController();
+    const controller = new AbortController();
     let didError = false;
     try {
-        let stream = await ReactDOMServer.renderToReadableStream(
+        const stream = await ReactDOMServer.renderToReadableStream(
             <html>
                 <body>Success</body>
             </html>,

@@ -4,24 +4,32 @@ declare global {
         // tslint:disable-next-line:no-empty-interface
         interface ReadableStream {}
 
+        // tslint:disable-next-line:no-empty-interface
         interface WritableStream {}
     }
 
     /**
+     * Stub for https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal
+     */
+    // tslint:disable-next-line:no-empty-interface
+    interface AbortSignal {}
+
+    /**
      * Stub for https://developer.mozilla.org/en-US/docs/Web/API/ReadableStream
      */
+    // tslint:disable-next-line:no-empty-interface
     interface ReadableStream {}
 }
 
 import { ReactElement, ReactNode } from 'react';
 
-interface RenderToPipeableStreamOptions {
+export interface RenderToPipeableStreamOptions {
     identifierPrefix?: string;
     namespaceURI?: string;
     nonce?: string;
     bootstrapScriptContent?: string;
-    bootstrapScripts?: Array<string>;
-    bootstrapModules?: Array<string>;
+    bootstrapScripts?: string[];
+    bootstrapModules?: string[];
     progressiveChunkSize?: number;
     onShellReady?: () => void;
     onShellError?: (error: unknown) => void;
@@ -29,7 +37,7 @@ interface RenderToPipeableStreamOptions {
     onError?: (error: unknown) => void;
 }
 
-interface PipeableStream {
+export interface PipeableStream {
     abort(): void;
     pipe<Writable extends NodeJS.WritableStream>(destination: Writable): Writable;
 }
@@ -80,19 +88,19 @@ export function renderToStaticMarkup(element: ReactElement): string;
  */
 export function renderToStaticNodeStream(element: ReactElement): NodeJS.ReadableStream;
 
-interface RenderToReadableStreamOptions {
+export interface RenderToReadableStreamOptions {
     identifierPrefix?: string;
     namespaceURI?: string;
     nonce?: string;
     bootstrapScriptContent?: string;
-    bootstrapScripts?: Array<string>;
-    bootstrapModules?: Array<string>;
+    bootstrapScripts?: string[];
+    bootstrapModules?: string[];
     progressiveChunkSize?: number;
     signal?: AbortSignal;
     onError?: (error: unknown) => void;
 }
 
-interface ReactDOMServerReadableStream extends ReadableStream {
+export interface ReactDOMServerReadableStream extends ReadableStream {
     allReady: Promise<void>;
 }
 
