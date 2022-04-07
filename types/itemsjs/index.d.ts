@@ -42,7 +42,10 @@ declare namespace itemsjs {
         prefilter?: ((item: I) => boolean) | undefined;
         /** @default false */
         isExactSearch?: boolean | undefined;
+        /** @default false */
         removeStopWordFilter?: boolean | undefined;
+        /** @default false */
+        is_all_filtered_items?: boolean | undefined;
     }
 
     interface AggregationOptions<A extends string> {
@@ -128,6 +131,7 @@ declare namespace itemsjs {
     interface Configuration<I extends {}, S extends string, A extends string> {
         sortings?: Record<S, Sorting<I>> | undefined;
         aggregations?: Record<A, Aggregation> | undefined;
+        /** @default [] */
         searchableFields?: Array<keyof I> | undefined;
         /** @default false */
         isExactSearch?: boolean | undefined;
