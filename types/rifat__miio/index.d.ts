@@ -48,5 +48,5 @@ export interface MiioDeviceOptions {
 }
 
 declare module '@rifat/miio' {
-    function device<T extends MiioDevice>(options: MiioDeviceOptions): Promise<T>;
+    function device(options: MiioDeviceOptions): Promise<MiioDevice>;
 }

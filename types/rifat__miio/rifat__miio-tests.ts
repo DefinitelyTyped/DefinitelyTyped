@@ -5,9 +5,13 @@ device({}); // $ExpectError
 device({ token: '' }); // $ExpectError
 device({ address: '192.168.0.1', token: '' }); // $ExpectType Promise<MiioDevice>
 
-device<AirPurifier3>({ address: '192.168.0.1' }); // $ExpectType Promise<AirPurifier3>
+device({ address: '192.168.0.1' }); // $ExpectType Promise<MiioDevice>
 
-device<AirPurifier3>({ address: '192.168.0.1' }).then(d => {
+device({ address: '192.168.0.1' }).then(miooDevice => {
+    const d = miooDevice as AirPurifier3; // $ExpectType AirPurifier3
+
+    d.matches("type:air-purifier"); // $ExpectType true
+
     d.changeBuzzer(''); // $ExpectType Promise<string>
     d.changeChildLock(''); // $ExpectType Promise<string>
     d.changeFan(''); // $ExpectType Promise<string>
