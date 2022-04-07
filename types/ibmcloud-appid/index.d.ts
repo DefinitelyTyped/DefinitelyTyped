@@ -24,6 +24,7 @@ export interface SelfServiceOptions {
 // tslint:disable-next-line:no-unnecessary-class
 export class APIStrategy {
     constructor(options: StrategyOptions);
+    authenticate: () => void;
 }
 
 // tslint:disable-next-line:no-unnecessary-class
