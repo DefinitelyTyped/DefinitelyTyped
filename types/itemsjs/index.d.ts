@@ -71,7 +71,7 @@ declare namespace itemsjs {
         search(options?: SearchOptions<I, S, A>): {
             data: {
                 items: I[];
-                allFilteredItems: null;
+                allFilteredItems: I[] | null;
                 aggregations: Record<A, SearchAggregation<I, A>>;
             };
             pagination: Pagination;
