@@ -45,8 +45,8 @@ export type NotificationEvent = 's3:ObjectCreated:*' |
 export type Mode = 'COMPLIANCE' | 'GOVERNANCE';
 export type LockUnit = 'Days' | 'Years';
 export type LegalHoldStatus = 'ON' | 'OFF';
-export type NoResultCallback = (error: Error|null) => void;
-export type ResultCallback<T> = (error: Error|null, result: T) => void;
+export type NoResultCallback = (error: Error | null) => void;
+export type ResultCallback<T> = (error: Error | null, result: T) => void;
 export type VersioningConfig = Record<string | number | symbol, unknown>;
 export type TagList = Record<string, string>;
 export type EmptyObject = Record<string, never>;
@@ -176,6 +176,45 @@ export interface LegalHoldOptions {
     status: LegalHoldStatus;
 }
 
+export interface SelectOptions {
+    expression: string;
+    inputSerialization: EmptyObject;
+    outputSerialization: EmptyObject;
+}
+
+export interface DestinationObjectOptions {
+    Bucket: string;
+    Object: string;
+    Encryption?: EmptyObject;
+    UserMetadata?: EmptyObject;
+    UserTags?: EmptyObject | string;
+    LegalHold: LegalHoldStatus;
+    RetainUntilDate?: string;
+    Mode?: Mode;
+}
+
+export interface SourceObjectOptions {
+    Bucket: string;
+    Object: string;
+    VersionID?: string;
+    MatchETag?: string;
+    NoMatchETag?: string;
+    MatchModifiedSince?: string;
+    MatchUnmodifiedSince?: string;
+    MatchRange: boolean;
+    Start: number;
+    End: number;
+    Encryption?: EmptyObject;
+}
+
+export interface SourceObjectStats {
+    size: number;
+    metaData: string;
+    lastModicied: Date;
+    versionId: string;
+    etag: string;
+}
+
 // No need to export this. But without it - linter error.
 export class TargetConfig {
     setId(id: any): void;
@@ -267,14 +306,14 @@ export class Client {
     fGetObject(bucketName: string, objectName: string, filePath: string, callback: NoResultCallback): void;
     fGetObject(bucketName: string, objectName: string, filePath: string): Promise<void>;
 
-    putObject(bucketName: string, objectName: string, stream: ReadableStream|Buffer|string, callback: ResultCallback<UploadedObjectInfo>): void;
-    putObject(bucketName: string, objectName: string, stream: ReadableStream|Buffer|string, size: number, callback: ResultCallback<UploadedObjectInfo>): void;
-    putObject(bucketName: string, objectName: string, stream: ReadableStream|Buffer|string, size: number, metaData: ItemBucketMetadata, callback: ResultCallback<UploadedObjectInfo>): void;
-    putObject(bucketName: string, objectName: string, stream: ReadableStream|Buffer|string, size?: number, metaData?: ItemBucketMetadata): Promise<UploadedObjectInfo>;
-    putObject(bucketName: string, objectName: string, stream: ReadableStream|Buffer|string, metaData?: ItemBucketMetadata): Promise<UploadedObjectInfo>;
+    putObject(bucketName: string, objectName: string, stream: ReadableStream | Buffer | string, callback: ResultCallback<UploadedObjectInfo>): void;
+    putObject(bucketName: string, objectName: string, stream: ReadableStream | Buffer | string, size: number, callback: ResultCallback<UploadedObjectInfo>): void;
+    putObject(bucketName: string, objectName: string, stream: ReadableStream | Buffer | string, size: number, metaData: ItemBucketMetadata, callback: ResultCallback<UploadedObjectInfo>): void;
+    putObject(bucketName: string, objectName: string, stream: ReadableStream | Buffer | string, size?: number, metaData?: ItemBucketMetadata): Promise<UploadedObjectInfo>;
+    putObject(bucketName: string, objectName: string, stream: ReadableStream | Buffer | string, metaData?: ItemBucketMetadata): Promise<UploadedObjectInfo>;
 
     fPutObject(bucketName: string, objectName: string, filePath: string, metaData: ItemBucketMetadata, callback: ResultCallback<UploadedObjectInfo>): void;
-    fPutObject(bucketName: string, objectName: string, filePath: string, metaData: ItemBucketMetadata): Promise<UploadedObjectInfo>;
+    fPutObject(bucketName: string, objectName: string, filePath: string, metaData?: ItemBucketMetadata): Promise<UploadedObjectInfo>;
 
     copyObject(bucketName: string, objectName: string, sourceObject: string, conditions: CopyConditions, callback: ResultCallback<BucketItemCopy>): void;
     copyObject(bucketName: string, objectName: string, sourceObject: string, conditions: CopyConditions): Promise<BucketItemCopy>;
@@ -331,6 +370,12 @@ export class Client {
     setObjectLegalHold(bucketName: string, objectName: string, callback: NoResultCallback): void;
     setObjectLegalHold(bucketName: string, objectName: string, setOptions: LegalHoldOptions, callback: NoResultCallback): void;
     setObjectLegalHold(bucketName: string, objectName: string, setOptions?: LegalHoldOptions): Promise<void>;
+
+    composeObject(destObjConfig: DestinationObjectOptions, sourceObjList: SourceObjectOptions[], callback: SourceObjectStats): void;
+    composeObject(destObjConfig: DestinationObjectOptions, sourceObjList: SourceObjectOptions[]): Promise<SourceObjectStats>;
+
+    selectObjectContent(bucketName: string, objectName: string, selectOpts: SelectOptions, callback: NoResultCallback): void;
+    selectObjectContent(bucketName: string, objectName: string, selectOpts: SelectOptions): Promise<void>;
 
     // Presigned operations
     presignedUrl(httpMethod: string, bucketName: string, objectName: string, callback: ResultCallback<string>): void;
@@ -414,7 +459,7 @@ export class NotificationPoller extends EventEmitter {
 }
 
 export class NotificationConfig {
-    add(target: TopicConfig|QueueConfig|CloudFunctionConfig): void;
+    add(target: TopicConfig | QueueConfig | CloudFunctionConfig): void;
 }
 
 export class TopicConfig extends TargetConfig {
