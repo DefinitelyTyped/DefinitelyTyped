@@ -9,6 +9,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.1
 
+
 import { check } from 'meteor/check';
 
 export interface ValidationContext extends SimpleSchemaValidationContextStatic {
