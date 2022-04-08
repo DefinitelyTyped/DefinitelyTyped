@@ -66,7 +66,7 @@ declare namespace itemsjs {
         per_page?: number | undefined;
     }
 
-    interface itemsjs<I extends {}, S extends string, A extends string> {
+    interface ItemsJs<I extends {}, S extends string, A extends string> {
         /** Search items */
         search(options?: SearchOptions<I, S, A>): {
             data: {
@@ -145,6 +145,6 @@ declare namespace itemsjs {
 declare function itemsjs<I extends {} = Record<any, unknown>, S extends string = string, A extends string = string>(
     items: I[],
     configuration?: itemsjs.Configuration<I, S, A>,
-): itemsjs.itemsjs<I, S, A>;
+): itemsjs.ItemsJs<I, S, A>;
 
 export = itemsjs;
