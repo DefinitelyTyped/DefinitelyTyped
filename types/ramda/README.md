@@ -55,5 +55,5 @@ Please, use prettier before committing changes to format code as described [here
 For example:
 
 ```bash
- npm run prettier -- --write ./types/ramda/**/*.ts
+npm run prettier -- --write ./types/ramda/**/*.ts
 ```
