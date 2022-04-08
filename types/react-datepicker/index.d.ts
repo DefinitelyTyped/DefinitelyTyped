@@ -193,6 +193,7 @@ export interface ReactDatePickerProps<CustomModifierNames extends string = never
     weekLabel?: string | undefined;
     withPortal?: boolean | undefined;
     portalId?: string | undefined;
+    portalHost?: ShadowRoot | undefined;
     wrapperClassName?: string | undefined;
     yearDropdownItemNumber?: number | undefined;
     excludeScrollbar?: boolean | undefined;

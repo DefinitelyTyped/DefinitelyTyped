@@ -193,6 +193,7 @@ const topLogger: Modifier<'topLogger'> = {
     weekLabel=""
     withPortal
     portalId=""
+    portalHost={document.body.shadowRoot!}
     wrapperClassName=""
     weekAriaLabelPrefix=""
     excludeScrollbar={false}
