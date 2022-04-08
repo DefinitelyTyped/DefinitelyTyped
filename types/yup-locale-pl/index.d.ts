@@ -3,6 +3,6 @@
 // Definitions by: Radosław Grochowski <https://github.com/radoslawgrochowski>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { LocaleObject } from 'yup';
+import type { LocaleObject } from 'yup';
 declare const locale: LocaleObject;
-export default locale;
+export = locale;
