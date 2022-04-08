@@ -14,6 +14,8 @@ dater.getDate(new Date());
 dater.getDate('2016-07-20T13:20:40Z');
 // $ExpectType BlockResult
 dater.getDate('2016-07-20T13:20:40Z', false);
+// $ExpectType BlockResult
+dater.getDate('2016-07-20T13:20:40Z', false, true);
 
 // $ExpectType BlockResult[]
 dater.getEvery('weeks', '2019-09-02T12:00:00Z', '2019-09-30T12:00:00Z');
@@ -21,3 +23,5 @@ dater.getEvery('weeks', '2019-09-02T12:00:00Z', '2019-09-30T12:00:00Z');
 dater.getEvery('weeks', '2019-09-02T12:00:00Z', '2019-09-30T12:00:00Z', 2);
 // $ExpectType BlockResult[]
 dater.getEvery('weeks', '2019-09-02T12:00:00Z', '2019-09-30T12:00:00Z', 3, false);
+// $ExpectType BlockResult[]
+dater.getEvery('weeks', '2019-09-02T12:00:00Z', '2019-09-30T12:00:00Z', 3, false, true);
