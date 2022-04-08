@@ -95,6 +95,7 @@ export interface ReactDatePickerProps<CustomModifierNames extends string = never
     highlightDates?: Array<HighlightDates | Date> | undefined;
     id?: string | undefined;
     includeDates?: Date[] | undefined;
+    includeDateIntervals?: Array<{start: Date, end: Date}> | undefined;
     includeTimes?: Date[] | undefined;
     injectTimes?: Date[] | undefined;
     inline?: boolean | undefined;
