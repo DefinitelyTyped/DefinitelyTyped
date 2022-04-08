@@ -109,12 +109,12 @@ declare namespace itemsjs {
 
     interface Sorting<I extends {}> {
         field: keyof I | Array<keyof I>;
-        order: Order | Order[];
+        order?: Order | Order[] | undefined;
     }
 
     interface Aggregation {
         title: string;
-        conjunction?: boolean;
+        conjunction?: boolean | undefined;
         /** @default 10 */
         size?: number | undefined;
         /** @default 'count' */
