@@ -14,6 +14,11 @@
             "../"
         ],
         "types": [],
+        "paths": {
+            "react": [
+                "react/v17"
+            ]
+        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "jsx": "react"
