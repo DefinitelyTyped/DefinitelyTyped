@@ -84,6 +84,7 @@ export interface ReactDatePickerProps<CustomModifierNames extends string = never
     dropdownMode?: 'scroll' | 'select' | undefined;
     endDate?: Date | null | undefined;
     excludeDates?: Date[] | undefined;
+    excludeDateIntervals?: Array<{start: Date, end: Date}> | undefined;
     excludeTimes?: Date[] | undefined;
     filterDate?(date: Date): boolean;
     filterTime?(date: Date): boolean;

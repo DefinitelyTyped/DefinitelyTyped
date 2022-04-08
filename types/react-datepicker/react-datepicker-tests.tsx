@@ -59,6 +59,7 @@ const topLogger: Modifier<'topLogger'> = {
     dropdownMode="scroll"
     endDate={new Date()}
     excludeDates={[new Date()]}
+    excludeDateIntervals={[{start: new Date(), end: new Date()}]}
     excludeTimes={[new Date()]}
     filterDate={date => true}
     filterTime={date => true}
