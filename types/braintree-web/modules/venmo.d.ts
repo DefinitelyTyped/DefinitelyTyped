@@ -28,6 +28,11 @@ export interface Venmo {
         ignoreHistoryChanges?: boolean | undefined;
         profileId?: string | undefined;
         deepLinkReturnUrl?: string | undefined;
+        requireManualReturn?: boolean | undefined;
+        useRedirectForIOS?: boolean | undefined;
+        allowDesktop?: boolean | undefined;
+        paymentMethodUsage?: 'single_use' | 'multi_use' | undefined;
+        displayName?: string | undefined;
     }): Promise<Venmo>;
     create(
         options: {
@@ -37,6 +42,11 @@ export interface Venmo {
             ignoreHistoryChanges?: boolean | undefined;
             profileId?: string | undefined;
             deepLinkReturnUrl?: string | undefined;
+            requireManualReturn?: boolean | undefined;
+            useRedirectForIOS?: boolean | undefined;
+            allowDesktop?: boolean | undefined;
+            paymentMethodUsage?: 'single_use' | 'multi_use' | undefined;
+            displayName?: string | undefined;
         },
         callback?: callback,
     ): void;
