@@ -2,7 +2,6 @@
 // Project: https://github.com/styletron/styletron
 // Definitions by: Tom Golden <https://github.com/tbjgolden>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
 
 import { KeyframesObject, FontFace as FontFaceObject, StandardEngine, StyleObject } from 'styletron-standard';
 
