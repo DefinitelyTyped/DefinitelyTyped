@@ -79,7 +79,7 @@ Definitely Typed 仅在发布时间小于 2 年的 TypeScript 版本上测试软
 
 ## 我该如何贡献？
 
-有赖像你这样的用户不断贡献，Definitely Typed 才能持续运作下去
+有像你这样的用户不断贡献，Definitely Typed 才能持续运作下去
 
 ### 测试
 
@@ -147,7 +147,7 @@ Definitely Typed 仅在发布时间小于 2 年的 TypeScript 版本上测试软
   //                 Steve <https://github.com/steve>
   //                 John <https://github.com/john>
   ```
-* [就运行 `npm test <package to test>`](#验证).
+* [运行 `npm test <package to test>`](#验证).
 
 当你对现有的包发起 PR 的时候，请确保 `dt-bot` 会通知以前的作者。
 如果没有，你可以在与 PR 关联的评论中手动去 @ 他们。
@@ -271,7 +271,7 @@ f("one");
 
 #### Linter: `tslint.json`
 
-The linter configuration file, `tslint.json` should contain `{ "extends": "dtslint/dt.json" }`, and no additional rules.
+The linter configuration file, `tslint.json` should contain `{ "extends": "@definitelytyped/dtslint/dt.json" }`, and no additional rules.
 
 If for some reason some rule needs to be disabled, [disable it for that specific line](https://palantir.github.io/tslint/usage/rule-flags/#comment-flags-in-source-code:~:text=%2F%2F%20tslint%3Adisable%2Dnext%2Dline%3Arule1%20rule2%20rule3...%20%2D%20Disables%20the%20listed%20rules%20for%20the%20next%20line) using `// tslint:disable-next-line:[ruleName]` — not for the whole package, so that disabling can be reviewed. (There are some legacy lint configs that have additional contents, but these should not happen in new work.)
 
@@ -364,11 +364,11 @@ npm 包应该会在几分钟内更新。如果已经超过了一小时，请在 
 
 #### 有些包没有 `tslint.json` 文件，有些 `tsconfig.json` 文件缺少 `"noImplicitAny": true`, `"noImplicitThis": true`, 或 `"strictNullChecks": true`.
 
-当然它们是错误的，你可以通过发起 PR 来修复它们。
+如果我们还没有注意到它们是错误的，你可以通过发起 PR 来修复它们。
 
 #### 我可以请求类型定义吗？
 
-这里是 [当前在请求的类型定义](https://github.com/DefinitelyTyped/DefinitelyTyped/labels/Definition%3ARequest)。
+这里是 [当前在请求的类型定义](https://github.com/DefinitelyTyped/DefinitelyTyped/discussions/categories/request-a-new-types-package)。
 
 #### DOM 上的类型定义是什么？
 
@@ -489,7 +489,7 @@ _注意：本节中的讨论假定你熟悉 [语义版本控制](https://semver.
 
 例如，[`history`](https://github.com/ReactTraining/history/) 库在 `2.x` 到 `3.x` 版本间引入了重大的修改。
 因为许多用户仍然使用较老的 `2.x` 版本，维护人员想要将此库的类型声明更新到 `3.x`, 需要在仓库里添加 `v2` 文件夹，里面包含了旧版本的类型声明。
-在编写时，[history v2 `tsconfig.json`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/1253faabf5e0d2c5470db6ea87795d7f96fef7e2/types/history/v2/tsconfig.json) 大致如下：
+在编写时，[history v2 `tsconfig.json`](https://github.com/%44efinitelyTyped/DefinitelyTyped/blob/1253faabf5e0d2c5470db6ea87795d7f96fef7e2/types/history/v2/tsconfig.json) 大致如下：
 
 ```json
 {

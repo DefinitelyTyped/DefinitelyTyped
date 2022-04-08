@@ -43,6 +43,9 @@ util.inspect({
     [util.inspect.custom]: <util.CustomInspectFunction> ((depth, opts) => opts.stylize('woop', 'module')),
 });
 
+(options?: util.InspectOptions) => util.inspect({ }, options);
+(showHidden?: boolean) => util.inspect({ }, showHidden);
+
 util.format('%s:%s', 'foo');
 util.format('%s:%s', 'foo', 'bar', 'baz');
 util.format(1, 2, 3);

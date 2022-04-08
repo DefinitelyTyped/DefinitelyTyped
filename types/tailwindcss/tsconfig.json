@@ -16,8 +16,12 @@
     "files": [
         "index.d.ts",
         "test/tailwindcss-tests.ts",
+        "test/tailwindcss-nesting-tests.ts",
+        "test/tailwindcss-optional-config-tests.ts",
         "test/tailwindcss-plugin-tests.ts",
         "test/tailwindcss-default-config-code-tests.ts",
-        "test/tailwindcss-default-config-value-tests.ts"
+        "test/tailwindcss-default-config-value-tests.ts",
+        "test/tailwindcss-font-size-tests.ts",
+        "test/tailwindcss-corePlugins-tests.ts"
     ]
 }

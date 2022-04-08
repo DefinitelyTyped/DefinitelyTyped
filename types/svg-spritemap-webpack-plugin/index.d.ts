@@ -1,8 +1,7 @@
-// Type definitions for svg-spritemap-webpack-plugin 4.3
+// Type definitions for svg-spritemap-webpack-plugin 4.4
 // Project: https://github.com/cascornelissen/svg-spritemap-webpack-plugin
 // Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
 
 /// <reference types="node" />
 
@@ -29,6 +28,7 @@ declare namespace SVGSpritemapPlugin {
                   filename?: string | undefined;
                   svg?:
                       | {
+                            attributes?: Record<string, string | number | boolean> | undefined;
                             /**
                              * Whether to include the width and height attributes on the root SVG element.
                              * The default value for this option is based on the value of the sprite.generate.use option but when specified will always overwrite it.

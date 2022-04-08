@@ -1,4 +1,4 @@
-// For Library Version: 1.96.0
+// For Library Version: 1.100.0
 
 declare module "sap/ui/layout/library" {
   import Control from "sap/ui/core/Control";
@@ -394,6 +394,9 @@ declare module "sap/ui/layout/library" {
        */
       ColumnLayout = "ColumnLayout",
       /**
+       * @deprecated (since 1.67.0) - as the `sap.ui.commons` library is deprecated, and the `GridLayout` must
+       * not be used in responsive applications. Please use `ResponsiveGridLayout` or `ColumnLayout` instead.
+       *
        * Uses the `GridLayout` layout to render the `SimpleForm` control
        */
       GridLayout = "GridLayout",
@@ -1642,9 +1645,9 @@ declare module "sap/ui/layout/cssgrid/CSSGrid" {
    * 			to the `customLayout` aggregation of the `CSSGrid` and configure how it will look in different breakpoints
    * 			(S, M, L, XL).
    *
-   * Current Limitations:
-   * 	 - No alignment and ordering
-   * 	 - No Named grid areas and lines
+   * Out of current scope::
+   * 	 - Alignment and ordering
+   * 	 - Named grid areas and lines
    */
   export default class CSSGrid
     extends Control

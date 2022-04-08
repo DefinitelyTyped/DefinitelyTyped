@@ -7,6 +7,18 @@ n = ar1.count(1, 1);
 // @ts-expect-error
 n = ar1.count('a', 1);
 
+declare function countPredicate(fruit: string, index: number, array: string[]): boolean;
+const fruits = ["Apples", "Oranges", "Plums", "Oranges"];
+fruits.countWith(countPredicate);
+const fakeThis = {
+    propA: "string"
+};
+
+fruits.countWith(function(value: string) {
+    this.propA = "s";
+    return value === "Oranges";
+}, fakeThis);
+
 ar1.delete(1, 2);
 // @ts-expect-error
 ar1.delete(1, 'a');

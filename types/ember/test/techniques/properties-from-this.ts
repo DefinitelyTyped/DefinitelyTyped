@@ -5,23 +5,26 @@
  */
 
 class BoxedProperty<Get, Set = Get> {
-    __getType: Get;
-    __setType: Set;
+    declare private [GetType]: Get;
+    declare private [SetType]: Set;
 }
 
-type UnboxGetProperty<T> = T extends BoxedProperty<infer V, any> ? V : T;
-type UnboxSetProperty<T> = T extends BoxedProperty<any, infer V> ? V : T;
+declare const GetType: unique symbol;
+declare const SetType: unique symbol;
+
+type UnboxGetProperty<T> = T extends BoxedProperty<infer V, unknown> ? V : T;
+type UnboxSetProperty<T> = T extends BoxedProperty<unknown, infer V> ? V : T;
 
 class GetAndSet {
     get<K extends keyof this>(key: K): UnboxGetProperty<this[K]> {
-        return this[key] as any;
+        return this[key] as UnboxGetProperty<this[K]>;
     }
     set<K extends keyof this>(key: K, newVal: UnboxSetProperty<this[K]>): UnboxSetProperty<this[K]> {
-        const rawVal: UnboxSetProperty<this[K]> = this[key] as any;
+        const rawVal = this[key];
         if (rawVal instanceof BoxedProperty) {
-            rawVal.__setType = newVal;
+            rawVal[SetType] = newVal;
         }
-        this[key] = newVal as any;
+        this[key] = newVal as this[K];
         return newVal;
     }
 }

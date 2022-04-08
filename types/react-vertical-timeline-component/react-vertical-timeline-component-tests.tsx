@@ -4,7 +4,7 @@ import { VerticalTimeline, VerticalTimelineElement } from "react-vertical-timeli
 export default class ReactVerticalTimelineComponentTests extends React.Component {
     render() {
         return (
-            <VerticalTimeline animate={false} className="vertical-timeline--red" layout='2-columns'>
+            <VerticalTimeline animate={false} className="vertical-timeline--red" layout='2-columns' lineColor='black'>
                 <VerticalTimelineElement
                     iconOnClick={() => console.info('icon has been clicked')}
                     className="vertical-timeline-element--work"

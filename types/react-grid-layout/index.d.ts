@@ -1,12 +1,11 @@
 // Type definitions for react-grid-layout 1.3
 // Project: https://github.com/STRML/react-grid-layout
-// Definitions by: Andrew Birkholz <https://github.com/abirkholz>,
-//                 Ali Taheri <https://github.com/alitaheri>,
-//                 Zheyang Song <https://github.com/ZheyangSong>,
-//                 Andrew Hathaway <https://github.com/andrewhathaway>,
-//                 Manav Mishra <https://github.com/manav-m>,
-//                 Alexey Fyodorov <https://github.com/al-fyodorov>,
-//                 Catus Magnus <https://github.com/catusmagnus>
+// Definitions by: Andrew Birkholz <https://github.com/abirkholz>
+//                 Ali Taheri <https://github.com/alitaheri>
+//                 Zheyang Song <https://github.com/ZheyangSong>
+//                 Andrew Hathaway <https://github.com/andrewhathaway>
+//                 Manav Mishra <https://github.com/manav-m>
+//                 Alexey Fyodorov <https://github.com/al-fyodorov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -307,7 +306,7 @@ declare namespace ReactGridLayout {
          * Ref for getting a reference for the grid's wrapping div.
          * You can use this instead of a regular ref and the deprecated `ReactDOM.findDOMNode()`` function.
          */
-        innerRef?: React.Ref<"div">;
+        innerRef?: React.Ref<HTMLDivElement>;
     }
 
     interface ReactGridLayoutProps extends CoreProps {

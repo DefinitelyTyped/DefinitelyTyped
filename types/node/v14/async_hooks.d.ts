@@ -224,3 +224,6 @@ declare module 'async_hooks' {
         enterWith(store: T): void;
     }
 }
+declare module 'node:async_hooks' {
+    export * from 'async_hooks';
+}

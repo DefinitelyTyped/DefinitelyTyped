@@ -52,6 +52,7 @@ export interface CarouselBreakpoints {
 }
 
 export interface CarouselProps {
+    children?: React.ReactNode;
     itemWidth?: number | undefined;
     value?: number | undefined;
     onChange?(value: number): void;

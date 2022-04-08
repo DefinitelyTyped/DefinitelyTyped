@@ -120,4 +120,4 @@ grid.toggleFieldVisibility('field'); // $ExpectType void
 function testMajorVersions(prior: number, current: number): boolean {
     return current > prior;
 }
-testMajorVersions(53, 54); // $ExpectType boolean
+testMajorVersions(57, 58); // $ExpectType boolean

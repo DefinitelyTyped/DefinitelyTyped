@@ -1,4 +1,4 @@
-declare module Email {
+declare namespace Email {
     function send(options: {
         from?: string | undefined;
         to?: string | string[] | undefined;

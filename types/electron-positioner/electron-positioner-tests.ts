@@ -1,4 +1,4 @@
-import Positioner = require("electron-positioner");
+import Positioner = require('electron-positioner');
 import { BrowserWindow } from 'electron';
 
 const positioner = new Positioner(new BrowserWindow());
@@ -27,6 +27,20 @@ positioner.calculate('topLeft');
 
 // $ExpectType { x: number; y: number; }
 positioner.calculate('topLeft', rectangle);
+
+const positionOrTrayPosition = 'trayLeft' as Positioner.Position | Positioner.TrayPosition;
+
+// $ExpectError
+positioner.move(positionOrTrayPosition);
+
+// $ExpectType void
+positioner.move(positionOrTrayPosition, rectangle);
+
+// $ExpectError
+positioner.calculate(positionOrTrayPosition);
+
+// $ExpectType { x: number; y: number; }
+positioner.calculate(positionOrTrayPosition, rectangle);
 
 positioner.move('trayLeft', rectangle);
 positioner.move('trayBottomLeft', rectangle);

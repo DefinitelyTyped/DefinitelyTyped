@@ -1,15 +1,19 @@
-import { Editor, Plugin } from "@ckeditor/ckeditor5-core";
-import PendingActions from "@ckeditor/ckeditor5-core/src/pendingactions";
+import { Editor, Plugin } from '@ckeditor/ckeditor5-core';
+import PendingActions from '@ckeditor/ckeditor5-core/src/pendingactions';
 
 export default class AutoSave extends Plugin {
-    adapter: AutosaveAdapter;
-    state: "synchronized" | "waiting" | "saving";
-
-    static pluginName: "Autosave";
+    static pluginName: 'Autosave';
     static requires: [typeof PendingActions];
+
+    get state(): 'synchronized' | 'waiting' | 'saving';
+    protected set state(state: 'synchronized' | 'waiting' | 'saving');
 
     init(): void;
     destroy(): void;
+
+    save(): Promise<unknown>;
+
+    adapter: AutosaveAdapter;
 }
 
 export interface AutosaveAdapter {
@@ -18,7 +22,7 @@ export interface AutosaveAdapter {
 
 export interface AutosaveConfig {
     waitingTime?: number | undefined;
-    save?(editor: Editor): Promise<unknown>;
+    save(editor: Editor): Promise<unknown>;
 }
 
 declare module '@ckeditor/ckeditor5-core/src/plugincollection' {

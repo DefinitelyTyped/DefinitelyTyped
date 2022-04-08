@@ -97,6 +97,11 @@ lock.on("authenticated", function(authResult: AuthResult) {
   });
 });
 
+// "off" listener removal. Auth0 lock inherits this method from EventEmitter
+// https://github.com/browserify/events/blob/48e3d18659caf72d94d319871106f089bb40002d/events.js#L321
+
+lock.off('authenticated', (authResult) => {});
+
 // test theme
 
 const themeOptions : Auth0LockConstructorOptions = {

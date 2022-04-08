@@ -1,6 +1,6 @@
 // Type definitions for mumath 3.3
 // Project: https://github.com/dfcreative/mumath
-// Definitions by:  Adam Zerella <https://github.com/adamzerella>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import clamp = require('./clamp');

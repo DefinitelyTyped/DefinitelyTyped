@@ -1,6 +1,7 @@
-// Type definitions for @mapbox/maki 6.2
+// Type definitions for @mapbox/maki 7.1
 // Project: https://github.com/mapbox/maki
 // Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
+//                 Michael Bullington <https://github.com/mbullington>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
@@ -13,9 +14,7 @@ declare namespace maki {
 
 declare const maki: {
     /** Object that can be used to organize and display icons in your app or website */
-    layouts: {
-        all: maki.IconName[];
-    };
+    layouts: maki.IconName[];
     svgArray: maki.SvgContent[];
 };
 

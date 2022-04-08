@@ -5,59 +5,65 @@
 //                 Nicholas Higgins <https://github.com/nicholashza>
 //                 Carlos Urango <https://github.com/cjurango>
 //                 R.J. <https://github.com/jun-sheaf>
+//                 Hagen <https://github.com/MrGriefs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export type HowlCallback = (soundId: number) => void;
 export type HowlErrorCallback = (soundId: number, error: unknown) => void;
+export type SpatialOrientation = [number, number, number];
+export type SpatialPosition = [number, number, number];
+
+export enum State {
+    Unloaded = 'unloaded',
+    Loading = 'loading',
+    Loaded = 'loaded',
+}
 
 export interface SoundSpriteDefinitions {
     [name: string]: [number, number] | [number, number, boolean];
 }
 
+export interface PannerAttributes {
+    coneInnerAngle?: number | undefined;
+    coneOuterAngle?: number | undefined;
+    coneOuterGain?: number | undefined;
+    distanceModel?: 'inverse' | 'linear';
+    maxDistance?: number;
+    panningModel?: 'HRTF' | 'equalpower';
+    refDistance?: number;
+    rolloffFactor?: number;
+}
+
+export interface Sound {
+    (howl: Howl): this;
+}
+
 export interface HowlListeners {
-    /**
-     * Fires when the sound has been stopped. The first parameter is the ID of the sound.
-     */
+    /** Fires when the sound has been stopped. The first parameter is the ID of the sound. */
     onstop?: HowlCallback | undefined;
 
-    /**
-     * Fires when the sound has been paused. The first parameter is the ID of the sound.
-     */
+    /** Fires when the sound has been paused. The first parameter is the ID of the sound. */
     onpause?: HowlCallback | undefined;
 
-    /**
-     * Fires when the sound is loaded.
-     */
+    /** Fires when the sound is loaded. */
     onload?: HowlCallback | undefined;
 
-    /**
-     * Fires when the sound has been muted/unmuted. The first parameter is the ID of the sound.
-     */
+    /** Fires when the sound has been muted/unmuted. The first parameter is the ID of the sound. */
     onmute?: HowlCallback | undefined;
 
-    /**
-     * Fires when the sound's volume has changed. The first parameter is the ID of the sound.
-     */
+    /** Fires when the sound's volume has changed. The first parameter is the ID of the sound. */
     onvolume?: HowlCallback | undefined;
 
-    /**
-     * Fires when the sound's playback rate has changed. The first parameter is the ID of the sound.
-     */
+    /** Fires when the sound's playback rate has changed. The first parameter is the ID of the sound. */
     onrate?: HowlCallback | undefined;
 
-    /**
-     * Fires when the sound has been seeked. The first parameter is the ID of the sound.
-     */
+    /** Fires when the sound has been seeked. The first parameter is the ID of the sound. */
     onseek?: HowlCallback | undefined;
 
-    /**
-     * Fires when the current sound finishes fading in/out. The first parameter is the ID of the sound.
-     */
+    /** Fires when the current sound finishes fading in/out. The first parameter is the ID of the sound. */
     onfade?: HowlCallback | undefined;
 
-    /**
-     * Fires when audio has been automatically unlocked through a touch/click event.
-     */
+    /** Fires when audio has been automatically unlocked through a touch/click event. */
     onunlock?: HowlCallback | undefined;
 
     /**
@@ -66,18 +72,18 @@ export interface HowlListeners {
      */
     onend?: HowlCallback | undefined;
 
-    /**
-     * Fires when the sound begins playing. The first parameter is the ID of the sound.
-     */
+    /** Fires when the sound begins playing. The first parameter is the ID of the sound. */
     onplay?: HowlCallback | undefined;
 
     /**
-     * Fires when the sound is unable to load. The first parameter is the ID of the sound (if it exists) and the second is the error message/code.
+     * Fires when the sound is unable to load. The first parameter is the ID
+     * of the sound (if it exists) and the second is the error message/code.
      */
     onloaderror?: HowlErrorCallback | undefined;
 
     /**
-     * Fires when the sound is unable to play. The first parameter is the ID of the sound and the second is the error message/code.
+     * Fires when the sound is unable to play. The first parameter is
+     * the ID of the sound and the second is the error message/code.
      */
     onplayerror?: HowlErrorCallback | undefined;
 }
@@ -88,30 +94,25 @@ export interface HowlOptions extends HowlListeners {
      * be in order of preference, howler.js will automatically load the first one that is compatible
      * with the current browser. If your files have no extensions, you will need to explicitly specify
      * the extension using the format property.
-     *
-     * @default `[]`
      */
-    src?: string | string[] | undefined;
+    src: string | string[];
 
     /**
      * The volume of the specific track, from 0.0 to 1.0.
-     *
-     * @default `1.0`
+     * @default 1.0
      */
     volume?: number | undefined;
 
     /**
      * Set to true to force HTML5 Audio. This should be used for large audio files so that you don't
      * have to wait for the full file to be downloaded and decoded before playing.
-     *
-     * @default `false`
+     * @default false
      */
     html5?: boolean | undefined;
 
     /**
      * Set to true to automatically loop the sound forever.
-     *
-     * @default `false`
+     * @default false
      */
     loop?: boolean | undefined;
 
@@ -119,22 +120,19 @@ export interface HowlOptions extends HowlListeners {
      * Automatically begin downloading the audio file when the Howl is defined. If using HTML5 Audio,
      * you can set this to 'metadata' to only preload the file's metadata (to get its duration without
      * download the entire file, for example).
-     *
-     * @default `true`
+     * @default true
      */
     preload?: boolean | 'metadata' | undefined;
 
     /**
      * Set to true to automatically start playback when sound is loaded.
-     *
-     * @default `false`
+     * @default false
      */
     autoplay?: boolean | undefined;
 
     /**
      * Set to true to load the audio muted.
-     *
-     * @default `false`
+     * @default false
      */
     mute?: boolean | undefined;
 
@@ -142,17 +140,12 @@ export interface HowlOptions extends HowlListeners {
      * Define a sound sprite for the sound. The offset and duration are defined in milliseconds. A
      * third (optional) parameter is available to set a sprite as looping. An easy way to generate
      * compatible sound sprites is with audiosprite.
-     *
-     * @default `{}`
      */
-    sprite?: {
-        [name: string]: [number, number] | [number, number, boolean];
-    } | undefined;
+    sprite?: SoundSpriteDefinitions | undefined;
 
     /**
      * The rate of playback. 0.5 to 4.0, with 1.0 being normal speed.
-     *
-     * @default `1.0`
+     * @default 1.0
      */
     rate?: number | undefined;
 
@@ -162,18 +155,15 @@ export interface HowlOptions extends HowlListeners {
      * Generally this doesn't need to be changed. It is important to keep in mind that when a sound is
      * paused, it won't be removed from the pool and will still be considered active so that it can be
      * resumed later.
-     *
-     * @default `5`
+     * @default 5
      */
     pool?: number | undefined;
 
     /**
      * howler.js automatically detects your file format from the extension, but you may also specify a
      * format in situations where extraction won't work (such as with a SoundCloud stream).
-     *
-     * @default `[]`
      */
-    format?: string[] | undefined;
+    format?: string | string[] | undefined;
 
     /**
      * When using Web Audio, howler.js uses an XHR request to load the audio files. If you need to send
@@ -181,11 +171,13 @@ export interface HowlOptions extends HowlListeners {
      * this parameter. Each is optional (method defaults to GET, headers default to null and
      * withCredentials defaults to false).
      */
-    xhr?: {
-        method?: string | undefined;
-        headers?: Record<string, string> | undefined;
-        withCredentials?: true | undefined;
-    } | undefined;
+    xhr?:
+        | {
+              method?: string | undefined;
+              headers?: Record<string, string> | undefined;
+              withCredentials?: boolean | undefined;
+          }
+        | undefined;
 }
 
 export class Howl {
@@ -204,13 +196,11 @@ export class Howl {
 
     fade(from: number, to: number, duration: number, id?: number): this;
 
-    rate(): number;
-    rate(idOrSetRate: number): this | number;
-    rate(rate: number, id: number): this;
+    rate(id?: number): number;
+    rate(rate: number, id?: number): this;
 
-    seek(): number;
-    seek(idOrSetSeek: number): this | number;
-    seek(seek: number, id: number): this;
+    seek(id?: number): number;
+    seek(seek: number, id?: number): this;
 
     loop(id?: number): boolean;
     loop(loop: boolean, id?: number): this;
@@ -219,7 +209,7 @@ export class Howl {
     duration(id?: number): number;
     state(): 'unloaded' | 'loading' | 'loaded';
     load(): this;
-    unload(): void;
+    unload(): null;
 
     on(event: 'load', callback: () => void, id?: number): this;
     on(event: 'loaderror' | 'playerror', callback: HowlErrorCallback, id?: number): this;
@@ -246,44 +236,66 @@ export class Howl {
         callback?: HowlCallback,
         id?: number,
     ): this;
+    // off() also supports passing id as second argument: internally it is type checked and treated as an id if it is a number
+    off(
+        event:
+            | 'load'
+            | 'loaderror'
+            | 'playerror'
+            | 'play'
+            | 'end'
+            | 'pause'
+            | 'stop'
+            | 'mute'
+            | 'volume'
+            | 'rate'
+            | 'seek'
+            | 'fade'
+            | 'unlock',
+        id: number,
+    ): this;
     off(event?: string, callback?: HowlCallback | HowlErrorCallback, id?: number): this;
 
-    stereo(pan: number, id?: number): this | void;
-    pos(x: number, y: number, z: number, id?: number): this | void;
-    orientation(x: number, y: number, z: number, xUp: number, yUp: number, zUp: number): this | void;
-    pannerAttr(
-        o: {
-            coneInnerAngle?: number | undefined;
-            coneOuterAngle?: number | undefined;
-            coneOuterGain?: number | undefined;
-            distanceModel: 'inverse' | 'linear';
-            maxDistance: number;
-            panningModel: 'HRTF' | 'equalpower';
-            refDistance: number;
-            rolloffFactor: number;
-        },
-        id?: number,
-    ): this;
+    stereo(): number;
+    stereo(pan: number, id?: number): number | this;
+
+    pos(): SpatialPosition;
+    pos(x: number, y?: number, z?: number, id?: number): this;
+
+    orientation(): SpatialOrientation;
+    orientation(x: number, y?: number, z?: number, id?: number): this;
+
+    pannerAttr(id?: number): PannerAttributes;
+    pannerAttr(options: PannerAttributes, id?: number): this;
 }
 
-export interface Howler {
-    mute(muted: boolean): this;
-    stop(): this;
-    volume(): number;
-    volume(volume: number): this;
-    codecs(ext: string): boolean;
-    unload(): this;
-    usingWebAudio: boolean;
-    html5PoolSize: number;
-    noAudio: boolean;
-    autoUnlock: boolean;
-    autoSuspend: boolean;
-    ctx: AudioContext;
-    masterGain: GainNode;
+declare global {
+    class HowlerGlobal {
+        mute(muted: boolean): this;
+        stop(): this;
 
-    stereo(pan: number): this;
-    pos(x: number, y: number, z: number): this | void;
-    orientation(x: number, y: number, z: number, xUp: number, yUp: number, zUp: number): this | void;
+        volume(): number;
+        volume(volume: number): this;
+
+        codecs(ext: string): boolean;
+        unload(): this;
+        usingWebAudio: boolean;
+        html5PoolSize: number;
+        noAudio: boolean;
+        autoUnlock: boolean;
+        autoSuspend: boolean;
+        ctx: AudioContext;
+        masterGain: GainNode;
+
+        stereo(pan: number): this;
+
+        pos(): SpatialPosition;
+        pos(x: number, y?: number, z?: number): this;
+
+        orientation(): SpatialOrientation;
+        orientation(x: number, y?: number, z?: number, xUp?: number, yUp?: number, zUp?: number): this;
+    }
+    const Howler: HowlerGlobal;
 }
 
-export const Howler: Howler;
+export const Howler: HowlerGlobal;

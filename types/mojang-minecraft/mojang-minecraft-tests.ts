@@ -2,28 +2,28 @@
    Copyright (c) Microsoft Corporation.
    ***************************************************************************** */
 
-import * as mc from "mojang-minecraft";
+import * as mc from 'mojang-minecraft';
 
 function quickFoxLazyDog() {
-    const overworld = mc.world.getDimension("overworld");
+    const overworld = mc.world.getDimension('overworld');
 
-    const fox = overworld.spawnEntity("minecraft:fox", new mc.BlockLocation(1, 2, 3));
+    const fox = overworld.spawnEntity('minecraft:fox', new mc.BlockLocation(1, 2, 3));
     fox.addEffect(mc.MinecraftEffectTypes.speed, 10, 20);
 
-    const wolf = overworld.spawnEntity("minecraft:wolf", new mc.BlockLocation(4, 2, 3));
+    const wolf = overworld.spawnEntity('minecraft:wolf', new mc.BlockLocation(4, 2, 3));
     wolf.addEffect(mc.MinecraftEffectTypes.slowness, 10, 20);
     wolf.isSneaking = true;
 }
 
 function trapTick() {
     let ticks = 0;
-    const overworld = mc.world.getDimension("overworld");
+    const overworld = mc.world.getDimension('overworld');
 
     mc.world.events.tick.subscribe((event: mc.TickEvent) => {
         ticks++;
 
         if (ticks % 1800 === 0) {
-            overworld.runCommand("say Another minute passes...");
+            overworld.runCommand('say Another minute passes...');
         }
     });
 }
@@ -34,7 +34,7 @@ function itemStacks() {
     const noItemsLoc = new mc.BlockLocation(2, 2, 1);
     const diamondPickaxeLoc = new mc.BlockLocation(2, 2, 4);
 
-    const overworld = mc.world.getDimension("overworld");
+    const overworld = mc.world.getDimension('overworld');
 
     const oneEmerald = new mc.ItemStack(mc.MinecraftItemTypes.emerald, 1, 0);
     const onePickaxe = new mc.ItemStack(mc.MinecraftItemTypes.diamondPickaxe, 1, 0);
@@ -42,10 +42,10 @@ function itemStacks() {
 }
 
 function explosionTesting() {
-    const overworld = mc.world.getDimension("overworld");
+    const overworld = mc.world.getDimension('overworld');
     const center = new mc.BlockLocation(3, 3, 3);
 
-    const pigId = "minecraft:pig<minecraft:ageable_grow_up>";
+    const pigId = 'minecraft:pig<minecraft:ageable_grow_up>';
     const pigLoc = new mc.BlockLocation(3, 4, 3);
 
     overworld.spawnEntity(pigId, pigLoc);
@@ -56,7 +56,7 @@ function explosionTesting() {
 
     explosionOptions.breaksBlocks = false;
 
-    const creeper = overworld.spawnEntity("minecraft:creeper", new mc.BlockLocation(1, 2, 1));
+    const creeper = overworld.spawnEntity('minecraft:creeper', new mc.BlockLocation(1, 2, 1));
     explosionOptions.source = creeper;
 
     overworld.createExplosion(explosionLoc, 10, explosionOptions);
@@ -75,15 +75,15 @@ function explosionTesting() {
 
 function chatEvent() {
     const chatCallback = mc.world.events.beforeChat.subscribe((eventData: mc.BeforeChatEvent) => {
-        const overworld = mc.world.getDimension("overworld");
+        const overworld = mc.world.getDimension('overworld');
 
-        if (eventData.message === "!stopme") {
+        if (eventData.message === '!stopme') {
             eventData.sender.kill();
             eventData.cancel = true;
-        } else if (eventData.message === "!players") {
+        } else if (eventData.message === '!players') {
             overworld.runCommand(`say There are " + ${eventData.targets.length} players in the server.`);
             for (const target of eventData.targets) {
-                overworld.runCommand("say Player: " + target.name);
+                overworld.runCommand('say Player: ' + target.name);
             }
         } else {
             eventData.message = `Modified '${eventData.message}'`;
@@ -97,10 +97,12 @@ function pistonEvent() {
     const pistonLoc = new mc.BlockLocation(1, 2, 1);
     const planksLoc = new mc.BlockLocation(2, 2, 1);
 
-    const pistonCallback = mc.world.events.beforePistonActivate.subscribe((pistonEvent: mc.BeforePistonActivateEvent) => {
-        if (pistonEvent.piston.location.equals(pistonLoc)) {
-            pistonEvent.cancel = true;
-            canceled = true;
-        }
-    });
+    const pistonCallback = mc.world.events.beforePistonActivate.subscribe(
+        (pistonEvent: mc.BeforePistonActivateEvent) => {
+            if (pistonEvent.piston.location.equals(pistonLoc)) {
+                pistonEvent.cancel = true;
+                canceled = true;
+            }
+        },
+    );
 }

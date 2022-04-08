@@ -1,0 +1,11 @@
+export function isArrayOfType(value: any, ofType: any, index?: number): boolean;
+export function isNumber(x: any): boolean;
+export function arrayEqual(a: any, b: any, byOrder?: boolean): boolean;
+export function transpose(table: any): any[];
+export function makeGenerator(x: any): Generator<any, void, any>;
+export function iter(data: any, func: any, abort?: () => boolean): any[];
+export function chain(data: any, ...operations: any[]): any[];
+export function xSplit(stringToSplit: any, ...patterns: any[]): any;
+export function xReplace(stringToReplace: any, ...patterns: any[]): any;
+export function xContains(stringToFilter: any, ...patterns: any[]): any[];
+export function hashCode(str: any): number;

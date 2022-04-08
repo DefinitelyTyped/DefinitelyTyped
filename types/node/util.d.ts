@@ -6,7 +6,7 @@
  * ```js
  * const util = require('util');
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/util.js)
+ * @see [source](https://github.com/nodejs/node/blob/v17.0.0/lib/util.js)
  */
 declare module 'util' {
     import * as types from 'node:util/types';
@@ -139,7 +139,7 @@ declare module 'util' {
      *   console.error(name);  // ENOENT
      * });
      * ```
-     * @since v16.0.0
+     * @since v16.0.0, v14.17.0
      */
     export function getSystemErrorMap(): Map<number, [string, string]>;
     /**
@@ -159,7 +159,7 @@ declare module 'util' {
      * Returns the `string` after replacing any surrogate code points
      * (or equivalently, any unpaired surrogate code units) with the
      * Unicode "replacement character" U+FFFD.
-     * @since v16.8.0
+     * @since v16.8.0, v14.18.0
      */
     export function toUSVString(string: string): string;
     /**
@@ -317,7 +317,7 @@ declare module 'util' {
      * @return The representation of `object`.
      */
     export function inspect(object: any, showHidden?: boolean, depth?: number | null, color?: boolean): string;
-    export function inspect(object: any, options: InspectOptions): string;
+    export function inspect(object: any, options?: InspectOptions): string;
     export namespace inspect {
         let colors: NodeJS.Dict<[number, number]>;
         let styles: {

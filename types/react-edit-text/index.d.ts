@@ -1,7 +1,6 @@
-// Type definitions for react-edit-text 4.0
+// Type definitions for react-edit-text 4.4
 // Project: https://github.com/bymi15/react-edit-text#readme
 // Definitions by: Brian Min <https://github.com/bymi15>
-//                 sakana15 <https://github.com/sakana15>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as React from 'react';
@@ -27,48 +26,54 @@ export interface onSaveProps {
 
 export interface SharedProps {
     /**
-     * id attribute set for both input and div element
+     * id attribute set for both input and display element
      */
-    id?: string | undefined;
+    id?: string;
     /**
      * name attribute set for input element
      */
-    name?: string | undefined;
+    name?: string;
     /**
-     * className attribute set for both input and div element
+     * className attribute set for both input and display element
      */
-    className?: string | undefined;
+    className?: string;
     /**
-     * value sets the input value and display text of div element
+     * value sets the input value and text of display element
      */
-    value?: string | undefined;
+    value?: string;
     /**
-     * defaultValue sets the defaultValue for input element and initial display text of div element
+     * defaultValue sets the defaultValue for input element and initial text of display element
      */
-    defaultValue?: string | undefined;
+    defaultValue?: string;
     /**
-     * placeholder is displayed in the div element when value is empty
+     * placeholder is shown in the display element when value is empty
      */
-    placeholder?: string | undefined;
+    placeholder?: string;
+    /**
+     * formatDisplayText is used to pass in a function which takes in a value and returns a formatted value
+     * which is used to format the text shown in the display element
+     * default: (val) => val
+     */
+    formatDisplayText?: (value: string) => string;
     /**
      * onSave is called when the input blur event is triggered or enter key is pressed
      * returns an object: {name, value, previousValue} which correspond to the input name, value, and previous value before changes were made
      */
-    onSave?: (({ name, value, previousValue }: onSaveProps) => void) | undefined;
+    onSave?: ({ name, value, previousValue }: onSaveProps) => void;
     /**
      * onChange is called when the input value changes and
      * returns a string which corresponds to the new input value
      */
-    onChange?: ((value: string) => void) | undefined;
+    onChange?: (value: string) => void;
     /**
      * Sets the css styling for both input and div elements
      */
-    style?: React.CSSProperties | undefined;
+    style?: React.CSSProperties;
     /**
      * Displays only the view element when set to true,
      * default: false
      */
-    readonly?: boolean | undefined;
+    readonly?: boolean;
 }
 
 export interface EditTextProps extends SharedProps {
@@ -76,12 +81,27 @@ export interface EditTextProps extends SharedProps {
      * type attribute set for input element,
      * default: 'text'
      */
-    type?: inputTextType | undefined;
+    type?: inputTextType;
     /**
      * Sets the element display to inline when set to true,
      * default: false
      */
-    inline?: boolean | undefined;
+    inline?: boolean;
+    /**
+     * Displays an edit button that can be pressed to enable edit mode,
+     * default: false
+     */
+    showEditButton?: boolean;
+    /**
+     * Sets the content for the edit button. This can be any valid element,
+     * default: <EditIcon />
+     */
+    editButtonContent?: React.ReactNode;
+    /**
+     * Sets the props passed to the edit button. This can be any valid DOM attribute,
+     * default: {}
+     */
+    editButtonProps?: React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>;
 }
 
 export interface EditTextareaProps extends SharedProps {
@@ -89,7 +109,7 @@ export interface EditTextareaProps extends SharedProps {
      * the number of visible rows,
      * default: 3
      */
-    rows?: number | undefined;
+    rows?: number;
 }
 
 export class EditText extends React.Component<EditTextProps> {}

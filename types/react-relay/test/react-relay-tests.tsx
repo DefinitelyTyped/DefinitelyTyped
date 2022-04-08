@@ -163,7 +163,7 @@ type Story_story = {
     readonly id: string;
     readonly text: string;
     readonly isPublished: boolean;
-    readonly ' $refType': 'Story_story';
+    readonly ' $fragmentType': 'Story_story';
 };
 
 const Story = (() => {
@@ -172,6 +172,7 @@ const Story = (() => {
         story: Story_story;
         onLike: StoryLike;
         ignoreMe?: {} | undefined;
+        defaultProp: string;
     }
 
     interface State {
@@ -179,6 +180,10 @@ const Story = (() => {
     }
 
     class Story extends React.Component<Props> {
+        static defaultProps = {
+            defaultProp: 'default',
+        };
+
         state = {
             isLoading: false,
         };
@@ -295,15 +300,15 @@ type FeedStories_feed = {
     readonly edges: ReadonlyArray<{
         readonly node: {
             readonly id: string;
-            readonly ' $fragmentRefs': FragmentRefs<'Story_story' | 'FeedStories_feed'>;
+            readonly ' $fragmentSpreads': FragmentRefs<'Story_story' | 'FeedStories_feed'>;
         };
-        readonly ' $fragmentRefs': FragmentRefs<'FeedStory_edges'>;
+        readonly ' $fragmentSpreads': FragmentRefs<'FeedStory_edges'>;
     }>;
-    readonly ' $refType': 'FeedStories_feed';
+    readonly ' $fragmentType': 'FeedStories_feed';
 };
 type FeedStory_edges = ReadonlyArray<{
     readonly publishedAt: string;
-    readonly ' $refType': 'FeedStory_edges';
+    readonly ' $fragmentType': 'FeedStory_edges';
 }>;
 
 const Feed = (() => {
@@ -414,9 +419,9 @@ type UserFeed_user = {
             readonly endCursor?: string | null | undefined;
             readonly hasNextPage: boolean;
         };
-        readonly ' $fragmentRefs': FragmentRefs<'FeedStories_feed'>;
+        readonly ' $fragmentSpreads': FragmentRefs<'FeedStories_feed'>;
     };
-    readonly ' $refType': 'UserFeed_user';
+    readonly ' $fragmentType': 'UserFeed_user';
 };
 () => {
     interface Props {
@@ -424,9 +429,14 @@ type UserFeed_user = {
         loadMoreTitle: string;
         user: UserFeed_user;
         ignoreMe?: {} | undefined;
+        defaultProp: string;
     }
 
     class UserFeed extends React.Component<Props> {
+        static defaultProps = {
+            defaultProp: 'default',
+        };
+
         render() {
             const onStoryLike = (id: string) => console.log(`Liked story #${id}`);
             return (
@@ -707,7 +717,7 @@ requestSubscription(
 ReactRelayContext.Consumer.prototype;
 ReactRelayContext.Provider.prototype;
 
-const MyRelayContextProvider: React.FunctionComponent = ({children}) => {
+const MyRelayContextProvider: React.FunctionComponent<{ children?: React.ReactNode }> = ({children}) => {
     return (
         <ReactRelayContext.Provider
             value={{

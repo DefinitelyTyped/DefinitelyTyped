@@ -13,7 +13,7 @@
  * // Prints:
  * //   c0fa1bc00531bd78ef38c628449c5102aeabd49b5dc3a2a516ea6ea959d6658e
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/crypto.js)
+ * @see [source](https://github.com/nodejs/node/blob/v17.0.0/lib/crypto.js)
  */
 declare module 'crypto' {
     import * as stream from 'node:stream';
@@ -250,7 +250,7 @@ declare module 'crypto' {
      */
     function createHmac(algorithm: string, key: BinaryLike | KeyObject, options?: stream.TransformOptions): Hmac;
     // https://nodejs.org/api/buffer.html#buffer_buffers_and_character_encodings
-    type BinaryToTextEncoding = 'base64' | 'base64url' | 'hex';
+    type BinaryToTextEncoding = 'base64' | 'base64url' | 'hex' | 'binary';
     type CharacterEncoding = 'utf8' | 'utf-8' | 'utf16le' | 'latin1';
     type LegacyCharacterEncoding = 'ascii' | 'binary' | 'ucs2' | 'ucs-2';
     type Encoding = BinaryToTextEncoding | CharacterEncoding | LegacyCharacterEncoding;
@@ -3030,7 +3030,7 @@ declare module 'crypto' {
     /**
      * Generates a random [RFC 4122](https://www.rfc-editor.org/rfc/rfc4122.txt) version 4 UUID. The UUID is generated using a
      * cryptographic pseudorandom number generator.
-     * @since v15.6.0
+     * @since v15.6.0, v14.17.0
      */
     function randomUUID(options?: RandomUUIDOptions): string;
     interface X509CheckOptions {

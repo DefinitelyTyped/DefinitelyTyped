@@ -80,5 +80,4 @@ const test = (<DataTable
     tableWrapperStyle={tableWrapperStyle}
     headerToolbarMode={headerToolbarMode}
     filterValue={filterValue}
-    showHeaderToolbarFilterIcon={showHeaderToolbarFilterIcon}>
-</DataTable>);
+    showHeaderToolbarFilterIcon={showHeaderToolbarFilterIcon} />);

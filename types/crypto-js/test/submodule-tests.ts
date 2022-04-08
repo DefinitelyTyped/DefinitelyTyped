@@ -37,6 +37,7 @@ import EncUtf8 = require('crypto-js/enc-utf8');
 import EncHex = require('crypto-js/enc-hex');
 import EncUtf16 = require('crypto-js/enc-utf16');
 import EncBase64 = require('crypto-js/enc-base64');
+import EncBase64url = require('crypto-js/enc-base64url');
 // ---
 import ModeCFB = require('crypto-js/mode-cfb');
 import ModeCTR = require('crypto-js/mode-ctr');
@@ -66,6 +67,7 @@ hash = RIPEMD160('Message');
 
 // Hasing Output
 hash.toString(EncBase64);
+hash.toString(EncBase64url);
 hash.toString(EncHex);
 
 // Progressive Hashing
@@ -195,6 +197,8 @@ var plaintextPart5 = aesDecryptor.finalize();
 var words;
 words = EncBase64.parse('SGVsbG8sIFdvcmxkIQ==');
 var base64 = EncBase64.stringify(words);
+words = EncBase64url.parse('SGVsbG8sIFdvcmxkIQ');
+var base64url = EncBase64url.stringify(words);
 words = EncLatin1.parse('Hello, World!');
 var latin1 = EncLatin1.stringify(words);
 words = EncHex.parse('48656c6c6f2c20576f726c6421');
