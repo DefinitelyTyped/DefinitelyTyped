@@ -1,0 +1,12 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "dt-header": false,
+        "no-consecutive-blank-lines": false,
+        "no-redundant-undefined": false,
+        "prefer-const": false,
+        "semicolon": false,
+        "strict-export-declare-modifiers": false,
+        "typedef-whitespace": false
+    }
+}

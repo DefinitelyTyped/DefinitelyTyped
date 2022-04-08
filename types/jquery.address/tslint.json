@@ -1,0 +1,10 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "array-type": false,
+        "ban-types": false,
+        "no-trailing-whitespace": false,
+        "npm-naming": false,
+        "unified-signatures": false
+    }
+}

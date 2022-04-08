@@ -1,0 +1,8 @@
+{
+    "private": true,
+    "dependencies": {
+        "rxjs": "^5.5.5",
+        "redux": "^3.6.0",
+        "redux-observable": "^0.18.0"
+    }
+}

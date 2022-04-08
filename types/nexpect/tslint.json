@@ -1,0 +1,13 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "dt-header": false,
+        "interface-name": false,
+        "no-consecutive-blank-lines": false,
+        "one-line": false,
+        "semicolon": false,
+        "strict-export-declare-modifiers": false,
+        "trim-file": false,
+        "unified-signatures": false
+    }
+}

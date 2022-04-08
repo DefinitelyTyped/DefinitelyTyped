@@ -1,0 +1,30 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "paths": {
+            "@xmpp/*": [
+                "xmpp__*"
+            ]
+        },
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "jsx": "preserve"
+    },
+    "files": [
+        "index.d.ts",
+        "xmpp__xml-tests.ts",
+        "xmpp__xml-tests.tsx"
+    ]
+}

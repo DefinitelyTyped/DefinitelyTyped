@@ -1,0 +1,8 @@
+{
+    "private": true,
+    "dependencies": {
+        "cordova-plugin-camera": "^3.0.0",
+        "cordova-plugin-file": "^5.0.0",
+        "cordova-plugin-file-transfer": "^1.7.0"
+    }
+}

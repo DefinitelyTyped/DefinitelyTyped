@@ -1,0 +1,8 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "dt-header": false,
+        "no-trailing-whitespace": false,
+        "semicolon": false
+    }
+}

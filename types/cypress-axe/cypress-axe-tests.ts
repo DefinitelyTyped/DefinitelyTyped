@@ -1,0 +1,1 @@
+import 'cypress-axe';

@@ -1,0 +1,9 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "no-unnecessary-class": false,
+        "no-var-keyword": false,
+        "prefer-const": false,
+        "strict-export-declare-modifiers": false
+    }
+}

@@ -1,0 +1,12 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "dt-header": false,
+        "jsdoc-format": false,
+        "no-var-keyword": false,
+        "npm-naming": false,
+        "only-arrow-functions": false,
+        "strict-export-declare-modifiers": false,
+        "unified-signatures": false
+    }
+}

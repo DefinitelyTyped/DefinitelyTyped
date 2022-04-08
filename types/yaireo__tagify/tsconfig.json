@@ -1,0 +1,32 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "baseUrl": "../",
+        "jsx": "react",
+        "typeRoots": [
+            "../"
+        ],
+        "paths": {
+            "@yaireo/*": [
+                "yaireo__*"
+            ]
+        },
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true
+    },
+    "files": [
+        "index.d.ts",
+        "yaireo__tagify-tests.ts",
+        "test/yaireo__tagify-react-tests.tsx"
+    ]
+}

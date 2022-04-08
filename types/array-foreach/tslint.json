@@ -1,0 +1,8 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "array-type": false,
+        "jsdoc-format": false,
+        "object-literal-shorthand": false
+    }
+}

@@ -1,0 +1,16 @@
+{
+  "extends": "dtslint/dt.json",
+  "rules": {
+    "callable-types": true,
+    "deprecation": true,
+    "no-angle-bracket-type-assertion": true,
+    "prefer-function-over-method": true,
+    "no-shadowed-variable": true,
+    "no-floating-promises": true,
+    "no-inferred-empty-object-type": true,
+    "strict-type-predicates": true,
+    "restrict-plus-operands": true
+  }
+
+
+}

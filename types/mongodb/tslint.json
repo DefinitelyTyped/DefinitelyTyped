@@ -1,0 +1,19 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "await-promise": false,
+        "ban-types": false,
+        "comment-format": false,
+        "interface-name": false,
+        "interface-over-type-literal": false,
+        "new-parens": false,
+        "no-any-union": false,
+        "no-consecutive-blank-lines": false,
+        "no-padding": false,
+        "no-unnecessary-generics": false,
+        "object-literal-shorthand": false,
+        "space-before-function-paren": false,
+        "unified-signatures": false,
+        "npm-naming": [true,{"mode":"code","errors":[["NeedsExportEquals",false]]}]
+    }
+}

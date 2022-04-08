@@ -1,0 +1,14 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "dt-header": false,
+        "no-padding": false,
+        "no-redundant-jsdoc-2": false,
+        "no-var-keyword": false,
+        "only-arrow-functions": false,
+        "prefer-const": false,
+        "space-before-function-paren": false,
+        "typedef-whitespace": false,
+        "unified-signatures": false
+    }
+}

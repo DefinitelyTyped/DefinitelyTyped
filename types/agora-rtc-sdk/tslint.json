@@ -1,0 +1,10 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+      "unified-signatures": false,
+      "max-line-length": false,
+      "jsdoc-format": false,
+      "no-irregular-whitespace": false,
+      "array-type": false
+    }
+  }

@@ -1,0 +1,27 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es5",
+            "es2015.iterable",
+            "es2015.promise",
+            "webworker"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true,
+        "strictFunctionTypes": true
+    },
+    "files": [
+        "index.d.ts",
+        "websocket-async-tests.ts"
+    ]
+}

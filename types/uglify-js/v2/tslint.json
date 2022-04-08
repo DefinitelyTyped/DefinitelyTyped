@@ -1,0 +1,21 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "array-type": false,
+        "ban-types": false,
+        "comment-format": false,
+        "dt-header": false,
+        "export-just-namespace": false,
+        "max-line-length": false,
+        "no-consecutive-blank-lines": false,
+        "no-duplicate-variable": false,
+        "no-empty-interface": false,
+        "no-reference-import": false,
+        "no-var-keyword": false,
+        "object-literal-shorthand": false,
+        "one-line": false,
+        "only-arrow-functions": false,
+        "prefer-const": false,
+        "semicolon": false
+    }
+}

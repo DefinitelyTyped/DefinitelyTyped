@@ -1,0 +1,7 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "space-before-function-paren": false,
+        "no-single-declare-module": false
+    }
+}

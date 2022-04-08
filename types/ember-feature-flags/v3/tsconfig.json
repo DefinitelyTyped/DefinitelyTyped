@@ -1,0 +1,35 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": false,
+        "baseUrl": "../../",
+        "typeRoots": [
+            "../../"
+        ],
+        "paths": {
+            "ember": [
+                "ember/v2"
+            ],
+            "ember-feature-flags": [
+                "ember-feature-flags/v3"
+            ],
+            "ember-feature-flags/*": [
+                "ember-feature-flags/v3/*"
+            ]
+        },
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "ember-feature-flags-tests.ts"
+    ]
+}

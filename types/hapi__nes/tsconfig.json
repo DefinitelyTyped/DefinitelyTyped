@@ -1,0 +1,40 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": false,
+        "strictFunctionTypes": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "paths": {
+            "@hapi/*": [
+                "hapi__*"
+            ]
+        },
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "test/client-require.ts",
+        "test/hapi__nes-tests.ts",
+        "test/broadcast-client.ts",
+        "test/broadcast-server.ts",
+        "test/route-authentication-client.ts",
+        "test/route-authentication-server.ts",
+        "test/route-invocation-client.ts",
+        "test/route-invocation-server.ts",
+        "test/socket.ts",
+        "test/subscription-filter-client.ts",
+        "test/subscription-filter-server.ts",
+        "test/subscriptions-client.ts",
+        "test/subscriptions-server.ts"
+    ]
+}

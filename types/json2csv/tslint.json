@@ -1,0 +1,12 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "array-type": false,
+        "jsdoc-format": false,
+        "member-access": false,
+        "no-duplicate-imports": false,
+        "no-redundant-jsdoc-2": false,
+        "strict-export-declare-modifiers": false,
+        "typedef-whitespace": false
+    }
+}

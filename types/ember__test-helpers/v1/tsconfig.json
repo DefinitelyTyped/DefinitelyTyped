@@ -1,0 +1,29 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../../",
+        "typeRoots": [
+            "../../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@ember/test-helpers": ["ember__test-helpers/v1"],
+            "@ember/test-helpers/*": ["ember__test-helpers/v1/*"],
+            "@ember/*": ["ember__*"]
+        }
+    },
+    "files": [
+        "index.d.ts",
+        "ember__test-helpers-tests.ts"
+    ]
+}

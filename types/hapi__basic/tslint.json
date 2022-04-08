@@ -1,0 +1,8 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "no-padding": false,
+        "prefer-const": false,
+        "semicolon": false
+    }
+}

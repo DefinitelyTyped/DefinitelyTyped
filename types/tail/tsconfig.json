@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "lib": ["es2015", "dom"],
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "strictFunctionTypes": true,
+    "strictNullChecks": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "baseUrl": "../",
+    "typeRoots": ["../"],
+    "types": []
+  },
+  "files": [
+    "index.d.ts",
+    "tail-tests.ts"
+  ]
+}

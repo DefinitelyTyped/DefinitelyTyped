@@ -1,0 +1,7 @@
+{
+  "private": true,
+  "dependencies": {
+    "@emotion/core": "^10.0.0",
+    "@emotion/styled": "^10.0.0"
+  }
+}

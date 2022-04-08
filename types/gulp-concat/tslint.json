@@ -1,0 +1,8 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "dt-header": false,
+        "interface-name": false,
+        "no-consecutive-blank-lines": false
+    }
+}
