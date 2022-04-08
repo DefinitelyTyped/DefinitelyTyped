@@ -1276,10 +1276,66 @@ import { promisify } from 'node:util';
 }
 
 {
-    // tslint:disable-next-line no-object-literal-type-assertion (webcrypto.CryptoKey is a placeholder)
-    crypto.KeyObject.from({} as crypto.webcrypto.CryptoKey); // $ExpectType KeyObject
+    crypto.generateKeySync('aes', { length: 128 }); // $ExpectType KeyObject
 }
 
 {
-    crypto.generateKeySync('aes', { length: 128 }); // $ExpectType KeyObject
+    const uuid: string = crypto.webcrypto.randomUUID();
+    const random: Uint8Array = crypto.webcrypto.getRandomValues(new Uint8Array(12));
+}
+
+{
+    (async () => {
+        const cryptoKey = await crypto.webcrypto.subtle.generateKey('', false, []);
+        if ('type' in cryptoKey) {
+            crypto.KeyObject.from(cryptoKey); // $ExpectType KeyObject
+        } else {
+            crypto.KeyObject.from(cryptoKey.publicKey); // $ExpectType KeyObject
+            crypto.KeyObject.from(cryptoKey.privateKey); // $ExpectType KeyObject
+        }
+    })();
+}
+
+{
+    // importKey, exportKey
+    const algorithm = { name: 'ECDSA', hash: 'SHA-256' };
+    crypto.webcrypto.subtle.importKey('spki', new Uint8Array(/* spki */), algorithm, false, ['verify']).then(async (key) => {
+        const exportedKey: ArrayBuffer = await crypto.webcrypto.subtle.exportKey('spki', key);
+    });
+    crypto.webcrypto.subtle.importKey('pkcs8', new Uint8Array(/* pkcs8 */), algorithm, false, ['sign']).then(async (key) => {
+        const exportedKey: ArrayBuffer = await crypto.webcrypto.subtle.exportKey('pkcs8', key);
+    });
+    crypto.webcrypto.subtle.importKey('raw', new Uint8Array(), algorithm, false, ['sign']).then(async (key) => {
+        const exportedKey: ArrayBuffer = await crypto.webcrypto.subtle.exportKey('raw', key);
+    });
+    crypto.webcrypto.subtle.importKey('jwk', { kty: 'EC', /* JWK */ }, algorithm, false, ['sign']).then(async (key) => {
+        const exportedKey = await crypto.webcrypto.subtle.exportKey('jwk', key); // $ExpectType JsonWebKey
+        exportedKey.alg; // $ExpectType string | undefined
+        exportedKey.crv; // $ExpectType string | undefined
+        exportedKey.d; // $ExpectType string | undefined
+        exportedKey.dp; // $ExpectType string | undefined
+        exportedKey.dq; // $ExpectType string | undefined
+        exportedKey.e; // $ExpectType string | undefined
+        exportedKey.ext; // $ExpectType boolean | undefined
+        exportedKey.k; // $ExpectType string | undefined
+        exportedKey.key_ops; // $ExpectType string[] | undefined
+        exportedKey.kty; // $ExpectType string | undefined
+        exportedKey.n; // $ExpectType string | undefined
+        exportedKey.p; // $ExpectType string | undefined
+        exportedKey.q; // $ExpectType string | undefined
+        exportedKey.qi; // $ExpectType string | undefined
+        exportedKey.use; // $ExpectType string | undefined
+        exportedKey.x; // $ExpectType string | undefined
+        exportedKey.y; // $ExpectType string | undefined
+    });
+}
+
+{
+    // sign, verify
+    const algorithm = { name: 'ECDSA', hash: 'SHA-256' };
+    const data = Buffer.from('data');
+    crypto.webcrypto.subtle.importKey('spki', new Uint8Array(/* spki */), algorithm, false, ['verify']).then(async (key) => {
+        const sig: ArrayBuffer = await crypto.webcrypto.subtle.sign(algorithm, key, data);
+        const result: boolean = await crypto.webcrypto.subtle.verify(algorithm, key, sig, data);
+    });
 }

@@ -168,3 +168,18 @@ const cryptoKeyObj: webcrypto.CryptoKey | number = new webcrypto.CryptoKey();
 if (types.isCryptoKey(cryptoKeyObj)) {
     cryptoKeyObj; // $ExpectType CryptoKey
 }
+
+{
+    (async () => {
+        const cryptoKey = await webcrypto.subtle.generateKey('', false, []);
+        if (types.isCryptoKey(cryptoKey)) {
+            cryptoKey; // $ExpectType CryptoKey
+        } else {
+            for (const cryptoKeyObj of [cryptoKey.privateKey, cryptoKey.publicKey]) {
+                if (types.isCryptoKey(cryptoKeyObj)) {
+                    cryptoKeyObj; // $ExpectType CryptoKey
+                }
+            }
+        }
+    })();
+}

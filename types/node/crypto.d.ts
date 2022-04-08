@@ -3299,7 +3299,11 @@ declare module 'crypto' {
      */
     function checkPrimeSync(candidate: LargeNumberLike, options?: CheckPrimeOptions): boolean;
     namespace webcrypto {
-        class CryptoKey {} // placeholder
+        export {};
+        export import CryptoKey = globalThis.CryptoKey;
+        export const subtle: globalThis.SubtleCrypto;
+        export function getRandomValues<T extends ArrayBufferView | null>(array: T): T;
+        export function randomUUID(): string;
     }
 }
 declare module 'node:crypto' {
