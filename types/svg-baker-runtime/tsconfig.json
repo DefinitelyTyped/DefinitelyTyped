@@ -3,12 +3,12 @@
         "module": "commonjs",
         "lib": [
             "es6",
-            "dom"
+            "DOM"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": true,
         "strictFunctionTypes": true,
+        "strictNullChecks": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -19,7 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "test/twemoji-tests.common-js.ts",
-        "test/twemoji-tests.global.ts"
+        "svg-baker-runtime-tests.ts"
     ]
 }

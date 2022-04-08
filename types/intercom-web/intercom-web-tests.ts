@@ -119,5 +119,21 @@ intercomSettings = {
     vertical_padding: 20,
 };
 
+/*
+From https://www.intercom.com/help/en/articles
+        /179-send-custom-user-attributes-to-intercom
+*/
+intercomSettings = {
+    email: 'bob@example.com',
+    user_id: '123',
+    app_id: 'abc1234',
+    created_at: 1234567890,
+    subdomain: 'intercom',
+    teammates: 4,
+    active_accounts: 12,
+    last_order_at: 1350466020,
+    custom_domain: null,
+};
+
 // $ExpectError
-Intercom('update', { some: 'invalid properties' });
+Intercom('update', { some: { value: 'invalid properties' } });

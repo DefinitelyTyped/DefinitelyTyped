@@ -122,6 +122,39 @@ staticMapService.getStaticImage({
     ],
 });
 
+staticMapService.getStaticImage({
+    ownerId: 'owner-id',
+    styleId: 'some-style',
+    width: 16,
+    height: 16,
+    position: 'auto',
+    addlayer: {
+        id: 'better-boundary',
+        type: 'line',
+        source: 'composite',
+        'source-layer': 'admin',
+        filter: [
+            'all',
+            ['==', ['get', 'admin_level'], 1],
+            ['==', ['get', 'maritime'], 'false'],
+            ['match', ['get', 'worldview'], ['all', 'US'], true, false],
+        ],
+        layout: { 'line-join': 'bevel' },
+        paint: { 'line-color': '%236898B3', 'line-width': 1.5, 'line-dasharray': [1.5, 1] },
+    },
+    before_layer: 'road-label',
+});
+
+staticMapService.getStaticImage({
+    ownerId: 'owner-id',
+    styleId: 'some-style',
+    width: 16,
+    height: 16,
+    position: 'auto',
+    setfilter: ['>', 'height', 300],
+    layer_id: 'building',
+});
+
 const geocodeService: GeocodeService = Geocoding(config);
 geocodeService.forwardGeocode({
     bbox: [1, 2, 3, 4],

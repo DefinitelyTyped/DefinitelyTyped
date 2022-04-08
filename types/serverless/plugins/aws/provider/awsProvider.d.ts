@@ -451,12 +451,44 @@ declare namespace Aws {
         enabled?: boolean | undefined;
     }
 
+    type NumericFilter =
+        | ['=', number]
+        | ['<', number]
+        | ['<=', number]
+        | ['>', number]
+        | ['>=', number]
+        | ['>', number, '<', number]
+        | ['>=', number, '<', number]
+        | ['>', number, '<=', number]
+        | ['>=', number, '<=', number];
+
+    type Filter =
+        /* Null */
+        | null
+        /* Empty */
+        | ""
+        /* String equality */
+        | string
+        /* Not */
+        | { 'anything-but': Filter[] }
+        /* Numeric */
+        | { numeric: NumericFilter }
+        /* Exists */
+        | { exists: boolean }
+        /* Begins with */
+        | { prefix: string };
+
+    interface FilterPattern {
+        [k: string]: FilterPattern | Filter[];
+    }
+
     interface Stream {
         arn: string | { [key: string]: any };
         batchSize?: number | string | undefined;
         startingPosition?: number | string | undefined;
         enabled?: boolean | undefined;
         type?: 'dynamodb' | 'kinesis' | undefined;
+        filterPatterns?: FilterPattern[] | undefined;
     }
 
     interface Msk {

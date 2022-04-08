@@ -120,7 +120,7 @@ class App extends React.Component {
               current_user_name: 'John Doe',
             },
             designTagsConfig: {
-              delimeter: ['[[', ']]'],
+              delimiter: ['[[', ']]'],
             },
             tools: TOOLS_CONFIG,
             blocks: [],
