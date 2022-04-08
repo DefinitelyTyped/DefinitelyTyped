@@ -5,38 +5,35 @@
 
 import { KeyframesObject, FontFace as FontFaceObject, StandardEngine, StyleObject } from 'styletron-standard';
 
-declare class SequentialIDGenerator {
+export interface SequentialIDGenerator {
     prefix: string;
     count: number;
     offset: number;
     msb: number;
     power: number;
-    constructor(prefix: string);
     next(): string;
     increment(): number;
 }
 
-declare class Cache<T> {
+export interface Cache<T> {
     cache: { [key: string]: string };
     idGenerator: SequentialIDGenerator;
     key: string;
     onNewValue: (cache: Cache<T>, id: string, value: any) => any;
-    constructor(idGenerator: SequentialIDGenerator, onNewValue: (cache: Cache<T>, id: string, value: any) => any);
     addValue(key: string, value: T): number;
 }
-declare class MultiCache<T> {
+export interface MultiCache<T> {
     caches: { [key: string]: Cache<T> };
     idGenerator: SequentialIDGenerator;
     onNewCache: (key: string, cache: Cache<T>, insertAtIndex: number) => any;
     onNewValue: (cache: Cache<T>, id: string, value: T) => any;
     sortedCacheKeys: string[];
-    constructor(idGenerator: SequentialIDGenerator, onNewCache: () => any, onNewValue: () => any);
     getCache(key: string): Cache<T>;
     getSortedCacheKeys(): string[];
 }
 
-declare type hydrateType = HTMLCollectionOf<HTMLStyleElement> | HTMLStyleElement[] | NodeListOf<HTMLStyleElement>;
-declare interface Sheet {
+export type HydrateType = HTMLCollectionOf<HTMLStyleElement> | HTMLStyleElement[] | NodeListOf<HTMLStyleElement>;
+export interface Sheet {
     css: string;
     attrs: { [key: string]: string };
 }
