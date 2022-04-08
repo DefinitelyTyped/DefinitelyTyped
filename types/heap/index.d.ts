@@ -16,12 +16,12 @@ declare class Heap<T> {
     insert(item: T): void;
 
     // Pop the smallest item off the heap and return it.
-    pop(): T;
+    pop(): T | undefined;
 
     // Return the smallest item of the heap.
-    peek(): T;
-    top(): T;
-    front(): T;
+    peek(): T | undefined;
+    top(): T | undefined;
+    front(): T | undefined;
 
     // Pop and return the current smallest value, and add the new item.
     // This is more efficient than pop() followed by push(), and can be more appropriate when using a fixed size heap.
