@@ -6,7 +6,7 @@
 
 import { KeyframesObject, FontFace as FontFaceObject, StandardEngine, StyleObject } from 'styletron-standard';
 
-export class SequentialIDGenerator {
+declare class SequentialIDGenerator {
     prefix: string;
     count: number;
     offset: number;
@@ -17,7 +17,7 @@ export class SequentialIDGenerator {
     increment(): number;
 }
 
-export class Cache<T> {
+declare class Cache<T> {
     cache: { [key: string]: string };
     idGenerator: SequentialIDGenerator;
     key: string;
@@ -25,7 +25,7 @@ export class Cache<T> {
     constructor(idGenerator: SequentialIDGenerator, onNewValue: (cache: Cache<T>, id: string, value: any) => any);
     addValue(key: string, value: T): number;
 }
-export class MultiCache<T> {
+declare class MultiCache<T> {
     caches: { [key: string]: Cache<T> };
     idGenerator: SequentialIDGenerator;
     onNewCache: (key: string, cache: Cache<T>, insertAtIndex: number) => any;
@@ -36,8 +36,8 @@ export class MultiCache<T> {
     getSortedCacheKeys(): string[];
 }
 
-export type hydrateType = HTMLCollectionOf<HTMLStyleElement> | HTMLStyleElement[] | NodeListOf<HTMLStyleElement>;
-export interface Sheet {
+declare type hydrateType = HTMLCollectionOf<HTMLStyleElement> | HTMLStyleElement[] | NodeListOf<HTMLStyleElement>;
+declare interface Sheet {
     css: string;
     attrs: { [key: string]: string };
 }
