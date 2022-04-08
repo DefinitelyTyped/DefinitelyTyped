@@ -3,12 +3,6 @@
 // Definitions by: Younes A <https://github.com/younes-io>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/*~ If this module is a UMD module that exposes a global variable 'myLib' when
- *~ loaded outside a module loader environment, declare that global here.
- *~ Otherwise, delete this declaration.
- */
-
-/*~ You can declare types that are available via importing the module */
 export interface StrategyOptions {
     [key: string]: any;
 }
