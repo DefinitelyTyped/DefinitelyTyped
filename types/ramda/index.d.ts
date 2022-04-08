@@ -763,6 +763,17 @@ export function constructN<A extends any[], T>(
 ): (...a: Partial<A>) => T;
 
 /**
+ * Returns `true` if the specified item is somewhere in the list, `false` otherwise.
+ * Equivalent to `indexOf(a)(list) > -1`. Uses strict (`===`) equality checking.
+ *
+ * @deprecated since 0.26 in favor of includes
+ */
+ export function contains(a: string, list: string): boolean;
+ export function contains<T>(a: T, list: readonly T[]): boolean;
+ export function contains(a: string): (list: string) => boolean;
+ export function contains<T>(a: T): (list: readonly T[]) => boolean;
+
+/**
  * Accepts a converging function and a list of branching functions and returns a new
  * function. When invoked, this new function is applied to some arguments, each branching
  * function is applied to those same arguments. The results of each branching function
@@ -1638,6 +1649,16 @@ export function memoizeWith<T extends (...args: readonly any[]) => any>(
     keyFn: (...v: Parameters<T>) => string,
     fn: T,
 ): T;
+
+/**
+ * Create a new object with the own properties of a
+ * merged with the own properties of object b.
+ * This function will *not* mutate passed-in objects.
+ *
+ * @deprecated since 0.26 in favor of mergeRight
+ */
+ export function merge<O1 extends object, O2 extends object>(a: O1, b: O2): Merge<O2, O1, 'flat'>;
+ export function merge<O1 extends object>(a: O1): <O2 extends object>(b: O2) => Merge<O2, O1, 'flat'>;
 
 /**
  * Merges a list of objects together into one object.
