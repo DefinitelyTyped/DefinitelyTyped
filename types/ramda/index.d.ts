@@ -173,7 +173,11 @@ export function allPass<T, TF1 extends T, TF2 extends T, TF3 extends T, TF4 exte
         PredTypeguard<T, TF6>,
     ],
 ): PredTypeguard<T, TF1 & TF2 & TF3 & TF4 & TF5 & TF6>;
-export function allPass<F extends Pred>(preds: readonly F[]): F;
+// For inference, so should be first. Works with generics and overloads
+export function allPass<Pred extends (...args: any[]) => unknown, _Overload extends 'pred' = 'pred'>(preds: readonly Pred[]): Pred;
+// For manually specifying parameters
+export function allPass<Args extends unknown[], _Overload extends 'args' = 'args'>(preds: ReadonlyArray<(...args: Args) => boolean>): (...args: Args) => boolean;
+export function allPass<T, _Overload extends 'arg' = 'arg'>(preds: ReadonlyArray<(value: T) => boolean>): (value: T) => boolean;
 
 /**
  * Returns a function that always returns the given value.
@@ -252,7 +256,11 @@ export function anyPass<T, TF1 extends T, TF2 extends T, TF3 extends T, TF4 exte
         PredTypeguard<T, TF6>,
     ],
 ): PredTypeguard<T, TF1 | TF2 | TF3 | TF4 | TF5 | TF6>;
-export function anyPass<F extends Pred>(preds: readonly F[]): F;
+// For inference, so should be first. Works with generics and overloads
+export function anyPass<Pred extends (...args: any[]) => unknown, _Overload extends 'pred' = 'pred'>(preds: readonly Pred[]): Pred;
+// For manually specifying parameters
+export function anyPass<Args extends unknown[], _Overload extends 'args' = 'args'>(preds: ReadonlyArray<(...args: Args) => boolean>): (...args: Args) => boolean;
+export function anyPass<T, _Overload extends 'arg' = 'arg'>(preds: ReadonlyArray<(value: T) => boolean>): (value: T) => boolean;
 
 /**
  * ap applies a list of functions to a list of values.
@@ -2069,6 +2077,9 @@ export function pipe<TArgs extends any[], R1, R2>(
     f1: (...args: TArgs) => R1,
     f2: (a: R1) => R2,
 ): (...args: TArgs) => R2;
+// For inference, so should be first. Works with generics and overloads
+// Useful for seeing which overload is picked by default
+export function pipe<F extends (...args: any[]) => unknown>(f1: F): F;
 export function pipe<TArgs extends any[], R1>(f1: (...args: TArgs) => R1): (...args: TArgs) => R1;
 // tslint:enable:max-line-length
 
