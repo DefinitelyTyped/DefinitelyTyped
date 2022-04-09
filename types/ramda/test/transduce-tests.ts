@@ -1,17 +1,10 @@
 import * as R from 'ramda';
 
-const getKeys = <K extends string>(key: K) => R.map(R.prop(key));
-
-
-
-
-const results = getKeys('a');
-
 () => {
     const numbers = [1, 2, 3, 4];
     // $ExpectType (list: readonly number[]) => number[]
-    const transducer = R.compose(R.map(R.add(1)), R.take<number>(2));
-    const fn = R.flip<number, readonly number[], number[]>(R.append);
+    const transducer = R.compose(R.map<number, number, 'array'>(R.add(1)), R.take<number>(2));
+    const fn = R.flip(R.append);
     // $ExpectType number[]
     R.transduce(transducer, fn, [], numbers); // => [2, 3]
     // $ExpectType number[]

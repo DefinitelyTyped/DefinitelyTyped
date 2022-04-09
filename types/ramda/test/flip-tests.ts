@@ -13,9 +13,12 @@ import * as R from 'ramda';
 () => {
     const point = { x: 0, y: 0 };
     const pointHas = R.flip(R.has)(point);
-    const b1: boolean = pointHas('x'); // => true
-    const b2: boolean = pointHas('y'); // => true
-    const b3: boolean = pointHas('z'); // => false
+    // $ExpectType boolean
+    pointHas('x'); // => true
+    // $ExpectType boolean
+    pointHas('y'); // => true
+    // $ExpectType boolean
+    pointHas('z'); // => false
 };
 
 () => {
@@ -31,6 +34,7 @@ import * as R from 'ramda';
     }
 
     const square = new Rectangle(2, 2);
+    // $ExpectType boolean
     R.flip(R.hasIn)(square)('area'); // => true
 };
 

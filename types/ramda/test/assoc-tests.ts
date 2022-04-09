@@ -6,6 +6,7 @@ import * as R from 'ramda';
         b: number;
         c: number;
     }
+    // `const a: Type` is kept here since the return type is quite complex
     // $ExpectType Record<"c", number> & Omit<{ a: number; b: number; }, "c">
     const a: ABC = R.assoc('c', 3, { a: 1, b: 2 }); // => {a: 1, b: 2, c: 3}
     // $ExpectType Record<"c", number> & Omit<{ a: number; b: number; }, "c">

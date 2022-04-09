@@ -18,21 +18,29 @@ import { A, M, O, T } from 'ts-toolbelt';
 
 /**
  * <needs description>
+ *
+ * @deprecated Use `() => unknown` instead.
  */
 export type Arity0Fn = () => any;
 
 /**
  * <needs description>
+ *
+ * @deprecated Use `(a: any) => unknown` instead.
  */
 export type Arity1Fn = (a: any) => any;
 
 /**
  * <needs description>
+ *
+ * @deprecated Use `(a: any, b: any) => unknown` instead.
  */
 export type Arity2Fn = (a: any, b: any) => any;
 
 /**
  * <needs description>
+ *
+ * @deprecated Unused.
  */
 export interface ArrayLike {
     nodeType: number;
@@ -54,6 +62,8 @@ export type AtLeastOneFunctionsFlowFromRightToLeft<TArgs extends any[], TResult>
 
 /**
  * <needs description>
+ *
+ * @deprecated Unused.
  */
 export interface CharList extends String {
     push(x: string): void;

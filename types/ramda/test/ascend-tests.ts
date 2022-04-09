@@ -11,6 +11,10 @@ import * as R from 'ramda';
 
     // $ExpectType (a: Book, b: Book) => Ordering
     const comparatorBookPrice = R.ascend(getBookPrice);
+    // $ExpectType (a: Book, b: Book) => Ordering
+    R.ascend<Book>(getBookPrice);
+    // $ExpectError
+    R.ascend<number>(getBookPrice);
 
     const book1 = { id: 1, name: 'Hello, Typescript', price: 42 };
     const book2 = { id: 2, name: 'Deep in Haskell', price: 96 };

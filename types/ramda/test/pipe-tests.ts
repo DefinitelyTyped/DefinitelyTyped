@@ -41,22 +41,22 @@ function shout(x: number): string {
         return n % 2 === 0;
     }
 
-    // $ExpectType Record<string, number>
+    // $ExpectType Record<"a" | "b", 0 | 1>
     R.pipe(R.filter(isEven))({
         a: 0,
         b: 1,
     }); // => { a: 0 }
 
-    // $ExpectType number[]
+    // $ExpectType (0 | 1)[]
     R.pipe(R.filter(isEven))([0, 1]); // => [0]
 
-    // $ExpectType Record<string, number>
+    // $ExpectType Record<string, 0 | 1>
     R.pipe(R.reject(isEven))({
         a: 0,
         b: 1,
     }); // => { b: 1 }
 
-    // $ExpectType number[]
+    // $ExpectType (0 | 1)[]
     R.pipe(R.reject(isEven))([0, 1]); // => [1]
 };
 
@@ -101,7 +101,7 @@ function shout(x: number): string {
     ];
     // $ExpectType { [x: string]: string; }
     R.pipe(
-        R.map((x: Book) => x.title),
+        R.map<Book, string, 'array'>((x: Book) => x.title),
         R.indexBy(x => x),
     )(list);
 };

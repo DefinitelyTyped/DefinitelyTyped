@@ -1794,27 +1794,25 @@ export function F(...args: unknown[]): false;
  * R.filter(isEven, {a: 1, b: 2, c: 3, d: 4}); //=> {b: 2, d: 4}
  * ```
  */
+// No catch-all overload at the bottom since 
 export function filter<T, U extends T>(
     pred: (val: T) => val is U,
 ): {
+    <V extends T, K extends string = string>(collection: Record<K, V>): Record<K, U>;
     <V extends T>(list: readonly V[]): U[];
-    <V extends T>(collection: Record<string, V>): Record<string, U>;
 };
 export function filter<T>(pred: (value: T) => boolean): {
+    <U extends T, K extends string = string>(collection: Record<K, U>): Record<K, U>;
     <U extends T>(list: readonly U[]): U[];
-    // TODO: more K extends string
-    <K extends string, U extends T>(collection: Record<K, U>): Record<K, U>;
-    <U extends T>(collection: Record<string, U>): Record<string, U>;
-    // TODO: remove readonly?
-    <C extends readonly T[] | Record<string, T>>(collection: C): C;
 };
 export function filter<T, U extends T>(
     pred: (val: T) => val is U,
     collection: Readonly<Record<string, T>>,
 ): Record<string, U>;
-export function filter<T, U extends T>(pred: (val: T) => val is U, list: readonly T[]): U[];
-export function filter<T>(pred: (value: T) => boolean, collection: Record<string, T>): Record<string, T>;
+export function filter<T, U extends T>(pred: (value: T) => value is U, list: readonly T[]): U[];
+export function filter<T, U extends T, K extends string = string>(pred: (value: T) => value is U, collection: Record<K, T>): Record<K, U>;
 export function filter<T>(pred: (value: T) => boolean, collection: readonly T[]): T[];
+export function filter<T>(pred: (value: T) => boolean, collection: Record<string, T>): Record<string, T>;
 export function filter<T, C extends readonly T[] | Record<string, T>>(pred: (val: T) => boolean, collection: C): C;
 
 /**
@@ -1920,7 +1918,30 @@ export function flatten<T extends readonly unknown[]>(list: T): _.T.Flatten<T>;
  * R.flip(mergeThree)(1, 2, 3); //=> [2, 1, 3]
  * ```
  */
-export function flip<T, U, R>(fn: (arg0: T, arg1: U) => R): (arg1: U, arg0?: T) => R;
+// Type inlined because it is only used here
+// A bit complicated because it preserves names.
+type Flip<T extends unknown[]> = T extends [unknown, unknown, ...infer Rest]
+    ? T extends [unknown, ...infer Second, ...Rest]
+    ? T extends [...infer First, ...Second, ...Rest]
+    ? [...Second, ...First, ...Rest]
+    : never
+    : never
+    : never;
+export function flip<Args extends [unknown, unknown], First extends [unknown], Second extends [unknown], R>(fn: {
+    (...args: Args): R;
+    (...first: First): (...second: Second) => R;
+}): {
+    (...args: Flip<Args>): R;
+    (...second: Second): (...first: First) => R;
+};
+export function flip<T, U, R>(fn: {
+    (a: T, b: U): R;
+    (a: T): (b: U) => R;
+}): {
+    (b: U, a: T): R;
+    (b: U): (a: T) => R;
+};
+export function flip<T, U, R>(fn: (a: T, b: U) => R): (b: U, a: T) => R;
 export function flip<F extends (...args: any[]) => unknown, P extends _.F.Parameters<F>>(
     fn: F,
 ): _.F.Curry<(...args: _.T.Merge<[P[1], P[0]], P>) => _.F.Return<F>>;
@@ -2912,6 +2933,7 @@ export function lte(a: number): (b: number) => boolean;
  * R.map(double, {x: 1, y: 2, z: 3}); //=> {x: 2, y: 4, z: 6}
  * ```
  */
+// Repeated overload since 
 export function map<T, U>(fn: (x: T) => U, list: readonly T[]): U[];
 export function map<K extends string, T, U>(fn: (x: T) => U, collection: Record<K, T>): Record<K, U>;
 export function map<T, U>(fn: (x: T) => U, collection: Record<string, T>): Record<string, U>;
@@ -2921,21 +2943,20 @@ export function map<T, U, C extends readonly T[] | Record<string, T>>(
     collection: C,
 ): C extends readonly unknown[] ? U[] : Record<keyof C, U>;
 // TODO: what is this for?
-export function map<T, U>(fn: (x: T[keyof T & keyof U] | ValueOfUnion<T>) => U[keyof T & keyof U], list: T): U;
-export function map<T, U>(fn: (x: T[keyof T & keyof U] | ValueOfUnion<T>) => U[keyof T & keyof U]): (list: T) => U;
+// export function map<T, U>(fn: (x: T[keyof T & keyof U] | ValueOfUnion<T>) => U[keyof T & keyof U], list: T): U;
+// export function map<T, U>(fn: (x: T[keyof T & keyof U] | ValueOfUnion<T>) => U[keyof T & keyof U]): (list: T) => U;
 export function map<T, U>(fn: (x: T) => U, functor: Functor<T>): Functor<U>; // used in functors
+export function map<T, U>(fn: (x: T) => U, list: readonly T[]): U[];
 export function map<T, U>(
     fn: (x: T) => U,
 ): {
-    (list: readonly T[]): U[];
-    <K extends string>(collection: Readonly<Record<K, T>>): Record<K, U>;
+    <K extends string>(collection: Record<K, T>): Record<K, U>;
     (functor: Functor<T>): Functor<U>; // used in functors
-    <C extends readonly T[] | Record<string, T> | Functor<T>>(collection: C): C extends readonly unknown[]
-        ? U[]
-        : T extends Record<string, T>
-        ? Record<keyof C, U>
-        : Functor<U>;
+    (list: readonly T[]): U[];
 };
+export function map<_Overload extends 'array', T, U>(fn: (x: T) => U): (list: readonly T[]) => U[];
+export function map<_Overload extends 'record', T, U>(fn: (x: T) => U): <K extends string>(list: Record<K, T>) => Record<K, U>;
+export function map<_Overload extends 'functor', T, U>(fn: (x: T) => U): (functor: Functor<T>) => Functor<U>;
 
 /**
  * The `mapAccum` function behaves like a combination of map and reduce;
@@ -4052,6 +4073,10 @@ export function pipe<TArgs extends any[], R1, R2>(
     f1: (...args: TArgs) => R1,
     f2: (a: R1) => R2,
 ): (...args: TArgs) => R2;
+// TODO: add inference overloads for above if needed
+// For inference. Handles generics, overloads etc.
+export function pipe<F extends (...args: any[]) => unknown>(f1: F): F;
+// For manually specifying types
 export function pipe<TArgs extends any[], R1>(f1: (...args: TArgs) => R1): (...args: TArgs) => R1;
 
 /**
@@ -4874,9 +4899,9 @@ export function set<S, A>(
 interface Slice2 {
     (string: string): string;
     <T>(list: readonly T[]): T[];
-    // TODO: somehow remove readonly?
-    // TODO: fails on `R.pipe(R.slice(2, 5));`
-    <T extends string | unknown[]>(list: Readonly<T>): T;
+    // NOTE: should remove `readonly`, like: `(list: readonly number[]): number[]` but cannot
+    // this is a limiation of typescript
+    <T extends string | readonly unknown[]>(list: T): T;
 }
 interface Slice1 {
     (to: number, string: string): string;
@@ -4885,8 +4910,7 @@ interface Slice1 {
     // We do not include `<T>(to: number)`
     // since we assume it should be either before or after both numbers
     (to: number): <T>(list: readonly T[]) => T[];
-    // TODO: fails on `R.pipe(R.slice(2))(5, str);`
-    <T extends string | unknown[]>(to: number, list: Readonly<T>): T;
+    <T extends string | readonly unknown[]>(to: number, list: T): T;
 }
 export function slice(from: number, to: number, string: string): string;
 export function slice<T>(from: number, to: number, list: readonly T[]): T[];
@@ -6092,12 +6116,12 @@ export function when<T, U>(pred: (a: T) => boolean, whenTrueFn: (a: T) => U): (a
  */
 export function where<T>(spec: { [K in keyof T]?: T[K] | ((val: T[K], obj: T) => boolean) }, testObj: T): boolean;
 // Dummy parameter so this overload is *never* considered when manually specifying types
-export function where<T, _ extends 'inferred'>(
+export function where<_Overload extends 'inferred', T>(
     spec: Partial<Record<keyof T, T[keyof T] | ((val: T[keyof T], obj: T) => boolean)>>,
     testObj: T,
 ): boolean;
 export function where<T>(spec: { [K in keyof T]?: T[K] | ((val: T[K], obj: T) => boolean) }): (testObj: T) => boolean;
-export function where<T, _ extends 'inferred'>(
+export function where<_Overload extends 'inferred', T>(
     spec: Partial<Record<keyof T, T[keyof T] | ((val: T[keyof T], obj: T) => boolean)>>,
 ): (testObj: T) => boolean;
 

@@ -40,7 +40,7 @@ import * as R from 'ramda';
     const str = 'Hello World';
     const arr = ['one', 'two', 'three', 'four', 'five'];
 
-    // $ExpectType (string: string) => string
+    // $ExpectType Slice2
     const pipeSlice = R.pipe(R.slice(2, 5));
     // $ExpectType string
     pipeSlice(str); // => 'llo'
