@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "lib": ["es6", "DOM"],
+        "lib": ["es6"],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictFunctionTypes": true,
@@ -10,11 +10,7 @@
         "typeRoots": ["../"],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "jsx": "react",
-        "paths": {
-            "@orbit-ui/*": ["orbit-ui__*"]
-        }
+        "forceConsistentCasingInFileNames": true
     },
-    "files": ["index.d.ts", "orbit-ui__react-components-tests.tsx"]
+    "files": ["index.d.ts", "itemsjs-tests.ts"]
 }

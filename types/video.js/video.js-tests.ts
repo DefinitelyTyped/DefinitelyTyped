@@ -57,6 +57,7 @@ const playerOptions: VideoJsPlayerOptions = {
     ],
     techOrder: ['html5', 'anotherTech'],
     userActions: {
+        click: event => {},
         doubleClick: event => {},
         hotkeys: true,
     },

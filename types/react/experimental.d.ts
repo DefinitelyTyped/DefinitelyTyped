@@ -39,6 +39,15 @@ import React = require('./next');
 export {};
 
 declare module '.' {
+    export interface SuspenseProps {
+        /**
+         * The presence of this prop indicates that the content is computationally expensive to render.
+         * In other words, the tree is CPU bound and not I/O bound (e.g. due to fetching data).
+         * @see {@link https://github.com/facebook/react/pull/19936}
+         */
+        unstable_expectedLoadTime?: number | undefined;
+    }
+
     export type SuspenseListRevealOrder = 'forwards' | 'backwards' | 'together';
     export type SuspenseListTailMode = 'collapsed' | 'hidden';
 
@@ -93,4 +102,20 @@ declare module '.' {
      * @see https://reactjs.org/docs/concurrent-mode-patterns.html#suspenselist
      */
     export const SuspenseList: ExoticComponent<SuspenseListProps>;
+
+    /**
+     * this should be an internal type
+     */
+     interface MutableSource<T> {
+        _source: T;
+    }
+
+    export type MutableSourceSubscribe<T> = (source: T, callback: () => void) => () => void;
+
+    // TODO: This may not be intentionally part of the experimental release considering useMutableSource is no longer available
+    /**
+     * @param source A source could be anything as long as they can be subscribed to and have a "version".
+     * @param getVersion A function returns a value which will change whenever part of the source changes.
+     */
+    export function unstable_createMutableSource<T>(source: T, getVersion: () => any): MutableSource<T>;
 }
