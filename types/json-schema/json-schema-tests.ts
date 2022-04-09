@@ -230,7 +230,7 @@ class Schema6 implements JSONSchema6 {}
         not: {},
         const: 'foo',
         contains: {},
-        examples: [{}],
+        examples: [{ str: 'string' }],
         propertyNames: {},
         format: 'date-time',
         readOnly: false,
