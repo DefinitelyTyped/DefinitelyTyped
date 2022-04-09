@@ -181,7 +181,7 @@ declare class GlobalOffensive extends EventEmitter {
     once<K extends keyof GlobalOffensiveEvents>(event: K, listener: (...args: GlobalOffensiveEvents[K]) => void): this;
     off<K extends keyof GlobalOffensiveEvents>(event: K, listener: (...args: GlobalOffensiveEvents[K]) => void): this;
     removeListener<K extends keyof GlobalOffensiveEvents>(event: K, listener: (...args: GlobalOffensiveEvents[K]) => void): this;
-    removeAllListeners<K extends keyof GlobalOffensiveEvents>(event?: K): this;
+    removeAllListeners(event?: keyof GlobalOffensiveEvents): this;
 }
 
 interface GlobalOffensiveEvents {
@@ -200,18 +200,12 @@ interface GlobalOffensiveEvents {
 }
 
 declare namespace GlobalOffensive {
-
-
-    //#region Profile
-
     interface Profile extends Omit<AccountData, 'global_stats'> {
         /**
          * Seems to always be `null`
          */
         global_stats: null;
     }
-
-    //#endregion Profile
 
     //#region AccountData
 
@@ -509,7 +503,6 @@ declare namespace GlobalOffensive {
         value: unknown | null;
     }
 
-
     interface Sticker {
         sticker_id: number;
         /**
@@ -565,7 +558,7 @@ declare namespace GlobalOffensive {
         /**
          * An array of objects describing the stickers applied to this item
          */
-        stickers: (Sticker & { tint_id: number | null })[];
+        stickers: Array<Sticker & { tint_id: number | null }>;
         /**
          * An integer which has no use to you
          */
@@ -580,7 +573,5 @@ declare namespace GlobalOffensive {
         questid: unknown | null;
         dropreason: unknown | null;
     }
-
     //#endregion Inventory
-
 }
