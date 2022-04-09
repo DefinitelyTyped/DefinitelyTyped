@@ -2,7 +2,9 @@
 // Project: https://github.com/DoctorMcKay/node-globaloffensive
 // Definitions by: joshuajeschek <https://github.com/joshuajeschek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 4.2
 
+// minimum TypeScript Version set because of steam-user.
 // some attributes have been intentionally set as `unknown | null`, since I wasn't able to test their values.
 // In my case, the values were always null.
 // if a type is unknown[], an empty array was all I could get from usage.
