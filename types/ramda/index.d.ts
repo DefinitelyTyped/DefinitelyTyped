@@ -191,9 +191,11 @@ export function all<T>(fn: (a: T) => boolean): (list: readonly T[]) => boolean;
  *
  * @example
  * ```typescript
+ * type Card = { rank: string; suit: string; };
+ *
  * const isQueen = R.propEq('rank', 'Q');
  * const isSpade = R.propEq('suit', '♠︎');
- * const isQueenOfSpades = R.allPass([isQueen, isSpade]);
+ * const isQueenOfSpades = R.allPass<R.Pred<[Card]>>([isQueen, isSpade]);
  *
  * isQueenOfSpades({rank: 'Q', suit: '♣︎'}); //=> false
  * isQueenOfSpades({rank: 'Q', suit: '♠︎'}); //=> true
@@ -324,9 +326,11 @@ export function any<T>(fn: (a: T) => boolean): (list: readonly T[]) => boolean;
  *
  * @example
  * ```typescript
+ * type Card = { rank: string; suit: string; };
+ *
  * const isClub = R.propEq('suit', '♣');
  * const isSpade = R.propEq('suit', '♠');
- * const isBlackCard = R.anyPass<Card>([isClub, isSpade]);
+ * const isBlackCard = R.anyPass<R.Pred<[Card]>>([isClub, isSpade]);
  *
  * isBlackCard({rank: '10', suit: '♣'}); //=> true
  * isBlackCard({rank: 'Q', suit: '♠'}); //=> true
@@ -689,7 +693,7 @@ export function clone<T>(value: readonly T[]): T[];
  *
  * @example
  * ```typescript
- * type Person = { name: string; age: number; }
+ * type Person = { name: string; age: number; };
  *
  * const byAge = R.comparator<Person>((a, b) => a.age < b.age);
  * const people = [
@@ -1689,8 +1693,8 @@ export function eqProps<T>(prop: string, obj1: T): <U>(obj2: U) => boolean;
  *
  * type Recursive = { v: Recursive; };
  *
- * const a: Recursive = {} as never; a.v = a;
- * const b: Recursive = {} as never; b.v = b;
+ * const a: Recursive = {} as Recursive; a.v = a;
+ * const b: Recursive = {} as Recursive; b.v = b;
  * R.equals(a, b); //=> true
  * ```
  */
