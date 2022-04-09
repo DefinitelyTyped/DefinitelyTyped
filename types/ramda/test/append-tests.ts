@@ -9,4 +9,10 @@ import * as R from 'ramda';
     R.append('tests', []); // => ['tests']
     // $ExpectError
     R.append('tests')([1, 2]); // => ['write', 'more', 'tests']
+    // $ExpectType (list: readonly string[]) => string[]
+    R.append('tests');
+    // $ExpectType (list: readonly (string | number)[]) => (string | number)[]
+    R.append<string | number>('tests');
+    // $ExpectType (string | number)[]
+    R.append<string | number>('tests')([1, 2]); // => [1, 2, 'tests']
 };
