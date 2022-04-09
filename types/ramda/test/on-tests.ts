@@ -2,13 +2,13 @@ import * as R from 'ramda';
 
 () => {
   // tslint:disable:max-line-length
-  // $ExpectType { <C>(g: (a: C) => unknown, a: C, b: C): boolean; <C>(g: (a: C) => unknown, a: C): (b: C) => boolean; <C>(g: (a: C) => unknown): { (a: C, b: C): boolean; (a: C): (b: C) => boolean; }; }
+  // $ExpectType { <T>(g: (a: T) => unknown, a: T, b: T): boolean; <T>(g: (a: T) => unknown, a: T): (b: T) => boolean; <T>(g: (a: T) => unknown): { (a: T, b: T): boolean; (a: T): (b: T) => boolean; }; }
   const eqBy = R.on(<T>(a: T, b: T) => a === b);
   // tslint:enable:max-line-length
   // $ExpectType boolean
   eqBy(R.prop('a'), {b: 0, a: 1}, {a: 1}); // => true;
 
-  // $ExpectType { <C>(g: (a: C) => number, a: C, b: C): boolean; <C>(g: (a: C) => number, a: C): (b: C) => boolean; <C>(g: (a: C) => number): { (a: C, b: C): boolean; (a: C): (b: C) => boolean; }; }
+  // $ExpectType { <T>(g: (a: T) => number, a: T, b: T): boolean; <T>(g: (a: T) => number, a: T): (b: T) => boolean; <T>(g: (a: T) => number): { (a: T, b: T): boolean; (a: T): (b: T) => boolean; }; }
   const eqBy2 = R.on((a: number, b) => a === b);
   // $ExpectType boolean
   eqBy2(R.prop('a'), {b: 0, a: 1}, {a: 1}); // => true;

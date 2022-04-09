@@ -1899,18 +1899,18 @@ export function omit<K extends string>(names: readonly K[]): <T>(obj: T) => Omit
  * containsInsensitive('o', 'FOO'); //=> true
  * ```
  */
-export function on<A, B, C>(f: (a: A, b: A) => B, g: (a: C) => A, a: C, b: C): B;
-export function on<A, B, C>(f: (a: A, b: A) => B, g: (a: C) => A, a: C): (b: C) => B;
-export function on<A, B, C>(f: (a: A, b: A) => B, g: (a: C) => A): {
-    (a: C, b: C): B;
-    (a: C): (b: C) => B;
+export function on<T, U, R>(f: (a: U, b: U) => R, g: (a: T) => U, a: T, b: T): R;
+export function on<T, U, R>(f: (a: U, b: U) => R, g: (a: T) => U, a: T): (b: T) => R;
+export function on<T, U, R>(f: (a: U, b: U) => R, g: (a: T) => U): {
+    (a: T, b: T): R;
+    (a: T): (b: T) => R;
 };
-export function on<A, B>(f: (a: A, b: A) => B): {
-    <C>(g: (a: C) => A, a: C, b: C): B;
-    <C>(g: (a: C) => A, a: C): (b: C) => B;
-    <C>(g: (a: C) => A): {
-        (a: C, b: C): B;
-        (a: C): (b: C) => B;
+export function on<U, R>(f: (a: U, b: U) => R): {
+    <T>(g: (a: T) => U, a: T, b: T): R;
+    <T>(g: (a: T) => U, a: T): (b: T) => R;
+    <T>(g: (a: T) => U): {
+        (a: T, b: T): R;
+        (a: T): (b: T) => R;
     };
 };
 
@@ -2374,9 +2374,9 @@ export function project<T, U>(props: readonly string[]): (objs: readonly T[]) =>
  * decodeString("ziuli") //=> "ramda"
  * ```
  */
-export function promap<A, B, C, D>(f: (value: A) => B, g: (value: C) => D, profunctor: (value: B) => C): (value: A) => D;
-export function promap<A, B, C, D>(f: (value: A) => B, g: (value: C) => D): (profunctor: (value: B) => C) => (value: A) => D;
-export function promap<A, B>(f: (value: A) => B): <C, D>(g: (value: C) => D, profunctor: (value: B) => C) => (value: A) => D;
+export function promap<A, B, C, D>(pre: (value: A) => B, post: (value: C) => D, fn: (value: B) => C): (value: A) => D;
+export function promap<A, B, C, D>(pre: (value: A) => B, post: (value: C) => D): (fn: (value: B) => C) => (value: A) => D;
+export function promap<A, B>(pre: (value: A) => B): <C, D>(post: (value: C) => D, fn: (value: B) => C) => (value: A) => D;
 
 /**
  * Returns a function that when supplied an object returns the indicated property of that object, if it exists.
