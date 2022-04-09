@@ -298,7 +298,7 @@ export interface EventMap {
 export type EventCallback<Data = any> = (data: Data) => any;
 
 export type VimeoTimeRange = [number, number];
-export type VimeoVideoQuality = '4K' | '2K' | '1080p' | '720p' | '540p' | '360p' | '240p';
+export type VimeoVideoQuality = 'auto' | '4K' | '2K' | '1080p' | '720p' | '540p' | '360p' | '240p';
 
 export class Player {
     constructor(element: HTMLIFrameElement | HTMLElement | string, options?: Options);
