@@ -76,7 +76,7 @@ export interface TextTrackChangeEvent {
     language: string | null;
 }
 
-export interface ChapterChangeEvent {
+export interface VimeoChapter {
     startTime: number;
     title: string;
 
@@ -85,6 +85,9 @@ export interface ChapterChangeEvent {
      */
     index: number;
 }
+
+// tslint:disable-next-line:no-empty-interface
+export interface ChapterChangeEvent extends VimeoChapter {}
 
 export interface Cue {
     /**
@@ -135,16 +138,25 @@ export interface FullScreenChangeEvent {
     fullscreen: boolean;
 }
 
+export interface VimeoVideoQualityObject {
+    label: VimeoVideoQuality;
+    id: string;
+    active: boolean;
+}
+
 export interface QualityChangeEvent {
     quality: VimeoVideoQuality;
 }
 
-export interface CameraChangeEvent {
+export interface VimeoCameraProps {
     yaw: number;
     pitch: number;
     roll: number;
     fov: number;
 }
+
+// tslint:disable-next-line:no-empty-interface
+export interface CameraChangeEvent extends VimeoCameraProps {}
 
 export interface ResizeEvent {
     videoWidth: number;
@@ -305,10 +317,18 @@ export class Player {
     pause(): VimeoPromise<void, PasswordError | PrivacyError | Error>;
     play(): VimeoPromise<void, PasswordError | PrivacyError | Error>;
     unload(): VimeoPromise<void, Error>;
+    requestFullscreen(): VimeoPromise<void, Error>;
+    exitFullscreen(): VimeoPromise<void, Error>;
+    getFullscreen(): VimeoPromise<boolean, Error>;
+    requestPictureInPicture(): VimeoPromise<void, Error>;
+    exitPictureInPicture(): VimeoPromise<void, Error>;
+    getPictureInPicture(): VimeoPromise<boolean, Error>;
     getAutopause(): VimeoPromise<boolean, UnsupportedError | Error>;
     setAutopause(autopause: boolean): VimeoPromise<boolean, UnsupportedError | Error>;
     getColor(): VimeoPromise<string, Error>;
     setColor(color: string): VimeoPromise<string, ContrastError | TypeError | Error>;
+    getChapters(): VimeoPromise<VimeoChapter[], Error>;
+    getCurrentChapter(): VimeoPromise<VimeoChapter, Error>;
     addCuePoint(time: number, data: VimeoCuePointData): VimeoPromise<string, UnsupportedError | RangeError | Error>;
     removeCuePoint(id: string): VimeoPromise<string, UnsupportedError | InvalidCuePoint | Error>;
     getCuePoints(): VimeoPromise<VimeoCuePoint[], UnsupportedError | Error>;
@@ -336,6 +356,11 @@ export class Player {
     getVideoUrl(): VimeoPromise<string, PrivacyError | Error>;
     getVolume(): VimeoPromise<number, Error>;
     setVolume(volume: number): VimeoPromise<number, RangeError | Error>;
+    getQualities(): VimeoPromise<VimeoVideoQualityObject[], Error>;
+    getQuality(): VimeoPromise<VimeoVideoQuality, Error>;
+    setQuality(quality: VimeoVideoQuality): VimeoPromise<VimeoVideoQuality, TypeError | Error>;
+    getCameraProps(): VimeoPromise<VimeoCameraProps, Error>;
+    setCameraProps(cameraProps: VimeoCameraProps): VimeoPromise<VimeoCameraProps, RangeError | Error>;
     destroy(): VimeoPromise<void, Error>;
 }
 
