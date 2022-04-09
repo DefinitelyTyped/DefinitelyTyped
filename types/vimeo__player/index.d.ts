@@ -140,7 +140,7 @@ export interface FullScreenChangeEvent {
 }
 
 export interface VimeoVideoQualityObject {
-    label: VimeoVideoQuality;
+    label: string;
     id: string;
     active: boolean;
 }
