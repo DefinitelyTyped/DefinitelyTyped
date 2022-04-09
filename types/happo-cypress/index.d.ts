@@ -1,7 +1,6 @@
-// Type definitions for happo-cypress 3.0
+// Type definitions for happo-cypress 1.17
 // Project: https://github.com/happo/happo-cypress#readme
 // Definitions by: Alexander Polyankin <https://github.com/alexanderpolyankin>
-//                 Mario Beltrán Alarcón <https://github.com/Belco90>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface HappoScreenshotOptions {
