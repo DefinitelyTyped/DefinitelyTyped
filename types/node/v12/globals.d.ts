@@ -832,6 +832,8 @@ declare namespace NodeJS {
         "SIGSTOP" | "SIGSYS" | "SIGTERM" | "SIGTRAP" | "SIGTSTP" | "SIGTTIN" | "SIGTTOU" | "SIGUNUSED" | "SIGURG" |
         "SIGUSR1" | "SIGUSR2" | "SIGVTALRM" | "SIGWINCH" | "SIGXCPU" | "SIGXFSZ" | "SIGBREAK" | "SIGLOST" | "SIGINFO";
 
+    type UnlistenableSignals = 'SIGKILL' | 'SIGSTOP';
+    type ListenableSignals = Exclude<Signals, UnlistenableSignals>;
     type MultipleResolveType = 'resolve' | 'reject';
 
     type BeforeExitListener = (code: number) => void;
@@ -842,7 +844,7 @@ declare namespace NodeJS {
     type UnhandledRejectionListener = (reason: {} | null | undefined, promise: Promise<any>) => void;
     type WarningListener = (warning: Error) => void;
     type MessageListener = (message: any, sendHandle: any) => void;
-    type SignalsListener = (signal: Signals) => void;
+    type SignalsListener = (signal: ListenableSignals) => void;
     type NewListenerListener = (type: string | symbol, listener: (...args: any[]) => void) => void;
     type RemoveListenerListener = (type: string | symbol, listener: (...args: any[]) => void) => void;
     type MultipleResolveListener = (type: MultipleResolveType, promise: Promise<any>, value: any) => void;
@@ -1113,7 +1115,7 @@ declare namespace NodeJS {
          *   7. unhandledRejection
          *   8. warning
          *   9. message
-         *  10. <All OS Signals>
+         *  10. <All OS Signals> (except by SIGKILL and SIGSTOP)
          *  11. newListener/removeListener inherited from EventEmitter
          */
         addListener(event: "beforeExit", listener: BeforeExitListener): this;
@@ -1124,7 +1126,7 @@ declare namespace NodeJS {
         addListener(event: "unhandledRejection", listener: UnhandledRejectionListener): this;
         addListener(event: "warning", listener: WarningListener): this;
         addListener(event: "message", listener: MessageListener): this;
-        addListener(event: Signals, listener: SignalsListener): this;
+        addListener(event: ListenableSignals, listener: SignalsListener): this;
         addListener(event: "newListener", listener: NewListenerListener): this;
         addListener(event: "removeListener", listener: RemoveListenerListener): this;
         addListener(event: "multipleResolves", listener: MultipleResolveListener): this;
@@ -1150,7 +1152,7 @@ declare namespace NodeJS {
         on(event: "unhandledRejection", listener: UnhandledRejectionListener): this;
         on(event: "warning", listener: WarningListener): this;
         on(event: "message", listener: MessageListener): this;
-        on(event: Signals, listener: SignalsListener): this;
+        on(event: ListenableSignals, listener: SignalsListener): this;
         on(event: "newListener", listener: NewListenerListener): this;
         on(event: "removeListener", listener: RemoveListenerListener): this;
         on(event: "multipleResolves", listener: MultipleResolveListener): this;
@@ -1163,7 +1165,7 @@ declare namespace NodeJS {
         once(event: "unhandledRejection", listener: UnhandledRejectionListener): this;
         once(event: "warning", listener: WarningListener): this;
         once(event: "message", listener: MessageListener): this;
-        once(event: Signals, listener: SignalsListener): this;
+        once(event: ListenableSignals, listener: SignalsListener): this;
         once(event: "newListener", listener: NewListenerListener): this;
         once(event: "removeListener", listener: RemoveListenerListener): this;
         once(event: "multipleResolves", listener: MultipleResolveListener): this;
@@ -1176,7 +1178,7 @@ declare namespace NodeJS {
         prependListener(event: "unhandledRejection", listener: UnhandledRejectionListener): this;
         prependListener(event: "warning", listener: WarningListener): this;
         prependListener(event: "message", listener: MessageListener): this;
-        prependListener(event: Signals, listener: SignalsListener): this;
+        prependListener(event: ListenableSignals, listener: SignalsListener): this;
         prependListener(event: "newListener", listener: NewListenerListener): this;
         prependListener(event: "removeListener", listener: RemoveListenerListener): this;
         prependListener(event: "multipleResolves", listener: MultipleResolveListener): this;
@@ -1189,7 +1191,7 @@ declare namespace NodeJS {
         prependOnceListener(event: "unhandledRejection", listener: UnhandledRejectionListener): this;
         prependOnceListener(event: "warning", listener: WarningListener): this;
         prependOnceListener(event: "message", listener: MessageListener): this;
-        prependOnceListener(event: Signals, listener: SignalsListener): this;
+        prependOnceListener(event: ListenableSignals, listener: SignalsListener): this;
         prependOnceListener(event: "newListener", listener: NewListenerListener): this;
         prependOnceListener(event: "removeListener", listener: RemoveListenerListener): this;
         prependOnceListener(event: "multipleResolves", listener: MultipleResolveListener): this;
@@ -1202,7 +1204,7 @@ declare namespace NodeJS {
         listeners(event: "unhandledRejection"): UnhandledRejectionListener[];
         listeners(event: "warning"): WarningListener[];
         listeners(event: "message"): MessageListener[];
-        listeners(event: Signals): SignalsListener[];
+        listeners(event: ListenableSignals): SignalsListener[];
         listeners(event: "newListener"): NewListenerListener[];
         listeners(event: "removeListener"): RemoveListenerListener[];
         listeners(event: "multipleResolves"): MultipleResolveListener[];

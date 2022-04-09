@@ -89,6 +89,33 @@ import EventEmitter = require('node:events');
 }
 
 {
+  // $ExpectError
+  process.addListener("SIGKILL", (_event) => { });
+  // $ExpectError
+  process.addListener("SIGSTOP", (_event) => { });
+
+  // $ExpectError
+  process.on("SIGKILL", (_event) => { });
+  // $ExpectError
+  process.on("SIGSTOP", (_event) => { });
+
+  // $ExpectError
+  process.once("SIGKILL", (_event) => { });
+  // $ExpectError
+  process.once("SIGSTOP", (_event) => { });
+
+  // $ExpectError
+  process.prependListener("SIGKILL", (_event) => { });
+  // $ExpectError
+  process.prependListener("SIGSTOP", (_event) => { });
+
+  // $ExpectError
+  process.prependOnceListener("SIGKILL", (_event) => { });
+  // $ExpectError
+  process.prependOnceListener("SIGSTOP", (_event) => { });
+}
+
+{
     function abortNeverReturns() {
         process.abort(); // $ExpectType never
     }

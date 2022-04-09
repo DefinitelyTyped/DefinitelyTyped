@@ -60,6 +60,11 @@ declare module 'process' {
                 "SIGSTOP" | "SIGSYS" | "SIGTERM" | "SIGTRAP" | "SIGTSTP" | "SIGTTIN" | "SIGTTOU" | "SIGUNUSED" | "SIGURG" |
                 "SIGUSR1" | "SIGUSR2" | "SIGVTALRM" | "SIGWINCH" | "SIGXCPU" | "SIGXFSZ" | "SIGBREAK" | "SIGLOST" | "SIGINFO";
 
+            type UnlistenableSignals = 'SIGKILL' | 'SIGSTOP';
+            type ListenableSignals = Exclude<Signals, UnlistenableSignals>;
+            type NotA<T> = T extends UnlistenableSignals ? never : T;
+            type NotB<T> = UnlistenableSignals extends T ? never : T;
+            type AllowedSignal<T> = NotA<T> & NotB<T>;
             type UncaughtExceptionOrigin = 'uncaughtException' | 'unhandledRejection';
             type MultipleResolveType = 'resolve' | 'reject';
 
@@ -71,7 +76,7 @@ declare module 'process' {
             type UnhandledRejectionListener = (reason: {} | null | undefined, promise: Promise<any>) => void;
             type WarningListener = (warning: Error) => void;
             type MessageListener = (message: any, sendHandle: any) => void;
-            type SignalsListener = (signal: Signals) => void;
+            type SignalsListener = (signal: ListenableSignals) => void;
             type NewListenerListener = (type: string | symbol, listener: (...args: any[]) => void) => void;
             type RemoveListenerListener = (type: string | symbol, listener: (...args: any[]) => void) => void;
             type MultipleResolveListener = (type: MultipleResolveType, promise: Promise<any>, value: any) => void;
@@ -308,7 +313,7 @@ declare module 'process' {
                 addListener(event: "unhandledRejection", listener: UnhandledRejectionListener): this;
                 addListener(event: "warning", listener: WarningListener): this;
                 addListener(event: "message", listener: MessageListener): this;
-                addListener(event: Signals, listener: SignalsListener): this;
+                addListener(event: ListenableSignals, listener: SignalsListener): this;
                 addListener(event: "newListener", listener: NewListenerListener): this;
                 addListener(event: "removeListener", listener: RemoveListenerListener): this;
                 addListener(event: "multipleResolves", listener: MultipleResolveListener): this;
@@ -336,11 +341,11 @@ declare module 'process' {
                 on(event: "unhandledRejection", listener: UnhandledRejectionListener): this;
                 on(event: "warning", listener: WarningListener): this;
                 on(event: "message", listener: MessageListener): this;
-                on(event: Signals, listener: SignalsListener): this;
+                on(event: ListenableSignals, listener: SignalsListener): this;
                 on(event: "newListener", listener: NewListenerListener): this;
                 on(event: "removeListener", listener: RemoveListenerListener): this;
                 on(event: "multipleResolves", listener: MultipleResolveListener): this;
-                on(event: string | symbol, listener: (...args: any[]) => void): this;
+                on<T extends string | symbol>(event: AllowedSignal<T>, listener: (...args: any[]) => void): this;
 
                 once(event: "beforeExit", listener: BeforeExitListener): this;
                 once(event: "disconnect", listener: DisconnectListener): this;
@@ -351,10 +356,11 @@ declare module 'process' {
                 once(event: "unhandledRejection", listener: UnhandledRejectionListener): this;
                 once(event: "warning", listener: WarningListener): this;
                 once(event: "message", listener: MessageListener): this;
-                once(event: Signals, listener: SignalsListener): this;
+                once(event: ListenableSignals, listener: SignalsListener): this;
                 once(event: "newListener", listener: NewListenerListener): this;
                 once(event: "removeListener", listener: RemoveListenerListener): this;
                 once(event: "multipleResolves", listener: MultipleResolveListener): this;
+                once<T extends string | symbol>(event: AllowedSignal<T>, listener: (...args: any[]) => void): this;
 
                 prependListener(event: "beforeExit", listener: BeforeExitListener): this;
                 prependListener(event: "disconnect", listener: DisconnectListener): this;
@@ -365,7 +371,7 @@ declare module 'process' {
                 prependListener(event: "unhandledRejection", listener: UnhandledRejectionListener): this;
                 prependListener(event: "warning", listener: WarningListener): this;
                 prependListener(event: "message", listener: MessageListener): this;
-                prependListener(event: Signals, listener: SignalsListener): this;
+                prependListener(event: ListenableSignals, listener: SignalsListener): this;
                 prependListener(event: "newListener", listener: NewListenerListener): this;
                 prependListener(event: "removeListener", listener: RemoveListenerListener): this;
                 prependListener(event: "multipleResolves", listener: MultipleResolveListener): this;
@@ -379,7 +385,7 @@ declare module 'process' {
                 prependOnceListener(event: "unhandledRejection", listener: UnhandledRejectionListener): this;
                 prependOnceListener(event: "warning", listener: WarningListener): this;
                 prependOnceListener(event: "message", listener: MessageListener): this;
-                prependOnceListener(event: Signals, listener: SignalsListener): this;
+                prependOnceListener(event: ListenableSignals, listener: SignalsListener): this;
                 prependOnceListener(event: "newListener", listener: NewListenerListener): this;
                 prependOnceListener(event: "removeListener", listener: RemoveListenerListener): this;
                 prependOnceListener(event: "multipleResolves", listener: MultipleResolveListener): this;
@@ -393,7 +399,7 @@ declare module 'process' {
                 listeners(event: "unhandledRejection"): UnhandledRejectionListener[];
                 listeners(event: "warning"): WarningListener[];
                 listeners(event: "message"): MessageListener[];
-                listeners(event: Signals): SignalsListener[];
+                listeners(event: ListenableSignals): SignalsListener[];
                 listeners(event: "newListener"): NewListenerListener[];
                 listeners(event: "removeListener"): RemoveListenerListener[];
                 listeners(event: "multipleResolves"): MultipleResolveListener[];

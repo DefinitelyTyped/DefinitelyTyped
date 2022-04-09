@@ -76,6 +76,33 @@ import { EventEmitter } from "events";
 }
 
 {
+  // $ExpectError
+  process.addListener("SIGKILL", (event: string | symbol, listener: Function) => { });
+  // $ExpectError
+  process.addListener("SIGSTOP", (event: string | symbol, listener: Function) => { });
+
+  // $ExpectError
+  process.on("SIGKILL", (event: string | symbol, listener: Function) => { });
+  // $ExpectError
+  process.on("SIGSTOP", (event: string | symbol, listener: Function) => { });
+
+  // $ExpectError
+  process.once("SIGKILL", (event: string | symbol, listener: Function) => { });
+  // $ExpectError
+  process.once("SIGSTOP", (event: string | symbol, listener: Function) => { });
+
+  // $ExpectError
+  process.prependListener("SIGKILL", (event: string | symbol, listener: Function) => { });
+  // $ExpectError
+  process.prependListener("SIGSTOP", (event: string | symbol, listener: Function) => { });
+
+  // $ExpectError
+  process.prependOnceListener("SIGKILL", (event: string | symbol, listener: Function) => { });
+  // $ExpectError
+  process.prependOnceListener("SIGSTOP", (event: string | symbol, listener: Function) => { });
+}
+
+{
     // Emit a warning using a string.
     process.emitWarning('Something happened!');
     // Emits: (node:56338) Warning: Something happened!
