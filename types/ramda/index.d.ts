@@ -100,7 +100,7 @@ export * from './tools';
 export const __: Placeholder;
 
 /**
- * Adds two values.
+ * Adds two values. Equivalent to `a + b` but curried.
  *
  * @example
  * ```typescript
@@ -1443,7 +1443,7 @@ export function dissocPath<T>(path: Path, obj: any): T;
 export function dissocPath<T>(path: Path): (obj: any) => T;
 
 /**
- * Divides two numbers. Equivalent to `a / b`.
+ * Divides two numbers. Equivalent to `a / b` but curried.
  *
  * See also {@link multiply}.
  *
@@ -2986,7 +2986,7 @@ export function match(regexp: RegExp): (str: string) => string[];
  * seventeenMod(3);  //=> 2
  * seventeenMod(4);  //=> 1
  * seventeenMod(10); //=> 7
- * * ```
+ * ```
  */
 export function mathMod(__: Placeholder, b: number): (a: number) => number;
 export function mathMod(__: Placeholder): (b: number, a: number) => number;
@@ -3311,6 +3311,8 @@ export function minBy<T>(keyFn: (a: T) => Ord, a: T): (b: T) => T;
 export function minBy<T>(keyFn: (a: T) => Ord): _.F.Curry<(a: T, b: T) => T>;
 
 /**
+ * Returns the modulo of two numbers. Equivalent to `a % b` but curried.
+ *
  * Divides the first parameter by the second and returns the remainder.
  * Note that this function preserves the JavaScript-style behavior for modulo.
  * For mathematical modulo see `R.mathMod`.
