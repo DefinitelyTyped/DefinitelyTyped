@@ -1,4 +1,4 @@
-// Type definitions for @vimeo/player 2.16.3
+// Type definitions for @vimeo/player 2.16.4
 // Project: https://github.com/vimeo/player.js
 // Definitions by: Denis Yılmaz <https://github.com/denisyilmaz>
 //                 Felix Albert <f.albert.work@icloud.com>
@@ -6,6 +6,7 @@
 //                 Terry Mun <https://github.com/terrymun>
 //                 Coskun Deniz <deniz@tassomai.com>
 //                 Kohei Watanabe <https://github.com/kou029w>
+//                 Michael Markey <https://github.com/mikeamarkey>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export type TrackKind = 'captions' | 'subtitles';
