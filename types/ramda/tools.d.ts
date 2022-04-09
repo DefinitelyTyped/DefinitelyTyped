@@ -440,7 +440,7 @@ export type ObjectHavingSome<Key extends string> = A.Clean<
 /**
  * <needs description>
  */
-export type Path = Array<number | string>;
+export type Path = ReadonlyArray<number | string>;
 
 /**
  * <needs description>
