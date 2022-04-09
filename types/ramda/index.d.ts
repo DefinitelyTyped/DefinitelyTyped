@@ -403,6 +403,33 @@ export function clone<T>(value: T): T;
 export function clone<T>(value: readonly T[]): T[];
 
 /**
+ * Splits a list into sub-lists,
+ * based on the result of calling a key-returning function on each element,
+ * and grouping the results according to values returned.
+ *
+ * See also {@link groupBy}, {@link partition}.
+ *
+ * @example
+ * ```typescript
+ * R.collectBy(R.prop('type'), [
+ *   {type: 'breakfast', item: '☕️'},
+ *   {type: 'lunch', item: '🌯'},
+ *   {type: 'dinner', item: '🍝'},
+ *   {type: 'breakfast', item: '🥐'},
+ *   {type: 'lunch', item: '🍕'}
+ * ]);
+ *
+ * // [ [ {type: 'breakfast', item: '☕️'},
+ * //     {type: 'breakfast', item: '🥐'} ],
+ * //   [ {type: 'lunch', item: '🌯'},
+ * //     {type: 'lunch', item: '🍕'} ],
+ * //   [ {type: 'dinner', item: '🍝'} ] ]
+ * ```
+ */
+export function collectBy<T, K extends PropertyKey>(fn: (value: T) => K, list: readonly T[]): T[][];
+export function collectBy<T, K extends PropertyKey>(fn: (value: T) => K): (list: readonly T[]) => T[][];
+
+/**
  * Makes a comparator function out of a function that reports whether the first element is less than the second.
  */
 export function comparator<T>(pred: (a: T, b: T) => boolean): (x: T, y: T) => Ordering;
@@ -1859,6 +1886,35 @@ export function omit<T, K extends string>(names: readonly K[], obj: T): Omit<T, 
 export function omit<K extends string>(names: readonly K[]): <T>(obj: T) => Omit<T, K>;
 
 /**
+ * Takes a binary function `f`, a unary function `g`, and two values.
+ * Applies `g` to each value, then applies the result of each to `f`.
+ * Also known as the P combinator.
+ *
+ * @example
+ * ```typescript
+ * const eqBy = R.on((a, b) => a === b);
+ * eqBy(R.prop('a'), {b:0, a:1}, {a:1}) //=> true;
+ *
+ * const containsInsensitive = R.on(R.contains, R.toLower);
+ * containsInsensitive('o', 'FOO'); //=> true
+ * ```
+ */
+export function on<A, B, C>(f: (a: A, b: A) => B, g: (a: C) => A, a: C, b: C): B;
+export function on<A, B, C>(f: (a: A, b: A) => B, g: (a: C) => A, a: C): (b: C) => B;
+export function on<A, B, C>(f: (a: A, b: A) => B, g: (a: C) => A): {
+    (a: C, b: C): B;
+    (a: C): (b: C) => B;
+};
+export function on<A, B>(f: (a: A, b: A) => B): {
+    <C>(g: (a: C) => A, a: C, b: C): B;
+    <C>(g: (a: C) => A, a: C): (b: C) => B;
+    <C>(g: (a: C) => A): {
+        (a: C, b: C): B;
+        (a: C): (b: C) => B;
+    };
+};
+
+/**
  * Accepts a function fn and returns a function that guards invocation of fn such that fn can only ever be
  * called once, no matter how many times the returned function is invoked. The first value calculated is
  * returned in subsequent invocations.
@@ -1917,6 +1973,37 @@ export function partial<V0, V1, V2, V3, T>(
 ): (x1: V1, x2: V2, x3: V3) => T;
 
 export function partial<T>(fn: (...a: readonly any[]) => T, args: readonly any[]): (...a: readonly any[]) => T;
+
+/**
+ * Takes a function `f` and an object, and returns a function `g`.
+ * When applied, `g` returns the result of applying `f` to the object
+ * provided initially merged deeply (right) with the object provided as an argument to `g`.
+ *
+ * See also {@link partial}, {@link partialRight}, {@link curry}, {@link mergeDeepRight}.
+ *
+ * @example
+ * ```typescript
+ * const multiply2 = ({ a, b }: { a: number, b: number }) => a * b;
+ * const double = R.partialObject(multiply2, { a: 2 });
+ * double({ b: 2 }); //=> 4
+ *
+ * type GreetArgs = {
+ *     salutation: string;
+ *     title: string;
+ *     firstName: string;
+ *     lastName: string;
+ * };
+ *
+ * const greet = ({ salutation, title, firstName, lastName }: GreetArgs) =>
+ *   salutation + ', ' + title + ' ' + firstName + ' ' + lastName + '!';
+ *
+ * const sayHello = R.partialObject(greet, { salutation: 'Hello' });
+ * const sayHelloToMs = R.partialObject(sayHello, { title: 'Ms.' });
+ * sayHelloToMs({ firstName: 'Jane', lastName: 'Jones' }); //=> 'Hello, Ms. Jane Jones!'
+ * ```
+ */
+export function partialObject<T extends P1, P1, R>(f: (a: T) => R, props: P1): (a: Omit<T, keyof P1>) => R;
+export function partialObject<T, R>(f: (a: T) => R): <P1>(props: P1) => (a: Omit<T, keyof P1>) => R;
 
 /**
  * Takes a function `f` and a list of arguments, and returns a function `g`.
@@ -2272,6 +2359,26 @@ export function project<T, U>(props: readonly string[], objs: readonly T[]): U[]
 export function project<T, U>(props: readonly string[]): (objs: readonly T[]) => U[];
 
 /**
+ * Takes two functions as pre- and post- processors respectively for a third function,
+ * i.e. `promap(f, g, h)(x) === g(h(f(x)))`.
+ * Dispatches to the `promap` method of the third argument, if present,
+ * according to the FantasyLand Profunctor spec.
+ * Acts as a transducer if a transformer is given in profunctor position.
+ *
+ * See also {@link transduce}.
+ *
+ * @example
+ * ```typescript
+ * const decodeChar = R.promap((s: string) => s.charCodeAt(0), String.fromCharCode, R.add(-8))
+ * const decodeString = R.promap(R.split(''), R.join(''), R.map(decodeChar))
+ * decodeString("ziuli") //=> "ramda"
+ * ```
+ */
+export function promap<A, B, C, D>(f: (value: A) => B, g: (value: C) => D, profunctor: (value: B) => C): (value: A) => D;
+export function promap<A, B, C, D>(f: (value: A) => B, g: (value: C) => D): (profunctor: (value: B) => C) => (value: A) => D;
+export function promap<A, B>(f: (value: A) => B): <C, D>(g: (value: C) => D, profunctor: (value: B) => C) => (value: A) => D;
+
+/**
  * Returns a function that when supplied an object returns the indicated property of that object, if it exists.
  */
 export function prop<T>(__: Placeholder, obj: T): <P extends keyof T>(p: P) => T[P];
@@ -2536,6 +2643,22 @@ export function scan<T, TResult>(fn: (acc: TResult, elem: T) => any, acc: TResul
 export function scan<T, TResult>(fn: (acc: TResult, elem: T) => any, acc: TResult): (list: readonly T[]) => TResult[];
 export function scan<T, TResult>(fn: (acc: TResult, elem: T) => any): (acc: TResult, list: readonly T[]) => TResult[];
 
+// NOTE: this definition isn't particularly useful, but at least it exists
+/**
+ * Transforms a Traversable of Applicative into an Applicative of Traversable.
+ * Dispatches to the sequence method of the second argument, if present.
+ *
+ * See also {@link traverse}.
+ *
+ * @example
+ * ```typescript
+ * R.sequence(R.of, [[1], [2], [3]]); // => [[1, 2, 3]]
+ * R.sequence(R.of)([[1], [2], [3]]); // => [[1, 2, 3]]
+ * ```
+ */
+export function sequence<A>(of: (a: A) => A[], traversable: A[][]): A[][];
+export function sequence<A>(of: (a: A) => A[]): (traversable: A[][]) => A[][];
+
 /**
  * Returns the result of "setting" the portion of the given data structure focused by the given lens to the
  * given value.
@@ -2617,6 +2740,17 @@ export function splitEvery(a: number): {
  */
 export function splitWhen<T, U>(pred: (val: T) => boolean, list: readonly U[]): U[][];
 export function splitWhen<T>(pred: (val: T) => boolean): <U>(list: readonly U[]) => U[][];
+
+/**
+ * Splits an array into slices on every occurrence of a value.
+ *
+ * @example
+ * ```typescript
+ * R.splitWhenever(R.equals(2), [1, 2, 3, 2, 4, 5, 2, 6, 7]); //=> [[1], [3], [4, 5], [6, 7]]
+ * ```
+ */
+export function splitWhenever<T>(pred: (a: T) => boolean, list: T[]): T[][];
+export function splitWhenever<T>(pred: (a: T) => boolean): (list: T[]) => T[][];
 
 /**
  * Checks if a string starts with the provided substring, or a list starts with the provided sublist.
