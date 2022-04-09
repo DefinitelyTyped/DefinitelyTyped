@@ -1417,7 +1417,7 @@ declare module 'process' {
                 on(event: 'unhandledRejection', listener: UnhandledRejectionListener): this;
                 on(event: 'warning', listener: WarningListener): this;
                 on(event: 'message', listener: MessageListener): this;
-                on(event: Signals, listener: SignalsListener): this;
+                on(event: Exclude<Signals, 'SIGKILL' | 'SIGSTOP'>, listener: SignalsListener): this;
                 on(event: 'multipleResolves', listener: MultipleResolveListener): this;
                 on(event: 'worker', listener: WorkerListener): this;
                 on(event: string | symbol, listener: (...args: any[]) => void): this;
