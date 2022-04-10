@@ -61,6 +61,7 @@ declare namespace Aws {
         cfnRole?: string | undefined;
         iam?: IamSettings | undefined;
         versionFunctions?: boolean | undefined;
+        architecture?: 'x86_64' | 'arm64' | undefined;
         environment?: Environment | string | undefined;
         endpointType?: 'regional' | 'edge' | 'private' | undefined;
         apiKeys?: string[] | undefined;
@@ -202,6 +203,7 @@ declare namespace Aws {
         payload?: string | undefined;
         cors?: boolean | HttpApiCors | undefined;
         authorizers?: Authorizers | undefined;
+        useProviderTags?: boolean | undefined;
     }
 
     interface Quota {
@@ -429,6 +431,7 @@ declare namespace Aws {
         arn: string | { [key: string]: any };
         batchSize?: number | string | undefined;
         maximumRetryAttempts?: number | string | undefined;
+        functionResponseType?: string | undefined;
         enabled?: boolean | undefined;
     }
 
@@ -448,12 +451,44 @@ declare namespace Aws {
         enabled?: boolean | undefined;
     }
 
+    type NumericFilter =
+        | ['=', number]
+        | ['<', number]
+        | ['<=', number]
+        | ['>', number]
+        | ['>=', number]
+        | ['>', number, '<', number]
+        | ['>=', number, '<', number]
+        | ['>', number, '<=', number]
+        | ['>=', number, '<=', number];
+
+    type Filter =
+        /* Null */
+        | null
+        /* Empty */
+        | ""
+        /* String equality */
+        | string
+        /* Not */
+        | { 'anything-but': Filter[] }
+        /* Numeric */
+        | { numeric: NumericFilter }
+        /* Exists */
+        | { exists: boolean }
+        /* Begins with */
+        | { prefix: string };
+
+    interface FilterPattern {
+        [k: string]: FilterPattern | Filter[];
+    }
+
     interface Stream {
         arn: string | { [key: string]: any };
         batchSize?: number | string | undefined;
         startingPosition?: number | string | undefined;
         enabled?: boolean | undefined;
         type?: 'dynamodb' | 'kinesis' | undefined;
+        filterPatterns?: FilterPattern[] | undefined;
     }
 
     interface Msk {

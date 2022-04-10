@@ -12,7 +12,9 @@ MyTelegramBot.getMe();
 MyTelegramBot.getMe().then((value: TelegramBot.User) => value.username);
 MyTelegramBot.logOut();
 MyTelegramBot.close();
+MyTelegramBot.setWebHook('http://typescriptlang.org');
 MyTelegramBot.setWebHook('http://typescriptlang.org', { max_connections: 100 });
+MyTelegramBot.setWebHook('http://typescriptlang.org', { max_connections: 100 }, { filename: 'filename', contentType: 'application/octet-stream' });
 MyTelegramBot.deleteWebHook();
 MyTelegramBot.getWebHookInfo();
 MyTelegramBot.getUpdates({ timeout: 10 });
@@ -29,19 +31,35 @@ const res: TelegramBot.InlineQueryResultArticle = {
 MyTelegramBot.answerInlineQuery('queryId', [res, res, res], { is_personal: true });
 MyTelegramBot.forwardMessage(1234, 5678, 'memberID', { disable_notification: true });
 MyTelegramBot.copyMessage(1234, 5678, "msgId", { disable_notification: true, allow_sending_without_reply: false });
+MyTelegramBot.sendPhoto(1234, 'photo/path');
 MyTelegramBot.sendPhoto(1234, 'photo/path', { caption: 'Foo' });
-MyTelegramBot.sendPhoto(1234, 'photo/path', { caption: 'Foo', parse_mode: 'HTML' });
+MyTelegramBot.sendPhoto(1234, 'photo/path', { caption: 'Foo', parse_mode: 'HTML' }, { filename: 'filename', contentType: 'application/octet-stream' });
+MyTelegramBot.sendPhoto(1234, 'photo/path', { filename: 'filename', contentType: 'application/octet-stream' }); // $ExpectError
+MyTelegramBot.sendAudio(1234, 'audio/path');
 MyTelegramBot.sendAudio(1234, 'audio/path', { caption: 'Foo' });
-MyTelegramBot.sendAudio(1234, 'audio/path', { caption: 'Foo', parse_mode: 'Markdown' });
-MyTelegramBot.sendDocument(1234, 'doc/path', { caption: 'Foo' }, { fileOption: true });
-MyTelegramBot.sendDocument(1234, 'doc/path', { caption: 'Foo', parse_mode: 'HTML' }, { fileOption: true });
+MyTelegramBot.sendAudio(1234, 'audio/path', { caption: 'Foo', parse_mode: 'Markdown' }, { filename: 'filename', contentType: 'application/octet-stream' });
+MyTelegramBot.sendAudio(1234, 'audio/path', { filename: 'filename', contentType: 'application/octet-stream' }); // $ExpectError
+MyTelegramBot.sendDocument(1234, 'doc/path');
+MyTelegramBot.sendDocument(1234, 'doc/path', { caption: 'Foo' });
+MyTelegramBot.sendDocument(1234, 'doc/path', { caption: 'Foo', parse_mode: 'HTML' }, { filename: 'filename', contentType: 'application/octet-stream' });
+MyTelegramBot.sendDocument(1234, 'doc/path', { filename: 'filename', contentType: 'application/octet-stream' }); // $ExpectError
 MyTelegramBot.sendPoll(1234, 'question', ['answer1', 'answer2'], { type: 'regular' });
+MyTelegramBot.sendSticker(1234, 'sticker/path');
 MyTelegramBot.sendSticker(1234, 'sticker/path', { reply_to_message_id: 5678 });
+MyTelegramBot.sendSticker(1234, 'sticker/path', { reply_to_message_id: 5678 }, { filename: 'filename', contentType: 'application/octet-stream' });
+MyTelegramBot.sendSticker(1234, 'sticker/path', { filename: 'filename', contentType: 'application/octet-stream' }); // $ExpectError
+MyTelegramBot.sendVideo(1234, 'video/path');
 MyTelegramBot.sendVideo(1234, 'video/path', { caption: 'Foo' });
-MyTelegramBot.sendVideo(1234, 'video/path', { caption: 'Foo', parse_mode: 'MarkdownV2' });
+MyTelegramBot.sendVideo(1234, 'video/path', { caption: 'Foo', parse_mode: 'MarkdownV2' }, { filename: 'filename', contentType: 'application/octet-stream' });
+MyTelegramBot.sendVideo(1234, 'video/path', { filename: 'filename', contentType: 'application/octet-stream' }); // $ExpectError
+MyTelegramBot.sendVideoNote(1234, 'video/path');
 MyTelegramBot.sendVideoNote(1234, 'video/path', { disable_notification: true });
+MyTelegramBot.sendVideoNote(1234, 'video/path', { disable_notification: true }, { filename: 'filename', contentType: 'application/octet-stream' });
+MyTelegramBot.sendVideoNote(1234, 'video/path', { filename: 'filename', contentType: 'application/octet-stream' }); // $ExpectError
+MyTelegramBot.sendVoice(1234, 'voice/path');
 MyTelegramBot.sendVoice(1234, 'voice/path', { caption: 'Foo' });
-MyTelegramBot.sendVoice(1234, 'voice/path', { caption: 'Foo', parse_mode: 'HTML' });
+MyTelegramBot.sendVoice(1234, 'voice/path', { caption: 'Foo', parse_mode: 'HTML' }, { filename: 'filename', contentType: 'application/octet-stream' });
+MyTelegramBot.sendVoice(1234, 'voice/path', { filename: 'filename', contentType: 'application/octet-stream' }); // $ExpectError
 MyTelegramBot.sendAnimation(1234, 'animation/path', { caption: 'Foo', duration: 100, width: 200, height: 300 });
 MyTelegramBot.sendChatAction(1234, 'typing');
 MyTelegramBot.kickChatMember(1234, 'myUserID');
@@ -52,7 +70,11 @@ MyTelegramBot.exportChatInviteLink(1234);
 MyTelegramBot.createChatInviteLink(1234, 'Foo', 1234, 1234, true);
 MyTelegramBot.editChatInviteLink(1234, "", "", 1234, 1234, true);
 MyTelegramBot.revokeChatInviteLink(1234, "");
-MyTelegramBot.setChatPhoto(1234, 'My/File/ID');
+MyTelegramBot.approveChatJoinRequest(1234, 'myUserID');
+MyTelegramBot.approveChatJoinRequest(1234, 'myUserID', {});
+MyTelegramBot.declineChatJoinRequest(1234, 'myUserID');
+MyTelegramBot.declineChatJoinRequest(1234, 'myUserID', {});
+MyTelegramBot.setChatPhoto(1234, 'My/File/ID', {}, { filename: 'filename', contentType: 'application/octet-stream' });
 MyTelegramBot.deleteChatPhoto(1234);
 MyTelegramBot.setChatTitle(1234, 'Chat Title');
 MyTelegramBot.setChatDescription(1234, 'Chat Description');

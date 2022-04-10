@@ -1,9 +1,8 @@
-// Type definitions for node-telegram-bot-api 0.53
+// Type definitions for node-telegram-bot-api 0.56
 // Project: https://github.com/yagop/node-telegram-bot-api
 // Definitions by: Alex Muench <https://github.com/ammuench>
 //                 Agadar <https://github.com/agadar>
 //                 Giorgio Garasto <https://github.com/Dabolus>
-//                 Kallu609 <https://github.com/Kallu609>
 //                 XC-Zhang <https://github.com/XC-Zhang>
 //                 AdityaThebe <https://github.com/adityathebe>
 //                 Michael Orlov <https://github.com/MiklerGM>
@@ -158,6 +157,11 @@ declare namespace TelegramBot {
     interface SendPhotoOptions extends SendBasicOptions {
         parse_mode?: ParseMode | undefined;
         caption?: string | undefined;
+    }
+
+    interface FileOptions {
+        filename?: string | undefined;
+        contentType?: string | undefined;
     }
 
     interface SendAudioOptions extends SendBasicOptions {
@@ -1203,7 +1207,7 @@ declare class TelegramBot extends EventEmitter {
 
     close(): Promise<boolean>;
 
-    setWebHook(url: string, options?: TelegramBot.SetWebHookOptions): Promise<any>;
+    setWebHook(url: string, options?: TelegramBot.SetWebHookOptions, fileOptions?: TelegramBot.FileOptions): Promise<any>;
 
     deleteWebHook(): Promise<boolean>;
 
@@ -1221,15 +1225,15 @@ declare class TelegramBot extends EventEmitter {
 
     copyMessage(chatId: TelegramBot.ChatId, fromChatId: TelegramBot.ChatId, messageId: number | string, options?: TelegramBot.CopyMessageOptions): Promise<TelegramBot.MessageId>;
 
-    sendPhoto(chatId: TelegramBot.ChatId, photo: string | Stream | Buffer, options?: TelegramBot.SendPhotoOptions): Promise<TelegramBot.Message>;
+    sendPhoto(chatId: TelegramBot.ChatId, photo: string | Stream | Buffer, options?: TelegramBot.SendPhotoOptions, fileOptions?: TelegramBot.FileOptions): Promise<TelegramBot.Message>;
 
-    sendAudio(chatId: TelegramBot.ChatId, audio: string | Stream | Buffer, options?: TelegramBot.SendAudioOptions): Promise<TelegramBot.Message>;
+    sendAudio(chatId: TelegramBot.ChatId, audio: string | Stream | Buffer, options?: TelegramBot.SendAudioOptions, fileOptions?: TelegramBot.FileOptions): Promise<TelegramBot.Message>;
 
     sendAnimation(chatId: TelegramBot.ChatId, animation: string | Stream | Buffer, options?: TelegramBot.SendAnimationOptions): Promise<TelegramBot.Message>;
 
     sendDice(chatId: TelegramBot.ChatId, options?: TelegramBot.SendDiceOptions): Promise<TelegramBot.Message>;
 
-    sendDocument(chatId: TelegramBot.ChatId, doc: string | Stream | Buffer, options?: TelegramBot.SendDocumentOptions, fileOpts?: any): Promise<TelegramBot.Message>;
+    sendDocument(chatId: TelegramBot.ChatId, doc: string | Stream | Buffer, options?: TelegramBot.SendDocumentOptions, fileOptions?: TelegramBot.FileOptions): Promise<TelegramBot.Message>;
 
     sendMediaGroup(chatId: TelegramBot.ChatId, media: ReadonlyArray<TelegramBot.InputMedia>, options?: TelegramBot.SendMediaGroupOptions): Promise<TelegramBot.Message>;
 
@@ -1240,13 +1244,13 @@ declare class TelegramBot extends EventEmitter {
     // see https://core.telegram.org/bots/api#stoppoll for more info.
     stopPoll(chatId: TelegramBot.ChatId, messageId: number, options?: TelegramBot.StopPollOptions): Promise<TelegramBot.Poll>;
 
-    sendSticker(chatId: TelegramBot.ChatId, sticker: string | Stream | Buffer, options?: TelegramBot.SendStickerOptions): Promise<TelegramBot.Message>;
+    sendSticker(chatId: TelegramBot.ChatId, sticker: string | Stream | Buffer, options?: TelegramBot.SendStickerOptions, fileOptions?: TelegramBot.FileOptions): Promise<TelegramBot.Message>;
 
-    sendVideo(chatId: TelegramBot.ChatId, video: string | Stream | Buffer, options?: TelegramBot.SendVideoOptions): Promise<TelegramBot.Message>;
+    sendVideo(chatId: TelegramBot.ChatId, video: string | Stream | Buffer, options?: TelegramBot.SendVideoOptions, fileOptions?: TelegramBot.FileOptions): Promise<TelegramBot.Message>;
 
-    sendVideoNote(chatId: TelegramBot.ChatId, videoNote: string | Stream | Buffer, options?: TelegramBot.SendVideoNoteOptions): Promise<TelegramBot.Message>;
+    sendVideoNote(chatId: TelegramBot.ChatId, videoNote: string | Stream | Buffer, options?: TelegramBot.SendVideoNoteOptions, fileOptions?: TelegramBot.FileOptions): Promise<TelegramBot.Message>;
 
-    sendVoice(chatId: TelegramBot.ChatId, voice: string | Stream | Buffer, options?: TelegramBot.SendVoiceOptions): Promise<TelegramBot.Message>;
+    sendVoice(chatId: TelegramBot.ChatId, voice: string | Stream | Buffer, options?: TelegramBot.SendVoiceOptions, fileOptions?: TelegramBot.FileOptions): Promise<TelegramBot.Message>;
 
     sendChatAction(chatId: TelegramBot.ChatId, action: TelegramBot.ChatAction): Promise<boolean>;
 
@@ -1270,7 +1274,11 @@ declare class TelegramBot extends EventEmitter {
 
     revokeChatInviteLink(chatId: TelegramBot.ChatId, inviteLink: string): Promise<TelegramBot.ChatInviteLink>;
 
-    setChatPhoto(chatId: TelegramBot.ChatId, photo: string | Stream | Buffer): Promise<boolean>;
+    approveChatJoinRequest(chatId: TelegramBot.ChatId, userId: string, form?: object): Promise<boolean>;
+
+    declineChatJoinRequest(chatId: TelegramBot.ChatId, userId: string, form?: object): Promise<boolean>;
+
+    setChatPhoto(chatId: TelegramBot.ChatId, photo: string | Stream | Buffer, options?: object, fileOptions?: TelegramBot.FileOptions): Promise<boolean>;
 
     deleteChatPhoto(chatId: TelegramBot.ChatId): Promise<boolean>;
 

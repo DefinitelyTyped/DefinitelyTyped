@@ -63,6 +63,25 @@ nova.config.get('test', 'array');
 
 /// https://novadocs.panic.com/api-reference/assistants-registry/
 
+nova.assistants.registerColorAssistant(['foo'], {
+    async provideColors(editor, context) {
+        // $ExpectType TextEditor
+        editor;
+        // $ExpectType ColorInformationContext
+        context;
+        return [colorInformation];
+    },
+    async provideColorPresentations(color, editor, context) {
+        // $ExpectType Color
+        color;
+        // $ExpectType TextEditor
+        editor;
+        // $ExpectType ColorPresentationContext
+        context;
+        return [colorPresentation];
+    },
+});
+
 nova.assistants.registerCompletionAssistant('foo', {
     async provideCompletionItems(editor, context) {
         // $ExpectType TextEditor
@@ -89,6 +108,17 @@ const completionItem = new CompletionItem('label', CompletionItemKind.Struct);
 completionItem.insertTextFormat = InsertTextFormat.Snippet;
 completionItem.insertText = 'text to insert';
 completionItem.commitChars = new Charset('-');
+
+/// https://docs.nova.app/api-reference/color-information/
+
+const colorInformation = new ColorInformation(
+    new Range(4, 2),
+    new Color(ColorFormat.rgb, [1, 0, 0.5, 1])
+);
+
+/// https://docs.nova.app/api-reference/color-presentation/
+
+const colorPresentation = new ColorPresentation('#000000', 'hex');
 
 /// https://novadocs.panic.com/api-reference/emitter/
 

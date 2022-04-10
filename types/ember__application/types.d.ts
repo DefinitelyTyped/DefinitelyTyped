@@ -11,11 +11,8 @@ export interface EventDispatcherEvents {
     contextmenu?: string | null | undefined;
     click?: string | null | undefined;
     dblclick?: string | null | undefined;
-    mousemove?: string | null | undefined;
     focusin?: string | null | undefined;
     focusout?: string | null | undefined;
-    mouseenter?: string | null | undefined;
-    mouseleave?: string | null | undefined;
     submit?: string | null | undefined;
     input?: string | null | undefined;
     change?: string | null | undefined;

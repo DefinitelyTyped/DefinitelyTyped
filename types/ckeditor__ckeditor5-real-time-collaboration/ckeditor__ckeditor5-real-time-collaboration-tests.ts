@@ -9,6 +9,7 @@ import {
     RealTimeCollaborativeTrackChanges,
     Sessions,
 } from '@ckeditor/ckeditor5-real-time-collaboration';
+import CloudServicesCommentsAdapter from '@ckeditor/ckeditor5-real-time-collaboration/src/realtimecollaborativecomments/cloudservicescommentsadapter';
 
 class MyEditor extends Editor {}
 const editor = new MyEditor();
@@ -29,6 +30,8 @@ new RealTimeCollaborativeComments(editor);
 
 new RealTimeCollaborativeTrackChanges(editor);
 
+new CloudServicesCommentsAdapter(editor);
+
 // $ExpectType PresenceList
 editor.plugins.get('PresenceList');
 
@@ -43,3 +46,6 @@ editor.plugins.get('RealTimeCollaborativeEditing');
 
 // $ExpectType RealTimeCollaborativeTrackChanges
 editor.plugins.get('RealTimeCollaborativeTrackChanges');
+
+// $ExpectType CloudServicesCommentsAdapter
+editor.plugins.get('CloudServicesCommentsAdapter');

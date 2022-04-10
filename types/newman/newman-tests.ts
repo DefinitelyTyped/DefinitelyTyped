@@ -59,6 +59,9 @@ newman.run({
     bail: true,
     timeoutRequest: 5000,
     suppressExitCode: true,
-    ignoreRedirects: true
+    ignoreRedirects: true,
+    sslClientCertList: 'certs.pem',
+    sslExtraCaCerts: 'caCerts.pem',
+    cookieJar: 'cookieJar.json'
 }, () => console.log('done'));
 newman.run(() => console.log('done'));

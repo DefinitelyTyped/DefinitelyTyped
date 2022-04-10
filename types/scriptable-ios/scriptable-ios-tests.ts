@@ -57,6 +57,9 @@
 
     // $ExpectType Color
     Color.dynamic(c, Color.black());
+
+    // Optional alpha paramneter
+    new Color('ffffff');
 }
 
 {

@@ -7,13 +7,18 @@ export namespace Branch {
     const enum BRANCH {
         LOCAL = 1,
         REMOTE = 2,
-        ALL = 3
+        ALL = 3,
     }
 }
 
 export class Branch {
     static create(repo: Repository, branchName: string, target: Commit, force: number): Promise<Reference>;
-    static createFromAnnotated(repository: Repository, branchName: string, commit: AnnotatedCommit, force: number): Reference;
+    static createFromAnnotated(
+        repository: Repository,
+        branchName: string,
+        commit: AnnotatedCommit,
+        force: number,
+    ): Reference;
     static delete(branch: Reference): number;
     static isHead(branch: Reference): number;
     static iteratorNew(repo: Repository, listFlags: number): Promise<any>;

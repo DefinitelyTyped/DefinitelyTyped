@@ -9409,6 +9409,16 @@ declare namespace zingchart {
     'line-width'?: number | string;
     lineWidth?: number | string;
   }
+  interface valueBoxRules extends valueBox {
+    /**
+     * A rule allows you to include logic in order to apply a set of attributes only to certain aspects of your chart that meet the crite
+     * ria specified within each "rule": group. You can include any number of "rule": groups nested within a "rules": set. Place the desi
+     * red attribute or attributes within each "rule": group to apply those attributes to the areas that fulfill the requirement. The eff
+     * ect of rules depends largely on the placement of the "rules": set within your JSON code. In the above example, the styling attribu
+     * tes within each rule will be applied to the scale-y guide. "%c == 2" | "%v <= 0" | "%v > 0" | ...
+     */
+    rule?: string;
+  }
   interface valueBox {
     /**
      * Sets the transparency of the object. Values must range between 0.0 and 1.0, with 0.0 being completely invisible and 1.0 being comp
@@ -9724,6 +9734,7 @@ declare namespace zingchart {
        */
       text?: string;
     };
+    rules?: valueBoxRules[];
   }
 
   interface globals {
@@ -14337,6 +14348,11 @@ declare namespace zingchart {
          */
         height?: any;
         /**
+         * To create HTML plot labels, set the value to `true`, and then in the attribute, provide your HTML markup.
+         */
+        'html-mode'?: boolean;
+        htmlMode?: boolean;
+        /**
          * Sets the item id of the map on which the object/shape is being added. "itemid" | ...
          */
         item?: string;
@@ -18680,6 +18696,11 @@ declare namespace zingchart {
      */
     'z-end'?: number;
     zEnd?: number;
+    /**
+     * Sets the z-index of the series object
+     */
+    'z-index'?: number;
+    zIndex?: number;
     /**
      * Sets the z-axis start point on 3d charts. 10 | "10px" | ...
      */

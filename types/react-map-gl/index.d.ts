@@ -3,7 +3,6 @@
 // Definitions by: Robert Imig <https://github.com/rimig>
 //                 Fabio Berta <https://github.com/fnberta>
 //                 Sander Siim <https://github.com/sandersiim>
-//                 Otto Urpelainen <https://github.com/oturpe>
 //                 Arman Safikhani <https://github.com/Arman92>
 //                 William Chiu <https://github.com/chiuhow>
 //                 David Baumgold <https://github.com/singingwolfboy>

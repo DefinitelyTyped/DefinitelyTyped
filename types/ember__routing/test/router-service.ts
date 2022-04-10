@@ -12,6 +12,23 @@ router.transitionTo(
     { queryParams: {} },
 );
 
+const routeWillChangeHandler = () => {};
+
+// $ExpectType RouterService
+router.on('routeWillChange', routeWillChangeHandler);
+
+// $ExpectType boolean
+router.has('routeWillChange');
+
+// $ExpectType RouterService
+router.off('routeWillChange', routeWillChangeHandler);
+
+// $ExpectType RouterService
+router.one('routeWillChange', routeWillChangeHandler);
+
+// $ExpectType void
+router.trigger('routeWillChange', 'boo');
+
 const transition = router.transitionTo('someRoute');
 
 // $ExpectType Transition<unknown>
@@ -90,3 +107,6 @@ router.recognizeAndLoad('foo/bar'); // $ExpectType RouteInfoWithAttributes
 
 router.rootURL; // $ExpectType string
 router.rootURL = 'foo'; // $ExpectError
+
+router.refresh(); // $ExpectType Transition<unknown>
+router.refresh('my-route'); // $ExpectType Transition<unknown>

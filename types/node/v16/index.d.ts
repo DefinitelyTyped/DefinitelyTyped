@@ -34,7 +34,6 @@
 //                 Junxiao Shi <https://github.com/yoursunny>
 //                 Ilia Baryshnikov <https://github.com/qwelias>
 //                 ExE Boss <https://github.com/ExE-Boss>
-//                 Surasak Chaisurin <https://github.com/Ryan-Willpower>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 //                 Anna Henningsen <https://github.com/addaleax>
 //                 Victor Perin <https://github.com/victorperin>

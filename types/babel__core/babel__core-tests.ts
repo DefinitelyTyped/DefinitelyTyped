@@ -36,8 +36,12 @@ babel.transformFile('filename.js', options, (err, result) => {
 
 babel.transformFileSync('filename.js', options)!.code;
 
+function checkParseResult(_config: t.File) {}
+
 const sourceCode = 'if (true) return;';
 const parsedAst = babel.parse(sourceCode, options);
+
+checkParseResult(parsedAst!);
 
 babel.transformFromAst(parsedAst!, sourceCode, options, (err, result) => {
     const { code, map, ast } = result!;

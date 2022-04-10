@@ -24,15 +24,20 @@ const ordersPatchRequest = new paypal.orders.OrdersPatchRequest('orderId'); // $
 const ordersValidateRequest = new paypal.orders.OrdersValidateRequest('orderId'); // $ExpectType OrdersValidateRequest
 
 ordersCreateRequest.requestBody({
-    intent: paypal.orders.CheckoutPaymentIntent.CAPTURE,
+    intent: 'CAPTURE',
     purchase_units: [
         {
             amount: {
                 currency_code: 'USD',
                 value: '100.00',
             },
+            payee: { email_address: 'sendMoreMoney@me.com' },
         },
     ],
+    application_context: {
+        shipping_preference: 'NO_SHIPPING',
+        user_action: 'CONTINUE',
+    },
 });
 
 async () => {

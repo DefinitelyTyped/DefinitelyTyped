@@ -44,18 +44,15 @@ using(
 
 /* waitFor */
 
-// $ExpectType Promise<string>
-waitFor.documentChange(uri);
-
-// $ExpectType Promise<string>
-waitFor.not.documentChange(uri);
+// $ExpectType Promise<number>
+waitFor(() => 1);
 
 /* take */
 
 // $ExpectType Promise<{ [codeActionTitle: string]: () => Thenable<void>; }>
 take.codeActions(uri, range);
 
-// $ExpectType Promise<(Location | LocationLink)[]>
+// $ExpectType Promise<(Location | LocationLink)[]> || Promise<(LocationLink | Location)[]>
 take.definitions(uri, position);
 
 // $ExpectType Promise<string>

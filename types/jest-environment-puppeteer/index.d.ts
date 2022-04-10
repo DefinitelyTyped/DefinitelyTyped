@@ -1,4 +1,4 @@
-// Type definitions for jest-environment-puppeteer 4.4
+// Type definitions for jest-environment-puppeteer 5.0
 // Project: https://github.com/smooth-code/jest-puppeteer/tree/master/packages/jest-environment-puppeteer
 // Definitions by: Josh Goldberg <https://github.com/joshuakgoldberg>
 //                 Ifiok Jr. <https://github.com/ifiokjr>
@@ -56,7 +56,7 @@ interface Global extends GlobalType.Global {
 
 /** Note: TestEnvironment is sandboxed. Each test suite will trigger setup/teardown in their own TestEnvironment. */
 declare class PuppeteerEnvironment extends NodeEnvironment {
-  global: Global;
+    global: Global;
 }
 
 declare global {

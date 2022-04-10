@@ -316,3 +316,19 @@ describe("ApplePayPaymentRequest", () => {
         paymentRequest.shippingType = "delivery";
     });
 });
+
+describe("ApplePayError", () => {
+    it("can create a new instance", () => {
+        new ApplePayError('shippingContactInvalid');
+        new ApplePayError('shippingContactInvalid', 'emailAddress');
+        new ApplePayError('shippingContactInvalid', 'emailAddress', 'some message');
+    });
+});
+
+describe("ApplePayJS.ApplePayError", () => {
+    it("can be used as a type", () => {
+        const a: ApplePayJS.ApplePayError = new ApplePayError('shippingContactInvalid');
+        const b: ApplePayJS.ApplePayError = new ApplePayError('shippingContactInvalid', 'emailAddress');
+        const c: ApplePayJS.ApplePayError = new ApplePayError('shippingContactInvalid', 'emailAddress', 'some message');
+    });
+});

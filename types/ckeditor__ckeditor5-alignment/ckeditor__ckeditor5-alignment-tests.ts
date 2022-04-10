@@ -49,4 +49,4 @@ editor.plugins.get('AlignmentEditing');
 editor.plugins.get('AlignmentUI');
 
 // $ExpectType AlignmentCommand | undefined
-editor.commands.get('AlignmentCommand');
+editor.commands.get('alignment');

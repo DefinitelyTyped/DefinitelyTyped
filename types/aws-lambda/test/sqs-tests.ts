@@ -47,6 +47,11 @@ const event: SQSEvent = {
                     binaryListValues: [],
                     dataType: 'Number',
                 },
+                testAttr2: {
+                    stringValue: '100',
+                    binaryValue: 'base64Str',
+                    dataType: 'Number',
+                },
             },
             md5OfBody: '9bb58f26192e4ba00f01e2e7b136bbd8',
             eventSource: 'aws:sqs',

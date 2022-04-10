@@ -165,6 +165,7 @@ export class MarkdownSerializer<S extends Schema = any> {
         marks: {
             [key: string]: MarkSerializerConfig;
         },
+        options?: { escapeExtraCharacters?: RegExp | null | undefined },
     );
     /**
      * The node serializer
@@ -175,6 +176,10 @@ export class MarkdownSerializer<S extends Schema = any> {
      * The mark serializer info.
      */
     marks: { [key: string]: any };
+    /**
+     * The options passed to the serializer.
+     */
+    options: { escapeExtraCharacters?: RegExp | null | undefined };
     /**
      * Serialize the content of the given node to
      * [CommonMark](http://commonmark.org/).

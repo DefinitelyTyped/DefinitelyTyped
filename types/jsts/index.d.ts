@@ -307,6 +307,97 @@ declare namespace jsts {
 
             computeIntersection(p: Coordinate, p1: Coordinate, p2: Coordinate, p3: Coordinate): void;
         }
+
+        namespace locate {
+            import Polygon = jsts.geom.Polygon;
+
+            /**
+             * An interface for classes which determine the Location of points in a Geometry.
+             */
+            interface PointOnGeometryLocator {
+                /**
+                 * Determines the Location of a point in the Geometry.
+                 *
+                 * @param p the point to test
+                 *
+                 * @returns {int} the location of the point in the geometry
+                 */
+                locate(p: Coordinate): number;
+            }
+
+            /**
+             * Computes the location of points relative to a Polygonal Geometry,
+             * using a simple O(n) algorithm.
+             *
+             * The algorithm used reports if a point lies in the interior, exterior,
+             * or exactly on the boundary of the Geometry.
+             *
+             * Instance methods are provided to implement the interface PointInAreaLocator.
+             * However, they provide no performance advantage over the class methods.
+             *
+             * This algorithm is suitable for use in cases where only a few points will be tested.
+             * If many points will be tested, IndexedPointInAreaLocator may provide better performance.
+             */
+            export class SimplePointInAreaLocator implements PointOnGeometryLocator {
+                /**
+                 * Create an instance of a point-in-area locator, using the provided areal geometry.
+                 */
+                constructor(geom: Geometry);
+
+                /**
+                 * Determines the Location of a point in an areal Geometry. The return value is one of:
+                 * Location.INTERIOR if the point is in the geometry interior
+                 * Location.BOUNDARY if the point lies exactly on the boundary
+                 * Location.EXTERIOR if the point is outside the geometry
+                 *
+                 * @returns {int} the Location of the point in the geometry
+                 */
+                static locate(p: Coordinate, geom: Geometry): number;
+
+                /**
+                 * Determines whether a point is contained in a Geometry, or lies on its boundary.
+                 * This is a convenience method for Location.EXTERIOR != locate(p, geom)
+                 */
+                static isContained(p: Coordinate, geom: Geometry): boolean;
+
+                /**
+                 * Determines the Location of a point in a Polygon. The return value is one of:
+                 * - Location.INTERIOR if the point is in the geometry interior
+                 * - Location.BOUNDARY if the point lies exactly on the boundary
+                 * - Location.EXTERIOR if the point is outside the geometry
+                 * This method is provided for backwards compatibility only. Use locate(Coordinate, Geometry) instead.
+                 *
+                 * @param p {Coordinate} the point to test
+                 * @param poly {Polygon} the geometry to test
+                 *
+                 * @returns {int} the Location of the point in the polygon
+                 */
+                static locatePointInPolygon(p: Coordinate, poly: Polygon): number;
+
+                /**
+                 * Determines whether a point lies in a Polygon. If the point lies on the polygon boundary it is considered to be inside.
+                 *
+                 * @param p {Coordinate} the point to test
+                 * @param poly {Polygon} the geometry to test
+                 *
+                 * @returns {boolean} true if the point lies in or on the polygon
+                 */
+
+                static containsPointInPolygon(p: Coordinate, poly: Polygon): boolean;
+
+                /**
+                 * Determines the Location of a point in an areal Geometry. The return value is one of:
+                 * - Location.INTERIOR if the point is in the geometry interior
+                 * - Location.BOUNDARY if the point lies exactly on the boundary
+                 * - Location.EXTERIOR if the point is outside the geometry
+                 *
+                 * @param p {Coordinate} the point to test
+                 *
+                 * @returns {int} the Location of the point in the geometry
+                 */
+                locate(p: Coordinate): number;
+            }
+        }
     }
 
     namespace densify {
@@ -3260,6 +3351,65 @@ declare namespace jsts {
              * @param removeCollapsed if true collapsed components will be removed
              */
             setRemoveCollapsedComponents(removeCollapsed: boolean): void;
+        }
+    }
+
+    namespace simplify {
+        import Geometry = jsts.geom.Geometry;
+
+        /**
+         * Simplifies a geometry and ensures that the result is a valid geometry
+         * having the same dimension and number of components as the input,
+         * and with the components having the same topological relationship.
+         *
+         * If the input is a polygonal geometry ( Polygon or MultiPolygon ):
+         * - The result has the same number of shells and holes as the input,
+         * with the same topological structure
+         * - The result rings touch at no more than the number of touching points
+         * in the input (although they may touch at fewer points).
+         * The key implication of this statement is that if the input is topologically valid,
+         * so is the simplified output.
+         *
+         * For linear geometries, if the input does not contain any intersecting line segments,
+         * this property will be preserved in the output.
+         *
+         * For all geometry types, the result will contain enough vertices to ensure validity.
+         * For polygons and closed linear geometries, the result will have at least 4 vertices;
+         * for open linestrings the result will have at least 2 vertices.
+         *
+         * All geometry types are handled. Empty and point geometries are returned unchanged.
+         * Empty geometry components are deleted.
+         *
+         * The simplification uses a maximum-distance difference algorithm similar to
+         * the Douglas-Peucker algorithm.
+         *
+         * KNOWN BUGS
+         * May create invalid topology if there are components which are small relative
+         * to the tolerance value. In particular, if a small hole is very near an edge,
+         * it is possible for the edge to be moved by a relatively large tolerance value
+         * and end up with the hole outside the result shell (or inside another hole).
+         * Similarly, it is possible for a small polygon component to end up inside
+         * a nearby larger polygon. A workaround is to test for this situation in post-processing
+         * and remove any invalid holes or polygons.
+         */
+        export class TopologyPreservingSimplifier {
+            constructor(inputGeom: Geometry);
+
+            /**
+             * @param {double} distanceTolerance
+             */
+            static simplify(geom: Geometry, distanceTolerance: number): Geometry;
+
+            /**
+             * Sets the distance tolerance for the simplification.
+             * All vertices in the simplified geometry will be within this distance of the original geometry.
+             * The tolerance value must be non-negative. A tolerance value of zero is effectively a no-op.
+             *
+             * @param {double} distanceTolerance the approximation tolerance to use
+             */
+            setDistanceTolerance(distanceTolerance: number): void;
+
+            getResultGeometry(): Geometry;
         }
     }
 }

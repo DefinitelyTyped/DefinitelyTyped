@@ -1,4 +1,4 @@
-// Type definitions for Amplitude SDK 8.9
+// Type definitions for Amplitude SDK 8.16
 // Project: https://github.com/amplitude/Amplitude-Javascript
 // Definitions by: Dan Manastireanu <https://github.com/danmana>
 //                 Kimmo Hintikka <https://github.com/HintikkaKimmo>
@@ -8,9 +8,11 @@ export as namespace amplitude;
 
 export type Callback = (responseCode: number, responseBody: string, details?: { reason: string }) => void;
 export type LogReturn = number | undefined;
+export type Transport = 'http' | 'beacon';
 // https://github.com/amplitude/Amplitude-JavaScript/blob/v8.9.0/src/server-zone.js#L9
 export type ServerZone = 'EU' | 'US';
 
+// https://amplitude.github.io/Amplitude-JavaScript/Options
 export interface Config {
     apiEndpoint?: string | undefined;
     batchEvents?: boolean | undefined;
@@ -34,6 +36,7 @@ export interface Config {
     logLevel?: 'DISABLE' | 'ERROR' | 'WARN' | 'INFO' | undefined;
     optOut?: boolean | undefined;
     onError?: (() => void) | undefined;
+    onExit?: (() => void) | undefined;
     platform?: string | undefined;
     sameSiteCookie?: 'Lax' | 'Strict' | 'None' | undefined;
     saveEvents?: boolean | undefined;
@@ -41,6 +44,8 @@ export interface Config {
     saveParamsReferrerOncePerSession?: boolean | undefined;
     secureCookie?: boolean | undefined;
     sessionTimeout?: number | undefined;
+    sessionId?: string | null;
+    storage?: '' | 'cookies' | 'localStorage' | 'sessionStorage' | 'none';
     trackingOptions?: {
         city?: boolean | undefined;
         country?: boolean | undefined;
@@ -61,8 +66,21 @@ export interface Config {
     unsentIdentifyKey?: string | undefined;
     uploadBatchSize?: number | undefined;
     useNativeDeviceInfo?: boolean | undefined;
+    transport?: Transport | undefined;
     serverZone?: ServerZone | undefined;
     serverZoneBasedApi?: boolean | undefined;
+    useDynamicConfig?: boolean | undefined;
+    logAttributionCapturedEvent?: boolean | undefined;
+    plan?: {
+        branch?: string;
+        source?: string;
+        version?: string;
+    } | undefined;
+    headers?: Record<string, string>;
+    library?: {
+        name?: string;
+        version?: string;
+    } | undefined;
 }
 
 export class Identify {
@@ -98,36 +116,60 @@ export class AmplitudeClient {
     cookieStorage: CookieStorage;
 
     init(apiKey: string, userId?: string, config?: Config, callback?: (client: AmplitudeClient) => void): void;
+    onInit(callback: (client: AmplitudeClient) => void): void;
 
+    setLibrary(name?: string, version?: string): void;
     setVersionName(versionName: string): void;
 
+    onNewSessionStart(callback: (client: AmplitudeClient) => void): void;
     isNewSession(): boolean;
     setSessionId(sessionId: number): void;
     getSessionId(): number;
     resetSessionId(): void;
+    setMinTimeBetweenSessionsMillis(timeInMillis: number): void;
 
     setDomain(domain: string): void;
-    setUserId(userId: string | null): void;
+    setUserId(userId: string | null, startNewSession?: boolean): void;
+    getUserId(): string;
+
+    enableTracking(): void;
 
     setDeviceId(id: string): void;
+    getDeviceId(): string;
     regenerateDeviceId(): void;
 
-    identify(identify: Identify, callback?: Callback): void;
-    groupIdentify(groupType: string, groupName: string | string[], identify: Identify, callback?: Callback): void;
+    identify(identify: Identify, callback?: Callback, errorCallback?: Callback, outOfSession?: boolean): void;
+    groupIdentify(groupType: string, groupName: string | string[], identify: Identify, callback?: Callback, errorCallback?: Callback, outOfSession?: boolean): void;
 
     setUserProperties(properties: any): void;
+    /**
+     * @deprecated Use `setUserProperties` instead
+     */
     setGlobalUserProperties(properties: any): void;
     clearUserProperties(): void;
+
+    clearStorage(): boolean;
+
+    setUseDynamicConfig(useDynamicConfig: boolean): void;
 
     setOptOut(enable: boolean): void;
 
     setGroup(groupType: string, groupName: string | string[]): void;
 
-    logEvent(event: string, data?: any, callback?: Callback): LogReturn;
-    logEventWithGroups(event: string, data?: any, groups?: any, callback?: Callback): LogReturn;
+    setTransport(transport: Transport): void;
+    setServerUrl(serverUrl: string): void;
+    setServerZone(serverZone: ServerZone, serverZoneBasedApi?: boolean): void;
+
+    setEventUploadThreshold(eventUploadThreshold: number): void;
+    logEvent(event: string, data?: any, callback?: Callback, errorCallback?: Callback, outOfSession?: boolean): LogReturn;
+    logEventWithGroups(event: string, data?: any, groups?: any, callback?: Callback, errorCallback?: Callback, outOfSession?: boolean): LogReturn;
     logRevenueV2(revenue_obj: Revenue): LogReturn;
-    logRevenue(pric: number, quantity: number, product: string): LogReturn;
-    logEventWithTimestamp(event: string, data?: any, timestamp?: number, callback?: Callback): LogReturn;
+
+    /**
+     * @deprecated Use `logRevenueV2` instead
+     */
+    logRevenue(price: number, quantity: number, product: string): LogReturn;
+    logEventWithTimestamp(event: string, data?: any, timestamp?: number, callback?: Callback, errorCallback?: Callback, outOfSession?: boolean): LogReturn;
 
     Identify: typeof Identify;
     Revenue: typeof Revenue;

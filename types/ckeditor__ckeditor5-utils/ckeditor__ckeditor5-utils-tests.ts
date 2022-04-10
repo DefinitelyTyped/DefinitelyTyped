@@ -52,9 +52,11 @@ import {
     isHighSurrogateHalf,
     isInsideCombinedSymbol,
     isInsideSurrogatePair,
-    isLowSurrogateHalf
+    isLowSurrogateHalf,
 } from '@ckeditor/ckeditor5-utils/src/unicode';
 import version from '@ckeditor/ckeditor5-utils/src/version';
+import isComment from '@ckeditor/ckeditor5-utils/src/dom/iscomment';
+import isVisible from '@ckeditor/ckeditor5-utils/src/dom/isvisible';
 
 declare const document: Document;
 declare let emitter: Emitter;
@@ -118,10 +120,10 @@ getOptimalPosition({
     element: htmlElement,
     target: () => htmlElement,
     positions: [
-        (targetRect, elementRect) => ({
-            top: targetRect.top,
-            left: targetRect.left + elementRect.width,
-            name: 'right',
+        targetRect => ({
+            top: targetRect.bottom,
+            left: targetRect.left,
+            name: 'mySouthEastPosition',
         }),
     ],
 });
@@ -345,7 +347,7 @@ new Config({ bar: 10 });
 // $ExpectType Config<{ bar?: undefined; } | { bar: number; }>
 new Config({}, { bar: 10 });
 // $ExpectType number | undefined
-new Config({}, { bar: 10 }).get("bar");
+new Config({}, { bar: 10 }).get('bar');
 
 new Config().define({
     resize: {
@@ -629,12 +631,12 @@ function* getGenerator() {
     yield 22;
     yield 33;
 }
-// $ExpectType 11 | 22 | 33 | null
-nth(2, getGenerator());
+// $ExpectType 11 | 22 | 33 | null || 11 | 33 | 22 | null
+nth(2, Array.from(getGenerator()));
 // $ExpectType null
 nth(2, []);
 // $ExpectType number | null
-nth(2, [5]);
+nth(2, [5, 5, 6]);
 // $ExpectType 5 | null
 nth(2, [5] as const);
 
@@ -870,9 +872,9 @@ toArray(5 as const);
 
 // utils/version
 
-// $ExpectType "28.0.0"
+// $ExpectType "32.0.0"
 window.CKEDITOR_VERSION;
-// $ExpectType "28.0.0"
+// $ExpectType "32.0.0"
 version;
 
 // utils/areconnectedthroughproperties
@@ -880,3 +882,15 @@ version;
 areConnectedThroughProperties([], []);
 // $ExpectType boolean
 areConnectedThroughProperties({}, {});
+
+// utils/dom/iscomment
+// $ExpectType boolean
+isComment('');
+
+// utils/dom/isvisible
+// $ExpectType boolean
+isVisible(document.documentElement);
+// $ExpectType boolean
+isVisible(null);
+// $ExpectType boolean
+isVisible();
