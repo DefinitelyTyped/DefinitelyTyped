@@ -178,8 +178,11 @@ export interface LegalHoldOptions {
 
 export interface SelectOptions {
     expression: string;
+    expressionType?: string;
     inputSerialization: EmptyObject;
     outputSerialization: EmptyObject;
+    requestProgress?: EmptyObject;
+    scanRange?: EmptyObject;
 }
 
 export interface DestinationObjectOptions {
@@ -188,7 +191,7 @@ export interface DestinationObjectOptions {
     Encryption?: EmptyObject;
     UserMetadata?: EmptyObject;
     UserTags?: EmptyObject | string;
-    LegalHold: LegalHoldStatus;
+    LegalHold?: LegalHoldStatus;
     RetainUntilDate?: string;
     Mode?: Mode;
 }
@@ -201,9 +204,9 @@ export interface SourceObjectOptions {
     NoMatchETag?: string;
     MatchModifiedSince?: string;
     MatchUnmodifiedSince?: string;
-    MatchRange: boolean;
-    Start: number;
-    End: number;
+    MatchRange?: boolean;
+    Start?: number;
+    End?: number;
     Encryption?: EmptyObject;
 }
 
@@ -371,7 +374,7 @@ export class Client {
     setObjectLegalHold(bucketName: string, objectName: string, setOptions: LegalHoldOptions, callback: NoResultCallback): void;
     setObjectLegalHold(bucketName: string, objectName: string, setOptions?: LegalHoldOptions): Promise<void>;
 
-    composeObject(destObjConfig: DestinationObjectOptions, sourceObjList: SourceObjectOptions[], callback: SourceObjectStats): void;
+    composeObject(destObjConfig: DestinationObjectOptions, sourceObjList: SourceObjectOptions[], callback: ResultCallback<SourceObjectStats>): void;
     composeObject(destObjConfig: DestinationObjectOptions, sourceObjList: SourceObjectOptions[]): Promise<SourceObjectStats>;
 
     selectObjectContent(bucketName: string, objectName: string, selectOpts: SelectOptions, callback: NoResultCallback): void;
