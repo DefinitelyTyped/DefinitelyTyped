@@ -120,6 +120,7 @@ import EventEmitter = require('node:events');
 }
 
 {
+  // tslint:disable:no-unnecessary-generics
   // $ExpectError
   process.addListener("SIGKILL", (_event) => { });
   // $ExpectError

@@ -345,6 +345,8 @@ declare module 'process' {
                 on(event: "newListener", listener: NewListenerListener): this;
                 on(event: "removeListener", listener: RemoveListenerListener): this;
                 on(event: "multipleResolves", listener: MultipleResolveListener): this;
+
+                // tslint:disable-next-line:no-unnecessary-generics
                 on<T extends string | symbol>(event: AllowedSignal<T>, listener: (...args: any[]) => void): this;
 
                 once(event: "beforeExit", listener: BeforeExitListener): this;
@@ -360,6 +362,8 @@ declare module 'process' {
                 once(event: "newListener", listener: NewListenerListener): this;
                 once(event: "removeListener", listener: RemoveListenerListener): this;
                 once(event: "multipleResolves", listener: MultipleResolveListener): this;
+
+                // tslint:disable-next-line:no-unnecessary-generics
                 once<T extends string | symbol>(event: AllowedSignal<T>, listener: (...args: any[]) => void): this;
 
                 prependListener(event: "beforeExit", listener: BeforeExitListener): this;

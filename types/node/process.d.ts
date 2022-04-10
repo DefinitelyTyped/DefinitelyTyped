@@ -1425,6 +1425,7 @@ declare module 'process' {
                 on(event: ListenableSignals, listener: SignalsListener): this;
                 on(event: 'multipleResolves', listener: MultipleResolveListener): this;
                 on(event: 'worker', listener: WorkerListener): this;
+                // tslint:disable-next-line:no-unnecessary-generics
                 on<T extends string | symbol>(event: AllowedSignal<T>, listener: (...args: any[]) => void): this;
 
                 once(event: 'beforeExit', listener: BeforeExitListener): this;
@@ -1439,6 +1440,8 @@ declare module 'process' {
                 once(event: ListenableSignals, listener: SignalsListener): this;
                 once(event: 'multipleResolves', listener: MultipleResolveListener): this;
                 once(event: 'worker', listener: WorkerListener): this;
+
+                // tslint:disable-next-line:no-unnecessary-generics
                 once<T extends string | symbol>(event: AllowedSignal<T>, listener: (...args: any[]) => void): this;
                 prependListener(event: 'beforeExit', listener: BeforeExitListener): this;
                 prependListener(event: 'disconnect', listener: DisconnectListener): this;
