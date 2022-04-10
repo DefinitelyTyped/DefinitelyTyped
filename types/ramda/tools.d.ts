@@ -17,6 +17,26 @@ import { A, M, O, T } from 'ts-toolbelt';
 // A
 
 /**
+ * A type that any constructor is assignable to.
+ * Use as a generic constraint (`T extends AnyConstructor`)
+ * and for function parameters (`a: AnyConstructor`).
+ * Use `new (...args: unknown[]) => unknown` instead for function return types.
+ *
+ * <created by @somebody1234>
+ */
+export type AnyConstructor = new (...args: any[]) => unknown;
+
+/**
+ * A type that any function is assignable to.
+ * Use as a generic constraint (`T extends AnyFunction`)
+ * and for function parameters (`a: AnyFunction`).
+ * Use `(...args: unknown[]) => unknown` instead for function return types.
+ *
+ * <created by @somebody1234>
+ */
+export type AnyFunction = (...args: any[]) => unknown;
+
+/**
  * <needs description>
  */
 export type Arity0Fn = () => any;
