@@ -1202,6 +1202,7 @@ declare namespace braintree {
                 description?: string | undefined;
             } | undefined;
             startImmediately?: boolean | undefined;
+            prorateCharges?: boolean | undefined;
         } | undefined;
         paymentMethodNonce?: string | undefined;
         paymentMethodToken?: string | undefined;
