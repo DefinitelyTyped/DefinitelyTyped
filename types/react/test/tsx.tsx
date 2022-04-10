@@ -13,9 +13,16 @@ FunctionComponent.defaultProps = {
 };
 <FunctionComponent />;
 <slot name="slot1"></slot>;
-// `FunctionComponent` has no `children`
-// $ExpectError
 <FunctionComponent>24</FunctionComponent>;
+
+const FunctionComponent2: React.FunctionComponent<SCProps> = ({ foo, children }) => {
+    return <div>{foo}{children}</div>;
+};
+FunctionComponent2.displayName = "FunctionComponent4";
+FunctionComponent2.defaultProps = {
+    foo: 42
+};
+<FunctionComponent2>24</FunctionComponent2>;
 
 const VoidFunctionComponent: React.VoidFunctionComponent<SCProps> = ({ foo }: SCProps) => {
     return <div>{foo}</div>;
