@@ -5,7 +5,6 @@ import {
     NightwatchAPI,
     NightwatchAssertion,
     NightwatchTests,
-    titleEquals,
     describe,
     it,
     before,
