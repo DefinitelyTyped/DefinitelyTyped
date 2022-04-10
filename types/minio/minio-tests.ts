@@ -240,6 +240,29 @@ minio.setObjectLegalHold('testBucket', 'hello.jpg', {versionId: 'someVersion', s
 minio.setObjectLegalHold('testBucket', 'hello.jpg');
 minio.setObjectLegalHold('testBucket', 'hello.jpg', {versionId: 'someVersion', status: 'OFF'});
 
+minio.composeObject(
+  { Bucket: 'testBucket', Object: '100MB.zip' },
+  [{ Bucket: 'testBucket', Object: 'partA' },
+  { Bucket: 'testBucket', Object: 'partB' }],
+  (error: Error | null, result: Minio.SourceObjectStats) => { console.log(error, result); });
+minio.composeObject({ Bucket: 'testBucket', Object: '100MB.zip' }, [{ Bucket: 'testBucket', Object: 'partA' }, { Bucket: 'testBucket', Object: 'partB' }]);
+minio.composeObject({ Bucket: 'testBucket', Object: '100MB.zip' }, [{ Bucket: 'testBucket', Object: 'partA' }, { Bucket: 'testBucket', Object: 'partB' }])
+  .then((result) => {
+    console.log(result);
+  });
+
+minio.selectObjectContent(
+  'testBucket',
+  'hello.jpg',
+  { expression: "SELECT * FROM s3object s", inputSerialization: {}, outputSerialization: {} },
+  (error: Error | null) => { console.log(error); }
+);
+minio.selectObjectContent(
+  'testBucket',
+  'hello.jpg',
+  { expression: "SELECT * FROM s3object s", inputSerialization: {}, outputSerialization: {} }
+);
+
 // Presigned operations
 minio.presignedUrl('GET', 'testBucket', 'hello.jpg', (error: Error|null, url: string) => { console.log(error, url); });
 minio.presignedUrl('GET', 'testBucket', 'hello.jpg', 84600, (error: Error|null, url: string) => { console.log(error, url); });
