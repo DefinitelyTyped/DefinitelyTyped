@@ -1,4 +1,4 @@
-import Helper, { helper } from '@ember/component/helper';
+import Helper, { ExpandSignature, helper } from '@ember/component/helper';
 
 class DeprecatedSignatureForm extends Helper<{
     PositionalArgs: [offset: Date];
@@ -32,7 +32,24 @@ interface DemoSig {
     Return: string;
 }
 
+function testMissingSignature({ Args, Return }: ExpandSignature<unknown>) {
+    // $ExpectType BadType<"This helper is missing a signature">
+    Args.Named;
+
+    // $ExpectType unknown[]
+    Args.Positional;
+
+    // $ExpectType unknown
+    Return;
+}
+
 class SignatureForm extends Helper<DemoSig> {
+    compute([i18nizer]: [i18nizer: (s: string) => string], { name, age }: { name: string; age: number }): string {
+        return i18nizer(`${name} is ${age} years old`);
+    }
+}
+
+class NoSignatureForm extends Helper {
     compute([i18nizer]: [i18nizer: (s: string) => string], { name, age }: { name: string; age: number }): string {
         return i18nizer(`${name} is ${age} years old`);
     }
@@ -98,3 +115,14 @@ const badNamedArgsSig = helper<DemoSig>(([i18nizer], { name, age, potato }) => i
 
 // $ExpectError
 const badReturnSig = helper<DemoSig>(([i18nizer], { name, age }) => Boolean(i18nizer(`${name} is ${age} years old`)));
+
+const greet = helper(([name]: [string]) => `Hello, ${name}`);
+
+// $ExpectError
+new greet();
+
+// $ExpectError
+class Subgreet extends greet {}
+
+// $ExpectType abstract new <T>() => FunctionBasedHelperInstance<{ Args: { Positional: [T]; Named: EmptyObject; }; Return: [T, T]; }>
+const pair = helper(<T>([item]: [T]): [T, T] => [item, item]);

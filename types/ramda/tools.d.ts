@@ -272,7 +272,7 @@ type Intersection<T1, T2> = Intersectable<T1, T2> extends true
  *
  * <created by @valerii15298>
  * */
-type mergeArrWithLeft<T1 extends ReadonlyArray<any>, T2 extends ReadonlyArray<any>> = readonly [
+export type mergeArrWithLeft<T1 extends ReadonlyArray<any>, T2 extends ReadonlyArray<any>> = readonly [
     ...{
         readonly [Index in keyof T1]: Index extends keyof T2 ? Intersection<T1[Index], T2[Index]> : T1[Index];
     },

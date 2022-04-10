@@ -26,7 +26,6 @@
 //                 Philippe Mills <https://github.com/Philippe-mills>
 //                 Saul Mirone <https://github.com/Saul-Mirone>
 //                 Nicholai Nissen <https://github.com/Nicholaiii>
-//                 Mike Deverell <https://github.com/devrelm>
 //                 Jorge Santana <https://github.com/LORDBABUINO>
 //                 Mikael Couzic <https://github.com/couzic>
 //                 Nikita Balikhin <https://github.com/NEWESTERS>
@@ -72,6 +71,7 @@ import {
     Fn,
     IfFunctionsArgumentsDoNotOverlap,
     LargestArgumentsList,
+    mergeArrWithLeft,
 } from './tools';
 
 export * from './tools';
@@ -272,7 +272,7 @@ export function aperture<N extends number>(n: N): <T>(list: readonly T[]) => Arr
  * Returns a new list containing the contents of the given list, followed by the given element.
  */
 export function append<T>(el: T, list: readonly T[]): T[];
-export function append<T>(el: T): <T>(list: readonly T[]) => T[];
+export function append<T>(el: T): (list: readonly T[]) => T[];
 
 /**
  * Applies function fn to the argument list args. This is useful for creating a fixed-arity function from
@@ -777,16 +777,18 @@ export function cond<T extends any[], R>(pairs: Array<CondPair<T, R>>): (...args
 /**
  * Wraps a constructor function inside a curried function that can be called with the same arguments and returns the same type.
  */
-export function construct<A extends any[], T>(constructor: { new (...a: A): T } | ((...a: A) => T)): (...a: A) => T;
+export function construct<A extends any[], T>(
+    constructor: { new (...a: A): T } | ((...a: A) => T),
+): _.F.Curry<(...a: A) => T>;
 
 /**
  * Wraps a constructor function inside a curried function that can be called with the same arguments and returns the same type.
  * The arity of the function returned is specified to allow using variadic constructor functions.
  */
-export function constructN<A extends any[], T>(
-    n: number,
+export function constructN<A extends any[], T, N extends number>(
+    n: N,
     constructor: { new (...a: A): T } | ((...a: A) => T),
-): (...a: Partial<A>) => T;
+): _.F.Curry<(...a: mergeArrWithLeft<Tuple<any, N>, A>) => T>;
 
 /**
  * Returns `true` if the specified item is somewhere in the list, `false` otherwise.
