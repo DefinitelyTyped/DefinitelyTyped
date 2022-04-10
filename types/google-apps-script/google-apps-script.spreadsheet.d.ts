@@ -2056,6 +2056,7 @@ declare namespace GoogleAppsScript {
       getFontFamily(): string | null;
       getFontSize(): Integer | null;
       getForegroundColor(): string | null;
+      getForegroundColorObject(): Color;
       isBold(): boolean | null;
       isItalic(): boolean | null;
       isStrikethrough(): boolean | null;
