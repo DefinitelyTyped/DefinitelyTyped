@@ -537,6 +537,14 @@ declare namespace sharp {
         jpeg(options?: JpegOptions): Sharp;
 
         /**
+         * Use these JP2 (JPEG 2000) options for output image.
+         * @param options Output options.
+         * @throws {Error} Invalid options
+         * @returns A sharp instance that can be used to chain operations
+         */
+        jp2: (options?: Jp2Options) => Sharp;
+
+        /**
          * Use these PNG options for output image.
          * PNG output is always full colour at 8 or 16 bits per pixel.
          * Indexed PNG input at 1, 2 or 4 bits per pixel is converted to 8 bits per pixel.
@@ -925,6 +933,19 @@ declare namespace sharp {
         quantizationTable?: number | undefined;
         /** Use mozjpeg defaults (optional, default false) */
         mozjpeg?: boolean | undefined;
+    }
+
+    interface Jp2Options extends OutputOptions {
+        /** Quality, integer 1-100 (optional, default 80) */
+        quality?: number;
+        /** Use lossless compression mode (optional, default false) */
+        lossless?: boolean;
+        /** Horizontal tile size (optional, default 512) */
+        tileWidth?: number;
+        /** Vertical tile size (optional, default 512) */
+        tileHeight?: number;
+        /** Set to '4:2:0' to enable chroma subsampling (optional, default '4:4:4') */
+        chromaSubsampling?: '4:4:4' | '4:2:0';
     }
 
     interface WebpOptions extends OutputOptions, AnimationOptions {

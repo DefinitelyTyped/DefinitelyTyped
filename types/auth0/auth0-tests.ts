@@ -883,6 +883,35 @@ management.getGrants(
         grants,
 );
 
+// Logs
+management.getLog({ id: 'cd_0000000000000001'}).then(log => console.log(log));
+management.getLog({ id: 'cd_0000000000000001'}, (log) => console.log(log));
+management.getLogs().then(logs => console.log(logs));
+management.getLogs({
+    fields: 'audience',
+    from: 'cd_0000000000000001',
+    include_fields: true,
+    include_totals: false,
+    page: 0,
+    per_page: 12,
+    q: '?!?',
+    sort: 'audience',
+    take: 42
+}).then(logs => console.log(logs));
+management.getLogs((logs) => console.log(logs));
+management.getLogs({
+    fields: 'audience',
+    from: 'cd_0000000000000001',
+    include_fields: true,
+    include_totals: false,
+    page: 0,
+    per_page: 12,
+    q: '?!?',
+    sort: 'audience',
+    take: 42
+},
+logs => console.log(logs));
+
 const authentication = new auth0.AuthenticationClient({
     domain: 'auth0.com',
 });
@@ -1596,3 +1625,6 @@ management.getDeviceCredentials({ user_id: 'user_id' }).then(deviceCredentials =
 management.getDeviceCredentials({ user_id: 'user_id' }, (err, deviceCredentials) => {
     deviceCredentials; // $ExpectType DeviceCredential[]
 });
+
+management.deleteDeviceCredential({ id: 'id' }).then(() => {});
+management.deleteDeviceCredential({ id: 'id' }, err => {});

@@ -1444,6 +1444,13 @@ const ScrollViewMaintainVisibleContentPositionTest = () => (
     <ScrollView maintainVisibleContentPosition={{ autoscrollToTopThreshold: 1, minIndexForVisible: 10 }}></ScrollView>
 );
 
+const ScrollViewInsetsTest = () => (
+  <>
+    <ScrollView automaticallyAdjustKeyboardInsets />
+    <ScrollView automaticallyAdjustKeyboardInsets={false} />
+  </>
+);
+
 const MaxFontSizeMultiplierTest = () => <Text maxFontSizeMultiplier={0}>Text</Text>;
 
 const ShareTest = () => {
