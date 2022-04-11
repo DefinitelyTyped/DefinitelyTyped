@@ -10,4 +10,4 @@ declare function a (
         b0: Coordinate,
         b1: Coordinate
     ) :boolean;
-export = a;
+export default a;
