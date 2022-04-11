@@ -225,7 +225,7 @@ Logger.log(rgbColorObj.asRgbColor().getRed()); // 255
 const themeColorObj = themeTextStyle.getForegroundColorObject();
 Logger.log(themeColorObj); // Color
 Logger.log(themeColorObj.getColorType()); // THEME
-Logger.log(themeColorObj.asThemeColor().getThemeColorType()); // ACCENT1}
+Logger.log(themeColorObj.asThemeColor().getThemeColorType()); // ACCENT1
 
 const tableCell = DocumentApp.create("").getCursor().getElement().asTableCell();
 tableCell.getParentRow().getChildIndex(tableCell);
