@@ -63,7 +63,7 @@ export interface TwitterCard {
 }
 
 export interface SEOProps {
-    title?: string;
+    title: string;
     description: string;
     canonical?: string;
     image?: Media;
@@ -73,7 +73,7 @@ export interface SEOProps {
     keywords?: string[];
     locale?: string;
     meta?: object[];
-    siteUrl?: string;
+    siteUrl: string;
 }
 
 declare function SEO(props: SEOProps): JSX.Element;
