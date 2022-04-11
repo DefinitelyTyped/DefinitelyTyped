@@ -10,4 +10,4 @@ const a: (
         b0: Coordinate,
         b1: Coordinate
     ) => boolean;
-export default a;
+export = a;
