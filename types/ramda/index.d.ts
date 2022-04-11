@@ -272,7 +272,7 @@ export function aperture<N extends number>(n: N): <T>(list: readonly T[]) => Arr
  * Returns a new list containing the contents of the given list, followed by the given element.
  */
 export function append<T>(el: T, list: readonly T[]): T[];
-export function append<T>(el: T): <T>(list: readonly T[]) => T[];
+export function append<T>(el: T): (list: readonly T[]) => T[];
 
 /**
  * Applies function fn to the argument list args. This is useful for creating a fixed-arity function from

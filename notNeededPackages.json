@@ -3217,6 +3217,10 @@
             "libraryName": "ora",
             "asOfVersion": "3.2.0"
         },
+        "orbit-ui__react-components": {
+            "libraryName": "@orbit-ui/react-components",
+            "asOfVersion": "18.1.2"
+        },
         "os-locale": {
             "libraryName": "os-locale",
             "asOfVersion": "4.0.0"
