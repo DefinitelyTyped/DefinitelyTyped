@@ -3,11 +3,11 @@
 // Definitions by: masx200 <https://github.com/masx200>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export type Coordinate = [number, number];
+type Coordinate = [number, number];
 declare function a (
         a0: Coordinate,
         a1: Coordinate,
         b0: Coordinate,
         b1: Coordinate
     ) :boolean;
-export default a;
+export = a;
