@@ -275,7 +275,7 @@ type Intersection<T1, T2> = Intersectable<T1, T2> extends true
 export type mergeArrWithLeft<T1 extends ReadonlyArray<any>, T2 extends ReadonlyArray<any>> = readonly [
     ...{
         readonly [Index in keyof T1]: Index extends keyof T2 ? Intersection<T1[Index], T2[Index]> : T1[Index];
-    },
+    }
 ];
 
 /*
@@ -309,7 +309,7 @@ type mergeArrays<T1 extends ReadonlyArray<any>, T2 extends ReadonlyArray<any>> =
  * */
 export type LargestArgumentsList<T extends ReadonlyArray<any>> = T extends readonly [
     (...args: infer Args) => any,
-    ...infer Rest,
+    ...infer Rest
 ]
     ? mergeArrays<LargestArgumentsList<Rest>, Args>
     : readonly [];
@@ -550,5 +550,48 @@ export type ToTupleOfFunction<R, Tuple extends any[]> = Tuple extends []
     : Tuple extends [infer X, ...infer Xs]
     ? [(arg: R) => X, ...ToTupleOfFunction<R, Xs>]
     : never;
+
+/**
+ * A tuple padded to length `N` with elements of type `T`.
+ * If it is longer, it is returned as-is to avoid infinite recursion.
+ * @param T The tuple
+ * @param N Desired length of the tuple
+ * @param Pad The type of the new elements (default: `unknown`)
+ * @note Preserves names in named tuples.
+ *
+ * <created by @somebody1234>
+ */
+export type TuplePad<T extends unknown[], N extends number, Pad = unknown> = N extends N
+    // Handle `N = number` (= array)
+    ? number extends N
+        ? [...T, ...Pad[]]
+        // Handle arrays that are too long
+        : Required<T> extends [...Tuple<unknown, N>, ...infer Rest]
+        ? Required<T> extends [...infer First, ...Rest]
+            ? First
+            : never
+        // Normal case
+        : _TuplePad<T, N, Pad>
+    : never;
+// N extends T['length'] is only strictly necessary to prevent infinite recursion for tuples containing partials
+// since length of e.g. `[1, 1?]` is `1 | 2`
+// however we have it here just in case
+type _TuplePad<T extends unknown[], N extends number, Pad> = N extends T['length']
+    ? T
+    : _TuplePad<[...tuple: T, _: Pad], N, Pad>;
+
+/**
+ * A tuple of length between `0` and `N`.
+ * @param N Length of the tuple
+ * @note Does not produce named tuples, recommended mostly as a type parameter constraint.
+ *
+ * <created by @somebody1234>
+ */
+export type TupleUpTo<T, N extends number> = N extends N ? (number extends N ? T[] : _TupleUpTo<T, N, []>) : never;
+// `N extends R['length']` is only necessary to prevent infinite recursion for tuples containing partials
+// since length of e.g. `[1, 1?]` is `1 | 2`
+type _TupleUpTo<T, N extends number, R extends Array<T | undefined>> = N extends R['length']
+    ? R
+    : _TupleUpTo<T, N, [...R, T?]>;
 
 export {};

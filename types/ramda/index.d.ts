@@ -67,6 +67,8 @@ import {
     ToTupleOfArray,
     ToTupleOfFunction,
     Tuple,
+    TuplePad,
+    TupleUpTo,
     CondPairTypeguard,
     Fn,
     IfFunctionsArgumentsDoNotOverlap,
@@ -327,7 +329,12 @@ export function assocPath<T, U>(path: Path): _.F.Curry<(a: T, b: U) => U>;
  * Wraps a function of any arity (including nullary) in a function that accepts exactly 2
  * parameters. Any extraneous parameters will not be passed to the supplied function.
  */
-export function binary<T extends (...arg: any) => any>(fn: T): (...arg: _.T.Take<Parameters<T>, '2'>) => ReturnType<T>;
+export function binary<F extends (a: any, b: any) => unknown>(
+    fn: F,
+): (...args: TuplePad<Parameters<F>, 2>) => ReturnType<F>;
+export function binary<Args extends [] | [unknown] | [unknown, unknown], R>(
+    fn: (...args: Args) => R,
+): (...args: TuplePad<Args, 2>) => R;
 
 /**
  * Creates a function that is bound to a context. Note: R.bind does not provide the additional argument-binding
@@ -1786,13 +1793,20 @@ export function move(from: number): {
  * Wraps a function of any arity (including nullary) in a function that accepts exactly n parameters.
  * Any extraneous parameters will not be passed to the supplied function.
  */
-export function nAry<N extends number, T extends (...arg: any) => any>(
+export function nAry<N extends number, F extends (...args: Tuple<any, N>) => unknown>(
     n: N,
-    fn: T,
-): (...arg: _.T.Take<Parameters<T>, _.N.NumberOf<N>>) => ReturnType<T>;
+    fn: F,
+): (...args: TuplePad<Parameters<F>, N>) => ReturnType<F>;
+export function nAry<N extends number, Args extends TupleUpTo<unknown, N>, R>(
+    n: N,
+    fn: (...args: Args) => R,
+): (...args: TuplePad<Args, N>) => R;
 export function nAry<N extends number>(
     n: N,
-): <T extends (...arg: any) => any>(fn: T) => (...arg: _.T.Take<Parameters<T>, _.N.NumberOf<N>>) => ReturnType<T>;
+): <F extends (...args: Tuple<any, N>) => unknown>(fn: F) => (...args: TuplePad<Parameters<F>, N>) => ReturnType<F>;
+export function nAry<N extends number>(
+    n: N,
+): <Args extends TupleUpTo<unknown, N>, R>(fn: (...args: Args) => R) => (...args: TuplePad<Args, N>) => R;
 
 /**
  * Negates its argument.
@@ -2873,7 +2887,10 @@ export function unapply<T>(fn: (args: readonly any[]) => T): (...args: readonly 
  * Wraps a function of any arity (including nullary) in a function that accepts exactly 1 parameter.
  * Any extraneous parameters will not be passed to the supplied function.
  */
-export function unary<T, R>(fn: (a: T, ...args: readonly any[]) => R): (a: T) => R;
+export function unary<F extends (a: any) => unknown>(
+    fn: F,
+): (...args: TuplePad<Parameters<F>, 1>) => ReturnType<F>;
+export function unary<Args extends [] | [unknown], R>(fn: (...args: Args) => R): (...args: TuplePad<Args, 1>) => R;
 
 /**
  * Returns a function of arity n from a (manually) curried function.
