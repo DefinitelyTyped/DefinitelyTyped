@@ -27,7 +27,8 @@ const groupedMergeTag: GroupedMergeTag = {
     {
       name: 'Tag 2',
       mergeTags: [{ name: 'Tag 4', value: '{tag_4}' }]
-    }
+    },
+    { name: 'Tag 3', value: '{tag_3}', sample: 'sample value'},
   ],
 };
 const conditionalMergeTag: ConditionalMergeTag = {
