@@ -28,7 +28,9 @@ csgo.on('connectedToGC', () => {
     csgo.inspectItem('76561198998693595', '24253228054', '5687567561993251583', console.log);
     csgo.inspectItem(new SteamID('76561198998693595'), '24253228054', '5687567561993251583', console.log);
     // with link itself
-    csgo.inspectItem('steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S76561198998693595A24253228054D5687567561993251583');
+    csgo.inspectItem(
+        'steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S76561198998693595A24253228054D5687567561993251583',
+    );
 
     csgo.requestPlayersProfile('76561198814489169');
     csgo.requestPlayersProfile(new SteamID('76561198814489169'), console.log);
@@ -45,11 +47,11 @@ csgo.on('connectedToGC', () => {
 
 // LISTENERS
 
-csgo.on('disconnectedFromGC', (reason) => {
+csgo.on('disconnectedFromGC', reason => {
     console.log('disconnected:', reason);
 });
 
-csgo.on('accountData', (accountData) => {
+csgo.on('accountData', accountData => {
     console.log('accountData:', accountData);
 });
 
@@ -64,7 +66,7 @@ csgo.on('matchList', (matches, data) => {
 
 csgo.on('inspectItemInfo', console.log);
 
-csgo.on('inspectItemTimedOut', (assetid) => {
+csgo.on('inspectItemTimedOut', assetid => {
     console.log(`inspect item timed out (${assetid})`);
 });
 
@@ -74,7 +76,7 @@ csgo.on('itemChanged', (oldItem, item) => {
     console.log(`item changed from ${oldItem} to ${item}`);
 });
 
-csgo.on('itemRemoved', (item) => {
+csgo.on('itemRemoved', item => {
     console.log(`item removed: ${item}`);
 });
 

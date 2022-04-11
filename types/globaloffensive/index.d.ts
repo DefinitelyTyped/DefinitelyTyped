@@ -4,17 +4,12 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.2
 
-// minimum TypeScript Version set because of steam-user.
-// some attributes have been intentionally set as `unknown | null`, since I wasn't able to test their values.
-// In my case, the values were always null.
-// if a type is unknown[], an empty array was all I could get from usage.
-
 /// <reference types="node" />
 
-import { EventEmitter } from "events";
-import type SteamUser = require("steam-user");
-import SteamID = require("steamid");
-import { GCConnectionStatus, ItemCustomizationNotification } from "./enums";
+import { EventEmitter } from 'events';
+import type SteamUser = require('steam-user');
+import SteamID = require('steamid');
+import { GCConnectionStatus, ItemCustomizationNotification } from './enums';
 
 export = GlobalOffensive;
 
@@ -54,11 +49,7 @@ declare class GlobalOffensive extends EventEmitter {
      * @param shareCodeOrDetails Either a share code as a string, or an object containing properties `matchId`, `outcomeId`, `token`.
      * @since v2.2
      */
-    requestGame(
-        shareCodeOrDetails:
-            | string
-            | { matchId: string; outcomeId: string; token: string }
-    ): void;
+    requestGame(shareCodeOrDetails: string | { matchId: string; outcomeId: string; token: string }): void;
 
     /**
      * Request a list of current live tournament games. This is the list you see in the client under Watch -> Live.
@@ -105,7 +96,7 @@ declare class GlobalOffensive extends EventEmitter {
         owner: SteamID | string,
         assetid?: string,
         d?: string,
-        callback?: (item: GlobalOffensive.ItemInfo) => void
+        callback?: (item: GlobalOffensive.ItemInfo) => void,
     ): void;
 
     /**
@@ -174,13 +165,19 @@ declare class GlobalOffensive extends EventEmitter {
      * @param callback A function to be called once the contents are loaded
      * @since v2.1
      */
-    getCasketContents(casketId: string, callback: (err: Error | null, items: GlobalOffensive.InventoryItem[]) => void): Promise<GlobalOffensive.InventoryItem[]>;
+    getCasketContents(
+        casketId: string,
+        callback: (err: Error | null, items: GlobalOffensive.InventoryItem[]) => void,
+    ): Promise<GlobalOffensive.InventoryItem[]>;
 
     // EVENTS
     on<K extends keyof GlobalOffensiveEvents>(event: K, listener: (...args: GlobalOffensiveEvents[K]) => void): this;
     once<K extends keyof GlobalOffensiveEvents>(event: K, listener: (...args: GlobalOffensiveEvents[K]) => void): this;
     off<K extends keyof GlobalOffensiveEvents>(event: K, listener: (...args: GlobalOffensiveEvents[K]) => void): this;
-    removeListener<K extends keyof GlobalOffensiveEvents>(event: K, listener: (...args: GlobalOffensiveEvents[K]) => void): this;
+    removeListener<K extends keyof GlobalOffensiveEvents>(
+        event: K,
+        listener: (...args: GlobalOffensiveEvents[K]) => void,
+    ): this;
     removeAllListeners(event?: keyof GlobalOffensiveEvents): this;
 }
 
@@ -386,7 +383,7 @@ declare namespace GlobalOffensive {
     interface TournamentTeams {
         players: {
             account_id: number;
-            player_nick: "string";
+            player_nick: 'string';
             player_name: string | null;
             player_flag: string | null;
             player_dob: unknown | null;

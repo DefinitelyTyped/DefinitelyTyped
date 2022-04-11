@@ -3,7 +3,7 @@ export enum GCConnectionStatus {
     GC_GOING_DOWN = 1,
     NO_SESSION = 2,
     NO_SESSION_IN_LOGON_QUEUE = 3,
-    NO_STEAM = 4
+    NO_STEAM = 4,
 }
 
 export enum ItemCustomizationNotification {
@@ -24,5 +24,5 @@ export enum ItemCustomizationNotification {
     ActivateFanToken = 9178,
     ActivateOperationCoin = 9179,
     GraffitiUnseal = 9185,
-    GenerateSouvenir = 9204
+    GenerateSouvenir = 9204,
 }
