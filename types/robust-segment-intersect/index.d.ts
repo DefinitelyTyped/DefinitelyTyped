@@ -4,10 +4,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export type Coordinate = [number, number];
-declare const a: (
+declare function a (
         a0: Coordinate,
         a1: Coordinate,
         b0: Coordinate,
         b1: Coordinate
-    ) => boolean;
+    ) :boolean;
 export = a;
