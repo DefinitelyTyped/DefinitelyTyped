@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export type Coordinate = [number, number];
-const a: (
+declare const a: (
         a0: Coordinate,
         a1: Coordinate,
         b0: Coordinate,
