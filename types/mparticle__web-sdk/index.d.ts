@@ -198,7 +198,7 @@ interface Login {
     (identityApiData: IdentityApiData, callback?: IdentityCallback): void;
 }
 interface Logout {
-    (identityApiData: IdentityApiData, callback?: IdentityCallback): void;
+    (identityApiData?: IdentityApiData | {} | null | undefined, callback?: IdentityCallback): void;
 }
 interface Modify {
     (identityApiData: IdentityApiData, callback?: IdentityCallback): void;

@@ -551,6 +551,12 @@ instance.Identity.logout(identifyIdentities, result => {
     const consentState: mParticle.ConsentState = result.getUser().getConsentState();
 });
 
+// Logout Identity API Data can be an empty object with no callback
+instance.Identity.logout({});
+instance.Identity.logout(null);
+instance.Identity.logout(undefined);
+instance.Identity.logout();
+
 instance.Identity.identify(identifyIdentities, result => {
     console.log(result.body.is_ephemeral);
     console.log(result.body.is_logged_in);
