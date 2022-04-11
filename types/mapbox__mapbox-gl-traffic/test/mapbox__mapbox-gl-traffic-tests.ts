@@ -1,5 +1,5 @@
-import Mapbox from "mapbox-gl";
-import MapboxTraffic from "mapbox__mapbox-gl-traffic";
+import * as Mapbox from "mapbox-gl";
+import * as MapboxTraffic from "mapbox__mapbox-gl-traffic";
 
 const map = new Mapbox.Map();
 const mapboxTraffic = new MapboxTraffic();
