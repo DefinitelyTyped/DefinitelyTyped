@@ -15,8 +15,8 @@ export = GlobalOffensive;
 
 declare class GlobalOffensive extends EventEmitter {
     // enums
-    static GCConnectionStatus: GCConnectionStatus;
-    static ItemCustomizationNotification: ItemCustomizationNotification;
+    static GCConnectionStatus: typeof GCConnectionStatus;
+    static ItemCustomizationNotification: typeof ItemCustomizationNotification;
 
     /**
      * `true` if we're currently connected to the GC, `false` otherwise.
@@ -181,18 +181,20 @@ declare class GlobalOffensive extends EventEmitter {
     removeAllListeners(event?: keyof GlobalOffensiveEvents): this;
 }
 
+type ValueOf<T> = T[keyof T];
+
 interface GlobalOffensiveEvents {
     connectedToGC: [];
-    disconnectedFromGC: [reason: GCConnectionStatus];
+    disconnectedFromGC: [reason: ValueOf<typeof GCConnectionStatus>];
     accountData: [accountData: GlobalOffensive.AccountData];
-    connectionStatus: [status: GCConnectionStatus, data: unknown];
+    connectionStatus: [status: ValueOf<typeof GCConnectionStatus>, data: unknown];
     matchList: [matches: GlobalOffensive.Match[], data: GlobalOffensive.MatchesData];
     inspectItemInfo: [item: GlobalOffensive.ItemInfo];
     inspectItemTimedOut: [assetid: string];
     itemAcquired: [item: GlobalOffensive.InventoryItem];
     itemChanged: [oldItem: GlobalOffensive.InventoryItem, item: GlobalOffensive.InventoryItem];
     itemRemoved: [item: GlobalOffensive.InventoryItem];
-    itemCustomizationNotification: [itemIds: string[], notificationType: ItemCustomizationNotification];
+    itemCustomizationNotification: [itemIds: string[], notificationType: ValueOf<typeof ItemCustomizationNotification>];
     playersProfile: [profile: GlobalOffensive.Profile];
 }
 

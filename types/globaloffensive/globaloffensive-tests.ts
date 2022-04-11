@@ -4,6 +4,8 @@ import SteamID = require('steamid');
 
 const user = new SteamUser();
 
+type x = keyof typeof GlobalOffensive.GCConnectionStatus;
+
 user.on('loggedOn', () => {
     console.log('logged on');
     user.setPersona(SteamUser.EPersonaState.Online);
@@ -84,6 +86,12 @@ csgo.on('itemCustomizationNotification', (itemIds, notificationType) => {
     itemIds.forEach(itemId => {
         console.log(`item customized (${itemId}) (${notificationType})`);
     });
+});
+
+csgo.on('itemCustomizationNotification', (itemIds, notificationType) => {
+    if (notificationType === GlobalOffensive.ItemCustomizationNotification.CasketInvFull) {
+        console.log(`Storage unit ${itemIds[0]} is full`);
+    }
 });
 
 csgo.on('playersProfile', console.log);
