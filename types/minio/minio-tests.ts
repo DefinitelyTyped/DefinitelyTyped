@@ -240,13 +240,15 @@ minio.setObjectLegalHold('testBucket', 'hello.jpg', {versionId: 'someVersion', s
 minio.setObjectLegalHold('testBucket', 'hello.jpg');
 minio.setObjectLegalHold('testBucket', 'hello.jpg', {versionId: 'someVersion', status: 'OFF'});
 
-minio.composeObject(
-  { Bucket: 'testBucket', Object: '100MB.zip' },
-  [{ Bucket: 'testBucket', Object: 'partA' },
-  { Bucket: 'testBucket', Object: 'partB' }],
-  (error: Error | null, result: Minio.SourceObjectStats) => { console.log(error, result); });
-minio.composeObject({ Bucket: 'testBucket', Object: '100MB.zip' }, [{ Bucket: 'testBucket', Object: 'partA' }, { Bucket: 'testBucket', Object: 'partB' }]);
-minio.composeObject({ Bucket: 'testBucket', Object: '100MB.zip' }, [{ Bucket: 'testBucket', Object: 'partA' }, { Bucket: 'testBucket', Object: 'partB' }])
+const destObjConfig = new Minio.CopyDestinationOptions('testBucket', '100MB.zip');
+const sourceObjList = [
+  new Minio.CopySourceOptions('testBucket', 'partA'),
+  new Minio.CopySourceOptions('testBucket', 'partB'),
+  new Minio.CopySourceOptions('testBucket', 'partC'),
+];
+minio.composeObject(destObjConfig, sourceObjList, (error: Error | null, result: Minio.SourceObjectStats) => { console.log(error, result); });
+minio.composeObject(destObjConfig, sourceObjList);
+minio.composeObject(destObjConfig, sourceObjList)
   .then((result) => {
     console.log(result);
   });
@@ -254,13 +256,25 @@ minio.composeObject({ Bucket: 'testBucket', Object: '100MB.zip' }, [{ Bucket: 't
 minio.selectObjectContent(
   'testBucket',
   'hello.jpg',
-  { expression: "SELECT * FROM s3object s", inputSerialization: {}, outputSerialization: {} },
+  {
+    expression: "SELECT * FROM s3object s",
+    expressionType: 'SQL',
+    inputSerialization: { CSV: { FileHeaderInfo: 'Use' }, CompressionType: 'NONE' },
+    outputSerialization: { CSV: { RecordDelimiter: '\n', FieldDelimiter: ',' }},
+    requestProgress: { Enabled: true },
+  },
   (error: Error | null) => { console.log(error); }
 );
 minio.selectObjectContent(
   'testBucket',
   'hello.jpg',
-  { expression: "SELECT * FROM s3object s", inputSerialization: {}, outputSerialization: {} }
+  {
+    expression: "SELECT * FROM s3object s",
+    expressionType: 'SQL',
+    inputSerialization: { CSV: { FileHeaderInfo: 'Use' }, CompressionType: 'NONE' },
+    outputSerialization: { CSV: { RecordDelimiter: '\n', FieldDelimiter: ',' }},
+    requestProgress: { Enabled: true },
+  },
 );
 
 // Presigned operations
