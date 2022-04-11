@@ -517,16 +517,4 @@ function reactNodeTests() {
         }
     </div>;
     <div>{createChildren()}</div>;
-    <div>
-        {['a', 'b'].map((label, index) => {
-            // Would be nice if we could error on a missing return since that's most likely user error.
-        })}
-    </div>;
-    <div>
-        {['a', 'b'].map((label, index) => {
-            // But early return is probably fine.
-            // Catching missing return would mean trading empty return since you can still do `return undefined` instead of `return`.
-            return;
-        })}
-    </div>;
 }

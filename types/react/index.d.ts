@@ -226,7 +226,7 @@ declare namespace React {
      */
     interface ReactNodeArray extends ReadonlyArray<ReactNode> {}
     type ReactFragment = Iterable<ReactNode>;
-    type ReactNode = ReactChild | ReactFragment | ReactPortal | boolean | null | undefined | void;
+    type ReactNode = ReactChild | ReactFragment | ReactPortal | boolean | null | undefined;
 
     //
     // Top Level API
