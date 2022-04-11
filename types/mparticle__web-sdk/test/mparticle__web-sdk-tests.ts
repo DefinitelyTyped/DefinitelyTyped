@@ -651,7 +651,8 @@ mParticle.Identity.modify(identifyIdentities, result => {
 const user3: mParticle.User = mParticle.Identity.getCurrentUser();
 const user4: mParticle.User = mParticle.Identity.getUser('mpid' as mParticle.MPID);
 
-const userIdentities: mParticle.UserIdentities = mParticle.Identity.getCurrentUser().getUserIdentities();
+const identities: mParticle.IdentityApiData = mParticle.Identity.getCurrentUser().getUserIdentities();
+const { email, customerid, facebook, other } = identities.userIdentities;
 const mpid: mParticle.MPID = mParticle.Identity.getCurrentUser().getMPID();
 const user5: mParticle.User = mParticle.Identity.getCurrentUser();
 user5.setUserTag('tag');

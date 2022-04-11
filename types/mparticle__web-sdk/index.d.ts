@@ -484,7 +484,8 @@ export interface IdentifyRequest {
 
 export type MPID = string;
 export interface User {
-    getUserIdentities: () => UserIdentities;
+    getUserIdentities: () => IdentityApiData;
+    // getUserIdentities: () => UserIdentities;
     getMPID: () => MPID;
     setUserTag: (tag: string) => void;
     removeUserTag: (tag: string) => void;
