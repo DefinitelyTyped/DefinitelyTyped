@@ -125,7 +125,7 @@ const signatureRequestResponse: HelloSign.SignatureRequestResponse = {
             {
                 name: 'name',
                 type: 'checkbox',
-                value: 'value',
+                value: true,
                 required: true,
                 api_id: 'api_id',
                 editor: 'editor',

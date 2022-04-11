@@ -1,7 +1,6 @@
 // Type definitions for flexsearch 0.7
 // Project: https://github.com/nextapps-de/flexsearch/
 // Definitions by: LOSSES Don <https://github.com/Losses>
-//                 nian2760 <https://github.com/nian2760>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /************************************/

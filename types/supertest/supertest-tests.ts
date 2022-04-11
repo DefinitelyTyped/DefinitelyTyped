@@ -44,7 +44,7 @@ supertest.agent(app, {
 supertest.agent(app).set({ host: 'google.com' });
 
 // agent has host methods
-supertest.agent(app).host('something.test'); // $ExpectType Test
+supertest.agent(app).host('something.test').get('/'); // $ExpectType Test
 
 // functional expect
 (request.get('/') as supertest.Test).expect(hasPreviousAndNextKeys).end((err: any, res: supertest.Response) => {

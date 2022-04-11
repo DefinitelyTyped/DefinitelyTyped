@@ -578,7 +578,53 @@ const awsServerless: Aws.Serverless = {
                         arn: 'testarn',
                         batchSize: 1,
                         startingPosition: 1,
-                        enabled: true
+                        enabled: true,
+                        filterPatterns: [
+                            {
+                                UserID: [null]
+                            },
+                            {
+                                LastName: ['']
+                            },
+                            {
+                                Name: ['Alice']
+                            },
+                            {
+                                Location: ['New York'],
+                                Day: ['Monday']
+                            },
+                            {
+                                PaymentType: ['Credit', 'Debit']
+                            },
+                            {
+                                Weather: [
+                                    {
+                                        'anything-but': ['Raining']
+                                    }
+                                ]
+                            },
+                            {
+                                Price: [
+                                    {
+                                        numeric: [ '=', 100 ]
+                                    }
+                                ]
+                            },
+                            {
+                                ProductName: [
+                                    {
+                                        exists: true
+                                    }
+                                ]
+                            },
+                            {
+                                Region: [
+                                    {
+                                        prefix: 'us-'
+                                    }
+                                ]
+                            }
+                        ]
                     }
                 }, {
                     msk: {

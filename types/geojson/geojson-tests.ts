@@ -62,7 +62,8 @@ declare let geometryTypes: GeoJsonGeometryTypes;
 geometryTypes; // $ExpectType "Point" | "MultiPoint" | "LineString" | "MultiLineString" | "Polygon" | "MultiPolygon" | "GeometryCollection"
 
 declare let geojsonTypes: GeoJsonTypes;
-geojsonTypes; // $ExpectType "FeatureCollection" | "Feature" | "Point" | "MultiPoint" | "LineString" | "MultiLineString" | "Polygon" | "MultiPolygon" | "GeometryCollection"
+// tslint:disable-next-line
+geojsonTypes; // $ExpectType "FeatureCollection" | "Feature" | "Point" | "MultiPoint" | "LineString" | "MultiLineString" | "Polygon" | "MultiPolygon" | "GeometryCollection" || "Point" | "MultiPoint" | "LineString" | "MultiLineString" | "Polygon" | "MultiPolygon" | "GeometryCollection" | "Feature" | "FeatureCollection"
 
 const featureWithPolygon: Feature<Polygon> = {
     type: "Feature",

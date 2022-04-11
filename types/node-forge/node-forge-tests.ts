@@ -552,6 +552,13 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
 }
 
 {
+    let key = null;
+    let cert = forge.pki.createCertificate();
+    let password = null;
+    let p17 = forge.pkcs12.toPkcs12Asn1(key, cert, password);
+}
+
+{
     let plainText = 'content'
     let cipher = publicKeyRsa.encrypt(plainText);
     let result = privateKeyRsa.decrypt(cipher);

@@ -30,7 +30,6 @@ export interface MeshStandardMaterialParameters extends MaterialParameters {
     alphaMap?: Texture | null | undefined;
     envMap?: Texture | null | undefined;
     envMapIntensity?: number | undefined;
-    refractionRatio?: number | undefined;
     wireframe?: boolean | undefined;
     wireframeLinewidth?: number | undefined;
 
@@ -169,11 +168,6 @@ export class MeshStandardMaterial extends Material {
      * @default 1
      */
     envMapIntensity: number;
-
-    /**
-     * @default 0.98
-     */
-    refractionRatio: number;
 
     /**
      * @default false

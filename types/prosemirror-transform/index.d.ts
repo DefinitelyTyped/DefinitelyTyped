@@ -101,6 +101,11 @@ export class StepMap implements Mappable {
      * sub-document to a larger document, or vice-versa.
      */
     static offset(n: number): StepMap;
+
+    /**
+     * A StepMap that contains no changed ranges.
+     */
+    static empty: StepMap;
 }
 /**
  * A mapping represents a pipeline of zero or more [step

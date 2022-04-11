@@ -1279,14 +1279,14 @@ declare namespace Stylus {
         export class Function extends Node {
             name: string;
             params: Params;
-            body: Block;
+            block: Block;
 
             constructor(name: string, params: Params, body: Block);
 
             /**
              * Return a JSON representation of this node.
              */
-            toJSON(): { __type: string; name: string; params: Params; body: Block; lineno: number; column: number; filename: string };
+            toJSON(): { __type: string; name: string; params: Params; block: Block; lineno: number; column: number; filename: string };
         }
 
         export class Selector extends Node {

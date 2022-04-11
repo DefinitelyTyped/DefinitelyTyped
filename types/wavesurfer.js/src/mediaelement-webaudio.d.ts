@@ -1,5 +1,5 @@
-import { WaveSurferParams } from "../types/params";
-import MediaElement from "./mediaelement";
+import { WaveSurferParams } from '../types/params';
+import MediaElement from './mediaelement';
 
 export default class MediaElementWebAudio extends MediaElement {
     constructor(params: WaveSurferParams);

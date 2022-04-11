@@ -1,5 +1,5 @@
 import { Change } from "diff";
-import { QuestionCollection, PromptModule } from "inquirer";
+import { QuestionCollection, PromptModule, Answers } from "inquirer";
 import { Logger } from "./util/log";
 
 declare namespace TerminalAdapter {
@@ -16,7 +16,7 @@ declare namespace TerminalAdapter {
     /**
      * Represents a set of questions.
      */
-    type Questions<T> = QuestionCollection<T>;
+    type Questions<T extends Answers> = QuestionCollection<T>;
 }
 
 /**
@@ -53,17 +53,18 @@ declare class TerminalAdapter {
      *
      * @param questions The questions to prompt.
      */
-    prompt<T>(questions: TerminalAdapter.Questions<T>): Promise<T>;
+    prompt<T extends Answers>(questions: TerminalAdapter.Questions<T>): Promise<T>;
 
     /**
      * Prompts the user for one or more questions.
      *
      * @param questions The questions to prompt.
-     * @param cb The callback for handling the result.
+     * @param cb Deprecated: The callback for handling the result.
      */
-    prompt<TAnswers, TResult>(
+    prompt<TAnswers extends Answers, TResult>(
         questions: TerminalAdapter.Questions<TAnswers>,
-        cb: (res: TAnswers) => TResult
+        answers?: TAnswers,
+        cb?: (res: TAnswers) => TResult
     ): Promise<TResult>;
 
     /**

@@ -5,15 +5,15 @@ import { PriorityString } from '@ckeditor/ckeditor5-utils/src/priorities';
 import ViewDocument from '../document';
 import View from '../view';
 
-export default abstract class Observer implements DomEmitter {
+export default abstract class Observer<V extends View = View> implements DomEmitter {
     /**
      * Creates an instance of the observer.
      */
-    constructor(view: View);
+    constructor(view: V);
     /**
      * An instance of the view controller.
      */
-    readonly view: View;
+    readonly view: V;
     /**
      * A reference to the {@link module:engine/view/document~Document} object.
      */
@@ -70,7 +70,11 @@ export default abstract class Observer implements DomEmitter {
     on<K extends string>(
         event: K,
         callback: (this: this, info: EventInfo<this, K>, ...args: any[]) => void,
-        options?: { priority?: number | PriorityString | undefined },
+        options?: {
+            priority?: number | PriorityString | undefined;
+            useCapture?: boolean | undefined;
+            usePassive?: boolean | undefined;
+        },
     ): void;
     once<K extends keyof HTMLElementEventMap>(
         event: K,
@@ -84,7 +88,11 @@ export default abstract class Observer implements DomEmitter {
     once<K extends string>(
         event: K,
         callback: (this: this, info: EventInfo<this, K>, ...args: any[]) => void,
-        options?: { priority?: number | PriorityString | undefined },
+        options?: {
+            priority?: number | PriorityString | undefined;
+            useCapture?: boolean | undefined;
+            usePassive?: boolean | undefined;
+        },
     ): void;
     off<K extends keyof HTMLElementEventMap>(
         event: K,
@@ -96,7 +104,7 @@ export default abstract class Observer implements DomEmitter {
     delegate(...events: string[]): EmitterMixinDelegateChain;
     stopDelegating(...events: string[]): void;
     stopDelegating(event?: string, emitter?: DomEmitter): void;
-    listenTo<K extends keyof HTMLElementEventMap, E extends Emitter | Node | Window | ViewDocument>(
+    listenTo<K extends keyof HTMLElementEventMap, E extends Emitter | Node | Window | ViewDocument >(
         emitter: E,
         event: K,
         callback: (this: this, info: EventInfo<E, K>, event: HTMLElementEventMap[K]) => void,
@@ -110,7 +118,11 @@ export default abstract class Observer implements DomEmitter {
         emitter: E,
         event: P,
         callback: (this: this, info: EventInfo<E, P>, ...args: any[]) => void,
-        options?: { priority?: number | PriorityString | undefined },
+        options?: {
+            priority?: number | PriorityString | undefined;
+            useCapture?: boolean | undefined;
+            usePassive?: boolean | undefined;
+        },
     ): void;
     stopListening<K extends keyof HTMLElementEventMap, E extends Emitter | Node | Window | ViewDocument>(
         emitter?: E,

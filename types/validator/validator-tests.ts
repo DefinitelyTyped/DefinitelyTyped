@@ -74,6 +74,7 @@ import isStrongPasswordFunc from 'validator/lib/isStrongPassword';
 import isSurrogatePairFunc from 'validator/lib/isSurrogatePair';
 import isURLFunc from 'validator/lib/isURL';
 import isUUIDFunc from 'validator/lib/isUUID';
+import isTaxIDFunc from 'validator/lib/isTaxID';
 import isUppercaseFunc from 'validator/lib/isUppercase';
 import isVariableWidthFunc from 'validator/lib/isVariableWidth';
 import isWhitelistedFunc from 'validator/lib/isWhitelisted';
@@ -301,6 +302,9 @@ import isVatFunc from 'validator/lib/isVAT';
     let _isUUID = validator.isUUID;
     _isUUID = isUUIDFunc;
 
+    let _isTaxID = validator.isTaxID;
+    _isTaxID = isTaxIDFunc;
+
     let _isUppercase = validator.isUppercase;
     _isUppercase = isUppercaseFunc;
 
@@ -423,6 +427,7 @@ import isStrongPasswordFuncEs from 'validator/es/lib/isStrongPassword';
 import isSurrogatePairFuncEs from 'validator/es/lib/isSurrogatePair';
 import isURLFuncEs from 'validator/es/lib/isURL';
 import isUUIDFuncEs from 'validator/es/lib/isUUID';
+import isTaxIDFuncEs from 'validator/es/lib/isTaxID';
 import isUppercaseFuncEs from 'validator/es/lib/isUppercase';
 import isVariableWidthFuncEs from 'validator/es/lib/isVariableWidth';
 import isWhitelistedFuncEs from 'validator/es/lib/isWhitelisted';
