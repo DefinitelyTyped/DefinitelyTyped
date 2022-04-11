@@ -1,0 +1,18 @@
+import Mapbox from "mapbox-gl";
+import MapboxTraffic from "mapbox__mapbox-gl-traffic";
+
+const map = new Mapbox.Map();
+const mapboxTraffic = new MapboxTraffic();
+
+const hasTraffic: boolean = mapboxTraffic._hasTraffic();
+
+mapboxTraffic._hideTraffic();
+
+mapboxTraffic._showTraffic();
+
+const btnWrapper = mapboxTraffic.onAdd(map);
+const isDiv = btnWrapper instanceof HTMLDivElement;
+
+mapboxTraffic.onRemove();
+
+mapboxTraffic.toggleTraffic();
