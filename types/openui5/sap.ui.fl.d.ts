@@ -1,4 +1,4 @@
-// For Library Version: 1.99.0
+// For Library Version: 1.100.0
 
 declare module "sap/ui/fl/library" {}
 
@@ -1668,6 +1668,10 @@ declare namespace sap {
     "sap/ui/fl/apply/_internal/flexObjects/CompVariant": undefined;
 
     "sap/ui/fl/apply/_internal/flexObjects/CompVariantRevertData": undefined;
+
+    "sap/ui/fl/apply/_internal/flexObjects/FlexObject": undefined;
+
+    "sap/ui/fl/apply/_internal/flexObjects/FlexObjectFactory": undefined;
 
     "sap/ui/fl/apply/_internal/flexObjects/RevertData": undefined;
 

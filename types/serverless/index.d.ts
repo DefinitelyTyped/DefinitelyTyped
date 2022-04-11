@@ -8,6 +8,7 @@
 //                 Thomas Aribart <https://github.com/thomasaribart>
 //                 Gareth Jones <https://github.com/G-Rath>
 //                 Abdullah Ali <https://github.com/AbdullahAli>
+//                 François Farge <https://github.com/fargito>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import Service = require('./classes/Service');
@@ -22,6 +23,7 @@ declare namespace Serverless {
     interface Options {
         function?: string | undefined;
         watch?: boolean | undefined;
+        verbose?: boolean | undefined;
         extraServicePath?: string | undefined;
         stage: string | null;
         region: string | null;

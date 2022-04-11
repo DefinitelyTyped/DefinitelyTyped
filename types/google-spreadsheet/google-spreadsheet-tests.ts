@@ -70,7 +70,12 @@ const [GOOGLE_SERVICE_ACCOUNT_EMAIL, GOOGLE_PRIVATE_KEY] = ['email', 'key'];
      c6.note = 'This is a note!';
      await sheet.saveUpdatedCells(); // save all updates in one call
 
+    // adds a column
+    await sheet.insertDimension('COLUMNS', { startIndex: 1, endIndex: 2 });
+    // adds a row and inherits properties from previous row
+    await sheet.insertDimension('ROWS', { startIndex: 2, endIndex: 3 }, true);
+
      // create empty document
      const emptyDoc = new GoogleSpreadsheet();
-     await emptyDoc.createNewSpreadsheetDocument({title: 'This is a new Spread Sheet'});
- })();
+     await emptyDoc.createNewSpreadsheetDocument({ title: 'This is a new Spread Sheet' });
+})();

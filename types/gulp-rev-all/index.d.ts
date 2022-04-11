@@ -6,13 +6,13 @@
 /// <reference types="node" />
 
 interface GulpRevAll {
-    revision(options?: GulpRevAll.RevisionOptions): NodeJS.ReadWriteStream;
+    revision(options?: gulpRevAll.Options): NodeJS.ReadWriteStream;
     manifestFile(): NodeJS.ReadWriteStream;
     versionFile(): NodeJS.ReadWriteStream;
 }
 
-declare namespace GulpRevAll {
-    interface RevisionOptions {
+declare namespace gulpRevAll {
+    interface Options {
         /**
          * Set the filename of the file created by revAll.versionFile()
          *

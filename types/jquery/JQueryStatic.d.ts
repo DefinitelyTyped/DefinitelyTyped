@@ -13209,7 +13209,7 @@ $( "span:eq(3)" ).text( "" + jQuery.data( div, "test2" ) );
      * @param str The string to trim.
      * @see \`{@link https://api.jquery.com/jQuery.trim/ }\`
      * @since 1.0
-     * @deprecated ​ Deprecated since 3.5. See \`{@link https://api.jquery.com/category/deprecated/deprecated-3.5/ }\`.
+     * @deprecated ​ Deprecated since 3.5. Use \`{@link String.prototype.trim String.prototype.trim}\`.
      * @example ​ ````Remove the white spaces at the start and at the end of the string.
 ```html
 <!doctype html>

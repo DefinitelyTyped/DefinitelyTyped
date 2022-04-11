@@ -15,6 +15,7 @@ import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import {
     AccessibilityInfo,
+    ActionSheetIOS,
     AsyncStorage,
     Alert,
     AppState,
@@ -1443,6 +1444,13 @@ const ScrollViewMaintainVisibleContentPositionTest = () => (
     <ScrollView maintainVisibleContentPosition={{ autoscrollToTopThreshold: 1, minIndexForVisible: 10 }}></ScrollView>
 );
 
+const ScrollViewInsetsTest = () => (
+  <>
+    <ScrollView automaticallyAdjustKeyboardInsets />
+    <ScrollView automaticallyAdjustKeyboardInsets={false} />
+  </>
+);
+
 const MaxFontSizeMultiplierTest = () => <Text maxFontSizeMultiplier={0}>Text</Text>;
 
 const ShareTest = () => {
@@ -1890,3 +1898,30 @@ LayoutAnimation.configureNext(
 );
 
 LayoutAnimation.configureNext(LayoutAnimation.create(123, 'easeIn', 'opacity'));
+
+// ActionSheetIOS
+const ActionSheetIOSTest = () => {
+    // test destructiveButtonIndex undefined
+    ActionSheetIOS.showActionSheetWithOptions({
+        options: ['foo'],
+        destructiveButtonIndex: undefined,
+    }, () => undefined);
+
+    // test destructiveButtonIndex null
+    ActionSheetIOS.showActionSheetWithOptions({
+        options: ['foo'],
+        destructiveButtonIndex: null,
+    }, () => undefined);
+
+    // test destructiveButtonIndex single number
+    ActionSheetIOS.showActionSheetWithOptions({
+        options: ['foo'],
+        destructiveButtonIndex: 0,
+    }, () => undefined);
+
+    // test destructiveButtonIndex number array
+    ActionSheetIOS.showActionSheetWithOptions({
+        options: ['foo', 'bar'],
+        destructiveButtonIndex: [0, 1],
+    }, () => undefined);
+}

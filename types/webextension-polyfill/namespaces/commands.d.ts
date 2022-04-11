@@ -11,6 +11,7 @@
  * Use of this source code is governed by a BSD-style license that can be
  * found in the LICENSE file.
  */
+import { Tabs } from "./tabs";
 import { Events } from "./events";
 
 export namespace Commands {
@@ -81,7 +82,8 @@ export namespace Commands {
          * Fired when a registered command is activated using a keyboard shortcut.
          *
          * @param command
+         * @param tab Optional.
          */
-        onCommand: Events.Event<(command: string) => void>;
+        onCommand: Events.Event<(command: string, tab: Tabs.Tab | undefined) => void>;
     }
 }

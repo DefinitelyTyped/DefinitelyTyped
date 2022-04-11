@@ -43,13 +43,13 @@ import { getIfUtils, removeEmpty, propIf, propIfNot } from 'webpack-config-utils
             ifProduction // $ExpectType IfUtilsFn
         } = getIfUtils('production');
 
-        // $ExpectType "value" | "alternate"
+        // $ExpectType "value" | "alternate" || "alternate" | "value"
         ifProduction('value', 'alternate'); // 'value'
     }
     {
         const { ifNotDev } = getIfUtils({ dev: false });
 
-        // $ExpectType "value" | "alternate"
+        // $ExpectType "value" | "alternate" || "alternate" | "value"
         ifNotDev('value', 'alternate'); // 'value'
     }
     {

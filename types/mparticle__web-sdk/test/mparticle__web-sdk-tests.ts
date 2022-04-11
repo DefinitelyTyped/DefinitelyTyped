@@ -129,6 +129,8 @@ mParticle.getVersion();
 mParticle.init('apiKey', config);
 mParticle.init('apiKey', config, 'instance');
 
+mParticle.isInitialized();
+
 mParticle.logBaseEvent({
     data: {},
     name: 'baseEventName',
@@ -210,6 +212,8 @@ mParticle.reset();
 mParticle.setAppName('appName');
 
 mParticle.setAppVersion('1.0.0');
+
+mParticle.setDeviceId('foo-uuid-v4');
 
 mParticle.setIntegrationAttribute(123, { key: 'value' });
 
