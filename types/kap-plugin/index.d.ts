@@ -8,7 +8,7 @@ import * as got from 'got';
 import * as ElectronStore from 'electron-store';
 import { JSONSchema7 } from 'json-schema';
 
-export interface KapContext<T> {
+export interface KapContext<T extends Record<string, any>> {
     /**
      * The file format the user chose in the editor window
      */
