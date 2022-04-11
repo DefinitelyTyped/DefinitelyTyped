@@ -1,4 +1,4 @@
-// Type definitions for robust-segment-intersect 1.0.1
+// Type definitions for robust-segment-intersect 1.0
 // Project: https://github.com/mikolalysenko/robust-segment-intersect
 // Definitions by: masx200 <https://github.com/masx200>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
