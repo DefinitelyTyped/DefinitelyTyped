@@ -106,7 +106,7 @@ export class Region extends Observer {
 }
 
 export interface RegionParams {
-    id: string;
+    id?: string | undefined;
     start?: number | undefined;
     end?: number | undefined;
     loop?: boolean | undefined;
@@ -117,6 +117,8 @@ export interface RegionParams {
     handleStyle?: HandleStyle | undefined;
     preventContextMenu?: boolean | undefined;
     showTooltip?: boolean | undefined;
+    attributes?: Attributes | undefined;
+    data?: Datas | undefined;
 }
 
 export interface RegionUpdatedEventParams {
@@ -134,5 +136,5 @@ export interface Attributes {
 }
 
 export interface Datas {
-    [dataName: string]: string;
+    [dataName: string]: unknown;
 }
