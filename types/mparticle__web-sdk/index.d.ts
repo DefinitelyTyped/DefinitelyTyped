@@ -552,16 +552,16 @@ interface Cart {
 }
 
 export interface Product {
-    name: string;
-    sku: string;
-    price: number;
-    quantity?: number | undefined;
-    variant?: string | undefined;
-    category?: string | undefined;
-    brand?: string | undefined;
-    position?: number | undefined;
-    coupon?: string | undefined;
-    attributes?: Record<string, unknown> | undefined;
+    Name: string;
+    Sku: string;
+    Price: number;
+    Quantity?: number | undefined;
+    Variant?: string | undefined;
+    Category?: string | undefined;
+    Brand?: string | undefined;
+    Position?: number | undefined;
+    Coupon?: string | undefined;
+    Attributes?: Record<string, unknown> | undefined;
 }
 
 export interface TransactionAttributes {
@@ -574,15 +574,15 @@ export interface TransactionAttributes {
 }
 
 export interface Impression {
-    name: string;
-    product: Product;
+    Name: string;
+    Product: Product;
 }
 
 export interface Promotion {
-    id: string;
-    creative?: string | undefined;
-    name?: string | undefined;
-    position?: number | undefined;
+    Id: string;
+    Creative?: string | undefined;
+    Name?: string | undefined;
+    Position?: number | undefined;
 }
 
 export interface IdentityApiData {

@@ -277,13 +277,29 @@ const product1: mParticle.Product = instance.eCommerce.createProduct(
     { foo: 'bar' },
 );
 const product2: mParticle.Product = instance.eCommerce.createProduct('product2', 'sku2', 20);
+console.log('Product 1 Name', product1.Name);
+console.log('Product 1 Sku', product1.Sku);
+console.log('Product 1 Price', product1.Price);
+console.log('Product 1 Quantity', product1.Quantity);
+console.log('Product 1 Variant', product1.Variant);
+console.log('Product 1 Category', product1.Category);
+console.log('Product 1 Brand', product1.Brand);
+console.log('Product 1 Position', product1.Position);
+console.log('Product 1 Coupon', product1.Coupon);
+console.log('Product 1 Attributes', product1.Attributes);
 
 const impression1: mParticle.Impression = instance.eCommerce.createImpression('name1', product1);
 const impression2: mParticle.Impression = instance.eCommerce.createImpression('name2', product2);
 const impression3: mParticle.Impression = instance.eCommerce.createImpression('name2', [product1, product2]);
+console.log('Impression 1 Name', impression1.Name);
+console.log('Impression 1 Product', impression1.Product);
 
 const promotion1 = instance.eCommerce.createPromotion('id2');
 const promotion2: mParticle.Promotion = instance.eCommerce.createPromotion('id1', 'creative', 'name', 1);
+console.log('Promotion 1 ID', promotion1.Id);
+console.log('Promotion 1 Creative', promotion1.Creative);
+console.log('Promotion 1 Name', promotion1.Name);
+console.log('Promotion 1 Position', promotion1.Position);
 
 const transactionAttributes1: mParticle.TransactionAttributes = instance.eCommerce.createTransactionAttributes('TAid1');
 const transactionAttributes2: mParticle.TransactionAttributes = instance.eCommerce.createTransactionAttributes(
