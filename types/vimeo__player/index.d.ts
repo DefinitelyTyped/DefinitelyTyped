@@ -308,7 +308,11 @@ export class Player {
     on(event: string, callback: EventCallback): void;
     off<EventName extends keyof EventMap>(event: EventName, callback: EventCallback<EventMap[EventName]>): void;
     off(event: string, callback?: EventCallback): void;
-    loadVideo(id: number | string): VimeoPromise<number, TypeError | PasswordError | PrivacyError | Error>;
+    loadVideo(id: number): VimeoPromise<number, TypeError | PasswordError | PrivacyError | Error>;
+    loadVideo(url: string): VimeoPromise<string, TypeError | PasswordError | PrivacyError | Error>;
+    loadVideo(
+        options: Options,
+    ): VimeoPromise<{ [prop: string]: any }, TypeError | PasswordError | PrivacyError | Error>;
     ready(): VimeoPromise<void, Error>;
     enableTextTrack(
         language: string,
@@ -393,7 +397,7 @@ export interface Options {
     controls?: boolean | undefined;
     dnt?: boolean | undefined;
     height?: number | undefined;
-    interactiveparams?: string | undefined;
+    interactive_params?: string | undefined;
     keyboard?: boolean | undefined;
     loop?: boolean | undefined;
     maxheight?: number | undefined;

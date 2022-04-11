@@ -16,13 +16,14 @@ player = new Player('handstick', {
     color: '#00adef',
     controls: true,
     dnt: false,
-    interactiveparams: 'key1=value1,key2=value2',
+    interactive_params: 'key1=value1,key2=value2',
     keyboard: true,
     loop: false,
     muted: false,
     pip: false,
     playsinline: true,
     portrait: true,
+    quality: 'auto',
     responsive: false,
     speed: false,
     title: true,
@@ -70,7 +71,35 @@ player
 
 player
     .loadVideo('http://vimeo.com/video/76979871')
-    .then(id => {
+    .then(url => {
+        // the video successfully loaded
+    })
+    .catch(error => {
+        switch (error.name) {
+            case 'TypeError':
+                // the id was not a number
+                break;
+
+            case 'PasswordError':
+                // the video is password-protected and the viewer needs to enter the
+                // password first
+                break;
+
+            case 'PrivacyError':
+                // the video is password-protected or private
+                break;
+
+            default:
+                // some other error occurred
+                break;
+        }
+    });
+
+player
+    .loadVideo({
+        id: 76979871,
+    })
+    .then(options => {
         // the video successfully loaded
     })
     .catch(error => {
