@@ -176,38 +176,45 @@ export interface LegalHoldOptions {
     status: LegalHoldStatus;
 }
 
+export interface InputSerialization {
+    CompressionType?: string;
+    CSV?: {
+        AllowQuotedRecordDelimiter?: boolean;
+        Comments?: string;
+        FieldDelimiter?: string;
+        FileHeaderInfo?: string;
+        QuoteCharacter?: string;
+        QuoteEscapeCharacter?: string;
+        RecordDelimiter?: string;
+    };
+    JSON?: {
+        [key: string]: any;
+    };
+    Parquet?: {
+        [key: string]: any;
+    };
+}
+
+export interface OutputSerialization {
+    CSV?: {
+        FieldDelimiter?: string;
+        QuoteCharacter?: string;
+        QuoteEscapeCharacter?: string;
+        QuoteFields?: string;
+        RecordDelimiter?: string;
+    };
+    JSON?: {
+        RecordDelimiter?: string;
+    };
+}
+
 export interface SelectOptions {
     expression: string;
     expressionType?: string;
-    inputSerialization: EmptyObject;
-    outputSerialization: EmptyObject;
-    requestProgress?: EmptyObject;
-    scanRange?: EmptyObject;
-}
-
-export interface DestinationObjectOptions {
-    Bucket: string;
-    Object: string;
-    Encryption?: EmptyObject;
-    UserMetadata?: EmptyObject;
-    UserTags?: EmptyObject | string;
-    LegalHold?: LegalHoldStatus;
-    RetainUntilDate?: string;
-    Mode?: Mode;
-}
-
-export interface SourceObjectOptions {
-    Bucket: string;
-    Object: string;
-    VersionID?: string;
-    MatchETag?: string;
-    NoMatchETag?: string;
-    MatchModifiedSince?: string;
-    MatchUnmodifiedSince?: string;
-    MatchRange?: boolean;
-    Start?: number;
-    End?: number;
-    Encryption?: EmptyObject;
+    inputSerialization: InputSerialization;
+    outputSerialization: OutputSerialization;
+    requestProgress?: { Enabled: boolean };
+    scanRange?: { Start: number, End: number };
 }
 
 export interface SourceObjectStats {
