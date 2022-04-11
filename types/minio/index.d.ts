@@ -374,8 +374,8 @@ export class Client {
     setObjectLegalHold(bucketName: string, objectName: string, setOptions: LegalHoldOptions, callback: NoResultCallback): void;
     setObjectLegalHold(bucketName: string, objectName: string, setOptions?: LegalHoldOptions): Promise<void>;
 
-    composeObject(destObjConfig: DestinationObjectOptions, sourceObjList: SourceObjectOptions[], callback: ResultCallback<SourceObjectStats>): void;
-    composeObject(destObjConfig: DestinationObjectOptions, sourceObjList: SourceObjectOptions[]): Promise<SourceObjectStats>;
+    composeObject(destObjConfig: CopyDestinationOptions, sourceObjList: CopySourceOptions[], callback: ResultCallback<SourceObjectStats>): void;
+    composeObject(destObjConfig: CopyDestinationOptions, sourceObjList: CopySourceOptions[]): Promise<SourceObjectStats>;
 
     selectObjectContent(bucketName: string, objectName: string, selectOpts: SelectOptions, callback: NoResultCallback): void;
     selectObjectContent(bucketName: string, objectName: string, selectOpts: SelectOptions): Promise<void>;
@@ -475,6 +475,57 @@ export class QueueConfig extends TargetConfig {
 
 export class CloudFunctionConfig extends TargetConfig {
     constructor(arn: string);
+}
+
+export interface CopySourceOptionsHeaderOptions {
+    "x-amz-copy-source": string;
+    "x-amz-copy-source-if-match"?: string;
+    "x-amz-copy-source-if-none-match"?: string;
+    "x-amz-copy-source-if-modified-since"?: string;
+    "x-amz-copy-source-if-unmodified-since"?: string;
+}
+
+export class CopySourceOptions {
+    constructor(
+        Bucket: string,
+        Object: string,
+        VersionID?: string,
+        MatchETag?: string,
+        NoMatchETag?: string,
+        MatchModifiedSince?: string,
+        MatchUnmodifiedSince?: string,
+        MatchRange?: boolean,
+        Start?: number,
+        End?: number,
+        Encryption?: {
+            type: string;
+            SSEAlgorithm?: string;
+            KMSMasterKeyID?: string;
+        },
+    );
+
+    getHeaders(): CopySourceOptionsHeaderOptions;
+    validate(): boolean;
+}
+
+export class CopyDestinationOptions {
+    constructor(
+        Bucket: string,
+        Object: string,
+        Encryption?: {
+            type: string;
+            SSEAlgorithm?: string;
+            KMSMasterKeyID?: string;
+        },
+        UserMetadata?: EmptyObject,
+        UserTags?: EmptyObject | string,
+        LegalHold?: LegalHoldStatus,
+        RetainUntilDate?: string,
+        Mode?: Mode,
+    );
+
+    getHeaders(): { [key: string]: any; };
+    validate(): boolean;
 }
 
 export function buildARN(partition: string, service: string, region: string, accountId: string, resource: string): string;
