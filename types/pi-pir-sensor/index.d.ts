@@ -15,7 +15,7 @@ declare namespace Sensor {
 
         start(callback: (err) => void): void;
 
-        stop(callback: (err) => void): boolean;
+        stop(): boolean;
 
         on(event: string, callback: () => void): void;
     }
