@@ -4,6 +4,7 @@
 //                 Lubomir Kaplan <https://github.com/castorw>
 //                 Panagiotis Kapros <https://github.com/loremaps>
 //                 Ben Watkins <https://github.com/OutdatedVersion>
+//                 Seohyun Yoon <https://github.com/seohyun0120>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
