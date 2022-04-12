@@ -177,22 +177,20 @@ export interface LegalHoldOptions {
 }
 
 export interface InputSerialization {
-    CompressionType?: string;
+    CompressionType?: 'NONE'| 'GZIP' | 'BZIP2';
     CSV?: {
         AllowQuotedRecordDelimiter?: boolean;
         Comments?: string;
         FieldDelimiter?: string;
-        FileHeaderInfo?: string;
+        FileHeaderInfo?: 'NONE' | 'IGNORE' | 'USE';
         QuoteCharacter?: string;
         QuoteEscapeCharacter?: string;
         RecordDelimiter?: string;
     };
     JSON?: {
-        [key: string]: any;
+        Type: 'DOCUMENT' | 'LINES';
     };
-    Parquet?: {
-        [key: string]: any;
-    };
+    Parquet?: EmptyObject;
 }
 
 export interface OutputSerialization {
@@ -484,14 +482,6 @@ export class CloudFunctionConfig extends TargetConfig {
     constructor(arn: string);
 }
 
-export interface CopySourceOptionsHeaderOptions {
-    "x-amz-copy-source": string;
-    "x-amz-copy-source-if-match"?: string;
-    "x-amz-copy-source-if-none-match"?: string;
-    "x-amz-copy-source-if-modified-since"?: string;
-    "x-amz-copy-source-if-unmodified-since"?: string;
-}
-
 export class CopySourceOptions {
     constructor(
         Bucket: string,
@@ -511,7 +501,7 @@ export class CopySourceOptions {
         },
     );
 
-    getHeaders(): CopySourceOptionsHeaderOptions;
+    getHeaders(): Record<string, string>;;
     validate(): boolean;
 }
 
@@ -524,14 +514,14 @@ export class CopyDestinationOptions {
             SSEAlgorithm?: string;
             KMSMasterKeyID?: string;
         },
-        UserMetadata?: EmptyObject,
-        UserTags?: EmptyObject | string,
+        UserMetadata?: Record<string, unknown>,
+        UserTags?: Record<string, unknown> | string,
         LegalHold?: LegalHoldStatus,
         RetainUntilDate?: string,
         Mode?: Mode,
     );
 
-    getHeaders(): { [key: string]: any; };
+    getHeaders(): Record<string, string>;
     validate(): boolean;
 }
 

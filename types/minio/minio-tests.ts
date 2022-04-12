@@ -259,7 +259,7 @@ minio.selectObjectContent(
   {
     expression: "SELECT * FROM s3object s",
     expressionType: 'SQL',
-    inputSerialization: { CSV: { FileHeaderInfo: 'Use' }, CompressionType: 'NONE' },
+    inputSerialization: { CSV: { FileHeaderInfo: 'USE' }, CompressionType: 'NONE' },
     outputSerialization: { CSV: { RecordDelimiter: '\n', FieldDelimiter: ',' }},
     requestProgress: { Enabled: true },
   },
@@ -271,7 +271,7 @@ minio.selectObjectContent(
   {
     expression: "SELECT * FROM s3object s",
     expressionType: 'SQL',
-    inputSerialization: { CSV: { FileHeaderInfo: 'Use' }, CompressionType: 'NONE' },
+    inputSerialization: { CSV: { FileHeaderInfo: 'USE' }, CompressionType: 'NONE' },
     outputSerialization: { CSV: { RecordDelimiter: '\n', FieldDelimiter: ',' }},
     requestProgress: { Enabled: true },
   },
