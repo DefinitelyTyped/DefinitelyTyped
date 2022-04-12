@@ -18,9 +18,10 @@ declare namespace Email {
   }
 
   function send(options: EmailOptions): void;
-  function hookSend(fn: (options: EmailOptions )=> boolean): void;
-  function customTransport(fn: (options: CustomEmailOptions)=> void): void;
+  function hookSend(fn: (options: EmailOptions) => boolean): void;
+  function customTransport(fn: (options: CustomEmailOptions) => void): void;
 }
+
 declare interface MailComposerOptions {
     escapeSMTP: boolean;
     encoding: string;
@@ -33,6 +34,7 @@ declare var MailComposer: MailComposerStatic;
 declare interface MailComposerStatic {
     new (options: MailComposerOptions): MailComposer;
 }
+
 declare interface MailComposer {
     addHeader(name: string, value: string): void;
     setMessageOption(from: string, to: string, body: string, html: string): void;

@@ -19,8 +19,8 @@ declare module 'meteor/email' {
       }
 
       function send(options: EmailOptions): void;
-      function hookSend(fn: (options: EmailOptions )=> boolean): void;
-      function customTransport(fn: (options: CustomEmailOptions)=> void): void;
+      function hookSend(fn: (options: EmailOptions) => boolean): void;
+      function customTransport(fn: (options: CustomEmailOptions) => void): void;
     }
 
     interface MailComposerOptions {
