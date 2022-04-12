@@ -261,6 +261,11 @@ export interface ToSQLOptions {
      * @default false
      */
     includeZone?: boolean | undefined;
+    /**
+     * include the space between the time and the offset, such as '05:15:16.345 -04:00'
+     * @default true
+     */
+    includeOffsetSpace?: boolean;
 }
 
 export interface ToISODateOptions {
@@ -1352,6 +1357,11 @@ export class DateTime {
      * Returns the epoch seconds of this DateTime.
      */
     toSeconds(): number;
+
+    /**
+     * Returns the epoch seconds (as a whole number) of this DateTime.
+     */
+    toUnixInteger(): number;
 
     /**
      * Returns an ISO 8601 representation of this DateTime appropriate for use in JSON.

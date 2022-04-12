@@ -1,9 +1,9 @@
-import { Styles } from "../../types/util";
-import { PluginDefinition, PluginParams, WaveSurferPlugin } from "../../types/plugin";
-import Observer from "../util/observer";
-import WaveSurfer from "../wavesurfer";
+import { Styles } from '../../types/util';
+import { PluginDefinition, PluginParams, WaveSurferPlugin } from '../../types/plugin';
+import Observer from '../util/observer';
+import WaveSurfer from '../wavesurfer';
 
-declare module "../../wavesurfer" {
+declare module '../../wavesurfer' {
     interface WaveSurfer {
         addRegion(regionParams: RegionParams): void;
         clearRegions(): void;
@@ -25,10 +25,10 @@ export default class RegionsPlugin extends Observer implements WaveSurferPlugin 
     getRegionSnapToGridValue(value: number, params: RegionParams): number;
 
     readonly list: { [id: string]: Region };
-    readonly maxRegions: number[];
+    readonly maxRegions: number;
     readonly params: RegionsPluginParams;
     readonly regionsMinLength: number;
-    readonly util: WaveSurfer["util"];
+    readonly util: WaveSurfer['util'];
     readonly wavesurfer: WaveSurfer;
     readonly wrapper: HTMLElement;
 }
@@ -45,7 +45,7 @@ export interface RegionsPluginParams extends PluginParams {
     /** Shift the snap-to-grid by the specified seconds. May also be negative. */
     snapToGridOffset?: number | undefined;
     /** Maximum number of regions that may be created by the user at one time. */
-    maxRegions?: number[] | undefined;
+    maxRegions?: number | undefined;
     /** Allows custom formating for region tooltip. */
     formatTimeCallback?: (() => string) | undefined;
     /** from container edges' Optional width for edgeScroll to start (default: 5% of viewport width). */
@@ -53,7 +53,7 @@ export interface RegionsPluginParams extends PluginParams {
 }
 
 export class Region extends Observer {
-    constructor(params: RegionParams, regionsUtil: WaveSurfer["util"], ws: WaveSurfer);
+    constructor(params: RegionParams, regionsUtil: WaveSurfer['util'], ws: WaveSurfer);
 
     bindRagEvents(): void;
     bindEvents(): void;
@@ -61,7 +61,7 @@ export class Region extends Observer {
     formatTime(start: number, end: number): string;
     getWidth(): number;
     onDrag(delta: number): void;
-    onResize(delta: number, direction: "start" | "end"): void;
+    onResize(delta: number, direction: 'start' | 'end'): void;
     play(start?: number): void;
     playLoop(start?: number): void;
     remove(): void;
@@ -93,20 +93,20 @@ export class Region extends Observer {
     readonly minLength: number;
     readonly preventContextMenu: boolean;
     readonly regionHeight: string;
-    readonly regionsUtil: WaveSurfer["util"];
+    readonly regionsUtil: WaveSurfer['util'];
     readonly resize: boolean;
     readonly scroll: boolean;
     readonly scrollSpeed: number;
     readonly scrollThreshold: number;
     readonly start: number;
-    readonly style: WaveSurfer["util"]["style"];
-    readonly util: WaveSurfer["util"];
+    readonly style: WaveSurfer['util']['style'];
+    readonly util: WaveSurfer['util'];
     readonly wavesurfer: WaveSurfer;
     readonly wrapper: HTMLElement;
 }
 
 export interface RegionParams {
-    id: string;
+    id?: string | undefined;
     start?: number | undefined;
     end?: number | undefined;
     loop?: boolean | undefined;
@@ -117,6 +117,8 @@ export interface RegionParams {
     handleStyle?: HandleStyle | undefined;
     preventContextMenu?: boolean | undefined;
     showTooltip?: boolean | undefined;
+    attributes?: Attributes | undefined;
+    data?: Datas | undefined;
 }
 
 export interface RegionUpdatedEventParams {
@@ -134,5 +136,5 @@ export interface Attributes {
 }
 
 export interface Datas {
-    [dataName: string]: string;
+    [dataName: string]: unknown;
 }

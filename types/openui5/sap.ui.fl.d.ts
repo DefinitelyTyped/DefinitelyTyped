@@ -1,4 +1,4 @@
-// For Library Version: 1.97.0
+// For Library Version: 1.100.0
 
 declare module "sap/ui/fl/library" {}
 
@@ -1572,7 +1572,7 @@ declare module "sap/ui/fl/write/api/FeaturesAPI" {
    */
   interface FeaturesAPI {
     /**
-     * Checks if context sharing is enbaled.
+     * Checks if context sharing is enabled.
      */
     isContextSharingEnabled(
       /**
@@ -1669,6 +1669,10 @@ declare namespace sap {
 
     "sap/ui/fl/apply/_internal/flexObjects/CompVariantRevertData": undefined;
 
+    "sap/ui/fl/apply/_internal/flexObjects/FlexObject": undefined;
+
+    "sap/ui/fl/apply/_internal/flexObjects/FlexObjectFactory": undefined;
+
     "sap/ui/fl/apply/_internal/flexObjects/RevertData": undefined;
 
     "sap/ui/fl/apply/_internal/flexObjects/UpdatableChange": undefined;
@@ -1688,6 +1692,10 @@ declare namespace sap {
     "sap/ui/fl/apply/_internal/flexState/Loader": undefined;
 
     "sap/ui/fl/apply/_internal/flexState/UI2Personalization/UI2PersonalizationState": undefined;
+
+    "sap/ui/fl/apply/_internal/preprocessors/ControllerExtension": undefined;
+
+    "sap/ui/fl/apply/_internal/preprocessors/EventHistory": undefined;
 
     "sap/ui/fl/apply/api/ControlVariantApplyAPI": undefined;
 
@@ -1714,8 +1722,6 @@ declare namespace sap {
     "sap/ui/fl/descriptorRelated/api/DescriptorInlineChangeFactory": undefined;
 
     "sap/ui/fl/descriptorRelated/api/DescriptorVariantFactory": undefined;
-
-    "sap/ui/fl/EventHistory": undefined;
 
     "sap/ui/fl/FlexControllerFactory": undefined;
 
@@ -1747,9 +1753,13 @@ declare namespace sap {
 
     "sap/ui/fl/library": undefined;
 
-    "sap/ui/fl/PreprocessorImpl": undefined;
-
     "sap/ui/fl/registry/Settings": undefined;
+
+    "sap/ui/fl/support/_internal/getChangeDependencies": undefined;
+
+    "sap/ui/fl/support/_internal/getFlexSettings": undefined;
+
+    "sap/ui/fl/support/api/SupportAPI": undefined;
 
     "sap/ui/fl/transport/TransportDialog": undefined;
 
@@ -1834,6 +1844,8 @@ declare namespace sap {
     "sap/ui/fl/write/api/SmartBusinessWriteAPI": undefined;
 
     "sap/ui/fl/write/api/SmartVariantManagementWriteAPI": undefined;
+
+    "sap/ui/fl/write/api/TranslationAPI": undefined;
 
     "sap/ui/fl/write/api/UI2PersonalizationWriteAPI": undefined;
 

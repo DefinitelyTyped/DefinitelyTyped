@@ -179,8 +179,8 @@ export class ApplePaySession {
  * @description Accept Apple Pay on the Web. *This component is currently in beta and is subject to change.*
  */
 export interface ApplePay {
-    create(options: { client: Client }): Promise<any>;
-    create(options: { client: Client }, callback?: callback): void;
+    create(options: { client: Client }): Promise<ApplePay>;
+    create(options: { client: Client }, callback?: callback<ApplePay>): void;
 
     /**
      * @description The current version of the SDK, i.e. `3.0.2`.
@@ -193,7 +193,8 @@ export interface ApplePay {
      * - countryCode
      * - currencyCode
      * - merchantCapabilities
-     * - supportedNetworks     * @example
+     * - supportedNetworks
+     * @example
      * var applePay = require('braintree-web/apple-pay');
      *
      * applePay.create({client: clientInstance}, function (createErr, applePayInstance) {
@@ -208,7 +209,18 @@ export interface ApplePay {
      *   // { total: { }, countryCode: 'US', currencyCode: 'USD', merchantCapabilities: [ ], supportedNetworks: [ ] }
      *
      */
-    createPaymentRequest(paymentRequest: ApplePayPaymentRequest): ApplePayPaymentRequest;
+    createPaymentRequest(
+        paymentRequest: Omit<
+            ApplePayPaymentRequest,
+            'countryCode' | 'currencyCode' | 'merchantCapabilities' | 'supportedNetworks'
+        > &
+            Partial<
+                Pick<
+                    ApplePayPaymentRequest,
+                    'countryCode' | 'currencyCode' | 'merchantCapabilities' | 'supportedNetworks'
+                >
+            >,
+    ): ApplePayPaymentRequest;
 
     /**
      * Validates the merchant website, as required by ApplePaySession before payment can be authorized.     * - The canonical name for your store.
@@ -217,6 +229,7 @@ export interface ApplePay {
      * - Do not localize the name.     * Your Apple merchant identifier. This is the Apple Merchant ID created on the Apple Developer Portal.
      * Defaults to the merchant identifier specified in the Braintree Control Panel.
      * You can use this field to override the merchant identifier for this transaction.     * Pass the merchant session to your Apple Pay session's completeMerchantValidation method.
+     * If no callback is provided this returns a promise
      * @example
      * var applePay = require('braintree-web/apple-pay');
      *
@@ -244,9 +257,16 @@ export interface ApplePay {
         options: { validationURL: string; displayName?: string | undefined; merchantIdentifier?: string | undefined },
         callback: callback,
     ): void;
+    performValidation(options: {
+        validationURL: string;
+        displayName?: string | undefined;
+        merchantIdentifier?: string | undefined;
+    }): Promise<any>;
 
     /**
-     * Tokenizes an Apple Pay payment.     * @example
+     * Tokenizes an Apple Pay payment.
+     * If no callback is provided this will return a promise
+     * @example
      * var applePay = require('braintree-web/apple-pay');
      *
      * applePay.create({client: clientInstance}, function (createErr, applePayInstance) {
@@ -267,5 +287,6 @@ export interface ApplePay {
      *  };
      * });
      */
-    tokenize(options: { token: any }, callback: callback): void;
+    tokenize(options: { token: any }, callback: callback<ApplePayPayload>): void;
+    tokenize(options: { token: any }): Promise<ApplePayPayload>;
 }

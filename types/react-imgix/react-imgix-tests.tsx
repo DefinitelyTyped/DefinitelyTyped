@@ -9,6 +9,10 @@ const ImgixTest = () => (
         width={100}
         height={200}
         imgixParams={{ ar: '16:9' }}
+        disableQualityByDPR={true}
+        disableSrcSet={true}
+        disableLibraryParam={true}
+        disablePathEncoding={true}
         attributeConfig={{
             src: 'data-src',
             srcSet: 'data-srcset',

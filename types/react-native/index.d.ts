@@ -1,4 +1,4 @@
-// Type definitions for react-native 0.66
+// Type definitions for react-native 0.67
 // Project: https://github.com/facebook/react-native
 // Definitions by: Eloy Durán <https://github.com/alloy>
 //                 HuHuanming <https://github.com/huhuanming>
@@ -31,7 +31,6 @@
 //                 Dominique Richard <https://github.com/doumart>
 //                 Mohamed Shaban <https://github.com/drmas>
 //                 Jérémy Barbet <https://github.com/jeremybarbet>
-//                 Christian Ost <https://github.com/ca057>
 //                 David Sheldrick <https://github.com/ds300>
 //                 Natsathorn Yuthakovit <https://github.com/natsathorn>
 //                 ConnectDotz <https://github.com/connectdotz>
@@ -41,6 +40,7 @@
 //                 Arafat Zahan <https://github.com/kuasha420>
 //                 Pedro Hernández <https://github.com/phvillegas>
 //                 Sebastian Silbermann <https://github.com/eps1lon>
+//                 Zihan Chen <https://github.com/ZihanChen-MSFT>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -988,8 +988,7 @@ export interface TextPropsAndroid {
         | 'normal'
         | 'none'
         | 'full'
-        | 'high'
-        | 'balanced' | undefined;
+        | undefined;
 }
 
 // https://reactnative.dev/docs/text#props
@@ -3648,18 +3647,6 @@ interface ImagePropsAndroid {
      * @platform android
      */
     fadeDuration?: number | undefined;
-
-    /**
-     * Required if loading images via 'uri' from drawable folder on Android.
-     * Explanation: https://medium.com/@adamjacobb/react-native-performance-images-adf5843e120
-     */
-    width?: number | undefined;
-
-    /**
-     * Required if loading images via 'uri' from drawable folder on Android
-     * Explanation: https://medium.com/@adamjacobb/react-native-performance-images-adf5843e120
-     */
-    height?: number | undefined;
 }
 
 /**
@@ -6344,6 +6331,12 @@ export interface ScrollViewPropsIOS {
     automaticallyAdjustContentInsets?: boolean | undefined; // true
 
     /**
+     * Controls whether the ScrollView should automatically adjust it's contentInset
+     * and scrollViewInsets when the Keyboard changes it's size. The default value is false.
+     */
+    automaticallyAdjustKeyboardInsets?: boolean | undefined;
+
+    /**
      * Controls whether iOS should automatically adjust the scroll indicator
      * insets. The default value is true. Available on iOS 13 and later.
      */
@@ -6941,7 +6934,7 @@ export interface ActionSheetIOSOptions {
     title?: string | undefined;
     options: string[];
     cancelButtonIndex?: number | undefined;
-    destructiveButtonIndex?: number | undefined;
+    destructiveButtonIndex?: number | number[] | undefined | null;
     message?: string | undefined;
     anchor?: number | undefined;
     tintColor?: ColorValue | ProcessedColorValue | undefined;
@@ -9157,6 +9150,19 @@ export interface ImageStoreStatic {
      * base64 data.
      */
     getBase64ForTag(uri: string, success: (base64ImageData: string) => void, failure: (error: any) => void): void;
+}
+
+//
+// Turbo Module
+//
+
+export interface TurboModule {
+    getConstants?(): {}
+}
+
+export const TurboModuleRegistry: {
+    get<T extends TurboModule>(name: string): T | null;
+    getEnforcing<T extends TurboModule>(name: string): T;
 }
 
 //

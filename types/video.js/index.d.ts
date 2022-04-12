@@ -1596,6 +1596,21 @@ declare namespace videojs {
         getChild(name: string): Component | undefined;
 
         /**
+         * Returns the descendant `Component` following the givent
+         * descendant `names`. For instance ['foo', 'bar', 'baz'] would
+         * try to get 'foo' on the current component, 'bar' on the 'foo'
+         * component and 'baz' on the 'bar' component and return undefined
+         * if any of those don't exist.
+         *
+         * @param names
+         *        The name of the child `Component` to get.
+         *
+         * @return The descendant `Component` following the given descendant
+         *         `names` or undefined.
+         */
+        getDescendant(...names: Array<(string|string[])>): Component|undefined;
+
+        /**
          * Returns the child `Component` with the given `id`.
          *
          * @param id
@@ -3913,6 +3928,22 @@ declare namespace videojs {
         NoSource = 3,
     }
 
+    /**
+     * The `PictureInPictureWindow` interface represents an object able to programmatically obtain the `width` and `height` of the floating video window.
+     * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/PictureInPictureWindow}
+     */
+    interface PictureInPictureWindow {
+        /**
+         * Determines the height of the floating video window.
+         */
+         height: number;
+
+        /**
+         * Determines the width of the floating video window.
+         */
+         width: number;
+    }
+
     type Player = VideoJsPlayer;
 
     const Player: {
@@ -5763,6 +5794,7 @@ declare namespace videojs {
     };
 
     interface UserActions {
+        click?: boolean | ((event: EventTarget.Event) => void) | undefined;
         doubleClick?: boolean | ((event: EventTarget.Event) => void) | undefined;
         hotkeys?: boolean | ((event: KeyboardEvent) => void) | UserActionHotkeys | undefined;
     }
@@ -6480,6 +6512,15 @@ export interface VideoJsPlayer extends videojs.Component {
     exitFullWindow(): void;
 
     /**
+     * Exit Picture-in-Picture mode.
+     *
+     * @see [Spec]{@link https://wicg.github.io/picture-in-picture}
+     *
+     * @fires Player#leavepictureinpicture
+     */
+    exitPictureInPicture(): Promise<void>;
+
+    /**
      * Get a clone of the current Player~MediaObject for this player.
      * If the loadMedia method has not been used, will attempt to return a Player~MediaObject based on the current state of the player.
      */
@@ -6765,6 +6806,17 @@ export interface VideoJsPlayer extends videojs.Component {
      * @fires Player#fullscreenchange
      */
     requestFullscreen(): videojs.Player;
+
+    /**
+     * Create a floating video window always on top of other windows so that
+     * users may continue consuming media while they interact with other
+     * content sites, or applications on their device.
+     *
+     * @see [Spec]{@link https://wicg.github.io/picture-in-picture}
+     *
+     * @fires Player#enterpictureinpicture
+     */
+    requestPictureInPicture(): Promise<videojs.PictureInPictureWindow>;
 
     /**
      * Report user activity

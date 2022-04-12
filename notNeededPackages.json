@@ -268,6 +268,10 @@
             "libraryName": "babylonjs",
             "asOfVersion": "2.4.1"
         },
+        "backlog-js": {
+            "libraryName": "backlog-js",
+            "asOfVersion": "0.12.5"
+        },
         "baconjs": {
             "libraryName": "baconjs",
             "asOfVersion": "3.0.0"
@@ -660,6 +664,10 @@
             "libraryName": "cordova-plugin-battery-status",
             "asOfVersion": "1.2.3"
         },
+        "cordova-plugin-ble-central": {
+            "libraryName": "cordova-plugin-ble-central",
+            "asOfVersion": "1.4.2"
+        },
         "cordova-plugin-camera": {
             "libraryName": "cordova-plugin-camera",
             "asOfVersion": "2.4.0"
@@ -799,6 +807,10 @@
         "css-minimizer-webpack-plugin": {
             "libraryName": "css-minimizer-webpack-plugin",
             "asOfVersion": "3.2.0"
+        },
+        "cssnano": {
+            "libraryName": "cssnano",
+            "asOfVersion": "5.1.0"
         },
         "csv-parse": {
             "libraryName": "csv-parse",
@@ -1580,6 +1592,10 @@
         "getopts": {
             "libraryName": "getopts",
             "asOfVersion": "2.1.0"
+        },
+        "git-parse": {
+            "libraryName": "git-parse",
+            "asOfVersion": "2.1.1"
         },
         "git-remote-origin-url": {
             "libraryName": "git-remote-origin-url",
@@ -3065,10 +3081,6 @@
             "libraryName": "node-downloader-helper",
             "asOfVersion": "1.0.16"
         },
-        "node-fetch": {
-            "libraryName": "node-fetch",
-            "asOfVersion": "3.0.0"
-        },
         "node-json-db": {
             "libraryName": "node-json-db",
             "asOfVersion": "0.9.2"
@@ -3204,6 +3216,10 @@
         "ora": {
             "libraryName": "ora",
             "asOfVersion": "3.2.0"
+        },
+        "orbit-ui__react-components": {
+            "libraryName": "@orbit-ui/react-components",
+            "asOfVersion": "18.1.2"
         },
         "os-locale": {
             "libraryName": "os-locale",
@@ -5174,6 +5190,10 @@
         "tween.js": {
             "libraryName": "@tweenjs/tween.js",
             "asOfVersion": "18.6.1"
+        },
+        "twemoji": {
+            "libraryName": "twemoji",
+            "asOfVersion": "13.1.1"
         },
         "twilio": {
             "libraryName": "twilio",

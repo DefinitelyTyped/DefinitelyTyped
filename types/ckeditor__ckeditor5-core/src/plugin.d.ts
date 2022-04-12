@@ -81,7 +81,7 @@ export default class Plugin implements Observable {
      *
      * **Note:** This method is optional. A plugin instance does not need to have it defined.
      */
-    destroy?(): void;
+    destroy(): void;
     /**
      * A flag which defines if a plugin is allowed or not allowed to be used directly by a {@link module:core/context~Context}.
      */
@@ -174,6 +174,9 @@ export default class Plugin implements Observable {
 // Beware that this defines a class constructor, not the class instance.
 export interface PluginInterface<T = Plugin> {
     new (editor: Editor): T;
+    init?(): Promise<void>|void;
+    afterInit?(): Promise<void>|void;
+    destroy?(): Promise<void>|void;
 }
 
 export type LoadedPlugins = Array<typeof Plugin | typeof ContextPlugin>;

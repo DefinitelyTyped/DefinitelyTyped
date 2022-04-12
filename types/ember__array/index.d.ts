@@ -29,7 +29,7 @@ interface Array<T> extends Enumerable<T> {
      * This returns the objects at the specified indexes, using `objectAt`.
      */
     // tslint:disable-next-line:array-type
-    objectsAt(indexes: number[]): Array<T>;
+    objectsAt(indexes: number[]): Array<T | undefined>;
     /**
      * Returns a new array that is a slice of the receiver. This implementation
      * uses the observable array methods to retrieve the objects for the new

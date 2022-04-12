@@ -1,4 +1,4 @@
-// Type definitions for Meteor 2.0
+// Type definitions for Meteor 2.6
 // Project: http://www.meteor.com/
 // Definitions by: Alex Borodach <https://github.com/barbatus>
 //                 Dave Allen <https://github.com/fullflavedave>
@@ -19,7 +19,7 @@
 //                 Markus Peloso <https://github.com/ToastHawaii>
 //                 Erik Demaine <https://github.com/edemaine>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.7
+// Minimum TypeScript Version: 4.1
 
 /// <reference path="./accounts-base.d.ts" />
 /// <reference path="./globals/accounts-base.d.ts" />

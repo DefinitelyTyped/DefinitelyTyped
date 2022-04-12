@@ -18,11 +18,13 @@
         },
         "types": [],
         "noEmit": true,
+        "exactOptionalPropertyTypes": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
         "test/lib/assert.ts",
+        "test/built-ins.ts",
         "test/route.ts",
         "test/router.ts",
         "test/router-service.ts"

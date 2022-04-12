@@ -3,6 +3,8 @@
 // Definitions by: Timo Glastra <https://github.com/TimoGlastra>
 //                 Jakub Kočí <https://github.com/jakubkoci>
 //                 Karim Stekelenburg <https://github.com/karimStekelenburg>
+//                 James Ebert <https://github.com/JamesKebert>
+//                 Berend Sliedrecht <https://github.com/blu3beri>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { Buffer } from 'buffer/';
@@ -198,13 +200,14 @@ export function proverStoreCredential(
     credReqMetadata: CredReqMetadata,
     cred: Cred,
     credDef: CredDef,
-    revRegDef: RevRegDef | null,
+    revRegDef: RevocRegDef | null,
 ): Promise<CredentialId>;
 // TODO: proverGetCredentials
 export function proverGetCredential(wh: WalletHandle, credId: string): Promise<IndyCredentialInfo>;
 // TODO: proverSearchCredentials
 // TODO: proverFetchCredentials
 // TODO: proverCloseCredentialsSearch
+export function proverDeleteCredential(wh: WalletHandle, credId: string): Promise<void>;
 export function proverGetCredentialsForProofReq(wh: WalletHandle, proofRequest: IndyProofRequest): Promise<ProofCred>;
 export function proverSearchCredentialsForProofReq(
     wh: WalletHandle,
@@ -233,7 +236,7 @@ export function verifierVerifyProof(
     proof: IndyProof,
     schemas: Schemas,
     credentialDefs: CredentialDefs,
-    revRegsDefs: RevRegsDefs,
+    revRegDefs: RevocRegDefs,
     revRegs: RevStates,
 ): Promise<boolean>;
 
@@ -305,14 +308,15 @@ export interface WalletStorageConfig {
 export interface WalletCredentials {
     key: string;
     storage_credentials?:
-        | {
-              [key: string]: unknown;
-          }
-        | undefined;
+    | {
+        [key: string]: unknown;
+    }
+    | undefined;
     key_derivation_method?: KeyDerivationMethod | undefined;
 }
 
 export interface OpenWalletCredentials extends WalletCredentials {
+    rekey?: string;
     rekey_derivation_method?: KeyDerivationMethod | undefined;
 }
 
@@ -342,6 +346,13 @@ export interface SignedLedgerRequest extends LedgerRequest {
 
 export interface LedgerRejectResponse {
     op: 'REJECT';
+    reqId: number;
+    reason: string;
+    identifier: string;
+}
+
+export interface LedgerReqnackResponse {
+    op: 'REQNACK';
     reqId: number;
     reason: string;
     identifier: string;
@@ -388,7 +399,11 @@ export interface LedgerWriteReplyResponse extends LedgerReplyResponse {
     };
 }
 
-export type LedgerResponse = LedgerRejectResponse | LedgerReadReplyResponse | LedgerWriteReplyResponse;
+export type LedgerResponse =
+    | LedgerRejectResponse
+    | LedgerReqnackResponse
+    | LedgerReadReplyResponse
+    | LedgerWriteReplyResponse;
 
 export interface Schema {
     id: SchemaId;
@@ -445,7 +460,7 @@ export interface IndyCredentialInfo {
     schema_id: string;
     cred_def_id: string;
     rev_reg_id?: number | undefined;
-    cred_rev_id?: number | undefined;
+    cred_rev_id?: string | undefined;
 }
 
 export interface IndyCredential {
@@ -498,8 +513,10 @@ export interface IndyProof {
     };
     proof: any;
     identifiers: Array<{
-        schema_id: string;
-        timestamp?: number | undefined;
+        schema_id: SchemaId;
+        cred_def_id: CredDefId;
+        rev_reg_id?: RevRegId;
+        timestamp?: number;
     }>;
 }
 
@@ -511,12 +528,8 @@ export interface CredentialDefs {
     [key: string]: CredDef;
 }
 
-export interface RevRegsDefs {
-    [key: string]: unknown;
-}
-
-export interface RevRegDef {
-    [key: string]: unknown;
+export interface RevocRegDefs {
+    [revRegId: string]: RevocRegDef;
 }
 
 export interface RevStates {
@@ -595,7 +608,7 @@ export type BlobStorageReaderHandle = number;
 export interface Cred {
     schema_id: SchemaId;
     cred_def_id: CredDefId;
-    rev_reg_def_id: string;
+    rev_reg_id: string;
     values: CredValues;
     signature: unknown;
     signature_correctness_proof: unknown;
@@ -606,8 +619,8 @@ export interface RevocRegDelta {
     value: {
         prevAccum: string;
         accum: string;
-        issued: number[];
-        revoked: number[];
+        issued: number[] | undefined;
+        revoked: number[] | undefined;
     };
     ver: string;
 }
@@ -643,10 +656,10 @@ export interface WalletRecord {
     type?: string | undefined;
     value?: string | undefined;
     tags?:
-        | {
-              [key: string]: string | undefined;
-          }
-        | undefined;
+    | {
+        [key: string]: string | undefined;
+    }
+    | undefined;
 }
 
 export interface WalletRecordSearch {

@@ -909,9 +909,9 @@ const lists = (
                 <List.Text>List Item 3</List.Text>
                 <List.Text secondary>secondary</List.Text>
             </List.Item>
-            <List.Item>
+            <List.Byline>
                 <List.Text>List Item 4</List.Text>
-            </List.Item>
+            </List.Byline>
             <List.Footer>List Footer</List.Footer>
         </List>
     </div>

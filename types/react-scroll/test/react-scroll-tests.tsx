@@ -146,7 +146,7 @@ Events.scrollEvent.register('end', (to, element) => {
 Events.scrollEvent.remove('begin');
 Events.scrollEvent.remove('end');
 
-class CustomComponent extends React.Component {
+class CustomComponent extends React.Component<{ children?: React.ReactNode }> {
     render() {
         return <div>{this.props.children}</div>;
     }

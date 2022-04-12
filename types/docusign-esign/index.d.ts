@@ -1,4 +1,4 @@
-// Type definitions for docusign-esign 5.5
+// Type definitions for docusign-esign 5.6
 // Project: https://github.com/docusign/docusign-node-client#readme
 // Definitions by: Edwin Quimbo <https://github.com/equimbo/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -7,7 +7,7 @@
 /// <reference types="node" />
 
 export class ApiClient {
-    constructor(opts: { basePath: string; oAuthBasePath: string });
+    constructor(opts?: { basePath: string; oAuthBasePath: string });
 
     addDefaultHeader(header: string, value: string): void;
 
@@ -109,6 +109,7 @@ export class ApiClient {
 }
 
 export class Configuration {
+    static default: Configuration;
     constructor();
 
     getDefaultApiClient(): ApiClient;
@@ -117,7 +118,7 @@ export class Configuration {
 }
 
 export class AccountsApi {
-    constructor(apiClient: ApiClient);
+    constructor(apiClient?: ApiClient);
 
     _delete(accountId: string, callback?: () => void): Promise<void>;
 
@@ -322,7 +323,7 @@ export class AccountsApi {
 }
 
 export class AuthenticationApi {
-    constructor(apiClient: ApiClient);
+    constructor(apiClient?: ApiClient);
 
     deleteSocialLogin(accountId: string, userId: string, optsOrCallback?: any, callback?: () => void): Promise<void>;
 
@@ -340,7 +341,7 @@ export class AuthenticationApi {
 }
 
 export class BillingApi {
-    constructor(apiClient: ApiClient);
+    constructor(apiClient?: ApiClient);
 
     getBillingPlan(billingPlanId: string, callback?: () => void): Promise<BillingPlanResponse>;
 
@@ -379,7 +380,7 @@ export class BillingApi {
 }
 
 export class BulkEnvelopesApi {
-    constructor(apiClient: ApiClient);
+    constructor(apiClient?: ApiClient);
 
     createBulkSendList(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<BulkSendingList>;
 
@@ -443,7 +444,7 @@ export class BulkEnvelopesApi {
 }
 
 export class CloudStorageApi {
-    constructor(apiClient: ApiClient);
+    constructor(apiClient?: ApiClient);
 
     createProvider(
         accountId: string,
@@ -500,7 +501,7 @@ export class CloudStorageApi {
 }
 
 export class CommentsApi {
-    constructor(apiClient: ApiClient);
+    constructor(apiClient?: ApiClient);
 
     createEnvelopeComments(
         accountId: string,
@@ -518,7 +519,7 @@ export class CommentsApi {
 }
 
 export class ConnectApi {
-    constructor(apiClient: ApiClient);
+    constructor(apiClient?: ApiClient);
 
     createConfiguration(
         accountId: string,
@@ -583,7 +584,7 @@ export class ConnectApi {
 }
 
 export class CustomTabsApi {
-    constructor(apiClient: ApiClient);
+    constructor(apiClient?: ApiClient);
 
     _delete(accountId: string, customTabId: string, callback?: () => void): Promise<void>;
 
@@ -597,13 +598,13 @@ export class CustomTabsApi {
 }
 
 export class DataFeedApi {
-    constructor(apiClient: ApiClient);
+    constructor(apiClient?: ApiClient);
 
     getDataFeedElement(accountId: string, dataFeedElementId: string, callback?: () => void): Promise<void>;
 }
 
 export class DiagnosticsApi {
-    constructor(apiClient: ApiClient);
+    constructor(apiClient?: ApiClient);
 
     deleteRequestLogs(callback?: () => void): Promise<void>;
 
@@ -621,7 +622,7 @@ export class DiagnosticsApi {
 }
 
 export class EmailArchiveApi {
-    constructor(apiClient: ApiClient);
+    constructor(apiClient?: ApiClient);
 
     createBCCEmailArchive(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<BccEmailArchive>;
 
@@ -642,13 +643,13 @@ export class EmailArchiveApi {
 }
 
 export class EnvelopeApplianceApi {
-    constructor(apiClient: ApiClient);
+    constructor(apiClient?: ApiClient);
 
     getApplianceInfo(accountId: string, envelopeId: string, callback?: () => void): Promise<DisplayApplianceInfo>;
 }
 
 export class EnvelopePurgeConfigurationApi {
-    constructor(apiClient: ApiClient);
+    constructor(apiClient?: ApiClient);
 
     getEnvelopePurgeConfiguration(accountId: string, callback?: () => void): Promise<EnvelopePurgeConfiguration>;
 
@@ -660,7 +661,7 @@ export class EnvelopePurgeConfigurationApi {
 }
 
 export class EnvelopesApi {
-    constructor(apiClient: ApiClient);
+    constructor(apiClient?: ApiClient);
 
     applyTemplate(
         accountId: string,
@@ -1291,7 +1292,7 @@ export class EnvelopesApi {
 }
 
 export class FoldersApi {
-    constructor(apiClient: ApiClient);
+    constructor(apiClient?: ApiClient);
 
     list(
         accountId: string,
@@ -1327,7 +1328,7 @@ export class FoldersApi {
 }
 
 export class GroupsApi {
-    constructor(apiClient: ApiClient);
+    constructor(apiClient?: ApiClient);
 
     createGroups(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<GroupInformation>;
 
@@ -1376,7 +1377,7 @@ export class GroupsApi {
 }
 
 export class NotaryApi {
-    constructor(apiClient: ApiClient);
+    constructor(apiClient?: ApiClient);
 
     createNotary(optsOrCallback?: any, callback?: () => void): Promise<Notary>;
 
@@ -1404,7 +1405,7 @@ export class NotaryApi {
 }
 
 export class OrganizationsApi {
-    constructor(apiClient: ApiClient);
+    constructor(apiClient?: ApiClient);
 
     deleteReport(organizationId: string, reportCorrelationId: string, callback?: () => void): Promise<void>;
 
@@ -1412,7 +1413,7 @@ export class OrganizationsApi {
 }
 
 export class PowerFormsApi {
-    constructor(apiClient: ApiClient);
+    constructor(apiClient?: ApiClient);
 
     createPowerForm(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<PowerForm>;
 
@@ -1446,7 +1447,7 @@ export class PowerFormsApi {
 }
 
 export class SigningGroupsApi {
-    constructor(apiClient: ApiClient);
+    constructor(apiClient?: ApiClient);
 
     createList(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<SigningGroupInformation>;
 
@@ -1483,7 +1484,7 @@ export class SigningGroupsApi {
 }
 
 export class TemplatesApi {
-    constructor(apiClient: ApiClient);
+    constructor(apiClient?: ApiClient);
 
     createCustomFields(
         accountId: string,
@@ -1847,13 +1848,13 @@ export class TemplatesApi {
 }
 
 export class TrustServiceProvidersApi {
-    constructor(apiClient: ApiClient);
+    constructor(apiClient?: ApiClient);
 
     getSealProviders(accountId: string, callback?: () => void): Promise<AccountSeals>;
 }
 
 export class UsersApi {
-    constructor(apiClient: ApiClient);
+    constructor(apiClient?: ApiClient);
 
     _delete(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<UsersResponse>;
 
@@ -1983,7 +1984,7 @@ export class UsersApi {
 }
 
 export class WorkspacesApi {
-    constructor(apiClient: ApiClient);
+    constructor(apiClient?: ApiClient);
 
     createWorkspace(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<Workspace>;
 
@@ -19459,7 +19460,15 @@ export interface Envelope {
     /**
      * The status of the item.
      */
-    status?: string | undefined;
+    status?:
+        | 'completed'
+        | 'created'
+        | 'declined'
+        | 'delivered'
+        | 'sent'
+        | 'voided'
+        | 'signed'
+        | undefined;
     /**
      * The data and time that the status changed.
      */

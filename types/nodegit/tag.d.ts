@@ -6,8 +6,21 @@ import { Strarray } from './str-array';
 import { Error } from './error';
 
 export class Tag {
-    static annotationCreate(repo: Repository, tagName: string, target: Object, tagger: Signature, message: string): Promise<Oid>;
-    static create(repo: Repository, tagName: string, target: Object, tagger: Signature, message: string, force: number): Promise<Oid>;
+    static annotationCreate(
+        repo: Repository,
+        tagName: string,
+        target: Object,
+        tagger: Signature,
+        message: string,
+    ): Promise<Oid>;
+    static create(
+        repo: Repository,
+        tagName: string,
+        target: Object,
+        tagger: Signature,
+        message: string,
+        force: number,
+    ): Promise<Oid>;
     static createLightweight(repo: Repository, tagName: string, target: Object, force: number): Promise<Oid>;
     static createWithSignature(
         repo: Repository,
@@ -16,7 +29,11 @@ export class Tag {
         tagger: Signature,
         message: string | undefined | null,
         force: number,
-        signingCallback: (data: string) => Promise<{code: Error.CODE, field?: string | undefined, signedData: string}> | {code: Error.CODE, field?: string | undefined, signedData: string}
+        signingCallback: (
+            data: string,
+        ) =>
+            | Promise<{ code: Error.CODE; field?: string | undefined; signedData: string }>
+            | { code: Error.CODE; field?: string | undefined; signedData: string },
     ): Promise<Oid>;
     static delete(repo: Repository, tagName: string): Promise<number>;
     static list(repo: Repository): Promise<any[]>;

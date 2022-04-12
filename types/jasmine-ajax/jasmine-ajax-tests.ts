@@ -1372,7 +1372,7 @@ describe('RequestStub', () => {
         this.RequestStub = getJasmineRequireObj().AjaxRequestStub();
 
         jasmine.addMatchers({
-            toMatchRequest(a, b) {
+            toMatchRequest() {
                 return {
                     compare(actual): jasmine.CustomMatcherResult {
                         return {

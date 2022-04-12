@@ -445,9 +445,14 @@ export interface Request {
     on(event: 'requestCompleted', listener: () => void):this;
 
     /**
-     * A row resulting from execution of the SQL statement
+     * A row resulting from execution of the SQL statement with `config.options.useColumnNames` set to `false` (default).
      */
     on(event: 'row', listener: (columns: ColumnValue[]) => void):this;
+
+    /**
+     * A row resulting from execution of the SQL statement with `config.options.useColumnNames` set to `true`.
+     */
+    on(event: 'row', listener: (columns: Record<string, ColumnValue>) => void):this;
 
     /**
      * All rows from a result set have been provided (through row events). This token is used to indicate the completion of a SQL statement. As multiple SQL statements can be sent to the server in a single SQL batch, multiple done events can be generated. An done event is emited for each SQL statement in the SQL batch except variable declarations. For execution of SQL statements within stored procedures, doneProc and doneInProc events are used in place of done events.

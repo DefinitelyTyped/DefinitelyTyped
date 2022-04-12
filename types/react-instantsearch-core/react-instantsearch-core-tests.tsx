@@ -628,6 +628,7 @@ import { Hits, RefinementList } from 'react-instantsearch-dom';
         isSearchStalled: searchResults.isSearchStalled,
         error: searchResults.error,
         searchingForFacetValues: searchResults.searchingForFacetValues,
+        queryID: results?.queryID,
         props,
       };
     },

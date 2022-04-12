@@ -5,6 +5,7 @@ import { StaticRouter, Route } from 'react-router-dom';
 import { StaticContext, StaticRouterContext } from 'react-router';
 
 interface RouteStatusProps {
+    children?: React.ReactNode;
     statusCode: number;
 }
 

@@ -603,6 +603,13 @@ export class ReactWrapper<P = {}, S = {}, C = Component> {
     parent(): ReactWrapper<any, any>;
 
     /**
+     * Returns a wrapper of the node rendered by the provided render prop.
+     */
+     renderProp<PropName extends keyof P>(
+        prop: PropName,
+    ): (...params: Parameters<P[PropName]>) => ReactWrapper<any, never>;
+
+    /**
      * If a wrappingComponent was passed in options,
      * this methods returns a ReactWrapper around the rendered wrappingComponent.
      * This ReactWrapper can be used to update the wrappingComponent's props and state

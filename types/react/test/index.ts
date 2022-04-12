@@ -219,24 +219,6 @@ FunctionComponent2.defaultProps = {
     foo: 42
 };
 
-const LegacyStatelessComponent2: React.SFC<SCProps> =
-    // props is contextually typed
-    props => DOM.div(null, props.foo);
-LegacyStatelessComponent2.displayName = "LegacyStatelessComponent2";
-LegacyStatelessComponent2.defaultProps = {
-    foo: 42
-};
-
-const FunctionComponent3: React.FunctionComponent<SCProps> =
-    // allows usage of props.children
-    // allows null return
-    props => props.foo ? DOM.div(null, props.foo, props.children) : null;
-
-const LegacyStatelessComponent3: React.SFC<SCProps> =
-    // allows usage of props.children
-    // allows null return
-    props => props.foo ? DOM.div(null, props.foo, props.children) : null;
-
 // allows null as props
 const FunctionComponent4: React.FunctionComponent = props => null;
 
@@ -257,8 +239,6 @@ const functionComponentFactoryElement: React.FunctionComponentElement<SCProps> =
 
 const legacyStatelessComponentFactory: React.SFCFactory<SCProps> =
     React.createFactory(FunctionComponent);
-const legacyStatelessComponentFactoryElement: React.SFCElement<SCProps> =
-    legacyStatelessComponentFactory(props);
 
 const domFactory: React.DOMFactory<React.DOMAttributes<{}>, Element> =
     React.createFactory("div");
@@ -271,8 +251,6 @@ const elementNoState: React.CElement<Props, ModernComponentNoState> = React.crea
 const elementNullProps: React.CElement<{}, ModernComponentNoPropsAndState> = React.createElement(ModernComponentNoPropsAndState, null);
 const functionComponentElement: React.FunctionComponentElement<SCProps> = React.createElement(FunctionComponent, scProps);
 const functionComponentElementNullProps: React.FunctionComponentElement<SCProps> = React.createElement(FunctionComponent4, null);
-const legacyStatelessComponentElement: React.SFCElement<SCProps> = React.createElement(FunctionComponent, scProps);
-const legacyStatelessComponentElementNullProps: React.SFCElement<SCProps> = React.createElement(FunctionComponent4, null);
 const domElement: React.DOMElement<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> = React.createElement("div");
 const domElementNullProps = React.createElement("div", null);
 const htmlElement = React.createElement("input", { type: "text" });
@@ -293,10 +271,6 @@ function foo3(child: React.ComponentClass<{ name: string }> | React.FunctionComp
     React.createElement(child, { name: "bar" });
 }
 
-function foo4(child: React.ComponentClass<{ name: string }> | React.SFC<{ name: string }> | string) {
-    React.createElement(child, { name: "bar" });
-}
-
 // React.cloneElement
 const clonedElement: React.CElement<Props, ModernComponent> = React.cloneElement(element, { foo: 43 });
 
@@ -314,8 +288,6 @@ const clonedElement3: React.CElement<Props, ModernComponent> =
     });
 const clonedfunctionComponentElement: React.FunctionComponentElement<SCProps> =
     React.cloneElement(functionComponentElement, { foo: 44 });
-const clonedlegacyStatelessComponentElement: React.SFCElement<SCProps> =
-    React.cloneElement(legacyStatelessComponentElement, { foo: 44 });
 // Clone base DOMElement
 const clonedDOMElement: React.DOMElement<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> =
     React.cloneElement(domElement, {
@@ -768,7 +740,7 @@ declare var x: React.DOMElement<{
 }, Element>;
 
 // React 16 should be able to render its children directly
-class RenderChildren extends React.Component {
+class RenderChildren extends React.Component<{ children?: React.ReactNode }> {
     render() {
         const { children } = this.props;
         return children !== undefined ? children : null;
@@ -786,10 +758,6 @@ React.createElement(Memoized2, { bar: 'string' });
 
 const specialSfc1: React.ExoticComponent<any> = Memoized1;
 const functionComponent: React.FunctionComponent<any> = Memoized2;
-const sfc: React.SFC<any> = Memoized2;
-// this $ExpectError is failing on TypeScript@next
-// // $ExpectError Property '$$typeof' is missing in type
-// const specialSfc2: React.SpecialSFC = props => null;
 
 const propsWithChildren: React.PropsWithChildren<Props> = {
     hello: "world",

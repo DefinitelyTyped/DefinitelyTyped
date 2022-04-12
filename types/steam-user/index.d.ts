@@ -1,4 +1,4 @@
-// Type definitions for steam-user 4.20
+// Type definitions for steam-user 4.23
 // Project: https://github.com/DoctorMcKay/node-steam-user
 // Definitions by: Joshua Jeschek <https://github.com/joshuajeschek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -151,8 +151,15 @@ declare class SteamUser extends EventEmitter {
      */
     packageVersion: string;
 
+    CurrencyData: Record<SteamUser.ECurrencyCode, { prepend?: string, append?: string, commas?: boolean, whole?: boolean }>;
+
     // EVENTS
     on<K extends keyof Events>(event: K, listener: (...args: Events[K]) => void): this;
+    /**
+     * Please use 'ownershipCached'
+     * @deprecated since v4.22.1
+     */
+    on(event: 'appOwnershipCached', listener: () => void): this;
     once<K extends keyof Events>(event: K, listener: (...args: Events[K]) => void): this;
     off<K extends keyof Events>(event: K, listener: (...args: Events[K]) => void): this;
     removeListener<K extends keyof Events>(event: K, listener: (...args: Events[K]) => void): this;
@@ -163,7 +170,7 @@ declare class SteamUser extends EventEmitter {
      * @param option
      * @param value
      */
-    setOption(option: keyof Options, value: any): void;
+    setOption<K extends keyof Options>(option: K, value: Options[K]): void;
 
     /**
      * Set one or more configuration options
@@ -234,9 +241,9 @@ declare class SteamUser extends EventEmitter {
 
     /**
      * Kick any other session logged into your account which is playing a game from Steam.
-     * @param [callback] - Single err parameter
+     * @param [callback] - err and response object (response object since v4.22)
      */
-    kickPlayingSession(callback?: (err: Error | null) => void): Promise<void>;
+    kickPlayingSession(callback?: (err: Error | null, response: { playingApp: string }) => void): Promise<{ playingApp: string }>;
 
     /**
      * Tell Steam that you're "playing" zero or more games.
@@ -328,45 +335,46 @@ declare class SteamUser extends EventEmitter {
     /**
      * Get list of appids this account owns. Only works if enablePicsCache option is enabled and appOwnershipCached event
      * has been emitted.
-     * @param [excludeSharedLicenses=false] - Pass true to exclude licenses that we have through family sharing
+     * @param [filter] - Options for what counts for ownership, or a custom filter function
      */
-    getOwnedApps(excludeSharedLicenses?: boolean): number[];
+    getOwnedApps(filter?: OwnsFilterObject | OwnsFilterFunction): number[];
 
     /**
      * Check if this account owns an app. Only works if enablePicsCache option is enabled and appOwnershipCached event
      * has been emitted.
      * @param appid
-     * @param [excludeSharedLicenses=false] - Pass true to exclude licenses that we have through family sharing
+     * @param [filter] - Options for what counts for ownership, or a custom filter function
      */
-    ownsApp(appid: number, excludeSharedLicenses?: boolean): boolean;
+    ownsApp(appid: number, filter?: OwnsFilterObject | OwnsFilterFunction): boolean;
 
     /**
      * has been emitted.
-     * @param [excludeSharedLicenses=false] - Pass true to exclude licenses that we have through family sharing
+     * @param [filter] - Options for what counts for ownership, or a custom filter function
      */
-    getOwnedDepots(excludeSharedLicenses?: boolean): number[];
+    getOwnedDepots(filter?: OwnsFilterObject | OwnsFilterFunction): number[];
 
     /**
      * Check if this account owns a depot. Only works if enablePicsCache option is enabled and appOwnershipCached event
      * has been emitted.
      * @param depotid
-     * @param [excludeSharedLicenses=false] - Pass true to exclude licenses that we have through family sharing
+     * @param [filter] - Options for what counts for ownership, or a custom filter function
      */
-    ownsDepot(depotid: number, excludeSharedLicenses?: boolean): boolean;
+    ownsDepot(depotid: number, filter?: OwnsFilterObject | OwnsFilterFunction): boolean;
 
     /**
-     * has been emitted.
-     * @param [excludeSharedLicenses=false] - Pass true to exclude licenses that we have through family sharing
+     * Returns an array of package IDs this account owns (different from owned licenses). The filter only
+     * works, if enablePicsCache option is enabled and appOwnershipCached event has been emitted.
+     * @param [filter] - Options for what counts for ownership, or a custom filter function
      */
-    getOwnedPackages(excludeSharedLicenses?: boolean): number[];
+    getOwnedPackages(filter?: OwnsFilterObject | OwnsFilterFunction): number[];
 
     /**
      * Check if this account owns a package. Only works if enablePicsCache option is enabled and appOwnershipCached event
      * has been emitted.
      * @param packageid
-     * @param [excludeSharedLicenses=false] - Pass true to exclude licenses that we have through family sharing
+     * @param [filter] - Options for what counts for ownership, or a custom filter function
      */
-    ownsPackage(packageid: number, excludeSharedLicenses?: boolean): boolean;
+    ownsPackage(packageid: number, filter?: OwnsFilterObject | OwnsFilterFunction): boolean;
 
     /**
      * Get the localized names for given store tags.
@@ -833,7 +841,7 @@ interface Events {
     wallet: [hasWallet: boolean, currency: SteamUser.ECurrencyCode, balance: number];
     licenses: [licenses: Array<Record<string, any>>];
     gifts: [gifts: Gift[]];
-    appOwnershipCached: [];
+    ownershipCached: [];
     changelist: [changenumber: number, apps: number[], packages: number[]];
     appUpdate: [appid: number, data: ProductInfo];
     packageUpdate: [appid: number, data: ProductInfo];
@@ -859,7 +867,33 @@ interface Events {
 //#endregion "Events"
 
 //#region "Helper Types"
-type RegionCode = 0x00 | 0x01| 0x02 | 0x03 | 0x04 | 0x05 | 0x06 | 0x07 | 0xFF; // https://developer.valvesoftware.com/wiki/Master_Server_Query_Protocol#Region_codes
+type RegionCode = 0x00 | 0x01 | 0x02 | 0x03 | 0x04 | 0x05 | 0x06 | 0x07 | 0xFF; // https://developer.valvesoftware.com/wiki/Master_Server_Query_Protocol#Region_codes
+type OwnsFilterFunction = (element: Proto_CMsgClientLicenseList_License, index: number, array: Proto_CMsgClientLicenseList_License[]) => boolean;
+interface Proto_CMsgClientLicenseList_License {
+    package_id: number;
+    time_created: number;
+    time_next_process: number;
+    minute_limit: number;
+    minutes_used: number;
+    payment_method: SteamUser.EPaymentMethod;
+    flags: SteamUser.ELicenseFlags;
+    purchase_country_code: string;
+    license_type: SteamUser.ELicenseType;
+    territory_code: number;
+    change_number: number;
+    owner_id: number;
+    initial_period: number;
+    initial_time_unit: number;
+    renewal_period: number;
+    renewal_time_unit: number;
+    access_token: string;
+    master_package_id: number;
+}
+interface OwnsFilterObject {
+    excludeFree?: boolean;
+    excludeShared?: boolean;
+    excludeExpiring?: boolean;
+}
 //#endregion "Helper Types"
 
 //#region "Response Types"
@@ -883,7 +917,9 @@ interface Options {
 	changelistUpdateInterval?: number;
 	saveAppTickets?: boolean;
 	additionalHeaders?: Record<string, string>;
-	webCompatibilityMode?: boolean;
+    webCompatibilityMode?: boolean;
+    ownershipFilter?: OwnsFilterObject | OwnsFilterFunction;
+    dataDirectory?: string | null;
 }
 
 interface CreateQuickInviteLinkOptions {

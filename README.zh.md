@@ -368,7 +368,7 @@ npm 包应该会在几分钟内更新。如果已经超过了一小时，请在 
 
 #### 我可以请求类型定义吗？
 
-这里是 [当前在请求的类型定义](https://github.com/DefinitelyTyped/DefinitelyTyped/labels/Definition%3ARequest)。
+这里是 [当前在请求的类型定义](https://github.com/DefinitelyTyped/DefinitelyTyped/discussions/categories/request-a-new-types-package)。
 
 #### DOM 上的类型定义是什么？
 
@@ -489,7 +489,7 @@ _注意：本节中的讨论假定你熟悉 [语义版本控制](https://semver.
 
 例如，[`history`](https://github.com/ReactTraining/history/) 库在 `2.x` 到 `3.x` 版本间引入了重大的修改。
 因为许多用户仍然使用较老的 `2.x` 版本，维护人员想要将此库的类型声明更新到 `3.x`, 需要在仓库里添加 `v2` 文件夹，里面包含了旧版本的类型声明。
-在编写时，[history v2 `tsconfig.json`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/1253faabf5e0d2c5470db6ea87795d7f96fef7e2/types/history/v2/tsconfig.json) 大致如下：
+在编写时，[history v2 `tsconfig.json`](https://github.com/%44efinitelyTyped/DefinitelyTyped/blob/1253faabf5e0d2c5470db6ea87795d7f96fef7e2/types/history/v2/tsconfig.json) 大致如下：
 
 ```json
 {

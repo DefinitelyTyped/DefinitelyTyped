@@ -17,6 +17,7 @@
         },
         "types": [],
         "noEmit": true,
+        "exactOptionalPropertyTypes": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [

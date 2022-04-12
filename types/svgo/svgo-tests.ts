@@ -139,6 +139,9 @@ optimized = optimize('', {
         { active: true, name: 'addAttributesToSVGElement' },
         { active: false, name: 'addClassesToSVGElement' },
 
+        { name: 'addAttributesToSVGElement', params: { attribute: 'mySvg' } },
+        { name: 'addAttributesToSVGElement', params: { attributes: ['mySvg', 'size-big'] } },
+        { name: 'addAttributesToSVGElement', params: { attributes: [{ focusable: 'false' }, { id: 'svg' }] } },
         { name: 'cleanupAttrs', params: { newlines: true, trim: true, spaces: true } },
         { name: 'cleanupEnableBackground' },
         {
@@ -218,6 +221,9 @@ optimized = optimize('', {
         { name: 'moveElemsAttrsToGroup' },
         { name: 'moveGroupAttrsToElems' },
         { name: 'prefixIds', params: { delim: '__', prefixIds: true, prefixClassNames: true } },
+        { name: 'prefixIds', params: { delim: '__', prefixIds: true, prefixClassNames: true, prefix: 'string' } },
+        { name: 'prefixIds', params: { delim: '__', prefixIds: true, prefixClassNames: true, prefix: true } },
+        { name: 'prefixIds', params: { delim: '__', prefixIds: true, prefixClassNames: true, prefix: (a, b) => 'string' } },
         { name: 'removeAttributesBySelector' },
         { name: 'removeAttrs', params: { elemSeparator: ':', preserveCurrentColor: false, attrs: 'fill' } },
         { name: 'removeAttrs', params: { elemSeparator: ':', preserveCurrentColor: false, attrs: ['fill', 'stroke'] } },

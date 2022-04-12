@@ -18,3 +18,8 @@ const options: remarkPrism.Options = {
     ],
 };
 remark().use(remarkPrism, options);
+
+const partialOptions: remarkPrism.Options = {
+    plugins: ['show-invisibles', 'autolinker'],
+};
+remark().use(remarkPrism, partialOptions);

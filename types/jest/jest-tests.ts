@@ -858,7 +858,7 @@ expect.extend({
 
         const receivedPrinted: string = this.utils.printReceived({});
 
-        const printedWithType: string = this.utils.printWithType('name', {}, (value: {}) => '');
+        const printedWithType: string = this.utils.printWithType('name', {}, (value) => '');
 
         const stringified: string = this.utils.stringify({});
         const stringifiedWithMaxDepth: string = this.utils.stringify({}, 3);

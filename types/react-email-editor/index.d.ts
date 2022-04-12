@@ -49,7 +49,7 @@ export interface ConditionalMergeTag {
 export type MergeTag = SimpleMergeTag | ConditionalMergeTag | GroupedMergeTag;
 
 export interface DesignTagConfig {
-    readonly delimeter: [string, string];
+    readonly delimiter: [string, string];
 }
 
 export interface DisplayCondition {
@@ -118,12 +118,14 @@ export interface UnlayerOptions {
 
 export interface EmailEditorProps {
     readonly style?: CSSProperties | undefined;
-    readonly minHeight?: number | undefined;
+    readonly minHeight?: number | string | undefined;
     readonly options?: UnlayerOptions | undefined;
     readonly tools?: ToolsConfig | undefined;
     readonly appearance?: AppearanceConfig | undefined;
     readonly projectId?: number | undefined;
+    /** @deprecated Use **onReady** instead */
     onLoad?(): void;
+    onReady?(): void;
 }
 
 export interface HtmlExport {

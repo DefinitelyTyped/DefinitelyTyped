@@ -57,6 +57,7 @@ const playerOptions: VideoJsPlayerOptions = {
     ],
     techOrder: ['html5', 'anotherTech'],
     userActions: {
+        click: event => {},
         doubleClick: event => {},
         hotkeys: true,
     },
@@ -159,6 +160,14 @@ videojs('example_video_1', playerOptions).ready(function playerReady() {
     const readyState: videojs.ReadyState = this.readyState();
 
     this.requestFullscreen();
+
+    this.requestPictureInPicture().then(pipWindow => {
+        // $ExpectType PictureInPictureWindow
+        pipWindow;
+    });
+
+    // $ExpectType Promise<void>
+    this.exitPictureInPicture();
 
     const networkState: videojs.NetworkState = this.networkState();
 
@@ -330,4 +339,18 @@ function testTracks(player: VideoJsPlayer) {
 
     // $ExpectType TextTrackList
     player.textTracks();
+}
+
+function testGetDescendants(player: VideoJsPlayer) {
+    // $ExpectType Component | undefined
+    player.getDescendant('string');
+
+    // $ExpectType Component | undefined
+    player.getDescendant('multiple', 'strings');
+
+    // $ExpectType Component | undefined
+    player.getDescendant(['string', 'in', 'array']);
+
+    // $ExpectType Component | undefined
+    player.getDescendant(['string', 'in', 'array'], 'and', 'strings');
 }

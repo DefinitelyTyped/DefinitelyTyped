@@ -18,12 +18,14 @@
         },
         "types": [],
         "noEmit": true,
+        "exactOptionalPropertyTypes": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
         "test/lib/assert.ts",
         "test/component.ts",
+        "test/built-ins.ts",
         "test/helper.ts",
         "test/template-only.ts"
     ]

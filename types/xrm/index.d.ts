@@ -6,6 +6,7 @@
 //                  Daryl LaBar <https://github.com/daryllabar>
 //                  Tully H <https://github.com/clownwilleatme>
 //                  Scott Durow <https://github.com/scottdurow>
+//                  Phil Cole <https://github.com/filcole>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -163,6 +164,11 @@ declare namespace Xrm {
          * Returns information whether the server is online or offline.
          */
         isOffline(): boolean;
+
+        /**
+         * Returns information whether the network is available or not.
+         */
+        isNetworkAvailable(): boolean;
     }
 
     /**
@@ -707,6 +713,26 @@ declare namespace Xrm {
             getStage(): ProcessFlow.Stage;
         }
 
+        interface LookupTagClickEventArguments {
+            /**
+             * Gets the selected tag value
+             * @returns The lookups TagValue object
+             */
+            getTagValue(): TagValue;
+
+            /**
+             * Prevents the default onClick behaviour from executing.
+             * All remaining "onLookupTagClick" handlers will continue execution.
+             */
+            preventDefault(): void;
+
+            /**
+             * Returns a boolean value to indicate if the lookups onClick has been prevented.
+             * @returns true if saving is prevented, otherwise false.
+             */
+            isDefaultPrevented(): boolean;
+        }
+
         /**
          * Interface for the event context.
          * In the API documentation, this is sometimes refferred to as the executionContext.
@@ -789,6 +815,13 @@ declare namespace Xrm {
             getEventArgs(): StageSelectedEventArguments;
         }
 
+        interface LookupTagClickEventContext extends EventContext {
+            /**
+             * Gets an object that contains details about the lookup tag clicked
+             */
+            getEventArgs(): LookupTagClickEventArguments;
+        }
+
         /**
          * Type for a context-sensitive handler.
          * @param context The context.
@@ -800,6 +833,8 @@ declare namespace Xrm {
          * @param status The process status.
          */
         type ProcessStatusChangeHandler = (status: ProcessFlow.ProcessStatus) => void;
+
+        type LookupTagClickHandler = (context: LookupTagClickEventContext) => void;
     }
 
     /**
@@ -1026,6 +1061,16 @@ declare namespace Xrm {
         close(): void;
 
         /**
+         * Provides information on how to set the visibility of footer section.
+         */
+        footerSection: Controls.FooterSection;
+
+        /**
+         * Provides information on how to set the visibility of header section.
+         */
+        headerSection: Controls.HeaderSection;
+
+        /**
          * Gets form type.
          * @returns The form type.
          * @remarks **Values returned are**:
@@ -1060,6 +1105,13 @@ declare namespace Xrm {
          * @remarks This method does not work with Microsoft Dynamics CRM for tablets.
          */
         refreshRibbon(refreshAll?: boolean): void;
+
+        /**
+         * Sets the name of the table to be displayed on the form.
+         * @param name Name of the table to be displayed on the form.
+         * @see {@link https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/formcontext-ui/setformentityname External Link: setFormEntityName (Client API reference)}
+         */
+        setFormEntityName(name: string): void;
 
         /**
          * The business process flow API, used to interact with the business process flow control in a form.
@@ -2287,6 +2339,16 @@ declare namespace Xrm {
     }
 
     /**
+     * Interface for a (lookup) Tag value
+     */
+    interface TagValue extends LookupValue {
+        /**
+         * The originating lookup column that raised the event.
+         */
+        fieldName: string;
+    }
+
+    /**
      * Interface for an OptionSet value.
      */
     interface OptionSetValue {
@@ -2924,7 +2986,7 @@ declare namespace Xrm {
              * * webresource
              * * notes
              * * timercontrol
-             * * kbsearch (CRM Online Only, use parature.d.ts)
+             * * kbsearch
              * * quickform (see ui.QuickForm)
              * * customcontrol: <namespace>.<name> (A custom control for mobile phone and tablet clients).
              * * customsubgrid: <namespace>.<name> (A custom dataset control for mobile phone and tablet clients).
@@ -3157,6 +3219,12 @@ declare namespace Xrm {
             ): void;
 
             /**
+             * Adds an event handler to the "lookup tag click" event.
+             * @param handler The function to add to the OnLookupTagClick event.
+             */
+            addOnLookupTagClick(handler: Events.LookupTagClickHandler): void;
+
+            /**
              * Gets the control's bound attribute.
              * @returns The attribute.
              */
@@ -3168,6 +3236,12 @@ declare namespace Xrm {
              * @example Example return: "{00000000-0000-0000-0000-000000000000}"
              */
             getDefaultView(): string;
+
+            /**
+             * Removes the handler from the "lookup tag click" event.
+             * @param handler The function to be removed from the OnLookupTagClick event.
+             */
+            removeOnLookupTagClick(handler: Events.LookupTagClickHandler): void;
 
             /**
              * Removes the handler from the "pre search" event of the Lookup control.
@@ -3440,6 +3514,173 @@ declare namespace Xrm {
         }
 
         /**
+          * Interface for a knowledge base search control
+          */
+        interface KbSearchControl extends Control {
+            /**
+              * Adds an event handler to the PostSearch event.
+              * @see https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/controls/addonpostsave
+              */
+            addOnPostSearch(handler: Events.ContextSensitiveHandler): void;
+
+            /**
+              * Adds an event handler to the OnResultOpened event.
+              * @see https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/controls/addonresultopened
+              */
+            addOnResultOpened(handler: Events.ContextSensitiveHandler): void;
+
+            addOnSelection(handler: Events.ContextSensitiveHandler): void;
+
+            /**
+              * Gets the text used as the search criteria for the knowledge base management control.
+              * @see https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/controls/getsearchquery
+              */
+            getSearchQuery(): string;
+
+            /**
+              * Gets the currently selected result of the search control. The currently selected result also represents the result that is currently open.
+              * @see https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/controls/getselectedresults
+              */
+            getSelectedResults(): KbSearchResult;
+
+            /**
+              * Gets the count of results found in the search control.
+              * @returns The count of the search result.
+              * @see             https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/controls/gettotalresultcount
+              */
+            getTotalResultCount(): number;
+
+            /**
+              * Opens a search result in the search control by specifying the result number.
+              * @param resultNumber Numerical value specifying the result number to be opened. Result number starts from 1.
+              * @param mode Specify "Inline" or "Popout". "Inline" mode opens the result inline either in the reading pane of the control or in a reference panel tab in case of reference panel. "Popout" mode opens the result in a pop-out window.
+              * @returns Status of opening the specified search result. Returns 1 if successful; 0 if unsuccessful. The method will return -1 if the specified resultNumber value is not present, or if the specified mode value is invalid.
+              * @see             https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/controls/opensearchresult
+              */
+            openSearchResult(resultNumber: number, mode?: XrmEnum.OpenSearchResultMode): boolean;
+
+            /**
+              * Removes an event handler from the PostSearch event.
+              * @param handler The function to remove from the PostSearch event.
+              * @see https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/controls/removeonpostsearch
+              */
+            removeOnPostSearch(handler: Events.ContextSensitiveHandler): void;
+
+            /**
+              * Removes an event handler from the OnResultOpened event.
+              * @param handler The function to remove from the OnResultOpened event.
+              * @see https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/controls/removeonresultopened
+              */
+            removeOnResultOpened(handler: Events.ContextSensitiveHandler): void;
+
+            /**
+              * Removes an event handler from the OnResultSelection event.
+              * @param handler The function to remove from the OnSelection event.
+              * @see https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/controls/removeonselection
+              */
+            removeOnSelection(handler: Events.ContextSensitiveHandler): void;
+
+            /**
+              * Sets the text used as the search criteria for the knowledge base search control.
+              * @param searchString The text for the search query.
+              * @see https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/controls/setsearchquery
+              */
+            setSearchQuery(searchString: string): void;
+        }
+
+        /**
+         * Interface for a knowledge base search result.
+         */
+        interface KbSearchResult {
+            /**
+             * The HTML markup containing the content of the article.
+             */
+            answer: string;
+
+            /**
+             * The article ID that is used as an alternate key.
+             * @remarks You can use this to see if this article already exists in Microsoft Dataverse.
+             */
+            articleId: string;
+
+            /**
+             * The unique article ID. This value is used as an alternate key.
+             */
+            articleUid: string;
+
+            /**
+             * Number of attachments in the article.
+             */
+            attachmentCount: number;
+
+            /**
+             * The date the article was created in the user's current time zone and format.
+             */
+            createdOn: Date;
+
+            /**
+             * The date the article was or will be expired.
+             */
+            expiredDate: Date;
+
+            /**
+             * The link to the folder path of the article.
+             */
+            folderHref: string;
+
+            /**
+             * The direct link to the article.
+             */
+            href: string;
+
+            /**
+             * Indicates whether the article is associated with the parent record.
+             */
+            isAssociated: boolean;
+
+            /**
+             * Date on which the article was last modified in the current user's timezone and format.
+             */
+            lastModifiedOn: Date;
+
+            /**
+             * Support Portal URL of the article.
+             * @remarks If the Portal URL option is turned off, this will be blank.
+             */
+            publicUrl: string;
+
+            /**
+             * Whether the Article is in published or draft state.
+             */
+            published: boolean;
+
+            /**
+             * The title of the article.
+             */
+            question: string;
+
+            /**
+             * The rating of the article.
+             */
+            rating: number;
+
+            /**
+             * A short snippet of article content which contains the areas where the search query was hit.
+             */
+            searchBlurb: string;
+
+            /**
+             * Link to the article. Use this link to open the article.
+             */
+            serviceDeskUri: string;
+
+            /**
+             * The number of times an article is viewed on the portal by customers.
+             */
+            timesViewed: number;
+        }
+
+        /**
          * Interface for a quick view control instance on a form.
          * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/formcontext-ui-quickforms External Link: formContext.ui.quickForms (Client API reference)}
          */
@@ -3601,6 +3842,7 @@ declare namespace Xrm {
             /**
              * Sets display state of the tab.
              * @param displayState Display state of the tab, as either "expanded" or "collapsed"
+             * @deprecated Deprecated in the 2021 release wave 1 (April 2021). Use the setFocus method in Unified Interface to ensure the correct tab is opened on a form.
              */
             setDisplayState(displayState: DisplayState): void;
 
@@ -3633,6 +3875,64 @@ declare namespace Xrm {
              * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/collections External Link: Collections (Client API reference)}
              */
             controls: Collection.ItemCollection<Control>;
+        }
+
+        interface FooterSection {
+            /**
+             * Returns the footer section visibility.
+             * @remarks Available only for Unified Interface.  Footers aren't supported after 2021 wave 2 release.
+             * @see {@link https://docs.microsoft.com/en-us/power-platform/important-changes-coming#form-footers-in-model-driven-apps-wont-be-supported-with-the-2021-release-wave-2 External Link: Important notices}
+             */
+            getVisible(): boolean;
+
+            /**
+             * Sets the visibility of the footer section.
+             * @arg bool Specify true to show the footer section; false to hide the footer section.
+             * @remarks Available only for Unified Interface.  Footers aren't supported after 2021 wave 2 release.
+             * @see {@link https://docs.microsoft.com/en-us/power-platform/important-changes-coming#form-footers-in-model-driven-apps-wont-be-supported-with-the-2021-release-wave-2 External Link: Important notices}
+             */
+            setVisible(bool: boolean): void;
+        }
+
+        interface HeaderSection {
+            /**
+             * Returns the header's body visibility.
+             * @remarks Available only for Unified Interface.
+             */
+            getBodyVisible(): boolean;
+
+            /**
+             * Returns the command bar visibility.
+             * @remarks Available only for Unified Interface.
+             */
+            getCommandBarVisible(): boolean;
+
+            /**
+             * Returns the tab navigator visibility.
+             * @remarks Available only for Unified Interface.
+             */
+            getTabNavigatorVisible(): boolean;
+
+            /**
+             * Sets the header's body visibility.
+             * @arg bool Specify true to show the body; false to hide the body.
+             * @remarks Available only for Unified Interface.
+             */
+            setBodyVisible(bool: boolean): void;
+
+            /**
+             * Sets the command bar visibility.
+             * @arg bool Specify true to show the command bar; false to hide the command bar.
+             * @remarks Available only for Unified Interface.
+             */
+            setCommandBarVisible(bool: boolean): void;
+
+            /**
+             * Sets the tab navigator visibility.
+             * @arg bool Specify true to show the tab navigator; false to hide the tab navigator.
+             * @remarks Available only for Unified Interface.
+             */
+            setTabNavigatorVisible(bool: boolean): void;
         }
 
         interface AddControlNotificationOptions {
@@ -3714,6 +4014,12 @@ declare namespace Xrm {
              * @returns The label.
              */
             getLabel(): string;
+
+            /**
+             * Returns a value that indicates whether the form is currently visible.
+             * @returns true if the form is visible; false otherwise.
+             */
+            getVisible(): boolean;
 
             /**
              * Navigates the user to this form.
@@ -4811,6 +5117,14 @@ declare namespace Xrm {
             data?: string | undefined;
         }
 
+        interface Dashboard {
+            pageType: "dashboard";
+            /**
+             * The GUID of the dashboard to load. If not specified, navigates to the default dashboard
+             */
+            dashboardId?: string | undefined;
+        }
+
         /**
          * Options for navigating to a page: whether to open inline or in a dialog. If you don't specify this parameter, page is opened inline by default.
          * */
@@ -4866,7 +5180,8 @@ declare namespace Xrm {
                 | Navigation.PageInputEntityRecord
                 | Navigation.PageInputEntityList
                 | Navigation.CustomPage
-                | Navigation.PageInputHtmlWebResource,
+                | Navigation.PageInputHtmlWebResource
+                | Navigation.Dashboard,
             navigationOptions?: Navigation.NavigationOptions,
         ): Async.PromiseLike<any>;
 
@@ -5190,6 +5505,27 @@ declare namespace Xrm {
      * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/xrm-encoding External Link: Xrm.Encoding (Client API reference)}
      */
     interface Encoding {
+        /**
+         * Encodes the specified string so that it can be used in HTML.
+         * @param arg String to be encoded.
+         * @returns Encoded string
+         */
+        htmlAttributeEncode(arg: string): string;
+
+        /**
+         * Converts a string that has been HTML-encoded into a decoded string.
+         * @param arg HTML-encoded string to be decoded.
+         * @returns Decoded string
+         */
+        htmlDecode(arg: string): string;
+
+        /**
+         * Converts a string to an HTML-encoded string.
+         * @param arg String to be encoded.
+         * @returns Encoded string
+         */
+        htmlEncode(arg: string): string;
+
         /**
          * Applies attribute encoding to a string.
          * @param arg String to be encoded.
@@ -5941,5 +6277,10 @@ declare namespace XrmEnum {
         Audio = "audio",
         Video = "video",
         Image = "image",
+    }
+
+    const enum OpenSearchResultMode {
+        Inline = "Inline",
+        Popup = "Popup"
     }
 }

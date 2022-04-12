@@ -45,3 +45,8 @@ const obj = { c: 8, b: [{z: 6, y: 5, x: 4}, 7], a: 3 };
   const s: string = stringify(obj, { replacer: removeStrings });
   console.log(s);
 }
+
+{
+  // We can specify the cycles
+  stringify(obj, { cycles: true }); // $ExpectType string
+}
