@@ -712,6 +712,28 @@ declare namespace Xrm {
              */
             getStage(): ProcessFlow.Stage;
         }
+        
+        /**
+         * Interface for process status changed event arguments.
+         */
+        interface ProcessStatusChangedEventArguments {        
+            /**
+             * Gets the selected stage object
+             * @returns The stage object
+             */
+            getStage(): ProcessFlow.Stage;
+
+            /**
+             * Gets the destination process status
+             * @returns The process status
+             */
+            getStatus(): ProcessFlow.ProcessStatus;
+            
+            /**
+             * Prevents the stage or status change operation from being submitted to the server.
+             */
+            preventDefault(): void;
+        }
 
         interface LookupTagClickEventArguments {
             /**
@@ -813,6 +835,14 @@ declare namespace Xrm {
              * @returns The event arguments.
              */
             getEventArgs(): StageSelectedEventArguments;
+        }
+        
+        interface ProcessStatusChangedEventContext extends EventContext {
+            /**
+             * Gets process status changed event arguments.
+             * @returns The event arguments.
+             */
+            getEventArgs(): ProcessStatusChangedEventArguments;
         }
 
         interface LookupTagClickEventContext extends EventContext {
