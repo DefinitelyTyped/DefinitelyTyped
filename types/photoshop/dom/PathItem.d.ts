@@ -1,4 +1,5 @@
 import { Document } from "./Document";
+import { Layer } from "./Layer";
 import * as Constants from "./Constants";
 import { SubPathItems } from "./collections/SubPathItems";
 import { SolidColor } from "./objects/SolidColor";
@@ -99,6 +100,18 @@ export declare class PathItem {
     select(): Promise<void>;
     /**
      * Strokes the path with the specified tool
+     *
+     * `tool` is optional, and by default will use `ToolType.PENCIL`
+     *
+     * `simulatePressure` is false by default.
+     *
+     * If the tool is `ToolType.CLONESTAMP` or `ToolType.HEALINGBRUSH`, `sourceOrigin` must be provided as a
+     * an object with x and y properties (in pixels) to indicate the location of the stroke source. `sourceLayer`
+     * is optional, and by default will use the active layer in the document.
+     *
      */
-    strokePath(tool?: Constants.ToolType, simulatePressure?: boolean): Promise<void>;
+    strokePath(tool?: Constants.ToolType, simulatePressure?: boolean, sourceOrigin?: {
+        x: number;
+        y: number;
+    }, sourceLayer?: Layer): Promise<void>;
 }

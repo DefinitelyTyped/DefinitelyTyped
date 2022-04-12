@@ -1,4 +1,4 @@
-// Type definitions for Photoshop JavaScript API 23.2
+// Type definitions for Photoshop JavaScript API 23.3
 // Project: https://adobe.io/photoshop/uxp
 // Definitions by:  Adobe Photoshop <https://github.com/adobe-photoshop>
 //                  Barkin Aygun <https://github.com/baaygun>
