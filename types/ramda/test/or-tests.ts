@@ -5,9 +5,9 @@ import * as R from 'ramda';
     // since if the first argument is guaranteed to be a literal
     // you should not be using `R.or` in the first place.
     // $ExpectType boolean
-    R.or(false, true); // => false
+    R.or(false, true); // => true
     // $ExpectType boolean
-    R.or(false, Boolean(true)); // => false
+    R.or(false, Boolean(true)); // => true
     // $ExpectType false
     R.or(false, false); // => false
     // $ExpectType 0 | never[]
