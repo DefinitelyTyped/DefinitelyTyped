@@ -240,12 +240,13 @@ minio.setObjectLegalHold('testBucket', 'hello.jpg', {versionId: 'someVersion', s
 minio.setObjectLegalHold('testBucket', 'hello.jpg');
 minio.setObjectLegalHold('testBucket', 'hello.jpg', {versionId: 'someVersion', status: 'OFF'});
 
-const destObjConfig = new Minio.CopyDestinationOptions('testBucket', '100MB.zip');
+const destObjConfig = new Minio.CopyDestinationOptions({ Bucket: 'testBucket', Object: '100MB.zip' });
 const sourceObjList = [
-  new Minio.CopySourceOptions('testBucket', 'partA'),
-  new Minio.CopySourceOptions('testBucket', 'partB'),
-  new Minio.CopySourceOptions('testBucket', 'partC'),
+  new Minio.CopySourceOptions({ Bucket: 'testBucket', Object: 'partA' }),
+  new Minio.CopySourceOptions({ Bucket: 'testBucket', Object: 'partB' }),
+  new Minio.CopySourceOptions({ Bucket: 'testBucket', Object: 'partC' }),
 ];
+
 minio.composeObject(destObjConfig, sourceObjList, (error: Error | null, result: Minio.SourceObjectStats) => { console.log(error, result); });
 minio.composeObject(destObjConfig, sourceObjList);
 minio.composeObject(destObjConfig, sourceObjList)

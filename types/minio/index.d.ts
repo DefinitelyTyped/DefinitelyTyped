@@ -178,7 +178,7 @@ export interface LegalHoldOptions {
 }
 
 export interface InputSerialization {
-    CompressionType?: 'NONE'| 'GZIP' | 'BZIP2';
+    CompressionType?: 'NONE' | 'GZIP' | 'BZIP2';
     CSV?: {
         AllowQuotedRecordDelimiter?: boolean;
         Comments?: string;
@@ -484,7 +484,7 @@ export class CloudFunctionConfig extends TargetConfig {
 }
 
 export class CopySourceOptions {
-    constructor(
+    constructor(options: {
         Bucket: string,
         Object: string,
         VersionID?: string,
@@ -500,14 +500,14 @@ export class CopySourceOptions {
             SSEAlgorithm?: string;
             KMSMasterKeyID?: string;
         },
-    );
+    });
 
     getHeaders(): Record<string, string>;
     validate(): boolean;
 }
 
 export class CopyDestinationOptions {
-    constructor(
+    constructor(options: {
         Bucket: string,
         Object: string,
         Encryption?: {
@@ -520,7 +520,7 @@ export class CopyDestinationOptions {
         LegalHold?: LegalHoldStatus,
         RetainUntilDate?: string,
         Mode?: Mode,
-    );
+    });
 
     getHeaders(): Record<string, string>;
     validate(): boolean;
