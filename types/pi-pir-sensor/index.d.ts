@@ -13,7 +13,7 @@ declare namespace Sensor {
 
         constructor(sensorConfiguration: SensorConfiguration);
 
-        start(callback?: (err) => void): void;
+        start(callback?: (err: any) => void): void;
 
         stop(): boolean;
 
