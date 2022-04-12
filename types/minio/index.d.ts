@@ -502,7 +502,7 @@ export class CopySourceOptions {
         },
     );
 
-    getHeaders(): Record<string, string>;;
+    getHeaders(): Record<string, string>;
     validate(): boolean;
 }
 
