@@ -1403,12 +1403,10 @@ class CrashyObject {
 
 suite('assert', () => {
     test('assert', () => {
-        const foo = 'bar' as string;
+        let foo: string;
+        foo = 'bar';
         assert(foo === 'bar', 'expected foo to equal `bar`');
-    });
-
-    test('assertFailure', () => {
-        const foo = 'bar' as string;
+        foo = 'bar';
         assert(foo === 'baz', 'expected foo to equal `bar`');
     });
 
