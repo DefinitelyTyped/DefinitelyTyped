@@ -133,12 +133,12 @@ export function useAtStart(): [boolean];
 export function useAtTop(): [boolean];
 
 /**
- * 	`"bottom"` for scroll-to-bottom, `"top"` for scroll-to-top
+ * `"bottom"` for scroll-to-bottom, `"top"` for scroll-to-top
  */
 export function useMode(): ['bottom' | 'top'];
 
 /**
- * 	`true` if the panel is sticking to the end
+ * `true` if the panel is sticking to the end
  */
 export function useSticky(): [boolean];
 
