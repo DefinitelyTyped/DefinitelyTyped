@@ -83,16 +83,21 @@ export interface LexV2ActiveContext {
     };
 }
 
-export type LexV2DialogActionType = 'Close' | 'ConfirmIntent' | 'Delegate' | 'ElicitIntent' | 'ElicitSlot';
+type DialogActionWithoutSlot =
+    | { type: 'Close' }
+    | { type: 'ConfirmIntent' }
+    | { type: 'Delegate' }
+    | { type: 'ElicitIntent' }
+    ;
 
 export type LexV2DialogAction =
-    | { type: Exclude<LexV2DialogActionType, 'ElicitSlot'> }
+    | DialogActionWithoutSlot & { slotToElicit?: never }
     | { type: 'ElicitSlot', slotToElicit: string }
     ;
 
 export type LexV2ResultDialogAction =
-    | Exclude<LexV2DialogAction, { type: 'ElicitSlot' }>
-    | (Extract<LexV2DialogAction, { type: 'ElicitSlot' }> & { slotElicitationStyle: 'Default' | 'SpellByLetter' | 'SpellByWord' })
+    | DialogActionWithoutSlot & { slotToElicit?: never }
+    | { type: 'ElicitSlot', slotToElicit: string, slotElicitationStyle: 'Default' | 'SpellByLetter' | 'SpellByWord' }
     ;
 
 export interface LexV2Result {
@@ -134,7 +139,8 @@ export interface LexV2ImageResponseCardButton {
     value: string;
 }
 
-export type LexV2Slots = Record<string, null | LexV2ScalarSlotValue | LexV2ListSlotValue>;
+export type LexV2Slot = LexV2ScalarSlotValue | LexV2ListSlotValue;
+export type LexV2Slots = Record<string, LexV2Slot | null>;
 
 export interface LexV2ScalarSlotValue {
     shape: 'Scalar';

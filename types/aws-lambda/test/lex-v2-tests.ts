@@ -1,17 +1,17 @@
 import {
+    LexV2Event,
     LexV2Result,
     LexV2Handler,
     LexV2Interpretation,
     LexV2Bot,
     LexV2Intent,
-    LexV2Slots,
+    LexV2Slot,
     LexV2SlotValue,
     LexV2SentimentResponse,
     LexV2SentimentScore,
     LexV2SessionState,
     LexV2ActiveContext,
     LexV2DialogAction,
-    LexV2Event,
 } from 'aws-lambda';
 
 const handler: LexV2Handler = async (event, context, callback) => {
@@ -35,18 +35,14 @@ const handler: LexV2Handler = async (event, context, callback) => {
     intent = interpretation.intent;
     str = intent.confirmationState;
     str = intent.name;
-    let slot: LexV2Slots[string];
-    slot = intent.slots[str];
-    if (slot) {
-        str = slot.shape;
-        let slotValue: LexV2SlotValue;
-        slotValue = slot.value;
-        strOrUndefined = slotValue.interpretedValue;
-        str = slotValue.originalValue;
-        str = slotValue.resolvedValues[0];
-    } else {
-        nullOrUndefined = slot;
-    }
+    let slot: LexV2Slot;
+    slot = intent.slots[str]!;
+    strOrUndefined = slot.shape;
+    let slotValue: LexV2SlotValue;
+    slotValue = slot.value;
+    strOrUndefined = slotValue.interpretedValue;
+    str = slotValue.originalValue;
+    str = slotValue.resolvedValues[0];
     str = intent.state;
     numOrUndefined = interpretation.nluConfidence;
     let sentimentResponse: LexV2SentimentResponse | undefined;
@@ -72,10 +68,7 @@ const handler: LexV2Handler = async (event, context, callback) => {
     strOrUndefined = sessionState.sessionAttributes?.[str];
     let dialogAction: LexV2DialogAction | undefined;
     dialogAction = sessionState.dialogAction;
-    switch (dialogAction?.type) {
-        case 'ElicitSlot':
-            str = dialogAction.slotToElicit;
-    }
+    strOrUndefined = dialogAction!.slotToElicit;
     str = dialogAction!.type;
     intent = sessionState.intent;
     str = sessionState.originatingRequestId;
