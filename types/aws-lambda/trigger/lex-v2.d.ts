@@ -83,7 +83,7 @@ export interface LexV2ActiveContext {
     };
 }
 
-type DialogActionWithoutSlot =
+export type LevV2DialogActionWithoutSlot =
     | { type: 'Close' }
     | { type: 'ConfirmIntent' }
     | { type: 'Delegate' }
@@ -91,12 +91,12 @@ type DialogActionWithoutSlot =
     ;
 
 export type LexV2DialogAction =
-    | DialogActionWithoutSlot & { slotToElicit?: never }
+    | LevV2DialogActionWithoutSlot & { slotToElicit?: never }
     | { type: 'ElicitSlot', slotToElicit: string }
     ;
 
 export type LexV2ResultDialogAction =
-    | DialogActionWithoutSlot & { slotToElicit?: never }
+    | LevV2DialogActionWithoutSlot & { slotToElicit?: never }
     | { type: 'ElicitSlot', slotToElicit: string, slotElicitationStyle: 'Default' | 'SpellByLetter' | 'SpellByWord' }
     ;
 
