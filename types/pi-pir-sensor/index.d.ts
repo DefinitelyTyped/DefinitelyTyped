@@ -5,21 +5,19 @@
 
 /// <reference types="node" />
 
-declare function Sensor(configuration: Sensor.SensorConfiguration): void;
+declare class Sensor {
+    lastMovement: Date;
+
+    constructor(sensorConfiguration: Sensor.SensorConfiguration);
+
+    start(cb?: (err: Error) => void): void;
+
+    stop(): boolean;
+
+    on(event: string, callback: () => void): void;
+}
 
 declare namespace Sensor {
-    class Sensor {
-        lastMovement: Date;
-
-        constructor(sensorConfiguration: SensorConfiguration);
-
-        start(callback?: (err: any) => void): void;
-
-        stop(): boolean;
-
-        on(event: string, callback: () => void): void;
-    }
-
     interface SensorConfiguration {
         pin: number;
         loop?: number;
