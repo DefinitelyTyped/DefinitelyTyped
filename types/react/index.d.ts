@@ -523,8 +523,14 @@ declare namespace React {
         displayName?: string | undefined;
     }
 
+    /**
+     * @deprecated - Equivalent with `React.FC`.
+     */
     type VFC<P = {}> = VoidFunctionComponent<P>;
 
+    /**
+     * @deprecated - Equivalent with `React.FunctionComponent`.
+     */
     interface VoidFunctionComponent<P = {}> {
         (props: P, context?: any): ReactElement<any, any> | null;
         propTypes?: WeakValidationMap<P> | undefined;
