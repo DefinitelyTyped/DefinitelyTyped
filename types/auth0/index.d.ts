@@ -1936,8 +1936,14 @@ export class ManagementClient<A = AppMetadata, U = UserMetadata> {
     getJob(params: ObjectWithId): Promise<Job>;
     getJob(params: ObjectWithId, cb?: (err: Error, data: Job) => void): void;
 
+    /**
+     * @deprecated use @see importUsersJob instead 
+     */
     importUsers(data: ImportUsersOptions): Promise<ImportUsersJob>;
     importUsers(data: ImportUsersOptions, cb?: (err: Error, data: ImportUsersJob) => void): void;
+    
+    importUsersJob(data: ImportUsersOptions): Promise<ImportUsersJob>;
+    importUsersJob(data: ImportUsersOptions, cb?: (err: Error, data: ImportUsersJob) => void): void;
 
     exportUsers(data: ExportUsersOptions): Promise<ExportUsersJob>;
     exportUsers(data: ExportUsersOptions, cb?: (err: Error, data: ExportUsersJob) => void): void;
