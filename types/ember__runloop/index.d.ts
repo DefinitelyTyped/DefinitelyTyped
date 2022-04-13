@@ -136,7 +136,7 @@ export function next<M extends AnyFn>(
  * `run.once()`, `run.scheduleOnce()`, `run.next()`, `run.debounce()`, or
  * `run.throttle()`.
  */
-export function cancel(timer: EmberRunTimer): boolean;
+export function cancel(timer?: EmberRunTimer): boolean;
 
 /**
  * Delay calling the target method until the debounce period has elapsed
