@@ -150,6 +150,15 @@ type EvolveValue<V, E> = E extends (value: V) => any
 // F
 
 /**
+ * All falsy JavaScript values representable by the type system.
+ *
+ * @note Actually there are six (seven) falsy values in JS - the sixth being `NaN`;
+ * the seventh being `document.all`. However `NaN` is not a valid literal type,
+ * and `document.all` is an object so it's probably not a good idea to add it either.
+ */
+export type Falsy = undefined | null | 0 | "" | false;
+
+/**
  * <needs description>
  */
 export interface Find {
