@@ -303,6 +303,16 @@ function proxySettings() {
     chrome.proxy.settings.clear({ scope: 'regular' });
 }
 
+function testNotificationCreation() {
+    chrome.notifications.create("id", {}); // $ExpectError
+    chrome.notifications.create("id", { message: "", type: "", title: "", }); // $ExpectError
+    chrome.notifications.create("id", { iconUrl: "", type: "", title: "", }); // $ExpectError
+    chrome.notifications.create("id", { iconUrl: "", message: "", title: "", }); // $ExpectError
+    chrome.notifications.create("id", { iconUrl: "", message: "", type: "", }); // $ExpectError
+    chrome.notifications.create("id", { iconUrl: "", message: "", type: "", title: "", }); // $ExpectError
+    chrome.notifications.create("id", { iconUrl: "", message: "", type: "basic", title: "", });
+}
+
 // https://developer.chrome.com/extensions/examples/api/contentSettings/popup.js
 function contentSettings() {
     var incognito;
@@ -526,6 +536,19 @@ function testGetManifest() {
     };
 }
 
+// https://developer.chrome.com/docs/extensions/reference/runtime/#method-restart
+function testRestart() {
+    chrome.runtime.restart();
+}
+
+// https://developer.chrome.com/docs/extensions/reference/runtime/#method-restartAfterDelay
+function testRestartAfterDelay() {
+    chrome.runtime.restartAfterDelay(10);
+    chrome.runtime.restartAfterDelay(10, () => {
+        console.log('This is a callback!');
+    })
+}
+
 async function testGetPlatformInfo() {
     chrome.runtime.getPlatformInfo(platformInfo => {
         platformInfo; // $ExpectType PlatformInfo
@@ -609,6 +632,14 @@ function testDebugger() {
     });
 }
 
+// https://developer.chrome.com/extensions/debugger
+async function testDebuggerForPromise() {
+    await chrome.debugger.attach({ tabId: 123 }, '1.23');
+    await chrome.debugger.detach({ tabId: 123 });
+    await chrome.debugger.sendCommand({ targetId: 'abc' }, 'Debugger.Cmd', { param1: 'x' });
+    await chrome.debugger.getTargets();
+}
+
 // https://developer.chrome.com/extensions/declarativeContent
 function testDeclarativeContent() {
     const activeIcon: ImageData = new ImageData(32, 32);
@@ -627,6 +658,22 @@ function testDeclarativeContent() {
             }),
         ],
     };
+}
+
+// https://developer.chrome.com/docs/extensions/reference/windows
+function testWindows() {
+    chrome.windows.onCreated.addListener(function (window) {
+        var windowResult: chrome.windows.Window = window;
+    }, { windowTypes: ['normal'] });
+    chrome.windows.onRemoved.addListener(function (windowId) {
+        var windowIdResult: number = windowId;
+    }, { windowTypes: ['normal'] });
+    chrome.windows.onBoundsChanged.addListener(function (window) {
+        var windowResult: chrome.windows.Window = window;
+    }, { windowTypes: ['normal'] });
+    chrome.windows.onFocusChanged.addListener(function (windowId) {
+        var windowIdResult: number = windowId;
+    }, { windowTypes: ['normal'] });
 }
 
 // https://developer.chrome.com/extensions/storage#type-StorageArea
@@ -683,6 +730,15 @@ function testTtsVoice() {
         }),
     );
 }
+
+chrome.runtime.onInstalled.addListener((details) => {
+    details; // $ExpectType InstalledDetails
+    details.reason; // $ExpectType OnInstalledReason
+    details.previousVersion; // $ExpectType string | undefined
+    details.id; // $ExpectType string | undefined
+
+    details.reason = 'not-real-reason'; // $ExpectError
+})
 
 chrome.devtools.network.onRequestFinished.addListener((request: chrome.devtools.network.Request) => {
     request; // $ExpectType Request
@@ -813,6 +869,8 @@ async function testDeclarativeNetRequest() {
 function testSetBrowserBadgeText() {
     chrome.browserAction.setBadgeText({});
     chrome.browserAction.setBadgeText({text: "test"});
+    chrome.browserAction.setBadgeText({text: null});
+    chrome.browserAction.setBadgeText({text: undefined});
     chrome.browserAction.setBadgeText({tabId: 123});
     chrome.browserAction.setBadgeText({text: "test", tabId: 123});
     chrome.browserAction.setBadgeText({}, () => {});
@@ -912,6 +970,8 @@ async function testScriptingForPromise() {
     await chrome.scripting.executeScript({ target: { tabId: 0 }, func: () => {}, args: [] });
     await chrome.scripting.executeScript({ target: { tabId: 0 }, func: (str: string) => {}, args: [''] });
     await chrome.scripting.executeScript({ target: { tabId: 0 }, func: (str: string, n: number) => {}, args: ['', 0] });
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, world: 'ISOLATED', func: () => {} });
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, world: 'not-real-world', func: () => {} }); // $ExpectError
     await chrome.scripting.executeScript({ target: { tabId: 0 }, func: (str: string, n: number) => {}, args: [0, ''] }); // $ExpectError
     await chrome.scripting.executeScript({ target: { tabId: 0 }, func: (str: string) => {}, args: [0] }); // $ExpectError
     await chrome.scripting.executeScript({ target: { tabId: 0 }, func: () => {}, args: [''] }); // $ExpectError
@@ -1031,6 +1091,23 @@ async function testDeclarativeNetRequestForPromise() {
     await chrome.declarativeNetRequest.updateSessionRules({});
 }
 
+async function testDynamicRules() {
+    await chrome.declarativeNetRequest.updateDynamicRules({});
+    await chrome.declarativeNetRequest.updateDynamicRules({
+      addRules: [{
+        action: {
+          type: chrome.declarativeNetRequest.RuleActionType.ALLOW,
+        },
+        condition: {
+            domains: ["www.example.com"],
+            tabIds: [2, 3, 76],
+        },
+        id: 2,
+        priority: 3,
+      }],
+    });
+}
+
 // https://developer.chrome.com/docs/extensions/reference/storage
 function testStorageForPromise() {
     chrome.storage.sync.getBytesInUse().then(() => {});
@@ -1099,7 +1176,7 @@ function testExtensionSendRequest() {
 }
 
 function testContextMenusCreate() {
-    chrome.contextMenus.create({
+    const creationOptions: chrome.contextMenus.CreateProperties = {
         id: 'dummy-id',
         documentUrlPatterns: ['https://*/*'],
         checked: false,
@@ -1111,7 +1188,11 @@ function testContextMenusCreate() {
         parentId: 1,
         type: 'normal',
         visible: true
-    }, () => console.log('created'));
+    };
+    chrome.contextMenus.create(creationOptions, () => console.log('created')); // $ExpectType string | number
+    chrome.contextMenus.create({ ...creationOptions, contexts: ['action', 'page_action'] }); // $ExpectType string | number
+    chrome.contextMenus.create({ ...creationOptions, contexts: 'page_action' }); // $ExpectType string | number
+    chrome.contextMenus.create({ ...creationOptions, contexts: ['wrong'] }); // $ExpectError
 }
 
 function testContextMenusRemove() {
@@ -1174,4 +1255,187 @@ function testContextMenusUpdate() {
     chrome.contextMenus.update(1, {parentId: false}); // $ExpectError
     chrome.contextMenus.update(1, {type: false}); // $ExpectError
     chrome.contextMenus.update(1, {visible: 1}); // $ExpectError
+}
+
+// https://developer.chrome.com/docs/extensions/reference/enterprise_deviceAttributes
+function testEnterpriseDeviceAttributes() {
+  chrome.enterprise.deviceAttributes.getDirectoryDeviceId((deviceId) => {});
+  chrome.enterprise.deviceAttributes.getDeviceSerialNumber((serialNumber) => {});
+  chrome.enterprise.deviceAttributes.getDeviceAssetId((assetId) => {});
+  chrome.enterprise.deviceAttributes.getDeviceAnnotatedLocation((annotatedLocation) => {});
+  chrome.enterprise.deviceAttributes.getDeviceHostname((hostName) => {});
+}
+
+// https://developer.chrome.com/docs/extensions/reference/browsingData
+function testBrowsingData() {
+    chrome.browsingData.removeServiceWorkers(); // $ExpectError
+    chrome.browsingData.removeServiceWorkers({});
+    chrome.browsingData.removeServiceWorkers({}, () => {});
+    chrome.browsingData.settings((result) => {})
+    chrome.browsingData.removePluginData({}, () => {})
+    chrome.browsingData.removeServiceWorkers({}, () => {})
+    chrome.browsingData.removeFormData({}, () => {})
+    chrome.browsingData.removeFileSystems({}, () => {})
+    chrome.browsingData.remove({}, {}, () => {})
+    chrome.browsingData.removePasswords({}, () => {})
+    chrome.browsingData.removeCookies({}, () => {})
+    chrome.browsingData.removeWebSQL({}, () => {})
+    chrome.browsingData.removeAppcache({}, () => {})
+    chrome.browsingData.removeCacheStorage({}, () => {})
+    chrome.browsingData.removeDownloads({}, () => {})
+    chrome.browsingData.removeCache({}, () => {})
+    chrome.browsingData.removeHistory({}, () => {})
+    chrome.browsingData.removeIndexedDB({}, () => {})
+}
+
+// https://developer.chrome.com/docs/extensions/reference/browsingData
+async function testBrowsingDataForPromise() {
+    await chrome.browsingData.settings()
+    await chrome.browsingData.removePluginData({})
+    await chrome.browsingData.removeServiceWorkers({})
+    await chrome.browsingData.removeFormData({})
+    await chrome.browsingData.removeFileSystems({})
+    await chrome.browsingData.remove({}, {})
+    await chrome.browsingData.removePasswords({})
+    await chrome.browsingData.removeCookies({})
+    await chrome.browsingData.removeWebSQL({})
+    await chrome.browsingData.removeAppcache({})
+    await chrome.browsingData.removeCacheStorage({})
+    await chrome.browsingData.removeDownloads({})
+    await chrome.browsingData.removeCache({})
+    await chrome.browsingData.removeHistory({})
+    await chrome.browsingData.removeIndexedDB({})
+}
+
+// https://developer.chrome.com/docs/extensions/reference/commands
+async function testCommands() {
+    await chrome.commands.getAll()
+    chrome.commands.getAll((commands) => {})
+}
+
+// https://developer.chrome.com/docs/extensions/reference/i18n
+function testI18n() {
+    chrome.i18n.getAcceptLanguages((languages) => {});
+    chrome.i18n.getMessage("dummy-id", "Hello World!");
+    chrome.i18n.getUILanguage();
+    chrome.i18n.detectLanguage("dummy-id", (result) => {});
+}
+
+// https://developer.chrome.com/docs/extensions/reference/i18n
+async function testI18nForPromise() {
+    await chrome.i18n.getAcceptLanguages();
+    await chrome.i18n.detectLanguage("dummy-id");
+}
+
+function testPageCapture() {
+  chrome.pageCapture.saveAsMHTML({ tabId: 0 }, (data: Blob | undefined) => {});
+}
+
+// https://developer.chrome.com/docs/extensions/reference/downloads
+function testDownloads() {
+    chrome.downloads.search({}, (results) => {})
+    chrome.downloads.pause(1, () => {})
+    chrome.downloads.getFileIcon(1, (iconURL) => {})
+    chrome.downloads.getFileIcon(1, {}, (iconURL) => {})
+    chrome.downloads.resume(1, () => {})
+    chrome.downloads.cancel(1, () => {})
+    chrome.downloads.download({ url: 'https://example.com' }, (downloadId) => {})
+    chrome.downloads.open(1)
+    chrome.downloads.show(1)
+    chrome.downloads.showDefaultFolder()
+    chrome.downloads.erase({}, (erasedIds) => {})
+    chrome.downloads.removeFile(1, () => {})
+    chrome.downloads.acceptDanger(1, () => {})
+    chrome.downloads.drag(1)
+    chrome.downloads.setShelfEnabled(true)
+}
+
+// https://developer.chrome.com/docs/extensions/reference/downloads
+async function testDownloadsForPromise() {
+    await chrome.downloads.search({})
+    await chrome.downloads.pause(1)
+    await chrome.downloads.getFileIcon(1)
+    await chrome.downloads.getFileIcon(1, {})
+    await chrome.downloads.resume(1)
+    await chrome.downloads.cancel(1)
+    await chrome.downloads.download({ url: 'https://example.com' })
+    await chrome.downloads.erase({})
+    await chrome.downloads.removeFile(1)
+    await chrome.downloads.acceptDanger(1)
+}
+
+// https://developer.chrome.com/docs/extensions/reference/extension
+function testExtension() {
+    chrome.extension.getBackgroundPage()
+    chrome.extension.getURL('/')
+    chrome.extension.setUpdateUrlData('')
+    chrome.extension.getViews({})
+    chrome.extension.isAllowedFileSchemeAccess((isAllowedAccess) => {})
+    chrome.extension.isAllowedIncognitoAccess((isAllowedAccess) => {})
+    chrome.extension.getExtensionTabs(1)
+}
+
+// https://developer.chrome.com/docs/extensions/reference/extension
+async function testExtensionForPromise() {
+    await chrome.extension.isAllowedFileSchemeAccess()
+    await chrome.extension.isAllowedIncognitoAccess()
+}
+
+// https://developer.chrome.com/docs/extensions/reference/fontSettings
+function testFontSettings() {
+    chrome.fontSettings.setDefaultFontSize({ pixelSize: 1 }, () => {})
+    chrome.fontSettings.getFont({}, (details) => {}) // $ExpectError
+    chrome.fontSettings.getFont({ genericFamily: '' }, (details) => {}) // $ExpectError
+    chrome.fontSettings.getFont({ genericFamily: 'cursive' }, (details) => {})
+    chrome.fontSettings.getDefaultFontSize({}, (options) => {})
+    chrome.fontSettings.getMinimumFontSize({}, (options) => {})
+    chrome.fontSettings.setMinimumFontSize({ pixelSize: 1 }, () => {})
+    chrome.fontSettings.getDefaultFixedFontSize({}, (details) => {})
+    chrome.fontSettings.clearDefaultFontSize({}, () => {})
+    chrome.fontSettings.setDefaultFixedFontSize({ pixelSize: 1 }, () => {})
+    chrome.fontSettings.clearFont({ genericFamily: 'cursive' }, () => {})
+    chrome.fontSettings.setFont({ genericFamily: 'cursive', fontId: '' }, () => {})
+    chrome.fontSettings.clearMinimumFontSize({}, () => {})
+    chrome.fontSettings.getFontList((results) => {})
+    chrome.fontSettings.clearDefaultFixedFontSize({}, () => {})
+}
+
+// https://developer.chrome.com/docs/extensions/reference/fontSettings
+async function testFontSettingsForPromise() {
+    await chrome.fontSettings.setDefaultFontSize({ pixelSize: 1 })
+    await chrome.fontSettings.getFont({ genericFamily: 'cursive' })
+    await chrome.fontSettings.getDefaultFontSize({})
+    await chrome.fontSettings.getMinimumFontSize({})
+    await chrome.fontSettings.setMinimumFontSize({ pixelSize: 1 })
+    await chrome.fontSettings.getDefaultFixedFontSize({})
+    await chrome.fontSettings.clearDefaultFontSize({})
+    await chrome.fontSettings.setDefaultFixedFontSize({ pixelSize: 1 })
+    await chrome.fontSettings.clearFont({ genericFamily: 'cursive' })
+    await chrome.fontSettings.setFont({ genericFamily: 'cursive', fontId: '' })
+    await chrome.fontSettings.clearMinimumFontSize({})
+    await chrome.fontSettings.getFontList()
+    await chrome.fontSettings.clearDefaultFixedFontSize({})
+}
+
+// https://developer.chrome.com/docs/extensions/reference/history
+function testHistory() {
+    chrome.history.search({}, (results) => {}) // $ExpectError
+    chrome.history.search({ text: ''}, (results) => {})
+    chrome.history.addUrl({}, () => {}) // $ExpectError
+    chrome.history.addUrl({ url: 'https://example.com'}, () => {})
+    chrome.history.deleteRange({}, () => {}) // $ExpectError
+    chrome.history.deleteRange({ startTime: 1646172000000, endTime: 1646258400000}, () => {})
+    chrome.history.deleteAll(() => {})
+    chrome.history.deleteUrl({ url: 'https://example.com'}, () => {})
+    chrome.history.getVisits({ url: 'https://example.com'}, () => {})
+}
+
+// https://developer.chrome.com/docs/extensions/reference/history
+async function testHistoryForPromise() {
+    await chrome.history.search({ text: ''})
+    await chrome.history.addUrl({ url: 'https://example.com'})
+    await chrome.history.deleteRange({ startTime: 1646172000000, endTime: 1646258400000})
+    await chrome.history.deleteAll()
+    await chrome.history.deleteUrl({ url: 'https://example.com'})
+    await chrome.history.getVisits({ url: 'https://example.com'})
 }

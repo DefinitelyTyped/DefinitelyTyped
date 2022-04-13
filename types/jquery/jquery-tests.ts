@@ -810,7 +810,7 @@ function JQueryStatic() {
             this;
             // $ExpectType string | boolean
             propertyOfObject;
-            // $ExpectType "myProp" | "name"
+            // $ExpectType "myProp" | "name" || "name" | "myProp"
             key;
 
             switch (key) {
@@ -830,7 +830,7 @@ function JQueryStatic() {
             this;
             // $ExpectType string | boolean
             propertyOfObject;
-            // $ExpectType "myProp" | "name"
+            // $ExpectType "myProp" | "name" || "name" | "myProp"
             key;
 
             return [propertyOfObject, 24];
@@ -846,7 +846,7 @@ function JQueryStatic() {
             this;
             // $ExpectType string | number | boolean
             propertyOfObject;
-            // $ExpectType "myProp" | "name" | "anotherProp"
+            // $ExpectType "myProp" | "name" | "anotherProp" || "name" | "myProp" | "anotherProp"
             key;
 
             switch (key) {
@@ -869,7 +869,7 @@ function JQueryStatic() {
             this;
             // $ExpectType string | number | boolean
             propertyOfObject;
-            // $ExpectType "myProp" | "name" | "anotherProp"
+            // $ExpectType "myProp" | "name" | "anotherProp" || "name" | "myProp" | "anotherProp"
             key;
 
             switch (key) {
@@ -5883,11 +5883,23 @@ function JQuery() {
         }
 
         function children() {
-            // $ExpectType JQuery<HTMLElement>
+            // $ExpectType JQuery<HTMLSpanElement>
             $('p').children('span');
+
+            // $ExpectType JQuery<HTMLDivElement>
+            $('p').children('div');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').children('.class-name');
 
             // $ExpectType JQuery<HTMLElement>
             $('p').children();
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').children();
+
+            // $ExpectType JQuery<HTMLElement>
+            $<HTMLDivElement>('p').children();
         }
 
         function siblings() {

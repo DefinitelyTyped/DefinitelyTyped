@@ -4,10 +4,8 @@ import * as ReactDOMServer from "react-dom/server";
 import * as PropTypes from "prop-types";
 import createFragment = require("react-addons-create-fragment");
 import * as LinkedStateMixin from "react-addons-linked-state-mixin";
-import * as Perf from "react-addons-perf";
 import * as PureRenderMixin from "react-addons-pure-render-mixin";
 import shallowCompare = require("react-addons-shallow-compare");
-import TransitionGroup = require("react-addons-transition-group");
 import update = require("react-addons-update");
 import createReactClass = require("create-react-class");
 import * as DOM from "react-dom-factories";
@@ -410,6 +408,12 @@ const ForwardingRefComponent = React.forwardRef((props: ForwardingRefComponentPr
     return React.createElement(RefComponent, { ref });
 });
 
+// Declaring forwardRef render function separately (not inline).
+const ForwardRefRenderFunction = (props: ForwardingRefComponentProps, ref: React.ForwardedRef<RefComponent>)  => {
+    return React.createElement(RefComponent, { ref });
+};
+React.forwardRef(ForwardRefRenderFunction);
+
 const ForwardingRefComponentPropTypes: React.WeakValidationMap<ForwardingRefComponentProps> = {};
 ForwardingRefComponent.propTypes = ForwardingRefComponentPropTypes;
 
@@ -662,45 +666,12 @@ createReactClass({
 });
 
 //
-// Perf addon
-// --------------------------------------------------------------------------
-Perf.start();
-Perf.stop();
-const measurements = Perf.getLastMeasurements();
-Perf.printInclusive(measurements);
-Perf.printExclusive(measurements);
-Perf.printWasted(measurements);
-Perf.printOperations(measurements);
-Perf.printInclusive();
-Perf.printExclusive();
-Perf.printWasted();
-Perf.printOperations();
-
-console.log(Perf.getExclusive());
-console.log(Perf.getInclusive());
-console.log(Perf.getWasted());
-console.log(Perf.getOperations());
-console.log(Perf.getExclusive(measurements));
-console.log(Perf.getInclusive(measurements));
-console.log(Perf.getWasted(measurements));
-console.log(Perf.getOperations(measurements));
-
-// Renamed to printOperations().  Please use it instead.
-Perf.printDOM(measurements);
-Perf.printDOM();
-
-//
 // PureRenderMixin addon
 // --------------------------------------------------------------------------
 createReactClass({
     mixins: [PureRenderMixin],
     render() { return DOM.div(null); }
 });
-
-//
-// TransitionGroup addon
-// --------------------------------------------------------------------------
-React.createFactory(TransitionGroup)({ component: "div" });
 
 //
 // update addon
@@ -856,4 +827,22 @@ const propsWithChildren: React.PropsWithChildren<Props> = {
     React.createElement(Wrapper, { value: 'B' });
     // $ExpectError
     React.createElement(Wrapper, { value: 'C' });
+}
+
+// ComponentPropsWithRef and JSXElementConstructor
+{
+    interface Props {
+        value: string;
+    }
+    type InferredProps = React.ComponentPropsWithRef<React.JSXElementConstructor<Props>>;
+    const props: Props = {
+        value: 'inferred',
+        // $ExpectError
+        notImplemented: 5
+    };
+    const inferredProps: InferredProps = {
+        value: 'inferred',
+        // $ExpectError
+        notImplemented: 5
+    };
 }

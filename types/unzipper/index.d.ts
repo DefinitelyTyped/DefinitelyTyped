@@ -1,7 +1,6 @@
 // Type definitions for unzipper 0.10
 // Project: https://github.com/ZJONSSON/node-unzipper#readme
 // Definitions by: s73obrien <https://github.com/s73obrien>
-//                 Nate <https://github.com/natemara>
 //                 Bart <https://github.com/bartje321>
 //                 Ken Human <https://github.com/kenhuman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

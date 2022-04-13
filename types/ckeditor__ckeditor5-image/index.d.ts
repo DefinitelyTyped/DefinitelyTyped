@@ -1,4 +1,4 @@
-// Type definitions for @ckeditor/ckeditor5-image 29.0
+// Type definitions for @ckeditor/ckeditor5-image 33.0
 // Project: https://ckeditor.com/docs/ckeditor5/latest/api/image.html
 // Definitions by: Federico Panico <https://github.com/fedemp>
 //                 Ben Demboski <https://github.com/bendemboski>
@@ -9,6 +9,7 @@ export { default as AutoImage } from './src/autoimage';
 export { default as Image } from './src/image';
 export { default as ImageEditing } from './src/image/imageediting';
 export { default as ImageCaption } from './src/imagecaption';
+export { default as ImageCaptionUtils } from './src/imagecaption/imagecaptionutils';
 export { default as ImageCaptionEditing } from './src/imagecaption/imagecaptionediting';
 export { default as ImageInsert } from './src/imageinsert';
 export { default as ImageInsertUI } from './src/imageinsert/imageinsertui';

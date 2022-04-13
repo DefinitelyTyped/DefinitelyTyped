@@ -1,15 +1,23 @@
-// Type definitions for sass 1.16
+// Type definitions for sass 1.43
 // Project: https://github.com/sass/dart-sass
-// Definitions by: Silas Rech <https://github.com/lenovouser>
+// Definitions by: Alan Agius <https://github.com/alan-agius4>
+//                 Silas Rech <https://github.com/lenovouser>
 //                 Justin Leider <https://github.com/jleider>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
 /// <reference types="node" />
 
+import { URL } from 'url';
+
 export type ImporterReturnType = { file: string } | { contents: string } | Error | null;
 
-export type Importer = (url: string, prev: string, done: (data: ImporterReturnType) => void) => ImporterReturnType | void;
+export type Importer = (
+    this: { fromImport: boolean },
+    url: string,
+    prev: string,
+    done?: (data: ImporterReturnType) => void,
+) => ImporterReturnType | void;
 
 export interface Options {
     /**
@@ -129,6 +137,105 @@ export interface Options {
      * @default undefined
      */
     sourceMapRoot?: string | undefined;
+
+    /**
+     * By default, Dart Sass will print only five instances of the same deprecation warning per compilation to avoid deluging
+     * users in console noise. If you set verbose to `true`, it will instead print every deprecation warning it encounters.
+     */
+    verbose?: boolean;
+
+    /**
+     * If this option is set to `true`, Sass won’t print warnings that are caused by dependencies.
+     */
+    quietDeps?: boolean;
+
+    /** An object to use to handle warnings and/or debug messages from Sass. */
+    logger?: Logger;
+}
+
+export interface Logger {
+    /** This method is called when Sass emits a debug message due to a @debug rule. */
+    debug?(message: string, options: { span?: SourceSpan }): void;
+
+    /** This method is called when Sass emits a debug message due to a @warn rule. */
+    warn?(message: string, options: { deprecation: boolean; span?: SourceSpan; stack?: string }): void;
+}
+
+/**
+ * An interface that represents a contiguous section ("span") of a text file.
+ * This section may be empty if the `start` and `end` are the same location,
+ * in which case it indicates a single position in the file.
+ */
+
+export interface SourceSpan {
+    /**
+     * The location of the first character of this span, unless `end` points to
+     * the same character, in which case the span is empty and refers to the point
+     * between this character and the one before it.
+     */
+    start: SourceLocation;
+
+    /**
+     * The location of the first character after this span. This must point to a
+     * location after `start`.
+     */
+    end: SourceLocation;
+
+    /**
+     * The absolute URL of the file that this span refers to. For files on disk,
+     * this must be a `file://` URL.
+     *
+     * This must be `undefined` for files that are passed to the compiler without
+     * a URL. It must not be `undefined` for any files that are importable.
+     */
+    url?: URL;
+
+    /**
+     * The text covered by the span. This must be the text between `start.offset`
+     * (inclusive) and `end.offset` (exclusive) of the file referred by this
+     * span. Its length must be `end.offset - start.offset`.
+     */
+    text: string;
+
+    /**
+     * Additional source text surrounding this span.
+     *
+     * The compiler may choose to omit this. If it's not `undefined`, it must
+     * contain `text`. Furthermore, `text` must begin at column `start.column` of
+     * a line in `context`.
+     *
+     * > This usually contains the full lines the span begins and ends on if the
+     * > span itself doesn't cover the full lines, but the specific scope is up to
+     * > the compiler.
+     */
+    context?: string;
+}
+
+/**
+ * An interface that represents a location in a text file.
+ */
+export interface SourceLocation {
+    /**
+     * The 0-based offset of this location within the file it refers to, in terms
+     * of UTF-16 code units.
+     */
+    offset: number;
+
+    /**
+     * The number of U+000A LINE FEED characters between the beginning of the file
+     * and `offset`, exclusive.
+     *
+     * > In other words, this location's 0-based line.
+     */
+    line: number;
+
+    /**
+     * The number of UTF-16 code points between the last U+000A LINE FEED
+     * character before `offset` and `offset`, exclusive.
+     *
+     * > In other words, this location's 0-based column.
+     */
+    column: number;
 }
 
 export interface SassException extends Error {

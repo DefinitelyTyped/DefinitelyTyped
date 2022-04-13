@@ -118,6 +118,34 @@ function testPage(): void {
   });
 }
 
+function testScreen(): void {
+  analytics.screen({
+    userId: '019mr8mf4r',
+    name: 'Node.js Library',
+    properties: {
+      url: 'https://segment.com/docs/libraries/node',
+      path: '/docs/libraries/node/',
+      title: 'Node.js Library - Segment',
+      referrer: 'https://github.com/segmentio/analytics-node'
+    }
+  });
+
+  analytics.screen({
+    userId: '019mr8mf4r',
+    name: 'Node.js Library',
+    properties: {
+      url: 'https://segment.com/docs/libraries/node',
+      path: '/docs/libraries/node/',
+      title: 'Node.js Library - Segment',
+      referrer: 'https://github.com/segmentio/analytics-node'
+    }
+  }, (err) => {
+    if (err) {
+      console.error(err);
+    }
+  });
+}
+
 function testAlias(): void {
   // the anonymous user does actions ...
   analytics.track({ userId: 'anonymous_user', event: 'Anonymous Event' });

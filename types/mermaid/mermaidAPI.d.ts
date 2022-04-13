@@ -1,5 +1,55 @@
 declare namespace mermaidAPI {
-    type Theme = "default" | "forest" | "dark" | "neutral";
+    enum SecurityLevel {
+        /**
+         * (default) tags in text are encoded, click functionality is disabled
+         */
+        Strict = 'strict',
+
+        /**
+         * tags in text are allowed, click functionality is enabled
+         */
+        Loose = 'loose',
+
+        /**
+         * html tags in text are allowed, (only script element is removed), click functionality is enabled
+         */
+        Antiscript = 'antiscript',
+
+        /**
+         * with this security level all rendering takes place in a sandboxed iframe.
+         * This prevent any javascript running in the context.
+         * This may hinder interactive functionality of the diagram like scripts,
+         * popups in sequence diagram or links to other tabs/targets etc.
+         */
+        Sandbox = 'sandbox'
+    }
+
+    enum Theme {
+        /**
+         * Designed to modified, as the name implies it is supposed to be used as the base for making custom themes.
+         */
+        Base = 'base',
+
+        /**
+         * A theme full of light greens that is easy on the eyes.
+         */
+        Forest = 'forest',
+
+        /**
+         * A theme that would go well with other dark colored elements.
+         */
+        Dark = 'dark',
+
+        /**
+         *  The default theme for all diagrams.
+         */
+        Default = 'default',
+
+        /**
+         * The theme to be used for black and white printing
+         */
+        Neutral = 'neutral'
+    }
 
     enum LogLevel {
         Debug = 1,
@@ -198,18 +248,23 @@ declare namespace mermaidAPI {
 
     interface Config {
         /**
-         * securityLevel: disallow/allow potentially dangerous cross-site scripting behavior
-         *   the two documented values are "strict" and "loose", i.e. disallow and allow
-         *   default: "strict"
-         *   If the value is not present, the default behavior is "strict"
-         *   Up through version mermaid@8.2.3, if any text value is present in a config but is not "strict", the behavior is "loose".
-         *   This should be fixed after that version, i.e. any value other "loose" should be treated as "strict".
+         * ### securityLevel
+         * This changes the default behaviour of mermaid so that after upgrade to 8.2,
+         * unless the `securityLevel` is not changed, tags in flowcharts are encoded as tags and clicking is disabled.
+         * **sandbox** security level is still in the beta version.
+         * default: SecurityLevel.Strict
          */
-        securityLevel?: string | undefined;
+        securityLevel?: SecurityLevel | undefined;
 
         theme?: Theme | undefined;
 
+        themeVariables?: any; // [todo]
+
+        themeCSS?: string | undefined;
+
         maxTextSize?: number | undefined;
+
+        darkMode?: boolean | undefined;
 
         fontFamily?: string | undefined;
 
@@ -256,8 +311,17 @@ declare namespace mermaidAPI {
          */
         gantt?: GanttConfig | undefined;
 
-        class?: any;
-        git?: any;
+        journey?: any; // [todo]
+
+        class?: any; // [todo]
+
+        git?: any; // [todo]
+
+        state?: any; // [todo]
+
+        pie?: any; // [todo]
+
+        requirement?: any; // [todo]
     }
 
     /**

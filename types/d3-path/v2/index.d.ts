@@ -80,6 +80,7 @@ export interface Path {
      *
      * @param x x-Coordinate of the center point of the arc segment
      * @param y y-Coordinate of the center point of the arc segment
+     * @param radius Radius of the arc segment
      * @param startAngle Start angle of arc segment
      * @param endAngle End angle of arc segment
      * @param anticlockwise Flag indicating directionality (true = anti-clockwise, false = clockwise)

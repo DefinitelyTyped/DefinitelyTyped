@@ -1,17 +1,20 @@
 import {
-    Plugin,
-    Editor,
+    attachToForm,
     Command,
     Context,
     ContextPlugin,
     DataApiMixin,
-    attachToForm,
-    MultiCommand,
+    Editor,
     EditorUI,
+    MultiCommand,
+    PendingActions,
+    Plugin,
 } from '@ckeditor/ckeditor5-core';
+import CommandCollection from '@ckeditor/ckeditor5-core/src/commandcollection';
+import { EditorWithUI } from '@ckeditor/ckeditor5-core/src/editor/editorwithui';
+import Selection from '@ckeditor/ckeditor5-engine/src/model/selection';
+import ParagraphCommand from '@ckeditor/ckeditor5-paragraph/src/paragraphcommand';
 import View from '@ckeditor/ckeditor5-ui/src/view';
-
-let comm: Command;
 
 /**
  * Editor
@@ -22,6 +25,21 @@ class MyEditor extends Editor {
         super();
         this.source = source;
     }
+    static create(source: string | HTMLElement): Promise<MyEditor> {
+        return new Promise(resolve => {
+            const editor = new MyEditor(source);
+            resolve(editor);
+        });
+    }
+}
+
+class MyUIEditor extends Editor implements EditorWithUI {
+    source: string | HTMLElement;
+    constructor(source: string | HTMLElement) {
+        super();
+        this.source = source;
+    }
+    ui: EditorUI;
     static create(source: string | HTMLElement): Promise<MyEditor> {
         return new Promise(resolve => {
             const editor = new MyEditor(source);
@@ -69,6 +87,12 @@ promise != null && promise.then(() => {});
 myPlugin.myMethod();
 myPlugin.isEnabled = true;
 myPlugin.destroy();
+// $ExpectType Editor | EditorWithUI
+myPlugin.editor;
+const myUIEditor = new MyPlugin(new MyUIEditor('')).editor;
+if ('ui' in myUIEditor) {
+    myUIEditor.ui; // $ExpectType EditorUI
+}
 
 /**
  * PluginCollection
@@ -93,34 +117,50 @@ class MyEmptyEditor extends Editor {
 /**
  * Command
  */
-class SomeCommand extends Command {
-    execute() {}
+class MyCommand extends Command {
+    get value(): boolean {
+        return this.value;
+    }
+    protected set value(val: boolean) {
+        this.value = val;
+    }
+    refresh() {
+        this.value = false;
+        this.isEnabled = true;
+    }
 }
-const command = new Command(new MyEmptyEditor());
+
+const command = new MyCommand(editor);
+
+// $ExpectType boolean
+command.value;
+// $ExpectError
+command.value = false;
+// $ExpectError
+delete command.value;
+// $ExpectError
+delete command.isEnabled;
+
+// $ExpectType boolean
+command.affectsData;
+
 command.execute();
 command.execute('foo', 'bar', true, false, 50033);
 command.execute(4545454, 'refresh', [], []);
 command.execute({}, { foo: 5 });
 
-const ed: Editor = command.editor;
+// $ExpectType Editor
+command.editor;
 
-const bool: boolean = command.isEnabled;
+// $ExpectType boolean
+command.isEnabled;
 
-comm = new Command(editor);
+// $ExpectError
+command.isEnabled = false;
 
 command.destroy();
 
-command.execute();
-
 command.refresh();
-
-command.value = 'foo';
-delete command.value;
-
-command.isEnabled = false;
-command.isEnabled = true;
-// $ExpectError
-delete command.isEnabled;
 
 /**
  * Context
@@ -134,8 +174,14 @@ contextWithConfig.initPlugins().then(plugins => plugins.map(plugin => plugin.plu
 /**
  * ContextPlugin
  */
-const CPlugin = new ContextPlugin(context) && new ContextPlugin(editor);
-const afterInitPromise = CPlugin.afterInit?.();
+class CPlugin extends ContextPlugin {}
+// $ExpectError
+class CPlugin2 extends ContextPlugin {
+    static requires: [MyPlugin];
+}
+// $ExpectType true
+CPlugin.isContextPlugin;
+const afterInitPromise = new CPlugin(context).afterInit?.();
 if (afterInitPromise != null) {
     afterInitPromise.then(() => {});
 }
@@ -178,8 +224,45 @@ attachToForm(editor);
  * MultiCommand
  */
 const MC = new MultiCommand(editor);
-MC.registerChildCommand(comm);
+MC.registerChildCommand(command);
 
 /* EditorUI */
 new EditorUI(editor).componentFactory.editor === editor;
 new EditorUI(editor).componentFactory.add('', locale => new View(locale));
+new EditorUI(editor).set('foo', true);
+// $ExpectType { top: number; right: number; bottom: number; left: number; }
+new EditorUI(editor).viewportOffset;
+
+/** Pending Actions */
+// $ExpectType boolean
+new PendingActions(context).hasAny;
+// $ExpectError
+new PendingActions(context).hasAny = true;
+new PendingActions(context).remove(new PendingActions(context).add(''));
+
+// $ExpectType PendingActions
+new MyEditor('').plugins.get('PendingActions');
+// $ExpectType PendingActions
+new MyEditor('').plugins.get(PendingActions);
+
+/*
+ * CommandCollection
+ */
+
+const cc = new CommandCollection();
+cc.add('paragraph', new ParagraphCommand(editor));
+// $ExpectType ParagraphCommand | undefined
+cc.get('paragraph');
+// $ExpectType void
+cc.execute('paragraph');
+cc.execute('paragraph', { selection: new Selection() });
+// $ExpectError
+cc.execute('paragraph', { selection: true });
+// $ExpectError
+cc.execute('paragraph', null);
+// $ExpectType string[]
+Array.from(cc.names());
+// $ExpectType Command[]
+Array.from(cc.commands());
+// $ExpectType [string, Command][]
+Array.from(cc);

@@ -1,7 +1,7 @@
 import * as React from "react";
 import { ReactAnchorAttr, ReactButtonAttr } from "../../../typings/shared";
 
-type ExcludedAttributes = "disabled" | "href" | "ref" | "title" | "tabIndex";
+type ExcludedAttributes = "disabled" | "href" | "ref" | "tabIndex";
 
 interface SharedProps {
     // closeMenu is supplied by Overflow parent component

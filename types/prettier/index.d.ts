@@ -1,13 +1,14 @@
-// Type definitions for prettier 2.4
-// Project: https://github.com/prettier/prettier, https://prettier.io
-// Definitions by: Ika <https://github.com/ikatyang>,
-//                 Ifiok Jr. <https://github.com/ifiokjr>,
-//                 Florian Imdahl <https://github.com/ffflorian>,
-//                 Sosuke Suzuki <https://github.com/sosukesuzuki>,
+// Type definitions for prettier 2.6
+// Project: https://prettier.io
+//          https://github.com/prettier/prettier
+// Definitions by: Ika <https://github.com/ikatyang>
+//                 Ifiok Jr. <https://github.com/ifiokjr>
+//                 Florian Imdahl <https://github.com/ffflorian>
+//                 Sosuke Suzuki <https://github.com/sosukesuzuki>
 //                 Christopher Quadflieg <https://github.com/Shinigami92>
-//                 Kevin Deisz <https://github.com/kddeisz>
 //                 Georgii Dolzhykov <https://github.com/thorn0>
 //                 JounQin <https://github.com/JounQin>
+//                 Chuah Chee Shian <https://github.com/shian15810>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 
@@ -70,7 +71,19 @@ export type BuiltInParsers = Record<BuiltInParserName, BuiltInParser>;
 
 export type CustomParser = (text: string, parsers: BuiltInParsers, options: Options) => AST;
 
+/**
+ * For use in `.prettierrc.js`, `.prettierrc.cjs`, `prettier.config.js` or `prettier.config.cjs`.
+ */
+export interface Config extends Options {
+    overrides?: Array<{
+        files: string | string[];
+        excludeFiles?: string | string[];
+        options?: Options;
+    }>;
+}
+
 export interface Options extends Partial<RequiredOptions> {}
+
 export interface RequiredOptions extends doc.printer.Options {
     /**
      * Print semicolons at the ends of statements.
@@ -159,7 +172,7 @@ export interface RequiredOptions extends doc.printer.Options {
     /**
      * Specify plugin directory paths to search for plugins if not installed in the same `node_modules` where prettier is located.
      */
-    pluginSearchDirs: string[];
+    pluginSearchDirs: string[] | false;
     /**
      * How to handle whitespaces in HTML.
      * @default 'css'
@@ -185,6 +198,11 @@ export interface RequiredOptions extends doc.printer.Options {
      * @default 'auto'
      */
     embeddedLanguageFormatting: 'auto' | 'off';
+    /**
+     * Enforce single attribute per line in HTML, Vue and JSX.
+     * @default false
+     */
+    singleAttributePerLine: boolean;
 }
 
 export interface ParserOptions<T = any> extends RequiredOptions {
@@ -229,6 +247,7 @@ export interface Printer<T = any> {
     massageAstNode?: ((node: any, newNode: any, parent: any) => any) | undefined;
     hasPrettierIgnore?: ((path: AstPath<T>) => boolean) | undefined;
     canAttachComment?: ((node: T) => boolean) | undefined;
+    isBlockComment?: ((node: T) => boolean) | undefined;
     willPrintOwnComments?: ((path: AstPath<T>) => boolean) | undefined;
     printComment?: ((commentPath: AstPath<T>, options: ParserOptions<T>) => Doc) | undefined;
     handleComments?:

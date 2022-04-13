@@ -16,8 +16,10 @@ runInDebug(() => console.log('Should not show up in prod')); // $ExpectType void
 
 // Log a warning if we have more than 3 tomsters
 const tomsterCount = 2;
-warn('Too many tomsters!'); // $ExpectType void
-warn('Too many tomsters!', tomsterCount <= 3); // $ExpectType void
+warn('Too many tomsters!'); // $ExpectError
+warn('Too many tomsters!', { id: 'some-warning' }); // $ExpectType void
+warn('Too many tomsters!', tomsterCount <= 3); // $ExpectError
+warn('Too many tomsters!', tomsterCount <= 3, { id: 'some-warning' }); // $ExpectType void
 warn('Too many tomsters!', tomsterCount <= 3, { // $ExpectType void
     id: 'ember-debug.too-many-tomsters'
 });
@@ -47,30 +49,49 @@ assert(); // $ExpectError
 // next is not called, so no warnings get the default behavior
 registerWarnHandler(); // $ExpectError
 registerWarnHandler(() => {}); // $ExpectType void
-registerWarnHandler((message, { id }, next) => { // $ExpectType void
+registerWarnHandler((message, options, next) => { // $ExpectType void
     message; // $ExpectType string
-    id; // $ExpectType string
-    next; // $ExpectType (message?: string | undefined, options?: { id: string; } | undefined) => void
+    options; // $ExpectType { id: string; } | undefined
+    next; // $ExpectType (message: string, options?: { id: string; } | undefined) => void
 });
-registerWarnHandler((message, { id }, next) => { // $ExpectType void
+registerWarnHandler((message, options, next) => { // $ExpectType void
     message; // $ExpectType string
-    id; // $ExpectType string
-    next(); // $ExpectType void
+    options; // $ExpectType { id: string; } | undefined
+    next(); // $ExpectError
 });
-registerWarnHandler((message, { id }, next) => { // $ExpectType void
+registerWarnHandler((message, options, next) => { // $ExpectType void
     message; // $ExpectType string
-    id; // $ExpectType string
-    next(message, { id }); // $ExpectType void
+    options; // $ExpectType { id: string; } | undefined
+    next(message); // $ExpectType void
+});
+registerWarnHandler((message, options, next) => { // $ExpectType void
+    message; // $ExpectType string
+    options; // $ExpectType { id: string; } | undefined
+    next(message, options); // $ExpectType void
 });
 
 // next is not called, so no warnings get the default behavior
 registerDeprecationHandler(); // $ExpectError
 registerDeprecationHandler(() => {}); // $ExpectType void
-registerDeprecationHandler((message, { id, until }, next) => { // $ExpectType void
+registerDeprecationHandler((message, options, next) => { // $ExpectType void
     message; // $ExpectType string
-    id; // $ExpectType string
-    until; // $ExpectType string
-    next; // $ExpectType () => void
+    options; // $ExpectType { id: string; until: string; } | undefined
+    next; // $ExpectType (message: string, options?: { id: string; until: string; } | undefined) => void
+});
+registerDeprecationHandler((message, options, next) => { // $ExpectType void
+    message; // $ExpectType string
+    options; // $ExpectType { id: string; until: string; } | undefined
+    next(); // $ExpectError
+});
+registerDeprecationHandler((message, options, next) => { // $ExpectType void
+    message; // $ExpectType string
+    options; // $ExpectType { id: string; until: string; } | undefined
+    next(message); // $ExpectType void
+});
+registerDeprecationHandler((message, options, next) => { // $ExpectType void
+    message; // $ExpectType string
+    options; // $ExpectType { id: string; until: string; } | undefined
+    next(message, options); // $ExpectType void
 });
 
 deprecate(); // $ExpectError
@@ -85,6 +106,7 @@ deprecate('a valid deprecation without `url`', true, { // $ExpectType void
   until: 'v4.0.0',
   for: 'some.namespace',
   since: {
+    available: 'some.early.version',
     enabled: 'some.version',
   },
 });
@@ -94,6 +116,7 @@ deprecate('incorrect options `url`', true, {
   url: 123, // $ExpectError
   for: 'some.namespace',
   since: {
+    available: 'some.earlier.version',
     enabled: 'some.version',
   },
 });
@@ -103,6 +126,7 @@ deprecate('a valid deprecation with `url`', true, { // $ExpectType void
   url: 'https://example.com/ember-deprecations-yo',
   for: 'some.namespace',
   since: {
+    available: 'some.earlier.version',
     enabled: 'some.version',
   },
 });
@@ -111,6 +135,7 @@ deprecate('a valid deprecation with `for`', true, { // $ExpectType void
   until: 'v4.0.0',
   for: 'some.namespace',
   since: {
+    available: 'some.earlier.version',
     enabled: 'some.version',
   },
 });
@@ -119,6 +144,7 @@ deprecate('incorrect options `for`', true, {
   until: 'v4.0.0',
   for: 123, // $ExpectError
   since: {
+    available: 'some.earlier.version',
     enabled: 'some.version',
   },
 });
@@ -153,11 +179,34 @@ deprecate('incorrect options `since`', true, {
     wrongKey: 'some.version', // $ExpectError
   },
 });
-deprecate('incorrect options `since`', true, {
+deprecate('incorrect options `since` available', true, {
   id: 'some.deprecation',
   until: 'v4.0.0',
   for: 'some.namespace',
   since: {
     available: 123, // $ExpectError
+  },
+});
+deprecate('incorrect options `since` enabled', true, {
+  id: 'some.deprecation',
+  until: 'v4.0.0',
+  for: 'some.namespace',
+  since: {
+      available: 'some.earlier.version',
+      enabled: 123, // $ExpectError
+  },
+});
+deprecate('incorrect options `since` empty', true, {
+  id: 'some.deprecation',
+  until: 'v4.0.0',
+  for: 'some.namespace',
+  since: {}, // $ExpectError
+});
+deprecate('incorrect options `since` enabled w/o available', true, {
+  id: 'some.deprecation',
+  until: 'v4.0.0',
+  for: 'some.namespace',
+  since: { // $ExpectError
+      enabled: 'some.version',
   },
 });

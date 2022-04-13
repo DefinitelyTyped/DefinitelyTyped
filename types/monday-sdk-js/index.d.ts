@@ -51,7 +51,7 @@ interface MondayClientSdk {
      * Placeholders may be used, which will be substituted by the variables object passed within the options.
      * @param options
      */
-    api(query: string, options?: APIOptions): Promise<any>;
+    api(query: string, options?: APIOptions): Promise<{ data: object }>;
 
     /**
      * Instead of passing the API token to the `api()` method on each request, you can set the API token once using:
@@ -79,7 +79,7 @@ interface MondayClientSdk {
      */
     listen(
         typeOrTypes: SubscribableEvents | ReadonlyArray<SubscribableEvents>,
-        callback: (res: any) => void,
+        callback: (res: { data: object }) => void,
         params?: object,
     ): void;
 
@@ -135,7 +135,7 @@ interface MondayClientSdk {
              */
             excludeCancelButton?: boolean | undefined;
         },
-    ): Promise<any>;
+    ): Promise<{ data: { confirm: boolean } }>;
     /**
      * Display a message at the top of the user's page. Useful for success, error & general messages.
      * @param type Which action to perform
@@ -185,7 +185,7 @@ interface MondayClientSdk {
              * Returns a stored value from the database under `key`
              * @param key
              */
-            getItem(key: string): Promise<GetResponse>;
+            getItem(key: string): Promise<{ data: GetResponse }>;
 
             /**
              * Stores `value` under `key` in the database
@@ -200,7 +200,7 @@ interface MondayClientSdk {
 interface MondayServerSdk {
     setToken(token: string): void;
 
-    api(query: string, options?: Partial<{ token: string }>): Promise<any>;
+    api(query: string, options?: Partial<{ token: string, variables: object } >): Promise<any>;
 
     oauthToken(code: string, clientId: string, clientSecret: string): Promise<any>;
 }

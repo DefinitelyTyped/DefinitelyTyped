@@ -1,13 +1,6 @@
-import { WebGLRenderTarget, WebGLRenderTargetOptions } from './WebGLRenderTarget';
+import { WebGLRenderTarget } from './WebGLRenderTarget';
 
-export class WebGLMultisampleRenderTarget extends WebGLRenderTarget {
-    constructor(width: number, height: number, options?: WebGLRenderTargetOptions);
-
-    readonly isWebGLMultisampleRenderTarget: true;
-
-    /**
-     * Specifies the number of samples to be used for the renderbuffer storage.However, the maximum supported size for multisampling is platform dependent and defined via gl.MAX_SAMPLES.
-     * @default 4
-     */
-    samples: number;
-}
+/**
+ * @deprecated THREE.WebGLMultisampleRenderTarget has been removed. Use a normal {@link WebGLRenderTarget render target} and set the "samples" property to greater 0 to enable multisampling.
+ */
+export class WebGLMultisampleRenderTarget extends WebGLRenderTarget {}

@@ -4,7 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 
-import { Compiler, WebpackPluginInstance, Module, compilation } from 'webpack';
+/// <reference types="node" />
+import { Compiler, WebpackPluginInstance, Module, Compilation } from 'webpack';
 
 export = CircularDependencyPlugin;
 
@@ -46,9 +47,9 @@ declare namespace CircularDependencyPlugin {
     onDetected?: false | ((x: {
       module: Module;
       paths: string[];
-      compilation: compilation.Compilation;
+      compilation: Compilation;
     }) => void) | undefined;
-    onEnd?: ((x: { compilation: compilation.Compilation }) => void) | undefined;
-    onStart?: ((x: { compilation: compilation.Compilation }) => void) | undefined;
+    onEnd?: ((x: { compilation: Compilation }) => void) | undefined;
+    onStart?: ((x: { compilation: Compilation }) => void) | undefined;
   }
 }

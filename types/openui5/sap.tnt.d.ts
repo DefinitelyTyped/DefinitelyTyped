@@ -1,4 +1,4 @@
-// For Library Version: 1.95.0
+// For Library Version: 1.100.0
 
 declare module "sap/tnt/library" {
   /**
@@ -1341,6 +1341,14 @@ declare module "sap/tnt/SideNavigation" {
       }
     ): this;
     /**
+     * @SINCE 1.98
+     *
+     * Gets current value of property {@link #getAriaLabel ariaLabel}.
+     *
+     * Specifies an optional aria-label that can be used by the screen readers.
+     */
+    getAriaLabel(): string;
+    /**
      * Gets current value of property {@link #getExpanded expanded}.
      *
      * Specifies if the control is expanded.
@@ -1381,6 +1389,21 @@ declare module "sap/tnt/SideNavigation" {
      * Specifies the currently selected key.
      */
     getSelectedKey(): string;
+    /**
+     * @SINCE 1.98
+     *
+     * Sets a new value for property {@link #getAriaLabel ariaLabel}.
+     *
+     * Specifies an optional aria-label that can be used by the screen readers.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     */
+    setAriaLabel(
+      /**
+       * New value for property `ariaLabel`
+       */
+      sAriaLabel?: string
+    ): this;
     /**
      * Sets if the control is in expanded or collapsed mode.
      */
@@ -1453,6 +1476,13 @@ declare module "sap/tnt/SideNavigation" {
      * Specifies the currently selected key.
      */
     selectedKey?: string | PropertyBindingInfo;
+
+    /**
+     * @SINCE 1.98
+     *
+     * Specifies an optional aria-label that can be used by the screen readers.
+     */
+    ariaLabel?: string | PropertyBindingInfo;
 
     /**
      * Defines the content inside the flexible part.

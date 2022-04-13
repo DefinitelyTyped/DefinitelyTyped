@@ -1,7 +1,5 @@
-import { Emitter } from "@ckeditor/ckeditor5-utils/src/emittermixin";
-import { Observable } from "@ckeditor/ckeditor5-utils/src/observablemixin";
-import Command from "./command";
+import Command from './command';
 
-export default class MultiCommand extends Command implements Emitter, Observable {
+export default class MultiCommand extends Command {
     registerChildCommand(command: Command): void;
 }

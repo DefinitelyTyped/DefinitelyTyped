@@ -191,7 +191,7 @@ export declare module HelloSign {
         once(name: Events['SEND'], cb: (data: SendEventPayload) => void): void;
         once(name: Events['SIGN'], cb: (data: SignEventPayload) => void): void;
 
-        off(name: Events['CLOSE'] | Events['CLOSE'] | Events['CREATE_TEMPLATE'] | Events['DECLINE'] |
+        off(name: Events['CLOSE'] | Events['CANCEL'] | Events['CREATE_TEMPLATE'] | Events['DECLINE'] |
               Events['ERROR'] | Events['FINISH'] | Events['MESSAGE'] | Events['OPEN'] | Events['READY'] |
               Events['REASSIGN'] | Events['SEND'] | Events['SIGN'],
             cb?: CB): void;

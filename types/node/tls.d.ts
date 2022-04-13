@@ -6,11 +6,12 @@
  * ```js
  * const tls = require('tls');
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/tls.js)
+ * @see [source](https://github.com/nodejs/node/blob/v17.0.0/lib/tls.js)
  */
 declare module 'tls' {
     import { X509Certificate } from 'node:crypto';
     import * as net from 'node:net';
+    import * as stream from 'stream';
     const CLIENT_RENEG_LIMIT: number;
     const CLIENT_RENEG_WINDOW: number;
     interface Certificate {
@@ -516,7 +517,7 @@ declare module 'tls' {
         host?: string | undefined;
         port?: number | undefined;
         path?: string | undefined; // Creates unix socket connection to path. If this option is specified, `host` and `port` are ignored.
-        socket?: net.Socket | undefined; // Establish secure connection on a given socket rather than creating a new socket
+        socket?: stream.Duplex | undefined; // Establish secure connection on a given socket rather than creating a new socket
         checkServerIdentity?: typeof checkServerIdentity | undefined;
         servername?: string | undefined; // SNI TLS Extension
         session?: Buffer | undefined;
@@ -722,7 +723,7 @@ declare module 'tls' {
          * object.passphrase is optional. Encrypted keys will be decrypted with
          * object.passphrase if provided, or options.passphrase if it is not.
          */
-        key?: string | Buffer | Array<Buffer | KeyObject> | undefined;
+        key?: string | Buffer | Array<string | Buffer | KeyObject> | undefined;
         /**
          * Name of an OpenSSL engine to get private key from. Should be used
          * together with privateKeyIdentifier.

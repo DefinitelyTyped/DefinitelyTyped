@@ -1,7 +1,6 @@
 // Type definitions for flexsearch 0.7
 // Project: https://github.com/nextapps-de/flexsearch/
 // Definitions by: LOSSES Don <https://github.com/Losses>
-//                 nian2760 <https://github.com/nian2760>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /************************************/
@@ -358,10 +357,10 @@ export class Document<T, Store extends StoreOption = false> {
    appendAsync(id: Id, document: T, callback?: AsyncCallback): Promise<this>;
    updateAsync(id: Id, document: T, callback?: AsyncCallback): Promise<this>;
    removeAsync(target: Id | T, callback?: AsyncCallback): Promise<this>;
-   searchAsync(
+   searchAsync<Enrich extends boolean = false>(
       query: string,
-      options: string[] | Partial<DocumentSearchOptions<boolean>>
-   ): Promise<SimpleDocumentSearchResultSetUnit[]>;
+      options: string[] | Partial<DocumentSearchOptions<Enrich>>
+   ): Promise<DocumentSearchResult<T, Store, Enrich>>;
    searchAsync(
       query: string,
       limit?: number,
@@ -371,10 +370,6 @@ export class Document<T, Store extends StoreOption = false> {
       limit: number,
       callback: AsyncCallback<SimpleDocumentSearchResultSetUnit[]>
    ): Promise<this>;
-   searchAsync<Enrich extends boolean = false>(
-      query: string,
-      options: Partial<DocumentSearchOptions<Enrich>>
-   ): Promise<DocumentSearchResult<T, Store, Enrich>>;
    searchAsync<Enrich extends boolean = false>(
       query: string,
       options: Partial<DocumentSearchOptions<Enrich>>,

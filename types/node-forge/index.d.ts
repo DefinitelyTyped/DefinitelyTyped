@@ -1,4 +1,4 @@
-// Type definitions for node-forge 0.10.0
+// Type definitions for node-forge 1.0.0
 // Project: https://github.com/digitalbazaar/forge
 // Definitions by: Seth Westphal       <https://github.com/westy92>
 //                 Kay Schecker        <https://github.com/flynetworks>
@@ -288,6 +288,10 @@ declare module "node-forge" {
                 privateKey: NativeBuffer;
             };
 
+            function privateKeyFromAsn1(obj: asn1.Asn1): { privateKeyBytes: NativeBuffer };
+
+            function publicKeyFromAsn1(obj: asn1.Asn1): NativeBuffer;
+
             function publicKeyFromPrivateKey(options: { privateKey: BinaryBuffer }): NativeBuffer;
 
             function sign(options: ToNativeBufferParameters & {
@@ -326,13 +330,13 @@ declare module "node-forge" {
             issuer: {
                 getField(sn: string | CertificateFieldOptions): any;
                 addField(attr: CertificateField): void;
-                attributes: any[];
+                attributes: CertificateField[];
                 hash: any;
             };
             subject: {
                 getField(sn: string | CertificateFieldOptions): any;
                 addField(attr: CertificateField): void;
-                attributes: any[];
+                attributes: CertificateField[];
                 hash: any;
             };
             extensions: any[];
@@ -778,7 +782,7 @@ declare module "node-forge" {
         function pkcs12FromAsn1(obj: any, password?: string): Pkcs12Pfx;
 
         function toPkcs12Asn1(
-            key: pki.PrivateKey,
+            key: pki.PrivateKey | null,
             cert: pki.Certificate | pki.Certificate[],
             password: string | null,
             options?: {

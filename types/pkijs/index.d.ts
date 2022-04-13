@@ -934,6 +934,16 @@ declare module "pkijs/src/EnvelopedData" {
             keyEncryptionAlgorithmParams?: any;
         }, variant: number): boolean;
         /**
+         * Add a "RecipientInfo" using a KeyAgreeRecipientInfo of type RecipientKeyIdentifier.
+         * @param {CryptoKey} [key] Recipient's public key
+         * @param {ArrayBuffer} [keyId] The id for the recipient's public key
+         * @param {*} [parameters] Additional parameters for "fine tuning" the encryption process
+         */
+        addRecipientByKeyIdentifier(key: CryptoKey, keyId: ArrayBuffer, parameters?: {
+            kdfAlgorithm?: string | undefined;
+            kekEncryptionLength?: number | undefined;
+        }): boolean;
+        /**
          * Create a new CMS Enveloped Data content with encrypted data
          * @param {Algorithm} contentEncryptionAlgorithm WebCrypto algorithm. For the moment here could be only "AES-CBC" or "AES-GCM" algorithms.
          * @param {ArrayBuffer} contentToEncrypt Content to encrypt
@@ -947,7 +957,7 @@ declare module "pkijs/src/EnvelopedData" {
          * @returns {Promise}
          */
         decrypt(recipientIndex: number, parameters: {
-            recipientCertificate: Certificate;
+            recipientCertificate?: Certificate;
             recipientPrivateKey: ArrayBuffer;
         }): PromiseLike<ArrayBuffer>;
 

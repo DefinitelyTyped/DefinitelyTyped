@@ -316,7 +316,7 @@ function logIdlType(idlType: webidl2.IDLTypeDescription) {
         }
     } else if (idlType.generic) {
         idlType; // $ExpectType GenericTypeDescription || FrozenArrayTypeDescription | ObservableArrayTypeDescription | PromiseTypeDescription | RecordTypeDescription | SequenceTypeDescription
-        idlType.generic; // $ExpectType "FrozenArray" | "ObservableArray" | "Promise" | "record" | "sequence"
+        idlType.generic; // $ExpectType "FrozenArray" | "ObservableArray" | "Promise" | "record" | "sequence" || "record" | "sequence" | "FrozenArray" | "ObservableArray" | "Promise"
         console.log(idlType);
         switch (idlType.generic) {
             case "FrozenArray":
@@ -343,7 +343,7 @@ function logIdlType(idlType: webidl2.IDLTypeDescription) {
 }
 
 function logValueDescription(valueDesc: webidl2.ValueDescription) {
-    valueDesc.parent; // $ExpectType FieldType | ConstantMemberType | Argument
+    valueDesc.parent; // $ExpectType FieldType | ConstantMemberType | Argument || ConstantMemberType | Argument | FieldType
     console.log(valueDesc.type);
     switch (valueDesc.type) {
         case "string":

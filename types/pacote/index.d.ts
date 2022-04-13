@@ -1,6 +1,6 @@
 // Type definitions for pacote 11.1
 // Project: https://github.com/npm/pacote#readme
-// Definitions by: Joel Spadin <https://github.com/ChaosinaCan>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -249,6 +249,16 @@ export interface PacoteOptions {
      * time is part of the extended packument metadata.
      */
     fullMetadata?: boolean | undefined;
+
+    /**
+     * you usually don't want to fetch the same packument multiple times in
+     * the span of a given script or command, no matter how many pacote calls
+     * are made, so this lets us avoid doing that.  It's only relevant for
+     * registry fetchers, because other types simulate their packument from
+     * the manifest, which they memoize on this.package, so it's very cheap
+     * already.
+     */
+    packumentCache?: Map<string, Packument> | undefined;
 }
 
 export type Options = PacoteOptions & npmFetch.Options;

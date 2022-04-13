@@ -14,7 +14,7 @@
  *
  * The `stream` module is useful for creating new types of stream instances. It is
  * usually not necessary to use the `stream` module to consume streams.
- * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/stream.js)
+ * @see [source](https://github.com/nodejs/node/blob/v17.0.0/lib/stream.js)
  */
 declare module 'stream' {
     import { EventEmitter, Abortable } from 'node:events';
@@ -71,7 +71,7 @@ declare module 'stream' {
             readable: boolean;
             /**
              * Returns whether `'data'` has been emitted.
-             * @since v16.7.0
+             * @since v16.7.0, v14.18.0
              * @experimental
              */
             readonly readableDidRead: boolean;
@@ -408,7 +408,7 @@ declare module 'stream' {
              * @since v8.0.0
              * @param error Error which will be passed as payload in `'error'` event
              */
-            destroy(error?: Error): void;
+            destroy(error?: Error): this;
             /**
              * Event emitter
              * The defined events on documents including:
@@ -639,9 +639,9 @@ declare module 'stream' {
              * @param encoding The encoding if `chunk` is a string
              * @param callback Callback for when the stream is finished.
              */
-            end(cb?: () => void): void;
-            end(chunk: any, cb?: () => void): void;
-            end(chunk: any, encoding: BufferEncoding, cb?: () => void): void;
+            end(cb?: () => void): this;
+            end(chunk: any, cb?: () => void): this;
+            end(chunk: any, encoding: BufferEncoding, cb?: () => void): this;
             /**
              * The `writable.cork()` method forces all written data to be buffered in memory.
              * The buffered data will be flushed when either the {@link uncork} or {@link end} methods are called.
@@ -707,7 +707,7 @@ declare module 'stream' {
              * @since v8.0.0
              * @param error Optional, an error to emit with `'error'` event.
              */
-            destroy(error?: Error): void;
+            destroy(error?: Error): this;
             /**
              * Event emitter
              * The defined events on documents including:
@@ -853,9 +853,9 @@ declare module 'stream' {
             write(chunk: any, encoding?: BufferEncoding, cb?: (error: Error | null | undefined) => void): boolean;
             write(chunk: any, cb?: (error: Error | null | undefined) => void): boolean;
             setDefaultEncoding(encoding: BufferEncoding): this;
-            end(cb?: () => void): void;
-            end(chunk: any, cb?: () => void): void;
-            end(chunk: any, encoding?: BufferEncoding, cb?: () => void): void;
+            end(cb?: () => void): this;
+            end(chunk: any, cb?: () => void): this;
+            end(chunk: any, encoding?: BufferEncoding, cb?: () => void): this;
             cork(): void;
             uncork(): void;
         }

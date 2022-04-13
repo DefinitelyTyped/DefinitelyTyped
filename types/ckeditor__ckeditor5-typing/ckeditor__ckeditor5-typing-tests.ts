@@ -1,7 +1,8 @@
 import { Editor } from '@ckeditor/ckeditor5-core';
-import { Element, Model, Range } from '@ckeditor/ckeditor5-engine';
-import Batch from '@ckeditor/ckeditor5-engine/src/model/batch';
+import { Element, Model, Range, StylesProcessor } from '@ckeditor/ckeditor5-engine';
 import Position from '@ckeditor/ckeditor5-engine/src/model/position';
+import { KeyEventData } from '@ckeditor/ckeditor5-engine/src/view/observer/keyobserver';
+import View from '@ckeditor/ckeditor5-engine/src/view/view';
 import {
     Delete,
     getLastTextLine,
@@ -10,16 +11,16 @@ import {
     TextTransformation,
     TextWatcher,
     TwoStepCaretMovement,
-    Typing,
+    Typing
 } from '@ckeditor/ckeditor5-typing';
 import DeleteCommand from '@ckeditor/ckeditor5-typing/src/deletecommand';
 import InputCommand from '@ckeditor/ckeditor5-typing/src/inputcommand';
 import {
     TextTransformationConfig,
-    TextTransformationDescription,
+    TextTransformationDescription
 } from '@ckeditor/ckeditor5-typing/src/texttransformation';
 import findAttributeRange from '@ckeditor/ckeditor5-typing/src/utils/findattributerange';
-import injectUnsafeKeystrokesHandling from '@ckeditor/ckeditor5-typing/src/utils/injectunsafekeystrokeshandling';
+import injectUnsafeKeystrokesHandling, { isNonTypingKeystroke } from '@ckeditor/ckeditor5-typing/src/utils/injectunsafekeystrokeshandling';
 
 class MyEditor extends Editor {}
 const editor = new MyEditor();
@@ -30,7 +31,6 @@ Typing.requires.map(Plugin => new Plugin(editor).init());
 
 const input = new Input(editor);
 input.init();
-input.isInput(new Batch());
 
 const del = new Delete(editor);
 del.init();
@@ -52,8 +52,8 @@ const description: TextTransformationDescription = {
 
 const config: TextTransformationConfig = {
     extra: [description, description],
-    include: [description],
-    remove: [description],
+    include: [description, description, '', ''],
+    remove: ['', ''],
 };
 
 const position = new Position(Element.fromJSON({ name: 'div' }), [3]);
@@ -93,3 +93,6 @@ editor.commands.get('InputCommand');
 
 // $ExpectType DeleteCommand | undefined
 editor.commands.get('DeleteCommand');
+
+// $ExpectType boolean
+isNonTypingKeystroke(new KeyEventData(new View(new StylesProcessor()), new KeyboardEvent("foo")));

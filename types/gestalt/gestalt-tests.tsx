@@ -35,6 +35,7 @@ import {
     Masonry,
     Modal,
     Module,
+    NumberField,
     OnLinkNavigationProvider,
     PageHeader,
     Pog,
@@ -61,7 +62,6 @@ import {
     TextField,
     Toast,
     Tooltip,
-    Typeahead,
     Upsell,
     useFocusVisible,
     useReducedMotion,
@@ -169,7 +169,7 @@ const CheckUseReducedMotion = () => {
     }}
 />;
 <Checkbox id={'1'} onChange={() => {}} />;
-<Collage columns={1} height={1} renderImage={({ height, index, width }) => () => {}} width={1} />;
+<Collage columns={1} height={1} renderImage={({ height, index, width }) => null} width={1} />;
 <ColorSchemeProvider colorScheme="dark" id="docsExample" />;
 <Column span={1} />;
 <Container />;
@@ -200,7 +200,13 @@ const CheckUseReducedMotion = () => {
 </Flex>;
 <Heading />;
 <Icon accessibilityLabel="icon" />;
-<IconButton accessibilityLabel="icon" />;
+<IconButton
+    accessibilityLabel="icon"
+    tooltip={{
+        text: 'foo',
+        idealDirection: 'down',
+    }}
+/>;
 <Image alt="image" color="#ffff" naturalHeight={1} naturalWidth={1} src="http" />;
 <Label htmlFor="id" />;
 <Layer>
@@ -226,6 +232,7 @@ const CheckUseReducedMotion = () => {
     expandedIndex={1}
     onExpandedChange={index => {}}
 ></Module.Expandable>;
+<NumberField id="number" onChange={({ value }) => value} step={1} />;
 <OnLinkNavigationProvider
     onNavigation={() => {
         return undefined;
@@ -233,7 +240,13 @@ const CheckUseReducedMotion = () => {
 />;
 <PageHeader title="Home" />;
 <Pog />;
-<Popover onDismiss={() => {}} anchor={React.useRef<HTMLAnchorElement>().current!} />;
+<Popover
+    onDismiss={() => {}}
+    anchor={React.useRef<HTMLAnchorElement>().current!}
+    onKeyDown={({ event }) => {
+        event.preventDefault();
+    }}
+/>;
 
 <Pulsar />;
 <RadioButton id="id" onChange={() => {}} />;
@@ -249,7 +262,11 @@ const CheckUseReducedMotion = () => {
     onDismiss={() => {}}
     footer={<Heading>Footer</Heading>}
 >
-    {({ onDismissStart }) => <Heading>Content {onDismissStart}</Heading>}
+    {({ onDismissStart }) => (
+        <Heading>
+            Content <button onClick={onDismissStart} />
+        </Heading>
+    )}
 </Sheet>;
 <Spinner show={true} accessibilityLabel="Example spinner" />;
 <Stack alignItems="center" gap={2}>
@@ -353,13 +370,6 @@ const CheckUseReducedMotion = () => {
 <Tooltip text="tooltip">
     <div />
 </Tooltip>;
-<Typeahead
-    label="Typeahead Example 1"
-    id="Typeahead-example"
-    noResultText="No Results"
-    options={[{ value: 'Hello', label: 'World' }]}
-    placeholder="Select a Label"
-/>;
 <Upsell
     message="Hello world"
     imageData={{

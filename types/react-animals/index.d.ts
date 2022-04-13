@@ -77,8 +77,9 @@ interface AnimalProps {
         | 'walrus'
         | 'wolf'
         | 'wolverine'
-        | 'wombat';
-    color: string;
+        | 'wombat'
+        | string;
+    color: React.CSSProperties['color'] | 'none';
     size: React.CSSProperties['width'];
     rounded: boolean;
     square: boolean;

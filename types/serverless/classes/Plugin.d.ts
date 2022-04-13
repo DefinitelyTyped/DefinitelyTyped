@@ -30,8 +30,21 @@ declare namespace Plugin {
         };
     }
 
+    interface Logging {
+        log: {
+          error: (text: string) => void;
+          warning: (text: string) => void;
+          notice: (text: string) => void;
+          info: (text: string) => void;
+          debug: (text: string) => void;
+          verbose: (text: string) => void;
+          success: (text: string) => void;
+        };
+        writeText: (text: string | string[]) => void;
+      }
+
     interface PluginStatic {
-        new (serverless: Serverless, options: Serverless.Options): Plugin;
+        new (serverless: Serverless, options: Serverless.Options, logging: Logging): Plugin;
     }
 }
 

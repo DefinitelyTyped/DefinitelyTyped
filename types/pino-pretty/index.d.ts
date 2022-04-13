@@ -2,13 +2,14 @@
 // Project: https://github.com/pinojs/pino-pretty#readme
 // Definitions by: Adam Vigneaux <https://github.com/AdamVig>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 2.7
+
+/// <reference types="node"/>
 
 import { LogDescriptor } from "pino";
 
 export = PinoPretty;
 
-declare function PinoPretty(options: PinoPretty.PrettyOptions): PinoPretty.Prettifier;
+declare function PinoPretty(options?: PinoPretty.PrettyOptions): PinoPretty.Prettifier;
 
 declare namespace PinoPretty {
     type Prettifier = (inputData: string | object) => string;

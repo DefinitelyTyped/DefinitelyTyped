@@ -4,7 +4,7 @@ import { Cert } from './cert';
 
 export namespace Transport {
     const enum FLAGS {
-        NONE = 0
+        NONE = 0,
     }
 }
 

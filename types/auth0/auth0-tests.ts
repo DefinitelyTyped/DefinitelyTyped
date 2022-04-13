@@ -145,6 +145,7 @@ management
     });
 
 auth.requestChangePasswordEmail({
+    client_id: 'client_id',
     connection: 'My-Connection',
     email: 'hi@me.co',
 })
@@ -194,6 +195,22 @@ auth.passwordGrant({username: 'username', password: 'password'}).then((response:
 auth.passwordGrant({username: 'username', password: 'password'}, (err, response: auth0.TokenResponse) => { console.log(response); });
 auth.passwordGrant({username: 'username', password: 'password'}, { forwardedFor: '12.34.56.78' }).then((response: auth0.TokenResponse) => { console.log(response); });
 auth.passwordGrant({username: 'username', password: 'password'}, { forwardedFor: '12.34.56.78' }, (err, response: auth0.TokenResponse) => { console.log(response); });
+
+// SMS/Email OTP Login
+auth.requestEmailCode({email: 'hi@me.co', authParams: {}}).then((response: any) => { console.log(response); });
+auth.requestEmailCode({email: 'hi@me.co', authParams: {}}, (response: any) => { console.log(response); });
+
+auth.requestSMSCode({ phone_number: '+1234567890'}, (response: any) => { console.log(response); });
+auth.requestSMSCode({ phone_number: '+1234567890'}).then((response: any) => { console.log(response); });
+
+auth.verifyEmailCode({email: 'hi@me.co', otp: 'password'}).then((response: any) => { console.log(response); });
+auth.verifyEmailCode({email: 'hi@me.co', otp: 'password'}, (response: any) => { console.log(response); });
+
+auth.verifySMSCode({username: '+1234567890', password: 'password'}).then((response: any) => { console.log(response); });
+auth.verifySMSCode({username: '+1234567890', password: 'password'}, (response: any) => { console.log(response); });
+
+auth.verifySMSCode({username: '+1234567890', otp: 'password'}).then((response: any) => { console.log(response); });
+auth.verifySMSCode({username: '+1234567890', otp: 'password'}, (response: any) => { console.log(response); });
 
 // Get management client access token
 management
@@ -330,7 +347,6 @@ management.assignPermissionsToUser(
 );
 
 // Using different client settings.
-
 const retryableManagementClient = new auth0.ManagementClient({
     clientId: '',
     clientSecret: '',
@@ -666,6 +682,7 @@ management
     )
     .then(() => console.log('It worked'))
     .catch(err => console.log('Something went wrong ' + err));
+
 management.removePermissionsFromRole(
     { id: 'role_id' },
     {
@@ -689,6 +706,7 @@ management
     )
     .then(() => console.log('It worked'))
     .catch(err => console.log('Something went wrong ' + err));
+
 management.addPermissionsInRole(
     { id: 'role_id' },
     {
@@ -865,6 +883,35 @@ management.getGrants(
         grants,
 );
 
+// Logs
+management.getLog({ id: 'cd_0000000000000001'}).then(log => console.log(log));
+management.getLog({ id: 'cd_0000000000000001'}, (log) => console.log(log));
+management.getLogs().then(logs => console.log(logs));
+management.getLogs({
+    fields: 'audience',
+    from: 'cd_0000000000000001',
+    include_fields: true,
+    include_totals: false,
+    page: 0,
+    per_page: 12,
+    q: '?!?',
+    sort: 'audience',
+    take: 42
+}).then(logs => console.log(logs));
+management.getLogs((logs) => console.log(logs));
+management.getLogs({
+    fields: 'audience',
+    from: 'cd_0000000000000001',
+    include_fields: true,
+    include_totals: false,
+    page: 0,
+    per_page: 12,
+    q: '?!?',
+    sort: 'audience',
+    take: 42
+},
+logs => console.log(logs));
+
 const authentication = new auth0.AuthenticationClient({
     domain: 'auth0.com',
 });
@@ -918,6 +965,7 @@ async () => {
     const signInUserData: auth0.SignInOptions = {
         username: '{YOUR_USERNAME}',
         otp: '123456',
+        audience: 'audience',
     };
     signInUserData.realm = 'email';
     signInUserData.realm = 'sms';
@@ -933,16 +981,17 @@ async () => {
     const options: auth0.PasswordlessOptions = {};
     options.forwardedFor = '{YOUR_IP}';
 
-    let token: auth0.SignInToken;
-    token = await authentication.passwordless.signIn(signInUserData);
-    token = await authentication.passwordless.signIn(signInUserData, options);
+    // $ExpectType SignInToken
+    await authentication.passwordless.signIn(signInUserData);
+    // $ExpectType SignInToken
+    await authentication.passwordless.signIn(signInUserData, options);
     authentication.passwordless.signIn(signInUserData, (err, data) => {
         err; // $ExpectType Error
-        token = data;
+        data; // $ExpectType SignInToken
     });
     authentication.passwordless.signIn(signInUserData, options, (err, data) => {
         err; // $ExpectType Error
-        token = data;
+        data; // $ExpectType SignInToken
     });
 
     await authentication.passwordless.sendEmail(emailUserData);
@@ -975,20 +1024,20 @@ async function signupTest(): Promise<void> {
     signupResult.email_verified; // $ExpectType boolean
 }
 
-const decoded = idToken.decode('{YOUR_API_V2_TOKEN}');
+const decoded = idToken.decode('{YOUR_API_V2_TOKEN}'); // $ExpectType DecodedToken
 decoded._raw; // $ExpectType string
 decoded.header; // $ExpectType any
 decoded.payload; // $ExpectType any
 decoded.signature; // $ExpectType string
 
-async () => {
+() => {
     const defaultOptions = {
         issuer: 'issuer',
         audience: ['clientId', 'clientIdAlt'],
         nonce: 'a1b2c3d4e5',
     };
-    await idToken.validate('{YOUR_API_V2_TOKEN}'); // $ExpectType string
-    await idToken.validate('{YOUR_API_V2_TOKEN}', defaultOptions); // $ExpectType string
+    idToken.validate('{YOUR_API_V2_TOKEN}'); // $ExpectType DecodedToken
+    idToken.validate('{YOUR_API_V2_TOKEN}', defaultOptions); // $ExpectType DecodedToken
 };
 
 // Token manager
@@ -1056,6 +1105,22 @@ management.organizations.getAll({ page: 0, per_page: 5 }, (err, organizations: a
  */
 management.organizations.getAll({ page: 0, per_page: 5 }).then((organizations: auth0.Organization[]) => {
     console.log({ organizations });
+});
+
+/**
+ * Get All Organizations with pagination and totals using a callback
+ */
+management.organizations.getAll({ page: 0, per_page: 5, include_totals: true }, (err, pagedOrganizations) => {
+    // $ExpectType OrganizationsPaged
+    pagedOrganizations;
+});
+
+/**
+ * Get All Organizations with pagination and totals returning a Promise
+ */
+management.organizations.getAll({ page: 0, per_page: 5, include_totals: true }).then((pagedOrganizations) => {
+    // $ExpectType OrganizationsPaged
+    pagedOrganizations;
 });
 
 /**
@@ -1385,6 +1450,27 @@ management.organizations
     });
 
 /**
+ * Get Organization Invitations with pagination and totals using a callback
+ */
+management.organizations.getInvitations(
+    { id: 'organization_id', per_page: 2, page: 1, include_totals: true },
+    (err, pagedInvitations: auth0.OrganizationInvitationsPaged) => {
+        // $ExpectType OrganizationInvitationsPaged
+        pagedInvitations;
+    },
+);
+
+/**
+ * Get Organization Invitations with pagination and totals returning a Promise
+ */
+management.organizations
+    .getInvitations({ id: 'organization_id', per_page: 2, page: 1, include_totals: true })
+    .then((pagedInvitations: auth0.OrganizationInvitationsPaged) => {
+        // $ExpectType OrganizationInvitationsPaged
+        pagedInvitations;
+    });
+
+/**
  * Get Organization Invitations with properties using a callback
  */
 management.organizations.getInvitations(
@@ -1531,3 +1617,14 @@ management.organizations.removeMemberRoles(
 management.organizations
     .removeMemberRoles({ id: 'organization_id', user_id: 'user_id' }, { roles: ['role_id'] })
     .then(() => {});
+
+// Device Credentials
+management.getDeviceCredentials({ user_id: 'user_id' }).then(deviceCredentials => {
+    deviceCredentials; // $ExpectType DeviceCredential[]
+});
+management.getDeviceCredentials({ user_id: 'user_id' }, (err, deviceCredentials) => {
+    deviceCredentials; // $ExpectType DeviceCredential[]
+});
+
+management.deleteDeviceCredential({ id: 'id' }).then(() => {});
+management.deleteDeviceCredential({ id: 'id' }, err => {});

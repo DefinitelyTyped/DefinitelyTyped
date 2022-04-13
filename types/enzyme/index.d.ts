@@ -102,7 +102,7 @@ export interface CommonWrapper<P = {}, S = {}, C = Component<P, S>> {
     /**
      * Invokes a function prop.
      * @param invokePropName The function prop to call.
-     * @param ...args The argments to the invokePropName function
+     * @param ...args The arguments to the invokePropName function
      * @returns The value of the function.
      */
     invoke<
@@ -601,6 +601,13 @@ export class ReactWrapper<P = {}, S = {}, C = Component> {
      * Returns a wrapper with the direct parent of the node in the current wrapper.
      */
     parent(): ReactWrapper<any, any>;
+
+    /**
+     * Returns a wrapper of the node rendered by the provided render prop.
+     */
+     renderProp<PropName extends keyof P>(
+        prop: PropName,
+    ): (...params: Parameters<P[PropName]>) => ReactWrapper<any, never>;
 
     /**
      * If a wrappingComponent was passed in options,

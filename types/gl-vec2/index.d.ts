@@ -1,6 +1,6 @@
 // Type definitions for gl-vec2 1.3
 // Project: https://github.com/stackgl/gl-vec2
-// Definitions by:  Adam Zerella <https://github.com/adamzerella>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.3
 

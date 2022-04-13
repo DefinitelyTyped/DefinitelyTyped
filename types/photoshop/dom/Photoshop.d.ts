@@ -50,6 +50,10 @@ export declare class Photoshop {
      */
     Photoshop: typeof Photoshop;
     /**
+     * The class name of the referenced Photoshop object
+     */
+    get typename(): string;
+    /**
      * @ignore
      */
     PathPointInfo: typeof PathPointInfo;

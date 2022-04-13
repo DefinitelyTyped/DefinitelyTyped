@@ -192,6 +192,16 @@ declare namespace uiGrid {
          * creates the right render container if it doesn't already exist
          */
         createRightContainer(): void;
+         /**
+         * returns the first GridRow who has an key that is equal to comparator
+         * so for Example if isInEntity == false then it does this check: row[key] === comparator
+         * if isInEntity == true then it does this check: row.entity[key] === comparator
+         * @param isInEntity if true then key is in entity else it's directly in row
+         * @param key the key to look for
+         * @param comparator the value that key should have
+         * @param lookInRows the rows to look in - if not provided then looks in grid.rows
+         */
+        findRowByKey(isInEntity: boolean, key: string | number, comparator: any, rows?: Array<IGridRowOf<TEntity>>): IGridRowOf<TEntity>;
         /**
          * sets isScrollingHorizontally to true and sets it to false in a debounced function
          */
@@ -248,6 +258,16 @@ declare namespace uiGrid {
          * @param rows The rows to look in.  if not provided then it looks in grid.rows
          */
         getRow(rowEntity: TEntity, rows?: Array<IGridRowOf<TEntity>>): IGridRowOf<TEntity>;
+        /**
+         * returns all GridRows who have an key that is equal to comparator
+         * so for Example if isInEntity == false then it does this check: row[key] === comparator
+         * if isInEntity == true then it does this check: row.entity[key] === comparator
+         * @param isInEntity if true then key is in entity else it's directly in row
+         * @param key the key to look for
+         * @param comparator the value that key should have
+         * @param rows The rows to look in.  if not provided then it looks in grid.rows
+         */
+        getRowsByKey(isInEntity: boolean, key: string | number, comparator: any, rows?: Array<IGridRowOf<TEntity>>): IGridRowOf<TEntity>;
         /**
          * Triggered when the browser window resizes; automatically resizes the grid
          * @param $event Resize event
@@ -2965,6 +2985,17 @@ declare namespace uiGrid {
              */
             selectRow(rowEntity: TEntity, event?: ng.IAngularEvent): void;
             /**
+            * selects all GridRows who have an key that is equal to comparator
+            * so for Example if isInEntity == false then it does this check: row[key] === comparator
+            * if isInEntity == true then it does this check: row.entity[key] === comparator
+            * @param isInEntity if true then key is in entity else it's directly in row
+            * @param key the key to look for
+            * @param comparator the value that key should have
+            * @param evt object if raised from an event
+            * @param lookInRows the rows to look in - if not provided then looks in grid.rows
+            */
+            selectRowByKey(isInEntity: boolean, key: string | number, comparator: any, evt?: ng.IAngularEvent, lookInRows?: Array<uiGrid.IGridRowOf<TEntity>>): void
+            /**
              * Select the specified row by visible index
              * (i.e. if you specify row 0 you'll get the first visible row selected).
              *
@@ -2997,6 +3028,24 @@ declare namespace uiGrid {
              * @param event object if raised from event
              */
             unSelectRow(rowEntity: TEntity, event?: ng.IAngularEvent): void;
+            /**
+             * Unselect the specified row by visible index (i.e. if you specify row 0 you'll get the first visible row unselected).
+			 * In this context visible means of those rows that are theoretically visible (i.e. not filtered), rather than rows currently rendered on the screen.
+             * @param rowEntity index within the rowsVisible array
+             * @param event object if raised from event
+             */
+			unSelectRowByVisibleIndex(rowNum: number, event?: ng.IAngularEvent): void;
+            /**
+            * unselects the GridRows who have an key that is equal to comparator
+            * so for Example if isInEntity == false then it does this check: row[key] === comparator
+            * if isInEntity == true then it does this check: row.entity[key] === comparator
+            * @param isInEntity if true then key is in entity else it's directly in row
+            * @param key the key to look for
+            * @param comparator the value that key should have
+            * @param evt object if raised from an event
+            * @param lookInRows the rows to look in - if not provided then looks in grid.rows
+            */
+            unSelectRowByKey(isInEntity: boolean, key: string | number, comparator: any, evt?: ng.IAngularEvent, lookInRows?: Array<uiGrid.IGridRowOf<TEntity>>): void
 
             // Events
             on: {
@@ -3201,8 +3250,9 @@ declare namespace uiGrid {
             /**
              * Expand the immediate children of the specified row
              * @param row The row to expand
+             * @param recursive true if you wish to expand the row's ancients
              */
-            expandRow(row: IGridRowOf<TEntity>): void;
+            expandRow(row: IGridRowOf<TEntity>, recursive: boolean): void;
             /**
              * Get the children of the specified row
              * @param row The row you want the children of
@@ -3678,6 +3728,10 @@ declare namespace uiGrid {
          * and return a value that should be shown
          */
         aggregationType?: number | Function | undefined;
+        /**
+         * Allows float number in column width calculation
+         */
+        allowFloatWidth?: boolean | undefined;
         /**
          * cellClass can be a string specifying the class to append to a cell
          * or it can be a function(row,rowRenderIndex, col, colRenderIndex)

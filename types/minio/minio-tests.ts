@@ -306,7 +306,9 @@ minio.setBucketNotification('testBucket', notificationConfig);
 minio.removeAllBucketNotification('testBucket', (error: Error|null) => { console.log(error); });
 minio.removeAllBucketNotification('testBucket');
 
-minio.listenBucketNotification('testBucket', 'pref_', '_suf', [ Minio.ObjectCreatedAll ]);
+const poller = minio.listenBucketNotification('testBucket', 'pref_', '_suf', [Minio.ObjectCreatedAll]);
+poller.start();
+poller.stop();
 
 minio.getBucketPolicy('testBucket', (error: Error|null, policy: string) => { console.log(error, policy); });
 minio.getBucketPolicy('testBucket');

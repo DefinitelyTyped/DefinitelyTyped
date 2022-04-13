@@ -57,6 +57,49 @@ export interface GPUInfo {
     clgpuInfoList?: OpenCLDeviceInfo[];
 }
 /**
+ * These internal numbers are used by Photoshop as target color spaces during [[photoshopCore.convertColor]] calls.
+ */
+export declare const enum ColorConversionModel {
+    "RGB" = 15,
+    "HSB" = 4,
+    "CMYK" = 5,
+    "Lab" = 6,
+    "Gray" = 16
+}
+export declare type CPUVendorKind = "Intel" | "AMD" | "ARM" | "Unknown";
+export interface CPUInfo {
+    vendor: CPUVendorKind;
+    physicalCores: number;
+    logicalCores: number;
+    frequencyMhz: number;
+    emulationMode?: "rosetta2";
+}
+export interface OpenGLDeviceInfo {
+    version: string;
+    memoryMB: number;
+    name: string;
+    driverVersion: string;
+    vendor: string;
+    isIntegrated: string;
+    glDriver: string;
+}
+export interface OpenCLDeviceInfo {
+    version: string;
+    memoryMB: number;
+    name: string;
+    driverVersion: string;
+    vendor: string;
+    isIntegrated: string;
+    oclBandwidth: number;
+    oclCompute: number;
+    clDeviceVersion: string;
+    clPlatformVersion: string;
+}
+export interface GPUInfo {
+    gpuInfoList?: OpenGLDeviceInfo[];
+    clgpuInfoList?: OpenCLDeviceInfo[];
+}
+/**
  * The module that facilitates Actions being performed in the
  * UXP-Photoshop world. You may perform your own `batchPlay` commands,
  * or attach listeners using this module.

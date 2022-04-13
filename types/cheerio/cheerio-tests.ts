@@ -321,6 +321,7 @@ $el.text('text');
 $el.wrap($('<div class="red-fruit"></div>')).html();
 
 // .css
+$el.css();
 $el.css('width');
 $el.css(['width', 'height']);
 $el.css('width', '50px');
@@ -384,11 +385,11 @@ const doSomething = (element: cheerio.Element): void => {
     let b = element.lastChild;
 
     if (element.next) {
-        // $ExpectType "text" | "tag" | "script" | "style" | "comment"
+        // $ExpectType "text" | "tag" | "script" | "style" | "comment" || "script" | "style" | "text" | "tag" | "comment"
         let d = element.next.type;
     }
     if (element.prev) {
-        // $ExpectType "text" | "tag" | "script" | "style" | "comment"
+        // $ExpectType "text" | "tag" | "script" | "style" | "comment" || "script" | "style" | "text" | "tag" | "comment"
         let d = element.prev.type;
     }
 };

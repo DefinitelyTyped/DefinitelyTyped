@@ -37,7 +37,7 @@ expectType<mapboxgl.PluginStatus>(mapboxgl.getRTLTextPluginStatus());
  * Set RTL Text Plugin
  */
 // $ExpectType void
-mapboxgl.setRTLTextPlugin('http://github.com', e => {}, false);
+mapboxgl.setRTLTextPlugin('https://github.com', e => {}, false);
 
 // $ExpectType void
 mapboxgl.prewarm();
@@ -110,6 +110,37 @@ expectType<mapboxgl.MapboxOptions>({
 expectType<mapboxgl.MapboxOptions>({
     container: 'map',
     touchPitch: true,
+});
+
+/**
+ * Check `touchPitch`, `touchZoomRotate`, `scrollZoom` to accept Object
+ */
+expectType<mapboxgl.MapboxOptions>({
+    container: 'map',
+    touchPitch: { around: 'center' },
+    touchZoomRotate: { around: 'center' },
+    scrollZoom: { around: 'center' },
+});
+
+/**
+ * Check `dragPan` to accept Object
+ */
+expectType<mapboxgl.MapboxOptions>({
+    container: 'map',
+    dragPan: {
+        linearity: 0.3,
+        easing: t => t,
+        maxSpeed: 1400,
+        deceleration: 2500,
+    },
+});
+
+/**
+ * Check `cooperativeGestures`
+ */
+expectType<mapboxgl.MapboxOptions>({
+    container: 'map',
+    cooperativeGestures: true,
 });
 
 /**
@@ -459,12 +490,12 @@ const terrainStyle: mapboxgl.Style = {
         dem: {
             type: 'raster-dem',
             url: 'mapbox://mapbox.mapbox-terrain-dem-v1',
-        }
+        },
     },
     terrain: {
         source: 'dem',
         exaggeration: 1.5,
-    }
+    },
 };
 
 /**
@@ -1255,80 +1286,80 @@ expectType<mapboxgl.Map>(
 
 // Layer events
 expectType<mapboxgl.Map>(
-    map.on('click', 'text', ev => {
+    map.on('click', eitherType('text', ['text1', 'text2']), ev => {
         expectType<mapboxgl.MapLayerMouseEvent>(ev);
         expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
     }),
 );
 expectType<mapboxgl.Map>(
-    map.on('dblclick', 'text', ev => {
+    map.on('dblclick', eitherType('text', ['text1', 'text2']), ev => {
         expectType<mapboxgl.MapLayerMouseEvent>(ev);
         expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
     }),
 );
 expectType<mapboxgl.Map>(
-    map.on('mousedown', 'text', ev => {
+    map.on('mousedown', eitherType('text', ['text1', 'text2']), ev => {
         expectType<mapboxgl.MapLayerMouseEvent>(ev);
         expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
     }),
 );
 expectType<mapboxgl.Map>(
-    map.on('mouseup', 'text', ev => {
+    map.on('mouseup', eitherType('text', ['text1', 'text2']), ev => {
         expectType<mapboxgl.MapLayerMouseEvent>(ev);
         expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
     }),
 );
 expectType<mapboxgl.Map>(
-    map.on('mousemove', 'text', ev => {
+    map.on('mousemove', eitherType('text', ['text1', 'text2']), ev => {
         expectType<mapboxgl.MapLayerMouseEvent>(ev);
         expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
     }),
 );
 expectType<mapboxgl.Map>(
-    map.on('mouseenter', 'text', ev => {
+    map.on('mouseenter', eitherType('text', ['text1', 'text2']), ev => {
         expectType<mapboxgl.MapLayerMouseEvent>(ev);
         expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
     }),
 );
 expectType<mapboxgl.Map>(
-    map.on('mouseleave', 'text', ev => {
+    map.on('mouseleave', eitherType('text', ['text1', 'text2']), ev => {
         expectType<mapboxgl.MapLayerMouseEvent>(ev);
         expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
     }),
 );
 expectType<mapboxgl.Map>(
-    map.on('mouseover', 'text', ev => {
+    map.on('mouseover', eitherType('text', ['text1', 'text2']), ev => {
         expectType<mapboxgl.MapLayerMouseEvent>(ev);
         expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
     }),
 );
 expectType<mapboxgl.Map>(
-    map.on('mouseout', 'text', ev => {
+    map.on('mouseout', eitherType('text', ['text1', 'text2']), ev => {
         expectType<mapboxgl.MapLayerMouseEvent>(ev);
         expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
     }),
 );
 expectType<mapboxgl.Map>(
-    map.on('contextmenu', 'text', ev => {
+    map.on('contextmenu', eitherType('text', ['text1', 'text2']), ev => {
         expectType<mapboxgl.MapLayerMouseEvent>(ev);
         expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
     }),
 );
 
 expectType<mapboxgl.Map>(
-    map.on('touchstart', 'text', ev => {
+    map.on('touchstart', eitherType('text', ['text1', 'text2']), ev => {
         expectType<mapboxgl.MapLayerTouchEvent>(ev);
         expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
     }),
 );
 expectType<mapboxgl.Map>(
-    map.on('touchend', 'text', ev => {
+    map.on('touchend', eitherType('text', ['text1', 'text2']), ev => {
         expectType<mapboxgl.MapLayerTouchEvent>(ev);
         expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
     }),
 );
 expectType<mapboxgl.Map>(
-    map.on('touchcancel', 'text', ev => {
+    map.on('touchcancel', eitherType('text', ['text1', 'text2']), ev => {
         expectType<mapboxgl.MapLayerTouchEvent>(ev);
         expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
     }),
@@ -1345,6 +1376,11 @@ expectType<mapboxgl.Expression>([
     {},
     ['concat', ['get', 'area'], 'foobar', { 'font-scale': 0.8 }],
 ]);
+expectType<mapboxgl.Expression>([
+    'number-format',
+    ['get', 'quantity'],
+    { 'min-fraction-digits': 1, 'max-fraction-digits': 1 }
+]);
 const expression = expectType<mapboxgl.Expression>(['coalesce', ['get', 'property'], ['get', 'property']]);
 
 /*
@@ -1355,10 +1391,12 @@ new mapboxgl.Map().scrollZoom.setZoomRate(1);
 
 // $ExpectType void
 new mapboxgl.Map().scrollZoom.setWheelZoomRate(1);
+new mapboxgl.Map().scrollZoom.enable({ around: 'center' });
 
 const touchPitchHandler = new mapboxgl.TouchPitchHandler(map);
 // $ExpectType void
 touchPitchHandler.enable();
+touchPitchHandler.enable({ around: 'center' });
 // $ExpectType boolean
 touchPitchHandler.isActive();
 // $ExpectType boolean
@@ -1367,6 +1405,30 @@ touchPitchHandler.isEnabled();
 touchPitchHandler.disable();
 
 new mapboxgl.Map().touchPitch = touchPitchHandler;
+
+/**
+ * `dragPan`
+ */
+// $ExpectType void
+new mapboxgl.Map().dragPan.enable({
+    linearity: 0.3,
+    easing: t => t,
+    maxSpeed: 1400,
+    deceleration: 2500,
+});
+
+/**
+ * `touchZoomRotate`
+ */
+// $ExpectType void
+new mapboxgl.Map().touchZoomRotate.enable({
+    around: 'center',
+});
+// $ExpectType void
+new mapboxgl.Map().touchZoomRotate.enable();
+
+// $ExpectType void
+new mapboxgl.Map().touchZoomRotate.enable({});
 
 /*
  * Visibility
@@ -1516,7 +1578,7 @@ const symbolLayout: mapboxgl.SymbolLayout = {
     'text-pitch-alignment': eitherType('map', 'viewport', 'auto'),
     'text-rotation-alignment': eitherType('map', 'viewport', 'auto'),
     'text-field': eitherType('#000', styleFunction, expression),
-    'text-font': eitherType('arial', ['arial'], expression),
+    'text-font': eitherType(['arial'], expression),
     'text-size': eitherType(0, styleFunction, expression),
     'text-max-width': eitherType(0, styleFunction, expression),
     'text-line-height': eitherType(0, expression),

@@ -1,5 +1,5 @@
-// Type definitions for non-npm package Forge Viewer 7.53
-// Project: https://forge.autodesk.com/en/docs/viewer/v7/reference/javascript/viewer3d/
+// Type definitions for non-npm package Forge Viewer 7.61
+// Project: https://forge.autodesk.com/en/docs/viewer/v7/developers_guide/overview/
 // Definitions by: Autodesk Forge Partner Development <https://github.com/Autodesk-Forge>
 //                 Alan Smith <https://github.com/alansmithnbs>
 //                 Jan Liska <https://github.com/liskaj>
@@ -409,6 +409,7 @@ declare namespace Autodesk {
           multiViewerFactory?: any;
           propagateInputEventTypes?: string[] | undefined;
           unloadUnfinishedModels?: boolean | undefined;
+          useConsolidation?: boolean;
           useDynamicGlobalOffset?: boolean | undefined;
           viewerConfig?: any;
           viewerStartOptions?: any;
@@ -426,7 +427,7 @@ declare namespace Autodesk {
           fetchAlignmentsForNodes(nodes: BubbleNode[]): any;
           getFloorSelector(): any;
           getModel(node: BubbleNode): Model;
-          getModelAndWait(node: BubbleNode): Promise<Model>;
+          getModelAndWait(node: BubbleNode, checkIfVisible?: boolean): Promise<Model>;
           getVisibleNodes(): BubbleNode[];
           hide(node: BubbleNode): void;
           hideAll(): void;
@@ -725,7 +726,7 @@ declare namespace Autodesk {
             geomPolyCount(): number;
             getDefaultCamera(): THREE.Camera;
             getDisplayUnit(): string;
-            getDocumentNode(): any;
+            getDocumentNode(): BubbleNode;
             getDoNotCut(): boolean;
             getExternalIdMapping(onSuccessCallback: (idMapping: { [key: string]: number; }) => void, onErrorCallback: () => void): any;
             getFastLoadList(): any;
@@ -895,6 +896,20 @@ declare namespace Autodesk {
             setUseLeftHandedInput(value: boolean): any;
             setZoomTowardsPivot(value: boolean): any;
             getWorldPoint(x: number, y: number): THREE.Vector3;
+            /**
+             * Get the current world up direction.
+             *
+             * @returns the current world up direction (normalized)
+             */
+            getWorldUpVector(): THREE.Vector3;
+            /**
+             * Change the current world up direction.
+             *
+             * @param up - the new world up direction
+             * @param reorient - if true, make sure the camera up is oriented towards the world up direction.
+             * @param force - if true, will set the new direction regardless of navigation lock
+             */
+            setWorldUpVector(up: THREE.Vector3, reorient: boolean, force: boolean): void;
             screenToViewport(x: number, y: number): THREE.Vector3;
             toOrthographic(): void;
             toPerspective(): void;
@@ -920,11 +935,12 @@ declare namespace Autodesk {
             getIsLocked(): boolean;
             getTool(name: string): ToolInterface;
             getToolNames(): string[];
+            recordHomeView(): void;
             setIsLocked(state: boolean): boolean;
         }
 
         class ToolInterface {
-            getCursor(): string;
+            getCursor?(): string;
             getName(): string;
             getNames(): string[];
             register(): void;
@@ -932,19 +948,19 @@ declare namespace Autodesk {
             activate(name: string, viewerApi?: GuiViewer3D): void;
             deactivate(name: string): void;
             update(highResTimestamp?: number): boolean;
-            handleSingleClick(event: MouseEvent, button: number): boolean;
-            handleDoubleClick(event: MouseEvent, button: number): boolean;
-            handleSingleTap(event: Event): boolean;
-            handleDoubleTap(event: Event): boolean;
-            handleKeyDown(event: KeyboardEvent, keyCode: number): boolean;
-            handleKeyUp(event: KeyboardEvent, keyCode: number): boolean;
-            handleWheelInput(delta: number): boolean;
-            handleButtonDown(event: MouseEvent, button: number): boolean;
-            handleButtonUp(event: MouseEvent, button: number): boolean;
-            handleMouseMove(event: MouseEvent): boolean;
-            handleGesture(event: Event): boolean;
-            handleBlur(event: Event): boolean;
-            handleResize(): void;
+            handleSingleClick?(event: MouseEvent, button: number): boolean;
+            handleDoubleClick?(event: MouseEvent, button: number): boolean;
+            handleSingleTap?(event: Event): boolean;
+            handleDoubleTap?(event: Event): boolean;
+            handleKeyDown?(event: KeyboardEvent, keyCode: number): boolean;
+            handleKeyUp?(event: KeyboardEvent, keyCode: number): boolean;
+            handleWheelInput?(delta: number): boolean;
+            handleButtonDown?(event: MouseEvent, button: number): boolean;
+            handleButtonUp?(event: MouseEvent, button: number): boolean;
+            handleMouseMove?(event: MouseEvent): boolean;
+            handleGesture?(event: Event): boolean;
+            handleBlur?(event: Event): boolean;
+            handleResize?(): void;
         }
 
         class UnifiedCamera extends THREE.Camera {
@@ -1046,14 +1062,19 @@ declare namespace Autodesk {
             constructor(container: HTMLElement, config?: Viewer3DConfig);
 
             canvas: HTMLCanvasElement;
+            canvasWrap: HTMLElement;
+            clientContainer: HTMLElement;
             config: Viewer3DConfig;
             container: HTMLElement;
             navigation: Navigation;
             id: number;
             impl: Private.Viewer3DImpl;
+            loadedExtensions: { [key: string]: Extension };
             model: Model;
             prefs: Private.ViewerPreferences;
+            running: boolean;
             started: boolean;
+            theme: string;
             toolbar: UI.ToolBar;
 
             start(urn?: string, onSuccesfullCallback?: () => void, onErrorCallback?: (errorCode: number, errorMessage: string, statusCode: number, statusText: string) => void): any;
@@ -1099,6 +1120,7 @@ declare namespace Autodesk {
             getIsolatedNodes(): number[];
             isolate(node?: number[]|number, model?: Model): void;
             setBackgroundColor(red: number, green: number, blue: number, red2: number, green2: number, blue2: number): void;
+            setBackgroundOpacity(opacity: number): void;
             toggleSelect(dbId: number, model: Model, selectionType: number): void;
             select(dbIds?: number[]|number, model?: Model, selectionType?: number): void;
             clearSelection(): void;
@@ -1213,6 +1235,7 @@ declare namespace Autodesk {
             isSelectionDisabled(): boolean;
             loadExtension(extensionId: string, options?: object): Promise<Extension>;
             getExtension(extensionId: string, callback?: (ext: Extension) => void): Extension;
+            getExtensionAsync(extensionId: string): Promise<Extension>;
             unloadExtension(extensionId: string): boolean;
             loadExtensionAsync(extensionId: string, url: string, options?: object): Promise<Extension>;
             forEachExtension(callback: (ext: Extension) => void): void;
@@ -1220,7 +1243,7 @@ declare namespace Autodesk {
             deactivateExtension(extensionId: string): boolean;
             isExtensionActive(extensionId: string, mode: string): boolean;
             isExtensionLoaded(extensionId: string): boolean;
-            getLoadedExtensions(): string[];
+            getLoadedExtensions(): { [key: string]: Extension };
             getExtensionModes(extensionId: string): string[];
             reorderElements(element: object): void;
             appendOrderedElementToViewer(layerOrderId: string): void;
@@ -1239,12 +1262,12 @@ declare namespace Autodesk {
         }
 
         class GuiViewer3D extends Viewer3D {
-            toolController: ToolController;
             autocam: any;
-            progressbar: any;
-            utilities: ViewingUtilities;
             dockingPanels: any;
             overlays: OverlayManager;
+            progressbar: Private.ProgressBar;
+            toolController: ToolController;
+            utilities: ViewingUtilities;
 
             addPanel(panel: UI.DockingPanel): boolean;
             createDebugSubmenu(button: UI.Button): void;
@@ -1355,6 +1378,36 @@ declare namespace Autodesk {
           class ViewerPropertyPanel extends UI.PropertyPanel {
             constructor(viewer: GuiViewer3D);
             currentNodeIds: object[];
+          }
+
+          namespace Multipage {
+            namespace Events {
+              const FocusedPageChanged = 'focusedPageChanged';
+              const PageLoaded = 'pageLoaded';
+            }
+
+            class MultipageExtension extends Extension {
+              constructor(viewer: Viewer3D, options?: any);
+
+              focusedPage: any;
+              mode: string;
+              modes: string[];
+              multipageTool: ToolInterface;
+              name: string;
+
+              focusFirstPage(): string;
+              focusLastPage(): string;
+              focusNextPage(): string;
+              focusOnPage(pageToFocus: any, immediate?: boolean): string;
+              focusPrevPage(): string;
+              getAllPages(): any[];
+              getCurrentPageIndex(): number;
+              getFocusedPage(): any;
+              getNearestPages(): any[];
+              isPageLoaded(page: any): boolean;
+              isPageInView(page: any): boolean;
+              loadFocusedPage(): Promise<void>;
+            }
           }
 
           namespace PDF {
@@ -1670,6 +1723,12 @@ declare namespace Autodesk {
               webStorage(name: string, value: any): any;
             }
 
+            class ProgressBar {
+                lastValue: number;
+
+                setPercent(pct: number): void;
+            }
+
             class BoundsCallback implements GeometryCallback {
               constructor(bounds: THREE.Box3);
 
@@ -1861,6 +1920,7 @@ declare namespace Autodesk {
                 setViewFromCamera(camera: THREE.Camera, skipTransition?: boolean, useExactCamera?: boolean): void;
                 setViewportBounds(model: Model, bounds?: THREE.Box3|THREE.Box2): void;
                 syncCamera(syncWorldUp?: boolean): void;
+                tick(highResTimeStamp: number): void;
                 viewportToRay(vpVec: THREE.Vector3, ray?: THREE.Ray, camera?: any): THREE.Ray;
                 worldToClient(pos: THREE.Vector3): THREE.Vector3;
                 worldUp(): THREE.Vector3;
@@ -2301,6 +2361,31 @@ declare namespace Autodesk {
           get color(): THREE.Color;
           get highlightedColor(): THREE.Color;
           get type(): ViewableType;
+        }
+
+        class StreamLine {
+          geometry: THREE.BufferGeometry;
+
+          advance(position: { x: number, y: number, z: number }): void;
+        }
+
+        class StreamLineBuilder {
+          constructor(viewer: Viewing.GuiViewer3D);
+
+          createStreamLine(streamLineSpecs: StreamLineSpecs): StreamLine;
+          destroyStreamLine(streamLine: StreamLine): void;
+          dispose(): void;
+        }
+
+        class StreamLineSpecs {
+          lineColor: THREE.Color;
+          lineData: {
+            points: Float32Array;
+            colors?: Float32Array;
+            scaleCallback?: (fraction: number) => number;
+          };
+          lineWidth: number;
+          opacity: number;
         }
 
         class SurfaceShading {
@@ -2750,8 +2835,8 @@ declare namespace Autodesk {
           getCalibration(): any;
           getCalibrationFactor(): number;
           getDefaultUnit(): string;
-          getMeasurement(unitType: string, precision: number): object;
-          getMeasurementList(unitType: string, precision: number): object[];
+          getMeasurement(unitType?: string, precision?: number): object;
+          getMeasurementList(unitType?: string, precision?: number): object[];
           getPrecision(): number;
           getPrecisionOptions(isFractional: boolean): string[];
           getUnitOptions(): object[];
@@ -2801,6 +2886,9 @@ declare namespace Autodesk {
         datavizDotOverlay: any;
         deviceDepthOcclusion: boolean;
         hasViewables: boolean;
+        model: Viewing.Model;
+        surfaceShading: { [key: number]: any; };
+        streamLineBuilder: DataVisualization.Core.StreamLineBuilder;
 
         constructor(viewer: Viewing.Viewer3D, options?: {
           type: string;
@@ -2823,16 +2911,22 @@ declare namespace Autodesk {
             scale?: number | undefined,
             url?: string | undefined
           }): void;
-        registerSurfaceShadingColors(sensorType: string, colors: number[], alpha?: number): void;
+        registerSurfaceShadingColors(sensorType: string, colors: number[], options?: {
+            alpha?: number;
+            model?: Viewing.Model;
+        }): void;
         removeAllViewables(): void;
-        removeSurfaceShading(): void;
+        removeSurfaceShading(model?: Viewing.Model): void;
         renderSurfaceShading(nodeIds: string|string[],
           sensorType: string,
           valueCallback: (device: DataVisualization.Core.SurfaceShadingPoint, sensorType: string) => number,
-          heatmapConfig?: {
-            confidence?: number | undefined;
-            powerParameter?: number | undefined;
-            alpha?: number | undefined;
+          options?: {
+            heatmapConfig?: {
+              confidence?: number | undefined;
+              powerParameter?: number | undefined;
+              alpha?: number | undefined;
+            };
+            model?: Viewing.Model;
           }): void;
         setupSurfaceShading(model: Viewing.Model, shadingData: DataVisualization.Core.SurfaceShadingData,
           options?: {
@@ -2847,10 +2941,13 @@ declare namespace Autodesk {
         showTextures(): void;
         updateSurfaceShading(valueCallback: (device: DataVisualization.Core.SurfaceShadingPoint,
           sensorType: string) => number,
-          heatmapConfig?: {
-            confidence?: number | undefined;
-            powerParameter?: number | undefined;
-            alpha?: number | undefined;
+          options?: {
+            heatmapConfig?: {
+              confidence?: number | undefined;
+              powerParameter?: number | undefined;
+              alpha?: number | undefined;
+            };
+            model?: Viewing.Model;
           }): void;
       }
 

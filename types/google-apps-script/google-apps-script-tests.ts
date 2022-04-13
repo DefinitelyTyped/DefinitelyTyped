@@ -178,6 +178,55 @@ for (let richTextRun of richTextValue.getRuns()) {
     newValueBuilder.build().getText();
 }
 
+// TextStyle - get/setForegroundColorObject
+// Build an RGB color object
+// $ExpectType Color
+const colorObjRgb = SpreadsheetApp.newColor()
+    .setRgbColor('red')
+    .build();
+
+// Build a Theme color object
+// $ExpectType Color
+const colorObjTheme = SpreadsheetApp.newColor()
+    .setThemeColor(SpreadsheetApp.ThemeColorType.ACCENT1)
+    .build();
+
+// Build TextStyle objects for Rgb, Theme, and null
+// $ExpectType TextStyle
+const rgbTextStyle = SpreadsheetApp.newTextStyle()
+    .setForegroundColorObject(colorObjRgb)
+    .build();
+
+// $ExpectType TextStyle
+const themeTextStyle = SpreadsheetApp.newTextStyle()
+    .setForegroundColorObject(colorObjTheme)
+    .build();
+
+// $ExpectType TextStyle
+const nullTextStyle = SpreadsheetApp.newTextStyle().build();
+
+// Null Color Test
+// $ExpectType Color
+const nullColorObj = nullTextStyle.getForegroundColorObject();
+Logger.log(nullColorObj); // null
+
+// RgbColor Test
+// $ExpectType Color
+const rgbColorObj = rgbTextStyle.getForegroundColorObject();
+Logger.log(rgbColorObj); // Color
+Logger.log(rgbColorObj.getColorType()); // RGB
+Logger.log(rgbColorObj.asRgbColor().asHexString()); // #ff0000
+Logger.log(rgbColorObj.asRgbColor().getBlue()); // 0
+Logger.log(rgbColorObj.asRgbColor().getGreen()); // 0
+Logger.log(rgbColorObj.asRgbColor().getRed()); // 255
+
+// ThemeColor Test
+// $ExpectType Color
+const themeColorObj = themeTextStyle.getForegroundColorObject();
+Logger.log(themeColorObj); // Color
+Logger.log(themeColorObj.getColorType()); // THEME
+Logger.log(themeColorObj.asThemeColor().getThemeColorType()); // ACCENT1
+
 const tableCell = DocumentApp.create("").getCursor().getElement().asTableCell();
 tableCell.getParentRow().getChildIndex(tableCell);
 
@@ -236,6 +285,19 @@ CardService.newDecoratedText().setSwitchControl(CardService.newSwitch()); // $Ex
 CardService.newDecoratedText().setText(""); // $ExpectType DecoratedText
 CardService.newDecoratedText().setTopLabel(""); // $ExpectType DecoratedText
 CardService.newDecoratedText().setWrapText(true); // $ExpectType DecoratedText
+
+CardService.newDivider(); // $ExpectType Divider
+
+CardService.newTimePicker(); // $ExpectType TimePicker
+CardService.newTimePicker().setFieldName(""); // $ExpectType TimePicker
+CardService.newTimePicker().setHours(0); // $ExpectType TimePicker
+CardService.newTimePicker().setMinutes(0); // $ExpectType TimePicker
+CardService.newTimePicker().setOnChangeAction(CardService.newAction()); // $ExpectType TimePicker
+CardService.newTimePicker().setTitle(""); // $ExpectType TimePicker
+
+// CardService.newCardBuilder().setDisplayStyle(CardService.DisplayStyle.PEEK)
+CardService.DisplayStyle.PEEK;
+CardService.DisplayStyle.REPLACE;
 
 DriveApp.createShortcut("").getTargetId();
 DriveApp.createFile("", "").moveTo(DriveApp.getFolderById(""));
@@ -477,4 +539,120 @@ const folderSecurityUpdateInfo = () => {
     if (folder.getSecurityUpdateEligible() && !folder.getSecurityUpdateEnabled()) {
         folder.setSecurityUpdateEnabled(true);
     }
+};
+
+interface BorderStyleOptions {
+    color: string;
+    radius: number;
+}
+
+interface ImageComponentOptions extends BorderStyleOptions {
+    alt: string;
+    src: string;
+}
+
+interface GridItemOptions extends ImageComponentOptions {
+    id: string;
+    title: string;
+    subtitle: string;
+}
+
+interface GridOptions extends BorderStyleOptions {
+    items: GoogleAppsScript.Card_Service.GridItem[];
+}
+
+const makeBorderStyle = ({ color, radius }: BorderStyleOptions) => {
+    // $ExpectType BorderStyle
+    const style = CardService.newBorderStyle();
+    style
+        .setCornerRadius(radius)
+        .setStrokeColor(color)
+        .setType(CardService.BorderType.STROKE);
+
+    return style;
+};
+
+const makeImageCropStyle = (ratio: number) => {
+    // $ExpectType ImageCropStyle
+    const style = CardService.newImageCropStyle();
+    style
+        .setAspectRatio(ratio)
+        .setImageCropType(CardService.ImageCropType.CIRCLE);
+
+    return style;
+};
+
+const makeImageComponent = ({ alt, src, ...options }: ImageComponentOptions) => {
+    // $ExpectType ImageComponent
+    const img = CardService.newImageComponent();
+    img
+        .setAltText(alt)
+        .setBorderStyle(makeBorderStyle(options))
+        .setCropStyle(makeImageCropStyle(42))
+        .setImageUrl(src);
+
+    return img;
+};
+
+const makeGridItem = ({ id, subtitle, title, ...options }: GridItemOptions) => {
+    // $ExpectType GridItem
+    const item = CardService.newGridItem();
+    item
+        .setIdentifier(id)
+        .setImage(makeImageComponent(options))
+        .setLayout(CardService.GridItemLayout.TEXT_BELOW)
+        .setSubtitle(subtitle)
+        .setTextAlignment(CardService.HorizontalAlignment.CENTER)
+        .setTitle(title);
+
+    return item;
+};
+
+const makeGrid = ({ items, ...options}: GridOptions) => {
+    // $ExpectType Grid
+    const grid = CardService.newGrid();
+    items.forEach(item => grid.addItem(item));
+
+    const action = CardService.newAction();
+    action.setFunctionName("somefunc");
+
+    grid
+        .setOnClickAction(action)
+        .setBorderStyle(makeBorderStyle(options))
+        .setNumColumns(2)
+        .setTitle('My Grid');
+
+    return grid;
+};
+
+const handleScopeAction = () => {
+    // $ExpectType EditorFileScopeActionResponseBuilder
+    const builder = CardService.newEditorFileScopeActionResponseBuilder();
+    builder.requestFileScopeForActiveDocument();
+
+    // $ExpectType EditorFileScopeActionResponse
+    const response = builder.build();
+
+    // $ExpectType string
+    const serialized = response.printJson();
+
+    return serialized;
+};
+
+// Analytics Test
+const requestAnalyticsData = (): string => {
+    const gaData = Analytics.Data.Ga.get(
+        'An Id',
+        '2022-01-18',
+        '2022-01-18',
+        'Some metrics',
+        {
+            dimensions: 'Some dimensions',
+        },
+    );
+
+    const totalsForAllResults = gaData.totalsForAllResults;
+    const totalSessions = totalsForAllResults['ga:sessions'];
+
+    return totalSessions;
 };

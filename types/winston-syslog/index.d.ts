@@ -1,4 +1,4 @@
-// Type definitions for winston-syslog 2.0
+// Type definitions for winston-syslog 2.4
 // Project: https://github.com/winstonjs/winston-syslog, https://github.com/indexzero/winston-syslog
 // Definitions by: Chris Barth <https://github.com/cjbarth>, Felix Hochgruber <https://github.com/felix-hoc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -7,6 +7,7 @@
 /// <reference types="node" />
 import * as Transport from 'winston-transport';
 import * as dgram from 'dgram';
+import * as glossy from 'glossy';
 import * as net from 'net';
 
 export interface SyslogTransportOptions extends Transport.TransportStreamOptions {
@@ -20,6 +21,7 @@ export interface SyslogTransportOptions extends Transport.TransportStreamOptions
     type?: string | undefined;
     app_name?: string | undefined;
     eol?: string | undefined;
+    customProducer?: typeof glossy.Produce;
 }
 
 export interface SyslogTransportInstance extends Transport {

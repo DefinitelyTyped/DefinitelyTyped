@@ -76,3 +76,7 @@ declare module 'events' {
 
     export = EventEmitter;
 }
+declare module 'node:events' {
+    import events = require('events');
+    export = events;
+}

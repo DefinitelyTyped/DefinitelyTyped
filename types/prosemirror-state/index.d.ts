@@ -495,6 +495,8 @@ export class EditorState<S extends Schema = any> {
  * a `"paste"` property of true to transactions caused by a paste..
  */
 export class Transaction<S extends Schema = any> extends Transform<S> {
+    private constructor(state: EditorState);
+
     /**
      * The timestamp associated with this transaction, in the same
      * format as `Date.now()`.

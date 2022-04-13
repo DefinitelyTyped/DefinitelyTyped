@@ -15,6 +15,7 @@ export interface ReactTypingEffectProps {
     typingDelay?: number | undefined;
     cursor?: string | undefined;
     cursorClassName?: string | undefined;
+    displayTextRenderer?(text: string, i: number): JSX.Element;
 }
 
 export default class ReactTypingEffect extends Component<ReactTypingEffectProps> {}

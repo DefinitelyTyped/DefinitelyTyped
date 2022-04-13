@@ -6,6 +6,7 @@
 //                 Lucas Motta <https://github.com/lucasmotta>
 //                 Tom Xu <https://github.com/hengkx>
 //                 Leo Toneff <https://github.com/bragle>
+//                 Lucian Buzzo <https://github.com/LucianBuzzo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -15,7 +16,7 @@ import * as events from "events";
 import * as net from "net";
 
 import {
-    utils,
+    utils as streamsUtils,
     Algorithms,
     Header,
     Prompt,
@@ -35,7 +36,16 @@ import {
 export import SFTP_STATUS_CODE = SFTPStream.STATUS_CODE;
 export import SFTP_OPEN_MODE = SFTPStream.OPEN_MODE;
 
-export { utils };
+export namespace utils {
+    let parseKey: typeof streamsUtils['parseKey'];
+    namespace sftp {
+        const STATUS_CODE: typeof SFTP_STATUS_CODE;
+        const OPEN_MODE: typeof SFTP_OPEN_MODE;
+
+        function stringToFlags(str: string): number | null;
+        function flagsToString(flags: number): string | null;
+    }
+}
 
 export interface Channel extends stream.Duplex {
     /** If `true` only sends `EOF` when `end()` is called. */
@@ -70,7 +80,7 @@ export interface Channel extends stream.Duplex {
     /**
      * Shuts down the channel on this side.
      */
-    destroy(): void;
+    destroy(): this;
 }
 
 export interface ClientChannel extends Channel {
@@ -242,7 +252,7 @@ export class Client extends events.EventEmitter {
     /**
      * Attempts a connection to a server.
      */
-    connect(config: ConnectConfig): void;
+    connect(config: ConnectConfig): this;
 
     /**
      * Executes a command on the server.
@@ -1115,7 +1125,7 @@ export interface SocketBindInfo {
     socketPath: string;
 }
 
-type SessionAcceptReject = (() => boolean) | undefined
+export type SessionAcceptReject = (() => boolean) | undefined
 
 export interface Session extends events.EventEmitter {
     // Session events

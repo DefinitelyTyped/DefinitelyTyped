@@ -155,6 +155,19 @@ mailJetPutResponse
         // ignore
     });
 
+// delete parse route
+const mailJetRequestDelete: Email.DeleteResource = connection.delete('parseroute', { version: 'v3' }).id('fake-id');
+const mailJetDeleteResponse: Promise<void> = mailJetRequestDelete
+    .request({
+        SandboxMode: true,
+    })
+    .then((res) => {
+        const responseBody: Email.DeleteResponse['body'] = res;
+    })
+    .catch((err: Error) => {
+        // ignore
+    });
+
 // *** SMS API *** //
 
 // send SMS
