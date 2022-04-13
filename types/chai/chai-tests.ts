@@ -1406,7 +1406,19 @@ suite('assert', () => {
         let foo: string;
         foo = 'bar';
         assert(foo === 'bar', 'expected foo to equal `bar`');
+<<<<<<< jeremy-rifkin
+
+        function assertTypeNever(_: never) {}
+        if (foo !== 'bar') {
+            assertTypeNever(foo);
+        }
+    });
+
+    test('assertFailure', () => {
+        const foo = 'bar' as string;
+=======
         foo = 'bar';
+>>>>>>> chai-assert-typing
         assert(foo === 'baz', 'expected foo to equal `bar`');
     });
 
