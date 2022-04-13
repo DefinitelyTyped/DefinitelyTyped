@@ -426,8 +426,8 @@ export function clone<T>(value: readonly T[]): T[];
  * //   [ {type: 'dinner', item: '🍝'} ] ]
  * ```
  */
-export function collectBy<T, K extends PropertyKey>(fn: (value: T) => K, list: readonly T[]): T[][];
-export function collectBy<T, K extends PropertyKey>(fn: (value: T) => K): (list: readonly T[]) => T[][];
+export function collectBy<T, K extends PropertyKey>(keyFn: (value: T) => K, list: readonly T[]): T[][];
+export function collectBy<T, K extends PropertyKey>(keyFn: (value: T) => K): (list: readonly T[]) => T[][];
 
 /**
  * Makes a comparator function out of a function that reports whether the first element is less than the second.
@@ -436,8 +436,8 @@ export function comparator<T>(pred: (a: T, b: T) => boolean): (x: T, y: T) => Or
 
 /**
  * Takes a function `f` and returns a function `g` such that if called with the
- * same arguments when `f` returns a "truthy" value, `g` returns `false` and
- * when `f` returns a "falsy" value `g` returns `true`.
+ * same arguments when `f` returns a truthy value, `g` returns `false` and
+ * when `f` returns a falsy value `g` returns `true`.
  *
  * `R.complement` may be applied to any functor
  *
@@ -1899,16 +1899,25 @@ export function omit<K extends string>(names: readonly K[]): <T>(obj: T) => Omit
  * containsInsensitive('o', 'FOO'); //=> true
  * ```
  */
-export function on<T, U, R>(f: (a: U, b: U) => R, g: (a: T) => U, a: T, b: T): R;
-export function on<T, U, R>(f: (a: U, b: U) => R, g: (a: T) => U, a: T): (b: T) => R;
-export function on<T, U, R>(f: (a: U, b: U) => R, g: (a: T) => U): {
+export function on<T, U, R>(combine: (a: U, b: U) => R, transform: (value: T) => U, a: T, b: T): R;
+export function on<T, U, R>(combine: (a: U, b: U) => R, transform: (value: T) => U, a: T): (b: T) => R;
+export function on<T, U, R>(combine: (a: U, b: U) => R, transform: (value: T) => U): {
     (a: T, b: T): R;
     (a: T): (b: T) => R;
 };
-export function on<U, R>(f: (a: U, b: U) => R): {
-    <T>(g: (a: T) => U, a: T, b: T): R;
-    <T>(g: (a: T) => U, a: T): (b: T) => R;
-    <T>(g: (a: T) => U): {
+export function on<U, R>(combine: (a: U, b: U) => R): {
+    <T>(transform: (value: T) => U, a: T, b: T): R;
+    <T>(transform: (value: T) => U, a: T): (b: T) => R;
+    <T>(transform: (value: T) => U): {
+        (a: T, b: T): R;
+        (a: T): (b: T) => R;
+    };
+};
+// For manually specifying overloads
+export function on<T, U, R>(combine: (a: U, b: U) => R): {
+    (transform: (value: T) => U, a: T, b: T): R;
+    (transform: (value: T) => U, a: T): (b: T) => R;
+    (transform: (value: T) => U): {
         (a: T, b: T): R;
         (a: T): (b: T) => R;
     };
@@ -2002,8 +2011,9 @@ export function partial<T>(fn: (...a: readonly any[]) => T, args: readonly any[]
  * sayHelloToMs({ firstName: 'Jane', lastName: 'Jones' }); //=> 'Hello, Ms. Jane Jones!'
  * ```
  */
-export function partialObject<T extends P1, P1, R>(f: (a: T) => R, props: P1): (a: Omit<T, keyof P1>) => R;
-export function partialObject<T, R>(f: (a: T) => R): <P1>(props: P1) => (a: Omit<T, keyof P1>) => R;
+// NOTE: The objects are merged deeply - meaning this should be `DeepOmit` (ideally `& Partial<Omitted>` too)
+export function partialObject<T extends P1, P1, R>(fn: (value: T) => R, partial: P1): (value: Omit<T, keyof P1>) => R;
+export function partialObject<T, R>(fn: (value: T) => R): <P1>(partial: P1) => (value: Omit<T, keyof P1>) => R;
 
 /**
  * Takes a function `f` and a list of arguments, and returns a function `g`.
@@ -2643,22 +2653,6 @@ export function scan<T, TResult>(fn: (acc: TResult, elem: T) => any, acc: TResul
 export function scan<T, TResult>(fn: (acc: TResult, elem: T) => any, acc: TResult): (list: readonly T[]) => TResult[];
 export function scan<T, TResult>(fn: (acc: TResult, elem: T) => any): (acc: TResult, list: readonly T[]) => TResult[];
 
-// NOTE: this definition isn't particularly useful, but at least it exists
-/**
- * Transforms a Traversable of Applicative into an Applicative of Traversable.
- * Dispatches to the sequence method of the second argument, if present.
- *
- * See also {@link traverse}.
- *
- * @example
- * ```typescript
- * R.sequence(R.of, [[1], [2], [3]]); // => [[1, 2, 3]]
- * R.sequence(R.of)([[1], [2], [3]]); // => [[1, 2, 3]]
- * ```
- */
-export function sequence<A>(of: (a: A) => A[], traversable: A[][]): A[][];
-export function sequence<A>(of: (a: A) => A[]): (traversable: A[][]) => A[][];
-
 /**
  * Returns the result of "setting" the portion of the given data structure focused by the given lens to the
  * given value.
@@ -2738,8 +2732,8 @@ export function splitEvery(a: number): {
  * - none of the elements of the first output list satisfies the predicate; and
  * - if the second output list is non-empty, its first element satisfies the predicate.
  */
-export function splitWhen<T, U>(pred: (val: T) => boolean, list: readonly U[]): U[][];
-export function splitWhen<T>(pred: (val: T) => boolean): <U>(list: readonly U[]) => U[][];
+export function splitWhen<T>(pred: (val: T) => boolean, list: readonly T[]): [T[], T[]];
+export function splitWhen<T>(pred: (val: T) => boolean): <U extends T>(list: readonly U[]) => [U[], U[]];
 
 /**
  * Splits an array into slices on every occurrence of a value.
@@ -2750,7 +2744,7 @@ export function splitWhen<T>(pred: (val: T) => boolean): <U>(list: readonly U[])
  * ```
  */
 export function splitWhenever<T>(pred: (a: T) => boolean, list: T[]): T[][];
-export function splitWhenever<T>(pred: (a: T) => boolean): (list: T[]) => T[][];
+export function splitWhenever<T>(pred: (a: T) => boolean): <U extends T>(list: U[]) => U[][];
 
 /**
  * Checks if a string starts with the provided substring, or a list starts with the provided sublist.
