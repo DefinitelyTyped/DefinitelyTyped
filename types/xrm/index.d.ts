@@ -858,11 +858,7 @@ declare namespace Xrm {
          */
         type ContextSensitiveHandler = (context: EventContext) => void;
 
-        /**
-         * Type for a process status change handler.
-         * @param status The process status.
-         */
-        type ProcessStatusChangeHandler = (status: ProcessFlow.ProcessStatus) => void;
+        type ProcessStatusChangeHandler = (context: ProcessStatusChangedEventContext) => void;
 
         type LookupTagClickHandler = (context: LookupTagClickEventContext) => void;
     }
