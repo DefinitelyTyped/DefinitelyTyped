@@ -127,121 +127,121 @@ const handler: LexV2Handler = async (event, context, callback) => {
 };
 
 const event1: LexV2Event = {
-    "sessionId": "111111111111111",
-    "inputTranscript": "7",
-    "interpretations": [
+    sessionId: "111111111111111",
+    inputTranscript: "7",
+    interpretations: [
         {
-            "intent": {
-                "slots": {
-                    "Slot1": null,
-                    "Slot2": null,
-                    "Slot3": {
-                        "shape": "Scalar",
-                        "value": {
-                            "originalValue": "7",
-                            "resolvedValues": [
+            intent: {
+                slots: {
+                    Slot1: null,
+                    Slot2: null,
+                    Slot3: {
+                        shape: "Scalar",
+                        value: {
+                            originalValue: "7",
+                            resolvedValues: [
                                 "7"
                             ],
-                            "interpretedValue": "7"
+                            interpretedValue: "7"
                         }
                     }
                 },
-                "confirmationState": "None",
-                "name": "IntentName",
-                "state": "InProgress"
+                confirmationState: "None",
+                name: "IntentName",
+                state: "InProgress"
             },
-            "nluConfidence": 1
+            nluConfidence: 1
         },
         {
-            "intent": {
-                "slots": {},
-                "confirmationState": "None",
-                "name": "FallbackIntent",
-                "state": "InProgress"
+            intent: {
+                slots: {},
+                confirmationState: "None",
+                name: "FallbackIntent",
+                state: "InProgress"
             }
         }
     ],
-    "proposedNextState": {
-        "intent": {
-            "slots": {
-                "Slot1": null,
-                "Slot2": null,
-                "Slot3": {
-                    "shape": "Scalar",
-                    "value": {
-                        "originalValue": "7",
-                        "resolvedValues": [
+    proposedNextState: {
+        intent: {
+            slots: {
+                Slot1: null,
+                Slot2: null,
+                Slot3: {
+                    shape: "Scalar",
+                    value: {
+                        originalValue: "7",
+                        resolvedValues: [
                             "7"
                         ],
-                        "interpretedValue": "7"
+                        interpretedValue: "7"
                     }
                 }
             },
-            "confirmationState": "None",
-            "name": "IntentName",
-            "state": "InProgress"
+            confirmationState: "None",
+            name: "IntentName",
+            state: "InProgress"
         },
-        "dialogAction": {
-            "slotToElicit": "Slot1",
-            "type": "ElicitSlot"
+        dialogAction: {
+            slotToElicit: "Slot1",
+            type: "ElicitSlot"
         }
     },
-    "responseContentType": "text/plain; charset=utf-8",
-    "invocationSource": "DialogCodeHook",
-    "messageVersion": "1.0",
-    "transcriptions": [
+    responseContentType: "text/plain; charset=utf-8",
+    invocationSource: "DialogCodeHook",
+    messageVersion: "1.0",
+    transcriptions: [
         {
-            "resolvedSlots": {
-                "Slot3": {
-                    "shape": "Scalar",
-                    "value": {
-                        "originalValue": "7",
-                        "resolvedValues": [
+            resolvedSlots: {
+                Slot3: {
+                    shape: "Scalar",
+                    value: {
+                        originalValue: "7",
+                        resolvedValues: [
                             "7"
                         ]
                     }
                 }
             },
-            "resolvedContext": {
-                "intent": "IntentName"
+            resolvedContext: {
+                intent: "IntentName"
             },
-            "transcription": "7",
-            "transcriptionConfidence": 1
+            transcription: "7",
+            transcriptionConfidence: 1
         }
     ],
-    "sessionState": {
-        "sessionAttributes": {
-            "attribute1": "1"
+    sessionState: {
+        sessionAttributes: {
+            attribute1: "1"
         },
-        "activeContexts": [],
-        "intent": {
-            "slots": {
-                "Slot1": null,
-                "Slot2": null,
-                "Slot3": {
-                    "shape": "Scalar",
-                    "value": {
-                        "originalValue": "7",
-                        "resolvedValues": [
+        activeContexts: [],
+        intent: {
+            slots: {
+                Slot1: null,
+                Slot2: null,
+                Slot3: {
+                    shape: "Scalar",
+                    value: {
+                        originalValue: "7",
+                        resolvedValues: [
                             "7"
                         ],
-                        "interpretedValue": "7"
+                        interpretedValue: "7"
                     }
                 }
             },
-            "confirmationState": "None",
-            "name": "IntentName",
-            "state": "InProgress"
+            confirmationState: "None",
+            name: "IntentName",
+            state: "InProgress"
         },
-        "originatingRequestId": "11111111-1111-1111-1111-111111111111"
+        originatingRequestId: "11111111-1111-1111-1111-111111111111"
     },
-    "inputMode": "Text",
-    "bot": {
-        "aliasName": "string",
-        "aliasId": "string",
-        "name": "string",
-        "version": "DRAFT",
-        "localeId": "en_US",
-        "id": "string"
+    inputMode: "Text",
+    bot: {
+        aliasName: "string",
+        aliasId: "string",
+        name: "string",
+        version: "DRAFT",
+        localeId: "en_US",
+        id: "string"
     }
-}
+};

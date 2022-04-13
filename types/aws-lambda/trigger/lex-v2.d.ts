@@ -29,7 +29,7 @@ export interface LexV2Bot {
     aliasId: string;
     aliasName: string;
     localeId: string;
-    version: 'DRAFT' | `${number}`;
+    version: string; // 'DRAFT' | `${number}`
 }
 
 export interface LexV2Interpretation {
@@ -137,14 +137,14 @@ export interface LexV2ImageResponseCardButton {
 export type LexV2Slots = Record<string, null | LexV2ScalarSlotValue | LexV2ListSlotValue>;
 
 export interface LexV2ScalarSlotValue {
-    shape: 'Scalar',
-    value: LexV2SlotValue
+    shape: 'Scalar';
+    value: LexV2SlotValue;
 }
 
 export interface LexV2ListSlotValue {
-    shape: 'List',
-    value: LexV2SlotValue,
-    values: LexV2ScalarSlotValue[],
+    shape: 'List';
+    value: LexV2SlotValue;
+    values: LexV2ScalarSlotValue[];
 }
 
 export interface LexV2SlotValue {
@@ -154,10 +154,10 @@ export interface LexV2SlotValue {
 }
 
 export interface LexV2Transcription {
-    transcription: string,
-    transcriptionConfidence: number,
+    transcription: string;
+    transcriptionConfidence: number;
     resolvedContext: {
-        intent: string
-    },
-    resolvedSlots: LexV2Slots,
+        intent: string;
+    };
+    resolvedSlots: LexV2Slots;
 }
