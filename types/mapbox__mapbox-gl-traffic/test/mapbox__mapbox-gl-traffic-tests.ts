@@ -1,8 +1,14 @@
 import * as Mapbox from "mapbox-gl";
 import * as MapboxTraffic from "mapbox__mapbox-gl-traffic";
 
+const options: MapboxTraffic.Options = {
+    showTraffic: true,
+    showTrafficButton: false,
+    trafficSource: new RegExp(/mapbox-traffic-v\d/),
+};
+
 const map = new Mapbox.Map();
-const mapboxTraffic = new MapboxTraffic();
+const mapboxTraffic = new MapboxTraffic(options);
 
 const hasTraffic: boolean = mapboxTraffic._hasTraffic();
 
