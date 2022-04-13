@@ -44,6 +44,7 @@ import {
     Evolvable,
     Evolve,
     Evolver,
+    Falsy,
     Find,
     Functor,
     InputTypesOfFns,
@@ -1869,8 +1870,8 @@ export function once<F extends (...a: readonly any[]) => any>(fn: F): F;
  * A function that returns the first truthy of two arguments otherwise the last argument. Note that this is
  * NOT short-circuited, meaning that if expressions are passed they are both evaluated.
  */
-export function or<T, U>(a: T, b: U): T | U;
-export function or<T>(a: T): <U>(b: U) => T | U;
+export function or<T, U>(a: T | Falsy, b: U): T | U;
+export function or<T>(a: T | Falsy): <U>(b: U) => T | U;
 
 /**
  * Returns the result of applying the onFailure function to the value inside a failed promise.

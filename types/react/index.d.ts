@@ -377,7 +377,15 @@ declare namespace React {
 
     function isValidElement<P>(object: {} | null | undefined): object is ReactElement<P>;
 
-    const Children: ReactChildren;
+    // Sync with `ReactChildren` until `ReactChildren` is removed.
+    const Children: {
+        map<T, C>(children: C | ReadonlyArray<C>, fn: (child: C, index: number) => T):
+            C extends null | undefined ? C : Array<Exclude<T, boolean | null | undefined>>;
+        forEach<C>(children: C | ReadonlyArray<C>, fn: (child: C, index: number) => void): void;
+        count(children: any): number;
+        only<C>(children: C): C extends any[] ? never : C;
+        toArray(children: ReactNode | ReactNode[]): Array<Exclude<ReactNode, boolean | null | undefined>>;
+    };
     const Fragment: ExoticComponent<{ children?: ReactNode | undefined }>;
     const StrictMode: ExoticComponent<{ children?: ReactNode | undefined }>;
 
@@ -2999,6 +3007,10 @@ declare namespace React {
     // React.Children
     // ----------------------------------------------------------------------
 
+    /**
+     * @deprecated - Use `typeof React.Children` instead.
+     */
+    // Sync with type of `const Children`.
     interface ReactChildren {
         map<T, C>(children: C | ReadonlyArray<C>, fn: (child: C, index: number) => T):
             C extends null | undefined ? C : Array<Exclude<T, boolean | null | undefined>>;
