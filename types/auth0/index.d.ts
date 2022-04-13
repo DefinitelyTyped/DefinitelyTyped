@@ -1,4 +1,4 @@
-// Type definitions for auth0 2.34
+// Type definitions for auth0 2.35
 // Project: https://github.com/auth0/node-auth0
 // Definitions by: Ian Howe <https://github.com/ianhowe76>
 //                 Dan Rumney <https://github.com/dancrumb>
