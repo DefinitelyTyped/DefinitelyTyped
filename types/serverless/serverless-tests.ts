@@ -725,7 +725,8 @@ const awsServerless: Aws.Serverless = {
                         }
                     }
                 }
-            ]
+            ],
+            url: true,
         }
     },
     layers: {

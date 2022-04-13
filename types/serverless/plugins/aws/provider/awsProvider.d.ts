@@ -644,6 +644,7 @@ declare namespace Aws {
         destinations?: Destinations | undefined;
         events?: Event[] | undefined;
         disableLogs?: boolean | undefined;
+        url?: boolean;
     }
 
     interface AwsFunctionHandler extends AwsFunction {
