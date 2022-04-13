@@ -1,4 +1,10 @@
-import { Context, PropsWithChildren } from "react"
+// Type definitions for react-scroll-to-bottom 4.2
+// Project: https://github.com/compulim/react-scroll-to-bottom
+// Definitions by: Zechariah Tan <https://github.com/zS1L3NT>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 4.6
+
+import { Context, PropsWithChildren } from "react";
 
 export default function ScrollToBottom(
     props: PropsWithChildren<{
@@ -69,72 +75,72 @@ export default function ScrollToBottom(
 /**
  * Scroll panel to specified position
  */
-export const useScrollTo: () => (scrollTop: number | '100%') => void;
+export function useScrollTo(): (scrollTop: number | '100%') => void;
 
 /**
  * Scroll panel to bottom
  */
-export const useScrollToBottom: () => () => void;
+export function useScrollToBottom(): () => void;
 
 /**
  * Scroll panel to end (depends on `mode`)
  */
-export const useScrollToEnd: () => () => void;
+export function useScrollToEnd(): () => void;
 
 /**
  * Scroll panel to start (depends on `mode`)
  */
-export const useScrollToStart: () => () => void;
+export function useScrollToStart(): () => void;
 
 /**
  * Scroll panel to top
  */
-export const useScrollToTop: () => () => void;
+export function useScrollToTop(): () => void;
 
 /**
  * Observe scroll position change by passing a callback function
  */
-export const useObserveScrollPosition: (observer: (({ scrollTop }: { scrollTop: number }) => void) | false) => void;
+export function useObserveScrollPosition(observer: (({ scrollTop }: { scrollTop: number }) => void) | false): void;
 
 /**
  * `true` if the panel is animating scroll effect
  */
-export const useAnimating: () => [boolean];
+export function useAnimating(): [boolean];
 
 /**
  * `true` if the panel is animating scroll effect and towards the end (depends on `mode`)
  */
-export const useAnimatingToEnd: () => [boolean];
+export function useAnimatingToEnd(): [boolean];
 
 /**
  * `true` if the panel is currently near bottom
  */
-export const useAtBottom: () => [boolean];
+export function useAtBottom(): [boolean];
 
 /**
  * `true` if the panel is currently near the end (depends on `mode`)
  */
-export const useAtEnd: () => [boolean];
+export function useAtEnd(): [boolean];
 
 /**
  * `true` if the panel is currently near the start (depends on `mode`)
  */
-export const useAtStart: () => [boolean];
+export function useAtStart(): [boolean];
 
 /**
  * `true` if the panel is currently near top
  */
-export const useAtTop: () => [boolean];
+export function useAtTop(): [boolean];
 
 /**
  * 	`"bottom"` for scroll-to-bottom, `"top"` for scroll-to-top
  */
-export const useMode: () => ['bottom' | 'top'];
+export function useMode(): ['bottom' | 'top'];
 
 /**
  * 	`true` if the panel is sticking to the end
  */
-export const useSticky: () => [boolean];
+export function useSticky(): [boolean];
 
 /**
  * This context contains functions used to manipulate the container. And will not update throughout the lifetime of the composer.
@@ -158,7 +164,8 @@ export const FunctionContext: Context<{
      */
     scrollToStart: () => void;
     /**
-     * Scroll panel to top */
+     * Scroll panel to top
+     */
     scrollToTop: () => void;
 }>;
 
