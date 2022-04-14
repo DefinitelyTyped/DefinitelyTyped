@@ -763,7 +763,7 @@ export class GoogleSpreadsheetWorksheet implements WorksheetBasicProperties {
      * set the header (first) row in the worksheet
      *
      * @param headers
-     * @param headerRowIndex
+     * @param headerRowIndex The index of the header row, if not the first. NOTE: not zero-indexed
      */
     setHeaderRow(headers: string[], headerRowIndex?: number): Promise<void>;
 
