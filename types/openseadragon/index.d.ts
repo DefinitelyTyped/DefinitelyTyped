@@ -613,33 +613,34 @@ declare namespace OpenSeadragon {
         dblClickDistThreshold?: number | undefined;
         stopDelay?: number | undefined;
         preProcessEventHandler?: PreprocessEventHandler | undefined;
-        contextMenuHandler?: EventHandler<OSDEvent<any>> | undefined;
-        enterHandler?: EventHandler<OSDEvent<any>> | undefined;
+        contextMenuHandler?: EventHandler<ContextMenuMouseTrackerEvent> | undefined;
+        enterHandler?: EventHandler<MouseTrackerEvent> | undefined;
         /**
          * @deprecated use leaveHandler instead
          */
-        exitHandler?: EventHandler<OSDEvent<any>> | undefined;
-        leaveHandler?: EventHandler<OSDEvent<any>> | undefined;
-        overHandler?: EventHandler<OSDEvent<any>> | undefined;
-        outHandler?: EventHandler<OSDEvent<any>> | undefined;
-        pressHandler?: EventHandler<OSDEvent<any>> | undefined;
-        nonPrimaryPressHandler?: EventHandler<OSDEvent<any>> | undefined;
-        releaseHandler?: EventHandler<OSDEvent<any>> | undefined;
-        nonPrimaryReleaseHandler?: EventHandler<OSDEvent<any>> | undefined;
-        moveHandler?: EventHandler<OSDEvent<any>> | undefined;
-        scrollHandler?: EventHandler<OSDEvent<any>> | undefined;
-        clickHandler?: EventHandler<OSDEvent<any>> | undefined;
-        dblClickHandler?: EventHandler<OSDEvent<any>> | undefined;
-        dragHandler?: EventHandler<OSDEvent<any>> | undefined;
-        dragEndHandler?: EventHandler<OSDEvent<any>> | undefined;
-        pinchHandler?: EventHandler<OSDEvent<any>> | undefined;
-        keyDownHandler?: EventHandler<OSDEvent<any>> | undefined;
-        keyUpHandler?: EventHandler<OSDEvent<any>> | undefined;
-        keyHandler?: EventHandler<OSDEvent<any>> | undefined;
-        focusHandler?: EventHandler<OSDEvent<any>> | undefined;
-        blurHandler?: EventHandler<OSDEvent<any>> | undefined;
+        exitHandler?: EventHandler<MouseTrackerEvent> | undefined;
+        leaveHandler?: EventHandler<MouseTrackerEvent> | undefined;
+        overHandler?: EventHandler<MouseTrackerEvent> | undefined;
+        outHandler?: EventHandler<MouseTrackerEvent> | undefined;
+        pressHandler?: EventHandler<PressMouseTrackerEvent> | undefined;
+        nonPrimaryPressHandler?: EventHandler<MouseTrackerEvent> | undefined;
+        releaseHandler?: EventHandler<MouseTrackerEvent> | undefined;
+        nonPrimaryReleaseHandler?: EventHandler<MouseTrackerEvent> | undefined;
+        moveHandler?: EventHandler<MouseTrackerEvent> | undefined;
+        scrollHandler?: EventHandler<MouseTrackerEvent> | undefined;
+        clickHandler?: EventHandler<MouseTrackerEvent> | undefined;
+        dblClickHandler?: EventHandler<MouseTrackerEvent> | undefined;
+        dragHandler?: EventHandler<MouseTrackerEvent> | undefined;
+        dragEndHandler?: EventHandler<MouseTrackerEvent> | undefined;
+        pinchHandler?: EventHandler<MouseTrackerEvent> | undefined;
+        keyDownHandler?: EventHandler<MouseTrackerEvent> | undefined;
+        keyUpHandler?: EventHandler<MouseTrackerEvent> | undefined;
+        keyHandler?: EventHandler<MouseTrackerEvent> | undefined;
+        focusHandler?: EventHandler<MouseTrackerEvent> | undefined;
+        blurHandler?: EventHandler<MouseTrackerEvent> | undefined;
         userData?: object | undefined;
     }
+
     class MouseTracker {
         clickTimeThreshold: number;
         clickDistThreshold: number;
@@ -649,45 +650,64 @@ declare namespace OpenSeadragon {
 
         constructor(options: MouseTrackerOptions);
 
-        blurHandler: (event: OSDEvent<any>) => void;
-        clickHandler: (event: OSDEvent<any>) => void;
-        contextMenuHandler: (event: OSDEvent<any>) => void;
-        dblClickHandler: (event: OSDEvent<any>) => void;
+        blurHandler: EventHandler<MouseTrackerEvent>;
+        clickHandler: EventHandler<MouseTrackerEvent>;
+        contextMenuHandler: EventHandler<ContextMenuMouseTrackerEvent>;
+        dblClickHandler: EventHandler<MouseTrackerEvent>;
         destroy(): void;
-        dragEndHandler: (event: OSDEvent<any>) => void;
-        dragHandler: (event: OSDEvent<any>) => void;
-        enterHandler: (event: OSDEvent<any>) => void;
+        dragEndHandler: EventHandler<MouseTrackerEvent>;
+        dragHandler: EventHandler<MouseTrackerEvent>;
+        enterHandler: EventHandler<MouseTrackerEvent>;
         /**
          * @deprecated use leaveHandler instead
          */
-        exitHandler: (event: OSDEvent<any>) => void;
-        leaveHandler: (event: OSDEvent<any>) => void;
-        focusHandler: (event: OSDEvent<any>) => void;
+        exitHandler: EventHandler<MouseTrackerEvent>;
+        leaveHandler: EventHandler<MouseTrackerEvent>;
+        focusHandler: EventHandler<MouseTrackerEvent>;
         getActivePointerCount(): number;
         getActivePointersListByType(type: string): GesturePointList;
-        keyDownHandler: (event: OSDEvent<any>) => void;
-        keyHandler: (event: OSDEvent<any>) => void;
-        keyUpHandler: (event: OSDEvent<any>) => void;
-        moveHandler: (event: OSDEvent<any>) => void;
-        nonPrimaryPressHandler: (event: OSDEvent<any>) => void;
-        nonPrimaryReleaseHandler: (event: OSDEvent<any>) => void;
-        overHandler: (event: OSDEvent<any>) => void;
-        outHandler: (event: OSDEvent<any>) => void;
-        pinchHandler: (event: OSDEvent<any>) => void;
-        pressHandler: (event: OSDEvent<any>) => void;
+        keyDownHandler: EventHandler<KeyMouseTrackerEvent>;
+        keyHandler: EventHandler<KeyMouseTrackerEvent>;
+        keyUpHandler: EventHandler<KeyMouseTrackerEvent>;
+        moveHandler: EventHandler<MouseTrackerEvent>;
+        nonPrimaryPressHandler: EventHandler<MouseTrackerEvent>;
+        nonPrimaryReleaseHandler: EventHandler<MouseTrackerEvent>;
+        overHandler: EventHandler<MouseTrackerEvent>;
+        outHandler: EventHandler<MouseTrackerEvent>;
+        pinchHandler: EventHandler<MouseTrackerEvent>;
+        pressHandler: EventHandler<PressMouseTrackerEvent>;
         preProcessEventHandler: (event: EventProcessInfo) => void;
-        releaseHandler: (event: OSDEvent<any>) => void;
-        scrollHandler: (event: OSDEvent<any>) => void;
+        releaseHandler: EventHandler<MouseTrackerEvent>;
+        scrollHandler: EventHandler<MouseTrackerEvent>;
         setTracking(track: boolean): any;
-        stopHandler: (event: OSDEvent<any>) => void;
+        stopHandler: EventHandler<MouseTrackerEvent>;
     }
 
     interface EventProcessInfo {
         eventSource: MouseTracker;
         originalEvent: Event;
         originalTarget: Element;
-        eventPhase: number;
-        eventType: string;
+        eventPhase: EventPhase;
+        eventType:
+            | 'keydown'
+            | 'keyup'
+            | 'keypress'
+            | 'focus'
+            | 'blur'
+            | 'contextmenu'
+            | 'gotpointercapture'
+            | 'lostpointercapture'
+            | 'pointerenter'
+            | 'pointerleave'
+            | 'pointerover'
+            | 'pointerout'
+            | 'pointerdown'
+            | 'pointerup'
+            | 'pointermove'
+            | 'pointercancel'
+            | 'wheel'
+            | 'click'
+            | 'dblclick';
         pointerType: string;
         isEmulated: boolean;
         isStoppable: boolean;
@@ -698,7 +718,7 @@ declare namespace OpenSeadragon {
         stopPropagation: boolean;
         shouldCapture: boolean;
         shouldReleaseCapture: boolean;
-        userData: any;
+        userData: unknown;
     }
 
     interface GesturePoint {
@@ -1285,7 +1305,7 @@ declare namespace OpenSeadragon {
 
     // TODO: use proper eventName type aliases, and OSDEvent where appropriate
 
-    type EventHandler<T extends OSDEvent<any>> = (event: T) => void;
+    type EventHandler<T extends OSDEvent<unknown>> = (event: T) => void;
 
     type PreprocessEventHandler = (event: EventProcessInfo) => void;
 
@@ -1667,7 +1687,46 @@ declare namespace OpenSeadragon {
         newIndex?: number | undefined;
     }
 
+    // -- MOUSE TRACKER EVENTS --
+    interface MouseTrackerEvent<T extends Event = Event> extends OSDEvent<MouseTracker> {
+        originalEvent: T;
+    }
+
+    interface PointerMouseTrackerEvent extends MouseTrackerEvent<PointerEvent> {
+        pointerType: PointerType;
+        position: Point;
+        /**
+         * @deprecated Use `pointerType` and/or `originalEvent` instead
+         */
+        isTouchEvent: boolean;
+    }
+
+    interface KeyMouseTrackerEvent extends MouseTrackerEvent<KeyboardEvent> {
+        keyCode: number;
+        ctrl: boolean;
+        shift: boolean;
+        alt: boolean;
+        meta: boolean;
+        preventDefault: boolean;
+    }
+
+    interface ContextMenuMouseTrackerEvent extends MouseTrackerEvent<MouseEvent> {
+        position: Point;
+        preventDefault: boolean;
+    }
+
+    interface PressMouseTrackerEvent extends PointerMouseTrackerEvent {
+        buttons: number;
+    }
+
     type PointerType = 'mouse' | 'touch' | 'pen';
+
+    enum EventPhase {
+        NONE = 0,
+        CAPTURING_PHASE = 1,
+        AT_TARGET = 2,
+        BUBBLING_PHASE = 3,
+    }
 }
 
 export as namespace OpenSeadragon;
