@@ -191,7 +191,10 @@ declare function spyOn<T, K extends keyof T = keyof T>(
  * @param property The name of the property to replace with a `Spy`.
  * @param accessType The access type (get|set) of the property to `Spy` on.
  */
-declare function spyOnProperty<T>(object: T, property: keyof T, accessType?: "get" | "set"): jasmine.Spy;
+declare function spyOnProperty<T, K extends keyof T = keyof T>(
+    object: T, property: K, accessType?: "get"): jasmine.Spy<(this: T) => T[K]>;
+declare function spyOnProperty<T, K extends keyof T = keyof T>(
+    object: T, property: K, accessType: "set"): jasmine.Spy<(this: T, value: T[K]) => void>;
 
 /**
  * Installs spies on all writable and configurable properties of an object.

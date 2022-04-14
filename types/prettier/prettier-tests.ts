@@ -247,3 +247,16 @@ prettier.format('pluginSearchDir is not empty', {
 prettier.format('pluginSearchDir is not empty and mixed with weird stuff', {
     pluginSearchDirs: ['c', 'd', ''],
 });
+
+prettier.format('pluginSearchDir is false', {
+    pluginSearchDirs: false,
+});
+
+prettier.format('pluginSearchDir can not be true', {
+    // $ExpectError
+    pluginSearchDirs: true,
+});
+
+prettier.format('singleAttributePerLine is available', {
+    singleAttributePerLine: true,
+});

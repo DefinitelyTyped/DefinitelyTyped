@@ -163,6 +163,8 @@ export function get<T, K extends keyof T>(
     obj: T,
     key: K
 ): UnwrapComputedPropertyGetter<T[K]>;
+export function get(obj: unknown, key: string): unknown;
+
 /**
  * Retrieves the value of a property from an Object, or a default value in the
  * case that the property returns `undefined`.
