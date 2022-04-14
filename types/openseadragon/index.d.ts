@@ -1278,9 +1278,18 @@ declare namespace OpenSeadragon {
     class World extends EventSource {
         constructor(options: object);
 
-        addHandler(eventName: WorldEventName, callback: EventHandler<WorldEvent>, userData?: object): void;
+        addHandler<T extends keyof WorldEventMap>(
+            eventName: T,
+            callback: EventHandler<WorldEventMap[T]>,
+            userData?: object,
+        ): void;
         addItem(item: TiledImage, options?: { index?: number | undefined }): void;
-        addOnceHandler(eventName: string, handler: EventHandler<WorldEvent>, userData?: object, times?: number): void;
+        addOnceHandler<T extends keyof WorldEventMap>(
+            eventName: T,
+            callback: EventHandler<WorldEventMap[T]>,
+            userData?: object,
+            times?: number,
+        ): void;
         arrange(options: {
             immediately?: boolean | undefined;
             layout?: 'horizontal' | 'vertical' | undefined;
@@ -1299,11 +1308,8 @@ declare namespace OpenSeadragon {
         needsDraw(): boolean;
         raiseEvent(eventName: string, eventArgs?: object): void;
         removeAll(): void;
-        removeAllHandlers(eventName: string): void;
-        removeHandler(
-            eventName: string,
-            handler: EventHandler<WorldEvent>
-        ): void;
+        removeAllHandlers(eventName: keyof WorldEventMap): void;
+        removeHandler<T extends keyof WorldEventMap>(eventName: T, callback: EventHandler<WorldEventMap[T]>): void;
         removeItem(item: TiledImage): void;
         resetItems(): void;
         setAutoRefigureSizes(value?: boolean): void;
@@ -1315,14 +1321,12 @@ declare namespace OpenSeadragon {
         constructor(width: number, height: number, tileSize: number, tilesUrl: string);
     }
 
-    // TODO: use proper eventName type aliases, and OSDEvent where appropriate
-
     type EventHandler<T extends OSDEvent<unknown>> = (event: T) => void;
 
     type PreprocessEventHandler = (event: EventProcessInfo) => void;
 
     type ButtonEventName = 'blur' | 'click' | 'enter' | 'exit' | 'focus' | 'press' | 'release';
-    
+
     interface TiledImageEventMap {
         'bounds-change': TiledImageEvent;
         'clip-change': TiledImageEvent;
@@ -1394,7 +1398,12 @@ declare namespace OpenSeadragon {
         'zoom': ZoomEvent;
     }
 
-    type WorldEventName = 'add-item' | 'item-index-change' | 'metrics-change' | 'remove-item';
+    interface WorldEventMap {
+        'add-item': AddItemWorldEvent;
+        'item-index-change': ItemIndexChangeWorldEvent;
+        'metrics-change': WorldEvent;
+        'remove-item': RemoveItemWorldEvent;
+    }
 
     interface OSDEvent<T> {
         eventSource: T;
@@ -1714,10 +1723,21 @@ declare namespace OpenSeadragon {
         immediately: boolean;
     }
 
-    interface WorldEvent extends OSDEvent<World> {
-        item?: TiledImage | undefined;
-        previousIndex?: number | undefined;
-        newIndex?: number | undefined;
+    // -- WORLD EVENTS --
+    interface WorldEvent extends OSDEvent<World> {}
+
+    interface AddItemWorldEvent extends WorldEvent {
+        item: TiledImage | undefined;
+    }
+
+    interface ItemIndexChangeWorldEvent extends WorldEvent {
+        item: TiledImage;
+        previousIndex: number;
+        newIndex: number;
+    }
+
+    interface RemoveItemWorldEvent extends WorldEvent {
+        item: TiledImage;
     }
 
     // -- MOUSE TRACKER EVENTS --
