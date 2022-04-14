@@ -970,8 +970,16 @@ declare namespace OpenSeadragon {
             ajaxHeaders?: object | undefined;
         });
 
-        addHandler(eventName: string, handler: EventHandler<TiledImageEvent>, userData?: object): void;
-        addOnceHandler(eventName: string, handler: EventHandler<TiledImageEvent>, userData?: object): void;
+        addHandler<T extends keyof TiledImageEventMap>(
+            eventName: T,
+            handler: EventHandler<TiledImageEventMap[T]>,
+            userData?: object,
+        ): void;
+        addOnceHandler<T extends keyof TiledImageEventMap>(
+            eventName: T,
+            handler: EventHandler<TiledImageEventMap[T]>,
+            userData?: object,
+        ): void;
         destroy(): void;
         draw(): void;
         fitBounds(bounds: Rect, anchor?: Placement, immediately?: boolean): void;
@@ -1005,8 +1013,11 @@ declare namespace OpenSeadragon {
         imageToWindowCoordinates(pixel: Point): Point;
         needsDraw(): boolean;
         raiseEvent(eventName: string, eventArgs: object): void;
-        removeAllHandlers(eventName: string): void;
-        removeHandler(eventName: string, handler: EventHandler<TiledImageEvent>): void;
+        removeAllHandlers(eventName: keyof TiledImageEventMap): void;
+        removeHandler<T extends keyof TiledImageEventMap>(
+            eventName: T,
+            handler: EventHandler<TiledImageEventMap[T]>,
+        ): void;
         reset(): void;
         resetCroppingPolygons(): void;
         setClip(newClip: Rect | null): void;
@@ -1043,10 +1054,14 @@ declare namespace OpenSeadragon {
         ready: boolean;
         tileOverlap: number;
         constructor(options: TileSourceOptions);
-        addHandler(eventName: string, handler: EventHandler<TileSourceEvent>, userData?: object): void;
-        addOnceHandler(
-            eventName: string,
-            handler: EventHandler<TileSourceEvent>,
+        addHandler<T extends keyof TileSourceEventMap>(
+            eventName: T,
+            handler: EventHandler<TileSourceEventMap[T]>,
+            userData?: object,
+        ): void;
+        addOnceHandler<T extends keyof TileSourceEventMap>(
+            eventName: T,
+            handler: EventHandler<TileSourceEventMap[T]>,
             userData?: object,
             times?: number,
         ): void;
@@ -1064,16 +1079,13 @@ declare namespace OpenSeadragon {
         getTileUrl(level: number, x: number, y: number): string;
         getTileWidth(level: number): number;
         raiseEvent(eventName: string, eventArgs: object): void;
-        removeAllHandlers(eventName: string): void;
-        removeHandler(
-            eventName: string,
-            handler: EventHandler<TileSourceEvent>
+        removeAllHandlers(eventName: keyof TileSourceEventMap): void;
+        removeHandler<T extends keyof TileSourceEventMap>(
+            eventName: T,
+            handler: EventHandler<TileSourceEventMap[T]>,
         ): void;
         setMaxLevel(level: number): void;
-        supports(
-            data: string | object | any[] | Document,
-            url: string
-        ): boolean;
+        supports(data: string | object | any[] | Document, url: string): boolean;
         tileExists(level: number, x: number, y: number): boolean;
     }
 
@@ -1310,13 +1322,19 @@ declare namespace OpenSeadragon {
     type PreprocessEventHandler = (event: EventProcessInfo) => void;
 
     type ButtonEventName = 'blur' | 'click' | 'enter' | 'exit' | 'focus' | 'press' | 'release';
-    type TiledImageEventName =
-        | 'bounds-change'
-        | 'clip-change'
-        | 'composite-operation-change'
-        | 'fully-loaded-change'
-        | 'opacity-change';
-    type TileSourceEventName = 'open-failed' | 'ready';
+    
+    interface TiledImageEventMap {
+        'bounds-change': TiledImageEvent;
+        'clip-change': TiledImageEvent;
+        'composite-operation-change': CompositeOperationChangeTiledImageEvent;
+        'fully-loaded-change': FullyLoadedChangeTiledImageEvent;
+        'opacity-change': OpacityChangeTiledImageEvent;
+    }
+
+    interface TileSourceEventMap {
+        'open-failed': OpenFailedTileSourceEvent;
+        'ready': ReadyTileSourceEvent;
+    }
 
     interface ViewerEventMap {
         'add-item-failed': AddItemFailedEvent;
@@ -1387,16 +1405,31 @@ declare namespace OpenSeadragon {
         originalEvent: Event;
     }
 
-    interface TiledImageEvent extends OSDEvent<TiledImage> {
-        compositeOperationChange?: string | undefined;
-        fullyLoaded?: boolean | undefined;
-        opacity?: boolean | undefined;
+    // -- TILED IMAGE EVENTS --
+    interface TiledImageEvent extends OSDEvent<TiledImage> {}
+
+    interface CompositeOperationChangeTiledImageEvent extends TiledImageEvent {
+        compositeOperationChange: string;
     }
 
-    interface TileSourceEvent extends OSDEvent<TileSource> {
-        message?: string | undefined;
-        source?: string | undefined;
-        tileSource?: object | undefined;
+    interface FullyLoadedChangeTiledImageEvent extends TiledImageEvent {
+        fullyLoaded: boolean;
+    }
+
+    interface OpacityChangeTiledImageEvent extends TiledImageEvent {
+        opacity: boolean;
+    }
+
+    // -- TILE SOURCE EVENTS --
+    interface TileSourceEvent extends OSDEvent<TileSource> {}
+
+    interface OpenFailedTileSourceEvent extends TileSourceEvent {
+        message: string;
+        source: string;
+    }
+
+    interface ReadyTileSourceEvent extends TileSourceEvent {
+        tileSource: object;
     }
 
     // -- VIEWER EVENTS --
