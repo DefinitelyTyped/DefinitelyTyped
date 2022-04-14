@@ -621,10 +621,10 @@ declare namespace Aws {
 
     interface FunctionUrlConfigCors {
         allowCredentials?: boolean | undefined;
-        allowedHeaders?: boolean | string[];
-        allowedMethods?: boolean | string[];
-        allowedOrigins?: boolean | string[];
-        exposedResponseHeaders?: boolean | string[];
+        allowedHeaders?: boolean | string[] | undefined;
+        allowedMethods?: boolean | string[] | undefined;
+        allowedOrigins?: boolean | string[] | undefined;
+        exposedResponseHeaders?: boolean | string[] | undefined;
         maxAge?: number | undefined;
     }
 
