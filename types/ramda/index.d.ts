@@ -40,6 +40,7 @@ import {
     AtLeastOneFunctionsFlowFromRightToLeft,
     AssocPartialOne,
     CondPair,
+    CondPairTypeguard,
     Dictionary,
     Evolvable,
     Evolve,
@@ -62,13 +63,11 @@ import {
     PredTypeguard,
     Reduced,
     ReturnTypesOfFns,
-    ValueOfRecord,
     ValueOfUnion,
     Take,
     ToTupleOfArray,
     ToTupleOfFunction,
     Tuple,
-    CondPairTypeguard,
     Fn,
     IfFunctionsArgumentsDoNotOverlap,
     LargestArgumentsList,
@@ -289,7 +288,7 @@ export function apply<F extends (...args: readonly any[]) => any>(fn: F): (args:
  */
 export function applySpec<Obj extends Record<string, (...args: readonly any[]) => any>>(
     obj: Obj,
-): (...args: Parameters<ValueOfRecord<Obj>>) => { [Key in keyof Obj]: ReturnType<Obj[Key]> };
+): (...args: Parameters<Obj[keyof Obj]>) => { [Key in keyof Obj]: ReturnType<Obj[Key]> };
 export function applySpec<T>(obj: any): (...args: readonly any[]) => T;
 
 /**
@@ -1061,7 +1060,10 @@ export function filter<T, C extends readonly T[] | Dictionary<T>>(pred: (value: 
  * Returns the first element of the list which matches the predicate, or `undefined` if no
  * element matches.
  */
-export const find: Find;
+export function find<T, P extends T>(pred: (val: T) => val is P, list: readonly T[]): P | undefined;
+export function find<T>(pred: (val: T) => boolean, list: readonly T[]): T | undefined;
+export function find<T, P extends T>(pred: (val: T) => val is P): (list: readonly T[]) => P | undefined;
+export function find<T>(pred: (val: T) => boolean): (list: readonly T[]) => T | undefined;
 
 /**
  * Returns the index of the first element of the list which matches the predicate, or `-1`
@@ -1074,7 +1076,10 @@ export function findIndex<T>(fn: (a: T) => boolean): (list: readonly T[]) => num
  * Returns the last element of the list which matches the predicate, or `undefined` if no
  * element matches.
  */
-export const findLast: Find;
+export function findLast<T, P extends T>(pred: (val: T) => val is P, list: readonly T[]): P | undefined;
+export function findLast<T>(pred: (val: T) => boolean, list: readonly T[]): T | undefined;
+export function findLast<T, P extends T>(pred: (val: T) => val is P): (list: readonly T[]) => P | undefined;
+export function findLast<T>(pred: (val: T) => boolean): (list: readonly T[]) => T | undefined;
 
 /**
  * Returns the index of the last element of the list which matches the predicate, or
