@@ -103,9 +103,7 @@ declare namespace OpenSeadragon {
         element: Element | string,
         eventName: string,
         handler: (event: Event) => void,
-        useCapture?:
-            | boolean
-            | { capture?: boolean; passive?: boolean; once?: boolean }
+        useCapture?: boolean | { capture?: boolean; passive?: boolean; once?: boolean },
     ): void;
 
     function cancelEvent(event?: OSDEvent<any>): void;
@@ -166,9 +164,7 @@ declare namespace OpenSeadragon {
     function makeTransparentImage(src: string): Element;
 
     function normalizeEventListenerOptions(
-        options:
-            | boolean
-            | { capture?: boolean; passive?: boolean; once?: boolean }
+        options: boolean | { capture?: boolean; passive?: boolean; once?: boolean },
     ): string;
 
     function now(): number;
@@ -187,15 +183,12 @@ declare namespace OpenSeadragon {
         element: Element | string,
         eventName: string,
         handler: EventHandler<any>,
-        useCapture?: boolean | { capture?: boolean }
+        useCapture?: boolean | { capture?: boolean },
     ): void;
 
     function setElementOpacity(element: Element | string, opacity: number, usesAlpha?: boolean): void;
 
-    function setElementPointerEvents(
-        element: Element | string,
-        value: string
-    ): void;
+    function setElementPointerEvents(element: Element | string, value: string): void;
 
     function setElementPointerEventsNone(element: Element | string): void;
 
@@ -272,7 +265,7 @@ declare namespace OpenSeadragon {
                       };
                   };
               }
-            | Array<string | TileSource | { type: "openstreetmaps" }>;
+            | Array<string | TileSource | { type: 'openstreetmaps' }>;
         tabIndex?: number | undefined;
         overlays?: any[] | undefined;
         prefixUrl?: string | undefined;
@@ -297,7 +290,8 @@ declare namespace OpenSeadragon {
             | 'destination-out'
             | 'lighter'
             | 'copy'
-            | 'xor' | undefined;
+            | 'xor'
+            | undefined;
         placeholderFillStyle?: string | CanvasGradient | CanvasPattern | undefined;
         degrees?: number | undefined;
         flipped?: boolean | undefined;
@@ -459,10 +453,7 @@ declare namespace OpenSeadragon {
         getHandler(eventName: ButtonEventName): (source: ButtonEventName, ...args: any[]) => void;
         raiseEvent(eventName: ButtonEventName, eventArgs: object): void;
         removeAllHandlers(eventName: ButtonEventName): void;
-        removeHandler(
-            eventName: ButtonEventName,
-            handler: EventHandler<ButtonEvent>
-        ): void;
+        removeHandler(eventName: ButtonEventName, handler: EventHandler<ButtonEvent>): void;
         notifyGroupEnter(): void;
         notifyGroupExit(): void;
         destroy(): void;
@@ -522,7 +513,12 @@ declare namespace OpenSeadragon {
         context: CanvasRenderingContext2D | null;
         // element : Element; // Deprecated
 
-        constructor(options: { viewer: Viewer; viewport: Viewport; element: Element; debugGridColor?: string | undefined });
+        constructor(options: {
+            viewer: Viewer;
+            viewport: Viewport;
+            element: Element;
+            debugGridColor?: string | undefined;
+        });
 
         blendSketch(options: {
             opacity: number;
