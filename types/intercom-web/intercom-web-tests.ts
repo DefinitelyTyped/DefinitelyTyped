@@ -39,6 +39,7 @@ Intercom('showMessages');
 Intercom('showNewMessage');
 Intercom('showNewMessage', 'pre-populated content');
 Intercom('startTour', 123);
+Intercom('showArticle', 123);
 Intercom('onHide', () => {
     /* Do stuff */
 });

@@ -2925,6 +2925,10 @@
             "libraryName": "mongoose",
             "asOfVersion": "5.11.0"
         },
+        "mongoose-paginate-v2": {
+            "libraryName": "mongoose-paginate-v2",
+            "asOfVersion": "1.6.0"
+        },
         "monk": {
             "libraryName": "monk",
             "asOfVersion": "6.0.0"

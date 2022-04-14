@@ -7,7 +7,7 @@ import MarkersPlugin from 'wavesurfer.js/src/plugin/markers';
 import MediaSessionPlugin from 'wavesurfer.js/src/plugin/mediasession';
 import MicrophonePlugin from 'wavesurfer.js/src/plugin/microphone';
 import MinimapPlugin from 'wavesurfer.js/src/plugin/minimap';
-import RegionsPlugin from 'wavesurfer.js/src/plugin/regions';
+import RegionsPlugin, { Region, RegionParams } from 'wavesurfer.js/src/plugin/regions';
 import SpectrogramPlugin from 'wavesurfer.js/src/plugin/spectrogram';
 import TimelinePlugin from 'wavesurfer.js/src/plugin/timeline';
 import { PluginDefinition, PluginParams } from 'wavesurfer.js/types/plugin';
@@ -163,6 +163,9 @@ const waveSurferWithRegionsPlugin = WaveSurfer.create({
 });
 // $ExpectType number
 waveSurferWithRegionsPlugin.regions.maxRegions;
+const regionOptions: RegionParams = { start: 7, end: 13, data: { label: 'Hello, World!', fontSize: 99 } };
+const region: Region = waveSurferWithRegionsPlugin.addRegion(regionOptions);
+region.update({ start: 13, end: 23, data: { label: 'Bye, World!', fontSize: 24 } });
 waveSurferWithRegionsPlugin.regions.destroy();
 
 // - plugin: spectrogram

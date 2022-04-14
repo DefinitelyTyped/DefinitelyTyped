@@ -36,26 +36,3 @@ function suspenseTest() {
     <React.Suspense fallback="Loading">A</React.Suspense>
     <React.Suspense fallback="Loading">B</React.Suspense>
 </React.SuspenseList>;
-
-// We need these Window interfaces to compile
-interface Window {
-    location: {
-        href: string;
-        pathname: string;
-    };
-    addEventListener(type: string, callback: () => void): void;
-    removeEventListener(type: string, callback: () => void): void;
-}
-
-const noop = () => {};
-
-const window: Window = { location: { href: '', pathname: '' }, addEventListener: noop, removeEventListener: noop };
-
-const locationSource = React.unstable_createMutableSource(window, () => window.location.href);
-
-const getSnapshot = (window: Window) => window.location.pathname;
-
-const subscribe: React.MutableSourceSubscribe<Window> = (window, callback) => {
-    window.addEventListener("popstate", callback);
-    return () => window.removeEventListener("popstate", callback);
-};
