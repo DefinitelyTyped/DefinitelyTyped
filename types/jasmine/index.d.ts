@@ -719,6 +719,15 @@ declare namespace jasmine {
         toHaveSize(expected: number): void;
 
         /**
+         * {@link expect} the actual (a {@link SpyObj}) spies to have been called.
+         * @since 4.1.0
+         * @example
+         * expect(mySpyObj).toHaveSpyInteractions();
+         * expect(mySpyObj).not.toHaveSpyInteractions();
+         */
+        toHaveSpyInteractions(): void;
+
+        /**
          * Add some context for an expect.
          * @param message Additional context to show when the matcher fails
          * @checkReturnValue see https://tsetse.info/check-return-value
