@@ -1,4 +1,4 @@
-// Type definitions for braintree-web-drop-in 1.22
+// Type definitions for braintree-web-drop-in 1.33
 // Project: https://github.com/braintree/braintree-web-dropin
 // Definitions by: Saoud Rizwan <https://github.com/saoudrizwan>
 //                 Ricard Solé Casas <https://github.com/iamricard>
@@ -118,9 +118,11 @@ export interface Dropin {
     on(event: 'noPaymentMethodRequestable', handler: () => void): void;
     on(event: 'paymentMethodRequestable', handler: (payload: PaymentMethodRequestablePayload) => void): void;
     on(event: 'paymentOptionSelected', handler: (payload: PaymentOptionSelectedPayload) => void): void;
+    on(event: 'changeActiveView', handler: (payload: ChangeActiveViewPayload) => void): void;
     off(event: 'noPaymentMethodRequestable', handler: () => void): void;
     off(event: 'paymentMethodRequestable', handler: (payload: PaymentMethodRequestablePayload) => void): void;
     off(event: 'paymentOptionSelected', handler: (payload: PaymentOptionSelectedPayload) => void): void;
+    off(event: 'changeActiveView', handler: (payload: ChangeActiveViewPayload) => void): void;
     requestPaymentMethod(options: PaymentMethodOptions, callback: RequestPaymentMethodCallback): void;
     requestPaymentMethod(callback: RequestPaymentMethodCallback): void;
     requestPaymentMethod(options?: PaymentMethodOptions): Promise<PaymentMethodPayload>;
@@ -246,6 +248,12 @@ export interface venmoPaymentMethodPayload {
     };
     type: 'VenmoAccount';
     deviceData?: string | undefined;
+}
+
+export type ActiveView = 'card' | 'paypal' | 'payapCredit' | 'venmo' | 'googlePay' | 'applePay' | 'methods' | 'options' | 'delete-confirmation';
+export interface ChangeActiveViewPayload {
+    previousViewId: ActiveView;
+    newViewId: ActiveView;
 }
 
 // Methods
