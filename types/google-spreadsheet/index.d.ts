@@ -772,7 +772,7 @@ export class GoogleSpreadsheetWorksheet implements WorksheetBasicProperties {
      * loads the header row (first row) of the sheet
      * - usually do not need to call this directly
      *
-     * @param headerRowIndex
+     * @param headerRowIndex The index of the header row, if not the first. NOTE: not zero-indexed
      */
     loadHeaderRow(headerRowIndex?: number): Promise<void>;
 
