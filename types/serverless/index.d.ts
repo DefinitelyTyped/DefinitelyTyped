@@ -1,4 +1,4 @@
-// Type definitions for serverless 3.0
+// Type definitions for serverless 3.12
 // Project: https://github.com/serverless/serverless#readme
 // Definitions by: Hassan Khan <https://github.com/hassankhan>
 //                 Jonathan M. Wilbur <https://github.com/JonathanWilbur>
@@ -9,6 +9,7 @@
 //                 Gareth Jones <https://github.com/G-Rath>
 //                 Abdullah Ali <https://github.com/AbdullahAli>
 //                 François Farge <https://github.com/fargito>
+//                 Bruno Bodian <https://github.com/bacarybruno>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import Service = require('./classes/Service');
