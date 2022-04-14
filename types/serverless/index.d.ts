@@ -13,7 +13,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import Service = require('./classes/Service');
-import Plugin = require('./classes/Plugin');
 import PluginManager = require('./classes/PluginManager');
 import Utils = require('./classes/Utils');
 import YamlParser = require('./classes/YamlParser');
