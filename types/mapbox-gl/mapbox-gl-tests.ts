@@ -492,6 +492,7 @@ const terrainStyle: mapboxgl.Style = {
             url: 'mapbox://mapbox.mapbox-terrain-dem-v1',
         },
     },
+    layers: [],
     terrain: {
         source: 'dem',
         exaggeration: 1.5,
@@ -1375,6 +1376,11 @@ expectType<mapboxgl.Expression>([
     ['concat', ['get', 'name'], '\n'],
     {},
     ['concat', ['get', 'area'], 'foobar', { 'font-scale': 0.8 }],
+]);
+expectType<mapboxgl.Expression>([
+    'number-format',
+    ['get', 'quantity'],
+    { 'min-fraction-digits': 1, 'max-fraction-digits': 1 }
 ]);
 const expression = expectType<mapboxgl.Expression>(['coalesce', ['get', 'property'], ['get', 'property']]);
 

@@ -26,7 +26,6 @@
 //                 Philippe Mills <https://github.com/Philippe-mills>
 //                 Saul Mirone <https://github.com/Saul-Mirone>
 //                 Nicholai Nissen <https://github.com/Nicholaiii>
-//                 Mike Deverell <https://github.com/devrelm>
 //                 Jorge Santana <https://github.com/LORDBABUINO>
 //                 Mikael Couzic <https://github.com/couzic>
 //                 Nikita Balikhin <https://github.com/NEWESTERS>
@@ -45,6 +44,7 @@ import {
     Evolvable,
     Evolve,
     Evolver,
+    Falsy,
     Find,
     Functor,
     InputTypesOfFns,
@@ -69,6 +69,10 @@ import {
     ToTupleOfFunction,
     Tuple,
     CondPairTypeguard,
+    Fn,
+    IfFunctionsArgumentsDoNotOverlap,
+    LargestArgumentsList,
+    mergeArrWithLeft,
 } from './tools';
 
 export * from './tools';
@@ -269,7 +273,7 @@ export function aperture<N extends number>(n: N): <T>(list: readonly T[]) => Arr
  * Returns a new list containing the contents of the given list, followed by the given element.
  */
 export function append<T>(el: T, list: readonly T[]): T[];
-export function append<T>(el: T): <T>(list: readonly T[]) => T[];
+export function append<T>(el: T): (list: readonly T[]) => T[];
 
 /**
  * Applies function fn to the argument list args. This is useful for creating a fixed-arity function from
@@ -774,16 +778,18 @@ export function cond<T extends any[], R>(pairs: Array<CondPair<T, R>>): (...args
 /**
  * Wraps a constructor function inside a curried function that can be called with the same arguments and returns the same type.
  */
-export function construct<A extends any[], T>(constructor: { new (...a: A): T } | ((...a: A) => T)): (...a: A) => T;
+export function construct<A extends any[], T>(
+    constructor: { new (...a: A): T } | ((...a: A) => T),
+): _.F.Curry<(...a: A) => T>;
 
 /**
  * Wraps a constructor function inside a curried function that can be called with the same arguments and returns the same type.
  * The arity of the function returned is specified to allow using variadic constructor functions.
  */
-export function constructN<A extends any[], T>(
-    n: number,
+export function constructN<A extends any[], T, N extends number>(
+    n: N,
     constructor: { new (...a: A): T } | ((...a: A) => T),
-): (...a: Partial<A>) => T;
+): _.F.Curry<(...a: mergeArrWithLeft<Tuple<any, N>, A>) => T>;
 
 /**
  * Returns `true` if the specified item is somewhere in the list, `false` otherwise.
@@ -807,78 +813,28 @@ export function contains<T>(a: T): (list: readonly T[]) => boolean;
  * are passed as arguments to the converging function to produce the return value.
  */
 export function converge<
-    TArgs extends any[],
     TResult,
-    R1,
-    R2,
-    R3,
-    R4,
-    R5,
-    R6,
-    R7,
-    RestFunctions extends Array<(...args: TArgs) => any>,
+    FunctionsList extends ReadonlyArray<Fn> &
+        IfFunctionsArgumentsDoNotOverlap<_Fns, 'Functions arguments types must overlap'>,
+    _Fns extends ReadonlyArray<Fn> = FunctionsList,
 >(
-    converging: (...args: [R1, R2, R3, R4, R5, R6, R7, ...ReturnTypesOfFns<RestFunctions>]) => TResult,
-    branches: [
-        (...args: TArgs) => R1,
-        (...args: TArgs) => R2,
-        (...args: TArgs) => R3,
-        (...args: TArgs) => R4,
-        (...args: TArgs) => R5,
-        (...args: TArgs) => R6,
-        (...args: TArgs) => R7,
-        ...RestFunctions,
-    ],
-): (...args: TArgs) => TResult;
-export function converge<TArgs extends any[], TResult, R1, R2, R3, R4, R5, R6, R7>(
-    converging: (...args: [R1, R2, R3, R4, R5, R6, R7] & { length: 7 }) => TResult,
-    branches: [
-        (...args: TArgs) => R1,
-        (...args: TArgs) => R2,
-        (...args: TArgs) => R3,
-        (...args: TArgs) => R4,
-        (...args: TArgs) => R5,
-        (...args: TArgs) => R6,
-        (...args: TArgs) => R7,
-    ],
-): (...args: TArgs) => TResult;
-export function converge<TArgs extends any[], TResult, R1, R2, R3, R4, R5, R6>(
-    converging: (...args: [R1, R2, R3, R4, R5, R6] & { length: 6 }) => TResult,
-    branches: [
-        (...args: TArgs) => R1,
-        (...args: TArgs) => R2,
-        (...args: TArgs) => R3,
-        (...args: TArgs) => R4,
-        (...args: TArgs) => R5,
-        (...args: TArgs) => R6,
-    ],
-): (...args: TArgs) => TResult;
-export function converge<TArgs extends any[], TResult, R1, R2, R3, R4, R5>(
-    converging: (...args: [R1, R2, R3, R4, R5] & { length: 5 }) => TResult,
-    branches: [
-        (...args: TArgs) => R1,
-        (...args: TArgs) => R2,
-        (...args: TArgs) => R3,
-        (...args: TArgs) => R4,
-        (...args: TArgs) => R5,
-    ],
-): (...args: TArgs) => TResult;
-export function converge<TArgs extends any[], TResult, R1, R2, R3, R4>(
-    converging: (...args: [R1, R2, R3, R4] & { length: 4 }) => TResult,
-    branches: [(...args: TArgs) => R1, (...args: TArgs) => R2, (...args: TArgs) => R3, (...args: TArgs) => R4],
-): (...args: TArgs) => TResult;
-export function converge<TArgs extends any[], TResult, R1, R2, R3>(
-    converging: (...args: [R1, R2, R3] & { length: 3 }) => TResult,
-    branches: [(...args: TArgs) => R1, (...args: TArgs) => R2, (...args: TArgs) => R3],
-): (...args: TArgs) => TResult;
-export function converge<TArgs extends any[], TResult, R1, R2>(
-    converging: (...args: [R1, R2] & { length: 2 }) => TResult,
-    branches: [(...args: TArgs) => R1, (...args: TArgs) => R2],
-): (...args: TArgs) => TResult;
-export function converge<TArgs extends any[], TResult, R1>(
-    converging: (...args: [R1] & { length: 1 }) => TResult,
-    branches: [(...args: TArgs) => R1],
-): (...args: TArgs) => TResult;
+    converging: (...args: ReturnTypesOfFns<FunctionsList>) => TResult,
+    branches: FunctionsList,
+): _.F.Curry<(...args: LargestArgumentsList<FunctionsList>) => TResult>;
+export function converge<
+    CArgs extends ReadonlyArray<any>,
+    TResult,
+    FunctionsList extends readonly [
+        ...{
+            [Index in keyof CArgs]: (...args: ReadonlyArray<any>) => CArgs[Index];
+        },
+    ] &
+        IfFunctionsArgumentsDoNotOverlap<_Fns, 'Functions arguments types must overlap'>,
+    _Fns extends ReadonlyArray<Fn> = FunctionsList,
+>(
+    converging: (...args: CArgs) => TResult,
+    branches: FunctionsList,
+): _.F.Curry<(...args: LargestArgumentsList<FunctionsList>) => TResult>;
 
 /**
  * Returns the number of items in a given `list` matching the predicate `f`
@@ -1054,9 +1010,7 @@ export function endsWith<T>(subList: readonly T[]): (list: readonly T[]) => bool
  */
 export function eqBy<T>(fn: (a: T) => unknown, a: T, b: T): boolean;
 export function eqBy<T>(fn: (a: T) => unknown, a: T): (b: T) => boolean;
-export function eqBy<T>(
-    fn: (a: T) => unknown,
-): {
+export function eqBy<T>(fn: (a: T) => unknown): {
     (a: T, b: T): boolean;
     (a: T): (b: T) => boolean;
 };
@@ -1916,8 +1870,8 @@ export function once<F extends (...a: readonly any[]) => any>(fn: F): F;
  * A function that returns the first truthy of two arguments otherwise the last argument. Note that this is
  * NOT short-circuited, meaning that if expressions are passed they are both evaluated.
  */
-export function or<T, U>(a: T, b: U): T | U;
-export function or<T>(a: T): <U>(b: U) => T | U;
+export function or<T, U>(a: T | Falsy, b: U): T | U;
+export function or<T>(a: T | Falsy): <U>(b: U) => T | U;
 
 /**
  * Returns the result of applying the onFailure function to the value inside a failed promise.
