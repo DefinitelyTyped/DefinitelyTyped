@@ -555,7 +555,53 @@ const awsServerless: Aws.Serverless = {
                         batchSize: 1,
                         maximumRetryAttempts: 1,
                         enabled: true,
-                        functionResponseType: 'ReportBatchItemFailures'
+                        functionResponseType: 'ReportBatchItemFailures',
+                        filterPatterns: [
+                            {
+                                UserID: [null]
+                            },
+                            {
+                                LastName: ['']
+                            },
+                            {
+                                Name: ['Alice']
+                            },
+                            {
+                                Location: ['New York'],
+                                Day: ['Monday']
+                            },
+                            {
+                                PaymentType: ['Credit', 'Debit']
+                            },
+                            {
+                                Weather: [
+                                    {
+                                        'anything-but': ['Raining']
+                                    }
+                                ]
+                            },
+                            {
+                                Price: [
+                                    {
+                                        numeric: [ '=', 100 ]
+                                    }
+                                ]
+                            },
+                            {
+                                ProductName: [
+                                    {
+                                        exists: true
+                                    }
+                                ]
+                            },
+                            {
+                                Region: [
+                                    {
+                                        prefix: 'us-'
+                                    }
+                                ]
+                            }
+                        ]
                     }
                 }, {
                     activemq: {
