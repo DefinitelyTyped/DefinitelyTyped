@@ -780,7 +780,7 @@ declare namespace OpenSeadragon {
         checkResize?: boolean | undefined;
         width?: number | undefined;
         height?: number | undefined;
-        rotationMode?: boolean | undefined;
+        rotationMode?: OverlayRotationMode | undefined;
     }
 
     class Overlay {
