@@ -763,15 +763,18 @@ export class GoogleSpreadsheetWorksheet implements WorksheetBasicProperties {
      * set the header (first) row in the worksheet
      *
      * @param headers
+     * @param headerRowIndex
      */
-    setHeaderRow(headers: string[]): Promise<void>;
+    setHeaderRow(headers: string[], headerRowIndex?: number): Promise<void>;
 
     /**
      * @description
      * loads the header row (first row) of the sheet
      * - usually do not need to call this directly
+     *
+     * @param headerRowIndex
      */
-    loadHeaderRow(): Promise<void>;
+    loadHeaderRow(headerRowIndex?: number): Promise<void>;
 
     /**
      * @description

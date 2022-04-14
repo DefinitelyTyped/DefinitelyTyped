@@ -75,6 +75,10 @@ const [GOOGLE_SERVICE_ACCOUNT_EMAIL, GOOGLE_PRIVATE_KEY] = ['email', 'key'];
     // adds a row and inherits properties from previous row
     await sheet.insertDimension('ROWS', { startIndex: 2, endIndex: 3 }, true);
 
+    // header row methods with headerRowIndex
+    await sheet.setHeaderRow(['foo', 'bar'], 3);
+    await sheet.loadHeaderRow(3);
+
      // create empty document
      const emptyDoc = new GoogleSpreadsheet();
      await emptyDoc.createNewSpreadsheetDocument({ title: 'This is a new Spread Sheet' });
