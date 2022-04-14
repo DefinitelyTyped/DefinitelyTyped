@@ -193,11 +193,11 @@ i18n.__n({ singular: "%s cat", plural: "%s cats", locale: "fr", count: 1 }); // 
 i18n.__n({ singular: "%s cat", plural: "%s cats", locale: "fr", count: 3 }); // 3 chat
 
 // mustache plurals
-i18n.__n('example', 1, {me: 'marcus'}) // --> and a catchall rule for marcus to get my number 1
-i18n.__n('example', 2, {me: 'marcus'}) // --> 2 is between two and five for marcus
-i18n.__n('example', 5, {me: 'marcus'}) // --> 5 is between two and five for marcus
-i18n.__n('example', 3, {me: 'marcus'}) // --> 3 is between two and five for marcus
-i18n.__n('example', 6, {me: 'marcus'}) // --> and a catchall rule for marcus to get my number 6
+i18n.__n('example', 1, {me: 'marcus'}); // and a catchall rule for marcus
+i18n.__n('example', 2, {me: 'marcus'}); // two to five (included) for marcus
+i18n.__n('example', 5, {me: 'marcus'}); // two to five (included) for marcus
+i18n.__n('example', 3, {me: 'marcus'}); // two to five (included) for marcus
+i18n.__n('example', 6, {me: 'marcus'}); // and a catchall rule for marcus
 
 /**
  * __mf()
