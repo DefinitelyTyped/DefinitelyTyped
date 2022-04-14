@@ -549,7 +549,7 @@ export class NodePath<T = Node> {
     ): T[K] extends Array<Node | null | undefined>
         ? Array<NodePath<T[K][number]>>
         : T[K] extends Array<Node | null | undefined> | null | undefined
-        ? Array<NodePath<NonNullable<T[K]>[number]>> | null | undefined
+        ? Array<NodePath<NonNullable<T[K]>[number]>> | NodePath<null | undefined>
         : T[K] extends Node | null | undefined
         ? NodePath<T[K]>
         : never;
