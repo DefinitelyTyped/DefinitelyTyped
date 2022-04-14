@@ -1,4 +1,4 @@
-// Type definitions for braintree-web-drop-in 1.33
+// Type definitions for braintree-web-drop-in 1.28
 // Project: https://github.com/braintree/braintree-web-dropin
 // Definitions by: Saoud Rizwan <https://github.com/saoudrizwan>
 //                 Ricard Solé Casas <https://github.com/iamricard>
@@ -21,6 +21,11 @@ import { ApplePayPaymentRequest } from 'braintree-web/modules/apple-pay';
 import { HostedFieldsField } from 'braintree-web/modules/hosted-fields';
 import { ThreeDSecureVerifyPayload } from 'braintree-web/modules/three-d-secure';
 import { ButtonStyle } from 'paypal-checkout-components';
+
+/**
+ * @description The current version of the SDK, i.e. `3.0.2`.
+ */
+export const VERSION: string;
 
 // Options
 
@@ -54,21 +59,28 @@ export interface cardCreateOptions {
         | boolean
         | {
               required?: boolean | undefined;
-          } | undefined;
-    overrides?: {
-        fields?: {
-            number?: HostedFieldsField | undefined;
-            cvv?: HostedFieldsField | undefined;
-            expirationDate?: HostedFieldsField | undefined;
-            postalCode?: HostedFieldsField | undefined;
-        } | undefined;
-        styles?: object | undefined;
-    } | undefined;
+          }
+        | undefined;
+    overrides?:
+        | {
+              fields?:
+                  | {
+                        number?: HostedFieldsField | undefined;
+                        cvv?: HostedFieldsField | undefined;
+                        expirationDate?: HostedFieldsField | undefined;
+                        postalCode?: HostedFieldsField | undefined;
+                    }
+                  | undefined;
+              styles?: object | undefined;
+          }
+        | undefined;
     clearFieldsAfterTokenization?: boolean | undefined;
-    vault?: {
-        allowVaultCardOverride?: boolean | undefined;
-        vaultCard?: boolean | undefined;
-    } | undefined;
+    vault?:
+        | {
+              allowVaultCardOverride?: boolean | undefined;
+              vaultCard?: boolean | undefined;
+          }
+        | undefined;
 }
 
 export interface dataCollectorOptions {
@@ -250,11 +262,22 @@ export interface venmoPaymentMethodPayload {
     deviceData?: string | undefined;
 }
 
-export type ActiveView = 'card' | 'paypal' | 'payapCredit' | 'venmo' | 'googlePay' | 'applePay' | 'methods' | 'options' | 'delete-confirmation';
+export type ActiveView =
+    | 'card'
+    | 'paypal'
+    | 'payapCredit'
+    | 'venmo'
+    | 'googlePay'
+    | 'applePay'
+    | 'methods'
+    | 'options'
+    | 'delete-confirmation';
 export interface ChangeActiveViewPayload {
     previousViewId: ActiveView;
     newViewId: ActiveView;
 }
+
+export type VERSION = string;
 
 // Methods
 
