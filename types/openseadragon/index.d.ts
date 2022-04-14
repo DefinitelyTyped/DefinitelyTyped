@@ -1770,12 +1770,7 @@ declare namespace OpenSeadragon {
 
     type PointerType = 'mouse' | 'touch' | 'pen';
 
-    enum EventPhase {
-        NONE = 0,
-        CAPTURING_PHASE = 1,
-        AT_TARGET = 2,
-        BUBBLING_PHASE = 3,
-    }
+    type EventPhase = 0 | 1 | 2 | 3;
 }
 
 export as namespace OpenSeadragon;
