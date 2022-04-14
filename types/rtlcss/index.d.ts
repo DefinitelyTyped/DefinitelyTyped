@@ -23,42 +23,53 @@ declare namespace rtlcss {
     }
 
     interface ConfigOptions {
+        aliases?: Record<string, string> | undefined;
         /**
          * Applies to CSS rules containing no directional properties,
          * it will update the selector by applying String Map.
          */
-        autoRename: boolean;
+        autoRename?: boolean | undefined;
         /**
          * Ensures autoRename is applied only if pair exists.
          */
-        autoRenameStrict: boolean;
+        autoRenameStrict?: boolean | undefined;
         /**
          * An object map of disabled plugins directives,
          * where keys are plugin names and value are object
          * hash of disabled directives. e.g. {'rtlcss':{'config':true}}.
          */
-        blacklist: object;
+        blacklist?:
+            | {
+                  [pluginName: string]: Record<string, unknown>;
+              }
+            | undefined;
         /**
          * Removes directives comments from output CSS.
          */
-        clean: boolean;
+        clean?: boolean | undefined;
         /**
          * Fallback value for String Map options.
          */
-        greedy: boolean;
+        greedy?: boolean | undefined;
         /**
          * Applies String Map to URLs. You can also target specific node types using an object literal.
          * e.g. {'atrule': true, 'decl': false}.
          */
-        processUrls: boolean | object;
+        processUrls?:
+            | boolean
+            | {
+                  [key: string]: boolean;
+              }
+            | undefined;
         /**
          * The default array of String Map.
          */
-        stringMap: StringMap[];
+        stringMap?: StringMap[] | undefined;
         /**
          * When enabled, flips background-position expressed in length units using calc.
          */
-        useCalc: boolean;
+        useCalc?: boolean | undefined;
+        processEnv?: string | undefined;
     }
 
     interface HookOptions {
@@ -70,6 +81,17 @@ declare namespace rtlcss {
          * The function to be called after processing the CSS.
          */
         post?: Hook | undefined;
+    }
+
+    interface Plugin {
+        name: string;
+        [key: string]: unknown;
+    }
+
+    interface ConfigureOptions {
+        options?: ConfigOptions | undefined;
+        plugins?: Plugin[] | undefined;
+        hooks?: HookOptions | undefined;
     }
 
     /**
@@ -88,14 +110,14 @@ declare namespace rtlcss {
          * @param hooks An object containing pre/post hooks.
          * @returns A string containing the RTLed css.
          */
-        process(css: string, options?: object, plugins?: object | string[], hooks?: HookOptions): string;
+        process(css: string, options?: ConfigOptions, plugins?: Plugin[], hooks?: HookOptions): string;
 
         /**
          * Creates a new instance of RTLCSS using the passed configuration object
          * @param config  An object containing RTLCSS options, plugins and hooks.
          * @returns A new RTLCSS instance.
          */
-        configure(config: ConfigOptions): Processor;
+        configure(config: ConfigureOptions): Processor;
     }
 
     type RtlCss = PluginCreator<ConfigOptions> & ExportedAPI;
