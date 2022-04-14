@@ -672,7 +672,7 @@ declare namespace OpenSeadragon {
         outHandler: EventHandler<MouseTrackerEvent>;
         pinchHandler: EventHandler<MouseTrackerEvent>;
         pressHandler: EventHandler<PressMouseTrackerEvent>;
-        preProcessEventHandler: (event: EventProcessInfo) => void;
+        preProcessEventHandler: PreprocessEventHandler;
         releaseHandler: EventHandler<MouseTrackerEvent>;
         scrollHandler: EventHandler<MouseTrackerEvent>;
         setTracking(track: boolean): any;
