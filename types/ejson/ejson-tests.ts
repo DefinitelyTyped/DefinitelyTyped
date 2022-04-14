@@ -87,14 +87,13 @@ class MyInt implements CustomType {
         return new MyInt(value);
     }
 
-    // TODO doesn't compile
-    // clone(): MyInt {
-    //     return new MyInt(this.value);
-    // }
+    clone(): CustomType {
+        return new MyInt(this.value);
+    }
 
-    // equals(other: MyInt): boolean {
-    //     return this.value === other.value;
-    // }
+    equals(other: CustomType): boolean {
+        return this.value === (other as MyInt).value;
+    }
 }
 
 function testAddType() {

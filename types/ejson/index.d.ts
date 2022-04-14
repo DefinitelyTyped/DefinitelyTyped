@@ -40,10 +40,10 @@ interface CustomType {
      * Return a value `val` such that `this.equals(val)` is true, and
      * modifications to `val` do not affect `this` and vice versa.
      */
-    // clone?: () => CustomType;
+    clone?: () => CustomType;
 
     /* Return `true` if `other` has a value equal to `this`; `false` otherwise. */
-    // equals?: (other: CustomType) => boolean;
+    equals?: (other: CustomType) => boolean;
 }
 
 /**
