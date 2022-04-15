@@ -179,15 +179,15 @@ declare namespace setTimeout {
     function __promisify__(ms: number): Promise<void>;
     function __promisify__<T>(ms: number, value: T): Promise<T>;
 }
-declare function clearTimeout(timeoutId: NodeJS.Timeout): void;
+declare function clearTimeout(timeoutId: NodeJS.Timeout | undefined): void;
 declare function setInterval(callback: (...args: any[]) => void, ms: number, ...args: any[]): NodeJS.Timeout;
-declare function clearInterval(intervalId: NodeJS.Timeout): void;
+declare function clearInterval(intervalId: NodeJS.Timeout | undefined): void;
 declare function setImmediate(callback: (...args: any[]) => void, ...args: any[]): NodeJS.Immediate;
 declare namespace setImmediate {
     function __promisify__(): Promise<void>;
     function __promisify__<T>(value: T): Promise<T>;
 }
-declare function clearImmediate(immediateId: NodeJS.Immediate): void;
+declare function clearImmediate(immediateId: NodeJS.Immediate | undefined): void;
 
 declare function queueMicrotask(callback: () => void): void;
 
