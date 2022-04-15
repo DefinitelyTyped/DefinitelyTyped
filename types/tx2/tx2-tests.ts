@@ -1,6 +1,4 @@
-import tx2 = require("tx2");
-
-const TX2 = new tx2();
+import TX2 = require("tx2");
 
 TX2.send({ foo: 'bar' });
 
