@@ -1,5 +1,5 @@
 import ReactReconciler = require('react-reconciler');
-import ReactReconcilerConstants = require('react-reconciler/constant');
+import ReactReconcilerConstants = require('react-reconciler/constants');
 import * as ReactTestHostConfig from './ReactTestHostConfig';
 import * as Constants from './ReactReconcilerPriorityConstant';
 
