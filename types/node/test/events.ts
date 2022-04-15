@@ -1,4 +1,5 @@
-import events = require('node:events');
+import * as events from 'node:events';
+import { EventTarget } from 'node:dom-events';
 
 const emitter: events = new events.EventEmitter();
 declare const listener: (...args: any[]) => void;
