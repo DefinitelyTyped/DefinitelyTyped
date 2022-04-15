@@ -1,4 +1,4 @@
-import tx2 from 'tx2';
+import tx2 = require("tx2");
 
 const TX2 = new tx2();
 
