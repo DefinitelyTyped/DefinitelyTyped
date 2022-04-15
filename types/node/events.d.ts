@@ -785,4 +785,22 @@ declare module 'node:dom-events' {
     interface EventListenerObject {
         handleEvent(object: Event): void;
     }
+
+    import { Event as _Event, EventTarget as _EventTarget } from 'node:dom-events';
+    global {
+        interface Event extends _Event {}
+        interface EventTarget extends _EventTarget {}
+
+        // For compatibility with "dom" and "webworker" Event / EventTarget declarations
+
+        var Event:
+        typeof globalThis extends { onmessage: any, Event: infer Event }
+            ? Event
+            : typeof _Event;
+
+        var EventTarget:
+        typeof globalThis extends { onmessage: any, EventTarget: infer EventTarget }
+            ? EventTarget
+            : typeof _EventTarget;
+    }
 }
