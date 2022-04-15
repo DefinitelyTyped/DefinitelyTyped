@@ -69,6 +69,8 @@ declare namespace Serverless {
         artifact?: string | undefined;
         individually?: boolean | undefined;
     }
+
+    type Event = AwsProvider.Event | object;
 }
 
 declare class Serverless {
