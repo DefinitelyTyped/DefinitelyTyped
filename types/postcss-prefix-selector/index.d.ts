@@ -13,4 +13,4 @@ interface Options {
 
 declare function postcssPrefixSelector(options: Readonly<Options>): (root: any) => string | undefined;
 
-export = postcssPrefixSelector;
+export default postcssPrefixSelector;
