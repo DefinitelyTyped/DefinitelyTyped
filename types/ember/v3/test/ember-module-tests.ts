@@ -44,7 +44,7 @@ Ember.deprecate("you shouldn't use this anymore", 3 === 3, {
 });
 // get
 Ember.get({ z: 23 }, 'z'); // $ExpectType number
-Ember.get({ z: 23 }, 'zz'); // $ExpectError
+Ember.get({ z: 23 }, 'zz'); // $ExpectType unknown
 // getEngineParent
 Ember.getEngineParent(new Ember.EngineInstance()); // $ExpectType EngineInstance
 // getOwner

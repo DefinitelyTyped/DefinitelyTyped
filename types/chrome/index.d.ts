@@ -1671,7 +1671,7 @@ declare namespace chrome.contextMenus {
         wasChecked?: boolean | undefined;
         /**
          * Since Chrome 35.
-         * The URL of the page where the menu item was clicked. This property is not set if the click occured in a context where there is no current page, such as in a launcher context menu.
+         * The URL of the page where the menu item was clicked. This property is not set if the click occurred in a context where there is no current page, such as in a launcher context menu.
          */
         pageUrl: string;
         /**
@@ -3541,7 +3541,7 @@ declare namespace chrome.extension {
      * True for content scripts running inside incognito tabs, and for extension pages running inside an incognito process. The latter only applies to extensions with 'split' incognito_behavior.
      */
     export var inIncognitoContext: boolean;
-    /** Set for the lifetime of a callback if an ansychronous extension api has resulted in an error. If no error has occured lastError will be undefined. */
+    /** Set for the lifetime of a callback if an ansychronous extension api has resulted in an error. If no error has occurred lastError will be undefined. */
     export var lastError: LastError;
 
     /** Returns the JavaScript 'window' object for the background page running inside the current extension. Returns null if the extension has no background page. */

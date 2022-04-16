@@ -348,6 +348,56 @@ function MapStateFactoryAndDispatchFactory() {
     const verify = <Test foo='bar' />;
 }
 
+function MapNothingAndMerge() {
+    interface OwnProps { foo: string; }
+    interface MergedProps { onClick: () => void; }
+
+    class TestComponent extends React.Component<MergedProps> { }
+
+    const actionCreator = (foo: string) => ({ type: 'AN_ACTION', foo });
+
+    const mergeProps = (stateProps: undefined, { dispatch }: DispatchProp, ownProps: OwnProps) => (
+        { onClick: () => dispatch(actionCreator(ownProps.foo)) }
+    );
+
+    const Test = connect(
+        null,
+        null,
+        mergeProps
+    )(TestComponent);
+
+    const verify = <Test foo='bar' />;
+}
+
+function MapStateAndMerge() {
+    interface OwnProps { foo: string; }
+    interface StateProps { bar: number; }
+    interface MergedProps {
+        bar: number;
+        onClick: () => void;
+    }
+
+    class TestComponent extends React.Component<MergedProps> { }
+
+    const actionCreator = (foo: string) => ({ type: 'AN_ACTION', foo });
+
+    const mapStateToProps = (stateProps: StateProps, ownProps: OwnProps) => ({
+        bar: 1
+    });
+
+    const mergeProps = (stateProps: StateProps, { dispatch }: DispatchProp, ownProps: OwnProps) => (
+        { ...stateProps, onClick: () => dispatch(actionCreator(ownProps.foo)) }
+    );
+
+    const Test = connect(
+        mapStateToProps,
+        null,
+        mergeProps
+    )(TestComponent);
+
+    const verify = <Test foo='bar' />;
+}
+
 function MapStateAndDispatchAndMerge() {
     interface OwnProps { foo: string; }
     interface StateProps { bar: number; }

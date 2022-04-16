@@ -13,7 +13,12 @@
 import * as fs from 'fs';
 export {}; // avoids exporting AtLeastOne into the global scope
 
-type AtLeastOne<T, U = { [K in keyof T]-?: T[K] }> = { [K in keyof U]: { [P in K]: U[P] } }[keyof U];
+// Requires at least one of the properties of T to be given, whether it's optional or not
+type AtLeastOne<
+    T,
+    Req = { [K in keyof T]-?: T[K] },
+    Opt = { [K in keyof T]+?: T[K] }
+> = { [K in keyof Req]: Omit<Opt, K> & { [P in K]: Req[P] } }[keyof Req];
 
 declare global {
     namespace ioBroker {

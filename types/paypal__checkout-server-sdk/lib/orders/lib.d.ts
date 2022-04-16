@@ -714,9 +714,7 @@ export class OrdersGetRequest extends BaseOrderRequest<OrdersGet.RequestHeaders,
 export namespace OrdersPatch {
     type RequestHeaders = BaseOrderHeaders;
 
-    interface RequestData {
-        patch_request: Patch[];
-    }
+    type RequestData = Patch[];
 }
 
 export class OrdersPatchRequest extends BaseOrderRequest<OrdersPatch.RequestHeaders> {

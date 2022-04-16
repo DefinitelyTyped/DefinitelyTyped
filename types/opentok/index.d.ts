@@ -40,6 +40,7 @@ declare module 'opentok' {
       outputMode?: OutputMode | undefined;
       layout?: ArchiveLayoutOptions | undefined;
       resolution?: string | undefined;
+      streamMode?: 'auto' | 'manual' | undefined;
     }
 
     export type ArchiveLayoutOptions = PredefinedArchiveLayoutOptions | CustomArchiveLayoutOptions;
@@ -67,6 +68,11 @@ declare module 'opentok' {
       streamId: string;
       hasAudio: boolean;
       hasVideo: boolean;
+    }
+
+    export interface PatchStream {
+      hasAudio?: boolean | undefined;
+      hasVideo?: boolean | undefined;
     }
 
     export interface Session {
@@ -221,6 +227,14 @@ declare module 'opentok' {
       callback: (error: Error | null, broadcasts?: OpenTok.Broadcast[]) => void,
     ): void;
     public listStreams(sessionId: string, callback: (error: Error | null, streams?: OpenTok.Stream[]) => void): void;
+    public addArchiveStream(archiveId: string, streamId: string, options: OpenTok.PatchStream,
+      callback: (error: Error | null) => void): void;
+    public removeArchiveStream(archiveId: string, streamId: string, options: OpenTok.PatchStream,
+      callback: (error: Error | null) => void): void;
+    public addBroadcastStream(broadcastId: string, streamId: string, options: OpenTok.PatchStream,
+      callback: (error: Error | null) => void): void;
+    public removeBroadcastStream(broadcastId: string, streamId: string, options: OpenTok.PatchStream,
+      callback: (error: Error | null) => void): void;
     public playDTMF(
       sessionId: string,
       connectionId: string,

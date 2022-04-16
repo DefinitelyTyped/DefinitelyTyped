@@ -3,10 +3,54 @@ declare global {
     namespace NodeJS {
         // tslint:disable-next-line:no-empty-interface
         interface ReadableStream {}
+
+        // tslint:disable-next-line:no-empty-interface
+        interface WritableStream {}
     }
+
+    /**
+     * Stub for https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal
+     */
+    // tslint:disable-next-line:no-empty-interface
+    interface AbortSignal {}
+
+    /**
+     * Stub for https://developer.mozilla.org/en-US/docs/Web/API/ReadableStream
+     */
+    // tslint:disable-next-line:no-empty-interface
+    interface ReadableStream {}
 }
 
-import { ReactElement } from 'react';
+import { ReactElement, ReactNode } from 'react';
+
+export interface RenderToPipeableStreamOptions {
+    identifierPrefix?: string;
+    namespaceURI?: string;
+    nonce?: string;
+    bootstrapScriptContent?: string;
+    bootstrapScripts?: string[];
+    bootstrapModules?: string[];
+    progressiveChunkSize?: number;
+    onShellReady?: () => void;
+    onShellError?: (error: unknown) => void;
+    onAllReady?: () => void;
+    onError?: (error: unknown) => void;
+}
+
+export interface PipeableStream {
+    abort(): void;
+    pipe<Writable extends NodeJS.WritableStream>(destination: Writable): Writable;
+}
+
+/**
+ * Only available in the environments with [Node.js Streams](https://nodejs.dev/learn/nodejs-streams).
+ *
+ * @see [API](https://reactjs.org/docs/react-dom-server.html#rendertopipeablestream)
+ *
+ * @param children
+ * @param options
+ */
+export function renderToPipeableStream(children: ReactNode, options?: RenderToPipeableStreamOptions): PipeableStream;
 
 /**
  * Render a React element to its initial HTML. This should only be used on the server.
@@ -24,6 +68,8 @@ export function renderToString(element: ReactElement): string;
  * Render a React element to its initial HTML. Returns a Readable stream that outputs
  * an HTML string. The HTML output by this stream is exactly equal to what
  * `ReactDOMServer.renderToString()` would return.
+ *
+ * @deprecated
  */
 export function renderToNodeStream(element: ReactElement): NodeJS.ReadableStream;
 
@@ -41,6 +87,32 @@ export function renderToStaticMarkup(element: ReactElement): string;
  * is exactly equal to what `ReactDOMServer.renderToStaticMarkup()` would return.
  */
 export function renderToStaticNodeStream(element: ReactElement): NodeJS.ReadableStream;
+
+export interface RenderToReadableStreamOptions {
+    identifierPrefix?: string;
+    namespaceURI?: string;
+    nonce?: string;
+    bootstrapScriptContent?: string;
+    bootstrapScripts?: string[];
+    bootstrapModules?: string[];
+    progressiveChunkSize?: number;
+    signal?: AbortSignal;
+    onError?: (error: unknown) => void;
+}
+
+export interface ReactDOMServerReadableStream extends ReadableStream {
+    allReady: Promise<void>;
+}
+
+/**
+ * Only available in the environments with [Web Streams](https://developer.mozilla.org/en-US/docs/Web/API/Streams_API) (this includes browsers, Deno, and some modern edge runtimes).
+ *
+ * @see [API](https://reactjs.org/docs/react-dom-server.html#rendertoreadablestream)
+ */
+export function renderToReadableStream(
+    children: ReactNode,
+    options?: RenderToReadableStreamOptions,
+): Promise<ReactDOMServerReadableStream>;
 
 export const version: string;
 
