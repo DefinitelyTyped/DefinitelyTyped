@@ -86,7 +86,6 @@ export class MyApp extends React.Component<{}, State> {
                     <PageUmdParcel pageNumber={pageNumber} onLoadSuccess={this.onPageLoadSuccess} />
                 </DocumentUmdParcel>
 
-
                 <DocumentEsmParcel2 file="somefile.pdf" onLoadSuccess={this.onDocumentLoadSuccess}>
                     <PageEsmParcel2 pageNumber={pageNumber} onLoadSuccess={this.onPageLoadSuccess} />
                 </DocumentEsmParcel2>
