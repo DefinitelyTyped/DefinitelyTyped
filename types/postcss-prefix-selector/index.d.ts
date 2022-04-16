@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped/types/postcss-prefix-selector
 
 interface Options {
-    prefix: string;
+    prefix?: string | undefined;
     exclude?: ReadonlyArray<string | RegExp> | undefined;
     ignoreFiles?: ReadonlyArray<string | RegExp> | undefined;
     includeFiles?: ReadonlyArray<string | RegExp> | undefined;
@@ -13,4 +13,4 @@ interface Options {
 
 declare function postcssPrefixSelector(options: Readonly<Options>): (root: any) => string | undefined;
 
-export default postcssPrefixSelector;
+export = postcssPrefixSelector;

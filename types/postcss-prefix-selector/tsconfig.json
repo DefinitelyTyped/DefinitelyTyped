@@ -14,8 +14,7 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "exactOptionalPropertyTypes": true
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
