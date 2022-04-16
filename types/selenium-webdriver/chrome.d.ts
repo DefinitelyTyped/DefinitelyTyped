@@ -30,7 +30,7 @@ export class Driver extends webdriver.WebDriver {
    * @return {!Promise<void>} A promise that will be resolved when the command
    *     has finished.
   */
-  setDownloadPath(path: String): Promise<void>;
+  setDownloadPath(path: string): Promise<void>;
 }
 
 export interface IOptionsValues {
