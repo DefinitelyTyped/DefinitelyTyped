@@ -5,7 +5,16 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.0
 
-import { Plugin } from 'unified';
+type SupportedPlugins =
+    | 'autolinker'
+    | 'command-line'
+    | 'data-uri-highlight'
+    | 'diff-highlight'
+    | 'inline-color'
+    | 'keep-markup'
+    | 'line-numbers'
+    | 'show-invisibles'
+    | 'treeview';
 
 type SupportedPlugins =
     | 'autolinker'
@@ -19,8 +28,11 @@ type SupportedPlugins =
     | 'treeview';
 
 declare namespace remarkPrism {
-    type Prism = Plugin<[Options?]>;
-
+    /**
+     * Plugin to use prism with remark.
+     * https://github.com/unifiedjs/unified/blob/main/index.d.ts#L488-L489
+     */
+    type Prism = (settings?: Options) => void;
     interface Options {
         transformInlineCode?: boolean;
         plugins?: SupportedPlugins[];
