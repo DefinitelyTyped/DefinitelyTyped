@@ -52,6 +52,23 @@ type NativeTransitionEvent = TransitionEvent;
 type NativeUIEvent = UIEvent;
 type NativeWheelEvent = WheelEvent;
 type Booleanish = boolean | 'true' | 'false';
+// ========== Some Array util types =============
+type ArrayJoin<
+  T extends any[],
+  U extends string | number,
+> =
+  T extends [infer F, ...infer L]? L['length'] extends 0? F : `${F&string}${U}${ArrayJoin<L, U>}` : ''
+type ArrayToUnion<T extends any[]> = T extends [infer F, ...infer L]?
+  L['length'] extends 0 ? F : F | ArrayToUnion<L>
+  : never
+type C1<T extends any[], K extends string> = T extends [infer F, ...infer L] ?
+  L['length'] extends 0 ? `${F&string} ${K}` : `${F&string} ${K}` | C1<L, K>
+  :never
+type ArrayCombination<T extends any[]> = T extends [infer F, ...infer L]?
+  L['length'] extends 0 ? never : C1<L, F & string> | ArrayCombination<L>
+  : never
+type Combination<T extends string[]> = ArrayToUnion<T> | ArrayJoin<T, ' '> | ArrayCombination<T>
+// ========== Some Array util types =============
 
 declare const UNDEFINED_VOID_ONLY: unique symbol;
 // Destructors are only allowed to return void.
@@ -2297,7 +2314,7 @@ declare namespace React {
     interface MediaHTMLAttributes<T> extends HTMLAttributes<T> {
         autoPlay?: boolean | undefined;
         controls?: boolean | undefined;
-        controlsList?: string | undefined;
+        controlsList?: Combination<['nodownload', 'nofullscreen', 'noremoteplayback']>;
         crossOrigin?: string | undefined;
         loop?: boolean | undefined;
         mediaGroup?: string | undefined;
