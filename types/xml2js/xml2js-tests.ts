@@ -87,6 +87,7 @@ xml2js.parseStringPromise('', v1Defaults);
 const v2Defaults = xml2js.defaults['0.2'];
 v2Defaults.async = false;
 v2Defaults.chunkSize = 20000;
+v2Defaults.emptyTag = () => ({});
 new xml2js.Parser(v2Defaults);
 new xml2js.Builder(v2Defaults);
 xml2js.parseString('', v2Defaults, () => undefined);
