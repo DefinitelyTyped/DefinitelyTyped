@@ -1,5 +1,5 @@
 // Type definitions for notie 4.3
-// Project: https://github.com/jaredreich/notie.js
+// Project: https://github.com/jaredreich/notie
 // Definitions by: Adam Thompson-Sharpe <https://github.com/MysteryBlokHed>
 //                 Mateus Demboski <https://github.com/mateusdemboski>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -214,8 +214,10 @@ export interface AllOptions {
     positions?: Partial<Record<'alert' | 'force' | 'confirm' | 'input' | 'select' | 'date', Position>> | undefined;
 }
 
+export function hideAlerts(callback?: () => void): void;
+
 declare namespace _default {
-    export { alert, force, confirm, input, select, date, setOptions };
+    export { alert, force, confirm, input, select, date, setOptions, hideAlerts };
 }
 
 export default _default;

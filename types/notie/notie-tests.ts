@@ -1,4 +1,4 @@
-import { alert, force, confirm, input, select, date, setOptions } from 'notie';
+import { alert, force, confirm, input, select, date, setOptions, hideAlerts } from 'notie';
 
 // $ExpectError
 alert({});
@@ -110,3 +110,6 @@ setOptions({ dateMonths: [] });
 setOptions({ classes: {} });
 setOptions({ ids: {} });
 setOptions({ positions: {} });
+
+hideAlerts();
+hideAlerts(() => alert({ text: 'Alerts hidden' }));
