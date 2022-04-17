@@ -16,5 +16,20 @@ TX2.metric('foo', 'bar', () => 'bar');
 TX2.metric('foo', 2).val();
 TX2.metric('bar', 'foo', () => '2').val();
 
+TX2.metric({
+    name: "foo",
+    value: "bar",
+}).val();
+TX2.metric({
+    name: "foo",
+    value: 1,
+    unit: "bar"
+}).val();
+
 TX2.counter('foo').inc(12);
 TX2.counter('foo').val();
+
+TX2.counter({
+    name: "foo",
+    unit: "bar"
+});

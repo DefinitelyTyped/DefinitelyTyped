@@ -17,11 +17,22 @@ interface Metric<T> {
     set: (data: T) => void;
 }
 
+interface MetricOptions<T> {
+    name: string;
+    value: T;
+    unit?: string;
+}
+
 interface Counter {
     val: () => number;
     inc: (amount: number) => void;
     dec: (amount: number) => void;
     reset: () => void;
+}
+
+interface CounterOptions {
+    name: string;
+    unit: string;
 }
 
 declare class TX2 extends EventEmitter {
@@ -41,8 +52,9 @@ declare class TX2 extends EventEmitter {
     metric(name: string, cb: number): Metric<number>;
     metric<T>(name: string, unit: string, cb: () => T): Metric<T>;
     metric(name: string, unit: string, cb: number): Metric<number>;
+    metric<T>(options: MetricOptions<T>): Metric<T>;
 
-    counter(name: string): Counter;
+    counter(name: string | CounterOptions): Counter;
 }
 
 declare const tx2: TX2;
