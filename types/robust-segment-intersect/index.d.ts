@@ -4,10 +4,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 type Coordinate = [number, number];
-declare function a (
-        a0: Coordinate,
-        a1: Coordinate,
-        b0: Coordinate,
-        b1: Coordinate
-    ) :boolean;
+declare function a(
+    a0: Coordinate,
+    a1: Coordinate,
+    b0: Coordinate,
+    b1: Coordinate,
+): boolean;
 export = a;
