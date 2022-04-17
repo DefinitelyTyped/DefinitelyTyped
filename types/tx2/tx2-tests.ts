@@ -1,7 +1,5 @@
 import TX2 = require("tx2");
 
-TX2.send({ foo: 'bar' });
-
 TX2.event('foo', { bar: true });
 
 TX2.action('foo', callback => callback({ bar: true }));

@@ -25,8 +25,6 @@ interface Counter {
 }
 
 declare class TX2 extends EventEmitter {
-    send(args: object): void;
-
     event(name: string, data: object): void;
 
     action(action_name: string, callback: (cb: (data: any) => void) => void): void;
