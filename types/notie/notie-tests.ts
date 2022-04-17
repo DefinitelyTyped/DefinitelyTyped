@@ -1,4 +1,4 @@
-import { alert, force, confirm, input, select, date } from 'notie';
+import { alert, force, confirm, input, select, date, setOptions } from 'notie';
 
 // $ExpectError
 alert({});
@@ -104,3 +104,9 @@ date(
     () => alert({ text: 'Confirmed' }),
     () => alert({ text: 'Cancelled' }),
 );
+
+setOptions({});
+setOptions({ dateMonths: [] });
+setOptions({ classes: {} });
+setOptions({ ids: {} });
+setOptions({ positions: {} });

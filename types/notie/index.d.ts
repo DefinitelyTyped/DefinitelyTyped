@@ -174,8 +174,48 @@ export interface DateOptions {
     cancelCallback?: ((date: Date) => void) | undefined;
 }
 
+export function setOptions(options: AllOptions): void;
+
+export interface AllOptions {
+    alertTime?: number | undefined;
+    dateMonths?: string[] | undefined;
+    overlayClickDismiss?: boolean | undefined;
+    overlayOpacity?: number | undefined;
+    transitionCurve?: string | undefined;
+    transitionDuration?: number | undefined;
+    transitionSelector?: string | undefined;
+    classes?:
+        | Partial<
+              Record<
+                  | 'container'
+                  | 'textbox'
+                  | 'textboxInner'
+                  | 'button'
+                  | 'element'
+                  | 'elementHalf'
+                  | 'elementThird'
+                  | 'overlay'
+                  | 'backgroundSuccess'
+                  | 'backgroundWarning'
+                  | 'backgroundError'
+                  | 'backgroundInfo'
+                  | 'backgroundNeutral'
+                  | 'backgroundOverlay'
+                  | 'alert'
+                  | 'inputField'
+                  | 'selectChoiceRepeated'
+                  | 'dateSelectorInner'
+                  | 'dateSelectorUp',
+                  string
+              >
+          >
+        | undefined;
+    ids?: { overlay?: string | undefined } | undefined;
+    positions?: Partial<Record<'alert' | 'force' | 'confirm' | 'input' | 'select' | 'date', Position>> | undefined;
+}
+
 declare namespace _default {
-    export { alert, force, confirm, input, select, date };
+    export { alert, force, confirm, input, select, date, setOptions };
 }
 
 export default _default;
