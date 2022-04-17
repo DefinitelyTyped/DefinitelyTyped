@@ -173,3 +173,9 @@ export interface DateOptions {
     submitCallback?: ((date: Date) => void) | undefined;
     cancelCallback?: ((date: Date) => void) | undefined;
 }
+
+declare namespace _default {
+    export { alert, force, confirm, input, select, date };
+}
+
+export default _default;
