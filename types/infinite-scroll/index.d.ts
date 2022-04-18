@@ -147,6 +147,17 @@ declare namespace InfiniteScroll {
 declare class InfiniteScroll {
     constructor(element: string | Element, options: InfiniteScroll.Options);
 
+    /**
+     * The number of the current loaded page.
+     * `pageIndex` increments by 1 on each `load`
+     */
+    pageIndex: number;
+    /**
+     * The number of pages loaded.
+     * `loadCount` increments by 1 on each `load`
+     */
+    loadCount: number;
+
     /** Load the next page */
     loadNextPage(): Promise<{
         /** Reponse returned from `fetch` */

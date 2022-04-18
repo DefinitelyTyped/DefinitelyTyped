@@ -32,3 +32,9 @@ infScrollJQuery('destroy');
 
 $('.abc').data('infiniteScroll'); // $ExpectType InfiniteScroll
 InfiniteScroll.data('.abc'); // $ExpectType InfiniteScroll
+
+infScroll.pageIndex; // $ExpectType number
+$('.abc').data('infiniteScroll').pageIndex; // $ExpectType number
+
+infScroll.loadCount; // $ExpectType number
+$('.abc').data('infiniteScroll').loadCount; // $ExpectType number
