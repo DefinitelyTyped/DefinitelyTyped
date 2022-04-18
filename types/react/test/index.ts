@@ -747,6 +747,31 @@ class RenderChildren extends React.Component<{ children?: React.ReactNode }> {
     }
 }
 
+// ReactNode tests
+{
+    // Mix of empty return and some return results in `(undefined | JSX.Element)[]`
+    const mixedEmptyReturn: React.ReactNode = ['a', 'b', null].map(label => {
+        if (!label) {
+            return;
+        }
+        return label;
+    });
+    // But just an empty return results in `void`.
+    // $ExpectError
+    const emptyReturn: React.ReactNode = ['a', 'b'].map(label => {
+        return;
+    });
+    // Mix of no return and some return results in `(undefined | JSX.Element)[]`
+    const mixedNoReturn: React.ReactNode = ['a', 'b', null].map(label => {
+        if (label) {
+            return label;
+        }
+    });
+    // But no return results in `void`.
+    // $ExpectError
+    const noReturn: React.ReactNode = ['a', 'b'].map(label => {});
+}
+
 const Memoized1 = React.memo(function Foo(props: { foo: string }) { return null; });
 React.createElement(Memoized1, { foo: 'string' });
 

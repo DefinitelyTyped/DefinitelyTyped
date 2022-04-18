@@ -15,6 +15,7 @@ var poly: jsts.geom.Polygon = new jsts.geom.Polygon(lr);
 var precisionModel = new jsts.geom.PrecisionModel();
 var factory = new jsts.geom.GeometryFactory(precisionModel);
 var wktWriter = new jsts.io.WKTWriter(factory);
+var multiPoly: jsts.geom.MultiPolygon = new jsts.geom.MultiPolygon([poly], factory);
 const o: jsts.algorithm.Orientation = new jsts.algorithm.Orientation();
 const bnr: jsts.algorithm.BoundaryNodeRule = new jsts.algorithm.BoundaryNodeRule();
 
@@ -84,8 +85,13 @@ e.setToNull();
 str = e.toString();
 e.translate(n, n);
 
-g.apply({});
+g.apply({filter: Geometry => {}});
 g = g.buffer(n, n, n);
+if (g instanceof jsts.geom.Polygon) {
+  poly = g;
+} else {
+  multiPoly = g;
+}
 g.checkNotGeometryCollection(g);
 g = g.clone();
 n = g.compare([{}], [{}]);
