@@ -3,7 +3,7 @@
 // Definitions by: enpitsulin <https://github.com/enpitsuLin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export default DisqusJS;
+export = DisqusJS;
 
 declare const DisqusJS: DisqusJS;
 
@@ -11,7 +11,7 @@ interface DisqusJS {
     new (config?: Partial<DisqusJSConfig>): {};
 }
 
-export interface DisqusJSConfig {
+interface DisqusJSConfig {
     /**
      * - The disqus shortname
      */
