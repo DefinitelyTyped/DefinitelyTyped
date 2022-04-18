@@ -9,6 +9,10 @@ const client: Client = createClient({
 
 const zendeskCallback = () => {};
 
+const listPayload = client.organizations.list(() => {});
+listPayload.next_page; // $ExpectType string | null
+listPayload.previous_page; // $ExpectType string | null
+
 /** Job Statuses Methods */
 client.jobstatuses.show(123, zendeskCallback);
 client.jobstatuses.show(123).then(zendeskCallback);

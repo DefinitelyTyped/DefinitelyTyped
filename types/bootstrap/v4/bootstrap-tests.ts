@@ -222,6 +222,22 @@ $("#popover").popover({
     sanitizeFn: null,
 });
 
+$("#popover").popover({
+    content: document.createElement('p'),
+});
+
+$("#popover").popover({
+    content: () => document.createElement('p'),
+});
+
+$("#popover").popover({
+    content: $('<p>Content</p>'),
+});
+
+$("#popover").popover({
+    content: () => $('<p>Content</p>'),
+});
+
 // --------------------------------------------------------------------------------------
 // Scrollspy
 // --------------------------------------------------------------------------------------
@@ -380,4 +396,20 @@ $("#tooltip").tooltip({
 
 $("#tooltip").tooltip({
     sanitizeFn: null,
+});
+
+$("#tooltip").tooltip({
+    title: document.createElement('p'),
+});
+
+$("#tooltip").tooltip({
+    title: () => document.createElement('p'),
+});
+
+$("#tooltip").tooltip({
+    title: $('<p>Title</p>'),
+});
+
+$("#tooltip").tooltip({
+    title: () => $('<p>Title</p>'),
 });

@@ -1139,8 +1139,8 @@ export namespace Users {
 }
 
 export interface PaginablePayload {
-    next_page: number | null;
-    previous_page: number | null;
+    next_page: string | null;
+    previous_page: string | null;
     count: number;
 }
 
