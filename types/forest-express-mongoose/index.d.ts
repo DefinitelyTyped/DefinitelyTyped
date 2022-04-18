@@ -3,7 +3,7 @@
 // Definitions by: Steve Bunlon <https://github.com/SteveBunlon>
 //                 Guillaume Gautreau <https://github.com/ghusse>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.1
+// Minimum TypeScript Version: 4.1
 
 import { RequestHandler, Response, Request, NextFunction, Application } from 'express';
 import * as mongoose from 'mongoose';
